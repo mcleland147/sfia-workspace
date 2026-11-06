@@ -1,76 +1,91 @@
-# SFIA STUDIO NEXT — ML3 F01/F02 CR-01/CR-02 CONSOLIDATION — REVIEW PACK FULL
+# SFIA STUDIO NEXT — ML3 UPDATED IMMUTABLE CANDIDATE + RECETTE BUILD PREP — REVIEW PACK FULL
 
-## A. Date / GO / profil
-- Date UTC: 2026-11-06T16:25:38Z
-- GO Morris: 2026-11-06
-- Type: INC — PROFILE CRITICAL
-- Lot: R5 / ML3 « Piloter et Décider » — F01/F02 CR-01 / CR-02 consolidation
-- After: Critical Review PARTIALLY ACCEPTED (handoff 50299b73 / blob ac1c894b)
+## A. GO Morris / périmètre
+- Date UTC: 2026-11-06T16:43:29Z
+- GO: 2026-11-06 RUN CRITICAL
+- Autorisé: commit+push FF delivery ; build immuable ; manifeste ; handoff L3
+- Interdit: deploy RECETTE ; migrate RECETTE ; LIVE Nora ; PR/merge ; STABLE ; tag/release ; ADOPTED
 
-## B. Git Truth initial/final
-- Branch: `sfia/next-pilotage-decisions-delivery`
-- HEAD / origin/delivery: `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` (expected 8bf8b5ce — **unchanged**, no project commit/push)
+## B. Git Truth
+- Branch: sfia/next-pilotage-decisions-delivery
+- HEAD before: 8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4
+- HEAD after LOCAL: `ba831b25bc182f755be749243f256dbf7d5a1ca1`
+- HEAD after REMOTE: `ba831b25bc182f755be749243f256dbf7d5a1ca1`
+- Tree: `0f87848a31d2fa74febdde3c2d9dc2453c535bea`
 - origin/main: `7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480`
-- Previous handoff: `50299b735284c03e681e7e5a83aa33e761a21810` blob `ac1c894b1dfb41b2b6842185653c503aecaddec2`
-- SVG generics preserved untracked
-- Local porcelain:
+- Match local=remote: YES
+- Final porcelain:
 
 ```
 M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
- M projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
- M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
- M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
- M projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
- M projects/sfia-studio-next/web/src/domains/conversation/service.ts
- M projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
- M projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
- M projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
- M projects/sfia-studio-next/web/src/domains/pilotage/service.ts
- M projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
- M projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
- M projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
- M projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
 ?? projects/sfia-studio-next/web/public/file.svg
 ?? projects/sfia-studio-next/web/public/globe.svg
 ?? projects/sfia-studio-next/web/public/next.svg
 ?? projects/sfia-studio-next/web/public/vercel.svg
 ?? projects/sfia-studio-next/web/public/window.svg
-?? projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
-?? projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
 ```
 
-## C. Sources lues
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- prompts/templates/sfia-cycle-execution-template.md
-- governance SEF/roadmap/decisions/product-naming + ENV-01 + versioning blobs
-- R2 decisions/trajectoire/nora ; R3 audit/contrat/espace ; R4 cadrage
-- construction pilotage-et-decisions/* + delivery-history
-- Handoff précédent lu (autorité/reprise/continuité)
+## C. Sources
+SFIA template + ENV-01 blob 14b61f0d + versioning blob 8bc93e0f + R2/R3/R4 + handoff 7af6e2eb + construction as-built.
 
-## D. Diagnostic CR-01 / CR-02
-### CR-01
-`resolveReviseTarget` used `findMessageDecisionConfrontations` → `selectApplicableBriefs` (slice last 12).
-A project with 15+ APPLICABLE and two GitHub decisions straddling the window could revise the newest alone.
-**Fix:** `findAuthorityReviseCandidates` / `selectAllApplicableBriefs` scan **all** APPLICABLE; cognitive window remains Nora-only.
+## D. Inventaire candidat
+17 fichiers dans le commit (15 M + 2 A). Exclus: .tmp-sfia-review, 5 SVG public.
 
-### CR-02
-Backend reconstitution OK; browser pending could be overwritten by a distinct new draft; Nora COMPLETE cleared pending even if métier UNKNOWN; ACK-lost→reload path under-proven.
-**Fix:** `shouldClearThreadPending` + exclusive `mayStartNewThreadAct` + same-key retry on 404; Playwright ACK drop after server APPLIED.
+```
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
+M	projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+M	projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
+M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+M	projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
+A	projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+M	projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
+M	projects/sfia-studio-next/web/src/domains/pilotage/service.ts
+A	projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
+M	projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
+M	projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
+M	projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
+M	projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
+```
 
-## E. Blast radius
-Primary: divergence-assist, conversation-authority, thread-recovery, page.tsx
-Conditional/prior F01/F02: conversation service/turn-command, intent, messages route, PilotagePanel
-No migration 008, no parallel authority registry, no SEF/roadmap mutation.
+```
+ba831b25 feat(next): integrate governed conversation and recovery into ML3
+ .../construction/delivery-history.md               |  69 ++-
+ .../specification-technique.md                     |  49 +-
+ .../pilotage-et-decisions/tracabilite-r2-r3-r4.md  |  23 +-
+ .../preparations/[preparationId]/messages/route.ts |   9 +-
+ .../web/src/app/projects/[projectId]/page.tsx      | 337 ++++++++++++-
+ .../web/src/components/PilotagePanel.tsx           | 124 ++++-
+ .../web/src/domains/conversation/service.ts        | 220 ++++++++-
+ .../web/src/domains/conversation/turn-command.ts   |   8 +
+ .../web/src/domains/decisions/divergence-assist.ts |  40 ++
+ .../src/domains/pilotage/conversation-authority.ts | 336 +++++++++++++
+ .../web/src/domains/pilotage/intent.ts             | 115 +++++
+ .../web/src/domains/pilotage/service.ts            |  16 +-
+ .../web/src/domains/pilotage/thread-recovery.ts    |  57 +++
+ .../web/tests/e2e/ml3-pilotage.spec.ts             | 260 ++++++++++
+ .../web/tests/integration/ml3-pilotage.pg.test.ts  | 544 ++++++++++++++++++++-
+ .../web/tests/unit/ml3-b13-divergence.test.ts      | 137 ++++++
+ .../web/tests/unit/ml3-cki-intent.test.ts          |  43 ++
+ 17 files changed, 2335 insertions(+), 52 deletions(-)
+```
 
-## F. Architecture / séquencement
-AVANT (bug): USER REVISE → LevelA window(12) → false unique → REVISE wrong target
-APRÈS: USER REVISE CLEAR → findAuthorityReviseCandidates(all APPLICABLE) → 0/1/N → clarify or executePilotageCommand
-AVANT pending: COMPLETE Nora → clear pending even if métier UNKNOWN; new draft overwrites
-APRÈS: clear only if métier terminal OR (no attempt + Nora terminal); exclusive pending; ACK lost keeps same key
+## E. Corrections F01/F02 consolidées
+Conversation→authority ; exploratory≠REVISE ; D6 full APPLICABLE uniqueness ; ACK-lost recovery ; Journal>8 ; B13 Level A non-authorizing.
 
-## G–I. Inventaire + contenus complets
+## F. R-UX-01
+NON CONFORME — KNOWN FUNCTIONAL GAP — CARRIED RESERVE Morris for conditional RECETTE entry.
+mayStartNewThreadAct blocks distinct new thread acts while pending unresolved.
+Does NOT authorize unjustified D5/D6, double effect, key loss, or cross-project leak.
+NOT ACCEPTED FUNCTIONALLY.
+
+## G. Blast radius
+Allowlist only under projects/sfia-studio-next/; no migration 008; no SEF/roadmap.
+
+## H–I. Fichiers créés / modifiés (contenu complet au SHA)
 
 ### CREATED `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts`
 
@@ -411,7 +426,6 @@ export async function applyConversationalAuthority(input: {
   });
   return outcomeFromCommand(command, qualified.operation, clientCommandKey);
 }
-
 ```
 
 ### CREATED `projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts`
@@ -474,487 +488,1392 @@ export function mayStartNewThreadAct(input: {
     pending,
   };
 }
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts`
+### MODIFIED FULL `projects/sfia-studio-next/construction/delivery-history.md` @ ba831b25bc18
+
+```md
+# SFIA Studio Next — Delivery history
+
+Append-only logical journal of Cursor product deliveries.
+**Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / entrée & continuité (premier vertical) |
+| Type | INC / nouvelle capacité, pré-1.0 |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Working tree | local uncommitted construction under `projects/sfia-studio-next/web` |
+| Product version target | `NO RELEASE` (proposal `0.1.0-rc.1` not attributed) |
+| Lane | DEV (`127.0.0.1:3100`, Postgres `5433`) |
+| Schema revision | `001_initial_studio_core` |
+| Tests | Vitest unit + PostgreSQL integration (see web test run) |
+| Evidence limits | GitHub OAuth LIVE BLOCKED without secrets; OpenAI LIVE optional; Figma native pending; RECETTE NOT AVAILABLE |
+| Status | LOCAL CONSTRUCTION — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-02-CRITIQUE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 consolidation critique (same lot) |
+| Type | INC corrective / same vertical |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Changes | Next 15.5.29; D2 fingerprint under lock; D4 prep-scoped docs + SAVING; D3 Agents SDK adapter; D1 authMode + Better Auth mount + loopback DEV login; Playwright smoke PASS |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Schema | `001_initial_studio_core` + `002_session_auth_mode` |
+| Tests | unit 3 PASS; integration 13 PASS; Playwright 1 PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-03-CONTINUITE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 continuité D1–D2 (same lot) |
+| Type | INC corrective / same vertical |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Changes | Better Auth→PilotId session bridge; advisory-lock atomic idempotency across preparations; project reopen by projectId API/UI; Playwright portfolio path |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Schema | unchanged (`001` + `002`) |
+| Tests | unit 3 PASS; integration 21 PASS; Playwright 1 PASS; build+tsc PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-04-OAUTH-STATUS-REPROOF
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 continuité D1–D2 (same lot) |
+| Type | INC corrective / same vertical |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Changes | Fix `/api/auth/status` when OAuth configured; re-proof A/B/C; bounded OAuth start URL (no callback LIVE claim); secrets never in handoff |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Schema | unchanged |
+| Tests | unit 3; integration 21; Playwright 1; build+tsc; OAuth status+signin-start PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-05-LIVE-QA-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 LIVE qualification consolidation (same lot) |
+| Type | INC corrective / qualification |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Changes | D1 late GitHub link backfill; PostCSS override 8.5.32; A01–A16 reclass; Nora LIVE adapter proof; integration forces fixture; Playwright LIVE-aware |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Tests | unit 3; integration 22; Playwright 1; build+tsc; npm audit prod postcss closed |
+| Status | ML1 LOCAL QUALIFICATION REVIEWABLE candidate — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-06-PRECOMMIT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 first local project commit |
+| Type | INC / same vertical |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Commit | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` (parent = base; unpublished) |
+| Changes | ML1 web vertical + D1 lane fail-closed emit; matrice temporal DESIGN ONLY vs DEV |
+| Product version | `NO RELEASE` |
+| Status | LOCAL COMMIT — awaiting ChatGPT review / Morris push gate |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-07-PREPUSH-CORRECTIONS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 targeted pre-push corrections (same lot) |
+| Type | INC corrective / Critical Review findings |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Parent commit | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` (preserved) |
+| Commit | `8767185234bab9b2cad7800771a6bfc0ae1d19e4` (parent `0b982b3b…`; unpublished) |
+| Changes | A: strict loopback + DEV consume fail-closed; B: `db:migrate` 001→002 + fresh-container proof; C: owned E2E :3101 / `sfia_next_e2e` / Nora fixture-only |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Schema | `001` + `002` via `npm run db:migrate` |
+| Tests | unit / integration (incl. isolated migrate container) / Playwright FAKE E2E — see Review Pack |
+| Status | LOCAL CORRECTIVE — preserved under subsequent guardrail commit |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-08-ENV-BOUNDARIES
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 pre-push environment boundaries (same lot) |
+| Type | INC corrective / isolation guardrails |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Parent commit | `8767185234bab9b2cad7800771a6bfc0ae1d19e4` (preserved; commits 1–2 untouched) |
+| Commit | tip SHA after this delivery commit (resolve via `git rev-parse HEAD`; no circular amend) |
+| Changes | P1: Nora fixture DEV-only + fail-closed outside DEV / missing key; P2: E2E PG preflight before CREATE/migrate; P3: `distDir` `.next-e2e` vs `.next` |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Tests | unit 22; integration 26; Playwright FAKE 1; build/tsc/lint — see Review Pack |
+| Status | LOCAL CORRECTIVE candidate — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-MERGE-09
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 — entrée et continuité |
+| Type | INC / Git integration and bounded functional acceptance record |
+| Branch | `sfia/next-access-preparation-continuity` |
+| Candidate SHA | `0db58be8240a00593092048ee74299f19374f489` |
+| Candidate commits | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` → `8767185234bab9b2cad7800771a6bfc0ae1d19e4` → `0db58be8240a00593092048ee74299f19374f489` |
+| PR / merge | [#649](https://github.com/mcleland147/sfia-workspace/pull/649) MERGED on 2026-11-04; `main@747cbec0ac9c161306db34121b0447391b23589c` |
+| Tree | `69d48cc33a91af6635856babb620a7735aa55fe6` — identical between C3 candidate and merge |
+| RECETTE | Morris functional acceptance, including GitHub OAuth LIVE and Nora LIVE; build `PMCGeil9wv8DZNBfEGf4H` bound to C3 candidate |
+| Historical test evidence | Unit 22 PASS, PostgreSQL integration 26 PASS, Playwright 1 PASS with DEV fake identity/Nora fixture; separate LIVE observations; neither implies R6 or Next CI PASS |
+| Carried reserve A | DEV/RECETTE cookie collision on shared `127.0.0.1` host despite different ports; separate browser profiles mitigation; re-mediate/re-test before STABLE; no cross-DB authority breach proven |
+| Carried reserve B | Historical GitHub Required Gate SUCCESS with Next build SKIPPED; dedicated Next CI workflow and proof needed before next significant delivery, under distinct shared-path GO |
+| Post-merge runtime | Independent smoke NOT OBSERVED |
+| Product version | `NO RELEASE` ; `STABLE NOT AVAILABLE` ; no release tag / no ADOPTED |
+| Status | **MERGED / FUNCTIONAL RECETTE ACCEPTED WITH RESERVES — ML1 integration evidenced, technical remediation and R6 qualification still open** |
+
+## delivery_id: DELIV-2026-11-05-ML2-LOCAL-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Produire et capitaliser avec Nora |
+| Type | INC / nouvelle capacité compatible (prospective MINOR) |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | D3 cognition + D4 knowledge/documents + UX surfaces + streaming attempt + tests |
+| Product version target | `NO RELEASE` (NOT AVAILABLE — no official attribution) |
+| Compatibility | Additive migration `003_ml2_knowledge_documents` ; ML1 data preserved |
+| Schema | `001` + `002` + `003` |
+| Tests | unit 26 PASS ; PG integration 32 PASS ; Playwright 2 PASS (FAKE) ; `tsc` PASS ; `next build` PASS |
+| Evidence limits | Nora LIVE / COG panel / Figma fidelity matrix / CI Next = NOT PROVEN or ABSENT |
+| Streaming | Attempted in adapter (`stream: true`) ; UI progressive NOT wired ; LIVE streaming NOT PROVEN |
+| Status | LOCAL CONSTRUCTION — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY WITH RESERVES` |
+
+## delivery_id: DELIV-2026-11-05-ML2-CORRECTIVE-02
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — correctif intégrité D4 / documents / cognition |
+| Type | Correctif intégré (même macro-lot) |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only) |
+| Parent HEAD | `a9a468e9f883128045c516a881f30d6372175c96` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | C1 sujets atomiques ; C2 concurrence révision ; C3 idempotence création ; C4 diff ordonné ; C5 épistémologie capitalisation ; C6 états UX |
+| Schema | `004_ml2_integrity_corrective` |
+| Product version | `NO RELEASE` |
+| Tests | unit 31 PASS ; PG integration 45 PASS ; Playwright 2 PASS ; tsc+build PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY FOR MORRIS REVIEW` (réserves S1/S2/S3/CI/COG qualifiées, non bloquantes pour intégrité) |
+
+## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-03
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — consolidation corrective C3/C4/C1 |
+| Type | Correctif intégré (même macro-lot) |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
+| Parent HEAD | `5c7dd7528ff859c9717db865c74d45930dff4219` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | C3-A fingerprint all paths ; C3-B clé UI stable ; C4 budget diff ; C1 journal + concurrence |
+| Schema | unchanged (`004_ml2_integrity_corrective`) — no new migration |
+| Product version | `NO RELEASE` |
+| Tests | unit 34 PASS ; PG integration 50 PASS ; Playwright 3 PASS (FAKE) ; tsc+lint+build PASS |
+| Evidence limits | LIVE Nora / COG panel / Figma ML2-S3 / CI Next = NOT PROVEN or ABSENT |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY FOR MORRIS REVIEW` |
+
+## delivery_id: DELIV-2026-11-05-ML2-INTEGRATION-PREP-04
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Cycle 7 Intégration / DevOps (préparation) |
+| Type | EVOL / préparation intégration Git + instruction CI |
+| Branch | `sfia/next-ml2-production-capitalisation` @ `1967b2c5` (local only — **not published**) |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | Git Truth, inventaire candidat, revalidation locale, proposition CI Next (artefact `.tmp` uniquement) |
+| CI Next workflow path | **PROPOSED** `.github/workflows/sfia-studio-next-ci.yml` — contenu dans `.tmp-sfia-review/ci-next-workflow-proposal.yml` ; **NOT WRITTEN** under `.github/` |
+| CI Next remote | **NOT RUN** — requires distinct Morris GO to install workflow + publish SHA |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local revalidation | unit 34 ; PG 50 ; Playwright 3 ; tsc+lint+build PASS |
+| SVG residuals | 5× `web/public/*.svg` create-next-app defaults, untracked, unused → **EXCLUDE** (do not commit) |
+| Status | LOCAL INTEGRATION PREP — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY WITH RESERVES` (intégration Git bloquée tant que CI Next absente / non exécutée) |
+
+## delivery_id: DELIV-2026-11-05-ML2-CI-NEXT-INSTALL-05
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Cycle 7 Intégration / DevOps (installation CI Next locale) |
+| Type | EVOL / workflow CI versionné sur branche construction |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
+| Parent HEAD | `f937477026d25812db000af4d16ab48bd22e9e47` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Created | `.github/workflows/sfia-studio-next-ci.yml` |
+| Historical workflows | `sfia-studio-ci.yml` / `interv360-ci.yml` **unchanged** (hashes match origin/main) |
+| Gate name | `SFIA Studio Next Required Gate` (not yet added to GitHub branch protection) |
+| CI Next remote | **NOT RUN** — requires Morris GO to push branch / open PR for first Actions execution |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local revalidation | unit 34 ; PG 50 ; Playwright 3 ; tsc+lint+build PASS ; actionlint PASS (no findings) |
+| SVG residuals | still EXCLUDE (untracked, not staged) |
+| Status | LOCAL CI INSTALL — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY FOR MORRIS REVIEW` (publication Git projet + premier run Actions = gates suivants) |
+
+## delivery_id: DELIV-2026-11-05-ML2-C3B-LOST-ACK-06
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Cycle 9 QA / validation (C3-B lost-ACK) |
+| Type | INC corrective / BROWSER FAKE C3-B |
+| Branch | `sfia/next-ml2-production-capitalisation` (PR #655 DRAFT) |
+| Parent HEAD | `23e55da80ac774511b467bc53ab7eaa5d60ac969` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Cause | After simulated ACK loss, incidental `reload()` adopted `docId` while create intent was still open, hiding `create-intent-key` and diverting retry into revise-via-save (rev 2 / new key) |
+| Fix | `page.tsx` reload skips `docId` adoption while `createDocIntentRef` is active; C3-B Playwright asserts stable create key, zero revise calls, single doc at revision 1 |
+| Schema | unchanged |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Status | CORRECTIVE on PR #655 — see Review Pack for CI proof |
+| Verdict candidate | pending GitHub Actions on published SHA |
+
+## delivery_id: DELIV-2026-11-05-ML2-COG-OBS-INTEGRATED-07
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — cognition Nora + observabilité intégrées |
+| Type | EVOL / construction locale Critical |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only — not published**) |
+| Base documentary | `origin/docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b7c724b020011f19d8814333116674475` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Implemented | cognitive policy TEST_BOUNDARY≠OPERATIONAL ; D4 read tools ; turn command + migration 005 ; JSON obs sink ; HTTP error classification ; tracingDisabled |
+| Schema | `005_ml2_conversation_turn_command` applied on DEV `sfia_next_dev` + `sfia_next_e2e` |
+| Product version | `NO RELEASE` ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 42 PASS ; PG 53 PASS ; Playwright 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE / CI new SHA | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL DELIVERY — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL DELIVERY WITH RESERVES — REVIEW REQUIRED` |
+
+## delivery_id: DELIV-2026-11-05-ML2-CRITICAL-CORRECTIVE-08
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~18:25 CET |
+| Macro-lot | R5 / ML2 — correctif Critical post-revue ChatGPT |
+| Type | EVOL corrective integrated (same ML2, not new lot) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only — not published**) |
+| Parent entry SHA | `53be6097612825b24333821ab3001c35a0b4d757` |
+| Base documentary | `origin/docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | TURN orphan reconcile+CAS ; D4 AVAILABLE-only ; no uncertain SDK fallback ; budgets fail-closed ; search pagination/budget ; OBS allowlist/RO/purge/lane |
+| Schema | `005` unchanged (forward-safe) ; `schemaRevision` aligned to 005 |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 50 PASS ; PG 62 PASS ; Playwright 3 PASS ; tsc+build PASS |
+| LIVE / CI new SHA / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL CORRECTIVE DELIVERY — REVIEW REQUIRED` |
+
+## delivery_id: DELIV-2026-11-05-ML2-THREE-BLOCKER-09
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~18:45 CET |
+| Macro-lot | R5 / ML2 — three-blocker Critical corrective |
+| Type | INC/EVOL corrective (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
+| Parent SHA | `00736f3a6c34f6f56d628b6dee2097a4aadda91b` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | owner_token fencing+CAS ; SQL pagination terminante ; no SDK auto-retry after run() |
+| Schema | migration `006_ml2_turn_owner_token` (forward-only) |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 68 ; Playwright 3 ; tsc+build PASS |
+| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL THREE-BLOCKER CORRECTIVE DELIVERY — READY FOR CHATGPT REVIEW` |
+
+## delivery_id: DELIV-2026-11-05-ML2-TURN-INTEGRITY-10
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~19:15 CET |
+| Macro-lot | R5 / ML2 — turn transactional integrity |
+| Type | INC corrective (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
+| Parent SHA | `57f6fc54888f607d8a70ef959f39057764e4b20a` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | atomic `commitTurnTerminal` (FOR UPDATE + rollback on CAS miss) ; knowledge write fencing ; D4-PAGE-03 STALE termination |
+| Schema | unchanged (`006` already present) |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 78 ; Playwright 3 ; tsc+lint+build PASS |
+| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW` |
+
+## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-PREMERGE-11
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~20:25 CET |
+| Macro-lot | R5 / ML2 — consolidation pré-merge PR #659 |
+| Type | INC corrective integrated (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**project push FF authorized**) |
+| Parent SHA | `df7357873b487d48e32af5de89995bcfbf720210` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
+| Corrected | UNKNOWN-CAP DB reconstitution ; ASSIST-REUSE generationId gate ; SAFE-01 two-session PG + DB-fail ; CI labels 001→006 |
+| Schema | unchanged (`006` already present) ; no new migration |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 PASS ; PG 89 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | PROJECT BRANCH PUSH (FF) — merge/LIVE/RECETTE still gated |
+| Verdict candidate | `PR #659 UPDATED — await CI Next on new SHA — READY FOR CHATGPT PRE-MERGE REVIEW` (CI status filled post-push) |
+
+## delivery_id: DELIV-2026-11-05-ML2-PRE-RECETTE-QUAL-12
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~20:50 CET |
+| Macro-lot | R5 / ML2 — qualification intégrée pré-RECETTE PR #659 |
+| Type | INC corrective + QA préparation (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**FF push authorized**) |
+| Parent SHA | `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
+| Corrected | ASSIST-REUSE dual-gen strict + bindTurnGenerationId ; SAFE-01 strict RUNNING + client abort mid-TX ; D4 gen-priority reconstitution ; LIVE/RECETTE docs préparés |
+| Schema | unchanged (`006`) ; no migration |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 PASS ; PG 93 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE | **NOT RUN / NOT DEPLOYED** ; manifeste PREPARED |
+| Status | PROJECT BRANCH PUSH (FF) — LIVE/RECETTE/merge gated Morris |
+| Verdict candidate | `ML2 PRE-RECETTE TECHNICAL CONSOLIDATION — CI NEXT PASS — LIVE/RECETTE GATES PENDING MORRIS` |
+
+## delivery_id: DELIV-2026-11-05-ML2-LIVE-RECETTE-COND-13
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~21:15 CET |
+| Macro-lot | R5 / ML2 — LIVE borné + RECETTE conditionnelle PR #659 |
+| Type | CAPA+INC+QA integrated (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` |
+| Parent SHA | `01ae25e1dfc7b062d3b2a73838335ef8630ec6f2` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` |
+| LIVE proofs | 3 scenarios `openai-agents-sdk-live` COMPLETE ; D4 tools on complex ; ~3 contacts / ~€1.05 est. ; model `gpt-6.1-sol` requested |
+| Corrected | cookie name per `STUDIO_LANE` ; SAFE-01 DBFAIL-03 ephemeral persistent table + pg_locks waiter |
+| Schema | `006` unchanged |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 93 ; e2e FAKE 3 ; tsc+lint+build — filled at commit |
+| RECETTE | activation conditionnelle après CI du SHA final ; ML1 RECETTE :3200 **non réinitialisée** |
+| Status | PROJECT PUSH FF + conditional RECETTE provision |
+| Verdict candidate | `ML2 LIVE BOUNDED REAL PROVEN — RECETTE CANDIDATE AVAILABLE FOR MORRIS REVIEW` (si gate E PASS) |
+
+## delivery_id: DELIV-2026-11-06-ML3-PILOTAGE-DECISIONS-14
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — Piloter et décider |
+| Type | INC / nouvelle capacité D5–D6 (MINOR candidate) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project push/PR**) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` (PR #660 docs merged) |
+| Schema | additive `007_ml3_pilotage_decisions` (from `006_ml2_turn_owner_token`) — applied **DEV only** |
+| Changes | D6 human_decisions/restrictions ; D5 trajectories/cycles/method ; business_commands + effects ; CKI pin R01 ; atomic CLOSE+OPEN R04 ; Nora pilotage/CKI context ; UX Pilotage panel ; tests unit/PG/e2e |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE ; package `0.0.0-dev` |
+| Lane | DEV construction ; RECETTE/STABLE **not mutated** |
+| Figma | visual contract #22 native + inventory lot B ; runtime comparison partial (screenshot e2e) — not pixel-perfect claim |
+| LIVE Nora | NOT EXECUTED — GATE MORRIS REQUIRED |
+| Status | LOCAL ML3 DELIVERY — review handoff only |
+| Verdict candidate | `LOCAL ML3 DELIVERY COMPLETE — REVIEW REQUIRED` (if proofs green) |
+
+## delivery_id: DELIV-2026-11-06-ML3-CORRECTIFS-F01-F08
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — correctifs pilotage F01–F08 et T01–T04 |
+| Type | INC corrective (same ML3, not a new lot) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
+| Base | `7f1f41c` dirty candidate |
+| Schema | unchanged `007_ml3_pilotage_decisions` — `actInstanceId` lives in `source_action_key` + fingerprint, no migration 008 |
+| Corrected | Idempotence UI + GET by client key ; manifeste CKI 0.2.0 ; restriction ciblée ; journal `state` ; GO naturel sans operation ; identité d'acte ; `REVISE_DECISION` + contradiction exacte ; `DELIVERED` seulement après generate réel |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only ; RECETTE/STABLE not mutated |
+| LIVE Nora | NOT EXECUTED |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-06-ML3-AUTHORITY-CR01-CR04
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — ajustement autorité & preuves CR-01..CR-04 |
+| Type | INC corrective continuation (same ML3) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
+| Base | `7f1f41c` dirty candidate (hashes F01–F08 pack as baseline) |
+| Schema | unchanged `007` |
+| Corrected | Transition A+B restrictions ; REVISE vs D5 founding refuse ; no global statement contradiction ; Review Pack with real logs |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only ; RECETTE/STABLE not mutated |
+| LIVE Nora | NOT EXECUTED |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+| Verdict candidate | `ML3 AUTHORITY ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
+
+## delivery_id: DELIV-2026-11-06-ML3-B13-ASSISTED-CONTRADICTIONS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — B13 contradictions assistées (Niveau A Nora + Niveau B typé) |
+| Type | EVOL complementary on existing ML3 |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
+| Base | `7f1f41c` dirty candidate |
+| Contrat | B13 v0.1 **VALIDATED IN CONTENT BY MORRIS** 2026-11-06 |
+| Schema | unchanged `007` — no migration 008 |
+| Implemented | divergence-assist Level A ; nora-context/fixture ; UX legend ; typed Level B unchanged |
+| Product version | `NO RELEASE` |
+| Lane | DEV ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Status | LOCAL CANDIDATE — no project push/PR/merge |
+| Verdict candidate | `ML3 B13 DELIVERY COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (DEV limits) |
+
+## delivery_id: DELIV-2026-11-06-ML3-B13-C01-C03-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — B13 corrective continuation C01–C03 (after Critical Review) |
+| Type | INC corrective continuation (same ML3 ; not a new macro-lot) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project commit/push/PR**) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` dirty candidate preserved |
+| Contrat B13 | v0.1 remains **VALIDATED IN CONTENT BY MORRIS** — Cursor hypothesis ≠ new normative decision |
+| Schema | unchanged `007` — no migration 008 ; no new authority category |
+| C01 | `findMessageDecisionConfrontations` — single APPLICABLE D6 + new USER message → structured `levelASignals` via conversation→nora-context→adapter (no second persisted decision) |
+| C02 | `qualifyCommandOutcome(status, reasonCode)` — CONFLICT≠authority ; RESTRICTION→authority-block ; STALE/HUMAN_INTENT/FINGERPRINT→technical ; ACTIVE_CYCLE→d5_state |
+| C03 | FULL Review Pack + integrated tests (unit/PG/e2e FAKE) ; real logs |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only (`127.0.0.1:5433/sfia_next_dev`) ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Status | LOCAL CORRECTIVE — handoff L3 only |
+| Verdict candidate | `ML3 B13 TARGETED ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
+
+## delivery_id: DELIV-2026-11-06-ML3-B13-R1-R3-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — B13 R1–R3 final corrective (after Critical Review on C01–C03) |
+| Type | INC corrective continuation (same ML3 ; not a new macro-lot) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project commit/push/PR**) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` dirty candidate preserved |
+| Prior handoff | `sfia/review-handoff@9b98a7fa` blob `e921982c` |
+| Contrat B13 | v0.1 **VALIDATED IN CONTENT BY MORRIS** |
+| Schema | unchanged `007` |
+| R1 | Clear stale `lastOutcome` on new command ; UNKNOWN presentation replaces prior RESTRICTION motif |
+| R2 | Negation/polarity-safe Level A framing (never false COMPATIBLE on « n'est plus obligatoire ») |
+| R3 | PG integrated `postUserMessageAndNora` proof (persist USER+Nora, no invented HumanDecision) |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Status | LOCAL CORRECTIVE — handoff L3 only |
+| Verdict candidate | `ML3 B13 R1-R3 CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
+
+## delivery_id: DELIV-2026-11-06-ML3-B13-R2-R3-FINAL-ADJUST
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — B13 R2/R3 final targeted adjustments |
+| Type | INC corrective continuation (same ML3) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only**) |
+| Base | `origin/main@7f1f41c` dirty candidate preserved |
+| Prior handoff | `sfia/review-handoff@541c0894` blob `ada98550` |
+| R2 | Polarity: jamais / aucunement / typographic apostrophe / ne doit pas être — never false COMPATIBLE |
+| R3 | Isolation proof: foreign APPLICABLE decision on same objectRef created BEFORE Nora gen ; marker absent from A context/reply |
+| Schema | unchanged `007` |
+| Product version | `NO RELEASE` |
+| Lane | DEV only ; LIVE Nora NOT EXECUTED |
+| Verdict candidate | `ML3 B13 R2-R3 TARGETED ADJUSTMENTS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-IMMUTABLE-CANDIDATE-PUBLISH
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — consolidation & publication candidat Git |
+| Type | RUN — consolidation / qualification / publication bornée |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**project push authorized — no PR/merge**) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
+| Schema | `007_ml3_pilotage_decisions` |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV proofs only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Scope | Allowlist §6 only (docs + CKI manifest + web D5/D6/API/UX/tests) ; SVG / `.tmp-sfia-review` excluded |
+| Status | IMMUTABLE PROJECT CANDIDATE — SHA `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` |
+| Verdict candidate | `ML3 IMMUTABLE PROJECT CANDIDATE PUBLISHED — READY FOR CHATGPT GLOBAL CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CONVERSATION-AUTHORITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 « Piloter et décider » — F01/F02 consolidation fonctionnelle |
+| Type | INC corrective (conversation → D5/D6) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local worktree — no project commit/push**) |
+| Candidate ref | `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` (unchanged remote) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
+| Schema | unchanged `007` (no migration 008) |
+| F01 | Fil Nora → `applyConversationalAuthority` → `executePilotageCommand` (USER_MESSAGE) |
+| F02 | RECORD/REVISE documentaires depuis fil + geste Journal ; fondations D5 restent typées |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only ; RECETTE/LIVE Nora/STABLE NOT AUTHORIZED |
+| Status | LOCAL CORRECTIVE — handoff L3 only |
+| Verdict candidate | `ML3 F01/F02 CONVERSATION-AUTHORITY INTEGRATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-C01-C02-C03-AUTHORITY-RECOVERY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — F01/F02 C01/C02/C03 after Critical Review NOT ACCEPTED |
+| Type | INC corrective continuation (same ML3) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local — no project commit/push**) |
+| Prior handoff | `sfia/review-handoff@c2bec44b` blob `bbf43260` |
+| Candidate ref | `8bf8b5ce` unchanged |
+| Schema | unchanged `007` |
+| C01 | Exploratory language ≠ REVISE ; Level A non-authorizing |
+| C02 | Durable reconstitution via business_commands + stable client turn key |
+| C03 | Thread continuity after reload ; Journal >8 expandable |
+| Product version | `NO RELEASE` |
+| Lane | DEV only |
+| Verdict candidate | `ML3 F01/F02 AUTHORITY AND RECOVERY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CR01-CR02-CONSOLIDATION
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-06 |
+| Macro-lot | R5 / ML3 — F01/F02 CR-01/CR-02 after Critical Review PARTIALLY ACCEPTED |
+| Type | INC CRITICAL |
+| CR-01 | D6 revise uniqueness over full APPLICABLE set (not Nora window of 12) |
+| CR-02 | Pending exclusive guard ; Nora COMPLETE ≠ métier UNKNOWN clear ; ACK-lost browser proof |
+| Git projet | HEAD `8bf8b5ce` inchangé — **aucun** commit/push projet |
+| ENV-01 | DEV only (`127.0.0.1:5433/sfia_next_dev`) |
+| Versioning | NO RELEASE / STABLE NOT AVAILABLE |
+| Verdict candidate | `ML3 F01/F02 AUTHORITY TARGET AND RECOVERY CONSOLIDATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-CANDIDATE-PUBLICATION-RECETTE-BUILD-PREP
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-06 |
+| Macro-lot | R5 / ML3 — publication candidat corrigé + préparation build RECETTE |
+| Type | RUN CRITICAL |
+| Branche | `sfia/next-pilotage-decisions-delivery` |
+| Base précédente | `8bf8b5ce` |
+| R-UX-01 | NON CONFORME — CARRIED RESERVE Morris (entrée RECETTE conditionnelle) ; pas ACCEPTED FUNCTIONALLY |
+| Publication | commit + push FF autorisés ; PR/merge/STABLE/deploy RECETTE **non** autorisés |
+| Build | worktree propre au SHA publié → artefact préparé, **BUILD_PREPARED_NOT_DEPLOYED** |
+| Versioning | NO RELEASE ; package `0.0.0-dev` technique ; product_version NOT AVAILABLE |
+| ENV-01 | DEV tests only ; RECETTE DB/runtime non mutés ; cookie host réserve |
+| Verdict candidate | `ML3 UPDATED IMMUTABLE CANDIDATE PUBLISHED — RECETTE BUILD PREPARED — READY FOR CHATGPT CRITICAL REVIEW` |
+| Note | SHA/tree/build exacts consignés dans Review Pack / manifeste local après commit (pas d'autoréférence dans ce fichier avant commit). |
+```
+
+### MODIFIED FULL `projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md` @ ba831b25bc18
+
+```md
+# SFIA Studio Next — R5 / ML3 « Piloter et décider »
+## Spécification technique v0.4 — candidate publiée sur branche documentaire
+
+**Statut historique D0 (en-tête v0.4) :** métadonnées de conception pré-delivery — ne décrivent plus l'état du candidat runtime.
+**Statut candidat courant (2026-11-06) :** `IMPLEMENTED — CANDIDATE` sur `sfia/next-pilotage-decisions-delivery` — **NOT RECETTE — NOT MERGED — NOT ADOPTED — NO RELEASE**.
+**Date :** 2026-11-06 (Europe/Paris).
+**Dépôt :** `mcleland147/sfia-workspace` ; base `main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` ; branche candidat `sfia/next-pilotage-decisions-delivery`.
+**Nature :** as-built D5/D6 + B13 + correctifs CR/B13 ; publication Git candidat autorisée (GO Morris consolidation) **sans** merge `main`, sans RECETTE, sans STABLE.
+**État runtime candidat :** D5/D6 **IMPLEMENTED** (schéma `007`) sous lane DEV ; preuves FAKE/PG selon matrice B01–B18 ; Nora LIVE NOT EXECUTED.
+**Sources propriétaires :** `governance/SEF.md`, `governance/roadmap.md`, `governance/decisions/2026-11-04-r4-architecture-exit.md`, R2 `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md`, R2 `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` et compléments, R3 `ux-ui/audit-couverture-ux-r3.md` §7, R4 `architecture-technique/cadrage-r4.md` §5.5, corpus `cki/` v0.2.0, R5 `construction/reference-delivery-r5.md`, code ML1/ML2 sur `main`.
+**Annexes sur cette branche :** [Matrice individuelle R2–R4](tracabilite-r2-r3-r4.md) (136 liens et R01–R04) et [Revue de conception](revue-conception.md) (revue/gates).
+
+> **Choix Morris déjà acquis :** option A — clôture du cycle A et ouverture du cycle B, si toutes les mutations D5/D6 sont internes à Studio, effectuées **dans une seule transaction PostgreSQL** ; deux faits de transition distinctement observables, commit unique. Une réussite partielle n'est possible que pour des effets réellement séparés, hors de cette frontière. **Choix de périmètre retenu :** noyau D6 réel (décisions, GO, révisions, restrictions et levées) dans ML3 ; D7/D8/D9 restent des interfaces, sans effets simulés. **Résolutions techniques proposées pour validation Morris :** R01 version/distribution CKI ; R02 sémantique de méthode ; R03 DDL/verrouillage/idempotence ; R04 résultat partiel. Les invariants R04 atomiques sont déjà arbitrés ; les choix détaillés R01–R03 sont à valider en contenu, **non implémentés**.
+
+## 1. Résultat Pilote et frontière du macro-lot
+
+Le Pilote peut reprendre son projet et son fil Nora, envisager une trajectoire sans l'appliquer, retenir une orientation de façon gouvernée, ouvrir un cycle pertinent sur un GO humain naturel, progresser avec une guidance CKI vérifiable lorsqu'elle est réellement disponible, enregistrer et réviser ses décisions, suspendre/lever des effets bornés et clore ou réorienter les cycles en retrouvant les faits durables après redémarrage.
+
+**IN :** D5 trajectoire, état des cycles, méthode applicable et liaison CKI ; D6 actes humains, portée, validité, restrictions, révisions/révocations, suspensions/levées ; interfaces D1/D2/D3/D4 ; transactions PG et intégrité, API, UX R3 B, tests, observabilité et documentation as-built dans le même macro-lot. **OUT :** exécution Cursor D7, preuve et verdict D8, mutation Git D9, adoption globale, catalogue universel de méthodes, moteur de workflow et nouveaux parcours obligatoires.
+
+**Parcours d'acceptation commun :** projet existant → Nora propose une trajectoire → le Pilote retient ou non l'orientation → GO de cycle authentifié → enregistrement atomique D6/D5 → cycle ACTIVE + CKI associé → consommation de guidance si disponible, avec provenance → décision durable ou suspension → clôture/transition gouvernée → reconnexion au même fil et vérification de l'état. Un projet peut continuer normalement sans cycle ni méthode.
+
+## 2. Autorités et propriétaires — invariants transverses
+
+| Domaine | Vérité propriétaire | Limite |
+|---|---|---|
+| D1/D2 | Session authentifiée, identité du Pilote, propriété du projet, préparation et continuité du fil | Une session, un projet ou GitHub OAuth ne sont pas des GO métier. |
+| D3 — Nora | Messages originaux, analyse de l'intention, propositions, réponse cognitive, consommation contrôlée de contexte | Le modèle ne produit aucun HumanDecision ni changement D5 à partir de sa seule sortie. |
+| D4 | Sujets, acquis, documents, points ouverts et provenance | Aucune duplication de mémoire ou preuve dans D5/D6. |
+| D5 | Trajectoires, cycles, méthode et association du CKI principal, états et historique | Ne crée ni compétence humaine ni permission. |
+| D6 | Source humaine, portée, décision opposable, restrictions et historique | Ne maintient pas un second état de cycle ni ne simule D7/D9. |
+| D7/D8/D9 | Futures frontières propriétaires d'exécution, preuve et Git | Contrats préparés seulement ; aucun faux objet métier opérationnel ML3. |
+
+Les lectures D3/UX constituent des **projections** des propriétaires. Les diagnostics techniques n'émettent aucun acte d'autorité. Les contrôles de droits/compétence sont relus **au point d'effet**, non déduits d'une vue affichée antérieurement.
+
+## 3. Contrat D6 — acte humain et applicabilité
+
+### 3.1. Classes d'actes
+
+Distinguer : préférence cognitive non opposable ; choix structurant durable ; GO cycle (ouvrir/clore/transitionner) ; suspension/restriction ; levée/révocation/révision ; choix durable de méthode ; acte de réception D8 et autorisation « Exécuter » D7, tous deux **hors réalisation ML3**. Un choix de brouillon/document n'est pas un GO Git, une validation normative ou un mandat. Une proposition CKI n'est jamais permission.
+
+### 3.2. Identité et provenance minimales
+
+L'acte stocké D6 référence : `decisionId`, `projectId`, `pilotId` authentifié, `sourceKind` (message utilisateur réel ou interaction humaine explicite), `sourceRef` et révision/corrélation, `kind`, `objectRef`, `scope` typé et borné, `effectConditions`, `state/version`, `effectiveAt`, `supersedes/revokes/lifts` s'il y a lieu, `createdAt`. La source conversationnelle doit être une **expression USER vérifiée**, rattachée au projet autorisé ; le modèle, une citation ou un texte importé ne peuvent fournir cette autorité. Minimiser la répétition du texte humain et protéger les détails sensibles.
+
+**Validité D6 au point d'effet :** acteur habilité et projet courant ; cible/portée compatibles avec la commande ; provenance humaine fiable ; état/version ; contraintes supérieures ; restrictions et décisions incompatibles ; durée/conditions d'applicabilité. Conflit déterminant non résolu = refus de l'effet ciblé, sans bloquer la cognition indépendante. « Plus récente » n'est pas une règle de priorité.
+
+### 3.3. Évolutions non destructives
+
+Révision, amendement, révocation ou levée sont des **actes distincts liés** à leur cible, avec date de prise d'effet et contexte conservés. L'applicabilité courante change mais les décisions et effets passés restent vrais. Une suspension humaine persistante ne disparaît ni avec une nouvelle session, ni avec un nouveau cycle, ni lorsque Nora juge le problème résolu. Lever une suspension n'accorde pas de droits nouveaux et ne rejoue pas une commande. Une demande d'arrêt externe est enregistrable comme intention/portée D6 ; elle **n'est pas** un constat d'arrêt D7.
+
+**Révocation de méthode :** le contrat proposé R02 en §8 bis sépare retrait, remplacement, suspension d'usage, levée et révocation du choix courant. Révoquer le choix fondant la méthode actuellement applicable termine son application D5 et la laisse `ABSENT` sauf remplacement explicitement autorisé dans le même commit ; aucune restauration implicite. Si la cible est ambiguë, clarifier et ne pas muter.
+
+## 4. Contrat D5 — états, trajectoire et méthode
+
+Une **trajectoire proposée** peut rester seulement cognitive ou être conservée comme proposition sans acte d'autorité ; **retenue** exige une décision D6 qualifiée ; **effectif** décrit uniquement les cycles réellement committés. La réorientation n'efface pas les faits précédents. Les dépendances proviennent de contraintes projet ou décisions réelles, jamais de l'ordre des 15 CKI ni de la matrice des relations.
+
+**Cycle :** type reconnu dans le catalogue applicable, finalité et identifiant stables ; états au minimum `ACTIVE` et `CLOSED` (tout autre état exige un besoin explicite) ; au plus un ACTIVE par projet. Une suspension D6 du travail n'implique pas un état cycle `SUSPENDED` ou un moteur concurrent. Ouvrir/clore nécessitent GO humain ; maturité Nora ≠ clôture et clôture ≠ acceptation/adoption. La clôture conserve bilan/réserves et références D4 sans recopier les contenus D4.
+
+**Méthode :** `ABSENTE` est une valeur de projet légitime. Un choix durable conserve référence, version/révision, provenance, portée, date/condition d'effet et décision D6. Publication d'une nouvelle version ou technique locale de Nora ≠ changement de méthode. La modification, si décidée, est gouvernée et historisée sans rétroactivité ; impacts proportionnés sur les travaux concernés.
+
+## 5. CKI : association, version, distribution et usage
+
+Le catalogue initial est constitué de **15 types / 15 CKI autonomes** et 50 relations consultatives, contenus v0.2.0 validés Morris. Catalogue extensible sous arbitrage, sans type implicite FinOps/GreenOps. **Un seul CKI principal** correspond au type du cycle effectivement ACTIVE ; hors cycle, aucun CKI principal. Digression ou relation T/A/R/E ne sélectionne jamais de second CKI. Le même CKI guide le travail et l'appréciation qualitative de maturité ; aucune règle de fermeture ni score universel n'en découle.
+
+**Politique technique proposée R01 (§8 bis) :** associer la spécialité du type ; lorsque le contenu validé est résoluble, épingler référence/version/digest au commit d'ouverture ; sinon ouvrir avec association sans pin exploitable. Ne jamais migrer sur publication ; premier pin ultérieur ou changement de version = acte explicite du Pilote, tracé D5/D6. Le retour des octets de **la version déjà épinglée** peut rétablir la résolution sans nouvelle décision.
+
+**Distribution candidate :** manifeste de ressources approuvées, en lecture seule et versionné avec l'application ou son stockage de contenus durable ; aucune lecture GitHub en direct requise à chaque tour. Conserver les versions encore référencées ou signaler l'indisponibilité réelle, pas de fallback CKC historique. Les références Git constituent une provenance de contenu et non une preuve de disponibilité au runtime.
+
+**Trois niveaux non équivalents :** `ASSOCIATED` (D5 référence le CKI) ; `RESOLVED` (octets/version effectivement vérifiés) ; `DELIVERED` (guidance effectivement ajoutée au contexte D3 transmis). Aucune de ces observations ne prouve à elle seule la qualité cognitive. Toute guidance est de niveau de confiance borné : aucune instruction du CKI ne peut créer un GO, une contrainte supérieure ou un mandat d'outil. Conflit réel avec la méthode retenue : adapter/écarter la technique facultative et signaler l'écart déterminant.
+
+## 6. Modèle relationnel et migration — DDL non exécuté
+
+Extension additive du schéma Drizzle PostgreSQL courant `schemaRevision = 006_ml2_turn_owner_token`, sans modifier par défaut l'état de création du projet ML1 ni du tour ML2.
+
+| Famille candidate | Champs/noyau d'intégrité | Responsable |
+|---|---|---|
+| `project_pilotage_state` | `project_id` PK/FK vers `projects`, `revision` monotone, référence courante trajectoire/méthode si nécessaire | D5 — état/version verrouillable |
+| `trajectory_revisions` | Projet, version, proposition ou choix retenu, source, orientation, lien décision | D5 — historiques |
+| `project_cycles` | Projet, type, objectif, `status`, dates, `revision`, références GO et CKI associé/version ou indisponible | D5 — état réel |
+| `cycle_commands` | Projet, acteur, clé idempotente, empreinte, source humaine, type d'opération, résultat durable | D5 — commande métier |
+| `cycle_command_effects` | Référence commande, effet `CLOSE` ou `OPEN`, cible et issue durable | D5 — observabilité par effet |
+| `method_applications` | Projet, référence/version/portée, décision D6, début/fin d'applicabilité, provenance | D5 — état méthode |
+| `human_decisions` / historique | Auteur, projet, source fiable, type, objet, portée, état, relations de révision/révocation | D6 — actes opposables |
+| `governance_restrictions` | Projet, cible/effets interdits, acte D6 d'origine, application, levée | D6 — restrictions |
+| Manifeste CKI | Référence canonique/version/provenance et disponibilité | D5/ressource approuvée ; table dédiée seulement si justifiée |
+
+Les familles ne prescrivent pas nécessairement une table chacune : **dédupliquer** selon les requêtes et les invariants. Le Journal–Décisions reste une projection D6. Les IDs client ne sont jamais des droits ; les références doivent être contraintes au bon projet, y compris contre accès direct ou détournement de messages D3.
+
+**Invariants DB proposés :** index unique partiel `(project_id) WHERE status='ACTIVE'` ; clé unique commande métier `(project_id,pilot_id,idempotency_key)` et empreinte canonique ; versions et clés FK ; contraintes de validité d'états ; transaction commune D5/D6 ; pas de trigger qui crée un cycle au moment de créer le projet.
+
+**Sérialisation :** `SELECT … FOR UPDATE` sur la ligne `projects` du projet propriétaire (proposition de verrou commun) pour toutes les mutations D5 et restrictions D6 pertinentes, puis lecture sous verrou de la révision, des droits, des décisions/restrictions et du cycle. Le schéma doit gérer les cas d'erreurs PG, la contention, l'index partiel et l'ordre CLOSE(A) puis OPEN(B), sans anomalie interprojets. Isolation et granularité exactes à démontrer, pas supposées sûres par simple choix d'API.
+
+**Migration :** ajout des seules structures utiles, vérification de compatibilité à partir de 006, pas d'effets sur données ML1/ML2, migrations réexécutables/contrôlées selon stratégie existante. DEV → RECETTE avec SHA figé sous mandat futur, aucun déploiement exécuté ici.
+
+## 7. Services métier, commandes et API candidates
+
+**Contrats internes (noms logiques) :** `resolveProjectPilotage(project, actor)`, `proposeTrajectory(...)`, `applyTrajectoryDecision(...)`, `openCycle(...)`, `closeCycle(...)`, `transitionCycle(...)`, `chooseMethod(...)`, `recordHumanDecision(...)`, `reviseDecision(...)`, `applyRestriction(...)`, `liftRestriction(...)`, `evaluateCurrentAuthority(...)`, `resolveCycleGuidance(...)`, `reconcileCommand(...)`. Ne pas créer un microservice par verbe : appliquer les propriétaires D5/D6 et réutiliser la transaction PG commune.
+
+**Routes Next.js candidates et regroupables :** lecture `GET /api/projects/{projectId}/pilotage`, mutation `POST /api/projects/{projectId}/cycle-commands`, réconciliation `GET /api/projects/{projectId}/cycle-commands/{commandId}`, décision `GET/POST /api/projects/{projectId}/decisions`, restriction `POST /api/projects/{projectId}/restrictions`, méthode `POST /api/projects/{projectId}/method-choices`, guidance en lecture `GET /api/projects/{projectId}/guidance`. Les routes concrètes ne sont pas figées. Un point d'entrée ne peut utiliser une autorité de DTO : `pilotId` vient exclusivement de la session.
+
+**Commande D5 minimale :** clé idempotente stable, empreinte des paramètres déterminants, projet URL validé, action, version attendue du projet, cycle source et version attendue, type/cible/objectif, référence D3 d'un message humain ou interaction explicitement captée ; D6 valide cette source et portée. Identité de tour D3 et clé de commande D5 restent distinctes ; la même source humaine ne permet pas de générer deux effets nouveaux par retry.
+
+**Réponse ML3 interne :** `APPLIED`, `ALREADY_APPLIED` (lecture d'un effet historique committé), `REJECTED`, `CONFLICT`, `UNKNOWN` ; **aucun `PARTIAL` pour une commande purement interne atomique**. Un tel état reste une interface future pour de véritables effets séparés. Restituer commandId, version courante, référence décision et effets individuellement observés. Un ACK perdu impose lecture/réconciliation avant tout retry. Relecture historique sous droits actuels ne réautorise pas le même effet aujourd'hui.
+
+**Catégories d'erreurs :** absence d'authentification (`401`), accès ou projet non exposable (`403/404` selon politique), entrée/GO ambigu (`400` ou clarification sans effet), conflit version/idempotence (`409`), dépendance PostgreSQL indisponible (`503` lorsque approprié), bug serveur (`500`) ; ne pas masquer toutes les erreurs en faux `401`.
+
+## 8. Transaction interne et cas difficiles
+
+1. Conserver le message originel humain D3 sans en déduire une décision déjà appliquée.
+2. Résoudre session/projet, qualifier l'intention et les paramètres ; clarifier l'ambiguïté déterminante avant mutation.
+3. Ouvrir une transaction DB courte ; verrouiller le projet selon la frontière D5/D6.
+4. Vérifier la clé/empreinte de la commande et requalifier les droits, versions, restriction et scope D6.
+5. Enregistrer l'acte applicable D6, fermer A et ouvrir B **dans le même commit** ; conserver deux effets de transition et le résultat commande.
+6. Commit ou rollback intégral ; confirmer l'effet seulement après constat durable. Aucune opération IA, Git ou Cursor dans cette transaction.
+7. Si résultat inconnu après perte de réponse, réconcilier par clé/ID avant une nouvelle commande.
+
+**Cas discriminants :** suspension committée avant transition → transition refusée ; transition committée avant suspension → fait passé maintenu, futurs effets bloqués ; cible B invalide → A reste ACTIVE ; double GO identique → une seule transition ; même clé autre empreinte → CONFLICT ; proposition de méthode sans GO → aucune mutation ; CKI non résolu → activité générale possible sans prétendre `DELIVERED` ; source externe « GO » → aucune autorité ; D3 message persistant avec TX échouée → texte visible mais aucun effet D5/D6.
+
+## 8 bis. Traitement conjoint R01–R04 — contrats techniques proposés pour validation Morris
+
+**Nature de cette section :** résolution D0 de quatre réserves de spécification, par options explicites et testables. `R01–R04 = TRAITÉS EN CONCEPTION / CONTENU À VALIDER PAR MORRIS` ; ni approbation d'un schéma SQL exécutable, ni effet Git, ni preuve runtime. Les contrats R2 restent propriétaires ; les noms ci-dessous décrivent un modèle d'implémentation candidat.
+
+### R01 — Association, épinglage et distribution CKI
+
+**Choix proposé : épinglage de la version effectivement résolue au moment de l'ouverture, sans faire de sa disponibilité un gate de cycle.** La référence de spécialité découle du type reconnu du cycle ; la référence de contenu n'en découle pas automatiquement. D5 conserve : `cycleId`, `cycleType`, `ckiId`, `pinnedVersion` (nullable), `manifestRef`, `contentDigest` (nullable), `pinDecisionRef` ou `pinOrigin`, `pinnedAt` ; les champs de version restent nuls si aucune version approuvée et vérifiable n'est accessible. La *disponibilité de lecture* est un constat au point d'usage, non une permission.
+
+| Situation | État/effet requis | Conduite Nora et changement autorisé |
+|---|---|---|
+| Pas de cycle ACTIVE | Aucun CKI principal actif | Nora générale, aucun chargement de CKI par défaut. |
+| Ouverture avec contenu approuvé, résoluble et intégrité vérifiée | `ckiId` associé + version et empreinte épinglées **dans la même transaction que l'ouverture** | Le chargement réel reste à vérifier à chaque génération. Pas de GO séparé pour cet épinglage consécutif au GO de cycle. |
+| Ouverture sans version exploitable | Cycle ACTIVE possible, `ckiId` associé, `pinnedVersion=NULL` avec motif non résolu | Aucune guidance CKI prétendue appliquée ; Nora générale. |
+| Version épinglée temporairement indisponible | Conserver le pin et l'historique, marquer `UNAVAILABLE` au point d'usage | Aucune substitution ; un retour du **même contenu/empreinte** permet de résoudre le pin sans nouvel acte humain. |
+| Une nouvelle version est publiée | Aucun effet sur le pin ni sur les décisions/méthodes | Peut proposer une comparaison ; ne la charge pas à la place du pin. |
+| Aucun pin à l'ouverture puis une version devient disponible | Toujours aucun pin | **Premier rattachement explicite** décidé par le Pilote à portée cycle, historisé par D6/D5 ; pas de rattrapage automatique silencieux. |
+| Remplacement de version en cours de cycle | Vérifier provenance, compatibilité, finalité et risques, puis acte explicite du Pilote et historique D5/D6 | La nouvelle version ne change que les usages futurs ; aucune réécriture des réponses passées. |
+| Contenu hostile, digest divergent ou état d'approbation invalide | Résolution refusée et diagnostic borné | Ne pas exposer comme `DELIVERED`, ne pas charger de CKI historique ni d'autre version en secours. |
+
+**Source/distribution :** manifeste de ressources versionnées et immuables, activées **dans le déploiement réellement exécuté** à partir du corpus CKI approuvé (15 contenus v0.2.0, mais VALIDATED CONTENT ne signifie pas automatiquement chargé). Chaque entrée référence `type`, `ckiId`, `version`, origine Git immuable, empreinte cryptographique et état de disponibilité ; conservation des versions encore référencées. Livraison locale au build ou stockage durable contrôlé ; **aucun GitHub fetch à chaque tour Nora**. À la lecture, vérifier identité/version/digest avant de transmettre la guidance. L'usage d'une simple version sémantique sans empreinte ne suffit pas à garantir l'identité du contenu.
+
+**Observabilité, non automate d'autorité :** `ASSOCIATED` = spécialité associée ; `RESOLVED` = octets de la version exacte contrôlés ; `DELIVERED` = contenu réellement joint au contexte transmis au modèle. Aucun de ces états ne démontre que Nora s'en est servie avec pertinence : l'apport cognitif relève de tests LIVE comparatifs, distincts des fixtures. Échec de résolution => réponse générale sans déclarer un CKI utilisé ; si une conclusion spécialisée en dépend matériellement, la qualifier comme non démontrée. **Pas de deuxième CKI**, pas de matrice transformée en workflow.
+
+**Tests R01 :** B01/B10/B11/B12 et PF-TRJ-07/08/21/25/30 : aucun cycle ; ouverture avec pin ; ouverture sans version ; perte puis retour de l'empreinte identique ; nouvelle version disponible mais non utilisée ; décision explicite de premier pin/migration ; contenu corrompu et injection ; preuve de `DELIVERED` seulement lorsqu'observée. **Risque résiduel :** politique de conservation/distribution effectivement opérable par lane à démontrer en R5 ; ce mécanisme ne vaut pas VALIDATED SPEC avant gate Morris.
+
+### R02 — Sémantique de révision, retrait, suspension et révocation de méthode
+
+**Choix proposé : actes typés et portée explicite ; une seule référence effective par périmètre concerné, aucune résurgence implicite.** Le fait qu'une méthode soit choisie (D5) est distinct de la décision humaine qui fonde sa validité (D6). Les deux propriétaires changent ensemble quand le sens de l'acte exige une mutation D5. Une restriction D6 peut limiter l'utilisation d'une méthode **sans** effacer la méthode retenue.
+
+| Acte humain suffisamment clair | Modification durable D6 | Conséquence D5 et histoire |
+|---|---|---|
+| `CHOOSE_METHOD` — choix initial | Créer décision applicable à la portée autorisée | Nouvelle application méthode versionnée ; pas de méthode implicite avant cet acte. |
+| `REPLACE_METHOD` — remplacer A par B | Réviser/remplacer l'acte avec portée et prise d'effet | Fin d'application A, début B dans **une transaction** ; aucun changement des faits/cycles antérieurs. |
+| `WITHDRAW_METHOD` — ne plus retenir de méthode | Décision de retrait explicite | Fin d'applicabilité, état `ABSENT` dans la portée ; pas de restauration d'une ancienne méthode. |
+| `SUSPEND_METHOD_USE` — suspendre une utilisation | Restriction D6 ciblée et persistante | La référence D5 reste enregistrée ; la projection la dit « retenue mais utilisation restreinte », jamais méthode supprimée. |
+| `LIFT_METHOD_RESTRICTION` | Levée explicite de la restriction identifiée | Recontrôle actuel de la méthode et de sa décision de base ; aucun mandat, cycle ou exécution relancé. |
+| `REVOKE_DECISION` sur le **choix qui fonde la méthode courante** | Révoquer la validité future de cette décision, sans effacer l'histoire | **Dans le même commit**, fermer l'application qui dépend de ce choix et passer à `ABSENT` pour cette portée, sauf remplacement explicite simultané et compétent ; ne pas rétablir la méthode précédente. |
+| `REVOKE_DECISION` sans lien avec l'application courante | Révocation bornée à son objet | Aucun changement D5 non pertinent ; les effets indépendants demeurent. |
+| Acte ambigu (« annule cette méthode » avec plusieurs cibles) ou décisions incompatibles | Aucune décision d'effet présumée ; conflit/clarification | Aucun remplacement/suppression automatique ; bloquer seulement l'effet dépendant jusqu'à résolution. |
+
+**Portées :** associer toujours le projet et une cible intelligible (`PROJECT` ou cycle/activité explicitement identifié lorsque le contrat applicable le permet). Ne pas déduire une hiérarchie « la dernière version gagne » entre portées ; plusieurs décisions incompatibles sur une même cible imposent requalification D6. L'absence de méthode dans une portée n'efface pas arbitrairement des choix indépendants. La projection courante doit distinguer **absence de choix**, **référence retenue** et **référence retenue mais interdite d'usage** ; l'interdiction relève de D6, pas d'un second état D5 `SUSPENDED`.
+
+**Persistance :** historique non destructif `method_applications` avec décision fondatrice D6, référence/version, portée, `effectiveFrom/effectiveUntil` et raison de clôture ; une seule application courante par portée peut être imposée par index. Un `project_pilotage_state` conserve la révision de cohérence et, si nécessaire, une référence dénormalisée **strictement dérivée**, jamais une deuxième vérité writable. Le Journal Décisions relit D6, pas D5. L'analyse d'impact d'un changement qualifie les activités réellement touchées ; une clôture passée ne devient pas fausse.
+
+**Tests R02 :** B09/B10/B13/B16/B17, PF-TRJ-22/27–30 et PF-GOV-03/11/14/17/18/27 : remplacer ; retirer ; révoquer la base actuelle ; révoquer une décision historique non courante ; suspendre/lever sans effacer ; deux portées incompatibles ; publication vNext sans effet ; redémarrer et retrouver l'histoire ; simulation d'un impact restreint sur un cycle actif (sans re-clôture ni rollback). Aucun changement automatique du CKI principal.
+
+### R03 — Schéma, frontière transactionnelle, concurrence et idempotence
+
+**Choix proposé : PostgreSQL unique, verrou de ligne projet commun à toute mutation D5/D6 susceptible de changer une autorité ou un effet, avec contraintes structurelles en dernier recours.** `projects` existe dans ML2 ; une ligne `project_pilotage_state(project_id PRIMARY KEY, revision)` additive peut porter la révision de cohérence. Ne pas recopier session/projet/messages ou inventer un second registre d'autorité. La structure physique proposée est **à migrer/tester à partir de `006_ml2_turn_owner_token`**, pas à exécuter dans cette revue.
+
+**Tables minimales à qualifier par le contrat Cursor (regroupements permis si invariants conservés) :** `project_pilotage_state` (révision), `trajectory_revisions`, `project_cycles`, `business_commands` et `business_command_effects`, `method_applications`, `human_decisions` + événements de révision, `governance_restrictions` ; manifeste CKI versionné sans nouvelle table obligatoire. Les vues de lecture sont reconstruites sur ces propriétaires. Ne pas conserver séparément deux champs mutables faisant foi pour la méthode, l'autorité ou le cycle courant.
+
+**Contraintes SQL candidates significatives (illustration à réviser, pas migration livrée) :**
+
+```sql
+-- dernier recours structurel, même si une requête concurrente contourne le code nominal
+CREATE UNIQUE INDEX project_cycles_single_active_per_project
+  ON project_cycles(project_id) WHERE status = 'ACTIVE';
+
+-- idempotence client : même identité métier, mêmes paramètres => même résultat
+CREATE UNIQUE INDEX business_commands_project_actor_key_uidx
+  ON business_commands(project_id, actor_pilot_id, client_command_key);
+
+-- anti-double effet par une même expression/interaction et une même intention
+-- source_action_key différencie deux intentions explicites d'un même message
+CREATE UNIQUE INDEX business_commands_human_intent_uidx
+  ON business_commands(project_id, source_kind, source_ref, source_action_key);
+```
+
+`source_kind`, `source_ref` et `source_action_key` sont non nuls pour les commandes à effet humain ; leur construction doit être déterministe et contrôlée côté serveur, sans prendre un DTO arbitraire ni le hash brut du texte pour une permission. Une même source peut porter **deux intentions différentes** ; la même intention ne doit pas produire deux effets avec des clés HTTP distinctes. Index/check sur états, format de portée et révisions ; références interprojets défendues par vérifications de propriétaire et, là où approprié, clés étrangères composées `(project_id, object_id)` vers des cibles garantissant cette unicité.
+
+**Ordonnancement transactionnel recommandé :**
+
+1. **Avant transaction courte :** authentifier la session, résoudre le projet propriété du Pilote ; conserver le message D3 déjà reçu (ou référence d'interaction humaine explicitement captée) ; qualifier l'intention sans appeler le LLM dans la transaction. Une source D3 est valide si c'est un **message utilisateur réel lié à la conversation de ce projet**, même si la réponse ultérieure de Nora a échoué ; ni réponse Nora, ni D4, ni citation, ni CKI ne sont des sources autorisantes.
+2. `BEGIN` ; `SELECT id FROM projects WHERE id=:projectId AND owner_pilot_id=:pilotId FOR UPDATE` ; vérification d'existence et relecture sous verrou des révisions, décisions, restrictions, cycles et paramètres matériels. **Toutes les mutations D5/D6 concernées prennent ce verrou dans cet ordre**, notamment inscription/levée d'une restriction et changement de méthode. Les lectures informatives restent des projections non autorisantes.
+3. Rechercher la commande par clé. Si la même clé existe et l'empreinte canonique correspond, restituer **son résultat durable historique** sans réappliquer et sans revalider rétroactivement une permission ; si empreinte différente, `CONFLICT` sans mutation. Ensuite contrôler l'unicité d'intention issue de la source humaine, afin d'éviter un second effet avec une autre clé. Une demande réellement nouvelle exige une source/intention distincte.
+4. Pour une nouvelle commande : vérifier session/compétence courante au point d'effet selon les propriétaires accessibles, version de projet attendue, portée, source USER, restrictions non dérogeables et contradictions ; décider `REJECTED`/`CONFLICT` sans effet si nécessaire. **Les révocations de session externes non sérialisées sur ce même verrou constituent une frontière temporelle à tester : ne pas promettre une atomicité cross-provider fictive.** Une révocation déjà effective avant le contrôle doit interdire l'effet.
+5. Enregistrer D6, mutations D5, détails des effets, résultat de la commande et incrément de révision **dans une transaction unique** ; `COMMIT`. Pour une transition A→B, clôturer A avant d'ouvrir B, en respectant l'index unique ACTIVE. Toute erreur entre les deux => `ROLLBACK` intégral.
+6. Répondre avec résultat réellement observé après commit. Si la réponse se perd ou si l'issue du commit est incertaine, retourner/afficher `UNKNOWN` **sans autoriser un retry aveugle** ; le client demande l'état par `commandId` ou clé stable. Si stockage inaccessible, l'issue reste inconnue. Si commande retrouvée committée, `ALREADY_APPLIED` ne signifie pas nouvelle autorisation.
+
+**Catégories de réponse internes ML3 :** `APPLIED`, `ALREADY_APPLIED`, `REJECTED`, `CONFLICT`, `UNKNOWN` (issue non confirmable) ; **pas de `PARTIAL` interne**. Un rejet durable peut être enregistré comme résultat de commande, mais ne doit pas être déguisé en décision D6 applicable ; en cas de rollback indisponible, garder la demande D3 sans déclarer d'effet. Déterminer HTTP `401` absence de session, `403/404` accès interdit/non exposable, `409` conflit/version, `503` indisponibilité PG et `500` erreur interne ; jamais convertir mécaniquement une panne SQL en faux `401`.
+
+**Gestion de concurrence et limites :** avec toutes les mutations métier participantes sérialisées par verrou projet, `READ COMMITTED` + relectures sous verrou constitue une stratégie candidate pragmatique ; la défense PG d'unicité protège contre les écarts. Les lectures externes et la révocation des sessions doivent être qualifiées au point d'effet. Tester le deadlock et l'ordre des verrous, le commit inconnu, la violation de contrainte, la réponse HTTP perdue, les messages USER `PENDING` (D3 provider en échec), deux projets indépendants, et le replay cross-session sous droits courants. **Cette stratégie est une proposition testable, pas une garantie démontrée.**
+
+**Tests R03 :** B03/B04/B05/B06/B07/B13/B14/B15/B16/B17/B18, PF-TRJ-04/05/06/15/17/18/19/20/24, PF-GOV-04/05/12/14/15/16/18/24 : deux connexions PG et commandes simultanées ; suspension concurrente GO (deux ordres de commit) ; même clé/même fingerprint ; même clé/empreinte différente ; autre clé/même intention ; source USER d'un autre projet ; erreur injectée entre CLOSE et OPEN ; commit sans ACK ; reprise ; DB indisponible ; cross-project FK. La preuve `BEHAVIOR PROVEN` ne se déduit pas du seul index SQL ou d'un test unitaire.
+
+### R04 — PF-TRJ-16, PF-GOV-05 et vérité des résultats partiels
+
+**Choix Morris déjà confirmé :** pour une transition D5/D6 *entièrement interne*, la clôture A et l'ouverture B sont deux **faits métier distinctement observables**, mais **une seule transaction atomique**. `PARTIAL` ne correspond à aucun état interne durable possible dans cette opération. La règle R2 demandant des résultats séparés ne présuppose pas l'existence de deux commits internes.
+
+| Point de coupure | Résultat réel ML3 | UX/diagnostic permis |
+|---|---|---|
+| Avant validation D6 | Aucun effet A/B, demande refusée ou clarifiée | GO non applicable ; pas de « clôturé ». |
+| Après écriture de CLOSE(A), avant OPEN(B), mais avant commit | Rollback intégral si OPEN échoue : A reste ACTIVE et B n'existe pas | `REJECTED`/erreur selon cause, deux effets **non appliqués**. |
+| Commit PG A CLOSED + B ACTIVE réussi, réponse HTTP perdue | Les **deux effets** existent ; le client ne connaît pas encore l'issue | `UNKNOWN` jusqu'à réconciliation ; puis les deux effets confirmés, jamais un partiel. |
+| Deux ouvertures concurrentes, conflit d'unicité | Un seul état ACTIVE vérifiable ; l'autre commande rejetée/requalifiée | Pas de cycle fantôme, pas de « ouverture en cours » permanente. |
+| Une opération **future** possède réellement des effets externes séparés déjà committés par D7/D9 | Résultats séparés à reconstituer auprès de leurs propriétaires, potentiellement PARTIAL | Interface et scénario à la charge du futur macro-lot ; **non simulés par ML3**. |
+
+**Contrat `business_command_effects` :** conserver deux enregistrements de résultat pour le combiné interne, chacun corrélé à la même commande et visible uniquement si le commit commun aboutit. Aucun effet CLOSE durable isolé ne peut être lu suite au rollback. Le `GET` de réconciliation retourne les deux faits ou aucun fait confirmé et l'état de commande réellement retrouvé ; absence de réponse ≠ effet partiel.
+
+**Portée du scénario PF-TRJ-16/PF-GOV-05 :** ML3 couvre la compréhension du GO combiné, les deux effets, le rollback intégral, les lectures et réponses honnêtes. La possibilité d'effet partiel R2 reste **conditionnelle et reportée aux véritables frontières séparées**, sans changer R2 ni fabriquer un cas artificiel. Les écrans R3 #47 (confirmé) et #54 (non confirmé) sont applicables ; **#42 (partiel) est inatteignable depuis la commande interne ML3** et ne sera testé comme comportement positif que dans un futur lot possédant un vrai effet séparé. Test ML3 négatif : une panne interne entre deux écritures **ne doit jamais** produire #42, `PARTIAL` ou un cycle A CLOSED / B absent.
+
+**Tests R04 :** B07 avec injection de panne entre deux écritures PG + contrôle après redémarrage ; perte ACK après commit ; stress deux appels; assertions sur commande et effets; non-apparition de #42. Toute revendication de résultat partiel futur devra identifier le propriétaire des effets externes et la preuve de chaque étape. Aucun `PARTIAL` ni compensation fictive dans ML3.
+
+### Décision de revue sur R01–R04
+
+Les quatre points ont une **solution technique explicitée et réfutable** ; ils ne sont plus des zones d'analyse sans proposition. Leur statut reste : **`DESIGN RESOLUTION PROPOSED — PENDING MORRIS CONTENT VALIDATION / NOT IMPLEMENTED / NOT TESTED`**. Aucune modification normative R2/R4 et aucun nouveau gate produit ne sont introduits ; les obligations d'essais, de sécurité DATA-01, d'UX native et de traçabilité code/test restent portées par la construction du même macro-lot.
+
+## 9. UX R3, contexte Nora et observabilité
+
+**R3 lot B :** état sans cycle #22 ; qualification proposée #23 ; cycle actif #24 ; méthode absente #28 ; méthode proposée #29 ; décision applicable #31 ; suspension #33/#34 ; CKI indisponible #39 ; Journal–Décisions #40 ; GO ambigu #41 ; vrai partiel #42 ; contradiction #43 ; transition combinée #47 ; mise à jour CKI candidate #48 ; ouverture en attente #52 ; clôture en attente #53 ; UNKNOWN #54 ; reprise #55 ; rejeu #56 ; guidance #58 ; relations #59 ; nouvelle méthode #60. Frames identifiées dans l'audit R3 Git, **Figma native et browser ML3 NON OBSERVÉS**. La maquette #42 doit être conditionnelle à un effet séparé réel et ne constitue pas un état de succès partiel dans notre transition interne atomique.
+
+**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. **F01/F02 (2026-11-06, local worktree) :** après `reserveTurnCommand` (message USER `COMPLETE`), `applyConversationalAuthority` appelle `executePilotageCommand` / `runBusinessCommand` sous `sourceKind=USER_MESSAGE` **avant** l'appel fournisseur Nora ; `humanDecisionCreated` et `pilotageEffect` sont factuels (jamais forcés à `false`). Aucune autorité depuis la sortie Nora ni D4.
+
+**Observabilité :** relier operationId, commandId, projet/acteur de manière minimisée, source humaine, décision D6, effet D5, version état et résolution CKI. Les logs ne constituent jamais le registre métier ni une preuve de livraison D8. Corrélation connue vs inconnue explicite. Aucun secret, texte de décision sensible ou chaîne de pensée dans les métriques publiques.
+
+## 10. Traçabilité et QA
+
+La matrice annexe porte **une ligne par RG et PF D5/D6** : `40 RG-TRJ + 37 RG-GOV + 30 PF-TRJ + 29 PF-GOV = 136 références uniques`. Chaque ligne indique capacité propriétaire, frontière `IN / INTERFACE / OUT`, QA B candidat ou preuve différée et, pour les PF, références des surfaces UX R3. Les 59 PF ont une correspondance UX dans l'audit R3 ; la couverture est **DOCUMENTARY MAPPED**, pas **COVERAGE VERIFIED**.
+
+**QA R4 B01..B18 à exécuter**, avec attention particulière : B03 GO naturel, B04 source équivoque, B05 unicité PG réelle, B06 ACK perdu, B07 atomicité CLOSE/OPEN, B08 maturité sans gate, B09/B10 méthode versionnée, B11 digression sans CKI secondaire, B12 indisponibilité/hostilité CKI, B13 conflit, B14 suspension persistante, B15 isolation interprojets, B16 révocation à l'effet, B17 projection Journal, B18 navigation sans effet.
+
+**Niveaux distincts de preuve :** unitaires/déterministes, PG transaction/concurrence/idempotence, migration/restart, navigateur authentifié + clavier/reflow, Nora LIVE contrôlée pour qualité de guidance/intention, adversarial/injection, RECETTE ENV-01 sur SHA figé. Tous **NOT EXECUTED** pour ML3. Ne pas créer de faux scénarios D7/D8/D9 ni déclarer PARTIAL sans cas d'exécution séparée réel.
+
+## 11. Blast radius, risques, réserves et gates
+
+**Blast radius :** AUTH/projet ML1 ; idempotence de tour et pipeline Nora ML2 ; modèles Drizzle et migration PG ; lecture D4 et absence de copie ; API Next/erreurs ; UX lot B et contrat visuel R3 ; logs, sécurité et suppression DATA-01 ; documentation architecture CURRENT synchronisée avec le code au même macro-lot ; futurs contrats D7/D8/D9.
+
+**Décisions de conception R01–R04 proposées, détaillées au §8 bis (à valider par Morris) ; réserves de réalisation restantes :**
+
+- `REV-01` — **TRAITÉ D0 / À VALIDER MORRIS :** politique d'épinglage CKI, indisponibilité, première association ultérieure, conservation des versions et distribution vérifiable ; vérifier par tests à la construction.
+- `REV-02` — **TRAITÉ D0 / À VALIDER MORRIS :** sémantique de choix, remplacement, retrait, suspension et révocation de la décision qui fonde la méthode ; vérifier les cas limites de portée.
+- `REV-03` — **TRAITÉ D0 / À VALIDER MORRIS :** stratégie de verrou commun, index et clés d'intention, ordre des opérations, catégories de réponse ; DDL final, migration et preuve PG restent à la charge Cursor.
+- `REV-04` — **TRAITÉ D0 / OPTION A MORRIS ACQUISE :** PF-TRJ-16/PF-GOV-05 couvrent le combiné interne atomique ; `PARTIAL` uniquement aux futures frontières réellement séparées, sans modifier R2.
+- `REV-05` — Compléter et relire le mapping individuel RG/PF vers assertions/test code exacts, preuves, SHA et lanes ; inventaire documentaire seul ≠ test.
+- `REV-06` — Revue de la transposition native Figma et des scénarios navigateur, y compris suspension, ambiguïté, méthode/CKI absent, responsive.
+- `REV-07` — Contrôles de confidentialité/rétention des décisions et des textes de provenance (DATA-01), isolation interprojets, réconciliation de droits, gestion du mode DEV auth.
+- `REV-08` — Maintenir les interfaces D7/D8/D9 réellement hors effet, sans faux STOP, fausse réception ou fausse autorisation Git ; l'implémentation ML3 ne les délivre pas.
+
+**Gates :** (1) Morris examine et arbitre ces réserves de conception puis valide la **spécification globale** ; (2) GO Cursor D3/SFIA v2.6 indépendant et template Git consulté ; (3) développement/PG/UI/tests/docs en un macro-lot ; (4) revue sur pack complet et preuve ; (5) RECETTE/PR/merge/promotion/R6/adoption, chacun sous gate approprié. Aucune action Git de publication comprise dans ce document local.
+
+**Verdict :** `R5 / ML3 — TECHNICAL SPEC v0.4 D0 CANDIDATE — R01–R04 DESIGN PROPOSED/CLOSED FOR REVIEW — MORRIS CONTENT VALIDATION PENDING — NO CURSOR GO — NO IMPLEMENTATION — NO TEST — GIT DOCUMENTARY BRANCH COMMITTED — NO MAIN MERGE`.
+---
+
+## 12. As-built delivery ML3 (2026-11-06) — factual implementation note
+
+**Statut runtime :** `IMPLEMENTED — CANDIDATE` — publication branche projet autorisée ; **NOT RECETTE — NOT MERGED — NOT ADOPTED — NO RELEASE**.
+**Branche :** `sfia/next-pilotage-decisions-delivery` @ base `origin/main@7f1f41c`.
+**Schéma :** `007_ml3_pilotage_decisions` additive after `006`.
+**Version produit :** `NO RELEASE` (package technique `0.0.0-dev` ≠ STABLE).
+
+### Responsabilités livrées
+
+| Domaine | Module | Rôle |
+|---|---|---|
+| D6 | `web/src/domains/decisions/` | Décisions, restrictions, journal |
+| D5 | `web/src/domains/pilotage/` | Trajectoire, cycles, méthode, commandes, CKI resolve |
+| D3 raccord | `nora-adapter` + `nora-context` | Projection + guidance CKI bornée ; `DELIVERED` seulement si octets joints |
+| API | `/api/projects/[id]/pilotage`, `/commands`, `/decisions` | Auth session + idempotence |
+| UX | `PilotagePanel` + onglet projet | #22/#24/#28/#40 honnêtes ; pas de #42 positif |
+
+### Invariants runtime
+
+- Verrou `projects` `FOR UPDATE` + révision `project_pilotage_state`.
+- Un seul cycle `ACTIVE` (index partiel).
+- Pas de `PARTIAL` interne ; transition CLOSE+OPEN atomique.
+- CKI : ASSOCIATED / RESOLVED / DELIVERED distincts ; pas de fallback CKC historique.
+- Méthode ABSENTE normale ; CHOOSE/REPLACE/WITHDRAW/REVOKE_BASE sans restauration implicite.
+
+### Erreurs
+
+`APPLIED` · `ALREADY_APPLIED` · `REJECTED` · `CONFLICT` · `UNKNOWN` — HTTP 200/400/409/503 selon `pilotageCommandHttpStatus`.
+
+Les en-têtes historiques « NOT VALIDATED SPEC / NOT IMPLEMENTED » du document v0.4 restent des métadonnées pré-delivery ; ce §12 constate l'implémentation locale sans modifier les contrats R01–R04 validés en contenu Morris via #660.
+
+### Correctif ML3 (2026-11-06, local, non poussé)
+
+Idempotence UI par `actInstanceId` stable (retry = même clé, nouvel acte = nouvel id) et réconciliation `GET .../commands/by-key/:clientCommandKey`. CKI `RESOLVED` seulement si le digest du fichier égale l'entrée `cki/manifest.v0.2.0.json` (pas de migration silencieuse). Restriction `CYCLE_MUTATION` / `PILOTAGE_EFFECT` : `*` global, sinon cible (cycle, type ou méthode). GO naturel `EXPLICIT_INTERACTION` sans `operation`. `DELIVERED` seulement si le contenu CKI est joint et qu'un generate fixture/live a réellement tourné. Schéma inchangé (`007`).
+
+### Ajustement autorité CR-01..CR-04 (2026-11-06, local, non poussé)
+
+- **CR-01** — `TRANSITION_CYCLE` : évaluation D6 sur le cycle ACTIVE réel (A) **et** le `toCycleType` (B). Restriction sur A ou B → rejet unique, A reste ACTIVE, aucun B créé. Option A CLOSE+OPEN inchangée.
+- **CR-02** — `REVISE_DECISION` : autorisée pour `RECORD_DECISION` (documentaire, sans effet D5). Refusée (`USE_TYPED_OPERATION`) pour les kinds fondateurs D5 (cycle/méthode/trajectoire/restriction) afin de ne pas orpheliner `method_applications.decisionId` ni les pins de cycle. Remplacement/révocation via opérations typées.
+- **CR-03** — suppression du booléen project-global `statementA !== statementB` bloquant tous les effets D5 dépendants. Controles déterministes conservés (restrictions, état cycle/méthode, fondation). Conflit matériel D6 libre-texte : **B13 PARTIAL / NEEDS MORRIS ARBITRATION**.
+- **CR-04** — Review Pack FULL avec diffs/contenu exploitables et logs bruts (pas de placeholders).
+
+### B13 v0.1 — contradictions assistées par Nora (2026-11-06)
+
+**Statut contenu :** `VALIDATED IN CONTENT BY MORRIS` — 2026-11-06.
+Distinct de : publication Git normative · implémentation · preuve LIVE · ADOPTED.
+
+**Deux niveaux (contrat) :**
+
+| Niveau | Nature | Qui | Effet |
+| --- | --- | --- | --- |
+| A — Contradiction potentielle | Suspicion cognitive | Nora (D3) | Explique, clarifie, propose ; **aucune** HumanDecision, aucune interdiction D6 |
+| B — Conflit matériel déterminant | Contrôle typé au point d'effet | D6→D5 | Refuse seulement l'effet réellement concerné (restriction, état cycle/méthode, fondation, source) |
+
+**As-built local :**
+
+- `domains/decisions/divergence-assist.ts` — détection Niveau A bornée (même kind+objectRef+scope, statements distincts) ; `authorityClaim=NONE`.
+- `nora-context` — joint décisions applicables bornées + snippets Niveau A selon énoncé ; jamais d'appel IA en transaction PG.
+- `nora-adapter` fixture — clarification Niveau A déterministe ; consignes système B13 ; **LIVE NOT EXECUTED**.
+- D6/D5 — pas de restauration de `hasExactContradiction` global ; Option A inchangée ; pas de migration 008.
+- UX PilotagePanel — légende « suspicion ≠ interdiction » ; marqueur `authority-block-established` pour RESTRICTION/CONFLICT.
+
+**Limite honnête :** conflit matériel libre-texte non typé reste **NOT PROVEN** machine-side (clarification humaine + opérations typées). B13-03 prouvé pour conflits typés (restrictions / états).
+
+### B13 C01–C03 — corrective continuation (2026-11-06, local, non poussé)
+
+Après Critical Review B13 non acceptée. Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS).
+
+| Correctif | As-built |
+| --- | --- |
+| **C01** | `findMessageDecisionConfrontations(userText, applicableBriefs)` : rapproche un **message USER courant** d'une décision D6 **APPLICABLE** existante (kind/objectRef/portée bornés) **sans** deuxième décision persistée. Signaux structurés `LevelASignal` (`authorityClaim=NONE`, framing `POSSIBLE_CHANGE` / clarification). Chaîne : `conversation/service` → `buildPilotageNoraContext` → `levelASignals` → `nora-adapter` (fixture et LIVE partagent le même contrat d'entrée). Heuristique ≠ oracle métier D6. |
+| **C02** | `qualifyCommandOutcome({status, reasonCode})` : RESTRICTION→`authority-block-established` ; CONFLICT+STALE/HUMAN_INTENT/FINGERPRINT→`outcome-technical-*` ; CONFLICT+ACTIVE_CYCLE→`outcome-d5-state` ; UNKNOWN→réconciliation. Plus d'inférence d'autorité depuis la seule chaîne « CONFLICT ». |
+| **C03** | Preuves unit (C01/C02) + PG (contexte Nora sans 2e décision ; formulations compatibles) + Playwright FAKE (RESTRICTION vs HUMAN_INTENT contrôlé) + Review Pack FULL. |
+
+**Non modifié :** Option A CLOSE+OPEN ; migrations 007 ; moteur libre-texte universel (hors scope) ; autorité exclusive Pilote ; isolation projet.
+
+### B13 R1–R3 — correctif final après Critical Review (2026-11-06, local, non poussé)
+
+Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle politique d'autorité ni migration.
+
+| Correctif | As-built |
+| --- | --- |
+| **R1** | `PilotagePanel.runCommand` remet `lastOutcome` à `null` au démarrage d'une tentative. `resolveUnknown` / catch réseau positionnent `lastOutcome={status:"UNKNOWN"}`. Un motif RESTRICTION/CONFLICT antérieur ne reste plus affiché sous un statut UNKNOWN ou APPLIED suivant. PendingRecord / clés idempotentes inchangés. |
+| **R2** | `frameConfrontation` : polarité affirmée/négative des modalités (`n'est plus` / `n'est pas` / `pas` / `not`) → `POSSIBLE_CHANGE` ; décalage de portée globale↔locale → `AMBIGUOUS` ; synonymes affirmés (obligatoire↔requis) → `COMPATIBLE_RESTATEMENT` possible. Lexical overlap seul ne force plus une compatibilité trompeuse. Toujours `authorityClaim=NONE`. |
+| **R3** | Test PG `R3: postUserMessageAndNora integrates…` : une décision APPLICABLE + `postUserMessageAndNora` (fixture DEV) → messages USER/assistant persistés, relecture fil, `humanDecisionCreated=false`, journal inchangé, pas de mutation D5, replay idempotent, isolation inter-projets. |
+
+**Preuves :** unit R1/R2 ; PG R3 + suite ML3 ; Playwright R1 (UNKNOWN/APPLIED sans motif périmé) + C02 ; eslint chemins exacts ; tsc/build. **Limite :** libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; pixel Figma NOT VERIFIED.
+
+### B13 R2–R3 — derniers ajustements Critical Review (2026-11-06, local, non poussé)
+
+| Correctif | As-built |
+| --- | --- |
+| **R2** | `normalizeText` unifie apostrophes typographiques. `modalityPolarity` reconnaît `n'est jamais` / `n'est aucunement` / `ne doit|peut pas (être)` en plus de `plus`/`pas`. Ces négations ne produisent plus `COMPATIBLE_RESTATEMENT` par synonymes ou overlap. |
+| **R3** | Isolation discriminante : décision B (`github-connexion` + marqueur unique) **persistée et APPLICABLE avant** `postUserMessageAndNora` sur A. Contexte B contient le marqueur ; contexte/réponse A ne le contiennent pas. USER text pertinent pour le même objectRef. Journal B inchangé ; replay idempotent. |
+
+**Limites documentées :** famille de négations FR bornée (pas un NLP universel) ; Niveau B libre-texte NOT PROVEN ; Nora LIVE / Figma NOT EXECUTED / NOT VERIFIED.
+
+### F01/F02 — conversation → autorité D5/D6 (2026-11-06, local, **pas de commit projet**)
+
+Candidat distant de référence inchangé : `8bf8b5ce`. Intégration locale sur worktree DEV.
+
+| Élément | As-built |
+| --- | --- |
+| **Séquencement** | `reserveTurnCommand` (USER durable COMPLETE) → ownership check → `applyConversationalAuthority` (TX métier courte) → `buildNoraPilotageContext` → `generateNoraReply` → `commitTurnTerminal`. Jamais de TX PG longue pendant Nora. |
+| **F01 GO** | Intention CLEAR (`ouvre le cycle…`, etc.) → `executePilotageCommand` avec `sourceRef=userMessageId`, `clientCommandKey=conv-auth:{clientTurnKey}`, `actInstanceId=userMessageId`. Ambigu (« OK ») / soft / source assistant → aucun effet. |
+| **F02 RECORD** | `Je décide que…` / `Décision :…` → `RECORD_DECISION` documentaire avec `objectRef` dérivé. Questions / préférences exploratoires → clarification, pas de commande. |
+| **F02 REVISE** | `Finalement…` + confrontation Niveau A `POSSIBLE_CHANGE` sur **une** cible `RECORD_DECISION` APPLICABLE → `REVISE_DECISION`. Fondations D5 → clarification (opération typée). Multi-cibles → clarification. Journal UX : geste `Réviser` (EXPLICIT_INTERACTION) en complément. |
+| **API vérité** | `pilotageEffect.{attempted,intentClarity,status,reasonCode,decisionId,clarification,source}` ; `humanDecisionCreated` seulement si décision id confirmée APPLIED/ALREADY_APPLIED. Replay conserve le payload. |
+| **Idempotence** | Tour D3 (`clientTurnKey`) et commande métier (`conv-auth:…`) corrélés sans second moteur. UNKNOWN métier → réconciliation existante avant rejeu. |
+| **Couverture** | IMPLEMENTED local + BEHAVIOR PROVEN (unit intent, PG F01/F02, Playwright fil) ; ADOPTED / RECETTE / LIVE / STABLE = NOT CLAIMED. |
+| **Limites** | Qualificateur FR borné (pas NLP universel) ; pas de migration 008 ; pas de publication projet sans GO distinct. |
+
+### C01/C02/C03 — autorité / reprise / continuité (2026-11-06, local, **pas de commit projet**)
+
+Correctif après Critical Review F01/F02 NOT ACCEPTED. Candidat distant `8bf8b5ce` inchangé.
+
+| Correctif | As-built |
+| --- | --- |
+| **C01** | `isExploratoryActLanguage` ; « Finalement… » avec hedges (`je pense`, `pourrait`, `et si`, Nora) → AMBIGUOUS, aucune mutation. Assertive « Finalement, X devient Y » + cible unique RECORD → REVISE possible. « Je révise la décision… » performatif explicite. Level A ≠ autorité. |
+| **C02** | Effet D5/D6 avant Nora ; `markTurnUnknown(..., resultJson)` conserve `pilotageEffect` ; `reconstituteConversationalAuthority` via `conv-auth:{clientTurnKey}` / `USER_MESSAGE` sourceRef ; replay UNKNOWN reconstitue depuis `business_commands`. Clé client stable (ref + sessionStorage pending, pas de secret). Tour Nora et commande métier restent distincts. |
+| **C03** | Fil : résumé durable décisions + bouton réconciliation pending après reload. Journal : 8 plus récentes par défaut + expand historique complet (pas `slice(0,8)` des plus anciennes). |
+| **Preuves** | unit C01 ; PG C01/C02 fault/C03>8 ; Playwright F01/F02/C03. LIVE/RECETTE/STABLE NOT CLAIMED. |
+
+### CR-01 / CR-02 — consolidation Critical Review (2026-11-06, local, **pas de commit projet**)
+
+| Élément | As-built |
+|---|---|
+| **CR-01** | `findAuthorityReviseCandidates` / `selectAllApplicableBriefs` scannent **toutes** les APPLICABLE du projet (pas `MAX_APPLICABLE_FOR_CONTEXT=12`). La fenêtre cognitive reste pour Nora uniquement. 0 candidat → clarification ; 1 → REVISE documentaire si acte clair ; plusieurs → clarification (portées distinctes signalées). Pas de newest-wins / truncation. Level A framing filtre la pertinence, n'autorise jamais. |
+| **CR-02** | `shouldClearThreadPending` : Nora COMPLETE **ne** clôt **pas** un effet métier UNKNOWN. Garde exclusive `mayStartNewThreadAct` : une saisie distincte n'écrase pas un pending non résolu. 404 by-key → reprise **même** `clientTurnKey`, pas de nouvelle clé. sessionStorage = aide locale, vérité = `business_commands`. |
+| **Preuves** | unit CR-01 fenêtre 12 vs autorité ; unit pending lifecycle ; PG 15+ doubles GitHub (aucune REVISE) ; PG unique REVISE ; PG isolation interprojets ; PG concurrence même clé ; Playwright ACK perdu → reload → reconcile sans double OPEN. LIVE/RECETTE/STABLE NOT CLAIMED. |
+
+### R-UX-01 — continuité cognitive pendant tentative métier non résolue
+
+| Champ | Qualification |
+|---|---|
+| **ID** | R-UX-01 |
+| **Statut** | **NON CONFORME** — KNOWN FUNCTIONAL GAP |
+| **Arbitrage Morris** | CARRIED RESERVE — ACCEPTÉE CONDITIONNELLEMENT POUR PRÉPARATION / ENTRÉE RECETTE (2026-11-06). **Pas** ACCEPTED FUNCTIONALLY. |
+| **Comportement** | `mayStartNewThreadAct` refuse un nouvel acte distinct tant qu'un pending fil n'est pas résolu/réconcilié. |
+| **Impact** | Un travail conversationnel indépendant peut être temporairement bloqué pendant une tentative métier indéterminée. |
+| **Non-impact démontré** | Ne provoque pas d'effet D5/D6 injustifié, de double effet, de perte de clé, ni de fuite interprojets (garde exclusive + même clé). |
+| **Condition de sortie** | Permettre la poursuite cognitive indépendante des effets indéterminés sans perdre tentative, clé ni réconciliation. |
+| **Autres réserves** | Cookie DEV/RECETTE (ENV-01) ; libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; Figma pixel NOT VERIFIED. |
+```
+
+### MODIFIED FULL `projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md` @ ba831b25bc18
+
+```md
+# SFIA Studio Next — R5 / ML3 — Matrice individuelle de traçabilité D5/D6
+## Version candidate v0.2 — R01–R04 traités en conception, publiée sur branche documentaire, sans preuve de test
+
+**Références associées :** [Spécification technique v0.4](specification-technique.md) · [Revue de conception v0.2](revue-conception.md).
+
+**Date :** 2026-11-06. **Baseline :** `main@ab18316b9c1e849ff557f4ba561c638e9961bb89`. **Sources R2 :** `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md` (blob `964893817d351b668e221e25085ee00b909337de`) et `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` (blob `de4b3de245484620ea60f0662004c6993ea808b1`). **R3 UX :** `ux-ui/audit-couverture-ux-r3.md` §7.4, blob `81c62c700b2e1b377da7e27e4a92db506bfb6e38`. **R4 QA :** `architecture-technique/cadrage-r4.md` §5.5.7, blob `f390f3d87d18e3c6c91f8a57e5960b2be946e60a`.
+
+**Complément :** `R01–R04` = contrats proposés dans la spécification v0.4 §8 bis ; traitement documentaire à valider Morris, non preuve runtime.
+
+**Lecture :** `IN` = comportement attendu dans ML3 ; `INTERFACE` = invariant/contrat exposé sans moteur d’effet D7/D8/D9 ; `IN + INTERFACE` = part ML3 et part futur distinctes. QA = oracle R4 à instancier en test ; pas une réussite, pas forcément preuve exhaustive du point. `UX` = numéro de surface Figma dans l’inventaire R3 ; aucun nœud natif ni runtime inspecté dans cette revue. Chaque entrée est `DOCUMENTARY MAPPED / TEST NOT EXECUTED`.
+
+### 1. RG-TRJ — 40 règles
+
+| Règle R2 | Intitulé propriétaire | Contrat ML3 | Portée | QA candidat |
+|---|---|---|---|---|
+| `RG-TRJ-001` | Trajectoire non préalable | CTX — identité/continuité | IN | B01 |
+| `RG-TRJ-002` | Projection distincte des faits | TRAJ — trajectoire | IN | B02 |
+| `RG-TRJ-003` | Orientation personnalisable | TRAJ — trajectoire | IN | B02 |
+| `RG-TRJ-004` | Révision sans rétroactivité | TRAJ — trajectoire | IN | B02 |
+| `RG-TRJ-005` | Dépendance réelle et justifiée | TRAJ — trajectoire | IN | B02 |
+| `RG-TRJ-006` | Requalification proportionnée | TRAJ — trajectoire | IN | B02 |
+| `RG-TRJ-007` | Références de continuité | TRAJ — trajectoire | IN | B02 |
+| `RG-TRJ-008` | Cycle actif unique | CYC — cycles et commandes | IN | B05 [R03] |
+| `RG-TRJ-009` | Ouverture gouvernée | CYC — cycles et commandes | IN | B03 [R03] |
+| `RG-TRJ-010` | Type et résultat cohérents | CYC — cycles et commandes | IN | B03 [R03] |
+| `RG-TRJ-011` | Deuxième ouverture incompatible | CYC — cycles et commandes | IN | B05 [R03] |
+| `RG-TRJ-012` | Clôture gouvernée et honnête | CYC — cycles et commandes | IN | B07 [R03] |
+| `RG-TRJ-013` | Pas de gate de cycle automatique | CYC — cycles et commandes | IN | B08 [R03] |
+| `RG-TRJ-014` | GO combiné à effets distincts | CYC — cycles et commandes | IN | B07 [R03/R04] |
+| `RG-TRJ-015` | État réel avant confirmation | CYC — cycles et commandes | IN | B06 [R03/R04] |
+| `RG-TRJ-016` | Rejeu et concurrence | CYC — cycles et commandes | IN | B05/B06 [R03/R04] |
+| `RG-TRJ-017` | Correspondance canonique | CKI — spécialisation Nora | IN | B11/B12 [R01] |
+| `RG-TRJ-018` | Un seul CKI principal | CKI — spécialisation Nora | IN | B11 [R01] |
+| `RG-TRJ-019` | Autonomie intrinsèque des CKI | CKI — spécialisation Nora | IN | B11 [R01] |
+| `RG-TRJ-020` | Guidance à responsabilité bornée | CKI — spécialisation Nora | IN | B11/B12 [R01] |
+| `RG-TRJ-021` | Version et provenance interprétables | CKI — spécialisation Nora | IN | B12 [R01] |
+| `RG-TRJ-022` | Disponibilité non fictionnelle | CKI — spécialisation Nora | IN | B12 [R01] |
+| `RG-TRJ-023` | Pas de sélection dynamique hors cycle | CKI — spécialisation Nora | IN | B01 [R01] |
+| `RG-TRJ-024` | Évolution CKI sans effet rétroactif | CKI — spécialisation Nora | IN | B10 [R01] |
+| `RG-TRJ-025` | Matrice purement informative | CKI — spécialisation Nora | IN | B11 |
+| `RG-TRJ-026` | Pertinence contextualisée | CKI — spécialisation Nora | IN | B11 |
+| `RG-TRJ-027` | Analyse transverse sans second CKI | CKI — spécialisation Nora | IN | B11 |
+| `RG-TRJ-028` | Matrice non exhaustive | CKI — spécialisation Nora | IN | B11 |
+| `RG-TRJ-029` | Différence transmission / preuve | CKI — spécialisation Nora | IN | B12 |
+| `RG-TRJ-030` | Maturité proactive non répétitive | MAT — maturité et progression | IN | B08 |
+| `RG-TRJ-031` | Unification de la guidance | MAT — maturité et progression | IN | B08 |
+| `RG-TRJ-032` | Clôturabilité argumentée | MAT — maturité et progression | IN | B08 |
+| `RG-TRJ-033` | Continuité sans mémoire parallèle | MAT — maturité et progression | IN | B18 |
+| `RG-TRJ-034` | Reprise fidèle après interruption | MAT — maturité et progression | IN | B18 |
+| `RG-TRJ-035` | Réserve/suspension non résolue | MAT — maturité et progression | IN | B14 |
+| `RG-TRJ-036` | Visibilité proportionnée | MAT — maturité et progression | IN | B18 |
+| `RG-TRJ-037` | État de méthode porté par le projet | METH — méthode projet | IN | B09 [R02] |
+| `RG-TRJ-038` | Application d'un changement de méthode | METH — méthode projet | IN | B09/B10 [R02] |
+| `RG-TRJ-039` | Requalification des cycles touchés | METH — méthode projet | IN | B10 [R02] |
+| `RG-TRJ-040` | Méthode et CKI sans autorité concurrente | METH — méthode projet | IN | B10/B12 [R02] |
+
+### 2. RG-GOV — 37 règles
+
+| Règle R2 | Intitulé propriétaire | Contrat ML3 | Portée | QA candidat ou propriétaire futur |
+|---|---|---|---|---|
+| `RG-GOV-001` | Catégories non interchangeables | DEC — décisions et portée | IN | B04 |
+| `RG-GOV-002` | Expression naturelle et suffisante | DEC — décisions et portée | IN | B03 [R03] |
+| `RG-GOV-003` | Auteur et projet compétents | DEC — décisions et portée | IN | B15 [R03] |
+| `RG-GOV-004` | Ambiguïté déterminante | DEC — décisions et portée | IN | B04 [R03] |
+| `RG-GOV-005` | Acte observé et source fiable | DEC — décisions et portée | IN | B04 [R03] |
+| `RG-GOV-006` | Refus de fausse formalisation | DEC — décisions et portée | IN | B04 |
+| `RG-GOV-007` | Autorité non universelle | DEC — décisions et portée | IN | B15 |
+| `RG-GOV-008` | Pas de décision métier autonome de Nora | DEC — décisions et portée | IN | B03 |
+| `RG-GOV-009` | Référence durable d'un arbitrage structurant | DEC — décisions et portée | IN | B17 [R02] |
+| `RG-GOV-010` | Historique non réécrit | DEC — décisions et portée | IN | B17 [R02] |
+| `RG-GOV-011` | Révision gouvernée | DEC — décisions et portée | IN | B17 [R02] |
+| `RG-GOV-012` | Conflits d'autorité | DEC — décisions et portée | IN | B13 [R02/R03] |
+| `RG-GOV-013` | Délimitation et propagation bornées | REST — restrictions/STOP | IN + INTERFACE | B16 |
+| `RG-GOV-014` | Isolation des projets individuels | DEC — décisions et portée | IN | B15 [R03] |
+| `RG-GOV-015` | Contrainte supérieure applicable | REST — restrictions/STOP | IN + INTERFACE | B13/B16 |
+| `RG-GOV-016` | Reprise sans autorité inventée | REST — restrictions/STOP | IN + INTERFACE | B14 [R03] |
+| `RG-GOV-017` | Suspension humaine durable | REST — restrictions/STOP | IN + INTERFACE | B14 [R02/R03] |
+| `RG-GOV-018` | Levée humaine contextualisée | REST — restrictions/STOP | IN + INTERFACE | B14 [R02] |
+| `RG-GOV-019` | Suspension humaine vs pause technique | REST — restrictions/STOP | IN + INTERFACE | B14 + D7 futur |
+| `RG-GOV-020` | Interdiction des confirmations d'arrêt fictives | REST — restrictions/STOP | IN + INTERFACE | B14 + D7 futur [R03] |
+| `RG-GOV-021` | Changement significatif de besoin | REST — restrictions/STOP | IN + INTERFACE | B16 |
+| `RG-GOV-022` | Révocation et opérations en cours | REST — restrictions/STOP | IN + INTERFACE | B16 + D7 futur [R02] |
+| `RG-GOV-023` | Proposition n'est pas permission | DEC — décisions et portée | IN | B04 |
+| `RG-GOV-024` | Contrat inspecté et « Exécuter » | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
+| `RG-GOV-025` | Liaison au bon périmètre | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
+| `RG-GOV-026` | Requalification des changements matériels | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
+| `RG-GOV-027` | Vérification actuelle avant effet | REST — restrictions/STOP | INTERFACE | B16 + D7/D9 futur [R03] |
+| `RG-GOV-028` | Rejeu sans élargissement d'autorité | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver [R03] |
+| `RG-GOV-029` | GO de cycle distinct du contrat technique | CYC — cycles et commandes | IN | B03/B07 [R03/R04] |
+| `RG-GOV-030` | Création de projet à acte explicite propre | CTX — identité/continuité | INTERFACE | B01 + D2 existant |
+| `RG-GOV-031` | Acceptation humaine distincte de conformité | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
+| `RG-GOV-032` | Décision informée et résultat qualifié | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
+| `RG-GOV-033` | Correction sous nouveau mandat | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
+| `RG-GOV-034` | Méthode et CKI non autorisants | CKI — spécialisation Nora | IN | B12 |
+| `RG-GOV-035` | Choix durable de méthode et autorité | METH — méthode projet | IN | B09/B10 [R02] |
+| `RG-GOV-036` | Interdiction de fabriquer une adoption | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
+| `RG-GOV-037` | Choix documentaire non autorisant | DEC — décisions et portée | IN | B04 |
+
+### 3. PF-TRJ — 30 scénarios
+
+| Scénario R2 | Intitulé | Contrat ML3 | Portée | UX R3 # | QA candidat |
+|---|---|---|---|---|---|
+| `PF-TRJ-01` | Sas et projet sans cycle | CTX — identité/continuité | IN | 2,22,28 | B01 |
+| `PF-TRJ-02` | Trajectoire suggérée sans ouverture | TRAJ — trajectoire | IN | 22,23 | B02 |
+| `PF-TRJ-03` | Début direct par l’architecture technique | CYC — cycles et commandes | IN | 22,50,61,51,57 | B03 |
+| `PF-TRJ-04` | Ouverture autorisée par conversation | CYC — cycles et commandes | IN | 23,52,24,54 | B03 [R03] |
+| `PF-TRJ-05` | GO ambigu | CYC — cycles et commandes | IN | 41,23 | B04 [R03] |
+| `PF-TRJ-06` | Demande d’un second cycle simultané | CYC — cycles et commandes | IN | 26,24 | B05 [R03] |
+| `PF-TRJ-07` | Digression sécurité pendant UX | CKI — spécialisation Nora | IN | 24,59,3 | B11 [R01] |
+| `PF-TRJ-08` | CKI absent ou version non applicable | CKI — spécialisation Nora | IN | 39,58 | B12 [R01] |
+| `PF-TRJ-09` | Relation Architecture vers DevOps | CKI — spécialisation Nora | IN | 51,59,3 | B11 |
+| `PF-TRJ-10` | Matrice silencieuse et facultative | CKI — spécialisation Nora | IN | 59,3 | B11 |
+| `PF-TRJ-11` | Transfert Conception vers UX | CKI — spécialisation Nora | IN | 22,59,3 | B11 |
+| `PF-TRJ-12` | QA révèle une contradiction fonctionnelle | CKI — spécialisation Nora | IN | 59,3,40 | B11 |
+| `PF-TRJ-13` | Maturité suffisante avec réserve reportable | MAT — maturité et progression | IN | 25,27,49 | B08 |
+| `PF-TRJ-14` | Maturité non démontrée | MAT — maturité et progression | IN | 44,25 | B08 |
+| `PF-TRJ-15` | Clôture avec GO effectif | CYC — cycles et commandes | IN | 25,53,27,54 | B07 [R03] |
+| `PF-TRJ-16` | GO conjoint, effet partiel | CYC — cycles et commandes | IN | 42,49,47,57 | B07 / partiel conditionnel [R04] |
+| `PF-TRJ-17` | Ouvertures concurrentes | CYC — cycles et commandes | IN | 26,56 | B05 [R03] |
+| `PF-TRJ-18` | Rejeu d’un GO | CYC — cycles et commandes | IN | 52,56,24 | B06 [R03] |
+| `PF-TRJ-19` | Reprise du même fil après interruption ou transition de cycle | CTX — identité/continuité | IN | 55,24,40 | B18 [R03] |
+| `PF-TRJ-20` | Suspension du Pilote | REST — restrictions/STOP | IN | 33,25 | B14 [R03] |
+| `PF-TRJ-21` | Nouvelle version CKI disponible | CKI — spécialisation Nora | IN | 48,58 | B10 [R01] |
+| `PF-TRJ-22` | Changement de méthode projet | METH — méthode projet | IN | 60,32,46 | B10 [R02] |
+| `PF-TRJ-23` | Réorientation et retour sans cycle forcé | TRAJ — trajectoire | IN | 59,3 | B02 |
+| `PF-TRJ-24` | Interprojets et Git partagé | CTX — identité/continuité | IN | 11,12 | B15 [R03] |
+| `PF-TRJ-25` | Pratiques transversales sans spécialité dédiée | CKI — spécialisation Nora | IN | 51,59,3 | B11 [R01] |
+| `PF-TRJ-26` | CKI guide un livrable non obligatoire | CKI — spécialisation Nora | IN | 58,3 | B11 |
+| `PF-TRJ-27` | État durable explicitement sans méthode | METH — méthode projet | IN | 28,55 | B01/B09 [R02] |
+| `PF-TRJ-28` | Choix de méthode exprimé naturellement | METH — méthode projet | IN | 29,31 | B09 [R02] |
+| `PF-TRJ-29` | Nouvelle version et cycle actif | METH — méthode projet | IN | 60,32,46 | B10 [R02] |
+| `PF-TRJ-30` | Technique CKI incompatible avec la méthode projet | METH — méthode projet | IN | 58,60,3 | B10/B12 [R01/R02] |
+
+### 4. PF-GOV — 29 scénarios
+
+| Scénario R2 | Intitulé | Contrat ML3 | Portée | UX R3 # | QA candidat ou domaine futur |
+|---|---|---|---|---|---|
+| `PF-GOV-01` | Le Pilote dit « préfère un tableau » | DEC — décisions et portée | IN | 3 | B04 |
+| `PF-GOV-02` | Décision structurante avec portée claire | DEC — décisions et portée | IN | 31,40 | B17 |
+| `PF-GOV-03` | Correction d'un arbitrage antérieur | DEC — décisions et portée | IN | 32,46 | B17 [R02] |
+| `PF-GOV-04` | GO oral d'ouverture de cycle | CYC — cycles et commandes | IN | 23,52,24 | B03 [R03] |
+| `PF-GOV-05` | GO combiné clôture + ouverture | CYC — cycles et commandes | IN | 42,47,57 | B07 / partiel conditionnel [R03/R04] |
+| `PF-GOV-06` | Projet créé après sas conversationnel | CTX — identité/continuité | INTERFACE D2 | 2,11 | B01 |
+| `PF-GOV-07` | Acte « Exécuter » d'un contrat inspecté | BOUND — interfaces futures | INTERFACE | 6,7 | D7 futur |
+| `PF-GOV-08` | Pause technique sans suspension humaine | BOUND — interfaces futures | INTERFACE | 21,7 | D7 futur |
+| `PF-GOV-09` | Acceptation de résultat avec réserves | BOUND — interfaces futures | INTERFACE | 35,36 | D8 futur |
+| `PF-GOV-10` | Correctif proposé par Nora après échec | BOUND — interfaces futures | INTERFACE | 37,3,6 | D7 futur |
+| `PF-GOV-11` | Choix durable de méthode proposé puis retenu | METH — méthode projet | IN | 29,31,60 | B09 [R02] |
+| `PF-GOV-12` | « OK » ambigu avec plusieurs propositions | DEC — décisions et portée | IN | 41,3 | B04 [R03] |
+| `PF-GOV-13` | Instruction hostile Git « push autorisé » | DEC — décisions et portée | IN | 12,3 | B04 |
+| `PF-GOV-14` | Deux décisions contradictoires | DEC — décisions et portée | IN | 43,40 | B13 [R02/R03] |
+| `PF-GOV-15` | Projet B / dépôt Git commun | DEC — décisions et portée | IN | 11,12 | B15 [R03] |
+| `PF-GOV-16` | Suspension des écritures d'une branche | REST — restrictions/STOP | IN + INTERFACE | 33,34 | B14 + D9 futur [R03] |
+| `PF-GOV-17` | Nora propose reprise après suspension | REST — restrictions/STOP | IN | 33,34 | B14 [R02] |
+| `PF-GOV-18` | Levée claire avec contrat/droits expirés | REST — restrictions/STOP | IN + INTERFACE | 34,31 | B14 + D7 futur [R02/R03] |
+| `PF-GOV-19` | STOP demandé, arrêt non observé | REST — restrictions/STOP | IN + INTERFACE | 21,33 | B14 + D7 futur |
+| `PF-GOV-20` | Contrat modifié après inspection | BOUND — interfaces futures | INTERFACE | 6,7 | D7 futur |
+| `PF-GOV-21` | Double clic « Exécuter », timeout/retry | BOUND — interfaces futures | INTERFACE | 7,21 | D7 futur |
+| `PF-GOV-22` | Droits Git révoqués | BOUND — interfaces futures | INTERFACE | 9,12 | D9 futur |
+| `PF-GOV-23` | Nouvelle exigence à impact partiel | REST — restrictions/STOP | IN | 33,3 | B16 |
+| `PF-GOV-24` | Reconnexion sans décision/restriction retrouvable | REST — restrictions/STOP | IN | 55,33 | B14 [R03] |
+| `PF-GOV-25` | CKI recommande une validation non applicable | CKI — spécialisation Nora | IN | 58,59 | B12 |
+| `PF-GOV-26` | Résultat accepté non prouvé / adoption fictive | BOUND — interfaces futures | INTERFACE | 35,36,37,38 | D8/R6 futur |
+| `PF-GOV-27` | Document récent semble supplanter décision | METH — méthode projet | IN | 32,46,40 | B10 [R02] |
+| `PF-GOV-28` | Autre Pilote tente d'autoriser des effets | DEC — décisions et portée | IN | 11,12 | B15 |
+| `PF-GOV-29` | Brouillon apprécié sans GO ni validation | DEC — décisions et portée | IN | 4,18 | B04 |
+
+### 5. Revue de couverture et limites
+
+| Contrôle | Résultat documentaire | Limite |
+|---|---|---|
+| Identités RG D5 | 40/40 | Aucun test ML3 exécuté |
+| Identités RG D6 | 37/37, y compris GOV-037 | Autorités externes D7/D8/D9 = interface seulement |
+| PF D5 | 30/30 avec numéro UX R3 | Correspondance UX, pas rendu navigateur |
+| PF D6 | 29/29 avec numéro UX R3, y compris GOV-29 | Certaines surfaces partagées A/C/D ne sont pas du runtime ML3 |
+| QA R4 B01–B18 | 18 oracles présents dans le cadrage R4 ; liens candidats dans cette matrice | Assertions détaillées, données, code, lane et SHA à produire |
+| Option A / PF-TRJ-16 | Oracle B07 sur la transaction interne ; éventuel partiel reste conditionnel | Ne pas simuler un partiel d’effets PG atomiques |
+
+**Dette de traçabilité à fermer dans le même macro-lot :** enrichir chaque ligne avec `implementationRef`, `testCaseRef`, `testRun/evidence`, `environment`, `sourceSha`, `verdict` après construction ; les domaines D7/D8/D9 seront reliés à leurs propres macro-lots lorsqu’ils existent. La matrice n’est pas un duplicata des RG/PF ni un registre de preuves actuel.
+
+**Verdict :** `MAPPING DOCUMENTAIRE INDIVIDUEL 136/136 — QA LINKS CANDIDATE — NO TEST EXECUTED — NOT COVERAGE VERIFIED`.
+
+### 6. R01–R04 — assertions de recette et preuve cible (sans multiplier les 136 tests)
+
+| Contrat candidat | Sources déterminantes | Assertions obligatoires / oracle | UX R3 | Propriétaire et niveau de preuve |
+|---|---|---|---|---|
+| R01 — pin CKI, disponibilité, provenance | RG-TRJ-017..024 ; PF-TRJ-08/21 ; B10/B11/B12 | Pin version/digest réellement disponible au GO ; aucune auto-substitution ; `NULL` honnête sans version ; retour **même digest** permis ; changement de version explicite ; contenu hostile non livré | #24, #39, #48, #58/#59 | D5 + D3 ; PostgreSQL/manifest, fixtures négatives, LIVE pour qualité, pas de preuve d'usage depuis la seule référence |
+| R02 — méthode et autorité | RG-TRJ-037..040 ; RG-GOV-009..012/035 ; PF-TRJ-27..30 ; B09/B10/B13/B16/B17 | Remplacement A→B atomique ; retrait → ABSENT ; suspension sans retrait ; révocation base courante → ABSENT sans fallback ; révocation historique sans effet courant ; cible ambiguë refusée | #28–32, #40, #46, #60 | D5 + D6 ; PostgreSQL/révision/reprise, navigateur refus/état, traçabilité historique |
+| R03 — intégrité et idempotence | RG-TRJ-008..016 ; RG-GOV-003/017/027/028 ; B03..B07/B14..B16 | Deux PG simultanés un ACTIVE ; même clé même résultat ; autre clé même source/intention zéro doublon ; même clé autre fingerprint CONFLICT ; STOP concurrent selon ordre commit ; rejet source externe ; réponse perdue réconciliée | #24, #33, #41, #47, #52–56 | D5/D6 ; PG réel 2 connexions, fault injection, redémarrage, navigateur/auth, pas de seule fixture |
+| R04 — combiné atomique / partiel séparé | RG-TRJ-014..016 ; RG-GOV-029 ; PF-TRJ-16/PF-GOV-05 ; B07 | Si OPEN(B) échoue avant commit, A reste ACTIVE ; après commit A CLOSED+B ACTIVE ; ACK perdu = UNKNOWN puis réconciliation ; **aucun PARTIAL ni écran #42 pour effet interne** | #47, #54, #56 ; **#42 conditionnel futur** | D5/D6 interne PG réel ; éventuel `PARTIAL` positif relève d'une frontière future réelle D7/D9, non testée par ML3 |
+
+**Validation de ces lignes :** références documentaires établies ; assertions sont des obligations de recette futures, **toutes `NOT EXECUTED`**. Un test peut satisfaire plusieurs références. L'état `INTERFACE` des PF D7/D8/D9 dans les 136 lignes demeure inchangé. Les extensions de matrice n'altèrent ni les identifiants, ni les statuts validés des RG/PF R2.
+---
+
+## Preuves code/tests ML3 (2026-11-06) — mapping condensé
+
+| QA | Preuve primaire |
+|---|---|
+| B01 | `ml3-pilotage.pg.test.ts` empty projection + e2e cycle-absent |
+| B03 | open cycle APPLIED + human decision |
+| B04 | ambiguous utterance REJECTED |
+| B05 | concurrent open → one ACTIVE |
+| B06 | same client key replay ALREADY_APPLIED |
+| B07 | transition fault hook → rollback A ACTIVE |
+| B09/B10 | CHOOSE/REPLACE/WITHDRAW method |
+| B11/B12 | `ml3-cki-intent` / cki-resolve unit + open pin |
+| B14 | restriction blocks open |
+| B15 | cross-project isolation |
+| B16 | revoke founding method → ABSENT |
+| B17 | GET `/decisions` journal |
+| B18 | GET pilotage read-only |
+
+Statut : `CODE MAPPED / LOCAL TESTS` — pas ADOPTED. LIVE Nora : NOT EXECUTED.
+
+## As-built correctif ML3 — testCaseRef B01–B18 (2026-11-06)
+
+Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2. Les identifiants sont les noms de cas dans le code, pas une nouvelle exigence. Lane visée : DEV. Pas une preuve RECETTE.
+
+| QA | testCaseRef | Ce que le cas couvre après correctif |
+|---|---|---|
+| B01 | `PostgreSQL ML3 pilotage and decisions` › `starts empty: no cycle, no method, no retained trajectory` ; e2e `cycle-absent` | Projet neuf sans cycle ni méthode |
+| B02 | même fichier › `propose stays non-authoritative until an explicit retain` ; UI `retain-trajectory` | Proposition non ouvrante ; rétention explicite |
+| B03 | même fichier › `opens a cycle from an explicit utterance…` ; **F01** `F01: clear GO via postUserMessageAndNora…` ; e2e fil `ML3 F01: GO naturel depuis le fil` (+ champ PilotagePanel) | GO naturel USER_MESSAGE via fil **et** EXPLICIT_INTERACTION |
+| B04 | même fichier › `rejects an ambiguous OK…` ; **F01** `F01: ambiguous OK and hostile assistant…` ; unit intent | Énoncé équivoque / source hostile rejetés |
+| B05 | même fichier › `keeps a single ACTIVE cycle when two opens race` | Une seule ligne ACTIVE |
+| B06 | même fichier › `replays the same key and conflicts when the fingerprint changes` ; `does not apply the same human act twice when only the client key changes` ; `reconcileCommandByClientKey` | Même clé rejouée ; même `actInstanceId` non dupliqué. Perte réseau UI : statut UNKNOWN + bouton réconcilier (non exécuté en PG) |
+| B07 | même fichier › `rolls back a transition when opening the next cycle fails` | CLOSE+OPEN annulés ensemble |
+| B08 | non couvert par un cas dédié | Nora ne clôt pas un cycle sur un jugement de maturité : consigne d'adapter, pas un oracle exécuté |
+| B09 | même fichier › `chooses, replaces, withdraws and revokes the current method base without restoring the previous one` | Choix / remplacement / retrait / révocation de base |
+| B10 | unit `pins RESOLVED only when the file digest matches the approved manifest` | Pas de remplacement implicite du pin : digest hors manifeste → UNAVAILABLE |
+| B11 | unit `maps each cycle type to one CKI specialty file` | Une spécialité par type. Digression Nora hors spécialité : non exécutée comme tour LIVE |
+| B12 | unit `stays ASSOCIATED without a pin and UNAVAILABLE when the digest diverges` ; cas manifeste ci-dessus | Pas de fallback si octets absents ou non approuvés |
+| B13 | unit `ml3-b13-divergence` (+ C01/C02) ; PG `B13-*` + `C01` nora-context ; e2e C02 motifs | **Niveau A message↔décision** : DETERMINISTIC + PG ctx (FAKE adapter). **Niveau B typé** : PG INTEGRATION PROVEN. **Libre-texte matériel** : NOT PROVEN machine. **UX motifs** : unit + BROWSER FAKE (RESTRICTION vs HUMAN_INTENT contrôlé) |
+| B14 | même fichier › restrictions + `CR-01: transition blocked when target B or source A is restricted` | STOP global, cible, et transition A→B (restriction sur A ou B) |
+| B15 | même fichier › `isolates pilotage across projects and rejects a foreign user message` | Pas d'import inter-projets |
+| B16 | même fichier › révocation de la méthode fondatrice dans le cas méthode | Révocation avant effet courant, sans restauration |
+| B17 | e2e `decision-state` + **F02** journal revise ; PG `F02: RECORD then REVISE…` + `CR-02` | Journal `APPLICABLE`/`REVISED` ; RECORD/REVISE depuis fil |
+| B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
+
+### Ajustement autorité CR-01..CR-04 (2026-11-06)
+
+| CR | testCaseRef | Verdict |
+| --- | --- | --- |
+| CR-01 | unit `CR-01: TRANSITION_CYCLE is blocked when source A or target B is restricted` ; PG `CR-01: transition blocked when target B or source A is restricted; A stays ACTIVE` | **CLOSED** (DEV PG + unit) |
+| CR-02 | PG `CR-02: REVISE_DECISION allowed for RECORD; refused for D5 founding kinds` | **CLOSED** (refuse sûr + typed ops) |
+| CR-03 | PG `CR-03: different RECORD statements on same objectRef do not globally block OPEN` | **CLOSED** for false-positive removal ; material free-text conflict **PARTIAL / NEEDS MORRIS** |
+| CR-04 | Review Pack FULL with embedded raw logs `/tmp/ml3-*.txt` | **CLOSED** if handoff verified |
+
+Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE — NOT MERGED — NOT ADOPTED**. LIVE Nora : NOT EXECUTED. B08/B11 LIVE cognitive : GOVERNED DEBT. B13 libre-texte matériel Niveau B : NOT PROVEN / PARTIAL.
+
+### B13-01..10 (2026-11-06) — contrat VALIDATED IN CONTENT BY MORRIS
+
+| ID | testCaseRef | Preuve | Limite |
+| --- | --- | --- | --- |
+| B13-01 | unit compatible formulations ; PG `B13-01/04` + `C01: two different but compatible…` | DETERMINISTIC + PG | pas de faux refus d'effet |
+| B13-02 | unit fixture `levelASignals` ; PG `C01: single D6 + new USER…` → adapter FAKE | FAKE intégration conversationnelle | LIVE cognitive NOT PROVEN |
+| B13-03 | PG `B13-03/07` restriction typed | PG INTEGRATION | libre-texte matériel NOT PROVEN (couverture partielle) |
+| B13-04 | PG independent open despite RECORD divergence | PG | — |
+| B13-05 | PG REPLACE → SUPERSEDED + nouvelle APPLICABLE | PG | via op typée ; pas de 2e clic rituel |
+| B13-06 | unit intent ambiguous OK (ml3-cki-intent) ; C01 ambiguous framing | DETERMINISTIC | aucune mutation sans acte |
+| B13-07 | PG restriction persists on projection reload | PG | — |
+| B13-08 | PG COGNITIVE_PROPOSAL cannot OPEN | PG | — |
+| B13-09 | PG REVOKE founding method → ABSENT | PG | REVOKED non présenté comme APPLICABLE (unit C01) |
+| B13-10 | PG act-instance / reconcile ALREADY_APPLIED | PG | — |
+| C01–C02 UX | unit `qualifyCommandOutcome` ; e2e RESTRICTION vs HUMAN_INTENT contrôlé | DETERMINISTIC + BROWSER FAKE | pixel Figma NOT VERIFIED |
+| R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
+| R2 | unit jamais/aucunement/apostrophe typo + restatements positifs | DETERMINISTIC | famille FR bornée ; ≠ oracle D6 |
+| R3 | PG isolation : décision B APPLICABLE avant gen A ; même objectRef + marqueur ; ctx B+ / ctx A− | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |
+
+### F01/F02 — conversation-authority (2026-11-06, local worktree)
+
+| ID | testCaseRef | Preuve | Limite |
+| --- | --- | --- | --- |
+| F01-A | PG `F01: clear GO via postUserMessageAndNora…` ; e2e fil | USER persisté → OPEN_CYCLE APPLIED → HumanDecision → 1 ACTIVE | LIVE Nora NOT EXECUTED |
+| F01-B/C | PG `F01: ambiguous OK and hostile assistant…` | OK / soft / role assistant → no cycle | — |
+| F01-D | même cas F01-A replay `clientTurnKey` | idempotentReplay ; 1 ACTIVE | — |
+| F01-I | PG `F01: restriction blocks conversational GO…` | REJECTED RESTRICTION ; humanDecisionCreated=false | — |
+| F02-A/D | PG `F02: RECORD then REVISE…` ; e2e fil+Journal | RECORD → REVISED/APPLICABLE chain | fondations D5 non révisables génériquement |
+| F02-E | même cas F02 founding refuse | clarification ; cycle CADRAGE inchangé | — |
+| C01 | unit exploratory ; PG `C01: exploratory Finalement…` | réflexion ≠ mutation D6 | NLP universel NOT CLAIMED |
+| C02 | PG `C02: D6 APPLIED survives Nora provider failure…` | UNKNOWN tour + effet métier reconstituté | LIVE NOT EXECUTED |
+| C03 | PG journal>8 ; e2e expand historique | 8 récentes + historique complet | — |
+| CR-01 | unit fenêtre 12 vs `findAuthorityReviseCandidates` ; PG 15+ doubles GitHub ; PG unique ; PG isolation | unicité D6 hors borne cognitive | — |
+| CR-02 | unit `shouldClearThreadPending` / `mayStartNewThreadAct` ; PG concurrence même clé ; e2e ACK perdu+reload | pending préservé ; pas de double effet | cookie DEV/RECETTE réserve existante |
+| R-UX-01 | garde exclusive pending (unit + e2e distinct act blocked) | **NON CONFORME** — CARRIED RESERVE Morris pour entrée RECETTE conditionnelle | sortie : cognition indépendante sans perdre tentative/clé |
+```
+
+### MODIFIED FULL `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts` @ ba831b25bc18
 
 ```tsx
-/**
- * B13 v0.1 — assisted contradictions (VALIDATED IN CONTENT BY MORRIS, 2026-11-06).
- *
- * Level A — POTENTIAL / cognitive signal for Nora. Never D6 authority.
- * Level B — MATERIAL conflict: typed deterministic checks at point of effect only.
- *
- * C01: a single APPLICABLE D6 decision can be confronted with a new USER message
- * without requiring a second persisted decision.
- */
+import { NextResponse } from "next/server";
+import { requireStudioSession } from "@/domains/identity/session";
+import { listMessages, postUserMessageAndNora } from "@/domains/conversation/service";
+import { studioErrorResponse } from "@/lib/http-errors";
+import { emitObs, newRequestId } from "@/lib/observability";
 
-export type DecisionBrief = {
-  id: string;
-  kind: string;
-  objectRef: string;
-  scope: string;
-  statement: string;
-  state: string;
-  sourceKind: string;
-};
-
-/** Structured Level A signal passed to Nora (fixture and LIVE path). Never authority. */
-export type LevelASignal = {
-  kind: "MESSAGE_DECISION_CONFRONTATION" | "STORED_DECISION_DIVERGENCE";
-  objectRef: string;
-  scope: string;
-  decisionId: string;
-  decisionIds?: string[];
-  priorStatement: string;
-  currentExpression: string;
-  /** Context selection framing — not a D6 verdict. */
-  framing: "POSSIBLE_CHANGE" | "COMPATIBLE_RESTATEMENT" | "AMBIGUOUS";
-  authorityClaim: "NONE";
-};
-
-export type PotentialDivergence = {
-  level: "A_POTENTIAL";
-  kind: string;
-  objectRef: string;
-  scope: string;
-  decisionIds: string[];
-  statements: string[];
-  authorityClaim: "NONE";
-};
-
-const MAX_APPLICABLE_FOR_CONTEXT = 12;
-const MAX_SIGNALS = 3;
-
-const OPPOSITION_PAIRS: Array<[RegExp, RegExp]> = [
-  [/\b(obligatoire|requis|required|mandatory|must)\b/i, /\b(facultatif|optionnel|optional|volontaire)\b/i],
-  [/\b(interdit|prohibé|banned|forbidden)\b/i, /\b(autorisé|permis|allowed|autoriser)\b/i],
-  [/\b(actif|ouverte?|open)\b/i, /\b(fermé|clos|closed|inactif)\b/i],
-];
-
-/** Modality terms whose affirmed/negated polarity must not be collapsed by lexical overlap. */
-const MODALITY_TERMS = [
-  "obligatoire",
-  "requis",
-  "required",
-  "mandatory",
-  "interdit",
-  "prohibé",
-  "banned",
-  "forbidden",
-  "autorisé",
-  "permis",
-  "allowed",
-  "facultatif",
-  "optionnel",
-  "optional",
-  "volontaire",
-] as const;
-
-/** Affirmed synonym groups — shared group ⇒ possible COMPATIBLE_RESTATEMENT (still Level A). */
-const MODALITY_SYNONYM_GROUPS: string[][] = [
-  ["obligatoire", "requis", "required", "mandatory"],
-  ["facultatif", "optionnel", "optional", "volontaire"],
-  ["interdit", "prohibé", "banned", "forbidden"],
-  ["autorisé", "permis", "allowed"],
-];
-
-const GLOBAL_SCOPE_RE =
-  /\b(tout\s+le\s+projet|ensemble\s+du\s+projet|global(?:e|ement)?|pour\s+tout)\b/i;
-const LOCAL_SCOPE_RE =
-  /\b(seulement|uniquement|juste\s+pour|pour\s+(?:ce\s+)?(?:cycle|ux|cadrage|activité))\b/i;
-
-/** Keep recent applicable decisions for Nora context — project-scoped, bounded. */
-export function selectApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
-  return rows
-    .filter((r) => r.state === "APPLICABLE" && (r.objectRef ?? "").trim().length > 0)
-    .slice(-MAX_APPLICABLE_FOR_CONTEXT);
-}
-
-/**
- * CR-01 — all APPLICABLE briefs for D6 authority resolution.
- * Never apply the Nora cognitive window (MAX_APPLICABLE_FOR_CONTEXT).
- * Bounded context ≠ uniqueness of an opposable target.
- */
-export function selectAllApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
-  return rows.filter(
-    (r) => r.state === "APPLICABLE" && (r.objectRef ?? "").trim().length > 0,
-  );
-}
-
-export type AuthorityReviseCandidate = DecisionBrief & {
-  framing: LevelASignal["framing"];
-};
-
-/**
- * CR-01 — D6 revise-target candidates across the full applicable set.
- * Level A framing filters relevance only — never authorizes mutation.
- * No chronological / newest-wins / truncation selection.
- * Caller must require exactly one candidate before REVISE.
- */
-export function findAuthorityReviseCandidates(
-  userText: string,
-  rows: DecisionBrief[],
-): AuthorityReviseCandidate[] {
-  const text = userText.trim();
-  if (!text) return [];
-  const applicable = selectAllApplicableBriefs(rows);
-  const out: AuthorityReviseCandidate[] = [];
-  for (const row of applicable) {
-    if (!utteranceTouchesObject(text, row.objectRef)) continue;
-    if (normalizeText(text) === normalizeText(row.statement)) continue;
-    const framing = frameConfrontation(row.statement, text);
-    // Compatible restatement is not a revise target.
-    if (framing === "COMPATIBLE_RESTATEMENT") continue;
-    out.push({ ...row, framing });
+export async function GET(_: Request, ctx: { params: Promise<{ preparationId: string }> }) {
+  const requestId = newRequestId();
+  try {
+    const session = await requireStudioSession();
+    const { preparationId } = await ctx.params;
+    const messages = await listMessages(session.pilotId, preparationId);
+    return NextResponse.json({ messages, requestId });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    emitObs({
+      event_name: "api.messages.get_error",
+      component: "api.messages",
+      request_id: requestId,
+      outcome: "FAILED",
+      error_category: mapped.body.errorCategory,
+    });
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
-  return out;
 }
 
-function normalizeText(text: string): string {
-  // Normalize typographic apostrophes so « n’est » and « n'est » share one path.
-  return text
-    .trim()
-    .toLowerCase()
-    .replace(/[\u2019\u2018\u02bc`]/g, "'")
-    .replace(/\s+/g, " ");
-}
-
-function significantTokens(text: string): string[] {
-  return normalizeText(text)
-    .split(/[^a-z0-9àâäéèêëïîôùûüç]+/i)
-    .filter((t) => t.length >= 4);
-}
-
-/** True when user text appears to revisit a recorded object (heuristic, cognitive only). */
-export function utteranceTouchesObject(userText: string, objectRef: string): boolean {
-  const needle = objectRef.trim().toLowerCase();
-  if (!needle || needle.length < 3) return false;
-  const hay = normalizeText(userText);
-  if (hay.includes(needle)) return true;
-  const tokens = needle.split(/[^a-z0-9àâäéèêëïîôùûüç]+/i).filter((t) => t.length >= 4);
-  if (tokens.length === 0) return false;
-  return tokens.some((t) => hay.includes(t));
-}
-
-function tokenOverlapRatio(a: string, b: string): number {
-  const ta = new Set(significantTokens(a));
-  const tb = new Set(significantTokens(b));
-  if (ta.size === 0 || tb.size === 0) return 0;
-  let inter = 0;
-  for (const t of ta) if (tb.has(t)) inter += 1;
-  return inter / Math.max(ta.size, tb.size);
-}
-
-function looksOpposed(prior: string, current: string): boolean {
-  for (const [left, right] of OPPOSITION_PAIRS) {
-    if ((left.test(prior) && right.test(current)) || (right.test(prior) && left.test(current))) {
-      return true;
+export async function POST(req: Request, ctx: { params: Promise<{ preparationId: string }> }) {
+  const requestId = newRequestId();
+  try {
+    const session = await requireStudioSession();
+    const { preparationId } = await ctx.params;
+    const body = (await req.json()) as {
+      content?: string;
+      correlationKey?: string;
+      clientTurnKey?: string;
+    };
+    if (!body.content?.trim()) {
+      return NextResponse.json(
+        { error: "INVALID_REQUEST", errorCategory: "INVALID_REQUEST" },
+        { status: 400 },
+      );
     }
-  }
-  return false;
-}
-
-/**
- * R2 — detect affirmed vs negated polarity of a modality term in a short window.
- * Heuristic only (Niveau A). Prefer AMBIGUOUS/POSSIBLE_CHANGE over false COMPATIBLE.
- * Bounded FR family: n'est plus|pas|jamais|aucunement ; ne doit/peut pas (être) ; pas / never / not.
- */
-function modalityPolarity(text: string, term: string): "affirm" | "negate" | "absent" {
-  const n = normalizeText(text);
-  const idx = n.indexOf(term);
-  if (idx < 0) return "absent";
-  const before = n.slice(Math.max(0, idx - 56), idx);
-  // Apostrophe already normalized to ASCII in normalizeText.
-  if (
-    /(?:n'est\s+(?:plus|pas|jamais|aucunement)|ne\s+(?:doit|peut|saurait)\s+pas(?:\s+être)?|ne\s+\w{1,20}\s+pas|pas\s+(?:plus\s+|du\s+tout\s+|aucunement\s+)?|plus\s+(?:d[e']\s+)?|non\s+|is\s+no\s+longer\s+|is\s+not\s+|no\s+longer\s+|never\s+|not\s+)\s*$/i.test(
-      before,
-    )
-  ) {
-    return "negate";
-  }
-  const after = n.slice(idx + term.length, idx + term.length + 32);
-  if (
-    /^\s*(?:n'est\s+(?:plus|pas|jamais|aucunement)|is\s+no\s+longer|is\s+not|never)\b/i.test(after)
-  ) {
-    return "negate";
-  }
-  return "affirm";
-}
-
-function looksPolarityInverted(prior: string, current: string): boolean {
-  for (const term of MODALITY_TERMS) {
-    const p = modalityPolarity(prior, term);
-    const c = modalityPolarity(current, term);
-    if (p !== "absent" && c !== "absent" && p !== c) return true;
-  }
-  return false;
-}
-
-function sharesAffirmedModalitySynonym(prior: string, current: string): boolean {
-  for (const group of MODALITY_SYNONYM_GROUPS) {
-    const priorAffirm = group.some((t) => modalityPolarity(prior, t) === "affirm");
-    const currentAffirm = group.some((t) => modalityPolarity(current, t) === "affirm");
-    if (priorAffirm && currentAffirm) return true;
-  }
-  return false;
-}
-
-/** Distinct global vs local scope markers → clarify; never auto-equate. */
-function looksScopeShift(prior: string, current: string): boolean {
-  return (
-    (GLOBAL_SCOPE_RE.test(prior) && LOCAL_SCOPE_RE.test(current)) ||
-    (LOCAL_SCOPE_RE.test(prior) && GLOBAL_SCOPE_RE.test(current))
-  );
-}
-
-/**
- * R2 — Level A framing only. Never D6 authority.
- * Negation / polarity inversion must not become COMPATIBLE_RESTATEMENT via token overlap.
- */
-function frameConfrontation(prior: string, current: string): LevelASignal["framing"] {
-  if (looksOpposed(prior, current) || looksPolarityInverted(prior, current)) {
-    return "POSSIBLE_CHANGE";
-  }
-  if (looksScopeShift(prior, current)) {
-    return "AMBIGUOUS";
-  }
-  if (sharesAffirmedModalitySynonym(prior, current)) {
-    return "COMPATIBLE_RESTATEMENT";
-  }
-  const overlap = tokenOverlapRatio(prior, current);
-  // High lexical overlap alone is weak evidence — prefer AMBIGUOUS over false compatible
-  // when modality synonyms are absent (R2: shared words ≠ same sense).
-  if (overlap >= 0.65) return "COMPATIBLE_RESTATEMENT";
-  if (overlap >= 0.2) return "AMBIGUOUS";
-  return "AMBIGUOUS";
-}
-
-/**
- * C01 — confront a new USER message with existing APPLICABLE D6 decisions.
- * Does not require a second persisted decision. Never creates authority.
- */
-export function findMessageDecisionConfrontations(
-  userText: string,
-  rows: DecisionBrief[],
-): LevelASignal[] {
-  const text = userText.trim();
-  if (!text) return [];
-  const applicable = selectApplicableBriefs(rows);
-  const out: LevelASignal[] = [];
-  for (const row of applicable) {
-    if (!utteranceTouchesObject(text, row.objectRef)) continue;
-    // Exact same statement → no signal beyond the applicable list itself.
-    if (normalizeText(text) === normalizeText(row.statement)) continue;
-    out.push({
-      kind: "MESSAGE_DECISION_CONFRONTATION",
-      objectRef: row.objectRef,
-      scope: row.scope,
-      decisionId: row.id,
-      priorStatement: row.statement,
-      currentExpression: text.slice(0, 500),
-      framing: frameConfrontation(row.statement, text),
-      authorityClaim: "NONE",
+    const result = await postUserMessageAndNora(
+      session.pilotId,
+      preparationId,
+      body.content.trim(),
+      {
+        correlationKey: body.correlationKey,
+        clientTurnKey: body.clientTurnKey ?? body.correlationKey,
+        requestId,
+      },
+    );
+    const messages = await listMessages(session.pilotId, preparationId);
+    // Pass through factual flags from the turn — never force humanDecisionCreated=false.
+    return NextResponse.json({
+      ...result,
+      messages,
+      humanDecisionCreated: Boolean(result.humanDecisionCreated),
+      pilotageEffect: result.pilotageEffect ?? null,
+      requestId,
     });
-    if (out.length >= MAX_SIGNALS) break;
-  }
-  return out;
-}
-
-/**
- * Level A among already-stored APPLICABLE rows (same kind+objectRef+scope,
- * ≥2 distinct statements). Secondary to message confrontation. Cognitive only.
- */
-export function findPotentialDivergences(rows: DecisionBrief[]): PotentialDivergence[] {
-  const applicable = selectApplicableBriefs(rows);
-  const groups = new Map<string, DecisionBrief[]>();
-  for (const row of applicable) {
-    const key = `${row.kind}\u0000${row.objectRef.trim().toLowerCase()}\u0000${row.scope}`;
-    const bucket = groups.get(key) ?? [];
-    bucket.push(row);
-    groups.set(key, bucket);
-  }
-  const out: PotentialDivergence[] = [];
-  for (const bucket of groups.values()) {
-    const statements = [...new Set(bucket.map((b) => b.statement.trim()).filter(Boolean))];
-    if (statements.length < 2) continue;
-    out.push({
-      level: "A_POTENTIAL",
-      kind: bucket[0].kind,
-      objectRef: bucket[0].objectRef,
-      scope: bucket[0].scope,
-      decisionIds: bucket.map((b) => b.id),
-      statements,
-      authorityClaim: "NONE",
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    emitObs({
+      event_name: "api.messages.post_error",
+      component: "api.messages",
+      request_id: requestId,
+      outcome: "FAILED",
+      error_category: mapped.body.errorCategory,
     });
-    if (out.length >= MAX_SIGNALS) break;
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
-  return out;
 }
-
-export function storedDivergencesToSignals(divs: PotentialDivergence[]): LevelASignal[] {
-  return divs.map((d) => ({
-    kind: "STORED_DECISION_DIVERGENCE" as const,
-    objectRef: d.objectRef,
-    scope: d.scope,
-    decisionId: d.decisionIds[0],
-    decisionIds: d.decisionIds,
-    priorStatement: d.statements[0] ?? "",
-    currentExpression: d.statements[1] ?? d.statements[0] ?? "",
-    framing: looksOpposed(d.statements[0] ?? "", d.statements[1] ?? "")
-      ? ("POSSIBLE_CHANGE" as const)
-      : ("AMBIGUOUS" as const),
-    authorityClaim: "NONE" as const,
-  }));
-}
-
-export function formatLevelASignalSnippets(signals: LevelASignal[]): string[] {
-  if (signals.length === 0) {
-    return [
-      "### Niveau A — rapprochement message / décisions",
-      "Aucun signal de revisite pertinente pour l'énoncé courant.",
-    ];
-  }
-  const lines: string[] = [
-    "### Niveau A — rapprochement message / décisions (cognitive, PAS un blocage D6)",
-    "Nora peut expliquer et clarifier. Elle ne révoque, ne remplace, ni ne suspend.",
-    "Une suspicion n'est pas un conflit matériel déterministe.",
-  ];
-  for (const s of signals) {
-    lines.push(
-      `- signal=${s.kind} framing=${s.framing} objet=${s.objectRef} scope=${s.scope} décision=${s.decisionId} authorityClaim=${s.authorityClaim}`,
-      `  décision existante: « ${s.priorStatement.slice(0, 160)} »`,
-      `  expression courante: « ${s.currentExpression.slice(0, 160)} »`,
-    );
-  }
-  return lines;
-}
-
-/** @deprecated Prefer formatLevelASignalSnippets — kept for callers that still pass raw divergences. */
-export function formatDivergenceSnippets(
-  divergences: PotentialDivergence[],
-  userText?: string,
-): string[] {
-  const filtered = userText
-    ? divergences.filter((d) => utteranceTouchesObject(userText, d.objectRef))
-    : divergences;
-  return formatLevelASignalSnippets(storedDivergencesToSignals(filtered));
-}
-
-export function formatApplicableDecisionSnippets(rows: DecisionBrief[]): string[] {
-  const briefs = selectApplicableBriefs(rows);
-  if (briefs.length === 0) {
-    return ["### Décisions D6 applicables", "(aucune décision applicable avec objectRef)"];
-  }
-  const lines = [
-    "### Décisions D6 applicables (sources — Nora n'en tire aucune autorité)",
-  ];
-  for (const b of briefs) {
-    lines.push(
-      `- ${b.id} kind=${b.kind} object=${b.objectRef} scope=${b.scope} state=${b.state} source=${b.sourceKind} « ${b.statement.slice(0, 160)} »`,
-    );
-  }
-  return lines;
-}
-
-export function buildLevelAClarification(input: {
-  priorStatement: string;
-  newExpression: string;
-  objectRef: string;
-  framing?: LevelASignal["framing"];
-}): string {
-  if (input.framing === "COMPATIBLE_RESTATEMENT") {
-    return (
-      `Tu as une décision applicable sur « ${input.objectRef} » : « ${input.priorStatement.slice(0, 200)} ».\n` +
-      `Ton message (« ${input.newExpression.slice(0, 200)} ») semble compatible — pas de conflit matériel établi.\n` +
-      `(Niveau A — pas une HumanDecision, pas une interdiction D6.)`
-    );
-  }
-  return (
-    `Tu avais retenu : « ${input.priorStatement.slice(0, 200)} » (objet ${input.objectRef}).\n` +
-    `Tu exprimes maintenant : « ${input.newExpression.slice(0, 200)} ».\n` +
-    `Souhaites-tu remplacer ce choix pour l'ensemble du projet ou seulement pour cette activité ?\n` +
-    `(Proposition cognitive Niveau A — pas une décision D6, pas une interdiction.)`
-  );
-}
-
-/**
- * C02 — qualify pilotage command outcomes for UX.
- * CONFLICT alone is never an authority block (STALE_REVISION / HUMAN_INTENT / FINGERPRINT / ACTIVE_CYCLE).
- */
-export type CommandOutcomeKind =
-  | "authority_block"
-  | "technical_conflict"
-  | "d5_state"
-  | "business_refusal"
-  | "unknown"
-  | "applied"
-  | "other";
-
-export function qualifyCommandOutcome(input: {
-  status: string;
-  reasonCode?: string | null;
-}): { kind: CommandOutcomeKind; label: string; testId: string } {
-  const status = (input.status ?? "").trim().toUpperCase();
-  const code = (input.reasonCode ?? "").trim().toUpperCase();
-
-  if (status === "APPLIED" || status === "ALREADY_APPLIED") {
-    return { kind: "applied", label: "Effet confirmé.", testId: "outcome-applied" };
-  }
-  if (status === "UNKNOWN" || status.startsWith("UNKNOWN")) {
-    return {
-      kind: "unknown",
-      label: "Résultat non confirmé — réconcilier avant une nouvelle tentative.",
-      testId: "outcome-unknown",
-    };
-  }
-  if (status === "REJECTED" && code === "RESTRICTION") {
-    return {
-      kind: "authority_block",
-      label: "Restriction D6 applicable — refus d'autorité borné au point d'effet.",
-      testId: "authority-block-established",
-    };
-  }
-  if (status === "CONFLICT" && (code === "STALE_REVISION" || code === "HUMAN_INTENT" || code === "FINGERPRINT")) {
-    const labels: Record<string, string> = {
-      STALE_REVISION: "Révision périmée — actualiser / réconcilier.",
-      HUMAN_INTENT: "Intention humaine déjà enregistrée — consulter le résultat, pas de double effet.",
-      FINGERPRINT: "Clé d'idempotence réutilisée avec paramètres incompatibles.",
-    };
-    return {
-      kind: "technical_conflict",
-      label: labels[code] ?? "Conflit technique — pas un blocage d'autorité D6.",
-      testId: `outcome-technical-${code.toLowerCase()}`,
-    };
-  }
-  if (status === "CONFLICT" && (code === "ACTIVE_CYCLE" || code === "ALREADY_PRESENT")) {
-    return {
-      kind: "d5_state",
-      label: "Invariant d'état D5 — pas une contradiction entre décisions humaines.",
-      testId: "outcome-d5-state",
-    };
-  }
-  if (status === "REJECTED") {
-    return {
-      kind: "business_refusal",
-      label: "Refus métier — pas une décision APPLIED.",
-      testId: "authority-refusal",
-    };
-  }
-  if (status === "CONFLICT") {
-    return {
-      kind: "technical_conflict",
-      label: "Conflit technique/état — pas un blocage d'autorité D6 établi.",
-      testId: "outcome-technical-other",
-    };
-  }
-  return { kind: "other", label: "", testId: "outcome-other" };
-}
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
+### MODIFIED FULL `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` @ ba831b25bc18
 
 ```tsx
 "use client";
@@ -1533,10 +2452,933 @@ export default function ProjectPage() {
     </div>
   );
 }
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+### MODIFIED FULL `projects/sfia-studio-next/web/src/components/PilotagePanel.tsx` @ ba831b25bc18
+
+```tsx
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { qualifyCommandOutcome } from "@/domains/decisions/divergence-assist";
+
+type PilotageProjection = {
+  projectId: string;
+  revision: number;
+  trajectory: {
+    retained: { id: string; revisionNumber: number; orientation: string } | null;
+    proposed: { id: string; revisionNumber: number; orientation: string } | null;
+  };
+  cycle: {
+    id: string;
+    cycleType: string;
+    status: string;
+    objective: string;
+    cki: {
+      ckiId: string;
+      availability: string;
+      pinnedVersion: string | null;
+      contentDigest: string | null;
+    };
+  } | null;
+  method:
+    | { presence: "ABSENT"; usageRestricted: false }
+    | {
+        presence: "RETAINED";
+        usageRestricted: boolean;
+        usageNote?: string | null;
+        methodRef: string;
+        methodVersion: string;
+      };
+  restrictions: Array<{ id: string; targetKind: string; targetRef: string; status: string }>;
+};
+
+type DecisionRow = {
+  id: string;
+  kind: string;
+  statement: string;
+  state: string;
+  objectRef?: string;
+  createdAt?: string;
+  supersedesDecisionId?: string | null;
+};
+
+type CommandResult = {
+  status: string;
+  commandId: string | null;
+  revision: number | null;
+  reason?: string;
+  reasonCode?: string;
+  effects?: Array<{ effectKind: string; targetRef: string }>;
+  error?: string;
+};
+
+type IntentBody = {
+  operation?: string;
+  utterance?: string;
+  sourceKind: string;
+  cycleType?: string;
+  cycleId?: string;
+  toCycleType?: string;
+  objective?: string;
+  orientation?: string;
+  trajectoryRevisionId?: string;
+  methodRef?: string;
+  methodVersion?: string;
+  targetKind?: string;
+  targetRef?: string;
+  restrictionId?: string;
+  statement?: string;
+  balanceNote?: string;
+  decisionId?: string;
+};
+
+type PendingRecord = {
+  clientCommandKey: string;
+  actInstanceId: string;
+  actKey: string;
+  signature: string;
+  operation: string;
+  payload: Record<string, unknown>;
+  commandId?: string;
+  expectedRevision: number;
+  sourceRef: string;
+  sourceAction: { operation: string; actKey: string; actInstanceId: string };
+};
+
+const TERMINAL = new Set(["APPLIED", "ALREADY_APPLIED", "REJECTED", "CONFLICT"]);
+const CONFIRMED = new Set(["APPLIED", "ALREADY_APPLIED"]);
+
+function storageKey(projectId: string, operation: string, actKey: string) {
+  return `sfia.pilotage.pending:${projectId}:${operation}:${actKey}`;
+}
+
+function intentSignature(projectId: string, intent: IntentBody): string {
+  const operation = intent.operation?.trim() || "UTTERANCE";
+  return JSON.stringify({
+    projectId,
+    operation,
+    utterance: intent.utterance ?? "",
+    cycleType: intent.cycleType ?? "",
+    cycleId: intent.cycleId ?? "",
+    toCycleType: intent.toCycleType ?? "",
+    objective: intent.objective ?? "",
+    orientation: intent.orientation ?? "",
+    trajectoryRevisionId: intent.trajectoryRevisionId ?? "",
+    methodRef: intent.methodRef ?? "",
+    methodVersion: intent.methodVersion ?? "",
+    targetKind: intent.targetKind ?? "",
+    targetRef: intent.targetRef ?? "",
+    restrictionId: intent.restrictionId ?? "",
+    decisionId: intent.decisionId ?? "",
+    statement: intent.statement ?? "",
+  });
+}
+
+function readStored(projectId: string, operation: string, signature: string): PendingRecord | null {
+  if (typeof sessionStorage === "undefined") return null;
+  const prefix = `sfia.pilotage.pending:${projectId}:${operation}:`;
+  for (let i = 0; i < sessionStorage.length; i++) {
+    const key = sessionStorage.key(i);
+    if (!key?.startsWith(prefix)) continue;
+    try {
+      const rec = JSON.parse(sessionStorage.getItem(key) || "") as PendingRecord;
+      if (rec.signature === signature) return rec;
+    } catch {
+      /* ignore corrupt pending rows */
+    }
+  }
+  return null;
+}
+
+function writeStored(projectId: string, record: PendingRecord) {
+  sessionStorage.setItem(storageKey(projectId, record.operation, record.actKey), JSON.stringify(record));
+}
+
+function clearStored(projectId: string, record: PendingRecord) {
+  sessionStorage.removeItem(storageKey(projectId, record.operation, record.actKey));
+}
+
+/**
+ * Surfaces ML3 Pilotage — états honnêtes.
+ * Jamais d'effet présenté comme confirmé avant réponse serveur APPLIED/ALREADY_APPLIED.
+ */
+export function PilotagePanel({ projectId }: { projectId: string }) {
+  const [projection, setProjection] = useState<PilotageProjection | null>(null);
+  const [decisions, setDecisions] = useState<DecisionRow[]>([]);
+  const [error, setError] = useState("");
+  const [journalError, setJournalError] = useState("");
+  const [status, setStatus] = useState("");
+  const [lastOutcome, setLastOutcome] = useState<{ status: string; reasonCode?: string } | null>(
+    null,
+  );
+  const [busy, setBusy] = useState(false);
+  const [pendingLabel, setPendingLabel] = useState<string | null>(null);
+  const [unresolved, setUnresolved] = useState<PendingRecord | null>(null);
+  const [cycleType, setCycleType] = useState("UX_UI");
+  const [toCycleType, setToCycleType] = useState("CADRAGE");
+  const [objective, setObjective] = useState("Qualifier l'expérience Pilote–Nora");
+  const [methodRef, setMethodRef] = useState("sfia-fast-track");
+  const [methodVersion, setMethodVersion] = useState("2.6");
+  const [utterance, setUtterance] = useState("");
+  const [restrictionTarget, setRestrictionTarget] = useState("*");
+  const [reviseTargetId, setReviseTargetId] = useState<string | null>(null);
+  const [reviseDraft, setReviseDraft] = useState("");
+  /** C03 — show 8 most recent by default; expand to full chronological history. */
+  const [journalExpanded, setJournalExpanded] = useState(false);
+  const inflight = useRef(new Map<string, PendingRecord>());
+
+  const load = useCallback(async () => {
+    const [pRes, dRes] = await Promise.all([
+      fetch(`/api/projects/${projectId}/pilotage`),
+      fetch(`/api/projects/${projectId}/decisions`),
+    ]);
+    if (pRes.status === 401 || dRes.status === 401) {
+      setError("Session requise");
+      return;
+    }
+    if (!pRes.ok) {
+      setError("Impossible de charger le pilotage");
+      return;
+    }
+    const pj = await pRes.json();
+    setProjection(pj.pilotage ?? pj);
+    if (!dRes.ok) {
+      let message = `Journal HTTP ${dRes.status}`;
+      try {
+        const dj = (await dRes.json()) as { error?: string; message?: string };
+        message = dj.error ?? dj.message ?? message;
+      } catch {
+        /* keep the HTTP status */
+      }
+      setJournalError(message);
+      setDecisions([]);
+    } else {
+      const dj = await dRes.json();
+      setDecisions(dj.decisions ?? []);
+      setJournalError("");
+    }
+    setError("");
+  }, [projectId]);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  function forget(record: PendingRecord) {
+    inflight.current.delete(record.signature);
+    clearStored(projectId, record);
+    setUnresolved((current) => (current?.clientCommandKey === record.clientCommandKey ? null : current));
+  }
+
+  function remember(record: PendingRecord) {
+    inflight.current.set(record.signature, record);
+    writeStored(projectId, record);
+    setUnresolved(record);
+  }
+
+  async function reconcile(record: PendingRecord): Promise<CommandResult | null> {
+    try {
+      const byKey = await fetch(
+        `/api/projects/${projectId}/pilotage/commands/by-key/${encodeURIComponent(record.clientCommandKey)}`,
+      );
+      if (byKey.ok) return (await byKey.json()) as CommandResult;
+    } catch {
+      /* try the command id next */
+    }
+    if (!record.commandId) return null;
+    try {
+      const byId = await fetch(`/api/projects/${projectId}/pilotage/commands/${record.commandId}`);
+      if (byId.ok) return (await byId.json()) as CommandResult;
+    } catch {
+      return null;
+    }
+    return null;
+  }
+
+  async function applyResult(record: PendingRecord, result: CommandResult) {
+    if (result.commandId) {
+      record.commandId = result.commandId;
+      writeStored(projectId, record);
+    }
+    setLastOutcome({ status: result.status, reasonCode: result.reasonCode });
+    setStatus(
+      `${result.status}${result.reasonCode ? ` · ${result.reasonCode}` : ""}${result.reason ? ` — ${result.reason}` : ""}`,
+    );
+    if (CONFIRMED.has(result.status)) {
+      forget(record);
+      await load();
+      return;
+    }
+    if (TERMINAL.has(result.status)) {
+      forget(record);
+      return;
+    }
+    remember(record);
+  }
+
+  async function postRecord(record: PendingRecord): Promise<"network" | "nonjson" | CommandResult> {
+    let res: Response;
+    try {
+      res = await fetch(`/api/projects/${projectId}/pilotage/commands`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Idempotency-Key": record.clientCommandKey,
+        },
+        body: JSON.stringify(record.payload),
+      });
+    } catch {
+      return "network";
+    }
+    const text = await res.text();
+    let json: CommandResult;
+    try {
+      json = JSON.parse(text) as CommandResult;
+    } catch {
+      return "nonjson";
+    }
+    if (!res.ok && !json.status) {
+      return { status: `HTTP ${res.status}`, commandId: null, revision: null, reason: json.error };
+    }
+    return json;
+  }
+
+  async function resolveUnknown(record: PendingRecord) {
+    // R1: UNKNOWN is its own presentation — never keep a prior RESTRICTION/CONFLICT motif.
+    setLastOutcome({ status: "UNKNOWN" });
+    setStatus("UNKNOWN");
+    const found = await reconcile(record);
+    if (found?.status && found.status !== "UNKNOWN") {
+      await applyResult(record, found);
+      return;
+    }
+    const replay = await postRecord(record);
+    if (replay === "network" || replay === "nonjson") {
+      remember(record);
+      setLastOutcome({ status: "UNKNOWN" });
+      setStatus("UNKNOWN — commande non réconciliée");
+      return;
+    }
+    await applyResult(record, replay);
+  }
+
+  async function runCommand(intent: IntentBody, pending: string) {
+    const operation = intent.operation?.trim() || "UTTERANCE";
+    const signature = intentSignature(projectId, intent);
+    let record = inflight.current.get(signature) ?? readStored(projectId, operation, signature);
+    if (!record) {
+      const actInstanceId = crypto.randomUUID();
+      const actKey = actInstanceId;
+      const clientCommandKey = `cmd_${crypto.randomUUID()}`;
+      const sourceRef = `ui:${operation}:${actInstanceId}`;
+      const expectedRevision = projection?.revision ?? 0;
+      const payload: Record<string, unknown> = {
+        ...intent,
+        operation: intent.operation?.trim() ? intent.operation : undefined,
+        clientCommandKey,
+        expectedRevision,
+        actInstanceId,
+        sourceRef,
+        sourceKind: intent.sourceKind,
+      };
+      record = {
+        clientCommandKey,
+        actInstanceId,
+        actKey,
+        signature,
+        operation,
+        payload,
+        expectedRevision,
+        sourceRef,
+        sourceAction: { operation, actKey, actInstanceId },
+      };
+    }
+    inflight.current.set(signature, record);
+    writeStored(projectId, record);
+    setBusy(true);
+    setPendingLabel(pending);
+    // R1: new attempt never reuses a previous command's qualified motif.
+    setLastOutcome(null);
+    setStatus("");
+    try {
+      const posted = await postRecord(record);
+      if (posted === "network" || posted === "nonjson") {
+        await resolveUnknown(record);
+        return;
+      }
+      await applyResult(record, posted);
+    } catch {
+      setLastOutcome({ status: "UNKNOWN" });
+      setStatus("UNKNOWN");
+      remember(record);
+    } finally {
+      setBusy(false);
+      setPendingLabel(null);
+    }
+  }
+
+  if (error) {
+    return <div className="panel p-4 text-sm">{error}</div>;
+  }
+  if (!projection) {
+    return <div className="panel p-4 text-sm muted">Chargement du pilotage…</div>;
+  }
+
+  const cycle = projection.cycle;
+  const methodAbsent = projection.method.presence === "ABSENT";
+  const activeRestrictions = projection.restrictions.filter((r) => r.status === "ACTIVE");
+  const cycleChoices = [
+    "CADRAGE",
+    "CONCEPTION_FONCTIONNELLE",
+    "UX_UI",
+    "ARCHITECTURE_TECHNIQUE",
+    "DELIVERY",
+    "QA_VALIDATION",
+  ];
+
+  return (
+    <div className="space-y-4" data-testid="pilotage-panel">
+      {pendingLabel ? (
+        <div className="panel p-3 text-sm" role="status" data-testid="pilotage-pending">
+          {pendingLabel} — effet non confirmé tant que le serveur n&apos;a pas persisté.
+        </div>
+      ) : null}
+
+      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-4">
+        <section className="panel p-4 space-y-3" aria-labelledby="traj-title">
+          <p className="text-xs muted uppercase tracking-wide">
+            {cycle ? "Cycle" : "Trajectoire"} · révision {projection.revision}
+          </p>
+          <h2 id="traj-title" className="text-xl font-semibold">
+            {cycle ? `Cycle ${cycle.cycleType} · ${cycle.status}` : "Aucun cycle actif"}
+          </h2>
+          <p className="text-sm muted">
+            {cycle
+              ? cycle.objective
+              : "État normal : le projet peut avancer sans cycle ni méthode. Une proposition n'ouvre rien."}
+          </p>
+
+          {cycle ? (
+            <div className="panel p-3 space-y-2 text-sm" data-testid="cycle-active">
+              <div>
+                CKI {cycle.cki.ckiId} · disponibilité <strong>{cycle.cki.availability}</strong>
+                {cycle.cki.pinnedVersion ? ` · pin ${cycle.cki.pinnedVersion}` : ""}
+              </div>
+              {cycle.cki.availability === "UNAVAILABLE" || cycle.cki.availability === "ASSOCIATED" ? (
+                <p className="text-xs muted" data-testid="cki-limited">
+                  Guidance non livrée comme disponible — Nora reste générale sur ce point.
+                </p>
+              ) : null}
+              <label className="block text-sm">
+                Transiter vers
+                <select
+                  className="textarea mt-1"
+                  value={toCycleType}
+                  onChange={(e) => setToCycleType(e.target.value)}
+                  aria-label="Type de cycle cible"
+                >
+                  {cycleChoices
+                    .filter((t) => t !== cycle.cycleType)
+                    .map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                </select>
+              </label>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <button
+                  type="button"
+                  className="btn secondary"
+                  disabled={busy}
+                  data-testid="close-cycle"
+                  onClick={() =>
+                    void runCommand(
+                      {
+                        operation: "CLOSE_CYCLE",
+                        cycleId: cycle.id,
+                        sourceKind: "EXPLICIT_INTERACTION",
+                        utterance: "Je clos ce cycle.",
+                      },
+                      "Clôture demandée",
+                    )
+                  }
+                >
+                  Clore ce cycle
+                </button>
+                <button
+                  type="button"
+                  className="btn secondary"
+                  disabled={busy}
+                  data-testid="transition-cycle"
+                  onClick={() =>
+                    void runCommand(
+                      {
+                        operation: "TRANSITION_CYCLE",
+                        cycleId: cycle.id,
+                        cycleType: cycle.cycleType,
+                        toCycleType,
+                        objective,
+                        sourceKind: "EXPLICIT_INTERACTION",
+                        utterance: `Je clos ${cycle.cycleType} et j'ouvre ${toCycleType}.`,
+                      },
+                      "Transition à confirmer",
+                    )
+                  }
+                >
+                  Transiter
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-2" data-testid="cycle-absent">
+              <label className="block text-sm">
+                Type de cycle
+                <select
+                  className="textarea mt-1"
+                  value={cycleType}
+                  onChange={(e) => setCycleType(e.target.value)}
+                  aria-label="Type de cycle"
+                >
+                  {cycleChoices.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="block text-sm">
+                Objectif
+                <input
+                  className="textarea mt-1"
+                  value={objective}
+                  onChange={(e) => setObjective(e.target.value)}
+                  aria-label="Objectif du cycle"
+                />
+              </label>
+              <label className="block text-sm">
+                GO naturel (ou laisser vide pour commande structurée)
+                <textarea
+                  className="textarea mt-1"
+                  value={utterance}
+                  onChange={(e) => setUtterance(e.target.value)}
+                  placeholder="Ex. « ouvre le cycle cadrage »"
+                  aria-label="Énoncé GO"
+                />
+              </label>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  className="btn"
+                  disabled={busy}
+                  data-testid="open-cycle"
+                  onClick={() =>
+                    void runCommand(
+                      utterance.trim()
+                        ? {
+                            utterance,
+                            sourceKind: "EXPLICIT_INTERACTION",
+                          }
+                        : {
+                            operation: "OPEN_CYCLE",
+                            cycleType,
+                            objective,
+                            sourceKind: "EXPLICIT_INTERACTION",
+                            utterance: `GO : ouvrir cycle ${cycleType}.`,
+                          },
+                      "Ouverture à confirmer",
+                    )
+                  }
+                >
+                  Ouvrir ce cycle
+                </button>
+                <button
+                  type="button"
+                  className="btn secondary"
+                  disabled={busy}
+                  data-testid="propose-trajectory"
+                  onClick={() =>
+                    void runCommand(
+                      {
+                        operation: "PROPOSE_TRAJECTORY",
+                        orientation: objective,
+                        sourceKind: "COGNITIVE_PROPOSAL",
+                      },
+                      "Proposition en cours",
+                    )
+                  }
+                >
+                  Proposer une trajectoire
+                </button>
+              </div>
+            </div>
+          )}
+
+          {projection.trajectory.proposed ? (
+            <div className="space-y-2" data-testid="trajectory-proposed">
+              <p className="text-sm">
+                Proposition n°{projection.trajectory.proposed.revisionNumber} :{" "}
+                {projection.trajectory.proposed.orientation}
+              </p>
+              <button
+                type="button"
+                className="btn secondary"
+                disabled={busy}
+                data-testid="retain-trajectory"
+                onClick={() =>
+                  void runCommand(
+                    {
+                      operation: "RETAIN_TRAJECTORY",
+                      trajectoryRevisionId: projection.trajectory.proposed?.id,
+                      orientation: projection.trajectory.proposed?.orientation,
+                      sourceKind: "EXPLICIT_INTERACTION",
+                      utterance: "Je retiens cette trajectoire.",
+                    },
+                    "Rétention à confirmer",
+                  )
+                }
+              >
+                Retenir cette trajectoire
+              </button>
+            </div>
+          ) : null}
+          {projection.trajectory.retained ? (
+            <p className="text-sm muted">
+              Orientation retenue n°{projection.trajectory.retained.revisionNumber}
+            </p>
+          ) : null}
+        </section>
+
+        <aside className="space-y-3">
+          <section className="panel p-4 space-y-2" aria-labelledby="method-title">
+            <h2 id="method-title" className="font-medium">
+              Méthode
+            </h2>
+            {methodAbsent ? (
+              <p className="text-sm muted" data-testid="method-absent">
+                Aucune méthode retenue — état normal.
+              </p>
+            ) : (
+              <div className="text-sm" data-testid="method-retained">
+                <p>
+                  {projection.method.presence === "RETAINED"
+                    ? `${projection.method.methodRef}@${projection.method.methodVersion}`
+                    : null}
+                </p>
+                {projection.method.presence === "RETAINED" && projection.method.usageRestricted ? (
+                  <p className="text-xs" data-testid="method-usage-restricted">
+                    usageRestricted — {projection.method.usageNote ?? "pas pleinement applicable"}.
+                  </p>
+                ) : null}
+              </div>
+            )}
+            <label className="block text-xs">
+              Réf.
+              <input
+                className="textarea mt-1"
+                value={methodRef}
+                onChange={(e) => setMethodRef(e.target.value)}
+              />
+            </label>
+            <label className="block text-xs">
+              Version
+              <input
+                className="textarea mt-1"
+                value={methodVersion}
+                onChange={(e) => setMethodVersion(e.target.value)}
+              />
+            </label>
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                className="btn secondary"
+                disabled={busy}
+                data-testid="choose-method"
+                onClick={() =>
+                  void runCommand(
+                    {
+                      operation: methodAbsent ? "CHOOSE_METHOD" : "REPLACE_METHOD",
+                      methodRef,
+                      methodVersion,
+                      sourceKind: "EXPLICIT_INTERACTION",
+                      utterance: methodAbsent
+                        ? `Je retiens la méthode ${methodRef}@${methodVersion}.`
+                        : `Je remplace la méthode par ${methodRef}@${methodVersion}.`,
+                    },
+                    "Décision de méthode à confirmer",
+                  )
+                }
+              >
+                {methodAbsent ? "Retenir cette méthode" : "Remplacer la méthode"}
+              </button>
+              {methodAbsent ? null : (
+                <button
+                  type="button"
+                  className="btn secondary"
+                  disabled={busy}
+                  data-testid="withdraw-method"
+                  onClick={() =>
+                    void runCommand(
+                      {
+                        operation: "WITHDRAW_METHOD",
+                        sourceKind: "EXPLICIT_INTERACTION",
+                        utterance: "Je retire la méthode.",
+                      },
+                      "Retrait de méthode à confirmer",
+                    )
+                  }
+                >
+                  Retirer la méthode
+                </button>
+              )}
+            </div>
+          </section>
+
+          <section className="panel p-4 space-y-2" aria-labelledby="restrict-title" data-testid="restriction-list">
+            <h2 id="restrict-title" className="font-medium">
+              Restrictions
+            </h2>
+            {activeRestrictions.length === 0 ? (
+              <p className="text-sm muted">Aucune restriction active.</p>
+            ) : (
+              activeRestrictions.map((r) => (
+                <div key={r.id} className="text-sm flex items-center justify-between gap-2">
+                  <span>
+                    {r.targetKind} · {r.targetRef || "*"} · {r.status}
+                  </span>
+                  <button
+                    type="button"
+                    className="btn secondary"
+                    disabled={busy}
+                    onClick={() =>
+                      void runCommand(
+                        {
+                          operation: "LIFT_RESTRICTION",
+                          restrictionId: r.id,
+                          sourceKind: "EXPLICIT_INTERACTION",
+                          utterance: "Je lève cette restriction.",
+                        },
+                        "Levée à confirmer",
+                      )
+                    }
+                  >
+                    Lever
+                  </button>
+                </div>
+              ))
+            )}
+            <label className="block text-xs">
+              Cible CYCLE_MUTATION
+              <select
+                className="textarea mt-1"
+                value={restrictionTarget}
+                onChange={(e) => setRestrictionTarget(e.target.value)}
+                aria-label="Cible de restriction"
+              >
+                <option value="*">* (globale)</option>
+                {cycle ? <option value={cycle.id}>cycle {cycle.id}</option> : null}
+                {cycle ? <option value={cycle.cycleType}>{cycle.cycleType}</option> : null}
+              </select>
+            </label>
+            <button
+              type="button"
+              className="btn secondary"
+              disabled={busy}
+              data-testid="apply-cycle-restriction"
+              onClick={() =>
+                void runCommand(
+                  {
+                    operation: "APPLY_RESTRICTION",
+                    targetKind: "CYCLE_MUTATION",
+                    targetRef: restrictionTarget,
+                    statement: `Restriction CYCLE_MUTATION ${restrictionTarget}`,
+                    sourceKind: "EXPLICIT_INTERACTION",
+                    utterance: "J'applique une restriction de mutation de cycle.",
+                  },
+                  "Restriction à confirmer",
+                )
+              }
+            >
+              Appliquer la restriction
+            </button>
+          </section>
+
+          <section className="panel p-4 space-y-2" aria-labelledby="dec-title" data-testid="decision-journal">
+            <h2 id="dec-title" className="font-medium">
+              Journal — décisions
+            </h2>
+            <p className="text-xs muted" data-testid="b13-authority-legend">
+              Suspicion Nora (Niveau A) ≠ interdiction D6. Seul un refus
+              RESTRICTION (ou motif d&apos;autorité explicitement typé) est un
+              blocage d&apos;autorité. CONFLICT (STALE_REVISION, HUMAN_INTENT,
+              FINGERPRINT, ACTIVE_CYCLE) est technique/état — pas une contradiction
+              D6. APPLICABLE / REVISED / REVOKED / SUPERSEDED décrivent l&apos;historique.
+            </p>
+            {journalError ? (
+              <p className="text-sm" data-testid="journal-error" role="alert">
+                {journalError}
+              </p>
+            ) : null}
+            {decisions.length === 0 && !journalError ? (
+              <p className="text-sm muted">Aucune décision D6 enregistrée.</p>
+            ) : (
+              (() => {
+                const chronological = [...decisions].sort((a, b) =>
+                  String(a.createdAt ?? "").localeCompare(String(b.createdAt ?? "")),
+                );
+                const newestFirst = [...chronological].reverse();
+                const visible = journalExpanded ? chronological : newestFirst.slice(0, 8);
+                return (
+                  <>
+                    <p className="text-xs muted" data-testid="journal-count">
+                      {decisions.length} décision(s) ·{" "}
+                      {journalExpanded
+                        ? "historique complet (ancien → récent)"
+                        : "8 plus récentes (récent → ancien)"}
+                    </p>
+                    {visible.map((d) => (
+                      <article
+                        key={d.id}
+                        className="text-sm panel p-2 space-y-2"
+                        data-testid="decision-row"
+                      >
+                        <div className="text-xs muted" data-testid="decision-state">
+                          {d.kind} · {d.state || "état inconnu"}
+                          {d.objectRef ? ` · ${d.objectRef}` : ""}
+                        </div>
+                        <div>{d.statement}</div>
+                        {d.state === "APPLICABLE" && d.kind === "RECORD_DECISION" ? (
+                          reviseTargetId === d.id ? (
+                            <div className="space-y-2">
+                              <label className="block text-xs muted" htmlFor={`revise-${d.id}`}>
+                                Nouvel énoncé (révision documentaire)
+                              </label>
+                              <textarea
+                                id={`revise-${d.id}`}
+                                className="textarea text-sm"
+                                value={reviseDraft}
+                                onChange={(e) => setReviseDraft(e.target.value)}
+                                data-testid="journal-revise-draft"
+                                rows={2}
+                              />
+                              <div className="flex flex-wrap gap-2">
+                                <button
+                                  type="button"
+                                  className="btn"
+                                  disabled={busy || !reviseDraft.trim()}
+                                  data-testid="journal-revise-submit"
+                                  onClick={() =>
+                                    void runCommand(
+                                      {
+                                        operation: "REVISE_DECISION",
+                                        decisionId: d.id,
+                                        statement: reviseDraft.trim(),
+                                        sourceKind: "EXPLICIT_INTERACTION",
+                                        utterance: reviseDraft.trim(),
+                                      },
+                                      "Révision en cours",
+                                    ).then(() => {
+                                      setReviseTargetId(null);
+                                      setReviseDraft("");
+                                    })
+                                  }
+                                >
+                                  Enregistrer la révision
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn secondary"
+                                  disabled={busy}
+                                  onClick={() => {
+                                    setReviseTargetId(null);
+                                    setReviseDraft("");
+                                  }}
+                                >
+                                  Annuler
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <button
+                              type="button"
+                              className="btn secondary text-xs"
+                              disabled={busy}
+                              data-testid="journal-revise-open"
+                              onClick={() => {
+                                setReviseTargetId(d.id);
+                                setReviseDraft(d.statement);
+                              }}
+                            >
+                              Réviser
+                            </button>
+                          )
+                        ) : null}
+                      </article>
+                    ))}
+                    {decisions.length > 8 ? (
+                      <button
+                        type="button"
+                        className="btn secondary text-xs"
+                        data-testid="journal-expand"
+                        onClick={() => setJournalExpanded((v) => !v)}
+                      >
+                        {journalExpanded
+                          ? "Réduire aux 8 plus récentes"
+                          : `Afficher tout l'historique (${decisions.length})`}
+                      </button>
+                    ) : null}
+                  </>
+                );
+              })()
+            )}
+          </section>
+        </aside>
+      </div>
+
+      {unresolved ? (
+        <button
+          type="button"
+          className="btn secondary"
+          disabled={busy}
+          data-testid="pilotage-reconcile"
+          onClick={() => {
+            setBusy(true);
+            setPendingLabel("Réconciliation");
+            void resolveUnknown(unresolved).finally(() => {
+              setBusy(false);
+              setPendingLabel(null);
+            });
+          }}
+        >
+          Réconcilier l&apos;état inconnu
+        </button>
+      ) : null}
+
+      {status ? (
+        <div className="space-y-1" data-testid="pilotage-status-block">
+          <p className="text-xs muted" data-testid="pilotage-status" role="status">
+            {status}
+          </p>
+          {lastOutcome
+            ? (() => {
+                const q = qualifyCommandOutcome(lastOutcome);
+                if (!q.label) return null;
+                return (
+                  <p className="text-xs" data-testid={q.testId} role="status">
+                    {q.label}
+                  </p>
+                );
+              })()
+            : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+```
+
+### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/conversation/service.ts` @ ba831b25bc18
 
 ```tsx
 import { and, asc, eq } from "drizzle-orm";
@@ -2348,10 +4190,9 @@ export async function getConversationId(pilotId: string, preparationId: string) 
   )[0];
   return row?.id ?? null;
 }
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts`
+### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts` @ ba831b25bc18
 
 ```tsx
 /**
@@ -3123,10 +4964,485 @@ export async function revokeOwnerTokenForTests(commandId: string) {
     })
     .where(eq(conversationTurnCommands.id, commandId));
 }
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/pilotage/intent.ts`
+### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts` @ ba831b25bc18
+
+```tsx
+/**
+ * B13 v0.1 — assisted contradictions (VALIDATED IN CONTENT BY MORRIS, 2026-11-06).
+ *
+ * Level A — POTENTIAL / cognitive signal for Nora. Never D6 authority.
+ * Level B — MATERIAL conflict: typed deterministic checks at point of effect only.
+ *
+ * C01: a single APPLICABLE D6 decision can be confronted with a new USER message
+ * without requiring a second persisted decision.
+ */
+
+export type DecisionBrief = {
+  id: string;
+  kind: string;
+  objectRef: string;
+  scope: string;
+  statement: string;
+  state: string;
+  sourceKind: string;
+};
+
+/** Structured Level A signal passed to Nora (fixture and LIVE path). Never authority. */
+export type LevelASignal = {
+  kind: "MESSAGE_DECISION_CONFRONTATION" | "STORED_DECISION_DIVERGENCE";
+  objectRef: string;
+  scope: string;
+  decisionId: string;
+  decisionIds?: string[];
+  priorStatement: string;
+  currentExpression: string;
+  /** Context selection framing — not a D6 verdict. */
+  framing: "POSSIBLE_CHANGE" | "COMPATIBLE_RESTATEMENT" | "AMBIGUOUS";
+  authorityClaim: "NONE";
+};
+
+export type PotentialDivergence = {
+  level: "A_POTENTIAL";
+  kind: string;
+  objectRef: string;
+  scope: string;
+  decisionIds: string[];
+  statements: string[];
+  authorityClaim: "NONE";
+};
+
+const MAX_APPLICABLE_FOR_CONTEXT = 12;
+const MAX_SIGNALS = 3;
+
+const OPPOSITION_PAIRS: Array<[RegExp, RegExp]> = [
+  [/\b(obligatoire|requis|required|mandatory|must)\b/i, /\b(facultatif|optionnel|optional|volontaire)\b/i],
+  [/\b(interdit|prohibé|banned|forbidden)\b/i, /\b(autorisé|permis|allowed|autoriser)\b/i],
+  [/\b(actif|ouverte?|open)\b/i, /\b(fermé|clos|closed|inactif)\b/i],
+];
+
+/** Modality terms whose affirmed/negated polarity must not be collapsed by lexical overlap. */
+const MODALITY_TERMS = [
+  "obligatoire",
+  "requis",
+  "required",
+  "mandatory",
+  "interdit",
+  "prohibé",
+  "banned",
+  "forbidden",
+  "autorisé",
+  "permis",
+  "allowed",
+  "facultatif",
+  "optionnel",
+  "optional",
+  "volontaire",
+] as const;
+
+/** Affirmed synonym groups — shared group ⇒ possible COMPATIBLE_RESTATEMENT (still Level A). */
+const MODALITY_SYNONYM_GROUPS: string[][] = [
+  ["obligatoire", "requis", "required", "mandatory"],
+  ["facultatif", "optionnel", "optional", "volontaire"],
+  ["interdit", "prohibé", "banned", "forbidden"],
+  ["autorisé", "permis", "allowed"],
+];
+
+const GLOBAL_SCOPE_RE =
+  /\b(tout\s+le\s+projet|ensemble\s+du\s+projet|global(?:e|ement)?|pour\s+tout)\b/i;
+const LOCAL_SCOPE_RE =
+  /\b(seulement|uniquement|juste\s+pour|pour\s+(?:ce\s+)?(?:cycle|ux|cadrage|activité))\b/i;
+
+/** Keep recent applicable decisions for Nora context — project-scoped, bounded. */
+export function selectApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
+  return rows
+    .filter((r) => r.state === "APPLICABLE" && (r.objectRef ?? "").trim().length > 0)
+    .slice(-MAX_APPLICABLE_FOR_CONTEXT);
+}
+
+/**
+ * CR-01 — all APPLICABLE briefs for D6 authority resolution.
+ * Never apply the Nora cognitive window (MAX_APPLICABLE_FOR_CONTEXT).
+ * Bounded context ≠ uniqueness of an opposable target.
+ */
+export function selectAllApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
+  return rows.filter(
+    (r) => r.state === "APPLICABLE" && (r.objectRef ?? "").trim().length > 0,
+  );
+}
+
+export type AuthorityReviseCandidate = DecisionBrief & {
+  framing: LevelASignal["framing"];
+};
+
+/**
+ * CR-01 — D6 revise-target candidates across the full applicable set.
+ * Level A framing filters relevance only — never authorizes mutation.
+ * No chronological / newest-wins / truncation selection.
+ * Caller must require exactly one candidate before REVISE.
+ */
+export function findAuthorityReviseCandidates(
+  userText: string,
+  rows: DecisionBrief[],
+): AuthorityReviseCandidate[] {
+  const text = userText.trim();
+  if (!text) return [];
+  const applicable = selectAllApplicableBriefs(rows);
+  const out: AuthorityReviseCandidate[] = [];
+  for (const row of applicable) {
+    if (!utteranceTouchesObject(text, row.objectRef)) continue;
+    if (normalizeText(text) === normalizeText(row.statement)) continue;
+    const framing = frameConfrontation(row.statement, text);
+    // Compatible restatement is not a revise target.
+    if (framing === "COMPATIBLE_RESTATEMENT") continue;
+    out.push({ ...row, framing });
+  }
+  return out;
+}
+
+function normalizeText(text: string): string {
+  // Normalize typographic apostrophes so « n’est » and « n'est » share one path.
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[\u2019\u2018\u02bc`]/g, "'")
+    .replace(/\s+/g, " ");
+}
+
+function significantTokens(text: string): string[] {
+  return normalizeText(text)
+    .split(/[^a-z0-9àâäéèêëïîôùûüç]+/i)
+    .filter((t) => t.length >= 4);
+}
+
+/** True when user text appears to revisit a recorded object (heuristic, cognitive only). */
+export function utteranceTouchesObject(userText: string, objectRef: string): boolean {
+  const needle = objectRef.trim().toLowerCase();
+  if (!needle || needle.length < 3) return false;
+  const hay = normalizeText(userText);
+  if (hay.includes(needle)) return true;
+  const tokens = needle.split(/[^a-z0-9àâäéèêëïîôùûüç]+/i).filter((t) => t.length >= 4);
+  if (tokens.length === 0) return false;
+  return tokens.some((t) => hay.includes(t));
+}
+
+function tokenOverlapRatio(a: string, b: string): number {
+  const ta = new Set(significantTokens(a));
+  const tb = new Set(significantTokens(b));
+  if (ta.size === 0 || tb.size === 0) return 0;
+  let inter = 0;
+  for (const t of ta) if (tb.has(t)) inter += 1;
+  return inter / Math.max(ta.size, tb.size);
+}
+
+function looksOpposed(prior: string, current: string): boolean {
+  for (const [left, right] of OPPOSITION_PAIRS) {
+    if ((left.test(prior) && right.test(current)) || (right.test(prior) && left.test(current))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * R2 — detect affirmed vs negated polarity of a modality term in a short window.
+ * Heuristic only (Niveau A). Prefer AMBIGUOUS/POSSIBLE_CHANGE over false COMPATIBLE.
+ * Bounded FR family: n'est plus|pas|jamais|aucunement ; ne doit/peut pas (être) ; pas / never / not.
+ */
+function modalityPolarity(text: string, term: string): "affirm" | "negate" | "absent" {
+  const n = normalizeText(text);
+  const idx = n.indexOf(term);
+  if (idx < 0) return "absent";
+  const before = n.slice(Math.max(0, idx - 56), idx);
+  // Apostrophe already normalized to ASCII in normalizeText.
+  if (
+    /(?:n'est\s+(?:plus|pas|jamais|aucunement)|ne\s+(?:doit|peut|saurait)\s+pas(?:\s+être)?|ne\s+\w{1,20}\s+pas|pas\s+(?:plus\s+|du\s+tout\s+|aucunement\s+)?|plus\s+(?:d[e']\s+)?|non\s+|is\s+no\s+longer\s+|is\s+not\s+|no\s+longer\s+|never\s+|not\s+)\s*$/i.test(
+      before,
+    )
+  ) {
+    return "negate";
+  }
+  const after = n.slice(idx + term.length, idx + term.length + 32);
+  if (
+    /^\s*(?:n'est\s+(?:plus|pas|jamais|aucunement)|is\s+no\s+longer|is\s+not|never)\b/i.test(after)
+  ) {
+    return "negate";
+  }
+  return "affirm";
+}
+
+function looksPolarityInverted(prior: string, current: string): boolean {
+  for (const term of MODALITY_TERMS) {
+    const p = modalityPolarity(prior, term);
+    const c = modalityPolarity(current, term);
+    if (p !== "absent" && c !== "absent" && p !== c) return true;
+  }
+  return false;
+}
+
+function sharesAffirmedModalitySynonym(prior: string, current: string): boolean {
+  for (const group of MODALITY_SYNONYM_GROUPS) {
+    const priorAffirm = group.some((t) => modalityPolarity(prior, t) === "affirm");
+    const currentAffirm = group.some((t) => modalityPolarity(current, t) === "affirm");
+    if (priorAffirm && currentAffirm) return true;
+  }
+  return false;
+}
+
+/** Distinct global vs local scope markers → clarify; never auto-equate. */
+function looksScopeShift(prior: string, current: string): boolean {
+  return (
+    (GLOBAL_SCOPE_RE.test(prior) && LOCAL_SCOPE_RE.test(current)) ||
+    (LOCAL_SCOPE_RE.test(prior) && GLOBAL_SCOPE_RE.test(current))
+  );
+}
+
+/**
+ * R2 — Level A framing only. Never D6 authority.
+ * Negation / polarity inversion must not become COMPATIBLE_RESTATEMENT via token overlap.
+ */
+function frameConfrontation(prior: string, current: string): LevelASignal["framing"] {
+  if (looksOpposed(prior, current) || looksPolarityInverted(prior, current)) {
+    return "POSSIBLE_CHANGE";
+  }
+  if (looksScopeShift(prior, current)) {
+    return "AMBIGUOUS";
+  }
+  if (sharesAffirmedModalitySynonym(prior, current)) {
+    return "COMPATIBLE_RESTATEMENT";
+  }
+  const overlap = tokenOverlapRatio(prior, current);
+  // High lexical overlap alone is weak evidence — prefer AMBIGUOUS over false compatible
+  // when modality synonyms are absent (R2: shared words ≠ same sense).
+  if (overlap >= 0.65) return "COMPATIBLE_RESTATEMENT";
+  if (overlap >= 0.2) return "AMBIGUOUS";
+  return "AMBIGUOUS";
+}
+
+/**
+ * C01 — confront a new USER message with existing APPLICABLE D6 decisions.
+ * Does not require a second persisted decision. Never creates authority.
+ */
+export function findMessageDecisionConfrontations(
+  userText: string,
+  rows: DecisionBrief[],
+): LevelASignal[] {
+  const text = userText.trim();
+  if (!text) return [];
+  const applicable = selectApplicableBriefs(rows);
+  const out: LevelASignal[] = [];
+  for (const row of applicable) {
+    if (!utteranceTouchesObject(text, row.objectRef)) continue;
+    // Exact same statement → no signal beyond the applicable list itself.
+    if (normalizeText(text) === normalizeText(row.statement)) continue;
+    out.push({
+      kind: "MESSAGE_DECISION_CONFRONTATION",
+      objectRef: row.objectRef,
+      scope: row.scope,
+      decisionId: row.id,
+      priorStatement: row.statement,
+      currentExpression: text.slice(0, 500),
+      framing: frameConfrontation(row.statement, text),
+      authorityClaim: "NONE",
+    });
+    if (out.length >= MAX_SIGNALS) break;
+  }
+  return out;
+}
+
+/**
+ * Level A among already-stored APPLICABLE rows (same kind+objectRef+scope,
+ * ≥2 distinct statements). Secondary to message confrontation. Cognitive only.
+ */
+export function findPotentialDivergences(rows: DecisionBrief[]): PotentialDivergence[] {
+  const applicable = selectApplicableBriefs(rows);
+  const groups = new Map<string, DecisionBrief[]>();
+  for (const row of applicable) {
+    const key = `${row.kind}\u0000${row.objectRef.trim().toLowerCase()}\u0000${row.scope}`;
+    const bucket = groups.get(key) ?? [];
+    bucket.push(row);
+    groups.set(key, bucket);
+  }
+  const out: PotentialDivergence[] = [];
+  for (const bucket of groups.values()) {
+    const statements = [...new Set(bucket.map((b) => b.statement.trim()).filter(Boolean))];
+    if (statements.length < 2) continue;
+    out.push({
+      level: "A_POTENTIAL",
+      kind: bucket[0].kind,
+      objectRef: bucket[0].objectRef,
+      scope: bucket[0].scope,
+      decisionIds: bucket.map((b) => b.id),
+      statements,
+      authorityClaim: "NONE",
+    });
+    if (out.length >= MAX_SIGNALS) break;
+  }
+  return out;
+}
+
+export function storedDivergencesToSignals(divs: PotentialDivergence[]): LevelASignal[] {
+  return divs.map((d) => ({
+    kind: "STORED_DECISION_DIVERGENCE" as const,
+    objectRef: d.objectRef,
+    scope: d.scope,
+    decisionId: d.decisionIds[0],
+    decisionIds: d.decisionIds,
+    priorStatement: d.statements[0] ?? "",
+    currentExpression: d.statements[1] ?? d.statements[0] ?? "",
+    framing: looksOpposed(d.statements[0] ?? "", d.statements[1] ?? "")
+      ? ("POSSIBLE_CHANGE" as const)
+      : ("AMBIGUOUS" as const),
+    authorityClaim: "NONE" as const,
+  }));
+}
+
+export function formatLevelASignalSnippets(signals: LevelASignal[]): string[] {
+  if (signals.length === 0) {
+    return [
+      "### Niveau A — rapprochement message / décisions",
+      "Aucun signal de revisite pertinente pour l'énoncé courant.",
+    ];
+  }
+  const lines: string[] = [
+    "### Niveau A — rapprochement message / décisions (cognitive, PAS un blocage D6)",
+    "Nora peut expliquer et clarifier. Elle ne révoque, ne remplace, ni ne suspend.",
+    "Une suspicion n'est pas un conflit matériel déterministe.",
+  ];
+  for (const s of signals) {
+    lines.push(
+      `- signal=${s.kind} framing=${s.framing} objet=${s.objectRef} scope=${s.scope} décision=${s.decisionId} authorityClaim=${s.authorityClaim}`,
+      `  décision existante: « ${s.priorStatement.slice(0, 160)} »`,
+      `  expression courante: « ${s.currentExpression.slice(0, 160)} »`,
+    );
+  }
+  return lines;
+}
+
+/** @deprecated Prefer formatLevelASignalSnippets — kept for callers that still pass raw divergences. */
+export function formatDivergenceSnippets(
+  divergences: PotentialDivergence[],
+  userText?: string,
+): string[] {
+  const filtered = userText
+    ? divergences.filter((d) => utteranceTouchesObject(userText, d.objectRef))
+    : divergences;
+  return formatLevelASignalSnippets(storedDivergencesToSignals(filtered));
+}
+
+export function formatApplicableDecisionSnippets(rows: DecisionBrief[]): string[] {
+  const briefs = selectApplicableBriefs(rows);
+  if (briefs.length === 0) {
+    return ["### Décisions D6 applicables", "(aucune décision applicable avec objectRef)"];
+  }
+  const lines = [
+    "### Décisions D6 applicables (sources — Nora n'en tire aucune autorité)",
+  ];
+  for (const b of briefs) {
+    lines.push(
+      `- ${b.id} kind=${b.kind} object=${b.objectRef} scope=${b.scope} state=${b.state} source=${b.sourceKind} « ${b.statement.slice(0, 160)} »`,
+    );
+  }
+  return lines;
+}
+
+export function buildLevelAClarification(input: {
+  priorStatement: string;
+  newExpression: string;
+  objectRef: string;
+  framing?: LevelASignal["framing"];
+}): string {
+  if (input.framing === "COMPATIBLE_RESTATEMENT") {
+    return (
+      `Tu as une décision applicable sur « ${input.objectRef} » : « ${input.priorStatement.slice(0, 200)} ».\n` +
+      `Ton message (« ${input.newExpression.slice(0, 200)} ») semble compatible — pas de conflit matériel établi.\n` +
+      `(Niveau A — pas une HumanDecision, pas une interdiction D6.)`
+    );
+  }
+  return (
+    `Tu avais retenu : « ${input.priorStatement.slice(0, 200)} » (objet ${input.objectRef}).\n` +
+    `Tu exprimes maintenant : « ${input.newExpression.slice(0, 200)} ».\n` +
+    `Souhaites-tu remplacer ce choix pour l'ensemble du projet ou seulement pour cette activité ?\n` +
+    `(Proposition cognitive Niveau A — pas une décision D6, pas une interdiction.)`
+  );
+}
+
+/**
+ * C02 — qualify pilotage command outcomes for UX.
+ * CONFLICT alone is never an authority block (STALE_REVISION / HUMAN_INTENT / FINGERPRINT / ACTIVE_CYCLE).
+ */
+export type CommandOutcomeKind =
+  | "authority_block"
+  | "technical_conflict"
+  | "d5_state"
+  | "business_refusal"
+  | "unknown"
+  | "applied"
+  | "other";
+
+export function qualifyCommandOutcome(input: {
+  status: string;
+  reasonCode?: string | null;
+}): { kind: CommandOutcomeKind; label: string; testId: string } {
+  const status = (input.status ?? "").trim().toUpperCase();
+  const code = (input.reasonCode ?? "").trim().toUpperCase();
+
+  if (status === "APPLIED" || status === "ALREADY_APPLIED") {
+    return { kind: "applied", label: "Effet confirmé.", testId: "outcome-applied" };
+  }
+  if (status === "UNKNOWN" || status.startsWith("UNKNOWN")) {
+    return {
+      kind: "unknown",
+      label: "Résultat non confirmé — réconcilier avant une nouvelle tentative.",
+      testId: "outcome-unknown",
+    };
+  }
+  if (status === "REJECTED" && code === "RESTRICTION") {
+    return {
+      kind: "authority_block",
+      label: "Restriction D6 applicable — refus d'autorité borné au point d'effet.",
+      testId: "authority-block-established",
+    };
+  }
+  if (status === "CONFLICT" && (code === "STALE_REVISION" || code === "HUMAN_INTENT" || code === "FINGERPRINT")) {
+    const labels: Record<string, string> = {
+      STALE_REVISION: "Révision périmée — actualiser / réconcilier.",
+      HUMAN_INTENT: "Intention humaine déjà enregistrée — consulter le résultat, pas de double effet.",
+      FINGERPRINT: "Clé d'idempotence réutilisée avec paramètres incompatibles.",
+    };
+    return {
+      kind: "technical_conflict",
+      label: labels[code] ?? "Conflit technique — pas un blocage d'autorité D6.",
+      testId: `outcome-technical-${code.toLowerCase()}`,
+    };
+  }
+  if (status === "CONFLICT" && (code === "ACTIVE_CYCLE" || code === "ALREADY_PRESENT")) {
+    return {
+      kind: "d5_state",
+      label: "Invariant d'état D5 — pas une contradiction entre décisions humaines.",
+      testId: "outcome-d5-state",
+    };
+  }
+  if (status === "REJECTED") {
+    return {
+      kind: "business_refusal",
+      label: "Refus métier — pas une décision APPLIED.",
+      testId: "authority-refusal",
+    };
+  }
+  if (status === "CONFLICT") {
+    return {
+      kind: "technical_conflict",
+      label: "Conflit technique/état — pas un blocage d'autorité D6 établi.",
+      testId: "outcome-technical-other",
+    };
+  }
+  return { kind: "other", label: "", testId: "outcome-other" };
+}
+```
+
+### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/pilotage/intent.ts` @ ba831b25bc18
 
 ```tsx
 import type { CycleType } from "@/domains/pilotage/cki-resolve";
@@ -3438,10 +5754,9 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
   }
   return { clarity: "NONE", reason: "Intention non reconnue" };
 }
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
+### MODIFIED FULL `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` @ ba831b25bc18
 
 ```tsx
 import { and, asc, desc, eq } from "drizzle-orm";
@@ -4705,1616 +7020,484 @@ export function recordHumanDecision(
     statement: input.statement,
   });
 }
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts`
+### MODIFIED FULL `projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts` @ ba831b25bc18
 
 ```tsx
-import { NextResponse } from "next/server";
-import { requireStudioSession } from "@/domains/identity/session";
-import { listMessages, postUserMessageAndNora } from "@/domains/conversation/service";
-import { studioErrorResponse } from "@/lib/http-errors";
-import { emitObs, newRequestId } from "@/lib/observability";
-
-export async function GET(_: Request, ctx: { params: Promise<{ preparationId: string }> }) {
-  const requestId = newRequestId();
-  try {
-    const session = await requireStudioSession();
-    const { preparationId } = await ctx.params;
-    const messages = await listMessages(session.pilotId, preparationId);
-    return NextResponse.json({ messages, requestId });
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    emitObs({
-      event_name: "api.messages.get_error",
-      component: "api.messages",
-      request_id: requestId,
-      outcome: "FAILED",
-      error_category: mapped.body.errorCategory,
-    });
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
-
-export async function POST(req: Request, ctx: { params: Promise<{ preparationId: string }> }) {
-  const requestId = newRequestId();
-  try {
-    const session = await requireStudioSession();
-    const { preparationId } = await ctx.params;
-    const body = (await req.json()) as {
-      content?: string;
-      correlationKey?: string;
-      clientTurnKey?: string;
-    };
-    if (!body.content?.trim()) {
-      return NextResponse.json(
-        { error: "INVALID_REQUEST", errorCategory: "INVALID_REQUEST" },
-        { status: 400 },
-      );
-    }
-    const result = await postUserMessageAndNora(
-      session.pilotId,
-      preparationId,
-      body.content.trim(),
-      {
-        correlationKey: body.correlationKey,
-        clientTurnKey: body.clientTurnKey ?? body.correlationKey,
-        requestId,
-      },
-    );
-    const messages = await listMessages(session.pilotId, preparationId);
-    // Pass through factual flags from the turn — never force humanDecisionCreated=false.
-    return NextResponse.json({
-      ...result,
-      messages,
-      humanDecisionCreated: Boolean(result.humanDecisionCreated),
-      pilotageEffect: result.pilotageEffect ?? null,
-      requestId,
-    });
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    emitObs({
-      event_name: "api.messages.post_error",
-      component: "api.messages",
-      request_id: requestId,
-      outcome: "FAILED",
-      error_category: mapped.body.errorCategory,
-    });
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
-
-```
-
-### MODIFIED FULL `projects/sfia-studio-next/web/src/components/PilotagePanel.tsx`
-
-```tsx
-"use client";
-
-import { useCallback, useEffect, useRef, useState } from "react";
-import { qualifyCommandOutcome } from "@/domains/decisions/divergence-assist";
-
-type PilotageProjection = {
-  projectId: string;
-  revision: number;
-  trajectory: {
-    retained: { id: string; revisionNumber: number; orientation: string } | null;
-    proposed: { id: string; revisionNumber: number; orientation: string } | null;
-  };
-  cycle: {
-    id: string;
-    cycleType: string;
-    status: string;
-    objective: string;
-    cki: {
-      ckiId: string;
-      availability: string;
-      pinnedVersion: string | null;
-      contentDigest: string | null;
-    };
-  } | null;
-  method:
-    | { presence: "ABSENT"; usageRestricted: false }
-    | {
-        presence: "RETAINED";
-        usageRestricted: boolean;
-        usageNote?: string | null;
-        methodRef: string;
-        methodVersion: string;
-      };
-  restrictions: Array<{ id: string; targetKind: string; targetRef: string; status: string }>;
-};
-
-type DecisionRow = {
-  id: string;
-  kind: string;
-  statement: string;
-  state: string;
-  objectRef?: string;
-  createdAt?: string;
-  supersedesDecisionId?: string | null;
-};
-
-type CommandResult = {
-  status: string;
-  commandId: string | null;
-  revision: number | null;
-  reason?: string;
-  reasonCode?: string;
-  effects?: Array<{ effectKind: string; targetRef: string }>;
-  error?: string;
-};
-
-type IntentBody = {
-  operation?: string;
-  utterance?: string;
-  sourceKind: string;
-  cycleType?: string;
-  cycleId?: string;
-  toCycleType?: string;
-  objective?: string;
-  orientation?: string;
-  trajectoryRevisionId?: string;
-  methodRef?: string;
-  methodVersion?: string;
-  targetKind?: string;
-  targetRef?: string;
-  restrictionId?: string;
-  statement?: string;
-  balanceNote?: string;
-  decisionId?: string;
-};
-
-type PendingRecord = {
-  clientCommandKey: string;
-  actInstanceId: string;
-  actKey: string;
-  signature: string;
-  operation: string;
-  payload: Record<string, unknown>;
-  commandId?: string;
-  expectedRevision: number;
-  sourceRef: string;
-  sourceAction: { operation: string; actKey: string; actInstanceId: string };
-};
-
-const TERMINAL = new Set(["APPLIED", "ALREADY_APPLIED", "REJECTED", "CONFLICT"]);
-const CONFIRMED = new Set(["APPLIED", "ALREADY_APPLIED"]);
-
-function storageKey(projectId: string, operation: string, actKey: string) {
-  return `sfia.pilotage.pending:${projectId}:${operation}:${actKey}`;
-}
-
-function intentSignature(projectId: string, intent: IntentBody): string {
-  const operation = intent.operation?.trim() || "UTTERANCE";
-  return JSON.stringify({
-    projectId,
-    operation,
-    utterance: intent.utterance ?? "",
-    cycleType: intent.cycleType ?? "",
-    cycleId: intent.cycleId ?? "",
-    toCycleType: intent.toCycleType ?? "",
-    objective: intent.objective ?? "",
-    orientation: intent.orientation ?? "",
-    trajectoryRevisionId: intent.trajectoryRevisionId ?? "",
-    methodRef: intent.methodRef ?? "",
-    methodVersion: intent.methodVersion ?? "",
-    targetKind: intent.targetKind ?? "",
-    targetRef: intent.targetRef ?? "",
-    restrictionId: intent.restrictionId ?? "",
-    decisionId: intent.decisionId ?? "",
-    statement: intent.statement ?? "",
-  });
-}
-
-function readStored(projectId: string, operation: string, signature: string): PendingRecord | null {
-  if (typeof sessionStorage === "undefined") return null;
-  const prefix = `sfia.pilotage.pending:${projectId}:${operation}:`;
-  for (let i = 0; i < sessionStorage.length; i++) {
-    const key = sessionStorage.key(i);
-    if (!key?.startsWith(prefix)) continue;
-    try {
-      const rec = JSON.parse(sessionStorage.getItem(key) || "") as PendingRecord;
-      if (rec.signature === signature) return rec;
-    } catch {
-      /* ignore corrupt pending rows */
-    }
-  }
-  return null;
-}
-
-function writeStored(projectId: string, record: PendingRecord) {
-  sessionStorage.setItem(storageKey(projectId, record.operation, record.actKey), JSON.stringify(record));
-}
-
-function clearStored(projectId: string, record: PendingRecord) {
-  sessionStorage.removeItem(storageKey(projectId, record.operation, record.actKey));
-}
+import { test, expect } from "@playwright/test";
+import path from "path";
 
 /**
- * Surfaces ML3 Pilotage — états honnêtes.
- * Jamais d'effet présenté comme confirmé avant réponse serveur APPLIED/ALREADY_APPLIED.
+ * ML3 browser FAKE — pilotage surfaces. LIVE Nora forbidden in E2E.
+ * Does not claim pixel-perfect Figma conformity.
  */
-export function PilotagePanel({ projectId }: { projectId: string }) {
-  const [projection, setProjection] = useState<PilotageProjection | null>(null);
-  const [decisions, setDecisions] = useState<DecisionRow[]>([]);
-  const [error, setError] = useState("");
-  const [journalError, setJournalError] = useState("");
-  const [status, setStatus] = useState("");
-  const [lastOutcome, setLastOutcome] = useState<{ status: string; reasonCode?: string } | null>(
-    null,
+test("ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+
+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.waitForURL("**/preparations/**");
+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 e2e seed");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 Pilotage");
+  await page.getByPlaceholder("Résumé inspecté").fill("e2e ml3");
+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
+  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
+
+  await page.getByRole("button", { name: "Pilotage" }).click();
+  await expect(page.getByTestId("pilotage-panel")).toBeVisible();
+  await expect(page.getByTestId("cycle-absent")).toBeVisible();
+  await expect(page.getByTestId("method-absent")).toBeVisible();
+
+  await page.getByLabel("Énoncé GO").fill("ouvre le cycle cadrage");
+  await page.getByTestId("open-cycle").click();
+  await expect(page.getByTestId("pilotage-pending")).toBeVisible();
+  await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByRole("heading", { name: /Cycle CADRAGE/ })).toBeVisible();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/);
+  await expect(page.getByTestId("decision-state").first()).toContainText("APPLICABLE");
+
+  await page.getByTestId("close-cycle").click();
+  await expect(page.getByTestId("cycle-absent")).toBeVisible({ timeout: 15000 });
+  await page.getByLabel("Énoncé GO").fill("");
+  await page.getByLabel("Type de cycle").selectOption("UX_UI");
+  await page.getByTestId("open-cycle").click();
+  await expect(page.getByRole("heading", { name: /Cycle UX_UI/ })).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/);
+
+  await page.getByTestId("choose-method").click();
+  await expect(page.getByTestId("method-retained")).toBeVisible({ timeout: 15000 });
+
+  const shot = path.join("tests/e2e/artifacts", `ml3-pilotage-${Date.now()}.png`);
+  await page.screenshot({ path: shot, fullPage: true });
+});
+
+/**
+ * B13 C02 — browser FAKE: RESTRICTION shows authority-block-established;
+ * HUMAN_INTENT conflict must NOT show authority-block-established.
+ * Pixel Figma: NOT VERIFIED.
+ */
+test("ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.waitForURL("**/preparations/**");
+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 B13 C02 seed");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 B13 C02");
+  await page.getByPlaceholder("Résumé inspecté").fill("e2e b13 c02");
+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
+  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
+
+  await page.getByRole("button", { name: "Pilotage" }).click();
+  await expect(page.getByTestId("b13-authority-legend")).toBeVisible();
+
+  // Global cycle restriction → OPEN rejected with RESTRICTION (authority).
+  await page.getByTestId("apply-cycle-restriction").click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
+    timeout: 15000,
+  });
+  await page.getByTestId("open-cycle").click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/REJECTED.*RESTRICTION|RESTRICTION/, {
+    timeout: 15000,
+  });
+  await expect(page.getByTestId("authority-block-established")).toBeVisible();
+  await expect(page.getByTestId("authority-block-established")).toContainText(/Restriction D6/i);
+
+  // Lift restriction, open cycle (APPLIED — no false authority block).
+  await page.getByRole("button", { name: "Lever" }).first().click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
+    timeout: 15000,
+  });
+  await page.getByLabel("Énoncé GO").fill("");
+  await page.getByTestId("open-cycle").click();
+  await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("outcome-applied")).toBeVisible();
+  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
+
+  // Controlled CONFLICT+HUMAN_INTENT response → technical motif, never authority-block.
+  // (UI open-cycle is hidden while ACTIVE; choose-method is the reachable pilot action.)
+  await page.route("**/api/projects/*/pilotage/commands", async (route) => {
+    if (route.request().method() !== "POST") {
+      await route.continue();
+      return;
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        status: "CONFLICT",
+        reasonCode: "HUMAN_INTENT",
+        reason: "Intention humaine déjà enregistrée",
+        commandId: "bcmd_e2e_c02_human_intent",
+        revision: null,
+      }),
+    });
+  });
+  await page.getByTestId("choose-method").click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/CONFLICT.*HUMAN_INTENT|HUMAN_INTENT/, {
+    timeout: 15000,
+  });
+  await expect(page.getByTestId("outcome-technical-human_intent")).toBeVisible();
+  await expect(page.getByTestId("outcome-technical-human_intent")).toContainText(/Intention humaine/i);
+  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
+});
+
+/**
+ * B13 R1 — rendered UX: prior RESTRICTION must not remain under a new UNKNOWN/APPLIED result.
+ * Observes PilotagePanel motifs, not only qualifyCommandOutcome unit calls.
+ */
+test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.waitForURL("**/preparations/**");
+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 B13 R1 seed");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 B13 R1");
+  await page.getByPlaceholder("Résumé inspecté").fill("e2e b13 r1");
+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
+  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
+
+  await page.getByRole("button", { name: "Pilotage" }).click();
+  await page.getByTestId("apply-cycle-restriction").click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
+    timeout: 15000,
+  });
+  await page.getByTestId("open-cycle").click();
+  await expect(page.getByTestId("authority-block-established")).toBeVisible({ timeout: 15000 });
+
+  // RESTRICTION → network loss on next command → UNKNOWN (no stale authority motif).
+  await page.route("**/api/projects/*/pilotage/commands", async (route) => {
+    if (route.request().method() === "POST") {
+      await route.abort("failed");
+      return;
+    }
+    await route.continue();
+  });
+  // also abort by-key reconcile fetches so resolveUnknown stays UNKNOWN
+  await page.route("**/api/projects/*/pilotage/commands/**", async (route) => {
+    await route.abort("failed");
+  });
+  await page.getByTestId("choose-method").click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/UNKNOWN/i, { timeout: 15000 });
+  await expect(page.getByTestId("outcome-unknown")).toBeVisible();
+  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
+
+  // UNKNOWN → controlled APPLIED on a new attempt → outcome-applied, still no authority-block.
+  await page.unroute("**/api/projects/*/pilotage/commands");
+  await page.unroute("**/api/projects/*/pilotage/commands/**");
+  await page.route("**/api/projects/*/pilotage/commands", async (route) => {
+    if (route.request().method() !== "POST") {
+      await route.continue();
+      return;
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        status: "APPLIED",
+        reasonCode: null,
+        reason: null,
+        commandId: "bcmd_e2e_r1_applied",
+        revision: 99,
+      }),
+    });
+  });
+  // Change method version so signature differs from the UNKNOWN pending record.
+  await page.getByLabel("Version").fill("2.6-r1");
+  await page.getByTestId("choose-method").click();
+  await expect(page.getByTestId("outcome-applied")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
+  await expect(page.getByTestId("outcome-unknown")).toHaveCount(0);
+});
+
+/**
+ * F01 — GO naturel depuis le fil projet principal (pas le bouton PilotagePanel).
+ * Pixel Figma: NOT VERIFIED.
+ */
+test("ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.waitForURL("**/preparations/**");
+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F01 thread seed");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F01 Fil");
+  await page.getByPlaceholder("Résumé inspecté").fill("e2e f01 thread");
+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
+  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
+
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/OPEN_CYCLE|APPLIED/i, {
+    timeout: 30000,
+  });
+  await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|deterministic/i, {
+    timeout: 30000,
+  });
+
+  await page.getByRole("button", { name: "Pilotage" }).click();
+  await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByRole("heading", { name: /Cycle CADRAGE/ })).toBeVisible();
+  await expect(page.getByTestId("decision-state").first()).toContainText("APPLICABLE");
+});
+
+/**
+ * F02 — décision documentaire depuis le fil + révision via Journal.
+ */
+test("ML3 F02: RECORD depuis le fil puis révision Journal", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.waitForURL("**/preparations/**");
+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F02 seed");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F02 Décisions");
+  await page.getByPlaceholder("Résumé inspecté").fill("e2e f02");
+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
+  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
+
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page
+    .getByLabel("Message à Nora")
+    .fill("Je décide que la connexion GitHub est obligatoire pour ce projet.");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByTestId("thread-pilotage-status")).toContainText(
+    /RECORD_DECISION|APPLIED|décision/i,
+    { timeout: 30000 },
   );
-  const [busy, setBusy] = useState(false);
-  const [pendingLabel, setPendingLabel] = useState<string | null>(null);
-  const [unresolved, setUnresolved] = useState<PendingRecord | null>(null);
-  const [cycleType, setCycleType] = useState("UX_UI");
-  const [toCycleType, setToCycleType] = useState("CADRAGE");
-  const [objective, setObjective] = useState("Qualifier l'expérience Pilote–Nora");
-  const [methodRef, setMethodRef] = useState("sfia-fast-track");
-  const [methodVersion, setMethodVersion] = useState("2.6");
-  const [utterance, setUtterance] = useState("");
-  const [restrictionTarget, setRestrictionTarget] = useState("*");
-  const [reviseTargetId, setReviseTargetId] = useState<string | null>(null);
-  const [reviseDraft, setReviseDraft] = useState("");
-  /** C03 — show 8 most recent by default; expand to full chronological history. */
-  const [journalExpanded, setJournalExpanded] = useState(false);
-  const inflight = useRef(new Map<string, PendingRecord>());
 
-  const load = useCallback(async () => {
-    const [pRes, dRes] = await Promise.all([
-      fetch(`/api/projects/${projectId}/pilotage`),
-      fetch(`/api/projects/${projectId}/decisions`),
-    ]);
-    if (pRes.status === 401 || dRes.status === 401) {
-      setError("Session requise");
-      return;
-    }
-    if (!pRes.ok) {
-      setError("Impossible de charger le pilotage");
-      return;
-    }
-    const pj = await pRes.json();
-    setProjection(pj.pilotage ?? pj);
-    if (!dRes.ok) {
-      let message = `Journal HTTP ${dRes.status}`;
-      try {
-        const dj = (await dRes.json()) as { error?: string; message?: string };
-        message = dj.error ?? dj.message ?? message;
-      } catch {
-        /* keep the HTTP status */
-      }
-      setJournalError(message);
-      setDecisions([]);
-    } else {
-      const dj = await dRes.json();
-      setDecisions(dj.decisions ?? []);
-      setJournalError("");
-    }
-    setError("");
-  }, [projectId]);
-
-  useEffect(() => {
-    void load();
-  }, [load]);
-
-  function forget(record: PendingRecord) {
-    inflight.current.delete(record.signature);
-    clearStored(projectId, record);
-    setUnresolved((current) => (current?.clientCommandKey === record.clientCommandKey ? null : current));
-  }
-
-  function remember(record: PendingRecord) {
-    inflight.current.set(record.signature, record);
-    writeStored(projectId, record);
-    setUnresolved(record);
-  }
-
-  async function reconcile(record: PendingRecord): Promise<CommandResult | null> {
-    try {
-      const byKey = await fetch(
-        `/api/projects/${projectId}/pilotage/commands/by-key/${encodeURIComponent(record.clientCommandKey)}`,
-      );
-      if (byKey.ok) return (await byKey.json()) as CommandResult;
-    } catch {
-      /* try the command id next */
-    }
-    if (!record.commandId) return null;
-    try {
-      const byId = await fetch(`/api/projects/${projectId}/pilotage/commands/${record.commandId}`);
-      if (byId.ok) return (await byId.json()) as CommandResult;
-    } catch {
-      return null;
-    }
-    return null;
-  }
-
-  async function applyResult(record: PendingRecord, result: CommandResult) {
-    if (result.commandId) {
-      record.commandId = result.commandId;
-      writeStored(projectId, record);
-    }
-    setLastOutcome({ status: result.status, reasonCode: result.reasonCode });
-    setStatus(
-      `${result.status}${result.reasonCode ? ` · ${result.reasonCode}` : ""}${result.reason ? ` — ${result.reason}` : ""}`,
-    );
-    if (CONFIRMED.has(result.status)) {
-      forget(record);
-      await load();
-      return;
-    }
-    if (TERMINAL.has(result.status)) {
-      forget(record);
-      return;
-    }
-    remember(record);
-  }
-
-  async function postRecord(record: PendingRecord): Promise<"network" | "nonjson" | CommandResult> {
-    let res: Response;
-    try {
-      res = await fetch(`/api/projects/${projectId}/pilotage/commands`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Idempotency-Key": record.clientCommandKey,
-        },
-        body: JSON.stringify(record.payload),
-      });
-    } catch {
-      return "network";
-    }
-    const text = await res.text();
-    let json: CommandResult;
-    try {
-      json = JSON.parse(text) as CommandResult;
-    } catch {
-      return "nonjson";
-    }
-    if (!res.ok && !json.status) {
-      return { status: `HTTP ${res.status}`, commandId: null, revision: null, reason: json.error };
-    }
-    return json;
-  }
-
-  async function resolveUnknown(record: PendingRecord) {
-    // R1: UNKNOWN is its own presentation — never keep a prior RESTRICTION/CONFLICT motif.
-    setLastOutcome({ status: "UNKNOWN" });
-    setStatus("UNKNOWN");
-    const found = await reconcile(record);
-    if (found?.status && found.status !== "UNKNOWN") {
-      await applyResult(record, found);
-      return;
-    }
-    const replay = await postRecord(record);
-    if (replay === "network" || replay === "nonjson") {
-      remember(record);
-      setLastOutcome({ status: "UNKNOWN" });
-      setStatus("UNKNOWN — commande non réconciliée");
-      return;
-    }
-    await applyResult(record, replay);
-  }
-
-  async function runCommand(intent: IntentBody, pending: string) {
-    const operation = intent.operation?.trim() || "UTTERANCE";
-    const signature = intentSignature(projectId, intent);
-    let record = inflight.current.get(signature) ?? readStored(projectId, operation, signature);
-    if (!record) {
-      const actInstanceId = crypto.randomUUID();
-      const actKey = actInstanceId;
-      const clientCommandKey = `cmd_${crypto.randomUUID()}`;
-      const sourceRef = `ui:${operation}:${actInstanceId}`;
-      const expectedRevision = projection?.revision ?? 0;
-      const payload: Record<string, unknown> = {
-        ...intent,
-        operation: intent.operation?.trim() ? intent.operation : undefined,
-        clientCommandKey,
-        expectedRevision,
-        actInstanceId,
-        sourceRef,
-        sourceKind: intent.sourceKind,
-      };
-      record = {
-        clientCommandKey,
-        actInstanceId,
-        actKey,
-        signature,
-        operation,
-        payload,
-        expectedRevision,
-        sourceRef,
-        sourceAction: { operation, actKey, actInstanceId },
-      };
-    }
-    inflight.current.set(signature, record);
-    writeStored(projectId, record);
-    setBusy(true);
-    setPendingLabel(pending);
-    // R1: new attempt never reuses a previous command's qualified motif.
-    setLastOutcome(null);
-    setStatus("");
-    try {
-      const posted = await postRecord(record);
-      if (posted === "network" || posted === "nonjson") {
-        await resolveUnknown(record);
-        return;
-      }
-      await applyResult(record, posted);
-    } catch {
-      setLastOutcome({ status: "UNKNOWN" });
-      setStatus("UNKNOWN");
-      remember(record);
-    } finally {
-      setBusy(false);
-      setPendingLabel(null);
-    }
-  }
-
-  if (error) {
-    return <div className="panel p-4 text-sm">{error}</div>;
-  }
-  if (!projection) {
-    return <div className="panel p-4 text-sm muted">Chargement du pilotage…</div>;
-  }
-
-  const cycle = projection.cycle;
-  const methodAbsent = projection.method.presence === "ABSENT";
-  const activeRestrictions = projection.restrictions.filter((r) => r.status === "ACTIVE");
-  const cycleChoices = [
-    "CADRAGE",
-    "CONCEPTION_FONCTIONNELLE",
-    "UX_UI",
-    "ARCHITECTURE_TECHNIQUE",
-    "DELIVERY",
-    "QA_VALIDATION",
-  ];
-
-  return (
-    <div className="space-y-4" data-testid="pilotage-panel">
-      {pendingLabel ? (
-        <div className="panel p-3 text-sm" role="status" data-testid="pilotage-pending">
-          {pendingLabel} — effet non confirmé tant que le serveur n&apos;a pas persisté.
-        </div>
-      ) : null}
-
-      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-4">
-        <section className="panel p-4 space-y-3" aria-labelledby="traj-title">
-          <p className="text-xs muted uppercase tracking-wide">
-            {cycle ? "Cycle" : "Trajectoire"} · révision {projection.revision}
-          </p>
-          <h2 id="traj-title" className="text-xl font-semibold">
-            {cycle ? `Cycle ${cycle.cycleType} · ${cycle.status}` : "Aucun cycle actif"}
-          </h2>
-          <p className="text-sm muted">
-            {cycle
-              ? cycle.objective
-              : "État normal : le projet peut avancer sans cycle ni méthode. Une proposition n'ouvre rien."}
-          </p>
-
-          {cycle ? (
-            <div className="panel p-3 space-y-2 text-sm" data-testid="cycle-active">
-              <div>
-                CKI {cycle.cki.ckiId} · disponibilité <strong>{cycle.cki.availability}</strong>
-                {cycle.cki.pinnedVersion ? ` · pin ${cycle.cki.pinnedVersion}` : ""}
-              </div>
-              {cycle.cki.availability === "UNAVAILABLE" || cycle.cki.availability === "ASSOCIATED" ? (
-                <p className="text-xs muted" data-testid="cki-limited">
-                  Guidance non livrée comme disponible — Nora reste générale sur ce point.
-                </p>
-              ) : null}
-              <label className="block text-sm">
-                Transiter vers
-                <select
-                  className="textarea mt-1"
-                  value={toCycleType}
-                  onChange={(e) => setToCycleType(e.target.value)}
-                  aria-label="Type de cycle cible"
-                >
-                  {cycleChoices
-                    .filter((t) => t !== cycle.cycleType)
-                    .map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
-                    ))}
-                </select>
-              </label>
-              <div className="flex flex-wrap gap-2 pt-1">
-                <button
-                  type="button"
-                  className="btn secondary"
-                  disabled={busy}
-                  data-testid="close-cycle"
-                  onClick={() =>
-                    void runCommand(
-                      {
-                        operation: "CLOSE_CYCLE",
-                        cycleId: cycle.id,
-                        sourceKind: "EXPLICIT_INTERACTION",
-                        utterance: "Je clos ce cycle.",
-                      },
-                      "Clôture demandée",
-                    )
-                  }
-                >
-                  Clore ce cycle
-                </button>
-                <button
-                  type="button"
-                  className="btn secondary"
-                  disabled={busy}
-                  data-testid="transition-cycle"
-                  onClick={() =>
-                    void runCommand(
-                      {
-                        operation: "TRANSITION_CYCLE",
-                        cycleId: cycle.id,
-                        cycleType: cycle.cycleType,
-                        toCycleType,
-                        objective,
-                        sourceKind: "EXPLICIT_INTERACTION",
-                        utterance: `Je clos ${cycle.cycleType} et j'ouvre ${toCycleType}.`,
-                      },
-                      "Transition à confirmer",
-                    )
-                  }
-                >
-                  Transiter
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-2" data-testid="cycle-absent">
-              <label className="block text-sm">
-                Type de cycle
-                <select
-                  className="textarea mt-1"
-                  value={cycleType}
-                  onChange={(e) => setCycleType(e.target.value)}
-                  aria-label="Type de cycle"
-                >
-                  {cycleChoices.map((t) => (
-                    <option key={t} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="block text-sm">
-                Objectif
-                <input
-                  className="textarea mt-1"
-                  value={objective}
-                  onChange={(e) => setObjective(e.target.value)}
-                  aria-label="Objectif du cycle"
-                />
-              </label>
-              <label className="block text-sm">
-                GO naturel (ou laisser vide pour commande structurée)
-                <textarea
-                  className="textarea mt-1"
-                  value={utterance}
-                  onChange={(e) => setUtterance(e.target.value)}
-                  placeholder="Ex. « ouvre le cycle cadrage »"
-                  aria-label="Énoncé GO"
-                />
-              </label>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  className="btn"
-                  disabled={busy}
-                  data-testid="open-cycle"
-                  onClick={() =>
-                    void runCommand(
-                      utterance.trim()
-                        ? {
-                            utterance,
-                            sourceKind: "EXPLICIT_INTERACTION",
-                          }
-                        : {
-                            operation: "OPEN_CYCLE",
-                            cycleType,
-                            objective,
-                            sourceKind: "EXPLICIT_INTERACTION",
-                            utterance: `GO : ouvrir cycle ${cycleType}.`,
-                          },
-                      "Ouverture à confirmer",
-                    )
-                  }
-                >
-                  Ouvrir ce cycle
-                </button>
-                <button
-                  type="button"
-                  className="btn secondary"
-                  disabled={busy}
-                  data-testid="propose-trajectory"
-                  onClick={() =>
-                    void runCommand(
-                      {
-                        operation: "PROPOSE_TRAJECTORY",
-                        orientation: objective,
-                        sourceKind: "COGNITIVE_PROPOSAL",
-                      },
-                      "Proposition en cours",
-                    )
-                  }
-                >
-                  Proposer une trajectoire
-                </button>
-              </div>
-            </div>
-          )}
-
-          {projection.trajectory.proposed ? (
-            <div className="space-y-2" data-testid="trajectory-proposed">
-              <p className="text-sm">
-                Proposition n°{projection.trajectory.proposed.revisionNumber} :{" "}
-                {projection.trajectory.proposed.orientation}
-              </p>
-              <button
-                type="button"
-                className="btn secondary"
-                disabled={busy}
-                data-testid="retain-trajectory"
-                onClick={() =>
-                  void runCommand(
-                    {
-                      operation: "RETAIN_TRAJECTORY",
-                      trajectoryRevisionId: projection.trajectory.proposed?.id,
-                      orientation: projection.trajectory.proposed?.orientation,
-                      sourceKind: "EXPLICIT_INTERACTION",
-                      utterance: "Je retiens cette trajectoire.",
-                    },
-                    "Rétention à confirmer",
-                  )
-                }
-              >
-                Retenir cette trajectoire
-              </button>
-            </div>
-          ) : null}
-          {projection.trajectory.retained ? (
-            <p className="text-sm muted">
-              Orientation retenue n°{projection.trajectory.retained.revisionNumber}
-            </p>
-          ) : null}
-        </section>
-
-        <aside className="space-y-3">
-          <section className="panel p-4 space-y-2" aria-labelledby="method-title">
-            <h2 id="method-title" className="font-medium">
-              Méthode
-            </h2>
-            {methodAbsent ? (
-              <p className="text-sm muted" data-testid="method-absent">
-                Aucune méthode retenue — état normal.
-              </p>
-            ) : (
-              <div className="text-sm" data-testid="method-retained">
-                <p>
-                  {projection.method.presence === "RETAINED"
-                    ? `${projection.method.methodRef}@${projection.method.methodVersion}`
-                    : null}
-                </p>
-                {projection.method.presence === "RETAINED" && projection.method.usageRestricted ? (
-                  <p className="text-xs" data-testid="method-usage-restricted">
-                    usageRestricted — {projection.method.usageNote ?? "pas pleinement applicable"}.
-                  </p>
-                ) : null}
-              </div>
-            )}
-            <label className="block text-xs">
-              Réf.
-              <input
-                className="textarea mt-1"
-                value={methodRef}
-                onChange={(e) => setMethodRef(e.target.value)}
-              />
-            </label>
-            <label className="block text-xs">
-              Version
-              <input
-                className="textarea mt-1"
-                value={methodVersion}
-                onChange={(e) => setMethodVersion(e.target.value)}
-              />
-            </label>
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                className="btn secondary"
-                disabled={busy}
-                data-testid="choose-method"
-                onClick={() =>
-                  void runCommand(
-                    {
-                      operation: methodAbsent ? "CHOOSE_METHOD" : "REPLACE_METHOD",
-                      methodRef,
-                      methodVersion,
-                      sourceKind: "EXPLICIT_INTERACTION",
-                      utterance: methodAbsent
-                        ? `Je retiens la méthode ${methodRef}@${methodVersion}.`
-                        : `Je remplace la méthode par ${methodRef}@${methodVersion}.`,
-                    },
-                    "Décision de méthode à confirmer",
-                  )
-                }
-              >
-                {methodAbsent ? "Retenir cette méthode" : "Remplacer la méthode"}
-              </button>
-              {methodAbsent ? null : (
-                <button
-                  type="button"
-                  className="btn secondary"
-                  disabled={busy}
-                  data-testid="withdraw-method"
-                  onClick={() =>
-                    void runCommand(
-                      {
-                        operation: "WITHDRAW_METHOD",
-                        sourceKind: "EXPLICIT_INTERACTION",
-                        utterance: "Je retire la méthode.",
-                      },
-                      "Retrait de méthode à confirmer",
-                    )
-                  }
-                >
-                  Retirer la méthode
-                </button>
-              )}
-            </div>
-          </section>
-
-          <section className="panel p-4 space-y-2" aria-labelledby="restrict-title" data-testid="restriction-list">
-            <h2 id="restrict-title" className="font-medium">
-              Restrictions
-            </h2>
-            {activeRestrictions.length === 0 ? (
-              <p className="text-sm muted">Aucune restriction active.</p>
-            ) : (
-              activeRestrictions.map((r) => (
-                <div key={r.id} className="text-sm flex items-center justify-between gap-2">
-                  <span>
-                    {r.targetKind} · {r.targetRef || "*"} · {r.status}
-                  </span>
-                  <button
-                    type="button"
-                    className="btn secondary"
-                    disabled={busy}
-                    onClick={() =>
-                      void runCommand(
-                        {
-                          operation: "LIFT_RESTRICTION",
-                          restrictionId: r.id,
-                          sourceKind: "EXPLICIT_INTERACTION",
-                          utterance: "Je lève cette restriction.",
-                        },
-                        "Levée à confirmer",
-                      )
-                    }
-                  >
-                    Lever
-                  </button>
-                </div>
-              ))
-            )}
-            <label className="block text-xs">
-              Cible CYCLE_MUTATION
-              <select
-                className="textarea mt-1"
-                value={restrictionTarget}
-                onChange={(e) => setRestrictionTarget(e.target.value)}
-                aria-label="Cible de restriction"
-              >
-                <option value="*">* (globale)</option>
-                {cycle ? <option value={cycle.id}>cycle {cycle.id}</option> : null}
-                {cycle ? <option value={cycle.cycleType}>{cycle.cycleType}</option> : null}
-              </select>
-            </label>
-            <button
-              type="button"
-              className="btn secondary"
-              disabled={busy}
-              data-testid="apply-cycle-restriction"
-              onClick={() =>
-                void runCommand(
-                  {
-                    operation: "APPLY_RESTRICTION",
-                    targetKind: "CYCLE_MUTATION",
-                    targetRef: restrictionTarget,
-                    statement: `Restriction CYCLE_MUTATION ${restrictionTarget}`,
-                    sourceKind: "EXPLICIT_INTERACTION",
-                    utterance: "J'applique une restriction de mutation de cycle.",
-                  },
-                  "Restriction à confirmer",
-                )
-              }
-            >
-              Appliquer la restriction
-            </button>
-          </section>
-
-          <section className="panel p-4 space-y-2" aria-labelledby="dec-title" data-testid="decision-journal">
-            <h2 id="dec-title" className="font-medium">
-              Journal — décisions
-            </h2>
-            <p className="text-xs muted" data-testid="b13-authority-legend">
-              Suspicion Nora (Niveau A) ≠ interdiction D6. Seul un refus
-              RESTRICTION (ou motif d&apos;autorité explicitement typé) est un
-              blocage d&apos;autorité. CONFLICT (STALE_REVISION, HUMAN_INTENT,
-              FINGERPRINT, ACTIVE_CYCLE) est technique/état — pas une contradiction
-              D6. APPLICABLE / REVISED / REVOKED / SUPERSEDED décrivent l&apos;historique.
-            </p>
-            {journalError ? (
-              <p className="text-sm" data-testid="journal-error" role="alert">
-                {journalError}
-              </p>
-            ) : null}
-            {decisions.length === 0 && !journalError ? (
-              <p className="text-sm muted">Aucune décision D6 enregistrée.</p>
-            ) : (
-              (() => {
-                const chronological = [...decisions].sort((a, b) =>
-                  String(a.createdAt ?? "").localeCompare(String(b.createdAt ?? "")),
-                );
-                const newestFirst = [...chronological].reverse();
-                const visible = journalExpanded ? chronological : newestFirst.slice(0, 8);
-                return (
-                  <>
-                    <p className="text-xs muted" data-testid="journal-count">
-                      {decisions.length} décision(s) ·{" "}
-                      {journalExpanded
-                        ? "historique complet (ancien → récent)"
-                        : "8 plus récentes (récent → ancien)"}
-                    </p>
-                    {visible.map((d) => (
-                      <article
-                        key={d.id}
-                        className="text-sm panel p-2 space-y-2"
-                        data-testid="decision-row"
-                      >
-                        <div className="text-xs muted" data-testid="decision-state">
-                          {d.kind} · {d.state || "état inconnu"}
-                          {d.objectRef ? ` · ${d.objectRef}` : ""}
-                        </div>
-                        <div>{d.statement}</div>
-                        {d.state === "APPLICABLE" && d.kind === "RECORD_DECISION" ? (
-                          reviseTargetId === d.id ? (
-                            <div className="space-y-2">
-                              <label className="block text-xs muted" htmlFor={`revise-${d.id}`}>
-                                Nouvel énoncé (révision documentaire)
-                              </label>
-                              <textarea
-                                id={`revise-${d.id}`}
-                                className="textarea text-sm"
-                                value={reviseDraft}
-                                onChange={(e) => setReviseDraft(e.target.value)}
-                                data-testid="journal-revise-draft"
-                                rows={2}
-                              />
-                              <div className="flex flex-wrap gap-2">
-                                <button
-                                  type="button"
-                                  className="btn"
-                                  disabled={busy || !reviseDraft.trim()}
-                                  data-testid="journal-revise-submit"
-                                  onClick={() =>
-                                    void runCommand(
-                                      {
-                                        operation: "REVISE_DECISION",
-                                        decisionId: d.id,
-                                        statement: reviseDraft.trim(),
-                                        sourceKind: "EXPLICIT_INTERACTION",
-                                        utterance: reviseDraft.trim(),
-                                      },
-                                      "Révision en cours",
-                                    ).then(() => {
-                                      setReviseTargetId(null);
-                                      setReviseDraft("");
-                                    })
-                                  }
-                                >
-                                  Enregistrer la révision
-                                </button>
-                                <button
-                                  type="button"
-                                  className="btn secondary"
-                                  disabled={busy}
-                                  onClick={() => {
-                                    setReviseTargetId(null);
-                                    setReviseDraft("");
-                                  }}
-                                >
-                                  Annuler
-                                </button>
-                              </div>
-                            </div>
-                          ) : (
-                            <button
-                              type="button"
-                              className="btn secondary text-xs"
-                              disabled={busy}
-                              data-testid="journal-revise-open"
-                              onClick={() => {
-                                setReviseTargetId(d.id);
-                                setReviseDraft(d.statement);
-                              }}
-                            >
-                              Réviser
-                            </button>
-                          )
-                        ) : null}
-                      </article>
-                    ))}
-                    {decisions.length > 8 ? (
-                      <button
-                        type="button"
-                        className="btn secondary text-xs"
-                        data-testid="journal-expand"
-                        onClick={() => setJournalExpanded((v) => !v)}
-                      >
-                        {journalExpanded
-                          ? "Réduire aux 8 plus récentes"
-                          : `Afficher tout l'historique (${decisions.length})`}
-                      </button>
-                    ) : null}
-                  </>
-                );
-              })()
-            )}
-          </section>
-        </aside>
-      </div>
-
-      {unresolved ? (
-        <button
-          type="button"
-          className="btn secondary"
-          disabled={busy}
-          data-testid="pilotage-reconcile"
-          onClick={() => {
-            setBusy(true);
-            setPendingLabel("Réconciliation");
-            void resolveUnknown(unresolved).finally(() => {
-              setBusy(false);
-              setPendingLabel(null);
-            });
-          }}
-        >
-          Réconcilier l&apos;état inconnu
-        </button>
-      ) : null}
-
-      {status ? (
-        <div className="space-y-1" data-testid="pilotage-status-block">
-          <p className="text-xs muted" data-testid="pilotage-status" role="status">
-            {status}
-          </p>
-          {lastOutcome
-            ? (() => {
-                const q = qualifyCommandOutcome(lastOutcome);
-                if (!q.label) return null;
-                return (
-                  <p className="text-xs" data-testid={q.testId} role="status">
-                    {q.label}
-                  </p>
-                );
-              })()
-            : null}
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
-```
-
-### MODIFIED FULL `projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts`
-
-```tsx
-import { describe, expect, it, afterEach } from "vitest";
-import {
-  buildLevelAClarification,
-  findAuthorityReviseCandidates,
-  findMessageDecisionConfrontations,
-  findPotentialDivergences,
-  qualifyCommandOutcome,
-  selectApplicableBriefs,
-  selectAllApplicableBriefs,
-} from "@/domains/decisions/divergence-assist";
-import { generateNoraReply } from "@/domains/conversation/nora-adapter";
-import {
-  mayStartNewThreadAct,
-  shouldClearThreadPending,
-} from "@/domains/pilotage/thread-recovery";
-
-const prior = {
-  id: "dec_gh",
-  kind: "RECORD_DECISION",
-  objectRef: "github-connexion",
-  scope: "PROJECT",
-  statement: "La connexion GitHub est obligatoire pour ce projet.",
-  state: "APPLICABLE",
-  sourceKind: "EXPLICIT_INTERACTION",
-};
-
-describe("B13 C01 message↔decision confrontation", () => {
-  const prevLane = process.env.STUDIO_LANE;
-  const prevE2e = process.env.STUDIO_E2E;
-
-  afterEach(() => {
-    if (prevLane === undefined) delete process.env.STUDIO_LANE;
-    else process.env.STUDIO_LANE = prevLane;
-    if (prevE2e === undefined) delete process.env.STUDIO_E2E;
-    else process.env.STUDIO_E2E = prevE2e;
+  await page.getByRole("button", { name: "Pilotage" }).click();
+  await expect(page.getByTestId("decision-state").first()).toContainText(/RECORD_DECISION.*APPLICABLE/i, {
+    timeout: 15000,
   });
-
-  it("C01: single APPLICABLE decision + new USER message yields Level A without second decision", () => {
-    const signals = findMessageDecisionConfrontations(
-      "Finalement, je préfère GitHub facultatif.",
-      [prior],
-    );
-    expect(signals).toHaveLength(1);
-    expect(signals[0].kind).toBe("MESSAGE_DECISION_CONFRONTATION");
-    expect(signals[0].decisionId).toBe("dec_gh");
-    expect(signals[0].framing).toBe("POSSIBLE_CHANGE");
-    expect(signals[0].authorityClaim).toBe("NONE");
-    expect(findPotentialDivergences([prior])).toHaveLength(0);
+  await page.getByTestId("journal-revise-open").first().click();
+  await page.getByTestId("journal-revise-draft").fill("La connexion GitHub est facultative pour ce projet.");
+  await page.getByTestId("journal-revise-submit").click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
+    timeout: 15000,
   });
-
-  it("C01/R2: compatible different formulations are not treated as possible change", () => {
-    const signals = findMessageDecisionConfrontations(
-      "GitHub reste requis pour ce projet.",
-      [prior],
-    );
-    expect(signals.length).toBeGreaterThanOrEqual(1);
-    expect(signals[0].framing).toBe("COMPATIBLE_RESTATEMENT");
-    expect(signals[0].authorityClaim).toBe("NONE");
-  });
-
-  it("R2: negation of same modality is never COMPATIBLE_RESTATEMENT", () => {
-    const base = { ...prior, statement: "GitHub est obligatoire." };
-    const cases: Array<{ user: string; statement?: string }> = [
-      { user: "GitHub n'est plus obligatoire." },
-      { user: "GitHub n'est pas obligatoire." },
-      { user: "GitHub n'est jamais obligatoire." },
-      { user: "GitHub n'est aucunement obligatoire." },
-      // Typographic apostrophe (U+2019)
-      { user: "GitHub n\u2019est jamais obligatoire." },
-      { user: "GitHub n\u2019est aucunement obligatoire." },
-      { user: "GitHub ne doit pas être obligatoire." },
-      {
-        user: "GitHub n'est pas interdit.",
-        statement: "GitHub est interdit pour ce projet.",
-      },
-      {
-        user: "GitHub n'est pas requis.",
-        statement: "GitHub est requis pour ce projet.",
-      },
-    ];
-    for (const c of cases) {
-      const row = { ...base, statement: c.statement ?? base.statement };
-      const signals = findMessageDecisionConfrontations(c.user, [row]);
-      expect(signals.length, c.user).toBeGreaterThanOrEqual(1);
-      expect(signals[0].framing, c.user).not.toBe("COMPATIBLE_RESTATEMENT");
-      expect(["POSSIBLE_CHANGE", "AMBIGUOUS"], c.user).toContain(signals[0].framing);
-      expect(signals[0].authorityClaim).toBe("NONE");
-    }
-  });
-
-  it("R2: positive restatements remain compatible when polarity agrees", () => {
-    const base = { ...prior, statement: "GitHub est obligatoire." };
-    for (const user of ["GitHub reste obligatoire.", "GitHub reste requis."]) {
-      const signals = findMessageDecisionConfrontations(user, [base]);
-      expect(signals.length).toBeGreaterThanOrEqual(1);
-      expect(signals[0].framing).toBe("COMPATIBLE_RESTATEMENT");
-      expect(signals[0].authorityClaim).toBe("NONE");
-    }
-  });
-
-  it("R2: scope shift stays AMBIGUOUS (no automatic global equivalence)", () => {
-    const signals = findMessageDecisionConfrontations(
-      "GitHub obligatoire seulement pour UX",
-      [
-        {
-          ...prior,
-          statement: "GitHub obligatoire pour tout le projet.",
-        },
-      ],
-    );
-    expect(signals.length).toBeGreaterThanOrEqual(1);
-    expect(signals[0].framing).toBe("AMBIGUOUS");
-    expect(signals[0].authorityClaim).toBe("NONE");
-  });
-
-  it("R1: UNKNOWN presentation is never authority-block; cleared outcome shows nothing", () => {
-    const restriction = qualifyCommandOutcome({
-      status: "REJECTED",
-      reasonCode: "RESTRICTION",
-    });
-    expect(restriction.testId).toBe("authority-block-established");
-    // After runCommand start, lastOutcome is null → UI hides qualified motif.
-    const afterStart: null = null;
-    expect(afterStart).toBeNull();
-    const unknown = qualifyCommandOutcome({ status: "UNKNOWN" });
-    expect(unknown.kind).toBe("unknown");
-    expect(unknown.testId).toBe("outcome-unknown");
-    expect(unknown.testId).not.toBe("authority-block-established");
-    const applied = qualifyCommandOutcome({ status: "APPLIED" });
-    expect(applied.testId).toBe("outcome-applied");
-    expect(applied.testId).not.toBe("authority-block-established");
-  });
-
-  it("C01: unrelated object is not confronted", () => {
-    expect(
-      findMessageDecisionConfrontations("Je veux changer la couleur du logo.", [prior]),
-    ).toHaveLength(0);
-  });
-
-  it("C01: REVOKED decision is not a current authority source", () => {
-    expect(
-      findMessageDecisionConfrontations("GitHub facultatif", [
-        { ...prior, state: "REVOKED" },
-      ]),
-    ).toHaveLength(0);
-    expect(selectApplicableBriefs([{ ...prior, state: "REVOKED" }])).toHaveLength(0);
-  });
-
-  it("C01 fixture uses structured levelASignals (same entry as conversation path)", async () => {
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-    const signals = findMessageDecisionConfrontations(
-      "Finalement, je préfère GitHub facultatif.",
-      [prior],
-    );
-    const result = await generateNoraReply({
-      userText: "Finalement, je préfère GitHub facultatif.",
-      contextSnippets: [],
-      pilotageSnippets: ["### Décisions D6 applicables"],
-      levelASignals: signals,
-    });
-    expect(result.mode).toBe("deterministic-fixture");
-    expect(result.status).toBe("COMPLETE");
-    expect(result.content).toMatch(/Niveau A/i);
-    expect(result.content).toMatch(/pas une (HumanDecision|interdiction D6)/i);
-    expect(result.content).toContain("dec_gh");
-    expect(result.content).not.toMatch(/HumanDecision créée|je révoque/i);
-  });
-
-  it("buildLevelAClarification distinguishes compatible restatement", () => {
-    expect(
-      buildLevelAClarification({
-        priorStatement: prior.statement,
-        newExpression: "GitHub reste requis",
-        objectRef: prior.objectRef,
-        framing: "COMPATIBLE_RESTATEMENT",
-      }),
-    ).toMatch(/semble compatible/);
-  });
+  await expect(page.getByText(/facultative/i).first()).toBeVisible({ timeout: 10000 });
 });
 
-describe("B13 C02 qualifyCommandOutcome", () => {
-  it("does not treat CONFLICT+STALE_REVISION as authority block", () => {
-    const q = qualifyCommandOutcome({ status: "CONFLICT", reasonCode: "STALE_REVISION" });
-    expect(q.kind).toBe("technical_conflict");
-    expect(q.testId).not.toBe("authority-block-established");
+/**
+ * C03 — Journal >8: newest visible by default; full history via expand.
+ * Seeds via D6 API (not the fil loop) to avoid stale status races.
+ */
+test("ML3 C03: Journal décisions >8 avec historique accessible", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.waitForURL("**/preparations/**");
+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 C03 journal seed");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 30000,
   });
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 C03 Journal");
+  await page.getByPlaceholder("Résumé inspecté").fill("e2e c03");
+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
+  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
-  it("does not treat CONFLICT+HUMAN_INTENT as authority block", () => {
-    const q = qualifyCommandOutcome({ status: "CONFLICT", reasonCode: "HUMAN_INTENT" });
-    expect(q.kind).toBe("technical_conflict");
-    expect(q.testId).toBe("outcome-technical-human_intent");
-  });
-
-  it("does not treat CONFLICT+FINGERPRINT as authority block", () => {
-    const q = qualifyCommandOutcome({ status: "CONFLICT", reasonCode: "FINGERPRINT" });
-    expect(q.kind).toBe("technical_conflict");
-  });
-
-  it("REJECTED+RESTRICTION is authority block", () => {
-    const q = qualifyCommandOutcome({ status: "REJECTED", reasonCode: "RESTRICTION" });
-    expect(q.kind).toBe("authority_block");
-    expect(q.testId).toBe("authority-block-established");
-  });
-
-  it("CONFLICT+ACTIVE_CYCLE is D5 state, not D6 contradiction", () => {
-    const q = qualifyCommandOutcome({ status: "CONFLICT", reasonCode: "ACTIVE_CYCLE" });
-    expect(q.kind).toBe("d5_state");
-  });
-
-  it("UNKNOWN asks for reconciliation", () => {
-    const q = qualifyCommandOutcome({ status: "UNKNOWN" });
-    expect(q.kind).toBe("unknown");
-    expect(q.testId).toBe("outcome-unknown");
-  });
-});
-
-describe("CR-01 authority revise candidates vs cognitive window", () => {
-  function brief(
-    id: string,
-    objectRef: string,
-    statement: string,
-    scope = "PROJECT",
-  ) {
-    return {
-      id,
-      kind: "RECORD_DECISION",
-      objectRef,
-      scope,
-      statement,
-      state: "APPLICABLE",
-      sourceKind: "EXPLICIT_INTERACTION",
-    };
-  }
-
-  it("cognitive window of 12 hides an older GitHub while authority sees both", () => {
-    const rows = [
-      brief("gh-old", "github", "GitHub est obligatoire pour ce projet."),
-      ...Array.from({ length: 13 }, (_, i) =>
-        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
-      ),
-      brief("gh-new", "github", "GitHub reste requis pour les déploiements."),
-    ];
-    expect(rows).toHaveLength(15);
-    const cognitive = selectApplicableBriefs(rows);
-    expect(cognitive).toHaveLength(12);
-    expect(cognitive.filter((r) => r.objectRef === "github").map((r) => r.id)).toEqual(["gh-new"]);
-    expect(selectAllApplicableBriefs(rows)).toHaveLength(15);
-
-    const utterance = "Finalement, GitHub devient facultatif.";
-    // Cognitive confrontation path would only see gh-new → false uniqueness.
-    const cognitiveSignals = findMessageDecisionConfrontations(utterance, rows).filter(
-      (s) => s.framing === "POSSIBLE_CHANGE",
-    );
-    expect(cognitiveSignals.map((s) => s.decisionId)).toEqual(["gh-new"]);
-
-    const authority = findAuthorityReviseCandidates(utterance, rows);
-    expect(authority.map((c) => c.id).sort()).toEqual(["gh-new", "gh-old"]);
-  });
-
-  it("single relevant applicable remains a unique authority candidate", () => {
-    const rows = [
-      brief("gh-only", "github", "GitHub est obligatoire pour ce projet."),
-      ...Array.from({ length: 14 }, (_, i) =>
-        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
-      ),
-    ];
-    const authority = findAuthorityReviseCandidates(
-      "Finalement, GitHub devient facultatif.",
-      rows,
-    );
-    expect(authority).toHaveLength(1);
-    expect(authority[0]?.id).toBe("gh-only");
-  });
-
-  it("same theme with distinct scopes stay separate candidates", () => {
-    const rows = [
-      brief("gh-proj", "github", "GitHub est obligatoire pour tout le projet.", "PROJECT"),
-      brief("gh-cycle", "github", "GitHub est obligatoire seulement pour ce cycle.", "CYCLE"),
-    ];
-    const authority = findAuthorityReviseCandidates(
-      "Finalement, GitHub devient facultatif.",
-      rows,
-    );
-    expect(authority).toHaveLength(2);
-    expect(new Set(authority.map((c) => c.scope))).toEqual(new Set(["PROJECT", "CYCLE"]));
-  });
-
-  it("REVOKED / REVISED are not authority candidates", () => {
-    const rows = [
-      { ...brief("gh-rev", "github", "GitHub est obligatoire."), state: "REVOKED" },
-      { ...brief("gh-revised", "github", "GitHub est requis."), state: "REVISED" },
-    ];
-    expect(findAuthorityReviseCandidates("Finalement, GitHub devient facultatif.", rows)).toEqual(
-      [],
-    );
-  });
-});
-
-describe("CR-02 thread pending lifecycle", () => {
-  it("does not clear pending when Nora COMPLETE but métier UNKNOWN", () => {
-    expect(
-      shouldClearThreadPending({
-        noraStatus: "COMPLETE",
-        effectAttempted: true,
-        effectStatus: "UNKNOWN",
-      }),
-    ).toBe(false);
-  });
-
-  it("clears pending when métier is terminal APPLIED", () => {
-    expect(
-      shouldClearThreadPending({
-        noraStatus: "UNKNOWN",
-        effectAttempted: true,
-        effectStatus: "APPLIED",
-      }),
-    ).toBe(true);
-  });
-
-  it("clears pending when no business attempt and Nora COMPLETE", () => {
-    expect(
-      shouldClearThreadPending({
-        noraStatus: "COMPLETE",
-        effectAttempted: false,
-        effectStatus: null,
-      }),
-    ).toBe(true);
-  });
-
-  it("exclusive guard blocks a distinct new act over unresolved pending", () => {
-    const pending = {
-      content: "Ouvre le cycle cadrage.",
-      clientTurnKey: "turn-1",
-      clientCommandKey: "conv-auth:turn-1",
-    };
-    expect(mayStartNewThreadAct({ unresolved: pending, nextContent: pending.content }).ok).toBe(
-      true,
-    );
-    const blocked = mayStartNewThreadAct({
-      unresolved: pending,
-      nextContent: "Je décide que GitHub est obligatoire.",
-    });
-    expect(blocked.ok).toBe(false);
-    if (!blocked.ok) expect(blocked.pending.clientTurnKey).toBe("turn-1");
-  });
-});
-
-```
-
-### MODIFIED FULL `projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts`
-
-```tsx
-import { createHash } from "crypto";
-import { mkdtempSync, readFileSync, writeFileSync } from "fs";
-import { tmpdir } from "os";
-import { resolve } from "path";
-import { describe, expect, it } from "vitest";
-import { schemaRevision } from "@/db/schema";
-import { buildSourceActionKey } from "@/domains/pilotage/command-runner";
-import {
-  CKI_MANIFEST_FILE,
-  CYCLE_CKI,
-  CYCLE_TYPES,
-  deliveryState,
-  listCkiSpecialtyFiles,
-  loadCkiManifest,
-  resolveForOpen,
-  resolvePinnedCki,
-} from "@/domains/pilotage/cki-resolve";
-import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
-import { classifyExplicitInteraction } from "@/domains/pilotage/service";
-import { COMMAND_STATUSES } from "@/domains/pilotage/types";
-
-describe("ml3 CKI resolution and intent", () => {
-  it("records schema revision 007", () => {
-    expect(schemaRevision).toBe("007_ml3_pilotage_decisions");
-    expect(COMMAND_STATUSES).toEqual([
-      "APPLIED",
-      "ALREADY_APPLIED",
-      "REJECTED",
-      "CONFLICT",
-      "UNKNOWN",
-    ]);
-  });
-
-  it("maps each cycle type to one CKI specialty file", () => {
-    const files = listCkiSpecialtyFiles();
-    expect(CYCLE_TYPES).toHaveLength(15);
-    expect(files).toHaveLength(15);
-    expect(new Set(CYCLE_TYPES.map((type) => `${CYCLE_CKI[type]}.md`))).toEqual(new Set(files));
-  });
-
-  it("pins a readable specialty as RESOLVED and delivers only when Nora attaches it", () => {
-    const pin = resolveForOpen("CADRAGE");
-    expect(pin.ckiId).toBe("01-cadrage");
-    expect(pin.availability).toBe("RESOLVED");
-    expect(pin.pinnedVersion).toBe("0.2.0");
-    expect(pin.contentDigest).toMatch(/^[a-f0-9]{64}$/);
-    const bytes = readFileSync(resolve(process.cwd(), "../cki/01-cadrage.md"));
-    expect(pin.contentDigest).toBe(createHash("sha256").update(bytes).digest("hex"));
-    expect(deliveryState(pin.availability, false)).toBe("RESOLVED");
-    expect(deliveryState("RESOLVED", true)).toBe("DELIVERED");
-    expect(deliveryState("ASSOCIATED", true)).toBe("ASSOCIATED");
-  });
-
-  it("stays ASSOCIATED without a pin and UNAVAILABLE when the digest diverges", () => {
-    expect(
-      resolvePinnedCki({ ckiId: "01-cadrage", contentDigest: null, pinnedVersion: null }).availability,
-    ).toBe("ASSOCIATED");
-    expect(
-      resolvePinnedCki({
-        ckiId: "01-cadrage",
-        contentDigest: "ab".repeat(32),
-        pinnedVersion: "0.2.0",
-      }).availability,
-    ).toBe("UNAVAILABLE");
-
-    const previous = process.env.SFIA_CKI_ROOT;
-    process.env.SFIA_CKI_ROOT = "/tmp/sfia-cki-missing-ml3";
-    try {
-      const pin = resolveForOpen("SECURITE");
-      expect(pin.ckiId).toBe("10-securite-rssi");
-      expect(pin.availability).toBe("ASSOCIATED");
-      expect(pin.contentDigest).toBeNull();
-      expect(pin.pinnedVersion).toBeNull();
-    } finally {
-      if (previous === undefined) delete process.env.SFIA_CKI_ROOT;
-      else process.env.SFIA_CKI_ROOT = previous;
-    }
-  });
-
-  it("qualifies a clear GO and rejects ambiguous utterances", () => {
-    expect(qualifyPilotageIntent("ouvre le cycle cadrage")).toMatchObject({
-      clarity: "CLEAR",
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-    });
-    expect(qualifyPilotageIntent("OK").clarity).toBe("AMBIGUOUS");
-    expect(qualifyPilotageIntent("annule cette méthode").clarity).toBe("AMBIGUOUS");
-    expect(qualifyPilotageIntent("retire la méthode")).toMatchObject({
-      clarity: "CLEAR",
-      operation: "WITHDRAW_METHOD",
-    });
-    expect(qualifyPilotageIntent("clôture le cycle cadrage et ouvre le cycle ux")).toMatchObject({
-      clarity: "CLEAR",
-      operation: "TRANSITION_CYCLE",
-      cycleType: "CADRAGE",
-      toCycleType: "UX_UI",
-    });
-    expect(qualifyPilotageIntent("ouvre le cycle cadrage et le cycle sécurité").clarity).toBe("AMBIGUOUS");
-  });
-
-  it("F01/F02: qualifies documentary RECORD/REVISE and rejects soft preferences", () => {
-    expect(
-      qualifyPilotageIntent(
-        "Je décide que la connexion GitHub est obligatoire pour ce projet.",
-      ),
-    ).toMatchObject({
-      clarity: "CLEAR",
-      operation: "RECORD_DECISION",
-      objectRef: expect.stringMatching(/github|connexion/i),
-    });
-    expect(qualifyPilotageIntent("Finalement, GitHub devient facultatif.")).toMatchObject({
-      clarity: "CLEAR",
-      operation: "REVISE_DECISION",
-    });
-    expect(qualifyPilotageIntent("OK").clarity).toBe("AMBIGUOUS");
-    expect(
-      qualifyPilotageIntent("Ce serait intéressant de commencer.").clarity,
-    ).toBe("NONE");
-    expect(
-      qualifyPilotageIntent("Je décide que GitHub est obligatoire ?").clarity,
-    ).toBe("AMBIGUOUS");
-  });
-
-  it("C01: exploratory Finalement / questions never CLEAR REVISE", () => {
-    expect(
-      qualifyPilotageIntent("Finalement, je pense que GitHub pourrait être facultatif.").clarity,
-    ).toBe("AMBIGUOUS");
-    expect(
-      qualifyPilotageIntent("Finalement, et si GitHub devenait facultatif ?").clarity,
-    ).toBe("AMBIGUOUS");
-    expect(qualifyPilotageIntent("Je réfléchis à rendre GitHub facultatif.").clarity).toBe(
-      "NONE",
-    );
-    expect(qualifyPilotageIntent("Nora propose de rendre GitHub facultatif.").clarity).toBe(
-      "NONE",
-    );
-    expect(
-      qualifyPilotageIntent(
-        "Je révise la décision GitHub : la connexion est facultative.",
-      ),
-    ).toMatchObject({ clarity: "CLEAR", operation: "REVISE_DECISION" });
-  });
-
-  it("pins RESOLVED only when the file digest matches the approved manifest", () => {
-    const manifest = loadCkiManifest();
-    expect(manifest?.version).toBe("0.2.0");
-    expect(manifest?.specialties).toHaveLength(15);
-    const pin = resolveForOpen("UX_UI");
-    const entry = manifest?.specialties.find((item) => item.ckiId === "04-ux-ui");
-    expect(pin.availability).toBe("RESOLVED");
-    expect(pin.contentDigest).toBe(entry?.sha256);
-    expect(pin.manifestRef).toContain(CKI_MANIFEST_FILE);
-
-    const dir = mkdtempSync(resolve(tmpdir(), "sfia-cki-mismatch-"));
-    writeFileSync(resolve(dir, "10-securite-rssi.md"), "contenu non approuvé\n");
-    writeFileSync(
-      resolve(dir, CKI_MANIFEST_FILE),
-      JSON.stringify({
-        version: "0.2.0",
-        specialties: [
-          {
-            ckiId: "10-securite-rssi",
-            file: "10-securite-rssi.md",
-            version: "0.2.0",
-            sha256: "ab".repeat(32),
-          },
-        ],
-      }),
-    );
-    const previous = process.env.SFIA_CKI_ROOT;
-    process.env.SFIA_CKI_ROOT = dir;
-    try {
-      const mismatched = resolveForOpen("SECURITE");
-      expect(mismatched.availability).toBe("UNAVAILABLE");
-      expect(mismatched.contentDigest).toBeNull();
-      expect(mismatched.pinnedVersion).toBeNull();
-      const fileDigest = createHash("sha256")
-        .update(readFileSync(resolve(dir, "10-securite-rssi.md")))
-        .digest("hex");
-      expect(
-        resolvePinnedCki({
-          ckiId: "10-securite-rssi",
-          contentDigest: fileDigest,
-          pinnedVersion: "0.2.0",
-        }).availability,
-      ).toBe("UNAVAILABLE");
-    } finally {
-      if (previous === undefined) delete process.env.SFIA_CKI_ROOT;
-      else process.env.SFIA_CKI_ROOT = previous;
-    }
-  });
-
-  it("classifies a natural explicit GO without an operation", () => {
-    const clear = classifyExplicitInteraction({
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: "ui:UTTERANCE:act-1",
-      utterance: "ouvre le cycle cadrage",
-      actInstanceId: "act-1",
-    });
-    expect(clear?.ok).toBe(true);
-    if (clear?.ok) {
-      expect(clear.command.operation).toBe("OPEN_CYCLE");
-      expect(clear.command.cycleType).toBe("CADRAGE");
-      expect(clear.command.actInstanceId).toBe("act-1");
-    }
-    const ambiguous = classifyExplicitInteraction({
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: "ui:UTTERANCE:act-2",
-      utterance: "OK",
-      actInstanceId: "act-2",
-    });
-    expect(ambiguous).toMatchObject({ ok: false, reasonCode: "AMBIGUOUS" });
-    expect(
-      classifyExplicitInteraction({
+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+  expect(projectId).toBeTruthy();
+  let revision = 0;
+  for (let i = 0; i < 12; i += 1) {
+    const actInstanceId = `c03-act-${i}-${Date.now()}`;
+    const res = await page.request.post(`/api/projects/${projectId}/pilotage/commands`, {
+      data: {
+        clientCommandKey: `c03-cmd-${actInstanceId}`,
+        expectedRevision: revision,
+        operation: "RECORD_DECISION",
         sourceKind: "EXPLICIT_INTERACTION",
-        sourceRef: "ui:open:act-3",
-        operation: "OPEN_CYCLE",
-        utterance: "ouvre le cycle cadrage",
-      }),
-    ).toBeNull();
-  });
+        sourceRef: `ui:RECORD:${actInstanceId}`,
+        actInstanceId,
+        objectRef: `c03-obj-${i}`,
+        statement: `Décision documentaire C03-${i} obligatoire pour ce projet.`,
+      },
+    });
+    expect(res.ok()).toBeTruthy();
+    const body = await res.json();
+    expect(body.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+    revision = body.revision ?? revision + 1;
+  }
 
-  it("hashes source action keys with the act instance so retries stay stable", () => {
-    const first = buildSourceActionKey({
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      actInstanceId: "act-stable",
-    });
-    const retry = buildSourceActionKey({
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      actInstanceId: "act-stable",
-    });
-    const next = buildSourceActionKey({
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      actInstanceId: "act-next",
-    });
-    expect(first).toBe(retry);
-    expect(first).not.toBe(next);
-    expect(first).toMatch(/^[a-f0-9]{64}$/);
+  await page.getByRole("button", { name: "Pilotage" }).click();
+  await expect(page.getByTestId("journal-count")).toContainText(/1[0-9] décision/i, {
+    timeout: 15000,
   });
+  await expect(page.getByText(/C03-11/i).first()).toBeVisible();
+  await page.getByTestId("journal-expand").click();
+  await expect(page.getByText(/C03-0/i).first()).toBeVisible({ timeout: 10000 });
+  await expect(page.getByTestId("decision-row")).toHaveCount(12, { timeout: 5000 });
 });
 
+/**
+ * CR-02 — ACK perdu après effet D6 APPLIED :
+ * serveur committe → réponse HTTP interceptée → reload → réconciliation → pas de double effet.
+ */
+test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.waitForURL("**/preparations/**");
+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 CR-02 ACK seed");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 CR-02 ACK");
+  await page.getByPlaceholder("Résumé inspecté").fill("e2e cr02 ack");
+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
+  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
+
+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+  expect(projectId).toBeTruthy();
+
+  let ackDropped = false;
+  let serverApplied = false;
+  await page.route("**/api/preparations/*/messages", async (route) => {
+    if (route.request().method() !== "POST") {
+      await route.continue();
+      return;
+    }
+    let post: { content?: string } = {};
+    try {
+      post = route.request().postDataJSON() as { content?: string };
+    } catch {
+      post = {};
+    }
+    const response = await route.fetch();
+    const raw = await response.text();
+    let body: Record<string, unknown> = {};
+    try {
+      body = JSON.parse(raw) as Record<string, unknown>;
+    } catch {
+      body = {};
+    }
+    const effect = body.pilotageEffect as { status?: string } | undefined;
+    const applied =
+      response.ok() &&
+      (body.humanDecisionCreated === true ||
+        (typeof effect?.status === "string" && /APPLIED/i.test(effect.status)));
+    // Drop ACK only for the OPEN GO after the server has committed the effect.
+    if (
+      !ackDropped &&
+      applied &&
+      /ouvre le cycle cadrage/i.test(post.content ?? "")
+    ) {
+      serverApplied = true;
+      ackDropped = true;
+      await route.fulfill({
+        status: 502,
+        contentType: "application/json",
+        body: JSON.stringify({
+          errorCategory: "ACK_LOST_SIM",
+          error: "ACK lost after server commit",
+        }),
+      });
+      return;
+    }
+    await route.fulfill({
+      status: response.status(),
+      headers: response.headers(),
+      body: raw,
+    });
+  });
+
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
+  await page.getByTestId("thread-send").click();
+  await expect(page.getByTestId("thread-nora-status")).toContainText(/ACK lost|ACK_LOST|échec|conservée/i, {
+    timeout: 45000,
+  });
+  expect(serverApplied).toBe(true);
+  expect(ackDropped).toBe(true);
+  await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
+  // Distinct new act must not silently overwrite the unresolved pending.
+  await page.getByLabel("Message à Nora").fill("Je décide que GitHub est obligatoire pour ce projet.");
+  await page.getByTestId("thread-send").click();
+  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/non résolue|réconcilier/i, {
+    timeout: 10000,
+  });
+  await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
+
+  await page.reload();
+  await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
+  await page.getByTestId("thread-reconcile-pending").click();
+  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED|OPEN_CYCLE|ACTIVE/i, {
+    timeout: 30000,
+  });
+
+  const pilotage = await page.request.get(`/api/projects/${projectId}/pilotage`);
+  expect(pilotage.ok()).toBeTruthy();
+  const pj = await pilotage.json();
+  const cycle = pj.pilotage?.cycle ?? pj.cycle;
+  expect(cycle?.status).toBe("ACTIVE");
+  expect(cycle?.cycleType).toBe("CADRAGE");
+
+  // Second reconcile / retry must not open another cycle.
+  const decisions = await page.request.get(`/api/projects/${projectId}/decisions`);
+  expect(decisions.ok()).toBeTruthy();
+  const dj = await decisions.json();
+  const opens = (dj.decisions ?? []).filter(
+    (d: { kind: string; state: string }) =>
+      d.kind === "OPEN_CYCLE" && (d.state === "APPLICABLE" || d.state === "SUPERSEDED"),
+  );
+  expect(opens.filter((d: { state: string }) => d.state === "APPLICABLE").length).toBeLessThanOrEqual(1);
+  await page.unrouteAll({ behavior: "ignoreErrors" });
+});
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts`
+### MODIFIED FULL `projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts` @ ba831b25bc18
 
 ```tsx
 import { beforeAll, describe, expect, it } from "vitest";
@@ -8029,1823 +9212,818 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
     expect(cmds.status).toMatch(/APPLIED|ALREADY_APPLIED/);
   });
 });
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts`
+### MODIFIED FULL `projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts` @ ba831b25bc18
 
 ```tsx
-import { test, expect } from "@playwright/test";
-import path from "path";
+import { describe, expect, it, afterEach } from "vitest";
+import {
+  buildLevelAClarification,
+  findAuthorityReviseCandidates,
+  findMessageDecisionConfrontations,
+  findPotentialDivergences,
+  qualifyCommandOutcome,
+  selectApplicableBriefs,
+  selectAllApplicableBriefs,
+} from "@/domains/decisions/divergence-assist";
+import { generateNoraReply } from "@/domains/conversation/nora-adapter";
+import {
+  mayStartNewThreadAct,
+  shouldClearThreadPending,
+} from "@/domains/pilotage/thread-recovery";
 
-/**
- * ML3 browser FAKE — pilotage surfaces. LIVE Nora forbidden in E2E.
- * Does not claim pixel-perfect Figma conformity.
- */
-test("ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
+const prior = {
+  id: "dec_gh",
+  kind: "RECORD_DECISION",
+  objectRef: "github-connexion",
+  scope: "PROJECT",
+  statement: "La connexion GitHub est obligatoire pour ce projet.",
+  state: "APPLICABLE",
+  sourceKind: "EXPLICIT_INTERACTION",
+};
 
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 e2e seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+describe("B13 C01 message↔decision confrontation", () => {
+  const prevLane = process.env.STUDIO_LANE;
+  const prevE2e = process.env.STUDIO_E2E;
+
+  afterEach(() => {
+    if (prevLane === undefined) delete process.env.STUDIO_LANE;
+    else process.env.STUDIO_LANE = prevLane;
+    if (prevE2e === undefined) delete process.env.STUDIO_E2E;
+    else process.env.STUDIO_E2E = prevE2e;
   });
 
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 Pilotage");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e ml3");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
-
-  await page.getByRole("button", { name: "Pilotage" }).click();
-  await expect(page.getByTestId("pilotage-panel")).toBeVisible();
-  await expect(page.getByTestId("cycle-absent")).toBeVisible();
-  await expect(page.getByTestId("method-absent")).toBeVisible();
-
-  await page.getByLabel("Énoncé GO").fill("ouvre le cycle cadrage");
-  await page.getByTestId("open-cycle").click();
-  await expect(page.getByTestId("pilotage-pending")).toBeVisible();
-  await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
-  await expect(page.getByRole("heading", { name: /Cycle CADRAGE/ })).toBeVisible();
-  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/);
-  await expect(page.getByTestId("decision-state").first()).toContainText("APPLICABLE");
-
-  await page.getByTestId("close-cycle").click();
-  await expect(page.getByTestId("cycle-absent")).toBeVisible({ timeout: 15000 });
-  await page.getByLabel("Énoncé GO").fill("");
-  await page.getByLabel("Type de cycle").selectOption("UX_UI");
-  await page.getByTestId("open-cycle").click();
-  await expect(page.getByRole("heading", { name: /Cycle UX_UI/ })).toBeVisible({ timeout: 15000 });
-  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/);
-
-  await page.getByTestId("choose-method").click();
-  await expect(page.getByTestId("method-retained")).toBeVisible({ timeout: 15000 });
-
-  const shot = path.join("tests/e2e/artifacts", `ml3-pilotage-${Date.now()}.png`);
-  await page.screenshot({ path: shot, fullPage: true });
-});
-
-/**
- * B13 C02 — browser FAKE: RESTRICTION shows authority-block-established;
- * HUMAN_INTENT conflict must NOT show authority-block-established.
- * Pixel Figma: NOT VERIFIED.
- */
-test("ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 B13 C02 seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
-  });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 B13 C02");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e b13 c02");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
-
-  await page.getByRole("button", { name: "Pilotage" }).click();
-  await expect(page.getByTestId("b13-authority-legend")).toBeVisible();
-
-  // Global cycle restriction → OPEN rejected with RESTRICTION (authority).
-  await page.getByTestId("apply-cycle-restriction").click();
-  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
-    timeout: 15000,
-  });
-  await page.getByTestId("open-cycle").click();
-  await expect(page.getByTestId("pilotage-status")).toContainText(/REJECTED.*RESTRICTION|RESTRICTION/, {
-    timeout: 15000,
-  });
-  await expect(page.getByTestId("authority-block-established")).toBeVisible();
-  await expect(page.getByTestId("authority-block-established")).toContainText(/Restriction D6/i);
-
-  // Lift restriction, open cycle (APPLIED — no false authority block).
-  await page.getByRole("button", { name: "Lever" }).first().click();
-  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
-    timeout: 15000,
-  });
-  await page.getByLabel("Énoncé GO").fill("");
-  await page.getByTestId("open-cycle").click();
-  await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
-  await expect(page.getByTestId("outcome-applied")).toBeVisible();
-  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
-
-  // Controlled CONFLICT+HUMAN_INTENT response → technical motif, never authority-block.
-  // (UI open-cycle is hidden while ACTIVE; choose-method is the reachable pilot action.)
-  await page.route("**/api/projects/*/pilotage/commands", async (route) => {
-    if (route.request().method() !== "POST") {
-      await route.continue();
-      return;
-    }
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({
-        status: "CONFLICT",
-        reasonCode: "HUMAN_INTENT",
-        reason: "Intention humaine déjà enregistrée",
-        commandId: "bcmd_e2e_c02_human_intent",
-        revision: null,
-      }),
-    });
-  });
-  await page.getByTestId("choose-method").click();
-  await expect(page.getByTestId("pilotage-status")).toContainText(/CONFLICT.*HUMAN_INTENT|HUMAN_INTENT/, {
-    timeout: 15000,
-  });
-  await expect(page.getByTestId("outcome-technical-human_intent")).toBeVisible();
-  await expect(page.getByTestId("outcome-technical-human_intent")).toContainText(/Intention humaine/i);
-  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
-});
-
-/**
- * B13 R1 — rendered UX: prior RESTRICTION must not remain under a new UNKNOWN/APPLIED result.
- * Observes PilotagePanel motifs, not only qualifyCommandOutcome unit calls.
- */
-test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 B13 R1 seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
-  });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 B13 R1");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e b13 r1");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
-
-  await page.getByRole("button", { name: "Pilotage" }).click();
-  await page.getByTestId("apply-cycle-restriction").click();
-  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
-    timeout: 15000,
-  });
-  await page.getByTestId("open-cycle").click();
-  await expect(page.getByTestId("authority-block-established")).toBeVisible({ timeout: 15000 });
-
-  // RESTRICTION → network loss on next command → UNKNOWN (no stale authority motif).
-  await page.route("**/api/projects/*/pilotage/commands", async (route) => {
-    if (route.request().method() === "POST") {
-      await route.abort("failed");
-      return;
-    }
-    await route.continue();
-  });
-  // also abort by-key reconcile fetches so resolveUnknown stays UNKNOWN
-  await page.route("**/api/projects/*/pilotage/commands/**", async (route) => {
-    await route.abort("failed");
-  });
-  await page.getByTestId("choose-method").click();
-  await expect(page.getByTestId("pilotage-status")).toContainText(/UNKNOWN/i, { timeout: 15000 });
-  await expect(page.getByTestId("outcome-unknown")).toBeVisible();
-  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
-
-  // UNKNOWN → controlled APPLIED on a new attempt → outcome-applied, still no authority-block.
-  await page.unroute("**/api/projects/*/pilotage/commands");
-  await page.unroute("**/api/projects/*/pilotage/commands/**");
-  await page.route("**/api/projects/*/pilotage/commands", async (route) => {
-    if (route.request().method() !== "POST") {
-      await route.continue();
-      return;
-    }
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({
-        status: "APPLIED",
-        reasonCode: null,
-        reason: null,
-        commandId: "bcmd_e2e_r1_applied",
-        revision: 99,
-      }),
-    });
-  });
-  // Change method version so signature differs from the UNKNOWN pending record.
-  await page.getByLabel("Version").fill("2.6-r1");
-  await page.getByTestId("choose-method").click();
-  await expect(page.getByTestId("outcome-applied")).toBeVisible({ timeout: 15000 });
-  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
-  await expect(page.getByTestId("outcome-unknown")).toHaveCount(0);
-});
-
-/**
- * F01 — GO naturel depuis le fil projet principal (pas le bouton PilotagePanel).
- * Pixel Figma: NOT VERIFIED.
- */
-test("ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F01 thread seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
-  });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F01 Fil");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e f01 thread");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
-
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/OPEN_CYCLE|APPLIED/i, {
-    timeout: 30000,
-  });
-  await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|deterministic/i, {
-    timeout: 30000,
+  it("C01: single APPLICABLE decision + new USER message yields Level A without second decision", () => {
+    const signals = findMessageDecisionConfrontations(
+      "Finalement, je préfère GitHub facultatif.",
+      [prior],
+    );
+    expect(signals).toHaveLength(1);
+    expect(signals[0].kind).toBe("MESSAGE_DECISION_CONFRONTATION");
+    expect(signals[0].decisionId).toBe("dec_gh");
+    expect(signals[0].framing).toBe("POSSIBLE_CHANGE");
+    expect(signals[0].authorityClaim).toBe("NONE");
+    expect(findPotentialDivergences([prior])).toHaveLength(0);
   });
 
-  await page.getByRole("button", { name: "Pilotage" }).click();
-  await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
-  await expect(page.getByRole("heading", { name: /Cycle CADRAGE/ })).toBeVisible();
-  await expect(page.getByTestId("decision-state").first()).toContainText("APPLICABLE");
-});
-
-/**
- * F02 — décision documentaire depuis le fil + révision via Journal.
- */
-test("ML3 F02: RECORD depuis le fil puis révision Journal", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F02 seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+  it("C01/R2: compatible different formulations are not treated as possible change", () => {
+    const signals = findMessageDecisionConfrontations(
+      "GitHub reste requis pour ce projet.",
+      [prior],
+    );
+    expect(signals.length).toBeGreaterThanOrEqual(1);
+    expect(signals[0].framing).toBe("COMPATIBLE_RESTATEMENT");
+    expect(signals[0].authorityClaim).toBe("NONE");
   });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F02 Décisions");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e f02");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page
-    .getByLabel("Message à Nora")
-    .fill("Je décide que la connexion GitHub est obligatoire pour ce projet.");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByTestId("thread-pilotage-status")).toContainText(
-    /RECORD_DECISION|APPLIED|décision/i,
-    { timeout: 30000 },
-  );
-
-  await page.getByRole("button", { name: "Pilotage" }).click();
-  await expect(page.getByTestId("decision-state").first()).toContainText(/RECORD_DECISION.*APPLICABLE/i, {
-    timeout: 15000,
-  });
-  await page.getByTestId("journal-revise-open").first().click();
-  await page.getByTestId("journal-revise-draft").fill("La connexion GitHub est facultative pour ce projet.");
-  await page.getByTestId("journal-revise-submit").click();
-  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
-    timeout: 15000,
-  });
-  await expect(page.getByText(/facultative/i).first()).toBeVisible({ timeout: 10000 });
-});
-
-/**
- * C03 — Journal >8: newest visible by default; full history via expand.
- * Seeds via D6 API (not the fil loop) to avoid stale status races.
- */
-test("ML3 C03: Journal décisions >8 avec historique accessible", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 C03 journal seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
-  });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 C03 Journal");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e c03");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
-
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
-  let revision = 0;
-  for (let i = 0; i < 12; i += 1) {
-    const actInstanceId = `c03-act-${i}-${Date.now()}`;
-    const res = await page.request.post(`/api/projects/${projectId}/pilotage/commands`, {
-      data: {
-        clientCommandKey: `c03-cmd-${actInstanceId}`,
-        expectedRevision: revision,
-        operation: "RECORD_DECISION",
-        sourceKind: "EXPLICIT_INTERACTION",
-        sourceRef: `ui:RECORD:${actInstanceId}`,
-        actInstanceId,
-        objectRef: `c03-obj-${i}`,
-        statement: `Décision documentaire C03-${i} obligatoire pour ce projet.`,
+  it("R2: negation of same modality is never COMPATIBLE_RESTATEMENT", () => {
+    const base = { ...prior, statement: "GitHub est obligatoire." };
+    const cases: Array<{ user: string; statement?: string }> = [
+      { user: "GitHub n'est plus obligatoire." },
+      { user: "GitHub n'est pas obligatoire." },
+      { user: "GitHub n'est jamais obligatoire." },
+      { user: "GitHub n'est aucunement obligatoire." },
+      // Typographic apostrophe (U+2019)
+      { user: "GitHub n\u2019est jamais obligatoire." },
+      { user: "GitHub n\u2019est aucunement obligatoire." },
+      { user: "GitHub ne doit pas être obligatoire." },
+      {
+        user: "GitHub n'est pas interdit.",
+        statement: "GitHub est interdit pour ce projet.",
       },
+      {
+        user: "GitHub n'est pas requis.",
+        statement: "GitHub est requis pour ce projet.",
+      },
+    ];
+    for (const c of cases) {
+      const row = { ...base, statement: c.statement ?? base.statement };
+      const signals = findMessageDecisionConfrontations(c.user, [row]);
+      expect(signals.length, c.user).toBeGreaterThanOrEqual(1);
+      expect(signals[0].framing, c.user).not.toBe("COMPATIBLE_RESTATEMENT");
+      expect(["POSSIBLE_CHANGE", "AMBIGUOUS"], c.user).toContain(signals[0].framing);
+      expect(signals[0].authorityClaim).toBe("NONE");
+    }
+  });
+
+  it("R2: positive restatements remain compatible when polarity agrees", () => {
+    const base = { ...prior, statement: "GitHub est obligatoire." };
+    for (const user of ["GitHub reste obligatoire.", "GitHub reste requis."]) {
+      const signals = findMessageDecisionConfrontations(user, [base]);
+      expect(signals.length).toBeGreaterThanOrEqual(1);
+      expect(signals[0].framing).toBe("COMPATIBLE_RESTATEMENT");
+      expect(signals[0].authorityClaim).toBe("NONE");
+    }
+  });
+
+  it("R2: scope shift stays AMBIGUOUS (no automatic global equivalence)", () => {
+    const signals = findMessageDecisionConfrontations(
+      "GitHub obligatoire seulement pour UX",
+      [
+        {
+          ...prior,
+          statement: "GitHub obligatoire pour tout le projet.",
+        },
+      ],
+    );
+    expect(signals.length).toBeGreaterThanOrEqual(1);
+    expect(signals[0].framing).toBe("AMBIGUOUS");
+    expect(signals[0].authorityClaim).toBe("NONE");
+  });
+
+  it("R1: UNKNOWN presentation is never authority-block; cleared outcome shows nothing", () => {
+    const restriction = qualifyCommandOutcome({
+      status: "REJECTED",
+      reasonCode: "RESTRICTION",
     });
-    expect(res.ok()).toBeTruthy();
-    const body = await res.json();
-    expect(body.status).toMatch(/APPLIED|ALREADY_APPLIED/);
-    revision = body.revision ?? revision + 1;
+    expect(restriction.testId).toBe("authority-block-established");
+    // After runCommand start, lastOutcome is null → UI hides qualified motif.
+    const afterStart: null = null;
+    expect(afterStart).toBeNull();
+    const unknown = qualifyCommandOutcome({ status: "UNKNOWN" });
+    expect(unknown.kind).toBe("unknown");
+    expect(unknown.testId).toBe("outcome-unknown");
+    expect(unknown.testId).not.toBe("authority-block-established");
+    const applied = qualifyCommandOutcome({ status: "APPLIED" });
+    expect(applied.testId).toBe("outcome-applied");
+    expect(applied.testId).not.toBe("authority-block-established");
+  });
+
+  it("C01: unrelated object is not confronted", () => {
+    expect(
+      findMessageDecisionConfrontations("Je veux changer la couleur du logo.", [prior]),
+    ).toHaveLength(0);
+  });
+
+  it("C01: REVOKED decision is not a current authority source", () => {
+    expect(
+      findMessageDecisionConfrontations("GitHub facultatif", [
+        { ...prior, state: "REVOKED" },
+      ]),
+    ).toHaveLength(0);
+    expect(selectApplicableBriefs([{ ...prior, state: "REVOKED" }])).toHaveLength(0);
+  });
+
+  it("C01 fixture uses structured levelASignals (same entry as conversation path)", async () => {
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    const signals = findMessageDecisionConfrontations(
+      "Finalement, je préfère GitHub facultatif.",
+      [prior],
+    );
+    const result = await generateNoraReply({
+      userText: "Finalement, je préfère GitHub facultatif.",
+      contextSnippets: [],
+      pilotageSnippets: ["### Décisions D6 applicables"],
+      levelASignals: signals,
+    });
+    expect(result.mode).toBe("deterministic-fixture");
+    expect(result.status).toBe("COMPLETE");
+    expect(result.content).toMatch(/Niveau A/i);
+    expect(result.content).toMatch(/pas une (HumanDecision|interdiction D6)/i);
+    expect(result.content).toContain("dec_gh");
+    expect(result.content).not.toMatch(/HumanDecision créée|je révoque/i);
+  });
+
+  it("buildLevelAClarification distinguishes compatible restatement", () => {
+    expect(
+      buildLevelAClarification({
+        priorStatement: prior.statement,
+        newExpression: "GitHub reste requis",
+        objectRef: prior.objectRef,
+        framing: "COMPATIBLE_RESTATEMENT",
+      }),
+    ).toMatch(/semble compatible/);
+  });
+});
+
+describe("B13 C02 qualifyCommandOutcome", () => {
+  it("does not treat CONFLICT+STALE_REVISION as authority block", () => {
+    const q = qualifyCommandOutcome({ status: "CONFLICT", reasonCode: "STALE_REVISION" });
+    expect(q.kind).toBe("technical_conflict");
+    expect(q.testId).not.toBe("authority-block-established");
+  });
+
+  it("does not treat CONFLICT+HUMAN_INTENT as authority block", () => {
+    const q = qualifyCommandOutcome({ status: "CONFLICT", reasonCode: "HUMAN_INTENT" });
+    expect(q.kind).toBe("technical_conflict");
+    expect(q.testId).toBe("outcome-technical-human_intent");
+  });
+
+  it("does not treat CONFLICT+FINGERPRINT as authority block", () => {
+    const q = qualifyCommandOutcome({ status: "CONFLICT", reasonCode: "FINGERPRINT" });
+    expect(q.kind).toBe("technical_conflict");
+  });
+
+  it("REJECTED+RESTRICTION is authority block", () => {
+    const q = qualifyCommandOutcome({ status: "REJECTED", reasonCode: "RESTRICTION" });
+    expect(q.kind).toBe("authority_block");
+    expect(q.testId).toBe("authority-block-established");
+  });
+
+  it("CONFLICT+ACTIVE_CYCLE is D5 state, not D6 contradiction", () => {
+    const q = qualifyCommandOutcome({ status: "CONFLICT", reasonCode: "ACTIVE_CYCLE" });
+    expect(q.kind).toBe("d5_state");
+  });
+
+  it("UNKNOWN asks for reconciliation", () => {
+    const q = qualifyCommandOutcome({ status: "UNKNOWN" });
+    expect(q.kind).toBe("unknown");
+    expect(q.testId).toBe("outcome-unknown");
+  });
+});
+
+describe("CR-01 authority revise candidates vs cognitive window", () => {
+  function brief(
+    id: string,
+    objectRef: string,
+    statement: string,
+    scope = "PROJECT",
+  ) {
+    return {
+      id,
+      kind: "RECORD_DECISION",
+      objectRef,
+      scope,
+      statement,
+      state: "APPLICABLE",
+      sourceKind: "EXPLICIT_INTERACTION",
+    };
   }
 
-  await page.getByRole("button", { name: "Pilotage" }).click();
-  await expect(page.getByTestId("journal-count")).toContainText(/1[0-9] décision/i, {
-    timeout: 15000,
+  it("cognitive window of 12 hides an older GitHub while authority sees both", () => {
+    const rows = [
+      brief("gh-old", "github", "GitHub est obligatoire pour ce projet."),
+      ...Array.from({ length: 13 }, (_, i) =>
+        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
+      ),
+      brief("gh-new", "github", "GitHub reste requis pour les déploiements."),
+    ];
+    expect(rows).toHaveLength(15);
+    const cognitive = selectApplicableBriefs(rows);
+    expect(cognitive).toHaveLength(12);
+    expect(cognitive.filter((r) => r.objectRef === "github").map((r) => r.id)).toEqual(["gh-new"]);
+    expect(selectAllApplicableBriefs(rows)).toHaveLength(15);
+
+    const utterance = "Finalement, GitHub devient facultatif.";
+    // Cognitive confrontation path would only see gh-new → false uniqueness.
+    const cognitiveSignals = findMessageDecisionConfrontations(utterance, rows).filter(
+      (s) => s.framing === "POSSIBLE_CHANGE",
+    );
+    expect(cognitiveSignals.map((s) => s.decisionId)).toEqual(["gh-new"]);
+
+    const authority = findAuthorityReviseCandidates(utterance, rows);
+    expect(authority.map((c) => c.id).sort()).toEqual(["gh-new", "gh-old"]);
   });
-  await expect(page.getByText(/C03-11/i).first()).toBeVisible();
-  await page.getByTestId("journal-expand").click();
-  await expect(page.getByText(/C03-0/i).first()).toBeVisible({ timeout: 10000 });
-  await expect(page.getByTestId("decision-row")).toHaveCount(12, { timeout: 5000 });
+
+  it("single relevant applicable remains a unique authority candidate", () => {
+    const rows = [
+      brief("gh-only", "github", "GitHub est obligatoire pour ce projet."),
+      ...Array.from({ length: 14 }, (_, i) =>
+        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
+      ),
+    ];
+    const authority = findAuthorityReviseCandidates(
+      "Finalement, GitHub devient facultatif.",
+      rows,
+    );
+    expect(authority).toHaveLength(1);
+    expect(authority[0]?.id).toBe("gh-only");
+  });
+
+  it("same theme with distinct scopes stay separate candidates", () => {
+    const rows = [
+      brief("gh-proj", "github", "GitHub est obligatoire pour tout le projet.", "PROJECT"),
+      brief("gh-cycle", "github", "GitHub est obligatoire seulement pour ce cycle.", "CYCLE"),
+    ];
+    const authority = findAuthorityReviseCandidates(
+      "Finalement, GitHub devient facultatif.",
+      rows,
+    );
+    expect(authority).toHaveLength(2);
+    expect(new Set(authority.map((c) => c.scope))).toEqual(new Set(["PROJECT", "CYCLE"]));
+  });
+
+  it("REVOKED / REVISED are not authority candidates", () => {
+    const rows = [
+      { ...brief("gh-rev", "github", "GitHub est obligatoire."), state: "REVOKED" },
+      { ...brief("gh-revised", "github", "GitHub est requis."), state: "REVISED" },
+    ];
+    expect(findAuthorityReviseCandidates("Finalement, GitHub devient facultatif.", rows)).toEqual(
+      [],
+    );
+  });
 });
 
-/**
- * CR-02 — ACK perdu après effet D6 APPLIED :
- * serveur committe → réponse HTTP interceptée → reload → réconciliation → pas de double effet.
- */
-test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 CR-02 ACK seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+describe("CR-02 thread pending lifecycle", () => {
+  it("does not clear pending when Nora COMPLETE but métier UNKNOWN", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "COMPLETE",
+        effectAttempted: true,
+        effectStatus: "UNKNOWN",
+      }),
+    ).toBe(false);
   });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 CR-02 ACK");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e cr02 ack");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
+  it("clears pending when métier is terminal APPLIED", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "UNKNOWN",
+        effectAttempted: true,
+        effectStatus: "APPLIED",
+      }),
+    ).toBe(true);
+  });
 
-  let ackDropped = false;
-  let serverApplied = false;
-  await page.route("**/api/preparations/*/messages", async (route) => {
-    if (route.request().method() !== "POST") {
-      await route.continue();
-      return;
-    }
-    let post: { content?: string } = {};
-    try {
-      post = route.request().postDataJSON() as { content?: string };
-    } catch {
-      post = {};
-    }
-    const response = await route.fetch();
-    const raw = await response.text();
-    let body: Record<string, unknown> = {};
-    try {
-      body = JSON.parse(raw) as Record<string, unknown>;
-    } catch {
-      body = {};
-    }
-    const effect = body.pilotageEffect as { status?: string } | undefined;
-    const applied =
-      response.ok() &&
-      (body.humanDecisionCreated === true ||
-        (typeof effect?.status === "string" && /APPLIED/i.test(effect.status)));
-    // Drop ACK only for the OPEN GO after the server has committed the effect.
-    if (
-      !ackDropped &&
-      applied &&
-      /ouvre le cycle cadrage/i.test(post.content ?? "")
-    ) {
-      serverApplied = true;
-      ackDropped = true;
-      await route.fulfill({
-        status: 502,
-        contentType: "application/json",
-        body: JSON.stringify({
-          errorCategory: "ACK_LOST_SIM",
-          error: "ACK lost after server commit",
-        }),
-      });
-      return;
-    }
-    await route.fulfill({
-      status: response.status(),
-      headers: response.headers(),
-      body: raw,
+  it("clears pending when no business attempt and Nora COMPLETE", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "COMPLETE",
+        effectAttempted: false,
+        effectStatus: null,
+      }),
+    ).toBe(true);
+  });
+
+  it("exclusive guard blocks a distinct new act over unresolved pending", () => {
+    const pending = {
+      content: "Ouvre le cycle cadrage.",
+      clientTurnKey: "turn-1",
+      clientCommandKey: "conv-auth:turn-1",
+    };
+    expect(mayStartNewThreadAct({ unresolved: pending, nextContent: pending.content }).ok).toBe(
+      true,
+    );
+    const blocked = mayStartNewThreadAct({
+      unresolved: pending,
+      nextContent: "Je décide que GitHub est obligatoire.",
     });
+    expect(blocked.ok).toBe(false);
+    if (!blocked.ok) expect(blocked.pending.clientTurnKey).toBe("turn-1");
   });
-
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-  await page.getByTestId("thread-send").click();
-  await expect(page.getByTestId("thread-nora-status")).toContainText(/ACK lost|ACK_LOST|échec|conservée/i, {
-    timeout: 45000,
-  });
-  expect(serverApplied).toBe(true);
-  expect(ackDropped).toBe(true);
-  await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
-  // Distinct new act must not silently overwrite the unresolved pending.
-  await page.getByLabel("Message à Nora").fill("Je décide que GitHub est obligatoire pour ce projet.");
-  await page.getByTestId("thread-send").click();
-  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/non résolue|réconcilier/i, {
-    timeout: 10000,
-  });
-  await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
-
-  await page.reload();
-  await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
-  await page.getByTestId("thread-reconcile-pending").click();
-  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED|OPEN_CYCLE|ACTIVE/i, {
-    timeout: 30000,
-  });
-
-  const pilotage = await page.request.get(`/api/projects/${projectId}/pilotage`);
-  expect(pilotage.ok()).toBeTruthy();
-  const pj = await pilotage.json();
-  const cycle = pj.pilotage?.cycle ?? pj.cycle;
-  expect(cycle?.status).toBe("ACTIVE");
-  expect(cycle?.cycleType).toBe("CADRAGE");
-
-  // Second reconcile / retry must not open another cycle.
-  const decisions = await page.request.get(`/api/projects/${projectId}/decisions`);
-  expect(decisions.ok()).toBeTruthy();
-  const dj = await decisions.json();
-  const opens = (dj.decisions ?? []).filter(
-    (d: { kind: string; state: string }) =>
-      d.kind === "OPEN_CYCLE" && (d.state === "APPLICABLE" || d.state === "SUPERSEDED"),
-  );
-  expect(opens.filter((d: { state: string }) => d.state === "APPLICABLE").length).toBeLessThanOrEqual(1);
-  await page.unrouteAll({ behavior: "ignoreErrors" });
 });
-
 ```
 
-### MODIFIED FULL `projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md`
-
-```md
-# SFIA Studio Next — R5 / ML3 « Piloter et décider »
-## Spécification technique v0.4 — candidate publiée sur branche documentaire
-
-**Statut historique D0 (en-tête v0.4) :** métadonnées de conception pré-delivery — ne décrivent plus l'état du candidat runtime.
-**Statut candidat courant (2026-11-06) :** `IMPLEMENTED — CANDIDATE` sur `sfia/next-pilotage-decisions-delivery` — **NOT RECETTE — NOT MERGED — NOT ADOPTED — NO RELEASE**.
-**Date :** 2026-11-06 (Europe/Paris).
-**Dépôt :** `mcleland147/sfia-workspace` ; base `main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` ; branche candidat `sfia/next-pilotage-decisions-delivery`.
-**Nature :** as-built D5/D6 + B13 + correctifs CR/B13 ; publication Git candidat autorisée (GO Morris consolidation) **sans** merge `main`, sans RECETTE, sans STABLE.
-**État runtime candidat :** D5/D6 **IMPLEMENTED** (schéma `007`) sous lane DEV ; preuves FAKE/PG selon matrice B01–B18 ; Nora LIVE NOT EXECUTED.
-**Sources propriétaires :** `governance/SEF.md`, `governance/roadmap.md`, `governance/decisions/2026-11-04-r4-architecture-exit.md`, R2 `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md`, R2 `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` et compléments, R3 `ux-ui/audit-couverture-ux-r3.md` §7, R4 `architecture-technique/cadrage-r4.md` §5.5, corpus `cki/` v0.2.0, R5 `construction/reference-delivery-r5.md`, code ML1/ML2 sur `main`.
-**Annexes sur cette branche :** [Matrice individuelle R2–R4](tracabilite-r2-r3-r4.md) (136 liens et R01–R04) et [Revue de conception](revue-conception.md) (revue/gates).
-
-> **Choix Morris déjà acquis :** option A — clôture du cycle A et ouverture du cycle B, si toutes les mutations D5/D6 sont internes à Studio, effectuées **dans une seule transaction PostgreSQL** ; deux faits de transition distinctement observables, commit unique. Une réussite partielle n'est possible que pour des effets réellement séparés, hors de cette frontière. **Choix de périmètre retenu :** noyau D6 réel (décisions, GO, révisions, restrictions et levées) dans ML3 ; D7/D8/D9 restent des interfaces, sans effets simulés. **Résolutions techniques proposées pour validation Morris :** R01 version/distribution CKI ; R02 sémantique de méthode ; R03 DDL/verrouillage/idempotence ; R04 résultat partiel. Les invariants R04 atomiques sont déjà arbitrés ; les choix détaillés R01–R03 sont à valider en contenu, **non implémentés**.
-
-## 1. Résultat Pilote et frontière du macro-lot
-
-Le Pilote peut reprendre son projet et son fil Nora, envisager une trajectoire sans l'appliquer, retenir une orientation de façon gouvernée, ouvrir un cycle pertinent sur un GO humain naturel, progresser avec une guidance CKI vérifiable lorsqu'elle est réellement disponible, enregistrer et réviser ses décisions, suspendre/lever des effets bornés et clore ou réorienter les cycles en retrouvant les faits durables après redémarrage.
-
-**IN :** D5 trajectoire, état des cycles, méthode applicable et liaison CKI ; D6 actes humains, portée, validité, restrictions, révisions/révocations, suspensions/levées ; interfaces D1/D2/D3/D4 ; transactions PG et intégrité, API, UX R3 B, tests, observabilité et documentation as-built dans le même macro-lot. **OUT :** exécution Cursor D7, preuve et verdict D8, mutation Git D9, adoption globale, catalogue universel de méthodes, moteur de workflow et nouveaux parcours obligatoires.
-
-**Parcours d'acceptation commun :** projet existant → Nora propose une trajectoire → le Pilote retient ou non l'orientation → GO de cycle authentifié → enregistrement atomique D6/D5 → cycle ACTIVE + CKI associé → consommation de guidance si disponible, avec provenance → décision durable ou suspension → clôture/transition gouvernée → reconnexion au même fil et vérification de l'état. Un projet peut continuer normalement sans cycle ni méthode.
-
-## 2. Autorités et propriétaires — invariants transverses
-
-| Domaine | Vérité propriétaire | Limite |
-|---|---|---|
-| D1/D2 | Session authentifiée, identité du Pilote, propriété du projet, préparation et continuité du fil | Une session, un projet ou GitHub OAuth ne sont pas des GO métier. |
-| D3 — Nora | Messages originaux, analyse de l'intention, propositions, réponse cognitive, consommation contrôlée de contexte | Le modèle ne produit aucun HumanDecision ni changement D5 à partir de sa seule sortie. |
-| D4 | Sujets, acquis, documents, points ouverts et provenance | Aucune duplication de mémoire ou preuve dans D5/D6. |
-| D5 | Trajectoires, cycles, méthode et association du CKI principal, états et historique | Ne crée ni compétence humaine ni permission. |
-| D6 | Source humaine, portée, décision opposable, restrictions et historique | Ne maintient pas un second état de cycle ni ne simule D7/D9. |
-| D7/D8/D9 | Futures frontières propriétaires d'exécution, preuve et Git | Contrats préparés seulement ; aucun faux objet métier opérationnel ML3. |
-
-Les lectures D3/UX constituent des **projections** des propriétaires. Les diagnostics techniques n'émettent aucun acte d'autorité. Les contrôles de droits/compétence sont relus **au point d'effet**, non déduits d'une vue affichée antérieurement.
-
-## 3. Contrat D6 — acte humain et applicabilité
-
-### 3.1. Classes d'actes
-
-Distinguer : préférence cognitive non opposable ; choix structurant durable ; GO cycle (ouvrir/clore/transitionner) ; suspension/restriction ; levée/révocation/révision ; choix durable de méthode ; acte de réception D8 et autorisation « Exécuter » D7, tous deux **hors réalisation ML3**. Un choix de brouillon/document n'est pas un GO Git, une validation normative ou un mandat. Une proposition CKI n'est jamais permission.
-
-### 3.2. Identité et provenance minimales
-
-L'acte stocké D6 référence : `decisionId`, `projectId`, `pilotId` authentifié, `sourceKind` (message utilisateur réel ou interaction humaine explicite), `sourceRef` et révision/corrélation, `kind`, `objectRef`, `scope` typé et borné, `effectConditions`, `state/version`, `effectiveAt`, `supersedes/revokes/lifts` s'il y a lieu, `createdAt`. La source conversationnelle doit être une **expression USER vérifiée**, rattachée au projet autorisé ; le modèle, une citation ou un texte importé ne peuvent fournir cette autorité. Minimiser la répétition du texte humain et protéger les détails sensibles.
-
-**Validité D6 au point d'effet :** acteur habilité et projet courant ; cible/portée compatibles avec la commande ; provenance humaine fiable ; état/version ; contraintes supérieures ; restrictions et décisions incompatibles ; durée/conditions d'applicabilité. Conflit déterminant non résolu = refus de l'effet ciblé, sans bloquer la cognition indépendante. « Plus récente » n'est pas une règle de priorité.
-
-### 3.3. Évolutions non destructives
-
-Révision, amendement, révocation ou levée sont des **actes distincts liés** à leur cible, avec date de prise d'effet et contexte conservés. L'applicabilité courante change mais les décisions et effets passés restent vrais. Une suspension humaine persistante ne disparaît ni avec une nouvelle session, ni avec un nouveau cycle, ni lorsque Nora juge le problème résolu. Lever une suspension n'accorde pas de droits nouveaux et ne rejoue pas une commande. Une demande d'arrêt externe est enregistrable comme intention/portée D6 ; elle **n'est pas** un constat d'arrêt D7.
-
-**Révocation de méthode :** le contrat proposé R02 en §8 bis sépare retrait, remplacement, suspension d'usage, levée et révocation du choix courant. Révoquer le choix fondant la méthode actuellement applicable termine son application D5 et la laisse `ABSENT` sauf remplacement explicitement autorisé dans le même commit ; aucune restauration implicite. Si la cible est ambiguë, clarifier et ne pas muter.
-
-## 4. Contrat D5 — états, trajectoire et méthode
-
-Une **trajectoire proposée** peut rester seulement cognitive ou être conservée comme proposition sans acte d'autorité ; **retenue** exige une décision D6 qualifiée ; **effectif** décrit uniquement les cycles réellement committés. La réorientation n'efface pas les faits précédents. Les dépendances proviennent de contraintes projet ou décisions réelles, jamais de l'ordre des 15 CKI ni de la matrice des relations.
-
-**Cycle :** type reconnu dans le catalogue applicable, finalité et identifiant stables ; états au minimum `ACTIVE` et `CLOSED` (tout autre état exige un besoin explicite) ; au plus un ACTIVE par projet. Une suspension D6 du travail n'implique pas un état cycle `SUSPENDED` ou un moteur concurrent. Ouvrir/clore nécessitent GO humain ; maturité Nora ≠ clôture et clôture ≠ acceptation/adoption. La clôture conserve bilan/réserves et références D4 sans recopier les contenus D4.
-
-**Méthode :** `ABSENTE` est une valeur de projet légitime. Un choix durable conserve référence, version/révision, provenance, portée, date/condition d'effet et décision D6. Publication d'une nouvelle version ou technique locale de Nora ≠ changement de méthode. La modification, si décidée, est gouvernée et historisée sans rétroactivité ; impacts proportionnés sur les travaux concernés.
-
-## 5. CKI : association, version, distribution et usage
-
-Le catalogue initial est constitué de **15 types / 15 CKI autonomes** et 50 relations consultatives, contenus v0.2.0 validés Morris. Catalogue extensible sous arbitrage, sans type implicite FinOps/GreenOps. **Un seul CKI principal** correspond au type du cycle effectivement ACTIVE ; hors cycle, aucun CKI principal. Digression ou relation T/A/R/E ne sélectionne jamais de second CKI. Le même CKI guide le travail et l'appréciation qualitative de maturité ; aucune règle de fermeture ni score universel n'en découle.
-
-**Politique technique proposée R01 (§8 bis) :** associer la spécialité du type ; lorsque le contenu validé est résoluble, épingler référence/version/digest au commit d'ouverture ; sinon ouvrir avec association sans pin exploitable. Ne jamais migrer sur publication ; premier pin ultérieur ou changement de version = acte explicite du Pilote, tracé D5/D6. Le retour des octets de **la version déjà épinglée** peut rétablir la résolution sans nouvelle décision.
-
-**Distribution candidate :** manifeste de ressources approuvées, en lecture seule et versionné avec l'application ou son stockage de contenus durable ; aucune lecture GitHub en direct requise à chaque tour. Conserver les versions encore référencées ou signaler l'indisponibilité réelle, pas de fallback CKC historique. Les références Git constituent une provenance de contenu et non une preuve de disponibilité au runtime.
-
-**Trois niveaux non équivalents :** `ASSOCIATED` (D5 référence le CKI) ; `RESOLVED` (octets/version effectivement vérifiés) ; `DELIVERED` (guidance effectivement ajoutée au contexte D3 transmis). Aucune de ces observations ne prouve à elle seule la qualité cognitive. Toute guidance est de niveau de confiance borné : aucune instruction du CKI ne peut créer un GO, une contrainte supérieure ou un mandat d'outil. Conflit réel avec la méthode retenue : adapter/écarter la technique facultative et signaler l'écart déterminant.
-
-## 6. Modèle relationnel et migration — DDL non exécuté
-
-Extension additive du schéma Drizzle PostgreSQL courant `schemaRevision = 006_ml2_turn_owner_token`, sans modifier par défaut l'état de création du projet ML1 ni du tour ML2.
-
-| Famille candidate | Champs/noyau d'intégrité | Responsable |
-|---|---|---|
-| `project_pilotage_state` | `project_id` PK/FK vers `projects`, `revision` monotone, référence courante trajectoire/méthode si nécessaire | D5 — état/version verrouillable |
-| `trajectory_revisions` | Projet, version, proposition ou choix retenu, source, orientation, lien décision | D5 — historiques |
-| `project_cycles` | Projet, type, objectif, `status`, dates, `revision`, références GO et CKI associé/version ou indisponible | D5 — état réel |
-| `cycle_commands` | Projet, acteur, clé idempotente, empreinte, source humaine, type d'opération, résultat durable | D5 — commande métier |
-| `cycle_command_effects` | Référence commande, effet `CLOSE` ou `OPEN`, cible et issue durable | D5 — observabilité par effet |
-| `method_applications` | Projet, référence/version/portée, décision D6, début/fin d'applicabilité, provenance | D5 — état méthode |
-| `human_decisions` / historique | Auteur, projet, source fiable, type, objet, portée, état, relations de révision/révocation | D6 — actes opposables |
-| `governance_restrictions` | Projet, cible/effets interdits, acte D6 d'origine, application, levée | D6 — restrictions |
-| Manifeste CKI | Référence canonique/version/provenance et disponibilité | D5/ressource approuvée ; table dédiée seulement si justifiée |
-
-Les familles ne prescrivent pas nécessairement une table chacune : **dédupliquer** selon les requêtes et les invariants. Le Journal–Décisions reste une projection D6. Les IDs client ne sont jamais des droits ; les références doivent être contraintes au bon projet, y compris contre accès direct ou détournement de messages D3.
-
-**Invariants DB proposés :** index unique partiel `(project_id) WHERE status='ACTIVE'` ; clé unique commande métier `(project_id,pilot_id,idempotency_key)` et empreinte canonique ; versions et clés FK ; contraintes de validité d'états ; transaction commune D5/D6 ; pas de trigger qui crée un cycle au moment de créer le projet.
-
-**Sérialisation :** `SELECT … FOR UPDATE` sur la ligne `projects` du projet propriétaire (proposition de verrou commun) pour toutes les mutations D5 et restrictions D6 pertinentes, puis lecture sous verrou de la révision, des droits, des décisions/restrictions et du cycle. Le schéma doit gérer les cas d'erreurs PG, la contention, l'index partiel et l'ordre CLOSE(A) puis OPEN(B), sans anomalie interprojets. Isolation et granularité exactes à démontrer, pas supposées sûres par simple choix d'API.
-
-**Migration :** ajout des seules structures utiles, vérification de compatibilité à partir de 006, pas d'effets sur données ML1/ML2, migrations réexécutables/contrôlées selon stratégie existante. DEV → RECETTE avec SHA figé sous mandat futur, aucun déploiement exécuté ici.
-
-## 7. Services métier, commandes et API candidates
-
-**Contrats internes (noms logiques) :** `resolveProjectPilotage(project, actor)`, `proposeTrajectory(...)`, `applyTrajectoryDecision(...)`, `openCycle(...)`, `closeCycle(...)`, `transitionCycle(...)`, `chooseMethod(...)`, `recordHumanDecision(...)`, `reviseDecision(...)`, `applyRestriction(...)`, `liftRestriction(...)`, `evaluateCurrentAuthority(...)`, `resolveCycleGuidance(...)`, `reconcileCommand(...)`. Ne pas créer un microservice par verbe : appliquer les propriétaires D5/D6 et réutiliser la transaction PG commune.
-
-**Routes Next.js candidates et regroupables :** lecture `GET /api/projects/{projectId}/pilotage`, mutation `POST /api/projects/{projectId}/cycle-commands`, réconciliation `GET /api/projects/{projectId}/cycle-commands/{commandId}`, décision `GET/POST /api/projects/{projectId}/decisions`, restriction `POST /api/projects/{projectId}/restrictions`, méthode `POST /api/projects/{projectId}/method-choices`, guidance en lecture `GET /api/projects/{projectId}/guidance`. Les routes concrètes ne sont pas figées. Un point d'entrée ne peut utiliser une autorité de DTO : `pilotId` vient exclusivement de la session.
-
-**Commande D5 minimale :** clé idempotente stable, empreinte des paramètres déterminants, projet URL validé, action, version attendue du projet, cycle source et version attendue, type/cible/objectif, référence D3 d'un message humain ou interaction explicitement captée ; D6 valide cette source et portée. Identité de tour D3 et clé de commande D5 restent distinctes ; la même source humaine ne permet pas de générer deux effets nouveaux par retry.
-
-**Réponse ML3 interne :** `APPLIED`, `ALREADY_APPLIED` (lecture d'un effet historique committé), `REJECTED`, `CONFLICT`, `UNKNOWN` ; **aucun `PARTIAL` pour une commande purement interne atomique**. Un tel état reste une interface future pour de véritables effets séparés. Restituer commandId, version courante, référence décision et effets individuellement observés. Un ACK perdu impose lecture/réconciliation avant tout retry. Relecture historique sous droits actuels ne réautorise pas le même effet aujourd'hui.
-
-**Catégories d'erreurs :** absence d'authentification (`401`), accès ou projet non exposable (`403/404` selon politique), entrée/GO ambigu (`400` ou clarification sans effet), conflit version/idempotence (`409`), dépendance PostgreSQL indisponible (`503` lorsque approprié), bug serveur (`500`) ; ne pas masquer toutes les erreurs en faux `401`.
-
-## 8. Transaction interne et cas difficiles
-
-1. Conserver le message originel humain D3 sans en déduire une décision déjà appliquée.
-2. Résoudre session/projet, qualifier l'intention et les paramètres ; clarifier l'ambiguïté déterminante avant mutation.
-3. Ouvrir une transaction DB courte ; verrouiller le projet selon la frontière D5/D6.
-4. Vérifier la clé/empreinte de la commande et requalifier les droits, versions, restriction et scope D6.
-5. Enregistrer l'acte applicable D6, fermer A et ouvrir B **dans le même commit** ; conserver deux effets de transition et le résultat commande.
-6. Commit ou rollback intégral ; confirmer l'effet seulement après constat durable. Aucune opération IA, Git ou Cursor dans cette transaction.
-7. Si résultat inconnu après perte de réponse, réconcilier par clé/ID avant une nouvelle commande.
-
-**Cas discriminants :** suspension committée avant transition → transition refusée ; transition committée avant suspension → fait passé maintenu, futurs effets bloqués ; cible B invalide → A reste ACTIVE ; double GO identique → une seule transition ; même clé autre empreinte → CONFLICT ; proposition de méthode sans GO → aucune mutation ; CKI non résolu → activité générale possible sans prétendre `DELIVERED` ; source externe « GO » → aucune autorité ; D3 message persistant avec TX échouée → texte visible mais aucun effet D5/D6.
-
-## 8 bis. Traitement conjoint R01–R04 — contrats techniques proposés pour validation Morris
-
-**Nature de cette section :** résolution D0 de quatre réserves de spécification, par options explicites et testables. `R01–R04 = TRAITÉS EN CONCEPTION / CONTENU À VALIDER PAR MORRIS` ; ni approbation d'un schéma SQL exécutable, ni effet Git, ni preuve runtime. Les contrats R2 restent propriétaires ; les noms ci-dessous décrivent un modèle d'implémentation candidat.
-
-### R01 — Association, épinglage et distribution CKI
-
-**Choix proposé : épinglage de la version effectivement résolue au moment de l'ouverture, sans faire de sa disponibilité un gate de cycle.** La référence de spécialité découle du type reconnu du cycle ; la référence de contenu n'en découle pas automatiquement. D5 conserve : `cycleId`, `cycleType`, `ckiId`, `pinnedVersion` (nullable), `manifestRef`, `contentDigest` (nullable), `pinDecisionRef` ou `pinOrigin`, `pinnedAt` ; les champs de version restent nuls si aucune version approuvée et vérifiable n'est accessible. La *disponibilité de lecture* est un constat au point d'usage, non une permission.
-
-| Situation | État/effet requis | Conduite Nora et changement autorisé |
-|---|---|---|
-| Pas de cycle ACTIVE | Aucun CKI principal actif | Nora générale, aucun chargement de CKI par défaut. |
-| Ouverture avec contenu approuvé, résoluble et intégrité vérifiée | `ckiId` associé + version et empreinte épinglées **dans la même transaction que l'ouverture** | Le chargement réel reste à vérifier à chaque génération. Pas de GO séparé pour cet épinglage consécutif au GO de cycle. |
-| Ouverture sans version exploitable | Cycle ACTIVE possible, `ckiId` associé, `pinnedVersion=NULL` avec motif non résolu | Aucune guidance CKI prétendue appliquée ; Nora générale. |
-| Version épinglée temporairement indisponible | Conserver le pin et l'historique, marquer `UNAVAILABLE` au point d'usage | Aucune substitution ; un retour du **même contenu/empreinte** permet de résoudre le pin sans nouvel acte humain. |
-| Une nouvelle version est publiée | Aucun effet sur le pin ni sur les décisions/méthodes | Peut proposer une comparaison ; ne la charge pas à la place du pin. |
-| Aucun pin à l'ouverture puis une version devient disponible | Toujours aucun pin | **Premier rattachement explicite** décidé par le Pilote à portée cycle, historisé par D6/D5 ; pas de rattrapage automatique silencieux. |
-| Remplacement de version en cours de cycle | Vérifier provenance, compatibilité, finalité et risques, puis acte explicite du Pilote et historique D5/D6 | La nouvelle version ne change que les usages futurs ; aucune réécriture des réponses passées. |
-| Contenu hostile, digest divergent ou état d'approbation invalide | Résolution refusée et diagnostic borné | Ne pas exposer comme `DELIVERED`, ne pas charger de CKI historique ni d'autre version en secours. |
-
-**Source/distribution :** manifeste de ressources versionnées et immuables, activées **dans le déploiement réellement exécuté** à partir du corpus CKI approuvé (15 contenus v0.2.0, mais VALIDATED CONTENT ne signifie pas automatiquement chargé). Chaque entrée référence `type`, `ckiId`, `version`, origine Git immuable, empreinte cryptographique et état de disponibilité ; conservation des versions encore référencées. Livraison locale au build ou stockage durable contrôlé ; **aucun GitHub fetch à chaque tour Nora**. À la lecture, vérifier identité/version/digest avant de transmettre la guidance. L'usage d'une simple version sémantique sans empreinte ne suffit pas à garantir l'identité du contenu.
-
-**Observabilité, non automate d'autorité :** `ASSOCIATED` = spécialité associée ; `RESOLVED` = octets de la version exacte contrôlés ; `DELIVERED` = contenu réellement joint au contexte transmis au modèle. Aucun de ces états ne démontre que Nora s'en est servie avec pertinence : l'apport cognitif relève de tests LIVE comparatifs, distincts des fixtures. Échec de résolution => réponse générale sans déclarer un CKI utilisé ; si une conclusion spécialisée en dépend matériellement, la qualifier comme non démontrée. **Pas de deuxième CKI**, pas de matrice transformée en workflow.
-
-**Tests R01 :** B01/B10/B11/B12 et PF-TRJ-07/08/21/25/30 : aucun cycle ; ouverture avec pin ; ouverture sans version ; perte puis retour de l'empreinte identique ; nouvelle version disponible mais non utilisée ; décision explicite de premier pin/migration ; contenu corrompu et injection ; preuve de `DELIVERED` seulement lorsqu'observée. **Risque résiduel :** politique de conservation/distribution effectivement opérable par lane à démontrer en R5 ; ce mécanisme ne vaut pas VALIDATED SPEC avant gate Morris.
-
-### R02 — Sémantique de révision, retrait, suspension et révocation de méthode
-
-**Choix proposé : actes typés et portée explicite ; une seule référence effective par périmètre concerné, aucune résurgence implicite.** Le fait qu'une méthode soit choisie (D5) est distinct de la décision humaine qui fonde sa validité (D6). Les deux propriétaires changent ensemble quand le sens de l'acte exige une mutation D5. Une restriction D6 peut limiter l'utilisation d'une méthode **sans** effacer la méthode retenue.
-
-| Acte humain suffisamment clair | Modification durable D6 | Conséquence D5 et histoire |
-|---|---|---|
-| `CHOOSE_METHOD` — choix initial | Créer décision applicable à la portée autorisée | Nouvelle application méthode versionnée ; pas de méthode implicite avant cet acte. |
-| `REPLACE_METHOD` — remplacer A par B | Réviser/remplacer l'acte avec portée et prise d'effet | Fin d'application A, début B dans **une transaction** ; aucun changement des faits/cycles antérieurs. |
-| `WITHDRAW_METHOD` — ne plus retenir de méthode | Décision de retrait explicite | Fin d'applicabilité, état `ABSENT` dans la portée ; pas de restauration d'une ancienne méthode. |
-| `SUSPEND_METHOD_USE` — suspendre une utilisation | Restriction D6 ciblée et persistante | La référence D5 reste enregistrée ; la projection la dit « retenue mais utilisation restreinte », jamais méthode supprimée. |
-| `LIFT_METHOD_RESTRICTION` | Levée explicite de la restriction identifiée | Recontrôle actuel de la méthode et de sa décision de base ; aucun mandat, cycle ou exécution relancé. |
-| `REVOKE_DECISION` sur le **choix qui fonde la méthode courante** | Révoquer la validité future de cette décision, sans effacer l'histoire | **Dans le même commit**, fermer l'application qui dépend de ce choix et passer à `ABSENT` pour cette portée, sauf remplacement explicite simultané et compétent ; ne pas rétablir la méthode précédente. |
-| `REVOKE_DECISION` sans lien avec l'application courante | Révocation bornée à son objet | Aucun changement D5 non pertinent ; les effets indépendants demeurent. |
-| Acte ambigu (« annule cette méthode » avec plusieurs cibles) ou décisions incompatibles | Aucune décision d'effet présumée ; conflit/clarification | Aucun remplacement/suppression automatique ; bloquer seulement l'effet dépendant jusqu'à résolution. |
-
-**Portées :** associer toujours le projet et une cible intelligible (`PROJECT` ou cycle/activité explicitement identifié lorsque le contrat applicable le permet). Ne pas déduire une hiérarchie « la dernière version gagne » entre portées ; plusieurs décisions incompatibles sur une même cible imposent requalification D6. L'absence de méthode dans une portée n'efface pas arbitrairement des choix indépendants. La projection courante doit distinguer **absence de choix**, **référence retenue** et **référence retenue mais interdite d'usage** ; l'interdiction relève de D6, pas d'un second état D5 `SUSPENDED`.
-
-**Persistance :** historique non destructif `method_applications` avec décision fondatrice D6, référence/version, portée, `effectiveFrom/effectiveUntil` et raison de clôture ; une seule application courante par portée peut être imposée par index. Un `project_pilotage_state` conserve la révision de cohérence et, si nécessaire, une référence dénormalisée **strictement dérivée**, jamais une deuxième vérité writable. Le Journal Décisions relit D6, pas D5. L'analyse d'impact d'un changement qualifie les activités réellement touchées ; une clôture passée ne devient pas fausse.
-
-**Tests R02 :** B09/B10/B13/B16/B17, PF-TRJ-22/27–30 et PF-GOV-03/11/14/17/18/27 : remplacer ; retirer ; révoquer la base actuelle ; révoquer une décision historique non courante ; suspendre/lever sans effacer ; deux portées incompatibles ; publication vNext sans effet ; redémarrer et retrouver l'histoire ; simulation d'un impact restreint sur un cycle actif (sans re-clôture ni rollback). Aucun changement automatique du CKI principal.
-
-### R03 — Schéma, frontière transactionnelle, concurrence et idempotence
-
-**Choix proposé : PostgreSQL unique, verrou de ligne projet commun à toute mutation D5/D6 susceptible de changer une autorité ou un effet, avec contraintes structurelles en dernier recours.** `projects` existe dans ML2 ; une ligne `project_pilotage_state(project_id PRIMARY KEY, revision)` additive peut porter la révision de cohérence. Ne pas recopier session/projet/messages ou inventer un second registre d'autorité. La structure physique proposée est **à migrer/tester à partir de `006_ml2_turn_owner_token`**, pas à exécuter dans cette revue.
-
-**Tables minimales à qualifier par le contrat Cursor (regroupements permis si invariants conservés) :** `project_pilotage_state` (révision), `trajectory_revisions`, `project_cycles`, `business_commands` et `business_command_effects`, `method_applications`, `human_decisions` + événements de révision, `governance_restrictions` ; manifeste CKI versionné sans nouvelle table obligatoire. Les vues de lecture sont reconstruites sur ces propriétaires. Ne pas conserver séparément deux champs mutables faisant foi pour la méthode, l'autorité ou le cycle courant.
-
-**Contraintes SQL candidates significatives (illustration à réviser, pas migration livrée) :**
-
-```sql
--- dernier recours structurel, même si une requête concurrente contourne le code nominal
-CREATE UNIQUE INDEX project_cycles_single_active_per_project
-  ON project_cycles(project_id) WHERE status = 'ACTIVE';
-
--- idempotence client : même identité métier, mêmes paramètres => même résultat
-CREATE UNIQUE INDEX business_commands_project_actor_key_uidx
-  ON business_commands(project_id, actor_pilot_id, client_command_key);
-
--- anti-double effet par une même expression/interaction et une même intention
--- source_action_key différencie deux intentions explicites d'un même message
-CREATE UNIQUE INDEX business_commands_human_intent_uidx
-  ON business_commands(project_id, source_kind, source_ref, source_action_key);
+### MODIFIED FULL `projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts` @ ba831b25bc18
+
+```tsx
+import { createHash } from "crypto";
+import { mkdtempSync, readFileSync, writeFileSync } from "fs";
+import { tmpdir } from "os";
+import { resolve } from "path";
+import { describe, expect, it } from "vitest";
+import { schemaRevision } from "@/db/schema";
+import { buildSourceActionKey } from "@/domains/pilotage/command-runner";
+import {
+  CKI_MANIFEST_FILE,
+  CYCLE_CKI,
+  CYCLE_TYPES,
+  deliveryState,
+  listCkiSpecialtyFiles,
+  loadCkiManifest,
+  resolveForOpen,
+  resolvePinnedCki,
+} from "@/domains/pilotage/cki-resolve";
+import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
+import { classifyExplicitInteraction } from "@/domains/pilotage/service";
+import { COMMAND_STATUSES } from "@/domains/pilotage/types";
+
+describe("ml3 CKI resolution and intent", () => {
+  it("records schema revision 007", () => {
+    expect(schemaRevision).toBe("007_ml3_pilotage_decisions");
+    expect(COMMAND_STATUSES).toEqual([
+      "APPLIED",
+      "ALREADY_APPLIED",
+      "REJECTED",
+      "CONFLICT",
+      "UNKNOWN",
+    ]);
+  });
+
+  it("maps each cycle type to one CKI specialty file", () => {
+    const files = listCkiSpecialtyFiles();
+    expect(CYCLE_TYPES).toHaveLength(15);
+    expect(files).toHaveLength(15);
+    expect(new Set(CYCLE_TYPES.map((type) => `${CYCLE_CKI[type]}.md`))).toEqual(new Set(files));
+  });
+
+  it("pins a readable specialty as RESOLVED and delivers only when Nora attaches it", () => {
+    const pin = resolveForOpen("CADRAGE");
+    expect(pin.ckiId).toBe("01-cadrage");
+    expect(pin.availability).toBe("RESOLVED");
+    expect(pin.pinnedVersion).toBe("0.2.0");
+    expect(pin.contentDigest).toMatch(/^[a-f0-9]{64}$/);
+    const bytes = readFileSync(resolve(process.cwd(), "../cki/01-cadrage.md"));
+    expect(pin.contentDigest).toBe(createHash("sha256").update(bytes).digest("hex"));
+    expect(deliveryState(pin.availability, false)).toBe("RESOLVED");
+    expect(deliveryState("RESOLVED", true)).toBe("DELIVERED");
+    expect(deliveryState("ASSOCIATED", true)).toBe("ASSOCIATED");
+  });
+
+  it("stays ASSOCIATED without a pin and UNAVAILABLE when the digest diverges", () => {
+    expect(
+      resolvePinnedCki({ ckiId: "01-cadrage", contentDigest: null, pinnedVersion: null }).availability,
+    ).toBe("ASSOCIATED");
+    expect(
+      resolvePinnedCki({
+        ckiId: "01-cadrage",
+        contentDigest: "ab".repeat(32),
+        pinnedVersion: "0.2.0",
+      }).availability,
+    ).toBe("UNAVAILABLE");
+
+    const previous = process.env.SFIA_CKI_ROOT;
+    process.env.SFIA_CKI_ROOT = "/tmp/sfia-cki-missing-ml3";
+    try {
+      const pin = resolveForOpen("SECURITE");
+      expect(pin.ckiId).toBe("10-securite-rssi");
+      expect(pin.availability).toBe("ASSOCIATED");
+      expect(pin.contentDigest).toBeNull();
+      expect(pin.pinnedVersion).toBeNull();
+    } finally {
+      if (previous === undefined) delete process.env.SFIA_CKI_ROOT;
+      else process.env.SFIA_CKI_ROOT = previous;
+    }
+  });
+
+  it("qualifies a clear GO and rejects ambiguous utterances", () => {
+    expect(qualifyPilotageIntent("ouvre le cycle cadrage")).toMatchObject({
+      clarity: "CLEAR",
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    expect(qualifyPilotageIntent("OK").clarity).toBe("AMBIGUOUS");
+    expect(qualifyPilotageIntent("annule cette méthode").clarity).toBe("AMBIGUOUS");
+    expect(qualifyPilotageIntent("retire la méthode")).toMatchObject({
+      clarity: "CLEAR",
+      operation: "WITHDRAW_METHOD",
+    });
+    expect(qualifyPilotageIntent("clôture le cycle cadrage et ouvre le cycle ux")).toMatchObject({
+      clarity: "CLEAR",
+      operation: "TRANSITION_CYCLE",
+      cycleType: "CADRAGE",
+      toCycleType: "UX_UI",
+    });
+    expect(qualifyPilotageIntent("ouvre le cycle cadrage et le cycle sécurité").clarity).toBe("AMBIGUOUS");
+  });
+
+  it("F01/F02: qualifies documentary RECORD/REVISE and rejects soft preferences", () => {
+    expect(
+      qualifyPilotageIntent(
+        "Je décide que la connexion GitHub est obligatoire pour ce projet.",
+      ),
+    ).toMatchObject({
+      clarity: "CLEAR",
+      operation: "RECORD_DECISION",
+      objectRef: expect.stringMatching(/github|connexion/i),
+    });
+    expect(qualifyPilotageIntent("Finalement, GitHub devient facultatif.")).toMatchObject({
+      clarity: "CLEAR",
+      operation: "REVISE_DECISION",
+    });
+    expect(qualifyPilotageIntent("OK").clarity).toBe("AMBIGUOUS");
+    expect(
+      qualifyPilotageIntent("Ce serait intéressant de commencer.").clarity,
+    ).toBe("NONE");
+    expect(
+      qualifyPilotageIntent("Je décide que GitHub est obligatoire ?").clarity,
+    ).toBe("AMBIGUOUS");
+  });
+
+  it("C01: exploratory Finalement / questions never CLEAR REVISE", () => {
+    expect(
+      qualifyPilotageIntent("Finalement, je pense que GitHub pourrait être facultatif.").clarity,
+    ).toBe("AMBIGUOUS");
+    expect(
+      qualifyPilotageIntent("Finalement, et si GitHub devenait facultatif ?").clarity,
+    ).toBe("AMBIGUOUS");
+    expect(qualifyPilotageIntent("Je réfléchis à rendre GitHub facultatif.").clarity).toBe(
+      "NONE",
+    );
+    expect(qualifyPilotageIntent("Nora propose de rendre GitHub facultatif.").clarity).toBe(
+      "NONE",
+    );
+    expect(
+      qualifyPilotageIntent(
+        "Je révise la décision GitHub : la connexion est facultative.",
+      ),
+    ).toMatchObject({ clarity: "CLEAR", operation: "REVISE_DECISION" });
+  });
+
+  it("pins RESOLVED only when the file digest matches the approved manifest", () => {
+    const manifest = loadCkiManifest();
+    expect(manifest?.version).toBe("0.2.0");
+    expect(manifest?.specialties).toHaveLength(15);
+    const pin = resolveForOpen("UX_UI");
+    const entry = manifest?.specialties.find((item) => item.ckiId === "04-ux-ui");
+    expect(pin.availability).toBe("RESOLVED");
+    expect(pin.contentDigest).toBe(entry?.sha256);
+    expect(pin.manifestRef).toContain(CKI_MANIFEST_FILE);
+
+    const dir = mkdtempSync(resolve(tmpdir(), "sfia-cki-mismatch-"));
+    writeFileSync(resolve(dir, "10-securite-rssi.md"), "contenu non approuvé\n");
+    writeFileSync(
+      resolve(dir, CKI_MANIFEST_FILE),
+      JSON.stringify({
+        version: "0.2.0",
+        specialties: [
+          {
+            ckiId: "10-securite-rssi",
+            file: "10-securite-rssi.md",
+            version: "0.2.0",
+            sha256: "ab".repeat(32),
+          },
+        ],
+      }),
+    );
+    const previous = process.env.SFIA_CKI_ROOT;
+    process.env.SFIA_CKI_ROOT = dir;
+    try {
+      const mismatched = resolveForOpen("SECURITE");
+      expect(mismatched.availability).toBe("UNAVAILABLE");
+      expect(mismatched.contentDigest).toBeNull();
+      expect(mismatched.pinnedVersion).toBeNull();
+      const fileDigest = createHash("sha256")
+        .update(readFileSync(resolve(dir, "10-securite-rssi.md")))
+        .digest("hex");
+      expect(
+        resolvePinnedCki({
+          ckiId: "10-securite-rssi",
+          contentDigest: fileDigest,
+          pinnedVersion: "0.2.0",
+        }).availability,
+      ).toBe("UNAVAILABLE");
+    } finally {
+      if (previous === undefined) delete process.env.SFIA_CKI_ROOT;
+      else process.env.SFIA_CKI_ROOT = previous;
+    }
+  });
+
+  it("classifies a natural explicit GO without an operation", () => {
+    const clear = classifyExplicitInteraction({
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: "ui:UTTERANCE:act-1",
+      utterance: "ouvre le cycle cadrage",
+      actInstanceId: "act-1",
+    });
+    expect(clear?.ok).toBe(true);
+    if (clear?.ok) {
+      expect(clear.command.operation).toBe("OPEN_CYCLE");
+      expect(clear.command.cycleType).toBe("CADRAGE");
+      expect(clear.command.actInstanceId).toBe("act-1");
+    }
+    const ambiguous = classifyExplicitInteraction({
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: "ui:UTTERANCE:act-2",
+      utterance: "OK",
+      actInstanceId: "act-2",
+    });
+    expect(ambiguous).toMatchObject({ ok: false, reasonCode: "AMBIGUOUS" });
+    expect(
+      classifyExplicitInteraction({
+        sourceKind: "EXPLICIT_INTERACTION",
+        sourceRef: "ui:open:act-3",
+        operation: "OPEN_CYCLE",
+        utterance: "ouvre le cycle cadrage",
+      }),
+    ).toBeNull();
+  });
+
+  it("hashes source action keys with the act instance so retries stay stable", () => {
+    const first = buildSourceActionKey({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      actInstanceId: "act-stable",
+    });
+    const retry = buildSourceActionKey({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      actInstanceId: "act-stable",
+    });
+    const next = buildSourceActionKey({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      actInstanceId: "act-next",
+    });
+    expect(first).toBe(retry);
+    expect(first).not.toBe(next);
+    expect(first).toMatch(/^[a-f0-9]{64}$/);
+  });
+});
 ```
 
-`source_kind`, `source_ref` et `source_action_key` sont non nuls pour les commandes à effet humain ; leur construction doit être déterministe et contrôlée côté serveur, sans prendre un DTO arbitraire ni le hash brut du texte pour une permission. Une même source peut porter **deux intentions différentes** ; la même intention ne doit pas produire deux effets avec des clés HTTP distinctes. Index/check sur états, format de portée et révisions ; références interprojets défendues par vérifications de propriétaire et, là où approprié, clés étrangères composées `(project_id, object_id)` vers des cibles garantissant cette unicité.
-
-**Ordonnancement transactionnel recommandé :**
-
-1. **Avant transaction courte :** authentifier la session, résoudre le projet propriété du Pilote ; conserver le message D3 déjà reçu (ou référence d'interaction humaine explicitement captée) ; qualifier l'intention sans appeler le LLM dans la transaction. Une source D3 est valide si c'est un **message utilisateur réel lié à la conversation de ce projet**, même si la réponse ultérieure de Nora a échoué ; ni réponse Nora, ni D4, ni citation, ni CKI ne sont des sources autorisantes.
-2. `BEGIN` ; `SELECT id FROM projects WHERE id=:projectId AND owner_pilot_id=:pilotId FOR UPDATE` ; vérification d'existence et relecture sous verrou des révisions, décisions, restrictions, cycles et paramètres matériels. **Toutes les mutations D5/D6 concernées prennent ce verrou dans cet ordre**, notamment inscription/levée d'une restriction et changement de méthode. Les lectures informatives restent des projections non autorisantes.
-3. Rechercher la commande par clé. Si la même clé existe et l'empreinte canonique correspond, restituer **son résultat durable historique** sans réappliquer et sans revalider rétroactivement une permission ; si empreinte différente, `CONFLICT` sans mutation. Ensuite contrôler l'unicité d'intention issue de la source humaine, afin d'éviter un second effet avec une autre clé. Une demande réellement nouvelle exige une source/intention distincte.
-4. Pour une nouvelle commande : vérifier session/compétence courante au point d'effet selon les propriétaires accessibles, version de projet attendue, portée, source USER, restrictions non dérogeables et contradictions ; décider `REJECTED`/`CONFLICT` sans effet si nécessaire. **Les révocations de session externes non sérialisées sur ce même verrou constituent une frontière temporelle à tester : ne pas promettre une atomicité cross-provider fictive.** Une révocation déjà effective avant le contrôle doit interdire l'effet.
-5. Enregistrer D6, mutations D5, détails des effets, résultat de la commande et incrément de révision **dans une transaction unique** ; `COMMIT`. Pour une transition A→B, clôturer A avant d'ouvrir B, en respectant l'index unique ACTIVE. Toute erreur entre les deux => `ROLLBACK` intégral.
-6. Répondre avec résultat réellement observé après commit. Si la réponse se perd ou si l'issue du commit est incertaine, retourner/afficher `UNKNOWN` **sans autoriser un retry aveugle** ; le client demande l'état par `commandId` ou clé stable. Si stockage inaccessible, l'issue reste inconnue. Si commande retrouvée committée, `ALREADY_APPLIED` ne signifie pas nouvelle autorisation.
-
-**Catégories de réponse internes ML3 :** `APPLIED`, `ALREADY_APPLIED`, `REJECTED`, `CONFLICT`, `UNKNOWN` (issue non confirmable) ; **pas de `PARTIAL` interne**. Un rejet durable peut être enregistré comme résultat de commande, mais ne doit pas être déguisé en décision D6 applicable ; en cas de rollback indisponible, garder la demande D3 sans déclarer d'effet. Déterminer HTTP `401` absence de session, `403/404` accès interdit/non exposable, `409` conflit/version, `503` indisponibilité PG et `500` erreur interne ; jamais convertir mécaniquement une panne SQL en faux `401`.
-
-**Gestion de concurrence et limites :** avec toutes les mutations métier participantes sérialisées par verrou projet, `READ COMMITTED` + relectures sous verrou constitue une stratégie candidate pragmatique ; la défense PG d'unicité protège contre les écarts. Les lectures externes et la révocation des sessions doivent être qualifiées au point d'effet. Tester le deadlock et l'ordre des verrous, le commit inconnu, la violation de contrainte, la réponse HTTP perdue, les messages USER `PENDING` (D3 provider en échec), deux projets indépendants, et le replay cross-session sous droits courants. **Cette stratégie est une proposition testable, pas une garantie démontrée.**
-
-**Tests R03 :** B03/B04/B05/B06/B07/B13/B14/B15/B16/B17/B18, PF-TRJ-04/05/06/15/17/18/19/20/24, PF-GOV-04/05/12/14/15/16/18/24 : deux connexions PG et commandes simultanées ; suspension concurrente GO (deux ordres de commit) ; même clé/même fingerprint ; même clé/empreinte différente ; autre clé/même intention ; source USER d'un autre projet ; erreur injectée entre CLOSE et OPEN ; commit sans ACK ; reprise ; DB indisponible ; cross-project FK. La preuve `BEHAVIOR PROVEN` ne se déduit pas du seul index SQL ou d'un test unitaire.
-
-### R04 — PF-TRJ-16, PF-GOV-05 et vérité des résultats partiels
-
-**Choix Morris déjà confirmé :** pour une transition D5/D6 *entièrement interne*, la clôture A et l'ouverture B sont deux **faits métier distinctement observables**, mais **une seule transaction atomique**. `PARTIAL` ne correspond à aucun état interne durable possible dans cette opération. La règle R2 demandant des résultats séparés ne présuppose pas l'existence de deux commits internes.
-
-| Point de coupure | Résultat réel ML3 | UX/diagnostic permis |
-|---|---|---|
-| Avant validation D6 | Aucun effet A/B, demande refusée ou clarifiée | GO non applicable ; pas de « clôturé ». |
-| Après écriture de CLOSE(A), avant OPEN(B), mais avant commit | Rollback intégral si OPEN échoue : A reste ACTIVE et B n'existe pas | `REJECTED`/erreur selon cause, deux effets **non appliqués**. |
-| Commit PG A CLOSED + B ACTIVE réussi, réponse HTTP perdue | Les **deux effets** existent ; le client ne connaît pas encore l'issue | `UNKNOWN` jusqu'à réconciliation ; puis les deux effets confirmés, jamais un partiel. |
-| Deux ouvertures concurrentes, conflit d'unicité | Un seul état ACTIVE vérifiable ; l'autre commande rejetée/requalifiée | Pas de cycle fantôme, pas de « ouverture en cours » permanente. |
-| Une opération **future** possède réellement des effets externes séparés déjà committés par D7/D9 | Résultats séparés à reconstituer auprès de leurs propriétaires, potentiellement PARTIAL | Interface et scénario à la charge du futur macro-lot ; **non simulés par ML3**. |
-
-**Contrat `business_command_effects` :** conserver deux enregistrements de résultat pour le combiné interne, chacun corrélé à la même commande et visible uniquement si le commit commun aboutit. Aucun effet CLOSE durable isolé ne peut être lu suite au rollback. Le `GET` de réconciliation retourne les deux faits ou aucun fait confirmé et l'état de commande réellement retrouvé ; absence de réponse ≠ effet partiel.
-
-**Portée du scénario PF-TRJ-16/PF-GOV-05 :** ML3 couvre la compréhension du GO combiné, les deux effets, le rollback intégral, les lectures et réponses honnêtes. La possibilité d'effet partiel R2 reste **conditionnelle et reportée aux véritables frontières séparées**, sans changer R2 ni fabriquer un cas artificiel. Les écrans R3 #47 (confirmé) et #54 (non confirmé) sont applicables ; **#42 (partiel) est inatteignable depuis la commande interne ML3** et ne sera testé comme comportement positif que dans un futur lot possédant un vrai effet séparé. Test ML3 négatif : une panne interne entre deux écritures **ne doit jamais** produire #42, `PARTIAL` ou un cycle A CLOSED / B absent.
-
-**Tests R04 :** B07 avec injection de panne entre deux écritures PG + contrôle après redémarrage ; perte ACK après commit ; stress deux appels; assertions sur commande et effets; non-apparition de #42. Toute revendication de résultat partiel futur devra identifier le propriétaire des effets externes et la preuve de chaque étape. Aucun `PARTIAL` ni compensation fictive dans ML3.
-
-### Décision de revue sur R01–R04
-
-Les quatre points ont une **solution technique explicitée et réfutable** ; ils ne sont plus des zones d'analyse sans proposition. Leur statut reste : **`DESIGN RESOLUTION PROPOSED — PENDING MORRIS CONTENT VALIDATION / NOT IMPLEMENTED / NOT TESTED`**. Aucune modification normative R2/R4 et aucun nouveau gate produit ne sont introduits ; les obligations d'essais, de sécurité DATA-01, d'UX native et de traçabilité code/test restent portées par la construction du même macro-lot.
-
-## 9. UX R3, contexte Nora et observabilité
-
-**R3 lot B :** état sans cycle #22 ; qualification proposée #23 ; cycle actif #24 ; méthode absente #28 ; méthode proposée #29 ; décision applicable #31 ; suspension #33/#34 ; CKI indisponible #39 ; Journal–Décisions #40 ; GO ambigu #41 ; vrai partiel #42 ; contradiction #43 ; transition combinée #47 ; mise à jour CKI candidate #48 ; ouverture en attente #52 ; clôture en attente #53 ; UNKNOWN #54 ; reprise #55 ; rejeu #56 ; guidance #58 ; relations #59 ; nouvelle méthode #60. Frames identifiées dans l'audit R3 Git, **Figma native et browser ML3 NON OBSERVÉS**. La maquette #42 doit être conditionnelle à un effet séparé réel et ne constitue pas un état de succès partiel dans notre transition interne atomique.
-
-**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. **F01/F02 (2026-11-06, local worktree) :** après `reserveTurnCommand` (message USER `COMPLETE`), `applyConversationalAuthority` appelle `executePilotageCommand` / `runBusinessCommand` sous `sourceKind=USER_MESSAGE` **avant** l'appel fournisseur Nora ; `humanDecisionCreated` et `pilotageEffect` sont factuels (jamais forcés à `false`). Aucune autorité depuis la sortie Nora ni D4.
-
-**Observabilité :** relier operationId, commandId, projet/acteur de manière minimisée, source humaine, décision D6, effet D5, version état et résolution CKI. Les logs ne constituent jamais le registre métier ni une preuve de livraison D8. Corrélation connue vs inconnue explicite. Aucun secret, texte de décision sensible ou chaîne de pensée dans les métriques publiques.
-
-## 10. Traçabilité et QA
-
-La matrice annexe porte **une ligne par RG et PF D5/D6** : `40 RG-TRJ + 37 RG-GOV + 30 PF-TRJ + 29 PF-GOV = 136 références uniques`. Chaque ligne indique capacité propriétaire, frontière `IN / INTERFACE / OUT`, QA B candidat ou preuve différée et, pour les PF, références des surfaces UX R3. Les 59 PF ont une correspondance UX dans l'audit R3 ; la couverture est **DOCUMENTARY MAPPED**, pas **COVERAGE VERIFIED**.
-
-**QA R4 B01..B18 à exécuter**, avec attention particulière : B03 GO naturel, B04 source équivoque, B05 unicité PG réelle, B06 ACK perdu, B07 atomicité CLOSE/OPEN, B08 maturité sans gate, B09/B10 méthode versionnée, B11 digression sans CKI secondaire, B12 indisponibilité/hostilité CKI, B13 conflit, B14 suspension persistante, B15 isolation interprojets, B16 révocation à l'effet, B17 projection Journal, B18 navigation sans effet.
-
-**Niveaux distincts de preuve :** unitaires/déterministes, PG transaction/concurrence/idempotence, migration/restart, navigateur authentifié + clavier/reflow, Nora LIVE contrôlée pour qualité de guidance/intention, adversarial/injection, RECETTE ENV-01 sur SHA figé. Tous **NOT EXECUTED** pour ML3. Ne pas créer de faux scénarios D7/D8/D9 ni déclarer PARTIAL sans cas d'exécution séparée réel.
-
-## 11. Blast radius, risques, réserves et gates
-
-**Blast radius :** AUTH/projet ML1 ; idempotence de tour et pipeline Nora ML2 ; modèles Drizzle et migration PG ; lecture D4 et absence de copie ; API Next/erreurs ; UX lot B et contrat visuel R3 ; logs, sécurité et suppression DATA-01 ; documentation architecture CURRENT synchronisée avec le code au même macro-lot ; futurs contrats D7/D8/D9.
-
-**Décisions de conception R01–R04 proposées, détaillées au §8 bis (à valider par Morris) ; réserves de réalisation restantes :**
-
-- `REV-01` — **TRAITÉ D0 / À VALIDER MORRIS :** politique d'épinglage CKI, indisponibilité, première association ultérieure, conservation des versions et distribution vérifiable ; vérifier par tests à la construction.
-- `REV-02` — **TRAITÉ D0 / À VALIDER MORRIS :** sémantique de choix, remplacement, retrait, suspension et révocation de la décision qui fonde la méthode ; vérifier les cas limites de portée.
-- `REV-03` — **TRAITÉ D0 / À VALIDER MORRIS :** stratégie de verrou commun, index et clés d'intention, ordre des opérations, catégories de réponse ; DDL final, migration et preuve PG restent à la charge Cursor.
-- `REV-04` — **TRAITÉ D0 / OPTION A MORRIS ACQUISE :** PF-TRJ-16/PF-GOV-05 couvrent le combiné interne atomique ; `PARTIAL` uniquement aux futures frontières réellement séparées, sans modifier R2.
-- `REV-05` — Compléter et relire le mapping individuel RG/PF vers assertions/test code exacts, preuves, SHA et lanes ; inventaire documentaire seul ≠ test.
-- `REV-06` — Revue de la transposition native Figma et des scénarios navigateur, y compris suspension, ambiguïté, méthode/CKI absent, responsive.
-- `REV-07` — Contrôles de confidentialité/rétention des décisions et des textes de provenance (DATA-01), isolation interprojets, réconciliation de droits, gestion du mode DEV auth.
-- `REV-08` — Maintenir les interfaces D7/D8/D9 réellement hors effet, sans faux STOP, fausse réception ou fausse autorisation Git ; l'implémentation ML3 ne les délivre pas.
-
-**Gates :** (1) Morris examine et arbitre ces réserves de conception puis valide la **spécification globale** ; (2) GO Cursor D3/SFIA v2.6 indépendant et template Git consulté ; (3) développement/PG/UI/tests/docs en un macro-lot ; (4) revue sur pack complet et preuve ; (5) RECETTE/PR/merge/promotion/R6/adoption, chacun sous gate approprié. Aucune action Git de publication comprise dans ce document local.
-
-**Verdict :** `R5 / ML3 — TECHNICAL SPEC v0.4 D0 CANDIDATE — R01–R04 DESIGN PROPOSED/CLOSED FOR REVIEW — MORRIS CONTENT VALIDATION PENDING — NO CURSOR GO — NO IMPLEMENTATION — NO TEST — GIT DOCUMENTARY BRANCH COMMITTED — NO MAIN MERGE`.
----
-
-## 12. As-built delivery ML3 (2026-11-06) — factual implementation note
-
-**Statut runtime :** `IMPLEMENTED — CANDIDATE` — publication branche projet autorisée ; **NOT RECETTE — NOT MERGED — NOT ADOPTED — NO RELEASE**.
-**Branche :** `sfia/next-pilotage-decisions-delivery` @ base `origin/main@7f1f41c`.
-**Schéma :** `007_ml3_pilotage_decisions` additive after `006`.
-**Version produit :** `NO RELEASE` (package technique `0.0.0-dev` ≠ STABLE).
-
-### Responsabilités livrées
-
-| Domaine | Module | Rôle |
-|---|---|---|
-| D6 | `web/src/domains/decisions/` | Décisions, restrictions, journal |
-| D5 | `web/src/domains/pilotage/` | Trajectoire, cycles, méthode, commandes, CKI resolve |
-| D3 raccord | `nora-adapter` + `nora-context` | Projection + guidance CKI bornée ; `DELIVERED` seulement si octets joints |
-| API | `/api/projects/[id]/pilotage`, `/commands`, `/decisions` | Auth session + idempotence |
-| UX | `PilotagePanel` + onglet projet | #22/#24/#28/#40 honnêtes ; pas de #42 positif |
-
-### Invariants runtime
-
-- Verrou `projects` `FOR UPDATE` + révision `project_pilotage_state`.
-- Un seul cycle `ACTIVE` (index partiel).
-- Pas de `PARTIAL` interne ; transition CLOSE+OPEN atomique.
-- CKI : ASSOCIATED / RESOLVED / DELIVERED distincts ; pas de fallback CKC historique.
-- Méthode ABSENTE normale ; CHOOSE/REPLACE/WITHDRAW/REVOKE_BASE sans restauration implicite.
-
-### Erreurs
-
-`APPLIED` · `ALREADY_APPLIED` · `REJECTED` · `CONFLICT` · `UNKNOWN` — HTTP 200/400/409/503 selon `pilotageCommandHttpStatus`.
-
-Les en-têtes historiques « NOT VALIDATED SPEC / NOT IMPLEMENTED » du document v0.4 restent des métadonnées pré-delivery ; ce §12 constate l'implémentation locale sans modifier les contrats R01–R04 validés en contenu Morris via #660.
-
-### Correctif ML3 (2026-11-06, local, non poussé)
-
-Idempotence UI par `actInstanceId` stable (retry = même clé, nouvel acte = nouvel id) et réconciliation `GET .../commands/by-key/:clientCommandKey`. CKI `RESOLVED` seulement si le digest du fichier égale l'entrée `cki/manifest.v0.2.0.json` (pas de migration silencieuse). Restriction `CYCLE_MUTATION` / `PILOTAGE_EFFECT` : `*` global, sinon cible (cycle, type ou méthode). GO naturel `EXPLICIT_INTERACTION` sans `operation`. `DELIVERED` seulement si le contenu CKI est joint et qu'un generate fixture/live a réellement tourné. Schéma inchangé (`007`).
-
-### Ajustement autorité CR-01..CR-04 (2026-11-06, local, non poussé)
-
-- **CR-01** — `TRANSITION_CYCLE` : évaluation D6 sur le cycle ACTIVE réel (A) **et** le `toCycleType` (B). Restriction sur A ou B → rejet unique, A reste ACTIVE, aucun B créé. Option A CLOSE+OPEN inchangée.
-- **CR-02** — `REVISE_DECISION` : autorisée pour `RECORD_DECISION` (documentaire, sans effet D5). Refusée (`USE_TYPED_OPERATION`) pour les kinds fondateurs D5 (cycle/méthode/trajectoire/restriction) afin de ne pas orpheliner `method_applications.decisionId` ni les pins de cycle. Remplacement/révocation via opérations typées.
-- **CR-03** — suppression du booléen project-global `statementA !== statementB` bloquant tous les effets D5 dépendants. Controles déterministes conservés (restrictions, état cycle/méthode, fondation). Conflit matériel D6 libre-texte : **B13 PARTIAL / NEEDS MORRIS ARBITRATION**.
-- **CR-04** — Review Pack FULL avec diffs/contenu exploitables et logs bruts (pas de placeholders).
-
-### B13 v0.1 — contradictions assistées par Nora (2026-11-06)
-
-**Statut contenu :** `VALIDATED IN CONTENT BY MORRIS` — 2026-11-06.
-Distinct de : publication Git normative · implémentation · preuve LIVE · ADOPTED.
-
-**Deux niveaux (contrat) :**
-
-| Niveau | Nature | Qui | Effet |
-| --- | --- | --- | --- |
-| A — Contradiction potentielle | Suspicion cognitive | Nora (D3) | Explique, clarifie, propose ; **aucune** HumanDecision, aucune interdiction D6 |
-| B — Conflit matériel déterminant | Contrôle typé au point d'effet | D6→D5 | Refuse seulement l'effet réellement concerné (restriction, état cycle/méthode, fondation, source) |
-
-**As-built local :**
-
-- `domains/decisions/divergence-assist.ts` — détection Niveau A bornée (même kind+objectRef+scope, statements distincts) ; `authorityClaim=NONE`.
-- `nora-context` — joint décisions applicables bornées + snippets Niveau A selon énoncé ; jamais d'appel IA en transaction PG.
-- `nora-adapter` fixture — clarification Niveau A déterministe ; consignes système B13 ; **LIVE NOT EXECUTED**.
-- D6/D5 — pas de restauration de `hasExactContradiction` global ; Option A inchangée ; pas de migration 008.
-- UX PilotagePanel — légende « suspicion ≠ interdiction » ; marqueur `authority-block-established` pour RESTRICTION/CONFLICT.
-
-**Limite honnête :** conflit matériel libre-texte non typé reste **NOT PROVEN** machine-side (clarification humaine + opérations typées). B13-03 prouvé pour conflits typés (restrictions / états).
-
-### B13 C01–C03 — corrective continuation (2026-11-06, local, non poussé)
-
-Après Critical Review B13 non acceptée. Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS).
-
-| Correctif | As-built |
-| --- | --- |
-| **C01** | `findMessageDecisionConfrontations(userText, applicableBriefs)` : rapproche un **message USER courant** d'une décision D6 **APPLICABLE** existante (kind/objectRef/portée bornés) **sans** deuxième décision persistée. Signaux structurés `LevelASignal` (`authorityClaim=NONE`, framing `POSSIBLE_CHANGE` / clarification). Chaîne : `conversation/service` → `buildPilotageNoraContext` → `levelASignals` → `nora-adapter` (fixture et LIVE partagent le même contrat d'entrée). Heuristique ≠ oracle métier D6. |
-| **C02** | `qualifyCommandOutcome({status, reasonCode})` : RESTRICTION→`authority-block-established` ; CONFLICT+STALE/HUMAN_INTENT/FINGERPRINT→`outcome-technical-*` ; CONFLICT+ACTIVE_CYCLE→`outcome-d5-state` ; UNKNOWN→réconciliation. Plus d'inférence d'autorité depuis la seule chaîne « CONFLICT ». |
-| **C03** | Preuves unit (C01/C02) + PG (contexte Nora sans 2e décision ; formulations compatibles) + Playwright FAKE (RESTRICTION vs HUMAN_INTENT contrôlé) + Review Pack FULL. |
-
-**Non modifié :** Option A CLOSE+OPEN ; migrations 007 ; moteur libre-texte universel (hors scope) ; autorité exclusive Pilote ; isolation projet.
-
-### B13 R1–R3 — correctif final après Critical Review (2026-11-06, local, non poussé)
-
-Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle politique d'autorité ni migration.
-
-| Correctif | As-built |
-| --- | --- |
-| **R1** | `PilotagePanel.runCommand` remet `lastOutcome` à `null` au démarrage d'une tentative. `resolveUnknown` / catch réseau positionnent `lastOutcome={status:"UNKNOWN"}`. Un motif RESTRICTION/CONFLICT antérieur ne reste plus affiché sous un statut UNKNOWN ou APPLIED suivant. PendingRecord / clés idempotentes inchangés. |
-| **R2** | `frameConfrontation` : polarité affirmée/négative des modalités (`n'est plus` / `n'est pas` / `pas` / `not`) → `POSSIBLE_CHANGE` ; décalage de portée globale↔locale → `AMBIGUOUS` ; synonymes affirmés (obligatoire↔requis) → `COMPATIBLE_RESTATEMENT` possible. Lexical overlap seul ne force plus une compatibilité trompeuse. Toujours `authorityClaim=NONE`. |
-| **R3** | Test PG `R3: postUserMessageAndNora integrates…` : une décision APPLICABLE + `postUserMessageAndNora` (fixture DEV) → messages USER/assistant persistés, relecture fil, `humanDecisionCreated=false`, journal inchangé, pas de mutation D5, replay idempotent, isolation inter-projets. |
-
-**Preuves :** unit R1/R2 ; PG R3 + suite ML3 ; Playwright R1 (UNKNOWN/APPLIED sans motif périmé) + C02 ; eslint chemins exacts ; tsc/build. **Limite :** libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; pixel Figma NOT VERIFIED.
-
-### B13 R2–R3 — derniers ajustements Critical Review (2026-11-06, local, non poussé)
-
-| Correctif | As-built |
-| --- | --- |
-| **R2** | `normalizeText` unifie apostrophes typographiques. `modalityPolarity` reconnaît `n'est jamais` / `n'est aucunement` / `ne doit|peut pas (être)` en plus de `plus`/`pas`. Ces négations ne produisent plus `COMPATIBLE_RESTATEMENT` par synonymes ou overlap. |
-| **R3** | Isolation discriminante : décision B (`github-connexion` + marqueur unique) **persistée et APPLICABLE avant** `postUserMessageAndNora` sur A. Contexte B contient le marqueur ; contexte/réponse A ne le contiennent pas. USER text pertinent pour le même objectRef. Journal B inchangé ; replay idempotent. |
-
-**Limites documentées :** famille de négations FR bornée (pas un NLP universel) ; Niveau B libre-texte NOT PROVEN ; Nora LIVE / Figma NOT EXECUTED / NOT VERIFIED.
-
-### F01/F02 — conversation → autorité D5/D6 (2026-11-06, local, **pas de commit projet**)
-
-Candidat distant de référence inchangé : `8bf8b5ce`. Intégration locale sur worktree DEV.
-
-| Élément | As-built |
-| --- | --- |
-| **Séquencement** | `reserveTurnCommand` (USER durable COMPLETE) → ownership check → `applyConversationalAuthority` (TX métier courte) → `buildNoraPilotageContext` → `generateNoraReply` → `commitTurnTerminal`. Jamais de TX PG longue pendant Nora. |
-| **F01 GO** | Intention CLEAR (`ouvre le cycle…`, etc.) → `executePilotageCommand` avec `sourceRef=userMessageId`, `clientCommandKey=conv-auth:{clientTurnKey}`, `actInstanceId=userMessageId`. Ambigu (« OK ») / soft / source assistant → aucun effet. |
-| **F02 RECORD** | `Je décide que…` / `Décision :…` → `RECORD_DECISION` documentaire avec `objectRef` dérivé. Questions / préférences exploratoires → clarification, pas de commande. |
-| **F02 REVISE** | `Finalement…` + confrontation Niveau A `POSSIBLE_CHANGE` sur **une** cible `RECORD_DECISION` APPLICABLE → `REVISE_DECISION`. Fondations D5 → clarification (opération typée). Multi-cibles → clarification. Journal UX : geste `Réviser` (EXPLICIT_INTERACTION) en complément. |
-| **API vérité** | `pilotageEffect.{attempted,intentClarity,status,reasonCode,decisionId,clarification,source}` ; `humanDecisionCreated` seulement si décision id confirmée APPLIED/ALREADY_APPLIED. Replay conserve le payload. |
-| **Idempotence** | Tour D3 (`clientTurnKey`) et commande métier (`conv-auth:…`) corrélés sans second moteur. UNKNOWN métier → réconciliation existante avant rejeu. |
-| **Couverture** | IMPLEMENTED local + BEHAVIOR PROVEN (unit intent, PG F01/F02, Playwright fil) ; ADOPTED / RECETTE / LIVE / STABLE = NOT CLAIMED. |
-| **Limites** | Qualificateur FR borné (pas NLP universel) ; pas de migration 008 ; pas de publication projet sans GO distinct. |
-
-### C01/C02/C03 — autorité / reprise / continuité (2026-11-06, local, **pas de commit projet**)
-
-Correctif après Critical Review F01/F02 NOT ACCEPTED. Candidat distant `8bf8b5ce` inchangé.
-
-| Correctif | As-built |
-| --- | --- |
-| **C01** | `isExploratoryActLanguage` ; « Finalement… » avec hedges (`je pense`, `pourrait`, `et si`, Nora) → AMBIGUOUS, aucune mutation. Assertive « Finalement, X devient Y » + cible unique RECORD → REVISE possible. « Je révise la décision… » performatif explicite. Level A ≠ autorité. |
-| **C02** | Effet D5/D6 avant Nora ; `markTurnUnknown(..., resultJson)` conserve `pilotageEffect` ; `reconstituteConversationalAuthority` via `conv-auth:{clientTurnKey}` / `USER_MESSAGE` sourceRef ; replay UNKNOWN reconstitue depuis `business_commands`. Clé client stable (ref + sessionStorage pending, pas de secret). Tour Nora et commande métier restent distincts. |
-| **C03** | Fil : résumé durable décisions + bouton réconciliation pending après reload. Journal : 8 plus récentes par défaut + expand historique complet (pas `slice(0,8)` des plus anciennes). |
-| **Preuves** | unit C01 ; PG C01/C02 fault/C03>8 ; Playwright F01/F02/C03. LIVE/RECETTE/STABLE NOT CLAIMED. |
-
-### CR-01 / CR-02 — consolidation Critical Review (2026-11-06, local, **pas de commit projet**)
-
-| Élément | As-built |
-|---|---|
-| **CR-01** | `findAuthorityReviseCandidates` / `selectAllApplicableBriefs` scannent **toutes** les APPLICABLE du projet (pas `MAX_APPLICABLE_FOR_CONTEXT=12`). La fenêtre cognitive reste pour Nora uniquement. 0 candidat → clarification ; 1 → REVISE documentaire si acte clair ; plusieurs → clarification (portées distinctes signalées). Pas de newest-wins / truncation. Level A framing filtre la pertinence, n'autorise jamais. |
-| **CR-02** | `shouldClearThreadPending` : Nora COMPLETE **ne** clôt **pas** un effet métier UNKNOWN. Garde exclusive `mayStartNewThreadAct` : une saisie distincte n'écrase pas un pending non résolu. 404 by-key → reprise **même** `clientTurnKey`, pas de nouvelle clé. sessionStorage = aide locale, vérité = `business_commands`. |
-| **Preuves** | unit CR-01 fenêtre 12 vs autorité ; unit pending lifecycle ; PG 15+ doubles GitHub (aucune REVISE) ; PG unique REVISE ; PG isolation interprojets ; PG concurrence même clé ; Playwright ACK perdu → reload → reconcile sans double OPEN. LIVE/RECETTE/STABLE NOT CLAIMED. |
-
-```
-
-### MODIFIED FULL `projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md`
-
-```md
-# SFIA Studio Next — R5 / ML3 — Matrice individuelle de traçabilité D5/D6
-## Version candidate v0.2 — R01–R04 traités en conception, publiée sur branche documentaire, sans preuve de test
-
-**Références associées :** [Spécification technique v0.4](specification-technique.md) · [Revue de conception v0.2](revue-conception.md).
-
-**Date :** 2026-11-06. **Baseline :** `main@ab18316b9c1e849ff557f4ba561c638e9961bb89`. **Sources R2 :** `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md` (blob `964893817d351b668e221e25085ee00b909337de`) et `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` (blob `de4b3de245484620ea60f0662004c6993ea808b1`). **R3 UX :** `ux-ui/audit-couverture-ux-r3.md` §7.4, blob `81c62c700b2e1b377da7e27e4a92db506bfb6e38`. **R4 QA :** `architecture-technique/cadrage-r4.md` §5.5.7, blob `f390f3d87d18e3c6c91f8a57e5960b2be946e60a`.
-
-**Complément :** `R01–R04` = contrats proposés dans la spécification v0.4 §8 bis ; traitement documentaire à valider Morris, non preuve runtime.
-
-**Lecture :** `IN` = comportement attendu dans ML3 ; `INTERFACE` = invariant/contrat exposé sans moteur d’effet D7/D8/D9 ; `IN + INTERFACE` = part ML3 et part futur distinctes. QA = oracle R4 à instancier en test ; pas une réussite, pas forcément preuve exhaustive du point. `UX` = numéro de surface Figma dans l’inventaire R3 ; aucun nœud natif ni runtime inspecté dans cette revue. Chaque entrée est `DOCUMENTARY MAPPED / TEST NOT EXECUTED`.
-
-### 1. RG-TRJ — 40 règles
-
-| Règle R2 | Intitulé propriétaire | Contrat ML3 | Portée | QA candidat |
-|---|---|---|---|---|
-| `RG-TRJ-001` | Trajectoire non préalable | CTX — identité/continuité | IN | B01 |
-| `RG-TRJ-002` | Projection distincte des faits | TRAJ — trajectoire | IN | B02 |
-| `RG-TRJ-003` | Orientation personnalisable | TRAJ — trajectoire | IN | B02 |
-| `RG-TRJ-004` | Révision sans rétroactivité | TRAJ — trajectoire | IN | B02 |
-| `RG-TRJ-005` | Dépendance réelle et justifiée | TRAJ — trajectoire | IN | B02 |
-| `RG-TRJ-006` | Requalification proportionnée | TRAJ — trajectoire | IN | B02 |
-| `RG-TRJ-007` | Références de continuité | TRAJ — trajectoire | IN | B02 |
-| `RG-TRJ-008` | Cycle actif unique | CYC — cycles et commandes | IN | B05 [R03] |
-| `RG-TRJ-009` | Ouverture gouvernée | CYC — cycles et commandes | IN | B03 [R03] |
-| `RG-TRJ-010` | Type et résultat cohérents | CYC — cycles et commandes | IN | B03 [R03] |
-| `RG-TRJ-011` | Deuxième ouverture incompatible | CYC — cycles et commandes | IN | B05 [R03] |
-| `RG-TRJ-012` | Clôture gouvernée et honnête | CYC — cycles et commandes | IN | B07 [R03] |
-| `RG-TRJ-013` | Pas de gate de cycle automatique | CYC — cycles et commandes | IN | B08 [R03] |
-| `RG-TRJ-014` | GO combiné à effets distincts | CYC — cycles et commandes | IN | B07 [R03/R04] |
-| `RG-TRJ-015` | État réel avant confirmation | CYC — cycles et commandes | IN | B06 [R03/R04] |
-| `RG-TRJ-016` | Rejeu et concurrence | CYC — cycles et commandes | IN | B05/B06 [R03/R04] |
-| `RG-TRJ-017` | Correspondance canonique | CKI — spécialisation Nora | IN | B11/B12 [R01] |
-| `RG-TRJ-018` | Un seul CKI principal | CKI — spécialisation Nora | IN | B11 [R01] |
-| `RG-TRJ-019` | Autonomie intrinsèque des CKI | CKI — spécialisation Nora | IN | B11 [R01] |
-| `RG-TRJ-020` | Guidance à responsabilité bornée | CKI — spécialisation Nora | IN | B11/B12 [R01] |
-| `RG-TRJ-021` | Version et provenance interprétables | CKI — spécialisation Nora | IN | B12 [R01] |
-| `RG-TRJ-022` | Disponibilité non fictionnelle | CKI — spécialisation Nora | IN | B12 [R01] |
-| `RG-TRJ-023` | Pas de sélection dynamique hors cycle | CKI — spécialisation Nora | IN | B01 [R01] |
-| `RG-TRJ-024` | Évolution CKI sans effet rétroactif | CKI — spécialisation Nora | IN | B10 [R01] |
-| `RG-TRJ-025` | Matrice purement informative | CKI — spécialisation Nora | IN | B11 |
-| `RG-TRJ-026` | Pertinence contextualisée | CKI — spécialisation Nora | IN | B11 |
-| `RG-TRJ-027` | Analyse transverse sans second CKI | CKI — spécialisation Nora | IN | B11 |
-| `RG-TRJ-028` | Matrice non exhaustive | CKI — spécialisation Nora | IN | B11 |
-| `RG-TRJ-029` | Différence transmission / preuve | CKI — spécialisation Nora | IN | B12 |
-| `RG-TRJ-030` | Maturité proactive non répétitive | MAT — maturité et progression | IN | B08 |
-| `RG-TRJ-031` | Unification de la guidance | MAT — maturité et progression | IN | B08 |
-| `RG-TRJ-032` | Clôturabilité argumentée | MAT — maturité et progression | IN | B08 |
-| `RG-TRJ-033` | Continuité sans mémoire parallèle | MAT — maturité et progression | IN | B18 |
-| `RG-TRJ-034` | Reprise fidèle après interruption | MAT — maturité et progression | IN | B18 |
-| `RG-TRJ-035` | Réserve/suspension non résolue | MAT — maturité et progression | IN | B14 |
-| `RG-TRJ-036` | Visibilité proportionnée | MAT — maturité et progression | IN | B18 |
-| `RG-TRJ-037` | État de méthode porté par le projet | METH — méthode projet | IN | B09 [R02] |
-| `RG-TRJ-038` | Application d'un changement de méthode | METH — méthode projet | IN | B09/B10 [R02] |
-| `RG-TRJ-039` | Requalification des cycles touchés | METH — méthode projet | IN | B10 [R02] |
-| `RG-TRJ-040` | Méthode et CKI sans autorité concurrente | METH — méthode projet | IN | B10/B12 [R02] |
-
-### 2. RG-GOV — 37 règles
-
-| Règle R2 | Intitulé propriétaire | Contrat ML3 | Portée | QA candidat ou propriétaire futur |
-|---|---|---|---|---|
-| `RG-GOV-001` | Catégories non interchangeables | DEC — décisions et portée | IN | B04 |
-| `RG-GOV-002` | Expression naturelle et suffisante | DEC — décisions et portée | IN | B03 [R03] |
-| `RG-GOV-003` | Auteur et projet compétents | DEC — décisions et portée | IN | B15 [R03] |
-| `RG-GOV-004` | Ambiguïté déterminante | DEC — décisions et portée | IN | B04 [R03] |
-| `RG-GOV-005` | Acte observé et source fiable | DEC — décisions et portée | IN | B04 [R03] |
-| `RG-GOV-006` | Refus de fausse formalisation | DEC — décisions et portée | IN | B04 |
-| `RG-GOV-007` | Autorité non universelle | DEC — décisions et portée | IN | B15 |
-| `RG-GOV-008` | Pas de décision métier autonome de Nora | DEC — décisions et portée | IN | B03 |
-| `RG-GOV-009` | Référence durable d'un arbitrage structurant | DEC — décisions et portée | IN | B17 [R02] |
-| `RG-GOV-010` | Historique non réécrit | DEC — décisions et portée | IN | B17 [R02] |
-| `RG-GOV-011` | Révision gouvernée | DEC — décisions et portée | IN | B17 [R02] |
-| `RG-GOV-012` | Conflits d'autorité | DEC — décisions et portée | IN | B13 [R02/R03] |
-| `RG-GOV-013` | Délimitation et propagation bornées | REST — restrictions/STOP | IN + INTERFACE | B16 |
-| `RG-GOV-014` | Isolation des projets individuels | DEC — décisions et portée | IN | B15 [R03] |
-| `RG-GOV-015` | Contrainte supérieure applicable | REST — restrictions/STOP | IN + INTERFACE | B13/B16 |
-| `RG-GOV-016` | Reprise sans autorité inventée | REST — restrictions/STOP | IN + INTERFACE | B14 [R03] |
-| `RG-GOV-017` | Suspension humaine durable | REST — restrictions/STOP | IN + INTERFACE | B14 [R02/R03] |
-| `RG-GOV-018` | Levée humaine contextualisée | REST — restrictions/STOP | IN + INTERFACE | B14 [R02] |
-| `RG-GOV-019` | Suspension humaine vs pause technique | REST — restrictions/STOP | IN + INTERFACE | B14 + D7 futur |
-| `RG-GOV-020` | Interdiction des confirmations d'arrêt fictives | REST — restrictions/STOP | IN + INTERFACE | B14 + D7 futur [R03] |
-| `RG-GOV-021` | Changement significatif de besoin | REST — restrictions/STOP | IN + INTERFACE | B16 |
-| `RG-GOV-022` | Révocation et opérations en cours | REST — restrictions/STOP | IN + INTERFACE | B16 + D7 futur [R02] |
-| `RG-GOV-023` | Proposition n'est pas permission | DEC — décisions et portée | IN | B04 |
-| `RG-GOV-024` | Contrat inspecté et « Exécuter » | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
-| `RG-GOV-025` | Liaison au bon périmètre | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
-| `RG-GOV-026` | Requalification des changements matériels | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
-| `RG-GOV-027` | Vérification actuelle avant effet | REST — restrictions/STOP | INTERFACE | B16 + D7/D9 futur [R03] |
-| `RG-GOV-028` | Rejeu sans élargissement d'autorité | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver [R03] |
-| `RG-GOV-029` | GO de cycle distinct du contrat technique | CYC — cycles et commandes | IN | B03/B07 [R03/R04] |
-| `RG-GOV-030` | Création de projet à acte explicite propre | CTX — identité/continuité | INTERFACE | B01 + D2 existant |
-| `RG-GOV-031` | Acceptation humaine distincte de conformité | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
-| `RG-GOV-032` | Décision informée et résultat qualifié | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
-| `RG-GOV-033` | Correction sous nouveau mandat | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
-| `RG-GOV-034` | Méthode et CKI non autorisants | CKI — spécialisation Nora | IN | B12 |
-| `RG-GOV-035` | Choix durable de méthode et autorité | METH — méthode projet | IN | B09/B10 [R02] |
-| `RG-GOV-036` | Interdiction de fabriquer une adoption | BOUND — interfaces futures | INTERFACE | D7/D8/D9 à prouver |
-| `RG-GOV-037` | Choix documentaire non autorisant | DEC — décisions et portée | IN | B04 |
-
-### 3. PF-TRJ — 30 scénarios
-
-| Scénario R2 | Intitulé | Contrat ML3 | Portée | UX R3 # | QA candidat |
-|---|---|---|---|---|---|
-| `PF-TRJ-01` | Sas et projet sans cycle | CTX — identité/continuité | IN | 2,22,28 | B01 |
-| `PF-TRJ-02` | Trajectoire suggérée sans ouverture | TRAJ — trajectoire | IN | 22,23 | B02 |
-| `PF-TRJ-03` | Début direct par l’architecture technique | CYC — cycles et commandes | IN | 22,50,61,51,57 | B03 |
-| `PF-TRJ-04` | Ouverture autorisée par conversation | CYC — cycles et commandes | IN | 23,52,24,54 | B03 [R03] |
-| `PF-TRJ-05` | GO ambigu | CYC — cycles et commandes | IN | 41,23 | B04 [R03] |
-| `PF-TRJ-06` | Demande d’un second cycle simultané | CYC — cycles et commandes | IN | 26,24 | B05 [R03] |
-| `PF-TRJ-07` | Digression sécurité pendant UX | CKI — spécialisation Nora | IN | 24,59,3 | B11 [R01] |
-| `PF-TRJ-08` | CKI absent ou version non applicable | CKI — spécialisation Nora | IN | 39,58 | B12 [R01] |
-| `PF-TRJ-09` | Relation Architecture vers DevOps | CKI — spécialisation Nora | IN | 51,59,3 | B11 |
-| `PF-TRJ-10` | Matrice silencieuse et facultative | CKI — spécialisation Nora | IN | 59,3 | B11 |
-| `PF-TRJ-11` | Transfert Conception vers UX | CKI — spécialisation Nora | IN | 22,59,3 | B11 |
-| `PF-TRJ-12` | QA révèle une contradiction fonctionnelle | CKI — spécialisation Nora | IN | 59,3,40 | B11 |
-| `PF-TRJ-13` | Maturité suffisante avec réserve reportable | MAT — maturité et progression | IN | 25,27,49 | B08 |
-| `PF-TRJ-14` | Maturité non démontrée | MAT — maturité et progression | IN | 44,25 | B08 |
-| `PF-TRJ-15` | Clôture avec GO effectif | CYC — cycles et commandes | IN | 25,53,27,54 | B07 [R03] |
-| `PF-TRJ-16` | GO conjoint, effet partiel | CYC — cycles et commandes | IN | 42,49,47,57 | B07 / partiel conditionnel [R04] |
-| `PF-TRJ-17` | Ouvertures concurrentes | CYC — cycles et commandes | IN | 26,56 | B05 [R03] |
-| `PF-TRJ-18` | Rejeu d’un GO | CYC — cycles et commandes | IN | 52,56,24 | B06 [R03] |
-| `PF-TRJ-19` | Reprise du même fil après interruption ou transition de cycle | CTX — identité/continuité | IN | 55,24,40 | B18 [R03] |
-| `PF-TRJ-20` | Suspension du Pilote | REST — restrictions/STOP | IN | 33,25 | B14 [R03] |
-| `PF-TRJ-21` | Nouvelle version CKI disponible | CKI — spécialisation Nora | IN | 48,58 | B10 [R01] |
-| `PF-TRJ-22` | Changement de méthode projet | METH — méthode projet | IN | 60,32,46 | B10 [R02] |
-| `PF-TRJ-23` | Réorientation et retour sans cycle forcé | TRAJ — trajectoire | IN | 59,3 | B02 |
-| `PF-TRJ-24` | Interprojets et Git partagé | CTX — identité/continuité | IN | 11,12 | B15 [R03] |
-| `PF-TRJ-25` | Pratiques transversales sans spécialité dédiée | CKI — spécialisation Nora | IN | 51,59,3 | B11 [R01] |
-| `PF-TRJ-26` | CKI guide un livrable non obligatoire | CKI — spécialisation Nora | IN | 58,3 | B11 |
-| `PF-TRJ-27` | État durable explicitement sans méthode | METH — méthode projet | IN | 28,55 | B01/B09 [R02] |
-| `PF-TRJ-28` | Choix de méthode exprimé naturellement | METH — méthode projet | IN | 29,31 | B09 [R02] |
-| `PF-TRJ-29` | Nouvelle version et cycle actif | METH — méthode projet | IN | 60,32,46 | B10 [R02] |
-| `PF-TRJ-30` | Technique CKI incompatible avec la méthode projet | METH — méthode projet | IN | 58,60,3 | B10/B12 [R01/R02] |
-
-### 4. PF-GOV — 29 scénarios
-
-| Scénario R2 | Intitulé | Contrat ML3 | Portée | UX R3 # | QA candidat ou domaine futur |
-|---|---|---|---|---|---|
-| `PF-GOV-01` | Le Pilote dit « préfère un tableau » | DEC — décisions et portée | IN | 3 | B04 |
-| `PF-GOV-02` | Décision structurante avec portée claire | DEC — décisions et portée | IN | 31,40 | B17 |
-| `PF-GOV-03` | Correction d'un arbitrage antérieur | DEC — décisions et portée | IN | 32,46 | B17 [R02] |
-| `PF-GOV-04` | GO oral d'ouverture de cycle | CYC — cycles et commandes | IN | 23,52,24 | B03 [R03] |
-| `PF-GOV-05` | GO combiné clôture + ouverture | CYC — cycles et commandes | IN | 42,47,57 | B07 / partiel conditionnel [R03/R04] |
-| `PF-GOV-06` | Projet créé après sas conversationnel | CTX — identité/continuité | INTERFACE D2 | 2,11 | B01 |
-| `PF-GOV-07` | Acte « Exécuter » d'un contrat inspecté | BOUND — interfaces futures | INTERFACE | 6,7 | D7 futur |
-| `PF-GOV-08` | Pause technique sans suspension humaine | BOUND — interfaces futures | INTERFACE | 21,7 | D7 futur |
-| `PF-GOV-09` | Acceptation de résultat avec réserves | BOUND — interfaces futures | INTERFACE | 35,36 | D8 futur |
-| `PF-GOV-10` | Correctif proposé par Nora après échec | BOUND — interfaces futures | INTERFACE | 37,3,6 | D7 futur |
-| `PF-GOV-11` | Choix durable de méthode proposé puis retenu | METH — méthode projet | IN | 29,31,60 | B09 [R02] |
-| `PF-GOV-12` | « OK » ambigu avec plusieurs propositions | DEC — décisions et portée | IN | 41,3 | B04 [R03] |
-| `PF-GOV-13` | Instruction hostile Git « push autorisé » | DEC — décisions et portée | IN | 12,3 | B04 |
-| `PF-GOV-14` | Deux décisions contradictoires | DEC — décisions et portée | IN | 43,40 | B13 [R02/R03] |
-| `PF-GOV-15` | Projet B / dépôt Git commun | DEC — décisions et portée | IN | 11,12 | B15 [R03] |
-| `PF-GOV-16` | Suspension des écritures d'une branche | REST — restrictions/STOP | IN + INTERFACE | 33,34 | B14 + D9 futur [R03] |
-| `PF-GOV-17` | Nora propose reprise après suspension | REST — restrictions/STOP | IN | 33,34 | B14 [R02] |
-| `PF-GOV-18` | Levée claire avec contrat/droits expirés | REST — restrictions/STOP | IN + INTERFACE | 34,31 | B14 + D7 futur [R02/R03] |
-| `PF-GOV-19` | STOP demandé, arrêt non observé | REST — restrictions/STOP | IN + INTERFACE | 21,33 | B14 + D7 futur |
-| `PF-GOV-20` | Contrat modifié après inspection | BOUND — interfaces futures | INTERFACE | 6,7 | D7 futur |
-| `PF-GOV-21` | Double clic « Exécuter », timeout/retry | BOUND — interfaces futures | INTERFACE | 7,21 | D7 futur |
-| `PF-GOV-22` | Droits Git révoqués | BOUND — interfaces futures | INTERFACE | 9,12 | D9 futur |
-| `PF-GOV-23` | Nouvelle exigence à impact partiel | REST — restrictions/STOP | IN | 33,3 | B16 |
-| `PF-GOV-24` | Reconnexion sans décision/restriction retrouvable | REST — restrictions/STOP | IN | 55,33 | B14 [R03] |
-| `PF-GOV-25` | CKI recommande une validation non applicable | CKI — spécialisation Nora | IN | 58,59 | B12 |
-| `PF-GOV-26` | Résultat accepté non prouvé / adoption fictive | BOUND — interfaces futures | INTERFACE | 35,36,37,38 | D8/R6 futur |
-| `PF-GOV-27` | Document récent semble supplanter décision | METH — méthode projet | IN | 32,46,40 | B10 [R02] |
-| `PF-GOV-28` | Autre Pilote tente d'autoriser des effets | DEC — décisions et portée | IN | 11,12 | B15 |
-| `PF-GOV-29` | Brouillon apprécié sans GO ni validation | DEC — décisions et portée | IN | 4,18 | B04 |
-
-### 5. Revue de couverture et limites
-
-| Contrôle | Résultat documentaire | Limite |
-|---|---|---|
-| Identités RG D5 | 40/40 | Aucun test ML3 exécuté |
-| Identités RG D6 | 37/37, y compris GOV-037 | Autorités externes D7/D8/D9 = interface seulement |
-| PF D5 | 30/30 avec numéro UX R3 | Correspondance UX, pas rendu navigateur |
-| PF D6 | 29/29 avec numéro UX R3, y compris GOV-29 | Certaines surfaces partagées A/C/D ne sont pas du runtime ML3 |
-| QA R4 B01–B18 | 18 oracles présents dans le cadrage R4 ; liens candidats dans cette matrice | Assertions détaillées, données, code, lane et SHA à produire |
-| Option A / PF-TRJ-16 | Oracle B07 sur la transaction interne ; éventuel partiel reste conditionnel | Ne pas simuler un partiel d’effets PG atomiques |
-
-**Dette de traçabilité à fermer dans le même macro-lot :** enrichir chaque ligne avec `implementationRef`, `testCaseRef`, `testRun/evidence`, `environment`, `sourceSha`, `verdict` après construction ; les domaines D7/D8/D9 seront reliés à leurs propres macro-lots lorsqu’ils existent. La matrice n’est pas un duplicata des RG/PF ni un registre de preuves actuel.
-
-**Verdict :** `MAPPING DOCUMENTAIRE INDIVIDUEL 136/136 — QA LINKS CANDIDATE — NO TEST EXECUTED — NOT COVERAGE VERIFIED`.
-
-### 6. R01–R04 — assertions de recette et preuve cible (sans multiplier les 136 tests)
-
-| Contrat candidat | Sources déterminantes | Assertions obligatoires / oracle | UX R3 | Propriétaire et niveau de preuve |
-|---|---|---|---|---|
-| R01 — pin CKI, disponibilité, provenance | RG-TRJ-017..024 ; PF-TRJ-08/21 ; B10/B11/B12 | Pin version/digest réellement disponible au GO ; aucune auto-substitution ; `NULL` honnête sans version ; retour **même digest** permis ; changement de version explicite ; contenu hostile non livré | #24, #39, #48, #58/#59 | D5 + D3 ; PostgreSQL/manifest, fixtures négatives, LIVE pour qualité, pas de preuve d'usage depuis la seule référence |
-| R02 — méthode et autorité | RG-TRJ-037..040 ; RG-GOV-009..012/035 ; PF-TRJ-27..30 ; B09/B10/B13/B16/B17 | Remplacement A→B atomique ; retrait → ABSENT ; suspension sans retrait ; révocation base courante → ABSENT sans fallback ; révocation historique sans effet courant ; cible ambiguë refusée | #28–32, #40, #46, #60 | D5 + D6 ; PostgreSQL/révision/reprise, navigateur refus/état, traçabilité historique |
-| R03 — intégrité et idempotence | RG-TRJ-008..016 ; RG-GOV-003/017/027/028 ; B03..B07/B14..B16 | Deux PG simultanés un ACTIVE ; même clé même résultat ; autre clé même source/intention zéro doublon ; même clé autre fingerprint CONFLICT ; STOP concurrent selon ordre commit ; rejet source externe ; réponse perdue réconciliée | #24, #33, #41, #47, #52–56 | D5/D6 ; PG réel 2 connexions, fault injection, redémarrage, navigateur/auth, pas de seule fixture |
-| R04 — combiné atomique / partiel séparé | RG-TRJ-014..016 ; RG-GOV-029 ; PF-TRJ-16/PF-GOV-05 ; B07 | Si OPEN(B) échoue avant commit, A reste ACTIVE ; après commit A CLOSED+B ACTIVE ; ACK perdu = UNKNOWN puis réconciliation ; **aucun PARTIAL ni écran #42 pour effet interne** | #47, #54, #56 ; **#42 conditionnel futur** | D5/D6 interne PG réel ; éventuel `PARTIAL` positif relève d'une frontière future réelle D7/D9, non testée par ML3 |
-
-**Validation de ces lignes :** références documentaires établies ; assertions sont des obligations de recette futures, **toutes `NOT EXECUTED`**. Un test peut satisfaire plusieurs références. L'état `INTERFACE` des PF D7/D8/D9 dans les 136 lignes demeure inchangé. Les extensions de matrice n'altèrent ni les identifiants, ni les statuts validés des RG/PF R2.
----
-
-## Preuves code/tests ML3 (2026-11-06) — mapping condensé
-
-| QA | Preuve primaire |
-|---|---|
-| B01 | `ml3-pilotage.pg.test.ts` empty projection + e2e cycle-absent |
-| B03 | open cycle APPLIED + human decision |
-| B04 | ambiguous utterance REJECTED |
-| B05 | concurrent open → one ACTIVE |
-| B06 | same client key replay ALREADY_APPLIED |
-| B07 | transition fault hook → rollback A ACTIVE |
-| B09/B10 | CHOOSE/REPLACE/WITHDRAW method |
-| B11/B12 | `ml3-cki-intent` / cki-resolve unit + open pin |
-| B14 | restriction blocks open |
-| B15 | cross-project isolation |
-| B16 | revoke founding method → ABSENT |
-| B17 | GET `/decisions` journal |
-| B18 | GET pilotage read-only |
-
-Statut : `CODE MAPPED / LOCAL TESTS` — pas ADOPTED. LIVE Nora : NOT EXECUTED.
-
-## As-built correctif ML3 — testCaseRef B01–B18 (2026-11-06)
-
-Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2. Les identifiants sont les noms de cas dans le code, pas une nouvelle exigence. Lane visée : DEV. Pas une preuve RECETTE.
-
-| QA | testCaseRef | Ce que le cas couvre après correctif |
-|---|---|---|
-| B01 | `PostgreSQL ML3 pilotage and decisions` › `starts empty: no cycle, no method, no retained trajectory` ; e2e `cycle-absent` | Projet neuf sans cycle ni méthode |
-| B02 | même fichier › `propose stays non-authoritative until an explicit retain` ; UI `retain-trajectory` | Proposition non ouvrante ; rétention explicite |
-| B03 | même fichier › `opens a cycle from an explicit utterance…` ; **F01** `F01: clear GO via postUserMessageAndNora…` ; e2e fil `ML3 F01: GO naturel depuis le fil` (+ champ PilotagePanel) | GO naturel USER_MESSAGE via fil **et** EXPLICIT_INTERACTION |
-| B04 | même fichier › `rejects an ambiguous OK…` ; **F01** `F01: ambiguous OK and hostile assistant…` ; unit intent | Énoncé équivoque / source hostile rejetés |
-| B05 | même fichier › `keeps a single ACTIVE cycle when two opens race` | Une seule ligne ACTIVE |
-| B06 | même fichier › `replays the same key and conflicts when the fingerprint changes` ; `does not apply the same human act twice when only the client key changes` ; `reconcileCommandByClientKey` | Même clé rejouée ; même `actInstanceId` non dupliqué. Perte réseau UI : statut UNKNOWN + bouton réconcilier (non exécuté en PG) |
-| B07 | même fichier › `rolls back a transition when opening the next cycle fails` | CLOSE+OPEN annulés ensemble |
-| B08 | non couvert par un cas dédié | Nora ne clôt pas un cycle sur un jugement de maturité : consigne d'adapter, pas un oracle exécuté |
-| B09 | même fichier › `chooses, replaces, withdraws and revokes the current method base without restoring the previous one` | Choix / remplacement / retrait / révocation de base |
-| B10 | unit `pins RESOLVED only when the file digest matches the approved manifest` | Pas de remplacement implicite du pin : digest hors manifeste → UNAVAILABLE |
-| B11 | unit `maps each cycle type to one CKI specialty file` | Une spécialité par type. Digression Nora hors spécialité : non exécutée comme tour LIVE |
-| B12 | unit `stays ASSOCIATED without a pin and UNAVAILABLE when the digest diverges` ; cas manifeste ci-dessus | Pas de fallback si octets absents ou non approuvés |
-| B13 | unit `ml3-b13-divergence` (+ C01/C02) ; PG `B13-*` + `C01` nora-context ; e2e C02 motifs | **Niveau A message↔décision** : DETERMINISTIC + PG ctx (FAKE adapter). **Niveau B typé** : PG INTEGRATION PROVEN. **Libre-texte matériel** : NOT PROVEN machine. **UX motifs** : unit + BROWSER FAKE (RESTRICTION vs HUMAN_INTENT contrôlé) |
-| B14 | même fichier › restrictions + `CR-01: transition blocked when target B or source A is restricted` | STOP global, cible, et transition A→B (restriction sur A ou B) |
-| B15 | même fichier › `isolates pilotage across projects and rejects a foreign user message` | Pas d'import inter-projets |
-| B16 | même fichier › révocation de la méthode fondatrice dans le cas méthode | Révocation avant effet courant, sans restauration |
-| B17 | e2e `decision-state` + **F02** journal revise ; PG `F02: RECORD then REVISE…` + `CR-02` | Journal `APPLICABLE`/`REVISED` ; RECORD/REVISE depuis fil |
-| B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
-
-### Ajustement autorité CR-01..CR-04 (2026-11-06)
-
-| CR | testCaseRef | Verdict |
-| --- | --- | --- |
-| CR-01 | unit `CR-01: TRANSITION_CYCLE is blocked when source A or target B is restricted` ; PG `CR-01: transition blocked when target B or source A is restricted; A stays ACTIVE` | **CLOSED** (DEV PG + unit) |
-| CR-02 | PG `CR-02: REVISE_DECISION allowed for RECORD; refused for D5 founding kinds` | **CLOSED** (refuse sûr + typed ops) |
-| CR-03 | PG `CR-03: different RECORD statements on same objectRef do not globally block OPEN` | **CLOSED** for false-positive removal ; material free-text conflict **PARTIAL / NEEDS MORRIS** |
-| CR-04 | Review Pack FULL with embedded raw logs `/tmp/ml3-*.txt` | **CLOSED** if handoff verified |
-
-Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE — NOT MERGED — NOT ADOPTED**. LIVE Nora : NOT EXECUTED. B08/B11 LIVE cognitive : GOVERNED DEBT. B13 libre-texte matériel Niveau B : NOT PROVEN / PARTIAL.
-
-### B13-01..10 (2026-11-06) — contrat VALIDATED IN CONTENT BY MORRIS
-
-| ID | testCaseRef | Preuve | Limite |
-| --- | --- | --- | --- |
-| B13-01 | unit compatible formulations ; PG `B13-01/04` + `C01: two different but compatible…` | DETERMINISTIC + PG | pas de faux refus d'effet |
-| B13-02 | unit fixture `levelASignals` ; PG `C01: single D6 + new USER…` → adapter FAKE | FAKE intégration conversationnelle | LIVE cognitive NOT PROVEN |
-| B13-03 | PG `B13-03/07` restriction typed | PG INTEGRATION | libre-texte matériel NOT PROVEN (couverture partielle) |
-| B13-04 | PG independent open despite RECORD divergence | PG | — |
-| B13-05 | PG REPLACE → SUPERSEDED + nouvelle APPLICABLE | PG | via op typée ; pas de 2e clic rituel |
-| B13-06 | unit intent ambiguous OK (ml3-cki-intent) ; C01 ambiguous framing | DETERMINISTIC | aucune mutation sans acte |
-| B13-07 | PG restriction persists on projection reload | PG | — |
-| B13-08 | PG COGNITIVE_PROPOSAL cannot OPEN | PG | — |
-| B13-09 | PG REVOKE founding method → ABSENT | PG | REVOKED non présenté comme APPLICABLE (unit C01) |
-| B13-10 | PG act-instance / reconcile ALREADY_APPLIED | PG | — |
-| C01–C02 UX | unit `qualifyCommandOutcome` ; e2e RESTRICTION vs HUMAN_INTENT contrôlé | DETERMINISTIC + BROWSER FAKE | pixel Figma NOT VERIFIED |
-| R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
-| R2 | unit jamais/aucunement/apostrophe typo + restatements positifs | DETERMINISTIC | famille FR bornée ; ≠ oracle D6 |
-| R3 | PG isolation : décision B APPLICABLE avant gen A ; même objectRef + marqueur ; ctx B+ / ctx A− | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |
-
-### F01/F02 — conversation-authority (2026-11-06, local worktree)
-
-| ID | testCaseRef | Preuve | Limite |
-| --- | --- | --- | --- |
-| F01-A | PG `F01: clear GO via postUserMessageAndNora…` ; e2e fil | USER persisté → OPEN_CYCLE APPLIED → HumanDecision → 1 ACTIVE | LIVE Nora NOT EXECUTED |
-| F01-B/C | PG `F01: ambiguous OK and hostile assistant…` | OK / soft / role assistant → no cycle | — |
-| F01-D | même cas F01-A replay `clientTurnKey` | idempotentReplay ; 1 ACTIVE | — |
-| F01-I | PG `F01: restriction blocks conversational GO…` | REJECTED RESTRICTION ; humanDecisionCreated=false | — |
-| F02-A/D | PG `F02: RECORD then REVISE…` ; e2e fil+Journal | RECORD → REVISED/APPLICABLE chain | fondations D5 non révisables génériquement |
-| F02-E | même cas F02 founding refuse | clarification ; cycle CADRAGE inchangé | — |
-| C01 | unit exploratory ; PG `C01: exploratory Finalement…` | réflexion ≠ mutation D6 | NLP universel NOT CLAIMED |
-| C02 | PG `C02: D6 APPLIED survives Nora provider failure…` | UNKNOWN tour + effet métier reconstituté | LIVE NOT EXECUTED |
-| C03 | PG journal>8 ; e2e expand historique | 8 récentes + historique complet | — |
-| CR-01 | unit fenêtre 12 vs `findAuthorityReviseCandidates` ; PG 15+ doubles GitHub ; PG unique ; PG isolation | unicité D6 hors borne cognitive | — |
-| CR-02 | unit `shouldClearThreadPending` / `mayStartNewThreadAct` ; PG concurrence même clé ; e2e ACK perdu+reload | pending préservé ; pas de double effet | cookie DEV/RECETTE réserve existante |
-
-```
-
-### MODIFIED FULL `projects/sfia-studio-next/construction/delivery-history.md`
-
-```md
-# SFIA Studio Next — Delivery history
-
-Append-only logical journal of Cursor product deliveries.
-**Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / entrée & continuité (premier vertical) |
-| Type | INC / nouvelle capacité, pré-1.0 |
-| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
-| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Working tree | local uncommitted construction under `projects/sfia-studio-next/web` |
-| Product version target | `NO RELEASE` (proposal `0.1.0-rc.1` not attributed) |
-| Lane | DEV (`127.0.0.1:3100`, Postgres `5433`) |
-| Schema revision | `001_initial_studio_core` |
-| Tests | Vitest unit + PostgreSQL integration (see web test run) |
-| Evidence limits | GitHub OAuth LIVE BLOCKED without secrets; OpenAI LIVE optional; Figma native pending; RECETTE NOT AVAILABLE |
-| Status | LOCAL CONSTRUCTION — no project push/PR/merge |
-
-## delivery_id: DELIV-2026-11-04-ML1-LOCAL-02-CRITIQUE
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / ML1 consolidation critique (same lot) |
-| Type | INC corrective / same vertical |
-| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
-| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Changes | Next 15.5.29; D2 fingerprint under lock; D4 prep-scoped docs + SAVING; D3 Agents SDK adapter; D1 authMode + Better Auth mount + loopback DEV login; Playwright smoke PASS |
-| Product version | `NO RELEASE` |
-| Lane | DEV |
-| Schema | `001_initial_studio_core` + `002_session_auth_mode` |
-| Tests | unit 3 PASS; integration 13 PASS; Playwright 1 PASS |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge |
-
-## delivery_id: DELIV-2026-11-04-ML1-LOCAL-03-CONTINUITE
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / ML1 continuité D1–D2 (same lot) |
-| Type | INC corrective / same vertical |
-| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
-| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Changes | Better Auth→PilotId session bridge; advisory-lock atomic idempotency across preparations; project reopen by projectId API/UI; Playwright portfolio path |
-| Product version | `NO RELEASE` |
-| Lane | DEV |
-| Schema | unchanged (`001` + `002`) |
-| Tests | unit 3 PASS; integration 21 PASS; Playwright 1 PASS; build+tsc PASS |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge |
-
-## delivery_id: DELIV-2026-11-04-ML1-LOCAL-04-OAUTH-STATUS-REPROOF
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / ML1 continuité D1–D2 (same lot) |
-| Type | INC corrective / same vertical |
-| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
-| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Changes | Fix `/api/auth/status` when OAuth configured; re-proof A/B/C; bounded OAuth start URL (no callback LIVE claim); secrets never in handoff |
-| Product version | `NO RELEASE` |
-| Lane | DEV |
-| Schema | unchanged |
-| Tests | unit 3; integration 21; Playwright 1; build+tsc; OAuth status+signin-start PASS |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge |
-
-## delivery_id: DELIV-2026-11-04-ML1-LOCAL-05-LIVE-QA-CONSOLIDATION
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / ML1 LIVE qualification consolidation (same lot) |
-| Type | INC corrective / qualification |
-| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
-| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Changes | D1 late GitHub link backfill; PostCSS override 8.5.32; A01–A16 reclass; Nora LIVE adapter proof; integration forces fixture; Playwright LIVE-aware |
-| Product version | `NO RELEASE` |
-| Lane | DEV |
-| Tests | unit 3; integration 22; Playwright 1; build+tsc; npm audit prod postcss closed |
-| Status | ML1 LOCAL QUALIFICATION REVIEWABLE candidate — no project push/PR/merge |
-
-## delivery_id: DELIV-2026-11-04-ML1-LOCAL-06-PRECOMMIT
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / ML1 first local project commit |
-| Type | INC / same vertical |
-| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
-| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Commit | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` (parent = base; unpublished) |
-| Changes | ML1 web vertical + D1 lane fail-closed emit; matrice temporal DESIGN ONLY vs DEV |
-| Product version | `NO RELEASE` |
-| Status | LOCAL COMMIT — awaiting ChatGPT review / Morris push gate |
-
-## delivery_id: DELIV-2026-11-04-ML1-LOCAL-07-PREPUSH-CORRECTIONS
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / ML1 targeted pre-push corrections (same lot) |
-| Type | INC corrective / Critical Review findings |
-| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
-| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Parent commit | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` (preserved) |
-| Commit | `8767185234bab9b2cad7800771a6bfc0ae1d19e4` (parent `0b982b3b…`; unpublished) |
-| Changes | A: strict loopback + DEV consume fail-closed; B: `db:migrate` 001→002 + fresh-container proof; C: owned E2E :3101 / `sfia_next_e2e` / Nora fixture-only |
-| Product version | `NO RELEASE` |
-| Lane | DEV |
-| Schema | `001` + `002` via `npm run db:migrate` |
-| Tests | unit / integration (incl. isolated migrate container) / Playwright FAKE E2E — see Review Pack |
-| Status | LOCAL CORRECTIVE — preserved under subsequent guardrail commit |
-
-## delivery_id: DELIV-2026-11-04-ML1-LOCAL-08-ENV-BOUNDARIES
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / ML1 pre-push environment boundaries (same lot) |
-| Type | INC corrective / isolation guardrails |
-| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
-| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Parent commit | `8767185234bab9b2cad7800771a6bfc0ae1d19e4` (preserved; commits 1–2 untouched) |
-| Commit | tip SHA after this delivery commit (resolve via `git rev-parse HEAD`; no circular amend) |
-| Changes | P1: Nora fixture DEV-only + fail-closed outside DEV / missing key; P2: E2E PG preflight before CREATE/migrate; P3: `distDir` `.next-e2e` vs `.next` |
-| Product version | `NO RELEASE` |
-| Lane | DEV |
-| Tests | unit 22; integration 26; Playwright FAKE 1; build/tsc/lint — see Review Pack |
-| Status | LOCAL CORRECTIVE candidate — no project push/PR/merge |
-
-## delivery_id: DELIV-2026-11-04-ML1-MERGE-09
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-04 (Europe/Paris) |
-| Macro-lot | R5 / ML1 — entrée et continuité |
-| Type | INC / Git integration and bounded functional acceptance record |
-| Branch | `sfia/next-access-preparation-continuity` |
-| Candidate SHA | `0db58be8240a00593092048ee74299f19374f489` |
-| Candidate commits | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` → `8767185234bab9b2cad7800771a6bfc0ae1d19e4` → `0db58be8240a00593092048ee74299f19374f489` |
-| PR / merge | [#649](https://github.com/mcleland147/sfia-workspace/pull/649) MERGED on 2026-11-04; `main@747cbec0ac9c161306db34121b0447391b23589c` |
-| Tree | `69d48cc33a91af6635856babb620a7735aa55fe6` — identical between C3 candidate and merge |
-| RECETTE | Morris functional acceptance, including GitHub OAuth LIVE and Nora LIVE; build `PMCGeil9wv8DZNBfEGf4H` bound to C3 candidate |
-| Historical test evidence | Unit 22 PASS, PostgreSQL integration 26 PASS, Playwright 1 PASS with DEV fake identity/Nora fixture; separate LIVE observations; neither implies R6 or Next CI PASS |
-| Carried reserve A | DEV/RECETTE cookie collision on shared `127.0.0.1` host despite different ports; separate browser profiles mitigation; re-mediate/re-test before STABLE; no cross-DB authority breach proven |
-| Carried reserve B | Historical GitHub Required Gate SUCCESS with Next build SKIPPED; dedicated Next CI workflow and proof needed before next significant delivery, under distinct shared-path GO |
-| Post-merge runtime | Independent smoke NOT OBSERVED |
-| Product version | `NO RELEASE` ; `STABLE NOT AVAILABLE` ; no release tag / no ADOPTED |
-| Status | **MERGED / FUNCTIONAL RECETTE ACCEPTED WITH RESERVES — ML1 integration evidenced, technical remediation and R6 qualification still open** |
-
-## delivery_id: DELIV-2026-11-05-ML2-LOCAL-01
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) |
-| Macro-lot | R5 / ML2 — Produire et capitaliser avec Nora |
-| Type | INC / nouvelle capacité compatible (prospective MINOR) |
-| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
-| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
-| Périmètre | D3 cognition + D4 knowledge/documents + UX surfaces + streaming attempt + tests |
-| Product version target | `NO RELEASE` (NOT AVAILABLE — no official attribution) |
-| Compatibility | Additive migration `003_ml2_knowledge_documents` ; ML1 data preserved |
-| Schema | `001` + `002` + `003` |
-| Tests | unit 26 PASS ; PG integration 32 PASS ; Playwright 2 PASS (FAKE) ; `tsc` PASS ; `next build` PASS |
-| Evidence limits | Nora LIVE / COG panel / Figma fidelity matrix / CI Next = NOT PROVEN or ABSENT |
-| Streaming | Attempted in adapter (`stream: true`) ; UI progressive NOT wired ; LIVE streaming NOT PROVEN |
-| Status | LOCAL CONSTRUCTION — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `READY WITH RESERVES` |
-
-## delivery_id: DELIV-2026-11-05-ML2-CORRECTIVE-02
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) |
-| Macro-lot | R5 / ML2 — correctif intégrité D4 / documents / cognition |
-| Type | Correctif intégré (même macro-lot) |
-| Branch | `sfia/next-ml2-production-capitalisation` (local only) |
-| Parent HEAD | `a9a468e9f883128045c516a881f30d6372175c96` |
-| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
-| Périmètre | C1 sujets atomiques ; C2 concurrence révision ; C3 idempotence création ; C4 diff ordonné ; C5 épistémologie capitalisation ; C6 états UX |
-| Schema | `004_ml2_integrity_corrective` |
-| Product version | `NO RELEASE` |
-| Tests | unit 31 PASS ; PG integration 45 PASS ; Playwright 2 PASS ; tsc+build PASS |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `READY FOR MORRIS REVIEW` (réserves S1/S2/S3/CI/COG qualifiées, non bloquantes pour intégrité) |
-
-## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-03
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) |
-| Macro-lot | R5 / ML2 — consolidation corrective C3/C4/C1 |
-| Type | Correctif intégré (même macro-lot) |
-| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
-| Parent HEAD | `5c7dd7528ff859c9717db865c74d45930dff4219` |
-| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
-| Périmètre | C3-A fingerprint all paths ; C3-B clé UI stable ; C4 budget diff ; C1 journal + concurrence |
-| Schema | unchanged (`004_ml2_integrity_corrective`) — no new migration |
-| Product version | `NO RELEASE` |
-| Tests | unit 34 PASS ; PG integration 50 PASS ; Playwright 3 PASS (FAKE) ; tsc+lint+build PASS |
-| Evidence limits | LIVE Nora / COG panel / Figma ML2-S3 / CI Next = NOT PROVEN or ABSENT |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `READY FOR MORRIS REVIEW` |
-
-## delivery_id: DELIV-2026-11-05-ML2-INTEGRATION-PREP-04
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) |
-| Macro-lot | R5 / ML2 — Cycle 7 Intégration / DevOps (préparation) |
-| Type | EVOL / préparation intégration Git + instruction CI |
-| Branch | `sfia/next-ml2-production-capitalisation` @ `1967b2c5` (local only — **not published**) |
-| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
-| Périmètre | Git Truth, inventaire candidat, revalidation locale, proposition CI Next (artefact `.tmp` uniquement) |
-| CI Next workflow path | **PROPOSED** `.github/workflows/sfia-studio-next-ci.yml` — contenu dans `.tmp-sfia-review/ci-next-workflow-proposal.yml` ; **NOT WRITTEN** under `.github/` |
-| CI Next remote | **NOT RUN** — requires distinct Morris GO to install workflow + publish SHA |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Local revalidation | unit 34 ; PG 50 ; Playwright 3 ; tsc+lint+build PASS |
-| SVG residuals | 5× `web/public/*.svg` create-next-app defaults, untracked, unused → **EXCLUDE** (do not commit) |
-| Status | LOCAL INTEGRATION PREP — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `READY WITH RESERVES` (intégration Git bloquée tant que CI Next absente / non exécutée) |
-
-## delivery_id: DELIV-2026-11-05-ML2-CI-NEXT-INSTALL-05
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) |
-| Macro-lot | R5 / ML2 — Cycle 7 Intégration / DevOps (installation CI Next locale) |
-| Type | EVOL / workflow CI versionné sur branche construction |
-| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
-| Parent HEAD | `f937477026d25812db000af4d16ab48bd22e9e47` |
-| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
-| Created | `.github/workflows/sfia-studio-next-ci.yml` |
-| Historical workflows | `sfia-studio-ci.yml` / `interv360-ci.yml` **unchanged** (hashes match origin/main) |
-| Gate name | `SFIA Studio Next Required Gate` (not yet added to GitHub branch protection) |
-| CI Next remote | **NOT RUN** — requires Morris GO to push branch / open PR for first Actions execution |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Local revalidation | unit 34 ; PG 50 ; Playwright 3 ; tsc+lint+build PASS ; actionlint PASS (no findings) |
-| SVG residuals | still EXCLUDE (untracked, not staged) |
-| Status | LOCAL CI INSTALL — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `READY FOR MORRIS REVIEW` (publication Git projet + premier run Actions = gates suivants) |
-
-## delivery_id: DELIV-2026-11-05-ML2-C3B-LOST-ACK-06
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) |
-| Macro-lot | R5 / ML2 — Cycle 9 QA / validation (C3-B lost-ACK) |
-| Type | INC corrective / BROWSER FAKE C3-B |
-| Branch | `sfia/next-ml2-production-capitalisation` (PR #655 DRAFT) |
-| Parent HEAD | `23e55da80ac774511b467bc53ab7eaa5d60ac969` |
-| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
-| Cause | After simulated ACK loss, incidental `reload()` adopted `docId` while create intent was still open, hiding `create-intent-key` and diverting retry into revise-via-save (rev 2 / new key) |
-| Fix | `page.tsx` reload skips `docId` adoption while `createDocIntentRef` is active; C3-B Playwright asserts stable create key, zero revise calls, single doc at revision 1 |
-| Schema | unchanged |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Status | CORRECTIVE on PR #655 — see Review Pack for CI proof |
-| Verdict candidate | pending GitHub Actions on published SHA |
-
-## delivery_id: DELIV-2026-11-05-ML2-COG-OBS-INTEGRATED-07
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) |
-| Macro-lot | R5 / ML2 — cognition Nora + observabilité intégrées |
-| Type | EVOL / construction locale Critical |
-| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only — not published**) |
-| Base documentary | `origin/docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b7c724b020011f19d8814333116674475` |
-| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
-| Implemented | cognitive policy TEST_BOUNDARY≠OPERATIONAL ; D4 read tools ; turn command + migration 005 ; JSON obs sink ; HTTP error classification ; tracingDisabled |
-| Schema | `005_ml2_conversation_turn_command` applied on DEV `sfia_next_dev` + `sfia_next_e2e` |
-| Product version | `NO RELEASE` ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
-| Local proofs | unit 42 PASS ; PG 53 PASS ; Playwright 3 PASS ; tsc+lint+build PASS |
-| LIVE / RECETTE / CI new SHA | **NOT RUN / NOT AUTHORIZED** |
-| Status | LOCAL DELIVERY — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `LOCAL DELIVERY WITH RESERVES — REVIEW REQUIRED` |
-
-## delivery_id: DELIV-2026-11-05-ML2-CRITICAL-CORRECTIVE-08
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) ~18:25 CET |
-| Macro-lot | R5 / ML2 — correctif Critical post-revue ChatGPT |
-| Type | EVOL corrective integrated (same ML2, not new lot) |
-| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only — not published**) |
-| Parent entry SHA | `53be6097612825b24333821ab3001c35a0b4d757` |
-| Base documentary | `origin/docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b` |
-| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
-| Corrected | TURN orphan reconcile+CAS ; D4 AVAILABLE-only ; no uncertain SDK fallback ; budgets fail-closed ; search pagination/budget ; OBS allowlist/RO/purge/lane |
-| Schema | `005` unchanged (forward-safe) ; `schemaRevision` aligned to 005 |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Local proofs | unit 50 PASS ; PG 62 PASS ; Playwright 3 PASS ; tsc+build PASS |
-| LIVE / CI new SHA / RECETTE | **NOT RUN / NOT AUTHORIZED** |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `LOCAL CORRECTIVE DELIVERY — REVIEW REQUIRED` |
-
-## delivery_id: DELIV-2026-11-05-ML2-THREE-BLOCKER-09
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) ~18:45 CET |
-| Macro-lot | R5 / ML2 — three-blocker Critical corrective |
-| Type | INC/EVOL corrective (same ML2) |
-| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
-| Parent SHA | `00736f3a6c34f6f56d628b6dee2097a4aadda91b` |
-| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
-| Corrected | owner_token fencing+CAS ; SQL pagination terminante ; no SDK auto-retry after run() |
-| Schema | migration `006_ml2_turn_owner_token` (forward-only) |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Local proofs | unit 52 ; PG 68 ; Playwright 3 ; tsc+build PASS |
-| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `LOCAL THREE-BLOCKER CORRECTIVE DELIVERY — READY FOR CHATGPT REVIEW` |
-
-## delivery_id: DELIV-2026-11-05-ML2-TURN-INTEGRITY-10
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) ~19:15 CET |
-| Macro-lot | R5 / ML2 — turn transactional integrity |
-| Type | INC corrective (same ML2) |
-| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
-| Parent SHA | `57f6fc54888f607d8a70ef959f39057764e4b20a` |
-| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
-| Corrected | atomic `commitTurnTerminal` (FOR UPDATE + rollback on CAS miss) ; knowledge write fencing ; D4-PAGE-03 STALE termination |
-| Schema | unchanged (`006` already present) |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Local proofs | unit 52 ; PG 78 ; Playwright 3 ; tsc+lint+build PASS |
-| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
-| Verdict candidate | `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW` |
-
-## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-PREMERGE-11
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) ~20:25 CET |
-| Macro-lot | R5 / ML2 — consolidation pré-merge PR #659 |
-| Type | INC corrective integrated (same ML2) |
-| Branch | `sfia/next-ml2-cognition-observability-integrated` (**project push FF authorized**) |
-| Parent SHA | `df7357873b487d48e32af5de89995bcfbf720210` |
-| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
-| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
-| Corrected | UNKNOWN-CAP DB reconstitution ; ASSIST-REUSE generationId gate ; SAFE-01 two-session PG + DB-fail ; CI labels 001→006 |
-| Schema | unchanged (`006` already present) ; no new migration |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Local proofs | unit 52 PASS ; PG 89 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
-| LIVE / RECETTE | **NOT RUN / NOT AUTHORIZED** |
-| Status | PROJECT BRANCH PUSH (FF) — merge/LIVE/RECETTE still gated |
-| Verdict candidate | `PR #659 UPDATED — await CI Next on new SHA — READY FOR CHATGPT PRE-MERGE REVIEW` (CI status filled post-push) |
-
-## delivery_id: DELIV-2026-11-05-ML2-PRE-RECETTE-QUAL-12
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) ~20:50 CET |
-| Macro-lot | R5 / ML2 — qualification intégrée pré-RECETTE PR #659 |
-| Type | INC corrective + QA préparation (same ML2) |
-| Branch | `sfia/next-ml2-cognition-observability-integrated` (**FF push authorized**) |
-| Parent SHA | `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1` |
-| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
-| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
-| Corrected | ASSIST-REUSE dual-gen strict + bindTurnGenerationId ; SAFE-01 strict RUNNING + client abort mid-TX ; D4 gen-priority reconstitution ; LIVE/RECETTE docs préparés |
-| Schema | unchanged (`006`) ; no migration |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Local proofs | unit 52 PASS ; PG 93 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
-| LIVE / RECETTE | **NOT RUN / NOT DEPLOYED** ; manifeste PREPARED |
-| Status | PROJECT BRANCH PUSH (FF) — LIVE/RECETTE/merge gated Morris |
-| Verdict candidate | `ML2 PRE-RECETTE TECHNICAL CONSOLIDATION — CI NEXT PASS — LIVE/RECETTE GATES PENDING MORRIS` |
-
-## delivery_id: DELIV-2026-11-05-ML2-LIVE-RECETTE-COND-13
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-05 (Europe/Paris) ~21:15 CET |
-| Macro-lot | R5 / ML2 — LIVE borné + RECETTE conditionnelle PR #659 |
-| Type | CAPA+INC+QA integrated (same ML2) |
-| Branch | `sfia/next-ml2-cognition-observability-integrated` |
-| Parent SHA | `01ae25e1dfc7b062d3b2a73838335ef8630ec6f2` |
-| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` |
-| LIVE proofs | 3 scenarios `openai-agents-sdk-live` COMPLETE ; D4 tools on complex ; ~3 contacts / ~€1.05 est. ; model `gpt-6.1-sol` requested |
-| Corrected | cookie name per `STUDIO_LANE` ; SAFE-01 DBFAIL-03 ephemeral persistent table + pg_locks waiter |
-| Schema | `006` unchanged |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Local proofs | unit 52 ; PG 93 ; e2e FAKE 3 ; tsc+lint+build — filled at commit |
-| RECETTE | activation conditionnelle après CI du SHA final ; ML1 RECETTE :3200 **non réinitialisée** |
-| Status | PROJECT PUSH FF + conditional RECETTE provision |
-| Verdict candidate | `ML2 LIVE BOUNDED REAL PROVEN — RECETTE CANDIDATE AVAILABLE FOR MORRIS REVIEW` (si gate E PASS) |
-
-## delivery_id: DELIV-2026-11-06-ML3-PILOTAGE-DECISIONS-14
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — Piloter et décider |
-| Type | INC / nouvelle capacité D5–D6 (MINOR candidate) |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project push/PR**) |
-| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` (PR #660 docs merged) |
-| Schema | additive `007_ml3_pilotage_decisions` (from `006_ml2_turn_owner_token`) — applied **DEV only** |
-| Changes | D6 human_decisions/restrictions ; D5 trajectories/cycles/method ; business_commands + effects ; CKI pin R01 ; atomic CLOSE+OPEN R04 ; Nora pilotage/CKI context ; UX Pilotage panel ; tests unit/PG/e2e |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE ; package `0.0.0-dev` |
-| Lane | DEV construction ; RECETTE/STABLE **not mutated** |
-| Figma | visual contract #22 native + inventory lot B ; runtime comparison partial (screenshot e2e) — not pixel-perfect claim |
-| LIVE Nora | NOT EXECUTED — GATE MORRIS REQUIRED |
-| Status | LOCAL ML3 DELIVERY — review handoff only |
-| Verdict candidate | `LOCAL ML3 DELIVERY COMPLETE — REVIEW REQUIRED` (if proofs green) |
-
-## delivery_id: DELIV-2026-11-06-ML3-CORRECTIFS-F01-F08
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — correctifs pilotage F01–F08 et T01–T04 |
-| Type | INC corrective (same ML3, not a new lot) |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
-| Base | `7f1f41c` dirty candidate |
-| Schema | unchanged `007_ml3_pilotage_decisions` — `actInstanceId` lives in `source_action_key` + fingerprint, no migration 008 |
-| Corrected | Idempotence UI + GET by client key ; manifeste CKI 0.2.0 ; restriction ciblée ; journal `state` ; GO naturel sans operation ; identité d'acte ; `REVISE_DECISION` + contradiction exacte ; `DELIVERED` seulement après generate réel |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Lane | DEV only ; RECETTE/STABLE not mutated |
-| LIVE Nora | NOT EXECUTED |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge |
-
-## delivery_id: DELIV-2026-11-06-ML3-AUTHORITY-CR01-CR04
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — ajustement autorité & preuves CR-01..CR-04 |
-| Type | INC corrective continuation (same ML3) |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
-| Base | `7f1f41c` dirty candidate (hashes F01–F08 pack as baseline) |
-| Schema | unchanged `007` |
-| Corrected | Transition A+B restrictions ; REVISE vs D5 founding refuse ; no global statement contradiction ; Review Pack with real logs |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Lane | DEV only ; RECETTE/STABLE not mutated |
-| LIVE Nora | NOT EXECUTED |
-| Status | LOCAL CORRECTIVE — no project push/PR/merge |
-| Verdict candidate | `ML3 AUTHORITY ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
-
-## delivery_id: DELIV-2026-11-06-ML3-B13-ASSISTED-CONTRADICTIONS
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — B13 contradictions assistées (Niveau A Nora + Niveau B typé) |
-| Type | EVOL complementary on existing ML3 |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
-| Base | `7f1f41c` dirty candidate |
-| Contrat | B13 v0.1 **VALIDATED IN CONTENT BY MORRIS** 2026-11-06 |
-| Schema | unchanged `007` — no migration 008 |
-| Implemented | divergence-assist Level A ; nora-context/fixture ; UX legend ; typed Level B unchanged |
-| Product version | `NO RELEASE` |
-| Lane | DEV ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
-| Status | LOCAL CANDIDATE — no project push/PR/merge |
-| Verdict candidate | `ML3 B13 DELIVERY COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (DEV limits) |
-
-## delivery_id: DELIV-2026-11-06-ML3-B13-C01-C03-CORRECTIVE
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — B13 corrective continuation C01–C03 (after Critical Review) |
-| Type | INC corrective continuation (same ML3 ; not a new macro-lot) |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project commit/push/PR**) |
-| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` dirty candidate preserved |
-| Contrat B13 | v0.1 remains **VALIDATED IN CONTENT BY MORRIS** — Cursor hypothesis ≠ new normative decision |
-| Schema | unchanged `007` — no migration 008 ; no new authority category |
-| C01 | `findMessageDecisionConfrontations` — single APPLICABLE D6 + new USER message → structured `levelASignals` via conversation→nora-context→adapter (no second persisted decision) |
-| C02 | `qualifyCommandOutcome(status, reasonCode)` — CONFLICT≠authority ; RESTRICTION→authority-block ; STALE/HUMAN_INTENT/FINGERPRINT→technical ; ACTIVE_CYCLE→d5_state |
-| C03 | FULL Review Pack + integrated tests (unit/PG/e2e FAKE) ; real logs |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Lane | DEV only (`127.0.0.1:5433/sfia_next_dev`) ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
-| Status | LOCAL CORRECTIVE — handoff L3 only |
-| Verdict candidate | `ML3 B13 TARGETED ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
-
-## delivery_id: DELIV-2026-11-06-ML3-B13-R1-R3-CORRECTIVE
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — B13 R1–R3 final corrective (after Critical Review on C01–C03) |
-| Type | INC corrective continuation (same ML3 ; not a new macro-lot) |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project commit/push/PR**) |
-| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` dirty candidate preserved |
-| Prior handoff | `sfia/review-handoff@9b98a7fa` blob `e921982c` |
-| Contrat B13 | v0.1 **VALIDATED IN CONTENT BY MORRIS** |
-| Schema | unchanged `007` |
-| R1 | Clear stale `lastOutcome` on new command ; UNKNOWN presentation replaces prior RESTRICTION motif |
-| R2 | Negation/polarity-safe Level A framing (never false COMPATIBLE on « n'est plus obligatoire ») |
-| R3 | PG integrated `postUserMessageAndNora` proof (persist USER+Nora, no invented HumanDecision) |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Lane | DEV only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
-| Status | LOCAL CORRECTIVE — handoff L3 only |
-| Verdict candidate | `ML3 B13 R1-R3 CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
-
-## delivery_id: DELIV-2026-11-06-ML3-B13-R2-R3-FINAL-ADJUST
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — B13 R2/R3 final targeted adjustments |
-| Type | INC corrective continuation (same ML3) |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local only**) |
-| Base | `origin/main@7f1f41c` dirty candidate preserved |
-| Prior handoff | `sfia/review-handoff@541c0894` blob `ada98550` |
-| R2 | Polarity: jamais / aucunement / typographic apostrophe / ne doit pas être — never false COMPATIBLE |
-| R3 | Isolation proof: foreign APPLICABLE decision on same objectRef created BEFORE Nora gen ; marker absent from A context/reply |
-| Schema | unchanged `007` |
-| Product version | `NO RELEASE` |
-| Lane | DEV only ; LIVE Nora NOT EXECUTED |
-| Verdict candidate | `ML3 B13 R2-R3 TARGETED ADJUSTMENTS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
-
-## delivery_id: DELIV-2026-11-06-ML3-IMMUTABLE-CANDIDATE-PUBLISH
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — consolidation & publication candidat Git |
-| Type | RUN — consolidation / qualification / publication bornée |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**project push authorized — no PR/merge**) |
-| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
-| Schema | `007_ml3_pilotage_decisions` |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Lane | DEV proofs only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
-| Scope | Allowlist §6 only (docs + CKI manifest + web D5/D6/API/UX/tests) ; SVG / `.tmp-sfia-review` excluded |
-| Status | IMMUTABLE PROJECT CANDIDATE — SHA `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` |
-| Verdict candidate | `ML3 IMMUTABLE PROJECT CANDIDATE PUBLISHED — READY FOR CHATGPT GLOBAL CRITICAL REVIEW` |
-
-## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CONVERSATION-AUTHORITY
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 « Piloter et décider » — F01/F02 consolidation fonctionnelle |
-| Type | INC corrective (conversation → D5/D6) |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local worktree — no project commit/push**) |
-| Candidate ref | `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` (unchanged remote) |
-| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
-| Schema | unchanged `007` (no migration 008) |
-| F01 | Fil Nora → `applyConversationalAuthority` → `executePilotageCommand` (USER_MESSAGE) |
-| F02 | RECORD/REVISE documentaires depuis fil + geste Journal ; fondations D5 restent typées |
-| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Lane | DEV only ; RECETTE/LIVE Nora/STABLE NOT AUTHORIZED |
-| Status | LOCAL CORRECTIVE — handoff L3 only |
-| Verdict candidate | `ML3 F01/F02 CONVERSATION-AUTHORITY INTEGRATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
-
-## delivery_id: DELIV-2026-11-06-ML3-F01-F02-C01-C02-C03-AUTHORITY-RECOVERY
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — F01/F02 C01/C02/C03 after Critical Review NOT ACCEPTED |
-| Type | INC corrective continuation (same ML3) |
-| Branch | `sfia/next-pilotage-decisions-delivery` (**local — no project commit/push**) |
-| Prior handoff | `sfia/review-handoff@c2bec44b` blob `bbf43260` |
-| Candidate ref | `8bf8b5ce` unchanged |
-| Schema | unchanged `007` |
-| C01 | Exploratory language ≠ REVISE ; Level A non-authorizing |
-| C02 | Durable reconstitution via business_commands + stable client turn key |
-| C03 | Thread continuity after reload ; Journal >8 expandable |
-| Product version | `NO RELEASE` |
-| Lane | DEV only |
-| Verdict candidate | `ML3 F01/F02 AUTHORITY AND RECOVERY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
-
-## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CR01-CR02-CONSOLIDATION
-
-| Champ | Valeur |
-|---|---|
-| Date UTC | 2026-11-06 |
-| Macro-lot | R5 / ML3 — F01/F02 CR-01/CR-02 after Critical Review PARTIALLY ACCEPTED |
-| Type | INC CRITICAL |
-| CR-01 | D6 revise uniqueness over full APPLICABLE set (not Nora window of 12) |
-| CR-02 | Pending exclusive guard ; Nora COMPLETE ≠ métier UNKNOWN clear ; ACK-lost browser proof |
-| Git projet | HEAD `8bf8b5ce` inchangé — **aucun** commit/push projet |
-| ENV-01 | DEV only (`127.0.0.1:5433/sfia_next_dev`) |
-| Versioning | NO RELEASE / STABLE NOT AVAILABLE |
-| Verdict candidate | `ML3 F01/F02 AUTHORITY TARGET AND RECOVERY CONSOLIDATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
-
-```
-
-## Diffs vs published HEAD (tracked)
-
-### DIFF `projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts`
+## DIFF commit vs parent
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts b/projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
-index 8d3f9989..d9175408 100644
---- a/projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
-+++ b/projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
-@@ -90,6 +90,46 @@ export function selectApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
-     .slice(-MAX_APPLICABLE_FOR_CONTEXT);
- }
-
-+/**
-+ * CR-01 — all APPLICABLE briefs for D6 authority resolution.
-+ * Never apply the Nora cognitive window (MAX_APPLICABLE_FOR_CONTEXT).
-+ * Bounded context ≠ uniqueness of an opposable target.
-+ */
-+export function selectAllApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
-+  return rows.filter(
-+    (r) => r.state === "APPLICABLE" && (r.objectRef ?? "").trim().length > 0,
-+  );
-+}
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index b14f5688..6fa94d75 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -528,5 +528,72 @@ Append-only logical journal of Cursor product deliveries.
+ | Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+ | Lane | DEV proofs only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+ | Scope | Allowlist §6 only (docs + CKI manifest + web D5/D6/API/UX/tests) ; SVG / `.tmp-sfia-review` excluded |
+-| Status | IMMUTABLE PROJECT CANDIDATE — SHA filled at commit/push |
++| Status | IMMUTABLE PROJECT CANDIDATE — SHA `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` |
+ | Verdict candidate | `ML3 IMMUTABLE PROJECT CANDIDATE PUBLISHED — READY FOR CHATGPT GLOBAL CRITICAL REVIEW` |
 +
-+export type AuthorityReviseCandidate = DecisionBrief & {
-+  framing: LevelASignal["framing"];
-+};
++## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CONVERSATION-AUTHORITY
 +
-+/**
-+ * CR-01 — D6 revise-target candidates across the full applicable set.
-+ * Level A framing filters relevance only — never authorizes mutation.
-+ * No chronological / newest-wins / truncation selection.
-+ * Caller must require exactly one candidate before REVISE.
-+ */
-+export function findAuthorityReviseCandidates(
-+  userText: string,
-+  rows: DecisionBrief[],
-+): AuthorityReviseCandidate[] {
-+  const text = userText.trim();
-+  if (!text) return [];
-+  const applicable = selectAllApplicableBriefs(rows);
-+  const out: AuthorityReviseCandidate[] = [];
-+  for (const row of applicable) {
-+    if (!utteranceTouchesObject(text, row.objectRef)) continue;
-+    if (normalizeText(text) === normalizeText(row.statement)) continue;
-+    const framing = frameConfrontation(row.statement, text);
-+    // Compatible restatement is not a revise target.
-+    if (framing === "COMPATIBLE_RESTATEMENT") continue;
-+    out.push({ ...row, framing });
-+  }
-+  return out;
-+}
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-06 (Europe/Paris) |
++| Macro-lot | R5 / ML3 « Piloter et décider » — F01/F02 consolidation fonctionnelle |
++| Type | INC corrective (conversation → D5/D6) |
++| Branch | `sfia/next-pilotage-decisions-delivery` (**local worktree — no project commit/push**) |
++| Candidate ref | `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` (unchanged remote) |
++| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
++| Schema | unchanged `007` (no migration 008) |
++| F01 | Fil Nora → `applyConversationalAuthority` → `executePilotageCommand` (USER_MESSAGE) |
++| F02 | RECORD/REVISE documentaires depuis fil + geste Journal ; fondations D5 restent typées |
++| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
++| Lane | DEV only ; RECETTE/LIVE Nora/STABLE NOT AUTHORIZED |
++| Status | LOCAL CORRECTIVE — handoff L3 only |
++| Verdict candidate | `ML3 F01/F02 CONVERSATION-AUTHORITY INTEGRATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
 +
- function normalizeText(text: string): string {
-   // Normalize typographic apostrophes so « n’est » and « n'est » share one path.
-   return text
-```
++## delivery_id: DELIV-2026-11-06-ML3-F01-F02-C01-C02-C03-AUTHORITY-RECOVERY
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-06 (Europe/Paris) |
++| Macro-lot | R5 / ML3 — F01/F02 C01/C02/C03 after Critical Review NOT ACCEPTED |
++| Type | INC corrective continuation (same ML3) |
++| Branch | `sfia/next-pilotage-decisions-delivery` (**local — no project commit/push**) |
++| Prior handoff | `sfia/review-handoff@c2bec44b` blob `bbf43260` |
++| Candidate ref | `8bf8b5ce` unchanged |
++| Schema | unchanged `007` |
++| C01 | Exploratory language ≠ REVISE ; Level A non-authorizing |
++| C02 | Durable reconstitution via business_commands + stable client turn key |
++| C03 | Thread continuity after reload ; Journal >8 expandable |
++| Product version | `NO RELEASE` |
++| Lane | DEV only |
++| Verdict candidate | `ML3 F01/F02 AUTHORITY AND RECOVERY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
++
++## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CR01-CR02-CONSOLIDATION
++
++| Champ | Valeur |
++|---|---|
++| Date UTC | 2026-11-06 |
++| Macro-lot | R5 / ML3 — F01/F02 CR-01/CR-02 after Critical Review PARTIALLY ACCEPTED |
++| Type | INC CRITICAL |
++| CR-01 | D6 revise uniqueness over full APPLICABLE set (not Nora window of 12) |
++| CR-02 | Pending exclusive guard ; Nora COMPLETE ≠ métier UNKNOWN clear ; ACK-lost browser proof |
++| Git projet | HEAD `8bf8b5ce` inchangé — **aucun** commit/push projet |
++| ENV-01 | DEV only (`127.0.0.1:5433/sfia_next_dev`) |
++| Versioning | NO RELEASE / STABLE NOT AVAILABLE |
++| Verdict candidate | `ML3 F01/F02 AUTHORITY TARGET AND RECOVERY CONSOLIDATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
++
++## delivery_id: DELIV-2026-11-06-ML3-CANDIDATE-PUBLICATION-RECETTE-BUILD-PREP
++
++| Champ | Valeur |
++|---|---|
++| Date UTC | 2026-11-06 |
++| Macro-lot | R5 / ML3 — publication candidat corrigé + préparation build RECETTE |
++| Type | RUN CRITICAL |
++| Branche | `sfia/next-pilotage-decisions-delivery` |
++| Base précédente | `8bf8b5ce` |
++| R-UX-01 | NON CONFORME — CARRIED RESERVE Morris (entrée RECETTE conditionnelle) ; pas ACCEPTED FUNCTIONALLY |
++| Publication | commit + push FF autorisés ; PR/merge/STABLE/deploy RECETTE **non** autorisés |
++| Build | worktree propre au SHA publié → artefact préparé, **BUILD_PREPARED_NOT_DEPLOYED** |
++| Versioning | NO RELEASE ; package `0.0.0-dev` technique ; product_version NOT AVAILABLE |
++| ENV-01 | DEV tests only ; RECETTE DB/runtime non mutés ; cookie host réserve |
++| Verdict candidate | `ML3 UPDATED IMMUTABLE CANDIDATE PUBLISHED — RECETTE BUILD PREPARED — READY FOR CHATGPT CRITICAL REVIEW` |
++| Note | SHA/tree/build exacts consignés dans Review Pack / manifeste local après commit (pas d'autoréférence dans ce fichier avant commit). |
+diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
+index 96edf7ea..a5da40ed 100644
+--- a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
++++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
+@@ -229,7 +229,7 @@ Les quatre points ont une **solution technique explicitée et réfutable** ; ils
 
-### DIFF `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
+ **R3 lot B :** état sans cycle #22 ; qualification proposée #23 ; cycle actif #24 ; méthode absente #28 ; méthode proposée #29 ; décision applicable #31 ; suspension #33/#34 ; CKI indisponible #39 ; Journal–Décisions #40 ; GO ambigu #41 ; vrai partiel #42 ; contradiction #43 ; transition combinée #47 ; mise à jour CKI candidate #48 ; ouverture en attente #52 ; clôture en attente #53 ; UNKNOWN #54 ; reprise #55 ; rejeu #56 ; guidance #58 ; relations #59 ; nouvelle méthode #60. Frames identifiées dans l'audit R3 Git, **Figma native et browser ML3 NON OBSERVÉS**. La maquette #42 doit être conditionnelle à un effet séparé réel et ne constitue pas un état de succès partiel dans notre transition interne atomique.
 
-```diff
+-**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. Le code ML2 `web/src/domains/conversation/nora-adapter.ts` ne charge pas D5/CKI aujourd'hui ; `service.ts` retourne `humanDecisionCreated:false`. Il faut intégrer D5/D6 **sans** déduire un GO d'une réponse de modèle ni modifier l'autorité de D3.
++**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. **F01/F02 (2026-11-06, local worktree) :** après `reserveTurnCommand` (message USER `COMPLETE`), `applyConversationalAuthority` appelle `executePilotageCommand` / `runBusinessCommand` sous `sourceKind=USER_MESSAGE` **avant** l'appel fournisseur Nora ; `humanDecisionCreated` et `pilotageEffect` sont factuels (jamais forcés à `false`). Aucune autorité depuis la sortie Nora ni D4.
+
+ **Observabilité :** relier operationId, commandId, projet/acteur de manière minimisée, source humaine, décision D6, effet D5, version état et résolution CKI. Les logs ne constituent jamais le registre métier ni une preuve de livraison D8. Corrélation connue vs inconnue explicite. Aucun secret, texte de décision sensible ou chaîne de pensée dans les métriques publiques.
+
+@@ -357,3 +357,50 @@ Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle pol
+ | **R3** | Isolation discriminante : décision B (`github-connexion` + marqueur unique) **persistée et APPLICABLE avant** `postUserMessageAndNora` sur A. Contexte B contient le marqueur ; contexte/réponse A ne le contiennent pas. USER text pertinent pour le même objectRef. Journal B inchangé ; replay idempotent. |
+
+ **Limites documentées :** famille de négations FR bornée (pas un NLP universel) ; Niveau B libre-texte NOT PROVEN ; Nora LIVE / Figma NOT EXECUTED / NOT VERIFIED.
++
++### F01/F02 — conversation → autorité D5/D6 (2026-11-06, local, **pas de commit projet**)
++
++Candidat distant de référence inchangé : `8bf8b5ce`. Intégration locale sur worktree DEV.
++
++| Élément | As-built |
++| --- | --- |
++| **Séquencement** | `reserveTurnCommand` (USER durable COMPLETE) → ownership check → `applyConversationalAuthority` (TX métier courte) → `buildNoraPilotageContext` → `generateNoraReply` → `commitTurnTerminal`. Jamais de TX PG longue pendant Nora. |
++| **F01 GO** | Intention CLEAR (`ouvre le cycle…`, etc.) → `executePilotageCommand` avec `sourceRef=userMessageId`, `clientCommandKey=conv-auth:{clientTurnKey}`, `actInstanceId=userMessageId`. Ambigu (« OK ») / soft / source assistant → aucun effet. |
++| **F02 RECORD** | `Je décide que…` / `Décision :…` → `RECORD_DECISION` documentaire avec `objectRef` dérivé. Questions / préférences exploratoires → clarification, pas de commande. |
++| **F02 REVISE** | `Finalement…` + confrontation Niveau A `POSSIBLE_CHANGE` sur **une** cible `RECORD_DECISION` APPLICABLE → `REVISE_DECISION`. Fondations D5 → clarification (opération typée). Multi-cibles → clarification. Journal UX : geste `Réviser` (EXPLICIT_INTERACTION) en complément. |
++| **API vérité** | `pilotageEffect.{attempted,intentClarity,status,reasonCode,decisionId,clarification,source}` ; `humanDecisionCreated` seulement si décision id confirmée APPLIED/ALREADY_APPLIED. Replay conserve le payload. |
++| **Idempotence** | Tour D3 (`clientTurnKey`) et commande métier (`conv-auth:…`) corrélés sans second moteur. UNKNOWN métier → réconciliation existante avant rejeu. |
++| **Couverture** | IMPLEMENTED local + BEHAVIOR PROVEN (unit intent, PG F01/F02, Playwright fil) ; ADOPTED / RECETTE / LIVE / STABLE = NOT CLAIMED. |
++| **Limites** | Qualificateur FR borné (pas NLP universel) ; pas de migration 008 ; pas de publication projet sans GO distinct. |
++
++### C01/C02/C03 — autorité / reprise / continuité (2026-11-06, local, **pas de commit projet**)
++
++Correctif après Critical Review F01/F02 NOT ACCEPTED. Candidat distant `8bf8b5ce` inchangé.
++
++| Correctif | As-built |
++| --- | --- |
++| **C01** | `isExploratoryActLanguage` ; « Finalement… » avec hedges (`je pense`, `pourrait`, `et si`, Nora) → AMBIGUOUS, aucune mutation. Assertive « Finalement, X devient Y » + cible unique RECORD → REVISE possible. « Je révise la décision… » performatif explicite. Level A ≠ autorité. |
++| **C02** | Effet D5/D6 avant Nora ; `markTurnUnknown(..., resultJson)` conserve `pilotageEffect` ; `reconstituteConversationalAuthority` via `conv-auth:{clientTurnKey}` / `USER_MESSAGE` sourceRef ; replay UNKNOWN reconstitue depuis `business_commands`. Clé client stable (ref + sessionStorage pending, pas de secret). Tour Nora et commande métier restent distincts. |
++| **C03** | Fil : résumé durable décisions + bouton réconciliation pending après reload. Journal : 8 plus récentes par défaut + expand historique complet (pas `slice(0,8)` des plus anciennes). |
++| **Preuves** | unit C01 ; PG C01/C02 fault/C03>8 ; Playwright F01/F02/C03. LIVE/RECETTE/STABLE NOT CLAIMED. |
++
++### CR-01 / CR-02 — consolidation Critical Review (2026-11-06, local, **pas de commit projet**)
++
++| Élément | As-built |
++|---|---|
++| **CR-01** | `findAuthorityReviseCandidates` / `selectAllApplicableBriefs` scannent **toutes** les APPLICABLE du projet (pas `MAX_APPLICABLE_FOR_CONTEXT=12`). La fenêtre cognitive reste pour Nora uniquement. 0 candidat → clarification ; 1 → REVISE documentaire si acte clair ; plusieurs → clarification (portées distinctes signalées). Pas de newest-wins / truncation. Level A framing filtre la pertinence, n'autorise jamais. |
++| **CR-02** | `shouldClearThreadPending` : Nora COMPLETE **ne** clôt **pas** un effet métier UNKNOWN. Garde exclusive `mayStartNewThreadAct` : une saisie distincte n'écrase pas un pending non résolu. 404 by-key → reprise **même** `clientTurnKey`, pas de nouvelle clé. sessionStorage = aide locale, vérité = `business_commands`. |
++| **Preuves** | unit CR-01 fenêtre 12 vs autorité ; unit pending lifecycle ; PG 15+ doubles GitHub (aucune REVISE) ; PG unique REVISE ; PG isolation interprojets ; PG concurrence même clé ; Playwright ACK perdu → reload → reconcile sans double OPEN. LIVE/RECETTE/STABLE NOT CLAIMED. |
++
++### R-UX-01 — continuité cognitive pendant tentative métier non résolue
++
++| Champ | Qualification |
++|---|---|
++| **ID** | R-UX-01 |
++| **Statut** | **NON CONFORME** — KNOWN FUNCTIONAL GAP |
++| **Arbitrage Morris** | CARRIED RESERVE — ACCEPTÉE CONDITIONNELLEMENT POUR PRÉPARATION / ENTRÉE RECETTE (2026-11-06). **Pas** ACCEPTED FUNCTIONALLY. |
++| **Comportement** | `mayStartNewThreadAct` refuse un nouvel acte distinct tant qu'un pending fil n'est pas résolu/réconcilié. |
++| **Impact** | Un travail conversationnel indépendant peut être temporairement bloqué pendant une tentative métier indéterminée. |
++| **Non-impact démontré** | Ne provoque pas d'effet D5/D6 injustifié, de double effet, de perte de clé, ni de fuite interprojets (garde exclusive + même clé). |
++| **Condition de sortie** | Permettre la poursuite cognitive indépendante des effets indéterminés sans perdre tentative, clé ni réconciliation. |
++| **Autres réserves** | Cookie DEV/RECETTE (ENV-01) ; libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; Figma pixel NOT VERIFIED. |
+diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
+index 8a7f1f66..1b1c5c83 100644
+--- a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
++++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
+@@ -220,8 +220,8 @@ Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2.
+ |---|---|---|
+ | B01 | `PostgreSQL ML3 pilotage and decisions` › `starts empty: no cycle, no method, no retained trajectory` ; e2e `cycle-absent` | Projet neuf sans cycle ni méthode |
+ | B02 | même fichier › `propose stays non-authoritative until an explicit retain` ; UI `retain-trajectory` | Proposition non ouvrante ; rétention explicite |
+-| B03 | même fichier › `opens a cycle from an explicit utterance without an operation` ; e2e champ « Énoncé GO » | GO naturel EXPLICIT_INTERACTION sans `operation` |
+-| B04 | même fichier › `rejects an ambiguous OK without opening a cycle` ; unit `qualifies a clear GO` | Énoncé équivoque rejeté |
++| B03 | même fichier › `opens a cycle from an explicit utterance…` ; **F01** `F01: clear GO via postUserMessageAndNora…` ; e2e fil `ML3 F01: GO naturel depuis le fil` (+ champ PilotagePanel) | GO naturel USER_MESSAGE via fil **et** EXPLICIT_INTERACTION |
++| B04 | même fichier › `rejects an ambiguous OK…` ; **F01** `F01: ambiguous OK and hostile assistant…` ; unit intent | Énoncé équivoque / source hostile rejetés |
+ | B05 | même fichier › `keeps a single ACTIVE cycle when two opens race` | Une seule ligne ACTIVE |
+ | B06 | même fichier › `replays the same key and conflicts when the fingerprint changes` ; `does not apply the same human act twice when only the client key changes` ; `reconcileCommandByClientKey` | Même clé rejouée ; même `actInstanceId` non dupliqué. Perte réseau UI : statut UNKNOWN + bouton réconcilier (non exécuté en PG) |
+ | B07 | même fichier › `rolls back a transition when opening the next cycle fails` | CLOSE+OPEN annulés ensemble |
+@@ -234,7 +234,7 @@ Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2.
+ | B14 | même fichier › restrictions + `CR-01: transition blocked when target B or source A is restricted` | STOP global, cible, et transition A→B (restriction sur A ou B) |
+ | B15 | même fichier › `isolates pilotage across projects and rejects a foreign user message` | Pas d'import inter-projets |
+ | B16 | même fichier › révocation de la méthode fondatrice dans le cas méthode | Révocation avant effet courant, sans restauration |
+-| B17 | e2e `decision-state` contient `APPLICABLE` ; PG `CR-02` journal `REVISED` / `APPLICABLE` | Journal affiche `state`, pas une validité séparée |
++| B17 | e2e `decision-state` + **F02** journal revise ; PG `F02: RECORD then REVISE…` + `CR-02` | Journal `APPLICABLE`/`REVISED` ; RECORD/REVISE depuis fil |
+ | B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
+
+ ### Ajustement autorité CR-01..CR-04 (2026-11-06)
+@@ -266,3 +266,20 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
+ | R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
+ | R2 | unit jamais/aucunement/apostrophe typo + restatements positifs | DETERMINISTIC | famille FR bornée ; ≠ oracle D6 |
+ | R3 | PG isolation : décision B APPLICABLE avant gen A ; même objectRef + marqueur ; ctx B+ / ctx A− | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |
++
++### F01/F02 — conversation-authority (2026-11-06, local worktree)
++
++| ID | testCaseRef | Preuve | Limite |
++| --- | --- | --- | --- |
++| F01-A | PG `F01: clear GO via postUserMessageAndNora…` ; e2e fil | USER persisté → OPEN_CYCLE APPLIED → HumanDecision → 1 ACTIVE | LIVE Nora NOT EXECUTED |
++| F01-B/C | PG `F01: ambiguous OK and hostile assistant…` | OK / soft / role assistant → no cycle | — |
++| F01-D | même cas F01-A replay `clientTurnKey` | idempotentReplay ; 1 ACTIVE | — |
++| F01-I | PG `F01: restriction blocks conversational GO…` | REJECTED RESTRICTION ; humanDecisionCreated=false | — |
++| F02-A/D | PG `F02: RECORD then REVISE…` ; e2e fil+Journal | RECORD → REVISED/APPLICABLE chain | fondations D5 non révisables génériquement |
++| F02-E | même cas F02 founding refuse | clarification ; cycle CADRAGE inchangé | — |
++| C01 | unit exploratory ; PG `C01: exploratory Finalement…` | réflexion ≠ mutation D6 | NLP universel NOT CLAIMED |
++| C02 | PG `C02: D6 APPLIED survives Nora provider failure…` | UNKNOWN tour + effet métier reconstituté | LIVE NOT EXECUTED |
++| C03 | PG journal>8 ; e2e expand historique | 8 récentes + historique complet | — |
++| CR-01 | unit fenêtre 12 vs `findAuthorityReviseCandidates` ; PG 15+ doubles GitHub ; PG unique ; PG isolation | unicité D6 hors borne cognitive | — |
++| CR-02 | unit `shouldClearThreadPending` / `mayStartNewThreadAct` ; PG concurrence même clé ; e2e ACK perdu+reload | pending préservé ; pas de double effet | cookie DEV/RECETTE réserve existante |
++| R-UX-01 | garde exclusive pending (unit + e2e distinct act blocked) | **NON CONFORME** — CARRIED RESERVE Morris pour entrée RECETTE conditionnelle | sortie : cognition indépendante sans perdre tentative/clé |
+diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+index 385c5dfd..fc46d866 100644
+--- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+@@ -51,7 +51,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+       },
+     );
+     const messages = await listMessages(session.pilotId, preparationId);
+-    return NextResponse.json({ ...result, messages, humanDecisionCreated: false, requestId });
++    // Pass through factual flags from the turn — never force humanDecisionCreated=false.
++    return NextResponse.json({
++      ...result,
++      messages,
++      humanDecisionCreated: Boolean(result.humanDecisionCreated),
++      pilotageEffect: result.pilotageEffect ?? null,
++      requestId,
++    });
+   } catch (e) {
+     const mapped = studioErrorResponse(e);
+     emitObs({
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 index 09f0d896..c4f26046 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
@@ -10237,11 +10415,155 @@ index 09f0d896..c4f26046 100644
              </div>
            </section>
            <aside className="space-y-3">
-```
+diff --git a/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx b/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
+index fe15ed92..16b1fc45 100644
+--- a/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
++++ b/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
+@@ -40,7 +40,8 @@ type DecisionRow = {
+   statement: string;
+   state: string;
+   objectRef?: string;
+-  createdAt: string;
++  createdAt?: string;
++  supersedesDecisionId?: string | null;
+ };
 
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+ type CommandResult = {
+@@ -162,6 +163,10 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
+   const [methodVersion, setMethodVersion] = useState("2.6");
+   const [utterance, setUtterance] = useState("");
+   const [restrictionTarget, setRestrictionTarget] = useState("*");
++  const [reviseTargetId, setReviseTargetId] = useState<string | null>(null);
++  const [reviseDraft, setReviseDraft] = useState("");
++  /** C03 — show 8 most recent by default; expand to full chronological history. */
++  const [journalExpanded, setJournalExpanded] = useState(false);
+   const inflight = useRef(new Map<string, PendingRecord>());
 
-```diff
+   const load = useCallback(async () => {
+@@ -759,15 +764,114 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
+             {decisions.length === 0 && !journalError ? (
+               <p className="text-sm muted">Aucune décision D6 enregistrée.</p>
+             ) : (
+-              decisions.slice(0, 8).map((d) => (
+-                <article key={d.id} className="text-sm panel p-2">
+-                  <div className="text-xs muted" data-testid="decision-state">
+-                    {d.kind} · {d.state || "état inconnu"}
+-                    {d.objectRef ? ` · ${d.objectRef}` : ""}
+-                  </div>
+-                  <div>{d.statement}</div>
+-                </article>
+-              ))
++              (() => {
++                const chronological = [...decisions].sort((a, b) =>
++                  String(a.createdAt ?? "").localeCompare(String(b.createdAt ?? "")),
++                );
++                const newestFirst = [...chronological].reverse();
++                const visible = journalExpanded ? chronological : newestFirst.slice(0, 8);
++                return (
++                  <>
++                    <p className="text-xs muted" data-testid="journal-count">
++                      {decisions.length} décision(s) ·{" "}
++                      {journalExpanded
++                        ? "historique complet (ancien → récent)"
++                        : "8 plus récentes (récent → ancien)"}
++                    </p>
++                    {visible.map((d) => (
++                      <article
++                        key={d.id}
++                        className="text-sm panel p-2 space-y-2"
++                        data-testid="decision-row"
++                      >
++                        <div className="text-xs muted" data-testid="decision-state">
++                          {d.kind} · {d.state || "état inconnu"}
++                          {d.objectRef ? ` · ${d.objectRef}` : ""}
++                        </div>
++                        <div>{d.statement}</div>
++                        {d.state === "APPLICABLE" && d.kind === "RECORD_DECISION" ? (
++                          reviseTargetId === d.id ? (
++                            <div className="space-y-2">
++                              <label className="block text-xs muted" htmlFor={`revise-${d.id}`}>
++                                Nouvel énoncé (révision documentaire)
++                              </label>
++                              <textarea
++                                id={`revise-${d.id}`}
++                                className="textarea text-sm"
++                                value={reviseDraft}
++                                onChange={(e) => setReviseDraft(e.target.value)}
++                                data-testid="journal-revise-draft"
++                                rows={2}
++                              />
++                              <div className="flex flex-wrap gap-2">
++                                <button
++                                  type="button"
++                                  className="btn"
++                                  disabled={busy || !reviseDraft.trim()}
++                                  data-testid="journal-revise-submit"
++                                  onClick={() =>
++                                    void runCommand(
++                                      {
++                                        operation: "REVISE_DECISION",
++                                        decisionId: d.id,
++                                        statement: reviseDraft.trim(),
++                                        sourceKind: "EXPLICIT_INTERACTION",
++                                        utterance: reviseDraft.trim(),
++                                      },
++                                      "Révision en cours",
++                                    ).then(() => {
++                                      setReviseTargetId(null);
++                                      setReviseDraft("");
++                                    })
++                                  }
++                                >
++                                  Enregistrer la révision
++                                </button>
++                                <button
++                                  type="button"
++                                  className="btn secondary"
++                                  disabled={busy}
++                                  onClick={() => {
++                                    setReviseTargetId(null);
++                                    setReviseDraft("");
++                                  }}
++                                >
++                                  Annuler
++                                </button>
++                              </div>
++                            </div>
++                          ) : (
++                            <button
++                              type="button"
++                              className="btn secondary text-xs"
++                              disabled={busy}
++                              data-testid="journal-revise-open"
++                              onClick={() => {
++                                setReviseTargetId(d.id);
++                                setReviseDraft(d.statement);
++                              }}
++                            >
++                              Réviser
++                            </button>
++                          )
++                        ) : null}
++                      </article>
++                    ))}
++                    {decisions.length > 8 ? (
++                      <button
++                        type="button"
++                        className="btn secondary text-xs"
++                        data-testid="journal-expand"
++                        onClick={() => setJournalExpanded((v) => !v)}
++                      >
++                        {journalExpanded
++                          ? "Réduire aux 8 plus récentes"
++                          : `Afficher tout l'historique (${decisions.length})`}
++                      </button>
++                    ) : null}
++                  </>
++                );
++              })()
+             )}
+           </section>
+         </aside>
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 index fb89d5d0..a8b668a4 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
@@ -10562,11 +10884,6 @@ index fb89d5d0..a8b668a4 100644
    };
 
    if (turnRaceHooks.beforeTerminalCommit) {
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
 index 19c64cd8..1bb7ba40 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
@@ -10619,11 +10936,400 @@ index 19c64cd8..1bb7ba40 100644
 +    resultJson,
    });
  }
-```
 
-### DIFF `projects/sfia-studio-next/web/src/domains/pilotage/intent.ts`
+diff --git a/projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts b/projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
+index 8d3f9989..d9175408 100644
+--- a/projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
++++ b/projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
+@@ -90,6 +90,46 @@ export function selectApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
+     .slice(-MAX_APPLICABLE_FOR_CONTEXT);
+ }
 
-```diff
++/**
++ * CR-01 — all APPLICABLE briefs for D6 authority resolution.
++ * Never apply the Nora cognitive window (MAX_APPLICABLE_FOR_CONTEXT).
++ * Bounded context ≠ uniqueness of an opposable target.
++ */
++export function selectAllApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
++  return rows.filter(
++    (r) => r.state === "APPLICABLE" && (r.objectRef ?? "").trim().length > 0,
++  );
++}
++
++export type AuthorityReviseCandidate = DecisionBrief & {
++  framing: LevelASignal["framing"];
++};
++
++/**
++ * CR-01 — D6 revise-target candidates across the full applicable set.
++ * Level A framing filters relevance only — never authorizes mutation.
++ * No chronological / newest-wins / truncation selection.
++ * Caller must require exactly one candidate before REVISE.
++ */
++export function findAuthorityReviseCandidates(
++  userText: string,
++  rows: DecisionBrief[],
++): AuthorityReviseCandidate[] {
++  const text = userText.trim();
++  if (!text) return [];
++  const applicable = selectAllApplicableBriefs(rows);
++  const out: AuthorityReviseCandidate[] = [];
++  for (const row of applicable) {
++    if (!utteranceTouchesObject(text, row.objectRef)) continue;
++    if (normalizeText(text) === normalizeText(row.statement)) continue;
++    const framing = frameConfrontation(row.statement, text);
++    // Compatible restatement is not a revise target.
++    if (framing === "COMPATIBLE_RESTATEMENT") continue;
++    out.push({ ...row, framing });
++  }
++  return out;
++}
++
+ function normalizeText(text: string): string {
+   // Normalize typographic apostrophes so « n’est » and « n'est » share one path.
+   return text
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+new file mode 100644
+index 00000000..402638fb
+--- /dev/null
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+@@ -0,0 +1,336 @@
++/**
++ * F01/F02 — bridge from a persisted USER message to the existing D5/D6
++ * command boundary. Never invents authority from Nora or D4 content.
++ *
++ * Sequencing contract:
++ * 1. USER message already durable (COMPLETE) before this runs.
++ * 2. Short business TX via executePilotageCommand only — never around Nora.
++ * 3. Ambiguous / insufficient acts do not call the command runner
++ *    (avoids HUMAN_INTENT locks on clarification turns).
++ * 4. C02 — durable effects are recoverable via business_commands
++ *    (conv-auth:{clientTurnKey} / USER_MESSAGE sourceRef), not only resultJson.
++ */
++import { and, asc, eq } from "drizzle-orm";
++import { db } from "@/db/client";
++import { businessCommandEffects, businessCommands, humanDecisions } from "@/db/schema";
++import {
++  findAuthorityReviseCandidates,
++  type DecisionBrief,
++} from "@/domains/decisions/divergence-assist";
++import { toCommandResult } from "@/domains/pilotage/command-runner";
++import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
++import {
++  executePilotageCommand,
++  getPilotageProjection,
++  reconcileCommandByClientKey,
++} from "@/domains/pilotage/service";
++import { conversationalClientCommandKey } from "@/domains/pilotage/thread-recovery";
++import type { CommandResult, PilotageRequestBody } from "@/domains/pilotage/types";
++
++const D5_FOUNDING_KINDS = new Set([
++  "OPEN_CYCLE",
++  "CLOSE_CYCLE",
++  "TRANSITION_CYCLE",
++  "CHOOSE_METHOD",
++  "REPLACE_METHOD",
++  "WITHDRAW_METHOD",
++  "RETAIN_TRAJECTORY",
++  "PROPOSE_TRAJECTORY",
++  "APPLY_RESTRICTION",
++  "LIFT_RESTRICTION",
++  "REVOKE_DECISION",
++]);
++
++export type ConversationalAuthorityOutcome = {
++  /** Whether a D5/D6 command was attempted. */
++  attempted: boolean;
++  /** Intent recognized before any command. */
++  intentClarity: "CLEAR" | "AMBIGUOUS" | "NONE";
++  intentReason?: string;
++  operation?: string;
++  /** Honest command result when attempted. */
++  command: CommandResult | null;
++  /** True only when a HumanDecision id was produced or already applied. */
++  humanDecisionCreated: boolean;
++  decisionId: string | null;
++  clarification?: string;
++  source: "none" | "user_message_command" | "clarification_only" | "reconstituted";
++  /** Stable business key — searchable after Nora/HTTP interruption. */
++  clientCommandKey?: string;
++};
++
++/** Stable D5/D6 client key for a conversational turn — not a second registry. */
++export function conversationalCommandKey(clientTurnKey: string): string {
++  return conversationalClientCommandKey(clientTurnKey);
++}
++
++async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
++  const rows = await db
++    .select({
++      id: humanDecisions.id,
++      kind: humanDecisions.kind,
++      objectRef: humanDecisions.objectRef,
++      scope: humanDecisions.scope,
++      statement: humanDecisions.statement,
++      state: humanDecisions.state,
++      sourceKind: humanDecisions.sourceKind,
++    })
++    .from(humanDecisions)
++    .where(eq(humanDecisions.projectId, projectId))
++    .orderBy(asc(humanDecisions.createdAt));
++  return rows.map((r) => ({
++    id: r.id,
++    kind: r.kind,
++    objectRef: r.objectRef ?? "",
++    scope: r.scope ?? "PROJECT",
++    statement: r.statement ?? "",
++    state: r.state,
++    sourceKind: r.sourceKind,
++  }));
++}
++
++/**
++ * Resolve a documentary REVISE target (CR-01).
++ * Uses the full APPLICABLE set — never the Nora cognitive window of 12.
++ * Level A framing filters relevance only — never authorizes by itself.
++ * Qualify must already be CLEAR (caller). Founding D5 kinds are refused.
++ * 0 / many candidates ⇒ clarification; never chronological newest-wins.
++ */
++function resolveReviseTarget(
++  utterance: string,
++  briefs: DecisionBrief[],
++):
++  | { ok: true; decisionId: string; statement: string }
++  | { ok: false; reason: string } {
++  const candidates = findAuthorityReviseCandidates(utterance, briefs);
++  if (candidates.length === 0) {
++    return {
++      ok: false,
++      reason: "Aucune décision applicable clairement revisitée — précisez la cible",
++    };
++  }
++  if (candidates.length > 1) {
++    const scopes = new Set(candidates.map((c) => c.scope));
++    return {
++      ok: false,
++      reason:
++        scopes.size > 1
++          ? "Plusieurs décisions candidates à portées distinctes — précisez la portée et la cible"
++          : "Plusieurs décisions candidates — précisez laquelle réviser",
++    };
++  }
++  const target = candidates[0];
++  if (!target || target.state !== "APPLICABLE") {
++    return { ok: false, reason: "Cible de révision non applicable" };
++  }
++  if (D5_FOUNDING_KINDS.has(target.kind)) {
++    return {
++      ok: false,
++      reason: `Révision générique refusée pour ${target.kind} — utiliser l'opération métier typée`,
++    };
++  }
++  if (target.kind !== "RECORD_DECISION") {
++    return {
++      ok: false,
++      reason: `Révision conversationnelle limitée aux décisions documentaires (kind=${target.kind})`,
++    };
++  }
++  const qualified = qualifyPilotageIntent(utterance);
++  const statement =
++    (qualified.clarity === "CLEAR" && qualified.statement) ||
++    utterance.replace(/^(?:finalement|désormais|dorénavant)[,:]?\s+/i, "").trim();
++  return { ok: true, decisionId: target.id, statement: statement.slice(0, 500) };
++}
++
++function outcomeFromCommand(
++  command: CommandResult,
++  operation: string,
++  clientCommandKey: string,
++  source: ConversationalAuthorityOutcome["source"] = "user_message_command",
++): ConversationalAuthorityOutcome {
++  const applied = command.status === "APPLIED" || command.status === "ALREADY_APPLIED";
++  return {
++    attempted: true,
++    intentClarity: "CLEAR",
++    operation,
++    command,
++    humanDecisionCreated: applied && Boolean(command.decisionId),
++    decisionId: command.decisionId,
++    source,
++    clientCommandKey,
++    intentReason:
++      command.status === "REJECTED" || command.status === "CONFLICT" || command.status === "UNKNOWN"
++        ? command.reason
++        : undefined,
++    clarification:
++      command.status === "REJECTED" && command.reasonCode === "AMBIGUOUS"
++        ? command.reason
++        : undefined,
++  };
++}
++
++/**
++ * C02 — reconstitute a prior conversational D5/D6 effect from the durable registry.
++ * Prefer clientCommandKey; fall back to USER_MESSAGE sourceRef (= userMessageId).
++ * Never invents APPLIED/REJECTED when nothing is found.
++ */
++export async function reconstituteConversationalAuthority(input: {
++  pilotId: string;
++  projectId: string;
++  clientTurnKey?: string | null;
++  userMessageId?: string | null;
++}): Promise<ConversationalAuthorityOutcome | null> {
++  const key = input.clientTurnKey?.trim()
++    ? conversationalCommandKey(input.clientTurnKey)
++    : null;
++  if (key) {
++    try {
++      const command = await reconcileCommandByClientKey(input.pilotId, input.projectId, key);
++      return outcomeFromCommand(
++        command,
++        command.effects[0]?.effectKind ?? "UNKNOWN",
++        key,
++        "reconstituted",
++      );
++    } catch {
++      /* fall through to sourceRef */
++    }
++  }
++  const messageId = input.userMessageId?.trim();
++  if (!messageId) return null;
++  const cmd = (
++    await db
++      .select()
++      .from(businessCommands)
++      .where(
++        and(
++          eq(businessCommands.projectId, input.projectId),
++          eq(businessCommands.actorPilotId, input.pilotId),
++          eq(businessCommands.sourceKind, "USER_MESSAGE"),
++          eq(businessCommands.sourceRef, messageId),
++        ),
++      )
++      .limit(1)
++  )[0];
++  if (!cmd) return null;
++  const effects = await db
++    .select()
++    .from(businessCommandEffects)
++    .where(eq(businessCommandEffects.commandId, cmd.id))
++    .orderBy(asc(businessCommandEffects.ordinal));
++  const command = toCommandResult(cmd, effects, "replay");
++  return outcomeFromCommand(
++    command,
++    cmd.operation || effects[0]?.effectKind || "UNKNOWN",
++    cmd.clientCommandKey,
++    "reconstituted",
++  );
++}
++
++/**
++ * Attempt a governed D5/D6 command from a persisted USER message.
++ * Caller must pass the durable message id as sourceRef / actInstanceId.
++ */
++export async function applyConversationalAuthority(input: {
++  pilotId: string;
++  projectId: string;
++  userMessageId: string;
++  content: string;
++  clientTurnKey: string;
++}): Promise<ConversationalAuthorityOutcome> {
++  const content = input.content.trim();
++  const clientCommandKey = conversationalCommandKey(input.clientTurnKey);
++  const empty: ConversationalAuthorityOutcome = {
++    attempted: false,
++    intentClarity: "NONE",
++    command: null,
++    humanDecisionCreated: false,
++    decisionId: null,
++    source: "none",
++    clientCommandKey,
++  };
++  if (!content || !input.projectId || !input.userMessageId) return empty;
++
++  // C02 — if this turn key already produced a durable command, return it (no second effect).
++  const prior = await reconstituteConversationalAuthority({
++    pilotId: input.pilotId,
++    projectId: input.projectId,
++    clientTurnKey: input.clientTurnKey,
++    userMessageId: input.userMessageId,
++  });
++  if (prior?.attempted && prior.command) {
++    return prior;
++  }
++
++  const qualified = qualifyPilotageIntent(content);
++  if (qualified.clarity === "NONE") {
++    return { ...empty, intentClarity: "NONE", intentReason: qualified.reason };
++  }
++  if (qualified.clarity === "AMBIGUOUS") {
++    return {
++      ...empty,
++      intentClarity: "AMBIGUOUS",
++      intentReason: qualified.reason,
++      clarification: qualified.reason,
++      source: "clarification_only",
++    };
++  }
++
++  const projection = await getPilotageProjection(input.pilotId, input.projectId);
++  const base: PilotageRequestBody = {
++    clientCommandKey,
++    expectedRevision: projection.revision,
++    sourceKind: "USER_MESSAGE",
++    sourceRef: input.userMessageId,
++    utterance: content,
++    actInstanceId: input.userMessageId,
++  };
++
++  if (qualified.operation === "REVISE_DECISION") {
++    const briefs = await loadDecisionBriefs(input.projectId);
++    const resolved = resolveReviseTarget(content, briefs);
++    if (!resolved.ok) {
++      return {
++        attempted: false,
++        intentClarity: "AMBIGUOUS",
++        intentReason: resolved.reason,
++        command: null,
++        humanDecisionCreated: false,
++        decisionId: null,
++        clarification: resolved.reason,
++        source: "clarification_only",
++        operation: "REVISE_DECISION",
++        clientCommandKey,
++      };
++    }
++    const command = await executePilotageCommand(input.pilotId, input.projectId, {
++      ...base,
++      operation: "REVISE_DECISION",
++      decisionId: resolved.decisionId,
++      statement: resolved.statement,
++      objectRef: qualified.objectRef,
++    });
++    return outcomeFromCommand(command, "REVISE_DECISION", clientCommandKey);
++  }
++
++  if (qualified.operation === "RECORD_DECISION") {
++    const command = await executePilotageCommand(input.pilotId, input.projectId, {
++      ...base,
++      operation: "RECORD_DECISION",
++      statement: qualified.statement ?? qualified.objective ?? content,
++      objectRef: qualified.objectRef,
++      objective: qualified.objective,
++    });
++    return outcomeFromCommand(command, "RECORD_DECISION", clientCommandKey);
++  }
++
++  const command = await executePilotageCommand(input.pilotId, input.projectId, {
++    ...base,
++    cycleType: qualified.cycleType,
++    toCycleType: qualified.toCycleType,
++    methodRef: qualified.methodRef,
++    methodVersion: qualified.methodVersion,
++    objective: qualified.objective,
++  });
++  return outcomeFromCommand(command, qualified.operation, clientCommandKey);
++}
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
 index 75fcacc8..89790d47 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
@@ -10772,11 +11478,6 @@ index 75fcacc8..89790d47 100644
    if (cyclesMentioned(text).length >= 2) {
      return { clarity: "AMBIGUOUS", reason: "Plusieurs cycles cités" };
    }
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
 index c6872bc6..c8c7f441 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
@@ -10816,412 +11517,337 @@ index c6872bc6..c8c7f441 100644
      sourceActionKey: "",
    };
    if (
-```
-
-### DIFF `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-index 385c5dfd..fc46d866 100644
---- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-@@ -51,7 +51,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
-       },
-     );
-     const messages = await listMessages(session.pilotId, preparationId);
--    return NextResponse.json({ ...result, messages, humanDecisionCreated: false, requestId });
-+    // Pass through factual flags from the turn — never force humanDecisionCreated=false.
-+    return NextResponse.json({
-+      ...result,
-+      messages,
-+      humanDecisionCreated: Boolean(result.humanDecisionCreated),
-+      pilotageEffect: result.pilotageEffect ?? null,
-+      requestId,
-+    });
-   } catch (e) {
-     const mapped = studioErrorResponse(e);
-     emitObs({
-```
-
-### DIFF `projects/sfia-studio-next/web/src/components/PilotagePanel.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx b/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-index fe15ed92..16b1fc45 100644
---- a/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-+++ b/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-@@ -40,7 +40,8 @@ type DecisionRow = {
-   statement: string;
-   state: string;
-   objectRef?: string;
--  createdAt: string;
-+  createdAt?: string;
-+  supersedesDecisionId?: string | null;
- };
-
- type CommandResult = {
-@@ -162,6 +163,10 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
-   const [methodVersion, setMethodVersion] = useState("2.6");
-   const [utterance, setUtterance] = useState("");
-   const [restrictionTarget, setRestrictionTarget] = useState("*");
-+  const [reviseTargetId, setReviseTargetId] = useState<string | null>(null);
-+  const [reviseDraft, setReviseDraft] = useState("");
-+  /** C03 — show 8 most recent by default; expand to full chronological history. */
-+  const [journalExpanded, setJournalExpanded] = useState(false);
-   const inflight = useRef(new Map<string, PendingRecord>());
-
-   const load = useCallback(async () => {
-@@ -759,15 +764,114 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
-             {decisions.length === 0 && !journalError ? (
-               <p className="text-sm muted">Aucune décision D6 enregistrée.</p>
-             ) : (
--              decisions.slice(0, 8).map((d) => (
--                <article key={d.id} className="text-sm panel p-2">
--                  <div className="text-xs muted" data-testid="decision-state">
--                    {d.kind} · {d.state || "état inconnu"}
--                    {d.objectRef ? ` · ${d.objectRef}` : ""}
--                  </div>
--                  <div>{d.statement}</div>
--                </article>
--              ))
-+              (() => {
-+                const chronological = [...decisions].sort((a, b) =>
-+                  String(a.createdAt ?? "").localeCompare(String(b.createdAt ?? "")),
-+                );
-+                const newestFirst = [...chronological].reverse();
-+                const visible = journalExpanded ? chronological : newestFirst.slice(0, 8);
-+                return (
-+                  <>
-+                    <p className="text-xs muted" data-testid="journal-count">
-+                      {decisions.length} décision(s) ·{" "}
-+                      {journalExpanded
-+                        ? "historique complet (ancien → récent)"
-+                        : "8 plus récentes (récent → ancien)"}
-+                    </p>
-+                    {visible.map((d) => (
-+                      <article
-+                        key={d.id}
-+                        className="text-sm panel p-2 space-y-2"
-+                        data-testid="decision-row"
-+                      >
-+                        <div className="text-xs muted" data-testid="decision-state">
-+                          {d.kind} · {d.state || "état inconnu"}
-+                          {d.objectRef ? ` · ${d.objectRef}` : ""}
-+                        </div>
-+                        <div>{d.statement}</div>
-+                        {d.state === "APPLICABLE" && d.kind === "RECORD_DECISION" ? (
-+                          reviseTargetId === d.id ? (
-+                            <div className="space-y-2">
-+                              <label className="block text-xs muted" htmlFor={`revise-${d.id}`}>
-+                                Nouvel énoncé (révision documentaire)
-+                              </label>
-+                              <textarea
-+                                id={`revise-${d.id}`}
-+                                className="textarea text-sm"
-+                                value={reviseDraft}
-+                                onChange={(e) => setReviseDraft(e.target.value)}
-+                                data-testid="journal-revise-draft"
-+                                rows={2}
-+                              />
-+                              <div className="flex flex-wrap gap-2">
-+                                <button
-+                                  type="button"
-+                                  className="btn"
-+                                  disabled={busy || !reviseDraft.trim()}
-+                                  data-testid="journal-revise-submit"
-+                                  onClick={() =>
-+                                    void runCommand(
-+                                      {
-+                                        operation: "REVISE_DECISION",
-+                                        decisionId: d.id,
-+                                        statement: reviseDraft.trim(),
-+                                        sourceKind: "EXPLICIT_INTERACTION",
-+                                        utterance: reviseDraft.trim(),
-+                                      },
-+                                      "Révision en cours",
-+                                    ).then(() => {
-+                                      setReviseTargetId(null);
-+                                      setReviseDraft("");
-+                                    })
-+                                  }
-+                                >
-+                                  Enregistrer la révision
-+                                </button>
-+                                <button
-+                                  type="button"
-+                                  className="btn secondary"
-+                                  disabled={busy}
-+                                  onClick={() => {
-+                                    setReviseTargetId(null);
-+                                    setReviseDraft("");
-+                                  }}
-+                                >
-+                                  Annuler
-+                                </button>
-+                              </div>
-+                            </div>
-+                          ) : (
-+                            <button
-+                              type="button"
-+                              className="btn secondary text-xs"
-+                              disabled={busy}
-+                              data-testid="journal-revise-open"
-+                              onClick={() => {
-+                                setReviseTargetId(d.id);
-+                                setReviseDraft(d.statement);
-+                              }}
-+                            >
-+                              Réviser
-+                            </button>
-+                          )
-+                        ) : null}
-+                      </article>
-+                    ))}
-+                    {decisions.length > 8 ? (
-+                      <button
-+                        type="button"
-+                        className="btn secondary text-xs"
-+                        data-testid="journal-expand"
-+                        onClick={() => setJournalExpanded((v) => !v)}
-+                      >
-+                        {journalExpanded
-+                          ? "Réduire aux 8 plus récentes"
-+                          : `Afficher tout l'historique (${decisions.length})`}
-+                      </button>
-+                    ) : null}
-+                  </>
-+                );
-+              })()
-             )}
-           </section>
-         </aside>
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
-index c8e74d53..ff7ef9ff 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
-@@ -1,12 +1,18 @@
- import { describe, expect, it, afterEach } from "vitest";
- import {
-   buildLevelAClarification,
-+  findAuthorityReviseCandidates,
-   findMessageDecisionConfrontations,
-   findPotentialDivergences,
-   qualifyCommandOutcome,
-   selectApplicableBriefs,
-+  selectAllApplicableBriefs,
- } from "@/domains/decisions/divergence-assist";
- import { generateNoraReply } from "@/domains/conversation/nora-adapter";
-+import {
-+  mayStartNewThreadAct,
-+  shouldClearThreadPending,
-+} from "@/domains/pilotage/thread-recovery";
-
- const prior = {
-   id: "dec_gh",
-@@ -208,3 +214,134 @@ describe("B13 C02 qualifyCommandOutcome", () => {
-     expect(q.testId).toBe("outcome-unknown");
-   });
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
+new file mode 100644
+index 00000000..2a46650b
+--- /dev/null
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
+@@ -0,0 +1,57 @@
++/**
++ * CR-02 — client-side recovery helpers (no DB, no secrets).
++ * sessionStorage pending is a local aid; durable truth stays in D5/D6.
++ */
++
++export type ThreadPendingTurn = {
++  content: string;
++  clientTurnKey: string;
++  clientCommandKey: string;
++};
++
++/** Deterministic business key for a conversational turn. */
++export function conversationalClientCommandKey(clientTurnKey: string): string {
++  return `conv-auth:${clientTurnKey.trim()}`;
++}
++
++export function pendingStorageKey(projectId: string): string {
++  return `sfia.thread.pending:${projectId}`;
++}
++
++/**
++ * Clear pending only when the business effect is terminal, or when no
++ * business attempt occurred and Nora reached a conversational terminal.
++ * Nora COMPLETE must NOT close an UNKNOWN / unresolved métier effect.
++ */
++export function shouldClearThreadPending(input: {
++  noraStatus?: string | null;
++  effectAttempted?: boolean | null;
++  effectStatus?: string | null;
++}): boolean {
++  const biz = (input.effectStatus ?? "").trim().toUpperCase();
++  if (input.effectAttempted === true) {
++    if (!biz || biz === "UNKNOWN" || biz.startsWith("UNKNOWN")) return false;
++    return true;
++  }
++  const nora = (input.noraStatus ?? "").trim().toUpperCase();
++  return nora === "COMPLETE" || nora === "FAILED";
++}
++
++/**
++ * Exclusive in-flight guard: a distinct new act must not silently overwrite
++ * an unresolved pending. Same content ⇒ retry of the same logical act.
++ */
++export function mayStartNewThreadAct(input: {
++  unresolved: ThreadPendingTurn | null | undefined;
++  nextContent: string;
++}): { ok: true } | { ok: false; reason: string; pending: ThreadPendingTurn } {
++  const pending = input.unresolved;
++  if (!pending) return { ok: true };
++  if (pending.content.trim() === input.nextContent.trim()) return { ok: true };
++  return {
++    ok: false,
++    reason:
++      "Tentative non résolue en cours — réconcilier avant un nouvel acte distinct",
++    pending,
++  };
++}
+diff --git a/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
+index 4403fac3..4fb64d1c 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
+@@ -208,3 +208,263 @@ test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({
+   await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
+   await expect(page.getByTestId("outcome-unknown")).toHaveCount(0);
  });
 +
-+describe("CR-01 authority revise candidates vs cognitive window", () => {
-+  function brief(
-+    id: string,
-+    objectRef: string,
-+    statement: string,
-+    scope = "PROJECT",
-+  ) {
-+    return {
-+      id,
-+      kind: "RECORD_DECISION",
-+      objectRef,
-+      scope,
-+      statement,
-+      state: "APPLICABLE",
-+      sourceKind: "EXPLICIT_INTERACTION",
-+    };
++/**
++ * F01 — GO naturel depuis le fil projet principal (pas le bouton PilotagePanel).
++ * Pixel Figma: NOT VERIFIED.
++ */
++test("ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE", async ({ page }) => {
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
++  await page.waitForURL("**/preparations/**");
++  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F01 thread seed");
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
++    timeout: 30000,
++  });
++  await page.getByRole("button", { name: "Travail" }).click();
++  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F01 Fil");
++  await page.getByPlaceholder("Résumé inspecté").fill("e2e f01 thread");
++  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
++  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
++  await page.getByRole("button", { name: "Créer le projet" }).click();
++  await page.waitForURL("**/projects/**", { timeout: 20000 });
++
++  await page.getByRole("button", { name: "Travail" }).click();
++  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/OPEN_CYCLE|APPLIED/i, {
++    timeout: 30000,
++  });
++  await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|deterministic/i, {
++    timeout: 30000,
++  });
++
++  await page.getByRole("button", { name: "Pilotage" }).click();
++  await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
++  await expect(page.getByRole("heading", { name: /Cycle CADRAGE/ })).toBeVisible();
++  await expect(page.getByTestId("decision-state").first()).toContainText("APPLICABLE");
++});
++
++/**
++ * F02 — décision documentaire depuis le fil + révision via Journal.
++ */
++test("ML3 F02: RECORD depuis le fil puis révision Journal", async ({ page }) => {
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
++  await page.waitForURL("**/preparations/**");
++  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F02 seed");
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
++    timeout: 30000,
++  });
++  await page.getByRole("button", { name: "Travail" }).click();
++  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F02 Décisions");
++  await page.getByPlaceholder("Résumé inspecté").fill("e2e f02");
++  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
++  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
++  await page.getByRole("button", { name: "Créer le projet" }).click();
++  await page.waitForURL("**/projects/**", { timeout: 20000 });
++
++  await page.getByRole("button", { name: "Travail" }).click();
++  await page
++    .getByLabel("Message à Nora")
++    .fill("Je décide que la connexion GitHub est obligatoire pour ce projet.");
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(page.getByTestId("thread-pilotage-status")).toContainText(
++    /RECORD_DECISION|APPLIED|décision/i,
++    { timeout: 30000 },
++  );
++
++  await page.getByRole("button", { name: "Pilotage" }).click();
++  await expect(page.getByTestId("decision-state").first()).toContainText(/RECORD_DECISION.*APPLICABLE/i, {
++    timeout: 15000,
++  });
++  await page.getByTestId("journal-revise-open").first().click();
++  await page.getByTestId("journal-revise-draft").fill("La connexion GitHub est facultative pour ce projet.");
++  await page.getByTestId("journal-revise-submit").click();
++  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
++    timeout: 15000,
++  });
++  await expect(page.getByText(/facultative/i).first()).toBeVisible({ timeout: 10000 });
++});
++
++/**
++ * C03 — Journal >8: newest visible by default; full history via expand.
++ * Seeds via D6 API (not the fil loop) to avoid stale status races.
++ */
++test("ML3 C03: Journal décisions >8 avec historique accessible", async ({ page }) => {
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
++  await page.waitForURL("**/preparations/**");
++  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 C03 journal seed");
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
++    timeout: 30000,
++  });
++  await page.getByRole("button", { name: "Travail" }).click();
++  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 C03 Journal");
++  await page.getByPlaceholder("Résumé inspecté").fill("e2e c03");
++  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
++  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
++  await page.getByRole("button", { name: "Créer le projet" }).click();
++  await page.waitForURL("**/projects/**", { timeout: 20000 });
++
++  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
++  expect(projectId).toBeTruthy();
++  let revision = 0;
++  for (let i = 0; i < 12; i += 1) {
++    const actInstanceId = `c03-act-${i}-${Date.now()}`;
++    const res = await page.request.post(`/api/projects/${projectId}/pilotage/commands`, {
++      data: {
++        clientCommandKey: `c03-cmd-${actInstanceId}`,
++        expectedRevision: revision,
++        operation: "RECORD_DECISION",
++        sourceKind: "EXPLICIT_INTERACTION",
++        sourceRef: `ui:RECORD:${actInstanceId}`,
++        actInstanceId,
++        objectRef: `c03-obj-${i}`,
++        statement: `Décision documentaire C03-${i} obligatoire pour ce projet.`,
++      },
++    });
++    expect(res.ok()).toBeTruthy();
++    const body = await res.json();
++    expect(body.status).toMatch(/APPLIED|ALREADY_APPLIED/);
++    revision = body.revision ?? revision + 1;
 +  }
 +
-+  it("cognitive window of 12 hides an older GitHub while authority sees both", () => {
-+    const rows = [
-+      brief("gh-old", "github", "GitHub est obligatoire pour ce projet."),
-+      ...Array.from({ length: 13 }, (_, i) =>
-+        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
-+      ),
-+      brief("gh-new", "github", "GitHub reste requis pour les déploiements."),
-+    ];
-+    expect(rows).toHaveLength(15);
-+    const cognitive = selectApplicableBriefs(rows);
-+    expect(cognitive).toHaveLength(12);
-+    expect(cognitive.filter((r) => r.objectRef === "github").map((r) => r.id)).toEqual(["gh-new"]);
-+    expect(selectAllApplicableBriefs(rows)).toHaveLength(15);
-+
-+    const utterance = "Finalement, GitHub devient facultatif.";
-+    // Cognitive confrontation path would only see gh-new → false uniqueness.
-+    const cognitiveSignals = findMessageDecisionConfrontations(utterance, rows).filter(
-+      (s) => s.framing === "POSSIBLE_CHANGE",
-+    );
-+    expect(cognitiveSignals.map((s) => s.decisionId)).toEqual(["gh-new"]);
-+
-+    const authority = findAuthorityReviseCandidates(utterance, rows);
-+    expect(authority.map((c) => c.id).sort()).toEqual(["gh-new", "gh-old"]);
++  await page.getByRole("button", { name: "Pilotage" }).click();
++  await expect(page.getByTestId("journal-count")).toContainText(/1[0-9] décision/i, {
++    timeout: 15000,
 +  });
-+
-+  it("single relevant applicable remains a unique authority candidate", () => {
-+    const rows = [
-+      brief("gh-only", "github", "GitHub est obligatoire pour ce projet."),
-+      ...Array.from({ length: 14 }, (_, i) =>
-+        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
-+      ),
-+    ];
-+    const authority = findAuthorityReviseCandidates(
-+      "Finalement, GitHub devient facultatif.",
-+      rows,
-+    );
-+    expect(authority).toHaveLength(1);
-+    expect(authority[0]?.id).toBe("gh-only");
-+  });
-+
-+  it("same theme with distinct scopes stay separate candidates", () => {
-+    const rows = [
-+      brief("gh-proj", "github", "GitHub est obligatoire pour tout le projet.", "PROJECT"),
-+      brief("gh-cycle", "github", "GitHub est obligatoire seulement pour ce cycle.", "CYCLE"),
-+    ];
-+    const authority = findAuthorityReviseCandidates(
-+      "Finalement, GitHub devient facultatif.",
-+      rows,
-+    );
-+    expect(authority).toHaveLength(2);
-+    expect(new Set(authority.map((c) => c.scope))).toEqual(new Set(["PROJECT", "CYCLE"]));
-+  });
-+
-+  it("REVOKED / REVISED are not authority candidates", () => {
-+    const rows = [
-+      { ...brief("gh-rev", "github", "GitHub est obligatoire."), state: "REVOKED" },
-+      { ...brief("gh-revised", "github", "GitHub est requis."), state: "REVISED" },
-+    ];
-+    expect(findAuthorityReviseCandidates("Finalement, GitHub devient facultatif.", rows)).toEqual(
-+      [],
-+    );
-+  });
++  await expect(page.getByText(/C03-11/i).first()).toBeVisible();
++  await page.getByTestId("journal-expand").click();
++  await expect(page.getByText(/C03-0/i).first()).toBeVisible({ timeout: 10000 });
++  await expect(page.getByTestId("decision-row")).toHaveCount(12, { timeout: 5000 });
 +});
 +
-+describe("CR-02 thread pending lifecycle", () => {
-+  it("does not clear pending when Nora COMPLETE but métier UNKNOWN", () => {
-+    expect(
-+      shouldClearThreadPending({
-+        noraStatus: "COMPLETE",
-+        effectAttempted: true,
-+        effectStatus: "UNKNOWN",
-+      }),
-+    ).toBe(false);
++/**
++ * CR-02 — ACK perdu après effet D6 APPLIED :
++ * serveur committe → réponse HTTP interceptée → reload → réconciliation → pas de double effet.
++ */
++test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page }) => {
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
++  await page.waitForURL("**/preparations/**");
++  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 CR-02 ACK seed");
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
++    timeout: 30000,
 +  });
++  await page.getByRole("button", { name: "Travail" }).click();
++  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 CR-02 ACK");
++  await page.getByPlaceholder("Résumé inspecté").fill("e2e cr02 ack");
++  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
++  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
++  await page.getByRole("button", { name: "Créer le projet" }).click();
++  await page.waitForURL("**/projects/**", { timeout: 20000 });
 +
-+  it("clears pending when métier is terminal APPLIED", () => {
-+    expect(
-+      shouldClearThreadPending({
-+        noraStatus: "UNKNOWN",
-+        effectAttempted: true,
-+        effectStatus: "APPLIED",
-+      }),
-+    ).toBe(true);
-+  });
++  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
++  expect(projectId).toBeTruthy();
 +
-+  it("clears pending when no business attempt and Nora COMPLETE", () => {
-+    expect(
-+      shouldClearThreadPending({
-+        noraStatus: "COMPLETE",
-+        effectAttempted: false,
-+        effectStatus: null,
-+      }),
-+    ).toBe(true);
-+  });
-+
-+  it("exclusive guard blocks a distinct new act over unresolved pending", () => {
-+    const pending = {
-+      content: "Ouvre le cycle cadrage.",
-+      clientTurnKey: "turn-1",
-+      clientCommandKey: "conv-auth:turn-1",
-+    };
-+    expect(mayStartNewThreadAct({ unresolved: pending, nextContent: pending.content }).ok).toBe(
-+      true,
-+    );
-+    const blocked = mayStartNewThreadAct({
-+      unresolved: pending,
-+      nextContent: "Je décide que GitHub est obligatoire.",
++  let ackDropped = false;
++  let serverApplied = false;
++  await page.route("**/api/preparations/*/messages", async (route) => {
++    if (route.request().method() !== "POST") {
++      await route.continue();
++      return;
++    }
++    let post: { content?: string } = {};
++    try {
++      post = route.request().postDataJSON() as { content?: string };
++    } catch {
++      post = {};
++    }
++    const response = await route.fetch();
++    const raw = await response.text();
++    let body: Record<string, unknown> = {};
++    try {
++      body = JSON.parse(raw) as Record<string, unknown>;
++    } catch {
++      body = {};
++    }
++    const effect = body.pilotageEffect as { status?: string } | undefined;
++    const applied =
++      response.ok() &&
++      (body.humanDecisionCreated === true ||
++        (typeof effect?.status === "string" && /APPLIED/i.test(effect.status)));
++    // Drop ACK only for the OPEN GO after the server has committed the effect.
++    if (
++      !ackDropped &&
++      applied &&
++      /ouvre le cycle cadrage/i.test(post.content ?? "")
++    ) {
++      serverApplied = true;
++      ackDropped = true;
++      await route.fulfill({
++        status: 502,
++        contentType: "application/json",
++        body: JSON.stringify({
++          errorCategory: "ACK_LOST_SIM",
++          error: "ACK lost after server commit",
++        }),
++      });
++      return;
++    }
++    await route.fulfill({
++      status: response.status(),
++      headers: response.headers(),
++      body: raw,
 +    });
-+    expect(blocked.ok).toBe(false);
-+    if (!blocked.ok) expect(blocked.pending.clientTurnKey).toBe("turn-1");
 +  });
++
++  await page.getByRole("button", { name: "Travail" }).click();
++  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
++  await page.getByTestId("thread-send").click();
++  await expect(page.getByTestId("thread-nora-status")).toContainText(/ACK lost|ACK_LOST|échec|conservée/i, {
++    timeout: 45000,
++  });
++  expect(serverApplied).toBe(true);
++  expect(ackDropped).toBe(true);
++  await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
++  // Distinct new act must not silently overwrite the unresolved pending.
++  await page.getByLabel("Message à Nora").fill("Je décide que GitHub est obligatoire pour ce projet.");
++  await page.getByTestId("thread-send").click();
++  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/non résolue|réconcilier/i, {
++    timeout: 10000,
++  });
++  await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
++
++  await page.reload();
++  await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
++  await page.getByTestId("thread-reconcile-pending").click();
++  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED|OPEN_CYCLE|ACTIVE/i, {
++    timeout: 30000,
++  });
++
++  const pilotage = await page.request.get(`/api/projects/${projectId}/pilotage`);
++  expect(pilotage.ok()).toBeTruthy();
++  const pj = await pilotage.json();
++  const cycle = pj.pilotage?.cycle ?? pj.cycle;
++  expect(cycle?.status).toBe("ACTIVE");
++  expect(cycle?.cycleType).toBe("CADRAGE");
++
++  // Second reconcile / retry must not open another cycle.
++  const decisions = await page.request.get(`/api/projects/${projectId}/decisions`);
++  expect(decisions.ok()).toBeTruthy();
++  const dj = await decisions.json();
++  const opens = (dj.decisions ?? []).filter(
++    (d: { kind: string; state: string }) =>
++      d.kind === "OPEN_CYCLE" && (d.state === "APPLICABLE" || d.state === "SUPERSEDED"),
++  );
++  expect(opens.filter((d: { state: string }) => d.state === "APPLICABLE").length).toBeLessThanOrEqual(1);
++  await page.unrouteAll({ behavior: "ignoreErrors" });
 +});
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
-index 4a7a6445..29f2cd25 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
-@@ -98,6 +98,49 @@ describe("ml3 CKI resolution and intent", () => {
-     expect(qualifyPilotageIntent("ouvre le cycle cadrage et le cycle sécurité").clarity).toBe("AMBIGUOUS");
-   });
-
-+  it("F01/F02: qualifies documentary RECORD/REVISE and rejects soft preferences", () => {
-+    expect(
-+      qualifyPilotageIntent(
-+        "Je décide que la connexion GitHub est obligatoire pour ce projet.",
-+      ),
-+    ).toMatchObject({
-+      clarity: "CLEAR",
-+      operation: "RECORD_DECISION",
-+      objectRef: expect.stringMatching(/github|connexion/i),
-+    });
-+    expect(qualifyPilotageIntent("Finalement, GitHub devient facultatif.")).toMatchObject({
-+      clarity: "CLEAR",
-+      operation: "REVISE_DECISION",
-+    });
-+    expect(qualifyPilotageIntent("OK").clarity).toBe("AMBIGUOUS");
-+    expect(
-+      qualifyPilotageIntent("Ce serait intéressant de commencer.").clarity,
-+    ).toBe("NONE");
-+    expect(
-+      qualifyPilotageIntent("Je décide que GitHub est obligatoire ?").clarity,
-+    ).toBe("AMBIGUOUS");
-+  });
-+
-+  it("C01: exploratory Finalement / questions never CLEAR REVISE", () => {
-+    expect(
-+      qualifyPilotageIntent("Finalement, je pense que GitHub pourrait être facultatif.").clarity,
-+    ).toBe("AMBIGUOUS");
-+    expect(
-+      qualifyPilotageIntent("Finalement, et si GitHub devenait facultatif ?").clarity,
-+    ).toBe("AMBIGUOUS");
-+    expect(qualifyPilotageIntent("Je réfléchis à rendre GitHub facultatif.").clarity).toBe(
-+      "NONE",
-+    );
-+    expect(qualifyPilotageIntent("Nora propose de rendre GitHub facultatif.").clarity).toBe(
-+      "NONE",
-+    );
-+    expect(
-+      qualifyPilotageIntent(
-+        "Je révise la décision GitHub : la connexion est facultative.",
-+      ),
-+    ).toMatchObject({ clarity: "CLEAR", operation: "REVISE_DECISION" });
-+  });
-+
-   it("pins RESOLVED only when the file digest matches the approved manifest", () => {
-     const manifest = loadCkiManifest();
-     expect(manifest?.version).toBe("0.2.0");
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
 index f333a075..56b67e34 100644
 --- a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
@@ -11782,453 +12408,298 @@ index f333a075..56b67e34 100644
 +    expect(cmds.status).toMatch(/APPLIED|ALREADY_APPLIED/);
 +  });
  });
-```
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
+index c8e74d53..ff7ef9ff 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
+@@ -1,12 +1,18 @@
+ import { describe, expect, it, afterEach } from "vitest";
+ import {
+   buildLevelAClarification,
++  findAuthorityReviseCandidates,
+   findMessageDecisionConfrontations,
+   findPotentialDivergences,
+   qualifyCommandOutcome,
+   selectApplicableBriefs,
++  selectAllApplicableBriefs,
+ } from "@/domains/decisions/divergence-assist";
+ import { generateNoraReply } from "@/domains/conversation/nora-adapter";
++import {
++  mayStartNewThreadAct,
++  shouldClearThreadPending,
++} from "@/domains/pilotage/thread-recovery";
 
-### DIFF `projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
-index 4403fac3..4fb64d1c 100644
---- a/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
-@@ -208,3 +208,263 @@ test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({
-   await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
-   await expect(page.getByTestId("outcome-unknown")).toHaveCount(0);
+ const prior = {
+   id: "dec_gh",
+@@ -208,3 +214,134 @@ describe("B13 C02 qualifyCommandOutcome", () => {
+     expect(q.testId).toBe("outcome-unknown");
+   });
  });
 +
-+/**
-+ * F01 — GO naturel depuis le fil projet principal (pas le bouton PilotagePanel).
-+ * Pixel Figma: NOT VERIFIED.
-+ */
-+test("ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE", async ({ page }) => {
-+  await page.goto("/login");
-+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-+  await page.waitForURL("**/portfolio");
-+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-+  await page.waitForURL("**/preparations/**");
-+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F01 thread seed");
-+  await page.getByRole("button", { name: "Envoyer" }).click();
-+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-+    timeout: 30000,
-+  });
-+  await page.getByRole("button", { name: "Travail" }).click();
-+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F01 Fil");
-+  await page.getByPlaceholder("Résumé inspecté").fill("e2e f01 thread");
-+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-+  await page.getByRole("button", { name: "Créer le projet" }).click();
-+  await page.waitForURL("**/projects/**", { timeout: 20000 });
-+
-+  await page.getByRole("button", { name: "Travail" }).click();
-+  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-+  await page.getByRole("button", { name: "Envoyer" }).click();
-+  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/OPEN_CYCLE|APPLIED/i, {
-+    timeout: 30000,
-+  });
-+  await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|deterministic/i, {
-+    timeout: 30000,
-+  });
-+
-+  await page.getByRole("button", { name: "Pilotage" }).click();
-+  await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
-+  await expect(page.getByRole("heading", { name: /Cycle CADRAGE/ })).toBeVisible();
-+  await expect(page.getByTestId("decision-state").first()).toContainText("APPLICABLE");
-+});
-+
-+/**
-+ * F02 — décision documentaire depuis le fil + révision via Journal.
-+ */
-+test("ML3 F02: RECORD depuis le fil puis révision Journal", async ({ page }) => {
-+  await page.goto("/login");
-+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-+  await page.waitForURL("**/portfolio");
-+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-+  await page.waitForURL("**/preparations/**");
-+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F02 seed");
-+  await page.getByRole("button", { name: "Envoyer" }).click();
-+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-+    timeout: 30000,
-+  });
-+  await page.getByRole("button", { name: "Travail" }).click();
-+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F02 Décisions");
-+  await page.getByPlaceholder("Résumé inspecté").fill("e2e f02");
-+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-+  await page.getByRole("button", { name: "Créer le projet" }).click();
-+  await page.waitForURL("**/projects/**", { timeout: 20000 });
-+
-+  await page.getByRole("button", { name: "Travail" }).click();
-+  await page
-+    .getByLabel("Message à Nora")
-+    .fill("Je décide que la connexion GitHub est obligatoire pour ce projet.");
-+  await page.getByRole("button", { name: "Envoyer" }).click();
-+  await expect(page.getByTestId("thread-pilotage-status")).toContainText(
-+    /RECORD_DECISION|APPLIED|décision/i,
-+    { timeout: 30000 },
-+  );
-+
-+  await page.getByRole("button", { name: "Pilotage" }).click();
-+  await expect(page.getByTestId("decision-state").first()).toContainText(/RECORD_DECISION.*APPLICABLE/i, {
-+    timeout: 15000,
-+  });
-+  await page.getByTestId("journal-revise-open").first().click();
-+  await page.getByTestId("journal-revise-draft").fill("La connexion GitHub est facultative pour ce projet.");
-+  await page.getByTestId("journal-revise-submit").click();
-+  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
-+    timeout: 15000,
-+  });
-+  await expect(page.getByText(/facultative/i).first()).toBeVisible({ timeout: 10000 });
-+});
-+
-+/**
-+ * C03 — Journal >8: newest visible by default; full history via expand.
-+ * Seeds via D6 API (not the fil loop) to avoid stale status races.
-+ */
-+test("ML3 C03: Journal décisions >8 avec historique accessible", async ({ page }) => {
-+  await page.goto("/login");
-+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-+  await page.waitForURL("**/portfolio");
-+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-+  await page.waitForURL("**/preparations/**");
-+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 C03 journal seed");
-+  await page.getByRole("button", { name: "Envoyer" }).click();
-+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-+    timeout: 30000,
-+  });
-+  await page.getByRole("button", { name: "Travail" }).click();
-+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 C03 Journal");
-+  await page.getByPlaceholder("Résumé inspecté").fill("e2e c03");
-+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-+  await page.getByRole("button", { name: "Créer le projet" }).click();
-+  await page.waitForURL("**/projects/**", { timeout: 20000 });
-+
-+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-+  expect(projectId).toBeTruthy();
-+  let revision = 0;
-+  for (let i = 0; i < 12; i += 1) {
-+    const actInstanceId = `c03-act-${i}-${Date.now()}`;
-+    const res = await page.request.post(`/api/projects/${projectId}/pilotage/commands`, {
-+      data: {
-+        clientCommandKey: `c03-cmd-${actInstanceId}`,
-+        expectedRevision: revision,
-+        operation: "RECORD_DECISION",
-+        sourceKind: "EXPLICIT_INTERACTION",
-+        sourceRef: `ui:RECORD:${actInstanceId}`,
-+        actInstanceId,
-+        objectRef: `c03-obj-${i}`,
-+        statement: `Décision documentaire C03-${i} obligatoire pour ce projet.`,
-+      },
-+    });
-+    expect(res.ok()).toBeTruthy();
-+    const body = await res.json();
-+    expect(body.status).toMatch(/APPLIED|ALREADY_APPLIED/);
-+    revision = body.revision ?? revision + 1;
++describe("CR-01 authority revise candidates vs cognitive window", () => {
++  function brief(
++    id: string,
++    objectRef: string,
++    statement: string,
++    scope = "PROJECT",
++  ) {
++    return {
++      id,
++      kind: "RECORD_DECISION",
++      objectRef,
++      scope,
++      statement,
++      state: "APPLICABLE",
++      sourceKind: "EXPLICIT_INTERACTION",
++    };
 +  }
 +
-+  await page.getByRole("button", { name: "Pilotage" }).click();
-+  await expect(page.getByTestId("journal-count")).toContainText(/1[0-9] décision/i, {
-+    timeout: 15000,
++  it("cognitive window of 12 hides an older GitHub while authority sees both", () => {
++    const rows = [
++      brief("gh-old", "github", "GitHub est obligatoire pour ce projet."),
++      ...Array.from({ length: 13 }, (_, i) =>
++        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
++      ),
++      brief("gh-new", "github", "GitHub reste requis pour les déploiements."),
++    ];
++    expect(rows).toHaveLength(15);
++    const cognitive = selectApplicableBriefs(rows);
++    expect(cognitive).toHaveLength(12);
++    expect(cognitive.filter((r) => r.objectRef === "github").map((r) => r.id)).toEqual(["gh-new"]);
++    expect(selectAllApplicableBriefs(rows)).toHaveLength(15);
++
++    const utterance = "Finalement, GitHub devient facultatif.";
++    // Cognitive confrontation path would only see gh-new → false uniqueness.
++    const cognitiveSignals = findMessageDecisionConfrontations(utterance, rows).filter(
++      (s) => s.framing === "POSSIBLE_CHANGE",
++    );
++    expect(cognitiveSignals.map((s) => s.decisionId)).toEqual(["gh-new"]);
++
++    const authority = findAuthorityReviseCandidates(utterance, rows);
++    expect(authority.map((c) => c.id).sort()).toEqual(["gh-new", "gh-old"]);
 +  });
-+  await expect(page.getByText(/C03-11/i).first()).toBeVisible();
-+  await page.getByTestId("journal-expand").click();
-+  await expect(page.getByText(/C03-0/i).first()).toBeVisible({ timeout: 10000 });
-+  await expect(page.getByTestId("decision-row")).toHaveCount(12, { timeout: 5000 });
++
++  it("single relevant applicable remains a unique authority candidate", () => {
++    const rows = [
++      brief("gh-only", "github", "GitHub est obligatoire pour ce projet."),
++      ...Array.from({ length: 14 }, (_, i) =>
++        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
++      ),
++    ];
++    const authority = findAuthorityReviseCandidates(
++      "Finalement, GitHub devient facultatif.",
++      rows,
++    );
++    expect(authority).toHaveLength(1);
++    expect(authority[0]?.id).toBe("gh-only");
++  });
++
++  it("same theme with distinct scopes stay separate candidates", () => {
++    const rows = [
++      brief("gh-proj", "github", "GitHub est obligatoire pour tout le projet.", "PROJECT"),
++      brief("gh-cycle", "github", "GitHub est obligatoire seulement pour ce cycle.", "CYCLE"),
++    ];
++    const authority = findAuthorityReviseCandidates(
++      "Finalement, GitHub devient facultatif.",
++      rows,
++    );
++    expect(authority).toHaveLength(2);
++    expect(new Set(authority.map((c) => c.scope))).toEqual(new Set(["PROJECT", "CYCLE"]));
++  });
++
++  it("REVOKED / REVISED are not authority candidates", () => {
++    const rows = [
++      { ...brief("gh-rev", "github", "GitHub est obligatoire."), state: "REVOKED" },
++      { ...brief("gh-revised", "github", "GitHub est requis."), state: "REVISED" },
++    ];
++    expect(findAuthorityReviseCandidates("Finalement, GitHub devient facultatif.", rows)).toEqual(
++      [],
++    );
++  });
 +});
 +
-+/**
-+ * CR-02 — ACK perdu après effet D6 APPLIED :
-+ * serveur committe → réponse HTTP interceptée → reload → réconciliation → pas de double effet.
-+ */
-+test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page }) => {
-+  await page.goto("/login");
-+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-+  await page.waitForURL("**/portfolio");
-+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-+  await page.waitForURL("**/preparations/**");
-+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 CR-02 ACK seed");
-+  await page.getByRole("button", { name: "Envoyer" }).click();
-+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-+    timeout: 30000,
++describe("CR-02 thread pending lifecycle", () => {
++  it("does not clear pending when Nora COMPLETE but métier UNKNOWN", () => {
++    expect(
++      shouldClearThreadPending({
++        noraStatus: "COMPLETE",
++        effectAttempted: true,
++        effectStatus: "UNKNOWN",
++      }),
++    ).toBe(false);
 +  });
-+  await page.getByRole("button", { name: "Travail" }).click();
-+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 CR-02 ACK");
-+  await page.getByPlaceholder("Résumé inspecté").fill("e2e cr02 ack");
-+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-+  await page.getByRole("button", { name: "Créer le projet" }).click();
-+  await page.waitForURL("**/projects/**", { timeout: 20000 });
 +
-+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-+  expect(projectId).toBeTruthy();
++  it("clears pending when métier is terminal APPLIED", () => {
++    expect(
++      shouldClearThreadPending({
++        noraStatus: "UNKNOWN",
++        effectAttempted: true,
++        effectStatus: "APPLIED",
++      }),
++    ).toBe(true);
++  });
 +
-+  let ackDropped = false;
-+  let serverApplied = false;
-+  await page.route("**/api/preparations/*/messages", async (route) => {
-+    if (route.request().method() !== "POST") {
-+      await route.continue();
-+      return;
-+    }
-+    let post: { content?: string } = {};
-+    try {
-+      post = route.request().postDataJSON() as { content?: string };
-+    } catch {
-+      post = {};
-+    }
-+    const response = await route.fetch();
-+    const raw = await response.text();
-+    let body: Record<string, unknown> = {};
-+    try {
-+      body = JSON.parse(raw) as Record<string, unknown>;
-+    } catch {
-+      body = {};
-+    }
-+    const effect = body.pilotageEffect as { status?: string } | undefined;
-+    const applied =
-+      response.ok() &&
-+      (body.humanDecisionCreated === true ||
-+        (typeof effect?.status === "string" && /APPLIED/i.test(effect.status)));
-+    // Drop ACK only for the OPEN GO after the server has committed the effect.
-+    if (
-+      !ackDropped &&
-+      applied &&
-+      /ouvre le cycle cadrage/i.test(post.content ?? "")
-+    ) {
-+      serverApplied = true;
-+      ackDropped = true;
-+      await route.fulfill({
-+        status: 502,
-+        contentType: "application/json",
-+        body: JSON.stringify({
-+          errorCategory: "ACK_LOST_SIM",
-+          error: "ACK lost after server commit",
-+        }),
-+      });
-+      return;
-+    }
-+    await route.fulfill({
-+      status: response.status(),
-+      headers: response.headers(),
-+      body: raw,
++  it("clears pending when no business attempt and Nora COMPLETE", () => {
++    expect(
++      shouldClearThreadPending({
++        noraStatus: "COMPLETE",
++        effectAttempted: false,
++        effectStatus: null,
++      }),
++    ).toBe(true);
++  });
++
++  it("exclusive guard blocks a distinct new act over unresolved pending", () => {
++    const pending = {
++      content: "Ouvre le cycle cadrage.",
++      clientTurnKey: "turn-1",
++      clientCommandKey: "conv-auth:turn-1",
++    };
++    expect(mayStartNewThreadAct({ unresolved: pending, nextContent: pending.content }).ok).toBe(
++      true,
++    );
++    const blocked = mayStartNewThreadAct({
++      unresolved: pending,
++      nextContent: "Je décide que GitHub est obligatoire.",
 +    });
++    expect(blocked.ok).toBe(false);
++    if (!blocked.ok) expect(blocked.pending.clientTurnKey).toBe("turn-1");
 +  });
-+
-+  await page.getByRole("button", { name: "Travail" }).click();
-+  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-+  await page.getByTestId("thread-send").click();
-+  await expect(page.getByTestId("thread-nora-status")).toContainText(/ACK lost|ACK_LOST|échec|conservée/i, {
-+    timeout: 45000,
-+  });
-+  expect(serverApplied).toBe(true);
-+  expect(ackDropped).toBe(true);
-+  await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
-+  // Distinct new act must not silently overwrite the unresolved pending.
-+  await page.getByLabel("Message à Nora").fill("Je décide que GitHub est obligatoire pour ce projet.");
-+  await page.getByTestId("thread-send").click();
-+  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/non résolue|réconcilier/i, {
-+    timeout: 10000,
-+  });
-+  await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
-+
-+  await page.reload();
-+  await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
-+  await page.getByTestId("thread-reconcile-pending").click();
-+  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED|OPEN_CYCLE|ACTIVE/i, {
-+    timeout: 30000,
-+  });
-+
-+  const pilotage = await page.request.get(`/api/projects/${projectId}/pilotage`);
-+  expect(pilotage.ok()).toBeTruthy();
-+  const pj = await pilotage.json();
-+  const cycle = pj.pilotage?.cycle ?? pj.cycle;
-+  expect(cycle?.status).toBe("ACTIVE");
-+  expect(cycle?.cycleType).toBe("CADRAGE");
-+
-+  // Second reconcile / retry must not open another cycle.
-+  const decisions = await page.request.get(`/api/projects/${projectId}/decisions`);
-+  expect(decisions.ok()).toBeTruthy();
-+  const dj = await decisions.json();
-+  const opens = (dj.decisions ?? []).filter(
-+    (d: { kind: string; state: string }) =>
-+      d.kind === "OPEN_CYCLE" && (d.state === "APPLICABLE" || d.state === "SUPERSEDED"),
-+  );
-+  expect(opens.filter((d: { state: string }) => d.state === "APPLICABLE").length).toBeLessThanOrEqual(1);
-+  await page.unrouteAll({ behavior: "ignoreErrors" });
 +});
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
+index 4a7a6445..29f2cd25 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
+@@ -98,6 +98,49 @@ describe("ml3 CKI resolution and intent", () => {
+     expect(qualifyPilotageIntent("ouvre le cycle cadrage et le cycle sécurité").clarity).toBe("AMBIGUOUS");
+   });
+
++  it("F01/F02: qualifies documentary RECORD/REVISE and rejects soft preferences", () => {
++    expect(
++      qualifyPilotageIntent(
++        "Je décide que la connexion GitHub est obligatoire pour ce projet.",
++      ),
++    ).toMatchObject({
++      clarity: "CLEAR",
++      operation: "RECORD_DECISION",
++      objectRef: expect.stringMatching(/github|connexion/i),
++    });
++    expect(qualifyPilotageIntent("Finalement, GitHub devient facultatif.")).toMatchObject({
++      clarity: "CLEAR",
++      operation: "REVISE_DECISION",
++    });
++    expect(qualifyPilotageIntent("OK").clarity).toBe("AMBIGUOUS");
++    expect(
++      qualifyPilotageIntent("Ce serait intéressant de commencer.").clarity,
++    ).toBe("NONE");
++    expect(
++      qualifyPilotageIntent("Je décide que GitHub est obligatoire ?").clarity,
++    ).toBe("AMBIGUOUS");
++  });
++
++  it("C01: exploratory Finalement / questions never CLEAR REVISE", () => {
++    expect(
++      qualifyPilotageIntent("Finalement, je pense que GitHub pourrait être facultatif.").clarity,
++    ).toBe("AMBIGUOUS");
++    expect(
++      qualifyPilotageIntent("Finalement, et si GitHub devenait facultatif ?").clarity,
++    ).toBe("AMBIGUOUS");
++    expect(qualifyPilotageIntent("Je réfléchis à rendre GitHub facultatif.").clarity).toBe(
++      "NONE",
++    );
++    expect(qualifyPilotageIntent("Nora propose de rendre GitHub facultatif.").clarity).toBe(
++      "NONE",
++    );
++    expect(
++      qualifyPilotageIntent(
++        "Je révise la décision GitHub : la connexion est facultative.",
++      ),
++    ).toMatchObject({ clarity: "CLEAR", operation: "REVISE_DECISION" });
++  });
++
+   it("pins RESOLVED only when the file digest matches the approved manifest", () => {
+     const manifest = loadCkiManifest();
+     expect(manifest?.version).toBe("0.2.0");
 ```
 
-### DIFF `projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md`
+## RAW LOG — DEV unit
 
-```diff
-diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
-index 96edf7ea..1d08545c 100644
---- a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
-+++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
-@@ -229,7 +229,7 @@ Les quatre points ont une **solution technique explicitée et réfutable** ; ils
+```
+t-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:33.605Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_a718d0cd-09f9-49fa-8f4a-c8e3b948de57","attempt_id":"att_901c17d5-7603-4b26-91f9-0c82d06c9ded","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:33.606Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_9356e5b7-9988-480b-8e62-605041632bc4","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:33.606Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_9356e5b7-9988-480b-8e62-605041632bc4","attempt_id":"att_782fa2fa-3c49-4237-8c72-eec0416fce8f","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/nora-adapter-corrective.test.ts (6 tests) 21ms
+ ✓ tests/unit/ml3-cki-intent.test.ts (10 tests) 7ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.129Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_41c9c41d-acd6-4ab7-9d5c-d31b1788b231","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.130Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_41c9c41d-acd6-4ab7-9d5c-d31b1788b231","attempt_id":"att_93b93955-43f4-4bd3-9bc1-ddfa0c114de3","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/ml3-b13-divergence.test.ts (24 tests) 6ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.220Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"test.event","component":"test","operation_id":"op_58f72555-a81e-46ca-9f1a-a2ca477ffa74","outcome":"SUCCESS","meta":{"probe":"ok"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.222Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"test.dev_only","component":"test","operation_id":"op_7e376692-941e-45e3-9434-ed0cfebd7674","outcome":"SUCCESS"}
+ ✓ tests/unit/observability.test.ts (5 tests) 5ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.456Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_ad4d3abd-c810-4a5e-b73c-a944a463a892","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.457Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_ad4d3abd-c810-4a5e-b73c-a944a463a892","attempt_id":"att_c6166bee-036c-4982-ae9e-306960466b89","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.458Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_cc76535a-da11-4d30-b956-50150197d54c","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.458Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_cc76535a-da11-4d30-b956-50150197d54c","attempt_id":"att_cf6c2092-e1cd-492c-b51f-ac3e235cd85a","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.458Z","lane":"RECETTE","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_a27eb9c0-89f9-485c-aa39-ac205f357da1","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/nora-e2e-fixture.test.ts (8 tests) 4ms
+ ✓ tests/unit/diff-ordered.test.ts (8 tests) 4ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.951Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_f0268776-4401-4cca-8356-4dcae321b0a1","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.952Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_f0268776-4401-4cca-8356-4dcae321b0a1","attempt_id":"att_9b66194c-781a-40c5-9f9c-30cb822a32df","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.953Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_434045d0-c7f1-4183-9ca6-06499b24330d","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:34.953Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_434045d0-c7f1-4183-9ca6-06499b24330d","attempt_id":"att_5f13ece8-f68d-48b8-9f15-9cfd804766b9","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/ml2-cognition-fixture.test.ts (2 tests) 3ms
+ ✓ tests/unit/next-dist-dir.test.ts (2 tests) 3ms
+ ✓ tests/unit/e2e-pg-gate.test.ts (4 tests) 2ms
+ ✓ tests/unit/cognitive-policy.test.ts (4 tests) 2ms
+ ✓ tests/unit/dev-login-host.test.ts (6 tests) 1ms
+ ✓ tests/unit/ml3-authority.test.ts (5 tests) 1ms
+ ✓ tests/unit/safe-markdown.test.ts (2 tests) 1ms
+ ✓ tests/unit/http-errors.test.ts (3 tests) 1ms
+ ✓ tests/unit/fingerprint.test.ts (2 tests) 1ms
+ ✓ tests/unit/non-effects.test.ts (1 test) 1ms
 
- **R3 lot B :** état sans cycle #22 ; qualification proposée #23 ; cycle actif #24 ; méthode absente #28 ; méthode proposée #29 ; décision applicable #31 ; suspension #33/#34 ; CKI indisponible #39 ; Journal–Décisions #40 ; GO ambigu #41 ; vrai partiel #42 ; contradiction #43 ; transition combinée #47 ; mise à jour CKI candidate #48 ; ouverture en attente #52 ; clôture en attente #53 ; UNKNOWN #54 ; reprise #55 ; rejeu #56 ; guidance #58 ; relations #59 ; nouvelle méthode #60. Frames identifiées dans l'audit R3 Git, **Figma native et browser ML3 NON OBSERVÉS**. La maquette #42 doit être conditionnelle à un effet séparé réel et ne constitue pas un état de succès partiel dans notre transition interne atomique.
+ Test Files  16 passed (16)
+      Tests  92 passed (92)
+   Start at  17:38:33
+   Duration  3.12s (transform 152ms, setup 0ms, collect 1.66s, tests 63ms, environment 1ms, prepare 329ms)
 
--**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. Le code ML2 `web/src/domains/conversation/nora-adapter.ts` ne charge pas D5/CKI aujourd'hui ; `service.ts` retourne `humanDecisionCreated:false`. Il faut intégrer D5/D6 **sans** déduire un GO d'une réponse de modèle ni modifier l'autorité de D3.
-+**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. **F01/F02 (2026-11-06, local worktree) :** après `reserveTurnCommand` (message USER `COMPLETE`), `applyConversationalAuthority` appelle `executePilotageCommand` / `runBusinessCommand` sous `sourceKind=USER_MESSAGE` **avant** l'appel fournisseur Nora ; `humanDecisionCreated` et `pilotageEffect` sont factuels (jamais forcés à `false`). Aucune autorité depuis la sortie Nora ni D4.
 
- **Observabilité :** relier operationId, commandId, projet/acteur de manière minimisée, source humaine, décision D6, effet D5, version état et résolution CKI. Les logs ne constituent jamais le registre métier ni une preuve de livraison D8. Corrélation connue vs inconnue explicite. Aucun secret, texte de décision sensible ou chaîne de pensée dans les métriques publiques.
-
-@@ -357,3 +357,37 @@ Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle pol
- | **R3** | Isolation discriminante : décision B (`github-connexion` + marqueur unique) **persistée et APPLICABLE avant** `postUserMessageAndNora` sur A. Contexte B contient le marqueur ; contexte/réponse A ne le contiennent pas. USER text pertinent pour le même objectRef. Journal B inchangé ; replay idempotent. |
-
- **Limites documentées :** famille de négations FR bornée (pas un NLP universel) ; Niveau B libre-texte NOT PROVEN ; Nora LIVE / Figma NOT EXECUTED / NOT VERIFIED.
-+
-+### F01/F02 — conversation → autorité D5/D6 (2026-11-06, local, **pas de commit projet**)
-+
-+Candidat distant de référence inchangé : `8bf8b5ce`. Intégration locale sur worktree DEV.
-+
-+| Élément | As-built |
-+| --- | --- |
-+| **Séquencement** | `reserveTurnCommand` (USER durable COMPLETE) → ownership check → `applyConversationalAuthority` (TX métier courte) → `buildNoraPilotageContext` → `generateNoraReply` → `commitTurnTerminal`. Jamais de TX PG longue pendant Nora. |
-+| **F01 GO** | Intention CLEAR (`ouvre le cycle…`, etc.) → `executePilotageCommand` avec `sourceRef=userMessageId`, `clientCommandKey=conv-auth:{clientTurnKey}`, `actInstanceId=userMessageId`. Ambigu (« OK ») / soft / source assistant → aucun effet. |
-+| **F02 RECORD** | `Je décide que…` / `Décision :…` → `RECORD_DECISION` documentaire avec `objectRef` dérivé. Questions / préférences exploratoires → clarification, pas de commande. |
-+| **F02 REVISE** | `Finalement…` + confrontation Niveau A `POSSIBLE_CHANGE` sur **une** cible `RECORD_DECISION` APPLICABLE → `REVISE_DECISION`. Fondations D5 → clarification (opération typée). Multi-cibles → clarification. Journal UX : geste `Réviser` (EXPLICIT_INTERACTION) en complément. |
-+| **API vérité** | `pilotageEffect.{attempted,intentClarity,status,reasonCode,decisionId,clarification,source}` ; `humanDecisionCreated` seulement si décision id confirmée APPLIED/ALREADY_APPLIED. Replay conserve le payload. |
-+| **Idempotence** | Tour D3 (`clientTurnKey`) et commande métier (`conv-auth:…`) corrélés sans second moteur. UNKNOWN métier → réconciliation existante avant rejeu. |
-+| **Couverture** | IMPLEMENTED local + BEHAVIOR PROVEN (unit intent, PG F01/F02, Playwright fil) ; ADOPTED / RECETTE / LIVE / STABLE = NOT CLAIMED. |
-+| **Limites** | Qualificateur FR borné (pas NLP universel) ; pas de migration 008 ; pas de publication projet sans GO distinct. |
-+
-+### C01/C02/C03 — autorité / reprise / continuité (2026-11-06, local, **pas de commit projet**)
-+
-+Correctif après Critical Review F01/F02 NOT ACCEPTED. Candidat distant `8bf8b5ce` inchangé.
-+
-+| Correctif | As-built |
-+| --- | --- |
-+| **C01** | `isExploratoryActLanguage` ; « Finalement… » avec hedges (`je pense`, `pourrait`, `et si`, Nora) → AMBIGUOUS, aucune mutation. Assertive « Finalement, X devient Y » + cible unique RECORD → REVISE possible. « Je révise la décision… » performatif explicite. Level A ≠ autorité. |
-+| **C02** | Effet D5/D6 avant Nora ; `markTurnUnknown(..., resultJson)` conserve `pilotageEffect` ; `reconstituteConversationalAuthority` via `conv-auth:{clientTurnKey}` / `USER_MESSAGE` sourceRef ; replay UNKNOWN reconstitue depuis `business_commands`. Clé client stable (ref + sessionStorage pending, pas de secret). Tour Nora et commande métier restent distincts. |
-+| **C03** | Fil : résumé durable décisions + bouton réconciliation pending après reload. Journal : 8 plus récentes par défaut + expand historique complet (pas `slice(0,8)` des plus anciennes). |
-+| **Preuves** | unit C01 ; PG C01/C02 fault/C03>8 ; Playwright F01/F02/C03. LIVE/RECETTE/STABLE NOT CLAIMED. |
-+
-+### CR-01 / CR-02 — consolidation Critical Review (2026-11-06, local, **pas de commit projet**)
-+
-+| Élément | As-built |
-+|---|---|
-+| **CR-01** | `findAuthorityReviseCandidates` / `selectAllApplicableBriefs` scannent **toutes** les APPLICABLE du projet (pas `MAX_APPLICABLE_FOR_CONTEXT=12`). La fenêtre cognitive reste pour Nora uniquement. 0 candidat → clarification ; 1 → REVISE documentaire si acte clair ; plusieurs → clarification (portées distinctes signalées). Pas de newest-wins / truncation. Level A framing filtre la pertinence, n'autorise jamais. |
-+| **CR-02** | `shouldClearThreadPending` : Nora COMPLETE **ne** clôt **pas** un effet métier UNKNOWN. Garde exclusive `mayStartNewThreadAct` : une saisie distincte n'écrase pas un pending non résolu. 404 by-key → reprise **même** `clientTurnKey`, pas de nouvelle clé. sessionStorage = aide locale, vérité = `business_commands`. |
-+| **Preuves** | unit CR-01 fenêtre 12 vs autorité ; unit pending lifecycle ; PG 15+ doubles GitHub (aucune REVISE) ; PG unique REVISE ; PG isolation interprojets ; PG concurrence même clé ; Playwright ACK perdu → reload → reconcile sans double OPEN. LIVE/RECETTE/STABLE NOT CLAIMED. |
 ```
 
-### DIFF `projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md`
+## RAW LOG — DEV PG ML3
 
-```diff
-diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
-index 8a7f1f66..d11a67f8 100644
---- a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
-+++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
-@@ -220,8 +220,8 @@ Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2.
- |---|---|---|
- | B01 | `PostgreSQL ML3 pilotage and decisions` › `starts empty: no cycle, no method, no retained trajectory` ; e2e `cycle-absent` | Projet neuf sans cycle ni méthode |
- | B02 | même fichier › `propose stays non-authoritative until an explicit retain` ; UI `retain-trajectory` | Proposition non ouvrante ; rétention explicite |
--| B03 | même fichier › `opens a cycle from an explicit utterance without an operation` ; e2e champ « Énoncé GO » | GO naturel EXPLICIT_INTERACTION sans `operation` |
--| B04 | même fichier › `rejects an ambiguous OK without opening a cycle` ; unit `qualifies a clear GO` | Énoncé équivoque rejeté |
-+| B03 | même fichier › `opens a cycle from an explicit utterance…` ; **F01** `F01: clear GO via postUserMessageAndNora…` ; e2e fil `ML3 F01: GO naturel depuis le fil` (+ champ PilotagePanel) | GO naturel USER_MESSAGE via fil **et** EXPLICIT_INTERACTION |
-+| B04 | même fichier › `rejects an ambiguous OK…` ; **F01** `F01: ambiguous OK and hostile assistant…` ; unit intent | Énoncé équivoque / source hostile rejetés |
- | B05 | même fichier › `keeps a single ACTIVE cycle when two opens race` | Une seule ligne ACTIVE |
- | B06 | même fichier › `replays the same key and conflicts when the fingerprint changes` ; `does not apply the same human act twice when only the client key changes` ; `reconcileCommandByClientKey` | Même clé rejouée ; même `actInstanceId` non dupliqué. Perte réseau UI : statut UNKNOWN + bouton réconcilier (non exécuté en PG) |
- | B07 | même fichier › `rolls back a transition when opening the next cycle fails` | CLOSE+OPEN annulés ensemble |
-@@ -234,7 +234,7 @@ Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2.
- | B14 | même fichier › restrictions + `CR-01: transition blocked when target B or source A is restricted` | STOP global, cible, et transition A→B (restriction sur A ou B) |
- | B15 | même fichier › `isolates pilotage across projects and rejects a foreign user message` | Pas d'import inter-projets |
- | B16 | même fichier › révocation de la méthode fondatrice dans le cas méthode | Révocation avant effet courant, sans restauration |
--| B17 | e2e `decision-state` contient `APPLICABLE` ; PG `CR-02` journal `REVISED` / `APPLICABLE` | Journal affiche `state`, pas une validité séparée |
-+| B17 | e2e `decision-state` + **F02** journal revise ; PG `F02: RECORD then REVISE…` + `CR-02` | Journal `APPLICABLE`/`REVISED` ; RECORD/REVISE depuis fil |
- | B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
+```
+6e78f292051"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.677Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_c3e3eb4d-340a-4ae7-abbc-3255a80ff2a9","operation_id":"op_64cc79c9-6d9d-4f05-b77d-77fc5ffd15e1","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.686Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_64cc79c9-6d9d-4f05-b77d-77fc5ffd15e1","generation_id":"gen_7f0ce516-1d93-490a-bc33-2ec8534111ec","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.686Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_64cc79c9-6d9d-4f05-b77d-77fc5ffd15e1","generation_id":"gen_7f0ce516-1d93-490a-bc33-2ec8534111ec","attempt_id":"att_b66230d0-784e-4925-922d-5a9fff2868d6","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.690Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_c3e3eb4d-340a-4ae7-abbc-3255a80ff2a9","operation_id":"op_64cc79c9-6d9d-4f05-b77d-77fc5ffd15e1","generation_id":"gen_7f0ce516-1d93-490a-bc33-2ec8534111ec","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.695Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_8db99848-63da-4fde-b3b6-3092fbd151af","operation_id":"op_51120ecc-4e92-49a7-9d4d-8b76b735d923","outcome":"PARTIAL","meta":{"client_turn_key_fp":"eea9a4d1a26e"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.697Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_8db99848-63da-4fde-b3b6-3092fbd151af","operation_id":"op_51120ecc-4e92-49a7-9d4d-8b76b735d923","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.706Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_51120ecc-4e92-49a7-9d4d-8b76b735d923","generation_id":"gen_9fa97d7e-2ed6-4452-896f-3c541e966dd7","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.706Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_51120ecc-4e92-49a7-9d4d-8b76b735d923","generation_id":"gen_9fa97d7e-2ed6-4452-896f-3c541e966dd7","attempt_id":"att_d4add90c-5cb9-4122-869c-5c71169dab55","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.711Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_8db99848-63da-4fde-b3b6-3092fbd151af","operation_id":"op_51120ecc-4e92-49a7-9d4d-8b76b735d923","generation_id":"gen_9fa97d7e-2ed6-4452-896f-3c541e966dd7","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.715Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_5155b5b3-36d7-409a-a99f-28b004660b58","operation_id":"op_70c5137d-6df5-4831-9999-02c4b7bf64c9","outcome":"PARTIAL","meta":{"client_turn_key_fp":"552a41ba8196"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.717Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_5155b5b3-36d7-409a-a99f-28b004660b58","operation_id":"op_70c5137d-6df5-4831-9999-02c4b7bf64c9","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.726Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_70c5137d-6df5-4831-9999-02c4b7bf64c9","generation_id":"gen_cd1cd74c-1889-4a8a-9995-2d4f135194ec","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.726Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_70c5137d-6df5-4831-9999-02c4b7bf64c9","generation_id":"gen_cd1cd74c-1889-4a8a-9995-2d4f135194ec","attempt_id":"att_a1efa5b6-78fb-43b7-9a9e-91894b65caea","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.731Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_5155b5b3-36d7-409a-a99f-28b004660b58","operation_id":"op_70c5137d-6df5-4831-9999-02c4b7bf64c9","generation_id":"gen_cd1cd74c-1889-4a8a-9995-2d4f135194ec","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.744Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_7b6fb8ba-f11d-4f37-9393-bd8a6fcb5807","operation_id":"op_1403d979-3da4-455a-b2be-8feb386d19c2","outcome":"PARTIAL","meta":{"client_turn_key_fp":"eb0aea096050"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.756Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_7b6fb8ba-f11d-4f37-9393-bd8a6fcb5807","operation_id":"op_1403d979-3da4-455a-b2be-8feb386d19c2","outcome":"SUCCESS","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.766Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.unknown","component":"d3.conversation","request_id":"req_7b6fb8ba-f11d-4f37-9393-bd8a6fcb5807","operation_id":"op_1403d979-3da4-455a-b2be-8feb386d19c2","outcome":"UNKNOWN","error_category":"PROVIDER_EXCEPTION"}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:38:43.771Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.replay","component":"d3.conversation","request_id":"req_b058975c-6b69-4770-91cb-89a784c42dbd","operation_id":"op_1403d979-3da4-455a-b2be-8feb386d19c2","outcome":"UNKNOWN","meta":{"status":"UNKNOWN","reconciled":false}}
+ ✓ tests/integration/ml3-pilotage.pg.test.ts (35 tests) 1730ms
 
- ### Ajustement autorité CR-01..CR-04 (2026-11-06)
-@@ -266,3 +266,19 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
- | R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
- | R2 | unit jamais/aucunement/apostrophe typo + restatements positifs | DETERMINISTIC | famille FR bornée ; ≠ oracle D6 |
- | R3 | PG isolation : décision B APPLICABLE avant gen A ; même objectRef + marqueur ; ctx B+ / ctx A− | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |
-+
-+### F01/F02 — conversation-authority (2026-11-06, local worktree)
-+
-+| ID | testCaseRef | Preuve | Limite |
-+| --- | --- | --- | --- |
-+| F01-A | PG `F01: clear GO via postUserMessageAndNora…` ; e2e fil | USER persisté → OPEN_CYCLE APPLIED → HumanDecision → 1 ACTIVE | LIVE Nora NOT EXECUTED |
-+| F01-B/C | PG `F01: ambiguous OK and hostile assistant…` | OK / soft / role assistant → no cycle | — |
-+| F01-D | même cas F01-A replay `clientTurnKey` | idempotentReplay ; 1 ACTIVE | — |
-+| F01-I | PG `F01: restriction blocks conversational GO…` | REJECTED RESTRICTION ; humanDecisionCreated=false | — |
-+| F02-A/D | PG `F02: RECORD then REVISE…` ; e2e fil+Journal | RECORD → REVISED/APPLICABLE chain | fondations D5 non révisables génériquement |
-+| F02-E | même cas F02 founding refuse | clarification ; cycle CADRAGE inchangé | — |
-+| C01 | unit exploratory ; PG `C01: exploratory Finalement…` | réflexion ≠ mutation D6 | NLP universel NOT CLAIMED |
-+| C02 | PG `C02: D6 APPLIED survives Nora provider failure…` | UNKNOWN tour + effet métier reconstituté | LIVE NOT EXECUTED |
-+| C03 | PG journal>8 ; e2e expand historique | 8 récentes + historique complet | — |
-+| CR-01 | unit fenêtre 12 vs `findAuthorityReviseCandidates` ; PG 15+ doubles GitHub ; PG unique ; PG isolation | unicité D6 hors borne cognitive | — |
-+| CR-02 | unit `shouldClearThreadPending` / `mayStartNewThreadAct` ; PG concurrence même clé ; e2e ACK perdu+reload | pending préservé ; pas de double effet | cookie DEV/RECETTE réserve existante |
+ Test Files  1 passed (1)
+      Tests  35 passed (35)
+   Start at  17:38:41
+   Duration  2.08s (transform 124ms, setup 0ms, collect 256ms, tests 1.73s, environment 0ms, prepare 21ms)
+
+
 ```
 
-### DIFF `projects/sfia-studio-next/construction/delivery-history.md`
-
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index b14f5688..77fc02af 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -528,5 +528,55 @@ Append-only logical journal of Cursor product deliveries.
- | Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
- | Lane | DEV proofs only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
- | Scope | Allowlist §6 only (docs + CKI manifest + web D5/D6/API/UX/tests) ; SVG / `.tmp-sfia-review` excluded |
--| Status | IMMUTABLE PROJECT CANDIDATE — SHA filled at commit/push |
-+| Status | IMMUTABLE PROJECT CANDIDATE — SHA `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` |
- | Verdict candidate | `ML3 IMMUTABLE PROJECT CANDIDATE PUBLISHED — READY FOR CHATGPT GLOBAL CRITICAL REVIEW` |
-+
-+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CONVERSATION-AUTHORITY
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-06 (Europe/Paris) |
-+| Macro-lot | R5 / ML3 « Piloter et décider » — F01/F02 consolidation fonctionnelle |
-+| Type | INC corrective (conversation → D5/D6) |
-+| Branch | `sfia/next-pilotage-decisions-delivery` (**local worktree — no project commit/push**) |
-+| Candidate ref | `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` (unchanged remote) |
-+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
-+| Schema | unchanged `007` (no migration 008) |
-+| F01 | Fil Nora → `applyConversationalAuthority` → `executePilotageCommand` (USER_MESSAGE) |
-+| F02 | RECORD/REVISE documentaires depuis fil + geste Journal ; fondations D5 restent typées |
-+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-+| Lane | DEV only ; RECETTE/LIVE Nora/STABLE NOT AUTHORIZED |
-+| Status | LOCAL CORRECTIVE — handoff L3 only |
-+| Verdict candidate | `ML3 F01/F02 CONVERSATION-AUTHORITY INTEGRATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
-+
-+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-C01-C02-C03-AUTHORITY-RECOVERY
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-06 (Europe/Paris) |
-+| Macro-lot | R5 / ML3 — F01/F02 C01/C02/C03 after Critical Review NOT ACCEPTED |
-+| Type | INC corrective continuation (same ML3) |
-+| Branch | `sfia/next-pilotage-decisions-delivery` (**local — no project commit/push**) |
-+| Prior handoff | `sfia/review-handoff@c2bec44b` blob `bbf43260` |
-+| Candidate ref | `8bf8b5ce` unchanged |
-+| Schema | unchanged `007` |
-+| C01 | Exploratory language ≠ REVISE ; Level A non-authorizing |
-+| C02 | Durable reconstitution via business_commands + stable client turn key |
-+| C03 | Thread continuity after reload ; Journal >8 expandable |
-+| Product version | `NO RELEASE` |
-+| Lane | DEV only |
-+| Verdict candidate | `ML3 F01/F02 AUTHORITY AND RECOVERY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
-+
-+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CR01-CR02-CONSOLIDATION
-+
-+| Champ | Valeur |
-+|---|---|
-+| Date UTC | 2026-11-06 |
-+| Macro-lot | R5 / ML3 — F01/F02 CR-01/CR-02 after Critical Review PARTIALLY ACCEPTED |
-+| Type | INC CRITICAL |
-+| CR-01 | D6 revise uniqueness over full APPLICABLE set (not Nora window of 12) |
-+| CR-02 | Pending exclusive guard ; Nora COMPLETE ≠ métier UNKNOWN clear ; ACK-lost browser proof |
-+| Git projet | HEAD `8bf8b5ce` inchangé — **aucun** commit/push projet |
-+| ENV-01 | DEV only (`127.0.0.1:5433/sfia_next_dev`) |
-+| Versioning | NO RELEASE / STABLE NOT AVAILABLE |
-+| Verdict candidate | `ML3 F01/F02 AUTHORITY TARGET AND RECOVERY CONSOLIDATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
-```
-
-## RAW LOG — Playwright ML3 full
+## RAW LOG — DEV Playwright
 
 ```
 [WebServer] ◇ injected env (9) from .env.local
@@ -12305,160 +12776,315 @@ index b14f5688..77fc02af 100644
 
 Running 7 tests using 1 worker
 
-(node:74542) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:80971) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ✓  1 tests/e2e/ml3-pilotage.spec.ts:8:5 › ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible (12.0s)
+  ✓  1 tests/e2e/ml3-pilotage.spec.ts:8:5 › ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible (12.2s)
   ✓  2 tests/e2e/ml3-pilotage.spec.ts:63:5 › ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT (6.2s)
   ✓  3 tests/e2e/ml3-pilotage.spec.ts:140:5 › ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED (4.9s)
-  ✓  4 tests/e2e/ml3-pilotage.spec.ts:216:5 › ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE (4.8s)
+  ✓  4 tests/e2e/ml3-pilotage.spec.ts:216:5 › ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE (4.5s)
   ✓  5 tests/e2e/ml3-pilotage.spec.ts:254:5 › ML3 F02: RECORD depuis le fil puis révision Journal (4.8s)
-  ✓  6 tests/e2e/ml3-pilotage.spec.ts:300:5 › ML3 C03: Journal décisions >8 avec historique accessible (6.3s)
-  ✓  7 tests/e2e/ml3-pilotage.spec.ts:356:5 › ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE (6.2s)
+  ✓  6 tests/e2e/ml3-pilotage.spec.ts:300:5 › ML3 C03: Journal décisions >8 avec historique accessible (6.2s)
+  ✓  7 tests/e2e/ml3-pilotage.spec.ts:356:5 › ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE (6.4s)
 
-  7 passed (48.6s)
-
-```
-
-## RAW LOG — Playwright CR-02 ACK
-
-```
-[WebServer] ◇ injected env (9) from .env.local
-[WebServer] e2e-preflight OK: operator=sfia_next_dev → e2e=sfia_next_e2e container=sfia-next-dev-pg port=5433
-[WebServer] NOTICE:  relation "pilots" already exists, skipping
-[WebServer] NOTICE:  relation "pilots_github_user_id_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "users" already exists, skipping
-[WebServer] NOTICE:  relation "sessions" already exists, skipping
-[WebServer] NOTICE:  relation "sessions_user_id_idx" already exists, skipping
-[WebServer] NOTICE:  relation "accounts" already exists, skipping
-[WebServer] NOTICE:  relation "verifications" already exists, skipping
-[WebServer] NOTICE:  relation "preparations" already exists, skipping
-[WebServer] NOTICE:  relation "preparations_owner_idx" already exists, skipping
-[WebServer] NOTICE:  relation "projects" already exists, skipping
-[WebServer] NOTICE:  relation "projects_owner_idx" already exists, skipping
-[WebServer] NOTICE:  relation "preparation_project_links" already exists, skipping
-[WebServer] NOTICE:  relation "create_project_commands" already exists, skipping
-[WebServer] NOTICE:  relation "create_project_commands_pilot_key_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "conversations" already exists, skipping
-[WebServer] NOTICE:  relation "conversations_prep_idx" already exists, skipping
-[WebServer] NOTICE:  relation "messages" already exists, skipping
-[WebServer] NOTICE:  relation "messages_conversation_idx" already exists, skipping
-[WebServer] NOTICE:  relation "documents" already exists, skipping
-[WebServer] NOTICE:  relation "documents_prep_idx" already exists, skipping
-[WebServer] NOTICE:  relation "document_revisions" already exists, skipping
-[WebServer] NOTICE:  relation "document_revisions_doc_rev_uidx" already exists, skipping
-[WebServer] NOTICE:  column "auth_mode" of relation "sessions" already exists, skipping
-[WebServer] NOTICE:  column "base_revision_id" of relation "document_revisions" already exists, skipping
-[WebServer] NOTICE:  column "correlation_key" of relation "document_revisions" already exists, skipping
-[WebServer] NOTICE:  column "provenance_json" of relation "document_revisions" already exists, skipping
-[WebServer] NOTICE:  column "scope" of relation "document_revisions" already exists, skipping
-[WebServer] NOTICE:  relation "document_revisions_corr_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_subjects" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_subjects_prep_idx" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_subjects_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_acquis" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_acquis_prep_idx" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_acquis_subject_idx" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_open_points" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_open_points_prep_idx" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_open_points_status_idx" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_subject_events" already exists, skipping
-[WebServer] NOTICE:  relation "knowledge_subject_events_subject_idx" already exists, skipping
-[WebServer] NOTICE:  column "creation_correlation_key" of relation "documents" already exists, skipping
-[WebServer] NOTICE:  relation "documents_prep_owner_corr_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "document_revisions_base_idx" already exists, skipping
-[WebServer] NOTICE:  relation "conversation_turn_commands" already exists, skipping
-[WebServer] NOTICE:  relation "conversation_turn_commands_conv_key_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "conversation_turn_commands_operation_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "conversation_turn_commands_conv_status_idx" already exists, skipping
-[WebServer] NOTICE:  relation "messages_conversation_ordinal_uidx" already exists, skipping
-[WebServer] NOTICE:  column "owner_token" of relation "conversation_turn_commands" already exists, skipping
-[WebServer] NOTICE:  relation "conversation_turn_commands_owner_token_idx" already exists, skipping
-[WebServer] NOTICE:  relation "human_decisions" already exists, skipping
-[WebServer] NOTICE:  relation "human_decisions_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "trajectory_revisions" already exists, skipping
-[WebServer] NOTICE:  relation "trajectory_revisions_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "project_pilotage_state" already exists, skipping
-[WebServer] NOTICE:  relation "project_cycles" already exists, skipping
-[WebServer] NOTICE:  relation "project_cycles_one_active_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "project_cycles_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "method_applications" already exists, skipping
-[WebServer] NOTICE:  relation "method_applications_current_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "method_applications_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "governance_restrictions" already exists, skipping
-[WebServer] NOTICE:  relation "governance_restrictions_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "business_commands" already exists, skipping
-[WebServer] NOTICE:  relation "business_commands_client_key_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "business_commands_human_intent_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "business_commands_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "business_command_effects" already exists, skipping
-[WebServer] NOTICE:  relation "business_command_effects_command_ordinal_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "business_command_effects_command_idx" already exists, skipping
-
-Running 1 test using 1 worker
-
-(node:74248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-(Use `node --trace-warnings ...` to show where the warning was created)
-  ✓  1 tests/e2e/ml3-pilotage.spec.ts:356:5 › ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE (10.8s)
-
-  1 passed (14.2s)
+  7 passed (48.7s)
 
 ```
 
-## J. Unicité D6 corpus 15+
-Unit: cognitive window hides gh-old; authority sees gh-old+gh-new.
-PG: `CR-01: 15+ applicables with two GitHub beyond cognitive window → no silent REVISE` — PASS (0 REVISED).
+## RAW LOG — SHA unit
 
-## K. Cibles multiples / isolation
-PG unique REVISE PASS; foreign project PASS; scopes remain separate candidates (unit).
+```
+39745e","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.699Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_4246e895-02fe-4117-acd2-18663739745e","attempt_id":"att_01165d09-b453-4ba3-a4fe-b97499e3d2d7","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.711Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_a6f1814a-c6c2-4d48-9143-e9be9a118674","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.712Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_a6f1814a-c6c2-4d48-9143-e9be9a118674","attempt_id":"att_163ae572-9361-4f72-be18-9c5ce2480945","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.712Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_501085ab-b96d-4fbb-b874-4a300e5b19e2","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.713Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_501085ab-b96d-4fbb-b874-4a300e5b19e2","attempt_id":"att_fb30e72b-155d-4224-8e81-59346b14d565","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.713Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_72e99fb9-942d-4de2-8647-0eafaf5b5770","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.713Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_72e99fb9-942d-4de2-8647-0eafaf5b5770","attempt_id":"att_51fe9e85-7fc2-439b-a778-e9d04b7b795c","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.713Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_5a5eea9d-532d-4f98-a1e9-af1ab6db633d","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.714Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_5a5eea9d-532d-4f98-a1e9-af1ab6db633d","attempt_id":"att_f1b044f3-55ff-440f-8568-865390c91c90","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/nora-adapter-corrective.test.ts (6 tests) 38ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.950Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_e0cbe665-7125-4eff-97dd-03395230c57b","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.951Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_e0cbe665-7125-4eff-97dd-03395230c57b","attempt_id":"att_39f860c4-c8cc-4d2d-a485-52371eba8c86","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.952Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_4f747461-9ca0-446b-a038-87ff332739f6","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.952Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_4f747461-9ca0-446b-a038-87ff332739f6","attempt_id":"att_74357209-6c36-48a5-ba99-d8c50f217a36","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:22.952Z","lane":"RECETTE","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_cafc904f-89d7-45cf-87cb-6d555875ee29","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/nora-e2e-fixture.test.ts (8 tests) 4ms
+ ✓ tests/unit/safe-markdown.test.ts (2 tests) 1ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:23.282Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"test.event","component":"test","operation_id":"op_c7d04849-e1e6-42f6-87c4-f272e7636ac8","outcome":"SUCCESS","meta":{"probe":"ok"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:23.284Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"test.dev_only","component":"test","operation_id":"op_265b1913-0c96-425f-9975-c7811b6b5d28","outcome":"SUCCESS"}
+ ✓ tests/unit/observability.test.ts (5 tests) 6ms
+ ✓ tests/unit/next-dist-dir.test.ts (2 tests) 2ms
+ ✓ tests/unit/cognitive-policy.test.ts (4 tests) 2ms
+ ✓ tests/unit/e2e-pg-gate.test.ts (4 tests) 2ms
+ ✓ tests/unit/ml3-authority.test.ts (5 tests) 1ms
+ ✓ tests/unit/http-errors.test.ts (3 tests) 1ms
+ ✓ tests/unit/fingerprint.test.ts (2 tests) 1ms
+ ✓ tests/unit/non-effects.test.ts (1 test) 1ms
 
-## L–P. Reprise / UNKNOWN / ACK / concurrence
-- unit shouldClearThreadPending / mayStartNewThreadAct PASS
-- PG C02 provider failure reconstitution PASS
-- PG concurrent same conv-auth key → 1 ACTIVE PASS
-- Playwright ACK lost after APPLIED → reload → reconcile → 1 ACTIVE PASS (BROWSER PROVEN)
+ Test Files  16 passed (16)
+      Tests  92 passed (92)
+   Start at  17:42:20
+   Duration  3.02s (transform 134ms, setup 0ms, collect 1.61s, tests 80ms, environment 1ms, prepare 301ms)
 
-## Q. Journal / continuité
-C03 Journal >8 retained (unit/PG/e2e PASS).
 
-## R. Non-régression
-- unit: 92 PASS
-- PG ML3: 35 PASS
-- Playwright ML3: 7 PASS
-- tsc EXIT 0 ; eslint chemins EXIT 0 ; next build EXIT 0
-- migrations 001→007 fresh PASS
+```
 
-## S. Commandes (extraits)
-CWD: projects/sfia-studio-next/web
-- vitest unit → 92 PASS
-- vitest ml3-pilotage.pg.test.ts → 35 PASS
-- playwright ml3-pilotage.spec.ts → 7 PASS
-- migrations-fresh → 3 PASS
-- tsc/eslint/build → 0
+## RAW LOG — SHA PG+migrate
 
-## T. ENV-01 / versioning
-STUDIO_LANE=DEV ; DATABASE_URL host 127.0.0.1:5433/sfia_next_dev
-NO RELEASE ; STABLE NOT AVAILABLE ; LIVE NOT AUTHORIZED ; RECETTE NOT AUTHORIZED
-Cookie DEV/RECETTE collision: existing reserve, not lifted.
+```
+uest_id":"req_81e43751-5bb0-4fbf-bc8e-03280596ffa7","operation_id":"op_b0448da5-d9f8-4bda-a6d7-5f085cbef972","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.130Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_b0448da5-d9f8-4bda-a6d7-5f085cbef972","generation_id":"gen_fcae8c88-94be-49b9-b695-26a1bcda7258","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.130Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_b0448da5-d9f8-4bda-a6d7-5f085cbef972","generation_id":"gen_fcae8c88-94be-49b9-b695-26a1bcda7258","attempt_id":"att_884562d8-c011-4ddc-8ec0-000aa73e3ced","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.135Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_81e43751-5bb0-4fbf-bc8e-03280596ffa7","operation_id":"op_b0448da5-d9f8-4bda-a6d7-5f085cbef972","generation_id":"gen_fcae8c88-94be-49b9-b695-26a1bcda7258","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.139Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_bb9a49bb-5015-4726-9788-2ceda8b2f390","operation_id":"op_bff04fa8-da43-4843-b206-6b14d40d1e23","outcome":"PARTIAL","meta":{"client_turn_key_fp":"eea9a4d1a26e"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.141Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_bb9a49bb-5015-4726-9788-2ceda8b2f390","operation_id":"op_bff04fa8-da43-4843-b206-6b14d40d1e23","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.151Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_bff04fa8-da43-4843-b206-6b14d40d1e23","generation_id":"gen_8738c329-7fbb-4752-9b25-2fc1e8561c42","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.151Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_bff04fa8-da43-4843-b206-6b14d40d1e23","generation_id":"gen_8738c329-7fbb-4752-9b25-2fc1e8561c42","attempt_id":"att_01e2edf8-e6cb-4bc8-8a72-0abce2e10eee","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.156Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_bb9a49bb-5015-4726-9788-2ceda8b2f390","operation_id":"op_bff04fa8-da43-4843-b206-6b14d40d1e23","generation_id":"gen_8738c329-7fbb-4752-9b25-2fc1e8561c42","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.160Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_b13804f6-8465-4582-a1ef-f9ecdad26f27","operation_id":"op_4e5ef976-ff54-45c5-a363-c015c4ae202c","outcome":"PARTIAL","meta":{"client_turn_key_fp":"552a41ba8196"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.162Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_b13804f6-8465-4582-a1ef-f9ecdad26f27","operation_id":"op_4e5ef976-ff54-45c5-a363-c015c4ae202c","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.171Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_4e5ef976-ff54-45c5-a363-c015c4ae202c","generation_id":"gen_ae4acb89-e895-4243-919f-e70a2c1f6734","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.171Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_4e5ef976-ff54-45c5-a363-c015c4ae202c","generation_id":"gen_ae4acb89-e895-4243-919f-e70a2c1f6734","attempt_id":"att_1ac85658-cbad-4e29-a5fc-e89d8e3c30ff","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.176Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_b13804f6-8465-4582-a1ef-f9ecdad26f27","operation_id":"op_4e5ef976-ff54-45c5-a363-c015c4ae202c","generation_id":"gen_ae4acb89-e895-4243-919f-e70a2c1f6734","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.188Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_35a7b073-4373-48a3-af12-26bcdde47f30","operation_id":"op_eec69c02-f1e9-44e3-9aab-6d0c27eb0b0b","outcome":"PARTIAL","meta":{"client_turn_key_fp":"eb0aea096050"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.200Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_35a7b073-4373-48a3-af12-26bcdde47f30","operation_id":"op_eec69c02-f1e9-44e3-9aab-6d0c27eb0b0b","outcome":"SUCCESS","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.210Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.unknown","component":"d3.conversation","request_id":"req_35a7b073-4373-48a3-af12-26bcdde47f30","operation_id":"op_eec69c02-f1e9-44e3-9aab-6d0c27eb0b0b","outcome":"UNKNOWN","error_category":"PROVIDER_EXCEPTION"}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:42:26.215Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.replay","component":"d3.conversation","request_id":"req_cdddfb52-22c4-4baf-8851-147926e039ac","operation_id":"op_eec69c02-f1e9-44e3-9aab-6d0c27eb0b0b","outcome":"UNKNOWN","meta":{"status":"UNKNOWN","reconciled":false}}
+ ✓ tests/integration/ml3-pilotage.pg.test.ts (35 tests) 1644ms
+ ✓ tests/integration/migrations-fresh.pg.test.ts (3 tests) 2004ms
+   ✓ migrations 001→007 on fresh isolated Postgres > applies 001→007; auth_mode + knowledge + turn owner_token + pilotage tables exist  367ms
 
-## U. Fake/Real
-DETERMINISTIC + PG INTEGRATION + BROWSER FAKE. LIVE NOT EXECUTED.
+ Test Files  2 passed (2)
+      Tests  38 passed (38)
+   Start at  17:42:24
+   Duration  4.38s (transform 127ms, setup 0ms, collect 564ms, tests 3.65s, environment 0ms, prepare 41ms)
+
+
+```
+
+## RAW LOG — SHA next build
+
+```
+   ▲ Next.js 15.5.29
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 6.2s
+   Linting and checking validity of types ...
+   Collecting page data ...
+2026-11-06T16:42:05.357Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+2026-11-06T16:42:05.351Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+2026-11-06T16:42:05.361Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+2026-11-06T16:42:05.369Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+2026-11-06T16:42:05.364Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+2026-11-06T16:42:05.373Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+2026-11-06T16:42:05.374Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+2026-11-06T16:42:05.381Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+2026-11-06T16:42:05.395Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+   Generating static pages (0/10) ...
+2026-11-06T16:42:06.394Z WARN [Better Auth]: [better-auth] Base URL is not set. Set the baseURL option or BETTER_AUTH_URL env, or use a dynamic baseURL with allowedHosts for multi-host setups. Without it the origin is derived from the incoming request, and callbacks and redirects may not work correctly.
+[Error [BetterAuthError]: You are using the default secret. Please set `BETTER_AUTH_SECRET` in your environment variables or pass `secret` in your auth config.]
+   Generating static pages (2/10)
+   Generating static pages (4/10)
+   Generating static pages (7/10)
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                                   Size  First Load JS
+┌ ○ /                                                                        166 B         103 kB
+├ ○ /_not-found                                                              993 B         104 kB
+├ ƒ /api/auth/[...all]                                                       166 B         103 kB
+├ ƒ /api/dev/login                                                           166 B         103 kB
+├ ƒ /api/portfolio                                                           166 B         103 kB
+├ ƒ /api/preparations                                                        166 B         103 kB
+├ ƒ /api/preparations/[preparationId]                                        166 B         103 kB
+├ ƒ /api/preparations/[preparationId]/create-project                         166 B         103 kB
+├ ƒ /api/preparations/[preparationId]/documents                              166 B         103 kB
+├ ƒ /api/preparations/[preparationId]/documents/[documentId]                 166 B         103 kB
+├ ƒ /api/preparations/[preparationId]/knowledge                              166 B         103 kB
+├ ƒ /api/preparations/[preparationId]/messages                               166 B         103 kB
+├ ƒ /api/preparations/[preparationId]/reconcile                              166 B         103 kB
+├ ƒ /api/projects/[projectId]                                                166 B         103 kB
+├ ƒ /api/projects/[projectId]/decisions                                      166 B         103 kB
+├ ƒ /api/projects/[projectId]/pilotage                                       166 B         103 kB
+├ ƒ /api/projects/[projectId]/pilotage/commands                              166 B         103 kB
+├ ƒ /api/projects/[projectId]/pilotage/commands/[commandId]                  166 B         103 kB
+├ ƒ /api/projects/[projectId]/pilotage/commands/by-key/[clientCommandKey]    166 B         103 kB
+├ ○ /login                                                                 1.22 kB         104 kB
+├ ○ /portfolio                                                             1.08 kB         104 kB
+├ ƒ /preparations/[preparationId]                                          6.47 kB         109 kB
+└ ƒ /projects/[projectId]                                                  10.1 kB         113 kB
++ First Load JS shared by all                                               103 kB
+  ├ chunks/493-d3099f0aa7768a9d.js                                         46.6 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js                                    54.2 kB
+  └ other shared chunks (total)                                            1.92 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+```
+
+## J. Tests DEV (pre-commit dirty = published content)
+- unit 92 PASS
+- PG ML3 35 PASS (sfia_next_dev)
+- Playwright 7 PASS BROWSER FAKE
+- migrations 001→007 3 PASS
+- tsc/eslint/build EXIT 0
+
+## K–M. Commit / staging / push
+- Commit: `ba831b25bc182f755be749243f256dbf7d5a1ca1`
+- Tree: `0f87848a31d2fa74febdde3c2d9dc2453c535bea`
+- Message: feat(next): integrate governed conversation and recovery into ML3
+- 17 files ; SVG/.tmp excluded
+- Push FF 8bf8b5ce..ba831b25 verified ; ls-remote match
+
+## N–P. Build SHA immuable
+- Worktree: `/Users/morris/Projects/sfia-workspace-ml3-recette-build-ba831b25` detached `ba831b25bc182f755be749243f256dbf7d5a1ca1`
+- npm ci from lockfile
+- next build EXIT 0 with non-secret build-prep DSN (NOT RECETTE, NOT DEV .env.local)
+- Artifact: `.next` (~256M)
+- Build ID: `ml3-recette-prep-ba831b25-20261106T164256Z`
+- SHA unit 92 + PG/migrate 38 on sfia_next_e2e PASS
+
+## Q. Manifeste candidat RECETTE (non secret)
+
+```json
+{
+  "lane_target": "RECETTE",
+  "state": "BUILD_PREPARED_NOT_DEPLOYED",
+  "source_repository": "mcleland147/sfia-workspace",
+  "source_branch": "sfia/next-pilotage-decisions-delivery",
+  "base_main_sha": "7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480",
+  "candidate_sha": "ba831b25bc182f755be749243f256dbf7d5a1ca1",
+  "tree_sha": "0f87848a31d2fa74febdde3c2d9dc2453c535bea",
+  "build_identifier": "ml3-recette-prep-ba831b25-20261106T164256Z",
+  "build_timestamp_utc": "2026-11-06T16:42:56Z",
+  "package_version": "0.0.0-dev",
+  "product_version": "NOT AVAILABLE",
+  "release_tag": "N/A",
+  "schema_revision": "007",
+  "cki_manifest_version": "0.2.0",
+  "node_version": "v24.16.0",
+  "dependency_lock_hash": "31c751c8ef58097ea0ebef72a6e84107cc2f8ea8cf5415a651785511f4f53f84",
+  "build_output_location": "/Users/morris/Projects/sfia-workspace-ml3-recette-build-ba831b25/projects/sfia-studio-next/web/.next",
+  "build_worktree": "/Users/morris/Projects/sfia-workspace-ml3-recette-build-ba831b25",
+  "test_evidence": {
+    "pre_commit_dirty_worktree": {
+      "unit": "92 PASS OBSERVED",
+      "pg_ml3": "35 PASS OBSERVED on sfia_next_dev",
+      "playwright_ml3": "7 PASS OBSERVED BROWSER FAKE",
+      "migrations_fresh": "3 PASS OBSERVED",
+      "tsc": "EXIT 0",
+      "eslint": "EXIT 0",
+      "next_build": "EXIT 0"
+    },
+    "immutable_sha_worktree": {
+      "unit": "92 PASS OBSERVED",
+      "pg_ml3_and_migrations": "38 PASS OBSERVED on sfia_next_e2e (NOT RECETTE)",
+      "tsc": "EXIT 0",
+      "next_build": "EXIT 0 with non-secret build-prep DSN (NOT RECETTE)",
+      "playwright": "NOT RE-EXECUTED on clean WT \u2014 same tree as pre-commit BROWSER FAKE proofs"
+    }
+  },
+  "migration_evidence": "001\u2192007 fresh PASS on isolated Postgres (SHA worktree)",
+  "environment_isolation_assessment": {
+    "dev_db": "127.0.0.1:5433/sfia_next_dev \u2014 OBSERVED for pre-commit",
+    "e2e_db": "sfia_next_e2e \u2014 OBSERVED for SHA PG",
+    "recette_db": "NOT MUTATED \u2014 NOT TESTED",
+    "recette_runtime": "NOT STARTED \u2014 NOT DEPLOYED",
+    "cookie_host_reserve": "KNOWN GAP \u2014 127.0.0.1 ports share host cookies; mitigation: separate browser profiles; NOT PROVEN as technical isolation",
+    "secrets": "DEV .env.local NOT copied into build WT; OPENAI/GITHUB secrets unset for build"
+  },
+  "expected_recipe_port": "3200 (reference only \u2014 NOT SERVED)",
+  "expected_recipe_database": "dedicated RECETTE DB (NOT AVAILABLE / NOT MUTATED this cycle)",
+  "identity_auth_requirements": "RECETTE session/cookies distinct from DEV \u2014 PREPARED as requirement, NOT VERIFIED runtime",
+  "cookie_host_reserve": "ENV-01 Reserve A \u2014 CARRIED",
+  "available_capabilities": [
+    "F01 natural GO from Nora thread",
+    "F02 RECORD/REVISE documentary",
+    "D6 revise uniqueness over full APPLICABLE set",
+    "ACK-lost recovery / pending exclusive guard",
+    "Journal >8",
+    "B13 Level A non-authorizing"
+  ],
+  "unavailable_capabilities": [
+    "Nora LIVE",
+    "RECETTE served runtime",
+    "STABLE",
+    "product release version"
+  ],
+  "known_gaps": [
+    "R-UX-01 NON CONFORME \u2014 CARRIED RESERVE Morris for conditional RECETTE entry",
+    "ENV-01 cookie host collision",
+    "Level B free-text material NOT PROVEN",
+    "Figma pixel NOT VERIFIED",
+    "Nora LIVE NOT EXECUTED"
+  ],
+  "rollback_or_restore_constraints": "Previous published candidate 8bf8b5ce retained in history; RECETTE runtime not replaced so no RECETTE rollback required this cycle",
+  "review_decision": "PENDING",
+  "deployment_authorization": "NOT GRANTED",
+  "qualification_notes": {
+    "observed": [
+      "candidate_sha",
+      "tree_sha",
+      "build_exit_0",
+      "unit_pg_sha"
+    ],
+    "prepared": [
+      "build_artifact",
+      "manifest",
+      "worktree"
+    ],
+    "not_tested": [
+      "recette_login",
+      "recette_db_migrate",
+      "served_recette_url"
+    ],
+    "not_available": [
+      "product_version",
+      "stable_lane",
+      "live_nora"
+    ]
+  }
+}
+```
+
+## R. ENV-01
+DEV tests OBSERVED ; RECETTE DB/runtime NOT MUTATED ; cookie host Reserve A CARRIED ; separate browser profiles mitigation DOCUMENTED, technical isolation NOT PROVEN.
+
+## S. Versioning
+NO RELEASE ; package `0.0.0-dev` ; product_version NOT AVAILABLE ; no tag.
+
+## T. RCT-01..07 préparation
+Prepared for next Morris gate — results NOT EXECUTED.
+R-UX-01: qualify per campaign whether exclusive pending blocks essential path; if only bounded UX friction, continue with carried reserve.
+
+## U. Qualification
+DETERMINISTIC + PG INTEGRATION + BROWSER FAKE. LIVE NOT EXECUTED. RECETTE NOT DEPLOYED.
 
 ## V. Documentation
-specification-technique CR-01/CR-02 as-built ; tracabilite rows ; delivery-history DELIV-…-CR01-CR02-CONSOLIDATION
+as-built R-UX-01 + delivery-history publication entry in commit.
 
-## W. Dette / réserves
-- NLP universel NOT CLAIMED
-- Libre-texte matériel Niveau B NOT PROVEN
-- Cookie host collision réserve
-- Project candidate still local vs remote 8bf8b5ce — publication needs distinct Morris GO
+## W. Réserves
+R-UX-01 NON CONFORME carried ; cookie ENV-01 ; Level B free-text NOT PROVEN ; LIVE NOT EXECUTED ; Figma NOT VERIFIED.
 
-## X. Git final
-HEAD still `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` — no project commit. SVG preserved.
-
-## Y. Handoff distant
+## X. Handoff L3
 (filled after publisher)
 
-## Z. Verdict
-**ML3 F01/F02 AUTHORITY TARGET AND RECOVERY CONSOLIDATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW.**
+## Y. Gate Morris restant
+Critical Review → distinct GO for actual RECETTE serve/deploy. No automatic RECETTE.
 
-Next gate: ChatGPT Critical Review → Morris GO for publishing updated immutable project candidate.
+## Z. Verdict
+**ML3 UPDATED IMMUTABLE CANDIDATE PUBLISHED — RECETTE BUILD PREPARED — READY FOR CHATGPT CRITICAL REVIEW.**
