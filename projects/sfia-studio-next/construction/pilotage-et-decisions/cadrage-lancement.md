@@ -1,11 +1,11 @@
 # SFIA Studio Next — R5 / ML3 « Piloter et décider »
 ## Cadrage de lancement — D0 / proposition à revue Morris
 
-**Date de préparation :** 2026-11-05 (Europe/Paris)  
-**Statut :** `DOCUMENTED — D0 PREPARATION / CANDIDATE FOR GIT REVIEW — NOT VALIDATED SPEC — NO CURSOR MANDATE`  
-**Autorité :** Morris (arbitrages et gates) ; ChatGPT (préparation et revue) ; Cursor (construction après contrat et GO distinct).  
-**Source Git vérifiée :** `mcleland147/sfia-workspace`, `main@ab18316b9c1e849ff557f4ba561c638e9961bb89`. État local : `NON OBSERVÉ`.  
-**ML2 :** PR #659 fusionnée ; arbres candidat/merge identiques ; CI post-merge Next `42116090041` SUCCESS ; RECETTE Morris 9/9 acceptée avec réserves arbitrées. PR #655 MERGED ; #656–#658 CLOSED, contenus intégrés par ascendance. STABLE, release et ADOPTED non acquis.  
+**Date de préparation :** 2026-11-05 (Europe/Paris)
+**Statut :** `DOCUMENTED — D0 PREPARATION / CANDIDATE FOR GIT REVIEW — NOT VALIDATED SPEC — NO CURSOR MANDATE`
+**Autorité :** Morris (arbitrages et gates) ; ChatGPT (préparation et revue) ; Cursor (construction après contrat et GO distinct).
+**Source Git vérifiée :** `mcleland147/sfia-workspace`, `main@ab18316b9c1e849ff557f4ba561c638e9961bb89`. État local : `NON OBSERVÉ`.
+**ML2 :** PR #659 fusionnée ; arbres candidat/merge identiques ; CI post-merge Next `42116090041` SUCCESS ; RECETTE Morris 9/9 acceptée avec réserves arbitrées. PR #655 MERGED ; #656–#658 CLOSED, contenus intégrés par ascendance. STABLE, release et ADOPTED non acquis.
 **Point documentaire :** l'en-tête de la Roadmap actuellement présent sur `main` est un snapshot antérieur au merge ML2. Les faits Git vérifiés ci-dessus priment. Synchroniser cette situation dans une livraison documentaire cohérente ultérieure, sous autorité/gate appropriés, sans micro-cycle isolé.
 
 ---

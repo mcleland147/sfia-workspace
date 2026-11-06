@@ -1,12 +1,12 @@
 # SFIA Studio Next — R5 / ML3 « Piloter et décider »
 ## Spécification technique v0.4 — candidate publiée sur branche documentaire
 
-**Statut :** `DOCUMENTED — D0 / CANDIDATE — NOT VALIDATED SPEC — NOT IMPLEMENTED`.  
-**Date :** 2026-11-06 (Europe/Paris).  
-**Dépôt :** `mcleland147/sfia-workspace` ; base `main@ab18316b9c1e849ff557f4ba561c638e9961bb89` ; branche documentaire `docs/next-pilotage-decisions-cadrage-20261105` (HEAD pré-publication `d3e61571f17db0bea03ac3c879a504e6fa99a2ef` ; HEAD publié à consulter dans Git).  
-**Nature :** révision D0 consolidant les v0.2 Git / v0.3 locale et traitant R01–R04 ; **publication Git candidate autorisée par Morris le 2026-11-06**, sans merge sur `main`.  
-**État local/runtime :** `NON OBSERVÉ` ; D5/D6 `N/A — NON IMPLÉMENTÉ`.  
-**Sources propriétaires :** `governance/SEF.md`, `governance/roadmap.md`, `governance/decisions/2026-11-04-r4-architecture-exit.md`, R2 `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md`, R2 `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` et compléments, R3 `ux-ui/audit-couverture-ux-r3.md` §7, R4 `architecture-technique/cadrage-r4.md` §5.5, corpus `cki/` v0.2.0, R5 `construction/reference-delivery-r5.md`, code ML1/ML2 sur `main`.  
+**Statut :** `DOCUMENTED — D0 / CANDIDATE — NOT VALIDATED SPEC — NOT IMPLEMENTED`.
+**Date :** 2026-11-06 (Europe/Paris).
+**Dépôt :** `mcleland147/sfia-workspace` ; base `main@ab18316b9c1e849ff557f4ba561c638e9961bb89` ; branche documentaire `docs/next-pilotage-decisions-cadrage-20261105` (HEAD pré-publication `d3e61571f17db0bea03ac3c879a504e6fa99a2ef` ; HEAD publié à consulter dans Git).
+**Nature :** révision D0 consolidant les v0.2 Git / v0.3 locale et traitant R01–R04 ; **publication Git candidate autorisée par Morris le 2026-11-06**, sans merge sur `main`.
+**État local/runtime :** `NON OBSERVÉ` ; D5/D6 `N/A — NON IMPLÉMENTÉ`.
+**Sources propriétaires :** `governance/SEF.md`, `governance/roadmap.md`, `governance/decisions/2026-11-04-r4-architecture-exit.md`, R2 `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md`, R2 `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` et compléments, R3 `ux-ui/audit-couverture-ux-r3.md` §7, R4 `architecture-technique/cadrage-r4.md` §5.5, corpus `cki/` v0.2.0, R5 `construction/reference-delivery-r5.md`, code ML1/ML2 sur `main`.
 **Annexes sur cette branche :** [Matrice individuelle R2–R4](tracabilite-r2-r3-r4.md) (136 liens et R01–R04) et [Revue de conception](revue-conception.md) (revue/gates).
 
 > **Choix Morris déjà acquis :** option A — clôture du cycle A et ouverture du cycle B, si toutes les mutations D5/D6 sont internes à Studio, effectuées **dans une seule transaction PostgreSQL** ; deux faits de transition distinctement observables, commit unique. Une réussite partielle n'est possible que pour des effets réellement séparés, hors de cette frontière. **Choix de périmètre retenu :** noyau D6 réel (décisions, GO, révisions, restrictions et levées) dans ML3 ; D7/D8/D9 restent des interfaces, sans effets simulés. **Résolutions techniques proposées pour validation Morris :** R01 version/distribution CKI ; R02 sémantique de méthode ; R03 DDL/verrouillage/idempotence ; R04 résultat partiel. Les invariants R04 atomiques sont déjà arbitrés ; les choix détaillés R01–R03 sont à valider en contenu, **non implémentés**.
