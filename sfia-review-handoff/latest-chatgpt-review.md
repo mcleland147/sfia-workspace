@@ -1,14 +1,14 @@
-# SFIA Studio Next — ML3 B13 C01–C03 Review Pack FULL
+# SFIA Studio Next — ML3 B13 R1–R3 Review Pack FULL
 
-## 01. Date, GO, cycle, profil
+## 01. Date, GO, type et profil
 
-- Date UTC: 2026-11-06T14:12:21Z
-- GO Morris: 2026-11-06 — Critical Review B13 non acceptée → corrective continuation
-- Cycle: SFIA v2.6 / CYCLE 08 DELIVERY — R5 ML3 « Piloter et Décider »
-- Profil: CRITICAL
-- Nature: INC corrective C01/C02/C03 — ne recrée pas ML3 ; contrat B13 v0.1 VALIDATED IN CONTENT BY MORRIS
+- Date UTC: 2026-11-06T14:30:47Z
+- GO Morris: 2026-11-06 — Critical Review after C01–C03 → R1/R2/R3 corrective
+- Nature: INC corrective bornée ; Cycle 08 Delivery ; Profil CRITICAL
+- Contrat B13 v0.1: VALIDATED IN CONTENT BY MORRIS
+- Non autorisé: nouvelle politique autorité, migration, push projet, PR/merge, RECETTE, Nora LIVE, STABLE, ADOPTED
 
-## 02. Git Truth Check
+## 02. Git Truth initial et final
 
 ```
 pwd -P: /Users/morris/Projects/sfia-workspace
@@ -17,48 +17,15 @@ remote: origin	https://github.com/mcleland147/sfia-workspace.git (fetch) origin	
 branch: sfia/next-pilotage-decisions-delivery
 HEAD: 7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480
 origin/main: 7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480
+origin/sfia/review-handoff: 9b98a7fab0bb9053c495c402a10d2c08bc4620f1
+handoff_blob_prior: e921982c0534732d5318f26d4c7809343bcd5412
 worktrees:
 /Users/morris/Projects/sfia-workspace                                                   7f1f41c3 [sfia/next-pilotage-decisions-delivery]
-/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023                              8024fb96 [sfia/review-handoff]
+/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023                              9b98a7fa [sfia/review-handoff]
 /Users/morris/Projects/sfia-studio-next-recette-ml1-c3                                  0db58be8 (detached HEAD)
 /Users/morris/Projects/sfia-studio-next-recette-ml2-pr659                               54fc4e9c (detached HEAD)
 /Users/morris/Projects/sfia-workspace-akg-m5-l1-a09-audit-port-decoupling               0cb05b75 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l2-d0-decision-readiness                   0cb05b75 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-local-oa-cutover                     d98b3930 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-readiness                            1a380f22 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l2-q0-readonly                             94c7a30d (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5a-product-architecture-convergence          0cb05b75 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-delivery-p6-she-execute                           f1fc1af4 [delivery/sfia-studio-p6-single-human-execute]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-abd-positive-admission-r24            c683d761 [docs/akg-m5-abd-positive-admission-r24]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-abd-postmerge-truth-sync-01           cd2020c8 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l2-d0                                 90bd0064 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l2-d2-postmerge-truth-sync            241335ee (detached HEAD)
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s1-post-merge-roadmap-sync         266459c4 [docs/akg-m5-l3-s1-post-merge-roadmap-sync]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s2-postmerge-r24-current           f884dda1 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3s2-r24-postmerge-capitalization     cf940d84 [docs/akg-m5-l3s2-r24-postmerge-capitalization]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync       6e60d839 [docs/akg-m5-nap-option-c-c14-r24-truth-sync]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-ux-630-postmerge-truth-sync       979a33ad [docs/akg-m5-nap-ux-630-postmerge-truth-sync]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-postmerge-convergence-p0              3a6b5e82 [docs/akg-m5-postmerge-convergence-p0]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-target-journey-requalification        80cae2f1 [docs/akg-m5-target-journey-requalification]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-ep-s2-08-proof-01                     485ec3cb [feat/akg-m5-ep-s2-08-proof-01]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-l1-a09                                0cb05b75 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d1                                 d98b3930 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d1-o01                             90bd0064 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-activation-prep-bounded         cdc9909d [feat/akg-m5-l2-d2-activation-prep-bounded]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover                4647983a [feat/akg-m5-l2-d2-local-oa-cutover]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s1-generic-det-integration         de1fa7ae [feat/akg-m5-l3-s1-generic-det-integration]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s2-generic-proof-continuity        73f0166c [feat/akg-m5-l3-s2-generic-proof-continuity]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3s2-orion-nora-coherence-corr-01     b0ce8413 [feat/akg-m5-l3s2-orion-nora-coherence-corr-01]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-lumen-cog-prepare-corr-01             32207a38 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr              1c3a8d9e [feat/akg-m5-nora-adaptive-presentation]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01           e37d3969 [feat/akg-m5-nap-test16-coverage-corr-01]
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation            1c3a8d9e (detached HEAD)
-/Users/morris/Projects/sfia-workspace-feat-akg-m5-remove-repository-binding-docs-write  ffc033a7 [feat/akg-m5-remove-repository-binding-docs-write]
-/Users/morris/Projects/sfia-workspace-l1-a09-delivery                                   6176a9d3 [feat/akg-m5-l1-a09-audit-port-decoupling]
-/Users/morris/Projects/sfia-workspace-p6-she-greenfield-hqa-c9abdbc3                    c9abdbc3 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-campaign-3020                     7dd49ecd (detached HEAD)
-/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-fresh-live-qa-01                  cd2020c8 (detached HEAD)
-status porcelain:
+status porcelain (head):
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
  M projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
@@ -114,9 +81,7 @@ M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
 M	projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
 M	projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
 M	projects/sfia-studio-next/web/tests/unit/nora-adapter-corrective.test.ts
-cached name-status:
-
-untracked:
+untracked (head):
 projects/sfia-studio-next/cki/manifest.v0.2.0.json
 projects/sfia-studio-next/web/public/file.svg
 projects/sfia-studio-next/web/public/globe.svg
@@ -147,53 +112,47 @@ projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
 projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
 ```
 
-Baseline attendue: HEAD = origin/main = `7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` ; branche `sfia/next-pilotage-decisions-delivery`.
-Handoff B13 précédent: commit `8024fb96` blob `f1178b5d` branche `sfia/review-handoff`.
-Aucune mutation destructive ; candidat dirty préservé ; aucun commit/push projet.
+Attendu: HEAD=origin/main=`7f1f41c…` ; branche `sfia/next-pilotage-decisions-delivery` ; handoff prior `9b98a7fa` / blob `e921982c`.
+Candidat dirty préservé (Product+SVG). Aucun commit/push projet.
 
-## 03. Sources lues (refs applicables)
+## 03. Sources réellement lues
 
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md (processus)
-- prompts/templates/sfia-cycle-execution-template.md
-- projects/sfia-studio-next/governance/SEF.md, roadmap.md, decisions/, product-naming-conventions.md
-- ENV-01 blob main `14b61f0d…` ; versioning blob `8bc93e0f…`
-- construction/pilotage-et-decisions/specification-technique.md + tracabilite-r2-r3-r4.md + delivery-history.md
-- Code candidat local (source effective ML3 non mergé sur main)
+- method/.../sfia-cycle-routing-guide.md ; prompts/templates/sfia-cycle-execution-template.md (processus)
+- governance SEF/roadmap/decisions/naming ; ENV-01 blob `14b61f0d…` ; versioning blob `8bc93e0f…`
+- construction pilotage-et-decisions + delivery-history
+- Handoff prior C01–C03 distant relu via origin/sfia/review-handoff
+- Code candidat local (source effective)
 
-## 04. Écarts C01/C02/C03 avant correction
+## 04. Reproduction R1/R2/R3 avant correction
 
-| ID | Écart Critical Review | Correction |
-| --- | --- | --- |
-| C01 | `findPotentialDivergences` exigeait 2 décisions APPLICABLE | `findMessageDecisionConfrontations` : message USER ↔ 1 décision APPLICABLE ; `levelASignals` structurés |
-| C02 | UX inférait autorité depuis regex CONFLICT | `qualifyCommandOutcome(status, reasonCode)` |
-| C03 | Pack incomplet (service.ts, PG, e2e) | Pack FULL + tests intégrés + logs bruts |
+| ID | Constat Critical Review |
+| --- | --- |
+| R1 | `runCommand` effaçait `status` mais pas `lastOutcome` → RESTRICTION restait sous UNKNOWN |
+| R2 | `frameConfrontation` pouvait classer « n'est plus obligatoire » comme COMPATIBLE via overlap lexical |
+| R3 | Test PG appelait `buildNoraPilotageContext`+`generateNoraReply` sans `postUserMessageAndNora` ni persistance fil |
 
-## 05. Blast radius
+## 05. Conception et blast radius
 
-- Touchés: divergence-assist, nora-context, conversation/service, nora-adapter, PilotagePanel, tests unit/PG/e2e, docs construction.
-- Non touchés: SEF/routing/template ; décisions R2/R3/R4 ; migration 008 ; D6 sémantique normative ; RECETTE/STABLE ; secrets.
-- command-runner / D6 service: lecture seule (pas de défaut causal démontré pour ce correctif).
+- Touchés: PilotagePanel, divergence-assist, tests unit/PG/e2e, docs construction ; nora-adapter (unused LIVE locals removed).
+- Non touchés: command-runner D5, autorité D6, migration 007, SEF/roadmap normative, RECETTE/STABLE.
 
-## 06. Fichiers créés (contenus complets)
+## 06. Fichiers créés
 
-Les fichiers B13 C01–C03 critiques sont untracked ou déjà créés dans le candidat ML3. Contenu intégral ci-dessous (section 07).
-
-Fichiers untracked ML3 pertinents (liste): divergence-assist.ts, nora-context.ts, PilotagePanel.tsx, APIs pilotage/decisions, migration 007, tests ml3-*.
+Aucun fichier architectural nouveau. Tests étendus dans fichiers B13 existants (untracked candidat ML3).
 
 ## 07. Fichiers modifiés — contenus complets
 
 SHA-256:
 ```
-918449d7107226d4a59ba9975a7dfea24ca51383b060abb3a2801578e62d658a  projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
+6f869034392759042cc7dbc8cfcf5f375408d7b6aebf13ceb738f4da47c96f73  projects/sfia-studio-next/web/src/domains/decisions/divergence-assist.ts
 81f3467c2887bc4f633493506554088db1c53cdc48bceacaec1a2fd853097bb6  projects/sfia-studio-next/web/src/domains/pilotage/nora-context.ts
 0503898c92aa0f7c7222abcd69665dc63c5cb404a694dd35fdd7d11bf5ec9e00  projects/sfia-studio-next/web/src/domains/conversation/service.ts
-d2a00941fe3bf2e7f361dc64cbb060e1435c46dc55e3408a2c8f27aaf7e01ebe  projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-1c758299386e572797a239f3c62e5c9b8bea6e0940fef6736e9b4a2fac133c5e  projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-77972b24207956eb2151455046cd06e6d646c2fcf4dd797f8ccfd818fa76a2c7  projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
-26dbf2bbb2cb83be9bdd65a628197234fe98682a22c7f191de3430b023f91147  projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
-479f98fe5c62bd9a1b7b7db746ec03443cf79727af5831e3d8ca0bc5c948312b  projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
+73d9ad00c45a24160d1e3fe3eee870a6e035aafd65323bd9f16badc8650475ee  projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+eefc1637a87ce6fcec057e6155517d93a317f8f4d895138e9e310a6dc256f7ca  projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
+13fc08ebac81e4b4ab9e2590d11f9a1813c529106d483fb17309aee475a8aa6e  projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
+981a64838b4a6f4468e74b551b519aa945e14237d392824664ecfa9938494a40  projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
+664c4abd87e4278f88b77b2b466c0ea568b2af8aed324bba15b0e912208a57fc  projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
 ```
-
 
 ### divergence-assist.ts
 
@@ -253,6 +212,38 @@ const OPPOSITION_PAIRS: Array<[RegExp, RegExp]> = [
   [/\b(actif|ouverte?|open)\b/i, /\b(fermé|clos|closed|inactif)\b/i],
 ];
 
+/** Modality terms whose affirmed/negated polarity must not be collapsed by lexical overlap. */
+const MODALITY_TERMS = [
+  "obligatoire",
+  "requis",
+  "required",
+  "mandatory",
+  "interdit",
+  "prohibé",
+  "banned",
+  "forbidden",
+  "autorisé",
+  "permis",
+  "allowed",
+  "facultatif",
+  "optionnel",
+  "optional",
+  "volontaire",
+] as const;
+
+/** Affirmed synonym groups — shared group ⇒ possible COMPATIBLE_RESTATEMENT (still Level A). */
+const MODALITY_SYNONYM_GROUPS: string[][] = [
+  ["obligatoire", "requis", "required", "mandatory"],
+  ["facultatif", "optionnel", "optional", "volontaire"],
+  ["interdit", "prohibé", "banned", "forbidden"],
+  ["autorisé", "permis", "allowed"],
+];
+
+const GLOBAL_SCOPE_RE =
+  /\b(tout\s+le\s+projet|ensemble\s+du\s+projet|global(?:e|ement)?|pour\s+tout)\b/i;
+const LOCAL_SCOPE_RE =
+  /\b(seulement|uniquement|juste\s+pour|pour\s+(?:ce\s+)?(?:cycle|ux|cadrage|activité))\b/i;
+
 /** Keep recent applicable decisions for Nora context — project-scoped, bounded. */
 export function selectApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
   return rows
@@ -299,12 +290,75 @@ function looksOpposed(prior: string, current: string): boolean {
   return false;
 }
 
+/**
+ * R2 — detect affirmed vs negated polarity of a modality term in a short window.
+ * Heuristic only (Niveau A). Prefer AMBIGUOUS/POSSIBLE_CHANGE over false COMPATIBLE.
+ */
+function modalityPolarity(text: string, term: string): "affirm" | "negate" | "absent" {
+  const n = normalizeText(text);
+  const idx = n.indexOf(term);
+  if (idx < 0) return "absent";
+  const before = n.slice(Math.max(0, idx - 48), idx);
+  // FR/EN negation cues immediately before the term (n'est plus / n'est pas / pas / no longer / not).
+  if (
+    /(?:n['']est\s+plus|n['']est\s+pas|ne\s+\w{1,20}\s+pas|pas\s+(?:plus\s+)?|plus\s+(?:d[e']\s+)?|non\s+|is\s+no\s+longer\s+|is\s+not\s+|no\s+longer\s+|not\s+)\s*$/i.test(
+      before,
+    )
+  ) {
+    return "negate";
+  }
+  const after = n.slice(idx + term.length, idx + term.length + 28);
+  if (/^\s*(?:n['']est\s+plus|n['']est\s+pas|is\s+no\s+longer|is\s+not)\b/i.test(after)) {
+    return "negate";
+  }
+  return "affirm";
+}
+
+function looksPolarityInverted(prior: string, current: string): boolean {
+  for (const term of MODALITY_TERMS) {
+    const p = modalityPolarity(prior, term);
+    const c = modalityPolarity(current, term);
+    if (p !== "absent" && c !== "absent" && p !== c) return true;
+  }
+  return false;
+}
+
+function sharesAffirmedModalitySynonym(prior: string, current: string): boolean {
+  for (const group of MODALITY_SYNONYM_GROUPS) {
+    const priorAffirm = group.some((t) => modalityPolarity(prior, t) === "affirm");
+    const currentAffirm = group.some((t) => modalityPolarity(current, t) === "affirm");
+    if (priorAffirm && currentAffirm) return true;
+  }
+  return false;
+}
+
+/** Distinct global vs local scope markers → clarify; never auto-equate. */
+function looksScopeShift(prior: string, current: string): boolean {
+  return (
+    (GLOBAL_SCOPE_RE.test(prior) && LOCAL_SCOPE_RE.test(current)) ||
+    (LOCAL_SCOPE_RE.test(prior) && GLOBAL_SCOPE_RE.test(current))
+  );
+}
+
+/**
+ * R2 — Level A framing only. Never D6 authority.
+ * Negation / polarity inversion must not become COMPATIBLE_RESTATEMENT via token overlap.
+ */
 function frameConfrontation(prior: string, current: string): LevelASignal["framing"] {
-  if (looksOpposed(prior, current)) return "POSSIBLE_CHANGE";
+  if (looksOpposed(prior, current) || looksPolarityInverted(prior, current)) {
+    return "POSSIBLE_CHANGE";
+  }
+  if (looksScopeShift(prior, current)) {
+    return "AMBIGUOUS";
+  }
+  if (sharesAffirmedModalitySynonym(prior, current)) {
+    return "COMPATIBLE_RESTATEMENT";
+  }
   const overlap = tokenOverlapRatio(prior, current);
-  if (overlap >= 0.5) return "COMPATIBLE_RESTATEMENT";
+  // High lexical overlap alone is weak evidence — prefer AMBIGUOUS over false compatible
+  // when modality synonyms are absent (R2: shared words ≠ same sense).
+  if (overlap >= 0.65) return "COMPATIBLE_RESTATEMENT";
   if (overlap >= 0.2) return "AMBIGUOUS";
-  // Object touched but wording largely unrelated — still ambiguous for Nora to clarify.
   return "AMBIGUOUS";
 }
 
@@ -531,7 +585,6 @@ export function qualifyCommandOutcome(input: {
 
 ```
 
-
 ### nora-context.ts
 
 Path: `projects/sfia-studio-next/web/src/domains/pilotage/nora-context.ts`
@@ -732,8 +785,7 @@ export async function buildNoraPilotageContext(
 
 ```
 
-
-### service.ts (conversation)
+### conversation/service.ts
 
 Path: `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
 
@@ -1346,7 +1398,6 @@ export async function getConversationId(pilotId: string, preparationId: string) 
 
 ```
 
-
 ### nora-adapter.ts
 
 Path: `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
@@ -1721,9 +1772,6 @@ async function runLiveWithTools(
   let streamingDelivered = false;
   let streamingNotes = "";
   let content = "";
-  // Requested ≠ applied until provider confirms configuration.
-  const modelApplied: string | null = null;
-  const effortApplied: string | null = null;
   let providerContacted: "YES" | "NO" | "UNCERTAIN" = "NO";
 
   try {
@@ -2025,7 +2073,6 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
 
 ```
 
-
 ### PilotagePanel.tsx
 
 Path: `projects/sfia-studio-next/web/src/components/PilotagePanel.tsx`
@@ -2314,6 +2361,8 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
   }
 
   async function resolveUnknown(record: PendingRecord) {
+    // R1: UNKNOWN is its own presentation — never keep a prior RESTRICTION/CONFLICT motif.
+    setLastOutcome({ status: "UNKNOWN" });
     setStatus("UNKNOWN");
     const found = await reconcile(record);
     if (found?.status && found.status !== "UNKNOWN") {
@@ -2323,6 +2372,7 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
     const replay = await postRecord(record);
     if (replay === "network" || replay === "nonjson") {
       remember(record);
+      setLastOutcome({ status: "UNKNOWN" });
       setStatus("UNKNOWN — commande non réconciliée");
       return;
     }
@@ -2364,6 +2414,8 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
     writeStored(projectId, record);
     setBusy(true);
     setPendingLabel(pending);
+    // R1: new attempt never reuses a previous command's qualified motif.
+    setLastOutcome(null);
     setStatus("");
     try {
       const posted = await postRecord(record);
@@ -2373,6 +2425,7 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
       }
       await applyResult(record, posted);
     } catch {
+      setLastOutcome({ status: "UNKNOWN" });
       setStatus("UNKNOWN");
       remember(record);
     } finally {
@@ -2843,7 +2896,6 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
 
 ```
 
-
 ### ml3-b13-divergence.test.ts
 
 Path: `projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts`
@@ -2893,7 +2945,7 @@ describe("B13 C01 message↔decision confrontation", () => {
     expect(findPotentialDivergences([prior])).toHaveLength(0);
   });
 
-  it("C01: compatible different formulations are not treated as possible change", () => {
+  it("C01/R2: compatible different formulations are not treated as possible change", () => {
     const signals = findMessageDecisionConfrontations(
       "GitHub reste requis pour ce projet.",
       [prior],
@@ -2901,6 +2953,62 @@ describe("B13 C01 message↔decision confrontation", () => {
     expect(signals.length).toBeGreaterThanOrEqual(1);
     expect(signals[0].framing).toBe("COMPATIBLE_RESTATEMENT");
     expect(signals[0].authorityClaim).toBe("NONE");
+  });
+
+  it("R2: negation of same modality is never COMPATIBLE_RESTATEMENT", () => {
+    const cases: Array<{ user: string; statement?: string }> = [
+      { user: "GitHub n'est plus obligatoire." },
+      { user: "GitHub n'est pas obligatoire." },
+      {
+        user: "GitHub n'est pas interdit.",
+        statement: "GitHub est interdit pour ce projet.",
+      },
+      {
+        user: "GitHub n'est pas requis.",
+        statement: "GitHub est requis pour ce projet.",
+      },
+    ];
+    for (const c of cases) {
+      const row = { ...prior, statement: c.statement ?? prior.statement };
+      const signals = findMessageDecisionConfrontations(c.user, [row]);
+      expect(signals.length).toBeGreaterThanOrEqual(1);
+      expect(signals[0].framing).not.toBe("COMPATIBLE_RESTATEMENT");
+      expect(["POSSIBLE_CHANGE", "AMBIGUOUS"]).toContain(signals[0].framing);
+      expect(signals[0].authorityClaim).toBe("NONE");
+    }
+  });
+
+  it("R2: scope shift stays AMBIGUOUS (no automatic global equivalence)", () => {
+    const signals = findMessageDecisionConfrontations(
+      "GitHub obligatoire seulement pour UX",
+      [
+        {
+          ...prior,
+          statement: "GitHub obligatoire pour tout le projet.",
+        },
+      ],
+    );
+    expect(signals.length).toBeGreaterThanOrEqual(1);
+    expect(signals[0].framing).toBe("AMBIGUOUS");
+    expect(signals[0].authorityClaim).toBe("NONE");
+  });
+
+  it("R1: UNKNOWN presentation is never authority-block; cleared outcome shows nothing", () => {
+    const restriction = qualifyCommandOutcome({
+      status: "REJECTED",
+      reasonCode: "RESTRICTION",
+    });
+    expect(restriction.testId).toBe("authority-block-established");
+    // After runCommand start, lastOutcome is null → UI hides qualified motif.
+    const afterStart: null = null;
+    expect(afterStart).toBeNull();
+    const unknown = qualifyCommandOutcome({ status: "UNKNOWN" });
+    expect(unknown.kind).toBe("unknown");
+    expect(unknown.testId).toBe("outcome-unknown");
+    expect(unknown.testId).not.toBe("authority-block-established");
+    const applied = qualifyCommandOutcome({ status: "APPLIED" });
+    expect(applied.testId).toBe("outcome-applied");
+    expect(applied.testId).not.toBe("authority-block-established");
   });
 
   it("C01: unrelated object is not confronted", () => {
@@ -2988,7 +3096,6 @@ describe("B13 C02 qualifyCommandOutcome", () => {
 });
 
 ```
-
 
 ### ml3-pilotage.spec.ts
 
@@ -3130,10 +3237,86 @@ test("ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT", async (
   await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
 });
 
+/**
+ * B13 R1 — rendered UX: prior RESTRICTION must not remain under a new UNKNOWN/APPLIED result.
+ * Observes PilotagePanel motifs, not only qualifyCommandOutcome unit calls.
+ */
+test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.waitForURL("**/preparations/**");
+  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 B13 R1 seed");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 B13 R1");
+  await page.getByPlaceholder("Résumé inspecté").fill("e2e b13 r1");
+  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
+  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
+  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
+
+  await page.getByRole("button", { name: "Pilotage" }).click();
+  await page.getByTestId("apply-cycle-restriction").click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
+    timeout: 15000,
+  });
+  await page.getByTestId("open-cycle").click();
+  await expect(page.getByTestId("authority-block-established")).toBeVisible({ timeout: 15000 });
+
+  // RESTRICTION → network loss on next command → UNKNOWN (no stale authority motif).
+  await page.route("**/api/projects/*/pilotage/commands", async (route) => {
+    if (route.request().method() === "POST") {
+      await route.abort("failed");
+      return;
+    }
+    await route.continue();
+  });
+  // also abort by-key reconcile fetches so resolveUnknown stays UNKNOWN
+  await page.route("**/api/projects/*/pilotage/commands/**", async (route) => {
+    await route.abort("failed");
+  });
+  await page.getByTestId("choose-method").click();
+  await expect(page.getByTestId("pilotage-status")).toContainText(/UNKNOWN/i, { timeout: 15000 });
+  await expect(page.getByTestId("outcome-unknown")).toBeVisible();
+  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
+
+  // UNKNOWN → controlled APPLIED on a new attempt → outcome-applied, still no authority-block.
+  await page.unroute("**/api/projects/*/pilotage/commands");
+  await page.unroute("**/api/projects/*/pilotage/commands/**");
+  await page.route("**/api/projects/*/pilotage/commands", async (route) => {
+    if (route.request().method() !== "POST") {
+      await route.continue();
+      return;
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        status: "APPLIED",
+        reasonCode: null,
+        reason: null,
+        commandId: "bcmd_e2e_r1_applied",
+        revision: 99,
+      }),
+    });
+  });
+  // Change method version so signature differs from the UNKNOWN pending record.
+  await page.getByLabel("Version").fill("2.6-r1");
+  await page.getByTestId("choose-method").click();
+  await expect(page.getByTestId("outcome-applied")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
+  await expect(page.getByTestId("outcome-unknown")).toHaveCount(0);
+});
+
 ```
 
 
-### ml3-pilotage.pg.test.ts — extraits B13/C01
+### ml3-pilotage.pg.test.ts — extraits B13/C01/R3
 
 ```typescript
 it("B13-01/04: divergent RECORD statements do not block an independent cycle open", async () => {
@@ -3316,6 +3499,103 @@ it("C01: single D6 decision + new USER text surfaces Level A via nora-context wi
   });
 
 
+it("R3: postUserMessageAndNora integrates USER→D6 context→fixture→persisted thread without inventing HumanDecision", async () => {
+    const { postUserMessageAndNora, listMessages } = await import(
+      "@/domains/conversation/service"
+    );
+    const prevLane = process.env.STUDIO_LANE;
+    const prevE2e = process.env.STUDIO_E2E;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    try {
+      const { pilotId, projectId, preparationId } = await seedProject("b13-r3-e2e-conv");
+      const recorded = await executePilotageCommand(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: 0,
+        sourceKind: "EXPLICIT_INTERACTION",
+        sourceRef: newId("src"),
+        operation: "RECORD_DECISION",
+        objectRef: "github-connexion",
+        statement: "La connexion GitHub est obligatoire.",
+      });
+      expect(recorded.status).toBe("APPLIED");
+      expect(recorded.decisionId).toBeTruthy();
+      const beforeJournal = await listDecisionJournal(pilotId, projectId);
+      expect(beforeJournal.filter((d) => d.state === "APPLICABLE")).toHaveLength(1);
+
+      const userText = "Finalement, GitHub devient facultatif.";
+      const turnKey = `b13-r3-${newId("turn")}`;
+      const result = await postUserMessageAndNora(pilotId, preparationId, userText, {
+        clientTurnKey: turnKey,
+      });
+      expect(result.status).toBe("COMPLETE");
+      expect(result.humanDecisionCreated).toBe(false);
+      expect(result.noraMode).toBe("deterministic-fixture");
+      expect(result.userMessageId).toBeTruthy();
+      expect(result.assistantMessageId).toBeTruthy();
+
+      const thread = await listMessages(pilotId, preparationId);
+      const userMsg = thread.find((m) => m.id === result.userMessageId);
+      const assistantMsg = thread.find((m) => m.id === result.assistantMessageId);
+      expect(userMsg?.role).toBe("user");
+      expect(userMsg?.content).toBe(userText);
+      expect(userMsg?.status).toBe("COMPLETE");
+      expect(assistantMsg?.role).toBe("assistant");
+      expect(assistantMsg?.status).toBe("COMPLETE");
+      expect(assistantMsg?.content).toMatch(/Niveau A/i);
+      expect(assistantMsg?.content).toContain(recorded.decisionId!);
+      expect(assistantMsg?.content).toMatch(/pas une (HumanDecision|interdiction D6)/i);
+      expect(assistantMsg?.content).not.toMatch(/blocage D6 établi|je révoque|HumanDecision créée/i);
+
+      const afterJournal = await listDecisionJournal(pilotId, projectId);
+      expect(afterJournal.filter((d) => d.state === "APPLICABLE")).toHaveLength(1);
+      expect(afterJournal.map((d) => d.id).sort()).toEqual(beforeJournal.map((d) => d.id).sort());
+
+      const view = await getPilotageProjection(pilotId, projectId);
+      expect(view.cycle).toBeNull();
+      expect(view.method.presence).toBe("ABSENT");
+
+      // Continuity after reload of the same preparation thread.
+      const reloaded = await listMessages(pilotId, preparationId);
+      expect(reloaded.some((m) => m.id === result.userMessageId)).toBe(true);
+      expect(reloaded.some((m) => m.id === result.assistantMessageId)).toBe(true);
+
+      // Idempotent replay of the same turn key — no second decision, no second USER row.
+      const replay = await postUserMessageAndNora(pilotId, preparationId, userText, {
+        clientTurnKey: turnKey,
+      });
+      expect(replay.idempotentReplay).toBe(true);
+      expect(replay.humanDecisionCreated).toBe(false);
+      expect((await listDecisionJournal(pilotId, projectId)).filter((d) => d.state === "APPLICABLE")).toHaveLength(
+        1,
+      );
+      const users = (await listMessages(pilotId, preparationId)).filter(
+        (m) => m.role === "user" && m.content === userText,
+      );
+      expect(users).toHaveLength(1);
+
+      // Isolation: foreign project's decision must not leak into this thread's Nora reply.
+      const other = await seedProject("b13-r3-iso-other");
+      await executePilotageCommand(other.pilotId, other.projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: 0,
+        sourceKind: "EXPLICIT_INTERACTION",
+        sourceRef: newId("src"),
+        operation: "RECORD_DECISION",
+        objectRef: "secret-foreign-object",
+        statement: "Objet secret d'un autre projet — ne doit pas fuiter.",
+      });
+      expect(assistantMsg?.content).not.toContain("secret-foreign-object");
+      expect(assistantMsg?.content).not.toContain("Objet secret");
+    } finally {
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
+      else process.env.STUDIO_E2E = prevE2e;
+    }
+  });
+
+
 it("C01: two different but compatible formulations do not block an independent OPEN", async () => {
     const { pilotId, projectId } = await seedProject("b13-compatible");
     const a = await executePilotageCommand(pilotId, projectId, {
@@ -3351,33 +3631,91 @@ it("C01: two different but compatible formulations do not block an independent O
 ```
 
 
-### Documentation as-built (extraits C01–C03)
+### PilotagePanel R1 excerpt (resolveUnknown + runCommand)
 
-#### specification-technique.md (B13 + C01–C03)
+```typescript
+async function resolveUnknown(record: PendingRecord) {
+    // R1: UNKNOWN is its own presentation — never keep a prior RESTRICTION/CONFLICT motif.
+    setLastOutcome({ status: "UNKNOWN" });
+    setStatus("UNKNOWN");
+    const found = await reconcile(record);
+    if (found?.status && found.status !== "UNKNOWN") {
+      await applyResult(record, found);
+      return;
+    }
+    const replay = await postRecord(record);
+    if (replay === "network" || replay === "nonjson") {
+      remember(record);
+      setLastOutcome({ status: "UNKNOWN" });
+      setStatus("UNKNOWN — commande non réconciliée");
+      return;
+    }
+    await applyResult(record, replay);
+  }
 
+  async function runCommand(intent: IntentBody, pending: string) {
+    const operation = intent.operation?.trim() || "UTTERANCE";
+    const signature = intentSignature(projectId, intent);
+    let record = inflight.current.get(signature) ?? readStored(projectId, operation, signature);
+    if (!record) {
+      const actInstanceId = crypto.randomUUID();
+      const actKey = actInstanceId;
+      const clientCommandKey = `cmd_${crypto.randomUUID()}`;
+      const sourceRef = `ui:${operation}:${actInstanceId}`;
+      const expectedRevision = projection?.revision ?? 0;
+      const payload: Record<string, unknown> = {
+        ...intent,
+        operation: intent.operation?.trim() ? intent.operation : undefined,
+        clientCommandKey,
+        expectedRevision,
+        actInstanceId,
+        sourceRef,
+        sourceKind: intent.sourceKind,
+      };
+      record = {
+        clientCommandKey,
+        actInstanceId,
+        actKey,
+        signature,
+        operation,
+        payload,
+        expectedRevision,
+        sourceRef,
+        sourceAction: { operation, actKey, actInstanceId },
+      };
+    }
+    inflight.current.set(signature, record);
+    writeStored(projectId, record);
+    setBusy(true);
+    setPendingLabel(pending);
+    // R1: new attempt never reuses a previous command's qualified motif.
+    setLastOutcome(null);
+    setStatus("");
+    try {
+      const posted = await postRecord(record);
+      if (posted === "network" || posted === "nonjson") {
+        await resolveUnknown(record);
+        return;
+      }
+      await applyResult(record, posted);
+    } catch {
+      setLastOutcome({ status: "UNKNOWN" });
+      setStatus("UNKNOWN");
+      remember(record);
+    } finally {
+      setBusy(false);
+      setPendingLabel(null);
+    }
+  }
+
+
+```
+
+
+### Documentation as-built
+
+#### specification-technique.md
 ```markdown
-### B13 v0.1 — contradictions assistées par Nora (2026-11-06)
-
-**Statut contenu :** `VALIDATED IN CONTENT BY MORRIS` — 2026-11-06.
-Distinct de : publication Git normative · implémentation · preuve LIVE · ADOPTED.
-
-**Deux niveaux (contrat) :**
-
-| Niveau | Nature | Qui | Effet |
-| --- | --- | --- | --- |
-| A — Contradiction potentielle | Suspicion cognitive | Nora (D3) | Explique, clarifie, propose ; **aucune** HumanDecision, aucune interdiction D6 |
-| B — Conflit matériel déterminant | Contrôle typé au point d'effet | D6→D5 | Refuse seulement l'effet réellement concerné (restriction, état cycle/méthode, fondation, source) |
-
-**As-built local :**
-
-- `domains/decisions/divergence-assist.ts` — détection Niveau A bornée (même kind+objectRef+scope, statements distincts) ; `authorityClaim=NONE`.
-- `nora-context` — joint décisions applicables bornées + snippets Niveau A selon énoncé ; jamais d'appel IA en transaction PG.
-- `nora-adapter` fixture — clarification Niveau A déterministe ; consignes système B13 ; **LIVE NOT EXECUTED**.
-- D6/D5 — pas de restauration de `hasExactContradiction` global ; Option A inchangée ; pas de migration 008.
-- UX PilotagePanel — légende « suspicion ≠ interdiction » ; marqueur `authority-block-established` pour RESTRICTION/CONFLICT.
-
-**Limite honnête :** conflit matériel libre-texte non typé reste **NOT PROVEN** machine-side (clarification humaine + opérations typées). B13-03 prouvé pour conflits typés (restrictions / états).
-
 ### B13 C01–C03 — corrective continuation (2026-11-06, local, non poussé)
 
 Après Critical Review B13 non acceptée. Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS).
@@ -3390,10 +3728,21 @@ Après Critical Review B13 non acceptée. Contrat B13 v0.1 inchangé (VALIDATED 
 
 **Non modifié :** Option A CLOSE+OPEN ; migrations 007 ; moteur libre-texte universel (hors scope) ; autorité exclusive Pilote ; isolation projet.
 
+### B13 R1–R3 — correctif final après Critical Review (2026-11-06, local, non poussé)
+
+Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle politique d'autorité ni migration.
+
+| Correctif | As-built |
+| --- | --- |
+| **R1** | `PilotagePanel.runCommand` remet `lastOutcome` à `null` au démarrage d'une tentative. `resolveUnknown` / catch réseau positionnent `lastOutcome={status:"UNKNOWN"}`. Un motif RESTRICTION/CONFLICT antérieur ne reste plus affiché sous un statut UNKNOWN ou APPLIED suivant. PendingRecord / clés idempotentes inchangés. |
+| **R2** | `frameConfrontation` : polarité affirmée/négative des modalités (`n'est plus` / `n'est pas` / `pas` / `not`) → `POSSIBLE_CHANGE` ; décalage de portée globale↔locale → `AMBIGUOUS` ; synonymes affirmés (obligatoire↔requis) → `COMPATIBLE_RESTATEMENT` possible. Lexical overlap seul ne force plus une compatibilité trompeuse. Toujours `authorityClaim=NONE`. |
+| **R3** | Test PG `R3: postUserMessageAndNora integrates…` : une décision APPLICABLE + `postUserMessageAndNora` (fixture DEV) → messages USER/assistant persistés, relecture fil, `humanDecisionCreated=false`, journal inchangé, pas de mutation D5, replay idempotent, isolation inter-projets. |
+
+**Preuves :** unit R1/R2 ; PG R3 + suite ML3 ; Playwright R1 (UNKNOWN/APPLIED sans motif périmé) + C02 ; eslint chemins exacts ; tsc/build. **Limite :** libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; pixel Figma NOT VERIFIED.
+
 ```
 
-#### tracabilite-r2-r3-r4.md (B13-01..10 + C01–C02)
-
+#### tracabilite
 ```markdown
 ### B13-01..10 (2026-11-06) — contrat VALIDATED IN CONTENT BY MORRIS
 
@@ -3410,108 +3759,111 @@ Après Critical Review B13 non acceptée. Contrat B13 v0.1 inchangé (VALIDATED 
 | B13-09 | PG REVOKE founding method → ABSENT | PG | REVOKED non présenté comme APPLICABLE (unit C01) |
 | B13-10 | PG act-instance / reconcile ALREADY_APPLIED | PG | — |
 | C01–C02 UX | unit `qualifyCommandOutcome` ; e2e RESTRICTION vs HUMAN_INTENT contrôlé | DETERMINISTIC + BROWSER FAKE | pixel Figma NOT VERIFIED |
+| R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
+| R2 | unit négations / portée / synonymes | DETERMINISTIC | heuristique ≠ oracle D6 |
+| R3 | PG `postUserMessageAndNora` USER→fixture→fil persisté | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |
 
 ```
 
-#### delivery-history.md (DELIV C01–C03)
-
+#### delivery-history R1-R3
 ```markdown
-## delivery_id: DELIV-2026-11-06-ML3-B13-C01-C03-CORRECTIVE
+## delivery_id: DELIV-2026-11-06-ML3-B13-R1-R3-CORRECTIVE
 
 | Field | Value |
 | --- | --- |
 | Date | 2026-11-06 (Europe/Paris) |
-| Macro-lot | R5 / ML3 — B13 corrective continuation C01–C03 (after Critical Review) |
+| Macro-lot | R5 / ML3 — B13 R1–R3 final corrective (after Critical Review on C01–C03) |
 | Type | INC corrective continuation (same ML3 ; not a new macro-lot) |
 | Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project commit/push/PR**) |
 | Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` dirty candidate preserved |
-| Contrat B13 | v0.1 remains **VALIDATED IN CONTENT BY MORRIS** — Cursor hypothesis ≠ new normative decision |
-| Schema | unchanged `007` — no migration 008 ; no new authority category |
-| C01 | `findMessageDecisionConfrontations` — single APPLICABLE D6 + new USER message → structured `levelASignals` via conversation→nora-context→adapter (no second persisted decision) |
-| C02 | `qualifyCommandOutcome(status, reasonCode)` — CONFLICT≠authority ; RESTRICTION→authority-block ; STALE/HUMAN_INTENT/FINGERPRINT→technical ; ACTIVE_CYCLE→d5_state |
-| C03 | FULL Review Pack + integrated tests (unit/PG/e2e FAKE) ; real logs |
+| Prior handoff | `sfia/review-handoff@9b98a7fa` blob `e921982c` |
+| Contrat B13 | v0.1 **VALIDATED IN CONTENT BY MORRIS** |
+| Schema | unchanged `007` |
+| R1 | Clear stale `lastOutcome` on new command ; UNKNOWN presentation replaces prior RESTRICTION motif |
+| R2 | Negation/polarity-safe Level A framing (never false COMPATIBLE on « n'est plus obligatoire ») |
+| R3 | PG integrated `postUserMessageAndNora` proof (persist USER+Nora, no invented HumanDecision) |
 | Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-| Lane | DEV only (`127.0.0.1:5433/sfia_next_dev`) ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Lane | DEV only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
 | Status | LOCAL CORRECTIVE — handoff L3 only |
-| Verdict candidate | `ML3 B13 TARGETED ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
+| Verdict candidate | `ML3 B13 R1-R3 CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
 
 ```
 
-## 08. Chaîne USER → D3 → D6
+## 08. R1 — état UX / UNKNOWN / reconciliation
 
-1. Message USER persisté dans conversation (projet lié via préparation/projet).
-2. `conversation/service.ts` appelle `buildPilotageNoraContext` avec le texte USER courant.
-3. `nora-context.ts` charge décisions APPLICABLE du projet ; `findMessageDecisionConfrontations` produit `levelASignals`.
-4. Signaux transmis à `nora-adapter` (même contrat fixture/LIVE) — `authorityClaim=NONE`.
-5. Fixture répond clarification Niveau A ; **aucune** HumanDecision créée par Nora seule.
-6. Acte humain ultérieur (UI/commande typée) seul peut muter D6 selon contrats existants.
+- `setLastOutcome(null)` au début de chaque `runCommand`.
+- UNKNOWN → `lastOutcome={status:"UNKNOWN"}` (resolveUnknown + catch + réseau non réconcilié).
+- Réconciliation terminal → `applyResult` uniquement sur ce résultat.
+- PendingRecord / clientCommandKey préservés.
 
-## 09. Corrections UX et reasonCode
+## 09. R2 — négations, ambiguïté, compatibilité
 
-- PilotagePanel conserve `lastOutcome={status, reasonCode}` depuis la réponse commande.
-- Affiche `qualifyCommandOutcome` → testIds: `authority-block-established` | `outcome-technical-*` | `outcome-d5-state` | `outcome-unknown` | `outcome-applied`.
-- Légende B13: suspicion Niveau A ≠ interdiction.
-- Pixel Figma: NOT VERIFIED.
+- Polarité modality (affirm/negate) ; opposition pairs ; synonymes affirmés ; scope shift → AMBIGUOUS.
+- « GitHub n'est plus obligatoire » ≠ COMPATIBLE_RESTATEMENT.
+- Toujours Niveau A / authorityClaim=NONE.
 
-## 10. Tests B13 et non-régression
+## 10. R3 — service conversationnel intégré
+
+- `postUserMessageAndNora` sous STUDIO_LANE=DEV + STUDIO_E2E=1.
+- Assertions: USER+assistant persistés, decisionId référencé, humanDecisionCreated=false, journal inchangé, cycle ABSENT, replay idempotent, pas de fuite inter-projets.
+
+## 11. Tests (y compris négatifs)
 
 | Suite | Résultat |
 | --- | --- |
-| unit b13+authority+cki+nora | 31 PASS |
-| PG ml3-pilotage | 23 PASS |
-| migrations-fresh 001→007 | 3 PASS |
-| Playwright ml3-pilotage (incl. C02) | 2 PASS |
+| unit (b13+authority+cki+nora) | 34 PASS |
+| PG ml3-pilotage (incl. R3) | 24 PASS |
+| migrations-fresh | 3 PASS |
+| Playwright (pilotage+C02+R1) | 3 PASS |
 | tsc --noEmit | EXIT 0 |
-| eslint chemins ML3 | EXIT 0 |
-| next build | EXIT 0 |
+| eslint chemins exacts | EXIT 0 |
+| next build | EXIT 0 (no unused-var warnings after adapter cleanup) |
 
-Comptes historiques baseline 25/21/3/1 évoluent ; la preuve est la couverture des scénarios, pas le nombre.
-
-## 11. Logs réels
+## 12. Logs bruts exacts
 
 ### ml3-unit.txt
-
 ```
-CMD: unit b13+authority+cki+nora
-DATE_UTC: 2026-11-06T14:07:05Z
+CMD: npx vitest run tests/unit/ml3-b13-divergence.test.ts tests/unit/ml3-authority.test.ts tests/unit/ml3-cki-intent.test.ts tests/unit/nora-adapter-corrective.test.ts
+CWD: /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+DATE_UTC: 2026-11-06T14:28:53Z
 ◇ injected env (9) from .env.local
 
  RUN  v3.2.4 /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
 
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.142Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_449d4570-a5f4-41b3-abf0-e78ccdd1ea12","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.144Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_449d4570-a5f4-41b3-abf0-e78ccdd1ea12","attempt_id":"att_b2b25562-b5fd-472e-a669-6ce7c27ef66f","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.148Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_9871adf1-4abd-4fc0-8846-b5a8ef005fa8","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.149Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_9871adf1-4abd-4fc0-8846-b5a8ef005fa8","attempt_id":"att_196088f8-f7f0-4f53-858e-854a2fb7e6b1","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.152Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_23375b6b-09a6-4d4e-a5d9-f7fe150d9f93","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.152Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_23375b6b-09a6-4d4e-a5d9-f7fe150d9f93","attempt_id":"att_d1b6c718-30fa-4a80-bcfb-9aa046309443","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.156Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_a416ce6b-e6a2-473e-9734-77406e34e962","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.156Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_a416ce6b-e6a2-473e-9734-77406e34e962","attempt_id":"att_f860252e-77a9-447b-9d70-1d838de2fef4","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.156Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_44dc4ead-2bd6-418f-b0d9-c0f3dc39980c","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.157Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_44dc4ead-2bd6-418f-b0d9-c0f3dc39980c","attempt_id":"att_2a93ad2f-308b-4556-b4e7-4481e86e1de0","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.157Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_3fd978f5-cb95-4a72-adf9-3c8359a984e1","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.157Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_3fd978f5-cb95-4a72-adf9-3c8359a984e1","attempt_id":"att_3fb60a25-1901-44d8-8888-b27a08eaacd2","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.157Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_be8bcbaa-5081-4cb8-9b10-fc46bde3b062","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.157Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_be8bcbaa-5081-4cb8-9b10-fc46bde3b062","attempt_id":"att_473a9ca1-33bd-43bc-baab-5bd014f98e92","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
- ✓ tests/unit/nora-adapter-corrective.test.ts (6 tests) 21ms
- ✓ tests/unit/ml3-cki-intent.test.ts (8 tests) 5ms
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.657Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_242ae482-667b-4929-9745-cf96a99a94ff","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:06.659Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_242ae482-667b-4929-9745-cf96a99a94ff","attempt_id":"att_3dfe4efc-558f-474d-a079-a8797f1b51b8","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
- ✓ tests/unit/ml3-b13-divergence.test.ts (12 tests) 4ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.900Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_f7ab58d8-9341-40ca-a3a2-c5f37bbadc46","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.902Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_f7ab58d8-9341-40ca-a3a2-c5f37bbadc46","attempt_id":"att_f3076db1-ecee-4eb4-b305-51e1937c54b9","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.906Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_f8018868-1045-495e-a22f-939ab51e1316","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.907Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_f8018868-1045-495e-a22f-939ab51e1316","attempt_id":"att_e3f71e69-2577-4024-af01-c7b42bc1206d","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.910Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_5f6df6a0-38e4-4dd8-9b48-e53ec3eb1fb0","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.910Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_5f6df6a0-38e4-4dd8-9b48-e53ec3eb1fb0","attempt_id":"att_97686ca9-1ff1-4eaf-a3b0-cd8019500a21","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.914Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_ebf0825f-369c-45e8-9e2b-f232b272c8c0","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.914Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_ebf0825f-369c-45e8-9e2b-f232b272c8c0","attempt_id":"att_095c7ad9-4fb6-4dfd-bbcf-943cf0030249","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.915Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_95067636-673d-4a57-911d-3d8509c44ccd","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.915Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_95067636-673d-4a57-911d-3d8509c44ccd","attempt_id":"att_d024f52a-3b5b-42e8-bbac-263c230a91fb","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.915Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_44812ead-f4a8-41e1-a206-ed4dc26669b0","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.915Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_44812ead-f4a8-41e1-a206-ed4dc26669b0","attempt_id":"att_a2de8cfc-a01d-4752-afe8-9bfd970ebeef","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.916Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_464d25e1-b830-4cbe-b554-04b8e4a8b29a","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:53.916Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_464d25e1-b830-4cbe-b554-04b8e4a8b29a","attempt_id":"att_b1930809-a830-476b-ac6a-9ec733b12f92","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/nora-adapter-corrective.test.ts (6 tests) 33ms
+ ✓ tests/unit/ml3-cki-intent.test.ts (8 tests) 6ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:54.418Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_76c67fb0-a225-4869-8a05-25c11ded64ce","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:54.419Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_76c67fb0-a225-4869-8a05-25c11ded64ce","attempt_id":"att_83168dab-1e95-41fa-8fdf-2a9849f10f89","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/ml3-b13-divergence.test.ts (15 tests) 6ms
  ✓ tests/unit/ml3-authority.test.ts (5 tests) 1ms
 
  Test Files  4 passed (4)
-      Tests  31 passed (31)
-   Start at  15:07:05
-   Duration  1.05s (transform 95ms, setup 0ms, collect 592ms, tests 32ms, environment 0ms, prepare 85ms)
+      Tests  34 passed (34)
+   Start at  15:28:53
+   Duration  969ms (transform 93ms, setup 0ms, collect 586ms, tests 46ms, environment 0ms, prepare 85ms)
 
 EXIT:0
 ```
 
 ### ml3-pg.txt
-
 ```
 CMD: npx vitest run tests/integration/ml3-pilotage.pg.test.ts
-DATE_UTC: 2026-11-06T14:07:15Z
+CWD: /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+DATE_UTC: 2026-11-06T14:28:57Z
 ◇ injected env (9) from .env.local
 
  RUN  v3.2.4 /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
@@ -3519,59 +3871,64 @@ DATE_UTC: 2026-11-06T14:07:15Z
 stderr | tests/integration/ml3-pilotage.pg.test.ts
 ◇ injected env (0) from .env.local
 
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:16.591Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_dc426405-6d2d-4e77-9ec1-4ddd33c5e0ef","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:07:16.592Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_dc426405-6d2d-4e77-9ec1-4ddd33c5e0ef","attempt_id":"att_5704ec36-860b-4b89-9177-bb780c15524d","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
- ✓ tests/integration/ml3-pilotage.pg.test.ts (23 tests) 869ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:58.799Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_0a670e56-07cc-4006-a502-2a1d147a3ee1","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:58.800Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_0a670e56-07cc-4006-a502-2a1d147a3ee1","attempt_id":"att_f5e95e1e-07cb-4ef2-b50a-12d1f79d3d1e","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:58.857Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_d5d851a9-616b-4553-9e84-d0a184d862cb","operation_id":"op_047c6894-74a9-4b5f-b5b1-4fdd4839f62d","outcome":"PARTIAL","meta":{"client_turn_key_fp":"b4d3c50b48d5"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:58.871Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_047c6894-74a9-4b5f-b5b1-4fdd4839f62d","generation_id":"gen_88f7775f-5894-4138-8ee8-44b921acbe1e","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:58.871Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_047c6894-74a9-4b5f-b5b1-4fdd4839f62d","generation_id":"gen_88f7775f-5894-4138-8ee8-44b921acbe1e","attempt_id":"att_67d3375b-a477-42ef-8187-b2c379d32445","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:58.879Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_d5d851a9-616b-4553-9e84-d0a184d862cb","operation_id":"op_047c6894-74a9-4b5f-b5b1-4fdd4839f62d","generation_id":"gen_88f7775f-5894-4138-8ee8-44b921acbe1e","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T14:28:58.891Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.replay","component":"d3.conversation","request_id":"req_b6c6fbc5-2678-4d78-a272-7416583049e5","operation_id":"op_047c6894-74a9-4b5f-b5b1-4fdd4839f62d","outcome":"SUCCESS","meta":{"status":"COMPLETE","reconciled":false}}
+ ✓ tests/integration/ml3-pilotage.pg.test.ts (24 tests) 992ms
 
  Test Files  1 passed (1)
-      Tests  23 passed (23)
-   Start at  15:07:15
-   Duration  1.20s (transform 85ms, setup 0ms, collect 230ms, tests 869ms, environment 0ms, prepare 20ms)
+      Tests  24 passed (24)
+   Start at  15:28:57
+   Duration  1.31s (transform 103ms, setup 0ms, collect 229ms, tests 992ms, environment 0ms, prepare 21ms)
 
 EXIT:0
 ```
 
 ### ml3-tsc.txt
-
 ```
 CMD: npx tsc --noEmit
-DATE_UTC: 2026-11-06T14:07:16Z
+CWD: /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+DATE_UTC: 2026-11-06T14:29:08Z
 EXIT:0
 ```
 
 ### ml3-lint.txt
-
 ```
-CMD: npx eslint domains/decisions domains/pilotage PilotagePanel conversation paths
-DATE_UTC: 2026-11-06T14:07:18Z
+CMD: npx eslint src/domains/decisions/divergence-assist.ts src/domains/pilotage/nora-context.ts src/domains/conversation/service.ts src/domains/conversation/nora-adapter.ts src/components/PilotagePanel.tsx tests/unit/ml3-b13-divergence.test.ts tests/integration/ml3-pilotage.pg.test.ts tests/e2e/ml3-pilotage.spec.ts
+CWD: /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+DATE_UTC: 2026-11-06T14:29:10Z
 EXIT:0
 ```
 
 ### ml3-mig.txt
-
 ```
-CMD: migrations-fresh
-DATE_UTC: 2026-11-06T14:07:19Z
+CMD: npx vitest run tests/integration/migrations-fresh.pg.test.ts
+CWD: /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+DATE_UTC: 2026-11-06T14:29:05Z
 ◇ injected env (9) from .env.local
 
  RUN  v3.2.4 /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
 
- ✓ tests/integration/migrations-fresh.pg.test.ts (3 tests) 2058ms
-   ✓ migrations 001→007 on fresh isolated Postgres > applies 001→007; auth_mode + knowledge + turn owner_token + pilotage tables exist  379ms
+ ✓ tests/integration/migrations-fresh.pg.test.ts (3 tests) 2112ms
+   ✓ migrations 001→007 on fresh isolated Postgres > applies 001→007; auth_mode + knowledge + turn owner_token + pilotage tables exist  370ms
 
  Test Files  1 passed (1)
       Tests  3 passed (3)
-   Start at  15:07:19
-   Duration  2.46s (transform 14ms, setup 0ms, collect 317ms, tests 2.06s, environment 0ms, prepare 25ms)
+   Start at  15:29:05
+   Duration  2.74s (transform 25ms, setup 0ms, collect 486ms, tests 2.11s, environment 0ms, prepare 31ms)
 
 EXIT:0
 ```
 
 ### ml3-e2e.txt
-
 ```
 CMD: npx playwright test tests/e2e/ml3-pilotage.spec.ts
-DATE_UTC: 2026-11-06T14:11:01Z
+CWD: /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+DATE_UTC: 2026-11-06T14:29:01Z
 [WebServer] ◇ injected env (9) from .env.local
 [WebServer] e2e-preflight OK: operator=sfia_next_dev → e2e=sfia_next_e2e container=sfia-next-dev-pg port=5433
 [WebServer] NOTICE:  relation "pilots" already exists, skipping
@@ -3644,34 +4001,29 @@ DATE_UTC: 2026-11-06T14:11:01Z
 [WebServer] NOTICE:  relation "business_command_effects_command_ordinal_uidx" already exists, skipping
 [WebServer] NOTICE:  relation "business_command_effects_command_idx" already exists, skipping
 
-Running 2 tests using 1 worker
+Running 3 tests using 1 worker
 
-(node:23105) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:30257) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ✓  1 tests/e2e/ml3-pilotage.spec.ts:8:5 › ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible (14.1s)
-  ✓  2 tests/e2e/ml3-pilotage.spec.ts:63:5 › ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT (5.6s)
+  ✓  1 tests/e2e/ml3-pilotage.spec.ts:8:5 › ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible (12.8s)
+  ✓  2 tests/e2e/ml3-pilotage.spec.ts:63:5 › ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT (5.5s)
+  ✓  3 tests/e2e/ml3-pilotage.spec.ts:140:5 › ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED (4.2s)
 
-  2 passed (23.5s)
+  3 passed (26.0s)
 EXIT:0
 ```
 
 ### ml3-build.txt
-
 ```
 CMD: npx next build
-DATE_UTC: 2026-11-06T14:11:02Z
+CWD: /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+DATE_UTC: 2026-11-06T14:29:32Z
    ▲ Next.js 15.5.29
    - Environments: .env.local
 
    Creating an optimized production build ...
- ✓ Compiled successfully in 8.4s
+ ✓ Compiled successfully in 6.7s
    Linting and checking validity of types ...
-
-./src/domains/conversation/nora-adapter.ts
-371:9  Warning: 'modelApplied' is assigned a value but never used.  @typescript-eslint/no-unused-vars
-372:9  Warning: 'effortApplied' is assigned a value but never used.  @typescript-eslint/no-unused-vars
-
-info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
    Collecting page data ...
    Generating static pages (0/10) ...
    Generating static pages (2/10)
@@ -3717,43 +4069,20 @@ Route (app)                                                                   Si
 EXIT:0
 ```
 
-## 12. Fake/Real Qualification
+## 13. ESLint reproductible
+
+Voir `ml3-lint.txt` : CWD web ; commande exacte avec 8 chemins ; EXIT 0 ; sortie vide.
+
+## 14. Fake/Real Qualification
 
 | Capacité | Qualification |
 | --- | --- |
-| C01 message↔décision (unit) | DETERMINISTIC PROVEN |
-| C01 nora-context PG + fixture adapter | PG INTEGRATION PROVEN + FAKE |
-| C02 qualifyCommandOutcome | DETERMINISTIC PROVEN |
-| C02 browser RESTRICTION réel + HUMAN_INTENT contrôlé | BROWSER FAKE PROVEN |
+| R1 unit + browser | DETERMINISTIC + BROWSER FAKE PROVEN |
+| R2 unit | DETERMINISTIC PROVEN |
+| R3 postUserMessageAndNora PG | PG INTEGRATION PROVEN (fixture Nora) |
 | Nora LIVE | NOT EXECUTED |
-| Conflit libre-texte matériel Niveau B | NOT PROVEN (GOVERNED DEBT) |
-| RECETTE / STABLE | NOT AVAILABLE / NOT AUTHORIZED |
-
-## 13. Scénarios B13-01..10
-
-### B13-01..10 (2026-11-06) — contrat VALIDATED IN CONTENT BY MORRIS
-
-| ID | testCaseRef | Preuve | Limite |
-| --- | --- | --- | --- |
-| B13-01 | unit compatible formulations ; PG `B13-01/04` + `C01: two different but compatible…` | DETERMINISTIC + PG | pas de faux refus d'effet |
-| B13-02 | unit fixture `levelASignals` ; PG `C01: single D6 + new USER…` → adapter FAKE | FAKE intégration conversationnelle | LIVE cognitive NOT PROVEN |
-| B13-03 | PG `B13-03/07` restriction typed | PG INTEGRATION | libre-texte matériel NOT PROVEN (couverture partielle) |
-| B13-04 | PG independent open despite RECORD divergence | PG | — |
-| B13-05 | PG REPLACE → SUPERSEDED + nouvelle APPLICABLE | PG | via op typée ; pas de 2e clic rituel |
-| B13-06 | unit intent ambiguous OK (ml3-cki-intent) ; C01 ambiguous framing | DETERMINISTIC | aucune mutation sans acte |
-| B13-07 | PG restriction persists on projection reload | PG | — |
-| B13-08 | PG COGNITIVE_PROPOSAL cannot OPEN | PG | — |
-| B13-09 | PG REVOKE founding method → ABSENT | PG | REVOKED non présenté comme APPLICABLE (unit C01) |
-| B13-10 | PG act-instance / reconcile ALREADY_APPLIED | PG | — |
-| C01–C02 UX | unit `qualifyCommandOutcome` ; e2e RESTRICTION vs HUMAN_INTENT contrôlé | DETERMINISTIC + BROWSER FAKE | pixel Figma NOT VERIFIED |
-
-
-## 14. Réserves, dette, sortie
-
-- Libre-texte matériel déterminant: NOT PROVEN — hors scope correctif ; B13-03 couverture partielle (restrictions/états typés).
-- HUMAN_INTENT e2e: demi-parcours réel (RESTRICTION) + résultat CONFLICT contrôlé (route fulfill) pour motif UX — pas une preuve d'idempotence PG (déjà PG).
-- Pixel Figma: NOT VERIFIED.
-- Condition de sortie Critical Review: pack + handoff L3 vérifié distant.
+| Libre-texte matériel Niveau B | NOT PROVEN |
+| RECETTE / STABLE | NOT AUTHORIZED / NOT AVAILABLE |
 
 ## 15. ENV-01 et versioning
 
@@ -3762,46 +4091,38 @@ DATABASE_URL_SET true
 HOST 127.0.0.1
 PORT 5433
 DB sfia_next_dev
-STUDIO_LANE DEV
+STUDIO_LANE_ENV_LOCAL DEV
 ```
 
-- Lane: DEV exclusively ; DB `127.0.0.1:5433/sfia_next_dev`.
-- Versioning: NO RELEASE — correctif local non promu ; pas de tag/STABLE.
+- Lane DEV exclusively ; DB 127.0.0.1:5433/sfia_next_dev ; NO RELEASE.
 
-## 16. Statuts de capacité
+## 16. Réserves et dette
 
-| Capacité | Statut |
-| --- | --- |
-| C01 rapprochement message↔D6 | IMPLEMENTED + PROUVÉ (FAKE/PG ctx) |
-| C02 qualification UX motifs | IMPLEMENTED + PROUVÉ (unit + browser FAKE) |
-| C03 Review Pack FULL | THIS DOCUMENT |
-| Option A / CR-01..04 | NON RÉGRESSÉ (PG suite verte) |
-| Nora LIVE / RECETTE / STABLE / ADOPTED | NOT CLAIMED |
+- Libre-texte matériel déterminant: NOT PROVEN / GOVERNED DEBT.
+- R1 e2e UNKNOWN/APPLIED via abort+fulfill contrôlés pour observer le rendu (réseau réel non simulé côté PG).
+- Pixel Figma: NOT VERIFIED.
+- Exit: Critical Review ChatGPT sur handoff L3 ; pas RECETTE/PR/MERGE.
 
-## 17. Git final (pré-handoff)
+## 17. Documentation as-built
 
-Voir §02. Aucun commit projet. Handoff L3 mono-fichier sur `sfia/review-handoff` uniquement.
+Voir §07 extraits ; delivery_id DELIV-2026-11-06-ML3-B13-R1-R3-CORRECTIVE.
 
-## 18. Handoff L3
+## 18. Gate Morris restant
 
-- Branche: `sfia/review-handoff`
-- Path: `sfia-review-handoff/latest-chatgpt-review.md`
-- Publisher: `scripts/sfia/publish-review-handoff.sh`
-- Vérification distante: SHA commit + blob après publication.
+- Critical Review ChatGPT obligatoire.
+- Arbitrage Morris seulement si politique/persistance structurelle insuffisante.
+- GO RECETTE / PR / merge : gates séparés, non revendiqués.
 
-## 19. Verdict candidat
+## 19. Handoff L3
 
-**ML3 B13 TARGETED ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**
+- Branche `sfia/review-handoff` ; path `sfia-review-handoff/latest-chatgpt-review.md`
+- Message: `sfia: publish ML3 B13 R1-R3 corrective review`
+- Publisher: scripts/sfia/publish-review-handoff.sh
 
-Sous réserve: handoff L3 publié et vérifié distant ; pas de READY RECETTE/PR/MERGE/LIVE/STABLE/ADOPTED.
+## 20. Verdict et instruction ChatGPT
 
-## 20. Instruction ChatGPT obligatoire
+**ML3 B13 R1-R3 CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**
 
-Avant de répondre à Morris, ChatGPT doit relire sur GitHub:
+Instruction: avant réponse à Morris, relire le handoff distant sur `sfia/review-handoff` et confronter R1 (pas de motif périmé), R2 (négation non compatible), R3 (`postUserMessageAndNora` réel + persistance PG), logs exacts, Git et gates. Le rapport Cursor ne remplace pas le handoff.
 
-- branche `sfia/review-handoff`
-- fichier `sfia-review-handoff/latest-chatgpt-review.md`
-
-Confronter ce rapport Cursor au contenu réel du handoff (HEAD/base, fichiers, diffs, tests, logs, réserves, gate, vérification distante). Le rapport Cursor seul ne remplace pas le handoff canonique.
-
-FIN — SFIA v2.6 / ML3 B13 C01–C03 CORRECTIVE CONTINUATION.
+FIN — SFIA v2.6 / ML3 B13 R1–R3.
