@@ -5,12 +5,12 @@
 > **État Git au versement (2026-11-04) :** publication documentaire candidate sur `docs/next-r5-delivery-preparation-20261104`, base `main@a0b80b9ecd64149ed51f87235ae246e197e66462`. Ni `VALIDATED SPEC`, ni merge, ni GO Cursor. Les formules `NOT ON GIT` et `NO GIT WRITE` dans les historiques décrivent leur état à la rédaction, pas cette publication.
 
 
-**Version :** travail D0 / v0.4 — 2026-11-04  
-**Statut de la préparation D0 initiale (historique) :** `PREPARATION DOCUMENTAIRE EN COURS / CONTENU CANDIDAT / R5 CONSTRUCTION NOT STARTED À CETTE DATE`. **État produit actuel :** voir note post-ML1 ci-dessus.  
-**Périmètre :** préparation du dispositif documentaire, de traçabilité, de vérification et de gouvernance de la construction R5.  
-**Autorité :** Morris valide les contrats, les arbitrages structurants, les gates et les opérations Git ; ChatGPT prépare et révise ; Cursor implémente sous SFIA v2.6 après mandat.  
-**Dépôt contrôlé :** [`mcleland147/sfia-workspace`](https://github.com/mcleland147/sfia-workspace), `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; branche `main` protégée. **Git local, staged, untracked et worktrees : NON OBSERVÉS.**  
-**Intégration R4 :** [PR #646](https://github.com/mcleland147/sfia-workspace/pull/646) mergée le 2026-11-03T23:33:19Z, SHA de merge identique au HEAD ci-dessus. Certains paragraphes historiques de la Roadmap et du cadrage R4 décrivent encore le gate PR/merge comme à venir : la preuve Git directe prime.  
+**Version :** travail D0 / v0.4 — 2026-11-04
+**Statut de la préparation D0 initiale (historique) :** `PREPARATION DOCUMENTAIRE EN COURS / CONTENU CANDIDAT / R5 CONSTRUCTION NOT STARTED À CETTE DATE`. **État produit actuel :** voir note post-ML1 ci-dessus.
+**Périmètre :** préparation du dispositif documentaire, de traçabilité, de vérification et de gouvernance de la construction R5.
+**Autorité :** Morris valide les contrats, les arbitrages structurants, les gates et les opérations Git ; ChatGPT prépare et révise ; Cursor implémente sous SFIA v2.6 après mandat.
+**Dépôt contrôlé :** [`mcleland147/sfia-workspace`](https://github.com/mcleland147/sfia-workspace), `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; branche `main` protégée. **Git local, staged, untracked et worktrees : NON OBSERVÉS.**
+**Intégration R4 :** [PR #646](https://github.com/mcleland147/sfia-workspace/pull/646) mergée le 2026-11-03T23:33:19Z, SHA de merge identique au HEAD ci-dessus. Certains paragraphes historiques de la Roadmap et du cadrage R4 décrivent encore le gate PR/merge comme à venir : la preuve Git directe prime.
 **Runtime Next au moment de cette préparation D0 (historique) :** `N/A — NON IMPLÉMENTÉ`. **Depuis :** ML1 construit/recetté, preuves bornées, non adopté ; voir note d'actualisation.
 
 > **Qualification du présent document :** le GO conversationnel de Morris autorise la consolidation D0 du dispositif et la préparation d’une **spécification technique candidate ML1**. Il ne valide pas automatiquement les choix techniques ouverts et n’autorise ni écriture Git, ni prompt/exécution Cursor, ni code. Les ajustements UX/QA de la discussion du 2026-11-04 sont intégrés ci-dessous.
@@ -486,3 +486,32 @@ La capacité **ML4 — Collaborer et publier avec Git** conserve ses frontières
 **Séquence de construction approuvée** : (1) documentation R1–R5 intégrée et vérifiée sur Git ; (2) convergence UX du portefeuille, sas, projet, conversation Nora, documents, méthodes/cycles et décisions/journal issus de ML1–ML3, sous **contrat/GO technique distinct** et tests navigateur de non-régression ; (3) réalisation Git ML4 intégrée au shell et composants, après preuve fournisseur et GO Cursor ; (4) ML5 Cursor ; (5) R6. Aucun macro-lot numéroté supplémentaire ni découpage en micro-cycles n'est décidé automatiquement.
 
 **Gates ouverts :** GitHub App réelle, attribution et permissions, sécurité/DB, mandat D6/D7, preuves browser/LIVE/REAL, snapshot immuable Figma avant code ; 22 tests ML4-AT encore NOT RUN. La validation UX ne clôture ni le build ML4, ni R6, ni l'adoption.
+
+---
+
+
+## 23. Préparation candidate — Convergence UX du parcours Pilote–Nora intégré (2026-11-07)
+
+**Ordre Morris :** préparation documentaire Git ML4 intégrée (#663) → **convergence UX du runtime ML1–ML3** sous contrat et GO distincts → développement technique ML4 → ML5 Cursor. Le résultat de convergence n'est pas un macro-lot numéroté additionnel par défaut et **ne constitue pas la construction technique ML4**.
+
+**Arbitrages de portée validés :** [décision Morris A1/A2/A3](../governance/decisions/2026-11-07-convergence-ux-arbitrages.md). A1 = reprise ciblée des préparations non liées depuis le portefeuille ; A2 = révision documentaire accessible dans le projet par D4 existant ; A3 = pas de nouveau moteur de cartes/commandes mutantes Nora.
+
+**Sources propriétaires du candidat :** [qualification et matrice `CU-01..16`](convergence-ux-parcours-pilote-nora/qualification.md) ; [contrat `UXC-01..14`](convergence-ux-parcours-pilote-nora/contrat-acceptation.md) ; [audit R3 §19](../ux-ui/audit-couverture-ux-r3.md) ; [transposition R3 §8](../ux-ui/contrat-transposition-figma-code.md). Ces documents sont **DOCUMENTED / CANDIDATE**, non `VALIDATED SPEC` du contrat complet.
+
+**IN à préparer :** shell/nav commun, portefeuille/sas, continuité projet, fil Nora et rendu sûr, D4 documents/révisions/sujets, D5 trajectoire/CKI, D6 décisions/restrictions, états réels et reprise, responsivité, accessibilité. A1/A2 peuvent impliquer de **petits contrats de service/API** sous D1/D2/D4 : les qualifier comme fonctionnalité intégrée, et non comme retouche de style.
+
+**OUT :** GitHub App/dépôts, écriture/merge Git, exécution Cursor et D7/D8/D9, nouveau moteur d'actions Nora, nouvelles autorités, migration gratuite, nouveau catalogue de plugins, refonte de tous les écrans Figma.
+
+**Risque principal :** déplacer implicitement la source de vérité de D4/D5/D6 vers la présentation ou fabriquer un comportement non implémenté en suivant une maquette. **STOP** si le projet nécessite une autorité supplémentaire, un nouveau moteur concurrent, une évolution structurante de DB/contrat ou une fonctionnalité D7/D9. Préserver les réserves de ML1–ML3 et les gates ENV-01.
+
+**Suite avant GO technique :** relire la matrice `CU` et les 14 critères `UXC` avec Morris, arrêter le parcours A1/A2 et les exigences de navigation/états, identifier l'intégrateur et les preuves par risque, figer les frames Figma applicables, qualifier le blast radius et seulement ensuite construire la spécification technique détaillée. **Aucun GO code/PR/merge/STABLE/ADOPTED** n'est induit.
+
+---
+
+## 24. Contrat de fidélité Figma → navigateur pour la convergence UX (2026-11-07)
+
+**Sources :** [contrat d'acceptation candidat v0.3](convergence-ux-parcours-pilote-nora/contrat-acceptation.md), [protocole R3 complémentaire](../ux-ui/protocole-fidelite-figma-runtime.md), [L1 de 11 frames](../ux-ui/releves-geometriques-convergence-l1.json), [contrat R3 courant](../ux-ui/contrat-transposition-figma-code.md).
+
+Le futur lot de réalisation doit produire avant code un pack de mesures natives Figma **L0/L1/L2 ciblé** par composant/état et un oracle figé. La conformité est appréciée au navigateur sur le **même SHA**, avec fixtures, pixels de référence, métriques DOM, styles calculés, captures et diff régional. Les 14 `UXC` restent l'unique matrice d'acceptation de la convergence : **pas de système de tests parallèle**. Les écrans Figma 218–235 (ML4 Git) demeurent hors de ce résultat.
+
+**Gates encore ouverts :** arbitrages P1–P3 du contrat complet, rail partagé **240/246 px**, tolérances de comparaison (objectif 0 px, ≤2 px proposé mais **non validé**), snapshot/export Figma immuable, extraction L2, navigateur/RECETTE, intégrateur et GO technique Cursor. Ce raccord documentaire ne vaut ni `VALIDATED SPEC` complet, ni `IMPLEMENTED`, ni `BEHAVIOR PROVEN` ni `ADOPTED`.

@@ -1,5 +1,11 @@
 # SFIA Studio Next — Living Roadmap
 
+> **R5 / CONVERGENCE UX — PROTOCOLE DE FIDÉLITÉ FIGMA CANDIDAT (2026-11-07)** : [contrat d'acceptation v0.3](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) et [protocole mesuré R3](../ux-ui/protocole-fidelite-figma-runtime.md) préparés avec [11 relevés L1 partiels](../ux-ui/releves-geometriques-convergence-l1.json). L'intention de fidélité a l'accord de principe Morris ; **P1–P3, rail 240/246, tolérances et pack L2 restent à finaliser**, sans GO code. L'intégration documentaire ne clôture pas la convergence ni ML4.
+
+
+> **QUALIFICATION DE CONVERGENCE UX — DÉCISION MORRIS DU 2026-11-07 :** après l'intégration documentaire de ML4 via [PR #663](https://github.com/mcleland147/sfia-workspace/pull/663), Morris a validé les **arbitrages A1 (reprise ciblée des préparations), A2 (révision D4 depuis le projet), A3 (pas de nouveau moteur d'actions Nora)** et autorisé la publication de la qualification et du contrat **candidat** sur branche documentaire. [Décision](decisions/2026-11-07-convergence-ux-arbitrages.md) · [Dossier R5](../construction/convergence-ux-parcours-pilote-nora/qualification.md). **Contrat d'acceptation complet NON VALIDÉ ; code/Figma NON MODIFIÉS ; convergence NOT STARTED / BUILD NOT AUTHORIZED ; ML4 Git technique NOT STARTED / BUILD NOT AUTHORIZED.** Cette note prévaut sur les anciennes propositions restées dans les snapshots datés.
+
+
 > **DÉCISION DE TRAJECTOIRE MORRIS DU 2026-11-07 (contenu validé, Git sur branche candidate) :** ML4 couvre l'accès GitHub à la carte, les intégrations, la lecture Nora et la publication documentaire Git native gouvernée (D6/D7/D8/D9, PR puis merge distinct) ; ML5 couvre la réalisation technique Cursor. Voir [décision](decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). **ML4 NOT STARTED / BUILD NOT AUTHORIZED ; UX FIGMA 218–235 VALIDATED SPEC Morris, aucun merge documentaire, aucune implémentation ML4, release ou ADOPTED.**
 
 

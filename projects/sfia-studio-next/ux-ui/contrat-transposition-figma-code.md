@@ -217,3 +217,35 @@ Avant code, obtenir **contrat visuel Morris, node IDs natifs, date, snapshot et 
 **Contrat Figma validé en conception :** [registre des nœuds 218–235](integration-git-ux-ml4.md), INDEX `388:425`, page `94:49`, 36 liens de prototype et 27 liens de revue. Réutiliser les composants R3 par responsabilité, sans créer des modules nommés `ML4` ou `Figma-218` dans le code.
 
 **Avant le code :** extraire un snapshot Figma daté (fichier mutable ; aucune capture PNG immuable déposée sur Git à ce gate), vérifier les variantes et s'appuyer sur la convergence UX du shell déjà construit ML1–ML3. **Après le code :** captures et contrôles navigateur 320/390/1280/1680 px, clavier/focus, zoom 200 %, transitions, refus/revocation et source long format. Les liens 227→228 et 229→230 sont illustratifs : leur transposition **ne doit pas** produire un commit ou merge sans HumanDecision D6 et vérification distante.
+
+---
+
+
+## 8. Transposition candidate du runtime ML1–ML3 — Parcours Pilote–Nora intégré (2026-11-07)
+
+**Autorité :** [A1/A2/A3 validés en périmètre par Morris](../governance/decisions/2026-11-07-convergence-ux-arbitrages.md). La [qualification R5](../construction/convergence-ux-parcours-pilote-nora/qualification.md) fournit `CU-01..16` et le [contrat d'acceptation candidat](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) fournit `UXC-01..14` ; aucun statut `VALIDATED SPEC` **complet** n'en découle.
+
+| Famille de composants par responsabilité | Surfaces existantes sur `main` | Références Figma R3 |
+| --- | --- | --- |
+| Shell, navigation, portefeuille et préparation | `web/src/app/layout.tsx`, `portfolio/page.tsx`, `preparations/[preparationId]/page.tsx` | 01, 02, 62–65, 73–81, 13/14 |
+| Fil Nora, activité et lecture sécurisée | `projects/[projectId]/page.tsx`, `components/SafeMarkdown.tsx`, service D3 | 03, 109–118, 206–208 et 216/217 |
+| Documents, révisions et connaissance | pages sas/projet ; services D4 documents/sujets/versions | 04, 05, 18, 89–100 et 205 |
+| Trajectoire, cycle, méthode, CKI et décisions | `components/PilotagePanel.tsx` et services D5/D6 | 22–34, 39–41, 47/48, 52–60 |
+
+**Convergence à qualifier :** A1 demande une lecture authentifiée de préparations reprenables sans mutation ; A2 expose la révision D4 depuis le projet sans système dupliqué ; A3 conserve le rendu sûr existant sans exécuteur d'actions Nora. Les composants visuels n'ont jamais autorité sur les versions, décisions, permissions ou résultats métier.
+
+**Avant construction :** figer par composition les nœuds Figma réellement nécessaires, choisir navigation/routes et états conditionnels, démontrer un parcours complet sans boutons factices, contrôler le rail partagé (240/246 px historique), focus/clavier, liens profonds, zoom 200 %, 320/390/1280/1680 px, erreurs et retours au fil. Définir l'oracle par capacité sans extraire ni reconstruire exhaustivement 242 frames.
+
+**Pendant construction ultérieure :** un seul contrat code/tests/docs, preuves intégrées PG/HTTP/BROWSER/Nora LIVE ciblée, captures runtime comparées à Figma au même SHA, écarts classés et arbitrés. **Figma conçu ≠ comportement prouvé.** Pas de code, d'écriture Figma ni de GO Cursor dans la présente préparation.
+
+---
+
+## 9. Convergence ML1–ML3 — fidélité Figma mesurée et reproductible (2026-11-07)
+
+**Source complémentaire candidate :** [protocole de fidélité Figma → runtime](protocole-fidelite-figma-runtime.md), [relevé L1 partiel de 11 frames](releves-geometriques-convergence-l1.json), [contrat d'acceptation v0.3](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md). Ces références complètent les §§4.1–4.4 et **ne remplacent pas** l'index historique des 223 frames ni les décisions R3 antérieures.
+
+**Obligations préparées pour le futur contrat Cursor :** identifier frame/variante/état et propriétaire D1–D6 ; produire un pack L0/L1/L2 ciblé avant le code, incluant chaîne de parents, dimensions locales/absolues contrôlées, auto-layout, sizing, padding/gap, tokens, styles de texte, composants et interactions ; figer capture de référence et digest ; comparer en navigateur mêmes fixtures, états, viewport, police, navigateur, DPR, styles calculés et rectangles DOM ; refuser tronquature, chevauchement et commande fictive ; consigner et faire approuver toute dérogation.
+
+**Limites actuelles :** 11 frames seulement au niveau L1 ; L2, export Figma immuable et mesure DOM non réalisés. Le rail de l'écran 03 mesure **240 px**, contre **246 px** dans les autres écrans consultés : **KNOWN GAP de fondation**, décision Morris requise avant le shell partagé. Objectif 0 px et seuil ≤2 px pour rectangles stables = **propositions de calibration non validées**, aucun seuil global de diff image accepté. Les frames Git ML4 218–235 sont exclues de l'implémentation de convergence.
+
+**Gate :** contrat complet, arbitrages P1–P3, rail, tolérances et choix L2 à faire valider avant GO Cursor. Publication Git de l'addendum ≠ `VALIDATED SPEC` du seuil ≠ réalisation ≠ preuve navigateur.

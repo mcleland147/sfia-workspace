@@ -1,0 +1,584 @@
+{
+  "schema": "SFIA_NEXT_UX_CONVERGENCE_L1_OBSERVED_SEED_V0.1",
+  "date": "2026-11-07",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "gitBaseline": "main@d37ea0882ee9256ec206e2f0523a71bf13674e88",
+  "scope": "SELECTED R3 FRAMES ONLY; NATIVE TOP-LEVEL READ-ONLY MEASUREMENTS",
+  "warning": "NOT COMPLETE L2 DEEP EXTRACTION; NOT IMMUTABLE FIGMA VERSION; NOT VALIDATED IMPLEMENTATION CONTRACT; COORDINATES ARE LOCAL TO PARENT",
+  "knownGap": "Frame 03 rail 240px vs frames 01/02/64/74/89/92/24/40 246px. Arbitration required before shared shell implementation",
+  "frames": [
+    {
+      "screenNumber": 1,
+      "frameId": "94:50",
+      "name": "Portefeuille et choix du projet",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "94:51",
+          "name": "Barre latérale produit",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "94:77",
+          "name": "Surface produit",
+          "localBounds": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 2,
+      "frameId": "94:135",
+      "name": "Sas — conversation avant projet",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "94:136",
+          "name": "Barre latérale produit",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "94:162",
+          "name": "Surface produit",
+          "localBounds": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 3,
+      "frameId": "94:214",
+      "name": "Nora — conversation longue / en lecture",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "94:215",
+          "name": "Rail de projet / stable",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "94:249",
+          "name": "Zone de travail conversationnel",
+          "localBounds": {
+            "x": 240,
+            "y": 0,
+            "width": 1440,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 4,
+      "frameId": "94:370",
+      "name": "Document Nora — consultation",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "94:371",
+          "name": "Espace projet / nav et travail",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1680,
+            "height": 970
+          },
+          "layoutMode": "HORIZONTAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 64,
+      "frameId": "158:264",
+      "name": "Portefeuille — aucun projet",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "158:265",
+          "name": "Rail / Projet",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "158:294",
+          "name": "Barre du projet",
+          "localBounds": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "158:296",
+          "name": "En-tête de page",
+          "localBounds": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "158:300",
+          "name": "Contenu / colonnes",
+          "localBounds": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "158:328",
+          "name": "Actions / principales",
+          "localBounds": {
+            "x": 285,
+            "y": 857,
+            "width": 1320,
+            "height": 51
+          },
+          "layoutMode": "HORIZONTAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 74,
+      "frameId": "159:145",
+      "name": "Sas — préparation retrouvée",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "159:146",
+          "name": "Rail / Projet",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "159:175",
+          "name": "Barre du projet",
+          "localBounds": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "159:177",
+          "name": "En-tête de page",
+          "localBounds": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "159:181",
+          "name": "Contenu / colonnes",
+          "localBounds": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "159:209",
+          "name": "Actions / principales",
+          "localBounds": {
+            "x": 285,
+            "y": 857,
+            "width": 1320,
+            "height": 51
+          },
+          "layoutMode": "HORIZONTAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 89,
+      "frameId": "160:175",
+      "name": "Documents — bibliothèque du projet",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "160:176",
+          "name": "Rail / Projet",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "160:205",
+          "name": "Barre du projet",
+          "localBounds": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "160:207",
+          "name": "En-tête de page",
+          "localBounds": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "160:211",
+          "name": "Contenu / colonnes",
+          "localBounds": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "160:239",
+          "name": "Actions / principales",
+          "localBounds": {
+            "x": 285,
+            "y": 857,
+            "width": 1320,
+            "height": 51
+          },
+          "layoutMode": "HORIZONTAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 92,
+      "frameId": "160:391",
+      "name": "Document — révision concurrente",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "160:392",
+          "name": "Rail / Projet",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "160:421",
+          "name": "Barre du projet",
+          "localBounds": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "160:423",
+          "name": "En-tête de page",
+          "localBounds": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "160:427",
+          "name": "Contenu / colonnes",
+          "localBounds": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "160:455",
+          "name": "Actions / principales",
+          "localBounds": {
+            "x": 285,
+            "y": 857,
+            "width": 1320,
+            "height": 51
+          },
+          "layoutMode": "HORIZONTAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 24,
+      "frameId": "127:106",
+      "name": "Cycle — actif et guidance CKI",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "127:107",
+          "name": "Rail / Projet",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "127:136",
+          "name": "Barre du projet",
+          "localBounds": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "127:138",
+          "name": "En-tête de page",
+          "localBounds": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "127:142",
+          "name": "Contenu / colonnes",
+          "localBounds": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "127:170",
+          "name": "Actions / principales",
+          "localBounds": {
+            "x": 285,
+            "y": 857,
+            "width": 1320,
+            "height": 51
+          },
+          "layoutMode": "HORIZONTAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 40,
+      "frameId": "129:72",
+      "name": "Journal — décisions",
+      "frameSize": {
+        "width": 1680,
+        "height": 970
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "129:73",
+          "name": "Rail / Projet",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "129:102",
+          "name": "Barre du projet",
+          "localBounds": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "129:104",
+          "name": "En-tête de page",
+          "localBounds": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "129:108",
+          "name": "Contenu / colonnes",
+          "localBounds": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "129:136",
+          "name": "Actions / principales",
+          "localBounds": {
+            "x": 285,
+            "y": 857,
+            "width": 1320,
+            "height": 51
+          },
+          "layoutMode": "HORIZONTAL"
+        },
+        {
+          "nodeId": "137:92",
+          "name": "Journal / onglets",
+          "localBounds": {
+            "x": 285,
+            "y": 201,
+            "width": 220,
+            "height": 36
+          },
+          "layoutMode": "HORIZONTAL"
+        }
+      ]
+    },
+    {
+      "screenNumber": 216,
+      "frameId": "282:468",
+      "name": "Nora — travail en cours à 390 px",
+      "frameSize": {
+        "width": 390,
+        "height": 1350
+      },
+      "status": "PARTIAL_NATIVE_L1_OBSERVED",
+      "rootChildren": [
+        {
+          "nodeId": "282:469",
+          "name": "Navigation mobile",
+          "localBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 73
+          },
+          "layoutMode": "VERTICAL"
+        },
+        {
+          "nodeId": "282:472",
+          "name": "Contenu / lecture ordonnée",
+          "localBounds": {
+            "x": 0,
+            "y": 73,
+            "width": 390,
+            "height": 538
+          },
+          "layoutMode": "VERTICAL"
+        }
+      ]
+    }
+  ]
+}
