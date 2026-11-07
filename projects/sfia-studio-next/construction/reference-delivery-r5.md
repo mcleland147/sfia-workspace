@@ -525,3 +525,11 @@ Le futur lot de réalisation doit produire avant code un pack de mesures natives
 - **G3 SPEC TECH NON PRÉPARÉE** : API D1/D2 de liste, D4 de révision, typage/erreurs, composants et responsive, tests/fixtures et intégrateur à contractualiser ensuite.
 - **G4 NOT STARTED** : aucun code, DB, Figma, CI ou prompt Cursor autorisé par ce merge documentaire ; **G5 NOT RUN** : aucun PASS sur `UXC-01..14` ni comparaison navigateur.
 **Suite :** structurer un seul résultat cohérent code/tests/docs sur l'environnement approprié lorsque G2/G3 sont prêts et qu'un mandat Cursor distinct est accordé. Aucun effet Git ML4 ni promotion `ADOPTED` anticipée.
+
+## 26. Convergence UX — F1 Inspection 244 px validée, G2/G3 préparatoires (2026-11-07)
+
+**Décision Morris :** [quatrième variante de navigation F1](../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md) validée : **personnel 246 / projet 246 / conversation 240 / inspection 244 CSS px**, même composant propriétaire et mêmes règles d'autorité D1–D6.
+
+**Source de vérification native :** frames 04/18/19, nœuds de rail `94:372`/`97:361`/`100:41`, padding 23/19/22/19, gap 11. Le rendu 19 (D8) ne devient pas une livraison de convergence. Les surfaces Figma 89/92 restent en variante projet 246 px. Revue [R3 §22](../ux-ui/audit-couverture-ux-r3.md) et [contrat d'acceptation v0.5](convergence-ux-parcours-pilote-nora/contrat-acceptation.md).
+
+**Préparation :** [dossier de pré-check G2/G3 candidat](convergence-ux-parcours-pilote-nora/preparation-technique-g2-g3.md) et [manifeste L2 partiel](../ux-ui/releves-geometriques-convergence-l2-partiel.json). **G1 VALIDATED SPEC**, **G2 PARTIAL** (descendants/styles manquants, source Figma non figée, seuil image à calibrer), **G3 CANDIDATE**, **G4 CURSOR NOT AUTHORIZED**, **G5 NOT RUN**. Une fusion documentaire n'autorise ni réalisation ML1–ML3, ni ML4 Git technique, ni STABLE/ADOPTED.

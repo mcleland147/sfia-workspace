@@ -185,3 +185,11 @@ Conditions de reproduction : navigateur et version gelés, OS/environnement iden
 - **Contrôle image** : aucun seuil de pourcentage global approuvé ; calibration locale par région sur fixtures/exports figés avant la recette, en isolant les variations d'anticrénelage de police.
 - **DIP source** : [11 frames L1](releves-geometriques-convergence-l1.json) et [8 frames/55 nœuds L2 partiels](releves-geometriques-convergence-l2-partiel.json) ; **ne pas coder avec les descendants manquants**. Les données du pack L2 restent observées, non prouvées au navigateur et sans export immuable.
 - **G1 VALIDATED SPEC / G2 PARTIAL / G3 NOT PREPARED / G4 BUILD NOT AUTHORIZED / G5 NOT RUN**. Les lignes historiques des §5–7 marquées « candidat » sont antérieures à ce record daté.
+
+## 9. F1 Inspection 244 px — quatrième variante approuvée (2026-11-07)
+
+La [décision Morris F1 amendée](../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md) établit **quatre variantes**, dans un composant de navigation partagé : `personnel:246`, `projet:246`, `conversation:240`, **`inspection:244` CSS px**. Les mentions de « trois variantes » en §8 étaient le dernier snapshot historique et ne limitent plus la décision courante.
+
+**Origine mesurée :** frames 04 (`94:370`/nav `94:372`), 18 (`97:359`/nav `97:361`), 19 (`100:39`/nav `100:41`) : nav `244×970`, `layoutMode=VERTICAL`, `itemSpacing=11`, padding `23/19/22/19`, x=0. La frame 19 n'autorise aucun effet D8 dans la convergence UX. **Les calques descendants restent à extraire selon les champs §3.2 avant codage de cette variante**.
+
+**Gate de transposition :** associer chaque composant, état et route à la variante F1 observée ; mesurer le rect DOM à 1680 px puis les règles de reflow aux tailles 1280/390/320, sans prétendre à un design mobile Figma de 320px. F2 ne permet ni troncature ni chevauchement. **G2 toujours PARTIAL et seuil de diff image NON CALIBRÉ**. [Observations L2 partielles](releves-geometriques-convergence-l2-partiel.json) ; [G2/G3 candidat](../construction/convergence-ux-parcours-pilote-nora/preparation-technique-g2-g3.md).

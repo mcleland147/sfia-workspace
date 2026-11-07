@@ -1165,7 +1165,7 @@
   "knownGaps": [
     {
       "id": "F1",
-      "description": "Morris validated three shared-navigation variants: personal 246px, project 246px, conversation 240px. Detailed node descendants/contexts still require extraction before code."
+      "description": "G1 F1 validates four variants: personal 246 CSS px, project 246, conversation 240, inspection 244 (04/18/19 native measurements). Detailed descendants/visual snapshot still require G2 extraction. This is no longer an unresolved variant decision."
     },
     {
       "id": "F2",
@@ -1196,6 +1196,53 @@
     "globalImageDiffThreshold": "NOT_CALIBRATED_NOT_APPROVED",
     "immutableFigmaSnapshot": "NOT_CAPTURED",
     "browserEvidence": "NOT_RUN",
-    "runtimeImplementation": "NOT_STARTED"
+    "runtimeImplementation": "NOT_STARTED",
+    "F1VariantsValidated": {
+      "personnel": 246,
+      "projet": 246,
+      "conversation": 240,
+      "inspection": 244
+    }
+  },
+  "supplementalNavigationInspectionReadOnly": {
+    "date": "2026-11-07",
+    "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+    "figmaPageId": "94:49",
+    "snapshotImmutable": false,
+    "partOfOriginal55Nodes": false,
+    "coverage": "NAV_RAIL_ONLY_NOT_COMPLETE_L2",
+    "frame19ProductCapability": "D8_OUT_OF_SCOPE_VISUAL_REFERENCE_ONLY",
+    "navigation": {
+      "variant": "inspection",
+      "widthCssPx": 244,
+      "heightAtReferencePx": 970,
+      "layoutMode": "VERTICAL",
+      "gapCssPx": 11,
+      "paddingTopRightBottomLeftCssPx": [
+        23,
+        19,
+        22,
+        19
+      ],
+      "screenWidthPx": 1680
+    },
+    "frameNavIds": [
+      {
+        "screen": "04",
+        "frameId": "94:370",
+        "navNodeId": "94:372"
+      },
+      {
+        "screen": "18",
+        "frameId": "97:359",
+        "navNodeId": "97:361"
+      },
+      {
+        "screen": "19",
+        "frameId": "100:39",
+        "navNodeId": "100:41"
+      }
+    ],
+    "note": "Native read-only observations, NOT a full component specification; immutable export/digest and descendants still missing."
   }
 }
