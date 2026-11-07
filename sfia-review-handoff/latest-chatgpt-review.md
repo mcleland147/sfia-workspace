@@ -1,19 +1,16 @@
 # SFIA Studio Next — Review Pack FULL
-## ML3 / RCT-02 — Local LIVE Remediation C04 / C05 / C06
+## ML3 / RCT-02 — Local LIVE Remediation REWORK (C01 / C05 cibles)
 
 | Champ | Valeur |
 |---|---|
-| Date UTC | 2026-11-07T01:24Z |
-| Contrat | `sfia-next-rct02-mandat-cursor-live-remediation.md` |
-| Profil | CRITICAL — autorité D6 |
-| D0 | `sfia-next-rct02-live-gaps-d646d42a.md` + captures A01–A12 |
-| SHA d'entrée | `d646d42addb5a4c4a3cab441e9e39018d85fae70` |
+| Date UTC | 2026-11-07T01:33Z |
+| Nature | Critical Rework après handoff `f2c5e3b5` / blob `d59ba25c` (REWORK REQUIRED) |
+| Base projet | `d646d42addb5a4c4a3cab441e9e39018d85fae70` |
 | Branche locale | `sfia/next-ml3-rct02-live-remediation` (**non poussée**) |
-| HEAD local (arbre de travail modifié) | basé sur `d646d42addb5a4c4a3cab441e9e39018d85fae70` |
-| RECETTE | `:3200` SHA `d646d42a` **préservée, non mutée** (HTTP 307 observé) |
-| Fake/Real | unit + PG DEV `:5433` = effets moteur ; **≠ LIVE Nora** |
-| Version | `0.0.0-dev` / `NO RELEASE` / STABLE NOT AVAILABLE |
-| Verdict | **READY FOR CHATGPT REVIEW — LOCAL LIVE REMEDIATION** |
+| RECETTE | `:3200` / `d646d42a` **préservée, non mutée** |
+| Fake/Real | unit + PG DEV `:5433` ; **≠ LIVE Nora** |
+| Version | `0.0.0-dev` / `NO RELEASE` |
+| Verdict | **READY FOR CHATGPT RE-REVIEW** |
 
 ## 1. Git Truth
 
@@ -29,62 +26,51 @@
  M projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
 ?? projects/sfia-studio-next/construction/pilotage-et-decisions/recette-ml3-rct02-live-corrective-gaps.md
 
-diffstat:
-.tmp-sfia-review/chatgpt-review.md                 | 166 ---------------------
- .../construction/delivery-history.md               |  16 ++
- .../specification-technique.md                     |  12 ++
- .../pilotage-et-decisions/tracabilite-r2-r3-r4.md  |  10 ++
- .../src/domains/pilotage/conversation-authority.ts |  48 +++---
- .../web/src/domains/pilotage/intent.ts             | 105 ++++++++++---
- .../web/tests/integration/ml3-pilotage.pg.test.ts  | 127 ++++++++++++++++
- .../web/tests/unit/ml3-rct02-intent.test.ts        |  92 ++++++++++++
- 8 files changed, 373 insertions(+), 203 deletions(-)
+.tmp-sfia-review/chatgpt-review.md                 | 166 -------------
+ .../construction/delivery-history.md               |  30 +++
+ .../specification-technique.md                     |  21 ++
+ .../pilotage-et-decisions/tracabilite-r2-r3-r4.md  |  15 ++
+ .../src/domains/pilotage/conversation-authority.ts |  87 +++++--
+ .../web/src/domains/pilotage/intent.ts             | 113 +++++++--
+ .../web/tests/integration/ml3-pilotage.pg.test.ts  | 268 +++++++++++++++++++++
+ .../web/tests/unit/ml3-rct02-intent.test.ts        | 119 +++++++++
+ 8 files changed, 615 insertions(+), 204 deletions(-)
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio-next/construction/delivery-history.md
+ M projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
+ M projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
+ M projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+ M projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
+ M projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
+ M projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
+?? projects/sfia-studio-next/construction/pilotage-et-decisions/recette-ml3-rct02-live-corrective-gaps.md
 ```
 
-- Worktree projet : `/Users/morris/Projects/sfia-workspace-ml3-rct02-correctifs`
-- Branche de travail créée depuis `d646d42a` : `sfia/next-ml3-rct02-live-remediation`
-- **Aucun push projet / PR / merge** sous ce mandat
-- Handoff L3 mono-fichier autorisé séparément
+HEAD base inchangé `d646d42addb5a4c4a3cab441e9e39018d85fae70` ; modifications locales non commit/push projet.
 
-## 2. Reproduction avant correction (messages exacts)
+## 2. Reproduction rework (avant correctif)
 
-Messages intégraux du contrat §4 / gaps §3–5 exécutés via `qualifyPilotageIntent` + simulation candidats.
-
-| ID | Observé avant | Cause frontière |
+| Cas | Observé avant rework | Frontière |
 |---|---|---|
-| C04 | CLEAR RECORD ; `statement` préfixé `que,` ; `objectRef=mais ne signifie pas que le besoin utilisateur` | `deriveDecisionObjectRef` regex `X est` sur la réserve |
-| C05 | CLEAR REVISE en intent, mais 2 candidates lexicales OPEN+RECORD → autorité AMBIGUOUS | unicité avant éligibilité kind |
-| C06 | AMBIGUOUS « Levée et clôture… » ; `alsoClose_legacy=true` | `/clôtur/` + protecteur trop étroit vs « ne souhaite ni clôturer » |
+| C01 « Ouvre CADRAGE… Je ne souhaite ni clôturer… ni en ouvrir un autre » | `clarity=NONE` (OPEN annulé) | `refusesOrWithholdsAct('open')` matchait `ni en ouvrir` malgré OPEN affirmatif |
+| C05 « Je révise la décision d'ouverture du cycle CADRAGE… » + OPEN + RECORD pollué | intent CLEAR REVISE ; après filtre RECORD → REVISE opportuniste | éligibilité documentaire ignorait la désignation fondatrice explicite |
 
-Après correctif (même messages) : C04 objectRef `difficultés de coordination…` ; C06 CLEAR LIFT ; C05 RECORD unique après filtre éligibilité → PG APPLIED.
+## 3. Correctifs (sans refaire C04/C05/C06 LIVE positifs)
 
-## 3. Architecture / impacts
+1. **C01** — `refusesOrWithholdsAct('open')` : si OPEN affirmatif présent (`ouvre le cycle` / `je décide de commencer`), une exclusion « ni en ouvrir » n'annule pas l'acte.
+2. **C05** — `designatesFoundingReviseTarget` dans `resolveReviseTarget` : refus typé **avant** le filtre RECORD ; historique `objectRef` pollué reste révisable via message C05 LIVE.
 
-Chaîne unique inchangée : USER durable → `qualifyPilotageIntent` → `applyConversationalAuthority` → `executePilotageCommand` → projection.
-
-- C04 : extraction objectRef / statement (intent)
-- C05 : éligibilité documentaire avant unicité (conversation-authority)
-- C06 : performativité CLOSE (intent helpers partagés)
-- Pas de migration DB, pas de nouvelle API, pas de second moteur, pas de rewrite historique RECETTE
-
-### Blast radius
-objectRef nouvelles décisions ; résolution REVISE vs D5 fondateur ; négation CLOSE/OPEN ; idempotence/journal inchangés ; nora-context/adapter non touchés (C07/C03 préservés).
-
-## 4. Preuves tests
+## 4. Preuves réexécutées
 
 | Suite | Résultat |
 |---|---|
-| unit `ml3-rct02-intent` + divergence + authority | **46/46 PASS** |
-| PG `ml3-pilotage.pg.test.ts` | **45/45 PASS** (dont LIVE C04/C05/C06 chain) |
-| lint | PASS |
-| tsc --noEmit | PASS |
-| build | PASS |
+| unit intent + divergence + authority | **48/48 PASS** |
+| PG `ml3-pilotage.pg.test.ts` | **48/48 PASS** (LIVE C04/C05/C06 + C01 rework + C05 founding zero + C05 hist polluted) |
+| lint / tsc | PASS |
 
-Contre-tests : LIFT+CLOSE affirmatif AMBIGUOUS ; négations LIFT ; specimen OPEN/CLOSE ; 2 RECORD → clarification (logique inchangée sur multi-documentaire).
+## 5. Code — contenu intégral des fichiers produit modifiés
 
-## 5. Fichiers code modifiés — contenu intégral
-
-### 5.1 `projects/sfia-studio-next/web/src/domains/pilotage/intent.ts` (FULL)
+### 5.1 intent.ts (FULL)
 
 ```ts
 import type { CycleType } from "@/domains/pilotage/cki-resolve";
@@ -360,13 +346,19 @@ export function refusesOrWithholdsAct(
     return true;
   }
   if (act === "open") {
-    return (
+    const negatedOpen =
       /\b(?:n['’]ouvre\s+pas|ne\s+(?:l['’]\s*)?ouvre\s+pas|sans\s+ouvrir|ne\s+pas\s+ouvrir)\b/i.test(
         t,
       ) ||
       /\bne\s+(?:souhaite|veux|veut)\s+ni\s+[^.!?]{0,40}\bouvrir\b/i.test(t) ||
-      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t)
-    );
+      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t);
+    if (!negatedOpen) return false;
+    // C01 rework: exclusion of *another* open (« ni en ouvrir un autre ») must not
+    // cancel an affirmative OPEN already asserted in the same turn.
+    const hasAffirmativeOpen =
+      /\b(?:ouvre|ouvrez)\s+(?:le\s+|un\s+)?cycle\b/i.test(t) ||
+      /\bje\s+d[eé]cide\s+de\s+commencer\b/i.test(t);
+    return !hasAffirmativeOpen;
   }
   if (act === "close") {
     // Sole negation / exclusion of close (not a reserve after « je décide de clôturer »).
@@ -869,7 +861,7 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
 
 ```
 
-### 5.2 `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts` (FULL)
+### 5.2 conversation-authority.ts (FULL)
 
 ```ts
 /**
@@ -964,14 +956,45 @@ async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
 }
 
 /**
- * Resolve a documentary REVISE target (CR-01 / C05 LIVE).
+ * C05 rework — pilot explicitly designates a founding D5 act as the revise target
+ * (e.g. « je révise la décision d'ouverture du cycle »). Must not fall through
+ * to an opportunistic RECORD_DECISION match.
+ */
+function designatesFoundingReviseTarget(utterance: string): string | null {
+  const t = utterance.trim();
+  if (
+    /\b(?:d[eé]cision\s+d['’]ouverture|ouverture\s+du\s+cycle|d[eé]cision\s+d['’]ouvrir)\b/i.test(
+      t,
+    ) ||
+    /\br[eé]vise\s+la\s+d[eé]cision\s+d['’]ouverture\b/i.test(t)
+  ) {
+    return "OPEN_CYCLE";
+  }
+  if (
+    /\b(?:d[eé]cision\s+de\s+cl[oô]ture|cl[oô]ture\s+du\s+cycle|d[eé]cision\s+de\s+cl[oô]turer)\b/i.test(
+      t,
+    )
+  ) {
+    return "CLOSE_CYCLE";
+  }
+  if (/\b(?:d[eé]cision\s+de\s+(?:retenir|choisir)\s+la\s+m[eé]thode)\b/i.test(t)) {
+    return "CHOOSE_METHOD";
+  }
+  if (/\b(?:d[eé]cision\s+(?:d['’]appliquer|de\s+restriction)|restriction\s+appliqu[eé]e)\b/i.test(t)) {
+    return "APPLY_RESTRICTION";
+  }
+  return null;
+}
+
+/**
+ * Resolve a documentary REVISE target (CR-01 / C05 LIVE / C05 rework).
  * Uses the full APPLICABLE set — never the Nora cognitive window of 12.
  * Level A framing filters relevance only — never authorizes by itself.
  * Qualify must already be CLEAR (caller).
  *
  * Eligibility before uniqueness: only RECORD_DECISION compete for generic
- * REVISE. Founding D5 kinds (OPEN_CYCLE, …) may lexically match the utterance
- * but must not block a unique documentary target, nor be revised via this path.
+ * REVISE — unless the pilot explicitly designates a founding D5 target, in
+ * which case refuse typed (never rewrite OPEN via documentary REVISE).
  * 0 / many admissible candidates ⇒ clarification; never chronological newest-wins.
  */
 function resolveReviseTarget(
@@ -980,6 +1003,14 @@ function resolveReviseTarget(
 ):
   | { ok: true; decisionId: string; statement: string }
   | { ok: false; reason: string } {
+  const designatedFounding = designatesFoundingReviseTarget(utterance);
+  if (designatedFounding) {
+    return {
+      ok: false,
+      reason: `Révision générique refusée pour ${designatedFounding} — utiliser l'opération métier typée`,
+    };
+  }
+
   const lexical = findAuthorityReviseCandidates(utterance, briefs);
   const documentary = lexical.filter((c) => c.kind === "RECORD_DECISION");
 
@@ -1297,13 +1328,13 @@ export async function applyConversationalAuthority(input: {
 
 ```
 
-## 6. Diffs exploitables
+## 6. Diffs code / tests
 
 ### 6.1 intent.ts
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
-index 26dba3f4..c3b5ed9e 100644
+index 26dba3f4..edff4cc0 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
 +++ b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
 @@ -24,21 +24,59 @@ export type IntentQualification =
@@ -1391,19 +1422,26 @@ index 26dba3f4..c3b5ed9e 100644
    return core || text;
  }
 
-@@ -230,14 +271,21 @@ export function refusesOrWithholdsAct(
+@@ -230,14 +271,27 @@ export function refusesOrWithholdsAct(
      return true;
    }
    if (act === "open") {
 -    return /\b(?:n['’]ouvre\s+pas|ne\s+(?:l['’]\s*)?ouvre\s+pas|sans\s+ouvrir|ne\s+pas\s+ouvrir)\b/i.test(
 -      t,
-+    return (
+-    );
++    const negatedOpen =
 +      /\b(?:n['’]ouvre\s+pas|ne\s+(?:l['’]\s*)?ouvre\s+pas|sans\s+ouvrir|ne\s+pas\s+ouvrir)\b/i.test(
 +        t,
 +      ) ||
 +      /\bne\s+(?:souhaite|veux|veut)\s+ni\s+[^.!?]{0,40}\bouvrir\b/i.test(t) ||
-+      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t)
-     );
++      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t);
++    if (!negatedOpen) return false;
++    // C01 rework: exclusion of *another* open (« ni en ouvrir un autre ») must not
++    // cancel an affirmative OPEN already asserted in the same turn.
++    const hasAffirmativeOpen =
++      /\b(?:ouvre|ouvrez)\s+(?:le\s+|un\s+)?cycle\b/i.test(t) ||
++      /\bje\s+d[eé]cide\s+de\s+commencer\b/i.test(t);
++    return !hasAffirmativeOpen;
    }
    if (act === "close") {
 -    // Sole negation of close (not a reserve after « je décide de clôturer »)
@@ -1417,7 +1455,7 @@ index 26dba3f4..c3b5ed9e 100644
        !/\bje\s+d[eé]cide\s+de\s+cl[oô]tur/i.test(t)
      );
    }
-@@ -287,6 +335,30 @@ export function isNonPerformativeCloseFraming(text: string): boolean {
+@@ -287,6 +341,30 @@ export function isNonPerformativeCloseFraming(text: string): boolean {
    return false;
  }
 
@@ -1448,7 +1486,7 @@ index 26dba3f4..c3b5ed9e 100644
  /** Detect OPEN_CYCLE performative anywhere in a developed message (C01). */
  function findOpenCycleAct(
    text: string,
-@@ -553,10 +625,9 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
+@@ -553,10 +631,9 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
      return { clarity: "AMBIGUOUS", reason: lift.ambiguous };
    }
    if (lift && "restrictionKindHint" in lift) {
@@ -1468,15 +1506,46 @@ index 26dba3f4..c3b5ed9e 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
-index 38e7c7c5..4abec875 100644
+index 38e7c7c5..b2cce28d 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
 +++ b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
-@@ -90,11 +90,15 @@ async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
+@@ -90,11 +90,46 @@ async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
  }
 
  /**
 - * Resolve a documentary REVISE target (CR-01).
-+ * Resolve a documentary REVISE target (CR-01 / C05 LIVE).
++ * C05 rework — pilot explicitly designates a founding D5 act as the revise target
++ * (e.g. « je révise la décision d'ouverture du cycle »). Must not fall through
++ * to an opportunistic RECORD_DECISION match.
++ */
++function designatesFoundingReviseTarget(utterance: string): string | null {
++  const t = utterance.trim();
++  if (
++    /\b(?:d[eé]cision\s+d['’]ouverture|ouverture\s+du\s+cycle|d[eé]cision\s+d['’]ouvrir)\b/i.test(
++      t,
++    ) ||
++    /\br[eé]vise\s+la\s+d[eé]cision\s+d['’]ouverture\b/i.test(t)
++  ) {
++    return "OPEN_CYCLE";
++  }
++  if (
++    /\b(?:d[eé]cision\s+de\s+cl[oô]ture|cl[oô]ture\s+du\s+cycle|d[eé]cision\s+de\s+cl[oô]turer)\b/i.test(
++      t,
++    )
++  ) {
++    return "CLOSE_CYCLE";
++  }
++  if (/\b(?:d[eé]cision\s+de\s+(?:retenir|choisir)\s+la\s+m[eé]thode)\b/i.test(t)) {
++    return "CHOOSE_METHOD";
++  }
++  if (/\b(?:d[eé]cision\s+(?:d['’]appliquer|de\s+restriction)|restriction\s+appliqu[eé]e)\b/i.test(t)) {
++    return "APPLY_RESTRICTION";
++  }
++  return null;
++}
++
++/**
++ * Resolve a documentary REVISE target (CR-01 / C05 LIVE / C05 rework).
   * Uses the full APPLICABLE set — never the Nora cognitive window of 12.
   * Level A framing filters relevance only — never authorizes by itself.
 - * Qualify must already be CLEAR (caller). Founding D5 kinds are refused.
@@ -1484,18 +1553,26 @@ index 38e7c7c5..4abec875 100644
 + * Qualify must already be CLEAR (caller).
 + *
 + * Eligibility before uniqueness: only RECORD_DECISION compete for generic
-+ * REVISE. Founding D5 kinds (OPEN_CYCLE, …) may lexically match the utterance
-+ * but must not block a unique documentary target, nor be revised via this path.
++ * REVISE — unless the pilot explicitly designates a founding D5 target, in
++ * which case refuse typed (never rewrite OPEN via documentary REVISE).
 + * 0 / many admissible candidates ⇒ clarification; never chronological newest-wins.
   */
  function resolveReviseTarget(
    utterance: string,
-@@ -102,15 +106,31 @@ function resolveReviseTarget(
+@@ -102,15 +137,39 @@ function resolveReviseTarget(
  ):
    | { ok: true; decisionId: string; statement: string }
    | { ok: false; reason: string } {
 -  const candidates = findAuthorityReviseCandidates(utterance, briefs);
 -  if (candidates.length === 0) {
++  const designatedFounding = designatesFoundingReviseTarget(utterance);
++  if (designatedFounding) {
++    return {
++      ok: false,
++      reason: `Révision générique refusée pour ${designatedFounding} — utiliser l'opération métier typée`,
++    };
++  }
++
 +  const lexical = findAuthorityReviseCandidates(utterance, briefs);
 +  const documentary = lexical.filter((c) => c.kind === "RECORD_DECISION");
 +
@@ -1526,7 +1603,7 @@ index 38e7c7c5..4abec875 100644
      return {
        ok: false,
        reason:
-@@ -119,22 +139,10 @@ function resolveReviseTarget(
+@@ -119,22 +178,10 @@ function resolveReviseTarget(
            : "Plusieurs décisions candidates — précisez laquelle réviser",
      };
    }
@@ -1552,11 +1629,11 @@ index 38e7c7c5..4abec875 100644
      (qualified.clarity === "CLEAR" && qualified.statement) ||
 ```
 
-### 6.3 tests unit (diff)
+### 6.3 unit ml3-rct02-intent.test.ts
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
-index 4f8eed1b..f56ad193 100644
+index 4f8eed1b..b3293e50 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
 @@ -1,5 +1,7 @@
@@ -1595,7 +1672,30 @@ index 4f8eed1b..f56ad193 100644
  /**
   * RCT-02 C01–C08 — conversational qualification oracles from user recette messages.
   * Deterministic only — does not prove LIVE Nora cognition.
-@@ -73,6 +96,24 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
+@@ -34,6 +57,22 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
+     }
+   });
+
++  it("C01 rework: affirmative OPEN survives « ni clôturer / ni en ouvrir un autre »", () => {
++    const q = qualifyPilotageIntent(
++      "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de préciser le problème utilisateur. Je ne souhaite ni clôturer ce cycle, ni en ouvrir un autre.",
++    );
++    expect(q).toMatchObject({
++      clarity: "CLEAR",
++      operation: "OPEN_CYCLE",
++      cycleType: "CADRAGE",
++    });
++    if (q.clarity === "CLEAR") {
++      expect(q.objective).toMatch(/préciser le problème utilisateur/i);
++      expect(q.objective).not.toMatch(/clôtur/i);
++      expect(q.objective).not.toMatch(/ouvrir un autre/i);
++    }
++  });
++
+   it("C01 Critical Review: citation / specimen never OPEN_CYCLE", () => {
+     for (const msg of [
+       "Voici une phrase de test : Nora, ouvre le cycle cadrage",
+@@ -73,6 +112,24 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
      expect(extractDecisionCore(msg.split(/je décide que/i)[1] ?? msg)).not.toMatch(/aide-moi/i);
    });
 
@@ -1620,7 +1720,7 @@ index 4f8eed1b..f56ad193 100644
    it("C05 Critical Review: T05 representative (period, no colon) yields REVISE with developed statement", () => {
      const extracted = extractReviseStatement(T05_REPRESENTATIVE);
      expect(extracted).toBeTruthy();
-@@ -101,6 +142,40 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
+@@ -101,6 +158,51 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
      }
    });
 
@@ -1658,10 +1758,21 @@ index 4f8eed1b..f56ad193 100644
 +    expect(lexical.filter((c) => c.kind === "RECORD_DECISION")).toHaveLength(1);
 +  });
 +
++  it("C05 rework: founding-designation wording still qualifies REVISE at intent (authority must refuse)", () => {
++    const q = qualifyPilotageIntent(
++      "Je révise la décision d'ouverture du cycle CADRAGE. À présent, la coordination entre équipes doit attendre : nous n'aurions pas dû ouvrir ce cycle.",
++    );
++    // Intent may be CLEAR REVISE; resolveReviseTarget must refuse founding designation (PG proof).
++    expect(q.clarity).toBe("CLEAR");
++    if (q.clarity === "CLEAR") {
++      expect(q.operation).toBe("REVISE_DECISION");
++    }
++  });
++
    it("C06: conversational LIFT_RESTRICTION is CLEAR with kind hint", () => {
      const q = qualifyPilotageIntent(
        "Nora, je décide de lever uniquement la restriction CYCLE_MUTATION sur ce cycle. Ne clôture pas le cycle.",
-@@ -112,6 +187,23 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
+@@ -112,6 +214,23 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
      });
    });
 
@@ -1687,14 +1798,14 @@ index 4f8eed1b..f56ad193 100644
        "Ne lève pas la restriction CYCLE_MUTATION",
 ```
 
-### 6.4 tests PG (diff)
+### 6.4 PG ml3-pilotage.pg.test.ts
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-index 99b2891c..c46f9a82 100644
+index 99b2891c..37b55a83 100644
 --- a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
 +++ b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-@@ -2088,5 +2088,132 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
+@@ -2088,5 +2088,273 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
        expect(after.cycle?.cycleType).toBe("CADRAGE");
        expect(await listDecisionJournal(pilotId, projectId)).toHaveLength(journalBefore.length);
      });
@@ -1825,25 +1936,526 @@ index 99b2891c..c46f9a82 100644
 +      expect(afterC06.cycle?.status).toBe("ACTIVE");
 +      expect(afterC06.cycle?.cycleType).toBe("CADRAGE");
 +    });
++
++    it("C01 rework: OPEN survives « ni clôturer / ni en ouvrir un autre » in PG", async () => {
++      const { applyConversationalAuthority } = await import(
++        "@/domains/pilotage/conversation-authority"
++      );
++      const content =
++        "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de préciser le problème utilisateur. Je ne souhaite ni clôturer ce cycle, ni en ouvrir un autre.";
++      const { pilotId, projectId, preparationId } = await seedProject("cr-c01-ni");
++      const msgId = await insertUserMessage(preparationId, content);
++      const outcome = await applyConversationalAuthority({
++        pilotId,
++        projectId,
++        userMessageId: msgId,
++        content,
++        clientTurnKey: `cr-c01-ni-${newId("turn")}`,
++      });
++      expect(outcome.attempted).toBe(true);
++      expect(outcome.operation).toBe("OPEN_CYCLE");
++      expect(outcome.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
++      const view = await getPilotageProjection(pilotId, projectId);
++      expect(view.cycle?.cycleType).toBe("CADRAGE");
++      expect(view.cycle?.status).toBe("ACTIVE");
++      expect(view.cycle?.objective).toMatch(/préciser le problème utilisateur/i);
++      expect(view.restrictions.filter((r) => r.status === "ACTIVE")).toHaveLength(0);
++      const journal = await listDecisionJournal(pilotId, projectId);
++      expect(journal.filter((d) => d.kind === "OPEN_CYCLE" && d.state === "APPLICABLE")).toHaveLength(
++        1,
++      );
++      expect(journal.some((d) => d.kind === "CLOSE_CYCLE")).toBe(false);
++    });
++
++    it("C05 rework: explicit OPEN founding target → zero documentary REVISE", async () => {
++      const { applyConversationalAuthority } = await import(
++        "@/domains/pilotage/conversation-authority"
++      );
++      const { pilotId, projectId, preparationId } = await seedProject("cr-c05-founding");
++      const opened = await openCycle(pilotId, projectId, {
++        clientCommandKey: newId("idem"),
++        expectedRevision: 0,
++        sourceRef: newId("src"),
++        cycleType: "CADRAGE",
++        objective: "définir précisément le problème utilisateur",
++      });
++      expect(opened.status).toBe("APPLIED");
++      // Polluted historical RECORD (pre-C04 objectRef) — coordination theme.
++      const polluted = await executePilotageCommand(pilotId, projectId, {
++        clientCommandKey: newId("idem"),
++        expectedRevision: opened.revision ?? 1,
++        sourceKind: "EXPLICIT_INTERACTION",
++        sourceRef: newId("src"),
++        operation: "RECORD_DECISION",
++        objectRef: "mais ne signifie pas que le besoin utilisateur",
++        statement:
++          "que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes. Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé",
++      });
++      expect(polluted.status).toBe("APPLIED");
++      const before = await getPilotageProjection(pilotId, projectId);
++      const journalBefore = await listDecisionJournal(pilotId, projectId);
++
++      const content =
++        "Je révise la décision d'ouverture du cycle CADRAGE. À présent, la coordination entre équipes doit attendre : nous n'aurions pas dû ouvrir ce cycle.";
++      const msgId = await insertUserMessage(preparationId, content);
++      const outcome = await applyConversationalAuthority({
++        pilotId,
++        projectId,
++        userMessageId: msgId,
++        content,
++        clientTurnKey: `cr-c05-founding-${newId("turn")}`,
++      });
++      expect(outcome.attempted).toBe(false);
++      expect(outcome.humanDecisionCreated).toBe(false);
++      expect(outcome.command).toBeNull();
++      expect(outcome.source).toBe("clarification_only");
++      expect(outcome.intentReason ?? outcome.clarification ?? "").toMatch(/OPEN_CYCLE|opération métier/i);
++
++      const after = await getPilotageProjection(pilotId, projectId);
++      expect(after.revision).toBe(before.revision);
++      expect(after.cycle?.status).toBe("ACTIVE");
++      expect(after.cycle?.cycleType).toBe("CADRAGE");
++      const journalAfter = await listDecisionJournal(pilotId, projectId);
++      expect(journalAfter).toHaveLength(journalBefore.length);
++      expect(journalAfter.find((d) => d.id === polluted.decisionId)?.state).toBe("APPLICABLE");
++      expect(
++        journalAfter.filter((d) => d.kind === "OPEN_CYCLE" && d.state === "APPLICABLE"),
++      ).toHaveLength(1);
++    });
++
++    it("C05 rework: historical polluted objectRef still revisable via LIVE C05 message", async () => {
++      const { applyConversationalAuthority } = await import(
++        "@/domains/pilotage/conversation-authority"
++      );
++      const { pilotId, projectId, preparationId } = await seedProject("cr-c05-hist-polluted");
++      const opened = await openCycle(pilotId, projectId, {
++        clientCommandKey: newId("idem"),
++        expectedRevision: 0,
++        sourceRef: newId("src"),
++        cycleType: "CADRAGE",
++        objective: "définir précisément le problème utilisateur, les besoins prioritaires",
++      });
++      expect(opened.status).toBe("APPLIED");
++      const polluted = await executePilotageCommand(pilotId, projectId, {
++        clientCommandKey: newId("idem"),
++        expectedRevision: opened.revision ?? 1,
++        sourceKind: "EXPLICIT_INTERACTION",
++        sourceRef: newId("src"),
++        operation: "RECORD_DECISION",
++        objectRef: "mais ne signifie pas que le besoin utilisateur",
++        statement:
++          "que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes. Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé",
++      });
++      expect(polluted.status).toBe("APPLIED");
++      expect(polluted.decisionId).toBeTruthy();
++
++      const C05_LIVE = `Nora, je révise la décision que j'ai prise concernant la priorité d'exploration des difficultés de coordination et de suivi des décisions entre plusieurs équipes.
++
++Plutôt que de nous concentrer immédiatement sur ces difficultés, je décide que nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire.
++
++Cette nouvelle orientation remplace la priorité précédente. Le besoin utilisateur reste à valider.
++
++Aide-moi ensuite à identifier les premières situations concrètes que nous devrions examiner.`;
++      const msgId = await insertUserMessage(preparationId, C05_LIVE);
++      const revised = await applyConversationalAuthority({
++        pilotId,
++        projectId,
++        userMessageId: msgId,
++        content: C05_LIVE,
++        clientTurnKey: `cr-c05-hist-${newId("turn")}`,
++      });
++      expect(revised.attempted).toBe(true);
++      expect(revised.operation).toBe("REVISE_DECISION");
++      expect(revised.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
++      const after = await listDecisionJournal(pilotId, projectId);
++      expect(after.find((d) => d.id === polluted.decisionId)?.state).toBe("REVISED");
++      const applicable = after.filter(
++        (d) => d.state === "APPLICABLE" && d.kind === "RECORD_DECISION",
++      );
++      expect(applicable).toHaveLength(1);
++      expect(applicable[0]?.supersedesDecisionId).toBe(polluted.decisionId);
++      expect(applicable[0]?.statement).toMatch(/situations réelles de coordination/i);
++      expect(after.find((d) => d.kind === "OPEN_CYCLE")?.state).toBe("APPLICABLE");
++    });
    });
  });
 ```
 
-## 7. Documentation as-built (même lot)
+## 7. Documentation — diffs exploitables
 
-- `construction/pilotage-et-decisions/specification-technique.md` — section LIVE remediation
-- `construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md` — preuves C04/C05/C06
-- `construction/delivery-history.md` — DELIV-2026-11-07-ML3-RCT02-LIVE-REMEDIATION-LOCAL
-- `construction/pilotage-et-decisions/recette-ml3-rct02-live-corrective-gaps.md` — copie D0 non normative
+### 7.1 specification-technique.md
 
-## 8. Gates NON acquis
+```diff
+diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
+index 415a29b0..6d9cf772 100644
+--- a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
++++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
+@@ -443,3 +443,24 @@ Après **NOT ACCEPTED** sur handoff `4b168905`. Qualification linguistique unifi
+ | RECORD / REVISE | mêmes gates specimen + refus avant CLEAR |
 
-push projet, PR, merge, redéploiement RECETTE, session LIVE OpenAI Cursor, CI workflow, STABLE, release, ML3 CLOSED, ADOPTED.
+ Oracles négatifs supplémentaires : « Je refuse de lever… », « je ne t'autorise pas à lever… », « Ne fais pas ceci : Nora, clôture… », « Un ancien message disait : Nora, clôture… ». Positifs T01/T05 représentatif/T10/T13 et cockpits préservés. T05 = **formulation représentative** (transcript original intégral non établi).
++
++### LIVE remediation ML3/RCT-02 — C04/C05/C06 (2026-11-07, local)
++
++Après restitution LIVE `sfia-next-rct02-live-gaps-d646d42a.md` sur candidat RECETTE `d646d42a`. Périmètre borné C04/C05/C06 ; C01/C02/C07/C08 et faux GO préservés ; historique D6 RECETTE non réécrit.
++
++| ID | Cause confirmée (repro messages exacts) | Correction as-built |
++|----|----------------------------------------|---------------------|
++| **C04** | `deriveDecisionObjectRef` matchait la réserve « besoin utilisateur est… » ; énoncé préfixé par `que,` | `extractDecisionCore` retire `que,` ; `deriveDecisionObjectRef` dérive l'objet depuis l'arbitrage principal (priorité / examinerons), jamais la réserve adversative |
++| **C05** | Unicité évaluée sur tous les kinds APPLICABLE : `OPEN_CYCLE` fondateur + `RECORD` → 2 candidates → clarification | `resolveReviseTarget` : éligibilité `RECORD_DECISION` **avant** unicité ; D5 fondateur lexical ne bloque plus une cible documentaire unique ; refus typé si seule une fondation matche |
++| **C06** | `alsoClose` via `/\bclôtur/` sans couvrir « je ne souhaite ni clôturer… » → AMBIGUOUS | `assertsAffirmativeCloseAct` + `refusesOrWithholdsAct('close'/'open')` étendus ; LIFT+CLOSE seulement si CLOSE est un second acte affirmatif |
++
++Chaîne inchangée : qualification → délimitation → résolution éligible → D6 `executePilotageCommand` → projection. Preuves : unit messages LIVE exacts ; PG `LIVE C04/C05/C06` (OPEN + RECORD propre + REVISE malgré OPEN + LIFT malgré exclusion CLOSE/OPEN). **Pas** de push projet / redéploiement RECETTE sous ce mandat.
++
++### LIVE remediation rework — C01 / C05 cibles (2026-11-07, local)
++
++| ID | Risque | Correction as-built |
++|----|--------|---------------------|
++| **C01** | « ni en ouvrir un autre » annulait un OPEN affirmatif via `refusesOrWithholdsAct('open')` | négation d'open ignorée lorsqu'un OPEN affirmatif (`ouvre le cycle` / `je décide de commencer`) est déjà présent |
++| **C05** | « je révise la décision d'ouverture… » + RECORD coordination → REVISE opportuniste du RECORD | `designatesFoundingReviseTarget` : refus typé D5 **avant** l'éligibilité documentaire ; historique `objectRef` pollué toujours révisable si la cible documentaire est désignée |
++
++Preuves : unit C01 rework ; PG C01 ni-clôturer/ouvrir ; PG C05 founding zéro mutation ; PG C05 historique pollué + message LIVE. Positifs C04/C05/C06 LIVE préservés.
+```
 
-## 9. Proposition retest LIVE (après GO Morris + nouveau candidat)
+### 7.2 tracabilite-r2-r3-r4.md
 
-Retester C04/C05/C06 messages exacts + spot C01/C07/C08/faux GO sur **nouveau** SHA uniquement après mise à disposition autorisée. Ne pas muter RECETTE actuelle `d646d42a`.
+```diff
+diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
+index 3c846c0a..13b51937 100644
+--- a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
++++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
+@@ -302,3 +302,18 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
+ | cross | specimen RECORD / OPEN historique / refus REVISE | gates partagés | PG journal + cycle inchangés | NLP universel NOT CLAIMED |
+
+ Statut : **IMPLEMENTED — LOCAL CORRECTIVE (Critical Re-Review faux GO)** sur `sfia/next-ml3-rct02-correctifs` — **NOT PUSHED** — **NOT RECETTE** — **NOT MERGED** — **NOT ADOPTED**.
++
++### LIVE remediation C04/C05/C06 — messages exacts (2026-11-07)
++
++| ID | Preuve avant (d646d42a) | Correction | Preuve après (local) | Limite |
++| --- | --- | --- | --- | --- |
++| C04 | LIVE PARTIAL : `objectRef=mais ne signifie…`, énoncé `que,` | `deriveDecisionObjectRef` + strip `que,` | unit C04 LIVE ; PG LIVE chain statement/objectRef | historiques RECETTE non migrés |
++| C05 | LIVE FAIL : 0 REVISE (OPEN+RECORD lexical) | éligibilité RECORD avant unicité | unit C05 LIVE lexical ; PG REVISE + `supersedesDecisionId` | 2 RECORD distincts → clarification |
++| C06 | LIVE FAIL : AMBIGUOUS « Levée et clôture » | `assertsAffirmativeCloseAct` | unit C06 LIVE + LIFT+CLOSE affirmatif AMBIGUOUS ; PG LIFT, cycle ACTIVE | — |
++
++Statut : **IMPLEMENTED — LOCAL LIVE REMEDIATION** sur branche locale `sfia/next-ml3-rct02-live-remediation` depuis `d646d42a` — **NOT PUSHED** — **NOT RECETTE redeploy** — **NOT MERGED** — **NOT ADOPTED**. LIVE Nora retest : **REQUIRES GO** sur nouveau candidat.
++
++| ID | Rework ChatGPT | Preuve |
++| --- | --- | --- |
++| C01 | OPEN + « ni clôturer / ni en ouvrir » | unit + PG : 1 OPEN CADRAGE, objectif conservé, 0 CLOSE |
++| C05 | désignation fondatrice OPEN ≠ REVISE RECORD | PG zéro mutation + `objectRef` historique pollué toujours révisable via C05 LIVE |
+```
+
+### 7.3 delivery-history.md
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 91d5f411..0ed5b0e8 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -643,3 +643,33 @@ Append-only logical journal of Cursor product deliveries.
+ | Preuves | unit 47 ; PG CR 9/9 ; PG `ml3-pilotage` 44/44 ; lint/tsc/build PASS |
+ | Push projet / PR / merge / deploy RECETTE | **NON** |
+ | Verdict candidat | `READY FOR CHATGPT RE-REVIEW` |
++
++## delivery_id: DELIV-2026-11-07-ML3-RCT02-LIVE-REMEDIATION-LOCAL
++
++| Champ | Valeur |
++|---|---|
++| Date UTC | 2026-11-07 |
++| Macro-lot | R5 / ML3 — remédiation LIVE RCT-02 C04/C05/C06 |
++| Type | INC CRITICAL |
++| Branche locale | `sfia/next-ml3-rct02-live-remediation` (depuis `d646d42a`, **non poussée**) |
++| Source D0 | `sfia-next-rct02-live-gaps-d646d42a.md` (hors Git) |
++| Correctifs | C04 objectRef/statement ; C05 éligibilité RECORD avant unicité ; C06 CLOSE non performatif (« ni clôturer ») |
++| Preuves | unit `ml3-rct02-intent` 17 ; PG `ml3-pilotage` 45/45 dont LIVE chain ; lint/tsc PASS |
++| Product version | `NO RELEASE` / package `0.0.0-dev` |
++| ENV-01 | DEV `:3100` / PG `:5433` — RECETTE `:3200` / `d646d42a` **préservée, non mutée** |
++| Push projet / PR / merge / deploy RECETTE | **NON** |
++| Verdict candidat | `READY FOR CHATGPT REVIEW — LOCAL LIVE REMEDIATION` |
++
++## delivery_id: DELIV-2026-11-07-ML3-RCT02-LIVE-REMEDIATION-REWORK
++
++| Champ | Valeur |
++|---|---|
++| Date UTC | 2026-11-07 |
++| Macro-lot | R5 / ML3 — rework LIVE remediation C01/C05 cibles |
++| Type | INC CRITICAL REWORK |
++| Branche locale | `sfia/next-ml3-rct02-live-remediation` (**non poussée**) |
++| Handoff rejeté | `f2c5e3b5` / blob `d59ba25c` (REWORK REQUIRED) |
++| Correctifs | C01 négation secondaire n'annule pas OPEN ; C05 refus si cible fondatrice désignée ; pack Full complet |
++| Preuves | unit + PG C01/C05 rework + non-régression LIVE C04/C05/C06 |
++| Push projet / PR / merge / deploy RECETTE | **NON** |
++| Verdict candidat | `READY FOR CHATGPT RE-REVIEW` |
+```
+
+## 8. Fichier nouveau — contenu intégral
+
+### 8.1 `recette-ml3-rct02-live-corrective-gaps.md` (FULL — preuve D0 non normative)
+
+```md
+> **Preuve D0 utilisateur (non normative).** Copie locale du rapport LIVE fourni hors Git> (`sfia-next-rct02-live-evidence-bundle/report/sfia-next-rct02-live-gaps-d646d42a.md`).> N'autorise aucune modification de SEF/roadmap/ADR. Conservée pour traçabilité du macro-lot> correctif local C04/C05/C06.
+
+# SFIA Studio Next — ML3 / RCT-02
+## Restitution complémentaire de RECETTE LIVE — C04, C05, C06
+
+| Champ | Valeur / qualification |
+|---|---|
+| Date des observations | 7 novembre 2026, Europe/Paris |
+| Nature | **D0 — restitution de preuves utilisateur et diagnostic technique initial**, non normative, non publiée sur Git |
+| Programme / jalon | SFIA Studio Next / R5 — macro-lot ML3 « Piloter et décider » |
+| Produit observé | RECETTE `http://127.0.0.1:3200`, SHA **`d646d42addb5a4c4a3cab441e9e39018d85fae70`** |
+| Build reporté par Cursor | `R7JhVsbMaJdiUuuljApyn`; identité du runtime non contre-vérifiée indépendamment depuis cette analyse |
+| Branche Git consultée | `sfia/next-ml3-rct02-correctifs` ; remote encore à `d646d42a` au pré-check |
+| Base `main` comparée | `7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` (merge base) ; branche 4 commits devant / 0 derrière |
+| Source précédente | `construction/pilotage-et-decisions/recette-ml3-rct02-anomalies.md` (Git, blob `be12d062ae11730e6b224d77ca22da5a7366fa0c`) |
+| Nature de preuve | Captures et transcriptions en conversation utilisateur + inspection statique de fichiers Git du SHA ; **aucun accès aux logs locaux, SQL RECETTE ou instrumentation runtime** |
+| Décideur | Morris ; ChatGPT prépare/revoit ; Cursor réalise D3 |
+| Statut | **RCT-02 TARGETED LIVE TEST COMPLETED — CORRECTIVE GAPS OPEN** ; pas de ML3 CLOSED/RECETTE ACCEPTED/ADOPTED |
+
+> **Règle de lecture.** Les écrans montrent des effets réellement visibles en RECETTE. Les causes indiquées comme « reproduites statiquement » correspondent à la logique du code Git inspecté ou à sa simulation sur les phrases fournies. Seules les traces de l'application, les tests d'intégration et les effets DB peuvent confirmer la chaîne d'exécution exacte. Ne pas transformer une hypothèse en preuve.
+
+## 1. Résumé de la micro-recette
+
+**But :** retester les huit anomalies C01–C08 de la première RCT-02 sans refaire les 16 scénarios. Tests réalisés par Morris sur un nouveau projet, avec Nora `openai-agents-sdk-live · COMPLETE` affiché lors des échanges observés.
+
+| ID | Correction testée | Verdict LIVE | Preuve principale |
+|---|---|---|---|
+| C01 | Ouverture de cycle en message naturel développé | **PASS** | `OPEN_CYCLE APPLIED`, `CADRAGE ACTIVE`, révision 1 |
+| C02 | Objectif de cycle correctement persisté | **PASS** | objectif exact en Pilotage / journal, non `.` |
+| C03 | CKI interne non cité spontanément | **FAVORABLE, NON CLOS** | plusieurs réponses naturelles en CADRAGE ; pas de test intercycles CONCEPTION_FONCTIONNELLE |
+| C04 | Enregistrer un arbitrage, non les instructions à Nora | **PARTIAL** | `RECORD_DECISION APPLICABLE` ; consigne finale exclue, mais `objectRef` erroné et énoncé préfixé par « que, » |
+| C05 | Révision naturelle d'une décision documentaire | **FAIL** | aucun `REVISE_DECISION` ; ancienne décision toujours APPLICABLE ; aucune nouvelle décision |
+| C06 | Levée naturelle d'une restriction ciblée | **FAIL** | restriction restée ACTIVE, révision et journal inchangés |
+| C07 | Lire l'état effectif des restrictions | **PASS** | après levée UI : `restrictions_actives=aucune`, révision 4 correctement restituée par Nora |
+| C08 | Clôture naturelle sans transition automatique | **PASS** | `CLOSE_CYCLE APPLIED`, révision 5, aucun cycle actif |
+
+**Contrôle négatif supplémentaire : PASS.** Une commande `OPEN_CYCLE` citée comme exemple n'a pas déclenché de mutation : révision 5 et journal à 5 décisions, Nora distingue citation/GO/exécution.
+
+**Comptage : 4 PASS, 2 FAIL, 1 PARTIAL, 1 NON CLOS (favorable).** C03 ne doit pas être présenté comme accepté intercycles. Les succès concernent uniquement les scénarios observés, pas toute la variété du français.
+
+## 2. Chronologie DB/projection visible — projet de RECETTE
+
+L'identifiant interne du projet est visible dans les captures de la conversation ; ce dossier n'en a pas besoin pour décrire les règles. Les valeurs ci-dessous sont celles affichées par Pilotage, non un dump SQL.
+
+| Étape | Révision | Cycle | Restriction active | Journal de décisions | Conclusion |
+|---|---:|---|---|---:|---|
+| Début / C01–C02 | 1 | CADRAGE ACTIVE | Aucune | 1 | OPEN appliqué |
+| C04 | 2 | CADRAGE ACTIVE | Aucune | 2 | RECORD appliqué avec objet erroné |
+| C05 | **2** | CADRAGE ACTIVE | Aucune | **2** | REVISE absent |
+| Application cockpit (prérequis C06) | 3 | CADRAGE ACTIVE | `CYCLE_MUTATION` ciblée sur instance | 3 | APPLY appliqué |
+| C06 | **3** | CADRAGE ACTIVE | **Toujours ACTIVE** | **3** | LIFT absent |
+| Levée cockpit (prérequis C07) | 4 | CADRAGE ACTIVE | Aucune | 4 | LIFT appliqué |
+| C07 | 4 | CADRAGE ACTIVE | Aucune | 4 | Lecture correcte, aucune mutation |
+| C08 | 5 | Aucun cycle actif | Aucune | 5 | CLOSE appliqué |
+| Faux GO cité | 5 | Aucun cycle actif | Aucune | 5 | Aucun OPEN |
+
+**Cycle instance** dans les captures : `cyc_b03f4df8-2099-476b-8dfd-6a4fda5e12ff`. La restriction cockpit est liée à cette instance, pas à la portée `*` globale.
+
+## 3. C04 — RECORD_DECISION : effet présent, identité erronée
+
+### 3.1 Message utilisateur effectivement envoyé
+
+> Je décide que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+>
+> Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé.
+>
+> Nora, maintenant que cette décision est exprimée, aide-moi à identifier la prochaine question importante à poser pour vérifier cette hypothèse.
+
+### 3.2 Attendu / observé
+
+**Attendu :** une HumanDecision `RECORD_DECISION APPLICABLE` exprimant la priorité *d'exploration des difficultés de coordination/suivi des décisions entre équipes*, avec sa réserve sur la validation du besoin. La demande à Nora est une instruction de conversation, pas un champ décisionnel. `objectRef` doit rester une référence métier utile et stable.
+
+**Observé :** `RECORD_DECISION APPLICABLE` présent, révision 2, deux décisions ; consigne « Nora, maintenant que… » exclue. En revanche :
+
+- l'énoncé durable commence par **« que, pendant ce cadrage… »** (préfixe syntaxique inutile) ;
+- son **`objectRef` / libellé D6 affiché** est **« mais ne signifie pas que le besoin utilisateur »**, prélevé dans la réserve plutôt que dans l'arbitrage central ;
+- le cycle est resté `CADRAGE ACTIVE` ; aucun autre effet non demandé.
+
+### 3.3 Diagnostic de code Git (statique)
+
+Fichier : `web/src/domains/pilotage/intent.ts`, fonction `deriveDecisionObjectRef` (début de fichier). L'expression :
+
+```ts
+/(?:que\s+)?(?:la|le|l['’])?\s*([^,?.;]{3,60}?)\s+(?:est|sera|devient|reste|doit|peu[tv])\b/i
+```
+
+est appliquée avant la fallback de tokens sur le cœur décisionnel. Sur **l'énoncé réellement persisté**, cette expression renvoie exactement `mais ne signifie pas que le besoin utilisateur`, à cause de la séquence `...besoin utilisateur est déjà validé`. **Reproduction statique confirmée.**
+
+Dans `qualifyPilotageIntent`, le `record` capture la suite de `je décide` et `extractDecisionCore` supprime les consignes à Nora mais ne normalise pas entièrement le préfixe `que,`. Le test `ml3-rct02-intent.test.ts` vérifie l'absence de `aide-moi`, **pas la qualité de `objectRef` ni la fidélité complète de l'énoncé**.
+
+### 3.4 Reprise ciblée demandée
+
+- Identifier la responsabilité canonique de la référence d'objet D6. La déduire de l'arbitrage principal ou d'une référence explicitement nommée ; éviter de promouvoir une réserve secondaire comme sujet de décision.
+- Normaliser sans réécrire le sens : retirer le préfixe artificiel `que,` ; conserver priorité, contexte, réserve et absence de validation du besoin.
+- Préserver une référence suffisamment stable pour confrontation/révision ; pas de second registre d'autorité.
+- **Ne pas migrer automatiquement l'ancienne décision polluée en RECETTE**. C05 doit pouvoir réviser la décision existante via un mécanisme de cible robuste malgré son ancien `objectRef`.
+- Si l'objet ne peut être identifié de manière suffisamment sûre, préférer un statut explicite/clarification au libellé arbitraire ; ne pas fabriquer une vérité sémantique par le modèle.
+
+### 3.5 Acceptance et contre-tests
+
+- Message **intégral** ci-dessus via le véritable flux `USER_MESSAGE` → un seul RECORD, statement = deux phrases de décision, aucune consigne Nora, pas de `que,` initial.
+- ObjectRef pertinent pour la décision (coordination/suivi entre équipes), et non sous-proposition `mais ne signifie…`.
+- Deux décisions distinctes de sujet voisin ne se fusionnent pas par similarité lexicale.
+- Aucun RECORD pour exemple, refus, hypothèse ou conseil de Nora.
+
+## 4. C05 — REVISE_DECISION : absence de mutation malgré un GO explicite
+
+### 4.1 Message utilisateur réellement envoyé
+
+> Nora, je révise la décision que j'ai prise concernant la priorité d'exploration des difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+>
+> Plutôt que de nous concentrer immédiatement sur ces difficultés, je décide que nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire.
+>
+> Cette nouvelle orientation remplace la priorité précédente. Le besoin utilisateur reste à valider.
+>
+> Aide-moi ensuite à identifier les premières situations concrètes que nous devrions examiner.
+
+### 4.2 Attendu / observé
+
+**Attendu :** `REVISE_DECISION APPLIED` sur l'unique HumanDecision documentaire C04 ; ancienne version `REVISED`, nouvelle `APPLICABLE`, `supersedesDecisionId` correct, nouvel énoncé = arbitrage révisé (sans instruction « Aide-moi »), objet historique cohérent ; `CADRAGE ACTIVE` sans autre mutation.
+
+**Observé :** Nora LIVE comprend le remplacement mais répond **« sans prétendre avoir enregistré son remplacement dans le système »**. Travail : `2 applicable(s) · 2 au journal · dernière RECORD_DECISION/APPLICABLE`. Pilotage : révision **2**, deux décisions, aucune REVISE ; ancienne RECORD toujours `APPLICABLE`. **Échec de l'effet confirmé par captures**.
+
+### 4.3 Diagnostic de code Git (forte piste, non prouvé par log runtime)
+
+- `conversation-authority.ts` → `resolveReviseTarget` utilise `findAuthorityReviseCandidates(utterance, briefs)` ; si 0 ou >1 candidats, **clarification sans mutation**.
+- `decisions/divergence-assist.ts` → `selectAllApplicableBriefs` inclut **tous les types** `APPLICABLE` avec `objectRef`, y compris les **décisions D5 fondatrices**. Le filtrage `target.kind === 'RECORD_DECISION'` se fait **après** la sélection et le contrôle d'unicité dans `resolveReviseTarget`.
+- La recherche exploite `utteranceTouchesObject`, ou, pour un `je révise` explicite, un recouvrement d'au moins **deux tokens significatifs** entre l'énoncé de la décision et le message utilisateur.
+- Simulation sur les deux HumanDecisions visibles :
+  - `OPEN_CYCLE` (énoncé : « définir précisément le problème utilisateur… ») touche le message C05 via **« problème »** et **« utilisateur »** ;
+  - `RECORD_DECISION` C04 touche ce même message via **« besoin » / « utilisateur »** dans le `objectRef` dégradé, mais aussi via une quinzaine de tokens de son énoncé.
+  - Résultat probable : **deux candidates**, donc `AMBIGUOUS`, alors qu'une seule est légalement révisable via `REVISE_DECISION`.
+
+**Important :** la simulation des règles statiques confirme ces deux correspondances lexicales, **pas l'issue runtime exacte** ; Cursor doit lire `intentClarity`, `intentReason`, `authority.operation`, `source`, refus D6 et candidats retournés dans une reproduction PG intégrale. Éviter d'attribuer l'échec à Nora ou à l'objet C04 sans cette preuve.
+
+### 4.4 Écart de couverture technique
+
+`web/tests/unit/ml3-rct02-intent.test.ts` décrit son T05 comme **représentatif** : « Je révise la décision que j'ai prise sur l'orientation du cadrage. Cette nouvelle orientation… » ; ce n'est pas le message réellement envoyé dans cette recette. Le test de qualification en isolation ne prouve pas que `resolveReviseTarget` fonctionne avec deux décisions D6 dont une fondatrice `OPEN_CYCLE` et un `objectRef` historiquement pollué.
+
+### 4.5 Reprise ciblée demandée
+
+- Distinguer éligibilité *métier* de la cible et pertinence sémantique **avant** de décider l'unicité : `REVISE_DECISION` documentaire ≠ révision d'une HumanDecision fondatrice D5.
+- Évaluer l'unicité seulement parmi les cibles admissibles, avec suffisamment d'indices d'identification ; pas de sélection automatique de la plus récente.
+- Conserver les protections zéro/pluriel candidat, portées distinctes, concurrent, D5 fondateur, replays et absence d'autorité d'une proposition Nora/CKI.
+- Préserver l'objet historique de la décision révisée et les liens `supersedes`; **pas de réécriture rétroactive** de C04.
+- Test positif obligatoire avec **les deux messages complets C04 puis C05**, depuis le service conversationnel, et transition réelle en PG.
+
+### 4.6 Oracles négatifs
+
+- Deux décisions documentaires distinctes touchées : **clarification**, aucune mutation.
+- Aucune décision documentaire applicable : clarification, aucune mutation.
+- Révision d'une OPEN_CYCLE ou d'une restriction fondatrice : **refus typé** sans mutation.
+- Reformulation exploratoire « j'envisage de réviser… » : aucune décision.
+- Rejeu du même tour/ACK perdu/concurrence : aucune double révision.
+
+## 5. C06 — LIFT_RESTRICTION : mention négative d'une autre opération assimilée à un second GO
+
+### 5.1 Préconditions observées
+
+Depuis Pilotage : `APPLY_RESTRICTION APPLICABLE` ; restriction `CYCLE_MUTATION` ciblée sur l'instance `cyc_b03f4df8-2099-476b-8dfd-6a4fda5e12ff` ; CADRAGE `ACTIVE`, révision 3, journal 3 décisions.
+
+### 5.2 Message utilisateur réellement envoyé
+
+> Nora, je décide de lever uniquement la restriction CYCLE_MUTATION actuellement active sur le cycle CADRAGE.
+>
+> Cette levée concerne uniquement ce cycle. Je ne souhaite ni clôturer le cycle, ni en ouvrir un autre.
+>
+> Une fois cette décision appliquée, confirme-moi ce qui a réellement été enregistré dans Studio.
+
+### 5.3 Attendu / observé
+
+**Attendu :** `LIFT_RESTRICTION APPLIED`, exactement la restriction ciblée levée, aucune `CYCLE_MUTATION` active, CADRAGE reste `ACTIVE`, révision **4**, journal **4**, pas de CLOSE/OPEN.
+
+**Observé :** Nora LIVE reconnaît l'intention et la cible mais indique ne pas pouvoir confirmer la levée. Pilotage : **révision 3**, restriction encore `ACTIVE`, journal toujours à **3** décisions, aucun LIFT. **FAIL confirmé**.
+
+### 5.4 Diagnostic Git (reproduction statique)
+
+Dans `intent.ts`, `findLiftRestrictionAct` reconnaît un `je décide de lever` et un kind `CYCLE_MUTATION`. Mais `qualifyPilotageIntent` vérifie ensuite :
+
+```ts
+const alsoClose =
+  /\bcl[oô]tur/i.test(text) &&
+  !/\bne\s+(?:pas\s+)?(?:cl[oô]tur|ferme)|sans\s+cl[oô]tur/i.test(text);
+```
+
+La phrase **« Je ne souhaite ni clôturer le cycle, ni en ouvrir un autre »** comporte `clôturer` mais ne correspond pas au motif protecteur `ne clôtur...`. Sur le message réel, `alsoClose` vaut **`true`**, malgré la négation. Le qualificateur retourne alors `AMBIGUOUS` (« Levée et clôture dans le même message »), avant la résolution de restriction. **Correspondance statique confirmée ; cause runtime à valider par trace.**
+
+Le test unitaire positif actuel dit seulement **« Ne clôture pas le cycle »** après le GO de levée : il n'inclut pas la formulation effectivement testée **« Je ne souhaite ni clôturer…, ni en ouvrir… »**.
+
+### 5.5 Reprise ciblée demandée
+
+- Distinguer une seconde **commande affirmative** d'une mention négative, réservée ou explicitement exclue par le Pilote.
+- Contrôler la portée de la négation au niveau de la clause d'action : « je ne souhaite ni clôturer ni ouvrir » ≠ CLOSE/OPEN.
+- Maintenir l'interdiction d'exécuter deux opérations affirmatives incompatibles dans un même tour ; clarification sans effet dans ce cas.
+- Résoudre l'instance précise du cycle et la restriction unique, avec autorité D6 au point d'effet, sans second moteur.
+- Préserver les cas négatifs précédemment corrigés : « Ne lève pas… », « Je refuse de lever… », « Je ne t'autorise pas à lever… », citation, question, autre cible, plusieurs restrictions, session étrangère.
+
+### 5.6 Acceptance
+
+Sur message complet C06 et état initial PG correspondant : **un seul LIFT**, aucune restriction active, cycle toujours ACTIVE et aucune OPEN/CLOSE ; Nora obtient le résultat d'autorité confirmé et peut le restituer honnêtement. Contre-tests : zéro mutation.
+
+## 6. Autres preuves utiles : C01/C02/C07/C08 et faux GO
+
+- **C01+C02 PASS** : T01 développé → `OPEN_CYCLE APPLIED`, CADRAGE ACTIVE révision 1 et objectif « définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier » correctement conservé. Nora LIVE confirme l'effet et démarre le cadrage sans déclarer les besoins validés.
+- **C07 PASS** : après levée manuelle, Nora LIVE indique révision 4, CADRAGE ACTIVE, aucune restriction active et explique que les décisions APPLY/LIFT sont des traces historiques, pas la projection effective. Aucune clôture non demandée.
+- **C08 PASS** : demande explicite de clôture, avec réserves et refus d'ouverture automatique ; `CLOSE_CYCLE APPLIED`, révision 5, aucun cycle actif, cinq décisions. Nora distingue conservation dans le message source et absence de preuve de points ouverts structurés.
+- **Faux GO PASS** : citation `« Ouvre le cycle CONCEPTION_FONCTIONNELLE »` dans un exemple explicitement non autorisant ; aucune ouverture ; révision et journal restent à 5.
+- **C03** : guidance non citée spontanément en CADRAGE dans les réponses observées ; intercycles non testé, **non clos**.
+
+Ne modifier ni les règles ayant permis ces succès, ni les composants externes sans risque démontré. Après la reprise, effectuer des **non-régressions ciblées** (unit, PG, E2E FAKE, navigateur si applicable), puis seulement une nouvelle RECETTE LIVE ciblée après autorisation de mise à disposition sur un nouveau SHA.
+
+## 7. Contrat d'acceptation du macro-lot ciblé
+
+| Groupe | Condition de sortie | Niveau de preuve requis |
+|---|---|---|
+| C04 | Statement propre et `objectRef` pertinent sur message réel | Unit + PG depuis conversation USER + projection/journal |
+| C05 | Bonne cible documentaire même en présence de OPEN_CYCLE et d'un ancien `objectRef` pollué | Unit + PG avec C04 historique + REVISE + historique correct |
+| C06 | Levée affirmative malgré exclusion négative de CLOSE/OPEN | Unit + PG avec restriction ciblée, 0 autres opérations |
+| Autorité négative | Faux GO, plusieurs cibles, restrictions, refus, historique, hypothèse | Unit + PG, **zéro mutation**, état stable |
+| Reprise/idempotence | Un tour = une seule décision ; conservation après replay/ACK perdu | PG + E2E déterministe proportionné |
+| Régressions | C01/C02/C07/C08, cockpit, CKI silencieux | Tests ciblés ; pas de nouveau PASS LIVE sans retest utilisateur |
+| Cohérence documentaire | Spec ML3, traçabilité et delivery-history synchronisés avec code | Diff + Review Pack Full |
+
+**Sévérité :** C05 et C06 majeures pour l'expérience conversationnelle D6 ; C04 correction de qualité durable pouvant affecter les cibles futures ; conservation des faux GO et restrictions = invariant de sûreté **bloquant**.
+
+## 8. Frontières et gates
+
+- **IN :** diagnostic et corrections intégrées C04/C05/C06, code D3/D6 nécessaire, tests unit/PG/E2E pertinents, doc as-built, Review Pack Full, handoff L3.
+- **OUT :** nouveaux domaines fonctionnels, moteur LLM autonome d'autorisation, migration DB, rétrocorrection des données de RECETTE, refonte UX, nouvel algorithme NLP universel, C03 hors non-régression, CI nouvelle, API Git, D7–D9.
+- **Git :** source candidate `sfia/next-ml3-rct02-correctifs@d646d42a` ; worktree local **NON OBSERVÉ**, à vérifier par Cursor. Recommandation : branche locale isolée depuis `d646d42a`. Aucun push projet, PR ou merge sans gate distinct.
+- **ENV-01 :** DEV isolé uniquement pour les changements ; préserver RECETTE `:3200` (build `R7JhVsbMaJdiUuuljApyn`, données schéma 007, session et fichiers) et l'ancien candidat `ba831b25`. Aucun reset ou migration sans mandat.
+- **Versioning :** technique `0.0.0-dev`; `NO RELEASE`, STABLE `NOT AVAILABLE`, aucune nouvelle version produit attribuée.
+- **Droits / sécurité :** seul le Pilote USER authentifié autorise ; Nora/CKI/Level A ne décident pas ; `executePilotageCommand` reste propriétaire unique des mutations ; relecture effective/revision attendue avant mutation.
+- **Preuves :** tests locaux ≠ navigateur ≠ LIVE. Rapport Cursor autonome mono-cycle, fichier `.tmp-sfia-review/chatgpt-review.md` réinitialisé, handoff `sfia/review-handoff` fichier unique `sfia-review-handoff/latest-chatgpt-review.md` en `publish-in-cycle`.
+- **Gates futurs distincts :** GO Morris pour commit/push projet, nouveau candidat RECETTE, reprise LIVE, PR, merge, clôture ML3, STABLE/release/adoption.
+
+## 9. Index des preuves visuelles annexes
+
+Les captures originales, exportées de la conversation, sont **jointes au bundle local** associé à cette restitution. Elles ne sont pas publiées sur Git et ne sont pas directement accessibles à Cursor sans transfert du bundle.
+
+| Pièce | État montré |
+|---|---|
+| `A01-open-work.png` | Nora LIVE + `OPEN_CYCLE APPLIED` |
+| `A02-open-pilotage.png` | CADRAGE ACTIVE rev1, objectif et HumanDecision |
+| `A03-c04-pilotage.png` | RECORD rev2, `objectRef` et énoncé dégradés |
+| `A04-c05-work.png` | Nora reconnaît révision, ne confirme pas l'effet |
+| `A05-c05-pilotage.png` | rev2 et 2 décisions inchangées |
+| `A06-restriction-active.png` | prérequis C06, rev3 APPLY |
+| `A07-c06-work.png` | Nora comprend GO, ne confirme pas LIFT |
+| `A08-c06-pilotage.png` | restriction toujours ACTIVE, rev3 |
+| `A09-lift-ui.png` | levée par cockpit, rev4 |
+| `A10-c07-work.png` | Nora LIVE lit aucune restriction active et historique |
+| `A11-c08-pilotage.png` | CLOSE rev5, aucun cycle actif |
+| `A12-faux-go-pilotage.png` | commande citée, zéro OPEN, rev5 |
+
+**Conclusion :** ce complément est une source de défauts et une base de test, **pas une décision normative**. Le prochain Cursor doit d'abord reproduire et qualifier les causes, puis corriger **un macro-lot unique**, avec non-régression complète des effets déjà acceptés.
+
+```
+
+## 9. Gates NON acquis
+
+push projet, PR, merge, redéploiement RECETTE, LIVE OpenAI Cursor, CI workflow, STABLE, release, ML3 CLOSED, ADOPTED.
 
 ## 10. Verdict
 
-**READY FOR CHATGPT REVIEW — LOCAL LIVE REMEDIATION**
+**READY FOR CHATGPT RE-REVIEW**
