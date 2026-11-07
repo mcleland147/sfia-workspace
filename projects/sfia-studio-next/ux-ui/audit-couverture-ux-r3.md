@@ -1202,3 +1202,15 @@ La [décision P1/P2/P3/F1/F2](../governance/decisions/2026-11-07-convergence-ux-
 - **P3/F1** rattache CU-09/15 aux variantes personnel/projet/conversation + mobile 216/217 et UXC-03/13.
 - **F2** rattache la conformité géométrique à `UXC-13` ; cible 0 et borne 2 CSS px pour rectangles stables, seuil image **non arbitré**, sans préjuger la preuve navigateur.
 **G1 VALIDATED SPEC ; G2 PARTIAL ; G4 NOT STARTED**. Les écrans Git ML4 218–235 restent hors du code de convergence.
+
+## 22. F1 — variante Inspection 244 px validée (2026-11-07)
+
+[Décision Morris amendée](../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md) : pour la convergence UX du parcours ML1–ML3, `CU-07/09/15` et `UXC-06/13` doivent distinguer **`inspection:244` CSS px** des variantes `personnel:246`, `projet:246`, `conversation:240` du **même shell**.
+
+| Source Figma | Navigation native | Utilité |
+| --- | --- | --- |
+| 04 `94:370` | `94:372`, 244 px | Inspection document Nora |
+| 18 `97:359` | `97:361`, 244 px | Révision document Nora |
+| 19 `100:39` | `100:41`, 244 px | Référence d'inspection D8 **hors périmètre d'implémentation** |
+
+Les trois rails ont les paddings 23/19/22/19 et un gap 11 px natifs. Cette décision n'étend **pas** l'IN fonctionnel à D8 et ne valide **pas** le contenu des descendants non relevés. [Protocole](protocole-fidelite-figma-runtime.md) · [contrat R5 v0.5](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md).

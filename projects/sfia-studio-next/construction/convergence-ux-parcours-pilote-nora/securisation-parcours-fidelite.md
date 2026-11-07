@@ -186,3 +186,11 @@ Le résultat D0 permet une **revue Morris groupée sur P1/P2/P3 + F1 + F2**, san
 **F2 est validé pour les boîtes stables uniquement :** objectif 0 px, limite contractuelle 2 CSS px à viewport/état/fixture comparables, exactitude des propriétés native mesurables, aucun débordement ni chevauchement accepté. Le **seuil image global** n'est pas fixé ; le calibrer par région/fixtures et faire valider le résultat avant recette. Un écart non exprimable en CSS dû au raster de police ne modifie pas la géométrie contractuelle.
 
 **Ce dossier n'est pas un pack prêt pour coder** : les 8 frames / 55 nœuds du [relevé L2](../../ux-ui/releves-geometriques-convergence-l2-partiel.json) sont **partiels** ; produire le pack L2 des seules zones réellement implémentées, exports et digests source figés, ainsi que les preuves navigateur au SHA cible. La décision de publication/merge documentaire n'autorise pas la construction.
+
+## 9. Arbitrage complémentaire F1 — Inspection 244 px, validé (2026-11-07)
+
+Morris a validé l'extension F1 à **quatre variantes dans le même composant de navigation** : `personnel=246`, `projet=246`, `conversation=240`, **`inspection=244` CSS px**. L'amendement applicable est consigné dans [le record de décision](../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md).
+
+**Source géométrique Figma native :** 04 nav `94:372`, 18 nav `97:361`, 19 nav `100:41`. Pour les trois : `244×970`, padding `23/19/22/19`, gap `11`, auto-layout vertical. La frame 19 appartient au domaine D8 et n'entre **pas** dans la convergence fonctionnelle ML1–ML3.
+
+Ce choix **résout l'arbitrage de variante F1** mais ne clôt pas G2 : descendant(s), états, tokens, source figée/digest et calibration d'image restent à livrer. Le pack L2 original contient toujours 8 frames / 55 nœuds ; les nouvelles mesures de rail sont un **complément ponctuel**, non une certification de pack prêt pour code. Voir [préparation G2/G3](preparation-technique-g2-g3.md).

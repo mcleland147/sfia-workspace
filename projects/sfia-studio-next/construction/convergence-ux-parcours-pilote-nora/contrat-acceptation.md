@@ -1,6 +1,6 @@
 # SFIA Studio Next — Contrat d'acceptation de convergence UX : Parcours Pilote–Nora intégré
 
-**Version :** `v0.4 — P1/P2/P3/F1/F2 VALIDATED SPEC / DESIGN PACK G2 PARTIAL`; **date :** 2026-11-07.
+**Version :** `v0.5 — P1/P2/P3/F1 (4 VARIANTES)/F2 VALIDATED SPEC / G2 PARTIAL`; **date :** 2026-11-07.
 **Statut :** `VALIDATED SPEC — PARCOURS ET POLITIQUE DE FIDÉLITÉ P1/P2/P3/F1/F2 / G2 DIP PARTIAL / UXC NOT RUN / NOT IMPLEMENTED`.
 **Git :** `main@d37ea0882ee9256ec206e2f0523a71bf13674e88` ; candidat documentaire `docs/next-ux-convergence-qualification-20261107@b692376c984c669af81e583c230a4d393671bf9c`.
 **Périmètre :** R5 transversal, ML1–ML3 ; **non** un ML supplémentaire numéroté. Contrat à approuver avant toute spécification technique ou exécution Cursor.
@@ -146,7 +146,24 @@ Le [protocole complémentaire R3 candidat](../../ux-ui/protocole-fidelite-figma-
 **Décision de référence :** [P1–P3/F1/F2](../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md). Cette section **prime sur les mentions candidates historiques** de la v0.3 sans effacer les versions ni l'historique documentaire.
 - **P1 validé** : liste `OPEN` sans lien projet, filtrée par propriétaire côté serveur, tri `createdAt DESC` / `id`, reprise du même `preparationId` sans POST.
 - **P2 validé** : `Documents → Bibliothèque → Inspection → Révision → Historique` dans le projet ; service D4 `reviseDocument` avec `baseRevisionId` et `correlationKey`, refus/conflit/résultat incertain prouvés.
-- **P3/F1 validés** : navigation commune par responsabilités avec variantes Figma `personnel:246`, `projet:246`, `conversation:240` CSS px ; accès mobile 390/320, clavier et retour contextuel obligatoires.
+- **P3/F1 validés** : navigation commune par responsabilités avec variantes Figma `personnel:246`, `projet:246`, `conversation:240`, `inspection:244` CSS px ; accès mobile 390/320, clavier et retour contextuel obligatoires.
 - **F2 validé en politique** : cible géométrique **0 CSS px**, borne **≤2 CSS px** pour `x/y/w/h` des rectangles stables contractés à même fixture, viewport et état. Style/typographie exacte quand spécifiée ; aucune troncature/chevauchement/débordement inattendu. Diff d'image global **non calibré**, aucune tolérance implicite sur les effets ou les actes métier.
 - **G2 reste ouvert** : [relevé L2 8 frames/55 nœuds PARTIAL](../../ux-ui/releves-geometriques-convergence-l2-partiel.json), [dossier de sécurisation](securisation-parcours-fidelite.md) ; les descendants utiles, exports Figma immuables/hashés, calibration régionale, code et preuves navigateur sont **NOT READY/NOT RUN**.
 **Règle pour Cursor :** aucune propriété Figma devinée ; le pack L2 est un **gate d'entrée de réalisation pour les composants concernés**. Le résultat utilisateur reste un **seul macro-résultat** avec code/tests/docs intégrés lorsque le mandat technique sera accordé. Aucun GO Cursor n'est donné par la présente validation.
+
+## 10. Extension F1 — variante Inspection validée (2026-11-07)
+
+**Autorité Morris :** [amendement F1 validé](../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md) ; la présente section actualise les références v0.4 sans rouvrir P1–P3, A1–A3, F2 ni la matrice `UXC-01..14`.
+
+| Variante du même composant de rail | Largeur native | Références Figma | Contrat de fidélité |
+| --- | ---: | --- | --- |
+| `personnel` | 246 px | 01 `94:50`, 02 `94:135` | Entrée/portefeuille/sas |
+| `projet` | 246 px | 89 `160:175`, 92 `160:391`, 24 `127:106`, 40 `129:72` | Projections projet, documents, pilotage |
+| `conversation` | 240 px | 03 `94:214`, 206–208 | Fil Nora et activité réelle |
+| **`inspection`** | **244 px** | 04 `94:370`, 18 `97:359`, 19 `100:39` | Inspection/révision, et référence visuelle D8 hors lot |
+
+**Inspection L2 native au niveau rail :** nav IDs `94:372`, `97:361`, `100:41` ; frame **244×970**, auto-layout vertical, gap 11, padding 23/19/22/19. **Un composant à quatre variantes ; aucune normalisation automatique, ni interface de navigation concurrente**. Les noms sont des variantes techniques de la responsabilité « Navigation », non des capacités nouvelles.
+
+**Recette UXC-13 :** les quatre variantes doivent être comparées aux frames natives et aux rectangles DOM, à même fixture et viewport ; l'objectif 0/borne 2 CSS px F2 reste valable pour leurs boîtes stables, ainsi que l'interdiction d'overlap/clipping. Les mesures précises des descendants et les références visuelles immuables manquent encore au **G2**.
+
+**Trajectoire :** [protocole R3](../../ux-ui/protocole-fidelite-figma-runtime.md) ; [dossier technique G2/G3 candidat](preparation-technique-g2-g3.md). La validation du seul amendement F1 et son merge **ne valent ni G2 READY, ni G3 validé, ni GO Cursor**.
