@@ -1,16 +1,16 @@
 # SFIA Studio Next — Review Pack FULL
-## ML3 / RCT-02 — Local LIVE Remediation REWORK (C01 / C05 cibles)
+## ML3 / RCT-02 — C01 FALSE-GO retract (final local remediation)
 
 | Champ | Valeur |
 |---|---|
-| Date UTC | 2026-11-07T01:33Z |
-| Nature | Critical Rework après handoff `f2c5e3b5` / blob `d59ba25c` (REWORK REQUIRED) |
+| Date UTC | 2026-11-07T01:42Z |
+| Nature | Critical Rework après handoff `d89c3009` / blob `4d2cefb9` (REWORK REQUIRED — C01 FALSE GO) |
 | Base projet | `d646d42addb5a4c4a3cab441e9e39018d85fae70` |
 | Branche locale | `sfia/next-ml3-rct02-live-remediation` (**non poussée**) |
-| RECETTE | `:3200` / `d646d42a` **préservée, non mutée** |
-| Fake/Real | unit + PG DEV `:5433` ; **≠ LIVE Nora** |
+| RECETTE | `:3200` / `d646d42a` **préservée** |
+| Fake/Real | unit + PG DEV `:5433` ; ≠ LIVE Nora |
 | Version | `0.0.0-dev` / `NO RELEASE` |
-| Verdict | **READY FOR CHATGPT RE-REVIEW** |
+| Verdict | **READY FOR CHATGPT FINAL REVIEW — LOCAL LIVE REMEDIATION** |
 
 ## 1. Git Truth
 
@@ -26,49 +26,48 @@
  M projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
 ?? projects/sfia-studio-next/construction/pilotage-et-decisions/recette-ml3-rct02-live-corrective-gaps.md
 
-.tmp-sfia-review/chatgpt-review.md                 | 166 -------------
- .../construction/delivery-history.md               |  30 +++
- .../specification-technique.md                     |  21 ++
- .../pilotage-et-decisions/tracabilite-r2-r3-r4.md  |  15 ++
- .../src/domains/pilotage/conversation-authority.ts |  87 +++++--
- .../web/src/domains/pilotage/intent.ts             | 113 +++++++--
- .../web/tests/integration/ml3-pilotage.pg.test.ts  | 268 +++++++++++++++++++++
- .../web/tests/unit/ml3-rct02-intent.test.ts        | 119 +++++++++
- 8 files changed, 615 insertions(+), 204 deletions(-)
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
- M projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
- M projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
- M projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
- M projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
- M projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
-?? projects/sfia-studio-next/construction/pilotage-et-decisions/recette-ml3-rct02-live-corrective-gaps.md
+.tmp-sfia-review/chatgpt-review.md                 | 166 ------------
+ .../construction/delivery-history.md               |  44 +++
+ .../specification-technique.md                     |  31 +++
+ .../pilotage-et-decisions/tracabilite-r2-r3-r4.md  |  16 ++
+ .../src/domains/pilotage/conversation-authority.ts |  87 ++++--
+ .../web/src/domains/pilotage/intent.ts             | 150 +++++++++--
+ .../web/tests/integration/ml3-pilotage.pg.test.ts  | 298 +++++++++++++++++++++
+ .../web/tests/unit/ml3-rct02-intent.test.ts        | 132 +++++++++
+ 8 files changed, 712 insertions(+), 212 deletions(-)
 ```
 
-HEAD base inchangé `d646d42addb5a4c4a3cab441e9e39018d85fae70` ; modifications locales non commit/push projet.
+HEAD base `d646d42addb5a4c4a3cab441e9e39018d85fae70` ; modifications locales non commit/push projet.
 
-## 2. Reproduction rework (avant correctif)
+## 2. Reproduction avant correction
 
-| Cas | Observé avant rework | Frontière |
+| Message | Avant | Attendu |
 |---|---|---|
-| C01 « Ouvre CADRAGE… Je ne souhaite ni clôturer… ni en ouvrir un autre » | `clarity=NONE` (OPEN annulé) | `refusesOrWithholdsAct('open')` matchait `ni en ouvrir` malgré OPEN affirmatif |
-| C05 « Je révise la décision d'ouverture du cycle CADRAGE… » + OPEN + RECORD pollué | intent CLEAR REVISE ; après filtre RECORD → REVISE opportuniste | éligibilité documentaire ignorait la désignation fondatrice explicite |
+| `Nora, ouvre le cycle CADRAGE. Finalement, ne l'ouvre pas : je retire mon GO.` | CLEAR OPEN_CYCLE (faux GO) | aucune mutation |
+| `Nora, ouvre le cycle CADRAGE. Mais non, n'ouvre pas ce cycle, c'est une erreur.` | CLEAR OPEN_CYCLE (faux GO) | aucune mutation |
+| POS `… Je ne souhaite ni clôturer… ni en ouvrir un autre.` | CLEAR OPEN (à conserver) | 1 OPEN CADRAGE |
 
-## 3. Correctifs (sans refaire C04/C05/C06 LIVE positifs)
+Cause : `refusesOrWithholdsAct('open')` neutralisait **toute** négation dès qu'un OPEN affirmatif était présent.
 
-1. **C01** — `refusesOrWithholdsAct('open')` : si OPEN affirmatif présent (`ouvre le cycle` / `je décide de commencer`), une exclusion « ni en ouvrir » n'annule pas l'acte.
-2. **C05** — `designatesFoundingReviseTarget` dans `resolveReviseTarget` : refus typé **avant** le filtre RECORD ; historique `objectRef` pollué reste révisable via message C05 LIVE.
+## 3. Correctif
+
+Distinction portée :
+- **Négation / retrait du GO demandé** (`ne l'ouvre pas`, `n'ouvre pas ce cycle`, `je retire mon GO`) → withhold / AMBIGUOUS, zéro effet.
+- **Exclusion d'une autre ouverture** (`ni en ouvrir un autre`) avec OPEN affirmatif → ne bloque pas le GO primaire.
+
+`findOpenCycleAct` : après surface OPEN reconnue, si withhold → `ambiguous` (clarification), jamais GO déduit de la première phrase. Citations / refus / hypothèses inchangés.
+
+C04/C05/C06 LIVE positifs non refaits sans nécessité.
 
 ## 4. Preuves réexécutées
 
 | Suite | Résultat |
 |---|---|
-| unit intent + divergence + authority | **48/48 PASS** |
-| PG `ml3-pilotage.pg.test.ts` | **48/48 PASS** (LIVE C04/C05/C06 + C01 rework + C05 founding zero + C05 hist polluted) |
-| lint / tsc | PASS |
+| unit intent+divergence+authority | **49/49 PASS** |
+| PG `ml3-pilotage.pg.test.ts` | **49/49 PASS** (retract zéro mutation + positif C01 + LIVE C04/C05/C06 + C05 founding/hist) |
+| lint / tsc / build | PASS |
 
-## 5. Code — contenu intégral des fichiers produit modifiés
+## 5. Code produit — contenu intégral
 
 ### 5.1 intent.ts (FULL)
 
@@ -346,19 +345,32 @@ export function refusesOrWithholdsAct(
     return true;
   }
   if (act === "open") {
-    const negatedOpen =
+    // Retraction / contradiction of the *requested* open — always withhold,
+    // even if an earlier clause said « ouvre le cycle » (false-GO guard).
+    if (
+      /\b(?:je\s+)?retire\s+(?:mon\s+)?GO\b/i.test(t) ||
       /\b(?:n['’]ouvre\s+pas|ne\s+(?:l['’]\s*)?ouvre\s+pas|sans\s+ouvrir|ne\s+pas\s+ouvrir)\b/i.test(
         t,
-      ) ||
-      /\bne\s+(?:souhaite|veux|veut)\s+ni\s+[^.!?]{0,40}\bouvrir\b/i.test(t) ||
-      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t);
-    if (!negatedOpen) return false;
-    // C01 rework: exclusion of *another* open (« ni en ouvrir un autre ») must not
-    // cancel an affirmative OPEN already asserted in the same turn.
-    const hasAffirmativeOpen =
-      /\b(?:ouvre|ouvrez)\s+(?:le\s+|un\s+)?cycle\b/i.test(t) ||
-      /\bje\s+d[eé]cide\s+de\s+commencer\b/i.test(t);
-    return !hasAffirmativeOpen;
+      )
+    ) {
+      return true;
+    }
+    // Exclusion of an *additional* open (« ni en ouvrir un autre ») alongside an
+    // affirmative OPEN — not a withhold of the primary GO.
+    if (
+      /\bne\s+(?:souhaite|veux|veut)\s+ni\s+[^.!?]{0,60}\bouvrir\b/i.test(t) ||
+      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t)
+    ) {
+      const hasAffirmativeOpen =
+        /\b(?:ouvre|ouvrez)\s+(?:le\s+|un\s+)?cycle\b/i.test(t) ||
+        /\bje\s+d[eé]cide\s+de\s+commencer\b/i.test(t);
+      const excludesAnotherOpen =
+        /\bni\s+(?:en\s+)?ouvrir\s+(?:un\s+)?autre\b/i.test(t) ||
+        /\bouvrir\s+(?:un\s+)?autre\b/i.test(t);
+      if (hasAffirmativeOpen && excludesAnotherOpen) return false;
+      return true;
+    }
+    return false;
   }
   if (act === "close") {
     // Sole negation / exclusion of close (not a reserve after « je décide de clôturer »).
@@ -444,7 +456,8 @@ export function assertsAffirmativeCloseAct(text: string): boolean {
 function findOpenCycleAct(
   text: string,
 ): { cycleType: CycleType; objective: string } | { ambiguous: string } | null {
-  if (isNonPerformativeOpenFraming(text)) return null;
+  // Specimen / citation / historical — never an open surface.
+  if (isSpecimenOrHistoricalFraming(text)) return null;
 
   // Reject pure questions about opening.
   if (
@@ -461,22 +474,29 @@ function findOpenCycleAct(
   const openRe =
     /(?:^|[.!?…]\s+|nora\s*[,:]?\s*)(?:je\s+d[eé]cide\s+de\s+commencer[^.!?]*[.!?]?\s*)?(?:ouvre|ouvrir|ouvrez|go(?:\s+pour|\s+sur)?)\s+(?:le\s+|un\s+)?cycle\s+(?:de\s+|d['’]\s*)?([^.!?]+)/i;
   const m = text.match(openRe);
-  if (!m) {
+  let matched: { type: CycleType; rest: string } | { ambiguous: true } | null = null;
+  if (m) {
+    matched = matchCyclePrefix(m[1]);
+  } else {
     // Alternate: « je décide de commencer le cadrage » without « ouvre » — require cycle name.
     const begin = text.match(
       /\bje\s+d[eé]cide\s+de\s+commencer\s+(?:le\s+|un\s+|l['’]\s*)?(?:cycle\s+(?:de\s+|d['’]\s*)?)?([^.!?]+)/i,
     );
     if (!begin) return null;
     if (isExploratoryActLanguage(text) && !/\bje\s+d[eé]cide\b/i.test(text)) return null;
-    const matched = matchCyclePrefix(begin[1]);
-    if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
+    matched = matchCyclePrefix(begin[1]);
+  }
+  if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
+
+  // After a surface OPEN is recognized: contradiction / retraction → clarification,
+  // never a GO deduced from the first clause. Exclusion of *another* open is not
+  // a retraction (handled inside refusesOrWithholdsAct).
+  if (refusesOrWithholdsAct(text, "open")) {
     return {
-      cycleType: matched.type,
-      objective: sanitizeCycleObjective(matched.rest, matched.type),
+      ambiguous: "Ouverture contredite ou retirée dans le même message — clarification requise",
     };
   }
-  const matched = matchCyclePrefix(m[1]);
-  if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
+
   return {
     cycleType: matched.type,
     objective: sanitizeCycleObjective(matched.rest, matched.type),
@@ -1334,7 +1354,7 @@ export async function applyConversationalAuthority(input: {
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
-index 26dba3f4..edff4cc0 100644
+index 26dba3f4..d38a4c6b 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
 +++ b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
 @@ -24,21 +24,59 @@ export type IntentQualification =
@@ -1422,26 +1442,39 @@ index 26dba3f4..edff4cc0 100644
    return core || text;
  }
 
-@@ -230,14 +271,27 @@ export function refusesOrWithholdsAct(
+@@ -230,14 +271,40 @@ export function refusesOrWithholdsAct(
      return true;
    }
    if (act === "open") {
 -    return /\b(?:n['’]ouvre\s+pas|ne\s+(?:l['’]\s*)?ouvre\s+pas|sans\s+ouvrir|ne\s+pas\s+ouvrir)\b/i.test(
 -      t,
 -    );
-+    const negatedOpen =
++    // Retraction / contradiction of the *requested* open — always withhold,
++    // even if an earlier clause said « ouvre le cycle » (false-GO guard).
++    if (
++      /\b(?:je\s+)?retire\s+(?:mon\s+)?GO\b/i.test(t) ||
 +      /\b(?:n['’]ouvre\s+pas|ne\s+(?:l['’]\s*)?ouvre\s+pas|sans\s+ouvrir|ne\s+pas\s+ouvrir)\b/i.test(
 +        t,
-+      ) ||
-+      /\bne\s+(?:souhaite|veux|veut)\s+ni\s+[^.!?]{0,40}\bouvrir\b/i.test(t) ||
-+      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t);
-+    if (!negatedOpen) return false;
-+    // C01 rework: exclusion of *another* open (« ni en ouvrir un autre ») must not
-+    // cancel an affirmative OPEN already asserted in the same turn.
-+    const hasAffirmativeOpen =
-+      /\b(?:ouvre|ouvrez)\s+(?:le\s+|un\s+)?cycle\b/i.test(t) ||
-+      /\bje\s+d[eé]cide\s+de\s+commencer\b/i.test(t);
-+    return !hasAffirmativeOpen;
++      )
++    ) {
++      return true;
++    }
++    // Exclusion of an *additional* open (« ni en ouvrir un autre ») alongside an
++    // affirmative OPEN — not a withhold of the primary GO.
++    if (
++      /\bne\s+(?:souhaite|veux|veut)\s+ni\s+[^.!?]{0,60}\bouvrir\b/i.test(t) ||
++      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t)
++    ) {
++      const hasAffirmativeOpen =
++        /\b(?:ouvre|ouvrez)\s+(?:le\s+|un\s+)?cycle\b/i.test(t) ||
++        /\bje\s+d[eé]cide\s+de\s+commencer\b/i.test(t);
++      const excludesAnotherOpen =
++        /\bni\s+(?:en\s+)?ouvrir\s+(?:un\s+)?autre\b/i.test(t) ||
++        /\bouvrir\s+(?:un\s+)?autre\b/i.test(t);
++      if (hasAffirmativeOpen && excludesAnotherOpen) return false;
++      return true;
++    }
++    return false;
    }
    if (act === "close") {
 -    // Sole negation of close (not a reserve after « je décide de clôturer »)
@@ -1455,7 +1488,7 @@ index 26dba3f4..edff4cc0 100644
        !/\bje\s+d[eé]cide\s+de\s+cl[oô]tur/i.test(t)
      );
    }
-@@ -287,6 +341,30 @@ export function isNonPerformativeCloseFraming(text: string): boolean {
+@@ -287,11 +354,36 @@ export function isNonPerformativeCloseFraming(text: string): boolean {
    return false;
  }
 
@@ -1486,7 +1519,51 @@ index 26dba3f4..edff4cc0 100644
  /** Detect OPEN_CYCLE performative anywhere in a developed message (C01). */
  function findOpenCycleAct(
    text: string,
-@@ -553,10 +631,9 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
+ ): { cycleType: CycleType; objective: string } | { ambiguous: string } | null {
+-  if (isNonPerformativeOpenFraming(text)) return null;
++  // Specimen / citation / historical — never an open surface.
++  if (isSpecimenOrHistoricalFraming(text)) return null;
+
+   // Reject pure questions about opening.
+   if (
+@@ -308,22 +400,29 @@ function findOpenCycleAct(
+   const openRe =
+     /(?:^|[.!?…]\s+|nora\s*[,:]?\s*)(?:je\s+d[eé]cide\s+de\s+commencer[^.!?]*[.!?]?\s*)?(?:ouvre|ouvrir|ouvrez|go(?:\s+pour|\s+sur)?)\s+(?:le\s+|un\s+)?cycle\s+(?:de\s+|d['’]\s*)?([^.!?]+)/i;
+   const m = text.match(openRe);
+-  if (!m) {
++  let matched: { type: CycleType; rest: string } | { ambiguous: true } | null = null;
++  if (m) {
++    matched = matchCyclePrefix(m[1]);
++  } else {
+     // Alternate: « je décide de commencer le cadrage » without « ouvre » — require cycle name.
+     const begin = text.match(
+       /\bje\s+d[eé]cide\s+de\s+commencer\s+(?:le\s+|un\s+|l['’]\s*)?(?:cycle\s+(?:de\s+|d['’]\s*)?)?([^.!?]+)/i,
+     );
+     if (!begin) return null;
+     if (isExploratoryActLanguage(text) && !/\bje\s+d[eé]cide\b/i.test(text)) return null;
+-    const matched = matchCyclePrefix(begin[1]);
+-    if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
++    matched = matchCyclePrefix(begin[1]);
++  }
++  if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
++
++  // After a surface OPEN is recognized: contradiction / retraction → clarification,
++  // never a GO deduced from the first clause. Exclusion of *another* open is not
++  // a retraction (handled inside refusesOrWithholdsAct).
++  if (refusesOrWithholdsAct(text, "open")) {
+     return {
+-      cycleType: matched.type,
+-      objective: sanitizeCycleObjective(matched.rest, matched.type),
++      ambiguous: "Ouverture contredite ou retirée dans le même message — clarification requise",
+     };
+   }
+-  const matched = matchCyclePrefix(m[1]);
+-  if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
++
+   return {
+     cycleType: matched.type,
+     objective: sanitizeCycleObjective(matched.rest, matched.type),
+@@ -553,10 +652,9 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
      return { clarity: "AMBIGUOUS", reason: lift.ambiguous };
    }
    if (lift && "restrictionKindHint" in lift) {
@@ -1629,11 +1706,11 @@ index 38e7c7c5..b2cce28d 100644
      (qualified.clarity === "CLEAR" && qualified.statement) ||
 ```
 
-### 6.3 unit ml3-rct02-intent.test.ts
+### 6.3 unit tests
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
-index 4f8eed1b..b3293e50 100644
+index 4f8eed1b..f3c315d2 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
 @@ -1,5 +1,7 @@
@@ -1672,7 +1749,7 @@ index 4f8eed1b..b3293e50 100644
  /**
   * RCT-02 C01–C08 — conversational qualification oracles from user recette messages.
   * Deterministic only — does not prove LIVE Nora cognition.
-@@ -34,6 +57,22 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
+@@ -34,6 +57,35 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
      }
    });
 
@@ -1692,10 +1769,23 @@ index 4f8eed1b..b3293e50 100644
 +    }
 +  });
 +
++  it("C01 false-GO: retract / contradict the requested open → no OPEN_CYCLE", () => {
++    for (const msg of [
++      "Nora, ouvre le cycle CADRAGE. Finalement, ne l'ouvre pas : je retire mon GO.",
++      "Nora, ouvre le cycle CADRAGE. Mais non, n'ouvre pas ce cycle, c'est une erreur.",
++    ]) {
++      const q = qualifyPilotageIntent(msg);
++      expect(q.clarity).not.toBe("CLEAR");
++      if (q.clarity === "CLEAR") {
++        expect(q.operation).not.toBe("OPEN_CYCLE");
++      }
++    }
++  });
++
    it("C01 Critical Review: citation / specimen never OPEN_CYCLE", () => {
      for (const msg of [
        "Voici une phrase de test : Nora, ouvre le cycle cadrage",
-@@ -73,6 +112,24 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
+@@ -73,6 +125,24 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
      expect(extractDecisionCore(msg.split(/je décide que/i)[1] ?? msg)).not.toMatch(/aide-moi/i);
    });
 
@@ -1720,7 +1810,7 @@ index 4f8eed1b..b3293e50 100644
    it("C05 Critical Review: T05 representative (period, no colon) yields REVISE with developed statement", () => {
      const extracted = extractReviseStatement(T05_REPRESENTATIVE);
      expect(extracted).toBeTruthy();
-@@ -101,6 +158,51 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
+@@ -101,6 +171,51 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
      }
    });
 
@@ -1772,7 +1862,7 @@ index 4f8eed1b..b3293e50 100644
    it("C06: conversational LIFT_RESTRICTION is CLEAR with kind hint", () => {
      const q = qualifyPilotageIntent(
        "Nora, je décide de lever uniquement la restriction CYCLE_MUTATION sur ce cycle. Ne clôture pas le cycle.",
-@@ -112,6 +214,23 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
+@@ -112,6 +227,23 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
      });
    });
 
@@ -1798,14 +1888,14 @@ index 4f8eed1b..b3293e50 100644
        "Ne lève pas la restriction CYCLE_MUTATION",
 ```
 
-### 6.4 PG ml3-pilotage.pg.test.ts
+### 6.4 PG tests
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-index 99b2891c..37b55a83 100644
+index 99b2891c..70085873 100644
 --- a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
 +++ b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-@@ -2088,5 +2088,273 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
+@@ -2088,5 +2088,303 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
        expect(after.cycle?.cycleType).toBe("CADRAGE");
        expect(await listDecisionJournal(pilotId, projectId)).toHaveLength(journalBefore.length);
      });
@@ -1967,6 +2057,36 @@ index 99b2891c..37b55a83 100644
 +      expect(journal.some((d) => d.kind === "CLOSE_CYCLE")).toBe(false);
 +    });
 +
++    it("C01 false-GO: retract / contradict requested open → zero mutation in PG", async () => {
++      const { applyConversationalAuthority } = await import(
++        "@/domains/pilotage/conversation-authority"
++      );
++      const samples = [
++        "Nora, ouvre le cycle CADRAGE. Finalement, ne l'ouvre pas : je retire mon GO.",
++        "Nora, ouvre le cycle CADRAGE. Mais non, n'ouvre pas ce cycle, c'est une erreur.",
++      ];
++      for (let i = 0; i < samples.length; i += 1) {
++        const content = samples[i]!;
++        const { pilotId, projectId, preparationId } = await seedProject(`cr-c01-retract-${i}`);
++        const msgId = await insertUserMessage(preparationId, content);
++        const outcome = await applyConversationalAuthority({
++          pilotId,
++          projectId,
++          userMessageId: msgId,
++          content,
++          clientTurnKey: `cr-c01-retract-${newId("turn")}`,
++        });
++        expect(outcome.attempted).toBe(false);
++        expect(outcome.humanDecisionCreated).toBe(false);
++        expect(outcome.command).toBeNull();
++        expect(outcome.operation ?? "").not.toBe("OPEN_CYCLE");
++        const view = await getPilotageProjection(pilotId, projectId);
++        expect(view.cycle).toBeNull();
++        expect(view.revision).toBe(0);
++        expect(await listDecisionJournal(pilotId, projectId)).toHaveLength(0);
++      }
++    });
++
 +    it("C05 rework: explicit OPEN founding target → zero documentary REVISE", async () => {
 +      const { applyConversationalAuthority } = await import(
 +        "@/domains/pilotage/conversation-authority"
@@ -2081,16 +2201,16 @@ index 99b2891c..37b55a83 100644
  });
 ```
 
-## 7. Documentation — diffs exploitables
+## 7. Documentation — diffs
 
 ### 7.1 specification-technique.md
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
-index 415a29b0..6d9cf772 100644
+index 415a29b0..717f6a55 100644
 --- a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
 +++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
-@@ -443,3 +443,24 @@ Après **NOT ACCEPTED** sur handoff `4b168905`. Qualification linguistique unifi
+@@ -443,3 +443,34 @@ Après **NOT ACCEPTED** sur handoff `4b168905`. Qualification linguistique unifi
  | RECORD / REVISE | mêmes gates specimen + refus avant CLEAR |
 
  Oracles négatifs supplémentaires : « Je refuse de lever… », « je ne t'autorise pas à lever… », « Ne fais pas ceci : Nora, clôture… », « Un ancien message disait : Nora, clôture… ». Positifs T01/T05 représentatif/T10/T13 et cockpits préservés. T05 = **formulation représentative** (transcript original intégral non établi).
@@ -2115,16 +2235,26 @@ index 415a29b0..6d9cf772 100644
 +| **C05** | « je révise la décision d'ouverture… » + RECORD coordination → REVISE opportuniste du RECORD | `designatesFoundingReviseTarget` : refus typé D5 **avant** l'éligibilité documentaire ; historique `objectRef` pollué toujours révisable si la cible documentaire est désignée |
 +
 +Preuves : unit C01 rework ; PG C01 ni-clôturer/ouvrir ; PG C05 founding zéro mutation ; PG C05 historique pollué + message LIVE. Positifs C04/C05/C06 LIVE préservés.
++
++### LIVE remediation — C01 false-GO retract (2026-11-07, local)
++
++| Cas | Comportement as-built |
++|-----|------------------------|
++| « ouvre… Finalement, ne l'ouvre pas : je retire mon GO » | contradiction du **même** acte → AMBIGUOUS / zéro mutation |
++| « ouvre… Mais non, n'ouvre pas ce cycle » | idem |
++| « ouvre… Je ne souhaite ni clôturer… ni en ouvrir un autre » | exclusion d'une **autre** ouverture → OPEN CADRAGE conservé |
++
++`refusesOrWithholdsAct('open')` ne neutralise plus toute négation dès qu'un OPEN affirmatif apparaît : retrait/contradiction du GO demandé ≠ exclusion d'une ouverture supplémentaire.
 ```
 
 ### 7.2 tracabilite-r2-r3-r4.md
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
-index 3c846c0a..13b51937 100644
+index 3c846c0a..6bf96601 100644
 --- a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
 +++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
-@@ -302,3 +302,18 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
+@@ -302,3 +302,19 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
  | cross | specimen RECORD / OPEN historique / refus REVISE | gates partagés | PG journal + cycle inchangés | NLP universel NOT CLAIMED |
 
  Statut : **IMPLEMENTED — LOCAL CORRECTIVE (Critical Re-Review faux GO)** sur `sfia/next-ml3-rct02-correctifs` — **NOT PUSHED** — **NOT RECETTE** — **NOT MERGED** — **NOT ADOPTED**.
@@ -2142,6 +2272,7 @@ index 3c846c0a..13b51937 100644
 +| ID | Rework ChatGPT | Preuve |
 +| --- | --- | --- |
 +| C01 | OPEN + « ni clôturer / ni en ouvrir » | unit + PG : 1 OPEN CADRAGE, objectif conservé, 0 CLOSE |
++| C01 | retrait / contradiction du même OPEN | unit + PG : AMBIGUOUS, 0 cycle, 0 HumanDecision |
 +| C05 | désignation fondatrice OPEN ≠ REVISE RECORD | PG zéro mutation + `objectRef` historique pollué toujours révisable via C05 LIVE |
 ```
 
@@ -2149,10 +2280,10 @@ index 3c846c0a..13b51937 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 91d5f411..0ed5b0e8 100644
+index 91d5f411..c2efa92f 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -643,3 +643,33 @@ Append-only logical journal of Cursor product deliveries.
+@@ -643,3 +643,47 @@ Append-only logical journal of Cursor product deliveries.
  | Preuves | unit 47 ; PG CR 9/9 ; PG `ml3-pilotage` 44/44 ; lint/tsc/build PASS |
  | Push projet / PR / merge / deploy RECETTE | **NON** |
  | Verdict candidat | `READY FOR CHATGPT RE-REVIEW` |
@@ -2186,11 +2317,25 @@ index 91d5f411..0ed5b0e8 100644
 +| Preuves | unit + PG C01/C05 rework + non-régression LIVE C04/C05/C06 |
 +| Push projet / PR / merge / deploy RECETTE | **NON** |
 +| Verdict candidat | `READY FOR CHATGPT RE-REVIEW` |
++
++## delivery_id: DELIV-2026-11-07-ML3-RCT02-C01-FALSE-GO-RETRACT
++
++| Champ | Valeur |
++|---|---|
++| Date UTC | 2026-11-07 |
++| Macro-lot | R5 / ML3 — C01 false-GO retract vs exclusion autre ouverture |
++| Type | INC CRITICAL REWORK |
++| Branche locale | `sfia/next-ml3-rct02-live-remediation` (**non poussée**) |
++| Handoff rejeté | `d89c3009` / blob `4d2cefb9` (REWORK REQUIRED — C01 FALSE GO) |
++| Correctif | distinguer négation du GO demandé vs « ni en ouvrir un autre » |
++| Preuves | unit 3 formulations ; PG zéro mutation négatifs + positif C01 ; non-régression LIVE C04/C05/C06 |
++| Push projet / PR / merge / deploy RECETTE | **NON** |
++| Verdict candidat | `READY FOR CHATGPT FINAL REVIEW — LOCAL LIVE REMEDIATION` |
 ```
 
-## 8. Fichier nouveau — contenu intégral
+## 8. Fichier D0 — contenu intégral
 
-### 8.1 `recette-ml3-rct02-live-corrective-gaps.md` (FULL — preuve D0 non normative)
+### 8.1 recette-ml3-rct02-live-corrective-gaps.md (FULL)
 
 ```md
 > **Preuve D0 utilisateur (non normative).** Copie locale du rapport LIVE fourni hors Git> (`sfia-next-rct02-live-evidence-bundle/report/sfia-next-rct02-live-gaps-d646d42a.md`).> N'autorise aucune modification de SEF/roadmap/ADR. Conservée pour traçabilité du macro-lot> correctif local C04/C05/C06.
@@ -2458,4 +2603,4 @@ push projet, PR, merge, redéploiement RECETTE, LIVE OpenAI Cursor, CI workflow,
 
 ## 10. Verdict
 
-**READY FOR CHATGPT RE-REVIEW**
+**READY FOR CHATGPT FINAL REVIEW — LOCAL LIVE REMEDIATION**
