@@ -5,12 +5,12 @@
 > **État Git au versement (2026-11-04) :** publication documentaire candidate sur `docs/next-r5-delivery-preparation-20261104`, base `main@a0b80b9ecd64149ed51f87235ae246e197e66462`. Ni `VALIDATED SPEC`, ni merge, ni GO Cursor. Les formules `NOT ON GIT` et `NO GIT WRITE` dans les historiques décrivent leur état à la rédaction, pas cette publication.
 
 
-**Version :** travail D0 / v0.4 — 2026-11-04  
-**Statut de la préparation D0 initiale (historique) :** `PREPARATION DOCUMENTAIRE EN COURS / CONTENU CANDIDAT / R5 CONSTRUCTION NOT STARTED À CETTE DATE`. **État produit actuel :** voir note post-ML1 ci-dessus.  
-**Périmètre :** préparation du dispositif documentaire, de traçabilité, de vérification et de gouvernance de la construction R5.  
-**Autorité :** Morris valide les contrats, les arbitrages structurants, les gates et les opérations Git ; ChatGPT prépare et révise ; Cursor implémente sous SFIA v2.6 après mandat.  
-**Dépôt contrôlé :** [`mcleland147/sfia-workspace`](https://github.com/mcleland147/sfia-workspace), `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; branche `main` protégée. **Git local, staged, untracked et worktrees : NON OBSERVÉS.**  
-**Intégration R4 :** [PR #646](https://github.com/mcleland147/sfia-workspace/pull/646) mergée le 2026-11-03T23:33:19Z, SHA de merge identique au HEAD ci-dessus. Certains paragraphes historiques de la Roadmap et du cadrage R4 décrivent encore le gate PR/merge comme à venir : la preuve Git directe prime.  
+**Version :** travail D0 / v0.4 — 2026-11-04
+**Statut de la préparation D0 initiale (historique) :** `PREPARATION DOCUMENTAIRE EN COURS / CONTENU CANDIDAT / R5 CONSTRUCTION NOT STARTED À CETTE DATE`. **État produit actuel :** voir note post-ML1 ci-dessus.
+**Périmètre :** préparation du dispositif documentaire, de traçabilité, de vérification et de gouvernance de la construction R5.
+**Autorité :** Morris valide les contrats, les arbitrages structurants, les gates et les opérations Git ; ChatGPT prépare et révise ; Cursor implémente sous SFIA v2.6 après mandat.
+**Dépôt contrôlé :** [`mcleland147/sfia-workspace`](https://github.com/mcleland147/sfia-workspace), `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; branche `main` protégée. **Git local, staged, untracked et worktrees : NON OBSERVÉS.**
+**Intégration R4 :** [PR #646](https://github.com/mcleland147/sfia-workspace/pull/646) mergée le 2026-11-03T23:33:19Z, SHA de merge identique au HEAD ci-dessus. Certains paragraphes historiques de la Roadmap et du cadrage R4 décrivent encore le gate PR/merge comme à venir : la preuve Git directe prime.
 **Runtime Next au moment de cette préparation D0 (historique) :** `N/A — NON IMPLÉMENTÉ`. **Depuis :** ML1 construit/recetté, preuves bornées, non adopté ; voir note d'actualisation.
 
 > **Qualification du présent document :** le GO conversationnel de Morris autorise la consolidation D0 du dispositif et la préparation d’une **spécification technique candidate ML1**. Il ne valide pas automatiquement les choix techniques ouverts et n’autorise ni écriture Git, ni prompt/exécution Cursor, ni code. Les ajustements UX/QA de la discussion du 2026-11-04 sont intégrés ci-dessous.
@@ -505,3 +505,13 @@ La capacité **ML4 — Collaborer et publier avec Git** conserve ses frontières
 **Risque principal :** déplacer implicitement la source de vérité de D4/D5/D6 vers la présentation ou fabriquer un comportement non implémenté en suivant une maquette. **STOP** si le projet nécessite une autorité supplémentaire, un nouveau moteur concurrent, une évolution structurante de DB/contrat ou une fonctionnalité D7/D9. Préserver les réserves de ML1–ML3 et les gates ENV-01.
 
 **Suite avant GO technique :** relire la matrice `CU` et les 14 critères `UXC` avec Morris, arrêter le parcours A1/A2 et les exigences de navigation/états, identifier l'intégrateur et les preuves par risque, figer les frames Figma applicables, qualifier le blast radius et seulement ensuite construire la spécification technique détaillée. **Aucun GO code/PR/merge/STABLE/ADOPTED** n'est induit.
+
+---
+
+## 24. Contrat de fidélité Figma → navigateur pour la convergence UX (2026-11-07)
+
+**Sources :** [contrat d'acceptation candidat v0.3](convergence-ux-parcours-pilote-nora/contrat-acceptation.md), [protocole R3 complémentaire](../ux-ui/protocole-fidelite-figma-runtime.md), [L1 de 11 frames](../ux-ui/releves-geometriques-convergence-l1.json), [contrat R3 courant](../ux-ui/contrat-transposition-figma-code.md).
+
+Le futur lot de réalisation doit produire avant code un pack de mesures natives Figma **L0/L1/L2 ciblé** par composant/état et un oracle figé. La conformité est appréciée au navigateur sur le **même SHA**, avec fixtures, pixels de référence, métriques DOM, styles calculés, captures et diff régional. Les 14 `UXC` restent l'unique matrice d'acceptation de la convergence : **pas de système de tests parallèle**. Les écrans Figma 218–235 (ML4 Git) demeurent hors de ce résultat.
+
+**Gates encore ouverts :** arbitrages P1–P3 du contrat complet, rail partagé **240/246 px**, tolérances de comparaison (objectif 0 px, ≤2 px proposé mais **non validé**), snapshot/export Figma immuable, extraction L2, navigateur/RECETTE, intégrateur et GO technique Cursor. Ce raccord documentaire ne vaut ni `VALIDATED SPEC` complet, ni `IMPLEMENTED`, ni `BEHAVIOR PROVEN` ni `ADOPTED`.

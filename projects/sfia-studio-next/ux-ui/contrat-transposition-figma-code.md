@@ -237,3 +237,15 @@ Avant code, obtenir **contrat visuel Morris, node IDs natifs, date, snapshot et 
 **Avant construction :** figer par composition les nœuds Figma réellement nécessaires, choisir navigation/routes et états conditionnels, démontrer un parcours complet sans boutons factices, contrôler le rail partagé (240/246 px historique), focus/clavier, liens profonds, zoom 200 %, 320/390/1280/1680 px, erreurs et retours au fil. Définir l'oracle par capacité sans extraire ni reconstruire exhaustivement 242 frames.
 
 **Pendant construction ultérieure :** un seul contrat code/tests/docs, preuves intégrées PG/HTTP/BROWSER/Nora LIVE ciblée, captures runtime comparées à Figma au même SHA, écarts classés et arbitrés. **Figma conçu ≠ comportement prouvé.** Pas de code, d'écriture Figma ni de GO Cursor dans la présente préparation.
+
+---
+
+## 9. Convergence ML1–ML3 — fidélité Figma mesurée et reproductible (2026-11-07)
+
+**Source complémentaire candidate :** [protocole de fidélité Figma → runtime](protocole-fidelite-figma-runtime.md), [relevé L1 partiel de 11 frames](releves-geometriques-convergence-l1.json), [contrat d'acceptation v0.3](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md). Ces références complètent les §§4.1–4.4 et **ne remplacent pas** l'index historique des 223 frames ni les décisions R3 antérieures.
+
+**Obligations préparées pour le futur contrat Cursor :** identifier frame/variante/état et propriétaire D1–D6 ; produire un pack L0/L1/L2 ciblé avant le code, incluant chaîne de parents, dimensions locales/absolues contrôlées, auto-layout, sizing, padding/gap, tokens, styles de texte, composants et interactions ; figer capture de référence et digest ; comparer en navigateur mêmes fixtures, états, viewport, police, navigateur, DPR, styles calculés et rectangles DOM ; refuser tronquature, chevauchement et commande fictive ; consigner et faire approuver toute dérogation.
+
+**Limites actuelles :** 11 frames seulement au niveau L1 ; L2, export Figma immuable et mesure DOM non réalisés. Le rail de l'écran 03 mesure **240 px**, contre **246 px** dans les autres écrans consultés : **KNOWN GAP de fondation**, décision Morris requise avant le shell partagé. Objectif 0 px et seuil ≤2 px pour rectangles stables = **propositions de calibration non validées**, aucun seuil global de diff image accepté. Les frames Git ML4 218–235 sont exclues de l'implémentation de convergence.
+
+**Gate :** contrat complet, arbitrages P1–P3, rail, tolérances et choix L2 à faire valider avant GO Cursor. Publication Git de l'addendum ≠ `VALIDATED SPEC` du seuil ≠ réalisation ≠ preuve navigateur.

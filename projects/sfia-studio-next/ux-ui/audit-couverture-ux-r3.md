@@ -1,8 +1,8 @@
 # SFIA Studio Next — Guide de couverture UX R3 (audit initial et couverture actuelle)
 
-**Date :** 3 novembre 2026  
-**Statut CURRENT :** guide de couverture sur branche UX candidate ; **A/B acceptés en revue Morris avec réserves** ; **C — contenu et Figma approuvés par Morris, contrôle de cohérence du 2026-11-03 PASS avec réserves hors C** ; **D — contenu UX validé par Morris ; raccordements contrôlés et revue globale R3 à conduire**. R3 reste **ouvert / non prêt à construire** ; §§1–12 conservent l'historique de fabrication, §§13.1–13.8 portent la consolidation et son dernier audit.  
-**Nature :** audit de couverture fonctionnelle et de navigabilité ; **C REVIEW ACCEPTED AT UX/DOCUMENTARY LEVEL**, sans `BEHAVIOR PROVEN` ni clôture R3 ; **R3 NOT READY FOR BUILD**.  
+**Date :** 3 novembre 2026
+**Statut CURRENT :** guide de couverture sur branche UX candidate ; **A/B acceptés en revue Morris avec réserves** ; **C — contenu et Figma approuvés par Morris, contrôle de cohérence du 2026-11-03 PASS avec réserves hors C** ; **D — contenu UX validé par Morris ; raccordements contrôlés et revue globale R3 à conduire**. R3 reste **ouvert / non prêt à construire** ; §§1–12 conservent l'historique de fabrication, §§13.1–13.8 portent la consolidation et son dernier audit.
+**Nature :** audit de couverture fonctionnelle et de navigabilité ; **C REVIEW ACCEPTED AT UX/DOCUMENTARY LEVEL**, sans `BEHAVIOR PROVEN` ni clôture R3 ; **R3 NOT READY FOR BUILD**.
 **Sources CURRENT :** dépôt [sfia-workspace](https://github.com/mcleland147/sfia-workspace), main SHA 139c706e8b3dca6f1db836a14ffd1aafa1c5e990 au pré-check du 2026-11-03, branche UX candidate sfia/next-r3-ux-interaction-candidate (HEAD à relire à la reprise), [Figma Next](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP), SEF v0.2, Roadmap, Vision R1, R2 D1–D9 avec compléments Inspection/document, UX v0.23. Git local NON OBSERVÉ.
 
 ## 1. Décision de revue
@@ -1184,3 +1184,11 @@ La [qualification de convergence](../construction/convergence-ux-parcours-pilote
 | Incidents, frontières, responsive — `CU-14..16` | 63/66/78/92/93, 10, 216/217 | Navigation mobile manquante, conflits et reprise à vérifier au navigateur, sans prétendre aux effets Git/Cursor |
 
 **Gate suivant :** sélectionner les frames prioritaires (et exceptions), obtenir les propriétés natives nécessaires avant code, contractualiser la navigation/composition et les variantes, puis prouver le runtime sur 1680/1280/390/320 px et à 200 % de zoom. Aucun écran Figma n'est créé ou modifié par cet addendum. Les écrans Git ML4 218–235 demeurent **hors du code de convergence**.
+
+---
+
+## 20. Raccord de fidélité mesurée R3 → R5 (2026-11-07)
+
+Pour la convergence du parcours Pilote–Nora (`CU-01..16`, `UXC-01..14`), appliquer le [protocole complémentaire de transposition](protocole-fidelite-figma-runtime.md) et ses [relevés L1 natifs partiels](releves-geometriques-convergence-l1.json). Le [contrat R5 v0.3 candidat](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) renforce `UXC-13` (mesures DOM, computed styles, captures, comparaison localisée, contrôle du responsive et des états négatifs).
+
+**Niveaux de preuve :** L0 inventaire ; L1 composition ; L2 descendants réellement implémentables ; capture Figma + navigateur comme oracle visuel, avec source figée. **L1 seul n'est pas suffisant pour coder.** Le conflit du rail 240/246 px, l'absence de version immuable Figma et les tolérances visuelles restent ouverts ; ils ne sont ni résolus ni adoptés par la publication des sources.
