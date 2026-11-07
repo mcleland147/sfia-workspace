@@ -1095,7 +1095,7 @@ PNG digests vs `indexes/png-files.sha256`: **20/20 MATCH**. Sidecars OK.
 
 ## ZIP source (B1–B5)
 Path: `/Users/morris/Downloads/sfia-next-g2-source-b1b5-2026-11-07.zip`
-SHA256: `cbfe3eef29b868360140c6401cff8c32d636128e4878b5c3590747d810b454c4`
+SHA256: `736ea8429f39b249945db2973508a841bb874691f024c28aa8dc1cd63e40d127`
 
 ## Handoff L3
 Publisher: `scripts/sfia/publish-review-handoff.sh --source .tmp-sfia-review/chatgpt-review.md --handoff-worktree sfia-review-handoff-m5a-gi-20261023`
@@ -1110,6 +1110,18 @@ Canonical: `sfia-review-handoff/latest-chatgpt-review.md` @ `origin/sfia/review-
 - `g2-source/scripts/build-g2-l2-complement.py`
 - `g2-source/CONTROL-REPORT.md`, `README.md`
 - PNG / indexes: **préservés inchangés**
+
+
+## B2 negative suite (2026-11-07 final)
+
+Command: `G2_VERIFY_NEGATIVE_TEST=1 bash scripts/verify-g2-pack.sh` (after nominal VERIFY PASS).
+
+Isolated temp copies only — real pack untouched. Results:
+- `strip_text_ff` → verify FAIL as expected
+- `corrupt_raw_bytes` → verify FAIL as expected
+- `bad_frame_status` → verify FAIL as expected
+- `strip_autolayout_gap` → verify FAIL as expected
+- Verdict: `NEGATIVE TESTS PASS (all corruptions detected)`
 
 ## Anti-claims
 Aucune preuve BROWSER / REAL product / LIVE Nora / E2E / STABLE / ADOPTED. Aucun code UI/API/test/DB. Aucun commit/push projet. Aucun G2 PASSED / G4 autorisé.
