@@ -311,10 +311,25 @@ Statut : **IMPLEMENTED — LOCAL CORRECTIVE (Critical Re-Review faux GO)** sur `
 | C05 | LIVE FAIL : 0 REVISE (OPEN+RECORD lexical) | éligibilité RECORD avant unicité | unit C05 LIVE lexical ; PG REVISE + `supersedesDecisionId` | 2 RECORD distincts → clarification |
 | C06 | LIVE FAIL : AMBIGUOUS « Levée et clôture » | `assertsAffirmativeCloseAct` | unit C06 LIVE + LIFT+CLOSE affirmatif AMBIGUOUS ; PG LIFT, cycle ACTIVE | — |
 
-Statut : **IMPLEMENTED — LOCAL LIVE REMEDIATION** sur branche locale `sfia/next-ml3-rct02-live-remediation` depuis `d646d42a` — **NOT PUSHED** — **NOT RECETTE redeploy** — **NOT MERGED** — **NOT ADOPTED**. LIVE Nora retest : **REQUIRES GO** sur nouveau candidat.
+Statut historique (au lot correctif local) : **IMPLEMENTED — LOCAL LIVE REMEDIATION** depuis `d646d42a` — puis **poussé @ `61fe295b`** ; **RECETTE redeployée** (build `ZCkIWQ341KK1KOHTD1a5L`) ; **LIVE 8/8 observé** — **NOT MERGED** — **NOT ADOPTED**. Les constats d'échec/partial sur `d646d42a` (C04 PARTIAL, C05/C06 FAIL) restent la vérité historique avant correctif.
 
 | ID | Rework ChatGPT | Preuve |
 | --- | --- | --- |
 | C01 | OPEN + « ni clôturer / ni en ouvrir » | unit + PG : 1 OPEN CADRAGE, objectif conservé, 0 CLOSE |
 | C01 | retrait / contradiction du même OPEN | unit + PG : AMBIGUOUS, 0 cycle, 0 HumanDecision |
 | C05 | désignation fondatrice OPEN ≠ REVISE RECORD | PG zéro mutation + `objectRef` historique pollué toujours révisable via C05 LIVE |
+
+### LIVE retest 61fe295b — 8/8 (2026-11-07)
+
+| ID | Oracle LIVE | Preuve | Limite |
+| --- | --- | --- | --- |
+| T01 | OPEN_CYCLE CADRAGE ACTIVE ; rév.1 ; journal 1 | D0 consolidé + index capture T01 | PNG non lus par Cursor |
+| T02/C04 | RECORD ; objectRef coordination/suivi ; sans `que,` | D0 + index capture T02 | historiques d646 non migrés |
+| T03/C05 | REVISE RECORD ; OPEN fondateur préservé | D0 + index capture T03 | — |
+| T04 | Restriction cockpit instance ; rév.4 | D0 + index capture T04 | précondition manuelle |
+| T05/C06 | LIFT ; cycle ACTIVE ; pas CLOSE | D0 + index capture T05 | — |
+| T06/C07 | Lecture projection ; zéro mutation | D0 + index capture T06 | — |
+| T07/C08 | CLOSE ; aucun cycle actif | D0 + index capture T07 | empreinte T07/T08 identique — pas 2 preuves visuelles indépendantes |
+| T08 | Citation faux GO ; zéro mutation | D0 + index capture T08 | ≠ retrait explicite GO (couvert unit/PG C01) |
+
+Statut : **LIVE TARGETED RECETTE 8/8 OBSERVED** sur SHA recetté `61fe295b` / build `ZCkIWQ341KK1KOHTD1a5L` — documentation publiée sous GO Morris — Draft PR pour CI — **NOT MERGED** — **NOT ADOPTED**. C03 intercycle **NOT PROVEN**.

@@ -687,3 +687,22 @@ Append-only logical journal of Cursor product deliveries.
 | Preuves | unit 3 formulations ; PG zéro mutation négatifs + positif C01 ; non-régression LIVE C04/C05/C06 |
 | Push projet / PR / merge / deploy RECETTE | **NON** |
 | Verdict candidat | `READY FOR CHATGPT FINAL REVIEW — LOCAL LIVE REMEDIATION` |
+
+## delivery_id: DELIV-2026-11-07-ML3-RCT02-LIVE-RETEST-61FE
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-07 |
+| Macro-lot | R5 / ML3 — consolidation LIVE retest 8/8 + publication documentaire + Draft PR |
+| Type | QA / capitalisation preuve (Critical) |
+| SHA recetté (LIVE) | `61fe295b6704e820694d2379e7f6ab1814143172` |
+| Parent correctif | `d646d42addb5a4c4a3cab441e9e39018d85fae70` |
+| Branche | `sfia/next-ml3-rct02-live-remediation` |
+| Preuve LIVE | T01–T08 PASS ; rapport `construction/pilotage-et-decisions/recette-ml3-rct02-live-retest-61fe295b.md` |
+| Build RECETTE | `ZCkIWQ341KK1KOHTD1a5L` ; lane `:3200` ; schema `007_ml3_pilotage_decisions` ; DB `5434/sfia_next_recette_ml3` |
+| Product version | `NO RELEASE` / package `0.0.0-dev` |
+| Push documentaire / Draft PR | **OUI** (GO Morris borné) — merge / STABLE / ADOPTED / redeploy RECETTE : **NON** |
+| CI | à observer sur la Draft PR (≠ PASS local) |
+| Verdict candidat | `ML3 RCT-02 DOCUMENTATION PUBLISHED — DRAFT PR OPEN — CI GATE [à relever]` |
+
+> Le SHA Git du commit documentaire ≠ SHA recetté `61fe295b`. L'arbre fonctionnel `web/`/`cki/` doit rester identique au candidat LIVE.

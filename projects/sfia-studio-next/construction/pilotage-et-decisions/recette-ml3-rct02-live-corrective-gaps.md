@@ -17,6 +17,9 @@
 | Décideur | Morris ; ChatGPT prépare/revoit ; Cursor réalise D3 |
 | Statut | **RCT-02 TARGETED LIVE TEST COMPLETED — CORRECTIVE GAPS OPEN** ; pas de ML3 CLOSED/RECETTE ACCEPTED/ADOPTED |
 
+
+> **Note post-publication (PR readiness 2026-11-07).** Ce rapport gaps a depuis été intégré dans Git sur la branche candidate (`61fe295b` et parents). La mention « non publiée sur Git » ci-dessus reste une qualification **historique** du D0 au moment de la rédaction sur `d646d42a`. Ne pas l’interpréter comme l’état Git courant.
+
 > **Règle de lecture.** Les écrans montrent des effets réellement visibles en RECETTE. Les causes indiquées comme « reproduites statiquement » correspondent à la logique du code Git inspecté ou à sa simulation sur les phrases fournies. Seules les traces de l'application, les tests d'intégration et les effets DB peuvent confirmer la chaîne d'exécution exacte. Ne pas transformer une hypothèse en preuve.
 
 ## 1. Résumé de la micro-recette
