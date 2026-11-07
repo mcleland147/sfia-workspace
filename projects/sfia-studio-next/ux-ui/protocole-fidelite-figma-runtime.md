@@ -193,3 +193,9 @@ La [décision Morris F1 amendée](../governance/decisions/2026-11-07-convergence
 **Origine mesurée :** frames 04 (`94:370`/nav `94:372`), 18 (`97:359`/nav `97:361`), 19 (`100:39`/nav `100:41`) : nav `244×970`, `layoutMode=VERTICAL`, `itemSpacing=11`, padding `23/19/22/19`, x=0. La frame 19 n'autorise aucun effet D8 dans la convergence UX. **Les calques descendants restent à extraire selon les champs §3.2 avant codage de cette variante**.
 
 **Gate de transposition :** associer chaque composant, état et route à la variante F1 observée ; mesurer le rect DOM à 1680 px puis les règles de reflow aux tailles 1280/390/320, sans prétendre à un design mobile Figma de 320px. F2 ne permet ni troncature ni chevauchement. **G2 toujours PARTIAL et seuil de diff image NON CALIBRÉ**. [Observations L2 partielles](releves-geometriques-convergence-l2-partiel.json) ; [G2/G3 candidat](../construction/convergence-ux-parcours-pilote-nora/preparation-technique-g2-g3.md).
+
+---
+
+## 10. Préflight source Figma et contrat de réalisation candidat (2026-11-07)
+
+**Raccord documentaire au 2026-11-07 :** le protocole présent reste la référence R3 de transposition ; le [préflight G2 à source native et export PNG hashé](../construction/convergence-ux-parcours-pilote-nora/protocole-preflight-source-figma.md) détaille les données/états attendus. Le [contrat de construction G3 v1 candidat](../construction/convergence-ux-parcours-pilote-nora/contrat-technique-convergence-ux.md) reprend les quatre variantes F1 et F2. **Décision de principe Morris acquise ; G2 source non prêt**, G3 à finaliser ; la capture Figma seule n'est pas une preuve navigateur. L'obtention de la première paire Figma/runtime et la calibration image relèvent de la recette G5 après rendu, jamais d'un faux gate avant code.

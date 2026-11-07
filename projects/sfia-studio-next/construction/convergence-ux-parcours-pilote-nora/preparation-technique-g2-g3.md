@@ -114,3 +114,11 @@ Dans **ce chat**, terminer : (1) écart F1-244, (2) source Figma figée et DIP L
 **G2 PARTIAL** : faire compléter les descendants, les états et variantes du lot, les exports immuables/digests, les mappings CSS et la calibration du différentiel image. **G3 CANDIDATE** : le présent document qualifie les APIs et le blast radius, mais ne remplace pas la spécification technique et l'instanciation SFIA v2.6. **G4 NOT AUTHORIZED** : le GO de publication documentaire/merge n'est pas un GO de code, de mise à disposition RECETTE ou de travaux Cursor.
 
 **Prochain gate :** qualification définitive G2/G3 (avec ENV-01/versioning au SHA réel, profil SFIA, intégrateur, fichiers allowlist et STOP), validation du contrat technique par Morris puis **GO Cursor distinct**. Un prompt de reprise vers un nouveau chat peut être remis avant ces validations, mais **pas un prompt Cursor présenté comme prêt à exécuter**.
+
+---
+
+## 8. Consolidation G2/G3 après validation de la direction Morris (2026-11-07)
+
+**Source courante (2026-11-07) :** la revue et la consolidation techniques de ce dossier sont maintenant enregistrées dans les pièces suivantes, **sans créer de nouvelle autorité documentaire** : [G2 — protocole de préflight Figma](protocole-preflight-source-figma.md), [G3 — contrat technique de construction v1 candidat](contrat-technique-convergence-ux.md) et [revue des gates G2/G3](revue-gates-g2-g3.md). Les formulations des §5–7 ci-dessus qui décrivent F1-244 comme « restant à arbitrer » sont antérieures à la validation Morris et ne sont pas applicables.
+
+**Statut après validation Morris :** G1 `VALIDATED SPEC` pour A1–A3/P1–P3/F1 quatre variantes/F2 ; **orientation G3 approuvée en principe**, mais contrat technique encore **CANDIDATE** sur la volumétrie A1 et le lien profond A2. G2-`Source PARTIAL` : L2 incomplet, export Figma et SHA-256 non archivés. G5 calibration visuelle sur première paire source/runtime, `NOT RUN`. **Aucun GO d'écriture Cursor** ; un futur mandat pourra autoriser un préflight bloquant avant toute écriture d'interface, suivi de la construction uniquement si G2 est prouvé et G3 finalisé.

@@ -533,3 +533,11 @@ Le futur lot de réalisation doit produire avant code un pack de mesures natives
 **Source de vérification native :** frames 04/18/19, nœuds de rail `94:372`/`97:361`/`100:41`, padding 23/19/22/19, gap 11. Le rendu 19 (D8) ne devient pas une livraison de convergence. Les surfaces Figma 89/92 restent en variante projet 246 px. Revue [R3 §22](../ux-ui/audit-couverture-ux-r3.md) et [contrat d'acceptation v0.5](convergence-ux-parcours-pilote-nora/contrat-acceptation.md).
 
 **Préparation :** [dossier de pré-check G2/G3 candidat](convergence-ux-parcours-pilote-nora/preparation-technique-g2-g3.md) et [manifeste L2 partiel](../ux-ui/releves-geometriques-convergence-l2-partiel.json). **G1 VALIDATED SPEC**, **G2 PARTIAL** (descendants/styles manquants, source Figma non figée, seuil image à calibrer), **G3 CANDIDATE**, **G4 CURSOR NOT AUTHORIZED**, **G5 NOT RUN**. Une fusion documentaire n'autorise ni réalisation ML1–ML3, ni ML4 Git technique, ni STABLE/ADOPTED.
+
+---
+
+## 27. Convergence UX — préparation technique G2/G3 acceptée en orientation (2026-11-07)
+
+**Pièces intégrées :** [G2 — protocole de source Figma](convergence-ux-parcours-pilote-nora/protocole-preflight-source-figma.md), [G3 — contrat technique v1 candidat](convergence-ux-parcours-pilote-nora/contrat-technique-convergence-ux.md), [revue et réserves](convergence-ux-parcours-pilote-nora/revue-gates-g2-g3.md). Ces pièces détaillent un **seul résultat transversal** de convergence ML1–ML3 (code, tests, documentation), préalable à la réalisation ML4 Git.
+
+**Décision de statut :** G1 validé et direction G3 acceptée par Morris ; **G2-`Source PARTIAL / BLOCKING FOR UI CODE`** (descendants L2 complets, export PNG natif + SHA-256 source manquants), **G3-`CANDIDATE`** (périmètre A1, lien profond A2 et contrats d'exécution à verrouiller), G4-`NO BUILD GO`, G5-`NOT RUN`. Une acquisition G2 dans le cycle Cursor ne peut être qu'un préflight borné, vérifié et bloquant, jamais une permission d'inventer des mesures. G5 compare la première paire source/runtime après un premier rendu. Aucun statut `IMPLEMENTED`, `BEHAVIOR PROVEN` ou `ADOPTED` n'est induit par ces documents.
