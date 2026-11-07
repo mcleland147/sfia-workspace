@@ -443,3 +443,34 @@ Après **NOT ACCEPTED** sur handoff `4b168905`. Qualification linguistique unifi
 | RECORD / REVISE | mêmes gates specimen + refus avant CLEAR |
 
 Oracles négatifs supplémentaires : « Je refuse de lever… », « je ne t'autorise pas à lever… », « Ne fais pas ceci : Nora, clôture… », « Un ancien message disait : Nora, clôture… ». Positifs T01/T05 représentatif/T10/T13 et cockpits préservés. T05 = **formulation représentative** (transcript original intégral non établi).
+
+### LIVE remediation ML3/RCT-02 — C04/C05/C06 (2026-11-07, local)
+
+Après restitution LIVE `sfia-next-rct02-live-gaps-d646d42a.md` sur candidat RECETTE `d646d42a`. Périmètre borné C04/C05/C06 ; C01/C02/C07/C08 et faux GO préservés ; historique D6 RECETTE non réécrit.
+
+| ID | Cause confirmée (repro messages exacts) | Correction as-built |
+|----|----------------------------------------|---------------------|
+| **C04** | `deriveDecisionObjectRef` matchait la réserve « besoin utilisateur est… » ; énoncé préfixé par `que,` | `extractDecisionCore` retire `que,` ; `deriveDecisionObjectRef` dérive l'objet depuis l'arbitrage principal (priorité / examinerons), jamais la réserve adversative |
+| **C05** | Unicité évaluée sur tous les kinds APPLICABLE : `OPEN_CYCLE` fondateur + `RECORD` → 2 candidates → clarification | `resolveReviseTarget` : éligibilité `RECORD_DECISION` **avant** unicité ; D5 fondateur lexical ne bloque plus une cible documentaire unique ; refus typé si seule une fondation matche |
+| **C06** | `alsoClose` via `/\bclôtur/` sans couvrir « je ne souhaite ni clôturer… » → AMBIGUOUS | `assertsAffirmativeCloseAct` + `refusesOrWithholdsAct('close'/'open')` étendus ; LIFT+CLOSE seulement si CLOSE est un second acte affirmatif |
+
+Chaîne inchangée : qualification → délimitation → résolution éligible → D6 `executePilotageCommand` → projection. Preuves : unit messages LIVE exacts ; PG `LIVE C04/C05/C06` (OPEN + RECORD propre + REVISE malgré OPEN + LIFT malgré exclusion CLOSE/OPEN). **Pas** de push projet / redéploiement RECETTE sous ce mandat.
+
+### LIVE remediation rework — C01 / C05 cibles (2026-11-07, local)
+
+| ID | Risque | Correction as-built |
+|----|--------|---------------------|
+| **C01** | « ni en ouvrir un autre » annulait un OPEN affirmatif via `refusesOrWithholdsAct('open')` | négation d'open ignorée lorsqu'un OPEN affirmatif (`ouvre le cycle` / `je décide de commencer`) est déjà présent |
+| **C05** | « je révise la décision d'ouverture… » + RECORD coordination → REVISE opportuniste du RECORD | `designatesFoundingReviseTarget` : refus typé D5 **avant** l'éligibilité documentaire ; historique `objectRef` pollué toujours révisable si la cible documentaire est désignée |
+
+Preuves : unit C01 rework ; PG C01 ni-clôturer/ouvrir ; PG C05 founding zéro mutation ; PG C05 historique pollué + message LIVE. Positifs C04/C05/C06 LIVE préservés.
+
+### LIVE remediation — C01 false-GO retract (2026-11-07, local)
+
+| Cas | Comportement as-built |
+|-----|------------------------|
+| « ouvre… Finalement, ne l'ouvre pas : je retire mon GO » | contradiction du **même** acte → AMBIGUOUS / zéro mutation |
+| « ouvre… Mais non, n'ouvre pas ce cycle » | idem |
+| « ouvre… Je ne souhaite ni clôturer… ni en ouvrir un autre » | exclusion d'une **autre** ouverture → OPEN CADRAGE conservé |
+
+`refusesOrWithholdsAct('open')` ne neutralise plus toute négation dès qu'un OPEN affirmatif apparaît : retrait/contradiction du GO demandé ≠ exclusion d'une ouverture supplémentaire.

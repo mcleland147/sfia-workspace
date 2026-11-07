@@ -24,21 +24,59 @@ export type IntentQualification =
   | { clarity: "AMBIGUOUS"; reason: string }
   | { clarity: "NONE"; reason: string };
 
-/** Derive a short objectRef from a decision statement for journal / confrontation. */
+/**
+ * C04 — durable objectRef from the primary arbitration, never from an
+ * adversative reserve (« mais ne signifie pas que… »).
+ */
 export function deriveDecisionObjectRef(statement: string): string {
   const text = statement.trim().replace(/\s+/g, " ");
-  const anchored = text.match(
+  // Strip Nora dialogue residue, then keep the primary clause before a reserve.
+  const core = extractDecisionCore(text);
+  const primary =
+    core
+      .split(
+        /\bmais\s+(?:ne\s+signifie|cela\s+ne|ceci\s+ne|pas\s+que|cela\s+n['’]implique)\b/i,
+      )[0]
+      ?.trim()
+      .replace(/[.,;:]+$/g, "")
+      .trim() || core;
+
+  // Prefer an explicit priority designation when present.
+  const priority = primary.match(
+    /\b(?:en\s+priorit[eé]|priorit[eé]\s+(?:d['’]|de|sur))\s+([^.;]{6,80})/i,
+  );
+  if (priority?.[1]) {
+    return priority[1]
+      .trim()
+      .replace(/^(?:les|la|le|des|du|d['’])\s+/i, "")
+      .slice(0, 80);
+  }
+
+  // « examinerons / examinons … [en priorité] les/la … »
+  const examine = primary.match(
+    /\b(?:examinerons|examinons|examiner)\s+(?:d['’]abord\s+)?(?:en\s+priorit[eé]\s+)?(?:les|la|le|des|du)?\s*([^.;]{6,80})/i,
+  );
+  if (examine?.[1]) {
+    return examine[1].trim().slice(0, 80);
+  }
+
+  // « X est/sera… » only on the primary arbitration — never a reserve subject.
+  const anchored = primary.match(
     /(?:que\s+)?(?:la|le|l['’])?\s*([^,?.;]{3,60}?)\s+(?:est|sera|devient|reste|doit|peu[tv])\b/i,
   );
-  if (anchored?.[1]) return anchored[1].trim().slice(0, 80);
-  // Prefer content before a Nora/dialogue instruction if still present.
-  const core = extractDecisionCore(text);
-  const tokens = core
+  if (anchored?.[1]) {
+    const cand = anchored[1].trim();
+    if (!/^mais\b/i.test(cand) && !/\bne\s+signifie\b/i.test(cand)) {
+      return cand.slice(0, 80);
+    }
+  }
+
+  const tokens = primary
     .toLowerCase()
     .split(/[^a-z0-9àâäéèêëïîôùûüç]+/i)
-    .filter((t) => t.length >= 4)
+    .filter((t) => t.length >= 4 && !/^(pendant|cette|nous|pour|avec|dans)$/i.test(t))
     .slice(0, 4);
-  return (tokens.join(" ") || core.slice(0, 40)).trim();
+  return (tokens.join(" ") || primary.slice(0, 40)).trim();
 }
 
 const PHRASES: Array<{ type: CycleType; phrase: string }> = [
@@ -150,12 +188,15 @@ export function sanitizeCycleObjective(rest: string, cycleType: CycleType): stri
 
 /**
  * C04 — keep the durable arbitration; drop Nora dialogue / follow-up asks.
+ * Also strip the syntactic « que, » residue left by « je décide que … ».
  */
 export function extractDecisionCore(statement: string): string {
   const text = statement.trim().replace(/\s+/g, " ");
   if (!text) return "";
   const split = text.split(NORA_DIALOGUE_SPLIT);
-  const core = (split[0] ?? text).trim().replace(/[.,;:]+$/g, "").trim();
+  let core = (split[0] ?? text).trim().replace(/[.,;:]+$/g, "").trim();
+  // « je décide que, pendant… » → durable statement without the conjunction residue.
+  core = core.replace(/^que\s*[,:]?\s+/i, "").trim();
   return core || text;
 }
 
@@ -230,14 +271,40 @@ export function refusesOrWithholdsAct(
     return true;
   }
   if (act === "open") {
-    return /\b(?:n['’]ouvre\s+pas|ne\s+(?:l['’]\s*)?ouvre\s+pas|sans\s+ouvrir|ne\s+pas\s+ouvrir)\b/i.test(
-      t,
-    );
+    // Retraction / contradiction of the *requested* open — always withhold,
+    // even if an earlier clause said « ouvre le cycle » (false-GO guard).
+    if (
+      /\b(?:je\s+)?retire\s+(?:mon\s+)?GO\b/i.test(t) ||
+      /\b(?:n['’]ouvre\s+pas|ne\s+(?:l['’]\s*)?ouvre\s+pas|sans\s+ouvrir|ne\s+pas\s+ouvrir)\b/i.test(
+        t,
+      )
+    ) {
+      return true;
+    }
+    // Exclusion of an *additional* open (« ni en ouvrir un autre ») alongside an
+    // affirmative OPEN — not a withhold of the primary GO.
+    if (
+      /\bne\s+(?:souhaite|veux|veut)\s+ni\s+[^.!?]{0,60}\bouvrir\b/i.test(t) ||
+      /\bni\s+(?:en\s+)?ouvrir\b/i.test(t)
+    ) {
+      const hasAffirmativeOpen =
+        /\b(?:ouvre|ouvrez)\s+(?:le\s+|un\s+)?cycle\b/i.test(t) ||
+        /\bje\s+d[eé]cide\s+de\s+commencer\b/i.test(t);
+      const excludesAnotherOpen =
+        /\bni\s+(?:en\s+)?ouvrir\s+(?:un\s+)?autre\b/i.test(t) ||
+        /\bouvrir\s+(?:un\s+)?autre\b/i.test(t);
+      if (hasAffirmativeOpen && excludesAnotherOpen) return false;
+      return true;
+    }
+    return false;
   }
   if (act === "close") {
-    // Sole negation of close (not a reserve after « je décide de clôturer »)
+    // Sole negation / exclusion of close (not a reserve after « je décide de clôturer »).
+    // Covers « ne clôture pas », « sans clôturer », « ne souhaite ni clôturer… ».
     return (
-      /\b(?:ne\s+cl[oô]ture\s+pas|sans\s+cl[oô]tur|ne\s+pas\s+cl[oô]tur)\b/i.test(t) &&
+      (/\b(?:ne\s+cl[oô]ture\s+pas|sans\s+cl[oô]tur|ne\s+pas\s+cl[oô]tur)\b/i.test(t) ||
+        /\bne\s+(?:souhaite|veux|veut)\s+ni\s+cl[oô]tur/i.test(t) ||
+        /\bni\s+cl[oô]tur(?:er)?\b/i.test(t)) &&
       !/\bje\s+d[eé]cide\s+de\s+cl[oô]tur/i.test(t)
     );
   }
@@ -287,11 +354,36 @@ export function isNonPerformativeCloseFraming(text: string): boolean {
   return false;
 }
 
+/**
+ * C06 — true only when CLOSE is asserted as a second performative act
+ * alongside another GO (e.g. LIFT). Negated / excluded mentions
+ * (« ne clôture pas », « je ne souhaite ni clôturer… ») are not acts.
+ */
+export function assertsAffirmativeCloseAct(text: string): boolean {
+  const t = text.trim();
+  if (!t) return false;
+  if (/\bje\s+d[eé]cide\s+de\s+cl[oô]tur/i.test(t)) return true;
+  if (
+    /\b(?:puis|ensuite|et)\s+(?:je\s+)?(?:cl[oô]ture|clore|ferme)\b/i.test(t) &&
+    !refusesOrWithholdsAct(t, "close")
+  ) {
+    return true;
+  }
+  if (
+    /\b(?:cl[oô]ture|clore|ferme)\s+(?:maintenant\s+)?(?:le\s+)?cycle\b/i.test(t) &&
+    !refusesOrWithholdsAct(t, "close")
+  ) {
+    return true;
+  }
+  return false;
+}
+
 /** Detect OPEN_CYCLE performative anywhere in a developed message (C01). */
 function findOpenCycleAct(
   text: string,
 ): { cycleType: CycleType; objective: string } | { ambiguous: string } | null {
-  if (isNonPerformativeOpenFraming(text)) return null;
+  // Specimen / citation / historical — never an open surface.
+  if (isSpecimenOrHistoricalFraming(text)) return null;
 
   // Reject pure questions about opening.
   if (
@@ -308,22 +400,29 @@ function findOpenCycleAct(
   const openRe =
     /(?:^|[.!?…]\s+|nora\s*[,:]?\s*)(?:je\s+d[eé]cide\s+de\s+commencer[^.!?]*[.!?]?\s*)?(?:ouvre|ouvrir|ouvrez|go(?:\s+pour|\s+sur)?)\s+(?:le\s+|un\s+)?cycle\s+(?:de\s+|d['’]\s*)?([^.!?]+)/i;
   const m = text.match(openRe);
-  if (!m) {
+  let matched: { type: CycleType; rest: string } | { ambiguous: true } | null = null;
+  if (m) {
+    matched = matchCyclePrefix(m[1]);
+  } else {
     // Alternate: « je décide de commencer le cadrage » without « ouvre » — require cycle name.
     const begin = text.match(
       /\bje\s+d[eé]cide\s+de\s+commencer\s+(?:le\s+|un\s+|l['’]\s*)?(?:cycle\s+(?:de\s+|d['’]\s*)?)?([^.!?]+)/i,
     );
     if (!begin) return null;
     if (isExploratoryActLanguage(text) && !/\bje\s+d[eé]cide\b/i.test(text)) return null;
-    const matched = matchCyclePrefix(begin[1]);
-    if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
+    matched = matchCyclePrefix(begin[1]);
+  }
+  if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
+
+  // After a surface OPEN is recognized: contradiction / retraction → clarification,
+  // never a GO deduced from the first clause. Exclusion of *another* open is not
+  // a retraction (handled inside refusesOrWithholdsAct).
+  if (refusesOrWithholdsAct(text, "open")) {
     return {
-      cycleType: matched.type,
-      objective: sanitizeCycleObjective(matched.rest, matched.type),
+      ambiguous: "Ouverture contredite ou retirée dans le même message — clarification requise",
     };
   }
-  const matched = matchCyclePrefix(m[1]);
-  if (!matched || "ambiguous" in matched) return { ambiguous: "Type de cycle ambigu" };
+
   return {
     cycleType: matched.type,
     objective: sanitizeCycleObjective(matched.rest, matched.type),
@@ -553,10 +652,9 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
     return { clarity: "AMBIGUOUS", reason: lift.ambiguous };
   }
   if (lift && "restrictionKindHint" in lift) {
-    // If the same message also asserts CLOSE without reserving « ne clôture pas », AMBIGUOUS.
-    const alsoClose =
-      /\bcl[oô]tur/i.test(text) && !/\bne\s+(?:pas\s+)?(?:cl[oô]tur|ferme)|sans\s+cl[oô]tur/i.test(text);
-    if (alsoClose) {
+    // Second affirmative CLOSE act in the same turn → clarification, zero effect.
+    // Negated / excluded mentions of close (incl. « ne souhaite ni clôturer ») are not acts.
+    if (assertsAffirmativeCloseAct(text)) {
       return {
         clarity: "AMBIGUOUS",
         reason: "Levée et clôture dans le même message — un seul acte à la fois",

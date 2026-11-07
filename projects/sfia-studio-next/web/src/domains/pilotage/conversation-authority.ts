@@ -90,11 +90,46 @@ async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
 }
 
 /**
- * Resolve a documentary REVISE target (CR-01).
+ * C05 rework — pilot explicitly designates a founding D5 act as the revise target
+ * (e.g. « je révise la décision d'ouverture du cycle »). Must not fall through
+ * to an opportunistic RECORD_DECISION match.
+ */
+function designatesFoundingReviseTarget(utterance: string): string | null {
+  const t = utterance.trim();
+  if (
+    /\b(?:d[eé]cision\s+d['’]ouverture|ouverture\s+du\s+cycle|d[eé]cision\s+d['’]ouvrir)\b/i.test(
+      t,
+    ) ||
+    /\br[eé]vise\s+la\s+d[eé]cision\s+d['’]ouverture\b/i.test(t)
+  ) {
+    return "OPEN_CYCLE";
+  }
+  if (
+    /\b(?:d[eé]cision\s+de\s+cl[oô]ture|cl[oô]ture\s+du\s+cycle|d[eé]cision\s+de\s+cl[oô]turer)\b/i.test(
+      t,
+    )
+  ) {
+    return "CLOSE_CYCLE";
+  }
+  if (/\b(?:d[eé]cision\s+de\s+(?:retenir|choisir)\s+la\s+m[eé]thode)\b/i.test(t)) {
+    return "CHOOSE_METHOD";
+  }
+  if (/\b(?:d[eé]cision\s+(?:d['’]appliquer|de\s+restriction)|restriction\s+appliqu[eé]e)\b/i.test(t)) {
+    return "APPLY_RESTRICTION";
+  }
+  return null;
+}
+
+/**
+ * Resolve a documentary REVISE target (CR-01 / C05 LIVE / C05 rework).
  * Uses the full APPLICABLE set — never the Nora cognitive window of 12.
  * Level A framing filters relevance only — never authorizes by itself.
- * Qualify must already be CLEAR (caller). Founding D5 kinds are refused.
- * 0 / many candidates ⇒ clarification; never chronological newest-wins.
+ * Qualify must already be CLEAR (caller).
+ *
+ * Eligibility before uniqueness: only RECORD_DECISION compete for generic
+ * REVISE — unless the pilot explicitly designates a founding D5 target, in
+ * which case refuse typed (never rewrite OPEN via documentary REVISE).
+ * 0 / many admissible candidates ⇒ clarification; never chronological newest-wins.
  */
 function resolveReviseTarget(
   utterance: string,
@@ -102,15 +137,39 @@ function resolveReviseTarget(
 ):
   | { ok: true; decisionId: string; statement: string }
   | { ok: false; reason: string } {
-  const candidates = findAuthorityReviseCandidates(utterance, briefs);
-  if (candidates.length === 0) {
+  const designatedFounding = designatesFoundingReviseTarget(utterance);
+  if (designatedFounding) {
+    return {
+      ok: false,
+      reason: `Révision générique refusée pour ${designatedFounding} — utiliser l'opération métier typée`,
+    };
+  }
+
+  const lexical = findAuthorityReviseCandidates(utterance, briefs);
+  const documentary = lexical.filter((c) => c.kind === "RECORD_DECISION");
+
+  if (documentary.length === 0) {
+    const founding = lexical.find((c) => D5_FOUNDING_KINDS.has(c.kind));
+    if (founding) {
+      return {
+        ok: false,
+        reason: `Révision générique refusée pour ${founding.kind} — utiliser l'opération métier typée`,
+      };
+    }
+    const other = lexical[0];
+    if (other) {
+      return {
+        ok: false,
+        reason: `Révision conversationnelle limitée aux décisions documentaires (kind=${other.kind})`,
+      };
+    }
     return {
       ok: false,
       reason: "Aucune décision applicable clairement revisitée — précisez la cible",
     };
   }
-  if (candidates.length > 1) {
-    const scopes = new Set(candidates.map((c) => c.scope));
+  if (documentary.length > 1) {
+    const scopes = new Set(documentary.map((c) => c.scope));
     return {
       ok: false,
       reason:
@@ -119,21 +178,9 @@ function resolveReviseTarget(
           : "Plusieurs décisions candidates — précisez laquelle réviser",
     };
   }
-  const target = candidates[0];
+  const target = documentary[0];
   if (!target || target.state !== "APPLICABLE") {
     return { ok: false, reason: "Cible de révision non applicable" };
-  }
-  if (D5_FOUNDING_KINDS.has(target.kind)) {
-    return {
-      ok: false,
-      reason: `Révision générique refusée pour ${target.kind} — utiliser l'opération métier typée`,
-    };
-  }
-  if (target.kind !== "RECORD_DECISION") {
-    return {
-      ok: false,
-      reason: `Révision conversationnelle limitée aux décisions documentaires (kind=${target.kind})`,
-    };
   }
   const qualified = qualifyPilotageIntent(utterance);
   const statement =

@@ -302,3 +302,19 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
 | cross | specimen RECORD / OPEN historique / refus REVISE | gates partagés | PG journal + cycle inchangés | NLP universel NOT CLAIMED |
 
 Statut : **IMPLEMENTED — LOCAL CORRECTIVE (Critical Re-Review faux GO)** sur `sfia/next-ml3-rct02-correctifs` — **NOT PUSHED** — **NOT RECETTE** — **NOT MERGED** — **NOT ADOPTED**.
+
+### LIVE remediation C04/C05/C06 — messages exacts (2026-11-07)
+
+| ID | Preuve avant (d646d42a) | Correction | Preuve après (local) | Limite |
+| --- | --- | --- | --- | --- |
+| C04 | LIVE PARTIAL : `objectRef=mais ne signifie…`, énoncé `que,` | `deriveDecisionObjectRef` + strip `que,` | unit C04 LIVE ; PG LIVE chain statement/objectRef | historiques RECETTE non migrés |
+| C05 | LIVE FAIL : 0 REVISE (OPEN+RECORD lexical) | éligibilité RECORD avant unicité | unit C05 LIVE lexical ; PG REVISE + `supersedesDecisionId` | 2 RECORD distincts → clarification |
+| C06 | LIVE FAIL : AMBIGUOUS « Levée et clôture » | `assertsAffirmativeCloseAct` | unit C06 LIVE + LIFT+CLOSE affirmatif AMBIGUOUS ; PG LIFT, cycle ACTIVE | — |
+
+Statut : **IMPLEMENTED — LOCAL LIVE REMEDIATION** sur branche locale `sfia/next-ml3-rct02-live-remediation` depuis `d646d42a` — **NOT PUSHED** — **NOT RECETTE redeploy** — **NOT MERGED** — **NOT ADOPTED**. LIVE Nora retest : **REQUIRES GO** sur nouveau candidat.
+
+| ID | Rework ChatGPT | Preuve |
+| --- | --- | --- |
+| C01 | OPEN + « ni clôturer / ni en ouvrir » | unit + PG : 1 OPEN CADRAGE, objectif conservé, 0 CLOSE |
+| C01 | retrait / contradiction du même OPEN | unit + PG : AMBIGUOUS, 0 cycle, 0 HumanDecision |
+| C05 | désignation fondatrice OPEN ≠ REVISE RECORD | PG zéro mutation + `objectRef` historique pollué toujours révisable via C05 LIVE |

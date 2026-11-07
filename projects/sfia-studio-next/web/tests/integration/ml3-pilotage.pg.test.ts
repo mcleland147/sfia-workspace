@@ -2088,5 +2088,303 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       expect(after.cycle?.cycleType).toBe("CADRAGE");
       expect(await listDecisionJournal(pilotId, projectId)).toHaveLength(journalBefore.length);
     });
+
+    /**
+     * LIVE remediation (d646d42a gaps) — exact transcripts C04 → C05 → C06.
+     * OPEN founding + polluted historical objectRef must not block REVISE;
+     * « ne souhaite ni clôturer » must not block LIFT.
+     */
+    it("LIVE C04/C05/C06: exact messages → clean RECORD, REVISE despite OPEN, LIFT despite negative close", async () => {
+      const { applyConversationalAuthority } = await import(
+        "@/domains/pilotage/conversation-authority"
+      );
+      const C04_LIVE = `Je décide que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+
+Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé.
+
+Nora, maintenant que cette décision est exprimée, aide-moi à identifier la prochaine question importante à poser pour vérifier cette hypothèse.`;
+      const C05_LIVE = `Nora, je révise la décision que j'ai prise concernant la priorité d'exploration des difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+
+Plutôt que de nous concentrer immédiatement sur ces difficultés, je décide que nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire.
+
+Cette nouvelle orientation remplace la priorité précédente. Le besoin utilisateur reste à valider.
+
+Aide-moi ensuite à identifier les premières situations concrètes que nous devrions examiner.`;
+      const C06_LIVE = `Nora, je décide de lever uniquement la restriction CYCLE_MUTATION actuellement active sur le cycle CADRAGE.
+
+Cette levée concerne uniquement ce cycle. Je ne souhaite ni clôturer le cycle, ni en ouvrir un autre.
+
+Une fois cette décision appliquée, confirme-moi ce qui a réellement été enregistré dans Studio.`;
+
+      const { pilotId, projectId, preparationId } = await seedProject("live-c04-c05-c06");
+
+      // C01-like OPEN so OPEN_CYCLE is APPLICABLE alongside RECORD (C05 eligibility).
+      const openContent =
+        "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier.";
+      const openMsg = await insertUserMessage(preparationId, openContent, { ordinal: 1 });
+      const opened = await applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: openMsg,
+        content: openContent,
+        clientTurnKey: `live-open-${newId("turn")}`,
+      });
+      expect(opened.attempted).toBe(true);
+      expect(opened.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      const cycleId = (await getPilotageProjection(pilotId, projectId)).cycle?.id ?? null;
+      expect(cycleId).toBeTruthy();
+
+      // C04 LIVE RECORD
+      const recMsg = await insertUserMessage(preparationId, C04_LIVE, { ordinal: 2 });
+      const recorded = await applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: recMsg,
+        content: C04_LIVE,
+        clientTurnKey: `live-c04-${newId("turn")}`,
+      });
+      expect(recorded.attempted).toBe(true);
+      expect(recorded.operation).toBe("RECORD_DECISION");
+      expect(recorded.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      expect(recorded.decisionId).toBeTruthy();
+      const afterC04 = await listDecisionJournal(pilotId, projectId);
+      const recRow = afterC04.find((d) => d.id === recorded.decisionId);
+      expect(recRow?.state).toBe("APPLICABLE");
+      expect(recRow?.statement).toMatch(/difficultés de coordination/i);
+      expect(recRow?.statement).not.toMatch(/^que\b/i);
+      expect(recRow?.statement).not.toMatch(/aide-moi/i);
+      expect(recRow?.objectRef ?? "").toMatch(/coordination|suivi|difficult/i);
+      expect(recRow?.objectRef ?? "").not.toMatch(/mais ne signifie/i);
+
+      // C05 LIVE REVISE — unique documentary despite OPEN_CYCLE lexical competition
+      const revMsg = await insertUserMessage(preparationId, C05_LIVE, { ordinal: 3 });
+      const revised = await applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: revMsg,
+        content: C05_LIVE,
+        clientTurnKey: `live-c05-${newId("turn")}`,
+      });
+      expect(revised.attempted).toBe(true);
+      expect(revised.operation).toBe("REVISE_DECISION");
+      expect(revised.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      expect(revised.humanDecisionCreated).toBe(true);
+      const afterC05 = await listDecisionJournal(pilotId, projectId);
+      expect(afterC05.find((d) => d.id === recorded.decisionId)?.state).toBe("REVISED");
+      const openStill = afterC05.find((d) => d.kind === "OPEN_CYCLE");
+      expect(openStill?.state).toBe("APPLICABLE");
+      const newRec = afterC05.filter(
+        (d) => d.state === "APPLICABLE" && d.kind === "RECORD_DECISION",
+      );
+      expect(newRec).toHaveLength(1);
+      expect(newRec[0]?.id).toBe(revised.decisionId);
+      expect(newRec[0]?.statement).toMatch(/situations réelles de coordination/i);
+      expect(newRec[0]?.statement).not.toMatch(/Aide-moi/i);
+      expect(newRec[0]?.supersedesDecisionId).toBe(recorded.decisionId);
+
+      // APPLY instance restriction (cockpit path) then C06 LIVE LIFT
+      const viewBeforeApply = await getPilotageProjection(pilotId, projectId);
+      const applied = await applyGovernanceRestriction(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: viewBeforeApply.revision,
+        sourceRef: newId("src"),
+        targetKind: "CYCLE_MUTATION",
+        targetRef: cycleId!,
+        statement: "Freeze CADRAGE instance",
+      });
+      expect(applied.status).toBe("APPLIED");
+      expect(
+        (await getPilotageProjection(pilotId, projectId)).restrictions.filter(
+          (r) => r.status === "ACTIVE",
+        ),
+      ).toHaveLength(1);
+
+      const liftMsg = await insertUserMessage(preparationId, C06_LIVE, { ordinal: 4 });
+      const lifted = await applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: liftMsg,
+        content: C06_LIVE,
+        clientTurnKey: `live-c06-${newId("turn")}`,
+      });
+      expect(lifted.attempted).toBe(true);
+      expect(lifted.operation).toBe("LIFT_RESTRICTION");
+      expect(lifted.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      const afterC06 = await getPilotageProjection(pilotId, projectId);
+      expect(afterC06.restrictions.filter((r) => r.status === "ACTIVE")).toHaveLength(0);
+      expect(afterC06.cycle?.status).toBe("ACTIVE");
+      expect(afterC06.cycle?.cycleType).toBe("CADRAGE");
+    });
+
+    it("C01 rework: OPEN survives « ni clôturer / ni en ouvrir un autre » in PG", async () => {
+      const { applyConversationalAuthority } = await import(
+        "@/domains/pilotage/conversation-authority"
+      );
+      const content =
+        "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de préciser le problème utilisateur. Je ne souhaite ni clôturer ce cycle, ni en ouvrir un autre.";
+      const { pilotId, projectId, preparationId } = await seedProject("cr-c01-ni");
+      const msgId = await insertUserMessage(preparationId, content);
+      const outcome = await applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: msgId,
+        content,
+        clientTurnKey: `cr-c01-ni-${newId("turn")}`,
+      });
+      expect(outcome.attempted).toBe(true);
+      expect(outcome.operation).toBe("OPEN_CYCLE");
+      expect(outcome.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      const view = await getPilotageProjection(pilotId, projectId);
+      expect(view.cycle?.cycleType).toBe("CADRAGE");
+      expect(view.cycle?.status).toBe("ACTIVE");
+      expect(view.cycle?.objective).toMatch(/préciser le problème utilisateur/i);
+      expect(view.restrictions.filter((r) => r.status === "ACTIVE")).toHaveLength(0);
+      const journal = await listDecisionJournal(pilotId, projectId);
+      expect(journal.filter((d) => d.kind === "OPEN_CYCLE" && d.state === "APPLICABLE")).toHaveLength(
+        1,
+      );
+      expect(journal.some((d) => d.kind === "CLOSE_CYCLE")).toBe(false);
+    });
+
+    it("C01 false-GO: retract / contradict requested open → zero mutation in PG", async () => {
+      const { applyConversationalAuthority } = await import(
+        "@/domains/pilotage/conversation-authority"
+      );
+      const samples = [
+        "Nora, ouvre le cycle CADRAGE. Finalement, ne l'ouvre pas : je retire mon GO.",
+        "Nora, ouvre le cycle CADRAGE. Mais non, n'ouvre pas ce cycle, c'est une erreur.",
+      ];
+      for (let i = 0; i < samples.length; i += 1) {
+        const content = samples[i]!;
+        const { pilotId, projectId, preparationId } = await seedProject(`cr-c01-retract-${i}`);
+        const msgId = await insertUserMessage(preparationId, content);
+        const outcome = await applyConversationalAuthority({
+          pilotId,
+          projectId,
+          userMessageId: msgId,
+          content,
+          clientTurnKey: `cr-c01-retract-${newId("turn")}`,
+        });
+        expect(outcome.attempted).toBe(false);
+        expect(outcome.humanDecisionCreated).toBe(false);
+        expect(outcome.command).toBeNull();
+        expect(outcome.operation ?? "").not.toBe("OPEN_CYCLE");
+        const view = await getPilotageProjection(pilotId, projectId);
+        expect(view.cycle).toBeNull();
+        expect(view.revision).toBe(0);
+        expect(await listDecisionJournal(pilotId, projectId)).toHaveLength(0);
+      }
+    });
+
+    it("C05 rework: explicit OPEN founding target → zero documentary REVISE", async () => {
+      const { applyConversationalAuthority } = await import(
+        "@/domains/pilotage/conversation-authority"
+      );
+      const { pilotId, projectId, preparationId } = await seedProject("cr-c05-founding");
+      const opened = await openCycle(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: 0,
+        sourceRef: newId("src"),
+        cycleType: "CADRAGE",
+        objective: "définir précisément le problème utilisateur",
+      });
+      expect(opened.status).toBe("APPLIED");
+      // Polluted historical RECORD (pre-C04 objectRef) — coordination theme.
+      const polluted = await executePilotageCommand(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: opened.revision ?? 1,
+        sourceKind: "EXPLICIT_INTERACTION",
+        sourceRef: newId("src"),
+        operation: "RECORD_DECISION",
+        objectRef: "mais ne signifie pas que le besoin utilisateur",
+        statement:
+          "que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes. Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé",
+      });
+      expect(polluted.status).toBe("APPLIED");
+      const before = await getPilotageProjection(pilotId, projectId);
+      const journalBefore = await listDecisionJournal(pilotId, projectId);
+
+      const content =
+        "Je révise la décision d'ouverture du cycle CADRAGE. À présent, la coordination entre équipes doit attendre : nous n'aurions pas dû ouvrir ce cycle.";
+      const msgId = await insertUserMessage(preparationId, content);
+      const outcome = await applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: msgId,
+        content,
+        clientTurnKey: `cr-c05-founding-${newId("turn")}`,
+      });
+      expect(outcome.attempted).toBe(false);
+      expect(outcome.humanDecisionCreated).toBe(false);
+      expect(outcome.command).toBeNull();
+      expect(outcome.source).toBe("clarification_only");
+      expect(outcome.intentReason ?? outcome.clarification ?? "").toMatch(/OPEN_CYCLE|opération métier/i);
+
+      const after = await getPilotageProjection(pilotId, projectId);
+      expect(after.revision).toBe(before.revision);
+      expect(after.cycle?.status).toBe("ACTIVE");
+      expect(after.cycle?.cycleType).toBe("CADRAGE");
+      const journalAfter = await listDecisionJournal(pilotId, projectId);
+      expect(journalAfter).toHaveLength(journalBefore.length);
+      expect(journalAfter.find((d) => d.id === polluted.decisionId)?.state).toBe("APPLICABLE");
+      expect(
+        journalAfter.filter((d) => d.kind === "OPEN_CYCLE" && d.state === "APPLICABLE"),
+      ).toHaveLength(1);
+    });
+
+    it("C05 rework: historical polluted objectRef still revisable via LIVE C05 message", async () => {
+      const { applyConversationalAuthority } = await import(
+        "@/domains/pilotage/conversation-authority"
+      );
+      const { pilotId, projectId, preparationId } = await seedProject("cr-c05-hist-polluted");
+      const opened = await openCycle(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: 0,
+        sourceRef: newId("src"),
+        cycleType: "CADRAGE",
+        objective: "définir précisément le problème utilisateur, les besoins prioritaires",
+      });
+      expect(opened.status).toBe("APPLIED");
+      const polluted = await executePilotageCommand(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: opened.revision ?? 1,
+        sourceKind: "EXPLICIT_INTERACTION",
+        sourceRef: newId("src"),
+        operation: "RECORD_DECISION",
+        objectRef: "mais ne signifie pas que le besoin utilisateur",
+        statement:
+          "que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes. Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé",
+      });
+      expect(polluted.status).toBe("APPLIED");
+      expect(polluted.decisionId).toBeTruthy();
+
+      const C05_LIVE = `Nora, je révise la décision que j'ai prise concernant la priorité d'exploration des difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+
+Plutôt que de nous concentrer immédiatement sur ces difficultés, je décide que nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire.
+
+Cette nouvelle orientation remplace la priorité précédente. Le besoin utilisateur reste à valider.
+
+Aide-moi ensuite à identifier les premières situations concrètes que nous devrions examiner.`;
+      const msgId = await insertUserMessage(preparationId, C05_LIVE);
+      const revised = await applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: msgId,
+        content: C05_LIVE,
+        clientTurnKey: `cr-c05-hist-${newId("turn")}`,
+      });
+      expect(revised.attempted).toBe(true);
+      expect(revised.operation).toBe("REVISE_DECISION");
+      expect(revised.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      const after = await listDecisionJournal(pilotId, projectId);
+      expect(after.find((d) => d.id === polluted.decisionId)?.state).toBe("REVISED");
+      const applicable = after.filter(
+        (d) => d.state === "APPLICABLE" && d.kind === "RECORD_DECISION",
+      );
+      expect(applicable).toHaveLength(1);
+      expect(applicable[0]?.supersedesDecisionId).toBe(polluted.decisionId);
+      expect(applicable[0]?.statement).toMatch(/situations réelles de coordination/i);
+      expect(after.find((d) => d.kind === "OPEN_CYCLE")?.state).toBe("APPLICABLE");
+    });
   });
 });

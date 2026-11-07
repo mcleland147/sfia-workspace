@@ -643,3 +643,47 @@ Append-only logical journal of Cursor product deliveries.
 | Preuves | unit 47 ; PG CR 9/9 ; PG `ml3-pilotage` 44/44 ; lint/tsc/build PASS |
 | Push projet / PR / merge / deploy RECETTE | **NON** |
 | Verdict candidat | `READY FOR CHATGPT RE-REVIEW` |
+
+## delivery_id: DELIV-2026-11-07-ML3-RCT02-LIVE-REMEDIATION-LOCAL
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-07 |
+| Macro-lot | R5 / ML3 — remédiation LIVE RCT-02 C04/C05/C06 |
+| Type | INC CRITICAL |
+| Branche locale | `sfia/next-ml3-rct02-live-remediation` (depuis `d646d42a`, **non poussée**) |
+| Source D0 | `sfia-next-rct02-live-gaps-d646d42a.md` (hors Git) |
+| Correctifs | C04 objectRef/statement ; C05 éligibilité RECORD avant unicité ; C06 CLOSE non performatif (« ni clôturer ») |
+| Preuves | unit `ml3-rct02-intent` 17 ; PG `ml3-pilotage` 45/45 dont LIVE chain ; lint/tsc PASS |
+| Product version | `NO RELEASE` / package `0.0.0-dev` |
+| ENV-01 | DEV `:3100` / PG `:5433` — RECETTE `:3200` / `d646d42a` **préservée, non mutée** |
+| Push projet / PR / merge / deploy RECETTE | **NON** |
+| Verdict candidat | `READY FOR CHATGPT REVIEW — LOCAL LIVE REMEDIATION` |
+
+## delivery_id: DELIV-2026-11-07-ML3-RCT02-LIVE-REMEDIATION-REWORK
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-07 |
+| Macro-lot | R5 / ML3 — rework LIVE remediation C01/C05 cibles |
+| Type | INC CRITICAL REWORK |
+| Branche locale | `sfia/next-ml3-rct02-live-remediation` (**non poussée**) |
+| Handoff rejeté | `f2c5e3b5` / blob `d59ba25c` (REWORK REQUIRED) |
+| Correctifs | C01 négation secondaire n'annule pas OPEN ; C05 refus si cible fondatrice désignée ; pack Full complet |
+| Preuves | unit + PG C01/C05 rework + non-régression LIVE C04/C05/C06 |
+| Push projet / PR / merge / deploy RECETTE | **NON** |
+| Verdict candidat | `READY FOR CHATGPT RE-REVIEW` |
+
+## delivery_id: DELIV-2026-11-07-ML3-RCT02-C01-FALSE-GO-RETRACT
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-07 |
+| Macro-lot | R5 / ML3 — C01 false-GO retract vs exclusion autre ouverture |
+| Type | INC CRITICAL REWORK |
+| Branche locale | `sfia/next-ml3-rct02-live-remediation` (**non poussée**) |
+| Handoff rejeté | `d89c3009` / blob `4d2cefb9` (REWORK REQUIRED — C01 FALSE GO) |
+| Correctif | distinguer négation du GO demandé vs « ni en ouvrir un autre » |
+| Preuves | unit 3 formulations ; PG zéro mutation négatifs + positif C01 ; non-régression LIVE C04/C05/C06 |
+| Push projet / PR / merge / deploy RECETTE | **NON** |
+| Verdict candidat | `READY FOR CHATGPT FINAL REVIEW — LOCAL LIVE REMEDIATION` |

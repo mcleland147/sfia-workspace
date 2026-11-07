@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { findAuthorityReviseCandidates } from "@/domains/decisions/divergence-assist";
 import {
+  deriveDecisionObjectRef,
   extractDecisionCore,
   extractReviseStatement,
   qualifyPilotageIntent,
@@ -13,6 +15,27 @@ import {
  */
 const T05_REPRESENTATIVE =
   "Je révise la décision que j'ai prise sur l'orientation du cadrage. Cette nouvelle orientation remplace la priorité sur le suivi des décisions et consiste à explorer plusieurs situations réelles de coordination interéquipes.";
+
+/** Exact LIVE transcripts — sfia-next-rct02-live-gaps-d646d42a.md §3–5. Do not rewrite. */
+const C04_LIVE = `Je décide que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+
+Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé.
+
+Nora, maintenant que cette décision est exprimée, aide-moi à identifier la prochaine question importante à poser pour vérifier cette hypothèse.`;
+
+const C05_LIVE = `Nora, je révise la décision que j'ai prise concernant la priorité d'exploration des difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+
+Plutôt que de nous concentrer immédiatement sur ces difficultés, je décide que nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire.
+
+Cette nouvelle orientation remplace la priorité précédente. Le besoin utilisateur reste à valider.
+
+Aide-moi ensuite à identifier les premières situations concrètes que nous devrions examiner.`;
+
+const C06_LIVE = `Nora, je décide de lever uniquement la restriction CYCLE_MUTATION actuellement active sur le cycle CADRAGE.
+
+Cette levée concerne uniquement ce cycle. Je ne souhaite ni clôturer le cycle, ni en ouvrir un autre.
+
+Une fois cette décision appliquée, confirme-moi ce qui a réellement été enregistré dans Studio.`;
 
 /**
  * RCT-02 C01–C08 — conversational qualification oracles from user recette messages.
@@ -31,6 +54,35 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
     if (q.clarity === "CLEAR") {
       expect(q.objective).toMatch(/problème utilisateur/i);
       expect(q.objective).not.toBe(".");
+    }
+  });
+
+  it("C01 rework: affirmative OPEN survives « ni clôturer / ni en ouvrir un autre »", () => {
+    const q = qualifyPilotageIntent(
+      "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de préciser le problème utilisateur. Je ne souhaite ni clôturer ce cycle, ni en ouvrir un autre.",
+    );
+    expect(q).toMatchObject({
+      clarity: "CLEAR",
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    if (q.clarity === "CLEAR") {
+      expect(q.objective).toMatch(/préciser le problème utilisateur/i);
+      expect(q.objective).not.toMatch(/clôtur/i);
+      expect(q.objective).not.toMatch(/ouvrir un autre/i);
+    }
+  });
+
+  it("C01 false-GO: retract / contradict the requested open → no OPEN_CYCLE", () => {
+    for (const msg of [
+      "Nora, ouvre le cycle CADRAGE. Finalement, ne l'ouvre pas : je retire mon GO.",
+      "Nora, ouvre le cycle CADRAGE. Mais non, n'ouvre pas ce cycle, c'est une erreur.",
+    ]) {
+      const q = qualifyPilotageIntent(msg);
+      expect(q.clarity).not.toBe("CLEAR");
+      if (q.clarity === "CLEAR") {
+        expect(q.operation).not.toBe("OPEN_CYCLE");
+      }
     }
   });
 
@@ -73,6 +125,24 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
     expect(extractDecisionCore(msg.split(/je décide que/i)[1] ?? msg)).not.toMatch(/aide-moi/i);
   });
 
+  it("C04 LIVE: exact message → clean statement + objectRef from primary arbitration", () => {
+    const q = qualifyPilotageIntent(C04_LIVE);
+    expect(q).toMatchObject({ clarity: "CLEAR", operation: "RECORD_DECISION" });
+    if (q.clarity === "CLEAR") {
+      expect(q.statement).toMatch(/difficultés de coordination/i);
+      expect(q.statement).toMatch(/besoin utilisateur est déjà validé/i);
+      expect(q.statement).not.toMatch(/^que\b/i);
+      expect(q.statement).not.toMatch(/aide-moi/i);
+      expect(q.statement).not.toMatch(/Nora/i);
+      expect(q.objectRef).toMatch(/coordination|suivi|difficult/i);
+      expect(q.objectRef).not.toMatch(/mais ne signifie/i);
+      expect(q.objectRef).not.toMatch(/besoin utilisateur/i);
+    }
+    expect(deriveDecisionObjectRef(q.clarity === "CLEAR" ? (q.statement ?? "") : "")).not.toMatch(
+      /mais ne signifie/i,
+    );
+  });
+
   it("C05 Critical Review: T05 representative (period, no colon) yields REVISE with developed statement", () => {
     const extracted = extractReviseStatement(T05_REPRESENTATIVE);
     expect(extracted).toBeTruthy();
@@ -101,6 +171,51 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
     }
   });
 
+  it("C05 LIVE: exact message qualifies REVISE; OPEN_CYCLE lexical hit does not alone decide eligibility", () => {
+    const q = qualifyPilotageIntent(C05_LIVE);
+    expect(q).toMatchObject({ clarity: "CLEAR", operation: "REVISE_DECISION" });
+    if (q.clarity === "CLEAR") {
+      expect(q.statement).toMatch(/situations réelles de coordination/i);
+      expect(q.statement).not.toMatch(/Aide-moi/i);
+    }
+    // Lexical finder may still surface OPEN + RECORD (pre-eligibility); authority filters later.
+    const lexical = findAuthorityReviseCandidates(C05_LIVE, [
+      {
+        id: "open1",
+        kind: "OPEN_CYCLE",
+        objectRef: "CADRAGE",
+        scope: "PROJECT",
+        statement:
+          "définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier",
+        state: "APPLICABLE",
+        sourceKind: "USER_MESSAGE",
+      },
+      {
+        id: "rec1",
+        kind: "RECORD_DECISION",
+        objectRef: "mais ne signifie pas que le besoin utilisateur",
+        scope: "PROJECT",
+        statement:
+          "que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes. Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé",
+        state: "APPLICABLE",
+        sourceKind: "USER_MESSAGE",
+      },
+    ]);
+    expect(lexical.map((c) => c.kind).sort()).toEqual(["OPEN_CYCLE", "RECORD_DECISION"]);
+    expect(lexical.filter((c) => c.kind === "RECORD_DECISION")).toHaveLength(1);
+  });
+
+  it("C05 rework: founding-designation wording still qualifies REVISE at intent (authority must refuse)", () => {
+    const q = qualifyPilotageIntent(
+      "Je révise la décision d'ouverture du cycle CADRAGE. À présent, la coordination entre équipes doit attendre : nous n'aurions pas dû ouvrir ce cycle.",
+    );
+    // Intent may be CLEAR REVISE; resolveReviseTarget must refuse founding designation (PG proof).
+    expect(q.clarity).toBe("CLEAR");
+    if (q.clarity === "CLEAR") {
+      expect(q.operation).toBe("REVISE_DECISION");
+    }
+  });
+
   it("C06: conversational LIFT_RESTRICTION is CLEAR with kind hint", () => {
     const q = qualifyPilotageIntent(
       "Nora, je décide de lever uniquement la restriction CYCLE_MUTATION sur ce cycle. Ne clôture pas le cycle.",
@@ -110,6 +225,23 @@ describe("ml3 RCT-02 conversational intent (C01–C06/C08)", () => {
       operation: "LIFT_RESTRICTION",
       restrictionKindHint: "CYCLE_MUTATION",
     });
+  });
+
+  it("C06 LIVE: exact message with « ne souhaite ni clôturer » → CLEAR LIFT (not AMBIGUOUS)", () => {
+    const q = qualifyPilotageIntent(C06_LIVE);
+    expect(q).toMatchObject({
+      clarity: "CLEAR",
+      operation: "LIFT_RESTRICTION",
+      restrictionKindHint: "CYCLE_MUTATION",
+    });
+  });
+
+  it("C06: affirmative LIFT then CLOSE in same message stays AMBIGUOUS", () => {
+    const q = qualifyPilotageIntent(
+      "Nora, je décide de lever la restriction CYCLE_MUTATION puis je décide de clôturer le cycle CADRAGE.",
+    );
+    expect(q.clarity).toBe("AMBIGUOUS");
+    expect(q.clarity === "AMBIGUOUS" ? q.reason : "").toMatch(/Levée et clôture/i);
   });
 
   it("C06 Critical Review: negated / refused / unauthorized lift never LIFT", () => {
