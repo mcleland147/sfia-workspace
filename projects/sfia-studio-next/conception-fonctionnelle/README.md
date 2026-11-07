@@ -274,3 +274,9 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 La [décision de trajectoire](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md) apporte des précisions aux contrats D1–D9 par **addenda datés**. Git demeure facultatif ; la gestion des intégrations et les publications documentaires natives sous D6/D7/D8/D9 relèvent de ML4 ; les réalisations techniques Cursor relèvent de ML5. La [qualification](../construction/integration-git/qualification-impact-ml4-ml5.md) conserve la traçabilité des 41 RG et 36 PF historiques D9 et des nouveaux scénarios N-01..N-27.
 
 **Statut :** synchronisation documentaire de contenu approuvée par Morris, publiée sur branche candidate ; aucun nouveau comportement runtime ni ADOPTED prouvé.
+
+---
+
+## R2 — Traçabilité du parcours Figma ML4 accepté (2026-11-07)
+
+Le [registre Figma](../ux-ui/integration-git-ux-ml4.md) rattache les nouveaux états 218–235 au contrat Git gouverné, sans changer les propriétaires D1–D9. **41 RG-GIT et 36 PF-GIT historiques** restent canoniques ; les `N-01..27` sont des scénarios de qualification, pas une deuxième série normative de PF. Les maquettes validées en conception ne prouvent pas l'autorisation GitHub, l'exécution D7 ou le comportement navigateur.

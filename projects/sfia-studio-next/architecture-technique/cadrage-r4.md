@@ -1593,3 +1593,9 @@ Sans réouverture de R4 ou des ADR, le détail technique de l'étape 2 est dans 
 **Effet :** D4 est propriétaire de la révision documentaire, D6 du mandat, D7 du contrat/lancement/réconciliation, D9 de l'accès/ref/HEAD/opération fournisseur, D8 des observations. Refus si source, droits, cible, diff/base/HEAD ou identité ont changé. Pas de retry aveugle après timeout, de merge automatique, d'écriture technique par le mode documentaire ni de seconde machine d'états. Les droits Git effectifs de Cursor seront vérifiés indépendamment en ML5.
 
 **QA :** rattacher les cas R4 D-01..D-26 applicables et les scénarios C07/C09/C11/C12/C16/C21/C24 à la matrice ML4 ; preuves fournisseur LIVE/REAL et revue Figma encore absentes. Cet addendum ne modifie pas l'historique des ADR.
+
+---
+
+## 16. Séquencement de la transposition UX et architecture ML4 (2026-11-07)
+
+Les [écrans Figma 218–235](../ux-ui/integration-git-ux-ml4.md) sont validés en conception par Morris, mais **GitHub App, attribution de l'acteur, workflow D7 et résultats D8 restent non implémentés/non prouvés**. Les invariants ADR R4-03/04 et les frontières D6 autorité, D7 effet, D9 Git et D8 preuve demeurent. Le séquencement R5 retenu est : finaliser/merger le documentaire ML4 ; qualifier puis réaliser la convergence UX des capacités ML1–ML3 existantes ; construire la capacité Git native ML4 sous GO technique distinct ; ML5 Cursor ensuite. Aucun ADR historique n'est réécrit.

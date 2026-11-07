@@ -1156,3 +1156,11 @@ Morris a prononcé **R3 CLOSED BY MORRIS — WITH CARRIED RESERVES** au niveau c
 **Conception Figma à réaliser :** entrée Paramètres, GitHub connecté/non connecté/installation ou autorisation manquante, consentement par compte/organisation, ajout de dépôts ultérieur, approbation admin en attente, retrait et révocation, suggestion après login avec « Plus tard », parcours contextuel Nora/projet et retour au bon fil. Relier document D4, diff inspecté, branche, commit, PR et merge distinct. Un accès GitHub ne signifie pas mandat Git. Ne pas afficher de futurs connecteurs comme activables.
 
 **Gate UX :** maquettes natives et interactions à réaliser, node IDs/snapshot à enregistrer, revue Morris, contrôle reflow/focus/clavier/zoom/mobile et erreurs. **Figma n'a pas été modifié par cet addendum.**
+
+---
+
+## 18. Complément UX post-clôture R3 : validation des parcours ML4 (2026-11-07)
+
+**Statut actuel : VALIDATED SPEC UX Morris**, pas `BEHAVIOR PROVEN`. Le fichier Figma `itgvCulInEnFY6DvgIegvP`, page `94:49`, contient maintenant **242 frames racines** : 223 au snapshot R3 historique + 18 écrans 218–235 + 1 INDEX ML4 (`388:425`). Audit natif : 18 numéros uniques, 36 destinations de bouton valides et 27 liens d'INDEX résolus. Les écrans R3 historiques demeurent les références complémentaires, sans renumérotation.
+
+[Registre de traçabilité Figma ML4](integration-git-ux-ml4.md), [contrat de transposition](contrat-transposition-figma-code.md). Les états GitHub, Nora, publication, PR et merge sont des **maquettes candidates de runtime**, non des opérations prouvées. La convergence UX du parcours implémenté ML1–ML3 sera qualifiée **après intégration documentaire ML4 et avant code Git ML4**.

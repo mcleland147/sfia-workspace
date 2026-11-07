@@ -1,11 +1,11 @@
 # R5 — Contrat de capacité candidat : Collaborer et publier avec Git
 
 **Jalon :** R5 / macro-lot ML4 — nom de pilotage, **pas** nom de module permanent.  
-**Statut :** `DOCUMENTED — DRAFT CONTRACT / NOT VALIDATED SPEC / NOT IMPLEMENTED / NOT AUTHORIZED FOR BUILD`  
+**Statut :** CONTENT REVIEWED / UX VALIDATED SPEC / TECHNICAL DRAFT / NOT IMPLEMENTED / BUILD NOT AUTHORIZED  
 **Base :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`. Qualification candidate `3bb9224`, revue acceptée en conversation.  
 **Propriétaire de décision et d'acceptation :** Morris. **Conception/revue :** ChatGPT. **Construction technique si autorisée :** Cursor sous SFIA v2.6.  
 **Intégrateur :** à désigner au GO de construction.  
-**UX :** phase Figma préalable à la validation définitive du présent contrat (voir `04-brief-ux-figma-ml4-candidate.md`).
+**UX :** phase Figma préalable à la validation définitive du présent contrat (voir [brief UX](brief-ux-figma.md) et [registre Figma](../../ux-ui/integration-git-ux-ml4.md)).
 
 ## 1. Résultat utilisateur et valeur livrable
 
@@ -103,3 +103,9 @@ Le Pilote peut travailler avec Nora **sans connecter de dépôt**, puis connecte
 **Gate de lancement code :** (a) addenda normatifs R1–R5 validés et intégrés selon GO Git, (b) Figma validé avec snapshot, (c) choix d'identité / types d'effets et contrats d'interface tranchés, (d) matrice QA et fournisseurs éligibles, (e) mandat Morris/Cursor SFIA v2.6. **Pas de prompt Cursor dans le présent lot D0.**
 
 **Capacité suivante ML5 :** brancher Cursor comme exécuteur technique sur la même frontière d'effet, avec contrat exact, tentative, STOP et D8 probatoire, sans reprendre les mécanismes Git déjà éprouvés.
+
+---
+
+## 9. Gate de préparation et UX Figma — 2026-11-07
+
+Le résultat Pilote, le contrat IN/OUT, les dépendances D1–D9 et les contrôles précédents restent applicables. **Morris a validé les 18 écrans Figma 218–235** ; [registre et traçabilité](../../ux-ui/integration-git-ux-ml4.md). Statuts distincts : **contenu de préparation revu / UX VALIDATED SPEC / technique DRAFT / NOT IMPLEMENTED / BUILD NOT AUTHORIZED**. Les 22 critères ML4-AT restent NOT RUN. **Suite :** intégrer le paquet documentaire, puis qualifier/construire la convergence UX ML1–ML3 sous contrat propre avant de construire Git ML4.

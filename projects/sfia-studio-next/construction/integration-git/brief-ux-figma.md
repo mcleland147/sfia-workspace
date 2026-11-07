@@ -1,8 +1,8 @@
 # Phase UX/Figma — Contrat de conception candidat ML4
 
-**Statut :** `DOCUMENTED — Figma preparation; NO FIGMA WRITE / NO VISUAL APPROVAL`  
+**Statut ACTUEL : UX VALIDATED SPEC — Morris, 2026-11-07** (sections de préparation ci-dessous conservées comme historique).  
 **Fichier Figma source (vérifié en lecture native le 2026-11-07) :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP  
-**Page :** `01 · Parcours produit — Référence UX R3` (`94:49`) ; **223 frames inventoriées lors de cette session**.  
+**Page :** `01 · Parcours produit — Référence UX R3` (`94:49`) ; **223 frames au snapshot R3 historique**, **242 après création des écrans ML4 et INDEX**.  
 **Autres pages :** `00 · Fondations — Composants UI` (`120:27`) ; `02 · Contrats visuels — Nora et états` (`104:14`).  
 **Limites :** noms et structure Figma lus par connecteur ; deux screenshots générés par l'API mais non inspectés pixel à pixel dans le runtime. Pas de modification native, de capture immuable validée, de QA visuelle ou d'acceptation UX prétendue.
 
@@ -106,3 +106,11 @@ Ne jamais afficher un simple statut trompeur « GitHub connecté » sans sa port
 5. Capturer les frames versionnées et faire arbitrer Morris ; seulement ensuite transposer en contrat technique et code.
 
 **Gate :** revue et validation visuelle Morris à réaliser ; **aucun changement Figma n'est revendiqué par ce document**.
+
+---
+
+## 8. Bilan de la phase Figma — validation Morris du 2026-11-07
+
+Ce brief décrivait initialement les écrans « à concevoir ». Ils sont désormais **réalisés nativement et validés** : **18 écrans 218–235**, INDEX `388:425`, 36 liens de boutons et 27 liens de revue sur la page `94:49` (242 frames racines, contre 223 avant ML4). [Registre de traçabilité](../../ux-ui/integration-git-ux-ml4.md). **VALIDATED SPEC UX** seulement : aucune preuve de comportement navigateur, permission GitHub réelle ou publication distante ; snapshot Figma immuable non encore versionné sur Git.
+
+**Attention :** 227→228 et 229→230 sont des passages illustratifs entre états **après décision/effet**, pas des actions techniques ni des autorisations automatiques. Les variantes en attente/révocation 222/223 sont consultables depuis l'INDEX sans callback réel.

@@ -476,3 +476,13 @@ Les reports vers ML3 (cycles/trajectoire), ML4 (Git D9), ML5 (exécutions/preuve
 **Pièces propriétaires :** [qualification](integration-git/qualification-impact-ml4-ml5.md), [contrat d'acceptation](integration-git/contrat-acceptation.md), [matrice](integration-git/matrice-acceptation.md), [brief Figma](integration-git/brief-ux-figma.md), [spécification technique candidate](integration-git/specification-technique.md). Tracer R1 E2E07, R2 41 RG/36 PF historiques et N-01..N-27, R3 171–205 et nouvelles surfaces, R4 ADR/QA, R5 code/tests/preuves lorsqu'ils existeront.
 
 **Gates :** synchronisation documentaire D2 → Figma et validation visuelle Morris → consolidation des contrats et test de faisabilité fournisseur → GO Cursor SFIA v2.6 → construction/tests/recette REAL → revue et acceptation Morris distinctes. **ML4 non implémenté / pas de GO build ; R6 non démarré ; aucune STABLE, release ou ADOPTED.** Les réserves ML1–ML3 ne sont pas effacées.
+
+---
+
+## 22. Raccord de delivery — validation Figma ML4 et convergence UX du parcours existant (2026-11-07)
+
+La capacité **ML4 — Collaborer et publier avec Git** conserve ses frontières D6/D7/D8/D9 et son objectif de publication documentaire ; les [18 maquettes 218–235 et INDEX](../ux-ui/integration-git-ux-ml4.md) ont été **validés en conception Morris**. [Revue des gates](integration-git/revue-preparation-ml4.md).
+
+**Séquence de construction approuvée** : (1) documentation R1–R5 intégrée et vérifiée sur Git ; (2) convergence UX du portefeuille, sas, projet, conversation Nora, documents, méthodes/cycles et décisions/journal issus de ML1–ML3, sous **contrat/GO technique distinct** et tests navigateur de non-régression ; (3) réalisation Git ML4 intégrée au shell et composants, après preuve fournisseur et GO Cursor ; (4) ML5 Cursor ; (5) R6. Aucun macro-lot numéroté supplémentaire ni découpage en micro-cycles n'est décidé automatiquement.
+
+**Gates ouverts :** GitHub App réelle, attribution et permissions, sécurité/DB, mandat D6/D7, preuves browser/LIVE/REAL, snapshot immuable Figma avant code ; 22 tests ML4-AT encore NOT RUN. La validation UX ne clôture ni le build ML4, ni R6, ni l'adoption.

@@ -4,7 +4,7 @@
 **Date :** 2026-11-07, Europe/Paris  
 **Dépôt :** `mcleland147/sfia-workspace`, `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5` (GitHub distant observé).  
 **Local Git :** `NON OBSERVÉ`. **Branche candidate ML4, état du GitHub App existant dans les comptes, environnement d'exécution LIVE :** `NON OBSERVÉS`.  
-**Autorité :** qualification v0.2 approuvée en revue par Morris le 2026-11-07 ; copie synchronisée dans le paquet documentaire après correction d'exemple d'endpoint GitHub. Les spécifications techniques et Figma restent à qualifier ; pas de GO Cursor, PR ni merge.
+**Autorité :** qualification v0.2 approuvée en revue par Morris le 2026-11-07 ; copie synchronisée dans le paquet documentaire après correction d'exemple d'endpoint GitHub. La Figma est validée en conception, tandis que les modalités techniques restent à qualifier ; pas de GO Cursor, PR ni merge.
 
 ## 1. Résumé et décision à préparer
 
@@ -461,3 +461,9 @@ https://github.com/mcleland147/sfia-workspace/commit/84bf3496a459bae9c3f9e0ac7ac
 
 ---
 **Fin de la qualification v0.2, corrigée sur la branche documentaire candidate ; aucune modification du runtime ni de Figma.**
+
+---
+
+## 15. Addendum de fin de qualification — Figma ML4 validé (2026-11-07)
+
+La qualification v0.2 est **acceptée en revue par Morris** et les arbitrages du lot demeurent les mêmes. Les paragraphes historiques décrivant Figma comme « à faire » ont été **dépassés par la construction et la validation des écrans 218–235 avec INDEX 388:425** ; voir [registre UX](../../ux-ui/integration-git-ux-ml4.md). Les analyses de 41 RG / 36 PF / 27 N, les frontières et réserves demeurent pertinentes. **Séquence confirmée :** paquet ML4 R1–R5 intégré → convergence UX du runtime ML1–ML3 sous mandat distinct → réalisation technique Git ML4. Aucun effet Git, test navigateur, STABLE ou ADOPTED n'est prouvé par ce dossier.

@@ -210,3 +210,11 @@ Morris valide la [sortie R2 avec réserves](decisions/2026-11-02-r2-functional-e
 **Pièces propriétaires :** [qualification](../construction/integration-git/qualification-impact-ml4-ml5.md), [contrat d'acceptation](../construction/integration-git/contrat-acceptation.md), [matrice](../construction/integration-git/matrice-acceptation.md), [brief Figma](../construction/integration-git/brief-ux-figma.md), [spécification technique candidate](../construction/integration-git/specification-technique.md). Tracer R1 E2E07, R2 41 RG/36 PF historiques et N-01..N-27, R3 171–205 et nouvelles surfaces, R4 ADR/QA, R5 code/tests/preuves lorsqu'ils existeront.
 
 **Gates :** synchronisation documentaire D2 → Figma et validation visuelle Morris → consolidation des contrats et test de faisabilité fournisseur → GO Cursor SFIA v2.6 → construction/tests/recette REAL → revue et acceptation Morris distinctes. **ML4 non implémenté / pas de GO build ; R6 non démarré ; aucune STABLE, release ou ADOPTED.** Les réserves ML1–ML3 ne sont pas effacées.
+
+---
+
+## R5 — Préparation ML4 et convergence UX avant construction Git (2026-11-07)
+
+**Décision Morris :** finaliser et intégrer la documentation ML4, dont la conception Figma **218–235 et INDEX 388:425 VALIDATED SPEC UX**, puis qualifier et construire la convergence UX du parcours réellement implémenté ML1–ML3 **avant** le développement technique Git ML4. [Décision d'ordonnancement](decisions/2026-11-07-ml4-ux-validation-convergence.md), [registre UX](../ux-ui/integration-git-ux-ml4.md), [revue de préparation](../construction/integration-git/revue-preparation-ml4.md).
+
+**État :** R5 IN PROGRESS ; ML1 CLOSE avec réserves, ML2 recette acceptée avec réserves, ML3 CLOSE avec réserves ; ML4 **préparation documentaire en candidature / UX validée en conception / NON IMPLÉMENTÉ / GO BUILD ABSENT**. La publication de cet addendum ne constitue ni un merge sur `main`, ni un GO de construction, ni STABLE/release/ADOPTED.

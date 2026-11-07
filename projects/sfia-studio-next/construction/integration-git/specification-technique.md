@@ -151,3 +151,9 @@ Le contrat est seulement prêt à recevoir un **GO de construction** quand les c
 - REST Contents : https://docs.github.com/en/rest/repos/contents ; REST Pull Requests : https://docs.github.com/en/rest/pulls/pulls
 
 **Verdict : spécification technique de préparation, non contractualisée en contenu ni implémentée.**
+
+---
+
+## 12. Raccord à la validation UX ML4 et suite de préparation (2026-11-07)
+
+[Registre Figma 218–235](../../ux-ui/integration-git-ux-ml4.md) : Intégrations 218–224, Nora/projet 225–226, publication 227–231 et responsive 232–235 ; conception validée Morris. **La spécification technique reste DOCUMENTED / DRAFT, pas VALIDATED TECHNIQUEMENT.** GitHub App, permissions de l'acteur, D7, API/DB, version D4, conflits/ACK et preuve REAL devront être éprouvés à leur gate. Les maquettes ne produisent ni consentement ni commit/merge. Après merge documentaire ML4, qualifier puis mettre en œuvre la convergence UX du shell ML1–ML3 sous mandat distinct avant le code Git ML4 ; capturer la version Figma au début de la transposition.

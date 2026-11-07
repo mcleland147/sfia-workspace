@@ -98,3 +98,9 @@ La qualification v0.2 sur branche contient une **interpolation parasite d'un che
 Après validation D2 du contenu : préparer **un commit documentaire cohérent** ou un petit ensemble de commits lisibles sur **une seule branche dédiée**, inclure le record de décision validé, les addenda normatifs, Roadmap, UX contractuelle et spécification R5, puis diff/relecture distante et revue Morris ; PR et merge seulement sous GO séparés. Les anciennes décisions restent inchangées.
 
 **Ce plan ne vaut pas à lui seul autorisation Git.** Sa synchronisation a été permise par le mandat Morris distinct de la présente branche ; son diff et les SHA Git servent de preuves. Aucun PR/merge ni GO de construction.
+
+---
+
+## 5. État du paquet de synchronisation après conception UX (2026-11-07)
+
+Les modifications R1–R5 sont complétées par un [registre des écrans Figma validés](../../ux-ui/integration-git-ux-ml4.md), une [revue des gates](revue-preparation-ml4.md) et la [décision de séquencement UX](../../governance/decisions/2026-11-07-ml4-ux-validation-convergence.md). Les tableaux de modifications initiaux sont conservés comme **proposition historique** ; les documents propriétaires portent leurs addenda effectifs en branche candidate. Après revue/merge du paquet documentaire, qualifier la convergence UX de ML1–ML3, puis le build technique Git ML4. **Pas de réalisation runtime dans ce gate.**

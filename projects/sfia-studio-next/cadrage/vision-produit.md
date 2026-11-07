@@ -1177,3 +1177,9 @@ Le Pilote peut utiliser Studio sans dépôt. L'espace **Paramètres → Intégra
 **E2E 07** garde son identité et sa portée de collaboration sur dépôt partagé avec projets Studio individuels. Il est qualifié par deux parcours : publication documentaire Git ML4, exécution technique Cursor ML5. Aucune PR ni tests verts ne confèrent un GO de merge, une promotion ou une adoption.
 
 **État :** trajectoire acceptée en contenu ; branche documentaire candidate, sans preuve de runtime ML4 ni validation Figma.
+
+---
+
+## R1 — Raccord de la préparation ML4 et de la convergence UX (2026-11-07)
+
+Les sept E2E de vision restent propriétaires de leur périmètre. **Les maquettes 218–235 et l'INDEX ML4** ont été validés par Morris en conception : [registre Figma](../ux-ui/integration-git-ux-ml4.md). Elles complètent E2E07 par la collaboration Git documentaire native sous D6/D7/D8/D9, sans preuve d'effet réel ni modification des frontières R1. L'ordre retenu pour R5 est : intégrer le paquet documentaire ML4 → qualifier la convergence UX de l'application ML1–ML3 existante → réaliser techniquement Git ML4, sous GO distinct. [Décision d'ordonnancement](../governance/decisions/2026-11-07-ml4-ux-validation-convergence.md).

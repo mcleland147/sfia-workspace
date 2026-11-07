@@ -292,3 +292,9 @@ Un projet sans dépôt continue à utiliser Nora, les cycles, décisions, mémoi
 **Nouvelles exigences ML4 à qualifier :** page « Paramètres → Intégrations » (GitHub seul actif) ; installation par compte/organisation ; consentement utilisateur et retour vérifiés serveur ; sélection de dépôts à la carte et ajouts ultérieurs ; rattachement facultatif au projet ; document D4 versionné → inspection diff → branche/commit/PR/merge ; reprise et preuve limitées ; refus et révocation ; aucune marketplace, force-push, administration GitHub ou mutation de code en voie documentaire.
 
 **Gate :** les scénarios N-01..N-27 devront être intégrés à la traçabilité de recette et au design Figma avant code. Cet addendum de contenu approuvé sur branche ne vaut ni comportement prouvé ni VALIDATED SPEC technique.
+
+---
+
+## R2 D9 — Contrat UX ML4 en conception validée (2026-11-07)
+
+Morris a validé les [18 écrans 218–235 et leur INDEX](../ux-ui/integration-git-ux-ml4.md) ; les 36 liens d'actions et 27 liens d'INDEX ont été recontrôlés. Ce raccord n'ajoute ni ne renumérote les 41 `RG-GIT-*` ou 36 `PF-GIT-*` ; les N-01..27 restent des candidats de recette. **Attention à la transposition :** un lien de prototype 227→228 ne crée aucune publication, et 229→230 ne fusionne aucune PR ; seuls un mandat D6 courant, un déclenchement D7 et une observation réelle D9/D8 peuvent établir ces effets.
