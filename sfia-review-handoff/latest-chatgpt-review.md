@@ -1095,7 +1095,7 @@ PNG digests vs `indexes/png-files.sha256`: **20/20 MATCH**. Sidecars OK.
 
 ## ZIP source (B1–B5)
 Path: `/Users/morris/Downloads/sfia-next-g2-source-b1b5-2026-11-07.zip`
-SHA256: `736ea8429f39b249945db2973508a841bb874691f024c28aa8dc1cd63e40d127`
+SHA256: `64c539d32ca5bec33bd9b9eea658ac9b888bbfdfd6583d66cc041f0be1172b9f`
 
 ## Handoff L3
 Publisher: `scripts/sfia/publish-review-handoff.sh --source .tmp-sfia-review/chatgpt-review.md --handoff-worktree sfia-review-handoff-m5a-gi-20261023`
