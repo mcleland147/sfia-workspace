@@ -1,88 +1,84 @@
 # SFIA Studio Next — Review Pack LIGHT
-## ML3 / RCT-02 — Publication Git du correctif LIVE accepté
+## ML3 / RCT-02 — Déploiement RECETTE candidat 61fe295b
 
 | Champ | Valeur |
 |---|---|
-| Date UTC | 2026-11-07T01:53Z |
-| GO Morris | AUTORISÉ — COMMIT ET PUSH PROJET BORNÉS |
-| Profil | Standard (opération Git seule) |
-| Branche projet | `sfia/next-ml3-rct02-live-remediation` |
-| SHA source / base | `d646d42addb5a4c4a3cab441e9e39018d85fae70` |
-| SHA publié | `61fe295b6704e820694d2379e7f6ab1814143172` |
-| URL | https://github.com/mcleland147/sfia-workspace/commit/61fe295b6704e820694d2379e7f6ab1814143172 |
-| Full accepté (immuable) | `sfia/review-handoff@828688d3` / blob `cc565a58` |
-| Verdict | **PROJECT LIVE REMEDIATION PUSH VERIFIED — READY FOR CHATGPT REVIEW** |
+| Date UTC | 2026-11-07T02:06Z |
+| GO Morris | APPROUVÉ — PRÉPARATION ET DÉPLOIEMENT RECETTE BORNÉS |
+| Candidat | `61fe295b6704e820694d2379e7f6ab1814143172` |
+| Build ID | `ZCkIWQ341KK1KOHTD1a5L` |
+| URL | http://127.0.0.1:3200 |
+| Schéma | `007_ml3_pilotage_decisions` |
+| Verdict technique | **RECETTE ML3 RCT-02 CANDIDATE 61fe295b DEPLOYED — READY FOR MORRIS TARGETED LIVE RETEST** |
+| Verdict LIVE utilisateur | PENDING |
 
-## 1. Git Truth Check
+## 1. GO et portée
 
-### Initial
-- Branche locale `sfia/next-ml3-rct02-live-remediation` @ `d646d42a`
-- Ascendance `d646d42a` OK
-- Branche distante cible **absente** avant push (création autorisée)
-- `origin/sfia/next-ml3-rct02-correctifs` = `d646d42a`
-- `origin/sfia/review-handoff` = `828688d3` (Full accepté)
-- Diff local = 8 fichiers allowlist + `.tmp-sfia-review` (exclu)
+Mise à disposition RECETTE du correctif publié. Aucune correction applicative, aucun push projet, aucune migration, aucun tour LIVE automatisé au nom de Morris.
 
-### Final
+## 2. Git Truth Check
+
 ```
 ## sfia/next-ml3-rct02-live-remediation...origin/sfia/next-ml3-rct02-live-remediation
  M .tmp-sfia-review/chatgpt-review.md
 ```
-- Local HEAD = remote HEAD = `61fe295b6704e820694d2379e7f6ab1814143172`
-- Aucune nouvelle correction fonctionnelle dans ce cycle
 
-## 2. Allowlist publiée (8 fichiers exacts)
+- Branche projet `sfia/next-ml3-rct02-live-remediation` @ `61fe295b6704e820694d2379e7f6ab1814143172` (= candidat)
+- Worktree projet : seul `.tmp-sfia-review` modifié (exclu)
+- Ascendance `d646d42a` → `61fe295b` (1 commit)
+- Worktree RECETTE immuable détaché : `/Users/morris/Projects/sfia-workspace-ml3-recette-build-61fe295b` @ `61fe295b`
+- Ancien worktree préservé : `/Users/morris/Projects/sfia-workspace-ml3-recette-build-d646d42a` @ `d646d42a` / BUILD_ID `R7JhVsbMaJdiUuuljApyn`
 
-```
-projects/sfia-studio-next/construction/delivery-history.md
-projects/sfia-studio-next/construction/pilotage-et-decisions/recette-ml3-rct02-live-corrective-gaps.md
-projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
-projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
-projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
-projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
-projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
-```
+## 3. Isolation ENV-01
 
-Compteur distant vs `d646d42a` : **8**. Rapport complémentaire `recette-ml3-rct02-live-corrective-gaps.md` présent sur le remote.
+- Lane `STUDIO_LANE=RECETTE`, port `3200`, DB `127.0.0.1:5434/sfia_next_recette_ml3`
+- DEV `:5433` / code projet non servi
+- LaunchAgent `com.sfia.studio.next.recette.ml3` → run script + WorkingDirectory du worktree **61fe295b**
+- PID runtime observé : `58778`
+- Migrations `001`–`007` **identiques** à d646 (aucune migration appliquée)
 
-## 3. Contrôles pré-commit (réexécutés)
+## 4. Sauvegarde et rollback
 
-| Contrôle | Résultat |
-|---|---|
-| `git diff --check` | PASS (vide) |
-| Markers C04/C05/C06/C01 vs Full `828688d3` | OK |
-| unit intent+divergence+authority | **49/49 PASS** |
-| PG `ml3-pilotage.pg.test.ts` | **49/49 PASS** |
-| lint | PASS |
-| tsc --noEmit | PASS |
-| build | PASS |
-| Secrets / `.env` / hors allowlist | exclus |
+- Dump FC : `artifacts/db-backups/sfia_next_recette_ml3_20261107T020425Z_pre_61fe295b.dump` (créé+taillé)
+- Preuve de restauration : **NON exécutée** ce cycle (non destructive only)
+- Procédure code rollback : `artifacts/rollback-to-d646d42a.txt` (plist bak d646 → bootstrap)
+- Ancien build/worktree : **non supprimé**
 
-## 4. Push
+## 5. Build et smoke
 
-- Fast-forward uniquement vers `origin/sfia/next-ml3-rct02-live-remediation` (nouvelle branche)
-- Pas de `--force` / rebase / merge `main` / PR
-- SHA local = SHA distant vérifié après `git fetch`
+- `npm ci` + lint PASS + tsc PASS + `next build` → BUILD_ID `ZCkIWQ341KK1KOHTD1a5L` (≠ `R7JhVsbMaJdiUuuljApyn`)
+- HTTP `/login` **200** + BUILD_ID présent dans HTML
+- HTTP `/api/portfolio` **401** (non authentifié)
+- HTTP `/` **307**
+- Tables D5/D6 présentes ; counts avant bascule : human_decisions=20 / project_cycles=5 / governance_restrictions=3
 
-## 5. CI observée (lecture seule)
+## 6. Manifeste RECETTE (non secret)
 
-- `check-runs.total_count` = **0**
-- Combined status `total_count` = **0**, `state=pending` sans runs
-- Qualification : **NOT RUN** (aucune exécution observable ; ne pas déclarer PASS)
+Voir `/Users/morris/Projects/sfia-workspace-ml3-recette-build-61fe295b/artifacts/recette-served-manifest.json`.
 
-## 6. ENV-01 / versioning
+Faits clés :
+- package `0.0.0-dev` / `NO RELEASE` / STABLE NOT AVAILABLE / candidate version NOT AVAILABLE
+- OpenAI key SET / GitHub OAuth CONFIGURED / LIVE non auto-exécuté
+- CI publish SHA : **NOT RUN**
 
-- DEV : inchangé après revue ; publication code seulement
-- RECETTE `:3200` / candidat `d646d42a` / build `R7JhVsbMaJdiUuuljApyn` : **non mutée** (HTTP 307 observé)
-- STABLE : NOT AVAILABLE
-- Produit : `0.0.0-dev` / `NO RELEASE`
-- Pas de tag / pas de mise à disposition RECETTE
+## 7. Protocole retest Morris
 
-## 7. Gates suivants (NON acquis ici)
+Fiche : `artifacts/retest-protocol-rct02-targeted.md`
+Messages C04/C05/C06 : transcripts exacts de `recette-ml3-rct02-live-corrective-gaps.md` §3.1/4.1/5.2 — **sans reformulation**.
+Profil navigateur isolé requis (Reserve A cookies).
 
-PR, merge, nouveau candidat RECETTE, retest LIVE C04/C05/C06, STABLE, ML3 CLOSED, ADOPTED — décision Morris distincte après revue ChatGPT du commit distant.
+## 8. Réserves
 
-## 8. Verdict
+- LIVE targeted retest **PENDING**
+- CI NOT RUN
+- ENV-01 cookie host Reserve A
+- C03 intercycles NOT PROVEN
+- Dump restore non prouvée ce cycle
 
-**PROJECT LIVE REMEDIATION PUSH VERIFIED — READY FOR CHATGPT REVIEW**
+## 9. Gates NON acquis
+
+PR, merge, main, STABLE, release, ML3 CLOSED, ADOPTED, tours LIVE Cursor-automatisés.
+
+## 10. Verdict
+
+**RECETTE ML3 RCT-02 CANDIDATE 61fe295b DEPLOYED — READY FOR MORRIS TARGETED LIVE RETEST**
