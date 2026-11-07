@@ -26,3 +26,11 @@
 | GO Cursor code | **Non accordé** dans cette étape | G4 non autorisé |
 
 **Recommandation :** approuver le contrat G3 v1 et la distinction G2-Source/G5-Comparaison, puis donner un **mandat Cursor conditionnel et borné** d'acquisition du G2 (STOP si pack non satisfaisant), avant toute opération de construction ; dans le même temps préparer le prompt de reprise du nouveau chat. Aucune publication Git n'est implicite.
+
+---
+
+## 3. Revue actualisée — modalités G3 A1/A2 validées (2026-11-07)
+
+Morris valide désormais **A1 = pagination à 25 items/page, keyset et compteur propriétaire canonique**, ainsi que **A2 = `/projects/{projectId}?surface=document&documentId={documentId}` ouvrant uniquement la lecture, révision D4 sur geste explicite et reprise corrélée**. Le texte applicable est le [contrat G3 v1.1 §7](contrat-technique-convergence-ux.md), sans nouvelle autorité métier.
+
+**Verdict :** `G1 VALIDATED SPEC / G3 A1+A2 VALIDATED SPEC / G2-SOURCE PARTIAL & BLOCKING / G4 NO CURSOR GO / G5 NOT RUN`. Les recommandations initiales §1–2 qui présentaient A1/A2 comme à décider sont historiques. Suite : préflight Figma authentique + SHA avant code UI, puis contrat SFIA v2.6 borné sous GO Morris distinct et preuves navigateur au SHA. Aucun merge Git projet, version STABLE ou ADOPTED implicite.
