@@ -2,7 +2,7 @@
 
 > **Mise en dépôt (2026-11-07) :** document D0 de préparation relu et accepté par Morris dans sa direction. Les mentions « candidat », « aucune écriture Git » ou « non publié » décrivent son état au moment de la rédaction ; la publication ne vaut pas complétude G2, validation de chaque choix G3, autorisation D3 ou preuve navigateur. Les arbitrages A1–A3/P1–P3/F1/F2 restent ceux de la décision canonique.
 
-**Version de préparation :** v1.0 D0 — **soumise à revue finale Morris**, non prompt Cursor.
+**Version de préparation :** v1.1 D0 — **modalités techniques A1 et A2 VALIDATED SPEC par Morris (2026-11-07)** ; reste un dossier de construction pré-Cursor, non prompt SFIA ni GO d'exécution.
 **Référence Git vérifiée :** `mcleland147/sfia-workspace`, `main@968f74be7e36d5387487fae0eeec85b702d074e2` ; **état de la machine Cursor / branches locales : NON OBSERVÉ**.
 **Sources normatives et de recette :** SEF v0.2, Roadmap Next, décisions A1–A3/P1–P3/F1/F2, contrat UX v0.5, protocole de transposition R3, `UXC-01..14`, ENV-01, versioning produit, guide routing et template SFIA v2.6, tous à **relire sur la ref Git effective** avant toute exécution.
 
@@ -22,7 +22,7 @@
 
 **Contrat proposé** : étendre **`GET /api/portfolio`** de façon additive, sans deuxième endpoint de liste par défaut, avec `portfolio.preparations` propriété dérivée de **`ownerPilotId = session.pilotId AND status='OPEN' AND NOT EXISTS link`**. La propriété `openPreparations` et la liste doivent avoir la même définition canonique. Ordre `createdAt DESC, id DESC` stable ; champs autorisés `id`, `previewName`, `previewSummary`, `createdAt ISO`, `status='OPEN'`. Libellé neutre si aperçu vide. Ne jamais montrer un état « récemment modifié » fabriqué.
 
-**Décision technique de volumétrie à confirmer** : si la liste risque d'être volumineuse, pagination/cursor stable et indicateur de liste partielle plutôt que query non bornée ; l'API doit garder le tri et le contrôle d'ownership sur chaque page. Ne pas introduire une pagination factice sans contrat vérifié. **Aucun POST** lors de « Reprendre ». Le POST existant reste dédié à « Nouvelle préparation ». Vérifier double clic sur création et navigation interrompue : idempotence ou récupération du résultat, sans changement D2 non borné.
+**Modalité A1 validée Morris** : pagination serveur bornée à **25 préparations par page** avec curseur keyset opaque et vérifié, sur `createdAt DESC, id DESC`. Charger jusqu'à 26 lignes pour établir l'existence d'une page suivante ; garder le count total du même prédicat owner/OPEN/non-rattaché, sans fuite entre Pilotes. L'API reste additive et aucun nouveau endpoint n'est créé. Voir §7. **Aucun POST** lors de « Reprendre ». Le POST existant reste dédié à « Nouvelle préparation ». Vérifier double clic sur création et navigation interrompue : idempotence ou récupération du résultat, sans changement D2 non borné.
 
 **États HTTP et UI attendus :** 200 portfolio `{kind:empty|ready|unavailable}` fidèle au contrat, 401 session expirée, 404 non révélateur lors de reprise d'une ID étrangère/inconnue ; erreur DB distincte du vide (ne pas afficher zéro à la place). Une préparation devenue `ATTACHED` entre listing et ouverture est relue côté serveur : si projet autorisé, naviguer vers lui ; sinon échec neutre. Pas de restauration depuis un ID client sans contrôle serveur.
 
@@ -34,7 +34,7 @@ La page projet `web/src/app/projects/[projectId]/page.tsx` possède déjà `prep
 
 **Constat à corriger dans le blast radius :** la route D4 `GET` et `POST` contient un `catch` qui peut renvoyer **401** pour une erreur autre que la session ; distinguer 401 authentification, 404 non-propriété/absence, 409 base périmée, 400 payload, 500 erreur interne contrôlée sans fuite. Toute modification du comportement API exige tests de compatibilité et sécurité ; ne pas modifier les statuts D4 par effet UX involontaire.
 
-**Navigation nominale candidate** : projet → Documents → document → inspecteur/révision dans le **même contexte projet** ; conserver le retour au fil et l'état sélectionné au rechargement/lien profond. Si un paramètre de route/query est nécessaire, le borner au `projectId` et au document effectivement propriétaire, sans en faire une nouvelle autorité métier.
+**Modalité A2 validée Morris** : lien profond **`/projects/{projectId}?surface=document&documentId={documentId}`**, qui ouvre **l'inspection en lecture seule** sous ownership serveur projet/document. L'action explicite « Réviser » ouvre ensuite l'éditeur ; aucune mutation à l'ouverture, au refresh ou lors de la navigation arrière. Conserver le retour au fil et le document sélectionné ; le lien profond ne crée aucune autorité métier. Voir §7.
 
 ### 2.3 A3, D5/D6 — présentation sans autorité nouvelle
 
@@ -57,7 +57,7 @@ La page projet `web/src/app/projects/[projectId]/page.tsx` possède déjà `prep
 | G0 — Git Truth | repo/ref/base et HEAD, `git status`, staged/untracked, diff, décision, état local, lanes et secrets (sans les imprimer) | Git distant OK ; local NON OBSERVÉ |
 | G1 — produit | décisions A1–A3 / P1–P3 / F1 quatre variantes / F2 | **VALIDATED SPEC** |
 | **G2-Source** | pour chaque composant à modifier : L2 complet + références PNG Figma natives hashées + états/fixtures/source stables ; zéro mesure critique `UNRESOLVED` | **PARTIAL / BLOCKING FOR UI CODE** |
-| G3 — contrat de construction | interfaces A1/A2, états/ownership, UI, tests, source de police, frontières, intégrateur, `STOP`, détails ENV-01/versioning | **v1 candidate de validation Morris** |
+| G3 — contrat de construction | interfaces A1/A2, états/ownership, UI, tests, source de police, frontières, intégrateur, `STOP`, détails ENV-01/versioning | **v1.1 : modalités A1/A2 VALIDATED SPEC par Morris ; instanciation opérationnelle SFIA/ENV/allowlist et préflight G2 encore à vérifier** |
 | G4 — mandat Cursor | GO technique explicite et borné ; cycle SFIA v2.6 instancié depuis Git, profil justifié, fichiers allowlist et Review Handoff ; pas de push/PR/merge projet sans GO séparé | **NO GO** |
 | G5 — preuves | UXC-01..14, PG/HTTP/BROWSER, comparaison DOM/image sous même SHA, audit réel, revue Morris | **NOT RUN** |
 
@@ -93,4 +93,33 @@ La page projet `web/src/app/projects/[projectId]/page.tsx` possède déjà `prep
 - Prompt Cursor **unique** instancié sur base des deux sources SFIA v2.6 Git, avec gates et STOP ; GO technique distinct.
 - Prompt de reprise du nouveau chat conservant la trajectoire **convergence UX ML1–ML3 → ML4 Git → ML5 Cursor**, décisions, SHA et réserves.
 
-**Verdict actuel : `G3 v1 candidate ready for review / G2 preflight unresolved / PROMPT CURSOR NOT GENERATED / NO BUILD GO`.**
+**Verdict courant : `G3 v1.1 — A1/A2 MODALITIES VALIDATED SPEC / G2-SOURCE PARTIAL & BLOCKING FOR UI CODE / G4 NO GO CURSOR / G5 NOT RUN`.** La validation documentaire ne prouve pas le fonctionnement du runtime ni la complétude du pack Figma.
+
+---
+
+## 7. Modalités techniques A1/A2 validées Morris — contrat applicable (2026-11-07)
+
+**Autorité :** validation explicite Morris des deux modalités techniques après revue du candidat D0 daté du 2026-11-07. Les arbitrages produit P1/P2 et décisions A1/A2 restent inchangés ; cette section est la spécification technique applicable, sans seconde autorité.
+
+### 7.1 A1 — liste paginée propriétaire, reprise distincte de la création
+
+- **API additive** : `GET /api/portfolio?preparationsCursor=<opaque>` conserve `portfolio.kind`, `projects`, `openPreparations` (total des préparations éligibles) et ajoute `portfolio.preparations = { items: PreparationSummary[], nextCursor: string | null }` aux réponses disponibles. En état `unavailable`, ne pas fabriquer de liste vide ; erreur technique expurgée, distincte de `kind:empty`.
+- **Sélection serveur** : `preparations.ownerPilotId = session.pilotId AND preparations.status='OPEN' AND NOT EXISTS preparation_project_links(preparationId)`. La sélection et le compteur doivent utiliser ce **même prédicat**, sans charger tous les liens globaux en mémoire. L'état `kind:empty` signifie « aucun projet » et **n'exclut pas** une préparation ouverte ; afficher la liste si elle contient des items.
+- **Taille et ordre** : **25 items maximum**, tri `createdAt DESC, id DESC`; recherche keyset strictement après la dernière paire retournée ; fetch `limit 26` pour calculer `nextCursor`, qui est `null` en dernière page. Curseur opaque strictement validé côté serveur ; erreur `400 INVALID_CURSOR` si malformé, pas de fallback vers une requête illimitée, pas d'`OFFSET`. Ne pas promettre un snapshot multi-pages immuable lors d'attachements concurrents ; retester la cohérence sur nouvelle lecture.
+- **Champs publics minimaux** : `id`, `previewName`, `previewSummary`, `createdAt` ISO8601 et `status:OPEN`. Un aperçu vide reçoit un libellé neutre ; aucune activité récente dérivée artificiellement d'`updatedAt`.
+- **Reprendre** : navigation `/preparations/{preparationId}` et GET contexte avec contrôle serveur owner, statut et rattachement ; **jamais POST**. Si `ATTACHED` entre liste et clic, redirection seulement vers le projet auquel le Pilote a droit, sinon erreur neutre et absence de fuite. La liste client n'autorise aucun accès.
+- **Nouvelle préparation** : le POST D2 existant demeure séparé ; bouton in-flight disabled contre double clic. Perte de réponse : **pas de nouveau POST automatique** ; proposer une relecture du portefeuille pour retrouver une éventuelle création. Aucune garantie exactly-once durable sans clé D2 de création et décision supplémentaire.
+- **Erreurs et tests discriminants** : 401 session ; 400 curseur ; 404 ID étranger/inexistant ; panne DB ne devient ni 401 ni liste vide. Vérifier 0/1/25/26/51 lignes, égalité de dates et tie-breaker id, falsification de curseur, deux Pilotes/deux projets, création et attachement concurrents, `kind:empty` avec préparations, pagination/count cohérents et absence de POST lors de reprise.
+
+### 7.2 A2 — lien profond en inspection read-only et révision D4 protégée
+
+- **URL validée** : `/projects/{projectId}?surface=document&documentId={documentId}`. `surface` est bornée aux surfaces réelles `travail/pilotage/journal/document`. Un `documentId` n'est pris en compte que pour `surface=document`. Une query malformée ou un ID étranger n'ouvre aucune ressource non autorisée ni action implicite.
+- **Autorité** : ouvrir d'abord le projet sous ownership serveur par `projectId`, obtenir sa préparation liée, puis sélectionner seulement un document de ce projet. Un ID introuvable/étranger reçoit un refus neutre, sans affichage de document d'un autre Pilote. Rechargement, back/forward et retour `surface=travail` conservent le contexte sans écriture.
+- **Réviser seulement sur geste Pilote** : sélectionner une version **AVAILABLE** comme `baseRevisionId`, puis POST à l'API D4 actuelle `/api/preparations/{preparationId}/documents/{documentId}` avec `action=revise`, `contentMarkdown`, `baseRevisionId`, `correlationKey`. La query ne permet jamais d'ouvrir directement un formulaire en mode mutation. Ne pas réutiliser `savePreparationDocument` comme second chemin de révision.
+- **Concurrence/reprise** : `409 CONFLICT/BASE_STALE` garde le brouillon local et affiche la nouvelle version avant décision humaine ; `UNKNOWN` (timeout/ACK perdu) impose une relecture des versions/provenance à la recherche du **même** `correlationKey` avant retry, sans générer de nouvelle clé pour la même intention. Tant que l'issue n'est pas vérifiable, ne pas annoncer `AVAILABLE` ou `FAILED`. Le brouillon conservé en mémoire de session n'est **pas** promis durablement après reload.
+- **Classification HTTP** : `401` pour absence/expiration de session exclusivement ; `400` payload invalide ; `404` ressource absente ou étrangère, non révélateur ; `409` base périmée ; `5xx` erreur interne expurgée. La route D4 actuelle renvoie abusivement 401 sur certaines exceptions : corriger dans le même macro-lot avec non-régression, sans exposer contenu indisponible `SAVING/UNKNOWN` comme validé.
+- **Tests discriminants** : deep-link direct/reload/back ; sélection doc étrangère ; double Pilote/projet ; URL read-only sans POST ; version AVAILABLE ; 409 sur base concurrente ; idempotence même clé ; ACK perdu et réconciliation, panne DB distincte de session ; aucun mode Git/D7–D9 et aucune édition déclenchée par la query.
+
+### 7.3 Statut et limites
+
+Les deux modalités ci-dessus sont **VALIDATED SPEC par Morris**. Le pack G2 source demeure **PARTIAL**, avec L2 natif complet et PNG+SHA non acquis ; **aucun GO technique Cursor, de modification UI, de commit code, de PR/merge projet, ni de recette PASS** ne découle de leur validation. Les fichiers d'interface ne sont modifiables que lorsque le préflight G2 applicable est prouvé et le mandat D3 distinct autorisé. La comparaison visuelle calibrée appartient à G5 **après** premier rendu, pas à un gate circulaire pré-code.

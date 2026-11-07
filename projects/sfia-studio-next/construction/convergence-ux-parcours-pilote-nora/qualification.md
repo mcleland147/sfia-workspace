@@ -152,3 +152,9 @@ La première extraction profonde doit figer les **compositions et états priorit
 
 ## 11. Suite de qualification — décisions P1/P2/P3/F1/F2 (2026-11-07)
 Les arbitrages de modalités **P1, P2, P3, F1, F2** ont été **validés en contenu par Morris** et sont enregistrés dans [la décision applicable](../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md). Les 16 parcours `CU` et les 14 oracles `UXC` restent inchangés en numérotation ; G1 = **VALIDATED SPEC**. Pour le contrat applicable lire [v0.4](contrat-acceptation.md) ; le [relevé L2](../../ux-ui/releves-geometriques-convergence-l2-partiel.json) reste **partiel**. Pas de reprise de construction Cursor, ni de preuve BROWSER ou LIVE. Les mentions antérieures « candidat / non mergé » se rapportent aux snapshots précédents.
+
+---
+
+## 12. Modalités d'exécution des parcours A1/A2 confirmées (2026-11-07)
+
+Les décisions produit P1/P2 ne changent pas. Leur réalisation contractuelle est précisée par [G3 v1.1 §7](contrat-technique-convergence-ux.md) : A1 `GET /api/portfolio` additif paginé **25**, curseur keyset `createdAt DESC,id DESC`, même prédicat owner/OPEN/non-lié pour count et pages ; reprise sans POST. A2 `/projects/{projectId}?surface=document&documentId={documentId}` **read-only**, révision D4 explicite et protégée par `baseRevisionId/correlationKey`. Les **16 CU** et **14 UXC** ne sont pas réécrits ; aucune preuve d'exécution nouvelle. **G2-SOURCE PARTIAL**, G3 modalités validées, G4 non autorisé, G5 NOT RUN.

@@ -70,3 +70,17 @@ Cette distinction est une **clarification opérationnelle candidate**, pas une m
 - **G5 :** UXC-01..14 examinés et prouvés au bon SHA, aucune prétention de PASS depuis le CI pré-convergence.
 
 **Verdict :** `G2 SOURCE NOT READY IN THIS ENVIRONMENT / G3 CONTRACT PREPARABLE / G4 NOT AUTHORIZED / G5 NOT RUN`.
+
+---
+
+## 7. Préflight G2 borné après validation G3 A1/A2 (2026-11-07)
+
+**Statut :** protocole documenté et accepté en orientation ; **G2-SOURCE PARTIAL**, aucun export PNG immuable ni SHA-256 vérifié à ce jour. Les modalités A1 (25/page, keyset) et A2 (URL read-only) sont maintenant **VALIDATED SPEC**, voir le [contrat technique G3 §7](contrat-technique-convergence-ux.md). Elles ne remplacent pas l'extraction L2.
+
+1. **Avant toute écriture UI concernée** : pré-check Figma/nœuds et états cibles, export natif des PNG (pas de rendu synthétique), archivage local dans une destination de preuves bornée et autorisée, et empreinte SHA-256 par fichier. Enregistrer date, source `fileKey/pageId/frameId`, version Figma si accessible (sinon `NOT AVAILABLE`), dimensions, état/fixture, composant et `sourceSHA` Git.
+2. **Manifeste L2 sans auto-référence** : sauvegarder propriétés natives/ID/parent chain/bounds/layout/typographie/assets/variants/contraintes et références PNG, puis calculer `manifestSha256` dans un **sidecar** ou dans le rapport de preuves (jamais dans le contenu haché lui-même). Relecture et contrôle digest obligatoire avant d'accorder `COMPLETE_FOR_COMPONENT`.
+3. **Validation de couverture** : pour toutes les familles effectivement modifiées, `COMPLETE_FOR_COMPONENT` ou `OUT_OF_SCOPE` justifié ; `UNRESOLVED` sur mesure source critique = STOP de code de cette famille, sans approximation ni micro-correction par marge. Les quatre variantes F1 doivent être vérifiées ; la frame 19 n'ajoute pas la capacité D8 et les planches 216/217 ne constituent pas des viewports 1350px.
+4. **Échec de l'outil** : l'URL éphémère Figma seule ne prouve pas l'archive ; si acquisition, stockage ou vérification de hash échouent, produire un rapport `G2-SOURCE FAILED/INCOMPLETE`, sans prétendre `READY` et **sans code UI**. L'environnement Cursor devra constater sa capacité réseau et son worktree local, tous deux **NON OBSERVÉS** ici.
+5. **Après premier rendu seulement (G5)** : contrôles des rectangles DOM/styles calculés à 1680/1280/390/320 et zoom 200 %, captures à même état/fixture/font/DPR, calibration **régionale** du seuil image à faire approuver Morris. La tolérance géométrique F2 déjà validée reste **0 recherché / ≤2 CSS px pour rectangles stables**. Aucun seuil global d'image n'est inventé.
+
+**Autorité :** cette procédure est une **condition d'entrée de construction** ; la réalisation de l'export par Cursor nécessite un mandat D3 séparé, même si aucun code n'est encore écrit.
