@@ -4,6 +4,8 @@
 **GO:** Morris — complément ciblé G2-Source / extraction L2 native (2026-11-07) — conserver 20 PNG, corriger COMPLETE abusif frames-only, STOP avant UI.
 **Verdict:** `G2-SOURCE CANDIDATE — READY FOR CHATGPT/MORRIS REVIEW — NO UI CODE`
 
+**READY (verifier):** `true` — `nora.workzone.03` schema **v2**, **129** nodes, TEXT typo **77/77**, `rootFrameRelative.x=240`; `scripts/verify-g2-pack.sh` **VERIFY PASS** (2026-11-07 finalisation B3).
+
 ## Gates
 - G1 VALIDATED SPEC
 - G2 CANDIDATE (this pack) — awaiting ChatGPT/Morris
@@ -28,7 +30,7 @@ M .tmp-sfia-review/chatgpt-review.md
 
 ## Sources lues (cycle)
 - Prompt: `sfia-next-cursor-g2-complement-l2-go-2026-11-07.md`
-- Figma native page `94:49` fileKey `itgvCulInEnFY6DvgIegvP` (session `11cb7e4a-7f90-41eb-93a3-c3b0408dd4b1`)
+- Figma native page `94:49` fileKey `itgvCulInEnFY6DvgIegvP` (sessions `11cb7e4a…` extract merge; `16cad203-91e2-4cb1-b66d-55799ac79e01` B3 native L2 probe)
 - Pack local `g2-source/` acquis (PNG + indexes) + L2 complement
 - Prior handoff remote (delta base)
 
@@ -39,7 +41,8 @@ M .tmp-sfia-review/chatgpt-review.md
 | Rails | COMPLETE sans registre descendants exploitable | COMPLETE + raw descendants 26/34/29/47 |
 | component-nodes-l2.json | absent / insuffisant | présent, 14 composants |
 | Verify | INTEGRITY only | INTEGRITY + SEMANTIC COVERAGE PASS |
-| Raw nora/document/journal | manquant / journal vide | 44 / 31 / 21 nodes |
+| Raw nora/document/journal | manquant / journal vide | **129** / **100** / **71** nodes (v2) |
+| B3 deltas/negatives | shell-only v1 stubs | **v2 native L2** (`deltas-nora-206-208`, `negatives-28-32-33-41`) |
 | PNG octets | 20 SHA | **inchangés** 20/20 |
 
 ## Contrôle automatique
@@ -71,6 +74,8 @@ OK PNG png/frame-282-468.png
 OK PNG png/frame-282-492.png
 INTEGRITY PASS (20 PNG digests vs indexes/png-files.sha256; sidecars)
 SEMANTIC COVERAGE PASS
+RAW INTEGRITY PASS (indexes/raw-files.sha256 + nora v2 gates)
+OK nora v2 nodes=129 text_typo=77/77 rootFr.x=240
 VERIFY PASS
 
 ```
@@ -1072,12 +1077,29 @@ PNG digests vs `indexes/png-files.sha256`: **20/20 MATCH**. Sidecars OK.
 ```
 
 ## Qualifications / réserves non bloquantes
-- **206–208:** shell isomorphic to frame 03 (rail 240 + workzone); content-state deltas in `deltas-nora-206-208.json`; no new PNG. EQUIVALENT_DOCUMENTED.
-- **28/32/33/41:** shell structure same family as projet rail; structure in `negatives-28-32-33-41.json`; G5 for behavioral content.
+- **206–208:** shell isomorphic to 03 (rail 240 + workzone 1440×970). **Content DISCRIMINATIVE:** full `Message Nora / COMPOSITION UNIQUE` hidden; `Suivi de travail Nora` visible; status copy differs (206 analyse / 207 source consultée / 208 sans détail) with native TEXT L2 (`ff/fs/f`, `parentLocal`, `frameRelative`, `pageAbsolute`). No new PNG.
+- **28/32/33/41:** shell family isomorphic (1680×970). **NATIVE_DISCRIMINATIVE** title trio + nav accent per screen in `negatives-28-32-33-41.json`; **G5** for runtime behavior not exercised here.
 - **Mobile 216/217:** boards **390×1350** Figma; **no Figma 320** inventé.
 - **ML4 218–235 / D8 frame 19 / Sources Git labels:** OUT_OF_SCOPE functional.
 - **Typography:** Inter OBSERVED; no font files distributed; some mixed segments depth-capped (non-blocking).
 - **Figma version id:** NOT AVAILABLE.
+
+## B1–B5 evidence (finalisation)
+| Block | Evidence |
+|-------|----------|
+| **B1** | 20 PNG + `indexes/png-files.sha256` — **octets inchangés** ce cycle |
+| **B2** | Rails `rail.*.json` descendants 26/34/29/47; `component-nodes-l2.json` 14 composants |
+| **B3** | `deltas-nora-206-208.json` + `negatives-28-32-33-41.json` schema **v2** native L2; `indexes/raw-files.sha256` **14** entries (`8c17aea4…721` index digest) |
+| **B4** | `l2-manifest.json` + semantic coverage PASS |
+| **B5** | `document.*` / `journal.*` raw v2 + `nora.workzone.03` v2 |
+
+## ZIP source (B1–B5)
+Path: `/Users/morris/Downloads/sfia-next-g2-source-b1b5-2026-11-07.zip`
+SHA256: `cbfe3eef29b868360140c6401cff8c32d636128e4878b5c3590747d810b454c4`
+
+## Handoff L3
+Publisher: `scripts/sfia/publish-review-handoff.sh --source .tmp-sfia-review/chatgpt-review.md --handoff-worktree sfia-review-handoff-m5a-gi-20261023`
+Canonical: `sfia-review-handoff/latest-chatgpt-review.md` @ `origin/sfia/review-handoff`
 
 ## Fichiers pack (créés/modifiés ce cycle)
 - `g2-source/manifests/raw/*.json`
