@@ -4,6 +4,20 @@
 
 Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 
+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
+
+> **Product code ref:** corrective Product commit on PR [#635](https://github.com/mcleland147/sfia-workspace/pull/635) (see manifest `lastReviewedCommit`) · **≠ CURRENT ON MAIN** until merge.
+>
+> **F03 / Framing Continuity Card:** phase `recommendation_ready` hydrates `catalogLabel` / `targetCycleTypeId` / `recommendationId` from Product CURRENT NEXT_CYCLE Recommendation when candidate/approval presentation is absent. Pilot title uses catalog label; suffix « exploratoire » only for Framing/`cyc:framing`. Unknown label → neutral title (never invent « Cadrage »).
+>
+> **F04 / NAP durable write:** `buildDurableAssistantContentForTurn` classifies on core **after** peeling **trusted terminal** cognitive disposition footers only (`CONTRADICTION CANDIDATE` / `COGNITIVE STOP` / `EVIDENCE-BACKED CONTRADICTION` + documented `Evidence:`/`Next:` continuations). Mid-answer markers, quotes, code fences, and ambiguous markers are **preserved** (fail-closed — no silent métier loss). Empty structured narrative prefers coherent narrative string (including empty) over contaminated `turn.text`. True divergence remains fail-closed dual+notice. Candidate contradiction surfaces as typed Studio notice (Pilot-intelligible), not métier jargon in body.
+>
+> **Memory B:** new turns may persist A1 compose; historical divergent rows are **not** rewritten.
+>
+> **Proof:** `orionNoraCoherenceCorr01.d0.test.ts` · `orionNoraCoherenceCorr01.footerSafety.d0.test.ts` (A01–A14) · framing/NAP suites · LIVE opt-in via `LIVE_PROVIDER_OPT_IN=1` / `ORION_COHERENCE_LIVE=1` + explicit `TEST_PROJECT_ID` / DB paths (`orionCoherenceLiveProofBoundary`) · browser UI capture **NOT PROVEN**.
+>
+> **Anti-claims:** ≠ MERGED · ≠ auto-START · ≠ HD invent · ≠ Cursor REAL · ≠ new LIVE run in FINAL-REVIEW-CORR-635.
+
 **Epistemic split (post-merge 2026-10-26) — RepositoryBinding + docs_write Product specialization:** **CURRENT ON MAIN** (`fec4e65d` / PR #618 MERGED): **RepositoryBinding RETIRED**; **docs_write Product admission RETIRED**. `projectWorkspaceKey` / `projects/<key>` routing **PRESERVED**. Sentences below that still describe Binding or docs_write Product admission as live Product behaviour are **HISTORICAL SNAPSHOTS** (true on `7db8afd7` before merge). **H4 / G-REAL / G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**.
 
 ## Overlay — CORR-02 Git target fidelity (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)

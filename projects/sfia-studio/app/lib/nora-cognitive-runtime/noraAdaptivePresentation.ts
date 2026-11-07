@@ -988,6 +988,61 @@ export function canonicalTextsEquivalent(a: string, b: string): boolean {
 export const NORA_ADAPTIVE_DIVERGENCE_NOTICE =
   "[Studio] Les versions structurée et narrative de cette réponse divergent. Les deux sont conservées ci-dessous — aucune n'est promue comme vérité Product / HumanDecision." as const;
 
+/**
+ * ORION-NORA-COHERENCE-CORR-01 — cognitive disposition footers appended to
+ * turn.text BEFORE NAP durable composition (see runNoraCognitiveTurn).
+ * They must not poison narrative↔presentation classification (false divergent).
+ * Keep observable via Studio control notices — never as ordinary métier jargon.
+ *
+ * Extraction contract (fail-closed):
+ * - Only strip a *terminal* Studio footer matching the append format.
+ * - Never consume ordinary paragraphs after a mid-answer marker.
+ * - Preserve quotes, code fences, inline mentions, and ambiguous markers.
+ */
+export const COGNITIVE_DISPOSITION_FOOTER_MARKERS = [
+  "CONTRADICTION CANDIDATE",
+  "COGNITIVE STOP",
+  "EVIDENCE-BACKED CONTRADICTION",
+] as const;
+
+const DISPOSITION_MARKER_ALT =
+  "CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION";
+
+/** Continuation lines Studio may append under a COGNITIVE STOP footer. */
+const STUDIO_DISPOSITION_CONTINUATION_ALT =
+  "Evidence:|Sources:|Next:|Suite:";
+
+/**
+ * Trusted terminal footer only — anchored at EOF.
+ * Shape: blank-line (or leading) + [MARKER] line + optional Evidence/Next lines.
+ * Does not match mid-narrative markers or arbitrary following métier lines.
+ */
+const TERMINAL_COGNITIVE_DISPOSITION_FOOTER_RE = new RegExp(
+  String.raw`(?:^|(?:\r?\n){1,2})\[(${DISPOSITION_MARKER_ALT})\][^\n]*(?:\r?\n(?:${STUDIO_DISPOSITION_CONTINUATION_ALT})[^\n]*)*\s*$`,
+  "iu",
+);
+
+export function stripCognitiveDispositionFooters(text: string): {
+  readonly core: string;
+  readonly strippedMarkers: readonly string[];
+} {
+  let remaining = text ?? "";
+  const strippedMarkers: string[] = [];
+  // Peel one or more trusted terminal footers; leave all other text intact.
+  for (;;) {
+    const match = remaining.match(TERMINAL_COGNITIVE_DISPOSITION_FOOTER_RE);
+    if (!match || match.index === undefined) break;
+    const marker = match[1]?.toUpperCase();
+    if (marker) strippedMarkers.push(marker);
+    remaining = remaining.slice(0, match.index);
+  }
+  return { core: remaining.trim(), strippedMarkers };
+}
+
+/** Pilot-intelligible Studio notice — not raw CONTRADICTION CANDIDATE jargon. */
+export const NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE =
+  "Signal de cohérence : une tension plausible a été repérée, sans preuve Product suffisante pour la trancher. Ce n'est ni une HumanDecision ni un changement de Recommendation Product." as const;
+
 /** Deterministic relation between pilot-facing narrative and structured presentation. */
 export type NarrativePresentationRelation =
   | { readonly kind: "empty" }
@@ -1316,14 +1371,20 @@ export function buildDurableAssistantContentForTurn(input: {
   readonly usedA1: boolean;
   readonly presentation: NoraAdaptivePresentation | null;
   readonly relation: NarrativePresentationRelation["kind"];
+  /** Markers stripped before classification — for Studio notice mapping. */
+  readonly strippedDispositionMarkers: readonly string[];
 } {
-  const core = (input.pilotFacingCore ?? "").trim();
+  // ORION-NORA-COHERENCE-CORR-01 — classify on clean core only.
+  const stripped = stripCognitiveDispositionFooters(input.pilotFacingCore ?? "");
+  const core = stripped.core;
   const presentation = input.presentation ?? null;
   const relation = classifyNarrativePresentationRelation({
     pilotFacingCore: core,
     presentation,
     conversationGuidanceStatement: input.conversationGuidanceStatement,
   });
+
+  const markers = stripped.strippedMarkers;
 
   if (relation.kind === "equivalent" || relation.kind === "presentation_only") {
     const composed = composeCanonicalFromPresentation(presentation!);
@@ -1332,6 +1393,7 @@ export function buildDurableAssistantContentForTurn(input: {
       usedA1: true,
       presentation,
       relation: relation.kind,
+      strippedDispositionMarkers: markers,
     };
   }
 
@@ -1347,6 +1409,7 @@ export function buildDurableAssistantContentForTurn(input: {
         usedA1: true,
         presentation: folded,
         relation: "complementary",
+        strippedDispositionMarkers: markers,
       };
     }
     // Cannot fold safely → fail-closed preserve both (no silent drop).
@@ -1359,6 +1422,7 @@ export function buildDurableAssistantContentForTurn(input: {
       usedA1: false,
       presentation: null,
       relation: "divergent",
+      strippedDispositionMarkers: markers,
     };
   }
 
@@ -1371,6 +1435,7 @@ export function buildDurableAssistantContentForTurn(input: {
       usedA1: false,
       presentation: null,
       relation: "divergent",
+      strippedDispositionMarkers: markers,
     };
   }
 
@@ -1380,6 +1445,7 @@ export function buildDurableAssistantContentForTurn(input: {
       usedA1: false,
       presentation: null,
       relation: "narrative_only",
+      strippedDispositionMarkers: markers,
     };
   }
 
@@ -1388,6 +1454,7 @@ export function buildDurableAssistantContentForTurn(input: {
     usedA1: false,
     presentation: null,
     relation: "empty",
+    strippedDispositionMarkers: markers,
   };
 }
 
@@ -1585,10 +1652,13 @@ export function resolveAdaptiveAssistantRender(input: {
   const authenticated = normalizeStudioControlNotices(
     input.studioControlNotices,
   );
-  const body = contentWithoutAuthenticatedStudioNotices(
+  const bodyRaw = contentWithoutAuthenticatedStudioNotices(
     content,
     authenticated,
   );
+  // ORION-NORA-COHERENCE-CORR-01 — disposition footers are Studio-controlled,
+  // not part of narrative↔presentation substance.
+  const { core: body } = stripCognitiveDispositionFooters(bodyRaw);
   const studioAppendix =
     authenticated.length > 0
       ? authenticated

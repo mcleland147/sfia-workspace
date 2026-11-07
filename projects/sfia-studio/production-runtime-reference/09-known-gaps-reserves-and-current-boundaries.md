@@ -5,6 +5,21 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
+
+| Élément | Statut | Limite |
+|---|---|---|
+| Framing CURRENT catalog hydration | **CANDIDATE** DET (+ historical LIVE seam) | ≠ MERGED / ≠ CURRENT ON MAIN |
+| NAP disposition footer isolation | **CANDIDATE** DET A01–A14 | terminal trusted only; mid-answer preserve; historical divergent rows preserved |
+| LIVE proof harness safety | **CANDIDATE** DET B01–B10 | opt-in + explicit targets; no reset/authority escalation; ORION-only script removed |
+| Bounded OpenAI LIVE Product seam (ORION) | **HISTORICAL OBSERVATION** (prior campaign) | ≠ re-proven in FINAL-REVIEW-CORR-635 · ≠ R-LIVE-EMIT GLOBAL PASS |
+| Authenticated browser screenshot ORION | **NOT PROVEN** | auth / Screen Recording gap |
+| Cursor REAL | **OFF** | G-REAL NOT GRANTED |
+| L3-S2 | **OPEN** | supports QA-02 / R-LIVE-EMIT trajectory; does not close |
+| R-STOP-BROWSER / R-SRV-RESTART / EP-S2-08 | **OPEN** | unchanged by this correction |
+
+Anti-claims: ≠ L3-S2 COMPLETE · ≠ runtime v3 ADOPTED · ≠ G-REAL · digest MATCH ≠ semantic exhaustiveness · ≠ new LIVE execution under this Git correction.
+
 ## Overlay — Nora UX consolidated / GI-NAP-UX-CONSOLIDATED-01 (CURRENT ON MAIN — PR #630 — 2026-10-31)
 
 | Field | Value |

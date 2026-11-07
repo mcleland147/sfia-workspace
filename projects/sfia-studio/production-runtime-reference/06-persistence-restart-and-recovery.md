@@ -2,6 +2,18 @@
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
 
+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
+
+> **NO schema change.** Memory B columns (`content` / `presentation_json` / `studio_control_json`) unchanged.
+>
+> **Write behaviour (candidate — see manifest `lastReviewedCommit`):** durable `content` built after peeling **terminal trusted** disposition footers only; ordinary narrative paragraphs are preserved when markers are mid-answer or ambiguous; when A1 admissible, prefer folded/durable presentation for `presentation_json`; contradiction candidate may append typed notice into `studio_control_json` (not raw marker in narrative body).
+>
+> **Historical preservation:** existing divergent transcript rows (e.g. ORION seq 3) remain as stored; correction applies to **new** turns. Reload rehydrates from durable fields; server process restart **NOT PROVEN** by this cycle.
+>
+> **LIVE proof DB:** opt-in harness requires **existing** Product/Nora DB files (`TEST_*` / Studio path aliases) and never enables `SFIA_V2_RUNTIME_ALLOW_RESET` — no silent historical ORION rewrite via harness defaults.
+>
+> **Anti-claims:** ≠ CURRENT ON MAIN · ≠ R-SRV-RESTART closed · ≠ transcript rewrite migration.
+
 ## Overlay — CORR-01 (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
 **CORR-01 NO SEMANTIC IMPACT** on persistence / restart / recovery. Generic continuity wording is **DETERMINISTIC AT TESTED SCOPE** only (`postExecutionProductContinuity.generic.d0.test.ts`); restart continuity remains covered by existing suites. **≠** REAL. Pre-merge NOT MERGED claim = **HISTORICAL**.
