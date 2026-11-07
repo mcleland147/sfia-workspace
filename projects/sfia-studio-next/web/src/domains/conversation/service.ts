@@ -22,6 +22,12 @@ import {
 } from "./turn-command";
 import { emitObs, newRequestId } from "@/lib/observability";
 import { StudioError } from "@/lib/http-errors";
+import {
+  applyConversationalAuthority,
+  reconstituteConversationalAuthority,
+  type ConversationalAuthorityOutcome,
+} from "@/domains/pilotage/conversation-authority";
+import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
 
 export async function listMessages(pilotId: string, preparationId: string) {
   const ctx = await getPreparationContext(pilotId, preparationId);
@@ -95,9 +101,87 @@ export type TurnResult = {
   capitalisationLimit?: string;
   documentSave?: { status?: string; documentId?: string; revisionNumber?: number; reason?: string } | null;
   idempotentReplay: boolean;
+  /**
+   * True only when a HumanDecision id was actually produced (APPLIED/ALREADY_APPLIED).
+   * Never conflated with "intent detected" or "command attempted".
+   */
   humanDecisionCreated: boolean;
+  /** Honest D5/D6 bridge outcome for this USER turn (absent when no project / no act). */
+  pilotageEffect?: {
+    attempted: boolean;
+    intentClarity: "CLEAR" | "AMBIGUOUS" | "NONE";
+    intentReason?: string;
+    operation?: string;
+    status?: string | null;
+    reasonCode?: string | null;
+    reason?: string | null;
+    commandId?: string | null;
+    decisionId?: string | null;
+    clarification?: string;
+    source: ConversationalAuthorityOutcome["source"];
+    clientCommandKey?: string;
+    effects?: Array<{ effectKind: string; targetRef: string }>;
+  } | null;
   reconciled?: boolean;
 };
+
+function pilotageEffectFromAuthority(
+  authority: ConversationalAuthorityOutcome | null,
+): TurnResult["pilotageEffect"] {
+  if (!authority) return null;
+  return {
+    attempted: authority.attempted,
+    intentClarity: authority.intentClarity,
+    intentReason: authority.intentReason,
+    operation: authority.operation,
+    status: authority.command?.status ?? null,
+    reasonCode: authority.command?.reasonCode ?? null,
+    reason: authority.command?.reason ?? authority.intentReason ?? null,
+    commandId: authority.command?.commandId ?? null,
+    decisionId: authority.decisionId,
+    clarification: authority.clarification,
+    source: authority.source,
+    clientCommandKey: authority.clientCommandKey,
+    effects: authority.command?.effects?.map((e) => ({
+      effectKind: e.effectKind,
+      targetRef: e.targetRef,
+    })),
+  };
+}
+
+async function resolvePilotageEffectForReplay(input: {
+  pilotId: string;
+  projectId: string | null | undefined;
+  clientTurnKey?: string | null;
+  userMessageId?: string | null;
+  fromJson: TurnResult["pilotageEffect"] | null | undefined;
+  humanDecisionCreated: boolean;
+}): Promise<{ pilotageEffect: TurnResult["pilotageEffect"]; humanDecisionCreated: boolean }> {
+  if (input.fromJson?.attempted && input.fromJson.status) {
+    return {
+      pilotageEffect: input.fromJson,
+      humanDecisionCreated: input.humanDecisionCreated || Boolean(input.fromJson.decisionId),
+    };
+  }
+  if (!input.projectId) {
+    return { pilotageEffect: input.fromJson ?? null, humanDecisionCreated: input.humanDecisionCreated };
+  }
+  const reconstituted = await reconstituteConversationalAuthority({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    clientTurnKey: input.clientTurnKey,
+    userMessageId: input.userMessageId,
+  });
+  if (!reconstituted) {
+    return { pilotageEffect: input.fromJson ?? null, humanDecisionCreated: input.humanDecisionCreated };
+  }
+  const effect = pilotageEffectFromAuthority(reconstituted);
+  return {
+    pilotageEffect: effect,
+    humanDecisionCreated:
+      input.humanDecisionCreated || Boolean(reconstituted.humanDecisionCreated),
+  };
+}
 
 export async function postUserMessageAndNora(
   pilotId: string,
@@ -141,18 +225,38 @@ export async function postUserMessageAndNora(
           operationId: reserved.operationId,
           requestId,
           idempotentReplay: true,
-          humanDecisionCreated: false,
+          // Preserve factual decision flag from the stored terminal payload.
+          humanDecisionCreated: Boolean(parsed.humanDecisionCreated),
           reconciled: reserved.reconciled,
         };
       } catch {
         /* fall through */
       }
     }
-    // FAILED/UNKNOWN: never fabricate COMPLETE; reconstitute durable D4 refs from DB when possible.
+    // FAILED/UNKNOWN: never fabricate COMPLETE; reconstitute durable D4 + D5/D6 from DB.
     if (reserved.status === "UNKNOWN" || reserved.status === "FAILED") {
       const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
         generationId: reserved.generationId,
         userMessageId: reserved.userMessageId,
+      });
+      let replayPilotage: TurnResult["pilotageEffect"] = null;
+      let replayDecision = false;
+      if (reserved.resultJson) {
+        try {
+          const parsed = JSON.parse(reserved.resultJson) as TurnResult;
+          replayPilotage = parsed.pilotageEffect ?? null;
+          replayDecision = Boolean(parsed.humanDecisionCreated);
+        } catch {
+          /* ignore */
+        }
+      }
+      const resolved = await resolvePilotageEffectForReplay({
+        pilotId,
+        projectId: ctx.project?.id,
+        clientTurnKey: reserved.clientTurnKey ?? clientTurnKey,
+        userMessageId: reserved.userMessageId,
+        fromJson: replayPilotage,
+        humanDecisionCreated: replayDecision,
       });
       return {
         operationId: reserved.operationId,
@@ -162,7 +266,8 @@ export async function postUserMessageAndNora(
         generationId: reserved.generationId,
         userMessageId: reserved.userMessageId,
         assistantMessageId: reserved.assistantMessageId,
-        humanDecisionCreated: false,
+        humanDecisionCreated: resolved.humanDecisionCreated,
+        pilotageEffect: resolved.pilotageEffect,
         reconciled: reserved.reconciled,
         noraMode: "replay-terminal",
         capitalisation: reconstituted.capitalisation,
@@ -179,6 +284,7 @@ export async function postUserMessageAndNora(
       userMessageId: reserved.userMessageId,
       assistantMessageId: reserved.assistantMessageId,
       humanDecisionCreated: false,
+      pilotageEffect: null,
       reconciled: reserved.reconciled,
       noraMode: reserved.status === "COMPLETE" ? "deterministic-fixture" : "replay-terminal",
     };
@@ -192,6 +298,48 @@ export async function postUserMessageAndNora(
     outcome: "PARTIAL",
     meta: { client_turn_key_fp: reserved.requestFingerprint.slice(0, 12) },
   });
+
+  /**
+   * F01/F02 — USER → D5/D6 before Nora provider call.
+   * Message is already COMPLETE; business TX is short and separate from Nora.
+   * Lost ownership ⇒ skip mutation (do not invent a late second command).
+   */
+  let authority: ConversationalAuthorityOutcome | null = null;
+  const stillOwnedBeforeAuthority = await requireTurnOwnership(
+    reserved.commandId,
+    reserved.ownerToken,
+  );
+  if (stillOwnedBeforeAuthority && ctx.project?.id) {
+    authority = await applyConversationalAuthority({
+      pilotId,
+      projectId: ctx.project.id,
+      userMessageId: reserved.userMessageId,
+      content,
+      clientTurnKey,
+    });
+    emitObs({
+      event_name: "d3.turn.conversational_authority",
+      component: "d3.conversation",
+      request_id: requestId,
+      operation_id: reserved.operationId,
+      outcome: authority.attempted
+        ? authority.command?.status === "APPLIED" || authority.command?.status === "ALREADY_APPLIED"
+          ? "SUCCESS"
+          : authority.command?.status === "UNKNOWN"
+            ? "UNKNOWN"
+            : "FAILED"
+        : "PARTIAL",
+      meta: {
+        attempted: authority.attempted,
+        intent_clarity: authority.intentClarity,
+        operation: authority.operation ?? null,
+        command_status: authority.command?.status ?? null,
+        reason_code: authority.command?.reasonCode ?? null,
+        decision_id: authority.decisionId,
+        source: authority.source,
+      },
+    });
+  }
 
   const existing = await listMessages(pilotId, preparationId);
   const contextSnippets = existing
@@ -207,8 +355,32 @@ export async function postUserMessageAndNora(
     return `DOCUMENT[${d.document.id}] «${d.document.title}» v${rev?.revisionNumber ?? "?"} status=${rev?.status ?? "∅"}`;
   });
 
+  // Rebuild after authority so Nora observes confirmed D5/D6 state (projection only).
+  const pilotageCtx = await buildNoraPilotageContext(pilotId, preparationId, content);
+  const authoritySnippets: string[] = [];
+  if (authority?.attempted && authority.command) {
+    authoritySnippets.push(
+      "### Effet métier confirmé (D5/D6 — pas une permission Nora)",
+      `status=${authority.command.status} operation=${authority.operation ?? "?"} reasonCode=${authority.command.reasonCode ?? "∅"} decisionId=${authority.decisionId ?? "∅"}`,
+    );
+    if (authority.command.effects?.length) {
+      authoritySnippets.push(
+        `effects=${authority.command.effects.map((e) => `${e.effectKind}:${e.targetRef}`).join(",")}`,
+      );
+    }
+  } else if (authority?.clarification) {
+    authoritySnippets.push(
+      "### Clarification pilotage requise",
+      authority.clarification.slice(0, 300),
+    );
+  }
+
   let reply;
   try {
+    // C02 fault boundary: after authority, before/during Nora — same recovery path.
+    if (turnRaceHooks.afterAuthorityBeforeNora) {
+      await turnRaceHooks.afterAuthorityBeforeNora();
+    }
     // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
     const leasePulse = setInterval(() => {
       void touchTurnLease(reserved.commandId, reserved.ownerToken);
@@ -218,6 +390,11 @@ export async function postUserMessageAndNora(
         userText: content,
         contextSnippets,
         knowledgeSnippets: [...knowledge.snippets, ...docSnippets],
+        pilotageSnippets: [...pilotageCtx.snippets, ...authoritySnippets],
+        // C01: same structured Level A contract for fixture and LIVE — never authority.
+        levelASignals: pilotageCtx.levelASignals,
+        // Requested level only. The adapter emits DELIVERED after a real generate.
+        ckiDelivery: pilotageCtx.ckiDelivery,
         toolScope: {
           pilotId,
           preparationId,
@@ -227,8 +404,30 @@ export async function postUserMessageAndNora(
     } finally {
       clearInterval(leasePulse);
     }
-  } catch (e) {
-    await markTurnUnknown(reserved.commandId, "PROVIDER_EXCEPTION", reserved.ownerToken);
+  } catch {
+    // C02 — Nora failure must not erase a already-committed D5/D6 effect.
+    // Persist an honest UNKNOWN turn payload that still surfaces pilotageEffect.
+    const unknownPayload: TurnResult = {
+      userMessageId: reserved.userMessageId,
+      assistantMessageId: null,
+      operationId: reserved.operationId,
+      requestId,
+      status: "UNKNOWN",
+      idempotentReplay: false,
+      humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
+      pilotageEffect: pilotageEffectFromAuthority(authority),
+      noraMode: "provider-exception",
+    };
+    try {
+      await markTurnUnknown(
+        reserved.commandId,
+        "PROVIDER_EXCEPTION",
+        reserved.ownerToken,
+        JSON.stringify(unknownPayload),
+      );
+    } catch {
+      /* ownership may already be lost — still return reconstituted truth below */
+    }
     emitObs({
       event_name: "d3.turn.unknown",
       component: "d3.conversation",
@@ -237,7 +436,19 @@ export async function postUserMessageAndNora(
       outcome: "UNKNOWN",
       error_category: "PROVIDER_EXCEPTION",
     });
-    throw e;
+    const resolved = await resolvePilotageEffectForReplay({
+      pilotId,
+      projectId: ctx.project?.id,
+      clientTurnKey,
+      userMessageId: reserved.userMessageId,
+      fromJson: unknownPayload.pilotageEffect,
+      humanDecisionCreated: unknownPayload.humanDecisionCreated,
+    });
+    return {
+      ...unknownPayload,
+      humanDecisionCreated: resolved.humanDecisionCreated,
+      pilotageEffect: resolved.pilotageEffect,
+    };
   }
 
   if (turnRaceHooks.afterGenerateBeforeEffects) {
@@ -463,7 +674,8 @@ export async function postUserMessageAndNora(
       ? (unknownCapReconstituted?.documentSave ?? null)
       : documentSave,
     idempotentReplay: false,
-    humanDecisionCreated: false,
+    humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
+    pilotageEffect: pilotageEffectFromAuthority(authority),
   };
 
   if (turnRaceHooks.beforeTerminalCommit) {

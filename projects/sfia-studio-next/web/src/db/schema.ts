@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -343,4 +344,214 @@ export const knowledgeSubjectEvents = pgTable(
   (t) => [index("knowledge_subject_events_subject_idx").on(t.subjectId)],
 );
 
-export const schemaRevision = "006_ml2_turn_owner_token";
+/** D6 — human decisions (authority). Revisions never delete the prior act. */
+export const humanDecisions = pgTable(
+  "human_decisions",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    sourceKind: text("source_kind").notNull(),
+    sourceRef: text("source_ref").notNull(),
+    kind: text("kind").notNull(),
+    objectRef: text("object_ref").notNull().default(""),
+    scope: text("scope").notNull().default("PROJECT"),
+    statement: text("statement").notNull().default(""),
+    state: text("state").notNull(), // APPLICABLE | REVISED | REVOKED | SUPERSEDED
+    effectConditions: text("effect_conditions"),
+    supersedesDecisionId: text("supersedes_decision_id"),
+    revokesDecisionId: text("revokes_decision_id"),
+    liftsRestrictionId: text("lifts_restriction_id"),
+    effectiveAt: timestamp("effective_at", { withTimezone: true }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("human_decisions_project_idx").on(t.projectId)],
+);
+
+/** D5 — trajectory revisions. PROPOSED is not authority; RETAINED points at a D6 act. */
+export const trajectoryRevisions = pgTable(
+  "trajectory_revisions",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    revisionNumber: integer("revision_number").notNull(),
+    status: text("status").notNull(), // PROPOSED | RETAINED | SUPERSEDED
+    orientation: text("orientation").notNull(),
+    sourceKind: text("source_kind").notNull(),
+    sourceRef: text("source_ref").notNull().default(""),
+    decisionId: text("decision_id").references(() => humanDecisions.id),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("trajectory_revisions_project_rev_uidx").on(t.projectId, t.revisionNumber),
+    index("trajectory_revisions_project_idx").on(t.projectId),
+  ],
+);
+
+/** D5 — lockable project revision. Missing row means revision 0 (no cycle created with the project). */
+export const projectPilotageState = pgTable("project_pilotage_state", {
+  projectId: text("project_id")
+    .primaryKey()
+    .references(() => projects.id),
+  revision: integer("revision").notNull().default(0),
+  currentTrajectoryRevisionId: text("current_trajectory_revision_id").references(
+    () => trajectoryRevisions.id,
+  ),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** D5 — cycles. At most one ACTIVE per project (partial unique index). */
+export const projectCycles = pgTable(
+  "project_cycles",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    cycleType: text("cycle_type").notNull(),
+    objective: text("objective").notNull(),
+    status: text("status").notNull(), // ACTIVE | CLOSED
+    revision: integer("revision").notNull().default(1),
+    openedAt: timestamp("opened_at", { withTimezone: true }).notNull().defaultNow(),
+    closedAt: timestamp("closed_at", { withTimezone: true }),
+    openDecisionId: text("open_decision_id").references(() => humanDecisions.id),
+    closeDecisionId: text("close_decision_id").references(() => humanDecisions.id),
+    ckiId: text("cki_id"),
+    ckiPinnedVersion: text("cki_pinned_version"),
+    ckiContentDigest: text("cki_content_digest"),
+    ckiManifestRef: text("cki_manifest_ref"),
+    ckiPinOrigin: text("cki_pin_origin"),
+    balanceNote: text("balance_note"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("project_cycles_one_active_uidx").on(t.projectId).where(sql`status = 'ACTIVE'`),
+    index("project_cycles_project_idx").on(t.projectId),
+  ],
+);
+
+/** D5 — method applications. One current row per (project, scope). */
+export const methodApplications = pgTable(
+  "method_applications",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    methodRef: text("method_ref").notNull(),
+    methodVersion: text("method_version").notNull(),
+    scope: text("scope").notNull().default("PROJECT"),
+    decisionId: text("decision_id")
+      .notNull()
+      .references(() => humanDecisions.id),
+    effectiveFrom: timestamp("effective_from", { withTimezone: true }).notNull().defaultNow(),
+    effectiveUntil: timestamp("effective_until", { withTimezone: true }),
+    closeReason: text("close_reason"),
+    isCurrent: boolean("is_current").notNull().default(true),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("method_applications_current_uidx")
+      .on(t.projectId, t.scope)
+      .where(sql`is_current = true`),
+    index("method_applications_project_idx").on(t.projectId),
+  ],
+);
+
+/** D6 — restrictions. Lifting is a distinct act; rows are not deleted. */
+export const governanceRestrictions = pgTable(
+  "governance_restrictions",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    targetKind: text("target_kind").notNull(),
+    targetRef: text("target_ref").notNull().default("*"),
+    effect: text("effect").notNull().default("BLOCK"),
+    originDecisionId: text("origin_decision_id")
+      .notNull()
+      .references(() => humanDecisions.id),
+    liftDecisionId: text("lift_decision_id").references(() => humanDecisions.id),
+    status: text("status").notNull(), // ACTIVE | LIFTED
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    liftedAt: timestamp("lifted_at", { withTimezone: true }),
+  },
+  (t) => [index("governance_restrictions_project_idx").on(t.projectId, t.status)],
+);
+
+/**
+ * D5/D6 — business command.
+ * Client key and human intent are unique. No PARTIAL status: internal CLOSE+OPEN share one commit.
+ */
+export const businessCommands = pgTable(
+  "business_commands",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    actorPilotId: text("actor_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    clientCommandKey: text("client_command_key").notNull(),
+    fingerprint: text("fingerprint").notNull(),
+    sourceKind: text("source_kind").notNull(),
+    sourceRef: text("source_ref").notNull(),
+    sourceActionKey: text("source_action_key").notNull(),
+    operation: text("operation").notNull(),
+    expectedRevision: integer("expected_revision").notNull(),
+    stateRevision: integer("state_revision"),
+    status: text("status").notNull(), // APPLIED | REJECTED
+    resultJson: text("result_json").notNull().default("{}"),
+    decisionId: text("decision_id").references(() => humanDecisions.id),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("business_commands_client_key_uidx").on(
+      t.projectId,
+      t.actorPilotId,
+      t.clientCommandKey,
+    ),
+    uniqueIndex("business_commands_human_intent_uidx").on(
+      t.projectId,
+      t.sourceKind,
+      t.sourceRef,
+      t.sourceActionKey,
+    ),
+    index("business_commands_project_idx").on(t.projectId),
+  ],
+);
+
+/** Observable effects of one committed command. A transition stores CLOSE and OPEN together. */
+export const businessCommandEffects = pgTable(
+  "business_command_effects",
+  {
+    id: text("id").primaryKey(),
+    commandId: text("command_id")
+      .notNull()
+      .references(() => businessCommands.id),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    effectKind: text("effect_kind").notNull(),
+    targetRef: text("target_ref").notNull(),
+    outcome: text("outcome").notNull(),
+    ordinal: integer("ordinal").notNull(),
+    detailJson: text("detail_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("business_command_effects_command_ordinal_uidx").on(t.commandId, t.ordinal),
+    index("business_command_effects_command_idx").on(t.commandId),
+  ],
+);
+
+export const schemaRevision = "007_ml3_pilotage_decisions";

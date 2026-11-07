@@ -1,11 +1,12 @@
 # SFIA Studio Next — R5 / ML3 « Piloter et décider »
 ## Spécification technique v0.4 — candidate publiée sur branche documentaire
 
-**Statut :** `DOCUMENTED — D0 / CANDIDATE — NOT VALIDATED SPEC — NOT IMPLEMENTED`.
+**Statut historique D0 (en-tête v0.4) :** métadonnées de conception pré-delivery — ne décrivent plus l'état du candidat runtime.
+**Statut candidat courant (2026-11-06) :** `IMPLEMENTED — CANDIDATE` sur `sfia/next-pilotage-decisions-delivery` — **NOT RECETTE — NOT MERGED — NOT ADOPTED — NO RELEASE**.
 **Date :** 2026-11-06 (Europe/Paris).
-**Dépôt :** `mcleland147/sfia-workspace` ; base `main@ab18316b9c1e849ff557f4ba561c638e9961bb89` ; branche documentaire `docs/next-pilotage-decisions-cadrage-20261105` (HEAD pré-publication `d3e61571f17db0bea03ac3c879a504e6fa99a2ef` ; HEAD publié à consulter dans Git).
-**Nature :** révision D0 consolidant les v0.2 Git / v0.3 locale et traitant R01–R04 ; **publication Git candidate autorisée par Morris le 2026-11-06**, sans merge sur `main`.
-**État local/runtime :** `NON OBSERVÉ` ; D5/D6 `N/A — NON IMPLÉMENTÉ`.
+**Dépôt :** `mcleland147/sfia-workspace` ; base `main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` ; branche candidat `sfia/next-pilotage-decisions-delivery`.
+**Nature :** as-built D5/D6 + B13 + correctifs CR/B13 ; publication Git candidat autorisée (GO Morris consolidation) **sans** merge `main`, sans RECETTE, sans STABLE.
+**État runtime candidat :** D5/D6 **IMPLEMENTED** (schéma `007`) sous lane DEV ; preuves FAKE/PG selon matrice B01–B18 ; Nora LIVE NOT EXECUTED.
 **Sources propriétaires :** `governance/SEF.md`, `governance/roadmap.md`, `governance/decisions/2026-11-04-r4-architecture-exit.md`, R2 `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md`, R2 `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` et compléments, R3 `ux-ui/audit-couverture-ux-r3.md` §7, R4 `architecture-technique/cadrage-r4.md` §5.5, corpus `cki/` v0.2.0, R5 `construction/reference-delivery-r5.md`, code ML1/ML2 sur `main`.
 **Annexes sur cette branche :** [Matrice individuelle R2–R4](tracabilite-r2-r3-r4.md) (136 liens et R01–R04) et [Revue de conception](revue-conception.md) (revue/gates).
 
@@ -228,7 +229,7 @@ Les quatre points ont une **solution technique explicitée et réfutable** ; ils
 
 **R3 lot B :** état sans cycle #22 ; qualification proposée #23 ; cycle actif #24 ; méthode absente #28 ; méthode proposée #29 ; décision applicable #31 ; suspension #33/#34 ; CKI indisponible #39 ; Journal–Décisions #40 ; GO ambigu #41 ; vrai partiel #42 ; contradiction #43 ; transition combinée #47 ; mise à jour CKI candidate #48 ; ouverture en attente #52 ; clôture en attente #53 ; UNKNOWN #54 ; reprise #55 ; rejeu #56 ; guidance #58 ; relations #59 ; nouvelle méthode #60. Frames identifiées dans l'audit R3 Git, **Figma native et browser ML3 NON OBSERVÉS**. La maquette #42 doit être conditionnelle à un effet séparé réel et ne constitue pas un état de succès partiel dans notre transition interne atomique.
 
-**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. Le code ML2 `web/src/domains/conversation/nora-adapter.ts` ne charge pas D5/CKI aujourd'hui ; `service.ts` retourne `humanDecisionCreated:false`. Il faut intégrer D5/D6 **sans** déduire un GO d'une réponse de modèle ni modifier l'autorité de D3.
+**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. **F01/F02 (2026-11-06, local worktree) :** après `reserveTurnCommand` (message USER `COMPLETE`), `applyConversationalAuthority` appelle `executePilotageCommand` / `runBusinessCommand` sous `sourceKind=USER_MESSAGE` **avant** l'appel fournisseur Nora ; `humanDecisionCreated` et `pilotageEffect` sont factuels (jamais forcés à `false`). Aucune autorité depuis la sortie Nora ni D4.
 
 **Observabilité :** relier operationId, commandId, projet/acteur de manière minimisée, source humaine, décision D6, effet D5, version état et résolution CKI. Les logs ne constituent jamais le registre métier ni une preuve de livraison D8. Corrélation connue vs inconnue explicite. Aucun secret, texte de décision sensible ou chaîne de pensée dans les métriques publiques.
 
@@ -258,3 +259,218 @@ La matrice annexe porte **une ligne par RG et PF D5/D6** : `40 RG-TRJ + 37 RG-GO
 **Gates :** (1) Morris examine et arbitre ces réserves de conception puis valide la **spécification globale** ; (2) GO Cursor D3/SFIA v2.6 indépendant et template Git consulté ; (3) développement/PG/UI/tests/docs en un macro-lot ; (4) revue sur pack complet et preuve ; (5) RECETTE/PR/merge/promotion/R6/adoption, chacun sous gate approprié. Aucune action Git de publication comprise dans ce document local.
 
 **Verdict :** `R5 / ML3 — TECHNICAL SPEC v0.4 D0 CANDIDATE — R01–R04 DESIGN PROPOSED/CLOSED FOR REVIEW — MORRIS CONTENT VALIDATION PENDING — NO CURSOR GO — NO IMPLEMENTATION — NO TEST — GIT DOCUMENTARY BRANCH COMMITTED — NO MAIN MERGE`.
+---
+
+## 12. As-built delivery ML3 (2026-11-06) — factual implementation note
+
+**Statut runtime :** `IMPLEMENTED — CANDIDATE` — publication branche projet autorisée ; **NOT RECETTE — NOT MERGED — NOT ADOPTED — NO RELEASE**.
+**Branche :** `sfia/next-pilotage-decisions-delivery` @ base `origin/main@7f1f41c`.
+**Schéma :** `007_ml3_pilotage_decisions` additive after `006`.
+**Version produit :** `NO RELEASE` (package technique `0.0.0-dev` ≠ STABLE).
+
+### Responsabilités livrées
+
+| Domaine | Module | Rôle |
+|---|---|---|
+| D6 | `web/src/domains/decisions/` | Décisions, restrictions, journal |
+| D5 | `web/src/domains/pilotage/` | Trajectoire, cycles, méthode, commandes, CKI resolve |
+| D3 raccord | `nora-adapter` + `nora-context` | Projection + guidance CKI bornée ; `DELIVERED` seulement si octets joints |
+| API | `/api/projects/[id]/pilotage`, `/commands`, `/decisions` | Auth session + idempotence |
+| UX | `PilotagePanel` + onglet projet | #22/#24/#28/#40 honnêtes ; pas de #42 positif |
+
+### Invariants runtime
+
+- Verrou `projects` `FOR UPDATE` + révision `project_pilotage_state`.
+- Un seul cycle `ACTIVE` (index partiel).
+- Pas de `PARTIAL` interne ; transition CLOSE+OPEN atomique.
+- CKI : ASSOCIATED / RESOLVED / DELIVERED distincts ; pas de fallback CKC historique.
+- Méthode ABSENTE normale ; CHOOSE/REPLACE/WITHDRAW/REVOKE_BASE sans restauration implicite.
+
+### Erreurs
+
+`APPLIED` · `ALREADY_APPLIED` · `REJECTED` · `CONFLICT` · `UNKNOWN` — HTTP 200/400/409/503 selon `pilotageCommandHttpStatus`.
+
+Les en-têtes historiques « NOT VALIDATED SPEC / NOT IMPLEMENTED » du document v0.4 restent des métadonnées pré-delivery ; ce §12 constate l'implémentation locale sans modifier les contrats R01–R04 validés en contenu Morris via #660.
+
+### Correctif ML3 (2026-11-06, local, non poussé)
+
+Idempotence UI par `actInstanceId` stable (retry = même clé, nouvel acte = nouvel id) et réconciliation `GET .../commands/by-key/:clientCommandKey`. CKI `RESOLVED` seulement si le digest du fichier égale l'entrée `cki/manifest.v0.2.0.json` (pas de migration silencieuse). Restriction `CYCLE_MUTATION` / `PILOTAGE_EFFECT` : `*` global, sinon cible (cycle, type ou méthode). GO naturel `EXPLICIT_INTERACTION` sans `operation`. `DELIVERED` seulement si le contenu CKI est joint et qu'un generate fixture/live a réellement tourné. Schéma inchangé (`007`).
+
+### Ajustement autorité CR-01..CR-04 (2026-11-06, local, non poussé)
+
+- **CR-01** — `TRANSITION_CYCLE` : évaluation D6 sur le cycle ACTIVE réel (A) **et** le `toCycleType` (B). Restriction sur A ou B → rejet unique, A reste ACTIVE, aucun B créé. Option A CLOSE+OPEN inchangée.
+- **CR-02** — `REVISE_DECISION` : autorisée pour `RECORD_DECISION` (documentaire, sans effet D5). Refusée (`USE_TYPED_OPERATION`) pour les kinds fondateurs D5 (cycle/méthode/trajectoire/restriction) afin de ne pas orpheliner `method_applications.decisionId` ni les pins de cycle. Remplacement/révocation via opérations typées.
+- **CR-03** — suppression du booléen project-global `statementA !== statementB` bloquant tous les effets D5 dépendants. Controles déterministes conservés (restrictions, état cycle/méthode, fondation). Conflit matériel D6 libre-texte : **B13 PARTIAL / NEEDS MORRIS ARBITRATION**.
+- **CR-04** — Review Pack FULL avec diffs/contenu exploitables et logs bruts (pas de placeholders).
+
+### B13 v0.1 — contradictions assistées par Nora (2026-11-06)
+
+**Statut contenu :** `VALIDATED IN CONTENT BY MORRIS` — 2026-11-06.
+Distinct de : publication Git normative · implémentation · preuve LIVE · ADOPTED.
+
+**Deux niveaux (contrat) :**
+
+| Niveau | Nature | Qui | Effet |
+| --- | --- | --- | --- |
+| A — Contradiction potentielle | Suspicion cognitive | Nora (D3) | Explique, clarifie, propose ; **aucune** HumanDecision, aucune interdiction D6 |
+| B — Conflit matériel déterminant | Contrôle typé au point d'effet | D6→D5 | Refuse seulement l'effet réellement concerné (restriction, état cycle/méthode, fondation, source) |
+
+**As-built local :**
+
+- `domains/decisions/divergence-assist.ts` — détection Niveau A bornée (même kind+objectRef+scope, statements distincts) ; `authorityClaim=NONE`.
+- `nora-context` — joint décisions applicables bornées + snippets Niveau A selon énoncé ; jamais d'appel IA en transaction PG.
+- `nora-adapter` fixture — clarification Niveau A déterministe ; consignes système B13 ; **LIVE NOT EXECUTED**.
+- D6/D5 — pas de restauration de `hasExactContradiction` global ; Option A inchangée ; pas de migration 008.
+- UX PilotagePanel — légende « suspicion ≠ interdiction » ; marqueur `authority-block-established` pour RESTRICTION/CONFLICT.
+
+**Limite honnête :** conflit matériel libre-texte non typé reste **NOT PROVEN** machine-side (clarification humaine + opérations typées). B13-03 prouvé pour conflits typés (restrictions / états).
+
+### B13 C01–C03 — corrective continuation (2026-11-06, local, non poussé)
+
+Après Critical Review B13 non acceptée. Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS).
+
+| Correctif | As-built |
+| --- | --- |
+| **C01** | `findMessageDecisionConfrontations(userText, applicableBriefs)` : rapproche un **message USER courant** d'une décision D6 **APPLICABLE** existante (kind/objectRef/portée bornés) **sans** deuxième décision persistée. Signaux structurés `LevelASignal` (`authorityClaim=NONE`, framing `POSSIBLE_CHANGE` / clarification). Chaîne : `conversation/service` → `buildPilotageNoraContext` → `levelASignals` → `nora-adapter` (fixture et LIVE partagent le même contrat d'entrée). Heuristique ≠ oracle métier D6. |
+| **C02** | `qualifyCommandOutcome({status, reasonCode})` : RESTRICTION→`authority-block-established` ; CONFLICT+STALE/HUMAN_INTENT/FINGERPRINT→`outcome-technical-*` ; CONFLICT+ACTIVE_CYCLE→`outcome-d5-state` ; UNKNOWN→réconciliation. Plus d'inférence d'autorité depuis la seule chaîne « CONFLICT ». |
+| **C03** | Preuves unit (C01/C02) + PG (contexte Nora sans 2e décision ; formulations compatibles) + Playwright FAKE (RESTRICTION vs HUMAN_INTENT contrôlé) + Review Pack FULL. |
+
+**Non modifié :** Option A CLOSE+OPEN ; migrations 007 ; moteur libre-texte universel (hors scope) ; autorité exclusive Pilote ; isolation projet.
+
+### B13 R1–R3 — correctif final après Critical Review (2026-11-06, local, non poussé)
+
+Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle politique d'autorité ni migration.
+
+| Correctif | As-built |
+| --- | --- |
+| **R1** | `PilotagePanel.runCommand` remet `lastOutcome` à `null` au démarrage d'une tentative. `resolveUnknown` / catch réseau positionnent `lastOutcome={status:"UNKNOWN"}`. Un motif RESTRICTION/CONFLICT antérieur ne reste plus affiché sous un statut UNKNOWN ou APPLIED suivant. PendingRecord / clés idempotentes inchangés. |
+| **R2** | `frameConfrontation` : polarité affirmée/négative des modalités (`n'est plus` / `n'est pas` / `pas` / `not`) → `POSSIBLE_CHANGE` ; décalage de portée globale↔locale → `AMBIGUOUS` ; synonymes affirmés (obligatoire↔requis) → `COMPATIBLE_RESTATEMENT` possible. Lexical overlap seul ne force plus une compatibilité trompeuse. Toujours `authorityClaim=NONE`. |
+| **R3** | Test PG `R3: postUserMessageAndNora integrates…` : une décision APPLICABLE + `postUserMessageAndNora` (fixture DEV) → messages USER/assistant persistés, relecture fil, `humanDecisionCreated=false`, journal inchangé, pas de mutation D5, replay idempotent, isolation inter-projets. |
+
+**Preuves :** unit R1/R2 ; PG R3 + suite ML3 ; Playwright R1 (UNKNOWN/APPLIED sans motif périmé) + C02 ; eslint chemins exacts ; tsc/build. **Limite :** libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; pixel Figma NOT VERIFIED.
+
+### B13 R2–R3 — derniers ajustements Critical Review (2026-11-06, local, non poussé)
+
+| Correctif | As-built |
+| --- | --- |
+| **R2** | `normalizeText` unifie apostrophes typographiques. `modalityPolarity` reconnaît `n'est jamais` / `n'est aucunement` / `ne doit|peut pas (être)` en plus de `plus`/`pas`. Ces négations ne produisent plus `COMPATIBLE_RESTATEMENT` par synonymes ou overlap. |
+| **R3** | Isolation discriminante : décision B (`github-connexion` + marqueur unique) **persistée et APPLICABLE avant** `postUserMessageAndNora` sur A. Contexte B contient le marqueur ; contexte/réponse A ne le contiennent pas. USER text pertinent pour le même objectRef. Journal B inchangé ; replay idempotent. |
+
+**Limites documentées :** famille de négations FR bornée (pas un NLP universel) ; Niveau B libre-texte NOT PROVEN ; Nora LIVE / Figma NOT EXECUTED / NOT VERIFIED.
+
+### F01/F02 — conversation → autorité D5/D6 (2026-11-06, local, **pas de commit projet**)
+
+Candidat distant de référence inchangé : `8bf8b5ce`. Intégration locale sur worktree DEV.
+
+| Élément | As-built |
+| --- | --- |
+| **Séquencement** | `reserveTurnCommand` (USER durable COMPLETE) → ownership check → `applyConversationalAuthority` (TX métier courte) → `buildNoraPilotageContext` → `generateNoraReply` → `commitTurnTerminal`. Jamais de TX PG longue pendant Nora. |
+| **F01 GO** | Intention CLEAR (`ouvre le cycle…`, etc.) → `executePilotageCommand` avec `sourceRef=userMessageId`, `clientCommandKey=conv-auth:{clientTurnKey}`, `actInstanceId=userMessageId`. Ambigu (« OK ») / soft / source assistant → aucun effet. |
+| **F02 RECORD** | `Je décide que…` / `Décision :…` → `RECORD_DECISION` documentaire avec `objectRef` dérivé. Questions / préférences exploratoires → clarification, pas de commande. |
+| **F02 REVISE** | `Finalement…` + confrontation Niveau A `POSSIBLE_CHANGE` sur **une** cible `RECORD_DECISION` APPLICABLE → `REVISE_DECISION`. Fondations D5 → clarification (opération typée). Multi-cibles → clarification. Journal UX : geste `Réviser` (EXPLICIT_INTERACTION) en complément. |
+| **API vérité** | `pilotageEffect.{attempted,intentClarity,status,reasonCode,decisionId,clarification,source}` ; `humanDecisionCreated` seulement si décision id confirmée APPLIED/ALREADY_APPLIED. Replay conserve le payload. |
+| **Idempotence** | Tour D3 (`clientTurnKey`) et commande métier (`conv-auth:…`) corrélés sans second moteur. UNKNOWN métier → réconciliation existante avant rejeu. |
+| **Couverture** | IMPLEMENTED local + BEHAVIOR PROVEN (unit intent, PG F01/F02, Playwright fil) ; ADOPTED / RECETTE / LIVE / STABLE = NOT CLAIMED. |
+| **Limites** | Qualificateur FR borné (pas NLP universel) ; pas de migration 008 ; pas de publication projet sans GO distinct. |
+
+### C01/C02/C03 — autorité / reprise / continuité (2026-11-06, local, **pas de commit projet**)
+
+Correctif après Critical Review F01/F02 NOT ACCEPTED. Candidat distant `8bf8b5ce` inchangé.
+
+| Correctif | As-built |
+| --- | --- |
+| **C01** | `isExploratoryActLanguage` ; « Finalement… » avec hedges (`je pense`, `pourrait`, `et si`, Nora) → AMBIGUOUS, aucune mutation. Assertive « Finalement, X devient Y » + cible unique RECORD → REVISE possible. « Je révise la décision… » performatif explicite. Level A ≠ autorité. |
+| **C02** | Effet D5/D6 avant Nora ; `markTurnUnknown(..., resultJson)` conserve `pilotageEffect` ; `reconstituteConversationalAuthority` via `conv-auth:{clientTurnKey}` / `USER_MESSAGE` sourceRef ; replay UNKNOWN reconstitue depuis `business_commands`. Clé client stable (ref + sessionStorage pending, pas de secret). Tour Nora et commande métier restent distincts. |
+| **C03** | Fil : résumé durable décisions + bouton réconciliation pending après reload. Journal : 8 plus récentes par défaut + expand historique complet (pas `slice(0,8)` des plus anciennes). |
+| **Preuves** | unit C01 ; PG C01/C02 fault/C03>8 ; Playwright F01/F02/C03. LIVE/RECETTE/STABLE NOT CLAIMED. |
+
+### CR-01 / CR-02 — consolidation Critical Review (2026-11-06, local, **pas de commit projet**)
+
+| Élément | As-built |
+|---|---|
+| **CR-01** | `findAuthorityReviseCandidates` / `selectAllApplicableBriefs` scannent **toutes** les APPLICABLE du projet (pas `MAX_APPLICABLE_FOR_CONTEXT=12`). La fenêtre cognitive reste pour Nora uniquement. 0 candidat → clarification ; 1 → REVISE documentaire si acte clair ; plusieurs → clarification (portées distinctes signalées). Pas de newest-wins / truncation. Level A framing filtre la pertinence, n'autorise jamais. |
+| **CR-02** | `shouldClearThreadPending` : Nora COMPLETE **ne** clôt **pas** un effet métier UNKNOWN. Garde exclusive `mayStartNewThreadAct` : une saisie distincte n'écrase pas un pending non résolu. 404 by-key → reprise **même** `clientTurnKey`, pas de nouvelle clé. sessionStorage = aide locale, vérité = `business_commands`. |
+| **Preuves** | unit CR-01 fenêtre 12 vs autorité ; unit pending lifecycle ; PG 15+ doubles GitHub (aucune REVISE) ; PG unique REVISE ; PG isolation interprojets ; PG concurrence même clé ; Playwright ACK perdu → reload → reconcile sans double OPEN. LIVE/RECETTE/STABLE NOT CLAIMED. |
+
+### R-UX-01 — continuité cognitive pendant tentative métier non résolue
+
+| Champ | Qualification |
+|---|---|
+| **ID** | R-UX-01 |
+| **Statut** | **NON CONFORME** — KNOWN FUNCTIONAL GAP |
+| **Arbitrage Morris** | CARRIED RESERVE — ACCEPTÉE CONDITIONNELLEMENT POUR PRÉPARATION / ENTRÉE RECETTE (2026-11-06). **Pas** ACCEPTED FUNCTIONALLY. |
+| **Comportement** | `mayStartNewThreadAct` refuse un nouvel acte distinct tant qu'un pending fil n'est pas résolu/réconcilié. |
+| **Impact** | Un travail conversationnel indépendant peut être temporairement bloqué pendant une tentative métier indéterminée. |
+| **Non-impact démontré** | Ne provoque pas d'effet D5/D6 injustifié, de double effet, de perte de clé, ni de fuite interprojets (garde exclusive + même clé). |
+| **Condition de sortie** | Permettre la poursuite cognitive indépendante des effets indéterminés sans perdre tentative, clé ni réconciliation. |
+| **Autres réserves** | Cookie DEV/RECETTE (ENV-01) ; libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; Figma pixel NOT VERIFIED. |
+
+## As-built — correctifs RCT-02 (conversation → autorité)
+
+**Date :** 2026-11-06. **Branche locale :** `sfia/next-ml3-rct02-correctifs`. **Sans migration DB.**
+
+Le pont existant `USER_MESSAGE` → `qualifyPilotageIntent` → `applyConversationalAuthority` → `executePilotageCommand` est conservé. Les corrections portent sur :
+
+1. **Qualification** des actes performatifs dans un message développé (ouverture, clôture, révision, levée), sans exécuter questions/explorations/citations.
+2. **Délimitation** de l'énoncé durable (objectif de cycle sans ponctuation seule ; HumanDecision sans consignes « Nora, aide-moi… »).
+3. **Résolution** d'une restriction `ACTIVE` unique pour `LIFT_RESTRICTION` conversationnel.
+4. **Restitution** : `restrictions_actives=aucune` explicite ; CKI comme guidance cognitive interne non citée spontanément.
+
+Les parcours cockpit explicites restent le chemin structuré (`operation` fournie). Aucun second moteur D5/D6. Les anomalies historiques de données RECETTE ne sont pas migrées.
+
+### Critical Review ML3/RCT-02 — reprise C01/C05/C06 (2026-11-06, local)
+
+Après **NOT ACCEPTED** sur handoff `0a057278`. Périmètre borné aux trois anomalies de qualification ; moteur `executePilotageCommand` + source `USER_MESSAGE` + idempotence inchangés.
+
+| ID | Défaut observé | Correction as-built |
+|----|----------------|---------------------|
+| **C05** | `REVISE_DECISION` absorbait « . » (désignation/énoncé sans deux-points) | `extractReviseStatement` : coupure désignation ↔ nouvel arbitrage (`.` / `:` / tiret) ; cible via `findAuthorityReviseCandidates` + overlap d'énoncé si `objectRef` faible |
+| **C06** | « Ne lève pas… » / « Je ne souhaite pas lever… » → `LIFT_RESTRICTION` | `isNegatedOrNonPerformativeLift` ; résolution kind **et** `restrictionTargetRefHint` (cible contradictoire → clarification, zéro mutation) |
+| **C01** | Citation / specimen « Voici… : Nora, ouvre… » / « Ne fais pas ceci : … » → `OPEN_CYCLE` | `isNonPerformativeOpenFraming` (méta-framing + prohibition d'ouverture) sans casser T01 développé |
+| **C04 (non-régression)** | `Nora,` non coupé (`\b` après virgule) | `NORA_DIALOGUE_SPLIT` sans `\b` terminal après `Nora,` |
+
+Preuves : unit `ml3-rct02-intent` (T05 représentatif, négations, citations) + PG `RCT-02 Critical Review conversational chain` (non-effet + effets positifs en base). **Pas** de push projet / RECETTE.
+
+### Critical Re-Review ML3/RCT-02 — faux GO C06/C08 (2026-11-06, local)
+
+Après **NOT ACCEPTED** sur handoff `4b168905`. Qualification linguistique unifiée (pas d'exceptions textuelles isolées) :
+
+| Helper | Rôle |
+|--------|------|
+| `isSpecimenOrHistoricalFraming` | citation / specimen / « un ancien message disait : … » / « ne fais pas ceci : … » |
+| `refusesOrWithholdsAct(act)` | refus, non-autorisation, négation par classe d'acte (`open`/`close`/`lift`/`record`/`revise`) |
+| `isNonPerformativeOpenFraming` / `CloseFraming` / `isNegatedOrNonPerformativeLift` | compose les deux pour OPEN / CLOSE / LIFT |
+| RECORD / REVISE | mêmes gates specimen + refus avant CLEAR |
+
+Oracles négatifs supplémentaires : « Je refuse de lever… », « je ne t'autorise pas à lever… », « Ne fais pas ceci : Nora, clôture… », « Un ancien message disait : Nora, clôture… ». Positifs T01/T05 représentatif/T10/T13 et cockpits préservés. T05 = **formulation représentative** (transcript original intégral non établi).
+
+### LIVE remediation ML3/RCT-02 — C04/C05/C06 (2026-11-07, local)
+
+Après restitution LIVE `sfia-next-rct02-live-gaps-d646d42a.md` sur candidat RECETTE `d646d42a`. Périmètre borné C04/C05/C06 ; C01/C02/C07/C08 et faux GO préservés ; historique D6 RECETTE non réécrit.
+
+| ID | Cause confirmée (repro messages exacts) | Correction as-built |
+|----|----------------------------------------|---------------------|
+| **C04** | `deriveDecisionObjectRef` matchait la réserve « besoin utilisateur est… » ; énoncé préfixé par `que,` | `extractDecisionCore` retire `que,` ; `deriveDecisionObjectRef` dérive l'objet depuis l'arbitrage principal (priorité / examinerons), jamais la réserve adversative |
+| **C05** | Unicité évaluée sur tous les kinds APPLICABLE : `OPEN_CYCLE` fondateur + `RECORD` → 2 candidates → clarification | `resolveReviseTarget` : éligibilité `RECORD_DECISION` **avant** unicité ; D5 fondateur lexical ne bloque plus une cible documentaire unique ; refus typé si seule une fondation matche |
+| **C06** | `alsoClose` via `/\bclôtur/` sans couvrir « je ne souhaite ni clôturer… » → AMBIGUOUS | `assertsAffirmativeCloseAct` + `refusesOrWithholdsAct('close'/'open')` étendus ; LIFT+CLOSE seulement si CLOSE est un second acte affirmatif |
+
+Chaîne inchangée : qualification → délimitation → résolution éligible → D6 `executePilotageCommand` → projection. Preuves : unit messages LIVE exacts ; PG `LIVE C04/C05/C06` (OPEN + RECORD propre + REVISE malgré OPEN + LIFT malgré exclusion CLOSE/OPEN). **Pas** de push projet / redéploiement RECETTE sous ce mandat.
+
+### LIVE remediation rework — C01 / C05 cibles (2026-11-07, local)
+
+| ID | Risque | Correction as-built |
+|----|--------|---------------------|
+| **C01** | « ni en ouvrir un autre » annulait un OPEN affirmatif via `refusesOrWithholdsAct('open')` | négation d'open ignorée lorsqu'un OPEN affirmatif (`ouvre le cycle` / `je décide de commencer`) est déjà présent |
+| **C05** | « je révise la décision d'ouverture… » + RECORD coordination → REVISE opportuniste du RECORD | `designatesFoundingReviseTarget` : refus typé D5 **avant** l'éligibilité documentaire ; historique `objectRef` pollué toujours révisable si la cible documentaire est désignée |
+
+Preuves : unit C01 rework ; PG C01 ni-clôturer/ouvrir ; PG C05 founding zéro mutation ; PG C05 historique pollué + message LIVE. Positifs C04/C05/C06 LIVE préservés.
+
+### LIVE remediation — C01 false-GO retract (2026-11-07, local)
+
+| Cas | Comportement as-built |
+|-----|------------------------|
+| « ouvre… Finalement, ne l'ouvre pas : je retire mon GO » | contradiction du **même** acte → AMBIGUOUS / zéro mutation |
+| « ouvre… Mais non, n'ouvre pas ce cycle » | idem |
+| « ouvre… Je ne souhaite ni clôturer… ni en ouvrir un autre » | exclusion d'une **autre** ouverture → OPEN CADRAGE conservé |
+
+`refusesOrWithholdsAct('open')` ne neutralise plus toute négation dès qu'un OPEN affirmatif apparaît : retrait/contradiction du GO demandé ≠ exclusion d'une ouverture supplémentaire.

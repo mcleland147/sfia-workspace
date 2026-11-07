@@ -190,3 +190,146 @@
 | R04 — combiné atomique / partiel séparé | RG-TRJ-014..016 ; RG-GOV-029 ; PF-TRJ-16/PF-GOV-05 ; B07 | Si OPEN(B) échoue avant commit, A reste ACTIVE ; après commit A CLOSED+B ACTIVE ; ACK perdu = UNKNOWN puis réconciliation ; **aucun PARTIAL ni écran #42 pour effet interne** | #47, #54, #56 ; **#42 conditionnel futur** | D5/D6 interne PG réel ; éventuel `PARTIAL` positif relève d'une frontière future réelle D7/D9, non testée par ML3 |
 
 **Validation de ces lignes :** références documentaires établies ; assertions sont des obligations de recette futures, **toutes `NOT EXECUTED`**. Un test peut satisfaire plusieurs références. L'état `INTERFACE` des PF D7/D8/D9 dans les 136 lignes demeure inchangé. Les extensions de matrice n'altèrent ni les identifiants, ni les statuts validés des RG/PF R2.
+---
+
+## Preuves code/tests ML3 (2026-11-06) — mapping condensé
+
+| QA | Preuve primaire |
+|---|---|
+| B01 | `ml3-pilotage.pg.test.ts` empty projection + e2e cycle-absent |
+| B03 | open cycle APPLIED + human decision |
+| B04 | ambiguous utterance REJECTED |
+| B05 | concurrent open → one ACTIVE |
+| B06 | same client key replay ALREADY_APPLIED |
+| B07 | transition fault hook → rollback A ACTIVE |
+| B09/B10 | CHOOSE/REPLACE/WITHDRAW method |
+| B11/B12 | `ml3-cki-intent` / cki-resolve unit + open pin |
+| B14 | restriction blocks open |
+| B15 | cross-project isolation |
+| B16 | revoke founding method → ABSENT |
+| B17 | GET `/decisions` journal |
+| B18 | GET pilotage read-only |
+
+Statut : `CODE MAPPED / LOCAL TESTS` — pas ADOPTED. LIVE Nora : NOT EXECUTED.
+
+## As-built correctif ML3 — testCaseRef B01–B18 (2026-11-06)
+
+Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2. Les identifiants sont les noms de cas dans le code, pas une nouvelle exigence. Lane visée : DEV. Pas une preuve RECETTE.
+
+| QA | testCaseRef | Ce que le cas couvre après correctif |
+|---|---|---|
+| B01 | `PostgreSQL ML3 pilotage and decisions` › `starts empty: no cycle, no method, no retained trajectory` ; e2e `cycle-absent` | Projet neuf sans cycle ni méthode |
+| B02 | même fichier › `propose stays non-authoritative until an explicit retain` ; UI `retain-trajectory` | Proposition non ouvrante ; rétention explicite |
+| B03 | même fichier › `opens a cycle from an explicit utterance…` ; **F01** `F01: clear GO via postUserMessageAndNora…` ; e2e fil `ML3 F01: GO naturel depuis le fil` (+ champ PilotagePanel) | GO naturel USER_MESSAGE via fil **et** EXPLICIT_INTERACTION |
+| B04 | même fichier › `rejects an ambiguous OK…` ; **F01** `F01: ambiguous OK and hostile assistant…` ; unit intent | Énoncé équivoque / source hostile rejetés |
+| B05 | même fichier › `keeps a single ACTIVE cycle when two opens race` | Une seule ligne ACTIVE |
+| B06 | même fichier › `replays the same key and conflicts when the fingerprint changes` ; `does not apply the same human act twice when only the client key changes` ; `reconcileCommandByClientKey` | Même clé rejouée ; même `actInstanceId` non dupliqué. Perte réseau UI : statut UNKNOWN + bouton réconcilier (non exécuté en PG) |
+| B07 | même fichier › `rolls back a transition when opening the next cycle fails` | CLOSE+OPEN annulés ensemble |
+| B08 | non couvert par un cas dédié | Nora ne clôt pas un cycle sur un jugement de maturité : consigne d'adapter, pas un oracle exécuté |
+| B09 | même fichier › `chooses, replaces, withdraws and revokes the current method base without restoring the previous one` | Choix / remplacement / retrait / révocation de base |
+| B10 | unit `pins RESOLVED only when the file digest matches the approved manifest` | Pas de remplacement implicite du pin : digest hors manifeste → UNAVAILABLE |
+| B11 | unit `maps each cycle type to one CKI specialty file` | Une spécialité par type. Digression Nora hors spécialité : non exécutée comme tour LIVE |
+| B12 | unit `stays ASSOCIATED without a pin and UNAVAILABLE when the digest diverges` ; cas manifeste ci-dessus | Pas de fallback si octets absents ou non approuvés |
+| B13 | unit `ml3-b13-divergence` (+ C01/C02) ; PG `B13-*` + `C01` nora-context ; e2e C02 motifs | **Niveau A message↔décision** : DETERMINISTIC + PG ctx (FAKE adapter). **Niveau B typé** : PG INTEGRATION PROVEN. **Libre-texte matériel** : NOT PROVEN machine. **UX motifs** : unit + BROWSER FAKE (RESTRICTION vs HUMAN_INTENT contrôlé) |
+| B14 | même fichier › restrictions + `CR-01: transition blocked when target B or source A is restricted` | STOP global, cible, et transition A→B (restriction sur A ou B) |
+| B15 | même fichier › `isolates pilotage across projects and rejects a foreign user message` | Pas d'import inter-projets |
+| B16 | même fichier › révocation de la méthode fondatrice dans le cas méthode | Révocation avant effet courant, sans restauration |
+| B17 | e2e `decision-state` + **F02** journal revise ; PG `F02: RECORD then REVISE…` + `CR-02` | Journal `APPLICABLE`/`REVISED` ; RECORD/REVISE depuis fil |
+| B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
+
+### Ajustement autorité CR-01..CR-04 (2026-11-06)
+
+| CR | testCaseRef | Verdict |
+| --- | --- | --- |
+| CR-01 | unit `CR-01: TRANSITION_CYCLE is blocked when source A or target B is restricted` ; PG `CR-01: transition blocked when target B or source A is restricted; A stays ACTIVE` | **CLOSED** (DEV PG + unit) |
+| CR-02 | PG `CR-02: REVISE_DECISION allowed for RECORD; refused for D5 founding kinds` | **CLOSED** (refuse sûr + typed ops) |
+| CR-03 | PG `CR-03: different RECORD statements on same objectRef do not globally block OPEN` | **CLOSED** for false-positive removal ; material free-text conflict **PARTIAL / NEEDS MORRIS** |
+| CR-04 | Review Pack FULL with embedded raw logs `/tmp/ml3-*.txt` | **CLOSED** if handoff verified |
+
+Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE — NOT MERGED — NOT ADOPTED**. LIVE Nora : NOT EXECUTED. B08/B11 LIVE cognitive : GOVERNED DEBT. B13 libre-texte matériel Niveau B : NOT PROVEN / PARTIAL.
+
+### B13-01..10 (2026-11-06) — contrat VALIDATED IN CONTENT BY MORRIS
+
+| ID | testCaseRef | Preuve | Limite |
+| --- | --- | --- | --- |
+| B13-01 | unit compatible formulations ; PG `B13-01/04` + `C01: two different but compatible…` | DETERMINISTIC + PG | pas de faux refus d'effet |
+| B13-02 | unit fixture `levelASignals` ; PG `C01: single D6 + new USER…` → adapter FAKE | FAKE intégration conversationnelle | LIVE cognitive NOT PROVEN |
+| B13-03 | PG `B13-03/07` restriction typed | PG INTEGRATION | libre-texte matériel NOT PROVEN (couverture partielle) |
+| B13-04 | PG independent open despite RECORD divergence | PG | — |
+| B13-05 | PG REPLACE → SUPERSEDED + nouvelle APPLICABLE | PG | via op typée ; pas de 2e clic rituel |
+| B13-06 | unit intent ambiguous OK (ml3-cki-intent) ; C01 ambiguous framing | DETERMINISTIC | aucune mutation sans acte |
+| B13-07 | PG restriction persists on projection reload | PG | — |
+| B13-08 | PG COGNITIVE_PROPOSAL cannot OPEN | PG | — |
+| B13-09 | PG REVOKE founding method → ABSENT | PG | REVOKED non présenté comme APPLICABLE (unit C01) |
+| B13-10 | PG act-instance / reconcile ALREADY_APPLIED | PG | — |
+| C01–C02 UX | unit `qualifyCommandOutcome` ; e2e RESTRICTION vs HUMAN_INTENT contrôlé | DETERMINISTIC + BROWSER FAKE | pixel Figma NOT VERIFIED |
+| R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
+| R2 | unit jamais/aucunement/apostrophe typo + restatements positifs | DETERMINISTIC | famille FR bornée ; ≠ oracle D6 |
+| R3 | PG isolation : décision B APPLICABLE avant gen A ; même objectRef + marqueur ; ctx B+ / ctx A− | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |
+
+### F01/F02 — conversation-authority (2026-11-06, local worktree)
+
+| ID | testCaseRef | Preuve | Limite |
+| --- | --- | --- | --- |
+| F01-A | PG `F01: clear GO via postUserMessageAndNora…` ; e2e fil | USER persisté → OPEN_CYCLE APPLIED → HumanDecision → 1 ACTIVE | LIVE Nora NOT EXECUTED |
+| F01-B/C | PG `F01: ambiguous OK and hostile assistant…` | OK / soft / role assistant → no cycle | — |
+| F01-D | même cas F01-A replay `clientTurnKey` | idempotentReplay ; 1 ACTIVE | — |
+| F01-I | PG `F01: restriction blocks conversational GO…` | REJECTED RESTRICTION ; humanDecisionCreated=false | — |
+| F02-A/D | PG `F02: RECORD then REVISE…` ; e2e fil+Journal | RECORD → REVISED/APPLICABLE chain | fondations D5 non révisables génériquement |
+| F02-E | même cas F02 founding refuse | clarification ; cycle CADRAGE inchangé | — |
+| C01 | unit exploratory ; PG `C01: exploratory Finalement…` | réflexion ≠ mutation D6 | NLP universel NOT CLAIMED |
+| C02 | PG `C02: D6 APPLIED survives Nora provider failure…` | UNKNOWN tour + effet métier reconstituté | LIVE NOT EXECUTED |
+| C03 | PG journal>8 ; e2e expand historique | 8 récentes + historique complet | — |
+| CR-01 | unit fenêtre 12 vs `findAuthorityReviseCandidates` ; PG 15+ doubles GitHub ; PG unique ; PG isolation | unicité D6 hors borne cognitive | — |
+| CR-02 | unit `shouldClearThreadPending` / `mayStartNewThreadAct` ; PG concurrence même clé ; e2e ACK perdu+reload | pending préservé ; pas de double effet | cookie DEV/RECETTE réserve existante |
+| R-UX-01 | garde exclusive pending (unit + e2e distinct act blocked) | **NON CONFORME** — CARRIED RESERVE Morris pour entrée RECETTE conditionnelle | sortie : cognition indépendante sans perdre tentative/clé |
+
+### RCT-02 C01–C08 — correctifs conversationnels (2026-11-06, local)
+
+| ID | Cause confirmée | Correction | Preuve | Limite |
+| --- | --- | --- | --- | --- |
+| C01 | `OPEN_CYCLE` ancré `^` ; citations/specimen ouverts | performatif mid-message + `isNonPerformativeOpenFraming` | unit C01 ± ; PG citation zéro cycle ; PG T01 OPEN | LIVE recette ciblée ultérieure |
+| C02 | résidu `.` après type | `sanitizeCycleObjective` | unit C02 ; PG objectif non « . » | — |
+| C03 | CKI présenté comme SOURCE à citer | guidance silencieuse + consignes adapter | code + unit non-régression | LIVE cognition NOT RE-PROVEN ici |
+| C04 | capture RECORD jusqu'à fin ; `\b` après `Nora,` | `extractDecisionCore` + split Nora corrigé | unit C04 ; PG T04→T05 statement propre | décisions historiques RECETTE non réécrites |
+| C05 | REVISE sans `:` → énoncé « . » | `extractReviseStatement` + overlap énoncé pour cible | unit T05 exact ; PG prior `REVISED` / new `APPLICABLE` | — |
+| C06 | négation → LIFT ; cible contradictoire | `isNegatedOrNonPerformativeLift` + `restrictionTargetRefHint` | unit négations ; PG ± LIFT | — |
+| C07 | `restrictions_actives` omis si vide | toujours émettre y compris `aucune` | code `nora-context` | LIVE Nora confirmation après deploy |
+| C08 | `CLOSE_CYCLE` ancré `^` | « je décide de clôturer … cycle TYPE » | unit C08 | — |
+
+| C06+ | refus / non-autorisation de levée | `refusesOrWithholdsAct('lift')` + affirmative stricte | unit + PG journal/revision/restriction inchangés | — |
+| C08+ | specimen / historique de clôture | `isNonPerformativeCloseFraming` | unit + PG cycle ACTIVE inchangé ; CLOSE positif T13 | — |
+| cross | specimen RECORD / OPEN historique / refus REVISE | gates partagés | PG journal + cycle inchangés | NLP universel NOT CLAIMED |
+
+Statut : **IMPLEMENTED — LOCAL CORRECTIVE (Critical Re-Review faux GO)** sur `sfia/next-ml3-rct02-correctifs` — **NOT PUSHED** — **NOT RECETTE** — **NOT MERGED** — **NOT ADOPTED**.
+
+### LIVE remediation C04/C05/C06 — messages exacts (2026-11-07)
+
+| ID | Preuve avant (d646d42a) | Correction | Preuve après (local) | Limite |
+| --- | --- | --- | --- | --- |
+| C04 | LIVE PARTIAL : `objectRef=mais ne signifie…`, énoncé `que,` | `deriveDecisionObjectRef` + strip `que,` | unit C04 LIVE ; PG LIVE chain statement/objectRef | historiques RECETTE non migrés |
+| C05 | LIVE FAIL : 0 REVISE (OPEN+RECORD lexical) | éligibilité RECORD avant unicité | unit C05 LIVE lexical ; PG REVISE + `supersedesDecisionId` | 2 RECORD distincts → clarification |
+| C06 | LIVE FAIL : AMBIGUOUS « Levée et clôture » | `assertsAffirmativeCloseAct` | unit C06 LIVE + LIFT+CLOSE affirmatif AMBIGUOUS ; PG LIFT, cycle ACTIVE | — |
+
+Statut historique (au lot correctif local) : **IMPLEMENTED — LOCAL LIVE REMEDIATION** depuis `d646d42a` — puis **poussé @ `61fe295b`** ; **RECETTE redeployée** (build `ZCkIWQ341KK1KOHTD1a5L`) ; **LIVE 8/8 observé** — **NOT MERGED** — **NOT ADOPTED**. Les constats d'échec/partial sur `d646d42a` (C04 PARTIAL, C05/C06 FAIL) restent la vérité historique avant correctif.
+
+| ID | Rework ChatGPT | Preuve |
+| --- | --- | --- |
+| C01 | OPEN + « ni clôturer / ni en ouvrir » | unit + PG : 1 OPEN CADRAGE, objectif conservé, 0 CLOSE |
+| C01 | retrait / contradiction du même OPEN | unit + PG : AMBIGUOUS, 0 cycle, 0 HumanDecision |
+| C05 | désignation fondatrice OPEN ≠ REVISE RECORD | PG zéro mutation + `objectRef` historique pollué toujours révisable via C05 LIVE |
+
+### LIVE retest 61fe295b — 8/8 (2026-11-07)
+
+| ID | Oracle LIVE | Preuve | Limite |
+| --- | --- | --- | --- |
+| T01 | OPEN_CYCLE CADRAGE ACTIVE ; rév.1 ; journal 1 | D0 consolidé + index capture T01 | PNG non lus par Cursor |
+| T02/C04 | RECORD ; objectRef coordination/suivi ; sans `que,` | D0 + index capture T02 | historiques d646 non migrés |
+| T03/C05 | REVISE RECORD ; OPEN fondateur préservé | D0 + index capture T03 | — |
+| T04 | Restriction cockpit instance ; rév.4 | D0 + index capture T04 | précondition manuelle |
+| T05/C06 | LIFT ; cycle ACTIVE ; pas CLOSE | D0 + index capture T05 | — |
+| T06/C07 | Lecture projection ; zéro mutation | D0 + index capture T06 | — |
+| T07/C08 | CLOSE ; aucun cycle actif | D0 + index capture T07 | empreinte T07/T08 identique — pas 2 preuves visuelles indépendantes |
+| T08 | Citation faux GO ; zéro mutation | D0 + index capture T08 | ≠ retrait explicite GO (couvert unit/PG C01) |
+
+Statut : **LIVE TARGETED RECETTE 8/8 OBSERVED** sur SHA recetté `61fe295b` / build `ZCkIWQ341KK1KOHTD1a5L` — documentation publiée sous GO Morris — Draft PR pour CI — **NOT MERGED** — **NOT ADOPTED**. C03 intercycle **NOT PROVEN**.

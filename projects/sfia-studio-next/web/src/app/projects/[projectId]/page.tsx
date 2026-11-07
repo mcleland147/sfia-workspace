@@ -1,8 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { PilotagePanel } from "@/components/PilotagePanel";
+import {
+  conversationalClientCommandKey,
+  mayStartNewThreadAct,
+  pendingStorageKey,
+  shouldClearThreadPending,
+  type ThreadPendingTurn,
+} from "@/domains/pilotage/thread-recovery";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -20,7 +28,42 @@ type Knowledge = {
   openPoints: Array<{ id: string; statement: string; status: string }>;
 };
 
-type Surface = "travail" | "journal" | "document";
+type Surface = "travail" | "pilotage" | "journal" | "document";
+
+type PilotageEffectView = {
+  attempted?: boolean;
+  intentClarity?: string;
+  intentReason?: string;
+  status?: string | null;
+  reasonCode?: string | null;
+  reason?: string | null;
+  operation?: string;
+  decisionId?: string | null;
+  clarification?: string;
+  clientCommandKey?: string;
+};
+
+function formatPilotageEffect(
+  effect: PilotageEffectView | null | undefined,
+  humanDecisionCreated?: boolean,
+): string {
+  if (!effect) return "";
+  if (effect.attempted) {
+    return [
+      effect.operation ?? "commande",
+      effect.status ?? "?",
+      effect.reasonCode ? `(${effect.reasonCode})` : null,
+      humanDecisionCreated && effect.decisionId ? `décision ${effect.decisionId}` : null,
+    ]
+      .filter(Boolean)
+      .join(" · ");
+  }
+  if (effect.clarification) return `Clarification · ${effect.clarification}`;
+  if (effect.intentClarity === "AMBIGUOUS") {
+    return `Intention ambiguë · ${effect.intentReason ?? effect.reason ?? ""}`;
+  }
+  return "";
+}
 
 export default function ProjectPage() {
   const params = useParams<{ projectId: string }>();
@@ -34,9 +77,154 @@ export default function ProjectPage() {
   const [surface, setSurface] = useState<Surface>("travail");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
-  const [noraActivity, setNoraActivity] = useState<"idle" | "preparing">("idle");
+  const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [status, setStatus] = useState("");
+  const [pilotageStatus, setPilotageStatus] = useState("");
+  const [decisionSummary, setDecisionSummary] = useState("");
   const [inspect, setInspect] = useState<Doc | null>(null);
+  const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
+  const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
+
+  function rememberPending(pending: ThreadPendingTurn | null) {
+    if (typeof sessionStorage === "undefined") return;
+    const key = pendingStorageKey(params.projectId);
+    if (!pending) {
+      sessionStorage.removeItem(key);
+      setUnresolvedPending(null);
+      return;
+    }
+    sessionStorage.setItem(key, JSON.stringify(pending));
+    setUnresolvedPending(pending);
+  }
+
+  function readPending(): ThreadPendingTurn | null {
+    if (typeof sessionStorage === "undefined") return null;
+    try {
+      const raw = sessionStorage.getItem(pendingStorageKey(params.projectId));
+      if (!raw) return null;
+      return JSON.parse(raw) as ThreadPendingTurn;
+    } catch {
+      return null;
+    }
+  }
+
+  async function refreshDurablePilotage() {
+    const [decRes, projRes] = await Promise.all([
+      fetch(`/api/projects/${params.projectId}/decisions`),
+      fetch(`/api/projects/${params.projectId}/pilotage`),
+    ]);
+    if (decRes.ok) {
+      const dj = await decRes.json();
+      const decisions = (dj.decisions ?? []) as Array<{
+        id: string;
+        kind: string;
+        state: string;
+        statement: string;
+        createdAt?: string;
+      }>;
+      const applicable = decisions.filter((d) => d.state === "APPLICABLE");
+      const latest = [...decisions].sort((a, b) =>
+        String(b.createdAt ?? "").localeCompare(String(a.createdAt ?? "")),
+      )[0];
+      setDecisionSummary(
+        `${applicable.length} applicable(s) · ${decisions.length} au journal` +
+          (latest ? ` · dernière ${latest.kind}/${latest.state}` : ""),
+      );
+    }
+    if (projRes.ok) {
+      const pj = await projRes.json();
+      const cycle = pj.pilotage?.cycle ?? pj.cycle;
+      if (cycle?.status === "ACTIVE") {
+        setPilotageStatus((prev) =>
+          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
+            ? prev
+            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
+        );
+      }
+    }
+  }
+
+  function applyClearFromResponse(
+    noraStatus: string | undefined,
+    effect: PilotageEffectView | undefined,
+  ) {
+    if (
+      shouldClearThreadPending({
+        noraStatus,
+        effectAttempted: effect?.attempted,
+        effectStatus: effect?.status,
+      })
+    ) {
+      rememberPending(null);
+      messageTurnKeyRef.current = null;
+      return true;
+    }
+    return false;
+  }
+
+  async function reconcilePending(pending: ThreadPendingTurn) {
+    setBusy(true);
+    try {
+      const res = await fetch(
+        `/api/projects/${params.projectId}/pilotage/commands/by-key/${encodeURIComponent(pending.clientCommandKey)}`,
+      );
+      if (res.ok) {
+        const cmd = await res.json();
+        setPilotageStatus(
+          formatPilotageEffect(
+            {
+              attempted: true,
+              status: cmd.status,
+              reasonCode: cmd.reasonCode,
+              reason: cmd.reason,
+              operation: cmd.effects?.[0]?.effectKind ?? "commande",
+              decisionId: cmd.decisionId,
+              clientCommandKey: pending.clientCommandKey,
+            },
+            Boolean(cmd.decisionId) &&
+              (cmd.status === "APPLIED" || cmd.status === "ALREADY_APPLIED"),
+          ),
+        );
+        // CR-02: UNKNOWN métier stays pending; Nora status is irrelevant here.
+        if (cmd.status && String(cmd.status).toUpperCase() !== "UNKNOWN") {
+          rememberPending(null);
+          messageTurnKeyRef.current = null;
+        }
+        await refreshDurablePilotage();
+        return;
+      }
+      // 404 alone does not invent a new key — retry same logical act only.
+      if (res.status === 404) {
+        setPilotageStatus(
+          `Commande absente pour ${pending.clientCommandKey.slice(0, 28)}… — reprise du même acte`,
+        );
+      }
+      if (!preparationId) return;
+      const retry = await fetch(`/api/preparations/${preparationId}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: pending.content,
+          clientTurnKey: pending.clientTurnKey,
+        }),
+      });
+      const j = await retry.json().catch(() => ({}));
+      if (retry.ok) {
+        setMessages(j.messages ?? []);
+        setStatus(`Nora ${j.noraMode} · ${j.status}`);
+        const effect = j.pilotageEffect as PilotageEffectView | undefined;
+        setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
+        if (applyClearFromResponse(String(j.status ?? ""), effect)) {
+          setDraft("");
+        }
+        await refreshDurablePilotage();
+      } else {
+        setStatus(String(j.error ?? j.errorCategory ?? "réconciliation impossible"));
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
 
   useEffect(() => {
     async function load() {
@@ -64,34 +252,100 @@ export default function ProjectPage() {
         `Même fil · préparation ${j.preparation?.id ?? "liée"} · conversation ${j.conversation?.id ?? "—"} · réouverture par projectId`,
       );
       setError("");
+      await refreshDurablePilotage();
+      const pending = readPending();
+      if (pending) {
+        setUnresolvedPending(pending);
+        messageTurnKeyRef.current = {
+          content: pending.content,
+          key: pending.clientTurnKey,
+        };
+        setPilotageStatus(
+          `Reprise en attente · clé ${pending.clientCommandKey.slice(0, 24)}…`,
+        );
+      }
     }
-    load();
+    void load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.projectId, router]);
 
   async function sendMessage() {
     if (!draft.trim() || !preparationId) return;
+    const text = draft.trim();
+    // CR-02 — exclusive unresolved pending: never overwrite a distinct act silently.
+    const gate = mayStartNewThreadAct({
+      unresolved: unresolvedPending ?? readPending(),
+      nextContent: text,
+    });
+    if (!gate.ok) {
+      setPilotageStatus(
+        `${gate.reason} · ${gate.pending.clientCommandKey.slice(0, 24)}…`,
+      );
+      setDraft(gate.pending.content);
+      return;
+    }
     setBusy(true);
     setNoraActivity("preparing");
-    const res = await fetch(`/api/preparations/${preparationId}/messages`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: draft }),
-    });
-    const j = await res.json();
-    setBusy(false);
-    setNoraActivity("idle");
-    if (res.ok) {
-      setDraft("");
-      setMessages(j.messages ?? []);
-      setStatus(`Nora ${j.noraMode} · ${j.status}`);
-      // Refresh knowledge/docs after capitalisation / document save
-      const proj = await fetch(`/api/projects/${params.projectId}`);
-      if (proj.ok) {
-        const pj = await proj.json();
-        setDocuments(pj.documents ?? []);
-        setKnowledge(pj.knowledge ?? null);
+    // Same content reuses the same turn key until a terminal result clears it.
+    if (!messageTurnKeyRef.current || messageTurnKeyRef.current.content !== text) {
+      messageTurnKeyRef.current = {
+        content: text,
+        key:
+          typeof crypto !== "undefined" && "randomUUID" in crypto
+            ? `turn-${crypto.randomUUID()}`
+            : `turn-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+      };
+    }
+    const clientTurnKey = messageTurnKeyRef.current.key;
+    const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
+    rememberPending({ content: text, clientTurnKey, clientCommandKey });
+    try {
+      const res = await fetch(`/api/preparations/${preparationId}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: text, clientTurnKey }),
+      });
+      let j: Record<string, unknown> = {};
+      try {
+        j = (await res.json()) as Record<string, unknown>;
+      } catch {
+        j = { errorCategory: "RESPONSE_PARSE_FAILED" };
       }
-    } else setStatus(j.error ?? "échec");
+      if (res.ok) {
+        setMessages((j.messages as Msg[]) ?? []);
+        setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
+        const effect = j.pilotageEffect as PilotageEffectView | undefined;
+        setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
+        if (applyClearFromResponse(String(j.status ?? ""), effect)) {
+          setDraft("");
+        } else if (j.status === "UNKNOWN" || j.status === "FAILED") {
+          setNoraActivity("error");
+        }
+        const proj = await fetch(`/api/projects/${params.projectId}`);
+        if (proj.ok) {
+          const pj = await proj.json();
+          setDocuments(pj.documents ?? []);
+          setKnowledge(pj.knowledge ?? null);
+        }
+        await refreshDurablePilotage();
+        setNoraActivity(
+          j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
+        );
+      } else {
+        // ACK lost / HTTP error — keep pending with the same key.
+        setNoraActivity("error");
+        setStatus(
+          res.status === 409
+            ? `${String(j.errorCategory ?? j.error ?? "conflit")} — intention de tour conservée`
+            : String(j.error ?? j.errorCategory ?? "échec — tentative conservée"),
+        );
+      }
+    } catch {
+      setNoraActivity("error");
+      setStatus("échec réseau — intention de tour conservée");
+    } finally {
+      setBusy(false);
+    }
   }
 
   if (error) {
@@ -120,6 +374,7 @@ export default function ProjectPage() {
           {(
             [
               ["travail", "Travail"],
+              ["pilotage", "Pilotage"],
               ["journal", "Journal"],
               ["document", "Documents"],
             ] as const
@@ -164,11 +419,47 @@ export default function ProjectPage() {
                 onChange={(e) => setDraft(e.target.value)}
                 placeholder="Poursuivre dans le même fil…"
                 aria-label="Message à Nora"
+                data-testid="thread-draft"
               />
-              <button className="btn" disabled={busy || !preparationId} onClick={sendMessage}>
+              <button
+                className="btn"
+                disabled={busy || !preparationId}
+                onClick={sendMessage}
+                data-testid="thread-send"
+              >
                 Envoyer
               </button>
-              {status ? <p className="text-xs muted">{status}</p> : null}
+              {unresolvedPending ? (
+                <div className="space-y-1" data-testid="thread-pending-banner">
+                  <p className="text-xs muted">
+                    Tentative non résolue · {unresolvedPending.clientCommandKey.slice(0, 32)}…
+                  </p>
+                  <button
+                    type="button"
+                    className="btn secondary"
+                    disabled={busy}
+                    data-testid="thread-reconcile-pending"
+                    onClick={() => void reconcilePending(unresolvedPending)}
+                  >
+                    Réconcilier la tentative en cours
+                  </button>
+                </div>
+              ) : null}
+              {status ? (
+                <p className="text-xs muted" data-testid="thread-nora-status">
+                  {status}
+                </p>
+              ) : null}
+              {pilotageStatus ? (
+                <p className="text-xs" data-testid="thread-pilotage-status" role="status">
+                  {pilotageStatus}
+                </p>
+              ) : null}
+              {decisionSummary ? (
+                <p className="text-xs muted" data-testid="thread-decision-summary">
+                  {decisionSummary}
+                </p>
+              ) : null}
             </div>
           </section>
           <aside className="space-y-3">
@@ -199,6 +490,8 @@ export default function ProjectPage() {
           </aside>
         </div>
       ) : null}
+
+      {surface === "pilotage" ? <PilotagePanel projectId={params.projectId} /> : null}
 
       {surface === "document" ? (
         <div className="grid lg:grid-cols-2 gap-4">
@@ -267,6 +560,10 @@ export default function ProjectPage() {
                   {a.statement}
                 </div>
               ))}
+            <p className="text-xs muted pt-2">
+              Les décisions D6 opposables sont dans l&apos;onglet Pilotage (Journal—Décisions), pas
+              ici.
+            </p>
           </section>
         </div>
       ) : null}
