@@ -339,3 +339,14 @@ Aucun chiffre « 70 % » n'est produit à partir du temps écoulé, de l'animati
 **Propriété D8 :** rattacher la qualification de preuve aux sources, versions, objets, périmètres de test, conditions d'observation et niveaux DETERMINISTIC/DB/BROWSER/LIVE/REAL, avec statut/réserve/acceptation effectivement décidés selon les autorités applicables. L'absence de trace doit être déclarée comme limite probatoire ; une trace présente peut être incomplète, falsifiable ou hors périmètre et ne saurait suffire seule.
 
 **Négatifs au lot propriétaire :** événement « success » technique sans effet métier, test FAKE présenté LIVE, SHA différent du candidat recetté, proof candidate hors accès, preuve lacunaire mais verdict assuré. **Acceptation :** distinguer diagnostic des étapes et jugement de conformité ; D3 raconte fidèlement, D6 accepte/autorise selon portée, D7 porte l'état d'exécution, D8 le verdict.
+
+
+---
+
+## Addendum D8 — 2026-11-07 : qualification des faits Git
+
+**Référence :** [décision](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). D9 rapporte les références Git effectivement vérifiées (branche/commit/PR/merge et éventuellement checks) ; D7 rapporte la tentative/commande, D8 qualifie la valeur de ces observations. Commit observé, PR ouverte, merge vérifié, tests vérifiés, conformité, acceptation Morris et adoption sont **des statuts distincts**.
+
+Une ref candidate ne prouve rien sur main ; un merge ne prouve ni tests, ni release, ni ADOPTED. Une source devenue inaccessible ou une réponse réseau ambiguë se restitue comme une limitation, non comme un succès.
+
+**Preuves attendues :** vrai SHA récupéré, PR non fusionnée, merge constaté sur ref cible, tests non observés explicités, UNKNOWN après perte d'ACK.

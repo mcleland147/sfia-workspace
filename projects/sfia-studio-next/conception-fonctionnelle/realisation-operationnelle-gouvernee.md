@@ -386,3 +386,14 @@ D8 qualifie les acquis et limites ; D3 en assure la traduction métier ; D6 cons
 **Contrat D7 :** une commande de réalisation autorisée peut être reliée à l'identité du contrat/version, aux contrôles de capacité/droits courants, à chaque tentative fournisseur, aux retours disponibles, à la demande/confirmation de STOP et aux effets connus ou inconnus. Le numéro de tentative n'est ni une preuve d'exécution réussie ni une autorisation pour recommencer. Une coupure réseau après dispatch produit potentiellement UNKNOWN et impose une réconciliation avant toute répétition.
 
 **Négatifs et acceptation au lot propriétaire :** ACK perdu, webhook en retard/dupliqué, STOP demandé non confirmé, effet externe partiel, mandat D6 révoqué, panne du collecteur et reprise sans double effet. **Oracle :** tentative et effet D7 véritables, preuves D8 distinctes, traçabilité sans exposer les secrets de l'exécuteur. Aucune intégration Cursor/Git supplémentaire n'est ouverte par ce document.
+
+
+---
+
+## Addendum D7 — 2026-11-07 : une seule frontière d'effet, deux capacités successives
+
+**Référence :** [décision](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). D7 reste propriétaire unique de la préparation inspectable, de l'intention durable, du lancement et de la réconciliation de tout effet. En ML4, son premier effet externe est la **publication documentaire Git native** via D9, avec mandat D6, cible/diff/base/version, acteur Git réel et état observé. Aucune session Cursor ni contrat technique complet artificiel n'est requis.
+
+Avant chaque mutation, contrôler droits, versions, restrictions et base ; après timeout/ACK perdu, relire refs/commit/PR avant toute relance. Ne pas promettre exactly-once, rollback ou STOP non démontrés. En ML5, la même frontière D7 reçoit une capacité d'exécution **Cursor** avec instructions exactes, tentatives et preuves D8, sous droits Cursor propres. Aucun deuxième moteur Git autonome.
+
+**Preuves attendues :** effets bornés et corrélés, reprise après issue ambiguë, refus de mutation hors mandat et absence de doublon.

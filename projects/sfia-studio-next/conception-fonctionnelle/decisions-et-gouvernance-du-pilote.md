@@ -307,3 +307,14 @@ Une **reprise technique** possible après incident n'est pas une **levée humain
 **Contrat D6 :** les tentatives d'acte du Pilote peuvent être corrélées avec l'identité/scope/version du mandat et l'état réellement enregistré, avec distinction entre réception, validité vérifiée, refus, révocation, suspension ou incertitude. Les diagnostics détaillés sont réservés aux personnes habilitées ; aucune publication de données sensibles d'autorité par simple trace. Un échec de télémétrie n'étend ni n'annule une permission.
 
 **Négatifs à prévoir dans le lot D6 :** tentative de réutilisation d'une autorisation révoquée, demande STOP sans arrêt D7 attesté, acte hors portée, journal absent malgré décision persistée, événement technique dupliqué sans doublon D6. **Preuve :** état métier, tests d'autorité et événements corrélés ; aucun verdict d'acceptation ni nouveau gate déduit de la télémétrie.
+
+
+---
+
+## Addendum D6 — 2026-11-07 : autorité des opérations Git documentaires
+
+**Référence :** [décision](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). Installer GitHub App, autoriser un dépôt et le rattacher au projet **ne valent pas mandat de mutation**. L'acte D6 identifie Pilote/projet, opération Git, chemins, document/révision, cible/branche/base/HEAD, diff inspecté, identité effective et restrictions actuelles. Un changement matériel de contenu, destination ou base exige requalification avant effet.
+
+Création de PR et **merge sont deux actes distincts**, y compris si les checks réussissent. Un document normatif/protégé reste soumis à son mandat renforcé, même en Markdown. Suspension/révocation bloque les effets futurs contrôlables sans effacer ceux déjà observés.
+
+**Preuves attendues :** pas d'effet sans GO applicable, 403 et révocation refusés, conflit de HEAD, double clic sans double effet, absence de merge implicite.

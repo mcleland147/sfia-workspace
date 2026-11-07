@@ -1162,3 +1162,24 @@ Nora rend visibles les **faits d'activité et leurs limites**, non son raisonnem
 **Direction de construction :** réutiliser les outils natifs des composants avant tout mécanisme spécifique ; corréler les frontières, limiter la collecte au diagnostic utile, isoler les environnements et respecter DATA-01. Aucune stack d'observabilité ni écran produit supplémentaire n'est adopté à ce stade.
 
 **Transposition :** [R2 index transverse](../conception-fonctionnelle/README.md) et règles propriétaires D1–D9 ; R3 états UX ; [R4 contrat canonique](../architecture-technique/contrat-observabilite-transverse.md) ; R5 QA et matrice ML2. **Gates :** intégration avant RECETTE ML2 ou report avec dette à arbitrer ; aucune modification SEF/ADR ni adoption induite.
+
+
+---
+
+## Addendum R1 — 2026-11-07 : publication documentaire native ML4 et voie Cursor ML5
+
+**Décision Morris de contenu :** [trajectoire approuvée](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). Cet addendum précise les seuls passages des §§2.23, 2.28 et 2.36 qui décrivaient Cursor comme exécuteur de toute mutation Git ; il ne réécrit pas la décision historique R1.
+
+**ML4** permet à Studio et Nora de consulter les dépôts effectivement autorisés, de produire ou réviser un document D4 et de le publier dans Git sous contrôle : branche, commit distant, PR et merge distinctement autorisé. **ML5** confie à Cursor les travaux techniques de code, CI, scripts, migrations et infrastructure. D6 conserve la décision, D7 le lancement et la réconciliation des effets, D8 la qualification des preuves et D9 les ressources et opérations Git ; aucune deuxième autorité n'est créée.
+
+Le Pilote peut utiliser Studio sans dépôt. L'espace **Paramètres → Intégrations** accueille GitHub comme premier fournisseur fonctionnel : activation facultative après login, configuration volontaire, sollicitation contextuelle Nora/projet et extension ou retrait ultérieur des dépôts. Identité Studio, installation/autorisation GitHub App, rattachement à un projet et mandat d'écriture sont des faits distincts.
+
+**E2E 07** garde son identité et sa portée de collaboration sur dépôt partagé avec projets Studio individuels. Il est qualifié par deux parcours : publication documentaire Git ML4, exécution technique Cursor ML5. Aucune PR ni tests verts ne confèrent un GO de merge, une promotion ou une adoption.
+
+**État :** trajectoire acceptée en contenu ; branche documentaire candidate, sans preuve de runtime ML4 ni validation Figma.
+
+---
+
+## R1 — Raccord de la préparation ML4 et de la convergence UX (2026-11-07)
+
+Les sept E2E de vision restent propriétaires de leur périmètre. **Les maquettes 218–235 et l'INDEX ML4** ont été validés par Morris en conception : [registre Figma](../ux-ui/integration-git-ux-ml4.md). Elles complètent E2E07 par la collaboration Git documentaire native sous D6/D7/D8/D9, sans preuve d'effet réel ni modification des frontières R1. L'ordre retenu pour R5 est : intégrer le paquet documentaire ML4 → qualifier la convergence UX de l'application ML1–ML3 existante → réaliser techniquement Git ML4, sous GO distinct. [Décision d'ordonnancement](../governance/decisions/2026-11-07-ml4-ux-validation-convergence.md).

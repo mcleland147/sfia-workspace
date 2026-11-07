@@ -145,8 +145,8 @@ Le séquencement ci-dessous reprend les cinq macro-capacités de travail accept�
 | **ML1 — Entrer, dialoguer et créer** | App locale : identité, portefeuille, sas durable, Nora utile, création explicite, continuité | D1–D4, ADR R4-01/02, ENV-01, QA A ; R3 sas/projet | Oui | Fondation persistante PostgreSQL, DEV/RECETTE/STABLE ; permet ML2/ML3 |
 | **ML2 — Produire et capitaliser avec Nora** | Documents, sujets, connaissance, provenance, continuité cognitive | D3–D4, R2 doc/connaissance, R4 A/B ; QA complémentaires | Oui sur surfaces documentaires/conversationnelles | ML1 ; continuité et réutilisation des acquis |
 | **ML3 — Piloter et décider** | Trajectoire/cycle/CKI, méthode, décisions et mandats gouvernés | D3–D6, R4 B, QA B ; R3 pilotage/décision | Oui | ML1 et ML2 selon contrats ; autorité pour ML5 |
-| **ML4 — Accéder aux sources Git** | Git facultatif, accès/provenance/ref, droits et révocation sans fusion de projets | D1/D4/D9, ADR R4-04, QA D ; R3 Inspection/Git | Oui si surfaces Git | ML1 et autorité applicable ; Git n'est pas obligatoire pour le produit |
-| **ML5 — Faire réaliser et vérifier** | Contrat inspecté, acte « Exécuter », tentative, effets bornés, preuve/restitution/acceptation | D6–D9, ADR R4-03/04, QA C/D, UX contrat et résultat | Oui | Autorité ML3 ; intégration externe éprouvée ; dépendance ML4 **seulement** si le parcours choisi utilise Git |
+| **ML4 — Collaborer et publier avec Git** | GitHub/Intégrations, dépôts à la carte, lecture Nora et publication documentaire gouvernée | D1–D4, D6–D9, ADR R4-03/04, R3 Git et UX Intégrations | Oui, Figma ML4 requis | ML1–ML3 et GitHub App réellement autorisée ; build non autorisé |
+| **ML5 — Faire réaliser et vérifier avec Cursor** | Contrat technique, tentative Cursor, STOP/reprise et preuve | D6–D9, ADR R4-03/04, R3 contrat/résultats | Oui si UX applicable | Contrôle D7/D9 étendu sans second moteur |
 
 **Correction de trajectoire à revalider avant construction :** R4 §5.7.11 recommande un *vertical C+D* pour le premier effet externe. Ne pas laisser la séparation documentaire ML4/ML5 produire un faux découplage technique : tout effet doit joindre D6+D7+D8 et capacité D9/outil réellement nécessaire dans **le même contrat d'intégration**. À l'inverse, l'accès aux sources Git sans effet peut être livré de façon autonome et facultative. Les fonctionnalités D3/D4 transversales peuvent nécessiter des travaux intégrés dans ML1 plutôt qu'un couloir artificiel vers ML2.
 
@@ -465,3 +465,24 @@ Les reports vers ML3 (cycles/trajectoire), ML4 (Git D9), ML5 (exécutions/preuve
 **Critère de delivery supplémentaire :** code et tests doivent isoler les paramètres `TEST_BOUNDARY` des profils opérationnels calibrables, publier une identité de politique/configuration appliquée et permettre la requalification sans refonte de l'orchestrateur. Le parcours de mission longue doit pouvoir paginer/lire davantage, restituer limites/provenance, voire reprendre sous contrat explicite au lieu de prétendre qu'une lecture partielle est complète. La décision de seuils opérationnels définitifs exige des mesures sur données représentatives, pas un chiffre fixé en D0.
 
 **Gates :** revue de préparation du mandat technique, puis GO Cursor D3 et droits Git distincts ; construction cohérente code/migration/tests/docs/CI ; QA (C1–C6, COG, OBS, missions courtes ET longues) et DEV/RECETTE SHA/lane ; GO spécifique RECETTE, PR, merge et promotion. Aucun workflow de branche/protection ni PR n'est modifié par cette approbation de conception. **R5 reste IN PROGRESS / ML2 NOT RECETTED.**
+
+
+---
+
+## Addendum R5 — 2026-11-07 : ML4 Git gouverné, ML5 réalisation Cursor
+
+**Référence :** [décision](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). **ML4 — Collaborer et publier avec Git** : GitHub seul connecteur réel, page « Paramètres → Intégrations », installation/autorisation à la carte, lecture/version/provenance pour Nora, révision D4, publication documentaire via D6/D7/D8/D9 avec branche/commit/PR et merge autorisé séparément. **ML5 — Faire réaliser et vérifier avec Cursor** : contrat technique, instruction exacte, identité/exécuteur Cursor, tentative, STOP/reprise et preuve D8, avec D9 si nécessaire ; aucun second moteur d'effets.
+
+**Pièces propriétaires :** [qualification](integration-git/qualification-impact-ml4-ml5.md), [contrat d'acceptation](integration-git/contrat-acceptation.md), [matrice](integration-git/matrice-acceptation.md), [brief Figma](integration-git/brief-ux-figma.md), [spécification technique candidate](integration-git/specification-technique.md). Tracer R1 E2E07, R2 41 RG/36 PF historiques et N-01..N-27, R3 171–205 et nouvelles surfaces, R4 ADR/QA, R5 code/tests/preuves lorsqu'ils existeront.
+
+**Gates :** synchronisation documentaire D2 → Figma et validation visuelle Morris → consolidation des contrats et test de faisabilité fournisseur → GO Cursor SFIA v2.6 → construction/tests/recette REAL → revue et acceptation Morris distinctes. **ML4 non implémenté / pas de GO build ; R6 non démarré ; aucune STABLE, release ou ADOPTED.** Les réserves ML1–ML3 ne sont pas effacées.
+
+---
+
+## 22. Raccord de delivery — validation Figma ML4 et convergence UX du parcours existant (2026-11-07)
+
+La capacité **ML4 — Collaborer et publier avec Git** conserve ses frontières D6/D7/D8/D9 et son objectif de publication documentaire ; les [18 maquettes 218–235 et INDEX](../ux-ui/integration-git-ux-ml4.md) ont été **validés en conception Morris**. [Revue des gates](integration-git/revue-preparation-ml4.md).
+
+**Séquence de construction approuvée** : (1) documentation R1–R5 intégrée et vérifiée sur Git ; (2) convergence UX du portefeuille, sas, projet, conversation Nora, documents, méthodes/cycles et décisions/journal issus de ML1–ML3, sous **contrat/GO technique distinct** et tests navigateur de non-régression ; (3) réalisation Git ML4 intégrée au shell et composants, après preuve fournisseur et GO Cursor ; (4) ML5 Cursor ; (5) R6. Aucun macro-lot numéroté supplémentaire ni découpage en micro-cycles n'est décidé automatiquement.
+
+**Gates ouverts :** GitHub App réelle, attribution et permissions, sécurité/DB, mandat D6/D7, preuves browser/LIVE/REAL, snapshot immuable Figma avant code ; 22 tests ML4-AT encore NOT RUN. La validation UX ne clôture ni le build ML4, ni R6, ni l'adoption.
