@@ -86,16 +86,16 @@ Préserver les statuts ML1, ML2, ML3 et les réserves existantes ; ne transforme
 2. **D7 :** un contrat proportionné aux effets Git est nécessaire ; ne pas réimplémenter un runner d'exécution Cursor ni une machine d'état concurrente.
 3. **D4 :** éviter la copie permanente Git↔Studio et garantir les révisions exactes publiées.
 4. **OAuth/App :** séparer login Studio, autorisation user-to-server et installation repo ; prévoir les cas organisation refusée, SSO et révocation.
-5. **Figma :** UX nouvelle à créer et valider, sans présumer que les anciens écrans montrent déjà ce parcours.
+5. **Figma :** conception ML4 218–235 et INDEX validée Morris ; conserver la distinction avec les écrans R3 et les preuves navigateur non exécutées.
 6. **ML4/ML5 :** écriture documentaire vs code interdit ; diff et contenu sous vérification serveur, pas contrôle basé sur extension de fichier uniquement.
 
 ## 3 bis. Anomalie rédactionnelle détectée dans la qualification déjà publiée
 
-La qualification v0.2 sur branche contient une **interpolation parasite d'un chemin local** dans un exemple d'endpoint GitHub Contents API (`PUT /contents//mnt/data/...`). C'est un **KNOWN GAP documentaire limité** : l'endpoint conceptuel correct est `PUT /repos/{owner}/{repo}/contents/{path}`. Corriger cette formule dans une révision documentaire autorisée sans prétendre avoir changé le fonctionnement du produit ni altérer rétroactivement l'avis de qualification. Ce point ne justifie aucun micro-cycle autonome.
+**Gap documentaire résolu sur la branche d'intégration :** la qualification v0.2 historique comportait un exemple d'endpoint GitHub Contents interpolé avec un chemin local ; sa copie canonique [qualification-impact-ml4-ml5.md](qualification-impact-ml4-ml5.md) emploie désormais `PUT /repos/{owner}/{repo}/contents/{path}`. La correction est strictement documentaire et n'autorise aucune opération fournisseur.
 
 ## 4. Méthode de publication proposée pour le prochain gate
 
-Après validation D2 du contenu : préparer **un commit documentaire cohérent** ou un petit ensemble de commits lisibles sur **une seule branche dédiée**, inclure le record de décision validé, les addenda normatifs, Roadmap, UX contractuelle et spécification R5, puis diff/relecture distante et revue Morris ; PR et merge seulement sous GO séparés. Les anciennes décisions restent inchangées.
+**État de préparation 2026-11-07 :** décision D2 et addenda R1–R5 déposés sur la branche `docs/next-ml4-ml5-sync-20261107`, complétés du registre UX Figma et de la décision de séquencement de convergence. La suite consiste à vérifier le **diff consolidé** et la protection de branche, ouvrir la PR documentaire sous mandat, puis attendre les gates de revue et de merge applicables. Les décisions historiques restent inchangées.
 
 **Ce plan ne vaut pas à lui seul autorisation Git.** Sa synchronisation a été permise par le mandat Morris distinct de la présente branche ; son diff et les SHA Git servent de preuves. Aucun PR/merge ni GO de construction.
 

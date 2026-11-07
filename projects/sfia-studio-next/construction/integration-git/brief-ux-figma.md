@@ -1,10 +1,10 @@
-# Phase UX/Figma — Contrat de conception candidat ML4
+# Phase UX/Figma — Contrat de conception et références validées ML4
 
 **Statut ACTUEL : UX VALIDATED SPEC — Morris, 2026-11-07** (sections de préparation ci-dessous conservées comme historique).  
 **Fichier Figma source (vérifié en lecture native le 2026-11-07) :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP  
 **Page :** `01 · Parcours produit — Référence UX R3` (`94:49`) ; **223 frames au snapshot R3 historique**, **242 après création des écrans ML4 et INDEX**.  
 **Autres pages :** `00 · Fondations — Composants UI` (`120:27`) ; `02 · Contrats visuels — Nora et états` (`104:14`).  
-**Limites :** noms et structure Figma lus par connecteur ; deux screenshots générés par l'API mais non inspectés pixel à pixel dans le runtime. Pas de modification native, de capture immuable validée, de QA visuelle ou d'acceptation UX prétendue.
+**Limites actuelles :** écrans Figma 218–235 créés et validés en conception par Morris ; inventaire natif recontrôlé le 2026-11-07 (242 frames racines, INDEX 388:425, 36 liens et 27 entrées d'INDEX). **Aucun snapshot immuable de référence ni preuve navigateur** : l'UX VALIDATED SPEC ne vaut pas COVERAGE VERIFIED, BEHAVIOR PROVEN ou ADOPTED. Le registre détaillé fait foi : [Intégrations et publication Git](../../ux-ui/integration-git-ux-ml4.md).
 
 ## 1. Positionnement
 
@@ -38,7 +38,7 @@ L'expérience « Intégrations » appartient à la **navigation générale de St
 | [192](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=237-1191) | Sources Git — reprise après déconnexion | Reprise et accès requalifiés |
 | [193](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=237-1329) | Sources Git — preuve insuffisante | SHA Git ≠ validation métier |
 
-**Constat Figma natif :** aucune frame principale dénommée « Paramètres », « Intégrations », « Connecteurs » ou « Gestion de GitHub » n'a été retrouvée dans l'inventaire des 223 frames de la page produit. C'est un **gap de parcours**, pas la preuve que les composants de base sont absents.
+**Constat historique R3 :** l'inventaire initial de 223 frames ne contenait pas « Paramètres → Intégrations ». **Écart levé en conception ML4** par les écrans 218–224 et leurs variantes 232–233 ; la vérification navigateur et les états fournisseur réels restent à produire.
 
 ## 3. Nouveaux écrans/states à concevoir — pas de numéro figé
 
@@ -97,7 +97,7 @@ Ne jamais afficher un simple statut trompeur « GitHub connecté » sans sa port
 - Aucune écriture, merge, suppression, publication ou déconnexion par simple affichage d'un aperçu.
 - Contrat visuel de la nouvelle surface et **capture Figma native datée** avant code ; capture navigateur RECETTE nécessaire pour verdict fort après implémentation.
 
-## 7. Workflow Figma proposé (pas encore réalisé)
+## 7. Workflow Figma réalisé en conception ; exit et transposition
 
 1. Relever design system et primitives réutilisables depuis page 00, puis états/navigation Git page 01.
 2. Modéliser le parcours « Intégrations » **dans le même fichier Next** sur une surface clairement identifiée et sans supprimer les frames R3 validées.
@@ -105,7 +105,7 @@ Ne jamais afficher un simple statut trompeur « GitHub connecté » sans sa port
 4. Vérifier cohérence D1–D9 et règles `RG-GIT-*`, accepter les variantes de plateforme GitHub réelle (user authorization vs installation, callback vs Setup URL selon configuration).
 5. Capturer les frames versionnées et faire arbitrer Morris ; seulement ensuite transposer en contrat technique et code.
 
-**Gate :** revue et validation visuelle Morris à réaliser ; **aucun changement Figma n'est revendiqué par ce document**.
+**Gate :** revue et validation visuelle Morris **acquises pour 218–235** ; aucun comportement GitHub réel, implémentation ou preuve navigateur revendiqué. Les prochaines obligations sont le snapshot de référence, l'intégration documentaire, la convergence UX existante et ensuite le contrat technique final ML4.
 
 ---
 

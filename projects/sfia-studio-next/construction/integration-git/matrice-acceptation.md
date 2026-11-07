@@ -39,9 +39,9 @@ Ce fichier est une **matrice de recette ciblée** du macro-lot, pas un nouveau c
 
 | Gate | Exigence | Réserve ouverte / exit |
 |---|---|---|
-| D2 décision normative | Arbitrages portée d'écriture, merge, identité App, « Intégrations » | Les nouvelles règles sont encore candidates ; projet de record à faire approuver |
+| D2 décision normative | Arbitrages portée d'écriture, merge, identité App, « Intégrations » | Décisions de trajectoire/portée validées par Morris et enregistrées sur branche candidate ; les nouveaux N restent candidats et aucun GO code n'est acquis |
 | R2 | Mise à jour des règles et scénarios sous leurs propriétaires | `N-01..N-14` et `N-15..N-27` non normalisés ; éviter double corpus |
-| R3 | Figma nouvelle navigation + états de consentement/retour et publication D4 | Frames « Paramètres → Intégrations » absentes de l'inventaire natif consulté ; validation visuelle à faire |
+| R3 | Figma nouvelle navigation + états de consentement/retour et publication D4 | 18 écrans 218–235 et INDEX Figma VALIDATED SPEC Morris, registre de traçabilité disponible ; snapshot immuable et preuves navigateur encore à produire |
 | R4 | Instance GitHub App, identité d'effet, droits, concurrence, opérations remote, idempotence | Mécanismes non implémentés ; choix à prouver auprès du fournisseur |
 | R5 | Code, tests, migration, sécurité, UX, LIVE Nora, REAL GitHub | No run, no coverage, no behavior proven ; routes/modules Git absents du `main` observé |
 | R6 | E2E et non-régression globale, réserves ML1–ML3 et lane STABLE | NOT STARTED ; aucun ADOPTED, release ni promotion |
@@ -50,7 +50,7 @@ Ce fichier est une **matrice de recette ciblée** du macro-lot, pas un nouveau c
 
 Pour chaque essai réel : **date, lane, identité du Pilote/acteur d'effet, dépôt de test, ref/base/HEAD, contenu/cible, autorisation D6, commande D7 si applicable, réponse GitHub, état distant relu, preuve brute utile, limite, SHA du code Next et verdict**. Les tests déterministes ne justifient pas une revendication REAL. Tout QA noté `NOT RUN` le reste jusqu'à preuve.
 
-**Suite :** après validation normative et Figma, instancier la matrice dans la documentation ML4 R5 canonique ; ne pas ouvrir un dépôt de tests parallèle.
+**Suite courante :** après intégration du paquet documentaire et convergence UX ML1–ML3 sous gate distinct, consolider la spécification technique ML4 avant GO Cursor ; conserver ces 22 contrôles au statut NOT RUN, sans second registre de tests.
 
 
 ## 5. Traçabilité post-revue Figma — 2026-11-07

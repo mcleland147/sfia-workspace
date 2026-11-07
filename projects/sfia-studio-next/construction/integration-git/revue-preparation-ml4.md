@@ -1,6 +1,6 @@
 # Préparation ML4 — Revue documentaire et gates
 
-**État :** revue candidate de clôture de **préparation**, pas clôture du macro-lot d'implémentation. **Date :** 2026-11-07. **Base :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5` et `docs/next-ml4-ml5-sync-20261107@5b23a2a79fb2ba095f4db543fd84f0a3c2dd77f8` avant consolidation. Git local et déploiements privés non observés.
+**État :** revue candidate de clôture de **préparation**, pas clôture du macro-lot d'implémentation. **Date :** 2026-11-07. **Base :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5` et branche `docs/next-ml4-ml5-sync-20261107`, **HEAD à vérifier au moment du gate** (la consolidation initiale `5b23a2a` a déjà été complétée). Git local et déploiements privés non observés.
 
 | Élément | Qualification |
 |---|---|
@@ -16,4 +16,4 @@
 
 **Réserves à garder ouvertes :** identité/installation GitHub App et consentement user-to-server, organisation, attribution des effets Git, bases/HEAD/conflits/timeout, révision D4 et liens publication, isolation inter-Pilotes, captures Figma versionnées, navigateur à 320/390/1280/1680 et zoom 200 %, tests négatifs et preuves fournisseur réelles. Aucune STABLE/release/adoption induite.
 
-**Verdict pour le présent dossier :** **PR documentaire candidate recevable** après vérification du diff et des protections Git. Merge seulement après revue des changements, sans GO implicite pour construire ML4 ou pour ouvrir techniquement le chantier UX.
+**Verdict pour le présent dossier :** **PR documentaire candidate recevable** après vérification du diff et des protections Git. Le merge ne clôture que la préparation documentaire ML4 et n'autorise ni code ML4, ni lancement automatique de la convergence UX ML1–ML3, ni R6, release ou ADOPTED. Les réserves techniques demeurent ouvertes ; le contrat de construction ML4 reste DRAFT.

@@ -1,6 +1,6 @@
 # SFIA Studio Next — Living Roadmap
 
-> **DÉCISION DE TRAJECTOIRE MORRIS DU 2026-11-07 (contenu validé, Git sur branche candidate) :** ML4 couvre l'accès GitHub à la carte, les intégrations, la lecture Nora et la publication documentaire Git native gouvernée (D6/D7/D8/D9, PR puis merge distinct) ; ML5 couvre la réalisation technique Cursor. Voir [décision](decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). **ML4 NOT STARTED / BUILD NOT AUTHORIZED ; aucun merge, Figma, release ou ADOPTED.**
+> **DÉCISION DE TRAJECTOIRE MORRIS DU 2026-11-07 (contenu validé, Git sur branche candidate) :** ML4 couvre l'accès GitHub à la carte, les intégrations, la lecture Nora et la publication documentaire Git native gouvernée (D6/D7/D8/D9, PR puis merge distinct) ; ML5 couvre la réalisation technique Cursor. Voir [décision](decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). **ML4 NOT STARTED / BUILD NOT AUTHORIZED ; UX FIGMA 218–235 VALIDATED SPEC Morris, aucun merge documentaire, aucune implémentation ML4, release ou ADOPTED.**
 
 
 **Nature :** feuille de route de construction Next ; distincte de `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`.

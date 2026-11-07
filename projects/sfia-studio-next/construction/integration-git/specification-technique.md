@@ -117,7 +117,7 @@ Présenter au Pilote : **projet/Pilote réel, document/revision/digest, dépôt,
 
 ## 8. Périmètre QA / tests intégrés
 
-Suivre `05-matrice-acceptation-ml4-candidate.md` : 22 cas discriminants (non exécutés), références `D-01..D-26` et `C01..C24` applicables, `N-01..14/N-15..27`, R1 E2E07 et parcours Figma. Prévoir :
+Suivre [la matrice ML4 canonique](matrice-acceptation.md) : 22 cas discriminants (non exécutés), références `D-01..D-26` et `C01..C24` applicables, `N-01..14/N-15..27`, R1 E2E07 et parcours Figma. Prévoir :
 
 - unitaires : construction de portée/permissions, filtrage de sources, payload/plan d'effet, checks D6, états de reprise ;
 - PostgreSQL/intégration : ownership, lien document/révision/commit, transactions avant appel externe, migration additive, double effet et reprise ;
@@ -129,17 +129,17 @@ Suivre `05-matrice-acceptation-ml4-candidate.md` : 22 cas discriminants (non ex�
 
 ## 9. Réserves techniques et gates
 
-1. **D2 :** choisir périmètre exact des écritures, merge et acteur Git réel ; aligner R1/R2/R4 normatifs.
-2. **Figma :** construire et valider « Paramètres → Intégrations » et le parcours document→Git ; contrats visuels/version/captures nécessaires avant code.
+1. **D2 :** périmètre documentaire ML4, merge sur autorisation distincte et préférence GitHub App validés en contenu Morris, addenda R1/R2/R4 sur branche ; **les détails exacts des permissions et de l'acteur effectif restent à prouver avant build**.
+2. **Figma :** 18 écrans 218–235 et INDEX 388:425 VALIDATED SPEC Morris ; [registre de nœuds](../../ux-ui/integration-git-ux-ml4.md). **Figer un snapshot immuable/les captures retenues pour transposition**, puis comparer au runtime en navigateur ; ne pas redemander une validation de conception déjà acquise.
 3. **Fournisseur :** confirmer dans un compte de test les capacités App, installation, user-to-server, callbacks compatibles, accès aux organisations, permissions et branch protection.
 4. **D6/D7 :** ne pas dégrader la persistance ML3 des décisions et restrictions ; aucun deuxième workflow d'effets.
 5. **Nora/DB :** ne pas casser les garanties ML2 de révision/corrélation/ownership, ni introduire une sync concurrente.
 6. **QA :** les assertions sont candidates ; aucun test n'a été lancé. La seule présence de credentials/config ne constitue pas preuve LIVE/REAL.
-7. **Git :** la qualification v0.2 est sur branche dédiée, pas `main`. Aucune documentation normative modifiée ni prompt Cursor émis par cette spécification.
+7. **Git :** qualification v0.2 et addenda normatifs R1–R5 déjà publiés sur `docs/next-ml4-ml5-sync-20261107` ; intégration `main` et GO Cursor séparés, sans changement de code dans ce lot documentaire.
 
 ## 10. Critères de validation de la spécification définitive
 
-Le contrat est seulement prêt à recevoir un **GO de construction** quand les choix D2 sont tracés, le paquet R1–R5 cohérent publié/relu selon mandat, Figma validé dans ses variantes, modèles/API finalisés sous responsabilités uniques, risques/permissions et tests fournisseur préparés, intégrateur/dépendances/gates définis, et le routage SFIA v2.6 courant relu depuis Git.
+Le contrat est seulement prêt à recevoir un **GO de construction** après intégration et relecture des sources R1–R5, convergence UX du runtime existant ML1–ML3 selon la décision Morris, gel des références visuelles Figma déjà validées, qualification des API et identités GitHub App réelles, finalisation du modèle D6/D7/D8/D9 sans doublon, stratégie de tests/risques et intégrateur définis, puis pré-check et routage SFIA v2.6 courant depuis Git. La validation UX seule n'est ni une preuve GitHub REAL ni un GO de réalisation.
 
 ## 11. Références fournisseur à vérifier au moment du build
 
