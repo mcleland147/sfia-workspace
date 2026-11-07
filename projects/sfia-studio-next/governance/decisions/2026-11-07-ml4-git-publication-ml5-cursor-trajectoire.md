@@ -1,8 +1,8 @@
 # Décision Morris — Trajectoire ML4 Git documentaire natif / ML5 réalisation Cursor
 
-**Statut :** D2 VALIDATED IN CONTENT BY MORRIS — 2026-11-07 ; DOCUMENTED ON GIT CANDIDATE BRANCH ; NOT MERGED ; NO BUILD GO  
-**Événement d'origine :** Morris accepte la revue de la qualification ML4/ML5 v0.2 le 2026-11-07, puis donne GO pour préparer la suite documentaire et Figma.  
-**Références :** SEF v0.2 ; R1 `cadrage/vision-produit.md` §§2.23–2.24, 2.28, 2.36 ; R2 D3/D4/D6/D7/D8/D9 ; R3 §14 ; ADR R4-03/04 ; R5 référence ; qualification Git `3bb9224`.  
+**Statut :** D2 VALIDATED IN CONTENT BY MORRIS — 2026-11-07 ; DOCUMENTED ON GIT CANDIDATE BRANCH ; NOT MERGED ; NO BUILD GO
+**Événement d'origine :** Morris accepte la revue de la qualification ML4/ML5 v0.2 le 2026-11-07, puis donne GO pour préparer la suite documentaire et Figma.
+**Références :** SEF v0.2 ; R1 `cadrage/vision-produit.md` §§2.23–2.24, 2.28, 2.36 ; R2 D3/D4/D6/D7/D8/D9 ; R3 §14 ; ADR R4-03/04 ; R5 référence ; qualification Git `3bb9224`.
 **Effet :** décision de séquencement validée en contenu par Morris ; intégration documentaire sur branche autorisée séparément, sans GO code, Figma, PR, merge ni adoption.
 
 ## 1. Problème

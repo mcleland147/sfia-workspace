@@ -1,7 +1,7 @@
 # R5 ML4 — Matrice de couverture et de preuves candidate
 
-**Statut :** MAPPING UX VALIDATED SPEC / 22 TESTS NOT RUN / NO COVERAGE VERIFIED  
-**Base Git :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5` ; qualification v0.2 `docs/next-ml4-git-qualification-20261107@3bb9224`.  
+**Statut :** MAPPING UX VALIDATED SPEC / 22 TESTS NOT RUN / NO COVERAGE VERIFIED
+**Base Git :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5` ; qualification v0.2 `docs/next-ml4-git-qualification-20261107@3bb9224`.
 **Figma ML4 VALIDATED SPEC Morris :** 18 écrans 218–235, INDEX 388:425 et [traçabilité native](../../ux-ui/integration-git-ux-ml4.md) ; aucun snapshot PNG immuable sur Git ni comportement navigateur prouvé.
 
 ## 1. Principe

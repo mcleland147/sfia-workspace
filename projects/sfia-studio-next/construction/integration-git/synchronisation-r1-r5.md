@@ -1,8 +1,8 @@
 # Synchronisation documentaire R1–R5 — paquet de modifications candidates
 
-**Statut :** CONTENU REVU ET SYNCHRONISÉ SUR BRANCHE DOCUMENTAIRE CANDIDATE ; NON MERGÉ  
-**Base :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`, repo `mcleland147/sfia-workspace`.  
-**Entrée :** qualification ML4/ML5 v0.2 publiée sur `docs/next-ml4-git-qualification-20261107@3bb9224` et revue Morris acceptée.  
+**Statut :** CONTENU REVU ET SYNCHRONISÉ SUR BRANCHE DOCUMENTAIRE CANDIDATE ; NON MERGÉ
+**Base :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`, repo `mcleland147/sfia-workspace`.
+**Entrée :** qualification ML4/ML5 v0.2 publiée sur `docs/next-ml4-git-qualification-20261107@3bb9224` et revue Morris acceptée.
 **Règle :** conserver les validations passées, publier des addenda datés et repérés, et synchroniser les propriétaires plutôt que modifier les historiques/états de 2026-11-02 à 2026-11-04 comme s'ils avaient toujours anticipé ML4 natif.
 
 ## 1. Inventaire de modifications, priorité et propriétaire

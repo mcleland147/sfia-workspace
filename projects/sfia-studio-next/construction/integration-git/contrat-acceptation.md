@@ -1,10 +1,10 @@
 # R5 — Contrat de capacité candidat : Collaborer et publier avec Git
 
-**Jalon :** R5 / macro-lot ML4 — nom de pilotage, **pas** nom de module permanent.  
-**Statut :** CONTENT REVIEWED / UX VALIDATED SPEC / TECHNICAL DRAFT / NOT IMPLEMENTED / BUILD NOT AUTHORIZED  
-**Base :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`. Qualification candidate `3bb9224`, revue acceptée en conversation.  
-**Propriétaire de décision et d'acceptation :** Morris. **Conception/revue :** ChatGPT. **Construction technique si autorisée :** Cursor sous SFIA v2.6.  
-**Intégrateur :** à désigner au GO de construction.  
+**Jalon :** R5 / macro-lot ML4 — nom de pilotage, **pas** nom de module permanent.
+**Statut :** CONTENT REVIEWED / UX VALIDATED SPEC / TECHNICAL DRAFT / NOT IMPLEMENTED / BUILD NOT AUTHORIZED
+**Base :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`. Qualification candidate `3bb9224`, revue acceptée en conversation.
+**Propriétaire de décision et d'acceptation :** Morris. **Conception/revue :** ChatGPT. **Construction technique si autorisée :** Cursor sous SFIA v2.6.
+**Intégrateur :** à désigner au GO de construction.
 **UX :** phase Figma préalable à la validation définitive du présent contrat (voir [brief UX](brief-ux-figma.md) et [registre Figma](../../ux-ui/integration-git-ux-ml4.md)).
 
 ## 1. Résultat utilisateur et valeur livrable

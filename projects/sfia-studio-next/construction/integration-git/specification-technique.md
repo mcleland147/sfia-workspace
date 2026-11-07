@@ -1,8 +1,8 @@
 # R5 — Spécification technique candidate : collaboration Git et intégrations
 
-**Statut :** `DOCUMENTED — DRAFT ARCHITECTURE / NOT VALIDATED SPEC / NOT IMPLEMENTED`  
-**Nature :** préparation technique de ML4 sous la source de contrat de macro-lot R5 existante ; **ne remplace pas** les R2/ADR validés, la phase Figma ou le prompt Cursor SFIA v2.6.  
-**Baseline :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`, repo `mcleland147/sfia-workspace`.  
+**Statut :** `DOCUMENTED — DRAFT ARCHITECTURE / NOT VALIDATED SPEC / NOT IMPLEMENTED`
+**Nature :** préparation technique de ML4 sous la source de contrat de macro-lot R5 existante ; **ne remplace pas** les R2/ADR validés, la phase Figma ou le prompt Cursor SFIA v2.6.
+**Baseline :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`, repo `mcleland147/sfia-workspace`.
 **Préconditions de validation :** décision D2 trajectoire et portée, contrat fonctionnel R2 actualisé, source Figma validée/versionnée, preuve de faisabilité GitHub App, matrice et revue Morris.
 
 ## 1. Contexte du runtime réellement consulté

@@ -1,9 +1,9 @@
 # SFIA Studio Next — Qualification d'impact de la trajectoire ML4 / ML5
 
-**Statut :** QUALIFICATION v0.2 — REVUE MORRIS ACCEPTÉE ; COPIE CORRIGÉE POUR LA BRANCHE D2, SANS GO BUILD  
-**Date :** 2026-11-07, Europe/Paris  
-**Dépôt :** `mcleland147/sfia-workspace`, `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5` (GitHub distant observé).  
-**Local Git :** `NON OBSERVÉ`. **Branche candidate ML4, état du GitHub App existant dans les comptes, environnement d'exécution LIVE :** `NON OBSERVÉS`.  
+**Statut :** QUALIFICATION v0.2 — REVUE MORRIS ACCEPTÉE ; COPIE CORRIGÉE POUR LA BRANCHE D2, SANS GO BUILD
+**Date :** 2026-11-07, Europe/Paris
+**Dépôt :** `mcleland147/sfia-workspace`, `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5` (GitHub distant observé).
+**Local Git :** `NON OBSERVÉ`. **Branche candidate ML4, état du GitHub App existant dans les comptes, environnement d'exécution LIVE :** `NON OBSERVÉS`.
 **Autorité :** qualification v0.2 approuvée en revue par Morris le 2026-11-07 ; copie synchronisée dans le paquet documentaire après correction d'exemple d'endpoint GitHub. La Figma est validée en conception, tandis que les modalités techniques restent à qualifier ; pas de GO Cursor, PR ni merge.
 
 ## 1. Résumé et décision à préparer
@@ -424,7 +424,7 @@ Le mandat doit être **accepté explicitement par Morris pour cette branche, ce 
 
 ## 14. Sources Git examinées
 
-**Git principale :**  
+**Git principale :**
 https://github.com/mcleland147/sfia-workspace/commit/84bf3496a459bae9c3f9e0ac7acce4b57a595bc5
 
 - https://github.com/mcleland147/sfia-workspace/blob/main/projects/sfia-studio-next/governance/SEF.md

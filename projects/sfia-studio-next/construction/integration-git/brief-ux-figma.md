@@ -1,9 +1,9 @@
 # Phase UX/Figma — Contrat de conception et références validées ML4
 
-**Statut ACTUEL : UX VALIDATED SPEC — Morris, 2026-11-07** (sections de préparation ci-dessous conservées comme historique).  
-**Fichier Figma source (vérifié en lecture native le 2026-11-07) :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP  
-**Page :** `01 · Parcours produit — Référence UX R3` (`94:49`) ; **223 frames au snapshot R3 historique**, **242 après création des écrans ML4 et INDEX**.  
-**Autres pages :** `00 · Fondations — Composants UI` (`120:27`) ; `02 · Contrats visuels — Nora et états` (`104:14`).  
+**Statut ACTUEL : UX VALIDATED SPEC — Morris, 2026-11-07** (sections de préparation ci-dessous conservées comme historique).
+**Fichier Figma source (vérifié en lecture native le 2026-11-07) :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP
+**Page :** `01 · Parcours produit — Référence UX R3` (`94:49`) ; **223 frames au snapshot R3 historique**, **242 après création des écrans ML4 et INDEX**.
+**Autres pages :** `00 · Fondations — Composants UI` (`120:27`) ; `02 · Contrats visuels — Nora et états` (`104:14`).
 **Limites actuelles :** écrans Figma 218–235 créés et validés en conception par Morris ; inventaire natif recontrôlé le 2026-11-07 (242 frames racines, INDEX 388:425, 36 liens et 27 entrées d'INDEX). **Aucun snapshot immuable de référence ni preuve navigateur** : l'UX VALIDATED SPEC ne vaut pas COVERAGE VERIFIED, BEHAVIOR PROVEN ou ADOPTED. Le registre détaillé fait foi : [Intégrations et publication Git](../../ux-ui/integration-git-ux-ml4.md).
 
 ## 1. Positionnement

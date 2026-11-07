@@ -1,7 +1,7 @@
 # Collaboration Git et intégrations — livraison documentaire R5 / ML4
 
-**Décision :** [trajectoire ML4–ML5](../../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md).  
-**Base :** main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5.  
+**Décision :** [trajectoire ML4–ML5](../../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md).
+**Base :** main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5.
 **Statut :** CONTENU REVU / UX VALIDATED SPEC / BRANCHE DOCUMENTAIRE CANDIDATE / NOT IMPLEMENTED / NO BUILD GO.
 
 | Document | Objet |
