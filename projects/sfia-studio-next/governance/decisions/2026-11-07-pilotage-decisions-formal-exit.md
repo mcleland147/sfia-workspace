@@ -1,7 +1,7 @@
 # SFIA Studio Next — Décision de sortie R5 / « Piloter et décider » (ML3)
 
-**Date :** 2026-11-07 (Europe/Paris)  
-**Statut de décision :** **VALIDATED BY MORRIS — FORMAL EXIT / CLOSED WITH CARRIED RESERVES**. Autorité : Morris, validation explicite en conversation après la recette LIVE C03 et la revue post-merge #661.  
+**Date :** 2026-11-07 (Europe/Paris)
+**Statut de décision :** **VALIDATED BY MORRIS — FORMAL EXIT / CLOSED WITH CARRIED RESERVES**. Autorité : Morris, validation explicite en conversation après la recette LIVE C03 et la revue post-merge #661.
 **Portée :** capacité R5 « Piloter et décider » : D5 trajectoire/cycles, D6 décisions et restrictions, dialogue Nora, spécialisation CKI et persistance PostgreSQL. **Cette décision est une décision de gouvernance du chantier, pas une HumanDecision enregistrée dans l'application.**
 
 ## Décision
