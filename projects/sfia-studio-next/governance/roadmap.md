@@ -1,5 +1,8 @@
 # SFIA Studio Next — Living Roadmap
 
+> **ÉTAT COURANT CONVERGENCE UX — DÉCISION MORRIS P1/P2/P3/F1/F2 VALIDATED SPEC (2026-11-07)** : suite à la [validation du parcours et des critères de fidélité](decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md), le [contrat de convergence v0.4](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) fixe P1 reprise OPEN/non liée, P2 révision D4 protégée dans projet, P3 shell partagé, F1 variantes de rail **246/246/240 px**, F2 objectif 0 / maximum 2 CSS px sur rectangles stables. **G1 validé ; G2 DIP partiel (8 frames/55 nœuds, source non figée, seuil image non calibré) ; G3 non préparé ; G4 sans GO Cursor ; G5 NOT RUN.** Cette entrée prévaut sur les anciennes annotations candidates de 2026-11-07, qui restent archivées ci-dessous. [Dossier](../construction/convergence-ux-parcours-pilote-nora/securisation-parcours-fidelite.md) · [L2 partiel](../ux-ui/releves-geometriques-convergence-l2-partiel.json).
+
+
 > **R5 / CONVERGENCE UX — PROTOCOLE DE FIDÉLITÉ FIGMA CANDIDAT (2026-11-07)** : [contrat d'acceptation v0.3](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) et [protocole mesuré R3](../ux-ui/protocole-fidelite-figma-runtime.md) préparés avec [11 relevés L1 partiels](../ux-ui/releves-geometriques-convergence-l1.json). L'intention de fidélité a l'accord de principe Morris ; **P1–P3, rail 240/246, tolérances et pack L2 restent à finaliser**, sans GO code. L'intégration documentaire ne clôture pas la convergence ni ML4.
 
 

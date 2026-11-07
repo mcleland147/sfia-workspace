@@ -2,7 +2,7 @@
 
 **Objet :** préparation de la convergence UX « Parcours Pilote–Nora intégré » (capacités construites ML1–ML3).
 **Date :** 2026-11-07 (Europe/Paris).
-**Statut :** `DOCUMENTED / D0 CANDIDATE / NOT VALIDATED SPEC / NOT IMPLEMENTED`.
+**Statut :** `DOCUMENTED / F1+F2 POLICY VALIDATED SPEC BY MORRIS / G2 DEEP PACK INCOMPLETE / NOT IMPLEMENTED`.
 **Baseline code vérifiée :** `mcleland147/sfia-workspace`, `main@d37ea0882ee9256ec206e2f0523a71bf13674e88`.
 **Branche de qualification existante :** `docs/next-ux-convergence-qualification-20261107@b692376c984c669af81e583c230a4d393671bf9c` (**non mergée**).
 **Figma :** fichier `itgvCulInEnFY6DvgIegvP`, page de référence `94:49`; relevés natifs **en lecture seule**, non gelés en version immuable.
@@ -175,3 +175,13 @@ Conditions de reproduction : navigateur et version gelés, OS/environnement iden
 **Verdict documentaire :** `FIGMA-TO-RUNTIME CONVERGENCE CONTRACT ENRICHED — D0 CANDIDATE / DEEP DESIGN PACK NOT EXTRACTED / NO BUILD GO`.
 
 **Pièce L1 jointe à cette révision :** [Relevés géométriques natifs partiels](releves-geometriques-convergence-l1.json) — 11 frames, extraction racine seulement, sans version Figma immuable ; **L2 et comparaisons DOM non réalisées**.
+
+---
+
+## 8. Application du gate G1 validé — fidélité mesurée (2026-11-07)
+**Décision Morris :** [P1–P3/F1/F2](../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md). Le présent protocole est **validé pour les principes et les seuils géométriques F2**, pas pour un seuil d'image global non mesuré.
+- **F1** : variantes d'un **unique composant** de rail : `personnel` 246 px, `projet` 246 px, `conversation` 240 px ; chacun conserve ses propres enfants, styles, paddings et spacings natifs. La différence est **intentionnelle au contrat actuel** et ne doit pas être « corrigée » sans nouvelle décision.
+- **F2** : objectif 0 CSS px, borne ≤2 CSS px sur `x/y/w/h` des **rectangles stables** référencés à environnement Figma/DOM comparable ; toute dérogation est datée, motivée et approuvée par Morris. Styles calculés et contenus doivent être conformes, sans collision ou troncature anormale.
+- **Contrôle image** : aucun seuil de pourcentage global approuvé ; calibration locale par région sur fixtures/exports figés avant la recette, en isolant les variations d'anticrénelage de police.
+- **DIP source** : [11 frames L1](releves-geometriques-convergence-l1.json) et [8 frames/55 nœuds L2 partiels](releves-geometriques-convergence-l2-partiel.json) ; **ne pas coder avec les descendants manquants**. Les données du pack L2 restent observées, non prouvées au navigateur et sans export immuable.
+- **G1 VALIDATED SPEC / G2 PARTIAL / G3 NOT PREPARED / G4 BUILD NOT AUTHORIZED / G5 NOT RUN**. Les lignes historiques des §5–7 marquées « candidat » sont antérieures à ce record daté.

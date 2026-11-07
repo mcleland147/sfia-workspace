@@ -147,3 +147,8 @@ La première extraction profonde doit figer les **compositions et états priorit
 **CONVERGENCE UX WORK QUALIFIED — CANDIDATE, NOT AUTHORIZED FOR BUILD.** Un macro-résultat cohérent est identifiable. Deux écarts montrent pourquoi une simple campagne cosmétique serait insuffisante : **récupération des préparations** et **continuité documentaire du sas au projet**. **Leurs orientations ont été arbitrées par Morris** ; les contrats détaillés de reprise et de révision restent à contractualiser et accepter avant code. Les autres écarts sont majoritairement navigation/hiérarchie/composants/états, à réaliser sans rouvrir les responsabilités D1–D6 déjà construites.
 
 **Historique de l'analyse :** D0 produit sans mutation. **Présent versement :** contribution documentaire Git sur branche candidate sous GO Morris ; aucun code, Figma, PR, merge ni adoption.
+
+---
+
+## 11. Suite de qualification — décisions P1/P2/P3/F1/F2 (2026-11-07)
+Les arbitrages de modalités **P1, P2, P3, F1, F2** ont été **validés en contenu par Morris** et sont enregistrés dans [la décision applicable](../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md). Les 16 parcours `CU` et les 14 oracles `UXC` restent inchangés en numérotation ; G1 = **VALIDATED SPEC**. Pour le contrat applicable lire [v0.4](contrat-acceptation.md) ; le [relevé L2](../../ux-ui/releves-geometriques-convergence-l2-partiel.json) reste **partiel**. Pas de reprise de construction Cursor, ni de preuve BROWSER ou LIVE. Les mentions antérieures « candidat / non mergé » se rapportent aux snapshots précédents.
