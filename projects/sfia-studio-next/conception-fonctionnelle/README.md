@@ -265,3 +265,12 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 | D9 — [Git](integration-git-gouvernee.md) §8 | Droits, ref, appel, rate limit, webhook et effet Git réel | Interface propriétaire ; ML4 selon gate |
 
 **Contrôle de compatibilité :** les extensions ne modifient pas les propriétaires historiques, ni l'autorité D6, ni le journal D4, ni l'état du cycle D5. Les identifiants candidats ne sont **pas** ajoutés rétroactivement aux comptages de sortie R2 ; un changement structurel nécessiterait arbitrage. Les niveaux de preuve et scénarios OBS-Q01..12 sont définis dans la source R4 puis déclinaisons [R5](../construction/reference-delivery-r5.md), [ML2 spécification](../construction/ml2-production-et-capitalisation-nora/specification-technique.md) et [matrice QA](../construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md). Aucun code, RECETTE ou ADOPTED n'est prouvé par ces ajouts.
+
+
+---
+
+## Addendum de synchronisation — 2026-11-07 : ML4 / ML5
+
+La [décision de trajectoire](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md) apporte des précisions aux contrats D1–D9 par **addenda datés**. Git demeure facultatif ; la gestion des intégrations et les publications documentaires natives sous D6/D7/D8/D9 relèvent de ML4 ; les réalisations techniques Cursor relèvent de ML5. La [qualification](../construction/integration-git/qualification-impact-ml4-ml5.md) conserve la traçabilité des 41 RG et 36 PF historiques D9 et des nouveaux scénarios N-01..N-27.
+
+**Statut :** synchronisation documentaire de contenu approuvée par Morris, publiée sur branche candidate ; aucun nouveau comportement runtime ni ADOPTED prouvé.

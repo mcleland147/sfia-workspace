@@ -274,3 +274,21 @@ Un projet sans dépôt continue à utiliser Nora, les cycles, décisions, mémoi
 **Contrat D9 futur :** pouvoir corréler la requête Studio et l'opération Git réellement autorisée à la référence dépôt/commit/ref, aux permissions examinées, à la tentative API, au statut, à la réponse fournisseur et à la ref effectivement relue. Refus, expiration, quota/rate limit, webhook manquant/dupliqué ou conflit de branche restent distingués. Ne jamais tracer un token OAuth/App, une clé privée ou un payload sensible intégral. Des événements fournisseur asynchrones ne prouvent pas seuls la vérité Git courante.
 
 **Parcours candidats à qualifier lors de ML4 :** OBS-Q11 refus Git/rate limit, source inaccessible, PR ouverte non mergée, requête de mutation dont ACK est perdu, webhook réémis ou signature invalide. **Preuve :** appel externe réel sur sandbox autorisé, ref observée et droits au point d'effet ; aucune mutation Git de production sans D6/D7 et gates applicables.
+
+
+---
+
+## Addendum D9 — 2026-11-07 : intégrations et opérations documentaires natives
+
+**Référence :** [décision de trajectoire](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). Les 41 RG et 36 PF historiques restent identifiés et opposables dans leur version d'origine. Cet addendum précise le fonctionnement de ML4 ; les nouveaux cas de qualification N-01..N-27 sont contenus dans la [qualification approuvée](../construction/integration-git/qualification-impact-ml4-ml5.md), sans renumérotation silencieuse des PF existants.
+
+- **RG-GIT-008/013/027 :** login OAuth Studio, installation de GitHub App, autorisation utilisateur, droits du dépôt et, en ML5, accès effectifs de Cursor sont distincts ; un jeton application plus privilégié ne contourne pas un refus du Pilote.
+- **RG-GIT-006/010/012 :** depuis Paramètres ou Nora, le Pilote peut installer, réautoriser, ajouter ultérieurement un dépôt, retirer un dépôt ou se déconnecter ; retrait du lien projet et retrait GitHub App sont des effets différents. Le travail Studio non dépendant continue.
+- **RG-GIT-025 :** D7 déclenche et réconcilie les écritures documentaires Git réalisées par Studio/D9 sous mandat D6 en ML4 ; Cursor, exécuteur technique, arrive en ML5. Aucun second moteur d'effets.
+- **RG-GIT-026/028/029/031/032 :** cible/branche/chemin/base/HEAD/diff et droits au point d'effet, conflit, concurrence et réponse ambiguë requalifiés ; relire distant avant retry, sans inventer un clone ou un push local quand l'API crée un commit distant.
+- **RG-GIT-030 :** commit, PR et merge sont des faits distincts ; merge explicitement autorisé, contrôle HEAD et protections du dépôt.
+- **RG-GIT-041 :** aperçu et lien vers l'original sourcés, sans présomption d'accès à une URL privée.
+
+**Nouvelles exigences ML4 à qualifier :** page « Paramètres → Intégrations » (GitHub seul actif) ; installation par compte/organisation ; consentement utilisateur et retour vérifiés serveur ; sélection de dépôts à la carte et ajouts ultérieurs ; rattachement facultatif au projet ; document D4 versionné → inspection diff → branche/commit/PR/merge ; reprise et preuve limitées ; refus et révocation ; aucune marketplace, force-push, administration GitHub ou mutation de code en voie documentaire.
+
+**Gate :** les scénarios N-01..N-27 devront être intégrés à la traçabilité de recette et au design Figma avant code. Cet addendum de contenu approuvé sur branche ne vaut ni comportement prouvé ni VALIDATED SPEC technique.

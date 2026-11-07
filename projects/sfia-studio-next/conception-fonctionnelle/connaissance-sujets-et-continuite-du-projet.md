@@ -174,3 +174,14 @@ CKI est le terme cible Next (CKC reste historique R1). D4 garde les connaissance
 - **RG-KNOW-026 — Exploitation non intrusive.** Le journal existant des événements de Sujets demeure la source de ces mutations ; seules références/versions et résultats utiles sont exportés pour le diagnostic. Pas de contenu documentaire privé ni de provenance complète copiée automatiquement dans un collecteur technique.
 
 **Parcours candidats :** **PF-KNOW-18** consultation refusée puis réponse Nora → refus visible sans source inventée ; **PF-KNOW-19** sauvegarde réussie avec ACK perdu → effet D4 confirmé, retry sans nouvelle révision ; **PF-KNOW-20** fusion/séparation de Sujets avec rollback → journal transactionnel conforme et traces techniques distinctes, aucune mutation fictive. Couverture DB/INTEGRATION, BROWSER ciblé et diagnostic lié au SHA.
+
+
+---
+
+## Addendum D4 — 2026-11-07 : révision interne et référence publiée
+
+**Référence :** [décision de trajectoire](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). D4 demeure propriétaire du document interne, de ses révisions et de la capitalisation existante. ML4 associe à une révision précise une ou plusieurs **publications Git observées** avec dépôt, chemin, branche/commit, PR et état connu ; le document D4 ne devient pas une copie transitoire du fichier Git.
+
+Retirer le rattachement du dépôt à un projet, retirer un dépôt de l'installation GitHub App et déconnecter l'intégration sont trois opérations différentes. Elles ne suppriment pas rétroactivement documents, révisions ou références historiques, mais peuvent empêcher leur relecture actuelle. Une source de projet B ne devient pas une décision de projet A.
+
+**Preuves attendues :** révision/digest exact, liens Git réellement retrouvés, conflit de version signalé, reprise après session et révocation d'accès sans fiction.

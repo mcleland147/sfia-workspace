@@ -1580,3 +1580,16 @@ L'étape de conception **observabilité et corrélation** prendra ces opération
 > **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
 
 Sans réouverture de R4 ou des ADR, le détail technique de l'étape 2 est dans le **contrat d'observabilité transverse §11**, tandis que **ML2 §19** porte les intégrations D1–D4 et **R5 §19** les gates. L'architecture reste modulaire (ADR R4-01), la vérité métier demeure transactionnelle chez D2/D4 (ADR R4-02), la preuve et l'autorité restent séparées (ADR R4-03) et les lanes/builds sont gouvernés par ENV-01 (ADR R4-04). Toute nouvelle base de télémétrie, canal d'accès interprojet, effet externe ou refonte de l'autorité serait un changement structurant soumis à Morris, pas un détail technique implicite.
+
+
+---
+
+## Addendum d'architecture R4 — 2026-11-07 : D6–D9 en deux macro-capacités
+
+**Référence :** [décision Morris](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). Les ADR R4-01/03/04 et DATA-01 **restent en vigueur**. La recommandation de §5.7.11 d'un vertical intégré D6/D7/D8/D9 est préservée quant aux responsabilités, mais son **premier effet réel** devient la mutation **documentaire Git native Studio en ML4**, puis le contrat et l'exécuteur technique Cursor en ML5.
+
+**GitHub :** Better Auth OAuth Studio n'autorise pas les dépôts. Sélection préférentielle GitHub App avec installation bornée et étude prioritaire user-to-server pour les actes attribués au Pilote ; intersection des droits effectifs, consentement utilisateur, approbation org, callback, state/CSRF, secrets serveur, révocation et séparation DEV/RECETTE à prouver. Gestion centralisée « Intégrations » extensible dans son UX, **sans moteur générique de plugins** en ML4.
+
+**Effet :** D4 est propriétaire de la révision documentaire, D6 du mandat, D7 du contrat/lancement/réconciliation, D9 de l'accès/ref/HEAD/opération fournisseur, D8 des observations. Refus si source, droits, cible, diff/base/HEAD ou identité ont changé. Pas de retry aveugle après timeout, de merge automatique, d'écriture technique par le mode documentaire ni de seconde machine d'états. Les droits Git effectifs de Cursor seront vérifiés indépendamment en ML5.
+
+**QA :** rattacher les cas R4 D-01..D-26 applicables et les scénarios C07/C09/C11/C12/C16/C21/C24 à la matrice ML4 ; preuves fournisseur LIVE/REAL et revue Figma encore absentes. Cet addendum ne modifie pas l'historique des ADR.

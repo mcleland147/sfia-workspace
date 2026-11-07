@@ -198,3 +198,14 @@ Les variantes transverses 197–204 et 216–217 couvrent reflow, mobile, zoom, 
 Pour chaque **capacité** implémentée, Cursor doit disposer avant le code de la liste des références Figma et variantes applicables, de la définition du composant partagé, des mesures profondes extraites des nœuds (y compris filiation, contraintes, typographies, variables et états), du contrat de comportement R2, des tests visuels ciblés et des exceptions acceptées. Un défaut ou désaccord entre deux frames partagées est **KNOWN GAP à arbitrer** et non une liberté de design. Les validations de conformité ne se déduisent pas de l'index des tailles.
 
 **Verdict : COMPLETE FAMILY COVERAGE / PARTIAL LEAF GEOMETRY — UX CONTRACT CANDIDATE.** La conception peut servir de base R4, mais la preuve « pixel perfect de tous les écrans » nécessite la transposition et les comparaisons runtime en R5–R6. Aucune décision de stack, PR, merge ou ADOPTED dans ce contrat.
+
+
+---
+
+## Addendum de transposition — 2026-11-07 : ML4 Git et Intégrations
+
+**Référence :** [décision](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md) ; [brief Figma](../construction/integration-git/brief-ux-figma.md). Réutiliser les frames Git 172 (236:471), 173 (236:609), 184 (236:2127), 185 (236:2265) et 191 (237:1053) du fichier itgvCulInEnFY6DvgIegvP. Créer les nouvelles surfaces **Paramètres → Intégrations**, premier login facultatif, consentement/installations GitHub, ajout et révocation de dépôts, retour contextuel Nora et publication d'une révision D4. Ne pas inventer de node IDs pour les écrans non créés.
+
+Avant code, obtenir **contrat visuel Morris, node IDs natifs, date, snapshot et matrice PF/UX/états** ; contrôler focus, clavier, zoom, reflow, responsive, droit/refus/erreur. Un bouton de configuration ne doit pas autoriser un effet, et aucune publication/merge ne doit être simulée visuellement comme réussi.
+
+**Statut :** phase Figma non exécutée ; aucun runtime et aucune preuve visuelle de nouvelles surfaces.

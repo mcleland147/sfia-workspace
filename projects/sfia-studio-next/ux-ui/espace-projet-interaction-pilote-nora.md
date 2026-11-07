@@ -1633,3 +1633,14 @@ La conception UX R3 est **CLOSED BY MORRIS — WITH CARRIED RESERVES**. La [déc
 **Parcours UX candidats :** (i) panne DB lors de l'appel du portefeuille → erreur de service et possibilité de réessai, pas « reconnectez-vous » si session valide ; (ii) document sauvegardé/ACK perdu → UI réconcilie l'effet réel et évite une nouvelle écriture ; (iii) erreur de Nora → progrès et limites connus, sans faux pourcentage ; (iv) opérateur avec id de corrélation → diagnostic sans exposer le contenu du fil ; (v) trace indisponible → limite de diagnostic, pas activité inventée.
 
 **Transposition / preuves :** réutiliser les surfaces Figma R3 existantes, notamment Conversation 03, document/inspection et activité 206–217, sous les contrats d'accessibilité et de visibilité du §35. Toute évolution visible exige qualification Figma native ciblée, capture runtime BROWSER aux tailles prévues, et cohérence avec les événements réels. L'instrumentation API/DB seule n'exige pas de nouvelle maquette.
+
+
+---
+
+## Addendum de parcours — 2026-11-07 : paramètres d'intégrations et Git
+
+**Références :** [décision](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md) ; [brief Figma](../construction/integration-git/brief-ux-figma.md). Studio dispose d'une destination **Paramètres → Intégrations** au niveau utilisateur, sans nouveau fil conversationnel de portefeuille. Trois entrées cohérentes : invitation facultative après login, configuration volontaire dans Paramètres, demande contextuelle depuis Nora/sas/projet lorsqu'un accès Git manque.
+
+La reprise après GitHub doit retrouver le projet, la ressource et l'intention d'origine après vérification de la session et des permissions. Distinguer droits d'installation/dépôt, rattachement au projet et mandat d'effet. La publication documentaire part d'une **révision D4**, avec cible, chemin, branche/base/HEAD, contenu et diff inspectés, puis mandat D6 pour branche/commit/PR, et acte distinct pour merge. États refusé/expiré/partiel/UNKNOWN explicites ; le travail indépendant se poursuit.
+
+**Statut :** contrat de parcours approuvé en cadrage, **conception Figma et tests navigateur à venir**.

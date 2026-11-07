@@ -641,3 +641,14 @@ Après interruption ou changement de conversation, Nora récupère auprès des d
 - **RG-CONV-015 — Trace et qualité séparées.** Les étapes et erreurs observables servent à diagnostiquer inefficience et manque de couverture, non à déclarer automatiquement une réponse pertinente ; évaluation indépendante R5 §14 et sources factuelles conservées. Ne pas capturer le raisonnement interne caché ni les prompts complets par défaut.
 
 **Parcours candidats :** **PF-42** une requête produit deux tentatives OpenAI après échec streaming → une mission et deux appels identifiables, coût/erreur attribués ; **PF-43** outil D4 refuse une lecture → limite sincère, source non déclarée utilisée ; **PF-44** trace SDK ou export indisponible → diagnostic incomplet affiché comme tel, aucune reconstitution inventée. Les statuts visibles sont gouvernés par R3 §40 et R3 §41, pas par des pourcentages déduits du nombre de spans.
+
+
+---
+
+## Addendum D3 — 2026-11-07 : Nora et sources Git gouvernées
+
+**Référence :** [décision de trajectoire](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). Nora pourra rechercher et lire dans Git les seuls documents/commits/branches/PR autorisés **par contrôle serveur D9**, en conservant dépôt, ref/SHA, provenance et actualité. Elle peut expliquer un accès manquant et proposer une demande contextuelle proportionnée, sans bloquer un travail indépendant.
+
+Nora conserve sa capacité ML2 de rédaction/révision D4 : elle peut proposer une destination, un contenu et un diff, mais **ne déclenche aucun effet Git depuis sa seule réponse ou un texte externe**. Les README, commentaires et PR sont des sources non autorisantes ; tout mandat, cible, diff et version d'inspection passent par D6/D7/D9.
+
+**Preuves attendues :** consultation Git privée avec attribution, source hostile non convertie en GO, refus/revocation sans fuite, continuité du fil après retour d'autorisation.

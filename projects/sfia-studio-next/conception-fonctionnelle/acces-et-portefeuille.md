@@ -213,3 +213,14 @@ Les qualificatifs ci-dessus concernent **les textes examinés**, pas une compati
 - **RG-ACC-028 — Isolation des diagnostics.** Les événements de session n'accordent aucun droit et n'exposent aucune information d'un autre Pilote/projet/lane ; diagnostic et visibilité du portefeuille respectent les règles d'accès existantes.
 
 **Parcours candidats :** **PF-ACC-25** GitHub OAuth refusé et callback indisponible → catégorie et opération identifiables sans fuite ; **PF-ACC-26** panne DB lors de résolution de session → erreur de dépendance distinguée d'une session invalide ; **PF-ACC-27** session DEV réutilisée hors DEV, expirée ou révoquée → refus effectif et origine qualifiée, sans confusion avec OAuth. **Acceptation :** tests d'intégration d'erreur/accès et LIVE OAuth borné ; diagnostic consultable avec la sécurité/retention DATA-01, sans considérer un compteur d'événements comme preuve de réussite OAuth.
+
+
+---
+
+## Addendum D1 — 2026-11-07 : accès facultatif aux intégrations
+
+**Référence :** [décision de trajectoire](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). Le login GitHub OAuth existant authentifie le Pilote dans Studio mais ne confère aucun droit Git ; D9 contrôle séparément installation GitHub App, autorisation personnelle, ressources et permissions.
+
+La navigation **Paramètres → Intégrations** relève de la session D1, sans créer de mission ni de conversation globale. La proposition de connexion après premier login est non bloquante et peut être différée ; une entrée depuis Nora ou un projet rejoint le même parcours. À la reprise, la session et le contexte sont revérifiés, sans présumer accès ou mandat.
+
+**À prouver ML4 :** Studio utilisable sans Git, entrée Paramètres après login, refus 401/403, absence de permission implicite et maintien de l'isolation des comptes. Figma non encore modifié.
