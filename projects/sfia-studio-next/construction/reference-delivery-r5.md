@@ -486,3 +486,22 @@ La capacité **ML4 — Collaborer et publier avec Git** conserve ses frontières
 **Séquence de construction approuvée** : (1) documentation R1–R5 intégrée et vérifiée sur Git ; (2) convergence UX du portefeuille, sas, projet, conversation Nora, documents, méthodes/cycles et décisions/journal issus de ML1–ML3, sous **contrat/GO technique distinct** et tests navigateur de non-régression ; (3) réalisation Git ML4 intégrée au shell et composants, après preuve fournisseur et GO Cursor ; (4) ML5 Cursor ; (5) R6. Aucun macro-lot numéroté supplémentaire ni découpage en micro-cycles n'est décidé automatiquement.
 
 **Gates ouverts :** GitHub App réelle, attribution et permissions, sécurité/DB, mandat D6/D7, preuves browser/LIVE/REAL, snapshot immuable Figma avant code ; 22 tests ML4-AT encore NOT RUN. La validation UX ne clôture ni le build ML4, ni R6, ni l'adoption.
+
+---
+
+
+## 23. Préparation candidate — Convergence UX du parcours Pilote–Nora intégré (2026-11-07)
+
+**Ordre Morris :** préparation documentaire Git ML4 intégrée (#663) → **convergence UX du runtime ML1–ML3** sous contrat et GO distincts → développement technique ML4 → ML5 Cursor. Le résultat de convergence n'est pas un macro-lot numéroté additionnel par défaut et **ne constitue pas la construction technique ML4**.
+
+**Arbitrages de portée validés :** [décision Morris A1/A2/A3](../governance/decisions/2026-11-07-convergence-ux-arbitrages.md). A1 = reprise ciblée des préparations non liées depuis le portefeuille ; A2 = révision documentaire accessible dans le projet par D4 existant ; A3 = pas de nouveau moteur de cartes/commandes mutantes Nora.
+
+**Sources propriétaires du candidat :** [qualification et matrice `CU-01..16`](convergence-ux-parcours-pilote-nora/qualification.md) ; [contrat `UXC-01..14`](convergence-ux-parcours-pilote-nora/contrat-acceptation.md) ; [audit R3 §19](../ux-ui/audit-couverture-ux-r3.md) ; [transposition R3 §8](../ux-ui/contrat-transposition-figma-code.md). Ces documents sont **DOCUMENTED / CANDIDATE**, non `VALIDATED SPEC` du contrat complet.
+
+**IN à préparer :** shell/nav commun, portefeuille/sas, continuité projet, fil Nora et rendu sûr, D4 documents/révisions/sujets, D5 trajectoire/CKI, D6 décisions/restrictions, états réels et reprise, responsivité, accessibilité. A1/A2 peuvent impliquer de **petits contrats de service/API** sous D1/D2/D4 : les qualifier comme fonctionnalité intégrée, et non comme retouche de style.
+
+**OUT :** GitHub App/dépôts, écriture/merge Git, exécution Cursor et D7/D8/D9, nouveau moteur d'actions Nora, nouvelles autorités, migration gratuite, nouveau catalogue de plugins, refonte de tous les écrans Figma.
+
+**Risque principal :** déplacer implicitement la source de vérité de D4/D5/D6 vers la présentation ou fabriquer un comportement non implémenté en suivant une maquette. **STOP** si le projet nécessite une autorité supplémentaire, un nouveau moteur concurrent, une évolution structurante de DB/contrat ou une fonctionnalité D7/D9. Préserver les réserves de ML1–ML3 et les gates ENV-01.
+
+**Suite avant GO technique :** relire la matrice `CU` et les 14 critères `UXC` avec Morris, arrêter le parcours A1/A2 et les exigences de navigation/états, identifier l'intégrateur et les preuves par risque, figer les frames Figma applicables, qualifier le blast radius et seulement ensuite construire la spécification technique détaillée. **Aucun GO code/PR/merge/STABLE/ADOPTED** n'est induit.

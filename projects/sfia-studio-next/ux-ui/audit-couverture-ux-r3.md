@@ -1164,3 +1164,23 @@ Morris a prononcé **R3 CLOSED BY MORRIS — WITH CARRIED RESERVES** au niveau c
 **Statut actuel : VALIDATED SPEC UX Morris**, pas `BEHAVIOR PROVEN`. Le fichier Figma `itgvCulInEnFY6DvgIegvP`, page `94:49`, contient maintenant **242 frames racines** : 223 au snapshot R3 historique + 18 écrans 218–235 + 1 INDEX ML4 (`388:425`). Audit natif : 18 numéros uniques, 36 destinations de bouton valides et 27 liens d'INDEX résolus. Les écrans R3 historiques demeurent les références complémentaires, sans renumérotation.
 
 [Registre de traçabilité Figma ML4](integration-git-ux-ml4.md), [contrat de transposition](contrat-transposition-figma-code.md). Les états GitHub, Nora, publication, PR et merge sont des **maquettes candidates de runtime**, non des opérations prouvées. La convergence UX du parcours implémenté ML1–ML3 sera qualifiée **après intégration documentaire ML4 et avant code Git ML4**.
+
+---
+
+
+## 19. Traçabilité de convergence R5 — Parcours Pilote–Nora intégré (arbitrages Morris 2026-11-07)
+
+**Statut :** `DOCUMENTED / CANDIDATE R5` — le présent addendum ne modifie pas la clôture en conception R3, la numérotation Figma ou les RG/PF R2. La [décision des arbitrages A1–A3](../governance/decisions/2026-11-07-convergence-ux-arbitrages.md) en valide le périmètre, **pas encore le contrat de recette complet**.
+
+La [qualification de convergence](../construction/convergence-ux-parcours-pilote-nora/qualification.md) confronte les **16 parcours `CU-01..16`** du runtime ML1–ML3 à leurs références R3 ; le [contrat candidat](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) propose **14 contrôles `UXC-01..14`**. `CU` et `UXC` sont des identifiants R5 de traçabilité/recette, **pas** de nouvelles règles normatives R2, ni des validations de comportement.
+
+| Parcours R5 | Références natives Figma R3 à conserver | Écart constaté / arbitrage |
+| --- | --- | --- |
+| Accès, portefeuille, sas et continuité — `CU-01..04` | 01 `94:50`, 02 `94:135`, 62–65, 73–81, 13/14 | Shell minimal ; **A1 validé** : reprise ciblée des préparations sans création, contrat d'accès/API à définir |
+| Nora, activité, réponses — `CU-05/06` | 03 `94:214`, 109–118, 206–208, 216/217 | Rendu présent mais peu composé ; **A3 validé** : pas de moteur d'actions mutantes non implémentées |
+| Documents et connaissances — `CU-07/08` | 04 `94:370`, 18 `97:359`, 05 `94:515`, 89–100, 205 | **A2 validé** : révision depuis le projet via le même D4, sans perte d'historique ni second éditeur métier |
+| Navigation et reprise — `CU-09` | 01–05, 13/14, 110 | Entrées, retour au fil/source, contexte projet et états URL/refresh à transposer réellement |
+| Trajectoire, CKI et décisions — `CU-10..13` | 22–34, 39–41, 47/48, 52–60 | Présentation actuelle dans `PilotagePanel` ; les états D5 et décisions D6 restent propriétaires, pas de pouvoir UI additionnel |
+| Incidents, frontières, responsive — `CU-14..16` | 63/66/78/92/93, 10, 216/217 | Navigation mobile manquante, conflits et reprise à vérifier au navigateur, sans prétendre aux effets Git/Cursor |
+
+**Gate suivant :** sélectionner les frames prioritaires (et exceptions), obtenir les propriétés natives nécessaires avant code, contractualiser la navigation/composition et les variantes, puis prouver le runtime sur 1680/1280/390/320 px et à 200 % de zoom. Aucun écran Figma n'est créé ou modifié par cet addendum. Les écrans Git ML4 218–235 demeurent **hors du code de convergence**.
