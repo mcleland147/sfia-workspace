@@ -1,7 +1,7 @@
 # SFIA Studio Next — R5 / Pilotage et décisions — C03 : recette LIVE intercycles
 
-**Date :** 2026-11-07, Europe/Paris.  
-**Nature :** preuve D0 de recette utilisateur, non normative ; à associer au dossier de sortie ML3 et à la décision Morris, sans prétendre à une preuve technique exhaustive.  
+**Date :** 2026-11-07, Europe/Paris.
+**Nature :** preuve D0 de recette utilisateur, non normative ; à associer au dossier de sortie ML3 et à la décision Morris, sans prétendre à une preuve technique exhaustive.
 **Verdict :** **C03 TARGETED INTERCYCLE LIVE BEHAVIOR PROVEN**, avec limite d'observabilité de l'injection `DELIVERED`.
 
 ## Source et préconditions
