@@ -706,3 +706,22 @@ Append-only logical journal of Cursor product deliveries.
 | Verdict candidat | `ML3 RCT-02 DOCUMENTATION PUBLISHED — DRAFT PR OPEN — CI GATE [à relever]` |
 
 > Le SHA Git du commit documentaire ≠ SHA recetté `61fe295b`. L'arbre fonctionnel `web/`/`cki/` doit rester identique au candidat LIVE.
+
+## delivery_id: DELIV-2026-11-07-PILOTAGE-FORMAL-EXIT
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-07 |
+| Macro-capacité | R5 — Piloter et décider (ML3) ; sortie formelle bornée |
+| Type | D2 décision Morris + documentation Git, **NO SEMANTIC PRODUCT IMPACT** |
+| Autorité / GO | Morris valide en conversation la clôture ML3 avec réserves et l'intégration Git documentaire ; aucune autorisation PR/merge/promotion implicite |
+| Base Git | `main@56d263e83de7bb3af4a5b480131002684a5626ca` ; PR #661 MERGED |
+| LIVE | RCT-02 T01–T08 8/8 sur `61fe295b`, build `ZCkIWQ341KK1KOHTD1a5L` ; C03 intercycle ciblé PASS rév7/journal7, `02-conception-fonctionnelle RESOLVED pin 0.2.0` |
+| CI | PR #661 pré-merge `42332186084` PASS, post-merge `42333954356` PASS, migration 007 ; PG-DBFAIL-03 non réellement exécuté |
+| Documents de sortie | `governance/decisions/2026-11-07-pilotage-decisions-formal-exit.md` ; `governance/roadmap.md` ; `construction/pilotage-et-decisions/recette-cki-intercycles-live.md` ; `construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md` ; présent journal |
+| Git documentaire | Branche `docs/next-pilotage-decisions-formal-exit` créée depuis merge SHA ; publication documentaire autorisée, **PR/merge non autorisés dans ce mandat** |
+| Environnements / version | DEV/RECETTE non modifiés ; STABLE NOT AVAILABLE ; `NO RELEASE` / package `0.0.0-dev` |
+| Réserves / exits | `ckiDelivery DELIVERED` non indépendant, cookies ENV-01 A avant STABLE, PG restore avant promotion adaptée, PG-DBFAIL-03 avant preuve reprise, R6 E2E/REAL |
+| Verdict | **ML3 CLOSED BY MORRIS AT BOUNDED D5/D6 + CKI GUIDANCE SCOPE — WITH CARRIED RESERVES** ; R5 IN PROGRESS ; ML4 Git/D9 NOT STARTED/NOT AUTHORIZED |
+
+> Cette entrée décrit la décision de sortie et la publication de ses documents, sans altérer les historiques de delivery antérieurs. Les SHAs exacts des commits documentaires sont vérifiables dans l'historique de la branche de publication.

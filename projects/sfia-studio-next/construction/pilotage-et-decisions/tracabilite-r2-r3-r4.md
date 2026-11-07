@@ -333,3 +333,17 @@ Statut historique (au lot correctif local) : **IMPLEMENTED — LOCAL LIVE REMEDI
 | T08 | Citation faux GO ; zéro mutation | D0 + index capture T08 | ≠ retrait explicite GO (couvert unit/PG C01) |
 
 Statut : **LIVE TARGETED RECETTE 8/8 OBSERVED** sur SHA recetté `61fe295b` / build `ZCkIWQ341KK1KOHTD1a5L` — documentation publiée sous GO Morris — Draft PR pour CI — **NOT MERGED** — **NOT ADOPTED**. C03 intercycle **NOT PROVEN**.
+
+### C03 intercycles — sortie formelle ML3 (2026-11-07, ajout post-merge)
+
+**Contexte Git :** ML3 intégré via [PR #661](https://github.com/mcleland147/sfia-workspace/pull/661), `main@56d263e83de7bb3af4a5b480131002684a5626ca` ; CI post-merge `42333954356` PASS avec migration 007. Les assertions historiques « NOT MERGED » ci-dessus sont des snapshots exacts de la période des correctifs et de la Draft PR, **non l'état courant**.
+
+| Cas | Source/contrat | Oracle | Preuve LIVE | Plafond |
+| --- | --- | --- | --- | --- |
+| C03-A ouverture intercycle | `RG-TRJ-017..024` ; B10/B11/B12 ; cycle `CONCEPTION_FONCTIONNELLE` | Un seul ACTIVE, `OPEN_CYCLE APPLICABLE` ; ancien CADRAGE CLOSED, révision 7 / journal 7 | Nora COMPLETE + capture `image(20261107-080623).png` : `CKI 02-conception-fonctionnelle RESOLVED pin 0.2.0` | Projection RESOLVED ≠ trace DELIVERED |
+| C03-B raisonnement spécialisé | CKI02 validé v0.2 ; `RG-TRJ-019..022` ; `PF-TRJ-10/11` | Fonctions/acteurs, décisions vs applications, cas négatifs, critères observables, besoins non validés ; pas de CKI cité | Nora COMPLETE : prise en charge, décision habilitée, suivi distinct et scénarios vérifiables | Pas de comparaison sans CKI ni preuve technique causale |
+| C03-B contrôle d'autorité | D5/D6, B12/B13 | Lecture sans nouvelle décision implicite | Pilotage après B : rev7 / journal7 inchangés ; aucune restriction | Pas de SQL runtime indépendant |
+
+**Référence primaire détaillée :** [recette-cki-intercycles-live.md](recette-cki-intercycles-live.md) ; capture hors Git SHA-256 `40aeb7de8e136a2550484f367e22ac8cd26061527f4760953de0434a62aa2f07`. **Verdict : TARGETED INTERCYCLE LIVE BEHAVIOR PROVEN** sur ce parcours. Preuve `ckiDelivery DELIVERED` non observée, à instruire si niveau de qualification supérieur requis.
+
+**Décision Morris :** [sortie formelle ML3](../../governance/decisions/2026-11-07-pilotage-decisions-formal-exit.md) — **CLOSED BY MORRIS WITH CARRIED RESERVES**, pas STABLE, R6, ADOPTED ni démarrage ML4.
