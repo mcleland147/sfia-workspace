@@ -1,0 +1,1201 @@
+{
+  "schema": "SFIA_NEXT_UX_CONVERGENCE_L2_SELECTED_NATIVE_OBSERVATIONS_V0.1",
+  "status": "PARTIAL_NATIVE_READ_ONLY_G1_F1_F2_VALIDATED_SPEC_G2_INCOMPLETE_NOT_IMPLEMENTATION_READY",
+  "source": {
+    "fileKey": "itgvCulInEnFY6DvgIegvP",
+    "pageId": "94:49",
+    "gitMainRead": "9435f4c181c94ac5fbdfacd3e1941c82dd874162",
+    "observedDate": "2026-11-07",
+    "reads": "Figma plugin API / get_design_context read-only"
+  },
+  "coordinateConvention": "localBoundsCssPx are values from Figma node.x/node.y/width/height relative to parent; never treat them as viewport absolute without adding parent chain and measuring transforms",
+  "frames": [
+    {
+      "frameNumber": 1,
+      "frameId": "94:50",
+      "name": "01 · Portefeuille et choix du projet",
+      "dimensions": {
+        "width": 1680,
+        "height": 970
+      },
+      "coverage": "SELECTED_L2_NOT_COMPLETE",
+      "nodes": [
+        {
+          "nodeId": "94:51",
+          "name": "Barre latérale produit",
+          "parentId": "94:50",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 10,
+          "paddingTRBLcssPx": [
+            20,
+            19,
+            0,
+            19
+          ],
+          "fillHexObserved": "#0C101A",
+          "observedChildCount": 11
+        },
+        {
+          "nodeId": "94:55",
+          "name": "SFIA Studio",
+          "parentId": "94:52",
+          "localBoundsCssPx": {
+            "x": 41,
+            "y": 10.5,
+            "width": 150,
+            "height": 22
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "fillHexObserved": "#F4F6FC",
+          "typographyObserved": {
+            "family": "Inter",
+            "style": "Semi Bold",
+            "sizeCssPx": 16,
+            "lineHeightCssPx": 22
+          }
+        },
+        {
+          "nodeId": "94:60",
+          "name": "Navigation / Portefeuille",
+          "parentId": "94:51",
+          "localBoundsCssPx": {
+            "x": 19,
+            "y": 153,
+            "width": 202,
+            "height": 43
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 10,
+          "fillHexObserved": "#252D40",
+          "cornerRadiusCssPx": 9
+        },
+        {
+          "nodeId": "94:77",
+          "name": "Surface produit",
+          "parentId": "94:50",
+          "localBoundsCssPx": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 0,
+          "paddingTRBLcssPx": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "fillHexObserved": "#090C14"
+        },
+        {
+          "nodeId": "94:78",
+          "name": "Contexte global",
+          "parentId": "94:77",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 1434,
+            "height": 59
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 16,
+          "paddingTRBLcssPx": [
+            0,
+            0,
+            0,
+            30
+          ]
+        },
+        {
+          "nodeId": "94:84",
+          "name": "Portefeuille / contenu",
+          "parentId": "94:77",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 59,
+            "width": 1434,
+            "height": 911
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 22,
+          "paddingTRBLcssPx": [
+            39,
+            0,
+            0,
+            48
+          ],
+          "fillHexObserved": "#101521"
+        },
+        {
+          "nodeId": "94:86",
+          "name": "Bonjour, retrouvez vos projets",
+          "parentId": "94:84",
+          "localBoundsCssPx": {
+            "x": 48,
+            "y": 76,
+            "width": 1000,
+            "height": 42
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "fillHexObserved": "#F4F6FC",
+          "typographyObserved": {
+            "family": "Inter",
+            "style": "Bold",
+            "sizeCssPx": 30,
+            "lineHeightCssPx": 42
+          }
+        },
+        {
+          "nodeId": "94:88",
+          "name": "Vue d'ensemble",
+          "parentId": "94:84",
+          "localBoundsCssPx": {
+            "x": 48,
+            "y": 180,
+            "width": 1337,
+            "height": 122
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 17,
+          "fillHexObserved": "#101521"
+        }
+      ]
+    },
+    {
+      "frameNumber": 2,
+      "frameId": "94:135",
+      "name": "02 · Sas — conversation avant projet",
+      "dimensions": {
+        "width": 1680,
+        "height": 970
+      },
+      "coverage": "SELECTED_L2_NOT_COMPLETE",
+      "nodes": [
+        {
+          "nodeId": "94:136",
+          "name": "Barre latérale produit",
+          "parentId": "94:135",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 10,
+          "paddingTRBLcssPx": [
+            20,
+            19,
+            0,
+            19
+          ]
+        },
+        {
+          "nodeId": "94:162",
+          "name": "Surface produit",
+          "parentId": "94:135",
+          "localBoundsCssPx": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 0,
+          "paddingTRBLcssPx": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "nodeId": "94:163",
+          "name": "Contexte global",
+          "parentId": "94:162",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 1434,
+            "height": 59
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 16,
+          "paddingTRBLcssPx": [
+            0,
+            0,
+            0,
+            30
+          ]
+        },
+        {
+          "nodeId": "94:169",
+          "name": "Sas / activité et aperçu",
+          "parentId": "94:162",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 59,
+            "width": 1434,
+            "height": 911
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 22,
+          "paddingTRBLcssPx": [
+            34,
+            0,
+            0,
+            35
+          ],
+          "fillHexObserved": "#101521"
+        },
+        {
+          "nodeId": "94:170",
+          "name": "Sas / Nora",
+          "parentId": "94:169",
+          "localBoundsCssPx": {
+            "x": 35,
+            "y": 45,
+            "width": 790,
+            "height": 855
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 17,
+          "paddingTRBLcssPx": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "fillHexObserved": "#101521"
+        },
+        {
+          "nodeId": "94:192",
+          "name": "Sas / aperçu non autorisant",
+          "parentId": "94:169",
+          "localBoundsCssPx": {
+            "x": 847,
+            "y": 46,
+            "width": 537,
+            "height": 853
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 18,
+          "paddingTRBLcssPx": [
+            23,
+            19,
+            0,
+            19
+          ],
+          "fillHexObserved": "#0D111B"
+        }
+      ]
+    },
+    {
+      "frameNumber": 3,
+      "frameId": "94:214",
+      "name": "03 · Nora — conversation longue / en lecture",
+      "dimensions": {
+        "width": 1680,
+        "height": 970
+      },
+      "coverage": "SELECTED_L2_NOT_COMPLETE",
+      "nodes": [
+        {
+          "nodeId": "94:215",
+          "name": "Rail de projet / stable",
+          "parentId": "94:214",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 13,
+          "paddingTRBLcssPx": [
+            25,
+            19,
+            0,
+            19
+          ],
+          "fillHexObserved": "#0D111B",
+          "observedChildCount": 14
+        },
+        {
+          "nodeId": "94:219",
+          "name": "SFIA Studio",
+          "parentId": "94:216",
+          "localBoundsCssPx": {
+            "x": 44,
+            "y": 9.5,
+            "width": 150,
+            "height": 23
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "fillHexObserved": "#F4F6FC",
+          "typographyObserved": {
+            "family": "Inter",
+            "style": "Semi Bold",
+            "sizeCssPx": 17,
+            "lineHeightCssPx": 23
+          }
+        },
+        {
+          "nodeId": "94:224",
+          "name": "Navigation / Travail",
+          "parentId": "94:215",
+          "localBoundsCssPx": {
+            "x": 19,
+            "y": 196,
+            "width": 200,
+            "height": 39
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 8,
+          "fillHexObserved": "#252D40",
+          "cornerRadiusCssPx": 7
+        },
+        {
+          "nodeId": "94:249",
+          "name": "Zone de travail conversationnel",
+          "parentId": "94:214",
+          "localBoundsCssPx": {
+            "x": 240,
+            "y": 0,
+            "width": 1440,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 0,
+          "paddingTRBLcssPx": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "fillHexObserved": "#111624"
+        },
+        {
+          "nodeId": "94:250",
+          "name": "Barre produit et projet",
+          "parentId": "94:249",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 61
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 14,
+          "paddingTRBLcssPx": [
+            0,
+            0,
+            0,
+            30
+          ]
+        },
+        {
+          "nodeId": "94:254",
+          "name": "Conversation et contextualisation",
+          "parentId": "94:249",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 61,
+            "width": 1440,
+            "height": 909
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 24,
+          "paddingTRBLcssPx": [
+            21,
+            0,
+            0,
+            32
+          ]
+        },
+        {
+          "nodeId": "94:255",
+          "name": "Conversation Pilote Nora",
+          "parentId": "94:254",
+          "localBoundsCssPx": {
+            "x": 32,
+            "y": 40.5,
+            "width": 990,
+            "height": 849
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 13,
+          "fillHexObserved": "#111624"
+        },
+        {
+          "nodeId": "94:355",
+          "name": "Contexte secondaire non intrusif",
+          "parentId": "94:254",
+          "localBoundsCssPx": {
+            "x": 1046,
+            "y": 37.5,
+            "width": 384,
+            "height": 855
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 16
+        }
+      ]
+    },
+    {
+      "frameNumber": 74,
+      "frameId": "159:145",
+      "name": "74 · Sas — préparation retrouvée",
+      "dimensions": {
+        "width": 1680,
+        "height": 970
+      },
+      "coverage": "SELECTED_L2_NOT_COMPLETE",
+      "nodes": [
+        {
+          "nodeId": "159:146",
+          "name": "Rail / Projet",
+          "parentId": "159:145",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 13,
+          "paddingTRBLcssPx": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "observedChildCount": 11
+        },
+        {
+          "nodeId": "159:175",
+          "name": "Barre du projet",
+          "parentId": "159:145",
+          "localBoundsCssPx": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 0,
+          "paddingTRBLcssPx": [
+            22,
+            22,
+            22,
+            22
+          ]
+        },
+        {
+          "nodeId": "159:177",
+          "name": "En-tête de page",
+          "parentId": "159:145",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 9
+        },
+        {
+          "nodeId": "159:181",
+          "name": "Contenu / colonnes",
+          "parentId": "159:145",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 20
+        },
+        {
+          "nodeId": "159:182",
+          "name": "Panneau / left",
+          "parentId": "159:181",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 800,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 12,
+          "paddingTRBLcssPx": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "fillHexObserved": "#151D2C",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 12
+        },
+        {
+          "nodeId": "159:183",
+          "name": "Ton intention",
+          "parentId": "159:182",
+          "localBoundsCssPx": {
+            "x": 19,
+            "y": 19,
+            "width": 760,
+            "height": 24
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "fillHexObserved": "#F4F6FC",
+          "typographyObserved": {
+            "family": "Inter",
+            "style": "Semi Bold",
+            "sizeCssPx": 20,
+            "lineHeightMode": "AUTO"
+          }
+        },
+        {
+          "nodeId": "159:185",
+          "name": "Élément / left / 0",
+          "parentId": "159:182",
+          "localBoundsCssPx": {
+            "x": 19,
+            "y": 68,
+            "width": 762,
+            "height": 77
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 4,
+          "paddingTRBLcssPx": [
+            11,
+            11,
+            11,
+            11
+          ],
+          "fillHexObserved": "#1B2538",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 8
+        },
+        {
+          "nodeId": "159:197",
+          "name": "Panneau / right",
+          "parentId": "159:181",
+          "localBoundsCssPx": {
+            "x": 820,
+            "y": 0,
+            "width": 510,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 12,
+          "paddingTRBLcssPx": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "fillHexObserved": "#151D2C",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 12
+        }
+      ]
+    },
+    {
+      "frameNumber": 89,
+      "frameId": "160:175",
+      "name": "89 · Documents — bibliothèque du projet",
+      "dimensions": {
+        "width": 1680,
+        "height": 970
+      },
+      "coverage": "SELECTED_L2_NOT_COMPLETE",
+      "nodes": [
+        {
+          "nodeId": "160:176",
+          "name": "Rail / Projet",
+          "parentId": "160:175",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 13,
+          "paddingTRBLcssPx": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "nodeId": "160:205",
+          "name": "Barre du projet",
+          "parentId": "160:175",
+          "localBoundsCssPx": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 0,
+          "paddingTRBLcssPx": [
+            22,
+            22,
+            22,
+            22
+          ]
+        },
+        {
+          "nodeId": "160:207",
+          "name": "En-tête de page",
+          "parentId": "160:175",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 9
+        },
+        {
+          "nodeId": "160:211",
+          "name": "Contenu / colonnes",
+          "parentId": "160:175",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 20
+        },
+        {
+          "nodeId": "160:212",
+          "name": "Panneau / left",
+          "parentId": "160:211",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 800,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 12,
+          "paddingTRBLcssPx": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "fillHexObserved": "#151D2C",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 12
+        },
+        {
+          "nodeId": "160:215",
+          "name": "Élément / left / 0",
+          "parentId": "160:212",
+          "localBoundsCssPx": {
+            "x": 19,
+            "y": 68,
+            "width": 762,
+            "height": 77
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 4,
+          "paddingTRBLcssPx": [
+            11,
+            11,
+            11,
+            11
+          ],
+          "fillHexObserved": "#1B2538",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 8
+        },
+        {
+          "nodeId": "160:227",
+          "name": "Panneau / right",
+          "parentId": "160:211",
+          "localBoundsCssPx": {
+            "x": 820,
+            "y": 0,
+            "width": 510,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 12,
+          "paddingTRBLcssPx": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "fillHexObserved": "#151D2C",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 12
+        }
+      ]
+    },
+    {
+      "frameNumber": 92,
+      "frameId": "160:391",
+      "name": "92 · Document — révision concurrente",
+      "dimensions": {
+        "width": 1680,
+        "height": 970
+      },
+      "coverage": "SELECTED_L2_NOT_COMPLETE",
+      "nodes": [
+        {
+          "nodeId": "160:392",
+          "name": "Rail / Projet",
+          "parentId": "160:391",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 13,
+          "paddingTRBLcssPx": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "nodeId": "160:421",
+          "name": "Barre du projet",
+          "parentId": "160:391",
+          "localBoundsCssPx": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 0,
+          "paddingTRBLcssPx": [
+            22,
+            22,
+            22,
+            22
+          ]
+        },
+        {
+          "nodeId": "160:423",
+          "name": "En-tête de page",
+          "parentId": "160:391",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 9
+        },
+        {
+          "nodeId": "160:427",
+          "name": "Contenu / colonnes",
+          "parentId": "160:391",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 20
+        },
+        {
+          "nodeId": "160:428",
+          "name": "Panneau / left",
+          "parentId": "160:427",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 800,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 12,
+          "paddingTRBLcssPx": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "fillHexObserved": "#151D2C",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 12
+        },
+        {
+          "nodeId": "160:443",
+          "name": "Panneau / right",
+          "parentId": "160:427",
+          "localBoundsCssPx": {
+            "x": 820,
+            "y": 0,
+            "width": 510,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 12,
+          "paddingTRBLcssPx": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "fillHexObserved": "#151D2C",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 12
+        }
+      ]
+    },
+    {
+      "frameNumber": 40,
+      "frameId": "129:72",
+      "name": "40 · Journal — décisions",
+      "dimensions": {
+        "width": 1680,
+        "height": 970
+      },
+      "coverage": "SELECTED_L2_NOT_COMPLETE",
+      "nodes": [
+        {
+          "nodeId": "129:73",
+          "name": "Rail / Projet",
+          "parentId": "129:72",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 246,
+            "height": 970
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 13,
+          "paddingTRBLcssPx": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "nodeId": "129:102",
+          "name": "Barre du projet",
+          "parentId": "129:72",
+          "localBoundsCssPx": {
+            "x": 246,
+            "y": 0,
+            "width": 1434,
+            "height": 65
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 0,
+          "paddingTRBLcssPx": [
+            22,
+            22,
+            22,
+            22
+          ]
+        },
+        {
+          "nodeId": "129:104",
+          "name": "En-tête de page",
+          "parentId": "129:72",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 98,
+            "width": 1320,
+            "height": 135
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 9
+        },
+        {
+          "nodeId": "129:108",
+          "name": "Contenu / colonnes",
+          "parentId": "129:72",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 254,
+            "width": 1330,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 20
+        },
+        {
+          "nodeId": "129:109",
+          "name": "Panneau / left",
+          "parentId": "129:108",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 800,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 12,
+          "paddingTRBLcssPx": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "fillHexObserved": "#151D2C",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 12
+        },
+        {
+          "nodeId": "129:124",
+          "name": "Panneau / right",
+          "parentId": "129:108",
+          "localBoundsCssPx": {
+            "x": 820,
+            "y": 0,
+            "width": 510,
+            "height": 585
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 12,
+          "paddingTRBLcssPx": [
+            18,
+            18,
+            18,
+            18
+          ],
+          "fillHexObserved": "#151D2C",
+          "strokeHexObserved": "#2F3C56",
+          "cornerRadiusCssPx": 12
+        },
+        {
+          "nodeId": "137:92",
+          "name": "Journal / onglets",
+          "parentId": "129:72",
+          "localBoundsCssPx": {
+            "x": 285,
+            "y": 201,
+            "width": 220,
+            "height": 36
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "HORIZONTAL",
+          "itemSpacingCssPx": 10
+        }
+      ]
+    },
+    {
+      "frameNumber": 216,
+      "frameId": "282:468",
+      "name": "216 · Nora — travail en cours à 390 px",
+      "dimensions": {
+        "width": 390,
+        "height": 1350
+      },
+      "coverage": "SELECTED_L2_NOT_COMPLETE",
+      "nodes": [
+        {
+          "nodeId": "282:469",
+          "name": "Navigation mobile",
+          "parentId": "282:468",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 73
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 8,
+          "paddingTRBLcssPx": [
+            16,
+            16,
+            16,
+            16
+          ],
+          "fillHexObserved": "#0B0E17"
+        },
+        {
+          "nodeId": "282:472",
+          "name": "Contenu / lecture ordonnée",
+          "parentId": "282:468",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 73,
+            "width": 390,
+            "height": 538
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 15,
+          "paddingTRBLcssPx": [
+            16,
+            16,
+            16,
+            16
+          ],
+          "fillHexObserved": "#0E121D"
+        },
+        {
+          "nodeId": "282:474",
+          "name": "Nora travaille sur votre demande",
+          "parentId": "282:472",
+          "localBoundsCssPx": {
+            "x": 16,
+            "y": 44,
+            "width": 358,
+            "height": 56
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "fillHexObserved": "#EBF2FC",
+          "typographyObserved": {
+            "family": "Inter",
+            "style": "Bold",
+            "sizeCssPx": 23,
+            "lineHeightMode": "AUTO"
+          }
+        },
+        {
+          "nodeId": "282:478",
+          "name": "Contenu repliable et accessible",
+          "parentId": "282:472",
+          "localBoundsCssPx": {
+            "x": 16,
+            "y": 214,
+            "width": 358,
+            "height": 224
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 10
+        },
+        {
+          "nodeId": "282:479",
+          "name": "Étape / Demande comprise",
+          "parentId": "282:478",
+          "localBoundsCssPx": {
+            "x": 0,
+            "y": 0,
+            "width": 358,
+            "height": 68
+          },
+          "measurementStatus": "NATIVE_OBSERVED",
+          "layoutMode": "VERTICAL",
+          "itemSpacingCssPx": 8,
+          "paddingTRBLcssPx": [
+            14,
+            14,
+            14,
+            14
+          ]
+        }
+      ]
+    }
+  ],
+  "observationCount": 55,
+  "knownGaps": [
+    {
+      "id": "F1",
+      "description": "Morris validated three shared-navigation variants: personal 246px, project 246px, conversation 240px. Detailed node descendants/contexts still require extraction before code."
+    },
+    {
+      "id": "F2",
+      "description": "Morris validated target delta 0 CSS px and max 2 CSS px stable-rectangle tolerance under identical viewport/state/fixtures; global image diff threshold remains uncalibrated and unapproved."
+    },
+    {
+      "id": "L2",
+      "description": "Missing descendant-level extraction for all nodes actually to implement, text segments, effects, constraints, masks, Code Connect, link actions and snapshots"
+    },
+    {
+      "id": "SNAPSHOT",
+      "description": "No immutable Figma export image and digest pinned"
+    }
+  ],
+  "notExtractedPolicy": "Do not infer omitted Figma properties from screenshots or copy them from another frame. Extract native property or mark NOT_EXTRACTED before code.",
+  "sourceProofLimits": "Recorded selected native measurements only. No CI, DOM, browser, mobile behavior, design acceptance or runtime implementation proof.",
+  "governance": {
+    "decisionRecord": "../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md",
+    "approved": [
+      "P1",
+      "P2",
+      "P3",
+      "F1",
+      "F2"
+    ],
+    "approvalScope": "PRODUCT_PATHS_AND_VISUAL_POLICY_ONLY",
+    "designPackStatus": "G2_PARTIAL_NOT_READY_FOR_CODE",
+    "globalImageDiffThreshold": "NOT_CALIBRATED_NOT_APPROVED",
+    "immutableFigmaSnapshot": "NOT_CAPTURED",
+    "browserEvidence": "NOT_RUN",
+    "runtimeImplementation": "NOT_STARTED"
+  }
+}

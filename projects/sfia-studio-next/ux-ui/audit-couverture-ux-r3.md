@@ -1192,3 +1192,13 @@ La [qualification de convergence](../construction/convergence-ux-parcours-pilote
 Pour la convergence du parcours Pilote–Nora (`CU-01..16`, `UXC-01..14`), appliquer le [protocole complémentaire de transposition](protocole-fidelite-figma-runtime.md) et ses [relevés L1 natifs partiels](releves-geometriques-convergence-l1.json). Le [contrat R5 v0.3 candidat](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) renforce `UXC-13` (mesures DOM, computed styles, captures, comparaison localisée, contrôle du responsive et des états négatifs).
 
 **Niveaux de preuve :** L0 inventaire ; L1 composition ; L2 descendants réellement implémentables ; capture Figma + navigateur comme oracle visuel, avec source figée. **L1 seul n'est pas suffisant pour coder.** Le conflit du rail 240/246 px, l'absence de version immuable Figma et les tolérances visuelles restent ouverts ; ils ne sont ni résolus ni adoptés par la publication des sources.
+
+---
+
+## 21. Traçabilité post-arbitrage de convergence — G1 validé (2026-11-07)
+La [décision P1/P2/P3/F1/F2](../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md) valide la **spécification de parcours et la politique de fidélité**, pas le comportement du runtime. Les anciennes validations R3 restent historiques. Références : [CU-01..16](../construction/convergence-ux-parcours-pilote-nora/qualification.md), [UXC-01..14 v0.4](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md), [protocole R3](protocole-fidelite-figma-runtime.md), [L2 PARTIAL](releves-geometriques-convergence-l2-partiel.json).
+- **P1** rattache CU-02/03 à Figma 01/64/73/74 et UXC-02/11/12.
+- **P2** rattache CU-07/14 à Figma 04/18/89/92/205 et UXC-06/11/12.
+- **P3/F1** rattache CU-09/15 aux variantes personnel/projet/conversation + mobile 216/217 et UXC-03/13.
+- **F2** rattache la conformité géométrique à `UXC-13` ; cible 0 et borne 2 CSS px pour rectangles stables, seuil image **non arbitré**, sans préjuger la preuve navigateur.
+**G1 VALIDATED SPEC ; G2 PARTIAL ; G4 NOT STARTED**. Les écrans Git ML4 218–235 restent hors du code de convergence.

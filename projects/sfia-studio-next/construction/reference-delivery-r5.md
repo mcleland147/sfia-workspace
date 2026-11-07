@@ -515,3 +515,13 @@ La capacité **ML4 — Collaborer et publier avec Git** conserve ses frontières
 Le futur lot de réalisation doit produire avant code un pack de mesures natives Figma **L0/L1/L2 ciblé** par composant/état et un oracle figé. La conformité est appréciée au navigateur sur le **même SHA**, avec fixtures, pixels de référence, métriques DOM, styles calculés, captures et diff régional. Les 14 `UXC` restent l'unique matrice d'acceptation de la convergence : **pas de système de tests parallèle**. Les écrans Figma 218–235 (ML4 Git) demeurent hors de ce résultat.
 
 **Gates encore ouverts :** arbitrages P1–P3 du contrat complet, rail partagé **240/246 px**, tolérances de comparaison (objectif 0 px, ≤2 px proposé mais **non validé**), snapshot/export Figma immuable, extraction L2, navigateur/RECETTE, intégrateur et GO technique Cursor. Ce raccord documentaire ne vaut ni `VALIDATED SPEC` complet, ni `IMPLEMENTED`, ni `BEHAVIOR PROVEN` ni `ADOPTED`.
+
+---
+
+## 25. Gate de convergence UX — P1/P2/P3/F1/F2 validés, DIP non complet (2026-11-07)
+**Décision Morris :** [record de validation](../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md) ; [contrat R5 v0.4](convergence-ux-parcours-pilote-nora/contrat-acceptation.md) ; [dossier de sécurisation](convergence-ux-parcours-pilote-nora/securisation-parcours-fidelite.md) ; [relevé natif L2 partiel](../ux-ui/releves-geometriques-convergence-l2-partiel.json).
+- **G1 VALIDATED SPEC** : reprise propriétaire de préparations OPEN/non liées (P1), révision protégée D4 dans projet (P2), shell contextuel/mobile (P3), variantes de rail (F1 : 246/246/240), seuil géométrique stable F2 (objectif 0, borne ≤2 CSS px).
+- **G2 PARTIAL/NOT READY** : 8 frames et 55 nœuds extraits partiellement ; tous les descendants utiles, styles/états, sources Figma exportées/hashées et calibration d'image manquent encore. Le pack doit être complet **avant le code des composants concernés**.
+- **G3 SPEC TECH NON PRÉPARÉE** : API D1/D2 de liste, D4 de révision, typage/erreurs, composants et responsive, tests/fixtures et intégrateur à contractualiser ensuite.
+- **G4 NOT STARTED** : aucun code, DB, Figma, CI ou prompt Cursor autorisé par ce merge documentaire ; **G5 NOT RUN** : aucun PASS sur `UXC-01..14` ni comparaison navigateur.
+**Suite :** structurer un seul résultat cohérent code/tests/docs sur l'environnement approprié lorsque G2/G3 sont prêts et qu'un mandat Cursor distinct est accordé. Aucun effet Git ML4 ni promotion `ADOPTED` anticipée.

@@ -1,7 +1,7 @@
 # SFIA Studio Next — Contrat d'acceptation de convergence UX : Parcours Pilote–Nora intégré
 
-**Version :** `v0.3 CANDIDATE — CONTRAT DE TRANSPOSITION RENFORCÉ / REVUE D0`; **date :** 2026-11-07.
-**Statut :** `DOCUMENTED / A1–A3 VALIDATED IN SCOPE / FULL ACCEPTANCE CONTRACT + VISUAL TOLERANCES PENDING MORRIS / NOT IMPLEMENTED`.
+**Version :** `v0.4 — P1/P2/P3/F1/F2 VALIDATED SPEC / DESIGN PACK G2 PARTIAL`; **date :** 2026-11-07.
+**Statut :** `VALIDATED SPEC — PARCOURS ET POLITIQUE DE FIDÉLITÉ P1/P2/P3/F1/F2 / G2 DIP PARTIAL / UXC NOT RUN / NOT IMPLEMENTED`.
 **Git :** `main@d37ea0882ee9256ec206e2f0523a71bf13674e88` ; candidat documentaire `docs/next-ux-convergence-qualification-20261107@b692376c984c669af81e583c230a4d393671bf9c`.
 **Périmètre :** R5 transversal, ML1–ML3 ; **non** un ML supplémentaire numéroté. Contrat à approuver avant toute spécification technique ou exécution Cursor.
 
@@ -118,12 +118,12 @@ Le produit doit avoir un **shell cohérent** entre portefeuille, sas, espace pro
 
 ## 7. Gates de décision
 
-1. **Morris — validation contractuelle encore attendue :** confirmer P1 (liste A1), P2 (révision D4 dans l'espace projet) et P3 (shell et vues R3 applicables), ou demander des corrections ciblées.
+1. **Morris — G1 VALIDATED SPEC :** P1 (liste A1), P2 (révision D4 dans l'espace projet), P3 (shell avec variantes) ainsi que F1 et F2 sont validés dans [la décision applicable](../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md). Le G2 (L2 complet, calibration image, références immuables) reste à satisfaire avant le code concerné.
 2. **Après validation seulement :** synchroniser ce contrat dans le dossier documentaire du lot, mettre à jour la traçabilité R3/R5 sur une branche sous mandat Git distinct ; vérification diff/SHA, aucun merge tacite.
 3. **Préparation technique ultérieure :** préciser les API/types et modèles existants, les composants et variantes Figma réellement utiles, intégrateur, plan QA, risques ENV-01, critères STOP et dépendances ; consulter routage + template Git SFIA v2.6 seulement pour un prompt Cursor autorisé.
 4. **GO construction indépendant :** Cursor construit code/tests/docs, recettage navigateur/LIVE adapté, revue Morris, PR/merge puis promotion éventuelle sous autorisations propres.
 
-**Verdict courant :** `ACCEPTANCE CONTRACT v0.3 CANDIDATE — FIDELITY PROTOCOL PREPARED / VISUAL PACK NOT EXTRACTED / READY FOR MORRIS REVIEW`, pas `VALIDATED SPEC` complet, pas `IMPLEMENTED`, pas `COVERAGE VERIFIED`, pas `BEHAVIOR PROVEN`, pas `ADOPTED`.
+**Verdict courant :** `ACCEPTANCE CONTRACT v0.4 — G1 VALIDATED SPEC FOR P1/P2/P3/F1/F2 / G2 DESIGN PACK PARTIAL / UXC NOT RUN / NO BUILD GO`. La politique produit est validée, **pas** la complétude de l'oracle visuel ni l'implémentation.
 
 
 ## 8. Complément contractuel D0 — Fidélité Figma mesurée pour la convergence
@@ -139,3 +139,14 @@ Le [protocole complémentaire R3 candidat](../../ux-ui/protocole-fidelite-figma-
 **Statut :** contrat et protocole publiés en préparation documentaire candidate ; aucun snapshot Figma immuable, aucun pack L2 complet, aucun token partagé validé, code, capture navigateur ni preuve LIVE issus de cette révision. Les tolérances et le rail 240/246 px demeurent ouverts à décision Morris.
 
 **Relevé géométrique de départ :** [11 frames L1 partielles](../../ux-ui/releves-geometriques-convergence-l1.json). Ce relevé ne suffit pas à construire les composants sans extraction L2 et arbitrages G1/G2.
+
+---
+
+## 9. Validation Morris de la sécurisation UX (2026-11-07)
+**Décision de référence :** [P1–P3/F1/F2](../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md). Cette section **prime sur les mentions candidates historiques** de la v0.3 sans effacer les versions ni l'historique documentaire.
+- **P1 validé** : liste `OPEN` sans lien projet, filtrée par propriétaire côté serveur, tri `createdAt DESC` / `id`, reprise du même `preparationId` sans POST.
+- **P2 validé** : `Documents → Bibliothèque → Inspection → Révision → Historique` dans le projet ; service D4 `reviseDocument` avec `baseRevisionId` et `correlationKey`, refus/conflit/résultat incertain prouvés.
+- **P3/F1 validés** : navigation commune par responsabilités avec variantes Figma `personnel:246`, `projet:246`, `conversation:240` CSS px ; accès mobile 390/320, clavier et retour contextuel obligatoires.
+- **F2 validé en politique** : cible géométrique **0 CSS px**, borne **≤2 CSS px** pour `x/y/w/h` des rectangles stables contractés à même fixture, viewport et état. Style/typographie exacte quand spécifiée ; aucune troncature/chevauchement/débordement inattendu. Diff d'image global **non calibré**, aucune tolérance implicite sur les effets ou les actes métier.
+- **G2 reste ouvert** : [relevé L2 8 frames/55 nœuds PARTIAL](../../ux-ui/releves-geometriques-convergence-l2-partiel.json), [dossier de sécurisation](securisation-parcours-fidelite.md) ; les descendants utiles, exports Figma immuables/hashés, calibration régionale, code et preuves navigateur sont **NOT READY/NOT RUN**.
+**Règle pour Cursor :** aucune propriété Figma devinée ; le pack L2 est un **gate d'entrée de réalisation pour les composants concernés**. Le résultat utilisateur reste un **seul macro-résultat** avec code/tests/docs intégrés lorsque le mandat technique sera accordé. Aucun GO Cursor n'est donné par la présente validation.
