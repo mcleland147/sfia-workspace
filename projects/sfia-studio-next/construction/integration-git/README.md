@@ -9,13 +9,13 @@
 | [Qualification](qualification-impact-ml4-ml5.md) | Analyse et référentiel N-01..N-27, impacts et arbitrages |
 | [Synchronisation R1–R5](synchronisation-r1-r5.md) | Inventaire des sources modifiées et justification |
 | [Contrat ML4](contrat-acceptation.md) | Résultat Pilote, IN/OUT, propriétaires, preuves et gates |
-| [Brief UX/Figma](brief-ux-figma.md) | Écrans existants et nouveaux parcours à concevoir |
+| [Brief UX/Figma](brief-ux-figma.md) | Parcours et écrans 218–235 désormais validés en conception |
 | [Matrice](matrice-acceptation.md) | Contrôles de recette, tous non exécutés |
 | [Spécification technique](specification-technique.md) | Projet à consolider après Figma et faisabilité fournisseur |
 
 **Frontière :** Git documentaire native dans Studio/Nora en ML4, GitHub seul fournisseur actif ; Cursor et les travaux techniques en ML5 ; D6/D7/D8/D9 demeurent uniques.
 
-**Suite :** phase Figma, validation Morris du contrat visuel, consolidation technique, GO Cursor distinct, preuves fournisseur et navigateur puis recette. Aucune adoption anticipée.
+**Suite actuelle :** revue/merge documentaire → qualification et convergence UX du runtime ML1–ML3 sous GO distinct → consolidation technique Git ML4 et GO Cursor ultérieur → preuves fournisseur, navigateur et recette. Aucune adoption anticipée.
 
 ---
 
