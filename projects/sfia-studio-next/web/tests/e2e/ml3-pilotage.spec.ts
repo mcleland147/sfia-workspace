@@ -2,6 +2,12 @@ import { test, expect } from "@playwright/test";
 import path from "path";
 import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
 
+async function openPilotageSurface(page: import("@playwright/test").Page) {
+  await page.getByTestId("surface-pilotage").click();
+  await expect(page).toHaveURL(/[?&]surface=pilotage\b/);
+  await expect(page.getByTestId("pilotage-panel")).toBeVisible({ timeout: 15000 });
+}
+
 /**
  * ML3 browser FAKE — pilotage surfaces. LIVE Nora forbidden in E2E.
  * Does not claim pixel-perfect Figma conformity.
@@ -17,8 +23,7 @@ test("ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible", a
     summary: "e2e ml3",
   });
 
-  await page.getByRole("button", { name: "Pilotage" }).click();
-  await expect(page.getByTestId("pilotage-panel")).toBeVisible();
+  await openPilotageSurface(page);
   await expect(page.getByTestId("cycle-absent")).toBeVisible();
   await expect(page.getByTestId("method-absent")).toBeVisible();
 
@@ -60,7 +65,7 @@ test("ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT", async (
     summary: "e2e b13 c02",
   });
 
-  await page.getByRole("button", { name: "Pilotage" }).click();
+  await openPilotageSurface(page);
   await expect(page.getByTestId("b13-authority-legend")).toBeVisible();
 
   // Global cycle restriction → OPEN rejected with RESTRICTION (authority).
@@ -128,7 +133,7 @@ test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({ 
     summary: "e2e b13 r1",
   });
 
-  await page.getByRole("button", { name: "Pilotage" }).click();
+  await openPilotageSurface(page);
   await page.getByTestId("apply-cycle-restriction").click();
   await expect(page.getByTestId("pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED/, {
     timeout: 15000,
@@ -205,7 +210,7 @@ test("ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE", async ({ page })
     timeout: 30000,
   });
 
-  await page.getByRole("button", { name: "Pilotage" }).click();
+  await openPilotageSurface(page);
   await expect(page.getByTestId("cycle-active")).toBeVisible({ timeout: 15000 });
   await expect(page.getByRole("heading", { name: /Cycle CADRAGE/ })).toBeVisible();
   await expect(page.getByTestId("decision-state").first()).toContainText("APPLICABLE");
@@ -234,7 +239,7 @@ test("ML3 F02: RECORD depuis le fil puis révision Journal", async ({ page }) =>
     { timeout: 30000 },
   );
 
-  await page.getByRole("button", { name: "Pilotage" }).click();
+  await openPilotageSurface(page);
   await expect(page.getByTestId("decision-state").first()).toContainText(/RECORD_DECISION.*APPLICABLE/i, {
     timeout: 15000,
   });
@@ -284,7 +289,7 @@ test("ML3 C03: Journal décisions >8 avec historique accessible", async ({ page 
     revision = body.revision ?? revision + 1;
   }
 
-  await page.getByRole("button", { name: "Pilotage" }).click();
+  await openPilotageSurface(page);
   await expect(page.getByTestId("journal-count")).toContainText(/1[0-9] décision/i, {
     timeout: 15000,
   });

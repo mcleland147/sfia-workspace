@@ -112,6 +112,8 @@ export default function ProjectPage() {
   const documentsRef = useRef<Doc[]>([]);
   const docUiRef = useRef<DocUiState>("READING");
   const reviseDraftRef = useRef("");
+  /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
+  const pendingSurfaceRef = useRef<Surface | null>(null);
 
   useEffect(() => {
     docUiRef.current = docUi;
@@ -142,6 +144,7 @@ export default function ProjectPage() {
   }
 
   function selectSurface(next: Surface) {
+    pendingSurfaceRef.current = next;
     setSurface(next);
     setDocMissing("");
     if (next !== "document") {
@@ -405,17 +408,26 @@ export default function ProjectPage() {
       setError("");
 
       // Read *current* URL — never stale searchParams from effect closure (race with rail nav).
+      // If the user already selected a surface while load() was in flight, prefer that intent
+      // when the URL has not yet caught up (router.push pending) — otherwise Pilotage/Journal
+      // flash back to travail and e2e/CI lose pilotage-panel.
       const live =
         typeof window !== "undefined"
           ? new URL(window.location.href).searchParams
           : searchParams;
       const qSurface = parseSurface(live.get("surface"));
       const qDocId = live.get("documentId");
-      applyUrlDocumentState(docs, qSurface, qDocId);
+      const pendingSurface = pendingSurfaceRef.current;
+      const effectiveSurface = qSurface ?? pendingSurface;
+      applyUrlDocumentState(docs, effectiveSurface, qDocId);
       // Normalize only when surface missing/invalid; do not clobber a live navigation.
       const rawSurface = live.get("surface");
       if (!rawSurface || (rawSurface && !qSurface)) {
-        syncSurfaceUrl(qSurface ?? "travail", qSurface === "document" ? qDocId : null, "replace");
+        const target = effectiveSurface ?? "travail";
+        syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
+      }
+      if (qSurface && pendingSurface && qSurface === pendingSurface) {
+        pendingSurfaceRef.current = null;
       }
 
       await refreshDurablePilotage();
@@ -440,6 +452,9 @@ export default function ProjectPage() {
     const qSurface = parseSurface(searchParams.get("surface"));
     const qDocId = searchParams.get("documentId");
     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
+    if (qSurface && pendingSurfaceRef.current === qSurface) {
+      pendingSurfaceRef.current = null;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 

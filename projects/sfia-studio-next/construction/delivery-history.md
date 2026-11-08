@@ -725,3 +725,19 @@ Append-only logical journal of Cursor product deliveries.
 | Verdict | **ML3 CLOSED BY MORRIS AT BOUNDED D5/D6 + CKI GUIDANCE SCOPE — WITH CARRIED RESERVES** ; R5 IN PROGRESS ; ML4 Git/D9 NOT STARTED/NOT AUTHORIZED |
 
 > Cette entrée décrit la décision de sortie et la publication de ses documents, sans altérer les historiques de delivery antérieurs. Les SHAs exacts des commits documentaires sont vérifiables dans l'historique de la branche de publication.
+
+## delivery_id: DELIV-2026-11-08-G4-POSTMERGE-PILOTAGE-CI
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / G4 post-merge — stabilisation CI Pilotage |
+| Type | RUN corrective Critical ; `NO RELEASE` |
+| Autorité / GO | Morris GO unique stabilisation CI post-merge ; merge conditionnel si contrôles PASS |
+| Base Git | `origin/main@ebf3d150` (merge PR #669) ; tree `6f144851` |
+| Incident | CI main run 42477468119 FAIL 10/12 ; `pilotage-panel` / `b13-authority-legend` absents après clic Pilotage |
+| Cause | Race `load()` vs `selectSurface('pilotage')` / `searchParams` — `applyUrlDocumentState` réapplique `travail` |
+| Correctif | `pendingSurfaceRef` dans `page.tsx` ; E2E ML3 URL-observable |
+| Preuves locales | tsc OK ; unit 123 PASS (STUDIO_LANE=DEV) ; PG 144 PASS ; e2e full 12/12 ×2 PASS |
+| DEV 500 | Cause = `next dev --turbopack` font flake sur WT construction ; restore non destructive `next dev` sans turbopack → `/login` 200 ; RECETTE `:3200` inchangée 200 |
+| Verdict attendu | PR/merge conditionnel puis post-merge CI GREEN ; STABLE/ML4 NOT STARTED |
