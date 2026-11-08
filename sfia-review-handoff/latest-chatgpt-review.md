@@ -1,19 +1,22 @@
-# Review Pack FULL — G4 RECETTE technique + PR readiness — 2026-11-08
+# Review Pack FULL — G4 publication PR + CI — 2026-11-08 (Europe/Paris)
 
-**Verdict technique :** `RECETTE TECHNIQUE AUTOMATISÉE — PASS`
-**Visuel :** `RECETTE UTILISATEUR / VISUELLE — NON EXÉCUTÉE SUR CE CANDIDAT, MORRIS ACCEPTE LA POURSUITE AVEC RÉSERVES` · `F2/G5 NOT PROVEN`
-**PR readiness :** `READY FOR MORRIS INTEGRATION DECISION WITH RESERVES`
-**NO PROJECT PUSH / NO PR / NO MERGE / NO STABLE / NO RELEASE**
+**Verdict :** `G4 PR OPEN — CI GREEN — READY FOR MORRIS MERGE DECISION WITH RESERVES`
+**Merge :** NON effectué — GO Morris distinct requis
+**NO STABLE / NO RELEASE / NO ADOPTION / F2/G5 NOT PROVEN**
 
-## 1. Git Truth (construction WT)
+## 1. Git Truth
 
 | | |
 |---|---|
 | Worktree | `/Users/morris/Projects/sfia-workspace-next-g4-construction` |
-| Branch tip (docs) | `3206e15f2d07eecf1174c6cec3c0bf87dcdc7274` |
-| RECETTE frozen SHA | `29535d07e9c14077b422020e25fbf54a98affe25` |
+| Branch | `feat/next-convergence-ux-g4-construction` |
+| HEAD (PR tip) | `ee6d11e9ed9d7e09fc3bf26f5021120fb0eab67f` |
+| origin/main (base) | `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` |
+| merge-base | `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` |
+| RECETTE frozen SHA (product UX éprouvé) | `29535d07e9c14077b422020e25fbf54a98affe25` |
 | RECETTE tree | `3f8038ceab95344acef9e3676dd294663a00f2cf` |
-| origin/main | `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` |
+| RECETTE build | `U2HrgAwriuzf6f1YI0rRK` @ `http://127.0.0.1:3200` PID 74165 |
+| Knowledge contract cycle 13 | Guidance §5.9 in routing guide — dedicated contract file ABSENT — FALLBACK SFIA v2.6 ROUTING/TEMPLATE |
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -21,200 +24,270 @@
 
 ```
 
-## 2. Actions RECETTE exécutées
+### Commits since main
 
-1. Detached worktree `.../sfia-workspace-next-g4-recette-build-29535d07` @ `29535d07`
-2. DB isolée `sfia_next_recette_g4` on `sfia-next-recette-pg:5434` (migrations 001→007 with explicit container/db)
-3. `npm ci` + `npm run build` → build id `U2HrgAwriuzf6f1YI0rRK`
-4. Freed `:3200` by unloading launchd `com.sfia.studio.next.recette.ml3` (ML3 worktree+DB preserved)
-5. `next start -H 127.0.0.1 -p 3200` PID 74165 — no hot reload
-6. Smoke FAKE login + portfolio + prep + message + create project + surfaces + 401/404 isolation
-7. DEV `:3100` left up
-
-## 3. Manifest + PR readiness (full text)
-
-### Manifest
-
-```md
-# ENV-01 — Manifeste RECETTE G4 (non secret)
-
-```yaml
-lane: RECETTE
-repository: mcleland147/sfia-workspace
-branch: feat/next-convergence-ux-g4-construction
-base_main_sha: f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e
-candidate_sha: 29535d07e9c14077b422020e25fbf54a98affe25
-candidate_tree: 3f8038ceab95344acef9e3676dd294663a00f2cf
-build_identifier: U2HrgAwriuzf6f1YI0rRK
-product_version: NOT AVAILABLE
-candidate_version: NOT AVAILABLE
-release_tag: N/A
-served_address: 'http://127.0.0.1:3200'
-worktree: /Users/morris/Projects/sfia-workspace-next-g4-recette-build-29535d07
-runtime: next start (production, no hot reload)
-listen_pid: 74165
-schema_revision: migrations 001→007 applied to sfia_next_recette_g4
-test_data_revision: ephemeral RECETTE-only (created during smoke)
-db:
-  container: sfia-next-recette-pg
-  host: 127.0.0.1:5434
-  database: sfia_next_recette_g4
-  note: distinct from DEV sfia_next_dev@5433 and ML3 sfia_next_recette_ml3
-capabilities_observed:
-  OpenAI: NOT LIVE — SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY; turn returned deterministic-fixture FAILED (fail-closed RECETTE)
-  GitHub_OAuth: NOT CONFIGURED on this lane (no client secrets in RECETTE env)
-  Cursor_GitHub_App: NOT USED
-  Dev_test_login: FAKE ENABLED (STUDIO_DEV_TEST_LOGIN=1) — not OAuth proof
-quality_evidence:
-  login_GET: 200
-  portfolio_unauth: 401
-  portfolio_auth: 200
-  prep_create_message_patch_create_project: 200/200/200/201
-  project_surfaces_travail_document_journal_pilotage: 200
-  api_project_unauth: 401
-  foreign_prep_pilot_B: 404
-  DEV_3100_still_up: 200
-known_gaps:
-  - F2/G5 visual NOT PROVEN; Morris accepts proceed WITH RESERVES
-  - Nora LIVE not configured on RECETTE; fixture path FAILED (fail-closed) — messages persisted
-  - USER/VISUAL RECETTE NOT RUN on this candidate
-  - g2-source/scripts/tmp untracked (exclude from PR)
-  - ML3 launchd com.sfia.studio.next.recette.ml3 unloaded to free :3200 (ML3 DB/worktree preserved)
-review_decision: TECHNICAL RECETTE AUTOMATED PASS — USER/VISUAL NOT RUN, ACCEPTED TO PROCEED WITH RESERVES
 ```
-
-## Relance / arrêt
-
-```bash
-# Arrêt
-kill $(lsof -nP -iTCP:3200 -sTCP:LISTEN -t)
-
-# Relance (SHA figé worktree)
-cd /Users/morris/Projects/sfia-workspace-next-g4-recette-build-29535d07/projects/sfia-studio-next/web
-set -a; source ./.env.local; set +a
-npx next start -H 127.0.0.1 -p 3200
-
-# Restaurer ML3 RECETTE (si besoin) — après arrêt G4 :
-# launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.sfia.studio.next.recette.ml3.plist
-```
-
-## Isolation notes
-
-- Cookie lane-scoped: `sfia_studio_session__RECETTE` vs DEV
-- Réserve A ENV-01: same host `127.0.0.1` — use separate browser profiles if comparing DEV/RECETTE
-- DEV :3100 left running (PID previously 59969) — not used as RECETTE
+ee6d11e9 fix(next): drop Google font fetch so CI next build is network-stable
+3b5f400c chore(next): strip trailing whitespace blocking G4 CI gate
+277d513e fix(next): stabilize E2E webServer without turbopack on CI
+122dd0eb fix(next): align legacy e2e with G4 chat-first sas for CI
+3206e15f docs(next): G4 RECETTE ENV-01 manifest and PR readiness with UX reserves
+29535d07 feat(next): rebuild G4 sas as chat-first proposal flow with real workspaces
+c2af05cb feat(next): transpose G2 Figma UX surfaces into navigable G4 React views
+d45f0962 fix(next): G4 B1–B4 shell nav, deep-link history, D4 revise ACK, A1 create uncertainty
+dbaccfda feat(next): G4 Pilote–Nora convergence UX (F1/A1/A2) on DEV lane
 
 ```
 
-### PR readiness
+### Tip vs RECETTE
 
-```md
-# PR readiness — G4 Convergence UX — `29535d07` (2026-11-08)
+- Product UX candidate RECETTE remains **`29535d07`** (chat-first).
+- Tip `ee6d11e9ed9d7e09fc3bf26f5021120fb0eab67f` adds docs + CI/test hardening after RECETTE: e2e chat-first alignment, create-intent-key observability, e2e webServer without turbopack, trailing whitespace, **no Google font fetch**.
+- Do **not** re-label the frozen RECETTE build as proof of tip SHA; tip changes are CI/compat, not a new visual candidate.
 
-**Recommandation :** `READY FOR MORRIS INTEGRATION DECISION WITH RESERVES`
-**Ce pack n’ouvre pas de PR et ne merge pas.**
+## 2. Sources (origin/main blobs)
 
-## Base / tip
+| Path | blob |
+|---|---|
+| governance/SEF.md | `ef85ba1eda6ce5eaddd75eca3ca299a10cd05ad4` |
+| governance/roadmap.md | `4c06833c805d6f57edd52fd4cb694c846129dce7` |
+| governance/environnements-recette-et-promotions.md | `14b61f0d1265cf85fcca09b028dd09bd8c71597f` |
+| governance/product-versioning.md | `8bc93e0fafac0f981c446e978a37f5f93d183875` |
+| decisions/2026-11-07-convergence-ux-arbitrages.md | `04403f567241168c8cbdad4705408936118cd757` |
+| method/.../sfia-cycle-routing-guide.md | `3315bbae4757ad42255d16cba47d9e32be2a7842` |
+| .github/workflows/sfia-studio-next-ci.yml | `cca2c8efda22932e5b7a3d3eecf4fcfd7841f065` |
+
+## 3. PR
 
 | | |
 |---|---|
-| `origin/main` | `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` |
-| Candidate | `29535d07e9c14077b422020e25fbf54a98affe25` |
-| Tree | `3f8038ceab95344acef9e3676dd294663a00f2cf` |
-| Commits since main | 4 (`dbaccfda`, `d45f0962`, `c2af05cb`, `29535d07`) |
-| Diffstat | ~152 files, +82642 / −556 (dont pack G2) |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/669 |
+| Number | **#669** |
+| Base | `main` @ `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` |
+| Head | `feat/next-convergence-ux-g4-construction` @ `ee6d11e9ed9d7e09fc3bf26f5021120fb0eab67f` |
+| mergeable | MERGEABLE |
+| mergeStateStatus | CLEAN |
+| Conflicts | none |
 
-## PR summary candidate
+### Excluded from PR / untracked
 
-**Title:** `feat(next): G4 Pilote–Nora convergence UX (shell, A1/A2, chat-first sas)`
+- `g2-source/scripts/tmp/` (EXCLUDE — untracked)
+- `.tmp-sfia-review/` (never)
 
-**Body (draft):**
-- F1 shell 4 rail variants + A1 portfolio keyset/resume + A2 document deep-link/revise
-- B1–B4 correctifs navigation/ownership/D4
-- Chat-first sas (proposal inspectable, explicit D2 create) + Nora/Documents/Journal/Pilotage recomposition
-- G2 source pack VERIFY PASS embedded under construction (evidence)
+### Diffstat
 
-## Tests exécutés (TESTED)
+154+ files initially; tip includes CI fixes. File list count: 159
 
-| Check | Result | Lane |
-|---|---|---|
-| `tsc --noEmit` | PASS | construction/DEV |
-| unit 123 | PASS | construction |
-| integration PG 144 | PASS | construction/DEV DB patterns |
-| `next build` | PASS | RECETTE worktree @ 29535d07 |
-| Playwright `g4-chat-first-sas` + `g4-b1-b4` | PASS | E2E isolated (:3101) |
-| RECETTE HTTP smoke | PASS | :3200 build `U2HrgAwriuzf6f1YI0rRK` |
+<details><summary>name-status (full)</summary>
 
-## NOT RUN / KNOWN GAP
-
-| Item | Status |
-|---|---|
-| F2 / UXC-13 visual | **NOT PROVEN** |
-| G5 visual Morris | **NOT RUN** — proceed WITH RESERVES |
-| Nora LIVE on RECETTE | **NOT CONFIGURED** — fixture FAILED fail-closed |
-| GitHub OAuth RECETTE | **NOT CONFIGURED** — FAKE login only |
-| CI GitHub Actions full | **NOT RE-RUN** in this cycle (local evidence only) |
-| User visual on fed data | **NOT CLAIMED** |
-
-## Réserves UX (non bloquantes techniques, ouvertes produit)
-
-1. Écarts Figma constatés Morris (Nora / Documents / Journal) — acceptation de poursuite, pas conformité.
-2. États vides ≠ preuve d’écrans alimentés.
-3. Portefeuille macro OK avec réserves icônes/finition.
-4. Historique documents construit en code ; densité visuelle à revoir ultérieurement.
-
-## Bundle / hygiene avant PR
-
-| Path | Decision |
-|---|---|
-| `g2-source/` PNG+manifests+verify | **KEEP** (preuve G2) |
-| `g2-source/scripts/*.py` helpers | KEEP if needed for verify; review noise |
-| `g2-source/scripts/tmp/` | **EXCLUDE** (untracked staging — do not add) |
-| `.tmp-sfia-review/` | never in PR |
-
-## Risks / rollback
-
-- Cookie host collision DEV/RECETTE (ENV-01 réserve A) — separate browser profiles
-- Large G2 binary/json footprint in PR
-- Rollback: revert merge commit; RECETTE/DEV lanes independent
-
-## Gates still required (Morris)
-
-1. GO to **push** `feat/next-convergence-ux-g4-construction`
-2. GO to **open PR** against `main`
-3. CI green on PR
-4. GO to **merge**
-5. Separate GO for STABLE / RELEASE (NONE now)
-6. Future UX remédiation cycle (out of this pack)
-
-## Verdict readiness
-
-**READY FOR MORRIS INTEGRATION DECISION WITH RESERVES**
-Technical blockers for merge prep: none observed on automated smoke.
-Visual/F2/G5: open reserves, not blockers for Morris’s stated proceed decision.
+```
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/as-built-g4-chat-first-reprise-2026-11-08.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/as-built-g4-construction-2026-11-08.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/as-built-g4-correctifs-b1-b4-2026-11-08.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/as-built-g4-figma-ux-transposition-2026-11-08.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/env01-recette-manifest-g4-29535d07-2026-11-08.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/CONTROL-REPORT.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/README.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/coverage/cu-uxc-coverage-matrix.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/coverage/cu-uxc-coverage.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/indexes/png-export-index.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/indexes/png-export-index.json.sha256
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/indexes/png-files.sha256
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/indexes/raw-files.sha256
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/component-nodes-l2.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/component-nodes-l2.json.sha256
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/l2-manifest.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/l2-manifest.json.sha256
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/_init.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/_live-nora-verification.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/_meta.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/_staging/deltas-nora-206-208.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/_staging/negatives-28-32-33-41.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/_staging/shell.rail.personnel.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/deltas-nora-206-208.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/document.guided.18.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/document.workspace.04.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/journal.surface.05.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/mobile.216.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/mobile.217.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/negatives-28-32-33-41.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/nora.workzone.03.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.109.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.110.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.205.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.22.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.24.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.40.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.73.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.74.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.89.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.actions.92.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.109.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.110.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.205.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.22.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.24.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.40.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.73.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.74.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.89.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/page.content.92.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/portfolio.content.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/portfolio.empty.64.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/portfolio.list.65.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/sas.surface.02.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/shell.rail.conversation.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/shell.rail.inspection.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/shell.rail.personnel.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/manifests/raw/shell.rail.projet.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/mcp-results/actions-manifest.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-125-33.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-127-106.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-129-72.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-158-264.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-158-336.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-158-912.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-159-145.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-160-175.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-160-391.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-161-216.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-161-288.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-241-385.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-282-468.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-282-492.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-94-135.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-94-214.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-94-370.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-94-50.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-94-515.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/png/frame-97-359.png
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/batch_persist_chunks.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/build-b3-native-raw.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/build-g2-l2-complement.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/conv.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/document.workspace.04.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/journal.surface.05.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/mobile.216.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/mobile.217.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/nora.workzone.03.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/portfolio.content.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/portfolio.empty.64.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/portfolio.list.65.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/shell.rail.conversation.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/shell.rail.inspection.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/shell.rail.personnel.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/embed/shell.rail.projet.json
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/emit_raw_extracts.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/finish_all_embeds.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/flat-extract-template.js
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/ingest_chunk_file.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/ingest_figma_response.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/ingest_mcp_payload.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/ingest_stdin_embed.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/ingest_tmp_chunks.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/join_chunk_payload.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/materialize-raw-extracts.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/materialize_mcp_staging.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/materialize_wrappers.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/mcp_stdin_to_embed.sh
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/merge_split_extract.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/persist_figma_dict.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/persist_mcp_chunk.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/persist_mcp_split.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/persist_mcp_stdin_embed.sh
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/persist_split_parts.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/persist_string_chunks.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/rebuild-raw-index.sh
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/save_all_tmp_payloads.sh
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/save_json_payload.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/save_mcp_batch.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/save_mcp_cli.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/save_mcp_embed.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/save_mcp_from_file.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/split_and_save_mcp.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/store_chunk_from_mcp_json.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/verify-g2-pack.sh
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/write_embed.py
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/l3-handoff-g4-2026-11-08.md
+A	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/pr-readiness-g4-29535d07-2026-11-08.md
+M	projects/sfia-studio-next/web/scripts/e2e-web-server.sh
+M	projects/sfia-studio-next/web/src/app/api/portfolio/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
+M	projects/sfia-studio-next/web/src/app/globals.css
+M	projects/sfia-studio-next/web/src/app/layout.tsx
+M	projects/sfia-studio-next/web/src/app/portfolio/page.tsx
+M	projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+A	projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
+A	projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+A	projects/sfia-studio-next/web/src/components/figma/PreparationConversation.tsx
+A	projects/sfia-studio-next/web/src/components/figma/PreparationProposal.tsx
+A	projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+A	projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
+A	projects/sfia-studio-next/web/src/components/figma/tokens.css
+A	projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+A	projects/sfia-studio-next/web/src/components/shell/studio-rail.ts
+A	projects/sfia-studio-next/web/src/domains/identity/portfolio-cursor.ts
+A	projects/sfia-studio-next/web/src/domains/identity/portfolio-labels.ts
+M	projects/sfia-studio-next/web/src/domains/identity/portfolio.ts
+A	projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/g4-chat-first-sas.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/helpers/g4-chat-first.ts
+M	projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts
+M	projects/sfia-studio-next/web/tests/e2e/ml2-c3-stable-key.spec.ts
+M	projects/sfia-studio-next/web/tests/e2e/ml2-smoke.spec.ts
+M	projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
+A	projects/sfia-studio-next/web/tests/integration/portfolio-a1.pg.test.ts
+A	projects/sfia-studio-next/web/tests/unit/portfolio-cursor.test.ts
+A	projects/sfia-studio-next/web/tests/unit/studio-rail.test.ts
 
 ```
 
-## 4. Fake/Real
+</details>
 
-| Proof | Class |
+## 4. CI (observable finals)
+
+Run Next CI tip: https://github.com/mcleland147/sfia-workspace/actions/runs/42475102674
+
+| Check | Result |
 |---|---|
-| Pilote A login RECETTE | FAKE (`dev-test-login`) |
-| Nora turn | DETERMINISTIC/fixture path → FAILED fail-closed (no LIVE key) |
-| Create project / ownership | REAL against isolated RECETTE DB |
-| Playwright prior cycle | BROWSER on E2E lane (not this RECETTE process) |
+| Detect SFIA Studio Next changes | PASS |
+| Build and validate SFIA Studio Next | PASS |
+| SFIA Studio Next Required Gate | PASS |
+| Detect SFIA Studio changes | PASS |
+| Build and validate SFIA Studio | SKIPPED (out of scope) |
+| SFIA Studio Required Gate | PASS |
 
-## 5. Réserves
+### CI failures fixed in-cycle (bounded)
 
-### Non-bloquantes (produit/UX)
-- Figma gaps Morris (Nora/Docs/Journal); empty ≠ fed states; portfolio finitions
-- F2/G5 NOT PROVEN
+1. Playwright: legacy ML1–ML3 still used removed CTA `Ouvrir un sas…` / permanent form — aligned to chat-first (`122dd0eb`).
+2. E2E webServer turbopack + Google font flake timed out — webpack e2e server (`277d513e`).
+3. `git diff --check` trailing whitespace on as-builts — stripped (`3b5f400c`).
+4. `next/font/google` intermittent webpack null on Build Next — removed Google fetch (`ee6d11e9`).
 
-### Opérationnelles
-- ML3 RECETTE agent unloaded; restore via launchctl if needed
-- First migrate attempt hit wrong defaults — corrected with SFIA_PG_* targeting g4 DB
-- Exclude `g2-source/scripts/tmp/` from any future PR
+## 5. Fake / Real
 
-## 6. Verdict
+| Item | Class |
+|---|---|
+| Login RECETTE / CI | FAKE `dev-test-login` |
+| OAuth GitHub | NOT CONFIGURED |
+| Nora LIVE | NOT CONFIGURED — fixture fail-closed |
+| D1/D2/D4/ownership RECETTE | REAL isolated DB `sfia_next_recette_g4` |
+| Playwright | BROWSER FAKE E2E lane — not F2/G5 |
 
-TECHNICAL RECETTE PASS · USER/VISUAL NOT RUN WITH RESERVES · PR READY WITH RESERVES · NO PUSH/PR/MERGE/STABLE/RELEASE
+## 6. Réserves (explicit)
+
+- F2 / G5 visual Morris: **NOT PROVEN / NOT RUN** — proceed WITH RESERVES only
+- Figma gaps Nora/Documents/Journal; empty ≠ fed; portfolio finitions
+- Tip font stack no longer fetches Google Inter (CI-stable); RECETTE build still older SHA with previous font wiring
+- Large G2 pack footprint
+- M4 NOT opened
+
+## 7. Décision Morris unique demandée
+
+**Autoriser le merge de PR #669 vers `main` ?** (GO distinct ; pas d'auto-merge.)
+STABLE / RELEASE / adoption restent hors périmètre.
+
+## 8. Rollback
+
+Revert merge commit on `main` if needed; DEV/RECETTE lanes independent.
