@@ -1,8 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { PreparationConversation } from "@/components/figma/PreparationConversation";
+import { PreparationProposal } from "@/components/figma/PreparationProposal";
+import { ProjectJournal } from "@/components/figma/ProjectJournal";
+import {
+  DocumentHistory,
+  DocumentInspector,
+  DocumentLibrary,
+  type RevisionRow,
+} from "@/components/figma/DocumentSurfaces";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -25,7 +34,15 @@ type Surface = "travail" | "journal" | "document";
 export default function PreparationPage() {
   const params = useParams<{ preparationId: string }>();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const preparationId = params.preparationId;
+  const isResumedPrep =
+    searchParams.get("resume") === "1" || searchParams.get("from") === "portfolio";
+  const [proposalEditing, setProposalEditing] = useState(false);
+  const [draftProposalName, setDraftProposalName] = useState("");
+  const [draftProposalSummary, setDraftProposalSummary] = useState("");
+  const [revRows, setRevRows] = useState<RevisionRow[]>([]);
+  const [docViewMode, setDocViewMode] = useState<"read" | "edit">("read");
   const [messages, setMessages] = useState<Msg[]>([]);
   const [docs, setDocs] = useState<Doc[]>([]);
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
@@ -423,15 +440,22 @@ export default function PreparationPage() {
   }
 
   async function savePreview() {
+    const name = proposalEditing ? draftProposalName : previewName;
+    const summary = proposalEditing ? draftProposalSummary : previewSummary;
     const res = await fetch(`/api/preparations/${preparationId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ previewName, previewSummary }),
+      body: JSON.stringify({ previewName: name, previewSummary: summary }),
     });
     const j = await res.json();
     if (res.ok) {
+      setPreviewName(name);
+      setPreviewSummary(summary);
       setCreationRevision(j.creationRevision);
-      setStatus(`Aperçu révision ${j.creationRevision}`);
+      setProposalEditing(false);
+      setStatus(`Proposition enregistrée · révision ${j.creationRevision}`);
+    } else {
+      setStatus(`Échec enregistrement proposition`);
     }
   }
 
@@ -498,25 +522,68 @@ export default function PreparationPage() {
     }
   }
 
+  function startConstituteProposal() {
+    setDraftProposalName(previewName);
+    setDraftProposalSummary(previewSummary);
+    setProposalEditing(true);
+  }
+
+  function adoptLastNoraSummary() {
+    const last = [...messages].reverse().find((m) => m.role === "assistant");
+    if (last) setDraftProposalSummary(last.content.slice(0, 2000));
+  }
+
+  async function loadRevisionHistory(documentId: string) {
+    const res = await fetch(`/api/preparations/${preparationId}/documents/${documentId}`);
+    if (!res.ok) {
+      setRevRows([]);
+      return;
+    }
+    const j = await res.json();
+    const rows = (j.revisions ?? j.items ?? []) as Array<{
+      id: string;
+      revisionNumber: number;
+      status: string;
+      createdAt?: string;
+    }>;
+    setRevRows(
+      rows.map((r) => ({
+        id: r.id,
+        revisionNumber: r.revisionNumber,
+        status: r.status,
+        createdAt: r.createdAt,
+      })),
+    );
+  }
+
   const inspected = docs.find((d) => d.document.id === inspectDocId) ?? docs[0];
+  const sasFrame = isResumedPrep ? "159:145" : "94:135";
 
   return (
-    <div className="space-y-3">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs muted uppercase tracking-wide">Travail / sas</p>
-          <h1 className="text-xl font-semibold">Fil continu avec Nora</h1>
-          <p className="text-xs muted">
-            {preparationId}
-            {projectId ? ` · projet ${projectId}` : " · sans projet"}
-          </p>
-        </div>
-        <nav className="flex gap-2 text-sm" aria-label="Surfaces ML2">
+    <div className="fig-page" data-figma-frame={sasFrame} data-sas-resume={isResumedPrep ? "1" : "0"}>
+      <div className="fig-breadcrumb">
+        <span>
+          SFIA Studio / Nouveau projet / préparation{isResumedPrep ? " · reprise" : ""}
+        </span>
+        <span className="text-xs muted truncate max-w-[40%]">{preparationId}</span>
+      </div>
+      <header className="space-y-2">
+        <p className="fig-kicker">Espace de préparation — projet non créé</p>
+        <h1 className="fig-hero-title">
+          {isResumedPrep ? "Préparation retrouvée" : "Clarifions votre intention"}
+        </h1>
+        <p className="fig-hero-sub">
+          {isResumedPrep
+            ? "Continuité du même fil. Inspectez la proposition éventuelle puis créez explicitement si prêt."
+            : "Discutez librement avec Nora avant de décider de créer un projet."}
+          {projectId ? ` Projet lié : ${projectId}.` : ""}
+        </p>
+        <nav className="flex flex-wrap gap-2 pt-1" aria-label="Surfaces sas">
           {(
             [
-              ["travail", "Travail"],
-              ["journal", "Journal — Sujets"],
-              ["document", "Document"],
+              ["travail", "Discussion"],
+              ["journal", "Journal"],
+              ["document", "Documents"],
             ] as const
           ).map(([id, label]) => (
             <button
@@ -531,235 +598,158 @@ export default function PreparationPage() {
         </nav>
       </header>
 
-      {noraActivity === "preparing" ? (
-        <div className="panel p-3 text-sm" role="status" aria-live="polite">
-          Nora prépare une réponse…
-        </div>
-      ) : null}
-      {noraActivity === "error" ? (
-        <div className="panel p-3 text-sm" style={{ borderColor: "var(--bad)" }}>
-          Échec de génération — message utilisateur conservé.
-        </div>
-      ) : null}
-
       {surface === "travail" ? (
-        <div className="grid lg:grid-cols-[1.45fr_1fr] gap-4">
-          <section className="panel p-4 space-y-4">
-            <div className="space-y-3 max-h-[52vh] overflow-auto pr-1">
-              {messages.map((m) => (
-                <article key={m.id} className="panel p-3">
-                  <div className="text-xs muted mb-2 flex gap-2 items-center">
-                    <span className="uppercase tracking-wide">{m.role === "assistant" ? "Nora" : "Pilote"}</span>
-                    <span>· {m.status}</span>
-                  </div>
-                  {m.role === "assistant" ? (
-                    <SafeMarkdown content={m.content} />
-                  ) : (
-                    <div className="whitespace-pre-wrap text-sm">{m.content}</div>
-                  )}
-                </article>
-              ))}
-            </div>
-            <div className="space-y-2">
-              <textarea
-                className="textarea"
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                placeholder="Écrire à Nora…"
-                aria-label="Message à Nora"
-              />
-              <button className="btn" disabled={busy} onClick={sendMessage}>
-                Envoyer
-              </button>
-            </div>
-          </section>
-
-          <section className="space-y-4">
-            <div className="panel p-4 space-y-3">
-              <h2 className="font-medium">Aperçu de création (non autorisant)</h2>
-              <input
-                className="input"
-                value={previewName}
-                onChange={(e) => setPreviewName(e.target.value)}
-                placeholder="Nom du projet"
-              />
-              <textarea
-                className="textarea"
-                value={previewSummary}
-                onChange={(e) => setPreviewSummary(e.target.value)}
-                placeholder="Résumé inspecté"
-              />
-              <div className="text-xs muted">Révision création: {creationRevision}</div>
-              <div className="flex gap-2 flex-wrap">
-                <button className="btn secondary" disabled={busy} onClick={savePreview}>
-                  Enregistrer l&apos;aperçu
-                </button>
-                <button className="btn" disabled={busy || !!projectId} onClick={createProject}>
-                  Créer le projet
-                </button>
-              </div>
-            </div>
-            <div className="panel p-4 space-y-2">
-              <h2 className="font-medium">Contexte projet</h2>
-              <p className="text-xs muted">
-                Acquis courants: {knowledge?.acquis.filter((a) => a.status === "CURRENT").length ?? 0} ·
-                Points ouverts: {knowledge?.openPoints.filter((o) => o.status === "OPEN").length ?? 0} ·
-                Documents: {docs.length}
-              </p>
-              <p className="text-xs muted">
-                Une recommandation Nora n&apos;est jamais une HumanDecision.
-              </p>
-            </div>
-            {status ? (
-              <p className="text-sm muted" data-testid="surface-status">
-                {status}
-              </p>
-            ) : null}
-          </section>
+        <div className="fig-workspace">
+          <PreparationConversation
+            messages={messages}
+            draft={draft}
+            busy={busy}
+            noraActivity={noraActivity}
+            onDraftChange={setDraft}
+            onSend={() => void sendMessage()}
+          />
+          <PreparationProposal
+            projectId={projectId}
+            previewName={previewName}
+            previewSummary={previewSummary}
+            creationRevision={creationRevision}
+            messageCount={messages.length}
+            openPoints={(knowledge?.openPoints ?? [])
+              .filter((o) => o.status === "OPEN")
+              .map((o) => ({ id: o.id, statement: o.statement }))}
+            busy={busy}
+            editing={proposalEditing}
+            draftName={draftProposalName}
+            draftSummary={draftProposalSummary}
+            onDraftName={setDraftProposalName}
+            onDraftSummary={setDraftProposalSummary}
+            onStartConstitute={startConstituteProposal}
+            onAdoptLastNoraSummary={adoptLastNoraSummary}
+            canAdoptLastNora={messages.some((m) => m.role === "assistant")}
+            onSaveProposal={() => void savePreview()}
+            onCancelEdit={() => setProposalEditing(false)}
+            onCreateProject={() => void createProject()}
+            status={status}
+          />
         </div>
       ) : null}
 
       {surface === "document" ? (
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-4">
-          <section className="panel p-4 space-y-3">
-            <h2 className="font-medium">Document — inspection / révision</h2>
-            {status ? (
-              <p className="text-sm muted" data-testid="surface-status">
-                {status}
-              </p>
-            ) : null}
-            <div className="flex flex-wrap gap-2 text-xs">
-              {docs.map((d) => (
-                <button
-                  key={d.document.id}
-                  type="button"
-                  className={`btn secondary ${inspectDocId === d.document.id ? "" : ""}`}
-                  onClick={() => {
-                    setInspectDocId(d.document.id);
-                    setDocId(d.document.id);
-                    setDocText(d.latestRevision?.contentMarkdown ?? "");
-                    setBaseRevisionId(d.latestRevision?.id);
-                  }}
-                >
-                  {d.document.title} · v{d.latestRevision?.revisionNumber ?? "?"} ·{" "}
-                  {d.latestRevision?.status ?? "—"}
-                </button>
-              ))}
-            </div>
-            <textarea
-              className="textarea min-h-[240px]"
-              value={docText}
-              onChange={(e) => setDocText(e.target.value)}
+        <div className="fig-workspace-3" data-figma-frame="94:370">
+          <div className="space-y-2">
+            <DocumentLibrary
+              documents={docs}
+              selectedId={inspectDocId}
+              emptyHint="Aucun document dans ce sas. Créez explicitement un document pour l'inspecter ensuite en lecture seule."
+              onSelect={(d) => {
+                setInspectDocId(d.document.id);
+                setDocId(d.document.id);
+                setDocText(d.latestRevision?.contentMarkdown ?? "");
+                setBaseRevisionId(d.latestRevision?.id);
+                setDocViewMode("read");
+                void loadRevisionHistory(d.document.id);
+              }}
             />
-            <div className="flex flex-wrap gap-2">
+            {docs.length === 0 && docViewMode !== "edit" ? (
               <button
+                type="button"
                 className="btn secondary"
-                disabled={busy}
-                onClick={saveDoc}
-                data-testid="doc-save"
+                data-testid="doc-start-create"
+                onClick={() => {
+                  setDocId(undefined);
+                  setBaseRevisionId(undefined);
+                  setDocText("# Notes du sas\n");
+                  setDocViewMode("edit");
+                  rememberCreateIntent(null);
+                }}
               >
-                Sauvegarder
+                Créer un document
               </button>
-              <button className="btn" disabled={busy} onClick={reviseDoc} data-testid="doc-revise">
-                Réviser sur version de base
-              </button>
-              <button className="btn secondary" disabled={busy} onClick={compareLatestTwo}>
-                Comparer versions
-              </button>
-              {createDocIntent && !docId ? (
-                <button
-                  className="btn secondary"
-                  disabled={busy}
-                  onClick={startNewCreateIntent}
-                  data-testid="doc-new-intent"
-                >
-                  Nouvelle intention de création
-                </button>
+            ) : null}
+          </div>
+          <div className="space-y-3">
+            <DocumentInspector
+              title={docViewMode === "edit" ? (docId ? "Révision" : "Création") : "Inspection"}
+              uiState={docViewMode === "edit" ? "EDITING" : "READING"}
+              markdown={
+                docViewMode === "edit"
+                  ? null
+                  : inspected?.latestRevision?.contentMarkdown ?? (docs.length ? docText : null)
+              }
+              editing={docViewMode === "edit"}
+              draft={docText}
+              onDraft={setDocText}
+              busy={busy}
+              onStartRevise={
+                inspected?.latestRevision
+                  ? () => {
+                      setDocViewMode("edit");
+                      setDocText(inspected.latestRevision?.contentMarkdown ?? "");
+                    }
+                  : undefined
+              }
+              onSaveRevise={docId ? () => void reviseDoc() : undefined}
+              onCancel={() => {
+                setDocViewMode("read");
+                setDocText(inspected?.latestRevision?.contentMarkdown ?? "");
+              }}
+            >
+              {docViewMode === "edit" ? (
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    className="btn"
+                    disabled={busy}
+                    onClick={() => void saveDoc()}
+                    data-testid="doc-save"
+                  >
+                    Sauvegarder
+                  </button>
+                  {createDocIntent && !docId ? (
+                    <button
+                      type="button"
+                      className="btn secondary"
+                      disabled={busy}
+                      onClick={startNewCreateIntent}
+                      data-testid="doc-new-intent"
+                    >
+                      Nouvelle intention de création
+                    </button>
+                  ) : null}
+                </div>
               ) : null}
-            </div>
-            {createDocIntent && !docId ? (
-              <p className="text-xs muted" data-testid="create-intent-key">
-                Intention de création active · clé {createDocIntent.key}
-              </p>
-            ) : null}
-            {reviseIntent ? (
-              <p className="text-xs muted" data-testid="revise-intent-key">
-                Intention de révision active · clé {reviseIntent.key}
-              </p>
-            ) : null}
-            {inspected?.latestRevision ? (
-              <p className="text-xs muted">
-                Base inspectée: {baseRevisionId} · statut {inspected.latestRevision.status}
-              </p>
-            ) : null}
-          </section>
-          <section className="panel p-4 space-y-3">
-            <h2 className="font-medium">Rendu Markdown sûr</h2>
-            <SafeMarkdown content={docText} />
-            {diffText ? (
-              <pre className="text-xs whitespace-pre-wrap panel p-3">{diffText}</pre>
-            ) : null}
-          </section>
+              {createDocIntent ? (
+                <p className="text-xs muted" data-testid="create-intent-key">
+                  {createDocIntent.key}
+                </p>
+              ) : null}
+              {status ? (
+                <p className="text-sm muted" data-testid="surface-status">
+                  {status}
+                </p>
+              ) : null}
+            </DocumentInspector>
+            <DocumentHistory
+              revisions={revRows}
+              activeRevisionId={baseRevisionId}
+              onCompareLatest={() => void compareLatestTwo()}
+              diffText={diffText}
+            />
+          </div>
         </div>
       ) : null}
 
       {surface === "journal" ? (
-        <div className="grid lg:grid-cols-2 gap-4">
-          <section className="panel p-4 space-y-3">
-            <h2 className="font-medium">Sujets</h2>
-            {(knowledge?.subjects ?? []).length === 0 ? (
-              <p className="text-sm muted">Aucun sujet capitalisé pour l&apos;instant.</p>
-            ) : (
-              knowledge!.subjects.map((s) => (
-                <div key={s.id} className="panel p-3 space-y-2">
-                  <div className="flex flex-wrap gap-2 items-center justify-between">
-                    <div>
-                      <div className="font-medium text-sm">{s.title}</div>
-                      <div className="text-xs muted">
-                        {s.id} · {s.status}
-                        {s.originatedFromSubjectId
-                          ? ` · filiation ${s.originatedFromSubjectId}`
-                          : ""}
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        type="button"
-                        className="btn secondary"
-                        onClick={() => {
-                          const t = window.prompt("Nouveau titre", s.title);
-                          if (t) void renameSubject(s.id, t);
-                        }}
-                      >
-                        Renommer
-                      </button>
-                      <button
-                        type="button"
-                        className="btn secondary"
-                        onClick={() => {
-                          setSplitSubjectId(s.id);
-                          setSplitTitle(`${s.title} (séparé)`);
-                          setSplitAcquis(
-                            (knowledge?.acquis ?? [])
-                              .filter((a) => a.subjectId === s.id && a.status === "CURRENT")
-                              .map((a) => a.id),
-                          );
-                        }}
-                      >
-                        Séparer…
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-            {splitSubjectId ? (
-              <div className="panel p-3 space-y-2" style={{ borderColor: "var(--accent)" }}>
+        <ProjectJournal
+          subjects={knowledge?.subjects ?? []}
+          acquis={knowledge?.acquis ?? []}
+          openPoints={knowledge?.openPoints ?? []}
+          onBackToThread={() => setSurface("travail")}
+          onRenameSubject={(id, title) => void renameSubject(id, title)}
+          splitSlot={
+            splitSubjectId ? (
+              <div className="fig-panel space-y-2" style={{ borderColor: "var(--accent)" }}>
                 <h3 className="text-sm font-medium">Séparer un Sujet</h3>
-                <p className="text-xs muted">
-                  Composition minimale sur surfaces existantes — filiation et points ouverts
-                  conservés. Confirmer ou annuler.
-                </p>
                 <input
                   className="input"
                   value={splitTitle}
@@ -769,7 +759,7 @@ export default function PreparationPage() {
                 <p className="text-xs muted">{splitAcquis.length} acquis à déplacer</p>
                 <div className="flex gap-2">
                   <button type="button" className="btn" onClick={() => void confirmSplit()}>
-                    Confirmer la séparation
+                    Confirmer
                   </button>
                   <button
                     type="button"
@@ -783,36 +773,9 @@ export default function PreparationPage() {
                   </button>
                 </div>
               </div>
-            ) : null}
-          </section>
-          <section className="space-y-4">
-            <div className="panel p-4 space-y-2">
-              <h2 className="font-medium">Acquis</h2>
-              {(knowledge?.acquis ?? [])
-                .filter((a) => a.status === "CURRENT")
-                .slice(0, 20)
-                .map((a) => (
-                  <div key={a.id} className="text-sm panel p-2">
-                    <div className="text-xs muted">
-                      {a.kind} · {a.id}
-                    </div>
-                    <div>{a.statement}</div>
-                  </div>
-                ))}
-            </div>
-            <div className="panel p-4 space-y-2">
-              <h2 className="font-medium">Points ouverts</h2>
-              {(knowledge?.openPoints ?? [])
-                .filter((o) => o.status === "OPEN")
-                .map((o) => (
-                  <div key={o.id} className="text-sm panel p-2">
-                    <div className="text-xs muted">{o.id}</div>
-                    <div>{o.statement}</div>
-                  </div>
-                ))}
-            </div>
-          </section>
-        </div>
+            ) : null
+          }
+        />
       ) : null}
     </div>
   );

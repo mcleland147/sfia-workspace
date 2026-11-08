@@ -6,6 +6,7 @@ import {
   listDocumentRevisions,
   reviseDocument,
 } from "@/domains/document/service";
+import { studioErrorResponse } from "@/lib/http-errors";
 
 export async function GET(
   req: Request,
@@ -40,8 +41,9 @@ export async function GET(
     }
     const list = await listDocumentRevisions(session.pilotId, preparationId, documentId);
     return NextResponse.json(list);
-  } catch {
-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }
 
@@ -80,7 +82,8 @@ export async function POST(
     const status =
       result.status === "CONFLICT" ? 409 : result.status === "FAILED" ? 400 : 200;
     return NextResponse.json(result, { status });
-  } catch {
-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }

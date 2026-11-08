@@ -1,0 +1,24 @@
+{
+  "schema": "sfia-next-g2-raw-extract/v1",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "extractedAtUtc": "2026-11-07T21:25:10Z",
+  "families": [
+    "shell.rail.personnel",
+    "shell.rail.conversation",
+    "shell.rail.projet",
+    "shell.rail.inspection",
+    "portfolio.content",
+    "nora.workzone.03",
+    "document.workspace.04",
+    "journal.surface.05",
+    "mobile.216",
+    "mobile.217",
+    "portfolio.empty.64",
+    "portfolio.list.65",
+    "deltas-nora-206-208",
+    "negatives-28-32-33-41"
+  ],
+  "note": "Native use_figma flat L2 extracts; PNG digests unchanged"
+}

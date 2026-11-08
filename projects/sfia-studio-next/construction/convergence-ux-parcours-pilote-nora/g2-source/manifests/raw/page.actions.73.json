@@ -1,0 +1,377 @@
+{
+  "schema": "sfia-next-g2-raw-extract/v2",
+  "family": "page.actions.73",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "frameId": "158:912",
+  "rootId": "158:976",
+  "rootName": "Actions / principales",
+  "extractRootIds": [
+    "158:976",
+    "158:980"
+  ],
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "extractedAtUtc": "2026-11-07T23:40:59.643Z",
+  "figmaVersion": "NOT AVAILABLE",
+  "nodeCount": 7,
+  "geometry": {
+    "w": 1680,
+    "h": 970
+  },
+  "coordinateConvention": "PLUGIN parent-local; pageAbsolute absoluteBoundingBox; frameRelative vs frame",
+  "rootFrameRelative": {
+    "x": 285,
+    "y": 857,
+    "w": 1320,
+    "h": 51
+  },
+  "nodes": [
+    {
+      "id": "158:976",
+      "n": "Actions / principales",
+      "t": "FRAME",
+      "d": 0,
+      "p": "158:912",
+      "pc": [
+        "158:912"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "parentLocal": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "pageAbsolute": {
+        "x": 5595,
+        "y": 18437,
+        "w": 1320,
+        "h": 51
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 12,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1
+    },
+    {
+      "id": "158:977",
+      "n": "Bouton / 0",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "158:976",
+      "pc": [
+        "158:912",
+        "158:976"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 5595,
+        "y": 18437,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#292d58",
+      "r": 9
+    },
+    {
+      "id": "I158:977;12:15",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 2,
+      "p": "158:977",
+      "pc": [
+        "158:912",
+        "158:976",
+        "158:977"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 5608,
+        "y": 18447,
+        "w": 192,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 298,
+        "y": 867,
+        "w": 192,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "lhQualification": {
+        "status": "NATIVE",
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "ch": "Retrouver la préparation"
+    },
+    {
+      "id": "158:978",
+      "n": "Bouton / 1",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "158:976",
+      "pc": [
+        "158:912",
+        "158:976"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 230,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 230,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 5825,
+        "y": 18437,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 515,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#242b3b",
+      "r": 9
+    },
+    {
+      "id": "I158:978;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 2,
+      "p": "158:978",
+      "pc": [
+        "158:912",
+        "158:976",
+        "158:978"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 5838,
+        "y": 18447,
+        "w": 192,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 528,
+        "y": 867,
+        "w": 192,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "lhQualification": {
+        "status": "NATIVE",
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "ch": "Créer une autre préparation"
+    },
+    {
+      "id": "158:979",
+      "n": "Bouton / 2",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "158:976",
+      "pc": [
+        "158:912",
+        "158:976"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": false,
+      "sourceBounds": {
+        "x": 460,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 460,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 6055,
+        "y": 18437,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 745,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#242b3b",
+      "r": 9
+    },
+    {
+      "id": "158:980",
+      "n": "Pied / note",
+      "t": "TEXT",
+      "d": 0,
+      "p": "158:912",
+      "pc": [
+        "158:912"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 5595,
+        "y": 18511,
+        "w": 1280,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "f": "#8390a9",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO"
+      },
+      "ch": "Ton portefeuille personnel est distinct de tes accès Git."
+    }
+  ]
+}

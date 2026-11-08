@@ -1,0 +1,232 @@
+{
+  "schema": "sfia-next-g2-raw-extract/v2",
+  "family": "negatives-28-32-33-41",
+  "extractedAtUtc": "2026-11-07T21:28:23.198Z",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "figmaSessionId": "16cad203-91e2-4cb1-b66d-55799ac79e01",
+  "status": "NATIVE_DISCRIMINATIVE",
+  "futureGate": "G5",
+  "note": "Pilotage negative variants — shell geometry 1680×970; rail+content family isomorphic; copy and nav accent differ via native TEXT L2 (G5 for behavior).",
+  "screens": [
+    {
+      "screen": "28",
+      "frameId": "127:391",
+      "name": "28 · Méthode — aucune retenue",
+      "status": "NATIVE_DISCRIMINATIVE",
+      "textCount": 42,
+      "geometry": { "x": 3540, "y": 3410, "w": 1680, "h": 970 },
+      "changingNodes": [
+        {
+          "id": "127:424",
+          "t": "TEXT",
+          "n": "Titre / statut",
+          "ch": "AUCUNE MÉTHODE RETENUE",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 12,
+          "fw": 600,
+          "f": "#aba0ff",
+          "parentLocal": { "x": 0, "y": 0, "w": 1250, "h": 15 },
+          "frameRelative": { "x": 285, "y": 98, "w": 1250, "h": 15 },
+          "pageAbsolute": { "x": 3825, "y": 3508, "w": 1250, "h": 15 }
+        },
+        {
+          "id": "127:425",
+          "t": "TEXT",
+          "n": "Titre / principal",
+          "ch": "Choisir un cadre de travail",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 32,
+          "fw": 600,
+          "f": "#f4f6fc",
+          "parentLocal": { "x": 0, "y": 24, "w": 1250, "h": 39 },
+          "frameRelative": { "x": 285, "y": 122, "w": 1250, "h": 39 },
+          "pageAbsolute": { "x": 3825, "y": 3532, "w": 1250, "h": 39 }
+        },
+        {
+          "id": "127:426",
+          "t": "TEXT",
+          "n": "Titre / description",
+          "ch": "Le projet peut progresser sans méthode décidée.",
+          "ff": "Inter",
+          "fst": "Regular",
+          "fs": 16,
+          "fw": 400,
+          "f": "#b0bcd0",
+          "parentLocal": { "x": 0, "y": 72, "w": 1250, "h": 19 },
+          "frameRelative": { "x": 285, "y": 170, "w": 1250, "h": 19 },
+          "pageAbsolute": { "x": 3825, "y": 3580, "w": 1250, "h": 19 }
+        }
+      ],
+      "navigationAccent": {
+        "id": "127:408",
+        "ch": "Trajectoire",
+        "f": "#f5f5fc",
+        "parentLocal": { "x": 29, "y": 8, "w": 165, "h": 16 },
+        "frameRelative": { "x": 53, "y": 306, "w": 165, "h": 16 }
+      }
+    },
+    {
+      "screen": "32",
+      "frameId": "128:124",
+      "name": "32 · Décision — révision",
+      "status": "NATIVE_DISCRIMINATIVE",
+      "textCount": 42,
+      "geometry": { "x": 3540, "y": 4500, "w": 1680, "h": 970 },
+      "changingNodes": [
+        {
+          "id": "128:157",
+          "t": "TEXT",
+          "ch": "HISTORIQUE PRÉSERVÉ",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 12,
+          "fw": 600,
+          "f": "#aba0ff",
+          "parentLocal": { "x": 0, "y": 0, "w": 1250, "h": 15 },
+          "frameRelative": { "x": 285, "y": 98, "w": 1250, "h": 15 },
+          "pageAbsolute": { "x": 3825, "y": 4598, "w": 1250, "h": 15 }
+        },
+        {
+          "id": "128:158",
+          "t": "TEXT",
+          "ch": "Réviser une décision",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 32,
+          "fw": 600,
+          "f": "#f4f6fc",
+          "parentLocal": { "x": 0, "y": 24, "w": 1250, "h": 39 },
+          "frameRelative": { "x": 285, "y": 122, "w": 1250, "h": 39 },
+          "pageAbsolute": { "x": 3825, "y": 4622, "w": 1250, "h": 39 }
+        },
+        {
+          "id": "128:159",
+          "t": "TEXT",
+          "ch": "La correction n'efface pas les engagements et choix antérieurs.",
+          "ff": "Inter",
+          "fst": "Regular",
+          "fs": 16,
+          "fw": 400,
+          "f": "#b0bcd0",
+          "parentLocal": { "x": 0, "y": 72, "w": 1250, "h": 19 },
+          "frameRelative": { "x": 285, "y": 170, "w": 1250, "h": 19 },
+          "pageAbsolute": { "x": 3825, "y": 4670, "w": 1250, "h": 19 }
+        }
+      ],
+      "navigationAccent": {
+        "id": "128:144",
+        "ch": "Décisions",
+        "f": "#f5f5fc",
+        "frameRelative": { "x": 53, "y": 355, "w": 165, "h": 16 }
+      }
+    },
+    {
+      "screen": "33",
+      "frameId": "128:195",
+      "name": "33 · Suspension — active",
+      "status": "NATIVE_DISCRIMINATIVE",
+      "textCount": 42,
+      "geometry": { "x": 5310, "y": 4500, "w": 1680, "h": 970 },
+      "changingNodes": [
+        {
+          "id": "128:228",
+          "t": "TEXT",
+          "ch": "ÉCRITURES SUSPENDUES",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 12,
+          "fw": 600,
+          "f": "#aba0ff",
+          "frameRelative": { "x": 285, "y": 98, "w": 1250, "h": 15 },
+          "pageAbsolute": { "x": 5595, "y": 4598, "w": 1250, "h": 15 }
+        },
+        {
+          "id": "128:229",
+          "t": "TEXT",
+          "ch": "Suspension en vigueur",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 32,
+          "fw": 600,
+          "f": "#f4f6fc",
+          "frameRelative": { "x": 285, "y": 122, "w": 1250, "h": 39 },
+          "pageAbsolute": { "x": 5595, "y": 4622, "w": 1250, "h": 39 }
+        },
+        {
+          "id": "128:230",
+          "t": "TEXT",
+          "ch": "La restriction humaine demeure même après une nouvelle conversation.",
+          "ff": "Inter",
+          "fst": "Regular",
+          "fs": 16,
+          "fw": 400,
+          "f": "#b0bcd0",
+          "frameRelative": { "x": 285, "y": 170, "w": 1250, "h": 19 },
+          "pageAbsolute": { "x": 5595, "y": 4670, "w": 1250, "h": 19 }
+        }
+      ],
+      "navigationAccent": {
+        "id": "128:215",
+        "ch": "Décisions",
+        "f": "#f5f5fc",
+        "frameRelative": { "x": 53, "y": 355, "w": 165, "h": 16 }
+      }
+    },
+    {
+      "screen": "41",
+      "frameId": "129:144",
+      "name": "41 · Cycle — GO à clarifier",
+      "status": "NATIVE_DISCRIMINATIVE",
+      "textCount": 42,
+      "geometry": { "x": 5310, "y": 6680, "w": 1680, "h": 970 },
+      "changingNodes": [
+        {
+          "id": "129:177",
+          "t": "TEXT",
+          "ch": "GO NON DÉTERMINÉ",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 12,
+          "fw": 600,
+          "f": "#aba0ff",
+          "frameRelative": { "x": 285, "y": 98, "w": 1250, "h": 15 },
+          "pageAbsolute": { "x": 5595, "y": 6778, "w": 1250, "h": 15 }
+        },
+        {
+          "id": "129:178",
+          "t": "TEXT",
+          "ch": "Clarifier un GO de cycle",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 32,
+          "fw": 600,
+          "f": "#f4f6fc",
+          "frameRelative": { "x": 285, "y": 122, "w": 1250, "h": 39 },
+          "pageAbsolute": { "x": 5595, "y": 6802, "w": 1250, "h": 39 }
+        },
+        {
+          "id": "129:179",
+          "t": "TEXT",
+          "ch": "Une réponse imprécise ne démarre ni ne ferme aucun cycle.",
+          "ff": "Inter",
+          "fst": "Regular",
+          "fs": 16,
+          "fw": 400,
+          "f": "#b0bcd0",
+          "frameRelative": { "x": 285, "y": 170, "w": 1250, "h": 19 },
+          "pageAbsolute": { "x": 5595, "y": 6850, "w": 1250, "h": 19 }
+        }
+      ],
+      "navigationAccent": {
+        "id": "129:161",
+        "ch": "Trajectoire",
+        "f": "#f5f5fc",
+        "frameRelative": { "x": 53, "y": 306, "w": 165, "h": 16 }
+      }
+    }
+  ]
+}

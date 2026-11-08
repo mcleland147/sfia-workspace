@@ -1,0 +1,6577 @@
+{
+  "extractedAtUtc": "2026-11-07T20:15:20.663Z",
+  "rootId": "94:249",
+  "rootName": "Zone de travail conversationnel",
+  "w": 1440,
+  "h": 970,
+  "nodeCount": 129,
+  "nodes": [
+    {
+      "id": "94:249",
+      "n": "Zone de travail conversationnel",
+      "t": "FRAME",
+      "d": 0,
+      "p": "94:214",
+      "pc": [
+        "94:214"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 240,
+        "y": 0,
+        "w": 1440,
+        "h": 970
+      },
+      "parentLocal": {
+        "x": 240,
+        "y": 0,
+        "w": 1440,
+        "h": 970
+      },
+      "pageAbsolute": {
+        "x": 3780,
+        "y": 0,
+        "w": 1440,
+        "h": 970
+      },
+      "frameRelative": {
+        "x": 240,
+        "y": 0,
+        "w": 1440,
+        "h": 970
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#111624"
+    },
+    {
+      "id": "94:250",
+      "n": "Barre produit et projet",
+      "t": "FRAME",
+      "d": 1,
+      "p": "94:249",
+      "pc": [
+        "94:214",
+        "94:249"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 61
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 61
+      },
+      "pageAbsolute": {
+        "x": 3780,
+        "y": 0,
+        "w": 1440,
+        "h": 61
+      },
+      "frameRelative": {
+        "x": 240,
+        "y": 0,
+        "w": 1440,
+        "h": 61
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 14,
+      "pad": [
+        0,
+        0,
+        0,
+        30
+      ],
+      "clips": 1,
+      "f": "#0a0e17"
+    },
+    {
+      "id": "94:251",
+      "n": "SFIA Studio  /  Projet Atlas",
+      "t": "TEXT",
+      "d": 2,
+      "p": "94:250",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:250"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 30,
+        "y": 22,
+        "w": 1040,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 30,
+        "y": 22,
+        "w": 1040,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 3810,
+        "y": 22,
+        "w": 1040,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 270,
+        "y": 22,
+        "w": 1040,
+        "h": 18
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "SFIA Studio  /  Projet Atlas"
+    },
+    {
+      "id": "94:252",
+      "n": "Statut / B2/V3 Â· R3",
+      "t": "FRAME",
+      "d": 2,
+      "p": "94:250",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:250"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1084,
+        "y": 18,
+        "w": 137,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 1084,
+        "y": 18,
+        "w": 137,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 4864,
+        "y": 18,
+        "w": 137,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 1324,
+        "y": 18,
+        "w": 137,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "r": 13,
+      "f": "#2b2d57"
+    },
+    {
+      "id": "94:253",
+      "n": "B2/V3 Â· R3",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:252",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:250",
+        "94:252"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 5,
+        "w": 124,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 5,
+        "w": 124,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4873,
+        "y": 23,
+        "w": 124,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 1333,
+        "y": 23,
+        "w": 124,
+        "h": 15
+      },
+      "f": "#afa5ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Espace projet"
+    },
+    {
+      "id": "94:254",
+      "n": "Conversation et contextualisation",
+      "t": "FRAME",
+      "d": 1,
+      "p": "94:249",
+      "pc": [
+        "94:214",
+        "94:249"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 61,
+        "w": 1440,
+        "h": 909
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 61,
+        "w": 1440,
+        "h": 909
+      },
+      "pageAbsolute": {
+        "x": 3780,
+        "y": 61,
+        "w": 1440,
+        "h": 909
+      },
+      "frameRelative": {
+        "x": 240,
+        "y": 61,
+        "w": 1440,
+        "h": 909
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 24,
+      "pad": [
+        21,
+        0,
+        0,
+        32
+      ],
+      "clips": 1,
+      "f": "#111624"
+    },
+    {
+      "id": "94:255",
+      "n": "Conversation Pilote Nora",
+      "t": "FRAME",
+      "d": 2,
+      "p": "94:254",
+      "pc": [
+        "94*214",
+        "94:249",
+        "94:254"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 32,
+        "y": 41,
+        "w": 990,
+        "h": 849
+      },
+      "parentLocal": {
+        "x": 32,
+        "y": 41,
+        "w": 990,
+        "h": 849
+      },
+      "pageAbsolute": {
+        "x": 3812,
+        "y": 102,
+        "w": 990,
+        "h": 849
+      },
+      "frameRelative": {
+        "x": 272,
+        "y": 102,
+        "w": 990,
+        "h": 849
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 13,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#111624"
+    },
+    {
+      "id": "94:256",
+      "n": "Fil Nora / dÃ©filement vertical",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:255",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 938,
+        "h": 719
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 938,
+        "h": 719
+      },
+      "pageAbsolute": {
+        "x": 3812,
+        "y": 102,
+        "w": 938,
+        "h": 719
+      },
+      "frameRelative": {
+        "x": 272,
+        "y": 102,
+        "w": 938,
+        "h": 719
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 13,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1
+    },
+    {
+      "id": "94:257",
+      "n": "PROJET ATLAS  /  NORA Â· TRAVAIL COGNITIF",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:256",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 930,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 930,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3812,
+        "y": 102,
+        "w": 930,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 272,
+        "y": 102,
+        "w": 930,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "TRAVAIL / PROJET ATLAS"
+    },
+    {
+      "id": "94:258",
+      "n": "Une rÃ©ponse, plusieurs modes de comprÃ©hension",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:256",
+      "pc": [
+        "94*214",
+        "94*249",
+        "94*254",
+        "94*255",
+        "94*256"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 28,
+        "w": 938,
+        "h": 32
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 28,
+        "w": 938,
+        "h": 32
+      },
+      "pageAbsolute": {
+        "x": 3812,
+        "y": 130,
+        "w": 938,
+        "h": 32
+      },
+      "frameRelative": {
+        "x": 272,
+        "y": 130,
+        "w": 938,
+        "h": 32
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Bold",
+      "fw": 700,
+      "fs": 24,
+      "ta": "LEFT",
+      "lh": 32,
+      "ch": "Comparer les options d'architecture"
+    },
+    {
+      "id": "94:259",
+      "n": "Message Pilote",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94*256",
+      "pc": [
+        "94*214",
+        "94*249",
+        "94*254",
+        "94*255",
+        "94*256"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 73,
+        "w": 938,
+        "h": 70
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 73,
+        "w": 938,
+        "h": 70
+      },
+      "pageAbsolute": {
+        "x": 3812,
+        "y": 175,
+        "w": 938,
+        "h": 70
+      },
+      "frameRelative": {
+        "x": 272,
+        "y": 175,
+        "w": 938,
+        "h": 70
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 5,
+      "pad": [
+        13,
+        13,
+        13,
+        13
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#252d40"
+    },
+    {
+      "id": "94:260",
+      "n": "PILOTE",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94*259",
+      "pc": [
+        "94*214",
+        "94*249",
+        "94*254",
+        "94*255",
+        "94*256",
+        "94*259"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 14,
+        "w": 900,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 14,
+        "w": 900,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3826,
+        "y": 189,
+        "w": 900,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 286,
+        "y": 189,
+        "w": 900,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "PILOTE"
+    },
+    {
+      "id": "94:261",
+      "n": "Analyse les options de rendu de Nora, les dÃ©pendances et les sour",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:259",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:259"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 34,
+        "w": 902,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 34,
+        "w": 902,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 3826,
+        "y": 209,
+        "w": 902,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 286,
+        "y": 209,
+        "w": 902,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Compare les options possibles pour le projet, leurs compromis et les Ã©tapes pour"
+    },
+    {
+      "id": "94:262",
+      "n": "Message Nora / COMPOSITION UNIQUE",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94*256",
+      "pc": [
+        "94*214",
+        "94*249",
+        "94*254",
+        "94*255",
+        "94*256"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 156,
+        "w": 938,
+        "h": 1040
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 156,
+        "w": 938,
+        "h": 1040
+      },
+      "pageAbsolute": {
+        "x": 3812,
+        "y": 258,
+        "w": 938,
+        "h": 1040
+      },
+      "frameRelative": {
+        "x": 272,
+        "y": 258,
+        "w": 938,
+        "h": 1040
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 11,
+      "pad": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:263",
+      "n": "En-tÃªte rÃ©ponse Nora",
+      "t": "FRAME",
+      "d": 5,
+      "p": "94:262",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 16,
+        "w": 902,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 16,
+        "w": 902,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 274,
+        "w": 902,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 274,
+        "w": 902,
+        "h": 27
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:264",
+      "n": "NORA",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:263",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:263"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 6,
+        "w": 574,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 6,
+        "w": 574,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 279,
+        "w": 574,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 279,
+        "w": 574,
+        "h": 16
+      },
+      "f": "#a6dfbc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "NORA"
+    },
+    {
+      "id": "94:265",
+      "n": "Statut / RÃ©ponse composite",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:263",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:263"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 583,
+        "y": 1,
+        "w": 158,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 583,
+        "y": 1,
+        "w": 158,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 4411,
+        "y": 275,
+        "w": 158,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 871,
+        "y": 275,
+        "w": 158,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "r": 13,
+      "f": "#2b2d57"
+    },
+    {
+      "id": "94:266",
+      "n": "RÃ©ponse composite",
+      "t": "TEXT",
+      "d": 7,
+      "p": "94:265",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:263",
+        "94:265"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 5,
+        "w": 145,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 5,
+        "w": 145,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4420,
+        "y": 280,
+        "w": 145,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 880,
+        "y": 280,
+        "w": 145,
+        "h": 15
+      },
+      "f": "#afa5ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Analyse"
+    },
+    {
+      "id": "94:267",
+      "n": "Statut / Illustration",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:263",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:263"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 750,
+        "y": 1,
+        "w": 123,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 750,
+        "y": 1,
+        "w": 123,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 4578,
+        "y": 275,
+        "w": 123,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 1038,
+        "y": 275,
+        "w": 123,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "r": 13,
+      "f": "#252d40"
+    },
+    {
+      "id": "94:268",
+      "n": "Illustration",
+      "t": "TEXT",
+      "d": 7,
+      "p": "94:267",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:263",
+        "94:267"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 5,
+        "w": 110,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 5,
+        "w": 110,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4587,
+        "y": 280,
+        "w": 110,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 1047,
+        "y": 280,
+        "w": 110,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Ã approfondir"
+    },
+    {
+      "id": "94:269",
+      "n": "Ãtude des options de restitution",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94*262",
+      "pc": [
+        "94*214",
+        "94*249",
+        "94*254",
+        "94*255",
+        "94*256",
+        "94*262"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 54,
+        "w": 899,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 54,
+        "w": 899,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 312,
+        "w": 899,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 312,
+        "w": 899,
+        "h": 27
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Bold",
+      "fw": 700,
+      "fs": 20,
+      "ta": "LEFT",
+      "lh": 27,
+      "ch": "Options A, B et C : synthÃ¨se et comparaison"
+    },
+    {
+      "id": "94:270",
+      "n": "Je rassemble les faits utiles, les compromis, un chemin de travai",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:262",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 92,
+        "w": 901,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 92,
+        "w": 901,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 350,
+        "w": 901,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 350,
+        "w": 901,
+        "h": 18
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Voici les Ã©lÃ©ments disponibles, les compromis et une proposition pour avancer. L"
+    },
+    {
+      "id": "94:271",
+      "n": "Bloc de rÃ©ponse / INVESTIGATION",
+      "t": "FRAME",
+      "d": 5,
+      "p": "94:262",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 121,
+        "w": 903,
+        "h": 168
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 121,
+        "w": 903,
+        "h": 168
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 379,
+        "w": 903,
+        "h": 168
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 379,
+        "w": 903,
+        "h": 168
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 7,
+      "pad": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:272",
+      "n": "01  /  INVESTIGATION Â· SOURCES ET LIMITES",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:271",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 12,
+        "y": 12,
+        "w": 870,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 12,
+        "w": 870,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 391,
+        "w": 870,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 391,
+        "w": 870,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "01  /  INVESTIGATION Â· SOURCES ET LIMITES"
+    },
+    {
+      "id": "94:273",
+      "n": "Deux provenances",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:271",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 12,
+        "y": 34,
+        "w": 878,
+        "h": 89
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 34,
+        "w": 878,
+        "h": 89
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 413,
+        "w": 878,
+        "h": 89
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 413,
+        "w": 878,
+        "h": 89
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 10,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:274",
+      "n": "Carte source / RÃ©fÃ©rence R1 / R2",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:273",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 3,
+        "w": 431,
+        "h": 84
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 3,
+        "w": 431,
+        "h": 84
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 415,
+        "w": 431,
+        "h": 84
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 415,
+        "w": 431,
+        "h": 84
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:275",
+      "n": "Source",
+      "t": "FRAME",
+      "d": 8,
+      "p": "94:274",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:274"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 11,
+        "w": 409,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 11,
+        "w": 409,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 3851,
+        "y": 426,
+        "w": 409,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 311,
+        "y": 426,
+        "w": 409,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 7,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:276",
+      "n": "RÃ©fÃ©rence R1 / R2",
+      "t": "TEXT",
+      "d": 9,
+      "p": "94:275",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:274",
+        "94:275"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 5,
+        "w": 280,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 5,
+        "w": 280,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 3851,
+        "y": 431,
+        "w": 280,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 311,
+        "y": 431,
+        "w": 280,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Besoins du projet"
+    },
+    {
+      "id": "94:277",
+      "n": "Statut / RÃ©fÃ©rence",
+      "t": "FRAME",
+      "d": 9,
+      "p": "94:275",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:274",
+        "94:275"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 287,
+        "y": 0,
+        "w": 111,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 287,
+        "y": 0,
+        "w": 111,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 4138,
+        "y": 426,
+        "w": 111,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 598,
+        "y": 426,
+        "w": 111,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "r": 13,
+      "f": "#1b372d"
+    },
+    {
+      "id": "94:278",
+      "n": "RÃ©fÃ©rence",
+      "t": "TEXT",
+      "d": 10,
+      "p": "94:277",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:274",
+        "94:275",
+        "94:277"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 5,
+        "w": 98,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 5,
+        "w": 98,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4147,
+        "y": 431,
+        "w": 98,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 607,
+        "y": 431,
+        "w": 98,
+        "h": 15
+      },
+      "f": "#a6dfbc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "RÃ©fÃ©rence"
+    },
+    {
+      "id": "94:279",
+      "n": "Vision et rÃ¨gles validÃ©es",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:274",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:274"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 40,
+        "w": 405,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 40,
+        "w": 405,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3851,
+        "y": 455,
+        "w": 405,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 311,
+        "y": 455,
+        "w": 405,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Objectifs et contraintes identifiÃ©s"
+    },
+    {
+      "id": "94:280",
+      "n": "Carte source / Ãtude R4",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:273",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 441,
+        "y": 3,
+        "w": 431,
+        "h": 84
+      },
+      "parentLocal": {
+        "x": 441,
+        "y": 3,
+        "w": 431,
+        "h": 84
+      },
+      "pageAbsolute": {
+        "x": 4281,
+        "y": 415,
+        "w": 431,
+        "h": 84
+      },
+      "frameRelative": {
+        "x": 741,
+        "y": 415,
+        "w": 431,
+        "h": 84
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:281",
+      "n": "Source",
+      "t": "FRAME",
+      "d": 8,
+      "p": "94:280",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:280"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 11,
+        "w": 409,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 11,
+        "w": 409,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 4292,
+        "y": 426,
+        "w": 409,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 752,
+        "y": 426,
+        "w": 409,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 7,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:282",
+      "n": "Ãtude R4",
+      "t": "TEXT",
+      "d": 9,
+      "p": "94:281",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:280",
+        "94:281"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 5,
+        "w": 280,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 5,
+        "w": 280,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 4292,
+        "y": 431,
+        "w": 280,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 752,
+        "y": 431,
+        "w": 280,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Points Ã  vÃ©rifier"
+    },
+    {
+      "id": "94:283",
+      "n": "Statut / Ã Ã©tudier",
+      "t": "FRAME",
+      "d": 9,
+      "p": "94:281",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:280",
+        "94:281"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 287,
+        "y": 0,
+        "w": 111,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 287,
+        "y": 0,
+        "w": 111,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 4579,
+        "y": 426,
+        "w": 111,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 1039,
+        "y": 426,
+        "w": 111,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "r": 13,
+      "f": "#3a3021"
+    },
+    {
+      "id": "94:284",
+      "n": "Ã Ã©tudier",
+      "t": "TEXT",
+      "d": 10,
+      "p": "94:283",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:280",
+        "94:281",
+        "94:283"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 5,
+        "w": 98,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 5,
+        "w": 98,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4588,
+        "y": 431,
+        "w": 98,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 1048,
+        "y": 431,
+        "w": 98,
+        "h": 15
+      },
+      "f": "#ebc789",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Ã Ã©tudier"
+    },
+    {
+      "id": "94:285",
+      "n": "Charge et coÃ»ts non mesurÃ©s",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:280",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271",
+        "94:273",
+        "94:280"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 40,
+        "w": 405,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 40,
+        "w": 405,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4292,
+        "y": 455,
+        "w": 405,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 752,
+        "y": 455,
+        "w": 405,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Volumes et coÃ»ts Ã  estimer"
+    },
+    {
+      "id": "94:286",
+      "n": "Constat : la restitution adaptative est prÃ©vue ; le choix de solu",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:271",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:271"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 12,
+        "y": 130,
+        "w": 870,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 130,
+        "w": 870,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 509,
+        "w": 870,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 509,
+        "w": 870,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Ces solutions rÃ©pondent Ã  des besoins proches. Les coÃ»ts rÃ©els et les volumes d'"
+    },
+    {
+      "id": "94:287",
+      "n": "Bloc de rÃ©ponse / COMPARAISON",
+      "t": "FRAME",
+      "d": 5,
+      "p": "94:262",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 300,
+        "w": 903,
+        "h": 211
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 300,
+        "w": 903,
+        "h": 211
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 558,
+        "w": 903,
+        "h": 211
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 558,
+        "w": 903,
+        "h": 211
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:288",
+      "n": "02  /  ANALYSE COMPARATIVE",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:287",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 11,
+        "w": 871,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 11,
+        "w": 871,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 569,
+        "w": 871,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 569,
+        "w": 871,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "02  /  ANALYSE COMPARATIVE"
+    },
+    {
+      "id": "94:289",
+      "n": "Tableau multicritÃ¨re A / B / C",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:287",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 34,
+        "w": 875,
+        "h": 143
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 34,
+        "w": 875,
+        "h": 143
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 592,
+        "w": 875,
+        "h": 143
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 592,
+        "w": 875,
+        "h": 143
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:290",
+      "n": "Ligne / CRITÃRE",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:289",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 1,
+        "w": 873,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 1,
+        "w": 873,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 593,
+        "w": 873,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 593,
+        "w": 873,
+        "h": 27
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 7,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "f": "#252d40"
+    },
+    {
+      "id": "94:291",
+      "n": "CRITÃRE",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:290",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:290"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 14
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 14
+      },
+      "pageAbsolute": {
+        "x": 3849,
+        "y": 599,
+        "w": 170,
+        "h": 14
+      },
+      "frameRelative": {
+        "x": 309,
+        "y": 599,
+        "w": 170,
+        "h": 14
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 10,
+      "ta": "LEFT",
+      "lh": 14,
+      "ch": "CRITÃRE"
+    },
+    {
+      "id": "94:292",
+      "n": "A Â· MODULAIRE",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:290",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:290"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 14
+      },
+      "parentLocal": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 14
+      },
+      "pageAbsolute": {
+        "x": 4026,
+        "y": 599,
+        "w": 227,
+        "h": 14
+      },
+      "frameRelative": {
+        "x": 486,
+        "y": 599,
+        "w": 227,
+        "h": 14
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 10,
+      "ta": "LEFT",
+      "lh": 14,
+      "ch": "A Â· MODULAIRE"
+    },
+    {
+      "id": "94:293",
+      "n": "B Â· DISTRIBUÃE",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:290",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:290"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 14
+      },
+      "parentLocal": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 14
+      },
+      "pageAbsolute": {
+        "x": 4260,
+        "y": 599,
+        "w": 235,
+        "h": 14
+      },
+      "frameRelative": {
+        "x": 720,
+        "y": 599,
+        "w": 235,
+        "h": 14
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 10,
+      "ta": "LEFT",
+      "lh": 14,
+      "ch": "B Â· DISTRIBUÃE"
+    },
+    {
+      "id": "94:294",
+      "n": "Ã EXPLORER",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:290",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:290"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 14
+      },
+      "parentLocal": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 14
+      },
+      "pageAbsolute": {
+        "x": 4502,
+        "y": 599,
+        "w": 202,
+        "h": 14
+      },
+      "frameRelative": {
+        "x": 962,
+        "y": 599,
+        "w": 202,
+        "h": 14
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 10,
+      "ta": "LEFT",
+      "lh": 14,
+      "ch": "C Â· Ã EXPLORER"
+    },
+    {
+      "id": "94:295",
+      "n": "Ligne / CoÃ»t de dÃ©part",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:289",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 28,
+        "w": 873,
+        "h": 29
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 28,
+        "w": 873,
+        "h": 29
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 620,
+        "w": 873,
+        "h": 29
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 620,
+        "w": 873,
+        "h": 29
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 7,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:296",
+      "n": "CoÃ»t de dÃ©part",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:295",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:295"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3849,
+        "y": 627,
+        "w": 170,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 309,
+        "y": 627,
+        "w": 170,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "CoÃ»t de dÃ©part"
+    },
+    {
+      "id": "94:297",
+      "n": "Potentiellement rÃ©duit",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:295",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:295"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4026,
+        "y": 627,
+        "w": 227,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 486,
+        "y": 627,
+        "w": 227,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Potentiellement rÃ©duit"
+    },
+    {
+      "id": "94:298",
+      "n": "Potentiellement Ã©levÃ©",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:295",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:295"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4260,
+        "y": 627,
+        "w": 235,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 720,
+        "y": 627,
+        "w": 235,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Potentiellement Ã©levÃ©"
+    },
+    {
+      "id": "94:299",
+      "n": "Ã qualifier",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:295",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:295"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4502,
+        "y": 627,
+        "w": 202,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 962,
+        "y": 627,
+        "w": 202,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Ã qualifier"
+    },
+    {
+      "id": "94:300",
+      "n": "Ligne / ComplexitÃ©",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:289",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 57,
+        "w": 873,
+        "h": 29
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 57,
+        "w": 873,
+        "h": 29
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 649,
+        "w": 873,
+        "h": 29
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 649,
+        "w": 873,
+        "h": 29
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 7,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:301",
+      "n": "ComplexitÃ©",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:300",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:300"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3849,
+        "y": 656,
+        "w": 170,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 309,
+        "y": 656,
+        "w": 170,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "ComplexitÃ©"
+    },
+    {
+      "id": "94:302",
+      "n": "Moins d'intÃ©gration",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:300",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:300"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4026,
+        "y": 656,
+        "w": 227,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 486,
+        "y": 656,
+        "w": 227,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Moins d'intÃ©gration"
+    },
+    {
+      "id": "94:303",
+      "n": "Coordination accrue",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:300",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:300"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4260,
+        "y": 656,
+        "w": 235,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 720,
+        "y": 656,
+        "w": 235,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Coordination accrue"
+    },
+    {
+      "id": "94:304",
+      "n": "DÃ©pend du besoin",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:300",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:300"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4502,
+        "y": 656,
+        "w": 202,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 962,
+        "y": 656,
+        "w": 202,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "DÃ©pend du besoin"
+    },
+    {
+      "id": "94:305",
+      "n": "Ligne / Charge et reprise",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:289",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 86,
+        "w": 873,
+        "h": 29
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 86,
+        "w": 873,
+        "h": 29
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 678,
+        "w": 873,
+        "h": 29
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 678,
+        "w": 873,
+        "h": 29
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 7,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:306",
+      "n": "Charge et reprise",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:305",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:305"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3849,
+        "y": 685,
+        "w": 170,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 309,
+        "y": 685,
+        "w": 170,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Charge et reprise"
+    },
+    {
+      "id": "94:307",
+      "n": "Ã mesurer",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:305",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:305"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4026,
+        "y": 685,
+        "w": 227,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 486,
+        "y": 685,
+        "w": 227,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Ã mesurer"
+    },
+    {
+      "id": "94:308",
+      "n": "Isolation possible",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:305",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:305"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4260,
+        "y": 685,
+        "w": 235,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 720,
+        "y": 685,
+        "w": 235,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Isolation possible"
+    },
+    {
+      "id": "94:309",
+      "n": "Ã Ã©tudier",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:305",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:305"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4502,
+        "y": 685,
+        "w": 202,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 962,
+        "y": 685,
+        "w": 202,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Ã Ã©tudier"
+    },
+    {
+      "id": "94:310",
+      "n": "Ligne / Statut",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:289",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 115,
+        "w": 873,
+        "h": 29
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 115,
+        "w": 873,
+        "h": 29
+      },
+      "pageAbsolute": {
+        "x": 3840,
+        "y": 707,
+        "w": 873,
+        "h": 29
+      },
+      "frameRelative": {
+        "x": 300,
+        "y": 707,
+        "w": 873,
+        "h": 29
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 7,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:311",
+      "n": "Statut",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:310",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:310"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 7,
+        "w": 170,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3849,
+        "y": 714,
+        "w": 170,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 309,
+        "y": 714,
+        "w": 170,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Statut"
+    },
+    {
+      "id": "94:312",
+      "n": "HypothÃ¨se privilÃ©giÃ©e",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:310",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:310"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 186,
+        "y": 7,
+        "w": 227,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4026,
+        "y": 714,
+        "w": 227,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 486,
+        "y": 714,
+        "w": 227,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "HypothÃ¨se privilÃ©giÃ©e"
+    },
+    {
+      "id": "94:313",
+      "n": "Alternative ouverte",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:310",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:310"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 420,
+        "y": 7,
+        "w": 235,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4260,
+        "y": 714,
+        "w": 235,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 720,
+        "y": 714,
+        "w": 235,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Alternative ouverte"
+    },
+    {
+      "id": "94:314",
+      "n": "Non dÃ©finie",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:310",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:287",
+        "94:289",
+        "94:310"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 662,
+        "y": 7,
+        "w": 202,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4502,
+        "y": 714,
+        "w": 202,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 962,
+        "y": 714,
+        "w": 202,
+        "h": 15
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Non dÃ©finie"
+    },
+    {
+      "id": "94:315",
+      "n": "Bloc de rÃ©ponse / PARCOURS",
+      "t": "FRAME",
+      "d": 5,
+      "p": "94:262",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 522,
+        "w": 903,
+        "h": 144
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 522,
+        "w": 903,
+        "h": 144
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 780,
+        "w": 903,
+        "h": 144
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 780,
+        "w": 903,
+        "h": 144
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:316",
+      "n": "03  /  PARCOURS ET DÃPENDANCES",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:315",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 11,
+        "w": 871,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 11,
+        "w": 871,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 791,
+        "w": 871,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 791,
+        "w": 871,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "03  /  PARCOURS ET DÃPENDANCES"
+    },
+    {
+      "id": "94:317",
+      "n": "Ãtapes liÃ©es",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:315",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 34,
+        "w": 871,
+        "h": 84
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 34,
+        "w": 871,
+        "h": 84
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 814,
+        "w": 871,
+        "h": 84
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 814,
+        "w": 871,
+        "h": 84
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:318",
+      "n": "Ãtape / Qualifier",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:317",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 3,
+        "w": 206,
+        "h": 79
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 3,
+        "w": 206,
+        "h": 79
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 816,
+        "w": 206,
+        "h": 79
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 816,
+        "w": 206,
+        "h": 79
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:319",
+      "n": "01  Qualifier",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:318",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317",
+        "94:318"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 10,
+        "w": 181,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 10,
+        "w": 181,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 3849,
+        "y": 826,
+        "w": 181,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 309,
+        "y": 826,
+        "w": 181,
+        "h": 16
+      },
+      "f": "#afa5ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "01  Qualifier"
+    },
+    {
+      "id": "94:320",
+      "n": "Formats et usages",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:318",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317",
+        "94:318"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 30,
+        "w": 183,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 30,
+        "w": 183,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3849,
+        "y": 846,
+        "w": 183,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 309,
+        "y": 846,
+        "w": 183,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Formats et usages"
+    },
+    {
+      "id": "94:321",
+      "n": "Ãtape / Comparer",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:317",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 214,
+        "y": 3,
+        "w": 206,
+        "h": 79
+      },
+      "parentLocal": {
+        "x": 214,
+        "y": 3,
+        "w": 206,
+        "h": 79
+      },
+      "pageAbsolute": {
+        "x": 4053,
+        "y": 816,
+        "w": 206,
+        "h": 79
+      },
+      "frameRelative": {
+        "x": 513,
+        "y": 816,
+        "w": 206,
+        "h": 79
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:322",
+      "n": "02  Comparer",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:321",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317",
+        "94:321"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 10,
+        "w": 181,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 10,
+        "w": 181,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 4063,
+        "y": 826,
+        "w": 181,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 523,
+        "y": 826,
+        "w": 181,
+        "h": 16
+      },
+      "f": "#afa5ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "02  Comparer"
+    },
+    {
+      "id": "94:323",
+      "n": "A / B / C + mesures",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:321",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317",
+        "94:321"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 30,
+        "w": 183,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 30,
+        "w": 183,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4063,
+        "y": 846,
+        "w": 183,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 523,
+        "y": 846,
+        "w": 183,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "CritÃ¨res et coÃ»ts"
+    },
+    {
+      "id": "94:324",
+      "n": "Ãtape / Arbitrer",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:317",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 428,
+        "y": 3,
+        "w": 206,
+        "h": 79
+      },
+      "parentLocal": {
+        "x": 428,
+        "y": 3,
+        "w": 206,
+        "h": 79
+      },
+      "pageAbsolute": {
+        "x": 4267,
+        "y": 816,
+        "w": 206,
+        "h": 79
+      },
+      "frameRelative": {
+        "x": 727,
+        "y": 816,
+        "w": 206,
+        "h": 79
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:325",
+      "n": "03  Arbitrer",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:324",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317",
+        "94:324"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 10,
+        "w": 181,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 10,
+        "w": 181,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 4277,
+        "y": 826,
+        "w": 181,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 737,
+        "y": 826,
+        "w": 181,
+        "h": 16
+      },
+      "f": "#ebc789",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "03  Arbitrer"
+    },
+    {
+      "id": "94:326",
+      "n": "Morris Â· R4",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:324",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317",
+        "94:324"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 30,
+        "w": 183,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 30,
+        "w": 183,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4277,
+        "y": 846,
+        "w": 183,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 737,
+        "y": 846,
+        "w": 183,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Choix du Pilote"
+    },
+    {
+      "id": "94:327",
+      "n": "Ãtape / Construire",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:317",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 642,
+        "y": 3,
+        "w": 206,
+        "h": 79
+      },
+      "parentLocal": {
+        "x": 642,
+        "y": 3,
+        "w": 206,
+        "h": 79
+      },
+      "pageAbsolute": {
+        "x": 4481,
+        "y": 816,
+        "w": 206,
+        "h": 79
+      },
+      "frameRelative": {
+        "x": 941,
+        "y": 816,
+        "w": 206,
+        "h": 79
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#1a2130"
+    },
+    {
+      "id": "94:328",
+      "n": "04  Construire",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:327",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317",
+        "94:327"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 10,
+        "w": 181,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 10,
+        "w": 181,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 4491,
+        "y": 826,
+        "w": 181,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 951,
+        "y": 826,
+        "w": 181,
+        "h": 16
+      },
+      "f": "#afa5ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "04  Construire"
+    },
+    {
+      "id": "94:329",
+      "n": "R5âR6 et preuves",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:327",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:315",
+        "94:317",
+        "94:327"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 30,
+        "w": 183,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 30,
+        "w": 183,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4491,
+        "y": 846,
+        "w": 183,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 951,
+        "y": 846,
+        "w": 183,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Construction et tests"
+    },
+    {
+      "id": "94:330",
+      "n": "Bloc de rÃ©ponse / RECOMMANDATION",
+      "t": "FRAME",
+      "d": 5,
+      "p": "94:262",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 677,
+        "w": 903,
+        "h": 102
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 677,
+        "w": 903,
+        "h": 102
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 935,
+        "w": 903,
+        "h": 102
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 935,
+        "w": 903,
+        "h": 102
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 5,
+      "pad": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#2b2d57"
+    },
+    {
+      "id": "94:331",
+      "n": "Titre recommandation",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:330",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:330"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 13,
+        "w": 875,
+        "h": 23
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 13,
+        "w": 875,
+        "h": 23
+      },
+      "pageAbsolute": {
+        "x": 3841,
+        "y": 948,
+        "w": 875,
+        "h": 23
+      },
+      "frameRelative": {
+        "x": 301,
+        "y": 948,
+        "w": 875,
+        "h": 23
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 11,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#2b2d57"
+    },
+    {
+      "id": "94:332",
+      "n": "RECOMMANDATION CONDITIONNELLE",
+      "t": "TEXT",
+      "d": 7,
+      "p": "94:331",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:330",
+        "94:331"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 4,
+        "w": 604,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 4,
+        "w": 604,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 3841,
+        "y": 951,
+        "w": 604,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 301,
+        "y": 951,
+        "w": 604,
+        "h": 16
+      },
+      "f": "#afa5ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "RECOMMANDATION CONDITIONNELLE"
+    },
+    {
+      "id": "94:333",
+      "n": "Statut / Pas de dÃ©cision",
+      "t": "FRAME",
+      "d": 7,
+      "p": "94:331",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:330",
+        "94:331"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 615,
+        "y": -1,
+        "w": 154,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 615,
+        "y": -1,
+        "w": 154,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 4456,
+        "y": 947,
+        "w": 154,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 916,
+        "y": 947,
+        "w": 154,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "r": 13,
+      "f": "#3a3021"
+    },
+    {
+      "id": "94:334",
+      "n": "Pas de dÃ©cision",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:333",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:330",
+        "94:331",
+        "94:333"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 5,
+        "w": 141,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 5,
+        "w": 141,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4465,
+        "y": 952,
+        "w": 141,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 925,
+        "y": 952,
+        "w": 141,
+        "h": 15
+      },
+      "f": "#ebc789",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Pas de dÃ©cision"
+    },
+    {
+      "id": "94:335",
+      "n": "Commencer l'Ã©tude par A pour sa simplicitÃ© prÃ©sumÃ©e, puis compare",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:330",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:330"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 41,
+        "w": 872,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 41,
+        "w": 872,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 3841,
+        "y": 976,
+        "w": 872,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 301,
+        "y": 976,
+        "w": 872,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Je recommande d'Ã©tudier A en premier pour sa simplicitÃ© possible, puis de la com"
+    },
+    {
+      "id": "94:336",
+      "n": "Bloc de rÃ©ponse / ACTIONS CONTEXTUELLES",
+      "t": "FRAME",
+      "d": 5,
+      "p": "94:262",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 790,
+        "w": 903,
+        "h": 196
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 790,
+        "w": 903,
+        "h": 196
+      },
+      "pageAbsolute": {
+        "x": 3828,
+        "y": 1048,
+        "w": 903,
+        "h": 196
+      },
+      "frameRelative": {
+        "x": 288,
+        "y": 1048,
+        "w": 903,
+        "h": 196
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:337",
+      "n": "04  /  POURSUIVRE Â· ACTIONS CRÃÃES PAR NORA POUR CETTE RÃPONSE",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:336",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 11,
+        "w": 870,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 11,
+        "w": 870,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1059,
+        "w": 870,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1059,
+        "w": 870,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "04  /  POUR ALLER PLUS LOIN"
+    },
+    {
+      "id": "94:338",
+      "n": "Actions contextuelles / navigation objet",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:336",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 35,
+        "w": 867,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 35,
+        "w": 867,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1083,
+        "w": 867,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1083,
+        "w": 867,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:339",
+      "n": "Action / Consulter le document â",
+      "t": "INSTANCE",
+      "d": 7,
+      "p": "94:338",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:338"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 226,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 226,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1083,
+        "w": 226,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1083,
+        "w": 226,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#242b3b"
+    },
+    {
+      "id": "I94:339;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:339",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:338",
+        "94:339"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 40,
+        "y": 10,
+        "w": 147,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 40,
+        "y": 10,
+        "w": 147,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 3879,
+        "y": 1093,
+        "w": 147,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 339,
+        "y": 1093,
+        "w": 147,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Consulter le document â"
+    },
+    {
+      "id": "94:340",
+      "n": "Action / Voir l'exÃ©cution â",
+      "t": "INSTANCE",
+      "d": 7,
+      "p": "94:338",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:338"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 235,
+        "y": 0,
+        "w": 205,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 235,
+        "y": 0,
+        "w": 205,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 4074,
+        "y": 1083,
+        "w": 205,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 534,
+        "y": 1083,
+        "w": 205,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#242b3b"
+    },
+    {
+      "id": "I94:340;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:340",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:338",
+        "94:340"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 51,
+        "y": 10,
+        "w": 104,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 51,
+        "y": 10,
+        "w": 104,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 4125,
+        "y": 1093,
+        "w": 104,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 585,
+        "y": 1093,
+        "w": 104,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Voir l'exÃ©cution â"
+    },
+    {
+      "id": "94:341",
+      "n": "Action / Examiner les sources â",
+      "t": "INSTANCE",
+      "d": 7,
+      "p": "94:338",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:338"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 449,
+        "y": 0,
+        "w": 216,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 449,
+        "y": 0,
+        "w": 216,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 4288,
+        "y": 1083,
+        "w": 216,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 748,
+        "y": 1083,
+        "w": 216,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#242b3b"
+    },
+    {
+      "id": "I94:341;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:341",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:338",
+        "94:341"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 39,
+        "y": 10,
+        "w": 138,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 39,
+        "y": 10,
+        "w": 138,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 4327,
+        "y": 1093,
+        "w": 138,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 787,
+        "y": 1093,
+        "w": 138,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Examiner les sources â"
+    },
+    {
+      "id": "94:342",
+      "n": "Ces raccourcis ouvrent des objets rÃ©ellement accessibles ; leur l",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:336",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 82,
+        "w": 859,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 82,
+        "w": 859,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1130,
+        "w": 859,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1130,
+        "w": 859,
+        "h": 15
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Ces raccourcis ouvrent des objets rÃ©ellement accessibles ; leur libellÃ© n'est pa"
+    },
+    {
+      "id": "94:343",
+      "n": "SÃ©paration",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:336",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 82,
+        "w": 862,
+        "h": 1
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 82,
+        "w": 862,
+        "h": 1
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1130,
+        "w": 862,
+        "h": 1
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1130,
+        "w": 862,
+        "h": 1
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#313c51"
+    },
+    {
+      "id": "94:344",
+      "n": "Quelle option veux-tu approfondir ?",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:336",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 92,
+        "w": 860,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 92,
+        "w": 860,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1140,
+        "w": 860,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1140,
+        "w": 860,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Quelle option veux-tu approfondir ?"
+    },
+    {
+      "id": "94:345",
+      "n": "Choix conversationnels",
+      "t": "FRAME",
+      "d": 6,
+      "p": "94:336",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 119,
+        "w": 865,
+        "h": 39
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 119,
+        "w": 865,
+        "h": 39
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1167,
+        "w": 865,
+        "h": 39
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1167,
+        "w": 865,
+        "h": 39
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:346",
+      "n": "Action / Approfondir A",
+      "t": "INSTANCE",
+      "d": 7,
+      "p": "94:345",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:345"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 1,
+        "w": 181,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 1,
+        "w": 181,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1167,
+        "w": 181,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1167,
+        "w": 181,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#292d58"
+    },
+    {
+      "id": "I94:346;12:15",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:346",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:345",
+        "94:346"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 50,
+        "y": 10,
+        "w": 82,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 50,
+        "y": 10,
+        "w": 82,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 3889,
+        "y": 1177,
+        "w": 82,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 349,
+        "y": 1177,
+        "w": 82,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Approfondir A"
+    },
+    {
+      "id": "94:347",
+      "n": "Action / Approfondir B",
+      "t": "INSTANCE",
+      "d": 7,
+      "p": "94:345",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:345"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 190,
+        "y": 1,
+        "w": 181,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 190,
+        "y": 1,
+        "w": 181,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 4029,
+        "y": 1167,
+        "w": 181,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 489,
+        "y": 1167,
+        "w": 181,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#242b3b"
+    },
+    {
+      "id": "I94:347;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:347",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:345",
+        "94:347"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 50,
+        "y": 10,
+        "w": 81,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 50,
+        "y": 10,
+        "w": 81,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 4079,
+        "y": 1177,
+        "w": 81,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 539,
+        "y": 1177,
+        "w": 81,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Approfondir B"
+    },
+    {
+      "id": "94:348",
+      "n": "Action / Autre optionâ¦",
+      "t": "INSTANCE",
+      "d": 7,
+      "p": "94:345",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:345"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 380,
+        "y": 1,
+        "w": 181,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 380,
+        "y": 1,
+        "w": 181,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 4219,
+        "y": 1167,
+        "w": 181,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 679,
+        "y": 1167,
+        "w": 181,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#242b3b"
+    },
+    {
+      "id": "I94:348;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 8,
+      "p": "94:348",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336",
+        "94:345",
+        "94:348"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 50,
+        "y": 10,
+        "w": 82,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 50,
+        "y": 10,
+        "w": 82,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 4269,
+        "y": 1177,
+        "w": 82,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 729,
+        "y": 1177,
+        "w": 82,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Autre optionâ¦"
+    },
+    {
+      "id": "94:349",
+      "n": "Un clic prÃ©pare ou envoie une rÃ©ponse explicite. Ce n'est ni un G",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:336",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:256",
+        "94:262",
+        "94:336"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 167,
+        "w": 860,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 167,
+        "w": 860,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 3839,
+        "y": 1215,
+        "w": 860,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 299,
+        "y": 1215,
+        "w": 860,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "Un clic prÃ©pare ou envoie une rÃ©ponse explicite. Ce n'est ni un GO technique ni "
+    },
+    {
+      "id": "94:350",
+      "n": "Champ Nora / composer",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:255",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 732,
+        "w": 938,
+        "h": 79
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 732,
+        "w": 938,
+        "h": 79
+      },
+      "pageAbsolute": {
+        "x": 3812,
+        "y": 834,
+        "w": 938,
+        "h": 79
+      },
+      "frameRelative": {
+        "x": 272,
+        "y": 834,
+        "w": 938,
+        "h": 79
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:351",
+      "n": "Ãcrire Ã  Noraâ¦",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:350",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:350"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 13,
+        "w": 894,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 13,
+        "w": 894,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 3825,
+        "y": 847,
+        "w": 894,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 847,
+        "w": 894,
+        "h": 18
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Ãcrire Ã  Noraâ¦"
+    },
+    {
+      "id": "94:352",
+      "n": "Options composer",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:350",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:350"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 39,
+        "w": 901,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 39,
+        "w": 901,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 3825,
+        "y": 873,
+        "w": 901,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 873,
+        "w": 901,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 13,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:353",
+      "n": "ï¼   â¤  Joindre un Ã©lÃ©ment",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:352",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:350",
+        "94:352"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 6,
+        "w": 545,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 6,
+        "w": 545,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 3825,
+        "y": 879,
+        "w": 545,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 879,
+        "w": 545,
+        "h": 16
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "ï¼   â¤  Joindre un Ã©lÃ©ment"
+    },
+    {
+      "id": "94:354",
+      "n": "Envoyer la demande / prototype",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:352",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:350",
+        "94:352"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 558,
+        "y": 0,
+        "w": 21,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 558,
+        "y": 0,
+        "w": 21,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 4383,
+        "y": 873,
+        "w": 21,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 843,
+        "y": 873,
+        "w": 21,
+        "h": 28
+      },
+      "f": "#afa5ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 21,
+      "ta": "LEFT",
+      "lh": 28,
+      "ch": "â"
+    },
+    {
+      "id": "94:1165",
+      "n": "Aller Ã  la derniÃ¨re rÃ©ponse",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:255",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 448,
+        "y": 682,
+        "w": 40,
+        "h": 40
+      },
+      "parentLocal": {
+        "x": 448,
+        "y": 682,
+        "w": 40,
+        "h": 40
+      },
+      "pageAbsolute": {
+        "x": 4260,
+        "y": 784,
+        "w": 40,
+        "h": 40
+      },
+      "frameRelative": {
+        "x": 720,
+        "y": 784,
+        "w": 40,
+        "h": 40
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "r": 20,
+      "f": "#26304d"
+    },
+    {
+      "id": "94:1166",
+      "n": "Aller en bas",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:1165",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:255",
+        "94:1165"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 6,
+        "w": 23,
+        "h": 29
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 6,
+        "w": 23,
+        "h": 29
+      },
+      "pageAbsolute": {
+        "x": 4269,
+        "y": 789,
+        "w": 23,
+        "h": 29
+      },
+      "frameRelative": {
+        "x": 729,
+        "y": 789,
+        "w": 23,
+        "h": 29
+      },
+      "f": "#f5f7ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 24,
+      "ta": "LEFT",
+      "ch": "â"
+    },
+    {
+      "id": "94:355",
+      "n": "Contexte secondaire non intrusif",
+      "t": "FRAME",
+      "d": 2,
+      "p": "94:254",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1046,
+        "y": 38,
+        "w": 384,
+        "h": 855
+      },
+      "parentLocal": {
+        "x": 1046,
+        "y": 38,
+        "w": 384,
+        "h": 855
+      },
+      "pageAbsolute": {
+        "x": 4826,
+        "y": 99,
+        "w": 384,
+        "h": 855
+      },
+      "frameRelative": {
+        "x": 1286,
+        "y": 99,
+        "w": 384,
+        "h": 855
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 16,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#111624"
+    },
+    {
+      "id": "94:356",
+      "n": "CONTEXTE DU PROJET",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:355",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 343,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 343,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4826,
+        "y": 99,
+        "w": 343,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 1286,
+        "y": 99,
+        "w": 343,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "CONTEXTE DU PROJET"
+    },
+    {
+      "id": "94:357",
+      "n": "Projet Atlas",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:355",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 31,
+        "w": 341,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 31,
+        "w": 341,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 4826,
+        "y": 130,
+        "w": 341,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 1286,
+        "y": 130,
+        "w": 341,
+        "h": 27
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 20,
+      "ta": "LEFT",
+      "lh": 27,
+      "ch": "Projet Atlas"
+    },
+    {
+      "id": "94:358",
+      "n": "Principe de composition",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:355",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 74,
+        "w": 367,
+        "h": 148
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 74,
+        "w": 367,
+        "h": 148
+      },
+      "pageAbsolute": {
+        "x": 4826,
+        "y": 173,
+        "w": 367,
+        "h": 148
+      },
+      "frameRelative": {
+        "x": 1286,
+        "y": 173,
+        "w": 367,
+        "h": 148
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        13,
+        13,
+        13,
+        13
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:359",
+      "n": "MÃªme rÃ©ponse Nora",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:358",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355",
+        "94:358"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 14,
+        "w": 338,
+        "h": 20
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 14,
+        "w": 338,
+        "h": 20
+      },
+      "pageAbsolute": {
+        "x": 4840,
+        "y": 187,
+        "w": 338,
+        "h": 20
+      },
+      "frameRelative": {
+        "x": 1300,
+        "y": 187,
+        "w": 338,
+        "h": 20
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 15,
+      "ta": "LEFT",
+      "lh": 20,
+      "ch": "En bref"
+    },
+    {
+      "id": "94:360",
+      "n": "L'investigation, la comparaison, les Ã©tapes et les actions font p",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:358",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355",
+        "94:358"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 42,
+        "w": 336,
+        "h": 32
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 42,
+        "w": 336,
+        "h": 32
+      },
+      "pageAbsolute": {
+        "x": 4840,
+        "y": 215,
+        "w": 336,
+        "h": 32
+      },
+      "frameRelative": {
+        "x": 1300,
+        "y": 215,
+        "w": 336,
+        "h": 32
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "L'option A paraÃ®t la plus simple Ã  explorer en premier. Les coÃ»ts rÃ©els et la ca"
+    },
+    {
+      "id": "94:361",
+      "n": "AccÃ¨s Ã  la connaissance",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:355",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 238,
+        "w": 367,
+        "h": 162
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 238,
+        "w": 367,
+        "h": 162
+      },
+      "pageAbsolute": {
+        "x": 4826,
+        "y": 337,
+        "w": 367,
+        "h": 162
+      },
+      "frameRelative": {
+        "x": 1286,
+        "y": 337,
+        "w": 367,
+        "h": 162
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        13,
+        13,
+        13,
+        13
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#151c29"
+    },
+    {
+      "id": "94:362",
+      "n": "Objets du projet",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:361",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355",
+        "94:361"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 14,
+        "w": 330,
+        "h": 20
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 14,
+        "w": 330,
+        "h": 20
+      },
+      "pageAbsolute": {
+        "x": 4840,
+        "y": 351,
+        "w": 330,
+        "h": 20
+      },
+      "frameRelative": {
+        "x": 1300,
+        "y": 351,
+        "w": 330,
+        "h": 20
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 15,
+      "ta": "LEFT",
+      "lh": 20,
+      "ch": "Objets du projet"
+    },
+    {
+      "id": "94:363",
+      "n": "â¢ Documents Nora",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:361",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355",
+        "94:361"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 43,
+        "w": 328,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 43,
+        "w": 328,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 4840,
+        "y": 380,
+        "w": 328,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1300,
+        "y": 380,
+        "w": 328,
+        "h": 16
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "â¢ Documents Nora"
+    },
+    {
+      "id": "94:364",
+      "n": "â¢ RÃ©alisations et preuves",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:361",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355",
+        "94:361"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 68,
+        "w": 328,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 68,
+        "w": 328,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 4840,
+        "y": 405,
+        "w": 328,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1300,
+        "y": 405,
+        "w": 328,
+        "h": 16
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "â¢ RÃ©alisations et preuves"
+    },
+    {
+      "id": "94:365",
+      "n": "â¢ Sources Git autorisÃ©es",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:361",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355",
+        "94:361"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 93,
+        "w": 328,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 93,
+        "w": 328,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 4840,
+        "y": 430,
+        "w": 328,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1300,
+        "y": 430,
+        "w": 328,
+        "h": 16
+      },
+      "f": "#c7d0df",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "â¢ Sources Git autorisÃ©es"
+    },
+    {
+      "id": "94:366",
+      "n": "Cadre d'autoritÃ©",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:355",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 416,
+        "w": 367,
+        "h": 161
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 416,
+        "w": 367,
+        "h": 161
+      },
+      "pageAbsolute": {
+        "x": 4826,
+        "y": 515,
+        "w": 367,
+        "h": 161
+      },
+      "frameRelative": {
+        "x": 1286,
+        "y": 515,
+        "w": 367,
+        "h": 161
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        13,
+        13,
+        13,
+        13
+      ],
+      "clips": 1,
+      "r": 11,
+      "f": "#2b2d57"
+    },
+    {
+      "id": "94:367",
+      "n": "Nora propose. Studio contrÃ´le.",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:366",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355",
+        "94:366"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 14,
+        "w": 339,
+        "h": 19
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 14,
+        "w": 339,
+        "h": 19
+      },
+      "pageAbsolute": {
+        "x": 4840,
+        "y": 529,
+        "w": 339,
+        "h": 19
+      },
+      "frameRelative": {
+        "x": 1300,
+        "y": 529,
+        "w": 339,
+        "h": 19
+      },
+      "f": "#afa5ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 14,
+      "ta": "LEFT",
+      "lh": 19,
+      "ch": "Points Ã  clarifier"
+    },
+    {
+      "id": "94:368",
+      "n": "CrÃ©er un raccourci ou proposer un choix n'accorde ni droit d'Ã©cri",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:366",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355",
+        "94:366"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 14,
+        "y": 42,
+        "w": 338,
+        "h": 32
+      },
+      "parentLocal": {
+        "x": 14,
+        "y": 42,
+        "w": 338,
+        "h": 32
+      },
+      "pageAbsolute": {
+        "x": 4840,
+        "y": 557,
+        "w": 338,
+        "h": 32
+      },
+      "frameRelative": {
+        "x": 1300,
+        "y": 557,
+        "w": 338,
+        "h": 32
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Quels volumes prÃ©voir ? Quel budget ? Quelles contraintes de disponibilitÃ© et de"
+    },
+    {
+      "id": "94:369",
+      "n": "EXEMPLE UX Â· NON IMPLÃMENTÃ",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:355",
+      "pc": [
+        "94:214",
+        "94:249",
+        "94:254",
+        "94:355"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 593,
+        "w": 340,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 593,
+        "w": 340,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 4826,
+        "y": 692,
+        "w": 340,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 1286,
+        "y": 692,
+        "w": 340,
+        "h": 15
+      },
+      "f": "#94a2bb",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 15,
+      "ch": "EXEMPLE UX Â· NON IMPLÃMENTÃ"
+    }
+  ]
+}

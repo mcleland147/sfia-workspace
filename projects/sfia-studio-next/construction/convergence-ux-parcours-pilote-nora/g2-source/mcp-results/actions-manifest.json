@@ -1,0 +1,187 @@
+[
+  {
+    "family": "page.actions.22",
+    "file": "page.actions.22.json",
+    "frameId": "125:33",
+    "key": "page_actions_22",
+    "len": 4421,
+    "parts": 1,
+    "fnv": "c8c195af",
+    "nodeCount": 8,
+    "actionId": "125:97",
+    "footerId": "125:104",
+    "primaryLabel": "Examiner le cycle proposé",
+    "labels": [
+      "Examiner le cycle proposé",
+      "Choisir une méthode",
+      "Explorer l'architecture",
+      "Projet Atlas  ·  Travail, choix et historique dans le même espace."
+    ]
+  },
+  {
+    "family": "page.actions.24",
+    "file": "page.actions.24.json",
+    "frameId": "127:106",
+    "key": "page_actions_24",
+    "len": 4458,
+    "parts": 1,
+    "fnv": "7de8ae7b",
+    "nodeCount": 8,
+    "actionId": "127:170",
+    "footerId": "127:174",
+    "primaryLabel": "Examiner la maturité",
+    "labels": [
+      "Examiner la maturité",
+      "Envisager un autre cycle",
+      "Consulter la guidance CKI",
+      "Projet Atlas  ·  Travail, choix et historique dans le même espace."
+    ]
+  },
+  {
+    "family": "page.actions.40",
+    "file": "page.actions.40.json",
+    "frameId": "129:72",
+    "key": "page_actions_40",
+    "len": 4437,
+    "parts": 1,
+    "fnv": "ece94b59",
+    "nodeCount": 8,
+    "actionId": "129:136",
+    "footerId": "129:140",
+    "primaryLabel": "Consulter une décision",
+    "labels": [
+      "Consulter une décision",
+      "Revenir aux sujets",
+      "Examiner un conflit",
+      "Projet Atlas  ·  Travail, choix et historique dans le même espace."
+    ]
+  },
+  {
+    "family": "page.actions.73",
+    "file": "page.actions.73.json",
+    "frameId": "158:912",
+    "key": "page_actions_73",
+    "len": 3933,
+    "parts": 1,
+    "fnv": "18c30e52",
+    "nodeCount": 7,
+    "actionId": "158:976",
+    "footerId": "158:980",
+    "primaryLabel": "Retrouver la préparation",
+    "labels": [
+      "Retrouver la préparation",
+      "Créer une autre préparation",
+      "Ton portefeuille personnel est distinct de tes accès Git."
+    ]
+  },
+  {
+    "family": "page.actions.74",
+    "file": "page.actions.74.json",
+    "frameId": "159:145",
+    "key": "page_actions_74",
+    "len": 3886,
+    "parts": 1,
+    "fnv": "7fdb5b40",
+    "nodeCount": 7,
+    "actionId": "159:209",
+    "footerId": "159:213",
+    "primaryLabel": "Reprendre avec Nora",
+    "labels": [
+      "Reprendre avec Nora",
+      "Voir la préparation",
+      "Préparer ne crée aucun projet."
+    ]
+  },
+  {
+    "family": "page.actions.89",
+    "file": "page.actions.89.json",
+    "frameId": "160:175",
+    "key": "page_actions_89",
+    "len": 4439,
+    "parts": 1,
+    "fnv": "dab6e25e",
+    "nodeCount": 8,
+    "actionId": "160:239",
+    "footerId": "160:243",
+    "primaryLabel": "Ouvrir la vision",
+    "labels": [
+      "Ouvrir la vision",
+      "Consulter les versions",
+      "Revenir à Nora",
+      "Projet Atlas · Tes informations restent liées au projet courant."
+    ]
+  },
+  {
+    "family": "page.actions.92",
+    "file": "page.actions.92.json",
+    "frameId": "160:391",
+    "key": "page_actions_92",
+    "len": 3927,
+    "parts": 1,
+    "fnv": "9e4b4aed",
+    "nodeCount": 7,
+    "actionId": "160:455",
+    "footerId": "160:459",
+    "primaryLabel": "Comparer les versions",
+    "labels": [
+      "Comparer les versions",
+      "Réviser avec Nora",
+      "Projet Atlas · Tes informations restent liées au projet courant."
+    ]
+  },
+  {
+    "family": "page.actions.109",
+    "file": "page.actions.109.json",
+    "frameId": "161:216",
+    "key": "page_actions_109",
+    "len": 4445,
+    "parts": 1,
+    "fnv": "18aabe7d",
+    "nodeCount": 8,
+    "actionId": "161:280",
+    "footerId": "161:284",
+    "primaryLabel": "Décrire mon idée",
+    "labels": [
+      "Décrire mon idée",
+      "Comparer deux options",
+      "Demander un document",
+      "Projet Atlas · Tes informations restent liées au projet courant."
+    ]
+  },
+  {
+    "family": "page.actions.110",
+    "file": "page.actions.110.json",
+    "frameId": "161:288",
+    "key": "page_actions_110",
+    "len": 3931,
+    "parts": 1,
+    "fnv": "1139e10a",
+    "nodeCount": 7,
+    "actionId": "161:352",
+    "footerId": "161:356",
+    "primaryLabel": "Reprendre le sujet",
+    "labels": [
+      "Reprendre le sujet",
+      "Consulter les documents",
+      "Projet Atlas · Tes informations restent liées au projet courant."
+    ]
+  },
+  {
+    "family": "page.actions.205",
+    "file": "page.actions.205.json",
+    "frameId": "241:385",
+    "key": "page_actions_205",
+    "len": 3931,
+    "parts": 1,
+    "fnv": "02548f92",
+    "nodeCount": 7,
+    "actionId": "241:449",
+    "footerId": "241:453",
+    "primaryLabel": "Voir la version courante",
+    "labels": [
+      "Voir la version courante",
+      "Voir l'historique",
+      "Projet Atlas · Tes informations restent liées au projet courant."
+    ]
+  }
+]

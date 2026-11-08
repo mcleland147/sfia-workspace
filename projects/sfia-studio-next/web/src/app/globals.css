@@ -3,10 +3,14 @@
 @tailwind utilities;
 
 :root {
-  /* ML2 visual tokens aligned to Figma itgvCulInEnFY6DvgIegvP (conversation 03 / 94:214) */
+  /* ML2 visual tokens + F1 rail fills from G2 railEvidence (VERIFY PASS) */
   --bg: #0a0e17;
   --panel: #151c29;
   --rail: #0d111b;
+  --rail-personnel: #0c101a;
+  --rail-projet: #0c1020;
+  --rail-conversation: #0d111b;
+  --rail-inspection: #0c101a;
   --ink: #f4f6fc;
   --muted: #94a2bb;
   --accent: #656fe1;
@@ -17,12 +21,21 @@
   --bad: #e35d6a;
   --msg-nora: #1a2130;
   --msg-pilot: #252d40;
+  /* Prefer Inter if installed; never fetch Google fonts at build time (CI-stable). */
+  --font-inter: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-inter);
 }
 
 html, body {
   background: radial-gradient(1200px 600px at 10% -10%, #1a2433 0%, var(--bg) 55%);
   color: var(--ink);
   min-height: 100%;
+  font-family: var(--font-sans);
+}
+
+.studio-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 * { box-sizing: border-box; }

@@ -1,0 +1,1539 @@
+{
+  "schema": "sfia-next-g2-l2-manifest/v1",
+  "status": "CANDIDATE_FOR_REVIEW",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "pageName": "01 · Parcours produit — Référence UX R3",
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "extractedAtUtc": "2026-11-07T23:46:05Z",
+  "figmaVersion": "NOT AVAILABLE",
+  "coordinateConvention": "local = node.x/y relative to parent; absolute = absoluteBoundingBox in page space",
+  "typographyProvenance": {
+    "familyObserved": "Inter",
+    "stylesObserved": [
+      "Semi Bold (wght 600)",
+      "Bold"
+    ],
+    "licenseNote": "Do NOT distribute font files in this pack. Integrator must bind a licensed/allowed Inter source at build time.",
+    "runtimeGap": "globals.css does not currently pin Inter explicitly (known from protocol)."
+  },
+  "exclusions": [
+    {
+      "frameId": "100:39",
+      "screen": "19",
+      "status": "OUT_OF_SCOPE",
+      "reason": "D8 inspection visual only — no functional Git/ML4 capability"
+    },
+    {
+      "range": "218-235",
+      "status": "OUT_OF_SCOPE",
+      "reason": "ML4 Git publication screens — excluded by GO"
+    },
+    {
+      "topic": "D7-D9 GitHub actions",
+      "status": "OUT_OF_SCOPE",
+      "reason": "Not in G2 convergence tranche"
+    },
+    {
+      "topic": "native Figma 320 viewport",
+      "status": "OUT_OF_SCOPE",
+      "reason": "No contractual Figma 320 frame; reflow test only at runtime G5"
+    }
+  ],
+  "f1Rails": [
+    {
+      "componentId": "shell.rail.personnel",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "variant": "personnel",
+      "nodeId": "94:51",
+      "frameId": "94:50",
+      "name": "Barre latérale produit",
+      "geometry": {
+        "local": {
+          "x": 0,
+          "y": 0,
+          "w": 246,
+          "h": 970
+        },
+        "absolute": {
+          "x": 0,
+          "y": 0,
+          "w": 246,
+          "h": 970
+        }
+      },
+      "layout": {
+        "mode": "VERTICAL",
+        "sizingH": "FIXED",
+        "sizingV": "FIXED",
+        "gap": 10,
+        "padTRBL": [
+          20,
+          19,
+          0,
+          19
+        ],
+        "clips": true
+      },
+      "style": {
+        "fill": "#0C101A"
+      },
+      "pngRef": "94:50",
+      "cu": [
+        "CU-09",
+        "CU-15"
+      ],
+      "uxc": [
+        "UXC-13"
+      ],
+      "notes": "Distinct density/color from other F1 variants — not width-only.",
+      "descendantCount": 26,
+      "componentNodesRef": "components.shell.rail.personnel",
+      "rawExtractRef": "manifests/raw/shell.rail.personnel.json"
+    },
+    {
+      "componentId": "shell.rail.conversation",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "variant": "conversation",
+      "nodeId": "94:215",
+      "frameId": "94:214",
+      "name": "Rail de projet / stable",
+      "geometry": {
+        "local": {
+          "x": 0,
+          "y": 0,
+          "w": 240,
+          "h": 970
+        },
+        "absolute": {
+          "x": 3540,
+          "y": 0,
+          "w": 240,
+          "h": 970
+        }
+      },
+      "layout": {
+        "mode": "VERTICAL",
+        "sizingH": "FIXED",
+        "sizingV": "FIXED",
+        "gap": 13,
+        "padTRBL": [
+          25,
+          19,
+          0,
+          19
+        ],
+        "clips": true
+      },
+      "style": {
+        "fill": "#0D111B"
+      },
+      "pngRef": "94:214",
+      "cu": [
+        "CU-09",
+        "CU-15"
+      ],
+      "uxc": [
+        "UXC-13"
+      ],
+      "notes": "Contains visual \"Sources Git\" link — ML4 OUT for functional activation.",
+      "descendantCount": 34,
+      "componentNodesRef": "components.shell.rail.conversation",
+      "rawExtractRef": "manifests/raw/shell.rail.conversation.json"
+    },
+    {
+      "componentId": "shell.rail.projet",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "variant": "projet",
+      "nodeId": "160:176",
+      "frameId": "160:175",
+      "name": "Rail / Projet",
+      "geometry": {
+        "local": {
+          "x": 0,
+          "y": 0,
+          "w": 246,
+          "h": 970
+        },
+        "absolute": {
+          "x": 0,
+          "y": 24100,
+          "w": 246,
+          "h": 970
+        }
+      },
+      "layout": {
+        "mode": "VERTICAL",
+        "sizingH": "FIXED",
+        "sizingV": "FIXED",
+        "gap": 13,
+        "padTRBL": [
+          24,
+          24,
+          24,
+          24
+        ],
+        "clips": true
+      },
+      "style": {
+        "fill": "#0C1020"
+      },
+      "pngRef": "160:175",
+      "cu": [
+        "CU-09",
+        "CU-15"
+      ],
+      "uxc": [
+        "UXC-13"
+      ],
+      "notes": "Typography Inter Semi Bold observed on brand/nav labels.",
+      "descendantCount": 29,
+      "componentNodesRef": "components.shell.rail.projet",
+      "rawExtractRef": "manifests/raw/shell.rail.projet.json"
+    },
+    {
+      "componentId": "shell.rail.inspection",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "variant": "inspection",
+      "nodeId": "94:372",
+      "frameId": "94:370",
+      "name": "Navigation projet — commune",
+      "geometry": {
+        "local": {
+          "x": 0,
+          "y": 0,
+          "w": 244,
+          "h": 970
+        },
+        "absolute": {
+          "x": 5310,
+          "y": 0,
+          "w": 244,
+          "h": 970
+        }
+      },
+      "layout": {
+        "mode": "VERTICAL",
+        "sizingH": "FIXED",
+        "sizingV": "FIXED",
+        "gap": 11,
+        "padTRBL": [
+          23,
+          19,
+          22,
+          19
+        ],
+        "clips": true
+      },
+      "style": {
+        "fill": "#0C101A"
+      },
+      "pngRef": "94:370",
+      "cu": [
+        "CU-09",
+        "CU-15"
+      ],
+      "uxc": [
+        "UXC-13"
+      ],
+      "notes": "Frame 19 (100:39) is visual-only D8 OUT — not a functional source for this rail.",
+      "descendantCount": 47,
+      "componentNodesRef": "components.shell.rail.inspection",
+      "rawExtractRef": "manifests/raw/shell.rail.inspection.json"
+    }
+  ],
+  "frames": [
+    {
+      "componentId": "frame.01",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "94:50",
+      "name": "Portefeuille et choix du projet",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-94-50.png",
+        "sha256": "0f4f7c19ea2833475b1f4894fc2ae83203ab5c57b91e1adfa767a666e4a0f5fc",
+        "bytes": 88388
+      },
+      "cu": [
+        "CU-02",
+        "CU-09",
+        "CU-15"
+      ],
+      "uxc": [
+        "UXC-02",
+        "UXC-13"
+      ],
+      "priority": "P0",
+      "family": "shell_F1_personnel",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "portfolio.content",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/portfolio.content.json",
+        "railComponentId": "shell.rail.personnel",
+        "railEvidence": {
+          "railNodeId": "94:51",
+          "name": "Barre latérale produit",
+          "width": 246,
+          "fill": "#0c101a",
+          "variant": "personnel",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 10,
+          "pad": [
+            20,
+            19,
+            0,
+            19
+          ]
+        }
+      }
+    },
+    {
+      "componentId": "frame.02",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "94:135",
+      "name": "Sas — conversation avant projet",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-94-135.png",
+        "sha256": "582eb5f8429fdf516f185ed35733e5f3ea40b714fe2f06889d030a95bf58311c",
+        "bytes": 108291
+      },
+      "cu": [
+        "CU-04",
+        "CU-05"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-04"
+      ],
+      "priority": "P0",
+      "family": "sas_nora",
+      "limits": [
+        "composer/interrupt micro-states 206-208 not separately exported as PNG (board states may exist elsewhere)"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "sas.surface.02",
+        "railComponentId": "shell.rail.personnel",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/sas.surface.02.json",
+        "railEvidence": {
+          "railNodeId": "94:136",
+          "name": "Barre latérale produit",
+          "width": 246,
+          "fill": "#0c101a",
+          "variant": "personnel",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 10,
+          "pad": [
+            20,
+            19,
+            0,
+            19
+          ],
+          "masterRef": "94:51",
+          "equivalence": "structure+fill+pad+gap match personnel master"
+        }
+      }
+    },
+    {
+      "componentId": "frame.03",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "94:214",
+      "name": "Nora — conversation longue",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-94-214.png",
+        "sha256": "32872657774b3760c2bee9d739fcb51668ee9a12e3d2d2261486a9042418bb6e",
+        "bytes": 145783
+      },
+      "cu": [
+        "CU-04",
+        "CU-05",
+        "CU-06",
+        "CU-09"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-04",
+        "UXC-05",
+        "UXC-13"
+      ],
+      "priority": "P0",
+      "family": "shell_F1_conversation",
+      "limits": [
+        "composer/interrupt micro-states 206-208 not separately exported as PNG (board states may exist elsewhere)"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "nora.workzone.03",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/nora.workzone.03.json",
+        "railComponentId": "shell.rail.conversation",
+        "railEvidence": {
+          "railNodeId": "94:215",
+          "name": "Rail de projet / stable",
+          "width": 240,
+          "fill": "#0d111b",
+          "variant": "conversation",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            25,
+            19,
+            0,
+            19
+          ]
+        }
+      }
+    },
+    {
+      "componentId": "frame.04",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "94:370",
+      "name": "Document Nora — consultation",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-94-370.png",
+        "sha256": "e6ce9258b81b268245eb0564c214912e6392f2414b033d1faa01e4a632b1fe7e",
+        "bytes": 141532
+      },
+      "cu": [
+        "CU-07",
+        "CU-09",
+        "CU-14"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-13"
+      ],
+      "priority": "P0",
+      "family": "shell_F1_inspection",
+      "limits": [
+        "editor caret / conflict micro-interactions not fully L2-descendant-enumerated beyond frame export"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "document.workspace.04",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/document.workspace.04.json",
+        "railComponentId": "shell.rail.inspection",
+        "railEvidence": {
+          "railNodeId": "94:372",
+          "name": "Navigation projet — commune",
+          "width": 244,
+          "fill": "#0c101a",
+          "variant": "inspection",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 11,
+          "pad": [
+            23,
+            19,
+            22,
+            19
+          ],
+          "nestedUnder": "94:371"
+        }
+      }
+    },
+    {
+      "componentId": "frame.05",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "94:515",
+      "name": "Journal — sujets et décisions",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-94-515.png",
+        "sha256": "4da68bdbf85eaa242b116b0a422407c0543a53cd115d3ebbab49cda7c07e0bd3",
+        "bytes": 108829
+      },
+      "cu": [
+        "CU-08"
+      ],
+      "uxc": [
+        "UXC-07"
+      ],
+      "priority": "P1",
+      "family": "journal_d4",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "journal.surface.05",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/journal.surface.05.json",
+        "railComponentId": "shell.rail.personnel",
+        "railEvidence": {
+          "railNodeId": "94:516",
+          "name": "Barre latérale produit",
+          "width": 246,
+          "fill": "#0c101a",
+          "variant": "personnel",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 10,
+          "pad": [
+            20,
+            19,
+            0,
+            19
+          ],
+          "correctedFrom": "shell.rail.projet"
+        }
+      }
+    },
+    {
+      "componentId": "frame.18",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "97:359",
+      "name": "Document Nora — révision guidée",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-97-359.png",
+        "sha256": "2dff54ce935258d509e47922d2ab987e928b6486bfee4ba65169d8832b149f5f",
+        "bytes": 142099
+      },
+      "cu": [
+        "CU-07",
+        "CU-14"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-11"
+      ],
+      "priority": "P0",
+      "family": "document_d4",
+      "limits": [
+        "editor caret / conflict micro-interactions not fully L2-descendant-enumerated beyond frame export"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "document.guided.18",
+        "railComponentId": "shell.rail.inspection",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/document.guided.18.json",
+        "railEvidence": {
+          "railNodeId": "97:361",
+          "name": "Navigation projet — commune",
+          "width": 244,
+          "fill": "#0c101a",
+          "variant": "inspection",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "nestedUnder": "97:360",
+          "masterRef": "94:372"
+        }
+      }
+    },
+    {
+      "componentId": "frame.22",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "125:33",
+      "name": "Trajectoire — sans cycle actif",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-125-33.png",
+        "sha256": "889f097901d6122dfa52b071697f8217c353f8581fc040d328044324699b4cde",
+        "bytes": 85548
+      },
+      "cu": [
+        "CU-10",
+        "CU-11"
+      ],
+      "uxc": [
+        "UXC-08"
+      ],
+      "priority": "P1",
+      "family": "pilotage_d5",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.22",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.22.json",
+        "railEvidence": {
+          "railNodeId": "125:34",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        "actionComponentId": "page.actions.22",
+        "actionRawRef": "manifests/raw/page.actions.22.json",
+        "primaryCtaLabel": "Examiner le cycle proposé",
+        "footerNodeId": "125:104"
+      }
+    },
+    {
+      "componentId": "frame.24",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "127:106",
+      "name": "Cycle — actif et guidance CKI",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-127-106.png",
+        "sha256": "4eb55f8914b5b46cfde25f32078770eab2fc862077a0e23bc1afd87612e5959b",
+        "bytes": 84715
+      },
+      "cu": [
+        "CU-10",
+        "CU-11",
+        "CU-12"
+      ],
+      "uxc": [
+        "UXC-08",
+        "UXC-09"
+      ],
+      "priority": "P1",
+      "family": "pilotage_cki",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.24",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.24.json",
+        "railEvidence": {
+          "railNodeId": "127:107",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        "actionComponentId": "page.actions.24",
+        "actionRawRef": "manifests/raw/page.actions.24.json",
+        "primaryCtaLabel": "Examiner la maturité",
+        "footerNodeId": "127:174"
+      }
+    },
+    {
+      "componentId": "frame.40",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "129:72",
+      "name": "Journal — décisions",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-129-72.png",
+        "sha256": "b761126c61a95d65c86f0d25e57b3c32bff0a491f90e0ec3f03ae9c3b0d0dcd1",
+        "bytes": 88857
+      },
+      "cu": [
+        "CU-12",
+        "CU-13"
+      ],
+      "uxc": [
+        "UXC-09",
+        "UXC-10"
+      ],
+      "priority": "P1",
+      "family": "decisions_d6",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.40",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.40.json",
+        "railEvidence": {
+          "railNodeId": "129:73",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        "actionComponentId": "page.actions.40",
+        "actionRawRef": "manifests/raw/page.actions.40.json",
+        "primaryCtaLabel": "Consulter une décision",
+        "footerNodeId": "129:140"
+      }
+    },
+    {
+      "componentId": "frame.64",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "158:264",
+      "name": "Portefeuille — aucun projet",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-158-264.png",
+        "sha256": "5b21d74062a8b4f5e421fb5257b67e91bc997f563891e678291ad2394adb0487",
+        "bytes": 74363
+      },
+      "cu": [
+        "CU-02",
+        "CU-03"
+      ],
+      "uxc": [
+        "UXC-02",
+        "UXC-11"
+      ],
+      "priority": "P0",
+      "family": "portfolio_empty",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "portfolio.empty.64",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/portfolio.empty.64.json",
+        "railComponentId": "shell.rail.projet",
+        "railEvidence": {
+          "railNodeId": "158:265",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "correctedFrom": "shell.rail.personnel"
+        }
+      }
+    },
+    {
+      "componentId": "frame.65",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "158:336",
+      "name": "Portefeuille — liste de projets",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-158-336.png",
+        "sha256": "9f219843edb95b712bfac0f8a60c334c1b9f2fae5d6e0cb1a306a1ef968eddb0",
+        "bytes": 75179
+      },
+      "cu": [
+        "CU-02",
+        "CU-03"
+      ],
+      "uxc": [
+        "UXC-02",
+        "UXC-12"
+      ],
+      "priority": "P0",
+      "family": "portfolio_list",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "portfolio.list.65",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/portfolio.list.65.json",
+        "railComponentId": "shell.rail.projet",
+        "railEvidence": {
+          "railNodeId": "158:337",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "correctedFrom": "shell.rail.personnel"
+        }
+      }
+    },
+    {
+      "componentId": "frame.73",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "158:912",
+      "name": "Portefeuille — retour sans projet créé",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-158-912.png",
+        "sha256": "0c1c9c0d7a2daaae46a1cecfefdf2a30d97ddd1bc9c502d7148f823834cf3a9e",
+        "bytes": 74008
+      },
+      "cu": [
+        "CU-02",
+        "CU-03"
+      ],
+      "uxc": [
+        "UXC-02",
+        "UXC-11"
+      ],
+      "priority": "P0",
+      "family": "portfolio_return",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.73",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.73.json",
+        "railEvidence": {
+          "railNodeId": "158:913",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "correctedFrom": "shell.rail.personnel"
+        },
+        "actionComponentId": "page.actions.73",
+        "actionRawRef": "manifests/raw/page.actions.73.json",
+        "primaryCtaLabel": "Retrouver la préparation",
+        "footerNodeId": "158:980"
+      }
+    },
+    {
+      "componentId": "frame.74",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "159:145",
+      "name": "Sas — préparation retrouvée",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-159-145.png",
+        "sha256": "4c0e342fbb1acace7ca719f79ac3d007946d387424958ed1278d901ee12dc824",
+        "bytes": 71340
+      },
+      "cu": [
+        "CU-03",
+        "CU-04"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-12"
+      ],
+      "priority": "P0",
+      "family": "sas_resume",
+      "limits": [
+        "composer/interrupt micro-states 206-208 not separately exported as PNG (board states may exist elsewhere)"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.74",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.74.json",
+        "railEvidence": {
+          "railNodeId": "159:146",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "correctedFrom": "shell.rail.personnel"
+        },
+        "actionComponentId": "page.actions.74",
+        "actionRawRef": "manifests/raw/page.actions.74.json",
+        "primaryCtaLabel": "Reprendre avec Nora",
+        "footerNodeId": "159:213"
+      }
+    },
+    {
+      "componentId": "frame.89",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "160:175",
+      "name": "Documents — bibliothèque du projet",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-160-175.png",
+        "sha256": "b989f45746b768834b8249ec09cc243fef817fdfa0c9c5de7f65a06e3d50ce59",
+        "bytes": 85339
+      },
+      "cu": [
+        "CU-07",
+        "CU-09"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-13"
+      ],
+      "priority": "P0",
+      "family": "shell_F1_projet",
+      "limits": [],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.89",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.89.json",
+        "railEvidence": {
+          "railNodeId": "160:176",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        "actionComponentId": "page.actions.89",
+        "actionRawRef": "manifests/raw/page.actions.89.json",
+        "primaryCtaLabel": "Ouvrir la vision",
+        "footerNodeId": "160:243"
+      }
+    },
+    {
+      "componentId": "frame.92",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "160:391",
+      "name": "Document — révision concurrente",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-160-391.png",
+        "sha256": "167aaa9388271488754b94e668f3a1508a29fc47638e000ff4d6309464b45294",
+        "bytes": 83405
+      },
+      "cu": [
+        "CU-07",
+        "CU-14"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-11"
+      ],
+      "priority": "P0",
+      "family": "document_conflict",
+      "limits": [
+        "editor caret / conflict micro-interactions not fully L2-descendant-enumerated beyond frame export"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.92",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.92.json",
+        "railEvidence": {
+          "railNodeId": "160:392",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        "actionComponentId": "page.actions.92",
+        "actionRawRef": "manifests/raw/page.actions.92.json",
+        "primaryCtaLabel": "Comparer les versions",
+        "footerNodeId": "160:459"
+      }
+    },
+    {
+      "componentId": "frame.109",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "161:216",
+      "name": "Nora — première conversation",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-161-216.png",
+        "sha256": "7c450ff2fc9b4f563e70d313da873c8db83b7c66bf013d6558647b7b30a1ceae",
+        "bytes": 86887
+      },
+      "cu": [
+        "CU-04",
+        "CU-05"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-04"
+      ],
+      "priority": "P0",
+      "family": "nora_first",
+      "limits": [
+        "composer/interrupt micro-states 206-208 not separately exported as PNG (board states may exist elsewhere)"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.109",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.109.json",
+        "railEvidence": {
+          "railNodeId": "161:217",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "correctedFrom": "shell.rail.conversation"
+        },
+        "actionComponentId": "page.actions.109",
+        "actionRawRef": "manifests/raw/page.actions.109.json",
+        "primaryCtaLabel": "Décrire mon idée",
+        "footerNodeId": "161:284"
+      }
+    },
+    {
+      "componentId": "frame.110",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "161:288",
+      "name": "Nora — reprise contextualisée",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-161-288.png",
+        "sha256": "c13dc85e1bc311b9f7e9bc96d0c230be616cf39d7e0e83bdd087300d5bd87b09",
+        "bytes": 83697
+      },
+      "cu": [
+        "CU-04",
+        "CU-05",
+        "CU-06"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-05"
+      ],
+      "priority": "P0",
+      "family": "nora_resume",
+      "limits": [
+        "composer/interrupt micro-states 206-208 not separately exported as PNG (board states may exist elsewhere)"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.110",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.110.json",
+        "railEvidence": {
+          "railNodeId": "161:289",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "correctedFrom": "shell.rail.conversation"
+        },
+        "actionComponentId": "page.actions.110",
+        "actionRawRef": "manifests/raw/page.actions.110.json",
+        "primaryCtaLabel": "Reprendre le sujet",
+        "footerNodeId": "161:356"
+      }
+    },
+    {
+      "componentId": "frame.205",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "241:385",
+      "name": "Document — inspection des révisions",
+      "geometry": {
+        "w": 1680,
+        "h": 970
+      },
+      "png": {
+        "path": "png/frame-241-385.png",
+        "sha256": "108da26a93fd8384bf6ffaf3fb6fbce163afe753952b4e80a24b35b0c6c67d48",
+        "bytes": 86023
+      },
+      "cu": [
+        "CU-07",
+        "CU-14"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-12"
+      ],
+      "priority": "P0",
+      "family": "document_revisions",
+      "limits": [
+        "editor caret / conflict micro-interactions not fully L2-descendant-enumerated beyond frame export"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "page.content.205",
+        "railComponentId": "shell.rail.projet",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/page.content.205.json",
+        "railEvidence": {
+          "railNodeId": "241:386",
+          "name": "Rail / Projet",
+          "width": 246,
+          "fill": "#0c1020",
+          "variant": "projet",
+          "provenance": "figma.plugin.use_figma native 2026-11-08",
+          "discriminant": "width+fill distinguishes personnel(#0C101A/246) vs projet(#0C1020/246)",
+          "g": 13,
+          "pad": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "correctedFrom": "shell.rail.inspection"
+        },
+        "actionComponentId": "page.actions.205",
+        "actionRawRef": "manifests/raw/page.actions.205.json",
+        "primaryCtaLabel": "Voir la version courante",
+        "footerNodeId": "241:453"
+      }
+    },
+    {
+      "componentId": "frame.216",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "282:468",
+      "name": "Nora — travail en cours à 390 px",
+      "geometry": {
+        "w": 390,
+        "h": 1350
+      },
+      "png": {
+        "path": "png/frame-282-468.png",
+        "sha256": "30033b1a54b5f6de8c6b7168c9892d902b48c73e0964146fa1517cf0b6f32986",
+        "bytes": 39859
+      },
+      "cu": [
+        "CU-15",
+        "CU-16"
+      ],
+      "uxc": [
+        "UXC-13",
+        "UXC-14"
+      ],
+      "priority": "P0",
+      "family": "mobile_board",
+      "limits": [
+        "mobile board 390×1350 is planche size; runtime viewports 390×844 / 320×568 have no native Figma 320 frame"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "mobile.216",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/mobile.216.json"
+      }
+    },
+    {
+      "componentId": "frame.217",
+      "status": "PNG_SOURCE_VERIFIED",
+      "frameId": "282:492",
+      "name": "Nora — interruption et reprise à 390 px",
+      "geometry": {
+        "w": 390,
+        "h": 1350
+      },
+      "png": {
+        "path": "png/frame-282-492.png",
+        "sha256": "e773eefe7a6e02e4500ae224b6bf5e61b693a146d4e90cca2fa9bee6de1d9cc8",
+        "bytes": 39320
+      },
+      "cu": [
+        "CU-14",
+        "CU-15",
+        "CU-16"
+      ],
+      "uxc": [
+        "UXC-11",
+        "UXC-13",
+        "UXC-14"
+      ],
+      "priority": "P0",
+      "family": "mobile_board",
+      "limits": [
+        "mobile board 390×1350 is planche size; runtime viewports 390×844 / 320×568 have no native Figma 320 frame"
+      ],
+      "figmaVersion": "NOT AVAILABLE",
+      "screenCoverage": {
+        "contentComponentId": "mobile.217",
+        "attachmentStatus": "DIRECT",
+        "rawRef": "manifests/raw/mobile.217.json"
+      }
+    }
+  ],
+  "pngIndexRef": "indexes/png-export-index.json",
+  "priorGitL1": "projects/sfia-studio-next/ux-ui/releves-geometriques-convergence-l1.json",
+  "priorGitL2partial": "projects/sfia-studio-next/ux-ui/releves-geometriques-convergence-l2-partiel.json",
+  "contradictionsVsPriorGit": [
+    {
+      "topic": "F1 rail fills/padding",
+      "assessment": "Native extraction 2026-11-07 confirms protocol table (246/#0C101A/20-19-0-19/gap10; 240/#0D111B/25-19-0-19/gap13; 246/#0C1020/24-24-24-24/gap13; 244/#0C101A/23-19-22-19/gap11). No silent F1/F2 arbitration required.",
+      "status": "ALIGNED"
+    }
+  ],
+  "residualGaps": [
+    "Micro-state frames 206-208 via EQUIVALENT_DOCUMENTED deltas-nora-206-208",
+    "Variants 28/32/33/41 via EQUIVALENT_DOCUMENTED negatives-28-32-33-41",
+    "Figma immutable file version id NOT AVAILABLE",
+    "page.content.* TEXT lineHeight native unit=AUTO (lhMode=AUTO); CTA labels use NATIVE PIXELS lh"
+  ],
+  "componentNodesRef": "manifests/component-nodes-l2.json",
+  "components": [
+    {
+      "componentId": "shell.rail.personnel",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "94:51",
+      "descendantCount": 26,
+      "rawRef": "manifests/raw/shell.rail.personnel.json"
+    },
+    {
+      "componentId": "shell.rail.conversation",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "94:215",
+      "descendantCount": 34,
+      "rawRef": "manifests/raw/shell.rail.conversation.json"
+    },
+    {
+      "componentId": "shell.rail.projet",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "160:176",
+      "descendantCount": 29,
+      "rawRef": "manifests/raw/shell.rail.projet.json"
+    },
+    {
+      "componentId": "shell.rail.inspection",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "94:372",
+      "descendantCount": 47,
+      "rawRef": "manifests/raw/shell.rail.inspection.json"
+    },
+    {
+      "componentId": "portfolio.content",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "94:84",
+      "descendantCount": 55,
+      "rawRef": "manifests/raw/portfolio.content.json"
+    },
+    {
+      "componentId": "nora.workzone.03",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "94:249",
+      "descendantCount": 129,
+      "rawRef": "manifests/raw/nora.workzone.03.json"
+    },
+    {
+      "componentId": "document.workspace.04",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "94:419",
+      "descendantCount": 100,
+      "rawRef": "manifests/raw/document.workspace.04.json"
+    },
+    {
+      "componentId": "journal.surface.05",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "94:558",
+      "descendantCount": 71,
+      "rawRef": "manifests/raw/journal.surface.05.json"
+    },
+    {
+      "componentId": "mobile.216",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "282:468",
+      "descendantCount": 24,
+      "rawRef": "manifests/raw/mobile.216.json"
+    },
+    {
+      "componentId": "mobile.217",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "282:492",
+      "descendantCount": 24,
+      "rawRef": "manifests/raw/mobile.217.json"
+    },
+    {
+      "componentId": "portfolio.empty.64",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "158:300",
+      "descendantCount": 28,
+      "rawRef": "manifests/raw/portfolio.empty.64.json"
+    },
+    {
+      "componentId": "portfolio.list.65",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "158:372",
+      "descendantCount": 28,
+      "rawRef": "manifests/raw/portfolio.list.65.json"
+    },
+    {
+      "componentId": "micro.206-208",
+      "status": "EQUIVALENT_DOCUMENTED",
+      "canonicalNodeId": "281:389",
+      "descendantCount": 0,
+      "rawRef": "manifests/raw/deltas-nora-206-208.json"
+    },
+    {
+      "componentId": "negatives.pilotage",
+      "status": "EQUIVALENT_DOCUMENTED",
+      "canonicalNodeId": "127:391",
+      "descendantCount": 0,
+      "rawRef": "manifests/raw/negatives-28-32-33-41.json"
+    },
+    {
+      "componentId": "sas.surface.02",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "94:162",
+      "descendantCount": 53,
+      "rawRef": "manifests/raw/sas.surface.02.json"
+    },
+    {
+      "componentId": "document.guided.18",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "97:408",
+      "descendantCount": 100,
+      "rawRef": "manifests/raw/document.guided.18.json"
+    },
+    {
+      "componentId": "page.content.22",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "125:69",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.22.json"
+    },
+    {
+      "componentId": "page.content.24",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "127:142",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.24.json"
+    },
+    {
+      "componentId": "page.content.40",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "129:108",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.40.json"
+    },
+    {
+      "componentId": "page.content.73",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "158:948",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.73.json"
+    },
+    {
+      "componentId": "page.content.74",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "159:181",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.74.json"
+    },
+    {
+      "componentId": "page.content.89",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "160:211",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.89.json"
+    },
+    {
+      "componentId": "page.content.92",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "160:427",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.92.json"
+    },
+    {
+      "componentId": "page.content.109",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "161:252",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.109.json"
+    },
+    {
+      "componentId": "page.content.110",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "161:324",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.110.json"
+    },
+    {
+      "componentId": "page.content.205",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "241:421",
+      "descendantCount": 32,
+      "rawRef": "manifests/raw/page.content.205.json"
+    },
+    {
+      "componentId": "page.actions.22",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "125:97",
+      "descendantCount": 8,
+      "rawRef": "manifests/raw/page.actions.22.json"
+    },
+    {
+      "componentId": "page.actions.24",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "127:170",
+      "descendantCount": 8,
+      "rawRef": "manifests/raw/page.actions.24.json"
+    },
+    {
+      "componentId": "page.actions.40",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "129:136",
+      "descendantCount": 8,
+      "rawRef": "manifests/raw/page.actions.40.json"
+    },
+    {
+      "componentId": "page.actions.73",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "158:976",
+      "descendantCount": 7,
+      "rawRef": "manifests/raw/page.actions.73.json"
+    },
+    {
+      "componentId": "page.actions.74",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "159:209",
+      "descendantCount": 7,
+      "rawRef": "manifests/raw/page.actions.74.json"
+    },
+    {
+      "componentId": "page.actions.89",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "160:239",
+      "descendantCount": 8,
+      "rawRef": "manifests/raw/page.actions.89.json"
+    },
+    {
+      "componentId": "page.actions.92",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "160:455",
+      "descendantCount": 7,
+      "rawRef": "manifests/raw/page.actions.92.json"
+    },
+    {
+      "componentId": "page.actions.109",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "161:280",
+      "descendantCount": 8,
+      "rawRef": "manifests/raw/page.actions.109.json"
+    },
+    {
+      "componentId": "page.actions.110",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "161:352",
+      "descendantCount": 7,
+      "rawRef": "manifests/raw/page.actions.110.json"
+    },
+    {
+      "componentId": "page.actions.205",
+      "status": "COMPLETE_FOR_COMPONENT",
+      "canonicalNodeId": "241:449",
+      "descendantCount": 7,
+      "rawRef": "manifests/raw/page.actions.205.json"
+    }
+  ]
+}

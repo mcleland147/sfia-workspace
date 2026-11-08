@@ -1,0 +1,4999 @@
+{
+  "schema": "sfia-next-g2-raw-extract/v2",
+  "family": "document.workspace.04",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "frameId": "94:370",
+  "rootId": "94:419",
+  "rootName": "Projet / contenu",
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "extractedAtUtc": "2026-11-07T20:15:20.663Z",
+  "figmaVersion": "NOT AVAILABLE",
+  "nodeCount": 100,
+  "geometry": {
+    "w": 1436,
+    "h": 970
+  },
+  "coordinateConvention": "PLUGIN parent-local; pageAbsolute absoluteBoundingBox; frameRelative vs frame",
+  "rootFrameRelative": {
+    "x": 244,
+    "y": 0,
+    "w": 1436,
+    "h": 970
+  },
+  "nodes": [
+    {
+      "id": "94:419",
+      "n": "Projet / contenu",
+      "t": "FRAME",
+      "d": 0,
+      "p": "94:371",
+      "pc": [
+        "94:370",
+        "94:371"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 244,
+        "y": 0,
+        "w": 1436,
+        "h": 970
+      },
+      "parentLocal": {
+        "x": 244,
+        "y": 0,
+        "w": 1436,
+        "h": 970
+      },
+      "pageAbsolute": {
+        "x": 5554,
+        "y": 0,
+        "w": 1436,
+        "h": 970
+      },
+      "frameRelative": {
+        "x": 244,
+        "y": 0,
+        "w": 1436,
+        "h": 970
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#090c14"
+    },
+    {
+      "id": "94:420",
+      "n": "Contexte projet et activité",
+      "t": "FRAME",
+      "d": 1,
+      "p": "94:419",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1436,
+        "h": 54
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 1436,
+        "h": 54
+      },
+      "pageAbsolute": {
+        "x": 5554,
+        "y": 0,
+        "w": 1436,
+        "h": 54
+      },
+      "frameRelative": {
+        "x": 244,
+        "y": 0,
+        "w": 1436,
+        "h": 54
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 18,
+      "pad": [
+        0,
+        28,
+        0,
+        26
+      ],
+      "clips": 1,
+      "f": "#090c14"
+    },
+    {
+      "id": "94:421",
+      "n": "Projet Atlas",
+      "t": "TEXT",
+      "d": 2,
+      "p": "94:420",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:420"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 26,
+        "y": 18,
+        "w": 135,
+        "h": 19
+      },
+      "parentLocal": {
+        "x": 26,
+        "y": 18,
+        "w": 135,
+        "h": 19
+      },
+      "pageAbsolute": {
+        "x": 5580,
+        "y": 18,
+        "w": 135,
+        "h": 19
+      },
+      "frameRelative": {
+        "x": 270,
+        "y": 18,
+        "w": 135,
+        "h": 19
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 19,
+      "ch": "Projet Atlas"
+    },
+    {
+      "id": "94:422",
+      "n": " / ",
+      "t": "TEXT",
+      "d": 2,
+      "p": "94:420",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:420"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 179,
+        "y": 17,
+        "w": 15,
+        "h": 21
+      },
+      "parentLocal": {
+        "x": 179,
+        "y": 17,
+        "w": 15,
+        "h": 21
+      },
+      "pageAbsolute": {
+        "x": 5733,
+        "y": 17,
+        "w": 15,
+        "h": 21
+      },
+      "frameRelative": {
+        "x": 423,
+        "y": 17,
+        "w": 15,
+        "h": 21
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 14,
+      "ta": "LEFT",
+      "lh": 21,
+      "ch": " / "
+    },
+    {
+      "id": "94:423",
+      "n": "Travail avec Nora",
+      "t": "TEXT",
+      "d": 2,
+      "p": "94:420",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:420"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 212,
+        "y": 18,
+        "w": 480,
+        "h": 19
+      },
+      "parentLocal": {
+        "x": 212,
+        "y": 18,
+        "w": 480,
+        "h": 19
+      },
+      "pageAbsolute": {
+        "x": 5766,
+        "y": 18,
+        "w": 480,
+        "h": 19
+      },
+      "frameRelative": {
+        "x": 456,
+        "y": 18,
+        "w": 480,
+        "h": 19
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 19,
+      "ch": "Travail avec Nora"
+    },
+    {
+      "id": "94:424",
+      "n": "MAQUETTE UX · HYPOTHÈSE R3",
+      "t": "TEXT",
+      "d": 2,
+      "p": "94:420",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:420"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 710,
+        "y": 19,
+        "w": 280,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 710,
+        "y": 19,
+        "w": 280,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6264,
+        "y": 19,
+        "w": 280,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 954,
+        "y": 19,
+        "w": 280,
+        "h": 16
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Projet Atlas"
+    },
+    {
+      "id": "94:425",
+      "n": "⋯",
+      "t": "TEXT",
+      "d": 2,
+      "p": "94:420",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:420"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1008,
+        "y": 14,
+        "w": 25,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 1008,
+        "y": 14,
+        "w": 25,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 6562,
+        "y": 14,
+        "w": 25,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 1252,
+        "y": 14,
+        "w": 25,
+        "h": 27
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 18,
+      "ta": "LEFT",
+      "lh": 27,
+      "ch": "⋯"
+    },
+    {
+      "id": "94:426",
+      "n": "Activité et inspection",
+      "t": "FRAME",
+      "d": 1,
+      "p": "94:419",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 54,
+        "w": 1436,
+        "h": 916
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 54,
+        "w": 1436,
+        "h": 916
+      },
+      "pageAbsolute": {
+        "x": 5554,
+        "y": 54,
+        "w": 1436,
+        "h": 916
+      },
+      "frameRelative": {
+        "x": 244,
+        "y": 54,
+        "w": 1436,
+        "h": 916
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#090c14"
+    },
+    {
+      "id": "94:427",
+      "n": "Conversation Nora",
+      "t": "FRAME",
+      "d": 2,
+      "p": "94:426",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 570,
+        "h": 916
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 570,
+        "h": 916
+      },
+      "pageAbsolute": {
+        "x": 5554,
+        "y": 54,
+        "w": 570,
+        "h": 916
+      },
+      "frameRelative": {
+        "x": 244,
+        "y": 54,
+        "w": 570,
+        "h": 916
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 16,
+      "pad": [
+        26,
+        24,
+        20,
+        24
+      ],
+      "clips": 1,
+      "f": "#101521"
+    },
+    {
+      "id": "94:428",
+      "n": "Nora",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:427",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 24,
+        "y": 26,
+        "w": 520,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 24,
+        "y": 26,
+        "w": 520,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 5578,
+        "y": 80,
+        "w": 520,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 268,
+        "y": 80,
+        "w": 520,
+        "h": 38
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Bold",
+      "fw": 700,
+      "fs": 26,
+      "ta": "LEFT",
+      "lh": 38,
+      "ch": "Nora"
+    },
+    {
+      "id": "94:429",
+      "n": "Collaborer, produire et approfondir le travail du projet.",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:427",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 24,
+        "y": 80,
+        "w": 510,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 24,
+        "y": 80,
+        "w": 510,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 5578,
+        "y": 134,
+        "w": 510,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 268,
+        "y": 134,
+        "w": 510,
+        "h": 18
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Collaborer, produire et approfondir le travail du projet."
+    },
+    {
+      "id": "94:430",
+      "n": "Séparateur",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:427",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 24,
+        "y": 114,
+        "w": 520,
+        "h": 1
+      },
+      "parentLocal": {
+        "x": 24,
+        "y": 114,
+        "w": 520,
+        "h": 1
+      },
+      "pageAbsolute": {
+        "x": 5578,
+        "y": 168,
+        "w": 520,
+        "h": 1
+      },
+      "frameRelative": {
+        "x": 268,
+        "y": 168,
+        "w": 520,
+        "h": 1
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#30394c"
+    },
+    {
+      "id": "94:431",
+      "n": "Message Pilote",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:427",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 24,
+        "y": 131,
+        "w": 518,
+        "h": 100
+      },
+      "parentLocal": {
+        "x": 24,
+        "y": 131,
+        "w": 518,
+        "h": 100
+      },
+      "pageAbsolute": {
+        "x": 5578,
+        "y": 185,
+        "w": 518,
+        "h": 100
+      },
+      "frameRelative": {
+        "x": 268,
+        "y": 185,
+        "w": 518,
+        "h": 100
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 10,
+      "pad": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "clips": 1,
+      "r": 12,
+      "f": "#242b3b"
+    },
+    {
+      "id": "94:432",
+      "n": "Auteur",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:431",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:431"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 15,
+        "y": 15,
+        "w": 490,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 15,
+        "y": 15,
+        "w": 490,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 5593,
+        "y": 200,
+        "w": 490,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 283,
+        "y": 200,
+        "w": 490,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#242b3b"
+    },
+    {
+      "id": "94:433",
+      "n": "Statut / P",
+      "t": "FRAME",
+      "d": 5,
+      "p": "94:432",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:431",
+        "94:432"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": -1,
+        "w": 32,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": -1,
+        "w": 32,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 5593,
+        "y": 199,
+        "w": 32,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 283,
+        "y": 199,
+        "w": 32,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        11
+      ],
+      "clips": 1,
+      "r": 14,
+      "f": "#292d58"
+    },
+    {
+      "id": "94:434",
+      "n": "P",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:433",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:431",
+        "94:432",
+        "94:433"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 6,
+        "w": 14,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 6,
+        "w": 14,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 5604,
+        "y": 205,
+        "w": 14,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 294,
+        "y": 205,
+        "w": 14,
+        "h": 16
+      },
+      "f": "#b7a6ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "P"
+    },
+    {
+      "id": "94:435",
+      "n": "Pilote",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:432",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:431",
+        "94:432"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 41,
+        "y": 4,
+        "w": 416,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 41,
+        "y": 4,
+        "w": 416,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 5634,
+        "y": 204,
+        "w": 416,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 324,
+        "y": 204,
+        "w": 416,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Pilote"
+    },
+    {
+      "id": "94:436",
+      "n": "Prépare une spécification fonctionnelle sur l'inspection.",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:431",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:431"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 15,
+        "y": 50,
+        "w": 489,
+        "h": 19
+      },
+      "parentLocal": {
+        "x": 15,
+        "y": 50,
+        "w": 489,
+        "h": 19
+      },
+      "pageAbsolute": {
+        "x": 5593,
+        "y": 235,
+        "w": 489,
+        "h": 19
+      },
+      "frameRelative": {
+        "x": 283,
+        "y": 235,
+        "w": 489,
+        "h": 19
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 19,
+      "ch": "Prépare une spécification fonctionnelle sur l'inspection."
+    },
+    {
+      "id": "94:437",
+      "n": "Message Nora",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:427",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 24,
+        "y": 247,
+        "w": 518,
+        "h": 130
+      },
+      "parentLocal": {
+        "x": 24,
+        "y": 247,
+        "w": 518,
+        "h": 130
+      },
+      "pageAbsolute": {
+        "x": 5578,
+        "y": 301,
+        "w": 518,
+        "h": 130
+      },
+      "frameRelative": {
+        "x": 268,
+        "y": 301,
+        "w": 518,
+        "h": 130
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 10,
+      "pad": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "clips": 1,
+      "r": 12,
+      "f": "#191f2e"
+    },
+    {
+      "id": "94:438",
+      "n": "Auteur",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:437",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:437"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 15,
+        "y": 15,
+        "w": 490,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 15,
+        "y": 15,
+        "w": 490,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 5593,
+        "y": 316,
+        "w": 490,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 283,
+        "y": 316,
+        "w": 490,
+        "h": 25
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#191f2e"
+    },
+    {
+      "id": "94:439",
+      "n": "Statut / N",
+      "t": "FRAME",
+      "d": 5,
+      "p": "94:438",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:437",
+        "94:438"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": -1,
+        "w": 32,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": -1,
+        "w": 32,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 5593,
+        "y": 315,
+        "w": 32,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 283,
+        "y": 315,
+        "w": 32,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        11
+      ],
+      "clips": 1,
+      "r": 14,
+      "f": "#292d58"
+    },
+    {
+      "id": "94:440",
+      "n": "N",
+      "t": "TEXT",
+      "d": 6,
+      "p": "94:439",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:437",
+        "94:438",
+        "94:439"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 6,
+        "w": 14,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 6,
+        "w": 14,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 5604,
+        "y": 321,
+        "w": 14,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 294,
+        "y": 321,
+        "w": 14,
+        "h": 16
+      },
+      "f": "#b7a6ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "N"
+    },
+    {
+      "id": "94:441",
+      "n": "Nora",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:438",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:437",
+        "94:438"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 41,
+        "y": 4,
+        "w": 416,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 41,
+        "y": 4,
+        "w": 416,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 5634,
+        "y": 320,
+        "w": 416,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 324,
+        "y": 320,
+        "w": 416,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Nora"
+    },
+    {
+      "id": "94:442",
+      "n": "J'ai rédigé une première version Markdown. Tu peux la lire, ",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:437",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:437"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 15,
+        "y": 50,
+        "w": 489,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 15,
+        "y": 50,
+        "w": 489,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 5593,
+        "y": 351,
+        "w": 489,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 283,
+        "y": 351,
+        "w": 489,
+        "h": 38
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 19,
+      "ch": "Le brouillon Markdown est enregistré dans le projet. Tu peux l'inspecter ou dema"
+    },
+    {
+      "id": "94:443",
+      "n": "Ressource / Spécification — Inspection.md",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:427",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 24,
+        "y": 393,
+        "w": 496,
+        "h": 66
+      },
+      "parentLocal": {
+        "x": 24,
+        "y": 393,
+        "w": 496,
+        "h": 66
+      },
+      "pageAbsolute": {
+        "x": 5578,
+        "y": 447,
+        "w": 496,
+        "h": 66
+      },
+      "frameRelative": {
+        "x": 268,
+        "y": 447,
+        "w": 496,
+        "h": 66
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 12,
+      "pad": [
+        0,
+        10,
+        0,
+        11
+      ],
+      "clips": 1,
+      "r": 10,
+      "f": "#151b27"
+    },
+    {
+      "id": "94:444",
+      "n": "Icône fichier",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:443",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:443"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 12,
+        "y": 16,
+        "w": 34,
+        "h": 34
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 16,
+        "w": 34,
+        "h": 34
+      },
+      "pageAbsolute": {
+        "x": 5590,
+        "y": 463,
+        "w": 34,
+        "h": 34
+      },
+      "frameRelative": {
+        "x": 280,
+        "y": 463,
+        "w": 34,
+        "h": 34
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        7,
+        0,
+        0,
+        9
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#242b3b"
+    },
+    {
+      "id": "94:445",
+      "n": "▤",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:444",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:443",
+        "94:444"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 9,
+        "y": 7,
+        "w": 22,
+        "h": 24
+      },
+      "parentLocal": {
+        "x": 9,
+        "y": 7,
+        "w": 22,
+        "h": 24
+      },
+      "pageAbsolute": {
+        "x": 5599,
+        "y": 470,
+        "w": 22,
+        "h": 24
+      },
+      "frameRelative": {
+        "x": 289,
+        "y": 470,
+        "w": 22,
+        "h": 24
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 16,
+      "ta": "LEFT",
+      "lh": 24,
+      "ch": "▤"
+    },
+    {
+      "id": "94:446",
+      "n": "Ressource texte",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:443",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:443"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 58,
+        "y": 9,
+        "w": 308,
+        "h": 49
+      },
+      "parentLocal": {
+        "x": 58,
+        "y": 9,
+        "w": 308,
+        "h": 49
+      },
+      "pageAbsolute": {
+        "x": 5636,
+        "y": 456,
+        "w": 308,
+        "h": 49
+      },
+      "frameRelative": {
+        "x": 326,
+        "y": 456,
+        "w": 308,
+        "h": 49
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#151b27"
+    },
+    {
+      "id": "94:447",
+      "n": "Spécification — Inspection.md",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:446",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:443",
+        "94:446"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 308,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 308,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 5636,
+        "y": 456,
+        "w": 308,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 326,
+        "y": 456,
+        "w": 308,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Spécification — Inspection.md"
+    },
+    {
+      "id": "94:448",
+      "n": "Markdown · v1 · Brouillon Nora",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:446",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:443",
+        "94:446"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 22,
+        "w": 308,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 22,
+        "w": 308,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 5636,
+        "y": 478,
+        "w": 308,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 326,
+        "y": 478,
+        "w": 308,
+        "h": 16
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Markdown · v1 · Brouillon Nora"
+    },
+    {
+      "id": "94:449",
+      "n": "Action / Inspecter",
+      "t": "INSTANCE",
+      "d": 4,
+      "p": "94:443",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:443"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 378,
+        "y": 14,
+        "w": 98,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 378,
+        "y": 14,
+        "w": 98,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 5956,
+        "y": 461,
+        "w": 98,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 646,
+        "y": 461,
+        "w": 98,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#292d58"
+    },
+    {
+      "id": "I94:449;12:15",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:449",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:443",
+        "94:449"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": -16,
+        "y": 10,
+        "w": 130,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": -16,
+        "y": 10,
+        "w": 130,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 5940,
+        "y": 471,
+        "w": 130,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 630,
+        "y": 471,
+        "w": 130,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Comparer les versions"
+    },
+    {
+      "id": "94:450",
+      "n": "Espacement",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:427",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 24,
+        "y": 475,
+        "w": 520,
+        "h": 290
+      },
+      "parentLocal": {
+        "x": 24,
+        "y": 475,
+        "w": 520,
+        "h": 290
+      },
+      "pageAbsolute": {
+        "x": 5578,
+        "y": 529,
+        "w": 520,
+        "h": 290
+      },
+      "frameRelative": {
+        "x": 268,
+        "y": 529,
+        "w": 520,
+        "h": 290
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#101521"
+    },
+    {
+      "id": "94:451",
+      "n": "Composer avec Nora",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:427",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 24,
+        "y": 781,
+        "w": 520,
+        "h": 96
+      },
+      "parentLocal": {
+        "x": 24,
+        "y": 781,
+        "w": 520,
+        "h": 96
+      },
+      "pageAbsolute": {
+        "x": 5578,
+        "y": 835,
+        "w": 520,
+        "h": 96
+      },
+      "frameRelative": {
+        "x": 268,
+        "y": 835,
+        "w": 520,
+        "h": 96
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 12,
+      "pad": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "clips": 1,
+      "r": 12,
+      "f": "#191f2e"
+    },
+    {
+      "id": "94:452",
+      "n": "Message à Nora…",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:451",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:451"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 13,
+        "w": 480,
+        "h": 19
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 13,
+        "w": 480,
+        "h": 19
+      },
+      "pageAbsolute": {
+        "x": 5591,
+        "y": 848,
+        "w": 480,
+        "h": 19
+      },
+      "frameRelative": {
+        "x": 281,
+        "y": 848,
+        "w": 480,
+        "h": 19
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 13,
+      "ta": "LEFT",
+      "lh": 19,
+      "ch": "Message à Nora…"
+    },
+    {
+      "id": "94:453",
+      "n": "Espacement",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:451",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:451"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 44,
+        "w": 481,
+        "h": 9
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 44,
+        "w": 481,
+        "h": 9
+      },
+      "pageAbsolute": {
+        "x": 5591,
+        "y": 879,
+        "w": 481,
+        "h": 9
+      },
+      "frameRelative": {
+        "x": 281,
+        "y": 879,
+        "w": 481,
+        "h": 9
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#191f2e"
+    },
+    {
+      "id": "94:454",
+      "n": "Composer / actions",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:451",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:451"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 65,
+        "w": 492,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 65,
+        "w": 492,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 5591,
+        "y": 900,
+        "w": 492,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 281,
+        "y": 900,
+        "w": 492,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 12,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#191f2e"
+    },
+    {
+      "id": "94:455",
+      "n": "+",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:454",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:451",
+        "94:454"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": -1,
+        "w": 23,
+        "h": 30
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": -1,
+        "w": 23,
+        "h": 30
+      },
+      "pageAbsolute": {
+        "x": 5591,
+        "y": 899,
+        "w": 23,
+        "h": 30
+      },
+      "frameRelative": {
+        "x": 281,
+        "y": 899,
+        "w": 23,
+        "h": 30
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 20,
+      "ta": "LEFT",
+      "lh": 30,
+      "ch": "+"
+    },
+    {
+      "id": "94:456",
+      "n": "▤",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:454",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:451",
+        "94:454"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 35,
+        "y": 2,
+        "w": 20,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 35,
+        "y": 2,
+        "w": 20,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 5626,
+        "y": 902,
+        "w": 20,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 902,
+        "w": 20,
+        "h": 25
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 17,
+      "ta": "LEFT",
+      "lh": 25,
+      "ch": "▤"
+    },
+    {
+      "id": "94:457",
+      "n": "◦",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:454",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:451",
+        "94:454"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 67,
+        "y": 1,
+        "w": 340,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 67,
+        "y": 1,
+        "w": 340,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 5658,
+        "y": 901,
+        "w": 340,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 348,
+        "y": 901,
+        "w": 340,
+        "h": 27
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 18,
+      "ta": "LEFT",
+      "lh": 27,
+      "ch": "◦"
+    },
+    {
+      "id": "94:458",
+      "n": "➤",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:454",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:427",
+        "94:451",
+        "94:454"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 419,
+        "y": -1,
+        "w": 30,
+        "h": 30
+      },
+      "parentLocal": {
+        "x": 419,
+        "y": -1,
+        "w": 30,
+        "h": 30
+      },
+      "pageAbsolute": {
+        "x": 6010,
+        "y": 899,
+        "w": 30,
+        "h": 30
+      },
+      "frameRelative": {
+        "x": 700,
+        "y": 899,
+        "w": 30,
+        "h": 30
+      },
+      "f": "#b7a6ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 20,
+      "ta": "LEFT",
+      "lh": 30,
+      "ch": "➤"
+    },
+    {
+      "id": "94:459",
+      "n": "Inspection / Markdown Nora",
+      "t": "FRAME",
+      "d": 2,
+      "p": "94:426",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 570,
+        "y": 0,
+        "w": 866,
+        "h": 916
+      },
+      "parentLocal": {
+        "x": 570,
+        "y": 0,
+        "w": 866,
+        "h": 916
+      },
+      "pageAbsolute": {
+        "x": 6124,
+        "y": 54,
+        "w": 866,
+        "h": 916
+      },
+      "frameRelative": {
+        "x": 814,
+        "y": 54,
+        "w": 866,
+        "h": 916
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 13,
+      "pad": [
+        17,
+        25,
+        0,
+        25
+      ],
+      "clips": 1,
+      "f": "#0d111b"
+    },
+    {
+      "id": "94:460",
+      "n": "Inspection / navigation",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 17,
+        "w": 866,
+        "h": 49
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 17,
+        "w": 866,
+        "h": 49
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 71,
+        "w": 866,
+        "h": 49
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 71,
+        "w": 866,
+        "h": 49
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 14,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#0d111b"
+    },
+    {
+      "id": "94:461",
+      "n": "Statut / ▤  Inspection",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:460",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:460"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 11,
+        "w": 151,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 11,
+        "w": 151,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 82,
+        "w": 151,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 82,
+        "w": 151,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        11
+      ],
+      "clips": 1,
+      "r": 14,
+      "f": "#292d58"
+    },
+    {
+      "id": "94:462",
+      "n": "▤  Inspection",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:461",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:460",
+        "94:461"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 6,
+        "w": 133,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 6,
+        "w": 133,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6160,
+        "y": 88,
+        "w": 133,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 850,
+        "y": 88,
+        "w": 133,
+        "h": 16
+      },
+      "f": "#b7a6ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "▤  Inspection"
+    },
+    {
+      "id": "94:463",
+      "n": "Historique",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:460",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:460"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 165,
+        "y": 16,
+        "w": 190,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 165,
+        "y": 16,
+        "w": 190,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 6314,
+        "y": 87,
+        "w": 190,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 1004,
+        "y": 87,
+        "w": 190,
+        "h": 18
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Historique"
+    },
+    {
+      "id": "94:464",
+      "n": "⛶",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:460",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:460"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 369,
+        "y": 12,
+        "w": 25,
+        "h": 25
+      },
+      "parentLocal": {
+        "x": 369,
+        "y": 12,
+        "w": 25,
+        "h": 25
+      },
+      "pageAbsolute": {
+        "x": 6518,
+        "y": 83,
+        "w": 25,
+        "h": 25
+      },
+      "frameRelative": {
+        "x": 1208,
+        "y": 83,
+        "w": 25,
+        "h": 25
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 17,
+      "ta": "LEFT",
+      "lh": 25,
+      "ch": "⛶"
+    },
+    {
+      "id": "94:465",
+      "n": "×",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:460",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:460"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 408,
+        "y": 7,
+        "w": 22,
+        "h": 36
+      },
+      "parentLocal": {
+        "x": 408,
+        "y": 7,
+        "w": 22,
+        "h": 36
+      },
+      "pageAbsolute": {
+        "x": 6557,
+        "y": 78,
+        "w": 22,
+        "h": 36
+      },
+      "frameRelative": {
+        "x": 1247,
+        "y": 78,
+        "w": 22,
+        "h": 36
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 24,
+      "ta": "LEFT",
+      "lh": 36,
+      "ch": "×"
+    },
+    {
+      "id": "94:466",
+      "n": "Spécification fonctionnelle — Inspection",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 79,
+        "w": 808,
+        "h": 31
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 79,
+        "w": 808,
+        "h": 31
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 133,
+        "w": 808,
+        "h": 31
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 133,
+        "w": 808,
+        "h": 31
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Bold",
+      "fw": 700,
+      "fs": 21,
+      "ta": "LEFT",
+      "lh": 31,
+      "ch": "Spécification fonctionnelle — Inspection"
+    },
+    {
+      "id": "94:467",
+      "n": "Métadonnées du document",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 123,
+        "w": 808,
+        "h": 29
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 123,
+        "w": 808,
+        "h": 29
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 177,
+        "w": 808,
+        "h": 29
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 177,
+        "w": 808,
+        "h": 29
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#0d111b"
+    },
+    {
+      "id": "94:468",
+      "n": "Statut / Brouillon Nora",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:467",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:467"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 1,
+        "w": 134,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 1,
+        "w": 134,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 178,
+        "w": 134,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 178,
+        "w": 134,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        11
+      ],
+      "clips": 1,
+      "r": 14,
+      "f": "#292d58"
+    },
+    {
+      "id": "94:469",
+      "n": "Brouillon Nora",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:468",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:467",
+        "94:468"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 6,
+        "w": 116,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 6,
+        "w": 116,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6160,
+        "y": 184,
+        "w": 116,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 850,
+        "y": 184,
+        "w": 116,
+        "h": 16
+      },
+      "f": "#b7a6ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Brouillon Nora"
+    },
+    {
+      "id": "94:470",
+      "n": "Statut / Markdown",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:467",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:467"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 143,
+        "y": 1,
+        "w": 101,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 143,
+        "y": 1,
+        "w": 101,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 6292,
+        "y": 178,
+        "w": 101,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 982,
+        "y": 178,
+        "w": 101,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        11
+      ],
+      "clips": 1,
+      "r": 14,
+      "f": "#242b3b"
+    },
+    {
+      "id": "94:471",
+      "n": "Markdown",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:470",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:467",
+        "94:470"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 6,
+        "w": 83,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 6,
+        "w": 83,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6303,
+        "y": 184,
+        "w": 83,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 993,
+        "y": 184,
+        "w": 83,
+        "h": 16
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Markdown"
+    },
+    {
+      "id": "94:472",
+      "n": "Statut / v1",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:467",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:467"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 253,
+        "y": 1,
+        "w": 40,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 253,
+        "y": 1,
+        "w": 40,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 6402,
+        "y": 178,
+        "w": 40,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 1092,
+        "y": 178,
+        "w": 40,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        11
+      ],
+      "clips": 1,
+      "r": 14,
+      "f": "#242b3b"
+    },
+    {
+      "id": "94:473",
+      "n": "v1",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:472",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:467",
+        "94:472"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 6,
+        "w": 22,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 6,
+        "w": 22,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6413,
+        "y": 184,
+        "w": 22,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1103,
+        "y": 184,
+        "w": 22,
+        "h": 16
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "v1"
+    },
+    {
+      "id": "94:474",
+      "n": "Statut / Non validé",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:467",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:467"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 302,
+        "y": 1,
+        "w": 105,
+        "h": 28
+      },
+      "parentLocal": {
+        "x": 302,
+        "y": 1,
+        "w": 105,
+        "h": 28
+      },
+      "pageAbsolute": {
+        "x": 6451,
+        "y": 178,
+        "w": 105,
+        "h": 28
+      },
+      "frameRelative": {
+        "x": 1141,
+        "y": 178,
+        "w": 105,
+        "h": 28
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        11
+      ],
+      "clips": 1,
+      "r": 14,
+      "f": "#3d321f"
+    },
+    {
+      "id": "94:475",
+      "n": "Non validé",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:474",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:467",
+        "94:474"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 11,
+        "y": 6,
+        "w": 87,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 11,
+        "y": 6,
+        "w": 87,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6462,
+        "y": 184,
+        "w": 87,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1152,
+        "y": 184,
+        "w": 87,
+        "h": 16
+      },
+      "f": "#f2c879",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Non validé"
+    },
+    {
+      "id": "94:476",
+      "n": "Information de provenance",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 165,
+        "w": 808,
+        "h": 69
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 165,
+        "w": 808,
+        "h": 69
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 219,
+        "w": 808,
+        "h": 69
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 219,
+        "w": 808,
+        "h": 69
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 5,
+      "pad": [
+        12,
+        12,
+        0,
+        15
+      ],
+      "clips": 1,
+      "r": 9,
+      "f": "#17223c"
+    },
+    {
+      "id": "94:477",
+      "n": "Document produit par Nora · ressource candidate du projet",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:476",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:476"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 13,
+        "w": 773,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 13,
+        "w": 773,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 6165,
+        "y": 232,
+        "w": 773,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 855,
+        "y": 232,
+        "w": 773,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Brouillon v1 enregistré et retrouvé dans le projet"
+    },
+    {
+      "id": "94:478",
+      "n": "La lecture et la révision ne signifient pas une approbation ",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:476",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:476"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 16,
+        "y": 36,
+        "w": 773,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 16,
+        "y": 36,
+        "w": 773,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6165,
+        "y": 255,
+        "w": 773,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 855,
+        "y": 255,
+        "w": 773,
+        "h": 16
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Création interne confirmée · aucune validation métier ni publication Git."
+    },
+    {
+      "id": "94:479",
+      "n": "1. Finalité",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 247,
+        "w": 800,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 247,
+        "w": 800,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 301,
+        "w": 800,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 301,
+        "w": 800,
+        "h": 27
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 18,
+      "ta": "LEFT",
+      "lh": 27,
+      "ch": "1. Finalité"
+    },
+    {
+      "id": "94:480",
+      "n": "Permettre au Pilote d'examiner les productions de Nora, les ",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 287,
+        "w": 801,
+        "h": 36
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 287,
+        "w": 801,
+        "h": 36
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 341,
+        "w": 801,
+        "h": 36
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 341,
+        "w": 801,
+        "h": 36
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Permettre au Pilote d'examiner les productions de Nora, les sources et les éléme"
+    },
+    {
+      "id": "94:481",
+      "n": "2. Règles de gestion candidates",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 336,
+        "w": 800,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 336,
+        "w": 800,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 390,
+        "w": 800,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 390,
+        "w": 800,
+        "h": 27
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 18,
+      "ta": "LEFT",
+      "lh": 27,
+      "ch": "2. Règles de gestion candidates"
+    },
+    {
+      "id": "94:482",
+      "n": "Tableau Markdown rendu",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 376,
+        "w": 806,
+        "h": 182
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 376,
+        "w": 806,
+        "h": 182
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 430,
+        "w": 806,
+        "h": 182
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 430,
+        "w": 806,
+        "h": 182
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "r": 9,
+      "f": "#151b27"
+    },
+    {
+      "id": "94:483",
+      "n": "Ligne Markdown 0",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:482",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 1,
+        "w": 803,
+        "h": 34
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 1,
+        "w": 803,
+        "h": 34
+      },
+      "pageAbsolute": {
+        "x": 6150,
+        "y": 431,
+        "w": 803,
+        "h": 34
+      },
+      "frameRelative": {
+        "x": 840,
+        "y": 431,
+        "w": 803,
+        "h": 34
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        0,
+        0,
+        0,
+        10
+      ],
+      "clips": 1,
+      "f": "#242b3b"
+    },
+    {
+      "id": "94:484",
+      "n": "ID",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:483",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:483"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 9,
+        "w": 88,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 9,
+        "w": 88,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6160,
+        "y": 440,
+        "w": 88,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 850,
+        "y": 440,
+        "w": 88,
+        "h": 16
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "ID"
+    },
+    {
+      "id": "94:485",
+      "n": "Règle candidate",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:483",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:483"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 106,
+        "y": 9,
+        "w": 530,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 106,
+        "y": 9,
+        "w": 530,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6256,
+        "y": 440,
+        "w": 530,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 946,
+        "y": 440,
+        "w": 530,
+        "h": 16
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Règle candidate"
+    },
+    {
+      "id": "94:486",
+      "n": "Statut",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:483",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:483"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 644,
+        "y": 9,
+        "w": 160,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 644,
+        "y": 9,
+        "w": 160,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6794,
+        "y": 440,
+        "w": 160,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1484,
+        "y": 440,
+        "w": 160,
+        "h": 16
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Statut"
+    },
+    {
+      "id": "94:487",
+      "n": "Ligne Markdown 1",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:482",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 35,
+        "w": 803,
+        "h": 36
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 35,
+        "w": 803,
+        "h": 36
+      },
+      "pageAbsolute": {
+        "x": 6150,
+        "y": 465,
+        "w": 803,
+        "h": 36
+      },
+      "frameRelative": {
+        "x": 840,
+        "y": 465,
+        "w": 803,
+        "h": 36
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        0,
+        0,
+        0,
+        10
+      ],
+      "clips": 1,
+      "f": "#151b27"
+    },
+    {
+      "id": "94:488",
+      "n": "INS-01",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:487",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:487"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 10,
+        "w": 88,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 10,
+        "w": 88,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6160,
+        "y": 475,
+        "w": 88,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 850,
+        "y": 475,
+        "w": 88,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "INS-01"
+    },
+    {
+      "id": "94:489",
+      "n": "Une production Nora est lisible et identifiable.",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:487",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:487"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 106,
+        "y": 10,
+        "w": 530,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 106,
+        "y": 10,
+        "w": 530,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6256,
+        "y": 475,
+        "w": 530,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 946,
+        "y": 475,
+        "w": 530,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Une production Nora est lisible et identifiable."
+    },
+    {
+      "id": "94:490",
+      "n": "Hypothèse",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:487",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:487"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 644,
+        "y": 10,
+        "w": 160,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 644,
+        "y": 10,
+        "w": 160,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6794,
+        "y": 475,
+        "w": 160,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1484,
+        "y": 475,
+        "w": 160,
+        "h": 16
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Hypothèse"
+    },
+    {
+      "id": "94:491",
+      "n": "Ligne Markdown 2",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:482",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 71,
+        "w": 803,
+        "h": 36
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 71,
+        "w": 803,
+        "h": 36
+      },
+      "pageAbsolute": {
+        "x": 6150,
+        "y": 501,
+        "w": 803,
+        "h": 36
+      },
+      "frameRelative": {
+        "x": 840,
+        "y": 501,
+        "w": 803,
+        "h": 36
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        0,
+        0,
+        0,
+        10
+      ],
+      "clips": 1,
+      "f": "#151b27"
+    },
+    {
+      "id": "94:492",
+      "n": "INS-02",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:491",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:491"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 10,
+        "w": 88,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 10,
+        "w": 88,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6160,
+        "y": 511,
+        "w": 88,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 850,
+        "y": 511,
+        "w": 88,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "INS-02"
+    },
+    {
+      "id": "94:493",
+      "n": "Le Pilote demande une révision ciblée.",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:491",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:491"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 106,
+        "y": 10,
+        "w": 530,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 106,
+        "y": 10,
+        "w": 530,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6256,
+        "y": 511,
+        "w": 530,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 946,
+        "y": 511,
+        "w": 530,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Le Pilote demande une révision ciblée."
+    },
+    {
+      "id": "94:494",
+      "n": "À examiner",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:491",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:491"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 644,
+        "y": 10,
+        "w": 160,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 644,
+        "y": 10,
+        "w": 160,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6794,
+        "y": 511,
+        "w": 160,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1484,
+        "y": 511,
+        "w": 160,
+        "h": 16
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "À examiner"
+    },
+    {
+      "id": "94:495",
+      "n": "Ligne Markdown 3",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:482",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 107,
+        "w": 803,
+        "h": 36
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 107,
+        "w": 803,
+        "h": 36
+      },
+      "pageAbsolute": {
+        "x": 6150,
+        "y": 537,
+        "w": 803,
+        "h": 36
+      },
+      "frameRelative": {
+        "x": 840,
+        "y": 537,
+        "w": 803,
+        "h": 36
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        0,
+        0,
+        0,
+        10
+      ],
+      "clips": 1,
+      "f": "#151b27"
+    },
+    {
+      "id": "94:496",
+      "n": "INS-03",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:495",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:495"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 10,
+        "w": 88,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 10,
+        "w": 88,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6160,
+        "y": 547,
+        "w": 88,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 850,
+        "y": 547,
+        "w": 88,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "INS-03"
+    },
+    {
+      "id": "94:497",
+      "n": "Les versions restent comparables.",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:495",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:495"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 106,
+        "y": 10,
+        "w": 530,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 106,
+        "y": 10,
+        "w": 530,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6256,
+        "y": 547,
+        "w": 530,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 946,
+        "y": 547,
+        "w": 530,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Les versions restent comparables."
+    },
+    {
+      "id": "94:498",
+      "n": "À examiner",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:495",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:495"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 644,
+        "y": 10,
+        "w": 160,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 644,
+        "y": 10,
+        "w": 160,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6794,
+        "y": 547,
+        "w": 160,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1484,
+        "y": 547,
+        "w": 160,
+        "h": 16
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "À examiner"
+    },
+    {
+      "id": "94:499",
+      "n": "Ligne Markdown 4",
+      "t": "FRAME",
+      "d": 4,
+      "p": "94:482",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 1,
+        "y": 143,
+        "w": 803,
+        "h": 36
+      },
+      "parentLocal": {
+        "x": 1,
+        "y": 143,
+        "w": 803,
+        "h": 36
+      },
+      "pageAbsolute": {
+        "x": 6150,
+        "y": 573,
+        "w": 803,
+        "h": 36
+      },
+      "frameRelative": {
+        "x": 840,
+        "y": 573,
+        "w": 803,
+        "h": 36
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        0,
+        0,
+        0,
+        10
+      ],
+      "clips": 1,
+      "f": "#151b27"
+    },
+    {
+      "id": "94:500",
+      "n": "INS-04",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:499",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:499"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 10,
+        "y": 10,
+        "w": 88,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 10,
+        "y": 10,
+        "w": 88,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6160,
+        "y": 583,
+        "w": 88,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 850,
+        "y": 583,
+        "w": 88,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "INS-04"
+    },
+    {
+      "id": "94:501",
+      "n": "Conserver est distinct de publier sur Git.",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:499",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:499"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 106,
+        "y": 10,
+        "w": 530,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 106,
+        "y": 10,
+        "w": 530,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6256,
+        "y": 583,
+        "w": 530,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 946,
+        "y": 583,
+        "w": 530,
+        "h": 16
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Conserver est distinct de publier sur Git."
+    },
+    {
+      "id": "94:502",
+      "n": "Hypothèse",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:499",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:482",
+        "94:499"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 644,
+        "y": 10,
+        "w": 160,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 644,
+        "y": 10,
+        "w": 160,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6794,
+        "y": 583,
+        "w": 160,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 1484,
+        "y": 583,
+        "w": 160,
+        "h": 16
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Hypothèse"
+    },
+    {
+      "id": "94:503",
+      "n": "3. Version et révision",
+      "t": "TEXT",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 571,
+        "w": 800,
+        "h": 27
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 571,
+        "w": 800,
+        "h": 27
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 625,
+        "w": 800,
+        "h": 27
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 625,
+        "w": 800,
+        "h": 27
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 18,
+      "ta": "LEFT",
+      "lh": 27,
+      "ch": "3. Conservation et prochaines actions"
+    },
+    {
+      "id": "94:504",
+      "n": "Aperçu des modifications",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 611,
+        "w": 805,
+        "h": 119
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 611,
+        "w": 805,
+        "h": 119
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 665,
+        "w": 805,
+        "h": 119
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 665,
+        "w": 805,
+        "h": 119
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 8,
+      "pad": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "clips": 1,
+      "r": 12,
+      "f": "#191f2e"
+    },
+    {
+      "id": "94:505",
+      "n": "Une demande de Nora génère une version candidate, pas une éc",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:504",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:504"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 13,
+        "w": 765,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 13,
+        "w": 765,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 6162,
+        "y": 678,
+        "w": 765,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 852,
+        "y": 678,
+        "w": 765,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Medium",
+      "fw": 500,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Version de travail v1 · source : activité Nora du projet Atlas."
+    },
+    {
+      "id": "94:506",
+      "n": "− v1 : « L’inspection présente un contenu. »",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:504",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:504"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 39,
+        "w": 765,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 39,
+        "w": 765,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6162,
+        "y": 704,
+        "w": 765,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 852,
+        "y": 704,
+        "w": 765,
+        "h": 16
+      },
+      "f": "#e4a7ac",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Document enregistré dans l'espace projet."
+    },
+    {
+      "id": "94:507",
+      "n": "+ v2 : « L’inspection expose le contenu, la source et la ver",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:504",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:504"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 63,
+        "w": 765,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 63,
+        "w": 765,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6162,
+        "y": 728,
+        "w": 765,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 852,
+        "y": 728,
+        "w": 765,
+        "h": 16
+      },
+      "f": "#94d4b1",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "Retrouvable dans les ressources du projet."
+    },
+    {
+      "id": "94:508",
+      "n": "La version courante reste accessible pendant la comparaison.",
+      "t": "TEXT",
+      "d": 4,
+      "p": "94:504",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:504"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 13,
+        "y": 87,
+        "w": 765,
+        "h": 16
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 87,
+        "w": 765,
+        "h": 16
+      },
+      "pageAbsolute": {
+        "x": 6162,
+        "y": 752,
+        "w": 765,
+        "h": 16
+      },
+      "frameRelative": {
+        "x": 852,
+        "y": 752,
+        "w": 765,
+        "h": 16
+      },
+      "f": "#8997ae",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 11,
+      "ta": "LEFT",
+      "lh": 16,
+      "ch": "La publication Git est une action distincte."
+    },
+    {
+      "id": "94:509",
+      "n": "Espacement",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 743,
+        "w": 805,
+        "h": 22
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 743,
+        "w": 805,
+        "h": 22
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 797,
+        "w": 805,
+        "h": 22
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 797,
+        "w": 805,
+        "h": 22
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#0d111b"
+    },
+    {
+      "id": "94:510",
+      "n": "Séparateur",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 778,
+        "w": 809,
+        "h": 1
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 778,
+        "w": 809,
+        "h": 1
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 832,
+        "w": 809,
+        "h": 1
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 832,
+        "w": 809,
+        "h": 1
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#30394c"
+    },
+    {
+      "id": "94:511",
+      "n": "Actions contextuelles",
+      "t": "FRAME",
+      "d": 3,
+      "p": "94:459",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 25,
+        "y": 792,
+        "w": 808,
+        "h": 42
+      },
+      "parentLocal": {
+        "x": 25,
+        "y": 792,
+        "w": 808,
+        "h": 42
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 846,
+        "w": 808,
+        "h": 42
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 846,
+        "w": 808,
+        "h": 42
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 10,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1,
+      "f": "#0d111b"
+    },
+    {
+      "id": "94:512",
+      "n": "Action / Demander une révision",
+      "t": "INSTANCE",
+      "d": 4,
+      "p": "94:511",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:511"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 0,
+        "y": 2,
+        "w": 215,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 2,
+        "w": 215,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 6149,
+        "y": 848,
+        "w": 215,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 839,
+        "y": 848,
+        "w": 215,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#292d58"
+    },
+    {
+      "id": "I94:512;12:15",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:512",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:511",
+        "94:512"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 41,
+        "y": 10,
+        "w": 134,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 41,
+        "y": 10,
+        "w": 134,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 6190,
+        "y": 858,
+        "w": 134,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 880,
+        "y": 858,
+        "w": 134,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Demander une révision"
+    },
+    {
+      "id": "94:513",
+      "n": "Action / Consulter les versions",
+      "t": "INSTANCE",
+      "d": 4,
+      "p": "94:511",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:511"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 225,
+        "y": 2,
+        "w": 184,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 225,
+        "y": 2,
+        "w": 184,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 6374,
+        "y": 848,
+        "w": 184,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 1064,
+        "y": 848,
+        "w": 184,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#242b3b"
+    },
+    {
+      "id": "I94:513;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:513",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:511",
+        "94:513"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 27,
+        "y": 10,
+        "w": 130,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 27,
+        "y": 10,
+        "w": 130,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 6401,
+        "y": 858,
+        "w": 130,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 1091,
+        "y": 858,
+        "w": 130,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Consulter les versions"
+    },
+    {
+      "id": "94:514",
+      "n": "Action / Voir dans le projet",
+      "t": "INSTANCE",
+      "d": 4,
+      "p": "94:511",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:511"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 419,
+        "y": 2,
+        "w": 187,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 419,
+        "y": 2,
+        "w": 187,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 6568,
+        "y": 848,
+        "w": 187,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 1258,
+        "y": 848,
+        "w": 187,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "r": 9,
+      "f": "#242b3b"
+    },
+    {
+      "id": "I94:514;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 5,
+      "p": "94:514",
+      "pc": [
+        "94:370",
+        "94:371",
+        "94:419",
+        "94:426",
+        "94:459",
+        "94:511",
+        "94:514"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "sourceBounds": {
+        "x": 41,
+        "y": 10,
+        "w": 105,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 41,
+        "y": 10,
+        "w": 105,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 6609,
+        "y": 858,
+        "w": 105,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 1299,
+        "y": 858,
+        "w": 105,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "ch": "Voir dans le projet"
+    }
+  ]
+}
