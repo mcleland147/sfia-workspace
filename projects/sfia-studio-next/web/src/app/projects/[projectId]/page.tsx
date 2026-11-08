@@ -2,9 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { PilotagePanel } from "@/components/PilotagePanel";
 import { ProjectChrome } from "@/components/figma/ProjectChrome";
+import { NoraConversation } from "@/components/figma/NoraConversation";
+import { ProjectJournal } from "@/components/figma/ProjectJournal";
+import {
+  DocumentHistory,
+  DocumentInspector,
+  DocumentLibrary,
+  type RevisionRow,
+} from "@/components/figma/DocumentSurfaces";
 import {
   conversationalClientCommandKey,
   mayStartNewThreadAct,
@@ -96,6 +103,8 @@ export default function ProjectPage() {
   const [reviseDraft, setReviseDraft] = useState("");
   const [reviseMessage, setReviseMessage] = useState("");
   const [docMissing, setDocMissing] = useState("");
+  const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
+  const [docDiffText, setDocDiffText] = useState("");
   const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
   const reviseCorrelationRef = useRef<string | null>(null);
@@ -148,16 +157,47 @@ export default function ProjectPage() {
     }
   }
 
+  async function loadDocHistory(preparationIdValue: string, documentId: string) {
+    try {
+      const res = await fetch(
+        `/api/preparations/${preparationIdValue}/documents/${documentId}`,
+      );
+      if (!res.ok) {
+        setDocHistory([]);
+        return;
+      }
+      const j = await res.json();
+      const rows = (j.revisions ?? []) as Array<{
+        id: string;
+        revisionNumber: number;
+        status: string;
+        createdAt?: string;
+      }>;
+      setDocHistory(
+        rows.map((r) => ({
+          id: r.id,
+          revisionNumber: r.revisionNumber,
+          status: r.status,
+          createdAt: r.createdAt,
+        })),
+      );
+    } catch {
+      setDocHistory([]);
+    }
+  }
+
   function openDocumentReadOnly(doc: Doc, mode: "push" | "replace" = "push") {
     setInspect(doc);
     setDocMissing("");
     setDocUi("READING");
     setReviseDraft(doc.latestRevision?.contentMarkdown ?? "");
     setReviseMessage("");
+    setDocDiffText("");
     reviseCorrelationRef.current = null;
     reviseBaseIdRef.current = doc.latestRevision?.id ?? null;
     setSurface("document");
     syncSurfaceUrl("document", doc.document.id, mode);
+    if (preparationId) void loadDocHistory(preparationId, doc.document.id);
   }
 
   function applyUrlDocumentState(docs: Doc[], qSurface: Surface | null, qDocId: string | null) {
@@ -678,170 +718,94 @@ export default function ProjectPage() {
       meta={meta}
       onSelectSurface={selectSurface}
     >
-      {noraActivity === "preparing" ? (
-        <div className="fig-alert" role="status">
-          Nora prépare une réponse…
-        </div>
-      ) : null}
-
       {surface === "travail" ? (
-        <div
-          className="fig-workspace fig-nora-responsive"
-          data-figma-frame={
-            messages.length === 0
-              ? "161:216"
-              : messages.length <= 2
-                ? "161:288"
-                : "94:214"
+        <NoraConversation
+          messages={messages}
+          draft={draft}
+          busy={busy || !preparationId}
+          unresolvedPending={Boolean(unresolvedPending)}
+          activity={noraActivity}
+          status={[status, pilotageStatus, decisionSummary].filter(Boolean).join(" · ")}
+          onDraft={setDraft}
+          onSend={() => void sendMessage()}
+          onReconcile={
+            unresolvedPending
+              ? () => void reconcilePending(unresolvedPending)
+              : undefined
           }
-          data-figma-mobile-frames="282:468,282:492"
-        >
-          <section className="space-y-3">
-            <div className="fig-panel space-y-3">
-              <p className="fig-kicker">Travail / projet</p>
-              <div className="flex flex-wrap gap-2">
-                <span className="fig-tag fig-tag-accent">PILOTE</span>
-                <span className="fig-tag fig-tag-muted">Fil unique</span>
-                {unresolvedPending ? (
-                  <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
-                ) : null}
+          aside={
+            <>
+              <div className="fig-panel space-y-2">
+                <h2 className="fig-panel-title">En bref</h2>
+                <p className="text-sm muted">
+                  Un seul fil visible. Mémoire D4 récupérable au-delà des six derniers messages.
+                </p>
+                <p className="text-xs muted">
+                  Acquis: {knowledge?.acquis.filter((a) => a.status === "CURRENT").length ?? 0} ·
+                  Ouverts: {knowledge?.openPoints.filter((o) => o.status === "OPEN").length ?? 0}
+                </p>
               </div>
-              {messages.length === 0 ? (
-                <div className="fig-msg fig-msg-nora text-sm muted">
-                  Première conversation — écrivez pour démarrer le fil Nora du projet.
-                </div>
-              ) : null}
-              {messages.map((m) => (
-                <article
-                  key={m.id}
-                  className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
-                >
-                  <div className="text-xs muted mb-1">
-                    {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
-                  </div>
-                  {m.role === "assistant" ? (
-                    <SafeMarkdown content={m.content} />
-                  ) : (
-                    <div className="whitespace-pre-wrap text-sm">{m.content}</div>
-                  )}
-                </article>
-              ))}
-              <div className="fig-composer">
-                <textarea
-                  className="textarea"
-                  value={draft}
-                  onChange={(e) => setDraft(e.target.value)}
-                  placeholder="Écrire à Nora…"
-                  aria-label="Message à Nora"
-                  data-testid="thread-draft"
-                />
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    className="btn"
-                    disabled={busy || !preparationId}
-                    onClick={sendMessage}
-                    data-testid="thread-send"
-                  >
-                    Envoyer
-                  </button>
-                  <span className="text-xs muted self-center">Joindre un élément · non requis</span>
-                </div>
-                {unresolvedPending ? (
-                  <div className="space-y-1" data-testid="thread-pending-banner">
-                    <p className="text-xs muted">
-                      Tentative non résolue · {unresolvedPending.clientCommandKey.slice(0, 32)}…
+              <div className="fig-panel space-y-2">
+                <h2 className="fig-panel-title">Objets du projet</h2>
+                <ul className="text-sm muted space-y-1">
+                  <li>Documents Nora · {documents.length}</li>
+                  <li>Réalisations et preuves · via Pilotage</li>
+                  <li>
+                    Sources Git · <span className="fig-tag fig-tag-muted">non disponible</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="fig-panel space-y-2" style={{ background: "rgba(101,111,225,0.08)" }}>
+                <h2 className="fig-panel-title">Points à clarifier</h2>
+                {(knowledge?.openPoints ?? [])
+                  .filter((o) => o.status === "OPEN")
+                  .slice(0, 5)
+                  .map((o) => (
+                    <p key={o.id} className="text-sm">
+                      {o.statement}
                     </p>
-                    <button
-                      type="button"
-                      className="btn secondary"
-                      disabled={busy}
-                      data-testid="thread-reconcile-pending"
-                      onClick={() => void reconcilePending(unresolvedPending)}
-                    >
-                      Réconcilier la tentative en cours
-                    </button>
-                  </div>
-                ) : null}
-                {status ? (
-                  <p className="text-xs muted" data-testid="thread-nora-status">
-                    {status}
-                  </p>
-                ) : null}
-                {pilotageStatus ? (
-                  <p className="text-xs" data-testid="thread-pilotage-status" role="status">
-                    {pilotageStatus}
-                  </p>
-                ) : null}
-                {decisionSummary ? (
-                  <p className="text-xs muted" data-testid="thread-decision-summary">
-                    {decisionSummary}
-                  </p>
+                  ))}
+                {(knowledge?.openPoints ?? []).filter((o) => o.status === "OPEN").length === 0 ? (
+                  <p className="text-sm muted">Aucun point ouvert capitalisé.</p>
                 ) : null}
               </div>
-            </div>
-          </section>
-          <aside className="space-y-3">
-            <div className="fig-panel space-y-2">
-              <h2 className="fig-panel-title">En bref</h2>
-              <p className="text-sm muted">
-                Un seul fil visible. Mémoire D4 récupérable au-delà des six derniers messages.
-              </p>
-              <p className="text-xs muted">
-                Acquis: {knowledge?.acquis.filter((a) => a.status === "CURRENT").length ?? 0} ·
-                Ouverts: {knowledge?.openPoints.filter((o) => o.status === "OPEN").length ?? 0}
-              </p>
-            </div>
-            <div className="fig-panel space-y-2">
-              <h2 className="fig-panel-title">Objets du projet</h2>
-              <ul className="text-sm muted space-y-1">
-                <li>Documents Nora · {documents.length}</li>
-                <li>Réalisations et preuves · via Pilotage</li>
-                <li>
-                  Sources Git autorisées · <span className="fig-tag fig-tag-muted">non disponible</span>
-                </li>
-              </ul>
-            </div>
-            <div className="fig-panel space-y-2" style={{ background: "rgba(101,111,225,0.08)" }}>
-              <h2 className="fig-panel-title">Points à clarifier</h2>
-              {(knowledge?.openPoints ?? [])
-                .filter((o) => o.status === "OPEN")
-                .slice(0, 5)
-                .map((o) => (
-                  <p key={o.id} className="text-sm">
-                    {o.statement}
-                  </p>
-                ))}
-              {(knowledge?.openPoints ?? []).filter((o) => o.status === "OPEN").length === 0 ? (
-                <p className="text-sm muted">Aucun point ouvert capitalisé.</p>
-              ) : null}
-            </div>
-          </aside>
-        </div>
+            </>
+          }
+        />
       ) : null}
 
       {surface === "pilotage" ? (
-        <div className="space-y-4" data-figma-frame="125:33">
+        <div className="space-y-4" data-figma-frame="125:33" data-testid="project-trajectory">
+          <div className="fig-section-head">
+            <div>
+              <p className="fig-kicker">Pilotage</p>
+              <h2 className="fig-section-title">Trajectoire, cycle et décisions</h2>
+              <p className="fig-hero-sub !mt-1">
+                Affichage D5/D6 existant — sans cycle fictif, sans commande autoritaire depuis Nora.
+              </p>
+            </div>
+          </div>
           <div className="fig-stat-grid">
             <div className="fig-stat">
               <div className="fig-stat-label">Cycle</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.2rem", marginTop: 14 }}>
-                Affichage D5
+              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
+                Sans / actif
               </div>
-              <div className="fig-stat-hint">Sans nouvelle autorité</div>
+              <div className="fig-stat-hint">Projection service projet</div>
             </div>
             <div className="fig-stat">
-              <div className="fig-stat-label">Décisions</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.2rem", marginTop: 14 }}>
-                Journal D6
+              <div className="fig-stat-label">Décisions D6</div>
+              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
+                HumanDecision
               </div>
-              <div className="fig-stat-hint">HumanDecision existantes</div>
+              <div className="fig-stat-hint">Pas de mutation à l&apos;affichage</div>
             </div>
             <div className="fig-stat">
               <div className="fig-stat-label">CKI / méthode</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.2rem", marginTop: 14 }}>
-                Lecture seule
+              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
+                Guidance
               </div>
-              <div className="fig-stat-hint">Services projet</div>
+              <div className="fig-stat-hint">Disponibilité réelle du service</div>
             </div>
           </div>
           <div className="fig-panel" data-figma-frame="127:106">
@@ -852,211 +816,131 @@ export default function ProjectPage() {
 
       {surface === "document" ? (
         <div className="fig-workspace-3" data-figma-frame="94:370">
-          <section className="space-y-2" data-figma-frame="160:175">
-            <div className="fig-section-head">
-              <h2 className="fig-section-title">Bibliothèque</h2>
-              <span className="fig-tag fig-tag-muted">{documents.length} doc(s)</span>
-            </div>
-            {documents.map((d) => (
-              <button
-                key={d.document.id}
-                type="button"
-                className={`fig-card !min-h-0 text-left w-full ${
-                  inspect?.document.id === d.document.id ? "ring-1 ring-[var(--accent)]" : ""
-                }`}
-                onClick={() => openDocumentReadOnly(d)}
-                data-testid={`doc-open-${d.document.id}`}
-              >
-                <div className="fig-card-top">
-                  <div className="fig-card-title text-sm">{d.document.title}</div>
-                  <span className="fig-tag fig-tag-muted">
-                    v{d.latestRevision?.revisionNumber ?? "?"}
-                  </span>
-                </div>
-                <div className="fig-card-desc line-clamp-3">
-                  {(d.latestRevision?.contentMarkdown ?? "").slice(0, 180)}
-                </div>
-                <div className="fig-card-meta">{d.latestRevision?.status ?? "—"}</div>
-              </button>
-            ))}
-            {documents.length === 0 ? (
-              <p className="text-sm muted">Aucun document D4 pour ce projet.</p>
-            ) : null}
-          </section>
-          <section
-            className="fig-panel space-y-3"
-            data-testid="document-inspect"
-            data-figma-frame={
-              docUi === "CONFLICT" ? "160:391" : inspect ? "97:359" : "241:385"
-            }
-          >
-            <div className="flex flex-wrap gap-2 items-center">
-              <h2 className="fig-panel-title !mb-0">
-                {docUi === "EDITING" ||
+          <DocumentLibrary
+            documents={documents.map((d) => ({
+              document: { ...d.document, projectId: params.projectId },
+              latestRevision: d.latestRevision ?? null,
+            }))}
+            selectedId={inspect?.document.id ?? null}
+            onSelect={(d) => {
+              const match = documents.find((x) => x.document.id === d.document.id);
+              if (match) openDocumentReadOnly(match);
+            }}
+          />
+          <div className="space-y-3">
+            <DocumentInspector
+              frameId={docUi === "CONFLICT" ? "160:391" : "97:359"}
+              title={
+                docUi === "EDITING" ||
                 docUi === "SAVING" ||
                 docUi === "CONFLICT" ||
                 docUi === "UNKNOWN"
                   ? "Révision"
-                  : "Inspection"}
-              </h2>
-              <span className="fig-tag fig-tag-accent" data-testid="document-ui-state">
-                {docUi}
-              </span>
-              {inspect?.latestRevision ? (
-                <span className="fig-tag fig-tag-muted" data-figma-frame="241:385">
-                  Historique · v{inspect.latestRevision.revisionNumber}
-                </span>
-              ) : null}
-            </div>
-            {docMissing ? (
-              <p className="text-sm" data-testid="document-missing" role="status">
-                {docMissing}
-              </p>
-            ) : null}
-            {inspect?.latestRevision ? (
-              <>
-                <div className="flex flex-wrap gap-2">
-                  <span className="fig-tag fig-tag-muted">Markdown</span>
-                  <span className="fig-tag fig-tag-muted">
-                    v{inspect.latestRevision.revisionNumber}
-                  </span>
-                  <span className="fig-tag fig-tag-warn">{inspect.latestRevision.status}</span>
-                </div>
-                <div className="fig-alert">
-                  Document retrouvé sous ownership projet/préparation. Aucune publication Git
-                  implicite.
-                </div>
-                <p className="text-xs muted">{inspect.document.id}</p>
-                {docUi === "EDITING" ||
+                  : "Inspection"
+              }
+              uiState={docUi}
+              missing={docMissing || null}
+              markdown={
+                docUi === "READING" || docUi === "FAILED"
+                  ? inspect?.latestRevision?.contentMarkdown ?? null
+                  : null
+              }
+              editing={
+                docUi === "EDITING" ||
                 docUi === "SAVING" ||
                 docUi === "CONFLICT" ||
                 docUi === "UNKNOWN" ||
-                docUi === "FAILED" ? (
-                  <>
-                    <textarea
-                      className="textarea"
-                      value={reviseDraft}
-                      onChange={(e) => setReviseDraft(e.target.value)}
-                      disabled={docUi === "SAVING"}
-                      aria-label="Contenu markdown à réviser"
-                      data-testid="document-revise-draft"
-                    />
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        className="btn"
-                        disabled={docUi === "SAVING"}
-                        data-testid="document-revise-save"
-                        onClick={() => void saveRevision()}
-                      >
-                        {docUi === "SAVING"
-                          ? "Enregistrement…"
-                          : docUi === "UNKNOWN"
-                            ? "Réessayer (même clé)"
-                            : "Demander une révision"}
-                      </button>
-                      {docUi === "CONFLICT" ? (
-                        <button
-                          type="button"
-                          className="btn secondary"
-                          data-testid="document-conflict-rebase"
-                          onClick={acceptConflictRebase}
-                        >
-                          Adopter la nouvelle base
-                        </button>
-                      ) : null}
-                      <button
-                        type="button"
-                        className="btn secondary"
-                        disabled={docUi === "SAVING"}
-                        onClick={() => {
-                          setDocUi("READING");
-                          setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
-                          setReviseMessage("");
-                          reviseCorrelationRef.current = null;
-                          reviseBaseIdRef.current = inspect.latestRevision?.id ?? null;
-                        }}
-                      >
-                        Annuler
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <SafeMarkdown content={inspect.latestRevision.contentMarkdown} />
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        className="btn"
-                        data-testid="document-revise-start"
-                        onClick={() => {
-                          setDocUi("EDITING");
-                          setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
-                          reviseCorrelationRef.current = null;
-                          reviseBaseIdRef.current = inspect.latestRevision?.id ?? null;
-                        }}
-                      >
-                        Demander une révision
-                      </button>
-                      <button
-                        type="button"
-                        className="btn secondary"
-                        onClick={() => {
-                          setInspect(null);
-                          setDocUi("READING");
-                          selectSurface("travail");
-                        }}
-                      >
-                        Retour au fil
-                      </button>
-                    </div>
-                  </>
-                )}
-                {reviseMessage ? (
-                  <p className="text-xs muted" data-testid="document-revise-message">
-                    {reviseMessage}
-                  </p>
-                ) : null}
-              </>
-            ) : !docMissing ? (
-              <p className="text-sm muted">Sélectionner un document pour inspecter.</p>
-            ) : null}
-          </section>
+                docUi === "FAILED"
+              }
+              draft={reviseDraft}
+              onDraft={setReviseDraft}
+              busy={docUi === "SAVING"}
+              onStartRevise={
+                inspect?.latestRevision
+                  ? () => {
+                      setDocUi("EDITING");
+                      setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
+                      reviseCorrelationRef.current = null;
+                      reviseBaseIdRef.current = inspect.latestRevision?.id ?? null;
+                    }
+                  : undefined
+              }
+              onSaveRevise={() => void saveRevision()}
+              onConflictRebase={docUi === "CONFLICT" ? acceptConflictRebase : undefined}
+              onCancel={() => {
+                setDocUi("READING");
+                setReviseDraft(inspect?.latestRevision?.contentMarkdown ?? "");
+                setReviseMessage("");
+                reviseCorrelationRef.current = null;
+                reviseBaseIdRef.current = inspect?.latestRevision?.id ?? null;
+              }}
+              reviseMessage={reviseMessage}
+            >
+              {inspect?.latestRevision && docUi === "READING" ? (
+                <button
+                  type="button"
+                  className="btn secondary"
+                  onClick={() => {
+                    setInspect(null);
+                    setDocUi("READING");
+                    selectSurface("travail");
+                  }}
+                >
+                  Retour au fil
+                </button>
+              ) : null}
+            </DocumentInspector>
+            <DocumentHistory
+              revisions={docHistory}
+              activeRevisionId={inspect?.latestRevision?.id}
+              onCompareLatest={
+                preparationId && inspect
+                  ? () => {
+                      void (async () => {
+                        const listRes = await fetch(
+                          `/api/preparations/${preparationId}/documents/${inspect.document.id}`,
+                        );
+                        const list = await listRes.json();
+                        const revs = (list.revisions ?? []).filter(
+                          (r: { status: string }) => r.status === "AVAILABLE",
+                        );
+                        if (revs.length < 2) {
+                          setDocDiffText("Comparaison: moins de deux versions AVAILABLE");
+                          return;
+                        }
+                        const left = revs[revs.length - 2];
+                        const right = revs[revs.length - 1];
+                        const cmpRes = await fetch(
+                          `/api/preparations/${preparationId}/documents/${inspect.document.id}?left=${left.id}&right=${right.id}`,
+                        );
+                        const cmp = await cmpRes.json();
+                        if (cmp.status === "AVAILABLE" && !cmp.diff?.degraded) {
+                          setDocDiffText(
+                            `v${cmp.left.revisionNumber} → v${cmp.right.revisionNumber}\n` +
+                              `+ ${cmp.diff.added.length} / - ${cmp.diff.removed.length}`,
+                          );
+                        } else {
+                          setDocDiffText(
+                            `Diff ${cmp.status}: ${cmp.reason ?? cmp.diff?.reason ?? ""}`,
+                          );
+                        }
+                      })();
+                    }
+                  : undefined
+              }
+              diffText={docDiffText}
+            />
+          </div>
         </div>
       ) : null}
 
       {surface === "journal" ? (
-        <div className="fig-two-col" data-figma-frame="94:515">
-          <section className="fig-panel space-y-2">
-            <h2 className="fig-panel-title">Sujets</h2>
-            {(knowledge?.subjects ?? []).map((s) => (
-              <div key={s.id} className="fig-msg text-sm">
-                <div className="font-medium">{s.title}</div>
-                <div className="text-xs muted">
-                  {s.status}
-                  {s.originatedFromSubjectId ? ` · de ${s.originatedFromSubjectId}` : ""}
-                </div>
-              </div>
-            ))}
-            {(knowledge?.subjects ?? []).length === 0 ? (
-              <p className="text-sm muted">Aucun sujet capitalisé.</p>
-            ) : null}
-          </section>
-          <section className="fig-panel space-y-2" data-figma-frame="129:72">
-            <h2 className="fig-panel-title">Acquis courants</h2>
-            {(knowledge?.acquis ?? [])
-              .filter((a) => a.status === "CURRENT")
-              .map((a) => (
-                <div key={a.id} className="text-sm fig-msg">
-                  <span className="fig-tag fig-tag-muted mr-2">{a.kind}</span>
-                  {a.statement}
-                </div>
-              ))}
-            <p className="text-xs muted pt-2">
-              Les décisions D6 opposables sont dans Pilotage, pas ici.
-            </p>
-          </section>
-        </div>
+        <ProjectJournal
+          subjects={knowledge?.subjects ?? []}
+          acquis={(knowledge?.acquis ?? []).map((a) => ({ ...a, subjectId: null }))}
+          openPoints={(knowledge?.openPoints ?? []).map((o) => ({ ...o, subjectId: null }))}
+          onBackToThread={() => selectSurface("travail")}
+        />
       ) : null}
 
       <a className="btn secondary inline-block" href="/portfolio">
@@ -1065,3 +949,4 @@ export default function ProjectPage() {
     </ProjectChrome>
   );
 }
+

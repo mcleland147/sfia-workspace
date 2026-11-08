@@ -18,22 +18,28 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   const prepId = prepUrl.split("/preparations/")[1]?.split(/[?#]/)[0];
   expect(prepId).toBeTruthy();
 
-  await page.getByPlaceholder("Écrire à Nora…").fill("G4 correctifs B1-B4");
-  await page.getByRole("button", { name: "Envoyer" }).click();
+  await page.getByTestId("prep-draft").fill("G4 correctifs B1-B4");
+  await page.getByTestId("prep-send").click();
   await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
     timeout: 30000,
   });
 
-  await page.getByPlaceholder("Nom du projet").fill("Projet G4 B");
-  await page.getByPlaceholder("Résumé inspecté").fill("résumé g4");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await page.getByRole("button", { name: "Document", exact: true }).click();
-  await page.locator("textarea").first().fill("# Doc G4\nligne");
+  // Chat-first: no permanent nom/résumé form — constitute then inspect
+  await expect(page.getByPlaceholder("Nom du projet")).toHaveCount(0);
+  await page.getByTestId("prep-constitute").click();
+  await page.getByTestId("prep-proposal-name").fill("Projet G4 B");
+  await page.getByTestId("prep-proposal-summary").fill("résumé g4");
+  await page.getByTestId("prep-proposal-save").click();
+  await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
+
+  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill("# Doc G4\nligne");
   await page.getByTestId("doc-save").click();
   await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByRole("button", { name: "Créer le projet" }).click();
+  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await page.getByTestId("prep-create-project").click();
   await page.waitForURL("**/projects/**", { timeout: 15000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
