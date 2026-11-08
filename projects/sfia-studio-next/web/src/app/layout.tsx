@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
-import { PRODUCT_VERSIONING } from "@/lib/product-version";
+import { StudioShell } from "@/components/shell/StudioShell";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "SFIA Studio",
@@ -9,30 +18,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
-      <body>
-        <div className="min-h-screen flex">
-          <aside
-            className="hidden md:flex flex-col gap-4 p-4 border-r border-[var(--line)]"
-            style={{ width: 246, background: "var(--rail)" }}
-            aria-label="Navigation Studio"
-          >
-            <div>
-              <div className="text-lg font-semibold tracking-tight">SFIA Studio</div>
-              <div className="text-xs muted mt-1">
-                {PRODUCT_VERSIONING.releaseStatus} · STABLE {PRODUCT_VERSIONING.productStableVersion}
-              </div>
+    <html lang="fr" className={inter.variable}>
+      <body className={inter.className}>
+        <Suspense
+          fallback={
+            <div className="min-h-screen flex">
+              <main className="flex-1 p-4 md:p-8">{children}</main>
             </div>
-            <nav className="flex flex-col gap-2 text-sm">
-              <a href="/portfolio">Portefeuille</a>
-              <a href="/login">Connexion</a>
-            </nav>
-            <p className="text-xs muted mt-auto">
-              Nora n&apos;est pas globale. Le login Studio n&apos;accorde aucun droit de dépôt Git.
-            </p>
-          </aside>
-          <main className="flex-1 p-4 md:p-8">{children}</main>
-        </div>
+          }
+        >
+          <StudioShell>{children}</StudioShell>
+        </Suspense>
       </body>
     </html>
   );

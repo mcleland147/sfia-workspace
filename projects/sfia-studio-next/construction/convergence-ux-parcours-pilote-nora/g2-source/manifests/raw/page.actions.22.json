@@ -1,0 +1,428 @@
+{
+  "schema": "sfia-next-g2-raw-extract/v2",
+  "family": "page.actions.22",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "frameId": "125:33",
+  "rootId": "125:97",
+  "rootName": "Actions / principales",
+  "extractRootIds": [
+    "125:97",
+    "125:104"
+  ],
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "extractedAtUtc": "2026-11-07T23:40:59.606Z",
+  "figmaVersion": "NOT AVAILABLE",
+  "nodeCount": 8,
+  "geometry": {
+    "w": 1680,
+    "h": 970
+  },
+  "coordinateConvention": "PLUGIN parent-local; pageAbsolute absoluteBoundingBox; frameRelative vs frame",
+  "rootFrameRelative": {
+    "x": 285,
+    "y": 857,
+    "w": 1320,
+    "h": 51
+  },
+  "nodes": [
+    {
+      "id": "125:97",
+      "n": "Actions / principales",
+      "t": "FRAME",
+      "d": 0,
+      "p": "125:33",
+      "pc": [
+        "125:33"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "parentLocal": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 3177,
+        "w": 1320,
+        "h": 51
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 12,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1
+    },
+    {
+      "id": "125:98",
+      "n": "Bouton / 0",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "125:97",
+      "pc": [
+        "125:33",
+        "125:97"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 3177,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#292d58",
+      "r": 9
+    },
+    {
+      "id": "I125:98;12:15",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 2,
+      "p": "125:98",
+      "pc": [
+        "125:33",
+        "125:97",
+        "125:98"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 298,
+        "y": 3187,
+        "w": 192,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 298,
+        "y": 867,
+        "w": 192,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "lhQualification": {
+        "status": "NATIVE",
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "ch": "Examiner le cycle proposé"
+    },
+    {
+      "id": "125:100",
+      "n": "Bouton / 1",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "125:97",
+      "pc": [
+        "125:33",
+        "125:97"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 230,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 230,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 515,
+        "y": 3177,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 515,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#242b3b",
+      "r": 9
+    },
+    {
+      "id": "I125:100;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 2,
+      "p": "125:100",
+      "pc": [
+        "125:33",
+        "125:97",
+        "125:100"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 528,
+        "y": 3187,
+        "w": 192,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 528,
+        "y": 867,
+        "w": 192,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "lhQualification": {
+        "status": "NATIVE",
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "ch": "Choisir une méthode"
+    },
+    {
+      "id": "125:102",
+      "n": "Bouton / 2",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "125:97",
+      "pc": [
+        "125:33",
+        "125:97"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 460,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 460,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 745,
+        "y": 3177,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 745,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#242b3b",
+      "r": 9
+    },
+    {
+      "id": "I125:102;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 2,
+      "p": "125:102",
+      "pc": [
+        "125:33",
+        "125:97",
+        "125:102"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 758,
+        "y": 3187,
+        "w": 192,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 758,
+        "y": 867,
+        "w": 192,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "lhQualification": {
+        "status": "NATIVE",
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "ch": "Explorer l'architecture"
+    },
+    {
+      "id": "125:104",
+      "n": "Pied / note",
+      "t": "TEXT",
+      "d": 0,
+      "p": "125:33",
+      "pc": [
+        "125:33"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 3251,
+        "w": 1280,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "f": "#8390a9",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO"
+      },
+      "ch": "Projet Atlas  ·  Travail, choix et historique dans le même espace."
+    }
+  ]
+}

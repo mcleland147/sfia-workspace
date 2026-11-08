@@ -1,0 +1,33 @@
+{
+  "family": "negatives-28-32-33-41",
+  "extractedAtUtc": "2026-11-07T18:46:14.216Z",
+  "status": "EQUIVALENT_SHELL",
+  "futureGate": "G5",
+  "note": "Pilotage négative variants — structure-only; PNG coverage via frames 22/24/40",
+  "screens": [
+    {
+      "screen": "28",
+      "frameId": "127:391",
+      "name": "Méthode — aucune retenue",
+      "status": "EQUIVALENT_SHELL"
+    },
+    {
+      "screen": "32",
+      "frameId": "128:124",
+      "name": "Décision — révision",
+      "status": "EQUIVALENT_SHELL"
+    },
+    {
+      "screen": "33",
+      "frameId": "128:195",
+      "name": "Suspension — active",
+      "status": "EQUIVALENT_SHELL"
+    },
+    {
+      "screen": "41",
+      "frameId": "129:144",
+      "name": "Cycle — GO à clarifier",
+      "status": "EQUIVALENT_SHELL"
+    }
+  ]
+}

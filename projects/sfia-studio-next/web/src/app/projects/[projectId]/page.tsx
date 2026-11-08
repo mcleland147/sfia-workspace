@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { PilotagePanel } from "@/components/PilotagePanel";
 import {
@@ -29,6 +29,14 @@ type Knowledge = {
 };
 
 type Surface = "travail" | "pilotage" | "journal" | "document";
+type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
+
+const SURFACES: Surface[] = ["travail", "pilotage", "journal", "document"];
+
+function parseSurface(raw: string | null): Surface | null {
+  if (!raw) return null;
+  return SURFACES.includes(raw as Surface) ? (raw as Surface) : null;
+}
 
 type PilotageEffectView = {
   attempted?: boolean;
@@ -68,13 +76,14 @@ function formatPilotageEffect(
 export default function ProjectPage() {
   const params = useParams<{ projectId: string }>();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [messages, setMessages] = useState<Msg[]>([]);
   const [documents, setDocuments] = useState<Doc[]>([]);
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
   const [preparationId, setPreparationId] = useState<string | null>(null);
   const [meta, setMeta] = useState("Chargement…");
   const [error, setError] = useState("");
-  const [surface, setSurface] = useState<Surface>("travail");
+  const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
@@ -82,8 +91,44 @@ export default function ProjectPage() {
   const [pilotageStatus, setPilotageStatus] = useState("");
   const [decisionSummary, setDecisionSummary] = useState("");
   const [inspect, setInspect] = useState<Doc | null>(null);
+  const [docUi, setDocUi] = useState<DocUiState>("READING");
+  const [reviseDraft, setReviseDraft] = useState("");
+  const [reviseMessage, setReviseMessage] = useState("");
   const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
+  const reviseCorrelationRef = useRef<string | null>(null);
+  const deepLinkAppliedRef = useRef(false);
+
+  function syncSurfaceUrl(next: Surface, documentId?: string | null) {
+    const q = new URLSearchParams();
+    q.set("surface", next);
+    if (next === "document" && documentId) q.set("documentId", documentId);
+    router.replace(`/projects/${params.projectId}?${q.toString()}`, { scroll: false });
+  }
+
+  function selectSurface(next: Surface) {
+    setSurface(next);
+    if (next !== "document") {
+      setInspect(null);
+      setDocUi("READING");
+      setReviseDraft("");
+      setReviseMessage("");
+      reviseCorrelationRef.current = null;
+      syncSurfaceUrl(next);
+    } else {
+      syncSurfaceUrl(next, inspect?.document.id ?? null);
+    }
+  }
+
+  function openDocumentReadOnly(doc: Doc) {
+    setInspect(doc);
+    setDocUi("READING");
+    setReviseDraft(doc.latestRevision?.contentMarkdown ?? "");
+    setReviseMessage("");
+    reviseCorrelationRef.current = null;
+    setSurface("document");
+    syncSurfaceUrl("document", doc.document.id);
+  }
 
   function rememberPending(pending: ThreadPendingTurn | null) {
     if (typeof sessionStorage === "undefined") return;
@@ -244,14 +289,33 @@ export default function ProjectPage() {
         return;
       }
       const j = await res.json();
+      const docs = (j.documents ?? []) as Doc[];
       setMessages(j.messages ?? []);
-      setDocuments(j.documents ?? []);
+      setDocuments(docs);
       setKnowledge(j.knowledge ?? null);
       setPreparationId(j.preparation?.id ?? null);
       setMeta(
         `Même fil · préparation ${j.preparation?.id ?? "liée"} · conversation ${j.conversation?.id ?? "—"} · réouverture par projectId`,
       );
       setError("");
+
+      // A2 deep-link: open inspection read-only; no mutation on open/refresh/back.
+      if (!deepLinkAppliedRef.current) {
+        deepLinkAppliedRef.current = true;
+        const qSurface = parseSurface(searchParams.get("surface"));
+        const qDocId = searchParams.get("documentId");
+        if (qSurface) setSurface(qSurface);
+        if (qSurface === "document" && qDocId) {
+          const match = docs.find((d) => d.document.id === qDocId);
+          if (match) {
+            setInspect(match);
+            setDocUi("READING");
+            setReviseDraft(match.latestRevision?.contentMarkdown ?? "");
+          }
+          // Foreign/unknown documentId: stay on document surface, no unauthorized open.
+        }
+      }
+
       await refreshDurablePilotage();
       const pending = readPending();
       if (pending) {
@@ -268,6 +332,73 @@ export default function ProjectPage() {
     void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.projectId, router]);
+
+  async function saveRevision() {
+    if (!preparationId || !inspect?.latestRevision) return;
+    if (!reviseCorrelationRef.current) {
+      reviseCorrelationRef.current =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? `rev-${crypto.randomUUID()}`
+          : `rev-${Date.now()}`;
+    }
+    const correlationKey = reviseCorrelationRef.current;
+    setDocUi("SAVING");
+    setReviseMessage("");
+    try {
+      const res = await fetch(
+        `/api/preparations/${preparationId}/documents/${inspect.document.id}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "revise",
+            baseRevisionId: inspect.latestRevision.id,
+            contentMarkdown: reviseDraft,
+            correlationKey,
+          }),
+        },
+      );
+      const j = await res.json().catch(() => ({}));
+      if (res.status === 409) {
+        setDocUi("CONFLICT");
+        setReviseMessage(
+          String(j.reason ?? j.error ?? "BASE_STALE") +
+            " — relire la version récente avant de choisir.",
+        );
+        const proj = await fetch(`/api/projects/${params.projectId}`);
+        if (proj.ok) {
+          const pj = await proj.json();
+          const docs = (pj.documents ?? []) as Doc[];
+          setDocuments(docs);
+          const fresh = docs.find((d) => d.document.id === inspect.document.id);
+          if (fresh) setInspect(fresh);
+        }
+        return;
+      }
+      if (!res.ok) {
+        setDocUi(res.status === 401 ? "FAILED" : "UNKNOWN");
+        setReviseMessage(String(j.error ?? j.errorCategory ?? "échec révision"));
+        return;
+      }
+      const proj = await fetch(`/api/projects/${params.projectId}`);
+      if (proj.ok) {
+        const pj = await proj.json();
+        const docs = (pj.documents ?? []) as Doc[];
+        setDocuments(docs);
+        const fresh = docs.find((d) => d.document.id === inspect.document.id);
+        if (fresh) {
+          setInspect(fresh);
+          setReviseDraft(fresh.latestRevision?.contentMarkdown ?? reviseDraft);
+        }
+      }
+      reviseCorrelationRef.current = null;
+      setDocUi("READING");
+      setReviseMessage("Révision enregistrée.");
+    } catch {
+      setDocUi("UNKNOWN");
+      setReviseMessage("ACK perdu — même correlationKey conservée pour retry.");
+    }
+  }
 
   async function sendMessage() {
     if (!draft.trim() || !preparationId) return;
@@ -383,7 +514,8 @@ export default function ProjectPage() {
               key={id}
               type="button"
               className={`btn ${surface === id ? "" : "secondary"}`}
-              onClick={() => setSurface(id)}
+              onClick={() => selectSurface(id)}
+              data-testid={`surface-${id}`}
             >
               {label}
             </button>
@@ -500,8 +632,11 @@ export default function ProjectPage() {
               <button
                 key={d.document.id}
                 type="button"
-                className="panel p-3 text-left w-full"
-                onClick={() => setInspect(d)}
+                className={`panel p-3 text-left w-full ${
+                  inspect?.document.id === d.document.id ? "ring-1 ring-[var(--accent)]" : ""
+                }`}
+                onClick={() => openDocumentReadOnly(d)}
+                data-testid={`doc-open-${d.document.id}`}
               >
                 <div className="text-xs muted mb-1">
                   {d.document.title} · {d.document.id} · v{d.latestRevision?.revisionNumber ?? "?"} ·{" "}
@@ -516,18 +651,91 @@ export default function ProjectPage() {
               <p className="text-sm muted">Aucun document D4 pour ce projet.</p>
             ) : null}
           </section>
-          <section className="panel p-4 space-y-2">
-            <h2 className="font-medium">Inspection</h2>
+          <section className="panel p-4 space-y-2" data-testid="document-inspect">
+            <h2 className="font-medium">
+              {docUi === "EDITING" || docUi === "SAVING" || docUi === "CONFLICT"
+                ? "Révision"
+                : "Inspection"}
+            </h2>
+            <p className="text-xs muted" data-testid="document-ui-state">
+              État: {docUi}
+            </p>
             {inspect?.latestRevision ? (
               <>
                 <p className="text-xs muted">
                   {inspect.document.id} · v{inspect.latestRevision.revisionNumber} ·{" "}
                   {inspect.latestRevision.status}
                 </p>
-                <SafeMarkdown content={inspect.latestRevision.contentMarkdown} />
-                <button type="button" className="btn secondary" onClick={() => setInspect(null)}>
-                  Retour au fil
-                </button>
+                {docUi === "EDITING" || docUi === "SAVING" || docUi === "CONFLICT" || docUi === "UNKNOWN" ? (
+                  <>
+                    <textarea
+                      className="textarea"
+                      value={reviseDraft}
+                      onChange={(e) => setReviseDraft(e.target.value)}
+                      disabled={docUi === "SAVING"}
+                      aria-label="Contenu markdown à réviser"
+                      data-testid="document-revise-draft"
+                    />
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        className="btn"
+                        disabled={docUi === "SAVING"}
+                        data-testid="document-revise-save"
+                        onClick={() => void saveRevision()}
+                      >
+                        {docUi === "SAVING" ? "Enregistrement…" : "Enregistrer la révision"}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn secondary"
+                        disabled={docUi === "SAVING"}
+                        onClick={() => {
+                          setDocUi("READING");
+                          setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
+                          setReviseMessage("");
+                          reviseCorrelationRef.current = null;
+                        }}
+                      >
+                        Annuler
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <SafeMarkdown content={inspect.latestRevision.contentMarkdown} />
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        className="btn"
+                        data-testid="document-revise-start"
+                        onClick={() => {
+                          setDocUi("EDITING");
+                          setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
+                          reviseCorrelationRef.current = null;
+                        }}
+                      >
+                        Réviser
+                      </button>
+                      <button
+                        type="button"
+                        className="btn secondary"
+                        onClick={() => {
+                          setInspect(null);
+                          setDocUi("READING");
+                          selectSurface("travail");
+                        }}
+                      >
+                        Retour au fil
+                      </button>
+                    </div>
+                  </>
+                )}
+                {reviseMessage ? (
+                  <p className="text-xs muted" data-testid="document-revise-message">
+                    {reviseMessage}
+                  </p>
+                ) : null}
               </>
             ) : (
               <p className="text-sm muted">Sélectionner un document pour inspecter.</p>

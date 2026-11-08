@@ -1,0 +1,230 @@
+{
+  "schema": "sfia-next-g2-raw-extract/v2",
+  "family": "deltas-nora-206-208",
+  "extractedAtUtc": "2026-11-07T21:28:22.883Z",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "figmaSessionId": "16cad203-91e2-4cb1-b66d-55799ac79e01",
+  "baseline03WorkzoneId": "94:249",
+  "referenceFrame03": "94:214",
+  "baseline03": {
+    "screen": "03",
+    "frameId": "94:214",
+    "frameTitle": "03 · Nora — conversation longue / en lecture",
+    "textCount": 74,
+    "rootFrameRelative": { "x": 240, "y": 0, "w": 1440, "h": 970 },
+    "messageNoraComposition": {
+      "id": "94:262",
+      "n": "Message Nora / COMPOSITION UNIQUE",
+      "visible": true,
+      "parentLocal": { "x": 0, "y": 156, "w": 938, "h": 1040 },
+      "frameRelative": { "x": 272, "y": 258, "w": 938, "h": 1040 }
+    },
+    "composerPlaceholder": {
+      "id": "94:351",
+      "t": "TEXT",
+      "ch": "Écrire à Nora…",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fs": 13,
+      "fw": 400,
+      "f": "#94a2bb",
+      "parentLocal": { "x": 13, "y": 13, "w": 894, "h": 18 },
+      "frameRelative": { "x": 285, "y": 847, "w": 894, "h": 18 },
+      "pageAbsolute": { "x": 3825, "y": 847, "w": 894, "h": 18 }
+    }
+  },
+  "shellAssessment": "EQUIVALENT_SHELL — F1 rail 240px + workzone 1440×970 isomorphic to screen 03",
+  "contentStateAssessment": "DISCRIMINATIVE — 206–208 replace full Nora composition with Suivi de travail; status copy + visibility differ (native L2)",
+  "microStates": [
+    {
+      "screen": "206",
+      "frameId": "281:389",
+      "frameTitle": "206 · Nora — analyse engagée",
+      "workzoneId": "281:424",
+      "rootFrameRelative": { "x": 240, "y": 0, "w": 1440, "h": 970 },
+      "textCount": 34,
+      "textCountVs03": -40,
+      "contentState": "DISCRIMINATIVE_NATIVE_L2",
+      "visibilityDelta": {
+        "messageNoraComposition03Visible": true,
+        "messageNoraCompositionMicroVisible": false,
+        "messageNoraCompositionMicroId": "281:437",
+        "suiviTravailNoraVisible": true,
+        "suiviTravailNoraId": "281:547"
+      },
+      "changingNodes": [
+        {
+          "id": "281:549",
+          "t": "TEXT",
+          "n": "✦ Nora · Analyse en cours",
+          "ch": "✦  Nora · Analyse en cours",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 15,
+          "fw": 600,
+          "f": "#7ab0fa",
+          "parentLocal": { "x": 0, "y": 0, "w": 860, "h": 18 },
+          "frameRelative": { "x": 290, "y": 276, "w": 860, "h": 18 },
+          "pageAbsolute": { "x": 290, "y": 77676, "w": 860, "h": 18 }
+        },
+        {
+          "id": "281:550",
+          "t": "TEXT",
+          "ch": "Nora examine votre demande et les éléments utiles.",
+          "ff": "Inter",
+          "fst": "Regular",
+          "fs": 13,
+          "fw": 400,
+          "f": "#b0c2de",
+          "parentLocal": { "x": 18, "y": 49, "w": 891, "h": 16 },
+          "frameRelative": { "x": 290, "y": 307, "w": 891, "h": 16 },
+          "pageAbsolute": { "x": 290, "y": 77707, "w": 891, "h": 16 }
+        },
+        {
+          "id": "281:557",
+          "t": "TEXT",
+          "ch": "Consultation des éléments disponibles",
+          "ff": "Inter",
+          "fst": "Medium",
+          "fs": 12,
+          "fw": 500,
+          "f": "#edf2fc",
+          "parentLocal": { "x": 40, "y": 10, "w": 545, "h": 15 },
+          "frameRelative": { "x": 330, "y": 396, "w": 545, "h": 15 },
+          "pageAbsolute": { "x": 330, "y": 77796, "w": 545, "h": 15 }
+        },
+        {
+          "id": "281:554",
+          "t": "TEXT",
+          "ch": "En cours",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 11,
+          "fw": 600,
+          "f": "#b0c2de",
+          "parentLocal": { "x": 592, "y": 10, "w": 285, "h": 13 },
+          "frameRelative": { "x": 882, "y": 346, "w": 285, "h": 13 },
+          "pageAbsolute": { "x": 882, "y": 77746, "w": 285, "h": 13 }
+        }
+      ]
+    },
+    {
+      "screen": "207",
+      "frameId": "281:570",
+      "frameTitle": "207 · Nora — source consultée",
+      "workzoneId": "281:605",
+      "rootFrameRelative": { "x": 240, "y": 0, "w": 1440, "h": 970 },
+      "textCount": 34,
+      "textCountVs03": -40,
+      "contentState": "DISCRIMINATIVE_NATIVE_L2",
+      "visibilityDelta": {
+        "messageNoraComposition03Visible": true,
+        "messageNoraCompositionMicroVisible": false,
+        "messageNoraCompositionMicroId": "281:618",
+        "suiviTravailNoraVisible": true,
+        "suiviTravailNoraId": "281:728"
+      },
+      "changingNodes": [
+        {
+          "id": "281:730",
+          "t": "TEXT",
+          "ch": "✦  Nora · Source consultée",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 15,
+          "fw": 600,
+          "f": "#7ab0fa",
+          "parentLocal": { "x": 0, "y": 0, "w": 860, "h": 18 },
+          "frameRelative": { "x": 290, "y": 276, "w": 860, "h": 18 },
+          "pageAbsolute": { "x": 2060, "y": 77676, "w": 860, "h": 18 }
+        },
+        {
+          "id": "281:731",
+          "t": "TEXT",
+          "ch": "Une lecture de source autorisée a été confirmée.",
+          "ff": "Inter",
+          "fst": "Regular",
+          "fs": 13,
+          "fw": 400,
+          "f": "#b0c2de",
+          "parentLocal": { "x": 18, "y": 49, "w": 891, "h": 16 },
+          "frameRelative": { "x": 290, "y": 307, "w": 891, "h": 16 },
+          "pageAbsolute": { "x": 2060, "y": 77707, "w": 891, "h": 16 }
+        }
+      ]
+    },
+    {
+      "screen": "208",
+      "frameId": "281:751",
+      "frameTitle": "208 · Nora — traitement sans détail",
+      "workzoneId": "281:786",
+      "rootFrameRelative": { "x": 240, "y": 0, "w": 1440, "h": 970 },
+      "textCount": 34,
+      "textCountVs03": -40,
+      "contentState": "DISCRIMINATIVE_NATIVE_L2",
+      "visibilityDelta": {
+        "messageNoraComposition03Visible": true,
+        "messageNoraCompositionMicroVisible": false,
+        "messageNoraCompositionMicroId": "281:799",
+        "suiviTravailNoraVisible": true,
+        "suiviTravailNoraId": "281:909"
+      },
+      "changingNodes": [
+        {
+          "id": "281:911",
+          "t": "TEXT",
+          "ch": "✦  Nora · Travail en cours",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 15,
+          "fw": 600,
+          "f": "#7ab0fa",
+          "parentLocal": { "x": 0, "y": 0, "w": 860, "h": 18 },
+          "frameRelative": { "x": 290, "y": 276, "w": 860, "h": 18 },
+          "pageAbsolute": { "x": 3830, "y": 77676, "w": 860, "h": 18 }
+        },
+        {
+          "id": "281:912",
+          "t": "TEXT",
+          "ch": "Nora prépare une réponse ; le détail de ses opérations n'est pas disponible.",
+          "ff": "Inter",
+          "fst": "Regular",
+          "fs": 13,
+          "fw": 400,
+          "f": "#b0c2de",
+          "parentLocal": { "x": 18, "y": 49, "w": 891, "h": 16 },
+          "frameRelative": { "x": 290, "y": 307, "w": 891, "h": 16 },
+          "pageAbsolute": { "x": 3830, "y": 77707, "w": 891, "h": 16 }
+        },
+        {
+          "id": "281:919",
+          "t": "TEXT",
+          "ch": "Traitement de la demande",
+          "ff": "Inter",
+          "fst": "Medium",
+          "fs": 12,
+          "fw": 500,
+          "f": "#edf2fc",
+          "parentLocal": { "x": 40, "y": 10, "w": 545, "h": 15 },
+          "frameRelative": { "x": 330, "y": 396, "w": 545, "h": 15 },
+          "pageAbsolute": { "x": 3870, "y": 77796, "w": 545, "h": 15 }
+        },
+        {
+          "id": "281:920",
+          "t": "TEXT",
+          "ch": "En cours · détail indisponible",
+          "ff": "Inter",
+          "fst": "Semi Bold",
+          "fs": 11,
+          "fw": 600,
+          "f": "#b0c2de",
+          "parentLocal": { "x": 592, "y": 10, "w": 285, "h": 13 },
+          "frameRelative": { "x": 882, "y": 396, "w": 285, "h": 13 },
+          "pageAbsolute": { "x": 4422, "y": 77796, "w": 285, "h": 13 }
+        }
+      ]
+    }
+  ]
+}

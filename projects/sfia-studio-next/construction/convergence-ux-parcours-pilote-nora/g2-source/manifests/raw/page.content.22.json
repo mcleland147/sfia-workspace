@@ -1,0 +1,1637 @@
+{
+  "schema": "sfia-next-g2-raw-extract/v2",
+  "family": "page.content.22",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "frameId": "125:33",
+  "rootId": "125:69",
+  "rootName": "Contenu / colonnes",
+  "extractRootIds": [
+    "125:65",
+    "125:69"
+  ],
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "extractedAtUtc": "2026-11-07T22:41:22.577Z",
+  "figmaVersion": "NOT AVAILABLE",
+  "nodeCount": 32,
+  "geometry": {
+    "w": 1330,
+    "h": 585
+  },
+  "coordinateConvention": "PLUGIN parent-local; pageAbsolute absoluteBoundingBox; frameRelative vs frame",
+  "rootFrameRelative": {
+    "x": 285,
+    "y": 254,
+    "w": 1330,
+    "h": 585
+  },
+  "nodes": [
+    {
+      "id": "125:65",
+      "n": "En-tête de page",
+      "t": "FRAME",
+      "d": null,
+      "p": "125:33",
+      "pc": [
+        "125:33"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 285,
+        "y": 98,
+        "w": 1320,
+        "h": 135
+      },
+      "parentLocal": {
+        "x": 285,
+        "y": 98,
+        "w": 1320,
+        "h": 135
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 2418,
+        "w": 1320,
+        "h": 135
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 98,
+        "w": 1320,
+        "h": 135
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 9,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1
+    },
+    {
+      "id": "125:66",
+      "n": "Titre / statut",
+      "t": "TEXT",
+      "d": null,
+      "p": "125:65",
+      "pc": [
+        "125:33",
+        "125:65"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1250,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 1250,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 2418,
+        "w": 1250,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 98,
+        "w": 1250,
+        "h": 15
+      },
+      "f": "#aba0ff",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "ch": "AUCUN CYCLE ACTIF",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:67",
+      "n": "Titre / principal",
+      "t": "TEXT",
+      "d": null,
+      "p": "125:65",
+      "pc": [
+        "125:33",
+        "125:65"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 0,
+        "y": 24,
+        "w": 1250,
+        "h": 39
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 24,
+        "w": 1250,
+        "h": 39
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 2442,
+        "w": 1250,
+        "h": 39
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 122,
+        "w": 1250,
+        "h": 39
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 32,
+      "ta": "LEFT",
+      "ch": "Trajectoire du projet",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:68",
+      "n": "Titre / description",
+      "t": "TEXT",
+      "d": null,
+      "p": "125:65",
+      "pc": [
+        "125:33",
+        "125:65"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 0,
+        "y": 72,
+        "w": 1250,
+        "h": 19
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 72,
+        "w": 1250,
+        "h": 19
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 2490,
+        "w": 1250,
+        "h": 19
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 170,
+        "w": 1250,
+        "h": 19
+      },
+      "f": "#b0bcd0",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 16,
+      "ta": "LEFT",
+      "ch": "L'état réel et les étapes envisagées restent distingués.",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:69",
+      "n": "Contenu / colonnes",
+      "t": "FRAME",
+      "d": 0,
+      "p": "125:33",
+      "pc": [
+        "125:33"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 285,
+        "y": 254,
+        "w": 1330,
+        "h": 585
+      },
+      "parentLocal": {
+        "x": 285,
+        "y": 254,
+        "w": 1330,
+        "h": 585
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 2574,
+        "w": 1330,
+        "h": 585
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 254,
+        "w": 1330,
+        "h": 585
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 20,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1
+    },
+    {
+      "id": "125:70",
+      "n": "Panneau / left",
+      "t": "FRAME",
+      "d": 1,
+      "p": "125:69",
+      "pc": [
+        "125:33",
+        "125:69"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 800,
+        "h": 585
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 800,
+        "h": 585
+      },
+      "pageAbsolute": {
+        "x": 285,
+        "y": 2574,
+        "w": 800,
+        "h": 585
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 254,
+        "w": 800,
+        "h": 585
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 12,
+      "pad": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "clips": 1,
+      "r": 12,
+      "f": "#151d2c"
+    },
+    {
+      "id": "125:71",
+      "n": "Panneau / titre left",
+      "t": "TEXT",
+      "d": 2,
+      "p": "125:70",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 19,
+        "w": 760,
+        "h": 24
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 19,
+        "w": 760,
+        "h": 24
+      },
+      "pageAbsolute": {
+        "x": 304,
+        "y": 2593,
+        "w": 760,
+        "h": 24
+      },
+      "frameRelative": {
+        "x": 304,
+        "y": 273,
+        "w": 760,
+        "h": 24
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 20,
+      "ta": "LEFT",
+      "ch": "Parcours envisagé",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:72",
+      "n": "Rectangle",
+      "t": "RECTANGLE",
+      "d": 2,
+      "p": "125:70",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 55,
+        "w": 760,
+        "h": 1
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 55,
+        "w": 760,
+        "h": 1
+      },
+      "pageAbsolute": {
+        "x": 304,
+        "y": 2629,
+        "w": 760,
+        "h": 1
+      },
+      "frameRelative": {
+        "x": 304,
+        "y": 309,
+        "w": 760,
+        "h": 1
+      }
+    },
+    {
+      "id": "125:73",
+      "n": "Élément / left / 0",
+      "t": "FRAME",
+      "d": 2,
+      "p": "125:70",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 68,
+        "w": 762,
+        "h": 77
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 68,
+        "w": 762,
+        "h": 77
+      },
+      "pageAbsolute": {
+        "x": 304,
+        "y": 2642,
+        "w": 762,
+        "h": 77
+      },
+      "frameRelative": {
+        "x": 304,
+        "y": 322,
+        "w": 762,
+        "h": 77
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#1b2538"
+    },
+    {
+      "id": "125:74",
+      "n": "Élément / titre left / 0",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:73",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70",
+        "125:73"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 12,
+        "w": 736,
+        "h": 17
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 12,
+        "w": 736,
+        "h": 17
+      },
+      "pageAbsolute": {
+        "x": 316,
+        "y": 2654,
+        "w": 736,
+        "h": 17
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 334,
+        "w": 736,
+        "h": 17
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 14,
+      "ta": "LEFT",
+      "ch": "Cadrage",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:75",
+      "n": "Élément / détail left / 0",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:73",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70",
+        "125:73"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 33,
+        "w": 736,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 33,
+        "w": 736,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 316,
+        "y": 2675,
+        "w": 736,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 355,
+        "w": 736,
+        "h": 15
+      },
+      "f": "#b0bcd0",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "ch": "Acquis utiles conservés.",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:76",
+      "n": "Élément / left / 1",
+      "t": "FRAME",
+      "d": 2,
+      "p": "125:70",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 157,
+        "w": 762,
+        "h": 77
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 157,
+        "w": 762,
+        "h": 77
+      },
+      "pageAbsolute": {
+        "x": 304,
+        "y": 2731,
+        "w": 762,
+        "h": 77
+      },
+      "frameRelative": {
+        "x": 304,
+        "y": 411,
+        "w": 762,
+        "h": 77
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#1b2538"
+    },
+    {
+      "id": "125:77",
+      "n": "Élément / titre left / 1",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:76",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70",
+        "125:76"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 12,
+        "w": 736,
+        "h": 17
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 12,
+        "w": 736,
+        "h": 17
+      },
+      "pageAbsolute": {
+        "x": 316,
+        "y": 2743,
+        "w": 736,
+        "h": 17
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 423,
+        "w": 736,
+        "h": 17
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 14,
+      "ta": "LEFT",
+      "ch": "Conception des parcours",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:78",
+      "n": "Élément / détail left / 1",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:76",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70",
+        "125:76"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 33,
+        "w": 736,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 33,
+        "w": 736,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 316,
+        "y": 2764,
+        "w": 736,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 444,
+        "w": 736,
+        "h": 15
+      },
+      "f": "#b0bcd0",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "ch": "Proposée, non ouverte.",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:79",
+      "n": "Élément / left / 2",
+      "t": "FRAME",
+      "d": 2,
+      "p": "125:70",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 246,
+        "w": 762,
+        "h": 77
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 246,
+        "w": 762,
+        "h": 77
+      },
+      "pageAbsolute": {
+        "x": 304,
+        "y": 2820,
+        "w": 762,
+        "h": 77
+      },
+      "frameRelative": {
+        "x": 304,
+        "y": 500,
+        "w": 762,
+        "h": 77
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#1b2538"
+    },
+    {
+      "id": "125:80",
+      "n": "Élément / titre left / 2",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:79",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70",
+        "125:79"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 12,
+        "w": 736,
+        "h": 17
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 12,
+        "w": 736,
+        "h": 17
+      },
+      "pageAbsolute": {
+        "x": 316,
+        "y": 2832,
+        "w": 736,
+        "h": 17
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 512,
+        "w": 736,
+        "h": 17
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 14,
+      "ta": "LEFT",
+      "ch": "Architecture technique",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:81",
+      "n": "Élément / détail left / 2",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:79",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70",
+        "125:79"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 33,
+        "w": 736,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 33,
+        "w": 736,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 316,
+        "y": 2853,
+        "w": 736,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 533,
+        "w": 736,
+        "h": 15
+      },
+      "f": "#b0bcd0",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "ch": "Étape possible à qualifier.",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:82",
+      "n": "Élément / left / 3",
+      "t": "FRAME",
+      "d": 2,
+      "p": "125:70",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 335,
+        "w": 762,
+        "h": 77
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 335,
+        "w": 762,
+        "h": 77
+      },
+      "pageAbsolute": {
+        "x": 304,
+        "y": 2909,
+        "w": 762,
+        "h": 77
+      },
+      "frameRelative": {
+        "x": 304,
+        "y": 589,
+        "w": 762,
+        "h": 77
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#1b2538"
+    },
+    {
+      "id": "125:83",
+      "n": "Élément / titre left / 3",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:82",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70",
+        "125:82"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 12,
+        "w": 736,
+        "h": 17
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 12,
+        "w": 736,
+        "h": 17
+      },
+      "pageAbsolute": {
+        "x": 316,
+        "y": 2921,
+        "w": 736,
+        "h": 17
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 601,
+        "w": 736,
+        "h": 17
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 14,
+      "ta": "LEFT",
+      "ch": "Dépendances",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:84",
+      "n": "Élément / détail left / 3",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:82",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:70",
+        "125:82"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 33,
+        "w": 736,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 33,
+        "w": 736,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 316,
+        "y": 2942,
+        "w": 736,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 316,
+        "y": 622,
+        "w": 736,
+        "h": 15
+      },
+      "f": "#b0bcd0",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "ch": "À justifier selon les contraintes réelles.",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:85",
+      "n": "Panneau / right",
+      "t": "FRAME",
+      "d": 1,
+      "p": "125:69",
+      "pc": [
+        "125:33",
+        "125:69"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 820,
+        "y": 0,
+        "w": 510,
+        "h": 585
+      },
+      "parentLocal": {
+        "x": 820,
+        "y": 0,
+        "w": 510,
+        "h": 585
+      },
+      "pageAbsolute": {
+        "x": 1105,
+        "y": 2574,
+        "w": 510,
+        "h": 585
+      },
+      "frameRelative": {
+        "x": 1105,
+        "y": 254,
+        "w": 510,
+        "h": 585
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 12,
+      "pad": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "clips": 1,
+      "r": 12,
+      "f": "#151d2c"
+    },
+    {
+      "id": "125:86",
+      "n": "Panneau / titre right",
+      "t": "TEXT",
+      "d": 2,
+      "p": "125:85",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 19,
+        "w": 470,
+        "h": 24
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 19,
+        "w": 470,
+        "h": 24
+      },
+      "pageAbsolute": {
+        "x": 1124,
+        "y": 2593,
+        "w": 470,
+        "h": 24
+      },
+      "frameRelative": {
+        "x": 1124,
+        "y": 273,
+        "w": 470,
+        "h": 24
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 20,
+      "ta": "LEFT",
+      "ch": "Pour avancer",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:87",
+      "n": "Rectangle",
+      "t": "RECTANGLE",
+      "d": 2,
+      "p": "125:85",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 55,
+        "w": 470,
+        "h": 1
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 55,
+        "w": 470,
+        "h": 1
+      },
+      "pageAbsolute": {
+        "x": 1124,
+        "y": 2629,
+        "w": 470,
+        "h": 1
+      },
+      "frameRelative": {
+        "x": 1124,
+        "y": 309,
+        "w": 470,
+        "h": 1
+      }
+    },
+    {
+      "id": "125:88",
+      "n": "Élément / right / 0",
+      "t": "FRAME",
+      "d": 2,
+      "p": "125:85",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 68,
+        "w": 472,
+        "h": 77
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 68,
+        "w": 472,
+        "h": 77
+      },
+      "pageAbsolute": {
+        "x": 1124,
+        "y": 2642,
+        "w": 472,
+        "h": 77
+      },
+      "frameRelative": {
+        "x": 1124,
+        "y": 322,
+        "w": 472,
+        "h": 77
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#1b2538"
+    },
+    {
+      "id": "125:89",
+      "n": "Élément / titre right / 0",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:88",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85",
+        "125:88"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 12,
+        "w": 446,
+        "h": 17
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 12,
+        "w": 446,
+        "h": 17
+      },
+      "pageAbsolute": {
+        "x": 1136,
+        "y": 2654,
+        "w": 446,
+        "h": 17
+      },
+      "frameRelative": {
+        "x": 1136,
+        "y": 334,
+        "w": 446,
+        "h": 17
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 14,
+      "ta": "LEFT",
+      "ch": "Aujourd'hui",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:90",
+      "n": "Élément / détail right / 0",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:88",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85",
+        "125:88"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 33,
+        "w": 446,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 33,
+        "w": 446,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 1136,
+        "y": 2675,
+        "w": 446,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 1136,
+        "y": 355,
+        "w": 446,
+        "h": 15
+      },
+      "f": "#b0bcd0",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "ch": "Aucun cycle actif, Nora reste disponible.",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:91",
+      "n": "Élément / right / 1",
+      "t": "FRAME",
+      "d": 2,
+      "p": "125:85",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 157,
+        "w": 472,
+        "h": 77
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 157,
+        "w": 472,
+        "h": 77
+      },
+      "pageAbsolute": {
+        "x": 1124,
+        "y": 2731,
+        "w": 472,
+        "h": 77
+      },
+      "frameRelative": {
+        "x": 1124,
+        "y": 411,
+        "w": 472,
+        "h": 77
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#1b2538"
+    },
+    {
+      "id": "125:92",
+      "n": "Élément / titre right / 1",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:91",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85",
+        "125:91"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 12,
+        "w": 446,
+        "h": 17
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 12,
+        "w": 446,
+        "h": 17
+      },
+      "pageAbsolute": {
+        "x": 1136,
+        "y": 2743,
+        "w": 446,
+        "h": 17
+      },
+      "frameRelative": {
+        "x": 1136,
+        "y": 423,
+        "w": 446,
+        "h": 17
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 14,
+      "ta": "LEFT",
+      "ch": "Prochaine étape",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:93",
+      "n": "Élément / détail right / 1",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:91",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85",
+        "125:91"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 33,
+        "w": 446,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 33,
+        "w": 446,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 1136,
+        "y": 2764,
+        "w": 446,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 1136,
+        "y": 444,
+        "w": 446,
+        "h": 15
+      },
+      "f": "#b0bcd0",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "ch": "Conception des parcours à examiner.",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:94",
+      "n": "Élément / right / 2",
+      "t": "FRAME",
+      "d": 2,
+      "p": "125:85",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 19,
+        "y": 246,
+        "w": 472,
+        "h": 77
+      },
+      "parentLocal": {
+        "x": 19,
+        "y": 246,
+        "w": 472,
+        "h": 77
+      },
+      "pageAbsolute": {
+        "x": 1124,
+        "y": 2820,
+        "w": 472,
+        "h": 77
+      },
+      "frameRelative": {
+        "x": 1124,
+        "y": 500,
+        "w": 472,
+        "h": 77
+      },
+      "lm": "VERTICAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 4,
+      "pad": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "clips": 1,
+      "r": 8,
+      "f": "#1b2538"
+    },
+    {
+      "id": "125:95",
+      "n": "Élément / titre right / 2",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:94",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85",
+        "125:94"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 12,
+        "w": 446,
+        "h": 17
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 12,
+        "w": 446,
+        "h": 17
+      },
+      "pageAbsolute": {
+        "x": 1136,
+        "y": 2832,
+        "w": 446,
+        "h": 17
+      },
+      "frameRelative": {
+        "x": 1136,
+        "y": 512,
+        "w": 446,
+        "h": 17
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 14,
+      "ta": "LEFT",
+      "ch": "Méthode",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    },
+    {
+      "id": "125:96",
+      "n": "Élément / détail right / 2",
+      "t": "TEXT",
+      "d": 3,
+      "p": "125:94",
+      "pc": [
+        "125:33",
+        "125:69",
+        "125:85",
+        "125:94"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 12,
+        "y": 33,
+        "w": 446,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 12,
+        "y": 33,
+        "w": 446,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 1136,
+        "y": 2853,
+        "w": 446,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 1136,
+        "y": 533,
+        "w": 446,
+        "h": 15
+      },
+      "f": "#b0bcd0",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "ch": "Aucune retenue automatiquement.",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO",
+        "provenance": "figma.lineHeight.unit=AUTO"
+      }
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "schema": "sfia-next-g2-coverage/v1",
+  "cu": {
+    "CU-01": [],
+    "CU-02": [
+      "94:50",
+      "158:264",
+      "158:336",
+      "158:912"
+    ],
+    "CU-03": [
+      "158:264",
+      "158:336",
+      "158:912",
+      "159:145"
+    ],
+    "CU-04": [
+      "94:135",
+      "94:214",
+      "159:145",
+      "161:216",
+      "161:288"
+    ],
+    "CU-05": [
+      "94:135",
+      "94:214",
+      "161:216",
+      "161:288"
+    ],
+    "CU-06": [
+      "94:214",
+      "161:288"
+    ],
+    "CU-07": [
+      "94:370",
+      "97:359",
+      "160:175",
+      "160:391",
+      "241:385"
+    ],
+    "CU-08": [
+      "94:515"
+    ],
+    "CU-09": [
+      "94:50",
+      "94:214",
+      "94:370",
+      "160:175"
+    ],
+    "CU-10": [
+      "125:33",
+      "127:106"
+    ],
+    "CU-11": [
+      "125:33",
+      "127:106"
+    ],
+    "CU-12": [
+      "127:106",
+      "129:72"
+    ],
+    "CU-13": [
+      "129:72"
+    ],
+    "CU-14": [
+      "94:370",
+      "97:359",
+      "160:391",
+      "241:385",
+      "282:492"
+    ],
+    "CU-15": [
+      "94:50",
+      "282:468",
+      "282:492"
+    ],
+    "CU-16": [
+      "282:468",
+      "282:492"
+    ]
+  },
+  "uxc": {
+    "UXC-01": [],
+    "UXC-02": [
+      "94:50",
+      "158:264",
+      "158:336",
+      "158:912"
+    ],
+    "UXC-03": [
+      "94:135",
+      "94:214",
+      "159:145",
+      "161:216",
+      "161:288"
+    ],
+    "UXC-04": [
+      "94:135",
+      "94:214",
+      "161:216"
+    ],
+    "UXC-05": [
+      "94:214",
+      "161:288"
+    ],
+    "UXC-06": [
+      "94:370",
+      "97:359",
+      "160:175",
+      "160:391",
+      "241:385"
+    ],
+    "UXC-07": [
+      "94:515"
+    ],
+    "UXC-08": [
+      "125:33",
+      "127:106"
+    ],
+    "UXC-09": [
+      "127:106",
+      "129:72"
+    ],
+    "UXC-10": [
+      "129:72"
+    ],
+    "UXC-11": [
+      "97:359",
+      "158:264",
+      "158:912",
+      "160:391",
+      "282:492"
+    ],
+    "UXC-12": [
+      "158:336",
+      "159:145",
+      "241:385"
+    ],
+    "UXC-13": [
+      "94:50",
+      "94:214",
+      "94:370",
+      "160:175",
+      "282:468",
+      "282:492"
+    ],
+    "UXC-14": [
+      "282:468",
+      "282:492"
+    ]
+  },
+  "f1Complete": true,
+  "pngCount": 20,
+  "exclusions": [
+    {
+      "frameId": "100:39",
+      "screen": "19",
+      "status": "OUT_OF_SCOPE",
+      "reason": "D8 inspection visual only — no functional Git/ML4 capability"
+    },
+    {
+      "range": "218-235",
+      "status": "OUT_OF_SCOPE",
+      "reason": "ML4 Git publication screens — excluded by GO"
+    },
+    {
+      "topic": "D7-D9 GitHub actions",
+      "status": "OUT_OF_SCOPE",
+      "reason": "Not in G2 convergence tranche"
+    },
+    {
+      "topic": "native Figma 320 viewport",
+      "status": "OUT_OF_SCOPE",
+      "reason": "No contractual Figma 320 frame; reflow test only at runtime G5"
+    }
+  ],
+  "residualGaps": [
+    "CU-01/UXC-01: N/A VISUAL — BEHAVIOR G5 (auth/session), not a blank PASS",
+    "D5/D6 pilotage/décisions: PNG oracles 22/24/40 (125:33,127:106,129:72) + native discriminative L2 in negatives-28-32-33-41; full panel RAW trees not separately indexed — Morris arbitration if deep L2 required before G4",
+    "Micro-states 206-208: EQUIVALENT_DOCUMENTED via deltas native visibility/status L2; no separate PNGs",
+    "Figma immutable file version id NOT AVAILABLE via tool"
+  ],
+  "notes": {
+    "CU-01": "N/A VISUAL — BEHAVIOR G5 (auth/session); no dedicated Figma frame in G2 tranche",
+    "UXC-01": "N/A VISUAL — BEHAVIOR G5 (auth/session); no dedicated Figma frame in G2 tranche"
+  }
+}

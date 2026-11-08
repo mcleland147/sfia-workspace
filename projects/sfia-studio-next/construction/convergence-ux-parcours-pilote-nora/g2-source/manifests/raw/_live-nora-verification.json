@@ -1,0 +1,28 @@
+{
+  "family": "nora.workzone.03",
+  "verifiedAtUtc": "2026-11-07T21:35:00.000Z",
+  "figmaSessionId": "e3a15d32-5917-446c-a778-81b1e3d62278",
+  "liveExtract": {
+    "sliceMode": "nodes",
+    "parts": 2,
+    "len": 129,
+    "part0Nodes": 65,
+    "part1Nodes": 64,
+    "rootFrameRelative": { "x": 240, "y": 0, "w": 1440, "h": 970 },
+    "schemaInSlice": "sfia-next-g2-raw-extract/v2",
+    "textTypographySample": "Inter ff+fs+f on TEXT nodes in live slices",
+    "extractedAtUtc": "2026-11-07T20:15:20.663Z"
+  },
+  "onDiskRaw": {
+    "path": "manifests/raw/nora.workzone.03.json",
+    "schema": "sfia-next-g2-raw-extract/v1",
+    "nodeCount": 44,
+    "rootFrameRelative": null,
+    "status": "STALE — merge not persisted"
+  },
+  "persistBlocker": "MCP part payloads ~35–45KB; subagent cannot bridge tool return to disk without chunk/b64 ingest or parent piping JSON to scripts/tmp/write_mcp_obj.py",
+  "persistPath": [
+    "Option A: pipe each {family,part,total,len,sliceMode,data} to: python3 scripts/tmp/write_mcp_obj.py scripts/tmp/mcp-inline/nora-p{N}-mcp.json",
+    "Option B: 8× use_figma b64 slices (build_b64_code.py) → save_b64_slice.py → persist_b64_slices.py"
+  ]
+}

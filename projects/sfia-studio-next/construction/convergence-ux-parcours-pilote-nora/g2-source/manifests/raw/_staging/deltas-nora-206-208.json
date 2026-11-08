@@ -1,0 +1,71 @@
+{
+  "family": "deltas-nora-206-208",
+  "extractedAtUtc": "2026-11-07T18:46:14.216Z",
+  "baseline03WorkzoneId": "94:249",
+  "referenceFrame03": "94:214",
+  "shellAssessment": "EQUIVALENT_DOCUMENTED — F1 conversation rail 240px + workzone 1440px isomorphic to screen 03",
+  "contentStateAssessment": "PARTIAL — headline samples match composite 03; activity/composer micro-chrome for 206–208 not separately PNG-exported; frame titles differ (206 analyse engagée / 207 source consultée / 208 traitement sans détail)",
+  "microStates": [
+    {
+      "screen": "206",
+      "frameId": "281:389",
+      "workzoneId": "281:424",
+      "shell": [
+        {
+          "id": "281:390",
+          "n": "Rail de projet / stable",
+          "w": 240,
+          "h": 970
+        },
+        {
+          "id": "281:424",
+          "n": "Zone de travail conversationnel",
+          "w": 1440,
+          "h": 970
+        }
+      ]
+    },
+    {
+      "screen": "207",
+      "frameId": "281:570",
+      "workzoneId": "281:605",
+      "shell": [
+        {
+          "id": "281:571",
+          "n": "Rail de projet / stable",
+          "w": 240,
+          "h": 970
+        },
+        {
+          "id": "281:605",
+          "n": "Zone de travail conversationnel",
+          "w": 1440,
+          "h": 970
+        }
+      ]
+    },
+    {
+      "screen": "208",
+      "frameId": "281:751",
+      "workzoneId": "281:786",
+      "shell": [
+        {
+          "id": "281:752",
+          "n": "Rail de projet / stable",
+          "w": 240,
+          "h": 970
+        },
+        {
+          "id": "281:786",
+          "n": "Zone de travail conversationnel",
+          "w": 1440,
+          "h": 970
+        }
+      ]
+    }
+  ],
+  "distinctHeadlineProbe": {
+    "03_ref": "94:258 Comparer les options d'architecture",
+    "206-208": "same headline samples observed in 2026-11-07 extract"
+  }
+}

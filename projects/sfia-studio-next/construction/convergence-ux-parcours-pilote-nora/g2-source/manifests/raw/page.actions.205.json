@@ -1,0 +1,377 @@
+{
+  "schema": "sfia-next-g2-raw-extract/v2",
+  "family": "page.actions.205",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "frameId": "241:385",
+  "rootId": "241:449",
+  "rootName": "Actions / principales",
+  "extractRootIds": [
+    "241:449",
+    "241:453"
+  ],
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "extractedAtUtc": "2026-11-07T23:40:59.707Z",
+  "figmaVersion": "NOT AVAILABLE",
+  "nodeCount": 7,
+  "geometry": {
+    "w": 1680,
+    "h": 970
+  },
+  "coordinateConvention": "PLUGIN parent-local; pageAbsolute absoluteBoundingBox; frameRelative vs frame",
+  "rootFrameRelative": {
+    "x": 285,
+    "y": 857,
+    "w": 1320,
+    "h": 51
+  },
+  "nodes": [
+    {
+      "id": "241:449",
+      "n": "Actions / principales",
+      "t": "FRAME",
+      "d": 0,
+      "p": "241:385",
+      "pc": [
+        "241:385"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "parentLocal": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "pageAbsolute": {
+        "x": 6545,
+        "y": 70357,
+        "w": 1320,
+        "h": 51
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 857,
+        "w": 1320,
+        "h": 51
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 12,
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "clips": 1
+    },
+    {
+      "id": "241:450",
+      "n": "Bouton / 0",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "241:449",
+      "pc": [
+        "241:385",
+        "241:449"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 0,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 6545,
+        "y": 70357,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#292d58",
+      "r": 9
+    },
+    {
+      "id": "I241:450;12:15",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 2,
+      "p": "241:450",
+      "pc": [
+        "241:385",
+        "241:449",
+        "241:450"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 6558,
+        "y": 70367,
+        "w": 192,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 298,
+        "y": 867,
+        "w": 192,
+        "h": 18
+      },
+      "f": "#f4f6fc",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "lhQualification": {
+        "status": "NATIVE",
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "ch": "Voir la version courante"
+    },
+    {
+      "id": "241:451",
+      "n": "Bouton / 1",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "241:449",
+      "pc": [
+        "241:385",
+        "241:449"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 230,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 230,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 6775,
+        "y": 70357,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 515,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#242b3b",
+      "r": 9
+    },
+    {
+      "id": "I241:451;12:17",
+      "n": "Action",
+      "t": "TEXT",
+      "d": 2,
+      "p": "241:451",
+      "pc": [
+        "241:385",
+        "241:449",
+        "241:451"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "parentLocal": {
+        "x": 13,
+        "y": 10,
+        "w": 192,
+        "h": 18
+      },
+      "pageAbsolute": {
+        "x": 6788,
+        "y": 70367,
+        "w": 192,
+        "h": 18
+      },
+      "frameRelative": {
+        "x": 528,
+        "y": 867,
+        "w": 192,
+        "h": 18
+      },
+      "f": "#bcc6d7",
+      "ff": "Inter",
+      "fst": "Semi Bold",
+      "fw": 600,
+      "fs": 12,
+      "ta": "LEFT",
+      "lh": 18,
+      "lhQualification": {
+        "status": "NATIVE",
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "ch": "Voir l'historique"
+    },
+    {
+      "id": "241:452",
+      "n": "Bouton / 2",
+      "t": "INSTANCE",
+      "d": 1,
+      "p": "241:449",
+      "pc": [
+        "241:385",
+        "241:449"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": false,
+      "sourceBounds": {
+        "x": 460,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "parentLocal": {
+        "x": 460,
+        "y": 0,
+        "w": 218,
+        "h": 38
+      },
+      "pageAbsolute": {
+        "x": 7005,
+        "y": 70357,
+        "w": 218,
+        "h": 38
+      },
+      "frameRelative": {
+        "x": 745,
+        "y": 857,
+        "w": 218,
+        "h": 38
+      },
+      "lm": "HORIZONTAL",
+      "sh": "FIXED",
+      "sv": "FIXED",
+      "g": 0,
+      "pad": [
+        0,
+        13,
+        0,
+        13
+      ],
+      "clips": 0,
+      "f": "#242b3b",
+      "r": 9
+    },
+    {
+      "id": "241:453",
+      "n": "Pied / note",
+      "t": "TEXT",
+      "d": 0,
+      "p": "241:385",
+      "pc": [
+        "241:385"
+      ],
+      "sourceCoordinateSpace": "PLUGIN_NODE_XY",
+      "visible": true,
+      "sourceBounds": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "parentLocal": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "pageAbsolute": {
+        "x": 6545,
+        "y": 70431,
+        "w": 1280,
+        "h": 15
+      },
+      "frameRelative": {
+        "x": 285,
+        "y": 931,
+        "w": 1280,
+        "h": 15
+      },
+      "f": "#8390a9",
+      "ff": "Inter",
+      "fst": "Regular",
+      "fw": 400,
+      "fs": 12,
+      "ta": "LEFT",
+      "lhMode": "AUTO",
+      "lhQualification": {
+        "status": "AUTO",
+        "unit": "AUTO"
+      },
+      "ch": "Projet Atlas · Tes informations restent liées au projet courant."
+    }
+  ]
+}

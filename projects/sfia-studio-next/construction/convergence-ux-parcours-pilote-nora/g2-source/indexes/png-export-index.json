@@ -1,0 +1,721 @@
+{
+  "schema": "sfia-next-g2-png-index/v1",
+  "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+  "pageId": "94:49",
+  "pageName": "01 · Parcours produit — Référence UX R3",
+  "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+  "capturedAtUtc": "2026-11-07T18:24:46Z",
+  "figmaVersion": "NOT AVAILABLE",
+  "authenticity": "Figma MCP download_assets export PNG archived locally; not synthetic",
+  "exports": [
+    {
+      "frameId": "94:50",
+      "path": "png/frame-94-50.png",
+      "bytes": 88388,
+      "sha256": "0f4f7c19ea2833475b1f4894fc2ae83203ab5c57b91e1adfa767a666e4a0f5fc",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Portefeuille et choix du projet",
+      "fixtureId": "figma-native-01",
+      "screenNumber": "01",
+      "priority": "P0",
+      "family": "shell_F1_personnel",
+      "cu": [
+        "CU-02",
+        "CU-09",
+        "CU-15"
+      ],
+      "uxc": [
+        "UXC-02",
+        "UXC-13"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "94:50",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "94:135",
+      "path": "png/frame-94-135.png",
+      "bytes": 108291,
+      "sha256": "582eb5f8429fdf516f185ed35733e5f3ea40b714fe2f06889d030a95bf58311c",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Sas — conversation avant projet",
+      "fixtureId": "figma-native-02",
+      "screenNumber": "02",
+      "priority": "P0",
+      "family": "sas_nora",
+      "cu": [
+        "CU-04",
+        "CU-05"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-04"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "94:135",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "94:214",
+      "path": "png/frame-94-214.png",
+      "bytes": 145783,
+      "sha256": "32872657774b3760c2bee9d739fcb51668ee9a12e3d2d2261486a9042418bb6e",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Nora — conversation longue",
+      "fixtureId": "figma-native-03",
+      "screenNumber": "03",
+      "priority": "P0",
+      "family": "shell_F1_conversation",
+      "cu": [
+        "CU-04",
+        "CU-05",
+        "CU-06",
+        "CU-09"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-04",
+        "UXC-05",
+        "UXC-13"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "94:214",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "94:370",
+      "path": "png/frame-94-370.png",
+      "bytes": 141532,
+      "sha256": "e6ce9258b81b268245eb0564c214912e6392f2414b033d1faa01e4a632b1fe7e",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Document Nora — consultation",
+      "fixtureId": "figma-native-04",
+      "screenNumber": "04",
+      "priority": "P0",
+      "family": "shell_F1_inspection",
+      "cu": [
+        "CU-07",
+        "CU-09",
+        "CU-14"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-13"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "94:370",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "94:515",
+      "path": "png/frame-94-515.png",
+      "bytes": 108829,
+      "sha256": "4da68bdbf85eaa242b116b0a422407c0543a53cd115d3ebbab49cda7c07e0bd3",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Journal — sujets et décisions",
+      "fixtureId": "figma-native-05",
+      "screenNumber": "05",
+      "priority": "P1",
+      "family": "journal_d4",
+      "cu": [
+        "CU-08"
+      ],
+      "uxc": [
+        "UXC-07"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "94:515",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "97:359",
+      "path": "png/frame-97-359.png",
+      "bytes": 142099,
+      "sha256": "2dff54ce935258d509e47922d2ab987e928b6486bfee4ba65169d8832b149f5f",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Document Nora — révision guidée",
+      "fixtureId": "figma-native-18",
+      "screenNumber": "18",
+      "priority": "P0",
+      "family": "document_d4",
+      "cu": [
+        "CU-07",
+        "CU-14"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-11"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "97:359",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "125:33",
+      "path": "png/frame-125-33.png",
+      "bytes": 85548,
+      "sha256": "889f097901d6122dfa52b071697f8217c353f8581fc040d328044324699b4cde",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Trajectoire — sans cycle actif",
+      "fixtureId": "figma-native-22",
+      "screenNumber": "22",
+      "priority": "P1",
+      "family": "pilotage_d5",
+      "cu": [
+        "CU-10",
+        "CU-11"
+      ],
+      "uxc": [
+        "UXC-08"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "125:33",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "127:106",
+      "path": "png/frame-127-106.png",
+      "bytes": 84715,
+      "sha256": "4eb55f8914b5b46cfde25f32078770eab2fc862077a0e23bc1afd87612e5959b",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Cycle — actif et guidance CKI",
+      "fixtureId": "figma-native-24",
+      "screenNumber": "24",
+      "priority": "P1",
+      "family": "pilotage_cki",
+      "cu": [
+        "CU-10",
+        "CU-11",
+        "CU-12"
+      ],
+      "uxc": [
+        "UXC-08",
+        "UXC-09"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "127:106",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "129:72",
+      "path": "png/frame-129-72.png",
+      "bytes": 88857,
+      "sha256": "b761126c61a95d65c86f0d25e57b3c32bff0a491f90e0ec3f03ae9c3b0d0dcd1",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Journal — décisions",
+      "fixtureId": "figma-native-40",
+      "screenNumber": "40",
+      "priority": "P1",
+      "family": "decisions_d6",
+      "cu": [
+        "CU-12",
+        "CU-13"
+      ],
+      "uxc": [
+        "UXC-09",
+        "UXC-10"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "129:72",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "158:264",
+      "path": "png/frame-158-264.png",
+      "bytes": 74363,
+      "sha256": "5b21d74062a8b4f5e421fb5257b67e91bc997f563891e678291ad2394adb0487",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Portefeuille — aucun projet",
+      "fixtureId": "figma-native-64",
+      "screenNumber": "64",
+      "priority": "P0",
+      "family": "portfolio_empty",
+      "cu": [
+        "CU-02",
+        "CU-03"
+      ],
+      "uxc": [
+        "UXC-02",
+        "UXC-11"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "158:264",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "158:336",
+      "path": "png/frame-158-336.png",
+      "bytes": 75179,
+      "sha256": "9f219843edb95b712bfac0f8a60c334c1b9f2fae5d6e0cb1a306a1ef968eddb0",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Portefeuille — liste de projets",
+      "fixtureId": "figma-native-65",
+      "screenNumber": "65",
+      "priority": "P0",
+      "family": "portfolio_list",
+      "cu": [
+        "CU-02",
+        "CU-03"
+      ],
+      "uxc": [
+        "UXC-02",
+        "UXC-12"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "158:336",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "158:912",
+      "path": "png/frame-158-912.png",
+      "bytes": 74008,
+      "sha256": "0c1c9c0d7a2daaae46a1cecfefdf2a30d97ddd1bc9c502d7148f823834cf3a9e",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Portefeuille — retour sans projet créé",
+      "fixtureId": "figma-native-73",
+      "screenNumber": "73",
+      "priority": "P0",
+      "family": "portfolio_return",
+      "cu": [
+        "CU-02",
+        "CU-03"
+      ],
+      "uxc": [
+        "UXC-02",
+        "UXC-11"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "158:912",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "159:145",
+      "path": "png/frame-159-145.png",
+      "bytes": 71340,
+      "sha256": "4c0e342fbb1acace7ca719f79ac3d007946d387424958ed1278d901ee12dc824",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Sas — préparation retrouvée",
+      "fixtureId": "figma-native-74",
+      "screenNumber": "74",
+      "priority": "P0",
+      "family": "sas_resume",
+      "cu": [
+        "CU-03",
+        "CU-04"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-12"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "159:145",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "160:175",
+      "path": "png/frame-160-175.png",
+      "bytes": 85339,
+      "sha256": "b989f45746b768834b8249ec09cc243fef817fdfa0c9c5de7f65a06e3d50ce59",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Documents — bibliothèque du projet",
+      "fixtureId": "figma-native-89",
+      "screenNumber": "89",
+      "priority": "P0",
+      "family": "shell_F1_projet",
+      "cu": [
+        "CU-07",
+        "CU-09"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-13"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "160:175",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "160:391",
+      "path": "png/frame-160-391.png",
+      "bytes": 83405,
+      "sha256": "167aaa9388271488754b94e668f3a1508a29fc47638e000ff4d6309464b45294",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Document — révision concurrente",
+      "fixtureId": "figma-native-92",
+      "screenNumber": "92",
+      "priority": "P0",
+      "family": "document_conflict",
+      "cu": [
+        "CU-07",
+        "CU-14"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-11"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "160:391",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "161:216",
+      "path": "png/frame-161-216.png",
+      "bytes": 86887,
+      "sha256": "7c450ff2fc9b4f563e70d313da873c8db83b7c66bf013d6558647b7b30a1ceae",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Nora — première conversation",
+      "fixtureId": "figma-native-109",
+      "screenNumber": "109",
+      "priority": "P0",
+      "family": "nora_first",
+      "cu": [
+        "CU-04",
+        "CU-05"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-04"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "161:216",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "161:288",
+      "path": "png/frame-161-288.png",
+      "bytes": 83697,
+      "sha256": "c13dc85e1bc311b9f7e9bc96d0c230be616cf39d7e0e83bdd087300d5bd87b09",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Nora — reprise contextualisée",
+      "fixtureId": "figma-native-110",
+      "screenNumber": "110",
+      "priority": "P0",
+      "family": "nora_resume",
+      "cu": [
+        "CU-04",
+        "CU-05",
+        "CU-06"
+      ],
+      "uxc": [
+        "UXC-03",
+        "UXC-05"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "161:288",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "241:385",
+      "path": "png/frame-241-385.png",
+      "bytes": 86023,
+      "sha256": "108da26a93fd8384bf6ffaf3fb6fbce163afe753952b4e80a24b35b0c6c67d48",
+      "width": 1680,
+      "height": 970,
+      "dims": "1680x970",
+      "expectedDims": "1680x970",
+      "dimsMatchNative": true,
+      "uiState": "Document — inspection des révisions",
+      "fixtureId": "figma-native-205",
+      "screenNumber": "205",
+      "priority": "P0",
+      "family": "document_revisions",
+      "cu": [
+        "CU-07",
+        "CU-14"
+      ],
+      "uxc": [
+        "UXC-06",
+        "UXC-12"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "241:385",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      }
+    },
+    {
+      "frameId": "282:468",
+      "path": "png/frame-282-468.png",
+      "bytes": 39859,
+      "sha256": "30033b1a54b5f6de8c6b7168c9892d902b48c73e0964146fa1517cf0b6f32986",
+      "width": 390,
+      "height": 1350,
+      "dims": "390x1350",
+      "expectedDims": "390x1350",
+      "dimsMatchNative": true,
+      "uiState": "Nora — travail en cours à 390 px",
+      "fixtureId": "figma-native-216",
+      "screenNumber": "216",
+      "priority": "P0",
+      "family": "mobile_board",
+      "cu": [
+        "CU-15",
+        "CU-16"
+      ],
+      "uxc": [
+        "UXC-13",
+        "UXC-14"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "282:468",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      },
+      "note": "BOARD size ≠ runtime viewport 390×844"
+    },
+    {
+      "frameId": "282:492",
+      "path": "png/frame-282-492.png",
+      "bytes": 39320,
+      "sha256": "e773eefe7a6e02e4500ae224b6bf5e61b693a146d4e90cca2fa9bee6de1d9cc8",
+      "width": 390,
+      "height": 1350,
+      "dims": "390x1350",
+      "expectedDims": "390x1350",
+      "dimsMatchNative": true,
+      "uiState": "Nora — interruption et reprise à 390 px",
+      "fixtureId": "figma-native-217",
+      "screenNumber": "217",
+      "priority": "P0",
+      "family": "mobile_board",
+      "cu": [
+        "CU-14",
+        "CU-15",
+        "CU-16"
+      ],
+      "uxc": [
+        "UXC-11",
+        "UXC-13",
+        "UXC-14"
+      ],
+      "provenance": {
+        "figmaFileKey": "itgvCulInEnFY6DvgIegvP",
+        "pageId": "94:49",
+        "frameId": "282:492",
+        "exportTool": "plugin-figma-figma/download_assets",
+        "format": "png",
+        "defaultScale": 1,
+        "gitSourceSha": "f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e",
+        "capturedAtUtc": "2026-11-07T18:24:46Z",
+        "figmaVersion": "NOT AVAILABLE"
+      },
+      "note": "BOARD size ≠ runtime viewport 390×844"
+    }
+  ]
+}
