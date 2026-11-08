@@ -42,5 +42,8 @@ export OPENAI_API_KEY=
 unset OPENAI_API_KEY
 export OPENAI_API_KEY=
 
-# P3: STUDIO_E2E=1 → next.config distDir=.next-e2e (operator keeps .next)
-exec npx next dev --turbopack -p "${E2E_PORT}" -H 127.0.0.1
+# P3: STUDIO_E2E=1 → next.config distDir=.next-e2e (operator keeps .next).
+# Webpack (no --turbopack): avoids intermittent CI failures where next/font/google
+# under turbopack never becomes ready ("queries have exactly one entry" / font module).
+rm -rf "${ROOT}/.next-e2e"
+exec npx next dev -p "${E2E_PORT}" -H 127.0.0.1
