@@ -21,7 +21,9 @@
   --bad: #e35d6a;
   --msg-nora: #1a2130;
   --msg-pilot: #252d40;
-  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Prefer Inter if installed; never fetch Google fonts at build time (CI-stable). */
+  --font-inter: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-inter);
 }
 
 html, body {
