@@ -1,145 +1,172 @@
-# Review Pack FULL — G4 merge PR #669 + post-merge + ML4 prep — 2026-11-08T12:57:00+01:00
+# Review Pack FULL — G4 post-merge Pilotage CI stabilisation — 2026-11-08T13:30:57+01:00
 
-**Verdict :** `PR #669 MERGED — POST-MERGE NOT GREEN / INCIDENT À ARBITRER — NO STABLE/RELEASE`
-**Merge GitHub :** REAL effectué · **ML4 NOT STARTED** · **NO ADOPTED / F2/G5 NOT PROVEN**
+**Verdict :** `G4 POST-MERGE STABILIZED — FIX PR MERGED — MAIN CI GREEN — NO RELEASE`
+**PR #670 MERGED** · **ML4 NOT STARTED** · **NO ADOPTED / F2/G5 NOT PROVEN** · **STABLE/RELEASE NOT AVAILABLE**
 
 ## 1. Date / fuseau / cycle
 
 - Date: 2026-11-08 · fuseau Europe/Paris (CET)
-- Cycle: 14 Post-merge (+13 prérequis, +9 QA intégrée) · EVOL · Critical
-- Knowledge Contract cycle 14: guidance routing §5.9 / post-merge + `templates/post-merge-template.md` ; CKC dédié cycle-14 **ABSENT — FALLBACK SFIA v2.6 ROUTING/TEMPLATE**
+- Cycle: 14 Post-merge (+9 QA +8 Delivery +13 PR readiness) · RUN corrective · Critical
+- Knowledge Contract: SFIA v2.6 routing/template ; CKC cycle-14 dédié ABSENT — FALLBACK
 
-## 2. Git Truth Check (worktree construction)
-
-| | |
-|---|---|
-| pwd | `/Users/morris/Projects/sfia-workspace-next-g4-construction` |
-| branch | `feat/next-convergence-ux-g4-construction` |
-| HEAD local | `ee6d11e9ed9d7e09fc3bf26f5021120fb0eab67f` |
-| origin/main (post-merge) | `ebf3d1503f6dd3c0180e1dec5ffeca82eb136d45` |
-| Untracked/exclu | `.tmp-sfia-review/` modifié localement ; `g2-source/scripts/tmp/` untracked **jamais ajouté** |
-
-```
- M .tmp-sfia-review/chatgpt-review.md
-?? projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/g2-source/scripts/tmp/
-
-```
-
-### Pre-merge gate (observé avant commande)
-
-- PR #669 OPEN non-draft · head `ee6d11e9ed9d7e09fc3bf26f5021120fb0eab67f` · base `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` · MERGEABLE · CLEAN
-- Checks head: Build/validate Next SUCCESS · Next Required Gate SUCCESS · Studio Required Gate SUCCESS · Studio build SKIPPED
-- 9 commits préservés ; mode merge commit (comme #661) · pas de squash/rebase · pas `--delete-branch`
-
-## 3. Merge GitHub — preuve
-
-Commande unique exécutée:
-
-```bash
-gh pr merge 669 --repo mcleland147/sfia-workspace --merge
-```
+## 2. Git Truth Check (worktree correctif isolé)
 
 | | |
 |---|---|
-| PR | https://github.com/mcleland147/sfia-workspace/pull/669 |
-| state | **MERGED** (mergedAt 2026-11-08T11:50:01Z) |
-| merge_commit_sha | `ebf3d1503f6dd3c0180e1dec5ffeca82eb136d45` |
-| parents | `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` + `ee6d11e9ed9d7e09fc3bf26f5021120fb0eab67f` |
-| second parent == head | OUI |
-| tree | `6f1448518f34e3418c731fa16e896b796386843b` |
-| diffstat merge | 159 files, +82932 / −708 |
-| tmp exclus | `g2-source/scripts/tmp/` absent du tree ; `.tmp-sfia-review/chatgpt-review.md` déjà historique sur main (hors G4 nouveau) |
+| pwd | `/Users/morris/Projects/sfia-workspace-next-g4-fix-postmerge-ci` |
+| branch | `fix/next-g4-postmerge-pilotage-ci-stability` |
+| Base | `origin/main@ebf3d1503f6dd3c0180e1dec5ffeca82eb136d45` (pre-fix) |
+| Tip correctif | `0b5326d6e169861d25b01821aafd319a33cdcc93` |
+| origin/main (après merge #670) | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
+| Merge parents | `ebf3d150…` + `0b5326d6…` |
+| Tree merge | `7969b45559e9bbfe2c855e9a44be2b9ccb5341fc` |
+| Non touchés | WT G4 construction ; RECETTE figée `29535d07`/`U2HrgAwriuzf6f1YI0rRK` ; `.tmp-sfia-review` evidence historique + `g2-source/scripts/tmp/` **jamais ajoutés** |
 
-Fichiers projet créés/modifiés **par ce cycle hors merge** : **aucun**. Aucun commit projet additionnel.
-
-## 4. Post-merge CI sur `main@ebf3d1503f6dd3c0180e1dec5ffeca82eb136d45`
+## 3. Incident initial (post-merge #669)
 
 | | |
 |---|---|
-| Workflow | SFIA Studio Next CI |
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/42477468119 |
-| headSha | `ebf3d1503f6dd3c0180e1dec5ffeca82eb136d45` |
-| Detect Next | SUCCESS |
-| Build and validate SFIA Studio Next | **FAILURE** |
-| SFIA Studio Next Required Gate | **FAILURE** |
+| Merge #669 | `ebf3d150` tree `6f144851` |
+| CI PR pré-merge | https://github.com/mcleland147/sfia-workspace/actions/runs/42475102674 — Playwright **12/12 PASS** sur `ee6d11e9` |
+| CI main post #669 | https://github.com/mcleland147/sfia-workspace/actions/runs/42477468119 — **FAIL** Playwright **10/12** |
+| Échecs | `pilotage-panel` ; `b13-authority-legend` après clic Pilotage |
 
-### Échec observable
+## 4. Diagnostic discriminant
 
-Playwright BROWSER FAKE: **2 failed / 10 passed** (~2.0m)
+- Reproduction locale E2E isolée : flaky/race sur navigation Pilotage juste après bootstrap projet.
+- Cause racine **produit** (pas « flaky alone ») : course entre `load()` et `selectSurface('pilotage')`. Si `load()` termine avant que `router.push(?surface=pilotage)` ait mis à jour `window.location`, `applyUrlDocumentState` réapplique `travail` et écrase Pilotage → panneau / légende B13 absents.
+- Explique PR 12/12 vs main 10/12 sur arbre identique : timing CI / merge commit timing.
 
-1. `ml3-pilotage.spec.ts` — `pilotage-panel` not visible (5s)
-2. `ml3-pilotage.spec.ts` B13 C02 — `b13-authority-legend` not visible (5s)
+## 5. Correctif
 
-Note: la **même** head `ee6d11e9ed9d7e09fc3bf26f5021120fb0eab67f` était CI GREEN sur la PR (run 42475102674). Échec post-merge = **incident à arbitrer** ; **aucune correction sur main**, pas de hotfix/PR/rollback sans GO Morris.
+Fichiers (tip `0b5326d6`) :
 
-## 5. QA locale isolée (post-merge worktree)
+1. `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` — `pendingSurfaceRef` conserve l'intention chrome/rail pendant `load()` ; `searchParams` effect clear quand URL rattrape.
+2. `projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts` — `openPilotageSurface` : click `surface-pilotage` + URL `/[?&]surface=pilotage\b/` + `pilotage-panel` visible (15s). Assertions D5/D6 / B13 / cycle ACTIVE **conservées**.
+3. `construction/.../incident-postmerge-pilotage-ci-2026-11-08.md` — compte-rendu factuel.
+4. `construction/delivery-history.md` — `DELIV-2026-11-08-G4-POSTMERGE-PILOTAGE-CI`.
 
-Worktree détaché: `/Users/morris/Projects/sfia-workspace-next-g4-postmerge-ebf3d150` @ `ebf3d1503f6dd3c0180e1dec5ffeca82eb136d45`
-DB isolée: `sfia_next_postmerge_g4` sur `sfia-next-recette-pg:5434` (migrations 001→007) — **sans toucher** `sfia_next_recette_g4`
-Port: `127.0.0.1:3300` `next start` build id `7fnqMbiKd_LTUep9blGAp` — **processus arrêté en fin de cycle**
+### Diff complet — page.tsx
 
-| Check | Result |
+```diff
+@@ -112,6 +112,8 @@ export default function ProjectPage() {
+   const documentsRef = useRef<Doc[]>([]);
+   const docUiRef = useRef<DocUiState>("READING");
+   const reviseDraftRef = useRef("");
++  /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
++  const pendingSurfaceRef = useRef<Surface | null>(null);
+@@ -142,6 +144,7 @@ export default function ProjectPage() {
+   function selectSurface(next: Surface) {
++    pendingSurfaceRef.current = next;
+     setSurface(next);
+@@ -405,17 +408,26 @@
++      // If the user already selected a surface while load() was in flight, prefer that intent
++      // when the URL has not yet caught up (router.push pending) — otherwise Pilotage/Journal
++      // flash back to travail and e2e/CI lose pilotage-panel.
+       const live = ...
+       const qSurface = parseSurface(live.get("surface"));
+       const qDocId = live.get("documentId");
+-      applyUrlDocumentState(docs, qSurface, qDocId);
++      const pendingSurface = pendingSurfaceRef.current;
++      const effectiveSurface = qSurface ?? pendingSurface;
++      applyUrlDocumentState(docs, effectiveSurface, qDocId);
+       const rawSurface = live.get("surface");
+       if (!rawSurface || (rawSurface && !qSurface)) {
+-        syncSurfaceUrl(qSurface ?? "travail", qSurface === "document" ? qDocId : null, "replace");
++        const target = effectiveSurface ?? "travail";
++        syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
++      }
++      if (qSurface && pendingSurface && qSurface === pendingSurface) {
++        pendingSurfaceRef.current = null;
+       }
+@@ -440,6 +452,9 @@
+     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
++    if (qSurface && pendingSurfaceRef.current === qSurface) {
++      pendingSurfaceRef.current = null;
++    }
+```
+
+### Diff complet — ml3-pilotage.spec.ts (extrait)
+
+```diff
++async function openPilotageSurface(page: import("@playwright/test").Page) {
++  await page.getByTestId("surface-pilotage").click();
++  await expect(page).toHaveURL(/[?&]surface=pilotage\b/);
++  await expect(page.getByTestId("pilotage-panel")).toBeVisible({ timeout: 15000 });
++}
+-  await page.getByRole("button", { name: "Pilotage" }).click();
+-  await expect(page.getByTestId("pilotage-panel")).toBeVisible();
++  await openPilotageSurface(page);
+```
+(même helper appliqué aux scénarios B13 C02/R1, F01/F02, C03 — assertions métier inchangées)
+
+## 6. QA locale (fix WT)
+
+| Contrôle | Résultat |
 |---|---|
-| `tsc --noEmit` | PASS (dans séquence build) |
-| unit avec `STUDIO_LANE=DEV` | **123 passed** |
-| unit avec `.env` RECETTE chargé | 1 fail cognitif attendu (lane protégée) — non régression produit |
-| `next build` | PASS → `7fnqMbiKd_LTUep9blGAp` |
-| HTTP `/login` :3300 | 200 · Connexion Studio · sans module `inter_1ec0685a` (fallback police tip) |
-| FAKE login `POST /api/dev/login` | 200 · cookie `sfia_studio_session__RECETTE` · authMode `dev-test-login` |
-| `GET /api/portfolio` | 200 · session Pilot A · portfolio kind empty + preparations |
-| PG integration suite | NON RELANCÉE locale (CI PR les avait PASS ; CI post-merge a passé unit+PG avant Playwright) |
+| tsc | OK |
+| unit (`STUDIO_LANE=DEV`) | **123 PASS** |
+| PG integration | **144 PASS** |
+| Playwright full | **12/12 ×2 PASS** |
+| Preuves | BROWSER FAKE + PG réel isolé E2E ; Nora LIVE / OAuth **NOT PROVEN** |
 
-## 6. Environnements inchangés par le merge distant
+## 7. DEV 500 diagnostic + restore
 
-| Lane | Observation |
+- PID 59969 / parent 59964 : `next dev --turbopack -p 3100` sur WT **construction** G4.
+- Cause opérationnelle : flake `next/font`/turbopack (connue) → `/login` 500.
+- Restore **non destructive** : kill listen 3100 ; `next dev` **sans** turbopack sur WT construction attendu → `/login` **200**.
+- RECETTE `:3200` inchangée : build id HTML `U2HrgAwriuzf6f1YI0rRK` ; `/login` **200**.
+
+## 8. PR #670 + CI + merge conditionnel
+
+| | |
 |---|---|
-| DEV `:3100` | Processus local toujours up ; **HTTP `/login` → 500** observé pendant la fenêtre post-merge (**non modifié par Cursor** ; incident local distinct à diagnostiquer ; pas de fix ici) |
-| RECETTE G4 `:3200` | PID 74165 · build **`U2HrgAwriuzf6f1YI0rRK`** · SHA runtime **`29535d07`** · HTTP 200 — **non attribué à tip/merge** |
-| STABLE | NOT AVAILABLE · **NO RELEASE** |
-| Postmerge `:3300` | démarré puis **fermé** |
+| PR | https://github.com/mcleland147/sfia-workspace/pull/670 |
+| Head | `0b5326d6e169861d25b01821aafd319a33cdcc93` |
+| CI PR | https://github.com/mcleland147/sfia-workspace/actions/runs/42479791621 — **SUCCESS** ; unit 123 ; PG 144 ; Playwright **12 passed** |
+| Gates | Next Required Gate SUCCESS ; Studio Required Gate SUCCESS ; Studio build SKIPPED (path filter) |
+| Merge | `gh pr merge 670 --merge` (merge commit, pas squash/rebase, branche non supprimée) |
+| Merge SHA | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
+| Pre-merge | MERGEABLE · CLEAN · tip inchangé |
 
-## 7. Fake / Real
+## 9. Post-merge CI sur `main@c658f590`
 
-| Preuve | Classe |
+| | |
 |---|---|
-| `gh pr merge` | **REAL** GitHub |
-| CI Actions post-merge | **REAL** automation · résultat FAILURE |
-| Login / portfolio postmerge | **FAKE** login · DB isolée REAL |
-| Nora LIVE / OAuth | **NOT PROVEN** |
-| F2/G5 visual | **NOT PROVEN** · WITH RESERVES |
+| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/42480139564 |
+| Conclusion | **SUCCESS** |
+| unit / PG / e2e | 123 / 144 / **12 passed** |
+| Next Required Gate | SUCCESS |
 
-## 8. Réserves reportées
+**POST-MERGE GREEN** confirmé.
 
-1. F2/G5 / conformité Figma : NOT PROVEN
-2. OAuth LIVE / Nora LIVE : NOT PROVEN
-3. Police: RECETTE `29535d07` encore avec wiring font Google build ; `main` tip sans `next/font/google` (fallback système) — écart conscient
-4. Preuve RECETTE ≠ SHA merge `ebf3d1503f6dd3c0180e1dec5ffeca82eb136d45`
-5. Post-merge CI Playwright 2 fails → **NOT GREEN**
-6. DEV local `:3100` 500 pendant contrôles — hors mutation merge ; à traiter hors ce pack
+## 10. Git Review Index
 
-## 9. Patch gouvernance proposé (NON COMMITÉ)
+| SHA | Rôle |
+|---|---|
+| `ebf3d150…` | main pré-correctif (merge #669) |
+| `0b5326d6…` | tip correctif PR #670 |
+| `c658f590…` | main post-merge #670 |
+| tree `7969b455…` | arbre intégré |
 
-Roadmap/SEF devraient ultérieurement noter: PR #669 MERGED, post-merge CI incident Playwright, convergence G4 intégrée WITH RESERVES, ML4 toujours NOT STARTED. **Aucun commit normatif dans ce cycle.**
+## 11. Niveaux de preuve / fake-real
 
-## 10. Handoff de reprise ML4 (préparation seulement)
+- D5/D6 Pilotage : BROWSER FAKE + PG E2E — **PASS** local ×2 + CI PR + CI main
+- F2/G5 pixel : **NOT PROVEN**
+- OAuth GitHub LIVE / Nora LIVE : **NOT PROVEN** (RECETTE fail-closed attendu)
+- STABLE / RELEASE : **NOT AVAILABLE** · `NO RELEASE`
+- ML4 : **NOT STARTED**
 
-**Capacité visée (Roadmap Git main):** ML4 — Collaborer et publier avec Git (D9) ; GitHub seul connecteur réel ; Paramètres → Intégrations ; publication documentaire gouvernée. Réf. `decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md`, `construction/integration-git/*`, Figma 218–235 / INDEX 388:425 VALIDATED SPEC UX.
+## 12. Réserves reportées
 
-**Dépendances au socle fusionné (#669):** shell F1, portfolio A1, documents A2/D4, sas chat-first, Nora/Docs/Journal/Pilotage surfaces, pack G2 preuves, CI Next path.
+- F2/G5 NOT PROVEN
+- OAuth / Nora LIVE NOT PROVEN sur RECETTE
+- RECETTE G4 frozen `29535d07` / `U2HrgAwriuzf6f1YI0rRK` (non mutée)
+- Roadmap/SEF/décisions non modifiés (proposition : noter G4 post-merge CI stabilized dans prochain cycle docs)
+- DEV restored sans turbopack ; construction WT tip historique non avancé sur ce correctif
 
-**IN (candidat):** intégration GitHub gouvernée, lecture/publication documentaire liée Git, contrats acceptation/matrice déjà en construction/, faisabilité fournisseur.
+## 13. Verdict / recommandation
 
-**OUT:** démarrage construction Cursor ML4 ; STABLE/release ; refonte UX convergence ; correction incident post-merge sans GO.
+`G4 POST-MERGE STABILIZED — FIX PR MERGED — MAIN CI GREEN — NO RELEASE`
 
-**Blocages / preuves à acquérir avant GO construction ML4:**
-- Arbitrage Morris sur incident CI post-merge #669 (re-run vs hotfix)
-- Qualif OAuth/Git secrets sans exposer
-- Contrats ML4 + validation visuelle Figma Git si exigée
-- Isolation ENV-01 pour RECETTE ML4 distincte
-
-**Gate Morris pour démarrer ML4:** GO construction distinct obligatoire. **ML4 NOT STARTED** dans ce cycle.
-
-## 11. Décision Morris encore requise
-
-1. Arbitrer l'incident **post-merge CI FAIL** (re-run Actions / hotfix borné / acceptation temporaire WITH RESERVES)
-2. GO distinct pour démarrer ML4 (après ou en parallèle de l'arbitrage CI, selon Morris)
+Reprise ML4 possible dès GO Morris distinct (build ML4 non démarré ici). Aucun STABLE/release.
