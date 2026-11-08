@@ -1831,16 +1831,13 @@ index cf3270b2..12fbf411 100644
 
 ## 10. Publication handoff (vérifiée)
 
-| Champ | Valeur |
+Le Review Pack FULL ci-dessus a été publié sur `sfia/review-handoff` via `scripts/sfia/publish-review-handoff.sh` (mono-fichier `sfia-review-handoff/latest-chatgpt-review.md`, push fast-forward). Les SHA tip/blob **effectifs** sont ceux du tip `origin/sfia/review-handoff` après publication (fournis aussi dans la sortie publisher / réponse Cursor) — non auto-référencés ici pour éviter un blob instable.
+
+| Champ fixe | Valeur |
 |---|---|
-| Branche handoff | `sfia/review-handoff` |
-| Path canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Commit handoff (tip publié) | `69b4effe343c64376863421a8777b85114093a2f` |
-| Blob canonique (ce pack scellé) | `TBD_AFTER_PUBLISH` |
-| Publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
 | Commit G4 candidat | `dbaccfdab463b18bd464ea57753865b948b1c089` |
 | Base | `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` |
-
-Relu distant : HEAD `origin/sfia/review-handoff` contient ce Review Pack FULL (Git Truth, inventaire, CREATE/DIFF intégraux, preuves unit/intégration/tsc/G2, absences déclarées).
+| Path canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Branche handoff | `sfia/review-handoff` |
 
 **Verdict :** `G4 REVIEW PACK FULL — READY FOR CHATGPT REVIEW`
