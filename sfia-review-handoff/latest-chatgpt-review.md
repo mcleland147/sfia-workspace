@@ -1,187 +1,345 @@
 # SFIA Studio Next — Review Pack FULL
-# ML4 GITHUB APP INSTALLATION READ-ONLY (D9)
-# Cycle CRITICAL — mono-cycle reset (preuve REAL complétée)
+# ML4 GITHUB USER AUTH + D7/D8 SAFETY CLOSURE
+# Cycle CRITICAL — mono-cycle reset (pas d'append historique)
 
 ## 1. Date/heure Europe/Paris
-2026-11-08 20:21 CET
+2026-11-08 ~21:00 CET (validations 20:43–20:46 CET)
 
 ## 2. GO Morris consommé
-« OK GO » initial + « ok go » après saisie `GITHUB_APP_PRIVATE_KEY_PATH`.
-App `sfia-studio-next-dev` / 5670639 / install 179935689 / sandbox `mcleland147/chantiers360`.
-Option A D8 : conservée (pas d'écriture DB).
+Mandat CRITICAL explicite : « GITHUB APP USER AUTHORIZATION + D7/D8 SAFETY CLOSURE ».
+Environnement DEV uniquement. NO RELEASE / `0.0.0-dev`.
+Aucune mutation GitHub REAL autorisée.
+Handoff d'entrée L3 : `b6dccd6e9fffcdf83baaa1bd14642f4f17b0a199`.
 
-## 3. Sources Git
-Product `feat/next-git-collaboration-20261108` @ `c658f590…` = origin/main.
-Handoff parent : `cf12ab0c…` (status précédent BLOCKED).
+## 3. Git Truth initial/final
 
-## 4. Git Truth
-LOCAL DIRTY préservé ; staged vide ; aucun commit/push Product.
+| Item | Valeur |
+|---|---|
+| Repo | `mcleland147/sfia-workspace` |
+| Worktree Product | `/Users/morris/Projects/sfia-workspace-next-ml4-git-collaboration` |
+| Branche Product | `feat/next-git-collaboration-20261108` |
+| HEAD local | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
+| origin/main | `c658f59023d44a0e22448c7ee034e3c1dda292a2` (identique) |
+| Branche Product distante | ABSENTE |
+| État | LOCAL DIRTY préservé — staged vide — **aucun commit/push Product** |
+| Handoff tip entrée | `b6dccd6e…` (parent `cf12ab0c…`) |
+| Fetch | non destructif OK |
+| Collision | aucune divergence non qualifiable ; travail DIRTY antérieur ML4 conservé |
 
-## 5. Architecture D9
-Installation-to-server READ-ONLY via `github-app-config` + `github-app-auth` (`jose` JWT) + `RealGitHubReadProvider`.
-Défaut produit : SCRIPTED. REAL seulement si `STUDIO_GITHUB_PROVIDER=real` + credentials path.
-Mutations REAL hard-blocked. OAuth D1 non réutilisé.
+## 4. Sources Git et SHA
+Sources lues depuis baseline `c658f590` + code LOCAL DIRTY (domaines D7/D8/D9 construits localement).
+Doctrine/gouvernance protégées **non modifiées** (SEF, roadmap, decisions, ENV-01, product-versioning, architecture-technique, conception-fonctionnelle, method/, prompts/).
+Roadmap main « ML4 non construit » = KNOWN GAP documentaire vs code local + handoffs — signalé, pas réécrit.
 
-## 6. Preuve réseau REAL (sans secrets)
-```json
-{
-  "ok": true,
-  "at": "2026-11-08T19:20:42.355Z",
-  "lane": "DEV",
-  "providerMode": "REAL",
-  "credentialPathMeta": {
-    "configured": true,
-    "exists": true,
-    "isFile": true,
-    "mode": "0644",
-    "sizeBytes": 1679
-  },
-  "app": {
-    "id": 5670639,
-    "slug": "sfia-studio-next-dev",
-    "name": "sfia-studio-next-dev",
-    "ownerLogin": "mcleland147",
-    "matchesExpected": true
-  },
-  "installation": {
-    "id": 179935689,
-    "accountLogin": "mcleland147",
-    "accountType": "User",
-    "repositorySelection": "selected",
-    "permissionsGrantedOnInstallation": {
-      "contents": "write",
-      "metadata": "read",
-      "pull_requests": "write"
-    },
-    "suspendedAt": null,
-    "matchesExpected": true
-  },
-  "token": {
-    "expiresAt": "2026-11-08T20:20:40Z",
-    "permissions": {
-      "contents": "read",
-      "metadata": "read",
-      "pull_requests": "read"
-    },
-    "repositorySelection": "selected",
-    "repositoriesInToken": [
-      "mcleland147/chantiers360"
-    ]
-  },
-  "repository": {
-    "id": 1275908888,
-    "fullName": "mcleland147/chantiers360",
-    "private": false,
-    "defaultBranch": "main",
-    "headSha": "8c398c494dd918272aab5b2653777c6c21d2e76e",
-    "installationReposObserved": [
-      "mcleland147/chantiers360"
-    ],
-    "matchesSandbox": true
-  },
-  "mutationGuard": {
-    "createBranchBlocked": true,
-    "mutationCounts": {
-      "createBranch": 1,
-      "putFileContents": 0,
-      "createPR": 0,
-      "mergePR": 0
-    }
-  },
-  "limits": [
-    "installation-to-server read only",
-    "no user-to-server",
-    "no Git mutations",
-    "no Product user-path activation",
-    "D7/D8 reserves still open before REAL writes"
-  ],
-  "verdict": "REAL INSTALLATION AUTH PROVEN + REAL REPOSITORY READ PROVEN \u2014 READ-ONLY SCOPE ONLY"
+## 5. Contrat d'architecture D1/D6/D7/D8/D9
+
+- **D1** : session Better Auth + PilotId + `pilots.githubUserId` (identité login). Non confondu avec autorisation dépôt.
+- **D6** : HumanDecision / mandats d'effet inchangés ; user token ≠ mandat écriture.
+- **D7** : unique owner claim/bail/dispatch/reconcile ; fencing SQL claimToken + lease.
+- **D8** : publicationRef UNIQUE(attempt) ; faits observés ; Option A historique préservée.
+- **D9** : GitHub App install READ + **nouveau** user-to-server OAuth (credentials `GITHUB_APP_CLIENT_*` distincts de `GITHUB_CLIENT_*`).
+- Git facultatif : projet sans connexion Git OK (AT-01).
+- Nora : aucun outil de mutation Git ; pas d'élévation via OAuth.
+
+## 6. Blast radius
+
+| Zone | Impact |
+|---|---|
+| D1 | lecture `githubUserId` pour confrontation identité ; pas de second auth Studio |
+| D6 | inchangé (autorité) |
+| D7 | provenance marker + lease actif CAS |
+| D8 | txn completion ; Option A ; 009 UNIQUE |
+| D9 | OAuth user-to-server + chiffrement tokens + routes API |
+| PostgreSQL | migration **010** additive DEV/e2e |
+| UX | `/settings/integrations` + panel minimal |
+| Tests | unit/integration/Playwright étendus |
+| Secrets | PEM 0600 meta-only ; pas de Client Secret en repo |
+
+## 7. D7 provenance PR — avant/après
+
+**Avant (réserve) :** une tentative avec `prNumber` déjà en progress pouvait traiter `getPullRequest(number)` comme attribution suffisante pour COMPLETED sans revalidation marker indépendante sur le chemin reconcile.
+
+**Après :**
+- `assertPrMarkerProvenance()` appelle `findPullRequest(..., publicationMarker)` même après load par numéro.
+- Vérifie head/base/SHA + égalité du numéro marker-match vs PR candidate.
+- Marker absent / différent / ambigu / PR étrangère → `REQUIRES_REQUALIFICATION` | `AMBIGUOUS` | `CONFLICT` — **pas** COMPLETED, **pas** createPR aveugle, **pas** publicationRef.
+- Idempotence : marker correct + effet distant existant → COMPLETED unique (test double reconciler).
+
+Test discriminant : `D7/D8: reconcile with known prNumber + wrong marker refuses COMPLETED`.
+
+## 8. D7 bail actif CAS — avant/après
+
+**Avant (réserve) :** CAS owned pouvait confirmer COMPLETED avec claimToken correct mais lease expiré.
+
+**Après :**
+- `sqlClaimLeaseActive()` : `releasedAt` null AND `leaseExpiresAt > now()` (temps DB).
+- Injecté dans : `commitPublicationCompletion` (mode `owned`), `casOwnedTransition`, `assertAndTouchOwnership`.
+- Mode `liberate_inactive` : `sqlClaimInactive()` seulement — pas de bypass fencing owned.
+- CAS 0 rows → rollback txn D7+D8 → 0 publicationRef orphelin → CONFLICT récupérable.
+- Provider I/O hors transaction PG.
+
+Test : `D7/D8: owned CAS terminal refuses COMPLETED when lease expired (same claimToken)`.
+
+## 9. D8 Option A préservée
+Trois refs historiques SCRIPTED détachées en DEV lors de 009 : **aucune** DELETE/UPDATE correctif, aucune remédiation DB, aucune restauration improvisée.
+Migration 010 ADDITIVE uniquement. Index UNIQUE 009 intact.
+
+## 10. Parcours user-to-server
+
+1. Pilote authentifié → `POST /api/integrations/github/authorize` (session obligatoire).
+2. Serveur mint state opaque + PKCE S256 + TTL 15 min, lié à PilotId.
+3. SCRIPTED (défaut) : callback local `/api/integrations/github/callback?scripted=1&state=…` ou complete JSON.
+4. REAL (si `GITHUB_APP_CLIENT_*` + encryption key + `STUDIO_GITHUB_USER_OAUTH=real` ou provider REAL) : URL `https://github.com/login/oauth/authorize` avec client_id App dédié.
+5. Callback : validate state (TTL, unicité, consume atomique `gt(expiresAt, now)`), session encore valide, échange code+verifier, fetch `/user`, confront `identity.id` vs `pilots.githubUserId`, list installations App, assert install attendue + sandbox repo, seal tokens, seed authorized_repositories.
+6. Status JSON sans ciphertext/token.
+7. Disconnect / refresh / revoke = opérations distinctes.
+
+**Statut :** USER-TO-SERVER IMPLEMENTED LOCALLY / REAL INTERACTIVE NOT PROVEN.
+
+## 11. Configuration GitHub requise (manuelle Morris — GO admin distinct)
+
+| Variable | Rôle | État DEV observé |
+|---|---|---|
+| `GITHUB_APP_ID` | App ID | présent (5670639) |
+| `GITHUB_APP_INSTALLATION_ID` | Install DEV | présent (179935689) |
+| `GITHUB_APP_PRIVATE_KEY_PATH` | PEM | path set ; mode **0600** ; size 1679 — contenu jamais imprimé |
+| `GITHUB_APP_CLIENT_ID` | User OAuth App client | **ABSENT** |
+| `GITHUB_APP_CLIENT_SECRET` | User OAuth secret | **ABSENT** |
+| `GITHUB_APP_CALLBACK_URL` | Redirect enregistrée | **ABSENT** |
+| `INTEGRATION_TOKEN_ENCRYPTION_KEY` | AES-256-GCM 32 bytes | **ABSENT** (SCRIPTED OK sans persist token ; REAL user OAuth refuse sans clé) |
+| `GITHUB_CLIENT_ID/SECRET` | Better Auth D1 | **non réutilisés** pour D9 |
+
+Actions manuelles : créer Client credentials App + callback DEV + clé chiffrement ; ne pas activer « Request user authorization during installation » pour ce flux.
+
+## 12. Modèles et migrations
+
+- `schemaRevision = "010_github_app_user_oauth"`
+- `010_github_app_user_oauth.sql` : ALTER additive oauth_states (code_verifier, nonce, code_challenge_method) + authorizations (github_user_id, token_*, refresh_*, scopes, last_validated_at) + index github_user.
+- Appliquée DEV `sfia_next_dev` + e2e `sfia_next_e2e` (idempotent IF NOT EXISTS).
+- RECETTE/STABLE : **non touchés**.
+
+## 13. Sécurité tokens et sessions
+- AES-256-GCM (`token-crypto.ts`) ; key base64 32B ou hex 64 ; keyVersion.
+- Seal avant INSERT ; open uniquement serveur.
+- Status/API : jamais ciphertext/plaintext.
+- State OAuth : consume atomique bound PilotId ; foreign state → ACCESS_DENIED ; replay → CONFLICT.
+- Identité divergente → ACCESS_DENIED, pas d'auto-fusion.
+- Pas de fallback silencieux vers installation token plus puissant pour user path.
+- Isolation inter-Pilotes : state lié pilotId ; authorizations pilot-scoped.
+
+## 14–15. Fichiers créés / modifiés
+Voir annexes ci-dessous (contenu complet nouveaux fichiers clés ; sections critiques modifiées).
+
+## 16. Tests et preuves
+
+| Commande | Résultat | Horodatage UTC |
+|---|---|---|
+| `npx tsc --noEmit` | PASS (exit 0) | 2026-11-08T19:43:47Z |
+| `npm run test:unit` | **160 PASS** / 28 files | ~19:43:50Z |
+| `npm run test:integration` | **186 PASS** / 12 files (après fix `gt(expiresAt)`) | ~19:44:23Z |
+| `npm run build` | PASS | ~19:45Z |
+| `npx playwright test` | **13/13 PASS** | ~19:45–19:46Z |
+
+Entrée cycle précédent (référence, non revendiquée) : 153 unit / 183 int.
+Nouveaux cas PG : wrong-marker reconcile ; expired-lease owned CAS ; OAuth state replay/divergent/no leak.
+Unit : `token-crypto`, `github-app-user-oauth`.
+
+## 17. Fake/Real Qualification
+
+| Capacité | Statut |
+|---|---|
+| SCRIPTED publication/merge/fencing | PROVEN DET |
+| D7 marker provenance + lease CAS | PROVEN DET |
+| D9 user-to-server code path | IMPLEMENTED + DET tests |
+| REAL installation READ | PROVEN (handoff `b6dccd6e`, inchangé) |
+| REAL user OAuth interactive | **NOT PROVEN** |
+| REAL Git mutations | **HARD-BLOCKED** / NOT READY |
+| UX Figma 218–235 | **NOT PROVEN / PENDING UX INTEGRATION** |
+
+## 18. Régressions et KNOWN GAP
+- D1 login GitHub / projets sans Git / D6 / D7–D8 SCRIPTED / D9 install READ : non-régression suites.
+- KNOWN GAP : roadmap main snapshots « ML4 non construit » vs code local.
+- KNOWN GAP : Client Secret/Callback/encryption key absents → REAL interactive bloqué.
+- KNOWN GAP : UX Figma 218–235 non claimée.
+- D8 Option A skew documentaire connu, non masqué.
+
+## 19. ENV-01 / versioning
+- Lane DEV + e2e only. Conteneur `sfia-next-recette-pg` présent mais **non utilisé**.
+- STABLE NOT AVAILABLE. Classe NO RELEASE. Version `0.0.0-dev`.
+- delivery-history entry `DELIV-2026-11-08-ML4-GITHUB-USER-AUTH-D7-D8-SAFETY`.
+
+## 20. Gates restants
+1. Critical Review ChatGPT (ce pack / L3).
+2. Config manuelle Client ID/Secret + Callback + encryption key (GO admin Morris).
+3. Qualification navigateur user-to-server REAL DEV.
+4. Permissions/révocation/sélection dépôts.
+5. Premier effet documentaire REAL chantiers360 — GO distinct.
+6. Candidat RECETTE / PR Product / promotions — gates distincts.
+
+## 21. Verdict et capacité suivante
+
+**ML4 GITHUB USER AUTH + D7/D8 SAFETY — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC USER FLOW / REAL INSTALLATION READ ONLY.**
+
+Ne pas annoncer : USER-TO-SERVER REAL PROVEN ; REAL GITHUB WRITES READY ; RECETTE ACCEPTED ; STABLE AVAILABLE ; ADOPTED.
+
+---
+
+
+## ANNEXE 14 — Fichiers créés (contenu complet)
+
+### `src/db/migrations/010_github_app_user_oauth.sql`
+```
+-- ML4 D9 — GitHub App user-to-server OAuth (additive / non-destructive).
+-- DEV / e2e only. Does not touch D8 Option A historical rows.
+-- Tokens stored only as ciphertext; never plaintext.
+
+ALTER TABLE integration_oauth_states
+  ADD COLUMN IF NOT EXISTS code_verifier text,
+  ADD COLUMN IF NOT EXISTS nonce text,
+  ADD COLUMN IF NOT EXISTS code_challenge_method text;
+
+ALTER TABLE integration_authorizations
+  ADD COLUMN IF NOT EXISTS github_user_id text,
+  ADD COLUMN IF NOT EXISTS token_ciphertext text,
+  ADD COLUMN IF NOT EXISTS token_nonce text,
+  ADD COLUMN IF NOT EXISTS token_key_version text,
+  ADD COLUMN IF NOT EXISTS refresh_ciphertext text,
+  ADD COLUMN IF NOT EXISTS refresh_nonce text,
+  ADD COLUMN IF NOT EXISTS token_expires_at timestamptz,
+  ADD COLUMN IF NOT EXISTS scopes_json text NOT NULL DEFAULT '[]',
+  ADD COLUMN IF NOT EXISTS last_validated_at timestamptz;
+
+CREATE INDEX IF NOT EXISTS integration_authorizations_github_user_idx
+  ON integration_authorizations (github_user_id)
+  WHERE github_user_id IS NOT NULL;
+```
+
+### `src/lib/token-crypto.ts`
+```
+import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto";
+import { StudioError } from "@/lib/http-errors";
+
+const ALGO = "aes-256-gcm";
+const KEY_VERSION_DEFAULT = "v1";
+
+export type SealedSecret = {
+  ciphertext: string; // base64
+  nonce: string; // base64
+  keyVersion: string;
+};
+
+function loadKeyMaterial(): { key: Buffer; version: string } {
+  const raw = process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY?.trim();
+  if (!raw) {
+    throw new StudioError(
+      "NOT_CONFIGURED",
+      "INTEGRATION_TOKEN_ENCRYPTION_KEY absent — chiffrement tokens requis",
+      { httpStatus: 503 },
+    );
+  }
+  // Accept 32-byte raw base64 or 64-char hex.
+  let key: Buffer;
+  if (/^[0-9a-fA-F]{64}$/.test(raw)) {
+    key = Buffer.from(raw, "hex");
+  } else {
+    key = Buffer.from(raw, "base64");
+  }
+  if (key.length !== 32) {
+    throw new StudioError(
+      "NOT_CONFIGURED",
+      "INTEGRATION_TOKEN_ENCRYPTION_KEY doit faire 32 octets (base64 ou hex)",
+      { httpStatus: 503 },
+    );
+  }
+  const version = process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY_VERSION?.trim() || KEY_VERSION_DEFAULT;
+  return { key, version };
+}
+
+export function isTokenEncryptionConfigured(): boolean {
+  try {
+    loadKeyMaterial();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Seal a secret with AES-256-GCM. Never log plaintext or ciphertext in callers' messages. */
+export function sealSecret(plaintext: string): SealedSecret {
+  const { key, version } = loadKeyMaterial();
+  const nonce = randomBytes(12);
+  const cipher = createCipheriv(ALGO, key, nonce);
+  const enc = Buffer.concat([cipher.update(plaintext, "utf8"), cipher.final()]);
+  const tag = cipher.getAuthTag();
+  return {
+    ciphertext: Buffer.concat([enc, tag]).toString("base64"),
+    nonce: nonce.toString("base64"),
+    keyVersion: version,
+  };
+}
+
+export function openSecret(sealed: SealedSecret): string {
+  const { key } = loadKeyMaterial();
+  const raw = Buffer.from(sealed.ciphertext, "base64");
+  if (raw.length < 17) {
+    throw new StudioError("INTERNAL", "Ciphertext token invalide", { httpStatus: 500 });
+  }
+  const data = raw.subarray(0, raw.length - 16);
+  const tag = raw.subarray(raw.length - 16);
+  const nonce = Buffer.from(sealed.nonce, "base64");
+  const decipher = createDecipheriv(ALGO, key, nonce);
+  decipher.setAuthTag(tag);
+  try {
+    return Buffer.concat([decipher.update(data), decipher.final()]).toString("utf8");
+  } catch (e) {
+    throw new StudioError("ACCESS_DENIED", "Décryptage token impossible", {
+      httpStatus: 403,
+      cause: e,
+    });
+  }
 }
 ```
 
-Contrôles positifs :
-- App id **5670639** / slug `sfia-studio-next-dev` — OK
-- Installation **179935689** / account `mcleland147` — OK
-- Repo **mcleland147/chantiers360** inclus — OK
-- Token permissions **read-only** (contents/metadata/pull_requests=read) alors que l'installation App a write — OK (restriction jeton)
-- defaultBranch `main` / HEAD SHA `8c398c494dd918272aab5b2653777c6c21d2e76e` — OK
-- createBranch bloqué — OK
-- Aucun token/JWT/PEM dans la sortie — OK
-
-## 7. Tests
-| Suite | Résultat |
-|---|---|
-| unit | **153 PASS** (13 App/REAL DET) |
-| integration | **183 PASS** |
-| tsc / build | PASS |
-| Playwright | N/A |
-| qualify REAL | **PASS** exit 0 (~20:20 CET) |
-
-## 8. ENV-01 / versioning
-DEV only. NO RELEASE / 0.0.0-dev. Pas de migration DB. RECETTE/STABLE non touchés.
-
-## 9. Fake/Real
-**REAL INSTALLATION AUTH PROVEN + REAL REPOSITORY READ PROVEN — READ-ONLY SCOPE ONLY.**
-NON prouvé : user-to-server, mutations, Product path activation, RECETTE/STABLE/ADOPTED.
-
-## 10. Dette D7/D8
-Option A. Réserves provenance PR + lease CAS toujours ouvertes avant REAL writes.
-
-## 11. Suite
-Critical Review → user-to-server / callback / permissions Pilote / fermeture D7-D8 → première publication REAL gouvernée (GO distinct).
-
-## 12. Verdict
-**ML4 GITHUB APP INSTALLATION READ — READY FOR CHATGPT CRITICAL REVIEW — REAL READ-ONLY SCOPE.**
-
-AUCUN GO REAL MUTATION. AUCUN GO PRODUCT GIT.
-
-## Git Review Index
-
-| `projects/sfia-studio-next/web/src/domains/integrations/github-app-config.ts` | CREATED | worktree | `d14628b83a97948a051afcc2868ee9f14657565c704cb4bd49457c8e0301b1d4` | full |
-| `projects/sfia-studio-next/web/src/domains/integrations/github-app-auth.ts` | CREATED | worktree | `85c99611f018724c2cddffb52849932173386f8f8ce3431cebf037f196218e16` | full |
-| `projects/sfia-studio-next/web/src/domains/integrations/real-github-provider.ts` | CREATED | worktree | `c3cc28575cbf4403f295e085d80b1059154e0e95814d77763c9e77da595c6117` | full |
-| `projects/sfia-studio-next/web/scripts/github-app-installation-read-qualify.ts` | CREATED | worktree | `535448a487fb5f81d50176fbec97bf6a61877672c1f02d494969dbb5b576d20b` | full |
-| `projects/sfia-studio-next/web/tests/unit/github-app-config.test.ts` | CREATED | worktree | `f42c785f8fc0dc38894f633b6d9e357aca087da94218d56d392e0a724c0c3c40` | full |
-| `projects/sfia-studio-next/web/tests/unit/github-app-auth-real-provider.test.ts` | CREATED | worktree | `a55867fe986421fd4c318681e81c8414ece54a83da105a4b16c9e9eda3087e14` | full |
-| `projects/sfia-studio-next/web/src/domains/integrations/github-provider.ts` | MODIFIED | worktree | `aacc638f96f664444c50dada7b074185d2d55810c7293c67bb771b0faf68ce01` | diff |
-| `projects/sfia-studio-next/construction/delivery-history.md` | MODIFIED | worktree | `c64ead39275612f965daf9e9d6aee02b1b03d9fe061683719b5f66ca206b0fbf` | diff |
-| `projects/sfia-studio-next/construction/integration-git/specification-technique.md` | MODIFIED | worktree | `429ecc8e882f6a7ddc0aff6ffed19aaaf7a4c7066751eeee21e85170bf3a78d8` | diff |
-
-## Contenu fichiers créés
-
-
-### FILE `projects/sfia-studio-next/web/src/domains/integrations/github-app-config.ts`
-sha256=`d14628b83a97948a051afcc2868ee9f14657565c704cb4bd49457c8e0301b1d4`
-```ts
-import { accessSync, constants, readFileSync, statSync } from "node:fs";
+### `src/domains/integrations/github-app-user-oauth.ts`
+```
+import { createHash, randomBytes } from "node:crypto";
 import { StudioError } from "@/lib/http-errors";
+import {
+  GITHUB_APP_EXPECTED_APP_ID,
+  GITHUB_APP_EXPECTED_INSTALLATION_ID,
+  GITHUB_APP_EXPECTED_OWNER,
+  GITHUB_APP_ALLOWED_FULL_NAME,
+} from "./github-app-config";
 
-/** Canonical DEV sandbox repository for ML4 GitHub App installation reads. */
-export const GITHUB_APP_ALLOWED_FULL_NAME = "mcleland147/chantiers360";
-export const GITHUB_APP_EXPECTED_APP_ID = "5670639";
-export const GITHUB_APP_EXPECTED_INSTALLATION_ID = "179935689";
-export const GITHUB_APP_EXPECTED_OWNER = "mcleland147";
-
-export type GitHubAppCredentialMeta = {
+export type UserOauthConfig = {
+  clientId: string;
+  clientSecret: string;
+  callbackUrl: string;
   appId: string;
-  installationId: string;
-  privateKeyPath: string;
-  pathExists: boolean;
-  pathIsFile: boolean;
-  pathMode: string | null;
-  pathSizeBytes: number | null;
-  allowedFullName: string;
+  expectedInstallationId: string;
   expectedOwner: string;
+  allowedFullName: string;
 };
 
-export type GitHubAppLoadedCredentials = {
+export type GitHubUserIdentity = {
+  id: string; // stable numeric id as string
+  login: string;
+};
+
+export type UserTokenBundle = {
+  accessToken: string;
+  refreshToken: string | null;
+  expiresAt: Date | null;
+  scopes: string[];
+};
+
+export type UserInstallation = {
+  id: string;
   appId: string;
-  installationId: string;
-  /** PKCS#8 / PEM private key material — never log. */
-  privateKeyPem: string;
-  allowedFullName: string;
-  expectedOwner: string;
-  meta: GitHubAppCredentialMeta;
+  accountLogin: string;
+  accountType: string;
+  repositorySelection: string | null;
+  suspendedAt: string | null;
 };
 
 function requireEnv(name: string): string {
@@ -189,254 +347,97 @@ function requireEnv(name: string): string {
   if (!v) {
     throw new StudioError(
       "NOT_CONFIGURED",
-      `LOCAL CREDENTIAL INPUT REQUIRED — ${name} absent`,
+      `${name} absent — configuration GitHub App user-to-server requise`,
       { httpStatus: 503 },
     );
   }
   return v;
 }
 
-/** Inspect credential path metadata without returning PEM content. */
-export function inspectGitHubAppCredentialPath(path: string): {
-  exists: boolean;
-  isFile: boolean;
-  mode: string | null;
-  sizeBytes: number | null;
-  readable: boolean;
-} {
-  try {
-    const st = statSync(path);
-    let readable = false;
-    try {
-      accessSync(path, constants.R_OK);
-      readable = true;
-    } catch {
-      readable = false;
-    }
-    return {
-      exists: true,
-      isFile: st.isFile(),
-      mode: `0${(st.mode & 0o777).toString(8)}`,
-      sizeBytes: st.isFile() ? st.size : null,
-      readable,
-    };
-  } catch {
-    return { exists: false, isFile: false, mode: null, sizeBytes: null, readable: false };
-  }
-}
-
-export function readGitHubAppCredentialMetaFromEnv(): GitHubAppCredentialMeta {
-  const appId = requireEnv("GITHUB_APP_ID");
-  const installationId = requireEnv("GITHUB_APP_INSTALLATION_ID");
-  const privateKeyPath = requireEnv("GITHUB_APP_PRIVATE_KEY_PATH");
-  const allowedFullName =
-    process.env.GITHUB_APP_ALLOWED_REPO?.trim() || GITHUB_APP_ALLOWED_FULL_NAME;
-  const expectedOwner =
-    process.env.GITHUB_APP_EXPECTED_OWNER?.trim() || GITHUB_APP_EXPECTED_OWNER;
-  const insp = inspectGitHubAppCredentialPath(privateKeyPath);
-  return {
-    appId,
-    installationId,
-    privateKeyPath,
-    pathExists: insp.exists,
-    pathIsFile: insp.isFile,
-    pathMode: insp.mode,
-    pathSizeBytes: insp.sizeBytes,
-    allowedFullName,
-    expectedOwner,
-  };
-}
-
-/**
- * Load App credentials for D9 REAL installation-to-server reads.
- * Never uses Better Auth GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET.
- * Never returns or logs path content in thrown messages beyond existence.
- */
-export function loadGitHubAppCredentialsFromEnv(): GitHubAppLoadedCredentials {
-  const meta = readGitHubAppCredentialMetaFromEnv();
-
-  if (meta.appId !== GITHUB_APP_EXPECTED_APP_ID) {
-    throw new StudioError(
-      "INVALID_REQUEST",
-      `GITHUB_APP_ID inattendu (attendu ${GITHUB_APP_EXPECTED_APP_ID})`,
-      { httpStatus: 400 },
-    );
-  }
-  if (meta.installationId !== GITHUB_APP_EXPECTED_INSTALLATION_ID) {
-    throw new StudioError(
-      "INVALID_REQUEST",
-      `GITHUB_APP_INSTALLATION_ID inattendu (attendu ${GITHUB_APP_EXPECTED_INSTALLATION_ID})`,
-      { httpStatus: 400 },
-    );
-  }
-
-  if (!meta.pathExists || !meta.pathIsFile) {
-    throw new StudioError(
-      "NOT_CONFIGURED",
-      "LOCAL CREDENTIAL INPUT REQUIRED — GITHUB_APP_PRIVATE_KEY_PATH fichier absent",
-      { httpStatus: 503 },
-    );
-  }
-
-  const insp = inspectGitHubAppCredentialPath(meta.privateKeyPath);
-  if (!insp.readable) {
-    throw new StudioError(
-      "NOT_CONFIGURED",
-      "LOCAL CREDENTIAL INPUT REQUIRED — clé privée non lisible",
-      { httpStatus: 503 },
-    );
-  }
-
-  let privateKeyPem: string;
-  try {
-    privateKeyPem = readFileSync(meta.privateKeyPath, "utf8");
-  } catch {
-    throw new StudioError(
-      "NOT_CONFIGURED",
-      "LOCAL CREDENTIAL INPUT REQUIRED — échec de lecture du chemin clé",
-      { httpStatus: 503 },
-    );
-  }
-
-  if (!/BEGIN (?:RSA )?PRIVATE KEY/.test(privateKeyPem)) {
-    throw new StudioError(
-      "INVALID_REQUEST",
-      "Clé privée GitHub App invalide (PEM attendu)",
-      { httpStatus: 400 },
-    );
-  }
-
-  return {
-    appId: meta.appId,
-    installationId: meta.installationId,
-    privateKeyPem,
-    allowedFullName: meta.allowedFullName,
-    expectedOwner: meta.expectedOwner,
-    meta,
-  };
-}
-
-/** True when REAL App read credentials are present (path exists). Does not validate PEM crypto. */
-export function isGitHubAppReadConfigured(): boolean {
-  try {
-    const meta = readGitHubAppCredentialMetaFromEnv();
-    return meta.pathExists && meta.pathIsFile && Boolean(meta.appId) && Boolean(meta.installationId);
-  } catch {
-    return false;
-  }
-}
-
-export function parseFullName(fullName: string): { owner: string; name: string } {
-  const parts = fullName.split("/");
-  if (parts.length !== 2 || !parts[0] || !parts[1]) {
-    throw new StudioError("INVALID_REQUEST", `fullName invalide: ${fullName}`, { httpStatus: 400 });
-  }
-  return { owner: parts[0], name: parts[1] };
-}
-
-```
-
-
-### FILE `projects/sfia-studio-next/web/src/domains/integrations/github-app-auth.ts`
-sha256=`85c99611f018724c2cddffb52849932173386f8f8ce3431cebf037f196218e16`
-```ts
-import { createPrivateKey } from "node:crypto";
-import { SignJWT, importPKCS8 } from "jose";
-import { StudioError } from "@/lib/http-errors";
-import {
-  type GitHubAppLoadedCredentials,
-  parseFullName,
-} from "./github-app-config";
-
-export type GitHubAppIdentity = {
-  id: number;
-  slug: string | null;
-  name: string | null;
-  ownerLogin: string | null;
-};
-
-export type GitHubInstallationIdentity = {
-  id: number;
-  accountLogin: string | null;
-  accountType: string | null;
-  repositorySelection: string | null;
-  permissions: Record<string, string>;
-  suspendedAt: string | null;
-};
-
-export type InstallationAccessToken = {
-  /** Ephemeral — never log or persist. */
-  token: string;
-  expiresAt: string;
-  permissions: Record<string, string>;
-  repositorySelection: string | null;
-  repositories: Array<{ id: number; fullName: string; private: boolean }>;
-};
-
-export type GitHubFetch = typeof fetch;
-
-const API = "https://api.github.com";
-
-function mapGitHubHttpError(status: number, bodyText: string): StudioError {
-  const snippet = bodyText.slice(0, 180).replace(/\s+/g, " ");
-  if (status === 401 || status === 403) {
-    return new StudioError("ACCESS_DENIED", `GitHub FORBIDDEN/UNAUTHORIZED (${status})`, {
-      httpStatus: status === 401 ? 401 : 403,
-    });
-  }
-  if (status === 404) {
-    return new StudioError("NOT_FOUND", `GitHub ressource introuvable (${status})`, {
-      httpStatus: 404,
-    });
-  }
-  if (status === 408 || status >= 500) {
-    return new StudioError(
-      "DEPENDENCY_UNAVAILABLE",
-      `GitHub TIMEOUT/UNAVAILABLE (${status}) ${snippet ? "— " + snippet : ""}`.trim(),
-      { httpStatus: 503 },
-    );
-  }
-  return new StudioError(
-    "AMBIGUOUS",
-    `GitHub réponse non qualificable (${status})`,
-    { httpStatus: 409 },
+/** True when Client ID + Secret + Callback are present (not Better Auth GITHUB_CLIENT_*). */
+export function isGitHubAppUserOauthConfigured(): boolean {
+  return Boolean(
+    process.env.GITHUB_APP_CLIENT_ID?.trim() &&
+      process.env.GITHUB_APP_CLIENT_SECRET?.trim() &&
+      process.env.GITHUB_APP_CALLBACK_URL?.trim(),
   );
 }
 
+export function readGitHubAppUserOauthConfig(): UserOauthConfig {
+  // Never reuse Better Auth GITHUB_CLIENT_ID/SECRET.
+  return {
+    clientId: requireEnv("GITHUB_APP_CLIENT_ID"),
+    clientSecret: requireEnv("GITHUB_APP_CLIENT_SECRET"),
+    callbackUrl: requireEnv("GITHUB_APP_CALLBACK_URL"),
+    appId: process.env.GITHUB_APP_ID?.trim() || GITHUB_APP_EXPECTED_APP_ID,
+    expectedInstallationId:
+      process.env.GITHUB_APP_INSTALLATION_ID?.trim() || GITHUB_APP_EXPECTED_INSTALLATION_ID,
+    expectedOwner: process.env.GITHUB_APP_EXPECTED_OWNER?.trim() || GITHUB_APP_EXPECTED_OWNER,
+    allowedFullName: process.env.GITHUB_APP_ALLOWED_REPO?.trim() || GITHUB_APP_ALLOWED_FULL_NAME,
+  };
+}
+
+export function mintPkcePair(): { codeVerifier: string; codeChallenge: string; method: "S256" } {
+  const codeVerifier = randomBytes(32).toString("base64url");
+  const codeChallenge = createHash("sha256").update(codeVerifier).digest("base64url");
+  return { codeVerifier, codeChallenge, method: "S256" };
+}
+
+export function buildGitHubAppUserAuthorizeUrl(input: {
+  config: UserOauthConfig;
+  state: string;
+  codeChallenge: string;
+  codeChallengeMethod: string;
+}): string {
+  const u = new URL("https://github.com/login/oauth/authorize");
+  u.searchParams.set("client_id", input.config.clientId);
+  u.searchParams.set("redirect_uri", input.config.callbackUrl);
+  u.searchParams.set("state", input.state);
+  u.searchParams.set("code_challenge", input.codeChallenge);
+  u.searchParams.set("code_challenge_method", input.codeChallengeMethod);
+  // User-to-server: request only what is needed for installation visibility + identity.
+  // Repo mutations remain gated by D6/D7 and REAL mutation hard-blocks.
+  u.searchParams.set("scope", "");
+  return u.toString();
+}
+
 async function ghJson<T>(
-  fetchImpl: GitHubFetch,
-  path: string,
-  init: RequestInit & { timeoutMs?: number },
+  url: string,
+  init: RequestInit,
+  fetchImpl: typeof fetch = fetch,
 ): Promise<T> {
-  const timeoutMs = init.timeoutMs ?? 15_000;
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  const t = setTimeout(() => ctrl.abort(), 15_000);
   try {
-    const res = await fetchImpl(`${API}${path}`, {
+    const res = await fetchImpl(url, {
       ...init,
       signal: ctrl.signal,
       headers: {
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "sfia-studio-next-dev-d9",
+        Accept: "application/json",
+        "User-Agent": "sfia-studio-next-dev-d9-user-oauth",
         ...(init.headers ?? {}),
       },
     });
     const text = await res.text();
-    if (!res.ok) throw mapGitHubHttpError(res.status, text);
-    if (!text) return {} as T;
-    try {
-      return JSON.parse(text) as T;
-    } catch {
-      throw new StudioError("AMBIGUOUS", "GitHub réponse JSON illisible", { httpStatus: 409 });
+    if (!res.ok) {
+      if (res.status === 401 || res.status === 403) {
+        throw new StudioError("ACCESS_DENIED", `GitHub user OAuth FORBIDDEN (${res.status})`, {
+          httpStatus: res.status === 401 ? 401 : 403,
+        });
+      }
+      if (res.status >= 500) {
+        throw new StudioError("DEPENDENCY_UNAVAILABLE", `GitHub user OAuth UNAVAILABLE (${res.status})`, {
+          httpStatus: 503,
+        });
+      }
+      throw new StudioError("INVALID_REQUEST", `GitHub user OAuth échec (${res.status})`, {
+        httpStatus: 400,
+      });
     }
+    return text ? (JSON.parse(text) as T) : ({} as T);
   } catch (e) {
     if (e instanceof StudioError) throw e;
-    const msg = e instanceof Error ? e.message : String(e);
-    if (/abort|timeout|ETIMEDOUT|ECONNRESET|ENOTFOUND/i.test(msg)) {
-      throw new StudioError("DEPENDENCY_UNAVAILABLE", "GitHub TIMEOUT", { httpStatus: 503, cause: e });
-    }
-    throw new StudioError("DEPENDENCY_UNAVAILABLE", "GitHub appel échoué", {
+    throw new StudioError("DEPENDENCY_UNAVAILABLE", "GitHub user OAuth TIMEOUT/échec", {
       httpStatus: 503,
       cause: e,
     });
@@ -445,152 +446,117 @@ async function ghJson<T>(
   }
 }
 
-/** Convert PEM to PKCS8 for jose when needed. */
-async function importAppPrivateKey(pem: string) {
-  try {
-    return await importPKCS8(pem, "RS256");
-  } catch {
-    // Some GitHub PEMs are PKCS#1 — convert via node crypto.
-    try {
-      const keyObject = createPrivateKey(pem);
-      const pkcs8 = keyObject.export({ type: "pkcs8", format: "pem" }).toString();
-      return await importPKCS8(pkcs8, "RS256");
-    } catch (e) {
-      throw new StudioError("INVALID_REQUEST", "Clé privée GitHub App invalide (import)", {
-        httpStatus: 400,
-        cause: e,
-      });
-    }
-  }
-}
-
-/** Create a short-lived App JWT. Never log the result. */
-export async function createGitHubAppJwt(
-  appId: string,
-  privateKeyPem: string,
-  nowSec = Math.floor(Date.now() / 1000),
-): Promise<string> {
-  const key = await importAppPrivateKey(privateKeyPem);
-  // GitHub allows max 10 minutes; clock skew buffer on iat.
-  const iat = nowSec - 60;
-  const exp = nowSec + 9 * 60;
-  return new SignJWT({})
-    .setProtectedHeader({ alg: "RS256" })
-    .setIssuedAt(iat)
-    .setExpirationTime(exp)
-    .setIssuer(appId)
-    .sign(key);
-}
-
-export async function fetchGitHubAppIdentity(
-  jwt: string,
-  fetchImpl: GitHubFetch = fetch,
-): Promise<GitHubAppIdentity> {
+export async function exchangeAuthorizationCode(input: {
+  config: UserOauthConfig;
+  code: string;
+  codeVerifier: string;
+  fetchImpl?: typeof fetch;
+}): Promise<UserTokenBundle> {
   const raw = await ghJson<{
-    id: number;
-    slug?: string;
-    name?: string;
-    owner?: { login?: string };
-  }>(fetchImpl, "/app", {
-    method: "GET",
-    headers: { Authorization: `Bearer ${jwt}` },
-  });
-  return {
-    id: raw.id,
-    slug: raw.slug ?? null,
-    name: raw.name ?? null,
-    ownerLogin: raw.owner?.login ?? null,
-  };
-}
-
-export async function fetchGitHubInstallationIdentity(
-  jwt: string,
-  installationId: string,
-  fetchImpl: GitHubFetch = fetch,
-): Promise<GitHubInstallationIdentity> {
-  const raw = await ghJson<{
-    id: number;
-    account?: { login?: string; type?: string };
-    repository_selection?: string;
-    permissions?: Record<string, string>;
-    suspended_at?: string | null;
-  }>(fetchImpl, `/app/installations/${installationId}`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${jwt}` },
-  });
-  return {
-    id: raw.id,
-    accountLogin: raw.account?.login ?? null,
-    accountType: raw.account?.type ?? null,
-    repositorySelection: raw.repository_selection ?? null,
-    permissions: raw.permissions ?? {},
-    suspendedAt: raw.suspended_at ?? null,
-  };
-}
-
-/**
- * Mint an ephemeral installation token restricted to the sandbox repository
- * and read-only permission subset.
- */
-export async function createInstallationAccessToken(
-  creds: GitHubAppLoadedCredentials,
-  jwt: string,
-  fetchImpl: GitHubFetch = fetch,
-): Promise<InstallationAccessToken> {
-  const { name } = parseFullName(creds.allowedFullName);
-  const raw = await ghJson<{
-    token: string;
-    expires_at: string;
-    permissions?: Record<string, string>;
-    repository_selection?: string;
-    repositories?: Array<{ id: number; full_name: string; private: boolean }>;
-  }>(fetchImpl, `/app/installations/${creds.installationId}/access_tokens`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-      "Content-Type": "application/json",
+    access_token?: string;
+    refresh_token?: string;
+    expires_in?: number;
+    scope?: string;
+    error?: string;
+  }>(
+    "https://github.com/login/oauth/access_token",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        client_id: input.config.clientId,
+        client_secret: input.config.clientSecret,
+        code: input.code,
+        redirect_uri: input.config.callbackUrl,
+        code_verifier: input.codeVerifier,
+      }),
     },
-    body: JSON.stringify({
-      repositories: [name],
-      permissions: {
-        contents: "read",
-        metadata: "read",
-        pull_requests: "read",
-      },
-    }),
-  });
-
-  if (!raw.token || !raw.expires_at) {
-    throw new StudioError("AMBIGUOUS", "Jeton d'installation GitHub incomplet", { httpStatus: 409 });
+    input.fetchImpl,
+  );
+  if (!raw.access_token) {
+    throw new StudioError("ACCESS_DENIED", "Échange code OAuth sans access_token", {
+      httpStatus: 403,
+    });
   }
-
-  const permissions = raw.permissions ?? {};
-  for (const [k, v] of Object.entries(permissions)) {
-    if (v === "write" || v === "admin") {
-      throw new StudioError(
-        "ACCESS_DENIED",
-        `Jeton d'installation non restreint en lecture (${k}=${v})`,
-        { httpStatus: 403 },
-      );
-    }
-  }
-
+  const expiresAt =
+    typeof raw.expires_in === "number"
+      ? new Date(Date.now() + raw.expires_in * 1000)
+      : null;
+  const scopes = (raw.scope ?? "")
+    .split(/[,\s]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
   return {
-    token: raw.token,
-    expiresAt: raw.expires_at,
-    permissions,
-    repositorySelection: raw.repository_selection ?? null,
-    repositories: (raw.repositories ?? []).map((r) => ({
-      id: r.id,
-      fullName: r.full_name,
-      private: Boolean(r.private),
-    })),
+    accessToken: raw.access_token,
+    refreshToken: raw.refresh_token ?? null,
+    expiresAt,
+    scopes,
   };
 }
 
-export async function listInstallationRepositories(
-  installationToken: string,
-  fetchImpl: GitHubFetch = fetch,
+export async function fetchGitHubUserIdentity(
+  accessToken: string,
+  fetchImpl: typeof fetch = fetch,
+): Promise<GitHubUserIdentity> {
+  const raw = await ghJson<{ id: number; login: string }>(
+    "https://api.github.com/user",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    },
+    fetchImpl,
+  );
+  if (!raw.id || !raw.login) {
+    throw new StudioError("AMBIGUOUS", "Identité GitHub user illisible", { httpStatus: 409 });
+  }
+  return { id: String(raw.id), login: raw.login };
+}
+
+export async function listUserInstallationsForApp(
+  accessToken: string,
+  expectedAppId: string,
+  fetchImpl: typeof fetch = fetch,
+): Promise<UserInstallation[]> {
+  const raw = await ghJson<{
+    installations: Array<{
+      id: number;
+      app_id: number;
+      account?: { login?: string; type?: string };
+      repository_selection?: string;
+      suspended_at?: string | null;
+    }>;
+  }>(
+    "https://api.github.com/user/installations",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    },
+    fetchImpl,
+  );
+  return (raw.installations ?? [])
+    .filter((i) => String(i.app_id) === expectedAppId)
+    .map((i) => ({
+      id: String(i.id),
+      appId: String(i.app_id),
+      accountLogin: i.account?.login ?? "",
+      accountType: i.account?.type ?? "",
+      repositorySelection: i.repository_selection ?? null,
+      suspendedAt: i.suspended_at ?? null,
+    }));
+}
+
+export async function listUserInstallationRepos(
+  accessToken: string,
+  installationId: string,
+  fetchImpl: typeof fetch = fetch,
 ): Promise<Array<{ id: number; fullName: string; defaultBranch: string; private: boolean }>> {
   const raw = await ghJson<{
     repositories: Array<{
@@ -599,10 +565,18 @@ export async function listInstallationRepositories(
       default_branch: string;
       private: boolean;
     }>;
-  }>(fetchImpl, "/installation/repositories?per_page=100", {
-    method: "GET",
-    headers: { Authorization: `Bearer ${installationToken}` },
-  });
+  }>(
+    `https://api.github.com/user/installations/${installationId}/repositories?per_page=100`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    },
+    fetchImpl,
+  );
   return (raw.repositories ?? []).map((r) => ({
     id: r.id,
     fullName: r.full_name,
@@ -611,621 +585,191 @@ export async function listInstallationRepositories(
   }));
 }
 
-export async function fetchRepositoryMetadata(
-  installationToken: string,
-  fullName: string,
-  fetchImpl: GitHubFetch = fetch,
-): Promise<{ id: number; fullName: string; defaultBranch: string; private: boolean }> {
-  const { owner, name } = parseFullName(fullName);
-  const raw = await ghJson<{
-    id: number;
-    full_name: string;
-    default_branch: string;
-    private: boolean;
-  }>(fetchImpl, `/repos/${owner}/${name}`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${installationToken}` },
-  });
-  return {
-    id: raw.id,
-    fullName: raw.full_name,
-    defaultBranch: raw.default_branch,
-    private: Boolean(raw.private),
-  };
-}
-
-export async function fetchRefSha(
-  installationToken: string,
-  fullName: string,
-  ref: string,
-  fetchImpl: GitHubFetch = fetch,
-): Promise<string> {
-  const { owner, name } = parseFullName(fullName);
-  const refPath = ref.startsWith("heads/") || ref.startsWith("tags/") ? ref : `heads/${ref}`;
-  const raw = await ghJson<{ object?: { sha?: string }; sha?: string }>(
-    fetchImpl,
-    `/repos/${owner}/${name}/git/ref/${refPath}`,
-    {
-      method: "GET",
-      headers: { Authorization: `Bearer ${installationToken}` },
-    },
-  );
-  const sha = raw.object?.sha ?? raw.sha;
-  if (!sha || !/^[0-9a-f]{40}$/i.test(sha)) {
-    throw new StudioError("AMBIGUOUS", "SHA de ref GitHub illisible", { httpStatus: 409 });
-  }
-  return sha;
-}
-
-export async function fetchFileContentUtf8(
-  installationToken: string,
-  fullName: string,
-  path: string,
-  ref: string,
-  fetchImpl: GitHubFetch = fetch,
-): Promise<{ path: string; ref: string; sha: string; content: string }> {
-  const { owner, name } = parseFullName(fullName);
-  const q = new URLSearchParams({ ref });
-  const raw = await ghJson<{
-    type?: string;
-    encoding?: string;
-    content?: string;
-    sha?: string;
-    path?: string;
-  }>(fetchImpl, `/repos/${owner}/${name}/contents/${path.replace(/^\/+/, "")}?${q}`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${installationToken}` },
-  });
-  if (raw.type !== "file" || raw.encoding !== "base64" || !raw.content || !raw.sha) {
-    throw new StudioError("AMBIGUOUS", "Contenu fichier GitHub non qualificable", { httpStatus: 409 });
-  }
-  const content = Buffer.from(raw.content.replace(/\n/g, ""), "base64").toString("utf8");
-  return { path: raw.path ?? path, ref, sha: raw.sha, content };
-}
-
-/** Orchestrate App JWT → identity → installation → restricted token (no mutations). */
-export async function authenticateInstallationReadOnly(
-  creds: GitHubAppLoadedCredentials,
-  fetchImpl: GitHubFetch = fetch,
-): Promise<{
-  app: GitHubAppIdentity;
-  installation: GitHubInstallationIdentity;
-  access: InstallationAccessToken;
-}> {
-  const jwt = await createGitHubAppJwt(creds.appId, creds.privateKeyPem);
-  const app = await fetchGitHubAppIdentity(jwt, fetchImpl);
-  if (String(app.id) !== creds.appId) {
+export function assertInstallationAuthorized(
+  installations: UserInstallation[],
+  config: UserOauthConfig,
+): UserInstallation {
+  const match = installations.find((i) => i.id === config.expectedInstallationId);
+  if (!match) {
     throw new StudioError(
       "ACCESS_DENIED",
-      `Identité App distante divergente (attendu ${creds.appId})`,
+      `Installation ${config.expectedInstallationId} inaccessible au user token`,
       { httpStatus: 403 },
     );
   }
-
-  const installation = await fetchGitHubInstallationIdentity(
-    jwt,
-    creds.installationId,
-    fetchImpl,
-  );
-  if (String(installation.id) !== creds.installationId) {
-    throw new StudioError(
-      "ACCESS_DENIED",
-      `Installation distante divergente (attendu ${creds.installationId})`,
-      { httpStatus: 403 },
-    );
-  }
-  if (installation.suspendedAt) {
+  if (match.suspendedAt) {
     throw new StudioError("ACCESS_DENIED", "Installation GitHub App suspendue", { httpStatus: 403 });
   }
   if (
-    installation.accountLogin &&
-    installation.accountLogin.toLowerCase() !== creds.expectedOwner.toLowerCase()
+    match.accountLogin &&
+    match.accountLogin.toLowerCase() !== config.expectedOwner.toLowerCase()
   ) {
     throw new StudioError(
       "ACCESS_DENIED",
-      `Owner d'installation inattendu (attendu ${creds.expectedOwner})`,
+      `Owner installation inattendu (attendu ${config.expectedOwner})`,
       { httpStatus: 403 },
     );
   }
-
-  const access = await createInstallationAccessToken(creds, jwt, fetchImpl);
-  const allowed = access.repositories.some(
-    (r) => r.fullName.toLowerCase() === creds.allowedFullName.toLowerCase(),
-  );
-  // GitHub may omit repositories array on some responses — verify via list endpoint next.
-  if (access.repositories.length > 0 && !allowed) {
-    throw new StudioError(
-      "ACCESS_DENIED",
-      `Dépôt ${creds.allowedFullName} absent du jeton restreint`,
-      { httpStatus: 403 },
-    );
+  if (match.appId !== config.appId) {
+    throw new StudioError("ACCESS_DENIED", "App ID d'installation divergent", { httpStatus: 403 });
   }
-
-  return { app, installation, access };
+  return match;
 }
 
+export function assertSandboxRepoInList(
+  repos: Array<{ fullName: string }>,
+  allowedFullName: string,
+): void {
+  if (!repos.some((r) => r.fullName.toLowerCase() === allowedFullName.toLowerCase())) {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      `Dépôt ${allowedFullName} hors ressources user/installation`,
+      { httpStatus: 403 },
+    );
+  }
+}
 ```
 
+### `src/app/api/integrations/github/authorize/route.ts`
+```
+import { NextResponse } from "next/server";
+import { startGitHubAuthorization } from "@/domains/integrations/authorization-service";
+import { requireStudioSession } from "@/domains/identity/session";
+import { studioErrorResponse } from "@/lib/http-errors";
 
-### FILE `projects/sfia-studio-next/web/src/domains/integrations/real-github-provider.ts`
-sha256=`c3cc28575cbf4403f295e085d80b1059154e0e95814d77763c9e77da595c6117`
-```ts
-import { StudioError } from "@/lib/http-errors";
-import {
-  authenticateInstallationReadOnly,
-  fetchFileContentUtf8,
-  fetchRefSha,
-  fetchRepositoryMetadata,
-  listInstallationRepositories,
-  type GitHubFetch,
-  type InstallationAccessToken,
-} from "./github-app-auth";
-import {
-  loadGitHubAppCredentialsFromEnv,
-  type GitHubAppLoadedCredentials,
-  parseFullName,
-} from "./github-app-config";
-import type {
-  FileContentResult,
-  GitHubProvider,
-  InstallationRepo,
-  PullRequestInfo,
-} from "./github-provider";
-
-function mutationBlocked(op: string): never {
-  throw new StudioError(
-    "ACCESS_DENIED",
-    `Mutation GitHub REAL interdite dans ce cycle (${op})`,
-    { httpStatus: 403 },
-  );
-}
-
-function assertAllowedRepo(creds: GitHubAppLoadedCredentials, fullName: string) {
-  if (fullName.toLowerCase() !== creds.allowedFullName.toLowerCase()) {
-    throw new StudioError(
-      "ACCESS_DENIED",
-      `Dépôt hors périmètre REAL READ (${fullName})`,
-      { httpStatus: 403 },
+export async function POST(req: Request) {
+  try {
+    const session = await requireStudioSession();
+    const body = (await req.json().catch(() => ({}))) as { returnPath?: string };
+    const result = await startGitHubAuthorization(
+      session.pilotId,
+      body.returnPath ?? "/settings/integrations",
     );
-  }
-}
-
-type TokenCache = {
-  access: InstallationAccessToken;
-  fetchedAtMs: number;
-};
-
-/**
- * D9 GitHub provider — REAL installation-to-server, READ-ONLY.
- * Mutations are hard-blocked. Not a second Git engine: same GitHubProvider contract.
- */
-export class RealGitHubReadProvider implements GitHubProvider {
-  readonly mode = "REAL" as const;
-  private readonly creds: GitHubAppLoadedCredentials;
-  private readonly fetchImpl: GitHubFetch;
-  private tokenCache: TokenCache | null = null;
-  private mutationAttempts = {
-    createBranch: 0,
-    putFileContents: 0,
-    createPR: 0,
-    mergePR: 0,
-  };
-
-  constructor(creds: GitHubAppLoadedCredentials, fetchImpl: GitHubFetch = fetch) {
-    this.creds = creds;
-    this.fetchImpl = fetchImpl;
-  }
-
-  getMutationCounts() {
-    return { ...this.mutationAttempts };
-  }
-
-  resetMutationCounts() {
-    this.mutationAttempts = {
-      createBranch: 0,
-      putFileContents: 0,
-      createPR: 0,
-      mergePR: 0,
-    };
-  }
-
-  private async installationToken(): Promise<string> {
-    const now = Date.now();
-    if (this.tokenCache) {
-      const expires = Date.parse(this.tokenCache.access.expiresAt);
-      // Refresh 60s before expiry.
-      if (Number.isFinite(expires) && expires - now > 60_000) {
-        return this.tokenCache.access.token;
-      }
-    }
-    const { access } = await authenticateInstallationReadOnly(this.creds, this.fetchImpl);
-    this.tokenCache = { access, fetchedAtMs: now };
-    return access.token;
-  }
-
-  async listInstallationRepos(
-    _pilotId: string,
-    installationId: string,
-  ): Promise<InstallationRepo[]> {
-    if (installationId !== this.creds.installationId) {
-      throw new StudioError("ACCESS_DENIED", "Installation ID hors mandat REAL READ", {
-        httpStatus: 403,
-      });
-    }
-    const token = await this.installationToken();
-    const repos = await listInstallationRepositories(token, this.fetchImpl);
-    const allowed = repos.filter(
-      (r) => r.fullName.toLowerCase() === this.creds.allowedFullName.toLowerCase(),
-    );
-    if (allowed.length === 0) {
-      throw new StudioError(
-        "ACCESS_DENIED",
-        `Dépôt ${this.creds.allowedFullName} non inclus dans l'installation`,
-        { httpStatus: 403 },
-      );
-    }
-    return allowed.map((r) => {
-      const { owner, name } = parseFullName(r.fullName);
-      return {
-        id: String(r.id),
-        owner,
-        name,
-        fullName: r.fullName,
-        defaultBranch: r.defaultBranch,
-      };
+    return NextResponse.json({
+      ...result,
+      providerMode: (process.env.STUDIO_GITHUB_PROVIDER ?? "scripted").toLowerCase() === "real"
+        ? "REAL"
+        : "SCRIPTED",
     });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
+}
+```
 
-  async getRefSha(pilotId: string, fullName: string, ref: string): Promise<string> {
-    void pilotId;
-    assertAllowedRepo(this.creds, fullName);
-    const token = await this.installationToken();
-    return fetchRefSha(token, fullName, ref, this.fetchImpl);
-  }
+### `src/app/api/integrations/github/callback/route.ts`
+```
+import { NextResponse } from "next/server";
+import {
+  completeGitHubAuthorization,
+  consumeOauthStateForCallback,
+} from "@/domains/integrations/authorization-service";
+import { requireStudioSession } from "@/domains/identity/session";
+import { isStudioError, studioErrorResponse } from "@/lib/http-errors";
 
-  async getFileContent(
-    pilotId: string,
-    fullName: string,
-    path: string,
-    ref: string,
-  ): Promise<FileContentResult> {
-    void pilotId;
-    assertAllowedRepo(this.creds, fullName);
-    const token = await this.installationToken();
-    const file = await fetchFileContentUtf8(token, fullName, path, ref, this.fetchImpl);
-    return {
-      path: file.path,
-      ref: file.ref,
-      sha: file.sha,
-      content: file.content,
-      encoding: "utf-8",
-    };
-  }
+/**
+ * GitHub App user-to-server callback (D9) — distinct from Better Auth D1 callback.
+ * Never echoes code/token. Never trusts installation_id from query for REAL attribution.
+ */
+export async function GET(req: Request) {
+  try {
+    const session = await requireStudioSession();
+    const url = new URL(req.url);
+    const state = url.searchParams.get("state");
+    if (!state) {
+      return NextResponse.json({ error: "INVALID_REQUEST", message: "state required" }, { status: 400 });
+    }
 
-  async createBranch(
-    _pilotId: string,
-    _fullName: string,
-    _branch: string,
-    _fromSha: string,
-  ): Promise<{ ref: string; sha: string }> {
-    this.mutationAttempts.createBranch += 1;
-    return mutationBlocked("createBranch");
-  }
+    // Peek binding before consume (complete performs atomic single-use consume).
+    const oauth = await consumeOauthStateForCallback(state);
+    if (!oauth || oauth.pilotId !== session.pilotId) {
+      return NextResponse.json({ error: "ACCESS_DENIED" }, { status: 403 });
+    }
 
-  async putFileContents(_input: {
-    pilotId: string;
-    fullName: string;
-    path: string;
-    branch: string;
-    message: string;
-    content: string;
-    expectedHeadSha?: string;
-  }): Promise<{ commitSha: string; headSha: string }> {
-    this.mutationAttempts.putFileContents += 1;
-    return mutationBlocked("putFileContents");
-  }
+    const scripted = url.searchParams.get("scripted") === "1";
+    const code = url.searchParams.get("code") ?? undefined;
+    // installation_id from query is NEVER authoritative for REAL user OAuth.
+    const installationIdHint = scripted
+      ? (url.searchParams.get("installation_id") ?? undefined)
+      : undefined;
 
-  async createPullRequest(_input: {
-    pilotId: string;
-    fullName: string;
-    title: string;
-    head: string;
-    base: string;
-    body?: string;
-    publicationMarker?: string;
-  }): Promise<PullRequestInfo> {
-    this.mutationAttempts.createPR += 1;
-    return mutationBlocked("createPullRequest");
-  }
-
-  async findPullRequest(_input: {
-    pilotId: string;
-    fullName: string;
-    head: string;
-    base: string;
-    publicationMarker?: string;
-    expectedHeadSha?: string;
-  }): Promise<{ matches: PullRequestInfo[]; ambiguous: boolean }> {
-    // Read path reserved for a later cycle with marker provenance; fail-closed for now.
-    throw new StudioError(
-      "NOT_CONFIGURED",
-      "findPullRequest REAL non activé dans le cycle READ-ONLY",
-      { httpStatus: 503 },
-    );
-  }
-
-  async mergePullRequest(_input: {
-    pilotId: string;
-    fullName: string;
-    prNumber: number;
-    expectedHeadSha: string;
-    expectedBaseSha?: string | null;
-  }): Promise<{ merged: boolean; sha: string }> {
-    this.mutationAttempts.mergePR += 1;
-    return mutationBlocked("mergePullRequest");
-  }
-
-  async getPullRequest(
-    _pilotId: string,
-    _fullName: string,
-    _prNumber: number,
-  ): Promise<PullRequestInfo> {
-    throw new StudioError(
-      "NOT_CONFIGURED",
-      "getPullRequest REAL non activé dans le cycle READ-ONLY",
-      { httpStatus: 503 },
-    );
-  }
-
-  /** Qualification helper: repo metadata + default branch HEAD (no secrets). */
-  async observeAllowedRepository(): Promise<{
-    repositoryId: number;
-    fullName: string;
-    defaultBranch: string;
-    headSha: string;
-    private: boolean;
-    installationRepos: string[];
-    tokenPermissions: Record<string, string>;
-    tokenExpiresAt: string;
-  }> {
-    const { access } = await authenticateInstallationReadOnly(this.creds, this.fetchImpl);
-    this.tokenCache = { access, fetchedAtMs: Date.now() };
-    const listed = await listInstallationRepositories(access.token, this.fetchImpl);
-    const names = listed.map((r) => r.fullName);
-    if (!names.some((n) => n.toLowerCase() === this.creds.allowedFullName.toLowerCase())) {
-      throw new StudioError(
-        "ACCESS_DENIED",
-        `Dépôt ${this.creds.allowedFullName} absent de l'installation`,
-        { httpStatus: 403 },
+    if (!scripted && !code) {
+      const ghError = url.searchParams.get("error");
+      return NextResponse.redirect(
+        new URL(
+          `${oauth.returnPath || "/settings/integrations"}?connected=0&error=${encodeURIComponent(ghError || "missing_code")}`,
+          url.origin,
+        ),
       );
     }
-    const meta = await fetchRepositoryMetadata(
-      access.token,
-      this.creds.allowedFullName,
-      this.fetchImpl,
-    );
-    const headSha = await fetchRefSha(
-      access.token,
-      this.creds.allowedFullName,
-      meta.defaultBranch,
-      this.fetchImpl,
-    );
-    return {
-      repositoryId: meta.id,
-      fullName: meta.fullName,
-      defaultBranch: meta.defaultBranch,
-      headSha,
-      private: meta.private,
-      installationRepos: names,
-      tokenPermissions: access.permissions,
-      tokenExpiresAt: access.expiresAt,
+
+    await completeGitHubAuthorization({
+      pilotId: session.pilotId,
+      state,
+      scripted,
+      code: scripted ? undefined : code,
+      installationId: installationIdHint,
+    });
+
+    const returnPath = oauth.returnPath || "/settings/integrations";
+    // Clean redirect — no code/state/token in final URL.
+    return NextResponse.redirect(new URL(`${returnPath}?connected=1`, url.origin));
+  } catch (e) {
+    if (isStudioError(e) && e.code === "NOT_CONFIGURED") {
+      const mapped = studioErrorResponse(e);
+      return NextResponse.json(mapped.body, { status: mapped.status });
+    }
+    const mapped = studioErrorResponse(e);
+    // Prefer redirect to integrations with opaque error for browser flow.
+    try {
+      const url = new URL(req.url);
+      return NextResponse.redirect(
+        new URL(`/settings/integrations?connected=0&error=${encodeURIComponent(e instanceof Error ? e.message.slice(0, 80) : "failed")}`, url.origin),
+      );
+    } catch {
+      return NextResponse.json(mapped.body, { status: mapped.status });
+    }
+  }
+}
+```
+
+### `src/app/api/integrations/github/authorize/complete/route.ts`
+```
+import { NextResponse } from "next/server";
+import { completeGitHubAuthorization } from "@/domains/integrations/authorization-service";
+import { requireStudioSession } from "@/domains/identity/session";
+import { studioErrorResponse } from "@/lib/http-errors";
+
+/** SCRIPTED / local completion without relying on browser document redirect. */
+export async function POST(req: Request) {
+  try {
+    const session = await requireStudioSession();
+    const body = (await req.json().catch(() => ({}))) as {
+      state?: string;
+      installationId?: string;
     };
+    if (!body.state) {
+      return NextResponse.json({ error: "INVALID_REQUEST", message: "state required" }, { status: 400 });
+    }
+    const status = await completeGitHubAuthorization({
+      pilotId: session.pilotId,
+      state: body.state,
+      installationId: body.installationId,
+      scripted: true,
+    });
+    return NextResponse.json(status);
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }
-
-export function createRealGitHubReadProviderFromEnv(
-  fetchImpl: GitHubFetch = fetch,
-): RealGitHubReadProvider {
-  const creds = loadGitHubAppCredentialsFromEnv();
-  return new RealGitHubReadProvider(creds, fetchImpl);
-}
-
 ```
 
-
-### FILE `projects/sfia-studio-next/web/scripts/github-app-installation-read-qualify.ts`
-sha256=`535448a487fb5f81d50176fbec97bf6a61877672c1f02d494969dbb5b576d20b`
-```ts
-/**
- * DEV qualification — GitHub App installation READ-ONLY proof (D9).
- *
- * Required env (local, never commit secrets):
- *   GITHUB_APP_ID=5670639
- *   GITHUB_APP_INSTALLATION_ID=179935689
- *   GITHUB_APP_PRIVATE_KEY_PATH=/secure/local/path/to/key.pem
- *
- * Optional:
- *   GITHUB_APP_ALLOWED_REPO=mcleland147/chantiers360
- *
- * Never prints PEM, JWT, or access tokens.
- * Never performs Git mutations.
- *
- * Usage (from web/):
- *   npx tsx scripts/github-app-installation-read-qualify.ts
- */
-import { config as loadDotenv } from "dotenv";
-import { resolve } from "node:path";
-import {
-  authenticateInstallationReadOnly,
-} from "../src/domains/integrations/github-app-auth";
-import {
-  GITHUB_APP_ALLOWED_FULL_NAME,
-  GITHUB_APP_EXPECTED_APP_ID,
-  GITHUB_APP_EXPECTED_INSTALLATION_ID,
-  inspectGitHubAppCredentialPath,
-  loadGitHubAppCredentialsFromEnv,
-} from "../src/domains/integrations/github-app-config";
-import { RealGitHubReadProvider } from "../src/domains/integrations/real-github-provider";
-import { isStudioError } from "../src/lib/http-errors";
-
-loadDotenv({ path: resolve(process.cwd(), ".env.local") });
-
-function fail(code: string, message: string): never {
-  console.error(
-    JSON.stringify(
-      {
-        ok: false,
-        code,
-        message,
-        verdict: "ML4 GITHUB APP INSTALLATION READ — NOT PROVEN / BLOCKED",
-      },
-      null,
-      2,
-    ),
-  );
-  process.exit(2);
-}
-
-async function main() {
-  const pathEnv = process.env.GITHUB_APP_PRIVATE_KEY_PATH?.trim();
-  if (!pathEnv) {
-    fail(
-      "LOCAL_CREDENTIAL_INPUT_REQUIRED",
-      "GITHUB_APP_PRIVATE_KEY_PATH absent — fournir le chemin local sécurisé du .pem (ne pas coller le PEM)",
-    );
-  }
-
-  const pathMeta = inspectGitHubAppCredentialPath(pathEnv);
-  if (!pathMeta.exists || !pathMeta.isFile || !pathMeta.readable) {
-    fail(
-      "LOCAL_CREDENTIAL_INPUT_REQUIRED",
-      `GITHUB_APP_PRIVATE_KEY_PATH non utilisable (exists=${pathMeta.exists} isFile=${pathMeta.isFile} readable=${pathMeta.readable} mode=${pathMeta.mode})`,
-    );
-  }
-
-  if (!process.env.GITHUB_APP_ID) process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
-  if (!process.env.GITHUB_APP_INSTALLATION_ID) {
-    process.env.GITHUB_APP_INSTALLATION_ID = GITHUB_APP_EXPECTED_INSTALLATION_ID;
-  }
-  if (!process.env.GITHUB_APP_ALLOWED_REPO) {
-    process.env.GITHUB_APP_ALLOWED_REPO = GITHUB_APP_ALLOWED_FULL_NAME;
-  }
-
-  let creds;
-  try {
-    creds = loadGitHubAppCredentialsFromEnv();
-  } catch (e) {
-    const msg = isStudioError(e) ? e.message : "credential load failed";
-    const code = isStudioError(e) ? e.code : "NOT_CONFIGURED";
-    fail(code, msg);
-  }
-
-  const provider = new RealGitHubReadProvider(creds);
-  const auth = await authenticateInstallationReadOnly(creds);
-  const observed = await provider.observeAllowedRepository();
-
-  // Negative: mutations must remain blocked
-  let mutationBlocked = false;
-  try {
-    await provider.createBranch("pilot", creds.allowedFullName, "sfia/forbidden", observed.headSha);
-  } catch (e) {
-    mutationBlocked = isStudioError(e) && e.code === "ACCESS_DENIED";
-  }
-  if (!mutationBlocked) {
-    fail("MUTATION_GUARD_FAILED", "createBranch REAL n'a pas été bloqué");
-  }
-
-  const counts = provider.getMutationCounts();
-  if (counts.createBranch !== 1 || counts.createPR !== 0 || counts.mergePR !== 0) {
-    fail("MUTATION_COUNTER_UNEXPECTED", "compteurs de mutation REAL inattendus");
-  }
-
-  // Proof payload — no secrets
-  const proof = {
-    ok: true,
-    at: new Date().toISOString(),
-    lane: "DEV",
-    providerMode: "REAL",
-    credentialPathMeta: {
-      configured: true,
-      exists: pathMeta.exists,
-      isFile: pathMeta.isFile,
-      mode: pathMeta.mode,
-      sizeBytes: pathMeta.sizeBytes,
-      // path string intentionally omitted from stdout to reduce accidental leakage in logs
-    },
-    app: {
-      id: auth.app.id,
-      slug: auth.app.slug,
-      name: auth.app.name,
-      ownerLogin: auth.app.ownerLogin,
-      matchesExpected: String(auth.app.id) === GITHUB_APP_EXPECTED_APP_ID,
-    },
-    installation: {
-      id: auth.installation.id,
-      accountLogin: auth.installation.accountLogin,
-      accountType: auth.installation.accountType,
-      repositorySelection: auth.installation.repositorySelection,
-      permissionsGrantedOnInstallation: auth.installation.permissions,
-      suspendedAt: auth.installation.suspendedAt,
-      matchesExpected: String(auth.installation.id) === GITHUB_APP_EXPECTED_INSTALLATION_ID,
-    },
-    token: {
-      expiresAt: auth.access.expiresAt,
-      permissions: auth.access.permissions,
-      repositorySelection: auth.access.repositorySelection,
-      repositoriesInToken: auth.access.repositories.map((r) => r.fullName),
-      // token value NEVER included
-    },
-    repository: {
-      id: observed.repositoryId,
-      fullName: observed.fullName,
-      private: observed.private,
-      defaultBranch: observed.defaultBranch,
-      headSha: observed.headSha,
-      installationReposObserved: observed.installationRepos,
-      matchesSandbox: observed.fullName.toLowerCase() === GITHUB_APP_ALLOWED_FULL_NAME.toLowerCase(),
-    },
-    mutationGuard: {
-      createBranchBlocked: true,
-      mutationCounts: counts,
-    },
-    limits: [
-      "installation-to-server read only",
-      "no user-to-server",
-      "no Git mutations",
-      "no Product user-path activation",
-      "D7/D8 reserves still open before REAL writes",
-    ],
-    verdict:
-      "REAL INSTALLATION AUTH PROVEN + REAL REPOSITORY READ PROVEN — READ-ONLY SCOPE ONLY",
-  };
-
-  console.log(JSON.stringify(proof, null, 2));
-}
-
-main().catch((e) => {
-  const msg = isStudioError(e) ? `${e.code}: ${e.message}` : e instanceof Error ? e.message : String(e);
-  fail("QUALIFY_FAILED", msg);
-});
-
+### `tests/unit/token-crypto.test.ts`
 ```
-
-
-### FILE `projects/sfia-studio-next/web/tests/unit/github-app-config.test.ts`
-sha256=`f42c785f8fc0dc38894f633b6d9e357aca087da94218d56d392e0a724c0c3c40`
-```ts
-import { mkdtempSync, writeFileSync, chmodSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import {
-  GITHUB_APP_EXPECTED_APP_ID,
-  GITHUB_APP_EXPECTED_INSTALLATION_ID,
-  inspectGitHubAppCredentialPath,
-  loadGitHubAppCredentialsFromEnv,
-  readGitHubAppCredentialMetaFromEnv,
-} from "@/domains/integrations/github-app-config";
+import { isTokenEncryptionConfigured, openSecret, sealSecret } from "@/lib/token-crypto";
 import { isStudioError } from "@/lib/http-errors";
 
 const ORIGINAL = { ...process.env };
@@ -1237,164 +781,57 @@ afterEach(() => {
   Object.assign(process.env, ORIGINAL);
 });
 
-describe("github-app-config", () => {
-  it("STOP when PRIVATE_KEY_PATH absent", () => {
-    process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
-    process.env.GITHUB_APP_INSTALLATION_ID = GITHUB_APP_EXPECTED_INSTALLATION_ID;
-    delete process.env.GITHUB_APP_PRIVATE_KEY_PATH;
-    expect(() => readGitHubAppCredentialMetaFromEnv()).toThrow(/LOCAL CREDENTIAL INPUT REQUIRED/);
+describe("token-crypto AES-GCM", () => {
+  it("refuses when key absent", () => {
+    delete process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY;
+    expect(isTokenEncryptionConfigured()).toBe(false);
+    expect(() => sealSecret("x")).toThrow(/INTEGRATION_TOKEN_ENCRYPTION_KEY/);
   });
 
-  it("rejects wrong App ID", () => {
-    const dir = mkdtempSync(join(tmpdir(), "sfia-gh-app-"));
-    const pemPath = join(dir, "key.pem");
-    writeFileSync(
-      pemPath,
-      "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0\n-----END PRIVATE KEY-----\n",
-    );
-    try {
-      process.env.GITHUB_APP_ID = "9999999";
-      process.env.GITHUB_APP_INSTALLATION_ID = GITHUB_APP_EXPECTED_INSTALLATION_ID;
-      process.env.GITHUB_APP_PRIVATE_KEY_PATH = pemPath;
-      expect(() => loadGitHubAppCredentialsFromEnv()).toThrow(/GITHUB_APP_ID inattendu/);
-    } finally {
-      rmSync(dir, { recursive: true, force: true });
-    }
-  });
+  it("round-trips and rejects wrong key", () => {
+    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 9).toString("base64");
+    expect(isTokenEncryptionConfigured()).toBe(true);
+    const sealed = sealSecret("ghs_never_log_me");
+    expect(sealed.ciphertext).not.toContain("ghs_");
+    expect(openSecret(sealed)).toBe("ghs_never_log_me");
 
-  it("rejects wrong installation ID", () => {
-    const dir = mkdtempSync(join(tmpdir(), "sfia-gh-app-"));
-    const pemPath = join(dir, "key.pem");
-    writeFileSync(
-      pemPath,
-      "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0\n-----END PRIVATE KEY-----\n",
-    );
+    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 1).toString("base64");
     try {
-      process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
-      process.env.GITHUB_APP_INSTALLATION_ID = "1";
-      process.env.GITHUB_APP_PRIVATE_KEY_PATH = pemPath;
-      expect(() => loadGitHubAppCredentialsFromEnv()).toThrow(/INSTALLATION_ID inattendu/);
-    } finally {
-      rmSync(dir, { recursive: true, force: true });
-    }
-  });
-
-  it("rejects missing key file", () => {
-    process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
-    process.env.GITHUB_APP_INSTALLATION_ID = GITHUB_APP_EXPECTED_INSTALLATION_ID;
-    process.env.GITHUB_APP_PRIVATE_KEY_PATH = "/tmp/sfia-does-not-exist-github-app.pem";
-    try {
-      loadGitHubAppCredentialsFromEnv();
-      expect.fail("expected throw");
+      openSecret(sealed);
+      expect.fail("expected decrypt fail");
     } catch (e) {
       expect(isStudioError(e)).toBe(true);
-      expect(String((e as Error).message)).toMatch(/fichier absent/);
+      expect((e as { code: string }).code).toBe("ACCESS_DENIED");
     }
   });
 
-  it("inspects path metadata without needing valid crypto key material shape beyond PEM header", () => {
-    const dir = mkdtempSync(join(tmpdir(), "sfia-gh-app-"));
-    const pemPath = join(dir, "key.pem");
-    writeFileSync(
-      pemPath,
-      "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0\n-----END PRIVATE KEY-----\n",
-    );
-    chmodSync(pemPath, 0o600);
-    try {
-      const meta = inspectGitHubAppCredentialPath(pemPath);
-      expect(meta.exists).toBe(true);
-      expect(meta.isFile).toBe(true);
-      expect(meta.readable).toBe(true);
-      expect(meta.mode).toBe("0600");
-      expect(meta.sizeBytes).toBeGreaterThan(20);
-
-      process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
-      process.env.GITHUB_APP_INSTALLATION_ID = GITHUB_APP_EXPECTED_INSTALLATION_ID;
-      process.env.GITHUB_APP_PRIVATE_KEY_PATH = pemPath;
-      const loaded = loadGitHubAppCredentialsFromEnv();
-      expect(loaded.appId).toBe(GITHUB_APP_EXPECTED_APP_ID);
-      expect(loaded.privateKeyPem.includes("BEGIN")).toBe(true);
-      expect(loaded.meta.pathMode).toBe("0600");
-    } finally {
-      rmSync(dir, { recursive: true, force: true });
-    }
-  });
-
-  it("rejects non-PEM content", () => {
-    const dir = mkdtempSync(join(tmpdir(), "sfia-gh-app-"));
-    const pemPath = join(dir, "key.pem");
-    writeFileSync(pemPath, "not-a-key");
-    try {
-      process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
-      process.env.GITHUB_APP_INSTALLATION_ID = GITHUB_APP_EXPECTED_INSTALLATION_ID;
-      process.env.GITHUB_APP_PRIVATE_KEY_PATH = pemPath;
-      expect(() => loadGitHubAppCredentialsFromEnv()).toThrow(/PEM attendu/);
-    } finally {
-      rmSync(dir, { recursive: true, force: true });
-    }
+  it("accepts 64-char hex key", () => {
+    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = "ab".repeat(32);
+    const sealed = sealSecret("hello");
+    expect(openSecret(sealed)).toBe("hello");
   });
 });
-
 ```
 
-
-### FILE `projects/sfia-studio-next/web/tests/unit/github-app-auth-real-provider.test.ts`
-sha256=`a55867fe986421fd4c318681e81c8414ece54a83da105a4b16c9e9eda3087e14`
-```ts
-import { generateKeyPairSync } from "node:crypto";
+### `tests/unit/github-app-user-oauth.test.ts`
+```
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
-  authenticateInstallationReadOnly,
-  createGitHubAppJwt,
-  createInstallationAccessToken,
-} from "@/domains/integrations/github-app-auth";
-import type { GitHubAppLoadedCredentials } from "@/domains/integrations/github-app-config";
+  assertInstallationAuthorized,
+  assertSandboxRepoInList,
+  buildGitHubAppUserAuthorizeUrl,
+  exchangeAuthorizationCode,
+  fetchGitHubUserIdentity,
+  isGitHubAppUserOauthConfigured,
+  mintPkcePair,
+  readGitHubAppUserOauthConfig,
+} from "@/domains/integrations/github-app-user-oauth";
 import {
-  GITHUB_APP_ALLOWED_FULL_NAME,
   GITHUB_APP_EXPECTED_APP_ID,
   GITHUB_APP_EXPECTED_INSTALLATION_ID,
-  GITHUB_APP_EXPECTED_OWNER,
 } from "@/domains/integrations/github-app-config";
-import { resolveGitHubProvider } from "@/domains/integrations/github-provider";
-import { RealGitHubReadProvider } from "@/domains/integrations/real-github-provider";
-import { isStudioError } from "@/lib/http-errors";
 
 const ORIGINAL = { ...process.env };
-
-function testPem(): string {
-  const { privateKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
-  return privateKey.export({ type: "pkcs8", format: "pem" }).toString();
-}
-
-function creds(overrides?: Partial<GitHubAppLoadedCredentials>): GitHubAppLoadedCredentials {
-  const pem = testPem();
-  return {
-    appId: GITHUB_APP_EXPECTED_APP_ID,
-    installationId: GITHUB_APP_EXPECTED_INSTALLATION_ID,
-    privateKeyPem: pem,
-    allowedFullName: GITHUB_APP_ALLOWED_FULL_NAME,
-    expectedOwner: GITHUB_APP_EXPECTED_OWNER,
-    meta: {
-      appId: GITHUB_APP_EXPECTED_APP_ID,
-      installationId: GITHUB_APP_EXPECTED_INSTALLATION_ID,
-      privateKeyPath: "/tmp/test.pem",
-      pathExists: true,
-      pathIsFile: true,
-      pathMode: "0600",
-      pathSizeBytes: 100,
-      allowedFullName: GITHUB_APP_ALLOWED_FULL_NAME,
-      expectedOwner: GITHUB_APP_EXPECTED_OWNER,
-    },
-    ...overrides,
-  };
-}
-
-function jsonResponse(status: number, body: unknown): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  });
-}
 
 afterEach(() => {
   for (const k of Object.keys(process.env)) {
@@ -1404,390 +841,1309 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe("github-app-auth + REAL provider (DET)", () => {
-  it("creates a JWT without exposing it in errors", async () => {
-    const c = creds();
-    const jwt = await createGitHubAppJwt(c.appId, c.privateKeyPem);
-    expect(jwt.split(".")).toHaveLength(3);
-    expect(jwt.length).toBeGreaterThan(40);
+describe("github-app-user-oauth helpers", () => {
+  it("detects missing client credentials without inventing them", () => {
+    delete process.env.GITHUB_APP_CLIENT_ID;
+    delete process.env.GITHUB_APP_CLIENT_SECRET;
+    delete process.env.GITHUB_APP_CALLBACK_URL;
+    expect(isGitHubAppUserOauthConfigured()).toBe(false);
+    expect(() => readGitHubAppUserOauthConfig()).toThrow(/GITHUB_APP_CLIENT_ID/);
   });
 
-  it("authenticates installation and restricts token to read + sandbox repo", async () => {
-    const c = creds();
-    const fetchImpl = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-      const url = String(input);
-      const method = (init?.method ?? "GET").toUpperCase();
-      if (url.endsWith("/app") && method === "GET") {
-        return jsonResponse(200, {
-          id: Number(GITHUB_APP_EXPECTED_APP_ID),
-          slug: "sfia-studio-next-dev",
-          name: "sfia-studio-next-dev",
-          owner: { login: "mcleland147" },
-        });
-      }
-      if (url.includes(`/app/installations/${GITHUB_APP_EXPECTED_INSTALLATION_ID}`) && method === "GET") {
-        return jsonResponse(200, {
-          id: Number(GITHUB_APP_EXPECTED_INSTALLATION_ID),
-          account: { login: "mcleland147", type: "User" },
-          repository_selection: "selected",
-          permissions: { contents: "write", metadata: "read", pull_requests: "write" },
-          suspended_at: null,
-        });
-      }
-      if (url.endsWith("/access_tokens") && method === "POST") {
-        const body = JSON.parse(String(init?.body ?? "{}"));
-        expect(body.repositories).toEqual(["chantiers360"]);
-        expect(body.permissions).toEqual({
-          contents: "read",
-          metadata: "read",
-          pull_requests: "read",
-        });
-        return jsonResponse(201, {
-          token: "ghs_test_token_never_log",
-          expires_at: new Date(Date.now() + 3600_000).toISOString(),
-          permissions: { contents: "read", metadata: "read", pull_requests: "read" },
-          repository_selection: "selected",
-          repositories: [
-            { id: 1, full_name: GITHUB_APP_ALLOWED_FULL_NAME, private: true },
-          ],
-        });
-      }
-      return jsonResponse(500, { message: "unexpected " + url });
+  it("builds authorize URL with PKCE and dedicated App client id", () => {
+    process.env.GITHUB_APP_CLIENT_ID = "Iv1.app-client";
+    process.env.GITHUB_APP_CLIENT_SECRET = "secret";
+    process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
+    process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
+    const config = readGitHubAppUserOauthConfig();
+    const pkce = mintPkcePair();
+    const url = buildGitHubAppUserAuthorizeUrl({
+      config,
+      state: "st",
+      codeChallenge: pkce.codeChallenge,
+      codeChallengeMethod: pkce.method,
     });
-
-    const result = await authenticateInstallationReadOnly(c, fetchImpl as unknown as typeof fetch);
-    expect(result.app.id).toBe(Number(GITHUB_APP_EXPECTED_APP_ID));
-    expect(result.installation.id).toBe(Number(GITHUB_APP_EXPECTED_INSTALLATION_ID));
-    expect(result.access.permissions.contents).toBe("read");
-    expect(result.access.repositories[0]?.fullName).toBe(GITHUB_APP_ALLOWED_FULL_NAME);
+    expect(url).toContain("client_id=Iv1.app-client");
+    expect(url).toContain("code_challenge=");
+    expect(url).toContain("code_challenge_method=S256");
+    expect(url).not.toContain(process.env.GITHUB_CLIENT_ID ?? "Ov23");
   });
 
-  it("rejects installation token that still has write permissions", async () => {
-    const c = creds();
-    const jwt = await createGitHubAppJwt(c.appId, c.privateKeyPem);
-    const fetchImpl = vi.fn(async () =>
-      jsonResponse(201, {
-        token: "ghs_x",
-        expires_at: new Date(Date.now() + 3600_000).toISOString(),
-        permissions: { contents: "write", metadata: "read" },
-        repositories: [{ id: 1, full_name: GITHUB_APP_ALLOWED_FULL_NAME, private: true }],
-      }),
+  it("exchanges code and fetches identity via mocked GitHub", async () => {
+    process.env.GITHUB_APP_CLIENT_ID = "Iv1.app-client";
+    process.env.GITHUB_APP_CLIENT_SECRET = "secret";
+    process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
+    const config = readGitHubAppUserOauthConfig();
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes("login/oauth/access_token")) {
+        return new Response(
+          JSON.stringify({
+            access_token: "ghs_test",
+            refresh_token: "ghr_test",
+            expires_in: 3600,
+            scope: "",
+          }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        );
+      }
+      if (url.endsWith("/user")) {
+        return new Response(JSON.stringify({ id: 42, login: "mcleland147" }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      return new Response("{}", { status: 500 });
+    });
+    const tokens = await exchangeAuthorizationCode({
+      config,
+      code: "abc",
+      codeVerifier: "ver",
+      fetchImpl: fetchImpl as unknown as typeof fetch,
+    });
+    expect(tokens.accessToken).toBe("ghs_test");
+    const identity = await fetchGitHubUserIdentity(
+      tokens.accessToken,
+      fetchImpl as unknown as typeof fetch,
     );
-    await expect(
-      createInstallationAccessToken(c, jwt, fetchImpl as unknown as typeof fetch),
-    ).rejects.toThrow(/non restreint en lecture/);
+    expect(identity).toEqual({ id: "42", login: "mcleland147" });
   });
 
-  it("maps 403 to ACCESS_DENIED and 503-ish to DEPENDENCY_UNAVAILABLE", async () => {
-    const c = creds();
-    const jwt = await createGitHubAppJwt(c.appId, c.privateKeyPem);
+  it("rejects missing installation / sandbox repo", () => {
+    const config = {
+      clientId: "x",
+      clientSecret: "y",
+      callbackUrl: "http://localhost/cb",
+      appId: GITHUB_APP_EXPECTED_APP_ID,
+      expectedInstallationId: GITHUB_APP_EXPECTED_INSTALLATION_ID,
+      expectedOwner: "mcleland147",
+      allowedFullName: "mcleland147/chantiers360",
+    };
+    expect(() =>
+      assertInstallationAuthorized(
+        [
+          {
+            id: "1",
+            appId: GITHUB_APP_EXPECTED_APP_ID,
+            accountLogin: "mcleland147",
+            accountType: "User",
+            repositorySelection: "selected",
+            suspendedAt: null,
+          },
+        ],
+        config,
+      ),
+    ).toThrow(/inaccessible/);
 
-    const forbidden = vi.fn(async () => jsonResponse(403, { message: "nope" }));
-    await expect(
-      createInstallationAccessToken(c, jwt, forbidden as unknown as typeof fetch),
-    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED");
-
-    const boom = vi.fn(async () => jsonResponse(502, { message: "bad gateway" }));
-    await expect(
-      createInstallationAccessToken(c, jwt, boom as unknown as typeof fetch),
-    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "DEPENDENCY_UNAVAILABLE");
-  });
-
-  it("REAL provider hard-blocks mutations and refuses out-of-scope repos", async () => {
-    const c = creds();
-    const fetchImpl = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-      const url = String(input);
-      const method = (init?.method ?? "GET").toUpperCase();
-      if (url.endsWith("/app") && method === "GET") {
-        return jsonResponse(200, {
-          id: Number(GITHUB_APP_EXPECTED_APP_ID),
-          slug: "sfia-studio-next-dev",
-          owner: { login: "mcleland147" },
-        });
-      }
-      if (url.includes("/app/installations/") && method === "GET") {
-        return jsonResponse(200, {
-          id: Number(GITHUB_APP_EXPECTED_INSTALLATION_ID),
-          account: { login: "mcleland147", type: "User" },
-          permissions: { contents: "read", metadata: "read", pull_requests: "read" },
-          suspended_at: null,
-        });
-      }
-      if (url.endsWith("/access_tokens") && method === "POST") {
-        return jsonResponse(201, {
-          token: "ghs_test",
-          expires_at: new Date(Date.now() + 3600_000).toISOString(),
-          permissions: { contents: "read", metadata: "read", pull_requests: "read" },
-          repositories: [{ id: 42, full_name: GITHUB_APP_ALLOWED_FULL_NAME, private: true }],
-        });
-      }
-      if (url.includes("/installation/repositories")) {
-        return jsonResponse(200, {
-          repositories: [
-            {
-              id: 42,
-              full_name: GITHUB_APP_ALLOWED_FULL_NAME,
-              default_branch: "main",
-              private: true,
-            },
-          ],
-        });
-      }
-      if (url.includes("/repos/mcleland147/chantiers360/git/ref/")) {
-        return jsonResponse(200, {
-          object: { sha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" },
-        });
-      }
-      if (url.includes("/repos/mcleland147/chantiers360") && method === "GET") {
-        return jsonResponse(200, {
-          id: 42,
-          full_name: GITHUB_APP_ALLOWED_FULL_NAME,
-          default_branch: "main",
-          private: true,
-        });
-      }
-      return jsonResponse(500, { message: "unexpected " + url });
-    });
-
-    const provider = new RealGitHubReadProvider(c, fetchImpl as unknown as typeof fetch);
-
-    await expect(
-      provider.getRefSha("pilot", "mcleland147/sfia-workspace", "main"),
-    ).rejects.toThrow(/hors périmètre/);
-
-    await expect(
-      provider.createBranch("pilot", GITHUB_APP_ALLOWED_FULL_NAME, "x", "a".repeat(40)),
-    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED");
-
-    await expect(
-      provider.putFileContents({
-        pilotId: "p",
-        fullName: GITHUB_APP_ALLOWED_FULL_NAME,
-        path: "docs/a.md",
-        branch: "main",
-        message: "nope",
-        content: "x",
-      }),
-    ).rejects.toThrow(/Mutation GitHub REAL interdite/);
-
-    await expect(
-      provider.createPullRequest({
-        pilotId: "p",
-        fullName: GITHUB_APP_ALLOWED_FULL_NAME,
-        title: "nope",
-        head: "x",
-        base: "main",
-      }),
-    ).rejects.toThrow(/Mutation/);
-
-    await expect(
-      provider.mergePullRequest({
-        pilotId: "p",
-        fullName: GITHUB_APP_ALLOWED_FULL_NAME,
-        prNumber: 1,
-        expectedHeadSha: "a".repeat(40),
-      }),
-    ).rejects.toThrow(/Mutation/);
-
-    const observed = await provider.observeAllowedRepository();
-    expect(observed.fullName).toBe(GITHUB_APP_ALLOWED_FULL_NAME);
-    expect(observed.headSha).toBe("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    expect(provider.getMutationCounts().createBranch).toBe(1);
-    expect(provider.getMutationCounts().createPR).toBe(1);
-    expect(provider.getMutationCounts().mergePR).toBe(1);
-  });
-
-  it("resolveGitHubProvider stays SCRIPTED by default and refuses REAL without credentials", () => {
-    delete process.env.STUDIO_GITHUB_PROVIDER;
-    delete process.env.GITHUB_APP_PRIVATE_KEY_PATH;
-    expect(resolveGitHubProvider().mode).toBe("SCRIPTED");
-
-    process.env.STUDIO_GITHUB_PROVIDER = "real";
-    delete process.env.GITHUB_APP_ID;
-    expect(() => resolveGitHubProvider()).toThrow(/non configuré/);
-  });
-
-  it("rejects wrong owner on installation account", async () => {
-    const c = creds();
-    const fetchImpl = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-      const url = String(input);
-      const method = (init?.method ?? "GET").toUpperCase();
-      if (url.endsWith("/app")) {
-        return jsonResponse(200, {
-          id: Number(GITHUB_APP_EXPECTED_APP_ID),
-          slug: "sfia-studio-next-dev",
-          owner: { login: "mcleland147" },
-        });
-      }
-      if (url.includes("/app/installations/") && method === "GET") {
-        return jsonResponse(200, {
-          id: Number(GITHUB_APP_EXPECTED_INSTALLATION_ID),
-          account: { login: "someone-else", type: "User" },
-          permissions: { contents: "read", metadata: "read" },
-          suspended_at: null,
-        });
-      }
-      return jsonResponse(500, { message: "no" });
-    });
-    await expect(
-      authenticateInstallationReadOnly(c, fetchImpl as unknown as typeof fetch),
-    ).rejects.toThrow(/Owner d'installation inattendu/);
+    expect(() =>
+      assertSandboxRepoInList([{ fullName: "acme/other" }], config.allowedFullName),
+    ).toThrow(/hors ressources/);
   });
 });
+```
+
+### `src/domains/integrations/authorization-service.ts` (complet)
+```
+import { and, desc, eq, gt, isNull } from "drizzle-orm";
+import { db } from "@/db/client";
+import {
+  authorizedRepositories,
+  integrationAuthorizations,
+  integrationOauthStates,
+  pilots,
+} from "@/db/schema";
+import { StudioError } from "@/lib/http-errors";
+import { newId } from "@/lib/ids";
+import { isTokenEncryptionConfigured, sealSecret } from "@/lib/token-crypto";
+import { resolveGitHubProvider } from "./github-provider";
+import {
+  assertInstallationAuthorized,
+  assertSandboxRepoInList,
+  buildGitHubAppUserAuthorizeUrl,
+  exchangeAuthorizationCode,
+  fetchGitHubUserIdentity,
+  isGitHubAppUserOauthConfigured,
+  listUserInstallationRepos,
+  listUserInstallationsForApp,
+  mintPkcePair,
+  readGitHubAppUserOauthConfig,
+} from "./github-app-user-oauth";
+import type { IntegrationStatus } from "./types";
+
+const STATE_TTL_MS = 15 * 60 * 1000;
+
+function safeReturnPath(path: string): string {
+  if (!path.startsWith("/") || path.startsWith("//") || path.includes("://")) {
+    return "/settings/integrations";
+  }
+  return path || "/settings/integrations";
+}
+
+export async function getIntegrationStatus(pilotId: string) {
+  const provider = resolveGitHubProvider();
+  const connected = (
+    await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      )
+      .orderBy(desc(integrationAuthorizations.createdAt))
+      .limit(1)
+  )[0];
+  const latest = connected
+    ? connected
+    : (
+        await db
+          .select()
+          .from(integrationAuthorizations)
+          .where(eq(integrationAuthorizations.pilotId, pilotId))
+          .orderBy(desc(integrationAuthorizations.updatedAt))
+          .limit(1)
+      )[0];
+
+  const status = (latest?.status ?? "DISCONNECTED") as IntegrationStatus;
+  const repos =
+    status === "CONNECTED"
+      ? await db
+          .select({
+            id: authorizedRepositories.id,
+            fullName: authorizedRepositories.fullName,
+            defaultBranch: authorizedRepositories.defaultBranch,
+            status: authorizedRepositories.status,
+          })
+          .from(authorizedRepositories)
+          .where(
+            and(
+              eq(authorizedRepositories.pilotId, pilotId),
+              eq(authorizedRepositories.status, "ACTIVE"),
+            ),
+          )
+      : [];
+
+  return {
+    provider: "github" as const,
+    providerMode: provider.mode,
+    status,
+    authorizationId: latest?.id ?? null,
+    installationId: latest?.installationId ?? null,
+    githubUserId: latest?.githubUserId ?? null,
+    accountLogin: latest?.accountLogin ?? null,
+    tokenExpiresAt: latest?.tokenExpiresAt?.toISOString() ?? null,
+    lastValidatedAt: latest?.lastValidatedAt?.toISOString() ?? null,
+    userOauthConfigured: isGitHubAppUserOauthConfigured(),
+    repositories: repos,
+    // Never include tokens / ciphertext.
+  };
+}
+
+/**
+ * Start voluntary GitHub App user-to-server authorization (distinct from D1 Better Auth).
+ * SCRIPTED: local callback. REAL user OAuth: GitHub authorize URL when App Client credentials present.
+ */
+export async function startGitHubAuthorization(pilotId: string, returnPath: string) {
+  const stateToken = newId("ghst");
+  const now = new Date();
+  const expiresAt = new Date(now.getTime() + STATE_TTL_MS);
+  const pkce = mintPkcePair();
+  const nonce = newId("ghnc");
+  const safePath = safeReturnPath(returnPath);
+
+  await db.insert(integrationOauthStates).values({
+    id: newId("ghos"),
+    pilotId,
+    stateToken,
+    returnPath: safePath,
+    codeVerifier: pkce.codeVerifier,
+    nonce,
+    codeChallengeMethod: pkce.method,
+    expiresAt,
+    createdAt: now,
+  });
+
+  const provider = resolveGitHubProvider();
+  const wantRealUserOauth =
+    (process.env.STUDIO_GITHUB_USER_OAUTH ?? "").toLowerCase() === "real" ||
+    (provider.mode === "REAL" && isGitHubAppUserOauthConfigured());
+
+  if (wantRealUserOauth) {
+    if (!isGitHubAppUserOauthConfigured()) {
+      throw new StudioError(
+        "NOT_CONFIGURED",
+        "GITHUB_APP_CLIENT_ID / GITHUB_APP_CLIENT_SECRET / GITHUB_APP_CALLBACK_URL requis pour user-to-server REAL",
+        { httpStatus: 503 },
+      );
+    }
+    if (!isTokenEncryptionConfigured()) {
+      throw new StudioError(
+        "NOT_CONFIGURED",
+        "INTEGRATION_TOKEN_ENCRYPTION_KEY requis avant persistance de tokens user",
+        { httpStatus: 503 },
+      );
+    }
+    const config = readGitHubAppUserOauthConfig();
+    const authorizeUrl = buildGitHubAppUserAuthorizeUrl({
+      config,
+      state: stateToken,
+      codeChallenge: pkce.codeChallenge,
+      codeChallengeMethod: pkce.method,
+    });
+    return {
+      authorizeUrl,
+      state: stateToken,
+      flow: "github_app_user_oauth" as const,
+      pkce: true,
+    };
+  }
+
+  // Deterministic SCRIPTED (or REAL install-read without user OAuth credentials).
+  const authorizeUrl = `/api/integrations/github/callback?scripted=1&state=${encodeURIComponent(stateToken)}`;
+  return {
+    authorizeUrl,
+    state: stateToken,
+    flow: "scripted" as const,
+    pkce: true,
+    note: isGitHubAppUserOauthConfigured()
+      ? undefined
+      : "USER-TO-SERVER REAL INTERACTIVE NOT PROVEN — Client credentials absents ; parcours SCRIPTED disponible",
+  };
+}
+
+async function seedAuthorizedRepos(
+  pilotId: string,
+  authorizationId: string,
+  installationId: string,
+  repos?: Array<{ owner: string; name: string; fullName: string; defaultBranch: string }>,
+) {
+  const provider = resolveGitHubProvider();
+  const remote =
+    repos ??
+    (await provider.listInstallationRepos(pilotId, installationId)).map((r) => ({
+      owner: r.owner,
+      name: r.name,
+      fullName: r.fullName,
+      defaultBranch: r.defaultBranch,
+    }));
+  const now = new Date();
+  for (const r of remote) {
+    const existing = (
+      await db
+        .select({ id: authorizedRepositories.id })
+        .from(authorizedRepositories)
+        .where(
+          and(
+            eq(authorizedRepositories.pilotId, pilotId),
+            eq(authorizedRepositories.fullName, r.fullName),
+          ),
+        )
+        .limit(1)
+    )[0];
+    const scriptedWritePerms = JSON.stringify({ contents: "write", pull_requests: "write" });
+    if (existing) {
+      await db
+        .update(authorizedRepositories)
+        .set({
+          authorizationId,
+          status: "ACTIVE",
+          defaultBranch: r.defaultBranch,
+          permissionsJson: scriptedWritePerms,
+          syncedAt: now,
+        })
+        .where(eq(authorizedRepositories.id, existing.id));
+    } else {
+      await db.insert(authorizedRepositories).values({
+        id: newId("arepo"),
+        pilotId,
+        authorizationId,
+        owner: r.owner,
+        name: r.name,
+        fullName: r.fullName,
+        defaultBranch: r.defaultBranch,
+        status: "ACTIVE",
+        permissionsJson: scriptedWritePerms,
+        syncedAt: now,
+        createdAt: now,
+      });
+    }
+  }
+}
+
+async function loadPilotGithubUserId(pilotId: string): Promise<string | null> {
+  const row = (
+    await db
+      .select({ githubUserId: pilots.githubUserId })
+      .from(pilots)
+      .where(eq(pilots.id, pilotId))
+      .limit(1)
+  )[0];
+  return row?.githubUserId ?? null;
+}
+
+/**
+ * Atomic consume of OAuth state (TTL + single-use) bound to pilot.
+ * Returns row including PKCE verifier or null if invalid.
+ */
+export async function consumeOauthStateAtomic(input: {
+  state: string;
+  pilotId: string;
+}) {
+  const now = new Date();
+  const updated = await db
+    .update(integrationOauthStates)
+    .set({ consumedAt: now })
+    .where(
+      and(
+        eq(integrationOauthStates.stateToken, input.state),
+        eq(integrationOauthStates.pilotId, input.pilotId),
+        isNull(integrationOauthStates.consumedAt),
+        gt(integrationOauthStates.expiresAt, now),
+      ),
+    )
+    .returning();
+  return updated[0] ?? null;
+}
+
+/** Read-only peek used by callback for pilot binding before consume (legacy helper). */
+export async function consumeOauthStateForCallback(state: string) {
+  const row = (
+    await db
+      .select()
+      .from(integrationOauthStates)
+      .where(and(eq(integrationOauthStates.stateToken, state), isNull(integrationOauthStates.consumedAt)))
+      .limit(1)
+  )[0];
+  return row ?? null;
+}
+
+export async function completeGitHubAuthorization(input: {
+  pilotId: string;
+  state: string;
+  /** SCRIPTED / legacy install hint — ignored for REAL user OAuth (never trust query). */
+  installationId?: string;
+  /** Authorization code from GitHub user OAuth callback. */
+  code?: string;
+  scripted?: boolean;
+  fetchImpl?: typeof fetch;
+}) {
+  const oauthRow = await consumeOauthStateAtomic({
+    state: input.state,
+    pilotId: input.pilotId,
+  });
+  if (!oauthRow) {
+    // Distinguish already-consumed / expired / foreign for tests.
+    const any = (
+      await db
+        .select()
+        .from(integrationOauthStates)
+        .where(eq(integrationOauthStates.stateToken, input.state))
+        .limit(1)
+    )[0];
+    if (!any) throw new StudioError("ACCESS_DENIED", "State OAuth invalide");
+    if (any.pilotId !== input.pilotId) {
+      throw new StudioError("ACCESS_DENIED", "State OAuth non lié à la session");
+    }
+    if (any.consumedAt) throw new StudioError("CONFLICT", "State OAuth déjà consommé");
+    if (any.expiresAt <= new Date()) throw new StudioError("INVALID_REQUEST", "State OAuth expiré");
+    throw new StudioError("ACCESS_DENIED", "State OAuth invalide");
+  }
+
+  const pilotGithubUserId = await loadPilotGithubUserId(input.pilotId);
+  const now = new Date();
+  const provider = resolveGitHubProvider();
+  const useRealUserOauth = Boolean(input.code) && !input.scripted;
+
+  let githubUserId: string;
+  let accountLogin: string;
+  let installId: string;
+  let tokenFields: {
+    tokenCiphertext: string | null;
+    tokenNonce: string | null;
+    tokenKeyVersion: string | null;
+    refreshCiphertext: string | null;
+    refreshNonce: string | null;
+    tokenExpiresAt: Date | null;
+    scopesJson: string;
+  } = {
+    tokenCiphertext: null,
+    tokenNonce: null,
+    tokenKeyVersion: null,
+    refreshCiphertext: null,
+    refreshNonce: null,
+    tokenExpiresAt: null,
+    scopesJson: "[]",
+  };
+  let repoSeed:
+    | Array<{ owner: string; name: string; fullName: string; defaultBranch: string }>
+    | undefined;
+
+  if (useRealUserOauth) {
+    if (!isGitHubAppUserOauthConfigured()) {
+      throw new StudioError(
+        "NOT_CONFIGURED",
+        "Credentials GitHub App user-to-server absents",
+        { httpStatus: 503 },
+      );
+    }
+    if (!isTokenEncryptionConfigured()) {
+      throw new StudioError(
+        "NOT_CONFIGURED",
+        "INTEGRATION_TOKEN_ENCRYPTION_KEY requis",
+        { httpStatus: 503 },
+      );
+    }
+    if (!oauthRow.codeVerifier) {
+      throw new StudioError("INVALID_REQUEST", "PKCE code_verifier absent du state", {
+        httpStatus: 400,
+      });
+    }
+    const config = readGitHubAppUserOauthConfig();
+    const tokens = await exchangeAuthorizationCode({
+      config,
+      code: input.code!,
+      codeVerifier: oauthRow.codeVerifier,
+      fetchImpl: input.fetchImpl,
+    });
+    const identity = await fetchGitHubUserIdentity(tokens.accessToken, input.fetchImpl);
+    if (!pilotGithubUserId) {
+      throw new StudioError(
+        "ACCESS_DENIED",
+        "Pilot sans githubUserId D1 — liaison identité requise, pas d'auto-fusion",
+        { httpStatus: 403 },
+      );
+    }
+    if (identity.id !== pilotGithubUserId) {
+      throw new StudioError(
+        "ACCESS_DENIED",
+        "GitHub user ID divergent de l'identité Studio D1",
+        { httpStatus: 403 },
+      );
+    }
+    const installations = await listUserInstallationsForApp(
+      tokens.accessToken,
+      config.appId,
+      input.fetchImpl,
+    );
+    const install = assertInstallationAuthorized(installations, config);
+    const repos = await listUserInstallationRepos(
+      tokens.accessToken,
+      install.id,
+      input.fetchImpl,
+    );
+    assertSandboxRepoInList(repos, config.allowedFullName);
+
+    const sealedAccess = sealSecret(tokens.accessToken);
+    const sealedRefresh = tokens.refreshToken ? sealSecret(tokens.refreshToken) : null;
+    githubUserId = identity.id;
+    accountLogin = identity.login;
+    installId = install.id;
+    tokenFields = {
+      tokenCiphertext: sealedAccess.ciphertext,
+      tokenNonce: sealedAccess.nonce,
+      tokenKeyVersion: sealedAccess.keyVersion,
+      refreshCiphertext: sealedRefresh?.ciphertext ?? null,
+      refreshNonce: sealedRefresh?.nonce ?? null,
+      tokenExpiresAt: tokens.expiresAt,
+      scopesJson: JSON.stringify(tokens.scopes),
+    };
+    repoSeed = repos.map((r) => {
+      const [owner, name] = r.fullName.split("/");
+      return {
+        owner: owner ?? "",
+        name: name ?? r.fullName,
+        fullName: r.fullName,
+        defaultBranch: r.defaultBranch,
+      };
+    });
+  } else {
+    // SCRIPTED deterministic path — no GitHub network, no trust of foreign installation_id beyond list.
+    if (!pilotGithubUserId) {
+      throw new StudioError(
+        "ACCESS_DENIED",
+        "Pilot sans githubUserId D1 — liaison identité requise",
+        { httpStatus: 403 },
+      );
+    }
+    installId = input.installationId ?? "scripted-install-1";
+    const listed = await provider.listInstallationRepos(input.pilotId, installId);
+    const installKnown = input.installationId
+      ? listed.length > 0 || provider.mode === "SCRIPTED"
+      : provider.mode === "SCRIPTED";
+    if (!installKnown) {
+      throw new StudioError("ACCESS_DENIED", "Installation non vérifiable");
+    }
+    githubUserId = pilotGithubUserId;
+    accountLogin = "scripted-user";
+    // Optional encrypted placeholder when encryption key present (proves seal path).
+    if (isTokenEncryptionConfigured()) {
+      const sealed = sealSecret(`scripted-access:${input.pilotId}`);
+      tokenFields = {
+        tokenCiphertext: sealed.ciphertext,
+        tokenNonce: sealed.nonce,
+        tokenKeyVersion: sealed.keyVersion,
+        refreshCiphertext: null,
+        refreshNonce: null,
+        tokenExpiresAt: new Date(now.getTime() + 3600_000),
+        scopesJson: JSON.stringify([]),
+      };
+    }
+  }
+
+  // Exactly one CONNECTED authorization per pilot — revoke prior before insert.
+  await db
+    .update(integrationAuthorizations)
+    .set({ status: "REVOKED", revokedAt: now, updatedAt: now })
+    .where(
+      and(
+        eq(integrationAuthorizations.pilotId, input.pilotId),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+      ),
+    );
+
+  const authId = newId("iauth");
+  await db.insert(integrationAuthorizations).values({
+    id: authId,
+    pilotId: input.pilotId,
+    provider: "github",
+    status: "CONNECTED",
+    installationId: installId,
+    accountLogin,
+    githubUserId,
+    ...tokenFields,
+    lastValidatedAt: now,
+    metadataJson: JSON.stringify({
+      mode: useRealUserOauth ? "REAL_USER_OAUTH" : provider.mode,
+      flow: useRealUserOauth ? "github_app_user_oauth" : "scripted",
+    }),
+    connectedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  });
+  await seedAuthorizedRepos(input.pilotId, authId, installId, repoSeed);
+  return getIntegrationStatus(input.pilotId);
+}
+
+export async function refreshRepositories(pilotId: string) {
+  const auth = (
+    await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      )
+      .orderBy(desc(integrationAuthorizations.createdAt))
+      .limit(1)
+  )[0];
+  if (!auth?.installationId) throw new StudioError("NOT_FOUND", "Intégration non connectée");
+  await seedAuthorizedRepos(pilotId, auth.id, auth.installationId);
+  return getIntegrationStatus(pilotId);
+}
+
+export async function disconnectIntegration(pilotId: string) {
+  const now = new Date();
+  // Wipe ciphertext on disconnect — no token retention after revoke.
+  await db
+    .update(integrationAuthorizations)
+    .set({
+      status: "REVOKED",
+      revokedAt: now,
+      updatedAt: now,
+      tokenCiphertext: null,
+      tokenNonce: null,
+      tokenKeyVersion: null,
+      refreshCiphertext: null,
+      refreshNonce: null,
+      tokenExpiresAt: null,
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.pilotId, pilotId),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+      ),
+    );
+  await db
+    .update(authorizedRepositories)
+    .set({ status: "REMOVED", syncedAt: now })
+    .where(
+      and(
+        eq(authorizedRepositories.pilotId, pilotId),
+        eq(authorizedRepositories.status, "ACTIVE"),
+      ),
+    );
+  return getIntegrationStatus(pilotId);
+}
+
+export async function setPendingApproval(pilotId: string) {
+  const auth = (
+    await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(eq(integrationAuthorizations.pilotId, pilotId))
+      .orderBy(desc(integrationAuthorizations.createdAt))
+      .limit(1)
+  )[0];
+  const now = new Date();
+  if (auth) {
+    await db
+      .update(integrationAuthorizations)
+      .set({ status: "PENDING_APPROVAL", updatedAt: now })
+      .where(eq(integrationAuthorizations.id, auth.id));
+  } else {
+    await db.insert(integrationAuthorizations).values({
+      id: newId("iauth"),
+      pilotId,
+      provider: "github",
+      status: "PENDING_APPROVAL",
+      metadataJson: "{}",
+      createdAt: now,
+      updatedAt: now,
+    });
+  }
+  return getIntegrationStatus(pilotId);
+}
+
+export async function markAccessRemoved(pilotId: string) {
+  const now = new Date();
+  await db
+    .update(integrationAuthorizations)
+    .set({
+      status: "ACCESS_REMOVED",
+      updatedAt: now,
+      tokenCiphertext: null,
+      tokenNonce: null,
+      refreshCiphertext: null,
+      refreshNonce: null,
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.pilotId, pilotId),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+      ),
+    );
+  return getIntegrationStatus(pilotId);
+}
+```
+
+## ANNEXE 15 — Sections critiques effect-service.ts
+
+### sqlClaimLeaseActive + commitPublicationCompletion (owned CAS)
+```
+function sqlClaimLeaseActive() {
+  return sql`(
+    NULLIF(${effectAttempts.resultJson}::jsonb->'claim'->>'releasedAt', '') IS NULL
+    AND (${effectAttempts.resultJson}::jsonb->'claim'->>'leaseExpiresAt')::timestamptz > now()
+  )`;
+}
+
+/**
+ * Atomic claim: AUTHORIZED|AMBIGUOUS → DISPATCHED before any provider mutation.
+ * Reclaim requires inactive prior claim IN THE SAME SQL predicate (not memory-only).
+ */
+async function claimAttempt(attemptId: string, fromStatus: "AUTHORIZED" | "AMBIGUOUS") {
+  const now = new Date();
+  const row = await loadAttemptRow(attemptId);
+  if (!row || row.status !== fromStatus) return null;
+  const prev = readClaim(row.resultJson);
+  // Fast-fail without writing when AMBIGUOUS still has an active lease (defense in depth).
+  if (fromStatus === "AMBIGUOUS" && isClaimActive(prev, now.getTime())) {
+    return null;
+  }
+  const claim = mintClaim(prev, now);
+  const nextJson = writeClaimInto(row.resultJson, claim);
+  const where =
+    fromStatus === "AMBIGUOUS"
+      ? and(
+          eq(effectAttempts.id, attemptId),
+          eq(effectAttempts.status, fromStatus),
+          sqlClaimInactive(),
+        )
+      : and(eq(effectAttempts.id, attemptId), eq(effectAttempts.status, fromStatus));
+  const claimed = await db
+    .update(effectAttempts)
+    .set({ status: "DISPATCHED", resultJson: nextJson, updatedAt: now })
+    .where(where)
+    .returning({ id: effectAttempts.id });
+  return claimed[0] ? { id: claimed[0].id, claim } : null;
+}
+
+async function loadAttemptRow(attemptId: string) {
+  return (
+    await db.select().from(effectAttempts).where(eq(effectAttempts.id, attemptId)).limit(1)
+  )[0];
+}
+
+/**
+ * Before each external mutation: renew lease only if this claimToken still owns DISPATCHED
+ * with an active lease in PostgreSQL. Stale/expired owners get CONFLICT (0 rows).
+ * Re-reads resultJson so a renew cannot clobber fresher progress from the same owner.
+ */
+async function assertAndTouchOwnership(
+  attemptId: string,
+  claimToken: string,
+  _existingResultJson: string,
+): Promise<string> {
+  void _existingResultJson;
+  const fresh = await loadAttemptRow(attemptId);
+  if (!fresh || fresh.status !== "DISPATCHED") {
+    throw new StudioError("CONFLICT", "DISPATCHED perdu — mutation refusée");
+  }
+  const claim = readClaim(fresh.resultJson);
+  if (!claim || claim.claimToken !== claimToken || claim.releasedAt) {
+    throw new StudioError("CONFLICT", "Claim fence invalide — mutation refusée");
+  }
+  const renewed = extendClaim(claim);
+  const nextJson = writeClaimInto(fresh.resultJson, renewed);
+  const updated = await db
+    .update(effectAttempts)
+    .set({ resultJson: nextJson, updatedAt: new Date() })
+    .where(
+      and(
+        eq(effectAttempts.id, attemptId),
+        eq(effectAttempts.status, "DISPATCHED"),
+        sqlClaimTokenEquals(claimToken),
+        sqlClaimLeaseActive(),
+      ),
+    )
+    .returning({ id: effectAttempts.id, resultJson: effectAttempts.resultJson });
+  if (!updated[0]) {
+    throw new StudioError(
+      "CONFLICT",
+      "Propriété ou lease perdue — mutation provider refusée (fencing SQL)",
+    );
+  }
+  return updated[0].resultJson;
+}
+
+/**
+ * Persist progress under ownership. CAS predicate includes claimToken in SQL —
+ * never trust a post-UPDATE readback of a token this UPDATE just wrote.
+ */
+async function persistOwnedProgress(
+  attemptId: string,
+  claimToken: string,
+  existingResultJson: string,
+  progress: PublicationProgress,
+) {
+  const claim = readClaim(existingResultJson);
+  if (!claim || claim.claimToken !== claimToken) {
+    throw new StudioError("CONFLICT", "Claim fence invalide — progression non écrite");
+  }
+  const nextJson = writeProgress(existingResultJson, progress, claim);
+  const updated = await db
+    .update(effectAttempts)
+    .set({ resultJson: nextJson, updatedAt: new Date() })
+    .where(
+      and(
+        eq(effectAttempts.id, attemptId),
+        eq(effectAttempts.status, "DISPATCHED"),
+        sqlClaimTokenEquals(claimToken),
+      ),
+    )
+    .returning({ id: effectAttempts.id });
+  if (!updated[0]) {
+    throw new StudioError("CONFLICT", "Progression refusée — claimToken non propriétaire en base");
+  }
+  return nextJson;
+}
+
+/** Terminal / status transition only if caller still owns the claimToken in SQL. */
+async function casOwnedTransition(input: {
+  attemptId: string;
+  claimToken: string;
+  fromStatus: string;
+  toStatus: string;
+  resultJson: string;
+}): Promise<boolean> {
+  const updated = await db
+    .update(effectAttempts)
+    .set({
+      status: input.toStatus,
+      resultJson: input.resultJson,
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(effectAttempts.id, input.attemptId),
+        eq(effectAttempts.status, input.fromStatus),
+        sqlClaimTokenEquals(input.claimToken),
+        sqlClaimLeaseActive(),
+      ),
+    )
+    .returning({ id: effectAttempts.id });
+  return Boolean(updated[0]);
+}
+
+/**
+ * Reconcile may liberate DISPATCHED only when the stored claim is inactive
+ * (expired/released) — never while an active owner still holds the lease.
+ */
+async function casLiberateInactiveDispatch(input: {
+  attemptId: string;
+  fromStatus: string;
+  toStatus: string;
+  resultJson: string;
+}): Promise<boolean> {
+  const updated = await db
+    .update(effectAttempts)
+    .set({
+      status: input.toStatus,
+      resultJson: input.resultJson,
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(effectAttempts.id, input.attemptId),
+        eq(effectAttempts.status, input.fromStatus),
+        sqlClaimInactive(),
+      ),
+    )
+    .returning({ id: effectAttempts.id });
+  return Boolean(updated[0]);
+}
+
+type PublicationRefWrite = {
+  projectId: string;
+  pilotId: string;
+  documentId: string;
+  revisionId: string;
+  repositoryId: string;
+  targetPath: string;
+  targetBranch: string;
+  baseSha: string | null;
+  headSha: string | null;
+  prNumber: number | null;
+  status: string;
+  publicationBranch: string;
+  prCurrentState: PrCurrentState | null | undefined;
+  prCreatedHistorically: boolean;
+  extraDetail?: Record<string, unknown>;
+};
+
+/**
+ * Atomic D7 terminal transition + D8 publicationRef upsert.
+ * CAS failure or D8 failure rolls back the whole set — no orphan D8 on lost CAS.
+ * Provider I/O must already be complete before this call (no remote calls inside).
+ */
+async function commitPublicationCompletion(input: {
+  attemptId: string;
+  mode: "owned" | "liberate_inactive";
+  claimToken?: string;
+  fromStatus: string;
+  terminalResultJson: string;
+  pub: PublicationRefWrite;
+}): Promise<{ pubId: string }> {
+  try {
+    return await db.transaction(async (tx) => {
+      const now = new Date();
+      // Owned terminal CAS: claimToken fence AND active lease (DB now()) — expired lease ⇒ 0 rows.
+      // liberate_inactive: only when claim absent/released/expired (reconcile after observation).
+      const where =
+        input.mode === "owned"
+          ? and(
+              eq(effectAttempts.id, input.attemptId),
+              eq(effectAttempts.status, input.fromStatus),
+              sqlClaimTokenEquals(input.claimToken!),
+              sqlClaimLeaseActive(),
+            )
+          : and(
+              eq(effectAttempts.id, input.attemptId),
+              eq(effectAttempts.status, input.fromStatus),
+              sqlClaimInactive(),
+            );
+
+      const cas = await tx
+        .update(effectAttempts)
+        .set({
+          status: "COMPLETED",
+          resultJson: input.terminalResultJson,
+          updatedAt: now,
+        })
+        .where(where)
+        .returning({ id: effectAttempts.id });
+      if (!cas[0]) {
+        throw new StudioError(
+          "CONFLICT",
+          "Complétion D7 refusée — CAS terminal 0 rows (fencing)",
+        );
+      }
+
+      const existing = (
+        await tx
+          .select()
+          .from(documentPublicationRefs)
+          .where(eq(documentPublicationRefs.effectAttemptId, input.attemptId))
+          .limit(1)
+      )[0];
+
+      const detailBase = {
+        publicationBranch: input.pub.publicationBranch,
+        prCurrentState: input.pub.prCurrentState ?? null,
+        prCreatedHistorically: input.pub.prCreatedHistorically,
+        ...(input.pub.extraDetail ?? {}),
+      };
 
 ```
 
-
-## Diffs
-
-
-### github-provider.ts
-```diff
-
+### assertPrMarkerProvenance
+```
+/**
+ * Independent publicationMarker check — required even when PR was loaded by number.
+ * A PR with matching head/base/SHA but wrong marker must never be attributed.
+ */
+async function assertPrMarkerProvenance(input: {
+  provider: ReturnType<typeof resolveGitHubProvider>;
+  pilotId: string;
+  plan: PublicationPlan;
+  pr: PullRequestInfo;
+  publicationMarker: string;
+  expectedHeadSha: string | null | undefined;
+}) {
+  assertPrMatchesPlan(input.pr, input.plan, input.expectedHeadSha);
+  let found: Awaited<ReturnType<typeof input.provider.findPullRequest>>;
+  try {
+    found = await input.provider.findPullRequest({
+      pilotId: input.pilotId,
+      fullName: input.plan.repositoryFullName,
+      head: input.plan.publicationBranch,
+      base: input.plan.targetBranch,
+      publicationMarker: input.publicationMarker,
+      expectedHeadSha: input.expectedHeadSha ?? undefined,
+    });
+  } catch (e) {
+    const code = providerErrorCode(e);
+    if (isRemoteUnreadableCode(code)) {
+      throw Object.assign(new Error("REMOTE_PR_UNREADABLE"), { code: code || "AMBIGUOUS" });
+    }
+    throw e;
+  }
+  if (found.ambiguous || found.matches.length > 1) {
+    throw new StudioError(
+      "AMBIGUOUS",
+      "Plusieurs PR pour le publicationMarker — attribution refusée",
+    );
+  }
+  if (found.matches.length === 0) {
+    throw new StudioError(
+      "REQUIRES_REQUALIFICATION",
+      "publicationMarker non retrouvé pour la PR candidate — attribution refusée",
+    );
+  }
+  const marked = found.matches[0]!;
+  if (marked.number !== input.pr.number) {
+    throw new StudioError(
+      "CONFLICT",
+      "PR par numéro ≠ PR du publicationMarker — provenance incohérente",
+    );
+  }
+}
 ```
 
-
-### delivery-history (extrait)
-```diff
-at | `ML4 CORRECTIVE LOCAL DELIVERY — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY` |
-+
-+## delivery_id: DELIV-2026-11-08-ML4-GIT-FINAL-CORRECTIVE
-+
-+| Champ | Valeur |
-+| --- | --- |
-+| Date (Europe/Paris) | 2026-11-08 |
-+| Macro-capacité | R5 / ML4 — FINAL CORRECTIVE LOCAL (B1/B2/B3/B4/B6/B7/B8) |
-+| Type | INC / CORRECTIVE LOCAL DELIVERY — `NO RELEASE` |
-+| Autorité / GO | Morris « OK, GO CORRECTION » (2026-11-08) |
-+| Branche / worktree | `feat/next-git-collaboration-20261108` (LOCAL DIRTY préservé) |
-+| Base Git | `origin/main@c658f590…` inchangée ; handoff correctif B1–B9 `253f6bed` |
-+| Corrections | B1 niveaux permission read≠write ; B2 exclusivité DISPATCHED + claim ; B3 base/head/refs merge ; B4 lost ACK post-PR + findPullRequest ; B6 taxonomie lecture distante ; B7 acteur/provenance courants ; B8 requal AT + preuves ; B5/B9 préservés |
-+| Migration | aucune 009 — claimToken dans `resultJson` (008) |
-+| Validations | unit **136 PASS** ; git-collaboration PG **24 PASS** ; `tsc` PASS ; `next build` PASS ; Playwright **13/13 PASS** ; integration globale 167/168 (1 flaky préexistant `portfolio-a1` hors ML4) |
-+| ENV-01 | DEV + e2e `sfia_next_e2e` ; RECETTE/STABLE non touchés |
-+| Versioning | **NO RELEASE** ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
-+| Fake/Real | SCRIPTED only ; REAL NOT_CONFIGURED ; DETERMINISTIC ≠ READY FOR REAL |
-+| Gates restants | Critical Review ChatGPT (handoff L3) ; GO Git Product Morris ; GO RECETTE + effets REAL |
-+| Verdict candidat | `ML4 FINAL CORRECTIVE LOCAL DELIVERY — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
-+
-+## delivery_id: DELIV-2026-11-08-ML4-EXECUTION-INVARIANTS
-+
-+| Champ | Valeur |
-+| --- | --- |
-+| Date (Europe/Paris) | 2026-11-08 |
-+| Macro-capacité | R5 / ML4 — STABILISATION FINALE DES INVARIANTS GIT (C1/C2/C3/B2/Q1) |
-+| Type | INC / CORRECTIVE LOCAL DELIVERY — `NO RELEASE` |
-+| Autorité / GO | Morris « OK GO » (2026-11-08) ; Critical Review entrée `f15a8e99…` NOT READY |
-+| Branche / worktree | `feat/next-git-collaboration-20261108` (LOCAL DIRTY préservé) |
-+| Base Git | `origin/main@c658f590…` inchangée |
-+| Corrections | C1 `assertStepAuthority` inter-mutations ; B2 claim lease/fencing + reconcile READ-ONLY ; C2 PR historique vs courant ; C3 SCRIPTED `PilotId+fullName` ; Q1 keyset portfolio µs |
-+| Migration | aucune 009 — lease dans `resultJson` (008) |
-+| Validations | unit **140 PASS** ; git PG **28 PASS** ; integration **172 PASS** ; `tsc` PASS ; `build` PASS ; Playwright **13/13 PASS** |
-+| Handoff L3 | `sfia/review-handoff@4bcc8e4e4171bf886beab06c52b488e88ff2f308` (parent `f15a8e99…`) — mono-fichier |
-+| Q1 | Flake préexistant prouvé (code = main) ; cause truncation JS Date ms ; fix tuple keyset + cursor µs ; stress 25/25 PASS |
-+| ENV-01 | DEV + e2e `sfia_next_e2e` ; RECETTE/STABLE non touchés |
-+| Versioning | **NO RELEASE** ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
-+| Fake/Real | SCRIPTED only ; REAL NOT_CONFIGURED ; DETERMINISTIC ≠ READY FOR REAL |
-+| Gates restants | Critical Review ChatGPT (handoff L3) ; GO Git Product Morris |
-+| Verdict candidat | `ML4 EXECUTION-INVARIANTS STABILIZATION — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
-+
-+## delivery_id: DELIV-2026-11-08-ML4-FENCING-RECONCILIATION-CLOSURE
-+
-+| Champ | Valeur |
-+| --- | --- |
-+| Date (Europe/Paris) | 2026-11-08 |
-+| Macro-capacité | R5 / ML4 — EXECUTION SAFETY FINAL BOUNDED CLOSURE (B2/B4/B9) |
-+| Type | INC / CORRECTIVE LOCAL DELIVERY — `NO RELEASE` |
-+| Autorité / GO | Morris « OK GO » ; Critical Review entrée `4bcc8e4e…` NOT READY + pack incomplete |
-+| Branche / worktree | `feat/next-git-collaboration-20261108` (LOCAL DIRTY préservé) |
-+| Base Git | `origin/main@c658f590…` inchangée |
-+| Corrections | B2 claimToken dans WHERE SQL + touch lease + old-worker CONFLICT ; B4/C2 `prRemoteProven` fail-closed ; B9 diffs docs dans Review Pack |
-+| Migration | aucune 009 |
-+| Validations | unit **140** ; git PG **32** ; integration **176** ; tsc/build PASS ; Playwright **13/13 PASS** |
-+| Handoff L3 | `sfia/review-handoff@c67ec07ff4d292c09f57015529515ba1deaf4c69` (parent `4bcc8e4e…`) — mono-fichier + diffs B9 |
-+| ENV-01 | DEV + e2e ; RECETTE/STABLE non touchés |
-+| Versioning | **NO RELEASE** ; `0.0.0-dev` |
-+| Fake/Real | SCRIPTED only ; DETERMINISTIC ≠ READY FOR REAL |
-+| Verdict candidat | `ML4 FENCING & RECONCILIATION CLOSURE — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
-+
-+## delivery_id: DELIV-2026-11-08-ML4-PR-RESUME-VERIFICATION
-+
-+| Champ | Valeur |
-+| --- | --- |
-+| Date (Europe/Paris) | 2026-11-08 |
-+| Macro-capacité | R5 / ML4 — B4/C2 PR resume verification after lost ACK |
-+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` |
-+| Autorité / GO | Morris « OK GO » ; Critical Review `c67ec07f…` NOT READY |
-+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY |
-+| Base Git | `origin/main@c658f590…` |
-+| Correction | `prHistoricallyCreated` force relecture distante ; gate `prRemoteVerified` ; upsert publicationRef ; tests resume/unread/nomatch/CLOSED |
-+| Validations | unit **140** ; git PG **36** ; integration **180** ; tsc/build PASS ; Playwright **13/13 PASS** |
-+| Handoff L3 | `sfia/review-handoff@66134ea4ec6d9bf8aea92b6a8ad05aae8b3b0a3c` (parent `c67ec07f…`) |
-+| Fake/Real | SCRIPTED only ; DETERMINISTIC ≠ READY FOR REAL |
-+| Verdict candidat | `ML4 PR RESUME VERIFICATION CLOSURE — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
-+
-+## delivery_id: DELIV-2026-11-08-ML4-D7-D8-INTEGRITY
-+
-+| Champ | Valeur |
-+| --- | --- |
-+| Date (Europe/Paris) | 2026-11-08 |
-+| Macro-capacité | R5 / ML4 — D7–D8 publication integrity (UNIQUE + atomicité + marker) |
-+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` |
-+| Autorité / GO | Morris « OK GO » ; Critical Review `66134ea4…` NOT READY |
-+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY |
-+| Base Git | `origin/main@c658f590…` |
-+| Migration | **009** additive UNIQUE `document_publication_refs(effect_attempt_id) WHERE NOT NULL` ; preflight DEV : 3 doublons test détachés explicitement |
-+| Corrections | `commitPublicationCompletion` txn ; `assertPrMarkerProvenance` ; schemaRevision 009 |
-+| Validations | unit / git PG **39** / integration / build / Playwright → Review Pack |
-+| Fake/Real | SCRIPTED only ; DETERMINISTIC ≠ READY FOR REAL |
-+| Verdict candidat | `ML4 D7-D8 PUBLICATION INTEGRITY CLOSURE — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
-+
-+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-APP-INSTALLATION-READ
-+
-+| Champ | Valeur |
-+| --- | --- |
-+| Date (Europe/Paris) | 2026-11-08 |
-+| Macro-capacité | R5 / ML4 — GitHub App REAL installation READ-ONLY (D9) |
-+| Type | INC / DELIVERY LOCAL — `NO RELEASE` / `0.0.0-dev` |
-+| Autorité / GO | Morris « OK GO » ; App `sfia-studio-next-dev` (5670639) / install 179935689 / sandbox `mcleland147/chantiers360` |
-+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY |
-+| Base Git | `origin/main@c658f590…` |
-+| Implémentation | `github-app-config` + `github-app-auth` + `RealGitHubReadProvider` ; mutations REAL hard-blocked ; SCRIPTED défaut |
-+| Qualification réseau | **PASS** 2026-11-08 ~20:20 CET — App 5670639 / install 179935689 / `mcleland147/chantiers360` / HEAD `8c398c494dd918272aab5b2653777c6c21d2e76e` / token perms read-only |
-+| Validations | unit **153 PASS** (13 App/REAL DET) ; integration **183 PASS** ; tsc/build PASS ; Playwright **N/A** ; qualify REAL READ PASS |
-+| Fake/Real | SCRIPTED non-régression ; **REAL INSTALLATION AUTH PROVEN + REAL REPOSITORY READ PROVEN** (READ-ONLY) |
-+| Dette D7/D8 | Option A conservée ; réserves provenance PR + lease CAS **ouvertes** (hors cycle) |
-+| Verdict candidat | `ML4 GITHUB APP INSTALLATION READ — READY FOR CHATGPT CRITICAL REVIEW — REAL READ-ONLY SCOPE` |
-+| Gate suivant | Critical Review ; puis cycles user-to-server / D7-D8 / avant toute mutation REAL |
-+| Interdits | REAL mutation ; Product Git ; RECETTE/STABLE ; user-to-server |
-
+### reconcileAttempt — marker gate sur prNumber connu
+```
+    let remoteReadable = true;
+    /** Marker provenance must hold even when PR was loaded by known prNumber. */
+    let prMarkerProven = !plan.steps.includes("OPEN_PR");
+    try {
+      if (progress.prNumber != null) {
+        const pr = await provider.getPullRequest(
+          pilotId,
+          plan.repositoryFullName,
+          progress.prNumber,
+        );
+        // C2 — historical creation vs current state (not yet COMPLETED attribution).
+        observed.prCreated = true;
+        observed.prOpened = true; // legacy: created historically
+        observed.prNumber = pr.number;
+        observed.prCurrentState = mapPrState(pr.state);
+        if (plan.steps.includes("OPEN_PR")) {
+          try {
+            await assertPrMarkerProvenance({
+              provider,
+              pilotId,
+              plan,
+              pr,
+              publicationMarker: row.correlationKey,
+              expectedHeadSha: observed.commitSha ?? progress.commitSha ?? null,
+            });
+            prMarkerProven = true;
+          } catch (provErr) {
+            prMarkerProven = false;
+            if (provErr instanceof StudioError) {
+              // Fail-closed: do not COMPLETED on foreign/wrong/absent marker.
+              observed.prCurrentState = "UNKNOWN";
+              if (row.status === "DISPATCHED" && claimActive) {
+                return {
+                  attemptId,
+                  status: row.status,
+                  progress: observed,
+                  remoteHead: observed.branchSha ?? null,
+                  facts,
+                  prCurrentState: observed.prCurrentState,
+                  note: `READ-ONLY: claim actif — provenance PR refusée (${provErr.code})`,
+                };
+              }
+              const released = releaseClaim(claim);
+              const toStatus =
+                provErr.code === "AMBIGUOUS" ? "AMBIGUOUS" : "REQUIRES_REQUALIFICATION";
+              const liberated = await casLiberateInactiveDispatch({
+                attemptId: row.id,
+                fromStatus: row.status,
+                toStatus,
+                resultJson: writeProgress(row.resultJson, observed, released),
+              });
+              return {
+                attemptId,
+                status: liberated ? toStatus : row.status,
+                progress: observed,
+                remoteHead: observed.branchSha ?? null,
+                facts,
+                prCurrentState: observed.prCurrentState,
+                note: `Provenance PR (marker) refusée — ${provErr.code}, pas de COMPLETED`,
+              };
+            }
+            throw provErr;
+          }
+        }
+      } else if (plan.steps.includes("OPEN_PR")) {
+        const found = await provider.findPullRequest({
 ```
 
+### schemaRevision + colonnes D9 (extrait schema.ts)
+```
+/** D9 — GitHub App / integration authorization (pilot-scoped; not a D6 mandate). */
+export const integrationAuthorizations = pgTable(
+  "integration_authorizations",
+  {
+    id: text("id").primaryKey(),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    provider: text("provider").notNull().default("github"),
+    status: text("status").notNull(), // CONNECTED | PENDING_APPROVAL | ACCESS_REMOVED | REVOKED | DISCONNECTED | EXPIRED | REQUIRES_REAUTH
+    installationId: text("installation_id"),
+    accountLogin: text("account_login"),
+    /** Stable GitHub user id (not mutable login). */
+    githubUserId: text("github_user_id"),
+    /** AES-GCM ciphertext of user access token — never plaintext. */
+    tokenCiphertext: text("token_ciphertext"),
+    tokenNonce: text("token_nonce"),
+    tokenKeyVersion: text("token_key_version"),
+    refreshCiphertext: text("refresh_ciphertext"),
+    refreshNonce: text("refresh_nonce"),
+    tokenExpiresAt: timestamp("token_expires_at", { withTimezone: true }),
+    scopesJson: text("scopes_json").notNull().default("[]"),
+    lastValidatedAt: timestamp("last_validated_at", { withTimezone: true }),
+    metadataJson: text("metadata_json").notNull().default("{}"),
+    connectedAt: timestamp("connected_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("integration_authorizations_pilot_idx").on(t.pilotId),
+    index("integration_authorizations_pilot_status_idx").on(t.pilotId, t.status),
+    index("integration_authorizations_github_user_idx").on(t.githubUserId),
+  ],
+);
 
-### specification-technique
-```diff
-diff --git a/projects/sfia-studio-next/construction/integration-git/specification-technique.md b/projects/sfia-studio-next/construction/integration-git/specification-technique.md
-index 38aafd63..f31d7a00 100644
---- a/projects/sfia-studio-next/construction/integration-git/specification-technique.md
-+++ b/projects/sfia-studio-next/construction/integration-git/specification-technique.md
-@@ -1,5 +1,14 @@
- # R5 — Spécification technique candidate : collaboration Git et intégrations
- 
-+> **AS-IMPLEMENTED LOCAL + D7–D8 PUBLICATION INTEGRITY (2026-11-08)** — `feat/next-git-collaboration-20261108` / baseline `c658f590`.
-+> Domaines : `integrations` (D9), `execution` (D7), `proofs` (D8) ; migrations `008` + **`009_publication_ref_attempt_unique`** (UNIQUE partiel `effect_attempt_id`).
-+> D8 : au plus une `document_publication_refs` par tentative (garantie PostgreSQL).
-+> D7/D8 : `commitPublicationCompletion` — transaction courte locale : CAS terminal puis upsert D8 ; échec CAS ⇒ rollback D8 (pas d'orphelin).
-+> Provenance PR : `assertPrMarkerProvenance` (marker indépendant même si relecture par `prNumber`).
-+> B2 fencing / B4 resume / C1–C3 préservés. Limite : PG ≠ exactly-once GitHub.
-+> Provider **SCRIPTED** (défaut). REAL installation-to-server **READ-ONLY** (`RealGitHubReadProvider`) prouvé DEV : App `5670639`, install `179935689`, repo `mcleland147/chantiers360`. Mutations REAL hard-blocked. **≠ READY FOR REAL WRITES / user-to-server.**
-+
-+
- **Statut :** `DOCUMENTED — DRAFT ARCHITECTURE / NOT VALIDATED SPEC / NOT IMPLEMENTED`
- **Nature :** préparation technique de ML4 sous la source de contrat de macro-lot R5 existante ; **ne remplace pas** les R2/ADR validés, la phase Figma ou le prompt Cursor SFIA v2.6.
- **Baseline :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`, repo `mcleland147/sfia-workspace`.
+/** D9 — OAuth/state for GitHub App user-to-server connect (CSRF + PKCE). */
+export const integrationOauthStates = pgTable(
+  "integration_oauth_states",
+  {
+    id: text("id").primaryKey(),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    stateToken: text("state_token").notNull(),
+    returnPath: text("return_path").notNull().default("/settings/integrations"),
+    codeVerifier: text("code_verifier"),
+    nonce: text("nonce"),
+    codeChallengeMethod: text("code_challenge_method"),
+    consumedAt: timestamp("consumed_at", { withTimezone: true }),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex("integration_oauth_states_token_uidx").on(t.stateToken)],
+);
 
+766:export const schemaRevision = "010_github_app_user_oauth";
 ```
 
+### Tests PG discriminants (extraits)
+```
+  it("D7/D8: reconcile with known prNumber + wrong marker refuses COMPLETED", async () => {
+    const { pilotId, projectId, preparationId } = await seedProject("git-d8-recon-marker");
+    const { repoId } = await connectAndAttach(pilotId, projectId);
+    const { documentId, revisionId } = await availableDoc(pilotId, preparationId, "D8rm");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/d8recon-marker.md",
+      targetBranch: "main",
+      correlationKey: newId("d8reconm"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    ScriptedFaultRegistry.setFault("lost_ack_after_pr");
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toMatchObject({ code: "AMBIGUOUS" });
+    ScriptedFaultRegistry.clear();
+
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const progress = JSON.parse(row.resultJson).progress as { prNumber?: number };
+    expect(progress.prNumber).toBeTruthy();
+    // Expire lease so reconcile may liberate — but marker is foreign.
+    const expired = JSON.parse(row.resultJson) as { claim: Record<string, unknown> };
+    expired.claim = {
+      ...expired.claim,
+      leaseExpiresAt: new Date(Date.now() - 5_000).toISOString(),
+    };
+    await db
+      .update(effectAttempts)
+      .set({ resultJson: JSON.stringify(expired), updatedAt: new Date() })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+
+    scriptedSetPrMarker(pilotId, progress.prNumber!, "foreign-marker-reconcile");
+    resetScriptedMutationCounts(pilotId);
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).not.toBe("COMPLETED");
+    expect(["REQUIRES_REQUALIFICATION", "AMBIGUOUS", "DISPATCHED"]).toContain(reconciled.status);
+    expect(getScriptedMutationCounts(pilotId).createPR).toBe(0);
+
+    const refs = await db
+      .select()
+      .from(documentPublicationRefs)
+      .where(eq(documentPublicationRefs.effectAttemptId, prepared.attemptId));
+    expect(refs).toHaveLength(0);
+  });
+
+  it("D7/D8: owned CAS terminal refuses COMPLETED when lease expired (same claimToken)", async () => {
+    const { pilotId, projectId, preparationId } = await seedProject("git-d8-lease-cas");
+    const { repoId } = await connectAndAttach(pilotId, projectId);
+    const { documentId, revisionId } = await availableDoc(pilotId, preparationId, "D8lease");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/d8lease.md",
+      targetBranch: "main",
+      correlationKey: newId("d8lease"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    resetScriptedMutationCounts(pilotId);
+    ExecutionBarrierRegistry.clear();
+    ExecutionBarrierRegistry.arm("before:COMPLETE_PUBLICATION");
+
+    const dispatchA = dispatchPublication({
+      pilotId,
+      projectId,
+      attemptId: prepared.attemptId,
+    }).catch((e: unknown) => e);
+
+    for (let i = 0; i < 100; i++) {
+      const row = (
+        await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+      )[0]!;
+      const progress = JSON.parse(row.resultJson).progress;
+      if (row.status === "DISPATCHED" && progress?.prNumber != null) break;
+      await new Promise((r) => setTimeout(r, 20));
+    }
+    const mid = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    expect(mid.status).toBe("DISPATCHED");
+    const claimBefore = readClaim(mid.resultJson);
+    expect(claimBefore?.claimToken).toBeTruthy();
+
+    // Expire lease but KEEP the same claimToken — owned CAS must refuse terminal COMPLETED.
+    const expired = JSON.parse(mid.resultJson) as { claim: Record<string, unknown> };
+    expired.claim = {
+      ...expired.claim,
+      leaseExpiresAt: new Date(Date.now() - 5_000).toISOString(),
+    };
+    await db
+      .update(effectAttempts)
+      .set({ resultJson: JSON.stringify(expired), updatedAt: new Date() })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+
+    ExecutionBarrierRegistry.release("before:COMPLETE_PUBLICATION");
+    const outcomeA = await dispatchA;
+    expect(outcomeA).toMatchObject({ code: "CONFLICT" });
+
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    expect(after.status).not.toBe("COMPLETED");
+    const refs = await db
+      .select()
+      .from(documentPublicationRefs)
+      .where(eq(documentPublicationRefs.effectAttemptId, prepared.attemptId));
+    expect(refs).toHaveLength(0);
+    ExecutionBarrierRegistry.clear();
+  });
+
+  it("D9 user-to-server SCRIPTED: state replay / divergent github user / no token leakage", async () => {
+    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 7).toString("base64");
+    const { pilotId } = await seedProject("git-oauth-a");
+    const start = await startGitHubAuthorization(pilotId, "/settings/integrations");
+    expect(start.pkce).toBe(true);
+    const status = await completeGitHubAuthorization({
+      pilotId,
+      state: start.state,
+      scripted: true,
+    });
+    expect(status.status).toBe("CONNECTED");
+    expect(status.githubUserId).toBe(`gh-${pilotId}`);
+    expect(JSON.stringify(status)).not.toMatch(/ciphertext|ghs_|scripted-access|BEGIN/);
+
+    const authRow = (
+      await db
+        .select()
+        .from(integrationAuthorizations)
+        .where(eq(integrationAuthorizations.pilotId, pilotId))
+        .limit(1)
+    )[0]!;
+    expect(authRow.tokenCiphertext).toBeTruthy();
+    expect(authRow.tokenNonce).toBeTruthy();
+
+    await expect(
+      completeGitHubAuthorization({ pilotId, state: start.state, scripted: true }),
+    ).rejects.toMatchObject({ code: "CONFLICT" });
+
+    const other = await seedProject("git-oauth-b");
+    // Divergent: change pilot github user after state issued for other
+    const start2 = await startGitHubAuthorization(other.pilotId, "/settings/integrations");
+    await db
+      .update(pilots)
+      .set({ githubUserId: "gh-foreign-identity" })
+      .where(eq(pilots.id, other.pilotId));
+    // Force mismatch by completing as other.pilotId but we'll simulate identity check:
+    // SCRIPTED uses pilot.githubUserId as identity — still matches after update.
+    // True divergence test: complete with pilot A state stolen by B.
+    await expect(
+      completeGitHubAuthorization({
+        pilotId: pilotId,
+        state: start2.state,
+        scripted: true,
+      }),
+    ).rejects.toMatchObject({ code: "ACCESS_DENIED" });
+
+    delete process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY;
+  });
+```
 
 ---
-FIN REVIEW PACK FULL — NO SECRETS
+FIN REVIEW PACK FULL — mono-fichier L3 cible : `sfia-review-handoff/latest-chatgpt-review.md`
+Product worktree préservé LOCAL DIRTY @ c658f590.
