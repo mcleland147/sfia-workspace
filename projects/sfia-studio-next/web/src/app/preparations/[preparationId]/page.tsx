@@ -718,6 +718,11 @@ export default function PreparationPage() {
                   ) : null}
                 </div>
               ) : null}
+              {createDocIntent ? (
+                <p className="text-xs muted" data-testid="create-intent-key">
+                  {createDocIntent.key}
+                </p>
+              ) : null}
               {status ? (
                 <p className="text-sm muted" data-testid="surface-status">
                   {status}

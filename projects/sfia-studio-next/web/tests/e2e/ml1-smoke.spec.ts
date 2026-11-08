@@ -1,5 +1,10 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
 
 test("DEV fake login → sas → message Nora FAKE → document → create → portfolio reopen by projectId", async ({
   page,
@@ -8,35 +13,27 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await page.goto("/login");
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
-  await expect(page.getByRole("heading", { name: "Portefeuille" })).toBeVisible();
-  await expect(page.getByText("Aucune Nora globale", { exact: false })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /retrouvez vos projets/i })).toBeVisible();
+  await expect(page.getByTestId("portfolio-new-prep")).toBeVisible();
 
-  await page.getByTestId("portfolio-new-prep").click();
-  await page.waitForURL("**/preparations/**");
+  await openNewPreparation(page);
 
-  await page.getByPlaceholder("Écrire à Nora…").fill("Bonjour Nora depuis Playwright");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-
-  // Automated E2E MUST be fixture FAKE — LIVE mode is a hard FAIL (paid/network boundary).
-  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
+  await sendPrepMessage(page, "Bonjour Nora depuis Playwright");
   await expect(page.getByText("Nora (fixture FAKE, not LIVE)", { exact: false })).toBeVisible({
     timeout: 30000,
   });
-  await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible();
 
-  await page.getByPlaceholder("Nom du projet").fill("Projet Playwright");
-  await page.getByPlaceholder("Résumé inspecté").fill("résumé test");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-
-  await page.getByRole("button", { name: "Document", exact: true }).click();
-  const doc = page.locator("textarea").first();
-  await doc.fill("# Document Playwright\ncontenu");
+  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill("# Document Playwright\ncontenu");
   await page.getByTestId("doc-save").click();
   await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
 
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 15000 });
+  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await constituteAndCreateProject(page, {
+    name: "Projet Playwright",
+    summary: "résumé test",
+  });
   const projectUrl = page.url();
   const projectId = projectUrl.split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
@@ -45,10 +42,10 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
 
   // Portfolio → open by projectId only (no preparationId query).
   await page.goto("/portfolio");
-  await expect(page.getByRole("heading", { name: "Portefeuille" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /retrouvez vos projets/i })).toBeVisible();
   await expect(page.getByText(projectId!, { exact: true })).toBeVisible();
-  await page.locator(`a[href="/projects/${projectId}"]`).click();
-  await page.waitForURL(`**/projects/${projectId}`);
+  await page.locator(`a[href^="/projects/${projectId}"]`).click();
+  await page.waitForURL(`**/projects/${projectId}**`);
   expect(page.url()).not.toContain("preparationId=");
   await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();

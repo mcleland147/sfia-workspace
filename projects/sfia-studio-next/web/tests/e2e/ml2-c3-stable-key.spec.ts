@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { openNewPreparation } from "./helpers/g4-chat-first";
 
 /**
  * C3-B: creation correlation key must stay stable across retries of the same intent.
@@ -14,17 +15,13 @@ test("ML2 C3-B: stable creation key across double-save retry", async ({ page }) 
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
 
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  const prepUrl = page.url();
-  const preparationId = prepUrl.split("/preparations/")[1]?.split(/[?#]/)[0];
-  expect(preparationId).toBeTruthy();
+  const preparationId = await openNewPreparation(page);
 
-  await page.getByRole("button", { name: "Document", exact: true }).click();
-  await expect(page.getByRole("heading", { name: /Document/ })).toBeVisible();
+  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await page.getByTestId("doc-start-create").click();
+  await expect(page.getByTestId("document-revise-draft")).toBeVisible();
 
-  const area = page.locator("textarea").first();
-  await area.fill("# Intent stable\n\nContenu pour clé corrélée.");
+  await page.getByTestId("document-revise-draft").fill("# Intent stable\n\nContenu pour clé corrélée.");
 
   // Intercept first create: server commits, UI sees network failure (ACK perdu)
   let createCalls = 0;

@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
+import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
 
 /**
  * ML3 browser FAKE — pilotage surfaces. LIVE Nora forbidden in E2E.
@@ -10,22 +11,11 @@ test("ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible", a
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
 
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 e2e seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+  await bootstrapProjectFromPortfolio(page, {
+    seed: "ML3 e2e seed",
+    name: "Projet ML3 Pilotage",
+    summary: "e2e ml3",
   });
-
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 Pilotage");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e ml3");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
   await page.getByRole("button", { name: "Pilotage" }).click();
   await expect(page.getByTestId("pilotage-panel")).toBeVisible();
@@ -64,20 +54,11 @@ test("ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT", async (
   await page.goto("/login");
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 B13 C02 seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+  await bootstrapProjectFromPortfolio(page, {
+    seed: "ML3 B13 C02 seed",
+    name: "Projet ML3 B13 C02",
+    summary: "e2e b13 c02",
   });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 B13 C02");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e b13 c02");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
   await page.getByRole("button", { name: "Pilotage" }).click();
   await expect(page.getByTestId("b13-authority-legend")).toBeVisible();
@@ -141,20 +122,11 @@ test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({ 
   await page.goto("/login");
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 B13 R1 seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+  await bootstrapProjectFromPortfolio(page, {
+    seed: "ML3 B13 R1 seed",
+    name: "Projet ML3 B13 R1",
+    summary: "e2e b13 r1",
   });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 B13 R1");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e b13 r1");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
   await page.getByRole("button", { name: "Pilotage" }).click();
   await page.getByTestId("apply-cycle-restriction").click();
@@ -217,25 +189,16 @@ test("ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE", async ({ page })
   await page.goto("/login");
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F01 thread seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+  await bootstrapProjectFromPortfolio(page, {
+    seed: "ML3 F01 thread seed",
+    name: "Projet ML3 F01 Fil",
+    summary: "e2e f01 thread",
   });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F01 Fil");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e f01 thread");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
   await page.getByRole("button", { name: "Travail" }).click();
   await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
   await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/OPEN_CYCLE|APPLIED/i, {
+  await expect(page.getByTestId("thread-nora-status")).toContainText(/OPEN_CYCLE|APPLIED/i, {
     timeout: 30000,
   });
   await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|deterministic/i, {
@@ -255,27 +218,18 @@ test("ML3 F02: RECORD depuis le fil puis révision Journal", async ({ page }) =>
   await page.goto("/login");
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 F02 seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+  await bootstrapProjectFromPortfolio(page, {
+    seed: "ML3 F02 seed",
+    name: "Projet ML3 F02 Décisions",
+    summary: "e2e f02",
   });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 F02 Décisions");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e f02");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
   await page.getByRole("button", { name: "Travail" }).click();
   await page
     .getByLabel("Message à Nora")
     .fill("Je décide que la connexion GitHub est obligatoire pour ce projet.");
   await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByTestId("thread-pilotage-status")).toContainText(
+  await expect(page.getByTestId("thread-nora-status")).toContainText(
     /RECORD_DECISION|APPLIED|décision/i,
     { timeout: 30000 },
   );
@@ -301,20 +255,11 @@ test("ML3 C03: Journal décisions >8 avec historique accessible", async ({ page 
   await page.goto("/login");
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 C03 journal seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+  await bootstrapProjectFromPortfolio(page, {
+    seed: "ML3 C03 journal seed",
+    name: "Projet ML3 C03 Journal",
+    summary: "e2e c03",
   });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 C03 Journal");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e c03");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
@@ -357,20 +302,11 @@ test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page })
   await page.goto("/login");
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 CR-02 ACK seed");
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 30000,
+  await bootstrapProjectFromPortfolio(page, {
+    seed: "ML3 CR-02 ACK seed",
+    name: "Projet ML3 CR-02 ACK",
+    summary: "e2e cr02 ack",
   });
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 CR-02 ACK");
-  await page.getByPlaceholder("Résumé inspecté").fill("e2e cr02 ack");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
 
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
@@ -438,7 +374,7 @@ test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page })
   // Distinct new act must not silently overwrite the unresolved pending.
   await page.getByLabel("Message à Nora").fill("Je décide que GitHub est obligatoire pour ce projet.");
   await page.getByTestId("thread-send").click();
-  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/non résolue|réconcilier/i, {
+  await expect(page.getByTestId("thread-nora-status")).toContainText(/non résolue|réconcilier/i, {
     timeout: 10000,
   });
   await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
@@ -446,7 +382,7 @@ test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page })
   await page.reload();
   await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
   await page.getByTestId("thread-reconcile-pending").click();
-  await expect(page.getByTestId("thread-pilotage-status")).toContainText(/APPLIED|ALREADY_APPLIED|OPEN_CYCLE|ACTIVE/i, {
+  await expect(page.getByTestId("thread-nora-status")).toContainText(/APPLIED|ALREADY_APPLIED|OPEN_CYCLE|ACTIVE/i, {
     timeout: 30000,
   });
 

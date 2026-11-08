@@ -1,5 +1,10 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
 
 test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet", async ({
   page,
@@ -9,24 +14,19 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
 
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-  await page.waitForURL("**/preparations/**");
+  await openNewPreparation(page);
 
   // Comparative exchange → capitalisation path
-  await page.getByPlaceholder("Écrire à Nora…").fill(
+  await sendPrepMessage(
+    page,
     "Compare les options A et B pour l'architecture, compromis et point ouvert budget",
   );
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText("Nora (fixture FAKE, not LIVE)", { exact: false })).toBeVisible({
-    timeout: 30000,
-  });
-  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
 
   // Explicit document request
-  await page.getByPlaceholder("Écrire à Nora…").fill(
+  await page.getByTestId("prep-draft").fill(
     "Rédige un document de synthèse sur les options A et B",
   );
-  await page.getByRole("button", { name: "Envoyer" }).click();
+  await page.getByTestId("prep-send").click();
   // Status may include policy/operation metadata between COMPLETE and document proof.
   await expect(
     page.getByText(/Nora deterministic-fixture · COMPLETE[\s\S]*document \S+ v\d+/i),
@@ -34,22 +34,20 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
     timeout: 30000,
   });
 
-  // Journal — Sujets surface
-  await page.getByRole("button", { name: "Journal — Sujets" }).click();
-  await expect(page.getByRole("heading", { name: "Sujets" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Acquis" })).toBeVisible();
+  // Journal — G4 surface label is "Journal" (not "Journal — Sujets")
+  await page.getByRole("button", { name: "Journal", exact: true }).click();
+  await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Acquis/i }).first()).toBeVisible();
 
   // Document surface: save + inspect
-  await page.getByRole("button", { name: "Document", exact: true }).click();
-  await expect(page.getByRole("heading", { name: /Document/ })).toBeVisible();
+  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await expect(page.getByTestId("document-library")).toBeVisible();
 
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByPlaceholder("Nom du projet").fill("Projet ML2 Playwright");
-  await page.getByPlaceholder("Résumé inspecté").fill("résumé ml2");
-  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
-  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
-  await page.getByRole("button", { name: "Créer le projet" }).click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
+  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await constituteAndCreateProject(page, {
+    name: "Projet ML2 Playwright",
+    summary: "résumé ml2",
+  });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
 
@@ -64,7 +62,7 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   await page.goto(`/projects/${projectId}`);
   await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Journal" }).click();
-  await expect(page.getByRole("heading", { name: "Sujets" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
 
   // Isolation
   const bContext = await context.browser()!.newContext();
