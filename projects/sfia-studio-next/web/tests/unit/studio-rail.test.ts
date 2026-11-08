@@ -19,10 +19,16 @@ describe("F1 studio rail variants (G2 railEvidence)", () => {
     expect(STUDIO_RAIL_VARIANTS.inspection.widthPx).toBe(244);
   });
 
-  it("resolves variant from proven route ↔ state mapping", () => {
+  it("resolves variant from G2 railEvidence route ↔ state mapping", () => {
     expect(resolveRailVariant({ pathname: "/portfolio" })).toBe("personnel");
     expect(resolveRailVariant({ pathname: "/login" })).toBe("personnel");
-    expect(resolveRailVariant({ pathname: "/preparations/abc" })).toBe("conversation");
+    expect(resolveRailVariant({ pathname: "/preparations/abc" })).toBe("personnel");
+    expect(
+      resolveRailVariant({
+        pathname: "/preparations/abc",
+        searchParams: new URLSearchParams("resume=1"),
+      }),
+    ).toBe("projet");
     expect(
       resolveRailVariant({ pathname: "/projects/p1", surface: "document" }),
     ).toBe("inspection");
@@ -34,7 +40,7 @@ describe("F1 studio rail variants (G2 railEvidence)", () => {
     ).toBe("projet");
     expect(
       resolveRailVariant({ pathname: "/projects/p1", surface: "journal" }),
-    ).toBe("projet");
+    ).toBe("personnel");
   });
 });
 
@@ -47,6 +53,12 @@ describe("B1 shell navigation", () => {
     expect(docs?.href).toBe("/projects/proj-1?surface=document");
     expect(items.every((i) => i.href !== "#")).toBe(true);
     expect(items.find((i) => i.key === "pilotage")?.active).toBe(true);
+  });
+
+  it("keeps portfolio personnel entries without hash-only fakes", () => {
+    const items = buildShellNav({ pathname: "/portfolio" });
+    expect(items.some((i) => i.key === "mes-projets")).toBe(true);
+    expect(items.every((i) => i.href !== "#")).toBe(true);
   });
 
   it("disables project surfaces without project context (prep)", () => {

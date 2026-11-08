@@ -113,28 +113,34 @@ export function railStyle(tokens: StudioRailTokens): CSSProperties {
 }
 
 /**
- * Frame ↔ route ↔ state (G2):
- * - portefeuille / login → personnel (portfolio frames)
- * - préparation (sas) → conversation
- * - projet + travail (fil) → conversation
- * - projet + document → inspection
- * - projet + pilotage|journal → projet
+ * Frame ↔ route ↔ state from G2 railEvidence (not a free pathname heuristic):
+ * - portfolio / login → personnel (94:50)
+ * - sas avant projet → personnel (94:135); reprise liée projet → projet (159:145) via ?resume=1
+ * - projet + travail (fil long) → conversation (94:214)
+ * - projet + document → inspection (94:370 / 97:359)
+ * - projet + journal → personnel (94:515 sujets; correctedFrom projet)
+ * - projet + pilotage → projet (125:33 / 127:106)
  */
 export function resolveRailVariant(input: {
   pathname: string;
   surface?: string | null;
+  searchParams?: URLSearchParams | { get(name: string): string | null } | null;
 }): StudioRailVariant {
   const path = input.pathname || "/";
+  const sp = input.searchParams;
   if (path.startsWith("/portfolio") || path === "/" || path.startsWith("/login")) {
     return "personnel";
   }
   if (path.startsWith("/preparations/")) {
-    return "conversation";
+    // 159:145 « préparation retrouvée » uses projet rail when resume context is explicit.
+    if (sp?.get("resume") === "1" || sp?.get("from") === "portfolio") return "projet";
+    return "personnel";
   }
   if (path.startsWith("/projects/")) {
     const surface = parseStudioSurface(input.surface) ?? "travail";
     if (surface === "document") return "inspection";
     if (surface === "travail") return "conversation";
+    if (surface === "journal") return "personnel";
     return "projet";
   }
   return "personnel";
@@ -160,6 +166,12 @@ export function buildShellNav(input: {
 
   const items: ShellNavItem[] = [
     {
+      key: "mes-projets",
+      label: "Mes projets",
+      href: "/portfolio",
+      active: path.startsWith("/portfolio") || path === "/",
+    },
+    {
       key: "portfolio",
       label: "Portefeuille",
       href: "/portfolio",
@@ -168,6 +180,12 @@ export function buildShellNav(input: {
   ];
 
   if (!projectId && !preparationId) {
+    items.push({
+      key: "new-prep",
+      label: "Créer un projet",
+      href: "/portfolio#nouvelle-preparation",
+      active: false,
+    });
     items.push({
       key: "login",
       label: "Connexion",

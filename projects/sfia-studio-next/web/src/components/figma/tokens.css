@@ -1,0 +1,290 @@
+/* Figma G2 visual tokens — frames 94:50 / 94:214 / 94:370 (VERIFY PASS pack) */
+:root {
+  --fig-bg: #0a0e17;
+  --fig-bg-elev: #0f1520;
+  --fig-panel: #151c29;
+  --fig-panel-2: #1a2233;
+  --fig-ink: #f4f6fc;
+  --fig-muted: #94a2bb;
+  --fig-line: #313c51;
+  --fig-accent: #656fe1;
+  --fig-accent-soft: #afa5ff;
+  --fig-ok: #3ecf8e;
+  --fig-ok-bg: rgba(62, 207, 142, 0.12);
+  --fig-warn: #ebc789;
+  --fig-warn-bg: rgba(235, 199, 137, 0.12);
+  --fig-info: #5b8def;
+  --fig-info-bg: rgba(91, 141, 239, 0.12);
+  --fig-tag: #2a3347;
+  --fig-radius: 10px;
+  --fig-radius-sm: 8px;
+  --fig-gap: 18px;
+  --fig-content-max: 1330px;
+}
+
+.fig-page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  max-width: var(--fig-content-max);
+  margin: 0 auto;
+}
+
+.fig-breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--fig-muted);
+  font-size: 0.8rem;
+}
+
+.fig-hero-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 2.2vw, 2rem);
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--fig-ink);
+}
+
+.fig-hero-sub {
+  margin: 0.55rem 0 0;
+  color: var(--fig-muted);
+  font-size: 0.95rem;
+  max-width: 52rem;
+  line-height: 1.45;
+}
+
+.fig-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.fig-stat {
+  background: linear-gradient(180deg, #171e2c 0%, #121826 100%);
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  padding: 16px 18px 18px;
+  min-height: 122px;
+}
+
+.fig-stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fig-muted);
+}
+
+.fig-stat-value {
+  margin-top: 10px;
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--fig-ink);
+}
+
+.fig-stat-hint {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--fig-muted);
+}
+
+.fig-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fig-section-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.fig-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.fig-card {
+  background: color-mix(in srgb, var(--fig-panel) 94%, black);
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  padding: 16px 17px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 183px;
+}
+
+.fig-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.fig-card-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.fig-card-desc {
+  color: var(--fig-muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.fig-card-meta {
+  color: var(--fig-muted);
+  font-size: 0.75rem;
+}
+
+.fig-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.fig-tag-ok { background: var(--fig-ok-bg); color: var(--fig-ok); }
+.fig-tag-muted { background: var(--fig-tag); color: var(--fig-muted); }
+.fig-tag-warn { background: var(--fig-warn-bg); color: var(--fig-warn); }
+.fig-tag-accent { background: rgba(101, 111, 225, 0.16); color: var(--fig-accent-soft); }
+.fig-tag-info { background: var(--fig-info-bg); color: #9dbcff; }
+
+.fig-banner {
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  padding: 16px 18px;
+  background: #121826;
+}
+.fig-banner h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+.fig-banner p {
+  margin: 0;
+  color: var(--fig-muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.fig-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.7fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.fig-workspace-3 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.85fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.fig-panel {
+  background: color-mix(in srgb, var(--fig-panel) 92%, black);
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  padding: 16px 18px;
+}
+
+.fig-panel-title {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.fig-kicker {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fig-muted);
+  margin: 0 0 6px;
+}
+
+.fig-msg {
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius-sm);
+  padding: 12px 14px;
+  background: #121826;
+}
+.fig-msg-pilot { background: #1a2130; }
+.fig-msg-nora { background: #151c29; border-color: #3a4560; }
+
+.fig-composer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  padding: 12px;
+  background: #0c1018;
+}
+
+.fig-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 800fr) minmax(0, 510fr);
+  gap: 20px;
+}
+
+.fig-empty-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fig-empty-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--fig-line);
+  font-size: 0.85rem;
+}
+.fig-empty-row:last-child { border-bottom: 0; }
+
+.fig-alert {
+  border: 1px solid color-mix(in srgb, var(--fig-info) 55%, var(--fig-line));
+  background: var(--fig-info-bg);
+  border-radius: var(--fig-radius-sm);
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  color: #c9d7ff;
+}
+
+@media (max-width: 1100px) {
+  .fig-stat-grid,
+  .fig-card-grid,
+  .fig-workspace,
+  .fig-workspace-3,
+  .fig-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .fig-page { gap: 18px; }
+  .fig-hero-title { font-size: 1.35rem; }
+  /* Frames 282:468 / 282:492 are Figma artboards at 390×1350 — natural reflow + scroll */
+  .fig-nora-responsive {
+    grid-template-columns: 1fr;
+  }
+  .fig-nora-responsive .fig-panel {
+    max-height: none;
+  }
+  .fig-composer {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+  }
+}

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { PilotagePanel } from "@/components/PilotagePanel";
+import { ProjectChrome } from "@/components/figma/ProjectChrome";
 import {
   conversationalClientCommandKey,
   mayStartNewThreadAct,
@@ -671,110 +672,117 @@ export default function ProjectPage() {
   }
 
   return (
-    <div className="space-y-4">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs muted uppercase tracking-wide">Espace projet</p>
-          <h1 className="text-2xl font-semibold">Projet</h1>
-          <p className="text-xs muted">{params.projectId}</p>
-          <p className="text-sm muted mt-1">{meta}</p>
-        </div>
-        <nav className="flex gap-2 text-sm" aria-label="Surfaces projet">
-          {(
-            [
-              ["travail", "Travail"],
-              ["pilotage", "Pilotage"],
-              ["journal", "Journal"],
-              ["document", "Documents"],
-            ] as const
-          ).map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              className={`btn ${surface === id ? "" : "secondary"}`}
-              onClick={() => selectSurface(id)}
-              data-testid={`surface-${id}`}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-      </header>
-
+    <ProjectChrome
+      projectId={params.projectId}
+      surface={surface}
+      meta={meta}
+      onSelectSurface={selectSurface}
+    >
       {noraActivity === "preparing" ? (
-        <div className="panel p-3 text-sm" role="status">
+        <div className="fig-alert" role="status">
           Nora prépare une réponse…
         </div>
       ) : null}
 
       {surface === "travail" ? (
-        <div className="grid lg:grid-cols-[1.4fr_1fr] gap-4">
-          <section className="space-y-2">
-            {messages.map((m) => (
-              <article key={m.id} className="panel p-3">
-                <div className="text-xs muted mb-1">
-                  {m.role === "assistant" ? "Nora" : "Pilote"} · {m.status}
+        <div
+          className="fig-workspace fig-nora-responsive"
+          data-figma-frame={
+            messages.length === 0
+              ? "161:216"
+              : messages.length <= 2
+                ? "161:288"
+                : "94:214"
+          }
+          data-figma-mobile-frames="282:468,282:492"
+        >
+          <section className="space-y-3">
+            <div className="fig-panel space-y-3">
+              <p className="fig-kicker">Travail / projet</p>
+              <div className="flex flex-wrap gap-2">
+                <span className="fig-tag fig-tag-accent">PILOTE</span>
+                <span className="fig-tag fig-tag-muted">Fil unique</span>
+                {unresolvedPending ? (
+                  <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
+                ) : null}
+              </div>
+              {messages.length === 0 ? (
+                <div className="fig-msg fig-msg-nora text-sm muted">
+                  Première conversation — écrivez pour démarrer le fil Nora du projet.
                 </div>
-                {m.role === "assistant" ? (
-                  <SafeMarkdown content={m.content} />
-                ) : (
-                  <div className="whitespace-pre-wrap text-sm">{m.content}</div>
-                )}
-              </article>
-            ))}
-            <div className="panel p-3 space-y-2">
-              <textarea
-                className="textarea"
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                placeholder="Poursuivre dans le même fil…"
-                aria-label="Message à Nora"
-                data-testid="thread-draft"
-              />
-              <button
-                className="btn"
-                disabled={busy || !preparationId}
-                onClick={sendMessage}
-                data-testid="thread-send"
-              >
-                Envoyer
-              </button>
-              {unresolvedPending ? (
-                <div className="space-y-1" data-testid="thread-pending-banner">
-                  <p className="text-xs muted">
-                    Tentative non résolue · {unresolvedPending.clientCommandKey.slice(0, 32)}…
-                  </p>
+              ) : null}
+              {messages.map((m) => (
+                <article
+                  key={m.id}
+                  className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
+                >
+                  <div className="text-xs muted mb-1">
+                    {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
+                  </div>
+                  {m.role === "assistant" ? (
+                    <SafeMarkdown content={m.content} />
+                  ) : (
+                    <div className="whitespace-pre-wrap text-sm">{m.content}</div>
+                  )}
+                </article>
+              ))}
+              <div className="fig-composer">
+                <textarea
+                  className="textarea"
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  placeholder="Écrire à Nora…"
+                  aria-label="Message à Nora"
+                  data-testid="thread-draft"
+                />
+                <div className="flex flex-wrap gap-2">
                   <button
-                    type="button"
-                    className="btn secondary"
-                    disabled={busy}
-                    data-testid="thread-reconcile-pending"
-                    onClick={() => void reconcilePending(unresolvedPending)}
+                    className="btn"
+                    disabled={busy || !preparationId}
+                    onClick={sendMessage}
+                    data-testid="thread-send"
                   >
-                    Réconcilier la tentative en cours
+                    Envoyer
                   </button>
+                  <span className="text-xs muted self-center">Joindre un élément · non requis</span>
                 </div>
-              ) : null}
-              {status ? (
-                <p className="text-xs muted" data-testid="thread-nora-status">
-                  {status}
-                </p>
-              ) : null}
-              {pilotageStatus ? (
-                <p className="text-xs" data-testid="thread-pilotage-status" role="status">
-                  {pilotageStatus}
-                </p>
-              ) : null}
-              {decisionSummary ? (
-                <p className="text-xs muted" data-testid="thread-decision-summary">
-                  {decisionSummary}
-                </p>
-              ) : null}
+                {unresolvedPending ? (
+                  <div className="space-y-1" data-testid="thread-pending-banner">
+                    <p className="text-xs muted">
+                      Tentative non résolue · {unresolvedPending.clientCommandKey.slice(0, 32)}…
+                    </p>
+                    <button
+                      type="button"
+                      className="btn secondary"
+                      disabled={busy}
+                      data-testid="thread-reconcile-pending"
+                      onClick={() => void reconcilePending(unresolvedPending)}
+                    >
+                      Réconcilier la tentative en cours
+                    </button>
+                  </div>
+                ) : null}
+                {status ? (
+                  <p className="text-xs muted" data-testid="thread-nora-status">
+                    {status}
+                  </p>
+                ) : null}
+                {pilotageStatus ? (
+                  <p className="text-xs" data-testid="thread-pilotage-status" role="status">
+                    {pilotageStatus}
+                  </p>
+                ) : null}
+                {decisionSummary ? (
+                  <p className="text-xs muted" data-testid="thread-decision-summary">
+                    {decisionSummary}
+                  </p>
+                ) : null}
+              </div>
             </div>
           </section>
           <aside className="space-y-3">
-            <div className="panel p-4 space-y-2">
-              <h2 className="font-medium">En bref</h2>
+            <div className="fig-panel space-y-2">
+              <h2 className="fig-panel-title">En bref</h2>
               <p className="text-sm muted">
                 Un seul fil visible. Mémoire D4 récupérable au-delà des six derniers messages.
               </p>
@@ -783,8 +791,18 @@ export default function ProjectPage() {
                 Ouverts: {knowledge?.openPoints.filter((o) => o.status === "OPEN").length ?? 0}
               </p>
             </div>
-            <div className="panel p-4 space-y-2">
-              <h2 className="font-medium">Points à clarifier</h2>
+            <div className="fig-panel space-y-2">
+              <h2 className="fig-panel-title">Objets du projet</h2>
+              <ul className="text-sm muted space-y-1">
+                <li>Documents Nora · {documents.length}</li>
+                <li>Réalisations et preuves · via Pilotage</li>
+                <li>
+                  Sources Git autorisées · <span className="fig-tag fig-tag-muted">non disponible</span>
+                </li>
+              </ul>
+            </div>
+            <div className="fig-panel space-y-2" style={{ background: "rgba(101,111,225,0.08)" }}>
+              <h2 className="fig-panel-title">Points à clarifier</h2>
               {(knowledge?.openPoints ?? [])
                 .filter((o) => o.status === "OPEN")
                 .slice(0, 5)
@@ -801,43 +819,95 @@ export default function ProjectPage() {
         </div>
       ) : null}
 
-      {surface === "pilotage" ? <PilotagePanel projectId={params.projectId} /> : null}
+      {surface === "pilotage" ? (
+        <div className="space-y-4" data-figma-frame="125:33">
+          <div className="fig-stat-grid">
+            <div className="fig-stat">
+              <div className="fig-stat-label">Cycle</div>
+              <div className="fig-stat-value" style={{ fontSize: "1.2rem", marginTop: 14 }}>
+                Affichage D5
+              </div>
+              <div className="fig-stat-hint">Sans nouvelle autorité</div>
+            </div>
+            <div className="fig-stat">
+              <div className="fig-stat-label">Décisions</div>
+              <div className="fig-stat-value" style={{ fontSize: "1.2rem", marginTop: 14 }}>
+                Journal D6
+              </div>
+              <div className="fig-stat-hint">HumanDecision existantes</div>
+            </div>
+            <div className="fig-stat">
+              <div className="fig-stat-label">CKI / méthode</div>
+              <div className="fig-stat-value" style={{ fontSize: "1.2rem", marginTop: 14 }}>
+                Lecture seule
+              </div>
+              <div className="fig-stat-hint">Services projet</div>
+            </div>
+          </div>
+          <div className="fig-panel" data-figma-frame="127:106">
+            <PilotagePanel projectId={params.projectId} />
+          </div>
+        </div>
+      ) : null}
 
       {surface === "document" ? (
-        <div className="grid lg:grid-cols-2 gap-4">
-          <section className="space-y-2">
+        <div className="fig-workspace-3" data-figma-frame="94:370">
+          <section className="space-y-2" data-figma-frame="160:175">
+            <div className="fig-section-head">
+              <h2 className="fig-section-title">Bibliothèque</h2>
+              <span className="fig-tag fig-tag-muted">{documents.length} doc(s)</span>
+            </div>
             {documents.map((d) => (
               <button
                 key={d.document.id}
                 type="button"
-                className={`panel p-3 text-left w-full ${
+                className={`fig-card !min-h-0 text-left w-full ${
                   inspect?.document.id === d.document.id ? "ring-1 ring-[var(--accent)]" : ""
                 }`}
                 onClick={() => openDocumentReadOnly(d)}
                 data-testid={`doc-open-${d.document.id}`}
               >
-                <div className="text-xs muted mb-1">
-                  {d.document.title} · {d.document.id} · v{d.latestRevision?.revisionNumber ?? "?"} ·{" "}
-                  {d.latestRevision?.status ?? "—"}
+                <div className="fig-card-top">
+                  <div className="fig-card-title text-sm">{d.document.title}</div>
+                  <span className="fig-tag fig-tag-muted">
+                    v{d.latestRevision?.revisionNumber ?? "?"}
+                  </span>
                 </div>
-                <div className="text-sm line-clamp-3">
+                <div className="fig-card-desc line-clamp-3">
                   {(d.latestRevision?.contentMarkdown ?? "").slice(0, 180)}
                 </div>
+                <div className="fig-card-meta">{d.latestRevision?.status ?? "—"}</div>
               </button>
             ))}
             {documents.length === 0 ? (
               <p className="text-sm muted">Aucun document D4 pour ce projet.</p>
             ) : null}
           </section>
-          <section className="panel p-4 space-y-2" data-testid="document-inspect">
-            <h2 className="font-medium">
-              {docUi === "EDITING" || docUi === "SAVING" || docUi === "CONFLICT" || docUi === "UNKNOWN"
-                ? "Révision"
-                : "Inspection"}
-            </h2>
-            <p className="text-xs muted" data-testid="document-ui-state">
-              État: {docUi}
-            </p>
+          <section
+            className="fig-panel space-y-3"
+            data-testid="document-inspect"
+            data-figma-frame={
+              docUi === "CONFLICT" ? "160:391" : inspect ? "97:359" : "241:385"
+            }
+          >
+            <div className="flex flex-wrap gap-2 items-center">
+              <h2 className="fig-panel-title !mb-0">
+                {docUi === "EDITING" ||
+                docUi === "SAVING" ||
+                docUi === "CONFLICT" ||
+                docUi === "UNKNOWN"
+                  ? "Révision"
+                  : "Inspection"}
+              </h2>
+              <span className="fig-tag fig-tag-accent" data-testid="document-ui-state">
+                {docUi}
+              </span>
+              {inspect?.latestRevision ? (
+                <span className="fig-tag fig-tag-muted" data-figma-frame="241:385">
+                  Historique · v{inspect.latestRevision.revisionNumber}
+                </span>
+              ) : null}
+            </div>
             {docMissing ? (
               <p className="text-sm" data-testid="document-missing" role="status">
                 {docMissing}
@@ -845,13 +915,18 @@ export default function ProjectPage() {
             ) : null}
             {inspect?.latestRevision ? (
               <>
-                <p className="text-xs muted">
-                  {inspect.document.id} · v{inspect.latestRevision.revisionNumber} ·{" "}
-                  {inspect.latestRevision.status}
-                  {reviseBaseIdRef.current
-                    ? ` · base intention ${reviseBaseIdRef.current.slice(0, 8)}…`
-                    : ""}
-                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="fig-tag fig-tag-muted">Markdown</span>
+                  <span className="fig-tag fig-tag-muted">
+                    v{inspect.latestRevision.revisionNumber}
+                  </span>
+                  <span className="fig-tag fig-tag-warn">{inspect.latestRevision.status}</span>
+                </div>
+                <div className="fig-alert">
+                  Document retrouvé sous ownership projet/préparation. Aucune publication Git
+                  implicite.
+                </div>
+                <p className="text-xs muted">{inspect.document.id}</p>
                 {docUi === "EDITING" ||
                 docUi === "SAVING" ||
                 docUi === "CONFLICT" ||
@@ -878,7 +953,7 @@ export default function ProjectPage() {
                           ? "Enregistrement…"
                           : docUi === "UNKNOWN"
                             ? "Réessayer (même clé)"
-                            : "Enregistrer la révision"}
+                            : "Demander une révision"}
                       </button>
                       {docUi === "CONFLICT" ? (
                         <button
@@ -921,7 +996,7 @@ export default function ProjectPage() {
                           reviseBaseIdRef.current = inspect.latestRevision?.id ?? null;
                         }}
                       >
-                        Réviser
+                        Demander une révision
                       </button>
                       <button
                         type="button"
@@ -951,11 +1026,11 @@ export default function ProjectPage() {
       ) : null}
 
       {surface === "journal" ? (
-        <div className="grid lg:grid-cols-2 gap-4">
-          <section className="panel p-4 space-y-2">
-            <h2 className="font-medium">Sujets</h2>
+        <div className="fig-two-col" data-figma-frame="94:515">
+          <section className="fig-panel space-y-2">
+            <h2 className="fig-panel-title">Sujets</h2>
             {(knowledge?.subjects ?? []).map((s) => (
-              <div key={s.id} className="panel p-2 text-sm">
+              <div key={s.id} className="fig-msg text-sm">
                 <div className="font-medium">{s.title}</div>
                 <div className="text-xs muted">
                   {s.status}
@@ -963,20 +1038,22 @@ export default function ProjectPage() {
                 </div>
               </div>
             ))}
+            {(knowledge?.subjects ?? []).length === 0 ? (
+              <p className="text-sm muted">Aucun sujet capitalisé.</p>
+            ) : null}
           </section>
-          <section className="panel p-4 space-y-2">
-            <h2 className="font-medium">Acquis courants</h2>
+          <section className="fig-panel space-y-2" data-figma-frame="129:72">
+            <h2 className="fig-panel-title">Acquis courants</h2>
             {(knowledge?.acquis ?? [])
               .filter((a) => a.status === "CURRENT")
               .map((a) => (
-                <div key={a.id} className="text-sm panel p-2">
-                  <span className="text-xs muted">{a.kind} · </span>
+                <div key={a.id} className="text-sm fig-msg">
+                  <span className="fig-tag fig-tag-muted mr-2">{a.kind}</span>
                   {a.statement}
                 </div>
               ))}
             <p className="text-xs muted pt-2">
-              Les décisions D6 opposables sont dans l&apos;onglet Pilotage (Journal—Décisions), pas
-              ici.
+              Les décisions D6 opposables sont dans Pilotage, pas ici.
             </p>
           </section>
         </div>
@@ -985,6 +1062,6 @@ export default function ProjectPage() {
       <a className="btn secondary inline-block" href="/portfolio">
         Retour portefeuille
       </a>
-    </div>
+    </ProjectChrome>
   );
 }

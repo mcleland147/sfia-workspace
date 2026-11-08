@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 
 type Msg = { id: string; role: string; content: string; status: string };
@@ -25,7 +25,10 @@ type Surface = "travail" | "journal" | "document";
 export default function PreparationPage() {
   const params = useParams<{ preparationId: string }>();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const preparationId = params.preparationId;
+  const isResumedPrep =
+    searchParams.get("resume") === "1" || searchParams.get("from") === "portfolio";
   const [messages, setMessages] = useState<Msg[]>([]);
   const [docs, setDocs] = useState<Doc[]>([]);
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
@@ -499,19 +502,26 @@ export default function PreparationPage() {
   }
 
   const inspected = docs.find((d) => d.document.id === inspectDocId) ?? docs[0];
+  const sasFrame = isResumedPrep ? "159:145" : "94:135";
 
   return (
-    <div className="space-y-3">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs muted uppercase tracking-wide">Travail / sas</p>
-          <h1 className="text-xl font-semibold">Fil continu avec Nora</h1>
-          <p className="text-xs muted">
-            {preparationId}
-            {projectId ? ` · projet ${projectId}` : " · sans projet"}
-          </p>
-        </div>
-        <nav className="flex gap-2 text-sm" aria-label="Surfaces ML2">
+    <div className="fig-page" data-figma-frame={sasFrame} data-sas-resume={isResumedPrep ? "1" : "0"}>
+      <div className="fig-breadcrumb">
+        <span>SFIA Studio / Sas de préparation{isResumedPrep ? " · reprise" : ""}</span>
+        <span className="text-xs muted truncate max-w-[45%]">{preparationId}</span>
+      </div>
+      <header className="space-y-2">
+        <p className="fig-kicker">{isResumedPrep ? "Reprise / sas" : "Travail / sas"}</p>
+        <h1 className="fig-hero-title">
+          {isResumedPrep ? "Préparation retrouvée" : "Fil continu avec Nora"}
+        </h1>
+        <p className="fig-hero-sub">
+          {isResumedPrep
+            ? "Continuité depuis le portefeuille. Même fil, même ownership — aucune double création."
+            : "Conversation avant projet. La création de projet reste un acte explicite."}
+          {projectId ? ` Projet lié : ${projectId}.` : " Aucun projet encore créé."}
+        </p>
+        <nav className="flex flex-wrap gap-2 pt-1" aria-label="Surfaces ML2">
           {(
             [
               ["travail", "Travail"],
@@ -532,24 +542,35 @@ export default function PreparationPage() {
       </header>
 
       {noraActivity === "preparing" ? (
-        <div className="panel p-3 text-sm" role="status" aria-live="polite">
+        <div className="fig-alert" role="status" aria-live="polite">
           Nora prépare une réponse…
         </div>
       ) : null}
       {noraActivity === "error" ? (
-        <div className="panel p-3 text-sm" style={{ borderColor: "var(--bad)" }}>
+        <div className="fig-alert" style={{ borderColor: "var(--bad)" }}>
           Échec de génération — message utilisateur conservé.
         </div>
       ) : null}
 
       {surface === "travail" ? (
-        <div className="grid lg:grid-cols-[1.45fr_1fr] gap-4">
-          <section className="panel p-4 space-y-4">
+        <div className="fig-workspace">
+          <section className="fig-panel space-y-3">
+            <p className="fig-kicker">Conversation</p>
             <div className="space-y-3 max-h-[52vh] overflow-auto pr-1">
+              {messages.length === 0 ? (
+                <div className="fig-msg fig-msg-nora text-sm muted">
+                  Commencez le fil — Nora répond dans ce sas avant toute création de projet.
+                </div>
+              ) : null}
               {messages.map((m) => (
-                <article key={m.id} className="panel p-3">
+                <article
+                  key={m.id}
+                  className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
+                >
                   <div className="text-xs muted mb-2 flex gap-2 items-center">
-                    <span className="uppercase tracking-wide">{m.role === "assistant" ? "Nora" : "Pilote"}</span>
+                    <span className="uppercase tracking-wide">
+                      {m.role === "assistant" ? "Nora" : "Pilote"}
+                    </span>
                     <span>· {m.status}</span>
                   </div>
                   {m.role === "assistant" ? (
@@ -560,7 +581,7 @@ export default function PreparationPage() {
                 </article>
               ))}
             </div>
-            <div className="space-y-2">
+            <div className="fig-composer">
               <textarea
                 className="textarea"
                 value={draft}
@@ -574,9 +595,9 @@ export default function PreparationPage() {
             </div>
           </section>
 
-          <section className="space-y-4">
-            <div className="panel p-4 space-y-3">
-              <h2 className="font-medium">Aperçu de création (non autorisant)</h2>
+          <section className="space-y-3">
+            <div className="fig-panel space-y-3">
+              <h2 className="fig-panel-title">Aperçu de création (non autorisant)</h2>
               <input
                 className="input"
                 value={previewName}
@@ -590,7 +611,7 @@ export default function PreparationPage() {
                 placeholder="Résumé inspecté"
               />
               <div className="text-xs muted">Révision création: {creationRevision}</div>
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex flex-wrap gap-2">
                 <button className="btn secondary" disabled={busy} onClick={savePreview}>
                   Enregistrer l&apos;aperçu
                 </button>
@@ -599,8 +620,8 @@ export default function PreparationPage() {
                 </button>
               </div>
             </div>
-            <div className="panel p-4 space-y-2">
-              <h2 className="font-medium">Contexte projet</h2>
+            <div className="fig-panel space-y-2">
+              <h2 className="fig-panel-title">Contexte</h2>
               <p className="text-xs muted">
                 Acquis courants: {knowledge?.acquis.filter((a) => a.status === "CURRENT").length ?? 0} ·
                 Points ouverts: {knowledge?.openPoints.filter((o) => o.status === "OPEN").length ?? 0} ·
