@@ -1,632 +1,341 @@
 # SFIA Studio Next — Review Pack FULL
-# ML4 GITHUB USER AUTH + D7/D8 SAFETY CLOSURE
-# Cycle CRITICAL — mono-cycle reset (pas d'append historique)
+# ML4 GITHUB USER AUTH — SECURITY CORRECTIVE CLOSURE
+# Cycle CRITICAL — mono-cycle reset (pas d'append)
 
 ## 1. Date/heure Europe/Paris
-2026-11-08 ~21:00 CET (validations 20:43–20:46 CET)
+2026-11-08 ~21:15 CET (validations 21:12–21:15 CET / UTC 20:12–20:15)
 
-## 2. GO Morris consommé
-Mandat CRITICAL explicite : « GITHUB APP USER AUTHORIZATION + D7/D8 SAFETY CLOSURE ».
-Environnement DEV uniquement. NO RELEASE / `0.0.0-dev`.
-Aucune mutation GitHub REAL autorisée.
-Handoff d'entrée L3 : `b6dccd6e9fffcdf83baaa1bd14642f4f17b0a199`.
+## 2. Mandat Morris
+GO CORRECTION EXPLICITE — SECURITY CORRECTIVE CLOSURE.
+Handoff d'entrée : `6509b4bc8215aa5c887bd19818ed6320a00cc80c` — verdict NOT READY FOR REAL USER FLOW.
+DEV only. NO RELEASE / `0.0.0-dev`. Aucune mutation GitHub REAL.
 
 ## 3. Git Truth initial/final
 
 | Item | Valeur |
 |---|---|
-| Repo | `mcleland147/sfia-workspace` |
-| Worktree Product | `/Users/morris/Projects/sfia-workspace-next-ml4-git-collaboration` |
-| Branche Product | `feat/next-git-collaboration-20261108` |
-| HEAD local | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
-| origin/main | `c658f59023d44a0e22448c7ee034e3c1dda292a2` (identique) |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4-git-collaboration` |
+| Branche | `feat/next-git-collaboration-20261108` |
+| HEAD | `c658f59023d44a0e22448c7ee034e3c1dda292a2` = origin/main |
 | Branche Product distante | ABSENTE |
-| État | LOCAL DIRTY préservé — staged vide — **aucun commit/push Product** |
-| Handoff tip entrée | `b6dccd6e…` (parent `cf12ab0c…`) |
-| Fetch | non destructif OK |
-| Collision | aucune divergence non qualifiable ; travail DIRTY antérieur ML4 conservé |
+| Handoff tip entrée | `6509b4bc…` (parent `b6dccd6e…`) |
+| État | LOCAL DIRTY préservé — **aucun commit/push Product** |
+| Migrations | 009+010 préservées ; **011** additive appliquée DEV+e2e |
+| Option A | non touchée |
 
-## 4. Sources Git et SHA
-Sources lues depuis baseline `c658f590` + code LOCAL DIRTY (domaines D7/D8/D9 construits localement).
-Doctrine/gouvernance protégées **non modifiées** (SEF, roadmap, decisions, ENV-01, product-versioning, architecture-technique, conception-fonctionnelle, method/, prompts/).
-Roadmap main « ML4 non construit » = KNOWN GAP documentaire vs code local + handoffs — signalé, pas réécrit.
+## 4. Sources Git / blobs
+Sources method/governance lues à main `c658f590` (blobs cités dans le mandat).
+Code LOCAL DIRTY confronté au handoff `6509b4bc`.
+Doctrine protégée non modifiée — KNOWN GAP roadmap « ML4 non construit » signalé.
 
-## 5. Contrat d'architecture D1/D6/D7/D8/D9
+## 5. État fichiers DIRTY (périmètre pertinent)
+Untracked/modifiés sous `web/src/domains/integrations|execution`, `web/src/app/api/integrations`, `web/src/lib/token-crypto`, migrations 008–011, tests, construction docs.
+Aucune gouvernance / method / UX normative modifiée.
 
-- **D1** : session Better Auth + PilotId + `pilots.githubUserId` (identité login). Non confondu avec autorisation dépôt.
-- **D6** : HumanDecision / mandats d'effet inchangés ; user token ≠ mandat écriture.
-- **D7** : unique owner claim/bail/dispatch/reconcile ; fencing SQL claimToken + lease.
-- **D8** : publicationRef UNIQUE(attempt) ; faits observés ; Option A historique préservée.
-- **D9** : GitHub App install READ + **nouveau** user-to-server OAuth (credentials `GITHUB_APP_CLIENT_*` distincts de `GITHUB_CLIENT_*`).
-- Git facultatif : projet sans connexion Git OK (AT-01).
-- Nora : aucun outil de mutation Git ; pas d'élévation via OAuth.
+## 6. Mapping des six écarts de revue → corrections
 
-## 6. Blast radius
+| # | Écart | Correction |
+|---|---|---|
+| 1 | SCRIPTED → CONNECTED sans consentement | `scripted-github-guard` ; flow stocké serveur ; complete/callback refusent hors DEV+ALLOW/E2E+loopback ; REAL demandé sans credentials → NOT_CONFIGURED (pas de fallback) |
+| 2 | permissions write hardcodées | `RepoPermissionSnapshot` avec `source` ; SCRIPTED = `scripted_fixture` ; REAL = observed/unknown ; refresh sans élévation ; user token pour inventaire REAL |
+| 3 | returnPath / erreurs brutes | `oauth-return-path.ts` allowlist + opaque error codes |
+| 4 | state ≠ session | migration 011 `studio_session_id` + `flow` ; consume atomique lie PilotId+session |
+| 5 | expiry/refresh/révocation | `refreshUserAccessToken` + CAS refresh ciphertext ; REQUIRES_REAUTH ; disconnect wipe ; KNOWN GAP révocation distante |
+| 6 | persist D9 non atomique | txn PG revoke+insert+seed |
+| + | D7 persistOwnedProgress | `sqlClaimLeaseActive()` dans WHERE |
 
-| Zone | Impact |
+## 7. Fencing D7
+`persistOwnedProgress`, `assertAndTouchOwnership`, `casOwnedTransition`, `commitPublicationCompletion(owned)` exigent claimToken + lease actif (DB `now()`).
+Test : lease expiré avant CREATE_BRANCH → CONFLICT ; pas COMPLETED ; 0 publicationRef.
+
+## 8. Blast radius
+D1 (sessionId binding) ; D9 (auth/routes/permissions/tokens) ; D7 (progress lease) ; D8 inchangé fonctionnellement ; PG 011 additive ; UX panel minimal ; tests.
+
+## 9. Migrations / preflight
+011 ADDITIVE sur `sfia_next_dev` + `sfia_next_e2e`. RECETTE non touchée. Option A intacte. schemaRevision=`011_oauth_session_binding`.
+
+## 10. Sécurité / secrets
+PEM meta-only (0600). Pas de Client Secret inventé. Tokens jamais en JSON/logs/pack (fixtures `ghs_test` unitaires seulement). Callback sans code/token en URL finale.
+
+## 11. Suites (réelles, ce cycle)
+
+| Suite | Résultat |
 |---|---|
-| D1 | lecture `githubUserId` pour confrontation identité ; pas de second auth Studio |
-| D6 | inchangé (autorité) |
-| D7 | provenance marker + lease actif CAS |
-| D8 | txn completion ; Option A ; 009 UNIQUE |
-| D9 | OAuth user-to-server + chiffrement tokens + routes API |
-| PostgreSQL | migration **010** additive DEV/e2e |
-| UX | `/settings/integrations` + panel minimal |
-| Tests | unit/integration/Playwright étendus |
-| Secrets | PEM 0600 meta-only ; pas de Client Secret en repo |
+| tsc | PASS |
+| unit | **167 PASS** / 30 files |
+| integration | **190 PASS** / 12 files |
+| build | PASS |
+| Playwright | **13/13 PASS** (SCRIPTED E2E isolé ; ≠ consentement GitHub REAL) |
 
-## 7. D7 provenance PR — avant/après
+Entrée cycle : 160 / 186 / 13 — non revendiquée comme résultat courant.
 
-**Avant (réserve) :** une tentative avec `prNumber` déjà en progress pouvait traiter `getPullRequest(number)` comme attribution suffisante pour COMPLETED sans revalidation marker indépendante sur le chemin reconcile.
-
-**Après :**
-- `assertPrMarkerProvenance()` appelle `findPullRequest(..., publicationMarker)` même après load par numéro.
-- Vérifie head/base/SHA + égalité du numéro marker-match vs PR candidate.
-- Marker absent / différent / ambigu / PR étrangère → `REQUIRES_REQUALIFICATION` | `AMBIGUOUS` | `CONFLICT` — **pas** COMPLETED, **pas** createPR aveugle, **pas** publicationRef.
-- Idempotence : marker correct + effet distant existant → COMPLETED unique (test double reconciler).
-
-Test discriminant : `D7/D8: reconcile with known prNumber + wrong marker refuses COMPLETED`.
-
-## 8. D7 bail actif CAS — avant/après
-
-**Avant (réserve) :** CAS owned pouvait confirmer COMPLETED avec claimToken correct mais lease expiré.
-
-**Après :**
-- `sqlClaimLeaseActive()` : `releasedAt` null AND `leaseExpiresAt > now()` (temps DB).
-- Injecté dans : `commitPublicationCompletion` (mode `owned`), `casOwnedTransition`, `assertAndTouchOwnership`.
-- Mode `liberate_inactive` : `sqlClaimInactive()` seulement — pas de bypass fencing owned.
-- CAS 0 rows → rollback txn D7+D8 → 0 publicationRef orphelin → CONFLICT récupérable.
-- Provider I/O hors transaction PG.
-
-Test : `D7/D8: owned CAS terminal refuses COMPLETED when lease expired (same claimToken)`.
-
-## 9. D8 Option A préservée
-Trois refs historiques SCRIPTED détachées en DEV lors de 009 : **aucune** DELETE/UPDATE correctif, aucune remédiation DB, aucune restauration improvisée.
-Migration 010 ADDITIVE uniquement. Index UNIQUE 009 intact.
-
-## 10. Parcours user-to-server
-
-1. Pilote authentifié → `POST /api/integrations/github/authorize` (session obligatoire).
-2. Serveur mint state opaque + PKCE S256 + TTL 15 min, lié à PilotId.
-3. SCRIPTED (défaut) : callback local `/api/integrations/github/callback?scripted=1&state=…` ou complete JSON.
-4. REAL (si `GITHUB_APP_CLIENT_*` + encryption key + `STUDIO_GITHUB_USER_OAUTH=real` ou provider REAL) : URL `https://github.com/login/oauth/authorize` avec client_id App dédié.
-5. Callback : validate state (TTL, unicité, consume atomique `gt(expiresAt, now)`), session encore valide, échange code+verifier, fetch `/user`, confront `identity.id` vs `pilots.githubUserId`, list installations App, assert install attendue + sandbox repo, seal tokens, seed authorized_repositories.
-6. Status JSON sans ciphertext/token.
-7. Disconnect / refresh / revoke = opérations distinctes.
-
-**Statut :** USER-TO-SERVER IMPLEMENTED LOCALLY / REAL INTERACTIVE NOT PROVEN.
-
-## 11. Configuration GitHub requise (manuelle Morris — GO admin distinct)
-
-| Variable | Rôle | État DEV observé |
-|---|---|---|
-| `GITHUB_APP_ID` | App ID | présent (5670639) |
-| `GITHUB_APP_INSTALLATION_ID` | Install DEV | présent (179935689) |
-| `GITHUB_APP_PRIVATE_KEY_PATH` | PEM | path set ; mode **0600** ; size 1679 — contenu jamais imprimé |
-| `GITHUB_APP_CLIENT_ID` | User OAuth App client | **ABSENT** |
-| `GITHUB_APP_CLIENT_SECRET` | User OAuth secret | **ABSENT** |
-| `GITHUB_APP_CALLBACK_URL` | Redirect enregistrée | **ABSENT** |
-| `INTEGRATION_TOKEN_ENCRYPTION_KEY` | AES-256-GCM 32 bytes | **ABSENT** (SCRIPTED OK sans persist token ; REAL user OAuth refuse sans clé) |
-| `GITHUB_CLIENT_ID/SECRET` | Better Auth D1 | **non réutilisés** pour D9 |
-
-Actions manuelles : créer Client credentials App + callback DEV + clé chiffrement ; ne pas activer « Request user authorization during installation » pour ce flux.
-
-## 12. Modèles et migrations
-
-- `schemaRevision = "010_github_app_user_oauth"`
-- `010_github_app_user_oauth.sql` : ALTER additive oauth_states (code_verifier, nonce, code_challenge_method) + authorizations (github_user_id, token_*, refresh_*, scopes, last_validated_at) + index github_user.
-- Appliquée DEV `sfia_next_dev` + e2e `sfia_next_e2e` (idempotent IF NOT EXISTS).
-- RECETTE/STABLE : **non touchés**.
-
-## 13. Sécurité tokens et sessions
-- AES-256-GCM (`token-crypto.ts`) ; key base64 32B ou hex 64 ; keyVersion.
-- Seal avant INSERT ; open uniquement serveur.
-- Status/API : jamais ciphertext/plaintext.
-- State OAuth : consume atomique bound PilotId ; foreign state → ACCESS_DENIED ; replay → CONFLICT.
-- Identité divergente → ACCESS_DENIED, pas d'auto-fusion.
-- Pas de fallback silencieux vers installation token plus puissant pour user path.
-- Isolation inter-Pilotes : state lié pilotId ; authorizations pilot-scoped.
-
-## 14–15. Fichiers créés / modifiés
-Voir annexes ci-dessous (contenu complet nouveaux fichiers clés ; sections critiques modifiées).
-
-## 16. Tests et preuves
-
-| Commande | Résultat | Horodatage UTC |
-|---|---|---|
-| `npx tsc --noEmit` | PASS (exit 0) | 2026-11-08T19:43:47Z |
-| `npm run test:unit` | **160 PASS** / 28 files | ~19:43:50Z |
-| `npm run test:integration` | **186 PASS** / 12 files (après fix `gt(expiresAt)`) | ~19:44:23Z |
-| `npm run build` | PASS | ~19:45Z |
-| `npx playwright test` | **13/13 PASS** | ~19:45–19:46Z |
-
-Entrée cycle précédent (référence, non revendiquée) : 153 unit / 183 int.
-Nouveaux cas PG : wrong-marker reconcile ; expired-lease owned CAS ; OAuth state replay/divergent/no leak.
-Unit : `token-crypto`, `github-app-user-oauth`.
-
-## 17. Fake/Real Qualification
+## 12. Fake/Real Qualification
 
 | Capacité | Statut |
 |---|---|
-| SCRIPTED publication/merge/fencing | PROVEN DET |
-| D7 marker provenance + lease CAS | PROVEN DET |
-| D9 user-to-server code path | IMPLEMENTED + DET tests |
-| REAL installation READ | PROVEN (handoff `b6dccd6e`, inchangé) |
-| REAL user OAuth interactive | **NOT PROVEN** |
-| REAL Git mutations | **HARD-BLOCKED** / NOT READY |
-| UX Figma 218–235 | **NOT PROVEN / PENDING UX INTEGRATION** |
+| SCRIPTED auth gated | PROVEN DET |
+| REAL user OAuth interactive | NOT PROVEN / NOT_CONFIGURED sans secrets |
+| REAL installation READ | PRESERVED (prior) |
+| REAL Git writes | HARD-BLOCKED |
+| Remote OAuth revoke | KNOWN GAP |
 
-## 18. Régressions et KNOWN GAP
-- D1 login GitHub / projets sans Git / D6 / D7–D8 SCRIPTED / D9 install READ : non-régression suites.
-- KNOWN GAP : roadmap main snapshots « ML4 non construit » vs code local.
-- KNOWN GAP : Client Secret/Callback/encryption key absents → REAL interactive bloqué.
-- KNOWN GAP : UX Figma 218–235 non claimée.
-- D8 Option A skew documentaire connu, non masqué.
+## 13. Invariants préservés
+D1≠D9 ; user token≠D6 ; D7 unique moteur ; Option A ; 009 UNIQUE ; marker provenance ; CAS terminal lease ; mutations REAL blocked.
 
-## 19. ENV-01 / versioning
-- Lane DEV + e2e only. Conteneur `sfia-next-recette-pg` présent mais **non utilisé**.
-- STABLE NOT AVAILABLE. Classe NO RELEASE. Version `0.0.0-dev`.
-- delivery-history entry `DELIV-2026-11-08-ML4-GITHUB-USER-AUTH-D7-D8-SAFETY`.
+## 14. KNOWN GAP / dette
+- Client ID/Secret/Callback/encryption key absents → pas d'essai interactif.
+- Révocation OAuth GitHub distante non implémentée (wipe local only).
+- UX Figma 218–235 PENDING.
+- Roadmap main snapshots historiques.
 
-## 20. Gates restants
-1. Critical Review ChatGPT (ce pack / L3).
-2. Config manuelle Client ID/Secret + Callback + encryption key (GO admin Morris).
-3. Qualification navigateur user-to-server REAL DEV.
-4. Permissions/révocation/sélection dépôts.
-5. Premier effet documentaire REAL chantiers360 — GO distinct.
-6. Candidat RECETTE / PR Product / promotions — gates distincts.
+## 15. Gates Morris suivants
+1. Critical Re-Review ChatGPT
+2. Config manuelle App OAuth + encryption key
+3. Essai user-to-server REAL DEV (mandat distinct)
+4. Première publication REAL chantiers360 (GO distinct)
 
-## 21. Verdict et capacité suivante
+## 16. Verdict
 
-**ML4 GITHUB USER AUTH + D7/D8 SAFETY — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC USER FLOW / REAL INSTALLATION READ ONLY.**
+**ML4 GITHUB USER AUTH SECURITY CLOSURE — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY.**
 
-Ne pas annoncer : USER-TO-SERVER REAL PROVEN ; REAL GITHUB WRITES READY ; RECETTE ACCEPTED ; STABLE AVAILABLE ; ADOPTED.
+Interdits non déclarés : REAL USER OAUTH PROVEN ; READY FOR REAL GIT WRITES ; RECETTE ACCEPTED ; STABLE ; ADOPTED.
 
 ---
 
+## GIT REVIEW INDEX
 
-## ANNEXE 14 — Fichiers créés (contenu complet)
+| Path | Rôle |
+|---|---|
+| src/domains/integrations/scripted-github-guard.ts | NEW — garde SCRIPTED |
+| src/domains/integrations/oauth-return-path.ts | NEW — returnPath + erreurs opaques |
+| src/domains/integrations/authorization-service.ts | REWRITE — session bind, txn, perms, refresh |
+| src/domains/integrations/github-app-user-oauth.ts | refreshUserAccessToken + perms repos |
+| src/app/api/integrations/github/authorize/route.ts | sessionId + host |
+| src/app/api/integrations/github/authorize/complete/route.ts | garde SCRIPTED |
+| src/app/api/integrations/github/callback/route.ts | flow serveur + erreurs opaques |
+| src/domains/execution/effect-service.ts | persistOwnedProgress + lease |
+| src/db/migrations/011_oauth_session_binding.sql | NEW additive |
+| src/db/schema.ts | studioSessionId, flow, schemaRevision 011 |
+| vitest.config.ts / e2e-web-server.sh | STUDIO_ALLOW_SCRIPTED_GITHUB |
+| tests/unit/scripted-github-guard.test.ts | NEW |
+| tests/unit/oauth-return-path.test.ts | NEW |
+| tests/integration/git-collaboration.pg.test.ts | security + lease progress |
 
-### `src/db/migrations/010_github_app_user_oauth.sql`
+## ANNEXE — Fichiers créés (contenu complet)
+
+### `src/db/migrations/011_oauth_session_binding.sql`
 ```
--- ML4 D9 — GitHub App user-to-server OAuth (additive / non-destructive).
--- DEV / e2e only. Does not touch D8 Option A historical rows.
--- Tokens stored only as ciphertext; never plaintext.
+-- ML4 D9 security corrective — additive only (DEV/e2e).
+-- Bind OAuth state to Studio session; record intended flow server-side.
+-- Does not touch D8 Option A historical rows.
 
 ALTER TABLE integration_oauth_states
-  ADD COLUMN IF NOT EXISTS code_verifier text,
-  ADD COLUMN IF NOT EXISTS nonce text,
-  ADD COLUMN IF NOT EXISTS code_challenge_method text;
+  ADD COLUMN IF NOT EXISTS studio_session_id text,
+  ADD COLUMN IF NOT EXISTS flow text;
 
-ALTER TABLE integration_authorizations
-  ADD COLUMN IF NOT EXISTS github_user_id text,
-  ADD COLUMN IF NOT EXISTS token_ciphertext text,
-  ADD COLUMN IF NOT EXISTS token_nonce text,
-  ADD COLUMN IF NOT EXISTS token_key_version text,
-  ADD COLUMN IF NOT EXISTS refresh_ciphertext text,
-  ADD COLUMN IF NOT EXISTS refresh_nonce text,
-  ADD COLUMN IF NOT EXISTS token_expires_at timestamptz,
-  ADD COLUMN IF NOT EXISTS scopes_json text NOT NULL DEFAULT '[]',
-  ADD COLUMN IF NOT EXISTS last_validated_at timestamptz;
-
-CREATE INDEX IF NOT EXISTS integration_authorizations_github_user_idx
-  ON integration_authorizations (github_user_id)
-  WHERE github_user_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS integration_oauth_states_session_idx
+  ON integration_oauth_states (studio_session_id)
+  WHERE studio_session_id IS NOT NULL;
 ```
 
-### `src/lib/token-crypto.ts`
+### `src/domains/integrations/scripted-github-guard.ts`
 ```
-import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto";
 import { StudioError } from "@/lib/http-errors";
+import { isApprovedLoopbackAuthority } from "@/domains/identity/session";
+import { isGitHubAppUserOauthConfigured } from "./github-app-user-oauth";
+import { isTokenEncryptionConfigured } from "@/lib/token-crypto";
 
-const ALGO = "aes-256-gcm";
-const KEY_VERSION_DEFAULT = "v1";
+/**
+ * Central SCRIPTED GitHub auth gate (D9).
+ * Client params (scripted=1, body, headers) never authorize alone.
+ *
+ * Allowed only when ALL hold:
+ * - STUDIO_LANE=DEV
+ * - explicit test/fixture activation (VITEST | STUDIO_E2E | STUDIO_ALLOW_SCRIPTED_GITHUB)
+ * - provider not in REAL-user-oauth-required mode
+ * - optional HTTP loopback when requestHost provided
+ */
+export function isScriptedGithubAuthContextAllowed(input?: {
+  /** Host / authority from the HTTP request (callback / complete). */
+  requestHost?: string | null;
+}): boolean {
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  if (lane !== "DEV") return false;
 
-export type SealedSecret = {
-  ciphertext: string; // base64
-  nonce: string; // base64
-  keyVersion: string;
-};
+  // Explicit fixture activation only — VITEST alone is insufficient (tests set ALLOW flag).
+  const explicit =
+    process.env.STUDIO_E2E === "1" || process.env.STUDIO_ALLOW_SCRIPTED_GITHUB === "1";
+  if (!explicit) return false;
 
-function loadKeyMaterial(): { key: Buffer; version: string } {
-  const raw = process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY?.trim();
-  if (!raw) {
-    throw new StudioError(
-      "NOT_CONFIGURED",
-      "INTEGRATION_TOKEN_ENCRYPTION_KEY absent — chiffrement tokens requis",
-      { httpStatus: 503 },
-    );
+  // REAL user OAuth demanded → SCRIPTED forbidden (even in tests that flipped the flag).
+  if (isRealUserOauthDemanded()) return false;
+
+  if (input?.requestHost != null && input.requestHost !== "") {
+    if (!isApprovedLoopbackAuthority(input.requestHost)) return false;
   }
-  // Accept 32-byte raw base64 or 64-char hex.
-  let key: Buffer;
-  if (/^[0-9a-fA-F]{64}$/.test(raw)) {
-    key = Buffer.from(raw, "hex");
-  } else {
-    key = Buffer.from(raw, "base64");
-  }
-  if (key.length !== 32) {
-    throw new StudioError(
-      "NOT_CONFIGURED",
-      "INTEGRATION_TOKEN_ENCRYPTION_KEY doit faire 32 octets (base64 ou hex)",
-      { httpStatus: 503 },
-    );
-  }
-  const version = process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY_VERSION?.trim() || KEY_VERSION_DEFAULT;
-  return { key, version };
+  return true;
 }
 
-export function isTokenEncryptionConfigured(): boolean {
+/** True when operator/env explicitly demands REAL user-to-server (never fall back to SCRIPTED). */
+export function isRealUserOauthDemanded(): boolean {
+  if ((process.env.STUDIO_GITHUB_USER_OAUTH ?? "").toLowerCase() === "real") return true;
+  // Provider REAL alone does not demand user OAuth — installation read can be REAL without user tokens.
+  // User OAuth REAL is only forced by STUDIO_GITHUB_USER_OAUTH=real.
+  return false;
+}
+
+export function assertScriptedGithubAuthAllowed(input?: { requestHost?: string | null }): void {
+  if (!isScriptedGithubAuthContextAllowed(input)) {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      "Parcours SCRIPTED GitHub inaccessible hors contexte de test DEV explicitement admis",
+      { httpStatus: 403 },
+    );
+  }
+}
+
+export function assertRealUserOauthConfigured(): void {
+  if (!isGitHubAppUserOauthConfigured()) {
+    throw new StudioError(
+      "NOT_CONFIGURED",
+      "GITHUB_APP_CLIENT_ID / GITHUB_APP_CLIENT_SECRET / GITHUB_APP_CALLBACK_URL requis — pas de fallback SCRIPTED",
+      { httpStatus: 503 },
+    );
+  }
+  if (!isTokenEncryptionConfigured()) {
+    throw new StudioError(
+      "NOT_CONFIGURED",
+      "INTEGRATION_TOKEN_ENCRYPTION_KEY requis — pas de fallback SCRIPTED",
+      { httpStatus: 503 },
+    );
+  }
+}
+
+/**
+ * Server-side flow selection. Never trusts client scripted/code flags alone.
+ * - real demanded → real (or NOT_CONFIGURED)
+ * - else if scripted context allowed → scripted
+ * - else → NOT_CONFIGURED (cannot invent CONNECTED)
+ */
+export function resolveGithubUserAuthFlow(input?: {
+  requestHost?: string | null;
+}): "real" | "scripted" {
+  if (isRealUserOauthDemanded()) {
+    assertRealUserOauthConfigured();
+    return "real";
+  }
+  if (isScriptedGithubAuthContextAllowed(input)) {
+    return "scripted";
+  }
+  // Credentials present but REAL not demanded and SCRIPTED not allowed → still not auto-REAL.
+  // Operator must set STUDIO_GITHUB_USER_OAUTH=real to activate interactive user OAuth.
+  if (isGitHubAppUserOauthConfigured() && isTokenEncryptionConfigured()) {
+    throw new StudioError(
+      "NOT_CONFIGURED",
+      "User-to-server REAL non activé (STUDIO_GITHUB_USER_OAUTH≠real) et SCRIPTED non admis",
+      { httpStatus: 503 },
+    );
+  }
+  throw new StudioError(
+    "NOT_CONFIGURED",
+    "Autorisation GitHub utilisateur indisponible — credentials absents et SCRIPTED non admis",
+    { httpStatus: 503 },
+  );
+}
+```
+
+### `src/domains/integrations/oauth-return-path.ts`
+```
+/**
+ * Safe internal returnPath for GitHub App user OAuth redirects.
+ * Allowlist + canonicalization — never open redirect.
+ */
+
+const DEFAULT = "/settings/integrations";
+
+const ALLOWED_EXACT = new Set([
+  "/settings/integrations",
+  "/portfolio",
+]);
+
+/** /projects/<id> where id is a conservative token (no path traversal). */
+const PROJECT_PATH = /^\/projects\/[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/;
+
+function hasControlChars(s: string): boolean {
+  for (let i = 0; i < s.length; i++) {
+    const c = s.charCodeAt(i);
+    if (c <= 0x1f || c === 0x7f) return true;
+  }
+  return false;
+}
+
+/**
+ * Normalize and validate a candidate return path.
+ * Returns DEFAULT when unsafe — never throws with attacker-controlled detail.
+ */
+export function safeReturnPath(raw: string | null | undefined): string {
+  if (raw == null || typeof raw !== "string") return DEFAULT;
+  let path = raw.trim();
+  if (!path) return DEFAULT;
+  if (hasControlChars(path)) return DEFAULT;
+
+  // Reject schemes / protocol-relative / backslash / encoded tricks before decode.
+  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/i.test(path)) return DEFAULT;
+  if (path.includes("\\")) return DEFAULT;
+  if (path.includes("//")) return DEFAULT;
+  if (/%00/i.test(path)) return DEFAULT;
+
+  // Decode once; reject if decode changes structure dangerously or fails.
+  let decoded = path;
   try {
-    loadKeyMaterial();
-    return true;
+    decoded = decodeURIComponent(path);
   } catch {
-    return false;
+    return DEFAULT;
   }
-}
-
-/** Seal a secret with AES-256-GCM. Never log plaintext or ciphertext in callers' messages. */
-export function sealSecret(plaintext: string): SealedSecret {
-  const { key, version } = loadKeyMaterial();
-  const nonce = randomBytes(12);
-  const cipher = createCipheriv(ALGO, key, nonce);
-  const enc = Buffer.concat([cipher.update(plaintext, "utf8"), cipher.final()]);
-  const tag = cipher.getAuthTag();
-  return {
-    ciphertext: Buffer.concat([enc, tag]).toString("base64"),
-    nonce: nonce.toString("base64"),
-    keyVersion: version,
-  };
-}
-
-export function openSecret(sealed: SealedSecret): string {
-  const { key } = loadKeyMaterial();
-  const raw = Buffer.from(sealed.ciphertext, "base64");
-  if (raw.length < 17) {
-    throw new StudioError("INTERNAL", "Ciphertext token invalide", { httpStatus: 500 });
+  if (decoded !== path) {
+    // Re-check after decode.
+    if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/i.test(decoded)) return DEFAULT;
+    if (decoded.includes("\\") || decoded.includes("//")) return DEFAULT;
+    if (hasControlChars(decoded)) return DEFAULT;
+    path = decoded;
   }
-  const data = raw.subarray(0, raw.length - 16);
-  const tag = raw.subarray(raw.length - 16);
-  const nonce = Buffer.from(sealed.nonce, "base64");
-  const decipher = createDecipheriv(ALGO, key, nonce);
-  decipher.setAuthTag(tag);
-  try {
-    return Buffer.concat([decipher.update(data), decipher.final()]).toString("utf8");
-  } catch (e) {
-    throw new StudioError("ACCESS_DENIED", "Décryptage token impossible", {
-      httpStatus: 403,
-      cause: e,
-    });
+
+  if (!path.startsWith("/")) return DEFAULT;
+  if (path.startsWith("//")) return DEFAULT;
+  if (path.includes("://")) return DEFAULT;
+  if (path.includes("..")) return DEFAULT;
+  // Strip query/hash — only path segment is allowed to be stored.
+  const q = path.indexOf("?");
+  if (q >= 0) path = path.slice(0, q);
+  const h = path.indexOf("#");
+  if (h >= 0) path = path.slice(0, h);
+  // Collapse trailing slash except root.
+  if (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
+
+  if (ALLOWED_EXACT.has(path)) return path;
+  if (PROJECT_PATH.test(path)) return path;
+  return DEFAULT;
+}
+
+/** Opaque callback error codes — never raw exception messages. */
+export type OauthCallbackErrorCode =
+  | "missing_code"
+  | "access_denied"
+  | "invalid_state"
+  | "session_mismatch"
+  | "not_configured"
+  | "conflict"
+  | "failed";
+
+export function mapOauthCallbackError(e: unknown): OauthCallbackErrorCode {
+  if (e && typeof e === "object" && "code" in e) {
+    const code = String((e as { code: string }).code);
+    if (code === "NOT_CONFIGURED") return "not_configured";
+    if (code === "ACCESS_DENIED" || code === "SESSION_INVALID") return "access_denied";
+    if (code === "CONFLICT") return "conflict";
+    if (code === "INVALID_REQUEST") return "invalid_state";
   }
-}
-```
-
-### `src/domains/integrations/github-app-user-oauth.ts`
-```
-import { createHash, randomBytes } from "node:crypto";
-import { StudioError } from "@/lib/http-errors";
-import {
-  GITHUB_APP_EXPECTED_APP_ID,
-  GITHUB_APP_EXPECTED_INSTALLATION_ID,
-  GITHUB_APP_EXPECTED_OWNER,
-  GITHUB_APP_ALLOWED_FULL_NAME,
-} from "./github-app-config";
-
-export type UserOauthConfig = {
-  clientId: string;
-  clientSecret: string;
-  callbackUrl: string;
-  appId: string;
-  expectedInstallationId: string;
-  expectedOwner: string;
-  allowedFullName: string;
-};
-
-export type GitHubUserIdentity = {
-  id: string; // stable numeric id as string
-  login: string;
-};
-
-export type UserTokenBundle = {
-  accessToken: string;
-  refreshToken: string | null;
-  expiresAt: Date | null;
-  scopes: string[];
-};
-
-export type UserInstallation = {
-  id: string;
-  appId: string;
-  accountLogin: string;
-  accountType: string;
-  repositorySelection: string | null;
-  suspendedAt: string | null;
-};
-
-function requireEnv(name: string): string {
-  const v = process.env[name]?.trim();
-  if (!v) {
-    throw new StudioError(
-      "NOT_CONFIGURED",
-      `${name} absent — configuration GitHub App user-to-server requise`,
-      { httpStatus: 503 },
-    );
-  }
-  return v;
-}
-
-/** True when Client ID + Secret + Callback are present (not Better Auth GITHUB_CLIENT_*). */
-export function isGitHubAppUserOauthConfigured(): boolean {
-  return Boolean(
-    process.env.GITHUB_APP_CLIENT_ID?.trim() &&
-      process.env.GITHUB_APP_CLIENT_SECRET?.trim() &&
-      process.env.GITHUB_APP_CALLBACK_URL?.trim(),
-  );
-}
-
-export function readGitHubAppUserOauthConfig(): UserOauthConfig {
-  // Never reuse Better Auth GITHUB_CLIENT_ID/SECRET.
-  return {
-    clientId: requireEnv("GITHUB_APP_CLIENT_ID"),
-    clientSecret: requireEnv("GITHUB_APP_CLIENT_SECRET"),
-    callbackUrl: requireEnv("GITHUB_APP_CALLBACK_URL"),
-    appId: process.env.GITHUB_APP_ID?.trim() || GITHUB_APP_EXPECTED_APP_ID,
-    expectedInstallationId:
-      process.env.GITHUB_APP_INSTALLATION_ID?.trim() || GITHUB_APP_EXPECTED_INSTALLATION_ID,
-    expectedOwner: process.env.GITHUB_APP_EXPECTED_OWNER?.trim() || GITHUB_APP_EXPECTED_OWNER,
-    allowedFullName: process.env.GITHUB_APP_ALLOWED_REPO?.trim() || GITHUB_APP_ALLOWED_FULL_NAME,
-  };
-}
-
-export function mintPkcePair(): { codeVerifier: string; codeChallenge: string; method: "S256" } {
-  const codeVerifier = randomBytes(32).toString("base64url");
-  const codeChallenge = createHash("sha256").update(codeVerifier).digest("base64url");
-  return { codeVerifier, codeChallenge, method: "S256" };
-}
-
-export function buildGitHubAppUserAuthorizeUrl(input: {
-  config: UserOauthConfig;
-  state: string;
-  codeChallenge: string;
-  codeChallengeMethod: string;
-}): string {
-  const u = new URL("https://github.com/login/oauth/authorize");
-  u.searchParams.set("client_id", input.config.clientId);
-  u.searchParams.set("redirect_uri", input.config.callbackUrl);
-  u.searchParams.set("state", input.state);
-  u.searchParams.set("code_challenge", input.codeChallenge);
-  u.searchParams.set("code_challenge_method", input.codeChallengeMethod);
-  // User-to-server: request only what is needed for installation visibility + identity.
-  // Repo mutations remain gated by D6/D7 and REAL mutation hard-blocks.
-  u.searchParams.set("scope", "");
-  return u.toString();
-}
-
-async function ghJson<T>(
-  url: string,
-  init: RequestInit,
-  fetchImpl: typeof fetch = fetch,
-): Promise<T> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 15_000);
-  try {
-    const res = await fetchImpl(url, {
-      ...init,
-      signal: ctrl.signal,
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "sfia-studio-next-dev-d9-user-oauth",
-        ...(init.headers ?? {}),
-      },
-    });
-    const text = await res.text();
-    if (!res.ok) {
-      if (res.status === 401 || res.status === 403) {
-        throw new StudioError("ACCESS_DENIED", `GitHub user OAuth FORBIDDEN (${res.status})`, {
-          httpStatus: res.status === 401 ? 401 : 403,
-        });
-      }
-      if (res.status >= 500) {
-        throw new StudioError("DEPENDENCY_UNAVAILABLE", `GitHub user OAuth UNAVAILABLE (${res.status})`, {
-          httpStatus: 503,
-        });
-      }
-      throw new StudioError("INVALID_REQUEST", `GitHub user OAuth échec (${res.status})`, {
-        httpStatus: 400,
-      });
-    }
-    return text ? (JSON.parse(text) as T) : ({} as T);
-  } catch (e) {
-    if (e instanceof StudioError) throw e;
-    throw new StudioError("DEPENDENCY_UNAVAILABLE", "GitHub user OAuth TIMEOUT/échec", {
-      httpStatus: 503,
-      cause: e,
-    });
-  } finally {
-    clearTimeout(t);
-  }
-}
-
-export async function exchangeAuthorizationCode(input: {
-  config: UserOauthConfig;
-  code: string;
-  codeVerifier: string;
-  fetchImpl?: typeof fetch;
-}): Promise<UserTokenBundle> {
-  const raw = await ghJson<{
-    access_token?: string;
-    refresh_token?: string;
-    expires_in?: number;
-    scope?: string;
-    error?: string;
-  }>(
-    "https://github.com/login/oauth/access_token",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        client_id: input.config.clientId,
-        client_secret: input.config.clientSecret,
-        code: input.code,
-        redirect_uri: input.config.callbackUrl,
-        code_verifier: input.codeVerifier,
-      }),
-    },
-    input.fetchImpl,
-  );
-  if (!raw.access_token) {
-    throw new StudioError("ACCESS_DENIED", "Échange code OAuth sans access_token", {
-      httpStatus: 403,
-    });
-  }
-  const expiresAt =
-    typeof raw.expires_in === "number"
-      ? new Date(Date.now() + raw.expires_in * 1000)
-      : null;
-  const scopes = (raw.scope ?? "")
-    .split(/[,\s]+/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-  return {
-    accessToken: raw.access_token,
-    refreshToken: raw.refresh_token ?? null,
-    expiresAt,
-    scopes,
-  };
-}
-
-export async function fetchGitHubUserIdentity(
-  accessToken: string,
-  fetchImpl: typeof fetch = fetch,
-): Promise<GitHubUserIdentity> {
-  const raw = await ghJson<{ id: number; login: string }>(
-    "https://api.github.com/user",
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    },
-    fetchImpl,
-  );
-  if (!raw.id || !raw.login) {
-    throw new StudioError("AMBIGUOUS", "Identité GitHub user illisible", { httpStatus: 409 });
-  }
-  return { id: String(raw.id), login: raw.login };
-}
-
-export async function listUserInstallationsForApp(
-  accessToken: string,
-  expectedAppId: string,
-  fetchImpl: typeof fetch = fetch,
-): Promise<UserInstallation[]> {
-  const raw = await ghJson<{
-    installations: Array<{
-      id: number;
-      app_id: number;
-      account?: { login?: string; type?: string };
-      repository_selection?: string;
-      suspended_at?: string | null;
-    }>;
-  }>(
-    "https://api.github.com/user/installations",
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    },
-    fetchImpl,
-  );
-  return (raw.installations ?? [])
-    .filter((i) => String(i.app_id) === expectedAppId)
-    .map((i) => ({
-      id: String(i.id),
-      appId: String(i.app_id),
-      accountLogin: i.account?.login ?? "",
-      accountType: i.account?.type ?? "",
-      repositorySelection: i.repository_selection ?? null,
-      suspendedAt: i.suspended_at ?? null,
-    }));
-}
-
-export async function listUserInstallationRepos(
-  accessToken: string,
-  installationId: string,
-  fetchImpl: typeof fetch = fetch,
-): Promise<Array<{ id: number; fullName: string; defaultBranch: string; private: boolean }>> {
-  const raw = await ghJson<{
-    repositories: Array<{
-      id: number;
-      full_name: string;
-      default_branch: string;
-      private: boolean;
-    }>;
-  }>(
-    `https://api.github.com/user/installations/${installationId}/repositories?per_page=100`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    },
-    fetchImpl,
-  );
-  return (raw.repositories ?? []).map((r) => ({
-    id: r.id,
-    fullName: r.full_name,
-    defaultBranch: r.default_branch,
-    private: Boolean(r.private),
-  }));
-}
-
-export function assertInstallationAuthorized(
-  installations: UserInstallation[],
-  config: UserOauthConfig,
-): UserInstallation {
-  const match = installations.find((i) => i.id === config.expectedInstallationId);
-  if (!match) {
-    throw new StudioError(
-      "ACCESS_DENIED",
-      `Installation ${config.expectedInstallationId} inaccessible au user token`,
-      { httpStatus: 403 },
-    );
-  }
-  if (match.suspendedAt) {
-    throw new StudioError("ACCESS_DENIED", "Installation GitHub App suspendue", { httpStatus: 403 });
-  }
-  if (
-    match.accountLogin &&
-    match.accountLogin.toLowerCase() !== config.expectedOwner.toLowerCase()
-  ) {
-    throw new StudioError(
-      "ACCESS_DENIED",
-      `Owner installation inattendu (attendu ${config.expectedOwner})`,
-      { httpStatus: 403 },
-    );
-  }
-  if (match.appId !== config.appId) {
-    throw new StudioError("ACCESS_DENIED", "App ID d'installation divergent", { httpStatus: 403 });
-  }
-  return match;
-}
-
-export function assertSandboxRepoInList(
-  repos: Array<{ fullName: string }>,
-  allowedFullName: string,
-): void {
-  if (!repos.some((r) => r.fullName.toLowerCase() === allowedFullName.toLowerCase())) {
-    throw new StudioError(
-      "ACCESS_DENIED",
-      `Dépôt ${allowedFullName} hors ressources user/installation`,
-      { httpStatus: 403 },
-    );
-  }
+  return "failed";
 }
 ```
 
@@ -641,16 +350,59 @@ export async function POST(req: Request) {
   try {
     const session = await requireStudioSession();
     const body = (await req.json().catch(() => ({}))) as { returnPath?: string };
+    const host = req.headers.get("host");
     const result = await startGitHubAuthorization(
       session.pilotId,
       body.returnPath ?? "/settings/integrations",
+      session.sessionId,
+      { requestHost: host },
     );
     return NextResponse.json({
       ...result,
-      providerMode: (process.env.STUDIO_GITHUB_PROVIDER ?? "scripted").toLowerCase() === "real"
-        ? "REAL"
-        : "SCRIPTED",
+      // Reflect server-chosen flow — never trust client to pick SCRIPTED.
+      providerMode: result.flow === "scripted" ? "SCRIPTED" : "REAL",
     });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
+  }
+}
+```
+
+### `src/app/api/integrations/github/authorize/complete/route.ts`
+```
+import { NextResponse } from "next/server";
+import { completeGitHubAuthorization } from "@/domains/integrations/authorization-service";
+import { requireStudioSession } from "@/domains/identity/session";
+import { assertScriptedGithubAuthAllowed } from "@/domains/integrations/scripted-github-guard";
+import { studioErrorResponse } from "@/lib/http-errors";
+
+/**
+ * SCRIPTED completion only — gated by central SCRIPTED guard.
+ * Never creates REAL CONNECTED. Client cannot force scripted=true for REAL.
+ */
+export async function POST(req: Request) {
+  try {
+    const session = await requireStudioSession();
+    const host = req.headers.get("host");
+    assertScriptedGithubAuthAllowed({ requestHost: host });
+
+    const body = (await req.json().catch(() => ({}))) as {
+      state?: string;
+      installationId?: string;
+    };
+    if (!body.state) {
+      return NextResponse.json({ error: "INVALID_REQUEST", message: "state required" }, { status: 400 });
+    }
+    // installationId from body is rejected inside complete unless it matches fixture.
+    const status = await completeGitHubAuthorization({
+      pilotId: session.pilotId,
+      state: body.state,
+      studioSessionId: session.sessionId,
+      installationId: body.installationId,
+      requestHost: host,
+    });
+    return NextResponse.json(status);
   } catch (e) {
     const mapped = studioErrorResponse(e);
     return NextResponse.json(mapped.body, { status: mapped.status });
@@ -663,113 +415,95 @@ export async function POST(req: Request) {
 import { NextResponse } from "next/server";
 import {
   completeGitHubAuthorization,
-  consumeOauthStateForCallback,
+  peekOauthState,
 } from "@/domains/integrations/authorization-service";
+import { mapOauthCallbackError, safeReturnPath } from "@/domains/integrations/oauth-return-path";
+import { assertScriptedGithubAuthAllowed } from "@/domains/integrations/scripted-github-guard";
 import { requireStudioSession } from "@/domains/identity/session";
 import { isStudioError, studioErrorResponse } from "@/lib/http-errors";
 
 /**
  * GitHub App user-to-server callback (D9) — distinct from Better Auth D1 callback.
- * Never echoes code/token. Never trusts installation_id from query for REAL attribution.
+ * Never echoes code/token. Never trusts installation_id or scripted=1 from query for flow choice.
+ * Flow is taken from server-stored oauth state.
  */
 export async function GET(req: Request) {
+  const url = new URL(req.url);
+  const host = req.headers.get("host");
   try {
     const session = await requireStudioSession();
-    const url = new URL(req.url);
     const state = url.searchParams.get("state");
     if (!state) {
-      return NextResponse.json({ error: "INVALID_REQUEST", message: "state required" }, { status: 400 });
-    }
-
-    // Peek binding before consume (complete performs atomic single-use consume).
-    const oauth = await consumeOauthStateForCallback(state);
-    if (!oauth || oauth.pilotId !== session.pilotId) {
-      return NextResponse.json({ error: "ACCESS_DENIED" }, { status: 403 });
-    }
-
-    const scripted = url.searchParams.get("scripted") === "1";
-    const code = url.searchParams.get("code") ?? undefined;
-    // installation_id from query is NEVER authoritative for REAL user OAuth.
-    const installationIdHint = scripted
-      ? (url.searchParams.get("installation_id") ?? undefined)
-      : undefined;
-
-    if (!scripted && !code) {
-      const ghError = url.searchParams.get("error");
       return NextResponse.redirect(
-        new URL(
-          `${oauth.returnPath || "/settings/integrations"}?connected=0&error=${encodeURIComponent(ghError || "missing_code")}`,
-          url.origin,
-        ),
+        new URL(`/settings/integrations?connected=0&error=invalid_state`, url.origin),
+      );
+    }
+
+    const oauth = await peekOauthState(state);
+    if (!oauth || oauth.pilotId !== session.pilotId) {
+      return NextResponse.redirect(
+        new URL(`/settings/integrations?connected=0&error=access_denied`, url.origin),
+      );
+    }
+    if (oauth.studioSessionId && oauth.studioSessionId !== session.sessionId) {
+      return NextResponse.redirect(
+        new URL(`/settings/integrations?connected=0&error=session_mismatch`, url.origin),
+      );
+    }
+
+    const returnPath = safeReturnPath(oauth.returnPath);
+    const storedFlow = oauth.flow === "github_app_user_oauth" ? "real" : "scripted";
+
+    if (storedFlow === "scripted") {
+      assertScriptedGithubAuthAllowed({ requestHost: host });
+      await completeGitHubAuthorization({
+        pilotId: session.pilotId,
+        state,
+        studioSessionId: session.sessionId,
+        requestHost: host,
+      });
+      return NextResponse.redirect(new URL(`${returnPath}?connected=1`, url.origin));
+    }
+
+    // REAL flow — require code; ignore scripted=1 and installation_id from query.
+    const code = url.searchParams.get("code") ?? undefined;
+    if (!code) {
+      const ghError = url.searchParams.get("error");
+      const errCode = ghError === "access_denied" ? "access_denied" : "missing_code";
+      return NextResponse.redirect(
+        new URL(`${returnPath}?connected=0&error=${errCode}`, url.origin),
       );
     }
 
     await completeGitHubAuthorization({
       pilotId: session.pilotId,
       state,
-      scripted,
-      code: scripted ? undefined : code,
-      installationId: installationIdHint,
+      studioSessionId: session.sessionId,
+      code,
+      requestHost: host,
     });
-
-    const returnPath = oauth.returnPath || "/settings/integrations";
-    // Clean redirect — no code/state/token in final URL.
     return NextResponse.redirect(new URL(`${returnPath}?connected=1`, url.origin));
   } catch (e) {
     if (isStudioError(e) && e.code === "NOT_CONFIGURED") {
       const mapped = studioErrorResponse(e);
       return NextResponse.json(mapped.body, { status: mapped.status });
     }
-    const mapped = studioErrorResponse(e);
-    // Prefer redirect to integrations with opaque error for browser flow.
-    try {
-      const url = new URL(req.url);
-      return NextResponse.redirect(
-        new URL(`/settings/integrations?connected=0&error=${encodeURIComponent(e instanceof Error ? e.message.slice(0, 80) : "failed")}`, url.origin),
-      );
-    } catch {
-      return NextResponse.json(mapped.body, { status: mapped.status });
-    }
+    const errCode = mapOauthCallbackError(e);
+    return NextResponse.redirect(
+      new URL(`/settings/integrations?connected=0&error=${errCode}`, url.origin),
+    );
   }
 }
 ```
 
-### `src/app/api/integrations/github/authorize/complete/route.ts`
-```
-import { NextResponse } from "next/server";
-import { completeGitHubAuthorization } from "@/domains/integrations/authorization-service";
-import { requireStudioSession } from "@/domains/identity/session";
-import { studioErrorResponse } from "@/lib/http-errors";
-
-/** SCRIPTED / local completion without relying on browser document redirect. */
-export async function POST(req: Request) {
-  try {
-    const session = await requireStudioSession();
-    const body = (await req.json().catch(() => ({}))) as {
-      state?: string;
-      installationId?: string;
-    };
-    if (!body.state) {
-      return NextResponse.json({ error: "INVALID_REQUEST", message: "state required" }, { status: 400 });
-    }
-    const status = await completeGitHubAuthorization({
-      pilotId: session.pilotId,
-      state: body.state,
-      installationId: body.installationId,
-      scripted: true,
-    });
-    return NextResponse.json(status);
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
-```
-
-### `tests/unit/token-crypto.test.ts`
+### `tests/unit/scripted-github-guard.test.ts`
 ```
 import { afterEach, describe, expect, it } from "vitest";
-import { isTokenEncryptionConfigured, openSecret, sealSecret } from "@/lib/token-crypto";
+import {
+  isRealUserOauthDemanded,
+  isScriptedGithubAuthContextAllowed,
+  resolveGithubUserAuthFlow,
+} from "@/domains/integrations/scripted-github-guard";
 import { isStudioError } from "@/lib/http-errors";
 
 const ORIGINAL = { ...process.env };
@@ -781,170 +515,87 @@ afterEach(() => {
   Object.assign(process.env, ORIGINAL);
 });
 
-describe("token-crypto AES-GCM", () => {
-  it("refuses when key absent", () => {
-    delete process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY;
-    expect(isTokenEncryptionConfigured()).toBe(false);
-    expect(() => sealSecret("x")).toThrow(/INTEGRATION_TOKEN_ENCRYPTION_KEY/);
+describe("scripted-github-guard", () => {
+  it("allows SCRIPTED only in DEV with explicit activation + loopback", () => {
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_ALLOW_SCRIPTED_GITHUB = "1";
+    delete process.env.STUDIO_GITHUB_USER_OAUTH;
+    expect(isScriptedGithubAuthContextAllowed({ requestHost: "127.0.0.1:3100" })).toBe(true);
+    expect(isScriptedGithubAuthContextAllowed({ requestHost: "evil.example" })).toBe(false);
   });
 
-  it("round-trips and rejects wrong key", () => {
-    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 9).toString("base64");
-    expect(isTokenEncryptionConfigured()).toBe(true);
-    const sealed = sealSecret("ghs_never_log_me");
-    expect(sealed.ciphertext).not.toContain("ghs_");
-    expect(openSecret(sealed)).toBe("ghs_never_log_me");
-
-    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 1).toString("base64");
-    try {
-      openSecret(sealed);
-      expect.fail("expected decrypt fail");
-    } catch (e) {
-      expect(isStudioError(e)).toBe(true);
-      expect((e as { code: string }).code).toBe("ACCESS_DENIED");
-    }
+  it("refuses SCRIPTED outside DEV", () => {
+    process.env.STUDIO_LANE = "RECETTE";
+    process.env.STUDIO_ALLOW_SCRIPTED_GITHUB = "1";
+    expect(isScriptedGithubAuthContextAllowed()).toBe(false);
   });
 
-  it("accepts 64-char hex key", () => {
-    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = "ab".repeat(32);
-    const sealed = sealSecret("hello");
-    expect(openSecret(sealed)).toBe("hello");
+  it("refuses SCRIPTED without explicit activation", () => {
+    process.env.STUDIO_LANE = "DEV";
+    delete process.env.STUDIO_ALLOW_SCRIPTED_GITHUB;
+    delete process.env.STUDIO_E2E;
+    delete process.env.VITEST;
+    expect(isScriptedGithubAuthContextAllowed()).toBe(false);
   });
-});
-```
 
-### `tests/unit/github-app-user-oauth.test.ts`
-```
-import { afterEach, describe, expect, it, vi } from "vitest";
-import {
-  assertInstallationAuthorized,
-  assertSandboxRepoInList,
-  buildGitHubAppUserAuthorizeUrl,
-  exchangeAuthorizationCode,
-  fetchGitHubUserIdentity,
-  isGitHubAppUserOauthConfigured,
-  mintPkcePair,
-  readGitHubAppUserOauthConfig,
-} from "@/domains/integrations/github-app-user-oauth";
-import {
-  GITHUB_APP_EXPECTED_APP_ID,
-  GITHUB_APP_EXPECTED_INSTALLATION_ID,
-} from "@/domains/integrations/github-app-config";
-
-const ORIGINAL = { ...process.env };
-
-afterEach(() => {
-  for (const k of Object.keys(process.env)) {
-    if (!(k in ORIGINAL)) delete process.env[k];
-  }
-  Object.assign(process.env, ORIGINAL);
-  vi.restoreAllMocks();
-});
-
-describe("github-app-user-oauth helpers", () => {
-  it("detects missing client credentials without inventing them", () => {
+  it("REAL demanded never falls back to SCRIPTED", () => {
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_ALLOW_SCRIPTED_GITHUB = "1";
+    process.env.STUDIO_GITHUB_USER_OAUTH = "real";
+    expect(isRealUserOauthDemanded()).toBe(true);
+    expect(isScriptedGithubAuthContextAllowed()).toBe(false);
     delete process.env.GITHUB_APP_CLIENT_ID;
     delete process.env.GITHUB_APP_CLIENT_SECRET;
     delete process.env.GITHUB_APP_CALLBACK_URL;
-    expect(isGitHubAppUserOauthConfigured()).toBe(false);
-    expect(() => readGitHubAppUserOauthConfig()).toThrow(/GITHUB_APP_CLIENT_ID/);
+    try {
+      resolveGithubUserAuthFlow();
+      expect.fail("expected NOT_CONFIGURED");
+    } catch (e) {
+      expect(isStudioError(e)).toBe(true);
+      expect((e as { code: string }).code).toBe("NOT_CONFIGURED");
+    }
+  });
+});
+```
+
+### `tests/unit/oauth-return-path.test.ts`
+```
+import { describe, expect, it } from "vitest";
+import { mapOauthCallbackError, safeReturnPath } from "@/domains/integrations/oauth-return-path";
+
+describe("safeReturnPath", () => {
+  it("allows exact allowlist and project paths", () => {
+    expect(safeReturnPath("/settings/integrations")).toBe("/settings/integrations");
+    expect(safeReturnPath("/portfolio")).toBe("/portfolio");
+    expect(safeReturnPath("/projects/proj_abc-1")).toBe("/projects/proj_abc-1");
   });
 
-  it("builds authorize URL with PKCE and dedicated App client id", () => {
-    process.env.GITHUB_APP_CLIENT_ID = "Iv1.app-client";
-    process.env.GITHUB_APP_CLIENT_SECRET = "secret";
-    process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
-    process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
-    const config = readGitHubAppUserOauthConfig();
-    const pkce = mintPkcePair();
-    const url = buildGitHubAppUserAuthorizeUrl({
-      config,
-      state: "st",
-      codeChallenge: pkce.codeChallenge,
-      codeChallengeMethod: pkce.method,
-    });
-    expect(url).toContain("client_id=Iv1.app-client");
-    expect(url).toContain("code_challenge=");
-    expect(url).toContain("code_challenge_method=S256");
-    expect(url).not.toContain(process.env.GITHUB_CLIENT_ID ?? "Ov23");
-  });
-
-  it("exchanges code and fetches identity via mocked GitHub", async () => {
-    process.env.GITHUB_APP_CLIENT_ID = "Iv1.app-client";
-    process.env.GITHUB_APP_CLIENT_SECRET = "secret";
-    process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
-    const config = readGitHubAppUserOauthConfig();
-    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
-      const url = String(input);
-      if (url.includes("login/oauth/access_token")) {
-        return new Response(
-          JSON.stringify({
-            access_token: "ghs_test",
-            refresh_token: "ghr_test",
-            expires_in: 3600,
-            scope: "",
-          }),
-          { status: 200, headers: { "Content-Type": "application/json" } },
-        );
-      }
-      if (url.endsWith("/user")) {
-        return new Response(JSON.stringify({ id: 42, login: "mcleland147" }), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-      return new Response("{}", { status: 500 });
-    });
-    const tokens = await exchangeAuthorizationCode({
-      config,
-      code: "abc",
-      codeVerifier: "ver",
-      fetchImpl: fetchImpl as unknown as typeof fetch,
-    });
-    expect(tokens.accessToken).toBe("ghs_test");
-    const identity = await fetchGitHubUserIdentity(
-      tokens.accessToken,
-      fetchImpl as unknown as typeof fetch,
+  it("rejects open redirects and hostile forms", () => {
+    expect(safeReturnPath("https://evil.example/x")).toBe("/settings/integrations");
+    expect(safeReturnPath("//evil.example")).toBe("/settings/integrations");
+    expect(safeReturnPath("/\\evil")).toBe("/settings/integrations");
+    expect(safeReturnPath("/settings/integrations/../../etc/passwd")).toBe(
+      "/settings/integrations",
     );
-    expect(identity).toEqual({ id: "42", login: "mcleland147" });
+    expect(safeReturnPath("/settings/integrations?next=https://evil")).toBe(
+      "/settings/integrations",
+    );
+    expect(safeReturnPath("javascript:alert(1)")).toBe("/settings/integrations");
+    expect(safeReturnPath("/not-allowed")).toBe("/settings/integrations");
+    expect(safeReturnPath("/%2e%2e/secret")).toBe("/settings/integrations");
   });
 
-  it("rejects missing installation / sandbox repo", () => {
-    const config = {
-      clientId: "x",
-      clientSecret: "y",
-      callbackUrl: "http://localhost/cb",
-      appId: GITHUB_APP_EXPECTED_APP_ID,
-      expectedInstallationId: GITHUB_APP_EXPECTED_INSTALLATION_ID,
-      expectedOwner: "mcleland147",
-      allowedFullName: "mcleland147/chantiers360",
-    };
-    expect(() =>
-      assertInstallationAuthorized(
-        [
-          {
-            id: "1",
-            appId: GITHUB_APP_EXPECTED_APP_ID,
-            accountLogin: "mcleland147",
-            accountType: "User",
-            repositorySelection: "selected",
-            suspendedAt: null,
-          },
-        ],
-        config,
-      ),
-    ).toThrow(/inaccessible/);
-
-    expect(() =>
-      assertSandboxRepoInList([{ fullName: "acme/other" }], config.allowedFullName),
-    ).toThrow(/hors ressources/);
+  it("maps callback errors to opaque codes", () => {
+    expect(mapOauthCallbackError({ code: "ACCESS_DENIED" })).toBe("access_denied");
+    expect(mapOauthCallbackError({ code: "NOT_CONFIGURED" })).toBe("not_configured");
+    expect(mapOauthCallbackError(new Error("secret stack"))).toBe("failed");
   });
 });
 ```
 
 ### `src/domains/integrations/authorization-service.ts` (complet)
 ```
-import { and, desc, eq, gt, isNull } from "drizzle-orm";
+import { and, desc, eq, gt, isNull, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
   authorizedRepositories,
@@ -954,7 +605,7 @@ import {
 } from "@/db/schema";
 import { StudioError } from "@/lib/http-errors";
 import { newId } from "@/lib/ids";
-import { isTokenEncryptionConfigured, sealSecret } from "@/lib/token-crypto";
+import { isTokenEncryptionConfigured, openSecret, sealSecret } from "@/lib/token-crypto";
 import { resolveGitHubProvider } from "./github-provider";
 import {
   assertInstallationAuthorized,
@@ -967,16 +618,57 @@ import {
   listUserInstallationsForApp,
   mintPkcePair,
   readGitHubAppUserOauthConfig,
+  refreshUserAccessToken,
 } from "./github-app-user-oauth";
+import { safeReturnPath } from "./oauth-return-path";
+import {
+  assertScriptedGithubAuthAllowed,
+  resolveGithubUserAuthFlow,
+} from "./scripted-github-guard";
 import type { IntegrationStatus } from "./types";
 
 const STATE_TTL_MS = 15 * 60 * 1000;
 
-function safeReturnPath(path: string): string {
-  if (!path.startsWith("/") || path.startsWith("//") || path.includes("://")) {
-    return "/settings/integrations";
-  }
-  return path || "/settings/integrations";
+export type RepoPermissionSnapshot = {
+  source: "scripted_fixture" | "user_token_observed" | "unknown";
+  contents: "read" | "write" | "admin" | "unknown" | "none";
+  pull_requests: "read" | "write" | "admin" | "unknown" | "none";
+};
+
+function scriptedFixturePermissions(): RepoPermissionSnapshot {
+  // Fixture only — tagged so REAL paths never inherit these levels.
+  return {
+    source: "scripted_fixture",
+    contents: "write",
+    pull_requests: "write",
+  };
+}
+
+function unknownPermissions(): RepoPermissionSnapshot {
+  return { source: "unknown", contents: "unknown", pull_requests: "unknown" };
+}
+
+function normalizeObservedLevel(raw: unknown): RepoPermissionSnapshot["contents"] {
+  const v = String(raw ?? "")
+    .trim()
+    .toLowerCase();
+  if (v === "read" || v === "pull") return "read";
+  if (v === "write" || v === "push") return "write";
+  if (v === "admin") return "admin";
+  if (v === "none") return "none";
+  return "unknown";
+}
+
+function permissionsFromObserved(input?: {
+  contents?: unknown;
+  pull_requests?: unknown;
+}): RepoPermissionSnapshot {
+  if (!input) return unknownPermissions();
+  return {
+    source: "user_token_observed",
+    contents: normalizeObservedLevel(input.contents),
+    pull_requests: normalizeObservedLevel(input.pull_requests),
+  };
 }
 
 export async function getIntegrationStatus(pilotId: string) {
@@ -1014,6 +706,7 @@ export async function getIntegrationStatus(pilotId: string) {
             fullName: authorizedRepositories.fullName,
             defaultBranch: authorizedRepositories.defaultBranch,
             status: authorizedRepositories.status,
+            permissionsJson: authorizedRepositories.permissionsJson,
           })
           .from(authorizedRepositories)
           .where(
@@ -1035,22 +728,46 @@ export async function getIntegrationStatus(pilotId: string) {
     tokenExpiresAt: latest?.tokenExpiresAt?.toISOString() ?? null,
     lastValidatedAt: latest?.lastValidatedAt?.toISOString() ?? null,
     userOauthConfigured: isGitHubAppUserOauthConfigured(),
-    repositories: repos,
-    // Never include tokens / ciphertext.
+    repositories: repos.map((r) => ({
+      id: r.id,
+      fullName: r.fullName,
+      defaultBranch: r.defaultBranch,
+      status: r.status,
+      // Expose only non-secret permission snapshot (never tokens).
+      permissions: (() => {
+        try {
+          return JSON.parse(r.permissionsJson || "{}") as RepoPermissionSnapshot;
+        } catch {
+          return unknownPermissions();
+        }
+      })(),
+    })),
   };
 }
 
 /**
  * Start voluntary GitHub App user-to-server authorization (distinct from D1 Better Auth).
- * SCRIPTED: local callback. REAL user OAuth: GitHub authorize URL when App Client credentials present.
+ * Flow is chosen server-side — never from client scripted/code flags.
  */
-export async function startGitHubAuthorization(pilotId: string, returnPath: string) {
+export async function startGitHubAuthorization(
+  pilotId: string,
+  returnPath: string,
+  studioSessionId: string,
+  opts?: { requestHost?: string | null },
+) {
+  if (!studioSessionId) {
+    throw new StudioError("ACCESS_DENIED", "Session Studio requise pour démarrer OAuth", {
+      httpStatus: 401,
+    });
+  }
+  const flow = resolveGithubUserAuthFlow({ requestHost: opts?.requestHost });
   const stateToken = newId("ghst");
   const now = new Date();
   const expiresAt = new Date(now.getTime() + STATE_TTL_MS);
   const pkce = mintPkcePair();
   const nonce = newId("ghnc");
   const safePath = safeReturnPath(returnPath);
+  const storedFlow = flow === "real" ? "github_app_user_oauth" : "scripted";
 
   await db.insert(integrationOauthStates).values({
     id: newId("ghos"),
@@ -1060,30 +777,13 @@ export async function startGitHubAuthorization(pilotId: string, returnPath: stri
     codeVerifier: pkce.codeVerifier,
     nonce,
     codeChallengeMethod: pkce.method,
+    studioSessionId,
+    flow: storedFlow,
     expiresAt,
     createdAt: now,
   });
 
-  const provider = resolveGitHubProvider();
-  const wantRealUserOauth =
-    (process.env.STUDIO_GITHUB_USER_OAUTH ?? "").toLowerCase() === "real" ||
-    (provider.mode === "REAL" && isGitHubAppUserOauthConfigured());
-
-  if (wantRealUserOauth) {
-    if (!isGitHubAppUserOauthConfigured()) {
-      throw new StudioError(
-        "NOT_CONFIGURED",
-        "GITHUB_APP_CLIENT_ID / GITHUB_APP_CLIENT_SECRET / GITHUB_APP_CALLBACK_URL requis pour user-to-server REAL",
-        { httpStatus: 503 },
-      );
-    }
-    if (!isTokenEncryptionConfigured()) {
-      throw new StudioError(
-        "NOT_CONFIGURED",
-        "INTEGRATION_TOKEN_ENCRYPTION_KEY requis avant persistance de tokens user",
-        { httpStatus: 503 },
-      );
-    }
+  if (flow === "real") {
     const config = readGitHubAppUserOauthConfig();
     const authorizeUrl = buildGitHubAppUserAuthorizeUrl({
       config,
@@ -1099,38 +799,56 @@ export async function startGitHubAuthorization(pilotId: string, returnPath: stri
     };
   }
 
-  // Deterministic SCRIPTED (or REAL install-read without user OAuth credentials).
-  const authorizeUrl = `/api/integrations/github/callback?scripted=1&state=${encodeURIComponent(stateToken)}`;
+  assertScriptedGithubAuthAllowed({ requestHost: opts?.requestHost });
+  // SCRIPTED complete uses JSON API — authorizeUrl is informational only.
+  const authorizeUrl = `/api/integrations/github/authorize/complete`;
   return {
     authorizeUrl,
     state: stateToken,
     flow: "scripted" as const,
     pkce: true,
-    note: isGitHubAppUserOauthConfigured()
-      ? undefined
-      : "USER-TO-SERVER REAL INTERACTIVE NOT PROVEN — Client credentials absents ; parcours SCRIPTED disponible",
   };
 }
 
-async function seedAuthorizedRepos(
+type SeedRepo = {
+  owner: string;
+  name: string;
+  fullName: string;
+  defaultBranch: string;
+  permissions: RepoPermissionSnapshot;
+};
+
+async function seedAuthorizedReposInTx(
+  tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
   pilotId: string,
   authorizationId: string,
-  installationId: string,
-  repos?: Array<{ owner: string; name: string; fullName: string; defaultBranch: string }>,
+  repos: SeedRepo[],
 ) {
-  const provider = resolveGitHubProvider();
-  const remote =
-    repos ??
-    (await provider.listInstallationRepos(pilotId, installationId)).map((r) => ({
-      owner: r.owner,
-      name: r.name,
-      fullName: r.fullName,
-      defaultBranch: r.defaultBranch,
-    }));
   const now = new Date();
-  for (const r of remote) {
+  const activeNames = new Set(repos.map((r) => r.fullName.toLowerCase()));
+
+  // Mark repos no longer present as REMOVED (no elevation on refresh).
+  const existingActive = await tx
+    .select()
+    .from(authorizedRepositories)
+    .where(
+      and(
+        eq(authorizedRepositories.pilotId, pilotId),
+        eq(authorizedRepositories.status, "ACTIVE"),
+      ),
+    );
+  for (const row of existingActive) {
+    if (!activeNames.has(row.fullName.toLowerCase())) {
+      await tx
+        .update(authorizedRepositories)
+        .set({ status: "REMOVED", syncedAt: now })
+        .where(eq(authorizedRepositories.id, row.id));
+    }
+  }
+
+  for (const r of repos) {
     const existing = (
-      await db
+      await tx
         .select({ id: authorizedRepositories.id })
         .from(authorizedRepositories)
         .where(
@@ -1141,20 +859,20 @@ async function seedAuthorizedRepos(
         )
         .limit(1)
     )[0];
-    const scriptedWritePerms = JSON.stringify({ contents: "write", pull_requests: "write" });
+    const permissionsJson = JSON.stringify(r.permissions);
     if (existing) {
-      await db
+      await tx
         .update(authorizedRepositories)
         .set({
           authorizationId,
           status: "ACTIVE",
           defaultBranch: r.defaultBranch,
-          permissionsJson: scriptedWritePerms,
+          permissionsJson,
           syncedAt: now,
         })
         .where(eq(authorizedRepositories.id, existing.id));
     } else {
-      await db.insert(authorizedRepositories).values({
+      await tx.insert(authorizedRepositories).values({
         id: newId("arepo"),
         pilotId,
         authorizationId,
@@ -1163,7 +881,7 @@ async function seedAuthorizedRepos(
         fullName: r.fullName,
         defaultBranch: r.defaultBranch,
         status: "ACTIVE",
-        permissionsJson: scriptedWritePerms,
+        permissionsJson,
         syncedAt: now,
         createdAt: now,
       });
@@ -1183,12 +901,12 @@ async function loadPilotGithubUserId(pilotId: string): Promise<string | null> {
 }
 
 /**
- * Atomic consume of OAuth state (TTL + single-use) bound to pilot.
- * Returns row including PKCE verifier or null if invalid.
+ * Atomic consume of OAuth state (TTL + single-use) bound to pilot AND studio session.
  */
 export async function consumeOauthStateAtomic(input: {
   state: string;
   pilotId: string;
+  studioSessionId: string;
 }) {
   const now = new Date();
   const updated = await db
@@ -1198,6 +916,7 @@ export async function consumeOauthStateAtomic(input: {
       and(
         eq(integrationOauthStates.stateToken, input.state),
         eq(integrationOauthStates.pilotId, input.pilotId),
+        eq(integrationOauthStates.studioSessionId, input.studioSessionId),
         isNull(integrationOauthStates.consumedAt),
         gt(integrationOauthStates.expiresAt, now),
       ),
@@ -1206,8 +925,8 @@ export async function consumeOauthStateAtomic(input: {
   return updated[0] ?? null;
 }
 
-/** Read-only peek used by callback for pilot binding before consume (legacy helper). */
-export async function consumeOauthStateForCallback(state: string) {
+/** Read-only peek used by callback for pilot binding before consume. */
+export async function peekOauthState(state: string) {
   const row = (
     await db
       .select()
@@ -1218,22 +937,30 @@ export async function consumeOauthStateForCallback(state: string) {
   return row ?? null;
 }
 
+/** @deprecated alias — prefer peekOauthState */
+export const consumeOauthStateForCallback = peekOauthState;
+
 export async function completeGitHubAuthorization(input: {
   pilotId: string;
   state: string;
-  /** SCRIPTED / legacy install hint — ignored for REAL user OAuth (never trust query). */
-  installationId?: string;
-  /** Authorization code from GitHub user OAuth callback. */
+  studioSessionId: string;
+  /** Authorization code from GitHub user OAuth callback — REAL flow only. */
   code?: string;
-  scripted?: boolean;
+  /** SCRIPTED install hint — ignored unless server-stored flow is scripted AND guard allows. */
+  installationId?: string;
   fetchImpl?: typeof fetch;
+  requestHost?: string | null;
 }) {
+  if (!input.studioSessionId) {
+    throw new StudioError("ACCESS_DENIED", "Session Studio requise", { httpStatus: 401 });
+  }
+
   const oauthRow = await consumeOauthStateAtomic({
     state: input.state,
     pilotId: input.pilotId,
+    studioSessionId: input.studioSessionId,
   });
   if (!oauthRow) {
-    // Distinguish already-consumed / expired / foreign for tests.
     const any = (
       await db
         .select()
@@ -1245,15 +972,27 @@ export async function completeGitHubAuthorization(input: {
     if (any.pilotId !== input.pilotId) {
       throw new StudioError("ACCESS_DENIED", "State OAuth non lié à la session");
     }
+    if (any.studioSessionId && any.studioSessionId !== input.studioSessionId) {
+      throw new StudioError("ACCESS_DENIED", "State OAuth non lié à la session Studio courante");
+    }
     if (any.consumedAt) throw new StudioError("CONFLICT", "State OAuth déjà consommé");
     if (any.expiresAt <= new Date()) throw new StudioError("INVALID_REQUEST", "State OAuth expiré");
     throw new StudioError("ACCESS_DENIED", "State OAuth invalide");
   }
 
+  const storedFlow = oauthRow.flow === "github_app_user_oauth" ? "real" : "scripted";
+  // Client cannot override server-stored flow.
+  if (storedFlow === "scripted") {
+    assertScriptedGithubAuthAllowed({ requestHost: input.requestHost });
+  } else if (!input.code) {
+    throw new StudioError("INVALID_REQUEST", "Code OAuth requis pour le flux REAL", {
+      httpStatus: 400,
+    });
+  }
+
   const pilotGithubUserId = await loadPilotGithubUserId(input.pilotId);
   const now = new Date();
   const provider = resolveGitHubProvider();
-  const useRealUserOauth = Boolean(input.code) && !input.scripted;
 
   let githubUserId: string;
   let accountLogin: string;
@@ -1275,22 +1014,13 @@ export async function completeGitHubAuthorization(input: {
     tokenExpiresAt: null,
     scopesJson: "[]",
   };
-  let repoSeed:
-    | Array<{ owner: string; name: string; fullName: string; defaultBranch: string }>
-    | undefined;
+  let repoSeed: SeedRepo[] = [];
 
-  if (useRealUserOauth) {
-    if (!isGitHubAppUserOauthConfigured()) {
+  if (storedFlow === "real") {
+    if (!isGitHubAppUserOauthConfigured() || !isTokenEncryptionConfigured()) {
       throw new StudioError(
         "NOT_CONFIGURED",
-        "Credentials GitHub App user-to-server absents",
-        { httpStatus: 503 },
-      );
-    }
-    if (!isTokenEncryptionConfigured()) {
-      throw new StudioError(
-        "NOT_CONFIGURED",
-        "INTEGRATION_TOKEN_ENCRYPTION_KEY requis",
+        "Credentials user-to-server absents — pas de CONNECTED fictif",
         { httpStatus: 503 },
       );
     }
@@ -1300,6 +1030,7 @@ export async function completeGitHubAuthorization(input: {
       });
     }
     const config = readGitHubAppUserOauthConfig();
+    // GitHub I/O OUTSIDE the DB transaction.
     const tokens = await exchangeAuthorizationCode({
       config,
       code: input.code!,
@@ -1350,15 +1081,18 @@ export async function completeGitHubAuthorization(input: {
     };
     repoSeed = repos.map((r) => {
       const [owner, name] = r.fullName.split("/");
+      const perms = (r as { permissions?: { contents?: string; pull_requests?: string } })
+        .permissions;
       return {
         owner: owner ?? "",
         name: name ?? r.fullName,
         fullName: r.fullName,
         defaultBranch: r.defaultBranch,
+        permissions: permissionsFromObserved(perms),
       };
     });
   } else {
-    // SCRIPTED deterministic path — no GitHub network, no trust of foreign installation_id beyond list.
+    // SCRIPTED deterministic — guard already asserted.
     if (!pilotGithubUserId) {
       throw new StudioError(
         "ACCESS_DENIED",
@@ -1366,17 +1100,17 @@ export async function completeGitHubAuthorization(input: {
         { httpStatus: 403 },
       );
     }
-    installId = input.installationId ?? "scripted-install-1";
-    const listed = await provider.listInstallationRepos(input.pilotId, installId);
-    const installKnown = input.installationId
-      ? listed.length > 0 || provider.mode === "SCRIPTED"
-      : provider.mode === "SCRIPTED";
-    if (!installKnown) {
-      throw new StudioError("ACCESS_DENIED", "Installation non vérifiable");
+    // Never trust client installation_id for REAL; SCRIPTED uses fixed fixture id.
+    installId = "scripted-install-1";
+    if (input.installationId && input.installationId !== installId) {
+      // Foreign installation_id cannot authorize a different install in SCRIPTED.
+      throw new StudioError("ACCESS_DENIED", "installation_id SCRIPTED non autorisé", {
+        httpStatus: 403,
+      });
     }
+    const listed = await provider.listInstallationRepos(input.pilotId, installId);
     githubUserId = pilotGithubUserId;
     accountLogin = "scripted-user";
-    // Optional encrypted placeholder when encryption key present (proves seal path).
     if (isTokenEncryptionConfigured()) {
       const sealed = sealSecret(`scripted-access:${input.pilotId}`);
       tokenFields = {
@@ -1389,43 +1123,74 @@ export async function completeGitHubAuthorization(input: {
         scopesJson: JSON.stringify([]),
       };
     }
+    const fixturePerms = scriptedFixturePermissions();
+    repoSeed = listed.map((r) => ({
+      owner: r.owner,
+      name: r.name,
+      fullName: r.fullName,
+      defaultBranch: r.defaultBranch,
+      permissions: fixturePerms,
+    }));
   }
 
-  // Exactly one CONNECTED authorization per pilot — revoke prior before insert.
-  await db
-    .update(integrationAuthorizations)
-    .set({ status: "REVOKED", revokedAt: now, updatedAt: now })
-    .where(
-      and(
-        eq(integrationAuthorizations.pilotId, input.pilotId),
-        eq(integrationAuthorizations.status, "CONNECTED"),
-      ),
-    );
-
   const authId = newId("iauth");
-  await db.insert(integrationAuthorizations).values({
-    id: authId,
-    pilotId: input.pilotId,
-    provider: "github",
-    status: "CONNECTED",
-    installationId: installId,
-    accountLogin,
-    githubUserId,
-    ...tokenFields,
-    lastValidatedAt: now,
-    metadataJson: JSON.stringify({
-      mode: useRealUserOauth ? "REAL_USER_OAUTH" : provider.mode,
-      flow: useRealUserOauth ? "github_app_user_oauth" : "scripted",
-    }),
-    connectedAt: now,
-    createdAt: now,
-    updatedAt: now,
+  // Short PG transaction: revoke prior CONNECTED + insert + seed — no GitHub I/O inside.
+  await db.transaction(async (tx) => {
+    await tx
+      .update(integrationAuthorizations)
+      .set({
+        status: "REVOKED",
+        revokedAt: now,
+        updatedAt: now,
+        tokenCiphertext: null,
+        tokenNonce: null,
+        tokenKeyVersion: null,
+        refreshCiphertext: null,
+        refreshNonce: null,
+        tokenExpiresAt: null,
+      })
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, input.pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+
+    await tx.insert(integrationAuthorizations).values({
+      id: authId,
+      pilotId: input.pilotId,
+      provider: "github",
+      status: "CONNECTED",
+      installationId: installId,
+      accountLogin,
+      githubUserId,
+      ...tokenFields,
+      lastValidatedAt: now,
+      metadataJson: JSON.stringify({
+        mode: storedFlow === "real" ? "REAL_USER_OAUTH" : "SCRIPTED_FIXTURE",
+        flow: storedFlow === "real" ? "github_app_user_oauth" : "scripted",
+        // SCRIPTED fixtures are not GitHub consent proof.
+        consentProven: storedFlow === "real",
+      }),
+      connectedAt: now,
+      createdAt: now,
+      updatedAt: now,
+    });
+    await seedAuthorizedReposInTx(tx, input.pilotId, authId, repoSeed);
   });
-  await seedAuthorizedRepos(input.pilotId, authId, installId, repoSeed);
+
   return getIntegrationStatus(input.pilotId);
 }
 
-export async function refreshRepositories(pilotId: string) {
+/**
+ * Refresh repository inventory without elevating permissions.
+ * REAL_USER_OAUTH: uses sealed user token (refresh if expired) — never installation token substitute.
+ * SCRIPTED_FIXTURE: re-lists scripted provider under guard.
+ */
+export async function refreshRepositories(
+  pilotId: string,
+  opts?: { fetchImpl?: typeof fetch; requestHost?: string | null },
+) {
   const auth = (
     await db
       .select()
@@ -1440,18 +1205,165 @@ export async function refreshRepositories(pilotId: string) {
       .limit(1)
   )[0];
   if (!auth?.installationId) throw new StudioError("NOT_FOUND", "Intégration non connectée");
-  await seedAuthorizedRepos(pilotId, auth.id, auth.installationId);
+
+  let meta: { mode?: string; flow?: string } = {};
+  try {
+    meta = JSON.parse(auth.metadataJson || "{}") as { mode?: string; flow?: string };
+  } catch {
+    meta = {};
+  }
+
+  let repoSeed: SeedRepo[] = [];
+
+  if (meta.mode === "REAL_USER_OAUTH" || meta.flow === "github_app_user_oauth") {
+    const accessToken = await loadOrRefreshUserAccessToken(auth, opts?.fetchImpl);
+    const config = readGitHubAppUserOauthConfig();
+    const repos = await listUserInstallationRepos(
+      accessToken,
+      auth.installationId,
+      opts?.fetchImpl,
+    );
+    assertSandboxRepoInList(repos, config.allowedFullName);
+    repoSeed = repos.map((r) => {
+      const [owner, name] = r.fullName.split("/");
+      const perms = (r as { permissions?: { contents?: string; pull_requests?: string } })
+        .permissions;
+      return {
+        owner: owner ?? "",
+        name: name ?? r.fullName,
+        fullName: r.fullName,
+        defaultBranch: r.defaultBranch,
+        permissions: permissionsFromObserved(perms),
+      };
+    });
+  } else {
+    assertScriptedGithubAuthAllowed({ requestHost: opts?.requestHost });
+    const provider = resolveGitHubProvider();
+    const listed = await provider.listInstallationRepos(pilotId, auth.installationId);
+    const fixturePerms = scriptedFixturePermissions();
+    repoSeed = listed.map((r) => ({
+      owner: r.owner,
+      name: r.name,
+      fullName: r.fullName,
+      defaultBranch: r.defaultBranch,
+      permissions: fixturePerms,
+    }));
+  }
+
+  await db.transaction(async (tx) => {
+    await seedAuthorizedReposInTx(tx, pilotId, auth.id, repoSeed);
+    await tx
+      .update(integrationAuthorizations)
+      .set({ lastValidatedAt: new Date(), updatedAt: new Date() })
+      .where(eq(integrationAuthorizations.id, auth.id));
+  });
   return getIntegrationStatus(pilotId);
 }
 
-export async function disconnectIntegration(pilotId: string) {
+/**
+ * Load user access token; refresh with fencing if expired.
+ * Concurrent refresh: CAS on refresh ciphertext so a rotated token is not reused twice.
+ */
+async function loadOrRefreshUserAccessToken(
+  auth: typeof integrationAuthorizations.$inferSelect,
+  fetchImpl?: typeof fetch,
+): Promise<string> {
+  if (!auth.tokenCiphertext || !auth.tokenNonce || !auth.tokenKeyVersion) {
+    await markRequiresReauth(auth.pilotId, auth.id);
+    throw new StudioError("ACCESS_DENIED", "User token absent — REQUIRES_REAUTH", {
+      httpStatus: 403,
+    });
+  }
+  const now = Date.now();
+  const expiresAt = auth.tokenExpiresAt?.getTime() ?? null;
+  if (expiresAt == null || expiresAt > now + 30_000) {
+    return openSecret({
+      ciphertext: auth.tokenCiphertext,
+      nonce: auth.tokenNonce,
+      keyVersion: auth.tokenKeyVersion,
+    });
+  }
+  // Expired — need refresh.
+  if (!auth.refreshCiphertext || !auth.refreshNonce) {
+    await markRequiresReauth(auth.pilotId, auth.id);
+    throw new StudioError("ACCESS_DENIED", "Refresh token absent — REQUIRES_REAUTH", {
+      httpStatus: 403,
+    });
+  }
+  if (!isGitHubAppUserOauthConfigured()) {
+    throw new StudioError("NOT_CONFIGURED", "Credentials refresh absents", { httpStatus: 503 });
+  }
+  const refreshPlain = openSecret({
+    ciphertext: auth.refreshCiphertext,
+    nonce: auth.refreshNonce,
+    keyVersion: auth.tokenKeyVersion,
+  });
+  const config = readGitHubAppUserOauthConfig();
+  let tokens;
+  try {
+    tokens = await refreshUserAccessToken({
+      config,
+      refreshToken: refreshPlain,
+      fetchImpl,
+    });
+  } catch (e) {
+    // Network vs revoke: ACCESS_DENIED → reauth; dependency → keep credentials.
+    if (e instanceof StudioError && e.code === "ACCESS_DENIED") {
+      await markRequiresReauth(auth.pilotId, auth.id);
+    }
+    throw e;
+  }
+  const sealedAccess = sealSecret(tokens.accessToken);
+  const sealedRefresh = tokens.refreshToken ? sealSecret(tokens.refreshToken) : null;
+  // Fence: only the owner of the previous refresh ciphertext may rotate.
+  const updated = await db
+    .update(integrationAuthorizations)
+    .set({
+      tokenCiphertext: sealedAccess.ciphertext,
+      tokenNonce: sealedAccess.nonce,
+      tokenKeyVersion: sealedAccess.keyVersion,
+      refreshCiphertext: sealedRefresh?.ciphertext ?? null,
+      refreshNonce: sealedRefresh?.nonce ?? null,
+      tokenExpiresAt: tokens.expiresAt,
+      lastValidatedAt: new Date(),
+      updatedAt: new Date(),
+      scopesJson: JSON.stringify(tokens.scopes),
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.id, auth.id),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+        sql`${integrationAuthorizations.refreshCiphertext} = ${auth.refreshCiphertext}`,
+      ),
+    )
+    .returning({ id: integrationAuthorizations.id });
+  if (!updated[0]) {
+    // Concurrent rotation won — re-read.
+    const fresh = (
+      await db
+        .select()
+        .from(integrationAuthorizations)
+        .where(eq(integrationAuthorizations.id, auth.id))
+        .limit(1)
+    )[0];
+    if (!fresh?.tokenCiphertext || !fresh.tokenNonce || !fresh.tokenKeyVersion) {
+      throw new StudioError("CONFLICT", "Rotation concurrente — token indisponible");
+    }
+    return openSecret({
+      ciphertext: fresh.tokenCiphertext,
+      nonce: fresh.tokenNonce,
+      keyVersion: fresh.tokenKeyVersion,
+    });
+  }
+  return tokens.accessToken;
+}
+
+async function markRequiresReauth(pilotId: string, authId: string) {
   const now = new Date();
-  // Wipe ciphertext on disconnect — no token retention after revoke.
   await db
     .update(integrationAuthorizations)
     .set({
-      status: "REVOKED",
-      revokedAt: now,
+      status: "REQUIRES_REAUTH",
       updatedAt: now,
       tokenCiphertext: null,
       tokenNonce: null,
@@ -1462,19 +1374,46 @@ export async function disconnectIntegration(pilotId: string) {
     })
     .where(
       and(
+        eq(integrationAuthorizations.id, authId),
         eq(integrationAuthorizations.pilotId, pilotId),
         eq(integrationAuthorizations.status, "CONNECTED"),
       ),
     );
-  await db
-    .update(authorizedRepositories)
-    .set({ status: "REMOVED", syncedAt: now })
-    .where(
-      and(
-        eq(authorizedRepositories.pilotId, pilotId),
-        eq(authorizedRepositories.status, "ACTIVE"),
-      ),
-    );
+}
+
+export async function disconnectIntegration(pilotId: string) {
+  const now = new Date();
+  // Local wipe only — KNOWN GAP: no remote GitHub OAuth revocation without dedicated API call.
+  await db.transaction(async (tx) => {
+    await tx
+      .update(integrationAuthorizations)
+      .set({
+        status: "REVOKED",
+        revokedAt: now,
+        updatedAt: now,
+        tokenCiphertext: null,
+        tokenNonce: null,
+        tokenKeyVersion: null,
+        refreshCiphertext: null,
+        refreshNonce: null,
+        tokenExpiresAt: null,
+      })
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+    await tx
+      .update(authorizedRepositories)
+      .set({ status: "REMOVED", syncedAt: now })
+      .where(
+        and(
+          eq(authorizedRepositories.pilotId, pilotId),
+          eq(authorizedRepositories.status, "ACTIVE"),
+        ),
+      );
+  });
   return getIntegrationStatus(pilotId);
 }
 
@@ -1509,116 +1448,41 @@ export async function setPendingApproval(pilotId: string) {
 
 export async function markAccessRemoved(pilotId: string) {
   const now = new Date();
-  await db
-    .update(integrationAuthorizations)
-    .set({
-      status: "ACCESS_REMOVED",
-      updatedAt: now,
-      tokenCiphertext: null,
-      tokenNonce: null,
-      refreshCiphertext: null,
-      refreshNonce: null,
-    })
-    .where(
-      and(
-        eq(integrationAuthorizations.pilotId, pilotId),
-        eq(integrationAuthorizations.status, "CONNECTED"),
-      ),
-    );
+  await db.transaction(async (tx) => {
+    await tx
+      .update(integrationAuthorizations)
+      .set({
+        status: "ACCESS_REMOVED",
+        updatedAt: now,
+        tokenCiphertext: null,
+        tokenNonce: null,
+        refreshCiphertext: null,
+        refreshNonce: null,
+      })
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+    await tx
+      .update(authorizedRepositories)
+      .set({ status: "REMOVED", syncedAt: now })
+      .where(
+        and(
+          eq(authorizedRepositories.pilotId, pilotId),
+          eq(authorizedRepositories.status, "ACTIVE"),
+        ),
+      );
+  });
   return getIntegrationStatus(pilotId);
 }
 ```
 
-## ANNEXE 15 — Sections critiques effect-service.ts
+## ANNEXE — Sections modifiées déterminantes
 
-### sqlClaimLeaseActive + commitPublicationCompletion (owned CAS)
+### persistOwnedProgress (lease actif)
 ```
-function sqlClaimLeaseActive() {
-  return sql`(
-    NULLIF(${effectAttempts.resultJson}::jsonb->'claim'->>'releasedAt', '') IS NULL
-    AND (${effectAttempts.resultJson}::jsonb->'claim'->>'leaseExpiresAt')::timestamptz > now()
-  )`;
-}
-
-/**
- * Atomic claim: AUTHORIZED|AMBIGUOUS → DISPATCHED before any provider mutation.
- * Reclaim requires inactive prior claim IN THE SAME SQL predicate (not memory-only).
- */
-async function claimAttempt(attemptId: string, fromStatus: "AUTHORIZED" | "AMBIGUOUS") {
-  const now = new Date();
-  const row = await loadAttemptRow(attemptId);
-  if (!row || row.status !== fromStatus) return null;
-  const prev = readClaim(row.resultJson);
-  // Fast-fail without writing when AMBIGUOUS still has an active lease (defense in depth).
-  if (fromStatus === "AMBIGUOUS" && isClaimActive(prev, now.getTime())) {
-    return null;
-  }
-  const claim = mintClaim(prev, now);
-  const nextJson = writeClaimInto(row.resultJson, claim);
-  const where =
-    fromStatus === "AMBIGUOUS"
-      ? and(
-          eq(effectAttempts.id, attemptId),
-          eq(effectAttempts.status, fromStatus),
-          sqlClaimInactive(),
-        )
-      : and(eq(effectAttempts.id, attemptId), eq(effectAttempts.status, fromStatus));
-  const claimed = await db
-    .update(effectAttempts)
-    .set({ status: "DISPATCHED", resultJson: nextJson, updatedAt: now })
-    .where(where)
-    .returning({ id: effectAttempts.id });
-  return claimed[0] ? { id: claimed[0].id, claim } : null;
-}
-
-async function loadAttemptRow(attemptId: string) {
-  return (
-    await db.select().from(effectAttempts).where(eq(effectAttempts.id, attemptId)).limit(1)
-  )[0];
-}
-
-/**
- * Before each external mutation: renew lease only if this claimToken still owns DISPATCHED
- * with an active lease in PostgreSQL. Stale/expired owners get CONFLICT (0 rows).
- * Re-reads resultJson so a renew cannot clobber fresher progress from the same owner.
- */
-async function assertAndTouchOwnership(
-  attemptId: string,
-  claimToken: string,
-  _existingResultJson: string,
-): Promise<string> {
-  void _existingResultJson;
-  const fresh = await loadAttemptRow(attemptId);
-  if (!fresh || fresh.status !== "DISPATCHED") {
-    throw new StudioError("CONFLICT", "DISPATCHED perdu — mutation refusée");
-  }
-  const claim = readClaim(fresh.resultJson);
-  if (!claim || claim.claimToken !== claimToken || claim.releasedAt) {
-    throw new StudioError("CONFLICT", "Claim fence invalide — mutation refusée");
-  }
-  const renewed = extendClaim(claim);
-  const nextJson = writeClaimInto(fresh.resultJson, renewed);
-  const updated = await db
-    .update(effectAttempts)
-    .set({ resultJson: nextJson, updatedAt: new Date() })
-    .where(
-      and(
-        eq(effectAttempts.id, attemptId),
-        eq(effectAttempts.status, "DISPATCHED"),
-        sqlClaimTokenEquals(claimToken),
-        sqlClaimLeaseActive(),
-      ),
-    )
-    .returning({ id: effectAttempts.id, resultJson: effectAttempts.resultJson });
-  if (!updated[0]) {
-    throw new StudioError(
-      "CONFLICT",
-      "Propriété ou lease perdue — mutation provider refusée (fencing SQL)",
-    );
-  }
-  return updated[0].resultJson;
-}
-
 /**
  * Persist progress under ownership. CAS predicate includes claimToken in SQL —
  * never trust a post-UPDATE readback of a token this UPDATE just wrote.
@@ -1642,315 +1506,75 @@ async function persistOwnedProgress(
         eq(effectAttempts.id, attemptId),
         eq(effectAttempts.status, "DISPATCHED"),
         sqlClaimTokenEquals(claimToken),
-      ),
-    )
-    .returning({ id: effectAttempts.id });
-  if (!updated[0]) {
-    throw new StudioError("CONFLICT", "Progression refusée — claimToken non propriétaire en base");
-  }
-  return nextJson;
-}
-
-/** Terminal / status transition only if caller still owns the claimToken in SQL. */
-async function casOwnedTransition(input: {
-  attemptId: string;
-  claimToken: string;
-  fromStatus: string;
-  toStatus: string;
-  resultJson: string;
-}): Promise<boolean> {
-  const updated = await db
-    .update(effectAttempts)
-    .set({
-      status: input.toStatus,
-      resultJson: input.resultJson,
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(effectAttempts.id, input.attemptId),
-        eq(effectAttempts.status, input.fromStatus),
-        sqlClaimTokenEquals(input.claimToken),
         sqlClaimLeaseActive(),
       ),
     )
     .returning({ id: effectAttempts.id });
-  return Boolean(updated[0]);
-}
-
-/**
- * Reconcile may liberate DISPATCHED only when the stored claim is inactive
- * (expired/released) — never while an active owner still holds the lease.
- */
-async function casLiberateInactiveDispatch(input: {
-  attemptId: string;
-  fromStatus: string;
-  toStatus: string;
-  resultJson: string;
-}): Promise<boolean> {
-  const updated = await db
-    .update(effectAttempts)
-    .set({
-      status: input.toStatus,
-      resultJson: input.resultJson,
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(effectAttempts.id, input.attemptId),
-        eq(effectAttempts.status, input.fromStatus),
-        sqlClaimInactive(),
-      ),
-    )
-    .returning({ id: effectAttempts.id });
-  return Boolean(updated[0]);
-}
-
-type PublicationRefWrite = {
-  projectId: string;
-  pilotId: string;
-  documentId: string;
-  revisionId: string;
-  repositoryId: string;
-  targetPath: string;
-  targetBranch: string;
-  baseSha: string | null;
-  headSha: string | null;
-  prNumber: number | null;
-  status: string;
-  publicationBranch: string;
-  prCurrentState: PrCurrentState | null | undefined;
-  prCreatedHistorically: boolean;
-  extraDetail?: Record<string, unknown>;
-};
-
-/**
- * Atomic D7 terminal transition + D8 publicationRef upsert.
- * CAS failure or D8 failure rolls back the whole set — no orphan D8 on lost CAS.
- * Provider I/O must already be complete before this call (no remote calls inside).
- */
-async function commitPublicationCompletion(input: {
-  attemptId: string;
-  mode: "owned" | "liberate_inactive";
-  claimToken?: string;
-  fromStatus: string;
-  terminalResultJson: string;
-  pub: PublicationRefWrite;
-}): Promise<{ pubId: string }> {
-  try {
-    return await db.transaction(async (tx) => {
-      const now = new Date();
-      // Owned terminal CAS: claimToken fence AND active lease (DB now()) — expired lease ⇒ 0 rows.
-      // liberate_inactive: only when claim absent/released/expired (reconcile after observation).
-      const where =
-        input.mode === "owned"
-          ? and(
-              eq(effectAttempts.id, input.attemptId),
-              eq(effectAttempts.status, input.fromStatus),
-              sqlClaimTokenEquals(input.claimToken!),
-              sqlClaimLeaseActive(),
-            )
-          : and(
-              eq(effectAttempts.id, input.attemptId),
-              eq(effectAttempts.status, input.fromStatus),
-              sqlClaimInactive(),
-            );
-
-      const cas = await tx
-        .update(effectAttempts)
-        .set({
-          status: "COMPLETED",
-          resultJson: input.terminalResultJson,
-          updatedAt: now,
-        })
-        .where(where)
-        .returning({ id: effectAttempts.id });
-      if (!cas[0]) {
-        throw new StudioError(
-          "CONFLICT",
-          "Complétion D7 refusée — CAS terminal 0 rows (fencing)",
-        );
-      }
-
-      const existing = (
-        await tx
-          .select()
-          .from(documentPublicationRefs)
-          .where(eq(documentPublicationRefs.effectAttemptId, input.attemptId))
-          .limit(1)
-      )[0];
-
-      const detailBase = {
-        publicationBranch: input.pub.publicationBranch,
-        prCurrentState: input.pub.prCurrentState ?? null,
-        prCreatedHistorically: input.pub.prCreatedHistorically,
-        ...(input.pub.extraDetail ?? {}),
-      };
-
-```
-
-### assertPrMarkerProvenance
-```
-/**
- * Independent publicationMarker check — required even when PR was loaded by number.
- * A PR with matching head/base/SHA but wrong marker must never be attributed.
- */
-async function assertPrMarkerProvenance(input: {
-  provider: ReturnType<typeof resolveGitHubProvider>;
-  pilotId: string;
-  plan: PublicationPlan;
-  pr: PullRequestInfo;
-  publicationMarker: string;
-  expectedHeadSha: string | null | undefined;
-}) {
-  assertPrMatchesPlan(input.pr, input.plan, input.expectedHeadSha);
-  let found: Awaited<ReturnType<typeof input.provider.findPullRequest>>;
-  try {
-    found = await input.provider.findPullRequest({
-      pilotId: input.pilotId,
-      fullName: input.plan.repositoryFullName,
-      head: input.plan.publicationBranch,
-      base: input.plan.targetBranch,
-      publicationMarker: input.publicationMarker,
-      expectedHeadSha: input.expectedHeadSha ?? undefined,
-    });
-  } catch (e) {
-    const code = providerErrorCode(e);
-    if (isRemoteUnreadableCode(code)) {
-      throw Object.assign(new Error("REMOTE_PR_UNREADABLE"), { code: code || "AMBIGUOUS" });
-    }
-    throw e;
-  }
-  if (found.ambiguous || found.matches.length > 1) {
-    throw new StudioError(
-      "AMBIGUOUS",
-      "Plusieurs PR pour le publicationMarker — attribution refusée",
-    );
-  }
-  if (found.matches.length === 0) {
-    throw new StudioError(
-      "REQUIRES_REQUALIFICATION",
-      "publicationMarker non retrouvé pour la PR candidate — attribution refusée",
-    );
-  }
-  const marked = found.matches[0]!;
-  if (marked.number !== input.pr.number) {
+  if (!updated[0]) {
     throw new StudioError(
       "CONFLICT",
-      "PR par numéro ≠ PR du publicationMarker — provenance incohérente",
+      "Progression refusée — claimToken non propriétaire ou bail inactif (fencing SQL)",
     );
   }
+```
+
+### refreshUserAccessToken
+```
+/** Refresh a GitHub App user access token (expiring user-to-server). Server-only. */
+export async function refreshUserAccessToken(input: {
+  config: UserOauthConfig;
+  refreshToken: string;
+  fetchImpl?: typeof fetch;
+}): Promise<UserTokenBundle> {
+  const raw = await ghJson<{
+    access_token?: string;
+    refresh_token?: string;
+    expires_in?: number;
+    scope?: string;
+    error?: string;
+  }>(
+    "https://github.com/login/oauth/access_token",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        client_id: input.config.clientId,
+        client_secret: input.config.clientSecret,
+        grant_type: "refresh_token",
+        refresh_token: input.refreshToken,
+      }),
+    },
+    input.fetchImpl,
+  );
+  if (!raw.access_token) {
+    throw new StudioError("ACCESS_DENIED", "Refresh user token refusé ou révoqué", {
+      httpStatus: 403,
+    });
+  }
+  const expiresAt =
+    typeof raw.expires_in === "number"
+      ? new Date(Date.now() + raw.expires_in * 1000)
+      : null;
+  const scopes = (raw.scope ?? "")
+    .split(/[,\s]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return {
+    accessToken: raw.access_token,
+    // GitHub rotates refresh tokens — old one is invalid after success.
+    refreshToken: raw.refresh_token ?? null,
+    expiresAt,
+    scopes,
+  };
 }
+
+export async function exchangeAuthorizationCode(input: {
+  config: UserOauthConfig;
+  code: string;
 ```
 
-### reconcileAttempt — marker gate sur prNumber connu
+### schema oauth states + revision
 ```
-    let remoteReadable = true;
-    /** Marker provenance must hold even when PR was loaded by known prNumber. */
-    let prMarkerProven = !plan.steps.includes("OPEN_PR");
-    try {
-      if (progress.prNumber != null) {
-        const pr = await provider.getPullRequest(
-          pilotId,
-          plan.repositoryFullName,
-          progress.prNumber,
-        );
-        // C2 — historical creation vs current state (not yet COMPLETED attribution).
-        observed.prCreated = true;
-        observed.prOpened = true; // legacy: created historically
-        observed.prNumber = pr.number;
-        observed.prCurrentState = mapPrState(pr.state);
-        if (plan.steps.includes("OPEN_PR")) {
-          try {
-            await assertPrMarkerProvenance({
-              provider,
-              pilotId,
-              plan,
-              pr,
-              publicationMarker: row.correlationKey,
-              expectedHeadSha: observed.commitSha ?? progress.commitSha ?? null,
-            });
-            prMarkerProven = true;
-          } catch (provErr) {
-            prMarkerProven = false;
-            if (provErr instanceof StudioError) {
-              // Fail-closed: do not COMPLETED on foreign/wrong/absent marker.
-              observed.prCurrentState = "UNKNOWN";
-              if (row.status === "DISPATCHED" && claimActive) {
-                return {
-                  attemptId,
-                  status: row.status,
-                  progress: observed,
-                  remoteHead: observed.branchSha ?? null,
-                  facts,
-                  prCurrentState: observed.prCurrentState,
-                  note: `READ-ONLY: claim actif — provenance PR refusée (${provErr.code})`,
-                };
-              }
-              const released = releaseClaim(claim);
-              const toStatus =
-                provErr.code === "AMBIGUOUS" ? "AMBIGUOUS" : "REQUIRES_REQUALIFICATION";
-              const liberated = await casLiberateInactiveDispatch({
-                attemptId: row.id,
-                fromStatus: row.status,
-                toStatus,
-                resultJson: writeProgress(row.resultJson, observed, released),
-              });
-              return {
-                attemptId,
-                status: liberated ? toStatus : row.status,
-                progress: observed,
-                remoteHead: observed.branchSha ?? null,
-                facts,
-                prCurrentState: observed.prCurrentState,
-                note: `Provenance PR (marker) refusée — ${provErr.code}, pas de COMPLETED`,
-              };
-            }
-            throw provErr;
-          }
-        }
-      } else if (plan.steps.includes("OPEN_PR")) {
-        const found = await provider.findPullRequest({
-```
-
-### schemaRevision + colonnes D9 (extrait schema.ts)
-```
-/** D9 — GitHub App / integration authorization (pilot-scoped; not a D6 mandate). */
-export const integrationAuthorizations = pgTable(
-  "integration_authorizations",
-  {
-    id: text("id").primaryKey(),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    provider: text("provider").notNull().default("github"),
-    status: text("status").notNull(), // CONNECTED | PENDING_APPROVAL | ACCESS_REMOVED | REVOKED | DISCONNECTED | EXPIRED | REQUIRES_REAUTH
-    installationId: text("installation_id"),
-    accountLogin: text("account_login"),
-    /** Stable GitHub user id (not mutable login). */
-    githubUserId: text("github_user_id"),
-    /** AES-GCM ciphertext of user access token — never plaintext. */
-    tokenCiphertext: text("token_ciphertext"),
-    tokenNonce: text("token_nonce"),
-    tokenKeyVersion: text("token_key_version"),
-    refreshCiphertext: text("refresh_ciphertext"),
-    refreshNonce: text("refresh_nonce"),
-    tokenExpiresAt: timestamp("token_expires_at", { withTimezone: true }),
-    scopesJson: text("scopes_json").notNull().default("[]"),
-    lastValidatedAt: timestamp("last_validated_at", { withTimezone: true }),
-    metadataJson: text("metadata_json").notNull().default("{}"),
-    connectedAt: timestamp("connected_at", { withTimezone: true }),
-    revokedAt: timestamp("revoked_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    index("integration_authorizations_pilot_idx").on(t.pilotId),
-    index("integration_authorizations_pilot_status_idx").on(t.pilotId, t.status),
-    index("integration_authorizations_github_user_idx").on(t.githubUserId),
-  ],
-);
-
 /** D9 — OAuth/state for GitHub App user-to-server connect (CSRF + PKCE). */
 export const integrationOauthStates = pgTable(
   "integration_oauth_states",
@@ -1964,186 +1588,136 @@ export const integrationOauthStates = pgTable(
     codeVerifier: text("code_verifier"),
     nonce: text("nonce"),
     codeChallengeMethod: text("code_challenge_method"),
+    /** Better Auth / DEV adapter session id — binds state to effective Studio session. */
+    studioSessionId: text("studio_session_id"),
+    /** Server-chosen flow at start: scripted | github_app_user_oauth — never client-chosen. */
+    flow: text("flow"),
     consumedAt: timestamp("consumed_at", { withTimezone: true }),
     expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [uniqueIndex("integration_oauth_states_token_uidx").on(t.stateToken)],
+  (t) => [
+    uniqueIndex("integration_oauth_states_token_uidx").on(t.stateToken),
+    index("integration_oauth_states_session_idx").on(t.studioSessionId),
+  ],
 );
 
-766:export const schemaRevision = "010_github_app_user_oauth";
+/** D9 — repos authorized for the installation (server-truth snapshot). */
+export const authorizedRepositories = pgTable(
+  "authorized_repositories",
+  {
+    id: text("id").primaryKey(),
+    pilotId: text("pilot_id")
+
+773:export const schemaRevision = "011_oauth_session_binding";
 ```
 
-### Tests PG discriminants (extraits)
+### Tests PG sécurité (extraits)
 ```
-  it("D7/D8: reconcile with known prNumber + wrong marker refuses COMPLETED", async () => {
-    const { pilotId, projectId, preparationId } = await seedProject("git-d8-recon-marker");
-    const { repoId } = await connectAndAttach(pilotId, projectId);
-    const { documentId, revisionId } = await availableDoc(pilotId, preparationId, "D8rm");
-    const prepared = await preparePublication({
-      pilotId,
-      projectId,
-      documentId,
-      revisionId,
-      repositoryId: repoId,
-      targetPath: "docs/d8recon-marker.md",
-      targetBranch: "main",
-      correlationKey: newId("d8reconm"),
-    });
-    await authzPub(pilotId, projectId, prepared);
-    ScriptedFaultRegistry.setFault("lost_ack_after_pr");
-    await expect(
-      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
-    ).rejects.toMatchObject({ code: "AMBIGUOUS" });
-    ScriptedFaultRegistry.clear();
-
-    const row = (
-      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
-    )[0]!;
-    const progress = JSON.parse(row.resultJson).progress as { prNumber?: number };
-    expect(progress.prNumber).toBeTruthy();
-    // Expire lease so reconcile may liberate — but marker is foreign.
-    const expired = JSON.parse(row.resultJson) as { claim: Record<string, unknown> };
-    expired.claim = {
-      ...expired.claim,
-      leaseExpiresAt: new Date(Date.now() - 5_000).toISOString(),
-    };
-    await db
-      .update(effectAttempts)
-      .set({ resultJson: JSON.stringify(expired), updatedAt: new Date() })
-      .where(eq(effectAttempts.id, prepared.attemptId));
-
-    scriptedSetPrMarker(pilotId, progress.prNumber!, "foreign-marker-reconcile");
-    resetScriptedMutationCounts(pilotId);
-    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
-    expect(reconciled.status).not.toBe("COMPLETED");
-    expect(["REQUIRES_REQUALIFICATION", "AMBIGUOUS", "DISPATCHED"]).toContain(reconciled.status);
-    expect(getScriptedMutationCounts(pilotId).createPR).toBe(0);
-
-    const refs = await db
-      .select()
-      .from(documentPublicationRefs)
-      .where(eq(documentPublicationRefs.effectAttemptId, prepared.attemptId));
-    expect(refs).toHaveLength(0);
-  });
-
-  it("D7/D8: owned CAS terminal refuses COMPLETED when lease expired (same claimToken)", async () => {
-    const { pilotId, projectId, preparationId } = await seedProject("git-d8-lease-cas");
-    const { repoId } = await connectAndAttach(pilotId, projectId);
-    const { documentId, revisionId } = await availableDoc(pilotId, preparationId, "D8lease");
-    const prepared = await preparePublication({
-      pilotId,
-      projectId,
-      documentId,
-      revisionId,
-      repositoryId: repoId,
-      targetPath: "docs/d8lease.md",
-      targetBranch: "main",
-      correlationKey: newId("d8lease"),
-    });
-    await authzPub(pilotId, projectId, prepared);
-    resetScriptedMutationCounts(pilotId);
-    ExecutionBarrierRegistry.clear();
-    ExecutionBarrierRegistry.arm("before:COMPLETE_PUBLICATION");
-
-    const dispatchA = dispatchPublication({
-      pilotId,
-      projectId,
-      attemptId: prepared.attemptId,
-    }).catch((e: unknown) => e);
-
-    for (let i = 0; i < 100; i++) {
-      const row = (
-        await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
-      )[0]!;
-      const progress = JSON.parse(row.resultJson).progress;
-      if (row.status === "DISPATCHED" && progress?.prNumber != null) break;
-      await new Promise((r) => setTimeout(r, 20));
-    }
-    const mid = (
-      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
-    )[0]!;
-    expect(mid.status).toBe("DISPATCHED");
-    const claimBefore = readClaim(mid.resultJson);
-    expect(claimBefore?.claimToken).toBeTruthy();
-
-    // Expire lease but KEEP the same claimToken — owned CAS must refuse terminal COMPLETED.
-    const expired = JSON.parse(mid.resultJson) as { claim: Record<string, unknown> };
-    expired.claim = {
-      ...expired.claim,
-      leaseExpiresAt: new Date(Date.now() - 5_000).toISOString(),
-    };
-    await db
-      .update(effectAttempts)
-      .set({ resultJson: JSON.stringify(expired), updatedAt: new Date() })
-      .where(eq(effectAttempts.id, prepared.attemptId));
-
-    ExecutionBarrierRegistry.release("before:COMPLETE_PUBLICATION");
-    const outcomeA = await dispatchA;
-    expect(outcomeA).toMatchObject({ code: "CONFLICT" });
-
-    const after = (
-      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
-    )[0]!;
-    expect(after.status).not.toBe("COMPLETED");
-    const refs = await db
-      .select()
-      .from(documentPublicationRefs)
-      .where(eq(documentPublicationRefs.effectAttemptId, prepared.attemptId));
-    expect(refs).toHaveLength(0);
-    ExecutionBarrierRegistry.clear();
-  });
-
-  it("D9 user-to-server SCRIPTED: state replay / divergent github user / no token leakage", async () => {
-    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 7).toString("base64");
-    const { pilotId } = await seedProject("git-oauth-a");
-    const start = await startGitHubAuthorization(pilotId, "/settings/integrations");
-    expect(start.pkce).toBe(true);
-    const status = await completeGitHubAuthorization({
-      pilotId,
-      state: start.state,
-      scripted: true,
-    });
-    expect(status.status).toBe("CONNECTED");
-    expect(status.githubUserId).toBe(`gh-${pilotId}`);
-    expect(JSON.stringify(status)).not.toMatch(/ciphertext|ghs_|scripted-access|BEGIN/);
-
-    const authRow = (
-      await db
-        .select()
-        .from(integrationAuthorizations)
-        .where(eq(integrationAuthorizations.pilotId, pilotId))
-        .limit(1)
-    )[0]!;
-    expect(authRow.tokenCiphertext).toBeTruthy();
-    expect(authRow.tokenNonce).toBeTruthy();
-
-    await expect(
-      completeGitHubAuthorization({ pilotId, state: start.state, scripted: true }),
-    ).rejects.toMatchObject({ code: "CONFLICT" });
-
-    const other = await seedProject("git-oauth-b");
-    // Divergent: change pilot github user after state issued for other
-    const start2 = await startGitHubAuthorization(other.pilotId, "/settings/integrations");
-    await db
-      .update(pilots)
-      .set({ githubUserId: "gh-foreign-identity" })
-      .where(eq(pilots.id, other.pilotId));
-    // Force mismatch by completing as other.pilotId but we'll simulate identity check:
-    // SCRIPTED uses pilot.githubUserId as identity — still matches after update.
-    // True divergence test: complete with pilot A state stolen by B.
-    await expect(
-      completeGitHubAuthorization({
-        pilotId: pilotId,
-        state: start2.state,
-        scripted: true,
-      }),
-    ).rejects.toMatchObject({ code: "ACCESS_DENIED" });
-
-    delete process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY;
-  });
+1948:  it("D9 user-to-server SCRIPTED: state replay / session bind / no token leakage", async () => {
+1949-    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 7).toString("base64");
+1950-    const { pilotId, sessionId } = await seedProject("git-oauth-a");
+1951-    const start = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+1952-    expect(start.pkce).toBe(true);
+1953-    expect(start.flow).toBe("scripted");
+1954-    const status = await completeGitHubAuthorization({
+1955-      pilotId,
+1956-      state: start.state,
+1957-      studioSessionId: sessionId,
+1958-    });
+1959-    expect(status.status).toBe("CONNECTED");
+1960-    expect(status.githubUserId).toBe(`gh-${pilotId}`);
+1961-    expect(JSON.stringify(status)).not.toMatch(/ciphertext|ghs_|scripted-access|BEGIN/);
+1962-    expect(status.repositories[0]?.permissions?.source).toBe("scripted_fixture");
+1963-
+1964-    const authRow = (
+1965-      await db
+1966-        .select()
+1967-        .from(integrationAuthorizations)
+1968-        .where(eq(integrationAuthorizations.pilotId, pilotId))
+1969-        .limit(1)
+1970-    )[0]!;
+1971-    expect(authRow.tokenCiphertext).toBeTruthy();
+1972-    expect(authRow.tokenNonce).toBeTruthy();
+1973-
+--
+2010:  it("D9 security: REAL demanded without credentials → NOT_CONFIGURED (no SCRIPTED fallback)", async () => {
+2011-    const prev = process.env.STUDIO_GITHUB_USER_OAUTH;
+2012-    const prevAllow = process.env.STUDIO_ALLOW_SCRIPTED_GITHUB;
+2013-    process.env.STUDIO_GITHUB_USER_OAUTH = "real";
+2014-    process.env.STUDIO_ALLOW_SCRIPTED_GITHUB = "1";
+2015-    delete process.env.GITHUB_APP_CLIENT_ID;
+2016-    delete process.env.GITHUB_APP_CLIENT_SECRET;
+2017-    delete process.env.GITHUB_APP_CALLBACK_URL;
+2018-    const { pilotId, sessionId } = await seedProject("git-oauth-nofallback");
+2019-    await expect(
+2020-      startGitHubAuthorization(pilotId, "/settings/integrations", sessionId),
+2021-    ).rejects.toMatchObject({ code: "NOT_CONFIGURED" });
+2022-    if (prev === undefined) delete process.env.STUDIO_GITHUB_USER_OAUTH;
+2023-    else process.env.STUDIO_GITHUB_USER_OAUTH = prev;
+2024-    if (prevAllow === undefined) delete process.env.STUDIO_ALLOW_SCRIPTED_GITHUB;
+2025-    else process.env.STUDIO_ALLOW_SCRIPTED_GITHUB = prevAllow;
+2026-  });
+2027-
+2028:  it("D9 security: foreign installation_id cannot authorize SCRIPTED CONNECTED", async () => {
+2029-    const { pilotId, sessionId } = await seedProject("git-oauth-inst");
+2030-    const start = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+2031-    await expect(
+2032-      completeGitHubAuthorization({
+2033-        pilotId,
+2034-        state: start.state,
+2035-        studioSessionId: sessionId,
+2036-        installationId: "179935689",
+2037-      }),
+2038-    ).rejects.toMatchObject({ code: "ACCESS_DENIED" });
+2039-  });
+2040-
+2041:  it("D9 security: permissions snapshot is scripted_fixture not silent REAL write", async () => {
+2042-    const { pilotId, projectId, sessionId } = await seedProject("git-oauth-perms");
+2043-    const { status } = await connectAndAttach(pilotId, projectId, sessionId);
+2044-    expect(status.repositories[0]!.permissions).toMatchObject({
+2045-      source: "scripted_fixture",
+2046-      contents: "write",
+2047-      pull_requests: "write",
+2048-    });
+2049-    const row = (
+2050-      await db
+2051-        .select()
+2052-        .from(authorizedRepositories)
+2053-        .where(eq(authorizedRepositories.id, status.repositories[0]!.id))
+2054-        .limit(1)
+2055-    )[0]!;
+2056-    const parsed = JSON.parse(row.permissionsJson);
+2057-    expect(parsed.source).toBe("scripted_fixture");
+2058-  });
+2059-
+2060:  it("D7: persistOwnedProgress refuses when lease expired (same claimToken)", async () => {
+2061-    const { pilotId, projectId, preparationId } = await seedProject("git-d7-prog-lease");
+2062-    const { repoId } = await connectAndAttach(pilotId, projectId);
+2063-    const { documentId, revisionId } = await availableDoc(pilotId, preparationId, "D7pl");
+2064-    const prepared = await preparePublication({
+2065-      pilotId,
+2066-      projectId,
+2067-      documentId,
+2068-      revisionId,
+2069-      repositoryId: repoId,
+2070-      targetPath: "docs/d7prog-lease.md",
+2071-      targetBranch: "main",
+2072-      correlationKey: newId("d7pl"),
+2073-    });
+2074-    await authzPub(pilotId, projectId, prepared);
+2075-    ExecutionBarrierRegistry.clear();
+2076-    ExecutionBarrierRegistry.arm("before:CREATE_BRANCH");
+2077-
+2078-    const dispatchA = dispatchPublication({
+2079-      pilotId,
+2080-      projectId,
+2081-      attemptId: prepared.attemptId,
+2082-    }).catch((e: unknown) => e);
+2083-
+2084-    for (let i = 0; i < 100; i++) {
+2085-      const row = (
 ```
 
 ---
-FIN REVIEW PACK FULL — mono-fichier L3 cible : `sfia-review-handoff/latest-chatgpt-review.md`
-Product worktree préservé LOCAL DIRTY @ c658f590.
+FIN REVIEW PACK FULL
