@@ -1,761 +1,91 @@
-# SFIA Studio Next — Review Pack FULL
-# ML4 GITHUB AUTH — CONCURRENCY SAFETY CLOSURE (C1 + C2)
-# Cycle CRITICAL — mono-cycle reset
+# SFIA Review Pack FULL — ML4 GitHub Auth FINAL CONCURRENCY SAFETY CLOSURE (R1/R2)
 
-## 1. Date / GO Morris
-2026-11-08 ~21:45 CET (validations UTC 20:41–20:45).
-GO CORRECTION MORRIS EXPLICITE — CONCURRENCY SAFETY CLOSURE.
-Handoff entrée : `b6c87a8c29ff9521a259c23d2b1d63e52b97381a`.
-DEV + e2e. NO RELEASE / `0.0.0-dev`. Aucune mutation GitHub REAL.
-
-## 2. Git Truth
-
-| Item | Valeur |
-|---|---|
-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4-git-collaboration` |
-| Branche | `feat/next-git-collaboration-20261108` |
-| HEAD | `c658f590…` = origin/main |
-| Product remote | ABSENTE |
-| Handoff tip entrée | `b6c87a8c…` (parent `6509b4bc…`) |
-| État | LOCAL DIRTY préservé — **aucun commit/push Product** |
-| Migrations 009–011 | préservées |
-| Migration 012 | additive appliquée DEV+e2e après préflight 0 doublons CONNECTED |
-| Option A D8 | non touchée |
-
-## 3. Sources
-Gouvernance/method lues à main `c658f590`. Code LOCAL confronté à handoff `b6c87a8c`.
-GitHub App user refresh token rotation (ancien couple invalidé après usage) prise en compte.
-
-## 4. Git Review Index
-
-| Path | Rôle |
-|---|---|
-| `src/db/migrations/012_auth_concurrency_safety.sql` | NEW — lease columns + UNIQUE CONNECTED |
-| `src/domains/integrations/oauth-concurrency-barrier.ts` | NEW — barrières DET |
-| `src/domains/integrations/authorization-service.ts` | C1 lease+gen CAS ; C2 unique handling |
-| `src/db/schema.ts` | colonnes lease + uniqueIndex + revision 012 |
-| `scripts/db-migrate.sh` | apply 012 |
-| `tests/integration/git-collaboration.pg.test.ts` | C1/C2 concurrent tests |
-| `tests/unit/ml3-cki-intent.test.ts` | schemaRevision 012 |
-| construction docs | AS-IMPLEMENTED |
-
-## 5. C1 — Refresh concurrent (avant/après)
-
-**Avant :** `markRequiresReauth(pilotId, authId)` sans génération → un loser GitHub `bad_refresh_token` pouvait effacer les tokens du winner.
-
-**Après :**
-- `claimRefreshLease` SQL (génération `refresh_ciphertext` + lease inactive/expirée).
-- GitHub I/O hors transaction.
-- Persist winner : CAS `refresh_ciphertext` + `refresh_lease_token`.
-- `markRequiresReauth(pilotId, authId, expectedRefreshCiphertext)` — CAS génération ; loser → 0 rows.
-- Reload si lease perdue ; jamais wipe d'une génération plus récente.
-- Erreur ACCESS_DENIED / DEPENDENCY après claim → reauth **seulement** génération attendue.
-
-## 6. C2 — Unicité CONNECTED (avant/après)
-
-**Avant :** deux txn pouvaient chacune insert CONNECTED.
-
-**Après :**
-- UNIQUE partiel `(pilot_id, provider) WHERE status='CONNECTED'`.
-- Préflight : 0 doublons DEV/e2e.
-- Txn revoke+insert+seed inchangée ; unique violation → CONFLICT ou retour état CONNECTED concurrent gagnant.
-- getIntegrationStatus : au plus un CONNECTED possible.
-
-## 7. Schéma / préflight
-012 ADDITIVE. RECETTE non touchée. Option A intacte. schemaRevision=`012_auth_concurrency_safety`.
-
-## 8. Tests concurrentiels exécutés
-- `C2: concurrent completeGitHubAuthorization → at most one CONNECTED` (+ UNIQUE insert reject)
-- `C1: concurrent refresh — loser ACCESS_DENIED must not wipe winner tokens`
-- `C1: markRequiresReauth only when generation matches`
-
-## 9. Suites globales
-
-| Suite | Résultat |
-|---|---|
-| tsc | PASS |
-| unit | **167 PASS** |
-| integration | **193 PASS** |
-| build | PASS |
-| Playwright | **13/13 PASS** |
-
-Baseline entrée : 167 / 190 / 13 — non revendiquée.
-
-## 10. Secret safety
-Aucun PEM/Client Secret réel. Tokens fixtures test (`access-gen-2`) seulement. Pas de ciphertext dans réponses status.
-
-## 11. Fake/Real
-DET concurrency PROVEN. REAL interactive NOT PROVEN. REAL mutations HARD-BLOCKED. Installation READ preserved.
-
-## 12. ENV-01 / versioning
-DEV+e2e only. NO RELEASE `0.0.0-dev`. STABLE NOT AVAILABLE.
-
-## 13. KNOWN GAP
-Révocation OAuth GitHub distante (wipe local only). REAL user OAuth interactive. UX Figma 218–235.
-
-## 14. Gates suivants
-Critical Re-Review → config App OAuth DEV → essai interactif → publication REAL sous GO distinct.
-
-## 15. Verdict
-
-**ML4 GITHUB AUTH CONCURRENCY CLOSURE — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY.**
+**SFIA v2.6 / CRITICAL / CYCLE 8 — DELIVERY / IMPLÉMENTATION / INC CORRECTIF CIBLÉ**
+**Date (Europe/Paris):** 2026-11-08 ~21:59 CET
+**Product version:** NO RELEASE / `0.0.0-dev`
+**ENV-01:** DEV + E2E isolé uniquement — RECETTE/STABLE non touchés
 
 ---
-## ANNEXE — Fichiers créés (contenu complet)
-### `src/db/migrations/012_auth_concurrency_safety.sql`
-```
--- ML4 D9 concurrency safety (C1 refresh lease + C2 one CONNECTED).
--- ADDITIVE / non-destructive. DEV + e2e only.
--- Preflight required: zero duplicate (pilot_id, provider) CONNECTED rows.
 
-ALTER TABLE integration_authorizations
-  ADD COLUMN IF NOT EXISTS refresh_lease_token text,
-  ADD COLUMN IF NOT EXISTS refresh_lease_expires_at timestamptz;
+## 1. Date Europe/Paris
 
--- At most one CONNECTED authorization per Pilot × provider (cross-process).
-CREATE UNIQUE INDEX IF NOT EXISTS integration_authorizations_one_connected_uidx
-  ON integration_authorizations (pilot_id, provider)
-  WHERE status = 'CONNECTED';
-```
-### `src/domains/integrations/oauth-concurrency-barrier.ts`
-```
-/**
- * Deterministic barriers for D9 OAuth concurrency tests (SCRIPTED/DET only).
- * Not a general job/lock engine — test harness only.
- */
-type Waiter = { resolve: () => void; promise: Promise<void> };
+2026-11-08 (dimanche) — validations ~21:57–21:59 CET ; pack finalisé ~22:00 CET.
 
-function makeWaiter(): Waiter {
-  let resolve!: () => void;
-  const promise = new Promise<void>((r) => {
-    resolve = r;
-  });
-  return { resolve, promise };
-}
+## 2. Mandat Morris exact
 
-export const OAuthConcurrencyBarrier = {
-  enabled: false,
-  gates: new Map<string, Waiter>(),
+GO CORRECTION EXPLICITE MORRIS — **FINAL CONCURRENCY SAFETY CLOSURE** sur les deux réserves résiduelles du handoff ML4 `2a9eb05a0ff2a160dc2966a501b006c4c496042d` :
 
-  clear() {
-    this.enabled = false;
-    for (const w of this.gates.values()) w.resolve();
-    this.gates.clear();
-  },
+- **R1 — STALE REFRESH LEASE** : un worker ayant perdu/dépassé son bail ne doit plus effacer les tokens du propriétaire actuel, déclarer REQUIRES_REAUTH à sa place, libérer le bail du nouveau propriétaire, valider une rotation obsolète, ni déclencher un deuxième refresh distant dangereux sur génération ambiguë.
+- **R2 — CALLBACK CONCURRENT** : un callback OAuth perdant une collision PostgreSQL ne doit pas recevoir le CONNECTED d'un autre callback comme succès propre.
 
-  arm(name: string) {
-    this.enabled = true;
-    this.gates.set(name, makeWaiter());
-  },
+Interdits : rouvrir ML4, nouvelle capacité, moteur généraliste, migration sauf gate Morris, commit/push Product, PR/merge, REAL mutations, secrets.
 
-  async before(name: string) {
-    if (!this.enabled) return;
-    const w = this.gates.get(name);
-    if (w) await w.promise;
-  },
+## 3. Git Truth initial et final
 
-  release(name: string) {
-    const w = this.gates.get(name);
-    if (w) {
-      w.resolve();
-      this.gates.delete(name);
-    }
-  },
-};
-```
-## ANNEXE — authorization-service (sections C1/C2)
-```
-37:function isUniqueViolation(e: unknown): boolean {
-558:    await OAuthConcurrencyBarrier.before("before:AUTH_INSERT");
-606:    if (isUniqueViolation(e)) {
-658:    const accessToken = await loadOrRefreshUserAccessToken(auth, opts?.fetchImpl);
-716:async function claimRefreshLease(
-777:export async function loadOrRefreshUserAccessToken(
-782:    await markRequiresReauth(auth.pilotId, auth.id, auth.refreshCiphertext);
-797:    await markRequiresReauth(auth.pilotId, auth.id, null);
-807:  let leaseToken = await claimRefreshLease(auth, expectedRefreshCiphertext);
-823:    leaseToken = await claimRefreshLease(fresh, expectedRefreshCiphertext);
-855:      await markRequiresReauth(auth.pilotId, auth.id, expectedRefreshCiphertext);
-909:export async function markRequiresReauth(
-```
-### completeGitHubAuthorization collision handling + claim/loadOrRefresh/markRequiresReauth
-```
-} from "./scripted-github-guard";
-import { OAuthConcurrencyBarrier } from "./oauth-concurrency-barrier";
-import type { IntegrationStatus } from "./types";
+repo=https://github.com/mcleland147/sfia-workspace.git
+branch=feat/next-git-collaboration-20261108
+HEAD=c658f59023d44a0e22448c7ee034e3c1dda292a2
+origin/main=c658f59023d44a0e22448c7ee034e3c1dda292a2
+handoff=2a9eb05a0ff2a160dc2966a501b006c4c496042d
+handoff_parent=b6c87a8c29ff9521a259c23d2b1d63e52b97381a
+auth_sha256=6a469a66d6785b7038e5e580df2aba48330ccb2b3eeeb248ad54daf2f680261d
+test_sha256=714f6ff8c51cd43bb1de672bd041813bb2033c0e2ea5e8a581187ccd1f7c30fb
+mig012_sha256=83ac3a3dd5168da27360176bb2db93733b3b21cc0060f0fb41fa7da93efd9203
 
-const STATE_TTL_MS = 15 * 60 * 1000;
-const REFRESH_LEASE_MS = 20_000;
+| Champ | Valeur |
+|---|---|
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4-git-collaboration` |
+| Branche Product | `feat/next-git-collaboration-20261108` |
+| HEAD local | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
+| origin/main | `c658f59023d44a0e22448c7ee034e3c1dda292a2` (identique) |
+| Branche Product distante | ABSENTE (pré-check) |
+| État Product | LOCAL DIRTY préservé — **aucun** commit/push Product |
+| Handoff L3 entrée | `2a9eb05a0ff2a160dc2966a501b006c4c496042d` |
+| Parent handoff | `b6c87a8c29ff9521a259c23d2b1d63e52b97381a` |
+| Migrations 009–012 | présentes localement (008–012 untracked ML4) — **aucune nouvelle migration** |
 
-function isUniqueViolation(e: unknown): boolean {
-  if (!e || typeof e !== "object") return false;
-  const code = "code" in e ? String((e as { code: unknown }).code) : "";
-  if (code === "23505") return true;
-  const cause = "cause" in e ? (e as { cause: unknown }).cause : null;
-  if (cause && typeof cause === "object" && "code" in cause) {
-    return String((cause as { code: unknown }).code) === "23505";
-  }
-  // drizzle/postgres may wrap message
-  const msg = e instanceof Error ? e.message : String(e);
-  return /duplicate key|unique constraint|one_connected/i.test(msg);
-}
+Fetch non destructif effectué. Aucun reset/stash destructif.
 
-export type RepoPermissionSnapshot = {
-  source: "scripted_fixture" | "user_token_observed" | "unknown";
-  contents: "read" | "write" | "admin" | "unknown" | "none";
-  pull_requests: "read" | "write" | "admin" | "unknown" | "none";
-};
+## 4. Sources Git, refs et blobs
 
-...
-  // Short PG transaction: revoke prior CONNECTED + insert + seed — no GitHub I/O inside.
-  // C2: partial UNIQUE (pilot_id, provider) WHERE CONNECTED enforces cross-process exclusivity.
-  try {
-    await OAuthConcurrencyBarrier.before("before:AUTH_INSERT");
-    await db.transaction(async (tx) => {
-      await tx
-        .update(integrationAuthorizations)
-        .set({
-          status: "REVOKED",
-          revokedAt: now,
-          updatedAt: now,
-          tokenCiphertext: null,
-          tokenNonce: null,
-          tokenKeyVersion: null,
-          refreshCiphertext: null,
-          refreshNonce: null,
-          tokenExpiresAt: null,
-          refreshLeaseToken: null,
-          refreshLeaseExpiresAt: null,
-        })
-        .where(
-          and(
-            eq(integrationAuthorizations.pilotId, input.pilotId),
-            eq(integrationAuthorizations.provider, "github"),
-            eq(integrationAuthorizations.status, "CONNECTED"),
-          ),
-        );
+Sources obligatoires lues (méthode / gouvernance / architecture / conception / contrat / matrice / preuve d'entrée handoff). Code LOCAL prioritaire (pas snapshots main) :
 
-      await tx.insert(integrationAuthorizations).values({
-        id: authId,
-        pilotId: input.pilotId,
-        provider: "github",
-        status: "CONNECTED",
-        installationId: installId,
-        accountLogin,
-        githubUserId,
-        ...tokenFields,
-        lastValidatedAt: now,
-        metadataJson: JSON.stringify({
-          mode: storedFlow === "real" ? "REAL_USER_OAUTH" : "SCRIPTED_FIXTURE",
-          flow: storedFlow === "real" ? "github_app_user_oauth" : "scripted",
-          // SCRIPTED fixtures are not GitHub consent proof.
-          consentProven: storedFlow === "real",
-        }),
-        connectedAt: now,
-        createdAt: now,
-        updatedAt: now,
-      });
-      await seedAuthorizedReposInTx(tx, input.pilotId, authId, repoSeed);
-    });
-  } catch (e) {
-    if (isUniqueViolation(e)) {
-      // Concurrent CONNECTED insert lost — do not invent success for this attempt.
-      const current = await getIntegrationStatus(input.pilotId);
-      if (current.status === "CONNECTED" && current.authorizationId !== authId) {
-        // Another authorization won — return that state (idempotent reconnect surface).
-        return current;
-      }
-      throw new StudioError(
-        "CONFLICT",
-        "Collision CONNECTED — invariant PostgreSQL (au plus une autorisation active)",
-      );
-    }
-    throw e;
-  }
+| Fichier | SHA-256 | Statut |
+|---|---|---|
+| `authorization-service.ts` | `6a469a66d6785b7038e5e580df2aba48330ccb2b3eeeb248ad54daf2f680261d` | modifié R1/R2 (untracked ML4 tree) |
+| `git-collaboration.pg.test.ts` | `714f6ff8c51cd43bb1de672bd041813bb2033c0e2ea5e8a581187ccd1f7c30fb` | tests T01–T14 + C1/C2 |
+| `012_auth_concurrency_safety.sql` | `83ac3a3dd5168da27360176bb2db93733b3b21cc0060f0fb41fa7da93efd9203` | inchangé (référence) |
+| `oauth-concurrency-barrier.ts` | `7d739940b2489eb56fc349b047f8e43367cee18e9e1bea888ae126a238264bb1` | inchangé |
 
-  return getIntegrationStatus(input.pilotId);
-}
+Handoff tip d'entrée (objet distant) : `origin/sfia/review-handoff` @ `2a9eb05a…`.
 
-/**
- * Refresh repository inventory without elevating permissions.
- * REAL_USER_OAUTH: uses sealed user token (refresh if expired) — never installation token substitute.
- * SCRIPTED_FIXTURE: re-lists scripted provider under guard.
- */
-export async function refreshRepositories(
-  pilotId: string,
-  opts?: { fetchImpl?: typeof fetch; requestHost?: string | null },
-) {
-  const auth = (
-    await db
-      .select()
-      .from(integrationAuthorizations)
-      .where(
-        and(
-          eq(integrationAuthorizations.pilotId, pilotId),
-          eq(integrationAuthorizations.status, "CONNECTED"),
-        ),
-      )
-      .orderBy(desc(integrationAuthorizations.createdAt))
-      .limit(1)
-  )[0];
-  if (!auth?.installationId) throw new StudioError("NOT_FOUND", "Intégration non connectée");
+## 5. Git Review Index exhaustif (fichiers touchés ce cycle)
 
-  let meta: { mode?: string; flow?: string } = {};
-  try {
-    meta = JSON.parse(auth.metadataJson || "{}") as { mode?: string; flow?: string };
-...
-}
+### Primaire correctif
+1. `projects/sfia-studio-next/web/src/domains/integrations/authorization-service.ts` — R1 fencing + R2 CONFLICT
+2. `projects/sfia-studio-next/web/tests/integration/git-collaboration.pg.test.ts` — T01–T14 + C1/C2 renforcés
 
-async function reloadAuthorization(authId: string) {
-  return (
-    await db
-      .select()
-      .from(integrationAuthorizations)
-      .where(eq(integrationAuthorizations.id, authId))
-      .limit(1)
-  )[0];
-}
+### AS-IMPLEMENTED (autorisé)
+3. `projects/sfia-studio-next/construction/delivery-history.md` — DELIV FINAL SAFETY
+4. `projects/sfia-studio-next/construction/integration-git/specification-technique.md` — bandeau R1/R2
+5. `projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md` — §16
 
-/**
- * Claim exclusive refresh lease for one generation (refresh_ciphertext).
- * Cross-process via PostgreSQL — no long-held txn during GitHub I/O.
- */
-async function claimRefreshLease(
-  auth: typeof integrationAuthorizations.$inferSelect,
-  expectedRefreshCiphertext: string,
-): Promise<string | null> {
-  const leaseToken = newId("rfl");
-  const expiresAt = new Date(Date.now() + REFRESH_LEASE_MS);
-  await OAuthConcurrencyBarrier.before("before:REFRESH_CLAIM");
-  const updated = await db
-    .update(integrationAuthorizations)
-    .set({
-      refreshLeaseToken: leaseToken,
-      refreshLeaseExpiresAt: expiresAt,
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(integrationAuthorizations.id, auth.id),
-        eq(integrationAuthorizations.pilotId, auth.pilotId),
-        eq(integrationAuthorizations.status, "CONNECTED"),
-        sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`,
-        sql`(
-          ${integrationAuthorizations.refreshLeaseExpiresAt} IS NULL
-          OR ${integrationAuthorizations.refreshLeaseExpiresAt} <= now()
-        )`,
-      ),
-    )
-    .returning({ id: integrationAuthorizations.id });
-  return updated[0] ? leaseToken : null;
-}
+### Preuve
+6. `.tmp-sfia-review/chatgpt-review.md` — ce pack (réinitialisé mono-cycle)
 
-async function clearRefreshLease(authId: string, leaseToken: string) {
-  await db
-    .update(integrationAuthorizations)
-    .set({
-      refreshLeaseToken: null,
-      refreshLeaseExpiresAt: null,
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(integrationAuthorizations.id, authId),
-        eq(integrationAuthorizations.refreshLeaseToken, leaseToken),
-      ),
-    );
-}
+### Non modifiés (préservés)
+- migrations 009–012 / schema revision `012_auth_concurrency_safety`
+- `oauth-concurrency-barrier.ts`
+- governance / architecture-technique / conception-fonctionnelle / method / prompts / `.sfia/` / `projects/sfia-studio/`
+- D1/D6 / D8 Option A three historical SCRIPTED refs
 
-function openAccessIfPresent(
-  row: typeof integrationAuthorizations.$inferSelect,
-): string | null {
-  if (!row.tokenCiphertext || !row.tokenNonce || !row.tokenKeyVersion) return null;
-  return openSecret({
-    ciphertext: row.tokenCiphertext,
-    nonce: row.tokenNonce,
-    keyVersion: row.tokenKeyVersion,
-  });
-}
+## 6–8. Diff / contenu complet des fichiers créés ou sections modifiées
 
-/**
- * Load user access token; refresh with durable lease + generation fencing if expired.
- * A stale refresh failure must never wipe a newer generation (C1).
- */
-export async function loadOrRefreshUserAccessToken(
-  auth: typeof integrationAuthorizations.$inferSelect,
-  fetchImpl?: typeof fetch,
-): Promise<string> {
-  if (!auth.tokenCiphertext || !auth.tokenNonce || !auth.tokenKeyVersion) {
-    await markRequiresReauth(auth.pilotId, auth.id, auth.refreshCiphertext);
-    throw new StudioError("ACCESS_DENIED", "User token absent — REQUIRES_REAUTH", {
-      httpStatus: 403,
-    });
-  }
-  const now = Date.now();
-  const expiresAt = auth.tokenExpiresAt?.getTime() ?? null;
-  if (expiresAt == null || expiresAt > now + 30_000) {
-    return openSecret({
-      ciphertext: auth.tokenCiphertext,
-      nonce: auth.tokenNonce,
-      keyVersion: auth.tokenKeyVersion,
-    });
-  }
-  if (!auth.refreshCiphertext || !auth.refreshNonce) {
-    await markRequiresReauth(auth.pilotId, auth.id, null);
-    throw new StudioError("ACCESS_DENIED", "Refresh token absent — REQUIRES_REAUTH", {
-      httpStatus: 403,
-    });
-  }
-  if (!isGitHubAppUserOauthConfigured()) {
-    throw new StudioError("NOT_CONFIGURED", "Credentials refresh absents", { httpStatus: 503 });
-  }
+Les fichiers ML4 `authorization-service.ts` et le corpus de tests sont **untracked** sur la branche Product (construction locale). Contenu intégral ci-dessous = vérité locale du cycle.
 
-  const expectedRefreshCiphertext = auth.refreshCiphertext;
-  let leaseToken = await claimRefreshLease(auth, expectedRefreshCiphertext);
-  if (!leaseToken) {
-    // Another worker holds/held the lease — reload current generation.
-    await new Promise((r) => setTimeout(r, 40));
-    const fresh = await reloadAuthorization(auth.id);
-    if (!fresh || fresh.status !== "CONNECTED") {
-      throw new StudioError("ACCESS_DENIED", "Autorisation plus CONNECTED pendant refresh", {
-        httpStatus: 403,
-      });
-    }
-    if (fresh.refreshCiphertext !== expectedRefreshCiphertext) {
-      const access = openAccessIfPresent(fresh);
-      if (access) return access;
-      throw new StudioError("CONFLICT", "Génération refresh avancée — token inaccessible");
-    }
-    // Same generation still — try claim once more (lease may have expired).
-    leaseToken = await claimRefreshLease(fresh, expectedRefreshCiphertext);
-    if (!leaseToken) {
-      const again = await reloadAuthorization(auth.id);
-      const access = again ? openAccessIfPresent(again) : null;
-      if (access && again && again.refreshCiphertext !== expectedRefreshCiphertext) return access;
-      throw new StudioError("CONFLICT", "Refresh lease concurrent — réessayer");
-    }
-    // Re-read nonce/key for this generation under lease.
-    auth = (await reloadAuthorization(auth.id))!;
-  }
+### 6.A `authorization-service.ts` — fichier complet (SHA-256 `6a469a66d6785b7038e5e580df2aba48330ccb2b3eeeb248ad54daf2f680261d`)
 
-  const refreshPlain = openSecret({
-    ciphertext: expectedRefreshCiphertext,
-    nonce: auth.refreshNonce!,
-    keyVersion: auth.tokenKeyVersion!,
-  });
-  const config = readGitHubAppUserOauthConfig();
-
-  let tokens;
-  try {
-    await OAuthConcurrencyBarrier.before("before:REFRESH_GITHUB");
-    tokens = await refreshUserAccessToken({
-      config,
-      refreshToken: refreshPlain,
-      fetchImpl,
-    });
-  } catch (e) {
-    // ACCESS_DENIED / ambiguous after network: only degrade THIS generation.
-    if (
-      e instanceof StudioError &&
-      (e.code === "ACCESS_DENIED" || e.code === "DEPENDENCY_UNAVAILABLE")
-    ) {
-      await markRequiresReauth(auth.pilotId, auth.id, expectedRefreshCiphertext);
-    } else {
-      await clearRefreshLease(auth.id, leaseToken);
-    }
-    throw e;
-  }
-
-  const sealedAccess = sealSecret(tokens.accessToken);
-  const sealedRefresh = tokens.refreshToken ? sealSecret(tokens.refreshToken) : null;
-  // Persist only if we still own the lease AND the expected generation.
-  const updated = await db
-    .update(integrationAuthorizations)
-    .set({
-      tokenCiphertext: sealedAccess.ciphertext,
-      tokenNonce: sealedAccess.nonce,
-      tokenKeyVersion: sealedAccess.keyVersion,
-      refreshCiphertext: sealedRefresh?.ciphertext ?? null,
-      refreshNonce: sealedRefresh?.nonce ?? null,
-      tokenExpiresAt: tokens.expiresAt,
-      refreshLeaseToken: null,
-      refreshLeaseExpiresAt: null,
-      lastValidatedAt: new Date(),
-      updatedAt: new Date(),
-      scopesJson: JSON.stringify(tokens.scopes),
-    })
-    .where(
-      and(
-        eq(integrationAuthorizations.id, auth.id),
-        eq(integrationAuthorizations.pilotId, auth.pilotId),
-        eq(integrationAuthorizations.status, "CONNECTED"),
-        sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`,
-        eq(integrationAuthorizations.refreshLeaseToken, leaseToken),
-      ),
-    )
-    .returning({ id: integrationAuthorizations.id });
-
-  if (!updated[0]) {
-    // Lost CAS — never wipe; reload whatever is current.
-    await clearRefreshLease(auth.id, leaseToken);
-    const fresh = await reloadAuthorization(auth.id);
-    if (!fresh || fresh.status !== "CONNECTED") {
-      throw new StudioError("CONFLICT", "Autorisation remplacée pendant refresh");
-    }
-    const access = openAccessIfPresent(fresh);
-    if (access) return access;
-    throw new StudioError("CONFLICT", "Rotation concurrente — token indisponible");
-  }
-  return tokens.accessToken;
-}
-
-/**
- * Generation-conditional REQUIRES_REAUTH.
- * Must match expected refresh ciphertext (or NULL) so a loser cannot wipe a winner.
- */
-export async function markRequiresReauth(
-  pilotId: string,
-  authId: string,
-  expectedRefreshCiphertext: string | null,
-): Promise<boolean> {
-  const now = new Date();
-  const genPred =
-    expectedRefreshCiphertext == null
-      ? sql`${integrationAuthorizations.refreshCiphertext} IS NULL`
-      : sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`;
-  const updated = await db
-    .update(integrationAuthorizations)
-    .set({
-      status: "REQUIRES_REAUTH",
-      updatedAt: now,
-      tokenCiphertext: null,
-      tokenNonce: null,
-      tokenKeyVersion: null,
-      refreshCiphertext: null,
-      refreshNonce: null,
-      tokenExpiresAt: null,
-      refreshLeaseToken: null,
-      refreshLeaseExpiresAt: null,
-    })
-    .where(
-      and(
-        eq(integrationAuthorizations.id, authId),
-        eq(integrationAuthorizations.pilotId, pilotId),
-        eq(integrationAuthorizations.status, "CONNECTED"),
-        genPred,
-      ),
-    )
-    .returning({ id: integrationAuthorizations.id });
-  return Boolean(updated[0]);
-}
-
-export async function disconnectIntegration(pilotId: string) {
-  const now = new Date();
-  // Local wipe only — KNOWN GAP: no remote GitHub OAuth revocation without dedicated API call.
-  await db.transaction(async (tx) => {
-    await tx
-      .update(integrationAuthorizations)
-      .set({
-        status: "REVOKED",
-        revokedAt: now,
-        updatedAt: now,
-        tokenCiphertext: null,
-        tokenNonce: null,
-        tokenKeyVersion: null,
-        refreshCiphertext: null,
-        refreshNonce: null,
-        tokenExpiresAt: null,
-        refreshLeaseToken: null,
-        refreshLeaseExpiresAt: null,
-      })
-      .where(
-        and(
-          eq(integrationAuthorizations.pilotId, pilotId),
-          eq(integrationAuthorizations.status, "CONNECTED"),
-        ),
-      );
-    await tx
-      .update(authorizedRepositories)
-      .set({ status: "REMOVED", syncedAt: now })
-      .where(
-        and(
-          eq(authorizedRepositories.pilotId, pilotId),
-          eq(authorizedRepositories.status, "ACTIVE"),
-        ),
-      );
-  });
-  return getIntegrationStatus(pilotId);
-```
-### schema integrationAuthorizations (extrait)
-```
-/** D9 — GitHub App / integration authorization (pilot-scoped; not a D6 mandate). */
-export const integrationAuthorizations = pgTable(
-  "integration_authorizations",
-  {
-    id: text("id").primaryKey(),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    provider: text("provider").notNull().default("github"),
-    status: text("status").notNull(), // CONNECTED | PENDING_APPROVAL | ACCESS_REMOVED | REVOKED | DISCONNECTED | EXPIRED | REQUIRES_REAUTH
-    installationId: text("installation_id"),
-    accountLogin: text("account_login"),
-    /** Stable GitHub user id (not mutable login). */
-    githubUserId: text("github_user_id"),
-    /** AES-GCM ciphertext of user access token — never plaintext. */
-    tokenCiphertext: text("token_ciphertext"),
-    tokenNonce: text("token_nonce"),
-    tokenKeyVersion: text("token_key_version"),
-    refreshCiphertext: text("refresh_ciphertext"),
-    refreshNonce: text("refresh_nonce"),
-    tokenExpiresAt: timestamp("token_expires_at", { withTimezone: true }),
-    /** Short-lived lease for a single in-flight refresh of this authorization generation. */
-    refreshLeaseToken: text("refresh_lease_token"),
-    refreshLeaseExpiresAt: timestamp("refresh_lease_expires_at", { withTimezone: true }),
-    scopesJson: text("scopes_json").notNull().default("[]"),
-    lastValidatedAt: timestamp("last_validated_at", { withTimezone: true }),
-    metadataJson: text("metadata_json").notNull().default("{}"),
-    connectedAt: timestamp("connected_at", { withTimezone: true }),
-    revokedAt: timestamp("revoked_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    index("integration_authorizations_pilot_idx").on(t.pilotId),
-    index("integration_authorizations_pilot_status_idx").on(t.pilotId, t.status),
-    index("integration_authorizations_github_user_idx").on(t.githubUserId),
-    // C2: at most one CONNECTED per Pilot × provider (cross-process).
-    uniqueIndex("integration_authorizations_one_connected_uidx")
-      .on(t.pilotId, t.provider)
-      .where(sql`status = 'CONNECTED'`),
-  ],
-);
-
-/** D9 — OAuth/state for GitHub App user-to-server connect (CSRF + PKCE). */
-export const integrationOauthStates = pgTable(
-  "integration_oauth_states",
-  {
-    id: text("id").primaryKey(),
-    pilotId: text("pilot_id")
-780:export const schemaRevision = "012_auth_concurrency_safety";
-```
-### Tests C1/C2 (extrait)
-```
-2165:  it("C2: concurrent completeGitHubAuthorization → at most one CONNECTED", async () => {
-2166-    const { pilotId, sessionId } = await seedProject("git-c2-connected");
-2167-    const s1 = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
-2168-    const s2 = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
-2169-    OAuthConcurrencyBarrier.clear();
-2170-    OAuthConcurrencyBarrier.arm("before:AUTH_INSERT");
-2171-
-2172-    const p1 = completeGitHubAuthorization({
-2173-      pilotId,
-2174-      state: s1.state,
-2175-      studioSessionId: sessionId,
-2176-    }).catch((e: unknown) => e);
-2177-    const p2 = completeGitHubAuthorization({
-2178-      pilotId,
-2179-      state: s2.state,
-2180-      studioSessionId: sessionId,
-2181-    }).catch((e: unknown) => e);
-2182-
-2183-    await new Promise((r) => setTimeout(r, 30));
-2184-    OAuthConcurrencyBarrier.release("before:AUTH_INSERT");
-2185-    const [a, b] = await Promise.all([p1, p2]);
-2186-    OAuthConcurrencyBarrier.clear();
-2187-
-2188-    const outcomes = [a, b];
-2189-    const ok = outcomes.filter(
-2190-      (o) => o && typeof o === "object" && "status" in o && (o as { status: string }).status === "CONNECTED",
-2191-    );
-2192-    expect(ok.length).toBeGreaterThanOrEqual(1);
-2193-
-2194-    const connected = await db
-2195-      .select()
-2196-      .from(integrationAuthorizations)
-2197-      .where(
-2198-        and(
-2199-          eq(integrationAuthorizations.pilotId, pilotId),
-2200-          eq(integrationAuthorizations.status, "CONNECTED"),
---
-2219:  it("C1: concurrent refresh — loser ACCESS_DENIED must not wipe winner tokens", async () => {
-2220-    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 3).toString("base64");
-2221-    process.env.GITHUB_APP_CLIENT_ID = "Iv1.test-client";
-2222-    process.env.GITHUB_APP_CLIENT_SECRET = "test-secret";
-2223-    process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
-2224-
-2225-    const { pilotId } = await seedProject("git-c1-refresh");
-2226-    const oldRefresh = sealSecret("refresh-gen-1");
-2227-    const oldAccess = sealSecret("access-gen-1");
-2228-    const authId = newId("iauth");
-2229-    await db.insert(integrationAuthorizations).values({
-2230-      id: authId,
-2231-      pilotId,
-2232-      provider: "github",
-2233-      status: "CONNECTED",
-2234-      installationId: "scripted-install-1",
-2235-      accountLogin: "scripted-user",
-2236-      githubUserId: `gh-${pilotId}`,
-2237-      tokenCiphertext: oldAccess.ciphertext,
-2238-      tokenNonce: oldAccess.nonce,
-2239-      tokenKeyVersion: oldAccess.keyVersion,
-2240-      refreshCiphertext: oldRefresh.ciphertext,
-2241-      refreshNonce: oldRefresh.nonce,
-2242-      tokenExpiresAt: new Date(Date.now() - 60_000),
-2243-      metadataJson: JSON.stringify({ mode: "REAL_USER_OAUTH", flow: "github_app_user_oauth" }),
-2244-      connectedAt: new Date(),
-2245-      createdAt: new Date(),
-2246-      updatedAt: new Date(),
-2247-    });
-2248-
-2249-    let githubCalls = 0;
-2250-    const fetchImpl = (async (input: RequestInfo | URL) => {
-2251-      const url = String(input);
-2252-      if (!url.includes("login/oauth/access_token")) {
-2253-        return new Response("{}", { status: 500 });
-2254-      }
---
-2323:  it("C1: markRequiresReauth only when generation matches", async () => {
-2324-    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 4).toString("base64");
-2325-    const { pilotId } = await seedProject("git-c1-gen");
-2326-    const genA = sealSecret("refresh-a");
-2327-    const genB = sealSecret("refresh-b");
-2328-    const access = sealSecret("access-b");
-2329-    const authId = newId("iauth");
-2330-    await db.insert(integrationAuthorizations).values({
-2331-      id: authId,
-2332-      pilotId,
-2333-      provider: "github",
-2334-      status: "CONNECTED",
-2335-      tokenCiphertext: access.ciphertext,
-2336-      tokenNonce: access.nonce,
-2337-      tokenKeyVersion: access.keyVersion,
-2338-      refreshCiphertext: genB.ciphertext,
-2339-      refreshNonce: genB.nonce,
-2340-      tokenExpiresAt: new Date(Date.now() + 3600_000),
-2341-      metadataJson: "{}",
-2342-      createdAt: new Date(),
-2343-      updatedAt: new Date(),
-2344-    });
-2345-    expect(await markRequiresReauth(pilotId, authId, genA.ciphertext)).toBe(false);
-2346-    const still = (
-2347-      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
-2348-    )[0]!;
-2349-    expect(still.status).toBe("CONNECTED");
-2350-    expect(await markRequiresReauth(pilotId, authId, genB.ciphertext)).toBe(true);
-2351-    const gone = (
-2352-      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
-2353-    )[0]!;
-2354-    expect(gone.status).toBe("REQUIRES_REAUTH");
-2355-    expect(gone.tokenCiphertext).toBeNull();
-2356-    delete process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY;
-2357-  });
-2358-});
-```
-FIN REVIEW PACK FULL
-
-## ANNEXE COMPLÉMENTAIRE — authorization-service.ts COMPLET
-```
+```typescript
 import { and, desc, eq, gt, isNull, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
@@ -1362,15 +692,11 @@ export async function completeGitHubAuthorization(input: {
     });
   } catch (e) {
     if (isUniqueViolation(e)) {
-      // Concurrent CONNECTED insert lost — do not invent success for this attempt.
-      const current = await getIntegrationStatus(input.pilotId);
-      if (current.status === "CONNECTED" && current.authorizationId !== authId) {
-        // Another authorization won — return that state (idempotent reconnect surface).
-        return current;
-      }
+      // R2: losing callback must NOT present another callback's CONNECTED as own success.
+      // UI may reload status separately; this attempt returns CONFLICT only.
       throw new StudioError(
         "CONFLICT",
-        "Collision CONNECTED — invariant PostgreSQL (au plus une autorisation active)",
+        "Collision CONNECTED — cette tentative n'a pas créé l'autorisation",
       );
     }
     throw e;
@@ -1467,18 +793,27 @@ async function reloadAuthorization(authId: string) {
   )[0];
 }
 
+type RefreshLeaseClaim = {
+  leaseToken: string;
+  /** True when reclaiming an expired lease — prior GitHub call may have had effect. */
+  priorLeaseExpired: boolean;
+};
+
 /**
  * Claim exclusive refresh lease for one generation (refresh_ciphertext).
  * Cross-process via PostgreSQL — no long-held txn during GitHub I/O.
+ * Prefers a clean claim (lease NULL); reclaim of expired lease is flagged fail-closed.
  */
 async function claimRefreshLease(
   auth: typeof integrationAuthorizations.$inferSelect,
   expectedRefreshCiphertext: string,
-): Promise<string | null> {
+): Promise<RefreshLeaseClaim | null> {
   const leaseToken = newId("rfl");
   const expiresAt = new Date(Date.now() + REFRESH_LEASE_MS);
   await OAuthConcurrencyBarrier.before("before:REFRESH_CLAIM");
-  const updated = await db
+
+  // Prefer virgin lease slot — safe to call GitHub with this generation.
+  const clean = await db
     .update(integrationAuthorizations)
     .set({
       refreshLeaseToken: leaseToken,
@@ -1491,14 +826,33 @@ async function claimRefreshLease(
         eq(integrationAuthorizations.pilotId, auth.pilotId),
         eq(integrationAuthorizations.status, "CONNECTED"),
         sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`,
-        sql`(
-          ${integrationAuthorizations.refreshLeaseExpiresAt} IS NULL
-          OR ${integrationAuthorizations.refreshLeaseExpiresAt} <= now()
-        )`,
+        sql`${integrationAuthorizations.refreshLeaseToken} IS NULL`,
+        sql`${integrationAuthorizations.refreshLeaseExpiresAt} IS NULL`,
       ),
     )
     .returning({ id: integrationAuthorizations.id });
-  return updated[0] ? leaseToken : null;
+  if (clean[0]) return { leaseToken, priorLeaseExpired: false };
+
+  // Expired lease present: take ownership only to fail-closed — do NOT blind-refresh.
+  const reclaimed = await db
+    .update(integrationAuthorizations)
+    .set({
+      refreshLeaseToken: leaseToken,
+      refreshLeaseExpiresAt: expiresAt,
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.id, auth.id),
+        eq(integrationAuthorizations.pilotId, auth.pilotId),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+        sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`,
+        sql`${integrationAuthorizations.refreshLeaseExpiresAt} <= now()`,
+      ),
+    )
+    .returning({ id: integrationAuthorizations.id });
+  if (reclaimed[0]) return { leaseToken, priorLeaseExpired: true };
+  return null;
 }
 
 async function clearRefreshLease(authId: string, leaseToken: string) {
@@ -1529,15 +883,15 @@ function openAccessIfPresent(
 }
 
 /**
- * Load user access token; refresh with durable lease + generation fencing if expired.
- * A stale refresh failure must never wipe a newer generation (C1).
+ * Load user access token; refresh with durable lease + generation+lease fencing.
+ * A stale/expired lease owner must never wipe a current owner's tokens (R1).
  */
 export async function loadOrRefreshUserAccessToken(
   auth: typeof integrationAuthorizations.$inferSelect,
   fetchImpl?: typeof fetch,
 ): Promise<string> {
   if (!auth.tokenCiphertext || !auth.tokenNonce || !auth.tokenKeyVersion) {
-    await markRequiresReauth(auth.pilotId, auth.id, auth.refreshCiphertext);
+    await markRequiresReauth(auth.pilotId, auth.id, auth.refreshCiphertext, null);
     throw new StudioError("ACCESS_DENIED", "User token absent — REQUIRES_REAUTH", {
       httpStatus: 403,
     });
@@ -1552,7 +906,7 @@ export async function loadOrRefreshUserAccessToken(
     });
   }
   if (!auth.refreshCiphertext || !auth.refreshNonce) {
-    await markRequiresReauth(auth.pilotId, auth.id, null);
+    await markRequiresReauth(auth.pilotId, auth.id, null, null);
     throw new StudioError("ACCESS_DENIED", "Refresh token absent — REQUIRES_REAUTH", {
       httpStatus: 403,
     });
@@ -1562,10 +916,10 @@ export async function loadOrRefreshUserAccessToken(
   }
 
   const expectedRefreshCiphertext = auth.refreshCiphertext;
-  let leaseToken = await claimRefreshLease(auth, expectedRefreshCiphertext);
-  if (!leaseToken) {
-    // Another worker holds/held the lease — reload current generation.
-    await new Promise((r) => setTimeout(r, 40));
+  const claim = await claimRefreshLease(auth, expectedRefreshCiphertext);
+  if (!claim) {
+    // Another worker holds an active lease — reload; do not steal.
+    await OAuthConcurrencyBarrier.before("before:REFRESH_WAIT_ACTIVE");
     const fresh = await reloadAuthorization(auth.id);
     if (!fresh || fresh.status !== "CONNECTED") {
       throw new StudioError("ACCESS_DENIED", "Autorisation plus CONNECTED pendant refresh", {
@@ -1577,17 +931,27 @@ export async function loadOrRefreshUserAccessToken(
       if (access) return access;
       throw new StudioError("CONFLICT", "Génération refresh avancée — token inaccessible");
     }
-    // Same generation still — try claim once more (lease may have expired).
-    leaseToken = await claimRefreshLease(fresh, expectedRefreshCiphertext);
-    if (!leaseToken) {
-      const again = await reloadAuthorization(auth.id);
-      const access = again ? openAccessIfPresent(again) : null;
-      if (access && again && again.refreshCiphertext !== expectedRefreshCiphertext) return access;
-      throw new StudioError("CONFLICT", "Refresh lease concurrent — réessayer");
-    }
-    // Re-read nonce/key for this generation under lease.
-    auth = (await reloadAuthorization(auth.id))!;
+    // Same generation, active lease held by other — bounded conflict (no blind second remote).
+    throw new StudioError("CONFLICT", "Refresh lease concurrent — réessayer");
   }
+
+  // Expired-lease reclaim: prior GitHub call may have rotated — fail-closed, no second remote.
+  if (claim.priorLeaseExpired) {
+    await markRequiresReauth(
+      auth.pilotId,
+      auth.id,
+      expectedRefreshCiphertext,
+      claim.leaseToken,
+    );
+    throw new StudioError(
+      "ACCESS_DENIED",
+      "Refresh ambigu après lease expiré — REQUIRES_REAUTH",
+      { httpStatus: 403 },
+    );
+  }
+
+  auth = (await reloadAuthorization(auth.id)) ?? auth;
+  const leaseToken = claim.leaseToken;
 
   const refreshPlain = openSecret({
     ciphertext: expectedRefreshCiphertext,
@@ -1605,13 +969,16 @@ export async function loadOrRefreshUserAccessToken(
       fetchImpl,
     });
   } catch (e) {
-    // ACCESS_DENIED / ambiguous after network: only degrade THIS generation.
-    if (
-      e instanceof StudioError &&
-      (e.code === "ACCESS_DENIED" || e.code === "DEPENDENCY_UNAVAILABLE")
-    ) {
-      await markRequiresReauth(auth.pilotId, auth.id, expectedRefreshCiphertext);
+    if (e instanceof StudioError && e.code === "ACCESS_DENIED") {
+      // Proven invalid credentials for THIS lease owner + generation only.
+      await markRequiresReauth(
+        auth.pilotId,
+        auth.id,
+        expectedRefreshCiphertext,
+        leaseToken,
+      );
     } else {
+      // Network/ambiguous: do NOT infer revocation — release only if we still own the lease.
       await clearRefreshLease(auth.id, leaseToken);
     }
     throw e;
@@ -1647,7 +1014,7 @@ export async function loadOrRefreshUserAccessToken(
     .returning({ id: integrationAuthorizations.id });
 
   if (!updated[0]) {
-    // Lost CAS — never wipe; reload whatever is current.
+    // Lost CAS (lease expired/stolen or generation moved) — never wipe current owner.
     await clearRefreshLease(auth.id, leaseToken);
     const fresh = await reloadAuthorization(auth.id);
     if (!fresh || fresh.status !== "CONNECTED") {
@@ -1661,19 +1028,24 @@ export async function loadOrRefreshUserAccessToken(
 }
 
 /**
- * Generation-conditional REQUIRES_REAUTH.
- * Must match expected refresh ciphertext (or NULL) so a loser cannot wipe a winner.
+ * REQUIRES_REAUTH only when generation AND lease ownership match (R1 fencing).
+ * expectedLeaseToken null = only allowed when no lease is held (missing-token paths).
  */
 export async function markRequiresReauth(
   pilotId: string,
   authId: string,
   expectedRefreshCiphertext: string | null,
+  expectedLeaseToken: string | null,
 ): Promise<boolean> {
   const now = new Date();
   const genPred =
     expectedRefreshCiphertext == null
       ? sql`${integrationAuthorizations.refreshCiphertext} IS NULL`
       : sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`;
+  const leasePred =
+    expectedLeaseToken == null
+      ? sql`${integrationAuthorizations.refreshLeaseToken} IS NULL`
+      : eq(integrationAuthorizations.refreshLeaseToken, expectedLeaseToken);
   const updated = await db
     .update(integrationAuthorizations)
     .set({
@@ -1694,6 +1066,7 @@ export async function markRequiresReauth(
         eq(integrationAuthorizations.pilotId, pilotId),
         eq(integrationAuthorizations.status, "CONNECTED"),
         genPred,
+        leasePred,
       ),
     )
     .returning({ id: integrationAuthorizations.id });
@@ -1798,4 +1171,1349 @@ export async function markAccessRemoved(pilotId: string) {
   });
   return getIntegrationStatus(pilotId);
 }
+
 ```
+
+### 6.B Sections R1/R2 (extrait ciblé — aussi présentes dans le fichier complet)
+
+#### R2 — catch unique → CONFLICT only
+
+```typescript
+  const authId = newId("iauth");
+  // Short PG transaction: revoke prior CONNECTED + insert + seed — no GitHub I/O inside.
+  // C2: partial UNIQUE (pilot_id, provider) WHERE CONNECTED enforces cross-process exclusivity.
+  try {
+    await OAuthConcurrencyBarrier.before("before:AUTH_INSERT");
+    await db.transaction(async (tx) => {
+      await tx
+        .update(integrationAuthorizations)
+        .set({
+          status: "REVOKED",
+          revokedAt: now,
+          updatedAt: now,
+          tokenCiphertext: null,
+          tokenNonce: null,
+          tokenKeyVersion: null,
+          refreshCiphertext: null,
+          refreshNonce: null,
+          tokenExpiresAt: null,
+          refreshLeaseToken: null,
+          refreshLeaseExpiresAt: null,
+        })
+        .where(
+          and(
+            eq(integrationAuthorizations.pilotId, input.pilotId),
+            eq(integrationAuthorizations.provider, "github"),
+            eq(integrationAuthorizations.status, "CONNECTED"),
+          ),
+        );
+
+      await tx.insert(integrationAuthorizations).values({
+        id: authId,
+        pilotId: input.pilotId,
+        provider: "github",
+        status: "CONNECTED",
+        installationId: installId,
+        accountLogin,
+        githubUserId,
+        ...tokenFields,
+        lastValidatedAt: now,
+        metadataJson: JSON.stringify({
+          mode: storedFlow === "real" ? "REAL_USER_OAUTH" : "SCRIPTED_FIXTURE",
+          flow: storedFlow === "real" ? "github_app_user_oauth" : "scripted",
+          // SCRIPTED fixtures are not GitHub consent proof.
+          consentProven: storedFlow === "real",
+        }),
+        connectedAt: now,
+        createdAt: now,
+        updatedAt: now,
+      });
+      await seedAuthorizedReposInTx(tx, input.pilotId, authId, repoSeed);
+    });
+  } catch (e) {
+    if (isUniqueViolation(e)) {
+      // R2: losing callback must NOT present another callback's CONNECTED as own success.
+      // UI may reload status separately; this attempt returns CONFLICT only.
+      throw new StudioError(
+        "CONFLICT",
+        "Collision CONNECTED — cette tentative n'a pas créé l'autorisation",
+      );
+    }
+    throw e;
+  }
+
+  return getIntegrationStatus(input.pilotId);
+
+```
+
+#### R1 — claim / loadOrRefresh / markRequiresReauth
+
+```typescript
+type RefreshLeaseClaim = {
+  leaseToken: string;
+  /** True when reclaiming an expired lease — prior GitHub call may have had effect. */
+  priorLeaseExpired: boolean;
+};
+
+/**
+ * Claim exclusive refresh lease for one generation (refresh_ciphertext).
+ * Cross-process via PostgreSQL — no long-held txn during GitHub I/O.
+ * Prefers a clean claim (lease NULL); reclaim of expired lease is flagged fail-closed.
+ */
+async function claimRefreshLease(
+  auth: typeof integrationAuthorizations.$inferSelect,
+  expectedRefreshCiphertext: string,
+): Promise<RefreshLeaseClaim | null> {
+  const leaseToken = newId("rfl");
+  const expiresAt = new Date(Date.now() + REFRESH_LEASE_MS);
+  await OAuthConcurrencyBarrier.before("before:REFRESH_CLAIM");
+
+  // Prefer virgin lease slot — safe to call GitHub with this generation.
+  const clean = await db
+    .update(integrationAuthorizations)
+    .set({
+      refreshLeaseToken: leaseToken,
+      refreshLeaseExpiresAt: expiresAt,
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.id, auth.id),
+        eq(integrationAuthorizations.pilotId, auth.pilotId),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+        sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`,
+        sql`${integrationAuthorizations.refreshLeaseToken} IS NULL`,
+        sql`${integrationAuthorizations.refreshLeaseExpiresAt} IS NULL`,
+      ),
+    )
+    .returning({ id: integrationAuthorizations.id });
+  if (clean[0]) return { leaseToken, priorLeaseExpired: false };
+
+  // Expired lease present: take ownership only to fail-closed — do NOT blind-refresh.
+  const reclaimed = await db
+    .update(integrationAuthorizations)
+    .set({
+      refreshLeaseToken: leaseToken,
+      refreshLeaseExpiresAt: expiresAt,
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.id, auth.id),
+        eq(integrationAuthorizations.pilotId, auth.pilotId),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+        sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`,
+        sql`${integrationAuthorizations.refreshLeaseExpiresAt} <= now()`,
+      ),
+    )
+    .returning({ id: integrationAuthorizations.id });
+  if (reclaimed[0]) return { leaseToken, priorLeaseExpired: true };
+  return null;
+}
+
+async function clearRefreshLease(authId: string, leaseToken: string) {
+  await db
+    .update(integrationAuthorizations)
+    .set({
+      refreshLeaseToken: null,
+      refreshLeaseExpiresAt: null,
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.id, authId),
+        eq(integrationAuthorizations.refreshLeaseToken, leaseToken),
+      ),
+    );
+}
+
+function openAccessIfPresent(
+  row: typeof integrationAuthorizations.$inferSelect,
+): string | null {
+  if (!row.tokenCiphertext || !row.tokenNonce || !row.tokenKeyVersion) return null;
+  return openSecret({
+    ciphertext: row.tokenCiphertext,
+    nonce: row.tokenNonce,
+    keyVersion: row.tokenKeyVersion,
+  });
+}
+
+/**
+ * Load user access token; refresh with durable lease + generation+lease fencing.
+ * A stale/expired lease owner must never wipe a current owner's tokens (R1).
+ */
+export async function loadOrRefreshUserAccessToken(
+  auth: typeof integrationAuthorizations.$inferSelect,
+  fetchImpl?: typeof fetch,
+): Promise<string> {
+  if (!auth.tokenCiphertext || !auth.tokenNonce || !auth.tokenKeyVersion) {
+    await markRequiresReauth(auth.pilotId, auth.id, auth.refreshCiphertext, null);
+    throw new StudioError("ACCESS_DENIED", "User token absent — REQUIRES_REAUTH", {
+      httpStatus: 403,
+    });
+  }
+  const now = Date.now();
+  const expiresAt = auth.tokenExpiresAt?.getTime() ?? null;
+  if (expiresAt == null || expiresAt > now + 30_000) {
+    return openSecret({
+      ciphertext: auth.tokenCiphertext,
+      nonce: auth.tokenNonce,
+      keyVersion: auth.tokenKeyVersion,
+    });
+  }
+  if (!auth.refreshCiphertext || !auth.refreshNonce) {
+    await markRequiresReauth(auth.pilotId, auth.id, null, null);
+    throw new StudioError("ACCESS_DENIED", "Refresh token absent — REQUIRES_REAUTH", {
+      httpStatus: 403,
+    });
+  }
+  if (!isGitHubAppUserOauthConfigured()) {
+    throw new StudioError("NOT_CONFIGURED", "Credentials refresh absents", { httpStatus: 503 });
+  }
+
+  const expectedRefreshCiphertext = auth.refreshCiphertext;
+  const claim = await claimRefreshLease(auth, expectedRefreshCiphertext);
+  if (!claim) {
+    // Another worker holds an active lease — reload; do not steal.
+    await OAuthConcurrencyBarrier.before("before:REFRESH_WAIT_ACTIVE");
+    const fresh = await reloadAuthorization(auth.id);
+    if (!fresh || fresh.status !== "CONNECTED") {
+      throw new StudioError("ACCESS_DENIED", "Autorisation plus CONNECTED pendant refresh", {
+        httpStatus: 403,
+      });
+    }
+    if (fresh.refreshCiphertext !== expectedRefreshCiphertext) {
+      const access = openAccessIfPresent(fresh);
+      if (access) return access;
+      throw new StudioError("CONFLICT", "Génération refresh avancée — token inaccessible");
+    }
+    // Same generation, active lease held by other — bounded conflict (no blind second remote).
+    throw new StudioError("CONFLICT", "Refresh lease concurrent — réessayer");
+  }
+
+  // Expired-lease reclaim: prior GitHub call may have rotated — fail-closed, no second remote.
+  if (claim.priorLeaseExpired) {
+    await markRequiresReauth(
+      auth.pilotId,
+      auth.id,
+      expectedRefreshCiphertext,
+      claim.leaseToken,
+    );
+    throw new StudioError(
+      "ACCESS_DENIED",
+      "Refresh ambigu après lease expiré — REQUIRES_REAUTH",
+      { httpStatus: 403 },
+    );
+  }
+
+  auth = (await reloadAuthorization(auth.id)) ?? auth;
+  const leaseToken = claim.leaseToken;
+
+  const refreshPlain = openSecret({
+    ciphertext: expectedRefreshCiphertext,
+    nonce: auth.refreshNonce!,
+    keyVersion: auth.tokenKeyVersion!,
+  });
+  const config = readGitHubAppUserOauthConfig();
+
+  let tokens;
+  try {
+    await OAuthConcurrencyBarrier.before("before:REFRESH_GITHUB");
+    tokens = await refreshUserAccessToken({
+      config,
+      refreshToken: refreshPlain,
+      fetchImpl,
+    });
+  } catch (e) {
+    if (e instanceof StudioError && e.code === "ACCESS_DENIED") {
+      // Proven invalid credentials for THIS lease owner + generation only.
+      await markRequiresReauth(
+        auth.pilotId,
+        auth.id,
+        expectedRefreshCiphertext,
+        leaseToken,
+      );
+    } else {
+      // Network/ambiguous: do NOT infer revocation — release only if we still own the lease.
+      await clearRefreshLease(auth.id, leaseToken);
+    }
+    throw e;
+  }
+
+  const sealedAccess = sealSecret(tokens.accessToken);
+  const sealedRefresh = tokens.refreshToken ? sealSecret(tokens.refreshToken) : null;
+  // Persist only if we still own the lease AND the expected generation.
+  const updated = await db
+    .update(integrationAuthorizations)
+    .set({
+      tokenCiphertext: sealedAccess.ciphertext,
+      tokenNonce: sealedAccess.nonce,
+      tokenKeyVersion: sealedAccess.keyVersion,
+      refreshCiphertext: sealedRefresh?.ciphertext ?? null,
+      refreshNonce: sealedRefresh?.nonce ?? null,
+      tokenExpiresAt: tokens.expiresAt,
+      refreshLeaseToken: null,
+      refreshLeaseExpiresAt: null,
+      lastValidatedAt: new Date(),
+      updatedAt: new Date(),
+      scopesJson: JSON.stringify(tokens.scopes),
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.id, auth.id),
+        eq(integrationAuthorizations.pilotId, auth.pilotId),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+        sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`,
+        eq(integrationAuthorizations.refreshLeaseToken, leaseToken),
+      ),
+    )
+    .returning({ id: integrationAuthorizations.id });
+
+  if (!updated[0]) {
+    // Lost CAS (lease expired/stolen or generation moved) — never wipe current owner.
+    await clearRefreshLease(auth.id, leaseToken);
+    const fresh = await reloadAuthorization(auth.id);
+    if (!fresh || fresh.status !== "CONNECTED") {
+      throw new StudioError("CONFLICT", "Autorisation remplacée pendant refresh");
+    }
+    const access = openAccessIfPresent(fresh);
+    if (access) return access;
+    throw new StudioError("CONFLICT", "Rotation concurrente — token indisponible");
+  }
+  return tokens.accessToken;
+}
+
+/**
+ * REQUIRES_REAUTH only when generation AND lease ownership match (R1 fencing).
+ * expectedLeaseToken null = only allowed when no lease is held (missing-token paths).
+ */
+export async function markRequiresReauth(
+  pilotId: string,
+  authId: string,
+  expectedRefreshCiphertext: string | null,
+  expectedLeaseToken: string | null,
+): Promise<boolean> {
+  const now = new Date();
+  const genPred =
+    expectedRefreshCiphertext == null
+      ? sql`${integrationAuthorizations.refreshCiphertext} IS NULL`
+      : sql`${integrationAuthorizations.refreshCiphertext} = ${expectedRefreshCiphertext}`;
+  const leasePred =
+    expectedLeaseToken == null
+      ? sql`${integrationAuthorizations.refreshLeaseToken} IS NULL`
+      : eq(integrationAuthorizations.refreshLeaseToken, expectedLeaseToken);
+  const updated = await db
+    .update(integrationAuthorizations)
+    .set({
+      status: "REQUIRES_REAUTH",
+      updatedAt: now,
+      tokenCiphertext: null,
+      tokenNonce: null,
+      tokenKeyVersion: null,
+      refreshCiphertext: null,
+      refreshNonce: null,
+      tokenExpiresAt: null,
+      refreshLeaseToken: null,
+      refreshLeaseExpiresAt: null,
+    })
+    .where(
+      and(
+        eq(integrationAuthorizations.id, authId),
+        eq(integrationAuthorizations.pilotId, pilotId),
+        eq(integrationAuthorizations.status, "CONNECTED"),
+        genPred,
+        leasePred,
+      ),
+    )
+    .returning({ id: integrationAuthorizations.id });
+  return Boolean(updated[0]);
+
+```
+
+### 6.C Tests — C1/C2 mis à jour + suite R1/R2 T01–T14
+
+#### C1/C2 (assertions CONFLICT strict)
+
+```typescript
+  it("C2: concurrent completeGitHubAuthorization → at most one CONNECTED", async () => {
+    const { pilotId, sessionId } = await seedProject("git-c2-connected");
+    const s1 = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+    const s2 = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+    OAuthConcurrencyBarrier.clear();
+    OAuthConcurrencyBarrier.arm("before:AUTH_INSERT");
+
+    const p1 = completeGitHubAuthorization({
+      pilotId,
+      state: s1.state,
+      studioSessionId: sessionId,
+    }).catch((e: unknown) => e);
+    const p2 = completeGitHubAuthorization({
+      pilotId,
+      state: s2.state,
+      studioSessionId: sessionId,
+    }).catch((e: unknown) => e);
+
+    await new Promise((r) => setTimeout(r, 30));
+    OAuthConcurrencyBarrier.release("before:AUTH_INSERT");
+    const [a, b] = await Promise.all([p1, p2]);
+    OAuthConcurrencyBarrier.clear();
+
+    const outcomes = [a, b];
+    const ok = outcomes.filter(
+      (o) => o && typeof o === "object" && "status" in o && (o as { status: string }).status === "CONNECTED",
+    );
+    const conflicts = outcomes.filter((o) => o instanceof StudioError && o.code === "CONFLICT");
+    expect(ok.length).toBe(1);
+    expect(conflicts.length).toBe(1);
+
+    const connected = await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+    expect(connected).toHaveLength(1);
+
+    // Direct UNIQUE proof: second CONNECTED insert must fail.
+    await expect(
+      db.insert(integrationAuthorizations).values({
+        id: newId("iauth"),
+        pilotId,
+        provider: "github",
+        status: "CONNECTED",
+        metadataJson: "{}",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    ).rejects.toThrow();
+  });
+
+  it("C1: concurrent refresh — loser ACCESS_DENIED must not wipe winner tokens", async () => {
+    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 3).toString("base64");
+    process.env.GITHUB_APP_CLIENT_ID = "Iv1.test-client";
+    process.env.GITHUB_APP_CLIENT_SECRET = "test-secret";
+    process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
+
+    const { pilotId } = await seedProject("git-c1-refresh");
+    const oldRefresh = sealSecret("refresh-gen-1");
+    const oldAccess = sealSecret("access-gen-1");
+    const authId = newId("iauth");
+    await db.insert(integrationAuthorizations).values({
+      id: authId,
+      pilotId,
+      provider: "github",
+      status: "CONNECTED",
+      installationId: "scripted-install-1",
+      accountLogin: "scripted-user",
+      githubUserId: `gh-${pilotId}`,
+      tokenCiphertext: oldAccess.ciphertext,
+      tokenNonce: oldAccess.nonce,
+      tokenKeyVersion: oldAccess.keyVersion,
+      refreshCiphertext: oldRefresh.ciphertext,
+      refreshNonce: oldRefresh.nonce,
+      tokenExpiresAt: new Date(Date.now() - 60_000),
+      metadataJson: JSON.stringify({ mode: "REAL_USER_OAUTH", flow: "github_app_user_oauth" }),
+      connectedAt: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    let githubCalls = 0;
+    const fetchImpl = (async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (!url.includes("login/oauth/access_token")) {
+        return new Response("{}", { status: 500 });
+      }
+      githubCalls += 1;
+      if (githubCalls === 1) {
+        return new Response(
+          JSON.stringify({
+            access_token: "access-gen-2",
+            refresh_token: "refresh-gen-2",
+            expires_in: 3600,
+            scope: "",
+          }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        );
+      }
+      return new Response(JSON.stringify({ error: "bad_refresh_token" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }) as unknown as typeof fetch;
+
+    OAuthConcurrencyBarrier.clear();
+    OAuthConcurrencyBarrier.arm("before:REFRESH_CLAIM");
+
+    const row = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+
+    const p1 = loadOrRefreshUserAccessToken(row, fetchImpl).catch((e: unknown) => e);
+    const p2 = loadOrRefreshUserAccessToken({ ...row }, fetchImpl).catch((e: unknown) => e);
+
+    await new Promise((r) => setTimeout(r, 30));
+    OAuthConcurrencyBarrier.release("before:REFRESH_CLAIM");
+
+    const [r1, r2] = await Promise.all([p1, p2]);
+    OAuthConcurrencyBarrier.clear();
+
+    const winners = [r1, r2].filter((x) => typeof x === "string");
+    const losers = [r1, r2].filter((x) => x instanceof StudioError && x.code === "CONFLICT");
+    expect(winners).toEqual(["access-gen-2"]);
+    expect(losers).toHaveLength(1);
+    expect(githubCalls).toBe(1);
+
+    const after = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(after.status).toBe("CONNECTED");
+    expect(after.refreshCiphertext).not.toBe(oldRefresh.ciphertext);
+    expect(after.tokenCiphertext).toBeTruthy();
+
+    const wiped = await markRequiresReauth(pilotId, authId, oldRefresh.ciphertext, null);
+    expect(wiped).toBe(false);
+    const still = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(still.status).toBe("CONNECTED");
+    expect(still.tokenCiphertext).toBeTruthy();
+
+    delete process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY;
+    delete process.env.GITHUB_APP_CLIENT_ID;
+    delete process.env.GITHUB_APP_CLIENT_SECRET;
+    delete process.env.GITHUB_APP_CALLBACK_URL;
+  });
+
+  it("C1: markRequiresReauth only when generation matches", async () => {
+    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 4).toString("base64");
+    const { pilotId } = await seedProject("git-c1-gen");
+    const genA = sealSecret("refresh-a");
+    const genB = sealSecret("refresh-b");
+    const access = sealSecret("access-b");
+    const authId = newId("iauth");
+    await db.insert(integrationAuthorizations).values({
+      id: authId,
+      pilotId,
+      provider: "github",
+      status: "CONNECTED",
+      tokenCiphertext: access.ciphertext,
+      tokenNonce: access.nonce,
+      tokenKeyVersion: access.keyVersion,
+      refreshCiphertext: genB.ciphertext,
+      refreshNonce: genB.nonce,
+      tokenExpiresAt: new Date(Date.now() + 3600_000),
+      metadataJson: "{}",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    expect(await markRequiresReauth(pilotId, authId, genA.ciphertext, null)).toBe(false);
+    const still = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(still.status).toBe("CONNECTED");
+    expect(await markRequiresReauth(pilotId, authId, genB.ciphertext, null)).toBe(true);
+    const gone = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(gone.status).toBe("REQUIRES_REAUTH");
+    expect(gone.tokenCiphertext).toBeNull();
+    delete process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY;
+  });
+});
+
+describe("ML4 R1/R2 final concurrency safety closure (SCRIPTED/DET)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+
+```
+
+#### Describe `ML4 R1/R2 final concurrency safety closure`
+
+```typescript
+describe("ML4 R1/R2 final concurrency safety closure (SCRIPTED/DET)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_ALLOW_SCRIPTED_GITHUB = "1";
+  });
+
+  function armOauthEnv() {
+    process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY = Buffer.alloc(32, 9).toString("base64");
+    process.env.GITHUB_APP_CLIENT_ID = "Iv1.test-client";
+    process.env.GITHUB_APP_CLIENT_SECRET = "test-secret";
+    process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
+  }
+  function clearOauthEnv() {
+    delete process.env.INTEGRATION_TOKEN_ENCRYPTION_KEY;
+    delete process.env.GITHUB_APP_CLIENT_ID;
+    delete process.env.GITHUB_APP_CLIENT_SECRET;
+    delete process.env.GITHUB_APP_CALLBACK_URL;
+  }
+
+  async function seedExpiredAuth(label: string, refreshPlain = "refresh-gen-1") {
+    const { pilotId } = await seedProject(label);
+    const refresh = sealSecret(refreshPlain);
+    const access = sealSecret("access-gen-1");
+    const authId = newId("iauth");
+    await db.insert(integrationAuthorizations).values({
+      id: authId,
+      pilotId,
+      provider: "github",
+      status: "CONNECTED",
+      installationId: "scripted-install-1",
+      accountLogin: "scripted-user",
+      githubUserId: `gh-${pilotId}`,
+      tokenCiphertext: access.ciphertext,
+      tokenNonce: access.nonce,
+      tokenKeyVersion: access.keyVersion,
+      refreshCiphertext: refresh.ciphertext,
+      refreshNonce: refresh.nonce,
+      tokenExpiresAt: new Date(Date.now() - 60_000),
+      metadataJson: JSON.stringify({ mode: "REAL_USER_OAUTH", flow: "github_app_user_oauth" }),
+      connectedAt: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    const row = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    return { pilotId, authId, row, refresh, access };
+  }
+
+  // T01 — valid owner + active lease → rotation persists
+  it("T01: owner with active lease rotates and persists", async () => {
+    armOauthEnv();
+    const { authId, row, refresh } = await seedExpiredAuth("r1-t01");
+    const fetchImpl = (async () =>
+      new Response(
+        JSON.stringify({
+          access_token: "access-gen-2",
+          refresh_token: "refresh-gen-2",
+          expires_in: 3600,
+          scope: "",
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      )) as unknown as typeof fetch;
+
+    const token = await loadOrRefreshUserAccessToken(row, fetchImpl);
+    expect(token).toBe("access-gen-2");
+    const after = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(after.status).toBe("CONNECTED");
+    expect(after.refreshCiphertext).not.toBe(refresh.ciphertext);
+    expect(after.refreshLeaseToken).toBeNull();
+    clearOauthEnv();
+  });
+
+  // T02 — A lost lease to B: A cannot mark REQUIRES_REAUTH
+  it("T02: stale lease owner cannot mark REQUIRES_REAUTH", async () => {
+    armOauthEnv();
+    const { pilotId, authId, refresh } = await seedExpiredAuth("r1-t02");
+    await db
+      .update(integrationAuthorizations)
+      .set({
+        refreshLeaseToken: "rfl_owner_B",
+        refreshLeaseExpiresAt: new Date(Date.now() + 60_000),
+        updatedAt: new Date(),
+      })
+      .where(eq(integrationAuthorizations.id, authId));
+
+    expect(await markRequiresReauth(pilotId, authId, refresh.ciphertext, "rfl_stale_A")).toBe(false);
+    const still = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(still.status).toBe("CONNECTED");
+    expect(still.refreshLeaseToken).toBe("rfl_owner_B");
+    expect(still.tokenCiphertext).toBeTruthy();
+    expect(still.refreshCiphertext).toBe(refresh.ciphertext);
+    clearOauthEnv();
+  });
+
+  // T03 — A ACCESS_DENIED after lease loss: B tokens+lease preserved
+  it("T03: ACCESS_DENIED after lease loss preserves B owner", async () => {
+    armOauthEnv();
+    const { pilotId, authId, row, refresh } = await seedExpiredAuth("r1-t03");
+    OAuthConcurrencyBarrier.clear();
+    OAuthConcurrencyBarrier.arm("before:REFRESH_GITHUB");
+
+    const pA = loadOrRefreshUserAccessToken(row, (async () => {
+      await OAuthConcurrencyBarrier.before("before:REFRESH_GITHUB");
+      return new Response(JSON.stringify({ error: "bad_refresh_token" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }) as unknown as typeof fetch).catch((e: unknown) => e);
+
+    await new Promise((r) => setTimeout(r, 40));
+    // Steal lease while A is in-flight (simulates B reclaim after A expiry).
+    await db
+      .update(integrationAuthorizations)
+      .set({
+        refreshLeaseToken: "rfl_owner_B",
+        refreshLeaseExpiresAt: new Date(Date.now() + 60_000),
+        updatedAt: new Date(),
+      })
+      .where(eq(integrationAuthorizations.id, authId));
+
+    OAuthConcurrencyBarrier.release("before:REFRESH_GITHUB");
+    const err = await pA;
+    OAuthConcurrencyBarrier.clear();
+    expect(err).toBeInstanceOf(StudioError);
+    expect((err as StudioError).code).toBe("ACCESS_DENIED");
+
+    // Explicit stale mark (generation match, wrong lease) must not wipe B.
+    expect(await markRequiresReauth(pilotId, authId, refresh.ciphertext, "rfl_stale_A")).toBe(false);
+    const still = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(still.status).toBe("CONNECTED");
+    expect(still.refreshLeaseToken).toBe("rfl_owner_B");
+    expect(still.tokenCiphertext).toBeTruthy();
+    expect(still.refreshCiphertext).toBe(refresh.ciphertext);
+    clearOauthEnv();
+  });
+
+  // T04 — DEPENDENCY_UNAVAILABLE: no inferred revocation
+  it("T04: DEPENDENCY_UNAVAILABLE does not revoke without proof", async () => {
+    armOauthEnv();
+    const { authId, row, refresh } = await seedExpiredAuth("r1-t04");
+    const err = await loadOrRefreshUserAccessToken(row, (async () => {
+      throw new StudioError("DEPENDENCY_UNAVAILABLE", "GitHub user OAuth TIMEOUT/échec", {
+        httpStatus: 503,
+      });
+    }) as unknown as typeof fetch).catch((e: unknown) => e);
+
+    expect(err).toBeInstanceOf(StudioError);
+    expect((err as StudioError).code).toBe("DEPENDENCY_UNAVAILABLE");
+    const still = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(still.status).toBe("CONNECTED");
+    expect(still.refreshCiphertext).toBe(refresh.ciphertext);
+    expect(still.tokenCiphertext).toBeTruthy();
+    expect(still.refreshLeaseToken).toBeNull();
+    clearOauthEnv();
+  });
+
+  // T05 — positive response after lease replaced: no CAS by A
+  it("T05: stale owner positive refresh cannot CAS after lease replace", async () => {
+    armOauthEnv();
+    const { authId, row, refresh } = await seedExpiredAuth("r1-t05");
+    OAuthConcurrencyBarrier.clear();
+    OAuthConcurrencyBarrier.arm("before:REFRESH_GITHUB");
+
+    const pA = loadOrRefreshUserAccessToken(row, (async () => {
+      await OAuthConcurrencyBarrier.before("before:REFRESH_GITHUB");
+      return new Response(
+        JSON.stringify({
+          access_token: "access-stale",
+          refresh_token: "refresh-stale",
+          expires_in: 3600,
+          scope: "",
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      );
+    }) as unknown as typeof fetch).catch((e: unknown) => e);
+
+    await new Promise((r) => setTimeout(r, 40));
+    const ownerBAccess = sealSecret("access-owner-B");
+    const ownerBRefresh = sealSecret("refresh-owner-B");
+    await db
+      .update(integrationAuthorizations)
+      .set({
+        refreshLeaseToken: "rfl_owner_B",
+        refreshLeaseExpiresAt: new Date(Date.now() + 60_000),
+        tokenCiphertext: ownerBAccess.ciphertext,
+        tokenNonce: ownerBAccess.nonce,
+        tokenKeyVersion: ownerBAccess.keyVersion,
+        refreshCiphertext: ownerBRefresh.ciphertext,
+        refreshNonce: ownerBRefresh.nonce,
+        tokenExpiresAt: new Date(Date.now() + 3600_000),
+        updatedAt: new Date(),
+      })
+      .where(eq(integrationAuthorizations.id, authId));
+
+    OAuthConcurrencyBarrier.release("before:REFRESH_GITHUB");
+    const result = await pA;
+    OAuthConcurrencyBarrier.clear();
+
+    // Generation moved — openAccessIfPresent returns B's access OR CONFLICT.
+    if (typeof result === "string") {
+      expect(result).toBe("access-owner-B");
+    } else {
+      expect(result).toBeInstanceOf(StudioError);
+      expect((result as StudioError).code).toBe("CONFLICT");
+    }
+    const still = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(still.status).toBe("CONNECTED");
+    expect(still.refreshCiphertext).toBe(ownerBRefresh.ciphertext);
+    expect(still.refreshCiphertext).not.toBe(refresh.ciphertext);
+    expect(still.refreshLeaseToken).toBe("rfl_owner_B");
+    clearOauthEnv();
+  });
+
+  // T06 — G2 persisted: G1 error cannot wipe G2
+  it("T06: G1 error cannot wipe persisted G2", async () => {
+    armOauthEnv();
+    const { pilotId, authId } = await seedExpiredAuth("r1-t06");
+    const g2 = sealSecret("refresh-gen-2");
+    const a2 = sealSecret("access-gen-2");
+    await db
+      .update(integrationAuthorizations)
+      .set({
+        refreshCiphertext: g2.ciphertext,
+        refreshNonce: g2.nonce,
+        tokenCiphertext: a2.ciphertext,
+        tokenNonce: a2.nonce,
+        tokenKeyVersion: a2.keyVersion,
+        tokenExpiresAt: new Date(Date.now() + 3600_000),
+        refreshLeaseToken: null,
+        refreshLeaseExpiresAt: null,
+        updatedAt: new Date(),
+      })
+      .where(eq(integrationAuthorizations.id, authId));
+
+    const g1 = sealSecret("refresh-gen-1");
+    expect(await markRequiresReauth(pilotId, authId, g1.ciphertext, null)).toBe(false);
+    expect(await markRequiresReauth(pilotId, authId, g1.ciphertext, "rfl_any")).toBe(false);
+    const still = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(still.status).toBe("CONNECTED");
+    expect(still.refreshCiphertext).toBe(g2.ciphertext);
+    expect(still.tokenCiphertext).toBeTruthy();
+    clearOauthEnv();
+  });
+
+  // T07 — disconnect during refresh: no resurrection
+  it("T07: disconnect during refresh prevents resurrection", async () => {
+    armOauthEnv();
+    const { pilotId, authId, row } = await seedExpiredAuth("r1-t07");
+    OAuthConcurrencyBarrier.clear();
+    OAuthConcurrencyBarrier.arm("before:REFRESH_GITHUB");
+
+    const pA = loadOrRefreshUserAccessToken(row, (async () => {
+      await OAuthConcurrencyBarrier.before("before:REFRESH_GITHUB");
+      return new Response(
+        JSON.stringify({
+          access_token: "access-zombie",
+          refresh_token: "refresh-zombie",
+          expires_in: 3600,
+          scope: "",
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      );
+    }) as unknown as typeof fetch).catch((e: unknown) => e);
+
+    await new Promise((r) => setTimeout(r, 40));
+    await disconnectIntegration(pilotId);
+    OAuthConcurrencyBarrier.release("before:REFRESH_GITHUB");
+    const err = await pA;
+    OAuthConcurrencyBarrier.clear();
+    expect(err).toBeInstanceOf(StudioError);
+    expect((err as StudioError).code).toBe("CONFLICT");
+
+    const rows = await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(eq(integrationAuthorizations.id, authId));
+    expect(rows[0]!.status).toBe("REVOKED");
+    expect(rows[0]!.tokenCiphertext).toBeNull();
+    const connected = await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+    expect(connected).toHaveLength(0);
+    clearOauthEnv();
+  });
+
+  // T08 — expired lease without certain network result: fail-closed, no second remote
+  it("T08: expired lease reclaim is fail-closed without second GitHub refresh", async () => {
+    armOauthEnv();
+    const { authId, row } = await seedExpiredAuth("r1-t08");
+    await db
+      .update(integrationAuthorizations)
+      .set({
+        refreshLeaseToken: "rfl_expired_prior",
+        refreshLeaseExpiresAt: new Date(Date.now() - 5_000),
+        updatedAt: new Date(),
+      })
+      .where(eq(integrationAuthorizations.id, authId));
+
+    let githubCalls = 0;
+    const err = await loadOrRefreshUserAccessToken(row, (async () => {
+      githubCalls += 1;
+      return new Response(
+        JSON.stringify({ access_token: "should-not", refresh_token: "x", expires_in: 3600 }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      );
+    }) as unknown as typeof fetch).catch((e: unknown) => e);
+
+    expect(githubCalls).toBe(0);
+    expect(err).toBeInstanceOf(StudioError);
+    expect((err as StudioError).code).toBe("ACCESS_DENIED");
+    const after = (
+      await db.select().from(integrationAuthorizations).where(eq(integrationAuthorizations.id, authId)).limit(1)
+    )[0]!;
+    expect(after.status).toBe("REQUIRES_REAUTH");
+    expect(after.tokenCiphertext).toBeNull();
+    expect(after.refreshLeaseToken).toBeNull();
+    clearOauthEnv();
+  });
+
+  // T09–T11 — concurrent independent callbacks
+  it("T09-T11: concurrent callbacks — one CONNECTED, loser CONFLICT, winner exact", async () => {
+    const { pilotId, sessionId } = await seedProject("r2-t09");
+    const s1 = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+    const s2 = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+    OAuthConcurrencyBarrier.clear();
+    OAuthConcurrencyBarrier.arm("before:AUTH_INSERT");
+
+    const p1 = completeGitHubAuthorization({
+      pilotId,
+      state: s1.state,
+      studioSessionId: sessionId,
+    }).catch((e: unknown) => e);
+    const p2 = completeGitHubAuthorization({
+      pilotId,
+      state: s2.state,
+      studioSessionId: sessionId,
+    }).catch((e: unknown) => e);
+
+    await new Promise((r) => setTimeout(r, 30));
+    OAuthConcurrencyBarrier.release("before:AUTH_INSERT");
+    const [a, b] = await Promise.all([p1, p2]);
+    OAuthConcurrencyBarrier.clear();
+
+    const connectedOutcomes = [a, b].filter(
+      (o): o is Awaited<ReturnType<typeof getIntegrationStatus>> =>
+        !!o && typeof o === "object" && "status" in o && (o as { status: string }).status === "CONNECTED",
+    );
+    const conflicts = [a, b].filter((o) => o instanceof StudioError && o.code === "CONFLICT");
+    expect(connectedOutcomes).toHaveLength(1);
+    expect(conflicts).toHaveLength(1);
+
+    const dbConnected = await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+    expect(dbConnected).toHaveLength(1);
+    expect(connectedOutcomes[0]!.authorizationId).toBe(dbConnected[0]!.id);
+    expect(connectedOutcomes[0]!.status).toBe("CONNECTED");
+
+    // Loser must not look like CONNECTED success.
+    const loser = conflicts[0] as StudioError;
+    expect(loser.message).toMatch(/Collision CONNECTED/);
+  });
+
+  // T12 — same state replay: no second authorization
+  it("T12: replaying same OAuth state does not create second authorization", async () => {
+    const { pilotId, sessionId } = await seedProject("r2-t12");
+    const { state } = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+    const first = await completeGitHubAuthorization({
+      pilotId,
+      state,
+      studioSessionId: sessionId,
+    });
+    expect(first.status).toBe("CONNECTED");
+    const authId = first.authorizationId;
+
+    await expect(
+      completeGitHubAuthorization({
+        pilotId,
+        state,
+        studioSessionId: sessionId,
+      }),
+    ).rejects.toMatchObject({ code: "CONFLICT" });
+
+    const connected = await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+    expect(connected).toHaveLength(1);
+    expect(connected[0]!.id).toBe(authId);
+  });
+
+  // T13 — different pilots: isolation
+  it("T13: different pilots remain isolated under concurrent callbacks", async () => {
+    const a = await seedProject("r2-t13-a");
+    const b = await seedProject("r2-t13-b");
+    const sa = await startGitHubAuthorization(a.pilotId, "/settings/integrations", a.sessionId);
+    const sb = await startGitHubAuthorization(b.pilotId, "/settings/integrations", b.sessionId);
+    OAuthConcurrencyBarrier.clear();
+    OAuthConcurrencyBarrier.arm("before:AUTH_INSERT");
+
+    const p1 = completeGitHubAuthorization({
+      pilotId: a.pilotId,
+      state: sa.state,
+      studioSessionId: a.sessionId,
+    });
+    const p2 = completeGitHubAuthorization({
+      pilotId: b.pilotId,
+      state: sb.state,
+      studioSessionId: b.sessionId,
+    });
+    await new Promise((r) => setTimeout(r, 30));
+    OAuthConcurrencyBarrier.release("before:AUTH_INSERT");
+    const [ra, rb] = await Promise.all([p1, p2]);
+    OAuthConcurrencyBarrier.clear();
+
+    expect(ra.status).toBe("CONNECTED");
+    expect(rb.status).toBe("CONNECTED");
+    expect(ra.authorizationId).not.toBe(rb.authorizationId);
+
+    const aRows = await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, a.pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+    const bRows = await db
+      .select()
+      .from(integrationAuthorizations)
+      .where(
+        and(
+          eq(integrationAuthorizations.pilotId, b.pilotId),
+          eq(integrationAuthorizations.status, "CONNECTED"),
+        ),
+      );
+    expect(aRows).toHaveLength(1);
+    expect(bRows).toHaveLength(1);
+  });
+
+  // T14 — UNIQUE constraint still effective
+  it("T14: PostgreSQL UNIQUE CONNECTED constraint remains effective", async () => {
+    const { pilotId, sessionId } = await seedProject("r2-t14");
+    const { state } = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+    await completeGitHubAuthorization({ pilotId, state, studioSessionId: sessionId });
+    await expect(
+      db.insert(integrationAuthorizations).values({
+        id: newId("iauth"),
+        pilotId,
+        provider: "github",
+        status: "CONNECTED",
+        metadataJson: "{}",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    ).rejects.toThrow();
+  });
+});
+
+
+```
+
+### 6.D Migration 012 (inchangée — référence)
+
+```sql
+-- ML4 D9 concurrency safety (C1 refresh lease + C2 one CONNECTED).
+-- ADDITIVE / non-destructive. DEV + e2e only.
+-- Preflight required: zero duplicate (pilot_id, provider) CONNECTED rows.
+
+ALTER TABLE integration_authorizations
+  ADD COLUMN IF NOT EXISTS refresh_lease_token text,
+  ADD COLUMN IF NOT EXISTS refresh_lease_expires_at timestamptz;
+
+-- At most one CONNECTED authorization per Pilot × provider (cross-process).
+CREATE UNIQUE INDEX IF NOT EXISTS integration_authorizations_one_connected_uidx
+  ON integration_authorizations (pilot_id, provider)
+  WHERE status = 'CONNECTED';
+
+```
+
+### 6.E Barrier (inchangé)
+
+```typescript
+/**
+ * Deterministic barriers for D9 OAuth concurrency tests (SCRIPTED/DET only).
+ * Not a general job/lock engine — test harness only.
+ */
+type Waiter = { resolve: () => void; promise: Promise<void> };
+
+function makeWaiter(): Waiter {
+  let resolve!: () => void;
+  const promise = new Promise<void>((r) => {
+    resolve = r;
+  });
+  return { resolve, promise };
+}
+
+export const OAuthConcurrencyBarrier = {
+  enabled: false,
+  gates: new Map<string, Waiter>(),
+
+  clear() {
+    this.enabled = false;
+    for (const w of this.gates.values()) w.resolve();
+    this.gates.clear();
+  },
+
+  arm(name: string) {
+    this.enabled = true;
+    this.gates.set(name, makeWaiter());
+  },
+
+  async before(name: string) {
+    if (!this.enabled) return;
+    const w = this.gates.get(name);
+    if (w) await w.promise;
+  },
+
+  release(name: string) {
+    const w = this.gates.get(name);
+    if (w) {
+      w.resolve();
+      this.gates.delete(name);
+    }
+  },
+};
+
+```
+
+### 6.F Docs AS-IMPLEMENTED
+
+#### specification-technique.md (bandeau)
+
+```markdown
+# R5 — Spécification technique candidate : collaboration Git et intégrations
+
+> **AS-IMPLEMENTED LOCAL + FINAL CONCURRENCY SAFETY CLOSURE R1/R2 (2026-11-08)** — `feat/next-git-collaboration-20261108` / baseline `c658f590`.
+> Domaines : D9/D7/D8 ; migrations `008`–`012` inchangées (aucune migration nouvelle).
+> **R1 refresh fencing** : `markRequiresReauth(authId, gen, leaseToken)` — CAS atomique génération **et** propriété du bail ; reclaim de lease expiré → fail-closed REQUIRES_REAUTH **sans** 2e refresh distant ; `DEPENDENCY_UNAVAILABLE` ne révoque pas.
+> **R2 callback** : collision UNIQUE → `CONFLICT` strict (jamais le CONNECTED d'un autre callback comme succès propre).
+> SCRIPTED guard / permissions fail-closed / session-bound state / D7 lease / Option A : préservés.
+> REAL user interactive **NOT PROVEN**. Mutations REAL **HARD-BLOCKED**. DET scope only.
+
+
+**Statut :** `DOCUMENTED — DRAFT ARCHITECTURE / NOT VALIDATED SPEC / NOT IMPLEMENTED`
+**Nature :** préparation technique de ML4 sous la source de contrat de macro-lot R5 existante ; **ne remplace pas** les R2/ADR validés, la phase Figma ou le prompt Cursor SFIA v2.6.
+```
+
+#### matrice-acceptation.md §16
+
+```markdown
+## 16. Requalification FINAL SAFETY R1/R2 (2026-11-08)
+
+GO Morris CRITICAL. Handoff entrée `2a9eb05a…`.
+Plafond : **DETERMINISTIC SCOPE ONLY**. Aucune migration.
+
+| Item | Statut | Preuve |
+|---|---|---|
+| R1 lease+gen fencing | RESOLVED (DET) | `markRequiresReauth(..., expectedLeaseToken)` ; T02/T03/T06 |
+| R1 ambiguous expiry | RESOLVED (DET) | reclaim expiré → REQUIRES_REAUTH sans GitHub ; T08 |
+| R1 DEPENDENCY_UNAVAILABLE | RESOLVED (DET) | clear lease only ; CONNECTED conservé ; T04 |
+| R1 stale positive CAS | RESOLVED (DET) | T05 ; disconnect T07 |
+| R2 callback CONFLICT | RESOLVED (DET) | unique catch → CONFLICT only ; T09–T11 |
+| R2 replay / isolation / UNIQUE | RESOLVED (DET) | T12–T14 |
+| Option A / 009–012 | PRESERVED | schéma inchangé |
+
+Commandes (web/, ~21:57–21:59 CET) :
+- tsc PASS ; unit **167** ; integration **205** ; build PASS ; Playwright **13/13**
+
+```
+
+#### delivery-history entry
+
+```markdown
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-AUTH-FINAL-SAFETY-CLOSURE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 ~21:59 CET |
+| Macro-capacité | R5 / ML4 — GitHub Auth FINAL CONCURRENCY SAFETY CLOSURE (R1+R2) |
+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO CORRECTION EXPLICITE CRITICAL |
+| Handoff entrée | `2a9eb05a…` |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| R1 | Fencing refresh : CAS génération **+** `refreshLeaseToken` ; reclaim lease expiré fail-closed sans 2e refresh distant ; ACCESS_DENIED seulement avec propriété du bail ; DEPENDENCY_UNAVAILABLE → clear lease only |
+| R2 | Callback concurrent : unique violation → CONFLICT strict (pas de CONNECTED emprunté) |
+| Migration | **Aucune** — 009–012 / Option A préservés |
+| Validations | tsc PASS ; unit **167** ; integration **205** ; build PASS ; Playwright **13/13** |
+| Fake/Real | DET only ; REAL interactive NOT PROVEN ; mutations HARD-BLOCKED |
+| Verdict candidat | `ML4 GITHUB AUTH FINAL SAFETY CLOSURE — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+```
+
+## 9. R1 avant / après — CAS SQL exact
+
+### Avant (réserve handoff `2a9eb05a`)
+- `markRequiresReauth(pilotId, authId, expectedRefreshCiphertext)` comparait **uniquement** la génération.
+- Un propriétaire de bail périmé (L1) recevant ACCESS_DENIED pouvait donc passer en REQUIRES_REAUTH tant que G1 était encore persisté, **même si B détenait L2**.
+- Reclaim de lease expiré autorisait un **deuxième** refresh distant sur la même génération ambiguë.
+
+### Après
+- `markRequiresReauth(pilotId, authId, expectedRefreshCiphertext, expectedLeaseToken)` :
+  - prédicat génération + prédicat lease (`IS NULL` si token null, sinon `refresh_lease_token = expected`)
+  - + `id` + `pilot_id` + `status='CONNECTED'`
+- Mutations post-refresh (ACCESS_DENIED → reauth ; persist rotation) **toutes** fencées par lease ownership.
+- `claimRefreshLease` : (1) claim propre `lease IS NULL AND expires IS NULL` → `priorLeaseExpired=false` ; (2) reclaim `expires_at <= now()` → `priorLeaseExpired=true` → **fail-closed REQUIRES_REAUTH sans appel GitHub**.
+- Lease actif détenu par autrui → `CONFLICT` borné (pas de vol).
+
+### CAS persist rotation (inchangé dans l'esprit, désormais derrière claim non-expiré)
+
+```
+UPDATE … SET tokens…, refresh_lease_*=NULL
+WHERE id AND pilot_id AND status=CONNECTED
+  AND refresh_ciphertext = expectedGen
+  AND refresh_lease_token = leaseToken
+```
+
+### CAS markRequiresReauth
+
+```
+UPDATE … SET status=REQUIRES_REAUTH, wipe tokens/lease
+WHERE id AND pilot_id AND status=CONNECTED
+  AND refresh_ciphertext = expectedGen   -- ou IS NULL
+  AND refresh_lease_token = expectedLease -- ou IS NULL
+```
+
+## 10. R1 timeout / ambiguïté / expiry
+
+| Cas | Comportement |
+|---|---|
+| A. Invalidation prouvée (`ACCESS_DENIED`) | `markRequiresReauth(gen, lease)` — seulement si bail encore détenu |
+| B. Réseau / `DEPENDENCY_UNAVAILABLE` | `clearRefreshLease(own lease)` uniquement — **pas** de révocation déduite |
+| C. Génération remplacée par winner | CAS persist échoue ; reload ; éventuel openAccess |
+| D. Bail expiré sans résultat fiable | reclaim → fail-closed REQUIRES_REAUTH, **0** appel GitHub |
+| E. Déconnexion locale pendant refresh | CAS échoue (status≠CONNECTED) → CONFLICT ; pas de résurrection |
+
+Aucune txn SQL pendant I/O réseau. Aucun log de token/ciphertext. Boucle refresh bornée (un claim propre max ; sinon CONFLICT).
+
+## 11. R2 avant / après — résultat callback
+
+### Avant
+`catch(isUniqueViolation)` pouvait `return getIntegrationStatus()` du gagnant → CONNECTED trompeur pour le callback perdant.
+
+### Après
+```
+catch unique → throw StudioError CONFLICT
+  "Collision CONNECTED — cette tentative n'a pas créé l'autorisation"
+```
+UI peut recharger le status séparément. UNIQUE partiel + txn revoke/insert/seed **conservés**. Pas de 2e table. Pas d'idempotence sans identité d'opération stable (rejeu state → CONFLICT « déjà consommé »).
+
+## 12. Tests concurrentiels (setup / barrières / assertions)
+
+Corpus : `git-collaboration.pg.test.ts` — PostgreSQL réel DEV ; `OAuthConcurrencyBarrier` ; pas d'OAuth GitHub réel.
+
+| ID | Assertion discriminante |
+|---|---|
+| T01 | owner lease actif → rotation persistée |
+| T02 | lease B actif → mark(A) false ; tokens B préservés |
+| T03 | A ACCESS_DENIED après vol de lease → B préservé |
+| T04 | DEPENDENCY_UNAVAILABLE → CONNECTED + tokens ; lease cleared |
+| T05 | réponse positive A après replace lease/gen → pas de CAS A |
+| T06 | G2 persisté → erreur G1 ne wipe pas |
+| T07 | disconnect pendant refresh → CONFLICT ; pas CONNECTED |
+| T08 | lease expiré → REQUIRES_REAUTH ; githubCalls=0 |
+| T09–T11 | 1 CONNECTED + 1 CONFLICT ; authorizationId exact |
+| T12 | rejeu state → CONFLICT ; 1 CONNECTED |
+| T13 | pilotes distincts isolés |
+| T14 | UNIQUE insert 2e CONNECTED rejected |
+| C1/C2 | non-régression renforcée (CONFLICT strict, 1 GitHub call) |
+
+## 13. Résultats PostgreSQL réels
+
+Filtres discriminants R1/R2|C1|C2 : **PASS** (25 tests ciblés dont suite R1/R2).
+Suite integration complète : **205 PASS** / 12 files — Start at 21:57:31 CET — Duration 17.20s.
+
+Preuves explicites observées :
+- propriétaire périmé incapable de modifier tokens (T02/T03/T05/T06)
+- propriétaire courant préservé
+- aucun refresh distant doublé sur génération ambiguë (T08 githubCalls=0 ; C1 githubCalls=1)
+- au plus un CONNECTED (T09/T14/C2)
+- callback perdant ≠ succès (T10 CONFLICT)
+- D7/D8 non-régression dans le même fichier (tests antérieurs rejoués)
+
+## 14. Suites globales et horodatages
+
+| Suite | Résultat | Horodatage CET |
+|---|---|---|
+| `npx tsc --noEmit` | PASS | ~21:57 |
+| `npm run test:unit` | **167 PASS** / 30 files | 21:57:30 (5.43s) |
+| `npm run test:integration` | **205 PASS** / 12 files | 21:57:31 (17.20s) |
+| `npm run build` | PASS (Next 15.5.29) | 21:58:06 |
+| `npx playwright test` | **13/13 PASS** | 21:58:25 (~1.1m) |
+
+Baseline d'entrée (167/193/13) **non réutilisée** comme preuve — rejouée. Integration : 193→**205** (+T01–T14).
+
+## 15. Sécurité et absence de secrets
+
+- Aucun token / ciphertext / Client Secret / PEM dans ce pack.
+- Env keys cités sans valeurs : `GITHUB_APP_*`, `INTEGRATION_TOKEN_ENCRYPTION_KEY`, `DATABASE_URL` (DSN local non recopié).
+- SCRIPTED strictement borné DEV/test (`STUDIO_LANE=DEV` + `STUDIO_ALLOW_SCRIPTED_GITHUB`).
+- AES-256-GCM inchangé ; PKCE S256 / state one-shot / returnPath allowlist / permissions fail-closed préservés.
+- App DEV ids publics seulement : App `sfia-studio-next-dev` / App ID `5670639` / Installation `179935689` / sandbox `mcleland147/chantiers360` — **pas** de preuve REAL user OAuth interactive.
+
+## 16. Invariants D7/D8 et Option A
+
+- D8 Option A : trois refs historiques SCRIPTED détachées **conservées** (aucune remédiation DB).
+- Claim/lease actif D7 + CAS terminal : non touchés ce cycle ; rejoués via suite integration.
+- Provenance PR D7 : préservée.
+- Mutations REAL : HARD-BLOCKED.
+- Installation GitHub REAL READ : claim antérieur inchangé (pas d'extension).
+
+## 17. ENV-01 / versioning
+
+- Source : `environnements-recette-et-promotions.md` — DEV autorisé ; E2E isolé autorisé ; RECETTE aucune modif ; STABLE NOT AVAILABLE.
+- Versioning : `product-versioning.md` — classe **NO RELEASE** ; technique `0.0.0-dev` ; pas de candidat RECETTE ; pas de publication produit.
+- Correctif tracé dans `construction/delivery-history.md`.
+
+## 18. Fake/Real Qualification
+
+| Claim | État |
+|---|---|
+| SCRIPTED OAuth DET (R1/R2) | **DETERMINISTIC PROVEN** (ce cycle) |
+| REAL installation READ | PROVEN précédemment (non étendu) |
+| REAL user-to-server interactive | **NOT PROVEN** |
+| REAL Git mutations | **HARD-BLOCKED** |
+
+Ne pas utiliser le connecteur GitHub Cursor comme preuve App utilisateur.
+
+## 19. KNOWN GAP et dette / exit
+
+1. REAL user OAuth interactive : Client Secret + Callback + encryption key + parcours navigateur — **GO Morris distinct**.
+2. Révocation OAuth distante GitHub au disconnect : wipe local only (KNOWN GAP inchangé).
+3. Branche Product distante absente : construction locale dirty uniquement.
+4. Idempotence callback : uniquement via state one-shot ; pas d'identity d'opération additionnelle (conforme mandat).
+
+## 20. Gates Morris restants
+
+1. Critical Re-Review ChatGPT sur ce pack / handoff L3.
+2. Config GitHub App OAuth DEV (Client Secret, Callback, encryption) sous GO distinct.
+3. Qualification interactive user-to-server.
+4. Éventuels effets documentaires REAL — GO distinct ; pas avant re-review favorable R1/R2.
+
+## 21. Verdict unique
+
+**ML4 GITHUB AUTH FINAL SAFETY CLOSURE — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY.**
+
+Ne pas déclarer : REAL USER OAUTH PROVEN / READY FOR REAL GIT WRITES / RECETTE ACCEPTED / STABLE AVAILABLE / ADOPTED.
+
+FIN REVIEW PACK FULL — mono-fichier L3 cible : `sfia-review-handoff/latest-chatgpt-review.md`
