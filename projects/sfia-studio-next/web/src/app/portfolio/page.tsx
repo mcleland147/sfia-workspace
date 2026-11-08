@@ -28,6 +28,7 @@ type PortfolioResponse = {
       }
     | { kind: "unavailable"; reason: string };
   error?: string;
+  errorCategory?: string;
 };
 
 export default function PortfolioPage() {
@@ -36,84 +37,170 @@ export default function PortfolioPage() {
   const [items, setItems] = useState<PreparationSummary[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [error, setError] = useState<string>("");
+  const [pageNotice, setPageNotice] = useState<string>("");
+  const [creationUncertainty, setCreationUncertainty] = useState<string>("");
   const [loadingMore, setLoadingMore] = useState(false);
+  const [creating, setCreating] = useState(false);
   const creatingRef = useRef(false);
+  const knownPrepIdsRef = useRef<Set<string>>(new Set());
 
   const applyPortfolio = useCallback((j: PortfolioResponse, append: boolean) => {
     setData(j);
     const prep = j.portfolio && "preparations" in j.portfolio ? j.portfolio.preparations : null;
     if (prep) {
-      setItems((prev) => (append ? [...prev, ...prep.items] : prep.items));
+      setItems((prev) => {
+        const next = append ? [...prev, ...prep.items] : prep.items;
+        knownPrepIdsRef.current = new Set(next.map((p) => p.id));
+        return next;
+      });
       setNextCursor(prep.nextCursor);
     } else if (!append) {
       setItems([]);
       setNextCursor(null);
+      knownPrepIdsRef.current = new Set();
     }
   }, []);
 
-  useEffect(() => {
-    fetch("/api/portfolio")
-      .then(async (r) => {
-        const j = (await r.json()) as PortfolioResponse;
-        if (r.status === 401) {
-          router.push("/login");
-          return;
-        }
-        if (r.status === 400) {
-          setError(j.error ?? "INVALID_CURSOR");
-          return;
-        }
-        if (!r.ok) {
-          setError(j.error ?? "portefeuille indisponible");
-          return;
-        }
-        applyPortfolio(j, false);
-      })
-      .catch((e) => setError(String(e)));
+  const reloadPortfolio = useCallback(async (): Promise<PortfolioResponse | null> => {
+    try {
+      const r = await fetch("/api/portfolio");
+      const j = (await r.json()) as PortfolioResponse;
+      if (r.status === 401) {
+        router.push("/login");
+        return null;
+      }
+      if (r.status === 400) {
+        setError(j.error ?? "INVALID_CURSOR");
+        return null;
+      }
+      if (!r.ok) {
+        setError(j.error ?? j.errorCategory ?? `erreur ${r.status}`);
+        return null;
+      }
+      applyPortfolio(j, false);
+      setError("");
+      return j;
+    } catch {
+      setError("Réseau indisponible — rechargement du portefeuille impossible.");
+      return null;
+    }
   }, [router, applyPortfolio]);
+
+  useEffect(() => {
+    void reloadPortfolio();
+  }, [reloadPortfolio]);
 
   async function loadMore() {
     if (!nextCursor || loadingMore) return;
     setLoadingMore(true);
+    setPageNotice("");
     try {
       const res = await fetch(
         `/api/portfolio?preparationsCursor=${encodeURIComponent(nextCursor)}`,
       );
-      const j = (await res.json()) as PortfolioResponse;
+      const j = (await res.json().catch(() => ({}))) as PortfolioResponse;
       if (res.status === 400) {
-        setError(j.error ?? "INVALID_CURSOR");
+        setPageNotice(j.error ?? "INVALID_CURSOR");
+        return;
+      }
+      if (res.status === 401) {
+        router.push("/login");
         return;
       }
       if (!res.ok) {
-        setError(j.error ?? "pagination impossible");
+        setPageNotice(j.error ?? j.errorCategory ?? `pagination HTTP ${res.status}`);
         return;
       }
       applyPortfolio(j, true);
+    } catch {
+      setPageNotice("Réseau indisponible pendant la pagination — réessayez.");
     } finally {
       setLoadingMore(false);
     }
   }
 
+  /**
+   * B4 — double-clic blocked while in-flight; on lost response do NOT auto-POST again.
+   * Re-read portfolio to discover a possible creation; otherwise show uncertainty.
+   */
   async function startPreparation() {
     if (creatingRef.current) return;
     creatingRef.current = true;
+    setCreating(true);
+    setCreationUncertainty("");
+    setError("");
+    const before = new Set(knownPrepIdsRef.current);
     try {
       const res = await fetch("/api/preparations", { method: "POST" });
-      const j = await res.json();
-      if (res.ok) router.push(`/preparations/${j.preparationId}`);
-      else setError(j.error ?? "échec");
+      let j: { preparationId?: string; error?: string } = {};
+      try {
+        j = await res.json();
+      } catch {
+        // ACK / body lost — fall through to uncertainty path
+        j = {};
+      }
+      if (res.ok && j.preparationId) {
+        router.push(`/preparations/${j.preparationId}`);
+        return;
+      }
+      if (!res.ok && res.status !== 0) {
+        // Explicit server failure — no silent second POST
+        setCreationUncertainty("");
+        setError(j.error ?? `création refusée (HTTP ${res.status})`);
+        return;
+      }
+      // Uncertain: re-read portfolio once (GET only)
+      const refreshed = await reloadPortfolio();
+      const prep =
+        refreshed?.portfolio && "preparations" in refreshed.portfolio
+          ? refreshed.portfolio.preparations.items
+          : [];
+      const discovered = prep.find((p) => !before.has(p.id));
+      if (discovered) {
+        setCreationUncertainty(
+          `Création confirmée après relecture · ${discovered.id.slice(0, 8)}… — ouvrez « Reprendre ».`,
+        );
+        return;
+      }
+      setCreationUncertainty(
+        "Création incertaine (ACK perdu). Aucun nouveau POST automatique. Rechargez le portefeuille ou réessayez explicitement.",
+      );
+    } catch {
+      const refreshed = await reloadPortfolio();
+      const prep =
+        refreshed?.portfolio && "preparations" in refreshed.portfolio
+          ? refreshed.portfolio.preparations.items
+          : [];
+      const discovered = prep.find((p) => !before.has(p.id));
+      if (discovered) {
+        setCreationUncertainty(
+          `Réseau interrompu, mais une préparation nouvelle apparaît · ${discovered.id.slice(0, 8)}… — Reprendre (GET).`,
+        );
+      } else {
+        setCreationUncertainty(
+          "Réseau interrompu pendant la création. Résultat non vérifiable — pas de second POST automatique.",
+        );
+      }
     } finally {
       creatingRef.current = false;
+      setCreating(false);
     }
   }
 
-  /** Reprendre = GET only, no POST. */
+  /** Reprendre = GET/nav only, no POST. */
   function resumePreparation(id: string) {
     router.push(`/preparations/${id}`);
   }
 
-  if (error) {
-    return <div className="panel p-6">Portefeuille indisponible: {error}</div>;
+  if (error && !data) {
+    return (
+      <div className="panel p-6 space-y-3">
+        <div>Portefeuille indisponible: {error}</div>
+        <button type="button" className="btn secondary" onClick={() => void reloadPortfolio()}>
+          Réessayer (GET)
+        </button>
+      </div>
+    );
   }
   if (!data) return <div className="muted">Chargement du portefeuille…</div>;
 
@@ -127,9 +214,26 @@ export default function PortfolioPage() {
         </p>
       </header>
 
+      {error ? <p className="text-sm text-[var(--bad)]">{error}</p> : null}
+      {creationUncertainty ? (
+        <div className="panel p-4 text-sm" data-testid="portfolio-creation-uncertainty" role="status">
+          {creationUncertainty}
+          <div className="mt-2">
+            <button type="button" className="btn secondary" onClick={() => void reloadPortfolio()}>
+              Relire le portefeuille
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       <div className="flex gap-2">
-        <button className="btn" onClick={startPreparation} data-testid="portfolio-new-prep">
-          Nouvelle préparation
+        <button
+          className="btn"
+          onClick={() => void startPreparation()}
+          disabled={creating}
+          data-testid="portfolio-new-prep"
+        >
+          {creating ? "Création…" : "Nouvelle préparation"}
         </button>
       </div>
 
@@ -155,7 +259,7 @@ export default function PortfolioPage() {
                 <div className="font-medium">{proj.name}</div>
                 <div className="text-xs muted">{proj.id}</div>
               </div>
-              <a className="btn secondary" href={`/projects/${proj.id}`}>
+              <a className="btn secondary" href={`/projects/${proj.id}?surface=travail`}>
                 Ouvrir
               </a>
             </li>
@@ -193,6 +297,7 @@ export default function PortfolioPage() {
               ))}
             </ul>
           )}
+          {pageNotice ? <p className="text-sm muted">{pageNotice}</p> : null}
           {nextCursor ? (
             <button
               type="button"

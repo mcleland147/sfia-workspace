@@ -11,7 +11,7 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await expect(page.getByRole("heading", { name: "Portefeuille" })).toBeVisible();
   await expect(page.getByText("Aucune Nora globale", { exact: false })).toBeVisible();
 
-  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
+  await page.getByTestId("portfolio-new-prep").click();
   await page.waitForURL("**/preparations/**");
 
   await page.getByPlaceholder("Écrire à Nora…").fill("Bonjour Nora depuis Playwright");

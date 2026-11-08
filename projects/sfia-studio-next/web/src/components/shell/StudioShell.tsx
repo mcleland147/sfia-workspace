@@ -5,35 +5,10 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { PRODUCT_VERSIONING } from "@/lib/product-version";
 import {
   STUDIO_RAIL_VARIANTS,
+  buildShellNav,
   railStyle,
   resolveRailVariant,
-  type StudioRailVariant,
 } from "./studio-rail";
-
-type NavItem = { href: string; label: string; match?: (path: string) => boolean };
-
-function navFor(variant: StudioRailVariant): NavItem[] {
-  const base: NavItem[] = [
-    {
-      href: "/portfolio",
-      label: "Portefeuille",
-      match: (p) => p.startsWith("/portfolio") || p === "/",
-    },
-  ];
-  if (variant === "personnel") {
-    return [...base, { href: "/login", label: "Connexion", match: (p) => p.startsWith("/login") }];
-  }
-  if (variant === "conversation" || variant === "projet" || variant === "inspection") {
-    return [
-      ...base,
-      { href: "#", label: "Travail" },
-      { href: "#", label: "Pilotage" },
-      { href: "#", label: "Documents" },
-      { href: "#", label: "Journal" },
-    ];
-  }
-  return base;
-}
 
 export function StudioShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
@@ -41,7 +16,7 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
   const surface = searchParams.get("surface");
   const variant = resolveRailVariant({ pathname, surface });
   const tokens = STUDIO_RAIL_VARIANTS[variant];
-  const items = navFor(variant);
+  const items = buildShellNav({ pathname, surface });
 
   return (
     <div className="min-h-screen flex studio-shell" data-rail-variant={variant}>
@@ -50,6 +25,7 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
         style={railStyle(tokens)}
         aria-label="Navigation Studio"
         data-testid="studio-rail"
+        data-rail-variant={variant}
         data-rail-component-id={tokens.railComponentId}
         data-rail-source-node={tokens.sourceNodeId}
         data-rail-width={tokens.widthPx}
@@ -64,20 +40,25 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
         </div>
         <nav className="flex flex-col text-sm" style={{ gap: tokens.gap }} aria-label="Principal">
           {items.map((item) => {
-            const active = item.match ? item.match(pathname) : false;
-            if (item.href === "#") {
+            if (!item.href) {
               return (
-                <span key={item.label} className="muted" aria-hidden={variant === "personnel"}>
+                <span
+                  key={item.key}
+                  className="muted"
+                  title={item.disabledReason}
+                  data-testid={`nav-disabled-${item.key}`}
+                >
                   {item.label}
                 </span>
               );
             }
             return (
               <Link
-                key={item.href}
+                key={item.key}
                 href={item.href}
-                className={active ? "font-semibold text-[var(--ink)]" : undefined}
-                aria-current={active ? "page" : undefined}
+                className={item.active ? "font-semibold text-[var(--ink)]" : undefined}
+                aria-current={item.active ? "page" : undefined}
+                data-testid={`nav-${item.key}`}
               >
                 {item.label}
               </Link>
@@ -89,14 +70,31 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
         </p>
       </aside>
 
-      {/* Mobile: rail hidden — keyboard/accessible substitute */}
+      {/* Mobile: accessible equivalent of authorized surfaces */}
       <nav
         className="md:hidden flex gap-3 p-3 border-b border-[var(--line)] text-sm overflow-x-auto"
         aria-label="Navigation Studio mobile"
         data-testid="studio-rail-mobile"
       >
-        <Link href="/portfolio">Portefeuille</Link>
-        <Link href="/login">Connexion</Link>
+        {items.map((item) => {
+          if (!item.href) {
+            return (
+              <span key={item.key} className="muted whitespace-nowrap" title={item.disabledReason}>
+                {item.label}
+              </span>
+            );
+          }
+          return (
+            <Link
+              key={item.key}
+              href={item.href}
+              className={`whitespace-nowrap ${item.active ? "font-semibold" : ""}`}
+              aria-current={item.active ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
       </nav>
 
       <main className="flex-1 p-4 md:p-8 min-w-0">{children}</main>

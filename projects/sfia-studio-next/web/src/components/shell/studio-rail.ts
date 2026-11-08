@@ -1,11 +1,16 @@
 /**
  * F1 Navigation rail variants — values from G2 railEvidence (VERIFY PASS).
  * Discriminant fills are intentional: personnel ≠ projet.
+ *
+ * Variant selection follows proven frame ↔ route ↔ state mapping (G2),
+ * not a free pathname heuristic.
  */
 
 import type { CSSProperties } from "react";
 
 export type StudioRailVariant = "personnel" | "projet" | "conversation" | "inspection";
+
+export type StudioSurface = "travail" | "pilotage" | "journal" | "document";
 
 export type StudioRailTokens = {
   variant: StudioRailVariant;
@@ -72,6 +77,29 @@ export const STUDIO_RAIL_VARIANTS: Record<StudioRailVariant, StudioRailTokens> =
   },
 };
 
+export const PROJECT_SURFACES: StudioSurface[] = [
+  "travail",
+  "pilotage",
+  "journal",
+  "document",
+];
+
+export function parseStudioSurface(raw: string | null | undefined): StudioSurface | null {
+  if (!raw) return null;
+  const v = raw.toLowerCase();
+  return PROJECT_SURFACES.includes(v as StudioSurface) ? (v as StudioSurface) : null;
+}
+
+export function parseProjectId(pathname: string): string | null {
+  const m = pathname.match(/^\/projects\/([^/?#]+)/);
+  return m?.[1] ?? null;
+}
+
+export function parsePreparationId(pathname: string): string | null {
+  const m = pathname.match(/^\/preparations\/([^/?#]+)/);
+  return m?.[1] ?? null;
+}
+
 export function railStyle(tokens: StudioRailTokens): CSSProperties {
   return {
     width: tokens.widthPx,
@@ -84,7 +112,14 @@ export function railStyle(tokens: StudioRailTokens): CSSProperties {
   };
 }
 
-/** Resolve F1 variant from route + surface query (A2 deep-link aware). */
+/**
+ * Frame ↔ route ↔ state (G2):
+ * - portefeuille / login → personnel (portfolio frames)
+ * - préparation (sas) → conversation
+ * - projet + travail (fil) → conversation
+ * - projet + document → inspection
+ * - projet + pilotage|journal → projet
+ */
 export function resolveRailVariant(input: {
   pathname: string;
   surface?: string | null;
@@ -97,10 +132,90 @@ export function resolveRailVariant(input: {
     return "conversation";
   }
   if (path.startsWith("/projects/")) {
-    const surface = (input.surface ?? "").toLowerCase();
+    const surface = parseStudioSurface(input.surface) ?? "travail";
     if (surface === "document") return "inspection";
-    if (surface === "travail" || surface === "") return "conversation";
+    if (surface === "travail") return "conversation";
     return "projet";
   }
   return "personnel";
+}
+
+export type ShellNavItem = {
+  key: string;
+  label: string;
+  href: string | null;
+  active: boolean;
+  /** Inactive without context — never a fake # link. */
+  disabledReason?: string;
+};
+
+export function buildShellNav(input: {
+  pathname: string;
+  surface?: string | null;
+}): ShellNavItem[] {
+  const path = input.pathname || "/";
+  const projectId = parseProjectId(path);
+  const preparationId = parsePreparationId(path);
+  const surface = parseStudioSurface(input.surface) ?? (projectId ? "travail" : null);
+
+  const items: ShellNavItem[] = [
+    {
+      key: "portfolio",
+      label: "Portefeuille",
+      href: "/portfolio",
+      active: path.startsWith("/portfolio") || path === "/",
+    },
+  ];
+
+  if (!projectId && !preparationId) {
+    items.push({
+      key: "login",
+      label: "Connexion",
+      href: "/login",
+      active: path.startsWith("/login"),
+    });
+    return items;
+  }
+
+  if (preparationId) {
+    items.push({
+      key: "sas",
+      label: "Sas",
+      href: `/preparations/${preparationId}`,
+      active: true,
+    });
+    // Surfaces projet require projectId — show disabled labels, not fake links.
+    for (const [key, label] of [
+      ["travail", "Travail"],
+      ["pilotage", "Pilotage"],
+      ["document", "Documents"],
+      ["journal", "Journal"],
+    ] as const) {
+      items.push({
+        key,
+        label,
+        href: null,
+        active: false,
+        disabledReason: "Disponible après création / ouverture du projet",
+      });
+    }
+    return items;
+  }
+
+  // project context — real surface URLs
+  const surfaces: Array<{ key: StudioSurface; label: string }> = [
+    { key: "travail", label: "Travail" },
+    { key: "pilotage", label: "Pilotage" },
+    { key: "document", label: "Documents" },
+    { key: "journal", label: "Journal" },
+  ];
+  for (const s of surfaces) {
+    items.push({
+      key: s.key,
+      label: s.label,
+      href: `/projects/${projectId}?surface=${s.key}`,
+      active: surface === s.key,
+    });
+  }
+  return items;
 }

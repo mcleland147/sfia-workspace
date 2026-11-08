@@ -94,40 +94,104 @@ export default function ProjectPage() {
   const [docUi, setDocUi] = useState<DocUiState>("READING");
   const [reviseDraft, setReviseDraft] = useState("");
   const [reviseMessage, setReviseMessage] = useState("");
+  const [docMissing, setDocMissing] = useState("");
   const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
   const reviseCorrelationRef = useRef<string | null>(null);
-  const deepLinkAppliedRef = useRef(false);
+  const reviseBaseIdRef = useRef<string | null>(null);
+  const documentsRef = useRef<Doc[]>([]);
+  const docUiRef = useRef<DocUiState>("READING");
+  const reviseDraftRef = useRef("");
 
-  function syncSurfaceUrl(next: Surface, documentId?: string | null) {
+  useEffect(() => {
+    docUiRef.current = docUi;
+  }, [docUi]);
+  useEffect(() => {
+    reviseDraftRef.current = reviseDraft;
+  }, [reviseDraft]);
+  useEffect(() => {
+    documentsRef.current = documents;
+  }, [documents]);
+
+  function buildSurfaceUrl(next: Surface, documentId?: string | null) {
     const q = new URLSearchParams();
     q.set("surface", next);
     if (next === "document" && documentId) q.set("documentId", documentId);
-    router.replace(`/projects/${params.projectId}?${q.toString()}`, { scroll: false });
+    return `/projects/${params.projectId}?${q.toString()}`;
+  }
+
+  /** push = entrée d'historique ; replace = normalisation sans nouvelle entrée. */
+  function syncSurfaceUrl(
+    next: Surface,
+    documentId?: string | null,
+    mode: "push" | "replace" = "push",
+  ) {
+    const href = buildSurfaceUrl(next, documentId);
+    if (mode === "replace") router.replace(href, { scroll: false });
+    else router.push(href, { scroll: false });
   }
 
   function selectSurface(next: Surface) {
     setSurface(next);
+    setDocMissing("");
     if (next !== "document") {
       setInspect(null);
       setDocUi("READING");
       setReviseDraft("");
       setReviseMessage("");
       reviseCorrelationRef.current = null;
-      syncSurfaceUrl(next);
+      reviseBaseIdRef.current = null;
+      syncSurfaceUrl(next, null, "push");
     } else {
-      syncSurfaceUrl(next, inspect?.document.id ?? null);
+      syncSurfaceUrl(next, inspect?.document.id ?? null, "push");
     }
   }
 
-  function openDocumentReadOnly(doc: Doc) {
+  function openDocumentReadOnly(doc: Doc, mode: "push" | "replace" = "push") {
     setInspect(doc);
+    setDocMissing("");
     setDocUi("READING");
     setReviseDraft(doc.latestRevision?.contentMarkdown ?? "");
     setReviseMessage("");
     reviseCorrelationRef.current = null;
+    reviseBaseIdRef.current = doc.latestRevision?.id ?? null;
     setSurface("document");
-    syncSurfaceUrl("document", doc.document.id);
+    syncSurfaceUrl("document", doc.document.id, mode);
+  }
+
+  function applyUrlDocumentState(docs: Doc[], qSurface: Surface | null, qDocId: string | null) {
+    if (qSurface) setSurface(qSurface);
+    else setSurface("travail");
+
+    if (qSurface === "document") {
+      if (!qDocId) {
+        setInspect(null);
+        setDocMissing("");
+        return;
+      }
+      const match = docs.find((d) => d.document.id === qDocId);
+      if (match) {
+        setInspect(match);
+        setDocMissing("");
+        const ui = docUiRef.current;
+        const preserveDraft =
+          Boolean(reviseCorrelationRef.current) ||
+          ui === "EDITING" ||
+          ui === "SAVING" ||
+          ui === "CONFLICT" ||
+          ui === "UNKNOWN";
+        if (!preserveDraft) {
+          setDocUi("READING");
+          setReviseDraft(match.latestRevision?.contentMarkdown ?? "");
+        }
+      } else {
+        setInspect(null);
+        setDocMissing("Document introuvable ou non autorisé pour ce Pilote.");
+      }
+      return;
+    }
+    setInspect(null);
+    setDocMissing("");
   }
 
   function rememberPending(pending: ThreadPendingTurn | null) {
@@ -299,21 +363,18 @@ export default function ProjectPage() {
       );
       setError("");
 
-      // A2 deep-link: open inspection read-only; no mutation on open/refresh/back.
-      if (!deepLinkAppliedRef.current) {
-        deepLinkAppliedRef.current = true;
-        const qSurface = parseSurface(searchParams.get("surface"));
-        const qDocId = searchParams.get("documentId");
-        if (qSurface) setSurface(qSurface);
-        if (qSurface === "document" && qDocId) {
-          const match = docs.find((d) => d.document.id === qDocId);
-          if (match) {
-            setInspect(match);
-            setDocUi("READING");
-            setReviseDraft(match.latestRevision?.contentMarkdown ?? "");
-          }
-          // Foreign/unknown documentId: stay on document surface, no unauthorized open.
-        }
+      // Read *current* URL — never stale searchParams from effect closure (race with rail nav).
+      const live =
+        typeof window !== "undefined"
+          ? new URL(window.location.href).searchParams
+          : searchParams;
+      const qSurface = parseSurface(live.get("surface"));
+      const qDocId = live.get("documentId");
+      applyUrlDocumentState(docs, qSurface, qDocId);
+      // Normalize only when surface missing/invalid; do not clobber a live navigation.
+      const rawSurface = live.get("surface");
+      if (!rawSurface || (rawSurface && !qSurface)) {
+        syncSurfaceUrl(qSurface ?? "travail", qSurface === "document" ? qDocId : null, "replace");
       }
 
       await refreshDurablePilotage();
@@ -333,15 +394,53 @@ export default function ProjectPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.projectId, router]);
 
+  // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
+  useEffect(() => {
+    const qSurface = parseSurface(searchParams.get("surface"));
+    const qDocId = searchParams.get("documentId");
+    applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  async function reconcileRevisionByCorrelation(
+    preparationIdValue: string,
+    documentId: string,
+    correlationKey: string,
+  ): Promise<{ found: boolean; status?: string; revisionId?: string }> {
+    try {
+      const res = await fetch(
+        `/api/preparations/${preparationIdValue}/documents/${documentId}`,
+      );
+      if (!res.ok) return { found: false };
+      const j = (await res.json()) as {
+        revisions?: Array<{ id: string; status: string; correlationKey?: string | null }>;
+      };
+      const hit = (j.revisions ?? []).find((r) => r.correlationKey === correlationKey);
+      if (!hit) return { found: false };
+      return { found: true, status: hit.status, revisionId: hit.id };
+    } catch {
+      return { found: false };
+    }
+  }
+
   async function saveRevision() {
-    if (!preparationId || !inspect?.latestRevision) return;
+    if (!preparationId || !inspect) return;
+    const baseId =
+      reviseBaseIdRef.current ?? inspect.latestRevision?.id ?? null;
+    if (!baseId) {
+      setDocUi("FAILED");
+      setReviseMessage("Base de révision absente.");
+      return;
+    }
     if (!reviseCorrelationRef.current) {
       reviseCorrelationRef.current =
         typeof crypto !== "undefined" && "randomUUID" in crypto
           ? `rev-${crypto.randomUUID()}`
           : `rev-${Date.now()}`;
     }
+    reviseBaseIdRef.current = baseId;
     const correlationKey = reviseCorrelationRef.current;
+    const draftSnapshot = reviseDraftRef.current || reviseDraft;
     setDocUi("SAVING");
     setReviseMessage("");
     try {
@@ -352,52 +451,131 @@ export default function ProjectPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             action: "revise",
-            baseRevisionId: inspect.latestRevision.id,
-            contentMarkdown: reviseDraft,
+            baseRevisionId: baseId,
+            contentMarkdown: draftSnapshot,
             correlationKey,
           }),
         },
       );
-      const j = await res.json().catch(() => ({}));
-      if (res.status === 409) {
+      const j = (await res.json().catch(() => ({}))) as {
+        status?: string;
+        reason?: string;
+        error?: string;
+        errorCategory?: string;
+        revisionId?: string;
+      };
+
+      // Prefer authoritative result.status over HTTP alone.
+      const resultStatus = String(j.status ?? "").toUpperCase();
+
+      if (res.status === 409 || resultStatus === "CONFLICT") {
         setDocUi("CONFLICT");
         setReviseMessage(
-          String(j.reason ?? j.error ?? "BASE_STALE") +
-            " — relire la version récente avant de choisir.",
+          `${j.reason ?? "BASE_STALE"} — nouvelle base présentée ; brouillon conservé. Rebasage explicite requis.`,
         );
+        // Refresh inspect (new base) but DO NOT overwrite reviseDraft.
         const proj = await fetch(`/api/projects/${params.projectId}`);
         if (proj.ok) {
           const pj = await proj.json();
           const docs = (pj.documents ?? []) as Doc[];
           setDocuments(docs);
           const fresh = docs.find((d) => d.document.id === inspect.document.id);
-          if (fresh) setInspect(fresh);
+          if (fresh) {
+            setInspect(fresh);
+            // Keep draft; update base pointer only when pilot accepts rebase.
+          }
         }
         return;
       }
-      if (!res.ok) {
+
+      if (resultStatus === "AVAILABLE") {
+        const proj = await fetch(`/api/projects/${params.projectId}`);
+        if (proj.ok) {
+          const pj = await proj.json();
+          const docs = (pj.documents ?? []) as Doc[];
+          setDocuments(docs);
+          const fresh = docs.find((d) => d.document.id === inspect.document.id);
+          if (fresh) {
+            setInspect(fresh);
+            setReviseDraft(fresh.latestRevision?.contentMarkdown ?? draftSnapshot);
+            reviseBaseIdRef.current = fresh.latestRevision?.id ?? null;
+          }
+        }
+        reviseCorrelationRef.current = null;
+        setDocUi("READING");
+        setReviseMessage("Révision enregistrée (AVAILABLE).");
+        return;
+      }
+
+      if (resultStatus === "UNKNOWN" || resultStatus === "SAVING" || !res.ok) {
+        // ACK / intermediate — reconcile by correlationKey before any new intention.
+        const recon = await reconcileRevisionByCorrelation(
+          preparationId,
+          inspect.document.id,
+          correlationKey,
+        );
+        if (recon.found && recon.status === "AVAILABLE") {
+          const proj = await fetch(`/api/projects/${params.projectId}`);
+          if (proj.ok) {
+            const pj = await proj.json();
+            const docs = (pj.documents ?? []) as Doc[];
+            setDocuments(docs);
+            const fresh = docs.find((d) => d.document.id === inspect.document.id);
+            if (fresh) {
+              setInspect(fresh);
+              setReviseDraft(fresh.latestRevision?.contentMarkdown ?? draftSnapshot);
+              reviseBaseIdRef.current = fresh.latestRevision?.id ?? null;
+            }
+          }
+          reviseCorrelationRef.current = null;
+          setDocUi("READING");
+          setReviseMessage("Révision confirmée après relecture (AVAILABLE).");
+          return;
+        }
         setDocUi(res.status === 401 ? "FAILED" : "UNKNOWN");
-        setReviseMessage(String(j.error ?? j.errorCategory ?? "échec révision"));
+        setReviseMessage(
+          recon.found
+            ? `État serveur ${recon.status} — brouillon et correlationKey conservés.`
+            : `ACK perdu / ${j.error ?? j.errorCategory ?? (resultStatus || `HTTP ${res.status}`)} — relecture sans match ; même clé pour retry.`,
+        );
         return;
       }
-      const proj = await fetch(`/api/projects/${params.projectId}`);
-      if (proj.ok) {
-        const pj = await proj.json();
-        const docs = (pj.documents ?? []) as Doc[];
-        setDocuments(docs);
-        const fresh = docs.find((d) => d.document.id === inspect.document.id);
-        if (fresh) {
-          setInspect(fresh);
-          setReviseDraft(fresh.latestRevision?.contentMarkdown ?? reviseDraft);
-        }
+
+      if (resultStatus === "FAILED") {
+        setDocUi("FAILED");
+        setReviseMessage(String(j.reason ?? j.error ?? "FAILED"));
+        return;
       }
-      reviseCorrelationRef.current = null;
-      setDocUi("READING");
-      setReviseMessage("Révision enregistrée.");
-    } catch {
+
       setDocUi("UNKNOWN");
-      setReviseMessage("ACK perdu — même correlationKey conservée pour retry.");
+      setReviseMessage("Réponse non classée — aucune réussite affichée sans AVAILABLE.");
+    } catch {
+      const recon = preparationId
+        ? await reconcileRevisionByCorrelation(
+            preparationId,
+            inspect.document.id,
+            correlationKey,
+          )
+        : { found: false as const };
+      if (recon.found && recon.status === "AVAILABLE") {
+        reviseCorrelationRef.current = null;
+        setDocUi("READING");
+        setReviseMessage("Révision confirmée après relecture réseau (AVAILABLE).");
+        return;
+      }
+      setDocUi("UNKNOWN");
+      setReviseMessage(
+        "ACK perdu (réseau) — brouillon, base et correlationKey conservés ; pas de double mutation automatique.",
+      );
     }
+  }
+
+  function acceptConflictRebase() {
+    if (!inspect?.latestRevision) return;
+    reviseBaseIdRef.current = inspect.latestRevision.id;
+    reviseCorrelationRef.current = null; // new intention after explicit rebase
+    setDocUi("EDITING");
+    setReviseMessage("Base mise à jour — nouvelle intention (nouvelle correlationKey au prochain enregistrement).");
   }
 
   async function sendMessage() {
@@ -653,20 +831,32 @@ export default function ProjectPage() {
           </section>
           <section className="panel p-4 space-y-2" data-testid="document-inspect">
             <h2 className="font-medium">
-              {docUi === "EDITING" || docUi === "SAVING" || docUi === "CONFLICT"
+              {docUi === "EDITING" || docUi === "SAVING" || docUi === "CONFLICT" || docUi === "UNKNOWN"
                 ? "Révision"
                 : "Inspection"}
             </h2>
             <p className="text-xs muted" data-testid="document-ui-state">
               État: {docUi}
             </p>
+            {docMissing ? (
+              <p className="text-sm" data-testid="document-missing" role="status">
+                {docMissing}
+              </p>
+            ) : null}
             {inspect?.latestRevision ? (
               <>
                 <p className="text-xs muted">
                   {inspect.document.id} · v{inspect.latestRevision.revisionNumber} ·{" "}
                   {inspect.latestRevision.status}
+                  {reviseBaseIdRef.current
+                    ? ` · base intention ${reviseBaseIdRef.current.slice(0, 8)}…`
+                    : ""}
                 </p>
-                {docUi === "EDITING" || docUi === "SAVING" || docUi === "CONFLICT" || docUi === "UNKNOWN" ? (
+                {docUi === "EDITING" ||
+                docUi === "SAVING" ||
+                docUi === "CONFLICT" ||
+                docUi === "UNKNOWN" ||
+                docUi === "FAILED" ? (
                   <>
                     <textarea
                       className="textarea"
@@ -684,8 +874,22 @@ export default function ProjectPage() {
                         data-testid="document-revise-save"
                         onClick={() => void saveRevision()}
                       >
-                        {docUi === "SAVING" ? "Enregistrement…" : "Enregistrer la révision"}
+                        {docUi === "SAVING"
+                          ? "Enregistrement…"
+                          : docUi === "UNKNOWN"
+                            ? "Réessayer (même clé)"
+                            : "Enregistrer la révision"}
                       </button>
+                      {docUi === "CONFLICT" ? (
+                        <button
+                          type="button"
+                          className="btn secondary"
+                          data-testid="document-conflict-rebase"
+                          onClick={acceptConflictRebase}
+                        >
+                          Adopter la nouvelle base
+                        </button>
+                      ) : null}
                       <button
                         type="button"
                         className="btn secondary"
@@ -695,6 +899,7 @@ export default function ProjectPage() {
                           setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
                           setReviseMessage("");
                           reviseCorrelationRef.current = null;
+                          reviseBaseIdRef.current = inspect.latestRevision?.id ?? null;
                         }}
                       >
                         Annuler
@@ -713,6 +918,7 @@ export default function ProjectPage() {
                           setDocUi("EDITING");
                           setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
                           reviseCorrelationRef.current = null;
+                          reviseBaseIdRef.current = inspect.latestRevision?.id ?? null;
                         }}
                       >
                         Réviser
@@ -737,9 +943,9 @@ export default function ProjectPage() {
                   </p>
                 ) : null}
               </>
-            ) : (
+            ) : !docMissing ? (
               <p className="text-sm muted">Sélectionner un document pour inspecter.</p>
-            )}
+            ) : null}
           </section>
         </div>
       ) : null}
