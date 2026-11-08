@@ -1828,3 +1828,17 @@ index cf3270b2..12fbf411 100644
 | Handoff distant | pending publish |
 
 **Après publish vérifié :** verdict final `G4 REVIEW PACK FULL — READY FOR CHATGPT REVIEW`.
+
+## 10. Publication handoff (vérifiée)
+
+| Champ | Valeur |
+|---|---|
+| Branche handoff | `sfia/review-handoff` |
+| Commit handoff | `294c1cea3b6685eb14d12f6cbca850abdd78787c` |
+| Blob canonique | `d8a71bc078df8f874302c24f73f035016f5647e5` |
+| Path | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Commit G4 candidat | `dbaccfdab463b18bd464ea57753865b948b1c089` |
+| Base | `f0d59bc8f72ed8544ac4c82dfa9ac0f23889c03e` |
+
+**Verdict :** `G4 REVIEW PACK FULL — READY FOR CHATGPT REVIEW`
