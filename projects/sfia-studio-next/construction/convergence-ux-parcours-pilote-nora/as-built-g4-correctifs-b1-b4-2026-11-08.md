@@ -1,7 +1,7 @@
 # As-built G4 — correctifs B1–B4 + accès DEV (2026-11-08)
 
-**Branch :** `feat/next-convergence-ux-g4-construction`  
-**Lane :** DEV only · **NO RELEASE**  
+**Branch :** `feat/next-convergence-ux-g4-construction`
+**Lane :** DEV only · **NO RELEASE**
 **Parent construction :** `dbaccfda` · base `f0d59bc8`
 
 ## Correctifs

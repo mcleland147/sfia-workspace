@@ -1,7 +1,7 @@
 # As-built G4 — convergence UX construction (2026-11-08)
 
-**Branch :** `feat/next-convergence-ux-g4-construction`  
-**Lane :** DEV only  
+**Branch :** `feat/next-convergence-ux-g4-construction`
+**Lane :** DEV only
 **Base :** `main@f0d59bc8` (+ pack G2 local VERIFY PASS)
 
 ## Livré

@@ -1,9 +1,9 @@
 # As-built — G4 Figma UX transposition (2026-11-08)
 
-Branche : `feat/next-convergence-ux-g4-construction`  
-Périmètre : `projects/sfia-studio-next/`  
-Base fonctionnelle conservée : F1/A1/A2 + correctifs B1–B4  
-G2 pack : `VERIFY PASS` (20 PNG, L2, railEvidence) — non modifié  
+Branche : `feat/next-convergence-ux-g4-construction`
+Périmètre : `projects/sfia-studio-next/`
+Base fonctionnelle conservée : F1/A1/A2 + correctifs B1–B4
+G2 pack : `VERIFY PASS` (20 PNG, L2, railEvidence) — non modifié
 F2 / G5 : **NOT RUN** (revue visuelle exclusive Morris)
 
 ## Livrables code
@@ -42,7 +42,7 @@ F2 / G5 : **NOT RUN** (revue visuelle exclusive Morris)
 | 22 | `125:33` | `surface=pilotage` | stats + `PilotagePanel` | IMPLEMENTED |
 | 24 | `127:106` | pilotage CKI/cycle | panneau PilotagePanel | IMPLEMENTED |
 
-**Couverture déclarée :** 19/20 IMPLEMENTED + 1 PARTIAL (`241:385`).  
+**Couverture déclarée :** 19/20 IMPLEMENTED + 1 PARTIAL (`241:385`).
 Verdict produit pour Morris : surfaces navigables ; **acceptation visuelle = Morris seul**.
 
 ## RailEvidence (corrections G2 appliquées)
@@ -69,5 +69,5 @@ Verdict produit pour Morris : surfaces navigables ; **acceptation visuelle = Mor
 
 ## ENV-01
 
-DEV worktree G4, port **3100**, auth FAKE `Pilote A (DEV)`.  
+DEV worktree G4, port **3100**, auth FAKE `Pilote A (DEV)`.
 NO RELEASE. Pas de push projet / PR / RECETTE.

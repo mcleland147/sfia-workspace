@@ -1,7 +1,7 @@
 # As-built — G4 reprise chat-first (2026-11-08)
 
-Branche : `feat/next-convergence-ux-g4-construction`  
-Parent UX : `c2af05cb` (transposition déclarative invalidée pour acceptation visuelle)  
+Branche : `feat/next-convergence-ux-g4-construction`
+Parent UX : `c2af05cb` (transposition déclarative invalidée pour acceptation visuelle)
 Portefeuille `94:50` : **préservé** (macro acceptée Morris)
 
 ## Correction sas (priorité)
