@@ -1,5 +1,5 @@
 # SFIA Studio Next — ML4 « Collaborer et publier avec Git »
-## Restitution progressive de RECETTE utilisateur R01–R14 et dossier d'anomalies D1/D2/D3/D4/D6/D7/D8/D9
+## Bilan de la première campagne utilisateur R01–R14, historique probatoire et dossier d'anomalies D1/D2/D3/D4/D6/D7/D8/D9
 
 | Champ | Qualification |
 |---|---|
@@ -12,10 +12,11 @@
 | Runtime RECETTE initial (historique R01–R06-D) | candidat `974b0030a94469bef05496151792e8c35a9a83e9`, tree `6ca5d0ad37114dc88cfe5fd821b4762fc7bcd357`, build `RzpCuGMK6SnwfucphK7Qa` ; identité issue du handoff Cursor, non revalidée sur chaque capture |
 | Runtime RECETTE correctif (retest R06-E/F) | candidat local `a2c5e9f8819cbe547bf925b39f38f783fc8aa52b`, tree `5d245e8adf1d32a7ceec6b129857d94f6398a488`, build `9yCs2GbSS5lDFX3LPiQTU`, bascule et conservation D4 rapportées dans handoff `sfia/review-handoff@9a23e0497b8ecc47bda429f168e0aad56e78e9dc` ; capture utilisateur du retest non liée directement à une lecture du build manifest |
 | Runtime RECETTE correctif (retest R06-G) | candidat local `8ba777300adebe3ba70ddbe3c386a3ad709034f6`, tree `368159d7e8cdbc0bbb504f87d6deb12c04e6b129`, build `ygu4moVrYUNZPkvprgvB_` selon handoff technique `sfia/review-handoff@5876ff0af94bdb4ace4b39c1526dddf5edd5918a` (blob `83496559fa26df0d95f54787cdc039565d22422c`) ; identification serveur rapportée, observation R06-G fournie par Morris |
-| Runtime RECETTE courant (R06-H / R07–R10) | candidat local `93da44beb7e7571c9406180027896769579b9815`, tree `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8`, build `sHkE8sHJBxD3U9AJdHWi7` ; déploiement technique rapporté dans `sfia/review-handoff@f501e38c93cb5ceecd2af10a3cc7742910b706ed`, blob `9d6cf4a364e27af8bb181aa9091d6467abf42886` ; preuves utilisateur distinctes | 
+| Runtime RECETTE historique (R06-H / R07–R10 et première tentative R12) | candidat local `93da44beb7e7571c9406180027896769579b9815`, tree `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8`, build `sHkE8sHJBxD3U9AJdHWi7` ; déploiement technique rapporté dans `sfia/review-handoff@f501e38c93cb5ceecd2af10a3cc7742910b706ed`, blob `9d6cf4a364e27af8bb181aa9091d6467abf42886` ; preuves utilisateur distinctes | 
+| Runtime RECETTE de clôture de campagne (R12 CREATE réussi) | candidat local `771844fda083ce3c1858b77b0012e5bf2b801605`, tree `030a9e87064bade155ae3c585f9954d65d52687f`, BUILD_ID `SmL2kyWbd1Q3kIuwNw0mQ` ; déploiement ENV-01 validé par le handoff `sfia/review-handoff@d7a6eb7bbf90054d0b4b60c8fc0ce99b49400aa8` (blob `ceefd1682ec5ef94279fb74dd60263fdb5aa7ebb`). Preuves LIVE distinctes : nouvelle v1 D4 `AVAILABLE` ; préparation Git bloquée. |
 | Handoff environnement | `sfia/review-handoff@b70331129385a4996d9202863fa060d9b850242c`, `TEST_BOUNDARY` restauré, Nora LIVE smoke `UNKNOWN / PROVIDER_ERROR` initial |
 | Git local, staged, untracked, services présents | **NON OBSERVÉS directement** ; aucune conclusion sur l'état du Mac hors observations utilisateur et handoffs |
-| Statut global | **RECETTE EN COURS — R01–R03 avec réserves ; R04 PARTIAL ; R05 exploration PASS / hostile NOT RUN ; R06-H : D4 v2 AVAILABLE en LIVE, restitution Nora contradictoire (REC-08 OPEN) ; R07 PARTIAL, diff simulé ; R08 refus Nora PASS / garde-fou serveur NOT RUN ; R09 déconnexion/reconnexion et D4 v2 préservé PASS / révocation Git NOT RUN ; R10 clavier Safari PASS / responsive fenêtre étroite FAIL, réserve UX MINEURE non bloquante différée après ML4 selon Morris ; R11–R14 NOT RUN ; ML4 non accepté, STABLE/ADOPTED non présumés.** |
+| Statut global | **PREMIÈRE CAMPAGNE UTILISATEUR — BILAN FIGÉ AU 10/11/2026, NON ACCEPTATION ML4** : R01–R03 PASS bornés ; R04–R11 résultats mixtes/partiels et réserves ; R06 REVISE D4 v2 PASS avec narration Nora contradictoire ; R12 CREATE D4 v1 LIVE PASS sur `771844fd`, mais préparation Git `DENIED/404` et publication non tentée ; R13/R14 **NEUTRE / NOT RUN** par arbitrage Morris ; lot correctif et RECETTE ciblée à définir ensuite. Aucun commit ni PR RECETTE GitHub. |
 | Autorité | Morris conduit la RECETTE et valide les arbitrages ; ChatGPT compare les réponses de Nora, trace les constats, qualifie les preuves ; aucune publication Git projet autorisée par ce document |
 
 > **Contrat de lecture.** `PASS` désigne uniquement la portion réellement observée. Capture d'écran, retour Morris, message `NORA COMPLETE`, réponse d'API, handoff Cursor et Git distant sont des preuves **différentes**. Une hypothèse de cause n'est pas une preuve. Les marqueurs UI `REAL`, `CONNECTED` ou `COMPLETE` ne suffisent pas, seuls, à certifier tout effet externe ou la qualité cognitive globale. Ce registre ne constitue ni une décision D6 dans Studio, ni un GO Git, ni un verdict de sortie ML4.
@@ -32,7 +33,7 @@ Le Pilote doit pouvoir démarrer un projet et dialoguer avec Nora **sans connexi
 
 **Limites et écarts.** Le sas actuel diffère sensiblement de la conception Figma ; la constitution de proposition s'appuie sur un formulaire et la copie longue du dernier texte de Nora, avec des marqueurs Markdown visibles et **aucun point ouvert capitalisé** malgré les incertitudes formulées. Après l'OAuth GitHub, la page Intégrations a momentanément stagné sur « Chargement du statut d'intégration… », et une navigation a affiché `Invalid origin` sur Connexion Studio ; les parcours se sont ensuite rétablis sans correction technique connue. Ces symptômes ne démontrent pas une perte durable de session ou un échec OAuth.
 
-**État courant après R10.** Les échecs R06-A à R06-G demeurent documentés dans l'historique. Sur le candidat RECETTE `93da44be`, la demande naturelle R06-H a créé une **v2 `AVAILABLE` du document D4 existant**, et le Pilote a retrouvé la v1/v2 dans la bibliothèque après inspection. La nouvelle section 2 distingue correctement les limites de la Source 1 et le blob SHA du commit SHA de la Source 2, avec conservation visuelle des sections 3 à 5. **R06 persistance/révision ciblée LIVE PASS, restitution Nora FAIL** : Nora affirme « aucun outil de sauvegarde D4 disponible » et « non confirmée », contrairement au résultat transactionnel Studio. Un ancien compte rendu transactionnel, déjà présent hors section 2 dans le document de départ, reste dans la v2 ; aucune modification hors cible n'a été demandée. R07 est PARTIAL (diff simulé), R08 démontre le non-passage à l'acte côté Nora mais pas un refus serveur, R09 prouve le parcours déconnexion/reconnexion avec récupération D4, et R10 révèle une réserve responsive **mineure et différée par Morris**, qui privilégie l'usage sur ordinateur. Aucun de ces résultats ne vaut acceptation globale ML4.
+**Instantané historique après R10 (supplanté par le bilan de campagne au §10).** Les échecs R06-A à R06-G demeurent documentés dans l'historique. Sur le candidat RECETTE `93da44be`, la demande naturelle R06-H a créé une **v2 `AVAILABLE` du document D4 existant**, et le Pilote a retrouvé la v1/v2 dans la bibliothèque après inspection. La nouvelle section 2 distingue correctement les limites de la Source 1 et le blob SHA du commit SHA de la Source 2, avec conservation visuelle des sections 3 à 5. **R06 persistance/révision ciblée LIVE PASS, restitution Nora FAIL** : Nora affirme « aucun outil de sauvegarde D4 disponible » et « non confirmée », contrairement au résultat transactionnel Studio. Un ancien compte rendu transactionnel, déjà présent hors section 2 dans le document de départ, reste dans la v2 ; aucune modification hors cible n'a été demandée. R07 est PARTIAL (diff simulé), R08 démontre le non-passage à l'acte côté Nora mais pas un refus serveur, R09 prouve le parcours déconnexion/reconnexion avec récupération D4, et R10 révèle une réserve responsive **mineure et différée par Morris**, qui privilégie l'usage sur ordinateur. Aucun de ces résultats ne vaut acceptation globale ML4.
 
 ### 1.3 Périmètre de preuve et comptage
 
@@ -49,7 +50,7 @@ Le Pilote doit pouvoir démarrer un projet et dialoguer avec Nora **sans connexi
 - **R08 — PASS refus Nora / serveur NOT RUN** : Nora refuse sans GO ni HumanDecision, sans prétendre à un refus applicatif ; aucun point d'entrée Git mutatif exposé dans sa session et aucune preuve D6/D7 de refus serveur. Non-publication déclarée, non auditée indépendamment.
 - **R09 — PASS session/reconnexion / Git révocation NOT RUN** : URL CampusFlow protégée par la page login après déconnexion et en navigation privée ; retour du même Pilote, fil Nora, D4 v2 et historique v1/v2 retrouvés. Badge `Sources Git : non disponible` aperçu dans Travail, sans diagnostic suffisant pour conclure à une révocation.
 - **R10 — PASS clavier / FAIL responsive MINEUR différé** : sous Safari/macOS, `Tab` seul non concluant ; `Option+Tab` atteint les contrôles et `Entrée` ouvre Travail (Morris). Largeur de fenêtre proche smartphone : navigation débordante, contenu tronqué. **Décision Morris : réserve UX mineure, non bloquante pour ML4 ; convergence UX après ML4, usage cible ordinateur.**
-- **R11–R14 — NOT RUN** ; R12–R14 sous **GO Morris distinct** pour tout Git REAL ; `ML4-AT-13` merge REAL demeure **KNOWN GAP / HARD-BLOCKED**.
+- **R11–R14 — NOT RUN au stade historique R10** ; R12–R14 sous **GO Morris distinct** pour tout Git REAL ; `ML4-AT-13` merge REAL demeure **KNOWN GAP / HARD-BLOCKED**.
 - Les captures de la conversation utilisateur du 09/11/2026 ne sont **pas versées dans le dépôt Git** ; leurs faits saillants sont décrits ici. Les statuts post-refresh proviennent des confirmations explicites de Morris.
 - Les conclusions cognitives sont un **jugement comparatif ChatGPT**, utile à l'évaluation, pas un oracle absolu ni un benchmark chiffré.
 
@@ -107,6 +108,8 @@ Le Pilote doit pouvoir démarrer un projet et dialoguer avec Nora **sans connexi
 | **ML4-REC-08** | Échecs historiques de révision D4 R06-F/G, suivis d'une v2 `AVAILABLE` en R06-H ; narration Nora toujours inexacte sur l'absence d'outil et de sauvegarde ; vieux compte rendu obsolète conservé hors section cible | **Majeure sur vérité conversationnelle et restitution** | D3 → proposition → D4 → ACK, distinct du contenu documentaire interne | **OPEN — révision ciblée LIVE PASS ; vérité conversationnelle FAIL ; pas de patch demandé pendant la recette** |
 
 | **ML4-REC-09** | Responsive : sur fenêtre Safari étroite, navigation débordante et contenu Travail hors cadre | **MINEURE UX — NON BLOQUANTE, arbitrage Morris** | UI responsive / convergence R3–UX | **OPEN — capture navigateur ; traitement regroupé après ML4 ; application cible prioritairement sur ordinateur** |
+| **ML4-REC-10** | Première demande R12 CREATE non routée : `qualifyDocumentAct=NONE / NO_EXPLICIT_WRITE` malgré intention explicite ; production Nora contractuelle extractible | **Blocage R12 initial — CORRIGÉ sur le parcours LIVE retesté** | D3 qualification → D4 ; ACK / observabilité | **CORRECTIVE IMPLEMENTED + COVERAGE VERIFIED / BEHAVIOR PROVEN sur CREATE R12** sur candidat `771844fd` ; tests déterministes + v1 D4 `AVAILABLE` en RECETTE. Ne couvre pas toute la langue naturelle. |
+| **ML4-REC-11** | Lecture du nouveau chemin Git cible : `DENIED / 404` côté Studio, non reconnu comme absence vérifiable ; aucun diff réel autorisable | **Bloquante pour publication R12 / conditionne R13** | D9 fournisseur Git et détermination existence/permissions, D3 préparation, D6/D7 en aval | **OPEN — mécanisme causal NON PROUVÉ** ; arbre Git indépendant complet (`truncated=false`) au commit base prouve le chemin absent ; le fournisseur Studio ne sait pas conclure sur la même preuve. Aucun effet externe réalisé. |
 
 **Règle de consolidation :** ne pas lancer six correctifs indépendants. Les écarts `01–03` concernent l'expérience de préparation et la qualité de transformation conversation → proposition/D4. `04` concerne la stabilité de la chaîne OAuth/session/UI. `05–06` concernent l'environnement cognitif et les preuves LIVE. `07` concerne **l'intégrité de la provenance Git côté D9/D3** ; ne pas l'absorber dans un sujet purement cosmétique d'UX. Les travaux de correction seront regroupés selon les frontières réelles et les gates Morris, sans bloquer les tests indépendants.
 
@@ -290,8 +293,10 @@ Sur ces trois échanges, Nora présente des réflexes **comparables à ceux atte
 | **R08** | **PASS refus Nora / serveur NOT RUN** | `ML4-AT-02/17/18` : refus cognitif en absence de GO/HumanDecision, aucune preuve de refus applicatif D6/D7 ou d'effet Git REAL. |
 | **R09** | **PARTIAL — déconnexion/reconnexion PASS** | `ML4-AT-07/22` : login requis hors session, retour même Pilote et D4 v2/historique après reconnexion ; révocation/détachement Git NOT RUN. |
 | **R10** | **PARTIAL — clavier PASS / responsive FAIL mineur** | `ML4-AT-21` : Safari `Option+Tab` et `Entrée` fonctionnels ; largeur étroite non adaptée ; `ML4-REC-09` mineure et différée dans cycle UX post-ML4 par Morris. |
-| **R11** | **NOT RUN** | `ML4-AT-16` : isolation entre deux Pilotes distincts non testée. |
-| **R12–R14** | **NOT RUN — GO distinct requis** | Commit/PR/conflits/ambiguïtés REAL (`11`, `12`, `14`, `15`, `18`). Ne toucher ni à `main` ni à PR #18 DEV de `chantiers360`. |
+| **R11** | **PARTIAL PASS — deux comptes Studio observés** | `ML4-AT-16` PARTIAL : Pilote B authentifié avec portefeuille vide, GitHub non connecté, pas d'accès projet CampusFlow via lien direct ; isolation du dépôt partagé et refus serveur explicite non éprouvés. |
+| **R12** | **PARTIAL / BLOCKED après CREATE LIVE PASS** | `ML4-AT-10` : v1 D4 créée et retrouvée ; `ML4-AT-11` : source, dépôt et base inspectés, mais cible `DENIED/404` dans Studio, sans diff réel ni HumanDecision ; aucun commit. Voir §10. |
+| **R13** | **NEUTRE / NOT RUN** | `ML4-AT-12` et preuve D8 post-PR non éprouvées ; retour prévu après correction. |
+| **R14** | **NEUTRE / NOT RUN** | `ML4-AT-14/15` conflits, idempotence, résultat ambigu non éprouvés ; retour prévu après correction. |
 | **Hors-exécutable actuel** | **KNOWN GAP** | `ML4-AT-13` : merge documentaire REAL **HARD-BLOCKED** selon le cahier ; aucune preuve PASS. |
 
 > Les entrées ci-dessus constituent une **projection de couverture** sur la matrice canonique, **pas une modification du statut de la matrice Git**. Chaque critère peut n'être vérifié que partiellement même si le scénario utilisateur est déclaré PASS avec réserves.
@@ -388,3 +393,105 @@ Sur ces trois échanges, Nora présente des réflexes **comparables à ceux atte
 **Verdict courant au 09/11/2026 : `ML4 USER RECETTE IN PROGRESS — R06 LIVE D4 V2 AVAILABLE / NORA ACK CONTRADICTION OPEN — R07 PARTIAL — R08 NORA REFUSAL PASS / SERVER NOT RUN — R09 SESSION/RECONNECT PASS / GIT REVOCATION NOT RUN — R10 KEYBOARD PASS / RESPONSIVE MINOR UX GAP DEFERRED — R11–R14 NOT RUN — NO ML4 ACCEPTANCE — NO REAL GITHUB WRITE AUTHORIZED`.**
 
 Les verdicts R06-C/F/G précédemment consignés à la section 8 restent l'historique des essais antérieurs, **pas le dernier statut de recette**. Aucun GO de correction produit, de publication Git externe, de PR, de merge, de STABLE ou d'ADOPTED n'est porté par cette mise à jour documentaire.
+
+## 10. Bilan consolidé de la première campagne RECETTE — 10/11/2026
+
+### 10.1 Périmètre, arbitrage et règle de lecture
+
+**Décision de conduite de campagne Morris (10/11).** Arrêter la première séquence de tests en l'état, finaliser son bilan factuel, préparer ensuite un **macro-lot correctif priorisé**, puis rejouer les seules anomalies corrigées et les non-régressions indispensables ; réaliser **R13 et R14 après correction**, sans les transformer rétrospectivement en échecs. Les correctifs UX non bloquants peuvent être reportés à un cycle ultérieur. Cette décision ne constitue **ni acceptation de ML4, ni GO pour corriger, pousser le Product, ouvrir une PR, merger ou promouvoir**.
+
+Le statut **NEUTRE / NOT RUN** est un choix de campagne : absence de test, non équivalent à PASS, FAIL ou renoncement au contrat. Le statut **PARTIAL** signale une preuve existante mais non suffisante pour l'oracle complet. Les instantanés datés §§1–9 et les échecs R06 historiques sont conservés ; la présente section constitue **la photographie actuelle**.
+
+**Runtime de sortie.** RECETTE `http://127.0.0.1:3200` ; candidat Product **local et non mergé** `771844fda083ce3c1858b77b0012e5bf2b801605`, tree `030a9e87064bade155ae3c585f9954d65d52687f`, BUILD_ID `SmL2kyWbd1Q3kIuwNw0mQ`. Le handoff de bascule `sfia/review-handoff@d7a6eb7bbf90054d0b4b60c8fc0ce99b49400aa8` atteste le smoke, la conservation du document Chantiers360 v1/v2 et des empreintes, `documents=102`, `revisions=165`, `projects=12` **au moment de la bascule**, avant le CREATE R12. Ces compteurs ne décrivent pas l'état après le CREATE et ne sont pas réutilisés comme preuve de celui-ci. Configuration `STUDIO_GITHUB_PROVIDER=real` et `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` conservée ; activation technique ≠ HumanDecision.
+
+### 10.2 Chronologie complémentaire R11–R14 et discrimination des preuves
+
+| Séquence | Source / action | Faits observés | Verdict à ce stade |
+|---|---|---|---|
+| **R11 — Pilote B** | Deuxième compte Studio distinct ; navigation privée et lien vers CampusFlow | Authentification du Pilote B ; portefeuille vide, aucune préparation/projet accessible, intégration GitHub non connectée ; l'URL de CampusFlow du Pilote A ne donne pas accès au projet dans la session B. Aucune mesure directe des contrôles d'ownership D4/DB ni du refus explicite `403` sur projet partagé. | **PARTIAL PASS — isolation navigateur/portfolio observée**, `ML4-AT-16` partiel |
+| **R12-A — CREATE échoué** | RECETTE `93da44be` ; demande explicite du Pilote de créer `RECETTE ML4 — Publication documentaire R12` | Nora `COMPLETE` et proposition textuelle, mais bibliothèque toujours à un seul document ; pas de résultat D4. Audit Cursor sur tour `tcmd_c67c5ce8…` / génération `gen_60a437d6…` : `qualifyDocumentAct=NONE / NO_EXPLICIT_WRITE`, aucun appel D4, tandis que `sfia-document` était extractible. | **FAIL historique — ML4-REC-10**, cause établie sur la qualification d'acte, pas sur le scanner B |
+| **R12-B — Correctif A+D+E** | Correctifs locaux successifs `8eab1317` → `5ed702cb` → `771844fd`, qualification par clause, suppression `CREATE_PLEASE_RE`, ACK `NOT_EXECUTED` et observabilité | Reproduction et non-régression déterministes rapportées : T1/T2/T8 faux CREATE devenus NONE, R12 exact CREATE, R06 REVISE conservé ; tests unitaires 92 et PG 18 PASS rapportés ; build et bascule RECETTE attestés. | **IMPLEMENTED / COVERAGE VERIFIED sur scénarios bornés**, pas preuve LIVE générale |
+| **R12-C — CREATE LIVE réussi** | Morris, RECETTE `771844fd` ; même demande et inspection Documents | Bloc applicatif `CREATE / AVAILABLE`, document `doc_21a9e4ad-8224-4669-8172-2a66e80f65de`, révision `drev_7d7c1c6d-79f8-4f64-83b6-bca290961166`, v1 ; bibliothèque CampusFlow affiche **2 documents** et la nouvelle v1 `AVAILABLE` ; contenu exact des quatre sections rendu. L'ancien document Chantiers360 demeure en v2. | **PASS LIVE D4 pour CREATE**, correction de ML4-REC-10 validée sur la demande retestée |
+| **R12-C — narration** | Même réponse Nora | Nora dit ne pas pouvoir confirmer la sauvegarde, puis Studio ajoute `Résultat applicatif D4 : AVAILABLE` avec IDs. La contradiction de narration existe toujours, mais le bloc applicatif et la bibliothèque concordent. | **ML4-REC-08 OPEN** sur la vérité conversationnelle, pas sur la transaction |
+| **R12-D — préparation Git read-only** | Pilote choisit explicitement `mcleland147/chantiers360`, base `main`, chemin `docs/recette-studio-next/publication-documentaire.md`, contenu intégral D4 v1 (598 caractères) | Nora confirme lecture D4 et dépôt rattaché ; `main@8c398c494dd918272aab5b2653777c6c21d2e76e` ; accès fichier au SHA puis à `main` renvoie `DENIED/404`. Aucun diff réel, HumanDecision ou écriture. Nora refuse honnêtement d'inférer une absence depuis le seul 404. | **PARTIAL / BLOCKED — ML4-REC-11**, aucune publication Git démontrée |
+| **R12-E — vérification Git externe indépendante** | Lecture connecteur GitHub de l'arbre récursif à `8c398c494dd918272aab5b2653777c6c21d2e76e` | Arbre complet **589 entrées / truncated=false** ; `docs/` existe, `docs/recette-studio-next/` et le fichier cible sont **absents à cette base**. Cela prouve un **ajout** comme effet attendu, mais **pas** que Studio a acquis cette preuve, ni la possibilité d'écrire. | **FILE ABSENT AT BASE VERIFIED EXTERNALLY**, root cause du `DENIED` Studio encore inconnue |
+| **R13 — PR documentaire** | Aucune action de création de PR | Aucun nouvel effet R13 ; PR #18 DEV historique restée OPEN et non mergée, hors essai R13. | **NEUTRE / NOT RUN** |
+| **R14 — conflit/répétition/reprise** | Aucun test contrôlé de divergence HEAD, timeout, double-clic ou réconciliation Git | Aucun nouvel effet R14. Les tests déterministes antérieurs ne remplacent pas R14 utilisateur REAL. | **NEUTRE / NOT RUN** |
+
+**Intégrité Git externe R12.** `chantiers360/main` est resté au commit `8c398c494dd918272aab5b2653777c6c21d2e76e` à la dernière lecture indépendante ; PR #18 OPEN / non mergée. Aucune branche, aucun commit ni PR de R12 n'a été déclenché depuis Studio. Le rattachement d'un dépôt et le choix explicite de destination ne remplacent ni une inspection vérifiable ni la HumanDecision D6.
+
+**Sources de preuve distinctes.** (1) Réponse et capture transmises par Morris sur Documents ; (2) bloc transactionnel D4 ajouté par Studio ; (3) résultats tests et bascule rapportés dans les handoffs Cursor ; (4) lecture indépendante GitHub au commit exact. L'interface `NORA COMPLETE` seule n'atteste jamais une écriture. Les captures restent dans la conversation, non versées comme fichiers Git.
+
+### 10.3 Verdict courant par scénario
+
+| Scénario | Verdict de la campagne 1 | Limite / sortie attendue |
+|---|---|---|
+| R01 | **PASS fonctionnel borné** | Sas/proposition UX et capitalisation à améliorer ; création Studio sans Git démontrée |
+| R02 | **PASS avec réserve** | OAuth utilisateur effectué, mais chargement/Invalid origin intermittent non diagnostiqué |
+| R03 | **PASS sur rattachement** | Dépôt `chantiers360` rattaché et persistant ; cas organisation en attente non prouvé |
+| R04 | **PARTIAL** | Lecture Nora utile ; SHA blob/commit et URL erronés (`ML4-REC-07`) |
+| R05 | **PARTIAL : exploration PASS / adversarial NOT RUN** | Règle Cursor traitée comme donnée ; payload hostile contrôlé non testé |
+| R06 | **PARTIAL : D4 REVISE LIVE PASS / narration FAIL** | v2 et historique observés ; `ML4-REC-08` ouvert |
+| R07 | **PARTIAL** | Préparation hypothétique de publication, diff initial simulé sans preuve d'absence |
+| R08 | **PARTIAL : refus Nora PASS / refus serveur NOT RUN** | Pas d'oracle D6/D7 mutatif vérifié |
+| R09 | **PARTIAL : session/reconnexion PASS / révocation Git NOT RUN** | Pas de retrait d'accès réel, données D4 conservées |
+| R10 | **PARTIAL : clavier PASS / responsive FAIL mineur** | `ML4-REC-09` différée après ML4 sur décision Morris |
+| R11 | **PARTIAL PASS sur isolation navigateur** | Deux comptes distincts, pas de partage prouvé ; contrôles DB/API sur repo partagé non éprouvés |
+| R12 | **PARTIAL / BLOCKED** | CREATE D4 LIVE PASS ; préparation Git bloquée `DENIED/404`, aucun commit |
+| R13 | **NEUTRE / NOT RUN** | À reprendre après capacité de publication R12 |
+| R14 | **NEUTRE / NOT RUN** | À reprendre après capacité de publication R12, sans toucher à PR #18 |
+ 
+### 10.4 Projection consolidée des 22 critères ML4-AT
+
+Cette table est **le bilan de campagne**, pas une modification de la matrice candidate sur `main`. Un PASS borné décrit exclusivement l'oracle exercé ; `PARTIAL` ne vaut pas validation complète. Les critères sans test sont explicitement `NOT RUN`.
+
+| Critère | Verdict campagne 1 | Justification probatoire / limite |
+|---|---|---|
+| `ML4-AT-01` | **PASS** | R01 : Studio et Nora sans dépôt obligatoire |
+| `ML4-AT-02` | **PARTIAL** | Séparation session Studio / OAuth Git observée ; cas négatif d'accès privé non testé |
+| `ML4-AT-03` | **PASS** | R02 : Intégrations et OAuth GitHub RECETTE |
+| `ML4-AT-04` | **PASS** | R03 : rattachement a posteriori dépôt et persistance |
+| `ML4-AT-05` | **NOT RUN** | Ajout d'une source depuis Nora + continuité dédiée non exécuté |
+| `ML4-AT-06` | **NOT RUN** | Organisation Git en attente / accès anticipé non testé |
+| `ML4-AT-07` | **PARTIAL** | Déconnexion/reconnexion observée ; App retirée/détachement distinct non testé |
+| `ML4-AT-08` | **PARTIAL** | R04 lecture Git LIVE, mais SHA blob présenté comme commit et URL 404 |
+| `ML4-AT-09` | **NOT RUN** | Injection hostile contrôlée non exécutée ; R05 exploratoire seulement |
+| `ML4-AT-10` | **PARTIAL** | REVISE v2 et CREATE R12 v1 D4 réellement disponibles, narration Nora non fiable |
+| `ML4-AT-11` | **PARTIAL** | Document prêt et cible identifiée ; pas de diff Git réel ni commit, R12 BLOCKED |
+| `ML4-AT-12` | **NEUTRE / NOT RUN** | R13 PR documentaire non exécutée |
+| `ML4-AT-13` | **KNOWN GAP — HARD-BLOCKED** | Merge documentaire REAL non exécutable ; aucune deuxième décision/merge prouvée |
+| `ML4-AT-14` | **NEUTRE / NOT RUN** | R14 divergence HEAD non exécutée |
+| `ML4-AT-15` | **NEUTRE / NOT RUN** | R14 timeout/double effet/réconciliation non exécutés |
+| `ML4-AT-16` | **PARTIAL** | Deux Pilotes et accès navigateur séparés ; isolation d'un même dépôt et refus serveur non éprouvés |
+| `ML4-AT-17` | **PARTIAL** | Refus cognitif d'écriture hors autorité ; garde serveur/code/CI non testé sur LIVE |
+| `ML4-AT-18` | **PARTIAL** | Nora ne surqualifie pas les tests/effets pendant préparation ; D8 après commit/PR non prouvé |
+| `ML4-AT-19` | **NOT RUN** | Absence/non-activation des futures intégrations non testée discriminamment |
+| `ML4-AT-20` | **NOT RUN** | Lien d'ouverture GitHub direct depuis la source Nora non testé |
+| `ML4-AT-21` | **PARTIAL** | Clavier Safari PASS, responsive fenêtre étroite FAIL mineur, a11y complète non prouvée |
+| `ML4-AT-22` | **PARTIAL** | D4/historique conservés après reconnexion ; révocation Git effective non testée |
+
+**Comptage de couverture : 3 PASS, 10 PARTIAL, 8 NOT RUN dont R13/R14 neutres pour leurs critères, et 1 KNOWN GAP / HARD-BLOCKED = 22.** Aucun `ML4-AT` absent n'est réputé PASS. Le nombre de critères PASS n'est pas un taux d'acceptation global.
+
+### 10.5 Disposition des anomalies et des non-tests — pour arbitrage du prochain lot
+
+| Groupe candidat | Éléments | Priorité proposée, non encore arbitrée | Traitement recommandé |
+|---|---|---|---|
+| **Publication Git : condition de fermeture** | `ML4-REC-11`, R12 préparation/ajout vérifiable, dépendances R13/R14 | **P0 candidat** | Diagnostic causal borné du `DENIED/404` vs absence de chemin ; une seule correction cohérente D9→préparation→diff/autorité si défaut confirmé, sans bypass ni faux diff ; puis R12→R13→R14 |
+| **Vérité/provenance des effets** | `ML4-REC-07` blob/commit/lien ; `ML4-REC-08` narration Nora vs ACK D4 | **P1 candidats** | Corriger à la frontière propriétaire D3/D4/D9, avec preuves et tests de non-régression ; ne pas fusionner artificiellement des causes distinctes |
+| **Stabilité OAuth/session si reproductible** | `ML4-REC-04` ; réserve de chargement / `Invalid origin` | **À requalifier avant correctif** | Ne pas modifier Better Auth à partir d'un seul incident transitoire ; reproduire et borner le blast radius |
+| **Environnement / couverture additionnelle** | `ML4-REC-05/06`, R05 hostile, R08 serveur, R09 révocation, R11 refus partagé | **Gates de preuve à décider**, pas toutes des anomalies code | Distinguer dette opérationnelle et tests manquants ; compléter sélectivement si nécessaires à la décision ML4 |
+| **UX / convergence différée** | `ML4-REC-01/02/09`, `ML4-EVOL-01` | **Report après ML4 proposé** ; `REC-09` déjà décidé mineur/non bloquant | Regrouper dans un cycle UX cohérent (sas, présentation, lien Git, responsive), sans micro-patches pendant la fermeture ML4 |
+| **Capitalisation fonctionnelle** | `ML4-REC-03` | **Décision de contrat à instruire** | Déterminer si les points ouverts doivent être conservés automatiquement ; ne pas assimiler question Nora à objet D4 sans règle validée |
+| **CREATE corrigé** | `ML4-REC-10` | **Pas de nouveau correctif** | Conserver preuve initiale FAIL, diagnostic, A+D+E, retest CREATE LIVE PASS ; surveiller non-régression du contrat fail-closed |
+
+**Limite sur la publication Git.** Le `404` de lecture de fichier, isolément, peut être un comportement normal pour un chemin absent. Le défaut candidat est **l'incapacité du parcours Studio à en dériver un état d'ajout suffisamment prouvé** ; sa cause racine et le correctif nécessaire restent inconnus. L'inspection indépendante de l'arbre ne doit pas être substituée à une inspection que Studio n'a pas produite.
+
+### 10.6 Contrat de reprise — campagne corrective puis complément RECETTE
+
+1. **Geler la photographie de campagne 1** dans ce registre, sans qualifier R13/R14 comme FAIL ni déclarer ML4 clos.
+2. **Qualifier et prioriser un macro-lot correctif** sous arbitrage Morris : résultat utilisateur visé, périmètre IN/OUT, propriétaires, blast radius, options, dépendances, preuves et gate ; les reports UX sont séparés de la capacité de publication Git.
+3. **Exécuter seulement le périmètre correctif retenu** sous SFIA v2.6, avec code/tests/docs/preuves dans un même lot ; Review Pack / handoff, revue ChatGPT et GO Morris de bascule RECETTE distinct.
+4. **Rejouer sur nouveau build** : R12 publication Git en commençant par preuve de l'état du chemin et diff, puis HumanDecision D6 et effet Git REAL après inspection/autorisation ; R13 PR réelle ; R14 conflit/idempotence/reprise contrôlés ; non-régressions R06 et autres anomalies effectivement corrigées. Ne pas créer de document/révision additionnel uniquement pour fabriquer un PASS.
+5. **Bilan complémentaire et décision Morris** sur les 22 `ML4-AT`, les réserves assumées, les reports post-ML4 et l'acceptation ou non du macro-lot. Le merge documentaire REAL demeure `KNOWN GAP / HARD-BLOCKED` tant qu'un mandat distinct ne couvre pas son évolution.
+
+**Verdict de fin de première campagne : `ML4 USER RECETTE CAMPAIGN 1 — BILAN CONSOLIDÉ / TEST EXECUTION PAUSED — R12 D4 CREATE LIVE PASS, GIT PREPARATION BLOCKED — R13/R14 NEUTRE NOT RUN — CORRECTIVE LOT TO BE QUALIFIED — NO ML4 ACCEPTANCE, NO PRODUCT PR/MERGE, NO STABLE/ADOPTED`.**
