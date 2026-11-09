@@ -114,9 +114,18 @@ function realAppReadConfigured(): boolean {
  * REAL mutations require STUDIO_GITHUB_ALLOW_MUTATIONS=documentary exactly (merge always blocked).
  * The flag is an operator env gate only — never a substitute for D6/D7 authority.
  */
-export function resolveGitHubProvider(): GitHubProvider {
+/**
+ * Env-configured effect mode without requiring REAL credentials.
+ * Used to freeze / compare attempt provenance even when REAL App is not bootable.
+ */
+export function resolveConfiguredEffectProviderMode(): ProviderMode {
   const mode = (process.env.STUDIO_GITHUB_PROVIDER ?? "scripted").toLowerCase();
-  if (mode === "real") {
+  return mode === "real" ? "REAL" : "SCRIPTED";
+}
+
+export function resolveGitHubProvider(): GitHubProvider {
+  const mode = resolveConfiguredEffectProviderMode();
+  if (mode === "REAL") {
     if (!realAppReadConfigured()) {
       throw new StudioError(
         "NOT_CONFIGURED",

@@ -1,11 +1,13 @@
 # R5 — Spécification technique candidate : collaboration Git et intégrations
 
-> **AS-IMPLEMENTED LOCAL CANDIDATE (2026-11-09)** — `feat/next-git-collaboration-20261108` / baseline `c658f590`.
-> Domaines : D9/D7/D8 ; migrations `008`–`012` (aucune migration nouvelle ce gel).
+> **AS-IMPLEMENTED LOCAL CANDIDATE (2026-11-09)** — `feat/next-git-collaboration-20261108` parent `79b10052…` + correctif intégrité local (push Product NON AUTORISÉ).
+> Domaines : D9/D7/D8 ; migrations `008`–`012` (aucune migration structurante ce cycle).
 > **R1-A / R1-B** refresh lifecycle clos ; **R2** CONFLICT callback accepté.
-> **Niveaux de preuve courants :** OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN (commit+PR #18 OPEN) · Consolidation DETERMINISTIC · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED.
+> **Niveaux de preuve courants :** OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN (commit+PR #18 OPEN, mono-repo sandbox) · Intégrité D7/D8 DETERMINISTIC CORRECTIVE · MULTI-REPO REAL NOT PROVEN · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED.
 > Mutations REAL **bornées documentary** si et seulement si `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` (aliases refusés ; merge HARD-BLOCKED). Flag ≠ autorité D6.
-> Consolidation : branche hash ; marker PR exact ; `effect_conditions` D6 ; reconcile tip SHA ; `user_token_observed` ; UI R7 mode d'effet ≠ OAuth.
+> Séquence publication nominale **seule** autorisée : `CREATE_BRANCH → PUBLISH_FILE → OPEN_PR` (`publication-steps.ts`). Aucun COMPLETED / D8 sans preuve fichier + commitSha ≠ baseSha + PR distante.
+> Provenance d'effet : `plan.effectProviderMode` figé à prepare ; historique sans champ → UNKNOWN ; divergence live → REQUIRES_REQUALIFICATION.
+> REAL sandbox actuel : allowlists `GITHUB_APP_ALLOWED_FULL_NAME` / App ID / installation — **mono-repo prouvé** (`mcleland147/chantiers360`) ; multi-repo REAL hors capacité.
 > Les sections bas du document portant « DOCUMENTED — DRAFT / NOT IMPLEMENTED » sont des **snapshots candidats historiques** — le bandeau ci-dessus prévaut pour l'état AS-IMPLEMENTED courant.
 
 

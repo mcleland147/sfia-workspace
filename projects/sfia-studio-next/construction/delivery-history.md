@@ -1075,3 +1075,18 @@ Append-only logical journal of Cursor product deliveries.
 | Push Product / PR / merge / REAL mutation | **AUCUN** |
 | USER E2E | NOT RUN — Morris RECETTE |
 | Verdict candidat | `ML4 PRODUCT — LOCAL CANDIDATE COMMITTED — READY FOR CHATGPT CRITICAL REVIEW — PRODUCT PUSH NOT AUTHORIZED` |
+
+## delivery_id: DELIV-2026-11-09-ML4-PUBLICATION-INTEGRITY-CORRECTIVE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~02:30 CET |
+| Macro-capacité | R5 / ML4 — Correctif CRITICAL intégrité publication D7/D8 + provenance fournisseur |
+| Type | INC / CORRECTIF PRODUCT — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO intégrité ; push Product / PR / merge / REAL mutation **NON AUTORISÉS** |
+| Parent Product | `79b100527a9c43fb789ca62b7f87b50a8bc2adf1` |
+| Correctifs | validateur unique `publication-steps.ts` ; reject `steps=[]` ; preuve COMPLETED/D8 ; `effectProviderMode` figé ; reconcile fail-closed ; UI provenance tentative |
+| Tests | T01–T20 DET SCRIPTED (service+DB) ; suites unit/integration/build/tsc |
+| REAL multi-repo | NOT PROVEN — réserve sandbox `chantiers360` |
+| Push Product distant | **AUCUN** — remote reste `79b10052…` |
+| Verdict candidat | `ML4 PUBLICATION INTEGRITY — CORRECTED AND LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL RE-REVIEW — PRODUCT PUSH NOT AUTHORIZED` |

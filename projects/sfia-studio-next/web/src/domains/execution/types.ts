@@ -54,6 +54,11 @@ export type PublicationPlan = {
   contentMarkdown: string;
   inspection: InspectionDiff;
   steps: PublicationStep[];
+  /**
+   * Effect provider mode frozen at prepare (REAL|SCRIPTED).
+   * Orthogonal to OAuth CONNECTED. Historical plans may omit → UNKNOWN provenance.
+   */
+  effectProviderMode?: "REAL" | "SCRIPTED";
 };
 
 /** Current remote PR state — distinct from historical creation fact. */

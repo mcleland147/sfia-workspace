@@ -43,6 +43,8 @@ type AttemptView = {
     repositoryFullName?: string;
     actorLogin?: string | null;
     installationId?: string;
+    /** Frozen at prepare — provenance of this attempt, not live config. */
+    effectProviderMode?: "REAL" | "SCRIPTED" | null;
     inspection?: Inspection;
   };
   prNumber?: number | null;
@@ -311,18 +313,26 @@ export function PublicationInspectionPanel({ projectId, providerMode: providerMo
     (r) => !sources.some((s) => s.repositoryId === r.id || s.fullName === r.fullName),
   );
   const inspection = attempt?.plan?.inspection;
-  const effectMode = effectProviderLabel(providerMode);
+  // Provenance of the attempt (frozen at prepare). Live config only when no attempt plan yet.
+  const attemptEffectMode =
+    attempt?.plan != null
+      ? effectProviderLabel(attempt.plan.effectProviderMode)
+      : effectProviderLabel(providerMode);
+  const liveEffectMode = effectProviderLabel(providerMode);
   const statusBanner = publicationStatusBanner({
     status: attempt?.status,
-    effectProviderMode: providerMode,
+    effectProviderMode:
+      attempt?.plan != null ? attempt.plan.effectProviderMode : providerMode,
   });
+  const dispatchMode =
+    attempt?.plan != null ? attempt.plan.effectProviderMode : providerMode;
 
   return (
     <section className="space-y-4" data-testid="publication-inspection">
       <header className="space-y-1">
         <div className="flex items-center gap-2 flex-wrap">
           <h2 className="text-xl font-semibold">Publication Git — inspection d&apos;une révision</h2>
-          {effectMode === "SCRIPTED" ? (
+          {attemptEffectMode === "SCRIPTED" ? (
             <span
               className="text-[10px] uppercase px-2 py-0.5 rounded border border-[var(--line)] muted"
               data-testid="badge-effect-provider"
@@ -330,7 +340,7 @@ export function PublicationInspectionPanel({ projectId, providerMode: providerMo
               SCRIPTED
             </span>
           ) : null}
-          {effectMode === "REAL" ? (
+          {attemptEffectMode === "REAL" ? (
             <span
               className="text-[10px] uppercase px-2 py-0.5 rounded border border-[var(--line)] muted"
               data-testid="badge-effect-provider"
@@ -338,10 +348,19 @@ export function PublicationInspectionPanel({ projectId, providerMode: providerMo
               REAL
             </span>
           ) : null}
+          {attemptEffectMode === "UNKNOWN" && attempt ? (
+            <span
+              className="text-[10px] uppercase px-2 py-0.5 rounded border border-[var(--line)] muted"
+              data-testid="badge-effect-provider"
+            >
+              UNKNOWN
+            </span>
+          ) : null}
         </div>
         <p className="text-sm muted">
           Le Pilote examine exactement ce qui serait publié avant toute opération externe. Le mode
-          d&apos;effet (badge) est le fournisseur Git résolu — distinct du statut OAuth CONNECTED.
+          d&apos;effet affiché pour une tentative est celui figé à la préparation — distinct du
+          statut OAuth CONNECTED et de la configuration live ({liveEffectMode}).
         </p>
       </header>
 
@@ -449,7 +468,7 @@ export function PublicationInspectionPanel({ projectId, providerMode: providerMo
             <dt className="muted">Statut</dt>
             <dd data-testid="publication-attempt-status">{attempt?.status ?? "—"}</dd>
             <dt className="muted">Fournisseur d&apos;effet</dt>
-            <dd data-testid="publication-effect-provider">{effectMode}</dd>
+            <dd data-testid="publication-effect-provider">{attemptEffectMode}</dd>
             <dt className="muted">Base SHA</dt>
             <dd className="mono break-all">{attempt?.plan?.baseSha ?? "—"}</dd>
             <dt className="muted">Acteur / install</dt>
@@ -519,7 +538,7 @@ export function PublicationInspectionPanel({ projectId, providerMode: providerMo
           onClick={() => void dispatch()}
           data-testid="publication-dispatch"
         >
-          {dispatchButtonLabel(providerMode)}
+          {dispatchButtonLabel(dispatchMode)}
         </button>
         <button
           type="button"
@@ -546,7 +565,7 @@ export function PublicationInspectionPanel({ projectId, providerMode: providerMo
           onClick={() => void dispatchMerge()}
           data-testid="merge-dispatch"
         >
-          {mergeDispatchButtonLabel(providerMode)}
+          {mergeDispatchButtonLabel(dispatchMode)}
         </button>
       </div>
 

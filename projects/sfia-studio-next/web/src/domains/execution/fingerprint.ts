@@ -44,29 +44,31 @@ export function inspectionFingerprint(input: {
 
 /** Canonical effect conditions — pilot/project bound outside the hash via attempt row. */
 export function publicationEffectFingerprint(plan: PublicationPlan): string {
-  return createHash("sha256")
-    .update(
-      canonical({
-        kind: "GIT_PUBLICATION",
-        documentId: plan.documentId,
-        revisionId: plan.revisionId,
-        preparationId: plan.preparationId,
-        repositoryId: plan.repositoryId,
-        repositoryFullName: plan.repositoryFullName,
-        authorizationId: plan.authorizationId,
-        installationId: plan.installationId,
-        actorLogin: plan.actorLogin,
-        permissions: plan.permissions,
-        targetPath: plan.targetPath,
-        targetBranch: plan.targetBranch,
-        publicationBranch: plan.publicationBranch,
-        baseSha: plan.baseSha,
-        revisionFingerprint: plan.revisionFingerprint,
-        inspectionFingerprint: plan.inspection.inspectionFingerprint,
-        steps: plan.steps,
-      }),
-    )
-    .digest("hex");
+  // Historical plans omit effectProviderMode — keep payload shape identical so D6
+  // fingerprints remain stable. New prepares always set REAL|SCRIPTED and bind it.
+  const payload: Record<string, unknown> = {
+    kind: "GIT_PUBLICATION",
+    documentId: plan.documentId,
+    revisionId: plan.revisionId,
+    preparationId: plan.preparationId,
+    repositoryId: plan.repositoryId,
+    repositoryFullName: plan.repositoryFullName,
+    authorizationId: plan.authorizationId,
+    installationId: plan.installationId,
+    actorLogin: plan.actorLogin,
+    permissions: plan.permissions,
+    targetPath: plan.targetPath,
+    targetBranch: plan.targetBranch,
+    publicationBranch: plan.publicationBranch,
+    baseSha: plan.baseSha,
+    revisionFingerprint: plan.revisionFingerprint,
+    inspectionFingerprint: plan.inspection.inspectionFingerprint,
+    steps: plan.steps,
+  };
+  if (plan.effectProviderMode === "REAL" || plan.effectProviderMode === "SCRIPTED") {
+    payload.effectProviderMode = plan.effectProviderMode;
+  }
+  return createHash("sha256").update(canonical(payload)).digest("hex");
 }
 
 export function mergeEffectFingerprint(plan: MergePlan): string {

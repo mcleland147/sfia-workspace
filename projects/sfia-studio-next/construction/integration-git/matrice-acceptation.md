@@ -1,7 +1,7 @@
 # R5 ML4 — Matrice de couverture et de preuves candidate
 
-**Statut courant (2026-11-09) :** AS-IMPLEMENTED LOCAL CANDIDATE · DETERMINISTIC PROVEN · OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED
-**Base construction :** `feat/next-git-collaboration-20261108` @ `origin/main@c658f590`
+**Statut courant (2026-11-09) :** AS-IMPLEMENTED LOCAL CANDIDATE · DETERMINISTIC CORRECTIVE COVERAGE (intégrité D7/D8) · OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN (mono-repo sandbox) · MULTI-REPO REAL NOT PROVEN · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED
+**Base construction :** `feat/next-git-collaboration-20261108` parent `79b10052…` + correctif local intégrité (push Product NON AUTORISÉ)
 **Base Git historique :** `main@84bf3496…` ; qualification v0.2 `docs/next-ml4-git-qualification-20261107@3bb9224`.
 **Figma ML4 VALIDATED SPEC Morris :** 18 écrans 218–235 ; convergence UX globale et USER E2E navigateur = RECETTE Morris.
 **Niveaux Fake/Real distincts — ne pas confondre :** OAuth READ REAL ≠ commit/PR documentary REAL ≠ USER E2E ≠ Merge REAL ≠ Product intégré.
@@ -466,3 +466,20 @@ GO Morris CRITICAL consolidation — **aucune** nouvelle mutation GitHub REAL.
 | USER E2E RECETTE | NOT RUN / MORRIS | arbitrage accepté |
 
 Verdict cycle : **TECHNICAL CONSOLIDATION REVIEW READY — USER E2E RESERVED FOR MORRIS RECETTE**.
+
+## 22. Intégrité publication D7/D8 + provenance fournisseur (2026-11-09)
+
+GO Morris CRITICAL correctif — **aucune** mutation GitHub REAL ; push Product **NON AUTORISÉ**.
+
+| Item | Statut | Note |
+|---|---|---|
+| Séquence canonique | ENFORCED | seul `CREATE_BRANCH→PUBLISH_FILE→OPEN_PR` ; `steps=[]/null/mal typé` refusés avant D7 |
+| COMPLETED sans PUBLISH_FILE | ÉLIMINÉ (scénarios couverts) | preuve fichier + commitSha ≠ baseSha + PR distante |
+| Reconcile plan invalide | FAIL-CLOSED | aucune `publicationRef` D8 |
+| Provenance REAL/SCRIPTED | FIGÉE au prepare | `plan.effectProviderMode` ; historique absent → UNKNOWN |
+| Divergence mode live | REQUIRES_REQUALIFICATION | plan ≠ env |
+| REAL mono-repo | RÉSERVE | sandbox `mcleland147/chantiers360` ; allowlists App inchangées ; multi-repo REAL NOT PROVEN |
+| T01–T20 | DET SCRIPTED | service + DB ; merge REAL hard-blocked |
+| USER E2E / RECETTE | NOT RUN | Morris |
+
+Verdict cycle : **ML4 PUBLICATION INTEGRITY — CORRECTED AND LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL RE-REVIEW — PRODUCT PUSH NOT AUTHORIZED**.

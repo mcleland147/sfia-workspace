@@ -14,7 +14,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
       targetPath?: string;
       targetBranch?: string;
       correlationKey?: string;
-      steps?: Array<"CREATE_BRANCH" | "PUBLISH_FILE" | "OPEN_PR">;
+      steps?: Array<"CREATE_BRANCH" | "PUBLISH_FILE" | "OPEN_PR"> | null;
     };
     if (
       !body.documentId ||

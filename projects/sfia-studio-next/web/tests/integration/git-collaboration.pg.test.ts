@@ -48,6 +48,7 @@ import {
   reconcileAttempt,
 } from "@/domains/execution/effect-service";
 import { ExecutionBarrierRegistry, readClaim } from "@/domains/execution/claim-lease";
+import { publicationEffectFingerprint } from "@/domains/execution/fingerprint";
 import { insertRestriction, markDecisionState } from "@/domains/decisions/service";
 import { qualifyObservedFacts } from "@/domains/proofs/qualify";
 import { createProjectCommand } from "@/domains/preparation/create-project";
@@ -3165,5 +3166,576 @@ describe("ML4 refresh lifecycle R1-A/R1-B (SCRIPTED/DET)", () => {
     const conflicts = [a, b].filter((o) => o instanceof StudioError && o.code === "CONFLICT");
     expect(ok).toHaveLength(1);
     expect(conflicts).toHaveLength(1);
+  });
+});
+
+describe("PostgreSQL ML4 publication integrity T01–T20 (SCRIPTED)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+  });
+
+  async function seedPub(label: string) {
+    const ctx = await seedProject(label);
+    const { repoId } = await connectAndAttach(ctx.pilotId, ctx.projectId);
+    const doc = await availableDoc(ctx.pilotId, ctx.preparationId, label);
+    return { ...ctx, repoId, ...doc };
+  }
+
+  async function pubRefs(attemptId: string) {
+    return db
+      .select()
+      .from(documentPublicationRefs)
+      .where(eq(documentPublicationRefs.effectAttemptId, attemptId));
+  }
+
+  it("T01: steps=[] refusé à prepare — zero effet, pas de D7", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t01-empty");
+    resetScriptedMutationCounts(pilotId);
+    await expect(
+      preparePublication({
+        pilotId,
+        projectId,
+        documentId,
+        revisionId,
+        repositoryId: repoId,
+        targetPath: "docs/t01.md",
+        targetBranch: "main",
+        correlationKey: newId("t01"),
+        steps: [],
+      }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(0);
+    expect(getScriptedMutationCounts(pilotId).putFileContents).toBe(0);
+    expect(getScriptedMutationCounts(pilotId).createPR).toBe(0);
+  });
+
+  it("T02: steps=null refusé à prepare", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t02-null");
+    await expect(
+      preparePublication({
+        pilotId,
+        projectId,
+        documentId,
+        revisionId,
+        repositoryId: repoId,
+        targetPath: "docs/t02.md",
+        targetBranch: "main",
+        correlationKey: newId("t02"),
+        steps: null,
+      }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+  });
+
+  it("T03–T08: formes invalides refusées à prepare", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t03-forms");
+    const base = {
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t03.md",
+      targetBranch: "main",
+    };
+    await expect(
+      preparePublication({
+        ...base,
+        correlationKey: newId("t03a"),
+        steps: "CREATE_BRANCH" as unknown as [],
+      }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+    await expect(
+      preparePublication({
+        ...base,
+        correlationKey: newId("t04"),
+        steps: ["CREATE_BRANCH", "PUBLISH_FILE", "MERGE" as "OPEN_PR"],
+      }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+    await expect(
+      preparePublication({
+        ...base,
+        correlationKey: newId("t05"),
+        steps: ["CREATE_BRANCH", "CREATE_BRANCH", "PUBLISH_FILE"],
+      }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+    await expect(
+      preparePublication({
+        ...base,
+        correlationKey: newId("t06"),
+        steps: ["PUBLISH_FILE", "CREATE_BRANCH", "OPEN_PR"],
+      }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+    await expect(
+      preparePublication({
+        ...base,
+        correlationKey: newId("t07"),
+        steps: ["CREATE_BRANCH"],
+      }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+    await expect(
+      preparePublication({
+        ...base,
+        correlationKey: newId("t08"),
+        steps: ["OPEN_PR"],
+      }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+  });
+
+  it("T09: plan persisté invalide — aucun dispatch externe, aucun COMPLETED", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t09-persist");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t09.md",
+      targetBranch: "main",
+      correlationKey: newId("t09"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const plan = JSON.parse(row.planJson) as PublicationPlan;
+    plan.steps = [];
+    await db
+      .update(effectAttempts)
+      .set({ planJson: JSON.stringify(plan), updatedAt: new Date() })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    // Fingerprint mismatch OR steps invalid — either way no COMPLETED / no mutations.
+    resetScriptedMutationCounts(pilotId);
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toBeTruthy();
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(0);
+    expect(getScriptedMutationCounts(pilotId).putFileContents).toBe(0);
+    expect(getScriptedMutationCounts(pilotId).createPR).toBe(0);
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    expect(after.status).not.toBe("COMPLETED");
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("T09b: plan invalide avec fingerprint recalculé — FAILED, zero effet", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t09b-fp");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t09b.md",
+      targetBranch: "main",
+      correlationKey: newId("t09b"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    // Corrupt steps and realign fingerprint so steps gate (not fp) is exercised.
+    const plan = JSON.parse(row.planJson) as PublicationPlan;
+    plan.steps = ["CREATE_BRANCH"];
+    const fingerprint = publicationEffectFingerprint(plan);
+    await db
+      .update(effectAttempts)
+      .set({
+        planJson: JSON.stringify(plan),
+        fingerprint,
+        effectConditions: row.effectConditions
+          ? JSON.stringify({
+              ...JSON.parse(row.effectConditions),
+              fingerprint,
+            })
+          : row.effectConditions,
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    resetScriptedMutationCounts(pilotId);
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toMatchObject({ code: "INVALID_REQUEST" });
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(0);
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    expect(after.status).toBe("FAILED");
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("T10: plan invalide en réconciliation — aucune publicationRef D8", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t10-rec");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t10.md",
+      targetBranch: "main",
+      correlationKey: newId("t10"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    // Force AMBIGUOUS with empty steps + fake progress that would have vacuously completed before.
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const plan = JSON.parse(row.planJson) as PublicationPlan;
+    const baseSha = plan.baseSha;
+    plan.steps = [];
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "AMBIGUOUS",
+        planJson: JSON.stringify(plan),
+        resultJson: JSON.stringify({
+          progress: {
+            branchCreated: true,
+            branchSha: baseSha,
+            filePublished: false,
+            commitSha: baseSha,
+          },
+        }),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).not.toBe("COMPLETED");
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("T11: SHA de base seul — preuve commit insuffisante, pas de D8", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t11-base");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t11.md",
+      targetBranch: "main",
+      correlationKey: newId("t11"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const plan = JSON.parse(row.planJson) as PublicationPlan;
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "AMBIGUOUS",
+        resultJson: JSON.stringify({
+          progress: {
+            branchCreated: true,
+            branchSha: plan.baseSha,
+            filePublished: true,
+            commitSha: plan.baseSha,
+            prCreated: true,
+            prOpened: true,
+            prNumber: 99,
+            prCurrentState: "OPEN",
+          },
+        }),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).not.toBe("COMPLETED");
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("T12: séquence nominale branche+fichier+PR → COMPLETED + D8", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t12-nominal");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t12.md",
+      targetBranch: "main",
+      correlationKey: newId("t12"),
+      steps: ["CREATE_BRANCH", "PUBLISH_FILE", "OPEN_PR"],
+    });
+    expect(prepared.plan.effectProviderMode).toBe("SCRIPTED");
+    await authzPub(pilotId, projectId, prepared);
+    resetScriptedMutationCounts(pilotId);
+    const done = await dispatchPublication({
+      pilotId,
+      projectId,
+      attemptId: prepared.attemptId,
+    });
+    expect(done.status).toBe("COMPLETED");
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(1);
+    expect(getScriptedMutationCounts(pilotId).putFileContents).toBe(1);
+    expect(getScriptedMutationCounts(pilotId).createPR).toBe(1);
+    const refs = await pubRefs(prepared.attemptId);
+    expect(refs).toHaveLength(1);
+    expect(refs[0]!.headSha).not.toBe(prepared.plan.baseSha);
+  });
+
+  it("T13: timeout/lost ACK — succès seulement si effet réellement prouvé", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t13-lost");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t13.md",
+      targetBranch: "main",
+      correlationKey: newId("t13"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    ScriptedFaultRegistry.setFault("lost_ack_after_pr");
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toBeTruthy();
+    ScriptedFaultRegistry.clear();
+    const mid = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    expect(mid.status).not.toBe("COMPLETED");
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    if (reconciled.status !== "COMPLETED") {
+      const resumed = await dispatchPublication({
+        pilotId,
+        projectId,
+        attemptId: prepared.attemptId,
+      });
+      expect(resumed.status).toBe("COMPLETED");
+    }
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(1);
+    expect(getScriptedMutationCounts(pilotId).createPR).toBeLessThanOrEqual(1);
+  });
+
+  it("T14: double dispatch — pas de double commit ni double PR", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t14-dbl");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t14.md",
+      targetBranch: "main",
+      correlationKey: newId("t14"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    resetScriptedMutationCounts(pilotId);
+    const [a, b] = await Promise.allSettled([
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ]);
+    const statuses = [a, b].map((r) =>
+      r.status === "fulfilled" ? (r.value as { status: string }).status : "ERR",
+    );
+    expect(statuses).toContain("COMPLETED");
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(1);
+    expect(getScriptedMutationCounts(pilotId).putFileContents).toBe(1);
+    expect(getScriptedMutationCounts(pilotId).createPR).toBe(1);
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(1);
+  });
+
+  it("T15: REAL plan puis config SCRIPTED — provenance stable, requalification", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t15-prov");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t15.md",
+      targetBranch: "main",
+      correlationKey: newId("t15"),
+    });
+    // Force plan provenance to REAL while live stays SCRIPTED.
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const plan = JSON.parse(row.planJson) as PublicationPlan;
+    plan.effectProviderMode = "REAL";
+    const fingerprint = publicationEffectFingerprint(plan);
+    await db
+      .update(effectAttempts)
+      .set({
+        planJson: JSON.stringify(plan),
+        fingerprint,
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    await authzPub(pilotId, projectId, { attemptId: prepared.attemptId, plan });
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    resetScriptedMutationCounts(pilotId);
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toMatchObject({ code: "REQUIRES_REQUALIFICATION" });
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(0);
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const afterPlan = JSON.parse(after.planJson) as PublicationPlan;
+    expect(afterPlan.effectProviderMode).toBe("REAL");
+    expect(after.status).toBe("REQUIRES_REQUALIFICATION");
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("T16: SCRIPTED plan puis config REAL — provenance stable, requalification", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t16-prov");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t16.md",
+      targetBranch: "main",
+      correlationKey: newId("t16"),
+    });
+    expect(prepared.plan.effectProviderMode).toBe("SCRIPTED");
+    await authzPub(pilotId, projectId, prepared);
+    process.env.STUDIO_GITHUB_PROVIDER = "real";
+    resetScriptedMutationCounts(pilotId);
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toMatchObject({ code: "REQUIRES_REQUALIFICATION" });
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const afterPlan = JSON.parse(after.planJson) as PublicationPlan;
+    expect(afterPlan.effectProviderMode).toBe("SCRIPTED");
+    expect(after.status).toBe("REQUIRES_REQUALIFICATION");
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(0);
+  });
+
+  it("T17: historique sans effectProviderMode → UNKNOWN, pas REAL inventé", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t17-unk");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t17.md",
+      targetBranch: "main",
+      correlationKey: newId("t17"),
+    });
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const plan = JSON.parse(row.planJson) as PublicationPlan;
+    delete plan.effectProviderMode;
+    await db
+      .update(effectAttempts)
+      .set({ planJson: JSON.stringify(plan), updatedAt: new Date() })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    const reloaded = JSON.parse(
+      (
+        await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+      )[0]!.planJson,
+    ) as PublicationPlan;
+    expect(reloaded.effectProviderMode).toBeUndefined();
+    const { effectProviderLabel } = await import(
+      "@/components/integrations/publication-effect-labels"
+    );
+    expect(effectProviderLabel(reloaded.effectProviderMode)).toBe("UNKNOWN");
+  });
+
+  it("T18: révocation D6 — aucun effet nouveau", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t18-rev");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t18.md",
+      targetBranch: "main",
+      correlationKey: newId("t18"),
+    });
+    const auth = await authzPub(pilotId, projectId, prepared);
+    await db.transaction(async (tx) => {
+      await markDecisionState(tx, auth.decisionId!, "REVOKED");
+    });
+    resetScriptedMutationCounts(pilotId);
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toMatchObject({ code: "ACCESS_DENIED" });
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(0);
+    expect(getScriptedMutationCounts(pilotId).putFileContents).toBe(0);
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("T19: source D4 changée — requalification, pas de publication", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t19-d4");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t19.md",
+      targetBranch: "main",
+      correlationKey: newId("t19"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    // Same revisionId content diverges from plan.revisionFingerprint (D4 source drift).
+    await db
+      .update(documentRevisions)
+      .set({ contentMarkdown: "# Changed after inspection\n", updatedAt: new Date() })
+      .where(eq(documentRevisions.id, revisionId));
+    resetScriptedMutationCounts(pilotId);
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toMatchObject({ code: "REQUIRES_REQUALIFICATION" });
+    expect(getScriptedMutationCounts(pilotId).putFileContents).toBe(0);
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("T20: merge REAL — toujours hard-blocked", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t20-merge");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/t20.md",
+      targetBranch: "main",
+      correlationKey: newId("t20"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    const done = await dispatchPublication({
+      pilotId,
+      projectId,
+      attemptId: prepared.attemptId,
+    });
+    expect(done.status).toBe("COMPLETED");
+    const mergePrep = await prepareMerge({
+      pilotId,
+      projectId,
+      publicationAttemptId: prepared.attemptId,
+      correlationKey: newId("t20m"),
+    });
+    await authorizeMerge({
+      pilotId,
+      projectId,
+      attemptId: mergePrep.attemptId,
+      statement: "Je mandate le merge",
+    });
+    process.env.STUDIO_GITHUB_PROVIDER = "real";
+    process.env.STUDIO_GITHUB_ALLOW_MUTATIONS = "documentary";
+    resetScriptedMutationCounts(pilotId);
+    await expect(
+      dispatchMerge({ pilotId, projectId, attemptId: mergePrep.attemptId }),
+    ).rejects.toBeTruthy();
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+    expect(getScriptedMutationCounts(pilotId).mergePR).toBe(0);
   });
 });

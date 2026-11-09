@@ -16,6 +16,7 @@ import {
 import { insertHumanDecision } from "@/domains/decisions/service";
 import { classifyPublicationPath } from "@/domains/integrations/path-policy";
 import {
+  resolveConfiguredEffectProviderMode,
   resolveGitHubProvider,
   type PullRequestInfo,
 } from "@/domains/integrations/github-provider";
@@ -52,6 +53,11 @@ import type {
   PublicationProgress,
   PublicationStep,
 } from "./types";
+import {
+  assertPlanPublicationSteps,
+  assertPublicationEffectProof,
+  resolvePublicationSteps,
+} from "./publication-steps";
 
 async function assertProject(pilotId: string, projectId: string) {
   const p = (
@@ -786,9 +792,10 @@ export async function preparePublication(input: {
   targetPath: string;
   targetBranch: string;
   correlationKey: string;
-  steps?: PublicationStep[];
+  steps?: PublicationStep[] | null;
 }) {
   await assertProject(input.pilotId, input.projectId);
+  const steps = resolvePublicationSteps(input.steps);
   const policy = classifyPublicationPath(input.targetPath);
   if (!policy.allowed || !policy.normalizedPath) {
     throw new StudioError("ACCESS_DENIED", `Chemin refusé: ${policy.reason}`, { exposeMessage: true });
@@ -850,6 +857,7 @@ export async function preparePublication(input: {
   });
 
   const publicationBranch = publicationBranchFromCorrelationKey(input.correlationKey);
+  const effectProviderMode = resolveConfiguredEffectProviderMode();
   const plan: PublicationPlan = {
     documentId: input.documentId,
     revisionId: input.revisionId,
@@ -868,7 +876,8 @@ export async function preparePublication(input: {
     revisionFingerprint: revisionFp,
     contentMarkdown: rev.contentMarkdown,
     inspection,
-    steps: input.steps ?? ["CREATE_BRANCH", "PUBLISH_FILE", "OPEN_PR"],
+    steps,
+    effectProviderMode,
   };
   const fingerprint = publicationEffectFingerprint(plan);
 
@@ -1069,6 +1078,36 @@ export async function dispatchPublication(input: {
       resultJson: writeClaimInto(resultJson, releaseClaim(readClaim(resultJson))),
     });
     throw new StudioError("CONFLICT", "Empreinte plan modifiée");
+  }
+
+  try {
+    assertPlanPublicationSteps(plan);
+  } catch (e) {
+    const released = releaseClaim(readClaim(resultJson));
+    await casOwnedTransition({
+      attemptId: row.id,
+      claimToken,
+      fromStatus: "DISPATCHED",
+      toStatus: "FAILED",
+      resultJson: writeClaimInto(resultJson, released),
+    });
+    throw e;
+  }
+
+  const liveEffectMode = resolveConfiguredEffectProviderMode();
+  if (plan.effectProviderMode && plan.effectProviderMode !== liveEffectMode) {
+    const released = releaseClaim(readClaim(resultJson));
+    await casOwnedTransition({
+      attemptId: row.id,
+      claimToken,
+      fromStatus: "DISPATCHED",
+      toStatus: "REQUIRES_REQUALIFICATION",
+      resultJson: writeClaimInto(resultJson, released),
+    });
+    throw new StudioError(
+      "REQUIRES_REQUALIFICATION",
+      `Mode fournisseur d'effet divergé (plan=${plan.effectProviderMode}, live=${liveEffectMode})`,
+    );
   }
 
   const authCtx: AuthorityCtx = {
@@ -1538,6 +1577,20 @@ export async function dispatchPublication(input: {
       }
     }
 
+    try {
+      assertPublicationEffectProof({ plan, progress, commitSha });
+    } catch (e) {
+      const released = releaseClaim(readClaim(resultJson));
+      await casOwnedTransition({
+        attemptId: row.id,
+        claimToken,
+        fromStatus: "DISPATCHED",
+        toStatus: "AMBIGUOUS",
+        resultJson: writeProgress(resultJson, progress, released),
+      });
+      throw e;
+    }
+
     const pubStatus =
       progress.prCurrentState === "CLOSED"
         ? "PR_CLOSED"
@@ -1561,6 +1614,7 @@ export async function dispatchPublication(input: {
         prNumber,
         progress,
         claim: released,
+        effectProviderMode: plan.effectProviderMode ?? null,
       }),
       pub: {
         projectId: input.projectId,
@@ -1577,7 +1631,10 @@ export async function dispatchPublication(input: {
         publicationBranch: plan.publicationBranch,
         prCurrentState: progress.prCurrentState,
         prCreatedHistorically: Boolean(progress.prCreated || progress.prOpened),
-        extraDetail: { resumedVerified: prHistoricallyCreated },
+        extraDetail: {
+          resumedVerified: prHistoricallyCreated,
+          effectProviderMode: plan.effectProviderMode ?? null,
+        },
       },
     });
 
@@ -2065,6 +2122,14 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
     const progress = readProgress(row.resultJson);
     const observed: PublicationProgress = { ...progress };
 
+    // Historical malformed plans: never COMPLETED / D8 from reconcile.
+    let planStepsValid = true;
+    try {
+      assertPlanPublicationSteps(plan);
+    } catch {
+      planStepsValid = false;
+    }
+
     // Observation always allowed (read-only against remote).
     try {
       const branchSha = await provider.getRefSha(
@@ -2271,19 +2336,30 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
 
     // Historical local progress ≠ remote proof. COMPLETED from reconcile requires
     // re-read PR state + independent marker provenance (even if prNumber was known).
-    const prRemoteProven =
-      !plan.steps.includes("OPEN_PR") ||
-      (remoteReadable &&
-        prMarkerProven &&
-        observed.prNumber != null &&
-        (observed.prCurrentState === "OPEN" ||
-          observed.prCurrentState === "CLOSED" ||
-          observed.prCurrentState === "MERGED"));
-
-    const stepsDone =
-      (!plan.steps.includes("CREATE_BRANCH") || observed.branchCreated) &&
-      (!plan.steps.includes("PUBLISH_FILE") || observed.filePublished) &&
-      prRemoteProven;
+    // Empty/invalid steps never vacuously succeed — assertPublicationEffectProof is fail-closed.
+    let effectProofOk = false;
+    if (planStepsValid) {
+      try {
+        assertPublicationEffectProof({
+          plan,
+          progress: observed,
+          commitSha: observed.commitSha,
+        });
+        // PR remote provenance still required beyond progress flags.
+        const prRemoteProven =
+          !plan.steps.includes("OPEN_PR") ||
+          (remoteReadable &&
+            prMarkerProven &&
+            observed.prNumber != null &&
+            (observed.prCurrentState === "OPEN" ||
+              observed.prCurrentState === "CLOSED" ||
+              observed.prCurrentState === "MERGED"));
+        effectProofOk = prRemoteProven;
+      } catch {
+        effectProofOk = false;
+      }
+    }
+    const stepsDone = effectProofOk;
 
     // B2 — DISPATCHED with active lease: READ-ONLY. Never liberate status.
     if (row.status === "DISPATCHED" && claimActive) {
@@ -2395,6 +2471,7 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
               progress: observed,
               reconciled: true,
               claim: released,
+              effectProviderMode: plan.effectProviderMode ?? null,
             }),
             pub: {
               projectId,
@@ -2411,7 +2488,10 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
               publicationBranch: plan.publicationBranch,
               prCurrentState: observed.prCurrentState,
               prCreatedHistorically: Boolean(observed.prCreated || observed.prOpened),
-              extraDetail: { reconciled: true },
+              extraDetail: {
+                reconciled: true,
+                effectProviderMode: plan.effectProviderMode ?? null,
+              },
             },
           });
           nextStatus = "COMPLETED";
