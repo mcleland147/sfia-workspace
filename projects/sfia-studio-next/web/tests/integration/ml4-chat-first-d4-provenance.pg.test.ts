@@ -360,19 +360,47 @@ Fin.
 
   it("R06 oracle: quoted title revise via postUserMessageAndNora (DET fixture)", async () => {
     const title = "Références externes — Enseignements de Chantiers360";
+    // Structural twin of RECETTE v1 (numbered ATX + Source 2 + 3.2 + ordered list) — sanitized.
     const v1Body = `# ${title}
 
-## Section 1 — Contexte
+## 1. Contexte et objectif
 
 Contexte CampusFlow.
 
-## Section 2 — Sources consultées et provenance disponible
+## 2. Sources consultées et provenance disponible
 
-- Source initiale (SHA fichier confondu avec commit).
+### Source 1 — Première consultation : référence à compléter
 
-## Section 3 — Limites
+| Élément | Provenance disponible |
+| --- | --- |
+| Chemin | docs/example.md |
+| Limite | incompleteness |
+
+### Source 2 — Definition of Done de Chantiers360
+
+| Élément | Provenance vérifiée |
+| --- | --- |
+| Blob SHA | blob_example |
+| Commit SHA | commit_example |
+
+## 3. Enseignements utiles
+
+### 3.1. Qualité
+
+Q.
+
+### 3.2. Traçabilité
+
+T.
+
+## 4. Limites de transposition
 
 Aucune écriture GitHub.
+
+## 5. Points à clarifier par le Pilote
+
+1. **Première référence :** question A ?
+2. **Réservation reconnue :** question B ?
 `;
     const pilotId = await seedPilot("ml4-r06");
     const prep = await openOrCreatePreparation(pilotId);
@@ -423,9 +451,11 @@ Aucune écriture GitHub.
     const v1 = listed.revisions.find((r) => r.revisionNumber === 1)!;
     const v2 = listed.revisions.find((r) => r.revisionNumber === 2)!;
     expect(assertSectionScope(v1.contentMarkdown, v2.contentMarkdown, "2")).toEqual({ ok: true });
-    expect(v2.contentMarkdown).toContain("## Section 1 — Contexte");
-    expect(v2.contentMarkdown).toContain("## Section 3 — Limites");
+    expect(v2.contentMarkdown).toContain("## 1. Contexte et objectif");
+    expect(v2.contentMarkdown).toContain("## 3. Enseignements utiles");
+    expect(v2.contentMarkdown).toContain("### 3.2. Traçabilité");
     expect(v2.contentMarkdown).toContain("Aucune écriture GitHub.");
+    expect(v2.contentMarkdown).toContain("2. **Réservation reconnue :** question B ?");
 
     const msgs = await listMessages(pilotId, prep.id);
     const last = msgs.filter((m) => m.role === "assistant").at(-1)!;

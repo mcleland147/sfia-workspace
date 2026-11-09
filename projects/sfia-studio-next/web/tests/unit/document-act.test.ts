@@ -11,6 +11,7 @@ import {
   isGlobalDocumentWriteNegation,
   isInformativeOrHypothetical,
   isPolitePositiveDocumentAction,
+  leadingSectionNumber,
   locateSections,
   qualifyDocumentAct,
   reconcileNarrationWithDocumentEffect,
@@ -239,6 +240,140 @@ Nouveau texte ciblé.
   });
 });
 
+describe("document-act CampusFlow-like numbered ATX (R06-F root cause)", () => {
+  /** Sanitized structural twin of RECETTE v1 — numbered ATX + Source 2 + 3.2 sub + ordered list. */
+  const campusLike = `# Références externes — Enseignements de Chantiers360
+
+## 1. Contexte et objectif
+
+Contexte A.
+
+## 2. Sources consultées et provenance disponible
+
+### Source 1 — Première consultation : référence à compléter
+
+| Élément | Provenance disponible |
+| --- | --- |
+| Chemin | a/b.md |
+| Limite | incompleteness |
+
+### Source 2 — Definition of Done de Chantiers360
+
+| Élément | Provenance vérifiée |
+| --- | --- |
+| Blob SHA | blob_aaa |
+| Commit SHA | commit_bbb |
+
+## 3. Enseignements utiles
+
+### 3.1. Qualité
+
+Q.
+
+### 3.2. Traçabilité
+
+T.
+
+## 4. Limites de transposition
+
+Limites.
+
+## 5. Points à clarifier par le Pilote
+
+1. **Première référence :** question A ?
+2. **Réservation reconnue :** question B ?
+3. **Concurrence :** question C ?
+
+## Résultat de l’opération
+
+| Élément | Résultat |
+| --- | --- |
+| X | Y |
+`;
+
+  it("leadingSectionNumber ignores Source 2 / 3.2 / list items", () => {
+    expect(leadingSectionNumber("2. Sources consultées et provenance disponible")).toBe("2");
+    expect(leadingSectionNumber("Section 2 — Analyse")).toBe("2");
+    expect(leadingSectionNumber("Source 2 — Definition of Done de Chantiers360")).toBeNull();
+    expect(leadingSectionNumber("3.2. Traçabilité")).toBeNull();
+    expect(leadingSectionNumber("Résultat de l’opération")).toBeNull();
+  });
+
+  it("resolves section 2 uniquely despite Source 2 and 3.2 (repro R06-F)", () => {
+    const proposed = `## 2. Sources consultées et provenance disponible
+
+### Source 1 — Première consultation : référence à compléter
+
+| Élément | Provenance disponible |
+| --- | --- |
+| Blob SHA | blob_fixed |
+| Commit SHA | commit_fixed |
+
+### Source 2 — Definition of Done de Chantiers360
+
+Conservé.
+`;
+    // Before corrective: hint "2" matched Source 2 / 3.2 via \\b2\\b → AMBIGUOUS.
+    const merged = applyTargetedSectionRevision(campusLike, proposed, "2");
+    expect(merged.ok).toBe(true);
+    if (!merged.ok) return;
+    expect(assertSectionScope(campusLike, merged.content, "2")).toEqual({ ok: true });
+    expect(merged.content).toContain("blob_fixed");
+    expect(merged.content).toContain("## 1. Contexte et objectif");
+    expect(merged.content).toContain("## 3. Enseignements utiles");
+    expect(merged.content).toContain("### 3.2. Traçabilité");
+    expect(merged.content).toContain("2. **Réservation reconnue :** question B ?");
+    expect(merged.content.slice(0, campusLike.indexOf("\n\n### Source 1"))).toBe(
+      campusLike.slice(0, campusLike.indexOf("\n\n### Source 1")),
+    );
+  });
+
+  it("accepts section 2 with full title hint and Section-prefixed proposal", () => {
+    const proposed = `## Section 2 — Sources consultées et provenance disponible
+
+Nouveau corps section 2.
+`;
+    expect(applyTargetedSectionRevision(campusLike, proposed, "2").ok).toBe(true);
+    expect(
+      applyTargetedSectionRevision(
+        campusLike,
+        proposed,
+        "Sources consultées et provenance disponible",
+      ).ok,
+    ).toBe(true);
+  });
+
+  it("refuses missing / duplicate leading section 2", () => {
+    const missing = campusLike.replace("## 2. Sources consultées et provenance disponible", "## 9. Autre");
+    expect(applyTargetedSectionRevision(missing, "## 2. X\n\ny\n", "2").ok).toBe(false);
+    const dup = `${campusLike}\n## 2. Doublon structurel\n\nz\n`;
+    expect(applyTargetedSectionRevision(dup, "## 2. X\n\ny\n", "2").ok).toBe(false);
+  });
+
+  it("does not treat numbered list or table cell as section heading", () => {
+    const headings = locateSections(campusLike).map((s) => s.heading);
+    expect(headings.some((h) => /^2\. \*\*Réservation/.test(h))).toBe(false);
+    expect(headings.filter((h) => leadingSectionNumber(h) === "2")).toEqual([
+      "2. Sources consultées et provenance disponible",
+    ]);
+  });
+
+  it("refuses fence-hidden fake section 2", () => {
+    const fenced = `# Doc
+
+\`\`\`
+## 2. Hidden
+body
+\`\`\`
+
+## 1. Real
+
+x
+`;
+    expect(applyTargetedSectionRevision(fenced, "## 2. X\n\ny\n", "2").ok).toBe(false);
+  });
+});
+
 describe("document-act ACK coherence (finalisation)", () => {
   it("formats AVAILABLE create ACK", () => {
     const ack = formatDocumentEffectAck({
@@ -300,6 +435,34 @@ describe("document-act ACK coherence (finalisation)", () => {
       reason: "FORBIDDEN",
     });
     expect(text).not.toMatch(/enregistré le document avec succès/i);
+  });
+
+  it("FAILED ACK: tool read-only claim is not the cause when Studio refused", () => {
+    const out = composeDocumentTurnMessage(
+      "Les outils disponibles sont en lecture seule.\n\n" +
+        "Je ne peux pas exécuter l'enregistrement dans D4.\n\n" +
+        "Proposition utile pour la section 2.",
+      {
+        act: "REVISE",
+        status: "FAILED",
+        reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE",
+        documentId: "doc_1e5d8c16-98a2-4a58-8096-fe86f4146ec2",
+        baseRevisionId: "drev_c07ca162-faa4-48f5-b705-018e41ae88d9",
+      },
+    );
+    expect(out).toMatch(/Résultat applicatif D4/);
+    expect(out).toMatch(/SECTION_AMBIGUOUS_OR_MISSING_IN_BASE/);
+    expect(out).toMatch(/Studio a exécuté l'acte documentaire/);
+    expect(out).toContain("Proposition utile pour la section 2.");
+    expect(out).not.toMatch(/outils disponibles sont en lecture seule/i);
+    expect(out).not.toMatch(/je ne peux pas exécuter l'enregistrement/i);
+    expect(
+      hasCompetingTransactionalClaim(out, {
+        act: "REVISE",
+        status: "FAILED",
+        reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE",
+      }),
+    ).toBe(false);
   });
 
   it("keeps useful markdown while appending CONFLICT ack", () => {

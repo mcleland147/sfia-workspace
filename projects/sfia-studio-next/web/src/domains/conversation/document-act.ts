@@ -447,14 +447,69 @@ export function splitMarkdownSections(
   }));
 }
 
+/**
+ * Leading top-level section index from an ATX heading text (no `#`).
+ * Accepts: "2. Title", "Section 2 — Title", "2 — Title".
+ * Rejects embedded numbers: "Source 2 — …", "3.2. Sub", list-like bodies (not headings).
+ */
+export function leadingSectionNumber(heading: string): string | null {
+  const t = heading.trim();
+  const asSection = /^section\s+(\d+)\b/i.exec(t);
+  if (asSection) return asSection[1]!;
+  // "2. Title" — require whitespace after the first dotted integer (excludes "3.2. …").
+  const dotted = /^(\d+)\.\s+\S/.exec(t);
+  if (dotted) return dotted[1]!;
+  const dashed = /^(\d+)\s*[—–\-]\s+\S/.exec(t);
+  if (dashed) return dashed[1]!;
+  return null;
+}
+
+function parseSectionHint(hint: string): { number: string | null; titleTail: string | null } {
+  const h = hint.trim();
+  const withTail =
+    /^(?:section\s+)?(\d+)(?:\s*[.:—–\-]\s*|\s+)(.+)$/i.exec(h) ||
+    /^(?:section\s+)?(\d+)\s*$/i.exec(h);
+  if (withTail) {
+    return {
+      number: withTail[1]!,
+      titleTail: (withTail[2] ?? "").trim() || null,
+    };
+  }
+  return { number: null, titleTail: null };
+}
+
+/**
+ * Resolve section spans for a Pilote/Nora hint.
+ * Numeric hints ("2", "section 2") match only headings whose *leading* section
+ * number is that index — never bare `\b2\b` inside "Source 2" / "3.2".
+ */
 function matchSectionSpans(spans: SectionSpan[], hint: string): SectionSpan[] {
   const h = hint.toLowerCase().trim();
+  if (!h) return [];
+
+  const exact = spans.filter((b) => b.heading.toLowerCase() === h);
+  if (exact.length === 1) return exact;
+
+  const parsed = parseSectionHint(hint);
+  if (parsed.number) {
+    const byNum = spans.filter((b) => leadingSectionNumber(b.heading) === parsed.number);
+    if (parsed.titleTail) {
+      const title = parsed.titleTail.toLowerCase();
+      const refined = byNum.filter((b) => {
+        const heading = b.heading.toLowerCase();
+        return heading.includes(title) || title.includes(heading);
+      });
+      if (refined.length > 0) return refined;
+    }
+    return byNum;
+  }
+
+  // Title-only hint: equality / inclusion — no digit-as-word shortcut.
   return spans.filter(
     (b) =>
       b.heading.toLowerCase() === h ||
       b.heading.toLowerCase().includes(h) ||
-      new RegExp(`\\bsection\\s+${escapeRegExp(h)}\\b`, "i").test(b.heading) ||
-      new RegExp(`\\b${escapeRegExp(h)}\\b`, "i").test(b.heading),
+      h.includes(b.heading.toLowerCase()),
   );
 }
 
@@ -560,10 +615,6 @@ export function assertSectionScope(
   return { ok: true };
 }
 
-function escapeRegExp(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 export type DocumentEffectSummary = {
   act: "CREATE" | "REVISE";
   status?: string;
@@ -577,7 +628,11 @@ export type DocumentEffectSummary = {
 
 /** Sentences/paragraphs that assert a D4 write outcome (must not compete with applicative truth). */
 const TRANSACTIONAL_CLAIM_RE =
-  /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+ne\s+permettent\s+pas|je\s+ne\s+peux\s+(?:donc\s+)?pas\s+(?:appliquer|enregistrer|créer|réviser)|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;
+  /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+(?:sont\s+en\s+lecture\s+seule|ne\s+permettent\s+pas)|outils?\s+(?:en\s+)?lecture\s+seule|je\s+ne\s+peux\s+(?:donc\s+)?pas\s+(?:exécuter\s+l['’]enregistrement|appliquer|enregistrer|créer|réviser)|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;
+
+/** Nora tool-boundary claims that must not be presented as the cause of an observed Studio D4 effect. */
+const NORA_TOOL_BOUNDARY_CLAIM_RE =
+  /\b(?:les\s+outils\s+disponibles\s+(?:sont\s+en\s+lecture\s+seule|ne\s+permettent\s+pas)|aucun\s+outil\s+(?:d['’]écriture|disponible)|outils?\s+(?:en\s+)?lecture\s+seule|je\s+ne\s+peux\s+(?:donc\s+)?pas\s+(?:exécuter\s+l['’]enregistrement|appliquer|enregistrer|créer|réviser))\b/i;
 
 /**
  * Extract prepared document markdown (fence or ATX body) from Nora narration.
@@ -665,6 +720,12 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
     );
   } else if (effect.status === "CONFLICT") {
     lines.push("", "Conflit de base — aucune nouvelle révision écrite. Requalification requise.");
+  } else if (effect.status === "FAILED") {
+    lines.push(
+      "",
+      "Studio a exécuté l'acte documentaire et a refusé l'écriture. Le motif ci-dessus est le verdict transactionnel.",
+      "Les outils Nora restent en lecture seule ; cela n'explique pas un refus applicatif déjà observé.",
+    );
   } else if (effect.status && effect.status !== "AVAILABLE") {
     lines.push("", "Aucun succès d'écriture D4 ne doit être affirmé pour ce tour.");
   }
@@ -683,9 +744,16 @@ export function composeDocumentTurnMessage(
   const sanitized = reconcileNarrationWithDocumentEffect(assistantContent, effect);
   const ack = formatDocumentEffectAck(effect);
   // Final safety: drop residual contradictory fragments after sanitize.
-  let body = sanitized;
-  if (effect.status === "AVAILABLE") {
-    body = stripTransactionalClaimUnits(body);
+  // When Studio observed any D4 effect, Nora tool-boundary claims must not compete
+  // with the applicative verdict (AVAILABLE *or* FAILED/CONFLICT/UNKNOWN).
+  let body = stripTransactionalClaimUnits(sanitized);
+  if (effect.status !== "AVAILABLE") {
+    // Keep non-transactional cognitive text, but always drop tool-boundary excuses.
+    const parts = body.split(/\n{2,}/);
+    body = parts
+      .filter((p) => !NORA_TOOL_BOUNDARY_CLAIM_RE.test(p))
+      .join("\n\n")
+      .trim();
   }
   return `${body.trimEnd()}\n\n---\n${ack}\n`;
 }
@@ -705,10 +773,16 @@ export function hasCompetingTransactionalClaim(
   if (!effect) return false;
   const withoutAck = message.replace(/### Résultat applicatif D4[\s\S]*$/i, "");
   if (effect.status === "AVAILABLE") {
-    return TRANSACTIONAL_CLAIM_RE.test(withoutAck) &&
-      /\b(?:aucune\s+révision|ne\s+peux\s+(?:donc\s+)?pas\s+appliquer|non\s+enregistré|outils?\s+disponibles\s+ne\s+permettent)\b/i.test(
+    return (
+      TRANSACTIONAL_CLAIM_RE.test(withoutAck) &&
+      /\b(?:aucune\s+révision|ne\s+peux\s+(?:donc\s+)?pas\s+(?:exécuter|appliquer)|non\s+enregistré|outils?\s+disponibles|lecture\s+seule)\b/i.test(
         withoutAck,
-      );
+      )
+    );
+  }
+  // Observed FAILED/CONFLICT/UNKNOWN: Nora must not blame missing write tools for the outcome.
+  if (effect.status === "FAILED" || effect.status === "CONFLICT" || effect.status === "UNKNOWN") {
+    return NORA_TOOL_BOUNDARY_CLAIM_RE.test(withoutAck);
   }
   return false;
 }

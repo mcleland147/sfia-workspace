@@ -560,3 +560,18 @@ Verdict : **ML4 CHAT-FIRST CORRECTIVE PASS — LOCALLY VERIFIED — READY FOR RE
 | Provenance REC-07 | INCHANGÉ | non-régression |
 
 Verdict : **ML4 CHAT-FIRST R06 INTEGRATED CORRECTIVE — LOCALLY VERIFIED — READY FOR REVIEW**.
+
+## 28. R06-F — structure réelle v1 + vérité Nora (2026-11-09)
+
+| Item | Statut | Note |
+|---|---|---|
+| Diagnostic RECETTE READ-ONLY | FAIT | v1 `drev_c07ca162…` md5 `de4bd1a6…` ; ATX numérotés `## 2. Sources…` + `### Source 2` + `### 3.2` |
+| Cause `SECTION_AMBIGUOUS_OR_MISSING_IN_BASE` | CONFIRMÉE | hint `"2"` via `\b2\b` matchait Source 2 / 3.2 — pas absence de section |
+| Résolution de section | CORRIGÉ (DET) | `leadingSectionNumber` + match par index de tête uniquement |
+| Vérité Nora / ACK | CORRIGÉ (DET) | FAILED expose motif Studio ; claims « outils lecture seule » non présentés comme cause |
+| Oracle R06 structure réelle | DET PG PASS | fixture assainie twin structural ; `postUserMessageAndNora` → v2 ; hors-cible exact |
+| Contre-tests section | DET PASS | Source 2 / 3.2 / liste / fence / doublon / absente |
+| RECETTE runtime | INCHANGÉ | build `9yCs2GbSS5lDFX3LPiQTU` / SHA `a2c5e9f8` ; v1 seule ; aucune v2 utilisateur |
+| USER / LIVE | NOT RUN | gate Morris bascule RECETTE sur nouveau candidat |
+
+Verdict : **READY FOR REVIEW — R06 REAL-DOCUMENT STRUCTURE CORRECTIVE VERIFIED LOCALLY**.
