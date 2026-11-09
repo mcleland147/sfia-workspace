@@ -102,6 +102,10 @@ const META_ALLOWLIST = new Set([
   "refuse_code",
   "d4_attempted",
   "d4_effect",
+  // Document act qualification (A+D+E) — kinds/reasons codes only, never prompts/bodies.
+  "qualification_kind",
+  "qualification_reason",
+  "documentary_intent_signal",
 ]);
 
 const SECRET_VALUE =

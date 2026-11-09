@@ -97,6 +97,52 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     expect(docs[0]!.latestRevision?.revisionNumber).toBe(1);
   });
 
+  it("A-R12: CREATE with Documents internes complements persists v1 (macro A+D+E)", async () => {
+    const pilotId = await seedPilot("ml4-r12-create");
+    const prep = await openOrCreatePreparation(pilotId);
+    const ask =
+      "Dans le projet CampusFlow, crée et enregistre dans les Documents internes de Studio un nouveau document de recette intitulé « RECETTE ML4 — Publication documentaire R12-FIX ».";
+    expect(qualifyDocumentAct(ask).kind).toBe("CREATE");
+    const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
+    expect(chat.documentSave?.status).toBe("AVAILABLE");
+    expect(chat.documentSave?.act).toBe("CREATE");
+    expect(chat.documentSave?.revisionNumber).toBe(1);
+    expect(chat.documentSave?.documentId).toBeTruthy();
+    const msgs = await listMessages(pilotId, prep.id);
+    const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+    expect(assistant?.content).toMatch(/Résultat applicatif D4/);
+    expect(assistant?.content).toMatch(/AVAILABLE/);
+    expect(assistant?.content).not.toMatch(/NOT_EXECUTED/);
+    expect(await listDocuments(pilotId, prep.id)).toHaveLength(1);
+  });
+
+  it("A-N10: Nora sfia-document without authorizing CREATE → zero D4 write", async () => {
+    const pilotId = await seedPilot("ml4-n10-noauth");
+    const prep = await openOrCreatePreparation(pilotId);
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "Voici une illustration:\n\n" +
+      "```sfia-document\n" +
+      "# Ne doit pas être créé\n\nContenu non autorisé.\n" +
+      "```\n";
+    try {
+      const chat = await postUserMessageAndNora(
+        pilotId,
+        prep.id,
+        "Comment puis-je créer un document ?",
+      );
+      expect(qualifyDocumentAct("Comment puis-je créer un document ?").kind).toBe("NONE");
+      expect(chat.documentSave).toBeNull();
+      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
+      const msgs = await listMessages(pilotId, prep.id);
+      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+      // Informative: no fabricated FAILED / no D4 AVAILABLE claim.
+      expect(assistant?.content ?? "").not.toMatch(/Statut observé: AVAILABLE/);
+      expect(assistant?.content ?? "").not.toMatch(/documentId:/);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
   it("A-neg: analytical chatter does not create a document", async () => {
     const pilotId = await seedPilot("ml4-nochatter");
     const prep = await openOrCreatePreparation(pilotId);

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   appendDocumentEffectAck,
@@ -9,6 +11,8 @@ import {
   extractDocumentDesignation,
   formatDocumentEffectAck,
   hasCompetingTransactionalClaim,
+  hasDocumentaryWriteSignal,
+  hasExplicitCreateIntent,
   isGlobalDocumentWriteNegation,
   isInformativeOrHypothetical,
   isPolitePositiveDocumentAction,
@@ -20,6 +24,112 @@ import {
   scanContractualDocumentFences,
   splitMarkdownSections,
 } from "@/domains/conversation/document-act";
+
+const R12_USER_EXACT = readFileSync(
+  join(__dirname, "../fixtures/r12-create-user-message.txt"),
+  "utf8",
+);
+
+describe("A+D+E CREATE qualification truth table (R12 corrective)", () => {
+  it("P1: Crée un document intitulé… → CREATE", () => {
+    expect(qualifyDocumentAct("Crée un document intitulé Compte rendu.").kind).toBe("CREATE");
+  });
+
+  it("P2: complements + plural Documents internes → CREATE", () => {
+    const t =
+      "Dans le projet CampusFlow, crée et enregistre dans les Documents internes de Studio un nouveau document de recette intitulé Compte rendu.";
+    expect(hasExplicitCreateIntent(t)).toBe(true);
+    expect(qualifyDocumentAct(t).kind).toBe("CREATE");
+  });
+
+  it("P3: R12 exact user message from RECETTE DB → CREATE", () => {
+    expect(R12_USER_EXACT).toMatch(/crée et enregistre/i);
+    expect(R12_USER_EXACT).toMatch(/Documents internes/);
+    expect(qualifyDocumentAct(R12_USER_EXACT).kind).toBe("CREATE");
+    expect(hasDocumentaryWriteSignal(R12_USER_EXACT)).toBe(true);
+  });
+
+  it("P4: Rédige un document de recette → CREATE (RG-DOC-002)", () => {
+    expect(qualifyDocumentAct("Rédige un document de recette pour ce projet.").kind).toBe("CREATE");
+  });
+
+  it("P5: CREATE with local non-modify of existing → CREATE (A5)", () => {
+    expect(
+      qualifyDocumentAct("Crée un nouveau document mais ne modifie pas le document existant.").kind,
+    ).toBe("CREATE");
+  });
+
+  it("P6: CREATE + save without Git branch → CREATE D4 only", () => {
+    expect(
+      qualifyDocumentAct(
+        "Crée et sauvegarde ce nouveau document sans créer de branche GitHub.",
+      ).kind,
+    ).toBe("CREATE");
+  });
+
+  it("P7: accents / plurals / complements → CREATE", () => {
+    expect(
+      qualifyDocumentAct(
+        "Crée dans ce projet un nouveau documents de synthèse pour la recette.",
+      ).kind,
+    ).toBe("CREATE");
+    expect(
+      qualifyDocumentAct("Produis une note de synthèse intitulée Bilan opérationnel.").kind,
+    ).toBe("CREATE");
+  });
+
+  it("N1–N6 negatives → NONE (no durable CREATE)", () => {
+    expect(qualifyDocumentAct("Ne crée aucun document.").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Montre-moi les documents disponibles.").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Comment puis-je créer un document ?").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Que se passerait-il si je créais un document ?").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Analyse le document existant sans le modifier.").kind).toBe("NONE");
+    expect(
+      qualifyDocumentAct(
+        "Rédige le texte dans la conversation, mais ne l'enregistre pas dans D4.",
+      ).kind,
+    ).toBe("NONE");
+  });
+
+  it("N7: CREATE only inside Git/citation fence → NONE", () => {
+    expect(
+      qualifyDocumentAct("Source Git:\n```\nCrée un document et enregistre-le.\n```\nQue penses-tu ?")
+        .kind,
+    ).toBe("NONE");
+  });
+
+  it("N8: negated CREATE + positive REVISE → REVISE never CREATE", () => {
+    const q = qualifyDocumentAct(
+      "Ne crée pas un document, révise la section 2 du document existant.",
+    );
+    expect(q.kind).toBe("REVISE");
+    if (q.kind === "REVISE") expect(q.sectionHint).toBe("2");
+  });
+
+  it("N9/N12: summarize / context-only → NONE", () => {
+    expect(qualifyDocumentAct("Résume les documents puis explique comment en créer un.").kind).toBe(
+      "NONE",
+    );
+    expect(
+      qualifyDocumentAct("Le document existant mentionne une création, analyse-le seulement.").kind,
+    ).toBe("NONE");
+    expect(hasDocumentaryWriteSignal("Montre-moi les documents disponibles.")).toBe(false);
+    expect(hasDocumentaryWriteSignal("Comment puis-je créer un document ?")).toBe(false);
+  });
+
+  it("D: NOT_EXECUTED ACK is pre-effect, not fabricated FAILED", () => {
+    const ack = formatDocumentEffectAck({
+      act: "NONE",
+      status: "NOT_EXECUTED",
+      reason: "CREATE_OBJECT_BRIDGE_UNQUALIFIED",
+    });
+    expect(ack).toMatch(/NOT_EXECUTED/);
+    expect(ack).toMatch(/non tentée/);
+    expect(ack).toMatch(/n'a pas été qualifiée/);
+    expect(ack).not.toMatch(/Statut observé: FAILED/);
+    expect(ack).not.toMatch(/Résultat applicatif D4 \(source de vérité\)/);
+  });
+});
 
 describe("document-act qualification — positive", () => {
   it("CREATE on explicit rédaction request", () => {

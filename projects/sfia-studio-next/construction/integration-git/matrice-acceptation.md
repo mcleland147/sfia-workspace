@@ -619,3 +619,22 @@ Verdict : **READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED 
 | RECETTE | INCHANGÉE | `8ba77730` / `ygu4moVr…` ; v1 `de4bd1a6…` |
 
 Verdict : **READY FOR REVIEW — ILLUSTRATIVE FENCE ISOLATION VERIFIED LOCALLY**.
+
+## 32. Macro-correctif A+D+E — qualification CREATE / restitution / obs (2026-11-09)
+
+Cause R12 (tour RECETTE `93da44be`) : `qualifyDocumentAct` → `NONE` / `NO_EXPLICIT_WRITE` car `CREATE_PAIR_RE` exigeait un objet documentaire **singulier** à ≤40 caractères du verbe ; la demande réelle place « Documents » (pluriel) puis « nouveau document » plus loin.
+
+| Item | Statut | Note |
+|---|---|---|
+| A — CREATE structuré | CORRIGÉ (DET) | `hasExplicitCreateIntent` : compléments, pluriels, nouveauté ; fail closed ; strip autorité seul (A7) |
+| Message R12 exact | DET PASS | fixture `tests/fixtures/r12-create-user-message.txt` → CREATE |
+| Table P1–P7 / N1–N12 | DET PASS | unit `document-act` A+D+E |
+| D — NOT_EXECUTED | CORRIGÉ (DET) | pré-effet loyal si signal documentaire + NONE ; jamais `documentSave` FAILED inventé |
+| E — obs qualification | CORRIGÉ (DET) | `d3.turn.document_act_qualification` + allowlist meta |
+| PG CREATE R12-like | DET PASS | `A-R12` → AVAILABLE v1 |
+| N10 Nora fence sans autorité | DET PASS | `A-N10` → zéro écriture D4 |
+| REVISE R06 / isolation B | NON-RÉGRESSION | PG Chat First 15 PASS |
+| RECETTE | INCHANGÉE | SHA `93da44be` / BUILD `sHkE8sHJBxD3U9AJdHWi7` ; pas de bascule |
+| LIVE Nora / GitHub write | NON EXÉCUTÉS | preuves SCRIPTED/DET uniquement |
+
+Verdict candidat : **READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY**.

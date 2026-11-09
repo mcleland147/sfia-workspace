@@ -17,15 +17,24 @@ export type QualifiedDocumentAct =
 const CREATE_VERB_RE = /\b(rédige|rédiger|écris|écrire|produis|produire|crée|créer)\b/gi;
 const REVISE_VERB_RE =
   /\b(révise|reviser|réviser|revise|modifie|modifier|mets?\s+à\s+jour|corrige|corriger)\b/gi;
-const DOC_OBJECT_RE = /\b(document|note|synthèse|rapport|spécification)\b/i;
+/** Singular or plural documentary objects (CREATE/REVISE recognition). */
+const DOC_OBJECT_RE = /\b(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i;
 const SECTION_RE =
   /\b(?:section|partie|chapitre)\s+(\d+|[A-Za-zÀ-ÿ][\wÀ-ÿ-]*)\b/i;
 const DOC_ID_RE = /\b(doc_[a-z0-9-]+)\b/i;
 
-const CREATE_PAIR_RE =
-  /\b(rédige|rédiger|écris|écrire|produis|produire|crée|créer)\b[\s\S]{0,40}\b(document|note|synthèse|rapport|spécification)\b/i;
+/** Close create↔object pair (short formulations). */
+const CREATE_PAIR_CLOSE_RE =
+  /\b(rédige|rédiger|écris|écrire|produis|produire|crée|créer)\b[\s\S]{0,48}\b(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i;
 const CREATE_PLEASE_RE =
-  /\b(document|note de synthèse|rapport)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i;
+  /\b(documents?|note de synthèse|rapports?)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i;
+
+/**
+ * Complements allowed between a CREATE verb and a documentary object
+ * (location, novelty, title framing) — not a free-form widen of authority.
+ */
+const CREATE_COMPLEMENT_TOKEN_RE =
+  /^(?:et|ou|puis|dans|sur|pour|de|du|des|le|la|les|un|une|ce|cette|ces|au|aux|en|par|avec|vers|sous|interne|internes|studio|projet|campusflow|recette|nouveau|nouvelle|nouveaux|nouvelles|intitulé|intitulée|intitulés|intitulées|nommé|nommée|appelé|appelée|enregistre|enregistrer|sauvegarde|sauvegarder|persist|persiste|persister|d4|documents?|notes?|synthèses?|rapports?|spécifications?|titre|espace)$/i;
 
 /**
  * Extract a document designation (id or cited title) from the raw Pilote text.
@@ -106,20 +115,25 @@ function findVerbMatches(text: string, re: RegExp): Array<{ index: number; text:
   return out;
 }
 
-/** True when a matched verb is under a local ne … pas / n'… pas negation. */
+/** True when a matched verb is under a local ne … pas/aucun / n'… pas negation. */
 export function isVerbNegated(text: string, verbIndex: number, verbLen: number): boolean {
   const windowStart = Math.max(0, verbIndex - 48);
   const before = text.slice(windowStart, verbIndex);
+  const afterSpan = text.slice(verbIndex, Math.min(text.length, verbIndex + verbLen + 40));
   const after = text.slice(verbIndex, Math.min(text.length, verbIndex + verbLen + 24));
-  if (/\bne\s*$/i.test(before) && /^\s*pas\b/i.test(after.replace(/^[^\s]*/, ""))) {
-    // "ne" immediately before verb token start is rare; handled below
-  }
+  const negParticle = /\b(?:pas|aucun|aucune)\b/i;
   const nePas =
     /\bne\b[\s\S]{0,40}$/i.test(before) &&
-    (/\bpas\b/i.test(after) || /\bpas\b/i.test(text.slice(verbIndex, verbIndex + verbLen + 40)));
+    (negParticle.test(after) || negParticle.test(afterSpan));
   const nApostrophe =
     /\bn['’](?:enregistre|écris|écrit|autorise)\b/i.test(text.slice(windowStart, verbIndex + verbLen + 20));
-  return nePas || nApostrophe;
+  // « sans (le) créer / sans le modifier » — local prohibition of that verb, not authority.
+  const sansVerb =
+    /\bsans\s+(?:le\s+|la\s+|l['’]|les\s+|un\s+|une\s+)?$/i.test(before) &&
+    /^(?:créer|crée|rédiger|rédige|écrire|écris|produire|produis|enregistrer|enregistre|sauvegarder|sauvegarde|modifier|modifie|réviser|révise)\b/i.test(
+      text.slice(verbIndex),
+    );
+  return nePas || nApostrophe || sansVerb;
 }
 
 function hasPositiveVerb(
@@ -148,15 +162,89 @@ export function isPolitePositiveDocumentAction(text: string): boolean {
   );
 }
 
+/**
+ * Structured CREATE recognition: positive create verb + documentary object,
+ * allowing reasonable complements (location, novelty, title) without treating
+ * any occurrence of « document » as authority.
+ */
+export function hasExplicitCreateIntent(text: string): boolean {
+  const t = text.replace(/\s+/g, " ").trim();
+  if (!t || !hasPositiveVerb(t, CREATE_VERB_RE)) return false;
+
+  if (CREATE_PAIR_CLOSE_RE.test(t) || CREATE_PLEASE_RE.test(t)) return true;
+
+  // Verb … (complements) … (nouveau)? document(s)
+  for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
+    if (isVerbNegated(t, verb.index, verb.text.length)) continue;
+    const after = t.slice(verb.index + verb.text.length, verb.index + verb.text.length + 160);
+    const obj = after.match(
+      /\b(nouveau(?:x)?|nouvelle(?:s)?)?\s*(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i,
+    );
+    if (!obj || obj.index == null) continue;
+    const between = after.slice(0, obj.index).trim();
+    if (!between) return true;
+    // Persist verbs between create and object (« crée et enregistre … document »)
+    if (/\b(enregistre|enregistrer|sauvegarde|sauvegarder|persist(?:e|er)?)\b/i.test(between)) {
+      return true;
+    }
+    // Novelty marker near object
+    if (/\b(nouveau|nouvelle|nouveaux|nouvelles)\b/i.test(between + " " + (obj[0] ?? ""))) {
+      const tokens = between.split(/\s+/).filter(Boolean);
+      if (tokens.every((tok) => CREATE_COMPLEMENT_TOKEN_RE.test(tok.replace(/[.,;:!?]/g, "")))) {
+        return true;
+      }
+    }
+    // Pure complement bridge (dans les Documents internes de Studio …)
+    const tokens = between.split(/\s+/).filter(Boolean);
+    if (
+      tokens.length > 0 &&
+      tokens.length <= 16 &&
+      tokens.every((tok) => CREATE_COMPLEMENT_TOKEN_RE.test(tok.replace(/[.,;:!?]/g, "")))
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/** Consultative listing / show docs — not a write. */
+export function isDocumentaryConsultationOnly(text: string): boolean {
+  const t = text.trim();
+  if (hasPositiveVerb(t, CREATE_VERB_RE) || hasPositiveVerb(t, REVISE_VERB_RE)) return false;
+  return (
+    /\b(montre[- ]moi|affiche|liste|consulte|voir|quels?\s+sont|disponible)\b[\s\S]{0,40}\bdocuments?\b/i.test(
+      t,
+    ) || /\bdocuments?\s+disponibles?\b/i.test(t)
+  );
+}
+
+/**
+ * Plausible documentary write language (signal only — not authority to mutate).
+ * Used for loyal NOT_EXECUTED restitution / observability when kind is NONE.
+ */
+export function hasDocumentaryWriteSignal(text: string): boolean {
+  const t = text.trim();
+  if (!t || isDocumentaryConsultationOnly(t)) return false;
+  // Pure questions / drafts-without-save must not trigger NOT_EXECUTED pollution.
+  if (isInformativeOrHypothetical(t)) return false;
+  if (hasExplicitCreateIntent(t)) return true;
+  if (hasPositiveVerb(t, REVISE_VERB_RE) && DOC_OBJECT_RE.test(t)) return true;
+  if (hasPositiveVerb(t, CREATE_VERB_RE) && DOC_OBJECT_RE.test(t)) return true;
+  return false;
+}
+
 /** Informative / hypothetical questions are not mutation requests. */
 export function isInformativeOrHypothetical(text: string): boolean {
   const t = text.trim();
+  // Leading question framing wins over a create/revise verb later in the same utterance (N3/N4/N9).
+  if (/^(comment|pourquoi|quelles?\b|que\s+se\s+passerait)\b/i.test(t)) {
+    return true;
+  }
+  // Explicit CREATE intent wins over trailing « comment je peux le retrouver » clauses.
+  if (hasExplicitCreateIntent(t)) return false;
   // Polite positive action first — « Peux-tu réviser le document X ? » is not informative.
   if (isPolitePositiveDocumentAction(t) && !/\bm['’]?expliquer\b|\bcomment\b|\bétapes\b/i.test(t)) {
     return false;
-  }
-  if (/^(comment|pourquoi|quelles?\b|que\s+se\s+passerait)\b/i.test(t)) {
-    return true;
   }
   if (
     /\b(comment|peux-tu\s+m['’]?expliquer|explique[- ]moi|quelles?\s+(?:seraient|sont)\s+les\s+étapes)\b[\s\S]{0,80}\b(créer|crée|réviser|révise|revise|modifier|modifie|enregistrer)\b/i.test(
@@ -204,14 +292,16 @@ export function isGlobalDocumentWriteNegation(text: string): boolean {
   if (localScope) return false;
 
   if (
-    /\bne\s+(?:me\s+)?(?:crée|créer|modifie|modifier|révise|réviser|revise|enregistre|enregistrer|touche)\s+pas\b/i.test(
+    /\bne\s+(?:me\s+)?(?:crée|créer|modifie|modifier|révise|réviser|revise|enregistre|enregistrer|touche)\s+(?:pas|aucun|aucune)\b/i.test(
       t,
     ) ||
     /\bn['’]enregistre\s+pas\b/i.test(t) ||
     /\bne\s+touche\s+pas\s+au\s+document\b/i.test(t) ||
-    /\bsans\s+créer\s+ni\s+enregistrer\b/i.test(t)
+    /\bsans\s+créer\s+ni\s+enregistrer\b/i.test(t) ||
+    /\baucun(?:e)?\s+documents?\b/i.test(t)
   ) {
     // If the only create/revise verbs are negated, treat as global refuse.
+    // A positive CREATE/REVISE on another clause is preserved (A5 / N8).
     const posCreate = hasPositiveVerb(t, CREATE_VERB_RE);
     const posRevise = hasPositiveVerb(t, REVISE_VERB_RE);
     if (!posCreate && !posRevise) return true;
@@ -258,6 +348,7 @@ export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
     (isPolitePositiveDocumentAction(trimmed) &&
       /\b(?:réviser|reviser|révise|modifier|modifie|corriger|corrige)\b/i.test(trimmed));
 
+  // REVISE before CREATE — « ne crée pas …, révise la section 2 » → REVISE (N8), never CREATE.
   if (positiveRevise && hasDocObject) {
     return {
       kind: "REVISE",
@@ -266,15 +357,21 @@ export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
     };
   }
 
-  if (
-    (CREATE_PAIR_RE.test(authorityText) || CREATE_PLEASE_RE.test(authorityText)) &&
-    hasPositiveVerb(authorityText, CREATE_VERB_RE)
-  ) {
+  // CREATE — structured recognition on authority-stripped text only (A7: never Git/quote/tool).
+  if (hasExplicitCreateIntent(authorityText)) {
     return { kind: "CREATE" };
   }
 
   if (CREATE_PLEASE_RE.test(authorityText) && !isGlobalDocumentWriteNegation(authorityText)) {
     return { kind: "CREATE" };
+  }
+
+  if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && !DOC_OBJECT_RE.test(authorityText)) {
+    return { kind: "NONE", reason: "CREATE_WITHOUT_OBJECT" };
+  }
+
+  if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && DOC_OBJECT_RE.test(authorityText)) {
+    return { kind: "NONE", reason: "CREATE_OBJECT_BRIDGE_UNQUALIFIED" };
   }
 
   return { kind: "NONE", reason: "NO_EXPLICIT_WRITE" };
@@ -892,7 +989,9 @@ export function assertSectionScope(
 }
 
 export type DocumentEffectSummary = {
-  act: "CREATE" | "REVISE";
+  /** NONE = pre-effect (no D4 transaction attempted). */
+  act: "CREATE" | "REVISE" | "NONE";
+  /** AVAILABLE | FAILED | CONFLICT | UNKNOWN | NOT_EXECUTED */
   status?: string;
   documentId?: string;
   revisionId?: string;
@@ -977,6 +1076,26 @@ export function reconcileNarrationWithDocumentEffect(
  */
 export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): string {
   if (!effect) return "";
+
+  // Pre-effect: plausible documentary intent but no D4 transaction attempted.
+  // Never fabricate a FAILED documentSave — this is NOT_EXECUTED, not a server refuse.
+  if (effect.status === "NOT_EXECUTED" || effect.act === "NONE") {
+    const lines = [
+      "### Résultat applicatif (pré-effet)",
+      "",
+      "- Acte documentaire exécuté: aucun",
+      "- Statut: NOT_EXECUTED",
+      "- Transaction D4: non tentée",
+    ];
+    if (effect.reason) lines.push(`- raison: ${effect.reason}`);
+    lines.push(
+      "",
+      "Aucun acte documentaire exécuté : la demande n'a pas été qualifiée pour une écriture.",
+      "La réponse Nora ci-dessus n'est pas un verdict D4.",
+    );
+    return lines.join("\n");
+  }
+
   const lines = [
     "### Résultat applicatif D4 (source de vérité)",
     "",

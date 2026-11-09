@@ -37,6 +37,7 @@ import {
   applyTargetedSectionRevision,
   assertSectionScope,
   extractContractualDocumentProposal,
+  hasDocumentaryWriteSignal,
   qualifyDocumentAct,
   resolveReviseTarget,
   type DocumentEffectSummary,
@@ -51,6 +52,41 @@ export async function listMessages(pilotId: string, preparationId: string) {
     .from(messages)
     .where(eq(messages.conversationId, ctx.conversation.id))
     .orderBy(asc(messages.ordinal));
+}
+
+/** Qualification decision before extract/D4 — metadata only, never blocks D4. */
+function emitDocumentActQualificationObs(args: {
+  requestId: string;
+  operationId: string;
+  generationId?: string | null;
+  qualificationKind: "CREATE" | "REVISE" | "NONE";
+  qualificationReason?: string | null;
+  documentaryIntentSignal: boolean;
+  d4Attempted: boolean;
+  d4Effect?: string | null;
+}) {
+  emitObs({
+    event_name: "d3.turn.document_act_qualification",
+    component: "d3.conversation",
+    request_id: args.requestId,
+    operation_id: args.operationId,
+    generation_id: args.generationId ?? undefined,
+    outcome:
+      args.qualificationKind === "NONE"
+        ? "PARTIAL"
+        : args.d4Effect === "AVAILABLE"
+          ? "SUCCESS"
+          : args.d4Attempted
+            ? "PARTIAL"
+            : "PARTIAL",
+    meta: {
+      qualification_kind: args.qualificationKind,
+      qualification_reason: args.qualificationReason ?? null,
+      documentary_intent_signal: args.documentaryIntentSignal,
+      d4_attempted: args.d4Attempted,
+      d4_effect: args.d4Effect ?? null,
+    },
+  });
 }
 
 function emitDocumentProposalObs(args: {
@@ -548,6 +584,18 @@ export async function postUserMessageAndNora(
   let documentSaveUnknown = false;
   let ownershipLostBeforeD4 = false;
   const documentAct = qualifyDocumentAct(content);
+  const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
+  // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
+  emitDocumentActQualificationObs({
+    requestId,
+    operationId: reserved.operationId,
+    generationId: reply.generationId,
+    qualificationKind: documentAct.kind,
+    qualificationReason: documentAct.kind === "NONE" ? (documentAct.reason ?? null) : null,
+    documentaryIntentSignal,
+    d4Attempted: false,
+    d4Effect: null,
+  });
 
   if (reply.status === "COMPLETE") {
     if (turnRaceHooks.beforeD4Effect) {
@@ -877,7 +925,17 @@ export async function postUserMessageAndNora(
             status: "UNKNOWN",
             reason: "NO_EFFECT_OBSERVED",
           }
-        : null;
+        : // Loyal pre-effect: plausible write language, not qualified → NOT_EXECUTED (never fake FAILED).
+          documentAct.kind === "NONE" &&
+            documentaryIntentSignal &&
+            !ownershipLostBeforeD4 &&
+            reply.status === "COMPLETE"
+          ? {
+              act: "NONE",
+              status: "NOT_EXECUTED",
+              reason: documentAct.reason ?? "NO_EXPLICIT_WRITE",
+            }
+          : null;
 
   const assistantContentForCommit = ownershipLostBeforeD4
     ? reply.content
