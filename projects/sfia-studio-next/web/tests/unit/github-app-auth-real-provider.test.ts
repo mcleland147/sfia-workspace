@@ -31,6 +31,7 @@ function creds(overrides?: Partial<GitHubAppLoadedCredentials>): GitHubAppLoaded
     privateKeyPem: pem,
     allowedFullName: GITHUB_APP_ALLOWED_FULL_NAME,
     expectedOwner: GITHUB_APP_EXPECTED_OWNER,
+    lane: "DEV",
     meta: {
       appId: GITHUB_APP_EXPECTED_APP_ID,
       installationId: GITHUB_APP_EXPECTED_INSTALLATION_ID,
@@ -41,6 +42,7 @@ function creds(overrides?: Partial<GitHubAppLoadedCredentials>): GitHubAppLoaded
       pathSizeBytes: 100,
       allowedFullName: GITHUB_APP_ALLOWED_FULL_NAME,
       expectedOwner: GITHUB_APP_EXPECTED_OWNER,
+      lane: "DEV",
     },
     ...overrides,
   };

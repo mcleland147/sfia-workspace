@@ -9,7 +9,7 @@
 > Provenance d'effet : `plan.effectProviderMode` figé à prepare ; historique sans champ → UNKNOWN ; divergence live → REQUIRES_REQUALIFICATION.
 > **ML4-REC-01 :** `reconcileAttempt` contrôle le mode historique **avant** `resolveGitHubProvider()` — une observation SCRIPTED n'est jamais preuve d'un effet REAL (et inversement). COMPLETED historique non réécrit.
 > Risques historiques R1–R8 **conservés** (ne pas renuméroter). Nouveau défaut = `ML4-REC-01` seulement.
-> REAL sandbox actuel : allowlists `GITHUB_APP_ALLOWED_FULL_NAME` / App ID / installation — **mono-repo prouvé** (`mcleland147/chantiers360`) ; multi-repo REAL hors capacité.
+> REAL sandbox actuel : allowlists mono-repo `mcleland147/chantiers360` ; **App ID / installation bornés par `STUDIO_LANE`** (`DEV`→5670639/179935689 ; `RECETTE`→5677465/180092114) — fail-closed, aucun fallback silencieux inter-lanes ; multi-repo REAL hors capacité.
 > Les sections bas du document portant « DOCUMENTED — DRAFT / NOT IMPLEMENTED » sont des **snapshots candidats historiques** — le bandeau ci-dessus prévaut pour l'état AS-IMPLEMENTED courant.
 
 

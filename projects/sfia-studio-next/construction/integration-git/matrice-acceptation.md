@@ -500,3 +500,18 @@ Identifiant distinct — **ne pas** réutiliser R1–R5 historiques.
 | R1–R8 | INCHANGÉS | traçabilité historique conservée (voir spec § risques) |
 
 Verdict cycle : **ML4 PUBLICATION RECONCILIATION — PROVIDER PROVENANCE GUARDED — LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL REVIEW — PRODUCT PUSH NOT AUTHORIZED**.
+
+## 24. GitHub App identity bornée par lane (2026-11-09)
+
+GO Morris CRITICAL ENVIRONMENT DELIVERY — adaptation App DEV/RECETTE ; **aucune** mutation GitHub REAL ; push Product **NON AUTORISÉ** dans ce cycle.
+
+| Item | Statut | Note |
+|---|---|---|
+| `STUDIO_LANE=DEV` | App `5670639` / install `179935689` / callback `:3100` | profil figé ; tests existants préservés |
+| `STUDIO_LANE=RECETTE` | App `5677465` / install `180092114` / callback `:3200` | App `sfia-studio-next-recette` |
+| Cross-lane App ID | REFUSÉ | fail-closed ; pas de fallback silencieux DEV↔RECETTE |
+| Allowlist repo | INCHANGÉE | mono-repo `mcleland147/chantiers360` |
+| Merge REAL | HARD-BLOCKED | invariant D6/D7/D8 inchangé |
+| USER E2E / RECETTE navigateur | NOT RUN | Morris après bascule 3200 |
+
+Verdict cycle : **ML4 RECETTE ENVIRONMENT — LANE-SCOPED GITHUB APP IDENTITY — LOCALLY COMMITTED CANDIDATE (voir delivery-history)**.

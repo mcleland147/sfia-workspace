@@ -1,11 +1,48 @@
 import { accessSync, constants, readFileSync, statSync } from "node:fs";
 import { StudioError } from "@/lib/http-errors";
 
-/** Canonical DEV sandbox repository for ML4 GitHub App installation reads. */
-export const GITHUB_APP_ALLOWED_FULL_NAME = "mcleland147/chantiers360";
-export const GITHUB_APP_EXPECTED_APP_ID = "5670639";
-export const GITHUB_APP_EXPECTED_INSTALLATION_ID = "179935689";
-export const GITHUB_APP_EXPECTED_OWNER = "mcleland147";
+/** Lanes that may bind a GitHub App identity (fail-closed otherwise). */
+export type StudioGithubAppLane = "DEV" | "RECETTE";
+
+export type GitHubAppLaneProfile = {
+  appId: string;
+  installationId: string;
+  owner: string;
+  allowedFullName: string;
+  callbackUrl: string;
+};
+
+/**
+ * Explicit lane → App identity map. No silent DEV↔RECETTE fallback.
+ * Shared sandbox allowlist remains mono-repo `chantiers360`.
+ */
+export const GITHUB_APP_LANE_PROFILES: Record<StudioGithubAppLane, GitHubAppLaneProfile> = {
+  DEV: {
+    appId: "5670639",
+    installationId: "179935689",
+    owner: "mcleland147",
+    allowedFullName: "mcleland147/chantiers360",
+    callbackUrl: "http://127.0.0.1:3100/api/integrations/github/callback",
+  },
+  RECETTE: {
+    appId: "5677465",
+    installationId: "180092114",
+    owner: "mcleland147",
+    allowedFullName: "mcleland147/chantiers360",
+    callbackUrl: "http://127.0.0.1:3200/api/integrations/github/callback",
+  },
+};
+
+/** Canonical sandbox repository (shared across lanes; still mono-repo). */
+export const GITHUB_APP_ALLOWED_FULL_NAME = GITHUB_APP_LANE_PROFILES.DEV.allowedFullName;
+export const GITHUB_APP_EXPECTED_OWNER = GITHUB_APP_LANE_PROFILES.DEV.owner;
+
+/**
+ * DEV aliases preserved for existing unit fixtures.
+ * Runtime checks must use {@link resolveExpectedGitHubAppProfile}.
+ */
+export const GITHUB_APP_EXPECTED_APP_ID = GITHUB_APP_LANE_PROFILES.DEV.appId;
+export const GITHUB_APP_EXPECTED_INSTALLATION_ID = GITHUB_APP_LANE_PROFILES.DEV.installationId;
 
 export type GitHubAppCredentialMeta = {
   appId: string;
@@ -17,6 +54,7 @@ export type GitHubAppCredentialMeta = {
   pathSizeBytes: number | null;
   allowedFullName: string;
   expectedOwner: string;
+  lane: StudioGithubAppLane;
 };
 
 export type GitHubAppLoadedCredentials = {
@@ -26,6 +64,7 @@ export type GitHubAppLoadedCredentials = {
   privateKeyPem: string;
   allowedFullName: string;
   expectedOwner: string;
+  lane: StudioGithubAppLane;
   meta: GitHubAppCredentialMeta;
 };
 
@@ -39,6 +78,81 @@ function requireEnv(name: string): string {
     );
   }
   return v;
+}
+
+/** Resolve STUDIO_LANE for GitHub App binding — fail-closed. */
+export function resolveStudioGithubAppLane(
+  rawLane: string | undefined = process.env.STUDIO_LANE,
+): StudioGithubAppLane {
+  const lane = (rawLane ?? "").trim().toUpperCase();
+  if (lane === "DEV" || lane === "RECETTE") return lane;
+  throw new StudioError(
+    "NOT_CONFIGURED",
+    `STUDIO_LANE invalide ou absente pour GitHub App (reçu=${lane || "∅"})`,
+    { httpStatus: 503 },
+  );
+}
+
+export function resolveExpectedGitHubAppProfile(
+  lane: StudioGithubAppLane = resolveStudioGithubAppLane(),
+): GitHubAppLaneProfile {
+  return GITHUB_APP_LANE_PROFILES[lane];
+}
+
+/**
+ * Assert env App identity matches the active lane profile.
+ * Rejects cross-lane App IDs and arbitrary overrides.
+ */
+export function assertGitHubAppEnvMatchesLane(input: {
+  lane?: StudioGithubAppLane;
+  appId: string;
+  installationId: string;
+  owner?: string;
+  allowedFullName?: string;
+  callbackUrl?: string;
+}): GitHubAppLaneProfile {
+  const lane = input.lane ?? resolveStudioGithubAppLane();
+  const profile = resolveExpectedGitHubAppProfile(lane);
+
+  if (input.appId !== profile.appId) {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      `GITHUB_APP_ID inattendu pour lane ${lane} (attendu ${profile.appId})`,
+      { httpStatus: 400 },
+    );
+  }
+  if (input.installationId !== profile.installationId) {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      `GITHUB_APP_INSTALLATION_ID inattendu pour lane ${lane} (attendu ${profile.installationId})`,
+      { httpStatus: 400 },
+    );
+  }
+  if (input.owner != null && input.owner.toLowerCase() !== profile.owner.toLowerCase()) {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      `GITHUB_APP_EXPECTED_OWNER inattendu pour lane ${lane} (attendu ${profile.owner})`,
+      { httpStatus: 400 },
+    );
+  }
+  if (
+    input.allowedFullName != null &&
+    input.allowedFullName.toLowerCase() !== profile.allowedFullName.toLowerCase()
+  ) {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      `GITHUB_APP_ALLOWED_REPO inattendu pour lane ${lane} (attendu ${profile.allowedFullName})`,
+      { httpStatus: 400 },
+    );
+  }
+  if (input.callbackUrl != null && input.callbackUrl !== profile.callbackUrl) {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      `GITHUB_APP_CALLBACK_URL inattendu pour lane ${lane}`,
+      { httpStatus: 400 },
+    );
+  }
+  return profile;
 }
 
 /** Inspect credential path metadata without returning PEM content. */
@@ -71,13 +185,22 @@ export function inspectGitHubAppCredentialPath(path: string): {
 }
 
 export function readGitHubAppCredentialMetaFromEnv(): GitHubAppCredentialMeta {
+  const lane = resolveStudioGithubAppLane();
+  const profile = resolveExpectedGitHubAppProfile(lane);
   const appId = requireEnv("GITHUB_APP_ID");
   const installationId = requireEnv("GITHUB_APP_INSTALLATION_ID");
   const privateKeyPath = requireEnv("GITHUB_APP_PRIVATE_KEY_PATH");
   const allowedFullName =
-    process.env.GITHUB_APP_ALLOWED_REPO?.trim() || GITHUB_APP_ALLOWED_FULL_NAME;
+    process.env.GITHUB_APP_ALLOWED_REPO?.trim() || profile.allowedFullName;
   const expectedOwner =
-    process.env.GITHUB_APP_EXPECTED_OWNER?.trim() || GITHUB_APP_EXPECTED_OWNER;
+    process.env.GITHUB_APP_EXPECTED_OWNER?.trim() || profile.owner;
+  assertGitHubAppEnvMatchesLane({
+    lane,
+    appId,
+    installationId,
+    owner: expectedOwner,
+    allowedFullName,
+  });
   const insp = inspectGitHubAppCredentialPath(privateKeyPath);
   return {
     appId,
@@ -89,6 +212,7 @@ export function readGitHubAppCredentialMetaFromEnv(): GitHubAppCredentialMeta {
     pathSizeBytes: insp.sizeBytes,
     allowedFullName,
     expectedOwner,
+    lane,
   };
 }
 
@@ -99,21 +223,6 @@ export function readGitHubAppCredentialMetaFromEnv(): GitHubAppCredentialMeta {
  */
 export function loadGitHubAppCredentialsFromEnv(): GitHubAppLoadedCredentials {
   const meta = readGitHubAppCredentialMetaFromEnv();
-
-  if (meta.appId !== GITHUB_APP_EXPECTED_APP_ID) {
-    throw new StudioError(
-      "INVALID_REQUEST",
-      `GITHUB_APP_ID inattendu (attendu ${GITHUB_APP_EXPECTED_APP_ID})`,
-      { httpStatus: 400 },
-    );
-  }
-  if (meta.installationId !== GITHUB_APP_EXPECTED_INSTALLATION_ID) {
-    throw new StudioError(
-      "INVALID_REQUEST",
-      `GITHUB_APP_INSTALLATION_ID inattendu (attendu ${GITHUB_APP_EXPECTED_INSTALLATION_ID})`,
-      { httpStatus: 400 },
-    );
-  }
 
   if (!meta.pathExists || !meta.pathIsFile) {
     throw new StudioError(
@@ -157,6 +266,7 @@ export function loadGitHubAppCredentialsFromEnv(): GitHubAppLoadedCredentials {
     privateKeyPem,
     allowedFullName: meta.allowedFullName,
     expectedOwner: meta.expectedOwner,
+    lane: meta.lane,
     meta,
   };
 }

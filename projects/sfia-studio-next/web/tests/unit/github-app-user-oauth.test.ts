@@ -12,6 +12,7 @@ import {
 import {
   GITHUB_APP_EXPECTED_APP_ID,
   GITHUB_APP_EXPECTED_INSTALLATION_ID,
+  GITHUB_APP_LANE_PROFILES,
 } from "@/domains/integrations/github-app-config";
 
 const ORIGINAL = { ...process.env };
@@ -26,14 +27,18 @@ afterEach(() => {
 
 describe("github-app-user-oauth helpers", () => {
   it("detects missing client credentials without inventing them", () => {
+    process.env.STUDIO_LANE = "DEV";
     delete process.env.GITHUB_APP_CLIENT_ID;
     delete process.env.GITHUB_APP_CLIENT_SECRET;
     delete process.env.GITHUB_APP_CALLBACK_URL;
     expect(isGitHubAppUserOauthConfigured()).toBe(false);
-    expect(() => readGitHubAppUserOauthConfig()).toThrow(/GITHUB_APP_CLIENT_ID/);
+    expect(() => readGitHubAppUserOauthConfig()).toThrow(
+      /GITHUB_APP_CALLBACK_URL|GITHUB_APP_CLIENT_ID/,
+    );
   });
 
   it("builds authorize URL with PKCE and dedicated App client id", () => {
+    process.env.STUDIO_LANE = "DEV";
     process.env.GITHUB_APP_CLIENT_ID = "Iv1.app-client";
     process.env.GITHUB_APP_CLIENT_SECRET = "secret";
     process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
@@ -53,6 +58,7 @@ describe("github-app-user-oauth helpers", () => {
   });
 
   it("exchanges code and fetches identity via mocked GitHub", async () => {
+    process.env.STUDIO_LANE = "DEV";
     process.env.GITHUB_APP_CLIENT_ID = "Iv1.app-client";
     process.env.GITHUB_APP_CLIENT_SECRET = "secret";
     process.env.GITHUB_APP_CALLBACK_URL = "http://127.0.0.1:3100/api/integrations/github/callback";
@@ -121,5 +127,30 @@ describe("github-app-user-oauth helpers", () => {
     expect(() =>
       assertSandboxRepoInList([{ fullName: "acme/other" }], config.allowedFullName),
     ).toThrow(/hors ressources/);
+  });
+
+  it("accepts RECETTE callback and App identity under STUDIO_LANE=RECETTE", () => {
+    const recette = GITHUB_APP_LANE_PROFILES.RECETTE;
+    process.env.STUDIO_LANE = "RECETTE";
+    process.env.GITHUB_APP_CLIENT_ID = "Iv1.recette-client";
+    process.env.GITHUB_APP_CLIENT_SECRET = "secret";
+    process.env.GITHUB_APP_CALLBACK_URL = recette.callbackUrl;
+    process.env.GITHUB_APP_ID = recette.appId;
+    process.env.GITHUB_APP_INSTALLATION_ID = recette.installationId;
+    const config = readGitHubAppUserOauthConfig();
+    expect(config.appId).toBe(recette.appId);
+    expect(config.expectedInstallationId).toBe(recette.installationId);
+    expect(config.callbackUrl).toBe(recette.callbackUrl);
+  });
+
+  it("rejects DEV callback under STUDIO_LANE=RECETTE", () => {
+    const recette = GITHUB_APP_LANE_PROFILES.RECETTE;
+    process.env.STUDIO_LANE = "RECETTE";
+    process.env.GITHUB_APP_CLIENT_ID = "Iv1.recette-client";
+    process.env.GITHUB_APP_CLIENT_SECRET = "secret";
+    process.env.GITHUB_APP_CALLBACK_URL = GITHUB_APP_LANE_PROFILES.DEV.callbackUrl;
+    process.env.GITHUB_APP_ID = recette.appId;
+    process.env.GITHUB_APP_INSTALLATION_ID = recette.installationId;
+    expect(() => readGitHubAppUserOauthConfig()).toThrow(/GITHUB_APP_CALLBACK_URL inattendu/);
   });
 });

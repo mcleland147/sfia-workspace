@@ -1,10 +1,9 @@
 import { createHash, randomBytes } from "node:crypto";
 import { StudioError } from "@/lib/http-errors";
 import {
-  GITHUB_APP_EXPECTED_APP_ID,
-  GITHUB_APP_EXPECTED_INSTALLATION_ID,
-  GITHUB_APP_EXPECTED_OWNER,
-  GITHUB_APP_ALLOWED_FULL_NAME,
+  assertGitHubAppEnvMatchesLane,
+  resolveExpectedGitHubAppProfile,
+  resolveStudioGithubAppLane,
 } from "./github-app-config";
 
 export type UserOauthConfig = {
@@ -61,15 +60,31 @@ export function isGitHubAppUserOauthConfigured(): boolean {
 
 export function readGitHubAppUserOauthConfig(): UserOauthConfig {
   // Never reuse Better Auth GITHUB_CLIENT_ID/SECRET.
+  // Lane profile is authoritative — env may omit IDs only when they match the active lane.
+  const lane = resolveStudioGithubAppLane();
+  const profile = resolveExpectedGitHubAppProfile(lane);
+  const appId = process.env.GITHUB_APP_ID?.trim() || profile.appId;
+  const expectedInstallationId =
+    process.env.GITHUB_APP_INSTALLATION_ID?.trim() || profile.installationId;
+  const expectedOwner = process.env.GITHUB_APP_EXPECTED_OWNER?.trim() || profile.owner;
+  const allowedFullName = process.env.GITHUB_APP_ALLOWED_REPO?.trim() || profile.allowedFullName;
+  const callbackUrl = requireEnv("GITHUB_APP_CALLBACK_URL");
+  assertGitHubAppEnvMatchesLane({
+    lane,
+    appId,
+    installationId: expectedInstallationId,
+    owner: expectedOwner,
+    allowedFullName,
+    callbackUrl,
+  });
   return {
     clientId: requireEnv("GITHUB_APP_CLIENT_ID"),
     clientSecret: requireEnv("GITHUB_APP_CLIENT_SECRET"),
-    callbackUrl: requireEnv("GITHUB_APP_CALLBACK_URL"),
-    appId: process.env.GITHUB_APP_ID?.trim() || GITHUB_APP_EXPECTED_APP_ID,
-    expectedInstallationId:
-      process.env.GITHUB_APP_INSTALLATION_ID?.trim() || GITHUB_APP_EXPECTED_INSTALLATION_ID,
-    expectedOwner: process.env.GITHUB_APP_EXPECTED_OWNER?.trim() || GITHUB_APP_EXPECTED_OWNER,
-    allowedFullName: process.env.GITHUB_APP_ALLOWED_REPO?.trim() || GITHUB_APP_ALLOWED_FULL_NAME,
+    callbackUrl,
+    appId,
+    expectedInstallationId,
+    expectedOwner,
+    allowedFullName,
   };
 }
 
