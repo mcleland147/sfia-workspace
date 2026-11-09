@@ -632,7 +632,15 @@ index 9ccd09ca..dd01ff7c 100644
 
 ## 11. Review Handoff L3
 
-- publish-in-cycle via scripts/sfia/publish-review-handoff.sh
-- (détails commit/blob après publication)
+- Mode: publish-in-cycle
+- Branche: sfia/review-handoff
+- Fichier: sfia-review-handoff/latest-chatgpt-review.md
+- Publisher: scripts/sfia/publish-review-handoff.sh
+- Verdict: HANDOFF UPDATED — REMOTE VERIFIED
+- commit distant: b3c8bcc395505c5cd6a719f9506bdecee8b4ac89
+- blob distant: 968635781c740f314f9c8f4333b2a7abf89424fc
+- parent: 9a23e0497b8ecc47bda429f168e0aad56e78e9dc
+- relecture: titre Cycle 8 + verdict READY FOR REVIEW + HEAD 8ba77730 + cause SECTION_AMBIGUOUS + RECETTE inchangée — OK
+- push produit: AUCUN
 
 FIN PACK — contenu modifié inclus.
