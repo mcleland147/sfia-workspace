@@ -575,3 +575,20 @@ Verdict : **ML4 CHAT-FIRST R06 INTEGRATED CORRECTIVE — LOCALLY VERIFIED — RE
 | USER / LIVE | NOT RUN | gate Morris bascule RECETTE sur nouveau candidat |
 
 Verdict : **READY FOR REVIEW — R06 REAL-DOCUMENT STRUCTURE CORRECTIVE VERIFIED LOCALLY**.
+
+## 29. Correctif intégré A+B+D — frontière Markdown + proposition contractuelle + obs (2026-11-09)
+
+Suite audits handoff `97c5e812` / `4b5eb51e`. Branche `fix/next-ml4-chat-first-d4-provenance-20261109`. Push Product **NON AUTORISÉ**. RECETTE **non basculée**.
+
+| Item | Statut | Note |
+|---|---|---|
+| A — splice NL | CORRIGÉ (DET) | `applyTargetedSectionRevision` ajoute `\n` avant suffixe base si corps sans NL ; suffixe inchangé |
+| B — proposition contractuelle | CORRIGÉ (DET) | Une fence `sfia-document`/`markdown`/`md` obligatoire ; pas de `fallback_wrap` ; narration hors fence |
+| B — pas de scrub lexical | GARANTI | Aucun filtre « Compte rendu » / « hors document » ; métier légitime conservé dans la fence |
+| D — diagnostic | CORRIGÉ (DET) | `d3.turn.document_proposal` : path, fence_count, digest16, NL, scope/refuse codes, d4_attempted/effect |
+| Oracle R06-G | DET PASS | free-text recovered → MISSING ; fenced Sources → CR exclu ; scope PASS |
+| PG Chat First | DET PASS | CREATE/REVISE/R06/négatifs sur DEV `:5433` |
+| CREATE / full REVISE | NON-RÉGRESSION | fixture fence ; refuse multi-fence / empty |
+| USER / LIVE / RECETTE | NOT RUN | runtime RECETTE reste `8ba77730` / `ygu4moVrYUNZPkvprgvB_` |
+
+Verdict : **READY FOR REVIEW — INTEGRATED A+B+D DOCUMENT CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY**.

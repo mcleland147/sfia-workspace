@@ -172,3 +172,14 @@ Le contrat est seulement prêt à recevoir un **GO de construction** après int�
 ## 12. Raccord à la validation UX ML4 et suite de préparation (2026-11-07)
 
 [Registre Figma 218–235](../../ux-ui/integration-git-ux-ml4.md) : Intégrations 218–224, Nora/projet 225–226, publication 227–231 et responsive 232–235 ; conception validée Morris. **La spécification technique reste DOCUMENTED / DRAFT, pas VALIDATED TECHNIQUEMENT.** GitHub App, permissions de l'acteur, D7, API/DB, version D4, conflits/ACK et preuve REAL devront être éprouvés à leur gate. Les maquettes ne produisent ni consentement ni commit/merge. Après merge documentaire ML4, qualifier puis mettre en œuvre la convergence UX du shell ML1–ML3 sous mandat distinct avant le code Git ML4 ; capturer la version Figma au début de la transposition.
+
+## 13. Chat-first D4 — contrat proposition / splice / obs (AS-IMPLEMENTED local, 2026-11-09)
+
+Sur candidat `fix/next-ml4-chat-first-d4-provenance-20261109` (push Product NON AUTORISÉ) :
+
+1. **Proposition documentaire (B)** — exactement une fence `sfia-document` (alias `markdown`/`md`). Contenu fence → seul input CREATE/REVISE. Narration / compte rendu post-exécution **hors fence**. Absence, vacuité ou multiplicités → `DOCUMENT_PROPOSAL_*` sans écriture D4. **Pas** de `fallback_wrap` conversationnel.
+2. **Splice section (A)** — `applyTargetedSectionRevision` préserve préfixe/suffixe hors cible octet-identiques ; si le corps extrait omet le NL terminal, un NL est ajouté **avant** le suffixe (le suffixe lui-même n'est pas réécrit). `assertSectionScope` reste actif.
+3. **ACK (existant)** — `composeDocumentTurnMessage` reste la seule vérité transactionnelle visible.
+4. **Observabilité (D)** — événement `d3.turn.document_proposal` : `extract_path`, `fence_count`, `proposal_chars`, `proposal_digest16`, `body_ends_with_nl`, `scope_verdict`, `refuse_code`, `d4_attempted`, `d4_effect` (pas de corps/prompt/secrets).
+
+Preuve : DETERMINISTIC unit + PG DEV. LIVE Nora / USER RECETTE : NOT RUN.

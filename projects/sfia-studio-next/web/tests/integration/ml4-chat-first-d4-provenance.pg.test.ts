@@ -456,9 +456,14 @@ Aucune écriture GitHub.
     expect(v2.contentMarkdown).toContain("### 3.2. Traçabilité");
     expect(v2.contentMarkdown).toContain("Aucune écriture GitHub.");
     expect(v2.contentMarkdown).toContain("2. **Réservation reconnue :** question B ?");
+    // B: conversational / operational narration must not be persisted in D4.
+    expect(v2.contentMarkdown).not.toMatch(/Compte rendu opérationnel — hors document/);
+    expect(v2.contentMarkdown).not.toMatch(/hors fence/i);
+    expect(v2.contentMarkdown).not.toMatch(/Résultat applicatif D4 \(source de vérité\)/);
 
     const msgs = await listMessages(pilotId, prep.id);
     const last = msgs.filter((m) => m.role === "assistant").at(-1)!;
+    expect(last.content).toMatch(/```sfia-document/);
     expect(last.content).toMatch(/Résultat applicatif D4/);
     expect(last.content).toContain(seeded.documentId);
     expect(last.content).toMatch(/AVAILABLE|révision: v2/i);

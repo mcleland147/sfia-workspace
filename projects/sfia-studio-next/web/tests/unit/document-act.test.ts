@@ -5,6 +5,7 @@ import {
   assertSectionScope,
   composeDocumentTurnMessage,
   explicitDocumentIntent,
+  extractContractualDocumentProposal,
   extractDocumentDesignation,
   formatDocumentEffectAck,
   hasCompetingTransactionalClaim,
@@ -474,5 +475,184 @@ describe("document-act ACK coherence (finalisation)", () => {
     });
     expect(out).toContain("Corps utile.");
     expect(out).toMatch(/Conflit de base/);
+  });
+});
+
+describe("A+B contractual proposal + splice NL (R06-G oracle)", () => {
+  /** Structural twin of RECETTE v1 — sanitized (no private CampusFlow body). */
+  const campusV1 = `# Références externes — Enseignements de Chantiers360
+
+## 1. Contexte et objectif
+
+Contexte A.
+
+## 2. Sources consultées et provenance disponible
+
+### Source 1 — Première consultation : référence à compléter
+
+| Élément | Provenance disponible |
+| --- | --- |
+| Chemin | a/b.md |
+
+### Source 2 — Definition of Done de Chantiers360
+
+| Élément | Provenance vérifiée |
+| --- | --- |
+| Blob SHA | blob_old |
+| Commit SHA | commit_old |
+
+## 3. Enseignements utiles
+
+### 3.2. Traçabilité
+
+T.
+
+## 4. Limites de transposition
+
+Limites.
+
+## 5. Points à clarifier par le Pilote
+
+1. **Première référence :** question A ?
+`;
+
+  /** RECOVERED-shaped free text: section 2 + CR hors document, no terminal NL (pre-A defect). */
+  const recoveredFree = `---
+
+## 2. Sources consultées et provenance disponible
+
+### Source 1 — Première consultation : provenance partiellement identifiée
+
+| Élément | Provenance disponible |
+|---|---|
+| Chemin | docs/example.md |
+
+### Source 2 — Definition of Done de Chantiers360
+
+| Élément | Provenance vérifiée |
+|---|---|
+| Blob SHA | blob_fixed |
+| Commit SHA | commit_fixed |
+
+### Compte rendu opérationnel — hors document
+
+| Élément demandé | État vérifiable |
+|---|---|
+| Identifiant du document | \`doc_example\` |
+| Nouvelle version réellement enregistrée | Impossible à attester sans résultat applicatif D4 |
+| Modifications appliquées / statut applicatif D4 | Aucun résultat applicatif D4 disponible : l’outil de révision nécessaire n’est pas fourni |
+
+Pour compléter précisément la première source sans supposition, il manque sa **trace de consultation d’origine**.`;
+
+  const documentaryOnly = `## 2. Sources consultées et provenance disponible
+
+### Source 1 — Première consultation : provenance partiellement identifiée
+
+| Élément | Provenance disponible |
+|---|---|
+| Chemin | docs/example.md |
+
+### Source 2 — Definition of Done de Chantiers360
+
+| Élément | Provenance vérifiée |
+|---|---|
+| Blob SHA | blob_fixed |
+| Commit SHA | commit_fixed |
+`;
+
+  it("reproduces pre-A SCOPE_EXCEEDED on recovered free text without terminal NL", () => {
+    // Force legacy splice path: body to EOF without NL (simulate by direct apply on free text).
+    const merged = applyTargetedSectionRevision(campusV1, recoveredFree, "2");
+    // After corrective A, splice itself no longer glues — scope may PASS while pollution remains.
+    // Prove the historical glue defect still occurs WITHOUT the A newline guard by manual concat:
+    const spans = locateSections(recoveredFree);
+    const s2 = spans.find((s) => leadingSectionNumber(s.heading) === "2")!;
+    const bodyNoNl = recoveredFree.slice(s2.bodyStart, s2.end);
+    expect(bodyNoNl.endsWith("\n")).toBe(false);
+    const baseSpans = locateSections(campusV1);
+    const target = baseSpans.find((s) => leadingSectionNumber(s.heading) === "2")!;
+    const legacy =
+      campusV1.slice(0, target.bodyStart) + bodyNoNl + campusV1.slice(target.end);
+    expect(/\n## 3\. Enseignements utiles/.test(legacy)).toBe(false);
+    expect(/## 3\. Enseignements utiles/.test(legacy)).toBe(true);
+    expect(assertSectionScope(campusV1, legacy, "2").ok).toBe(false);
+    // A alone on free text: scope can PASS but CR pollution remains.
+    expect(merged.ok).toBe(true);
+    if (!merged.ok) return;
+    expect(assertSectionScope(campusV1, merged.content, "2")).toEqual({ ok: true });
+    expect(merged.content).toMatch(/Compte rendu opérationnel — hors document/);
+    expect(merged.content).toMatch(/outil de révision nécessaire/);
+  });
+
+  it("B refuses unfenced recovered free text as contractual proposal", () => {
+    const ex = extractContractualDocumentProposal(recoveredFree);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+  });
+
+  it("A+B oracle: fenced documentary Sources only → scope PASS, CR excluded, métier kept", () => {
+    // Fence body deliberately omits a terminal newline before the closing fence (A must still protect).
+    const assistant =
+      "Voici la proposition.\n\n```sfia-document\n" +
+      documentaryOnly.trimEnd() +
+      "```\n\n" +
+      "### Compte rendu opérationnel — hors document\n\n" +
+      "| Élément demandé | État vérifiable |\n|---|---|\n" +
+      "| Identifiant du document | `doc_example` |\n" +
+      "| Statut applicatif D4 | à lire dans l'ACK Studio |\n";
+    const extracted = extractContractualDocumentProposal(assistant);
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) return;
+    expect(extracted.content).toContain("### Source 1");
+    expect(extracted.content).toContain("### Source 2");
+    expect(extracted.content).not.toMatch(/Compte rendu opérationnel/);
+    expect(extracted.content).not.toMatch(/doc_example/);
+    expect(extracted.bodyEndsWithNewline).toBe(false);
+
+    const merged = applyTargetedSectionRevision(campusV1, extracted.content, "2");
+    expect(merged.ok).toBe(true);
+    if (!merged.ok) return;
+    expect(assertSectionScope(campusV1, merged.content, "2")).toEqual({ ok: true });
+    expect(merged.content).toContain("## 3. Enseignements utiles");
+    expect(merged.content).toContain("### 3.2. Traçabilité");
+    expect(merged.content).toContain("blob_fixed");
+    expect(merged.content).not.toMatch(/Compte rendu opérationnel — hors document/);
+    expect(merged.content).not.toMatch(/outil de révision nécessaire/);
+    expect(merged.content).not.toMatch(/Résultat applicatif D4 \(source de vérité\)/);
+    // Legitimate métier wording preserved when inside fence:
+    expect(merged.content).toContain("Provenance disponible");
+  });
+
+  it("B refuses ambiguous dual fences", () => {
+    const dual =
+      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n```markdown\n# B\n\nbody two long enough yy\n```";
+    const ex = extractContractualDocumentProposal(dual);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_AMBIGUOUS");
+  });
+
+  it("legitimate ### Compte rendu de consultation inside fence is NOT scrubbed", () => {
+    const assistant =
+      "```sfia-document\n## 2. Sources consultées et provenance disponible\n\n" +
+      "### Compte rendu de consultation (provenance)\n\nFaits issus de la source externe.\n```\n";
+    const extracted = extractContractualDocumentProposal(assistant);
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) return;
+    const merged = applyTargetedSectionRevision(campusV1, extracted.content, "2");
+    expect(merged.ok).toBe(true);
+    if (!merged.ok) return;
+    expect(merged.content).toContain("### Compte rendu de consultation (provenance)");
+    expect(merged.content).toContain("Faits issus de la source externe.");
+    expect(assertSectionScope(campusV1, merged.content, "2")).toEqual({ ok: true });
+  });
+
+  it("A preserves suffix when proposed body already ends with NL", () => {
+    const proposed = "## 2. Sources consultées et provenance disponible\n\nNouveau.\n";
+    const merged = applyTargetedSectionRevision(campusV1, proposed, "2");
+    expect(merged.ok).toBe(true);
+    if (!merged.ok) return;
+    expect(assertSectionScope(campusV1, merged.content, "2")).toEqual({ ok: true });
+    const idx = merged.content.indexOf("## 3. Enseignements utiles");
+    expect(merged.content.slice(idx - 1, idx)).toBe("\n");
   });
 });

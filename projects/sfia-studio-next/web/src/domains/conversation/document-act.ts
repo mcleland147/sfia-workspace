@@ -514,6 +514,111 @@ function matchSectionSpans(spans: SectionSpan[], hint: string): SectionSpan[] {
 }
 
 /**
+ * Contractual document proposal (B).
+ * Documentary content destined for D4 must appear in exactly one fenced block
+ * tagged `sfia-document`, `markdown`, or `md`. Narration / post-exec CR / ACK
+ * stay outside the fence. No lexical scrubbing of legitimate métier wording.
+ */
+export type DocumentProposalExtract =
+  | {
+      ok: true;
+      content: string;
+      title: string;
+      path: "fence";
+      fenceTag: string;
+      fenceCount: 1;
+      proposalChars: number;
+      proposalDigest16: string;
+      bodyEndsWithNewline: boolean;
+      sectionCount: number;
+    }
+  | {
+      ok: false;
+      reason:
+        | "DOCUMENT_PROPOSAL_MISSING"
+        | "DOCUMENT_PROPOSAL_AMBIGUOUS"
+        | "DOCUMENT_PROPOSAL_EMPTY";
+      path: "none" | "ambiguous" | "empty";
+      fenceCount: number;
+      proposalChars: number;
+      proposalDigest16: string | null;
+      bodyEndsWithNewline: boolean;
+      sectionCount: number;
+    };
+
+const DOCUMENT_PROPOSAL_FENCE_RE =
+  /```(sfia-document|markdown|md)[^\n]*\n([\s\S]*?)```/gi;
+
+function digest16(text: string): string {
+  // Non-reversible short fingerprint for diagnostics — not a content log.
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0).toString(16).padStart(8, "0") + text.length.toString(16).padStart(8, "0");
+}
+
+export function extractContractualDocumentProposal(
+  assistantText: string,
+): DocumentProposalExtract {
+  const matches = [...assistantText.matchAll(new RegExp(DOCUMENT_PROPOSAL_FENCE_RE.source, "gi"))];
+  if (matches.length === 0) {
+    return {
+      ok: false,
+      reason: "DOCUMENT_PROPOSAL_MISSING",
+      path: "none",
+      fenceCount: 0,
+      proposalChars: 0,
+      proposalDigest16: null,
+      bodyEndsWithNewline: false,
+      sectionCount: 0,
+    };
+  }
+  if (matches.length > 1) {
+    return {
+      ok: false,
+      reason: "DOCUMENT_PROPOSAL_AMBIGUOUS",
+      path: "ambiguous",
+      fenceCount: matches.length,
+      proposalChars: 0,
+      proposalDigest16: null,
+      bodyEndsWithNewline: false,
+      sectionCount: 0,
+    };
+  }
+  const fenceTag = (matches[0]![1] ?? "markdown").toLowerCase();
+  // Preserve internal bytes; strip only a single leading newline often introduced after the fence opener.
+  let content = matches[0]![2] ?? "";
+  if (content.startsWith("\n")) content = content.slice(1);
+  if (!content.trim() || content.trim().length < 8) {
+    return {
+      ok: false,
+      reason: "DOCUMENT_PROPOSAL_EMPTY",
+      path: "empty",
+      fenceCount: 1,
+      proposalChars: content.length,
+      proposalDigest16: digest16(content),
+      bodyEndsWithNewline: content.endsWith("\n"),
+      sectionCount: locateSections(content).length,
+    };
+  }
+  const titleLine = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
+  return {
+    ok: true,
+    content,
+    title: titleLine || "Document Nora",
+    path: "fence",
+    fenceTag,
+    fenceCount: 1,
+    proposalChars: content.length,
+    proposalDigest16: digest16(content),
+    bodyEndsWithNewline: content.endsWith("\n"),
+    sectionCount: locateSections(content).length,
+  };
+}
+
+/**
  * Extract replacement body for a target section from Nora's proposal.
  * Refuses conversational dumps that are not a clear section body.
  */
@@ -546,6 +651,8 @@ export function extractProposedSectionBody(
 /**
  * Splice Nora's section body into the base document at exact offsets.
  * Non-target bytes are preserved verbatim (spaces, blank lines, fences).
+ * Corrective A: ensure a line break before the base suffix so the next ATX
+ * heading remains at column 0 — without rewriting the suffix itself.
  */
 export function applyTargetedSectionRevision(
   baseMarkdown: string,
@@ -575,9 +682,12 @@ export function applyTargetedSectionRevision(
   const extracted = extractProposedSectionBody(proposedMarkdown, sectionHint, target.heading);
   if (!extracted.ok) return extracted;
 
+  // A: body may omit a terminal newline; suffix must keep starting at a line boundary.
+  const body = extracted.body.endsWith("\n") ? extracted.body : `${extracted.body}\n`;
+
   // Keep heading line + everything before bodyStart and everything after end byte-identical.
   const content =
-    baseMarkdown.slice(0, target.bodyStart) + extracted.body + baseMarkdown.slice(target.end);
+    baseMarkdown.slice(0, target.bodyStart) + body + baseMarkdown.slice(target.end);
   return { ok: true, content };
 }
 

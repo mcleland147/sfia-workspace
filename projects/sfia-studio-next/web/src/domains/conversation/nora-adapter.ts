@@ -102,7 +102,8 @@ const SYSTEM_INSTRUCTIONS = [
   "- Production documentaire: seulement si le Pilote le demande explicitement et positivement.",
   "- Une négation (« ne crée pas », « ne révise pas »), une question informative ou une hypothèse n'autorisent aucune écriture D4.",
   "- Distingue toujours rédaction proposée et sauvegarde confirmée. Tu n'affirmes jamais qu'un document est « enregistré », « non enregistré », créé ou révisé : seul le bloc applicatif D4 post-effet (Résultat applicatif D4) porte cette vérité.",
-  "- Révision ciblée: si le Pilote demande de réviser une section, produis le Markdown avec la section ciblée mise à jour; ne réécris pas les autres sections.",
+  "- Contrat proposition D4: place UNIQUEMENT le Markdown documentaire destiné à D4 dans UNE fence ```sfia-document … ``` (tags `markdown`/`md` acceptés). Hors fence: explications, compte rendu post-exécution, réserves. Une seule fence documentaire par réponse.",
+  "- Révision ciblée: dans la fence, fournis la section demandée mise à jour (titre ATX inclus); ne réécris pas les autres sections; ne place aucun compte rendu opérationnel ni statut transactionnel dans la fence.",
   "- Provenance Git: un SHA de contenu (blob) n'est jamais un SHA de commit; cite blobSha et commitSha séparément lorsqu'ils sont fournis par les outils.",
   "Réponds en français. Markdown utile autorisé (titres, listes, tableaux).",
 ].join("\n");
@@ -243,13 +244,21 @@ async function fixtureReply(
       "sans créer de projet, cycle ni décision.\n";
   }
   if (wantsRevise) {
+    // Contractual fence only — section body for REVISE; narration stays outside.
     body +=
-      "\n---\nDocument révisé proposé (rédaction seule — effet D4 uniquement après confirmation applicative):\n\n" +
-      `# Document révisé\n\n## Section 1 — Contexte\n\nContexte inchangé (fixture).\n\n## Section 2 — Contenu révisé\n\n${input.userText.slice(0, 400)}\n\n## Section 3 — Suite\n\nSuite inchangée (fixture).\n`;
+      "\n---\nProposition documentaire (fence contractuelle — effet D4 uniquement après confirmation applicative):\n\n" +
+      "```sfia-document\n" +
+      `## Section 2 — Contenu révisé\n\n${input.userText.slice(0, 400)}\n` +
+      "```\n\n" +
+      "Compte rendu conversationnel (hors document / hors fence): rédaction proposée ci-dessus; " +
+      "le statut applicatif D4 sera porté uniquement par le bloc Studio post-effet.\n";
   } else if (wantsDoc) {
     body +=
-      "\n---\nDocument proposé (rédaction seule — sauvegarde D4 uniquement après confirmation applicative):\n\n" +
-      `# Synthèse demandée\n\n## Section 1 — Contexte\n\nContexte initial.\n\n## Section 2 — Analyse\n\n${input.userText.slice(0, 400)}\n\n## Section 3 — Suite\n\nPoints ouverts à qualifier.\n`;
+      "\n---\nProposition documentaire (fence contractuelle — sauvegarde D4 uniquement après confirmation applicative):\n\n" +
+      "```sfia-document\n" +
+      `# Synthèse demandée\n\n## Section 1 — Contexte\n\nContexte initial.\n\n## Section 2 — Analyse\n\n${input.userText.slice(0, 400)}\n\n## Section 3 — Suite\n\nPoints ouverts à qualifier.\n` +
+      "```\n\n" +
+      "Commentaire hors fence: proposition prête pour validation applicative Studio.\n";
   }
   if (toolNotes) body += `\n### Outil D4 (fixture)\n${toolNotes}\n`;
   if (know) body += `\n### Contexte D4 pré-sélectionné\n${know.slice(0, 400)}\n`;

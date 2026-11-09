@@ -36,9 +36,11 @@ import {
   appendDocumentEffectAck,
   applyTargetedSectionRevision,
   assertSectionScope,
+  extractContractualDocumentProposal,
   qualifyDocumentAct,
   resolveReviseTarget,
   type DocumentEffectSummary,
+  type DocumentProposalExtract,
 } from "./document-act";
 
 export async function listMessages(pilotId: string, preparationId: string) {
@@ -51,29 +53,47 @@ export async function listMessages(pilotId: string, preparationId: string) {
     .orderBy(asc(messages.ordinal));
 }
 
-function extractDocumentMarkdown(
-  assistantText: string,
-  userText: string,
-): {
-  title: string;
-  content: string;
-} | null {
-  const fence = assistantText.match(/```(?:markdown|md)?\n([\s\S]+?)```/i);
-  if (fence?.[1] && fence[1].trim().length > 40) {
-    const body = fence[1].trim();
-    const titleLine = body.match(/^#\s+(.+)$/m)?.[1]?.trim();
-    return { title: titleLine || "Document Nora", content: body };
-  }
-  const heading = assistantText.match(/(^|\n)#\s+[^\n]+[\s\S]{40,}/);
-  if (heading?.[0]) {
-    const body = heading[0].trim();
-    const titleLine = body.match(/^#\s+(.+)$/m)?.[1]?.trim();
-    return { title: titleLine || "Document Nora", content: body };
-  }
-  return {
-    title: "Document demandé",
-    content: `# Document demandé\n\n> Demande: ${userText.slice(0, 300)}\n\n${assistantText}`,
-  };
+function emitDocumentProposalObs(args: {
+  requestId: string;
+  operationId: string;
+  generationId: string | null | undefined;
+  act: "CREATE" | "REVISE";
+  extracted: DocumentProposalExtract;
+  scopeVerdict?: string | null;
+  refuseCode?: string | null;
+  d4Attempted: boolean;
+  d4Effect?: string | null;
+}) {
+  emitObs({
+    event_name: "d3.turn.document_proposal",
+    component: "d3.conversation",
+    request_id: args.requestId,
+    operation_id: args.operationId,
+    generation_id: args.generationId ?? undefined,
+    outcome: args.extracted.ok
+      ? args.refuseCode
+        ? "FAILED"
+        : args.d4Effect === "AVAILABLE"
+          ? "SUCCESS"
+          : args.d4Attempted
+            ? "FAILED"
+            : "PARTIAL"
+      : "FAILED",
+    meta: {
+      act: args.act,
+      extract_path: args.extracted.path,
+      proposal_present: args.extracted.ok,
+      fence_count: args.extracted.fenceCount,
+      section_count: args.extracted.sectionCount,
+      proposal_chars: args.extracted.proposalChars,
+      proposal_digest16: args.extracted.proposalDigest16,
+      body_ends_with_nl: args.extracted.bodyEndsWithNewline,
+      scope_verdict: args.scopeVerdict ?? null,
+      refuse_code: args.refuseCode ?? (args.extracted.ok ? null : args.extracted.reason),
+      d4_attempted: args.d4Attempted,
+      d4_effect: args.d4Effect ?? null,
+    },
+  });
 }
 
 export type TurnResult = {
@@ -557,8 +577,24 @@ export async function postUserMessageAndNora(
       }
 
       if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
-        const extracted = extractDocumentMarkdown(reply.content, content);
-        if (extracted) {
+        const extracted = extractContractualDocumentProposal(reply.content);
+        if (!extracted.ok) {
+          documentSave = {
+            status: "FAILED",
+            reason: extracted.reason,
+            act: "CREATE",
+          };
+          emitDocumentProposalObs({
+            requestId,
+            operationId: reserved.operationId,
+            generationId: reply.generationId,
+            act: "CREATE",
+            extracted,
+            refuseCode: extracted.reason,
+            d4Attempted: false,
+            d4Effect: null,
+          });
+        } else {
           try {
             const saved = await savePreparationDocument(
               pilotId,
@@ -596,9 +632,32 @@ export async function postUserMessageAndNora(
               documentSaveUnknown =
                 documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
             }
+            emitDocumentProposalObs({
+              requestId,
+              operationId: reserved.operationId,
+              generationId: reply.generationId,
+              act: "CREATE",
+              extracted,
+              refuseCode:
+                documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
+                  ? null
+                  : (documentSave?.reason ?? null),
+              d4Attempted: true,
+              d4Effect: documentSave?.status ?? null,
+            });
           } catch {
             documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION", act: "CREATE" };
             documentSaveUnknown = true;
+            emitDocumentProposalObs({
+              requestId,
+              operationId: reserved.operationId,
+              generationId: reply.generationId,
+              act: "CREATE",
+              extracted,
+              refuseCode: "DOCUMENT_SAVE_EXCEPTION",
+              d4Attempted: true,
+              d4Effect: "UNKNOWN",
+            });
             emitObs({
               event_name: "d3.turn.document_save_failed",
               component: "d3.conversation",
@@ -620,71 +679,136 @@ export async function postUserMessageAndNora(
               reason: `REVISE_${target.reason}`,
               act: "REVISE",
             };
+            emitDocumentProposalObs({
+              requestId,
+              operationId: reserved.operationId,
+              generationId: reply.generationId,
+              act: "REVISE",
+              extracted: extractContractualDocumentProposal(reply.content),
+              refuseCode: `REVISE_${target.reason}`,
+              d4Attempted: false,
+              d4Effect: null,
+            });
           } else {
-            const extracted = extractDocumentMarkdown(reply.content, content);
-            const proposed = extracted?.content ?? reply.content;
-            const merged = applyTargetedSectionRevision(
-              target.baseContent,
-              proposed,
-              documentAct.sectionHint,
-            );
-            if (!merged.ok) {
+            const extracted = extractContractualDocumentProposal(reply.content);
+            if (!extracted.ok) {
               documentSave = {
                 status: "FAILED",
-                reason: merged.reason,
+                reason: extracted.reason,
                 documentId: target.documentId,
                 baseRevisionId: target.baseRevisionId,
                 act: "REVISE",
               };
+              emitDocumentProposalObs({
+                requestId,
+                operationId: reserved.operationId,
+                generationId: reply.generationId,
+                act: "REVISE",
+                extracted,
+                refuseCode: extracted.reason,
+                d4Attempted: false,
+                d4Effect: null,
+              });
             } else {
-              const scopeCheck = assertSectionScope(
+              const merged = applyTargetedSectionRevision(
                 target.baseContent,
-                merged.content,
+                extracted.content,
                 documentAct.sectionHint,
               );
-              if (!scopeCheck.ok) {
+              if (!merged.ok) {
                 documentSave = {
                   status: "FAILED",
-                  reason: scopeCheck.reason,
+                  reason: merged.reason,
                   documentId: target.documentId,
                   baseRevisionId: target.baseRevisionId,
                   act: "REVISE",
                 };
-              } else {
-                const correlationKey = opts?.correlationKey
-                  ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
-                  : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
-                const revised = await reviseDocument(pilotId, preparationId, {
-                  documentId: target.documentId,
-                  baseRevisionId: target.baseRevisionId,
-                  contentMarkdown: merged.content,
-                  correlationKey,
-                  scope: documentAct.sectionHint ? "section" : "document",
-                  sectionHint: documentAct.sectionHint ?? undefined,
-                  provenance: {
-                    sourceKind: "nora",
-                    generationId: reply.generationId,
-                    userMessageId: reserved.userMessageId,
-                    explicitRequest: true,
-                    act: "REVISE",
-                    sectionHint: documentAct.sectionHint,
-                  },
+                emitDocumentProposalObs({
+                  requestId,
+                  operationId: reserved.operationId,
+                  generationId: reply.generationId,
+                  act: "REVISE",
+                  extracted,
+                  scopeVerdict: merged.reason,
+                  refuseCode: merged.reason,
+                  d4Attempted: false,
+                  d4Effect: null,
                 });
-                documentSave = {
-                  ...revised,
-                  act: "REVISE",
-                  baseRevisionId:
-                    "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
-                      ? revised.baseRevisionId
-                      : target.baseRevisionId,
-                };
-                if (
-                  documentSave.status !== "AVAILABLE" &&
-                  documentSave.status !== "CONFLICT" &&
-                  !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
-                ) {
-                  documentSaveUnknown =
-                    documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
+              } else {
+                const scopeCheck = assertSectionScope(
+                  target.baseContent,
+                  merged.content,
+                  documentAct.sectionHint,
+                );
+                if (!scopeCheck.ok) {
+                  documentSave = {
+                    status: "FAILED",
+                    reason: scopeCheck.reason,
+                    documentId: target.documentId,
+                    baseRevisionId: target.baseRevisionId,
+                    act: "REVISE",
+                  };
+                  emitDocumentProposalObs({
+                    requestId,
+                    operationId: reserved.operationId,
+                    generationId: reply.generationId,
+                    act: "REVISE",
+                    extracted,
+                    scopeVerdict: scopeCheck.reason,
+                    refuseCode: scopeCheck.reason,
+                    d4Attempted: false,
+                    d4Effect: null,
+                  });
+                } else {
+                  const correlationKey = opts?.correlationKey
+                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
+                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
+                  const revised = await reviseDocument(pilotId, preparationId, {
+                    documentId: target.documentId,
+                    baseRevisionId: target.baseRevisionId,
+                    contentMarkdown: merged.content,
+                    correlationKey,
+                    scope: documentAct.sectionHint ? "section" : "document",
+                    sectionHint: documentAct.sectionHint ?? undefined,
+                    provenance: {
+                      sourceKind: "nora",
+                      generationId: reply.generationId,
+                      userMessageId: reserved.userMessageId,
+                      explicitRequest: true,
+                      act: "REVISE",
+                      sectionHint: documentAct.sectionHint,
+                    },
+                  });
+                  documentSave = {
+                    ...revised,
+                    act: "REVISE",
+                    baseRevisionId:
+                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
+                        ? revised.baseRevisionId
+                        : target.baseRevisionId,
+                  };
+                  if (
+                    documentSave.status !== "AVAILABLE" &&
+                    documentSave.status !== "CONFLICT" &&
+                    !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
+                  ) {
+                    documentSaveUnknown =
+                      documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
+                  }
+                  emitDocumentProposalObs({
+                    requestId,
+                    operationId: reserved.operationId,
+                    generationId: reply.generationId,
+                    act: "REVISE",
+                    extracted,
+                    scopeVerdict: "OK",
+                    refuseCode:
+                      documentSave.status === "AVAILABLE" || documentSave.status === "CONFLICT"
+                        ? null
+                        : (documentSave.reason ?? null),
+                    d4Attempted: true,
+                    d4Effect: documentSave.status ?? null,
+                  });
                 }
               }
             }
@@ -706,8 +830,8 @@ export async function postUserMessageAndNora(
             meta: {
               act: "REVISE",
               status: documentSave?.status ?? null,
-              reason: documentSave?.reason ?? null,
-              document_id: documentSave?.documentId ?? null,
+              refuse_code: documentSave?.reason ?? null,
+              d4_effect: documentSave?.status ?? null,
             },
           });
         } catch {
