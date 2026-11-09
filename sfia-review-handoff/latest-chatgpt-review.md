@@ -1,356 +1,147 @@
-# SFIA Review Pack FULL — Cycle 11 — RECETTE deploy a2c5e9f8
+# SFIA Review Pack FULL — Cycle 8 — R06 section D4 + Nora truth
 
-- date_heure: 2026-11-09T17:45:37+01:00
+- date_heure: 2026-11-09T18:17:36+01:00
 - process: SFIA v2.6
-- cycle: 11 — DÉPLOIEMENT / RECETTE
-- profil: CRITICAL
+- type: CYCLE 8 — DELIVERY / IMPLÉMENTATION
+- typologie: RUN / CORRECTIF
+- profil: STANDARD
 - product: SFIA Studio Next — R5 / ML4
-- GO Morris: 2026-11-09 — préparation + bascule RECETTE conditionnelle + contrôles + rollback technique si nécessaire
-- GO NON ACQUIS: push projet, PR, merge, STABLE, release, ADOPTED, mutation GitHub REAL, restore DB destructive, exécution R06 utilisateur
+- GO Morris: 2026-11-09 — diagnostic RECETTE READ-ONLY + correction DEV + tests + docs + handoff L3
+- GO NON ACQUIS: redéploiement RECETTE, push projet, PR, merge, mutation GitHub REAL, restore DB, exécution R06 utilisateur LIVE
 
 ## Verdict
 
-**RECETTE BUILD UPDATED — SOURCE SHA VERIFIED — DATA PRESERVED — TECHNICAL SMOKE PASS — USER R06 NOT RUN**
+**READY FOR REVIEW — R06 REAL-DOCUMENT STRUCTURE CORRECTIVE VERIFIED LOCALLY**
 
-Non-annoncé (interdit): R06 PASS ; REC-08 CLOSED ; ML4 ACCEPTED ; BEHAVIOR PROVEN ; GitHub REAL write PASS ; STABLE ; RELEASE ; ADOPTED.
+Non-annoncé: R06 PASS ; REC-08 CLOSED ; ML4 ACCEPTED ; RECETTE PASS ; LIVE BEHAVIOR PROVEN ; ADOPTED.
 
-## 1. Git Truth Check — initial / final
+Fake/Real: DETERMINISTIC PROVEN (Nora fixture SCRIPTED) ; LIVE NOT RUN ; GitHub REAL write NONE.
+DETERMINISTIC PROVEN ≠ READY FOR REAL.
 
-Repository: mcleland147/sfia-workspace
-remote: origin https://github.com/mcleland147/sfia-workspace.git
+## 1. Git Truth Check
 
 | Ref | SHA |
 | --- | --- |
-| Branche active | fix/next-ml4-chat-first-d4-provenance-20261109 |
-| HEAD candidat | a2c5e9f8819cbe547bf925b39f38f783fc8aa52b |
-| tree | 5d245e8adf1d32a7ceec6b129857d94f6398a488 |
-| Base macro | 974b0030a94469bef05496151792e8c35a9a83e9 (ancêtre: OUI) |
+| Branche | fix/next-ml4-chat-first-d4-provenance-20261109 |
+| HEAD départ | a2c5e9f8819cbe547bf925b39f38f783fc8aa52b |
+| HEAD final (commit correctif local) | 8ba777300adebe3ba70ddbe3c386a3ad709034f6 |
+| tree final | 368159d7e8cdbc0bbb504f87d6deb12c04e6b129 |
+| parent | a2c5e9f8819cbe547bf925b39f38f783fc8aa52b |
+| Base macro | 974b0030a94469bef05496151792e8c35a9a83e9 |
 | origin/main | 6667a43858a5421e391b7441246536daad148bd6 |
-| origin/feat/next-git-collaboration-20261108 | 51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b |
-| origin/sfia/review-handoff (pré-publish) | 8a70808c39a33deeb478c94c8a031449561395d0 |
-| handoff blob pré-publish | 5b8913a5eb435d55653591f41826fcc371a6eacd |
+| origin/feat | 51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b |
+| origin/sfia/review-handoff (pré-publish) | 9a23e0497b8ecc47bda429f168e0aad56e78e9dc |
+| docs registre | 9db2ae2a52b758ab77254c0f33eacd047803c380 (lecture seule) |
 
-Actions Git Truth:
-- git remote -v OK
-- git fetch (main, feat, review-handoff) sans mutation projet
-- git status --short avant handoff: Review Pack + manifestes/scripts locaux hors push produit
-- Aucun rebase / cherry-pick / reset / stash destructif
-- Aucun push de branche produit
-- Candidat non reconstruit depuis main/feat
+Aucun push projet. Aucun rebase/reset destructif.
 
-## 2. Sources consultées (Git)
+## 2. ENV-01
 
-- Processus SFIA v2.6 (cycle routing + execution template) — mandat appliqué
-- Gouvernance Next: SEF, roadmap, environnements-recette-et-promotions, product-versioning, naming, décisions R4/ML4
-- Contrats ML4 integration-git (acceptation, spec, matrice, recette e2e)
-- delivery-history.md
-- Dernier handoff sfia/review-handoff @ 8a70808c…
-- Registre R01–R14 branche docs/next-ml4-recette-utilisateur-20261109 — LECTURE SEULE, non modifié
-
-## 3. Préflight ENV-01
-
-### Avant bascule
-- Listener :3200 = PID 75778 next-server cwd …-ml4-recette-build-974b0030/…/web
-- BUILD_ID fichier: RzpCuGMK6SnwfucphK7Qa
-- SFIA_SOURCE_SHA env: 974b0030…
-- DB: sfia_next_recette_ml4 @ 127.0.0.1:5434 container sfia-next-recette-pg
-- DEV: PG 5433 up ; :3100 idle
+- DEV: lane autorisée mutations/tests ; PG :5433 ; STUDIO_LANE=DEV
+- RECETTE: READ-ONLY diagnostic ; runtime inchangé `a2c5e9f8` / BUILD `9yCs2GbSS5lDFX3LPiQTU` @ :3200 ; DB sfia_next_recette_ml4 :5434
 - STABLE: NOT AVAILABLE
-- Secrets: ~/.config/sfia-studio-next/recette/.env.local — clés présentes (valeurs non divulguées): STUDIO_LANE=RECETTE, OPENAI, GitHub App 5677465/180092114, BETTER_AUTH_URL :3200, STUDIO_GITHUB_PROVIDER=real, mutations UNSET
-- LaunchAgent historique com.sfia.studio.next.recette pointe encore ml1-c3 — non utilisé pour ce runtime (démarrage manuel worktree)
+- Backup présent: /Users/morris/Projects/sfia-recette-backups/ml4-20261109-173817-pre-a2c5e9f8 (non restauré)
+- Mutations GitHub REAL: OFF
+- Post-cycle: v1 toujours seule (drev_c07ca162… AVAILABLE md5 de4bd1a6… len chars 8586) — **0 v2 utilisateur**
 
-### Migration / schéma
-- schemaRevision 974b == a2c5 = 012_auth_concurrency_safety
-- git diff migrations/drizzle 974b0030…a2c5e9f8 → 0 fichiers
-- STOP migration non requis
+## 3. Phase A — Diagnostic READ-ONLY v1
 
-## 4. Conservation D4 — preuve lecture seule
+Identifiants vérifiés:
+- doc_1e5d8c16-98a2-4a58-8096-fe86f4146ec2
+- drev_c07ca162-faa4-48f5-b705-018e41ae88d9
+- title: Références externes — Enseignements de Chantiers360
+- md5: de4bd1a6e59f5dea12fd38ce265b5f43
 
-| Entité | ID / valeur |
+Structure pertinente (pas de corps intégral recopié):
+- ATX `#` titre document
+- ATX `## 1. Contexte et objectif`
+- ATX `## 2. Sources consultées et provenance disponible` (unique index 2 de tête)
+- ATX `### Source 1 — …` / `### Source 2 — Definition of Done…` (Source 2 ≠ section 2)
+- ATX `## 3.` + `### 3.1`…`### 3.2` (3.2 contient un «2» embarqué)
+- ATX `## 4.` / `## 5.` + liste ordonnée `1.`…`7.` (hors locateSections)
+- ATX `## Résultat de l'opération` + tableaux
+
+Reproduction avant correctif (`applyTargetedSectionRevision` @ a2c5e9f8):
+- hint `"2"` / `"section 2"` → **SECTION_AMBIGUOUS_OR_MISSING_IN_BASE**
+- hint titre complet «Sources consultées…» → OK (preuve que la section existe)
+
+Cause racine confirmée:
+`matchSectionSpans` utilisait `\b${hint}\b`, donc `"2"` matchait aussi «Source 2» et «3.2».
+
+Hypothèses écartées:
+- absence de section 2
+- format non-ATX exclusif (v1 est ATX numéroté)
+- besoin d'un parseur de listes numérotées hors titres
+
+## 4. Phase B — Correction résolution de section
+
+Fichier: `web/src/domains/conversation/document-act.ts`
+- `leadingSectionNumber` : reconnaît `2. Title` / `Section 2 —` ; ignore Source 2 / 3.2
+- `matchSectionSpans` : match par index de tête (et titre optionnel), plus de `\b2\b` nu
+- ATX fixtures existantes préservées
+
+Après correctif sur v1 exacte: hint `2` / `section 2` / titre → OK ; `assertSectionScope` OK ; prefix/suffix hors cible byte-identiques.
+
+## 5. Phase C — Vérité Nora / D4
+
+- ACK FAILED: motif Studio + clarification que les outils Nora RO ne sont pas la cause d'un refus déjà observé
+- `composeDocumentTurnMessage` retire les claims « lecture seule / je ne peux pas exécuter l'enregistrement » dès qu'un effet D4 est observé
+- `hasCompetingTransactionalClaim` étendu aux FAILED/CONFLICT/UNKNOWN
+
+## 6. Tests exécutés (ce cycle)
+
+| Suite | Résultat |
 | --- | --- |
-| Pilot | pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c / mcleland147 |
-| Project | proj_1b52eb8f-3c63-4c72-a4dd-a47f34e1bb4d / CampusFlow |
-| Document | doc_1e5d8c16-98a2-4a58-8096-fe86f4146ec2 |
-| Title | Références externes — Enseignements de Chantiers360 |
-| v1 | drev_c07ca162-faa4-48f5-b705-018e41ae88d9 AVAILABLE rev#1 |
-| content_md5 | de4bd1a6e59f5dea12fd38ce265b5f43 (8586 bytes) |
-| rev_total | 1 (pas de v2 spontanée) |
-| messages | 16 conservés |
-| git link | ATTACHED → mcleland147/chantiers360 |
+| unit document-act | **32 PASS** |
+| PG ml4-chat-first-d4-provenance | **9 PASS** (oracle R06 structure réelle inclus) |
+| PG ml2-knowledge-documents | **6 PASS** |
+| unit git-file-provenance | **2 PASS** |
+| tsc --noEmit | PASS |
+| next lint | warnings préexistants + escapeRegExp retiré |
+| next build | PASS |
 
-Post-bascule: mêmes IDs / même md5 / mêmes compteurs — DATA PRESERVED.
+Oracle R06: fixture assainie twin structural CampusFlow ; `postUserMessageAndNora` DET ; v1+v2 ; hors-cible exact ; pas d'écriture GitHub.
 
-## 5. Sauvegarde DB
+## 7. Absence mutation RECETTE
 
-```json
-{
-  "created_at": "2026-11-09T17:38:18.058832+01:00",
-  "db_name": "sfia_next_recette_ml4",
-  "db_port": 5434,
-  "format": "custom(-Fc)",
-  "dump_sha256": "7a9dde7b432383b54fdfbd9e27e0d649f4b9a2f3d2b7dc68312882f0ab685ad0",
-  "dump_bytes": 132643,
-  "purpose": "pre-switch backup before serving a2c5e9f8",
-  "previous_source_sha": "974b0030a94469bef05496151792e8c35a9a83e9",
-  "previous_build_id": "RzpCuGMK6SnwfucphK7Qa",
-  "candidate_source_sha": "a2c5e9f8819cbe547bf925b39f38f783fc8aa52b",
-  "restore_note": "docker exec -i sfia-next-recette-pg pg_restore -U sfia_next_recette_ml4 -d sfia_next_recette_ml4 --clean --if-exists <dump> \u2014 REQUIRES explicit Morris GO; not to be run during this cycle"
-}
+- Aucun reviseDocument sur RECETTE
+- Aucun redémarrage / changement config RECETTE
+- Fingerprint v1 post-cycle: inchangé
+- Runtime servi: toujours BUILD 9yCs2GbSS5lDFX3LPiQTU
+
+## 8. Versioning
+
+- technical 0.0.0-dev ; NO RELEASE ; PATCH candidate
+- STABLE NOT AVAILABLE
+- Candidat local nouveau: 8ba777300adebe3ba70ddbe3c386a3ad709034f6 (≠ a2c5e9f8 servi en RECETTE)
+
+## 9. Commit local
+
 ```
+commit 8ba777300adebe3ba70ddbe3c386a3ad709034f6
+Author:     Morris Cleland <morris@MacBook-Air.local>
+AuthorDate: Mon Nov 9 18:17:04 2026 +0100
+Commit:     Morris Cleland <morris@MacBook-Air.local>
+CommitDate: Mon Nov 9 18:17:04 2026 +0100
 
-### Rollback code document
+    fix(studio-next): resolve numbered D4 section targeting and Nora ACK truth
 
-```markdown
-# Rollback code procedure — Cycle 11 RECETTE switch
+    R06-F failed on RECETTE because hint "2" matched Source 2/3.2 via bare word boundaries; match leading section indexes only and keep Studio FAILED reasons as the sole transactional verdict.
 
-## Previous (restore target)
-- worktree: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-974b0030
-- SHA: 974b0030a94469bef05496151792e8c35a9a83e9
-- tree: 6ca5d0ad37114dc88cfe5fd821b4762fc7bcd357
-- BUILD_ID: RzpCuGMK6SnwfucphK7Qa
-- address: http://127.0.0.1:3200
-- env: ~/.config/sfia-studio-next/recette/.env.local (SFIA_SOURCE_SHA was 974b0030...)
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+---
+ .../construction/delivery-history.md               |  41 ++++++
+ .../integration-git/matrice-acceptation.md         |  15 ++
+ .../web/src/domains/conversation/document-act.ts   | 100 +++++++++++--
+ .../ml4-chat-first-d4-provenance.pg.test.ts        |  42 +++++-
+ .../web/tests/unit/document-act.test.ts            | 163 +++++++++++++++++++++
+ 5 files changed, 342 insertions(+), 19 deletions(-)
 
-## New candidate
-- worktree: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-a2c5e9f8
-- SHA: a2c5e9f8819cbe547bf925b39f38f783fc8aa52b
-- tree: 5d245e8adf1d32a7ceec6b129857d94f6398a488
-- BUILD_ID: 9yCs2GbSS5lDFX3LPiQTU
-
-## Code rollback steps (NO DB restore without Morris GO)
-1. Identify PID on :3200 (lsof -nP -iTCP:3200 -sTCP:LISTEN)
-2. Stop only that process (kill gracefully)
-3. Ensure SFIA_SOURCE_SHA in recette .env.local points to 974b0030... (or export at start)
-4. cd .../974b0030/projects/sfia-studio-next/web && source env && npx next start -H 127.0.0.1 -p 3200
-5. Verify BUILD_ID=RzpCuGMK6SnwfucphK7Qa and HTTP smoke
-6. DB restore is SEPARATE and FORBIDDEN without Morris GO
-
-## DB backup
-- path: /Users/morris/Projects/sfia-recette-backups/ml4-20261109-173817-pre-a2c5e9f8/sfia_next_recette_ml4.dump
-- sha256: 7a9dde7b432383b54fdfbd9e27e0d649f4b9a2f3d2b7dc68312882f0ab685ad0
-```
-
-Vérifications backup:
-- pg_restore -l → 239 TOC entries — dump listable
-- Aucune restauration exécutée sur la base active
-- Rollback code documenté ; rollback DB = GO Morris séparé
-
-## 6. Construction candidat immutable
-
-- worktree détaché: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-a2c5e9f8
-- HEAD figé a2c5e9f8… — 0 dirty lines source au moment du build
-- npm ci depuis lockfile — PASS
-- vitest tests/unit/document-act.test.ts — 25 PASS
-- tsc --noEmit — PASS
-- next build — PASS → BUILD_ID 9yCs2GbSS5lDFX3LPiQTU
-- Classification versioning: PATCH candidate / NO RELEASE / technical 0.0.0-dev / productStableVersion NOT AVAILABLE
-- Aucune modification du code source après gel du SHA servi
-
-### start-recette.sh (nouveau worktree)
-
-```bash
-#!/bin/bash
-set -euo pipefail
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
-cd /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-a2c5e9f8/projects/sfia-studio-next/web
-set -a
-source "$HOME/.config/sfia-studio-next/recette/.env.local"
-set +a
-export SFIA_SOURCE_SHA=a2c5e9f8819cbe547bf925b39f38f783fc8aa52b
-export NODE_ENV=production
-exec npx next start -H 127.0.0.1 -p 3200
-```
-
-### start-recette.sh (ancien — rollback)
-
-```bash
-#!/bin/bash
-set -euo pipefail
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
-cd /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-974b0030/projects/sfia-studio-next/web
-set -a
-source "$HOME/.config/sfia-studio-next/recette/.env.local"
-set +a
-export SFIA_SOURCE_SHA=974b0030a94469bef05496151792e8c35a9a83e9
-export NODE_ENV=production
-exec npx next start -H 127.0.0.1 -p 3200
-```
-
-## 7. Bascule effectuée
-
-1. Préconditions satisfaites (GO, SHA, build, backup, schéma, données, artefact ancien, Nora config, App RECETTE, mutations OFF)
-2. Stop propre PID 75778 (974b worktree)
-3. Artefact 974b préservé + script start rollback
-4. SFIA_SOURCE_SHA mis à jour dans env RECETTE → a2c5e9f8… (backup .env.local.bak-pre-a2c5e9f8-*)
-5. Symlink .env.local → config RECETTE (aligné ancien worktree ; gitignored)
-6. Start next start -H 127.0.0.1 -p 3200 depuis worktree a2c5 (PID serveur observé 28141)
-7. DEV non interrompu ; STABLE non touché
-8. Incident démarrage: premiers nohup tués à la fin de session shell → runtime maintenu via shell foreground durable Cursor (PID wrapper 28091)
-
-## 8. Smoke post-bascule
-
-| Check | Résultat |
-| --- | --- |
-| Process listen :3200 | PID 28141 cwd a2c5 worktree |
-| HTML BUILD fingerprint | <!--9yCs2GbSS5lDFX3LPiQTU--> |
-| GET / | 200 |
-| GET /login | 200 |
-| GET /portfolio | 200 |
-| GET /settings/integrations | 200 |
-| GET /api/integrations/status | 401 SESSION_INVALID (attendu) |
-| GET /api/portfolio | 401 SESSION_INVALID (attendu) |
-| CampusFlow/D4/v1 | préservés (SQL) |
-| v2 spontanée | NONE |
-| DEV :3100 | idle |
-| STABLE | no action |
-| Nora LIVE call | NOT RUN |
-| GitHub REAL write | NONE |
-| PR #18 | not touched |
-| R06 revise request | NOT RUN |
-
-Limite: configuration LIVE présente ≠ preuve comportement LIVE. Smoke ≠ acceptation fonctionnelle R06.
-
-## 9. Différences avant / après
-
-| Item | Avant | Après |
-| --- | --- | --- |
-| source_sha | 974b0030… | a2c5e9f8… |
-| tree | 6ca5d0ad… | 5d245e8a… |
-| BUILD_ID | RzpCuGMK6SnwfucphK7Qa | 9yCs2GbSS5lDFX3LPiQTU |
-| worktree | …-974b0030 | …-a2c5e9f8 |
-| DB/dataset | CampusFlow D4 v1 | identique |
-| schema | 012 | 012 |
-| mutations | OFF | OFF |
-
-## 10. Anomalies / réserves ouvertes
-
-- USER R06 NOT RUN
-- Nora LIVE behavior NOT PROVEN (TEST_BOUNDARY réserve OPEN)
-- Cookie collision same-host ports (ENV-01 connue)
-- LaunchAgent historique ml1-c3 non aligné sur worktree courant (runtime manuel)
-- Persistence runtime dépend du shell agent foreground (documenté)
-- Registre R01–R14 non modifié ce cycle
-- Product branch locale ahead de origin/feat (4 commits correctifs) — non poussée
-
-## 11. Fichiers créés (contenu complet)
-
-### A. projects/sfia-studio-next/construction/integration-git/env01-recette-manifest-ml4-a2c5e9f8-2026-11-09.md
-
-```markdown
-# ENV-01 — Manifeste RECETTE ML4 — bascule a2c5e9f8 (Cycle 11)
-
-lane: RECETTE
-repository: mcleland147/sfia-workspace
-source_branch: fix/next-ml4-chat-first-d4-provenance-20261109
-source_sha: a2c5e9f8819cbe547bf925b39f38f783fc8aa52b
-tree_sha: 5d245e8adf1d32a7ceec6b129857d94f6398a488
-base_macro_sha: 974b0030a94469bef05496151792e8c35a9a83e9
-base_main_sha: 6667a43858a5421e391b7441246536daad148bd6
-origin_feat_tip: 51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b
-build_id: 9yCs2GbSS5lDFX3LPiQTU
-product_version_technical: 0.0.0-dev
-candidate_version: NOT AVAILABLE (PATCH candidate / NO RELEASE — pas de promotion STABLE)
-release_tag: N/A
-schema_revision: 012_auth_concurrency_safety
-served_address: http://127.0.0.1:3200
-worktree: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-a2c5e9f8
-server_pid_observed: 28141 (next-server v15.5.29)
-hot_reload: OFF (`next start` production)
-
-## Dataset préservé
-
-- db: sfia_next_recette_ml4 @ 127.0.0.1:5434 (container sfia-next-recette-pg)
-- pilot: pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c (mcleland147)
-- project: proj_1b52eb8f-3c63-4c72-a4dd-a47f34e1bb4d (CampusFlow)
-- document D4: doc_1e5d8c16-98a2-4a58-8096-fe86f4146ec2
-  title: Références externes — Enseignements de Chantiers360
-- revision v1: drev_c07ca162-faa4-48f5-b705-018e41ae88d9 — status AVAILABLE — revision_number 1
-  content_md5: de4bd1a6e59f5dea12fd38ce265b5f43 — content_len 8586
-- counts post-bascule: projects=1 documents=1 revisions=1 conversations=3 messages=16
-  project_git_links=1 authorized_repositories=1 (mcleland147/chantiers360 ACTIVE)
-- spontaneous v2: NONE
-
-## Backup / rollback
-
-- backup_dir: /Users/morris/Projects/sfia-recette-backups/ml4-20261109-173817-pre-a2c5e9f8
-- dump: sfia_next_recette_ml4.dump (custom -Fc)
-- dump_sha256: 7a9dde7b432383b54fdfbd9e27e0d649f4b9a2f3d2b7dc68312882f0ab685ad0
-- dump_bytes: 132643
-- pg_restore -l TOC entries: 239 — integrity listable
-- DB restore: **FORBIDDEN** without Morris GO (code rollback ≠ DB rollback)
-- previous artefact preserved:
-  /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-974b0030
-  BUILD_ID RzpCuGMK6SnwfucphK7Qa — start-recette.sh present
-- rollback_code_doc: BACKUP_MANIFEST.json + ROLLBACK_CODE.md in backup_dir
-- rollback_state: NOT EXERCISED (new candidate serving)
-
-## Nora
-
-- SFIA_COG_PROFILE_TYPE: TEST_BOUNDARY (réserve opérationnelle OPEN)
-- OPENAI_API_KEY: PRESENT in RECETTE env (value not disclosed)
-- LIVE behavior: **NOT PROVEN** this cycle (no R06 / no generative call)
-- configuration: CONFIGURED — preuve comportementale LIVE = NOT RUN
-
-## GitHub
-
-- App: sfia-studio-next-recette — App ID 5677465 / Installation 180092114
-- allowed_repo: mcleland147/chantiers360
-- callback: http://127.0.0.1:3200/api/integrations/github/callback
-- STUDIO_GITHUB_PROVIDER: real
-- mutations GitHub REAL: OFF (STUDIO_GITHUB_ALLOW_MUTATIONS unset)
-- provider SCRIPTED: not substituted for this lane config
-- PR #18 chantiers360: NOT opened/modified this cycle
-- GitHub REAL write this cycle: NONE
-
-## ENV-01 frontiers
-
-- DEV: port 3100 idle; PG 5433 up; not reconfigured
-- STABLE: NOT AVAILABLE — no action
-- cookie collision same-host ports: réserve connue — profil navigateur RECETTE dédié requis
-- secrets: ~/.config/sfia-studio-next/recette/.env.local (symlink from worktree .env.local)
-- no shared mutable artefact with DEV lane observed
-
-## Build / tests
-
-- npm ci: PASS (lockfile)
-- vitest tests/unit/document-act.test.ts: 25 PASS
-- tsc --noEmit: PASS
-- next build: PASS → BUILD_ID 9yCs2GbSS5lDFX3LPiQTU
-- HTTP smoke: `/` `/login` `/portfolio` `/settings/integrations` → 200
-  `/api/integrations/status` `/api/portfolio` → 401 SESSION_INVALID (attendu sans session)
-  HTML fingerprint `<!--9yCs2GbSS5lDFX3LPiQTU-->`
-- migration delta 974b0030…a2c5e9f8: NONE (schemaRevision unchanged)
-
-## User RECETTE
-
-- USER RECETTE status: **NOT RUN**
-- R06: NOT RUN (reserved for Morris)
-- GO Morris: 2026-11-09 Cycle 11 CRITICAL — préparation + bascule conditionnelle + contrôles + rollback technique si nécessaire
-- GO NON ACQUIS: product push / PR / merge / STABLE / release / ADOPTED / REAL mutation / DB restore
-
-## Verdict technique
-
-RECETTE BUILD UPDATED — SOURCE SHA VERIFIED — DATA PRESERVED — TECHNICAL SMOKE PASS — USER R06 NOT RUN
-
-date: 2026-11-09T17:43:00+0100
-```
-
-### B. Artefacts hors dépôt (référencés, non secrets)
-
-- Backup dir + dump + BACKUP_MANIFEST.json + ROLLBACK_CODE.md (ci-dessus)
-- Worktree start scripts (ci-dessus)
-- Server logs: …-a2c5e9f8/recette-server.out.log
-
-## 12. Fichiers modifiés — diffs exploitables
-
-### projects/sfia-studio-next/construction/delivery-history.md
-
-```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 741d04c0..d138cc5b 100644
+index 741d04c0..ea55774d 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -1121,3 +1121,27 @@ Append-only logical journal of Cursor product deliveries.
+@@ -1121,3 +1121,44 @@ Append-only logical journal of Cursor product deliveries.
  | Push Product distant | **AUCUN** sans GO distinct |
  | USER E2E | NOT RUN |
  | Verdict candidat | `ML4 RECETTE ENVIRONMENT — STAGED AND VERIFIED — AWAITING MORRIS G4 SWITCH GO` (si build local OK) |
@@ -378,48 +169,470 @@ index 741d04c0..d138cc5b 100644
 +| Push Product / PR / merge | **AUCUN** |
 +| Manifeste | `construction/integration-git/env01-recette-manifest-ml4-a2c5e9f8-2026-11-09.md` |
 +| Verdict candidat | `RECETTE BUILD UPDATED — SOURCE SHA VERIFIED — DATA PRESERVED — TECHNICAL SMOKE PASS — USER R06 NOT RUN` |
++
++## delivery_id: DELIV-2026-11-09-ML4-R06-SECTION-NORA-CORRECTIVE
++
++| Champ | Valeur |
++| --- | --- |
++| Date (Europe/Paris) | 2026-11-09 ~18:16 CET |
++| Macro-capacité | R5 / ML4 — Correctif intégré R06 section D4 + vérité Nora |
++| Type | CYCLE 8 DELIVERY / RUN CORRECTIF — `NO RELEASE` / PATCH candidate / `0.0.0-dev` |
++| Autorité / GO | Morris GO 2026-11-09 — diagnostic RECETTE RO + correction DEV + tests + handoff L3 ; **pas** de redéploiement RECETTE / push / PR / merge |
++| Parent HEAD | `a2c5e9f8819cbe547bf925b39f38f783fc8aa52b` |
++| Cause racine | `matchSectionSpans` : hint `"2"` via `\b2\b` ambigu avec `Source 2` / `3.2` sur v1 ATX numérotée |
++| Correctifs | `leadingSectionNumber` + matching structurel ; ACK FAILED distingue outils Nora RO vs refus Studio |
++| Validations | unit document-act **32 PASS** ; PG Chat First **9 PASS** ; PG knowledge **6 PASS** ; provenance **2 PASS** ; tsc PASS ; build PASS |
++| Fake/Real | DETERMINISTIC PROVEN (fixture Nora) ; LIVE NOT RUN ; GitHub REAL write NONE |
++| RECETTE | **inchangée** — SHA servi `a2c5e9f8` / BUILD `9yCs2GbSS5lDFX3LPiQTU` ; v1 md5 `de4bd1a6…` ; 0 v2 |
++| Push Product | **AUCUN** |
++| Verdict candidat | `READY FOR REVIEW — R06 REAL-DOCUMENT STRUCTURE CORRECTIVE VERIFIED LOCALLY` |
+diff --git a/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md b/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
+index a08a05a8..593cb767 100644
+--- a/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
++++ b/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
+@@ -560,3 +560,18 @@ Verdict : **ML4 CHAT-FIRST CORRECTIVE PASS — LOCALLY VERIFIED — READY FOR RE
+ | Provenance REC-07 | INCHANGÉ | non-régression |
+
+ Verdict : **ML4 CHAT-FIRST R06 INTEGRATED CORRECTIVE — LOCALLY VERIFIED — READY FOR REVIEW**.
++
++## 28. R06-F — structure réelle v1 + vérité Nora (2026-11-09)
++
++| Item | Statut | Note |
++|---|---|---|
++| Diagnostic RECETTE READ-ONLY | FAIT | v1 `drev_c07ca162…` md5 `de4bd1a6…` ; ATX numérotés `## 2. Sources…` + `### Source 2` + `### 3.2` |
++| Cause `SECTION_AMBIGUOUS_OR_MISSING_IN_BASE` | CONFIRMÉE | hint `"2"` via `\b2\b` matchait Source 2 / 3.2 — pas absence de section |
++| Résolution de section | CORRIGÉ (DET) | `leadingSectionNumber` + match par index de tête uniquement |
++| Vérité Nora / ACK | CORRIGÉ (DET) | FAILED expose motif Studio ; claims « outils lecture seule » non présentés comme cause |
++| Oracle R06 structure réelle | DET PG PASS | fixture assainie twin structural ; `postUserMessageAndNora` → v2 ; hors-cible exact |
++| Contre-tests section | DET PASS | Source 2 / 3.2 / liste / fence / doublon / absente |
++| RECETTE runtime | INCHANGÉ | build `9yCs2GbSS5lDFX3LPiQTU` / SHA `a2c5e9f8` ; v1 seule ; aucune v2 utilisateur |
++| USER / LIVE | NOT RUN | gate Morris bascule RECETTE sur nouveau candidat |
++
++Verdict : **READY FOR REVIEW — R06 REAL-DOCUMENT STRUCTURE CORRECTIVE VERIFIED LOCALLY**.
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+index 5e0e53c2..bc3e911e 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+@@ -447,14 +447,69 @@ export function splitMarkdownSections(
+   }));
+ }
+
++/**
++ * Leading top-level section index from an ATX heading text (no `#`).
++ * Accepts: "2. Title", "Section 2 — Title", "2 — Title".
++ * Rejects embedded numbers: "Source 2 — …", "3.2. Sub", list-like bodies (not headings).
++ */
++export function leadingSectionNumber(heading: string): string | null {
++  const t = heading.trim();
++  const asSection = /^section\s+(\d+)\b/i.exec(t);
++  if (asSection) return asSection[1]!;
++  // "2. Title" — require whitespace after the first dotted integer (excludes "3.2. …").
++  const dotted = /^(\d+)\.\s+\S/.exec(t);
++  if (dotted) return dotted[1]!;
++  const dashed = /^(\d+)\s*[—–\-]\s+\S/.exec(t);
++  if (dashed) return dashed[1]!;
++  return null;
++}
++
++function parseSectionHint(hint: string): { number: string | null; titleTail: string | null } {
++  const h = hint.trim();
++  const withTail =
++    /^(?:section\s+)?(\d+)(?:\s*[.:—–\-]\s*|\s+)(.+)$/i.exec(h) ||
++    /^(?:section\s+)?(\d+)\s*$/i.exec(h);
++  if (withTail) {
++    return {
++      number: withTail[1]!,
++      titleTail: (withTail[2] ?? "").trim() || null,
++    };
++  }
++  return { number: null, titleTail: null };
++}
++
++/**
++ * Resolve section spans for a Pilote/Nora hint.
++ * Numeric hints ("2", "section 2") match only headings whose *leading* section
++ * number is that index — never bare `\b2\b` inside "Source 2" / "3.2".
++ */
+ function matchSectionSpans(spans: SectionSpan[], hint: string): SectionSpan[] {
+   const h = hint.toLowerCase().trim();
++  if (!h) return [];
++
++  const exact = spans.filter((b) => b.heading.toLowerCase() === h);
++  if (exact.length === 1) return exact;
++
++  const parsed = parseSectionHint(hint);
++  if (parsed.number) {
++    const byNum = spans.filter((b) => leadingSectionNumber(b.heading) === parsed.number);
++    if (parsed.titleTail) {
++      const title = parsed.titleTail.toLowerCase();
++      const refined = byNum.filter((b) => {
++        const heading = b.heading.toLowerCase();
++        return heading.includes(title) || title.includes(heading);
++      });
++      if (refined.length > 0) return refined;
++    }
++    return byNum;
++  }
++
++  // Title-only hint: equality / inclusion — no digit-as-word shortcut.
+   return spans.filter(
+     (b) =>
+       b.heading.toLowerCase() === h ||
+       b.heading.toLowerCase().includes(h) ||
+-      new RegExp(`\\bsection\\s+${escapeRegExp(h)}\\b`, "i").test(b.heading) ||
+-      new RegExp(`\\b${escapeRegExp(h)}\\b`, "i").test(b.heading),
++      h.includes(b.heading.toLowerCase()),
+   );
+ }
+
+@@ -560,10 +615,6 @@ export function assertSectionScope(
+   return { ok: true };
+ }
+
+-function escapeRegExp(s: string): string {
+-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+-}
+-
+ export type DocumentEffectSummary = {
+   act: "CREATE" | "REVISE";
+   status?: string;
+@@ -577,7 +628,11 @@ export type DocumentEffectSummary = {
+
+ /** Sentences/paragraphs that assert a D4 write outcome (must not compete with applicative truth). */
+ const TRANSACTIONAL_CLAIM_RE =
+-  /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+ne\s+permettent\s+pas|je\s+ne\s+peux\s+(?:donc\s+)?pas\s+(?:appliquer|enregistrer|créer|réviser)|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;
++  /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+(?:sont\s+en\s+lecture\s+seule|ne\s+permettent\s+pas)|outils?\s+(?:en\s+)?lecture\s+seule|je\s+ne\s+peux\s+(?:donc\s+)?pas\s+(?:exécuter\s+l['’]enregistrement|appliquer|enregistrer|créer|réviser)|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;
++
++/** Nora tool-boundary claims that must not be presented as the cause of an observed Studio D4 effect. */
++const NORA_TOOL_BOUNDARY_CLAIM_RE =
++  /\b(?:les\s+outils\s+disponibles\s+(?:sont\s+en\s+lecture\s+seule|ne\s+permettent\s+pas)|aucun\s+outil\s+(?:d['’]écriture|disponible)|outils?\s+(?:en\s+)?lecture\s+seule|je\s+ne\s+peux\s+(?:donc\s+)?pas\s+(?:exécuter\s+l['’]enregistrement|appliquer|enregistrer|créer|réviser))\b/i;
+
+ /**
+  * Extract prepared document markdown (fence or ATX body) from Nora narration.
+@@ -665,6 +720,12 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
+     );
+   } else if (effect.status === "CONFLICT") {
+     lines.push("", "Conflit de base — aucune nouvelle révision écrite. Requalification requise.");
++  } else if (effect.status === "FAILED") {
++    lines.push(
++      "",
++      "Studio a exécuté l'acte documentaire et a refusé l'écriture. Le motif ci-dessus est le verdict transactionnel.",
++      "Les outils Nora restent en lecture seule ; cela n'explique pas un refus applicatif déjà observé.",
++    );
+   } else if (effect.status && effect.status !== "AVAILABLE") {
+     lines.push("", "Aucun succès d'écriture D4 ne doit être affirmé pour ce tour.");
+   }
+@@ -683,9 +744,16 @@ export function composeDocumentTurnMessage(
+   const sanitized = reconcileNarrationWithDocumentEffect(assistantContent, effect);
+   const ack = formatDocumentEffectAck(effect);
+   // Final safety: drop residual contradictory fragments after sanitize.
+-  let body = sanitized;
+-  if (effect.status === "AVAILABLE") {
+-    body = stripTransactionalClaimUnits(body);
++  // When Studio observed any D4 effect, Nora tool-boundary claims must not compete
++  // with the applicative verdict (AVAILABLE *or* FAILED/CONFLICT/UNKNOWN).
++  let body = stripTransactionalClaimUnits(sanitized);
++  if (effect.status !== "AVAILABLE") {
++    // Keep non-transactional cognitive text, but always drop tool-boundary excuses.
++    const parts = body.split(/\n{2,}/);
++    body = parts
++      .filter((p) => !NORA_TOOL_BOUNDARY_CLAIM_RE.test(p))
++      .join("\n\n")
++      .trim();
+   }
+   return `${body.trimEnd()}\n\n---\n${ack}\n`;
+ }
+@@ -705,10 +773,16 @@ export function hasCompetingTransactionalClaim(
+   if (!effect) return false;
+   const withoutAck = message.replace(/### Résultat applicatif D4[\s\S]*$/i, "");
+   if (effect.status === "AVAILABLE") {
+-    return TRANSACTIONAL_CLAIM_RE.test(withoutAck) &&
+-      /\b(?:aucune\s+révision|ne\s+peux\s+(?:donc\s+)?pas\s+appliquer|non\s+enregistré|outils?\s+disponibles\s+ne\s+permettent)\b/i.test(
++    return (
++      TRANSACTIONAL_CLAIM_RE.test(withoutAck) &&
++      /\b(?:aucune\s+révision|ne\s+peux\s+(?:donc\s+)?pas\s+(?:exécuter|appliquer)|non\s+enregistré|outils?\s+disponibles|lecture\s+seule)\b/i.test(
+         withoutAck,
+-      );
++      )
++    );
++  }
++  // Observed FAILED/CONFLICT/UNKNOWN: Nora must not blame missing write tools for the outcome.
++  if (effect.status === "FAILED" || effect.status === "CONFLICT" || effect.status === "UNKNOWN") {
++    return NORA_TOOL_BOUNDARY_CLAIM_RE.test(withoutAck);
+   }
+   return false;
+ }
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+index f749715d..85a076c7 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+@@ -360,19 +360,47 @@ Fin.
+
+   it("R06 oracle: quoted title revise via postUserMessageAndNora (DET fixture)", async () => {
+     const title = "Références externes — Enseignements de Chantiers360";
++    // Structural twin of RECETTE v1 (numbered ATX + Source 2 + 3.2 + ordered list) — sanitized.
+     const v1Body = `# ${title}
+
+-## Section 1 — Contexte
++## 1. Contexte et objectif
+
+ Contexte CampusFlow.
+
+-## Section 2 — Sources consultées et provenance disponible
++## 2. Sources consultées et provenance disponible
++
++### Source 1 — Première consultation : référence à compléter
++
++| Élément | Provenance disponible |
++| --- | --- |
++| Chemin | docs/example.md |
++| Limite | incompleteness |
++
++### Source 2 — Definition of Done de Chantiers360
++
++| Élément | Provenance vérifiée |
++| --- | --- |
++| Blob SHA | blob_example |
++| Commit SHA | commit_example |
++
++## 3. Enseignements utiles
+
+-- Source initiale (SHA fichier confondu avec commit).
++### 3.1. Qualité
+
+-## Section 3 — Limites
++Q.
++
++### 3.2. Traçabilité
++
++T.
++
++## 4. Limites de transposition
+
+ Aucune écriture GitHub.
++
++## 5. Points à clarifier par le Pilote
++
++1. **Première référence :** question A ?
++2. **Réservation reconnue :** question B ?
+ `;
+     const pilotId = await seedPilot("ml4-r06");
+     const prep = await openOrCreatePreparation(pilotId);
+@@ -423,9 +451,11 @@ Aucune écriture GitHub.
+     const v1 = listed.revisions.find((r) => r.revisionNumber === 1)!;
+     const v2 = listed.revisions.find((r) => r.revisionNumber === 2)!;
+     expect(assertSectionScope(v1.contentMarkdown, v2.contentMarkdown, "2")).toEqual({ ok: true });
+-    expect(v2.contentMarkdown).toContain("## Section 1 — Contexte");
+-    expect(v2.contentMarkdown).toContain("## Section 3 — Limites");
++    expect(v2.contentMarkdown).toContain("## 1. Contexte et objectif");
++    expect(v2.contentMarkdown).toContain("## 3. Enseignements utiles");
++    expect(v2.contentMarkdown).toContain("### 3.2. Traçabilité");
+     expect(v2.contentMarkdown).toContain("Aucune écriture GitHub.");
++    expect(v2.contentMarkdown).toContain("2. **Réservation reconnue :** question B ?");
+
+     const msgs = await listMessages(pilotId, prep.id);
+     const last = msgs.filter((m) => m.role === "assistant").at(-1)!;
+diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+index 9ccd09ca..dd01ff7c 100644
+--- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+@@ -11,6 +11,7 @@ import {
+   isGlobalDocumentWriteNegation,
+   isInformativeOrHypothetical,
+   isPolitePositiveDocumentAction,
++  leadingSectionNumber,
+   locateSections,
+   qualifyDocumentAct,
+   reconcileNarrationWithDocumentEffect,
+@@ -239,6 +240,140 @@ Nouveau texte ciblé.
+   });
+ });
+
++describe("document-act CampusFlow-like numbered ATX (R06-F root cause)", () => {
++  /** Sanitized structural twin of RECETTE v1 — numbered ATX + Source 2 + 3.2 sub + ordered list. */
++  const campusLike = `# Références externes — Enseignements de Chantiers360
++
++## 1. Contexte et objectif
++
++Contexte A.
++
++## 2. Sources consultées et provenance disponible
++
++### Source 1 — Première consultation : référence à compléter
++
++| Élément | Provenance disponible |
++| --- | --- |
++| Chemin | a/b.md |
++| Limite | incompleteness |
++
++### Source 2 — Definition of Done de Chantiers360
++
++| Élément | Provenance vérifiée |
++| --- | --- |
++| Blob SHA | blob_aaa |
++| Commit SHA | commit_bbb |
++
++## 3. Enseignements utiles
++
++### 3.1. Qualité
++
++Q.
++
++### 3.2. Traçabilité
++
++T.
++
++## 4. Limites de transposition
++
++Limites.
++
++## 5. Points à clarifier par le Pilote
++
++1. **Première référence :** question A ?
++2. **Réservation reconnue :** question B ?
++3. **Concurrence :** question C ?
++
++## Résultat de l’opération
++
++| Élément | Résultat |
++| --- | --- |
++| X | Y |
++`;
++
++  it("leadingSectionNumber ignores Source 2 / 3.2 / list items", () => {
++    expect(leadingSectionNumber("2. Sources consultées et provenance disponible")).toBe("2");
++    expect(leadingSectionNumber("Section 2 — Analyse")).toBe("2");
++    expect(leadingSectionNumber("Source 2 — Definition of Done de Chantiers360")).toBeNull();
++    expect(leadingSectionNumber("3.2. Traçabilité")).toBeNull();
++    expect(leadingSectionNumber("Résultat de l’opération")).toBeNull();
++  });
++
++  it("resolves section 2 uniquely despite Source 2 and 3.2 (repro R06-F)", () => {
++    const proposed = `## 2. Sources consultées et provenance disponible
++
++### Source 1 — Première consultation : référence à compléter
++
++| Élément | Provenance disponible |
++| --- | --- |
++| Blob SHA | blob_fixed |
++| Commit SHA | commit_fixed |
++
++### Source 2 — Definition of Done de Chantiers360
++
++Conservé.
++`;
++    // Before corrective: hint "2" matched Source 2 / 3.2 via \\b2\\b → AMBIGUOUS.
++    const merged = applyTargetedSectionRevision(campusLike, proposed, "2");
++    expect(merged.ok).toBe(true);
++    if (!merged.ok) return;
++    expect(assertSectionScope(campusLike, merged.content, "2")).toEqual({ ok: true });
++    expect(merged.content).toContain("blob_fixed");
++    expect(merged.content).toContain("## 1. Contexte et objectif");
++    expect(merged.content).toContain("## 3. Enseignements utiles");
++    expect(merged.content).toContain("### 3.2. Traçabilité");
++    expect(merged.content).toContain("2. **Réservation reconnue :** question B ?");
++    expect(merged.content.slice(0, campusLike.indexOf("\n\n### Source 1"))).toBe(
++      campusLike.slice(0, campusLike.indexOf("\n\n### Source 1")),
++    );
++  });
++
++  it("accepts section 2 with full title hint and Section-prefixed proposal", () => {
++    const proposed = `## Section 2 — Sources consultées et provenance disponible
++
++Nouveau corps section 2.
++`;
++    expect(applyTargetedSectionRevision(campusLike, proposed, "2").ok).toBe(true);
++    expect(
++      applyTargetedSectionRevision(
++        campusLike,
++        proposed,
++        "Sources consultées et provenance disponible",
++      ).ok,
++    ).toBe(true);
++  });
++
++  it("refuses missing / duplicate leading section 2", () => {
++    const missing = campusLike.replace("## 2. Sources consultées et provenance disponible", "## 9. Autre");
++    expect(applyTargetedSectionRevision(missing, "## 2. X\n\ny\n", "2").ok).toBe(false);
++    const dup = `${campusLike}\n## 2. Doublon structurel\n\nz\n`;
++    expect(applyTargetedSectionRevision(dup, "## 2. X\n\ny\n", "2").ok).toBe(false);
++  });
++
++  it("does not treat numbered list or table cell as section heading", () => {
++    const headings = locateSections(campusLike).map((s) => s.heading);
++    expect(headings.some((h) => /^2\. \*\*Réservation/.test(h))).toBe(false);
++    expect(headings.filter((h) => leadingSectionNumber(h) === "2")).toEqual([
++      "2. Sources consultées et provenance disponible",
++    ]);
++  });
++
++  it("refuses fence-hidden fake section 2", () => {
++    const fenced = `# Doc
++
++\`\`\`
++## 2. Hidden
++body
++\`\`\`
++
++## 1. Real
++
++x
++`;
++    expect(applyTargetedSectionRevision(fenced, "## 2. X\n\ny\n", "2").ok).toBe(false);
++  });
++});
++
+ describe("document-act ACK coherence (finalisation)", () => {
+   it("formats AVAILABLE create ACK", () => {
+     const ack = formatDocumentEffectAck({
+@@ -302,6 +437,34 @@ describe("document-act ACK coherence (finalisation)", () => {
+     expect(text).not.toMatch(/enregistré le document avec succès/i);
+   });
+
++  it("FAILED ACK: tool read-only claim is not the cause when Studio refused", () => {
++    const out = composeDocumentTurnMessage(
++      "Les outils disponibles sont en lecture seule.\n\n" +
++        "Je ne peux pas exécuter l'enregistrement dans D4.\n\n" +
++        "Proposition utile pour la section 2.",
++      {
++        act: "REVISE",
++        status: "FAILED",
++        reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE",
++        documentId: "doc_1e5d8c16-98a2-4a58-8096-fe86f4146ec2",
++        baseRevisionId: "drev_c07ca162-faa4-48f5-b705-018e41ae88d9",
++      },
++    );
++    expect(out).toMatch(/Résultat applicatif D4/);
++    expect(out).toMatch(/SECTION_AMBIGUOUS_OR_MISSING_IN_BASE/);
++    expect(out).toMatch(/Studio a exécuté l'acte documentaire/);
++    expect(out).toContain("Proposition utile pour la section 2.");
++    expect(out).not.toMatch(/outils disponibles sont en lecture seule/i);
++    expect(out).not.toMatch(/je ne peux pas exécuter l'enregistrement/i);
++    expect(
++      hasCompetingTransactionalClaim(out, {
++        act: "REVISE",
++        status: "FAILED",
++        reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE",
++      }),
++    ).toBe(false);
++  });
++
+   it("keeps useful markdown while appending CONFLICT ack", () => {
+     const out = appendDocumentEffectAck("# Doc\n\nCorps utile.", {
+       act: "REVISE",
+
 ```
 
-### Config hors dépôt
+## 10. Gates suivants
 
-- ~/.config/sfia-studio-next/recette/.env.local : seule clé SFIA_SOURCE_SHA remplacée 974b→a2c5 (backup horodaté). Valeurs secrètes non reproduites.
+1. Critical Review ChatGPT via handoff
+2. GO Morris bascule RECETTE sur candidat `8ba777300adebe3ba70ddbe3c386a3ad709034f6` (hors ce cycle)
+3. Retest utilisateur R06-F LIVE
+4. Pas de clôture ML4 / REC-08 CLOSED dans ce cycle
 
-### Symlink worktree
+## 11. Review Handoff L3
 
-- …-a2c5e9f8/…/web/.env.local → ~/.config/sfia-studio-next/recette/.env.local (gitignored)
-
-## 13. Preuve absence push projet / PR / merge / mutation GitHub REAL
-
-- Aucun git push de fix/next-ml4-chat-first-d4-provenance-20261109 ni feat/main
-- Aucune PR produit créée
-- Aucun merge
-- Aucune écriture GitHub REAL / flag mutation non activé
-- Seul push autorisé ce cycle: handoff L3 sfia/review-handoff (section suivante)
-
-## 14. Statut RECETTE utilisateur & gates
-
-- USER RECETTE = NOT RUN
-- Prochaine action Morris (utilisateur, une à une):
-  1. Ouvrir RECETTE sur build 9yCs2GbSS5lDFX3LPiQTU / SHA a2c5e9f8…
-  2. Vérifier v1 Documents
-  3. Demande de révision depuis Nora dans Travail (R06)
-  4. Contrôler réponse LIVE et v2 D4
-  5. Relecture v1 / section 2
-  6. Contrôle R04 provenance Git branche candidate
-- Gates encore attendus: Critical Review ChatGPT de cette bascule ; R06 utilisateur ; pas de clôture ML4
-
-## 15. Review Handoff L3
-
-- Mode: publish-in-cycle
-- Branche: sfia/review-handoff
-- Fichier: sfia-review-handoff/latest-chatgpt-review.md
-- Publisher: scripts/sfia/publish-review-handoff.sh
-- Verdict publisher: HANDOFF UPDATED — REMOTE VERIFIED
-- commit distant: 64fc78dcca25f683789b1e5fdbe1f83816410664
-- blob distant: 2408c5148e5120c1541463f215ce3af60c7b0f9d
-- parent: 8a70808c39a33deeb478c94c8a031449561395d0
-- relecture distante: titre Cycle 11 + verdict RECETTE BUILD UPDATED + SHA a2c5e9f8 + BUILD 9yCs2GbSS5lDFX3LPiQTU + USER R06 NOT RUN — OK
-- mono-fichier: OUI
-- push produit: AUCUN
+- publish-in-cycle via scripts/sfia/publish-review-handoff.sh
+- (détails commit/blob après publication)
 
 FIN PACK — contenu modifié inclus.
