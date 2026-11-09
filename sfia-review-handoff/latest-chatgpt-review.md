@@ -1,38 +1,25 @@
 # SFIA Studio Next — Review Pack FULL
 
-## R5 / ML4 — Macro-correctif intégré A+D+E
-### Qualification CREATE, vérité d'exécution, observabilité
+## R5 / ML4 — Consolidation A+D+E (CREATE safety, NOT_EXECUTED, preuves, handoff)
 
-**Verdict candidat :** READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY
+**Verdict :** READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY
 
-**Interdictions respectées :** pas de LIVE NORA PROVEN / R12 PASS / REAL GITHUB COMMIT PROVEN / ML4-REC-10 CLOSED / ML4 ACCEPTED / READY FOR MERGE / STABLE / ADOPTED.
-
----
-
-## 1. GO et date
-
-- **Autorité :** GO Morris du 09/11/2026 — correction A+D+E.
-- **Processus :** SFIA v2.6 — Cycle 8 DELIVERY / CRITICAL / Review Pack FULL / Handoff L3 REQUIRED.
-- **Date d'exécution Cursor :** 2026-11-09 (Europe/Paris).
-- **Profil :** CRITICAL — frontière instruction utilisateur ↔ écriture durable D4.
+**Interdictions respectées :** pas de R12 PASS / NORA LIVE PROVEN / GITHUB REAL COMMIT PROVEN / ML4-REC-10 CLOSED / ML4 ACCEPTED / READY FOR MERGE / STABLE / ADOPTED.
 
 ---
 
-## 2. Git Truth Check — initial / final
+## 1. Date, GO, cycle, profil
 
-### Initial (avant implémentation)
+- **GO Morris :** consolidation bornée des 4 réserves ChatGPT (2026-11-09).
+- **Cycle :** 8 — Delivery / CRITICAL / FULL / Handoff L3 REQUIRED.
+- **Typologie :** INC — remédiation corrective intégrée ML4.
+- **Exécution Cursor :** 2026-11-09 (Europe/Paris).
 
-| Champ | Valeur |
-| --- | --- |
-| Repo | `mcleland147/sfia-workspace` (remote origin) |
-| Branche active | `fix/next-ml4-chat-first-d4-provenance-20261109` |
-| HEAD | `93da44beb7e7571c9406180027896769579b9815` |
-| Tree | `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8` |
-| main distant vérifié | `6667a43858a5421e391b7441246536daad148bd6` |
-| Worktree produit | clean hors untracked préexistants (manifestes ENV-01, scripts) |
-| RECETTE LaunchAgent | `…-recette-build-93da44be` / BUILD `sHkE8sHJBxD3U9AJdHWi7` |
+---
 
-### Final (après commit local)
+## 2. Git Truth — initial / final
+
+### Initial (attendu GO)
 
 | Champ | Valeur |
 | --- | --- |
@@ -40,240 +27,394 @@
 | HEAD | `8eab1317b97f5bfc438d736b42a1363ddfdb3e77` |
 | Tree | `19c79e96aa1cae26233a5d9ec8fe2686970c0dab` |
 | Parent | `93da44beb7e7571c9406180027896769579b9815` |
-| Push Product | **AUCUN** |
-| RECETTE | **INCHANGÉE** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
+| origin/main | `6667a43858a5421e391b7441246536daad148bd6` |
+| Handoff entrée | `1fd6f8f6…` / blob `cd58d32a…` |
+| RECETTE | `93da44be` / BUILD `sHkE8sHJBxD3U9AJdHWi7` (gelée) |
 
-Untracked préexistants **non touchés** : manifests `env01-recette-manifest-ml4-*.md`, `github-app-installation-read-qualify.ts`, `projects/.tmp-sfia-review/`.
+### Final
 
----
-
-## 3. Sources Git et refs
-
-| Source | Ref / blob |
+| Champ | Valeur |
 | --- | --- |
-| Diagnostic handoff R12 | `sfia/review-handoff` @ `b9f1291eeded51614fdce5586b5966dc2b0b50dc` |
-| Review Pack diagnostic blob | `2bad6d6a56aece91544fcc6f3681dab00f17f546` |
-| Tip produit avant correctif | `93da44be` |
-| SFIA routing guide (main) | blob `3315bbae…` (lu hors édition) |
-| ENV-01 / versioning | politiques main — PATCH candidate / NO RELEASE |
+| HEAD | `5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea` |
+| Tree | `1515c09eae2442aab2924aaf4a0ea39ab50f7261` |
+| Parent | `8eab1317b97f5bfc438d736b42a1363ddfdb3e77` |
+| Push produit | **AUCUN** |
+| RECETTE | **INCHANGÉE** |
 
-Registre documentaire `docs/next-ml4-recette-utilisateur-20261109` : **lu, non modifié**.
-
----
-
-## 4. Synthèse de la cause R12
-
-Tour utilisateur CampusFlow (RECETTE) :
-
-- Demande : création document « RECETTE ML4 — Publication documentaire R12 ».
-- `qualifyDocumentAct` → **NONE** / `NO_EXPLICIT_WRITE`.
-- Nora LIVE COMPLETE + fence `sfia-document` valide.
-- Extraction replay OK ; `documentSave` null ; aucun document DB ; obs `document_proposal` absente.
-
-**Cause prouvée :** `CREATE_PAIR_RE` exigeait verbe CREATE + objet **singulier** dans une fenêtre ≤40 caractères. La formulation réelle :
-
-> « crée et enregistre dans les Documents internes de Studio un nouveau document… »
-
-échoue : « Documents » (pluriel) puis le singulier trop loin. **A+B (scanner) non causal.**
+Untracked préexistants non touchés (manifests ENV-01, scripts).
 
 ---
 
-## 5. Contrat A+D+E final
+## 3. Sources lues
 
-### A — Qualification CREATE bornée
-
-- Propriétaire unique : `qualifyDocumentAct` / `hasExplicitCreateIntent` (pas de second moteur).
-- CREATE sur texte **authority-stripped** uniquement (A7).
-- Reconnaissance structurée : verbe positif + objet documentaire (singulier/pluriel) + pont de compléments allowlistés OU verbe de persistance (`enregistre`/`sauvegarde`) entre verbe et objet.
-- REVISE avant CREATE (N8).
-- Négations `ne … pas/aucun`, `sans (le) V`, questions leading `Comment/Pourquoi…` → NONE.
-- Fail closed : `CREATE_WITHOUT_OBJECT` / `CREATE_OBJECT_BRIDGE_UNQUALIFIED`.
-
-### D — Restitution loyale
-
-- Distinction : réponse Nora ≠ acte qualifié ≠ extraction ≠ transaction D4 ≠ effet observé.
-- Si `documentSave` réel → ACK D4 (AVAILABLE/FAILED/CONFLICT/UNKNOWN) inchangé.
-- Si NONE + `hasDocumentaryWriteSignal` → ACK **pré-effet** `NOT_EXECUTED` (jamais `documentSave` FAILED inventé).
-- Informative pure → pas d'ACK documentaire polluant.
-- NORA COMPLETE ≠ D4 AVAILABLE.
-
-### E — Observabilité
-
-- Événement `d3.turn.document_act_qualification` **avant** extract/D4.
-- Meta allowlistée : `qualification_kind`, `qualification_reason`, `documentary_intent_signal`, `d4_attempted`, `d4_effect`.
-- Pas de prompt/corps/secret. Absence d'obs n'invente pas D4.
-- Corrélation effet final CREATE/REVISE conservée via `d3.turn.document_proposal`.
+- Review Pack A+D+E d'entrée (`sfia/review-handoff` @ `1fd6f8f6`, blob `cd58d32a`)
+- Commit `8eab1317` (8 fichiers) via `git show` / `git diff-tree`
+- Code actif `document-act.ts` / `service.ts` / `observability.ts`
+- Tests unit + PG Chat First
+- `matrice-acceptation.md`, `delivery-history.md`
+- Registre documentaire : non modifié
+- SEF / ADR / roadmap : lus en gouvernance, **non modifiés**
 
 ---
 
-## 6. Table de vérité positive / négative
+## 4. Réserves de revue entrantes
 
-| ID | Entrée (résumé) | Attendu | Résultat DET |
-| --- | --- | --- | --- |
-| P1 | Crée un document intitulé… | CREATE | PASS |
-| P2 | …crée et enregistre dans les Documents internes… | CREATE | PASS |
-| P3 | Message R12 **exact** (fixture DB) | CREATE | PASS |
-| P4 | Rédige un document de recette… | CREATE | PASS |
-| P5 | Crée … mais ne modifie pas l'existant | CREATE | PASS |
-| P6 | Crée et sauvegarde … sans créer de branche GitHub | CREATE | PASS |
-| P7 | Pluriels / compléments / accents | CREATE | PASS |
-| N1 | Ne crée aucun document | NONE | PASS |
-| N2 | Montre-moi les documents | NONE | PASS |
-| N3 | Comment puis-je créer un document ? | NONE | PASS |
-| N4 | Que se passerait-il si je créais… | NONE | PASS |
-| N5 | Analyse … sans le modifier | NONE | PASS |
-| N6 | Rédige le texte … ne l'enregistre pas dans D4 | NONE | PASS |
-| N7 | CREATE seulement dans fence/citation Git | NONE | PASS |
-| N8 | Ne crée pas…, révise section 2 | REVISE | PASS |
-| N9 | Résume puis explique comment créer | NONE | PASS |
-| N10 | Fence Nora + demande informative | zéro D4 | PASS (PG) |
-| N12 | Document existant en contexte seulement | NONE | PASS |
+1. Faux positifs CREATE sur instructions contradictoires / multi-clauses.
+2. Token produit `campusflow` dans `CREATE_COMPLEMENT_TOKEN_RE`.
+3. Preuve PG insuffisante de `NOT_EXECUTED` bout-en-bout.
+4. Handoff incomplet (fixture, diffs, écart 7 vs 8 fichiers).
 
 ---
 
-## 7. Reproduction initiale du défaut
+## 5. Inventaire réel du commit 8eab1317
 
-Sur tip `93da44be` (avant correctif) : message R12 exact → `qualifyDocumentAct` = `{ kind: "NONE", reason: "NO_EXPLICIT_WRITE" }` (prouvé audit Cycle 9 + relecture code `CREATE_PAIR_RE`).
+Sortie Git :
 
-Après correctif : même message → `{ kind: "CREATE" }` (DET + fixture sha256 `a22e79406907df2a68fa4a0e82a01cbf447f0cb61d437990bff13ac67cb5120c`).
+```
+commit 8eab1317b97f5bfc438d736b42a1363ddfdb3e77
+Author:     Morris Cleland <morris@MacBook-Air.local>
+AuthorDate: Mon Nov 9 23:07:03 2026 +0100
+Commit:     Morris Cleland <morris@MacBook-Air.local>
+CommitDate: Mon Nov 9 23:07:03 2026 +0100
 
----
+    fix(studio-next): qualify CREATE with complements and restore loyal D4 pre-effect observability
 
-## 8. Modifications de qualification
+    R12 failed closed on plural/complement CREATE phrasings; structured hasExplicitCreateIntent unlocks legitimate D4 creates while keeping fail-closed, NOT_EXECUTED ACK, and qualification obs before extract.
 
-Fichier : `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts`
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-### Constantes / helpers (extrait)
-
-- `DOC_OBJECT_RE` : pluriels `documents?|notes?|…`
-- `CREATE_PAIR_CLOSE_RE` : fenêtre courte 48 + pluriels
-- `CREATE_COMPLEMENT_TOKEN_RE` : pont de compléments borné
-- `hasExplicitCreateIntent`, `hasDocumentaryWriteSignal`, `isDocumentaryConsultationOnly`
-- `isVerbNegated` : `aucun/aucune` + `sans (le) V`
-- `isInformativeOrHypothetical` : leading question **avant** short-circuit CREATE
-- `qualifyDocumentAct` : CREATE uniquement via `hasExplicitCreateIntent(authorityText)`
-
-### `hasExplicitCreateIntent` (contenu complet)
-
-```typescript
-export function hasExplicitCreateIntent(text: string): boolean {
-  const t = text.replace(/\s+/g, " ").trim();
-  if (!t || !hasPositiveVerb(t, CREATE_VERB_RE)) return false;
-
-  if (CREATE_PAIR_CLOSE_RE.test(t) || CREATE_PLEASE_RE.test(t)) return true;
-
-  for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
-    if (isVerbNegated(t, verb.index, verb.text.length)) continue;
-    const after = t.slice(verb.index + verb.text.length, verb.index + verb.text.length + 160);
-    const obj = after.match(
-      /\b(nouveau(?:x)?|nouvelle(?:s)?)?\s*(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i,
-    );
-    if (!obj || obj.index == null) continue;
-    const between = after.slice(0, obj.index).trim();
-    if (!between) return true;
-    if (/\b(enregistre|enregistrer|sauvegarde|sauvegarder|persist(?:e|er)?)\b/i.test(between)) {
-      return true;
-    }
-    if (/\b(nouveau|nouvelle|nouveaux|nouvelles)\b/i.test(between + " " + (obj[0] ?? ""))) {
-      const tokens = between.split(/\s+/).filter(Boolean);
-      if (tokens.every((tok) => CREATE_COMPLEMENT_TOKEN_RE.test(tok.replace(/[.,;:!?]/g, "")))) {
-        return true;
-      }
-    }
-    const tokens = between.split(/\s+/).filter(Boolean);
-    if (
-      tokens.length > 0 &&
-      tokens.length <= 16 &&
-      tokens.every((tok) => CREATE_COMPLEMENT_TOKEN_RE.test(tok.replace(/[.,;:!?]/g, "")))
-    ) {
-      return true;
-    }
-  }
-  return false;
-}
+ .../construction/delivery-history.md               |  17 +++
+ .../integration-git/matrice-acceptation.md         |  19 +++
+ .../web/src/domains/conversation/document-act.ts   | 159 ++++++++++++++++++---
+ .../web/src/domains/conversation/service.ts        |  60 +++++++-
+ .../sfia-studio-next/web/src/lib/observability.ts  |   4 +
+ .../web/tests/fixtures/r12-create-user-message.txt |  23 +++
+ .../ml4-chat-first-d4-provenance.pg.test.ts        |  46 ++++++
+ .../web/tests/unit/document-act.test.ts            | 110 ++++++++++++++
+ 8 files changed, 417 insertions(+), 21 deletions(-)
+ create mode 100644 projects/sfia-studio-next/web/tests/fixtures/r12-create-user-message.txt
+--- name-status ---
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
+M	projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
+M	projects/sfia-studio-next/web/src/lib/observability.ts
+A	projects/sfia-studio-next/web/tests/fixtures/r12-create-user-message.txt
+M	projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+M	projects/sfia-studio-next/web/tests/unit/document-act.test.ts
 ```
 
-### Fin de `qualifyDocumentAct` (CREATE)
+**Comptage exact Git : 8 files changed, 417 insertions(+), 21 deletions(-).**
 
-```typescript
-  if (positiveRevise && hasDocObject) {
-    return {
-      kind: "REVISE",
-      documentHint: designation.documentId ?? designation.titleHint,
-      sectionHint: designation.sectionHint,
-    };
-  }
+| Path | Status | Lien |
+| --- | --- | --- |
+| `…/document-act.ts` | M | A (CREATE) + D (ACK formatter) |
+| `…/service.ts` | M | D (NOT_EXECUTED) + E (obs qualification) |
+| `…/observability.ts` | M | E (allowlist meta) |
+| `…/document-act.test.ts` | M | A/D tests |
+| `…/ml4-chat-first-d4-provenance.pg.test.ts` | M | A-R12 / A-N10 |
+| `…/r12-create-user-message.txt` | **A** | Fixture P3 |
+| `…/matrice-acceptation.md` | M | Doc tech |
+| `…/delivery-history.md` | M | Doc tech |
 
-  if (hasExplicitCreateIntent(authorityText)) {
-    return { kind: "CREATE" };
-  }
+---
 
-  if (CREATE_PLEASE_RE.test(authorityText) && !isGlobalDocumentWriteNegation(authorityText)) {
-    return { kind: "CREATE" };
-  }
+## 6. Écart « 7 vs 8 fichiers »
 
-  if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && !DOC_OBJECT_RE.test(authorityText)) {
-    return { kind: "NONE", reason: "CREATE_WITHOUT_OBJECT" };
-  }
+- `git show --stat 8eab1317` → **8 fichiers** (vérité Git).
+- La mention « 7 files changed » du Review Pack précédent correspondait à un `git diff --stat` **avant staging de la fixture** (fichier encore untracked), pas au commit final.
+- Aucun fichier inventé pour « corriger » le chiffre.
 
-  if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && DOC_OBJECT_RE.test(authorityText)) {
-    return { kind: "NONE", reason: "CREATE_OBJECT_BRIDGE_UNQUALIFIED" };
-  }
+---
 
-  return { kind: "NONE", reason: "NO_EXPLICIT_WRITE" };
+## 7. Qualification des faux positifs CREATE
+
+### Défaut prouvé sur 8eab1317
+
+`hasExplicitCreateIntent` faisait `CREATE_PAIR_CLOSE_RE.test(t)` **globalement**, sans vérifier que le verbe du couple était positif. Ex. :
+
+- C3 « Ne crée aucun document, mais crée une branche… » → CREATE (FP)
+- C5 « Crée une branche…, mais ne crée pas de document » → CREATE (FP)
+
+### Correctif (5ed702cb)
+
+- Suppression de `CREATE_PAIR_CLOSE_RE` aveugle.
+- `clauseWindowAfterVerb` : l'objet documentaire doit être dans la **même fenêtre de clause** que le verbe positif.
+- `hasDurableSaveNegation` → NONE `DURABLE_SAVE_NEGATED` (C6).
+- `hasAmbiguousCreateContradiction` → NONE `AMBIGUOUS_CREATE` (N11/C12).
+- « Explique comment créer… » → informative (C7).
+
+---
+
+## 8. Table de vérité complète P/N/C
+
+| ID | Attendu | Résultat |
+| --- | --- | --- |
+| P1–P7 | CREATE | PASS (non-régression) |
+| P3 R12 exact | CREATE | PASS |
+| N1–N10, N12 | NONE / REVISE(N8) | PASS |
+| **N11** | NONE AMBIGUOUS_CREATE | **PASS** |
+| C1 | CREATE | PASS |
+| C2 | NONE | PASS |
+| C3 | NONE | PASS (était FP) |
+| C4 | CREATE | PASS |
+| C5 | NONE | PASS (était FP) |
+| C6 | NONE DURABLE_SAVE_NEGATED | PASS |
+| C7 | NONE | PASS |
+| C8 | REVISE | PASS |
+| C9 | NONE | PASS |
+| C10 | CREATE + FAILED extract / 0 D4 | PASS PG |
+| C11 | 0 D4 (A-N10) | PASS PG |
+| C12 | NONE AMBIGUOUS | PASS |
+| C13 | CREATE | PASS |
+| C14 | NONE | PASS |
+| OrionAtlas (pas campusflow) | CREATE | PASS |
+
+---
+
+## 9. Code exact des branches CREATE pertinentes
+
+Diff intégral `document-act.ts` du commit de consolidation `5ed702cb` :
+
+```
+commit 5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea
+Author:     Morris Cleland <morris@MacBook-Air.local>
+AuthorDate: Mon Nov 9 23:25:28 2026 +0100
+Commit:     Morris Cleland <morris@MacBook-Air.local>
+CommitDate: Mon Nov 9 23:25:28 2026 +0100
+
+    fix(studio-next): harden CREATE clause scoping and prove NOT_EXECUTED on PG path
+
+    Close false-positive CREATE across negated clauses, drop project-name hardcoding, and add service-level NOT_EXECUTED / C10 proofs so A+D+E is independently reviewable.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+index b141f252..ebfc4377 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+@@ -23,18 +23,96 @@ const SECTION_RE =
+   /\b(?:section|partie|chapitre)\s+(\d+|[A-Za-zÀ-ÿ][\wÀ-ÿ-]*)\b/i;
+ const DOC_ID_RE = /\b(doc_[a-z0-9-]+)\b/i;
+
+-/** Close create↔object pair (short formulations). */
+-const CREATE_PAIR_CLOSE_RE =
+-  /\b(rédige|rédiger|écris|écrire|produis|produire|crée|créer)\b[\s\S]{0,48}\b(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i;
+ const CREATE_PLEASE_RE =
+   /\b(documents?|note de synthèse|rapports?)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i;
+
+ /**
+  * Complements allowed between a CREATE verb and a documentary object
+  * (location, novelty, title framing) — not a free-form widen of authority.
++ * No project/client proper names hardcoded: capitalized tokens pass via isCreateComplementToken.
+  */
+ const CREATE_COMPLEMENT_TOKEN_RE =
+-  /^(?:et|ou|puis|dans|sur|pour|de|du|des|le|la|les|un|une|ce|cette|ces|au|aux|en|par|avec|vers|sous|interne|internes|studio|projet|campusflow|recette|nouveau|nouvelle|nouveaux|nouvelles|intitulé|intitulée|intitulés|intitulées|nommé|nommée|appelé|appelée|enregistre|enregistrer|sauvegarde|sauvegarder|persist|persiste|persister|d4|documents?|notes?|synthèses?|rapports?|spécifications?|titre|espace)$/i;
++  /^(?:et|ou|puis|dans|sur|pour|de|du|des|le|la|les|un|une|ce|cette|ces|au|aux|en|par|avec|vers|sous|interne|internes|studio|projet|recette|nouveau|nouvelle|nouveaux|nouvelles|intitulé|intitulée|intitulés|intitulées|nommé|nommée|appelé|appelée|enregistre|enregistrer|sauvegarde|sauvegarder|persist|persiste|persister|d4|documents?|notes?|synthèses?|rapports?|spécifications?|titre|espace)$/i;
++
++/** Proper-noun / project-label token (structure only — not a name allowlist). */
++const CREATE_PROPER_NOUN_TOKEN_RE = /^[A-ZÀ-Ÿ][\wÀ-ÿ-]{1,47}$/;
++
++function isCreateComplementToken(raw: string): boolean {
++  const tok = raw.replace(/[.,;:!?«»""''()[\]]/g, "");
++  if (!tok) return false;
++  if (CREATE_COMPLEMENT_TOKEN_RE.test(tok)) return true;
++  // « dans le projet OrionAtlas » — identity-agnostic capitalized label.
++  if (CREATE_PROPER_NOUN_TOKEN_RE.test(tok)) return true;
++  return false;
++}
++
++/** Explicit refusal of durable D4 persistence on an otherwise positive draft. */
++function hasDurableSaveNegation(text: string): boolean {
++  return (
++    /\bne\s+(?:l['’])?enregistre\s+pas\b/i.test(text) ||
++    /\bne\s+(?:le\s+|la\s+)?sauvegarde\s+pas\b/i.test(text) ||
++    /\bsans\s+(?:l['’])?enregistrer\b/i.test(text) ||
++    /\bsans\s+(?:le\s+)?sauvegarder\b/i.test(text) ||
++    /\bne\s+(?:l['’])?enregistre\s+pas\s+dans\s+(?:les\s+)?documents?\b/i.test(text) ||
++    /\bmais\s+ne\s+(?:l['’])?enregistre\s+pas\b/i.test(text)
++  );
++}
++
++/** Irresolvable CREATE contradiction on the same utterance (N11 / C12). */
++function hasAmbiguousCreateContradiction(text: string): boolean {
++  const t = text.replace(/\s+/g, " ").trim();
++  // « Crée ou ne crée pas … »
++  if (
++    /\b(crée|créer|rédige|rédiger)\b[\s\S]{0,48}\bou\b[\s\S]{0,24}\bne\s+(?:en\s+|le\s+|la\s+|l['’])?(?:crée|créer|rédige|rédiger)\s+pas\b/i.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++  // Positive create+document AND negated create+document without Git-branch disambiguation.
++  const negCreateDoc =
++    /\bne\s+(?:me\s+)?(?:crée|créer)\s+(?:pas|aucun|aucune)[\s\S]{0,48}\bdocuments?\b/i.test(t);
++  if (!negCreateDoc) return false;
++  if (/\b(branche|github|git)\b/i.test(t)) return false;
++  // Count positive (non-negated) create verbs that still see a doc object in their own clause window.
++  let positiveCreateDoc = false;
++  for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
++    if (isVerbNegated(t, verb.index, verb.text.length)) continue;
++    const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
++    if (/\b(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i.test(window)) {
++      positiveCreateDoc = true;
++      break;
++    }
++  }
++  return positiveCreateDoc && negCreateDoc;
++}
++
++/**
++ * Text after a verb up to the next create/revise verb or hard clause break —
++ * prevents binding a later clause's documentary object to an earlier verb.
++ */
++function clauseWindowAfterVerb(text: string, afterVerbIndex: number, maxLen = 160): string {
++  const after = text.slice(afterVerbIndex, afterVerbIndex + maxLen);
++  const nextAct =
++    /\b(?:rédige|rédiger|écris|écrire|produis|produire|crée|créer|révise|reviser|réviser|revise|modifie|modifier|corrige|corriger)\b/i.exec(
++      after.slice(1),
++    );
++  let end = after.length;
++  if (nextAct?.index != null) end = Math.min(end, nextAct.index + 1);
++  const hardBreak = /[;]|(\bmais\b)/i.exec(after);
++  if (hardBreak?.index != null && hardBreak.index < end) {
++    // Keep « mais » local complements only when it does not introduce another act verb soon after.
++    const afterMais = after.slice(hardBreak.index);
++    if (
++      /\bmais\b[\s\S]{0,20}\b(?:ne\s+)?(?:crée|créer|rédige|rédiger|révise|réviser|modifie|modifier)\b/i.test(
++        afterMais,
++      )
++    ) {
++      end = Math.min(end, hardBreak.index);
++    }
++  }
++  return after.slice(0, end);
++}
+
+ /**
+  * Extract a document designation (id or cited title) from the raw Pilote text.
+@@ -163,46 +241,35 @@ export function isPolitePositiveDocumentAction(text: string): boolean {
+ }
+
+ /**
+- * Structured CREATE recognition: positive create verb + documentary object,
+- * allowing reasonable complements (location, novelty, title) without treating
+- * any occurrence of « document » as authority.
++ * Structured CREATE recognition: positive create verb + documentary object
++ * in the *same clause window* (complements / novelty / persist verbs allowed).
++ * Does not treat co-presence of words across contradictory clauses as authority.
+  */
+ export function hasExplicitCreateIntent(text: string): boolean {
+   const t = text.replace(/\s+/g, " ").trim();
+   if (!t || !hasPositiveVerb(t, CREATE_VERB_RE)) return false;
++  if (hasDurableSaveNegation(t)) return false;
++  if (hasAmbiguousCreateContradiction(t)) return false;
+
+-  if (CREATE_PAIR_CLOSE_RE.test(t) || CREATE_PLEASE_RE.test(t)) return true;
++  // Polite « document … s'il te plaît » without a negated create verb.
++  if (CREATE_PLEASE_RE.test(t) && hasPositiveVerb(t, CREATE_VERB_RE)) return true;
+
+-  // Verb … (complements) … (nouveau)? document(s)
+   for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
+     if (isVerbNegated(t, verb.index, verb.text.length)) continue;
+-    const after = t.slice(verb.index + verb.text.length, verb.index + verb.text.length + 160);
+-    const obj = after.match(
++    const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
++    const obj = window.match(
+       /\b(nouveau(?:x)?|nouvelle(?:s)?)?\s*(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i,
+     );
+     if (!obj || obj.index == null) continue;
+-    const between = after.slice(0, obj.index).trim();
++    const between = window.slice(0, obj.index).trim();
+     if (!between) return true;
+     // Persist verbs between create and object (« crée et enregistre … document »)
+     if (/\b(enregistre|enregistrer|sauvegarde|sauvegarder|persist(?:e|er)?)\b/i.test(between)) {
+       return true;
+     }
+-    // Novelty marker near object
+-    if (/\b(nouveau|nouvelle|nouveaux|nouvelles)\b/i.test(between + " " + (obj[0] ?? ""))) {
+-      const tokens = between.split(/\s+/).filter(Boolean);
+-      if (tokens.every((tok) => CREATE_COMPLEMENT_TOKEN_RE.test(tok.replace(/[.,;:!?]/g, "")))) {
+-        return true;
+-      }
+-    }
+-    // Pure complement bridge (dans les Documents internes de Studio …)
+     const tokens = between.split(/\s+/).filter(Boolean);
+-    if (
+-      tokens.length > 0 &&
+-      tokens.length <= 16 &&
+-      tokens.every((tok) => CREATE_COMPLEMENT_TOKEN_RE.test(tok.replace(/[.,;:!?]/g, "")))
+-    ) {
+-      return true;
+-    }
++    if (tokens.length > 16) continue;
++    if (tokens.every((tok) => isCreateComplementToken(tok))) return true;
+   }
+   return false;
+ }
+@@ -240,6 +307,12 @@ export function isInformativeOrHypothetical(text: string): boolean {
+   if (/^(comment|pourquoi|quelles?\b|que\s+se\s+passerait)\b/i.test(t)) {
+     return true;
+   }
++  // « Explique comment créer… » is instructional, not a write authorization (C7).
++  if (/\bexplique\b[\s\S]{0,48}\bcomment\b[\s\S]{0,80}\b(créer|crée|réviser|révise|modifier|enregistrer)\b/i.test(t)) {
++    return true;
++  }
++  // Explicit refusal of durable save — draft in chat only (C6 / N6).
++  if (hasDurableSaveNegation(t)) return true;
+   // Explicit CREATE intent wins over trailing « comment je peux le retrouver » clauses.
+   if (hasExplicitCreateIntent(t)) return false;
+   // Polite positive action first — « Peux-tu réviser le document X ? » is not informative.
+@@ -327,6 +400,12 @@ export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
+   if (isGlobalDocumentWriteNegation(authorityText) || isGlobalDocumentWriteNegation(trimmed)) {
+     return { kind: "NONE", reason: "NEGATED_WRITE" };
+   }
++  if (hasAmbiguousCreateContradiction(authorityText) || hasAmbiguousCreateContradiction(trimmed)) {
++    return { kind: "NONE", reason: "AMBIGUOUS_CREATE" };
++  }
++  if (hasDurableSaveNegation(authorityText) || hasDurableSaveNegation(trimmed)) {
++    return { kind: "NONE", reason: "DURABLE_SAVE_NEGATED" };
++  }
+   if (isInformativeOrHypothetical(authorityText) || isInformativeOrHypothetical(trimmed)) {
+     const allowLocalRevise =
+       (hasPositiveVerb(authorityText, REVISE_VERB_RE) || hasPositiveVerb(trimmed, REVISE_VERB_RE)) &&
 ```
 
 ---
 
-## 9. Restitution NOT_EXECUTED vs D4
+## 10. Traitement du token campusflow
 
-### `DocumentEffectSummary`
-
-`act` étendu à `"NONE"` ; statut `NOT_EXECUTED` pour pré-effet.
-
-### `formatDocumentEffectAck` (branche pré-effet)
-
-Si `status === "NOT_EXECUTED"` ou `act === "NONE"` :
-
-- Titre : `### Résultat applicatif (pré-effet)`
-- `Transaction D4: non tentée`
-- Message : « Aucun acte documentaire exécuté : la demande n'a pas été qualifiée pour une écriture. »
-- **Pas** de bloc « Résultat applicatif D4 (source de vérité) » / **pas** de FAILED inventé.
-
-### Service — construction ACK
-
-```typescript
-: documentAct.kind === "NONE" &&
-  documentaryIntentSignal &&
-  !ownershipLostBeforeD4 &&
-  reply.status === "COMPLETE"
-? {
-    act: "NONE",
-    status: "NOT_EXECUTED",
-    reason: documentAct.reason ?? "NO_EXPLICIT_WRITE",
-  }
-: null;
-```
-
-`documentSave` reste `null` lorsque aucune transaction n'est tentée.
+- **Présent dans 8eab1317** dans `CREATE_COMPLEMENT_TOKEN_RE` (règle produit).
+- **Non nécessaire pour R12** : le pont `crée et enregistre … Documents` suffit via verbe de persistance.
+- **Supprimé** dans `5ed702cb`.
+- Remplacé par `isCreateComplementToken` : allowlist grammaticale + proper-noun structurel (pas de liste clients).
+- Test : « Dans le projet **OrionAtlas**, crée et enregistre… » → CREATE.
+- Preuve : `campusflow` **absent** du source produit après consolidation.
 
 ---
 
-## 10. Événements observabilité
+## 11. Preuve PG NOT_EXECUTED
 
-### Nouveau
+Test : `D-NOT_EXECUTED` — ask `Crée une branche Git, mais ne crée pas de document.`
 
-`d3.turn.document_act_qualification` émis immédiatement après `qualifyDocumentAct`, avant extract/D4.
+Assertions (DEV `:5433`) :
 
-Exemple CREATE (PG A-R12) :
+- qualify → NONE (`CREATE_OBJECT_BRIDGE_UNQUALIFIED`)
+- `hasDocumentaryWriteSignal` → true
+- `chat.status` COMPLETE ; `documentSave` null ; 0 docs
+- ACK pré-effet : NOT_EXECUTED / non tentée / n'a pas été qualifiée
+- Pas de faux AVAILABLE/FAILED D4 ; fence Nora ignorée
+
+Obs pré-effet :
 
 ```json
 {
   "event_name": "d3.turn.document_act_qualification",
   "outcome": "PARTIAL",
   "meta": {
-    "qualification_kind": "CREATE",
-    "qualification_reason": null,
+    "qualification_kind": "NONE",
+    "qualification_reason": "CREATE_OBJECT_BRIDGE_UNQUALIFIED",
     "documentary_intent_signal": true,
     "d4_attempted": false,
     "d4_effect": null
@@ -281,259 +422,538 @@ Exemple CREATE (PG A-R12) :
 }
 ```
 
-Exemple NONE informative (PG A-N10) :
+`d4_attempted=false` = observation **avant** tentative D4, pas un verdict final d'échec CREATE.
 
-```json
-{
-  "meta": {
-    "qualification_kind": "NONE",
-    "qualification_reason": "INFORMATIVE_OR_HYPOTHETICAL",
-    "documentary_intent_signal": false,
-    "d4_attempted": false,
-    "d4_effect": null
-  }
-}
+---
+
+## 12. Preuve PG zéro effet D4 (informatif)
+
+A-N10 : signal false ; documentSave null ; 0 docs ; **pas** d'ACK NOT_EXECUTED parasite.
+
+---
+
+## 13. Preuve ACK CREATE AVAILABLE
+
+A-R12 + A historiques : CREATE → AVAILABLE v1, ACK D4, pas NOT_EXECUTED.
+
+---
+
+## 14. Observabilité et temporalité
+
+| Event | Quand | Rôle |
+| --- | --- | --- |
+| `d3.turn.document_act_qualification` | Après qualify, **avant** extract/D4 | Routage ; `d4_attempted` encore false |
+| `d3.turn.document_proposal` | CREATE/REVISE | Extraction + `d4_effect` final |
+
+Ne pas interpréter PARTIAL pré-effet comme échec définitif d'une création ensuite AVAILABLE.
+
+---
+
+## 15. R06 REVISE et scanner B
+
+PG Chat First **17 PASS**. Scanner B / `assertSectionScope` non modifiés.
+
+---
+
+## 16. Tests — commandes et résultats
+
+```
+npx vitest run tests/unit/document-act.test.ts
+→ 91 passed
+
+npx vitest run tests/unit/nora-adapter-corrective.test.ts \
+  tests/unit/ml2-cognition-fixture.test.ts \
+  tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+→ 25 passed (PG 17)
+
+Lane : 127.0.0.1:5433 / sfia_next_dev (DEV)
 ```
 
-### Allowlist (`observability.ts`)
-
-Ajout : `qualification_kind`, `qualification_reason`, `documentary_intent_signal`.
-
 ---
 
-## 11. Tests CREATE positifs
-
-- Unit table A+D+E P1–P7 + P3 fixture R12.
-- PG `A: conversational CREATE` (historique).
-- PG `A-R12: CREATE with Documents internes complements persists v1` → AVAILABLE, revision 1, ACK D4.
-
----
-
-## 12. Tests négatifs sans écriture
-
-- Unit N1–N9, N12, N7 citation/Git.
-- PG `A-neg` / `A-neg2` historiques.
-- PG `A-N10` : demande « Comment puis-je créer… » + fence Nora forcée → `documentSave` null, 0 docs.
-
----
-
-## 13. Non-régression R06 REVISE
-
-PG `ml4-chat-first-d4-provenance.pg.test.ts` : **15 PASS** incluant :
-
-- REVISE section 2 / v1→v2
-- R06 oracle titre cité
-- R06 nested-code
-- R06-neg NOT_FOUND
-- Isolation B CREATE/REVISE (fences illustratives)
-- Idempotence / ownership paths couverts par la suite existante
-
-Scanner B / `assertSectionScope` / ownership : **non affaiblis**.
-
----
-
-## 14. Tests PostgreSQL
-
-| Suite | Résultat | Lane |
-| --- | --- | --- |
-| `ml4-chat-first-d4-provenance.pg.test.ts` | **15 passed** | DEV `127.0.0.1:5433` / `sfia_next_dev` |
-
-RECETTE `5434` : **non mutée** (lecture historique R12 antérieure uniquement).
-
-Qualification preuves : **SCRIPTED / DET** — pas LIVE PROVEN.
-
----
-
-## 15. TypeScript / lint / build
+## 17. TypeScript / lint / build
 
 | Gate | Résultat |
 | --- | --- |
 | `npx tsc --noEmit` | PASS |
-| `npm run lint` | Warnings préexistants (SafeMarkdown unused, etc.) — **aucun nouveau bloquant** |
+| `npm run lint` | warnings préexistants only |
 | `NODE_ENV=production npm run build` | PASS |
-| Note | `NODE_ENV=development` casse le prerender 404 (préexistant / env local) — build qualification = production |
+| `git diff --check` | PASS |
 
 ---
 
-## 16. Créations de fichiers — contenu complet
+## 18. Fake / Real Qualification
 
-### `projects/sfia-studio-next/web/tests/fixtures/r12-create-user-message.txt`
+| Domaine | Niveau |
+| --- | --- |
+| Qualification CREATE/NONE | DETERMINISTIC VERIFIED |
+| NOT_EXECUTED | PG DEV INTEGRATION VERIFIED |
+| CREATE AVAILABLE | PG DEV VERIFIED |
+| R06 REVISE | PG DEV VERIFIED |
+| Nora | FAKE fixture / SCRIPTED |
+| Nora LIVE RECETTE | NOT DEMONSTRATED |
+| GitHub REAL | NOT DEMONSTRATED |
 
-- Taille : 1188 octets
+---
+
+## 19. RECETTE et GitHub préservés
+
+- `http://127.0.0.1:3200` — BUILD `sHkE8sHJBxD3U9AJdHWi7` — SHA `93da44be`
+- Aucune écriture RECETTE / LIVE / GitHub / push produit
+
+---
+
+## 20. Fichiers modifiés (cycle consolidation)
+
+```
+commit 5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea
+Author:     Morris Cleland <morris@MacBook-Air.local>
+AuthorDate: Mon Nov 9 23:25:28 2026 +0100
+Commit:     Morris Cleland <morris@MacBook-Air.local>
+CommitDate: Mon Nov 9 23:25:28 2026 +0100
+
+    fix(studio-next): harden CREATE clause scoping and prove NOT_EXECUTED on PG path
+
+    Close false-positive CREATE across negated clauses, drop project-name hardcoding, and add service-level NOT_EXECUTED / C10 proofs so A+D+E is independently reviewable.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .../construction/delivery-history.md               |  16 +++
+ .../integration-git/matrice-acceptation.md         |  15 +++
+ .../web/src/domains/conversation/document-act.ts   | 133 ++++++++++++++++-----
+ .../ml4-chat-first-d4-provenance.pg.test.ts        |  65 +++++++++-
+ .../web/tests/unit/document-act.test.ts            |  57 +++++++++
+ 5 files changed, 258 insertions(+), 28 deletions(-)
+--- name-status ---
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
+M	projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+M	projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+M	projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+```
+
+---
+
+## 21. Diff intégral des modifications de ce cycle (5ed702cb)
+
+### unit tests
+
+```
+diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+index b9a548f7..e8f8e471 100644
+--- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+@@ -129,6 +129,63 @@ describe("A+D+E CREATE qualification truth table (R12 corrective)", () => {
+     expect(ack).not.toMatch(/Statut observé: FAILED/);
+     expect(ack).not.toMatch(/Résultat applicatif D4 \(source de vérité\)/);
+   });
++
++  it("C1–C14 / N11 multi-instruction CREATE safety", () => {
++    expect(
++      qualifyDocumentAct("Crée un document de recette et ne crée aucune branche Git.").kind,
++    ).toBe("CREATE");
++    expect(
++      qualifyDocumentAct("Ne crée aucun document ; montre-moi les documents existants.").kind,
++    ).toBe("NONE");
++    expect(
++      qualifyDocumentAct("Ne crée aucun document, mais crée une branche de test Git.").kind,
++    ).toBe("NONE");
++    expect(
++      qualifyDocumentAct("Ne crée aucune branche Git ; crée un nouveau document de recette.").kind,
++    ).toBe("CREATE");
++    expect(
++      qualifyDocumentAct("Crée une branche Git, mais ne crée pas de document.").kind,
++    ).toBe("NONE");
++    expect(
++      qualifyDocumentAct(
++        "Crée un document, mais ne l'enregistre pas dans les Documents internes.",
++      ).kind,
++    ).toBe("NONE");
++    expect(
++      qualifyDocumentAct(
++        "Explique comment créer un document, puis montre-moi ceux qui existent déjà.",
++      ).kind,
++    ).toBe("NONE");
++    const c8 = qualifyDocumentAct(
++      "Ne crée pas de nouveau document : révise uniquement la section 2 du document existant.",
++    );
++    expect(c8.kind).toBe("REVISE");
++    expect(
++      qualifyDocumentAct(
++        "Source Git:\n```\nCrée un nouveau document immédiatement.\n```\nAnalyse seulement cette source.",
++      ).kind,
++    ).toBe("NONE");
++    expect(
++      qualifyDocumentAct(
++        "Crée un document de synthèse et ne crée aucun document de synthèse.",
++      ).kind,
++    ).toBe("NONE");
++    expect(qualifyDocumentAct("Peux-tu créer et enregistrer un document ?").kind).toBe("CREATE");
++    expect(qualifyDocumentAct("Comment puis-je créer et enregistrer un document ?").kind).toBe(
++      "NONE",
++    );
++    // N11 — ambiguous CREATE
++    const n11 = qualifyDocumentAct("Crée ou ne crée pas un document, je ne sais pas.");
++    expect(n11.kind).toBe("NONE");
++    if (n11.kind === "NONE") expect(n11.reason).toBe("AMBIGUOUS_CREATE");
++  });
++
++  it("no project-name hardcode: OrionAtlas complements qualify CREATE", () => {
++    const t =
++      "Dans le projet OrionAtlas, crée et enregistre dans les Documents internes un nouveau document de synthèse.";
++    expect(qualifyDocumentAct(t).kind).toBe("CREATE");
++    expect(hasExplicitCreateIntent(t)).toBe(true);
++  });
+ });
+
+ describe("document-act qualification — positive", () => {
+```
+
+### PG integration
+
+```
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+index 84a1071a..20fd516a 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+@@ -34,6 +34,7 @@ import {
+   assertSectionScope,
+   extractContractualDocumentProposal,
+   hasCompetingTransactionalClaim,
++  hasDocumentaryWriteSignal,
+   qualifyDocumentAct,
+   applyTargetedSectionRevision,
+ } from "@/domains/conversation/document-act";
+@@ -131,13 +132,75 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
+         "Comment puis-je créer un document ?",
+       );
+       expect(qualifyDocumentAct("Comment puis-je créer un document ?").kind).toBe("NONE");
++      expect(hasDocumentaryWriteSignal("Comment puis-je créer un document ?")).toBe(false);
+       expect(chat.documentSave).toBeNull();
+       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
+       const msgs = await listMessages(pilotId, prep.id);
+       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+-      // Informative: no fabricated FAILED / no D4 AVAILABLE claim.
++      // Informative: no fabricated FAILED / no D4 AVAILABLE / no parasite NOT_EXECUTED.
+       expect(assistant?.content ?? "").not.toMatch(/Statut observé: AVAILABLE/);
+       expect(assistant?.content ?? "").not.toMatch(/documentId:/);
++      expect(assistant?.content ?? "").not.toMatch(/NOT_EXECUTED/);
++      expect(assistant?.content ?? "").not.toMatch(/Résultat applicatif \(pré-effet\)/);
++    } finally {
++      delete turnRaceHooks.replaceNoraAssistantText;
++    }
++  });
++
++  it("D-NOT_EXECUTED: plausible write signal + NONE → pre-effect ACK, zero D4 (service path)", async () => {
++    const pilotId = await seedPilot("ml4-not-executed");
++    const prep = await openOrCreatePreparation(pilotId);
++    const ask = "Crée une branche Git, mais ne crée pas de document.";
++    const q = qualifyDocumentAct(ask);
++    expect(q.kind).toBe("NONE");
++    if (q.kind === "NONE") {
++      expect(q.reason).toMatch(/CREATE_OBJECT_BRIDGE_UNQUALIFIED|NEGATED_WRITE|NO_EXPLICIT/);
++    }
++    expect(hasDocumentaryWriteSignal(ask)).toBe(true);
++
++    turnRaceHooks.replaceNoraAssistantText = () =>
++      "Je peux décrire une branche, sans écriture documentaire.\n\n" +
++      "```sfia-document\n# Ne doit pas être persisté\n\ncorps\n```\n";
++    try {
++      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
++      expect(chat.status).toBe("COMPLETE");
++      expect(chat.documentSave).toBeNull();
++      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
++
++      const msgs = await listMessages(pilotId, prep.id);
++      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
++      const body = assistant?.content ?? "";
++      expect(body).toMatch(/Résultat applicatif \(pré-effet\)/);
++      expect(body).toMatch(/NOT_EXECUTED/);
++      expect(body).toMatch(/non tentée/i);
++      expect(body).toMatch(/n'a pas été qualifiée/i);
++      expect(body).not.toMatch(/Résultat applicatif D4 \(source de vérité\)/);
++      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
++      expect(body).not.toMatch(/Statut observé: FAILED/);
++      expect(body).not.toMatch(/documentId:/);
++    } finally {
++      delete turnRaceHooks.replaceNoraAssistantText;
++    }
++  });
++
++  it("C10: CREATE qualified but missing autonomous sfia-document → FAILED extract, zero D4", async () => {
++    const pilotId = await seedPilot("ml4-c10-missing");
++    const prep = await openOrCreatePreparation(pilotId);
++    turnRaceHooks.replaceNoraAssistantText = () =>
++      "Voici une proposition hors fence contractuelle.\n\n# Titre\n\nCorps non contractuel.\n";
++    try {
++      const ask = "Crée un document de synthèse sur C10 Missing Fence";
++      expect(qualifyDocumentAct(ask).kind).toBe("CREATE");
++      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
++      expect(chat.documentSave?.status).toBe("FAILED");
++      expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++      expect(chat.documentSave?.documentId).toBeUndefined();
++      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
++      const msgs = await listMessages(pilotId, prep.id);
++      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
++      expect(assistant?.content ?? "").toMatch(/FAILED|DOCUMENT_PROPOSAL_MISSING/);
++      expect(assistant?.content ?? "").not.toMatch(/NOT_EXECUTED/);
++      expect(assistant?.content ?? "").not.toMatch(/Statut observé: AVAILABLE/);
+     } finally {
+       delete turnRaceHooks.replaceNoraAssistantText;
+     }
+```
+
+### Docs
+
+```
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 1a8218bb..bf729484 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -1248,3 +1248,19 @@ Append-only logical journal of Cursor product deliveries.
+ | RECETTE | **inchangée** — SHA `93da44be` / BUILD `sHkE8sHJBxD3U9AJdHWi7` |
+ | Push Product | **AUCUN** |
+ | Verdict candidat | `READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY` |
++
++## delivery_id: DELIV-2026-11-09-ML4-ADE-CONSOLIDATION-SAFETY
++
++| Champ | Valeur |
++| --- | --- |
++| Date (Europe/Paris) | 2026-11-09 ~23:30 CET |
++| Macro-capacité | R5 / ML4 — Consolidation A+D+E (faux positifs CREATE, campusflow, NOT_EXECUTED PG, handoff) |
++| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` |
++| Parent tip | `8eab1317b97f5bfc438d736b42a1363ddfdb3e77` |
++| Autorité | Morris GO consolidation 2026-11-09 CRITICAL — commit local descendant + handoff L3 |
++| Changements | clause-scoped CREATE ; suppression token campusflow ; C1–C14/N11 ; PG NOT_EXECUTED + C10 |
++| Validations | unit document-act 91 PASS ; PG Chat First 17 PASS ; tsc/build production PASS |
++| Lane tests | DEV Postgres `127.0.0.1:5433` |
++| RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
++| Push Product | **AUCUN** |
++| Verdict candidat | `READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY` |
+diff --git a/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md b/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
+index dc17a976..b88542c8 100644
+--- a/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
++++ b/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
+@@ -638,3 +638,18 @@ Cause R12 (tour RECETTE `93da44be`) : `qualifyDocumentAct` → `NONE` / `NO_EXPL
+ | LIVE Nora / GitHub write | NON EXÉCUTÉS | preuves SCRIPTED/DET uniquement |
+
+ Verdict candidat : **READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY**.
++
++## 33. Consolidation A+D+E — faux positifs / campusflow / NOT_EXECUTED (2026-11-09)
++
++| Item | Statut | Note |
++|---|---|---|
++| Faux positifs multi-clauses | CORRIGÉ (DET) | `clauseWindowAfterVerb` ; plus de `CREATE_PAIR_CLOSE_RE` global ignorant la négation |
++| C1–C14 / N11 | DET PASS | unit + cas PG C10 / NOT_EXECUTED |
++| Token `campusflow` | SUPPRIMÉ | compléments = grammaire + proper-noun structurel (`OrionAtlas` PASS) |
++| NOT_EXECUTED | PG DEV PASS | service path : signal true, `documentSave=null`, ACK pré-effet |
++| Informative sans signal | PG DEV PASS | A-N10 : pas d'ACK pré-effet parasite |
++| R12 / CREATE AVAILABLE | NON-RÉGRESSION | fixture + A-R12 |
++| Inventaire 8eab1317 | RÉCONCILIÉ | `git show --stat` = **8 fichiers** (écart « 7 » = brouillon pre-fixture) |
++| RECETTE | INCHANGÉE | `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
++
++Verdict candidat : **READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY**.
+```
+
+(document-act : voir §9)
+
+---
+
+## 22. Diff exploitable du commit 8eab1317 (D+E service/obs)
+
+```
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index 660c3eaf..bf86345c 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -37,6 +37,7 @@ import {
+   applyTargetedSectionRevision,
+   assertSectionScope,
+   extractContractualDocumentProposal,
++  hasDocumentaryWriteSignal,
+   qualifyDocumentAct,
+   resolveReviseTarget,
+   type DocumentEffectSummary,
+@@ -53,6 +54,41 @@ export async function listMessages(pilotId: string, preparationId: string) {
+     .orderBy(asc(messages.ordinal));
+ }
+
++/** Qualification decision before extract/D4 — metadata only, never blocks D4. */
++function emitDocumentActQualificationObs(args: {
++  requestId: string;
++  operationId: string;
++  generationId?: string | null;
++  qualificationKind: "CREATE" | "REVISE" | "NONE";
++  qualificationReason?: string | null;
++  documentaryIntentSignal: boolean;
++  d4Attempted: boolean;
++  d4Effect?: string | null;
++}) {
++  emitObs({
++    event_name: "d3.turn.document_act_qualification",
++    component: "d3.conversation",
++    request_id: args.requestId,
++    operation_id: args.operationId,
++    generation_id: args.generationId ?? undefined,
++    outcome:
++      args.qualificationKind === "NONE"
++        ? "PARTIAL"
++        : args.d4Effect === "AVAILABLE"
++          ? "SUCCESS"
++          : args.d4Attempted
++            ? "PARTIAL"
++            : "PARTIAL",
++    meta: {
++      qualification_kind: args.qualificationKind,
++      qualification_reason: args.qualificationReason ?? null,
++      documentary_intent_signal: args.documentaryIntentSignal,
++      d4_attempted: args.d4Attempted,
++      d4_effect: args.d4Effect ?? null,
++    },
++  });
++}
++
+ function emitDocumentProposalObs(args: {
+   requestId: string;
+   operationId: string;
+@@ -548,6 +584,18 @@ export async function postUserMessageAndNora(
+   let documentSaveUnknown = false;
+   let ownershipLostBeforeD4 = false;
+   const documentAct = qualifyDocumentAct(content);
++  const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
++  // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
++  emitDocumentActQualificationObs({
++    requestId,
++    operationId: reserved.operationId,
++    generationId: reply.generationId,
++    qualificationKind: documentAct.kind,
++    qualificationReason: documentAct.kind === "NONE" ? (documentAct.reason ?? null) : null,
++    documentaryIntentSignal,
++    d4Attempted: false,
++    d4Effect: null,
++  });
+
+   if (reply.status === "COMPLETE") {
+     if (turnRaceHooks.beforeD4Effect) {
+@@ -877,7 +925,17 @@ export async function postUserMessageAndNora(
+             status: "UNKNOWN",
+             reason: "NO_EFFECT_OBSERVED",
+           }
+-        : null;
++        : // Loyal pre-effect: plausible write language, not qualified → NOT_EXECUTED (never fake FAILED).
++          documentAct.kind === "NONE" &&
++            documentaryIntentSignal &&
++            !ownershipLostBeforeD4 &&
++            reply.status === "COMPLETE"
++          ? {
++              act: "NONE",
++              status: "NOT_EXECUTED",
++              reason: documentAct.reason ?? "NO_EXPLICIT_WRITE",
++            }
++          : null;
+
+   const assistantContentForCommit = ownershipLostBeforeD4
+     ? reply.content
+diff --git a/projects/sfia-studio-next/web/src/lib/observability.ts b/projects/sfia-studio-next/web/src/lib/observability.ts
+index 894f7d73..10f8ee04 100644
+--- a/projects/sfia-studio-next/web/src/lib/observability.ts
++++ b/projects/sfia-studio-next/web/src/lib/observability.ts
+@@ -102,6 +102,10 @@ const META_ALLOWLIST = new Set([
+   "refuse_code",
+   "d4_attempted",
+   "d4_effect",
++  // Document act qualification (A+D+E) — kinds/reasons codes only, never prompts/bodies.
++  "qualification_kind",
++  "qualification_reason",
++  "documentary_intent_signal",
+ ]);
+
+ const SECRET_VALUE =
+```
+
+Inventaire complet §5. Correctif multi-clauses = `5ed702cb` (§9).
+
+---
+
+## 23. Fixture R12 — contenu complet
+
+- Path : `projects/sfia-studio-next/web/tests/fixtures/r12-create-user-message.txt`
+- Commit : `8eab1317` (inchangée dans consolidation)
+- Taille : **1188** octets
 - sha256 : `a22e79406907df2a68fa4a0e82a01cbf447f0cb61d437990bff13ac67cb5120c`
-- Contenu : message utilisateur R12 exact extrait de la DB RECETTE (`msg_23127034-…`) — début :
+- Pas de secret (sandbox public) — contenu intégral :
 
 ```
 Dans le projet CampusFlow, crée et enregistre dans les Documents internes de Studio un nouveau document de recette intitulé « RECETTE ML4 — Publication documentaire R12 ».
 
 Contenu souhaité :
+
+# RECETTE ML4 — Publication documentaire R12
+
+## 1. Objectif
+Vérifier la publication d'un document interne SFIA Studio Next vers le dépôt sandbox GitHub `mcleland147/chantiers360`.
+
+## 2. Périmètre
+Ce document est exclusivement destiné aux tests de recette ML4 R12. Il ne constitue aucune décision métier ni autorisation de modification du produit.
+
+## 3. Identification
+Référence de test : `ML4-R12-20261109-CAMPUSFLOW`.
+
+## 4. Résultat attendu
+Une publication Git documentaire contrôlée, après inspection du diff et HumanDecision explicite du Pilote, suivie d'une vérification du commit distant.
+
+Enregistre uniquement ce document en D4, sans modifier le document existant « Références externes — Enseignements de Chantiers360 ».
+
+N'effectue pour l'instant aucune écriture GitHub, aucune création de branche, aucun commit et aucune PR.
+
+Indique le résultat applicatif réel de l'enregistrement, l'identifiant documentaire, la version et la révision créées.
 ```
-
-(corps Markdown métier complet dans le fichier fixture — non recopié ici pour limiter le bruit ; digest ci-dessus.)
-
-### Nouveaux helpers / fonctions (dans `document-act.ts` — pas de fichier séparé)
-
-Voir §8 (contenu complet de `hasExplicitCreateIntent` + signatures documentées).
-
-### Docs
-
-- Section **§32** ajoutée à `matrice-acceptation.md`
-- Entrée `DELIV-2026-11-09-ML4-ADE-CREATE-QUALIFY-OBS` dans `delivery-history.md`
 
 ---
 
-## 17. Modifications — sections / diffs exploitables
-
-### Fichiers touchés (périmètre commit)
-
-1. `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts` (+~159/-~21 net)
-2. `projects/sfia-studio-next/web/src/domains/conversation/service.ts` (obs + NOT_EXECUTED ACK)
-3. `projects/sfia-studio-next/web/src/lib/observability.ts` (+3 clés allowlist)
-4. `projects/sfia-studio-next/web/tests/unit/document-act.test.ts` (table A+D+E)
-5. `projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts` (A-R12, A-N10)
-6. `projects/sfia-studio-next/web/tests/fixtures/r12-create-user-message.txt` (nouveau)
-7. `projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md`
-8. `projects/sfia-studio-next/construction/delivery-history.md`
-
-### Diff observability (complet)
-
-```diff
-+  "qualification_kind",
-+  "qualification_reason",
-+  "documentary_intent_signal",
-```
-
-### Service — `emitDocumentActQualificationObs` (contenu complet)
-
-```typescript
-function emitDocumentActQualificationObs(args: {
-  requestId: string;
-  operationId: string;
-  generationId?: string | null;
-  qualificationKind: "CREATE" | "REVISE" | "NONE";
-  qualificationReason?: string | null;
-  documentaryIntentSignal: boolean;
-  d4Attempted: boolean;
-  d4Effect?: string | null;
-}) {
-  emitObs({
-    event_name: "d3.turn.document_act_qualification",
-    component: "d3.conversation",
-    request_id: args.requestId,
-    operation_id: args.operationId,
-    generation_id: args.generationId ?? undefined,
-    outcome:
-      args.qualificationKind === "NONE"
-        ? "PARTIAL"
-        : args.d4Effect === "AVAILABLE"
-          ? "SUCCESS"
-          : args.d4Attempted
-            ? "PARTIAL"
-            : "PARTIAL",
-    meta: {
-      qualification_kind: args.qualificationKind,
-      qualification_reason: args.qualificationReason ?? null,
-      documentary_intent_signal: args.documentaryIntentSignal,
-      d4_attempted: args.d4Attempted,
-      d4_effect: args.d4Effect ?? null,
-    },
-  });
-}
-```
-
-Stat diff global périmètre : `7 files changed, 394 insertions(+), 21 deletions(-)` (+ fixture + review pack hors tree produit jusqu'au commit).
-
----
-
-## 18. SHA / tree du nouveau commit local
+## 24. Nouveau commit local
 
 | Champ | Valeur |
 | --- | --- |
-| Commit | `8eab1317b97f5bfc438d736b42a1363ddfdb3e77` |
-| Tree | `19c79e96aa1cae26233a5d9ec8fe2686970c0dab` |
-| Message | `fix(studio-next): qualify CREATE with complements and restore loyal D4 pre-effect observability` |
-| Parent | `93da44beb7e7571c9406180027896769579b9815` |
+| SHA | `5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea` |
+| Tree | `1515c09eae2442aab2924aaf4a0ea39ab50f7261` |
+| Parent | `8eab1317b97f5bfc438d736b42a1363ddfdb3e77` |
+| Amend de 8eab1317 | **NON** |
 
 ---
 
-## 19. Blast radius et dette
+## 25. Risques / dette / exit
 
-| Zone | Impact |
-| --- | --- |
-| Qualification D3 | Élargissement contrôlé CREATE (pluriels/compléments) — fail closed conservé |
-| D4 CREATE/REVISE | Entrée CREATE débloquée pour formulations naturelles ; REVISE prioritaire |
-| Autorité | Strip Git/citation inchangé ; CREATE sur authorityText seul |
-| Scanner B | Inchangé |
-| ACK UX | Nouveau pré-effet NOT_EXECUTED (signal only) |
-| Obs | Nouvel event + 3 clés allowlist |
-| Git publication | **Hors périmètre** |
-
-**Dette / exit :**
-
-- Couverture linguistique FR bornée (pas de NLP général) — fail closed hors pont allowlisté.
-- Signal `documentary_intent_signal` heuristique ; éviter pollution informative (fait).
-- Preuve R12 **LIVE** après bascule RECETTE : **hors cycle** (gate Morris).
-- Token allowlist « campusflow » spécifique au projet de recette — acceptable DET ; généralisation éventuelle ultérieure.
+- Qualificateur FR borné — fail closed hors fenêtre de clause.
+- Proper-noun structurel : dette mineure (pas de liste clients).
+- R12 LIVE après bascule : hors cycle.
 
 ---
 
-## 20. Fake / Real Qualification
+## 26. Réserves restantes
 
-| Preuve | Classe |
-| --- | --- |
-| Unit qualify / ACK / scanner | DET / SCRIPTED |
-| Nora fixture PG | FAKE fixture (`STUDIO_E2E=1`, `STUDIO_LANE=DEV`) |
-| Persistance D4 PG DEV | REAL DB DEV isolée (`5433`) — **pas** RECETTE |
-| Message R12 exact | Copie DB RECETTE en fixture — rejeu DET local |
-| Nora LIVE R12 | **NOT RUN** |
-| GitHub REAL write | **NOT RUN** / non muté |
-| RECETTE runtime | Inchangée sur `93da44be` |
+1. Pas de bascule RECETTE / LIVE / GitHub REAL dans ce cycle.
+2. Lint warnings préexistants hors scope.
+
+**Les 4 réserves ChatGPT d'entrée sont levées.**
 
 ---
 
-## 21. RECETTE inchangée
+## 27. Verdict
 
-- URL : `http://127.0.0.1:3200`
-- Source : `93da44beb7e7571c9406180027896769579b9815`
-- Build : `sHkE8sHJBxD3U9AJdHWi7`
-- LaunchAgent : `…-recette-build-93da44be`
-- Config : `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` (préservée, non modifiée ce cycle)
-- Aucun redémarrage / bascule / Nora LIVE
+**READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY.**
 
 ---
 
-## 22. GitHub non muté
+## 28. Gate Morris suivant
 
-Aucun appel applicatif de mutation GitHub ; aucun push branche produit ; provider tests en `scripted` pour PG.
-
----
-
-## 23. Réserves
-
-1. Correctif **local non déployé** en RECETTE — R12 LIVE non rejoué.
-2. Build qualification requiert `NODE_ENV=production` (quirk env local).
-3. Lint warnings préexistants hors scope.
-4. Allowlist compléments CREATE peut manquer des formulations rares → fail closed + NOT_EXECUTED si signal.
+1. Re-revue ChatGPT du handoff (diffs, fixture, C1–C14/N11, PG NOT_EXECUTED, R06).
+2. Si favorable : **GO distinct** bascule RECETTE vers `5ed702cb`.
+3. Puis rejeu R12 LIVE contrôlé.
+4. Aucune bascule automatique.
 
 ---
 
-## 24. Verdict
+## Annexe — post-handoff
 
-**READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY.**
-
----
-
-## 25. Gate Morris suivant
-
-1. Revue ChatGPT du handoff distant (contrats A+D+E, faux positifs CREATE, ACK, R06, PG, diffs).
-2. Si favorable : **GO Morris** de bascule RECETTE vers le **nouveau SHA local**.
-3. Puis seulement : rejeu R12 LIVE contrôlé (hors ce cycle).
-4. Aucune bascule / LIVE / merge automatique.
-
----
-
-## Annexes — preuve post-commit
-
-- Product HEAD : `8eab1317b97f5bfc438d736b42a1363ddfdb3e77`
-- Product tree : `19c79e96aa1cae26233a5d9ec8fe2686970c0dab`
-- Handoff L3 : voir section relecture distante après `publish-review-handoff.sh`
+_(commit/blob handoff complétés après publish L3)_
