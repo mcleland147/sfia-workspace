@@ -1,511 +1,449 @@
 # SFIA Studio Next — Review Pack FULL
 
-## R5 / ML4 — Discriminant final CREATE_PLEASE_RE
+## R5 / ML4 — Bascule RECETTE candidat 771844fd (Cycle 11 / ENV-01)
 
-**Verdict :** CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW
+**Verdict :** RECETTE DEPLOYED — CANDIDATE 771844FD VERIFIED — R12 LIVE USER RETEST NOT RUN
 
-**Interdictions :** pas de R12 PASS / NORA LIVE PROVEN / REAL GITHUB / ML4 ACCEPTED / READY FOR MERGE / STABLE / ADOPTED.
-
----
-
-## 1. GO et date
-
-- GO Morris 09/11/2026 — discriminant CREATE_PLEASE_RE.
-- Cycle 8 Delivery / CRITICAL / FULL / Handoff L3.
-- Exécution Cursor : 2026-11-09 (Europe/Paris).
+**Interdictions respectées :** pas de R12 PASS / CREATE LIVE PROVEN / GITHUB REAL COMMIT PROVEN / ML4 ACCEPTED / READY FOR MERGE / STABLE / RELEASED / ADOPTED.
 
 ---
 
-## 2. Git initial / final
+## 1. Date et GO Morris
 
-### Initial
+- GO Morris 09/11/2026 — bascule RECETTE du correctif A+D+E candidat `771844fd`.
+- Cycle 11 — Déploiement / CRITICAL / FULL / Handoff L3.
+- Exécution Cursor : 2026-11-09 ~23:58 CET.
+- Portée : mise à disposition uniquement — **pas** de rejeu R12, **pas** de mutation GitHub, **pas** de push produit.
+
+---
+
+## 2. Git Truth Check
+
+### Initial / final (branche produit — inchangée)
 
 | Champ | Valeur |
 | --- | --- |
 | Branche | `fix/next-ml4-chat-first-d4-provenance-20261109` |
-| HEAD | `5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea` |
-| Tree | `1515c09eae2442aab2924aaf4a0ea39ab50f7261` |
-| Parent | `8eab1317…` |
-| Handoff entrée | `4165fa5d…` / blob `b1a8ffee…` |
-| RECETTE | `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
-
-### Final
-
-| Champ | Valeur |
-| --- | --- |
 | HEAD | `771844fda083ce3c1858b77b0012e5bf2b801605` |
 | Tree | `030a9e87064bade155ae3c585f9954d65d52687f` |
 | Parent | `5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea` |
-| Amend | **NON** |
+| origin/main | `6667a43858a5421e391b7441246536daad148bd6` |
+| Handoff revue entrée | `d931b747…` / blob `9cf5f4f9…` |
 | Push produit | **AUCUN** |
+
+Worktree produit : seuls untracked préexistants + Review Pack local / manifeste ENV-01 (non poussés).
 
 ---
 
 ## 3. Sources consultées
 
-- Handoff consolidation `4165fa5d` / blob `b1a8ffee`
-- Code tip `5ed702cb` puis correctif
-- `document-act.ts` (CREATE_PLEASE paths)
-- Tests unit/PG ; matrice ; delivery-history
-- SEF/ADR/roadmap : non modifiés
+- Handoff A+D+E CREATE_PLEASE `d931b747` / blob `9cf5f4f9`
+- Manifeste historique `env01-recette-manifest-ml4-93da44be-2026-11-09.md`
+- LaunchAgent `com.sfia.studio.next.recette.ml4`
+- `start-recette.sh` artefact 93da44be
+- gouvernance ENV-01 / product-versioning (politiques — non modifiées)
+- migrations `012_auth_concurrency_safety.sql` présentes ; **aucun delta** 93da44be..771844fd
 
 ---
 
-## 4. Code réel des deux chemins CREATE_PLEASE_RE (AVANT — tip 5ed702cb)
-
-### Constante + raccourci `hasExplicitCreateIntent`
-
-```
-26| const CREATE_PLEASE_RE =
-27|   /\b(documents?|note de synthèse|rapports?)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i;
-28|
-29| /**
-30|  * Complements allowed between a CREATE verb and a documentary object
-31|  * (location, novelty, title framing) — not a free-form widen of authority.
-32|  * No project/client proper names hardcoded: capitalized tokens pass via isCreateComplementToken.
-33|  */
-
-248| export function hasExplicitCreateIntent(text: string): boolean {
-249|   const t = text.replace(/\s+/g, " ").trim();
-250|   if (!t || !hasPositiveVerb(t, CREATE_VERB_RE)) return false;
-251|   if (hasDurableSaveNegation(t)) return false;
-252|   if (hasAmbiguousCreateContradiction(t)) return false;
-253|
-254|   // Polite « document … s'il te plaît » without a negated create verb.
-255|   if (CREATE_PLEASE_RE.test(t) && hasPositiveVerb(t, CREATE_VERB_RE)) return true;
-256|
-257|   for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
-258|     if (isVerbNegated(t, verb.index, verb.text.length)) continue;
-259|     const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
-260|     const obj = window.match(
-261|       /\b(nouveau(?:x)?|nouvelle(?:s)?)?\s*(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i,
-262|     );
-263|     if (!obj || obj.index == null) continue;
-264|     const between = window.slice(0, obj.index).trim();
-265|     if (!between) return true;
-266|     // Persist verbs between create and object (« crée et enregistre … document »)
-267|     if (/\b(enregistre|enregistrer|sauvegarde|sauvegarder|persist(?:e|er)?)\b/i.test(between)) {
-268|       return true;
-269|     }
-270|     const tokens = between.split(/\s+/).filter(Boolean);
-271|     if (tokens.length > 16) continue;
-272|     if (tokens.every((tok) => isCreateComplementToken(tok))) return true;
-273|   }
-274|   return false;
-275| }
-276|
-277| /** Consultative listing / show docs — not a write. */
-278| export function isDocumentaryConsultationOnly(text: string): boolean {
-279|   const t = text.trim();
-280|   if (hasPositiveVerb(t, CREATE_VERB_RE) || hasPositiveVerb(t, REVISE_VERB_RE)) return false;
-281|   return (
-282|     /\b(montre[- ]moi|affiche|liste|consulte|voir|quels?\s+sont|disponible)\b[\s\S]{0,40}\bdocuments?\b/i.test(
-```
-
-### Fallback `qualifyDocumentAct`
-
-```
-440|   if (hasExplicitCreateIntent(authorityText)) {
-441|     return { kind: "CREATE" };
-442|   }
-443|
-444|   if (CREATE_PLEASE_RE.test(authorityText) && !isGlobalDocumentWriteNegation(authorityText)) {
-445|     return { kind: "CREATE" };
-446|   }
-447|
-448|   if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && !DOC_OBJECT_RE.test(authorityText)) {
-449|     return { kind: "NONE", reason: "CREATE_WITHOUT_OBJECT" };
-450|   }
-451|
-452|   if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && DOC_OBJECT_RE.test(authorityText)) {
-453|     return { kind: "NONE", reason: "CREATE_OBJECT_BRIDGE_UNQUALIFIED" };
-454|   }
-455|
-456|   return { kind: "NONE", reason: "NO_EXPLICIT_WRITE" };
-457| }
-458|
-459| /** Backward-compatible predicate used by older call sites / tests. */
-```
-
-**Chemins fautifs :**
-
-1. `hasExplicitCreateIntent` : `CREATE_PLEASE_RE.test(t) && hasPositiveVerb(...)` — polite « document…s'il te plaît » + **n'importe quel** verbe CREATE positif ailleurs (T2/T8).
-2. `qualifyDocumentAct` : `CREATE_PLEASE_RE.test(...) && !isGlobalDocumentWriteNegation` — **sans verbe CREATE** (T1).
-
----
-
-## 5. Résultats AVANT correction T1–T10
-
-| ID | Attendu | Obtenu (5ed702cb) | Chemin | Verdict |
-| --- | --- | --- | --- | --- |
-| T1 | NONE | **CREATE** | fallback qualify CREATE_PLEASE sans verbe | FAIL |
-| T2 | NONE | **CREATE** | hasExplicit CREATE_PLEASE + « Crée » (branche) | FAIL |
-| T3 | CREATE | CREATE | structuré / please | PASS |
-| T4 | CREATE | CREATE | structuré | PASS |
-| T5 | NONE | NONE INFORMATIVE | leading Comment | PASS |
-| T6 | NONE | NONE NEGATED_WRITE | négation | PASS |
-| T7 | CREATE | CREATE | structuré | PASS |
-| T8 | NONE | **CREATE** | même défaut que T2 (`ouvre`+please) | FAIL |
-| T9 | CREATE | CREATE | R12 fixture | PASS |
-| T10 | REVISE | REVISE | R06 | PASS |
-
-**Défaut confirmé** (3 FAIL).
-
----
-
-## 6. Cause prouvée
-
-La politesse documentaire (`CREATE_PLEASE_RE`) autorisait CREATE :
-
-- sans verbe CREATE (T1) ;
-- en liant un verbe CREATE d'une **autre clause** (Git) à « document … s'il te plaît » (T2/T8).
-
-Ce n'était pas un simple co-présence de mots dans la fenêtre structurée : c'étaient des **raccourcis globaux** parallèles à `clauseWindowAfterVerb`.
-
----
-
-## 7. Correction exacte
-
-1. **Suppression** de `CREATE_PLEASE_RE` et de ses deux raccourcis.
-2. CREATE uniquement via `hasExplicitCreateIntent` (verbe positif + objet dans **même** fenêtre de clause).
-3. `clauseWindowAfterVerb` coupe aussi sur `puis`/`ensuite`/`alors` et verbes consultatifs (`montre`, `ouvre`, `affiche`, `liste`, `consulte`, `voir`).
-
-T3 « Crée un document … s'il te plaît » reste CREATE via la fenêtre structurée (verbe+objet).
-
----
-
-## 8. Diffs intégraux (`git show 771844fd`)
-
-```
-commit 771844fda083ce3c1858b77b0012e5bf2b801605
-Author:     Morris Cleland <morris@MacBook-Air.local>
-AuthorDate: Mon Nov 9 23:41:59 2026 +0100
-Commit:     Morris Cleland <morris@MacBook-Air.local>
-CommitDate: Mon Nov 9 23:41:59 2026 +0100
-
-    fix(studio-next): close CREATE_PLEASE_RE cross-clause authority gap
-
-    Polite document phrasing and Git-create verbs in other clauses must not authorize D4; require create verb and documentary object in the same clause window.
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index bf729484..eaf63f64 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -1264,3 +1264,19 @@ Append-only logical journal of Cursor product deliveries.
- | RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
- | Push Product | **AUCUN** |
- | Verdict candidat | `READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY` |
-+
-+## delivery_id: DELIV-2026-11-09-ML4-CREATE-PLEASE-RE-AUTHORITY
-+
-+| Champ | Valeur |
-+| --- | --- |
-+| Date (Europe/Paris) | 2026-11-09 ~23:45 CET |
-+| Macro-capacité | R5 / ML4 — Discriminant final CREATE_PLEASE_RE |
-+| Type | CYCLE 8 / PATCH candidate / `NO RELEASE` |
-+| Parent tip | `5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea` |
-+| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; RECETTE gelée |
-+| Cause | CREATE_PLEASE_RE global + fallback qualify sans verbe → FP T1/T2/T8 |
-+| Changements | suppression CREATE_PLEASE_RE ; clause window `puis`/consultatif ; tests T1–T10 + PG T2 |
-+| Validations | unit 92 PASS ; PG Chat First 18 PASS ; tsc/build production PASS |
-+| RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
-+| Push Product | **AUCUN** |
-+| Verdict | `CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW` |
-diff --git a/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md b/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
-index b88542c8..1da277ff 100644
---- a/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
-+++ b/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
-@@ -653,3 +653,15 @@ Verdict candidat : **READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINIS
- | RECETTE | INCHANGÉE | `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
-
- Verdict candidat : **READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY**.
-+
-+## 34. Discriminant CREATE_PLEASE_RE (2026-11-09)
-+
-+| Item | Statut | Note |
-+|---|---|---|
-+| T1/T2/T8 avant correctif | FAIL → CREATE FP | fallback `CREATE_PLEASE_RE` sans verbe ; raccourci polite + verbe d'une autre clause |
-+| Correction | CORRIGÉ | suppression CREATE_PLEASE_RE ; fenêtre clause coupe `puis` / verbes consultatifs |
-+| T1–T10 après | DET PASS | unit discriminant + PG T2 zéro D4 |
-+| R12 / R06 | NON-RÉGRESSION | CREATE / REVISE inchangés |
-+| RECETTE | INCHANGÉE | `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
-+
-+Verdict : **CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW**.
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-index ebfc4377..c1a07b3c 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-@@ -23,13 +23,13 @@ const SECTION_RE =
-   /\b(?:section|partie|chapitre)\s+(\d+|[A-Za-zÀ-ÿ][\wÀ-ÿ-]*)\b/i;
- const DOC_ID_RE = /\b(doc_[a-z0-9-]+)\b/i;
-
--const CREATE_PLEASE_RE =
--  /\b(documents?|note de synthèse|rapports?)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i;
--
- /**
-  * Complements allowed between a CREATE verb and a documentary object
-  * (location, novelty, title framing) — not a free-form widen of authority.
-  * No project/client proper names hardcoded: capitalized tokens pass via isCreateComplementToken.
-+ *
-+ * Note: historical CREATE_PLEASE_RE (« document … s'il te plaît ») was removed —
-+ * politeness alone never authorizes D4; create verb + object must share a clause window.
-  */
- const CREATE_COMPLEMENT_TOKEN_RE =
-   /^(?:et|ou|puis|dans|sur|pour|de|du|des|le|la|les|un|une|ce|cette|ces|au|aux|en|par|avec|vers|sous|interne|internes|studio|projet|recette|nouveau|nouvelle|nouveaux|nouvelles|intitulé|intitulée|intitulés|intitulées|nommé|nommée|appelé|appelée|enregistre|enregistrer|sauvegarde|sauvegarder|persist|persiste|persister|d4|documents?|notes?|synthèses?|rapports?|spécifications?|titre|espace)$/i;
-@@ -88,23 +88,27 @@ function hasAmbiguousCreateContradiction(text: string): boolean {
- }
-
- /**
-- * Text after a verb up to the next create/revise verb or hard clause break —
-- * prevents binding a later clause's documentary object to an earlier verb.
-+ * Text after a verb up to the next create/revise verb, consultative verb,
-+ * or hard clause break — prevents binding a later clause's documentary object
-+ * to an earlier verb (e.g. « Crée une branche, puis montre-moi le document »).
-  */
- function clauseWindowAfterVerb(text: string, afterVerbIndex: number, maxLen = 160): string {
-   const after = text.slice(afterVerbIndex, afterVerbIndex + maxLen);
-   const nextAct =
--    /\b(?:rédige|rédiger|écris|écrire|produis|produire|crée|créer|révise|reviser|réviser|revise|modifie|modifier|corrige|corriger)\b/i.exec(
-+    /\b(?:rédige|rédiger|écris|écrire|produis|produire|crée|créer|révise|reviser|réviser|revise|modifie|modifier|corrige|corriger|montre(?:[- ]moi)?|affiche|ouvre|liste|consulte|voir)\b/i.exec(
-       after.slice(1),
-     );
-   let end = after.length;
-   if (nextAct?.index != null) end = Math.min(end, nextAct.index + 1);
-+  // Sequential / contrast clause markers always end the create-object window.
-+  const seqBreak = /\b(?:puis|ensuite|après(?:\s+quoi)?|alors)\b/i.exec(after);
-+  if (seqBreak?.index != null) end = Math.min(end, seqBreak.index);
-   const hardBreak = /[;]|(\bmais\b)/i.exec(after);
-   if (hardBreak?.index != null && hardBreak.index < end) {
-     // Keep « mais » local complements only when it does not introduce another act verb soon after.
-     const afterMais = after.slice(hardBreak.index);
-     if (
--      /\bmais\b[\s\S]{0,20}\b(?:ne\s+)?(?:crée|créer|rédige|rédiger|révise|réviser|modifie|modifier)\b/i.test(
-+      /\bmais\b[\s\S]{0,20}\b(?:ne\s+)?(?:crée|créer|rédige|rédiger|révise|réviser|modifie|modifier|montre|ouvre|affiche)\b/i.test(
-         afterMais,
-       )
-     ) {
-@@ -251,9 +255,8 @@ export function hasExplicitCreateIntent(text: string): boolean {
-   if (hasDurableSaveNegation(t)) return false;
-   if (hasAmbiguousCreateContradiction(t)) return false;
-
--  // Polite « document … s'il te plaît » without a negated create verb.
--  if (CREATE_PLEASE_RE.test(t) && hasPositiveVerb(t, CREATE_VERB_RE)) return true;
--
-+  // Polite CREATE only when the positive create verb and documentary object share
-+  // the same clause window — never « crée [branche] … document, s'il te plaît ».
-   for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
-     if (isVerbNegated(t, verb.index, verb.text.length)) continue;
-     const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
-@@ -437,14 +440,12 @@ export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
-   }
-
-   // CREATE — structured recognition on authority-stripped text only (A7: never Git/quote/tool).
-+  // No CREATE_PLEASE_RE shortcut: « document, s'il te plaît » alone never authorizes D4,
-+  // and politeness cannot bind a create verb from another clause (T1/T2/T8).
-   if (hasExplicitCreateIntent(authorityText)) {
-     return { kind: "CREATE" };
-   }
-
--  if (CREATE_PLEASE_RE.test(authorityText) && !isGlobalDocumentWriteNegation(authorityText)) {
--    return { kind: "CREATE" };
--  }
--
-   if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && !DOC_OBJECT_RE.test(authorityText)) {
-     return { kind: "NONE", reason: "CREATE_WITHOUT_OBJECT" };
-   }
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-index 20fd516a..4fcddb4f 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-@@ -183,6 +183,30 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
-     }
-   });
-
-+  it("T2-CREATE_PLEASE: Git create + polite document show → NONE, zero D4 despite Nora fence", async () => {
-+    const pilotId = await seedPilot("ml4-t2-please");
-+    const prep = await openOrCreatePreparation(pilotId);
-+    const ask =
-+      "Crée une branche Git, puis montre-moi le document existant, s'il te plaît.";
-+    expect(qualifyDocumentAct(ask).kind).toBe("NONE");
-+    turnRaceHooks.replaceNoraAssistantText = () =>
-+      "Illustration:\n\n```sfia-document\n# Ne doit pas être créé\n\ncorps\n```\n";
-+    try {
-+      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
-+      expect(chat.documentSave).toBeNull();
-+      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
-+      const msgs = await listMessages(pilotId, prep.id);
-+      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-+      const body = assistant?.content ?? "";
-+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
-+      expect(body).not.toMatch(/documentId:/);
-+      // Plausible write language (crée…) may yield loyal NOT_EXECUTED pre-effect, never fake FAILED D4.
-+      expect(body).not.toMatch(/Statut observé: FAILED/);
-+    } finally {
-+      delete turnRaceHooks.replaceNoraAssistantText;
-+    }
-+  });
-+
-   it("C10: CREATE qualified but missing autonomous sfia-document → FAILED extract, zero D4", async () => {
-     const pilotId = await seedPilot("ml4-c10-missing");
-     const prep = await openOrCreatePreparation(pilotId);
-diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-index e8f8e471..0408aa25 100644
---- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-@@ -186,6 +186,34 @@ describe("A+D+E CREATE qualification truth table (R12 corrective)", () => {
-     expect(qualifyDocumentAct(t).kind).toBe("CREATE");
-     expect(hasExplicitCreateIntent(t)).toBe(true);
-   });
-+
-+  it("T1–T10 CREATE_PLEASE_RE authority discriminant", () => {
-+    expect(qualifyDocumentAct("Montre-moi le document, s'il te plaît.").kind).toBe("NONE");
-+    expect(
-+      qualifyDocumentAct(
-+        "Crée une branche Git, puis montre-moi le document existant, s'il te plaît.",
-+      ).kind,
-+    ).toBe("NONE");
-+    expect(qualifyDocumentAct("Crée un document de recette, s'il te plaît.").kind).toBe("CREATE");
-+    expect(qualifyDocumentAct("Peux-tu créer et enregistrer un document ?").kind).toBe("CREATE");
-+    expect(qualifyDocumentAct("Comment puis-je créer un document, s'il te plaît ?").kind).toBe(
-+      "NONE",
-+    );
-+    expect(qualifyDocumentAct("Ne crée aucun document, s'il te plaît.").kind).toBe("NONE");
-+    expect(
-+      qualifyDocumentAct("Crée un document de recette, mais ne crée aucune branche Git.").kind,
-+    ).toBe("CREATE");
-+    expect(
-+      qualifyDocumentAct(
-+        "Crée une branche Git, puis ouvre le document de recette, s'il te plaît.",
-+      ).kind,
-+    ).toBe("NONE");
-+    expect(qualifyDocumentAct(R12_USER_EXACT).kind).toBe("CREATE");
-+    const t10 = qualifyDocumentAct(
-+      "Révise uniquement la section 2 du document Synthèse demandée et conserve le reste",
-+    );
-+    expect(t10.kind).toBe("REVISE");
-+  });
- });
-
- describe("document-act qualification — positive", () => {
-
-```
-
----
-
-## 9. RED / GREEN
-
-| Cas | RED (5ed702cb) | GREEN (771844fd) |
-| --- | --- | --- |
-| T1 | CREATE | NONE |
-| T2 | CREATE | NONE |
-| T8 | CREATE | NONE |
-| T3/T4/T7/T9 | CREATE | CREATE |
-| T10 | REVISE | REVISE |
-
----
-
-## 10. Tests unitaires et PG
-
-```
-npx vitest run tests/unit/document-act.test.ts \
-  tests/unit/nora-adapter-corrective.test.ts \
-  tests/unit/ml2-cognition-fixture.test.ts \
-  tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-→ 118 passed (unit document-act 92 ; PG Chat First 18)
-```
-
-PG `T2-CREATE_PLEASE` : ask T2 + fence Nora → `documentSave=null`, 0 docs, pas AVAILABLE/FAILED inventé.
-
-Lane : DEV `127.0.0.1:5433` / `sfia_next_dev`.
-
----
-
-## 11. Non-régression R06 et R12
-
-- T9 / fixture R12 → CREATE
-- T10 / REVISE section 2 → REVISE
-- Suite PG R06 + isolation B : verts dans les 18 PG
-
----
-
-## 12. D4 zéro effet (négatifs)
-
-T1/T2/T8/T5/T6 → NONE ; PG T2 → aucune écriture malgré fence Nora.
-
----
-
-## 13. ACK NOT_EXECUTED
-
-Sur T2 PG : signal documentaire possible → ACK pré-effet NOT_EXECUTED toléré ; **jamais** faux AVAILABLE/FAILED D4. (Même contrat D consolidé.)
-
----
-
-## 14. Fake / Real
-
-| Preuve | Niveau |
-| --- | --- |
-| T1–T10 qualify | DETERMINISTIC VERIFIED |
-| PG T2 zéro D4 | PG DEV VERIFIED |
-| Nora | FAKE fixture |
-| LIVE / GitHub REAL | NOT DEMONSTRATED |
-
----
-
-## 15. TypeScript / lint / build
-
-| Gate | Résultat |
-| --- | --- |
-| tsc --noEmit | PASS |
-| lint | warnings préexistants |
-| NODE_ENV=production build | PASS |
-| git diff --check | PASS |
-
----
-
-## 16. ENV-01 / RECETTE
-
-Inchangée : `93da44be` / BUILD `sHkE8sHJBxD3U9AJdHWi7` / LaunchAgent `…-recette-build-93da44be`. Aucun redeploy / LIVE / DB RECETTE.
-
----
-
-## 17. GitHub non muté
-
-Aucun push produit ; aucun write applicatif GitHub.
-
----
-
-## 18. SHA / tree local final
+## 4. État RECETTE initial
 
 | Champ | Valeur |
 | --- | --- |
-| Commit | `771844fda083ce3c1858b77b0012e5bf2b801605` |
-| Tree | `030a9e87064bade155ae3c585f9954d65d52687f` |
-| Parent | `5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea` |
+| URL | http://127.0.0.1:3200 |
+| SHA servi | `93da44beb7e7571c9406180027896769579b9815` |
+| BUILD_ID | `sHkE8sHJBxD3U9AJdHWi7` |
+| Worktree | `…-ml4-recette-build-93da44be` |
+| LaunchAgent | running |
+| DB | `sfia_next_recette_ml4` @ `127.0.0.1:5434` |
+| STUDIO_LANE | RECETTE |
+| GitHub | `real` / `documentary` |
+| App | 5677465 / install 180092114 / `mcleland147/chantiers360` |
 
 ---
 
-## 19. Réserves restantes
+## 5. SHA/tree candidat vérifiés
 
-1. Pas de bascule RECETTE / R12 LIVE dans ce cycle.
-2. Heuristique « puis » / consultatif : dette linguistique bornée FR.
-3. Lint warnings préexistants hors scope.
-
----
-
-## 20. Verdict
-
-**CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW.**
+- Commit : `771844fda083ce3c1858b77b0012e5bf2b801605`
+- Tree : `030a9e87064bade155ae3c585f9954d65d52687f`
+- Worktree détaché créé depuis object store partagé `sfia-workspace` :
+  `/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-771844fd`
+- `git status` : clean detached HEAD exact
 
 ---
 
-## 21. Gate Morris suivant
+## 6. Stratégie de build isolé
 
-Re-revue ChatGPT (T1–T10, diffs, PG T2, R06/R12) → si conforme, GO distinct bascule RECETTE vers `771844fd`. Aucune bascule automatique.
+1. `git worktree add --detach …-771844fd 771844fd`
+2. `npm ci` dans `projects/sfia-studio-next/web` du worktree
+3. `npx tsc --noEmit`
+4. `env -u NODE_ENV NODE_ENV=production npm run build`
+5. Aucun `.env.local` dans le worktree — config via `~/.config/sfia-studio-next/recette/.env.local`
+6. Artefact 93da44be **conservé** intact
+
+Blast radius code 93da44be..771844fd : conversation qualify/ACK/obs + tests + docs techniques uniquement — **pas** de schema/DB/Git publication.
 
 ---
 
-## Annexe — handoff
+## 7. Build command / result / BUILD_ID
+
+```
+npm ci → PASS
+npx tsc --noEmit → PASS
+NODE_ENV=production npm run build → PASS
+BUILD_ID = SmL2kyWbd1Q3kIuwNw0mQ
+```
+
+---
+
+## 8. Dépendances
+
+`npm ci` : 497 packages ajoutés ; warnings deprecated préexistants. Pas de `npm audit fix` appliqué.
+
+---
+
+## 9. DB / schema avant/après
+
+| Mesure | Avant | Après |
+| --- | --- | --- |
+| documents | 102 | 102 |
+| revisions | 165 | 165 |
+| projects | 12 | 12 |
+| migrations appliquées ce cycle | 0 | 0 |
+| schema tip fichiers | 012_auth_concurrency_safety | identique (pas de delta git) |
+
+---
+
+## 10. Documents D4 / empreintes
+
+Cible `doc_1e5d8c16-98a2-4a58-8096-fe86f4146ec2` (Chantiers360) :
+
+| Rev | ID | Status | md5 |
+| --- | --- | --- | --- |
+| v1 | `drev_c07ca162-…` | AVAILABLE | `de4bd1a6e59f5dea12fd38ce265b5f43` |
+| v2 | `drev_31678175-…` | AVAILABLE | `a875d28e64e460cc1d9837e4d5c8bd36` |
+
+Identiques avant/après. Aucune écriture D4.
+
+---
+
+## 11. Configuration Git avant/après (expurgée)
+
+Inchangée :
+
+- `STUDIO_GITHUB_PROVIDER=real`
+- `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary`
+- App ID `5677465` / Installation `180092114` / repo sandbox `mcleland147/chantiers360`
+- `SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY`
+
+Seul override runtime via start script : `SFIA_SOURCE_SHA=771844fd…` (après `source` du `.env.local`).
+
+---
+
+## 12. Launcher / PID / port
+
+### Avant
+- program: `…-recette-build-93da44be/start-recette.sh`
+- BUILD HTML: `sHkE8sHJBxD3U9AJdHWi7`
+
+### Après
+- program: `…-recette-build-771844fd/start-recette.sh`
+- job pid: `66958` ; listen `node` pid `66978` sur `127.0.0.1:3200`
+- BUILD HTML: `SmL2kyWbd1Q3kIuwNw0mQ`
+
+### start-recette.sh (nouveau — contenu complet)
+
+```
+#!/bin/bash
+set -euo pipefail
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+cd /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-771844fd/projects/sfia-studio-next/web
+set -a
+source "$HOME/.config/sfia-studio-next/recette/.env.local"
+set +a
+export SFIA_SOURCE_SHA=771844fda083ce3c1858b77b0012e5bf2b801605
+export NODE_ENV=production
+exec npx next start -H 127.0.0.1 -p 3200
+
+```
+
+### start-recette.sh (ancien — conservé)
+
+```
+#!/bin/bash
+set -euo pipefail
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+cd /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-93da44be/projects/sfia-studio-next/web
+set -a
+source "$HOME/.config/sfia-studio-next/recette/.env.local"
+set +a
+export SFIA_SOURCE_SHA=93da44beb7e7571c9406180027896769579b9815
+export NODE_ENV=production
+exec npx next start -H 127.0.0.1 -p 3200
+
+```
+
+### plist actuel (contenu complet)
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.sfia.studio.next.recette.ml4</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-771844fd/start-recette.sh</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-771844fd/projects/sfia-studio-next/web</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-771844fd/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-771844fd/launchd.err.log</string>
+</dict>
+</plist>
+
+```
+
+---
+
+## 13. Diff configuration déploiement
+
+- Plist `ProgramArguments` / `WorkingDirectory` / logs → chemins `…-771844fd`
+- Nouveau `start-recette.sh` avec `SFIA_SOURCE_SHA=771844fd…`
+- Aucune modification du fichier secrets `~/.config/…/recette/.env.local`
+
+---
+
+## 14. Procédure rollback CODE/CONFIG
+
+Cible retour : `93da44be` / BUILD `sHkE8sHJBxD3U9AJdHWi7`
+
+Backup : `/Users/morris/Projects/sfia-recette-backups/ml4-20261109-235813-pre-771844fd`
+
+```
+old_sha=93da44beb7e7571c9406180027896769579b9815
+old_build=sHkE8sHJBxD3U9AJdHWi7
+old_worktree=/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-93da44be
+new_build=SmL2kyWbd1Q3kIuwNw0mQ
+
+```
+
+Étapes :
+1. Restaurer le plist sauvegardé (program → `…-93da44be/start-recette.sh`)
+2. `launchctl bootout gui/$UID/com.sfia.studio.next.recette.ml4`
+3. `launchctl bootstrap gui/$UID …/com.sfia.studio.next.recette.ml4.plist`
+4. Vérifier HTML `<!--sHkE8sHJBxD3U9AJdHWi7-->` et port 3200
+5. Recontrôler D4 (lecture seule)
+
+Aucune restauration DB requise (pas de migration).
+
+---
+
+## 15. État du rollback
+
+**DOCUMENTED / NOT EXERCISED** — smoke PASS, pas de retour forcé.
+
+---
+
+## 16. Smoke non mutatif
+
+| Check | Résultat |
+| --- | --- |
+| GET / | 307 |
+| GET /login | 200 |
+| GET /portfolio | 200 |
+| GET /settings/integrations | 200 |
+| /api/portfolio (no session) | 401 SESSION_INVALID |
+| /api/integrations/status | 401 SESSION_INVALID |
+| BUILD fingerprint | `SmL2kyWbd1Q3kIuwNw0mQ` FOUND |
+| ancien BUILD | ABSENT |
+| Listen | 127.0.0.1:3200 |
+| DEV :3100 | unreachable/idle |
+| Nora LIVE | NOT RUN |
+| GitHub write | NOT RUN |
+
+---
+
+## 17. GitHub distant
+
+| Témoin | Observé |
+| --- | --- |
+| main | `8c398c494dd918272aab5b2653777c6c21d2e76e` |
+| PR #18 | OPEN / merged=false |
+
+Aucun effet GitHub de ce cycle.
+
+---
+
+## 18. Manifeste ENV-01 (contenu complet)
+
+Path local (untracked, comme les manifestes précédents) :
+`projects/sfia-studio-next/construction/integration-git/env01-recette-manifest-ml4-771844fd-2026-11-09.md`
+
+```
+# ENV-01 — Manifeste RECETTE ML4 — bascule 771844fd (Cycle 11)
+
+lane: RECETTE
+repository: mcleland147/sfia-workspace
+source_branch: fix/next-ml4-chat-first-d4-provenance-20261109
+source_sha: 771844fda083ce3c1858b77b0012e5bf2b801605
+tree_sha: 030a9e87064bade155ae3c585f9954d65d52687f
+base_main_sha: 6667a43858a5421e391b7441246536daad148bd6
+previous_source_sha: 93da44beb7e7571c9406180027896769579b9815
+previous_build_id: sHkE8sHJBxD3U9AJdHWi7
+current_build_id: SmL2kyWbd1Q3kIuwNw0mQ
+product_version_technical: 0.0.0-dev
+candidate_version: NOT AVAILABLE (PATCH candidate / NO RELEASE)
+release_tag: N/A
+schema_revision: 012_auth_concurrency_safety (no migration delta 93da44be..771844fd)
+served_address: http://127.0.0.1:3200
+worktree: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-771844fd
+hot_reload: OFF (`next start` production)
+delivery_status_recette: TECHNICAL SMOKE PASS
+user_result: UNKNOWN / R12 LIVE NOT RUN
+
+## Launcher
+
+- mechanism: LaunchAgent `com.sfia.studio.next.recette.ml4`
+- plist: ~/Library/LaunchAgents/com.sfia.studio.next.recette.ml4.plist
+- program: …/sfia-workspace-next-ml4-recette-build-771844fd/start-recette.sh
+- KeepAlive: true ; RunAtLoad: true
+- process: launchd job pid 66958 ; next-server listen pid 66978 on 127.0.0.1:3200
+- previous artefact preserved: …-ml4-recette-build-93da44be BUILD sHkE8sHJBxD3U9AJdHWi7
+
+## Dataset préservé
+
+- db: sfia_next_recette_ml4 @ 127.0.0.1:5434
+- target D4: doc_1e5d8c16-98a2-4a58-8096-fe86f4146ec2
+- v1: drev_c07ca162-faa4-48f5-b705-018e41ae88d9 AVAILABLE md5 de4bd1a6e59f5dea12fd38ce265b5f43
+- v2: drev_31678175-cb9a-4a1e-ab60-6ead8fe076fb AVAILABLE md5 a875d28e64e460cc1d9837e4d5c8bd36
+- counts at switch: documents=102 revisions=165 projects=12 (unchanged before/after)
+- schema: no migration applied this cycle
+
+## Backup / rollback CODE-CONFIG
+
+- backup_dir: /Users/morris/Projects/sfia-recette-backups/ml4-20261109-235813-pre-771844fd
+- contains: previous plist + start-recette-93da44be.sh + rollback-target.txt
+- DB restore: FORBIDDEN without Morris GO (not required — no migration)
+- rollback_code: DOCUMENTED / NOT EXERCISED
+- rollback steps:
+  1. restore plist ProgramArguments to …-recette-build-93da44be/start-recette.sh
+  2. launchctl bootout + bootstrap
+  3. verify HTML fingerprint sHkE8sHJBxD3U9AJdHWi7 and SFIA_SOURCE_SHA override 93da44be
+
+## Nora / GitHub
+
+- SFIA_COG_PROFILE_TYPE: TEST_BOUNDARY
+- OPENAI_API_KEY: PRESENT (LIVE NOT RUN)
+- STUDIO_GITHUB_PROVIDER: real
+- STUDIO_GITHUB_ALLOW_MUTATIONS: documentary
+- GitHub App ID: 5677465 / Installation: 180092114 / repo: mcleland147/chantiers360
+- mutations GitHub REAL: OFF / NONE this cycle
+- main tip observed: 8c398c494dd918272aab5b2653777c6c21d2e76e
+- PR #18: OPEN / not merged
+- R12 LIVE: NOT RUN
+- Nora LIVE: NOT RUN
+
+## Build / smoke
+
+- worktree detached clean at 771844fd / tree 030a9e87…
+- npm ci: PASS
+- tsc --noEmit: PASS
+- env -u NODE_ENV NODE_ENV=production npm run build: PASS → SmL2kyWbd1Q3kIuwNw0mQ
+- migration delta 93da44be..771844fd: NONE (conversation/obs/tests/docs only)
+- HTTP: / → 307 ; /login /portfolio /settings/integrations → 200
+- APIs sans session: /api/portfolio 401 SESSION_INVALID ; /api/integrations/status 401
+- HTML fingerprint: SmL2kyWbd1Q3kIuwNw0mQ FOUND ; ancien sHkE8sHJ… ABSENT
+- DEV :3100 unreachable/idle ; STABLE N/A
+
+## Capabilities
+
+openai: CONFIGURED / LIVE NOT RUN
+github: REAL DOCUMENTARY CONFIGURED / WRITE NOT RUN
+cursor: NOT APPLICABLE TO ML4 USER EFFECT
+
+## known_gaps
+
+R12 LIVE NON REJOUÉ
+R13/R14 NON EXÉCUTÉS
+MERGE REAL HARD-BLOCKED
+RÉSERVES ML4 EXISTANTES (cookies lane 127.0.0.1)
+
+## review_decision
+
+GO MORRIS BASCULE RECETTE
+ACCEPTATION UTILISATEUR R12 EN ATTENTE
+
+## Verdict technique
+
+RECETTE DEPLOYED — CANDIDATE 771844FD VERIFIED — R12 LIVE USER RETEST NOT RUN
+
+date: 2026-11-09T23:58:30+01:00
+
+```
+
+---
+
+## 19. Fake / Real Qualification
+
+| Domaine | Niveau |
+| --- | --- |
+| Runtime RECETTE servi | REAL (build production `next start`) |
+| Smoke HTTP | REAL |
+| D4 lecture | REAL DB RECETTE |
+| GitHub distant lecture | REAL |
+| Correctif A+D+E comportement utilisateur | **NOT REPROVEN LIVE** (R12 NOT RUN) |
+| Preuves correctif antérieures | DET/PG DEV (cycles précédents) |
+
+---
+
+## 20. Absence Nora LIVE / GitHub writes
+
+Confirmé : aucun appel génération, aucune HumanDecision, aucun dispatch publication, aucune branche/commit/PR créés.
+
+---
+
+## 21. Réserves connues
+
+1. Collision cookies lanes `127.0.0.1` (profils navigateur séparés requis).
+2. R12 LIVE utilisateur **non rejoué**.
+3. `.env.local` conserve encore une ancienne valeur `SFIA_SOURCE_SHA=8ba77730` ; **override** effectif par `start-recette.sh` (771844fd). Dette cosmétique non bloquante.
+4. Rollback non exercé (documenté seulement).
+
+---
+
+## 22. Verdict technique
+
+**RECETTE DEPLOYED — CANDIDATE 771844FD VERIFIED — R12 LIVE USER RETEST NOT RUN.**
+
+---
+
+## 23. Gate utilisateur R12
+
+Prochaine étape Morris : reprise R12 **une action à la fois**, en commençant par CREATE D4 LIVE sur CampusFlow — **pas** déclenchée automatiquement.
+
+---
+
+## 24. Handoff distant
 
 _(complété après publish L3)_
+
+---
+
+## Annexes — inventaire artefacts
+
+| Artefact | Path |
+| --- | --- |
+| Nouveau worktree | `/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-771844fd` |
+| Ancien worktree | `/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-93da44be` |
+| Backup rollback | `/Users/morris/Projects/sfia-recette-backups/ml4-20261109-235813-pre-771844fd` |
+| Manifeste | `…/env01-recette-manifest-ml4-771844fd-2026-11-09.md` |
