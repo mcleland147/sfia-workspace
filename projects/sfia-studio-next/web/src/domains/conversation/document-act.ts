@@ -23,13 +23,13 @@ const SECTION_RE =
   /\b(?:section|partie|chapitre)\s+(\d+|[A-Za-zÀ-ÿ][\wÀ-ÿ-]*)\b/i;
 const DOC_ID_RE = /\b(doc_[a-z0-9-]+)\b/i;
 
-const CREATE_PLEASE_RE =
-  /\b(documents?|note de synthèse|rapports?)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i;
-
 /**
  * Complements allowed between a CREATE verb and a documentary object
  * (location, novelty, title framing) — not a free-form widen of authority.
  * No project/client proper names hardcoded: capitalized tokens pass via isCreateComplementToken.
+ *
+ * Note: historical CREATE_PLEASE_RE (« document … s'il te plaît ») was removed —
+ * politeness alone never authorizes D4; create verb + object must share a clause window.
  */
 const CREATE_COMPLEMENT_TOKEN_RE =
   /^(?:et|ou|puis|dans|sur|pour|de|du|des|le|la|les|un|une|ce|cette|ces|au|aux|en|par|avec|vers|sous|interne|internes|studio|projet|recette|nouveau|nouvelle|nouveaux|nouvelles|intitulé|intitulée|intitulés|intitulées|nommé|nommée|appelé|appelée|enregistre|enregistrer|sauvegarde|sauvegarder|persist|persiste|persister|d4|documents?|notes?|synthèses?|rapports?|spécifications?|titre|espace)$/i;
@@ -88,23 +88,27 @@ function hasAmbiguousCreateContradiction(text: string): boolean {
 }
 
 /**
- * Text after a verb up to the next create/revise verb or hard clause break —
- * prevents binding a later clause's documentary object to an earlier verb.
+ * Text after a verb up to the next create/revise verb, consultative verb,
+ * or hard clause break — prevents binding a later clause's documentary object
+ * to an earlier verb (e.g. « Crée une branche, puis montre-moi le document »).
  */
 function clauseWindowAfterVerb(text: string, afterVerbIndex: number, maxLen = 160): string {
   const after = text.slice(afterVerbIndex, afterVerbIndex + maxLen);
   const nextAct =
-    /\b(?:rédige|rédiger|écris|écrire|produis|produire|crée|créer|révise|reviser|réviser|revise|modifie|modifier|corrige|corriger)\b/i.exec(
+    /\b(?:rédige|rédiger|écris|écrire|produis|produire|crée|créer|révise|reviser|réviser|revise|modifie|modifier|corrige|corriger|montre(?:[- ]moi)?|affiche|ouvre|liste|consulte|voir)\b/i.exec(
       after.slice(1),
     );
   let end = after.length;
   if (nextAct?.index != null) end = Math.min(end, nextAct.index + 1);
+  // Sequential / contrast clause markers always end the create-object window.
+  const seqBreak = /\b(?:puis|ensuite|après(?:\s+quoi)?|alors)\b/i.exec(after);
+  if (seqBreak?.index != null) end = Math.min(end, seqBreak.index);
   const hardBreak = /[;]|(\bmais\b)/i.exec(after);
   if (hardBreak?.index != null && hardBreak.index < end) {
     // Keep « mais » local complements only when it does not introduce another act verb soon after.
     const afterMais = after.slice(hardBreak.index);
     if (
-      /\bmais\b[\s\S]{0,20}\b(?:ne\s+)?(?:crée|créer|rédige|rédiger|révise|réviser|modifie|modifier)\b/i.test(
+      /\bmais\b[\s\S]{0,20}\b(?:ne\s+)?(?:crée|créer|rédige|rédiger|révise|réviser|modifie|modifier|montre|ouvre|affiche)\b/i.test(
         afterMais,
       )
     ) {
@@ -251,9 +255,8 @@ export function hasExplicitCreateIntent(text: string): boolean {
   if (hasDurableSaveNegation(t)) return false;
   if (hasAmbiguousCreateContradiction(t)) return false;
 
-  // Polite « document … s'il te plaît » without a negated create verb.
-  if (CREATE_PLEASE_RE.test(t) && hasPositiveVerb(t, CREATE_VERB_RE)) return true;
-
+  // Polite CREATE only when the positive create verb and documentary object share
+  // the same clause window — never « crée [branche] … document, s'il te plaît ».
   for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
     if (isVerbNegated(t, verb.index, verb.text.length)) continue;
     const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
@@ -437,11 +440,9 @@ export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
   }
 
   // CREATE — structured recognition on authority-stripped text only (A7: never Git/quote/tool).
+  // No CREATE_PLEASE_RE shortcut: « document, s'il te plaît » alone never authorizes D4,
+  // and politeness cannot bind a create verb from another clause (T1/T2/T8).
   if (hasExplicitCreateIntent(authorityText)) {
-    return { kind: "CREATE" };
-  }
-
-  if (CREATE_PLEASE_RE.test(authorityText) && !isGlobalDocumentWriteNegation(authorityText)) {
     return { kind: "CREATE" };
   }
 

@@ -653,3 +653,15 @@ Verdict candidat : **READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINIS
 | RECETTE | INCHANGÉE | `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
 
 Verdict candidat : **READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY**.
+
+## 34. Discriminant CREATE_PLEASE_RE (2026-11-09)
+
+| Item | Statut | Note |
+|---|---|---|
+| T1/T2/T8 avant correctif | FAIL → CREATE FP | fallback `CREATE_PLEASE_RE` sans verbe ; raccourci polite + verbe d'une autre clause |
+| Correction | CORRIGÉ | suppression CREATE_PLEASE_RE ; fenêtre clause coupe `puis` / verbes consultatifs |
+| T1–T10 après | DET PASS | unit discriminant + PG T2 zéro D4 |
+| R12 / R06 | NON-RÉGRESSION | CREATE / REVISE inchangés |
+| RECETTE | INCHANGÉE | `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
+
+Verdict : **CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW**.

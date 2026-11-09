@@ -186,6 +186,34 @@ describe("A+D+E CREATE qualification truth table (R12 corrective)", () => {
     expect(qualifyDocumentAct(t).kind).toBe("CREATE");
     expect(hasExplicitCreateIntent(t)).toBe(true);
   });
+
+  it("T1–T10 CREATE_PLEASE_RE authority discriminant", () => {
+    expect(qualifyDocumentAct("Montre-moi le document, s'il te plaît.").kind).toBe("NONE");
+    expect(
+      qualifyDocumentAct(
+        "Crée une branche Git, puis montre-moi le document existant, s'il te plaît.",
+      ).kind,
+    ).toBe("NONE");
+    expect(qualifyDocumentAct("Crée un document de recette, s'il te plaît.").kind).toBe("CREATE");
+    expect(qualifyDocumentAct("Peux-tu créer et enregistrer un document ?").kind).toBe("CREATE");
+    expect(qualifyDocumentAct("Comment puis-je créer un document, s'il te plaît ?").kind).toBe(
+      "NONE",
+    );
+    expect(qualifyDocumentAct("Ne crée aucun document, s'il te plaît.").kind).toBe("NONE");
+    expect(
+      qualifyDocumentAct("Crée un document de recette, mais ne crée aucune branche Git.").kind,
+    ).toBe("CREATE");
+    expect(
+      qualifyDocumentAct(
+        "Crée une branche Git, puis ouvre le document de recette, s'il te plaît.",
+      ).kind,
+    ).toBe("NONE");
+    expect(qualifyDocumentAct(R12_USER_EXACT).kind).toBe("CREATE");
+    const t10 = qualifyDocumentAct(
+      "Révise uniquement la section 2 du document Synthèse demandée et conserve le reste",
+    );
+    expect(t10.kind).toBe("REVISE");
+  });
 });
 
 describe("document-act qualification — positive", () => {

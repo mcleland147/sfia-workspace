@@ -183,6 +183,30 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     }
   });
 
+  it("T2-CREATE_PLEASE: Git create + polite document show → NONE, zero D4 despite Nora fence", async () => {
+    const pilotId = await seedPilot("ml4-t2-please");
+    const prep = await openOrCreatePreparation(pilotId);
+    const ask =
+      "Crée une branche Git, puis montre-moi le document existant, s'il te plaît.";
+    expect(qualifyDocumentAct(ask).kind).toBe("NONE");
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "Illustration:\n\n```sfia-document\n# Ne doit pas être créé\n\ncorps\n```\n";
+    try {
+      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
+      expect(chat.documentSave).toBeNull();
+      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
+      const msgs = await listMessages(pilotId, prep.id);
+      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+      const body = assistant?.content ?? "";
+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
+      expect(body).not.toMatch(/documentId:/);
+      // Plausible write language (crée…) may yield loyal NOT_EXECUTED pre-effect, never fake FAILED D4.
+      expect(body).not.toMatch(/Statut observé: FAILED/);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
   it("C10: CREATE qualified but missing autonomous sfia-document → FAILED extract, zero D4", async () => {
     const pilotId = await seedPilot("ml4-c10-missing");
     const prep = await openOrCreatePreparation(pilotId);

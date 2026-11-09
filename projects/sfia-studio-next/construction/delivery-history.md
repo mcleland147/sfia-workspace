@@ -1264,3 +1264,19 @@ Append-only logical journal of Cursor product deliveries.
 | RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
 | Push Product | **AUCUN** |
 | Verdict candidat | `READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-CREATE-PLEASE-RE-AUTHORITY
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~23:45 CET |
+| Macro-capacité | R5 / ML4 — Discriminant final CREATE_PLEASE_RE |
+| Type | CYCLE 8 / PATCH candidate / `NO RELEASE` |
+| Parent tip | `5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea` |
+| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; RECETTE gelée |
+| Cause | CREATE_PLEASE_RE global + fallback qualify sans verbe → FP T1/T2/T8 |
+| Changements | suppression CREATE_PLEASE_RE ; clause window `puis`/consultatif ; tests T1–T10 + PG T2 |
+| Validations | unit 92 PASS ; PG Chat First 18 PASS ; tsc/build production PASS |
+| RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
+| Push Product | **AUCUN** |
+| Verdict | `CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW` |
