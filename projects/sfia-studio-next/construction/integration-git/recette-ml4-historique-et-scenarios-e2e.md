@@ -1,9 +1,9 @@
 # SFIA Studio Next — ML4 | Historique de réalisation et cahier de RECETTE E2E
 
-**Date :** 9 novembre 2026  
-**Statut :** **VALIDATED IN CONTENT BY MORRIS — 2026-11-09** ; publication documentaire D1 sur branche dédiée ; **NOT MERGED** ; recette Morris **NOT RUN**  
-**Périmètre :** R5 / ML4 « Collaborer et publier avec Git » — environnement DEV, déploiement RECETTE et parcours utilisateur  
-**Responsables :** Morris (RECETTE, arbitrages et gates) ; ChatGPT (analyse, suivi, revue) ; Cursor (technique sous mandat SFIA v2.6)  
+**Date :** 9 novembre 2026
+**Statut :** **VALIDATED IN CONTENT BY MORRIS — 2026-11-09** ; publication documentaire D1 sur branche dédiée ; **NOT MERGED** ; recette Morris **NOT RUN**
+**Périmètre :** R5 / ML4 « Collaborer et publier avec Git » — environnement DEV, déploiement RECETTE et parcours utilisateur
+**Responsables :** Morris (RECETTE, arbitrages et gates) ; ChatGPT (analyse, suivi, revue) ; Cursor (technique sous mandat SFIA v2.6)
 **Chemin Git de publication documentaire :** `projects/sfia-studio-next/construction/integration-git/recette-ml4-historique-et-scenarios-e2e.md`
 
 ## 1. Pourquoi ML4 ?
