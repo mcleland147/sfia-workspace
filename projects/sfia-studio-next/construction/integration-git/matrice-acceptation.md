@@ -533,3 +533,18 @@ Macro-correctif local sur candidat `974b0030` → branche `fix/next-ml4-chat-fir
 | USER / RECETTE | NOT RUN | Nouveau build + GO Morris requis |
 
 Verdict cycle : **ML4 CHAT-FIRST D4 + GIT PROVENANCE — LOCALLY IMPLEMENTED WITH VERIFIED DEV COVERAGE — READY FOR REVIEW — PRODUCT PUSH / RECETTE REDEPLOY NOT AUTHORIZED**.
+
+## 26. Passe corrective — qualification sûre + intégrité section + ACK (2026-11-09)
+
+Suite revue ChatGPT du macro-lot §25. Même branche `fix/next-ml4-chat-first-d4-provenance-20261109`. Push Product **NON AUTORISÉ**.
+
+| Item | Statut | Note |
+|---|---|---|
+| Négation / question informative | CORRIGÉ (DET) | `qualifyDocumentAct` → NONE ; pas de mutation DB |
+| Restriction locale « autres sections » | CONSERVÉ | REVISE positif autorisé |
+| Intégrité Markdown hors cible | CORRIGÉ (DET) | splice exact (`locateSections`) ; plus de `renderSections` normalisant |
+| Cohérence Nora / ACK | CORRIGÉ (DET) | `reconcileNarrationWithDocumentEffect` avant append ACK |
+| Provenance Git REC-07 | INCHANGÉ | non-régression DET |
+| USER / RECETTE | NOT RUN | gate Morris |
+
+Verdict : **ML4 CHAT-FIRST CORRECTIVE PASS — LOCALLY VERIFIED — READY FOR REVIEW**.

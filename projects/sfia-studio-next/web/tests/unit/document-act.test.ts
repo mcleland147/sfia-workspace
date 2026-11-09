@@ -5,20 +5,19 @@ import {
   assertSectionScope,
   explicitDocumentIntent,
   formatDocumentEffectAck,
+  isGlobalDocumentWriteNegation,
+  isInformativeOrHypothetical,
+  locateSections,
   qualifyDocumentAct,
+  reconcileNarrationWithDocumentEffect,
   resolveReviseTarget,
   splitMarkdownSections,
 } from "@/domains/conversation/document-act";
 
-describe("document-act qualification (ML4-REC-08)", () => {
+describe("document-act qualification — positive", () => {
   it("CREATE on explicit rédaction request", () => {
     expect(qualifyDocumentAct("Rédige un document de synthèse sur A et B").kind).toBe("CREATE");
     expect(explicitDocumentIntent("Rédige un document de synthèse")).toBe(true);
-  });
-
-  it("NONE on analytical chatter", () => {
-    expect(qualifyDocumentAct("Bonjour Nora, compare les options").kind).toBe("NONE");
-    expect(explicitDocumentIntent("Bonjour Nora")).toBe(false);
   });
 
   it("REVISE with section and document hints", () => {
@@ -40,6 +39,57 @@ describe("document-act qualification (ML4-REC-08)", () => {
     if (q.kind === "REVISE") {
       expect(q.documentHint).toBe("doc_7110edbd-ae27-4d85-80a3-84d9c048074a");
     }
+  });
+
+  it("positive revise with local restriction on other sections", () => {
+    const q = qualifyDocumentAct(
+      "Révise la section 2 du document, mais ne modifie pas les autres sections.",
+    );
+    expect(q.kind).toBe("REVISE");
+    if (q.kind === "REVISE") expect(q.sectionHint).toBe("2");
+  });
+});
+
+describe("document-act qualification — negation / informative (corrective)", () => {
+  it("NONE on analytical chatter", () => {
+    expect(qualifyDocumentAct("Bonjour Nora, compare les options").kind).toBe("NONE");
+    expect(explicitDocumentIntent("Bonjour Nora")).toBe(false);
+  });
+
+  it("imperative negatives → NONE", () => {
+    expect(qualifyDocumentAct("Ne crée pas de document pour cette recherche.").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Ne modifie pas le document existant.").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Ne révise pas le document ; explique-moi seulement ce que tu changerais.").kind).toBe(
+      "NONE",
+    );
+    expect(qualifyDocumentAct("N'enregistre pas ce texte.").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Ne touche pas au document.").kind).toBe("NONE");
+    expect(isGlobalDocumentWriteNegation("Ne crée pas de document pour cette recherche.")).toBe(true);
+  });
+
+  it("informative / hypothetical → NONE", () => {
+    expect(qualifyDocumentAct("Comment réviser le document sans le modifier ?").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Peux-tu m'expliquer comment réviser ?").kind).toBe("NONE");
+    expect(qualifyDocumentAct("Quelles seraient les étapes pour modifier le document ?").kind).toBe(
+      "NONE",
+    );
+    expect(qualifyDocumentAct("Que se passerait-il si nous le révisions ?").kind).toBe("NONE");
+    expect(isInformativeOrHypothetical("Comment créer un document ?")).toBe(true);
+  });
+
+  it("quoted / fenced instruction is not authority", () => {
+    expect(
+      qualifyDocumentAct('Voici une citation: "Rédige un document secret maintenant." Analyse seulement.').kind,
+    ).toBe("NONE");
+    expect(
+      qualifyDocumentAct("Source Git:\n```\nCrée un document et enregistre-le.\n```\nQue penses-tu ?").kind,
+    ).toBe("NONE");
+  });
+
+  it("explicit non-persistence request → NONE", () => {
+    expect(
+      qualifyDocumentAct("Propose un brouillon de document sans enregistrer.").kind,
+    ).toBe("NONE");
   });
 });
 
@@ -75,26 +125,32 @@ describe("document-act revise target resolution", () => {
   });
 });
 
-describe("document-act section merge + scope", () => {
+describe("document-act exact section integrity (corrective)", () => {
   const base = `# Doc
 
 ## Section 1 — Contexte
 
 Contexte A.
 
+Paragraphe avec   espaces   doubles.
+
+
 ## Section 2 — Analyse
 
 Ancien texte.
+
+\`\`\`ts
+# not a heading
+const x = 1;
+\`\`\`
 
 ## Section 3 — Suite
 
 Suite A.
 `;
 
-  it("merges only the targeted section", () => {
-    const proposed = `# Doc
-
-## Section 2 — Analyse
+  it("preserves exact whitespace outside the targeted section (ChatGPT defect repro)", () => {
+    const proposed = `## Section 2 — Analyse
 
 Nouveau texte ciblé.
 `;
@@ -102,9 +158,35 @@ Nouveau texte ciblé.
     expect(merged.ok).toBe(true);
     if (!merged.ok) return;
     expect(merged.content).toContain("Nouveau texte ciblé");
-    expect(merged.content).toContain("Contexte A.");
-    expect(merged.content).toContain("Suite A.");
+    // Exact prefix through Section 2 heading line must be unchanged.
+    const spans = locateSections(base);
+    const s2 = spans.find((s) => /Section 2/.test(s.heading))!;
+    expect(merged.content.slice(0, s2.bodyStart)).toBe(base.slice(0, s2.bodyStart));
+    expect(merged.content.slice(merged.content.indexOf("## Section 3"))).toBe(
+      base.slice(base.indexOf("## Section 3")),
+    );
     expect(assertSectionScope(base, merged.content, "2")).toEqual({ ok: true });
+    // Double spaces and blank lines in section 1 preserved:
+    expect(merged.content).toContain("espaces   doubles.");
+    expect(merged.content).toContain("Paragraphe avec   espaces   doubles.\n\n\n## Section 2");
+  });
+
+  it("does not treat # inside code fences as section headings", () => {
+    const headings = locateSections(base).map((s) => s.heading);
+    expect(headings).toEqual(["Doc", "Section 1 — Contexte", "Section 2 — Analyse", "Section 3 — Suite"]);
+  });
+
+  it("refuses ambiguous / missing section", () => {
+    const dup = `${base}\n## Section 2 — Autre\n\nx\n`;
+    expect(applyTargetedSectionRevision(dup, "## Section 2\n\ny\n", "2").ok).toBe(false);
+    expect(applyTargetedSectionRevision(base, "## Section 9\n\ny\n", "9").ok).toBe(false);
+    expect(applyTargetedSectionRevision("plain text only", "x", "2").ok).toBe(false);
+  });
+
+  it("refuses dumping conversational preamble as section body", () => {
+    const proposed =
+      "Nora (fixture): je n'ai pas d'outil d'écriture D4.\n\n### Résultat applicatif D4\n\nbad";
+    expect(applyTargetedSectionRevision(base, proposed, "2").ok).toBe(false);
   });
 
   it("detects scope exceeded when other sections change", () => {
@@ -112,7 +194,7 @@ Nouveau texte ciblé.
     expect(assertSectionScope(base, bad, "2").ok).toBe(false);
   });
 
-  it("splits ATX sections", () => {
+  it("splits ATX sections (compat)", () => {
     expect(splitMarkdownSections(base).map((s) => s.heading)).toEqual([
       "Doc",
       "Section 1 — Contexte",
@@ -122,7 +204,7 @@ Nouveau texte ciblé.
   });
 });
 
-describe("document-act ACK", () => {
+describe("document-act ACK coherence (corrective)", () => {
   it("formats AVAILABLE create ACK", () => {
     const ack = formatDocumentEffectAck({
       act: "CREATE",
@@ -135,14 +217,35 @@ describe("document-act ACK", () => {
     expect(ack).toMatch(/v1/);
   });
 
-  it("appends ACK after Nora narration", () => {
-    const out = appendDocumentEffectAck("Je propose un texte.", {
-      act: "CREATE",
-      status: "AVAILABLE",
-      documentId: "doc_y",
-      revisionNumber: 1,
-    });
-    expect(out).toContain("Je propose un texte.");
+  it("removes contradictory unsaved claim when AVAILABLE", () => {
+    const out = appendDocumentEffectAck(
+      "Document proposé — non enregistré. Voici le corps.\n\n# Titre\n\nTexte métier.",
+      { act: "CREATE", status: "AVAILABLE", documentId: "doc_y", revisionNumber: 1 },
+    );
     expect(out).toContain("Résultat applicatif D4");
+    expect(out).toContain("Texte métier.");
+    expect(out).not.toMatch(/\bnon enregistré\b/i);
+    expect(out).toContain("doc_y");
+  });
+
+  it("removes false success when FAILED", () => {
+    const text = reconcileNarrationWithDocumentEffect("J'ai enregistré le document avec succès.", {
+      act: "CREATE",
+      status: "FAILED",
+      reason: "FORBIDDEN",
+    });
+    expect(text).not.toMatch(/enregistré le document avec succès/i);
+    expect(text).toMatch(/résultat applicatif D4/i);
+  });
+
+  it("keeps useful markdown while appending CONFLICT ack", () => {
+    const out = appendDocumentEffectAck("# Doc\n\nCorps utile.", {
+      act: "REVISE",
+      status: "CONFLICT",
+      reason: "BASE_STALE",
+      documentId: "doc_z",
+    });
+    expect(out).toContain("Corps utile.");
+    expect(out).toMatch(/Conflit de base/);
   });
 });

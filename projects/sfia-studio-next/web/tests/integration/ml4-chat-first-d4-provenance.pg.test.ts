@@ -101,6 +101,20 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
   });
 
+  it("A-neg2: imperative negation and informative questions do not mutate D4", async () => {
+    const pilotId = await seedPilot("ml4-noneg");
+    const prep = await openOrCreatePreparation(pilotId);
+    for (const text of [
+      "Ne crée pas de document pour cette recherche.",
+      "Comment réviser le document sans le modifier ?",
+      "Ne révise pas le document ; explique-moi seulement ce que tu changerais.",
+    ]) {
+      const chat = await postUserMessageAndNora(pilotId, prep.id, text);
+      expect(chat.documentSave == null || chat.documentSave.status !== "AVAILABLE").toBe(true);
+    }
+    expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
+  });
+
   it("B: conversational REVISE keeps same documentId, produces v2, scopes section 2", async () => {
     const pilotId = await seedPilot("ml4-revise");
     const prep = await openOrCreatePreparation(pilotId);
@@ -138,11 +152,80 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     expect(v2.revision.revisionNumber).toBe(2);
     expect(v2.revision.contentMarkdown).toMatch(/Section 1/i);
     expect(v2.revision.contentMarkdown).toMatch(/Section 3/i);
+    // Exact outside-scope bytes preserved vs v1.
+    const { applyTargetedSectionRevision, assertSectionScope } = await import(
+      "@/domains/conversation/document-act"
+    );
+    const probe = applyTargetedSectionRevision(
+      v1!.contentMarkdown,
+      "## Section 2 — Analyse\n\nprobe\n",
+      "2",
+    );
+    expect(probe.ok).toBe(true);
+    if (probe.ok) {
+      expect(assertSectionScope(v1!.contentMarkdown, v2.revision.contentMarkdown, "2")).toEqual({
+        ok: true,
+      });
+    }
 
     const msgs = await listMessages(pilotId, prep.id);
     const last = msgs.filter((m) => m.role === "assistant").at(-1);
     expect(last?.content).toMatch(/Résultat applicatif D4/);
     expect(last?.content).toMatch(/REVISE/);
+    expect(last?.content).not.toMatch(/\bnon enregistré\b/i);
+  });
+
+  it("B2: exact whitespace outside revised section is preserved in DB", async () => {
+    const pilotId = await seedPilot("ml4-ws");
+    const prep = await openOrCreatePreparation(pilotId);
+    const weird = `# Doc
+
+## Section 1 — Contexte
+
+Ligne A.
+
+Ligne   B   double.
+
+
+## Section 2 — Analyse
+
+Ancien.
+
+## Section 3 — Suite
+
+Fin.
+`;
+    const v1 = await savePreparationDocument(pilotId, prep.id, "Weird", weird, undefined, {
+      correlationKey: newId("ck"),
+    });
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE" || !v1.documentId || !v1.revisionId) throw new Error("v1");
+
+    const { applyTargetedSectionRevision } = await import("@/domains/conversation/document-act");
+    const merged = applyTargetedSectionRevision(
+      weird,
+      "## Section 2 — Analyse\n\nNouveau.\n",
+      "2",
+    );
+    expect(merged.ok).toBe(true);
+    if (!merged.ok) return;
+
+    const v2 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      contentMarkdown: merged.content,
+      correlationKey: newId("ck"),
+      scope: "section",
+      sectionHint: "2",
+    });
+    expect(v2.status).toBe("AVAILABLE");
+    if (v2.status !== "AVAILABLE" || !v2.revisionId) throw new Error("v2");
+    const got = await getDocumentRevision(pilotId, prep.id, v1.documentId, v2.revisionId);
+    expect(got.status).toBe("AVAILABLE");
+    if (got.status !== "AVAILABLE") return;
+    expect(got.revision.contentMarkdown).toContain("Ligne   B   double.");
+    expect(got.revision.contentMarkdown).toContain("Ligne A.\n\nLigne   B   double.\n\n\n## Section 2");
+    expect(got.revision.contentMarkdown).toContain("## Section 3 — Suite\n\nFin.\n");
   });
 
   it("C: stale baseRevisionId → CONFLICT without phantom v2; retry idempotent", async () => {
