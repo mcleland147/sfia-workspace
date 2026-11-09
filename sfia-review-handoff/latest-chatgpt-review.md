@@ -1,106 +1,83 @@
 # SFIA STUDIO NEXT — ML4
-# REVIEW PACK FULL — CYCLE 11 BASCULE G4→ML4 — COMPLETED
+# REVIEW PACK FULL — CORRECTION RECETTE D1 OAUTH CREDENTIALS
 
 ## 1. En-tête
 
 | Champ | Valeur |
 |---|---|
-| Date/heure | 2026-11-09 09:43 CET |
+| Date/heure | 2026-11-09 11:49 CET |
 | Processus | SFIA v2.6 |
-| Cycle | 11 |
+| Type | INC / correction configuration RECETTE |
 | Profil | CRITICAL |
-| Type | BASCULE ENVIRONNEMENT RECETTE |
+| GO | Morris — reprise credentials RECETTE sans ressaisie |
 | Version | 0.0.0-dev / NO RELEASE |
-| GO | Morris — reprise directe après correction OpenAI (clé historique RECETTE) |
 
 ## 2. Git Truth
 
-| Item | Valeur | Match |
-|---|---|---|
-| Local / served candidate | 974b0030a94469bef05496151792e8c35a9a83e9 | OK |
-| Tree | 6ca5d0ad37114dc88cfe5fd821b4762fc7bcd357 | OK |
-| Parent | 51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b | OK |
-| Remote Product | 51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b | OK (no push) |
-| main | c658f59023d44a0e22448c7ee034e3c1dda292a2 | OK |
-| L3 parent entrée | 4d4f37788333ef86112026844dfec39adc62ac16 | OK |
-| BUILD_ID servi | RzpCuGMK6SnwfucphK7Qa | OK |
-| Worktree servi | /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-974b0030 | OK |
-| Listener PID | 43774 | OK |
-
-## 3. Correction OpenAI (sans divulgation)
-
-| Emplacement contrôlé | OPENAI_API_KEY |
+| Item | Valeur |
 |---|---|
-| G4 `.env.local` (29535d07) | ABSENT |
-| G4 process env (avant arrêt) | ABSENT |
-| `~/.config/sfia-studio-next/g4/` | ABSENT |
-| RECETTE ML3 `…-ml3-recette-build-61fe295b` | PRESENT (sk- shape) — **source retenue** |
-| RECETTE ML3 autres builds / ML2 | PRESENT (même empreinte) |
-| RECETTE ML1 | PRESENT (empreinte distincte) |
-| DEV worktree | **NON consulté** |
+| Candidat servi | 974b0030a94469bef05496151792e8c35a9a83e9 |
+| Tree | 6ca5d0ad37114dc88cfe5fd821b4762fc7bcd357 |
+| BUILD_ID | RzpCuGMK6SnwfucphK7Qa |
+| Remote Product | 51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b (non poussé) |
+| main | 6667a43858a5421e391b7441246536daad148bd6 |
+| L3 parent entrée | 22cb78164345edb6f90c7e4303d6b498e26bebcc |
+| Worktree | …/sfia-workspace-next-ml4-recette-build-974b0030 |
+| PID | 29507 |
+| Code modifié | **AUCUN** |
 
-Action : reprise **uniquement** `OPENAI_API_KEY` → `~/.config/sfia-studio-next/recette/.env.local` (0600).
-Identités GitHub / DB / Better Auth / integration crypto ML4 **inchangées**.
-OpenAI : **CONFIGURED** — appel LIVE **NOT PROVEN**.
+## 3. Cause racine démontrée
 
-## 4. Bascule
+`/login` affichait « GitHub OAuth BLOCKED — secrets clients absents » car Better Auth D1 exige `GITHUB_CLIENT_ID` + `GITHUB_CLIENT_SECRET`, **distincts** des `GITHUB_APP_*` (D9).
 
-1. Préflight OpenAI PASS après transfert.
-2. Arrêt propre G4 (TERM npm parent 74141 / next 74165).
-3. Port 3200 libre vérifié.
-4. Démarrage ML4 : `node_modules/.bin/next start -H 127.0.0.1 -p 3200` sous `env -i` (pas `npm run start` → 3100).
-5. cwd listener = ML4 worktree ; BUILD_ID=RzpCuGMK6SnwfucphK7Qa.
-6. Artefacts/DB G4 préservés.
+Inventaire : ces deux variables étaient **ABSENTES** de `~/.config/sfia-studio-next/recette/.env.local` alors que App/OpenAI/DB ML4 étaient déjà présents. Le basculement précédent n'avait repris que `OPENAI_API_KEY`.
 
-## 5. Smoke technique (non destructif)
+## 4. Matrice non secrète (extrait)
+
+| Variable | Hist. ML3 RECETTE | ML4 avant | ML4 après | Action |
+|---|---|---|---|---|
+| GITHUB_CLIENT_ID | PRESENT | ABSENT | PRESENT | reprise ML3 61fe295b |
+| GITHUB_CLIENT_SECRET | PRESENT | ABSENT | PRESENT | reprise ML3 61fe295b |
+| BETTER_AUTH_SECRET | PRESENT | PRESENT | PRESENT | conservé ML4 |
+| BETTER_AUTH_URL | :3200 | :3200 | :3200 | inchangé |
+| OPENAI_API_KEY | PRESENT | PRESENT | PRESENT | inchangé |
+| GITHUB_APP_* | N/A hist. | PRESENT RECETTE | PRESENT | inchangé |
+| DATABASE_URL | autre DB | sfia_next_recette_ml4 | inchangé | non recopié |
+| STUDIO_DEV_TEST_LOGIN | 1 en ML3 | ABSENT | ABSENT | **non repris** |
+| STUDIO_E2E | 1 en ML3 | ABSENT | ABSENT | **non repris** |
+| STUDIO_GITHUB_ALLOW_MUTATIONS | ABSENT | ABSENT | ABSENT | OK |
+
+DEV **non consulté** comme source de secrets.
+
+## 5. Preuves runtime (sans secrets)
 
 | Check | Résultat |
 |---|---|
-| GET /login | 200 |
-| GET /portfolio | 200 |
-| GET /settings/integrations | 200 |
-| GET /api/integrations/status | 401 (non auth) |
-| STUDIO_LANE | RECETTE |
-| DB | sfia_next_recette_ml4 / 33 tables |
-| Better Auth URL / callback | :3200 alignés |
-| App READ-ONLY | PASS 5677465 / 180092114 / chantiers360 |
+| GET /api/auth/status | `configured=true` |
+| POST /api/auth/sign-in/social | 200 + URL github.com/login/oauth/authorize |
+| redirect_uri D1 | `http://127.0.0.1:3200/api/auth/callback/github` |
+| Callback D9 | `http://127.0.0.1:3200/api/integrations/github/callback` (distinct) |
+| App READ-ONLY | PASS App 5677465 / install 180092114 |
 | mutationsAllowed | false |
-| STUDIO_GITHUB_ALLOW_MUTATIONS | absente |
-| DEV :3100 | intact (43816) |
-| Logs | pas de fuite sk-/PEM |
-| User OAuth navigateur | NOT RUN |
-| Nora conversation | NOT RUN |
-| Mutation GitHub | NOT RUN |
+| POST /api/dev/login | **403** (RECETTE) |
+| SHA/BUILD | inchangés |
+| Consentement navigateur / session | **NOT RUN** |
 
-## 6. Fake/Real §6.16
+Note : `ps eww` ne liste pas les vars chargées via `.env.local` sous `env -i`+Next — preuve d'injection = status API + démarrage OAuth.
 
-| Capacité | Qualification |
+## 6. UX « Pilote A/B (DEV) »
+
+Boutons toujours visibles sur `/login` (écart UX historique). Clic serveur → 403. Pas de changement de code ce cycle.
+
+## 7. Fake/Real §6.16
+
+| Item | Statut |
 |---|---|
-| Instance :3200 | REAL SERVING ML4 |
-| App installation READ | REAL READ-ONLY PROVEN |
-| OpenAI key presence | CONFIGURED |
-| OpenAI LIVE / Nora UX | NOT PROVEN |
-| USER RECETTE | NOT RUN |
-| Git write REAL | BLOCKED |
+| Config D1 disque+runtime | RESTORED / CONFIGURED |
+| OAuth start URL | REAL générée |
+| Login LIVE callback | NOT PROVEN |
+| USER E2E | NOT RUN |
 
-## 7. Gates respectés
+## 8. Verdict
 
-Aucun push Product · PR · merge · mutation GitHub · USER RECETTE · STABLE · suppression G4.
-
-## 8. Reprise ML4 / rollback G4
-
-Voir manifeste ENV-01 `restart_ml4` / `rollback_g4`.
-
-## 9. Verdict unique
-
-**ML4 RECETTE ENVIRONMENT — SWITCH COMPLETED — TECHNICALLY VERIFIED — READY FOR MORRIS USER RECETTE — USER E2E NOT RUN.**
-
-## 10. ML4 — USER RECETTE HANDOVER (court)
-
-- URL : http://127.0.0.1:3200
-- SHA/build : 974b0030a94469bef05496151792e8c35a9a83e9 / RzpCuGMK6SnwfucphK7Qa
-- App RECETTE : 5677465 / 180092114 / chantiers360
-- DB : sfia_next_recette_ml4
-- Profil navigateur dédié (réserve cookies A)
-- STOP si App DEV, mauvais BUILD_ID, ou mutations activées hors GO
-- Prochaine étape : nouveau chat Morris — parcours Studio→Nora→GitHub→D4→D6→publication→D8
+**ML4 RECETTE CONFIGURATION — RESTORED AND VERIFIED — STUDIO OAUTH READY FOR MORRIS USER LOGIN — PRODUCT SHA/BUILD UNCHANGED — USER E2E NOT RUN.**
