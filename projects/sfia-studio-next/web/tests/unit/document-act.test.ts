@@ -3,10 +3,14 @@ import {
   appendDocumentEffectAck,
   applyTargetedSectionRevision,
   assertSectionScope,
+  composeDocumentTurnMessage,
   explicitDocumentIntent,
+  extractDocumentDesignation,
   formatDocumentEffectAck,
+  hasCompetingTransactionalClaim,
   isGlobalDocumentWriteNegation,
   isInformativeOrHypothetical,
+  isPolitePositiveDocumentAction,
   locateSections,
   qualifyDocumentAct,
   reconcileNarrationWithDocumentEffect,
@@ -47,6 +51,31 @@ describe("document-act qualification — positive", () => {
     );
     expect(q.kind).toBe("REVISE");
     if (q.kind === "REVISE") expect(q.sectionHint).toBe("2");
+  });
+
+  it("quoted French title is designation data, not stripped for targeting", () => {
+    const raw =
+      'Révise le document «Références externes — Enseignements de Chantiers360» en modifiant seulement la section 2.';
+    const des = extractDocumentDesignation(raw);
+    expect(des.titleHint).toBe("Références externes — Enseignements de Chantiers360");
+    expect(des.sectionHint).toBe("2");
+    const q = qualifyDocumentAct(raw);
+    expect(q.kind).toBe("REVISE");
+    if (q.kind === "REVISE") {
+      expect(q.documentHint).toBe("Références externes — Enseignements de Chantiers360");
+      expect(q.sectionHint).toBe("2");
+    }
+  });
+
+  it("ASCII-quoted title and polite positive request", () => {
+    const raw = 'Peux-tu réviser le document "Références externes — Enseignements de Chantiers360" ?';
+    expect(isPolitePositiveDocumentAction(raw)).toBe(true);
+    expect(isInformativeOrHypothetical(raw)).toBe(false);
+    const q = qualifyDocumentAct(raw);
+    expect(q.kind).toBe("REVISE");
+    if (q.kind === "REVISE") {
+      expect(q.documentHint).toMatch(/Références externes/);
+    }
   });
 });
 
@@ -90,6 +119,12 @@ describe("document-act qualification — negation / informative (corrective)", (
     expect(
       qualifyDocumentAct("Propose un brouillon de document sans enregistrer.").kind,
     ).toBe("NONE");
+  });
+
+  it("peux-tu m'expliquer how to revise → NONE (informative)", () => {
+    expect(qualifyDocumentAct("Peux-tu m'expliquer comment réviser un document ?").kind).toBe(
+      "NONE",
+    );
   });
 });
 
@@ -204,7 +239,7 @@ Nouveau texte ciblé.
   });
 });
 
-describe("document-act ACK coherence (corrective)", () => {
+describe("document-act ACK coherence (finalisation)", () => {
   it("formats AVAILABLE create ACK", () => {
     const ack = formatDocumentEffectAck({
       act: "CREATE",
@@ -228,6 +263,36 @@ describe("document-act ACK coherence (corrective)", () => {
     expect(out).toContain("doc_y");
   });
 
+  it("R06-style competing claims cannot coexist with AVAILABLE", () => {
+    const cognitive =
+      "Les outils disponibles ne permettent pas de l'enregistrer dans D4.\n\n" +
+      "Je ne peux donc pas appliquer la révision.\n\n" +
+      "Nouvelle révision : aucune créée.\n\n" +
+      "La version 1 reste inchangée.\n\n" +
+      "# Document révisé\n\n## Section 2 — Sources\n\nBlob vs commit clarifié.\n";
+    const out = composeDocumentTurnMessage(cognitive, {
+      act: "REVISE",
+      status: "AVAILABLE",
+      documentId: "doc_r06",
+      revisionNumber: 2,
+    });
+    expect(out).toMatch(/Résultat applicatif D4/);
+    expect(out).toMatch(/AVAILABLE/);
+    expect(out).toContain("Blob vs commit clarifié");
+    expect(out).not.toMatch(/ne permettent pas/i);
+    expect(out).not.toMatch(/je ne peux donc pas appliquer/i);
+    expect(out).not.toMatch(/aucune créée/i);
+    expect(out).not.toMatch(/version 1 reste inchangée/i);
+    expect(
+      hasCompetingTransactionalClaim(out, {
+        act: "REVISE",
+        status: "AVAILABLE",
+        documentId: "doc_r06",
+        revisionNumber: 2,
+      }),
+    ).toBe(false);
+  });
+
   it("removes false success when FAILED", () => {
     const text = reconcileNarrationWithDocumentEffect("J'ai enregistré le document avec succès.", {
       act: "CREATE",
@@ -235,7 +300,6 @@ describe("document-act ACK coherence (corrective)", () => {
       reason: "FORBIDDEN",
     });
     expect(text).not.toMatch(/enregistré le document avec succès/i);
-    expect(text).toMatch(/résultat applicatif D4/i);
   });
 
   it("keeps useful markdown while appending CONFLICT ack", () => {

@@ -548,3 +548,15 @@ Suite revue ChatGPT du macro-lot §25. Même branche `fix/next-ml4-chat-first-d4
 | USER / RECETTE | NOT RUN | gate Morris |
 
 Verdict : **ML4 CHAT-FIRST CORRECTIVE PASS — LOCALLY VERIFIED — READY FOR REVIEW**.
+
+## 27. Finalisation R06 — titre cité + restitution (2026-11-09)
+
+| Item | Statut | Note |
+|---|---|---|
+| Titre entre guillemets | CORRIGÉ (DET) | `extractDocumentDesignation` séparé de `stripNonAuthoritativeSpans` |
+| Fallback titre manquant | FAIL-CLOSED | hint explicite → NOT_FOUND, pas de bascule silencieuse |
+| Restitution Nora/ACK | CORRIGÉ (DET) | `composeDocumentTurnMessage` — verdict applicatif unique |
+| Oracle R06 intégré | DET PG PASS | `postUserMessageAndNora` + persistance v1/v2 ; LIVE Nora NOT RUN |
+| Provenance REC-07 | INCHANGÉ | non-régression |
+
+Verdict : **ML4 CHAT-FIRST R06 INTEGRATED CORRECTIVE — LOCALLY VERIFIED — READY FOR REVIEW**.

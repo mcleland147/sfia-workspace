@@ -27,13 +27,73 @@ const CREATE_PAIR_RE =
 const CREATE_PLEASE_RE =
   /\b(document|note de synthèse|rapport)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i;
 
-/** Remove quoted / fenced material so external text cannot authorize a D4 write. */
+/**
+ * Extract a document designation (id or cited title) from the raw Pilote text.
+ * Quotes are data here — never execution authority.
+ */
+export function extractDocumentDesignation(rawText: string): {
+  documentId: string | null;
+  titleHint: string | null;
+  sectionHint: string | null;
+} {
+  const idMatch = rawText.match(DOC_ID_RE);
+  const sectionMatch = rawText.match(SECTION_RE);
+
+  // document … «Title» / document "Title" — allow short qualifiers between noun and quote
+  // (e.g. «document D4 existant «Références…»»).
+  const quoted =
+    rawText.match(
+      /\b(?:document|note|synthèse|rapport|spécification)\b[\s\S]{0,48}?[«“"]([^»”"\n]{2,120})[»”"]/i,
+    ) ||
+    rawText.match(
+      /\b(?:document|note|synthèse|rapport|spécification)\b[\s\S]{0,48}?['‘]([^’'\n]{2,120})['’]/i,
+    );
+
+  // Fallback: unquoted title after document (stop at punctuation / line break)
+  const unquoted = !quoted
+    ? rawText.match(
+        /\b(?:document|note|synthèse|rapport)\s+(?!doc_)([^\n.!?]{2,120}?)(?=\s+(?:en\s+modifiant|en\s+révisant|dans\b|et\b|mais\b|,|\.|$))/i,
+      )
+    : null;
+
+  const titleHint = (quoted?.[1] ?? unquoted?.[1] ?? null)?.trim() || null;
+  return {
+    documentId: idMatch?.[1] ?? null,
+    titleHint,
+    sectionHint: sectionMatch?.[1] ?? null,
+  };
+}
+
+/**
+ * Authority strip: remove fenced / quoted material that must not authorize writes.
+ * Document designations are neutralized to a placeholder so «document» remains visible
+ * for act qualification without importing quoted imperatives as authority.
+ */
 export function stripNonAuthoritativeSpans(text: string): string {
   return text
     .replace(/```[\s\S]*?```/g, " ")
+    .replace(
+      /\b(document|note|synthèse|rapport|spécification)\b[\s\S]{0,48}?[«“"][^»”"\n]{1,120}[»”"]/gi,
+      "$1 [désigné]",
+    )
+    .replace(
+      /\b(document|note|synthèse|rapport|spécification)\b[\s\S]{0,48}?['‘][^’'\n]{1,120}['’]/gi,
+      "$1 [désigné]",
+    )
     .replace(/«[^»]*»/g, " ")
     .replace(/"[^"]*"/g, " ")
     .replace(/'[^']*'/g, " ");
+}
+
+/** Normalize titles for non-destructive comparison. */
+export function normalizeDocumentTitle(title: string): string {
+  return title
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[«»""'']/g, "")
+    .replace(/[–—−]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function findVerbMatches(text: string, re: RegExp): Array<{ index: number; text: string }> {
@@ -78,12 +138,24 @@ function hasOnlyNegatedVerbs(text: string, re: RegExp): boolean {
   return matches.every((m) => isVerbNegated(text, m.index, m.text.length));
 }
 
+/** Polite but positive action request (not an explanation request). */
+export function isPolitePositiveDocumentAction(text: string): boolean {
+  if (/\bm['’]?expliquer\b|\bcomment\b|\bquelles?\s+(?:seraient|sont)\s+les\s+étapes\b|\bétapes\s+pour\b/i.test(text)) {
+    return false;
+  }
+  return /\b(?:peux-tu|pourrais-tu|merci\s+de|je\s+(?:te\s+)?(?:demande|souhaite)|je\s+valide\s+explicitement)\b[\s\S]{0,80}\b(?:réviser|reviser|révise|modifier|modifie|corriger|corrige|créer|crée|rédiger|rédige|écrire|écris)\b/i.test(
+    text,
+  );
+}
+
 /** Informative / hypothetical questions are not mutation requests. */
 export function isInformativeOrHypothetical(text: string): boolean {
   const t = text.trim();
-  if (
-    /^(comment|pourquoi|quelles?\b|que\s+se\s+passerait|peux-tu|pourrais-tu)\b/i.test(t)
-  ) {
+  // Polite positive action first — « Peux-tu réviser le document X ? » is not informative.
+  if (isPolitePositiveDocumentAction(t) && !/\bm['’]?expliquer\b|\bcomment\b|\bétapes\b/i.test(t)) {
+    return false;
+  }
+  if (/^(comment|pourquoi|quelles?\b|que\s+se\s+passerait)\b/i.test(t)) {
     return true;
   }
   if (
@@ -105,8 +177,6 @@ export function isInformativeOrHypothetical(text: string): boolean {
     /\bce\s+que\s+tu\s+changerais\b/i.test(t) ||
     /\bsans\s+(?:le\s+)?(?:créer|modifier|réviser|enregistrer)\b/i.test(t)
   ) {
-    // "sans modifier" alone may be a local scope restriction when paired with positive revise —
-    // handled by callers; treat as informative only when no positive revise/create remains.
     if (!hasPositiveVerb(t, REVISE_VERB_RE) && !hasPositiveVerb(t, CREATE_VERB_RE)) {
       return true;
     }
@@ -154,41 +224,45 @@ export function isGlobalDocumentWriteNegation(text: string): boolean {
 
 /**
  * Qualify explicit documentary intent. Analytical / negative / informative → NONE.
- * Revise wins when a positive revise verb + document object (or doc id).
+ * Act qualification uses authority-stripped text; target designation uses raw text.
  */
 export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
   const trimmed = text.trim();
   if (!trimmed) return { kind: "NONE", reason: "EMPTY" };
 
+  const designation = extractDocumentDesignation(trimmed);
   const authorityText = stripNonAuthoritativeSpans(trimmed).replace(/\s+/g, " ").trim();
   if (!authorityText) return { kind: "NONE", reason: "NO_AUTHORITATIVE_TEXT" };
 
-  if (isGlobalDocumentWriteNegation(authorityText)) {
+  if (isGlobalDocumentWriteNegation(authorityText) || isGlobalDocumentWriteNegation(trimmed)) {
     return { kind: "NONE", reason: "NEGATED_WRITE" };
   }
-  if (isInformativeOrHypothetical(authorityText)) {
-    // Positive revise with local restriction may still look informative via "sans modifier" —
-    // re-check: if a positive revise + doc object remains, allow REVISE below.
+  if (isInformativeOrHypothetical(authorityText) || isInformativeOrHypothetical(trimmed)) {
     const allowLocalRevise =
-      hasPositiveVerb(authorityText, REVISE_VERB_RE) &&
-      (DOC_OBJECT_RE.test(authorityText) || DOC_ID_RE.test(authorityText)) &&
-      /\b(uniquement|seulement)\b[\s\S]{0,40}\b(section|partie|chapitre)\b/i.test(authorityText);
-    if (!allowLocalRevise) {
+      (hasPositiveVerb(authorityText, REVISE_VERB_RE) || hasPositiveVerb(trimmed, REVISE_VERB_RE)) &&
+      (DOC_OBJECT_RE.test(authorityText) ||
+        DOC_ID_RE.test(trimmed) ||
+        Boolean(designation.titleHint)) &&
+      /\b(uniquement|seulement)\b[\s\S]{0,40}\b(section|partie|chapitre)\b/i.test(trimmed);
+    if (!allowLocalRevise && !isPolitePositiveDocumentAction(trimmed)) {
       return { kind: "NONE", reason: "INFORMATIVE_OR_HYPOTHETICAL" };
     }
   }
 
-  const hasDocObject = DOC_OBJECT_RE.test(authorityText) || DOC_ID_RE.test(authorityText);
-  if (hasPositiveVerb(authorityText, REVISE_VERB_RE) && hasDocObject) {
-    const idMatch = authorityText.match(DOC_ID_RE);
-    const titleMatch = authorityText.match(
-      /\b(?:document|note|synthèse|rapport)\s+[«"]?([^»"\n,]{2,80})/i,
-    );
-    const sectionMatch = authorityText.match(SECTION_RE);
+  const hasDocObject =
+    DOC_OBJECT_RE.test(authorityText) ||
+    Boolean(designation.documentId) ||
+    Boolean(designation.titleHint);
+  const positiveRevise =
+    hasPositiveVerb(authorityText, REVISE_VERB_RE) ||
+    (isPolitePositiveDocumentAction(trimmed) &&
+      /\b(?:réviser|reviser|révise|modifier|modifie|corriger|corrige)\b/i.test(trimmed));
+
+  if (positiveRevise && hasDocObject) {
     return {
       kind: "REVISE",
-      documentHint: idMatch?.[1] ?? titleMatch?.[1]?.trim() ?? null,
-      sectionHint: sectionMatch?.[1] ?? null,
+      documentHint: designation.documentId ?? designation.titleHint,
+      sectionHint: designation.sectionHint,
     };
   }
 
@@ -199,7 +273,6 @@ export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
     return { kind: "CREATE" };
   }
 
-  // CREATE_PLEASE without create verb (e.g. "document s'il te plaît") — still CREATE if not negated.
   if (CREATE_PLEASE_RE.test(authorityText) && !isGlobalDocumentWriteNegation(authorityText)) {
     return { kind: "CREATE" };
   }
@@ -251,9 +324,9 @@ export function resolveReviseTarget(
         baseContent: d.latestRevision!.contentMarkdown,
       };
     }
-    const needle = hint.toLowerCase().replace(/[«»"']/g, "").trim();
+    const needle = normalizeDocumentTitle(hint);
     const byTitle = available.filter((d) => {
-      const t = d.document.title.toLowerCase();
+      const t = normalizeDocumentTitle(d.document.title);
       return t === needle || t.includes(needle) || needle.includes(t);
     });
     if (byTitle.length === 1) {
@@ -274,6 +347,7 @@ export function resolveReviseTarget(
         candidates: byTitle.map((d) => d.document.id),
       };
     }
+    // Explicit hint that matches nothing — never fall through to "sole document".
     return { ok: false, reason: "NOT_FOUND" };
   }
 
@@ -501,37 +575,74 @@ export type DocumentEffectSummary = {
   idempotentReplay?: boolean;
 };
 
-const FALSE_UNSAVED_RE =
-  /\b(non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+d['’]écriture\s+d4|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde)\b/gi;
-const FALSE_SAVED_RE =
-  /\b(document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/gi;
+/** Sentences/paragraphs that assert a D4 write outcome (must not compete with applicative truth). */
+const TRANSACTIONAL_CLAIM_RE =
+  /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+ne\s+permettent\s+pas|je\s+ne\s+peux\s+(?:donc\s+)?pas\s+(?:appliquer|enregistrer|créer|réviser)|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;
+
+/**
+ * Extract prepared document markdown (fence or ATX body) from Nora narration.
+ */
+export function extractPreparedDocumentBody(assistantContent: string): string | null {
+  const fence = assistantContent.match(/```(?:markdown|md)?\n([\s\S]+?)```/i);
+  if (fence?.[1] && fence[1].trim().length > 40) return fence[1].trim();
+  const heading = assistantContent.match(/(?:^|\n)(#\s+[^\n]+[\s\S]{40,})/);
+  if (heading?.[1]) {
+    // Stop before an applicative / meta heading if present.
+    const body = heading[1].replace(/\n#{1,3}\s+Résultat applicatif D4[\s\S]*$/i, "").trim();
+    return body.length > 40 ? body : null;
+  }
+  return null;
+}
+
+function stripTransactionalClaimUnits(text: string): string {
+  // Drop whole paragraphs that contain transactional claims; keep document/code fences intact.
+  const parts = text.split(/\n{2,}/);
+  const kept: string[] = [];
+  for (const part of parts) {
+    const trimmed = part.trim();
+    if (!trimmed) continue;
+    if (/^```/.test(trimmed) || /^#\s+/.test(trimmed)) {
+      // Inside a markdown doc block: strip claim *lines* only, keep structure.
+      if (/^#\s+/.test(trimmed) && !TRANSACTIONAL_CLAIM_RE.test(trimmed.split("\n")[0] ?? "")) {
+        const lines = trimmed.split("\n").filter((ln) => !TRANSACTIONAL_CLAIM_RE.test(ln));
+        if (lines.length) kept.push(lines.join("\n"));
+        continue;
+      }
+      if (/^```/.test(trimmed)) {
+        kept.push(part);
+        continue;
+      }
+    }
+    if (TRANSACTIONAL_CLAIM_RE.test(trimmed)) continue;
+    // Also drop individual claim sentences inside mixed paragraphs.
+    const sentences = trimmed.split(/(?<=[.!?…])\s+/);
+    const clean = sentences.filter((s) => !TRANSACTIONAL_CLAIM_RE.test(s)).join(" ").trim();
+    if (clean) kept.push(clean);
+  }
+  return kept.join("\n\n").trim();
+}
 
 /**
  * Remove narration that contradicts the observed D4 effect, without deleting document body.
+ * Prefer structured composition via appendDocumentEffectAck / composeDocumentTurnMessage.
  */
 export function reconcileNarrationWithDocumentEffect(
   assistantContent: string,
   effect: DocumentEffectSummary | null,
 ): string {
   if (!effect) return assistantContent;
-  let text = assistantContent;
-  const status = effect.status ?? "UNKNOWN";
-
-  if (status === "AVAILABLE") {
-    text = text.replace(FALSE_UNSAVED_RE, "[état d'enregistrement : voir résultat applicatif D4]");
-  } else if (status === "FAILED" || status === "CONFLICT" || status === "UNKNOWN") {
-    text = text.replace(FALSE_SAVED_RE, "[état d'enregistrement : voir résultat applicatif D4]");
+  const prepared = extractPreparedDocumentBody(assistantContent);
+  if (prepared) {
+    // Keep prepared document; drop competing cognitive transactional claims around it.
+    const around = assistantContent.replace(prepared, "\n");
+    const cognitive = stripTransactionalClaimUnits(around);
+    return [cognitive, prepared].filter(Boolean).join("\n\n").trim();
   }
-
-  // If both a residual "non enregistré" and AVAILABLE somehow remain, force a clear marker.
-  if (status === "AVAILABLE" && /\bnon\s+enregistré\b/i.test(text)) {
-    text = text.replace(/\bnon\s+enregistré\b/gi, "enregistrement : voir résultat applicatif D4");
-  }
-  return text;
+  return stripTransactionalClaimUnits(assistantContent);
 }
 
 /**
- * Application ACK appended after confirmed effect — distinct from Nora narration.
+ * Application ACK — sole transactional verdict for the turn.
  */
 export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): string {
   if (!effect) return "";
@@ -550,7 +661,7 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
   if (effect.status === "AVAILABLE") {
     lines.push(
       "",
-      "Ce statut est confirmé par la persistance Studio. Il prévaut sur toute narration contraire.",
+      "Ce statut est confirmé par la persistance Studio. Il est le seul verdict transactionnel de ce tour.",
     );
   } else if (effect.status === "CONFLICT") {
     lines.push("", "Conflit de base — aucune nouvelle révision écrite. Requalification requise.");
@@ -560,13 +671,44 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
   return lines.join("\n");
 }
 
-export function appendDocumentEffectAck(
+/**
+ * Structured final message: prepared content (sanitized) + sole applicative verdict.
+ * Guarantees no concurrent « aucune révision » + AVAILABLE.
+ */
+export function composeDocumentTurnMessage(
   assistantContent: string,
   effect: DocumentEffectSummary | null,
 ): string {
   if (!effect) return assistantContent;
-  const reconciled = reconcileNarrationWithDocumentEffect(assistantContent, effect);
+  const sanitized = reconcileNarrationWithDocumentEffect(assistantContent, effect);
   const ack = formatDocumentEffectAck(effect);
-  if (!ack) return reconciled;
-  return `${reconciled.trimEnd()}\n\n---\n${ack}\n`;
+  // Final safety: drop residual contradictory fragments after sanitize.
+  let body = sanitized;
+  if (effect.status === "AVAILABLE") {
+    body = stripTransactionalClaimUnits(body);
+  }
+  return `${body.trimEnd()}\n\n---\n${ack}\n`;
+}
+
+export function appendDocumentEffectAck(
+  assistantContent: string,
+  effect: DocumentEffectSummary | null,
+): string {
+  return composeDocumentTurnMessage(assistantContent, effect);
+}
+
+/** True when a visible message still contains a competing transactional claim. */
+export function hasCompetingTransactionalClaim(
+  message: string,
+  effect: DocumentEffectSummary | null,
+): boolean {
+  if (!effect) return false;
+  const withoutAck = message.replace(/### Résultat applicatif D4[\s\S]*$/i, "");
+  if (effect.status === "AVAILABLE") {
+    return TRANSACTIONAL_CLAIM_RE.test(withoutAck) &&
+      /\b(?:aucune\s+révision|ne\s+peux\s+(?:donc\s+)?pas\s+appliquer|non\s+enregistré|outils?\s+disponibles\s+ne\s+permettent)\b/i.test(
+        withoutAck,
+      );
+  }
+  return false;
 }

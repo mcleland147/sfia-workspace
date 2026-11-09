@@ -29,6 +29,11 @@ import {
   savePreparationDocument,
 } from "@/domains/document/service";
 import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
+import {
+  assertSectionScope,
+  hasCompetingTransactionalClaim,
+  qualifyDocumentAct,
+} from "@/domains/conversation/document-act";
 
 async function seedPilot(label: string) {
   const id = newId("pilot");
@@ -351,5 +356,119 @@ Fin.
     });
     expect(refs.refs.some((r) => r.name === "feat/candidate-ml4")).toBe(true);
     expect(refs.refs.every((r) => r.sha.length === 40)).toBe(true);
+  });
+
+  it("R06 oracle: quoted title revise via postUserMessageAndNora (DET fixture)", async () => {
+    const title = "Références externes — Enseignements de Chantiers360";
+    const v1Body = `# ${title}
+
+## Section 1 — Contexte
+
+Contexte CampusFlow.
+
+## Section 2 — Sources consultées et provenance disponible
+
+- Source initiale (SHA fichier confondu avec commit).
+
+## Section 3 — Limites
+
+Aucune écriture GitHub.
+`;
+    const pilotId = await seedPilot("ml4-r06");
+    const prep = await openOrCreatePreparation(pilotId);
+    // Distractor document — must not be selected when title is explicit.
+    await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Autre note CampusFlow",
+      "# Autre\n\n## Section 2 — Autre\n\nx\n",
+      undefined,
+      { correlationKey: newId("ck") },
+    );
+    const seeded = await savePreparationDocument(pilotId, prep.id, title, v1Body, undefined, {
+      correlationKey: newId("ck"),
+    });
+    expect(seeded.status).toBe("AVAILABLE");
+    if (seeded.status !== "AVAILABLE" || !seeded.documentId || !seeded.revisionId) {
+      throw new Error("seed v1 failed");
+    }
+
+    const ask =
+      `Nora, je souhaite réviser le document D4 existant «${title}» dans CampusFlow.\n\n` +
+      `Révise uniquement sa section 2 «Sources consultées et provenance disponible».\n\n` +
+      `Complète la première source consultée et corrige la distinction entre SHA de fichier et SHA de commit.\n\n` +
+      `Conserve toutes les autres sections inchangées.\n\n` +
+      `Je valide explicitement cette révision dans D4 uniquement.\n` +
+      `Je n'autorise aucune écriture GitHub.`;
+
+    expect(qualifyDocumentAct(ask).kind).toBe("REVISE");
+    const q = qualifyDocumentAct(ask);
+    if (q.kind === "REVISE") {
+      expect(q.documentHint).toBe(title);
+      expect(q.sectionHint).toBe("2");
+    }
+
+    const result = await postUserMessageAndNora(pilotId, prep.id, ask);
+    expect(result.documentSave?.status).toBe("AVAILABLE");
+    expect(result.documentSave?.act).toBe("REVISE");
+    expect(result.documentSave?.documentId).toBe(seeded.documentId);
+    expect(result.documentSave?.revisionNumber).toBe(2);
+    expect(result.documentSave?.baseRevisionId).toBe(seeded.revisionId);
+
+    const listed = await listDocumentRevisions(pilotId, prep.id, seeded.documentId);
+    expect(listed.status).toBe("AVAILABLE");
+    expect(listed.revisions.filter((r) => r.status === "AVAILABLE").map((r) => r.revisionNumber)).toEqual([
+      1, 2,
+    ]);
+    const v1 = listed.revisions.find((r) => r.revisionNumber === 1)!;
+    const v2 = listed.revisions.find((r) => r.revisionNumber === 2)!;
+    expect(assertSectionScope(v1.contentMarkdown, v2.contentMarkdown, "2")).toEqual({ ok: true });
+    expect(v2.contentMarkdown).toContain("## Section 1 — Contexte");
+    expect(v2.contentMarkdown).toContain("## Section 3 — Limites");
+    expect(v2.contentMarkdown).toContain("Aucune écriture GitHub.");
+
+    const msgs = await listMessages(pilotId, prep.id);
+    const last = msgs.filter((m) => m.role === "assistant").at(-1)!;
+    expect(last.content).toMatch(/Résultat applicatif D4/);
+    expect(last.content).toContain(seeded.documentId);
+    expect(last.content).toMatch(/AVAILABLE|révision: v2/i);
+    expect(
+      hasCompetingTransactionalClaim(last.content, {
+        act: "REVISE",
+        status: "AVAILABLE",
+        documentId: seeded.documentId,
+        revisionNumber: 2,
+      }),
+    ).toBe(false);
+    expect(last.content).not.toMatch(/aucune révision créée/i);
+    expect(last.content).not.toMatch(/je ne peux donc pas appliquer/i);
+
+    // Re-open v1 and v2
+    const r1 = await getDocumentRevision(pilotId, prep.id, seeded.documentId, v1.id);
+    const r2 = await getDocumentRevision(pilotId, prep.id, seeded.documentId, v2.id);
+    expect(r1.status).toBe("AVAILABLE");
+    expect(r2.status).toBe("AVAILABLE");
+  });
+
+  it("R06-neg: explicit title miss → NOT_FOUND, no phantom v2 on other doc", async () => {
+    const pilotId = await seedPilot("ml4-r06miss");
+    const prep = await openOrCreatePreparation(pilotId);
+    const only = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Document unique présent",
+      "# X\n\n## Section 1\n\na\n\n## Section 2\n\nb\n",
+      undefined,
+      { correlationKey: newId("ck") },
+    );
+    expect(only.status).toBe("AVAILABLE");
+    const ask =
+      'Révise uniquement la section 2 du document «Titre qui n\'existe pas du tout» et conserve le reste.';
+    const result = await postUserMessageAndNora(pilotId, prep.id, ask);
+    expect(result.documentSave?.status).toBe("FAILED");
+    expect(result.documentSave?.reason).toMatch(/REVISE_NOT_FOUND/);
+    const docs = await listDocuments(pilotId, prep.id);
+    expect(docs).toHaveLength(1);
+    expect(docs[0]!.latestRevision?.revisionNumber).toBe(1);
   });
 });
