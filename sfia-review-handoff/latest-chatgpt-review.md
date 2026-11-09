@@ -1,27 +1,27 @@
 # SFIA Studio Next — Review Pack FULL
-## R5 / ML4 — Cycle 11 — R12 préparation / activation GitHub REAL documentary (RECETTE)
+## R5 / ML4 — Cycle 9 — Audit systémique CREATE D3→D4 / incident R12
 
-- Date/heure : 2026-11-09 22:20 CET (2026-11-09T21:20:14Z)
-- GO Morris : 2026-11-09
+- Date/heure : 2026-11-09 22:45 CET (2026-11-09T21:45:18Z)
+- GO Morris : 2026-11-09 — **DIAGNOSTIC UNIQUEMENT** (aucune correction / redeploy / LIVE / GitHub)
 - Profil : CRITICAL
-- Sandbox autorisé : `mcleland147/chantiers360` (écritures de test)
 - Verdict :
-  **R12 REAL PUBLICATION READINESS VERIFIED — RECETTE CONFIGURED — USER HUMANDECISION AND REAL COMMIT NOT RUN**
+  **ROOT CAUSE EVIDENCED — R12 CREATE CONTRACT FAILURE QUALIFIED**
 
 ---
 
-## 1. Git Truth Check (produit)
+## 1. Git Truth Check
 
 | Item | Valeur | Statut |
 |---|---|---|
-| Branche | `fix/next-ml4-chat-first-d4-provenance-20261109` | OK |
-| HEAD | `93da44beb7e7571c9406180027896769579b9815` | OK |
-| Tree | `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8` | OK |
+| Branche | fix/next-ml4-chat-first-d4-provenance-20261109 | OK |
+| HEAD | 93da44beb7e7571c9406180027896769579b9815 | OK |
+| Tree | 8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8 | OK |
+| RECETTE servie | SHA 93da44be / BUILD sHkE8sHJBxD3U9AJdHWi7 / :3200 | OK inchangé |
 | Commit produit ce cycle | **AUCUN** | OK |
-| Handoff précédent | `f501e38c…` / blob `9d6cf4a3…` | OK |
-| Code source modifié | **NON** | OK |
+| Écriture DB/GitHub/config | **AUCUNE** | OK |
+| Handoff précédent | e3b234bb… | OK |
 
-État final local :
+État local final :
 ```
 ## fix/next-ml4-chat-first-d4-provenance-20261109
  M .tmp-sfia-review/chatgpt-review.md
@@ -32,211 +32,211 @@
 ?? projects/sfia-studio-next/construction/integration-git/env01-recette-manifest-ml4-a2c5e9f8-2026-11-09.md
 ?? projects/sfia-studio-next/web/scripts/github-app-installation-read-qualify.ts
 ```
-HEAD final inchangé : `93da44beb7e7571c9406180027896769579b9815` / `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8`
+HEAD final : `93da44beb7e7571c9406180027896769579b9815` / `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8`
+
+Historique conversation (974b→93da) : f1b49e20 → 1fedb9ff → a2c5e9f8 → 8ba77730 → 9694cc71 → 0b02de41 → 93da44be.
 
 ---
 
-## 2. Sources consultées
+## 2. Sources lues
 
-- SFIA v2.6 cycle routing / execution (cadre Critical / ENV-01 / Handoff)
-- Next governance ENV-01, product-versioning, ADR ML4
-- conception-fonctionnelle/integration-git-gouvernee.md
-- construction/integration-git (spec, contrat, matrice, scénarios e2e)
-- Code candidat : real-github-provider, github-provider, github-app-config, effect-service (prepare/authorize/dispatch), publication-steps, path-policy, PublicationInspectionPanel, API /git/publications/*
-- Registre utilisateur : lecture seule
+- Contrats Next / ML4 (gouvernance, conception Nora, spec/matrice integration-git)
+- Code courant document-act.ts / service.ts (CREATE gate)
+- Tests unit document-act + PG chat-first (couverture)
+- Handoffs historiques (contexte, non baseline)
+- DB RECETTE en SELECT uniquement
+- Logs launchd RECETTE existants
 
 ---
 
-## 3. Runtime RECETTE (avant / après activation)
+## 3. Identité exacte du tour R12 (STORED)
 
-| Item | Avant | Après |
+| Champ | Valeur |
+|---|---|
+| projectId | proj_1b52eb8f-3c63-4c72-a4dd-a47f34e1bb4d (CampusFlow) |
+| preparationId | prep_a89ab4b7-4e7b-42a7-8649-a9490990e723 |
+| conversationId | conv_66d2f3a3-d1e0-4e70-a307-6c68bd22690c |
+| pilotId | pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c (mcleland147) |
+| turnCommandId | tcmd_c67c5ce8-07b7-4827-bdc9-002d1017d2eb |
+| clientTurnKey | turn-c436e39a-1bd7-4d34-8930-89ce02249927 |
+| operationId | op_1e7c0bc8-bb9b-4e36-aeb0-588a03de57eb |
+| requestId | req_4b56727b-59c9-4491-a976-767e8639475d |
+| userMessageId | msg_23127034-5e09-4aab-892d-486d818f612e |
+| assistantMessageId | msg_e7ed1250-1512-4001-953b-ebe9581d1de0 |
+| generationId | gen_60a437d6-ba18-4958-9985-014dd98970c8 |
+| turn status | COMPLETE |
+| noraMode | **openai-agents-sdk-live** |
+| documentSave (result_json) | **null** |
+| obs document_proposal | **ABSENT** pour ce requestId |
+| docs CampusFlow après | 1 seul (Chantiers360) ; v2 inchangée |
+
+User message (structure, corps omis) — niveau **STORED** :
+```
+Dans le projet CampusFlow, crée et enregistre dans les Documents internes de Studio un nouveau document de recette intitulé « RECETTE ML4 — Publication documentaire R12 ».
+
+Contenu souhaité : [CORPS OMIS]
+
+Enregistre uniquement ce document en D4, sans modifier le document existant « Références externes — Enseignements de Chantiers360 ».
+
+N'effectue pour l'instant aucune écriture GitHub, aucune création de branche, aucun commit et aucune PR.
+
+Indique le résultat applicatif réel de l'enregistrement, l'identifiant documentaire, la version et la révision créées.
+```
+
+Assistant (structure) — STORED :
+- ouverture fence info=`sfia-document` puis fermeture valide ;
+- pas de bloc « Résultat applicatif D4 » ;
+- narration : enregistrement non confirmé.
+- HEAD: `Voici la proposition de **nouveau document D4**, distincte de « Références externes — Enseignements de Chantiers360 », dont aucune modification n’est proposée. Aucune opération GitHub n’est effectuée.\n\n```sfia-document\n# RECETTE ML4 — Publication documentaire R12\n\n## 1. Objectif\n`
+- TAIL: `-effet n’est disponible à ce stade. Je ne peux donc pas confirmer l’enregistrement ni fournir un identifiant documentaire, une version ou une révision créés. Ces éléments doivent provenir du retour applicatif de Studio.\n`
+
+RAW LIVE provider payload : **UNKNOWN** (non conservé hors message persisté). Le contenu assistant STORED est la meilleure preuve disponible.
+
+---
+
+## 4. Timeline R06-A → A+B+D → R12
+
+1. **R06-A CREATE** (14:43Z) : user `msg_272cc3cf…` / gen `gen_cd4a83b6…` → `documentSave.AVAILABLE` v1 `doc_1e5d8c16…` / `drev_c07ca162…`.
+   - Assistant LIVE **sans** `sfia-document` ; affirme non-enregistrement ; **ACK applicatif absent** mais D4 persisté (vérité ACK historique fausse).
+2. Correctifs intent/ACK/section (f1b49e20…8ba77730) puis **A+B+D** (9694cc71) : fence contractuelle exacte `sfia-document`, suppression fallback permissif.
+3. Scanner nested + isolation illustrative (0b02de41, 93da44be).
+4. Bascule RECETTE sur 93da44be ; activation REAL documentary (hors cause CREATE).
+5. **R12 CREATE attempt** (21:25Z) : Nora LIVE produit `sfia-document` valide ; **aucun D4**.
+
+---
+
+## 5. Cartographie A→M et première divergence
+
+| Frontière | Observé | Preuve | Écart |
+|---|---|---|---|
+| A User reçu | texte CREATE explicite STORED | DB messages | — |
+| B Intent | markers verbaux présents | texte | — |
+| **C Qualify** | **`NONE` / `NO_EXPLICIT_WRITE`** | replay `qualifyDocumentAct` sur STORED | **PREMIÈRE DIVERGENCE** |
+| D–F Nora | LIVE COMPLETE ; fence `sfia-document` | result_json + message | conforme B extract |
+| G–H Extract/Scan | ok si joué hors bande | replay extract/scan | non atteint en service |
+| I Autorisation contenu | n/a (non routé) | — | — |
+| J–K D4 | non tenté ; documentSave null | result_json ; pas d’obs proposal | conséquence |
+| L ACK | absent | message assistant | conséquence (pas de documentSave) |
+| M UI library | 1 doc seulement | SELECT documents | conséquence |
+
+**H1–H9 :**
+- H1 CREATE routé ? **NON**
+- H2 NONE ? **OUI — NO_EXPLICIT_WRITE**
+- H3 instruction sfia-document reçue ? **PROBABLE** (sortie conforme) — RAW prompt UNKNOWN
+- H4 fence produite ? **`sfia-document` autonome OK** (pas générique)
+- H5 MISSING ? **NON** (extract replay OK) — non exécuté en tour
+- H6 pas d’ACK ? **parce que documentSave null** (branche CREATE jamais entrée)
+- H7 effet D4 tenté ? **NON** (`d4_attempted` non émis)
+- H8 ownership ? **NON** (tour COMPLETE normal)
+- H9 erreur masquée ? **NON** prouvée ; silence de qualification
+
+Mécanisme CREATE_PAIR_RE actuel :
+`verbe ∈ {rédige,crée,…}` puis `≤40` chars puis `(document|note|…)` **singulier**.
+
+Sur R12 : « crée et enregistre dans les **Documents** … un nouveau **document** »
+- « Documents » (pluriel) ≠ `document`
+- « document » singulier trop loin (>40) du verbe
+→ CREATE_PAIR false ; CREATE_PLEASE false (pas de peux-tu) → NONE.
+
+Replay discriminant :
+- `crée un document intitulé X` → CREATE
+- `crée et enregistre dans les Documents internes un nouveau document` → NONE
+
+---
+
+## 6. Discriminants S0–S7
+
+| ID | Résultat | Niveau |
 |---|---|---|
-| URL | http://127.0.0.1:3200 | idem |
-| source SHA (start script) | 93da44be… | inchangé |
-| BUILD_ID | sHkE8sHJBxD3U9AJdHWi7 | inchangé |
-| LaunchAgent | com.sfia.studio.next.recette.ml4 | idem |
-| PID next-server | 23324 | 6020 (kickstart) |
-| PPID | launchd (1) | launchd (1) |
-| STUDIO_GITHUB_PROVIDER | real | real |
-| STUDIO_GITHUB_ALLOW_MUTATIONS | (unset) | **documentary** |
-| STUDIO_LANE | RECETTE | RECETTE |
-| App ID / Installation | 5677465 / 180092114 | idem |
-| Allowed repo | mcleland147/chantiers360 | idem |
-
-Note : SFIA_SOURCE_SHA dans .env.local historique reste 8ba77730… mais start-recette.sh exporte après source la valeur 93da44be… (runtime réellement servi).
+| S0 | Assistant/user STORED récupérés | STORED |
+| S1 | extract STORED → ok title R12, 598 chars | DET sur STORED |
+| S2 | même corps en sfia-document → ok | DET |
+| S3 | markdown / bare → MISSING | DET (contrat B) |
+| S4 | qualify user → NONE NO_EXPLICIT_WRITE | DET |
+| S5 | non rejoué PG (interdit effet ; fixtures existent pour CREATE+sfia-document) | N/A ce cycle |
+| S6 | n/a — échec avant extract | — |
+| S7 | A+B fence **non causal** ici ; Nora a respecté sfia-document | DET + STORED |
 
 ---
 
-## 4. Contrats D6 / D7 / D8 / D9 contrôlés (code)
+## 7. Comparaison R06-A vs courant
 
-### D6 — HumanDecision
-- authorizePublication crée HumanDecision kind GIT_PUBLICATION_MANDATE avec effectConditions (fingerprint, inspection, envelope).
-- dispatchPublication exige statut AUTHORIZED (ou AMBIGUOUS contrôlé) — pas de dispatch depuis PREPARED.
-- Avant chaque mutation provider : assertStepAuthority (contents=write + pull_requests=write).
-- Flag env n'est pas une HumanDecision.
+| | R06-A (succès D4) | R12 (échec) |
+|---|---|---|
+| Qualifier **actuel** sur user STORED | NONE INFORMATIVE_OR_HYPOTHETICAL (faux positif : `comment je peux le retrouver` … `enregistrer`) | NONE NO_EXPLICIT_WRITE |
+| Runtime historique | permissive / autre SHA (CREATE a persisté) | 93da44be |
+| Fence assistant | pas sfia-document | sfia-document OK |
+| Extraction historique | fallback markdown/titre/wrap | exact sfia-document |
+| documentSave | AVAILABLE v1 | null |
+| ACK | absent (et narration menteuse « non enregistré ») | absent |
 
-### D7 / D9
-- preparePublication → plan inspectable + fingerprint figé + effectProviderMode figé.
-- Dispatch : createBranch / putFileContents / createPR.
-- REAL : mutations user-to-server only ; merge toujours mutationBlocked.
-- Gate opérateur : STUDIO_GITHUB_ALLOW_MUTATIONS===documentary exact.
-
-### D8
-- publication-steps refuse COMPLETED sans preuve CREATE_BRANCH / PUBLISH_FILE / commitSha.
-- Upsert document_publication_refs atomique avec CAS D7.
-
-### Chemin UX/API
-1. Projet → PublicationInspectionPanel
-2. POST /api/projects/:id/git/publications/prepare
-3. Inspecter unifiedDiff
-4. POST .../authorize (statement D6)
-5. POST .../dispatch
-6. Merge routes séparées (merge REAL hard-blocked)
+Conclusion comparative :
+- A+B a **durci correctement** l’extraction (plus de fallback dangereux).
+- L’incident R12 n’est **pas** un échec du scanner B.
+- Il y a **rupture du parcours nominal CREATE** au niveau **qualification d’acte** (fenêtre 40 + singulier + absence d’ACK de refus).
+- Régression systémique de couverture CREATE même si le durcissement local du parseur est juste.
 
 ---
 
-## 5. Identité & permissions RECETTE (observées)
+## 8. Audit couverture tests (faux signal)
 
-| Capacité | Preuve |
+Campagnes 77/14/13 :
+- CREATE positifs = formulations courtes (« Rédige un document… ») déjà `sfia-document` en fixture.
+- **Aucun** test sur « crée … Documents internes … nouveau document ».
+- **Aucun** test LIVE Nora → qualify → extract → D4.
+- Refus CREATE non routé : **pas d’ACK applicatif** exigé (silence ≠ FAILED documentSave).
+- REVISE R06 (gen_229e698e) a émis document_proposal SUCCESS — asymétrie CREATE vs REVISE sur ce projet.
+
+Test manquant qui aurait dû bloquer : oracle qualify sur paraphrases CREATE réalistes + assert que NONE sans write produit un signal utilisateur loyal.
+
+---
+
+## 9. Responsabilités
+
+| Domaine | Rôle dans l’incident |
 |---|---|
-| Pilote A Studio | pilot_98a7a89e… display mcleland147 |
-| OAuth GitHub CONNECTED | iauth_ebe770c9… installation 180092114 account mcleland147 |
-| Token user | présent + refresh ; token_expires_at > now au check |
-| Repo autorisé | arepo_32cca521… mcleland147/chantiers360 ACTIVE |
-| Permissions observées | contents=admin, pull_requests=write |
-| Lien projet CampusFlow | pgl_24363a4d… ATTACHED → chantiers360 |
-| App lane RECETTE | 5677465 / 180092114 / callback :3200 |
-| Restriction mono-dépôt | assertAllowedRepo + GITHUB_APP_ALLOWED_REPO |
+| D3 qualify | **owner de la première divergence** |
+| D3 Nora LIVE | a produit une proposition contractuelle valide |
+| D3 extract B | non exécuté ; aurait accepté |
+| D4 | non sollicité |
+| D6/D7/D8/D9 | hors cause primaire |
+| UI | affiche conversation COMPLETE sans transaction D4 |
 
-DEV : ~/.config/sfia-studio-next/dev/.env.local absent — pas d'activation miroir.
+Deux visions : le modèle croit créer/proposer un D4 ; le service n’a jamais autorisé l’acte CREATE.
 
 ---
 
-## 6. Activation bornée (sans changement code)
+## 10. Options (SANS implémentation)
 
-Action : ajouter STUDIO_GITHUB_ALLOW_MUTATIONS=documentary dans RECETTE .env.local uniquement.
+| Opt | Idée | Fidélité RG-DOC | Blast | Risque |
+|---|---|---|---|---|
+| A | Élargir CREATE_PAIR (pluriel documents, fenêtre, « enregistre … document ») | haute si borné aux verbes positifs | faible–moyen document-act | faux positifs CREATE |
+| B | Protocole sortie structuré hors markdown libre | haute long terme | moyen Nora+D3 | chantier plus large |
+| C | Récupérer proposition sans CREATE qualifié | **basse** — dangereux | élevé | pollution / autorité |
+| D | ACK loyal quand intent documentaire saturé mais NONE/refuse | haute UX vérité | faible service compose | ne crée pas le doc |
+| E | Obs `document_act_kind` + reason même si NONE | haute diagnostic | très faible | ne corrige pas R12 |
 
-Diff configuration expurgée :
-
-```diff
---- /Users/morris/Projects/sfia-recette-backups/ml4-r12-activation-20261109/recette.env.redacted.before	2026-11-09 22:17:24
-+++ /Users/morris/Projects/sfia-recette-backups/ml4-r12-activation-20261109/recette.env.redacted.after	2026-11-09 22:17:24
-@@ -26,3 +26,6 @@
- STUDIO_GITHUB_USER_OAUTH=real
- STUDIO_GITHUB_PROVIDER=real
- OPENAI_API_KEY=***REDACTED***
-+
-+# ML4 R12 — bounded REAL documentary mutations (operator gate; D6 still required)
-+STUDIO_GITHUB_ALLOW_MUTATIONS=documentary
-
-```
-
-Backup : /Users/morris/Projects/sfia-recette-backups/ml4-r12-activation-20261109/
-
-Redémarrage : launchctl kickstart -k LaunchAgent RECETTE. Build/SHA conservés.
-
-Garanties : D6 obligatoire ; merge bloqué ; path-policy docs only ; pas de publication Nora ; zéro écriture GitHub ce cycle.
-
-Path R12 autorisé : docs/recette-studio-next/publication-documentaire.md → DOCUMENTARY_ALLOWLIST.
+**Écarter C** comme solution par défaut.
+A+D (+E) = correctifs locaux probables ; B = trajectoire si dette générative récurrente.
+A+B fence : **conserver** ; ne pas restaurer fallback_wrap.
 
 ---
 
-## 7. Sandbox Git distant (témoins)
+## 11. Préservation / Fake-Real
 
-| Témoin | État |
-|---|---|
-| main | 8c398c494dd918272aab5b2653777c6c21d2e76e INCHANGÉ |
-| PR #18 | OPEN / NON MERGED INCHANGÉE |
-| Branche sfia/recette-ml4-r12-20261109 | absente — non créée par Cursor |
-| Fichier cible sous main | absent — OK |
-
-Note produit : publicationBranchFromCorrelationKey → sfia/pub-<16hex>. Le libellé candidat sfia/recette-ml4-r12-20261109 n'est pas un paramètre UX. targetPath éditable doit être docs/recette-studio-next/publication-documentaire.md. Branche créée par Studio après HumanDecision.
+- CampusFlow / Chantiers360 v1–v2 / flags GitHub / main / PR18 : **non mutés**
+- Aucun Nora LIVE / aucune écriture D4 déclenchés par l’audit
+- Qualification : STORED+DET **PROVEN** ; RAW LIVE prompt **UNKNOWN** ; REAL D4 R12 **NOT RUN** ; REAL GitHub **NOT RUN**
 
 ---
 
-## 8. Données D4 préservées
+## 12. Verdict
 
-- doc_1e5d8c16… CampusFlow
-- v1 drev_c07ca162… AVAILABLE md5 de4bd1a6…
-- v2 drev_31678175… AVAILABLE md5 a875d28e…
-- Nouveau document R12 : NON créé
-- Mutation DB métier : AUCUNE
+**ROOT CAUSE EVIDENCED — R12 CREATE CONTRACT FAILURE QUALIFIED.**
 
----
+Cause racine : `qualifyDocumentAct` n’a pas reconnu CREATE (`NO_EXPLICIT_WRITE`) à cause du couple verbe/objet trop strict (singulier `document` + fenêtre 40). Conséquence : branche D4 non entrée malgré une sortie Nora `sfia-document` extractible. A+B n’est pas la cause de cet échec ; il expose néanmoins une rupture de parcours nominal CREATE vs formulations utilisateur réelles et un silence d’ACK.
 
-## 9. Smoke non mutatif
+### Gate Morris suivant
+Choisir option(s) de correction (recommandation d’audit : **A bornée + D + E**, sans rollback B) sous GO distinct — puis tests de non-régression CREATE paraphrasés avant nouvel essai R12 LIVE.
 
-| Check | Résultat |
-|---|---|
-| GET / | 307 |
-| GET /login /portfolio /settings/integrations | 200 |
-| Fingerprint BUILD | sHkE8sHJBxD3U9AJdHWi7 FOUND |
-| APIs sans session | 401 SESSION_INVALID |
-| Dispatch / commit | NOT RUN |
-| main / PR #18 | inchangés |
-
-- capability configured : YES
-- permission verified : YES
-- workflow available : YES
-- REAL effect : NOT RUN
-
----
-
-## 10. Fake / Real Qualification
-
-REAL CONFIGURATION / PERMISSION / UI READINESS : PROVEN.
-R12 REAL COMMIT / R13 / R14 / ML4 ACCEPTED / STABLE / ADOPTED : NOT PROVEN / NON revendiqués.
-Product Versioning : PATCH candidate / NO RELEASE / source 93da44be.
-
----
-
-## 11. Rollback configuration
-
-```markdown
-# Rollback config — R12 activation STUDIO_GITHUB_ALLOW_MUTATIONS
-
-## Change
-- Set STUDIO_GITHUB_ALLOW_MUTATIONS=documentary in RECETTE .env.local only
-- Product SHA/build unchanged (93da44be / sHkE8sHJBxD3U9AJdHWi7)
-
-## Restore
-1. cp /Users/morris/Projects/sfia-recette-backups/ml4-r12-activation-20261109/recette.env.local.pre-20261109-221724 /Users/morris/.config/sfia-studio-next/recette/.env.local
-2. chmod 600 $HOME/.config/sfia-studio-next/recette/.env.local
-3. launchctl kickstart -k gui/$(id -u)/com.sfia.studio.next.recette.ml4
-4. Verify flag unset/absent and BUILD_ID still sHkE8sHJBxD3U9AJdHWi7
-5. No DB restore
-
-## Note
-Flag is operator gate only; D6 HumanDecision remains mandatory in Studio.
-
-```
-
-Rollback flag : documenté, NOT EXERCISED. Runtime SHA/build inchangés.
-
----
-
-## 12. Réserves
-
-- Token user expire ; refresh présent — confirmer CONNECTED avant R12.
-- Fixtures scripted-install-1 en DB distinctes du Pilote A.
-- Activation flag ≠ succès publication.
-- Nom de branche manuel hors produit non supporté sans changement code.
-
----
-
-## 13. Verdict
-
-**R12 REAL PUBLICATION READINESS VERIFIED — RECETTE CONFIGURED — USER HUMANDECISION AND REAL COMMIT NOT RUN.**
-
-### Étape utilisateur exacte pour R12
-
-1. Ouvrir http://127.0.0.1:3200 en session Pilote A (mcleland147).
-2. Vérifier Intégrations : GitHub CONNECTED + chantiers360 autorisé.
-3. Créer un nouveau document D4 de test (ne pas réutiliser CampusFlow R06).
-4. Sur le projet lié à chantiers360, ouvrir le panneau de publication documentaire.
-5. Préparer : révision AVAILABLE, path docs/recette-studio-next/publication-documentaire.md, base main.
-6. Inspecter le diff réel.
-7. Autoriser explicitement (HumanDecision D6) — l'accord sandbox ne remplace pas cette étape.
-8. Dispatch depuis l'application uniquement.
-9. Relire le commit distant + preuve D8.
-10. Conserver main / PR #18 / CampusFlow comme témoins.
+Ne pas annoncer : R12 PASS / CREATE FIXED / LIVE NORA PROVEN / ML4 ACCEPTED / STABLE / ADOPTED.
