@@ -1248,3 +1248,19 @@ Append-only logical journal of Cursor product deliveries.
 | RECETTE | **inchangée** — SHA `93da44be` / BUILD `sHkE8sHJBxD3U9AJdHWi7` |
 | Push Product | **AUCUN** |
 | Verdict candidat | `READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-ADE-CONSOLIDATION-SAFETY
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~23:30 CET |
+| Macro-capacité | R5 / ML4 — Consolidation A+D+E (faux positifs CREATE, campusflow, NOT_EXECUTED PG, handoff) |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` |
+| Parent tip | `8eab1317b97f5bfc438d736b42a1363ddfdb3e77` |
+| Autorité | Morris GO consolidation 2026-11-09 CRITICAL — commit local descendant + handoff L3 |
+| Changements | clause-scoped CREATE ; suppression token campusflow ; C1–C14/N11 ; PG NOT_EXECUTED + C10 |
+| Validations | unit document-act 91 PASS ; PG Chat First 17 PASS ; tsc/build production PASS |
+| Lane tests | DEV Postgres `127.0.0.1:5433` |
+| RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY` |

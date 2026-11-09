@@ -34,6 +34,7 @@ import {
   assertSectionScope,
   extractContractualDocumentProposal,
   hasCompetingTransactionalClaim,
+  hasDocumentaryWriteSignal,
   qualifyDocumentAct,
   applyTargetedSectionRevision,
 } from "@/domains/conversation/document-act";
@@ -131,13 +132,75 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
         "Comment puis-je créer un document ?",
       );
       expect(qualifyDocumentAct("Comment puis-je créer un document ?").kind).toBe("NONE");
+      expect(hasDocumentaryWriteSignal("Comment puis-je créer un document ?")).toBe(false);
       expect(chat.documentSave).toBeNull();
       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
       const msgs = await listMessages(pilotId, prep.id);
       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-      // Informative: no fabricated FAILED / no D4 AVAILABLE claim.
+      // Informative: no fabricated FAILED / no D4 AVAILABLE / no parasite NOT_EXECUTED.
       expect(assistant?.content ?? "").not.toMatch(/Statut observé: AVAILABLE/);
       expect(assistant?.content ?? "").not.toMatch(/documentId:/);
+      expect(assistant?.content ?? "").not.toMatch(/NOT_EXECUTED/);
+      expect(assistant?.content ?? "").not.toMatch(/Résultat applicatif \(pré-effet\)/);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("D-NOT_EXECUTED: plausible write signal + NONE → pre-effect ACK, zero D4 (service path)", async () => {
+    const pilotId = await seedPilot("ml4-not-executed");
+    const prep = await openOrCreatePreparation(pilotId);
+    const ask = "Crée une branche Git, mais ne crée pas de document.";
+    const q = qualifyDocumentAct(ask);
+    expect(q.kind).toBe("NONE");
+    if (q.kind === "NONE") {
+      expect(q.reason).toMatch(/CREATE_OBJECT_BRIDGE_UNQUALIFIED|NEGATED_WRITE|NO_EXPLICIT/);
+    }
+    expect(hasDocumentaryWriteSignal(ask)).toBe(true);
+
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "Je peux décrire une branche, sans écriture documentaire.\n\n" +
+      "```sfia-document\n# Ne doit pas être persisté\n\ncorps\n```\n";
+    try {
+      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
+      expect(chat.status).toBe("COMPLETE");
+      expect(chat.documentSave).toBeNull();
+      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
+
+      const msgs = await listMessages(pilotId, prep.id);
+      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+      const body = assistant?.content ?? "";
+      expect(body).toMatch(/Résultat applicatif \(pré-effet\)/);
+      expect(body).toMatch(/NOT_EXECUTED/);
+      expect(body).toMatch(/non tentée/i);
+      expect(body).toMatch(/n'a pas été qualifiée/i);
+      expect(body).not.toMatch(/Résultat applicatif D4 \(source de vérité\)/);
+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
+      expect(body).not.toMatch(/Statut observé: FAILED/);
+      expect(body).not.toMatch(/documentId:/);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("C10: CREATE qualified but missing autonomous sfia-document → FAILED extract, zero D4", async () => {
+    const pilotId = await seedPilot("ml4-c10-missing");
+    const prep = await openOrCreatePreparation(pilotId);
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "Voici une proposition hors fence contractuelle.\n\n# Titre\n\nCorps non contractuel.\n";
+    try {
+      const ask = "Crée un document de synthèse sur C10 Missing Fence";
+      expect(qualifyDocumentAct(ask).kind).toBe("CREATE");
+      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
+      expect(chat.documentSave?.status).toBe("FAILED");
+      expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+      expect(chat.documentSave?.documentId).toBeUndefined();
+      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
+      const msgs = await listMessages(pilotId, prep.id);
+      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+      expect(assistant?.content ?? "").toMatch(/FAILED|DOCUMENT_PROPOSAL_MISSING/);
+      expect(assistant?.content ?? "").not.toMatch(/NOT_EXECUTED/);
+      expect(assistant?.content ?? "").not.toMatch(/Statut observé: AVAILABLE/);
     } finally {
       delete turnRaceHooks.replaceNoraAssistantText;
     }

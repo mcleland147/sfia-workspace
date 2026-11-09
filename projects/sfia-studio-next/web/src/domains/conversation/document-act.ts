@@ -23,18 +23,96 @@ const SECTION_RE =
   /\b(?:section|partie|chapitre)\s+(\d+|[A-Za-zÀ-ÿ][\wÀ-ÿ-]*)\b/i;
 const DOC_ID_RE = /\b(doc_[a-z0-9-]+)\b/i;
 
-/** Close create↔object pair (short formulations). */
-const CREATE_PAIR_CLOSE_RE =
-  /\b(rédige|rédiger|écris|écrire|produis|produire|crée|créer)\b[\s\S]{0,48}\b(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i;
 const CREATE_PLEASE_RE =
   /\b(documents?|note de synthèse|rapports?)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i;
 
 /**
  * Complements allowed between a CREATE verb and a documentary object
  * (location, novelty, title framing) — not a free-form widen of authority.
+ * No project/client proper names hardcoded: capitalized tokens pass via isCreateComplementToken.
  */
 const CREATE_COMPLEMENT_TOKEN_RE =
-  /^(?:et|ou|puis|dans|sur|pour|de|du|des|le|la|les|un|une|ce|cette|ces|au|aux|en|par|avec|vers|sous|interne|internes|studio|projet|campusflow|recette|nouveau|nouvelle|nouveaux|nouvelles|intitulé|intitulée|intitulés|intitulées|nommé|nommée|appelé|appelée|enregistre|enregistrer|sauvegarde|sauvegarder|persist|persiste|persister|d4|documents?|notes?|synthèses?|rapports?|spécifications?|titre|espace)$/i;
+  /^(?:et|ou|puis|dans|sur|pour|de|du|des|le|la|les|un|une|ce|cette|ces|au|aux|en|par|avec|vers|sous|interne|internes|studio|projet|recette|nouveau|nouvelle|nouveaux|nouvelles|intitulé|intitulée|intitulés|intitulées|nommé|nommée|appelé|appelée|enregistre|enregistrer|sauvegarde|sauvegarder|persist|persiste|persister|d4|documents?|notes?|synthèses?|rapports?|spécifications?|titre|espace)$/i;
+
+/** Proper-noun / project-label token (structure only — not a name allowlist). */
+const CREATE_PROPER_NOUN_TOKEN_RE = /^[A-ZÀ-Ÿ][\wÀ-ÿ-]{1,47}$/;
+
+function isCreateComplementToken(raw: string): boolean {
+  const tok = raw.replace(/[.,;:!?«»""''()[\]]/g, "");
+  if (!tok) return false;
+  if (CREATE_COMPLEMENT_TOKEN_RE.test(tok)) return true;
+  // « dans le projet OrionAtlas » — identity-agnostic capitalized label.
+  if (CREATE_PROPER_NOUN_TOKEN_RE.test(tok)) return true;
+  return false;
+}
+
+/** Explicit refusal of durable D4 persistence on an otherwise positive draft. */
+function hasDurableSaveNegation(text: string): boolean {
+  return (
+    /\bne\s+(?:l['’])?enregistre\s+pas\b/i.test(text) ||
+    /\bne\s+(?:le\s+|la\s+)?sauvegarde\s+pas\b/i.test(text) ||
+    /\bsans\s+(?:l['’])?enregistrer\b/i.test(text) ||
+    /\bsans\s+(?:le\s+)?sauvegarder\b/i.test(text) ||
+    /\bne\s+(?:l['’])?enregistre\s+pas\s+dans\s+(?:les\s+)?documents?\b/i.test(text) ||
+    /\bmais\s+ne\s+(?:l['’])?enregistre\s+pas\b/i.test(text)
+  );
+}
+
+/** Irresolvable CREATE contradiction on the same utterance (N11 / C12). */
+function hasAmbiguousCreateContradiction(text: string): boolean {
+  const t = text.replace(/\s+/g, " ").trim();
+  // « Crée ou ne crée pas … »
+  if (
+    /\b(crée|créer|rédige|rédiger)\b[\s\S]{0,48}\bou\b[\s\S]{0,24}\bne\s+(?:en\s+|le\s+|la\s+|l['’])?(?:crée|créer|rédige|rédiger)\s+pas\b/i.test(
+      t,
+    )
+  ) {
+    return true;
+  }
+  // Positive create+document AND negated create+document without Git-branch disambiguation.
+  const negCreateDoc =
+    /\bne\s+(?:me\s+)?(?:crée|créer)\s+(?:pas|aucun|aucune)[\s\S]{0,48}\bdocuments?\b/i.test(t);
+  if (!negCreateDoc) return false;
+  if (/\b(branche|github|git)\b/i.test(t)) return false;
+  // Count positive (non-negated) create verbs that still see a doc object in their own clause window.
+  let positiveCreateDoc = false;
+  for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
+    if (isVerbNegated(t, verb.index, verb.text.length)) continue;
+    const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
+    if (/\b(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i.test(window)) {
+      positiveCreateDoc = true;
+      break;
+    }
+  }
+  return positiveCreateDoc && negCreateDoc;
+}
+
+/**
+ * Text after a verb up to the next create/revise verb or hard clause break —
+ * prevents binding a later clause's documentary object to an earlier verb.
+ */
+function clauseWindowAfterVerb(text: string, afterVerbIndex: number, maxLen = 160): string {
+  const after = text.slice(afterVerbIndex, afterVerbIndex + maxLen);
+  const nextAct =
+    /\b(?:rédige|rédiger|écris|écrire|produis|produire|crée|créer|révise|reviser|réviser|revise|modifie|modifier|corrige|corriger)\b/i.exec(
+      after.slice(1),
+    );
+  let end = after.length;
+  if (nextAct?.index != null) end = Math.min(end, nextAct.index + 1);
+  const hardBreak = /[;]|(\bmais\b)/i.exec(after);
+  if (hardBreak?.index != null && hardBreak.index < end) {
+    // Keep « mais » local complements only when it does not introduce another act verb soon after.
+    const afterMais = after.slice(hardBreak.index);
+    if (
+      /\bmais\b[\s\S]{0,20}\b(?:ne\s+)?(?:crée|créer|rédige|rédiger|révise|réviser|modifie|modifier)\b/i.test(
+        afterMais,
+      )
+    ) {
+      end = Math.min(end, hardBreak.index);
+    }
+  }
+  return after.slice(0, end);
+}
 
 /**
  * Extract a document designation (id or cited title) from the raw Pilote text.
@@ -163,46 +241,35 @@ export function isPolitePositiveDocumentAction(text: string): boolean {
 }
 
 /**
- * Structured CREATE recognition: positive create verb + documentary object,
- * allowing reasonable complements (location, novelty, title) without treating
- * any occurrence of « document » as authority.
+ * Structured CREATE recognition: positive create verb + documentary object
+ * in the *same clause window* (complements / novelty / persist verbs allowed).
+ * Does not treat co-presence of words across contradictory clauses as authority.
  */
 export function hasExplicitCreateIntent(text: string): boolean {
   const t = text.replace(/\s+/g, " ").trim();
   if (!t || !hasPositiveVerb(t, CREATE_VERB_RE)) return false;
+  if (hasDurableSaveNegation(t)) return false;
+  if (hasAmbiguousCreateContradiction(t)) return false;
 
-  if (CREATE_PAIR_CLOSE_RE.test(t) || CREATE_PLEASE_RE.test(t)) return true;
+  // Polite « document … s'il te plaît » without a negated create verb.
+  if (CREATE_PLEASE_RE.test(t) && hasPositiveVerb(t, CREATE_VERB_RE)) return true;
 
-  // Verb … (complements) … (nouveau)? document(s)
   for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
     if (isVerbNegated(t, verb.index, verb.text.length)) continue;
-    const after = t.slice(verb.index + verb.text.length, verb.index + verb.text.length + 160);
-    const obj = after.match(
+    const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
+    const obj = window.match(
       /\b(nouveau(?:x)?|nouvelle(?:s)?)?\s*(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i,
     );
     if (!obj || obj.index == null) continue;
-    const between = after.slice(0, obj.index).trim();
+    const between = window.slice(0, obj.index).trim();
     if (!between) return true;
     // Persist verbs between create and object (« crée et enregistre … document »)
     if (/\b(enregistre|enregistrer|sauvegarde|sauvegarder|persist(?:e|er)?)\b/i.test(between)) {
       return true;
     }
-    // Novelty marker near object
-    if (/\b(nouveau|nouvelle|nouveaux|nouvelles)\b/i.test(between + " " + (obj[0] ?? ""))) {
-      const tokens = between.split(/\s+/).filter(Boolean);
-      if (tokens.every((tok) => CREATE_COMPLEMENT_TOKEN_RE.test(tok.replace(/[.,;:!?]/g, "")))) {
-        return true;
-      }
-    }
-    // Pure complement bridge (dans les Documents internes de Studio …)
     const tokens = between.split(/\s+/).filter(Boolean);
-    if (
-      tokens.length > 0 &&
-      tokens.length <= 16 &&
-      tokens.every((tok) => CREATE_COMPLEMENT_TOKEN_RE.test(tok.replace(/[.,;:!?]/g, "")))
-    ) {
-      return true;
-    }
+    if (tokens.length > 16) continue;
+    if (tokens.every((tok) => isCreateComplementToken(tok))) return true;
   }
   return false;
 }
@@ -240,6 +307,12 @@ export function isInformativeOrHypothetical(text: string): boolean {
   if (/^(comment|pourquoi|quelles?\b|que\s+se\s+passerait)\b/i.test(t)) {
     return true;
   }
+  // « Explique comment créer… » is instructional, not a write authorization (C7).
+  if (/\bexplique\b[\s\S]{0,48}\bcomment\b[\s\S]{0,80}\b(créer|crée|réviser|révise|modifier|enregistrer)\b/i.test(t)) {
+    return true;
+  }
+  // Explicit refusal of durable save — draft in chat only (C6 / N6).
+  if (hasDurableSaveNegation(t)) return true;
   // Explicit CREATE intent wins over trailing « comment je peux le retrouver » clauses.
   if (hasExplicitCreateIntent(t)) return false;
   // Polite positive action first — « Peux-tu réviser le document X ? » is not informative.
@@ -326,6 +399,12 @@ export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
 
   if (isGlobalDocumentWriteNegation(authorityText) || isGlobalDocumentWriteNegation(trimmed)) {
     return { kind: "NONE", reason: "NEGATED_WRITE" };
+  }
+  if (hasAmbiguousCreateContradiction(authorityText) || hasAmbiguousCreateContradiction(trimmed)) {
+    return { kind: "NONE", reason: "AMBIGUOUS_CREATE" };
+  }
+  if (hasDurableSaveNegation(authorityText) || hasDurableSaveNegation(trimmed)) {
+    return { kind: "NONE", reason: "DURABLE_SAVE_NEGATED" };
   }
   if (isInformativeOrHypothetical(authorityText) || isInformativeOrHypothetical(trimmed)) {
     const allowLocalRevise =

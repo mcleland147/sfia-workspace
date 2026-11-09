@@ -638,3 +638,18 @@ Cause R12 (tour RECETTE `93da44be`) : `qualifyDocumentAct` → `NONE` / `NO_EXPL
 | LIVE Nora / GitHub write | NON EXÉCUTÉS | preuves SCRIPTED/DET uniquement |
 
 Verdict candidat : **READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY**.
+
+## 33. Consolidation A+D+E — faux positifs / campusflow / NOT_EXECUTED (2026-11-09)
+
+| Item | Statut | Note |
+|---|---|---|
+| Faux positifs multi-clauses | CORRIGÉ (DET) | `clauseWindowAfterVerb` ; plus de `CREATE_PAIR_CLOSE_RE` global ignorant la négation |
+| C1–C14 / N11 | DET PASS | unit + cas PG C10 / NOT_EXECUTED |
+| Token `campusflow` | SUPPRIMÉ | compléments = grammaire + proper-noun structurel (`OrionAtlas` PASS) |
+| NOT_EXECUTED | PG DEV PASS | service path : signal true, `documentSave=null`, ACK pré-effet |
+| Informative sans signal | PG DEV PASS | A-N10 : pas d'ACK pré-effet parasite |
+| R12 / CREATE AVAILABLE | NON-RÉGRESSION | fixture + A-R12 |
+| Inventaire 8eab1317 | RÉCONCILIÉ | `git show --stat` = **8 fichiers** (écart « 7 » = brouillon pre-fixture) |
+| RECETTE | INCHANGÉE | `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
+
+Verdict candidat : **READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY**.

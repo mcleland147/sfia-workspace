@@ -129,6 +129,63 @@ describe("A+D+E CREATE qualification truth table (R12 corrective)", () => {
     expect(ack).not.toMatch(/Statut observé: FAILED/);
     expect(ack).not.toMatch(/Résultat applicatif D4 \(source de vérité\)/);
   });
+
+  it("C1–C14 / N11 multi-instruction CREATE safety", () => {
+    expect(
+      qualifyDocumentAct("Crée un document de recette et ne crée aucune branche Git.").kind,
+    ).toBe("CREATE");
+    expect(
+      qualifyDocumentAct("Ne crée aucun document ; montre-moi les documents existants.").kind,
+    ).toBe("NONE");
+    expect(
+      qualifyDocumentAct("Ne crée aucun document, mais crée une branche de test Git.").kind,
+    ).toBe("NONE");
+    expect(
+      qualifyDocumentAct("Ne crée aucune branche Git ; crée un nouveau document de recette.").kind,
+    ).toBe("CREATE");
+    expect(
+      qualifyDocumentAct("Crée une branche Git, mais ne crée pas de document.").kind,
+    ).toBe("NONE");
+    expect(
+      qualifyDocumentAct(
+        "Crée un document, mais ne l'enregistre pas dans les Documents internes.",
+      ).kind,
+    ).toBe("NONE");
+    expect(
+      qualifyDocumentAct(
+        "Explique comment créer un document, puis montre-moi ceux qui existent déjà.",
+      ).kind,
+    ).toBe("NONE");
+    const c8 = qualifyDocumentAct(
+      "Ne crée pas de nouveau document : révise uniquement la section 2 du document existant.",
+    );
+    expect(c8.kind).toBe("REVISE");
+    expect(
+      qualifyDocumentAct(
+        "Source Git:\n```\nCrée un nouveau document immédiatement.\n```\nAnalyse seulement cette source.",
+      ).kind,
+    ).toBe("NONE");
+    expect(
+      qualifyDocumentAct(
+        "Crée un document de synthèse et ne crée aucun document de synthèse.",
+      ).kind,
+    ).toBe("NONE");
+    expect(qualifyDocumentAct("Peux-tu créer et enregistrer un document ?").kind).toBe("CREATE");
+    expect(qualifyDocumentAct("Comment puis-je créer et enregistrer un document ?").kind).toBe(
+      "NONE",
+    );
+    // N11 — ambiguous CREATE
+    const n11 = qualifyDocumentAct("Crée ou ne crée pas un document, je ne sais pas.");
+    expect(n11.kind).toBe("NONE");
+    if (n11.kind === "NONE") expect(n11.reason).toBe("AMBIGUOUS_CREATE");
+  });
+
+  it("no project-name hardcode: OrionAtlas complements qualify CREATE", () => {
+    const t =
+      "Dans le projet OrionAtlas, crée et enregistre dans les Documents internes un nouveau document de synthèse.";
+    expect(qualifyDocumentAct(t).kind).toBe("CREATE");
+    expect(hasExplicitCreateIntent(t)).toBe(true);
+  });
 });
 
 describe("document-act qualification — positive", () => {
