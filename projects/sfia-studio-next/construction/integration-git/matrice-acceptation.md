@@ -483,3 +483,20 @@ GO Morris CRITICAL correctif — **aucune** mutation GitHub REAL ; push Product 
 | USER E2E / RECETTE | NOT RUN | Morris |
 
 Verdict cycle : **ML4 PUBLICATION INTEGRITY — CORRECTED AND LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL RE-REVIEW — PRODUCT PUSH NOT AUTHORIZED**.
+
+## 23. ML4-REC-01 — Reconciliation provider provenance (2026-11-09)
+
+Identifiant distinct — **ne pas** réutiliser R1–R5 historiques.
+
+| Item | Statut | Note |
+|---|---|---|
+| Défaut | CORRIGÉ (local) | `reconcileAttempt` résolvait le provider live avant contrôle du mode de la tentative |
+| Gate | ENFORCED | `qualifyPlanEffectProviderMode` + `resolveConfiguredEffectProviderMode` **avant** toute observation |
+| Modes divergents | REQUIRES_REQUALIFICATION | aucune D8 / aucun COMPLETED nouveau / 0 mutation |
+| UNKNOWN historique | FAIL-CLOSED | pas de REAL inventé ; pas de complétion depuis provider live |
+| COMPLETED historique | PRÉSERVÉ | D8 non réécrit depuis provider incompatible |
+| Claim actif | READ-ONLY | ownership DISPATCHED préservé |
+| Tests | REC-01…REC-10 DET | service + DB SCRIPTED |
+| R1–R8 | INCHANGÉS | traçabilité historique conservée (voir spec § risques) |
+
+Verdict cycle : **ML4 PUBLICATION RECONCILIATION — PROVIDER PROVENANCE GUARDED — LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL REVIEW — PRODUCT PUSH NOT AUTHORIZED**.

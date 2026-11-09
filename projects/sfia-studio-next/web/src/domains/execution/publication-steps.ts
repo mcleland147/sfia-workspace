@@ -56,6 +56,16 @@ export function assertPlanPublicationSteps(plan: Pick<PublicationPlan, "steps">)
   validatePublicationSteps(plan.steps);
 }
 
+/** Historical plans omit effectProviderMode → UNKNOWN (never invent REAL). */
+export function qualifyPlanEffectProviderMode(
+  plan: Pick<PublicationPlan, "effectProviderMode">,
+): "REAL" | "SCRIPTED" | "UNKNOWN" {
+  if (plan.effectProviderMode === "REAL" || plan.effectProviderMode === "SCRIPTED") {
+    return plan.effectProviderMode;
+  }
+  return "UNKNOWN";
+}
+
 /**
  * Fail-closed gate before COMPLETED / D8 publicationRef.
  * Base SHA alone is never documentary proof.

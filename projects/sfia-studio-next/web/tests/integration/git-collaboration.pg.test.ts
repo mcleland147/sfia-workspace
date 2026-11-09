@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { config } from "dotenv";
 config({ path: ".env.local" });
 
@@ -47,7 +47,12 @@ import {
   preparePublication,
   reconcileAttempt,
 } from "@/domains/execution/effect-service";
-import { ExecutionBarrierRegistry, readClaim } from "@/domains/execution/claim-lease";
+import {
+  ExecutionBarrierRegistry,
+  mintClaim,
+  readClaim,
+  writeClaimInto,
+} from "@/domains/execution/claim-lease";
 import { publicationEffectFingerprint } from "@/domains/execution/fingerprint";
 import { insertRestriction, markDecisionState } from "@/domains/decisions/service";
 import { qualifyObservedFacts } from "@/domains/proofs/qualify";
@@ -3687,7 +3692,7 @@ describe("PostgreSQL ML4 publication integrity T01–T20 (SCRIPTED)", () => {
     // Same revisionId content diverges from plan.revisionFingerprint (D4 source drift).
     await db
       .update(documentRevisions)
-      .set({ contentMarkdown: "# Changed after inspection\n", updatedAt: new Date() })
+      .set({ contentMarkdown: "# Changed after inspection\n" })
       .where(eq(documentRevisions.id, revisionId));
     resetScriptedMutationCounts(pilotId);
     await expect(
@@ -3737,5 +3742,453 @@ describe("PostgreSQL ML4 publication integrity T01–T20 (SCRIPTED)", () => {
     process.env.STUDIO_GITHUB_PROVIDER = "scripted";
     delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
     expect(getScriptedMutationCounts(pilotId).mergePR).toBe(0);
+  });
+});
+
+describe("PostgreSQL ML4-REC-01 reconcile provider provenance (SCRIPTED)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+  });
+
+  afterEach(() => {
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+    ScriptedFaultRegistry.clear();
+    ExecutionBarrierRegistry.clear();
+  });
+
+  async function seedPub(label: string) {
+    const ctx = await seedProject(label);
+    const { repoId } = await connectAndAttach(ctx.pilotId, ctx.projectId);
+    const doc = await availableDoc(ctx.pilotId, ctx.preparationId, label);
+    return { ...ctx, repoId, ...doc };
+  }
+
+  async function pubRefs(attemptId: string) {
+    return db
+      .select()
+      .from(documentPublicationRefs)
+      .where(eq(documentPublicationRefs.effectAttemptId, attemptId));
+  }
+
+  async function forcePlanMode(
+    attemptId: string,
+    mode: "REAL" | "SCRIPTED" | null,
+  ): Promise<PublicationPlan> {
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, attemptId)).limit(1)
+    )[0]!;
+    const plan = JSON.parse(row.planJson) as PublicationPlan;
+    if (mode === null) delete plan.effectProviderMode;
+    else plan.effectProviderMode = mode;
+    const fingerprint = publicationEffectFingerprint(plan);
+    await db
+      .update(effectAttempts)
+      .set({ planJson: JSON.stringify(plan), fingerprint, updatedAt: new Date() })
+      .where(eq(effectAttempts.id, attemptId));
+    return plan;
+  }
+
+  it("REC-01: REAL plan + SCRIPTED live — reconcile refuse attribution / pas de D8", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec01");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec01.md",
+      targetBranch: "main",
+      correlationKey: newId("rec01"),
+    });
+    const plan = await forcePlanMode(prepared.attemptId, "REAL");
+    await authzPub(pilotId, projectId, { attemptId: prepared.attemptId, plan });
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "AMBIGUOUS",
+        resultJson: JSON.stringify({
+          progress: {
+            branchCreated: true,
+            filePublished: true,
+            commitSha: "scripted-would-complete",
+            prCreated: true,
+            prOpened: true,
+            prNumber: 42,
+            prCurrentState: "OPEN",
+          },
+        }),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const factsBefore = (
+      await db.select().from(observedGitFacts).where(eq(observedGitFacts.attemptId, prepared.attemptId))
+    ).length;
+    resetScriptedMutationCounts(pilotId);
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).toBe("REQUIRES_REQUALIFICATION");
+    expect(reconciled.note).toMatch(/ML4-REC-01/);
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(0);
+    expect(getScriptedMutationCounts(pilotId).putFileContents).toBe(0);
+    expect(getScriptedMutationCounts(pilotId).createPR).toBe(0);
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+    const factsAfter = (
+      await db.select().from(observedGitFacts).where(eq(observedGitFacts.attemptId, prepared.attemptId))
+    ).length;
+    expect(factsAfter).toBe(factsBefore);
+    const afterPlan = JSON.parse(
+      (
+        await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+      )[0]!.planJson,
+    ) as PublicationPlan;
+    expect(afterPlan.effectProviderMode).toBe("REAL");
+  });
+
+  it("REC-02: SCRIPTED plan + REAL live — reconcile refuse sans credentials REAL", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec02");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec02.md",
+      targetBranch: "main",
+      correlationKey: newId("rec02"),
+    });
+    expect(prepared.plan.effectProviderMode).toBe("SCRIPTED");
+    await authzPub(pilotId, projectId, prepared);
+    await db
+      .update(effectAttempts)
+      .set({ status: "AMBIGUOUS", updatedAt: new Date() })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    process.env.STUDIO_GITHUB_PROVIDER = "real";
+    resetScriptedMutationCounts(pilotId);
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).toBe("REQUIRES_REQUALIFICATION");
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+    expect(getScriptedMutationCounts(pilotId).createBranch).toBe(0);
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+  });
+
+  it("REC-03: DISPATCHED + claim actif — ownership préservé, pas de fausse complétion", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec03");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec03.md",
+      targetBranch: "main",
+      correlationKey: newId("rec03"),
+    });
+    const plan = await forcePlanMode(prepared.attemptId, "REAL");
+    await authzPub(pilotId, projectId, { attemptId: prepared.attemptId, plan });
+    const claim = mintClaim(null);
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "DISPATCHED",
+        resultJson: writeClaimInto(JSON.stringify({ progress: {} }), claim),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).toBe("DISPATCHED");
+    expect(reconciled.note).toMatch(/claim/);
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    expect(after.status).toBe("DISPATCHED");
+    expect(readClaim(after.resultJson)?.claimToken).toBe(claim.claimToken);
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("REC-04: DISPATCHED + claim expiré — CAS requalification, pas de faux effet", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec04");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec04.md",
+      targetBranch: "main",
+      correlationKey: newId("rec04"),
+    });
+    const plan = await forcePlanMode(prepared.attemptId, "REAL");
+    await authzPub(pilotId, projectId, { attemptId: prepared.attemptId, plan });
+    const claim = {
+      ...mintClaim(null),
+      leaseExpiresAt: new Date(Date.now() - 5_000).toISOString(),
+    };
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "DISPATCHED",
+        resultJson: writeClaimInto(JSON.stringify({ progress: {} }), claim),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    resetScriptedMutationCounts(pilotId);
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).toBe("REQUIRES_REQUALIFICATION");
+    expect(getScriptedMutationCounts(pilotId).putFileContents).toBe(0);
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("REC-05: AMBIGUOUS + changement provider — aucun COMPLETED", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec05");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec05.md",
+      targetBranch: "main",
+      correlationKey: newId("rec05"),
+    });
+    const plan = await forcePlanMode(prepared.attemptId, "REAL");
+    await authzPub(pilotId, projectId, { attemptId: prepared.attemptId, plan });
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "AMBIGUOUS",
+        resultJson: JSON.stringify({
+          progress: {
+            branchCreated: true,
+            filePublished: true,
+            commitSha: "would-complete-under-scripted",
+            prNumber: 7,
+            prCurrentState: "OPEN",
+            prCreated: true,
+            prOpened: true,
+          },
+        }),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).not.toBe("COMPLETED");
+    expect(reconciled.status).toBe("REQUIRES_REQUALIFICATION");
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("REC-06: COMPLETED historique + changement provider — D8 préservée, pas de réécriture", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec06");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec06.md",
+      targetBranch: "main",
+      correlationKey: newId("rec06"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    const done = await dispatchPublication({
+      pilotId,
+      projectId,
+      attemptId: prepared.attemptId,
+    });
+    expect(done.status).toBe("COMPLETED");
+    const refsBefore = await pubRefs(prepared.attemptId);
+    expect(refsBefore).toHaveLength(1);
+    const detailBefore = refsBefore[0]!.detailJson;
+    const headBefore = refsBefore[0]!.headSha;
+    // Force historical mode REAL while live stays SCRIPTED (config change after success).
+    await forcePlanMode(prepared.attemptId, "REAL");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).toBe("COMPLETED");
+    expect(reconciled.note).toMatch(/COMPLETED historique préservé/);
+    const refsAfter = await pubRefs(prepared.attemptId);
+    expect(refsAfter).toHaveLength(1);
+    expect(refsAfter[0]!.detailJson).toBe(detailBefore);
+    expect(refsAfter[0]!.headSha).toBe(headBefore);
+  });
+
+  it("REC-07: plan historique sans mode — UNKNOWN, aucun REAL inventé, pas de complétion", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec07");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec07.md",
+      targetBranch: "main",
+      correlationKey: newId("rec07"),
+    });
+    await forcePlanMode(prepared.attemptId, null);
+    await authzPub(pilotId, projectId, {
+      attemptId: prepared.attemptId,
+      plan: JSON.parse(
+        (
+          await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+        )[0]!.planJson,
+      ),
+    });
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "AMBIGUOUS",
+        resultJson: JSON.stringify({
+          progress: {
+            branchCreated: true,
+            filePublished: true,
+            commitSha: "unknown-would-complete",
+            prNumber: 9,
+            prCurrentState: "OPEN",
+            prCreated: true,
+            prOpened: true,
+          },
+        }),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).not.toBe("COMPLETED");
+    expect(reconciled.status).toBe("AMBIGUOUS");
+    expect(reconciled.note).toMatch(/UNKNOWN/);
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+    const plan = JSON.parse(
+      (
+        await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+      )[0]!.planJson,
+    ) as PublicationPlan;
+    expect(plan.effectProviderMode).toBeUndefined();
+  });
+
+  it("REC-08: mode identique + séquence nominale — réconciliation valide sans régression", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec08");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec08.md",
+      targetBranch: "main",
+      correlationKey: newId("rec08"),
+    });
+    expect(prepared.plan.effectProviderMode).toBe("SCRIPTED");
+    await authzPub(pilotId, projectId, prepared);
+    ScriptedFaultRegistry.setFault("lost_ack_after_pr");
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toBeTruthy();
+    ScriptedFaultRegistry.clear();
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    if (reconciled.status !== "COMPLETED") {
+      const resumed = await dispatchPublication({
+        pilotId,
+        projectId,
+        attemptId: prepared.attemptId,
+      });
+      expect(resumed.status).toBe("COMPLETED");
+    }
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(1);
+    const again = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(again.status).toBe("COMPLETED");
+  });
+
+  it("REC-09: PR marker incohérent — aucune D8 même avec bon provider", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec09");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec09.md",
+      targetBranch: "main",
+      correlationKey: newId("rec09"),
+    });
+    await authzPub(pilotId, projectId, prepared);
+    ScriptedFaultRegistry.setFault("lost_ack_after_pr");
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toBeTruthy();
+    ScriptedFaultRegistry.clear();
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
+    )[0]!;
+    const progress = JSON.parse(row.resultJson).progress as { prNumber?: number };
+    expect(progress.prNumber).toBeTruthy();
+    // Corrupt marker on the PR that was created (wrong provenance).
+    scriptedSetPrMarker(pilotId, progress.prNumber!, "wrong-marker-foreign");
+    const claim = {
+      ...mintClaim(null),
+      leaseExpiresAt: new Date(Date.now() - 1).toISOString(),
+      releasedAt: new Date().toISOString(),
+    };
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "AMBIGUOUS",
+        resultJson: writeClaimInto(row.resultJson, claim),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prepared.attemptId));
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    expect(reconciled.status).not.toBe("COMPLETED");
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
+  });
+
+  it("REC-10: reprise timeout/lost ACK — mode cohérent, idempotence", async () => {
+    const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("rec10");
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId,
+      revisionId,
+      repositoryId: repoId,
+      targetPath: "docs/rec10.md",
+      targetBranch: "main",
+      correlationKey: newId("rec10"),
+    });
+    expect(prepared.plan.effectProviderMode).toBe("SCRIPTED");
+    await authzPub(pilotId, projectId, prepared);
+    ScriptedFaultRegistry.setFault("lost_ack_after_pr");
+    await expect(
+      dispatchPublication({ pilotId, projectId, attemptId: prepared.attemptId }),
+    ).rejects.toBeTruthy();
+    ScriptedFaultRegistry.clear();
+    resetScriptedMutationCounts(pilotId);
+    const reconciled = await reconcileAttempt(pilotId, projectId, prepared.attemptId);
+    let finalStatus = reconciled.status;
+    if (reconciled.status !== "COMPLETED") {
+      const resumed = await dispatchPublication({
+        pilotId,
+        projectId,
+        attemptId: prepared.attemptId,
+      });
+      finalStatus = resumed.status;
+    }
+    expect(finalStatus).toBe("COMPLETED");
+    expect(getScriptedMutationCounts(pilotId).createPR).toBeLessThanOrEqual(1);
+    const again = await dispatchPublication({
+      pilotId,
+      projectId,
+      attemptId: prepared.attemptId,
+    });
+    expect(again.status).toBe("COMPLETED");
+    expect(again.idempotent).toBe(true);
+    expect(await pubRefs(prepared.attemptId)).toHaveLength(1);
   });
 });

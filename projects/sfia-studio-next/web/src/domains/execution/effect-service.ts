@@ -56,6 +56,7 @@ import type {
 import {
   assertPlanPublicationSteps,
   assertPublicationEffectProof,
+  qualifyPlanEffectProviderMode,
   resolvePublicationSteps,
 } from "./publication-steps";
 
@@ -2113,7 +2114,6 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
     .from(observedGitFacts)
     .where(eq(observedGitFacts.attemptId, attemptId));
 
-  const provider = resolveGitHubProvider();
   const claim = readClaim(row.resultJson);
   const claimActive = isClaimActive(claim);
 
@@ -2121,6 +2121,90 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
     const plan = JSON.parse(row.planJson) as PublicationPlan;
     const progress = readProgress(row.resultJson);
     const observed: PublicationProgress = { ...progress };
+
+    // ML4-REC-01 — bind reconcile observations to the attempt's frozen provider mode
+    // BEFORE selecting any Git provider. Wrong-provider observations are never D7/D8 proof.
+    const historicalMode = qualifyPlanEffectProviderMode(plan);
+    const liveMode = resolveConfiguredEffectProviderMode();
+    const providerMismatch =
+      (historicalMode === "REAL" || historicalMode === "SCRIPTED") &&
+      historicalMode !== liveMode;
+    const provenanceUnknown = historicalMode === "UNKNOWN";
+
+    if (providerMismatch || provenanceUnknown) {
+      const note = providerMismatch
+        ? `ML4-REC-01: mode fournisseur divergé (plan=${historicalMode}, live=${liveMode}) — observation refusée`
+        : "ML4-REC-01: provenance fournisseur UNKNOWN — aucune attribution D7/D8 depuis le provider live";
+
+      // D: COMPLETED historique — ne pas rétrograder ni réécrire D8 depuis le mauvais provider.
+      if (row.status === "COMPLETED") {
+        return {
+          attemptId,
+          status: "COMPLETED" as const,
+          progress: observed,
+          remoteHead: observed.branchSha ?? progress.branchSha ?? null,
+          facts,
+          prCurrentState: observed.prCurrentState ?? null,
+          note: `${note} — COMPLETED historique préservé`,
+        };
+      }
+
+      // A: DISPATCHED + claim actif — ownership préservé, aucune libération.
+      if (row.status === "DISPATCHED" && claimActive) {
+        return {
+          attemptId,
+          status: "DISPATCHED" as const,
+          progress: observed,
+          remoteHead: observed.branchSha ?? progress.branchSha ?? null,
+          facts,
+          prCurrentState: observed.prCurrentState ?? null,
+          note: `READ-ONLY: claim/lease actif — ${note}`,
+        };
+      }
+
+      // Known mismatch → REQUIRES_REQUALIFICATION when CAS liberation is applicable.
+      // UNKNOWN → leave non-requalified (AMBIGUOUS), never invent REAL / never COMPLETED.
+      const toStatus = providerMismatch ? "REQUIRES_REQUALIFICATION" : "AMBIGUOUS";
+      if (row.status === "AMBIGUOUS" || row.status === "DISPATCHED") {
+        const released = releaseClaim(claim);
+        const cas = await casLiberateInactiveDispatch({
+          attemptId: row.id,
+          fromStatus: row.status,
+          toStatus,
+          resultJson: writeProgress(row.resultJson, observed, released),
+        });
+        return {
+          attemptId,
+          status: cas ? toStatus : row.status,
+          progress: observed,
+          remoteHead: observed.branchSha ?? progress.branchSha ?? null,
+          facts,
+          prCurrentState: observed.prCurrentState ?? null,
+          note,
+        };
+      }
+
+      return {
+        attemptId,
+        status: row.status,
+        progress: observed,
+        remoteHead: observed.branchSha ?? progress.branchSha ?? null,
+        facts,
+        prCurrentState: observed.prCurrentState ?? null,
+        note,
+      };
+    }
+
+    // Modes match (known REAL|SCRIPTED) — provider may observe.
+    const provider = resolveGitHubProvider();
+    if (provider.mode !== liveMode) {
+      // Fail-closed: never silently fall back to a different provider identity.
+      throw new StudioError(
+        "DEPENDENCY_UNAVAILABLE",
+        `Fournisseur Git résolu incohérent (attendu ${liveMode}, obtenu ${provider.mode})`,
+        { httpStatus: 503 },
+      );
+    }
 
     // Historical malformed plans: never COMPLETED / D8 from reconcile.
     let planStepsValid = true;
@@ -2550,6 +2634,7 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
         note: "READ-ONLY: claim merge actif",
       };
     }
+    const provider = resolveGitHubProvider();
     try {
       const pr = await provider.getPullRequest(pilotId, plan.repositoryFullName, plan.prNumber);
       if (pr.state === "merged" && (row.status === "AMBIGUOUS" || row.status === "DISPATCHED")) {

@@ -1090,3 +1090,17 @@ Append-only logical journal of Cursor product deliveries.
 | REAL multi-repo | NOT PROVEN — réserve sandbox `chantiers360` |
 | Push Product distant | **AUCUN** — remote reste `79b10052…` |
 | Verdict candidat | `ML4 PUBLICATION INTEGRITY — CORRECTED AND LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL RE-REVIEW — PRODUCT PUSH NOT AUTHORIZED` |
+
+## delivery_id: DELIV-2026-11-09-ML4-REC-01-RECONCILE-PROVIDER-PROVENANCE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~02:45 CET |
+| Macro-capacité | R5 / ML4 — Correctif `ML4-REC-01` réconciliation liée à la provenance fournisseur |
+| Type | INC / CORRECTIF PRODUCT — `NO RELEASE` / `0.0.0-dev` |
+| Parent Product | `d4f158ce4abe793706d005fc7fafdfe365d2c207` |
+| Correctif | `reconcileAttempt` : gate mode historique vs live **avant** observations provider ; COMPLETED/D8 protégés ; UNKNOWN fail-closed |
+| Risques | R1–R8 historiques préservés ; nouveau = `ML4-REC-01` (pas de renumérotation) |
+| Tests | REC-01…REC-10 DET SCRIPTED |
+| Push Product distant | **AUCUN** — remote reste `79b10052…` |
+| Verdict candidat | `ML4 PUBLICATION RECONCILIATION — PROVIDER PROVENANCE GUARDED — LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL REVIEW — PRODUCT PUSH NOT AUTHORIZED` |

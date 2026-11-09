@@ -7,6 +7,8 @@
 > Mutations REAL **bornées documentary** si et seulement si `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` (aliases refusés ; merge HARD-BLOCKED). Flag ≠ autorité D6.
 > Séquence publication nominale **seule** autorisée : `CREATE_BRANCH → PUBLISH_FILE → OPEN_PR` (`publication-steps.ts`). Aucun COMPLETED / D8 sans preuve fichier + commitSha ≠ baseSha + PR distante.
 > Provenance d'effet : `plan.effectProviderMode` figé à prepare ; historique sans champ → UNKNOWN ; divergence live → REQUIRES_REQUALIFICATION.
+> **ML4-REC-01 :** `reconcileAttempt` contrôle le mode historique **avant** `resolveGitHubProvider()` — une observation SCRIPTED n'est jamais preuve d'un effet REAL (et inversement). COMPLETED historique non réécrit.
+> Risques historiques R1–R8 **conservés** (ne pas renuméroter). Nouveau défaut = `ML4-REC-01` seulement.
 > REAL sandbox actuel : allowlists `GITHUB_APP_ALLOWED_FULL_NAME` / App ID / installation — **mono-repo prouvé** (`mcleland147/chantiers360`) ; multi-repo REAL hors capacité.
 > Les sections bas du document portant « DOCUMENTED — DRAFT / NOT IMPLEMENTED » sont des **snapshots candidats historiques** — le bandeau ci-dessus prévaut pour l'état AS-IMPLEMENTED courant.
 

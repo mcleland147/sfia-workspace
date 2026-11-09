@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   assertPublicationEffectProof,
   NOMINAL_PUBLICATION_STEPS,
+  qualifyPlanEffectProviderMode,
   resolvePublicationSteps,
   validatePublicationSteps,
 } from "@/domains/execution/publication-steps";
@@ -178,5 +179,12 @@ describe("T17: historique mode inconnu → UNKNOWN", () => {
     expect(effectProviderLabel("CONNECTED")).toBe("UNKNOWN");
     expect(effectProviderLabel("REAL")).toBe("REAL");
     expect(effectProviderLabel("SCRIPTED")).toBe("SCRIPTED");
+  });
+
+  it("qualifyPlanEffectProviderMode ne déduit jamais REAL", () => {
+    expect(qualifyPlanEffectProviderMode({})).toBe("UNKNOWN");
+    expect(qualifyPlanEffectProviderMode({ effectProviderMode: undefined })).toBe("UNKNOWN");
+    expect(qualifyPlanEffectProviderMode({ effectProviderMode: "SCRIPTED" })).toBe("SCRIPTED");
+    expect(qualifyPlanEffectProviderMode({ effectProviderMode: "REAL" })).toBe("REAL");
   });
 });
