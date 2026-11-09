@@ -1,16 +1,16 @@
 # SFIA STUDIO NEXT — ML4
-# REVIEW PACK FULL — CORRECTION RECETTE D1 OAUTH CREDENTIALS
+# REVIEW PACK LIGHT — RESTORE SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY
 
 ## 1. En-tête
 
 | Champ | Valeur |
 |---|---|
-| Date/heure | 2026-11-09 11:49 CET |
+| Date/heure | 2026-11-09 13:19 CET |
 | Processus | SFIA v2.6 |
-| Type | INC / correction configuration RECETTE |
-| Profil | CRITICAL |
-| GO | Morris — reprise credentials RECETTE sans ressaisie |
-| Version | 0.0.0-dev / NO RELEASE |
+| Cycle | 11 — Déploiement RECETTE |
+| Profil | STANDARD |
+| Type | RUN / Correction de configuration |
+| GO | Morris — restore TEST_BOUNDARY only |
 
 ## 2. Git Truth
 
@@ -19,65 +19,67 @@
 | Candidat servi | 974b0030a94469bef05496151792e8c35a9a83e9 |
 | Tree | 6ca5d0ad37114dc88cfe5fd821b4762fc7bcd357 |
 | BUILD_ID | RzpCuGMK6SnwfucphK7Qa |
-| Remote Product | 51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b (non poussé) |
+| Remote Product | 51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b (inchangé) |
 | main | 6667a43858a5421e391b7441246536daad148bd6 |
-| L3 parent entrée | 22cb78164345edb6f90c7e4303d6b498e26bebcc |
+| L3 parent entrée | 4df64a6185c7f392c25afaf6a1d4e0dc3d0de560 |
 | Worktree | …/sfia-workspace-next-ml4-recette-build-974b0030 |
-| PID | 29507 |
-| Code modifié | **AUCUN** |
+| PID | 75778 |
+| Code Product | **AUCUN changement** |
 
-## 3. Cause racine démontrée
+## 3. Configuration avant / après
 
-`/login` affichait « GitHub OAuth BLOCKED — secrets clients absents » car Better Auth D1 exige `GITHUB_CLIENT_ID` + `GITHUB_CLIENT_SECRET`, **distincts** des `GITHUB_APP_*` (D9).
+| Variable | Avant | Après |
+|---|---|---|
+| SFIA_COG_PROFILE_TYPE | **ABSENT** | **TEST_BOUNDARY** |
+| STUDIO_LANE | RECETTE | RECETTE (inchangé) |
+| OPENAI_API_KEY | présente | inchangée |
+| Autres secrets / App / DB | présents | **inchangés** |
+| STUDIO_E2E / FIXTURE / MUTATIONS | absents | absents |
 
-Inventaire : ces deux variables étaient **ABSENTES** de `~/.config/sfia-studio-next/recette/.env.local` alors que App/OpenAI/DB ML4 étaient déjà présents. Le basculement précédent n'avait repris que `OPENAI_API_KEY`.
+Source historique confirmée : ML3 RECETTE `…-ml3-recette-build-61fe295b` avait déjà `TEST_BOUNDARY`.
+Backup local hors Git : `~/.config/sfia-studio-next/recette/backups/.env.local.bak-before-cog-restore-*`
 
-## 4. Matrice non secrète (extrait)
+## 4. Redémarrage
 
-| Variable | Hist. ML3 RECETTE | ML4 avant | ML4 après | Action |
-|---|---|---|---|---|
-| GITHUB_CLIENT_ID | PRESENT | ABSENT | PRESENT | reprise ML3 61fe295b |
-| GITHUB_CLIENT_SECRET | PRESENT | ABSENT | PRESENT | reprise ML3 61fe295b |
-| BETTER_AUTH_SECRET | PRESENT | PRESENT | PRESENT | conservé ML4 |
-| BETTER_AUTH_URL | :3200 | :3200 | :3200 | inchangé |
-| OPENAI_API_KEY | PRESENT | PRESENT | PRESENT | inchangé |
-| GITHUB_APP_* | N/A hist. | PRESENT RECETTE | PRESENT | inchangé |
-| DATABASE_URL | autre DB | sfia_next_recette_ml4 | inchangé | non recopié |
-| STUDIO_DEV_TEST_LOGIN | 1 en ML3 | ABSENT | ABSENT | **non repris** |
-| STUDIO_E2E | 1 en ML3 | ABSENT | ABSENT | **non repris** |
-| STUDIO_GITHUB_ALLOW_MUTATIONS | ABSENT | ABSENT | ABSENT | OK |
+- Arrêt propre du seul next-server ML4 sur :3200.
+- Relance même worktree / SHA / BUILD_ID / DB.
+- HTTP `/login` `/portfolio` `/settings/integrations` → 200.
+- `/api/auth/status` → configured=true.
+- App RECETTE identity inchangée ; mutations bloquées.
 
-DEV **non consulté** comme source de secrets.
-
-## 5. Preuves runtime (sans secrets)
+## 5. Smoke Nora
 
 | Check | Résultat |
 |---|---|
-| GET /api/auth/status | `configured=true` |
-| POST /api/auth/sign-in/social | 200 + URL github.com/login/oauth/authorize |
-| redirect_uri D1 | `http://127.0.0.1:3200/api/auth/callback/github` |
-| Callback D9 | `http://127.0.0.1:3200/api/integrations/github/callback` (distinct) |
-| App READ-ONLY | PASS App 5677465 / install 180092114 |
-| mutationsAllowed | false |
-| POST /api/dev/login | **403** (RECETTE) |
-| SHA/BUILD | inchangés |
-| Consentement navigateur / session | **NOT RUN** |
+| resolveProfileType() | TEST_BOUNDARY |
+| policy.profileType | TEST_BOUNDARY |
+| mode | openai-agents-sdk-live (pas de fixture) |
+| STUDIO_E2E / FORCE_FIXTURE | absents |
+| status | **UNKNOWN** |
+| streamingNotes | PROVIDER_ERROR |
+| providerContacted | UNCERTAIN |
+| modelRequested | gpt-6.1-sol (inchangé code) |
+| content | non vide mais message d'erreur fournisseur (non dumpé) |
+| CampusFlow | **non modifié** |
 
-Note : `ps eww` ne liste pas les vars chargées via `.env.local` sous `env -i`+Next — preuve d'injection = status API + démarrage OAuth.
+**LIVE COMPLETE non obtenu.** Chemin LIVE ouvert (fail-closed COG levé) ; erreur fournisseur hors périmètre config-only.
 
-## 6. UX « Pilote A/B (DEV) »
+## 6. Réserve conservée OPEN
 
-Boutons toujours visibles sur `/login` (écart UX historique). Clic serveur → 403. Pas de changement de code ce cycle.
+TEST_BOUNDARY = profil de test à budgets artificiels. Profil opérationnel RECETTE à définir/calibrer plus tard. **KNOWN GAP / OPEN** — non CLOSED.
 
 ## 7. Fake/Real §6.16
 
 | Item | Statut |
 |---|---|
-| Config D1 disque+runtime | RESTORED / CONFIGURED |
-| OAuth start URL | REAL générée |
-| Login LIVE callback | NOT PROVEN |
-| USER E2E | NOT RUN |
+| Config TEST_BOUNDARY | RESTORED |
+| Profil cognitif runtime | PASS |
+| Nora LIVE COMPLETE | **NOT PROVEN** |
+| Fixture FAKE | NON utilisée |
+| USER R01 | NOT RUN |
 
 ## 8. Verdict
 
-**ML4 RECETTE CONFIGURATION — RESTORED AND VERIFIED — STUDIO OAUTH READY FOR MORRIS USER LOGIN — PRODUCT SHA/BUILD UNCHANGED — USER E2E NOT RUN.**
+**ML4 RECETTE — TEST_BOUNDARY RESTORED — NORA PROFILE PASS — LIVE PROVIDER SMOKE NOT PROVEN (PROVIDER_ERROR / UNKNOWN) — READY FOR MORRIS R01 RETEST / DIAGNOSIS.**
+
+SHA/build inchangés. Aucun push Product. Aucun code modifié.
