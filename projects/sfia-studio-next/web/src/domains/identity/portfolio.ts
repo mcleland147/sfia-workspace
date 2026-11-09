@@ -1,4 +1,4 @@
-import { and, desc, eq, isNull, lt, or } from "drizzle-orm";
+import { and, desc, eq, isNull, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { projects, preparations, preparationProjectLinks } from "@/db/schema";
 import { StudioError } from "@/lib/http-errors";
@@ -64,15 +64,12 @@ async function loadPreparationsPage(
   cursorRaw: string | null | undefined,
 ): Promise<PreparationsPage> {
   const cursor = cursorRaw ? decodePreparationsCursor(cursorRaw) : null;
-  const cursorDate = cursor ? new Date(cursor.createdAt) : null;
 
-  const keyset =
-    cursor && cursorDate
-      ? or(
-          lt(preparations.createdAt, cursorDate),
-          and(eq(preparations.createdAt, cursorDate), lt(preparations.id, cursor.id)),
-        )
-      : undefined;
+  // Tuple keyset preserves full timestamptz precision. Round-tripping through JS Date
+  // (ms only) previously dropped same-ms siblings and flaked page2 under load.
+  const keyset = cursor
+    ? sql`(${preparations.createdAt}, ${preparations.id}) < (${cursor.createdAt}::timestamptz, ${cursor.id})`
+    : undefined;
 
   const rows = await db
     .select({
@@ -80,6 +77,9 @@ async function loadPreparationsPage(
       previewName: preparations.previewName,
       previewSummary: preparations.previewSummary,
       createdAt: preparations.createdAt,
+      createdAtCursor: sql<string>`to_char(${preparations.createdAt} AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"')`.as(
+        "created_at_cursor",
+      ),
       status: preparations.status,
     })
     .from(preparations)
@@ -106,7 +106,10 @@ async function loadPreparationsPage(
       createdAt: r.createdAt.toISOString(),
       status: "OPEN" as const,
     })),
-    nextCursor: hasMore && last ? encodePreparationsCursor(last) : null,
+    nextCursor:
+      hasMore && last
+        ? encodePreparationsCursor({ createdAt: last.createdAtCursor, id: last.id })
+        : null,
   };
 }
 

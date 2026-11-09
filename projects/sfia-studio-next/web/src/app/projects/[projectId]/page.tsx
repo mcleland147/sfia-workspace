@@ -19,6 +19,7 @@ import {
   shouldClearThreadPending,
   type ThreadPendingTurn,
 } from "@/domains/pilotage/thread-recovery";
+import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -36,10 +37,10 @@ type Knowledge = {
   openPoints: Array<{ id: string; statement: string; status: string }>;
 };
 
-type Surface = "travail" | "pilotage" | "journal" | "document";
+type Surface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
 type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
 
-const SURFACES: Surface[] = ["travail", "pilotage", "journal", "document"];
+const SURFACES: Surface[] = ["travail", "pilotage", "journal", "document", "git", "publication"];
 
 function parseSurface(raw: string | null): Surface | null {
   if (!raw) return null;
@@ -946,6 +947,12 @@ export default function ProjectPage() {
               diffText={docDiffText}
             />
           </div>
+        </div>
+      ) : null}
+
+      {surface === "git" || surface === "publication" ? (
+        <div className="space-y-4" data-testid="git-surface">
+          <PublicationInspectionPanel projectId={params.projectId} />
         </div>
       ) : null}
 

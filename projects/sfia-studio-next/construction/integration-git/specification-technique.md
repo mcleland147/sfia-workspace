@@ -1,5 +1,14 @@
 # R5 — Spécification technique candidate : collaboration Git et intégrations
 
+> **AS-IMPLEMENTED LOCAL CANDIDATE (2026-11-09)** — `feat/next-git-collaboration-20261108` / baseline `c658f590`.
+> Domaines : D9/D7/D8 ; migrations `008`–`012` (aucune migration nouvelle ce gel).
+> **R1-A / R1-B** refresh lifecycle clos ; **R2** CONFLICT callback accepté.
+> **Niveaux de preuve courants :** OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN (commit+PR #18 OPEN) · Consolidation DETERMINISTIC · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED.
+> Mutations REAL **bornées documentary** si et seulement si `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` (aliases refusés ; merge HARD-BLOCKED). Flag ≠ autorité D6.
+> Consolidation : branche hash ; marker PR exact ; `effect_conditions` D6 ; reconcile tip SHA ; `user_token_observed` ; UI R7 mode d'effet ≠ OAuth.
+> Les sections bas du document portant « DOCUMENTED — DRAFT / NOT IMPLEMENTED » sont des **snapshots candidats historiques** — le bandeau ci-dessus prévaut pour l'état AS-IMPLEMENTED courant.
+
+
 **Statut :** `DOCUMENTED — DRAFT ARCHITECTURE / NOT VALIDATED SPEC / NOT IMPLEMENTED`
 **Nature :** préparation technique de ML4 sous la source de contrat de macro-lot R5 existante ; **ne remplace pas** les R2/ADR validés, la phase Figma ou le prompt Cursor SFIA v2.6.
 **Baseline :** `main@84bf3496a459bae9c3f9e0ac7acce4b57a595bc5`, repo `mcleland147/sfia-workspace`.

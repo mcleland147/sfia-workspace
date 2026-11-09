@@ -76,7 +76,13 @@ export type CognitivePolicy = {
   profile: CognitiveProfile;
   modelRequested: typeof NORA_STUDY_MODEL;
   effortRequested: ReasoningEffort;
-  toolAllowlist: Array<"search_project_resources" | "read_project_document_revision">;
+  toolAllowlist: Array<
+    | "search_project_resources"
+    | "read_project_document_revision"
+    | "list_project_git_sources"
+    | "read_git_file"
+    | "list_git_refs"
+  >;
   budgets: BudgetLimits;
   reasonCodes: string[];
 };
@@ -211,7 +217,13 @@ export function buildCognitivePolicy(
   const toolAllowlist: CognitivePolicy["toolAllowlist"] =
     q.profile === "simple"
       ? []
-      : ["search_project_resources", "read_project_document_revision"];
+      : [
+          "search_project_resources",
+          "read_project_document_revision",
+          "list_project_git_sources",
+          "read_git_file",
+          "list_git_refs",
+        ];
 
   return {
     policyVersion: COGNITIVE_POLICY_VERSION,

@@ -21,7 +21,7 @@ import { COMMAND_STATUSES } from "@/domains/pilotage/types";
 
 describe("ml3 CKI resolution and intent", () => {
   it("records schema revision 007", () => {
-    expect(schemaRevision).toBe("007_ml3_pilotage_decisions");
+    expect(schemaRevision).toBe("012_auth_concurrency_safety");
     expect(COMMAND_STATUSES).toEqual([
       "APPLIED",
       "ALREADY_APPLIED",

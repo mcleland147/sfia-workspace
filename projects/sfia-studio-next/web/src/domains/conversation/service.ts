@@ -399,6 +399,7 @@ export async function postUserMessageAndNora(
           pilotId,
           preparationId,
           operationId: reserved.operationId,
+          projectId: ctx.project?.id,
         },
       });
     } finally {

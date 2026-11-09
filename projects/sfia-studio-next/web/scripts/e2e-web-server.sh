@@ -37,6 +37,13 @@ export STUDIO_LANE=DEV
 export STUDIO_DEV_TEST_LOGIN=1
 export STUDIO_E2E=1
 export STUDIO_FORCE_NORA_FIXTURE=1
+export STUDIO_GITHUB_PROVIDER=scripted
+# Explicit SCRIPTED GitHub auth gate (D9) — required for authorize/complete in E2E.
+export STUDIO_ALLOW_SCRIPTED_GITHUB=1
+# Neutralize operator REAL user-OAuth / mutation flags from .env.local — E2E must stay SCRIPTED/DET.
+# Empty value wins over dotenv (Next does not override existing env).
+export STUDIO_GITHUB_USER_OAUTH=
+export STUDIO_GITHUB_ALLOW_MUTATIONS=
 # Neutralize LIVE key for this process (Next does not override existing env with .env.local).
 export OPENAI_API_KEY=
 unset OPENAI_API_KEY

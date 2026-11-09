@@ -554,4 +554,227 @@ export const businessCommandEffects = pgTable(
   ],
 );
 
-export const schemaRevision = "007_ml3_pilotage_decisions";
+/** D9 — GitHub App / integration authorization (pilot-scoped; not a D6 mandate). */
+export const integrationAuthorizations = pgTable(
+  "integration_authorizations",
+  {
+    id: text("id").primaryKey(),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    provider: text("provider").notNull().default("github"),
+    status: text("status").notNull(), // CONNECTED | PENDING_APPROVAL | ACCESS_REMOVED | REVOKED | DISCONNECTED | EXPIRED | REQUIRES_REAUTH
+    installationId: text("installation_id"),
+    accountLogin: text("account_login"),
+    /** Stable GitHub user id (not mutable login). */
+    githubUserId: text("github_user_id"),
+    /** AES-GCM ciphertext of user access token — never plaintext. */
+    tokenCiphertext: text("token_ciphertext"),
+    tokenNonce: text("token_nonce"),
+    tokenKeyVersion: text("token_key_version"),
+    refreshCiphertext: text("refresh_ciphertext"),
+    refreshNonce: text("refresh_nonce"),
+    tokenExpiresAt: timestamp("token_expires_at", { withTimezone: true }),
+    /** Short-lived lease for a single in-flight refresh of this authorization generation. */
+    refreshLeaseToken: text("refresh_lease_token"),
+    refreshLeaseExpiresAt: timestamp("refresh_lease_expires_at", { withTimezone: true }),
+    scopesJson: text("scopes_json").notNull().default("[]"),
+    lastValidatedAt: timestamp("last_validated_at", { withTimezone: true }),
+    metadataJson: text("metadata_json").notNull().default("{}"),
+    connectedAt: timestamp("connected_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("integration_authorizations_pilot_idx").on(t.pilotId),
+    index("integration_authorizations_pilot_status_idx").on(t.pilotId, t.status),
+    index("integration_authorizations_github_user_idx").on(t.githubUserId),
+    // C2: at most one CONNECTED per Pilot × provider (cross-process).
+    uniqueIndex("integration_authorizations_one_connected_uidx")
+      .on(t.pilotId, t.provider)
+      .where(sql`status = 'CONNECTED'`),
+  ],
+);
+
+/** D9 — OAuth/state for GitHub App user-to-server connect (CSRF + PKCE). */
+export const integrationOauthStates = pgTable(
+  "integration_oauth_states",
+  {
+    id: text("id").primaryKey(),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    stateToken: text("state_token").notNull(),
+    returnPath: text("return_path").notNull().default("/settings/integrations"),
+    codeVerifier: text("code_verifier"),
+    nonce: text("nonce"),
+    codeChallengeMethod: text("code_challenge_method"),
+    /** Better Auth / DEV adapter session id — binds state to effective Studio session. */
+    studioSessionId: text("studio_session_id"),
+    /** Server-chosen flow at start: scripted | github_app_user_oauth — never client-chosen. */
+    flow: text("flow"),
+    consumedAt: timestamp("consumed_at", { withTimezone: true }),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("integration_oauth_states_token_uidx").on(t.stateToken),
+    index("integration_oauth_states_session_idx").on(t.studioSessionId),
+  ],
+);
+
+/** D9 — repos authorized for the installation (server-truth snapshot). */
+export const authorizedRepositories = pgTable(
+  "authorized_repositories",
+  {
+    id: text("id").primaryKey(),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    authorizationId: text("authorization_id")
+      .notNull()
+      .references(() => integrationAuthorizations.id),
+    owner: text("owner").notNull(),
+    name: text("name").notNull(),
+    fullName: text("full_name").notNull(),
+    defaultBranch: text("default_branch"),
+    status: text("status").notNull().default("ACTIVE"), // ACTIVE | REMOVED
+    permissionsJson: text("permissions_json").notNull().default("{}"),
+    syncedAt: timestamp("synced_at", { withTimezone: true }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("authorized_repositories_pilot_full_uidx").on(t.pilotId, t.fullName),
+    index("authorized_repositories_auth_idx").on(t.authorizationId),
+  ],
+);
+
+/** D9 — voluntary project ↔ repo attachment (distinct from authorization). */
+export const projectGitLinks = pgTable(
+  "project_git_links",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    repositoryId: text("repository_id")
+      .notNull()
+      .references(() => authorizedRepositories.id),
+    status: text("status").notNull().default("ATTACHED"), // ATTACHED | DETACHED
+    attachedAt: timestamp("attached_at", { withTimezone: true }).notNull().defaultNow(),
+    detachedAt: timestamp("detached_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("project_git_links_project_idx").on(t.projectId, t.status),
+    uniqueIndex("project_git_links_project_repo_uidx").on(t.projectId, t.repositoryId),
+  ],
+);
+
+/** D4 — link between document revision and observed Git publication. */
+export const documentPublicationRefs = pgTable(
+  "document_publication_refs",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    documentId: text("document_id")
+      .notNull()
+      .references(() => documents.id),
+    revisionId: text("revision_id")
+      .notNull()
+      .references(() => documentRevisions.id),
+    repositoryId: text("repository_id")
+      .notNull()
+      .references(() => authorizedRepositories.id),
+    targetPath: text("target_path").notNull(),
+    targetBranch: text("target_branch").notNull(),
+    baseSha: text("base_sha"),
+    headSha: text("head_sha"),
+    prNumber: integer("pr_number"),
+    status: text("status").notNull(),
+    effectAttemptId: text("effect_attempt_id"),
+    detailJson: text("detail_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("document_publication_refs_project_idx").on(t.projectId),
+    index("document_publication_refs_doc_rev_idx").on(t.documentId, t.revisionId),
+    // Partial UNIQUE: one publicationRef per effect attempt (NULL allowed for detached remediation).
+    uniqueIndex("document_publication_refs_effect_attempt_uidx")
+      .on(t.effectAttemptId)
+      .where(sql`${t.effectAttemptId} IS NOT NULL`),
+  ],
+);
+
+/** D7 — Git effect attempt (publication / merge). */
+export const effectAttempts = pgTable(
+  "effect_attempts",
+  {
+    id: text("id").primaryKey(),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    kind: text("kind").notNull(), // GIT_PUBLICATION | GIT_MERGE
+    status: text("status").notNull(),
+    correlationKey: text("correlation_key").notNull(),
+    fingerprint: text("fingerprint").notNull(),
+    decisionId: text("decision_id").references(() => humanDecisions.id),
+    effectConditions: text("effect_conditions"),
+    planJson: text("plan_json").notNull().default("{}"),
+    resultJson: text("result_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("effect_attempts_correlation_uidx").on(
+      t.pilotId,
+      t.projectId,
+      t.correlationKey,
+    ),
+    index("effect_attempts_project_idx").on(t.projectId),
+  ],
+);
+
+/** D8/D9 — observed Git facts after remote re-read. */
+export const observedGitFacts = pgTable(
+  "observed_git_facts",
+  {
+    id: text("id").primaryKey(),
+    attemptId: text("attempt_id")
+      .notNull()
+      .references(() => effectAttempts.id),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    factKind: text("fact_kind").notNull(),
+    repositoryFullName: text("repository_full_name").notNull(),
+    refName: text("ref_name").notNull(),
+    sha: text("sha").notNull(),
+    prNumber: integer("pr_number"),
+    observedAt: timestamp("observed_at", { withTimezone: true }).notNull().defaultNow(),
+    detailJson: text("detail_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("observed_git_facts_attempt_idx").on(t.attemptId),
+    index("observed_git_facts_project_idx").on(t.projectId),
+  ],
+);
+
+export const schemaRevision = "012_auth_concurrency_safety";

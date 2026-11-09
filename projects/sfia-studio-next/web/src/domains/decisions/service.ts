@@ -14,6 +14,8 @@ export type InsertDecisionInput = {
   objectRef: string;
   scope?: string;
   statement: string;
+  /** Mandate body (fingerprint + envelope) — required for Git effect authority. */
+  effectConditions?: string | null;
   supersedesDecisionId?: string | null;
   revokesDecisionId?: string | null;
   liftsRestrictionId?: string | null;
@@ -33,6 +35,7 @@ export async function insertHumanDecision(tx: DbTx, input: InsertDecisionInput):
     scope: input.scope ?? "PROJECT",
     statement: input.statement.slice(0, 500),
     state: "APPLICABLE",
+    effectConditions: input.effectConditions ?? null,
     supersedesDecisionId: input.supersedesDecisionId ?? null,
     revokesDecisionId: input.revokesDecisionId ?? null,
     liftsRestrictionId: input.liftsRestrictionId ?? null,
