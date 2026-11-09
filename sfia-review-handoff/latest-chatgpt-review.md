@@ -14,6 +14,8 @@
 |---|---|
 | Branche | `fix/next-ml4-chat-first-d4-provenance-20261109` |
 | HEAD départ | `9694cc7171006b747dd7f502a1f1ba8b3a0477f3` |
+| HEAD final | `0b02de41cd7e3d08101419b49d6534d12edf70cf` |
+| Tree final | `97f236bc3d61fdf317ac4cd3177d23fa49c04262` |
 | Tree départ | `a683243f01da5952c9fb98c5330ca8243238a6d1` |
 | Parent | `8ba77730…` / base macro `974b0030…` |
 | origin/sfia/review-handoff (pré-publish) | `d7a63c57…` |
@@ -859,12 +861,13 @@ index 666653f1..1c4bbc31 100644
 
 ## 9. Commit local / absence d'effets
 
-- Commit local : (renseigné après commit)
+- Commit local : `0b02de41cd7e3d08101419b49d6534d12edf70cf`
+- Tree : `97f236bc3d61fdf317ac4cd3177d23fa49c04262`
+- Message : `fix(studio-next): harden sfia-document fence scanning against nested code`
 - Push produit : AUCUN
 - RECETTE / DB / launcher : aucune mutation
 - GitHub REAL : off
 
----
 
 ## 10. Dette / exit
 
