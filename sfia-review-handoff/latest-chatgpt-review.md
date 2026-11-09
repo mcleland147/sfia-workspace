@@ -1,383 +1,240 @@
-# SFIA Review Pack FULL — ML4 Product Integration Review (Cycle 9 QA)
+# SFIA Review Pack FULL — ML4 Product Local Freeze
 
-**Date/heure (Europe/Paris) :** 2026-11-09 ~01:20 CET
-**Cycle :** DELIV-2026-11-09-ML4-PRODUCT-INTEGRATION-REVIEW
-**Type :** CYCLE 9 — QA / VALIDATION · CRITICAL · PRÉ-INTÉGRATION
-**Processus :** SFIA v2.6 · CKC QA candidat (raisonnement) · SEF v0.2
+**Date/heure (Europe/Paris) :** 2026-11-09 ~01:40 CET
+**Cycle :** DELIV-2026-11-09-ML4-PRODUCT-LOCAL-FREEZE
+**Type :** CYCLE 8 — DELIVERY / IMPLÉMENTATION · CRITICAL · EVOL / FINALISATION
 **Version :** NO RELEASE / `0.0.0-dev`
-**GO Morris :** Audit d'intégration Product ML4 — **pas** GO modification / publication Product
-**Handoff parent :** `58cccb490956516ea147d7917d1f34dcfbe274f4`
-**Verdict :** `ML4 PRODUCT INTEGRATION REVIEW — READY WITH CARRIED RESERVES — MORRIS GIT GATE REQUIRED`
+**GO Morris :** Corriger R7/R8 · finaliser cumul · validations · **commit Product LOCAL** · handoff L3
+**NON autorisé :** push/PR/merge Product · promotion · mutation GitHub REAL · merge PR #18 · clôture ML4
+**Handoff parent :** `ef7edb7bab01d43251de65d25be42bfd1e0cc248`
+**Verdict :** `ML4 PRODUCT — LOCAL CANDIDATE COMMITTED — READY FOR CHATGPT CRITICAL REVIEW — PRODUCT PUSH NOT AUTHORIZED`
 
 ---
 
-## 1. Mandat et résultat
+## 1. Git Truth — initial → final
 
-Évaluer le cumul technique ML4 local (D1–D9, migrations 008–012, autorité, mutations REAL bornées, sécurité, concurrence) pour permettre un verdict ChatGPT documenté et un futur GO Git Morris **distinct**.
-
-**Hors mandat (respecté) :** pas de construction ; pas d'E2E navigateur utilisateur ; pas de mutation GitHub REAL ; pas de commit/push/PR/merge Product.
-
----
-
-## 2. Git Truth Product
-
-| Champ | Valeur |
-| --- | --- |
-| Repo | `mcleland147/sfia-workspace` |
-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4-git-collaboration` |
-| Branche | `feat/next-git-collaboration-20261108` |
-| HEAD | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
-| origin/main (après fetch) | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
-| local `main` | `4b1a0580…` **stale** — ne pas utiliser |
-| HEAD == origin/main | **oui** — tout le cumul ML4 est **LOCAL DIRTY** (non committé) |
-| Staged | **vide** |
-| Handoff remote | `58cccb49…` (parent attendu OK) |
-| Product commit/push/PR ce cycle | **aucun** |
-| Mutation GitHub REAL ce cycle | **aucune** |
+| Champ | Avant | Après |
+| --- | --- | --- |
+| Worktree | `…/sfia-workspace-next-ml4-git-collaboration` | idem |
+| Branche | `feat/next-git-collaboration-20261108` | idem |
+| HEAD | `c658f59023d44a0e22448c7ee034e3c1dda292a2` | **`79b100527a9c43fb789ca62b7f87b50a8bc2adf1`** |
+| origin/main | `c658f590…` | **inchangé** `c658f590…` |
+| Parent commit | — | `c658f590…` |
+| Tree SHA | — | **`5b43538452d5bb425a1ab7e150ca3b74ea66eb77`** |
+| Push Product | — | **aucun** |
 
 ```text
 Git Review Index
-- base : origin/main @ c658f590…
-- Product branch tip : c658f590… (identique base)
-- contenu candidat : tracked modified + untracked (dirty)
-- SHA candidat immuable : ABSENT (dirty ≠ source_sha)
-- Handoff parent : 58cccb49…
+- base : origin/main @ c658f59023d44a0e22448c7ee034e3c1dda292a2
+- Product branch : feat/next-git-collaboration-20261108
+- Product commit LOCAL : 79b100527a9c43fb789ca62b7f87b50a8bc2adf1
+- tree : 5b43538452d5bb425a1ab7e150ca3b74ea66eb77
+- files in commit : 87
+- diff : 14869 insertions(+), 32 deletions(-)
+- Handoff parent : ef7edb7b…
 - review pack : full
-- Fake/Real : niveaux séparés §16
-- USER E2E : NOT RUN / MORRIS RECETTE
+- Product push : NOT AUTHORIZED / NOT DONE
 ```
 
 ---
 
-## 3. Sources consultées
+## 2. Sources
 
-| Source | Ref / note |
-| --- | --- |
-| `sfia-cycle-routing-guide.md` / template exécution | SFIA v2.6 CRITICAL / Fake-Real / Review Pack |
-| CKC `pilots/04-qa-validation.md` | candidate 0.1.0 — raisonnement QA |
-| SEF, roadmap, ENV-01, versioning, naming | governance/ |
-| Décision `2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md` | D2 contenu Morris ; **NOT MERGED** — ne pas inventer GO build |
-| conception / cadrage-r4 / construction contracts | worktree local |
-| Handoff consolidation | `58cccb49` |
-| Roadmap main @ 2026-11-07 | snapshot ; travaux locaux plus récents = dirty ML4 |
+SFIA v2.6 routing + template · CKC 02 (candidate, non-autorité) · SEF/roadmap/ENV-01 · décision ML4/ML5 2026-11-07 (NOT MERGED) · contrats construction · handoff `ef7edb7b` · code local gelé.
 
 ---
 
-## 4. Inventaire Product exhaustif
+## 3. Inventaire staging
 
-### 4.1 Diff vs origin/main
+### Inclus (87 fichiers — commit)
 
-Comme HEAD == origin/main, `git diff origin/main...HEAD` est vide. Le candidat = `git diff HEAD` (tracked) + untracked.
+Staging **explicite** path-by-path (jamais `git add -A`).
 
-**Tracked modified (21) — name-status :**
+- construction : delivery-history, matrice, specification
+- web : schema, migrations 008–012, domains execution/integrations/proofs, git-read-tools, APIs integrations+git, UI settings/integrations + panels, shell/rail/chrome/page, token-crypto, vitest/e2e scripts, tests unit/integration/e2e ML4, package-lock (−1)
 
-```text
-M  .tmp-sfia-review/chatgpt-review.md          ← artefact revue (EXCLU Product)
-M  construction/delivery-history.md
-M  construction/integration-git/matrice-acceptation.md
-M  construction/integration-git/specification-technique.md
-M  web/package-lock.json                         (−1 ligne)
-M  web/scripts/db-migrate.sh
-M  web/scripts/e2e-web-server.sh
-M  web/src/app/projects/[projectId]/page.tsx
-M  web/src/components/figma/ProjectChrome.tsx
-M  web/src/components/shell/StudioShell.tsx
-M  web/src/components/shell/studio-rail.ts
-M  web/src/db/schema.ts
-M  web/src/domains/conversation/cognitive-policy.ts
-M  web/src/domains/conversation/nora-adapter.ts
-M  web/src/domains/conversation/service.ts
-M  web/src/domains/decisions/service.ts
-M  web/src/domains/identity/portfolio-cursor.ts
-M  web/src/domains/identity/portfolio.ts
-M  web/src/lib/http-errors.ts
-M  web/tests/unit/ml3-cki-intent.test.ts
-M  web/vitest.config.ts
-```
+### Exclus (justifiés)
 
-**Diff stat tracked :** 21 files, ~+1415 / −159 (hors untracked).
-
-### 4.2 Untracked (68 chemins)
-
-**EXCLUS Product (preuves locales) :**
-
-- `projects/.tmp-sfia-review/real-oauth-proofs/real-read-proof.json`
-- `projects/.tmp-sfia-review/real-publication-proofs/bounded-e2e-verify.json`
-
-**DEV tooling (décision Git Gate) :**
-
-- `web/scripts/github-app-installation-read-qualify.ts`
-
-**IN SCOPE Product (résumé par responsabilité) :**
-
-| Zone | Contenu |
+| Chemin | Motif |
 | --- | --- |
-| Migrations | `008`–`012` SQL |
-| Schema | tables Git collab / OAuth / publication (via `schema.ts` tracked) |
-| D9 integrations | `domains/integrations/*` (14 fichiers) + API `/api/integrations/*` |
-| D7 execution | `domains/execution/*` (6) + API publications/merge/reconcile/links/file/refs/sources |
-| D8 proofs | `domains/proofs/qualify.ts` |
-| D3 git-read | `git-read-tools.ts` + policy tools |
-| UI | `settings/integrations`, `IntegrationsPanel`, `PublicationInspectionPanel` |
-| Crypto | `lib/token-crypto.ts` |
-| Tests | unit ×14 nouveaux + `git-collaboration.pg.test.ts` + e2e `git-collaboration.spec.ts` |
+| `.tmp-sfia-review/**` | artefacts revue (tracked dirty review pack exclu) |
+| `projects/.tmp-sfia-review/**` | preuves OAuth/REAL temporaires |
+| `web/scripts/github-app-installation-read-qualify.ts` | outil DEV qualification ponctuel — hors Product maintenu |
+| `.env.local` / PEM / secrets | jamais |
 
-### 4.3 Blast radius
-
-API · DB 008–012 · auth OAuth App · D4 publication refs · D6 mandates · D7 effects · D8 qualify · D9 provider · UI Paramètres/Projet · scripts DEV/E2E · tests · docs construction. ML1–ML3 touchés marginalement (shell/rail/portfolio/http-errors/cki-intent) — non-régression DET PASS.
-
-### 4.4 Ancien Studio
-
-Aucune reprise de baseline technique ancien Studio observée dans le chemin publication ; provider Next-native.
-
-### 4.5 Granularité Git future
-
-Macro-lot unique recommandé sous GO Morris : **un commit Product** (ou série ordonnée docs→schema/migrations→domains→API/UI→tests) sur branche feature depuis `c658f590`, puis PR. Dirty actuel **n'est pas** un SHA figé.
+Post-commit status restant : `M .tmp-sfia-review/chatgpt-review.md` · `?? projects/.tmp-sfia-review/` · `?? …/github-app-installation-read-qualify.ts`
 
 ---
 
-## 5. Contrats D1–D9 (audit code)
+## 4. R7 — UI SCRIPTED / REAL (avant → après)
 
-| Domaine | Constat |
-| --- | --- |
-| **D1** | Better Auth + DEV adapter lane-scoped ; OAuth App distinct ; cookie host `127.0.0.1` documenté |
-| **D2** | Projet sans dépôt obligatoire ; links ATTACHED facultatifs |
-| **D3** | `git-read-tools` lecture bornée ; sources non autorisantes |
-| **D4** | Révisions + `document_publication_refs` ; digest SHA-256 reconstruit `11906026…` = Git |
-| **D6** | HumanDecision ; `sourceRef` **AND** `objectRef` ; `effect_conditions` sur nouveaux mandats ; contrôle point d'effet |
-| **D7** | prepare/authorize/dispatch/reconcile ; claim lease ; correlationKey ; branche hash ; pas de 2e moteur |
-| **D8** | Facts + publication ref ; SUCCESS/AMBIGUOUS/FAILED ; pas de conformité inventée |
-| **D9** | REAL vs SCRIPTED ; user-token writes ; documentary-only ; merge hard-blocked ; path policy |
+**Avant :** badge/bouton/banner hardcodés SCRIPTED ; « Effet Git observé (SCRIPTED) » même si fournisseur REAL.
 
-### Preuves REAL antérieures (périmètre borné — non rejouées)
+**Après :**
 
-| Fait | Valeur |
-| --- | --- |
-| Commit | `790a531579acd1a56243e84bf44a305a22e512d2` |
-| PR | #18 OPEN non mergée |
-| main | `8c398c49…` inchangée |
-| D4/D6/D7/D8 | `doc_8351c2b1…` / `dec_b93e9bef…` / `efx_fcca79b2…` / `dpr_f8ac5ff7…` |
-| Digest | SHA-256 `11906026…` (D4 = Git) |
+- Helper `publication-effect-labels.ts` : `effectProviderLabel`, `publicationStatusBanner`, labels dispatch/merge
+- Badge `data-testid="badge-effect-provider"` = REAL | SCRIPTED
+- Banner COMPLETED = `(REAL)` ou `(SCRIPTED)` ; AMBIGUOUS/FAILED/UNKNOWN non promus SUCCESS
+- Champ « Fournisseur d'effet » distinct OAuth CONNECTED
+- `IntegrationsPanel` note : orthogonalité OAuth ↔ provider (plus « hors périmètre GO »)
+
+**Tests :** `publication-effect-labels.test.ts` (5) · e2e badge mis à jour
 
 ---
 
-## 6. Code sensible inspecté (extraits)
+## 5. R8 — Documentation AS-IMPLEMENTED
 
-### Gate mutations REAL + marker exact
+- Matrice : **statut courant** en tête (niveaux Fake/Real séparés) ; §6 et §18 marqués **HISTORIQUE**
+- Spec technique : bandeau AS-IMPLEMENTED LOCAL CANDIDATE + avertissement snapshots bas de doc
+- delivery-history : entrée gel local
 
-```37:48:projects/sfia-studio-next/web/src/domains/integrations/real-github-provider.ts
-export function isBoundedRealMutationAllowed(): boolean {
-  const v = (process.env.STUDIO_GITHUB_ALLOW_MUTATIONS ?? "").toLowerCase().trim();
-  // Contract: only `documentary` opens the gate. `1`/`bounded` are rejected.
-  return v === "documentary";
-}
+Séparation explicite : OAuth READ REAL PROVEN · documentary REAL bounded PROVEN · DET consolidation · USER E2E NOT RUN · Merge NOT PROVEN · Product NOT INTEGRATED
 
-/** Exact line match for publication marker — substring/prefix matches refuse. */
-export function prBodyHasPublicationMarker(body: string | null | undefined, marker: string): boolean {
-  if (!body || !marker) return false;
-  const needle = `sfia-publication:${marker}`;
-  return body.split(/\r?\n/).some((line) => line.trim() === needle);
+---
+
+## 6. Diffs utiles R7 (extraits)
+
+```ts
+// publication-effect-labels.ts
+export function publicationStatusBanner(input: {
+  status: string | undefined | null;
+  effectProviderMode: string | undefined | null;
+}): string {
+  // COMPLETED → `Effet Git observé (${REAL|SCRIPTED})`
+  // AMBIGUOUS → pas de succès inventé
 }
 ```
 
-### D6 bindings AND + mandate fingerprint
+Fichiers R7 créés/modifiés : `publication-effect-labels.ts`, `PublicationInspectionPanel.tsx`, `IntegrationsPanel.tsx`, tests unit+e2e.
 
-```70:96:projects/sfia-studio-next/web/src/domains/execution/effect-authority.ts
-  if (ctx.expectedKind === "GIT_PUBLICATION_MANDATE") {
-    // Both bindings required — OR previously allowed a same-project foreign mandate.
-    if (decision.sourceRef !== ctx.attemptId || decision.objectRef !== ctx.attemptId) {
-      throw new StudioError("ACCESS_DENIED", "Mandat D6 non lié à cette tentative");
-    }
-  }
-  // ...
-  const decisionMandateFp = parseEffectConditionsFingerprint(decision.effectConditions);
-  const attemptMandateFp = ctx.effectConditionsFingerprint;
-  const mandateFp = decisionMandateFp ?? attemptMandateFp;
-  if (!mandateFp || mandateFp.length === 0) {
-    throw new StudioError("ACCESS_DENIED", "Conditions d'effet D6 absentes — fail-closed");
-  }
-```
+---
 
-### REAL permission source gate
+## 7. Blast radius gel
 
-```209:218:projects/sfia-studio-next/web/src/domains/execution/effect-authority.ts
-  const providerMode = (process.env.STUDIO_GITHUB_PROVIDER ?? "").toLowerCase().trim();
-  if (providerMode === "real") {
-    if (permissions.source !== "user_token_observed") {
-      throw new StudioError(
-        "ACCESS_DENIED",
-        "Permissions REAL non observées via user token — fail-closed",
-        { exposeMessage: true },
-      );
-    }
-  }
-```
+Macro-lot ML4 complet (D3/D4/D6/D7/D8/D9 + UI + migrations + tests + docs). Corrections R7/R8 limitées à présentation + docs. Pas de pivot architecture.
 
-### Isolation DET (vitest)
+---
 
-```text
-STUDIO_GITHUB_PROVIDER: "scripted"
-STUDIO_GITHUB_USER_OAUTH: ""
-STUDIO_GITHUB_ALLOW_MUTATIONS: ""
-```
+## 8. D4–D9 hérités (références)
 
-(`e2e-web-server.sh` : mêmes neutralisations + port 3101 / `.next-e2e`)
-
-### Gros fichiers (règle taille — sections + justification)
-
-| Fichier | Lignes | Représentation pack |
+| Domaine | Preuve héritée | Limite |
 | --- | --- | --- |
-| `effect-service.ts` | 2548 | sections authorize/dispatch/reconcile auditées cycles antérieurs + consolidations |
-| `git-collaboration.pg.test.ts` | 3170 | suite négatifs D6/D7/D9 SCRIPTED |
-| `authorization-service.ts` | 1103 | OAuth lifecycle R1-A/R1-B |
-| `github-app-auth.ts` | 681 | REST refs/contents/PRs ; installation READ |
-| Migrations 008–012 | ~courtes | heads capturés sous `.tmp-sfia-review/snippets/migrations-008-012-heads.txt` |
-
-Contenu complet des nouveaux modules critiques non re-collé en totalité ici (taille) ; inventaire + extraits + tests PASS + handoffs `ffffec1f` / `160becf9` / `58cccb49` forment la chaîne de revue.
+| D4 | digest `11906026…` = Git | USER E2E NOT RUN |
+| D6 | AND source/objectRef ; effect_conditions nouveaux | R1 legacy fallback |
+| D7 | claim/idempotence/branche hash | R3 TOCTOU |
+| D8 | PR #18 OPEN · commit `790a5315…` | ≠ merge |
+| D9 | user-token · documentary · merge blocked | R2 permissions ∩ |
 
 ---
 
-## 7. Migrations / compatibilité
+## 9. Migrations
 
-| Item | Statut |
+008–012 inclus dans le commit. Compat 001–007. Aucune migration nouvelle ce gel.
+
+---
+
+## 10. Validations (ce cycle)
+
+| Suite | Résultat |
 | --- | --- |
-| 001–007 | préservées |
-| 008–012 | additives locales (untracked) — Git collab, pub uniqueness, user OAuth, session binding, concurrency |
-| Migration nouvelle ce cycle | **aucune** |
-| Compat prospective vs origin/main | HEAD = tip main → delta dirty **fast-forwardable** si main ne bouge pas ; **merge-tree uncommitted NOT TESTED** (pas de WT temporaire créé) |
-| package-lock | −1 ligne (mineur) |
+| tsc | PASS |
+| unit | **183 PASS** (33 files) |
+| integration | **211 PASS** |
+| build | PASS |
+| Playwright | **13/13 PASS** |
+| git diff --cached --check | PASS |
+| Secret scan index | fixtures PEM unitaires uniquement (pas de secret réel) |
+| Mutation GitHub REAL | **NOT RUN** |
 
 ---
 
-## 8. Risques R1–R8
-
-| ID | Verdict | Motif court |
-| --- | --- | --- |
-| R1 D6 legacy `effect_conditions` null | **CARRIED RESERVE** | Fallback attempt fp ; AND bindings restent ; nouveaux mandats écrivent la décision |
-| R2 App ∩ user permissions | **CARRIED RESERVE** | Snapshot peut over-grant localement ; 403 GitHub = ACL live ; pas de bypass installation |
-| R3 GET/PUT TOCTOU | **CARRIED RESERVE** | Pas d'overwrite silencieux ; parents non inspectés possibles ; merge Studio bloqué |
-| R4 Fingerprint sans octets bruts | **CARRIED RESERVE** | Dual check rev/plan SHA-256 au dispatch |
-| R5 localhost / cookies | **CARRIED RESERVE** | Host mismatch → logout/fail ; pas d'usurpation cross-DB prouvée |
-| R6 ENOENT Turbopack | **NON ISSUE** | Disponibilité DEV ; E2E `.next-e2e` isolé |
-| R7 Badge / copy SCRIPTED | **CARRIED RESERVE** | Misread UX possible ; pas de bypass serveur (copy « Effet Git observé (SCRIPTED) » même si REAL) |
-| R8 Docs AS-IMPLEMENTED | **CARRIED RESERVE** | §20–21 alignés ; §6 historique encore présent |
-
-**Aucun BLOCKER** d'effet non autorisé / usurpation / écriture erronée sans filet identifié avec preuve contraire solide.
-
----
-
-## 9. Validations exécutées (ce cycle)
-
-| Contrôle | Résultat |
-| --- | --- |
-| tsc --noEmit | **PASS** |
-| unit | **178 PASS** / 32 files |
-| integration PG | **211 PASS** / 12 files |
-| build | **PASS** |
-| Playwright | **13/13 PASS** (SCRIPTED :3101) |
-| git diff --check | **PASS** (tracked) |
-| Secret scan candidat src/scripts/tests | fixtures test only (`test-secret`, PEM factice) — **pas de secret réel** |
-| Mutation GitHub REAL | **NOT RUN** (interdit) |
-| USER E2E navigateur | **NOT RUN** / MORRIS RECETTE |
-| Merge-tree dirty→main | **NOT TESTED** (HEAD=main ; candidat uncommitted) |
-
-Isolation suites : vitest/e2e forcent SCRIPTED + ALLOW_MUTATIONS vide. Shell opérateur peut avoir REAL flags — **non utilisés** par les suites.
-
----
-
-## 10. Fake / Real Qualification (§6.16)
-
-```text
-Fake / Real Qualification
-- OAuth READ REAL : preuve antérieure acceptée (périmètre borné)
-- Commit+PR REAL : faits GitHub antérieurs vérifiés (#18 OPEN)
-- Consolidation technique : DETERMINISTIC PROVEN (cycle précédent)
-- Ce cycle : QA Product — DETERMINISTIC re-proven ; pas de nouvelle mutation
-- USER E2E navigateur : NOT RUN — MORRIS RECETTE
-- Merge REAL : NOT PROVEN / NON AUTORISÉ
-- Product intégré : NOT PROVEN
-- RECETTE : NOT STARTED
-- claims interdits : GO COMMIT/PUSH/PR/MERGE ; RECETTE ACCEPTED ; ML4 CLOSED ; ADOPTED
-```
-
----
-
-## 11. ENV-01 / versioning
-
-DEV/E2E isolé OK · RECETTE non touchée · STABLE N/A · `0.0.0-dev` · **pas de recette depuis dirty** (ENV-01) · futur build RECETTE = après GO Git figé.
-
----
-
-## 12. Manifeste pré-candidat (non immuable)
+## 11. Commit local — contrôle
 
 | Champ | Valeur |
 | --- | --- |
-| Branche | `feat/next-git-collaboration-20261108` |
-| Base | `origin/main` @ `c658f590…` |
-| HEAD Product | `c658f590…` |
-| SHA immuable | **ABSENT** — LOCAL DIRTY |
-| Fichiers candidats | tracked mods Product + untracked IN SCOPE (§4) |
-| Exclus | `.tmp-sfia-review/**`, `projects/.tmp-sfia-review/**` |
-| Tooling optionnel | `github-app-installation-read-qualify.ts` |
-| Migrations | 008–012 |
-| Suites | 178 / 211 / 13/13 + tsc/build |
-| Réserves | R1–R5, R7, R8 CARRIED ; R6 NON ISSUE |
-| Correctifs obligatoires pré-gate | **aucun BLOCKER** ; UX copy R7 et doc §6 recommandés post-gate ou sous GO correctif distinct |
+| Message | `feat(studio-next): add governed Git collaboration and document publishing` |
+| SHA | `79b100527a9c43fb789ca62b7f87b50a8bc2adf1` |
+| Tree | `5b43538452d5bb425a1ab7e150ca3b74ea66eb77` |
+| Parent | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
+| Fichiers | **87** |
+| Stat | 14869 insertions, 32 deletions |
+| origin/main | inchangé |
+| Push | **NON** |
 
-Ce manifeste **n'autorise pas** de publier.
+Ce SHA = candidat source LOCAL immuable. **≠** baseline main · **≠** build RECETTE · **≠** release.
 
 ---
 
-## 13. Préparation RECETTE Morris (traçabilité)
+## 12. Fake/Real Qualification
 
-| Critère | Statut |
+```text
+Fake / Real Qualification
+- OAuth READ REAL : PROVEN (antérieur)
+- Commit+PR documentary REAL : PROVEN (antérieur, #18 OPEN)
+- Consolidation DET : PROVEN
+- R7/R8 + gel local : DETERMINISTIC + LOCAL COMMIT
+- USER E2E : NOT RUN — MORRIS RECETTE
+- Merge REAL : NOT PROVEN
+- Product push/PR/main : NOT DONE
+- claims interdits : PRODUCT PUSHED ; PR OPEN ; RECETTE ; ML4 CLOSED ; ADOPTED
+```
+
+---
+
+## 13. Réserves R1–R8
+
+| ID | Statut gel |
 | --- | --- |
-| Connexion / dépôt | prêt après build figé |
-| Lecture Nora + provenance | prêt |
-| D4 révision | prêt |
-| Inspection diff | prêt |
-| Décision D6 explicite Morris | **NOT RUN** |
-| Commit/PR observés | acquis sandbox #18 (réf.) |
-| Erreurs/reprise | DET |
-| Reload restitution | prêt à recetter |
-| UX Figma 227–231 | dette |
+| R1 | CARRIED |
+| R2 | CARRIED |
+| R3 | CARRIED |
+| R4 | CARRIED |
+| R5 | CARRIED |
+| R6 | NON ISSUE |
+| R7 | **CORRIGÉ** (ce commit) |
+| R8 | **CORRIGÉ** (ce commit) |
 
-Build RECETTE identifiable **après** GO Git Morris + commit.
-
----
-
-## 14. Gates Morris encore nécessaires
-
-1. Critical Review ChatGPT de **cette** revue d'intégration
-2. Arbitrage CARRIED RESERVES (surtout R2/R3/R7)
-3. **GO Git Product distinct** pour figer le candidat (commit)
-4. Push/PR Product (GO séparé)
-5. Build RECETTE identifiable
-6. USER E2E Morris
-7. Merge PR documentaire #18 — GO distinct (DEC-GIT-B)
+Aucun BLOCKER non traité.
 
 ---
 
-## 15. Contradictions code/doc
+## 14. ENV-01
 
-- Matrice §6 encore « REAL NOT PROVEN » à côté §20–21 PROVEN → R8
-- UI `PublicationInspectionPanel` : messages « SCRIPTED » / « Effet Git observé (SCRIPTED) » même quand provider REAL → R7
-- Décision ML4/ML5 documentaire **NOT MERGED** : contenus validés ; pas GO code historique — l'implémentation locale est candidate dirty
+DEV gel OK · E2E isolé · RECETTE non servie · STABLE N/A · `0.0.0-dev` · pas de tag · SHA local = candidat pour prochaine étape (GO push / RECETTE séparés)
 
 ---
 
-## 16. Review pack coverage
+## 15. Préparation RECETTE Morris
 
-- réinitialisé : oui
-- niveau : **full**
-- synthesis only : **no**
-- secrets : absents du pack
-- verdict pack : **complete**
+Après Critical Review + GO push + mise à disposition : build figé depuis `79b10052…` ; USER E2E par Morris ; critères D4/D6/dispatch/PR/reload.
 
 ---
 
-## 17. Verdict unique
+## 16. Gates restants
 
-`ML4 PRODUCT INTEGRATION REVIEW — READY WITH CARRIED RESERVES — MORRIS GIT GATE REQUIRED`
+1. Critical Review ChatGPT
+2. GO **push** Product (distinct)
+3. Mise à disposition RECETTE
+4. USER E2E Morris
+5. PR readiness / merge Product (séparés)
+6. Merge PR sandbox #18 (séparé)
 
-**Anti-claims :** GO COMMIT PRODUCT · GO PUSH · GO PR · GO MERGE · RECETTE ACCEPTED · ML4 CLOSED · STABLE AVAILABLE · ADOPTED
+---
+
+## 17. Review pack coverage
+
+- full · non synthesis-only · secrets absents · complete
+
+---
+
+## 18. Verdict unique
+
+`ML4 PRODUCT — LOCAL CANDIDATE COMMITTED — READY FOR CHATGPT CRITICAL REVIEW — PRODUCT PUSH NOT AUTHORIZED`
+
+- Product commit : `79b100527a9c43fb789ca62b7f87b50a8bc2adf1`
+- Tree : `5b43538452d5bb425a1ab7e150ca3b74ea66eb77`
+- Base : `c658f59023d44a0e22448c7ee034e3c1dda292a2`
+- Fichiers : 87 · +14869/−32
+- Exclus : `.tmp*` preuves · qualify script
+- Tests : 183 / 211 / 13/13
+- Réserves : R1–R5 CARRIED ; R6 NON ISSUE ; R7/R8 fixed
