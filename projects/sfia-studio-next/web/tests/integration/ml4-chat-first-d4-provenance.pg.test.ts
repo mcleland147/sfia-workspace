@@ -31,8 +31,10 @@ import {
 import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
 import {
   assertSectionScope,
+  extractContractualDocumentProposal,
   hasCompetingTransactionalClaim,
   qualifyDocumentAct,
+  applyTargetedSectionRevision,
 } from "@/domains/conversation/document-act";
 
 async function seedPilot(label: string) {
@@ -483,6 +485,65 @@ Aucune écriture GitHub.
     const r2 = await getDocumentRevision(pilotId, prep.id, seeded.documentId, v2.id);
     expect(r1.status).toBe("AVAILABLE");
     expect(r2.status).toBe("AVAILABLE");
+  });
+
+  it("R06 nested-code: section body with inner bash fence persists bytes after the fence", async () => {
+    const title = "Doc nested code ML4";
+    const v1Body = `# ${title}
+
+## 1. Intro
+
+i
+
+## 2. Sources consultées et provenance disponible
+
+old
+
+## 3. Suite
+
+s
+`;
+    const pilotId = await seedPilot("ml4-nested");
+    const prep = await openOrCreatePreparation(pilotId);
+    const seeded = await savePreparationDocument(pilotId, prep.id, title, v1Body, undefined, {
+      correlationKey: newId("ck"),
+    });
+    expect(seeded.status).toBe("AVAILABLE");
+    if (seeded.status !== "AVAILABLE" || !seeded.documentId || !seeded.revisionId) {
+      throw new Error("seed");
+    }
+
+    const assistant =
+      "```sfia-document\n## 2. Sources consultées et provenance disponible\n\n" +
+      "Avant.\n\n```bash\necho hello\n```\n\nAprès le bloc bash — CONSERVÉ.\n```\n\n" +
+      "Compte rendu hors fence.\n";
+    const extracted = extractContractualDocumentProposal(assistant);
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) return;
+    expect(extracted.content).toContain("Après le bloc bash — CONSERVÉ.");
+    const merged = applyTargetedSectionRevision(v1Body, extracted.content, "2");
+    expect(merged.ok).toBe(true);
+    if (!merged.ok) return;
+    expect(assertSectionScope(v1Body, merged.content, "2")).toEqual({ ok: true });
+
+    const v2 = await reviseDocument(pilotId, prep.id, {
+      documentId: seeded.documentId,
+      baseRevisionId: seeded.revisionId,
+      contentMarkdown: merged.content,
+      correlationKey: newId("ck"),
+      scope: "section",
+      sectionHint: "2",
+    });
+    expect(v2.status).toBe("AVAILABLE");
+    if (v2.status !== "AVAILABLE" || !v2.revisionId) throw new Error("v2");
+    const got = await getDocumentRevision(pilotId, prep.id, seeded.documentId, v2.revisionId);
+    expect(got.status).toBe("AVAILABLE");
+    if (got.status !== "AVAILABLE") return;
+    expect(got.revision.contentMarkdown).toContain("Après le bloc bash — CONSERVÉ.");
+    expect(got.revision.contentMarkdown).toContain("```bash");
+    expect(got.revision.contentMarkdown).toContain("## 3. Suite");
+    expect(got.revision.contentMarkdown).not.toMatch(/Compte rendu hors fence/);
+    expect(assertSectionScope(v1Body, got.revision.contentMarkdown, "2")).toEqual({ ok: true });
   });
 
   it("R06-neg: explicit title miss → NOT_FOUND, no phantom v2 on other doc", async () => {

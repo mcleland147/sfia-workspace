@@ -177,7 +177,7 @@ Le contrat est seulement prêt à recevoir un **GO de construction** après int�
 
 Sur candidat `fix/next-ml4-chat-first-d4-provenance-20261109` (push Product NON AUTORISÉ) :
 
-1. **Proposition documentaire (B)** — exactement une fence `sfia-document` (alias `markdown`/`md`). Contenu fence → seul input CREATE/REVISE. Narration / compte rendu post-exécution **hors fence**. Absence, vacuité ou multiplicités → `DOCUMENT_PROPOSAL_*` sans écriture D4. **Pas** de `fallback_wrap` conversationnel.
+1. **Proposition documentaire (B)** — exactement une fence dont le **premier token** d'info-string est exactement `sfia-document` (backticks ou tildes ; scanner de lignes, stack pour fences internes). Les fences `markdown`/`md`/`mdx`/`sfia-documentation` sont illustratives uniquement et **n'autorisent pas** D4. Narration hors fence. Absence, vacuité, non-fermeture ou multiplicités → `DOCUMENT_PROPOSAL_*` sans écriture. **Pas** de `fallback_wrap`.
 2. **Splice section (A)** — `applyTargetedSectionRevision` préserve préfixe/suffixe hors cible octet-identiques ; si le corps extrait omet le NL terminal, un NL est ajouté **avant** le suffixe (le suffixe lui-même n'est pas réécrit). `assertSectionScope` reste actif.
 3. **ACK (existant)** — `composeDocumentTurnMessage` reste la seule vérité transactionnelle visible.
 4. **Observabilité (D)** — événement `d3.turn.document_proposal` : `extract_path`, `fence_count`, `proposal_chars`, `proposal_digest16`, `body_ends_with_nl`, `scope_verdict`, `refuse_code`, `d4_attempted`, `d4_effect` (pas de corps/prompt/secrets).

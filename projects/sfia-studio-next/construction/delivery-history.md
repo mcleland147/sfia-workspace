@@ -1200,3 +1200,18 @@ Append-only logical journal of Cursor product deliveries.
 | RECETTE | **inchangée** — SHA `8ba77730` / BUILD `ygu4moVrYUNZPkvprgvB_` ; v1 md5 `de4bd1a6…` ; 0 v2 |
 | Push Product | **AUCUN** |
 | Verdict candidat | `READY FOR REVIEW — INTEGRATED A+B+D DOCUMENT CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-ABD-FENCE-ROBUSTNESS
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~20:25 CET |
+| Macro-capacité | R5 / ML4 — Régularisation B scanner fences / intégrité Markdown |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` |
+| Parent | `9694cc7171006b747dd7f502a1f1ba8b3a0477f3` |
+| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; push Product / RECETTE NON inclus |
+| Changements | `scanContractualDocumentFences` nest-aware ; tag exact `sfia-document` ; tests P/N + oracle nested-code PG |
+| Validations | (voir Review Pack — commandes rejouées) |
+| RECETTE | **inchangée** — `8ba77730` / `ygu4moVrYUNZPkvprgvB_` ; v1 `de4bd1a6…` |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY` |

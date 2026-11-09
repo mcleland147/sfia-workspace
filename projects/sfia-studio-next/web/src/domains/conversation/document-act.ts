@@ -515,9 +515,15 @@ function matchSectionSpans(spans: SectionSpan[], hint: string): SectionSpan[] {
 
 /**
  * Contractual document proposal (B).
- * Documentary content destined for D4 must appear in exactly one fenced block
- * tagged `sfia-document`, `markdown`, or `md`. Narration / post-exec CR / ACK
- * stay outside the fence. No lexical scrubbing of legitimate métier wording.
+ *
+ * Documentary content destined for D4 must appear in exactly one CommonMark
+ * fenced block whose info-string first word is exactly `sfia-document`.
+ * Generic ```markdown / ```md fences are treated as illustrative only — they
+ * never authorize a D4 write (ambiguity regularisation after regex false positives).
+ *
+ * Parsing is structural (line scanner): an inner shorter fence cannot close the
+ * outer contractual fence; truncated or unclosed proposals are refused.
+ * No lexical scrubbing of legitimate métier wording.
  */
 export type DocumentProposalExtract =
   | {
@@ -537,8 +543,9 @@ export type DocumentProposalExtract =
       reason:
         | "DOCUMENT_PROPOSAL_MISSING"
         | "DOCUMENT_PROPOSAL_AMBIGUOUS"
-        | "DOCUMENT_PROPOSAL_EMPTY";
-      path: "none" | "ambiguous" | "empty";
+        | "DOCUMENT_PROPOSAL_EMPTY"
+        | "DOCUMENT_PROPOSAL_UNCLOSED";
+      path: "none" | "ambiguous" | "empty" | "unclosed";
       fenceCount: number;
       proposalChars: number;
       proposalDigest16: string | null;
@@ -546,11 +553,18 @@ export type DocumentProposalExtract =
       sectionCount: number;
     };
 
-const DOCUMENT_PROPOSAL_FENCE_RE =
-  /```(sfia-document|markdown|md)[^\n]*\n([\s\S]*?)```/gi;
+/** Sole mutative proposal marker — exact first info-string token (case-insensitive). */
+export const DOCUMENT_PROPOSAL_TAG = "sfia-document";
+
+type FenceMarker = {
+  indent: number;
+  char: "`" | "~";
+  length: number;
+  info: string;
+};
 
 function digest16(text: string): string {
-  // Non-reversible short fingerprint for diagnostics — not a content log.
+  // Structural correlation fingerprint (length + FNV) — never log bodies.
   let h = 2166136261;
   for (let i = 0; i < text.length; i++) {
     h ^= text.charCodeAt(i);
@@ -559,49 +573,166 @@ function digest16(text: string): string {
   return (h >>> 0).toString(16).padStart(8, "0") + text.length.toString(16).padStart(8, "0");
 }
 
+function splitMarkdownLines(md: string): Array<{ text: string; start: number }> {
+  const lines: Array<{ text: string; start: number }> = [];
+  let offset = 0;
+  const rawLines = md.split("\n");
+  for (let i = 0; i < rawLines.length; i++) {
+    const text = rawLines[i]!;
+    lines.push({ text, start: offset });
+    offset += text.length + (i < rawLines.length - 1 ? 1 : 0);
+  }
+  return lines;
+}
+
+/** CommonMark-ish fence opener/closer on a single line (indent ≤ 3). */
+function parseFenceMarkerLine(line: string): FenceMarker | null {
+  const m = /^( {0,3})(`{3,}|~{3,})(.*)$/.exec(line);
+  if (!m) return null;
+  const indent = m[1]!.length;
+  const ticks = m[2]!;
+  const char = ticks[0] as "`" | "~";
+  const length = ticks.length;
+  const info = m[3] ?? "";
+  // Backtick fences cannot include backticks in the info string (CommonMark).
+  if (char === "`" && info.includes("`")) return null;
+  return { indent, char, length, info };
+}
+
+function fenceInfoFirstToken(info: string): string {
+  return info.trim().split(/\s+/)[0]?.toLowerCase() ?? "";
+}
+
+function isContractualProposalOpen(marker: FenceMarker): boolean {
+  // Exact token match only — rejects mdx, sfia-documentation, markdown, md, …
+  return fenceInfoFirstToken(marker.info) === DOCUMENT_PROPOSAL_TAG;
+}
+
+function isFenceClose(marker: FenceMarker, open: FenceMarker): boolean {
+  if (marker.char !== open.char) return false;
+  if (marker.length < open.length) return false;
+  // Closing fence info must be empty (whitespace only).
+  return marker.info.trim() === "";
+}
+
+type ScannedProposal =
+  | { status: "ok"; content: string; tag: string }
+  | { status: "unclosed" };
+
+/**
+ * Scan assistant Markdown for contractual `sfia-document` fences.
+ *
+ * Line-oriented fence recognition (indent ≤ 3, backtick/tilde runs). Inside a
+ * contractual proposal, nested code fences are tracked with a stack so an inner
+ * ```bash … ``` does not terminate the outer proposal (document-integrity rule;
+ * equal-length CommonMark alone would truncate — we refuse that silent failure).
+ */
+export function scanContractualDocumentFences(assistantText: string): {
+  proposals: ScannedProposal[];
+  contractualOpenCount: number;
+} {
+  const lines = splitMarkdownLines(assistantText);
+  const proposals: ScannedProposal[] = [];
+  let i = 0;
+  let contractualOpenCount = 0;
+
+  while (i < lines.length) {
+    const open = parseFenceMarkerLine(lines[i]!.text);
+    if (!open || !isContractualProposalOpen(open)) {
+      i += 1;
+      continue;
+    }
+    contractualOpenCount += 1;
+    const bodyStartLine = i + 1;
+    const nest: Array<{ char: "`" | "~"; length: number }> = [];
+    let closedAt: number | null = null;
+
+    for (let j = bodyStartLine; j < lines.length; j++) {
+      const cand = parseFenceMarkerLine(lines[j]!.text);
+      if (!cand) continue;
+
+      if (nest.length === 0 && isFenceClose(cand, open)) {
+        closedAt = j;
+        break;
+      }
+
+      if (nest.length > 0) {
+        const top = nest[nest.length - 1]!;
+        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
+          nest.pop();
+          continue;
+        }
+      }
+
+      // Inner opener: info-tagged fence, or shorter run of the same character
+      // that cannot close the outer proposal, or any other fence char.
+      const opensInner =
+        cand.info.trim() !== "" ||
+        cand.char !== open.char ||
+        cand.length < open.length;
+      if (opensInner) {
+        nest.push({ char: cand.char, length: cand.length });
+      }
+    }
+
+    if (closedAt == null) {
+      proposals.push({ status: "unclosed" });
+      break;
+    }
+
+    // Body bytes from first body line through the newline before the closer.
+    let content = "";
+    if (bodyStartLine < closedAt) {
+      const start = lines[bodyStartLine]!.start;
+      content = assistantText.slice(start, lines[closedAt]!.start);
+    }
+    proposals.push({ status: "ok", content, tag: DOCUMENT_PROPOSAL_TAG });
+    i = closedAt + 1;
+  }
+
+  return { proposals, contractualOpenCount };
+}
+
+function failProposal(
+  reason: Extract<DocumentProposalExtract, { ok: false }>["reason"],
+  path: Extract<DocumentProposalExtract, { ok: false }>["path"],
+  fenceCount: number,
+  content?: string,
+): DocumentProposalExtract {
+  const body = content ?? "";
+  return {
+    ok: false,
+    reason,
+    path,
+    fenceCount,
+    proposalChars: body.length,
+    proposalDigest16: body ? digest16(body) : null,
+    bodyEndsWithNewline: body.endsWith("\n"),
+    sectionCount: body ? locateSections(body).length : 0,
+  };
+}
+
 export function extractContractualDocumentProposal(
   assistantText: string,
 ): DocumentProposalExtract {
-  const matches = [...assistantText.matchAll(new RegExp(DOCUMENT_PROPOSAL_FENCE_RE.source, "gi"))];
-  if (matches.length === 0) {
-    return {
-      ok: false,
-      reason: "DOCUMENT_PROPOSAL_MISSING",
-      path: "none",
-      fenceCount: 0,
-      proposalChars: 0,
-      proposalDigest16: null,
-      bodyEndsWithNewline: false,
-      sectionCount: 0,
-    };
+  const { proposals, contractualOpenCount } = scanContractualDocumentFences(assistantText);
+
+  if (contractualOpenCount === 0) {
+    return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", 0);
   }
-  if (matches.length > 1) {
-    return {
-      ok: false,
-      reason: "DOCUMENT_PROPOSAL_AMBIGUOUS",
-      path: "ambiguous",
-      fenceCount: matches.length,
-      proposalChars: 0,
-      proposalDigest16: null,
-      bodyEndsWithNewline: false,
-      sectionCount: 0,
-    };
+  if (proposals.some((p) => p.status === "unclosed")) {
+    return failProposal("DOCUMENT_PROPOSAL_UNCLOSED", "unclosed", contractualOpenCount);
   }
-  const fenceTag = (matches[0]![1] ?? "markdown").toLowerCase();
-  // Preserve internal bytes; strip only a single leading newline often introduced after the fence opener.
-  let content = matches[0]![2] ?? "";
-  if (content.startsWith("\n")) content = content.slice(1);
+  if (proposals.length > 1) {
+    return failProposal("DOCUMENT_PROPOSAL_AMBIGUOUS", "ambiguous", proposals.length);
+  }
+  if (proposals.length !== 1 || proposals[0]!.status !== "ok") {
+    return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
+  }
+
+  const content = proposals[0]!.content;
   if (!content.trim() || content.trim().length < 8) {
-    return {
-      ok: false,
-      reason: "DOCUMENT_PROPOSAL_EMPTY",
-      path: "empty",
-      fenceCount: 1,
-      proposalChars: content.length,
-      proposalDigest16: digest16(content),
-      bodyEndsWithNewline: content.endsWith("\n"),
-      sectionCount: locateSections(content).length,
-    };
+    return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
   }
   const titleLine = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
   return {
@@ -609,7 +740,7 @@ export function extractContractualDocumentProposal(
     content,
     title: titleLine || "Document Nora",
     path: "fence",
-    fenceTag,
+    fenceTag: DOCUMENT_PROPOSAL_TAG,
     fenceCount: 1,
     proposalChars: content.length,
     proposalDigest16: digest16(content),

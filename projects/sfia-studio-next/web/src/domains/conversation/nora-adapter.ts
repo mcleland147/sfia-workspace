@@ -102,7 +102,7 @@ const SYSTEM_INSTRUCTIONS = [
   "- Production documentaire: seulement si le Pilote le demande explicitement et positivement.",
   "- Une négation (« ne crée pas », « ne révise pas »), une question informative ou une hypothèse n'autorisent aucune écriture D4.",
   "- Distingue toujours rédaction proposée et sauvegarde confirmée. Tu n'affirmes jamais qu'un document est « enregistré », « non enregistré », créé ou révisé : seul le bloc applicatif D4 post-effet (Résultat applicatif D4) porte cette vérité.",
-  "- Contrat proposition D4: place UNIQUEMENT le Markdown documentaire destiné à D4 dans UNE fence ```sfia-document … ``` (tags `markdown`/`md` acceptés). Hors fence: explications, compte rendu post-exécution, réserves. Une seule fence documentaire par réponse.",
+  "- Contrat proposition D4: place UNIQUEMENT le Markdown documentaire destiné à D4 dans UNE fence dont le tag exact est `sfia-document` (```sfia-document … ``` ou ~~~sfia-document). Les fences `markdown`/`md`/`mdx` illustratives ne sont PAS des propositions D4. Hors fence: explications, compte rendu post-exécution, réserves. Une seule fence `sfia-document` par réponse; elle doit être correctement fermée (un bloc de code interne plus court ne la termine pas).",
   "- Révision ciblée: dans la fence, fournis la section demandée mise à jour (titre ATX inclus); ne réécris pas les autres sections; ne place aucun compte rendu opérationnel ni statut transactionnel dans la fence.",
   "- Provenance Git: un SHA de contenu (blob) n'est jamais un SHA de commit; cite blobSha et commitSha séparément lorsqu'ils sont fournis par les outils.",
   "Réponds en français. Markdown utile autorisé (titres, listes, tableaux).",

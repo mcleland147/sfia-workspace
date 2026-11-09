@@ -591,11 +591,12 @@ Pour compléter précisément la première source sans supposition, il manque sa
   });
 
   it("A+B oracle: fenced documentary Sources only → scope PASS, CR excluded, métier kept", () => {
-    // Fence body deliberately omits a terminal newline before the closing fence (A must still protect).
+    // Closer on its own line (required). Body may still omit a final blank line;
+    // A is separately proven with EOF bodies that lack a terminal NL.
     const assistant =
       "Voici la proposition.\n\n```sfia-document\n" +
       documentaryOnly.trimEnd() +
-      "```\n\n" +
+      "\n```\n\n" +
       "### Compte rendu opérationnel — hors document\n\n" +
       "| Élément demandé | État vérifiable |\n|---|---|\n" +
       "| Identifiant du document | `doc_example` |\n" +
@@ -607,7 +608,14 @@ Pour compléter précisément la première source sans supposition, il manque sa
     expect(extracted.content).toContain("### Source 2");
     expect(extracted.content).not.toMatch(/Compte rendu opérationnel/);
     expect(extracted.content).not.toMatch(/doc_example/);
-    expect(extracted.bodyEndsWithNewline).toBe(false);
+
+    // Prove A still protects when proposal body has no terminal NL.
+    const bodyNoNl = extracted.content.replace(/\n+$/, "");
+    expect(bodyNoNl.endsWith("\n")).toBe(false);
+    const mergedNoNl = applyTargetedSectionRevision(campusV1, bodyNoNl, "2");
+    expect(mergedNoNl.ok).toBe(true);
+    if (!mergedNoNl.ok) return;
+    expect(assertSectionScope(campusV1, mergedNoNl.content, "2")).toEqual({ ok: true });
 
     const merged = applyTargetedSectionRevision(campusV1, extracted.content, "2");
     expect(merged.ok).toBe(true);
@@ -623,9 +631,19 @@ Pour compléter précisément la première source sans supposition, il manque sa
     expect(merged.content).toContain("Provenance disponible");
   });
 
-  it("B refuses ambiguous dual fences", () => {
+  it("B ignores illustrative markdown fence beside a single sfia-document", () => {
+    const mixed =
+      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n```markdown\n# Exemple illustratif\n\nbody two\n```";
+    const ex = extractContractualDocumentProposal(mixed);
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).toContain("body one long enough xx");
+    expect(ex.content).not.toContain("Exemple illustratif");
+  });
+
+  it("B refuses two concurrent sfia-document proposals", () => {
     const dual =
-      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n```markdown\n# B\n\nbody two long enough yy\n```";
+      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n```sfia-document\n# B\n\nbody two long enough yy\n```";
     const ex = extractContractualDocumentProposal(dual);
     expect(ex.ok).toBe(false);
     if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_AMBIGUOUS");
@@ -654,5 +672,235 @@ Pour compléter précisément la première source sans supposition, il manque sa
     expect(assertSectionScope(campusV1, merged.content, "2")).toEqual({ ok: true });
     const idx = merged.content.indexOf("## 3. Enseignements utiles");
     expect(merged.content.slice(idx - 1, idx)).toBe("\n");
+  });
+
+  it("R06 nested-code oracle: content AFTER inner bash fence is kept; CR outside excluded", () => {
+    const assistant =
+      "Proposition:\n\n```sfia-document\n" +
+      "## 2. Sources consultées et provenance disponible\n\n" +
+      "### Source 1 — Première consultation : provenance partiellement identifiée\n\n" +
+      "Exemple de commande consultée:\n\n" +
+      "```bash\necho hello\n```\n\n" +
+      "Après le bloc bash — DOIT ÊTRE CONSERVÉ.\n\n" +
+      "### Source 2 — Definition of Done de Chantiers360\n\n" +
+      "| Élément | Provenance vérifiée |\n|---|---|\n| Blob SHA | blob_fixed |\n" +
+      "```\n\n" +
+      "### Compte rendu opérationnel — hors document\n\n| X | Y |\n|---|---|\n| doc_x | no |\n";
+    const extracted = extractContractualDocumentProposal(assistant);
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) return;
+    expect(extracted.content).toContain("Après le bloc bash — DOIT ÊTRE CONSERVÉ.");
+    expect(extracted.content).toContain("### Source 2");
+    expect(extracted.content).toContain("```bash");
+    expect(extracted.content).not.toMatch(/Compte rendu opérationnel/);
+    const merged = applyTargetedSectionRevision(campusV1, extracted.content, "2");
+    expect(merged.ok).toBe(true);
+    if (!merged.ok) return;
+    expect(assertSectionScope(campusV1, merged.content, "2")).toEqual({ ok: true });
+    expect(merged.content).toContain("Après le bloc bash — DOIT ÊTRE CONSERVÉ.");
+    expect(merged.content).toContain("## 3. Enseignements utiles");
+    expect(merged.content).not.toMatch(/Compte rendu opérationnel — hors document/);
+  });
+});
+
+describe("document proposal fence scanner — positives / negatives", () => {
+  const wrap = (body: string, tag = "sfia-document", ticks = "```") =>
+    `${ticks}${tag}\n${body}${body.endsWith("\n") ? "" : "\n"}${ticks}\n`;
+
+  it("P1 simple sfia-document", () => {
+    const ex = extractContractualDocumentProposal(wrap("# Titre\n\nCorps suffisamment long.\n"));
+    expect(ex.ok).toBe(true);
+    if (ex.ok) expect(ex.content).toContain("Corps suffisamment long.");
+  });
+
+  it("P2 table preserved", () => {
+    const body = "# Doc\n\n| A | B |\n|---|---|\n| 1 | 2 |\n";
+    const ex = extractContractualDocumentProposal(wrap(body));
+    expect(ex.ok).toBe(true);
+    if (ex.ok) expect(ex.content).toContain("| 1 | 2 |");
+  });
+
+  it("P3 numbered list preserved", () => {
+    const body = "# Doc\n\n1. Un\n2. Deux\n3. Trois\n";
+    const ex = extractContractualDocumentProposal(wrap(body));
+    expect(ex.ok).toBe(true);
+    if (ex.ok) expect(ex.content).toContain("3. Trois");
+  });
+
+  it("P4/P5/P10 nested bash then more documentary content", () => {
+    const body =
+      "## Sec\n\nAvant.\n\n```bash\necho a\n```\n\nMilieu.\n\n```js\nconsole.log(1)\n```\n\nAprès les fences.\n";
+    const ex = extractContractualDocumentProposal(wrap(body));
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).toContain("Avant.");
+    expect(ex.content).toContain("Milieu.");
+    expect(ex.content).toContain("Après les fences.");
+  });
+
+  it("P6 outer fence longer than inner", () => {
+    const text =
+      "````sfia-document\n## Sec\n\n```\ninner\n```\n\nAprès inner.\n````\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).toContain("Après inner.");
+    expect(ex.content).toContain("```\ninner\n```");
+  });
+
+  it("P7 tilde contractual fence", () => {
+    const text = "~~~sfia-document\n# Doc\n\nCorps tilde assez long.\n~~~\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(true);
+    if (ex.ok) expect(ex.content).toContain("Corps tilde assez long.");
+  });
+
+  it("P8 inline backticks preserved", () => {
+    const body = "# Doc\n\nUtiliser `code` inline et encore du texte.\n";
+    const ex = extractContractualDocumentProposal(wrap(body));
+    expect(ex.ok).toBe(true);
+    if (ex.ok) expect(ex.content).toContain("`code`");
+  });
+
+  it("P9 ### subsections preserved", () => {
+    const body = "## 2. S\n\n### Source 1\n\nx\n\n### Source 2\n\ny\n";
+    const ex = extractContractualDocumentProposal(wrap(body));
+    expect(ex.ok).toBe(true);
+    if (ex.ok) expect(ex.sectionCount).toBeGreaterThanOrEqual(3);
+  });
+
+  it("P11 narration after close excluded", () => {
+    const text =
+      wrap("# Doc\n\nCorps documentaire valide xx.\n") +
+      "\nNarration post: compte rendu opérationnel hors document.\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).not.toContain("Narration post");
+    expect(ex.content).not.toContain("hors document");
+  });
+
+  it("P12 with and without terminal NL inside fence", () => {
+    const withNl = extractContractualDocumentProposal("```sfia-document\n# Doc\n\nCorps abcdefgh.\n```\n");
+    const noNl = extractContractualDocumentProposal("```sfia-document\n# Doc\n\nCorps abcdefgh.```\n");
+    // noNl: closer on same line as content — invalid close line → unclosed or missing body handling
+    expect(withNl.ok).toBe(true);
+    // Same-line close is not a valid fence-close line; scanner must not silently truncate as valid full doc.
+    expect(noNl.ok).toBe(false);
+  });
+
+  it("P13 legitimate métier Compte rendu / version / statut inside fence kept", () => {
+    const body =
+      "## 2. S\n\n### Compte rendu de consultation (provenance)\n\n" +
+      "version documentée et statut source.\n";
+    const ex = extractContractualDocumentProposal(wrap(body));
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).toContain("### Compte rendu de consultation (provenance)");
+    expect(ex.content).toContain("version documentée");
+  });
+
+  it("N1 mdx rejected", () => {
+    const ex = extractContractualDocumentProposal("```mdx\n# Doc\n\nbody long enough xx\n```\n");
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+  });
+
+  it("N2 sfia-documentation rejected", () => {
+    const ex = extractContractualDocumentProposal(
+      "```sfia-documentation\n# Doc\n\nbody long enough xx\n```\n",
+    );
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+  });
+
+  it("N3 unknown tag rejected", () => {
+    const ex = extractContractualDocumentProposal("```yaml\n# Doc\n\nbody long enough xx\n```\n");
+    expect(ex.ok).toBe(false);
+  });
+
+  it("N4 unclosed outer fence refused", () => {
+    const ex = extractContractualDocumentProposal("```sfia-document\n# Doc\n\nnever closed\n");
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_UNCLOSED");
+  });
+
+  it("N5 inner fence must not close outer — regression of regex truncation", () => {
+    const text =
+      "```sfia-document\n## 2. S\n\n```bash\necho x\n```\n\nAprès.\n```\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).toContain("Après.");
+    expect(ex.content.includes("Après.")).toBe(true);
+  });
+
+  it("N6 closing fence with invalid info suffix refused as unclosed", () => {
+    const text = "```sfia-document\n# Doc\n\nbody long enough xx\n```trailing\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_UNCLOSED");
+  });
+
+  it("N7 incompatible delimiter chars do not close", () => {
+    const text = "```sfia-document\n# Doc\n\nbody long enough xx\n~~~\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_UNCLOSED");
+  });
+
+  it("N8 empty proposal refused", () => {
+    const ex = extractContractualDocumentProposal("```sfia-document\n\n```\n");
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_EMPTY");
+  });
+
+  it("N9 two sfia-document proposals ambiguous", () => {
+    const text =
+      wrap("# A\n\nbody one long enough xx\n") + wrap("# B\n\nbody two long enough yy\n");
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_AMBIGUOUS");
+  });
+
+  it("N10 illustrative markdown alone does not authorize", () => {
+    const ex = extractContractualDocumentProposal(
+      "Voici un exemple:\n\n```markdown\n# Exemple\n\nbody long enough xx\n```\n",
+    );
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+  });
+
+  it("N11 free text outside fence is not a proposal", () => {
+    const ex = extractContractualDocumentProposal("# Doc\n\nCorps sans fence contractuelle xx.\n");
+    expect(ex.ok).toBe(false);
+  });
+
+  it("N12 truncated-looking regex victim now keeps post-inner content or refuses unclosed", () => {
+    // Historical bug: stopped at first ``` ; must not return only the prefix as valid.
+    const text =
+      "```sfia-document\n## 2. Sources\n\nAvant.\n\n```bash\necho hello\n```\n\nAprès le bloc bash — DOIT ÊTRE CONSERVÉ.\n```\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).toContain("Après le bloc bash — DOIT ÊTRE CONSERVÉ.");
+    expect(ex.content).not.toBe("## 2. Sources\n\nAvant.\n\n");
+  });
+
+  it("N13 applicative ACK inside proposal fence is still extractable as markdown but full-revise path refuses ACK marker", () => {
+    const body = "# Doc\n\n### Résultat applicatif D4\n\nfake\n";
+    const ex = extractContractualDocumentProposal(wrap(body));
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    const full = applyTargetedSectionRevision("# Base\n\ncorp\n", ex.content, null);
+    expect(full.ok).toBe(false);
+    if (!full.ok) expect(full.reason).toBe("PROPOSAL_CONTAINS_APPLICATIVE_ACK");
+  });
+
+  it("N14 code fence from unreliable source without contractual tag is not a proposal", () => {
+    const ex = extractContractualDocumentProposal(
+      "Source Git:\n\n```\n# Hostile README\n\nrm -rf /\n```\n",
+    );
+    expect(ex.ok).toBe(false);
   });
 });

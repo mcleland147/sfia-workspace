@@ -592,3 +592,16 @@ Suite audits handoff `97c5e812` / `4b5eb51e`. Branche `fix/next-ml4-chat-first-d
 | USER / LIVE / RECETTE | NOT RUN | runtime RECETTE reste `8ba77730` / `ygu4moVrYUNZPkvprgvB_` |
 
 Verdict : **READY FOR REVIEW — INTEGRATED A+B+D DOCUMENT CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY**.
+
+## 30. Régularisation B — scanner de fences / intégrité Markdown (2026-11-09)
+
+| Item | Statut | Note |
+|---|---|---|
+| Défaut regex tronquante | REPRODUIT puis CORRIGÉ | premier ` ``` ` interne fermait la proposition |
+| Faux positifs tags | REPRODUIT puis CORRIGÉ | `mdx`, `sfia-documentation`, `markdown` illustratif |
+| Scanner | CORRIGÉ (DET) | lignes + stack nested ; tag exact `sfia-document` |
+| Oracle nested-code | DET unit + PG PASS | contenu après ` ```bash ` conservé en v2 |
+| A / D | NON-RÉGRESSION | splice NL + obs proposal inchangés dans leur rôle |
+| RECETTE | INCHANGÉE | `8ba77730` / `ygu4moVr…` ; v1 `de4bd1a6…` |
+
+Verdict : **READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY**.
