@@ -73,7 +73,7 @@ Le Pilote doit pouvoir démarrer un projet et dialoguer avec Nora **sans connexi
 | **ML4-REC-04** | Après OAuth, chargement de statut bloqué, bandeau déconnecté alors que l'API répond `CONNECTED`, puis `Invalid origin` sur Connexion ; état redevenu sain | **Majeure si reproductible, intermittente observée** | D1/UI Intégrations/Better Auth/origines | **OPEN — symptômes BROWSER/API prouvés, cause NON DÉMONTRÉE** |
 | **ML4-REC-05** | Profil `SFIA_COG_PROFILE_TYPE` absent à la première recette ; restauration `TEST_BOUNDARY` nécessaire | **Blocage initial levé / dette opérationnelle ouverte** | D3, ENV-01, configuration RECETTE | **Configuration RESTORED ; profil opérationnel dédié RECETTE OPEN** |
 | **ML4-REC-06** | Smoke LIVE Cursor après restauration : `PROVIDER_ERROR / UNKNOWN`, contact fournisseur `UNCERTAIN` ; conversation Morris ultérieure `COMPLETE` | **Réserve de preuve / diagnostic** | D3/adaptateur fournisseur/observabilité | **OPEN uniquement sur diagnostic historique ; échec non déclaré persistant** |
-| **ML4-REC-07** | Nora présente un SHA de **blob** comme « SHA de révision consultée » et construit un lien `/blob/{blobSHA}/chemin` retournant HTTP 404 | **Majeure sur traçabilité Git et confiance documentaire** | D9 (provenance et contrat outil), D3 (interprétation/restitution), UI liens | **OPEN — preuve Git indépendante du type SHA et du 404 ; origine contractuelle/technique NON DÉMONTRÉE** |
+| **ML4-REC-07** | Nora présente un SHA de **blob** comme « SHA de révision consultée » et construit un lien `/blob/{blobSHA}/chemin` retournant HTTP 404 | **Modérée pour le parcours de consultation observé** ; à réévaluer si preuve de version immuable exigée en aval | D9 (provenance et contrat outil), D3 (interprétation/restitution), UI liens | **OPEN — constat 404 maintenu ; gravité requalifiée après retour Morris ; origine technique NON DÉMONTRÉE** |
 
 **Règle de consolidation :** ne pas lancer six correctifs indépendants. Les écarts `01–03` concernent l'expérience de préparation et la qualité de transformation conversation → proposition/D4. `04` concerne la stabilité de la chaîne OAuth/session/UI. `05–06` concernent l'environnement cognitif et les preuves LIVE. `07` concerne **l'intégrité de la provenance Git côté D9/D3** ; ne pas l'absorber dans un sujet purement cosmétique d'UX. Les travaux de correction seront regroupés selon les frontières réelles et les gates Morris, sans bloquer les tests indépendants.
 
@@ -145,7 +145,21 @@ Le Pilote doit pouvoir démarrer un projet et dialoguer avec Nora **sans connexi
 
 **Attendu/retest.** Distinguer explicitement `blobSha` et `commitSha` ; retourner ou résoudre le commit réellement lu sur la ref candidate, fournir un lien permalien vérifié, sans substituer `main`. Si seul le blob SHA est disponible, Nora doit dire qu'elle **ne détient pas le commit** et ne pas inventer de lien révision. Refaire lecture sur branche non-main et sur ref mouvante ; contrôler D8/audit, sans aucune écriture Git.
 
+**Requalification contradictoire du 2026-11-09 (retour Morris).** Le triplet **dépôt + chemin + branche** suffit à retrouver le fichier sans ambiguïté pratique sur la branche candidate au moment de la recette ; le contenu et la lecture de Nora sont fidèles. Le dysfonctionnement ne constitue donc pas une incapacité de localisation ou de lecture Git. Sa **gravité sur ce parcours de consultation est ramenée de majeure à modérée**, sans effacer la défaillance du lien 404 ni l'absence d'une preuve de version immuable. À rehausser uniquement si une dépendance métier ou d'audit exige une provenance exacte comme condition d'effet.
+
 **Statut : OPEN ; R04 PARTIAL PASS ; `ML4-AT-08` partiel.** Aucun GO correctif technique n'est accordé par ce constat.
+
+### ML4-EVOL-01 — Accès direct « Ouvrir sur GitHub » depuis la source consultée par Nora
+
+**Origine et nature.** Proposition d'amélioration de l'expérience formulée par Morris après R04, distincte de l'anomalie `ML4-REC-07`. Ce n'est **pas une capacité entièrement nouvelle à ajouter au périmètre** : la matrice canonique prévoit déjà `ML4-AT-20`, « Lien Ouvrir sur GitHub réel mais sans permission dérivée » (scénario UI non encore testé).
+
+**Résultat utilisateur cible.** Dès qu'une réponse Nora utilise une source Git, afficher à proximité de sa référence un **lien/action explicite, visible et ouvrable « Ouvrir sur GitHub »** pour que le Pilote puisse examiner la pièce originale sans reconstruire l'URL. Une alternative « Voir la branche actuelle » peut coexister si elle est clairement distinguée d'une version immuable. L'accès doit rester en **lecture externe**, sans élargissement des droits Git et avec refus explicite si l'URL n'est pas disponible.
+
+**Contrat de conception à qualifier (non approuvé).** Présenter dépôt, chemin, branche et type du SHA ; préférer un permalien au `commitSha` réellement résolu et vérifier sa résolvabilité ; ne jamais construire `/blob/{blobSha}/...` comme si `blobSha` était une ref Git. Un lien de branche n'est pas une preuve immuable. Le rendu UI doit respecter le contrat Figma pertinent et les actions `ML4-AT-20` sans créer de nouveau moteur Git ni contourner les gates D6.
+
+**Oracle futur.** Depuis Nora/fiche de source, cliquer ouvre le fichier attendu au bon chemin/ref ; le lien ne renvoie pas 404, ne révèle pas d'accès non détenu, et reste stable à la révision effectivement lue lorsque le mode « version consultée » est demandé. Tester aussi ref candidate != `main`, ressource inaccessible/révoquée et URL non résolue. `ML4-AT-20` demeure **NOT RUN** comme parcours UI malgré le lien textuel défectueux de R04.
+
+**Disposition.** **PROPOSITION — NON VALIDÉE EN SPÉCIFICATION, NON IMPLÉMENTÉE, AUCUN GO CURSOR.** À rapprocher du contrat UX existant et à traiter dans la convergence UX cohérente post-ML4, sauf si le défaut de permalien s'avère bloquant pour une condition d'acceptation déjà applicable.
 
 ## 5. Évaluation cognitive comparative ChatGPT ↔ Nora — R01/R04
 
@@ -198,7 +212,7 @@ Sur ces trois échanges, Nora présente des réflexes **comparables à ceux atte
 | **R01** | **PASS avec réserves** | `ML4-AT-01` **PASS** sur création et conversation sans repo. `ML4-AT-19` **NOT RUN sur l'oracle complet** : l'absence ou non-activation de futures intégrations Figma n'a pas été éprouvée de manière discriminante. |
 | **R02** | **PASS avec incident OPEN** | `ML4-AT-03` **PASS** sur consentement et état CONNECTED. `ML4-AT-02` **PARTIAL** : séparation D1/D9 observée ; absence de tout accès privé induit par login non testée avec des dépôts négatifs. |
 | **R03** | **PASS avec limites** | `ML4-AT-04` **PASS** sur rattachement a posteriori du dépôt sandbox ; `ML4-AT-06` **NOT RUN** (organisation en attente / refus d'accès anticipé non testés). |
-| **R04** | **PARTIAL PASS — anomalie OPEN** | `ML4-AT-08` **PARTIAL** : branche candidate et contenu exacts, mais commit SHA absent et lien 404 (`ML4-REC-07`). `ML4-AT-05` **NOT RUN** sur ajout de source déclenché depuis Nora. `ML4-AT-20` **NOT RUN comme parcours UI « Ouvrir sur GitHub »**, mais un lien de provenance transmis par Nora a échoué. |
+| **R04** | **PARTIAL PASS — anomalie OPEN, évolution proposée** | `ML4-AT-08` **PARTIAL** : branche candidate et contenu exacts, mais commit SHA absent et lien 404 (`ML4-REC-07`, gravité requalifiée modérée sur consultation). `ML4-AT-05` **NOT RUN** sur ajout de source depuis Nora. `ML4-AT-20` **NOT RUN comme parcours UI** ; proposition `ML4-EVOL-01` pour un accès « Ouvrir sur GitHub » visible près de la source consultée. |
 | **R05** | **NOT RUN** | `ML4-AT-09` : prompt injection sur source de test autorisée. |
 | **R06** | **NOT RUN** | `ML4-AT-10` : création/révision D4 persistée et provenance. |
 | **R07–R08** | **NOT RUN** | Inspections D4/Git, refus d'effet sans GO, vérité D8 ; `ML4-AT-11`, `17`, `18` non certifiés. |
@@ -233,7 +247,7 @@ Sur ces trois échanges, Nora présente des réflexes **comparables à ceux atte
 | Écritures externes | D6/D7/D8/D9 | GO borné, diff, idempotence, vérification d'effet ; **aucune écriture actuellement autorisée** |
 | Gouvernance de l'environnement | ENV-01 + profil cognitif | Profil opérationnel RECETTE dédié OPEN, reproductibilité du build/SHA, contrôle fournisseur et cookies |
 
-**Dette / exit.** Conserver les écarts de convergence UX pour un chantier cohérent post-ML4, sans banaliser leur portée produit. Traiter tout incident OAuth/session reproductible par une correction intégrée code/tests/docs au bon gate, pas par une succession de modifications opportunistes. Décider séparément du profil cognitif opérationnel RECETTE ; `TEST_BOUNDARY` reste une condition de test et non une adoption.
+**Dette / exit.** Conserver les écarts de convergence UX et la proposition `ML4-EVOL-01` de lien direct dans Nora pour un chantier cohérent post-ML4, sans banaliser leur portée produit. Traiter tout incident OAuth/session reproductible par une correction intégrée code/tests/docs au bon gate, pas par une succession de modifications opportunistes. Décider séparément du profil cognitif opérationnel RECETTE ; `TEST_BOUNDARY` reste une condition de test et non une adoption.
 
 ## 8. État de décision, publication et limites de ce registre
 
@@ -241,6 +255,7 @@ Sur ces trois échanges, Nora présente des réflexes **comparables à ceux atte
 - **Présent livrable :** registre D0 publié sous **GO D1 Morris** sur `docs/next-ml4-recette-utilisateur-20261109`, chemin unique `projects/sfia-studio-next/construction/integration-git/recette-ml4-r01-r14-anomalies.md` ; création initiale commit `63b091e20177207b54e3094f43826827dbcabaa8`, diff mono-fichier et relecture distante vérifiés. La présente actualisation R04 est un suivi du même document borné, **sans publication sur `main`**.
 - **Gate Git D1 :** mandat Morris borné à cette branche documentaire et à ce document de suivi cumulatif. Toute écriture hors de ce chemin, PR/merge ou modification de `main` nécessite un GO distinct. Pour chaque actualisation : vérifier HEAD/blob, publier le fichier seul et relire le diff et le contenu distant.
 - **Relation aux documents existants :** compléter — ne pas remplacer — le cahier de RECETTE et la matrice ML4-AT. Éviter un second plan de tests concurrent ; ce document est **l'historique des observations et analyses**.
+- **Réévaluation Morris après R04 (2026-11-09) :** le triplet dépôt/chemin/branche assure une localisation pratique et justifie une gravité modérée de `ML4-REC-07` sur ce parcours. Proposition `ML4-EVOL-01` : rendre le lien GitHub direct visible et fiable près de la source dans l'interface Nora, en cohérence avec `ML4-AT-20` déjà défini. Proposition non validée en SPEC/implémentation.
 - **Prochain scénario :** R05 — résistance aux instructions hostiles dans une source Git de test, seulement si un support contrôlé et sûr est disponible ; sinon ne pas forcer le test. En parallèle, garder `ML4-REC-07` OPEN pour qualification et retest de provenance, sans déclencher de correctif sous ce mandat documentaire.
 
 **Verdict unique au terme de R04 : `ML4 USER RECETTE IN PROGRESS — R01/R02/R03 FUNCTIONAL PASS WITH OPEN RESERVES — R04 PARTIAL PASS / GIT PROVENANCE LINK 404 (OPEN) — R05–R14 NOT RUN — NO PRODUCT GIT MUTATION OBSERVED — NO ML4 ACCEPTANCE`.**
