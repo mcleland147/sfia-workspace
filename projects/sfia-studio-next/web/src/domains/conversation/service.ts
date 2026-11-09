@@ -10,7 +10,11 @@ import {
   reconstituteConfirmedD4Effects,
   selectRelevantKnowledgeContext,
 } from "@/domains/knowledge/service";
-import { listDocuments, savePreparationDocument } from "@/domains/document/service";
+import {
+  listDocuments,
+  reviseDocument,
+  savePreparationDocument,
+} from "@/domains/document/service";
 import {
   bindTurnGenerationId,
   commitTurnTerminal,
@@ -28,6 +32,14 @@ import {
   type ConversationalAuthorityOutcome,
 } from "@/domains/pilotage/conversation-authority";
 import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
+import {
+  appendDocumentEffectAck,
+  applyTargetedSectionRevision,
+  assertSectionScope,
+  qualifyDocumentAct,
+  resolveReviseTarget,
+  type DocumentEffectSummary,
+} from "./document-act";
 
 export async function listMessages(pilotId: string, preparationId: string) {
   const ctx = await getPreparationContext(pilotId, preparationId);
@@ -37,15 +49,6 @@ export async function listMessages(pilotId: string, preparationId: string) {
     .from(messages)
     .where(eq(messages.conversationId, ctx.conversation.id))
     .orderBy(asc(messages.ordinal));
-}
-
-function explicitDocumentIntent(text: string): boolean {
-  return (
-    /\b(rédige|rédiger|écris|écrire|produis|produire|crée|créer)\b[\s\S]{0,40}\b(document|note|synthèse|rapport|spécification)\b/i.test(
-      text,
-    ) ||
-    /\b(document|note de synthèse|rapport)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i.test(text)
-  );
 }
 
 function extractDocumentMarkdown(
@@ -99,7 +102,16 @@ export type TurnResult = {
   capitalisation?: unknown;
   capitalisationAttempted?: unknown;
   capitalisationLimit?: string;
-  documentSave?: { status?: string; documentId?: string; revisionNumber?: number; reason?: string } | null;
+  documentSave?: {
+    status?: string;
+    documentId?: string;
+    revisionId?: string;
+    revisionNumber?: number;
+    baseRevisionId?: string;
+    reason?: string;
+    act?: "CREATE" | "REVISE";
+    idempotentReplay?: boolean;
+  } | null;
   idempotentReplay: boolean;
   /**
    * True only when a HumanDecision id was actually produced (APPLIED/ALREADY_APPLIED).
@@ -494,9 +506,20 @@ export async function postUserMessageAndNora(
     ownershipLost: false,
   };
   let capitalisationError: string | undefined;
-  let documentSave: Awaited<ReturnType<typeof savePreparationDocument>> | null = null;
+  type DocumentSaveResult = {
+    status: string;
+    documentId?: string;
+    revisionId?: string;
+    revisionNumber?: number;
+    baseRevisionId?: string;
+    reason?: string;
+    act?: "CREATE" | "REVISE";
+    idempotentReplay?: boolean;
+  };
+  let documentSave: DocumentSaveResult | null = null;
   let documentSaveUnknown = false;
   let ownershipLostBeforeD4 = false;
+  const documentAct = qualifyDocumentAct(content);
 
   if (reply.status === "COMPLETE") {
     if (turnRaceHooks.beforeD4Effect) {
@@ -533,11 +556,11 @@ export async function postUserMessageAndNora(
         });
       }
 
-      if (explicitDocumentIntent(content) && !ownershipLostBeforeD4) {
+      if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
         const extracted = extractDocumentMarkdown(reply.content, content);
         if (extracted) {
           try {
-            documentSave = await savePreparationDocument(
+            const saved = await savePreparationDocument(
               pilotId,
               preparationId,
               extracted.title,
@@ -552,6 +575,7 @@ export async function postUserMessageAndNora(
                   generationId: reply.generationId,
                   userMessageId: reserved.userMessageId,
                   explicitRequest: true,
+                  act: "CREATE",
                 },
                 scope: "document",
                 turnFence: {
@@ -561,17 +585,19 @@ export async function postUserMessageAndNora(
                 },
               },
             );
+            documentSave = { ...saved, act: "CREATE" };
             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
               ownershipLostBeforeD4 = true;
               documentSave = null;
-            } else if (documentSave.status !== "AVAILABLE") {
+            } else if (
+              documentSave.status !== "AVAILABLE" &&
+              documentSave.status !== "CONFLICT"
+            ) {
               documentSaveUnknown =
                 documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
             }
           } catch {
-            documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION" } as Awaited<
-              ReturnType<typeof savePreparationDocument>
-            >;
+            documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION", act: "CREATE" };
             documentSaveUnknown = true;
             emitObs({
               event_name: "d3.turn.document_save_failed",
@@ -584,9 +610,146 @@ export async function postUserMessageAndNora(
             });
           }
         }
+      } else if (documentAct.kind === "REVISE" && !ownershipLostBeforeD4) {
+        try {
+          const docs = await listDocuments(pilotId, preparationId);
+          const target = resolveReviseTarget(docs, documentAct.documentHint);
+          if (!target.ok) {
+            documentSave = {
+              status: "FAILED",
+              reason: `REVISE_${target.reason}`,
+              act: "REVISE",
+            };
+          } else {
+            const extracted = extractDocumentMarkdown(reply.content, content);
+            const proposed = extracted?.content ?? reply.content;
+            const merged = applyTargetedSectionRevision(
+              target.baseContent,
+              proposed,
+              documentAct.sectionHint,
+            );
+            if (!merged.ok) {
+              documentSave = {
+                status: "FAILED",
+                reason: merged.reason,
+                documentId: target.documentId,
+                baseRevisionId: target.baseRevisionId,
+                act: "REVISE",
+              };
+            } else {
+              const scopeCheck = assertSectionScope(
+                target.baseContent,
+                merged.content,
+                documentAct.sectionHint,
+              );
+              if (!scopeCheck.ok) {
+                documentSave = {
+                  status: "FAILED",
+                  reason: scopeCheck.reason,
+                  documentId: target.documentId,
+                  baseRevisionId: target.baseRevisionId,
+                  act: "REVISE",
+                };
+              } else {
+                const correlationKey = opts?.correlationKey
+                  ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
+                  : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
+                const revised = await reviseDocument(pilotId, preparationId, {
+                  documentId: target.documentId,
+                  baseRevisionId: target.baseRevisionId,
+                  contentMarkdown: merged.content,
+                  correlationKey,
+                  scope: documentAct.sectionHint ? "section" : "document",
+                  sectionHint: documentAct.sectionHint ?? undefined,
+                  provenance: {
+                    sourceKind: "nora",
+                    generationId: reply.generationId,
+                    userMessageId: reserved.userMessageId,
+                    explicitRequest: true,
+                    act: "REVISE",
+                    sectionHint: documentAct.sectionHint,
+                  },
+                });
+                documentSave = {
+                  ...revised,
+                  act: "REVISE",
+                  baseRevisionId:
+                    "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
+                      ? revised.baseRevisionId
+                      : target.baseRevisionId,
+                };
+                if (
+                  documentSave.status !== "AVAILABLE" &&
+                  documentSave.status !== "CONFLICT" &&
+                  !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
+                ) {
+                  documentSaveUnknown =
+                    documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
+                }
+              }
+            }
+          }
+          emitObs({
+            event_name: "d3.turn.document_revise",
+            component: "d3.conversation",
+            request_id: requestId,
+            operation_id: reserved.operationId,
+            generation_id: reply.generationId,
+            outcome:
+              documentSave?.status === "AVAILABLE"
+                ? "SUCCESS"
+                : documentSave?.status === "CONFLICT"
+                  ? "FAILED"
+                  : documentSave?.status === "FAILED"
+                    ? "FAILED"
+                    : "UNKNOWN",
+            meta: {
+              act: "REVISE",
+              status: documentSave?.status ?? null,
+              reason: documentSave?.reason ?? null,
+              document_id: documentSave?.documentId ?? null,
+            },
+          });
+        } catch {
+          documentSave = { status: "UNKNOWN", reason: "DOCUMENT_REVISE_EXCEPTION", act: "REVISE" };
+          documentSaveUnknown = true;
+          emitObs({
+            event_name: "d3.turn.document_revise_failed",
+            component: "d3.conversation",
+            request_id: requestId,
+            operation_id: reserved.operationId,
+            generation_id: reply.generationId,
+            outcome: "UNKNOWN",
+            error_category: "DOCUMENT_REVISE_EXCEPTION",
+          });
+        }
       }
     }
   }
+
+  const documentEffectForAck: DocumentEffectSummary | null =
+    documentSave && !ownershipLostBeforeD4
+      ? {
+          act: documentSave.act ?? (documentAct.kind === "REVISE" ? "REVISE" : "CREATE"),
+          status: documentSave.status,
+          documentId: documentSave.documentId,
+          revisionId: documentSave.revisionId,
+          revisionNumber: documentSave.revisionNumber,
+          baseRevisionId: documentSave.baseRevisionId,
+          reason: documentSave.reason,
+          idempotentReplay: documentSave.idempotentReplay,
+        }
+      : documentAct.kind !== "NONE" && !ownershipLostBeforeD4
+        ? {
+            act: documentAct.kind === "REVISE" ? "REVISE" : "CREATE",
+            status: "UNKNOWN",
+            reason: "NO_EFFECT_OBSERVED",
+          }
+        : null;
+
+  const assistantContentForCommit = ownershipLostBeforeD4
+    ? reply.content
+    : appendDocumentEffectAck(reply.content, documentEffectForAck);
 
   const confirmedCapitalisations = capitalisation.capitalisations.filter(
     (c) => c.status === "AVAILABLE",
@@ -605,14 +768,14 @@ export async function postUserMessageAndNora(
     !ownershipLostBeforeD4 &&
     reply.status === "COMPLETE" &&
     (documentSaveUnknown || capitalisationError) &&
-    explicitDocumentIntent(content)
+    documentAct.kind !== "NONE"
   ) {
     turnStatus = "UNKNOWN";
   } else if (
     !ownershipLostBeforeD4 &&
     reply.status === "COMPLETE" &&
     capitalisationError &&
-    !explicitDocumentIntent(content)
+    documentAct.kind === "NONE"
   ) {
     turnStatus = "UNKNOWN";
   }
@@ -694,7 +857,7 @@ export async function postUserMessageAndNora(
         ? undefined
         : {
             id: assistantId,
-            content: reply.content,
+            content: assistantContentForCommit,
             messageStatus: reply.status,
             generationId: reply.generationId,
             ordinal: reserved.ordinalAssistant,

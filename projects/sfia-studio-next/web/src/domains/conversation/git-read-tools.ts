@@ -52,7 +52,7 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
     tool({
       name: "read_git_file",
       description:
-        "Read a bounded file from an attached Git repo. ref is mandatory — never assume main.",
+        "Read a bounded file from an attached Git repo. ref is mandatory — never assume main. Provenance distinguishes blobSha (content) from commitSha (revision); never treat blobSha as a commit.",
       parameters: z.object({
         repositoryId: z.string(),
         path: z.string(),
@@ -76,7 +76,16 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
           const payload = {
             status: "AVAILABLE",
             excerpt,
-            provenance: result.provenance,
+            provenance: {
+              ...result.provenance,
+              // Explicit aliases for model clarity (same values as typed provenance).
+              blobSha: result.provenance.blobSha,
+              commitSha: result.provenance.commitSha,
+              commitShaVerified: result.provenance.commitShaVerified,
+              permalink: result.provenance.permalink,
+              warning:
+                "blobSha is a content object id — never use it in /blob/{sha}/path as if it were a commit",
+            },
             authorityReminder: result.authorityReminder,
             coverage: (excerpt.length < result.content.length ? "PARTIAL" : "COMPLETE") as ToolCoverage,
           };

@@ -315,6 +315,42 @@ export async function fetchRefSha(
   return sha;
 }
 
+/**
+ * List matching git refs (branches by default). Bounded; never invents refs.
+ * @see GET /repos/{owner}/{repo}/git/matching-refs/{ref}
+ */
+export async function fetchMatchingRefs(
+  installationToken: string,
+  fullName: string,
+  refPrefix: string | undefined,
+  fetchImpl: GitHubFetch = fetch,
+): Promise<Array<{ name: string; sha: string }>> {
+  const { owner, name } = parseFullName(fullName);
+  const rawPrefix = (refPrefix ?? "heads/").replace(/^refs\//, "");
+  const prefix = rawPrefix.startsWith("heads/") || rawPrefix.startsWith("tags/")
+    ? rawPrefix
+    : `heads/${rawPrefix}`;
+  const raw = await ghJson<Array<{ ref?: string; object?: { sha?: string } }>>(
+    fetchImpl,
+    `/repos/${owner}/${name}/git/matching-refs/${prefix}`,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${installationToken}` },
+    },
+  );
+  if (!Array.isArray(raw)) {
+    throw new StudioError("AMBIGUOUS", "Liste de refs GitHub illisible", { httpStatus: 409 });
+  }
+  return raw
+    .map((r) => {
+      const refName = (r.ref ?? "").replace(/^refs\/heads\//, "").replace(/^refs\//, "");
+      const sha = r.object?.sha ?? "";
+      return { name: refName, sha };
+    })
+    .filter((r) => r.name && /^[0-9a-f]{40}$/i.test(r.sha))
+    .slice(0, 40);
+}
+
 export async function fetchFileContentUtf8(
   installationToken: string,
   fullName: string,

@@ -1,9 +1,11 @@
 # R5 — Spécification technique candidate : collaboration Git et intégrations
 
-> **AS-IMPLEMENTED LOCAL CANDIDATE (2026-11-09)** — `feat/next-git-collaboration-20261108` parent `79b10052…` + correctif intégrité local (push Product NON AUTORISÉ).
-> Domaines : D9/D7/D8 ; migrations `008`–`012` (aucune migration structurante ce cycle).
+> **AS-IMPLEMENTED LOCAL CANDIDATE (2026-11-09)** — base `974b0030…` + macro-correctif chat-first D4 / provenance Git sur `fix/next-ml4-chat-first-d4-provenance-20261109` (push Product NON AUTORISÉ).
+> Domaines : D3/D4/D9 ; migrations `008`–`012` (aucune migration structurante ce cycle).
+> **ML4-REC-08** : création/révision D4 conversationnelle via `savePreparationDocument` / `reviseDocument` + ACK applicatif corrélé (pas de second moteur Nora).
+> **ML4-REC-07** : provenance lecture Git distingue `blobSha` / `commitSha` (+ `permalink` seulement si commit vérifié) ; `listGitRefs` au-delà de `main`.
 > **R1-A / R1-B** refresh lifecycle clos ; **R2** CONFLICT callback accepté.
-> **Niveaux de preuve courants :** OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN (commit+PR #18 OPEN, mono-repo sandbox) · Intégrité D7/D8 DETERMINISTIC CORRECTIVE · MULTI-REPO REAL NOT PROVEN · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED.
+> **Niveaux de preuve courants :** OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN (commit+PR #18 OPEN, mono-repo sandbox) · Intégrité D7/D8 DETERMINISTIC CORRECTIVE · Chat-first D4 / provenance DET DEV PROVEN · MULTI-REPO REAL NOT PROVEN · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED.
 > Mutations REAL **bornées documentary** si et seulement si `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` (aliases refusés ; merge HARD-BLOCKED). Flag ≠ autorité D6.
 > Séquence publication nominale **seule** autorisée : `CREATE_BRANCH → PUBLISH_FILE → OPEN_PR` (`publication-steps.ts`). Aucun COMPLETED / D8 sans preuve fichier + commitSha ≠ baseSha + PR distante.
 > Provenance d'effet : `plan.effectProviderMode` figé à prepare ; historique sans champ → UNKNOWN ; divergence live → REQUIRES_REQUALIFICATION.

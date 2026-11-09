@@ -8,6 +8,7 @@ import {
   createGitRef,
   createPullRequestRemote,
   fetchFileContentUtf8,
+  fetchMatchingRefs,
   fetchPullRequestRemote,
   fetchRefSha,
   fetchRepositoryMetadata,
@@ -27,6 +28,7 @@ import type {
   GitHubProvider,
   InstallationRepo,
   PullRequestInfo,
+  RefInfo,
 } from "./github-provider";
 
 /**
@@ -213,6 +215,13 @@ export class RealGitHubReadProvider implements GitHubProvider {
       content: file.content,
       encoding: "utf-8",
     };
+  }
+
+  async listRefs(pilotId: string, fullName: string, refPrefix?: string): Promise<RefInfo[]> {
+    void pilotId;
+    assertAllowedRepo(this.creds, fullName);
+    const token = await this.installationToken();
+    return fetchMatchingRefs(token, fullName, refPrefix, this.fetchImpl);
   }
 
   async createBranch(

@@ -515,3 +515,21 @@ GO Morris CRITICAL ENVIRONMENT DELIVERY — adaptation App DEV/RECETTE ; **aucun
 | USER E2E / RECETTE navigateur | NOT RUN | Morris après bascule 3200 |
 
 Verdict cycle : **ML4 RECETTE ENVIRONMENT — LANE-SCOPED GITHUB APP IDENTITY — LOCALLY COMMITTED CANDIDATE (voir delivery-history)**.
+
+## 25. ML4-REC-08 / REC-07 — Chat-first D4 + provenance Git (2026-11-09)
+
+Macro-correctif local sur candidat `974b0030` → branche `fix/next-ml4-chat-first-d4-provenance-20261109`. **Aucun** push Product / PR / redeploy RECETTE dans ce cycle.
+
+| Item | Statut | Note |
+|---|---|---|
+| ML4-REC-08 CREATE | CORRIGÉ (DET) | Intention explicite → `savePreparationDocument` ; ACK applicatif appendé au message assistant (source de vérité ≠ narration Nora) |
+| ML4-REC-08 REVISE | CORRIGÉ (DET) | Intention révision → `reviseDocument` existant ; même `documentId` ; merge sectionnel borné ; corrélation `docrev:…` |
+| Restitution | CORRIGÉ (DET) | Bloc « Résultat applicatif D4 » après effet confirmé ; pas d'affirmation d'ID/version non observés |
+| ML4-REC-07 provenance | CORRIGÉ (DET) | `blobSha` ≠ `commitSha` ; `permalink` uniquement si `commitShaVerified` ; lecture pinnée au commit résolu |
+| `listGitRefs` | CORRIGÉ (DET) | Refs fournisseur bornées (pas seulement `main`) ; aucune ref inventée |
+| ML4-REC-03 | OPEN / HORS | Pas de cause commune démontrée avec capitalisation points ouverts — non modifié |
+| REC-04/05/06 | NON-RÉGRESSION | Aucune réécriture OAuth / politique cognitive / preuve LIVE inventée |
+| Tests | DET unit + PG | `document-act`, `git-file-provenance`, `ml4-chat-first-d4-provenance.pg` |
+| USER / RECETTE | NOT RUN | Nouveau build + GO Morris requis |
+
+Verdict cycle : **ML4 CHAT-FIRST D4 + GIT PROVENANCE — LOCALLY IMPLEMENTED WITH VERIFIED DEV COVERAGE — READY FOR REVIEW — PRODUCT PUSH / RECETTE REDEPLOY NOT AUTHORIZED**.

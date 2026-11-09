@@ -10,6 +10,9 @@ import { StudioError } from "@/lib/http-errors";
 import { resolveGitHubProvider } from "./github-provider";
 import type { GitFileProvenance, GitSourceSummary } from "./types";
 
+const SHA_RE = /^[0-9a-f]{40}$/i;
+const MAX_REFS = 40;
+
 async function gateRead(pilotId: string, projectId: string, repositoryId: string) {
   const project = (
     await db
@@ -108,6 +111,15 @@ export async function listProjectGitSources(
     }));
 }
 
+function buildPermalink(fullName: string, commitSha: string, path: string): string {
+  const cleanPath = path.replace(/^\/+/, "");
+  return `https://github.com/${fullName}/blob/${commitSha}/${cleanPath}`;
+}
+
+/**
+ * Read a file with honest blob/commit provenance.
+ * Resolves commit first, then reads at that commit pin to avoid head drift.
+ */
 export async function readGitFile(input: {
   pilotId: string;
   projectId: string;
@@ -119,20 +131,53 @@ export async function readGitFile(input: {
   if (!input.ref?.trim()) {
     throw new StudioError("INVALID_REQUEST", "Ref Git explicite requise — main non inventé");
   }
+  const requestedRef = input.ref.trim();
   const provider = resolveGitHubProvider();
+
+  let commitSha: string | null = null;
+  let commitShaVerified = false;
+  if (SHA_RE.test(requestedRef)) {
+    // Caller pinned a SHA — treat as commit pin only after a successful read at that ref.
+    commitSha = requestedRef.toLowerCase();
+    commitShaVerified = false;
+  } else {
+    commitSha = (await provider.getRefSha(input.pilotId, repo.fullName, requestedRef)).toLowerCase();
+    commitShaVerified = true;
+  }
+
+  const readRef = commitSha ?? requestedRef;
   const file = await provider.getFileContent(
     input.pilotId,
     repo.fullName,
     input.path,
-    input.ref,
+    readRef,
   );
+  const blobSha = file.sha.toLowerCase();
+  // Defensive: Contents `sha` is a blob. If a provider still returns the commit
+  // as `sha`, refuse to treat that value as both blob and commit.
+  if (commitSha && blobSha === commitSha) {
+    commitShaVerified = false;
+    commitSha = null;
+  } else if (SHA_RE.test(requestedRef) && commitSha && blobSha !== commitSha) {
+    // Successful content read at a SHA distinct from the blob ⇒ commit pin verified.
+    commitShaVerified = true;
+  }
+
   const readAt = new Date();
   const freshness = new Date(readAt.getTime() + 5 * 60 * 1000);
   const provenance: GitFileProvenance = {
     owner: repo.owner,
+    fullName: repo.fullName,
     path: input.path,
-    requestedRef: input.ref,
-    resolvedSha: file.sha,
+    requestedRef,
+    resolvedSha: blobSha,
+    blobSha,
+    commitSha,
+    commitShaVerified,
+    permalink:
+      commitShaVerified && commitSha
+        ? buildPermalink(repo.fullName, commitSha, input.path)
+        : null,
     readAt: readAt.toISOString(),
     permissions: ["read"],
     freshnessLimitAt: freshness.toISOString(),
@@ -152,12 +197,25 @@ export async function listGitRefs(input: {
   refPrefix?: string;
 }) {
   const repo = await gateRead(input.pilotId, input.projectId, input.repositoryId);
-  void input.refPrefix;
   const provider = resolveGitHubProvider();
-  const mainSha = await provider.getRefSha(input.pilotId, repo.fullName, "main");
+  const prefix = input.refPrefix?.trim() || undefined;
+  let refs = await provider.listRefs(input.pilotId, repo.fullName, prefix);
+  if (prefix) {
+    const p = prefix.replace(/^refs\/heads\//, "").toLowerCase();
+    refs = refs.filter(
+      (r) =>
+        r.name.toLowerCase().includes(p) ||
+        r.name.toLowerCase().replace(/^refs\/heads\//, "").includes(p),
+    );
+  }
+  refs = refs.slice(0, MAX_REFS);
   return {
     repositoryFullName: repo.fullName,
-    refs: [{ name: "main", sha: mainSha, kind: "branch" as const }],
-    note: "Liste bornée SCRIPTED — refs explicites requises pour lecture",
+    refs: refs.map((r) => ({
+      name: r.name.replace(/^refs\/heads\//, ""),
+      sha: r.sha,
+      kind: "branch" as const,
+    })),
+    note: "Liste bornée aux refs réellement retournées par le fournisseur — aucune ref inventée",
   };
 }

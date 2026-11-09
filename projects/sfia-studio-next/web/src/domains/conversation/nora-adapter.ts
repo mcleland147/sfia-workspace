@@ -99,7 +99,10 @@ const SYSTEM_INSTRUCTIONS = [
   "- Pour une question simple: réponse courte, sans surinvestigation.",
   "- Pour une comparaison: structure critique (faits / hypothèses / options / limites).",
   "- Cite la provenance quand un point déterminant s'appuie sur un acquis ou document D4 réellement lu (pas la guidance spécialisée interne).",
-  "- Production documentaire: seulement si le Pilote le demande explicitement; distingue rédaction et sauvegarde confirmée.",
+  "- Production documentaire: seulement si le Pilote le demande explicitement.",
+  "- Distingue toujours rédaction proposée et sauvegarde confirmée. Tu n'affirmes jamais qu'un document est « enregistré », « non enregistré », créé ou révisé : seul le bloc applicatif D4 post-effet (Résultat applicatif D4) porte cette vérité.",
+  "- Révision ciblée: si le Pilote demande de réviser une section d'un document existant, produis le document Markdown complet révisé en ne modifiant que la section demandée; conserve le reste à l'identique.",
+  "- Provenance Git: un SHA de contenu (blob) n'est jamais un SHA de commit; cite blobSha et commitSha séparément lorsqu'ils sont fournis par les outils.",
   "Réponds en français. Markdown utile autorisé (titres, listes, tableaux).",
 ].join("\n");
 
@@ -200,6 +203,9 @@ async function fixtureReply(
   const know = (input.knowledgeSnippets ?? []).slice(0, 3).join(" | ");
   const ctx = input.contextSnippets.slice(0, 3).join(" | ");
   const wantsDoc = /document|rédige|rédiger|synthèse écrite|note de/i.test(input.userText);
+  const wantsRevise =
+    /\b(révise|reviser|réviser|revise|modifie|modifier|mets?\s+à\s+jour)\b/i.test(input.userText) &&
+    /\b(document|note|synthèse|rapport|doc_)/i.test(input.userText);
   const wantsCompare = /compar(e|er|aison)|option/i.test(input.userText);
   const pilotageJoined = (input.pilotageSnippets ?? []).join("\n");
   // C01: structured signals preferred (same entry contract as conversation path).
@@ -235,10 +241,14 @@ async function fixtureReply(
       "Réponse courte (profil simple): je peux clarifier sans surinvestigation, " +
       "sans créer de projet, cycle ni décision.\n";
   }
-  if (wantsDoc) {
+  if (wantsRevise) {
+    body +=
+      "\n---\nDocument révisé proposé (rédaction seule — effet D4 uniquement après confirmation applicative):\n\n" +
+      `# Document révisé\n\n## Section 1 — Contexte\n\nContexte inchangé (fixture).\n\n## Section 2 — Contenu révisé\n\n${input.userText.slice(0, 400)}\n\n## Section 3 — Suite\n\nSuite inchangée (fixture).\n`;
+  } else if (wantsDoc) {
     body +=
       "\n---\nDocument proposé (rédaction seule — sauvegarde D4 uniquement après confirmation applicative):\n\n" +
-      `# Synthèse demandée\n\n${input.userText.slice(0, 400)}\n`;
+      `# Synthèse demandée\n\n## Section 1 — Contexte\n\nContexte initial.\n\n## Section 2 — Analyse\n\n${input.userText.slice(0, 400)}\n\n## Section 3 — Suite\n\nPoints ouverts à qualifier.\n`;
   }
   if (toolNotes) body += `\n### Outil D4 (fixture)\n${toolNotes}\n`;
   if (know) body += `\n### Contexte D4 pré-sélectionné\n${know.slice(0, 400)}\n`;

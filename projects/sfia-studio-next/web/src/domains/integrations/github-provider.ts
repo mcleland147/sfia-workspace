@@ -18,6 +18,9 @@ export type RefInfo = { name: string; sha: string };
 export type FileContentResult = {
   path: string;
   ref: string;
+  /**
+   * Blob object SHA (GitHub Contents API). Must not be treated as a commit SHA.
+   */
   sha: string;
   content: string;
   encoding: "utf-8";
@@ -44,6 +47,12 @@ export interface GitHubProvider {
     path: string,
     ref: string,
   ): Promise<FileContentResult>;
+  /** Bounded list of refs (branches/tags) for an authorized repository. */
+  listRefs(
+    pilotId: string,
+    fullName: string,
+    refPrefix?: string,
+  ): Promise<RefInfo[]>;
   createBranch(
     pilotId: string,
     fullName: string,

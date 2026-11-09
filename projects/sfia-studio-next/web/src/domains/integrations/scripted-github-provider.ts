@@ -4,6 +4,7 @@ import type {
   GitHubProvider,
   InstallationRepo,
   PullRequestInfo,
+  RefInfo,
 } from "./github-provider";
 
 export type ScriptedFaultKind =
@@ -273,7 +274,21 @@ class ScriptedGitHubProvider implements GitHubProvider {
       s.files[`${path}@${head}`] ??
       (!isShaLike(ref) ? s.files[`${path}@${s.branches.main}`] : undefined);
     if (!content) throw Object.assign(new Error("FILE_NOT_FOUND"), { code: "NOT_FOUND" });
-    return { path, ref, sha: head, content, encoding: "utf-8" };
+    // Mimic GitHub Contents API: `sha` is the blob object id, never the commit.
+    const blobSha = sha(`blob ${Buffer.byteLength(content, "utf8")}\0${content}`);
+    return { path, ref, sha: blobSha, content, encoding: "utf-8" };
+  }
+
+  async listRefs(pilotId: string, fullName: string, refPrefix?: string): Promise<RefInfo[]> {
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const prefix = (refPrefix ?? "").replace(/^refs\/heads\//, "").toLowerCase();
+    const out: RefInfo[] = Object.entries(s.branches).map(([name, branchSha]) => ({
+      name,
+      sha: branchSha,
+    }));
+    if (!prefix) return out;
+    return out.filter((r) => r.name.toLowerCase().includes(prefix));
   }
 
   async createBranch(
