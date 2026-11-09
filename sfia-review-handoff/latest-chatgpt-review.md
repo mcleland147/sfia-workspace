@@ -414,6 +414,12 @@ index 741d04c0..d138cc5b 100644
 - Branche: sfia/review-handoff
 - Fichier: sfia-review-handoff/latest-chatgpt-review.md
 - Publisher: scripts/sfia/publish-review-handoff.sh
-- (détails commit/blob/relecture distante remplis après publication)
+- Verdict publisher: HANDOFF UPDATED — REMOTE VERIFIED
+- commit distant: 64fc78dcca25f683789b1e5fdbe1f83816410664
+- blob distant: 2408c5148e5120c1541463f215ce3af60c7b0f9d
+- parent: 8a70808c39a33deeb478c94c8a031449561395d0
+- relecture distante: titre Cycle 11 + verdict RECETTE BUILD UPDATED + SHA a2c5e9f8 + BUILD 9yCs2GbSS5lDFX3LPiQTU + USER R06 NOT RUN — OK
+- mono-fichier: OUI
+- push produit: AUCUN
 
 FIN PACK — contenu modifié inclus.
