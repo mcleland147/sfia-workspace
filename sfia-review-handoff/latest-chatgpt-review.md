@@ -1,886 +1,779 @@
-# SFIA Review Pack — FULL / Cycle 8
-# RÉGULARISATION B — Robustesse frontière documentaire (fences)
+# SFIA Studio Next — Review Pack FULL
+## R5 / ML4 — Cycle 8 — Isolation fences documentaires illustratives
 
-**Date:** 2026-11-09 20:25 UTC+01:00
-**Profil:** CRITICAL
-**GO Morris:** 2026-11-09
-**Verdict:** `READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY`
-
----
-
-## 1. Git Truth Check
-
-| Élément | Valeur |
-|---|---|
-| Branche | `fix/next-ml4-chat-first-d4-provenance-20261109` |
-| HEAD départ | `9694cc7171006b747dd7f502a1f1ba8b3a0477f3` |
-| HEAD final | `0b02de41cd7e3d08101419b49d6534d12edf70cf` |
-| Tree final | `97f236bc3d61fdf317ac4cd3177d23fa49c04262` |
-| Tree départ | `a683243f01da5952c9fb98c5330ca8243238a6d1` |
-| Parent | `8ba77730…` / base macro `974b0030…` |
-| origin/sfia/review-handoff (pré-publish) | `d7a63c57…` |
-| origin/main | `6667a438…` |
-
-Hors scope (non commités) : manifests env01 untracked, `github-app-installation-read-qualify.ts`, `projects/.tmp-sfia-review/`.
+- Date/heure : 2026-11-09 20:40 CET (2026-11-09T19:40:54Z)
+- Profil : CRITICAL
+- Typologie : RUN / RÉGULARISATION CORRECTIVE
+- Review Handoff : REQUIRED / PUBLISH-IN-CYCLE
+- Verdict candidat : **READY FOR REVIEW — ILLUSTRATIVE FENCE ISOLATION VERIFIED LOCALLY**
 
 ---
 
-## 2. Anomalie reproduite (avant correctif)
+## 1. Git Truth Check — initial
 
-Sur `9694cc71`, regex `/```(sfia-document|markdown|md)[^\n]*\n([\s\S]*?)```/gi` :
+| Item | Valeur | Statut |
+|---|---|---|
+| Repo | `mcleland147/sfia-workspace` | OK |
+| Branche locale | `fix/next-ml4-chat-first-d4-provenance-20261109` | OK |
+| HEAD départ | `0b02de41cd7e3d08101419b49d6534d12edf70cf` | OK (match mandat) |
+| Tree départ | `97f236bc3d61fdf317ac4cd3177d23fa49c04262` | OK |
+| Parent correctif | `9694cc7171006b747dd7f502a1f1ba8b3a0477f3` | ancêtre OK |
+| Source RECETTE | `8ba777300adebe3ba70ddbe3c386a3ad709034f6` | ancêtre OK |
+| `origin/main` | `6667a43858a5421e391b7441246536daad148bd6` | OK (fetch) |
+| `origin/feat/next-git-collaboration-20261108` | `51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b` | OK |
+| `origin/sfia/review-handoff` | `4115a2e21849672e20f21b0a7c2954b245f9a980` | OK (pré-handoff) |
+| Staged/unstaged départ | clean tip + hors-scope préexistants | OK |
+| Worktree produit | `…/sfia-workspace-next-ml4-git-collaboration` | OK |
+| Worktree RECETTE | `…/sfia-workspace-next-ml4-recette-build-8ba77730` @ `8ba77730` | FIGÉ |
+| Hors scope préexistants (NON commités) | `env01-recette-manifest-ml4-*.md` ; `web/scripts/github-app-installation-read-qualify.ts` ; `projects/.tmp-sfia-review/` | isolés |
 
-| Cas | Résultat OBSERVED |
-|---|---|
-| Inner ` ```bash ` puis contenu « Après » | Troncature : content s'arrête avant « Après » (`hasApres: false`) |
-| Tag `mdx` | Accepté comme `md` |
-| Tag `sfia-documentation` | Accepté comme `sfia-document` |
-| Fence `markdown` illustrative | Acceptée comme proposition D4 |
-| Outer ```` (4 ticks) | EMPTY / incorrect |
-
----
-
-## 3. Contrat B final
-
-- **Marqueur mutatif unique :** premier token d'info-string **exactement** `sfia-document` (case-insensitive).
-- `markdown` / `md` / `mdx` / `sfia-documentation` → **non autorisants** (illustratifs).
-- Scanner **ligne par ligne** (indent ≤ 3, ` ` ` ou `~`), fermeture même caractère, longueur ≥ ouverture, info vide.
-- **Stack nested** : une fence intérieure (taguée ou plus courte) ne ferme pas la proposition ; refuse plutôt que tronquer silencieusement.
-- Cardinalité : 0 → MISSING ; >1 `sfia-document` → AMBIGUOUS ; non fermée → UNCLOSED ; vide → EMPTY.
-- Pas de fallback_wrap ; pas de scrub lexical « Compte rendu ».
-
-Justification tags : les alias `markdown`/`md` du cycle précédent créaient des faux positifs démontrés → régularisation bornée vers le marqueur réservé (compatible fixture/prompt déjà `sfia-document`).
+Aucun reset/rebase/stash/force-push.
 
 ---
 
-## 4. Correctif A / D
+## 2. Sources Git lues (mandat)
 
-- **A** : inchangé (NL avant suffixe) — non-régression prouvée.
-- **D** : inchangé dans son rôle ; `refuse_code` peut valoir `DOCUMENT_PROPOSAL_UNCLOSED`. `proposal_digest16` reste une empreinte courte de corrélation (pas un log de corps) — risque résiduel de corrélation sur textes courts documenté ; pas de corps privé journalisé.
+- SFIA v2.6 main : cycle routing / execution templates (références blob mandat — lecture cadre)
+- Next gouvernance / conception / construction (chemins mandat) — lecture seule
+- Code local tip `0b02de41` : `document-act.ts`, `service.ts`, `turn-command.ts`, tests unit/PG
+- Dernier handoff tip `4115a2e2` / blob `7c1e8f7f…` (contexte revue ChatGPT)
+- Ancienne architecture Studio : **NON** utilisée comme CURRENT
 
 ---
 
-## 5. Tests exécutés (commandes réelles)
+## 3. Reproduction initiale du faux positif (GATE 1)
+
+Sur tip `0b02de41` **avant** modification, cas N1 (fence `markdown` 4 backticks contenant `sfia-document` 3 backticks) :
 
 ```
-cd projects/sfia-studio-next/web
-npx vitest run tests/unit/document-act.test.ts
-# → 65 PASS
+contractualOpenCount = 1
+proposals.length = 1
+status = ok
+contenu fictif accepté
+extract → ok:true
+```
 
-npx vitest run tests/unit/ml2-cognition-fixture.test.ts tests/unit/nora-adapter-corrective.test.ts
-# → 8 PASS
+Même faux positif pour fence `text` / tilde extérieure (N2/N3).
+
+**Mécanisme causal :** `scanContractualDocumentFences` avançait ligne à ligne et, à l'ouverture d'une fence **non** contractuelle, faisait seulement `i += 1` sans mémoriser l'appartenance au bloc illustratif. Les lignes intérieures ` ```sfia-document ` étaient donc traitées comme ouvertures de premier niveau.
+
+---
+
+## 4. Conception locale retenue (GATE 2)
+
+Correction **locale** du scanner existant — pas de second moteur, pas de filtre lexical, pas de nouveau protocole.
+
+1. `skipIllustrativeFence(lines, openIdx, open)` — avance jusqu'à fermeture valide (même char, longueur ≥, info vide) ou EOF.
+2. Dans `scanContractualDocumentFences` :
+   - si ouverture **non** `sfia-document` exact → saute le bloc entier (intérieur opaque) ;
+   - si `sfia-document` autonome → parsing existant avec nest-stack pour fences internes métier.
+3. Fence illustrative non fermée → avance à EOF ; **aucune** récupération silencieuse d'un marqueur intérieur.
+
+Raison du choix : réutilise `parseFenceMarkerLine` / `isContractualProposalOpen` / `isFenceClose` / nest-stack déjà présents ; minimal blast radius.
+
+### Contrats de premier niveau
+
+| État | Comportement |
+|---|---|
+| A. Texte hors bloc | ignore |
+| B. Fence illustrative | opaque ; ignore `sfia-document` interne |
+| C. Fence `sfia-document` autonome | proposition extractible |
+| D. Fence interne au document | nest-stack ; ne ferme pas la proposition |
+
+Hook test `turnRaceHooks.replaceNoraAssistantText` (no-op prod) pour injecter une sortie Nora déterministe **après** `generateNoraReply`, afin d'exercer `postUserMessageAndNora` → extract → D4 sans LIVE et sans bypass production.
+
+---
+
+## 5. Preuve avant / après
+
+| Cas | Avant (`0b02de41`) | Après |
+|---|---|---|
+| N1 markdown⊃sfia-document | ok / 1 proposal | `DOCUMENT_PROPOSAL_MISSING` / 0 |
+| N3 tilde⊃sfia-document | ok / 1 | MISSING / 0 |
+| N7 réel + illustratif | (réel OK) | 1 proposal = réel seul |
+| N8 illustratif puis réel | (réel OK) | réel accepté |
+
+---
+
+## 6. Tests négatifs N1–N12 (GATE 2/5)
+
+Unit `tests/unit/document-act.test.ts` — describe « illustrative fence isolation — Cycle 8 (N1–N12) » :
+
+| ID | Résultat |
+|---|---|
+| N1 | MISSING ; proposalChars=0 |
+| N2 | MISSING |
+| N3 | MISSING |
+| N4 | MISSING (README) |
+| N5 | 0 proposals (pas 2 artificiels) |
+| N6 | MISSING (unclosed illustrative) |
+| N7 | 1 proposal = réel |
+| N8 | réel accepté |
+| N9 | AMBIGUOUS |
+| N10 | MISSING (sfia-documentation/mdx/md/markdown) |
+| N11 | UNCLOSED |
+| N12 | EMPTY |
+
+**Résultat :** `npx vitest run tests/unit/document-act.test.ts` → **77 PASS**.
+
+---
+
+## 7. Tests positifs / non-régression A+B+D (GATE 3/5)
+
+Rejoués (non copiés) :
+
+- unit document-act : 77 PASS (positifs CREATE/REVISE/sections/bash/nested/ACK/provenance oracles inclus)
+- unit nora-adapter-corrective + nora-e2e-fixture : **14 PASS**
+- PG Chat First DEV `:5433` : **13 PASS** (CREATE/REVISE/R06/négatifs + 3 nouveaux iso)
+
+`assertSectionScope` **non** désactivé. Contrat A (NL splice) inchangé. Observabilité D : codes de refus existants uniquement (`DOCUMENT_PROPOSAL_MISSING`).
+
+---
+
+## 8. Test applicatif zéro écriture D4 (GATE 4)
+
+Fichier : `ml4-chat-first-d4-provenance.pg.test.ts`
+
+### CREATE négatif (`B-iso-neg CREATE`)
+
+- Pilote : demande CREATE explicite
+- Nora injectée : uniquement `sfia-document` dans fence `markdown`
+- Résultat : `documentSave.status=FAILED`, `reason=DOCUMENT_PROPOSAL_MISSING`, `act=CREATE`
+- Obs : `d4_attempted=false`, `d4_effect=null`
+- `listDocuments` length 0
+- ACK ne revendique pas de succès d'enregistrement
+
+### REVISE négatif (`B-iso-neg REVISE`)
+
+- Document v1 préexistant
+- Même injection illustrative
+- `FAILED` / `DOCUMENT_PROPOSAL_MISSING` / `act=REVISE`
+- Toujours **1** révision ; contenu v1 inchangé
+
+### Positif mixte (`B-iso-pos`)
+
+- Illustratif + proposition autonome → CREATE AVAILABLE v1
+- Contenu = doc réel uniquement (pas Fake, pas CR hors fence)
+
+Aucun Nora LIVE. DB = DEV `127.0.0.1:5433` uniquement.
+
+---
+
+## 9. ENV-01 / versioning / RECETTE
+
+| Item | Valeur |
+|---|---|
+| ENV-01 | REQUIRED — respecté |
+| Tests mutatifs | DEV only |
+| RECETTE | FIGÉE — aucune mutation |
+| SHA servi | `8ba777300adebe3ba70ddbe3c386a3ad709034f6` |
+| BUILD | `ygu4moVrYUNZPkvprgvB_` (`.next/BUILD_ID`) |
+| URL | `http://127.0.0.1:3200` → HTTP 307 |
+| DB | `sfia_next_recette_ml4` `:5434` |
+| CampusFlow | `doc_1e5d8c16-…` |
+| v1 | `drev_c07ca162-…` md5 `de4bd1a6e59f5dea12fd38ce265b5f43` |
+| count revisions | **1** (aucune v2) |
+| LaunchAgent | `com.sfia.studio.next.recette.ml4` → worktree `…-recette-build-8ba77730` |
+| Product Versioning | PATCH candidate / **NO RELEASE** / pas de tag STABLE |
+| delivery-history | entrée append-only `DELIV-2026-11-09-ML4-ILLUSTRATIVE-FENCE-ISOLATION` |
+
+---
+
+## 10. Gates qualité (GATE 6) — commandes rejouées
+
+```
+npx vitest run tests/unit/document-act.test.ts
+→ 77 PASS
+
+npx vitest run tests/unit/nora-adapter-corrective.test.ts tests/unit/nora-e2e-fixture.test.ts
+→ 14 PASS
 
 npx vitest run tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-# → 10 PASS (DEV :5433) dont R06 nested-code
-
-npx vitest run tests/unit/git-file-provenance.test.ts
-# → 2 PASS
+→ 13 PASS (DATABASE_URL=:5433 DEV)
 
 npx tsc --noEmit
-# → PASS
+→ exit 0
 
 npm run lint
-# → exit 0 (warnings préexistants hors périmètre)
+→ exit 0
+Warnings (préexistants, hors scope) :
+- preparations/[preparationId]/page.tsx : SafeMarkdown unused ; reviseIntent unused
+- projects/[projectId]/page.tsx : unused eslint-disable
+- real-github-provider.ts : _input unused
 
 env -u NODE_ENV npm run build
-# → PASS (Next 15.5.29) — NOTE: NODE_ENV=development dans le shell casse le prerender 404 ; build propre sans NODE_ENV override.
+→ exit 0 (Next production build)
+
+git diff --check
+→ exit 0
 ```
 
 ---
 
-## 6. Oracle nested-code / R06
+## 11. Fake / Real Qualification
 
-- Unit : contenu après ` ```bash ` conservé ; CR hors fence exclu ; scope PASS.
-- PG DEV : `reviseDocument` persiste « Après le bloc bash — CONSERVÉ. » ; hors-cible `## 3` intact ; pas de narration hors fence dans D4.
-
----
-
-## 7. Fake / Real
-
-| Niveau | Statut |
+| Capacité | Qualif |
 |---|---|
-| DETERMINISTIC unit + PG DEV | PROVEN (ce cycle) |
-| LIVE Nora | NOT RUN |
-| USER RECETTE | NOT RUN |
-| GitHub REAL write | NOT RUN |
-| RECETTE runtime | INCHANGÉ `8ba77730` / `ygu4moVrYUNZPkvprgvB_` ; v1 `de4bd1a6…` |
+| Scanner / extract B | **REAL DET** (unit) |
+| Parcours conversationnel CREATE/REVISE + D4 | **DET / FAKE Nora fixture** (STUDIO_E2E=1, pas de clé OpenAI) |
+| Injection texte Nora | **DET test hook** `replaceNoraAssistantText` (no-op prod) |
+| GitHub | SCRIPTED (tests provenance) — **pas** REAL mutation |
+| Nora LIVE | **NOT RUN** |
+| USER RECETTE | **NOT RUN** |
+| Push produit / PR / merge | **NOT DONE** |
 
 ---
 
-## 8. Fichiers modifiés (7) — diffs complets
+## 12. Blast radius
 
-### Diff — `delivery-history.md`
+- `document-act.ts` — scanner
+- `service.ts` — 8 lignes hook test post-generate
+- `turn-command.ts` — déclaration hook
+- tests unit + PG
+- docs construction (spec / matrice / delivery-history)
+
+**OUT :** nora-adapter (inchangé), gouvernance, RECETTE, GitHub REAL, UI, ML5.
+
+---
+
+## 13. Dette / risques résiduels / exit
+
+- Fences Markdown exotiques hors CommonMark (info-string sur closer, indents >3) restent refusées (fail-closed) — conforme.
+- Hook test présent dans le binaire : no-op hors tests ; pas d'exposition API.
+- Isolation illustrative repose sur délimiteurs de **premier niveau** ; pas un parseur MD complet (volontaire).
+- Exit : revue ChatGPT → décision Morris (RECETTE / USER) — **pas** de bascule auto.
+
+---
+
+## 14. Commit local (GATE 7)
+
+| Item | Valeur |
+|---|---|
+| SHA | `93da44beb7e7571c9406180027896769579b9815` |
+| Tree | `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8` |
+| Parent | `0b02de41cd7e3d08101419b49d6534d12edf70cf` (`0b02de41…`) |
+| Branche | `fix/next-ml4-chat-first-d4-provenance-20261109` |
+| Message | `fix(studio-next): isolate illustrative fences from contractual sfia-document proposals` |
+| Push produit | **AUCUN** |
+
+## 14b. Git Truth Check — final (produit)
+
+| Item | Valeur |
+|---|---|
+| HEAD final | `93da44beb7e7571c9406180027896769579b9815` |
+| Tree final | `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8` |
+| Working tree produit | dirty only hors-scope préexistants + Review Pack local |
+| RECETTE | inchangée |
+
+## 15. Diffs complets (CHAQUE fichier modifié)
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 8d80d0cf..cab4d79e 100644
+index cab4d79e..51c27ea5 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -1200,3 +1200,18 @@ Append-only logical journal of Cursor product deliveries.
- | RECETTE | **inchangée** — SHA `8ba77730` / BUILD `ygu4moVrYUNZPkvprgvB_` ; v1 md5 `de4bd1a6…` ; 0 v2 |
+@@ -1215,3 +1215,19 @@ Append-only logical journal of Cursor product deliveries.
+ | RECETTE | **inchangée** — `8ba77730` / `ygu4moVrYUNZPkvprgvB_` ; v1 `de4bd1a6…` |
  | Push Product | **AUCUN** |
- | Verdict candidat | `READY FOR REVIEW — INTEGRATED A+B+D DOCUMENT CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY` |
+ | Verdict candidat | `READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY` |
 +
-+## delivery_id: DELIV-2026-11-09-ML4-ABD-FENCE-ROBUSTNESS
++## delivery_id: DELIV-2026-11-09-ML4-ILLUSTRATIVE-FENCE-ISOLATION
 +
 +| Champ | Valeur |
 +| --- | --- |
-+| Date (Europe/Paris) | 2026-11-09 ~20:25 CET |
-+| Macro-capacité | R5 / ML4 — Régularisation B scanner fences / intégrité Markdown |
-+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` |
-+| Parent | `9694cc7171006b747dd7f502a1f1ba8b3a0477f3` |
-+| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; push Product / RECETTE NON inclus |
-+| Changements | `scanContractualDocumentFences` nest-aware ; tag exact `sfia-document` ; tests P/N + oracle nested-code PG |
-+| Validations | (voir Review Pack — commandes rejouées) |
-+| RECETTE | **inchangée** — `8ba77730` / `ygu4moVrYUNZPkvprgvB_` ; v1 `de4bd1a6…` |
++| Date (Europe/Paris) | 2026-11-09 ~20:40 CET |
++| Macro-capacité | R5 / ML4 — Isolation des fences documentaires illustratives (Contrat B) |
++| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` / `0.0.0-dev` |
++| Parent tip | `0b02de41cd7e3d08101419b49d6534d12edf70cf` |
++| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; push Product / RECETTE / LIVE Nora **NON inclus** |
++| Changements | Scanner saute fences non contractuelles de premier niveau ; N1–N12 ; PG zéro D4 CREATE/REVISE ; hook test `replaceNoraAssistantText` |
++| Validations | unit document-act 77 PASS ; nora 14 PASS ; PG Chat First 13 PASS ; tsc/lint/build (voir Review Pack) |
++| Lane tests | DEV Postgres `127.0.0.1:5433` uniquement |
++| RECETTE | **inchangée** — SHA `8ba77730` / BUILD `ygu4moVrYUNZPkvprgvB_` ; v1 md5 `de4bd1a6…` ; 0 v2 |
 +| Push Product | **AUCUN** |
-+| Verdict candidat | `READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY` |
-```
-
-### Diff — `document-act.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-index a7f9396b..449eccbc 100644
---- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-@@ -591,11 +591,12 @@ Pour compléter précisément la première source sans supposition, il manque sa
-   });
-
-   it("A+B oracle: fenced documentary Sources only → scope PASS, CR excluded, métier kept", () => {
--    // Fence body deliberately omits a terminal newline before the closing fence (A must still protect).
-+    // Closer on its own line (required). Body may still omit a final blank line;
-+    // A is separately proven with EOF bodies that lack a terminal NL.
-     const assistant =
-       "Voici la proposition.\n\n```sfia-document\n" +
-       documentaryOnly.trimEnd() +
--      "```\n\n" +
-+      "\n```\n\n" +
-       "### Compte rendu opérationnel — hors document\n\n" +
-       "| Élément demandé | État vérifiable |\n|---|---|\n" +
-       "| Identifiant du document | `doc_example` |\n" +
-@@ -607,7 +608,14 @@ Pour compléter précisément la première source sans supposition, il manque sa
-     expect(extracted.content).toContain("### Source 2");
-     expect(extracted.content).not.toMatch(/Compte rendu opérationnel/);
-     expect(extracted.content).not.toMatch(/doc_example/);
--    expect(extracted.bodyEndsWithNewline).toBe(false);
-+
-+    // Prove A still protects when proposal body has no terminal NL.
-+    const bodyNoNl = extracted.content.replace(/\n+$/, "");
-+    expect(bodyNoNl.endsWith("\n")).toBe(false);
-+    const mergedNoNl = applyTargetedSectionRevision(campusV1, bodyNoNl, "2");
-+    expect(mergedNoNl.ok).toBe(true);
-+    if (!mergedNoNl.ok) return;
-+    expect(assertSectionScope(campusV1, mergedNoNl.content, "2")).toEqual({ ok: true });
-
-     const merged = applyTargetedSectionRevision(campusV1, extracted.content, "2");
-     expect(merged.ok).toBe(true);
-@@ -623,9 +631,19 @@ Pour compléter précisément la première source sans supposition, il manque sa
-     expect(merged.content).toContain("Provenance disponible");
-   });
-
--  it("B refuses ambiguous dual fences", () => {
-+  it("B ignores illustrative markdown fence beside a single sfia-document", () => {
-+    const mixed =
-+      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n```markdown\n# Exemple illustratif\n\nbody two\n```";
-+    const ex = extractContractualDocumentProposal(mixed);
-+    expect(ex.ok).toBe(true);
-+    if (!ex.ok) return;
-+    expect(ex.content).toContain("body one long enough xx");
-+    expect(ex.content).not.toContain("Exemple illustratif");
-+  });
-+
-+  it("B refuses two concurrent sfia-document proposals", () => {
-     const dual =
--      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n```markdown\n# B\n\nbody two long enough yy\n```";
-+      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n```sfia-document\n# B\n\nbody two long enough yy\n```";
-     const ex = extractContractualDocumentProposal(dual);
-     expect(ex.ok).toBe(false);
-     if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_AMBIGUOUS");
-@@ -655,4 +673,234 @@ Pour compléter précisément la première source sans supposition, il manque sa
-     const idx = merged.content.indexOf("## 3. Enseignements utiles");
-     expect(merged.content.slice(idx - 1, idx)).toBe("\n");
-   });
-+
-+  it("R06 nested-code oracle: content AFTER inner bash fence is kept; CR outside excluded", () => {
-+    const assistant =
-+      "Proposition:\n\n```sfia-document\n" +
-+      "## 2. Sources consultées et provenance disponible\n\n" +
-+      "### Source 1 — Première consultation : provenance partiellement identifiée\n\n" +
-+      "Exemple de commande consultée:\n\n" +
-+      "```bash\necho hello\n```\n\n" +
-+      "Après le bloc bash — DOIT ÊTRE CONSERVÉ.\n\n" +
-+      "### Source 2 — Definition of Done de Chantiers360\n\n" +
-+      "| Élément | Provenance vérifiée |\n|---|---|\n| Blob SHA | blob_fixed |\n" +
-+      "```\n\n" +
-+      "### Compte rendu opérationnel — hors document\n\n| X | Y |\n|---|---|\n| doc_x | no |\n";
-+    const extracted = extractContractualDocumentProposal(assistant);
-+    expect(extracted.ok).toBe(true);
-+    if (!extracted.ok) return;
-+    expect(extracted.content).toContain("Après le bloc bash — DOIT ÊTRE CONSERVÉ.");
-+    expect(extracted.content).toContain("### Source 2");
-+    expect(extracted.content).toContain("```bash");
-+    expect(extracted.content).not.toMatch(/Compte rendu opérationnel/);
-+    const merged = applyTargetedSectionRevision(campusV1, extracted.content, "2");
-+    expect(merged.ok).toBe(true);
-+    if (!merged.ok) return;
-+    expect(assertSectionScope(campusV1, merged.content, "2")).toEqual({ ok: true });
-+    expect(merged.content).toContain("Après le bloc bash — DOIT ÊTRE CONSERVÉ.");
-+    expect(merged.content).toContain("## 3. Enseignements utiles");
-+    expect(merged.content).not.toMatch(/Compte rendu opérationnel — hors document/);
-+  });
-+});
-+
-+describe("document proposal fence scanner — positives / negatives", () => {
-+  const wrap = (body: string, tag = "sfia-document", ticks = "```") =>
-+    `${ticks}${tag}\n${body}${body.endsWith("\n") ? "" : "\n"}${ticks}\n`;
-+
-+  it("P1 simple sfia-document", () => {
-+    const ex = extractContractualDocumentProposal(wrap("# Titre\n\nCorps suffisamment long.\n"));
-+    expect(ex.ok).toBe(true);
-+    if (ex.ok) expect(ex.content).toContain("Corps suffisamment long.");
-+  });
-+
-+  it("P2 table preserved", () => {
-+    const body = "# Doc\n\n| A | B |\n|---|---|\n| 1 | 2 |\n";
-+    const ex = extractContractualDocumentProposal(wrap(body));
-+    expect(ex.ok).toBe(true);
-+    if (ex.ok) expect(ex.content).toContain("| 1 | 2 |");
-+  });
-+
-+  it("P3 numbered list preserved", () => {
-+    const body = "# Doc\n\n1. Un\n2. Deux\n3. Trois\n";
-+    const ex = extractContractualDocumentProposal(wrap(body));
-+    expect(ex.ok).toBe(true);
-+    if (ex.ok) expect(ex.content).toContain("3. Trois");
-+  });
-+
-+  it("P4/P5/P10 nested bash then more documentary content", () => {
-+    const body =
-+      "## Sec\n\nAvant.\n\n```bash\necho a\n```\n\nMilieu.\n\n```js\nconsole.log(1)\n```\n\nAprès les fences.\n";
-+    const ex = extractContractualDocumentProposal(wrap(body));
-+    expect(ex.ok).toBe(true);
-+    if (!ex.ok) return;
-+    expect(ex.content).toContain("Avant.");
-+    expect(ex.content).toContain("Milieu.");
-+    expect(ex.content).toContain("Après les fences.");
-+  });
-+
-+  it("P6 outer fence longer than inner", () => {
-+    const text =
-+      "````sfia-document\n## Sec\n\n```\ninner\n```\n\nAprès inner.\n````\n";
-+    const ex = extractContractualDocumentProposal(text);
-+    expect(ex.ok).toBe(true);
-+    if (!ex.ok) return;
-+    expect(ex.content).toContain("Après inner.");
-+    expect(ex.content).toContain("```\ninner\n```");
-+  });
-+
-+  it("P7 tilde contractual fence", () => {
-+    const text = "~~~sfia-document\n# Doc\n\nCorps tilde assez long.\n~~~\n";
-+    const ex = extractContractualDocumentProposal(text);
-+    expect(ex.ok).toBe(true);
-+    if (ex.ok) expect(ex.content).toContain("Corps tilde assez long.");
-+  });
-+
-+  it("P8 inline backticks preserved", () => {
-+    const body = "# Doc\n\nUtiliser `code` inline et encore du texte.\n";
-+    const ex = extractContractualDocumentProposal(wrap(body));
-+    expect(ex.ok).toBe(true);
-+    if (ex.ok) expect(ex.content).toContain("`code`");
-+  });
-+
-+  it("P9 ### subsections preserved", () => {
-+    const body = "## 2. S\n\n### Source 1\n\nx\n\n### Source 2\n\ny\n";
-+    const ex = extractContractualDocumentProposal(wrap(body));
-+    expect(ex.ok).toBe(true);
-+    if (ex.ok) expect(ex.sectionCount).toBeGreaterThanOrEqual(3);
-+  });
-+
-+  it("P11 narration after close excluded", () => {
-+    const text =
-+      wrap("# Doc\n\nCorps documentaire valide xx.\n") +
-+      "\nNarration post: compte rendu opérationnel hors document.\n";
-+    const ex = extractContractualDocumentProposal(text);
-+    expect(ex.ok).toBe(true);
-+    if (!ex.ok) return;
-+    expect(ex.content).not.toContain("Narration post");
-+    expect(ex.content).not.toContain("hors document");
-+  });
-+
-+  it("P12 with and without terminal NL inside fence", () => {
-+    const withNl = extractContractualDocumentProposal("```sfia-document\n# Doc\n\nCorps abcdefgh.\n```\n");
-+    const noNl = extractContractualDocumentProposal("```sfia-document\n# Doc\n\nCorps abcdefgh.```\n");
-+    // noNl: closer on same line as content — invalid close line → unclosed or missing body handling
-+    expect(withNl.ok).toBe(true);
-+    // Same-line close is not a valid fence-close line; scanner must not silently truncate as valid full doc.
-+    expect(noNl.ok).toBe(false);
-+  });
-+
-+  it("P13 legitimate métier Compte rendu / version / statut inside fence kept", () => {
-+    const body =
-+      "## 2. S\n\n### Compte rendu de consultation (provenance)\n\n" +
-+      "version documentée et statut source.\n";
-+    const ex = extractContractualDocumentProposal(wrap(body));
-+    expect(ex.ok).toBe(true);
-+    if (!ex.ok) return;
-+    expect(ex.content).toContain("### Compte rendu de consultation (provenance)");
-+    expect(ex.content).toContain("version documentée");
-+  });
-+
-+  it("N1 mdx rejected", () => {
-+    const ex = extractContractualDocumentProposal("```mdx\n# Doc\n\nbody long enough xx\n```\n");
-+    expect(ex.ok).toBe(false);
-+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-+  });
-+
-+  it("N2 sfia-documentation rejected", () => {
-+    const ex = extractContractualDocumentProposal(
-+      "```sfia-documentation\n# Doc\n\nbody long enough xx\n```\n",
-+    );
-+    expect(ex.ok).toBe(false);
-+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-+  });
-+
-+  it("N3 unknown tag rejected", () => {
-+    const ex = extractContractualDocumentProposal("```yaml\n# Doc\n\nbody long enough xx\n```\n");
-+    expect(ex.ok).toBe(false);
-+  });
-+
-+  it("N4 unclosed outer fence refused", () => {
-+    const ex = extractContractualDocumentProposal("```sfia-document\n# Doc\n\nnever closed\n");
-+    expect(ex.ok).toBe(false);
-+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_UNCLOSED");
-+  });
-+
-+  it("N5 inner fence must not close outer — regression of regex truncation", () => {
-+    const text =
-+      "```sfia-document\n## 2. S\n\n```bash\necho x\n```\n\nAprès.\n```\n";
-+    const ex = extractContractualDocumentProposal(text);
-+    expect(ex.ok).toBe(true);
-+    if (!ex.ok) return;
-+    expect(ex.content).toContain("Après.");
-+    expect(ex.content.includes("Après.")).toBe(true);
-+  });
-+
-+  it("N6 closing fence with invalid info suffix refused as unclosed", () => {
-+    const text = "```sfia-document\n# Doc\n\nbody long enough xx\n```trailing\n";
-+    const ex = extractContractualDocumentProposal(text);
-+    expect(ex.ok).toBe(false);
-+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_UNCLOSED");
-+  });
-+
-+  it("N7 incompatible delimiter chars do not close", () => {
-+    const text = "```sfia-document\n# Doc\n\nbody long enough xx\n~~~\n";
-+    const ex = extractContractualDocumentProposal(text);
-+    expect(ex.ok).toBe(false);
-+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_UNCLOSED");
-+  });
-+
-+  it("N8 empty proposal refused", () => {
-+    const ex = extractContractualDocumentProposal("```sfia-document\n\n```\n");
-+    expect(ex.ok).toBe(false);
-+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_EMPTY");
-+  });
-+
-+  it("N9 two sfia-document proposals ambiguous", () => {
-+    const text =
-+      wrap("# A\n\nbody one long enough xx\n") + wrap("# B\n\nbody two long enough yy\n");
-+    const ex = extractContractualDocumentProposal(text);
-+    expect(ex.ok).toBe(false);
-+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_AMBIGUOUS");
-+  });
-+
-+  it("N10 illustrative markdown alone does not authorize", () => {
-+    const ex = extractContractualDocumentProposal(
-+      "Voici un exemple:\n\n```markdown\n# Exemple\n\nbody long enough xx\n```\n",
-+    );
-+    expect(ex.ok).toBe(false);
-+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-+  });
-+
-+  it("N11 free text outside fence is not a proposal", () => {
-+    const ex = extractContractualDocumentProposal("# Doc\n\nCorps sans fence contractuelle xx.\n");
-+    expect(ex.ok).toBe(false);
-+  });
-+
-+  it("N12 truncated-looking regex victim now keeps post-inner content or refuses unclosed", () => {
-+    // Historical bug: stopped at first ``` ; must not return only the prefix as valid.
-+    const text =
-+      "```sfia-document\n## 2. Sources\n\nAvant.\n\n```bash\necho hello\n```\n\nAprès le bloc bash — DOIT ÊTRE CONSERVÉ.\n```\n";
-+    const ex = extractContractualDocumentProposal(text);
-+    expect(ex.ok).toBe(true);
-+    if (!ex.ok) return;
-+    expect(ex.content).toContain("Après le bloc bash — DOIT ÊTRE CONSERVÉ.");
-+    expect(ex.content).not.toBe("## 2. Sources\n\nAvant.\n\n");
-+  });
-+
-+  it("N13 applicative ACK inside proposal fence is still extractable as markdown but full-revise path refuses ACK marker", () => {
-+    const body = "# Doc\n\n### Résultat applicatif D4\n\nfake\n";
-+    const ex = extractContractualDocumentProposal(wrap(body));
-+    expect(ex.ok).toBe(true);
-+    if (!ex.ok) return;
-+    const full = applyTargetedSectionRevision("# Base\n\ncorp\n", ex.content, null);
-+    expect(full.ok).toBe(false);
-+    if (!full.ok) expect(full.reason).toBe("PROPOSAL_CONTAINS_APPLICATIVE_ACK");
-+  });
-+
-+  it("N14 code fence from unreliable source without contractual tag is not a proposal", () => {
-+    const ex = extractContractualDocumentProposal(
-+      "Source Git:\n\n```\n# Hostile README\n\nrm -rf /\n```\n",
-+    );
-+    expect(ex.ok).toBe(false);
-+  });
- });
-```
-
-### Diff — `document-act.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-index 0fe86da4..4a8083f2 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-@@ -515,9 +515,15 @@ function matchSectionSpans(spans: SectionSpan[], hint: string): SectionSpan[] {
-
- /**
-  * Contractual document proposal (B).
-- * Documentary content destined for D4 must appear in exactly one fenced block
-- * tagged `sfia-document`, `markdown`, or `md`. Narration / post-exec CR / ACK
-- * stay outside the fence. No lexical scrubbing of legitimate métier wording.
-+ *
-+ * Documentary content destined for D4 must appear in exactly one CommonMark
-+ * fenced block whose info-string first word is exactly `sfia-document`.
-+ * Generic ```markdown / ```md fences are treated as illustrative only — they
-+ * never authorize a D4 write (ambiguity regularisation after regex false positives).
-+ *
-+ * Parsing is structural (line scanner): an inner shorter fence cannot close the
-+ * outer contractual fence; truncated or unclosed proposals are refused.
-+ * No lexical scrubbing of legitimate métier wording.
-  */
- export type DocumentProposalExtract =
-   | {
-@@ -537,8 +543,9 @@ export type DocumentProposalExtract =
-       reason:
-         | "DOCUMENT_PROPOSAL_MISSING"
-         | "DOCUMENT_PROPOSAL_AMBIGUOUS"
--        | "DOCUMENT_PROPOSAL_EMPTY";
--      path: "none" | "ambiguous" | "empty";
-+        | "DOCUMENT_PROPOSAL_EMPTY"
-+        | "DOCUMENT_PROPOSAL_UNCLOSED";
-+      path: "none" | "ambiguous" | "empty" | "unclosed";
-       fenceCount: number;
-       proposalChars: number;
-       proposalDigest16: string | null;
-@@ -546,11 +553,18 @@ export type DocumentProposalExtract =
-       sectionCount: number;
-     };
-
--const DOCUMENT_PROPOSAL_FENCE_RE =
--  /```(sfia-document|markdown|md)[^\n]*\n([\s\S]*?)```/gi;
-+/** Sole mutative proposal marker — exact first info-string token (case-insensitive). */
-+export const DOCUMENT_PROPOSAL_TAG = "sfia-document";
-+
-+type FenceMarker = {
-+  indent: number;
-+  char: "`" | "~";
-+  length: number;
-+  info: string;
-+};
-
- function digest16(text: string): string {
--  // Non-reversible short fingerprint for diagnostics — not a content log.
-+  // Structural correlation fingerprint (length + FNV) — never log bodies.
-   let h = 2166136261;
-   for (let i = 0; i < text.length; i++) {
-     h ^= text.charCodeAt(i);
-@@ -559,49 +573,166 @@ function digest16(text: string): string {
-   return (h >>> 0).toString(16).padStart(8, "0") + text.length.toString(16).padStart(8, "0");
- }
-
-+function splitMarkdownLines(md: string): Array<{ text: string; start: number }> {
-+  const lines: Array<{ text: string; start: number }> = [];
-+  let offset = 0;
-+  const rawLines = md.split("\n");
-+  for (let i = 0; i < rawLines.length; i++) {
-+    const text = rawLines[i]!;
-+    lines.push({ text, start: offset });
-+    offset += text.length + (i < rawLines.length - 1 ? 1 : 0);
-+  }
-+  return lines;
-+}
-+
-+/** CommonMark-ish fence opener/closer on a single line (indent ≤ 3). */
-+function parseFenceMarkerLine(line: string): FenceMarker | null {
-+  const m = /^( {0,3})(`{3,}|~{3,})(.*)$/.exec(line);
-+  if (!m) return null;
-+  const indent = m[1]!.length;
-+  const ticks = m[2]!;
-+  const char = ticks[0] as "`" | "~";
-+  const length = ticks.length;
-+  const info = m[3] ?? "";
-+  // Backtick fences cannot include backticks in the info string (CommonMark).
-+  if (char === "`" && info.includes("`")) return null;
-+  return { indent, char, length, info };
-+}
-+
-+function fenceInfoFirstToken(info: string): string {
-+  return info.trim().split(/\s+/)[0]?.toLowerCase() ?? "";
-+}
-+
-+function isContractualProposalOpen(marker: FenceMarker): boolean {
-+  // Exact token match only — rejects mdx, sfia-documentation, markdown, md, …
-+  return fenceInfoFirstToken(marker.info) === DOCUMENT_PROPOSAL_TAG;
-+}
-+
-+function isFenceClose(marker: FenceMarker, open: FenceMarker): boolean {
-+  if (marker.char !== open.char) return false;
-+  if (marker.length < open.length) return false;
-+  // Closing fence info must be empty (whitespace only).
-+  return marker.info.trim() === "";
-+}
-+
-+type ScannedProposal =
-+  | { status: "ok"; content: string; tag: string }
-+  | { status: "unclosed" };
-+
-+/**
-+ * Scan assistant Markdown for contractual `sfia-document` fences.
-+ *
-+ * Line-oriented fence recognition (indent ≤ 3, backtick/tilde runs). Inside a
-+ * contractual proposal, nested code fences are tracked with a stack so an inner
-+ * ```bash … ``` does not terminate the outer proposal (document-integrity rule;
-+ * equal-length CommonMark alone would truncate — we refuse that silent failure).
-+ */
-+export function scanContractualDocumentFences(assistantText: string): {
-+  proposals: ScannedProposal[];
-+  contractualOpenCount: number;
-+} {
-+  const lines = splitMarkdownLines(assistantText);
-+  const proposals: ScannedProposal[] = [];
-+  let i = 0;
-+  let contractualOpenCount = 0;
-+
-+  while (i < lines.length) {
-+    const open = parseFenceMarkerLine(lines[i]!.text);
-+    if (!open || !isContractualProposalOpen(open)) {
-+      i += 1;
-+      continue;
-+    }
-+    contractualOpenCount += 1;
-+    const bodyStartLine = i + 1;
-+    const nest: Array<{ char: "`" | "~"; length: number }> = [];
-+    let closedAt: number | null = null;
-+
-+    for (let j = bodyStartLine; j < lines.length; j++) {
-+      const cand = parseFenceMarkerLine(lines[j]!.text);
-+      if (!cand) continue;
-+
-+      if (nest.length === 0 && isFenceClose(cand, open)) {
-+        closedAt = j;
-+        break;
-+      }
-+
-+      if (nest.length > 0) {
-+        const top = nest[nest.length - 1]!;
-+        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
-+          nest.pop();
-+          continue;
-+        }
-+      }
-+
-+      // Inner opener: info-tagged fence, or shorter run of the same character
-+      // that cannot close the outer proposal, or any other fence char.
-+      const opensInner =
-+        cand.info.trim() !== "" ||
-+        cand.char !== open.char ||
-+        cand.length < open.length;
-+      if (opensInner) {
-+        nest.push({ char: cand.char, length: cand.length });
-+      }
-+    }
-+
-+    if (closedAt == null) {
-+      proposals.push({ status: "unclosed" });
-+      break;
-+    }
-+
-+    // Body bytes from first body line through the newline before the closer.
-+    let content = "";
-+    if (bodyStartLine < closedAt) {
-+      const start = lines[bodyStartLine]!.start;
-+      content = assistantText.slice(start, lines[closedAt]!.start);
-+    }
-+    proposals.push({ status: "ok", content, tag: DOCUMENT_PROPOSAL_TAG });
-+    i = closedAt + 1;
-+  }
-+
-+  return { proposals, contractualOpenCount };
-+}
-+
-+function failProposal(
-+  reason: Extract<DocumentProposalExtract, { ok: false }>["reason"],
-+  path: Extract<DocumentProposalExtract, { ok: false }>["path"],
-+  fenceCount: number,
-+  content?: string,
-+): DocumentProposalExtract {
-+  const body = content ?? "";
-+  return {
-+    ok: false,
-+    reason,
-+    path,
-+    fenceCount,
-+    proposalChars: body.length,
-+    proposalDigest16: body ? digest16(body) : null,
-+    bodyEndsWithNewline: body.endsWith("\n"),
-+    sectionCount: body ? locateSections(body).length : 0,
-+  };
-+}
-+
- export function extractContractualDocumentProposal(
-   assistantText: string,
- ): DocumentProposalExtract {
--  const matches = [...assistantText.matchAll(new RegExp(DOCUMENT_PROPOSAL_FENCE_RE.source, "gi"))];
--  if (matches.length === 0) {
--    return {
--      ok: false,
--      reason: "DOCUMENT_PROPOSAL_MISSING",
--      path: "none",
--      fenceCount: 0,
--      proposalChars: 0,
--      proposalDigest16: null,
--      bodyEndsWithNewline: false,
--      sectionCount: 0,
--    };
-+  const { proposals, contractualOpenCount } = scanContractualDocumentFences(assistantText);
-+
-+  if (contractualOpenCount === 0) {
-+    return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", 0);
-   }
--  if (matches.length > 1) {
--    return {
--      ok: false,
--      reason: "DOCUMENT_PROPOSAL_AMBIGUOUS",
--      path: "ambiguous",
--      fenceCount: matches.length,
--      proposalChars: 0,
--      proposalDigest16: null,
--      bodyEndsWithNewline: false,
--      sectionCount: 0,
--    };
-+  if (proposals.some((p) => p.status === "unclosed")) {
-+    return failProposal("DOCUMENT_PROPOSAL_UNCLOSED", "unclosed", contractualOpenCount);
-+  }
-+  if (proposals.length > 1) {
-+    return failProposal("DOCUMENT_PROPOSAL_AMBIGUOUS", "ambiguous", proposals.length);
-+  }
-+  if (proposals.length !== 1 || proposals[0]!.status !== "ok") {
-+    return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
-   }
--  const fenceTag = (matches[0]![1] ?? "markdown").toLowerCase();
--  // Preserve internal bytes; strip only a single leading newline often introduced after the fence opener.
--  let content = matches[0]![2] ?? "";
--  if (content.startsWith("\n")) content = content.slice(1);
-+
-+  const content = proposals[0]!.content;
-   if (!content.trim() || content.trim().length < 8) {
--    return {
--      ok: false,
--      reason: "DOCUMENT_PROPOSAL_EMPTY",
--      path: "empty",
--      fenceCount: 1,
--      proposalChars: content.length,
--      proposalDigest16: digest16(content),
--      bodyEndsWithNewline: content.endsWith("\n"),
--      sectionCount: locateSections(content).length,
--    };
-+    return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
-   }
-   const titleLine = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
-   return {
-@@ -609,7 +740,7 @@ export function extractContractualDocumentProposal(
-     content,
-     title: titleLine || "Document Nora",
-     path: "fence",
--    fenceTag,
-+    fenceTag: DOCUMENT_PROPOSAL_TAG,
-     fenceCount: 1,
-     proposalChars: content.length,
-     proposalDigest16: digest16(content),
-```
-
-### Diff — `matrice-acceptation.md`
-
-```diff
++| Verdict candidat | `READY FOR REVIEW — ILLUSTRATIVE FENCE ISOLATION VERIFIED LOCALLY` |
 diff --git a/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md b/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
-index 5a6ca80c..4f18a470 100644
+index 4f18a470..04fe26f3 100644
 --- a/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
 +++ b/projects/sfia-studio-next/construction/integration-git/matrice-acceptation.md
-@@ -592,3 +592,16 @@ Suite audits handoff `97c5e812` / `4b5eb51e`. Branche `fix/next-ml4-chat-first-d
- | USER / LIVE / RECETTE | NOT RUN | runtime RECETTE reste `8ba77730` / `ygu4moVrYUNZPkvprgvB_` |
+@@ -605,3 +605,17 @@ Verdict : **READY FOR REVIEW — INTEGRATED A+B+D DOCUMENT CORRECTIVE DETERMINIS
+ | RECETTE | INCHANGÉE | `8ba77730` / `ygu4moVr…` ; v1 `de4bd1a6…` |
 
- Verdict : **READY FOR REVIEW — INTEGRATED A+B+D DOCUMENT CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY**.
+ Verdict : **READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY**.
 +
-+## 30. Régularisation B — scanner de fences / intégrité Markdown (2026-11-09)
++## 31. Isolation fences illustratives imbriquées (2026-11-09)
 +
 +| Item | Statut | Note |
 +|---|---|---|
-+| Défaut regex tronquante | REPRODUIT puis CORRIGÉ | premier ` ``` ` interne fermait la proposition |
-+| Faux positifs tags | REPRODUIT puis CORRIGÉ | `mdx`, `sfia-documentation`, `markdown` illustratif |
-+| Scanner | CORRIGÉ (DET) | lignes + stack nested ; tag exact `sfia-document` |
-+| Oracle nested-code | DET unit + PG PASS | contenu après ` ```bash ` conservé en v2 |
-+| A / D | NON-RÉGRESSION | splice NL + obs proposal inchangés dans leur rôle |
++| Faux positif nested `sfia-document` | REPRODUIT puis CORRIGÉ | ouverture dans `markdown`/`text`/tilde → MISSING |
++| Scanner premier niveau | CORRIGÉ (DET) | saute fences non contractuelles ; pas de harvest intérieur |
++| N1–N12 | DET PASS | unit `document-act` Cycle 8 |
++| Zéro écriture D4 | DET PASS | PG CREATE/REVISE via `postUserMessageAndNora` ; `d4_attempted=false` |
++| Positif mixte | DET PASS | exemple illustratif + proposition autonome → 1 CREATE propre |
++| A / D / CREATE-REVISE | NON-RÉGRESSION | PG Chat First 13 PASS |
 +| RECETTE | INCHANGÉE | `8ba77730` / `ygu4moVr…` ; v1 `de4bd1a6…` |
 +
-+Verdict : **READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY**.
-```
-
-### Diff — `ml4-chat-first-d4-provenance.pg.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-index d9eb3b7b..4bd1f118 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-@@ -31,8 +31,10 @@ import {
- import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
- import {
-   assertSectionScope,
-+  extractContractualDocumentProposal,
-   hasCompetingTransactionalClaim,
-   qualifyDocumentAct,
-+  applyTargetedSectionRevision,
- } from "@/domains/conversation/document-act";
-
- async function seedPilot(label: string) {
-@@ -485,6 +487,65 @@ Aucune écriture GitHub.
-     expect(r2.status).toBe("AVAILABLE");
-   });
-
-+  it("R06 nested-code: section body with inner bash fence persists bytes after the fence", async () => {
-+    const title = "Doc nested code ML4";
-+    const v1Body = `# ${title}
-+
-+## 1. Intro
-+
-+i
-+
-+## 2. Sources consultées et provenance disponible
-+
-+old
-+
-+## 3. Suite
-+
-+s
-+`;
-+    const pilotId = await seedPilot("ml4-nested");
-+    const prep = await openOrCreatePreparation(pilotId);
-+    const seeded = await savePreparationDocument(pilotId, prep.id, title, v1Body, undefined, {
-+      correlationKey: newId("ck"),
-+    });
-+    expect(seeded.status).toBe("AVAILABLE");
-+    if (seeded.status !== "AVAILABLE" || !seeded.documentId || !seeded.revisionId) {
-+      throw new Error("seed");
-+    }
-+
-+    const assistant =
-+      "```sfia-document\n## 2. Sources consultées et provenance disponible\n\n" +
-+      "Avant.\n\n```bash\necho hello\n```\n\nAprès le bloc bash — CONSERVÉ.\n```\n\n" +
-+      "Compte rendu hors fence.\n";
-+    const extracted = extractContractualDocumentProposal(assistant);
-+    expect(extracted.ok).toBe(true);
-+    if (!extracted.ok) return;
-+    expect(extracted.content).toContain("Après le bloc bash — CONSERVÉ.");
-+    const merged = applyTargetedSectionRevision(v1Body, extracted.content, "2");
-+    expect(merged.ok).toBe(true);
-+    if (!merged.ok) return;
-+    expect(assertSectionScope(v1Body, merged.content, "2")).toEqual({ ok: true });
-+
-+    const v2 = await reviseDocument(pilotId, prep.id, {
-+      documentId: seeded.documentId,
-+      baseRevisionId: seeded.revisionId,
-+      contentMarkdown: merged.content,
-+      correlationKey: newId("ck"),
-+      scope: "section",
-+      sectionHint: "2",
-+    });
-+    expect(v2.status).toBe("AVAILABLE");
-+    if (v2.status !== "AVAILABLE" || !v2.revisionId) throw new Error("v2");
-+    const got = await getDocumentRevision(pilotId, prep.id, seeded.documentId, v2.revisionId);
-+    expect(got.status).toBe("AVAILABLE");
-+    if (got.status !== "AVAILABLE") return;
-+    expect(got.revision.contentMarkdown).toContain("Après le bloc bash — CONSERVÉ.");
-+    expect(got.revision.contentMarkdown).toContain("```bash");
-+    expect(got.revision.contentMarkdown).toContain("## 3. Suite");
-+    expect(got.revision.contentMarkdown).not.toMatch(/Compte rendu hors fence/);
-+    expect(assertSectionScope(v1Body, got.revision.contentMarkdown, "2")).toEqual({ ok: true });
-+  });
-+
-   it("R06-neg: explicit title miss → NOT_FOUND, no phantom v2 on other doc", async () => {
-     const pilotId = await seedPilot("ml4-r06miss");
-     const prep = await openOrCreatePreparation(pilotId);
-```
-
-### Diff — `nora-adapter.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 01f92064..1fc52ed2 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -102,7 +102,7 @@ const SYSTEM_INSTRUCTIONS = [
-   "- Production documentaire: seulement si le Pilote le demande explicitement et positivement.",
-   "- Une négation (« ne crée pas », « ne révise pas »), une question informative ou une hypothèse n'autorisent aucune écriture D4.",
-   "- Distingue toujours rédaction proposée et sauvegarde confirmée. Tu n'affirmes jamais qu'un document est « enregistré », « non enregistré », créé ou révisé : seul le bloc applicatif D4 post-effet (Résultat applicatif D4) porte cette vérité.",
--  "- Contrat proposition D4: place UNIQUEMENT le Markdown documentaire destiné à D4 dans UNE fence ```sfia-document … ``` (tags `markdown`/`md` acceptés). Hors fence: explications, compte rendu post-exécution, réserves. Une seule fence documentaire par réponse.",
-+  "- Contrat proposition D4: place UNIQUEMENT le Markdown documentaire destiné à D4 dans UNE fence dont le tag exact est `sfia-document` (```sfia-document … ``` ou ~~~sfia-document). Les fences `markdown`/`md`/`mdx` illustratives ne sont PAS des propositions D4. Hors fence: explications, compte rendu post-exécution, réserves. Une seule fence `sfia-document` par réponse; elle doit être correctement fermée (un bloc de code interne plus court ne la termine pas).",
-   "- Révision ciblée: dans la fence, fournis la section demandée mise à jour (titre ATX inclus); ne réécris pas les autres sections; ne place aucun compte rendu opérationnel ni statut transactionnel dans la fence.",
-   "- Provenance Git: un SHA de contenu (blob) n'est jamais un SHA de commit; cite blobSha et commitSha séparément lorsqu'ils sont fournis par les outils.",
-   "Réponds en français. Markdown utile autorisé (titres, listes, tableaux).",
-```
-
-### Diff — `specification-technique.md`
-
-```diff
++Verdict : **READY FOR REVIEW — ILLUSTRATIVE FENCE ISOLATION VERIFIED LOCALLY**.
 diff --git a/projects/sfia-studio-next/construction/integration-git/specification-technique.md b/projects/sfia-studio-next/construction/integration-git/specification-technique.md
-index 666653f1..1c4bbc31 100644
+index 1c4bbc31..675831a6 100644
 --- a/projects/sfia-studio-next/construction/integration-git/specification-technique.md
 +++ b/projects/sfia-studio-next/construction/integration-git/specification-technique.md
 @@ -177,7 +177,7 @@ Le contrat est seulement prêt à recevoir un **GO de construction** après int
 
  Sur candidat `fix/next-ml4-chat-first-d4-provenance-20261109` (push Product NON AUTORISÉ) :
 
--1. **Proposition documentaire (B)** — exactement une fence `sfia-document` (alias `markdown`/`md`). Contenu fence → seul input CREATE/REVISE. Narration / compte rendu post-exécution **hors fence**. Absence, vacuité ou multiplicités → `DOCUMENT_PROPOSAL_*` sans écriture D4. **Pas** de `fallback_wrap` conversationnel.
-+1. **Proposition documentaire (B)** — exactement une fence dont le **premier token** d'info-string est exactement `sfia-document` (backticks ou tildes ; scanner de lignes, stack pour fences internes). Les fences `markdown`/`md`/`mdx`/`sfia-documentation` sont illustratives uniquement et **n'autorisent pas** D4. Narration hors fence. Absence, vacuité, non-fermeture ou multiplicités → `DOCUMENT_PROPOSAL_*` sans écriture. **Pas** de `fallback_wrap`.
+-1. **Proposition documentaire (B)** — exactement une fence dont le **premier token** d'info-string est exactement `sfia-document` (backticks ou tildes ; scanner de lignes, stack pour fences internes). Les fences `markdown`/`md`/`mdx`/`sfia-documentation` sont illustratives uniquement et **n'autorisent pas** D4. Narration hors fence. Absence, vacuité, non-fermeture ou multiplicités → `DOCUMENT_PROPOSAL_*` sans écriture. **Pas** de `fallback_wrap`.
++1. **Proposition documentaire (B)** — exactement une fence **autonome de premier niveau** dont le **premier token** d'info-string est exactement `sfia-document` (backticks ou tildes ; scanner de lignes). Une ouverture `sfia-document` **à l'intérieur** d'une fence illustrative (ex. `markdown`/`text`/tilde) n'est **pas** une proposition autonome — le scanner saute le bloc illustratif jusqu'à sa fermeture (ou EOF si non fermé) sans récupération silencieuse. À l'intérieur d'une proposition contractuelle, un stack conserve les fences internes (ex. `bash`) sans tronquer. Les tags `markdown`/`md`/`mdx`/`sfia-documentation` seuls n'autorisent pas D4. Narration hors fence. Absence, vacuité, non-fermeture ou multiplicités → `DOCUMENT_PROPOSAL_*` sans écriture. **Pas** de `fallback_wrap`.
  2. **Splice section (A)** — `applyTargetedSectionRevision` préserve préfixe/suffixe hors cible octet-identiques ; si le corps extrait omet le NL terminal, un NL est ajouté **avant** le suffixe (le suffixe lui-même n'est pas réécrit). `assertSectionScope` reste actif.
  3. **ACK (existant)** — `composeDocumentTurnMessage` reste la seule vérité transactionnelle visible.
  4. **Observabilité (D)** — événement `d3.turn.document_proposal` : `extract_path`, `fence_count`, `proposal_chars`, `proposal_digest16`, `body_ends_with_nl`, `scope_verdict`, `refuse_code`, `d4_attempted`, `d4_effect` (pas de corps/prompt/secrets).
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+index 4a8083f2..32a91539 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+@@ -620,12 +620,38 @@ type ScannedProposal =
+   | { status: "unclosed" };
+
+ /**
+- * Scan assistant Markdown for contractual `sfia-document` fences.
++ * Skip a non-contractual (illustrative) fence opened at `openIdx`.
++ * Content inside — including nested ```sfia-document examples — is opaque.
++ * Returns the line index after the closing fence, or `lines.length` if unclosed
++ * (caller must not harvest inner contractual markers from an unclosed illustrative).
++ */
++function skipIllustrativeFence(
++  lines: Array<{ text: string; start: number }>,
++  openIdx: number,
++  open: FenceMarker,
++): number {
++  for (let j = openIdx + 1; j < lines.length; j++) {
++    const cand = parseFenceMarkerLine(lines[j]!.text);
++    if (cand && isFenceClose(cand, open)) {
++      return j + 1;
++    }
++  }
++  return lines.length;
++}
++
++/**
++ * Scan assistant Markdown for autonomous top-level `sfia-document` fences.
+  *
+- * Line-oriented fence recognition (indent ≤ 3, backtick/tilde runs). Inside a
+- * contractual proposal, nested code fences are tracked with a stack so an inner
+- * ```bash … ``` does not terminate the outer proposal (document-integrity rule;
+- * equal-length CommonMark alone would truncate — we refuse that silent failure).
++ * First-level structure:
++ * - conversational text (no fence);
++ * - illustrative fences (any non-`sfia-document` open) — opaque until closed;
++ * - autonomous contractual `sfia-document` fences — extractable proposals.
++ *
++ * Inside a contractual proposal, nested code fences are tracked with a stack so
++ * an inner ```bash … ``` does not terminate the outer proposal.
++ *
++ * A `sfia-document` marker nested inside an illustrative fence is never an
++ * autonomous proposal (isolation rule).
+  */
+ export function scanContractualDocumentFences(assistantText: string): {
+   proposals: ScannedProposal[];
+@@ -638,10 +664,19 @@ export function scanContractualDocumentFences(assistantText: string): {
+
+   while (i < lines.length) {
+     const open = parseFenceMarkerLine(lines[i]!.text);
+-    if (!open || !isContractualProposalOpen(open)) {
++    if (!open) {
+       i += 1;
+       continue;
+     }
++
++    // Illustrative / non-mutative fence: skip entirely (do not scan interior).
++    // Unclosed illustrative → advance to EOF; never promote interior markers.
++    if (!isContractualProposalOpen(open)) {
++      i = skipIllustrativeFence(lines, i, open);
++      continue;
++    }
++
++    // Autonomous contractual proposal at first level.
+     contractualOpenCount += 1;
+     const bodyStartLine = i + 1;
+     const nest: Array<{ char: "`" | "~"; length: number }> = [];
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index 91f93137..660c3eaf 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -488,6 +488,14 @@ export async function postUserMessageAndNora(
+     await turnRaceHooks.afterGenerateBeforeEffects();
+   }
+
++  // Test-only injection: swap assistant text before contractual extraction / D4.
++  if (turnRaceHooks.replaceNoraAssistantText && reply.status === "COMPLETE") {
++    reply = {
++      ...reply,
++      content: turnRaceHooks.replaceNoraAssistantText(reply.content),
++    };
++  }
++
+   // Ownership may have been revoked/reconciled during generation — no COMPLETE, no D4.
+   if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
+     emitObs({
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+index 1bb7ba40..ad960578 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+@@ -118,6 +118,11 @@ export const turnRaceHooks: {
+   afterGenerateBeforeEffects?: () => Promise<void>;
+   beforeD4Effect?: () => Promise<void>;
+   beforeTerminalCommit?: () => Promise<void>;
++  /**
++   * Test-only: replace Nora assistant text after generate, before D4 extraction.
++   * Used to inject nested illustrative fences without LIVE Nora or production bypass.
++   */
++  replaceNoraAssistantText?: (text: string) => string;
+   /**
+    * Runs inside the terminal TX after optional assistant INSERT, before CAS UPDATE.
+    * May mutate the same TX (e.g. revoke token) to force CAS miss + rollback.
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+index 4bd1f118..b6252bff 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+@@ -29,6 +29,7 @@ import {
+   savePreparationDocument,
+ } from "@/domains/document/service";
+ import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
++import { turnRaceHooks } from "@/domains/conversation/turn-command";
+ import {
+   assertSectionScope,
+   extractContractualDocumentProposal,
+@@ -567,4 +568,125 @@ s
+     expect(docs).toHaveLength(1);
+     expect(docs[0]!.latestRevision?.revisionNumber).toBe(1);
+   });
++
++  it("B-iso-neg CREATE: nested illustrative sfia-document → FAILED MISSING, zero D4 write", async () => {
++    const pilotId = await seedPilot("ml4-iso-create");
++    const prep = await openOrCreatePreparation(pilotId);
++    turnRaceHooks.replaceNoraAssistantText = () =>
++      "Je peux illustrer la syntaxe:\n\n" +
++      "````markdown\n" +
++      "```sfia-document\n" +
++      "# Document fictif imbriqué\n\n" +
++      "Ne doit jamais être persisté.\n" +
++      "```\n" +
++      "````\n";
++    try {
++      const chat = await postUserMessageAndNora(
++        pilotId,
++        prep.id,
++        "Rédige un document de synthèse sur Isolation Create",
++      );
++      expect(chat.documentSave?.status).toBe("FAILED");
++      expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++      expect(chat.documentSave?.act).toBe("CREATE");
++      expect(chat.documentSave?.documentId).toBeUndefined();
++      expect(chat.documentSave?.revisionId).toBeUndefined();
++      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
++      const msgs = await listMessages(pilotId, prep.id);
++      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
++      expect(assistant?.content).not.toMatch(/enregistré avec succès/i);
++      expect(assistant?.content ?? "").toMatch(/DOCUMENT_PROPOSAL_MISSING|non enregistré|FAILED|proposition/i);
++    } finally {
++      delete turnRaceHooks.replaceNoraAssistantText;
++    }
++  });
++
++  it("B-iso-neg REVISE: nested illustrative sfia-document → FAILED MISSING, doc unchanged at v1", async () => {
++    const pilotId = await seedPilot("ml4-iso-revise");
++    const prep = await openOrCreatePreparation(pilotId);
++    const seeded = await savePreparationDocument(
++      pilotId,
++      prep.id,
++      "Doc isolation revise",
++      "# Doc isolation revise\n\n## Section 1\n\na\n\n## Section 2\n\nb original\n\n## Section 3\n\nc\n",
++      undefined,
++      { correlationKey: newId("ck") },
++    );
++    expect(seeded.status).toBe("AVAILABLE");
++    if (seeded.status !== "AVAILABLE" || !seeded.documentId || !seeded.revisionId) {
++      throw new Error("seed AVAILABLE required");
++    }
++    const documentId = seeded.documentId;
++    const v1Body = await getDocumentRevision(pilotId, prep.id, documentId, seeded.revisionId);
++    expect(v1Body.status).toBe("AVAILABLE");
++    if (v1Body.status !== "AVAILABLE") return;
++
++    turnRaceHooks.replaceNoraAssistantText = () =>
++      "Exemple de révision:\n\n" +
++      "````markdown\n" +
++      "```sfia-document\n" +
++      "## Section 2 — Contenu révisé\n\n" +
++      "corps fictif imbriqué\n" +
++      "```\n" +
++      "````\n";
++    try {
++      const revised = await postUserMessageAndNora(
++        pilotId,
++        prep.id,
++        `Révise uniquement la section 2 du document ${documentId} et conserve le reste`,
++      );
++      expect(revised.documentSave?.status).toBe("FAILED");
++      expect(revised.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++      expect(revised.documentSave?.act).toBe("REVISE");
++      const listed = await listDocumentRevisions(pilotId, prep.id, documentId);
++      expect(listed.status).toBe("AVAILABLE");
++      expect(listed.revisions).toHaveLength(1);
++      expect(listed.revisions[0]!.revisionNumber).toBe(1);
++      expect(listed.revisions[0]!.contentMarkdown).toBe(v1Body.revision.contentMarkdown);
++    } finally {
++      delete turnRaceHooks.replaceNoraAssistantText;
++    }
++  });
++
++  it("B-iso-pos: autonomous proposal beside illustrative example → single D4 CREATE", async () => {
++    const pilotId = await seedPilot("ml4-iso-pos");
++    const prep = await openOrCreatePreparation(pilotId);
++    turnRaceHooks.replaceNoraAssistantText = () =>
++      "Exemple illustratif (à ignorer):\n\n" +
++      "````markdown\n```sfia-document\n# Fake\n\nx\n```\n````\n\n" +
++      "Proposition autonome:\n\n" +
++      "```sfia-document\n" +
++      "# Synthèse isolation positive\n\n" +
++      "## Section 1 — Contexte\n\nContexte.\n\n" +
++      "## Section 2 — Analyse\n\nAnalyse réelle.\n\n" +
++      "## Section 3 — Suite\n\nSuite.\n" +
++      "```\n\n" +
++      "Compte rendu hors fence: non documentaire.\n";
++    try {
++      const chat = await postUserMessageAndNora(
++        pilotId,
++        prep.id,
++        "Rédige un document de synthèse sur Isolation Positive",
++      );
++      expect(chat.documentSave?.status).toBe("AVAILABLE");
++      expect(chat.documentSave?.act).toBe("CREATE");
++      expect(chat.documentSave?.revisionNumber).toBe(1);
++      const docs = await listDocuments(pilotId, prep.id);
++      expect(docs).toHaveLength(1);
++      const rev = await getDocumentRevision(
++        pilotId,
++        prep.id,
++        chat.documentSave!.documentId!,
++        chat.documentSave!.revisionId!,
++      );
++      expect(rev.status).toBe("AVAILABLE");
++      if (rev.status !== "AVAILABLE") return;
++      expect(rev.revision.contentMarkdown).toContain("# Synthèse isolation positive");
++      expect(rev.revision.contentMarkdown).toContain("Analyse réelle");
++      expect(rev.revision.contentMarkdown).not.toContain("# Fake");
++      expect(rev.revision.contentMarkdown).not.toContain("Compte rendu hors fence");
++    } finally {
++      delete turnRaceHooks.replaceNoraAssistantText;
++    }
++  });
+ });
+diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+index 449eccbc..55724d25 100644
+--- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+@@ -17,6 +17,7 @@ import {
+   qualifyDocumentAct,
+   reconcileNarrationWithDocumentEffect,
+   resolveReviseTarget,
++  scanContractualDocumentFences,
+   splitMarkdownSections,
+ } from "@/domains/conversation/document-act";
+
+@@ -904,3 +905,176 @@ describe("document proposal fence scanner — positives / negatives", () => {
+     expect(ex.ok).toBe(false);
+   });
+ });
++
++describe("illustrative fence isolation — Cycle 8 (N1–N12)", () => {
++  const nestedMarkdown = `Explication:
++
++\`\`\`\`markdown
++Exemple de syntaxe:
++
++\`\`\`sfia-document
++# Document fictif
++
++Corps assez long pour ne pas être un seuil xx.
++\`\`\`
++\`\`\`\`
++`;
++
++  it("N1: outer markdown fence with inner sfia-document → MISSING, no content", () => {
++    const scan = scanContractualDocumentFences(nestedMarkdown);
++    expect(scan.contractualOpenCount).toBe(0);
++    expect(scan.proposals).toHaveLength(0);
++    const ex = extractContractualDocumentProposal(nestedMarkdown);
++    expect(ex.ok).toBe(false);
++    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++    expect(ex.proposalChars).toBe(0);
++  });
++
++  it("N2: outer text fence with inner sfia-document → no autonomous proposal", () => {
++    const text = `\`\`\`\`text
++\`\`\`sfia-document
++# Inner text host
++
++body long enough xx
++\`\`\`
++\`\`\`\`
++`;
++    const scan = scanContractualDocumentFences(text);
++    expect(scan.contractualOpenCount).toBe(0);
++    expect(scan.proposals).toHaveLength(0);
++    const ex = extractContractualDocumentProposal(text);
++    expect(ex.ok).toBe(false);
++    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++  });
++
++  it("N3: outer tilde fence with inner backtick sfia-document → no autonomous proposal", () => {
++    const text = `~~~~text
++\`\`\`sfia-document
++# Inner tilde host
++
++body long enough xx
++\`\`\`
++~~~~
++`;
++    const scan = scanContractualDocumentFences(text);
++    expect(scan.contractualOpenCount).toBe(0);
++    expect(scan.proposals).toHaveLength(0);
++    const ex = extractContractualDocumentProposal(text);
++    expect(ex.ok).toBe(false);
++  });
++
++  it("N4: Git README excerpt with nested sfia-document example → no mutative proposal", () => {
++    const text = `Source consultée (README):
++
++\`\`\`\`markdown
++# README
++
++Exemple:
++
++\`\`\`sfia-document
++# Hostile excerpt
++
++Do not persist.
++\`\`\`
++\`\`\`\`
++`;
++    const ex = extractContractualDocumentProposal(text);
++    expect(ex.ok).toBe(false);
++    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++  });
++
++  it("N5: two sfia-document examples inside one illustrative fence → zero proposals", () => {
++    const text = `\`\`\`\`markdown
++\`\`\`sfia-document
++# A
++
++body a long enough xx
++\`\`\`
++
++\`\`\`sfia-document
++# B
++
++body b long enough yy
++\`\`\`
++\`\`\`\`
++`;
++    const scan = scanContractualDocumentFences(text);
++    expect(scan.contractualOpenCount).toBe(0);
++    expect(scan.proposals).toHaveLength(0);
++    const ex = extractContractualDocumentProposal(text);
++    expect(ex.ok).toBe(false);
++    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++  });
++
++  it("N6: unclosed illustrative fence with inner sfia-document → no silent recovery", () => {
++    const text = `\`\`\`\`markdown
++\`\`\`sfia-document
++# Trapped
++
++body long enough xx
++\`\`\`
++`;
++    const scan = scanContractualDocumentFences(text);
++    expect(scan.contractualOpenCount).toBe(0);
++    expect(scan.proposals).toHaveLength(0);
++    const ex = extractContractualDocumentProposal(text);
++    expect(ex.ok).toBe(false);
++    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++  });
++
++  it("N7: valid autonomous proposal then illustrative example → one proposal, real doc only", () => {
++    const text =
++      "```sfia-document\n# Real Doc\n\n## Section 1\n\nBody content here.\n```\n\n" +
++      "````markdown\n```sfia-document\n# Fake\n\nignore\n```\n````\n";
++    const scan = scanContractualDocumentFences(text);
++    expect(scan.contractualOpenCount).toBe(1);
++    expect(scan.proposals).toHaveLength(1);
++    expect(scan.proposals[0]).toMatchObject({ status: "ok" });
++    const ex = extractContractualDocumentProposal(text);
++    expect(ex.ok).toBe(true);
++    if (!ex.ok) return;
++    expect(ex.content).toContain("# Real Doc");
++    expect(ex.content).not.toContain("# Fake");
++    expect(ex.fenceCount).toBe(1);
++  });
++
++  it("N8: illustrative fence before valid top-level sfia-document → ignore then accept", () => {
++    const text =
++      "````markdown\n```sfia-document\n# Fake first\n\nx\n```\n````\n\n" +
++      "```sfia-document\n# Real After\n\n## Section 1\n\nBody.\n```\n";
++    const ex = extractContractualDocumentProposal(text);
++    expect(ex.ok).toBe(true);
++    if (!ex.ok) return;
++    expect(ex.content).toContain("# Real After");
++    expect(ex.content).not.toContain("Fake first");
++  });
++
++  it("N9: two autonomous top-level sfia-document → AMBIGUOUS", () => {
++    const text =
++      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n" +
++      "```sfia-document\n# B\n\nbody two long enough yy\n```\n";
++    const ex = extractContractualDocumentProposal(text);
++    expect(ex.ok).toBe(false);
++    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_AMBIGUOUS");
++  });
++
++  it("N10: near-miss markers never authorize D4", () => {
++    for (const open of ["```sfia-documentation", "```mdx", "```md", "```markdown"]) {
++      const ex = extractContractualDocumentProposal(`${open}\n# Doc\n\nbody long enough xx\n\`\`\`\n`);
++      expect(ex.ok).toBe(false);
++      if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
++    }
++  });
++
++  it("N11: unclosed autonomous proposal → UNCLOSED", () => {
++    const ex = extractContractualDocumentProposal("```sfia-document\n# Doc\n\nnever closed\n");
++    expect(ex.ok).toBe(false);
++    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_UNCLOSED");
++  });
++
++  it("N12: closed but empty proposal → EMPTY", () => {
++    const ex = extractContractualDocumentProposal("```sfia-document\n\n```\n");
++    expect(ex.ok).toBe(false);
++    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_EMPTY");
++  });
++});
+
 ```
 
+## 16. Réserves
+
+- Aucune preuve LIVE Nora.
+- Aucune preuve USER RECETTE / R06 utilisateur.
+- Pas de READY FOR MERGE / STABLE / ADOPTED / R06 PASS / ML4-REC-08 CLOSED.
+- Handoff L3 mono-fichier uniquement ; branche produit **non** poussée.
 
 ---
 
-## 9. Commit local / absence d'effets
+## 17. Verdict
 
-- Commit local : `0b02de41cd7e3d08101419b49d6534d12edf70cf`
-- Tree : `97f236bc3d61fdf317ac4cd3177d23fa49c04262`
-- Message : `fix(studio-next): harden sfia-document fence scanning against nested code`
-- Push produit : AUCUN
-- RECETTE / DB / launcher : aucune mutation
-- GitHub REAL : off
+**READY FOR REVIEW — ILLUSTRATIVE FENCE ISOLATION VERIFIED LOCALLY.**
 
+### Gate Morris suivant
 
-## 10. Dette / exit
-
-| Item | Exit |
-|---|---|
-| Nest-aware ≠ CommonMark strict equal-length | Documenté ; nécessaire pour intégrité ; alternative = imposer 4+ ticks (prompt le mentionne) |
-| digest16 corrélation textes courts | Retirable au prochain GO obs si Morris l'exige |
-| LIVE Nora doit émettre `sfia-document` fermé | Gate RECETTE ultérieur |
-
----
-
-## 11. Verdict
-
-**READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY.**
-
-Gate Morris : revue ChatGPT (priorité troncature / fences illustratives) → puis seulement GO bascule RECETTE sur le nouveau SHA local.
+Revue ChatGPT du handoff L3 : vérifier isolation structurelle premier niveau, absence de capture imbriquée, intégrité propositions réelles, preuves PG service conversationnel (`d4_attempted=false`), absence de nouveau moteur, complétude diffs. Puis décision Morris (éventuelle bascule RECETTE / USER) — **aucune bascule automatique**.
