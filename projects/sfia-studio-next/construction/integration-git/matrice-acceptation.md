@@ -605,3 +605,17 @@ Verdict : **READY FOR REVIEW — INTEGRATED A+B+D DOCUMENT CORRECTIVE DETERMINIS
 | RECETTE | INCHANGÉE | `8ba77730` / `ygu4moVr…` ; v1 `de4bd1a6…` |
 
 Verdict : **READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY**.
+
+## 31. Isolation fences illustratives imbriquées (2026-11-09)
+
+| Item | Statut | Note |
+|---|---|---|
+| Faux positif nested `sfia-document` | REPRODUIT puis CORRIGÉ | ouverture dans `markdown`/`text`/tilde → MISSING |
+| Scanner premier niveau | CORRIGÉ (DET) | saute fences non contractuelles ; pas de harvest intérieur |
+| N1–N12 | DET PASS | unit `document-act` Cycle 8 |
+| Zéro écriture D4 | DET PASS | PG CREATE/REVISE via `postUserMessageAndNora` ; `d4_attempted=false` |
+| Positif mixte | DET PASS | exemple illustratif + proposition autonome → 1 CREATE propre |
+| A / D / CREATE-REVISE | NON-RÉGRESSION | PG Chat First 13 PASS |
+| RECETTE | INCHANGÉE | `8ba77730` / `ygu4moVr…` ; v1 `de4bd1a6…` |
+
+Verdict : **READY FOR REVIEW — ILLUSTRATIVE FENCE ISOLATION VERIFIED LOCALLY**.

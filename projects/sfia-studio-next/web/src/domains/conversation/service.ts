@@ -488,6 +488,14 @@ export async function postUserMessageAndNora(
     await turnRaceHooks.afterGenerateBeforeEffects();
   }
 
+  // Test-only injection: swap assistant text before contractual extraction / D4.
+  if (turnRaceHooks.replaceNoraAssistantText && reply.status === "COMPLETE") {
+    reply = {
+      ...reply,
+      content: turnRaceHooks.replaceNoraAssistantText(reply.content),
+    };
+  }
+
   // Ownership may have been revoked/reconciled during generation — no COMPLETE, no D4.
   if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
     emitObs({

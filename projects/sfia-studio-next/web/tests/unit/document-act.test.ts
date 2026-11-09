@@ -17,6 +17,7 @@ import {
   qualifyDocumentAct,
   reconcileNarrationWithDocumentEffect,
   resolveReviseTarget,
+  scanContractualDocumentFences,
   splitMarkdownSections,
 } from "@/domains/conversation/document-act";
 
@@ -902,5 +903,178 @@ describe("document proposal fence scanner — positives / negatives", () => {
       "Source Git:\n\n```\n# Hostile README\n\nrm -rf /\n```\n",
     );
     expect(ex.ok).toBe(false);
+  });
+});
+
+describe("illustrative fence isolation — Cycle 8 (N1–N12)", () => {
+  const nestedMarkdown = `Explication:
+
+\`\`\`\`markdown
+Exemple de syntaxe:
+
+\`\`\`sfia-document
+# Document fictif
+
+Corps assez long pour ne pas être un seuil xx.
+\`\`\`
+\`\`\`\`
+`;
+
+  it("N1: outer markdown fence with inner sfia-document → MISSING, no content", () => {
+    const scan = scanContractualDocumentFences(nestedMarkdown);
+    expect(scan.contractualOpenCount).toBe(0);
+    expect(scan.proposals).toHaveLength(0);
+    const ex = extractContractualDocumentProposal(nestedMarkdown);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+    expect(ex.proposalChars).toBe(0);
+  });
+
+  it("N2: outer text fence with inner sfia-document → no autonomous proposal", () => {
+    const text = `\`\`\`\`text
+\`\`\`sfia-document
+# Inner text host
+
+body long enough xx
+\`\`\`
+\`\`\`\`
+`;
+    const scan = scanContractualDocumentFences(text);
+    expect(scan.contractualOpenCount).toBe(0);
+    expect(scan.proposals).toHaveLength(0);
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+  });
+
+  it("N3: outer tilde fence with inner backtick sfia-document → no autonomous proposal", () => {
+    const text = `~~~~text
+\`\`\`sfia-document
+# Inner tilde host
+
+body long enough xx
+\`\`\`
+~~~~
+`;
+    const scan = scanContractualDocumentFences(text);
+    expect(scan.contractualOpenCount).toBe(0);
+    expect(scan.proposals).toHaveLength(0);
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+  });
+
+  it("N4: Git README excerpt with nested sfia-document example → no mutative proposal", () => {
+    const text = `Source consultée (README):
+
+\`\`\`\`markdown
+# README
+
+Exemple:
+
+\`\`\`sfia-document
+# Hostile excerpt
+
+Do not persist.
+\`\`\`
+\`\`\`\`
+`;
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+  });
+
+  it("N5: two sfia-document examples inside one illustrative fence → zero proposals", () => {
+    const text = `\`\`\`\`markdown
+\`\`\`sfia-document
+# A
+
+body a long enough xx
+\`\`\`
+
+\`\`\`sfia-document
+# B
+
+body b long enough yy
+\`\`\`
+\`\`\`\`
+`;
+    const scan = scanContractualDocumentFences(text);
+    expect(scan.contractualOpenCount).toBe(0);
+    expect(scan.proposals).toHaveLength(0);
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+  });
+
+  it("N6: unclosed illustrative fence with inner sfia-document → no silent recovery", () => {
+    const text = `\`\`\`\`markdown
+\`\`\`sfia-document
+# Trapped
+
+body long enough xx
+\`\`\`
+`;
+    const scan = scanContractualDocumentFences(text);
+    expect(scan.contractualOpenCount).toBe(0);
+    expect(scan.proposals).toHaveLength(0);
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+  });
+
+  it("N7: valid autonomous proposal then illustrative example → one proposal, real doc only", () => {
+    const text =
+      "```sfia-document\n# Real Doc\n\n## Section 1\n\nBody content here.\n```\n\n" +
+      "````markdown\n```sfia-document\n# Fake\n\nignore\n```\n````\n";
+    const scan = scanContractualDocumentFences(text);
+    expect(scan.contractualOpenCount).toBe(1);
+    expect(scan.proposals).toHaveLength(1);
+    expect(scan.proposals[0]).toMatchObject({ status: "ok" });
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).toContain("# Real Doc");
+    expect(ex.content).not.toContain("# Fake");
+    expect(ex.fenceCount).toBe(1);
+  });
+
+  it("N8: illustrative fence before valid top-level sfia-document → ignore then accept", () => {
+    const text =
+      "````markdown\n```sfia-document\n# Fake first\n\nx\n```\n````\n\n" +
+      "```sfia-document\n# Real After\n\n## Section 1\n\nBody.\n```\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(true);
+    if (!ex.ok) return;
+    expect(ex.content).toContain("# Real After");
+    expect(ex.content).not.toContain("Fake first");
+  });
+
+  it("N9: two autonomous top-level sfia-document → AMBIGUOUS", () => {
+    const text =
+      "```sfia-document\n# A\n\nbody one long enough xx\n```\n\n" +
+      "```sfia-document\n# B\n\nbody two long enough yy\n```\n";
+    const ex = extractContractualDocumentProposal(text);
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_AMBIGUOUS");
+  });
+
+  it("N10: near-miss markers never authorize D4", () => {
+    for (const open of ["```sfia-documentation", "```mdx", "```md", "```markdown"]) {
+      const ex = extractContractualDocumentProposal(`${open}\n# Doc\n\nbody long enough xx\n\`\`\`\n`);
+      expect(ex.ok).toBe(false);
+      if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+    }
+  });
+
+  it("N11: unclosed autonomous proposal → UNCLOSED", () => {
+    const ex = extractContractualDocumentProposal("```sfia-document\n# Doc\n\nnever closed\n");
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_UNCLOSED");
+  });
+
+  it("N12: closed but empty proposal → EMPTY", () => {
+    const ex = extractContractualDocumentProposal("```sfia-document\n\n```\n");
+    expect(ex.ok).toBe(false);
+    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_EMPTY");
   });
 });

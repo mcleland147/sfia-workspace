@@ -29,6 +29,7 @@ import {
   savePreparationDocument,
 } from "@/domains/document/service";
 import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
+import { turnRaceHooks } from "@/domains/conversation/turn-command";
 import {
   assertSectionScope,
   extractContractualDocumentProposal,
@@ -566,5 +567,126 @@ s
     const docs = await listDocuments(pilotId, prep.id);
     expect(docs).toHaveLength(1);
     expect(docs[0]!.latestRevision?.revisionNumber).toBe(1);
+  });
+
+  it("B-iso-neg CREATE: nested illustrative sfia-document → FAILED MISSING, zero D4 write", async () => {
+    const pilotId = await seedPilot("ml4-iso-create");
+    const prep = await openOrCreatePreparation(pilotId);
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "Je peux illustrer la syntaxe:\n\n" +
+      "````markdown\n" +
+      "```sfia-document\n" +
+      "# Document fictif imbriqué\n\n" +
+      "Ne doit jamais être persisté.\n" +
+      "```\n" +
+      "````\n";
+    try {
+      const chat = await postUserMessageAndNora(
+        pilotId,
+        prep.id,
+        "Rédige un document de synthèse sur Isolation Create",
+      );
+      expect(chat.documentSave?.status).toBe("FAILED");
+      expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+      expect(chat.documentSave?.act).toBe("CREATE");
+      expect(chat.documentSave?.documentId).toBeUndefined();
+      expect(chat.documentSave?.revisionId).toBeUndefined();
+      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
+      const msgs = await listMessages(pilotId, prep.id);
+      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+      expect(assistant?.content).not.toMatch(/enregistré avec succès/i);
+      expect(assistant?.content ?? "").toMatch(/DOCUMENT_PROPOSAL_MISSING|non enregistré|FAILED|proposition/i);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("B-iso-neg REVISE: nested illustrative sfia-document → FAILED MISSING, doc unchanged at v1", async () => {
+    const pilotId = await seedPilot("ml4-iso-revise");
+    const prep = await openOrCreatePreparation(pilotId);
+    const seeded = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Doc isolation revise",
+      "# Doc isolation revise\n\n## Section 1\n\na\n\n## Section 2\n\nb original\n\n## Section 3\n\nc\n",
+      undefined,
+      { correlationKey: newId("ck") },
+    );
+    expect(seeded.status).toBe("AVAILABLE");
+    if (seeded.status !== "AVAILABLE" || !seeded.documentId || !seeded.revisionId) {
+      throw new Error("seed AVAILABLE required");
+    }
+    const documentId = seeded.documentId;
+    const v1Body = await getDocumentRevision(pilotId, prep.id, documentId, seeded.revisionId);
+    expect(v1Body.status).toBe("AVAILABLE");
+    if (v1Body.status !== "AVAILABLE") return;
+
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "Exemple de révision:\n\n" +
+      "````markdown\n" +
+      "```sfia-document\n" +
+      "## Section 2 — Contenu révisé\n\n" +
+      "corps fictif imbriqué\n" +
+      "```\n" +
+      "````\n";
+    try {
+      const revised = await postUserMessageAndNora(
+        pilotId,
+        prep.id,
+        `Révise uniquement la section 2 du document ${documentId} et conserve le reste`,
+      );
+      expect(revised.documentSave?.status).toBe("FAILED");
+      expect(revised.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
+      expect(revised.documentSave?.act).toBe("REVISE");
+      const listed = await listDocumentRevisions(pilotId, prep.id, documentId);
+      expect(listed.status).toBe("AVAILABLE");
+      expect(listed.revisions).toHaveLength(1);
+      expect(listed.revisions[0]!.revisionNumber).toBe(1);
+      expect(listed.revisions[0]!.contentMarkdown).toBe(v1Body.revision.contentMarkdown);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("B-iso-pos: autonomous proposal beside illustrative example → single D4 CREATE", async () => {
+    const pilotId = await seedPilot("ml4-iso-pos");
+    const prep = await openOrCreatePreparation(pilotId);
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "Exemple illustratif (à ignorer):\n\n" +
+      "````markdown\n```sfia-document\n# Fake\n\nx\n```\n````\n\n" +
+      "Proposition autonome:\n\n" +
+      "```sfia-document\n" +
+      "# Synthèse isolation positive\n\n" +
+      "## Section 1 — Contexte\n\nContexte.\n\n" +
+      "## Section 2 — Analyse\n\nAnalyse réelle.\n\n" +
+      "## Section 3 — Suite\n\nSuite.\n" +
+      "```\n\n" +
+      "Compte rendu hors fence: non documentaire.\n";
+    try {
+      const chat = await postUserMessageAndNora(
+        pilotId,
+        prep.id,
+        "Rédige un document de synthèse sur Isolation Positive",
+      );
+      expect(chat.documentSave?.status).toBe("AVAILABLE");
+      expect(chat.documentSave?.act).toBe("CREATE");
+      expect(chat.documentSave?.revisionNumber).toBe(1);
+      const docs = await listDocuments(pilotId, prep.id);
+      expect(docs).toHaveLength(1);
+      const rev = await getDocumentRevision(
+        pilotId,
+        prep.id,
+        chat.documentSave!.documentId!,
+        chat.documentSave!.revisionId!,
+      );
+      expect(rev.status).toBe("AVAILABLE");
+      if (rev.status !== "AVAILABLE") return;
+      expect(rev.revision.contentMarkdown).toContain("# Synthèse isolation positive");
+      expect(rev.revision.contentMarkdown).toContain("Analyse réelle");
+      expect(rev.revision.contentMarkdown).not.toContain("# Fake");
+      expect(rev.revision.contentMarkdown).not.toContain("Compte rendu hors fence");
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
   });
 });

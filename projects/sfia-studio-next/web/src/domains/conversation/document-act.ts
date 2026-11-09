@@ -620,12 +620,38 @@ type ScannedProposal =
   | { status: "unclosed" };
 
 /**
- * Scan assistant Markdown for contractual `sfia-document` fences.
+ * Skip a non-contractual (illustrative) fence opened at `openIdx`.
+ * Content inside — including nested ```sfia-document examples — is opaque.
+ * Returns the line index after the closing fence, or `lines.length` if unclosed
+ * (caller must not harvest inner contractual markers from an unclosed illustrative).
+ */
+function skipIllustrativeFence(
+  lines: Array<{ text: string; start: number }>,
+  openIdx: number,
+  open: FenceMarker,
+): number {
+  for (let j = openIdx + 1; j < lines.length; j++) {
+    const cand = parseFenceMarkerLine(lines[j]!.text);
+    if (cand && isFenceClose(cand, open)) {
+      return j + 1;
+    }
+  }
+  return lines.length;
+}
+
+/**
+ * Scan assistant Markdown for autonomous top-level `sfia-document` fences.
  *
- * Line-oriented fence recognition (indent ≤ 3, backtick/tilde runs). Inside a
- * contractual proposal, nested code fences are tracked with a stack so an inner
- * ```bash … ``` does not terminate the outer proposal (document-integrity rule;
- * equal-length CommonMark alone would truncate — we refuse that silent failure).
+ * First-level structure:
+ * - conversational text (no fence);
+ * - illustrative fences (any non-`sfia-document` open) — opaque until closed;
+ * - autonomous contractual `sfia-document` fences — extractable proposals.
+ *
+ * Inside a contractual proposal, nested code fences are tracked with a stack so
+ * an inner ```bash … ``` does not terminate the outer proposal.
+ *
+ * A `sfia-document` marker nested inside an illustrative fence is never an
+ * autonomous proposal (isolation rule).
  */
 export function scanContractualDocumentFences(assistantText: string): {
   proposals: ScannedProposal[];
@@ -638,10 +664,19 @@ export function scanContractualDocumentFences(assistantText: string): {
 
   while (i < lines.length) {
     const open = parseFenceMarkerLine(lines[i]!.text);
-    if (!open || !isContractualProposalOpen(open)) {
+    if (!open) {
       i += 1;
       continue;
     }
+
+    // Illustrative / non-mutative fence: skip entirely (do not scan interior).
+    // Unclosed illustrative → advance to EOF; never promote interior markers.
+    if (!isContractualProposalOpen(open)) {
+      i = skipIllustrativeFence(lines, i, open);
+      continue;
+    }
+
+    // Autonomous contractual proposal at first level.
     contractualOpenCount += 1;
     const bodyStartLine = i + 1;
     const nest: Array<{ char: "`" | "~"; length: number }> = [];
