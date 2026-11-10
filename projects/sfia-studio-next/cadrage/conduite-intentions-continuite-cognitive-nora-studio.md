@@ -1,9 +1,9 @@
 # SFIA Studio Next — Conduite des intentions et continuité cognitive Nora/Studio
 
-**Nature :** cadrage produit complémentaire — référence d'exigences pour la conception architecturale  
-**Date :** 10 novembre 2026  
-**Statut :** VALIDATED IN CONTENT BY MORRIS — 2026-11-10 ; publication sur branche documentaire candidate, non mergée sur main  
-**Périmètre :** relation Pilote ↔ Nora ↔ capacités SFIA Studio Next, domaines D1–D9  
+**Nature :** cadrage produit complémentaire — référence d'exigences pour la conception architecturale\
+**Date :** 10 novembre 2026\
+**Statut :** VALIDATED IN CONTENT BY MORRIS — 2026-11-10 ; publication sur branche documentaire candidate, non mergée sur main\
+**Périmètre :** relation Pilote ↔ Nora ↔ capacités SFIA Studio Next, domaines D1–D9\
 **Objet :** expliciter le comportement produit attendu, sans prescrire les mécanismes techniques de réalisation.
 
 **Sources de cohérence :** [vision produit R1](vision-produit.md), [conduite gouvernée de Nora R2](../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [création de projet R2](../conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md), [décisions et gouvernance R2](../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md), [réalisation gouvernée R2](../conception-fonctionnelle/realisation-operationnelle-gouvernee.md), [intégration Git R2](../conception-fonctionnelle/integration-git-gouvernee.md). Ces références conservent leur autorité respective ; le présent texte n'annule pas leurs contrats.

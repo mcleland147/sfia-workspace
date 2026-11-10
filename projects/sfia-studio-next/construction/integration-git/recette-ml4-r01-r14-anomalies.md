@@ -12,7 +12,7 @@
 | Runtime RECETTE initial (historique R01–R06-D) | candidat `974b0030a94469bef05496151792e8c35a9a83e9`, tree `6ca5d0ad37114dc88cfe5fd821b4762fc7bcd357`, build `RzpCuGMK6SnwfucphK7Qa` ; identité issue du handoff Cursor, non revalidée sur chaque capture |
 | Runtime RECETTE correctif (retest R06-E/F) | candidat local `a2c5e9f8819cbe547bf925b39f38f783fc8aa52b`, tree `5d245e8adf1d32a7ceec6b129857d94f6398a488`, build `9yCs2GbSS5lDFX3LPiQTU`, bascule et conservation D4 rapportées dans handoff `sfia/review-handoff@9a23e0497b8ecc47bda429f168e0aad56e78e9dc` ; capture utilisateur du retest non liée directement à une lecture du build manifest |
 | Runtime RECETTE correctif (retest R06-G) | candidat local `8ba777300adebe3ba70ddbe3c386a3ad709034f6`, tree `368159d7e8cdbc0bbb504f87d6deb12c04e6b129`, build `ygu4moVrYUNZPkvprgvB_` selon handoff technique `sfia/review-handoff@5876ff0af94bdb4ace4b39c1526dddf5edd5918a` (blob `83496559fa26df0d95f54787cdc039565d22422c`) ; identification serveur rapportée, observation R06-G fournie par Morris |
-| Runtime RECETTE historique (R06-H / R07–R10 et première tentative R12) | candidat local `93da44beb7e7571c9406180027896769579b9815`, tree `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8`, build `sHkE8sHJBxD3U9AJdHWi7` ; déploiement technique rapporté dans `sfia/review-handoff@f501e38c93cb5ceecd2af10a3cc7742910b706ed`, blob `9d6cf4a364e27af8bb181aa9091d6467abf42886` ; preuves utilisateur distinctes | 
+| Runtime RECETTE historique (R06-H / R07–R10 et première tentative R12) | candidat local `93da44beb7e7571c9406180027896769579b9815`, tree `8b1b8a3e6bacfefd2dc9154c1cb6cef2e94953b8`, build `sHkE8sHJBxD3U9AJdHWi7` ; déploiement technique rapporté dans `sfia/review-handoff@f501e38c93cb5ceecd2af10a3cc7742910b706ed`, blob `9d6cf4a364e27af8bb181aa9091d6467abf42886` ; preuves utilisateur distinctes |
 | Runtime RECETTE de clôture de campagne (R12 CREATE réussi) | candidat local `771844fda083ce3c1858b77b0012e5bf2b801605`, tree `030a9e87064bade155ae3c585f9954d65d52687f`, BUILD_ID `SmL2kyWbd1Q3kIuwNw0mQ` ; déploiement ENV-01 validé par le handoff `sfia/review-handoff@d7a6eb7bbf90054d0b4b60c8fc0ce99b49400aa8` (blob `ceefd1682ec5ef94279fb74dd60263fdb5aa7ebb`). Preuves LIVE distinctes : nouvelle v1 D4 `AVAILABLE` ; préparation Git bloquée. |
 | Handoff environnement | `sfia/review-handoff@b70331129385a4996d9202863fa060d9b850242c`, `TEST_BOUNDARY` restauré, Nora LIVE smoke `UNKNOWN / PROVIDER_ERROR` initial |
 | Git local, staged, untracked, services présents | **NON OBSERVÉS directement** ; aucune conclusion sur l'état du Mac hors observations utilisateur et handoffs |
@@ -440,7 +440,7 @@ Le statut **NEUTRE / NOT RUN** est un choix de campagne : absence de test, non �
 | R12 | **PARTIAL / BLOCKED** | CREATE D4 LIVE PASS ; préparation Git bloquée `DENIED/404`, aucun commit |
 | R13 | **NEUTRE / NOT RUN** | À reprendre après capacité de publication R12 |
 | R14 | **NEUTRE / NOT RUN** | À reprendre après capacité de publication R12, sans toucher à PR #18 |
- 
+
 ### 10.4 Projection consolidée des 22 critères ML4-AT
 
 Cette table est **le bilan de campagne**, pas une modification de la matrice candidate sur `main`. Un PASS borné décrit exclusivement l'oracle exercé ; `PARTIAL` ne vaut pas validation complète. Les critères sans test sont explicitement `NOT RUN`.
