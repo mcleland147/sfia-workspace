@@ -1,5 +1,32 @@
 # SFIA Studio Next — Living Roadmap
 
+> **ÉTAT COURANT R5 — CP0 VALIDATED IN CONTENT BY MORRIS (2026-11-10 ; PUBLICATION DOCUMENTAIRE SUR BRANCHE CANDIDATE)** : [décision de trajectoire ML4B/ML4C](decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md). Baseline de cadrage `main@0182b0a7053babefe33aa4de181631b21613ac69`. Ce bloc actualise les statuts du programme sans effacer les instantanés datés ci-dessous. Aucune PR, fusion `main`, exécution Cursor, promotion, release ou adoption n'est autorisée par CP0.
+
+## R5 — Réconciliation et convergence produit avant ML5 (2026-11-10, CP0)
+
+**Finalité :** confronter le produit effectivement construit à la vision Pilote–Nora et aux exigences validées, puis faire converger ses capacités fonctionnelles, conversationnelles et UX avant d'engager la réalisation technique Cursor.
+
+**État au HEAD de cadrage :**
+- **ML1 :** clôturé par Morris avec réserves ; intégré via PR #649.
+- **ML2 :** recette fonctionnelle acceptée avec réserves ; intégré via PR #659 ; ne pas inférer de nouvelle clôture formelle.
+- **ML3 :** clôturé par Morris avec réserves ; intégré via PR #661.
+- **ML4 :** code intégré sur `main` via [PR #672](https://github.com/mcleland147/sfia-workspace/pull/672), mergée le 10 novembre 2026 ; première campagne RECETTE terminée avec réserves, sans acceptation globale. Rejeux correctifs et scénarios non exécutés à considérer avec leur portée exacte dans le [registre de RECETTE](../construction/integration-git/recette-ml4-r01-r14-anomalies.md). Aucune conclusion `BEHAVIOR PROVEN` globale.
+- **ML4B :** trajectoire approuvée ; diagnostic de réconciliation à ouvrir, sans GO code.
+- **ML4C :** trajectoire approuvée ; périmètre de convergence à arbitrer au gate ML4B ; aucune construction autorisée par CP0.
+- **ML5 :** réalisation technique gouvernée avec Cursor selon [décision de séquencement](decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md), construction non engagée.
+- **R6 :** qualification globale non démarrée ; `STABLE`, release et `ADOPTED` non acquis.
+
+**Trajectoire R5 :** `ML1–ML4 → ML4B réconciliation → Gate Morris B → ML4C convergence → Gate Morris C → ML5 Cursor → R6`.
+
+**ML4B — Réconciliation produit et conformité des capacités.** Comparer les contrats théoriques et leurs décisions d'évolution, la vision R1 et les exigences R2, le code intégré et les comportements réellement prouvés. Sortie : matrice de couverture traçable, écarts qualifiés, risques, dépendances, options et arbitrages Morris. Les correctifs techniques et les modifications UX sont hors de ce diagnostic, sauf mandat dérogatoire distinct en cas de risque critique.
+
+**ML4C — Convergence fonctionnelle et expérience Pilote–Nora.** Sur la base des écarts arbitrés, synchroniser comportements, conduite cognitive de Nora, contrats, parcours UX/Figma, composants, code, documentation et preuves de bout en bout. Réutiliser [le dossier de convergence existant](../construction/convergence-ux-parcours-pilote-nora/qualification.md), ainsi que les décisions A1–A3 et P1–P3/F1–F2 déjà validées, sans second moteur de décision ou d'effets ni multiplication de micro-lots par écran. ML5 conserve l'exécution technique Cursor hors de ML4C.
+
+**Checkpoints :** CP0 trajectoire approuvée en contenu et contribution documentaire bornée ; CP1 diagnostic ML4B et gate B ; CP2 contrat de convergence et GO technique distinct ; CP3 réalisation/RECETTE et gate C ; CP4 qualification d'ouverture de ML5. Les documents R1–R5 restent propriétaires de leurs exigences et historiques. **Aucune requalification automatique des clôtures passées, ni GO PR/merge ou promotion.**
+
+---
+
+
 > **2026-11-07 — CONVERGENCE UX / G3 A1+A2 VALIDATED SPEC MORRIS** : [contrat technique G3 v1.1 §7](../construction/convergence-ux-parcours-pilote-nora/contrat-technique-convergence-ux.md) : A1 `GET /api/portfolio` additif, liste 25/page, pagination keyset et reprise sans POST ; A2 lien profond `/projects/{projectId}?surface=document&documentId={documentId}` read-only, révision D4 seulement sur action explicite avec version/corrélation. **G1 validé ; G2 source partiel avec L2 + PNG Figma hashés absents ; G3 choix A1/A2 validés mais préflight/contrat d'exécution à qualifier ; G4 NO GO Cursor ; G5 NOT RUN.** [Préflight G2](../construction/convergence-ux-parcours-pilote-nora/protocole-preflight-source-figma.md). Cette entrée prévaut sur les formulations candidates antérieures sans effacer leur historique.
 
 > **2026-11-07 — CONVERGENCE UX / DOSSIER G2-G3 ACTUALISÉ** : les pièces [préflight Figma G2](../construction/convergence-ux-parcours-pilote-nora/protocole-preflight-source-figma.md), [contrat technique G3 v1 candidat](../construction/convergence-ux-parcours-pilote-nora/contrat-technique-convergence-ux.md) et [revue des gates](../construction/convergence-ux-parcours-pilote-nora/revue-gates-g2-g3.md) sont intégrées comme **préparation validée en orientation par Morris**. G1 reste `VALIDATED SPEC` ; G2-`Source PARTIAL` (L2 et PNG SHA-256 incomplets) ; G3-`CANDIDATE` (volumétrie A1 et lien profond A2 à borner) ; G4 **sans GO Cursor** ; G5 `NOT RUN`. Préflight G2 bloquant **avant tout code UI**, calibration image G5 après le premier rendu, sans ouvrir ML4 technique ni ML5 produit. Cette note est prioritaire sur les snapshots précédents, qui restent historiques.
