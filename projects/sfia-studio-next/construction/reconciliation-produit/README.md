@@ -56,7 +56,7 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 | Ensemble | Restitution actuelle | État |
 | --- | --- | --- |
 | **ML1 — Accès, sas, création et continuité** | [Diagnostic ML1](ml1/diagnostic-acces-preparation-creation.md), [D1 (55)](ml1/verification-detaillee-acces-portefeuille.md), [D2 (60)](ml1/verification-detaillee-sas-creation-continuite.md), [E2E01/D3–D4](ml1/reconciliation-e2e01-nora-connaissance.md), [Consolidation ML1↔ML2–ML4](ml1/consolidation-capacites-reserves-ml2-ml4.md) | **115/115 IDs D1/D2 rattachés ; 8/8 capacités ML1 et A01–A16 consolidés** avec apports ML2–ML4 et réserves. **Ni conformité LIVE globale, ni Figma, ni gate CP1** |
-| **ML2 — Production et capitalisation** | Matrice R5 canonique [ML2](../ml2-production-et-capitalisation-nora/matrice-tracabilite.md) | Pré-inventaire ; qualité de mémoire proactive et restitution Nora à prouver |
+| **ML2 — Production et capitalisation** | [Contrats et 17 capacités](ml2/diagnostic-ml2-contrats-capacites.md) · [46 règles/parcours D4](ml2/verification-detaillee-connaissance-d4.md) · [Matrice canonique R5](../ml2-production-et-capitalisation-nora/matrice-tracabilite.md) | **17/17 capacités initialement raccordées au code** ; **46/46 D4 RG/PF individuellement cartographiées** ; D3 (118 références) et E2E03/E2E04 à approfondir ; LIVE/Figma non certifiés |
 | **ML3 — Pilotage et décisions** | Matrice et contrat [ML3](../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) | Pré-inventaire ; couverture de guidance et frontières d'autorité à requalifier |
 | **ML4 — Collaboration et Git** | [Registre de RECETTE](../ml4-integration-git/recette-ml4-r01-r14-anomalies.md) | Code mergé (#672), première campagne non acceptée globalement ; R13/R14 NOT RUN |
 | **UX transversal** | [G4 as-built](../convergence-ux-parcours-pilote-nora/as-built-g4-figma-ux-transposition-2026-11-08.md) | 19/20 frames **déclarées** implémentées, 1 partielle ; F2/G5 NOT RUN : aucune conformité visuelle acquise |
@@ -102,6 +102,14 @@ Le [bilan de consolidation ML1](ml1/consolidation-capacites-reserves-ml2-ml4.md)
 **Distinctions structurantes :** fil et document durables ≠ mémoire cognitive pertinente ; test de rejeu PG ≠ perte d'ACK avec reprise navigateur ; création D2 réelle ≠ mission D3/D4 terminée ; validation de transposition G4 ≠ conformité Figma ; **CI Next et isolation de cookie DEV par lane ont progressé**, sans passer automatiquement en STABLE/R6. La **contradiction ACK D4 / narration Nora** a été observée en RECETTE ML4 et reste une réserve transverse ouverte.
 
 **Avancement :** `ML1 8/8 CAPACITIES CONSOLIDATED / QA A01–A16 RECONCILED / NO GLOBAL BEHAVIOR PROVEN / CP1 IN PROGRESS`. **Prochaine analyse en profondeur : ML2**, sur les mêmes exigences de granularité et preuve, puis ML3/ML4 et le gate B.
+
+## 5.5. ML2 — Contrats, 17 capacités et revue individuelle D4
+
+Le [premier diagnostic ML2](ml2/diagnostic-ml2-contrats-capacites.md) reconstitue les **17 capacités R5 ML2-COH-01..17** du travail Nora, documents, connaissance et interfaces, avec les codes réellement présents, les suites de tests et les limites de leurs preuves historiques. Les sources R2 D3 et D4 montrent **164 références documentaires** au total, dont certaines sont candidates ou relèvent fonctionnellement d'autres macro-lots ; ce nombre n'est pas un score de conformité.
+
+La [matrice D4](ml2/verification-detaillee-connaissance-d4.md) vérifie **46/46 IDs** (`20 RG + 14 PF` validés ou approuvés en contenu, `6 RG + 6 PF` candidats), avec contrat, réalisation et preuve/réserve. **Il reste à faire la revue individuelle D3 (74 RG + 44 PF), la reconstitution E2E03/E2E04 et les comparaisons Figma/runtime**.
+
+**Premiers constats :** stockage et versions D4 solides au niveau DB/PG ; récupération et capitalisation sélectionnées lexicalement, utilité cognitive LIVE non démontrée globalement ; contradiction historique entre effet documentaire `AVAILABLE` et restitution de Nora ; sûreté de lecture D4 en code mais révocation/continuité REAL à requalifier. Ces constats restent liés aux registres ML1/ML4 propriétaires, **sans doublon ni GO de correction**.
 
 ## 6. Preuve UX à produire et gate CP1
 
