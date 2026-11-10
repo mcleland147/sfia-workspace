@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   appendMissionAck,
+  attemptIsNoraMission,
   composeCanonicalMissionRestitution,
   formatMissionAck,
+  isNoraMissionPublicationKey,
   missionCorrelationKeys,
   qualifyPublicationMission,
   type MissionProjection,
@@ -18,11 +20,28 @@ describe("mission-continuity helpers", () => {
     expect(m.wantsDocumentCreate).toBe(true);
     expect(m.wantsPublish).toBe(true);
     expect(m.targetPath).toBe("docs/studio-next/mission.md");
+    expect(m.needsExplicitPath).toBe(false);
   });
 
-  it("does not treat simple chat as publish mission", () => {
-    const m = qualifyPublicationMission("Explique la différence entre blob et commit");
+  it("P1-E: does not treat GitHub subject mention as publish action", () => {
+    const m = qualifyPublicationMission("Explique la différence entre blob et commit sur GitHub");
     expect(m.wantsPublish).toBe(false);
+    expect(m.wantsDocumentCreate).toBe(false);
+  });
+
+  it("P1-E: publish without path requires clarification (no silent default)", () => {
+    const m = qualifyPublicationMission(
+      "Crée un document intitulé X et publie-le dans mon dépôt GitHub",
+    );
+    expect(m.wantsPublish).toBe(true);
+    expect(m.needsExplicitPath).toBe(true);
+    expect(m.targetPath).toBeNull();
+    expect(m.clarify).toMatch(/chemin/i);
+  });
+
+  it("P1-E: ambiguous publish without CREATE", () => {
+    const m = qualifyPublicationMission("publie-le sur GitHub chemin docs/a.md");
+    expect(m.wantsPublish).toBe(true);
     expect(m.wantsDocumentCreate).toBe(false);
   });
 
@@ -30,6 +49,10 @@ describe("mission-continuity helpers", () => {
     const keys = missionCorrelationKeys("intent-abc");
     expect(keys.document).toBe("doc:mission:intent-abc");
     expect(keys.publication).toBe("pub:mission:intent-abc");
+    expect(isNoraMissionPublicationKey(keys.publication)).toBe(true);
+    expect(isNoraMissionPublicationKey("pub-project-rev-123")).toBe(false);
+    expect(attemptIsNoraMission({ correlationKey: keys.publication })).toBe(true);
+    expect(attemptIsNoraMission({ correlationKey: "pub-classic-panel" })).toBe(false);
   });
 
   it("mission ACK states AWAITING_PILOT_AUTH without HD", () => {

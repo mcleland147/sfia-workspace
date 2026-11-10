@@ -50,11 +50,20 @@ import {
   missionCorrelationKeys,
   preparePublicationForMission,
   qualifyPublicationMission,
+  recoverAuthorizedNoraMissions,
   type MissionProjection,
 } from "./mission-continuity";
 
 export async function listMessages(pilotId: string, preparationId: string) {
   const ctx = await getPreparationContext(pilotId, preparationId);
+  // P0-B: reconnection / chat reload — recover AUTHORIZED Nora missions without "continue".
+  if (ctx.project?.id) {
+    try {
+      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
+    } catch {
+      /* never block message listing */
+    }
+  }
   if (!ctx.conversation) return [];
   return db
     .select()
@@ -271,6 +280,15 @@ export async function postUserMessageAndNora(
   const requestId = opts?.requestId ?? newRequestId();
   const ctx = await getPreparationContext(pilotId, preparationId);
   if (!ctx.conversation) throw new StudioError("NOT_FOUND", "Préparation introuvable");
+
+  // P0-B: next nominal turn recovers AUTHORIZED Nora missions (crash after D6).
+  if (ctx.project?.id) {
+    try {
+      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
+    } catch {
+      /* never block the new turn */
+    }
+  }
 
   const clientTurnKey =
     opts?.clientTurnKey?.trim() ||
@@ -1017,7 +1035,6 @@ export async function postUserMessageAndNora(
     missionIntent.wantsPublish &&
     ctx.project?.id
   ) {
-
     const steps: MissionProjection["steps"] = [
       {
         id: "d4_create",
@@ -1029,7 +1046,23 @@ export async function postUserMessageAndNora(
       },
     ];
 
-    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+    // P1-E: no silent path/branch deduction — clarify before D7 prepare.
+    if (missionIntent.needsExplicitPath) {
+      steps.push({
+        id: "d7_prepare",
+        capabilityId: "d7.prepare_publication",
+        status: "PENDING",
+        correlationKey: missionKeys.publication,
+        reason: missionIntent.clarify ?? "PATH_REQUIRED",
+      });
+      missionProjection = {
+        clientIntentKey,
+        status: "AWAITING_CLARIFICATION",
+        goalSummary: "CREATE D4 confirmé — chemin Git requis avant préparation",
+        steps,
+        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+      };
+    } else if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
       const prepared = await preparePublicationForMission({
         pilotId,
         projectId: ctx.project.id,

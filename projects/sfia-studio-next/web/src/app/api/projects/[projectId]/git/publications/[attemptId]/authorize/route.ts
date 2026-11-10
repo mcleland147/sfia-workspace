@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { resumeMissionAfterPublicationAuthorize } from "@/domains/conversation/mission-continuity";
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { effectAttempts } from "@/db/schema";
+import {
+  attemptIsNoraMission,
+  resumeMissionAfterPublicationAuthorize,
+} from "@/domains/conversation/mission-continuity";
 import { authorizePublication } from "@/domains/execution/effect-service";
 import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
@@ -14,7 +20,10 @@ export async function POST(
     const body = (await req.json()) as {
       statement?: string;
       inspectedFingerprint?: string;
-      /** When false, skip automatic post-authorization dispatch (tests / inspection-only). Default true. */
+      /**
+       * Test escape hatch only. Membership to a Nora mission is decided SERVER-SIDE
+       * via correlationKey `pub:mission:*` — never via this client flag alone.
+       */
       autoResumeMission?: boolean;
     };
     if (!body.inspectedFingerprint) {
@@ -30,10 +39,32 @@ export async function POST(
       statement: body.statement ?? "Mandat publication Git",
       inspectedFingerprint: body.inspectedFingerprint,
     });
-    // P0: authorize IS the Pilot act (creates HD APPLICABLE). Then resume dispatch automatically.
+
+    // P0-A: auto-resume ONLY for server-qualified Nora missions.
+    // Classic panel prepares (`pub-${projectId}-…`) keep authorize → manual dispatch.
+    const attemptRow = (
+      await db
+        .select()
+        .from(effectAttempts)
+        .where(
+          and(
+            eq(effectAttempts.id, attemptId),
+            eq(effectAttempts.projectId, projectId),
+            eq(effectAttempts.pilotId, session.pilotId),
+          ),
+        )
+        .limit(1)
+    )[0];
+
     let missionResume: Awaited<ReturnType<typeof resumeMissionAfterPublicationAuthorize>> | null =
       null;
-    if (body.autoResumeMission !== false && result.status === "AUTHORIZED") {
+    const isMission = attemptRow ? attemptIsNoraMission(attemptRow) : false;
+    if (
+      isMission &&
+      body.autoResumeMission !== false &&
+      (result.status === "AUTHORIZED" || result.status === "COMPLETED" || result.status === "DISPATCHED")
+    ) {
+      // Immediate resume in this request; P0-B recoverAuthorizedNoraMissions covers crash window.
       missionResume = await resumeMissionAfterPublicationAuthorize({
         pilotId: session.pilotId,
         projectId,
@@ -41,7 +72,12 @@ export async function POST(
         decisionId: result.decisionId,
       });
     }
-    return NextResponse.json({ ...result, missionResume });
+
+    return NextResponse.json({
+      ...result,
+      noraMission: isMission,
+      missionResume,
+    });
   } catch (e) {
     const mapped = studioErrorResponse(e);
     return NextResponse.json(mapped.body, { status: mapped.status });

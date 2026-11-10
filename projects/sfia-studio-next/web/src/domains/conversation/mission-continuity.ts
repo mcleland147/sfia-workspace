@@ -2,8 +2,11 @@
  * Mission continuity — logical helpers inside D3 (NOT a parallel engine).
  * Anchors wait on effect_attempts PREPARED; never calls authorize for "waiting".
  * Owner truth remains D4/D6/D7; MissionProjection is refs-only.
+ *
+ * Git-specific adapters (PUBLISH_RE, pub:mission: keys) stay here as domain
+ * adaptations — the cognitive continue helper is capacity-agnostic.
  */
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, like, or } from "drizzle-orm";
 import { db } from "@/db/client";
 import { conversations, effectAttempts, messages } from "@/db/schema";
 import {
@@ -13,7 +16,6 @@ import {
 } from "@/domains/execution/effect-service";
 import { listProjectGitLinks } from "@/domains/integrations/project-link-service";
 import { StudioError } from "@/lib/http-errors";
-import { newId } from "@/lib/ids";
 import { emitObs } from "@/lib/observability";
 import { generateNoraReply } from "./nora-adapter";
 import type { DocumentEffectSummary } from "./document-act";
@@ -22,6 +24,7 @@ import { qualifyDocumentAct } from "./document-act";
 export type MissionStatus =
   | "ACTIVE"
   | "AWAITING_PILOT_AUTH"
+  | "AWAITING_CLARIFICATION"
   | "RESTITUTION_PENDING"
   | "PARTIAL_FAILED_STEP"
   | "COMPLETED"
@@ -59,34 +62,65 @@ export type PublicationMissionIntent = {
   wantsDocumentCreate: boolean;
   wantsPublish: boolean;
   targetPath: string | null;
-  targetBranch: string;
+  targetBranch: string | null;
   ambiguous: boolean;
+  needsExplicitPath: boolean;
   clarify?: string;
 };
 
-const PUBLISH_RE =
-  /\b(?:publie|publier|publication|pousse(?:r)?\s+(?:(?:le|la|ce|cet|cette)\s+)?(?:document|fichier)?|sur\s+(?:mon\s+)?d[eé]p[oô]t|dans\s+(?:mon\s+)?d[eé]p[oô]t|github)\b/i;
+/** Server-side marker: only attempts prepared with this prefix are Nora missions. */
+export const NORA_MISSION_PUB_PREFIX = "pub:mission:";
+
+/**
+ * Publish ACTION verbs — not mere mention of GitHub/dépôt as a subject.
+ * P1-E: "explique GitHub" must not trigger D7 prepare.
+ */
+const PUBLISH_ACTION_RE =
+  /\b(?:publie(?:-le|-la|-les|-moi)?|publier|pousse(?:-le|-la|-les)?|pousser)\b/i;
+
 const PATH_RE =
   /(?:(?:chemin|path|fichier)\s*[:=]?\s*|sous\s+)[`"]?([A-Za-z0-9_./\-]+\.(?:md|markdown|txt))[`"]?/i;
+
+const BRANCH_RE =
+  /(?:branche|branch)\s*[:=]?\s*[`"]?([A-Za-z0-9._/\-]+)[`"]?/i;
+
+export function isNoraMissionPublicationKey(correlationKey: string): boolean {
+  return correlationKey.startsWith(NORA_MISSION_PUB_PREFIX);
+}
+
+export function attemptIsNoraMission(row: { correlationKey: string }): boolean {
+  return isNoraMissionPublicationKey(row.correlationKey);
+}
 
 export function qualifyPublicationMission(userText: string): PublicationMissionIntent {
   const act = qualifyDocumentAct(userText);
   const wantsDocumentCreate = act.kind === "CREATE";
-  const wantsPublish = PUBLISH_RE.test(userText);
+  const wantsPublish = PUBLISH_ACTION_RE.test(userText);
   const pathMatch = userText.match(PATH_RE);
+  const branchMatch = userText.match(BRANCH_RE);
   const targetPath = pathMatch?.[1] ?? null;
-  if (wantsPublish && !wantsDocumentCreate && act.kind === "NONE") {
-    // Publish-only without new doc — still a mission if revise/create unclear
+  const targetBranch = branchMatch?.[1] ?? null;
+  const needsExplicitPath = wantsPublish && !targetPath;
+  const ambiguous =
+    wantsPublish &&
+    ((needsExplicitPath && true) || (!wantsDocumentCreate && act.kind === "NONE"));
+
+  let clarify: string | undefined;
+  if (wantsPublish && needsExplicitPath) {
+    clarify =
+      "Chemin cible de publication non précisé — indiquer le chemin (ex. chemin docs/studio-next/x.md) avant préparation Git.";
+  } else if (wantsPublish && !wantsDocumentCreate && act.kind === "NONE") {
+    clarify = "Publication demandée sans document CREATE/REVISE explicite — préciser le document cible.";
   }
+
   return {
     wantsDocumentCreate,
     wantsPublish,
     targetPath,
-    targetBranch: "main",
-    ambiguous: wantsPublish && !wantsDocumentCreate && act.kind === "NONE",
-    clarify: wantsPublish && !targetPath
-      ? "Chemin cible non précisé — défaut docs/studio-next/publication.md si un seul dépôt est rattaché."
-      : undefined,
+    targetBranch,
+    ambiguous: Boolean(ambiguous),
+    needsExplicitPath,
+    clarify,
   };
 }
 
@@ -97,7 +131,7 @@ export function missionCorrelationKeys(clientIntentKey: string): {
   const key = clientIntentKey.trim();
   return {
     document: `doc:mission:${key}`,
-    publication: `pub:mission:${key}`,
+    publication: `${NORA_MISSION_PUB_PREFIX}${key}`,
   };
 }
 
@@ -123,8 +157,11 @@ export function formatMissionAck(mission: MissionProjection): string {
       "",
       "Préparation Git PREPARED — aucune HumanDecision créée.",
       "Autorisation Pilote requise (authorizePublication) avant toute publication.",
-      "Après autorisation, Studio reprend automatiquement le dispatch.",
+      "Après autorisation, Studio reprend automatiquement le dispatch pour cette mission Nora.",
     );
+  }
+  if (mission.status === "AWAITING_CLARIFICATION") {
+    lines.push("", "Précision Pilote requise avant préparation Git (pas d'effet D7).");
   }
   if (mission.status === "RESTITUTION_PENDING") {
     lines.push(
@@ -185,6 +222,25 @@ export function composeCanonicalMissionRestitution(input: {
   return lines.join("\n");
 }
 
+/** Capacity-agnostic facts continue — reuses generateNoraReply (no second runner). */
+export async function cognitiveContinueFromFacts(input: {
+  userText: string;
+  factsBlock: string;
+  contextSnippets: string[];
+  toolScope?: Parameters<typeof generateNoraReply>[0]["toolScope"];
+}): Promise<Awaited<ReturnType<typeof generateNoraReply>>> {
+  return generateNoraReply({
+    userText:
+      `${input.userText}\n\n` +
+      `### Faits applicatifs confirmés (non négociables — ne pas les contredire)\n` +
+      `${input.factsBlock}\n\n` +
+      `Produis une restitution fidèle à ces faits. N'affirme aucun effet absent de cette liste. ` +
+      `Si des étapes restent dans l'intention, propose la suite sans réexécuter les effets confirmés.`,
+    contextSnippets: input.contextSnippets,
+    toolScope: input.toolScope,
+  });
+}
+
 export async function preparePublicationForMission(input: {
   pilotId: string;
   projectId: string;
@@ -192,7 +248,7 @@ export async function preparePublicationForMission(input: {
   revisionId: string;
   clientIntentKey: string;
   targetPath: string | null;
-  targetBranch: string;
+  targetBranch: string | null;
 }): Promise<
   | {
       ok: true;
@@ -205,6 +261,14 @@ export async function preparePublicationForMission(input: {
     }
   | { ok: false; code: string; message: string }
 > {
+  if (!input.targetPath) {
+    return {
+      ok: false,
+      code: "PATH_REQUIRED",
+      message:
+        "Chemin de publication non précisé — aucune préparation D7 (pas de défaut silencieux).",
+    };
+  }
   const links = await listProjectGitLinks(input.pilotId, input.projectId);
   if (links.length === 0) {
     return {
@@ -221,7 +285,8 @@ export async function preparePublicationForMission(input: {
     };
   }
   const repositoryId = links[0]!.repositoryId;
-  const targetPath = input.targetPath ?? "docs/studio-next/publication.md";
+  const targetPath = input.targetPath;
+  const targetBranch = input.targetBranch ?? "main";
   const keys = missionCorrelationKeys(input.clientIntentKey);
   try {
     const prepared = await preparePublication({
@@ -231,7 +296,7 @@ export async function preparePublicationForMission(input: {
       revisionId: input.revisionId,
       repositoryId,
       targetPath,
-      targetBranch: input.targetBranch,
+      targetBranch,
       correlationKey: keys.publication,
     });
     return {
@@ -251,15 +316,25 @@ export async function preparePublicationForMission(input: {
   }
 }
 
+function missionResumeMessageId(attemptId: string): string {
+  return `msg_mresume_${attemptId}`;
+}
+
+function missionResumeGenerationId(attemptId: string): string {
+  return `mission-resume:${attemptId}`;
+}
+
 /**
- * After Pilot authorizePublication — automatic dispatch (no extra "continue" message).
+ * After Pilot authorizePublication — automatic dispatch for Nora missions only.
  * Idempotent: COMPLETED returns without re-dispatch; DISPATCHED → reconcile.
+ * Restitution message is unique per attempt (P1-C).
+ * Cognitive continue after observed result (P1-D), canonical fallback.
  */
 export async function resumeMissionAfterPublicationAuthorize(input: {
   pilotId: string;
   projectId: string;
   attemptId: string;
-  decisionId: string | null | undefined;
+  decisionId?: string | null;
 }): Promise<{
   dispatched: boolean;
   reconciled: boolean;
@@ -268,6 +343,7 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
   conversationMessageId: string | null;
   prNumber?: number | null;
   commitSha?: string | null;
+  cognitiveContinue?: "DELIVERED" | "CANONICAL" | "SKIPPED";
   error?: string;
 }> {
   const row = (
@@ -291,6 +367,19 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
       restitution: "Tentative introuvable — aucune publication.",
       conversationMessageId: null,
       error: "NOT_FOUND",
+    };
+  }
+
+  if (!attemptIsNoraMission(row)) {
+    return {
+      dispatched: false,
+      reconciled: false,
+      status: row.status,
+      restitution:
+        "Tentative hors mission Nora — reprise auto refusée (parcours classique authorize→dispatch).",
+      conversationMessageId: null,
+      error: "NOT_NORA_MISSION",
+      cognitiveContinue: "SKIPPED",
     };
   }
 
@@ -334,7 +423,6 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
       error_category: code,
       meta: { attempt_id: input.attemptId },
     });
-    // Best-effort reconcile if DISPATCHED after partial failure
     try {
       const again = (
         await db.select().from(effectAttempts).where(eq(effectAttempts.id, input.attemptId)).limit(1)
@@ -358,7 +446,30 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
     revisionId?: string;
   };
 
-  const restitution = composeCanonicalMissionRestitution({
+  const finalRow = (
+    await db.select().from(effectAttempts).where(eq(effectAttempts.id, input.attemptId)).limit(1)
+  )[0];
+  const resultPayload = (() => {
+    try {
+      return JSON.parse(finalRow?.resultJson || "{}") as {
+        prNumber?: number | null;
+        commitSha?: string | null;
+        sha?: string | null;
+        missionResumeMessageId?: string | null;
+      };
+    } catch {
+      return {} as {
+        prNumber?: number | null;
+        commitSha?: string | null;
+        sha?: string | null;
+        missionResumeMessageId?: string | null;
+      };
+    }
+  })();
+  const prNumber = resultPayload.prNumber ?? null;
+  const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
+
+  const canonical = composeCanonicalMissionRestitution({
     documentEffect: plan.documentId
       ? {
           act: "CREATE",
@@ -378,35 +489,60 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
         : "Reprise post-autorisation exécutée — voir statut publication.",
   });
 
-  let conversationMessageId: string | null = null;
+  const factsBlock = [
+    `Publication attemptId=${input.attemptId} status=${status}`,
+    input.decisionId || row.decisionId
+      ? `decisionId=${input.decisionId ?? row.decisionId}`
+      : null,
+    plan.documentId ? `documentId=${plan.documentId}` : null,
+    plan.revisionId ? `revisionId=${plan.revisionId}` : null,
+    prNumber != null ? `prNumber=${prNumber}` : null,
+    commitSha ? `commitSha=${commitSha}` : null,
+    detail ? `detail=${detail}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  let restitution = canonical;
+  let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
+  try {
+    // No turn operationId here — facts-only continue without tool scope (still generateNoraReply).
+    const continued = await cognitiveContinueFromFacts({
+      userText:
+        "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
+      factsBlock,
+      contextSnippets: [],
+    });
+    if (continued.status === "COMPLETE" && continued.content.trim()) {
+      restitution = `${continued.content.trim()}\n\n---\n${canonical}`;
+      cognitiveContinue = "DELIVERED";
+    }
+  } catch {
+    cognitiveContinue = "CANONICAL";
+  }
+
+  let conversationMessageId: string | null = resultPayload.missionResumeMessageId ?? null;
   if (plan.preparationId) {
     try {
       conversationMessageId = await appendAssistantMissionMessage({
         pilotId: input.pilotId,
         preparationId: plan.preparationId,
+        attemptId: input.attemptId,
         content: restitution,
       });
+      // Persist message id on attempt for crash/retry idempotence
+      const merged = {
+        ...resultPayload,
+        missionResumeMessageId: conversationMessageId,
+      };
+      await db
+        .update(effectAttempts)
+        .set({ resultJson: JSON.stringify(merged), updatedAt: new Date() })
+        .where(eq(effectAttempts.id, input.attemptId));
     } catch {
-      conversationMessageId = null;
+      /* keep prior id if any */
     }
   }
-
-  const finalRow = (
-    await db.select().from(effectAttempts).where(eq(effectAttempts.id, input.attemptId)).limit(1)
-  )[0];
-  const resultPayload = (() => {
-    try {
-      return JSON.parse(finalRow?.resultJson || "{}") as {
-        prNumber?: number | null;
-        commitSha?: string | null;
-        sha?: string | null;
-      };
-    } catch {
-      return {} as { prNumber?: number | null; commitSha?: string | null; sha?: string | null };
-    }
-  })();
-  const prNumber = resultPayload.prNumber ?? null;
-  const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
 
   emitObs({
     event_name: "d3.mission.resume_after_authorize",
@@ -418,6 +554,8 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
       status,
       dispatched,
       reconciled,
+      cognitive_continue: cognitiveContinue,
+      nora_mission: true,
     },
   });
 
@@ -429,13 +567,77 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
     conversationMessageId,
     prNumber,
     commitSha,
+    cognitiveContinue,
     error: detail ?? undefined,
   };
 }
 
+/**
+ * P0-B durable recovery: AUTHORIZED (or DISPATCHED) Nora-mission attempts
+ * resume on the next nominal event (chat load / new turn / reconcile).
+ * No universal scheduler — uses existing D3/D7 entry points.
+ */
+export async function recoverAuthorizedNoraMissions(input: {
+  pilotId: string;
+  projectId: string;
+}): Promise<
+  Array<{
+    attemptId: string;
+    status: string;
+    resumed: boolean;
+    error?: string;
+  }>
+> {
+  const rows = await db
+    .select()
+    .from(effectAttempts)
+    .where(
+      and(
+        eq(effectAttempts.pilotId, input.pilotId),
+        eq(effectAttempts.projectId, input.projectId),
+        eq(effectAttempts.kind, "GIT_PUBLICATION"),
+        or(eq(effectAttempts.status, "AUTHORIZED"), eq(effectAttempts.status, "DISPATCHED")),
+        like(effectAttempts.correlationKey, `${NORA_MISSION_PUB_PREFIX}%`),
+      ),
+    );
+
+  const out: Array<{
+    attemptId: string;
+    status: string;
+    resumed: boolean;
+    error?: string;
+  }> = [];
+
+  for (const row of rows) {
+    const resume = await resumeMissionAfterPublicationAuthorize({
+      pilotId: input.pilotId,
+      projectId: input.projectId,
+      attemptId: row.id,
+      decisionId: row.decisionId,
+    });
+    out.push({
+      attemptId: row.id,
+      status: resume.status,
+      resumed: resume.dispatched || resume.reconciled || resume.status === "COMPLETED",
+      error: resume.error,
+    });
+  }
+  if (out.length > 0) {
+    emitObs({
+      event_name: "d3.mission.recover_authorized",
+      component: "d3.mission_continuity",
+      outcome: "SUCCESS",
+      meta: { project_id: input.projectId, count: out.length },
+    });
+  }
+  return out;
+}
+
+/** P1-C — stable message id + generationId per attempt; ordinal unique with conflict recovery. */
 async function appendAssistantMissionMessage(input: {
   pilotId: string;
   preparationId: string;
+  attemptId: string;
   content: string;
 }): Promise<string> {
   const conv = (
@@ -452,6 +654,23 @@ async function appendAssistantMissionMessage(input: {
   )[0];
   if (!conv) throw new StudioError("NOT_FOUND", "Conversation introuvable");
 
+  const generationId = missionResumeGenerationId(input.attemptId);
+  const stableId = missionResumeMessageId(input.attemptId);
+
+  const existingByGen = (
+    await db
+      .select()
+      .from(messages)
+      .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
+      .limit(1)
+  )[0];
+  if (existingByGen) return existingByGen.id;
+
+  const existingById = (
+    await db.select().from(messages).where(eq(messages.id, stableId)).limit(1)
+  )[0];
+  if (existingById) return existingById.id;
+
   const last = (
     await db
       .select({ ordinal: messages.ordinal })
@@ -460,34 +679,32 @@ async function appendAssistantMissionMessage(input: {
       .orderBy(asc(messages.ordinal))
   ).at(-1);
   const ordinal = (last?.ordinal ?? 0) + 1;
-  const id = newId("msg");
-  await db.insert(messages).values({
-    id,
-    conversationId: conv.id,
-    role: "assistant",
-    content: input.content,
-    status: "COMPLETE",
-    ordinal,
-    generationId: null,
-    createdAt: new Date(),
-  });
-  return id;
-}
 
-/** Facts-only cognitive continue — reuses generateNoraReply; tools allowed for read only via policy. */
-export async function cognitiveContinueFromFacts(input: {
-  userText: string;
-  factsBlock: string;
-  contextSnippets: string[];
-  toolScope?: Parameters<typeof generateNoraReply>[0]["toolScope"];
-}): Promise<Awaited<ReturnType<typeof generateNoraReply>>> {
-  return generateNoraReply({
-    userText:
-      `${input.userText}\n\n` +
-      `### Faits applicatifs confirmés (non négociables — ne pas les contredire)\n` +
-      `${input.factsBlock}\n\n` +
-      `Produis une restitution fidèle à ces faits. N'affirme aucun effet absent de cette liste.`,
-    contextSnippets: input.contextSnippets,
-    toolScope: input.toolScope,
-  });
+  try {
+    await db.insert(messages).values({
+      id: stableId,
+      conversationId: conv.id,
+      role: "assistant",
+      content: input.content,
+      status: "COMPLETE",
+      ordinal,
+      generationId,
+      createdAt: new Date(),
+    });
+    return stableId;
+  } catch {
+    const again = (
+      await db
+        .select()
+        .from(messages)
+        .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
+        .limit(1)
+    )[0];
+    if (again) return again.id;
+    const byId = (
+      await db.select().from(messages).where(eq(messages.id, stableId)).limit(1)
+    )[0];
+    if (byId) return byId.id;
+    throw new StudioError("CONFLICT", "Restitution mission non persistée (conflit ordinal/id)");
+  }
 }

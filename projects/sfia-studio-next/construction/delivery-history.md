@@ -35,6 +35,20 @@ Append-only logical journal of Cursor product deliveries.
 | Schema | unchanged |
 | Status | LOCAL REGULARIZATION — NO PRODUCT PUSH / RECETTE |
 
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-02
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Continuité cognitive — correction P0-A..P1-E + preuves transverses |
+| Type | EVOL correction intégrée (NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | REG @ `cf5bac70` |
+| Lane | DEV only; RECETTE untouched |
+| Changes | Mission-gated auto-resume; durable recover via listMessages/turn/reconcile; idempotent restitution; cognitive continue post-effet; publish qualification sans GitHub-centrisme; tests T01/T03/P0-A/P0-B/P1-E |
+| Schema | unchanged |
+| Status | LOCAL CONSTRUCTION — NO PRODUCT PUSH / RECETTE |
+
 ## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
 
 | Field | Value |
