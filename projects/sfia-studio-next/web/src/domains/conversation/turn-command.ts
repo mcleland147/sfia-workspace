@@ -119,6 +119,11 @@ export const turnRaceHooks: {
   beforeD4Effect?: () => Promise<void>;
   beforeTerminalCommit?: () => Promise<void>;
   /**
+   * Test-only: replace Nora assistant text after generate, before D4 extraction.
+   * Used to inject nested illustrative fences without LIVE Nora or production bypass.
+   */
+  replaceNoraAssistantText?: (text: string) => string;
+  /**
    * Runs inside the terminal TX after optional assistant INSERT, before CAS UPDATE.
    * May mutate the same TX (e.g. revoke token) to force CAS miss + rollback.
    */

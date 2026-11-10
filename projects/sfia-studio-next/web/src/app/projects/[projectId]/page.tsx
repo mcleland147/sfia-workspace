@@ -19,6 +19,7 @@ import {
   shouldClearThreadPending,
   type ThreadPendingTurn,
 } from "@/domains/pilotage/thread-recovery";
+import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -36,10 +37,10 @@ type Knowledge = {
   openPoints: Array<{ id: string; statement: string; status: string }>;
 };
 
-type Surface = "travail" | "pilotage" | "journal" | "document";
+type Surface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
 type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
 
-const SURFACES: Surface[] = ["travail", "pilotage", "journal", "document"];
+const SURFACES: Surface[] = ["travail", "pilotage", "journal", "document", "git", "publication"];
 
 function parseSurface(raw: string | null): Surface | null {
   if (!raw) return null;
@@ -441,6 +442,37 @@ export default function ProjectPage() {
         setPilotageStatus(
           `Reprise en attente · clé ${pending.clientCommandKey.slice(0, 24)}…`,
         );
+      }
+
+      // G2 — silent COMMAND recovery (not GET): resume interrupted mission continuation
+      // without requiring the Pilot to reformulate the original intention.
+      try {
+        const resumeRes = await fetch(
+          `/api/projects/${params.projectId}/mission-continuation/resume`,
+          { method: "POST" },
+        );
+        if (resumeRes.ok) {
+          const resume = (await resumeRes.json()) as {
+            recovered?: boolean;
+            documentSave?: { documentId?: string; status?: string } | null;
+          };
+          if (resume.recovered) {
+            const refreshed = await fetch(`/api/projects/${params.projectId}`);
+            if (refreshed.ok) {
+              const rj = await refreshed.json();
+              setMessages(rj.messages ?? []);
+              setDocuments(rj.documents ?? []);
+              setKnowledge(rj.knowledge ?? null);
+              if (resume.documentSave?.documentId) {
+                setMeta(
+                  `Même fil · préparation ${rj.preparation?.id ?? "liée"} · conversation ${rj.conversation?.id ?? "—"} · reprise mission doc ${resume.documentSave.documentId}`,
+                );
+              }
+            }
+          }
+        }
+      } catch {
+        /* non-blocking */
       }
     }
     void load();
@@ -946,6 +978,12 @@ export default function ProjectPage() {
               diffText={docDiffText}
             />
           </div>
+        </div>
+      ) : null}
+
+      {surface === "git" || surface === "publication" ? (
+        <div className="space-y-4" data-testid="git-surface">
+          <PublicationInspectionPanel projectId={params.projectId} />
         </div>
       ) : null}
 

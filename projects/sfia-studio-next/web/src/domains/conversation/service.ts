@@ -10,7 +10,11 @@ import {
   reconstituteConfirmedD4Effects,
   selectRelevantKnowledgeContext,
 } from "@/domains/knowledge/service";
-import { listDocuments, savePreparationDocument } from "@/domains/document/service";
+import {
+  listDocuments,
+  reviseDocument,
+  savePreparationDocument,
+} from "@/domains/document/service";
 import {
   bindTurnGenerationId,
   commitTurnTerminal,
@@ -28,8 +32,42 @@ import {
   type ConversationalAuthorityOutcome,
 } from "@/domains/pilotage/conversation-authority";
 import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
+import {
+  appendDocumentEffectAck,
+  applyTargetedSectionRevision,
+  assertSectionScope,
+  extractContractualDocumentProposal,
+  hasDocumentaryWriteSignal,
+  qualifyDocumentAct,
+  resolveReviseTarget,
+  type DocumentEffectSummary,
+  type DocumentProposalExtract,
+} from "./document-act";
+import {
+  appendMissionAck,
+  cognitiveContinueFromFacts,
+  composeCanonicalMissionRestitution,
+  missionCorrelationKeys,
+  preparePublicationForMission,
+  qualifyPublicationMission,
+  recoverAuthorizedNoraMissions,
+  type MissionProjection,
+} from "./mission-continuity";
+import {
+  advanceMissionAfterProjectCreated,
+  buildD2AwaitingStep,
+  buildD2OwnerActBinding,
+  buildPendingDocumentStep,
+  emptyMission,
+  loadPriorMissionProjection,
+  mergeMissionSteps,
+  qualifyStudioIntent,
+  recoverPendingMissionContinuation,
+} from "./intent-conduction";
+import { updatePreview } from "@/domains/preparation/service";
 
 export async function listMessages(pilotId: string, preparationId: string) {
+  // READ ≠ COMMAND: listing must not dispatch Git or mutate effects.
   const ctx = await getPreparationContext(pilotId, preparationId);
   if (!ctx.conversation) return [];
   return db
@@ -39,38 +77,82 @@ export async function listMessages(pilotId: string, preparationId: string) {
     .orderBy(asc(messages.ordinal));
 }
 
-function explicitDocumentIntent(text: string): boolean {
-  return (
-    /\b(rédige|rédiger|écris|écrire|produis|produire|crée|créer)\b[\s\S]{0,40}\b(document|note|synthèse|rapport|spécification)\b/i.test(
-      text,
-    ) ||
-    /\b(document|note de synthèse|rapport)\b[\s\S]{0,20}\b(s'il te plaît|stp|please)\b/i.test(text)
-  );
+/** Qualification decision before extract/D4 — metadata only, never blocks D4. */
+function emitDocumentActQualificationObs(args: {
+  requestId: string;
+  operationId: string;
+  generationId?: string | null;
+  qualificationKind: "CREATE" | "REVISE" | "NONE";
+  qualificationReason?: string | null;
+  documentaryIntentSignal: boolean;
+  d4Attempted: boolean;
+  d4Effect?: string | null;
+}) {
+  emitObs({
+    event_name: "d3.turn.document_act_qualification",
+    component: "d3.conversation",
+    request_id: args.requestId,
+    operation_id: args.operationId,
+    generation_id: args.generationId ?? undefined,
+    outcome:
+      args.qualificationKind === "NONE"
+        ? "PARTIAL"
+        : args.d4Effect === "AVAILABLE"
+          ? "SUCCESS"
+          : args.d4Attempted
+            ? "PARTIAL"
+            : "PARTIAL",
+    meta: {
+      qualification_kind: args.qualificationKind,
+      qualification_reason: args.qualificationReason ?? null,
+      documentary_intent_signal: args.documentaryIntentSignal,
+      d4_attempted: args.d4Attempted,
+      d4_effect: args.d4Effect ?? null,
+    },
+  });
 }
 
-function extractDocumentMarkdown(
-  assistantText: string,
-  userText: string,
-): {
-  title: string;
-  content: string;
-} | null {
-  const fence = assistantText.match(/```(?:markdown|md)?\n([\s\S]+?)```/i);
-  if (fence?.[1] && fence[1].trim().length > 40) {
-    const body = fence[1].trim();
-    const titleLine = body.match(/^#\s+(.+)$/m)?.[1]?.trim();
-    return { title: titleLine || "Document Nora", content: body };
-  }
-  const heading = assistantText.match(/(^|\n)#\s+[^\n]+[\s\S]{40,}/);
-  if (heading?.[0]) {
-    const body = heading[0].trim();
-    const titleLine = body.match(/^#\s+(.+)$/m)?.[1]?.trim();
-    return { title: titleLine || "Document Nora", content: body };
-  }
-  return {
-    title: "Document demandé",
-    content: `# Document demandé\n\n> Demande: ${userText.slice(0, 300)}\n\n${assistantText}`,
-  };
+function emitDocumentProposalObs(args: {
+  requestId: string;
+  operationId: string;
+  generationId: string | null | undefined;
+  act: "CREATE" | "REVISE";
+  extracted: DocumentProposalExtract;
+  scopeVerdict?: string | null;
+  refuseCode?: string | null;
+  d4Attempted: boolean;
+  d4Effect?: string | null;
+}) {
+  emitObs({
+    event_name: "d3.turn.document_proposal",
+    component: "d3.conversation",
+    request_id: args.requestId,
+    operation_id: args.operationId,
+    generation_id: args.generationId ?? undefined,
+    outcome: args.extracted.ok
+      ? args.refuseCode
+        ? "FAILED"
+        : args.d4Effect === "AVAILABLE"
+          ? "SUCCESS"
+          : args.d4Attempted
+            ? "FAILED"
+            : "PARTIAL"
+      : "FAILED",
+    meta: {
+      act: args.act,
+      extract_path: args.extracted.path,
+      proposal_present: args.extracted.ok,
+      fence_count: args.extracted.fenceCount,
+      section_count: args.extracted.sectionCount,
+      proposal_chars: args.extracted.proposalChars,
+      proposal_digest16: args.extracted.proposalDigest16,
+      body_ends_with_nl: args.extracted.bodyEndsWithNewline,
+      scope_verdict: args.scopeVerdict ?? null,
+      refuse_code: args.refuseCode ?? (args.extracted.ok ? null : args.extracted.reason),
+      d4_attempted: args.d4Attempted,
+      d4_effect: args.d4Effect ?? null,
+    },
+  });
 }
 
 export type TurnResult = {
@@ -99,7 +181,16 @@ export type TurnResult = {
   capitalisation?: unknown;
   capitalisationAttempted?: unknown;
   capitalisationLimit?: string;
-  documentSave?: { status?: string; documentId?: string; revisionNumber?: number; reason?: string } | null;
+  documentSave?: {
+    status?: string;
+    documentId?: string;
+    revisionId?: string;
+    revisionNumber?: number;
+    baseRevisionId?: string;
+    reason?: string;
+    act?: "CREATE" | "REVISE";
+    idempotentReplay?: boolean;
+  } | null;
   idempotentReplay: boolean;
   /**
    * True only when a HumanDecision id was actually produced (APPLIED/ALREADY_APPLIED).
@@ -123,6 +214,8 @@ export type TurnResult = {
     effects?: Array<{ effectKind: string; targetRef: string }>;
   } | null;
   reconciled?: boolean;
+  /** Refs-only mission projection — never owner truth for D4/D6/D7. */
+  missionProjection?: MissionProjection | null;
 };
 
 function pilotageEffectFromAuthority(
@@ -192,6 +285,44 @@ export async function postUserMessageAndNora(
   const requestId = opts?.requestId ?? newRequestId();
   const ctx = await getPreparationContext(pilotId, preparationId);
   if (!ctx.conversation) throw new StudioError("NOT_FOUND", "Préparation introuvable");
+
+  // Governed recovery (COMMAND path only — never from listMessages READ).
+  // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
+  // G2: also recover interrupted D2→D4 mission continuation when project already exists.
+  if (ctx.project?.id) {
+    try {
+      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
+    } catch {
+      /* never block the new turn */
+    }
+    try {
+      await recoverPendingMissionContinuation({ pilotId, projectId: ctx.project.id });
+    } catch {
+      /* never block the new turn */
+    }
+  }
+
+  // Multi-domain continuity: prefer intention-anchored load (GAP-04).
+  // Primary D2→D4 continuation is continueAfterProjectCreated on create-project COMMAND.
+  let carriedMission: MissionProjection | null = null;
+  try {
+    const awaiting = await loadPriorMissionProjection(ctx.conversation.id, {
+      awaitingPilotAct: true,
+      preparationId,
+    });
+    if (awaiting && ctx.project?.id) {
+      carriedMission = advanceMissionAfterProjectCreated(awaiting, ctx.project.id);
+    } else {
+      const priorMission = await loadPriorMissionProjection(ctx.conversation.id, {
+        preparationId,
+      });
+      if (priorMission && priorMission.status !== "COMPLETED") {
+        carriedMission = priorMission;
+      }
+    }
+  } catch {
+    carriedMission = null;
+  }
 
   const clientTurnKey =
     opts?.clientTurnKey?.trim() ||
@@ -399,6 +530,7 @@ export async function postUserMessageAndNora(
           pilotId,
           preparationId,
           operationId: reserved.operationId,
+          projectId: ctx.project?.id,
         },
       });
     } finally {
@@ -455,6 +587,14 @@ export async function postUserMessageAndNora(
     await turnRaceHooks.afterGenerateBeforeEffects();
   }
 
+  // Test-only injection: swap assistant text before contractual extraction / D4.
+  if (turnRaceHooks.replaceNoraAssistantText && reply.status === "COMPLETE") {
+    reply = {
+      ...reply,
+      content: turnRaceHooks.replaceNoraAssistantText(reply.content),
+    };
+  }
+
   // Ownership may have been revoked/reconciled during generation — no COMPLETE, no D4.
   if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
     emitObs({
@@ -493,9 +633,36 @@ export async function postUserMessageAndNora(
     ownershipLost: false,
   };
   let capitalisationError: string | undefined;
-  let documentSave: Awaited<ReturnType<typeof savePreparationDocument>> | null = null;
+  type DocumentSaveResult = {
+    status: string;
+    documentId?: string;
+    revisionId?: string;
+    revisionNumber?: number;
+    baseRevisionId?: string;
+    reason?: string;
+    act?: "CREATE" | "REVISE";
+    idempotentReplay?: boolean;
+  };
+  let documentSave: DocumentSaveResult | null = null;
   let documentSaveUnknown = false;
   let ownershipLostBeforeD4 = false;
+  const documentAct = qualifyDocumentAct(content);
+  const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
+  const missionIntent = qualifyPublicationMission(content);
+  const studioIntent = qualifyStudioIntent(content);
+  const clientIntentKey = clientTurnKey;
+  const missionKeys = missionCorrelationKeys(clientIntentKey);
+  // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
+  emitDocumentActQualificationObs({
+    requestId,
+    operationId: reserved.operationId,
+    generationId: reply.generationId,
+    qualificationKind: documentAct.kind,
+    qualificationReason: documentAct.kind === "NONE" ? (documentAct.reason ?? null) : null,
+    documentaryIntentSignal,
+    d4Attempted: false,
+    d4Effect: null,
+  });
 
   if (reply.status === "COMPLETE") {
     if (turnRaceHooks.beforeD4Effect) {
@@ -532,11 +699,27 @@ export async function postUserMessageAndNora(
         });
       }
 
-      if (explicitDocumentIntent(content) && !ownershipLostBeforeD4) {
-        const extracted = extractDocumentMarkdown(reply.content, content);
-        if (extracted) {
+      if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
+        const extracted = extractContractualDocumentProposal(reply.content);
+        if (!extracted.ok) {
+          documentSave = {
+            status: "FAILED",
+            reason: extracted.reason,
+            act: "CREATE",
+          };
+          emitDocumentProposalObs({
+            requestId,
+            operationId: reserved.operationId,
+            generationId: reply.generationId,
+            act: "CREATE",
+            extracted,
+            refuseCode: extracted.reason,
+            d4Attempted: false,
+            d4Effect: null,
+          });
+        } else {
           try {
-            documentSave = await savePreparationDocument(
+            const saved = await savePreparationDocument(
               pilotId,
               preparationId,
               extracted.title,
@@ -545,12 +728,15 @@ export async function postUserMessageAndNora(
               {
                 correlationKey: opts?.correlationKey
                   ? `doc:${opts.correlationKey}`
-                  : `doc:${reply.generationId}`,
+                  : missionIntent.wantsPublish
+                    ? missionKeys.document
+                    : `doc:${reply.generationId}`,
                 provenance: {
                   sourceKind: "nora",
                   generationId: reply.generationId,
                   userMessageId: reserved.userMessageId,
                   explicitRequest: true,
+                  act: "CREATE",
                 },
                 scope: "document",
                 turnFence: {
@@ -560,18 +746,43 @@ export async function postUserMessageAndNora(
                 },
               },
             );
+            documentSave = { ...saved, act: "CREATE" };
             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
               ownershipLostBeforeD4 = true;
               documentSave = null;
-            } else if (documentSave.status !== "AVAILABLE") {
+            } else if (
+              documentSave.status !== "AVAILABLE" &&
+              documentSave.status !== "CONFLICT"
+            ) {
               documentSaveUnknown =
                 documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
             }
+            emitDocumentProposalObs({
+              requestId,
+              operationId: reserved.operationId,
+              generationId: reply.generationId,
+              act: "CREATE",
+              extracted,
+              refuseCode:
+                documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
+                  ? null
+                  : (documentSave?.reason ?? null),
+              d4Attempted: true,
+              d4Effect: documentSave?.status ?? null,
+            });
           } catch {
-            documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION" } as Awaited<
-              ReturnType<typeof savePreparationDocument>
-            >;
+            documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION", act: "CREATE" };
             documentSaveUnknown = true;
+            emitDocumentProposalObs({
+              requestId,
+              operationId: reserved.operationId,
+              generationId: reply.generationId,
+              act: "CREATE",
+              extracted,
+              refuseCode: "DOCUMENT_SAVE_EXCEPTION",
+              d4Attempted: true,
+              d4Effect: "UNKNOWN",
+            });
             emitObs({
               event_name: "d3.turn.document_save_failed",
               component: "d3.conversation",
@@ -583,9 +794,452 @@ export async function postUserMessageAndNora(
             });
           }
         }
+      } else if (documentAct.kind === "REVISE" && !ownershipLostBeforeD4) {
+        try {
+          const docs = await listDocuments(pilotId, preparationId);
+          const target = resolveReviseTarget(docs, documentAct.documentHint);
+          if (!target.ok) {
+            documentSave = {
+              status: "FAILED",
+              reason: `REVISE_${target.reason}`,
+              act: "REVISE",
+            };
+            emitDocumentProposalObs({
+              requestId,
+              operationId: reserved.operationId,
+              generationId: reply.generationId,
+              act: "REVISE",
+              extracted: extractContractualDocumentProposal(reply.content),
+              refuseCode: `REVISE_${target.reason}`,
+              d4Attempted: false,
+              d4Effect: null,
+            });
+          } else {
+            const extracted = extractContractualDocumentProposal(reply.content);
+            if (!extracted.ok) {
+              documentSave = {
+                status: "FAILED",
+                reason: extracted.reason,
+                documentId: target.documentId,
+                baseRevisionId: target.baseRevisionId,
+                act: "REVISE",
+              };
+              emitDocumentProposalObs({
+                requestId,
+                operationId: reserved.operationId,
+                generationId: reply.generationId,
+                act: "REVISE",
+                extracted,
+                refuseCode: extracted.reason,
+                d4Attempted: false,
+                d4Effect: null,
+              });
+            } else {
+              const merged = applyTargetedSectionRevision(
+                target.baseContent,
+                extracted.content,
+                documentAct.sectionHint,
+              );
+              if (!merged.ok) {
+                documentSave = {
+                  status: "FAILED",
+                  reason: merged.reason,
+                  documentId: target.documentId,
+                  baseRevisionId: target.baseRevisionId,
+                  act: "REVISE",
+                };
+                emitDocumentProposalObs({
+                  requestId,
+                  operationId: reserved.operationId,
+                  generationId: reply.generationId,
+                  act: "REVISE",
+                  extracted,
+                  scopeVerdict: merged.reason,
+                  refuseCode: merged.reason,
+                  d4Attempted: false,
+                  d4Effect: null,
+                });
+              } else {
+                const scopeCheck = assertSectionScope(
+                  target.baseContent,
+                  merged.content,
+                  documentAct.sectionHint,
+                );
+                if (!scopeCheck.ok) {
+                  documentSave = {
+                    status: "FAILED",
+                    reason: scopeCheck.reason,
+                    documentId: target.documentId,
+                    baseRevisionId: target.baseRevisionId,
+                    act: "REVISE",
+                  };
+                  emitDocumentProposalObs({
+                    requestId,
+                    operationId: reserved.operationId,
+                    generationId: reply.generationId,
+                    act: "REVISE",
+                    extracted,
+                    scopeVerdict: scopeCheck.reason,
+                    refuseCode: scopeCheck.reason,
+                    d4Attempted: false,
+                    d4Effect: null,
+                  });
+                } else {
+                  const correlationKey = opts?.correlationKey
+                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
+                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
+                  const revised = await reviseDocument(pilotId, preparationId, {
+                    documentId: target.documentId,
+                    baseRevisionId: target.baseRevisionId,
+                    contentMarkdown: merged.content,
+                    correlationKey,
+                    scope: documentAct.sectionHint ? "section" : "document",
+                    sectionHint: documentAct.sectionHint ?? undefined,
+                    provenance: {
+                      sourceKind: "nora",
+                      generationId: reply.generationId,
+                      userMessageId: reserved.userMessageId,
+                      explicitRequest: true,
+                      act: "REVISE",
+                      sectionHint: documentAct.sectionHint,
+                    },
+                  });
+                  documentSave = {
+                    ...revised,
+                    act: "REVISE",
+                    baseRevisionId:
+                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
+                        ? revised.baseRevisionId
+                        : target.baseRevisionId,
+                  };
+                  if (
+                    documentSave.status !== "AVAILABLE" &&
+                    documentSave.status !== "CONFLICT" &&
+                    !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
+                  ) {
+                    documentSaveUnknown =
+                      documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
+                  }
+                  emitDocumentProposalObs({
+                    requestId,
+                    operationId: reserved.operationId,
+                    generationId: reply.generationId,
+                    act: "REVISE",
+                    extracted,
+                    scopeVerdict: "OK",
+                    refuseCode:
+                      documentSave.status === "AVAILABLE" || documentSave.status === "CONFLICT"
+                        ? null
+                        : (documentSave.reason ?? null),
+                    d4Attempted: true,
+                    d4Effect: documentSave.status ?? null,
+                  });
+                }
+              }
+            }
+          }
+          emitObs({
+            event_name: "d3.turn.document_revise",
+            component: "d3.conversation",
+            request_id: requestId,
+            operation_id: reserved.operationId,
+            generation_id: reply.generationId,
+            outcome:
+              documentSave?.status === "AVAILABLE"
+                ? "SUCCESS"
+                : documentSave?.status === "CONFLICT"
+                  ? "FAILED"
+                  : documentSave?.status === "FAILED"
+                    ? "FAILED"
+                    : "UNKNOWN",
+            meta: {
+              act: "REVISE",
+              status: documentSave?.status ?? null,
+              refuse_code: documentSave?.reason ?? null,
+              d4_effect: documentSave?.status ?? null,
+            },
+          });
+        } catch {
+          documentSave = { status: "UNKNOWN", reason: "DOCUMENT_REVISE_EXCEPTION", act: "REVISE" };
+          documentSaveUnknown = true;
+          emitObs({
+            event_name: "d3.turn.document_revise_failed",
+            component: "d3.conversation",
+            request_id: requestId,
+            operation_id: reserved.operationId,
+            generation_id: reply.generationId,
+            outcome: "UNKNOWN",
+            error_category: "DOCUMENT_REVISE_EXCEPTION",
+          });
+        }
       }
     }
   }
+
+  const documentEffectForAck: DocumentEffectSummary | null =
+    documentSave && !ownershipLostBeforeD4
+      ? {
+          act: documentSave.act ?? (documentAct.kind === "REVISE" ? "REVISE" : "CREATE"),
+          status: documentSave.status,
+          documentId: documentSave.documentId,
+          revisionId: documentSave.revisionId,
+          revisionNumber: documentSave.revisionNumber,
+          baseRevisionId: documentSave.baseRevisionId,
+          reason: documentSave.reason,
+          idempotentReplay: documentSave.idempotentReplay,
+        }
+      : documentAct.kind !== "NONE" && !ownershipLostBeforeD4
+        ? {
+            act: documentAct.kind === "REVISE" ? "REVISE" : "CREATE",
+            status: "UNKNOWN",
+            reason: "NO_EFFECT_OBSERVED",
+          }
+        : // Loyal pre-effect: plausible write language, not qualified → NOT_EXECUTED (never fake FAILED).
+          documentAct.kind === "NONE" &&
+            documentaryIntentSignal &&
+            !ownershipLostBeforeD4 &&
+            reply.status === "COMPLETE"
+          ? {
+              act: "NONE",
+              status: "NOT_EXECUTED",
+              reason: documentAct.reason ?? "NO_EXPLICIT_WRITE",
+            }
+          : null;
+
+  // Post-effect continuity: facts-first Continue after D4 AVAILABLE (REC-08 + ACCEPT-01).
+  let missionProjection: MissionProjection | null = null;
+  let continueFailedAfterEffect = false;
+  let assistantBody = reply.content;
+
+  if (
+    !ownershipLostBeforeD4 &&
+    documentEffectForAck?.status === "AVAILABLE" &&
+    documentEffectForAck.documentId &&
+    documentEffectForAck.revisionId
+  ) {
+    const factsBlock = [
+      `D4 ${documentEffectForAck.act}=${documentEffectForAck.status}`,
+      `documentId=${documentEffectForAck.documentId}`,
+      `revisionId=${documentEffectForAck.revisionId}`,
+      documentEffectForAck.revisionNumber != null
+        ? `revisionNumber=${documentEffectForAck.revisionNumber}`
+        : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+      try {
+        const continued = await cognitiveContinueFromFacts({
+          userText: content,
+          factsBlock,
+          contextSnippets,
+          toolScope: {
+            pilotId,
+            preparationId,
+            operationId: reserved.operationId,
+            projectId: ctx.project?.id,
+          },
+        });
+        if (continued.status === "COMPLETE" && continued.content.trim()) {
+          assistantBody = continued.content;
+        } else {
+          continueFailedAfterEffect = true;
+          assistantBody = composeCanonicalMissionRestitution({
+            documentEffect: documentEffectForAck,
+            restitutionNote:
+              "Continuation cognitive incomplète — faits D4 conservés (RESTITUTION_PENDING).",
+          });
+        }
+      } catch {
+        continueFailedAfterEffect = true;
+        assistantBody = composeCanonicalMissionRestitution({
+          documentEffect: documentEffectForAck,
+          restitutionNote:
+            "Continuation cognitive indisponible — faits D4 conservés (RESTITUTION_PENDING).",
+        });
+      }
+    }
+  }
+
+  if (
+    !ownershipLostBeforeD4 &&
+    documentEffectForAck?.status === "AVAILABLE" &&
+    documentEffectForAck.documentId &&
+    documentEffectForAck.revisionId &&
+    missionIntent.wantsPublish &&
+    ctx.project?.id
+  ) {
+    const steps: MissionProjection["steps"] = [
+      {
+        id: "d4_create",
+        capabilityId: "d4.create_document",
+        status: "DONE",
+        correlationKey: missionKeys.document,
+        documentId: documentEffectForAck.documentId,
+        revisionId: documentEffectForAck.revisionId,
+      },
+    ];
+
+    // P1-E: no silent path/branch deduction — clarify before D7 prepare.
+    if (missionIntent.needsExplicitPath) {
+      steps.push({
+        id: "d7_prepare",
+        capabilityId: "d7.prepare_publication",
+        status: "PENDING",
+        correlationKey: missionKeys.publication,
+        reason: missionIntent.clarify ?? "PATH_REQUIRED",
+      });
+      missionProjection = {
+        clientIntentKey,
+        status: "AWAITING_CLARIFICATION",
+        goalSummary: "CREATE D4 confirmé — chemin Git requis avant préparation",
+        steps,
+        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+      };
+    } else if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+      const prepared = await preparePublicationForMission({
+        pilotId,
+        projectId: ctx.project.id,
+        documentId: documentEffectForAck.documentId,
+        revisionId: documentEffectForAck.revisionId,
+        clientIntentKey,
+        targetPath: missionIntent.targetPath,
+        targetBranch: missionIntent.targetBranch,
+      });
+      if (prepared.ok) {
+        steps.push({
+          id: "d7_prepare",
+          capabilityId: "d7.prepare_publication",
+          status: prepared.status === "PREPARED" ? "WAITING" : "DONE",
+          correlationKey: missionKeys.publication,
+          attemptId: prepared.attemptId,
+          documentId: documentEffectForAck.documentId,
+          revisionId: documentEffectForAck.revisionId,
+        });
+        missionProjection = {
+          clientIntentKey,
+          status: "AWAITING_PILOT_AUTH",
+          goalSummary: "CREATE D4 + publication Git (attente autorisation Pilote)",
+          steps,
+          restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+        };
+        emitObs({
+          event_name: "d3.mission.prepared_awaiting_auth",
+          component: "d3.mission_continuity",
+          request_id: requestId,
+          operation_id: reserved.operationId,
+          generation_id: reply.generationId,
+          outcome: "SUCCESS",
+          meta: {
+            attempt_id: prepared.attemptId,
+            document_id: documentEffectForAck.documentId,
+            // Never call authorize here — HD only on Pilot act.
+            authorize_called: false,
+          },
+        });
+      } else {
+        steps.push({
+          id: "d7_prepare",
+          capabilityId: "d7.prepare_publication",
+          status: "FAILED",
+          correlationKey: missionKeys.publication,
+          reason: `${prepared.code}:${prepared.message}`,
+        });
+        missionProjection = {
+          clientIntentKey,
+          status: "PARTIAL_FAILED_STEP",
+          goalSummary: "CREATE D4 confirmé — préparation Git non réalisée",
+          steps,
+          restitution: continueFailedAfterEffect ? "PENDING" : "CANONICAL",
+        };
+      }
+    }
+
+    if (continueFailedAfterEffect && missionProjection) {
+      missionProjection = {
+        ...missionProjection,
+        restitution: "PENDING",
+      };
+    }
+  }
+
+  // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
+  if (
+    !ownershipLostBeforeD4 &&
+    studioIntent.wantsProjectCreate &&
+    !ctx.project?.id
+  ) {
+    const proposed = studioIntent.proposedProjectName?.trim() || "Nouveau projet";
+    try {
+      await updatePreview(
+        pilotId,
+        preparationId,
+        proposed.slice(0, 120),
+        `Intention Nora — création de projet «${proposed}». Acte Pilote requis.`,
+      );
+    } catch {
+      /* preview best-effort */
+    }
+    let d2Mission = emptyMission(
+      clientIntentKey,
+      `Création de projet «${proposed}» — attente acte Pilote`,
+    );
+    d2Mission = {
+      ...d2Mission,
+      originalUserText: content,
+      pendingDocumentBrief: studioIntent.pendingDocumentBrief ?? undefined,
+      preparationId,
+      proposedProjectName: proposed,
+      ownerActBinding: buildD2OwnerActBinding(preparationId, clientIntentKey),
+    };
+    d2Mission = mergeMissionSteps(d2Mission, [buildD2AwaitingStep(proposed)], "AWAITING_PILOT_ACT");
+    if (
+      studioIntent.wantsFollowOnDocument ||
+      studioIntent.documentAct.kind === "CREATE" ||
+      studioIntent.publication.wantsPublish
+    ) {
+      d2Mission = mergeMissionSteps(d2Mission, [
+        buildPendingDocumentStep("CREATE", studioIntent.pendingDocumentBrief),
+      ]);
+    }
+    missionProjection = d2Mission;
+  } else if (
+    !missionProjection &&
+    carriedMission &&
+    (carriedMission.status === "ACTIVE" || carriedMission.status === "AWAITING_PILOT_ACT")
+  ) {
+    // Resume carried multi-domain mission after D2 confirmed (or still waiting).
+    if (documentEffectForAck?.status === "AVAILABLE" && documentEffectForAck.documentId) {
+      const steps = carriedMission.steps.map((s) =>
+        s.id === "d4_create" || s.capabilityId === "d4.create_document"
+          ? {
+              ...s,
+              status: "DONE" as const,
+              documentId: documentEffectForAck.documentId,
+              revisionId: documentEffectForAck.revisionId,
+            }
+          : s,
+      );
+      missionProjection = {
+        ...carriedMission,
+        steps,
+        status: steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
+          ? "ACTIVE"
+          : "COMPLETED",
+        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+      };
+    } else {
+      missionProjection = carriedMission;
+    }
+  }
+
+  const assistantContentForCommit = ownershipLostBeforeD4
+    ? reply.content
+    : appendMissionAck(
+        appendDocumentEffectAck(assistantBody, documentEffectForAck),
+        missionProjection,
+      );
 
   const confirmedCapitalisations = capitalisation.capitalisations.filter(
     (c) => c.status === "AVAILABLE",
@@ -604,14 +1258,14 @@ export async function postUserMessageAndNora(
     !ownershipLostBeforeD4 &&
     reply.status === "COMPLETE" &&
     (documentSaveUnknown || capitalisationError) &&
-    explicitDocumentIntent(content)
+    documentAct.kind !== "NONE"
   ) {
     turnStatus = "UNKNOWN";
   } else if (
     !ownershipLostBeforeD4 &&
     reply.status === "COMPLETE" &&
     capitalisationError &&
-    !explicitDocumentIntent(content)
+    documentAct.kind === "NONE"
   ) {
     turnStatus = "UNKNOWN";
   }
@@ -676,6 +1330,7 @@ export async function postUserMessageAndNora(
     idempotentReplay: false,
     humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
     pilotageEffect: pilotageEffectFromAuthority(authority),
+    missionProjection,
   };
 
   if (turnRaceHooks.beforeTerminalCommit) {
@@ -693,7 +1348,7 @@ export async function postUserMessageAndNora(
         ? undefined
         : {
             id: assistantId,
-            content: reply.content,
+            content: assistantContentForCommit,
             messageStatus: reply.status,
             generationId: reply.generationId,
             ordinal: reserved.ordinalAssistant,

@@ -10,7 +10,7 @@ import type { CSSProperties } from "react";
 
 export type StudioRailVariant = "personnel" | "projet" | "conversation" | "inspection";
 
-export type StudioSurface = "travail" | "pilotage" | "journal" | "document";
+export type StudioSurface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
 
 export type StudioRailTokens = {
   variant: StudioRailVariant;
@@ -82,6 +82,8 @@ export const PROJECT_SURFACES: StudioSurface[] = [
   "pilotage",
   "journal",
   "document",
+  "git",
+  "publication",
 ];
 
 export function parseStudioSurface(raw: string | null | undefined): StudioSurface | null {
@@ -136,9 +138,12 @@ export function resolveRailVariant(input: {
     if (sp?.get("resume") === "1" || sp?.get("from") === "portfolio") return "projet";
     return "personnel";
   }
+  if (path.startsWith("/settings")) {
+    return "personnel";
+  }
   if (path.startsWith("/projects/")) {
     const surface = parseStudioSurface(input.surface) ?? "travail";
-    if (surface === "document") return "inspection";
+    if (surface === "document" || surface === "git" || surface === "publication") return "inspection";
     if (surface === "travail") return "conversation";
     if (surface === "journal") return "personnel";
     return "projet";

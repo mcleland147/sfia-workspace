@@ -1,12 +1,14 @@
 "use client";
 
-type Surface = "travail" | "pilotage" | "journal" | "document";
+type Surface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
 
 const LABELS: Record<Surface, string> = {
   travail: "Travail avec Nora",
   pilotage: "Pilotage · cycle et décisions",
   journal: "Journal · sujets et acquis",
   document: "Documents · bibliothèque",
+  git: "Sources Git",
+  publication: "Publication Git",
 };
 
 export function ProjectChrome(props: {
@@ -34,7 +36,9 @@ export function ProjectChrome(props: {
               ? "Documents"
               : props.surface === "journal"
                 ? "Journal"
-                : "Pilotage"}
+                : props.surface === "git" || props.surface === "publication"
+                  ? "Git"
+                  : "Pilotage"}
         </h1>
         <p className="fig-hero-sub">
           {props.surface === "travail"

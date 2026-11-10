@@ -4,9 +4,14 @@ export const PREPARATIONS_PAGE_SIZE = 25;
 
 export type CursorPayload = { createdAt: string; id: string };
 
-export function encodePreparationsCursor(row: { createdAt: Date; id: string }): string {
+export function encodePreparationsCursor(row: {
+  createdAt: Date | string;
+  id: string;
+}): string {
   const payload: CursorPayload = {
-    createdAt: row.createdAt.toISOString(),
+    // Prefer DB-precision ISO (microseconds) when provided as string; Date is ms-only.
+    createdAt:
+      typeof row.createdAt === "string" ? row.createdAt : row.createdAt.toISOString(),
     id: row.id,
   };
   return Buffer.from(JSON.stringify(payload), "utf8").toString("base64url");

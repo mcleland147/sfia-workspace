@@ -35,6 +35,6 @@ describe("ML2 cognition fixture", () => {
       userText: "Rédige un document de synthèse sur l'architecture",
       contextSnippets: [],
     });
-    expect(result.content).toMatch(/Document proposé|# Synthèse/i);
+    expect(result.content).toMatch(/```sfia-document[\s\S]*# Synthèse/i);
   });
 });

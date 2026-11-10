@@ -3,6 +3,157 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+
+## delivery_id: DELIV-2026-11-10-ML4-NORA-PR-READINESS-INTEGRATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | Cycle 13 — PR readiness / intégration locale ML4 + Nora continuity |
+| Type | EVOL — consolidation candidature (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `integrate/next-ml4-nora-pr-readiness-20261110` (local — not pushed) |
+| Parent tips | Nora DEV-08 `e40a1baf` + main `6667a438` + docs cadrage `69c27832` + registre RECETTE `2075aa4f` |
+| Morris decision | RECETTE ML4 TERMINÉE AVEC RÉSERVES (10/11/2026); R13/R14 NOT RUN carried; no merge GO |
+| Changes | Integration merges only — no functional development; candidacy consolidates ML4 Git, post-RECETTE fixes, Nora DEV-01..08, cadrage, RECETTE register |
+| Schema | migrations 008–012 inherited from ML4 lineage (unchanged this cycle) |
+| Tests on candidacy | unit intent+mission 15; PG global 21 + ACCEPT-01 8; tsc/build PASS |
+| Status | LOCAL PR READINESS — READY FOR MORRIS PUSH/PR DECISION — NO PRODUCT PUSH |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-08
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Contexte de travail + isolation mission (RG-CTX-001) |
+| Type | EVOL — même macro-lot (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DEV-07 @ `833a3e6c` |
+| Lane | DEV :5433; E2E :3101 / `sfia_next_e2e`; RECETTE untouched |
+| Changes | `recoverPendingMissionContinuation` binds to `create_project_commands` d2:mission owner act for THIS project — never lone neighboring awaiting; S06/S07/S05 isolation proofs; interproject Nora read = N/A non-implemented (D4 tools prep-scoped) |
+| Schema | unchanged |
+| Tests | PG global 21; ACCEPT-01 8; Playwright Atlas 2; tsc/build |
+| Status | LOCAL FINALISATION — READY FOR CHATGPT ACCEPTANCE REVIEW — NO PRODUCT PUSH |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-07
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Continuité globale — autorité avant effet + reprise nominale + concurrence progressive + oracle navigateur |
+| Type | EVOL — même macro-lot (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DEV-06 @ `3fac229f` |
+| Lane | DEV :5433; E2E browser :3101 / `sfia_next_e2e`; RECETTE untouched |
+| Changes | G1 `authorizeMissionBoundD2Create` before `createProjectCommand` (mismatch ⇒ zero project); G2 `recoverPendingMissionContinuation` + POST `/mission-continuation/resume` + project open COMMAND; G3 concurrency oracle requires COMPLETED + recovery; G4 Atlas Playwright document/reload + forged-key BEFORE create; classic path unbound |
+| Schema | unchanged |
+| Tests | unit intent-conduction 8; PG global 18; ACCEPT-01 8; Playwright Atlas 2 PASS; tsc/build PASS |
+| Status | LOCAL FINALISATION — READY FOR CHATGPT GLOBAL ACCEPTANCE REVIEW — NO PRODUCT PUSH |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-06
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Conduite globale — concurrence xact fence + liaison mission↔D2 + reprise crash + browser |
+| Type | EVOL — même macro-lot (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DEV-05 @ `f99e4501` |
+| Lane | DEV :5433; E2E browser :3101 / `sfia_next_e2e`; RECETTE untouched |
+| Changes | Removed session `pg_advisory_lock`; short `pg_advisory_xact_lock` + `owner_token` CAS; `verifyMissionForD2Act`; structured `awaitingMission` API/UI (no Nora text parse); crash hooks P3/P5; Atlas Playwright BROWSER OBSERVED |
+| Schema | unchanged |
+| Tests | unit 8; PG global 16; ACCEPT-01 8; Playwright Atlas 1 PASS; tsc/build PASS |
+| Status | LOCAL FINALISATION — READY FOR CHATGPT GLOBAL ACCEPTANCE REVIEW — NO PRODUCT PUSH |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-05
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Continuité globale — fiabilisation G1–G7 |
+| Type | EVOL — même macro-lot (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DEV-04 @ `5c6b0cee` |
+| Lane | DEV only; RECETTE `8vZjme4-KnnPkAqm_QxMz` untouched |
+| Changes | Latest-per-intentKey mission load (G1/G3); ownerActBinding + clientIntentKey D2 correlation (G2); mobilizeCapability on real D2/D4 (G4); advisory lock + RUNNING continuation fence (G5/G6); S07 knowledge + S08b D5→D4; UI create-project passes clientIntentKey |
+| Schema | unchanged |
+| Tests | unit 8 PASS; PG global 13 PASS; PG ACCEPT-01 8 PASS; tsc/eslint/build PASS; browser S14 NOT PROVEN (no DEV server :3100) |
+| Status | LOCAL FINALISATION — READY FOR CHATGPT GLOBAL REVIEW — NO PRODUCT PUSH |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-04
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Finalisation conduite globale des intentions (GAP-01..07) |
+| Type | EVOL — même macro-lot (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DEV-03 @ `12e26e32` |
+| Lane | DEV only (`sfia_next_dev` @ 5433); RECETTE `8vZjme4-KnnPkAqm_QxMz` untouched |
+| Changes | `continueAfterProjectCreated` after D2 create (no second Pilot message); exact project name extract (GAP-05); intention-anchored `loadPriorMissionProjection`; `mobilizeCapability` executable contract; D5/D6 PG proofs; Atlas blocking scenario C |
+| Schema | unchanged (mission fields on projection JSON only) |
+| Tests | unit intent-conduction 7 PASS; PG global 10 PASS; PG ACCEPT-01 8 PASS; tsc PASS; eslint PASS; next build PASS |
+| Evidence limits | SCRIPTED GitHub + Nora fixture DEV; no REAL; no Product push; no RECETTE |
+| Status | LOCAL FINALISATION — READY FOR CHATGPT GLOBAL ACCEPTANCE REVIEW — NO PRODUCT PUSH |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Continuité cognitive Nora/Studio ACCEPT-01 |
+| Type | EVOL — capacité transverse (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local DEV worktree — not pushed) |
+| Base | `d7f1507a56e50660ea24903c2dc563c249ba9086` / tree `3e9e1086…` |
+| Lane | DEV only (`sfia_next_dev` @ 5433); RECETTE 3200/5434 untouched |
+| Changes | D3 mission-continuity helper; post-D4 CognitiveContinue; D7 prepare from chat; auto resume after authorizePublication; tests unit+PG |
+| Schema | unchanged (no WorkIntent table) |
+| Tests | unit mission-continuity 5 PASS; PG ACCEPT-01 3 PASS; NR CREATE subset 3 PASS; tsc --noEmit PASS |
+| Evidence limits | SCRIPTED GitHub + Nora fixture; no REAL publish; no RECETTE; no Product push |
+| Status | LOCAL CONSTRUCTION — NO RECETTE OR REAL PROMOTION |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-01-REG
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / ACCEPT-01 — régularisation Review Pack + correctif UX panel |
+| Type | EVOL correction locale (NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-01 @ `b0e23c46` |
+| Lane | DEV only; RECETTE `8vZjme4-KnnPkAqm_QxMz` untouched |
+| Changes | PublicationInspectionPanel reflects `missionResume.status` after authorize; PG replay C2/C5 test; FULL Review Pack |
+| Defect fixed | After auto-resume, UI kept AUTHORIZED and left Dispatch enabled as if nominal |
+| Schema | unchanged |
+| Status | LOCAL REGULARIZATION — NO PRODUCT PUSH / RECETTE |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-02
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Continuité cognitive — correction P0-A..P1-E + preuves transverses |
+| Type | EVOL correction intégrée (NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | REG @ `cf5bac70` |
+| Lane | DEV only; RECETTE untouched |
+| Changes | Mission-gated auto-resume; durable recover via listMessages/turn/reconcile; idempotent restitution; cognitive continue post-effet; publish qualification sans GitHub-centrisme; tests T01/T03/P0-A/P0-B/P1-E |
+| Schema | unchanged |
+| Status | LOCAL CONSTRUCTION — NO PRODUCT PUSH / RECETTE |
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-03
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Continuité cognitive GLOBALE — mise en conformité transverse |
+| Type | EVOL (NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DEV-02 @ `f42cb2f5` |
+| Lane | DEV only; RECETTE untouched |
+| Changes | intent-conduction D3 commun; D2 await Pilot act + reprise; READ≠COMMAND (listMessages); scénarios A/B/C/D/I/K + ACCEPT-01; contrats d'extensibilité |
+| Schema | unchanged |
+| Status | LOCAL CONSTRUCTION — NO PRODUCT PUSH / RECETTE |
+
 ## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
 
 | Field | Value |
@@ -741,3 +892,559 @@ Append-only logical journal of Cursor product deliveries.
 | Preuves locales | tsc OK ; unit 123 PASS (STUDIO_LANE=DEV) ; PG 144 PASS ; e2e full 12/12 ×2 PASS |
 | DEV 500 | Cause = `next dev --turbopack` font flake sur WT construction ; restore non destructive `next dev` sans turbopack → `/login` 200 ; RECETTE `:3200` inchangée 200 |
 | Verdict attendu | PR/merge conditionnel puis post-merge CI GREEN ; STABLE/ML4 NOT STARTED |
+
+## delivery_id: DELIV-2026-11-08-ML4-GIT-LOCAL-01
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / ML4 — Collaborer et publier avec Git |
+| Type | EVOL / FEATURE DELIVERY — construction locale intégrée |
+| Autorité / GO | Morris GO R5/ML4 INTEGRATED LOCAL DELIVERY (2026-11-08) — DEV only |
+| Branche / worktree | `feat/next-git-collaboration-20261108` @ `/Users/morris/Projects/sfia-workspace-next-ml4-git-collaboration` |
+| Base Git | `origin/main@c658f59023d44a0e22448c7ee034e3c1dda292a2` (PR #670 merged) |
+| État Git Product | **LOCAL DIRTY / NO PROJECT COMMIT / NO PUSH / NO PR** |
+| Architecture | D6→D7→D9→D8 ; domaines `integrations` (D9), `execution` (D7), `proofs` (D8) ; D4 `document_publication_refs` ; Nora lecture Git only |
+| Migration | `008_git_collaboration` additive (DEV/`sfia_next_e2e`) — jamais RECETTE/STABLE |
+| Provider | `STUDIO_GITHUB_PROVIDER=scripted` par défaut ; REAL → `NOT_CONFIGURED` |
+| UX | Paramètres→Intégrations (218–224) ; surface projet git/publication (227–231) ; badge SCRIPTED ; shell G4 réutilisé |
+| Figma | Contrat extrait `.tmp-sfia-review/figma-visual-contract-ml4.md` + captures 218/219/225/227/229/231/233 |
+| Validations locales | unit 131 PASS ; integration PG 154 PASS (dont git-collaboration 10) ; `tsc --noEmit` PASS ; `next build` PASS ; e2e `git-collaboration.spec.ts` **1/1 PASS (15.6s)** SCRIPTED |
+| Versioning | **NO RELEASE** ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
+| Limites Fake/Real | Aucune installation App REAL ; aucun commit/PR/merge GitHub REAL ; DETERMINISTIC ≠ READY FOR REAL |
+| Gates restants | Critical Review ChatGPT ; GO Git Product ; GO RECETTE + effets REAL ; acceptation Morris ML4 |
+| Verdict candidat | `ML4 INTEGRATED LOCAL DELIVERY — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-GIT-CORRECTIVE-B1-B9
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / ML4 — correctif Critical B1–B9 |
+| Type | INC / CORRECTIVE LOCAL DELIVERY — `NO RELEASE` |
+| Autorité / GO | Morris GO ML4 CORRECTIVE LOCAL DELIVERY (2026-11-08) |
+| Branche / worktree | `feat/next-git-collaboration-20261108` (même worktree dirty) |
+| Base Git | `origin/main@c658f590…` inchangée ; handoff précédent `877b502a` |
+| Corrections | B1 autorité courante ; B2 claim atomique ; B3 merge lié publication ; B4 reconcile/lost ACK ; B5 path-policy ; B6 diff inspectable ; B7 provenance fingerprint ; B8 matrice ; B9 Review Pack + package-lock |
+| Migration | aucune 009 — progress/claim via colonnes 008 existantes |
+| Validations | unit 132 PASS ; git-collaboration PG 15 PASS ; e2e git corrective PASS ; Playwright **13/13 PASS** (ML1–ML3/G4 + ML4) ; tsc PASS |
+| Fake/Real | SCRIPTED only ; DETERMINISTIC ≠ READY FOR REAL |
+| Verdict candidat | `ML4 CORRECTIVE LOCAL DELIVERY — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-GIT-FINAL-CORRECTIVE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / ML4 — FINAL CORRECTIVE LOCAL (B1/B2/B3/B4/B6/B7/B8) |
+| Type | INC / CORRECTIVE LOCAL DELIVERY — `NO RELEASE` |
+| Autorité / GO | Morris « OK, GO CORRECTION » (2026-11-08) |
+| Branche / worktree | `feat/next-git-collaboration-20261108` (LOCAL DIRTY préservé) |
+| Base Git | `origin/main@c658f590…` inchangée ; handoff correctif B1–B9 `253f6bed` |
+| Corrections | B1 niveaux permission read≠write ; B2 exclusivité DISPATCHED + claim ; B3 base/head/refs merge ; B4 lost ACK post-PR + findPullRequest ; B6 taxonomie lecture distante ; B7 acteur/provenance courants ; B8 requal AT + preuves ; B5/B9 préservés |
+| Migration | aucune 009 — claimToken dans `resultJson` (008) |
+| Validations | unit **136 PASS** ; git-collaboration PG **24 PASS** ; `tsc` PASS ; `next build` PASS ; Playwright **13/13 PASS** ; integration globale 167/168 (1 flaky préexistant `portfolio-a1` hors ML4) |
+| ENV-01 | DEV + e2e `sfia_next_e2e` ; RECETTE/STABLE non touchés |
+| Versioning | **NO RELEASE** ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
+| Fake/Real | SCRIPTED only ; REAL NOT_CONFIGURED ; DETERMINISTIC ≠ READY FOR REAL |
+| Gates restants | Critical Review ChatGPT (handoff L3) ; GO Git Product Morris ; GO RECETTE + effets REAL |
+| Verdict candidat | `ML4 FINAL CORRECTIVE LOCAL DELIVERY — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-EXECUTION-INVARIANTS
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / ML4 — STABILISATION FINALE DES INVARIANTS GIT (C1/C2/C3/B2/Q1) |
+| Type | INC / CORRECTIVE LOCAL DELIVERY — `NO RELEASE` |
+| Autorité / GO | Morris « OK GO » (2026-11-08) ; Critical Review entrée `f15a8e99…` NOT READY |
+| Branche / worktree | `feat/next-git-collaboration-20261108` (LOCAL DIRTY préservé) |
+| Base Git | `origin/main@c658f590…` inchangée |
+| Corrections | C1 `assertStepAuthority` inter-mutations ; B2 claim lease/fencing + reconcile READ-ONLY ; C2 PR historique vs courant ; C3 SCRIPTED `PilotId+fullName` ; Q1 keyset portfolio µs |
+| Migration | aucune 009 — lease dans `resultJson` (008) |
+| Validations | unit **140 PASS** ; git PG **28 PASS** ; integration **172 PASS** ; `tsc` PASS ; `build` PASS ; Playwright **13/13 PASS** |
+| Handoff L3 | `sfia/review-handoff@4bcc8e4e4171bf886beab06c52b488e88ff2f308` (parent `f15a8e99…`) — mono-fichier |
+| Q1 | Flake préexistant prouvé (code = main) ; cause truncation JS Date ms ; fix tuple keyset + cursor µs ; stress 25/25 PASS |
+| ENV-01 | DEV + e2e `sfia_next_e2e` ; RECETTE/STABLE non touchés |
+| Versioning | **NO RELEASE** ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
+| Fake/Real | SCRIPTED only ; REAL NOT_CONFIGURED ; DETERMINISTIC ≠ READY FOR REAL |
+| Gates restants | Critical Review ChatGPT (handoff L3) ; GO Git Product Morris |
+| Verdict candidat | `ML4 EXECUTION-INVARIANTS STABILIZATION — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-FENCING-RECONCILIATION-CLOSURE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / ML4 — EXECUTION SAFETY FINAL BOUNDED CLOSURE (B2/B4/B9) |
+| Type | INC / CORRECTIVE LOCAL DELIVERY — `NO RELEASE` |
+| Autorité / GO | Morris « OK GO » ; Critical Review entrée `4bcc8e4e…` NOT READY + pack incomplete |
+| Branche / worktree | `feat/next-git-collaboration-20261108` (LOCAL DIRTY préservé) |
+| Base Git | `origin/main@c658f590…` inchangée |
+| Corrections | B2 claimToken dans WHERE SQL + touch lease + old-worker CONFLICT ; B4/C2 `prRemoteProven` fail-closed ; B9 diffs docs dans Review Pack |
+| Migration | aucune 009 |
+| Validations | unit **140** ; git PG **32** ; integration **176** ; tsc/build PASS ; Playwright **13/13 PASS** |
+| Handoff L3 | `sfia/review-handoff@c67ec07ff4d292c09f57015529515ba1deaf4c69` (parent `4bcc8e4e…`) — mono-fichier + diffs B9 |
+| ENV-01 | DEV + e2e ; RECETTE/STABLE non touchés |
+| Versioning | **NO RELEASE** ; `0.0.0-dev` |
+| Fake/Real | SCRIPTED only ; DETERMINISTIC ≠ READY FOR REAL |
+| Verdict candidat | `ML4 FENCING & RECONCILIATION CLOSURE — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-PR-RESUME-VERIFICATION
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / ML4 — B4/C2 PR resume verification after lost ACK |
+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` |
+| Autorité / GO | Morris « OK GO » ; Critical Review `c67ec07f…` NOT READY |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY |
+| Base Git | `origin/main@c658f590…` |
+| Correction | `prHistoricallyCreated` force relecture distante ; gate `prRemoteVerified` ; upsert publicationRef ; tests resume/unread/nomatch/CLOSED |
+| Validations | unit **140** ; git PG **36** ; integration **180** ; tsc/build PASS ; Playwright **13/13 PASS** |
+| Handoff L3 | `sfia/review-handoff@66134ea4ec6d9bf8aea92b6a8ad05aae8b3b0a3c` (parent `c67ec07f…`) |
+| Fake/Real | SCRIPTED only ; DETERMINISTIC ≠ READY FOR REAL |
+| Verdict candidat | `ML4 PR RESUME VERIFICATION CLOSURE — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-D7-D8-INTEGRITY
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / ML4 — D7–D8 publication integrity (UNIQUE + atomicité + marker) |
+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` |
+| Autorité / GO | Morris « OK GO » ; Critical Review `66134ea4…` NOT READY |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY |
+| Base Git | `origin/main@c658f590…` |
+| Migration | **009** additive UNIQUE `document_publication_refs(effect_attempt_id) WHERE NOT NULL` ; preflight DEV : 3 doublons test détachés explicitement |
+| Corrections | `commitPublicationCompletion` txn ; `assertPrMarkerProvenance` ; schemaRevision 009 |
+| Validations | unit / git PG **39** / integration / build / Playwright → Review Pack |
+| Fake/Real | SCRIPTED only ; DETERMINISTIC ≠ READY FOR REAL |
+| Verdict candidat | `ML4 D7-D8 PUBLICATION INTEGRITY CLOSURE — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-APP-INSTALLATION-READ
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 |
+| Macro-capacité | R5 / ML4 — GitHub App REAL installation READ-ONLY (D9) |
+| Type | INC / DELIVERY LOCAL — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris « OK GO » ; App `sfia-studio-next-dev` (5670639) / install 179935689 / sandbox `mcleland147/chantiers360` |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY |
+| Base Git | `origin/main@c658f590…` |
+| Implémentation | `github-app-config` + `github-app-auth` + `RealGitHubReadProvider` ; mutations REAL hard-blocked ; SCRIPTED défaut |
+| Qualification réseau | **PASS** 2026-11-08 ~20:20 CET — App 5670639 / install 179935689 / `mcleland147/chantiers360` / HEAD `8c398c494dd918272aab5b2653777c6c21d2e76e` / token perms read-only |
+| Validations | unit **153 PASS** (13 App/REAL DET) ; integration **183 PASS** ; tsc/build PASS ; Playwright **N/A** ; qualify REAL READ PASS |
+| Fake/Real | SCRIPTED non-régression ; **REAL INSTALLATION AUTH PROVEN + REAL REPOSITORY READ PROVEN** (READ-ONLY) |
+| Dette D7/D8 | Option A conservée ; réserves provenance PR + lease CAS **ouvertes** (hors cycle) |
+| Verdict candidat | `ML4 GITHUB APP INSTALLATION READ — READY FOR CHATGPT CRITICAL REVIEW — REAL READ-ONLY SCOPE` |
+| Gate suivant | Critical Review ; puis cycles user-to-server / D7-D8 / avant toute mutation REAL |
+| Interdits | REAL mutation ; Product Git ; RECETTE/STABLE ; user-to-server |
+
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-USER-AUTH-D7-D8-SAFETY
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 ~21:00 CET |
+| Macro-capacité | R5 / ML4 — GitHub App user-to-server + D7/D8 safety closure |
+| Type | INC / DELIVERY LOCAL — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO EXPLICITE (mandat CRITICAL intégré) ; handoff entrée `b6dccd6e…` |
+| Branche / worktree | `feat/next-git-collaboration-20261108` LOCAL DIRTY préservé |
+| Base Git | `origin/main@c658f590…` inchangée ; aucun commit/push Product |
+| Corrections D7/D8 | (A) `assertPrMarkerProvenance` obligatoire même avec `prNumber` connu (dispatch + reconcile) ; (B) `sqlClaimLeaseActive()` dans CAS owned de `commitPublicationCompletion` / `casOwnedTransition` / `assertAndTouchOwnership` |
+| OAuth D9 | Web app flow distinct de Better Auth ; state CSRF+TTL+consume atomique ; PKCE S256 ; identité GitHub stable vs D1 ; installations/repos vérifiées ; tokens AES-GCM si clé présente |
+| Migration | **010** additive `010_github_app_user_oauth` (colonnes PKCE/token chiffré) — DEV+e2e only ; D8 Option A intacte ; 009 UNIQUE préservée |
+| Configuration manuelle restante | `GITHUB_APP_CLIENT_ID` / `GITHUB_APP_CLIENT_SECRET` / `GITHUB_APP_CALLBACK_URL` / `INTEGRATION_TOKEN_ENCRYPTION_KEY` absents du `.env.local` — REAL interactive NOT PROVEN |
+| PEM | path configuré ; mode `0600` vérifié (métadonnées seules) |
+| Validations | tsc PASS ; unit **160 PASS** ; integration **186 PASS** ; build PASS ; Playwright **13/13 PASS** (~20:43–20:46 CET) |
+| Fake/Real | SCRIPTED DET user-to-server ; REAL installation READ-ONLY inchangé ; REAL user OAuth interactive **NOT PROVEN** ; mutations REAL hard-blocked |
+| UX | `/settings/integrations` + API ; parcours Figma 218–235 : **PENDING UX INTEGRATION** (surface minimale, pas de marketplace) |
+| ENV-01 | DEV + e2e ; RECETTE/STABLE non touchés |
+| Versioning | **NO RELEASE** ; `0.0.0-dev` |
+| Verdict candidat | `ML4 GITHUB USER AUTH + D7/D8 SAFETY — READY FOR CHATGPT CRITICAL REVIEW — DETERMINISTIC USER FLOW / REAL INSTALLATION READ ONLY` |
+| Gates suivants | Critical Review ; config manuelle Client Secret+Callback ; qualification navigateur REAL user-to-server ; puis effet documentaire REAL sous GO distinct |
+
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-USER-AUTH-SECURITY-CLOSURE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 ~21:15 CET |
+| Macro-capacité | R5 / ML4 — GitHub App user auth SECURITY CORRECTIVE CLOSURE |
+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO CORRECTION EXPLICITE CRITICAL |
+| Handoff entrée | `6509b4bc…` (NOT READY FOR REAL USER FLOW) |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| P1 SCRIPTED | garde centrale `scripted-github-guard` ; pas de fallback SCRIPTED si REAL demandé ; routes complete/callback verrouillées |
+| P1 permissions | plus de write hardcodé REAL ; snapshot `source=scripted_fixture\|user_token_observed\|unknown` |
+| P1 callback | `safeReturnPath` allowlist ; erreurs opaques ; state lié `studioSessionId` + PilotId |
+| P2 tokens | refresh user token + fencing ciphertext ; REQUIRES_REAUTH ; disconnect wipe local (KNOWN GAP révocation distante) |
+| P2 txn D9 | revoke+insert+seed en transaction PG ; GitHub I/O hors txn |
+| D7 | `persistOwnedProgress` exige `sqlClaimLeaseActive()` |
+| Migration | **011** additive `studio_session_id` + `flow` sur oauth states ; 009/010/Option A préservés |
+| Validations | tsc PASS ; unit **167** ; integration **190** ; build PASS ; Playwright **13/13** |
+| Fake/Real | DET only ; REAL user interactive NOT PROVEN ; REAL mutations HARD-BLOCKED |
+| Verdict candidat | `ML4 GITHUB USER AUTH SECURITY CLOSURE — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-AUTH-CONCURRENCY-CLOSURE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 ~21:45 CET |
+| Macro-capacité | R5 / ML4 — GitHub Auth CONCURRENCY SAFETY CLOSURE (C1+C2) |
+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO CORRECTION EXPLICITE CRITICAL |
+| Handoff entrée | `b6c87a8c…` |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| C1 | Lease refresh PostgreSQL + `markRequiresReauth` conditionnel à la génération `refresh_ciphertext` ; I/O GitHub hors txn |
+| C2 | UNIQUE partiel `(pilot_id, provider) WHERE CONNECTED` ; préflight 0 doublons ; collision → CONFLICT / état courant |
+| Migration | **012** additive `012_auth_concurrency_safety` — DEV+e2e ; Option A / 009–011 préservés |
+| Validations | tsc PASS ; unit **167** ; integration **193** ; build PASS ; Playwright **13/13** |
+| Fake/Real | DET only ; REAL interactive NOT PROVEN ; mutations HARD-BLOCKED |
+| Verdict candidat | `ML4 GITHUB AUTH CONCURRENCY CLOSURE — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-AUTH-FINAL-SAFETY-CLOSURE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 ~21:59 CET |
+| Macro-capacité | R5 / ML4 — GitHub Auth FINAL CONCURRENCY SAFETY CLOSURE (R1+R2) |
+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO CORRECTION EXPLICITE CRITICAL |
+| Handoff entrée | `2a9eb05a…` |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| R1 | Fencing refresh : CAS génération **+** `refreshLeaseToken` ; reclaim lease expiré fail-closed sans 2e refresh distant ; ACCESS_DENIED seulement avec propriété du bail ; DEPENDENCY_UNAVAILABLE → clear lease only |
+| R2 | Callback concurrent : unique violation → CONFLICT strict (pas de CONNECTED emprunté) |
+| Migration | **Aucune** — 009–012 / Option A préservés |
+| Validations | tsc PASS ; unit **167** ; integration **205** ; build PASS ; Playwright **13/13** |
+| Fake/Real | DET only ; REAL interactive NOT PROVEN ; mutations HARD-BLOCKED |
+| Verdict candidat | `ML4 GITHUB AUTH FINAL SAFETY CLOSURE — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-AUTH-REFRESH-LIFECYCLE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 ~22:36 CET |
+| Macro-capacité | R5 / ML4 — GitHub Auth REFRESH LIFECYCLE CLOSURE (R1-A + R1-B) |
+| Type | INC / CORRECTIVE LOCAL — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO EXPLICITE CRITICAL — CORRECTION R1 |
+| Handoff entrée | `59d07663…` |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| R1-A | Timeout/ambigu après refresh engagé : **ne plus** `clearRefreshLease` ; bail durable ; concurrent CONFLICT ; expiry → reclaim fail-closed sans 2e remote |
+| R1-B | Persist / markRequiresReauth / clearRefreshLease : `refresh_lease_expires_at > now()` ; late positive ne restitue pas G1 expiré |
+| R2 | Non rouvert (CONFLICT accepté) |
+| Migration | **Aucune** — 009–012 / Option A préservés |
+| Validations | tsc PASS ; unit **167** ; integration **211** ; build PASS ; Playwright **13/13** |
+| Fake/Real | R1 LIFECYCLE DETERMINISTIC PROVEN ; REAL interactive NOT PROVEN ; mutations HARD-BLOCKED |
+| Verdict candidat | `ML4 GITHUB AUTH REFRESH LIFECYCLE — READY FOR CHATGPT CRITICAL RE-REVIEW — DETERMINISTIC SCOPE ONLY` |
+
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-USER-OAUTH-REAL-READ-PREFLIGHT
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 ~22:52 CET |
+| Macro-capacité | R5 / ML4 — GitHub App user-to-server REAL OAuth DEV interactive READ qualification |
+| Type | VALIDATION REAL bornée — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO CONFIGURATION OAUTH DEV + premier parcours utilisateur REAL lecture seule |
+| Handoff entrée | `41373d2e…` |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| Préflight App | App `sfia-studio-next-dev` / App ID `5670639` / Installation `179935689` / sandbox `mcleland147/chantiers360` — JWT GET `/app` confirme Client ID public |
+| Config locale | Callback `http://127.0.0.1:3100/api/integrations/github/callback` + Client ID + AES key préparés dans `.env.local` gitignoré ; **Client Secret ABSENT** |
+| REAL interactive | **NOT PROVEN** — CONFIGURATION REQUIRED (secret + callback GitHub App settings + consentement Morris) |
+| Non-régression | tsc PASS ; unit **167** ; integration **211** ; build PASS ; Playwright **13/13** |
+| Mutations | HARD-BLOCKED inchangé |
+| Verdict candidat | `ML4 GITHUB USER OAUTH — CONFIGURATION REQUIRED — REAL NOT PROVEN` |
+
+## delivery_id: DELIV-2026-11-08-ML4-GITHUB-USER-OAUTH-REAL-INTERACTIVE-READ
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-08 ~23:50 CET |
+| Macro-capacité | R5 / ML4 — GitHub App user-to-server REAL OAuth DEV interactive READ |
+| Type | VALIDATION REAL bornée — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO — Callback App enregistré/vérifié + reprise qualification REAL READ |
+| Handoff entrée | `d8117ee6…` |
+| Branche | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| App / install | `sfia-studio-next-dev` / App ID `5670639` / Installation `179935689` / repo `mcleland147/chantiers360` |
+| OAuth REAL | Consent → CONNECTED `iauth_37cc71f1…` / pilot `pilot_cba50eb6…` / login `mcleland147` / GH `295557155` ; tokens sealed ; meta `REAL_USER_OAUTH` |
+| UI host-aligned | `http://127.0.0.1:3100/settings/integrations` (même host que callback) — banner CONNECTED + `mcleland147/chantiers360 · main` ; reload persisté ; status JSON sans secret |
+| API READ user-token | `/user` `/user/installations` `/repos/…/chantiers360` `/git/ref/heads/main` → HTTP 200 ; HEAD `8c398c49…` |
+| Blocage levé | Callback App settings vérifié ; mismatch `localhost`≠`127.0.0.1` documenté (cookie host) |
+| Harness | `e2e-web-server.sh` neutralise `STUDIO_GITHUB_USER_OAUTH` pour E2E SCRIPTED |
+| Non-régression | tsc PASS ; unit **167** ; integration **211** ; build PASS ; Playwright **13/13** |
+| Mutations GitHub / push Product | **AUCUNE** |
+| Verdict candidat | `REAL INTERACTIVE READ PROVEN` |
+
+## delivery_id: DELIV-2026-11-09-ML4-GIT-DOCUMENT-PUBLICATION-BOUNDED-REAL-E2E
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~00:25 CET |
+| Macro-capacité | R5 / ML4 — Premier E2E publication documentaire REAL sandbox |
+| Type | DELIVERY + QUALIFICATION E2E REAL — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO CRITICAL — effets REAL bornés (branche + fichier + PR, **pas** merge) |
+| Handoff entrée | `ffffec1f…` |
+| Branche Product | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| Cible | `mcleland147/chantiers360` · App `sfia-studio-next-dev` / install `179935689` |
+| D4 | `doc_8351c2b1…` / `drev_ce62a84c…` contenu = fichier Git |
+| D6 | `dec_b93e9bef…` |
+| D7 | `efx_fcca79b2…` COMPLETED · correlation `pub-e2e-20261109001806-retry1` |
+| Effets REAL | branche `sfia/pub-pub-e2e-2026` · commit `790a5315…` · PR **#18 OPEN** (non mergée) |
+| main | inchangée `8c398c49…` |
+| Provider | REAL + user-token mutations ; `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` |
+| Non-régression | tsc PASS ; unit **171** ; integration **211** ; build PASS ; Playwright **13/13** |
+| Push Product | **AUCUN** |
+| Verdict candidat | `ML4 GIT DOCUMENT PUBLICATION — BOUNDED REAL E2E PROVEN — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-09-ML4-PUBLICATION-GIT-TECHNICAL-CONSOLIDATION
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~01:00 CET |
+| Macro-capacité | R5 / ML4 — Consolidation sécurité / preuves / qualité publication documentaire |
+| Type | DELIVERY / CRITICAL REVIEW CORRECTIVE — INC / CONSOLIDATION BORNÉE — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO consolidation technique ; **pas** de nouvelle mutation GitHub REAL ; USER E2E = Morris RECETTE |
+| Handoff entrée | `160becf9…` |
+| Branche Product | `feat/next-git-collaboration-20261108` LOCAL DIRTY @ `c658f590` |
+| Acquis préservés | PR #18 OPEN · commit `790a5315…` · main `8c398c49…` |
+| Digest D4↔Git | SHA-256 `11906026…` (D4 = Git UTF-8) · blob `da920aca…` |
+| Corrections | gate documentary-only ; branch hash ; marker exact ; D6 effect_conditions ; AND source/objectRef ; reconcile tip SHA ; ACCESS_DENIED→FAILED ; REAL permission source |
+| HumanDecision UI | contrat + persisté + contrôlé — geste humain observé **NOT RUN** (RECETTE) |
+| Mutations REAL ce cycle | **AUCUNE** |
+| Push Product | **AUCUN** |
+| Verdict candidat | `ML4 PUBLICATION GIT — TECHNICAL CONSOLIDATION REVIEW READY — USER E2E RESERVED FOR MORRIS RECETTE` |
+
+## delivery_id: DELIV-2026-11-09-ML4-PRODUCT-LOCAL-FREEZE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~01:35 CET |
+| Macro-capacité | R5 / ML4 — Finalisation et gel local candidat Product |
+| Type | CYCLE 8 DELIVERY — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO gel local : R7+R8 + commit Product LOCAL uniquement |
+| Corrections | R7 labels mode d'effet REAL/SCRIPTED ; R8 statuts AS-IMPLEMENTED courants vs snapshots historiques |
+| Réserves conservées | R1–R6 CARRIED/NON ISSUE (R6 NON ISSUE) |
+| Push Product / PR / merge / REAL mutation | **AUCUN** |
+| USER E2E | NOT RUN — Morris RECETTE |
+| Verdict candidat | `ML4 PRODUCT — LOCAL CANDIDATE COMMITTED — READY FOR CHATGPT CRITICAL REVIEW — PRODUCT PUSH NOT AUTHORIZED` |
+
+## delivery_id: DELIV-2026-11-09-ML4-PUBLICATION-INTEGRITY-CORRECTIVE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~02:30 CET |
+| Macro-capacité | R5 / ML4 — Correctif CRITICAL intégrité publication D7/D8 + provenance fournisseur |
+| Type | INC / CORRECTIF PRODUCT — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO intégrité ; push Product / PR / merge / REAL mutation **NON AUTORISÉS** |
+| Parent Product | `79b100527a9c43fb789ca62b7f87b50a8bc2adf1` |
+| Correctifs | validateur unique `publication-steps.ts` ; reject `steps=[]` ; preuve COMPLETED/D8 ; `effectProviderMode` figé ; reconcile fail-closed ; UI provenance tentative |
+| Tests | T01–T20 DET SCRIPTED (service+DB) ; suites unit/integration/build/tsc |
+| REAL multi-repo | NOT PROVEN — réserve sandbox `chantiers360` |
+| Push Product distant | **AUCUN** — remote reste `79b10052…` |
+| Verdict candidat | `ML4 PUBLICATION INTEGRITY — CORRECTED AND LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL RE-REVIEW — PRODUCT PUSH NOT AUTHORIZED` |
+
+## delivery_id: DELIV-2026-11-09-ML4-REC-01-RECONCILE-PROVIDER-PROVENANCE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~02:45 CET |
+| Macro-capacité | R5 / ML4 — Correctif `ML4-REC-01` réconciliation liée à la provenance fournisseur |
+| Type | INC / CORRECTIF PRODUCT — `NO RELEASE` / `0.0.0-dev` |
+| Parent Product | `d4f158ce4abe793706d005fc7fafdfe365d2c207` |
+| Correctif | `reconcileAttempt` : gate mode historique vs live **avant** observations provider ; COMPLETED/D8 protégés ; UNKNOWN fail-closed |
+| Risques | R1–R8 historiques préservés ; nouveau = `ML4-REC-01` (pas de renumérotation) |
+| Tests | REC-01…REC-10 DET SCRIPTED |
+| Push Product distant | **AUCUN** — remote reste `79b10052…` |
+| Verdict candidat | `ML4 PUBLICATION RECONCILIATION — PROVIDER PROVENANCE GUARDED — LOCALLY COMMITTED — READY FOR CHATGPT CRITICAL REVIEW — PRODUCT PUSH NOT AUTHORIZED` |
+
+## delivery_id: DELIV-2026-11-09-ML4-RECETTE-ENV-LANE-APP
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~09:20 CET |
+| Macro-capacité | R5 / ML4 — ENVIRONMENT DELIVERY : App GitHub bornée par lane + préparation RECETTE |
+| Type | CYCLE 11 ENVIRONMENT DELIVERY — `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO finalisation technique RECETTE ; push Product / PR / merge / bascule G4 **NON inclus** |
+| Parent Product tip entrée | `51b0c3b6f70188b64ca43bcf1dc6e13bb605ab5b` |
+| Code | `github-app-config.ts` / `github-app-user-oauth.ts` : profils `DEV`/`RECETTE` fail-closed |
+| DB RECETTE | `127.0.0.1:5434/sfia_next_recette_ml4` rôle `sfia_next_recette_ml4` ; migrations `001→012` ; isolation CONNECT vs G4/ML3 |
+| Secrets | hors dépôt `~/.config/sfia-studio-next/recette/.env.local` (0600) — non publiés |
+| Port 3200 | encore servi par G4 `29535d07` — bascule **AWAITING MORRIS GO** |
+| Push Product distant | **AUCUN** sans GO distinct |
+| USER E2E | NOT RUN |
+| Verdict candidat | `ML4 RECETTE ENVIRONMENT — STAGED AND VERIFIED — AWAITING MORRIS G4 SWITCH GO` (si build local OK) |
+
+## delivery_id: DELIV-2026-11-09-ML4-RECETTE-SWITCH-A2C5E9F8
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~17:43 CET |
+| Macro-capacité | R5 / ML4 — Mise à disposition RECETTE macro-correctif Chat First D4 + provenance Git |
+| Type | CYCLE 11 DÉPLOIEMENT / RECETTE — `NO RELEASE` / PATCH candidate / `0.0.0-dev` |
+| Autorité / GO | Morris GO 2026-11-09 CRITICAL — bascule RECETTE conditionnelle ; push Product / PR / merge / STABLE / REAL mutation **NON inclus** |
+| Source applicative | `a2c5e9f8819cbe547bf925b39f38f783fc8aa52b` (branche `fix/next-ml4-chat-first-d4-provenance-20261109`) |
+| Tree | `5d245e8adf1d32a7ceec6b129857d94f6398a488` |
+| Build ID servi | `9yCs2GbSS5lDFX3LPiQTU` @ http://127.0.0.1:3200 |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-a2c5e9f8` |
+| Remplacé | `974b0030…` / BUILD `RzpCuGMK6SnwfucphK7Qa` (artefact préservé) |
+| Migration | **aucune** — `schemaRevision=012_auth_concurrency_safety` inchangé |
+| Données | CampusFlow + D4 v1 `doc_1e5d8c16…` / `drev_c07ca162…` AVAILABLE préservés (md5 `de4bd1a6…`) |
+| Backup | `/Users/morris/Projects/sfia-recette-backups/ml4-20261109-173817-pre-a2c5e9f8` sha256 `7a9dde7b…` — restore DB sans GO Morris **interdit** |
+| Validations | unit document-act 25 PASS ; tsc PASS ; next build PASS ; HTTP smoke 200/401 |
+| Nora | OPENAI PRESENT ; LIVE behavior **NOT PROVEN** ; profil `TEST_BOUNDARY` |
+| GitHub | App RECETTE 5677465/180092114 ; mutations OFF ; REAL write **NONE** |
+| USER RECETTE | **NOT RUN** — R06 réservé Morris |
+| Push Product / PR / merge | **AUCUN** |
+| Manifeste | `construction/integration-git/env01-recette-manifest-ml4-a2c5e9f8-2026-11-09.md` |
+| Verdict candidat | `RECETTE BUILD UPDATED — SOURCE SHA VERIFIED — DATA PRESERVED — TECHNICAL SMOKE PASS — USER R06 NOT RUN` |
+
+## delivery_id: DELIV-2026-11-09-ML4-R06-SECTION-NORA-CORRECTIVE
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~18:16 CET |
+| Macro-capacité | R5 / ML4 — Correctif intégré R06 section D4 + vérité Nora |
+| Type | CYCLE 8 DELIVERY / RUN CORRECTIF — `NO RELEASE` / PATCH candidate / `0.0.0-dev` |
+| Autorité / GO | Morris GO 2026-11-09 — diagnostic RECETTE RO + correction DEV + tests + handoff L3 ; **pas** de redéploiement RECETTE / push / PR / merge |
+| Parent HEAD | `a2c5e9f8819cbe547bf925b39f38f783fc8aa52b` |
+| Cause racine | `matchSectionSpans` : hint `"2"` via `\b2\b` ambigu avec `Source 2` / `3.2` sur v1 ATX numérotée |
+| Correctifs | `leadingSectionNumber` + matching structurel ; ACK FAILED distingue outils Nora RO vs refus Studio |
+| Validations | unit document-act **32 PASS** ; PG Chat First **9 PASS** ; PG knowledge **6 PASS** ; provenance **2 PASS** ; tsc PASS ; build PASS |
+| Fake/Real | DETERMINISTIC PROVEN (fixture Nora) ; LIVE NOT RUN ; GitHub REAL write NONE |
+| RECETTE | **inchangée** — SHA servi `a2c5e9f8` / BUILD `9yCs2GbSS5lDFX3LPiQTU` ; v1 md5 `de4bd1a6…` ; 0 v2 |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR REVIEW — R06 REAL-DOCUMENT STRUCTURE CORRECTIVE VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-RECETTE-SWITCH-8BA77730
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~18:30 CET |
+| Macro-capacité | R5 / ML4 — Bascule RECETTE correctif R06 D4 (section numérotée + ACK) |
+| Type | CYCLE 11 DÉPLOIEMENT / RECETTE — `NO RELEASE` / PATCH candidate / `0.0.0-dev` |
+| Autorité / GO | Morris GO 2026-11-09 CRITICAL — bascule conditionnelle ; push Product / PR / merge / restore DB / REAL write **NON inclus** |
+| Source | `8ba777300adebe3ba70ddbe3c386a3ad709034f6` tree `368159d7…` |
+| Build servi | `ygu4moVrYUNZPkvprgvB_` @ http://127.0.0.1:3200 |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-8ba77730` |
+| Launcher | LaunchAgent `com.sfia.studio.next.recette.ml4` (KeepAlive, PPID launchd) |
+| Remplacé | `a2c5e9f8…` / BUILD `9yCs2GbSS5lDFX3LPiQTU` (artefact préservé) |
+| Migration | aucune — schema `012_auth_concurrency_safety` |
+| D4 cible | v1 `drev_c07ca162…` AVAILABLE md5 `de4bd1a6…` ; user v2 NONE |
+| Backup | `…/ml4-20261109-182800-pre-8ba77730` sha256 `6e3d3b60…` |
+| Validations redeploy | unit 34 PASS ; tsc PASS ; next build PASS ; HTTP smoke 200/401 |
+| USER R06 | **NOT RUN** |
+| Push Product | **AUCUN** |
+| Manifeste | `env01-recette-manifest-ml4-8ba77730-2026-11-09.md` |
+| Verdict | `RECETTE BUILD UPDATED — SOURCE 8ba77730 VERIFIED — DATA PRESERVED — TECHNICAL SMOKE PASS — USER R06 NOT RUN` |
+
+## delivery_id: DELIV-2026-11-09-ML4-ABD-DOCUMENT-BOUNDARY
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~20:05 CET |
+| Macro-capacité | R5 / ML4 — Correctif intégré A+B+D parcours documentaire Chat First |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` / `0.0.0-dev` |
+| Autorité / GO | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; push Product / RECETTE / LIVE Nora / REAL GitHub **NON inclus** |
+| Base tip | `8ba777300adebe3ba70ddbe3c386a3ad709034f6` |
+| Changements | A splice NL ; B fence `sfia-document` (suppression fallback_wrap) ; D obs proposal ; prompt/fixture Nora ; tests oracle R06-G |
+| Validations | unit document-act 38 PASS ; ml2+nora 8 PASS ; PG Chat First 9 PASS ; tsc PASS |
+| Lane tests | DEV Postgres `127.0.0.1:5433` uniquement |
+| RECETTE | **inchangée** — SHA `8ba77730` / BUILD `ygu4moVrYUNZPkvprgvB_` ; v1 md5 `de4bd1a6…` ; 0 v2 |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR REVIEW — INTEGRATED A+B+D DOCUMENT CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-ABD-FENCE-ROBUSTNESS
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~20:25 CET |
+| Macro-capacité | R5 / ML4 — Régularisation B scanner fences / intégrité Markdown |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` |
+| Parent | `9694cc7171006b747dd7f502a1f1ba8b3a0477f3` |
+| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; push Product / RECETTE NON inclus |
+| Changements | `scanContractualDocumentFences` nest-aware ; tag exact `sfia-document` ; tests P/N + oracle nested-code PG |
+| Validations | (voir Review Pack — commandes rejouées) |
+| RECETTE | **inchangée** — `8ba77730` / `ygu4moVrYUNZPkvprgvB_` ; v1 `de4bd1a6…` |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR REVIEW — DOCUMENT PROPOSAL BOUNDARY ROBUSTNESS VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-ILLUSTRATIVE-FENCE-ISOLATION
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~20:40 CET |
+| Macro-capacité | R5 / ML4 — Isolation des fences documentaires illustratives (Contrat B) |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` / `0.0.0-dev` |
+| Parent tip | `0b02de41cd7e3d08101419b49d6534d12edf70cf` |
+| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; push Product / RECETTE / LIVE Nora **NON inclus** |
+| Changements | Scanner saute fences non contractuelles de premier niveau ; N1–N12 ; PG zéro D4 CREATE/REVISE ; hook test `replaceNoraAssistantText` |
+| Validations | unit document-act 77 PASS ; nora 14 PASS ; PG Chat First 13 PASS ; tsc/lint/build (voir Review Pack) |
+| Lane tests | DEV Postgres `127.0.0.1:5433` uniquement |
+| RECETTE | **inchangée** — SHA `8ba77730` / BUILD `ygu4moVrYUNZPkvprgvB_` ; v1 md5 `de4bd1a6…` ; 0 v2 |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR REVIEW — ILLUSTRATIVE FENCE ISOLATION VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-ADE-CREATE-QUALIFY-OBS
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~23:10 CET |
+| Macro-capacité | R5 / ML4 — Macro-correctif intégré A+D+E (qualification CREATE, restitution loyale, observabilité) |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` / `0.0.0-dev` |
+| Parent tip | `93da44beb7e7571c9406180027896769579b9815` |
+| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; push Product / RECETTE / LIVE Nora / REAL GitHub **NON inclus** |
+| Cause | R12 : CREATE_PAIR_RE singulier ≤40 → NONE malgré demande CREATE explicite + fence Nora valide |
+| Changements | `hasExplicitCreateIntent` ; ACK `NOT_EXECUTED` ; `d3.turn.document_act_qualification` + allowlist ; tests P/N + PG A-R12/A-N10 |
+| Validations | unit document-act 89 PASS ; nora+ml2 8 PASS ; PG Chat First 15 PASS ; tsc PASS ; lint warnings préexistants ; build NODE_ENV=production PASS |
+| Lane tests | DEV Postgres `127.0.0.1:5433` uniquement |
+| RECETTE | **inchangée** — SHA `93da44be` / BUILD `sHkE8sHJBxD3U9AJdHWi7` |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR REVIEW — R12 CREATE A+D+E CORRECTIVE DETERMINISTICALLY VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-ADE-CONSOLIDATION-SAFETY
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~23:30 CET |
+| Macro-capacité | R5 / ML4 — Consolidation A+D+E (faux positifs CREATE, campusflow, NOT_EXECUTED PG, handoff) |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` |
+| Parent tip | `8eab1317b97f5bfc438d736b42a1363ddfdb3e77` |
+| Autorité | Morris GO consolidation 2026-11-09 CRITICAL — commit local descendant + handoff L3 |
+| Changements | clause-scoped CREATE ; suppression token campusflow ; C1–C14/N11 ; PG NOT_EXECUTED + C10 |
+| Validations | unit document-act 91 PASS ; PG Chat First 17 PASS ; tsc/build production PASS |
+| Lane tests | DEV Postgres `127.0.0.1:5433` |
+| RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREATE SAFETY AND NOT_EXECUTED VERIFIED LOCALLY` |
+
+## delivery_id: DELIV-2026-11-09-ML4-CREATE-PLEASE-RE-AUTHORITY
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-09 ~23:45 CET |
+| Macro-capacité | R5 / ML4 — Discriminant final CREATE_PLEASE_RE |
+| Type | CYCLE 8 / PATCH candidate / `NO RELEASE` |
+| Parent tip | `5ed702cb84cd8b409e4a7bb45b25389d0a5f1cea` |
+| Autorité | Morris GO 2026-11-09 CRITICAL — commit local + handoff L3 ; RECETTE gelée |
+| Cause | CREATE_PLEASE_RE global + fallback qualify sans verbe → FP T1/T2/T8 |
+| Changements | suppression CREATE_PLEASE_RE ; clause window `puis`/consultatif ; tests T1–T10 + PG T2 |
+| Validations | unit 92 PASS ; PG Chat First 18 PASS ; tsc/build production PASS |
+| RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
+| Push Product | **AUCUN** |
+| Verdict | `CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW` |
+
+## delivery_id: DELIV-2026-11-10-ML4-G1-REC11-07-08
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-10 ~01:20 CET |
+| Macro-capacité | R5 / ML4 — G1 correctif intégré REC-11 / REC-07 / REC-08 |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` / `0.0.0-dev` |
+| Parent tip | `771844fda083ce3c1858b77b0012e5bf2b801605` |
+| Autorité | Morris GO technique G1 2026-11-10 CRITICAL — DEV only ; push Product / RECETTE / REAL Git **NON inclus** |
+| Cause | R12-D : `read_git_file` → DENIED sur toute exception (y compris absence) ; provenance blob/commit consommée incorrectement ; narration Nora « ne peux pas confirmer » vs ACK AVAILABLE |
+| Changements | Classification D3 `FILE_ABSENT` qualifiée ; garde permalink ; strip REC-08 ; docs matrice/spec/delivery |
+| Validations | unit document-act 94 + git-read-tools 9 PASS ; PG Chat First 19 PASS ; tsc PASS ; lint warnings préexistants ; `NODE_ENV=production` build PASS |
+| Lane tests | DEV Postgres `127.0.0.1:5433` uniquement |
+| RECETTE | **inchangée** — SHA `771844fd` / BUILD `SmL2kyWbd1Q3kIuwNw0mQ` |
+| Push Product | **AUCUN** |
+| Verdict candidat | `G1 DEV QUALIFIED — AWAITING DISTINCT RECETTE GO` |

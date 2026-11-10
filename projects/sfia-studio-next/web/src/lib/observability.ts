@@ -89,6 +89,23 @@ const META_ALLOWLIST = new Set([
   "probe",
   "purged",
   "retention_days",
+  // Document proposal diagnostics (A+B+D) — codes/sizes/digests only, never bodies.
+  "act",
+  "extract_path",
+  "proposal_present",
+  "fence_count",
+  "section_count",
+  "proposal_chars",
+  "proposal_digest16",
+  "body_ends_with_nl",
+  "scope_verdict",
+  "refuse_code",
+  "d4_attempted",
+  "d4_effect",
+  // Document act qualification (A+D+E) — kinds/reasons codes only, never prompts/bodies.
+  "qualification_kind",
+  "qualification_reason",
+  "documentary_intent_signal",
 ]);
 
 const SECRET_VALUE =

@@ -99,6 +99,9 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
             <Link href="/portfolio" className="text-sm muted block px-2 py-1">
               Tous les projets
             </Link>
+            <Link href="/settings/integrations" className="text-sm muted block px-2 py-1" data-testid="nav-integrations">
+              Intégrations
+            </Link>
           </div>
         ) : null}
 
@@ -111,9 +114,13 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
             >
               Documents Nora
             </Link>
-            <span className="text-sm muted block px-2 py-1" title="ML4 hors périmètre G4">
-              Sources Git <span className="text-[10px]">(non disponible)</span>
-            </span>
+            <Link
+              href={`/projects/${projectId}?surface=git`}
+              className="text-sm muted block px-2 py-1"
+              data-testid="nav-sources-git"
+            >
+              Sources Git
+            </Link>
           </div>
         ) : null}
 

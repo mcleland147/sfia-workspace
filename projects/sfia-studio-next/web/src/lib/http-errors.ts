@@ -13,7 +13,10 @@ export type StudioErrorCode =
   | "DEPENDENCY_UNAVAILABLE"
   | "INTERNAL"
   | "TURN_IN_PROGRESS"
-  | "PAYLOAD_MISMATCH";
+  | "PAYLOAD_MISMATCH"
+  | "NOT_CONFIGURED"
+  | "REQUIRES_REQUALIFICATION"
+  | "AMBIGUOUS";
 
 export class StudioError extends Error {
   readonly code: StudioErrorCode;
@@ -50,6 +53,12 @@ function defaultStatus(code: StudioErrorCode): number {
       return 409;
     case "DEPENDENCY_UNAVAILABLE":
       return 503;
+    case "NOT_CONFIGURED":
+      return 503;
+    case "REQUIRES_REQUALIFICATION":
+      return 409;
+    case "AMBIGUOUS":
+      return 409;
     default:
       return 500;
   }
