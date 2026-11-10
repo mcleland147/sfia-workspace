@@ -13,7 +13,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       projectName?: string;
       previewSummary?: string;
       idempotencyKey?: string;
-      /** Exact mission that awaited this D2 act (G2 correlation). */
+      /** Hint only — server verifies against durable awaiting mission. */
       clientIntentKey?: string;
     };
     if (
@@ -33,7 +33,6 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
     });
     const sideEffects = probeCreateProjectSideEffects();
 
-    // After D2 confirms create, continue same intention (COMMAND path only).
     let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
     if (
       (result.status === "CREATED" || result.status === "ALREADY_CREATED") &&
@@ -48,6 +47,23 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
           projectName: body.projectName,
           clientIntentKey: body.clientIntentKey ?? null,
         });
+        // Explicit mismatch/ambiguity — do not silently continue another mission.
+        if (
+          missionContinue.reason === "MISSION_KEY_MISMATCH" ||
+          missionContinue.reason === "AMBIGUOUS_AWAITING"
+        ) {
+          const status =
+            result.status === "CREATED" ? 201 : result.status === "ALREADY_CREATED" ? 200 : 400;
+          return NextResponse.json(
+            {
+              ...result,
+              sideEffects,
+              missionContinue,
+              missionBindingError: missionContinue.reason,
+            },
+            { status },
+          );
+        }
       } catch {
         missionContinue = {
           continued: false,

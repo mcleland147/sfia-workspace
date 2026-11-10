@@ -79,6 +79,8 @@ export default function PreparationPage() {
   /** Stable client turn key for the current draft — reused across network retries. */
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
+  /** Structured awaiting mission key from server — never parsed from Nora prose. */
+  const [awaitingClientIntentKey, setAwaitingClientIntentKey] = useState<string | null>(null);
 
   function rememberCreateIntent(next: CreateIntent | null) {
     createDocIntentRef.current = next;
@@ -110,6 +112,15 @@ export default function PreparationPage() {
     setPreviewSummary(j.preparation?.previewSummary ?? "");
     setCreationRevision(j.preparation?.creationRevision ?? 1);
     setProjectId(j.project?.id ?? null);
+    const awaiting = j.awaitingMission as
+      | { clientIntentKey?: string; status?: string }
+      | null
+      | undefined;
+    setAwaitingClientIntentKey(
+      awaiting?.status === "AWAITING_PILOT_ACT" && awaiting.clientIntentKey
+        ? awaiting.clientIntentKey
+        : null,
+    );
     const first = j.documents?.[0];
     // While a create intent is open (e.g. ACK lost after server commit), do NOT adopt
     // docId from a background reload. Adopting would hide the intent key and divert the
@@ -164,6 +175,15 @@ export default function PreparationPage() {
         setDraft("");
         setMessages((j.messages as typeof messages) ?? []);
         setNoraActivity("idle");
+        const mp = j.missionProjection as
+          | { clientIntentKey?: string; status?: string }
+          | null
+          | undefined;
+        setAwaitingClientIntentKey(
+          mp?.status === "AWAITING_PILOT_ACT" && mp.clientIntentKey
+            ? mp.clientIntentKey
+            : null,
+        );
         const policy = j.policy as
           | { profile?: string; profileType?: string }
           | undefined;
@@ -461,28 +481,8 @@ export default function PreparationPage() {
 
   async function createProject() {
     setBusy(true);
-    // G2: bind D2 act to the awaiting mission when the chat surface exposes clientIntentKey.
-    let clientIntentKey: string | undefined;
-    try {
-      const chatRes = await fetch(`/api/preparations/${preparationId}/messages`);
-      if (chatRes.ok) {
-        const chatJson = (await chatRes.json()) as {
-          messages?: Array<{ role: string; content: string }>;
-        };
-        const msgs = chatJson.messages ?? [];
-        for (let i = msgs.length - 1; i >= 0; i -= 1) {
-          const m = msgs[i];
-          if (m?.role !== "assistant") continue;
-          const match = m.content.match(/clientIntentKey=([^\s\n]+)/);
-          if (match?.[1] && /AWAITING_PILOT_ACT/.test(m.content)) {
-            clientIntentKey = match[1];
-            break;
-          }
-        }
-      }
-    } catch {
-      /* best-effort correlation — create still proceeds */
-    }
+    // Structured binding only — server verifies clientIntentKey against durable mission.
+    const clientIntentKey = awaitingClientIntentKey ?? undefined;
     const res = await fetch(`/api/preparations/${preparationId}/create-project`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -498,9 +498,17 @@ export default function PreparationPage() {
     });
     const j = await res.json();
     setBusy(false);
-    setStatus(`${j.status}${j.projectId ? ` → ${j.projectId}` : ""}`);
-    if (j.projectId) {
+    const bindErr = j.missionBindingError ? ` · bind ${j.missionBindingError}` : "";
+    const cont =
+      j.missionContinue?.continued && j.missionContinue?.documentSave?.documentId
+        ? ` · doc ${j.missionContinue.documentSave.documentId}`
+        : j.missionContinue?.reason
+          ? ` · continue ${j.missionContinue.reason}`
+          : "";
+    setStatus(`${j.status}${j.projectId ? ` → ${j.projectId}` : ""}${cont}${bindErr}`);
+    if (j.projectId && !j.missionBindingError) {
       setProjectId(j.projectId);
+      setAwaitingClientIntentKey(null);
       router.push(`/projects/${j.projectId}`);
     }
     await reload();

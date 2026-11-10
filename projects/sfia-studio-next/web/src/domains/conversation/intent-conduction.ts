@@ -5,7 +5,8 @@
  * projects refs, reconstructs prior mission state, and continues after
  * owner-confirmed acts when the original intention already required it.
  */
-import { and, asc, desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
+import { randomUUID } from "node:crypto";
 import { db } from "@/db/client";
 import { conversationTurnCommands, conversations, messages } from "@/db/schema";
 import { savePreparationDocument } from "@/domains/document/service";
@@ -14,6 +15,7 @@ import { newId } from "@/lib/ids";
 import { emitObs } from "@/lib/observability";
 import { extractContractualDocumentProposal, qualifyDocumentAct } from "./document-act";
 import { generateNoraReply } from "./nora-adapter";
+import { TURN_RUNNING_STALE_MS, turnClock } from "./turn-command";
 import {
   appendMissionAck,
   composeCanonicalMissionRestitution,
@@ -24,6 +26,16 @@ import {
   type MissionStep,
   type MissionStatus,
 } from "./mission-continuity";
+
+/**
+ * Test-only fault injection for continuation crash points (P3–P6).
+ * Must stay no-op in production.
+ */
+export const continuationRaceHooks: {
+  afterReserveBeforeWork?: () => Promise<void>;
+  afterNoraBeforeD4?: () => Promise<void>;
+  afterD4BeforeCommit?: () => Promise<void>;
+} = {};
 
 /** Stable D2↔mission correlation key reused as createProjectCommands.idempotencyKey when known. */
 export function d2MissionIdempotencyKey(clientIntentKey: string): string {
@@ -353,7 +365,81 @@ export async function loadPriorMissionProjection(
   return candidates[0] ?? null;
 }
 
-/** Resolve the exact mission that awaited THIS D2 create (G2). */
+export type MissionD2Resolve =
+  | { status: "OK"; mission: MissionProjection }
+  | { status: "ALREADY_CONTINUED"; mission: MissionProjection }
+  | { status: "NO_AWAITING_MISSION" }
+  | { status: "MISSION_KEY_MISMATCH"; reason: string }
+  | { status: "AMBIGUOUS_AWAITING"; count: number };
+
+/**
+ * Server-authoritative binding of a D2 create act to an awaiting mission.
+ * Client clientIntentKey is a hint that must match DB truth — never silent fallback
+ * to another mission when the hint is wrong (B/C).
+ */
+export async function verifyMissionForD2Act(input: {
+  conversationId: string;
+  preparationId: string;
+  clientIntentKey?: string | null;
+}): Promise<MissionD2Resolve> {
+  const latest = await loadLatestMissionsByIntentKey(input.conversationId);
+  const awaiting = [...latest.values()].filter(
+    (m) =>
+      m.status === "AWAITING_PILOT_ACT" &&
+      (!m.preparationId || m.preparationId === input.preparationId),
+  );
+
+  const hint = input.clientIntentKey?.trim() || null;
+  if (hint) {
+    const hinted = latest.get(hint);
+    if (!hinted) {
+      return {
+        status: "MISSION_KEY_MISMATCH",
+        reason: "clientIntentKey unknown for this conversation",
+      };
+    }
+    if (hinted.preparationId && hinted.preparationId !== input.preparationId) {
+      return {
+        status: "MISSION_KEY_MISMATCH",
+        reason: "clientIntentKey belongs to another preparation",
+      };
+    }
+    if (hinted.status === "AWAITING_PILOT_ACT") {
+      return { status: "OK", mission: hinted };
+    }
+    return { status: "ALREADY_CONTINUED", mission: hinted };
+  }
+
+  if (awaiting.length === 1) return { status: "OK", mission: awaiting[0]! };
+  if (awaiting.length === 0) return { status: "NO_AWAITING_MISSION" };
+  return { status: "AMBIGUOUS_AWAITING", count: awaiting.length };
+}
+
+/** Structured awaiting mission for UI/API — never parse Nora prose. */
+export async function getAwaitingMissionForPreparation(
+  pilotId: string,
+  preparationId: string,
+): Promise<MissionProjection | null> {
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.preparationId, preparationId),
+          eq(conversations.ownerPilotId, pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!conv) return null;
+  return loadPriorMissionProjection(conv.id, {
+    awaitingPilotAct: true,
+    preparationId,
+  });
+}
+
+/** @deprecated Prefer verifyMissionForD2Act — kept for narrow test helpers. */
 export async function resolveMissionAwaitingD2Create(input: {
   conversationId: string;
   preparationId: string;
@@ -361,42 +447,12 @@ export async function resolveMissionAwaitingD2Create(input: {
   projectName?: string | null;
   clientIntentKey?: string | null;
 }): Promise<MissionProjection | null> {
-  if (input.clientIntentKey) {
-    const exact = await loadPriorMissionProjection(input.conversationId, {
-      awaitingPilotAct: true,
-      clientIntentKey: input.clientIntentKey,
-      preparationId: input.preparationId,
-    });
-    if (exact) return exact;
-  }
-
-  const latest = await loadLatestMissionsByIntentKey(input.conversationId);
-  const awaiting = [...latest.values()].filter(
-    (m) =>
-      m.status === "AWAITING_PILOT_ACT" &&
-      (!m.preparationId || m.preparationId === input.preparationId) &&
-      m.ownerActBinding?.kind === "D2_CREATE_PROJECT",
-  );
-
-  if (input.projectName) {
-    const byName = awaiting.find(
-      (m) =>
-        m.proposedProjectName &&
-        m.proposedProjectName.toLowerCase() === input.projectName!.trim().toLowerCase(),
-    );
-    if (byName) return byName;
-  }
-
-  if (awaiting.length === 1) return awaiting[0]!;
-  if (awaiting.length === 0) {
-    // Fallback: awaiting without ownerActBinding (legacy projections in same macro-lot).
-    return loadPriorMissionProjection(input.conversationId, {
-      awaitingPilotAct: true,
-      preparationId: input.preparationId,
-    });
-  }
-  // Ambiguous multi-await: refuse silent mix — caller must supply clientIntentKey.
-  return null;
+  const v = await verifyMissionForD2Act({
+    conversationId: input.conversationId,
+    preparationId: input.preparationId,
+    clientIntentKey: input.clientIntentKey,
+  });
+  return v.status === "OK" ? v.mission : null;
 }
 
 export function advanceMissionAfterProjectCreated(
@@ -453,17 +509,250 @@ type DocumentSaveSummary = {
   reason?: string;
 };
 
+function continuationTurnKey(clientIntentKey: string, projectId: string): string {
+  return `mission-continue:${clientIntentKey}:${projectId}`;
+}
+
+function isStaleContinuation(updatedAt: Date | null | undefined): boolean {
+  if (!updatedAt) return true;
+  return turnClock.nowMs() - updatedAt.getTime() > TURN_RUNNING_STALE_MS;
+}
+
+type ContinuationClaim =
+  | {
+      kind: "replay";
+      missionProjection: MissionProjection;
+      documentSave: DocumentSaveSummary | null;
+      assistantMessageId: string | null;
+    }
+  | { kind: "fresh"; commandId: string; ownerToken: string; clientTurnKey: string }
+  | { kind: "in_progress" };
+
+/**
+ * Short transactional claim — xact advisory lock only (released at TX end).
+ * Never hold a session lock across the pool or across Nora/D4 work.
+ */
+async function claimContinuationOwnership(input: {
+  conversationId: string;
+  pilotId: string;
+  clientIntentKey: string;
+  projectId: string;
+  missionSnapshot: MissionProjection;
+}): Promise<ContinuationClaim> {
+  const clientTurnKey = continuationTurnKey(input.clientIntentKey, input.projectId);
+  return db.transaction(async (tx) => {
+    await tx.execute(
+      sql`SELECT pg_advisory_xact_lock(hashtext(${input.conversationId}), hashtext(${clientTurnKey}))`,
+    );
+    const existing = (
+      await tx
+        .select()
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.conversationId, input.conversationId),
+            eq(conversationTurnCommands.clientTurnKey, clientTurnKey),
+          ),
+        )
+        .limit(1)
+    )[0];
+
+    if (existing?.status === "COMPLETE" && existing.resultJson) {
+      try {
+        const parsed = JSON.parse(existing.resultJson) as {
+          missionProjection?: MissionProjection | null;
+          documentSave?: DocumentSaveSummary | null;
+        };
+        if (parsed.missionProjection && parsed.missionProjection.status !== "AWAITING_PILOT_ACT") {
+          return {
+            kind: "replay" as const,
+            missionProjection: parsed.missionProjection,
+            documentSave: parsed.documentSave ?? null,
+            assistantMessageId: existing.assistantMessageId,
+          };
+        }
+      } catch {
+        /* fall through to reclaim */
+      }
+    }
+
+    if (existing && (existing.status === "RUNNING" || existing.status === "ACCEPTED")) {
+      if (!isStaleContinuation(existing.updatedAt)) {
+        return { kind: "in_progress" as const };
+      }
+      await tx
+        .update(conversationTurnCommands)
+        .set({
+          status: "UNKNOWN",
+          errorCategory: "RECONCILED_STALE_CONTINUATION",
+          ownerToken: `revoked_${randomUUID()}`,
+          updatedAt: new Date(turnClock.nowMs()),
+        })
+        .where(
+          and(
+            eq(conversationTurnCommands.id, existing.id),
+            eq(conversationTurnCommands.status, existing.status),
+          ),
+        );
+    }
+
+    const ownerToken = `own_${randomUUID()}`;
+    const resultJson = JSON.stringify({
+      missionProjection: input.missionSnapshot,
+      continuedAfterProjectId: input.projectId,
+      phase: "RESERVED",
+    });
+
+    if (existing) {
+      const cas = await tx
+        .update(conversationTurnCommands)
+        .set({
+          status: "RUNNING",
+          ownerToken,
+          resultJson,
+          errorCategory: null,
+          assistantMessageId: null,
+          updatedAt: new Date(turnClock.nowMs()),
+        })
+        .where(
+          and(
+            eq(conversationTurnCommands.id, existing.id),
+            sql`${conversationTurnCommands.status} IN ('UNKNOWN', 'FAILED', 'COMPLETE')`,
+          ),
+        )
+        .returning({ id: conversationTurnCommands.id });
+      if (!cas[0]) return { kind: "in_progress" as const };
+      return {
+        kind: "fresh" as const,
+        commandId: existing.id,
+        ownerToken,
+        clientTurnKey,
+      };
+    }
+
+    const commandId = newId("ctc");
+    await tx.insert(conversationTurnCommands).values({
+      id: commandId,
+      conversationId: input.conversationId,
+      ownerPilotId: input.pilotId,
+      clientTurnKey,
+      requestFingerprint: `fp-continue-${input.projectId}`,
+      operationId: newId("op"),
+      status: "RUNNING",
+      ownerToken,
+      resultJson,
+      assistantMessageId: null,
+      createdAt: new Date(turnClock.nowMs()),
+      updatedAt: new Date(turnClock.nowMs()),
+    });
+    return { kind: "fresh" as const, commandId, ownerToken, clientTurnKey };
+  });
+}
+
+/** Terminal commit under ownership fence — short TX, CAS on owner_token. */
+async function commitContinuationOwned(input: {
+  commandId: string;
+  ownerToken: string;
+  conversationId: string;
+  mission: MissionProjection;
+  projectId: string;
+  documentSave: DocumentSaveSummary | null;
+  assistantContent: string;
+  generationId: string;
+}): Promise<{ applied: boolean; assistantMessageId: string | null }> {
+  return db.transaction(async (tx) => {
+    const owned = (
+      await tx
+        .select()
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.id, input.commandId),
+            eq(conversationTurnCommands.ownerToken, input.ownerToken),
+            eq(conversationTurnCommands.status, "RUNNING"),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!owned) return { applied: false, assistantMessageId: null };
+
+    let assistantMessageId: string | null = null;
+    const existingMsg = (
+      await tx
+        .select()
+        .from(messages)
+        .where(
+          and(
+            eq(messages.conversationId, input.conversationId),
+            eq(messages.generationId, input.generationId),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (existingMsg) {
+      assistantMessageId = existingMsg.id;
+    } else {
+      const last = (
+        await tx
+          .select({ ordinal: messages.ordinal })
+          .from(messages)
+          .where(eq(messages.conversationId, input.conversationId))
+          .orderBy(sql`${messages.ordinal} desc`)
+          .limit(1)
+      )[0];
+      assistantMessageId = `msg_mcont_${input.generationId.replace(/[^a-zA-Z0-9_:-]/g, "").slice(-48)}`;
+      await tx.insert(messages).values({
+        id: assistantMessageId,
+        conversationId: input.conversationId,
+        role: "assistant",
+        content: input.assistantContent,
+        status: "COMPLETE",
+        ordinal: (last?.ordinal ?? 0) + 1,
+        generationId: input.generationId,
+        createdAt: new Date(turnClock.nowMs()),
+      });
+    }
+
+    const resultJson = JSON.stringify({
+      missionProjection: input.mission,
+      documentSave: input.documentSave,
+      continuedAfterProjectId: input.projectId,
+    });
+    const cas = await tx
+      .update(conversationTurnCommands)
+      .set({
+        status: "COMPLETE",
+        resultJson,
+        assistantMessageId,
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(
+        and(
+          eq(conversationTurnCommands.id, input.commandId),
+          eq(conversationTurnCommands.ownerToken, input.ownerToken),
+          eq(conversationTurnCommands.status, "RUNNING"),
+        ),
+      )
+      .returning({ id: conversationTurnCommands.id });
+
+    if (!cas[0]) {
+      throw new StudioError("CONFLICT", "CONTINUATION_OWNERSHIP_LOST");
+    }
+    return { applied: true, assistantMessageId };
+  });
+}
+
 /**
  * After D2 createProjectCommand succeeds, continue the SAME intention (pending D4)
  * without a new Pilot message. COMMAND path only — never from listMessages.
- * G1/G2/G5/G6: exact mission resolve, advisory lock, early continuation turn, replay.
+ * Concurrency: short xact claim + owner_token fence (no session advisory lock).
  */
 export async function continueAfterProjectCreated(input: {
   pilotId: string;
   preparationId: string;
   projectId: string;
   projectName?: string | null;
-  /** Exact intention that awaited this D2 act (from create-project body / UI). */
+  /** Hint only — server verifies against durable mission state. */
   clientIntentKey?: string | null;
 }): Promise<{
   continued: boolean;
@@ -495,32 +784,48 @@ export async function continueAfterProjectCreated(input: {
     };
   }
 
-  const prior = await resolveMissionAwaitingD2Create({
+  const verified = await verifyMissionForD2Act({
     conversationId: conv.id,
     preparationId: input.preparationId,
-    projectId: input.projectId,
-    projectName: input.projectName,
     clientIntentKey: input.clientIntentKey,
   });
-  if (!prior) {
-    // May already be completed — check latest for supplied key / any completed continue.
-    if (input.clientIntentKey) {
-      const latest = await loadPriorMissionProjection(conv.id, {
-        clientIntentKey: input.clientIntentKey,
-        preparationId: input.preparationId,
-      });
-      if (latest && latest.status !== "AWAITING_PILOT_ACT") {
-        const replay = await loadContinuationReplay(conv.id, input.clientIntentKey, input.projectId);
-        if (replay) return { ...replay, continued: true, replayed: true, reason: "ALREADY_CONTINUED" };
-        return {
-          continued: false,
-          missionProjection: latest,
-          documentSave: null,
-          assistantMessageId: null,
-          reason: "MISSION_NO_LONGER_AWAITING",
-        };
-      }
+
+  if (verified.status === "MISSION_KEY_MISMATCH") {
+    return {
+      continued: false,
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "MISSION_KEY_MISMATCH",
+    };
+  }
+  if (verified.status === "AMBIGUOUS_AWAITING") {
+    return {
+      continued: false,
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "AMBIGUOUS_AWAITING",
+    };
+  }
+  if (verified.status === "ALREADY_CONTINUED") {
+    const replay = await loadContinuationReplay(
+      conv.id,
+      verified.mission.clientIntentKey,
+      input.projectId,
+    );
+    if (replay) {
+      return { ...replay, continued: true, replayed: true, reason: "ALREADY_CONTINUED" };
     }
+    return {
+      continued: false,
+      missionProjection: verified.mission,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "MISSION_NO_LONGER_AWAITING",
+    };
+  }
+  if (verified.status === "NO_AWAITING_MISSION") {
     return {
       continued: false,
       missionProjection: null,
@@ -530,84 +835,81 @@ export async function continueAfterProjectCreated(input: {
     };
   }
 
-  const lockKey = `mission-continue:${prior.clientIntentKey}:${input.projectId}`;
-  await db.execute(
-    sql`select pg_advisory_lock(hashtext(${conv.id}), hashtext(${lockKey}))`,
+  const prior = verified.mission;
+  let mission = advanceMissionAfterProjectCreated(prior, input.projectId);
+
+  const claim = await claimContinuationOwnership({
+    conversationId: conv.id,
+    pilotId: input.pilotId,
+    clientIntentKey: prior.clientIntentKey,
+    projectId: input.projectId,
+    missionSnapshot: mission,
+  });
+
+  if (claim.kind === "replay") {
+    return {
+      continued: true,
+      missionProjection: claim.missionProjection,
+      documentSave: claim.documentSave,
+      assistantMessageId: claim.assistantMessageId,
+      replayed: true,
+      reason: "ALREADY_CONTINUED",
+    };
+  }
+  if (claim.kind === "in_progress") {
+    return {
+      continued: false,
+      missionProjection: mission,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "CONTINUATION_IN_PROGRESS",
+    };
+  }
+
+  if (continuationRaceHooks.afterReserveBeforeWork) {
+    await continuationRaceHooks.afterReserveBeforeWork();
+  }
+
+  const pendingDoc = mission.steps.find(
+    (s) =>
+      (s.id === "d4_create" || s.capabilityId === "d4.create_document") &&
+      (s.status === "PENDING" || s.status === "WAITING"),
   );
-  try {
-    const existingReplay = await loadContinuationReplay(
-      conv.id,
-      prior.clientIntentKey,
-      input.projectId,
-    );
-    if (existingReplay) {
-      return { ...existingReplay, continued: true, replayed: true, reason: "ALREADY_CONTINUED" };
-    }
 
-    // Reserve continuation turn before side effects (crash-safe identity).
-    await reserveContinuationTurn({
-      conversationId: conv.id,
-      pilotId: input.pilotId,
-      clientIntentKey: prior.clientIntentKey,
-      projectId: input.projectId,
-      mission: advanceMissionAfterProjectCreated(prior, input.projectId),
-    });
+  let documentSave: DocumentSaveSummary | null = null;
+  let assistantContent: string;
+  let generationId: string;
 
-    let mission = advanceMissionAfterProjectCreated(prior, input.projectId);
-    const pendingDoc = mission.steps.find(
-      (s) =>
-        (s.id === "d4_create" || s.capabilityId === "d4.create_document") &&
-        (s.status === "PENDING" || s.status === "WAITING"),
-    );
-
-    if (!pendingDoc) {
-      mission = { ...mission, status: "COMPLETED", restitution: "DELIVERED" };
-      const msgId = await appendContinuationAssistantMessage({
-        conversationId: conv.id,
-        content:
-          `### Suite de mission\nProjet créé (projectId=${input.projectId}). ` +
-          `Aucune étape documentaire dépendante dans l'intention initiale.\n\n` +
-          formatMissionAck(mission),
-        generationId: `mission-continue-d2:${mission.clientIntentKey}:${input.projectId}`,
-      });
-      await persistContinuationTurn({
-        conversationId: conv.id,
-        pilotId: input.pilotId,
-        clientIntentKey: mission.clientIntentKey,
-        projectId: input.projectId,
-        mission,
-        assistantMessageId: msgId,
-      });
-      return {
-        continued: true,
-        missionProjection: mission,
-        documentSave: null,
-        assistantMessageId: msgId,
-        reason: "D2_ONLY_COMPLETED",
-      };
-    }
-
+  if (!pendingDoc) {
+    mission = { ...mission, status: "COMPLETED", restitution: "DELIVERED" };
+    generationId = `mission-continue-d2:${mission.clientIntentKey}:${input.projectId}`;
+    assistantContent =
+      `### Suite de mission\nProjet créé (projectId=${input.projectId}). ` +
+      `Aucune étape documentaire dépendante dans l'intention initiale.\n\n` +
+      formatMissionAck(mission);
+  } else {
     const original =
       mission.originalUserText ??
       mission.pendingDocumentBrief ??
       "Prépare le document de cadrage demandé dans l'intention initiale.";
-
     const userPrompt =
       `Le projet a été créé (projectId=${input.projectId}). ` +
       `Poursuis MAINTENANT l'intention initiale du Pilote sans lui redemander.\n\n` +
       `Intention initiale:\n${original}\n\n` +
       `Produis le document demandé (titre + corps en fence sfia-document) pour ce projet.`;
 
-    let documentSave: DocumentSaveSummary | null = null;
     const reply = await generateNoraReply({
       userText: userPrompt,
       contextSnippets: [`projectId=${input.projectId}`, `preparationId=${input.preparationId}`],
     });
 
+    if (continuationRaceHooks.afterNoraBeforeD4) {
+      await continuationRaceHooks.afterNoraBeforeD4();
+    }
+
     if (reply.status === "COMPLETE" && reply.content.trim()) {
       const extracted = extractContractualDocumentProposal(reply.content);
       if (extracted.ok) {
-        // G4: mobilize real D4 owner through executable capability contract.
         const d4Contract = CAPABILITY_CONTRACTS.find(
           (c) => c.capabilityId === "d4.create_document",
         )!;
@@ -719,26 +1021,27 @@ export async function continueAfterProjectCreated(input: {
             },
       restitutionNote: `Reprise automatique après création projet ${input.projectId} — même intention (${mission.clientIntentKey}).`,
     });
-
-    const body =
+    assistantContent =
       reply.status === "COMPLETE" && reply.content.trim()
         ? appendMissionAck(reply.content, mission)
         : appendMissionAck(canonical, mission);
+    generationId = `mission-continue-d2d4:${mission.clientIntentKey}:${input.projectId}`;
+  }
 
-    const msgId = await appendContinuationAssistantMessage({
-      conversationId: conv.id,
-      content: body,
-      generationId: `mission-continue-d2d4:${mission.clientIntentKey}:${input.projectId}`,
-    });
+  if (continuationRaceHooks.afterD4BeforeCommit) {
+    await continuationRaceHooks.afterD4BeforeCommit();
+  }
 
-    await persistContinuationTurn({
+  try {
+    const committed = await commitContinuationOwned({
+      commandId: claim.commandId,
+      ownerToken: claim.ownerToken,
       conversationId: conv.id,
-      pilotId: input.pilotId,
-      clientIntentKey: mission.clientIntentKey,
-      projectId: input.projectId,
       mission,
-      assistantMessageId: msgId,
+      projectId: input.projectId,
       documentSave,
+      assistantContent,
+      generationId,
     });
 
     emitObs({
@@ -749,24 +1052,33 @@ export async function continueAfterProjectCreated(input: {
         project_id: input.projectId,
         client_intent_key: mission.clientIntentKey,
         document_status: documentSave?.status ?? null,
+        ownership_applied: committed.applied,
       },
     });
 
     return {
-      continued: true,
+      continued: committed.applied,
       missionProjection: mission,
       documentSave,
-      assistantMessageId: msgId,
+      assistantMessageId: committed.assistantMessageId,
+      reason: pendingDoc ? undefined : "D2_ONLY_COMPLETED",
     };
-  } finally {
-    await db.execute(
-      sql`select pg_advisory_unlock(hashtext(${conv.id}), hashtext(${lockKey}))`,
-    );
+  } catch (e) {
+    if (e instanceof StudioError && e.message.includes("CONTINUATION_OWNERSHIP_LOST")) {
+      const replay = await loadContinuationReplay(conv.id, prior.clientIntentKey, input.projectId);
+      if (replay) {
+        return { ...replay, continued: true, replayed: true, reason: "ALREADY_CONTINUED" };
+      }
+      return {
+        continued: false,
+        missionProjection: mission,
+        documentSave,
+        assistantMessageId: null,
+        reason: "CONTINUATION_OWNERSHIP_LOST",
+      };
+    }
+    throw e;
   }
-}
-
-function continuationTurnKey(clientIntentKey: string, projectId: string): string {
-  return `mission-continue:${clientIntentKey}:${projectId}`;
 }
 
 async function loadContinuationReplay(
@@ -810,179 +1122,4 @@ async function loadContinuationReplay(
   } catch {
     return null;
   }
-}
-
-/** Insert RUNNING continuation fence before owner side-effects (G5/G6). */
-async function reserveContinuationTurn(input: {
-  conversationId: string;
-  pilotId: string;
-  clientIntentKey: string;
-  projectId: string;
-  mission: MissionProjection;
-}): Promise<void> {
-  const clientTurnKey = continuationTurnKey(input.clientIntentKey, input.projectId);
-  const existing = (
-    await db
-      .select()
-      .from(conversationTurnCommands)
-      .where(
-        and(
-          eq(conversationTurnCommands.conversationId, input.conversationId),
-          eq(conversationTurnCommands.clientTurnKey, clientTurnKey),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (existing) return;
-  await db.insert(conversationTurnCommands).values({
-    id: newId("ctc"),
-    conversationId: input.conversationId,
-    ownerPilotId: input.pilotId,
-    clientTurnKey,
-    requestFingerprint: `fp-continue-${input.projectId}`,
-    operationId: newId("op"),
-    status: "RUNNING",
-    resultJson: JSON.stringify({
-      missionProjection: input.mission,
-      continuedAfterProjectId: input.projectId,
-      phase: "RESERVED",
-    }),
-    assistantMessageId: null,
-    ownerToken: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-}
-
-async function appendContinuationAssistantMessage(input: {
-  conversationId: string;
-  content: string;
-  generationId: string;
-}): Promise<string> {
-  const existing = (
-    await db
-      .select()
-      .from(messages)
-      .where(
-        and(
-          eq(messages.conversationId, input.conversationId),
-          eq(messages.generationId, input.generationId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (existing) return existing.id;
-
-  // Serialize ordinal allocation under the same advisory lock held by continue.
-  const last = (
-    await db
-      .select({ ordinal: messages.ordinal })
-      .from(messages)
-      .where(eq(messages.conversationId, input.conversationId))
-      .orderBy(asc(messages.ordinal))
-  ).at(-1);
-  const ordinal = (last?.ordinal ?? 0) + 1;
-  const id = `msg_mcont_${input.generationId.replace(/[^a-zA-Z0-9_:-]/g, "").slice(-48)}`;
-  try {
-    await db.insert(messages).values({
-      id,
-      conversationId: input.conversationId,
-      role: "assistant",
-      content: input.content,
-      status: "COMPLETE",
-      ordinal,
-      generationId: input.generationId,
-      createdAt: new Date(),
-    });
-    return id;
-  } catch {
-    const again = (
-      await db
-        .select()
-        .from(messages)
-        .where(
-          and(
-            eq(messages.conversationId, input.conversationId),
-            eq(messages.generationId, input.generationId),
-          ),
-        )
-        .limit(1)
-    )[0];
-    if (again) return again.id;
-    // Ordinal race — retry once with next ordinal.
-    const last2 = (
-      await db
-        .select({ ordinal: messages.ordinal })
-        .from(messages)
-        .where(eq(messages.conversationId, input.conversationId))
-        .orderBy(asc(messages.ordinal))
-    ).at(-1);
-    const id2 = `${id}_r`;
-    await db.insert(messages).values({
-      id: id2,
-      conversationId: input.conversationId,
-      role: "assistant",
-      content: input.content,
-      status: "COMPLETE",
-      ordinal: (last2?.ordinal ?? 0) + 1,
-      generationId: input.generationId,
-      createdAt: new Date(),
-    });
-    return id2;
-  }
-}
-
-async function persistContinuationTurn(input: {
-  conversationId: string;
-  pilotId: string;
-  clientIntentKey: string;
-  projectId: string;
-  mission: MissionProjection;
-  assistantMessageId: string | null;
-  documentSave?: unknown;
-}): Promise<void> {
-  const clientTurnKey = continuationTurnKey(input.clientIntentKey, input.projectId);
-  const existing = (
-    await db
-      .select()
-      .from(conversationTurnCommands)
-      .where(
-        and(
-          eq(conversationTurnCommands.conversationId, input.conversationId),
-          eq(conversationTurnCommands.clientTurnKey, clientTurnKey),
-        ),
-      )
-      .limit(1)
-  )[0];
-  const resultJson = JSON.stringify({
-    missionProjection: input.mission,
-    documentSave: input.documentSave ?? null,
-    continuedAfterProjectId: input.projectId,
-  });
-  if (existing) {
-    await db
-      .update(conversationTurnCommands)
-      .set({
-        status: "COMPLETE",
-        resultJson,
-        assistantMessageId: input.assistantMessageId,
-        updatedAt: new Date(),
-      })
-      .where(eq(conversationTurnCommands.id, existing.id));
-    return;
-  }
-  await db.insert(conversationTurnCommands).values({
-    id: newId("ctc"),
-    conversationId: input.conversationId,
-    ownerPilotId: input.pilotId,
-    clientTurnKey,
-    requestFingerprint: `fp-continue-${input.projectId}`,
-    operationId: newId("op"),
-    status: "COMPLETE",
-    resultJson,
-    assistantMessageId: input.assistantMessageId,
-    ownerToken: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
 }

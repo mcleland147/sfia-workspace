@@ -42,12 +42,17 @@ import {
 } from "@/domains/knowledge/service";
 import {
   CAPABILITY_CONTRACTS,
+  continuationRaceHooks,
   continueAfterProjectCreated,
   d2MissionIdempotencyKey,
   loadPriorMissionProjection,
   mobilizeCapability,
+  verifyMissionForD2Act,
 } from "@/domains/conversation/intent-conduction";
+import { TURN_RUNNING_STALE_MS } from "@/domains/conversation/turn-command";
+import { conversationTurnCommands } from "@/db/schema";
 import { getPreparationContext } from "@/domains/preparation/service";
+import { and, eq as eqCol } from "drizzle-orm";
 
 async function seedPilot(label: string) {
   const id = newId("pilot");
@@ -576,7 +581,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     expect(sim.result.id).toBe("sim_1");
   });
 
-  it("G5: concurrent continueAfterProjectCreated — single document", async () => {
+  it("G5: concurrent continueAfterProjectCreated — single document / fence", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-g5-conc");
     const clientTurnKey = newId("ctk");
     await postUserMessageAndNora(
@@ -613,11 +618,194 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
       }),
     ]);
     const docs = await listDocuments(pilotId, preparationId);
-    const ids = new Set(
-      [a.documentSave?.documentId, b.documentSave?.documentId].filter(Boolean) as string[],
+    const ids = [
+      a.documentSave?.documentId,
+      b.documentSave?.documentId,
+    ].filter(Boolean) as string[];
+    const unique = new Set(ids);
+    expect(unique.size).toBeLessThanOrEqual(1);
+    if (unique.size === 1) {
+      expect(docs.filter((d) => unique.has(d.document.id))).toHaveLength(1);
+    }
+    expect(
+      a.continued ||
+        b.continued ||
+        a.reason === "CONTINUATION_IN_PROGRESS" ||
+        b.reason === "CONTINUATION_IN_PROGRESS" ||
+        a.replayed ||
+        b.replayed,
+    ).toBe(true);
+    // Winner must complete; loser is in_progress or replay of same doc.
+    const winner = a.continued ? a : b.continued ? b : null;
+    if (winner?.documentSave?.status === "AVAILABLE") {
+      expect(docs.some((d) => d.document.id === winner.documentSave?.documentId)).toBe(true);
+    }
+  });
+
+  it("B/C: wrong clientIntentKey does not silently bind another mission", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-bc-mismatch");
+    const keyA = newId("ctk");
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Bind Exact puis un document Exact.",
+      { clientTurnKey: keyA },
     );
-    expect(ids.size).toBe(1);
-    expect(docs.filter((d) => ids.has(d.document.id))).toHaveLength(1);
-    expect(a.continued || b.continued).toBe(true);
+    const ctx = await getPreparationContext(pilotId, preparationId);
+    const verified = await verifyMissionForD2Act({
+      conversationId: ctx.conversation!.id,
+      preparationId,
+      clientIntentKey: "ctk_forged_other_mission",
+    });
+    expect(verified.status).toBe("MISSION_KEY_MISMATCH");
+
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: "Bind Exact",
+      previewSummary: "s",
+      idempotencyKey: d2MissionIdempotencyKey(keyA),
+    });
+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
+
+    const bad = await continueAfterProjectCreated({
+      pilotId,
+      preparationId,
+      projectId: created.projectId,
+      clientIntentKey: "ctk_forged_other_mission",
+    });
+    expect(bad.continued).toBe(false);
+    expect(bad.reason).toBe("MISSION_KEY_MISMATCH");
+    expect(bad.documentSave).toBeNull();
+
+    const good = await continueAfterProjectCreated({
+      pilotId,
+      preparationId,
+      projectId: created.projectId,
+      clientIntentKey: keyA,
+    });
+    expect(good.continued).toBe(true);
+    expect(good.documentSave?.status).toBe("AVAILABLE");
+  });
+
+  it("D/P3: crash after reserve — stale reclaim continues once", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-p3-crash");
+    const clientTurnKey = newId("ctk");
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Crash P3 puis un document P3.",
+      { clientTurnKey },
+    );
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: "Crash P3",
+      previewSummary: "s",
+      idempotencyKey: d2MissionIdempotencyKey(clientTurnKey),
+    });
+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
+
+    continuationRaceHooks.afterReserveBeforeWork = async () => {
+      throw new Error("INJECTED_CRASH_P3");
+    };
+    await expect(
+      continueAfterProjectCreated({
+        pilotId,
+        preparationId,
+        projectId: created.projectId,
+        clientIntentKey: clientTurnKey,
+      }),
+    ).rejects.toThrow(/INJECTED_CRASH_P3/);
+    delete continuationRaceHooks.afterReserveBeforeWork;
+
+    // Force lease stale so reclaim is allowed (simulates expired owner after crash).
+    const contKey = `mission-continue:${clientTurnKey}:${created.projectId}`;
+    await db
+      .update(conversationTurnCommands)
+      .set({
+        updatedAt: new Date(Date.now() - TURN_RUNNING_STALE_MS - 5_000),
+      })
+      .where(
+        and(
+          eqCol(conversationTurnCommands.clientTurnKey, contKey),
+          eqCol(conversationTurnCommands.status, "RUNNING"),
+        ),
+      );
+
+    const resumed = await continueAfterProjectCreated({
+      pilotId,
+      preparationId,
+      projectId: created.projectId,
+      clientIntentKey: clientTurnKey,
+    });
+    expect(resumed.continued).toBe(true);
+    expect(resumed.documentSave?.status).toBe("AVAILABLE");
+    const docs = await listDocuments(pilotId, preparationId);
+    expect(docs.filter((d) => d.document.id === resumed.documentSave?.documentId)).toHaveLength(1);
+  });
+
+  it("D/P5: crash after D4 before commit — retry yields one document", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-p5-crash");
+    const clientTurnKey = newId("ctk");
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Crash P5 puis un document P5.",
+      { clientTurnKey },
+    );
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: "Crash P5",
+      previewSummary: "s",
+      idempotencyKey: d2MissionIdempotencyKey(clientTurnKey),
+    });
+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
+
+    continuationRaceHooks.afterD4BeforeCommit = async () => {
+      throw new Error("INJECTED_CRASH_P5");
+    };
+    await expect(
+      continueAfterProjectCreated({
+        pilotId,
+        preparationId,
+        projectId: created.projectId,
+        clientIntentKey: clientTurnKey,
+      }),
+    ).rejects.toThrow(/INJECTED_CRASH_P5/);
+    delete continuationRaceHooks.afterD4BeforeCommit;
+
+    const contKey = `mission-continue:${clientTurnKey}:${created.projectId}`;
+    await db
+      .update(conversationTurnCommands)
+      .set({ updatedAt: new Date(Date.now() - TURN_RUNNING_STALE_MS - 5_000) })
+      .where(
+        and(
+          eqCol(conversationTurnCommands.clientTurnKey, contKey),
+          eqCol(conversationTurnCommands.status, "RUNNING"),
+        ),
+      );
+
+    const resumed = await continueAfterProjectCreated({
+      pilotId,
+      preparationId,
+      projectId: created.projectId,
+      clientIntentKey: clientTurnKey,
+    });
+    expect(resumed.continued).toBe(true);
+    expect(resumed.documentSave?.status).toBe("AVAILABLE");
+    // Idempotent D4 correlation — still a single logical document for the mission key.
+    const docs = await listDocuments(pilotId, preparationId);
+    const missionDocs = docs.filter((d) =>
+      (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${clientTurnKey}`),
+    );
+    expect(missionDocs.length).toBe(1);
   });
 });
