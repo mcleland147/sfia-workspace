@@ -55,7 +55,7 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 
 | Ensemble | Restitution actuelle | État |
 | --- | --- | --- |
-| **ML1 — Accès, sas, création et continuité** | [Diagnostic initial détaillé](diagnostic-acces-preparation-creation.md) | 103 RG/PF historiques répartis sur huit capacités, 12 candidats complémentaires identifiés ; revue code initiale et deux écarts qualifiés ; revue RG/PF individuelle **non terminée** |
+| **ML1 — Accès, sas, création et continuité** | [Diagnostic global ML1](diagnostic-acces-preparation-creation.md) et [revue D1 individualisée](verification-detaillee-acces-portefeuille.md) | 103 RG/PF historiques + 12 candidats D1/D2 ; **D1 : 55/55 IDs rattachés** (49 validés + 6 candidats), cinq constats de code, sans preuve comportementale globale ; **D2 à auditer** |
 | **ML2 — Production et capitalisation** | Matrice R5 canonique [ML2](../ml2-production-et-capitalisation-nora/matrice-tracabilite.md) | Pré-inventaire ; qualité de mémoire proactive et restitution Nora à prouver |
 | **ML3 — Pilotage et décisions** | Matrice et contrat [ML3](../pilotage-et-decisions/tracabilite-r2-r3-r4.md) | Pré-inventaire ; couverture de guidance et frontières d'autorité à requalifier |
 | **ML4 — Collaboration et Git** | [Registre de RECETTE](../integration-git/recette-ml4-r01-r14-anomalies.md) | Code mergé (#672), première campagne non acceptée globalement ; R13/R14 NOT RUN |
@@ -69,11 +69,17 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 | --- | --- | --- | --- |
 | `REC-ML1-DOC-01` | Couverture R2 | Inventaire D1/D2 103 IDs ; 12 autres IDs candidats, apparus dans les addenda du 05/11 | **SOURCE VERIFIED** ; ne pas assimiler candidats aux 103 approuvés |
 | `REC-ML1-CODE-01` | Métier/UX | Statuts projet Actif/En réflexion/À reprendre générés selon la position dans le tableau ; contradiction `RG-ACC-013` | **KNOWN GAP — CODE INSPECTED** ; BROWSER NOT RUN |
-| `REC-ML1-CODE-02` | Erreurs D1/D2 | `POST /api/preparations` renvoie 401 `SESSION_INVALID` pour toute exception, y compris celle de la persistance | **KNOWN GAP — CODE INSPECTED** ; injection panne NOT RUN |
+| `REC-ML1-CODE-02` | Erreurs D1/D2 | `POST /api/preparations` et certaines routes GET/PATCH du sas renvoient 401 `SESSION_INVALID` pour une erreur non-authentification | **KNOWN GAP — CODE INSPECTED** ; injection panne NOT RUN |
 | `REC-UX-PROOF-01` | Conformité visuelle | Couverture G4 ≠ comparaison Figma/runtime | **NOT VERIFIED** |
 | `REC-ML4-PROOF-01` | Effets Git | Publication/PR/merge non entièrement qualifiés par la campagne ML4 | **INCOMPLETE PROOF** |
 
 Les IDs `REC-*` sont des **repères de diagnostic**, ni des noms de composants ni des règles métier. La criticité et les actions ML4C ne sont pas arbitrées par leur enregistrement.
+
+## 5.1. Revue individualisée D1 — publication du 10/11/2026
+
+La [matrice des 55 références D1](verification-detaillee-acces-portefeuille.md) conserve une ligne par `RG-ACC`/`PF-ACC` : contrat source, module concerné, test disponible et limite. Elle distingue **49 historiques VALIDATED SPEC** et **6 candidats**. L'analyse de code relève cinq constats (deux contradictions établies et trois risques/observations complémentaires), détaillés avec frontières de preuve ; aucune nouvelle exécution LIVE, BROWSER ou Figma.
+
+**Important :** `55/55 SOURCE MAPPED` n'est **pas** `55/55 COVERAGE VERIFIED` ni `BEHAVIOR PROVEN`. Le dossier passe ensuite à D2, sans lancer de correctifs ni conclure CP1.
 
 ## 6. Preuve UX à produire et gate CP1
 

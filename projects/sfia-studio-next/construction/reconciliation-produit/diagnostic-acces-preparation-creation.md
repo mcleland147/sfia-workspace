@@ -185,3 +185,13 @@ Sources : [matrice ML1](../ml1-entree-et-continuite/matrice-tracabilite.md) avec
 **Prochaine analyse cohérente :** D1 ligne par ligne (49 historiques + six candidats), puis D2 (54 historiques + six candidats), suivis des interfaces et de l'E2E01. La documentation est capitalisée au fil de ML4B, sans nouveau macro-lot ni PR par constat.
 
 **Verdict de cette publication :** `ML1 INVENTORY 103 + 12 CANDIDATE IDENTIFIED / INITIAL SOURCE CODE REVIEW / TWO SOURCE GAPS / HISTORICAL QA PRESERVED / PER-ID REVIEW INCOMPLETE / F2-G5 NOT RUN / NO CP1 GATE`. Aucun correctif, PR, merge, test ni adoption n'en découle.
+
+## 8. Mise à jour — revue individualisée D1 au même SHA (2026-11-10)
+
+La [vérification détaillée des 55 RG/PF D1](verification-detaillee-acces-portefeuille.md) complète le premier inventaire de ce document **sans annuler les observations initiales**. L'ensemble comprend **25 RG + 24 PF validés** et **3 RG + 3 PF candidats**, chacun rapproché de mécanismes de code, tests disponibles et limites de preuve. La revue ne prétend pas avoir exécuté les scénarios au SHA.
+
+**Constats D1 à présent suivis :** `D1-GAP-01` (statuts de projets par index, reprend GAP-01), `D1-GAP-02` (erreurs 401 génériques du sas, reprend GAP-02 et étend l'analyse aux GET/PATCH), `D1-GAP-03` (message brut d'exception potentiellement transmis au client depuis le portefeuille), `D1-GAP-04` (erreurs Better Auth non classées pouvant être assimilées à session absente), `D1-GAP-05` (libellé « Connecté » lié à la route plutôt qu'à une preuve de session).
+
+Les trois derniers ne prouvent **ni exploitation, ni fuite de données observée, ni incident réel**. Les niveaux de confiance et vérifications nécessaires sont dans l'annexe. La conformité D1 reste **PARTIAL/NOT FULLY PROVEN**, et F2/G5 demeure **NOT RUN**.
+
+**Suite :** analyse D2 individualisée (54 références historiques, six candidates) dans ce même dossier ML4B ; ensuite interfaces et E2E. Aucun GO code, PR, merge, promotion ou gate B implicitement acquis.
