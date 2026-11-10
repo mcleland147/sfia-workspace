@@ -1,699 +1,441 @@
 # SFIA Studio Next — Review Pack FULL
-## R5 / Cycle 6 — Qualification technique finale — Conduite des intentions Nora/Studio
+## R5 / Cycle 6 — Préflight d'intégration nominale — Continuité cognitive Nora/Studio
 
-**Date/heure :** 2026-11-10 11:27:36 +0100 (Europe/Paris)
-**GO Morris :** qualification technique lecture seule — 2026-11-10 — AUCUNE implémentation
-**Exigence produit :** cadrage `69c27832` blob `2322644a` — VALIDATED IN CONTENT BY MORRIS
-**Base technique de travail :** S1 (IntentConductor + CognitiveContinue + WorkIntent + Catalog) — **NON ADOPTÉE**, consolidée ici
-**Candidat Product :** `fix/next-ml4-chat-first-d4-provenance-20261109` @ `d7f1507a` / tree `3e9e1086`
+**Date/heure :** 2026-11-10 11:44:01 +0100 (Europe/Paris)
+**GO Morris :** investigation READ-ONLY — 2026-11-10 — AUCUNE implémentation
+**Candidat :** `fix/next-ml4-chat-first-d4-provenance-20261109` @ `d7f1507a` / tree `3e9e1086`
+**Cadrage produit :** `69c27832` blob `2322644a` (VALIDATED)
+**Handoff entrée contrats :** `fccc8bc6` blob `a05cfe71`
 **RECETTE :** BUILD `8vZjme4-KnnPkAqm_QxMz` — non mutée
-**Handoff entrée :** `sfia/review-handoff@836d6298` blob `63872f7e`
-**SDK :** `@openai/agents@0.21.0`
-**Verdict :** NORA/STUDIO END-TO-END CONTINUITY — TECHNICAL CONTRACTS QUALIFIED — ACCEPT-01 FULLY SPECIFIED — READY FOR MORRIS IMPLEMENTATION GATE — NO CODE CHANGED
-
+**Verdict :** NORA/STUDIO NOMINAL ARCHITECTURE INTEGRATION QUALIFIED — THREE P0 CONTRACTS RESOLVED — NO PARALLEL ENGINE OR OWNER — ACCEPT-01 PRESERVED — READY FOR MORRIS REVIEW — NO IMPLEMENTATION AUTHORIZED
 
 ---
 
-## 01. Git Truth Check
+## 1. Git Truth Check et sources
 
 | Champ | Observé |
 |---|---|
-| remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| branche | `fix/next-ml4-chat-first-d4-provenance-20261109` |
 | HEAD | `d7f1507a56e50660ea24903c2dc563c249ba9086` MATCH |
 | tree | `3e9e1086aaf83e22d8e3350565f1c747bb31f556` MATCH |
 | origin/main | `6667a43858a5421e391b7441246536daad148bd6` |
-| merge-base | `c658f59023d44a0e22448c7ee034e3c1dda292a2` |
-| cadrage blob | `2322644aa028f882b57570fd962a9a971d772762` MATCH |
-| handoff @836d6298 blob | `63872f7e7bec8569f17262df52483d07df5cb8a9` MATCH |
+| handoff entrée | `fccc8bc63ea770a5d5b8f6e99570830a2f459d0c` / blob `a05cfe71…` MATCH |
+| cadrage blob | `2322644a…` MATCH |
 | staged | vide |
-| dirty/untracked | `.tmp-sfia-review/chatgpt-review.md` + manifests ENV-01 + script — inventoriés, non nettoyés |
+| dirty/untracked | `.tmp-sfia-review/*`, manifests ENV-01, script — non nettoyés |
 
-Candidat accessible. Contexte technique COMPLET pour qualification.
-
+Sources lues pour ce préflight : code `effect-service.ts`, `PublicationInspectionPanel.tsx`, `decisions/service.ts`, `conversation/service.ts`, `document/service.ts`, `turn-command.ts`, schema, handoff @fccc8bc6, cadrage @69c27832, A3/R4, cadrage-r4 (modules intégrés, pas microservices).
 
 ---
 
-## 02. Sources et décisions applicables
+## 2. Résumé des mécanismes nominaux existants
 
-| Source | Usage |
+| Mécanisme | Fichier | Rôle |
+|---|---|---|
+| Entrée chat unique | `postUserMessageAndNora` `service.ts:254` | D3 conduit le tour |
+| Turn lease / idempotence | `turn-command.ts` `clientTurnKey`+`ownerToken` | un tour HTTP |
+| Authority D5/D6 pre-Nora | `applyConversationalAuthority` | effets pilotage avant generate |
+| Nora `run()` unique | `nora-adapter.ts` `@openai/agents@0.21.0` | tools READ mid-run |
+| D4 post-generate | `qualifyDocumentAct` → save/revise | puis `appendDocumentEffectAck` |
+| D4 correlation | `doc:{key}` / `docrev:…` + `creationCorrelationKey` | idempotent replay |
+| D4 reconstitution | `reconstituteConfirmedD4Effects` `service.ts:306+` | après UNKNOWN/ownership loss |
+| D7 prepare | `preparePublication` L787 → status **PREPARED**, **sans HD** | unique `(pilot,project,correlationKey)` |
+| D7 authorize | `authorizePublication` L920 → **insertHumanDecision APPLICABLE** + status **AUTHORIZED** | acte Pilote |
+| D7 dispatch | `dispatchPublication` L1025 → claim lease + provider | exige AUTHORIZED |
+| UI | `PublicationInspectionPanel` authorize disabled unless PREPARED; dispatch unless AUTHORIZED | L528–537 |
+| HD insert | `insertHumanDecision` toujours `state: "APPLICABLE"` `decisions/service.ts:37` | **pas de PENDING** |
+
+**Constat fondateur :** la conduite multi-domaines manquante n'est pas l'absence d'owners — c'est l'absence d'**enchaînement D3** après EffectRecords et le **lien durable tour↔attempt PREPARED** avant authorize.
+
+---
+
+## 3. Analyse P0-D6 — ÉCART CONFIRMÉ puis CONTRAT CORRIGÉ
+
+### 3.1 Vérification code `d7f1507a`
+
+**CONFIRMÉ :** `authorizePublication` crée immédiatement une HumanDecision **APPLICABLE** et passe l'attempt à **AUTHORIZED** (`effect-service.ts:999–1021`). Aucun état HD « PENDING » n'existe (`insertHumanDecision` L37).
+
+**CONFIRMÉ UI :** bouton authorize seulement si `attempt.status === "PREPARED"` (`PublicationInspectionPanel.tsx:528–530`).
+
+**CONFIRMÉ :** `preparePublication` seul crée PREPARED sans `decisionId` (L901–917).
+
+### 3.2 Écart du contrat candidat @fccc8bc6
+
+Le pack précédent plaçait `authorizePublication` dans une phase « présentation / attente » pré-Pilote. **INCORRECT sur ce code.** Appeler authorize = **acte d'autorisation réel**, pas une mise en attente.
+
+### 3.3 Séquencement EXACT corrigé (réemploi API)
+
+```
+preparePublication → effect_attempts.status=PREPARED (decisionId=null)
+→ présentation inspection (panel et/ou message D3 ; faits attemptId+fingerprint)
+→ ATTENTE = Work/mission ancrée sur attempt PREPARED (PAS de HD fictive)
+→ acte explicite Pilote (UI authorize OU commande conversationnelle qui appelle la MÊME API)
+→ authorizePublication → HD APPLICABLE + AUTHORIZED
+→ re-check gates (existant dans dispatch/assertStepAuthority)
+→ dispatchPublication
+→ reconcileAttempt si besoin
+→ CognitiveContinue / restitution
+```
+
+### 3.4 Lien durable travail ↔ tentative sans decisionId
+
+| Besoin | Solution nominale |
 |---|---|
-| Cadrage conduite intentions @69c27832 | **Exigence produit non négociable** E01–E25 |
-| Handoff @836d6298 | S1 base ; E-matrix ; ACCEPT-01 design outline |
-| A3 2026-11-07 | Lot convergence UX : pas de moteur générique d'actions Nora — **périmètre borné** ; conflit à qualifier §23 |
-| R4-01..04 | Une vérité / domaine ; Nora ne décide pas ; D7 tentative ; D6 HD |
-| RG-CRE-008 D2 | Acte explicite « Créer le projet » |
-| Code `d7f1507a` | AS-IS owners, leases, APIs |
-| ML4 §11 @2075aa4f | REC-07/08/10/11 preuves |
-| Vision R1 §2.2 | Autonomie post-intention |
+| Identité wait | `effect_attempts.id` + `status=PREPARED` |
+| Clé stable avant effet | `correlationKey` choisie **avant** prepare ; unique index L742–747 |
+| Lien conversation | stocker `attemptId` (+ correlationKey) dans `TurnResult.resultJson` / bloc ACK mission ; **pas** second registre d'autorité |
+| Reprise | retrouver attempt PREPARED par id ou correlationKey ; panel inchangé |
 
-S1 n'est **pas** une décision Morris. A/B/C généraux **non rouverts** ; seule S1 est consolidée.
-
+**Interdit :** HumanDecision PENDING artificielle ; second owner D6 ; authorize « pour préparer l'attente ».
 
 ---
 
-## 03. Rappel E01–E25 (traçabilité Q01)
+## 4. Analyse P0 — CognitiveContinue / PARTIAL (contradiction résolue)
 
-E01 Nora conduit ; E02 bout-en-bout multi-capacités ; E03 qualify proportionné ; E04 deps sans présomption ; E05 distinguer cognitif/Studio/HD/indispo ; E06 pas de faux refus outil ; E07 rôles ; E08 D2 acte explicite ; E09 boucle résultat→continue ; E10 faits avant suite ; E11 restitution factuelle ; E12 scénario create→publish ; E13 pas de réassemblage Pilote ; E14 multi-tours/sessions ; E15 échec partiel ; E16 pas de rejeu après effet confirmé ; E17 UNKNOWN→reconcile ; E18 STOP opposable ; E19 pas succès/échec fictifs ; E20 distinguer génération/opération/mission ; E21 D1–D9 ; E22 techno libre si couverture totale ; E23 narration-only insuffisant ; E24 slices OK si contrat E2E ; E25 conflits→arbitrage.
+### 4.1 Problème
 
-**Tous E01–E25 restent la cible.** Ce pack les transforme en contrats d'ingénierie.
+Pack @fccc8bc6 : Continue fail → WorkIntent **PARTIAL terminal**, tout en prévoyant reprise cognitive. Contradiction.
 
+### 4.2 Distinction d'états (corrigée)
+
+| Couche | États | Signification |
+|---|---|---|
+| **Owner effect** | D4 AVAILABLE / D7 PREPARED|AUTHORIZED|… | vérité métier |
+| **Tour / génération** | COMPLETE / UNKNOWN / FAILED / INTERRUPTED | `conversation_turn_commands` + Nora |
+| **Mission / intention** | ACTIVE / AWAITING_PILOT_AUTH / RESTITUTION_PENDING / PARTIAL_FAILED_STEP / COMPLETED / STOPPED | projection D3 **logique** |
+| **Restitution** | pending / delivered / canonical-fallback | message assistant |
+
+**Règles :**
+1. Effet confirmé + Continue fail → mission **RESTITUTION_PENDING** (toujours ACTIVE métier), **pas** PARTIAL terminal.
+2. **PARTIAL_FAILED_STEP** seulement si une étape owner requise FAILED/DENIED/REVOKED (ex. HD deny).
+3. Tour UNKNOWN ≠ mission terminée.
+4. Reprise cognition : nouvel appel `generateNoraReply` Continue **sans** OwnerInvoke ; faits via `documentSave` reconstituté / attempt row.
+5. Si modèle indisponible : restitution **canonique déterministe** (compose ACK/faits comme `composeDocumentTurnMessage`) — déjà le pattern D4 ; à généraliser. Mission peut COMPLETED_WITH_CANONICAL_RESTITUTION.
+
+### 4.3 Preuve chemin reprise AS-IS
+
+- `reconstituteConfirmedD4Effects` après ownership loss / UNKNOWN (`service.ts:980–987`, `1092+`).
+- D4 idempotent sur `correlationKey` (`document/service.ts` find by creationCorrelationKey).
+- Donc : **rejouer le tour avec même correlation ne recrée pas** ; Continue peut s'appuyer sur reconstitution.
 
 ---
 
-## 04. Contrat de conduite des intentions
+## 5. Analyse P0 — Crash après effet / réconciliation
 
-### 04.1 Distinctions obligatoires
+### 5.1 Clés stables AVANT effet
 
-| Notion | Identité | Durée | Propriétaire vérité |
+| Effet | Clé choisie avant | Persistée où | Unicité |
 |---|---|---|---|
-| Génération IA | `generationId` | un `run()` | D3 adapter |
-| Tour conversation | `conversation_turn_commands.id` + `clientTurnKey` | un HTTP turn | D3 turn-command |
-| **WorkIntent** | `wint_…` | multi-tours/sessions | D3 projection (pas vérité D4/D6/D7) |
-| WorkStep | `wint_…#stepN` | vie du WorkIntent | D3 projection |
-| Opération applicative | commande domaine | transaction | D2/D4/D5/D6/D7/D9 |
-| Tentative d'effet | `effect_attempts.id` | cycle D7 | **D7** |
-| HumanDecision | `human_decisions.id` | gouvernance | **D6** |
-| EffectRecord | snapshot structuré | immuable après commit | dérivé du owner |
-| FinalRestitution | message + WorkIntent terminal | durable | D3 compose sur faits owners |
+| D4 CREATE | `correlationKey` (`doc:{client}`) | `documents.creationCorrelationKey` + revision.correlationKey | lookup + race wait (`document/service.ts:194–245`) |
+| D4 REVISE | `docrev:{client}:{doc}:{baseRev}` | revision.correlationKey | idempotent replay L472–483 |
+| D7 | `correlationKey` input prepare | `effect_attempts` unique (pilot,project,key) L742–747 | prior same fingerprint → idempotent return L885–898 |
+| Tour HTTP | `clientTurnKey` | `conversation_turn_commands` unique | fingerprint mismatch → 409 |
 
-### 04.2 Boucle canonique
+### 5.2 Fenêtres critiques
 
-```
-IntentQualify → WorkPlan
-→ CognitivePrepare(step)
-→ OwnerInvoke(capability)  [Studio Conductor]
-→ EffectRecord
-→ CognitiveContinue(facts)
-→ NextStep | AwaitHuman | Stop | Conclude
-```
+| P | Scénario | Vérité | Reprise sans double effet |
+|---|---|---|---|
+| P3 | commande émise, résultat local perdu | DB owner si commit | lookup correlation ; si trouvé → skip invoke |
+| P4 | effet OK, ACK/projection perdu | owner row | reconstitute + compose canonique |
+| P5 | effet OK, Continue pas fait | owner DONE | Continue only |
+| P6 | Continue crash | owner DONE | retry Continue / canonical |
+| P8 | HD OK, dispatch pas fait | AUTHORIZED | dispatch once (claim) |
+| P9 | DISPATCHED retour perdu | attempt DISPATCHED | `reconcileAttempt` ; pas re-dispatch HTTP (L1041–1047) |
+| P11 | double HTTP | keys | idempotent |
+| P12 | STOP concurrent | fence / status | no invoke |
 
-Invariant : **texte Nora ≠ autorisation ≠ preuve d'effet.**
+**Garantie réelle :** idempotent apply + reconcile — **pas** exactly-once distribué absolu.
 
+### 5.3 WorkIntent table ?
+
+**Non obligatoire pour P0 crash.** Les owners portent déjà la vérité. Une projection mission (JSON dans resultJson / message structuré / éventuelle table légère) ne fait que **référencer** attemptId/docIds/correlationKeys.
 
 ---
 
-## 05. Responsabilités inter-domaines
+## 6. Matrice de réemploi
 
-| Acteur | Fait | Ne fait pas |
+| Besoin cadrage | Existant | Extension |
 |---|---|---|
-| **Nora / D3** | qualify, prepare contenu, choisir next step, interpréter EffectRecords, continuer, conclure | créer HD ; dispatch Git ; inventer droits ; écrire vérité D4/D7 |
-| **IntentConductor (D3 Studio)** | valider CapabilityRef ; ordonner deps ; appeler owner ; corréler ; suspendre/reprendre ; journaliser refs | absorber états D4/D6/D7 ; élargir permissions |
-| **D1** | session, isolation Pilote | autoriser effets métier |
-| **D2** | create project sur acte UI explicite | création par phrase Nora seule |
-| **D4** | create/revise/read/capitalise | publication Git |
-| **D5** | cycles/méthode via authority existante | effets Git |
-| **D6** | HD, restrictions, STOP humain | exécuter Git |
-| **D7** | prepare / authorize-bind / dispatch / reconcile | cognition ; verdict D8 final |
-| **D8** | qualify preuves / facts | lancer effets |
-| **D9** | read/write Git sous provider + perms | HD |
-| **Pilote** | intention, HD, acte D2, STOP | connaître modules internes |
-
+| Qualify intention | cognitive-policy + document-act + pilotage intent | plan multi-steps in-memory / resultJson |
+| Mobiliser D4 | post-generate save/revise | éventuellement **avant Continue** inchangé owner |
+| Recevoir résultat D4 | DocumentEffectSummary + ACK | alimenter Continue |
+| Mobiliser D7 prepare | `preparePublication` API/UI | **appel depuis D3 service** avec correlation dérivée |
+| Attendre Pilote | PREPARED sans HD | message + panel ; pas authorize précoce |
+| Autoriser | authorizePublication | inchangé — acte Pilote |
+| Publier | dispatchPublication | inchangé après HD |
+| Continue cognitif | — | 2e `generateNoraReply` facts-only **ou** tour suivant |
+| Crash D4 | correlation + reconstitute | lier mission refs |
+| Crash D7 | correlation + reconcileAttempt | idem |
 
 ---
 
-## 06. Capability Catalog (contrat)
+## 7. Audit des quatre abstractions candidates (GATE anti-parallèle)
 
-Type d'entrée catalogue (illustratif) :
+### 7.1 IntentConductor
 
-```ts
-type CapabilityKind = "TOOL_READ" | "OWNER_COMMAND" | "HUMAN_SURFACE" | "EXTERNAL_GATED" | "UNAVAILABLE";
-type CapabilityRef = {
-  id: string;                 // stable, ex. "d4.create_document"
-  owner: "D1"|"D2"|"D3"|"D4"|"D5"|"D6"|"D7"|"D8"|"D9";
-  operation: string;
-  kind: CapabilityKind;
-  mutative: boolean;          // true si change état Studio ou externe
-  persistsStudioState: boolean; // prepare D7 = true même sans GitHub write
-  preconditions: string[];
-  authorityGate: "NONE"|"SESSION"|"OWNERSHIP"|"HUMAN_DECISION"|"EXPLICIT_UI_ACT";
-  invokeMode: "nora_tool" | "conductor_owner" | "pilot_ui";
-  resultSchema: "EffectRecord" | "ToolJson" | "UiEvent";
-  reconcile: "n/a" | "owner_reconcile" | "turn_reconcile";
-};
-```
-
-### Catalogue utile ACCEPT-01 / transverse
-
-| id | owner | kind | mutative | gate | invoke | Notes |
-|---|---|---|---|---|---|---|
-| `d4.search_resources` | D4 | TOOL_READ | false | SESSION | nora_tool | existant |
-| `d4.read_revision` | D4 | TOOL_READ | false | SESSION | nora_tool | existant |
-| `d9.list_sources` | D9 | TOOL_READ | false | SESSION | nora_tool | existant |
-| `d9.read_file` | D9 | TOOL_READ | false | SESSION | nora_tool | FILE_ABSENT etc. |
-| `d9.list_refs` | D9 | TOOL_READ | false | SESSION | nora_tool | existant |
-| `d4.create_document` | D4 | OWNER_COMMAND | true | OWNERSHIP+turn fence | conductor_owner | `savePreparationDocument` |
-| `d4.revise_document` | D4 | OWNER_COMMAND | true | OWNERSHIP+baseRev | conductor_owner | `reviseDocument` |
-| `d7.prepare_publication` | D7 | OWNER_COMMAND | **true** (attempt PREPARED) | link+perms | conductor_owner | **pas READ-ONLY** |
-| `d6.authorize_publication` | D6/D7 | HUMAN_SURFACE | true | Pilote | pilot_ui / conductor present | `authorizePublication`→HD |
-| `d7.dispatch_publication` | D7 | EXTERNAL_GATED | true | **HUMAN_DECISION** | conductor_owner | re-check D6 at point |
-| `d7.reconcile_attempt` | D7 | OWNER_COMMAND | false* | OWNERSHIP | conductor_owner | *obs may update |
-| `d2.create_project` | D2 | HUMAN_SURFACE | true | EXPLICIT_UI_ACT | pilot_ui | RG-CRE-008 |
-| `d5.conversational_command` | D5/D6 | OWNER_COMMAND | true | CLEAR intent | pre-Nora authority | existant |
-
-**E06 :** si `kind∈{OWNER_COMMAND,HUMAN_SURFACE}` et disposabilité OK → Nora oriente / Conductor mobilise ; **interdit** « impossible faute d'outil modèle ».
-
-Le catalogue **ne stocke pas** permissions : il **pointe** vers contrôles D1/D9/D6 au invoke.
-
-
----
-
-## 07. Modèle WorkIntent recommandé (ingénierie)
-
-### 07.1 Choix de persistance — RECOMMANDATION TECHNIQUE
-
-| Option | Verdict |
+| Q | Réponse |
 |---|---|
-| Réemploi seul `conversation_turn_commands` | **INSUFFISANT** — lifetime = un tour ; lease/idempotence HTTP |
-| Réemploi seul `effect_attempts` | **REFUSÉ** — vérité D7 ; ne porte pas D4/mission |
-| Projection uniquement dans `messages` | **FRAGILE** — non structuré, non concurrent-safe |
-| **Table dédiée `work_intents` (+ `work_steps`)** | **RECOMMANDÉ** — projection D3 ; refs vers owners |
+| A Besoin | Enchaîner invoke owners après faits (E12) |
+| B Existant | `postUserMessageAndNora` est déjà le conducteur de tour |
+| C Étendre ? | **OUI** — phases dans service.ts (ou helper **privé** `runIntentPhases`) |
+| D Nature | **responsabilité logique / module helper**, pas service déployé ni owner |
+| E Duplication risque | second pipeline parallèle à postUserMessageAndNora |
+| F Coût | moyen si helper ; élevé si micro-service |
+| G Preuve nécessité | AS-IS s'arrête après ACK ; D7 hors chat |
+| H Plus simple | étendre service.ts |
+| I Régression | tours S01 si phases mal gardées |
+| J Rollback | flag off → pipeline actuel |
 
-**Pas d'arbitrage Morris requis** pour ce choix d'ingénierie sauf opposition doctrine (Q08 respecté : refs only).
+**Verdict audit :** garder le **nom logique** ; **implémenter comme orchestration interne D3**, interdit comme moteur concurrent.
 
-### 07.2 Champs candidats `work_intents`
+### 7.2 WorkIntent (table)
 
-```ts
-type WorkIntentStatus =
-  | "ACTIVE" | "WAITING_HUMAN" | "WAITING_EXTERNAL"
-  | "CONTINUING" | "PARTIAL" | "COMPLETED" | "FAILED" | "STOPPED";
+| Q | Réponse |
+|---|---|
+| A | Continuité multi-tours await PREPARED + reprise (E14) |
+| B | effect_attempts + messages + turn resultJson + correlationKeys |
+| C | **D'abord** projection dans `TurnResult` + ancrage attempt PREPARED |
+| D | table = **option** si reconstruction insuffisante |
+| E | risque second journal d'effets |
+| F | migration+code si table |
+| G | ACCEPT-01 wait cross-session : attempt PREPARED suffit comme vérité wait ; table seulement si plan multi-steps non reconstructible |
+| H | `missionProjection` dans resultJson + liste attempts PREPARED projet |
+| I | faible si refs-only |
+| J | ignorer projection ; owners restent |
 
-type WorkIntentRow = {
-  id: string;                    // wint_…
-  ownerPilotId: string;
-  preparationId: string;
-  projectId: string | null;
-  conversationId: string;
-  clientIntentKey: string;       // idempotence création intention
-  goalSummary: string;           // projection textuelle courte
-  status: WorkIntentStatus;
-  currentStepId: string | null;
-  waitingOn: null | {
-    kind: "HUMAN_DECISION" | "EXTERNAL_EFFECT" | "PILOT_INPUT";
-    decisionId?: string;
-    attemptId?: string;
-  };
-  effectRefsJson: Array<{        // refs ONLY
-    owner: string; capabilityId: string;
-    documentId?: string; revisionId?: string;
-    attemptId?: string; decisionId?: string;
-    status: string; at: string;
-  }>;
-  planJson: WorkStep[];          // ou table work_steps
-  lastContinueGenerationId: string | null;
-  terminalRestitutionMessageId: string | null;
-  createdAt: string; updatedAt: string;
-};
-```
+**Verdict audit :** **pas de table WorkIntent par postulat.** Recommandation préflight : **Phase 1 sans table** ; ouvrir table seulement si gap reconstruction prouvé en tests.
 
-### 07.3 `WorkStep`
+### 7.3 CapabilityCatalog
 
-```ts
-type WorkStepStatus =
-  | "PENDING" | "PREPARING" | "INVOKING" | "OBSERVED"
-  | "WAITING" | "SKIPPED" | "FAILED" | "DONE";
+| Q | Réponse |
+|---|---|
+| A | E05–E06 connaître capacités vs tools |
+| B | `cognitive-policy` allowlist + routes API existantes |
+| C | module const/code `capability-catalog.ts` **read-only map** |
+| D | config code, pas DB permissions |
+| E | ne pas dupliquer D1/D6/D9 rights |
+| H | étendre cognitive-policy + commentaires invokeMode |
 
-type WorkStep = {
-  stepId: string;
-  capabilityId: string;
-  dependsOn: string[];           // stepIds
-  status: WorkStepStatus;
-  ownerCommandKey: string | null; // correlation / client key owner
-  effectRef: object | null;
-  error: { code: string; message: string } | null;
-};
-```
+**Verdict :** catalogue **code**, pas registre d'autorité.
 
-### 07.4 Invariants WorkIntent
+### 7.4 CognitiveContinue
 
-1. Ne contient jamais le markdown documentaire comme vérité (D4).
-2. Ne décide jamais l'état d'un `effect_attempt` (D7).
-3. Ne crée/valide jamais une HD (D6).
-4. `effectRefs` append-only pour faits confirmés ; invalidation = nouveau step.
-5. Transition status via Conductor seul (pas le modèle).
+| Q | Réponse |
+|---|---|
+| A | E09/E11/E19 REC-08 |
+| B | generateNoraReply ; next-turn context snippets |
+| C | 2e appel adapter **même process** après EffectRecord ; ou tour suivant si await |
+| D | phase, pas second moteur |
+| E | double generate coût |
+| H | canonical ACK-only sans 2e IA pour cas triviaux ; Continue IA quand narration métier nécessaire |
+| I | latence |
 
+**Verdict :** phase réutilisant `generateNoraReply` ; **pas** SDK session parallèle.
 
 ---
 
-## 08. États et transitions WorkIntent
+## 8. Doublons / états concurrents à éviter
 
-```mermaid
-stateDiagram-v2
-  [*] --> ACTIVE: create(clientIntentKey)
-  ACTIVE --> CONTINUING: after EffectRecord
-  CONTINUING --> ACTIVE: next step ready
-  ACTIVE --> WAITING_HUMAN: D6 required
-  WAITING_HUMAN --> ACTIVE: HD APPLIED
-  WAITING_HUMAN --> PARTIAL: HD DENIED/REVOKED
-  ACTIVE --> WAITING_EXTERNAL: dispatch in flight / UNKNOWN
-  WAITING_EXTERNAL --> ACTIVE: reconcile terminal
-  ACTIVE --> PARTIAL: step FAILED but prior DONE
-  ACTIVE --> COMPLETED: all required DONE
-  ACTIVE --> FAILED: blocking failure no acquis utile
-  ACTIVE --> STOPPED: Pilote STOP
-  CONTINUING --> PARTIAL: Continue fail after effets
-  WAITING_HUMAN --> STOPPED: STOP
-  COMPLETED --> [*]
-  PARTIAL --> [*]
-  FAILED --> [*]
-  STOPPED --> [*]
-```
-
-**Reconstruction crash :** charger WorkIntent → pour chaque effectRef, **re-lire owner** (doc rev status, attempt status, decision state) → réparer projection si divergente → reprendre `currentStep` sans rejouer DONE.
-
+- ❌ Second effect log dans WorkIntent
+- ❌ HD PENDING
+- ❌ authorize pré-Pilote
+- ❌ IntentConductor HTTP service à côté de messages API
+- ❌ Write-tools Nora comme autorité
+- ❌ Remplacer turn lease / D7 claim
+- ✅ Une entrée chat ; helpers internes
+- ✅ Wait = PREPARED
+- ✅ Truth = D4/D6/D7 rows
 
 ---
 
-## 09. Contrats d'interface (typés candidats)
+## 9. Proposition d'intégration minimale (cible préflight)
 
-### 09.1 IntentConductor API (module candidat)
+### Trajectoire
 
-Fichiers cibles (non écrits) :
-- `domains/conversation/intent-conductor.ts` (nouveau)
-- `domains/conversation/work-intent.ts` (nouveau)
-- `domains/conversation/capability-catalog.ts` (nouveau)
-- adaptations : `service.ts`, `nora-adapter.ts`, `document-act.ts`
-
-```ts
-// Pseudocontrat — NON IMPLÉMENTÉ
-type ConductorEvent =
-  | { type: "USER_MESSAGE"; turnId: string; text: string }
-  | { type: "HUMAN_DECISION"; decisionId: string; state: string }
-  | { type: "RECONCILE"; attemptId: string }
-  | { type: "STOP"; reason: string };
-
-type InvokeResult =
-  | { ok: true; effect: EffectRecord; idempotentReplay?: boolean }
-  | { ok: false; status: "FAILED"|"DENIED"|"UNKNOWN"; code: string; retryable: boolean };
-
-interface IntentConductor {
-  openOrResume(input: {
-    pilotId: string; preparationId: string; projectId?: string;
-    clientIntentKey: string; userText: string;
-  }): Promise<WorkIntentRow>;
-
-  qualifyAndPlan(workIntentId: string, userText: string): Promise<IntentQualification>;
-
-  cognitivePrepare(workIntentId: string, stepId: string): Promise<{
-    generationId: string; prepared: unknown; status: "COMPLETE"|"FAILED"|"UNKNOWN"|"INTERRUPTED";
-  }>;
-
-  invokeOwner(workIntentId: string, stepId: string): Promise<InvokeResult>;
-
-  cognitiveContinue(workIntentId: string, effects: EffectRecord[]): Promise<{
-    generationId: string; decision: "NEXT"|"AWAIT"|"STOP"|"CONCLUDE";
-    nextCapabilityId?: string; restitutionDraft?: string;
-  }>;
-
-  awaitHuman(workIntentId: string, decisionId: string): Promise<void>;
-  onEvent(workIntentId: string, event: ConductorEvent): Promise<void>;
-  conclude(workIntentId: string): Promise<FinalRestitution>;
-}
+```
+AS-IS postUserMessageAndNora
+→ helper runMissionPhases (même transactionnel de tour / mêmes owners)
+→ après D4 EffectRecord : optional Continue (adapter)
+→ si plan inclut publish : preparePublication(correlation dérivée)
+→ commit turn avec missionProjection {attemptId, status:AWAITING_PILOT_AUTH, effectRefs}
+→ Pilote authorize (API existante)
+→ event/next message : dispatch si AUTHORIZED + Continue final / canonical
 ```
 
-### 09.2 EffectRecord canonique
+**Structures réellement nouvelles (minimales) :**
+1. Helper orchestration D3 (+ types MissionProjection).
+2. Catalogue code invokeMode.
+3. Phase Continue (appel adapter) + compose restitution multi-effects.
+4. **Pas** de nouveau owner ; **pas** de table imposée en Phase 1.
 
-```ts
-type EffectRecord = {
-  correlationId: string;
-  capabilityId: string;
-  owner: string;
-  act: string;
-  status: "AVAILABLE"|"PREPARED"|"FAILED"|"DENIED"|"CONFLICT"|"UNKNOWN"|"NOT_EXECUTED";
-  refs: Record<string, string | number | boolean | null>;
-  reason?: string;
-  observedAt: string;
-};
-```
-
-Réutilise la sémantique de `DocumentEffectSummary` (`document-act.ts:1071`) et l'étend aux attempts D7.
-
-### 09.3 CognitiveContinue input
-
-```ts
-type ContinueContext = {
-  workIntentId: string;
-  goalSummary: string;
-  stepsDone: EffectRecord[];
-  openSteps: { stepId: string; capabilityId: string }[];
-  waitingOn: WorkIntentRow["waitingOn"];
-  // tools: READ allowlist only; mutative tools FORBIDDEN in Continue
-};
-```
-
-### 09.4 Owner invoke mapping (code existant)
-
-| capabilityId | Fonction existante | Clé idempotence |
-|---|---|---|
-| d4.create_document | `savePreparationDocument` (via service) | `doc:{generationId\|correlation}` |
-| d4.revise_document | `reviseDocument` | `docrev:{gen}:{doc}:{baseRev}` |
-| d7.prepare_publication | `preparePublication` | `effect_attempts.correlationKey` |
-| d6.authorize_publication | `authorizePublication` | decision + attempt |
-| d7.dispatch_publication | `dispatchPublication` | attempt status machine + claim lease |
-| d7.reconcile_attempt | `reconcileAttempt` | attemptId |
-| d2.create_project | `createProjectCommand` | `idempotencyKey` |
-
-### 09.5 Validation sorties Nora
-
-| Phase | Sortie attendue | Validateur Studio |
-|---|---|---|
-| Qualify | plan steps + capabilityIds | catalog membership + deps DAG |
-| Prepare D4 | fence `sfia-document` extractible | `extractContractualDocumentProposal` |
-| Continue | enum NEXT/AWAIT/STOP/CONCLUDE + optional next id | whitelist ; reject unknown capability |
-| Conclude | prose | must cite only EffectRecords présents |
-
+**Couvre ACCEPT-01 :** oui, avec wait ancré sur PREPARED + authorize réel + dispatch existant.
+**Évite moteur parallèle :** oui — un seul chemin messages.
 
 ---
 
-## 10. Séquence complète ACCEPT-01
+## 10. Contrats d'interface et états corrigés
 
-Intention : « Nora, crée ce document, publie-le dans mon dépôt GitHub et présente-moi le résultat. »
+### MissionProjection (dans resultJson / message — Phase 1)
+
+```ts
+type MissionProjection = {
+  clientIntentKey: string;
+  status: "ACTIVE"|"AWAITING_PILOT_AUTH"|"RESTITUTION_PENDING"|"PARTIAL_FAILED_STEP"|"COMPLETED"|"STOPPED";
+  steps: Array<{
+    id: string; capabilityId: string; status: string;
+    correlationKey?: string; attemptId?: string;
+    documentId?: string; revisionId?: string; decisionId?: string;
+  }>;
+};
+```
+
+### Waiting sans HD
+
+`status=AWAITING_PILOT_AUTH` + `steps[prepare].attemptId` + attempt row PREPARED.
+
+### Continue fail
+
+`status=RESTITUTION_PENDING` ; effects remain ; retry Continue or canonical compose.
+
+---
+
+## 11. Séquence ACCEPT-01 corrigée
 
 ```mermaid
 sequenceDiagram
   participant P as Pilote
-  participant API as messages API
-  participant C as IntentConductor
-  participant N as Nora
+  participant S as postUserMessageAndNora
+  participant N as generateNoraReply
   participant D4 as D4
-  participant D7 as D7
-  participant D6 as D6
-  P->>API: user text + clientIntentKey
-  API->>C: openOrResume
-  C->>N: Qualify+Plan
-  Note over C: steps: create_doc, prepare_pub, await_auth, dispatch_pub, conclude
-  C->>N: CognitivePrepare(create_doc)
-  C->>D4: savePreparationDocument
-  D4-->>C: AVAILABLE docId revId
-  C->>N: CognitiveContinue(facts D4)
-  C->>N: CognitivePrepare(prepare) optional short
-  C->>D7: preparePublication(docRev, path, repo)
-  D7-->>C: PREPARED attemptId
-  C->>N: CognitiveContinue(facts D7)
-  C->>D6: authorizePublication / present HD
-  C-->>P: WAITING_HUMAN (WorkIntent persisté)
-  Note over N: aucun run() ouvert
-  P->>D6: autorise
-  C->>C: onEvent(HUMAN_DECISION)
-  C->>D7: re-check gates + dispatchPublication
-  D7-->>C: result | UNKNOWN
-  alt UNKNOWN
-    C->>D7: reconcileAttempt
-  end
-  C->>N: CognitiveContinue(final facts)
-  C->>N: Conclude
-  C-->>P: restitution unifiée + refs
+  participant D7 as preparePublication
+  participant Auth as authorizePublication
+  participant Disp as dispatchPublication
+  P->>S: intention + clientIntentKey
+  S->>N: Prepare
+  S->>D4: save (correlation doc:key)
+  D4-->>S: AVAILABLE
+  S->>N: Continue (facts) optional
+  S->>D7: prepare (correlation intent:key:pub)
+  D7-->>S: PREPARED attemptId
+  S-->>P: mission AWAITING_PILOT_AUTH + inspection
+  Note over Auth: PAS appelé ici
+  P->>Auth: acte explicite
+  Auth-->>P: HD APPLICABLE + AUTHORIZED
+  P->>S: continue / ou UI dispatch
+  S->>Disp: dispatch
+  Disp-->>S: result/UNKNOWN→reconcile
+  S->>N: Continue final / canonical
+  S-->>P: restitution unifiée
 ```
 
-### Table étape par étape
-
-| # | Étape | Entrée | Commande | Sortie | Persist | Erreur |
-|---|---|---|---|---|---|---|
-| 1 | Qualify | user text | `qualifyAndPlan` | WorkPlan | work_intents ACTIVE | clarify sans effet |
-| 2 | Prepare doc | plan | `generateNoraReply` prepare | proposal fence | generationId | UNKNOWN turn ; no D4 |
-| 3 | Create D4 | proposal | `savePreparationDocument` | AVAILABLE | documents/revisions | FAILED extract ; no continue publish |
-| 4 | Confirm | EffectRecord | Continue | next=prepare | effectRefs | Continue fail → PARTIAL keep D4 |
-| 5 | Prepare D7 | revId+path+repo | `preparePublication` | PREPARED | effect_attempts | DENIED/404 ; PARTIAL |
-| 6 | Inspectable | attempt | UI/projection | plan/diff | planJson | — |
-| 7 | HD | attempt | `authorizePublication` | decisionId | human_decisions | deny → PARTIAL |
-| 8 | Suspend | decisionId | `awaitHuman` | WAITING_HUMAN | work_intents | — |
-| 9 | Resume | HD APPLIED | `onEvent` | ACTIVE | — | revoked → PARTIAL |
-| 10 | Re-check | attempt | effect-authority | ok/deny | — | stale base → STOP requalify |
-| 11 | Publish | mandate | `dispatchPublication` | remote result | attempt+facts | UNKNOWN→reconcile |
-| 12 | Observe | attempt | `reconcileAttempt` | terminal | observed_git_facts | AMBIGUOUS STOP |
-| 13 | Continue final | all effects | CognitiveContinue | CONCLUDE | — | provider fail → PARTIAL + faits |
-| 14 | Restitue | journal | conclude+message | COMPLETED | message + WorkIntent | — |
-
-**Oracle ACCEPT-01 :** une `workIntentId` ; EffectRecords D4+D7(+D6) ; restitution unique ; **zéro** navigation forcée panel-only pour enchaîner.
-
-
 ---
 
-## 11. Attente D6 et reprise gouvernée
+## 12. Blast radius
 
-| Question | Contrat |
+| Zone | Impact |
 |---|---|
-| Entrée attente | Après PREPARED inspectable + `authorizePublication` crée/lie HD ; WorkIntent→WAITING_HUMAN |
-| Présentation | Message conversation + surface inspection (panel Publication **réutilisé** comme viewer) |
-| Vérité officielle HD | `human_decisions` (D6) |
-| Vérité attempt | `effect_attempts` (D7) |
-| Ref WorkIntent | `waitingOn.decisionId` + `waitingOn.attemptId` |
-| Refus/révocation | onEvent → steps publish SKIPPED/FAILED ; status PARTIAL ; **pas** dispatch |
-| Déclencheur reprise | (a) callback API post-authorize ; (b) prochain message Pilote « continue » avec same workIntentId ; propriétaire = Conductor |
-| Anti-doublon reprise | transition CAS status WAITING_HUMAN→ACTIVE avec version/updatedAt ; dispatch idempotent D7 |
-| Revérif mandat | `assertStepAuthority` existant avant mutate provider |
-| Revérif D7/D9 | base SHA / revision / perms / link ACTIVE |
-| Vers Nora | CognitiveContinue(facts) **après** transition ; jamais run pendant wait |
-| Interdits | run() ouvert ; Nora→HD ; mandate stale reuse |
-
+| `conversation/service.ts` | phases + prepare call + projection |
+| `nora-adapter.ts` | mode continue facts-only |
+| `document-act.ts` | compose multi-effect ; dual-intent plan |
+| `effect-service.ts` | **réemploi** ; pas de nouvelle autorité |
+| Panel | inspection ; reste chemin authorize |
+| schema | **Phase 1 : aucune migration obligatoire** |
+| tests | ACCEPT-01 + P0 + NR |
 
 ---
 
-## 12. Continuation cognitive
+## 13. Contrats d'idempotence
 
-### Phases
-
-| Phase | Preconditions | Visible modèle | Tools | Budget |
-|---|---|---|---|---|
-| CognitivePrepare | step PENDING ; WorkIntent ACTIVE | user goal, context snippets, reads | read allowlist if needed | policy profile |
-| OwnerInvoke | prepared valid ; gates OK | — (pas modèle) | — | — |
-| CognitiveContinue | ≥1 EffectRecord new OR await resolved | ContinueContext facts-only | **tools mutatifs interdits** ; reads optionnels | effort low/medium ; maxTurns borné |
-| Conclude | decision CONCLUDE or terminal status | all effectRefs | none | short |
-
-### Règles
-
-- Nombre d'appels IA : **N = 1 + k Continues** (k = steps avec faits) — justifié par E09/E19 (REC-08). Simple S01 : N=1.
-- Pas de boucle Continue sans nouveau fait ou input Pilote (anti-spin) : `maxContinuePerIntent` (ex. 8) + require effect/event delta.
-- SDK 0.21.0 : Continue = **nouveau** `generateNoraReply`/`run()` ; sessions SDK non utilisées (comme aujourd'hui).
-- Message final : `composeDocumentTurnMessage`-like généralisé → `composeWorkRestitution(body, effectRecords[])` ; ACK/faits **canoniques** vs prose.
-- REC-08 : Continue **voit** AVAILABLE avant prose finale → contradiction structurellement évitée (pas regex-only).
-
+- D4/D7/turn : existants.
+- Mission : `clientIntentKey` → mêmes correlationKeys dérivées.
+- Continue fail : never new correlation for same step DONE.
+- authorize/dispatch : idempotent paths existants L955–969, L1038–1040.
 
 ---
 
-## 13. Idempotence et concurrence
+## 14. STOP, UNKNOWN, reprise
 
-| Couche | Mécanisme existant / étendu |
+| Cas | Comportement |
 |---|---|
-| Turn HTTP | `clientTurnKey` + fingerprint (`turn-command.ts`) |
-| WorkIntent | `clientIntentKey` unique (pilot, conversation) |
-| D4 | correlationKey create/revise |
-| D7 | correlationKey + fingerprint + status machine + claim lease 60s |
-| D2 | idempotencyKey |
-| Conductor invoke | `(workIntentId, stepId, ownerCommandKey)` unique success |
-
-**Garantie réelle :** *at-least-once delivery of commands with owner-level idempotent apply* + *no duplicate confirmed effects on Continue failure*.
-**Non promis :** exactly-once distribué bout-en-bout sans preuve infra.
-
-Double clic / retry : même clientIntentKey → resume same WorkIntent ; pas de second CREATE si effectRef AVAILABLE.
-
+| STOP Pilote | mission STOPPED ; no dispatch ; effects kept |
+| D7 UNKNOWN | reconcileAttempt ; no blind dispatch |
+| HD deny/revoke | PARTIAL_FAILED_STEP ; D4 kept |
+| RESTITUTION_PENDING | Continue/canonical only |
+| Session expire | re-auth D1 ; resume via attemptId/correlation |
 
 ---
 
-## 14. Fenêtres de panne P1–P12
+## 15. Risques, dette, exit
 
-| P | Fenêtre | Vérité | Réconciliation | Retry | UX |
-|---|---|---|---|---|---|
-| P1 | Avant WorkIntent | rien | user renvoie | ok new key | — |
-| P2 | WI créé, avant commande | WI ACTIVE | resume plan | invoke step1 | en cours |
-| P3 | commande émise, avant résultat | owner inflight | owner reconcile / turn fence | **no blind** | inconnu |
-| P4 | effet OK, projection WI manquante | owner DONE | rebuild effectRefs from owner | patch projection | — |
-| P5 | effet OK, avant Continue | owner DONE | Continue later | **never re-invoke** | résultat confirmé |
-| P6 | pendant Continue | owner DONE | mark CONTINUING fail→PARTIAL | regenerate Continue only | partial + faits |
-| P7 | WAITING_HUMAN | HD+attempt | wait event | n/a | en attente Pilote |
-| P8 | HD OK, avant dispatch | HD APPLIED | CAS resume | dispatch once | — |
-| P9 | dispatch, retour perdu | attempt DISPATCHED | `reconcileAttempt` | controlled resume | UNKNOWN |
-| P10 | avant restitution | all facts | Conclude from journal | Continue/Conclude only | — |
-| P11 | double HTTP | keys | idempotent | replay resultJson | — |
-| P12 | STOP concurrent | STOPPED | fence blocks invoke | none | arrêté |
-
-Oracle tests : chaque P a un hook (pattern `turnRaceHooks` existant à étendre).
-
-
----
-
-## 15. Contrats UX
-
-| État WorkIntent | Signal Pilote (contrat) |
+| Risque | Mitigation |
 |---|---|
-| ACTIVE/CONTINUING | travail en cours ; étapes intermédiaires confirmées listées |
-| WAITING_HUMAN | en attente d'autorisation ; lien/carte inspection attempt |
-| WAITING_EXTERNAL | opération externe ; UNKNOWN possible |
-| PARTIAL | acquis + non faits |
-| COMPLETED | terminé + refs |
-| FAILED/STOPPED | arrêté / échec ; faits conservés |
+| service.ts god-file | helper module private |
+| prepare depuis D3 élargit surface | same gates preparePublication |
+| Continue coût | skip if canonical sufficient |
+| Tentation table précoce | gate Phase 2 only |
 
-**Panel Publication Git** (`PublicationInspectionPanel.tsx`) : **surface d'inspection/contrôle** (diff, authorize, STOP labels). Chemin **nominal** = conduite Nora/Conductor ; panel n'est plus l'unique orchestrateur humain des étapes.
-
-Pas de Figma/code UX ce cycle — contrat fonctionnel seulement.
-
+**Exit :** flag `MISSION_PHASES=off` → AS-IS tour ; attempts/docs intactes.
 
 ---
 
-## 16. Couverture D1–D9
+## 16. Matrice tests / non-régression (non exécutés)
 
-| D | Rôle dans conduite | Contrat |
+| ID | Focus | Oracle |
 |---|---|---|
-| D1 | authz invoke | session required every event |
-| D2 | HUMAN_SURFACE | hors ACCEPT-01 publish ; acte explicite |
-| D3 | Conductor+Nora | ce pack |
-| D4 | create/revise/read | EffectRecords |
-| D5 | optional steps | authority bridge existant |
-| D6 | HD await | §11 |
-| D7 | prepare/dispatch/reconcile | mutative prepare |
-| D8 | facts after remote | observed_git_facts |
-| D9 | read tools + provider writes via D7 | gates |
+| ACCEPT-01 | E2E mission | PREPARED wait sans HD ; authorize crée HD ; publish ; restitution |
+| P0-D6 | authorize timing | prepare≠HD ; authorize⇒APPLICABLE |
+| P0-Cont | Continue fail | RESTITUTION_PENDING ; D4 not duplicated |
+| P0-Crash | kill after D4/D7 | correlation resume |
+| NR-07/10/11 | témoins | PASS |
+| REC-08 | Continue/canonical | no competing deny |
+| S01 | simple | no forced prepare |
 
+Niveaux futurs : DET / PG isolé / BROWSER / NORA LIVE / GITHUB REAL — gates séparés.
 
 ---
 
-## 17. Modifications techniques candidates (fichiers vérifiés)
+## 17. Plan macro-lot intégré (après GO Morris)
 
-| Fichier | Changement candidat |
+1. Catalogue code + MissionProjection types + dual-intent qualify.
+2. Phases D4→Continue (REC-08) dans service helper.
+3. preparePublication depuis D3 + AWAITING_PILOT_AUTH.
+4. Reprise post-authorize/dispatch + Continue final.
+5. Tests ACCEPT-01 + P0 + NR.
+6. Docs sync.
+
+**Sortie produit unique :** ACCEPT-01 — pas d'acceptation partielle « Continue only = done ».
+
+---
+
+## 18. Arbitrages Morris réellement nécessaires
+
+1. **GO implémentation** intégration minimale ci-dessus (oui/non).
+2. **Confirmer** wait = PREPARED sans HD PENDING (aligné code) — validation produit.
+3. **A3** : orchestration interne D3 ≠ moteur d'actions Nora — confirmation courte.
+
+**Non demandés :** table WorkIntent maintenant ; IntentConductor service ; bus.
+
+---
+
+## 19. Réserves
+
+- Intégration **qualifiée conception** — non codée.
+- Reconstruction multi-steps sans table : à prouver en DET/PG avant d'exclure table définitivement.
+- Texte LIVE CREATE→REVISE : REPRO PENDING.
+- REAL publish hors cycle.
+
+---
+
+## 20. Verdict et Git Review Index
+
+**NORA/STUDIO NOMINAL ARCHITECTURE INTEGRATION QUALIFIED — THREE P0 CONTRACTS RESOLVED — NO PARALLEL ENGINE OR OWNER — ACCEPT-01 PRESERVED — READY FOR MORRIS REVIEW — NO IMPLEMENTATION AUTHORIZED**
+
+| Artefact | SHA |
 |---|---|
-| `db/schema.ts` | tables `work_intents` / `work_steps` + migration future |
-| `domains/conversation/service.ts` | brancher Conductor ; garder postUserMessageAndNora comme entrée |
-| `domains/conversation/nora-adapter.ts` | `generateNoraReply` modes prepare/continue ; ContinueContext |
-| `domains/conversation/document-act.ts` | qualify dual-intent CREATE→then REVISE plan ; generalize ACK compose |
-| `domains/conversation/cognitive-policy.ts` | budgets Continue |
-| `domains/conversation/turn-command.ts` | lier operationId↔workIntentId (ref) |
-| **nouveau** `intent-conductor.ts` / `work-intent.ts` / `capability-catalog.ts` | cœur |
-| `domains/execution/effect-service.ts` | API déjà OK ; appel depuis Conductor ; events authorize→resume |
-| `components/integrations/PublicationInspectionPanel.tsx` | mode inspection + afficher workIntentId |
-| tests unit/PG/e2e | ACCEPT-01 + P-windows + NR |
-
-**Aucune de ces modifications n'est effectuée ce cycle.**
-
-
----
-
-## 18. Blast radius
-
-API messages : payload optionnel `clientIntentKey` / `workIntentId`.
-DB : migration additive.
-Sécurité : pas de nouveaux droits ; gates existants au invoke.
-UX : états mission.
-Perf : +k generates Continue.
-Obs : events `d3.workintent.*` + corrélation workIntentId/operationId/attemptId/generationId.
-
-
----
-
-## 19. Matrice d'acceptation et oracles
-
-| ID | Oracle | Niveaux |
-|---|---|---|
-| ACCEPT-01 | WI unique ; D4 AVAILABLE ; D7 PREPARED ; HD ; dispatch gated ; restitution unifiée | DET→PG→BROWSER→LIVE→REAL |
-| ACCEPT-02 S01 | N=1 generate ; no WI overhead obligatoire (WI ephemeral/skip) | DET |
-| ACCEPT-03 D2 | pas de create sans UI act | BROWSER |
-| ACCEPT-04 REC-08 | Continue après AVAILABLE ; 0 claim « non enregistré » concurrent | DET+LIVE |
-| ACCEPT-05 HD deny | PARTIAL ; no dispatch ; D4 kept | PG |
-| ACCEPT-06 UNKNOWN | reconcile before retry | PG |
-| ACCEPT-07 STOP | no invoke | PG |
-| ACCEPT-08 P5/P6 | effet kept ; Continue fail → PARTIAL | DET hooks |
-| ACCEPT-09 dual intent | « crée puis révise » → 2 steps CREATE then REVISE | DET |
-| NR-07/10/11 | PASS témoins | DET/LIVE |
-
-**Politique dual-intent (ingénierie) :** si CREATE et REVISE tous deux explicites → **WorkPlan séquentiel** (CREATE puis REVISE sur doc créé) ; si REVISE seul avec objet → REVISE ; priorité REVISE-avant-CREATE **conservée seulement** pour négations « ne crée pas, révise… ». Ambigu → NONE + clarification (fail-closed).
-
-
----
-
-## 20. Plan de non-régression
-
-1. Unit document-act (REC-10, dual-intent).
-2. Unit compose restitution / Continue facts.
-3. PG ml4-chat-first + git-collaboration (REC-07/11 paths).
-4. PG work-intent idempotence P11.
-5. Browser panel inspection still works.
-6. LIVE borné REC-08 inverted + ACCEPT-01 Fake/Scripted avant REAL.
-
-
----
-
-## 21. Macro-lot intégré
-
-**Résultat utilisateur unique :** ACCEPT-01 mission documentaire+publication conduite par Nora.
-
-**IN :** WorkIntent+Catalog+Conductor ; Prepare/Continue ; D4/D7/D6 wiring ; UX états ; tests ; docs techniques sync.
-**OUT :** merge REAL obligatoire ; multi-agents ; write-tools Nora non fencés ; changement SEF sans GO ; R13/R14 hors scope sauf GO.
-
-**Ordre d'intégration interne (non-acceptations produit séparées) :**
-1. schema WorkIntent + catalog
-2. Conductor D4-only Continue (REC-08)
-3. Conductor D7 prepare + await HD
-4. dispatch+reconcile+Conclude ACCEPT-01
-5. UX + NR sweep
-
-**Preuve de sortie produit :** ACCEPT-01 + NR-07/10/11 + P5/P6/P11.
-**Gate :** Morris implementation GO distinct.
-
-
----
-
-## 22. Rollback et dette/exit
-
-- Feature flag `INTENT_CONDUCTOR=off` → comportement tour actuel (ACK-only).
-- Migration additive : tables inertes si flag off.
-- Revert git commits macro-lot.
-- Dette : +Continues coût tokens — exit = coalesce Continue pour steps triviaux.
-- Exit Conductor : ne pas laisser WorkIntent devenir owner de vérité.
-
-
----
-
-## 23. Conflits réels avec décisions existantes
-
-| Décision | Tension | Qualification |
-|---|---|---|
-| **A3** (lot convergence UX) | « Non moteur générique actions Nora » | S1 = **Conductor Studio** + owners ; Nora ne dispatch pas. **Compatible en lecture stricte** si A3 = interdiction d'un bus de commandes émis par le modèle. **Arbitrage Morris** utile pour confirmer que la conduite multi-capacités du cadrage 10/11 **n'est pas** bloquée par A3 (A3 était borné au lot UX 07/11, non mergé). |
-| **R4-03** | pas d'exécution depuis Nora | Respecté (InvokeOwner = D7/D4 services) |
-| **RG-CRE-008** | acte D2 | Respecté (HUMAN_SURFACE) |
-| Panel-only publish UX de facto | E13 | Panel = inspection ; nominal = Conductor — **évolution UX** sous GO, pas violation ADR |
-
-Aucun changement normatif SEF/ADR proposé ici.
-
-
----
-
-## 24. Arbitrages Morris strictement nécessaires
-
-1. **GO d'implémentation** du macro-lot ACCEPT-01 (oui/non + slices autorisées).
-2. **Confirmation A3** : IntentConductor Studio compatible avec A3 / cadrage 10/11.
-3. **UX** : valider panel Publication comme inspection (pas orchestrateur obligatoire).
-
-**Non demandés :** choix table vs JSON fields fins ; nombre exact maxContinue ; libellés UI micro.
-
-
----
-
-## 25. Réserves
-
-- Contrats **QUALIFIED ON DESIGN** — code non écrit ; ACCEPT-01 non prouvé runtime.
-- CREATE→REVISE_NOT_FOUND texte LIVE exact : REPRO PENDING.
-- REAL GitHub publish : hors exécution ce cycle.
-- Q01–Q15 : satisfaits **au niveau conception/contrat** ; preuves runtime = futur GO.
-
-
----
-
-## 26. Verdict
-
-**NORA/STUDIO END-TO-END CONTINUITY — TECHNICAL CONTRACTS QUALIFIED — ACCEPT-01 FULLY SPECIFIED — READY FOR MORRIS IMPLEMENTATION GATE — NO CODE CHANGED**
-
-Checklist Q01–Q15 : OUI (contrats) — preuves d'exécution : NON (hors mandat).
-
-
----
-
-## 27. Git Review Index
-
-| Artefact | Valeur |
-|---|---|
-| Product HEAD | `d7f1507a56e50660ea24903c2dc563c249ba9086` |
+| Product | `d7f1507a` |
 | Cadrage | `69c27832` / `2322644a` |
-| Handoff entrée | `836d6298` / `63872f7e` |
+| Entrée | `fccc8bc6` / `a05cfe71` |
 | RECETTE BUILD | `8vZjme4-KnnPkAqm_QxMz` |
-| Pack | `.tmp-sfia-review/chatgpt-review.md` |
 
-**STOP** après publication L3. Aucun développement automatique.
+**Corrections P0 vs @fccc8bc6 :** (1) authorize = acte Pilote réel ; wait=PREPARED ; (2) Continue fail→RESTITUTION_PENDING non PARTIAL terminal ; (3) crash→correlation owners, pas nouveau journal.
+
+**STOP** — aucune implémentation.
