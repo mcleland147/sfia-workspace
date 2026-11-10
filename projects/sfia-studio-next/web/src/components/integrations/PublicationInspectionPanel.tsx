@@ -194,7 +194,21 @@ export function PublicationInspectionPanel({ projectId, providerMode: providerMo
         setError(j.message ?? j.error ?? "Autorisation refusée");
         return;
       }
-      setAttempt((a) => (a ? { ...a, status: j.status, decisionId: j.decisionId } : a));
+      // ACCEPT-01: authorize route auto-resumes dispatch; reflect observed status
+      // (not the intermediate AUTHORIZED) so Dispatch is not presented as nominal.
+      const resumedStatus =
+        typeof j.missionResume?.status === "string" ? (j.missionResume.status as string) : null;
+      setAttempt((a) =>
+        a
+          ? {
+              ...a,
+              status: resumedStatus ?? j.status,
+              decisionId: j.decisionId,
+              prNumber: j.missionResume?.prNumber ?? j.prNumber ?? a.prNumber ?? null,
+              commitSha: j.missionResume?.commitSha ?? j.commitSha ?? a.commitSha ?? null,
+            }
+          : a,
+      );
     } finally {
       setBusy(false);
     }

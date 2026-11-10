@@ -20,6 +20,20 @@ Append-only logical journal of Cursor product deliveries.
 | Evidence limits | SCRIPTED GitHub + Nora fixture; no REAL publish; no RECETTE; no Product push |
 | Status | LOCAL CONSTRUCTION — NO RECETTE OR REAL PROMOTION |
 
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-01-REG
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / ACCEPT-01 — régularisation Review Pack + correctif UX panel |
+| Type | EVOL correction locale (NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-01 @ `b0e23c46` |
+| Lane | DEV only; RECETTE `8vZjme4-KnnPkAqm_QxMz` untouched |
+| Changes | PublicationInspectionPanel reflects `missionResume.status` after authorize; PG replay C2/C5 test; FULL Review Pack |
+| Defect fixed | After auto-resume, UI kept AUTHORIZED and left Dispatch enabled as if nominal |
+| Schema | unchanged |
+| Status | LOCAL REGULARIZATION — NO PRODUCT PUSH / RECETTE |
 
 ## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
 

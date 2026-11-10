@@ -203,4 +203,34 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
       );
     expect(decisions[0]?.state).toBe("APPLICABLE");
   });
+
+  it("C2/C5: same clientTurnKey replay does not duplicate D4 CREATE or D7 prepare", async () => {
+    const { pilotId, projectId, preparationId } = await seedProjectWithGit("accept01-replay");
+    const ask =
+      "Crée un document intitulé ACCEPT-01 Replay et publie-le dans mon dépôt GitHub chemin docs/studio-next/accept01-replay.md";
+    const clientTurnKey = newId("ctk");
+    const first = await postUserMessageAndNora(pilotId, preparationId, ask, { clientTurnKey });
+    expect(first.documentSave?.status).toBe("AVAILABLE");
+    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_AUTH");
+    const firstDoc = first.documentSave!.documentId!;
+    const firstAttempt = first.missionProjection!.steps.find((s) => s.id === "d7_prepare")!
+      .attemptId!;
+
+    const replay = await postUserMessageAndNora(pilotId, preparationId, ask, { clientTurnKey });
+    expect(replay.idempotentReplay === true || replay.documentSave?.documentId === firstDoc).toBe(
+      true,
+    );
+
+    const docs = await listDocuments(pilotId, preparationId);
+    const matching = docs.filter((d) => d.document.id === firstDoc);
+    expect(matching).toHaveLength(1);
+
+    const attempts = await db
+      .select()
+      .from(effectAttempts)
+      .where(and(eq(effectAttempts.projectId, projectId), eq(effectAttempts.id, firstAttempt)));
+    expect(attempts).toHaveLength(1);
+    expect(attempts[0]?.status).toBe("PREPARED");
+    expect(attempts[0]?.decisionId).toBeNull();
+  });
 });

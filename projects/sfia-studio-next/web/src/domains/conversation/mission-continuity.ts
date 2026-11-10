@@ -266,6 +266,8 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
   status: string;
   restitution: string;
   conversationMessageId: string | null;
+  prNumber?: number | null;
+  commitSha?: string | null;
   error?: string;
 }> {
   const row = (
@@ -389,6 +391,23 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
     }
   }
 
+  const finalRow = (
+    await db.select().from(effectAttempts).where(eq(effectAttempts.id, input.attemptId)).limit(1)
+  )[0];
+  const resultPayload = (() => {
+    try {
+      return JSON.parse(finalRow?.resultJson || "{}") as {
+        prNumber?: number | null;
+        commitSha?: string | null;
+        sha?: string | null;
+      };
+    } catch {
+      return {} as { prNumber?: number | null; commitSha?: string | null; sha?: string | null };
+    }
+  })();
+  const prNumber = resultPayload.prNumber ?? null;
+  const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
+
   emitObs({
     event_name: "d3.mission.resume_after_authorize",
     component: "d3.mission_continuity",
@@ -408,6 +427,8 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
     status,
     restitution,
     conversationMessageId,
+    prNumber,
+    commitSha,
     error: detail ?? undefined,
   };
 }
