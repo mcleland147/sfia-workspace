@@ -1,9 +1,9 @@
 # SFIA Studio Next — Décision de trajectoire R5 : réconciliation et convergence produit
 
-**Date :** 10 novembre 2026  
-**Autorité :** Morris  
-**Statut :** orientation de programme VALIDATED IN CONTENT BY MORRIS le 10/11/2026 ; document publié sur branche Git candidate, sans PR, merge, GO technique ni adoption.  
-**Référence Git de cadrage :** `mcleland147/sfia-workspace`, `main@0182b0a7053babefe33aa4de181631b21613ac69`.  
+**Date :** 10 novembre 2026
+**Autorité :** Morris
+**Statut :** orientation de programme VALIDATED IN CONTENT BY MORRIS le 10/11/2026 ; document publié sur branche Git candidate, sans PR, merge, GO technique ni adoption.
+**Référence Git de cadrage :** `mcleland147/sfia-workspace`, `main@0182b0a7053babefe33aa4de181631b21613ac69`.
 **Nature :** décision structurante D2 ; traçabilité CP0, sans réouverture automatique des décisions antérieures.
 
 ## 1. Motivation
