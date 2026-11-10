@@ -1257,10 +1257,15 @@ async function loadContinuationReplay(
 }
 
 /**
- * G2 — nominal recovery after D2 confirmed + interrupted continuation.
+ * G2/S06/S07 — nominal recovery after D2 confirmed + interrupted continuation.
  * COMMAND path only (never listMessages/GET). Idempotent; reuses continueAfterProjectCreated
  * fencing. Trigger surfaces: create-project ALREADY_CREATED retry, project resume POST,
  * next chat turn when project already linked.
+ *
+ * Selection order (RG-CTX-001 / mission isolation):
+ * 1) incomplete mission-continue turn for THIS projectId
+ * 2) create_project_commands.idempotencyKey d2:mission:* for THIS project
+ * Never: lone awaiting mission / newest message / project-name similarity.
  */
 export async function recoverPendingMissionContinuation(input: {
   pilotId: string;
@@ -1298,35 +1303,31 @@ export async function recoverPendingMissionContinuation(input: {
   }
 
   const latest = await loadLatestMissionsByIntentKey(conv.id);
-  const awaiting = [...latest.values()].filter(
-    (m) =>
-      m.status === "AWAITING_PILOT_ACT" &&
-      (!m.preparationId || m.preparationId === conv.preparationId),
-  );
 
-  // Incomplete continuation turns for this project (crash mid-continue).
+  // Incomplete continuation turns for THIS project (crash mid-continue).
   const contPrefix = `mission-continue:`;
   const contSuffix = `:${input.projectId}`;
   const turns = await db
     .select()
     .from(conversationTurnCommands)
     .where(eq(conversationTurnCommands.conversationId, conv.id));
-  const incompleteKeys = turns
-    .filter(
-      (t) =>
-        (t.status === "RUNNING" || t.status === "ACCEPTED" || t.status === "UNKNOWN") &&
-        t.clientTurnKey.startsWith(contPrefix) &&
-        t.clientTurnKey.endsWith(contSuffix),
-    )
-    .map((t) => t.clientTurnKey.slice(contPrefix.length, t.clientTurnKey.length - contSuffix.length))
-    .filter((k) => k.length > 0);
+  const incompleteKeys = [
+    ...new Set(
+      turns
+        .filter(
+          (t) =>
+            (t.status === "RUNNING" || t.status === "ACCEPTED" || t.status === "UNKNOWN") &&
+            t.clientTurnKey.startsWith(contPrefix) &&
+            t.clientTurnKey.endsWith(contSuffix),
+        )
+        .map((t) =>
+          t.clientTurnKey.slice(contPrefix.length, t.clientTurnKey.length - contSuffix.length),
+        )
+        .filter((k) => k.length > 0),
+    ),
+  ];
 
-  let clientIntentKey: string | null = null;
-  if (incompleteKeys.length === 1) {
-    clientIntentKey = incompleteKeys[0]!;
-  } else if (awaiting.length === 1) {
-    clientIntentKey = awaiting[0]!.clientIntentKey;
-  } else if (incompleteKeys.length > 1 || awaiting.length > 1) {
+  if (incompleteKeys.length > 1) {
     return {
       attempted: true,
       recovered: false,
@@ -1335,38 +1336,87 @@ export async function recoverPendingMissionContinuation(input: {
       documentSave: null,
       assistantMessageId: null,
     };
-  } else {
-    // Also accept mission-bound create_project_commands already committed for this project.
-    const missionCmds = await db
-      .select()
-      .from(createProjectCommands)
-      .where(
-        and(
-          eq(createProjectCommands.pilotId, input.pilotId),
-          eq(createProjectCommands.projectId, input.projectId),
-          eq(createProjectCommands.preparationId, conv.preparationId),
-        ),
-      )
-      .orderBy(desc(createProjectCommands.createdAt))
-      .limit(8);
-    const missionCmd = missionCmds.find((r) =>
-      (r.idempotencyKey ?? "").startsWith("d2:mission:"),
-    );
-    if (missionCmd?.idempotencyKey?.startsWith("d2:mission:")) {
-      const key = missionCmd.idempotencyKey.slice("d2:mission:".length);
-      const mission = latest.get(key);
-      if (!mission || mission.status !== "COMPLETED") {
-        clientIntentKey = key;
-      }
-    }
   }
 
-  if (!clientIntentKey) {
+  // Owner-act binding: create_project_commands.idempotencyKey = d2:mission:<clientIntentKey>
+  // for THIS project — decisive over any other awaiting mission in the same thread (S06/S07).
+  const missionCmds = await db
+    .select()
+    .from(createProjectCommands)
+    .where(
+      and(
+        eq(createProjectCommands.pilotId, input.pilotId),
+        eq(createProjectCommands.projectId, input.projectId),
+        eq(createProjectCommands.preparationId, conv.preparationId),
+      ),
+    )
+    .orderBy(desc(createProjectCommands.createdAt))
+    .limit(8);
+  const missionBoundKeys = [
+    ...new Set(
+      missionCmds
+        .map((r) => r.idempotencyKey ?? "")
+        .filter((k) => k.startsWith("d2:mission:"))
+        .map((k) => k.slice("d2:mission:".length)),
+    ),
+  ];
+
+  let clientIntentKey: string | null = null;
+  if (incompleteKeys.length === 1) {
+    const incompleteKey = incompleteKeys[0]!;
+    if (missionBoundKeys.length > 0 && !missionBoundKeys.includes(incompleteKey)) {
+      return {
+        attempted: true,
+        recovered: false,
+        reason: "MISSION_OWNER_ACT_MISMATCH",
+        missionProjection: null,
+        documentSave: null,
+        assistantMessageId: null,
+      };
+    }
+    clientIntentKey = incompleteKey;
+  } else if (missionBoundKeys.length === 1) {
+    clientIntentKey = missionBoundKeys[0]!;
+  } else if (missionBoundKeys.length > 1) {
+    return {
+      attempted: true,
+      recovered: false,
+      reason: "AMBIGUOUS_OWNER_ACT",
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  } else {
+    // No mission-bound D2 command for this project → do NOT pick a neighboring awaiting mission.
     return {
       attempted: false,
       recovered: false,
       reason: "NOTHING_PENDING",
       missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  }
+
+  const boundMission = latest.get(clientIntentKey);
+  if (boundMission?.status === "COMPLETED") {
+    const replay = await loadContinuationReplay(conv.id, clientIntentKey, input.projectId);
+    if (replay) {
+      return {
+        attempted: true,
+        recovered: true,
+        reason: "ALREADY_CONTINUED",
+        missionProjection: replay.missionProjection,
+        documentSave: replay.documentSave,
+        assistantMessageId: replay.assistantMessageId,
+        replayed: true,
+      };
+    }
+    return {
+      attempted: false,
+      recovered: false,
+      reason: "NOTHING_PENDING",
+      missionProjection: boundMission,
       documentSave: null,
       assistantMessageId: null,
     };

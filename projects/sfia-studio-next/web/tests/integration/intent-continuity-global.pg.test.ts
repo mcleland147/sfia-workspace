@@ -731,6 +731,219 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     expect(created.status).toBe("CREATED");
   });
 
+  it("S06/S07: two awaiting missions — recover binds D2 owner act, not neighboring awaiting", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-s06-two-missions");
+    const keyA = newId("ctk");
+    const keyB = newId("ctk");
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Mission A puis un document Alpha.",
+      { clientTurnKey: keyA },
+    );
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Mission B puis un document Beta.",
+      { clientTurnKey: keyB },
+    );
+
+    // Neighbor B remains awaiting; only A is authorized and creates the project.
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const authA = await authorizeMissionBoundD2Create({
+      pilotId,
+      preparationId,
+      clientIntentKey: keyA,
+      projectName: "Mission A",
+    });
+    expect(authA.outcome).toBe("AUTHORIZED");
+    if (authA.outcome !== "AUTHORIZED") throw new Error("expected AUTHORIZED");
+
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: "Mission A",
+      previewSummary: "s",
+      idempotencyKey: authA.idempotencyKey,
+    });
+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
+
+    // After create, both may still look awaiting in latest map until continuation commits.
+    // Recovery must prefer d2:mission:keyA for THIS project — never keyB.
+    const recovered = await recoverPendingMissionContinuation({
+      pilotId,
+      projectId: created.projectId,
+    });
+    expect(recovered.recovered).toBe(true);
+    expect(recovered.missionProjection?.clientIntentKey).toBe(keyA);
+    expect(recovered.missionProjection?.clientIntentKey).not.toBe(keyB);
+    expect(recovered.documentSave?.status).toBe("AVAILABLE");
+    const docs = await listDocuments(pilotId, preparationId);
+    const docsA = docs.filter((d) =>
+      (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyA}`),
+    );
+    const docsB = docs.filter((d) =>
+      (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyB}`),
+    );
+    expect(docsA).toHaveLength(1);
+    expect(docsB).toHaveLength(0);
+  });
+
+  it("S06b: after mission A completed, lone awaiting B is NOT continued for project A", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-s06b-neighbor");
+    const keyA = newId("ctk");
+    const keyB = newId("ctk");
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Done A puis un document DoneA.",
+      { clientTurnKey: keyA },
+    );
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Still B puis un document StillB.",
+      { clientTurnKey: keyB },
+    );
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const authA = await authorizeMissionBoundD2Create({
+      pilotId,
+      preparationId,
+      clientIntentKey: keyA,
+      projectName: "Done A",
+    });
+    if (authA.outcome !== "AUTHORIZED") throw new Error("expected AUTHORIZED");
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: "Done A",
+      previewSummary: "s",
+      idempotencyKey: authA.idempotencyKey,
+    });
+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
+    const contA = await continueAfterProjectCreated({
+      pilotId,
+      preparationId,
+      projectId: created.projectId,
+      projectName: "Done A",
+      clientIntentKey: keyA,
+    });
+    expect(contA.continued).toBe(true);
+    expect(contA.missionProjection?.status).toBe("COMPLETED");
+
+    // B is now the only awaiting in the thread — must NOT be resumed against project A.
+    // Replay of completed A (ALREADY_CONTINUED) is allowed; binding B is not.
+    const recovered = await recoverPendingMissionContinuation({
+      pilotId,
+      projectId: created.projectId,
+    });
+    expect(
+      recovered.reason === "NOTHING_PENDING" ||
+        recovered.reason === "ALREADY_CONTINUED" ||
+        recovered.replayed === true,
+    ).toBe(true);
+    if (recovered.missionProjection) {
+      expect(recovered.missionProjection.clientIntentKey).toBe(keyA);
+      expect(recovered.missionProjection.clientIntentKey).not.toBe(keyB);
+    }
+    const docs = await listDocuments(pilotId, preparationId);
+    expect(
+      docs.filter((d) =>
+        (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyB}`),
+      ),
+    ).toHaveLength(0);
+    expect(
+      docs.filter((d) =>
+        (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyA}`),
+      ),
+    ).toHaveLength(1);
+  });
+
+  it("S05: two projects same Pilot — recover on Atlas never uses Orion conversation/mission", async () => {
+    const atlas = await seedPrepOnly("scen-s05-atlas");
+    const orion = await seedPrepOnly("scen-s05-orion");
+    // Same pilot: re-seed Orion under Atlas pilot
+    const orionPrep = await openOrCreatePreparation(atlas.pilotId);
+    await updatePreview(atlas.pilotId, orionPrep.id, "Orion Prep", "s");
+
+    const keyAtlas = newId("ctk");
+    const keyOrion = newId("ctk");
+    await postUserMessageAndNora(
+      atlas.pilotId,
+      atlas.preparationId,
+      "Crée un projet nommé Atlas Iso puis un document AtlasDoc.",
+      { clientTurnKey: keyAtlas },
+    );
+    await postUserMessageAndNora(
+      atlas.pilotId,
+      orionPrep.id,
+      "Crée un projet nommé Orion Iso puis un document OrionDoc.",
+      { clientTurnKey: keyOrion },
+    );
+
+    const prepA = (await db.select().from(preparations).where(eq(preparations.id, atlas.preparationId)))[0]!;
+    const prepO = (await db.select().from(preparations).where(eq(preparations.id, orionPrep.id)))[0]!;
+    const authA = await authorizeMissionBoundD2Create({
+      pilotId: atlas.pilotId,
+      preparationId: atlas.preparationId,
+      clientIntentKey: keyAtlas,
+      projectName: "Atlas Iso",
+    });
+    const authO = await authorizeMissionBoundD2Create({
+      pilotId: atlas.pilotId,
+      preparationId: orionPrep.id,
+      clientIntentKey: keyOrion,
+      projectName: "Orion Iso",
+    });
+    if (authA.outcome !== "AUTHORIZED" || authO.outcome !== "AUTHORIZED") {
+      throw new Error("expected both AUTHORIZED");
+    }
+    const createdA = await createProjectCommand({
+      pilotId: atlas.pilotId,
+      preparationId: atlas.preparationId,
+      expectedCreationRevision: prepA.creationRevision,
+      projectName: "Atlas Iso",
+      previewSummary: "s",
+      idempotencyKey: authA.idempotencyKey,
+    });
+    const createdO = await createProjectCommand({
+      pilotId: atlas.pilotId,
+      preparationId: orionPrep.id,
+      expectedCreationRevision: prepO.creationRevision,
+      projectName: "Orion Iso",
+      previewSummary: "s",
+      idempotencyKey: authO.idempotencyKey,
+    });
+    if (createdA.status !== "CREATED" || !createdA.projectId) throw new Error("atlas create");
+    if (createdO.status !== "CREATED" || !createdO.projectId) throw new Error("orion create");
+
+    const recA = await recoverPendingMissionContinuation({
+      pilotId: atlas.pilotId,
+      projectId: createdA.projectId,
+    });
+    expect(recA.recovered).toBe(true);
+    expect(recA.missionProjection?.clientIntentKey).toBe(keyAtlas);
+
+    const docsA = await listDocuments(atlas.pilotId, atlas.preparationId);
+    const docsO = await listDocuments(atlas.pilotId, orionPrep.id);
+    expect(
+      docsA.some((d) =>
+        (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyAtlas}`),
+      ),
+    ).toBe(true);
+    expect(
+      docsA.some((d) =>
+        (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyOrion}`),
+      ),
+    ).toBe(false);
+    expect(docsO.length).toBe(0);
+
+    // Silence unused seed helper pilot
+    expect(orion.pilotId).toBeTruthy();
+  });
+
   it("G2: crash after D2 — recoverPendingMissionContinuation without Pilot reformulation", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-g2-recover");
     const clientTurnKey = newId("ctk");
