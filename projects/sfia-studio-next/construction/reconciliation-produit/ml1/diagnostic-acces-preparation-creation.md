@@ -229,3 +229,15 @@ Le [diagnostic complet E2E01 — Nora / connaissance](reconciliation-e2e01-nora-
 **Statut :** `D1+D2 115/115 IDS MAPPED / E2E01 SIX STEPS + SIX EXCEPTIONS REVIEWED / D3-D4 INTERFACES INSPECTED / UX AND LIVE NOT PROVEN / ML1 GLOBAL VERDICT NOT YET QUALIFIED / CP1 OPEN`.
 
 **Suite :** recouper les oracles et les réserves historiques ML1 avec les corrections réellement intégrées en ML2–ML4, puis consolider le diagnostic ML1 et les lacunes probatoires, **sans lancer une correction technique**. Les exigences propriétaires D3/D4 seront auditées en profondeur au macro-lot ML2.
+
+## 11. Consolidation des huit capacités ML1, A01–A16 et apports ML2–ML4 (2026-11-10)
+
+Le [bilan de clôture analytique ML1](consolidation-capacites-reserves-ml2-ml4.md) rapproche les **huit capacités** de [la matrice de traçabilité ML1](../../ml1-entree-et-continuite/matrice-tracabilite.md) des réalisations intégrées en ML2/ML3/ML4 et des observations de RECETTE, **en conservant les verdicts historiques**.
+
+**Progrès établis :** récupération D4 sélective et documents/versionnés après ML2 ; véritable D5/D6 et guidance CKI après ML3 ; Git facultatif et parcours réel portefeuille→sas→projet, même fil et documents repris après ML4 ; CI Next exécutée lors des intégrations et cookie d'adaptateur DEV maintenant séparé par lane.
+
+**Limites persistantes :** A05 (ACK perdu / navigateur), A13 (pertinence cognitive longue), A15 (négatifs d'autorité E2E), A16/DATA-01 (reprise/restore réel), classification d'erreurs 401, statut portefeuille inventé, failles de preuve et de fidélité Figma ; les progrès de code ne valent pas requalification LIVE universelle. Une **contradiction D4 ACK `AVAILABLE` / narration de Nora** est effectivement observée dans la RECETTE ML4 ; à traiter avec le propriétaire D3/D4/D8, et non comme absence de stockage.
+
+**Verdict de cette étape :** `115/115 REFERENCES D1+D2 MAPPED / 8/8 ML1 CAPABILITIES RECONCILED / A01–A16 HISTORICAL QA PRESERVED / ML2–ML4 IMPACTS CLASSIFIED / GLOBAL ML1 CONFORMITY NOT PROVEN / CP1 OPEN`.
+
+**Suite :** diagnostiquer les capacités et RG/PF propriétaires **ML2** au même niveau de détail, tout en conservant ici les impacts de ML2–ML4 sur ML1. Pas de nouveau GO code, PR, merge ou adoption induits.
