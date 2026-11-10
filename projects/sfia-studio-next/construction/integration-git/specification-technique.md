@@ -3,9 +3,10 @@
 > **AS-IMPLEMENTED LOCAL CANDIDATE (2026-11-09)** — base `974b0030…` + macro-correctif chat-first D4 / provenance Git sur `fix/next-ml4-chat-first-d4-provenance-20261109` (push Product NON AUTORISÉ).
 > Domaines : D3/D4/D9 ; migrations `008`–`012` (aucune migration structurante ce cycle).
 > **ML4-REC-08** : création/révision D4 conversationnelle via `savePreparationDocument` / `reviseDocument` + ACK applicatif corrélé (pas de second moteur Nora).
-> **ML4-REC-07** : provenance lecture Git distingue `blobSha` / `commitSha` (+ `permalink` seulement si commit vérifié) ; `listGitRefs` au-delà de `main`.
+> **ML4-REC-07** : provenance lecture Git distingue `blobSha` / `commitSha` (+ `permalink` seulement si commit vérifié) ; `listGitRefs` au-delà de `main` ; garde anti-`/blob/{blobSha}/` (G1 2026-11-10).
+> **ML4-REC-11** (G1 2026-11-10) : `read_git_file` restitue `FILE_ABSENT` uniquement sous tip vérifié ; 404 ambigu ≠ CREATE.
 > **R1-A / R1-B** refresh lifecycle clos ; **R2** CONFLICT callback accepté.
-> **Niveaux de preuve courants :** OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN (commit+PR #18 OPEN, mono-repo sandbox) · Intégrité D7/D8 DETERMINISTIC CORRECTIVE · Chat-first D4 / provenance DET DEV PROVEN · MULTI-REPO REAL NOT PROVEN · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED.
+> **Niveaux de preuve courants :** OAuth READ REAL PROVEN · Git documentary REAL bounded PROVEN (commit+PR #18 OPEN, mono-repo sandbox) · Intégrité D7/D8 DETERMINISTIC CORRECTIVE · Chat-first D4 / provenance / FILE_ABSENT DET DEV PROVEN · MULTI-REPO REAL NOT PROVEN · USER E2E RECETTE NOT RUN · Merge REAL NOT PROVEN · Product NOT INTEGRATED.
 > Mutations REAL **bornées documentary** si et seulement si `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` (aliases refusés ; merge HARD-BLOCKED). Flag ≠ autorité D6.
 > Séquence publication nominale **seule** autorisée : `CREATE_BRANCH → PUBLISH_FILE → OPEN_PR` (`publication-steps.ts`). Aucun COMPLETED / D8 sans preuve fichier + commitSha ≠ baseSha + PR distante.
 > Provenance d'effet : `plan.effectProviderMode` figé à prepare ; historique sans champ → UNKNOWN ; divergence live → REQUIRES_REQUALIFICATION.
@@ -183,3 +184,15 @@ Sur candidat `fix/next-ml4-chat-first-d4-provenance-20261109` (push Product NON 
 4. **Observabilité (D)** — événement `d3.turn.document_proposal` : `extract_path`, `fence_count`, `proposal_chars`, `proposal_digest16`, `body_ends_with_nl`, `scope_verdict`, `refuse_code`, `d4_attempted`, `d4_effect` (pas de corps/prompt/secrets).
 
 Preuve : DETERMINISTIC unit + PG DEV. LIVE Nora / USER RECETTE : NOT RUN.
+
+## 14. Lecture Git D3 — qualification d'absence et provenance (AS-IMPLEMENTED local, 2026-11-10)
+
+Sur candidat `fix/next-ml4-chat-first-d4-provenance-20261109` (push Product NON AUTORISÉ) :
+
+1. **`readGitFile` (D9→D3)** — résout d'abord la ref mobile via `getRefSha` ; un `NOT_FOUND` Contents **après tip vérifié** est préfixé `FILE_ABSENT_AT_VERIFIED_REF`. Un 404 sous SHA pin non vérifié reste `READ_NOT_FOUND_UNQUALIFIED` / `AMBIGUOUS` (pas de CREATE implicite). Les erreurs gate (`Projet introuvable`, `ACCESS_DENIED`) restent distinctes.
+2. **Outil Nora `read_git_file`** — projection typée via `classifyReadGitFileFailure` : `AVAILABLE` | `FILE_ABSENT` | `DENIED` | `REF_UNRESOLVED` | `AMBIGUOUS` | `UNAVAILABLE`. `FILE_ABSENT` n'est **pas** une autorisation D6/D7 ; guidance explicite vers préparation inspectable.
+3. **Provenance** — `blobSha` (contenu) ≠ `commitSha` (révision) ; `permalink` seulement si `commitShaVerified` et jamais construit depuis `blobSha` ; segments de chemin percent-encodés.
+4. **D7** — `buildInspection` / `classifyRemoteReadError` inchangés dans ce lot ; CREATE pour absence prouvée déjà couvert ; non-régression PG.
+5. **ACK D4** — `TRANSACTIONAL_CLAIM_RE` étendu aux négations « ne peux pas confirmer la sauvegarde » lorsque le statut applicatif est `AVAILABLE`.
+
+Preuve : DETERMINISTIC unit (`git-read-tools`, `document-act`) + PG DEV (`ml4-chat-first-d4-provenance`). Publication GitHub REAL / USER RECETTE : NOT RUN.

@@ -665,3 +665,19 @@ Verdict candidat : **READY FOR CHATGPT RE-REVIEW — A+D+E CONSOLIDATED — CREA
 | RECETTE | INCHANGÉE | `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
 
 Verdict : **CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW**.
+
+## 35. Macro-lot G1 — REC-11 / REC-07 / REC-08 (2026-11-10)
+
+GO Morris technique G1 2026-11-10. Branche `fix/next-ml4-chat-first-d4-provenance-20261109`. Push Product / déploiement RECETTE / GitHub REAL **NON AUTORISÉS**.
+
+| Item | Statut | Note |
+|---|---|---|
+| ML4-REC-11 D3 `read_git_file` | CORRIGÉ (DET) | Statuts typés : `AVAILABLE` / `FILE_ABSENT` / `DENIED` / `REF_UNRESOLVED` / `AMBIGUOUS` / `UNAVAILABLE` ; plus de DENIED générique sur toute exception |
+| Qualification d'absence | CORRIGÉ (DET) | `FILE_ABSENT_AT_VERIFIED_REF` seulement après résolution de ref tip ; SHA pin 404 → `AMBIGUOUS` ; projet/403 ≠ absence fichier |
+| D7 prepare CREATE | NON-RÉGRESSION | Moteur `classifyRemoteReadError` inchangé ; PG prouve CREATE inspectable pour chemin absent |
+| ML4-REC-07 | RENFORCÉ (DET) | `permalinkOrNull` + encodage chemin ; identities blob/commit explicites outil ; jamais `/blob/{blobSha}/` |
+| ML4-REC-08 | CORRIGÉ (DET) | Strip « ne peux pas confirmer la sauvegarde » / « impossible de confirmer » lorsque ACK `AVAILABLE` |
+| ML4-REC-10 | NON-RÉGRESSION | CREATE/REVISE D4 + T1–T10 conservés (suite PG Chat First) |
+| USER / RECETTE / REAL Git | NOT RUN | Gate Morris distinct pour bascule + R12/R13/R14 |
+
+Verdict : **G1 DEV QUALIFIED — AWAITING DISTINCT RECETTE GO**.

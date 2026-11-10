@@ -625,6 +625,48 @@ describe("document-act ACK coherence (finalisation)", () => {
     ).toBe(false);
   });
 
+  it("REC-08: cannot-confirm-save negation stripped when AVAILABLE", () => {
+    const cognitive =
+      "Je ne peux pas confirmer la sauvegarde du document.\n\n" +
+      "Impossible de confirmer l'enregistrement pour l'instant.\n\n" +
+      "# RECETTE ML4 — Publication documentaire R12\n\nCorps utile.";
+    const out = composeDocumentTurnMessage(cognitive, {
+      act: "CREATE",
+      status: "AVAILABLE",
+      documentId: "doc_21a9e4ad-8224-4669-8172-2a66e80f65de",
+      revisionId: "drev_7d7c1c6d-79f8-4f64-83b6-bca290961166",
+      revisionNumber: 1,
+    });
+    expect(out).toMatch(/Résultat applicatif D4/);
+    expect(out).toMatch(/AVAILABLE/);
+    expect(out).toContain("doc_21a9e4ad-8224-4669-8172-2a66e80f65de");
+    expect(out).toContain("Corps utile.");
+    expect(out).not.toMatch(/ne peux pas confirmer la sauvegarde/i);
+    expect(out).not.toMatch(/Impossible de confirmer l['’]enregistrement/i);
+    expect(
+      hasCompetingTransactionalClaim(out, {
+        act: "CREATE",
+        status: "AVAILABLE",
+        documentId: "doc_21a9e4ad-8224-4669-8172-2a66e80f65de",
+        revisionNumber: 1,
+      }),
+    ).toBe(false);
+  });
+
+  it("REC-08: cannot-confirm phrases kept when NOT_EXECUTED (no fake success)", () => {
+    const cognitive = "Je ne peux pas confirmer la sauvegarde — aucune écriture n'a été tentée.";
+    const out = composeDocumentTurnMessage(cognitive, {
+      act: "NONE",
+      status: "NOT_EXECUTED",
+      reason: "NO_EXPLICIT_WRITE",
+    });
+    expect(out).toMatch(/NOT_EXECUTED/);
+    expect(out).not.toMatch(/AVAILABLE/);
+    // Pre-effect: strip still removes transactional claim units that match the RE,
+    // but ACK remains the authority — ensure no fabricated AVAILABLE.
+    expect(out).toMatch(/Transaction D4: non tentée/);
+  });
+
   it("removes false success when FAILED", () => {
     const text = reconcileNarrationWithDocumentEffect("J'ai enregistré le document avec succès.", {
       act: "CREATE",

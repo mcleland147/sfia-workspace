@@ -1083,7 +1083,7 @@ export type DocumentEffectSummary = {
 
 /** Sentences/paragraphs that assert a D4 write outcome (must not compete with applicative truth). */
 const TRANSACTIONAL_CLAIM_RE =
-  /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+(?:sont\s+en\s+lecture\s+seule|ne\s+permettent\s+pas)|outils?\s+(?:en\s+)?lecture\s+seule|je\s+ne\s+peux\s+(?:donc\s+)?pas\s+(?:exécuter\s+l['’]enregistrement|appliquer|enregistrer|créer|réviser)|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;
+  /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+(?:sont\s+en\s+lecture\s+seule|ne\s+permettent\s+pas)|outils?\s+(?:en\s+)?lecture\s+seule|je\s+ne\s+(?:peux|puis)\s+(?:donc\s+)?pas\s+(?:exécuter\s+l['’]enregistrement|appliquer|enregistrer|créer|réviser|confirmer(?:\s+(?:la\s+)?(?:sauvegarde|l['’]enregistrement|que(?:\s+la)?\s*sauvegarde)?|garantir(?:\s+(?:la\s+)?sauvegarde)?))|(?:impossible|incapable)\s+de\s+confirmer(?:\s+(?:la\s+)?(?:sauvegarde|l['’]enregistrement))?|ne\s+(?:peux|puis)\s+pas\s+confirmer(?:\s+(?:la\s+)?sauvegarde)?|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;
 
 /** Nora tool-boundary claims that must not be presented as the cause of an observed Studio D4 effect. */
 const NORA_TOOL_BOUNDARY_CLAIM_RE =
@@ -1250,7 +1250,7 @@ export function hasCompetingTransactionalClaim(
   if (effect.status === "AVAILABLE") {
     return (
       TRANSACTIONAL_CLAIM_RE.test(withoutAck) &&
-      /\b(?:aucune\s+révision|ne\s+peux\s+(?:donc\s+)?pas\s+(?:exécuter|appliquer)|non\s+enregistré|outils?\s+disponibles|lecture\s+seule)\b/i.test(
+      /\b(?:aucune\s+révision|ne\s+(?:peux|puis)\s+(?:donc\s+)?pas\s+(?:exécuter|appliquer|confirmer)|impossible\s+de\s+confirmer|non\s+enregistré|outils?\s+disponibles|lecture\s+seule)\b/i.test(
         withoutAck,
       )
     );

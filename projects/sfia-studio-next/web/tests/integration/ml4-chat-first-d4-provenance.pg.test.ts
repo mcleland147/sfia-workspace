@@ -13,7 +13,9 @@ import {
   startGitHubAuthorization,
 } from "@/domains/integrations/authorization-service";
 import { attachRepositoryToProject } from "@/domains/integrations/project-link-service";
+import { classifyReadGitFileFailure } from "@/domains/conversation/git-read-tools";
 import {
+  FILE_ABSENT_AT_VERIFIED_REF,
   listGitRefs,
   readGitFile,
 } from "@/domains/integrations/resource-service";
@@ -21,6 +23,11 @@ import {
   getScriptedGitHubProvider,
   resetScriptedStore,
 } from "@/domains/integrations/scripted-github-provider";
+import { StudioError, isStudioError } from "@/lib/http-errors";
+import {
+  inspectionAllowsAuthorization,
+  preparePublication,
+} from "@/domains/execution/effect-service";
 import {
   getDocumentRevision,
   listDocumentRevisions,
@@ -492,6 +499,96 @@ Fin.
     });
     expect(refs.refs.some((r) => r.name === "feat/candidate-ml4")).toBe(true);
     expect(refs.refs.every((r) => r.sha.length === 40)).toBe(true);
+  });
+
+  it("REC-11: missing path at verified main → FILE_ABSENT + D7 CREATE inspectable", async () => {
+    const { pilotId, projectId, preparationId } = await seedProject("ml4-rec11");
+    const sessionId = newId("sid");
+    const { state } = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+    const status = await completeGitHubAuthorization({
+      pilotId,
+      state,
+      studioSessionId: sessionId,
+    });
+    const repoId = status.repositories[0]!.id;
+    await attachRepositoryToProject(pilotId, projectId, repoId);
+
+    const absentPath = "docs/recette-studio-next/publication-documentaire.md";
+    let caught: unknown;
+    try {
+      await readGitFile({
+        pilotId,
+        projectId,
+        repositoryId: repoId,
+        path: absentPath,
+        ref: "main",
+      });
+    } catch (e) {
+      caught = e;
+    }
+    expect(caught).toBeTruthy();
+    expect(isStudioError(caught)).toBe(true);
+    expect((caught as StudioError).code).toBe("NOT_FOUND");
+    expect((caught as StudioError).message.startsWith(FILE_ABSENT_AT_VERIFIED_REF)).toBe(true);
+
+    const classified = classifyReadGitFileFailure(caught);
+    expect(classified.status).toBe("FILE_ABSENT");
+    expect(classified.absenceQualified).toBe(true);
+
+    // SHA pin of unknown object → AMBIGUOUS, never FILE_ABSENT
+    let pinCaught: unknown;
+    try {
+      await readGitFile({
+        pilotId,
+        projectId,
+        repositoryId: repoId,
+        path: absentPath,
+        ref: "0123456789abcdef0123456789abcdef01234567",
+      });
+    } catch (e) {
+      pinCaught = e;
+    }
+    const pinClassified = classifyReadGitFileFailure(pinCaught);
+    expect(pinClassified.status).toBe("AMBIGUOUS");
+    expect(pinClassified.absenceQualified).toBe(false);
+
+    // D7 prepare CREATE for same absent path (SCRIPTED — no REAL mutation)
+    const saved = await savePreparationDocument(
+      pilotId,
+      preparationId,
+      "RECETTE ML4 — Publication documentaire R12",
+      "# RECETTE ML4 — Publication documentaire R12\n\n## Contexte\n\nx\n\n## Contenu\n\ny\n\n## Limites\n\nz\n\n## Suite\n\nw\n",
+      undefined,
+      { correlationKey: newId("corr") },
+    );
+    expect(saved.status).toBe("AVAILABLE");
+    if (saved.status !== "AVAILABLE" || !("documentId" in saved) || !saved.documentId) {
+      throw new Error("save failed");
+    }
+    const rev = (
+      await db
+        .select()
+        .from(documentRevisions)
+        .where(eq(documentRevisions.documentId, saved.documentId))
+        .limit(1)
+    )[0];
+    if (!rev) throw new Error("revision missing");
+
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId: saved.documentId,
+      revisionId: rev.id,
+      repositoryId: repoId,
+      targetPath: absentPath,
+      targetBranch: "main",
+      correlationKey: newId("corr"),
+    });
+    expect(prepared.status).toBe("PREPARED");
+    expect(prepared.plan?.inspection.kind).toBe("CREATE");
+    expect(prepared.plan?.inspection.unifiedDiff).toMatch(/^\+/m);
+    expect(inspectionAllowsAuthorization("CREATE")).toBe(true);
+    // No D6/dispatch in this test — prepare only.
   });
 
   it("R06 oracle: quoted title revise via postUserMessageAndNora (DET fixture)", async () => {

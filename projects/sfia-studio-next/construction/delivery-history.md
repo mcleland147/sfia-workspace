@@ -1280,3 +1280,20 @@ Append-only logical journal of Cursor product deliveries.
 | RECETTE | **inchangée** — `93da44be` / `sHkE8sHJBxD3U9AJdHWi7` |
 | Push Product | **AUCUN** |
 | Verdict | `CREATE_PLEASE_RE AUTHORITY GAP FIXED — DETERMINISTICALLY VERIFIED LOCALLY — READY FOR CHATGPT REVIEW` |
+
+## delivery_id: DELIV-2026-11-10-ML4-G1-REC11-07-08
+
+| Champ | Valeur |
+| --- | --- |
+| Date (Europe/Paris) | 2026-11-10 ~01:20 CET |
+| Macro-capacité | R5 / ML4 — G1 correctif intégré REC-11 / REC-07 / REC-08 |
+| Type | CYCLE 8 DELIVERY / PATCH candidate / `NO RELEASE` / `0.0.0-dev` |
+| Parent tip | `771844fda083ce3c1858b77b0012e5bf2b801605` |
+| Autorité | Morris GO technique G1 2026-11-10 CRITICAL — DEV only ; push Product / RECETTE / REAL Git **NON inclus** |
+| Cause | R12-D : `read_git_file` → DENIED sur toute exception (y compris absence) ; provenance blob/commit consommée incorrectement ; narration Nora « ne peux pas confirmer » vs ACK AVAILABLE |
+| Changements | Classification D3 `FILE_ABSENT` qualifiée ; garde permalink ; strip REC-08 ; docs matrice/spec/delivery |
+| Validations | unit document-act 94 + git-read-tools 9 PASS ; PG Chat First 19 PASS ; tsc PASS ; lint warnings préexistants ; `NODE_ENV=production` build PASS |
+| Lane tests | DEV Postgres `127.0.0.1:5433` uniquement |
+| RECETTE | **inchangée** — SHA `771844fd` / BUILD `SmL2kyWbd1Q3kIuwNw0mQ` |
+| Push Product | **AUCUN** |
+| Verdict candidat | `G1 DEV QUALIFIED — AWAITING DISTINCT RECETTE GO` |
