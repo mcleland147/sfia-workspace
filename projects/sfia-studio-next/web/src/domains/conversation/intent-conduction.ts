@@ -8,7 +8,12 @@
 import { and, desc, eq, sql } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
 import { db } from "@/db/client";
-import { conversationTurnCommands, conversations, messages } from "@/db/schema";
+import {
+  conversationTurnCommands,
+  conversations,
+  createProjectCommands,
+  messages,
+} from "@/db/schema";
 import { savePreparationDocument } from "@/domains/document/service";
 import { StudioError } from "@/lib/http-errors";
 import { newId } from "@/lib/ids";
@@ -370,7 +375,12 @@ export type MissionD2Resolve =
   | { status: "ALREADY_CONTINUED"; mission: MissionProjection }
   | { status: "NO_AWAITING_MISSION" }
   | { status: "MISSION_KEY_MISMATCH"; reason: string }
+  | { status: "MISSION_NAME_MISMATCH"; reason: string; expected: string; received: string }
   | { status: "AMBIGUOUS_AWAITING"; count: number };
+
+function normalizeProjectName(name: string): string {
+  return name.trim().replace(/[.]+$/g, "").replace(/\s+/g, " ").toLowerCase();
+}
 
 /**
  * Server-authoritative binding of a D2 create act to an awaiting mission.
@@ -381,6 +391,8 @@ export async function verifyMissionForD2Act(input: {
   conversationId: string;
   preparationId: string;
   clientIntentKey?: string | null;
+  /** When set with an awaiting mission that declared a name, must be compatible. */
+  projectName?: string | null;
 }): Promise<MissionD2Resolve> {
   const latest = await loadLatestMissionsByIntentKey(input.conversationId);
   const awaiting = [...latest.values()].filter(
@@ -405,6 +417,16 @@ export async function verifyMissionForD2Act(input: {
       };
     }
     if (hinted.status === "AWAITING_PILOT_ACT") {
+      const expected = hinted.proposedProjectName?.trim();
+      const received = input.projectName?.trim();
+      if (expected && received && normalizeProjectName(expected) !== normalizeProjectName(received)) {
+        return {
+          status: "MISSION_NAME_MISMATCH",
+          reason: "projectName incompatible with awaiting mission proposal",
+          expected,
+          received,
+        };
+      }
       return { status: "OK", mission: hinted };
     }
     return { status: "ALREADY_CONTINUED", mission: hinted };
@@ -413,6 +435,106 @@ export async function verifyMissionForD2Act(input: {
   if (awaiting.length === 1) return { status: "OK", mission: awaiting[0]! };
   if (awaiting.length === 0) return { status: "NO_AWAITING_MISSION" };
   return { status: "AMBIGUOUS_AWAITING", count: awaiting.length };
+}
+
+/**
+ * G1 — authorize a mission-bound D2 create BEFORE any project mutation.
+ * Classic path (no clientIntentKey) remains create-only without mission binding.
+ * clientIntentKey never authorizes by itself: DB mission truth decides.
+ */
+export type D2MissionCreateAuthorization =
+  | { outcome: "CLASSIC" }
+  | {
+      outcome: "AUTHORIZED" | "REPLAY_ALLOWED";
+      mission: MissionProjection;
+      idempotencyKey: string;
+    }
+  | {
+      outcome: "FORBIDDEN";
+      code:
+        | "MISSION_KEY_MISMATCH"
+        | "MISSION_NAME_MISMATCH"
+        | "AMBIGUOUS_AWAITING"
+        | "NO_CONVERSATION"
+        | "FORBIDDEN";
+      reason: string;
+    };
+
+export async function authorizeMissionBoundD2Create(input: {
+  pilotId: string;
+  preparationId: string;
+  clientIntentKey?: string | null;
+  projectName?: string | null;
+}): Promise<D2MissionCreateAuthorization> {
+  const hint = input.clientIntentKey?.trim() || null;
+  if (!hint) {
+    // Explicit classic create: do not silently bind a neighboring awaiting mission.
+    return { outcome: "CLASSIC" };
+  }
+
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.preparationId, input.preparationId),
+          eq(conversations.ownerPilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!conv) {
+    return {
+      outcome: "FORBIDDEN",
+      code: "NO_CONVERSATION",
+      reason: "no conversation for preparation/pilot",
+    };
+  }
+
+  const verified = await verifyMissionForD2Act({
+    conversationId: conv.id,
+    preparationId: input.preparationId,
+    clientIntentKey: hint,
+    projectName: input.projectName,
+  });
+
+  if (verified.status === "OK") {
+    return {
+      outcome: "AUTHORIZED",
+      mission: verified.mission,
+      idempotencyKey: d2MissionIdempotencyKey(verified.mission.clientIntentKey),
+    };
+  }
+  if (verified.status === "ALREADY_CONTINUED") {
+    return {
+      outcome: "REPLAY_ALLOWED",
+      mission: verified.mission,
+      idempotencyKey: d2MissionIdempotencyKey(verified.mission.clientIntentKey),
+    };
+  }
+  if (verified.status === "MISSION_KEY_MISMATCH") {
+    return { outcome: "FORBIDDEN", code: "MISSION_KEY_MISMATCH", reason: verified.reason };
+  }
+  if (verified.status === "MISSION_NAME_MISMATCH") {
+    return {
+      outcome: "FORBIDDEN",
+      code: "MISSION_NAME_MISMATCH",
+      reason: `${verified.reason} (expected «${verified.expected}», received «${verified.received}»)`,
+    };
+  }
+  if (verified.status === "AMBIGUOUS_AWAITING") {
+    return {
+      outcome: "FORBIDDEN",
+      code: "AMBIGUOUS_AWAITING",
+      reason: `ambiguous awaiting missions: ${verified.count}`,
+    };
+  }
+  return {
+    outcome: "FORBIDDEN",
+    code: "MISSION_KEY_MISMATCH",
+    reason: "clientIntentKey provided but no awaiting mission matched",
+  };
 }
 
 /** Structured awaiting mission for UI/API — never parse Nora prose. */
@@ -788,6 +910,7 @@ export async function continueAfterProjectCreated(input: {
     conversationId: conv.id,
     preparationId: input.preparationId,
     clientIntentKey: input.clientIntentKey,
+    projectName: input.projectName,
   });
 
   if (verified.status === "MISSION_KEY_MISMATCH") {
@@ -797,6 +920,15 @@ export async function continueAfterProjectCreated(input: {
       documentSave: null,
       assistantMessageId: null,
       reason: "MISSION_KEY_MISMATCH",
+    };
+  }
+  if (verified.status === "MISSION_NAME_MISMATCH") {
+    return {
+      continued: false,
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "MISSION_NAME_MISMATCH",
     };
   }
   if (verified.status === "AMBIGUOUS_AWAITING") {
@@ -1122,4 +1254,138 @@ async function loadContinuationReplay(
   } catch {
     return null;
   }
+}
+
+/**
+ * G2 — nominal recovery after D2 confirmed + interrupted continuation.
+ * COMMAND path only (never listMessages/GET). Idempotent; reuses continueAfterProjectCreated
+ * fencing. Trigger surfaces: create-project ALREADY_CREATED retry, project resume POST,
+ * next chat turn when project already linked.
+ */
+export async function recoverPendingMissionContinuation(input: {
+  pilotId: string;
+  projectId: string;
+}): Promise<{
+  attempted: boolean;
+  recovered: boolean;
+  reason?: string;
+  missionProjection: MissionProjection | null;
+  documentSave: DocumentSaveSummary | null;
+  assistantMessageId: string | null;
+  replayed?: boolean;
+}> {
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.projectId, input.projectId),
+          eq(conversations.ownerPilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!conv || !conv.preparationId) {
+    return {
+      attempted: false,
+      recovered: false,
+      reason: "NO_CONVERSATION",
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  }
+
+  const latest = await loadLatestMissionsByIntentKey(conv.id);
+  const awaiting = [...latest.values()].filter(
+    (m) =>
+      m.status === "AWAITING_PILOT_ACT" &&
+      (!m.preparationId || m.preparationId === conv.preparationId),
+  );
+
+  // Incomplete continuation turns for this project (crash mid-continue).
+  const contPrefix = `mission-continue:`;
+  const contSuffix = `:${input.projectId}`;
+  const turns = await db
+    .select()
+    .from(conversationTurnCommands)
+    .where(eq(conversationTurnCommands.conversationId, conv.id));
+  const incompleteKeys = turns
+    .filter(
+      (t) =>
+        (t.status === "RUNNING" || t.status === "ACCEPTED" || t.status === "UNKNOWN") &&
+        t.clientTurnKey.startsWith(contPrefix) &&
+        t.clientTurnKey.endsWith(contSuffix),
+    )
+    .map((t) => t.clientTurnKey.slice(contPrefix.length, t.clientTurnKey.length - contSuffix.length))
+    .filter((k) => k.length > 0);
+
+  let clientIntentKey: string | null = null;
+  if (incompleteKeys.length === 1) {
+    clientIntentKey = incompleteKeys[0]!;
+  } else if (awaiting.length === 1) {
+    clientIntentKey = awaiting[0]!.clientIntentKey;
+  } else if (incompleteKeys.length > 1 || awaiting.length > 1) {
+    return {
+      attempted: true,
+      recovered: false,
+      reason: "AMBIGUOUS_PENDING",
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  } else {
+    // Also accept mission-bound create_project_commands already committed for this project.
+    const missionCmds = await db
+      .select()
+      .from(createProjectCommands)
+      .where(
+        and(
+          eq(createProjectCommands.pilotId, input.pilotId),
+          eq(createProjectCommands.projectId, input.projectId),
+          eq(createProjectCommands.preparationId, conv.preparationId),
+        ),
+      )
+      .orderBy(desc(createProjectCommands.createdAt))
+      .limit(8);
+    const missionCmd = missionCmds.find((r) =>
+      (r.idempotencyKey ?? "").startsWith("d2:mission:"),
+    );
+    if (missionCmd?.idempotencyKey?.startsWith("d2:mission:")) {
+      const key = missionCmd.idempotencyKey.slice("d2:mission:".length);
+      const mission = latest.get(key);
+      if (!mission || mission.status !== "COMPLETED") {
+        clientIntentKey = key;
+      }
+    }
+  }
+
+  if (!clientIntentKey) {
+    return {
+      attempted: false,
+      recovered: false,
+      reason: "NOTHING_PENDING",
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  }
+
+  const cont = await continueAfterProjectCreated({
+    pilotId: input.pilotId,
+    preparationId: conv.preparationId,
+    projectId: input.projectId,
+    clientIntentKey,
+  });
+
+  return {
+    attempted: true,
+    recovered: Boolean(cont.continued),
+    reason: cont.reason,
+    missionProjection: cont.missionProjection,
+    documentSave: cont.documentSave,
+    assistantMessageId: cont.assistantMessageId,
+    replayed: cont.replayed,
+  };
 }

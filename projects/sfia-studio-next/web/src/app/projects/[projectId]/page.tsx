@@ -443,6 +443,37 @@ export default function ProjectPage() {
           `Reprise en attente · clé ${pending.clientCommandKey.slice(0, 24)}…`,
         );
       }
+
+      // G2 — silent COMMAND recovery (not GET): resume interrupted mission continuation
+      // without requiring the Pilot to reformulate the original intention.
+      try {
+        const resumeRes = await fetch(
+          `/api/projects/${params.projectId}/mission-continuation/resume`,
+          { method: "POST" },
+        );
+        if (resumeRes.ok) {
+          const resume = (await resumeRes.json()) as {
+            recovered?: boolean;
+            documentSave?: { documentId?: string; status?: string } | null;
+          };
+          if (resume.recovered) {
+            const refreshed = await fetch(`/api/projects/${params.projectId}`);
+            if (refreshed.ok) {
+              const rj = await refreshed.json();
+              setMessages(rj.messages ?? []);
+              setDocuments(rj.documents ?? []);
+              setKnowledge(rj.knowledge ?? null);
+              if (resume.documentSave?.documentId) {
+                setMeta(
+                  `Même fil · préparation ${rj.preparation?.id ?? "liée"} · conversation ${rj.conversation?.id ?? "—"} · reprise mission doc ${resume.documentSave.documentId}`,
+                );
+              }
+            }
+          }
+        }
+      } catch {
+        /* non-blocking */
+      }
     }
     void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps

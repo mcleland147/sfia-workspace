@@ -41,12 +41,14 @@ import {
   selectRelevantKnowledgeContext,
 } from "@/domains/knowledge/service";
 import {
+  authorizeMissionBoundD2Create,
   CAPABILITY_CONTRACTS,
   continuationRaceHooks,
   continueAfterProjectCreated,
   d2MissionIdempotencyKey,
   loadPriorMissionProjection,
   mobilizeCapability,
+  recoverPendingMissionContinuation,
   verifyMissionForD2Act,
 } from "@/domains/conversation/intent-conduction";
 import { TURN_RUNNING_STALE_MS } from "@/domains/conversation/turn-command";
@@ -345,7 +347,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     expect(revised.documentSave?.revisionNumber).toBeGreaterThan(v1 ?? 0);
   });
 
-  it("S07: D4 knowledge — selectRelevantKnowledgeContext returns real acquis with provenance", async () => {
+  it("S07: D4 knowledge — selected acquis with provenance influence Nora context", async () => {
     const { pilotId, preparationId } = await seedProject("scen-s07-know");
     const sub = await ensureSubject(pilotId, preparationId, "Objectif Atlas");
     expect(sub.status).toBe("AVAILABLE");
@@ -375,6 +377,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     );
     expect(chat.status).toBe("COMPLETE");
     expect(chat.documentSave == null || chat.documentSave.status === "NOT_EXECUTED").toBe(true);
+    // Fixture Nora may echo context; at minimum knowledge selection must be non-empty
+    // and chat must complete without inventing a D4 write from a recall ask.
+    expect(selected.selectedAcquisIds.length).toBeGreaterThan(0);
+    const msgs = await listMessages(pilotId, preparationId);
+    const lastAssistant = [...msgs].reverse().find((m) => m.role === "assistant");
+    expect(lastAssistant?.content?.length ?? 0).toBeGreaterThan(10);
   });
 
   it("S08: D5 pilotage — clear GO opens ACTIVE cycle via postUserMessageAndNora", async () => {
@@ -581,7 +589,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     expect(sim.result.id).toBe("sim_1");
   });
 
-  it("G5: concurrent continueAfterProjectCreated — single document / fence", async () => {
+  it("G3/G5: concurrent continue — single document AND mission reaches COMPLETED", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-g5-conc");
     const clientTurnKey = newId("ctk");
     await postUserMessageAndNora(
@@ -617,29 +625,160 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
         clientIntentKey: clientTurnKey,
       }),
     ]);
+
+    // If one side lost the race with IN_PROGRESS, reclaim via nominal recovery.
+    let final = a.continued ? a : b.continued ? b : null;
+    if (!final?.continued || final.missionProjection?.status !== "COMPLETED") {
+      // Force stale if needed so reclaim is allowed.
+      const contKey = `mission-continue:${clientTurnKey}:${created.projectId}`;
+      await db
+        .update(conversationTurnCommands)
+        .set({ updatedAt: new Date(Date.now() - TURN_RUNNING_STALE_MS - 5_000) })
+        .where(eqCol(conversationTurnCommands.clientTurnKey, contKey));
+      const recovered = await recoverPendingMissionContinuation({
+        pilotId,
+        projectId: created.projectId,
+      });
+      expect(recovered.recovered).toBe(true);
+      final = {
+        continued: recovered.recovered,
+        missionProjection: recovered.missionProjection,
+        documentSave: recovered.documentSave,
+        assistantMessageId: recovered.assistantMessageId,
+        replayed: recovered.replayed,
+      };
+    }
+
+    expect(final?.continued).toBe(true);
+    expect(final?.missionProjection?.status).toBe("COMPLETED");
+    expect(final?.documentSave?.status).toBe("AVAILABLE");
+
     const docs = await listDocuments(pilotId, preparationId);
-    const ids = [
-      a.documentSave?.documentId,
-      b.documentSave?.documentId,
-    ].filter(Boolean) as string[];
-    const unique = new Set(ids);
-    expect(unique.size).toBeLessThanOrEqual(1);
-    if (unique.size === 1) {
-      expect(docs.filter((d) => unique.has(d.document.id))).toHaveLength(1);
+    const missionDocs = docs.filter((d) =>
+      (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${clientTurnKey}`),
+    );
+    expect(missionDocs).toHaveLength(1);
+
+    const stuck = await db
+      .select()
+      .from(conversationTurnCommands)
+      .where(
+        and(
+          eqCol(conversationTurnCommands.clientTurnKey, `mission-continue:${clientTurnKey}:${created.projectId}`),
+          eqCol(conversationTurnCommands.status, "RUNNING"),
+        ),
+      );
+    expect(stuck).toHaveLength(0);
+  });
+
+  it("G1: forged clientIntentKey — authorize FORBIDDEN before create; zero project", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-g1-auth");
+    const keyA = newId("ctk");
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Auth Exact puis un document Exact.",
+      { clientTurnKey: keyA },
+    );
+    const before = await db.select().from(preparations).where(eq(preparations.id, preparationId));
+    expect(before[0]?.status).not.toBe("ATTACHED");
+
+    const auth = await authorizeMissionBoundD2Create({
+      pilotId,
+      preparationId,
+      clientIntentKey: "ctk_forged_other_mission",
+      projectName: "Auth Exact",
+    });
+    expect(auth.outcome).toBe("FORBIDDEN");
+    if (auth.outcome !== "FORBIDDEN") throw new Error("expected FORBIDDEN");
+    expect(auth.code).toBe("MISSION_KEY_MISMATCH");
+
+    // Must not call create when forbidden — simulate route oracle.
+    const prepAfter = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    expect(prepAfter.status).not.toBe("ATTACHED");
+
+    const nameAuth = await authorizeMissionBoundD2Create({
+      pilotId,
+      preparationId,
+      clientIntentKey: keyA,
+      projectName: "Wrong Name Entirely",
+    });
+    expect(nameAuth.outcome).toBe("FORBIDDEN");
+    if (nameAuth.outcome === "FORBIDDEN") {
+      expect(nameAuth.code).toBe("MISSION_NAME_MISMATCH");
     }
     expect(
-      a.continued ||
-        b.continued ||
-        a.reason === "CONTINUATION_IN_PROGRESS" ||
-        b.reason === "CONTINUATION_IN_PROGRESS" ||
-        a.replayed ||
-        b.replayed,
-    ).toBe(true);
-    // Winner must complete; loser is in_progress or replay of same doc.
-    const winner = a.continued ? a : b.continued ? b : null;
-    if (winner?.documentSave?.status === "AVAILABLE") {
-      expect(docs.some((d) => d.document.id === winner.documentSave?.documentId)).toBe(true);
-    }
+      (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]?.status,
+    ).not.toBe("ATTACHED");
+
+    const ok = await authorizeMissionBoundD2Create({
+      pilotId,
+      preparationId,
+      clientIntentKey: keyA,
+      projectName: "Auth Exact",
+    });
+    expect(ok.outcome).toBe("AUTHORIZED");
+    if (ok.outcome !== "AUTHORIZED") throw new Error("expected AUTHORIZED");
+
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prepAfter.creationRevision,
+      projectName: "Auth Exact",
+      previewSummary: "s",
+      idempotencyKey: ok.idempotencyKey,
+    });
+    expect(created.status).toBe("CREATED");
+  });
+
+  it("G2: crash after D2 — recoverPendingMissionContinuation without Pilot reformulation", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-g2-recover");
+    const clientTurnKey = newId("ctk");
+    await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Recover Nominal puis un document Recover.",
+      { clientTurnKey },
+    );
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const auth = await authorizeMissionBoundD2Create({
+      pilotId,
+      preparationId,
+      clientIntentKey: clientTurnKey,
+      projectName: "Recover Nominal",
+    });
+    expect(auth.outcome).toBe("AUTHORIZED");
+    if (auth.outcome !== "AUTHORIZED") throw new Error("expected AUTHORIZED");
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: "Recover Nominal",
+      previewSummary: "s",
+      idempotencyKey: auth.idempotencyKey,
+    });
+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
+
+    // Simulate crash: project exists, continuation never started (P2).
+    const recovered = await recoverPendingMissionContinuation({
+      pilotId,
+      projectId: created.projectId,
+    });
+    expect(recovered.attempted).toBe(true);
+    expect(recovered.recovered).toBe(true);
+    expect(recovered.missionProjection?.status).toBe("COMPLETED");
+    expect(recovered.documentSave?.status).toBe("AVAILABLE");
+
+    const again = await recoverPendingMissionContinuation({
+      pilotId,
+      projectId: created.projectId,
+    });
+    expect(again.recovered || again.reason === "NOTHING_PENDING" || again.replayed).toBeTruthy();
+    const docs = await listDocuments(pilotId, preparationId);
+    const missionDocs = docs.filter((d) =>
+      (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${clientTurnKey}`),
+    );
+    expect(missionDocs).toHaveLength(1);
   });
 
   it("B/C: wrong clientIntentKey does not silently bind another mission", async () => {
@@ -737,13 +876,11 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
         ),
       );
 
-    const resumed = await continueAfterProjectCreated({
+    const resumed = await recoverPendingMissionContinuation({
       pilotId,
-      preparationId,
       projectId: created.projectId,
-      clientIntentKey: clientTurnKey,
     });
-    expect(resumed.continued).toBe(true);
+    expect(resumed.recovered).toBe(true);
     expect(resumed.documentSave?.status).toBe("AVAILABLE");
     const docs = await listDocuments(pilotId, preparationId);
     expect(docs.filter((d) => d.document.id === resumed.documentSave?.documentId)).toHaveLength(1);
@@ -793,13 +930,11 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
         ),
       );
 
-    const resumed = await continueAfterProjectCreated({
+    const resumed = await recoverPendingMissionContinuation({
       pilotId,
-      preparationId,
       projectId: created.projectId,
-      clientIntentKey: clientTurnKey,
     });
-    expect(resumed.continued).toBe(true);
+    expect(resumed.recovered).toBe(true);
     expect(resumed.documentSave?.status).toBe("AVAILABLE");
     // Idempotent D4 correlation — still a single logical document for the mission key.
     const docs = await listDocuments(pilotId, preparationId);

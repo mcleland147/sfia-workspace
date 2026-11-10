@@ -62,6 +62,7 @@ import {
   loadPriorMissionProjection,
   mergeMissionSteps,
   qualifyStudioIntent,
+  recoverPendingMissionContinuation,
 } from "./intent-conduction";
 import { updatePreview } from "@/domains/preparation/service";
 
@@ -287,9 +288,15 @@ export async function postUserMessageAndNora(
 
   // Governed recovery (COMMAND path only — never from listMessages READ).
   // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
+  // G2: also recover interrupted D2→D4 mission continuation when project already exists.
   if (ctx.project?.id) {
     try {
       await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
+    } catch {
+      /* never block the new turn */
+    }
+    try {
+      await recoverPendingMissionContinuation({ pilotId, projectId: ctx.project.id });
     } catch {
       /* never block the new turn */
     }
