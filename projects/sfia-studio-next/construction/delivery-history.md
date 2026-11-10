@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Continuité cognitive Nora/Studio ACCEPT-01 |
+| Type | EVOL — capacité transverse (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local DEV worktree — not pushed) |
+| Base | `d7f1507a56e50660ea24903c2dc563c249ba9086` / tree `3e9e1086…` |
+| Lane | DEV only (`sfia_next_dev` @ 5433); RECETTE 3200/5434 untouched |
+| Changes | D3 mission-continuity helper; post-D4 CognitiveContinue; D7 prepare from chat; auto resume after authorizePublication; tests unit+PG |
+| Schema | unchanged (no WorkIntent table) |
+| Tests | unit mission-continuity 5 PASS; PG ACCEPT-01 3 PASS; NR CREATE subset 3 PASS; tsc --noEmit PASS |
+| Evidence limits | SCRIPTED GitHub + Nora fixture; no REAL publish; no RECETTE; no Product push |
+| Status | LOCAL CONSTRUCTION — NO RECETTE OR REAL PROMOTION |
+
+
 ## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
 
 | Field | Value |

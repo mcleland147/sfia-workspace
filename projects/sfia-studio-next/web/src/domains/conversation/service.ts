@@ -43,6 +43,15 @@ import {
   type DocumentEffectSummary,
   type DocumentProposalExtract,
 } from "./document-act";
+import {
+  appendMissionAck,
+  cognitiveContinueFromFacts,
+  composeCanonicalMissionRestitution,
+  missionCorrelationKeys,
+  preparePublicationForMission,
+  qualifyPublicationMission,
+  type MissionProjection,
+} from "./mission-continuity";
 
 export async function listMessages(pilotId: string, preparationId: string) {
   const ctx = await getPreparationContext(pilotId, preparationId);
@@ -191,6 +200,8 @@ export type TurnResult = {
     effects?: Array<{ effectKind: string; targetRef: string }>;
   } | null;
   reconciled?: boolean;
+  /** Refs-only mission projection — never owner truth for D4/D6/D7. */
+  missionProjection?: MissionProjection | null;
 };
 
 function pilotageEffectFromAuthority(
@@ -585,6 +596,9 @@ export async function postUserMessageAndNora(
   let ownershipLostBeforeD4 = false;
   const documentAct = qualifyDocumentAct(content);
   const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
+  const missionIntent = qualifyPublicationMission(content);
+  const clientIntentKey = clientTurnKey;
+  const missionKeys = missionCorrelationKeys(clientIntentKey);
   // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
   emitDocumentActQualificationObs({
     requestId,
@@ -661,7 +675,9 @@ export async function postUserMessageAndNora(
               {
                 correlationKey: opts?.correlationKey
                   ? `doc:${opts.correlationKey}`
-                  : `doc:${reply.generationId}`,
+                  : missionIntent.wantsPublish
+                    ? missionKeys.document
+                    : `doc:${reply.generationId}`,
                 provenance: {
                   sourceKind: "nora",
                   generationId: reply.generationId,
@@ -937,9 +953,155 @@ export async function postUserMessageAndNora(
             }
           : null;
 
+  // Post-effect continuity: facts-first Continue after D4 AVAILABLE (REC-08 + ACCEPT-01).
+  let missionProjection: MissionProjection | null = null;
+  let continueFailedAfterEffect = false;
+  let assistantBody = reply.content;
+
+  if (
+    !ownershipLostBeforeD4 &&
+    documentEffectForAck?.status === "AVAILABLE" &&
+    documentEffectForAck.documentId &&
+    documentEffectForAck.revisionId
+  ) {
+    const factsBlock = [
+      `D4 ${documentEffectForAck.act}=${documentEffectForAck.status}`,
+      `documentId=${documentEffectForAck.documentId}`,
+      `revisionId=${documentEffectForAck.revisionId}`,
+      documentEffectForAck.revisionNumber != null
+        ? `revisionNumber=${documentEffectForAck.revisionNumber}`
+        : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+      try {
+        const continued = await cognitiveContinueFromFacts({
+          userText: content,
+          factsBlock,
+          contextSnippets,
+          toolScope: {
+            pilotId,
+            preparationId,
+            operationId: reserved.operationId,
+            projectId: ctx.project?.id,
+          },
+        });
+        if (continued.status === "COMPLETE" && continued.content.trim()) {
+          assistantBody = continued.content;
+        } else {
+          continueFailedAfterEffect = true;
+          assistantBody = composeCanonicalMissionRestitution({
+            documentEffect: documentEffectForAck,
+            restitutionNote:
+              "Continuation cognitive incomplète — faits D4 conservés (RESTITUTION_PENDING).",
+          });
+        }
+      } catch {
+        continueFailedAfterEffect = true;
+        assistantBody = composeCanonicalMissionRestitution({
+          documentEffect: documentEffectForAck,
+          restitutionNote:
+            "Continuation cognitive indisponible — faits D4 conservés (RESTITUTION_PENDING).",
+        });
+      }
+    }
+  }
+
+  if (
+    !ownershipLostBeforeD4 &&
+    documentEffectForAck?.status === "AVAILABLE" &&
+    documentEffectForAck.documentId &&
+    documentEffectForAck.revisionId &&
+    missionIntent.wantsPublish &&
+    ctx.project?.id
+  ) {
+
+    const steps: MissionProjection["steps"] = [
+      {
+        id: "d4_create",
+        capabilityId: "d4.create_document",
+        status: "DONE",
+        correlationKey: missionKeys.document,
+        documentId: documentEffectForAck.documentId,
+        revisionId: documentEffectForAck.revisionId,
+      },
+    ];
+
+    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+      const prepared = await preparePublicationForMission({
+        pilotId,
+        projectId: ctx.project.id,
+        documentId: documentEffectForAck.documentId,
+        revisionId: documentEffectForAck.revisionId,
+        clientIntentKey,
+        targetPath: missionIntent.targetPath,
+        targetBranch: missionIntent.targetBranch,
+      });
+      if (prepared.ok) {
+        steps.push({
+          id: "d7_prepare",
+          capabilityId: "d7.prepare_publication",
+          status: prepared.status === "PREPARED" ? "WAITING" : "DONE",
+          correlationKey: missionKeys.publication,
+          attemptId: prepared.attemptId,
+          documentId: documentEffectForAck.documentId,
+          revisionId: documentEffectForAck.revisionId,
+        });
+        missionProjection = {
+          clientIntentKey,
+          status: "AWAITING_PILOT_AUTH",
+          goalSummary: "CREATE D4 + publication Git (attente autorisation Pilote)",
+          steps,
+          restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+        };
+        emitObs({
+          event_name: "d3.mission.prepared_awaiting_auth",
+          component: "d3.mission_continuity",
+          request_id: requestId,
+          operation_id: reserved.operationId,
+          generation_id: reply.generationId,
+          outcome: "SUCCESS",
+          meta: {
+            attempt_id: prepared.attemptId,
+            document_id: documentEffectForAck.documentId,
+            // Never call authorize here — HD only on Pilot act.
+            authorize_called: false,
+          },
+        });
+      } else {
+        steps.push({
+          id: "d7_prepare",
+          capabilityId: "d7.prepare_publication",
+          status: "FAILED",
+          correlationKey: missionKeys.publication,
+          reason: `${prepared.code}:${prepared.message}`,
+        });
+        missionProjection = {
+          clientIntentKey,
+          status: "PARTIAL_FAILED_STEP",
+          goalSummary: "CREATE D4 confirmé — préparation Git non réalisée",
+          steps,
+          restitution: continueFailedAfterEffect ? "PENDING" : "CANONICAL",
+        };
+      }
+    }
+
+    if (continueFailedAfterEffect && missionProjection) {
+      missionProjection = {
+        ...missionProjection,
+        restitution: "PENDING",
+      };
+    }
+  }
+
   const assistantContentForCommit = ownershipLostBeforeD4
     ? reply.content
-    : appendDocumentEffectAck(reply.content, documentEffectForAck);
+    : appendMissionAck(
+        appendDocumentEffectAck(assistantBody, documentEffectForAck),
+        missionProjection,
+      );
 
   const confirmedCapitalisations = capitalisation.capitalisations.filter(
     (c) => c.status === "AVAILABLE",
@@ -1030,6 +1192,7 @@ export async function postUserMessageAndNora(
     idempotentReplay: false,
     humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
     pilotageEffect: pilotageEffectFromAuthority(authority),
+    missionProjection,
   };
 
   if (turnRaceHooks.beforeTerminalCommit) {
