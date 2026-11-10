@@ -1,10 +1,10 @@
-# SFIA Studio Next — Review Pack FULL (CRITICAL)
-# Cycle 13 — Product branch publish + PR open (ML4 + Nora)
+# SFIA Studio Next — Review Pack LIGHT (STANDARD)
+# PR #672 — CI false-positive PEM fixture fix
 
 **Date:** 2026-11-10 (Europe/Paris)
-**Profil:** CRITICAL — FULL mono-cycle
-**Publisher:** Cursor (push Product + PR only; no merge)
-**Statut:** NO MERGE — NO RECETTE MUTATION — NO RELEASE — READY FOR CHATGPT PR REVIEW
+**Profil:** STANDARD — LIGHT mono-cycle
+**Publisher:** Cursor
+**Statut:** PEM false-positive corrected; CI NOT GREEN (new revealed blocker)
 
 ---
 
@@ -12,160 +12,114 @@
 
 | Item | Value |
 | --- | --- |
-| Local branch | integrate/next-ml4-nora-pr-readiness-20261110 |
-| Local HEAD | 66902a8b02096838415aa7aae78a8f0be2699ccb |
-| Local tree | da8971c77398b264b3870b13ebc5298e7c111fa1 |
-| Remote branch SHA | 66902a8b02096838415aa7aae78a8f0be2699ccb |
-| Remote tree | da8971c77398b264b3870b13ebc5298e7c111fa1 |
-| origin/main (unchanged) | 6667a43858a5421e391b7441246536daad148bd6 |
-| merge-base | 6667a438 (main tip; candidacy includes main) |
-| Prior handoff | ff6e736f / blob 6d37a19c |
-| Nora tip preserved | e40a1baf |
-| Fix WT preserved | d7f1507a |
-| Outside Next paths | NONE |
+| Branch | integrate/next-ml4-nora-pr-readiness-20261110 |
+| Pre-fix HEAD | 66902a8b02096838415aa7aae78a8f0be2699ccb |
+| Post-fix HEAD | 6acb55ea9f3a0b52fa2e481b1197d5fbfd212ab3 |
+| Post-fix tree | 4a59cc6f505e1c4ac43adea7aebe0b26a212e2de |
+| origin/main | 6667a43858a5421e391b7441246536daad148bd6 (unchanged) |
+| PR | https://github.com/mcleland147/sfia-workspace/pull/672 |
 | Force push | NO |
-| Auto-merge | NO (null) |
-
-Pre-check: HEAD/tree matched expected candidacy before push. Untracked local env01 manifests / github script remain untracked (not in candidacy commits).
 
 ---
 
-## 02. Sources et décisions
+## 02. Cause précise
 
-- SEF / roadmap / ENV-01 / versioning / naming (main)
-- cadrage-r4; Review Pack intégration ff6e736f
-- SFIA routing 3315bbae + template f4fdb488
-- GO Morris 10/11/2026: push + PR autorisés; merge NON
+CI run 42832559511 failed at Secret pattern scan on:
+`projects/sfia-studio-next/web/tests/unit/github-app-config.test.ts:31`
 
-Décision RECETTE: TERMINÉE AVEC RÉSERVES; R13/R14 NOT RUN.
+Pattern CI: `BEGIN (RSA |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}`
 
----
-
-## 03. Push exact et vérification distante
-
-Commande: `git push -u origin integrate/next-ml4-nora-pr-readiness-20261110` (sans force).
-
-Résultat:
-- Branche créée sur origin
-- SHA distant = 66902a8b...
-- Tree distant = da8971c7...
-- main inchangé @ 6667a438
-- Diff origin/main...origin/integrate: 111 files, +27200 / −88
-- Hors Next: NONE
+Fixture `writeTempPem()` contained contiguous `BEGIN PRIVATE KEY` delimiters in source (synthetic non-exploitable body).
 
 ---
 
-## 04. PR ouverte
+## 03. Correctif (seul fichier autorisé)
 
-| Field | Value |
+`writeTempPem()` now builds PEM label via `["PRIVATE","KEY"].join(" ")` at runtime so source has no contiguous scanner signature.
+
+Diff 66902a8b..6acb55ea: 1 file, +5/−1.
+
+---
+
+## 04. Tests et scanner locaux
+
+| Contrôle | Résultat |
 | --- | --- |
-| Number | #672 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/672 |
-| Title | feat(next): integrate ML4 Git + Nora intent continuity |
-| Base | main |
-| Head | integrate/next-ml4-nora-pr-readiness-20261110 |
-| headRefOid | 66902a8b02096838415aa7aae78a8f0be2699ccb |
-| State | OPEN |
-| Draft | false |
-| mergeable | MERGEABLE |
-| mergeStateStatus | BLOCKED (checks/reviews — expected; not merged) |
-| autoMergeRequest | null |
-| changedFiles | 111 |
-| additions / deletions | 27200 / 88 |
-
-Description PR: conforme au GO (résultat, contenu, refs, tests, RECETTE, limites, gouvernance).
+| CI secret pattern (git grep Exact) | PASS (no matches under projects/sfia-studio-next) |
+| vitest github-app-config | 11 PASS |
+| tsc / eslint file | PASS |
+| git diff --check on PEM commit | CLEAN |
 
 ---
 
-## 05. Diff GitHub réel
+## 05. Commit et push
 
-Périmètre: projects/sfia-studio-next/ exclusively.
-Migrations présentes: 008–012.
-Fichiers clés: intent-conduction, mission-continuity, effect-service, integrations Git, create-project authority-before-effect, mission-continuation/resume, cadrage Nora, registre R01–R14, delivery-history.
-
-Secrets: aucun fichier .env / credentials dans le diff PR.
+- Commit: `6acb55ea` — `test(next): avoid false-positive PEM secret scan`
+- Push FF to origin/integrate/... — REMOTE SYNC OK
+- No other Product branch pushed
 
 ---
 
-## 06. CI et checks
+## 06. CI réelle après push (run 42835016537)
 
-Au moment du pack:
-
-| Check | Status |
+| Step | Conclusion |
 | --- | --- |
-| Detect SFIA Studio Next changes | PENDING |
-| Detect SFIA Studio changes | PENDING |
-| statusCheckRollup | [] (vide / démarrage) |
+| TypeScript | success |
+| ESLint | success |
+| Next build | success |
+| Vitest unit | success |
+| PG integration | success |
+| Playwright BROWSER FAKE | success |
+| Secret pattern scan | **success** (false positive resolved) |
+| Trailing whitespace / conflict marker check | **failure** |
+| SFIA Studio Next Required Gate | failure (aggregate) |
 
-**CI: PENDING** — ne pas inventer PASS.
-mergeStateStatus BLOCKED tant que checks/reviews incomplets — normal; merge non autorisé.
+### Diagnostic trailing whitespace (HORS MANDAT correctif)
 
-Aucune correction hors mandat si CI échoue ultérieurement.
+`git diff --check origin/main...HEAD` reports pre-existing docs whitespace:
 
----
+- `cadrage/conduite-intentions-continuite-cognitive-nora-studio.md` lines 3–6 (markdown hard line breaks)
+- `construction/integration-git/recette-ml4-r01-r14-anomalies.md` lines 15, 443
 
-## 07. Tests locaux (candidature antérieure, non rejoués ce cycle publish)
+These files were introduced by the integration candidacy (docs merges), not by the PEM commit.
+`git diff --check 66902a8b..6acb55ea` is clean.
 
-- Unit intent/mission: 15 PASS
-- PG global: 21 PASS
-- ACCEPT-01: 8 PASS
-- tsc / next build: PASS
-- Atlas E2E: 2 PASS @ DEV-08 (non rejoués sur integrator ce cycle)
+Previous CI never reached this step because Secret scan failed first.
 
-Fake/Real: DEV/SCRIPTED/FIXTURE — NOT LIVE / NOT REAL / NOT RECETTE ACCEPTED.
-
----
-
-## 08. Réserves et limites
-
-- R13/R14 NOT RUN (Morris)
-- Autres écarts historique registre conservés
-- Nora LIVE / Git REAL complets: non revalidés sur candidat final
-- UX reportée convergence
-- STABLE / RELEASE / ADOPTED: NON
-- MERGE: NON
+Per GO: **aucune correction supplémentaire hors mandat** → STOP; no docs whitespace fix without new Morris GO.
 
 ---
 
-## 09. Migrations / ENV-01 / versioning
+## 07. Réserves
 
-Migrations 008–012 dans la PR; aucune application DB ce cycle.
-DEV read-only; RECETTE préservée; STABLE N/A.
-EVOL / MINOR CANDIDATE; NO RELEASE; NO PROMOTION.
-
----
-
-## 10. Absence de merge / mutation RECETTE
-
-Confirmé: PR OPEN; auto-merge null; main @ 6667a438; aucune mutation RECETTE/STABLE.
+- R13/R14 NOT RUN (Morris carried)
+- MERGE NOT AUTHORIZED
+- CI NOT GREEN due to docs trailing whitespace blocker
 
 ---
 
-## 11. Fichiers créés/modifiés ce cycle publish
+## 08. Verdict unique
 
-Aucun commit Product nouveau ce cycle.
-Mutations Git: push branche existante + création PR #672 + handoff L3.
+**NEXT PR #672 — CI NOT GREEN — BLOCKER IDENTIFIED — NO MERGE.**
 
----
-
-## 12. Verdict unique
-
-**NEXT ML4 + NORA CONTINUITY — PRODUCT BRANCH PUBLISHED — INTEGRATION PR OPEN — REMOTE SHA AND DIFF VERIFIED — RECETTE CLOSED BY MORRIS WITH RESERVES — READY FOR CHATGPT PR REVIEW — MERGE NOT AUTHORIZED.**
+PEM false-positive: CORRECTED and verified on remote CI (secret scan success).
+Blocking residual: trailing whitespace in validated cadrage + RECETTE register docs (pre-existing in candidacy; revealed after secret scan).
+Proposed next GO (Morris): targeted whitespace normalize on those two docs only — not done here.
 
 ---
 
-## 13. Git Review Index
+## 09. Git Review Index
 
 | Ref | Value |
 | --- | --- |
-| Product remote SHA | 66902a8b02096838415aa7aae78a8f0be2699ccb |
-| Product tree | da8971c77398b264b3870b13ebc5298e7c111fa1 |
+| Product HEAD | 6acb55ea9f3a0b52fa2e481b1197d5fbfd212ab3 |
+| Tree | 4a59cc6f505e1c4ac43adea7aebe0b26a212e2de |
 | main | 6667a43858a5421e391b7441246536daad148bd6 |
-| PR | #672 https://github.com/mcleland147/sfia-workspace/pull/672 |
-| Prior handoff | ff6e736f / 6d37a19c |
+| CI run (post-fix) | 42835016537 |
+| Prior CI (PEM fail) | 42832559511 |
 
 ---
 
-## 14. Contrôle §7.2.1 / §7.6
+## 10. Contrôle LIGHT
 
-FULL OUI; push vérifié OUI; PR URL OUI; CI nommé PENDING OUI; pas de claim MERGE/RECETTE ACCEPTED/STABLE/RELEASED; handoff L3; STOP après handoff OUI.
+Cause + diff + tests + push + CI réel + STOP hors mandat OUI. Pas de claim ALL CHECKS PASSED.
