@@ -4,7 +4,9 @@ import {
   advanceMissionAfterProjectCreated,
   buildD2AwaitingStep,
   emptyMission,
+  extractProposedProjectName,
   mergeMissionSteps,
+  mobilizeCapability,
   qualifyStudioIntent,
 } from "@/domains/conversation/intent-conduction";
 
@@ -17,12 +19,35 @@ describe("intent-conduction (domain-agnostic D3)", () => {
     expect(q.publication.wantsPublish).toBe(false);
   });
 
+  it("GAP-05: project name stops before follow-on clause", () => {
+    expect(
+      extractProposedProjectName(
+        "Crée un projet nommé Continuity Global B puis un document d'accueil pour ce projet.",
+      ),
+    ).toBe("Continuity Global B");
+    expect(
+      extractProposedProjectName(
+        "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage.",
+      ),
+    ).toBe("Atlas");
+  });
+
   it("B: project create intent without inventing D2 execution", () => {
     const q = qualifyStudioIntent(
       "Crée un projet nommé Continuity Global pour la suite documentaire",
     );
     expect(q.wantsProjectCreate).toBe(true);
-    expect(q.proposedProjectName).toMatch(/Continuity Global/i);
+    expect(q.proposedProjectName).toBe("Continuity Global");
+  });
+
+  it("Atlas compound: D2 + follow-on document in ONE intention", () => {
+    const q = qualifyStudioIntent(
+      "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage qui expose l'objectif, le périmètre et les premières étapes.",
+    );
+    expect(q.wantsProjectCreate).toBe(true);
+    expect(q.proposedProjectName).toBe("Atlas");
+    expect(q.wantsFollowOnDocument).toBe(true);
+    expect(q.pendingDocumentBrief).toMatch(/document de cadrage/i);
   });
 
   it("P1-E: GitHub mention alone is not publish", () => {
@@ -30,16 +55,25 @@ describe("intent-conduction (domain-agnostic D3)", () => {
     expect(q.publication.wantsPublish).toBe(false);
   });
 
-  it("Scenario K: capability contracts declared without parallel engine", () => {
-    expect(CAPABILITY_CONTRACTS.some((c) => c.capabilityId === "d2.create_project")).toBe(true);
-    expect(CAPABILITY_CONTRACTS.some((c) => c.capabilityId === "future.example_capability")).toBe(
-      true,
+  it("Scenario K: mobilizeCapability invokes owner adapter (not metadata-only)", async () => {
+    const contract = CAPABILITY_CONTRACTS.find(
+      (c) => c.capabilityId === "future.example_capability",
+    )!;
+    expect(contract.invokeOwnerRef).toContain("testBoundaryDouble");
+    let invoked = false;
+    const out = await mobilizeCapability(
+      contract,
+      {
+        capabilityId: "future.example_capability",
+        invoke: async () => {
+          invoked = true;
+          return { status: "DONE", result: { status: "DONE", id: "x1" } };
+        },
+      },
+      { pilotId: "pilot_test" },
     );
-    for (const c of CAPABILITY_CONTRACTS) {
-      expect(c.invokeOwner.length).toBeGreaterThan(3);
-      expect(c.rightsBoundary.length).toBeGreaterThan(3);
-      expect(c.continuationHook).toBeTruthy();
-    }
+    expect(invoked).toBe(true);
+    expect(out.result.id).toBe("x1");
   });
 
   it("advances D2 waiting step after Pilot creates project", () => {

@@ -57,6 +57,12 @@ export type MissionProjection = {
   steps: MissionStep[];
   /** Restitution layer — not owner truth. */
   restitution: "PENDING" | "DELIVERED" | "CANONICAL";
+  /** Original Pilot utterance — anchors continuation without a second ask. */
+  originalUserText?: string;
+  /** Brief of pending document step (if compound intention). */
+  pendingDocumentBrief?: string;
+  /** Preparation that owns this mission (scope anchor). */
+  preparationId?: string;
 };
 
 export type PublicationMissionIntent = {
@@ -157,7 +163,7 @@ export function formatMissionAck(mission: MissionProjection): string {
     lines.push(
       "",
       "Acte Pilote explicite requis (ex. Créer le projet) — Nora n'exécute pas D2 à la place du Pilote.",
-      "Après création confirmée, poursuivez dans la conversation : Nora reprend les étapes dépendantes.",
+      "Après création confirmée, Studio reprend automatiquement les étapes dépendantes de la même intention (sans nouveau message Pilote).",
     );
   }
   if (mission.status === "AWAITING_PILOT_AUTH") {

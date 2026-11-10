@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { requireStudioSession } from "@/domains/identity/session";
 import { createProjectCommand } from "@/domains/preparation/create-project";
 import { probeCreateProjectSideEffects } from "@/domains/boundaries/non-effects";
+import { continueAfterProjectCreated } from "@/domains/conversation/intent-conduction";
 
 export async function POST(req: Request, ctx: { params: Promise<{ preparationId: string }> }) {
   try {
@@ -29,6 +30,31 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       idempotencyKey: body.idempotencyKey,
     });
     const sideEffects = probeCreateProjectSideEffects();
+
+    // GAP-01/06: after D2 confirms create, continue same intention (COMMAND path only).
+    let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
+    if (
+      (result.status === "CREATED" || result.status === "ALREADY_CREATED") &&
+      "projectId" in result &&
+      result.projectId
+    ) {
+      try {
+        missionContinue = await continueAfterProjectCreated({
+          pilotId: session.pilotId,
+          preparationId,
+          projectId: result.projectId,
+        });
+      } catch {
+        missionContinue = {
+          continued: false,
+          missionProjection: null,
+          documentSave: null,
+          assistantMessageId: null,
+          reason: "CONTINUE_FAILED",
+        };
+      }
+    }
+
     const status =
       result.status === "CREATED"
         ? 201
@@ -39,7 +65,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
             : result.status === "FORBIDDEN"
               ? 403
               : 400;
-    return NextResponse.json({ ...result, sideEffects }, { status });
+    return NextResponse.json({ ...result, sideEffects, missionContinue }, { status });
   } catch {
     return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
   }

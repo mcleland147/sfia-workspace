@@ -294,14 +294,23 @@ export async function postUserMessageAndNora(
     }
   }
 
-  // Multi-domain continuity: if prior turn awaited D2 Pilot act and project now exists, advance.
+  // Multi-domain continuity: prefer intention-anchored load (GAP-04).
+  // Primary D2→D4 continuation is continueAfterProjectCreated on create-project COMMAND.
   let carriedMission: MissionProjection | null = null;
   try {
-    const priorMission = await loadPriorMissionProjection(ctx.conversation.id);
-    if (priorMission?.status === "AWAITING_PILOT_ACT" && ctx.project?.id) {
-      carriedMission = advanceMissionAfterProjectCreated(priorMission, ctx.project.id);
-    } else if (priorMission && priorMission.status !== "COMPLETED") {
-      carriedMission = priorMission;
+    const awaiting = await loadPriorMissionProjection(ctx.conversation.id, {
+      awaitingPilotAct: true,
+      preparationId,
+    });
+    if (awaiting && ctx.project?.id) {
+      carriedMission = advanceMissionAfterProjectCreated(awaiting, ctx.project.id);
+    } else {
+      const priorMission = await loadPriorMissionProjection(ctx.conversation.id, {
+        preparationId,
+      });
+      if (priorMission && priorMission.status !== "COMPLETED") {
+        carriedMission = priorMission;
+      }
     }
   } catch {
     carriedMission = null;
@@ -1153,10 +1162,7 @@ export async function postUserMessageAndNora(
     studioIntent.wantsProjectCreate &&
     !ctx.project?.id
   ) {
-    const proposed =
-      studioIntent.proposedProjectName?.trim() ||
-      content.match(/projet\s+[«"]?([^»"\n.]{2,80})/i)?.[1]?.trim() ||
-      "Nouveau projet";
+    const proposed = studioIntent.proposedProjectName?.trim() || "Nouveau projet";
     try {
       await updatePreview(
         pilotId,
@@ -1171,10 +1177,20 @@ export async function postUserMessageAndNora(
       clientIntentKey,
       `Création de projet «${proposed}» — attente acte Pilote`,
     );
+    d2Mission = {
+      ...d2Mission,
+      originalUserText: content,
+      pendingDocumentBrief: studioIntent.pendingDocumentBrief ?? undefined,
+      preparationId,
+    };
     d2Mission = mergeMissionSteps(d2Mission, [buildD2AwaitingStep(proposed)], "AWAITING_PILOT_ACT");
-    if (studioIntent.documentAct.kind === "CREATE" || studioIntent.publication.wantsPublish) {
+    if (
+      studioIntent.wantsFollowOnDocument ||
+      studioIntent.documentAct.kind === "CREATE" ||
+      studioIntent.publication.wantsPublish
+    ) {
       d2Mission = mergeMissionSteps(d2Mission, [
-        buildPendingDocumentStep("CREATE"),
+        buildPendingDocumentStep("CREATE", studioIntent.pendingDocumentBrief),
       ]);
     }
     missionProjection = d2Mission;
