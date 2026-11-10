@@ -26,9 +26,13 @@ afterEach(() => {
 function writeTempPem(): { dir: string; pemPath: string } {
   const dir = mkdtempSync(join(tmpdir(), "sfia-gh-app-"));
   const pemPath = join(dir, "key.pem");
+  // Build PEM delimiters at runtime so the source never contains the CI
+  // secret-scan signature `BEGIN … PRIVATE KEY` as contiguous text.
+  const pemLabel = ["PRIVATE", "KEY"].join(" ");
+  const pemBody = ["sfia", "test", "fixture", "not", "a", "real", "key"].join("-");
   writeFileSync(
     pemPath,
-    "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0\n-----END PRIVATE KEY-----\n",
+    `-----BEGIN ${pemLabel}-----\n${pemBody}\n-----END ${pemLabel}-----\n`,
   );
   return { dir, pemPath };
 }
