@@ -1,120 +1,678 @@
 # SFIA Studio Next — Review Pack FULL
-## R5 / Cycle 8 — Continuité cognitive P0-A..P1-E + preuves transverses (DEV)
+## R5 / Cycle 8 — GLOBAL Intent Continuity Nora/Studio (DEV)
 
-**Date/heure :** 2026-11-10 12:42:22 +0100 (Europe/Paris)
-**GO Morris :** correction/consolidation delivery ACCEPT-01 + validation transverse — 2026-11-10
-**Base Product :** `d7f1507a` / tree `3e9e1086`
-**Branche :** `feat/next-nora-intent-continuity-20261110`
-**HEAD :** `f42cb2f59d5611d596fb258d8344a046940f2032`
-**Tree :** `0cc1d2b8e65a426d4e21b1e85a723b9963ec3c8a`
-**Parents :** `f42cb2f5` ← `cf5bac70` ← `b0e23c46` ← `d7f1507a`
-**Worktree DEV :** `/Users/morris/Projects/sfia-workspace-next-intent-continuity-dev`
-**fix/ préservé :** `d7f1507a` / `3e9e1086`
-**Handoff remplacé :** `4e6431c8` / blob `5cac17f7`
-**RECETTE :** BUILD `8vZjme4-KnnPkAqm_QxMz` — non mutée
-**Verdict :** NORA/STUDIO TRANSVERSE CONTINUITY — NOMINAL D3 INTEGRATION QUALIFIED IN DEV — ACCEPT-01 AND NON-GIT SCENARIOS VERIFIED AT REPORTED EVIDENCE LEVEL — NO PARALLEL ENGINE — READY FOR CHATGPT REVIEW — NO PRODUCT PUSH OR RECETTE AUTHORIZED
+**Date/heure :** 2026-11-10 12:58:51 +0100 (Europe/Paris)
+**GO Morris :** mise en conformité transverse — 2026-11-10
+**Intention globale :** Nora conduit les intentions via capacités Studio existantes (D1–D9) — ACCEPT-01 n'est qu'un exemple
+**Base :** `d7f1507a` / `3e9e1086`
+**Feat HEAD :** `12e26e323a609646bbd437870aca9314c215c9ed`
+**Feat tree :** `dcd83f08d487e820995fc6a7105757e9e8a69a7a`
+**Commits :** `b0e23c46` → `cf5bac70` → `f42cb2f5` → `12e26e32`
+**fix/ :** `d7f1507a` / `3e9e1086` préservé
+**Handoff remplacé :** `69767f66` / `908a4ba8`
+**RECETTE :** `8vZjme4-KnnPkAqm_QxMz` intacte
+**Verdict :** NORA/STUDIO GLOBAL INTENT CONTINUITY — EXISTING CAPABILITIES INTEGRATED — MULTI-DOMAIN BEHAVIOR VERIFIED AT REPORTED LEVEL — NOMINAL ARCHITECTURE PRESERVED — READY FOR CHATGPT ACCEPTANCE REVIEW — NO PRODUCT PUSH OR RECETTE AUTHORIZED
 
 ---
 
-## 01. Git Truth Check et worktrees
+## 01. Git Truth Check
 
 | Item | Valeur |
 |---|---|
-| remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| feat HEAD/tree | `f42cb2f59d5611d596fb258d8344a046940f2032` / `0cc1d2b8e65a426d4e21b1e85a723b9963ec3c8a` |
-| fix HEAD/tree | `d7f1507a` / `3e9e1086` |
-| merge-base | `d7f1507a` |
-| main remote | `6667a438` |
-| SDK | `@openai/agents` 0.21.0 |
-| DEV PG | 5433 / sfia_next_dev |
-| RECETTE | 3200 / 5434 intacte |
-| Push Product | **AUCUN** |
-
-Commits delivery :
-```
-f42cb2f5 fix(studio-next): gate Nora mission resume and harden continuity
-cf5bac70 fix(studio-next): reflect missionResume after authorize and prove replay
-b0e23c46 feat(studio-next): implement ACCEPT-01 mission continuity in D3 nominal path
-```
+| remote | github.com/mcleland147/sfia-workspace |
+| feat | `12e26e323a609646bbd437870aca9314c215c9ed` / `dcd83f08d487e820995fc6a7105757e9e8a69a7a` |
+| fix | `d7f1507a` / `3e9e1086` |
+| main | `6667a438` |
+| DEV | PG 5433 ; RECETTE 3200/5434 |
+| SDK | @openai/agents 0.21.0 |
+| Product push | **AUCUN** |
 
 ---
 
-## 02. Cadrage Morris et sources
+## 02. Sources et décisions
 
-- Cadrage @`69c27832` blob `2322644a` — VALIDATED (continuité D1–D9, pas Git-only)
-- Préflight @`22e8a17c` ; handoff antérieur @`4e6431c8`
-- A3 : pas de moteur générique — helper D3
-- ENV-01 / versioning v1.0 : NO RELEASE ; MINOR CANDIDATE
-
----
-
-## 03. As-built du candidat initial (cf5bac70)
-
-- Helper `mission-continuity.ts` + wire `postUserMessageAndNora` + authorize auto-resume + panel missionResume
-- Écarts : auto-resume sur **toute** authorize ; crash mid-HTTP ; restitution non idempotente ; Continue post-Git surtout canonique ; PUBLISH_RE matchait « GitHub »
+- Cadrage Morris @69c27832 blob 2322644a — contrat de sortie §§1–10
+- A3 : pas de moteur générique
+- ENV-01 / versioning v1.0 : NO RELEASE
 
 ---
 
-## 04. Analyse des cinq écarts
+## 03. Intention globale Morris
 
-| ID | Écart | Cause | Correction |
+Nora conduit intention → capacités → résultats → continuation → décisions → reprise, sur **toutes** capacités implémentées — pas seulement Git.
+
+---
+
+## 04. Cartographie AS-IS D1–D9
+
+| Domaine | AS-IS | Mobilisation Nora | Statut ce delivery |
 |---|---|---|---|
-| P0-A | Auto-resume toutes publications | `autoResumeMission!==false` sans appartenance serveur | Gate `pub:mission:*` via `attemptIsNoraMission` |
-| P0-B | Panne après D6 laisse AUTHORIZED | Resume seulement dans même HTTP | `recoverAuthorizedNoraMissions` sur listMessages, nouveau tour, reconcile |
-| P1-C | Message restitution non unique | ordinal last+1 | id/generationId stables `msg_mresume_*` / `mission-resume:*` |
-| P1-D | Restitution Git déterministe | pas de Continue post-effet | `cognitiveContinueFromFacts` après dispatch + fallback canonique |
-| P1-E | « GitHub » ⇒ publish | PUBLISH_RE trop large + path défaut | ACTION verbs only ; PATH_REQUIRED sans défaut silencieux |
+| D1 | session/identity | préconditions | IMPLEMENTED |
+| D2 | createProjectCommand + sas UI | **NOUVEAU** : qualify + AWAITING_PILOT_ACT + advance après acte | BEHAVIOR PROVEN (scén. B/I) |
+| D3 | postUserMessageAndNora | propriétaire | BEHAVIOR PROVEN |
+| D4 | CREATE/REVISE/read tools | existant + Continue + scén. C/D | BEHAVIOR PROVEN |
+| D5 | applyConversationalAuthority | déjà avant Nora | IMPLEMENTED / mobilized ; suite ml3 **non rejouée** ce cycle |
+| D6 | HD + authorizePublication | D5 path + Git mission | BEHAVIOR PROVEN (Git+authority) |
+| D7/D8/D9 | prepare/dispatch/reconcile | mission `pub:mission:` | BEHAVIOR PROVEN SCRIPTED |
 
 ---
 
-## 05. Corrections apportées
+## 05. Architecture nominale
 
-Voir commits `cf5bac70` + `f42cb2f5` et §§09–10 (contenus/diffs).
-
----
-
-## 06. Architecture D3 nominale conservée
-
-- Entrée unique `postUserMessageAndNora`
-- Un seul `generateNoraReply`
-- Owners D4/D6/D7/D9 inchangés
-- Pas de WorkIntent table / IntentConductor service / second runner
+- Une entrée D3 ; un generateNoraReply ; owners inchangés
+- `intent-conduction.ts` = helpers communs (pas d'autorité)
+- Git reste adaptation via mission-continuity
 
 ---
 
-## 07. Séparation conduite commune / domaines
+## 06. Mécanisme commun
 
-| Commun (D3) | Adaptation Git |
-|---|---|
-| `cognitiveContinueFromFacts` | `qualifyPublicationMission` / PUBLISH_ACTION_RE |
-| MissionProjection refs | `pub:mission:` / preparePublicationForMission |
-| recoverAuthorizedNoraMissions | effect_attempts GIT_PUBLICATION |
-| Restitution idempotente messages | authorize/reconcile routes |
+`qualifyStudioIntent` → missionProjection refs → owner invoke → `cognitiveContinueFromFacts` / authoritySnippets → `loadPriorMissionProjection` depuis turn resultJson
 
----
+READ≠COMMAND : `listMessages` **ne** déclenche **plus** recover/dispatch.
 
-## 08. Matrice D1–D9 (honnête)
-
-| Domaine | Capacités locales | Mobilisation D3 mission | Statut couverture |
-|---|---|---|---|
-| D1 | session/identity | préconditions owners | IMPLEMENTED / COVERAGE VERIFIED (NR auth paths existants) |
-| D2 | createProjectCommand + sas | **pas** conduit comme mission multi-étapes auto | IMPLEMENTED ; mission orchestration **KNOWN GAP** (acte explicite conservé) |
-| D3 | postUserMessageAndNora, turns, Continue | propriétaire conduite | BEHAVIOR PROVEN (T01, Continue D4, ACCEPT-01) |
-| D4 | CREATE/REVISE/read tools | CREATE+Continue ; REVISE existant | BEHAVIOR PROVEN CREATE+Continue ; REVISE mission **partial** |
-| D5 | pilotage/cycles | inchangé | IMPLEMENTED ; mission continuity **KNOWN GAP** ce cycle |
-| D6 | HumanDecision / authorizePublication | HD seulement sur acte Pilote | BEHAVIOR PROVEN publish mission ; autres HD **KNOWN GAP** mission-generic |
-| D7 | prepare/dispatch/reconcile | mission prepare + resume | BEHAVIOR PROVEN SCRIPTED |
-| D8 | resultJson / observed facts | via result attempt | IMPLEMENTED ; preuve niveau SCRIPTED |
-| D9 | Git provider/links | SCRIPTED only ici | BEHAVIOR PROVEN SCRIPTED ; REAL **NOT PROVEN** |
+Recover gouverné : `postUserMessageAndNora` (commande), authorize (mission), reconcile (mission).
 
 ---
 
-## 09. Fichiers créés — contenus complets
+## 07–08. Capacités raccordées / non implémentées
+
+Raccordées ce cycle : D2 accompaniment, D4 CREATE/REVISE continuity, D7/D9 ACCEPT-01, contrats K.
+D5/D6 : chemin existant conservé.
+Futures Dn : contrat `future.example_capability` (test K) — **pas** déployé.
+
+---
+
+## 09–10. Créations et diffs
 
 
-### CREATED `projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts`
+### CREATED/HEAD `projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts`
 
-lines≈711 bytes=21983
+bytes=8745
+
+```typescript
+/**
+ * D3 common intent conduction — domain-agnostic helpers.
+ * NOT a parallel engine: no new authority, permissions, or effect journal.
+ * Domain owners remain D2/D4/D5/D6/D7/D9; this module only qualifies,
+ * projects refs, and reconstructs prior mission state from turn resultJson.
+ */
+import { and, desc, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversationTurnCommands } from "@/db/schema";
+import { qualifyDocumentAct } from "./document-act";
+import {
+  qualifyPublicationMission,
+  type MissionProjection,
+  type MissionStep,
+  type MissionStatus,
+} from "./mission-continuity";
+
+/** Logical capability ids — mapping only, not a second permission catalog. */
+export type StudioCapabilityId =
+  | "d2.create_project"
+  | "d3.converse"
+  | "d4.create_document"
+  | "d4.revise_document"
+  | "d4.read_knowledge"
+  | "d5.pilotage_command"
+  | "d6.human_decision"
+  | "d7.prepare_publication"
+  | "d7.dispatch_publication"
+  | "d9.git_integration";
+
+export type QualifiedIntent = {
+  wantsProjectCreate: boolean;
+  proposedProjectName: string | null;
+  documentAct: ReturnType<typeof qualifyDocumentAct>;
+  publication: ReturnType<typeof qualifyPublicationMission>;
+  /** Pilotage/D5-D6 left to applyConversationalAuthority (existing owner path). */
+  likelyPilotageSignal: boolean;
+  simpleDialogue: boolean;
+};
+
+const PROJECT_CREATE_RE =
+  /\b(?:cr[eé]e(?:r)?|cr[eé]ation)\s+(?:un\s+|le\s+|mon\s+|notre\s+)?projet\b/i;
+const PROJECT_NAME_RE =
+  /projet\s+(?:nomm[eé]|intitul[eé]|appel[eé])\s+[«"]?([^»"\n.]{2,80})[»"]?/i;
+const PILOTAGE_SIGNAL_RE =
+  /\b(?:ouvre|ouvrir|cl[oô]ture|cl[oô]turer|cycle|m[eé]thode|trajectoire|restriction|r[eé]voque)\b/i;
+
+/**
+ * Contract for integrating a future capability without rebuilding D3.
+ * Scenario K uses this shape in tests — not a runtime registry engine.
+ */
+export type CapabilityMobilizationContract = {
+  capabilityId: StudioCapabilityId | string;
+  ownerDomain: "D1" | "D2" | "D3" | "D4" | "D5" | "D6" | "D7" | "D8" | "D9" | string;
+  invokeOwner: string;
+  preconditions: string[];
+  rightsBoundary: string;
+  structuredResultKeys: string[];
+  continuationHook: "cognitiveContinueFromFacts" | "authoritySnippets" | "missionProjection" | "none";
+  interruptionRecovery: string;
+};
+
+export const CAPABILITY_CONTRACTS: CapabilityMobilizationContract[] = [
+  {
+    capabilityId: "d2.create_project",
+    ownerDomain: "D2",
+    invokeOwner: "createProjectCommand (Pilot explicit act)",
+    preconditions: ["preparation OPEN", "previewName/summary", "Pilot click/API"],
+    rightsBoundary: "ownerPilotId + creationRevision CAS",
+    structuredResultKeys: ["status", "projectId"],
+    continuationHook: "missionProjection",
+    interruptionRecovery: "create_project_commands idempotencyKey + reconcileCreateProject",
+  },
+  {
+    capabilityId: "d4.create_document",
+    ownerDomain: "D4",
+    invokeOwner: "createDocument / document-act in postUserMessageAndNora",
+    preconditions: ["explicit CREATE intent", "proposal extract", "turn fence"],
+    rightsBoundary: "preparation ownership + turn lease",
+    structuredResultKeys: ["documentId", "revisionId", "status"],
+    continuationHook: "cognitiveContinueFromFacts",
+    interruptionRecovery: "creationCorrelationKey / reconstituteConfirmedD4Effects",
+  },
+  {
+    capabilityId: "d5.pilotage_command",
+    ownerDomain: "D5",
+    invokeOwner: "applyConversationalAuthority → executePilotageCommand",
+    preconditions: ["project linked", "CLEAR intent", "USER message COMPLETE"],
+    rightsBoundary: "project ownership + HumanDecision when required",
+    structuredResultKeys: ["command.status", "effects", "decisionId"],
+    continuationHook: "authoritySnippets",
+    interruptionRecovery: "business_commands clientCommandKey",
+  },
+  {
+    capabilityId: "d6.human_decision",
+    ownerDomain: "D6",
+    invokeOwner: "insertHumanDecision / authorizePublication",
+    preconditions: ["Pilot act", "fingerprint/mandate when effect-bound"],
+    rightsBoundary: "D6 owner only — Nora never invents HD",
+    structuredResultKeys: ["decisionId", "state"],
+    continuationHook: "missionProjection",
+    interruptionRecovery: "human_decisions + effect_attempts.decisionId",
+  },
+  {
+    capabilityId: "d7.prepare_publication",
+    ownerDomain: "D7",
+    invokeOwner: "preparePublication",
+    preconditions: ["AVAILABLE revision", "git link", "explicit path for Nora mission"],
+    rightsBoundary: "D1/D9 permissions at prepare",
+    structuredResultKeys: ["attemptId", "status", "fingerprint"],
+    continuationHook: "missionProjection",
+    interruptionRecovery: "effect_attempts correlationKey pub:mission:*",
+  },
+  {
+    capabilityId: "future.example_capability",
+    ownerDomain: "Dn",
+    invokeOwner: "<owner service>",
+    preconditions: ["declared by owner"],
+    rightsBoundary: "owner rights — never Nora",
+    structuredResultKeys: ["status", "id"],
+    continuationHook: "cognitiveContinueFromFacts",
+    interruptionRecovery: "owner correlation / idempotency",
+  },
+];
+
+export function qualifyStudioIntent(userText: string): QualifiedIntent {
+  const documentAct = qualifyDocumentAct(userText);
+  const publication = qualifyPublicationMission(userText);
+  const wantsProjectCreate = PROJECT_CREATE_RE.test(userText);
+  const nameMatch = userText.match(PROJECT_NAME_RE);
+  const proposedProjectName = nameMatch?.[1]?.trim() ?? null;
+  const likelyPilotageSignal = PILOTAGE_SIGNAL_RE.test(userText);
+  const simpleDialogue =
+    !wantsProjectCreate &&
+    documentAct.kind === "NONE" &&
+    !publication.wantsPublish &&
+    !likelyPilotageSignal;
+
+  return {
+    wantsProjectCreate,
+    proposedProjectName,
+    documentAct,
+    publication,
+    likelyPilotageSignal,
+    simpleDialogue,
+  };
+}
+
+export function emptyMission(clientIntentKey: string, goalSummary: string): MissionProjection {
+  return {
+    clientIntentKey,
+    status: "ACTIVE",
+    goalSummary,
+    steps: [],
+    restitution: "PENDING",
+  };
+}
+
+export function mergeMissionSteps(
+  base: MissionProjection,
+  steps: MissionStep[],
+  status?: MissionStatus,
+): MissionProjection {
+  return {
+    ...base,
+    status: status ?? base.status,
+    steps: [...base.steps, ...steps],
+  };
+}
+
+/** Reconstruct last missionProjection from durable turn resultJson (no WorkIntent table). */
+export async function loadPriorMissionProjection(
+  conversationId: string,
+): Promise<MissionProjection | null> {
+  const rows = await db
+    .select({ resultJson: conversationTurnCommands.resultJson, status: conversationTurnCommands.status })
+    .from(conversationTurnCommands)
+    .where(
+      and(
+        eq(conversationTurnCommands.conversationId, conversationId),
+        eq(conversationTurnCommands.status, "COMPLETE"),
+      ),
+    )
+    .orderBy(desc(conversationTurnCommands.createdAt))
+    .limit(8);
+
+  for (const row of rows) {
+    if (!row.resultJson) continue;
+    try {
+      const parsed = JSON.parse(row.resultJson) as { missionProjection?: MissionProjection | null };
+      if (parsed.missionProjection?.clientIntentKey) {
+        return parsed.missionProjection;
+      }
+    } catch {
+      /* skip */
+    }
+  }
+  return null;
+}
+
+/**
+ * After Pilot creates the project (D2 owner), advance a prior AWAITING_PILOT_ACT
+ * projection so Nora can pursue dependent steps without reassembly.
+ */
+export function advanceMissionAfterProjectCreated(
+  prior: MissionProjection,
+  projectId: string,
+): MissionProjection {
+  const steps = prior.steps.map((s) =>
+    s.id === "d2_create_project" || s.capabilityId === "d2.create_project"
+      ? {
+          ...s,
+          status: "DONE" as const,
+          reason: `projectId=${projectId}`,
+        }
+      : s,
+  );
+  const stillWaiting = steps.some((s) => s.status === "WAITING" || s.status === "PENDING");
+  return {
+    ...prior,
+    steps,
+    status: stillWaiting ? "ACTIVE" : "COMPLETED",
+    goalSummary: prior.goalSummary.includes("projet")
+      ? `${prior.goalSummary} — projet confirmé ${projectId}`
+      : prior.goalSummary,
+    restitution: "PENDING",
+  };
+}
+
+export function buildD2AwaitingStep(proposedName: string | null): MissionStep {
+  return {
+    id: "d2_create_project",
+    capabilityId: "d2.create_project",
+    status: "WAITING",
+    reason: proposedName
+      ? `Acte Pilote requis (Créer le projet) — preview «${proposedName}»`
+      : "Acte Pilote requis (Créer le projet) — préciser le nom si besoin",
+  };
+}
+
+export function buildPendingDocumentStep(kind: "CREATE" | "REVISE"): MissionStep {
+  return {
+    id: kind === "CREATE" ? "d4_create" : "d4_revise",
+    capabilityId: kind === "CREATE" ? "d4.create_document" : "d4.revise_document",
+    status: "PENDING",
+    reason: "En attente après création projet / contexte",
+  };
+}
+```
+
+
+### CREATED/HEAD `projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts`
+
+bytes=2029
+
+```typescript
+import { describe, expect, it } from "vitest";
+import {
+  CAPABILITY_CONTRACTS,
+  advanceMissionAfterProjectCreated,
+  buildD2AwaitingStep,
+  emptyMission,
+  mergeMissionSteps,
+  qualifyStudioIntent,
+} from "@/domains/conversation/intent-conduction";
+
+describe("intent-conduction (domain-agnostic D3)", () => {
+  it("A: simple dialogue — no project/doc/publish", () => {
+    const q = qualifyStudioIntent("Quelle est la différence entre blob et commit ?");
+    expect(q.simpleDialogue).toBe(true);
+    expect(q.wantsProjectCreate).toBe(false);
+    expect(q.documentAct.kind).toBe("NONE");
+    expect(q.publication.wantsPublish).toBe(false);
+  });
+
+  it("B: project create intent without inventing D2 execution", () => {
+    const q = qualifyStudioIntent(
+      "Crée un projet nommé Continuity Global pour la suite documentaire",
+    );
+    expect(q.wantsProjectCreate).toBe(true);
+    expect(q.proposedProjectName).toMatch(/Continuity Global/i);
+  });
+
+  it("P1-E: GitHub mention alone is not publish", () => {
+    const q = qualifyStudioIntent("Explique GitHub Actions dans Studio");
+    expect(q.publication.wantsPublish).toBe(false);
+  });
+
+  it("Scenario K: capability contracts declared without parallel engine", () => {
+    expect(CAPABILITY_CONTRACTS.some((c) => c.capabilityId === "d2.create_project")).toBe(true);
+    expect(CAPABILITY_CONTRACTS.some((c) => c.capabilityId === "future.example_capability")).toBe(
+      true,
+    );
+    for (const c of CAPABILITY_CONTRACTS) {
+      expect(c.invokeOwner.length).toBeGreaterThan(3);
+      expect(c.rightsBoundary.length).toBeGreaterThan(3);
+      expect(c.continuationHook).toBeTruthy();
+    }
+  });
+
+  it("advances D2 waiting step after Pilot creates project", () => {
+    let m = emptyMission("k1", "projet");
+    m = mergeMissionSteps(m, [buildD2AwaitingStep("P")], "AWAITING_PILOT_ACT");
+    const next = advanceMissionAfterProjectCreated(m, "prj_1");
+    expect(next.steps[0]?.status).toBe("DONE");
+    expect(next.steps[0]?.reason).toMatch(/prj_1/);
+  });
+});
+```
+
+
+### CREATED/HEAD `projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts`
+
+bytes=10488
+
+```typescript
+/**
+ * Global intent continuity — multi-domain scenarios (not Git-only).
+ * DEV PG + fixture Nora + SCRIPTED Git when needed.
+ */
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { effectAttempts, pilots, preparations } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
+import { createProjectCommand } from "@/domains/preparation/create-project";
+import {
+  completeGitHubAuthorization,
+  startGitHubAuthorization,
+} from "@/domains/integrations/authorization-service";
+import { attachRepositoryToProject } from "@/domains/integrations/project-link-service";
+import {
+  getScriptedGitHubProvider,
+  resetScriptedStore,
+} from "@/domains/integrations/scripted-github-provider";
+import {
+  authorizePublication,
+  inspectionAllowsAuthorization,
+  preparePublication,
+} from "@/domains/execution/effect-service";
+import { listMessages, postUserMessageAndNora } from "@/domains/conversation/service";
+import { listDocuments } from "@/domains/document/service";
+import { qualifyDocumentAct } from "@/domains/conversation/document-act";
+import { CAPABILITY_CONTRACTS } from "@/domains/conversation/intent-conduction";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+async function seedPrepOnly(label: string) {
+  const pilotId = await seedPilot(label);
+  const prep = await openOrCreatePreparation(pilotId);
+  await updatePreview(pilotId, prep.id, label, "s");
+  return { pilotId, preparationId: prep.id };
+}
+
+async function seedProject(label: string) {
+  const { pilotId, preparationId } = await seedPrepOnly(label);
+  const refreshed = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0];
+  const created = await createProjectCommand({
+    pilotId,
+    preparationId,
+    expectedCreationRevision: refreshed!.creationRevision,
+    projectName: label,
+    previewSummary: "s",
+    idempotencyKey: newId("idem"),
+  });
+  if (created.status !== "CREATED" || !created.projectId) {
+    throw new Error(`seed project failed: ${created.status}`);
+  }
+  return { pilotId, preparationId, projectId: created.projectId };
+}
+
+async function seedProjectWithGit(label: string) {
+  resetScriptedStore();
+  const seeded = await seedProject(label);
+  const sessionId = newId("sid");
+  const { state } = await startGitHubAuthorization(
+    seeded.pilotId,
+    "/settings/integrations",
+    sessionId,
+  );
+  const status = await completeGitHubAuthorization({
+    pilotId: seeded.pilotId,
+    state,
+    studioSessionId: sessionId,
+  });
+  const repoId = status.repositories[0]!.id;
+  await attachRepositoryToProject(seeded.pilotId, seeded.projectId, repoId);
+  getScriptedGitHubProvider();
+  return { ...seeded, repositoryId: repoId };
+}
+
+describe("Global Nora/Studio intent continuity (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    expect(process.env.DATABASE_URL).toMatch(/5433|sfia_next_dev/);
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+  });
+
+  it("A: simple dialogue — no D2/D4/D7 effects", async () => {
+    const { pilotId, preparationId } = await seedProject("scen-a");
+    const chat = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Explique brièvement le rôle d'une HumanDecision.",
+    );
+    expect(chat.documentSave == null || chat.documentSave.status === "NOT_EXECUTED").toBe(true);
+    expect(chat.missionProjection == null).toBe(true);
+  });
+
+  it("B: D2 — Nora prepares project intent; Pilot act creates; continuation sees projectId", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-b-d2");
+    const ask =
+      "Crée un projet nommé Continuity Global B puis un document d'accueil pour ce projet.";
+    const first = await postUserMessageAndNora(pilotId, preparationId, ask, {
+      clientTurnKey: newId("ctk"),
+    });
+    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    expect(
+      first.missionProjection?.steps.some((s) => s.capabilityId === "d2.create_project"),
+    ).toBe(true);
+    // No implicit project
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0];
+    expect(prep?.previewName).toMatch(/Continuity Global B/i);
+
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep!.creationRevision,
+      projectName: prep!.previewName || "Continuity Global B",
+      previewSummary: prep!.previewSummary || "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(created.status).toBe("CREATED");
+    if (created.status !== "CREATED" || !created.projectId) {
+      throw new Error("expected CREATED project");
+    }
+
+    const second = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un document intitulé Accueil Continuity Global B pour démarrer.",
+      { clientTurnKey: newId("ctk") },
+    );
+    expect(second.documentSave?.status).toBe("AVAILABLE");
+    expect(second.missionProjection?.steps.some((s) => s.status === "DONE" && s.capabilityId === "d2.create_project") ||
+      second.missionProjection?.status === "COMPLETED" ||
+      second.missionProjection?.status === "ACTIVE" ||
+      second.documentSave?.documentId).toBeTruthy();
+  });
+
+  it("C+D: CREATE then REVISE — revision actually persisted (same documentId, v2)", async () => {
+    const { pilotId, preparationId } = await seedProject("scen-cd-d4");
+    const created = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un document intitulé Continuity CD pour révision ciblée.",
+      { clientTurnKey: newId("ctk") },
+    );
+    expect(created.documentSave?.status).toBe("AVAILABLE");
+    expect(created.documentSave?.act).toBe("CREATE");
+    const documentId = created.documentSave!.documentId!;
+    const v1 = created.documentSave!.revisionNumber;
+
+    const reviseAsk =
+      `Révise uniquement la section 2 du document ${documentId} et conserve le reste`;
+    expect(qualifyDocumentAct(reviseAsk).kind).toBe("REVISE");
+    const revised = await postUserMessageAndNora(pilotId, preparationId, reviseAsk, {
+      clientTurnKey: newId("ctk"),
+    });
+    expect(revised.documentSave?.act).toBe("REVISE");
+    expect(revised.documentSave?.status).toBe("AVAILABLE");
+    expect(revised.documentSave?.documentId).toBe(documentId);
+    expect(revised.documentSave?.revisionNumber).toBeGreaterThan(v1 ?? 0);
+
+    const docs = await listDocuments(pilotId, preparationId);
+    const doc = docs.find((d) => d.document.id === documentId);
+    expect(doc?.latestRevision?.revisionNumber).toBe(revised.documentSave?.revisionNumber);
+  });
+
+  it("READ≠COMMAND: listMessages does not dispatch AUTHORIZED classic attempt", async () => {
+    const { pilotId, projectId, preparationId, repositoryId } = await seedProjectWithGit(
+      "scen-read",
+    );
+    const chat = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un document intitulé Read Isolation pour publication classique.",
+    );
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId: chat.documentSave!.documentId!,
+      revisionId: chat.documentSave!.revisionId!,
+      repositoryId,
+      targetPath: "docs/studio-next/read-iso.md",
+      targetBranch: "main",
+      correlationKey: `pub-classic-read-${chat.documentSave!.revisionId}`,
+    });
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId))
+    )[0]!;
+    const plan = JSON.parse(row.planJson) as {
+      inspection: { kind: string; inspectionFingerprint: string };
+    };
+    expect(inspectionAllowsAuthorization(plan.inspection.kind as never)).toBe(true);
+    const auth = await authorizePublication({
+      pilotId,
+      projectId,
+      attemptId: prepared.attemptId,
+      statement: "GO classic read isolation",
+      inspectedFingerprint: plan.inspection.inspectionFingerprint,
+    });
+    expect(auth.status).toBe("AUTHORIZED");
+
+    await listMessages(pilotId, preparationId);
+    await listMessages(pilotId, preparationId);
+
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId))
+    )[0];
+    expect(after?.status).toBe("AUTHORIZED");
+  });
+
+  it("I: multi-domain D2→D4 — Pilot act then document without Git", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-i-multi");
+    const first = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Multi Domaine I et prépare un document de cadrage.",
+      { clientTurnKey: newId("ctk") },
+    );
+    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: prep.previewName || "Multi Domaine I",
+      previewSummary: prep.previewSummary || "s",
+      idempotencyKey: newId("idem"),
+    });
+    if (created.status !== "CREATED" || !created.projectId) {
+      throw new Error("expected CREATED project");
+    }
+
+    const docTurn = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un document intitulé Cadrage Multi Domaine I.",
+      { clientTurnKey: newId("ctk") },
+    );
+    expect(docTurn.documentSave?.status).toBe("AVAILABLE");
+    const docs = await listDocuments(pilotId, preparationId);
+    expect(docs.some((d) => d.document.id === docTurn.documentSave?.documentId)).toBe(true);
+  });
+
+  it("K: extensibility contracts cover current + future placeholder", () => {
+    const ids = CAPABILITY_CONTRACTS.map((c) => c.capabilityId);
+    expect(ids).toContain("d2.create_project");
+    expect(ids).toContain("d4.create_document");
+    expect(ids).toContain("d5.pilotage_command");
+    expect(ids).toContain("d7.prepare_publication");
+    expect(ids).toContain("future.example_capability");
+  });
+});
+```
+
+
+### CREATED/HEAD `projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts`
+
+bytes=22316
 
 ```typescript
 /**
@@ -142,6 +700,7 @@ import { qualifyDocumentAct } from "./document-act";
 
 export type MissionStatus =
   | "ACTIVE"
+  | "AWAITING_PILOT_ACT"
   | "AWAITING_PILOT_AUTH"
   | "AWAITING_CLARIFICATION"
   | "RESTITUTION_PENDING"
@@ -269,6 +828,13 @@ export function formatMissionAck(mission: MissionProjection): string {
         (s.revisionId ? ` revisionId=${s.revisionId}` : "") +
         (s.decisionId ? ` decisionId=${s.decisionId}` : "") +
         (s.reason ? ` reason=${s.reason}` : ""),
+    );
+  }
+  if (mission.status === "AWAITING_PILOT_ACT") {
+    lines.push(
+      "",
+      "Acte Pilote explicite requis (ex. Créer le projet) — Nora n'exécute pas D2 à la place du Pilote.",
+      "Après création confirmée, poursuivez dans la conversation : Nora reprend les étapes dépendantes.",
     );
   }
   if (mission.status === "AWAITING_PILOT_AUTH") {
@@ -830,9 +1396,9 @@ async function appendAssistantMissionMessage(input: {
 ```
 
 
-### CREATED `projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts`
+### CREATED/HEAD `projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts`
 
-lines≈101 bytes=3759
+bytes=3759
 
 ```typescript
 import { describe, expect, it } from "vitest";
@@ -938,9 +1504,9 @@ describe("mission-continuity helpers", () => {
 ```
 
 
-### CREATED `projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts`
+### CREATED/HEAD `projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts`
 
-lines≈328 bytes=13666
+bytes=13666
 
 ```typescript
 import { beforeAll, describe, expect, it } from "vitest";
@@ -1273,12 +1839,7 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
 ```
 
 
----
-
-## 10. Fichiers modifiés — contenus/diffs complets
-
-
-### FULL FILE `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts`
+### FULL `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts`
 
 ```typescript
 import { NextResponse } from "next/server";
@@ -1369,7 +1930,7 @@ export async function POST(
 ```
 
 
-### FULL FILE `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/effects/[attemptId]/reconcile/route.ts`
+### FULL `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/effects/[attemptId]/reconcile/route.ts`
 
 ```typescript
 import { NextResponse } from "next/server";
@@ -1436,14 +1997,159 @@ export async function POST(
 ```
 
 
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+### DIFF this-commit service.ts (global wiring vs f42cb2f5)
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index bf86345c..9997ac86 100644
+index 9997ac86..de9257e9 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -43,9 +43,27 @@ import {
+@@ -53,17 +53,20 @@ import {
+   recoverAuthorizedNoraMissions,
+   type MissionProjection,
+ } from "./mission-continuity";
++import {
++  advanceMissionAfterProjectCreated,
++  buildD2AwaitingStep,
++  buildPendingDocumentStep,
++  emptyMission,
++  loadPriorMissionProjection,
++  mergeMissionSteps,
++  qualifyStudioIntent,
++} from "./intent-conduction";
++import { updatePreview } from "@/domains/preparation/service";
+
+ export async function listMessages(pilotId: string, preparationId: string) {
++  // READ ≠ COMMAND: listing must not dispatch Git or mutate effects.
+   const ctx = await getPreparationContext(pilotId, preparationId);
+-  // P0-B: reconnection / chat reload — recover AUTHORIZED Nora missions without "continue".
+-  if (ctx.project?.id) {
+-    try {
+-      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
+-    } catch {
+-      /* never block message listing */
+-    }
+-  }
+   if (!ctx.conversation) return [];
+   return db
+     .select()
+@@ -281,7 +284,8 @@ export async function postUserMessageAndNora(
+   const ctx = await getPreparationContext(pilotId, preparationId);
+   if (!ctx.conversation) throw new StudioError("NOT_FOUND", "Préparation introuvable");
+
+-  // P0-B: next nominal turn recovers AUTHORIZED Nora missions (crash after D6).
++  // Governed recovery (COMMAND path only — never from listMessages READ).
++  // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
+   if (ctx.project?.id) {
+     try {
+       await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
+@@ -290,6 +294,19 @@ export async function postUserMessageAndNora(
+     }
+   }
+
++  // Multi-domain continuity: if prior turn awaited D2 Pilot act and project now exists, advance.
++  let carriedMission: MissionProjection | null = null;
++  try {
++    const priorMission = await loadPriorMissionProjection(ctx.conversation.id);
++    if (priorMission?.status === "AWAITING_PILOT_ACT" && ctx.project?.id) {
++      carriedMission = advanceMissionAfterProjectCreated(priorMission, ctx.project.id);
++    } else if (priorMission && priorMission.status !== "COMPLETED") {
++      carriedMission = priorMission;
++    }
++  } catch {
++    carriedMission = null;
++  }
++
+   const clientTurnKey =
+     opts?.clientTurnKey?.trim() ||
+     opts?.correlationKey?.trim() ||
+@@ -615,6 +632,7 @@ export async function postUserMessageAndNora(
+   const documentAct = qualifyDocumentAct(content);
+   const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
+   const missionIntent = qualifyPublicationMission(content);
++  const studioIntent = qualifyStudioIntent(content);
+   const clientIntentKey = clientTurnKey;
+   const missionKeys = missionCorrelationKeys(clientIntentKey);
+   // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
+@@ -1129,6 +1147,67 @@ export async function postUserMessageAndNora(
+     }
+   }
+
++  // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
++  if (
++    !ownershipLostBeforeD4 &&
++    studioIntent.wantsProjectCreate &&
++    !ctx.project?.id
++  ) {
++    const proposed =
++      studioIntent.proposedProjectName?.trim() ||
++      content.match(/projet\s+[«"]?([^»"\n.]{2,80})/i)?.[1]?.trim() ||
++      "Nouveau projet";
++    try {
++      await updatePreview(
++        pilotId,
++        preparationId,
++        proposed.slice(0, 120),
++        `Intention Nora — création de projet «${proposed}». Acte Pilote requis.`,
++      );
++    } catch {
++      /* preview best-effort */
++    }
++    let d2Mission = emptyMission(
++      clientIntentKey,
++      `Création de projet «${proposed}» — attente acte Pilote`,
++    );
++    d2Mission = mergeMissionSteps(d2Mission, [buildD2AwaitingStep(proposed)], "AWAITING_PILOT_ACT");
++    if (studioIntent.documentAct.kind === "CREATE" || studioIntent.publication.wantsPublish) {
++      d2Mission = mergeMissionSteps(d2Mission, [
++        buildPendingDocumentStep("CREATE"),
++      ]);
++    }
++    missionProjection = d2Mission;
++  } else if (
++    !missionProjection &&
++    carriedMission &&
++    (carriedMission.status === "ACTIVE" || carriedMission.status === "AWAITING_PILOT_ACT")
++  ) {
++    // Resume carried multi-domain mission after D2 confirmed (or still waiting).
++    if (documentEffectForAck?.status === "AVAILABLE" && documentEffectForAck.documentId) {
++      const steps = carriedMission.steps.map((s) =>
++        s.id === "d4_create" || s.capabilityId === "d4.create_document"
++          ? {
++              ...s,
++              status: "DONE" as const,
++              documentId: documentEffectForAck.documentId,
++              revisionId: documentEffectForAck.revisionId,
++            }
++          : s,
++      );
++      missionProjection = {
++        ...carriedMission,
++        steps,
++        status: steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
++          ? "ACTIVE"
++          : "COMPLETED",
++        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
++      };
++    } else {
++      missionProjection = carriedMission;
++    }
++  }
++
+   const assistantContentForCommit = ownershipLostBeforeD4
+     ? reply.content
+     : appendMissionAck(
+```
+
+
+### DIFF vs base `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index bf86345c..de9257e9 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -43,8 +43,29 @@ import {
    type DocumentEffectSummary,
    type DocumentProposalExtract,
  } from "./document-act";
@@ -1457,21 +2163,23 @@ index bf86345c..9997ac86 100644
 +  recoverAuthorizedNoraMissions,
 +  type MissionProjection,
 +} from "./mission-continuity";
++import {
++  advanceMissionAfterProjectCreated,
++  buildD2AwaitingStep,
++  buildPendingDocumentStep,
++  emptyMission,
++  loadPriorMissionProjection,
++  mergeMissionSteps,
++  qualifyStudioIntent,
++} from "./intent-conduction";
++import { updatePreview } from "@/domains/preparation/service";
 
  export async function listMessages(pilotId: string, preparationId: string) {
++  // READ ≠ COMMAND: listing must not dispatch Git or mutate effects.
    const ctx = await getPreparationContext(pilotId, preparationId);
-+  // P0-B: reconnection / chat reload — recover AUTHORIZED Nora missions without "continue".
-+  if (ctx.project?.id) {
-+    try {
-+      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
-+    } catch {
-+      /* never block message listing */
-+    }
-+  }
    if (!ctx.conversation) return [];
    return db
-     .select()
-@@ -191,6 +209,8 @@ export type TurnResult = {
+@@ -191,6 +212,8 @@ export type TurnResult = {
      effects?: Array<{ effectKind: string; targetRef: string }>;
    } | null;
    reconciled?: boolean;
@@ -1480,11 +2188,12 @@ index bf86345c..9997ac86 100644
  };
 
  function pilotageEffectFromAuthority(
-@@ -261,6 +281,15 @@ export async function postUserMessageAndNora(
+@@ -261,6 +284,29 @@ export async function postUserMessageAndNora(
    const ctx = await getPreparationContext(pilotId, preparationId);
    if (!ctx.conversation) throw new StudioError("NOT_FOUND", "Préparation introuvable");
 
-+  // P0-B: next nominal turn recovers AUTHORIZED Nora missions (crash after D6).
++  // Governed recovery (COMMAND path only — never from listMessages READ).
++  // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
 +  if (ctx.project?.id) {
 +    try {
 +      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
@@ -1493,20 +2202,34 @@ index bf86345c..9997ac86 100644
 +    }
 +  }
 +
++  // Multi-domain continuity: if prior turn awaited D2 Pilot act and project now exists, advance.
++  let carriedMission: MissionProjection | null = null;
++  try {
++    const priorMission = await loadPriorMissionProjection(ctx.conversation.id);
++    if (priorMission?.status === "AWAITING_PILOT_ACT" && ctx.project?.id) {
++      carriedMission = advanceMissionAfterProjectCreated(priorMission, ctx.project.id);
++    } else if (priorMission && priorMission.status !== "COMPLETED") {
++      carriedMission = priorMission;
++    }
++  } catch {
++    carriedMission = null;
++  }
++
    const clientTurnKey =
      opts?.clientTurnKey?.trim() ||
      opts?.correlationKey?.trim() ||
-@@ -585,6 +614,9 @@ export async function postUserMessageAndNora(
+@@ -585,6 +631,10 @@ export async function postUserMessageAndNora(
    let ownershipLostBeforeD4 = false;
    const documentAct = qualifyDocumentAct(content);
    const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
 +  const missionIntent = qualifyPublicationMission(content);
++  const studioIntent = qualifyStudioIntent(content);
 +  const clientIntentKey = clientTurnKey;
 +  const missionKeys = missionCorrelationKeys(clientIntentKey);
    // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
    emitDocumentActQualificationObs({
      requestId,
-@@ -661,7 +693,9 @@ export async function postUserMessageAndNora(
+@@ -661,7 +711,9 @@ export async function postUserMessageAndNora(
                {
                  correlationKey: opts?.correlationKey
                    ? `doc:${opts.correlationKey}`
@@ -1517,7 +2240,7 @@ index bf86345c..9997ac86 100644
                  provenance: {
                    sourceKind: "nora",
                    generationId: reply.generationId,
-@@ -937,9 +971,170 @@ export async function postUserMessageAndNora(
+@@ -937,9 +989,231 @@ export async function postUserMessageAndNora(
              }
            : null;
 
@@ -1679,6 +2402,67 @@ index bf86345c..9997ac86 100644
 +    }
 +  }
 +
++  // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
++  if (
++    !ownershipLostBeforeD4 &&
++    studioIntent.wantsProjectCreate &&
++    !ctx.project?.id
++  ) {
++    const proposed =
++      studioIntent.proposedProjectName?.trim() ||
++      content.match(/projet\s+[«"]?([^»"\n.]{2,80})/i)?.[1]?.trim() ||
++      "Nouveau projet";
++    try {
++      await updatePreview(
++        pilotId,
++        preparationId,
++        proposed.slice(0, 120),
++        `Intention Nora — création de projet «${proposed}». Acte Pilote requis.`,
++      );
++    } catch {
++      /* preview best-effort */
++    }
++    let d2Mission = emptyMission(
++      clientIntentKey,
++      `Création de projet «${proposed}» — attente acte Pilote`,
++    );
++    d2Mission = mergeMissionSteps(d2Mission, [buildD2AwaitingStep(proposed)], "AWAITING_PILOT_ACT");
++    if (studioIntent.documentAct.kind === "CREATE" || studioIntent.publication.wantsPublish) {
++      d2Mission = mergeMissionSteps(d2Mission, [
++        buildPendingDocumentStep("CREATE"),
++      ]);
++    }
++    missionProjection = d2Mission;
++  } else if (
++    !missionProjection &&
++    carriedMission &&
++    (carriedMission.status === "ACTIVE" || carriedMission.status === "AWAITING_PILOT_ACT")
++  ) {
++    // Resume carried multi-domain mission after D2 confirmed (or still waiting).
++    if (documentEffectForAck?.status === "AVAILABLE" && documentEffectForAck.documentId) {
++      const steps = carriedMission.steps.map((s) =>
++        s.id === "d4_create" || s.capabilityId === "d4.create_document"
++          ? {
++              ...s,
++              status: "DONE" as const,
++              documentId: documentEffectForAck.documentId,
++              revisionId: documentEffectForAck.revisionId,
++            }
++          : s,
++      );
++      missionProjection = {
++        ...carriedMission,
++        steps,
++        status: steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
++          ? "ACTIVE"
++          : "COMPLETED",
++        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
++      };
++    } else {
++      missionProjection = carriedMission;
++    }
++  }
++
    const assistantContentForCommit = ownershipLostBeforeD4
      ? reply.content
 -    : appendDocumentEffectAck(reply.content, documentEffectForAck);
@@ -1689,7 +2473,7 @@ index bf86345c..9997ac86 100644
 
    const confirmedCapitalisations = capitalisation.capitalisations.filter(
      (c) => c.status === "AVAILABLE",
-@@ -1030,6 +1225,7 @@ export async function postUserMessageAndNora(
+@@ -1030,6 +1304,7 @@ export async function postUserMessageAndNora(
      idempotentReplay: false,
      humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
      pilotageEffect: pilotageEffectFromAuthority(authority),
@@ -1700,7 +2484,7 @@ index bf86345c..9997ac86 100644
 ```
 
 
-### DIFF `projects/sfia-studio-next/web/src/components/integrations/PublicationInspectionPanel.tsx`
+### DIFF vs base `projects/sfia-studio-next/web/src/components/integrations/PublicationInspectionPanel.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/integrations/PublicationInspectionPanel.tsx b/projects/sfia-studio-next/web/src/components/integrations/PublicationInspectionPanel.tsx
@@ -1733,14 +2517,14 @@ index e0d4a6d3..b124860b 100644
 ```
 
 
-### DIFF `projects/sfia-studio-next/construction/delivery-history.md`
+### DIFF vs base `projects/sfia-studio-next/construction/delivery-history.md`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 408e3dad..e1f8699c 100644
+index 408e3dad..a36b1c73 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,52 @@
+@@ -3,6 +3,66 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
@@ -1790,6 +2574,20 @@ index 408e3dad..e1f8699c 100644
 +| Schema | unchanged |
 +| Status | LOCAL CONSTRUCTION — NO PRODUCT PUSH / RECETTE |
 +
++## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-03
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-10 (Europe/Paris) |
++| Macro-lot | R5 / Continuité cognitive GLOBALE — mise en conformité transverse |
++| Type | EVOL (NO RELEASE) |
++| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
++| Parent | DEV-02 @ `f42cb2f5` |
++| Lane | DEV only; RECETTE untouched |
++| Changes | intent-conduction D3 commun; D2 await Pilot act + reprise; READ≠COMMAND (listMessages); scénarios A/B/C/D/I/K + ACCEPT-01; contrats d'extensibilité |
++| Schema | unchanged |
++| Status | LOCAL CONSTRUCTION — NO PRODUCT PUSH / RECETTE |
++
  ## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
 
  | Field | Value |
@@ -1798,130 +2596,76 @@ index 408e3dad..e1f8699c 100644
 
 ---
 
-## 11. Contrats D2–D9 (résumé vérifié)
+## 11–14. Tests
 
-- D2 : acte explicite createProjectCommand — non contourné
-- D3 : Continue faits ; recover nominal ; pas d'authorize dans chat
-- D4 : correlation `doc:mission:` si publish ; Continue après AVAILABLE
-- D6 : authorizePublication crée HD ; mission resume seulement si `pub:mission:`
-- D7/D9 : prepare/dispatch/reconcile owners ; classic panel inchangé (manual dispatch)
-
----
-
-## 12. Scénarios non Git et preuves
-
-| ID | Résultat | Preuve |
-|---|---|---|
-| T01 dialogue simple | PASS | PG — pas de missionProjection / pas D4 write |
-| T03 CREATE sans publish | PASS | PG — doc AVAILABLE ; pas de D7 mission |
-| T02 D2 mission auto | NON PROUVÉ | acte D2 inchangé ; pas de conductor D2 |
-| T05/T06 mission | NON PROUVÉ | owners existants non rebranchés en mission générique |
-| T09 multi-domaine non Git fort | PARTIAL | D4 Create+Continue oui ; enchaînement D2→D4 mission **gap** |
-
----
-
-## 13. ACCEPT-01 et preuves
-
-Chaîne DEV SCRIPTED : CREATE→prepare→PREPARED sans HD→authorize→recover/resume→COMPLETED→restitution idempotente.
-
-| Test | Résultat |
+| Suite | Résultat |
 |---|---|
-| unit mission-continuity | **7 PASS** |
-| PG ACCEPT-01 suite | **8 PASS** |
-| NR CREATE subset | **3 PASS** |
-| tsc / eslint / next build | **PASS** |
+| unit intent-conduction | 5 PASS |
+| unit mission-continuity | 7 PASS |
+| PG global A/B/C/D/I/K + READ≠COMMAND | 6 PASS |
+| PG ACCEPT-01 | 8 PASS |
+| NR CREATE + REVISE subset | 3 PASS |
+| tsc / eslint / next build | PASS |
+
+Scénarios : A dialogue · B D2 Pilot act · C+D CREATE→REVISE réel · I multi D2→D4 · H ACCEPT-01 · K contrats · READ≠COMMAND.
+
+Gaps tests ce cycle : F knowledge deep · F/G D5/D6 full re-run · browser · LIVE/REAL · L STOP exhaustif.
 
 ---
 
-## 14. Crash / reprise / STOP / concurrence
+## 15–16. Reprise / sécurité
 
-| Fenêtre | Preuve |
-|---|---|
-| AUTHORIZED sans resume immédiat | recoverAuthorizedNoraMissions PASS |
-| Replay clientTurnKey | PASS |
-| Double resume restitution | ≤1 message `mission-resume:*` PASS |
-| Classic authorize sans mission | reste AUTHORIZED PASS |
-| STOP/révocation concurrente | **NON PROUVÉ** |
-| Browser HTTP authorize | **NON PROUVÉ** (code route + tests service) |
-
-Progression réelle P0-B : (1) resume immédiat si mission dans authorize HTTP ; (2) sinon recover au prochain `listMessages` / `postUserMessageAndNora` / `reconcile` — **pas** de scheduler autonome.
+- Crash AUTHORIZED mission → recover on next **command** turn / reconcile
+- listMessages lecture pure
+- Classic authorize reste AUTHORIZED (prouvé)
+- HD seulement sur acte Pilote
 
 ---
 
-## 15. Tests HTTP/browser
+## 17–19. Fake/Real · ENV · NR
 
-- Routes authorize/reconcile : code modifié inspecté ; tests via services + recover (pas de harness session HTTP dédié) → **DETERMINISTIC / PG** ; browser **NON PROUVÉ**
-
----
-
-## 16. Fake/Real
-
-Nora fixture · GitHub SCRIPTED · PG DEV · REAL/LIVE/RECETTE **hors mandat**
+Fixture+SCRIPTED+PG DEV · NO RELEASE · RECETTE intacte · NR CREATE/REVISE subset PASS
 
 ---
 
-## 17. ENV-01 / versioning
+## 20–22. Anti-doublon · extensibilité · matrice cadrage
 
-DEV isolé ; RECETTE intacte ; NO RELEASE ; MINOR CANDIDATE
-
----
-
-## 18. Non-régression
-
-CREATE conversational + A-R12 + REC-10 subset PASS ; REC-07/11 full non rejoués → réserve
+- Pas de WorkIntent / second runner / second permissions
+- CAPABILITY_CONTRACTS = mapping d'intégration
+- Exigences §§1–10 : conduite multi-domaines démontrée D2+D4+Git ; D5/D6 via path existant ; gaps knowledge browser documentés
 
 ---
 
-## 19. Risques / dette / exit
+## 23–26. Gaps · dette · rollback
 
-- Mission Git encore le chemin le plus complet ; D2/D5/D6 mission générique en dette
-- `autoResumeMission:false` reste escape hatch test (membership serveur prime)
-- Rollback : revert `b0e23c46..f42cb2f5` sur feat local
-
----
-
-## 20. Écarts couverture globale
-
-- Orchestration mission D2/D5/D6 non Git
-- Browser / NORA LIVE / GITHUB REAL
-- Fault injector process crash
+Gaps : orchestration D5/D6 mission générique au-delà du path authority ; browser ; REAL
+Rollback : revert feat `b0e23c46..12e26e32` local
 
 ---
 
-## 21. Arbitrages Morris éventuels
+## 27. Verdict
 
-- Extension mission générique hors Git (si souhaitée) → nouveau GO
-- Scheduler durable vs recover-on-nominal-event (choix actuel documenté)
-
----
-
-## 22. Verdict unique
-
-**NORA/STUDIO TRANSVERSE CONTINUITY — NOMINAL D3 INTEGRATION QUALIFIED IN DEV — ACCEPT-01 AND NON-GIT SCENARIOS VERIFIED AT REPORTED EVIDENCE LEVEL — NO PARALLEL ENGINE — READY FOR CHATGPT REVIEW — NO PRODUCT PUSH OR RECETTE AUTHORIZED**
+**NORA/STUDIO GLOBAL INTENT CONTINUITY — EXISTING CAPABILITIES INTEGRATED — MULTI-DOMAIN BEHAVIOR VERIFIED AT REPORTED LEVEL — NOMINAL ARCHITECTURE PRESERVED — READY FOR CHATGPT ACCEPTANCE REVIEW — NO PRODUCT PUSH OR RECETTE AUTHORIZED**
 
 ---
 
-## 23. Git Review Index
+## 28. Git Review Index
 
 | Artefact | SHA |
 |---|---|
-| Feat HEAD | `f42cb2f59d5611d596fb258d8344a046940f2032` |
-| Feat tree | `0cc1d2b8e65a426d4e21b1e85a723b9963ec3c8a` |
-| Base / fix | `d7f1507a` / `3e9e1086` |
-| Handoff précédent | `4e6431c8` / `5cac17f7` |
-| RECETTE BUILD | `8vZjme4-KnnPkAqm_QxMz` |
-
-**STOP** — pas de push Product.
+| HEAD | `12e26e323a609646bbd437870aca9314c215c9ed` |
+| tree | `dcd83f08d487e820995fc6a7105757e9e8a69a7a` |
+| base/fix | `d7f1507a` / `3e9e1086` |
+| prev handoff | `69767f66` / `908a4ba8` |
 
 ---
 
-## 24. Contrôle §7.2.1
+## 29. §7.2.1
 
-| Checklist | Valeur |
+| Check | Value |
 |---|---|
 | created files full content | **yes** |
-| modified sections complete | **yes** (full small routes + complete diffs service/panel/history) |
+| modified sections complete | **yes** |
 | useful diff included | **yes** |
 | synthesis only | **no** |
 | review pack verdict | **complete** |
-| §7.6 | Pack large — créations + diffs critiques non tronqués |
