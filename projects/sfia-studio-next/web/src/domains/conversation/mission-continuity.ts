@@ -50,6 +50,14 @@ export type MissionStep = {
   reason?: string;
 };
 
+export type MissionOwnerActBinding = {
+  kind: "D2_CREATE_PROJECT";
+  preparationId: string;
+  clientIntentKey: string;
+  /** Recommended createProjectCommands.idempotencyKey correlation (not a second journal). */
+  suggestedIdempotencyKey: string;
+};
+
 export type MissionProjection = {
   clientIntentKey: string;
   status: MissionStatus;
@@ -63,6 +71,10 @@ export type MissionProjection = {
   pendingDocumentBrief?: string;
   /** Preparation that owns this mission (scope anchor). */
   preparationId?: string;
+  /** Exact project name proposed for D2 preview / act correlation. */
+  proposedProjectName?: string;
+  /** Durable binding of the awaited owner act to this intention. */
+  ownerActBinding?: MissionOwnerActBinding;
 };
 
 export type PublicationMissionIntent = {

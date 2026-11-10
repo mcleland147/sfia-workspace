@@ -13,6 +13,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       projectName?: string;
       previewSummary?: string;
       idempotencyKey?: string;
+      /** Exact mission that awaited this D2 act (G2 correlation). */
+      clientIntentKey?: string;
     };
     if (
       typeof body.expectedCreationRevision !== "number" ||
@@ -31,7 +33,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
     });
     const sideEffects = probeCreateProjectSideEffects();
 
-    // GAP-01/06: after D2 confirms create, continue same intention (COMMAND path only).
+    // After D2 confirms create, continue same intention (COMMAND path only).
     let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
     if (
       (result.status === "CREATED" || result.status === "ALREADY_CREATED") &&
@@ -43,6 +45,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
           pilotId: session.pilotId,
           preparationId,
           projectId: result.projectId,
+          projectName: body.projectName,
+          clientIntentKey: body.clientIntentKey ?? null,
         });
       } catch {
         missionContinue = {

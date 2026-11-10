@@ -461,6 +461,28 @@ export default function PreparationPage() {
 
   async function createProject() {
     setBusy(true);
+    // G2: bind D2 act to the awaiting mission when the chat surface exposes clientIntentKey.
+    let clientIntentKey: string | undefined;
+    try {
+      const chatRes = await fetch(`/api/preparations/${preparationId}/messages`);
+      if (chatRes.ok) {
+        const chatJson = (await chatRes.json()) as {
+          messages?: Array<{ role: string; content: string }>;
+        };
+        const msgs = chatJson.messages ?? [];
+        for (let i = msgs.length - 1; i >= 0; i -= 1) {
+          const m = msgs[i];
+          if (m?.role !== "assistant") continue;
+          const match = m.content.match(/clientIntentKey=([^\s\n]+)/);
+          if (match?.[1] && /AWAITING_PILOT_ACT/.test(m.content)) {
+            clientIntentKey = match[1];
+            break;
+          }
+        }
+      }
+    } catch {
+      /* best-effort correlation — create still proceeds */
+    }
     const res = await fetch(`/api/preparations/${preparationId}/create-project`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -468,7 +490,10 @@ export default function PreparationPage() {
         expectedCreationRevision: creationRevision,
         projectName: previewName || "Projet sans titre",
         previewSummary,
-        idempotencyKey,
+        idempotencyKey: clientIntentKey
+          ? `d2:mission:${clientIntentKey}`
+          : idempotencyKey,
+        clientIntentKey,
       }),
     });
     const j = await res.json();

@@ -3,6 +3,8 @@ import {
   CAPABILITY_CONTRACTS,
   advanceMissionAfterProjectCreated,
   buildD2AwaitingStep,
+  buildD2OwnerActBinding,
+  d2MissionIdempotencyKey,
   emptyMission,
   extractProposedProjectName,
   mergeMissionSteps,
@@ -50,12 +52,19 @@ describe("intent-conduction (domain-agnostic D3)", () => {
     expect(q.pendingDocumentBrief).toMatch(/document de cadrage/i);
   });
 
+  it("G2: D2 owner act binding is durable and explicit", () => {
+    const binding = buildD2OwnerActBinding("prep_1", "ctk_abc");
+    expect(binding.kind).toBe("D2_CREATE_PROJECT");
+    expect(binding.suggestedIdempotencyKey).toBe(d2MissionIdempotencyKey("ctk_abc"));
+    expect(binding.clientIntentKey).toBe("ctk_abc");
+  });
+
   it("P1-E: GitHub mention alone is not publish", () => {
     const q = qualifyStudioIntent("Explique GitHub Actions dans Studio");
     expect(q.publication.wantsPublish).toBe(false);
   });
 
-  it("Scenario K: mobilizeCapability invokes owner adapter (not metadata-only)", async () => {
+  it("Scenario K/G4: mobilizeCapability invokes owner adapter (not metadata-only)", async () => {
     const contract = CAPABILITY_CONTRACTS.find(
       (c) => c.capabilityId === "future.example_capability",
     )!;

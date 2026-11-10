@@ -56,6 +56,7 @@ import {
 import {
   advanceMissionAfterProjectCreated,
   buildD2AwaitingStep,
+  buildD2OwnerActBinding,
   buildPendingDocumentStep,
   emptyMission,
   loadPriorMissionProjection,
@@ -1182,6 +1183,8 @@ export async function postUserMessageAndNora(
       originalUserText: content,
       pendingDocumentBrief: studioIntent.pendingDocumentBrief ?? undefined,
       preparationId,
+      proposedProjectName: proposed,
+      ownerActBinding: buildD2OwnerActBinding(preparationId, clientIntentKey),
     };
     d2Mission = mergeMissionSteps(d2Mission, [buildD2AwaitingStep(proposed)], "AWAITING_PILOT_ACT");
     if (

@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-05
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-10 (Europe/Paris) |
+| Macro-lot | R5 / Continuité globale — fiabilisation G1–G7 |
+| Type | EVOL — même macro-lot (MINOR CANDIDATE, NO RELEASE) |
+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
+| Parent | DEV-04 @ `5c6b0cee` |
+| Lane | DEV only; RECETTE `8vZjme4-KnnPkAqm_QxMz` untouched |
+| Changes | Latest-per-intentKey mission load (G1/G3); ownerActBinding + clientIntentKey D2 correlation (G2); mobilizeCapability on real D2/D4 (G4); advisory lock + RUNNING continuation fence (G5/G6); S07 knowledge + S08b D5→D4; UI create-project passes clientIntentKey |
+| Schema | unchanged |
+| Tests | unit 8 PASS; PG global 13 PASS; PG ACCEPT-01 8 PASS; tsc/eslint/build PASS; browser S14 NOT PROVEN (no DEV server :3100) |
+| Status | LOCAL FINALISATION — READY FOR CHATGPT GLOBAL REVIEW — NO PRODUCT PUSH |
+
 ## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-04
 
 | Field | Value |
