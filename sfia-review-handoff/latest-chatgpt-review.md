@@ -1,10 +1,10 @@
 # SFIA Studio Next — Review Pack FULL (CRITICAL)
-# Cycle 8 — Nora workspace context & mission isolation — DEV-08
+# Cycle 13 — PR Readiness / Local Integration Candidacy ML4 + Nora
 
 **Date:** 2026-11-10 (Europe/Paris)
-**Profil:** CRITICAL — FULL mono-cycle
-**Publisher:** Cursor (construction DEV)
-**Statut:** NO RELEASE — NO PRODUCT PUSH — READY FOR CHATGPT ACCEPTANCE REVIEW
+**Profil:** CRITICAL — FULL mono-cycle — INTÉGRATION TRANSVERSE
+**Publisher:** Cursor (intégration locale only)
+**Statut:** NO RELEASE — NO PRODUCT PUSH — NO PR CREATED — READY FOR MORRIS PUSH/PR DECISION
 
 ---
 
@@ -12,787 +12,301 @@
 
 | Item | Value |
 | --- | --- |
-| Product branch | feat/next-nora-intent-continuity-20261110 |
-| Product HEAD | e40a1baffc5f7060f3cd5456571b9fe4bd7d1819 |
-| Product tree | f0940e2584e26acabf4a4a4efc513a1a4a6553f4 |
-| Parent DEV-07 | 833a3e6cef11eb3ea4228733ec5d8af324105a55 / cd848158 |
-| Base / fix WT | d7f1507a / tree 3e9e1086 |
-| Prior handoff | 7d1aff39 blob c96e03c4 |
-| Main distant (entry) | 6667a43858a5421e391b7441246536daad148bd6 |
+| Integrator branch (local) | integrate/next-ml4-nora-pr-readiness-20261110 |
+| Integrator HEAD | 66902a8b02096838415aa7aae78a8f0be2699ccb |
+| Integrator tree | da8971c77398b264b3870b13ebc5298e7c111fa1 |
+| origin/main | 6667a43858a5421e391b7441246536daad148bd6 |
+| Nora Product tip (preserved) | e40a1baffc5f7060f3cd5456571b9fe4bd7d1819 |
+| Fix WT tip (preserved) | d7f1507a56e50660ea24903c2dc563c249ba9086 / tree 3e9e1086 |
+| Prior handoff | e5d144a0 blob 13c1dc9d |
+| Commits ahead of main | 40 |
+| Diff shortstat vs main | 111 files changed, 27200 insertions(+), 88 deletions(-) |
+| Outside projects/sfia-studio-next | NONE |
 | Product pushed | NO |
+| PR created | NO |
 | RECETTE mutated | NO |
 
 ---
 
 ## 02. Sources et décisions
 
-- Cadrage Morris blob 2322644a §§1–10 (contrat)
-- D3 contexte-et-conduite-gouvernee-de-nora.md blob 650d8ea7 — RG-CTX-001..008, PF-03/06/08/15/16
-- D2 creation-de-projet-et-continuite-du-sas.md blob b75fb54a
-- SEF / roadmap / ENV / versioning / naming (main)
+- SEF / roadmap / ENV-01 / versioning / naming (main)
+- cadrage-r4.md; conception D1–D9 pertinentes
+- Cadrage Nora 10/11 blob 2322644a (désormais dans la candidature)
+- Registre RECETTE R01–R14 (fichier inclus)
+- delivery-history DEV-01..08 + entrée PR-READINESS
 - SFIA v2.6 routing 3315bbae + template f4fdb488
-- Review Pack DEV-07 (handoff 7d1aff39)
+
+### Décision Morris 10/11/2026 (tracée)
+
+RECETTE ML4 — TERMINÉE AVEC RÉSERVES PAR DÉCISION MORRIS.
+R13/R14 — NOT RUN — RÉSERVES REPORTÉES.
+Ne transforme pas NOT RUN en PASS.
+Ne vaut pas GO de merge / ADOPTED / STABLE / RELEASED.
 
 ---
 
-## 03. Intention produit Morris
+## 03. Intention de ce cycle
 
-Une seule Nora D3. Espace courant = sas avant création, projet confirmé après.
-Mission courante ≠ autre mission du même fil.
-ESPACE COURANT ≠ SOURCE CONSULTÉE.
-Lectures interprojets n'apportent pas d'autorité.
+Préparer UNE candidature locale intégrée pour PR readiness.
+Aucun développement fonctionnel.
+Aucune campagne RECETTE.
+Aucune correction opportuniste UX.
 
 ---
 
-## 04. Diagnostic Q1–Q5 (avant correction)
+## 04–06. Synthèse d'intégration (A–N)
 
-| Q | Constat | Statut |
+### A. Travaux déjà mergés sur main
+
+| PR | Contenu | Merge |
 | --- | --- | --- |
-| Q1 sas/projet | getPreparationContext / getOwnedProjectContext via preparation_project_links; conversation.projectId après create | PASS — protections existantes |
-| Q2 autre prep/projet | recover filtre conversations.projectId + ownerPilotId; D4 tools scoped preparationId | PASS isolation inter-espaces |
-| Q3 mauvaise mission même fil | FAIL reproduit: awaiting.length===1 pouvait sélectionner une mission voisine avant create_project_commands | FAIL → corrigé |
-| Q4 contexte Nora | continue injecte projectId/preparationId du projet courant; tools D4 = prep courante | PASS (fixture) |
-| Q5 lecture interprojet change contexte | Outil Nora consultation Orion→Atlas NON IMPLÉMENTÉ; search D4 borné à la prep courante | N/A — NON IMPLÉMENTÉ |
+| #663 | docs ML4/ML5 préparation | d37ea088 (historique) |
+| #669 | G4 convergence UX | ebf3d150 |
+| #670 | G4 post-merge Pilotage CI | c658f590 |
+| #671 | docs ML4 historique + cahier E2E | 6667a438 (= origin/main tip) |
 
-### Écart reproduit
+G4 UX est ancêtre de la candidature Nora (ebf3d150 / c658f590 ⊆ HEAD).
 
-Après continuation COMPLETED de mission A, mission B seule encore AWAITING.
-Ancien code: else if (awaiting.length === 1) clientIntentKey = B → risque de continuer B sur le projet de A.
-Après correction: owner act d2:mission:A prioritaire; B jamais sélectionnée.
+### B. Travaux locaux / distants encore candidats (avant consolidation)
 
----
+| Ref | SHA | Rôle |
+| --- | --- | --- |
+| feat/next-git-collaboration-20261108 | 51b0c3b6 | ML4 Git Product (distant) |
+| fix/next-ml4-chat-first-d4-provenance-20261109 | d7f1507a | base fix WT |
+| feat/next-nora-intent-continuity-20261110 | e40a1baf | Nora DEV-01..08 Product local |
+| docs/next-nora-intent-continuity-cadrage-20261110 | 69c27832 | cadrage validé |
+| docs/next-ml4-recette-utilisateur-20261109 | 2075aa4f | registre R01–R14 |
 
-## 05. Protections existantes conservées
+### C. Commits réellement retenus
 
-- Une Nora D3 / pas d'instance par projet
-- authorizeMissionBoundD2Create avant mutate (DEV-07)
-- xact lock + ownerToken continuation
-- GET/listMessages sans mutation
-- Classic create sans mission
+Toute la lignée `origin/main..HEAD` (40 commits), notamment:
+- ML4 Git collaboration + preuves
+- Correctifs ML4 post-RECETTE jusqu'à d7f1507a
+- Nora ACCEPT-01 + continuité DEV-01..08 jusqu'à e40a1baf
+- 3 merges d'intégration locale (main handbook, cadrage, registre)
+- docs delivery-history PR-readiness
 
----
+Log:
 
-## 06. Correction (uniquement cause démontrée)
+```
+66902a8b docs(next): record ML4+Nora local PR-readiness integration candidacy
+b8fe9a94 integrate(next): include ML4 RECETTE R01–R14 anomalies register
+b299d92f integrate(next): include validated Nora intent continuity cadrage
+0af4d5ac integrate(next): merge main docs handbook onto ML4+Nora continuity candidacy
+e40a1baf fix(studio-next): bind mission recovery to D2 owner act for the project
+833a3e6c fix(studio-next): authorize D2 before mutate and recover mission continuation
+3fac229f fix(studio-next): replace session locks with turn fencing and structured D2 binding
+f99e4501 fix(studio-next): harden durable mission identity, D2 correlation, and recovery
+5c6b0cee feat(studio-next): finalize single-intent D2→D4 continuity without second Pilot message
+12e26e32 feat(studio-next): global intent continuity across D2/D4 and common D3
+f42cb2f5 fix(studio-next): gate Nora mission resume and harden continuity
+cf5bac70 fix(studio-next): reflect missionResume after authorize and prove replay
+b0e23c46 feat(studio-next): implement ACCEPT-01 mission continuity in D3 nominal path
+69c27832 docs(next): capture validated Nora Studio end-to-end intent continuity requirements
+2075aa4f docs(next): record ML4 G1 targeted recette retest and Nora/Studio reservation
+d7f1507a fix(studio-next): qualify Git FILE_ABSENT and align D4 ACK/provenance
+60f6c046 docs(next): finalize ML4 user recette campaign 1, R11-R14 and 22 acceptance criteria
+771844fd fix(studio-next): close CREATE_PLEASE_RE cross-clause authority gap
+5ed702cb fix(studio-next): harden CREATE clause scoping and prove NOT_EXECUTED on PG path
+8eab1317 fix(studio-next): qualify CREATE with complements and restore loyal D4 pre-effect observability
+63838773 docs(next): consolider résultats ML4 R06-H à R10 et arbitrage responsive UX
+93da44be fix(studio-next): isolate illustrative fences from contractual sfia-document proposals
+0b02de41 fix(studio-next): harden sfia-document fence scanning against nested code
+9694cc71 fix(studio-next): integrate A+B+D chat-first document proposal boundary
+81fe9672 docs(ml4): trace R06-G LIVE section scope refusal and preserve prior retests
+8ba77730 fix(studio-next): resolve numbered D4 section targeting and Nora ACK truth
+9db2ae2a docs(ml4): trace R06 retest live section resolution failure
+a2c5e9f8 fix(studio-next): resolve quoted D4 titles and sole applicative revise verdict
+1fedb9ff fix(studio-next): harden chat-first D4 intent, section integrity, and ACK coherence
+f1b49e20 fix(studio-next): chat-first D4 create/revise ACK and Git blob/commit provenance
+8b3e24de docs(ml4): confirm R06 chat-first failure in follow-up D4 UI evidence
+fb69f2e1 docs(ml4): record R06 chat-first D4 revision failure and UI truth gap
+9dffb553 docs(ml4): record R05 source authority boundary and repeat blob-SHA defect
+72cc3809 docs(ml4): requalify R04 provenance and propose direct GitHub source access
+c21b646a docs(ml4): record R04 source-read result and Git provenance defect
+63b091e2 docs(ml4): record user recette R01-R03 findings and open reserves
+974b0030 fix(studio-next): bind GitHub App identity to STUDIO_LANE for RECETTE
+51b0c3b6 fix(studio-next): bind publication reconciliation to effect provider provenance
+d4f158ce fix(studio-next): enforce documentary publication proof invariants
+79b10052 feat(studio-next): add governed Git collaboration and document publishing
+```
 
-recoverPendingMissionContinuation ordre:
+### D. Branches doublonnées / devenues sans objet comme tête PR unique
 
-1. incomplete mission-continue:*:projectId (si mismatch owner act → MISSION_OWNER_ACT_MISMATCH)
-2. create_project_commands idempotency d2:mission:* pour CE projet
-3. sinon NOTHING_PENDING — jamais fallback « seule mission en attente »
+- feat/next-git-collaboration-20261108 — ancêtre; ne pas pousser séparément
+- feat/next-nora-intent-continuity-20261110 @ e40a1baf — tip Product préservé; contenu inclus; tête PR proposée = integrator
+- docs branches cadrage / registre — contenu inclus; branches distantes peuvent rester jusqu'au GO Morris de suppression (non fait ici)
 
-Pas de nouvelle table / second registre / STOP structural.
+### E. SHA/tree candidature locale
 
----
+- Branch: integrate/next-ml4-nora-pr-readiness-20261110
+- HEAD: 66902a8b02096838415aa7aae78a8f0be2699ccb
+- tree: da8971c77398b264b3870b13ebc5298e7c111fa1
 
-## 07–11. Séparation / interprojet / décisions / reprise / concurrence
+### F. Diff contre main
 
-- Sas→projet: même conversation, projectId attaché après CREATED
-- Interprojet lecture Nora: N/A non implémenté; isolation par scope prep
-- Décisions/cycles: S08/S09/ACCEPT-01 inchangés
-- Reprise S06/S07 owner-act bound; concurrence G3 conservée
+111 files changed, 27200 insertions(+), 88 deletions(-)
+Périmètre: projects/sfia-studio-next/ uniquement (hors Next: NONE).
+Migrations ajoutées vs main:
 
----
+```
+projects/sfia-studio-next/web/src/db/migrations/008_git_collaboration.sql
+projects/sfia-studio-next/web/src/db/migrations/009_publication_ref_attempt_unique.sql
+projects/sfia-studio-next/web/src/db/migrations/010_github_app_user_oauth.sql
+projects/sfia-studio-next/web/src/db/migrations/011_oauth_session_binding.sql
+projects/sfia-studio-next/web/src/db/migrations/012_auth_concurrency_safety.sql
+```
 
-## 12–16. Tests
+### G. Migrations et compatibilité
+
+008_git_collaboration.sql
+009_publication_ref_attempt_unique.sql
+010_github_app_user_oauth.sql
+011_oauth_session_binding.sql
+012_auth_concurrency_safety.sql
+
+Ordre numérique conservé. Aucune migration nouvelle ce cycle.
+RECETTE build existant ne doit pas être muté par ce lot.
+Risque post-merge: appliquer 008–012 sur lanes DEV/RECETTE selon ENV-01 (hors mandat ici).
+
+### H. Tests exécutés sur la candidature
 
 | Suite | Résultat | Lane |
 | --- | --- | --- |
-| unit intent-conduction | 8 PASS | — |
-| PG global | 21 PASS (incl. S06/S07/S05/S06b) | DEV :5433 |
-| ACCEPT-01 | 8 PASS | DEV |
-| Playwright Atlas | 2 PASS | E2E :3101 |
-| tsc / next build | PASS | — |
+| unit intent-conduction + mission-continuity | 15 PASS | — |
+| PG intent-continuity-global | 21 PASS | DEV :5433 |
+| PG ACCEPT-01 | 8 PASS | DEV :5433 |
+| tsc --noEmit | PASS | — |
+| next build | PASS | — |
 
-SHA/tree preuves: e40a1baffc5f7060f3cd5456571b9fe4bd7d1819 / f0940e2584e26acabf4a4a4efc513a1a4a6553f4
+Niveau: DEV DETERMINISTIC / fixture. NOT LIVE. NOT REAL. NOT RECETTE campaign.
 
----
+### I. Réserves acceptées / tests non exécutés (Morris)
 
-## 17–19. ENV / Fake-Real / Versioning
+- R13 / R14: NOT RUN — réserves reportées
+- Autres écarts ML4 documentés dans recette-ml4-r01-r14-anomalies.md conservent leur statut réel (PARTIAL, OPEN, SERVER NOT RUN, etc.)
+- Nora continuity: réalisation DEV bornée (fixtures / SCRIPTED) — pas RECETTE acceptée
+- Interprojet Nora read: N/A non implémenté (DEV-08)
+- Responsive UX mineurs: report convergence UX
 
-DEV :5433; E2E :3101/sfia_next_e2e; RECETTE :5434 untouched.
-Nora FAKE; Git SCRIPTED; Browser FIXTURE.
-EVOL / MINOR CANDIDATE; NO RELEASE; delivery-history DEV-08.
+### J. Réserves éventuellement bloquantes pour merge
 
----
+Aucune réserve d'intégration structurelle (conflits résolus; merge-tree clean; hors Next vide).
+Bloquants métier/REAL (R13/R14, Git REAL, ML4-AT-13 merge REAL) restent **hors GO merge** et doivent être assumés comme réserves portées — Morris a déjà clos la campagne avec ces réserves.
+CI GitHub sur la future PR: non exécutée ici (pas de push).
 
-## 20. Matrice exigence → preuve
+### K. Proposition de PR unique
 
-| Exigence | Protection | Gap | Correction | Test | Résultat | Preuve | Réserve |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Espace courant réel | getOwnedProjectContext | non | — | S02/S03/E2E | PASS | PG+browser | — |
-| Bonne mission reprise | owner act D2 | OUI (awaiting fallback) | recover reorder | S06/S07/S06b | PASS | PG | — |
-| Isolation 2 projets | conv.projectId | non | preuves | S05 | PASS | PG | — |
-| 2 missions même fil | owner act | OUI | recover | S06 | PASS | PG | — |
-| Interprojet lecture | prep-scoped tools | N/A non impl. | aucune invention | S09/S10 | N/A | code review | capacité future |
-| Décision/cycle non transférés | owners D5/D6 | non | — | S08/S09 | PASS | PG | UI multi N/A |
-| READ≠COMMAND | listMessages | non | — | S13 | PASS | PG | — |
-| Continuity globale | macro-lot | — | préservée | S03..ACCEPT-01 | PASS | PG+E2E | LIVE/REAL no |
+Titre proposé:
+`feat(next): integrate ML4 Git + Nora intent continuity (PR readiness)`
 
----
+Base: main @ 6667a438
+Head: integrate/next-ml4-nora-pr-readiness-20261110 @ 66902a8b02096838415aa7aae78a8f0be2699ccb (après push Morris)
 
-## 21–23. Gaps / dette / rollback
+Contenu: ML4 Git/intégrations + correctifs chat-first D4 + Nora continuity DEV-08 + cadrage + registre RECETTE + handbook déjà sur main via merge.
 
-Réserves: consultation interprojet Nora non implémentée (N/A); P* crash multi partiels; LIVE/REAL non exécutés.
-Rollback: git reset --hard 833a3e6c sur Product local.
-Exit: handoff L3 + STOP.
+### L. Conditions restantes pour GO Morris PR/merge
 
----
+1. Review ChatGPT de ce pack / handoff
+2. GO Morris push de la branche integrator
+3. GO Morris création PR
+4. CI verte sur PR
+5. GO Morris merge explicite
+6. Plan migration 008–012 sur environnements cibles
+7. Ne pas déclarer ML4 ACCEPTED / ADOPTED / STABLE du seul fait du merge
 
-## 24. Fichiers créés
+### M. Rollback et contrôles post-merge
 
-Aucun fichier Product nouveau (correction dans modules existants uniquement).
+- Avant merge: revert/reset branche integrator locale
+- Après merge: revert merge commit; migrations down selon runbook ENV-01 si appliquées
+- Post-merge: smoke DEV; ne pas déployer RECETTE sans GO; vérifier absence de secrets
 
----
+### N. Préparation convergence UX
 
-## 25. Fichiers modifiés — contenu / diff utile
-
-### recoverPendingMissionContinuation (extrait post-correction)
-
-```ts
-export async function recoverPendingMissionContinuation(input: {
-  pilotId: string;
-  projectId: string;
-}): Promise<{
-  attempted: boolean;
-  recovered: boolean;
-  reason?: string;
-  missionProjection: MissionProjection | null;
-  documentSave: DocumentSaveSummary | null;
-  assistantMessageId: string | null;
-  replayed?: boolean;
-}> {
-  const conv = (
-    await db
-      .select()
-      .from(conversations)
-      .where(
-        and(
-          eq(conversations.projectId, input.projectId),
-          eq(conversations.ownerPilotId, input.pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!conv || !conv.preparationId) {
-    return {
-      attempted: false,
-      recovered: false,
-      reason: "NO_CONVERSATION",
-      missionProjection: null,
-      documentSave: null,
-      assistantMessageId: null,
-    };
-  }
-
-  const latest = await loadLatestMissionsByIntentKey(conv.id);
-
-  // Incomplete continuation turns for THIS project (crash mid-continue).
-  const contPrefix = `mission-continue:`;
-  const contSuffix = `:${input.projectId}`;
-  const turns = await db
-    .select()
-    .from(conversationTurnCommands)
-    .where(eq(conversationTurnCommands.conversationId, conv.id));
-  const incompleteKeys = [
-    ...new Set(
-      turns
-        .filter(
-          (t) =>
-            (t.status === "RUNNING" || t.status === "ACCEPTED" || t.status === "UNKNOWN") &&
-            t.clientTurnKey.startsWith(contPrefix) &&
-            t.clientTurnKey.endsWith(contSuffix),
-        )
-        .map((t) =>
-          t.clientTurnKey.slice(contPrefix.length, t.clientTurnKey.length - contSuffix.length),
-        )
-        .filter((k) => k.length > 0),
-    ),
-  ];
-
-  if (incompleteKeys.length > 1) {
-    return {
-      attempted: true,
-      recovered: false,
-      reason: "AMBIGUOUS_PENDING",
-      missionProjection: null,
-      documentSave: null,
-      assistantMessageId: null,
-    };
-  }
-
-  // Owner-act binding: create_project_commands.idempotencyKey = d2:mission:<clientIntentKey>
-  // for THIS project — decisive over any other awaiting mission in the same thread (S06/S07).
-  const missionCmds = await db
-    .select()
-    .from(createProjectCommands)
-    .where(
-      and(
-        eq(createProjectCommands.pilotId, input.pilotId),
-        eq(createProjectCommands.projectId, input.projectId),
-        eq(createProjectCommands.preparationId, conv.preparationId),
-      ),
-    )
-    .orderBy(desc(createProjectCommands.createdAt))
-    .limit(8);
-  const missionBoundKeys = [
-    ...new Set(
-      missionCmds
-        .map((r) => r.idempotencyKey ?? "")
-        .filter((k) => k.startsWith("d2:mission:"))
-        .map((k) => k.slice("d2:mission:".length)),
-    ),
-  ];
-
-  let clientIntentKey: string | null = null;
-  if (incompleteKeys.length === 1) {
-    const incompleteKey = incompleteKeys[0]!;
-    if (missionBoundKeys.length > 0 && !missionBoundKeys.includes(incompleteKey)) {
-      return {
-        attempted: true,
-        recovered: false,
-        reason: "MISSION_OWNER_ACT_MISMATCH",
-        missionProjection: null,
-        documentSave: null,
-        assistantMessageId: null,
-      };
-    }
-    clientIntentKey = incompleteKey;
-  } else if (missionBoundKeys.length === 1) {
-    clientIntentKey = missionBoundKeys[0]!;
-  } else if (missionBoundKeys.length > 1) {
-    return {
-      attempted: true,
-      recovered: false,
-      reason: "AMBIGUOUS_OWNER_ACT",
-      missionProjection: null,
-      documentSave: null,
-      assistantMessageId: null,
-    };
-  } else {
-    // No mission-bound D2 command for this project → do NOT pick a neighboring awaiting mission.
-    return {
-      attempted: false,
-      recovered: false,
-      reason: "NOTHING_PENDING",
-      missionProjection: null,
-      documentSave: null,
-      assistantMessageId: null,
-    };
-  }
-
-  const boundMission = latest.get(clientIntentKey);
-  if (boundMission?.status === "COMPLETED") {
-    const replay = await loadContinuationReplay(conv.id, clientIntentKey, input.projectId);
-    if (replay) {
-      return {
-        attempted: true,
-        recovered: true,
-        reason: "ALREADY_CONTINUED",
-        missionProjection: replay.missionProjection,
-        documentSave: replay.documentSave,
-        assistantMessageId: replay.assistantMessageId,
-        replayed: true,
-      };
-    }
-    return {
-      attempted: false,
-      recovered: false,
-      reason: "NOTHING_PENDING",
-      missionProjection: boundMission,
-      documentSave: null,
-      assistantMessageId: null,
-    };
-  }
-
-  const cont = await continueAfterProjectCreated({
-    pilotId: input.pilotId,
-    preparationId: conv.preparationId,
-    projectId: input.projectId,
-    clientIntentKey,
-  });
-
-  return {
-    attempted: true,
-    recovered: Boolean(cont.continued),
-    reason: cont.reason,
-    missionProjection: cont.missionProjection,
-    documentSave: cont.documentSave,
-    assistantMessageId: cont.assistantMessageId,
-    replayed: cont.replayed,
-  };
-}
-```
-
-### Diff 833a3e6c..HEAD
-
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 4e40878a..63420dff 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-
-+## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-08
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-10 (Europe/Paris) |
-+| Macro-lot | R5 / Contexte de travail + isolation mission (RG-CTX-001) |
-+| Type | EVOL — même macro-lot (MINOR CANDIDATE, NO RELEASE) |
-+| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
-+| Parent | DEV-07 @ `833a3e6c` |
-+| Lane | DEV :5433; E2E :3101 / `sfia_next_e2e`; RECETTE untouched |
-+| Changes | `recoverPendingMissionContinuation` binds to `create_project_commands` d2:mission owner act for THIS project — never lone neighboring awaiting; S06/S07/S05 isolation proofs; interproject Nora read = N/A non-implemented (D4 tools prep-scoped) |
-+| Schema | unchanged |
-+| Tests | PG global 21; ACCEPT-01 8; Playwright Atlas 2; tsc/build |
-+| Status | LOCAL FINALISATION — READY FOR CHATGPT ACCEPTANCE REVIEW — NO PRODUCT PUSH |
-+
- ## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-07
-
- | Field | Value |
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
-index 19f26d1b..9c61bc4e 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
-@@ -1257,10 +1257,15 @@ async function loadContinuationReplay(
- }
-
- /**
-- * G2 — nominal recovery after D2 confirmed + interrupted continuation.
-+ * G2/S06/S07 — nominal recovery after D2 confirmed + interrupted continuation.
-  * COMMAND path only (never listMessages/GET). Idempotent; reuses continueAfterProjectCreated
-  * fencing. Trigger surfaces: create-project ALREADY_CREATED retry, project resume POST,
-  * next chat turn when project already linked.
-+ *
-+ * Selection order (RG-CTX-001 / mission isolation):
-+ * 1) incomplete mission-continue turn for THIS projectId
-+ * 2) create_project_commands.idempotencyKey d2:mission:* for THIS project
-+ * Never: lone awaiting mission / newest message / project-name similarity.
-  */
- export async function recoverPendingMissionContinuation(input: {
-   pilotId: string;
-@@ -1298,75 +1303,120 @@ export async function recoverPendingMissionContinuation(input: {
-   }
-
-   const latest = await loadLatestMissionsByIntentKey(conv.id);
--  const awaiting = [...latest.values()].filter(
--    (m) =>
--      m.status === "AWAITING_PILOT_ACT" &&
--      (!m.preparationId || m.preparationId === conv.preparationId),
--  );
-
--  // Incomplete continuation turns for this project (crash mid-continue).
-+  // Incomplete continuation turns for THIS project (crash mid-continue).
-   const contPrefix = `mission-continue:`;
-   const contSuffix = `:${input.projectId}`;
-   const turns = await db
-     .select()
-     .from(conversationTurnCommands)
-     .where(eq(conversationTurnCommands.conversationId, conv.id));
--  const incompleteKeys = turns
--    .filter(
--      (t) =>
--        (t.status === "RUNNING" || t.status === "ACCEPTED" || t.status === "UNKNOWN") &&
--        t.clientTurnKey.startsWith(contPrefix) &&
--        t.clientTurnKey.endsWith(contSuffix),
-+  const incompleteKeys = [
-+    ...new Set(
-+      turns
-+        .filter(
-+          (t) =>
-+            (t.status === "RUNNING" || t.status === "ACCEPTED" || t.status === "UNKNOWN") &&
-+            t.clientTurnKey.startsWith(contPrefix) &&
-+            t.clientTurnKey.endsWith(contSuffix),
-+        )
-+        .map((t) =>
-+          t.clientTurnKey.slice(contPrefix.length, t.clientTurnKey.length - contSuffix.length),
-+        )
-+        .filter((k) => k.length > 0),
-+    ),
-+  ];
-+
-+  if (incompleteKeys.length > 1) {
-+    return {
-+      attempted: true,
-+      recovered: false,
-+      reason: "AMBIGUOUS_PENDING",
-+      missionProjection: null,
-+      documentSave: null,
-+      assistantMessageId: null,
-+    };
-+  }
-+
-+  // Owner-act binding: create_project_commands.idempotencyKey = d2:mission:<clientIntentKey>
-+  // for THIS project — decisive over any other awaiting mission in the same thread (S06/S07).
-+  const missionCmds = await db
-+    .select()
-+    .from(createProjectCommands)
-+    .where(
-+      and(
-+        eq(createProjectCommands.pilotId, input.pilotId),
-+        eq(createProjectCommands.projectId, input.projectId),
-+        eq(createProjectCommands.preparationId, conv.preparationId),
-+      ),
-     )
--    .map((t) => t.clientTurnKey.slice(contPrefix.length, t.clientTurnKey.length - contSuffix.length))
--    .filter((k) => k.length > 0);
-+    .orderBy(desc(createProjectCommands.createdAt))
-+    .limit(8);
-+  const missionBoundKeys = [
-+    ...new Set(
-+      missionCmds
-+        .map((r) => r.idempotencyKey ?? "")
-+        .filter((k) => k.startsWith("d2:mission:"))
-+        .map((k) => k.slice("d2:mission:".length)),
-+    ),
-+  ];
-
-   let clientIntentKey: string | null = null;
-   if (incompleteKeys.length === 1) {
--    clientIntentKey = incompleteKeys[0]!;
--  } else if (awaiting.length === 1) {
--    clientIntentKey = awaiting[0]!.clientIntentKey;
--  } else if (incompleteKeys.length > 1 || awaiting.length > 1) {
-+    const incompleteKey = incompleteKeys[0]!;
-+    if (missionBoundKeys.length > 0 && !missionBoundKeys.includes(incompleteKey)) {
-+      return {
-+        attempted: true,
-+        recovered: false,
-+        reason: "MISSION_OWNER_ACT_MISMATCH",
-+        missionProjection: null,
-+        documentSave: null,
-+        assistantMessageId: null,
-+      };
-+    }
-+    clientIntentKey = incompleteKey;
-+  } else if (missionBoundKeys.length === 1) {
-+    clientIntentKey = missionBoundKeys[0]!;
-+  } else if (missionBoundKeys.length > 1) {
-     return {
-       attempted: true,
-       recovered: false,
--      reason: "AMBIGUOUS_PENDING",
-+      reason: "AMBIGUOUS_OWNER_ACT",
-       missionProjection: null,
-       documentSave: null,
-       assistantMessageId: null,
-     };
-   } else {
--    // Also accept mission-bound create_project_commands already committed for this project.
--    const missionCmds = await db
--      .select()
--      .from(createProjectCommands)
--      .where(
--        and(
--          eq(createProjectCommands.pilotId, input.pilotId),
--          eq(createProjectCommands.projectId, input.projectId),
--          eq(createProjectCommands.preparationId, conv.preparationId),
--        ),
--      )
--      .orderBy(desc(createProjectCommands.createdAt))
--      .limit(8);
--    const missionCmd = missionCmds.find((r) =>
--      (r.idempotencyKey ?? "").startsWith("d2:mission:"),
--    );
--    if (missionCmd?.idempotencyKey?.startsWith("d2:mission:")) {
--      const key = missionCmd.idempotencyKey.slice("d2:mission:".length);
--      const mission = latest.get(key);
--      if (!mission || mission.status !== "COMPLETED") {
--        clientIntentKey = key;
--      }
--    }
-+    // No mission-bound D2 command for this project → do NOT pick a neighboring awaiting mission.
-+    return {
-+      attempted: false,
-+      recovered: false,
-+      reason: "NOTHING_PENDING",
-+      missionProjection: null,
-+      documentSave: null,
-+      assistantMessageId: null,
-+    };
-   }
-
--  if (!clientIntentKey) {
-+  const boundMission = latest.get(clientIntentKey);
-+  if (boundMission?.status === "COMPLETED") {
-+    const replay = await loadContinuationReplay(conv.id, clientIntentKey, input.projectId);
-+    if (replay) {
-+      return {
-+        attempted: true,
-+        recovered: true,
-+        reason: "ALREADY_CONTINUED",
-+        missionProjection: replay.missionProjection,
-+        documentSave: replay.documentSave,
-+        assistantMessageId: replay.assistantMessageId,
-+        replayed: true,
-+      };
-+    }
-     return {
-       attempted: false,
-       recovered: false,
-       reason: "NOTHING_PENDING",
--      missionProjection: null,
-+      missionProjection: boundMission,
-       documentSave: null,
-       assistantMessageId: null,
-     };
-diff --git a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-index e55c9f8e..34206692 100644
---- a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-@@ -731,6 +731,219 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
-     expect(created.status).toBe("CREATED");
-   });
-
-+  it("S06/S07: two awaiting missions — recover binds D2 owner act, not neighboring awaiting", async () => {
-+    const { pilotId, preparationId } = await seedPrepOnly("scen-s06-two-missions");
-+    const keyA = newId("ctk");
-+    const keyB = newId("ctk");
-+    await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Crée un projet nommé Mission A puis un document Alpha.",
-+      { clientTurnKey: keyA },
-+    );
-+    await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Crée un projet nommé Mission B puis un document Beta.",
-+      { clientTurnKey: keyB },
-+    );
-+
-+    // Neighbor B remains awaiting; only A is authorized and creates the project.
-+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
-+    const authA = await authorizeMissionBoundD2Create({
-+      pilotId,
-+      preparationId,
-+      clientIntentKey: keyA,
-+      projectName: "Mission A",
-+    });
-+    expect(authA.outcome).toBe("AUTHORIZED");
-+    if (authA.outcome !== "AUTHORIZED") throw new Error("expected AUTHORIZED");
-+
-+    const created = await createProjectCommand({
-+      pilotId,
-+      preparationId,
-+      expectedCreationRevision: prep.creationRevision,
-+      projectName: "Mission A",
-+      previewSummary: "s",
-+      idempotencyKey: authA.idempotencyKey,
-+    });
-+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
-+
-+    // After create, both may still look awaiting in latest map until continuation commits.
-+    // Recovery must prefer d2:mission:keyA for THIS project — never keyB.
-+    const recovered = await recoverPendingMissionContinuation({
-+      pilotId,
-+      projectId: created.projectId,
-+    });
-+    expect(recovered.recovered).toBe(true);
-+    expect(recovered.missionProjection?.clientIntentKey).toBe(keyA);
-+    expect(recovered.missionProjection?.clientIntentKey).not.toBe(keyB);
-+    expect(recovered.documentSave?.status).toBe("AVAILABLE");
-+    const docs = await listDocuments(pilotId, preparationId);
-+    const docsA = docs.filter((d) =>
-+      (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyA}`),
-+    );
-+    const docsB = docs.filter((d) =>
-+      (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyB}`),
-+    );
-+    expect(docsA).toHaveLength(1);
-+    expect(docsB).toHaveLength(0);
-+  });
-+
-+  it("S06b: after mission A completed, lone awaiting B is NOT continued for project A", async () => {
-+    const { pilotId, preparationId } = await seedPrepOnly("scen-s06b-neighbor");
-+    const keyA = newId("ctk");
-+    const keyB = newId("ctk");
-+    await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Crée un projet nommé Done A puis un document DoneA.",
-+      { clientTurnKey: keyA },
-+    );
-+    await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Crée un projet nommé Still B puis un document StillB.",
-+      { clientTurnKey: keyB },
-+    );
-+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
-+    const authA = await authorizeMissionBoundD2Create({
-+      pilotId,
-+      preparationId,
-+      clientIntentKey: keyA,
-+      projectName: "Done A",
-+    });
-+    if (authA.outcome !== "AUTHORIZED") throw new Error("expected AUTHORIZED");
-+    const created = await createProjectCommand({
-+      pilotId,
-+      preparationId,
-+      expectedCreationRevision: prep.creationRevision,
-+      projectName: "Done A",
-+      previewSummary: "s",
-+      idempotencyKey: authA.idempotencyKey,
-+    });
-+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
-+    const contA = await continueAfterProjectCreated({
-+      pilotId,
-+      preparationId,
-+      projectId: created.projectId,
-+      projectName: "Done A",
-+      clientIntentKey: keyA,
-+    });
-+    expect(contA.continued).toBe(true);
-+    expect(contA.missionProjection?.status).toBe("COMPLETED");
-+
-+    // B is now the only awaiting in the thread — must NOT be resumed against project A.
-+    // Replay of completed A (ALREADY_CONTINUED) is allowed; binding B is not.
-+    const recovered = await recoverPendingMissionContinuation({
-+      pilotId,
-+      projectId: created.projectId,
-+    });
-+    expect(
-+      recovered.reason === "NOTHING_PENDING" ||
-+        recovered.reason === "ALREADY_CONTINUED" ||
-+        recovered.replayed === true,
-+    ).toBe(true);
-+    if (recovered.missionProjection) {
-+      expect(recovered.missionProjection.clientIntentKey).toBe(keyA);
-+      expect(recovered.missionProjection.clientIntentKey).not.toBe(keyB);
-+    }
-+    const docs = await listDocuments(pilotId, preparationId);
-+    expect(
-+      docs.filter((d) =>
-+        (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyB}`),
-+      ),
-+    ).toHaveLength(0);
-+    expect(
-+      docs.filter((d) =>
-+        (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyA}`),
-+      ),
-+    ).toHaveLength(1);
-+  });
-+
-+  it("S05: two projects same Pilot — recover on Atlas never uses Orion conversation/mission", async () => {
-+    const atlas = await seedPrepOnly("scen-s05-atlas");
-+    const orion = await seedPrepOnly("scen-s05-orion");
-+    // Same pilot: re-seed Orion under Atlas pilot
-+    const orionPrep = await openOrCreatePreparation(atlas.pilotId);
-+    await updatePreview(atlas.pilotId, orionPrep.id, "Orion Prep", "s");
-+
-+    const keyAtlas = newId("ctk");
-+    const keyOrion = newId("ctk");
-+    await postUserMessageAndNora(
-+      atlas.pilotId,
-+      atlas.preparationId,
-+      "Crée un projet nommé Atlas Iso puis un document AtlasDoc.",
-+      { clientTurnKey: keyAtlas },
-+    );
-+    await postUserMessageAndNora(
-+      atlas.pilotId,
-+      orionPrep.id,
-+      "Crée un projet nommé Orion Iso puis un document OrionDoc.",
-+      { clientTurnKey: keyOrion },
-+    );
-+
-+    const prepA = (await db.select().from(preparations).where(eq(preparations.id, atlas.preparationId)))[0]!;
-+    const prepO = (await db.select().from(preparations).where(eq(preparations.id, orionPrep.id)))[0]!;
-+    const authA = await authorizeMissionBoundD2Create({
-+      pilotId: atlas.pilotId,
-+      preparationId: atlas.preparationId,
-+      clientIntentKey: keyAtlas,
-+      projectName: "Atlas Iso",
-+    });
-+    const authO = await authorizeMissionBoundD2Create({
-+      pilotId: atlas.pilotId,
-+      preparationId: orionPrep.id,
-+      clientIntentKey: keyOrion,
-+      projectName: "Orion Iso",
-+    });
-+    if (authA.outcome !== "AUTHORIZED" || authO.outcome !== "AUTHORIZED") {
-+      throw new Error("expected both AUTHORIZED");
-+    }
-+    const createdA = await createProjectCommand({
-+      pilotId: atlas.pilotId,
-+      preparationId: atlas.preparationId,
-+      expectedCreationRevision: prepA.creationRevision,
-+      projectName: "Atlas Iso",
-+      previewSummary: "s",
-+      idempotencyKey: authA.idempotencyKey,
-+    });
-+    const createdO = await createProjectCommand({
-+      pilotId: atlas.pilotId,
-+      preparationId: orionPrep.id,
-+      expectedCreationRevision: prepO.creationRevision,
-+      projectName: "Orion Iso",
-+      previewSummary: "s",
-+      idempotencyKey: authO.idempotencyKey,
-+    });
-+    if (createdA.status !== "CREATED" || !createdA.projectId) throw new Error("atlas create");
-+    if (createdO.status !== "CREATED" || !createdO.projectId) throw new Error("orion create");
-+
-+    const recA = await recoverPendingMissionContinuation({
-+      pilotId: atlas.pilotId,
-+      projectId: createdA.projectId,
-+    });
-+    expect(recA.recovered).toBe(true);
-+    expect(recA.missionProjection?.clientIntentKey).toBe(keyAtlas);
-+
-+    const docsA = await listDocuments(atlas.pilotId, atlas.preparationId);
-+    const docsO = await listDocuments(atlas.pilotId, orionPrep.id);
-+    expect(
-+      docsA.some((d) =>
-+        (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyAtlas}`),
-+      ),
-+    ).toBe(true);
-+    expect(
-+      docsA.some((d) =>
-+        (d.document.creationCorrelationKey ?? "").includes(`doc:mission-continue:${keyOrion}`),
-+      ),
-+    ).toBe(false);
-+    expect(docsO.length).toBe(0);
-+
-+    // Silence unused seed helper pilot
-+    expect(orion.pilotId).toBeTruthy();
-+  });
-+
-   it("G2: crash after D2 — recoverPendingMissionContinuation without Pilot reformulation", async () => {
-     const { pilotId, preparationId } = await seedPrepOnly("scen-g2-recover");
-     const clientTurnKey = newId("ctk");
-
-```
+Écarts UX non bloquants (responsive, surfaces) reportés — ne pas les rouvrir ici.
+Candidature n'ajoute pas de chantier UX.
+Convergence UX peut partir de main+cette candidature après merge.
 
 ---
 
-## 26. Verdict unique
+## 07. Architecture / chemins
 
-**NORA/STUDIO WORKSPACE AND MISSION ISOLATION — SAS/PROJECT CONTEXT VERIFIED — MISSION RECOVERY BOUND TO CORRECT OWNER ACT — CROSS-PROJECT READ AUTHORITY ISOLATED — GLOBAL INTENT CONTINUITY PRESERVED AT REPORTED DEV EVIDENCE LEVEL — READY FOR CHATGPT ACCEPTANCE REVIEW — NO PRODUCT PROMOTION.**
-
-Trois réponses:
-1. Oui — sas/projet via owners D2 + conversation liée (DEV evidence).
-2. Oui — reprise liée à d2:mission: de CE projet, pas à une awaiting voisine.
-3. Oui — isolation inter-espaces prouvée; lecture interprojet Nora = N/A non implémentée (pas d'autorité croisée via outil).
+Conducteur D3 unique préservé; owners D1–D9 inchangés dans leur contrat.
+Pas de second moteur Nora.
+Pas de nouvelle table ce cycle.
 
 ---
 
-## 27. Git Review Index
+## 08–11. Fake/Real / ENV / Versioning
+
+DEV :5433; E2E :3101 available but not re-run this cycle (prior Atlas 2 PASS @ DEV-08).
+RECETTE :5434 / build 8vZjme4-KnnPkAqm_QxMz — non muté.
+Nora FAKE / Git SCRIPTED in tests.
+EVOL / MINOR CANDIDATE; NO RELEASE; STABLE NOT AVAILABLE.
+
+---
+
+## 12. Matrice décision → statut
+
+| Exigence | Statut candidature |
+| --- | --- |
+| ML4 Product non mergé intégré | OUI (dans HEAD) |
+| Nora DEV-08 intégré | OUI |
+| Cadrage validé inclus | OUI |
+| Registre RECETTE inclus | OUI |
+| R13/R14 PASS | NON — NOT RUN carried |
+| RECETTE ACCEPTED | NON |
+| PR créée | NON |
+| Merge | NON |
+| STABLE/RELEASED/ADOPTED | NON |
+
+---
+
+## 13. Fichiers créés ce cycle
+
+Aucun fichier Product fonctionnel nouveau.
+Merges docs: cadrage + registre + handbook (via main) + delivery-history entry.
+
+---
+
+## 14. Fichiers modifiés ce cycle
+
+projects/sfia-studio-next/construction/delivery-history.md — entrée PR-READINESS uniquement.
+
+Autres fichiers de la candidature vs main = lignée Product déjà construite (DEV-01..08 / ML4), non re-développés ici.
+
+---
+
+## 15. Dette / exit / rollback
+
+Exit: handoff L3 + STOP; attendre Morris pour push/PR/merge.
+Rollback integrator: rester sur feat/next-nora @ e40a1baf; supprimer branche integrate locale si besoin.
+Ne pas supprimer branches distantes sans GO.
+
+---
+
+## 16. Verdict unique
+
+**NEXT ML4 + NORA CONTINUITY — LOCAL INTEGRATION CANDIDATE CONSOLIDATED — RECETTE CLOSED BY MORRIS WITH CARRIED RESERVES — PR READINESS VERIFIED — READY FOR MORRIS PUSH/PR DECISION — NO PRODUCT PROMOTION.**
+
+---
+
+## 17. Git Review Index
 
 | Ref | Value |
 | --- | --- |
-| Product HEAD | e40a1baffc5f7060f3cd5456571b9fe4bd7d1819 |
-| Product tree | f0940e2584e26acabf4a4a4efc513a1a4a6553f4 |
-| Parent | 833a3e6c |
-| Base | d7f1507a / 3e9e1086 |
-| Prior handoff | 7d1aff39 / c96e03c4 |
-| Cadrage | 69c27832 / 2322644a |
-| D3 CTX | 650d8ea7 |
-| Supersedes broken publish | 5eed00bc (incomplete pack — republished) |
+| Integrator HEAD | 66902a8b02096838415aa7aae78a8f0be2699ccb |
+| Integrator tree | da8971c77398b264b3870b13ebc5298e7c111fa1 |
+| origin/main | 6667a43858a5421e391b7441246536daad148bd6 |
+| Nora tip | e40a1baffc5f7060f3cd5456571b9fe4bd7d1819 |
+| Fix WT | d7f1507a56e50660ea24903c2dc563c249ba9086 |
+| Prior handoff | e5d144a0 / 13c1dc9d |
+| Cadrage | 69c27832 |
+| Registre | 2075aa4f |
 
 ---
 
-## 28. Contrôle §7.2.1 / §7.6
+## 18. Contrôle §7.2.1 / §7.6
 
-FULL mono-cycle OUI; diffs OUI; Fake/Real nommé OUI; pas de claim LIVE/REAL/RECETTE/STABLE/RELEASED; handoff L3; Product push NON; STOP après handoff OUI.
+FULL OUI; inventaire A–N OUI; Fake/Real OUI; pas de claim LIVE/REAL/RECETTE ACCEPTED/STABLE/RELEASED/ADOPTED; handoff L3; Product push NON; PR NON; merge NON; STOP après handoff OUI.
