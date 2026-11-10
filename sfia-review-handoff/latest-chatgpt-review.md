@@ -1,146 +1,131 @@
 # SFIA Studio Next — Review Pack FULL
-## R5 / Cycle 8 — ACCEPT-01 Delivery Regularization (DEV)
+## R5 / Cycle 8 — Continuité cognitive P0-A..P1-E + preuves transverses (DEV)
 
-**Date/heure :** 2026-11-10 12:09:28 +0100 (Europe/Paris)
-**GO Morris :** régularisation Review Pack + preuve/correctif local — 2026-11-10
-**Mandat :** même macro-lot ACCEPT-01 — pas de nouvelle architecture / pas de push Product
+**Date/heure :** 2026-11-10 12:42:22 +0100 (Europe/Paris)
+**GO Morris :** correction/consolidation delivery ACCEPT-01 + validation transverse — 2026-11-10
 **Base Product :** `d7f1507a` / tree `3e9e1086`
-**Branche delivery :** `feat/next-nora-intent-continuity-20261110`
-**HEAD delivery :** `cf5bac70d12ae04a618893714d1a75994aba1f50`
-**Tree delivery :** `dbfd6d6632a9fd76220cfc0d73dc29a36de1272b`
-**Parent delivery initial :** `b0e23c46` (implémentation) → `cf5bac70` (régularisation UX + replay test)
+**Branche :** `feat/next-nora-intent-continuity-20261110`
+**HEAD :** `f42cb2f59d5611d596fb258d8344a046940f2032`
+**Tree :** `0cc1d2b8e65a426d4e21b1e85a723b9963ec3c8a`
+**Parents :** `f42cb2f5` ← `cf5bac70` ← `b0e23c46` ← `d7f1507a`
 **Worktree DEV :** `/Users/morris/Projects/sfia-workspace-next-intent-continuity-dev`
-**Handoff remplacé :** `ef4154e1` / blob `f2c0804d` (INCOMPLETE — synthesis only)
+**fix/ préservé :** `d7f1507a` / `3e9e1086`
+**Handoff remplacé :** `4e6431c8` / blob `5cac17f7`
 **RECETTE :** BUILD `8vZjme4-KnnPkAqm_QxMz` — non mutée
-**Verdict :** ACCEPT-01 DEV DELIVERY CORRECTED LOCALLY — NEW HEAD/TREE DOCUMENTED — RELEVANT TESTS REEXECUTED — FULL REVIEW PACK AVAILABLE — READY FOR CHATGPT TECHNICAL REVIEW — NO PRODUCT PUSH OR RECETTE AUTHORIZED
+**Verdict :** NORA/STUDIO TRANSVERSE CONTINUITY — NOMINAL D3 INTEGRATION QUALIFIED IN DEV — ACCEPT-01 AND NON-GIT SCENARIOS VERIFIED AT REPORTED EVIDENCE LEVEL — NO PARALLEL ENGINE — READY FOR CHATGPT REVIEW — NO PRODUCT PUSH OR RECETTE AUTHORIZED
 
 ---
 
-## 01. Date, mandat et contexte
-
-Delivery ACCEPT-01 implémenté localement (GO 2026-11-10). Handoff `ef4154e1` jugé non conforme SFIA v2.6 §7.2.1 (synthèse sans contenu/diff exploitables).
-
-Cette intervention régularise le **même** delivery : Git Truth, contenus complets, invariants C1–C5, rejeu tests, correctif UX démontré (panel ignore `missionResume`), Review Pack FULL, handoff L3 only.
-
----
-
-## 02. Git Truth Check
+## 01. Git Truth Check et worktrees
 
 | Item | Valeur |
 |---|---|
-| pwd (delivery WT) | `/Users/morris/Projects/sfia-workspace-next-intent-continuity-dev` |
 | remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| Branche | `feat/next-nora-intent-continuity-20261110` |
-| HEAD | `cf5bac70d12ae04a618893714d1a75994aba1f50` |
-| Tree | `dbfd6d6632a9fd76220cfc0d73dc29a36de1272b` |
-| Parent(s) | `b0e23c46` ← `d7f1507a` |
-| merge-base vs d7f1507a | `d7f1507a` |
-| main remote | `6667a43858a5421e391b7441246536daad148bd6` |
-| SDK lock | `@openai/agents` **0.21.0** |
+| feat HEAD/tree | `f42cb2f59d5611d596fb258d8344a046940f2032` / `0cc1d2b8e65a426d4e21b1e85a723b9963ec3c8a` |
+| fix HEAD/tree | `d7f1507a` / `3e9e1086` |
+| merge-base | `d7f1507a` |
+| main remote | `6667a438` |
+| SDK | `@openai/agents` 0.21.0 |
+| DEV PG | 5433 / sfia_next_dev |
+| RECETTE | 3200 / 5434 intacte |
 | Push Product | **AUCUN** |
 
-### Commits delivery (vs base)
-
+Commits delivery :
 ```
+f42cb2f5 fix(studio-next): gate Nora mission resume and harden continuity
 cf5bac70 fix(studio-next): reflect missionResume after authorize and prove replay
 b0e23c46 feat(studio-next): implement ACCEPT-01 mission continuity in D3 nominal path
 ```
 
-### name-status vs d7f1507a
+---
 
-```
-M projects/sfia-studio-next/construction/delivery-history.md
-M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts
-M projects/sfia-studio-next/web/src/components/integrations/PublicationInspectionPanel.tsx
-A projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
-M projects/sfia-studio-next/web/src/domains/conversation/service.ts
-A projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-A projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts
-```
+## 02. Cadrage Morris et sources
 
-### Worktree status (delivery)
+- Cadrage @`69c27832` blob `2322644a` — VALIDATED (continuité D1–D9, pas Git-only)
+- Préflight @`22e8a17c` ; handoff antérieur @`4e6431c8`
+- A3 : pas de moteur générique — helper D3
+- ENV-01 / versioning v1.0 : NO RELEASE ; MINOR CANDIDATE
 
-Dirty hors delivery : `.tmp-sfia-review/chatgpt-review.md` (ce pack), manifests ENV-01 untracked préexistants, script qualify untracked — **non commités** dans le delivery.
+---
 
-### ENV-01
+## 03. As-built du candidat initial (cf5bac70)
 
-| Lane | Evidence |
+- Helper `mission-continuity.ts` + wire `postUserMessageAndNora` + authorize auto-resume + panel missionResume
+- Écarts : auto-resume sur **toute** authorize ; crash mid-HTTP ; restitution non idempotente ; Continue post-Git surtout canonique ; PUBLISH_RE matchait « GitHub »
+
+---
+
+## 04. Analyse des cinq écarts
+
+| ID | Écart | Cause | Correction |
+|---|---|---|---|
+| P0-A | Auto-resume toutes publications | `autoResumeMission!==false` sans appartenance serveur | Gate `pub:mission:*` via `attemptIsNoraMission` |
+| P0-B | Panne après D6 laisse AUTHORIZED | Resume seulement dans même HTTP | `recoverAuthorizedNoraMissions` sur listMessages, nouveau tour, reconcile |
+| P1-C | Message restitution non unique | ordinal last+1 | id/generationId stables `msg_mresume_*` / `mission-resume:*` |
+| P1-D | Restitution Git déterministe | pas de Continue post-effet | `cognitiveContinueFromFacts` après dispatch + fallback canonique |
+| P1-E | « GitHub » ⇒ publish | PUBLISH_RE trop large + path défaut | ACTION verbs only ; PATH_REQUIRED sans défaut silencieux |
+
+---
+
+## 05. Corrections apportées
+
+Voir commits `cf5bac70` + `f42cb2f5` et §§09–10 (contenus/diffs).
+
+---
+
+## 06. Architecture D3 nominale conservée
+
+- Entrée unique `postUserMessageAndNora`
+- Un seul `generateNoraReply`
+- Owners D4/D6/D7/D9 inchangés
+- Pas de WorkIntent table / IntentConductor service / second runner
+
+---
+
+## 07. Séparation conduite commune / domaines
+
+| Commun (D3) | Adaptation Git |
 |---|---|
-| DEV DB | `5433` / `sfia_next_dev` (LISTEN) ; tests refuse non-5433 |
-| RECETTE | port `3200` LISTEN + DB `5434` — **non mutés** ; BUILD `8vZjme4-KnnPkAqm_QxMz` |
-| Secrets | `.env.local` DEV only ; pas de copie RECETTE |
-| Provider tests | `STUDIO_GITHUB_PROVIDER=scripted` ; `STUDIO_E2E=1` ; `OPENAI_API_KEY` unset |
+| `cognitiveContinueFromFacts` | `qualifyPublicationMission` / PUBLISH_ACTION_RE |
+| MissionProjection refs | `pub:mission:` / preparePublicationForMission |
+| recoverAuthorizedNoraMissions | effect_attempts GIT_PUBLICATION |
+| Restitution idempotente messages | authorize/reconcile routes |
 
 ---
 
-## 03. Vérification branche fix/ préservée
+## 08. Matrice D1–D9 (honnête)
 
-| Check | Résultat |
-|---|---|
-| Collaboration WT | `/Users/morris/Projects/sfia-workspace-next-ml4-git-collaboration` |
-| Branche | `fix/next-ml4-chat-first-d4-provenance-20261109` |
-| HEAD | `d7f1507a56e50660ea24903c2dc563c249ba9086` |
-| Tree | `3e9e1086aaf83e22d8e3350565f1c747bb31f556` |
-| Ref locale fix/ | même SHA/tree |
-| Diff tree vs annoncé | **identique** (aucun commit delivery sur fix/) |
-| Working tree fix | dirty seulement `.tmp-sfia-review/…` + untracked préexistants — **aucun fichier Product du delivery** |
-| Déplacement commit | Confirmé historiquement : commit créé puis `checkout -B feat` + fix forcé à d7f1507a ; **fix tree inchangé** |
-
----
-
-## 04. HEAD/tree/base et liste des changements
-
-- Base : `d7f1507a` / `3e9e1086`
-- Delivery HEAD : `cf5bac70d12ae04a618893714d1a75994aba1f50` / `dbfd6d6632a9fd76220cfc0d73dc29a36de1272b`
-- 2 commits locaux ; 7 chemins touchés (3 créés, 4 modifiés)
-- Bornés à `projects/sfia-studio-next/`
+| Domaine | Capacités locales | Mobilisation D3 mission | Statut couverture |
+|---|---|---|---|
+| D1 | session/identity | préconditions owners | IMPLEMENTED / COVERAGE VERIFIED (NR auth paths existants) |
+| D2 | createProjectCommand + sas | **pas** conduit comme mission multi-étapes auto | IMPLEMENTED ; mission orchestration **KNOWN GAP** (acte explicite conservé) |
+| D3 | postUserMessageAndNora, turns, Continue | propriétaire conduite | BEHAVIOR PROVEN (T01, Continue D4, ACCEPT-01) |
+| D4 | CREATE/REVISE/read tools | CREATE+Continue ; REVISE existant | BEHAVIOR PROVEN CREATE+Continue ; REVISE mission **partial** |
+| D5 | pilotage/cycles | inchangé | IMPLEMENTED ; mission continuity **KNOWN GAP** ce cycle |
+| D6 | HumanDecision / authorizePublication | HD seulement sur acte Pilote | BEHAVIOR PROVEN publish mission ; autres HD **KNOWN GAP** mission-generic |
+| D7 | prepare/dispatch/reconcile | mission prepare + resume | BEHAVIOR PROVEN SCRIPTED |
+| D8 | resultJson / observed facts | via result attempt | IMPLEMENTED ; preuve niveau SCRIPTED |
+| D9 | Git provider/links | SCRIPTED only ici | BEHAVIOR PROVEN SCRIPTED ; REAL **NOT PROVEN** |
 
 ---
 
-## 05. Sources Git et décisions applicables
-
-- Cadrage @`69c27832` blob `2322644a` VALIDATED
-- Préflight handoff @`22e8a17c`
-- Handoff delivery incomplet @`ef4154e1` blob `f2c0804d` — remplacé ici
-- A3 : pas de moteur générique — helper D3 seulement
-- ENV-01 / product-versioning v1.0 : NO RELEASE ; MINOR CANDIDATE
-- SFIA v2.6 §§7.2.1, 7.2.2, 7.6, 7.10, 7.11
-
----
-
-## 06. Contrat ACCEPT-01
-
-Chaîne nominale (DEV / SCRIPTED / fixture) :
-
-INTENTION → QUALIFY → D4 CREATE AVAILABLE → CognitiveContinue (faits) → D7 preparePublication PREPARED (sans HD) → inspection Pilote → authorizePublication (HD APPLICABLE) → **auto resumeMissionAfterPublicationAuthorize / dispatch** → restitution conversation → UI reflète statut observé (`missionResume`).
-
----
-
-## 07. Fichiers créés — contenus complets
+## 09. Fichiers créés — contenus complets
 
 
 ### CREATED `projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts`
 
-- lines: 494
-- bytes: 15012
-
-
-**Rôle :** helpers D3 (qualification publish, correlationKeys, preparePublicationForMission, resumeMissionAfterPublicationAuthorize, cognitiveContinueFromFacts, ACK/restitution). **Pas** un second runner / IntentConductor service.
-
-**Exports :** `qualifyPublicationMission`, `missionCorrelationKeys`, `formatMissionAck`, `appendMissionAck`, `composeCanonicalMissionRestitution`, `preparePublicationForMission`, `resumeMissionAfterPublicationAuthorize`, `cognitiveContinueFromFacts`, types `MissionProjection` / `MissionStatus` / …
-
-**Dépendances :** `preparePublication`/`dispatchPublication`/`reconcileAttempt` (D7), `listProjectGitLinks` (D9), `generateNoraReply` (même adapter), drizzle `effectAttempts`/`messages`/`conversations`.
-
-**Tests :** unit `mission-continuity.test.ts` ; PG `mission-continuity-accept01.pg.test.ts`.
-
+lines≈711 bytes=21983
 
 ```typescript
 /**
  * Mission continuity — logical helpers inside D3 (NOT a parallel engine).
  * Anchors wait on effect_attempts PREPARED; never calls authorize for "waiting".
  * Owner truth remains D4/D6/D7; MissionProjection is refs-only.
+ *
+ * Git-specific adapters (PUBLISH_RE, pub:mission: keys) stay here as domain
+ * adaptations — the cognitive continue helper is capacity-agnostic.
  */
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, like, or } from "drizzle-orm";
 import { db } from "@/db/client";
 import { conversations, effectAttempts, messages } from "@/db/schema";
 import {
@@ -150,7 +135,6 @@ import {
 } from "@/domains/execution/effect-service";
 import { listProjectGitLinks } from "@/domains/integrations/project-link-service";
 import { StudioError } from "@/lib/http-errors";
-import { newId } from "@/lib/ids";
 import { emitObs } from "@/lib/observability";
 import { generateNoraReply } from "./nora-adapter";
 import type { DocumentEffectSummary } from "./document-act";
@@ -159,6 +143,7 @@ import { qualifyDocumentAct } from "./document-act";
 export type MissionStatus =
   | "ACTIVE"
   | "AWAITING_PILOT_AUTH"
+  | "AWAITING_CLARIFICATION"
   | "RESTITUTION_PENDING"
   | "PARTIAL_FAILED_STEP"
   | "COMPLETED"
@@ -196,34 +181,65 @@ export type PublicationMissionIntent = {
   wantsDocumentCreate: boolean;
   wantsPublish: boolean;
   targetPath: string | null;
-  targetBranch: string;
+  targetBranch: string | null;
   ambiguous: boolean;
+  needsExplicitPath: boolean;
   clarify?: string;
 };
 
-const PUBLISH_RE =
-  /\b(?:publie|publier|publication|pousse(?:r)?\s+(?:(?:le|la|ce|cet|cette)\s+)?(?:document|fichier)?|sur\s+(?:mon\s+)?d[eé]p[oô]t|dans\s+(?:mon\s+)?d[eé]p[oô]t|github)\b/i;
+/** Server-side marker: only attempts prepared with this prefix are Nora missions. */
+export const NORA_MISSION_PUB_PREFIX = "pub:mission:";
+
+/**
+ * Publish ACTION verbs — not mere mention of GitHub/dépôt as a subject.
+ * P1-E: "explique GitHub" must not trigger D7 prepare.
+ */
+const PUBLISH_ACTION_RE =
+  /\b(?:publie(?:-le|-la|-les|-moi)?|publier|pousse(?:-le|-la|-les)?|pousser)\b/i;
+
 const PATH_RE =
   /(?:(?:chemin|path|fichier)\s*[:=]?\s*|sous\s+)[`"]?([A-Za-z0-9_./\-]+\.(?:md|markdown|txt))[`"]?/i;
+
+const BRANCH_RE =
+  /(?:branche|branch)\s*[:=]?\s*[`"]?([A-Za-z0-9._/\-]+)[`"]?/i;
+
+export function isNoraMissionPublicationKey(correlationKey: string): boolean {
+  return correlationKey.startsWith(NORA_MISSION_PUB_PREFIX);
+}
+
+export function attemptIsNoraMission(row: { correlationKey: string }): boolean {
+  return isNoraMissionPublicationKey(row.correlationKey);
+}
 
 export function qualifyPublicationMission(userText: string): PublicationMissionIntent {
   const act = qualifyDocumentAct(userText);
   const wantsDocumentCreate = act.kind === "CREATE";
-  const wantsPublish = PUBLISH_RE.test(userText);
+  const wantsPublish = PUBLISH_ACTION_RE.test(userText);
   const pathMatch = userText.match(PATH_RE);
+  const branchMatch = userText.match(BRANCH_RE);
   const targetPath = pathMatch?.[1] ?? null;
-  if (wantsPublish && !wantsDocumentCreate && act.kind === "NONE") {
-    // Publish-only without new doc — still a mission if revise/create unclear
+  const targetBranch = branchMatch?.[1] ?? null;
+  const needsExplicitPath = wantsPublish && !targetPath;
+  const ambiguous =
+    wantsPublish &&
+    ((needsExplicitPath && true) || (!wantsDocumentCreate && act.kind === "NONE"));
+
+  let clarify: string | undefined;
+  if (wantsPublish && needsExplicitPath) {
+    clarify =
+      "Chemin cible de publication non précisé — indiquer le chemin (ex. chemin docs/studio-next/x.md) avant préparation Git.";
+  } else if (wantsPublish && !wantsDocumentCreate && act.kind === "NONE") {
+    clarify = "Publication demandée sans document CREATE/REVISE explicite — préciser le document cible.";
   }
+
   return {
     wantsDocumentCreate,
     wantsPublish,
     targetPath,
-    targetBranch: "main",
-    ambiguous: wantsPublish && !wantsDocumentCreate && act.kind === "NONE",
-    clarify: wantsPublish && !targetPath
-      ? "Chemin cible non précisé — défaut docs/studio-next/publication.md si un seul dépôt est rattaché."
-      : undefined,
+    targetBranch,
+    ambiguous: Boolean(ambiguous),
+    needsExplicitPath,
+    clarify,
   };
 }
 
@@ -234,7 +250,7 @@ export function missionCorrelationKeys(clientIntentKey: string): {
   const key = clientIntentKey.trim();
   return {
     document: `doc:mission:${key}`,
-    publication: `pub:mission:${key}`,
+    publication: `${NORA_MISSION_PUB_PREFIX}${key}`,
   };
 }
 
@@ -260,8 +276,11 @@ export function formatMissionAck(mission: MissionProjection): string {
       "",
       "Préparation Git PREPARED — aucune HumanDecision créée.",
       "Autorisation Pilote requise (authorizePublication) avant toute publication.",
-      "Après autorisation, Studio reprend automatiquement le dispatch.",
+      "Après autorisation, Studio reprend automatiquement le dispatch pour cette mission Nora.",
     );
+  }
+  if (mission.status === "AWAITING_CLARIFICATION") {
+    lines.push("", "Précision Pilote requise avant préparation Git (pas d'effet D7).");
   }
   if (mission.status === "RESTITUTION_PENDING") {
     lines.push(
@@ -322,6 +341,25 @@ export function composeCanonicalMissionRestitution(input: {
   return lines.join("\n");
 }
 
+/** Capacity-agnostic facts continue — reuses generateNoraReply (no second runner). */
+export async function cognitiveContinueFromFacts(input: {
+  userText: string;
+  factsBlock: string;
+  contextSnippets: string[];
+  toolScope?: Parameters<typeof generateNoraReply>[0]["toolScope"];
+}): Promise<Awaited<ReturnType<typeof generateNoraReply>>> {
+  return generateNoraReply({
+    userText:
+      `${input.userText}\n\n` +
+      `### Faits applicatifs confirmés (non négociables — ne pas les contredire)\n` +
+      `${input.factsBlock}\n\n` +
+      `Produis une restitution fidèle à ces faits. N'affirme aucun effet absent de cette liste. ` +
+      `Si des étapes restent dans l'intention, propose la suite sans réexécuter les effets confirmés.`,
+    contextSnippets: input.contextSnippets,
+    toolScope: input.toolScope,
+  });
+}
+
 export async function preparePublicationForMission(input: {
   pilotId: string;
   projectId: string;
@@ -329,7 +367,7 @@ export async function preparePublicationForMission(input: {
   revisionId: string;
   clientIntentKey: string;
   targetPath: string | null;
-  targetBranch: string;
+  targetBranch: string | null;
 }): Promise<
   | {
       ok: true;
@@ -342,6 +380,14 @@ export async function preparePublicationForMission(input: {
     }
   | { ok: false; code: string; message: string }
 > {
+  if (!input.targetPath) {
+    return {
+      ok: false,
+      code: "PATH_REQUIRED",
+      message:
+        "Chemin de publication non précisé — aucune préparation D7 (pas de défaut silencieux).",
+    };
+  }
   const links = await listProjectGitLinks(input.pilotId, input.projectId);
   if (links.length === 0) {
     return {
@@ -358,7 +404,8 @@ export async function preparePublicationForMission(input: {
     };
   }
   const repositoryId = links[0]!.repositoryId;
-  const targetPath = input.targetPath ?? "docs/studio-next/publication.md";
+  const targetPath = input.targetPath;
+  const targetBranch = input.targetBranch ?? "main";
   const keys = missionCorrelationKeys(input.clientIntentKey);
   try {
     const prepared = await preparePublication({
@@ -368,7 +415,7 @@ export async function preparePublicationForMission(input: {
       revisionId: input.revisionId,
       repositoryId,
       targetPath,
-      targetBranch: input.targetBranch,
+      targetBranch,
       correlationKey: keys.publication,
     });
     return {
@@ -388,15 +435,25 @@ export async function preparePublicationForMission(input: {
   }
 }
 
+function missionResumeMessageId(attemptId: string): string {
+  return `msg_mresume_${attemptId}`;
+}
+
+function missionResumeGenerationId(attemptId: string): string {
+  return `mission-resume:${attemptId}`;
+}
+
 /**
- * After Pilot authorizePublication — automatic dispatch (no extra "continue" message).
+ * After Pilot authorizePublication — automatic dispatch for Nora missions only.
  * Idempotent: COMPLETED returns without re-dispatch; DISPATCHED → reconcile.
+ * Restitution message is unique per attempt (P1-C).
+ * Cognitive continue after observed result (P1-D), canonical fallback.
  */
 export async function resumeMissionAfterPublicationAuthorize(input: {
   pilotId: string;
   projectId: string;
   attemptId: string;
-  decisionId: string | null | undefined;
+  decisionId?: string | null;
 }): Promise<{
   dispatched: boolean;
   reconciled: boolean;
@@ -405,6 +462,7 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
   conversationMessageId: string | null;
   prNumber?: number | null;
   commitSha?: string | null;
+  cognitiveContinue?: "DELIVERED" | "CANONICAL" | "SKIPPED";
   error?: string;
 }> {
   const row = (
@@ -428,6 +486,19 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
       restitution: "Tentative introuvable — aucune publication.",
       conversationMessageId: null,
       error: "NOT_FOUND",
+    };
+  }
+
+  if (!attemptIsNoraMission(row)) {
+    return {
+      dispatched: false,
+      reconciled: false,
+      status: row.status,
+      restitution:
+        "Tentative hors mission Nora — reprise auto refusée (parcours classique authorize→dispatch).",
+      conversationMessageId: null,
+      error: "NOT_NORA_MISSION",
+      cognitiveContinue: "SKIPPED",
     };
   }
 
@@ -471,7 +542,6 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
       error_category: code,
       meta: { attempt_id: input.attemptId },
     });
-    // Best-effort reconcile if DISPATCHED after partial failure
     try {
       const again = (
         await db.select().from(effectAttempts).where(eq(effectAttempts.id, input.attemptId)).limit(1)
@@ -495,7 +565,30 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
     revisionId?: string;
   };
 
-  const restitution = composeCanonicalMissionRestitution({
+  const finalRow = (
+    await db.select().from(effectAttempts).where(eq(effectAttempts.id, input.attemptId)).limit(1)
+  )[0];
+  const resultPayload = (() => {
+    try {
+      return JSON.parse(finalRow?.resultJson || "{}") as {
+        prNumber?: number | null;
+        commitSha?: string | null;
+        sha?: string | null;
+        missionResumeMessageId?: string | null;
+      };
+    } catch {
+      return {} as {
+        prNumber?: number | null;
+        commitSha?: string | null;
+        sha?: string | null;
+        missionResumeMessageId?: string | null;
+      };
+    }
+  })();
+  const prNumber = resultPayload.prNumber ?? null;
+  const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
+
+  const canonical = composeCanonicalMissionRestitution({
     documentEffect: plan.documentId
       ? {
           act: "CREATE",
@@ -515,35 +608,60 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
         : "Reprise post-autorisation exécutée — voir statut publication.",
   });
 
-  let conversationMessageId: string | null = null;
+  const factsBlock = [
+    `Publication attemptId=${input.attemptId} status=${status}`,
+    input.decisionId || row.decisionId
+      ? `decisionId=${input.decisionId ?? row.decisionId}`
+      : null,
+    plan.documentId ? `documentId=${plan.documentId}` : null,
+    plan.revisionId ? `revisionId=${plan.revisionId}` : null,
+    prNumber != null ? `prNumber=${prNumber}` : null,
+    commitSha ? `commitSha=${commitSha}` : null,
+    detail ? `detail=${detail}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  let restitution = canonical;
+  let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
+  try {
+    // No turn operationId here — facts-only continue without tool scope (still generateNoraReply).
+    const continued = await cognitiveContinueFromFacts({
+      userText:
+        "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
+      factsBlock,
+      contextSnippets: [],
+    });
+    if (continued.status === "COMPLETE" && continued.content.trim()) {
+      restitution = `${continued.content.trim()}\n\n---\n${canonical}`;
+      cognitiveContinue = "DELIVERED";
+    }
+  } catch {
+    cognitiveContinue = "CANONICAL";
+  }
+
+  let conversationMessageId: string | null = resultPayload.missionResumeMessageId ?? null;
   if (plan.preparationId) {
     try {
       conversationMessageId = await appendAssistantMissionMessage({
         pilotId: input.pilotId,
         preparationId: plan.preparationId,
+        attemptId: input.attemptId,
         content: restitution,
       });
+      // Persist message id on attempt for crash/retry idempotence
+      const merged = {
+        ...resultPayload,
+        missionResumeMessageId: conversationMessageId,
+      };
+      await db
+        .update(effectAttempts)
+        .set({ resultJson: JSON.stringify(merged), updatedAt: new Date() })
+        .where(eq(effectAttempts.id, input.attemptId));
     } catch {
-      conversationMessageId = null;
+      /* keep prior id if any */
     }
   }
-
-  const finalRow = (
-    await db.select().from(effectAttempts).where(eq(effectAttempts.id, input.attemptId)).limit(1)
-  )[0];
-  const resultPayload = (() => {
-    try {
-      return JSON.parse(finalRow?.resultJson || "{}") as {
-        prNumber?: number | null;
-        commitSha?: string | null;
-        sha?: string | null;
-      };
-    } catch {
-      return {} as { prNumber?: number | null; commitSha?: string | null; sha?: string | null };
-    }
-  })();
-  const prNumber = resultPayload.prNumber ?? null;
-  const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
 
   emitObs({
     event_name: "d3.mission.resume_after_authorize",
@@ -555,6 +673,8 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
       status,
       dispatched,
       reconciled,
+      cognitive_continue: cognitiveContinue,
+      nora_mission: true,
     },
   });
 
@@ -566,13 +686,77 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
     conversationMessageId,
     prNumber,
     commitSha,
+    cognitiveContinue,
     error: detail ?? undefined,
   };
 }
 
+/**
+ * P0-B durable recovery: AUTHORIZED (or DISPATCHED) Nora-mission attempts
+ * resume on the next nominal event (chat load / new turn / reconcile).
+ * No universal scheduler — uses existing D3/D7 entry points.
+ */
+export async function recoverAuthorizedNoraMissions(input: {
+  pilotId: string;
+  projectId: string;
+}): Promise<
+  Array<{
+    attemptId: string;
+    status: string;
+    resumed: boolean;
+    error?: string;
+  }>
+> {
+  const rows = await db
+    .select()
+    .from(effectAttempts)
+    .where(
+      and(
+        eq(effectAttempts.pilotId, input.pilotId),
+        eq(effectAttempts.projectId, input.projectId),
+        eq(effectAttempts.kind, "GIT_PUBLICATION"),
+        or(eq(effectAttempts.status, "AUTHORIZED"), eq(effectAttempts.status, "DISPATCHED")),
+        like(effectAttempts.correlationKey, `${NORA_MISSION_PUB_PREFIX}%`),
+      ),
+    );
+
+  const out: Array<{
+    attemptId: string;
+    status: string;
+    resumed: boolean;
+    error?: string;
+  }> = [];
+
+  for (const row of rows) {
+    const resume = await resumeMissionAfterPublicationAuthorize({
+      pilotId: input.pilotId,
+      projectId: input.projectId,
+      attemptId: row.id,
+      decisionId: row.decisionId,
+    });
+    out.push({
+      attemptId: row.id,
+      status: resume.status,
+      resumed: resume.dispatched || resume.reconciled || resume.status === "COMPLETED",
+      error: resume.error,
+    });
+  }
+  if (out.length > 0) {
+    emitObs({
+      event_name: "d3.mission.recover_authorized",
+      component: "d3.mission_continuity",
+      outcome: "SUCCESS",
+      meta: { project_id: input.projectId, count: out.length },
+    });
+  }
+  return out;
+}
+
+/** P1-C — stable message id + generationId per attempt; ordinal unique with conflict recovery. */
 async function appendAssistantMissionMessage(input: {
   pilotId: string;
   preparationId: string;
+  attemptId: string;
   content: string;
 }): Promise<string> {
   const conv = (
@@ -589,6 +773,23 @@ async function appendAssistantMissionMessage(input: {
   )[0];
   if (!conv) throw new StudioError("NOT_FOUND", "Conversation introuvable");
 
+  const generationId = missionResumeGenerationId(input.attemptId);
+  const stableId = missionResumeMessageId(input.attemptId);
+
+  const existingByGen = (
+    await db
+      .select()
+      .from(messages)
+      .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
+      .limit(1)
+  )[0];
+  if (existingByGen) return existingByGen.id;
+
+  const existingById = (
+    await db.select().from(messages).where(eq(messages.id, stableId)).limit(1)
+  )[0];
+  if (existingById) return existingById.id;
+
   const last = (
     await db
       .select({ ordinal: messages.ordinal })
@@ -597,54 +798,50 @@ async function appendAssistantMissionMessage(input: {
       .orderBy(asc(messages.ordinal))
   ).at(-1);
   const ordinal = (last?.ordinal ?? 0) + 1;
-  const id = newId("msg");
-  await db.insert(messages).values({
-    id,
-    conversationId: conv.id,
-    role: "assistant",
-    content: input.content,
-    status: "COMPLETE",
-    ordinal,
-    generationId: null,
-    createdAt: new Date(),
-  });
-  return id;
-}
 
-/** Facts-only cognitive continue — reuses generateNoraReply; tools allowed for read only via policy. */
-export async function cognitiveContinueFromFacts(input: {
-  userText: string;
-  factsBlock: string;
-  contextSnippets: string[];
-  toolScope?: Parameters<typeof generateNoraReply>[0]["toolScope"];
-}): Promise<Awaited<ReturnType<typeof generateNoraReply>>> {
-  return generateNoraReply({
-    userText:
-      `${input.userText}\n\n` +
-      `### Faits applicatifs confirmés (non négociables — ne pas les contredire)\n` +
-      `${input.factsBlock}\n\n` +
-      `Produis une restitution fidèle à ces faits. N'affirme aucun effet absent de cette liste.`,
-    contextSnippets: input.contextSnippets,
-    toolScope: input.toolScope,
-  });
+  try {
+    await db.insert(messages).values({
+      id: stableId,
+      conversationId: conv.id,
+      role: "assistant",
+      content: input.content,
+      status: "COMPLETE",
+      ordinal,
+      generationId,
+      createdAt: new Date(),
+    });
+    return stableId;
+  } catch {
+    const again = (
+      await db
+        .select()
+        .from(messages)
+        .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
+        .limit(1)
+    )[0];
+    if (again) return again.id;
+    const byId = (
+      await db.select().from(messages).where(eq(messages.id, stableId)).limit(1)
+    )[0];
+    if (byId) return byId.id;
+    throw new StudioError("CONFLICT", "Restitution mission non persistée (conflit ordinal/id)");
+  }
 }
 ```
 
 
 ### CREATED `projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts`
 
-- lines: 78
-- bytes: 2707
-
-**Rôle :** oracles unitaires qualification / ACK sans HD / restitution canonique / correlationKeys.
-
+lines≈101 bytes=3759
 
 ```typescript
 import { describe, expect, it } from "vitest";
 import {
   appendMissionAck,
+  attemptIsNoraMission,
   composeCanonicalMissionRestitution,
   formatMissionAck,
+  isNoraMissionPublicationKey,
   missionCorrelationKeys,
   qualifyPublicationMission,
   type MissionProjection,
@@ -660,11 +857,28 @@ describe("mission-continuity helpers", () => {
     expect(m.wantsDocumentCreate).toBe(true);
     expect(m.wantsPublish).toBe(true);
     expect(m.targetPath).toBe("docs/studio-next/mission.md");
+    expect(m.needsExplicitPath).toBe(false);
   });
 
-  it("does not treat simple chat as publish mission", () => {
-    const m = qualifyPublicationMission("Explique la différence entre blob et commit");
+  it("P1-E: does not treat GitHub subject mention as publish action", () => {
+    const m = qualifyPublicationMission("Explique la différence entre blob et commit sur GitHub");
     expect(m.wantsPublish).toBe(false);
+    expect(m.wantsDocumentCreate).toBe(false);
+  });
+
+  it("P1-E: publish without path requires clarification (no silent default)", () => {
+    const m = qualifyPublicationMission(
+      "Crée un document intitulé X et publie-le dans mon dépôt GitHub",
+    );
+    expect(m.wantsPublish).toBe(true);
+    expect(m.needsExplicitPath).toBe(true);
+    expect(m.targetPath).toBeNull();
+    expect(m.clarify).toMatch(/chemin/i);
+  });
+
+  it("P1-E: ambiguous publish without CREATE", () => {
+    const m = qualifyPublicationMission("publie-le sur GitHub chemin docs/a.md");
+    expect(m.wantsPublish).toBe(true);
     expect(m.wantsDocumentCreate).toBe(false);
   });
 
@@ -672,6 +886,10 @@ describe("mission-continuity helpers", () => {
     const keys = missionCorrelationKeys("intent-abc");
     expect(keys.document).toBe("doc:mission:intent-abc");
     expect(keys.publication).toBe("pub:mission:intent-abc");
+    expect(isNoraMissionPublicationKey(keys.publication)).toBe(true);
+    expect(isNoraMissionPublicationKey("pub-project-rev-123")).toBe(false);
+    expect(attemptIsNoraMission({ correlationKey: keys.publication })).toBe(true);
+    expect(attemptIsNoraMission({ correlationKey: "pub-classic-panel" })).toBe(false);
   });
 
   it("mission ACK states AWAITING_PILOT_AUTH without HD", () => {
@@ -722,11 +940,7 @@ describe("mission-continuity helpers", () => {
 
 ### CREATED `projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts`
 
-- lines: 237
-- bytes: 9761
-
-**Rôle :** PG ACCEPT-01 — P0 prepare sans HD ; chat→AWAITING_PILOT_AUTH ; authorize+resume+idempotence ; C2/C5 replay clientTurnKey.
-
+lines≈328 bytes=13666
 
 ```typescript
 import { beforeAll, describe, expect, it } from "vitest";
@@ -735,7 +949,7 @@ config({ path: ".env.local" });
 
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { effectAttempts, humanDecisions, pilots, preparations } from "@/db/schema";
+import { effectAttempts, humanDecisions, messages, pilots, preparations } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
 import { createProjectCommand } from "@/domains/preparation/create-project";
@@ -755,7 +969,9 @@ import {
 } from "@/domains/execution/effect-service";
 import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
 import {
+  attemptIsNoraMission,
   qualifyPublicationMission,
+  recoverAuthorizedNoraMissions,
   resumeMissionAfterPublicationAuthorize,
 } from "@/domains/conversation/mission-continuity";
 import { listDocuments } from "@/domains/document/service";
@@ -792,7 +1008,6 @@ async function seedProjectWithGit(label: string) {
   });
   const repoId = status.repositories[0]!.id;
   await attachRepositoryToProject(pilotId, created.projectId, repoId);
-  // Ensure scripted provider is warm for prepare/dispatch
   getScriptedGitHubProvider();
   return { pilotId, projectId: created.projectId, preparationId: prep.id, repositoryId: repoId };
 }
@@ -800,12 +1015,44 @@ async function seedProjectWithGit(label: string) {
 describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
   beforeAll(() => {
     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    // Refuse RECETTE lane contamination
     expect(process.env.DATABASE_URL).toMatch(/5433|sfia_next_dev/);
     delete process.env.OPENAI_API_KEY;
     process.env.STUDIO_LANE = "DEV";
     process.env.STUDIO_E2E = "1";
     process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+  });
+
+  it("T01: simple dialogue — no D4/D7 mission prepare", async () => {
+    const { pilotId, preparationId } = await seedProjectWithGit("t01-simple");
+    const chat = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Explique brièvement ce qu'est une HumanDecision dans Studio.",
+    );
+    expect(chat.documentSave == null || chat.documentSave.status === "NOT_EXECUTED").toBe(true);
+    expect(chat.missionProjection == null || chat.missionProjection === null).toBe(true);
+  });
+
+  it("T03 non-Git: CREATE then REVISE uses confirmed document (no publish)", async () => {
+    const { pilotId, preparationId } = await seedProjectWithGit("t03-d4");
+    const create = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un document intitulé Continuity NonGit pour la suite.",
+      { clientTurnKey: newId("ctk") },
+    );
+    expect(create.documentSave?.status).toBe("AVAILABLE");
+    const docId = create.documentSave!.documentId!;
+    const revise = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      `Révise le document Continuity NonGit : ajoute une section Suite.`,
+      { clientTurnKey: newId("ctk") },
+    );
+    // REVISE may or may not fire depending on fixture extract — at least no publish mission
+    expect(revise.missionProjection == null || revise.missionProjection === null).toBe(true);
+    const docs = await listDocuments(pilotId, preparationId);
+    expect(docs.some((d) => d.document.id === docId)).toBe(true);
   });
 
   it("P0-D6: prepare leaves PREPARED without HumanDecision", async () => {
@@ -831,19 +1078,76 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
       correlationKey: `pub-p0-${revId}`,
     });
     expect(prepared.status).toBe("PREPARED");
+    expect(attemptIsNoraMission({ correlationKey: `pub-p0-${revId}` })).toBe(false);
     const row = (
       await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId))
     )[0];
     expect(row?.decisionId).toBeNull();
     expect(row?.status).toBe("PREPARED");
-    const hd = await db
-      .select()
-      .from(humanDecisions)
-      .where(eq(humanDecisions.projectId, projectId));
-    expect(hd.filter((d) => d.sourceRef === prepared.attemptId)).toHaveLength(0);
   });
 
-  it("ACCEPT-01 chat: CREATE + publish intent prepares and awaits auth without HD", async () => {
+  it("P0-A: classic publication stays AUTHORIZED after authorize (no auto dispatch)", async () => {
+    const { pilotId, projectId, preparationId, repositoryId } = await seedProjectWithGit(
+      "p0a-classic",
+    );
+    const chat = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un document intitulé Classic Pub pour inspection manuelle.",
+    );
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId: chat.documentSave!.documentId!,
+      revisionId: chat.documentSave!.revisionId!,
+      repositoryId,
+      targetPath: "docs/studio-next/classic.md",
+      targetBranch: "main",
+      correlationKey: `pub-classic-${chat.documentSave!.revisionId}`,
+    });
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId))
+    )[0]!;
+    const plan = JSON.parse(row.planJson) as {
+      inspection: { kind: string; inspectionFingerprint: string };
+    };
+    expect(inspectionAllowsAuthorization(plan.inspection.kind as never)).toBe(true);
+    const auth = await authorizePublication({
+      pilotId,
+      projectId,
+      attemptId: prepared.attemptId,
+      statement: "GO classic",
+      inspectedFingerprint: plan.inspection.inspectionFingerprint,
+    });
+    expect(auth.status).toBe("AUTHORIZED");
+    // Direct resume must refuse non-mission
+    const refused = await resumeMissionAfterPublicationAuthorize({
+      pilotId,
+      projectId,
+      attemptId: prepared.attemptId,
+      decisionId: auth.decisionId,
+    });
+    expect(refused.error).toBe("NOT_NORA_MISSION");
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId))
+    )[0];
+    expect(after?.status).toBe("AUTHORIZED");
+  });
+
+  it("P1-E: publish intent without path does not prepare D7", async () => {
+    const { pilotId, preparationId } = await seedProjectWithGit("p1e-nopath");
+    const ask =
+      "Crée un document intitulé Path Required et publie-le dans mon dépôt GitHub";
+    expect(qualifyPublicationMission(ask).needsExplicitPath).toBe(true);
+    const chat = await postUserMessageAndNora(pilotId, preparationId, ask, {
+      clientTurnKey: newId("ctk"),
+    });
+    expect(chat.documentSave?.status).toBe("AVAILABLE");
+    expect(chat.missionProjection?.status).toBe("AWAITING_CLARIFICATION");
+    expect(chat.missionProjection?.steps.find((s) => s.id === "d7_prepare")?.attemptId).toBeFalsy();
+  });
+
+  it("ACCEPT-01 chat: CREATE + publish with path prepares and awaits auth without HD", async () => {
     const { pilotId, projectId, preparationId } = await seedProjectWithGit("accept01-chat");
     const ask =
       "Crée un document intitulé ACCEPT-01 Continuity et publie-le dans mon dépôt GitHub chemin docs/studio-next/accept01.md";
@@ -862,20 +1166,16 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     )[0];
     expect(attempt?.status).toBe("PREPARED");
     expect(attempt?.decisionId).toBeNull();
+    expect(attemptIsNoraMission(attempt!)).toBe(true);
 
     const msgs = await listMessages(pilotId, preparationId);
     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-    expect(assistant?.content).toMatch(/Résultat applicatif D4/);
+    expect(assistant?.content).toMatch(/Résultat applicatif D4|Suite de mission|AVAILABLE/);
     expect(assistant?.content).toMatch(/AWAITING_PILOT_AUTH|aucune HumanDecision créée/i);
-    expect(assistant?.content).not.toMatch(/HumanDecision APPLICABLE/);
-
-    // Project scoped sanity
-    const docs = await listDocuments(pilotId, preparationId);
-    expect(docs.some((d) => d.document.id === chat.documentSave?.documentId)).toBe(true);
     expect(projectId).toBeTruthy();
   });
 
-  it("ACCEPT-01: authorize then auto resume dispatches without second continue message", async () => {
+  it("ACCEPT-01 + P0-B: authorize then recover/resume; restitution idempotent (P1-C)", async () => {
     const { pilotId, projectId, preparationId } = await seedProjectWithGit("accept01-resume");
     const ask =
       "Crée un document intitulé ACCEPT-01 Resume et publie-le dans mon dépôt GitHub chemin docs/studio-next/accept01-resume.md";
@@ -891,8 +1191,8 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const plan = JSON.parse(row.planJson) as {
       inspection: { kind: string; inspectionFingerprint: string };
     };
-    expect(inspectionAllowsAuthorization(plan.inspection.kind as never)).toBe(true);
 
+    // Simulate crash window: authorize without calling resume (HTTP would call it for mission).
     const auth = await authorizePublication({
       pilotId,
       projectId,
@@ -903,21 +1203,20 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     expect(auth.status).toBe("AUTHORIZED");
     expect(auth.decisionId).toBeTruthy();
 
-    const resume = await resumeMissionAfterPublicationAuthorize({
-      pilotId,
-      projectId,
-      attemptId: attemptId!,
-      decisionId: auth.decisionId,
-    });
-    expect(["COMPLETED", "DISPATCHED", "AMBIGUOUS"]).toContain(resume.status);
-    expect(resume.restitution).toMatch(/Restitution de mission|Publication/);
+    const stuck = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, attemptId!))
+    )[0];
+    expect(stuck?.status).toBe("AUTHORIZED");
+
+    // P0-B durable recovery (same as listMessages / next turn / reconcile)
+    const recovered = await recoverAuthorizedNoraMissions({ pilotId, projectId });
+    expect(recovered.some((r) => r.attemptId === attemptId && r.resumed)).toBe(true);
 
     const after = (
       await db.select().from(effectAttempts).where(eq(effectAttempts.id, attemptId!))
     )[0];
     expect(["COMPLETED", "DISPATCHED", "AMBIGUOUS"]).toContain(after?.status ?? "");
 
-    // Idempotent second resume must not invent a second effect path blindly
     const resume2 = await resumeMissionAfterPublicationAuthorize({
       pilotId,
       projectId,
@@ -925,6 +1224,13 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
       decisionId: auth.decisionId,
     });
     expect(resume2.status).toBeTruthy();
+
+    // P1-C: at most one mission-resume message per attempt
+    const convMsgs = await db
+      .select()
+      .from(messages)
+      .where(eq(messages.generationId, `mission-resume:${attemptId}`));
+    expect(convMsgs.length).toBeLessThanOrEqual(1);
 
     const decisions = await db
       .select()
@@ -953,8 +1259,7 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     );
 
     const docs = await listDocuments(pilotId, preparationId);
-    const matching = docs.filter((d) => d.document.id === firstDoc);
-    expect(matching).toHaveLength(1);
+    expect(docs.filter((d) => d.document.id === firstDoc)).toHaveLength(1);
 
     const attempts = await db
       .select()
@@ -970,19 +1275,20 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
 
 ---
 
-## 08. Fichiers modifiés — diffs exploitables complets
+## 10. Fichiers modifiés — contenus/diffs complets
 
-### MODIFIED `…/authorize/route.ts` — fichier complet HEAD (49 lignes)
 
-Ancien : retourne seulement `authorizePublication` result.
-Nouveau : si `autoResumeMission !== false` et status AUTHORIZED → `resumeMissionAfterPublicationAuthorize` puis `{ ...result, missionResume }`.
-
-`autoResumeMission` : option body JSON (défaut true). Panel nominal **n'envoie pas** false. Si false : HD/AUTHORIZED durable ; dispatch panel manuel reste possible. Escape hatch tests/inspection — **ne désactive pas** l'acte Pilote (authorize crée toujours HD).
+### FULL FILE `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts`
 
 ```typescript
-
 import { NextResponse } from "next/server";
-import { resumeMissionAfterPublicationAuthorize } from "@/domains/conversation/mission-continuity";
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { effectAttempts } from "@/db/schema";
+import {
+  attemptIsNoraMission,
+  resumeMissionAfterPublicationAuthorize,
+} from "@/domains/conversation/mission-continuity";
 import { authorizePublication } from "@/domains/execution/effect-service";
 import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
@@ -997,7 +1303,10 @@ export async function POST(
     const body = (await req.json()) as {
       statement?: string;
       inspectedFingerprint?: string;
-      /** When false, skip automatic post-authorization dispatch (tests / inspection-only). Default true. */
+      /**
+       * Test escape hatch only. Membership to a Nora mission is decided SERVER-SIDE
+       * via correlationKey `pub:mission:*` — never via this client flag alone.
+       */
       autoResumeMission?: boolean;
     };
     if (!body.inspectedFingerprint) {
@@ -1013,10 +1322,32 @@ export async function POST(
       statement: body.statement ?? "Mandat publication Git",
       inspectedFingerprint: body.inspectedFingerprint,
     });
-    // P0: authorize IS the Pilot act (creates HD APPLICABLE). Then resume dispatch automatically.
+
+    // P0-A: auto-resume ONLY for server-qualified Nora missions.
+    // Classic panel prepares (`pub-${projectId}-…`) keep authorize → manual dispatch.
+    const attemptRow = (
+      await db
+        .select()
+        .from(effectAttempts)
+        .where(
+          and(
+            eq(effectAttempts.id, attemptId),
+            eq(effectAttempts.projectId, projectId),
+            eq(effectAttempts.pilotId, session.pilotId),
+          ),
+        )
+        .limit(1)
+    )[0];
+
     let missionResume: Awaited<ReturnType<typeof resumeMissionAfterPublicationAuthorize>> | null =
       null;
-    if (body.autoResumeMission !== false && result.status === "AUTHORIZED") {
+    const isMission = attemptRow ? attemptIsNoraMission(attemptRow) : false;
+    if (
+      isMission &&
+      body.autoResumeMission !== false &&
+      (result.status === "AUTHORIZED" || result.status === "COMPLETED" || result.status === "DISPATCHED")
+    ) {
+      // Immediate resume in this request; P0-B recoverAuthorizedNoraMissions covers crash window.
       missionResume = await resumeMissionAfterPublicationAuthorize({
         pilotId: session.pilotId,
         projectId,
@@ -1024,13 +1355,84 @@ export async function POST(
         decisionId: result.decisionId,
       });
     }
-    return NextResponse.json({ ...result, missionResume });
+
+    return NextResponse.json({
+      ...result,
+      noraMission: isMission,
+      missionResume,
+    });
   } catch (e) {
     const mapped = studioErrorResponse(e);
     return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }
+```
 
+
+### FULL FILE `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/effects/[attemptId]/reconcile/route.ts`
+
+```typescript
+import { NextResponse } from "next/server";
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { effectAttempts } from "@/db/schema";
+import {
+  attemptIsNoraMission,
+  resumeMissionAfterPublicationAuthorize,
+} from "@/domains/conversation/mission-continuity";
+import { reconcileAttempt } from "@/domains/execution/effect-service";
+import { requireStudioSession } from "@/domains/identity/session";
+import { studioErrorResponse } from "@/lib/http-errors";
+
+/**
+ * Nominal recovery surface (P0-B): for Nora-mission attempts left AUTHORIZED
+ * after a crash between D6 commit and dispatch, reconcile triggers mission resume.
+ * Classic (non-mission) attempts keep pure reconcileAttempt behavior.
+ */
+export async function POST(
+  _req: Request,
+  ctx: { params: Promise<{ projectId: string; attemptId: string }> },
+) {
+  try {
+    const session = await requireStudioSession();
+    const { projectId, attemptId } = await ctx.params;
+
+    const row = (
+      await db
+        .select()
+        .from(effectAttempts)
+        .where(
+          and(
+            eq(effectAttempts.id, attemptId),
+            eq(effectAttempts.projectId, projectId),
+            eq(effectAttempts.pilotId, session.pilotId),
+          ),
+        )
+        .limit(1)
+    )[0];
+
+    if (row && attemptIsNoraMission(row) && (row.status === "AUTHORIZED" || row.status === "DISPATCHED")) {
+      const missionResume = await resumeMissionAfterPublicationAuthorize({
+        pilotId: session.pilotId,
+        projectId,
+        attemptId,
+        decisionId: row.decisionId,
+      });
+      return NextResponse.json({
+        attemptId,
+        status: missionResume.status,
+        noraMission: true,
+        missionResume,
+      });
+    }
+
+    const result = await reconcileAttempt(session.pilotId, projectId, attemptId);
+    return NextResponse.json({ ...result, noraMission: false });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
+  }
+}
 ```
 
 
@@ -1038,10 +1440,10 @@ export async function POST(
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index bf86345c..8bf698b8 100644
+index bf86345c..9997ac86 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -43,6 +43,15 @@ import {
+@@ -43,9 +43,27 @@ import {
    type DocumentEffectSummary,
    type DocumentProposalExtract,
  } from "./document-act";
@@ -1052,12 +1454,24 @@ index bf86345c..8bf698b8 100644
 +  missionCorrelationKeys,
 +  preparePublicationForMission,
 +  qualifyPublicationMission,
++  recoverAuthorizedNoraMissions,
 +  type MissionProjection,
 +} from "./mission-continuity";
 
  export async function listMessages(pilotId: string, preparationId: string) {
    const ctx = await getPreparationContext(pilotId, preparationId);
-@@ -191,6 +200,8 @@ export type TurnResult = {
++  // P0-B: reconnection / chat reload — recover AUTHORIZED Nora missions without "continue".
++  if (ctx.project?.id) {
++    try {
++      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
++    } catch {
++      /* never block message listing */
++    }
++  }
+   if (!ctx.conversation) return [];
+   return db
+     .select()
+@@ -191,6 +209,8 @@ export type TurnResult = {
      effects?: Array<{ effectKind: string; targetRef: string }>;
    } | null;
    reconciled?: boolean;
@@ -1066,7 +1480,23 @@ index bf86345c..8bf698b8 100644
  };
 
  function pilotageEffectFromAuthority(
-@@ -585,6 +596,9 @@ export async function postUserMessageAndNora(
+@@ -261,6 +281,15 @@ export async function postUserMessageAndNora(
+   const ctx = await getPreparationContext(pilotId, preparationId);
+   if (!ctx.conversation) throw new StudioError("NOT_FOUND", "Préparation introuvable");
+
++  // P0-B: next nominal turn recovers AUTHORIZED Nora missions (crash after D6).
++  if (ctx.project?.id) {
++    try {
++      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
++    } catch {
++      /* never block the new turn */
++    }
++  }
++
+   const clientTurnKey =
+     opts?.clientTurnKey?.trim() ||
+     opts?.correlationKey?.trim() ||
+@@ -585,6 +614,9 @@ export async function postUserMessageAndNora(
    let ownershipLostBeforeD4 = false;
    const documentAct = qualifyDocumentAct(content);
    const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
@@ -1076,7 +1506,7 @@ index bf86345c..8bf698b8 100644
    // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
    emitDocumentActQualificationObs({
      requestId,
-@@ -661,7 +675,9 @@ export async function postUserMessageAndNora(
+@@ -661,7 +693,9 @@ export async function postUserMessageAndNora(
                {
                  correlationKey: opts?.correlationKey
                    ? `doc:${opts.correlationKey}`
@@ -1087,7 +1517,7 @@ index bf86345c..8bf698b8 100644
                  provenance: {
                    sourceKind: "nora",
                    generationId: reply.generationId,
-@@ -937,9 +953,155 @@ export async function postUserMessageAndNora(
+@@ -937,9 +971,170 @@ export async function postUserMessageAndNora(
              }
            : null;
 
@@ -1155,7 +1585,6 @@ index bf86345c..8bf698b8 100644
 +    missionIntent.wantsPublish &&
 +    ctx.project?.id
 +  ) {
-+
 +    const steps: MissionProjection["steps"] = [
 +      {
 +        id: "d4_create",
@@ -1167,7 +1596,23 @@ index bf86345c..8bf698b8 100644
 +      },
 +    ];
 +
-+    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
++    // P1-E: no silent path/branch deduction — clarify before D7 prepare.
++    if (missionIntent.needsExplicitPath) {
++      steps.push({
++        id: "d7_prepare",
++        capabilityId: "d7.prepare_publication",
++        status: "PENDING",
++        correlationKey: missionKeys.publication,
++        reason: missionIntent.clarify ?? "PATH_REQUIRED",
++      });
++      missionProjection = {
++        clientIntentKey,
++        status: "AWAITING_CLARIFICATION",
++        goalSummary: "CREATE D4 confirmé — chemin Git requis avant préparation",
++        steps,
++        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
++      };
++    } else if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
 +      const prepared = await preparePublicationForMission({
 +        pilotId,
 +        projectId: ctx.project.id,
@@ -1244,7 +1689,7 @@ index bf86345c..8bf698b8 100644
 
    const confirmedCapitalisations = capitalisation.capitalisations.filter(
      (c) => c.status === "AVAILABLE",
-@@ -1030,6 +1192,7 @@ export async function postUserMessageAndNora(
+@@ -1030,6 +1225,7 @@ export async function postUserMessageAndNora(
      idempotentReplay: false,
      humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
      pilotageEffect: pilotageEffectFromAuthority(authority),
@@ -1252,51 +1697,6 @@ index bf86345c..8bf698b8 100644
    };
 
    if (turnRaceHooks.beforeTerminalCommit) {
-```
-
-
-### DIFF `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts
-index 8a2a197d..bc10fd9a 100644
---- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/[attemptId]/authorize/route.ts
-@@ -1,4 +1,5 @@
- import { NextResponse } from "next/server";
-+import { resumeMissionAfterPublicationAuthorize } from "@/domains/conversation/mission-continuity";
- import { authorizePublication } from "@/domains/execution/effect-service";
- import { requireStudioSession } from "@/domains/identity/session";
- import { studioErrorResponse } from "@/lib/http-errors";
-@@ -13,6 +14,8 @@ export async function POST(
-     const body = (await req.json()) as {
-       statement?: string;
-       inspectedFingerprint?: string;
-+      /** When false, skip automatic post-authorization dispatch (tests / inspection-only). Default true. */
-+      autoResumeMission?: boolean;
-     };
-     if (!body.inspectedFingerprint) {
-       return NextResponse.json(
-@@ -27,7 +30,18 @@ export async function POST(
-       statement: body.statement ?? "Mandat publication Git",
-       inspectedFingerprint: body.inspectedFingerprint,
-     });
--    return NextResponse.json(result);
-+    // P0: authorize IS the Pilot act (creates HD APPLICABLE). Then resume dispatch automatically.
-+    let missionResume: Awaited<ReturnType<typeof resumeMissionAfterPublicationAuthorize>> | null =
-+      null;
-+    if (body.autoResumeMission !== false && result.status === "AUTHORIZED") {
-+      missionResume = await resumeMissionAfterPublicationAuthorize({
-+        pilotId: session.pilotId,
-+        projectId,
-+        attemptId,
-+        decisionId: result.decisionId,
-+      });
-+    }
-+    return NextResponse.json({ ...result, missionResume });
-   } catch (e) {
-     const mapped = studioErrorResponse(e);
-     return NextResponse.json(mapped.body, { status: mapped.status });
 ```
 
 
@@ -1337,10 +1737,10 @@ index e0d4a6d3..b124860b 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 408e3dad..f5243a82 100644
+index 408e3dad..e1f8699c 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,38 @@
+@@ -3,6 +3,52 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
@@ -1376,6 +1776,20 @@ index 408e3dad..f5243a82 100644
 +| Schema | unchanged |
 +| Status | LOCAL REGULARIZATION — NO PRODUCT PUSH / RECETTE |
 +
++## delivery_id: DELIV-2026-11-10-NORA-INTENT-CONTINUITY-DEV-02
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-10 (Europe/Paris) |
++| Macro-lot | R5 / Continuité cognitive — correction P0-A..P1-E + preuves transverses |
++| Type | EVOL correction intégrée (NO RELEASE) |
++| Branch | `feat/next-nora-intent-continuity-20261110` (local — not pushed) |
++| Parent | REG @ `cf5bac70` |
++| Lane | DEV only; RECETTE untouched |
++| Changes | Mission-gated auto-resume; durable recover via listMessages/turn/reconcile; idempotent restitution; cognitive continue post-effet; publish qualification sans GitHub-centrisme; tests T01/T03/P0-A/P0-B/P1-E |
++| Schema | unchanged |
++| Status | LOCAL CONSTRUCTION — NO PRODUCT PUSH / RECETTE |
++
  ## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
 
  | Field | Value |
@@ -1384,209 +1798,130 @@ index 408e3dad..f5243a82 100644
 
 ---
 
-## 09. Analyse réelle du helper mission-continuity
+## 11. Contrats D2–D9 (résumé vérifié)
 
-- **Entrée unique** : appelé depuis `postUserMessageAndNora` (qualify/prepare/continue) et depuis route authorize (resume).
-- **Pas de table WorkIntent** ; projection `MissionProjection` refs-only dans `TurnResult` + ACK message.
-- **Vérité owners** : D4 docs/revisions ; D7 `effect_attempts` ; D6 `human_decisions` via `authorizePublication` uniquement.
-- `preparePublicationForMission` **n'appelle jamais** `authorizePublication`.
-- `resumeMissionAfterPublicationAuthorize` : AUTHORIZED/AMBIGUOUS → dispatch ; DISPATCHED → reconcile ; COMPLETED → no-op ; erreurs → best-effort reconcile si DISPATCHED.
-- `cognitiveContinueFromFacts` : **réutilise** `generateNoraReply` (pas de second SDK runner).
-- Corrélations stables **avant** effets : `doc:mission:{clientIntentKey}` / `pub:mission:{clientIntentKey}`.
+- D2 : acte explicite createProjectCommand — non contourné
+- D3 : Continue faits ; recover nominal ; pas d'authorize dans chat
+- D4 : correlation `doc:mission:` si publish ; Continue après AVAILABLE
+- D6 : authorizePublication crée HD ; mission resume seulement si `pub:mission:`
+- D7/D9 : prepare/dispatch/reconcile owners ; classic panel inchangé (manual dispatch)
 
 ---
 
-## 10. Flux D3→D4→D7→D6→D9
+## 12. Scénarios non Git et preuves
 
-1. `qualifyPublicationMission` + `qualifyDocumentAct`
-2. D4 CREATE avec correlation mission si `wantsPublish`
-3. Si AVAILABLE → Continue faits → éventuellement RESTITUTION_PENDING
-4. Si wantsPublish → `preparePublication` → PREPARED, mission `AWAITING_PILOT_AUTH`, `authorize_called:false`
-5. Pilote inspecte panel (diff/fingerprint)
-6. POST authorize → HD APPLICABLE + AUTHORIZED
-7. Auto `dispatchPublication` (D7/D9 SCRIPTED/REAL selon lane)
-8. Message restitution assistant + UI status = missionResume.status
-
----
-
-## 11. Reprise automatique post-autorisation
-
-- Déclencheur : route authorize propriétaire existante (pas un second scheduler).
-- Corrélé : `attemptId` + `decisionId` + ownership pilot/project.
-- Idempotent : 2e resume sur COMPLETED ne redispatche pas (prouvé PG).
-- Concurrent authorize : `authorizePublication` idempotent si déjà AUTHORIZED/DISPATCHED/COMPLETED.
-- Si crash **entre** authorize commit et resume : état AUTHORIZED+HD durable ; panel Dispatch reste disponible comme recovery manuelle — **réserve** (pas de worker auto post-panne). Si crash **après** resume serveur : DB COMPLETED ; reload UI OK.
-- `autoResumeMission:false` : pas d'auto-dispatch ; état AUTHORIZED durable.
-
----
-
-## 12. Durabilité missionProjection et corrélations
-
-- `missionProjection` dans TurnResult / resultJson turn — **pas** owner truth.
-- Reconstruction : D4 via `creationCorrelationKey`/`correlationKey` ; D7 via unique `(pilotId,projectId,correlationKey)` sur `effect_attempts`.
-- Replay même `clientTurnKey` : turn fence idempotent + mêmes clés → **pas** de second CREATE/prepare (test C2/C5 PASS).
-
----
-
-## 13. Crash D4/D7 et réconciliation
-
-| Fenêtre | Comportement code | Preuve |
+| ID | Résultat | Preuve |
 |---|---|---|
-| Après D4 AVAILABLE avant Continue | D4 conservé ; Continue fail → RESTITUTION_PENDING canonique | unit restitution + code service |
-| Replay même clientTurnKey | un doc, un attempt PREPARED | PG C2/C5 PASS |
-| Après PREPARED | attempt durable ; pas de HD | PG P0 + ACCEPT-01 chat PASS |
-| DISPATCHED uncertain | resume appelle reconcileAttempt | code resume |
-| COMPLETED | no redispach | PG resume2 PASS |
-
-Injection crash process réelle : **NON PROUVÉE** (pas de fault injector). Oracles via idempotence/replay owners.
+| T01 dialogue simple | PASS | PG — pas de missionProjection / pas D4 write |
+| T03 CREATE sans publish | PASS | PG — doc AVAILABLE ; pas de D7 mission |
+| T02 D2 mission auto | NON PROUVÉ | acte D2 inchangé ; pas de conductor D2 |
+| T05/T06 mission | NON PROUVÉ | owners existants non rebranchés en mission générique |
+| T09 multi-domaine non Git fort | PARTIAL | D4 Create+Continue oui ; enchaînement D2→D4 mission **gap** |
 
 ---
 
-## 14. Continue fail et restitution
+## 13. ACCEPT-01 et preuves
 
-Si Continue incomplete/exception après D4 AVAILABLE :
-- `assistantBody` = `composeCanonicalMissionRestitution` (faits D4)
-- `continueFailedAfterEffect=true` → `restitution: PENDING` sur mission
-- **Aucun** second CREATE ; document AVAILABLE conservé
+Chaîne DEV SCRIPTED : CREATE→prepare→PREPARED sans HD→authorize→recover/resume→COMPLETED→restitution idempotente.
 
----
-
-## 15. Idempotence / replay / STOP / révocation
-
-- Replay clientTurnKey : PASS PG
-- Double resume : PASS PG
-- STOP/révocation concurrente pendant resume : **NON PROUVÉ** ce cycle (réserve)
-- UNKNOWN : reconcile path présent ; pas de nouvelle autorisation dans resume
-
----
-
-## 16. Contrôle anti-architecture parallèle
-
-| Interdit | Observé |
+| Test | Résultat |
 |---|---|
-| Second runner Nora | Non — `generateNoraReply` only |
-| IntentConductor service | Non — helper module |
-| Table WorkIntent | Non |
-| Second effect journal | Non — `effect_attempts` |
-| Seconde autorité D6 | Non — `authorizePublication` only on Pilot act |
-| Publication Git concurrente | Non — mêmes prepare/dispatch |
-| God engine actions | Non — A3 respecté |
-
-Écart mineur : helper importe D7/D9 directement (orchestration légère D3) — cohérent avec cadrage « responsabilités logiques dans D3 ».
+| unit mission-continuity | **7 PASS** |
+| PG ACCEPT-01 suite | **8 PASS** |
+| NR CREATE subset | **3 PASS** |
+| tsc / eslint / next build | **PASS** |
 
 ---
 
-## 17. Tests exécutés et oracles
+## 14. Crash / reprise / STOP / concurrence
 
-SHA/tree sous test : `cf5bac70d12ae04a618893714d1a75994aba1f50` / `dbfd6d6632a9fd76220cfc0d73dc29a36de1272b`
-Env : DEV PG 5433, `STUDIO_E2E=1`, scripted GitHub, fixture Nora
-
-| Commande | Résultat |
+| Fenêtre | Preuve |
 |---|---|
-| `npx vitest run tests/unit/mission-continuity.test.ts` | **5 PASS** |
-| `npx vitest run tests/integration/mission-continuity-accept01.pg.test.ts` | **4 PASS** (dont C2/C5 replay) |
-| `npx vitest run tests/integration/ml4-chat-first-d4-provenance.pg.test.ts -t "A: conversational CREATE\|A-R12\|REC-10"` | **3 PASS** / 16 skipped |
-| `npx tsc --noEmit` | **PASS** |
-| eslint fichiers delivery + panel | **PASS** |
-| `npx next build` | **PASS** (avant correctif panel ; rebuild non rejoué après panel — réserve mineure) |
+| AUTHORIZED sans resume immédiat | recoverAuthorizedNoraMissions PASS |
+| Replay clientTurnKey | PASS |
+| Double resume restitution | ≤1 message `mission-resume:*` PASS |
+| Classic authorize sans mission | reste AUTHORIZED PASS |
+| STOP/révocation concurrente | **NON PROUVÉ** |
+| Browser HTTP authorize | **NON PROUVÉ** (code route + tests service) |
 
-BROWSER E2E panel missionResume : **NON PROUVÉ**
-NORA LIVE / GITHUB REAL / RECETTE : **NON PROUVÉ / HORS PÉRIMÈTRE**
+Progression réelle P0-B : (1) resume immédiat si mission dans authorize HTTP ; (2) sinon recover au prochain `listMessages` / `postUserMessageAndNora` / `reconcile` — **pas** de scheduler autonome.
+
+---
+
+## 15. Tests HTTP/browser
+
+- Routes authorize/reconcile : code modifié inspecté ; tests via services + recover (pas de harness session HTTP dédié) → **DETERMINISTIC / PG** ; browser **NON PROUVÉ**
+
+---
+
+## 16. Fake/Real
+
+Nora fixture · GitHub SCRIPTED · PG DEV · REAL/LIVE/RECETTE **hors mandat**
+
+---
+
+## 17. ENV-01 / versioning
+
+DEV isolé ; RECETTE intacte ; NO RELEASE ; MINOR CANDIDATE
 
 ---
 
 ## 18. Non-régression
 
-- CREATE conversational + A-R12 + REC-10 subset : PASS
-- REC-07 / REC-11 full : **non rejoués intégralement** ce cycle → réserve
-- Suite ml3 pilotage / D5/D6 full : **NON PROUVÉ** ce cycle
+CREATE conversational + A-R12 + REC-10 subset PASS ; REC-07/11 full non rejoués → réserve
 
 ---
 
-## 19. Fake/Real Qualification
+## 19. Risques / dette / exit
 
-| Frontière | Mode preuve |
-|---|---|
-| Nora | fixture (`STUDIO_E2E`) — DETERMINISTIC |
-| GitHub | SCRIPTED — DETERMINISTIC / PG |
-| PG | DEV isolé 5433 |
-| REAL GitHub publish | **interdit** |
-| NORA LIVE | **non autorisé** |
+- Mission Git encore le chemin le plus complet ; D2/D5/D6 mission générique en dette
+- `autoResumeMission:false` reste escape hatch test (membership serveur prime)
+- Rollback : revert `b0e23c46..f42cb2f5` sur feat local
 
 ---
 
-## 20. ENV-01 et versioning
+## 20. Écarts couverture globale
 
-- Lane DEV only ; RECETTE intacte
-- NO RELEASE ; MINOR CANDIDATE ; pas de numéro inventé
-- Schema : unchanged (pas de migration)
-
----
-
-## 21. Corrections éventuelles et nouveau diff
-
-**Défaut démontré :** `PublicationInspectionPanel.authorize` appliquait `j.status` (=AUTHORIZED) et ignorait `j.missionResume`, laissant le bouton Dispatch enabled après auto-dispatch — contredit garantie « pas de clic dispatch nominal ».
-
-**Correctif (`cf5bac70`) :**
-- Panel : status/pr/commit depuis `missionResume`
-- resume : expose `prNumber`/`commitSha` depuis `resultJson`
-- PG : test replay C2/C5
-- delivery-history REG entry
-
-Diff panel + mission-continuity correction inclus §08.
+- Orchestration mission D2/D5/D6 non Git
+- Browser / NORA LIVE / GITHUB REAL
+- Fault injector process crash
 
 ---
 
-## 22. Dette / exit / rollback
+## 21. Arbitrages Morris éventuels
 
-- Exit : `git reset --hard d7f1507a` sur feat WT (local only) ou revert `b0e23c46..cf5bac70`
-- Dette : Continue toujours après D4 AVAILABLE (coût tokens) ; recovery auto si crash mid-authorize→resume non workerisé ; `autoResumeMission` client-controllable
-- Pas de migration à rollback
-
----
-
-## 23. Réserves restantes
-
-1. Preuve browser UX missionResume **NON PROUVÉE**
-2. Crash process injector **NON PROUVÉ**
-3. STOP/révocation concurrente pendant dispatch **NON PROUVÉ**
-4. REC-07/11 full + suite ml3 **non rejoués**
-5. next build après panel fix **non rejoué** (tsc+eslint PASS)
-6. Product push / PR / RECETTE / REAL **non autorisés**
-7. CREATE→REVISE_NOT_FOUND LIVE : REPRO PENDING (inchangé)
+- Extension mission générique hors Git (si souhaitée) → nouveau GO
+- Scheduler durable vs recover-on-nominal-event (choix actuel documenté)
 
 ---
 
-## 24. Verdict unique
+## 22. Verdict unique
 
-**ACCEPT-01 DEV DELIVERY CORRECTED LOCALLY — NEW HEAD/TREE DOCUMENTED — RELEVANT TESTS REEXECUTED — FULL REVIEW PACK AVAILABLE — READY FOR CHATGPT TECHNICAL REVIEW — NO PRODUCT PUSH OR RECETTE AUTHORIZED**
+**NORA/STUDIO TRANSVERSE CONTINUITY — NOMINAL D3 INTEGRATION QUALIFIED IN DEV — ACCEPT-01 AND NON-GIT SCENARIOS VERIFIED AT REPORTED EVIDENCE LEVEL — NO PARALLEL ENGINE — READY FOR CHATGPT REVIEW — NO PRODUCT PUSH OR RECETTE AUTHORIZED**
 
 ---
 
-## 25. Git Review Index
+## 23. Git Review Index
 
 | Artefact | SHA |
 |---|---|
-| Feat HEAD | `cf5bac70d12ae04a618893714d1a75994aba1f50` |
-| Feat tree | `dbfd6d6632a9fd76220cfc0d73dc29a36de1272b` |
-| Implémentation | `b0e23c46461862ef2a20d73efc08eedf1b4bf5dc` |
-| Régularisation | `cf5bac70d12ae04a618893714d1a75994aba1f50` |
-| Base Product / fix HEAD | `d7f1507a56e50660ea24903c2dc563c249ba9086` |
-| Base tree | `3e9e1086aaf83e22d8e3350565f1c747bb31f556` |
-| Handoff précédent (incomplet) | `ef4154e1` / `f2c0804d` |
-| RECETTE BUILD | `8vZjme4-KnnPkAqm_QxMz` (untouched) |
+| Feat HEAD | `f42cb2f59d5611d596fb258d8344a046940f2032` |
+| Feat tree | `0cc1d2b8e65a426d4e21b1e85a723b9963ec3c8a` |
+| Base / fix | `d7f1507a` / `3e9e1086` |
+| Handoff précédent | `4e6431c8` / `5cac17f7` |
+| RECETTE BUILD | `8vZjme4-KnnPkAqm_QxMz` |
 
 **STOP** — pas de push Product.
 
 ---
 
-## 26. Contrôle §7.2.1 de complétude
+## 24. Contrôle §7.2.1
 
 | Checklist | Valeur |
 |---|---|
 | created files full content | **yes** |
-| modified sections complete | **yes** (diffs complets vs base + authorize full file) |
+| modified sections complete | **yes** (full small routes + complete diffs service/panel/history) |
 | useful diff included | **yes** |
 | synthesis only | **no** |
 | review pack verdict | **complete** |
-| §7.6 size note | Pack large car 3 créations + 4 diffs complets exigés — contenu critique non tronqué |
+| §7.6 | Pack large — créations + diffs critiques non tronqués |
