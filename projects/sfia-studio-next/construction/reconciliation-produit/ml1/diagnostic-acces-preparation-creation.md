@@ -195,3 +195,19 @@ La [vérification détaillée des 55 RG/PF D1](verification-detaillee-acces-port
 Les trois derniers ne prouvent **ni exploitation, ni fuite de données observée, ni incident réel**. Les niveaux de confiance et vérifications nécessaires sont dans l'annexe. La conformité D1 reste **PARTIAL/NOT FULLY PROVEN**, et F2/G5 demeure **NOT RUN**.
 
 **Suite :** analyse D2 individualisée (54 références historiques, six candidates) dans ce même dossier ML4B ; ensuite interfaces et E2E. Aucun GO code, PR, merge, promotion ou gate B implicitement acquis.
+
+## 9. Mise à jour — revue individualisée D2 (2026-11-10)
+
+La [revue D2 des 60 références](verification-detaillee-sas-creation-continuite.md) complète [la revue D1 des 55 références](verification-detaillee-acces-portefeuille.md). La traçabilité couvre désormais **103/103 RG/PF historiques validés et 12/12 références candidates distinctes** ; cela signifie **inventorié et rapproché du code**, pas **103 fonctionnalités conformes** ni 115 tests exécutés.
+
+**Résultat D2 — qualification différenciée :**
+
+- `D2-GAP-01` : `POST create-project`, `GET reconcile` et autres routes du sas convertissent erreurs non-authentification en HTTP 401. Prolongement de `D1-GAP-02`, pas anomalie de production supplémentaire indépendante.
+- `D2-GAP-02` : commande et API de réconciliation existent, mais `createProject()` navigateur ne les relie pas et n'a pas de traitement `catch/finally` pour les erreurs de transport ou de parsing. Réserve historique A05 non levée.
+- `D2-GAP-03` : `updatePreview` ne fait pas de compare-and-swap atomique sur `creationRevision` ; risque concurrentiel **non reproduit**.
+- `D2-GAP-04` : la création de préparation puis de conversation utilise deux insertions séparées ; possibilité conditionnelle d'une préparation orpheline **non reproduite**.
+- `D2-GAP-05` : création D2 validée séparément de la continuation cognitive D3/D4, frontière de restitution et de reprise à vérifier ; **pas un défaut prouvé par ce seul code**.
+
+**Preuves historiques préservées :** succès DB de création/idempotence/contexte, navigateur FAKE et Nora LIVE borné. Absence de reprise navigateur après perte ACK, d'injection de crash/restore, de qualification complète des interfaces D3/D4/D5–D9 et de comparaisons Figma/runtime.
+
+**État ML1 à cette date :** `115/115 R2 IDS SOURCE MAPPED / BEHAVIOR PROOF INCOMPLETE / E2E01 AND UX TO RECONCILE / NO CP1 GATE`. Poursuivre par une consolidation des frontières D1–D4 et E2E01 avant tout bilan de conformité ; aucune correction produit, PR, merge ou décision d'adoption induite.

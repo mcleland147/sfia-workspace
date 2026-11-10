@@ -55,7 +55,7 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 
 | Ensemble | Restitution actuelle | État |
 | --- | --- | --- |
-| **ML1 — Accès, sas, création et continuité** | [Diagnostic global ML1](ml1/diagnostic-acces-preparation-creation.md) et [revue D1 individualisée](ml1/verification-detaillee-acces-portefeuille.md) | 103 RG/PF historiques + 12 candidats D1/D2 ; **D1 : 55/55 IDs rattachés** (49 validés + 6 candidats), cinq constats de code, sans preuve comportementale globale ; **D2 à auditer** |
+| **ML1 — Accès, sas, création et continuité** | [Diagnostic ML1](ml1/diagnostic-acces-preparation-creation.md), [D1 — 55 références](ml1/verification-detaillee-acces-portefeuille.md), [D2 — 60 références](ml1/verification-detaillee-sas-creation-continuite.md) | **103 RG/PF historiques + 12 candidats : 115/115 IDs D1+D2 inventoriés individuellement**, preuves historiques et constats de code recensés ; **ce n'est ni une conformité certifiée ni une revue complète E2E/UX** |
 | **ML2 — Production et capitalisation** | Matrice R5 canonique [ML2](../ml2-production-et-capitalisation-nora/matrice-tracabilite.md) | Pré-inventaire ; qualité de mémoire proactive et restitution Nora à prouver |
 | **ML3 — Pilotage et décisions** | Matrice et contrat [ML3](../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) | Pré-inventaire ; couverture de guidance et frontières d'autorité à requalifier |
 | **ML4 — Collaboration et Git** | [Registre de RECETTE](../ml4-integration-git/recette-ml4-r01-r14-anomalies.md) | Code mergé (#672), première campagne non acceptée globalement ; R13/R14 NOT RUN |
@@ -80,6 +80,12 @@ Les IDs `REC-*` sont des **repères de diagnostic**, ni des noms de composants n
 La [matrice des 55 références D1](ml1/verification-detaillee-acces-portefeuille.md) conserve une ligne par `RG-ACC`/`PF-ACC` : contrat source, module concerné, test disponible et limite. Elle distingue **49 historiques VALIDATED SPEC** et **6 candidats**. L'analyse de code relève cinq constats (deux contradictions établies et trois risques/observations complémentaires), détaillés avec frontières de preuve ; aucune nouvelle exécution LIVE, BROWSER ou Figma.
 
 **Important :** `55/55 SOURCE MAPPED` n'est **pas** `55/55 COVERAGE VERIFIED` ni `BEHAVIOR PROVEN`. Le dossier passe ensuite à D2, sans lancer de correctifs ni conclure CP1.
+
+## 5.2. Réconciliation individualisée D2 — publication du 10/11/2026
+
+La [matrice des 60 références D2](ml1/verification-detaillee-sas-creation-continuite.md) rattache **54 RG/PF historiques validés + 6 candidats** aux chemins de préparation, commande, idempotence, reprise, connaissance, Nora et preuves disponibles. Elle documente cinq découvertes de niveaux distincts : classification API des erreurs, parcours client d'ACK perdu, concurrence des propositions, atomicité de création du sas, distinction entre projet créé et continuation de mission.
+
+**État du corpus ML1 : 55 références D1 + 60 références D2 = 115/115 identifiants répertoriés individuellement**, avec contrats propriétaires R2 inchangés. Les risques partagés (401 technique D1/D2) sont **corrélés, pas additionnés artificiellement**. Aucune exécution LIVE/REAL ou Figma, et aucune preuve de conformité complète, n'en découlent. La suite est la réconciliation profonde D3/D4, E2E01 et les preuves Figma/runtime.
 
 ## 6. Preuve UX à produire et gate CP1
 
