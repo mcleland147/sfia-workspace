@@ -55,7 +55,7 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 
 | Ensemble | Restitution actuelle | État |
 | --- | --- | --- |
-| **ML1 — Accès, sas, création et continuité** | [Diagnostic ML1](ml1/diagnostic-acces-preparation-creation.md), [D1 — 55 références](ml1/verification-detaillee-acces-portefeuille.md), [D2 — 60 références](ml1/verification-detaillee-sas-creation-continuite.md) | **103 RG/PF historiques + 12 candidats : 115/115 IDs D1+D2 inventoriés individuellement**, preuves historiques et constats de code recensés ; **ce n'est ni une conformité certifiée ni une revue complète E2E/UX** |
+| **ML1 — Accès, sas, création et continuité** | [Diagnostic ML1](ml1/diagnostic-acces-preparation-creation.md), [D1 — 55 références](ml1/verification-detaillee-acces-portefeuille.md), [D2 — 60 références](ml1/verification-detaillee-sas-creation-continuite.md), [E2E01 / D3–D4](ml1/reconciliation-e2e01-nora-connaissance.md) | **103 RG/PF validés + 12 candidats = 115/115 IDs D1+D2 cartographiés** ; six étapes et six exceptions E2E01 rapprochées des interfaces Nora/connaissance ; **LIVE E2E et Figma/runtime non prouvés, CP1 ouvert** |
 | **ML2 — Production et capitalisation** | Matrice R5 canonique [ML2](../ml2-production-et-capitalisation-nora/matrice-tracabilite.md) | Pré-inventaire ; qualité de mémoire proactive et restitution Nora à prouver |
 | **ML3 — Pilotage et décisions** | Matrice et contrat [ML3](../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) | Pré-inventaire ; couverture de guidance et frontières d'autorité à requalifier |
 | **ML4 — Collaboration et Git** | [Registre de RECETTE](../ml4-integration-git/recette-ml4-r01-r14-anomalies.md) | Code mergé (#672), première campagne non acceptée globalement ; R13/R14 NOT RUN |
@@ -86,6 +86,14 @@ La [matrice des 55 références D1](ml1/verification-detaillee-acces-portefeuill
 La [matrice des 60 références D2](ml1/verification-detaillee-sas-creation-continuite.md) rattache **54 RG/PF historiques validés + 6 candidats** aux chemins de préparation, commande, idempotence, reprise, connaissance, Nora et preuves disponibles. Elle documente cinq découvertes de niveaux distincts : classification API des erreurs, parcours client d'ACK perdu, concurrence des propositions, atomicité de création du sas, distinction entre projet créé et continuation de mission.
 
 **État du corpus ML1 : 55 références D1 + 60 références D2 = 115/115 identifiants répertoriés individuellement**, avec contrats propriétaires R2 inchangés. Les risques partagés (401 technique D1/D2) sont **corrélés, pas additionnés artificiellement**. Aucune exécution LIVE/REAL ou Figma, et aucune preuve de conformité complète, n'en découlent. La suite est la réconciliation profonde D3/D4, E2E01 et les preuves Figma/runtime.
+
+## 5.3. Réconciliation E2E01 — interfaces Nora D3 et connaissance D4
+
+Le [diagnostic E2E01/D3–D4](ml1/reconciliation-e2e01-nora-connaissance.md) confronte les **six étapes nominales et six exceptions de R1 §2.30** aux contrats D1/D2, interfaces D3/D4 et mécanismes R5 actuellement intégrés. Il préserve la différence entre **fil durable**, **sélection cognitive D4 réellement utile**, **vérité D2 du projet créé**, **continuation D3/D4** et **absence d'autorité Git/cycle induite**.
+
+**Constats transverses :** sélection de contexte/capitalisation **lexicale bornée** (pertinence LIVE non démontrée), lecture Git Nora du sas pré-projet non établie dans le chemin inspecté, manque de preuve E2E01 LIVE complet, distinction projet créé/mission composite, comparaison Figma/runtime encore absente. Ces repères de **couverture** ne doublonnent pas les écarts D1/D2 déjà enregistrés.
+
+**Limite :** D3/D4 ne sont pas audités exhaustivement ici : ce sont les interfaces pertinentes pour ML1/E2E01. Leur autonomie sémantique, mémoire vivante et restitution cognitive restent à reconcilier en profondeur avec **ML2**, avec ses propres contrats et preuves. `NO CP1 EXIT / NO ADOPTED`.
 
 ## 6. Preuve UX à produire et gate CP1
 

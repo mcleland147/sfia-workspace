@@ -211,3 +211,21 @@ La [revue D2 des 60 références](verification-detaillee-sas-creation-continuite
 **Preuves historiques préservées :** succès DB de création/idempotence/contexte, navigateur FAKE et Nora LIVE borné. Absence de reprise navigateur après perte ACK, d'injection de crash/restore, de qualification complète des interfaces D3/D4/D5–D9 et de comparaisons Figma/runtime.
 
 **État ML1 à cette date :** `115/115 R2 IDS SOURCE MAPPED / BEHAVIOR PROOF INCOMPLETE / E2E01 AND UX TO RECONCILE / NO CP1 GATE`. Poursuivre par une consolidation des frontières D1–D4 et E2E01 avant tout bilan de conformité ; aucune correction produit, PR, merge ou décision d'adoption induite.
+
+## 10. Réconciliation transverse E2E01 et interfaces D3/D4 (2026-11-10)
+
+Le [diagnostic complet E2E01 — Nora / connaissance](reconciliation-e2e01-nora-connaissance.md) rapproche les **six étapes utilisateur et les six exceptions explicitement validées dans R1 §2.30** des mécanismes R2/R3/R4/R5 et de leurs preuves. Il complète les annexes D1 (55 références) et D2 (60 références), **sans modifier ni réévaluer artificiellement les 115 verdicts individuels**.
+
+**Acquis source et preuves historiques :** session et sas personnel, reprise GET, création transactionnelle et idempotente, rattachement du même fil et des documents au projet, lecture de connaissance ciblée et outils D4 sous portée propriétaire ; Playwright DEV FAKE et PG historiques, OAuth/Nora LIVE bornés. Le code D3/D4 construit après ML1 apporte des tests scripted supplémentaires, sans constituer un E2E01 LIVE complet ni preuve UX.
+
+**Limites de réconciliation majeures :**
+
+1. **Fil persistant ≠ mémoire sémantique démontrée.** Le modèle voit un contexte récent tronqué et des extraits D4 sélectionnés lexicalement ; outils D4 de lecture supplémentaires sous budget existent, mais pertinence sur rappel reformulé, sources contradictoires et points ouverts spontanés **non certifiée en LIVE**. Interface propriétaire **ML2**.
+2. **Lecture Git pré-projet non établie sur le chemin Nora inspecté.** Les outils Git de Nora sont ajoutés seulement en présence de `projectId`, alors que R1/R2 permettent une source Git déjà autorisée dans le sas. Vérifier les autres voies avant de conclure à une absence absolue.
+3. **E2E01 complet non prouvé** sur erreurs, perte d'ACK, relecture du contexte après interruption, document/version et autorité D5/D6/D9, malgré PG/FAKE historiques.
+4. **Projet créé ≠ mission composée terminée.** Un effet D2 confirmé peut coexister avec `missionContinue.continued=false`; la vérité et la reprise D3/D4 requièrent preuve discriminante.
+5. **F2/G5 NON EXÉCUTÉS.** Les « 19/20 frames transposées » du G4 ne constituent pas la conformité visuelle, écran par écran et état par état.
+
+**Statut :** `D1+D2 115/115 IDS MAPPED / E2E01 SIX STEPS + SIX EXCEPTIONS REVIEWED / D3-D4 INTERFACES INSPECTED / UX AND LIVE NOT PROVEN / ML1 GLOBAL VERDICT NOT YET QUALIFIED / CP1 OPEN`.
+
+**Suite :** recouper les oracles et les réserves historiques ML1 avec les corrections réellement intégrées en ML2–ML4, puis consolider le diagnostic ML1 et les lacunes probatoires, **sans lancer une correction technique**. Les exigences propriétaires D3/D4 seront auditées en profondeur au macro-lot ML2.
