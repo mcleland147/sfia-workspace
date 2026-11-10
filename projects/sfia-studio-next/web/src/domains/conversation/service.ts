@@ -53,17 +53,20 @@ import {
   recoverAuthorizedNoraMissions,
   type MissionProjection,
 } from "./mission-continuity";
+import {
+  advanceMissionAfterProjectCreated,
+  buildD2AwaitingStep,
+  buildPendingDocumentStep,
+  emptyMission,
+  loadPriorMissionProjection,
+  mergeMissionSteps,
+  qualifyStudioIntent,
+} from "./intent-conduction";
+import { updatePreview } from "@/domains/preparation/service";
 
 export async function listMessages(pilotId: string, preparationId: string) {
+  // READ ≠ COMMAND: listing must not dispatch Git or mutate effects.
   const ctx = await getPreparationContext(pilotId, preparationId);
-  // P0-B: reconnection / chat reload — recover AUTHORIZED Nora missions without "continue".
-  if (ctx.project?.id) {
-    try {
-      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
-    } catch {
-      /* never block message listing */
-    }
-  }
   if (!ctx.conversation) return [];
   return db
     .select()
@@ -281,13 +284,27 @@ export async function postUserMessageAndNora(
   const ctx = await getPreparationContext(pilotId, preparationId);
   if (!ctx.conversation) throw new StudioError("NOT_FOUND", "Préparation introuvable");
 
-  // P0-B: next nominal turn recovers AUTHORIZED Nora missions (crash after D6).
+  // Governed recovery (COMMAND path only — never from listMessages READ).
+  // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
   if (ctx.project?.id) {
     try {
       await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
     } catch {
       /* never block the new turn */
     }
+  }
+
+  // Multi-domain continuity: if prior turn awaited D2 Pilot act and project now exists, advance.
+  let carriedMission: MissionProjection | null = null;
+  try {
+    const priorMission = await loadPriorMissionProjection(ctx.conversation.id);
+    if (priorMission?.status === "AWAITING_PILOT_ACT" && ctx.project?.id) {
+      carriedMission = advanceMissionAfterProjectCreated(priorMission, ctx.project.id);
+    } else if (priorMission && priorMission.status !== "COMPLETED") {
+      carriedMission = priorMission;
+    }
+  } catch {
+    carriedMission = null;
   }
 
   const clientTurnKey =
@@ -615,6 +632,7 @@ export async function postUserMessageAndNora(
   const documentAct = qualifyDocumentAct(content);
   const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
   const missionIntent = qualifyPublicationMission(content);
+  const studioIntent = qualifyStudioIntent(content);
   const clientIntentKey = clientTurnKey;
   const missionKeys = missionCorrelationKeys(clientIntentKey);
   // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
@@ -1126,6 +1144,67 @@ export async function postUserMessageAndNora(
         ...missionProjection,
         restitution: "PENDING",
       };
+    }
+  }
+
+  // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
+  if (
+    !ownershipLostBeforeD4 &&
+    studioIntent.wantsProjectCreate &&
+    !ctx.project?.id
+  ) {
+    const proposed =
+      studioIntent.proposedProjectName?.trim() ||
+      content.match(/projet\s+[«"]?([^»"\n.]{2,80})/i)?.[1]?.trim() ||
+      "Nouveau projet";
+    try {
+      await updatePreview(
+        pilotId,
+        preparationId,
+        proposed.slice(0, 120),
+        `Intention Nora — création de projet «${proposed}». Acte Pilote requis.`,
+      );
+    } catch {
+      /* preview best-effort */
+    }
+    let d2Mission = emptyMission(
+      clientIntentKey,
+      `Création de projet «${proposed}» — attente acte Pilote`,
+    );
+    d2Mission = mergeMissionSteps(d2Mission, [buildD2AwaitingStep(proposed)], "AWAITING_PILOT_ACT");
+    if (studioIntent.documentAct.kind === "CREATE" || studioIntent.publication.wantsPublish) {
+      d2Mission = mergeMissionSteps(d2Mission, [
+        buildPendingDocumentStep("CREATE"),
+      ]);
+    }
+    missionProjection = d2Mission;
+  } else if (
+    !missionProjection &&
+    carriedMission &&
+    (carriedMission.status === "ACTIVE" || carriedMission.status === "AWAITING_PILOT_ACT")
+  ) {
+    // Resume carried multi-domain mission after D2 confirmed (or still waiting).
+    if (documentEffectForAck?.status === "AVAILABLE" && documentEffectForAck.documentId) {
+      const steps = carriedMission.steps.map((s) =>
+        s.id === "d4_create" || s.capabilityId === "d4.create_document"
+          ? {
+              ...s,
+              status: "DONE" as const,
+              documentId: documentEffectForAck.documentId,
+              revisionId: documentEffectForAck.revisionId,
+            }
+          : s,
+      );
+      missionProjection = {
+        ...carriedMission,
+        steps,
+        status: steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
+          ? "ACTIVE"
+          : "COMPLETED",
+        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+      };
+    } else {
+      missionProjection = carriedMission;
     }
   }
 

@@ -23,6 +23,7 @@ import { qualifyDocumentAct } from "./document-act";
 
 export type MissionStatus =
   | "ACTIVE"
+  | "AWAITING_PILOT_ACT"
   | "AWAITING_PILOT_AUTH"
   | "AWAITING_CLARIFICATION"
   | "RESTITUTION_PENDING"
@@ -150,6 +151,13 @@ export function formatMissionAck(mission: MissionProjection): string {
         (s.revisionId ? ` revisionId=${s.revisionId}` : "") +
         (s.decisionId ? ` decisionId=${s.decisionId}` : "") +
         (s.reason ? ` reason=${s.reason}` : ""),
+    );
+  }
+  if (mission.status === "AWAITING_PILOT_ACT") {
+    lines.push(
+      "",
+      "Acte Pilote explicite requis (ex. Créer le projet) — Nora n'exécute pas D2 à la place du Pilote.",
+      "Après création confirmée, poursuivez dans la conversation : Nora reprend les étapes dépendantes.",
     );
   }
   if (mission.status === "AWAITING_PILOT_AUTH") {
