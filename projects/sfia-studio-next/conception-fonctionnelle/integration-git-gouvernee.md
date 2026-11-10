@@ -280,7 +280,7 @@ Un projet sans dépôt continue à utiliser Nora, les cycles, décisions, mémoi
 
 ## Addendum D9 — 2026-11-07 : intégrations et opérations documentaires natives
 
-**Référence :** [décision de trajectoire](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). Les 41 RG et 36 PF historiques restent identifiés et opposables dans leur version d'origine. Cet addendum précise le fonctionnement de ML4 ; les nouveaux cas de qualification N-01..N-27 sont contenus dans la [qualification approuvée](../construction/integration-git/qualification-impact-ml4-ml5.md), sans renumérotation silencieuse des PF existants.
+**Référence :** [décision de trajectoire](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). Les 41 RG et 36 PF historiques restent identifiés et opposables dans leur version d'origine. Cet addendum précise le fonctionnement de ML4 ; les nouveaux cas de qualification N-01..N-27 sont contenus dans la [qualification approuvée](../construction/ml4-integration-git/qualification-impact-ml4-ml5.md), sans renumérotation silencieuse des PF existants.
 
 - **RG-GIT-008/013/027 :** login OAuth Studio, installation de GitHub App, autorisation utilisateur, droits du dépôt et, en ML5, accès effectifs de Cursor sont distincts ; un jeton application plus privilégié ne contourne pas un refus du Pilote.
 - **RG-GIT-006/010/012 :** depuis Paramètres ou Nora, le Pilote peut installer, réautoriser, ajouter ultérieurement un dépôt, retirer un dépôt ou se déconnecter ; retrait du lien projet et retrait GitHub App sont des effets différents. Le travail Studio non dépendant continue.

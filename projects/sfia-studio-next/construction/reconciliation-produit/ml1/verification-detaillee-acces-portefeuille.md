@@ -1,6 +1,6 @@
 # SFIA Studio Next — ML4B / Contrôle individualisé D1 : accès et portefeuille
 
-**Nature :** annexe analytique D1 non normative ; texte contractuel chez [R2 — Accès et portefeuille](../../conception-fonctionnelle/acces-et-portefeuille.md).
+**Nature :** annexe analytique D1 non normative ; texte contractuel chez [R2 — Accès et portefeuille](../../../conception-fonctionnelle/acces-et-portefeuille.md).
 **Date :** 2026-11-10 ; **code inspecté :** `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4` ; branche candidate `docs/next-reconciliation-produit-ml1-20261110`.
 **Statut :** `55/55 IDs R2 D1 RATTACHÉS / SOURCE-TO-CODE REVIEWED / PROOF PARTIAL / BROWSER & LIVE NOT RE-RUN / F2-G5 NOT RUN / NO CP1 GATE`.
 **Local, DB réelle et navigateur : NON OBSERVÉS.** Aucune correction de code ou test exécuté dans cette revue. Retour au [diagnostic ML1](diagnostic-acces-preparation-creation.md).
@@ -15,34 +15,34 @@ Le diagnostic comporte une ligne par ID et une référence technique/test applic
 
 | Code | Référence à la baseline | Responsabilité |
 | --- | --- | --- |
-| `AU` | [`web/src/lib/auth.ts`](../../web/src/lib/auth.ts) | GitHub OAuth uniquement identité Studio |
-| `SE` | [`web/src/domains/identity/session.ts`](../../web/src/domains/identity/session.ts) | Session Better Auth, vérification, révocation, DEV gate |
-| `PR` | [`web/src/domains/identity/provision-pilot.ts`](../../web/src/domains/identity/provision-pilot.ts) | Provision PilotId serveur |
-| `PO` | [`web/src/domains/identity/portfolio.ts`](../../web/src/domains/identity/portfolio.ts) | Requêtes propriétaire, préparations ouvertes |
-| `AP` | [`web/src/app/api/portfolio/route.ts`](../../web/src/app/api/portfolio/route.ts) | API portefeuille sous session |
-| `UI` | [`web/src/app/portfolio/page.tsx`](../../web/src/app/portfolio/page.tsx) | Cockpit, badges, UX, erreurs |
-| `PC` | [`web/src/domains/preparation/project-context.ts`](../../web/src/domains/preparation/project-context.ts) | Rattachement de projet propriétaire |
-| `PJ` | [`web/src/app/api/projects/[projectId]/route.ts`](../../web/src/app/api/projects/[projectId]/route.ts) | API projet et refus 404/401 |
-| `PS` | [`web/src/domains/preparation/service.ts`](../../web/src/domains/preparation/service.ts) | Préparation et conversation owner-scoped |
-| `AR` | [`web/src/app/api/preparations/route.ts`](../../web/src/app/api/preparations/route.ts) | POST préparation et gestion d'erreurs |
-| `AE` | [`web/src/app/api/preparations/[preparationId]/route.ts`](../../web/src/app/api/preparations/[preparationId]/route.ts) | GET/PATCH préparation et gestion d'erreurs |
-| `SR` | [`web/src/components/shell/StudioShell.tsx`](../../web/src/components/shell/StudioShell.tsx) | Rail, navigation et statut affiché |
-| `HE` | [`web/src/lib/http-errors.ts`](../../web/src/lib/http-errors.ts) | Classification normalisée HTTP |
-| `OB` | [`web/src/lib/observability.ts`](../../web/src/lib/observability.ts) | Traçabilité et masquage |
-| `IP` | [`web/src/app/projects/[projectId]/page.tsx`](../../web/src/app/projects/[projectId]/page.tsx) | Chargement et restitution du contexte projet |
-| `GI` | [`web/src/domains/integrations/real-github-provider.ts`](../../web/src/domains/integrations/real-github-provider.ts) | Capacité Git D9, séparée de D1 ; non revue intégralement |
+| `AU` | [`web/src/lib/auth.ts`](../../../web/src/lib/auth.ts) | GitHub OAuth uniquement identité Studio |
+| `SE` | [`web/src/domains/identity/session.ts`](../../../web/src/domains/identity/session.ts) | Session Better Auth, vérification, révocation, DEV gate |
+| `PR` | [`web/src/domains/identity/provision-pilot.ts`](../../../web/src/domains/identity/provision-pilot.ts) | Provision PilotId serveur |
+| `PO` | [`web/src/domains/identity/portfolio.ts`](../../../web/src/domains/identity/portfolio.ts) | Requêtes propriétaire, préparations ouvertes |
+| `AP` | [`web/src/app/api/portfolio/route.ts`](../../../web/src/app/api/portfolio/route.ts) | API portefeuille sous session |
+| `UI` | [`web/src/app/portfolio/page.tsx`](../../../web/src/app/portfolio/page.tsx) | Cockpit, badges, UX, erreurs |
+| `PC` | [`web/src/domains/preparation/project-context.ts`](../../../web/src/domains/preparation/project-context.ts) | Rattachement de projet propriétaire |
+| `PJ` | [`web/src/app/api/projects/[projectId]/route.ts`](../../../web/src/app/api/projects/[projectId]/route.ts) | API projet et refus 404/401 |
+| `PS` | [`web/src/domains/preparation/service.ts`](../../../web/src/domains/preparation/service.ts) | Préparation et conversation owner-scoped |
+| `AR` | [`web/src/app/api/preparations/route.ts`](../../../web/src/app/api/preparations/route.ts) | POST préparation et gestion d'erreurs |
+| `AE` | [`web/src/app/api/preparations/[preparationId]/route.ts`](../../../web/src/app/api/preparations/[preparationId]/route.ts) | GET/PATCH préparation et gestion d'erreurs |
+| `SR` | [`web/src/components/shell/StudioShell.tsx`](../../../web/src/components/shell/StudioShell.tsx) | Rail, navigation et statut affiché |
+| `HE` | [`web/src/lib/http-errors.ts`](../../../web/src/lib/http-errors.ts) | Classification normalisée HTTP |
+| `OB` | [`web/src/lib/observability.ts`](../../../web/src/lib/observability.ts) | Traçabilité et masquage |
+| `IP` | [`web/src/app/projects/[projectId]/page.tsx`](../../../web/src/app/projects/[projectId]/page.tsx) | Chargement et restitution du contexte projet |
+| `GI` | [`web/src/domains/integrations/real-github-provider.ts`](../../../web/src/domains/integrations/real-github-provider.ts) | Capacité Git D9, séparée de D1 ; non revue intégralement |
 
 ## 3. Références de tests lues ou localisées, sans réexécution
 
 | Code | Test | Portée du contrat de test |
 | --- | --- | --- |
-| `T1` | [`web/tests/integration/identity-session.pg.test.ts`](../../web/tests/integration/identity-session.pg.test.ts) | PG : identity stable, deux Pilotes, refus DEV non autorisé ; OAuth simulé |
-| `T2` | [`web/tests/integration/portfolio-a1.pg.test.ts`](../../web/tests/integration/portfolio-a1.pg.test.ts) | PG : propriétaire, OPEN non attachée, 25/page |
-| `T3` | [`web/tests/e2e/ml1-smoke.spec.ts`](../../web/tests/e2e/ml1-smoke.spec.ts) | Playwright BROWSER FAKE : Projet A, reprise, Pilot B 404 |
-| `T4` | [`web/tests/e2e/g4-b1-b4-correctifs.spec.ts`](../../web/tests/e2e/g4-b1-b4-correctifs.spec.ts) | Playwright BROWSER FAKE : reprise GET sans POST |
-| `T5` | [`web/tests/unit/http-errors.test.ts`](../../web/tests/unit/http-errors.test.ts) | UNIT : 401/503/500 et secret non renvoyé par classifieur |
-| `T6` | [`web/tests/unit/observability.test.ts`](../../web/tests/unit/observability.test.ts) | UNIT : masquage, lane et sink read-only |
-| `T7` | [`web/tests/unit/dev-login-host.test.ts`](../../web/tests/unit/dev-login-host.test.ts) | UNIT : anti-spoof Host/proxy et DEV consume gate |
+| `T1` | [`web/tests/integration/identity-session.pg.test.ts`](../../../web/tests/integration/identity-session.pg.test.ts) | PG : identity stable, deux Pilotes, refus DEV non autorisé ; OAuth simulé |
+| `T2` | [`web/tests/integration/portfolio-a1.pg.test.ts`](../../../web/tests/integration/portfolio-a1.pg.test.ts) | PG : propriétaire, OPEN non attachée, 25/page |
+| `T3` | [`web/tests/e2e/ml1-smoke.spec.ts`](../../../web/tests/e2e/ml1-smoke.spec.ts) | Playwright BROWSER FAKE : Projet A, reprise, Pilot B 404 |
+| `T4` | [`web/tests/e2e/g4-b1-b4-correctifs.spec.ts`](../../../web/tests/e2e/g4-b1-b4-correctifs.spec.ts) | Playwright BROWSER FAKE : reprise GET sans POST |
+| `T5` | [`web/tests/unit/http-errors.test.ts`](../../../web/tests/unit/http-errors.test.ts) | UNIT : 401/503/500 et secret non renvoyé par classifieur |
+| `T6` | [`web/tests/unit/observability.test.ts`](../../../web/tests/unit/observability.test.ts) | UNIT : masquage, lane et sink read-only |
+| `T7` | [`web/tests/unit/dev-login-host.test.ts`](../../../web/tests/unit/dev-login-host.test.ts) | UNIT : anti-spoof Host/proxy et DEV consume gate |
 
 ## 4. Matrice exhaustive des 55 identifiants D1
 
@@ -122,11 +122,11 @@ Le diagnostic comporte une ligne par ID et une référence technique/test applic
 
 | Repère | Type | Références | Démonstration au code / limite | Piste de contrôle, non autorisée en construction |
 | --- | --- | --- | --- | --- |
-| **D1-GAP-01** | **Contradiction de code** | `RG-ACC-013`, `PF-ACC-11` | [`portfolio/page.tsx#L34-L40`](../../web/src/app/portfolio/page.tsx#L34-L40) attribue Actif, En réflexion, À reprendre par **index** ; [`portfolio.ts`](../../web/src/domains/identity/portfolio.ts) ne livre pas de statut de projet. La carte « Reprises récentes » compte les préparations ouvertes, sans critère de récence. | Vérification navigateur puis retirer/remplacer états non sourcés selon contrat |
-| **D1-GAP-02** | **Erreur classée à tort en source** | candidat `RG-ACC-026`, D2 `RG-CRE-013` | [`POST /api/preparations`](../../web/src/app/api/preparations/route.ts) renvoie **401 SESSION_INVALID pour toute exception** ; [`GET/PATCH /api/preparations/:id`](../../web/src/app/api/preparations/[preparationId]/route.ts) transforme aussi les exceptions non-404 (GET) et toutes les exceptions (PATCH) en 401. [`http-errors.ts`](../../web/src/lib/http-errors.ts) distingue 401/500/503. | Injection DB/HTTP et erreur API distincte de l'identité |
-| **D1-GAP-03** | **Risque d'exposition technique par le code** | `RG-ACC-015/021`, `PF-ACC-24`, candidat `RG-ACC-028` | [`portfolio.ts`](../../web/src/domains/identity/portfolio.ts) produit `{kind:"unavailable",reason:e.message}` sur erreur non StudioError ; [`GET /api/portfolio`](../../web/src/app/api/portfolio/route.ts) sérialise cet objet ; [`portfolio/page.tsx`](../../web/src/app/portfolio/page.tsx) affiche `p.reason`. **Aucune fuite sensible observée.** | Test d'injection avec chaîne interne artificielle, classification et masquage |
-| **D1-GAP-04** | **Erreur Better Auth conditionnellement déqualifiée** | `RG-ACC-002/006`, candidat `RG-ACC-026` | [`session.ts`](../../web/src/domains/identity/session.ts) transforme les erreurs DB reconnues en 503 mais les autres erreurs de l'appel Better Auth en `null`, pouvant conduire à une apparence de non-authentification. Événement réel non observé. | Simuler erreurs de provider distinctes de 401, contrôler réponse et diagnostic |
-| **D1-GAP-05** | **Affichage session non autoritatif** | `RG-ACC-013`, `PF-ACC-11`, possiblement `RG-ACC-006` | [`StudioShell.tsx`](../../web/src/components/shell/StudioShell.tsx) affiche « Connecté » selon `pathname` projet/sas via `inProductSpace`, **pas** selon état session vérifié. Cas utilisateur avec session expirée non observé. | Capturer shell lors d'expiration/rechargement et vérifier l'honnêteté de l'état |
+| **D1-GAP-01** | **Contradiction de code** | `RG-ACC-013`, `PF-ACC-11` | [`portfolio/page.tsx#L34-L40`](../../../web/src/app/portfolio/page.tsx#L34-L40) attribue Actif, En réflexion, À reprendre par **index** ; [`portfolio.ts`](../../../web/src/domains/identity/portfolio.ts) ne livre pas de statut de projet. La carte « Reprises récentes » compte les préparations ouvertes, sans critère de récence. | Vérification navigateur puis retirer/remplacer états non sourcés selon contrat |
+| **D1-GAP-02** | **Erreur classée à tort en source** | candidat `RG-ACC-026`, D2 `RG-CRE-013` | [`POST /api/preparations`](../../../web/src/app/api/preparations/route.ts) renvoie **401 SESSION_INVALID pour toute exception** ; [`GET/PATCH /api/preparations/:id`](../../../web/src/app/api/preparations/[preparationId]/route.ts) transforme aussi les exceptions non-404 (GET) et toutes les exceptions (PATCH) en 401. [`http-errors.ts`](../../../web/src/lib/http-errors.ts) distingue 401/500/503. | Injection DB/HTTP et erreur API distincte de l'identité |
+| **D1-GAP-03** | **Risque d'exposition technique par le code** | `RG-ACC-015/021`, `PF-ACC-24`, candidat `RG-ACC-028` | [`portfolio.ts`](../../../web/src/domains/identity/portfolio.ts) produit `{kind:"unavailable",reason:e.message}` sur erreur non StudioError ; [`GET /api/portfolio`](../../../web/src/app/api/portfolio/route.ts) sérialise cet objet ; [`portfolio/page.tsx`](../../../web/src/app/portfolio/page.tsx) affiche `p.reason`. **Aucune fuite sensible observée.** | Test d'injection avec chaîne interne artificielle, classification et masquage |
+| **D1-GAP-04** | **Erreur Better Auth conditionnellement déqualifiée** | `RG-ACC-002/006`, candidat `RG-ACC-026` | [`session.ts`](../../../web/src/domains/identity/session.ts) transforme les erreurs DB reconnues en 503 mais les autres erreurs de l'appel Better Auth en `null`, pouvant conduire à une apparence de non-authentification. Événement réel non observé. | Simuler erreurs de provider distinctes de 401, contrôler réponse et diagnostic |
+| **D1-GAP-05** | **Affichage session non autoritatif** | `RG-ACC-013`, `PF-ACC-11`, possiblement `RG-ACC-006` | [`StudioShell.tsx`](../../../web/src/components/shell/StudioShell.tsx) affiche « Connecté » selon `pathname` projet/sas via `inProductSpace`, **pas** selon état session vérifié. Cas utilisateur avec session expirée non observé. | Capturer shell lors d'expiration/rechargement et vérifier l'honnêteté de l'état |
 
 **Précaution majeure :** D1-GAP-01 et D1-GAP-02 sont des contradictions déterministes dans les chemins de code inspectés ; D1-GAP-03 est une **propagation possible de message technique**, pas une exfiltration démontrée ; D1-GAP-04 et D1-GAP-05 sont des **risques conditionnels**. Ni impact réel ni criticité n'ont été mesurés. Aucun correctif ni priorisation ML4C ne découle automatiquement de cette analyse.
 

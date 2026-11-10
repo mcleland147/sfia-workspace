@@ -204,7 +204,7 @@ Pour chaque **capacité** implémentée, Cursor doit disposer avant le code de l
 
 ## Addendum de transposition — 2026-11-07 : ML4 Git et Intégrations
 
-**Référence :** [décision](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md) ; [brief Figma](../construction/integration-git/brief-ux-figma.md). Réutiliser les frames Git 172 (236:471), 173 (236:609), 184 (236:2127), 185 (236:2265) et 191 (237:1053) du fichier itgvCulInEnFY6DvgIegvP. Créer les nouvelles surfaces **Paramètres → Intégrations**, premier login facultatif, consentement/installations GitHub, ajout et révocation de dépôts, retour contextuel Nora et publication d'une révision D4. Ne pas inventer de node IDs pour les écrans non créés.
+**Référence :** [décision](../governance/decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md) ; [brief Figma](../construction/ml4-integration-git/brief-ux-figma.md). Réutiliser les frames Git 172 (236:471), 173 (236:609), 184 (236:2127), 185 (236:2265) et 191 (237:1053) du fichier itgvCulInEnFY6DvgIegvP. Créer les nouvelles surfaces **Paramètres → Intégrations**, premier login facultatif, consentement/installations GitHub, ajout et révocation de dépôts, retour contextuel Nora et publication d'une révision D4. Ne pas inventer de node IDs pour les écrans non créés.
 
 Avant code, obtenir **contrat visuel Morris, node IDs natifs, date, snapshot et matrice PF/UX/états** ; contrôler focus, clavier, zoom, reflow, responsive, droit/refus/erreur. Un bouton de configuration ne doit pas autoriser un effet, et aucune publication/merge ne doit être simulée visuellement comme réussi.
 
