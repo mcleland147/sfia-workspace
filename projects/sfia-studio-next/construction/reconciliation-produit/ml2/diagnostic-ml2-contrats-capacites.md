@@ -3,9 +3,9 @@
 **Nature :** photographie de réconciliation documentaire **non normative**, en cours d'approfondissement. **Date :** 2026-11-10.
 **Code relu :** `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4`. **Branche documentaire :** `docs/next-reconciliation-produit-ml1-20261110`.
 **Environnement local / runtime / navigateur : NON OBSERVÉS.** Aucun test n'a été réexécuté dans ce diagnostic.
-**Statut :** `ML2 17/17 CAPABILITIES SOURCE-TO-CODE MAPPED / D4 46/46 IDS MAPPED / D3 INDIVIDUAL AUDIT OPEN / LIVE COMPARISON & F2-G5 NOT RUN / CP1 OPEN`.
+**Statut :** `ML2 17/17 CAPABILITIES SOURCE-TO-CODE MAPPED / D3 118/118 + D4 46/46 IDS MAPPED / E2E03-E2E04 FIRST PASS / FULL LIVE & F2-G5 NOT RUN / CP1 OPEN`.
 
-[Index ML4B](../README.md) · [Revue individuelle D4](verification-detaillee-connaissance-d4.md).
+[Index ML4B](../README.md) · [Revue individuelle D3](verification-detaillee-conduite-nora-d3.md) · [Revue individuelle D4](verification-detaillee-connaissance-d4.md).
 
 ## 1. Contrat initial, résultat et frontières
 
@@ -29,6 +29,8 @@ La [spécification technique ML2](../../ml2-production-et-capitalisation-nora/sp
 **Total corpus D3/D4 : 164 références présentes dans les deux sources**, dont des obligations **propres à d'autres macro-lots** (méthode/CKI D3 traités aussi en ML3, publication Git en ML4) et des addenda **candidats**. Ce total est un **univers documentaire**, pas 164 fonctions indépendantes ni le nombre de tests nécessaires. D3 ne sera considéré « couvert individuellement » qu'après analyse des 118 IDs, y compris la qualification IN/OUT par lot.
 
 Le diagnostic D4 individualisé est dans [l'annexe correspondante](verification-detaillee-connaissance-d4.md) : 34 références historiques/compléments approuvés + 12 candidates, toutes rattachées à un mécanisme, une preuve pertinente ou un risque identifié.
+
+La [matrice D3 individualisée](verification-detaillee-conduite-nora-d3.md) contrôle **118/118 IDs** : 97 validés en contenu et 21 candidats, avec codes, tests voisins et limites par scénario. **D3+D4 : 164/164 IDs recensés**, sans présumer une conformité individuelle de bout en bout. Les interfaces méthode/cycles/autorité référencées dans D3 restent à croiser avec leurs propriétaires ML3/ML4.
 
 ## 3. Tableau de reconstruction des 17 capacités ML2
 
@@ -81,6 +83,6 @@ Le tableau provient des IDs `ML2-COH-01..17` déjà existants dans la **matrice 
 
 ## 6. Suite de ML4B
 
-Le premier sous-ensemble est la **vérification individualisée des 46 références D4**, conservée dans ce dossier. La prochaine vérification suit **D3 : 118 références**, en séparant les capacités directement ML2 (dialogue, sources, production, activité) des interfaces D5/D6 et méthodes traitées plus profondément en ML3. Puis parcourir **E2E03/E2E04** et confronter Nora et les surfaces à des preuves vérifiables LIVE/BROWSER/Figma.
+Les deux matrices individuelles [D3](verification-detaillee-conduite-nora-d3.md) et [D4](verification-detaillee-connaissance-d4.md) sont maintenant publiées pour **118+46 références**. D3 apporte également un premier rapprochement des **six étapes E2E03 et six étapes E2E04**, des limites SDK/activité/rendu et des interfaces D5/D6/D9. La suite doit confronter les preuves de chaque chaîne complète (cognition LIVE, D4, browser, Figma, conséquences et reprise), puis réconcilier ML3/ML4 et les gaps transverses ; pas de micro-reprise documentaire par RG.
 
-**État de cette publication :** `17/17 ML2 CAPACITIES INDEXED / 46/46 D4 REFERENCES MAPPED / D3 INDIVIDUAL REVIEW OPEN / NO FULL PRODUCT CONFORMITY / NO CP1 GATE`. Aucune correction, décision de convergence, PR, merge ou promotion n'est induite.
+**État de cette publication :** `17/17 ML2 CAPACITIES INDEXED / 164/164 D3-D4 REFERENCES MAPPED (VALIDATED/CANDIDATE DISTINCT) / NO FULL LIVE E2E OR FIGMA VERDICT / NO CP1 GATE`. Aucune correction, décision de convergence, PR, merge ou promotion n'est induite.

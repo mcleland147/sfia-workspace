@@ -56,7 +56,7 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 | Ensemble | Restitution actuelle | État |
 | --- | --- | --- |
 | **ML1 — Accès, sas, création et continuité** | [Diagnostic ML1](ml1/diagnostic-acces-preparation-creation.md), [D1 (55)](ml1/verification-detaillee-acces-portefeuille.md), [D2 (60)](ml1/verification-detaillee-sas-creation-continuite.md), [E2E01/D3–D4](ml1/reconciliation-e2e01-nora-connaissance.md), [Consolidation ML1↔ML2–ML4](ml1/consolidation-capacites-reserves-ml2-ml4.md) | **115/115 IDs D1/D2 rattachés ; 8/8 capacités ML1 et A01–A16 consolidés** avec apports ML2–ML4 et réserves. **Ni conformité LIVE globale, ni Figma, ni gate CP1** |
-| **ML2 — Production et capitalisation** | [Contrats et 17 capacités](ml2/diagnostic-ml2-contrats-capacites.md) · [46 règles/parcours D4](ml2/verification-detaillee-connaissance-d4.md) · [Matrice canonique R5](../ml2-production-et-capitalisation-nora/matrice-tracabilite.md) | **17/17 capacités initialement raccordées au code** ; **46/46 D4 RG/PF individuellement cartographiées** ; D3 (118 références) et E2E03/E2E04 à approfondir ; LIVE/Figma non certifiés |
+| **ML2 — Production et capitalisation** | [17 capacités](ml2/diagnostic-ml2-contrats-capacites.md) · [D3 : 118 RG/PF](ml2/verification-detaillee-conduite-nora-d3.md) · [D4 : 46 RG/PF](ml2/verification-detaillee-connaissance-d4.md) · [QA ML2](../ml2-production-et-capitalisation-nora/matrice-tracabilite.md) | **17/17 capacités ; D3 118/118 et D4 46/46 références cartographiées individuellement (164 au total)** ; E2E03/E2E04 rapprochés initialement, preuves LIVE qualitatives et Figma/runtime **incomplètes**, CP1 ouvert |
 | **ML3 — Pilotage et décisions** | Matrice et contrat [ML3](../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) | Pré-inventaire ; couverture de guidance et frontières d'autorité à requalifier |
 | **ML4 — Collaboration et Git** | [Registre de RECETTE](../ml4-integration-git/recette-ml4-r01-r14-anomalies.md) | Code mergé (#672), première campagne non acceptée globalement ; R13/R14 NOT RUN |
 | **UX transversal** | [G4 as-built](../convergence-ux-parcours-pilote-nora/as-built-g4-figma-ux-transposition-2026-11-08.md) | 19/20 frames **déclarées** implémentées, 1 partielle ; F2/G5 NOT RUN : aucune conformité visuelle acquise |
@@ -110,6 +110,16 @@ Le [premier diagnostic ML2](ml2/diagnostic-ml2-contrats-capacites.md) reconstitu
 La [matrice D4](ml2/verification-detaillee-connaissance-d4.md) vérifie **46/46 IDs** (`20 RG + 14 PF` validés ou approuvés en contenu, `6 RG + 6 PF` candidats), avec contrat, réalisation et preuve/réserve. **Il reste à faire la revue individuelle D3 (74 RG + 44 PF), la reconstitution E2E03/E2E04 et les comparaisons Figma/runtime**.
 
 **Premiers constats :** stockage et versions D4 solides au niveau DB/PG ; récupération et capitalisation sélectionnées lexicalement, utilité cognitive LIVE non démontrée globalement ; contradiction historique entre effet documentaire `AVAILABLE` et restitution de Nora ; sûreté de lecture D4 en code mais révocation/continuité REAL à requalifier. Ces constats restent liés aux registres ML1/ML4 propriétaires, **sans doublon ni GO de correction**.
+
+## 5.6. ML2 — 118 références D3 individualisées et rapprochement E2E03/E2E04
+
+La [matrice D3](ml2/verification-detaillee-conduite-nora-d3.md) confronte **74 RG et 44 PF de conduite de Nora** aux services et preuves connues : **62 RG + 35 PF validés en contenu**, **12 RG + 9 PF candidats**, soit **118/118 références**. Les textes D3 relatifs à la méthode, aux cycles, aux droits et aux arrêts ne deviennent pas des responsabilités techniques ML2 par simple rattachement : leurs propriétaires D5/D6/D7/D9 et leurs gates restent distincts.
+
+**Corpus ML2 désormais tracé par ID :** D3 **118/118** + D4 **46/46** = **164/164 références**. Il ne s'agit **ni de 164 fonctions implémentées, ni de 164 PASS** : tests PG/FAKE, essais LIVE bornés et absence de qualification cognitive/visuelle globale sont explicitement séparés. Les six obligations supplémentaires `NORA-INFO-01..06` et le contrat d'activité/STOP sont également relevés, hors compteur des RG/PF.
+
+**Points déterminants :** boucle Agents SDK et outils sous budget réels, `modelApplied/effortApplied` non vérifiés, streaming SDK tenté sans preuve de diffusion progressive dans l'UI, frontière Nora/ACK D4 à requalifier au SHA courant (écart observé dans la RECETTE ML4), scénarios négatifs D5–D9 insuffisamment exercés ensemble. Les six étapes **E2E03 et E2E04** sont rapprochées du code et des tests, **sans verdict E2E LIVE**.
+
+**Suite :** consolider E2E03/E2E04 à partir des observations et des oracles, puis poursuivre ML3/ML4 et les écarts transverses avant Gate B ; pas de correction ML4C ni de nouvelle norme créée.
 
 ## 6. Preuve UX à produire et gate CP1
 
