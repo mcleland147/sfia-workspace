@@ -1,242 +1,666 @@
 # SFIA Studio Next — Review Pack FULL
-# ML4C — Cycle 13 PR readiness (publication branche + ouverture PR)
+# ML4C S05 — Robustesse de qualification des intentions (PR #676)
 
-**Date/heure :** 2026-11-11 19:59 CET (2026-11-11 18:59 UTC)
-**Cycle :** 13 — PR readiness
+**Date/heure :** 2026-11-11 20:32 CET (2026-11-11 19:32 UTC)
+**Cycle :** 8 — Delivery / implémentation (INC S05)
 **Profil :** Critical
-**Typologie :** EVOL / PR readiness du candidat existant (pas de nouveau cycle de construction)
-**Niveau pack :** FULL
-**Review Handoff :** required / publish-in-cycle
-**Version produit :** NO RELEASE — `0.0.0-dev`
-**Merge :** NON AUTORISÉ (GO PR readiness seulement)
+**PR :** https://github.com/mcleland147/sfia-workspace/pull/676
+**Merge :** NON AUTORISÉ (GO correctif S05 seulement)
+**Version :** NO RELEASE / `0.0.0-dev`
 
 ---
 
-## 0. Nature de ce cycle
+## 1. Git Truth Check
 
-Ce pack décrit **PR readiness** : Git Truth, push de `build/next-ml4c-functional-convergence`, ouverture PR #676, lecture CI.
+| Contrôle | Avant | Après |
+| --- | --- | --- |
+| Branche | `build/next-ml4c-functional-convergence` | idem |
+| HEAD | `ba91cf71…` (CI fail) | **`8cff159189a4b20399318b416dccfcebc6149233`** |
+| Tree | `9d277006…` | **`bf69e086e2bf6253feb370472872c8a72fb82ff3`** |
+| main / merge-base | `6d237452…` | inchangé |
+| Remote branch | match tip | match tip (push FF) |
+| Dirty produit | pack only | pack only |
 
-**Aucun nouveau diff produit** n'a été créé dans ce cycle. HEAD candidat inchangé : `ba91cf71`.
-
-Le pack précédent (`c0afc836` / blob `673d37d7`) portait sur le correctif S03/S05.  
-**Clarification métadonnée :** l'index interne de ce handoff antérieur citait une tip/blob parent (`817a7434` / `2a6c184e`) distincte du tip distant réel `c0afc836` / blob `673d37d7` — artefact d'index non autoréférentiel ; les valeurs `git rev-parse` distantes font foi.
-
-Verdict ChatGPT (mandat Morris, section 5) sur le correctif :
-**ML4C S03/S05 CORRECTIVE — ACCEPTED WITH CARRIED RESERVES**  
-**READY FOR BOUNDED PR READINESS**  
-**NOT GLOBAL ML4C BEHAVIOR PROVEN**
-
----
-
-## 1. Git Truth Check (avant push)
-
-| Contrôle | Résultat |
-| --- | --- |
-| Remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| Branche | `build/next-ml4c-functional-convergence` |
-| HEAD local | `ba91cf71e8b1ee00e937fba350d8c1aa6c0a2112` — **MATCH** |
-| Tree | `9d2770066454289d7797c6e28c24d244d40c396b` — **MATCH** |
-| origin/main (après fetch) | `6d237452680640324eeadbb18f4601fd7de99850` — **inchangé** |
-| Merge-base | `6d237452…` — **MATCH** |
-| Commits (3) | `cbfadadc`, `cb0738b5`, `ba91cf71` — **MATCH** |
-| Branche distante avant push | **absente** |
-| Dirty produit | aucun (seul `.tmp-sfia-review` local) |
-| `git diff --check` | PASS |
-| Reset / force push | AUCUN |
-
-**Verdict Git Truth :** PASS. Main n'a pas évolué. Push autorisé.
+**Verdict Git Truth :** PASS.
 
 ---
 
-## 2. Sources consultées
+## 2. Cause de conception
 
-- Processus SFIA v2.6 : routing guide, operating model, rules, execution template (§4.3.0b, §2.0.H, §3, §5, §7, §7.10, §9.1)
-- CKI Next `13-pr-readiness.md`
-- Gouvernance main : SEF, roadmap, ENV-01, product-versioning, naming
-- Architecture / vision / conduite intentions (cadrage)
-- Branche CP2 `docs/next-r5-ml4c-cp2-preparation-20261111@ab0c2ba3` (qualification, design, contrat, décisions) — **non mergée dans cette PR**
-- delivery-history + handoff distant `c0afc836` / blob `673d37d7`
+`looksLikeIndependentDialogue()` classifiait **par exclusion** :
+si aucune regex locale ne matchait → dialogue indépendant.
+
+`qualifyPilotageIntent("Ouvre le cycle cadrage.")` est déjà **CLEAR OPEN_CYCLE**,
+mais le classificateur client n'utilisait pas ce propriétaire.
+
+`PILOTAGE_SIGNAL_RE` client n'acceptait que `ouvre (un )?cycle` → « le » manquant
+→ indépendant → `rememberPending` non appelé → CR-02 rompu après ACK perdu.
 
 ---
 
-## 3. Périmètre `main..ba91cf71` (15 fichiers)
+## 3. Qualification des mécanismes existants
 
-```
-A	projects/sfia-studio-next/construction/convergence-fonctionnelle/s04-cognitive-evaluation-baseline.md
-M	projects/sfia-studio-next/construction/delivery-history.md
-M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
-M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
-M	projects/sfia-studio-next/web/src/app/portfolio/page.tsx
-M	projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-M	projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-M	projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
-M	projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
-A	projects/sfia-studio-next/web/tests/e2e/d2-ack-loss-reconcile.spec.ts
-A	projects/sfia-studio-next/web/tests/e2e/ml4c-s05-independent-pending.spec.ts
-M	projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-M	projects/sfia-studio-next/web/tests/unit/ml3-b13-divergence.test.ts
-A	projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
-```
-
-Stat : +834 / −69.
-
-Contrôles :
-- Secrets : aucun pattern dans le diff
-- Migrations / workflows CI / SEF / roadmap / `.env` : **aucun**
-- Package : `0.0.0-dev` inchangé
-- Doctrine / RECETTE / STABLE config : **non touchés**
-
-### Contributions S01–S07 (rappel candidat)
-
-| # | Contenu | Statut preuve antérieure | Réserve |
+| Mécanisme | Rôle | DB ? | Réutilisation |
 | --- | --- | --- | --- |
-| S01 | Portefeuille sans index fictif | PASS (unit) | — |
-| S02 | D2 ACK reconcile + taxonomie | PASS (e2e D2_ACK_OBS) | LIVE N/A |
-| S03 | D4 statuses fidèles (UNKNOWN≠FAILED) | PASS (unit+PG+Atlas) | LIVE N/A |
-| S04 | Baseline cognitive doc | **DOCUMENTED / INCOMPLETE** | qualité Nora |
-| S05 | Independent Q + pending preserve | PASS local ; **régression CI ouverte** (ci-dessous) | LIVE N/A |
-| S06 | SCRIPTED Git | PASS SCRIPTED | **REAL NOT RUN** |
-| S07 | Non-régression | **PARTIAL** | LIVE/REAL/S04 + CI e2e |
+| `qualifyPilotageIntent` | CLEAR/AMBIGUOUS/NONE D5/D6 linguistique | non | **oui** (client) |
+| `qualifyDocumentAct` | CREATE/REVISE/NONE D4 | non | **oui** |
+| `qualifyStudioIntent` | projection D3 serveur | n/a | non (serveur) |
+| `qualifyPublicationMission` | publish mission | via module DB | **non** côté browser |
+| ancien `looksLikeIndependentDialogue` | exclusion locale | non | remplacé |
 
-**Pas de BEHAVIOR PROVEN global.**
+**Solution retenue :** `qualifyThreadTurn` → trois catégories de qualification
+(DIALOGUE_INDEPENDANT / INTENTION_EFFET / INCERTAIN), sans second moteur ni LLM.
+
+**Écartées :**
+- simple ajout de déterminants (`le|la|…`) seuls ;
+- appel LLM LIVE ;
+- nouvelle API / table / machine à états métier.
 
 ---
 
-## 4. Preuves : déjà établies vs ce cycle
+## 4. Comportement
 
-### Déjà établies sur `ba91cf71` (cycle correctif — **non réexécutées** ici)
-TypeScript, lint, build, 342 unit, PG continuité/pilotage/create, Playwright D2_ACK/Atlas/S05 — PASS locaux.
+- INTENTION_EFFET : `rememberPending` ; bloque nouveau métier si pending.
+- INCERTAIN : jamais indépendant ; bloque si pending ; `rememberPending` si envoyé.
+- DIALOGUE_INDEPENDANT : positif (cognitif) ; peut continuer ; ne clobber pas pending ;
+  COMPLETE préserve pending A (`preserveUnresolvedMetierPending`).
 
-### Nouvelles preuves de ce cycle
-1. Push distant SHA/tree exacts confirmés.
-2. PR #676 ouverte.
-3. **CI GitHub exécutée** sur le même HEAD.
+Serveur reste seule autorité d'exécution.
 
-### CI GitHub — résultats réels
+---
 
-| Check | Résultat |
+## 5. Fichiers modifiés (commit `8cff1591`)
+
+1. `web/src/domains/pilotage/thread-recovery.ts`
+2. `web/src/app/projects/[projectId]/page.tsx`
+3. `web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts` (créé)
+4. `web/tests/unit/ml4c-s01-s03-guards.test.ts`
+5. `construction/delivery-history.md`
+
+### Diff production — thread-recovery
+
+```diff
+commit 8cff159189a4b20399318b416dccfcebc6149233
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Wed Nov 11 20:25:44 2026 +0100
+
+    fix(next): ML4C S05 robust thread-turn qualification
+    
+    Replace exclusion-based independent dialogue with a three-way
+    qualification that reuses qualifyPilotageIntent, so unrecognized
+    effect formulations stay uncertain and CR-02 pending survives ACK loss.
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
+index 1e2132c2..e73e0688 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
+@@ -1,9 +1,14 @@
+ /**
+  * CR-02 — client-side recovery helpers (no DB, no secrets).
+  * sessionStorage pending is a local aid; durable truth stays in D5/D6.
++ *
++ * ML4C S05 — thread turn qualification reuses owner linguistic qualifiers
++ * (qualifyPilotageIntent / qualifyDocumentAct). Never invents authority.
++ * Unrecognized ≠ automatically independent.
+  */
+ 
+ import { qualifyDocumentAct } from "@/domains/conversation/document-act";
++import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
+ 
+ export type ThreadPendingTurn = {
+   content: string;
+@@ -11,27 +16,172 @@ export type ThreadPendingTurn = {
+   clientCommandKey: string;
+ };
+ 
++/**
++ * Qualification categories for a conversational turn over an optional pending.
++ * Not a métier state machine — linguistic triage only.
++ */
++export type ThreadTurnKind =
++  | "DIALOGUE_INDEPENDANT"
++  | "INTENTION_EFFET"
++  | "INCERTAIN";
++
++export type ThreadTurnQualification = {
++  kind: ThreadTurnKind;
++  reason: string;
++  /** Owner pilotage clarity when consulted (never an execution grant). */
++  pilotageClarity?: "CLEAR" | "AMBIGUOUS" | "NONE";
++  pilotageOperation?: string;
++};
++
+ const PROJECT_CREATE_RE =
+-  /\b(?:crée|créer|créez|creez)\s+(?:(?:un|une|le|la|ce|cet)\s+)?(?:autre\s+)?projet\b/i;
++  /\b(?:crée|créer|créez|creez|cree|creer)\s+(?:(?:un|une|le|la|ce|cet|the|l)\s+)?(?:autre\s+)?projet\b/i;
++
+ /** Effectual publish/merge intent — not explanatory mentions of « commit » / Git vocabulary. */
+ const PUBLISH_RE =
+   /\b(?:publie|publier|publication\s+(?:le|la|ce|sur)|(?:crée|créer)\s+(?:un\s+)?(?:commit|pr|pull\s*request)|(?:ouvre|ouvrir)\s+(?:une\s+)?(?:pr|pull\s*request)|merge\s+(?:la\s+|le\s+)?(?:pr|branche|request))\b/i;
+-const PILOTAGE_SIGNAL_RE =
+-  /\b(?:je\s+décide|j['']autorise|autorise(?:r|z)?|accorde(?:r|z)?|ouvre\s+(?:un\s+)?cycle|enregistre\s+(?:cette\s+)?décision)\b/i;
+ 
+ /**
+- * ML4C S05 / Decision 1 — independent cognitive turn (no D2/D4/D6/D9 effect intent).
++ * Residual operational surface — present when an effect may be intended even if
++ * owner CLEAR qualification missed a noisy variant. Never authorizes alone.
++ */
++const RESIDUAL_EFFECT_SURFACE_RE =
++  /\b(?:ouvr(?:e|ir|ez|ait|irait)|lance|lancer|démarre|demarre|démarrer|demarrer|publie|publier|crée|créer|créez|creez|autorise|autoriser|accorde|accorder|clôture|cloture|clôturer|cloturer|révoque|revoque|enregistre\s+(?:cette\s+)?décision|je\s+décide|j['']autorise|fais[- ]le|fais(?:\s+ça|\s+le)?|tu\s+peux|peux[- ]tu|peut[- ]on|pourrais[- ]tu|pourrait[- ]on|et\s+si\s+on)\b/i;
++
++/** Positive cognitive / meta markers for independent dialogue (must not request an effect). */
++const COGNITIVE_INDEPENDENT_RE =
++  /\b(?:pourquoi|quelle\s+(?:est\s+la\s+)?différence|quelles?\s+sont|à\s+quoi\s+sert|que\s+signifie|que\s+veut\s+dire|explique(?:[- ]moi)?|comment\s+(?:fonctionne|marche)|en\s+quoi|pour\s+quelle\s+raison)\b/i;
++
++/** Quotation / meta mention of a command (not performing it). */
++const META_COMMAND_CITATION_RE =
++  /\b(?:que\s+signifie|que\s+veut\s+dire|signifie)\s+(?:la\s+)?(?:commande|formulation|phrase)?\s*['«"]/i;
++
++function hasCompoundEffectAfterExplain(text: string): boolean {
++  // « Explique … puis ouvre le cycle » — mixed: not independent.
++  return (
++    /\b(?:explique|pourquoi|quelle)\b/i.test(text) &&
++    /\b(?:puis|ensuite|et)\b[\s\S]{0,80}\b(?:ouvre|ouvrir|publie|crée|créer|lance|démarre)\b/i.test(
++      text,
++    )
++  );
++}
++
++/**
++ * Qualify a thread turn for UX continuity (pending gate / rememberPending).
++ * Reuses D5/D6/D4 linguistic owners — does not authorize or execute.
++ */
++export function qualifyThreadTurn(text: string): ThreadTurnQualification {
++  const t = text.trim().replace(/\s+/g, " ");
++  if (!t) {
++    return { kind: "INCERTAIN", reason: "Énoncé vide", pilotageClarity: "NONE" };
++  }
++
++  const documentAct = qualifyDocumentAct(t);
++  if (documentAct.kind === "CREATE" || documentAct.kind === "REVISE") {
++    return {
++      kind: "INTENTION_EFFET",
++      reason: `Acte documentaire ${documentAct.kind}`,
++      pilotageClarity: "NONE",
++    };
++  }
++
++  const pilotage = qualifyPilotageIntent(t);
++  if (pilotage.clarity === "CLEAR") {
++    return {
++      kind: "INTENTION_EFFET",
++      reason: `Pilotage CLEAR ${pilotage.operation}`,
++      pilotageClarity: "CLEAR",
++      pilotageOperation: pilotage.operation,
++    };
++  }
++  if (pilotage.clarity === "AMBIGUOUS") {
++    return {
++      kind: "INCERTAIN",
++      reason: pilotage.reason || "Pilotage ambigu",
++      pilotageClarity: "AMBIGUOUS",
++    };
++  }
++
++  if (PROJECT_CREATE_RE.test(t)) {
++    return {
++      kind: "INTENTION_EFFET",
++      reason: "Création de projet",
++      pilotageClarity: "NONE",
++    };
++  }
++
++  // Local publish surface only — do not import mission-continuity (DB) into the browser.
++  if (PUBLISH_RE.test(t)) {
++    return {
++      kind: "INTENTION_EFFET",
++      reason: "Publication / merge",
++      pilotageClarity: "NONE",
++    };
++  }
++
++  if (hasCompoundEffectAfterExplain(t)) {
++    return {
++      kind: "INCERTAIN",
++      reason: "Formulation mixte explication + effet",
++      pilotageClarity: "NONE",
++    };
++  }
++
++  // Residual operational vocabulary without CLEAR owner match → uncertain,
++  // never auto-independent (fixes « Ouvre le/L/the cycle » bypass class).
++  if (RESIDUAL_EFFECT_SURFACE_RE.test(t)) {
++    // Pure meta/citation about a command can still be cognitive.
++    if (
++      META_COMMAND_CITATION_RE.test(t) ||
++      (/^que\s+signifie\b/i.test(t) && !/\b(?:puis|ensuite)\b/i.test(t))
++    ) {
++      return {
++        kind: "DIALOGUE_INDEPENDANT",
++        reason: "Citation / méta-question sur une commande",
++        pilotageClarity: "NONE",
++      };
++    }
++    // « Pourquoi ouvrir… » — explanation about an act, not a request (owner already NONE).
++    if (
++      /\bpourquoi\b/i.test(t) &&
++      /\b(?:ouvrir|ouvre|publier|créer|créer)\b/i.test(t) &&
++      !/\b(?:peux[- ]tu|peut[- ]on|pourrais[- ]tu|fais|lance|démarre)\b/i.test(t) &&
++      !/\bje\s+d[eé]cide\b/i.test(t)
++    ) {
++      return {
++        kind: "DIALOGUE_INDEPENDANT",
++        reason: "Question explicative évoquant une opération",
++        pilotageClarity: "NONE",
++      };
++    }
++    return {
++      kind: "INCERTAIN",
++      reason: "Surface opérationnelle sans qualification CLEAR",
++      pilotageClarity: pilotage.clarity,
++    };
++  }
++
++  if (COGNITIVE_INDEPENDENT_RE.test(t) || /\?$/.test(t)) {
++    return {
++      kind: "DIALOGUE_INDEPENDANT",
++      reason: "Question / dialogue cognitif sans surface d'effet",
++      pilotageClarity: "NONE",
++    };
++  }
++
++  // Soft non-operational prose (no residual effect surface) — independent.
++  return {
++    kind: "DIALOGUE_INDEPENDANT",
++    reason: "Dialogue sans signal d'effet résiduel",
++    pilotageClarity: "NONE",
++  };
++}
++
++/**
++ * ML4C S05 / Decision 1 — true only when independence is positively established.
+  * Client UX aid only — never an execution authority.
+- * Interrogative phrasing that still requests an effect stays non-independent.
+  */
+ export function looksLikeIndependentDialogue(text: string): boolean {
+-  const t = text.trim();
+-  if (!t) return false;
+-  if (qualifyDocumentAct(t).kind !== "NONE") return false;
+-  if (PROJECT_CREATE_RE.test(t)) return false;
+-  if (PUBLISH_RE.test(t)) return false;
+-  if (PILOTAGE_SIGNAL_RE.test(t)) return false;
+-  return true;
++  return qualifyThreadTurn(text).kind === "DIALOGUE_INDEPENDANT";
+ }
+ 
+ /** Deterministic business key for a conversational turn. */
+@@ -69,18 +219,36 @@ export function shouldClearThreadPending(input: {
+ /**
+  * Exclusive in-flight guard: a distinct new act must not silently overwrite
+  * an unresolved pending. Same content ⇒ retry of the same logical act.
+- * Independent dialogue (Decision 1) may proceed without replacing pending.
++ * Only positively established independent dialogue may proceed without
++ * replacing pending. INCERTAIN and INTENTION_EFFET stay blocked.
+  */
+ export function mayStartNewThreadAct(input: {
+   unresolved: ThreadPendingTurn | null | undefined;
+   nextContent: string;
+   /** When true, allow a cognitive question without overwriting métier pending. */
+   nextIsIndependentDialogue?: boolean;
++  /** Preferred: full turn kind (INCERTAIN never bypasses pending). */
++  nextTurnKind?: ThreadTurnKind;
+ }): { ok: true } | { ok: false; reason: string; pending: ThreadPendingTurn } {
+   const pending = input.unresolved;
+   if (!pending) return { ok: true };
+   if (pending.content.trim() === input.nextContent.trim()) return { ok: true };
+-  if (input.nextIsIndependentDialogue) return { ok: true };
++
++  const kind =
++    input.nextTurnKind ??
++    (input.nextIsIndependentDialogue ? "DIALOGUE_INDEPENDANT" : "INTENTION_EFFET");
++
++  if (kind === "DIALOGUE_INDEPENDANT") return { ok: true };
++
++  if (kind === "INCERTAIN") {
++    return {
++      ok: false,
++      reason:
++        "Intention incertaine pendant une tentative non résolue — clarifier ou réconcilier avant un nouvel acte",
++      pending,
++    };
++  }
++
+   return {
+     ok: false,
+     reason:
+
+```
+
+### Diff page.tsx
+
+```diff
+commit 8cff159189a4b20399318b416dccfcebc6149233
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Wed Nov 11 20:25:44 2026 +0100
+
+    fix(next): ML4C S05 robust thread-turn qualification
+    
+    Replace exclusion-based independent dialogue with a three-way
+    qualification that reuses qualifyPilotageIntent, so unrecognized
+    effect formulations stay uncertain and CR-02 pending survives ACK loss.
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+index 599d1b9a..9439c291 100644
+--- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+@@ -14,9 +14,9 @@ import {
+ } from "@/components/figma/DocumentSurfaces";
+ import {
+   conversationalClientCommandKey,
+-  looksLikeIndependentDialogue,
+   mayStartNewThreadAct,
+   pendingStorageKey,
++  qualifyThreadTurn,
+   shouldClearThreadPending,
+   type ThreadPendingTurn,
+ } from "@/domains/pilotage/thread-recovery";
+@@ -681,10 +681,12 @@ export default function ProjectPage() {
+     // CR-02 — exclusive unresolved pending: never overwrite a distinct act silently.
+     // ML4C S05 Decision 1 — independent cognitive Q may proceed without replacing pending.
+     const pendingBefore = unresolvedPending ?? readPending();
+-    const independent = looksLikeIndependentDialogue(text);
++    const turn = qualifyThreadTurn(text);
++    const independent = turn.kind === "DIALOGUE_INDEPENDANT";
+     const gate = mayStartNewThreadAct({
+       unresolved: pendingBefore,
+       nextContent: text,
++      nextTurnKind: turn.kind,
+       nextIsIndependentDialogue: independent,
+     });
+     if (!gate.ok) {
+@@ -708,8 +710,9 @@ export default function ProjectPage() {
+     }
+     const clientTurnKey = messageTurnKeyRef.current.key;
+     const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
+-    // Independent dialogue must not clobber an unresolved métier pending key.
+-    if (!independent) {
++    // Remember métier (or uncertain effect-seeking) turns for ACK recovery.
++    // Independent cognitive dialogue must not clobber an unresolved pending key.
++    if (turn.kind === "INTENTION_EFFET" || turn.kind === "INCERTAIN") {
+       rememberPending({ content: text, clientTurnKey, clientCommandKey });
+     }
+     const preserveMetierPending = independent && Boolean(pendingBefore);
+
+```
+
+### Diff tests + delivery-history
+
+```diff
+commit 8cff159189a4b20399318b416dccfcebc6149233
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Wed Nov 11 20:25:44 2026 +0100
+
+    fix(next): ML4C S05 robust thread-turn qualification
+    
+    Replace exclusion-based independent dialogue with a three-way
+    qualification that reuses qualifyPilotageIntent, so unrecognized
+    effect formulations stay uncertain and CR-02 pending survives ACK loss.
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 1fd64284..c5c0ccee 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+ 
+ 
++## delivery_id: DELIV-2026-11-11-ML4C-S05-INTENT-QUALIFICATION
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-11 (Europe/Paris) |
++| Macro-lot | ML4C — INC correctif S05 qualification d'intention (PR #676) |
++| Type | INC — robustesse qualification vs exclusion (NO RELEASE) |
++| Branch | `build/next-ml4c-functional-convergence` |
++| Parent tip | `ba91cf71` |
++| Lane | DEV :5433; mutative → `sfia_next_e2e`; RECETTE/STABLE untouched |
++| Changes | `qualifyThreadTurn` (DIALOGUE_INDEPENDANT / INTENTION_EFFET / INCERTAIN) réutilise `qualifyPilotageIntent` + D4 ; fin du défaut « aucune regex ⇒ indépendant » ; CR-02 OPEN_CYCLE « le » |
++| Schema | unchanged |
++| Status | PR #676 corrective — CI à rejouer — LIVE/REAL carried |
++
+ ## delivery_id: DELIV-2026-11-11-ML4C-S03-S05-CORRECTIVE
+ 
+ | Field | Value |
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
+index 959472df..cb38650a 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
+@@ -125,6 +125,8 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
+     expect(looksLikeIndependentDialogue("Tu peux publier ce document ?")).toBe(false);
+     expect(looksLikeIndependentDialogue("Peux-tu créer un autre projet ?")).toBe(false);
+     expect(looksLikeIndependentDialogue("Est-ce qu'on peut autoriser cette action ?")).toBe(false);
++    expect(looksLikeIndependentDialogue("Ouvre le cycle cadrage.")).toBe(false);
++    expect(looksLikeIndependentDialogue("Ouvre L cycle cadrage.")).toBe(false);
+   });
+ 
+   it("COMPLETE on independent turn must not clear unresolved métier pending", () => {
+@@ -146,13 +148,15 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
+     ).toBe(true);
+   });
+ 
+-  it("project page preserves métier pending across independent COMPLETE", () => {
++  it("project page uses qualifyThreadTurn (not exclusion-only independence)", () => {
+     const src = readFileSync(
+       join(__dirname, "../../src/app/projects/[projectId]/page.tsx"),
+       "utf8",
+     );
++    expect(src).toMatch(/qualifyThreadTurn/);
+     expect(src).toMatch(/preserveUnresolvedMetierPending/);
+     expect(src).toMatch(/preserveMetierPending/);
+     expect(src).toMatch(/pendingBefore/);
++    expect(src).toMatch(/nextTurnKind/);
+   });
+ });
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts
+new file mode 100644
+index 00000000..fdf07bbc
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts
+@@ -0,0 +1,102 @@
++import { describe, expect, it } from "vitest";
++import {
++  looksLikeIndependentDialogue,
++  mayStartNewThreadAct,
++  qualifyThreadTurn,
++} from "@/domains/pilotage/thread-recovery";
++
++describe("ML4C S05 — qualifyThreadTurn linguistic matrix", () => {
++  const pending = {
++    content: "Ouvre le cycle cadrage.",
++    clientTurnKey: "ctk_pending",
++    clientCommandKey: "conv-auth:ctk_pending",
++  };
++
++  it("classifies métier OPEN_CYCLE variants as INTENTION_EFFET (not independent by exclusion)", () => {
++    for (const s of [
++      "Ouvre un cycle cadrage.",
++      "Ouvre le cycle cadrage.",
++      "Ouvre cycle cadrage.",
++    ]) {
++      const q = qualifyThreadTurn(s);
++      expect(q.kind, s).toBe("INTENTION_EFFET");
++      expect(q.pilotageOperation, s).toBe("OPEN_CYCLE");
++      expect(looksLikeIndependentDialogue(s)).toBe(false);
++    }
++  });
++
++  it("treats noisy OPEN formulations as INCERTAIN — never DIALOGUE_INDEPENDANT", () => {
++    for (const s of [
++      "Ouvre the cycle cadrage.",
++      "Ouvre L cycle cadrage.",
++      "Lance le cycle de cadrage.",
++      "Démarre le cadrage.",
++      "Peux-tu ouvrir le cycle cadrage ?",
++    ]) {
++      const q = qualifyThreadTurn(s);
++      expect(q.kind, s).toBe("INCERTAIN");
++      expect(looksLikeIndependentDialogue(s)).toBe(false);
++    }
++  });
++
++  it("keeps clear effect intents as INTENTION_EFFET", () => {
++    expect(qualifyThreadTurn("Crée un autre projet.").kind).toBe("INTENTION_EFFET");
++    expect(qualifyThreadTurn("Publie ce document.").kind).toBe("INTENTION_EFFET");
++    expect(qualifyThreadTurn("Je décide que GitHub est obligatoire.").kind).toBe(
++      "INTENTION_EFFET",
++    );
++  });
++
++  it("positively establishes independent cognitive questions", () => {
++    for (const s of [
++      "Pourquoi avions-nous choisi cette architecture ?",
++      "Quelle différence entre un blob et un commit ?",
++      "À quoi sert un cycle de cadrage ?",
++      "Pourquoi ouvrir un cycle de cadrage ?",
++      "Que signifie la commande 'ouvre le cycle' ?",
++    ]) {
++      expect(qualifyThreadTurn(s).kind, s).toBe("DIALOGUE_INDEPENDANT");
++      expect(
++        mayStartNewThreadAct({
++          unresolved: pending,
++          nextContent: s,
++          nextTurnKind: "DIALOGUE_INDEPENDANT",
++        }).ok,
++        s,
++      ).toBe(true);
++    }
++  });
++
++  it("keeps ambiguous / mixed formulations out of independent dialogue", () => {
++    for (const s of [
++      "Tu peux faire ça ?",
++      "Fais-le.",
++      "Et si on ouvrait le cycle ?",
++      "Explique-moi ce choix puis ouvre le cycle.",
++      "Je pourrais ouvrir le cycle ?",
++    ]) {
++      const q = qualifyThreadTurn(s);
++      expect(q.kind, s).not.toBe("DIALOGUE_INDEPENDANT");
++      expect(
++        mayStartNewThreadAct({
++          unresolved: pending,
++          nextContent: s,
++          nextTurnKind: q.kind,
++        }).ok,
++        s,
++      ).toBe(false);
++    }
++  });
++
++  it("blocks INCERTAIN over unresolved pending (conservative)", () => {
++    const gate = mayStartNewThreadAct({
++      unresolved: pending,
++      nextContent: "Ouvre L cycle cadrage.",
++      nextTurnKind: "INCERTAIN",
++    });
++    expect(gate.ok).toBe(false);
++    if (!gate.ok) {
++      expect(gate.pending.clientTurnKey).toBe(pending.clientTurnKey);
++    }
++  });
++});
+
+```
+
+---
+
+## 6. Matrice linguistique (unit)
+
+| Formulation | Kind |
 | --- | --- |
-| Detect SFIA Studio changes | PASS |
-| Detect SFIA Studio Next changes | PASS |
-| Build and validate SFIA Studio | SKIPPED (hors scope) |
-| SFIA Studio Required Gate | PASS |
-| Build and validate SFIA Studio Next | **FAIL** |
-| SFIA Studio Next Required Gate | **FAIL** |
-
-Run Next CI : `43081606792` — https://github.com/mcleland147/sfia-workspace/actions/runs/43081606792  
-Job validate : `130735397123`
-
-Étapes validate réussies avant échec : TypeScript, ESLint, Build, Vitest unit, migrations, Vitest PG, Install Playwright.  
-Échec : **Playwright BROWSER FAKE** (16 passed / 1 failed). Secrets scan / whitespace skipped après fail.
-
-#### Échec Playwright — qualification
-
-- Test : `tests/e2e/ml3-pilotage.spec.ts:306` — `ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE`
-- Assertion : `thread-pending-banner` non visible après ACK 502 sur « Ouvre le cycle cadrage. »
-- Reproduction locale du classificateur S05 :
-  - `looksLikeIndependentDialogue("Ouvre le cycle cadrage.")` → **`true`** (bug)
-  - `looksLikeIndependentDialogue("Ouvre un cycle cadrage.")` → `false`
-- Cause : `PILOTAGE_SIGNAL_RE` n'accepte que `ouvre (un )?cycle`, pas `ouvre le cycle`. Le tour métier est traité comme dialogue indépendant → **`rememberPending` non appelé** → pending banner absent après ACK perdu.
-- Impact : régression CR-02 / S05 Decision 1 trop permissive sur OPEN_CYCLE ; required gate Next FAIL ; **PR non merge-ready**.
-- Réparation proposée (hors GO actuel — nécessite GO correctif / autorisation Morris) :
-  1. Étendre `PILOTAGE_SIGNAL_RE` : `ouvre\s+(?:(?:un|une|le|la|ce|cet)\s+)?cycle`
-  2. Unit : « Ouvre le cycle… » non-indépendant
-  3. Rejouer `ml3-pilotage` CR-02 + suite Playwright
-  4. Nouveau commit sur la même branche + CI verte avant tout merge GO
-
-**Aucun contournement de check. Aucune modification structurante appliquée dans ce cycle.**
+| Ouvre un/le/∅ cycle cadrage | INTENTION_EFFET (OPEN_CYCLE) |
+| Ouvre the/L cycle ; Lance… ; Démarre… ; Peux-tu ouvrir… | INCERTAIN |
+| Crée autre projet ; Publie ; Je décide que GitHub… | INTENTION_EFFET |
+| Pourquoi / différence / à quoi sert / pourquoi ouvrir / que signifie commande | DIALOGUE_INDEPENDANT |
+| Tu peux faire ça ; Fais-le ; Et si on ouvrait ; Explique puis ouvre ; Je pourrais ouvrir | non-indépendant (INCERTAIN) |
 
 ---
 
-## 5. Publication branche
+## 7. Preuves locales (HEAD `8cff1591`)
+
+| Suite | Résultat |
+| --- | --- |
+| tsc / lint / build | PASS |
+| unit (371 incl. matrice S05) | PASS |
+| PG intent-continuity (dans run unit+pg) | PASS |
+| Playwright **17/17** incl. CR-02 + S05 | PASS |
+| ENV isolation | opérateurs **8850→8850** ; e2e muté seul |
+| secrets / diff --check (produit) | PASS |
+
+Nora LIVE / Git REAL : **NOT RUN**.
+
+---
+
+## 8. CI GitHub (nouvelle)
 
 | Item | Valeur |
 | --- | --- |
-| Push | normal `-u`, **sans --force** |
-| Remote HEAD | `ba91cf71e8b1ee00e937fba350d8c1aa6c0a2112` |
-| Remote tree | `9d2770066454289d7797c6e28c24d244d40c396b` |
-| Commits distants | 3 attendus |
-| Fichiers | 15 |
+| Head | `8cff1591…` |
+| Next CI run | **`43087124594`** — **success** |
+| Build and validate SFIA Studio Next | PASS (5m3s) |
+| Playwright BROWSER FAKE | PASS |
+| Secret pattern scan | PASS (exécuté — non skippé) |
+| Trailing whitespace / conflict markers | PASS |
+| SFIA Studio Next Required Gate | **PASS** |
+| mergeStateStatus | **CLEAN** |
+| Auto-merge | non activé |
+
+Ancien fail `43081606792` supersédé.
 
 ---
 
-## 6. Pull Request
+## 9. S01–S07
 
-| Item | Valeur |
-| --- | --- |
-| Numéro | **#676** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/676 |
-| Base | `main` @ `6d237452…` |
-| Head | `build/next-ml4c-functional-convergence` @ `ba91cf71…` |
-| Titre | feat(next): ML4C integrated functional convergence |
-| Auto-merge | **null / non activé** |
-| mergeStateStatus | UNSTABLE (CI fail) |
-| Merge | **NON AUTORISÉ** |
-
-CP2 documentaire : dépendance de contenu signalée ; branche CP2 **non incluse**.
+| # | Statut | Note |
+| --- | --- | --- |
+| S01–S03 | PASS (inchangés + non régressés CI) | |
+| S04 | DOCUMENTED / INCOMPLETE | carried |
+| S05 | **CORRECTED** — qualification robuste + CR-02/S05 e2e + CI | |
+| S06 | SCRIPTED PASS ; REAL NOT RUN | |
+| S07 | PARTIAL renforcé (CI Next verte) | LIVE/REAL/S04 carried |
 
 ---
 
-## 7. ENV-01
+## 10. Fake/Real / Versioning / Exits
 
-- Ce cycle : **pas de nouveaux tests mutatifs locaux** (ENV-01 N/A pour mutations de ce cycle ; CI a utilisé lane éphémère + `sfia_next_e2e`).
-- Chiffre 8850 : **historique**, non préflight de ce cycle.
-- RECETTE/STABLE : non mutés.
-- Nora LIVE / Git REAL : NOT RUN.
-
----
-
-## 8. Fake / Real
-
-| Couche | Statut |
-| --- | --- |
-| Nora FAKE (CI + local antérieur) | USED |
-| Nora LIVE | NOT RUN |
-| Git SCRIPTED | USED (CI Vitest PG) |
-| Git REAL | NOT RUN |
-| Browser FAKE CI | **FAIL** (1 test CR-02) |
-
----
-
-## 9. Versioning / risques
-
-- NO RELEASE / `0.0.0-dev`
-- Risque d'intégration : classifier S05 laisse passer un OPEN_CYCLE formulé avec « le » comme dialogue indépendant → perte de pending client après ACK perdu (CR-02).
-- ML4D / Gate C / réception ML4C / RECETTE : **hors scope**
-
----
-
-## 10. Git Review Index
-
-| Ref | SHA |
-| --- | --- |
-| main base | `6d237452680640324eeadbb18f4601fd7de99850` |
-| candidat / PR head | `ba91cf71e8b1ee00e937fba350d8c1aa6c0a2112` |
-| tree | `9d2770066454289d7797c6e28c24d244d40c396b` |
-| PR | #676 |
-| CI Next run | `43081606792` |
-| handoff précédent | tip `c0afc836` / blob `673d37d7` (valeurs `git rev-parse` ; index interne antérieur non autoréférentiel) |
-| ce handoff | *(tip/blob après publish — utiliser `git rev-parse origin/sfia/review-handoff`)* |
+- FAKE Nora + Browser FAKE USED ; LIVE/REAL NOT RUN
+- NO RELEASE `0.0.0-dev`
+- CP2 doc non mergée
+- Réception ML4C / Gate C / merge : **Morris encore requis**
+- Dette : formulations très bruitées restent INCERTAIN (volontaire) ; pas d'expansion owner OPEN pour « Lance/Démarre » dans ce correctif
 
 ---
 
 ## 11. Verdict Cursor
 
-**ML4C PR OPEN — CI FAILED**  
-**NOT MERGE READY**
+**ML4C PR #676 — S05 INTENT QUALIFICATION CORRECTED AND CI PASSED**  
+**READY FOR CHATGPT REVIEW**
 
-WITH LIVE/REAL AND S07 RESERVES CARRIED  
-PLUS régression Playwright CR-02 liée au classificateur S05 (`Ouvre le cycle`).
-
-Gate Morris merge : **bloqué** jusqu'à correctif + CI verte + verdict ChatGPT + GO merge explicite.
+Merge gate Morris : **encore requis** (pas d'auto-merge).
 
 ---
 
-## 12. Instruction à ChatGPT
+## 12. Instruction ChatGPT
 
-Relire la PR #676 à distance et les checks (run `43081606792`).
-Comparer les fichiers au contrat ML4C.
-Vérifier les réserves S04/S06/S07.
-Qualifier la régression CR-02 / classifier S05.
-**Ne pas proposer de merge** sans verdict indépendant et autorisation explicite de Morris.
+Relire PR #676 @ `8cff1591` et run `43087124594`.
+Vérifier que le correctif ne se limite pas à des déterminants.
+Examiner séparation qualification / autorité.
+Vérifier CR-02, S05 et variantes négatives.
+Contrôler Required Gate + handoff.
+Verdict indépendant **avant** toute demande de GO merge à Morris.
