@@ -1,15 +1,13 @@
 # SFIA Studio Next — Review Pack FULL
-# ML4C / CP2 — ENV-B — Sécurisation des tests PostgreSQL
-# Régularisation handoff : contenu modifié + preuves détaillées
+# ML4C / CP2 — ENV-B Fast-Track — Finalisation / PR / CI
 
-**Date/heure :** 2026-11-11 16:42 CET
-**Cycle :** 7 — Intégration / DevOps
-**Profil :** Standard — sécurisation dispositif de test
+**Date/heure :** 2026-11-11 18:04 CET
+**Cycle :** 7 — Intégration / DevOps (PR readiness intégré)
+**Profil :** Standard — INC sûreté tests PostgreSQL
 **Macro-lot :** ML4C / CP2 ENV-B
 **Versioning :** NO RELEASE
 **Publisher :** Cursor
-**ENV-C cleanup / ENV-D LIVE / ML4C build :** NON AUTORISÉS
-**Push projet / PR / merge :** NON
+**Merge / auto-merge / ENV-C / ENV-D / ML4C S01–S07 :** NON AUTORISÉS
 
 ---
 
@@ -19,57 +17,62 @@
 | --- | --- |
 | Repo | mcleland147/sfia-workspace |
 | Worktree | `sfia-workspace-ml4c-cp2-t2-diag-20261111` |
-| Baseline main | `42aa373947446a8c20694b06c559ee0da1cba580` |
-| Branche corrective locale | `fix/next-env-b-vitest-pg-gate` |
-| HEAD correctif (local only) | `b7166fd8ef99452af33413c2b77a67fc9ed20bac` |
-| Tree | `7c17e56bdfdb1d35ca77adadf4ede21fdcbd5765` |
-| Upstream branche | **aucun** — correctif non poussé sur le remote projet |
-| Docs CP2 (non modifiée) | `ab0c2ba3affc1556d2e5a57d863af20685509de1` |
-| Handoff ENV-01 | `795a6ded899e23e9c6505deaa3725dd8ebf5c388` |
-| Handoff ENV-B précédent (incomplet) | `abf6bdf69fd73dbd35a681c005aebade23554723` |
-| Ce handoff | régularisation mono-fichier L3 uniquement |
-
-Note ChatGPT : le commit `b7166fd8` n’est **pas** sur GitHub projet. Les diffs complets sont donc **inclus ci-dessous** pour revue indépendante.
-
----
-
-## 2. Constat corrigé
-
-- Vitest chargeait `.env.local` (souvent `sfia_next_dev`) sans gate mutatif.
-- `e2e-pg-gate.ts` protégeait Playwright, pas Vitest.
-- Suites continuity acceptaient à tort `/5433|sfia_next_dev/`.
+| Branche | `fix/next-env-b-vitest-pg-gate` |
+| main distant | `42aa373947446a8c20694b06c559ee0da1cba580` (inchangé) |
+| Merge-base | `42aa3739…` |
+| Commit ENV-B initial | `b7166fd8ef99452af33413c2b77a67fc9ed20bac` (tree `7c17e56b…`) |
+| CI migrate E2E | `25d6e2fbeaa5dbef036159e900b5ba545785be43` |
+| CI Playwright retry | `871953ac790dcb3b96ae2e109363127bdfa6a3f1` |
+| HEAD PR final | `051aaf36f02bc05114a4c4240353b62bd96a628c` |
+| Tree final | `fc359ccb0aaa22e0e3a8aa2328eadc2fec677976` |
+| Upstream | `origin/fix/next-env-b-vitest-pg-gate` (poussé) |
+| Handoff ENV-B précédent | `a44251b5…` / blob `e863d961…` |
+| Dirty hors pack | `.tmp-sfia-review/chatgpt-review.md` local only (non inclus PR) |
 
 ---
 
-## 3. Conception (contrôle centralisé, fail-closed)
+## 2. PR
 
-1. `vitest.config.ts` → `setupFiles: tests/setup/vitest-pg-target.ts` **avant** collect des tests.
-2. Setup : si `DATABASE_URL` absente → no-op (unit) ; si opérateur approuvé → rewrite **process** vers `sfia_next_e2e` (pas d’édition `.env.local`) ; sinon throw.
-3. `db/client.ts` : si `VITEST===true`, `assertApprovedVitestMutativeDatabaseUrl` **avant** `postgres()`.
-4. Playwright : `assertApprovedOperatorDatabaseUrl` / preflight inchangés.
-5. Une seule source de vérité : `e2e-pg-gate.ts` (pas de protections contradictoires).
-
-Complément non modifié ce cycle : droits PostgreSQL (rôle peut encore joindre opérateur et e2e).
+| Champ | Valeur |
+| --- | --- |
+| Numéro | **#675** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/675 |
+| Base | `main` @ `42aa3739…` |
+| Head | `fix/next-env-b-vitest-pg-gate` @ `051aaf36f02bc05114a4c4240353b62bd96a628c` |
+| État | OPEN — **merge NON effectué** |
 
 ---
 
-## 4. Fichiers modifiés (stat)
+## 3. Analyse raccord Vitest / migration / CI
+
+1. ENV-B : setup Vitest + `db/client` forcent `sfia_next_e2e` avant toute écriture.
+2. CI écrivait `.env.local` opérateur et ne migrait que `sfia_next_dev` → Vitest aurait ciblé e2e **sans schéma**.
+3. Correctif : étape `SFIA_PG_DATABASE=sfia_next_e2e npm run db:migrate` avant Vitest integration.
+4. Playwright `e2e-web-server.sh` remigre e2e après preflight ; migrations `IF NOT EXISTS` → double migrate sûr.
+5. Séparation conservée : opérateur CI synthétique + e2e migrée ; `.env.local` CI reste opérateur (preflight Playwright).
+6. Blocage observé hors ENV-B : `ubuntu-latest`→Ubuntu 26 casse apt DNS pour Playwright `--with-deps`. Mitigation bornée : retry + pin `ubuntu-24.04` sur le job validate uniquement.
+
+---
+
+## 4. Fichiers PR (stat `main...HEAD`)
 
 ```
-projects/sfia-studio-next/web/README.md                                      |  2 +
-projects/sfia-studio-next/web/src/db/client.ts                               |  6 ++
-projects/sfia-studio-next/web/src/lib/e2e-pg-gate.ts                         | 99 +++++++++++++++++++++-
-projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts |  3 +-
-projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts |  3 +-
-projects/sfia-studio-next/web/tests/setup/vitest-pg-target.ts                | 20 +++++  (NEW)
-projects/sfia-studio-next/web/tests/unit/e2e-pg-gate.test.ts                 | 50 +++++++++++
-projects/sfia-studio-next/web/vitest.config.ts                               |  3 +
-8 files changed, 182 insertions(+), 4 deletions(-)
+ .github/workflows/sfia-studio-next-ci.yml          | 35 +++++++-
+ .../construction/delivery-history.md               | 14 +++
+ projects/sfia-studio-next/web/README.md            |  2 +
+ projects/sfia-studio-next/web/src/db/client.ts     |  6 ++
+ .../web/src/lib/e2e-pg-gate.ts                     | 99 +++++++++++++++++++++-
+ .../intent-continuity-global.pg.test.ts            |  3 +-
+ .../mission-continuity-accept01.pg.test.ts         |  3 +-
+ .../web/tests/setup/vitest-pg-target.ts            | 20 +++++
+ .../web/tests/unit/e2e-pg-gate.test.ts             | 50 +++++++++++
+ projects/sfia-studio-next/web/vitest.config.ts     |  3 +
+ 10 files changed, 227 insertions(+), 8 deletions(-)
 ```
 
 ---
 
-## 5. Diff complet (exploitable) — `42aa3739..b7166fd8`
+## 5. Diff ENV-B web (`42aa3739..b7166fd8`)
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/README.md b/projects/sfia-studio-next/web/README.md
@@ -374,13 +377,108 @@ index be8459d9..d352cbf9 100644
 
 ---
 
-## 6. Preuves A–G (détail)
+## 6. Diff CI + delivery (`b7166fd8..051aaf36` / total CI file vs main)
 
-### 6.1 Preuves A/B/C — unit gate (pas de réseau, pas d’écriture)
+```diff
+diff --git a/.github/workflows/sfia-studio-next-ci.yml b/.github/workflows/sfia-studio-next-ci.yml
+index cca2c8ef..3edc4650 100644
+--- a/.github/workflows/sfia-studio-next-ci.yml
++++ b/.github/workflows/sfia-studio-next-ci.yml
+@@ -16,7 +16,9 @@
+ #
+ # Node: 24. Postgres: 16-alpine ephemeral Docker matching DEV gate identities:
+ #   container sfia-next-dev-pg, 127.0.0.1:5433→5432, DBs sfia_next_dev + sfia_next_e2e.
+-# Migrations (ML2): 001→006 via scripts/db-migrate.sh.
++# Migrations: 001→012 via scripts/db-migrate.sh.
++# Vitest mutative (ENV-B): targets sfia_next_e2e only — migrate E2E schema before integration.
++# Playwright webServer still migrates E2E after preflight (migrations are IF NOT EXISTS / rejouable).
+ # Nora: STUDIO_E2E=1 + OPENAI_API_KEY neutralized — FAKE only.
+ #
+ # Corrections vs Cycle-7 proposal artefact:
+@@ -140,7 +142,8 @@ jobs:
+         (github.event_name == 'pull_request' && needs.detect.outputs.next_changed == 'true') ||
+         github.event_name == 'push'
+       )
+-    runs-on: ubuntu-latest
++    # Pin 24.04: ubuntu-latest→26 (resolute) currently breaks Playwright --with-deps apt DNS.
++    runs-on: ubuntu-24.04
+     timeout-minutes: 45
+     defaults:
+       run:
+@@ -282,7 +285,14 @@ jobs:
+       - name: Vitest unit
+         run: npm run test:unit
 
-Commande : `npx vitest run tests/unit/e2e-pg-gate.test.ts tests/unit/document-act.test.ts`
+-      - name: Apply migrations 001→006 on operator DB
++      - name: Apply migrations 001→012 on operator DB
++        run: npm run db:migrate
++
++      # ENV-B: Vitest setup rewrites DATABASE_URL → sfia_next_e2e; schema must exist first.
++      # Keep operator migrate above (synthetic CI operator lane). Playwright re-migrates E2E later.
++      - name: Apply migrations 001→012 on E2E DB (Vitest mutative target)
++        env:
++          SFIA_PG_DATABASE: sfia_next_e2e
+         run: npm run db:migrate
 
-Transcript (cycle initial) :
+       - name: Vitest PostgreSQL integration
+@@ -294,7 +304,24 @@ jobs:
+           npm run test:integration
+
+       - name: Install Playwright Chromium
+-        run: npx playwright install --with-deps chromium
++        run: |
++          set -euo pipefail
++          # Retry bounded: GHA runners intermittently fail apt DNS for --with-deps
++          # (Temporary failure resolving security.ubuntu.com). Do not continue-on-error.
++          ok="false"
++          for i in 1 2 3; do
++            echo "Playwright Chromium install attempt ${i}/3…"
++            if npx playwright install --with-deps chromium; then
++              ok="true"
++              break
++            fi
++            echo "Playwright install attempt ${i} failed; waiting before retry…" >&2
++            sleep 20
++          done
++          if [ "${ok}" != "true" ]; then
++            echo "Playwright Chromium install failed after 3 attempts" >&2
++            exit 1
++          fi
+
+       - name: Playwright BROWSER FAKE
+         env:
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 55963580..b3b9d9df 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-11-ENV-B-VITEST-PG-GATE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-11 (Europe/Paris) |
++| Macro-lot | ML4C / CP2 — ENV-B sécurisation tests PostgreSQL |
++| Type | INC — sûreté dispositif de test (NO RELEASE) |
++| Branch | `fix/next-env-b-vitest-pg-gate` |
++| Parent | main `42aa3739` |
++| Lane | DEV :5433; mutative Vitest → `sfia_next_e2e` only; RECETTE/STABLE untouched |
++| Changes | Fail-closed Vitest PG gate (`e2e-pg-gate` + setup + `db/client`); CI migrates `sfia_next_e2e` before Vitest integration |
++| Schema | unchanged (reuse migrations 001→012 on ephemeral CI E2E DB) |
++| Status | PR readiness — merge soumis à décision Morris — NO RELEASE |
++
+ ## delivery_id: DELIV-2026-11-10-ML4-NORA-PR-READINESS-INTEGRATION
+
+ | Field | Value |
+```
+
+---
+
+## 7. Validations locales
+
+### 7.1 Unit gate + document-act
 
 ```
 ◇ injected env (21) from .env.local
@@ -390,58 +488,26 @@ Transcript (cycle initial) :
 stderr | tests/unit/document-act.test.ts
 ◇ injected env (0) from .env.local
 
- ✓ tests/unit/document-act.test.ts (94 tests) 18ms
+ ✓ tests/unit/document-act.test.ts (94 tests) 20ms
 stderr | tests/unit/e2e-pg-gate.test.ts
 ◇ injected env (0) from .env.local
 
- ✓ tests/unit/e2e-pg-gate.test.ts (8 tests) 2ms
+ ✓ tests/unit/e2e-pg-gate.test.ts (8 tests) 3ms
 
  Test Files  2 passed (2)
       Tests  102 passed (102)
-   Start at  16:36:55
-   Duration  361ms (transform 54ms, setup 20ms, collect 44ms, tests 19ms, environment 0ms, prepare 51ms)
+   Start at  16:53:10
+   Duration  483ms (transform 74ms, setup 30ms, collect 60ms, tests 22ms, environment 0ms, prepare 68ms)
 ```
 
-Re-capture régularisation (mêmes suites) :
-
-```
-◇ injected env (21) from .env.local
-
- RUN  v3.2.4 /Users/morris/Projects/sfia-workspace-ml4c-cp2-t2-diag-20261111/projects/sfia-studio-next/web
-
-stderr | tests/unit/document-act.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/document-act.test.ts (94 tests) 21ms
-stderr | tests/unit/e2e-pg-gate.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/e2e-pg-gate.test.ts (8 tests) 2ms
-
- Test Files  2 passed (2)
-      Tests  102 passed (102)
-   Start at  16:41:30
-   Duration  364ms (transform 52ms, setup 20ms, collect 44ms, tests 23ms, environment 0ms, prepare 49ms)
-```
-
-Couverture tests ajoutés dans `e2e-pg-gate.test.ts` :
-- A : `assertApprovedVitestMutativeDatabaseUrl(operator)` → `VITEST_PG_TARGET_FORBIDDEN`
-- B : missing / invalid / recette name / port 5434 / host non-loopback → refus
-- C : `…/sfia_next_e2e` sur `:5433` accepté
-- prepare : operator → e2e in-memory ; `other_db` → `E2E_PG_SOURCE_DB_FORBIDDEN`
-- F : tests Playwright gate existants toujours dans le même fichier (8 tests total fichier) → PASS
-
-### 6.2 Refuse opérateur hors Vitest (node/tsx, aucune connexion)
+### 7.2 Refuse opérateur (tsx, no network)
 
 ```
 REFUSE_OPERATOR VITEST_PG_TARGET_FORBIDDEN
-REFUSE_MISSING VITEST_PG_URL_MISSING
-PREPARE_RESULT_DB sfia_next_e2e
+PREPARE e2e
 ```
 
-### 6.3 Preuve D+C — lancement direct suite PG mutative (A05)
-
-Commande : `npx vitest run tests/integration/create-project.pg.test.ts -t A05`
+### 7.3 A05 direct PG + oracle opérateur READ ONLY
 
 ```
 ◇ injected env (21) from .env.local
@@ -458,102 +524,97 @@ stderr | tests/integration/create-project.pg.test.ts
 
  Test Files  1 passed (1)
       Tests  1 passed | 16 skipped (17)
-   Start at  16:37:07
-   Duration  684ms (transform 174ms, setup 15ms, collect 419ms, tests 51ms, environment 0ms, prepare 28ms)
+   Start at  16:53:19
+   Duration  567ms (transform 170ms, setup 14ms, collect 409ms, tests 51ms, environment 0ms, prepare 23ms)
 ```
 
-Setup Vitest a réécrit la cible process vers e2e ; 1 test PASS / 16 skipped.
-
-### 6.4 Preuve E — unit sans dépendance PG bloquante
-
-`document-act.test.ts` : 94 PASS dans le même run unit (102 total avec gate).
-
-### 6.5 Preuve G — aucune écriture opérateur (lecture seule)
-
-Oracle READ ONLY sur `sfia_next_dev` : `SELECT count(*), max(created_at) FROM pilots` (transaction BEGIN/COMMIT lecture).
-
-Avant A05 :
+Avant :
 
 ```
 BEGIN
-8850
-2026-11-11 12:45:55.987538+00
+8850|2026-11-11 12:45:55.987538+00
 COMMIT
 ```
 
-Après A05 :
+Après :
 
 ```
 BEGIN
-8850
-2026-11-11 12:45:55.987538+00
+8850|2026-11-11 12:45:55.987538+00
 COMMIT
 ```
 
-Identique : **8850** pilots ; max `created_at` = `2026-11-11 12:45:55.987538+00` inchangé.
-A05 a créé sur e2e (observation cycle : +1 création récente sur `sfia_next_e2e`, non sur opérateur).
-Aucune écriture de contrôle volontaire sur `sfia_next_dev`.
-
-### 6.6 Preuve F — Playwright
-
-Aucun changement de contrat Playwright ; unit tests `assertApprovedOperatorDatabaseUrl` / `buildE2eDatabaseUrl` / container mapping : PASS dans `e2e-pg-gate.test.ts`.
-Pas de campagne E2E LIVE ce cycle (ENV-D non autorisé).
+Identique **8850** / max `created_at` inchangé. tsc PASS ; lint PASS (warnings préexistants hors périmètre) ; build PASS.
 
 ---
 
-## 7. Non-régression / environnements
+## 8. CI réelle liée au HEAD final `051aaf36`
 
-- DEV PG `:5433` observé ; RECETTE `:5434` / STABLE non mutés.
-- `.env.local` non réécrit pour basculer les lanes.
-- Branche locale seulement ; main / docs CP2 non poussés.
+| Check | Résultat | Run |
+| --- | --- | --- |
+| Detect SFIA Studio Next changes | **PASS** | 43063114018 |
+| Build and validate SFIA Studio Next | **PASS** (7m37s) | job 130670803034 |
+| — Apply migrations E2E (Vitest) | **PASS** | step OK |
+| — Vitest PostgreSQL integration | **PASS** | step OK |
+| — Playwright BROWSER FAKE | **PASS** | step OK |
+| SFIA Studio Next Required Gate | **PASS** | job 130675284749 |
+| Detect/Required Gate legacy Studio | PASS / validate skipped (hors Next) | 43063114020 |
+
+URL run Next : https://github.com/mcleland147/sfia-workspace/actions/runs/43063114018
+
+Historique échecs antérieurs (même PR, SHA antérieurs) : Playwright install apt DNS sur Ubuntu 26 — **non lié** au gate ENV-B (E2E migrate + Vitest PG déjà PASS sur `25d6e2fb` / `871953ac`).
 
 ---
 
-## 8. Réserves et décisions Morris
+## 9. Non-régression / environnements
+
+- DEV poste : opérateur non muté (oracle 8850).
+- RECETTE / STABLE : non touchés.
+- CI : Postgres Docker éphémère synthétique uniquement.
+- Nora : FAKE only.
+- Branche docs CP2 : non incluse.
+
+---
+
+## 10. Actions non effectuées
+
+Merge ; auto-merge ; ENV-C cleanup ; ENV-D LIVE ; ML4C S01–S07 ; permissions PG ; release/promotion ; push main.
+
+---
+
+## 11. Réserves et décisions Morris
 
 | Réserve | Exit |
 | --- | --- |
-| Correctif non sur GitHub projet | GO push/PR distinct si certification nécessite clone distant du code |
-| ENV-C cleanup 25 pilots | GO CLEANUP distinct |
-| Séparation rôles PG | GO ultérieur |
-| ENV-D LIVE | non autorisé |
-| ML4C build global | non autorisé |
+| Merge PR #675 | **GO Morris explicite** après revue ChatGPT |
+| Pin ubuntu-24.04 | conserver jusqu’à stabilisation apt Ubuntu 26 |
+| ENV-C cleanup | GO distinct |
+| Rôles PG e2e-only | GO ultérieur |
+| ML4C build | GO global distinct |
 
 ---
 
-## 9. Actions non exécutées
+## 12. Verdict
 
-Cleanup ; LIVE Nora ; mutation RECETTE/STABLE ; permissions PG ; push/PR/merge projet ; redéveloppement.
+**ENV-B FAST-TRACK — PR READY FOR MORRIS MERGE REVIEW**
 
----
-
-## 10. Verdict Cursor
-
-**ENV-B IMPLEMENTED — SAFETY VERIFIED** (comportement démontré localement + diffs/preuves inclus dans ce handoff pour revue indépendante).
-
-Verdict ChatGPT antérieur sur handoff incomplet : `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING` — adressé par cette régularisation.
+CI Next Required Gate PASS sur HEAD `051aaf36`. Merge NON autorisé dans ce cycle.
 
 ---
 
-## 11. Instruction ChatGPT §9.1
+## 13. Instruction ChatGPT §9.1
 
-Avant revue : lire à distance `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`.
-Vérifier :
-1. présence du **diff complet** §5 (`42aa3739..b7166fd8`) ;
-2. transcripts preuves §6 (unit 102, refuse `VITEST_PG_TARGET_FORBIDDEN`, A05 PG, oracle 8850) ;
-3. absence de push projet ;
-4. réserves §8.
-Puis statuer ENV-B (certification indépendante) et préparer éventuellement la reprise ML4C.
+Relire ce handoff canonique distant ; vérifier PR #675 et CI run `43063114018` liés au SHA `051aaf36f02bc05114a4c4240353b62bd96a628c` ; examiner diffs §5–§6 ; puis verdict indépendant. Fusion = GO Morris séparé.
 
 ---
 
-## 12. Git Review Index
+## 14. Git Review Index
 
 | Ref | SHA |
 | --- | --- |
-| main baseline | 42aa373947446a8c20694b06c559ee0da1cba580 |
-| Correctif local HEAD | b7166fd8ef99452af33413c2b77a67fc9ed20bac |
-| Tree | 7c17e56bdfdb1d35ca77adadf4ede21fdcbd5765 |
-| ENV-01 handoff | 795a6ded899e23e9c6505deaa3725dd8ebf5c388 |
-| Docs CP2 | ab0c2ba3affc1556d2e5a57d863af20685509de1 |
-| Handoff ENV-B incomplet (précédent) | abf6bdf69fd73dbd35a681c005aebade23554723 |
+| main | 42aa373947446a8c20694b06c559ee0da1cba580 |
+| ENV-B code | b7166fd8ef99452af33413c2b77a67fc9ed20bac |
+| PR HEAD | 051aaf36f02bc05114a4c4240353b62bd96a628c |
+| Tree | fc359ccb0aaa22e0e3a8aa2328eadc2fec677976 |
+| CI run Next | 43063114018 |
+| Handoff ENV-B review antérieur | a44251b5ab26e38b5db16b47536a658467e13ca8 |
