@@ -1,261 +1,253 @@
 # SFIA Studio Next — Review Pack FULL
-# ML4C / CP2 / T2 — Qualification causale D2 ACK + D4/ML4-REC-08
+# ML4C / CP2 — Pré-gate ENV-01 — Inventaire et isolation
 
-**Date/heure :** 2026-11-11 13:56 +0100 (Europe/Paris)
+**Date/heure :** 2026-11-11 15:05 CET
 **Cycle projet :** 9 — QA / validation
-**Profil :** Standard — QA diagnostique ciblée
-**Macro-lot :** ML4C — CP2 / T2 Expliquer
-**Versioning :** NO RELEASE
+**Profil :** Standard — diagnostic INC sans remédiation
+**Macro-lot :** ML4C — CP2 pré-gate environnement
+**Versioning :** NO RELEASE / STABLE NOT AVAILABLE
 **Publisher :** Cursor
-**Statut attendu :** READY WITH RESERVES (pas BEHAVIOR PROVEN)
+**Mutations :** AUCUNE (code, tests, DB, services, cleanup)
 
 ---
 
-## 01. Git Truth Check
+## 1. Date/heure et identification Git
 
 | Item | Valeur |
 | --- | --- |
 | Repo | mcleland147/sfia-workspace |
-| Worktree diagnostic | `/Users/morris/Projects/sfia-workspace-ml4c-cp2-t2-diag-20261111` |
-| Baseline code | `main@42aa373947446a8c20694b06c559ee0da1cba580` (detached) |
-| Docs candidate (non baseline code) | `docs/next-r5-ml4c-cp2-preparation-20261111@05cd81ddcd1a2106199a2d7cc704ad21f6b7d623` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-ml4c-cp2-t2-diag-20261111` (detached) |
+| Baseline code | `main@42aa373947446a8c20694b06c559ee0da1cba580` |
+| Tree | `a502ba7a9c708462b003f6ff4fe237b0072b0ee1` |
 | origin/main | `42aa373947446a8c20694b06c559ee0da1cba580` — OK |
-| ENV-01 blob | `14b61f0d1265cf85fcca09b028dd09bd8c71597f` |
-| Versioning blob | `8bc93e0fafac0f981c446e978a37f5f93d183875` |
-| Force push / rebase / reset destructif | NON |
+| Docs CP2 candidate | `docs/next-r5-ml4c-cp2-preparation-20261111@ab0c2ba3affc1556d2e5a57d863af20685509de1` — OK |
+| Handoff T2 précédent | `sfia/review-handoff@768d32de9fc242dd88e9170ca46fa986e0eab40a` — OK |
+| ENV-01 blob main | `14b61f0d1265cf85fcca09b028dd09bd8c71597f` |
+| Checkout destructif / reset / rebase | NON |
 | Fichiers projet versionnés modifiés | **aucun** |
-| Push projet / PR / merge | NON |
 
-**Incident worktree (documenté) :** un checkout involontaire a basculé ce worktree vers `integrate/...@fb4eaf9f` puis restauration `checkout --detach 42aa3739`. `git diff 42aa3739 fb4eaf9f -- projects/sfia-studio-next/web/src` et `web/tests` = **vide** (fb est ancêtre de main ; écart = docs ML4B seulement). Preuves code/tests web restent valides pour la baseline.
-
-Worktree Product d'origine restauré : `sfia-workspace-next-intent-continuity-dev` @ `integrate/...@fb4eaf9f`.
+Status local au démarrage : `.tmp-sfia-review/chatgpt-review.md` (ignoré) uniquement.
 
 ---
 
-## 02. Sources et SHAs
+## 2. Sources et SHAs
 
-### Docs candidate @05cd81dd
-- `governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md`
-- `governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md`
-- `construction/convergence-fonctionnelle/qualification-cp2.md` — S02/S03/S05 ; X-01/X-03 ; D2-GAP-02
-
-### Main @42aa3739
-- ENV-01, product-versioning, cadrage continuité, création/sas R2
-- `construction/ml4-integration-git/recette-ml4-r01-r14-anomalies.md` — ML4-REC-08 / R06-H
-- `construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md` — X-01/X-03
-- Code D2/D3/D4 listé au GO (preparations page, create-project, reconcile, conversation/*, document-act)
+- SEF / Roadmap / ENV-01 / versioning : main@42aa373947446a8c20694b06c559ee0da1cba580
+- Gate B, trajectoire UX, qualification-cp2, contrats design : docs@ab0c2ba3
+- Handoff T2 (sections 01/03/04/10) : sfia/review-handoff@768d32de
+- Code inspecté (main) : `vitest.config.ts`, `src/db/client.ts`, `src/lib/e2e-pg-gate.ts`, `scripts/e2e-preflight.ts`, `tests/integration/create-project.pg.test.ts`, `schema.ts`, README E2E
 
 ---
 
-## 03. Environnements inspectés
+## 3. Observations de l'environnement courant (lecture seule)
 
-| Lane | Port/DB | Usage ce cycle | Verdict |
+| Observation | État observé | Action |
+| --- | --- | --- |
+| Conteneur `sfia-next-dev-pg` | Up ; `127.0.0.1:5433` | observé |
+| Conteneur `sfia-next-recette-pg` | Up ; `127.0.0.1:5434` | observé ; **non interrogé métier** |
+| Conteneur `sfia-safe01-ephemeral` | Up ; `:55432` | hors périmètre |
+| Process `:3200` | node listen | RECETTE-like ; **non utiliséé** |
+| `:3100` / `:3101` | non listen | OK |
+| `.env.local` (diag WT) | présent, gitignoré | shape only |
+| `DATABASE_URL` shape actuel | `postgres://sfia_next_dev:***@127.0.0.1:5433/sfia_next_dev` | opérateur |
+| Traces T2 `/tmp` + `.tmp-sfia-review` | shapes e2e + operator conservés | historique |
+
+Aucun service démarré/arrêté. Aucun secret affiché.
+
+---
+
+## 4. Isolation et preuves READ ONLY
+
+### Contrôle session opérateur
+- Cible : conteneur `sfia-next-dev-pg`, base **`sfia_next_dev`**, rôle `sfia_next_dev`
+- `BEGIN READ ONLY` → `SHOW transaction_read_only` = **on**
+- `current_database()|current_user` = `sfia_next_dev|sfia_next_dev`
+- 33 tables public (schéma déployé)
+- RECETTE : identité `sfia_next_recette` vérifiée séparément ; **aucune requête métier RECETTE**
+
+### Comparaison e2e (même conteneur, autre DB)
+- `BEGIN READ ONLY` sur `sfia_next_e2e` prouvée
+- Projet Playwright T2 `proj_2bd77575-…` : **PRESENT** dans e2e (corrélation D2_ACK_OBS)
+
+**Verdict isolation de cette inspection :** READ ONLY démontré.
+
+---
+
+## 5. Inventaire DB et niveaux de certitude
+
+### 5.1 Totaux opérateur `sfia_next_dev` (contexte)
+pilots 8850 · preparations 11787 · projects 6328 · create_project_commands 6228 · conversations 8687 · messages 8008 · documents 2420 · revisions 2617
+→ base **déjà dense** ; ne pas traiter tout volume comme déchet T2.
+
+### 5.2 Empreinte T2 sur opérateur (fenêtre UTC 2026-11-11 12:40–13:05)
+
+| Métrique | n | Certitude |
+| --- | --- | --- |
+| Pilots créés dans la fenêtre | 25 | CERTAIN (count) |
+| Dont labels fixture create-project exacts | 25 / 25 | CERTAIN |
+| `github_user_id` LIKE `gh-pilot_%` | 25 / 25 | CERTAIN (pattern seed) |
+| Preparations liées | 27 | CERTAIN |
+| Projects liés | 16 | CERTAIN |
+| create_project_commands liés | 16 | CERTAIN |
+| Conversations liées | 27 | CERTAIN |
+| Messages liés | 4 | CERTAIN |
+| Documents / revisions liés | 3 / 3 | CERTAIN |
+| prep↔project links | 16 | CERTAIN |
+| Pilots liés à `users` Better Auth | **0** | CERTAIN |
+
+**Horodatage (UTC) — CERTAIN :**
+- `12:43:20` : suite create-project complète (labels A01…projCtxB, A10b×2) → **21 pilots**
+- `12:45:55` : A04, A05, recA, recB → **4 pilots** (commande exacte non reconstruite ; **PROBABLE** rejeu partiel T2)
+
+Corrélation horloge : logs Vitest locaux « Start at 13:43:… » (CET) ≡ 12:43 UTC.
+
+### 5.3 Empreinte T2 sur `sfia_next_e2e` (même fenêtre)
+
+| Métrique | n | Certitude |
+| --- | --- | --- |
+| Fixture-label pilots | 45 | CERTAIN |
+| Minutes | 12:43 (42), 12:53 (3) | CERTAIN |
+| Projects / create_cmds fenêtre | 74 / 74 | CERTAIN |
+| Projet D2_ACK_OBS | PRESENT | CERTAIN |
+
+→ La majorité des PG/BROWSER T2 a bien touché **e2e**, **et** une empreinte create-project a aussi été écrite sur **opérateur**.
+
+### 5.4 Attribution
+
+| Classe | Niveau | Commentaire |
+| --- | --- | --- |
+| 25 pilots fixture + enfants listés (opérateur, fenêtre T2) | **CERTAIN** attributables au cycle T2 / harness create-project | Labels + pattern `gh-pilot_` + horodatage |
+| Autres ~1500 fixture-label pilots hors fenêtre sur opérateur | **NON ATTRIBUABLE à T2** | Stock historique de campagnes antérieures |
+| Tout enregistrement non-label dans la fenêtre | **aucun hors fixture** (25=25) | — |
+| Données métier / sessions auth liées aux 25 | **NON OBSERVÉ** (0 users liés) | Risque auth faible pour ces 25 |
+| Contenu messages/docs | **NON EXPORTÉ** (agrégats seuls) | Confidentialité |
+
+**Correction du handoff T2 :** la réserve « ~25 pilots » est **confirmée par comptage**. Contamination opérateur = **fait observé**.
+
+---
+
+## 6. Configuration et mécanisme de dérive
+
+### 6.1 Matrice des chargeurs
+
+| Entrée | Source DATABASE_URL | Garde-fou avant mutation | Portée |
 | --- | --- | --- | --- |
-| DEV PG container | `sfia-next-dev-pg` :5433 | hôte des DB | OK loopback |
-| DB jetable E2E | `sfia_next_e2e` | **cible autorisée** des rejeux PG retenus | OK |
-| DB opérateur | `sfia_next_dev` | **touch accidentel** 1er run create-project + recheck A05 après restore `.env.local` | RÉSERVE ENV |
-| RECETTE | :5434 / `sfia_next_recette` | lecture identité seule ; **aucune écriture** | PROTÉGÉE |
-| :3200 | process node listen | RECETTE-like — **non utiliséé** | OK |
-| :3101 E2E | `sfia_next_e2e` + Next owned | Playwright FAKE (ml2-c3 + disposable D2 ACK) | OK |
-| :3100 DEV operator | non listen / non démarré | évité volontairement | OK |
-| Nora fixture | `STUDIO_FORCE_NORA_FIXTURE=1` (E2E/PG) | tests | DETERMINISTIC |
-| Nora LIVE | credential HTTP 200 (sonde models) | **Studio turn NOT RUN** — E2E force fixture ; pas de serveur LIVE isolé | REALISM GAP |
+| Vitest (`vitest.config.ts`) | `dotenv` `.env.local` (override défaut = false) | **Aucun** contrôle de nom de DB | unit + integration |
+| `create-project.pg.test.ts` | re-`dotenv` + exige URL non vide | **pas** de refuse e2e-only | mutatif |
+| `mission-continuity-*.pg.test.ts` | idem | regex `/5433|sfia_next_dev/` | **accepte opérateur ET e2e-sur-5433** |
+| `src/db/client.ts` | `process.env.DATABASE_URL` | refuse si manquant seulement | toute écriture |
+| Playwright `e2e-web-server.sh` | préflight → réécrit vers `sfia_next_e2e` | `e2e-pg-gate` | **E2E seulement** |
+| `e2e-pg-gate.ts` | validation pure | **non branché** sur Vitest | gap |
 
-**ENV-01 :** preuves retenues sur `sfia_next_e2e` + :3101. Un premier run Vitest a pu toucher l'opérateur si `.env.local` pointait e2e/opérateur de façon ambiguë — **réserve pollution opérateur possible** ; pas de cleanup sans GO. RECETTE non touchée. Aucun secret dans ce pack.
+### 6.2 Chemins de dérive T2 (reconstitués)
 
----
+1. `.env.local` du worktree diag a été **réécrit manuellement** entre `…/sfia_next_e2e` et `…/sfia_next_dev` pendant T2 (traces shapes).
+2. Vitest **hérite** de `.env.local` sans fail-closed « DB doit être e2e ».
+3. Un run create-project a persisté l'empreinte fixture sur **opérateur** à 12:43:20 UTC (CERTAIN).
+4. D'autres runs (et Playwright) ont persisté sur **e2e** (CERTAIN).
+5. Le préflight Playwright **ne protège pas** Vitest.
 
-## 04. Tests réellement exécutés (SHA code = 42aa3739 web blobs)
+**Incertitude restante :** l'ordre exact `.env.local` au process Vitest 12:43:20 n'est pas journalisé ; la **persistance** opérateur est CERTAINE. dotenv 18 ne surcharge pas une `DATABASE_URL` déjà présente dans `process.env`.
 
-| Commande / cible | DB | Résultat |
-| --- | --- | --- |
-| `vitest tests/unit/document-act.test.ts` | n/a | **94 PASS** (dont ACK coherence) |
-| `vitest create-project.pg.test.ts` (complet) | `sfia_next_e2e` | **17 PASS** (A04/A05/A04b–d/reconcile…) |
-| `vitest ml4-chat-first-d4-provenance.pg.test.ts` | `sfia_next_e2e` | **19 PASS** (CREATE/REVISE ACK, R06 fixture) |
-| `vitest mission-continuity-accept01.pg.test.ts` | `sfia_next_e2e` | **8 PASS** |
-| Sous-ensemble ACK coherence document-act | n/a | **8 PASS** |
-| `vitest intent-continuity-global.pg.test.ts` | `sfia_next_e2e` | **21 PASS** (avec accept01 = 29) |
-| Playwright `ml2-c3-stable-key.spec.ts` | :3101 FAKE | **1 PASS** (ACK doc) |
-| Playwright disposable D2 ACK-loss (hors `tests/e2e` versionné) | :3101 FAKE | **1 PASS** — `D2_ACK_OBS` |
-| Nora LIVE REVISE@42aa3739 | — | **NOT RUN** |
-
-Observation BROWSER D2 (anonymisée) :
-`createPosts=1`, key=`d2:mission:turn-…`, `reconHttp=200`, `reconStatus=ALREADY_CREATED`, `projectId=proj_…`, `navigatedToProject=false`, `statusSnippet=FAILED`, `secondClick=false`, `pageErrors=[]`.
+### 6.3 Ce qui n'est PAS une preuve
+- Préflight E2E PASS ≠ Vitest sûr
+- Présence de `:5433` dans l'URL ≠ base e2e
+- « Tests PG PASS sur e2e » dans le pack T2 ≠ absence d'écriture opérateur
 
 ---
 
-## 05. Matrice scénarios
+## 7. Risques, blast radius, recommandations NON IMPLÉMENTÉES
 
-| Scénario | Résultat | Preuve |
-| --- | --- | --- |
-| D2 nominal create (domaine) | PASS | A01/A03 PG e2e |
-| D2 concurrent same key | PASS | A04 |
-| D2 replay after commit (lost ACK serveur) | PASS | A05 + reconcile |
-| D2 fingerprint conflict | PASS | A04b |
-| D2 cross-prep key / foreign reconcile | PASS | A04d / FORBIDDEN |
-| D2 ACK perdu **navigateur** post-commit | **PASS diagnostic** | Serveur `ALREADY_CREATED` + UI `FAILED` sans navigation ; pas de 2ᵉ clic (`secondClick=false`) — gap reprise UI **CONFIRMÉ BROWSER** |
-| D2 refresh après create silencieux | **HYPOTHESIS→CODE CONFIRMED path** | `projectId` → bouton « déjà créé », **pas** de `router.push` hors succès fetch |
-| Erreur non-auth ≠ session expiry | NOT RUN browser | — |
-| Autre Pilote | PASS domaine | A10 / reconcile foreign |
-| D4 CREATE chat + ACK message | PASS DET | provenance A + unit ACK |
-| D4 REVISE chat + pas « non enregistré » | PASS DET | provenance B/R06 fixture |
-| D4 mission-continue après D2 | **FAIL causale code** | `continueAfterProjectCreated` persiste `reply.content` brut + mission ACK **sans** `appendDocumentEffectAck` |
-| ML4-REC-08 historique LIVE@93da44be | HISTORIQUE FAIL documenté | registre R06-H |
-| ML4-REC-08 LIVE@42aa3739 | **NOT RUN** | REALISM GAP |
-| Competing claims regex escape LIVE | HYPOTHESIS | — |
+| Risque | Portée | Probabilité répétition | Notes |
+| --- | --- | --- | --- |
+| Pollution opérateur par suites PG | `sfia_next_dev` | **Élevée** sans garde Vitest | déjà réalisée T2 |
+| Confusion opérateur / e2e via rewrite `.env.local` | worktree local | Élevée si procédure manuelle | |
+| Cleanup naïf par label `A05` | faux positifs historiques (75+ A05) | — | **interdit sans GO** |
+| Impact RECETTE/STABLE | non observé ce cycle | Faible si discipline ports | `:3200`/`:5434` non touchés |
 
----
+### Proposition préventive minimale (GO ultérieur — PAS implémentée ici)
+1. **Fail-closed Vitest integration** avant première mutation : assert pathname === `sfia_next_e2e` + host loopback + port 5433 ; réutiliser/étendre `e2e-pg-gate.ts`.
+2. Point de raccord : `vitest.config.ts` `setupFiles` **ou** helper `beforeAll` partagé des `*.pg.test.ts` ; une seule porte.
+3. Ne plus dépendre d'un rewrite manuel de `.env.local` pour choisir la DB de test.
+4. Remplacer le faux ami `/5433|sfia_next_dev/` par une exigence explicite `sfia_next_e2e` pour suites mutatives.
+5. Tests futurs : unit gate (URL opérateur → throw ; e2e → OK).
 
-## 06. Observations — causes CONFIRMED vs HYPOTHESIS
+**Critère :** tout test mutatif PG doit échouer **avant** la première écriture si la cible ≠ base de test autorisée.
 
-### A. D2 — perte d'ACK après création
-
-**CONFIRMED (serveur) :**
-1. Idempotence `UNIQUE(pilot_id, idempotency_key)` sans TTL ; fingerprint SHA-256 (prep, name, summary, revision).
-2. Même clé + même fp → `ALREADY_CREATED` ; fp divergent → `CONFLICT` zéro mutation.
-3. `reconcileCreateProject` read-only retourne `ALREADY_CREATED` / `NOT_CONFIRMED_OR_UNKNOWN` / `FORBIDDEN`.
-4. A05 PG e2e : replay + reconcile → même `projectId`.
-
-**CONFIRMED (client UI) — `preparations/[preparationId]/page.tsx` ~482–515 :**
-1. `createProject()` : **aucun** `try/catch/finally`.
-2. `setBusy(false)` seulement après `res.json()` réussi → réseau/JSON throw laisse `busy` bloqué.
-3. **Aucun** appel à `GET .../reconcile` (route API existe, non branchée UI).
-4. Navigation `router.push` uniquement sur succès JSON ; refresh avec projet déjà lié → « Projet déjà créé » sans navigation automatique.
-
-**CONFIRMÉ BROWSER :** après drop ACK post-commit, UI affiche `FAILED` (corps de substitution) alors que reconcile = `ALREADY_CREATED` ; pas de navigation succès inventée ; bouton create non réessayé (`secondClick=false`) — reprise opaque vs contrat Documents.
-
-**Garantie à préserver :** transaction create + unique key + reconcile ownership ; ne pas créer de second projet.
-
-**Blast radius :** D1/D2 UI + erreurs session ; pas le moteur D4.
-
-### B. D4 / ML4-REC-08 — AVAILABLE vs narration « non sauvegardée »
-
-**Historique (preuve documentaire, pas rejouée) :**
-- SHA `93da44beb7e7571c9406180027896769579b9815`, build `sHkE8sHJBxD3U9AJdHWi7`
-- R06-H : `REVISE / AVAILABLE` (doc/révisions cités dans registre) + Nora nie la sauvegarde
-- X-01 Gate B : contradiction LIVE ; exit = même génération/intention/qualification/effet/ACK/UI
-
-**CONFIRMED sur baseline 42aa3739 — chemin chat (`service.ts`) :**
-1. Après D4 AVAILABLE : `cognitiveContinueFromFacts` (2ᵉ génération facts-first).
-2. Commit : `appendDocumentEffectAck(assistantBody, effect)` = sanitize `TRANSACTIONAL_CLAIM_RE` + ACK structuré.
-3. Tests DET : CREATE/REVISE messages sans `non enregistré` ; ACK `AVAILABLE` présent.
-
-**CONFIRMED sur baseline 42aa3739 — chemin D2→D4 `continueAfterProjectCreated` (`intent-conduction.ts` ~1156–1159) :**
-```
-assistantContent = reply COMPLETE
-  ? appendMissionAck(reply.content, mission)   // brut
-  : appendMissionAck(canonical, mission);
-```
-- **N'appelle pas** `appendDocumentEffectAck` / `reconcileNarrationWithDocumentEffect`.
-- Si Nora fixture/LIVE dit « non enregistré » / « aucun outil d'écriture » alors que `documentSave.status === AVAILABLE`, le message persisté **peut** contredire l'effet.
-- Canonical n'est utilisé que si génération incomplete — pas si COMPLETE avec claims concurrents.
-
-**HYPOTHESIS (historique R06-H REVISE chat) :**
-- H1 : au SHA historique, strip/ACK absents ou incomplets (corrigés depuis sur chat path) — **non prouvé par rejeu de ce SHA**.
-- H2 : `cognitiveContinueFromFacts` LIVE produit une formulation hors regex.
-- H3 : UI affiche autre chose que le message persisté.
-- H4 : `ownershipLostBeforeD4` saute l'ACK.
-- **Ne pas déclarer** « REC-08 résolu sur 42aa3739 » sans LIVE corrélé.
+**Blast radius proposition :** config/test harness seulement ; pas de schéma métier.
 
 ---
 
-## 07. Preuves D2 / D4 au niveau obtenu
+## 8. Matrice conditions de lancement tests ML4C
 
-| Couche | D2 | D4/REC-08 |
-| --- | --- | --- |
-| CODE | CONFIRMED gap UI + solidité serveur | CONFIRMED divergence chat vs continueAfter |
-| PG DET | PASS e2e A04/A05… | PASS provenance + ACCEPT-01 |
-| UNIT | — | PASS ACK coherence |
-| BROWSER | PASS D2_ACK_OBS (+ ml2-c3 doc) | NOT RUN (REC-08 LIVE/UI) |
-| LIVE | NOT RUN | NOT RUN @42aa3739 ; historique FAIL @93da44be |
+| Classe | Cible autorisée | Garde aujourd'hui | Prêt ML4C ? |
+| --- | --- | --- | --- |
+| Unit DET sans PG | n/a | OK | OUI |
+| Playwright E2E | `sfia_next_e2e` via préflight | **Implémenté** | OUI si préflight OK |
+| Vitest `*.pg.test.ts` | devrait être e2e | **Manquant / non raccordé** | **NON** sans gate ou procédure prouvée |
+| LIVE Nora | DEV isolé ≠ opérateur métier | non standardisé | STOP sans lane dédiée |
+| RECETTE | protégée | — | INTERDIT sans GO |
 
-Fake/Real : DETERMINISTIC ≠ LIVE ; D4 AVAILABLE ≠ restitution Nora LIVE prouvée ; PG ≠ browser.
-
----
-
-## 08. Blast radius et invariants
-
-| Cause | Domaines | Invariants à préserver |
-| --- | --- | --- |
-| UI D2 sans reconcile | D2 (+ D1 navigation) | Unique create ; ownership prep ; fingerprint CONFLICT ; reconcile read-only |
-| continueAfter sans document ACK | D2→D3→D4 mission | CAS/ownership continuation ; pas de double D4 ; HD publication |
-| Chat strip/ACK | D3/D4 | ACK applicatif = seule vérité transactionnelle ; facts-first continue |
-
-Ne pas : second moteur conversation/TX ; changement schéma ; rouvrir ML4D/ML5/Git merge REAL.
+**Classification pour Morris :**
+- **E** — Isolation démontrable pour Playwright E2E seulement
+- **B** — Données de test T2 **confirmées** sur opérateur ; **aucun nettoyage autorisé** ce cycle
+- **D** — Isolation Vitest PG **insuffisante** pour démarrer ML4C mutatif sans correctif de gate
 
 ---
 
-## 09. Recommandations NON IMPLÉMENTÉES (proposition intégrée ML4C)
+## 9. Décisions Morris requises
 
-### Ensemble 1 — S02 / X-03 / D2-GAP-02 : création récupérable
-- **Problème démontré :** effet D2 peut être commité pendant que l'UI reste busy / sans navigation / sans reconcile.
-- **Objectif :** même clé → vérité `ALREADY_CREATED` ; jamais doublon ; erreur technique ≠ expiration session.
-- **Solution candidate minimale :** (a) try/catch/finally sur `createProject` ; (b) sur échec réseau/JSON → `GET reconcile?idempotencyKey=` puis navigate si `ALREADY_CREATED` ; (c) si projet déjà lié au mount → CTA/ouverture projet. Optionnel : replay POST même clé.
-- **Fichiers probables :** `preparations/[preparationId]/page.tsx` (+ évent. `PreparationProposal`) ; **pas** changer create-project TX.
-- **Tests attendus :** Playwright inject `route.fetch` puis drop body (pattern `ml3-pilotage`) ; A05 conservé ; négatifs CONFLICT/foreign.
-- **STOP Morris :** si on veut aussi normaliser messages d'erreur auth vs technique.
-
-### Ensemble 2 — S03 / X-01 / ML4-REC-08 : restitution fidèle après effet D4
-- **Problème démontré (code actuel) :** continueAfter D2→D4 peut persister narration contradictoire ; chat path déjà mitige en DET.
-- **Objectif :** toute révision/création AVAILABLE affichée = ACK + absence de claim concurrent ; suite d'intention utile.
-- **Solution candidate minimale :** dans `continueAfterProjectCreated`, composer comme le chat : `appendDocumentEffectAck(reconcile…(reply|canonical), documentSave)` (+ éventuellement `cognitiveContinueFromFacts` post-AVAILABLE). Harmoniser un seul pipeline de restitution post-effet.
-- **Preuve requise :** PG DET sur continueAfter avec fixture « non enregistré » + AVAILABLE ; puis LIVE borné CREATE/REVISE jetable @SHA servi ; BROWSER lecture message.
-- **STOP Morris :** LIVE lane isolée (pas opérateur) avant claim de clôture X-01.
-
-### Ensemble 3 — S05 pending (hors rejeu profond ce T2)
-- Noté Gate B / CP2 ; non discriminé ici au-delà du cadrage. Reporter à lot intégré sans micro-patch isolé.
-
-**Ordre recommandé :** Ensemble 1 + 2 dans le même design CP2 (Option A Gate B) — fondations vérité d'effet avant cognition/Git.
+1. Reconnaître contamination opérateur T2 (25 pilots + enfants) comme CERTAINE.
+2. **GO CLEANUP distinct ?** Si oui : sélection par fenêtre `created_at` + labels fixture + `gh-pilot_` + 0 users liés ; backup ; vérif post — **STOP avant DELETE**.
+3. **GO harness Vitest fail-closed** (réutiliser e2e-pg-gate) avant ML4C build mutatif PG.
+4. Ne pas traiter le stock historique A0x hors fenêtre comme déchet T2.
+5. Autoriser ou non une lane LIVE/DEV jetable séparée pour REC-08.
 
 ---
 
-## 10. Réserves / propriétaires / exit / décisions Morris
+## 10. Actions réalisées / non exécutées
 
-| Réserve | Propriétaire | Exit |
-| --- | --- | --- |
-| E2E create-project ACK-loss **absent du dépôt** (seul harness disposable T2) | Cursor ML4C | Ajouter spec versionnée sur pattern D2_ACK_OBS |
-| LIVE REC-08 @42aa3739 NOT RUN | Morris | Lane DEV isolée sans toucher RECETTE/opérateur métier |
-| Pollution opérateur ~25 pilots test | Morris | GO cleanup ou laisser (pas d'action ce cycle) |
-| Historique ≠ baseline | — | Ne pas merger preuves 93da44be comme PASS actuel |
-| R13/R14 / Git REAL | OUT | inchangé |
-| Worktree checkout glitch | Cursor | restauré ; documenté |
+**Réalisé :** Git Truth ; observation ports/conteneurs ; shapes `.env` ; lecture code ; SQL READ ONLY agrégats opérateur + e2e ; Review Pack ; handoff L3.
 
-**Décisions Morris :** arbitrer design correction intégrée ML4C (ensembles 1–2) ; autoriser ou non cleanup opérateur ; autoriser LIVE isolé.
+**Non exécuté :** Vitest/Playwright mutatifs ; migrations ; seeds ; DELETE/TRUNCATE ; start/stop services ; rewrite secrets ; push projet ; cleanup ; GO ML4C build.
 
 ---
 
 ## 11. Fichiers projet créés/modifiés
 
-**Aucun fichier sous `projects/sfia-studio-next/` versionné modifié.**
-Artefacts locaux non commités : `.env.local` (gitignored, DSN e2e), `.tmp-sfia-review/chatgpt-review.md`, untracked historiques hors scope (non stagés).
+**Aucun** sous `projects/sfia-studio-next/` versionné. Artefact : `.tmp-sfia-review/chatgpt-review.md` (ignoré).
 
 ---
 
-## 12. Vérification Git finale
+## 12. Diff/status Git final
 
-- HEAD diag : `42aa373947446a8c20694b06c559ee0da1cba580`
-- origin/main : identique
-- `git diff` sources web : clean
-- staged projet : none attendu
-- handoff : seule publication distante autorisée ci-dessous
+- HEAD diag = `42aa373947446a8c20694b06c559ee0da1cba580`
+- Aucun staged projet
+- Seul dirty attendu : review pack tmp
 
 ---
 
-## 13. Verdict du cycle
+## 13. Réserves et verdict
 
-**T2 TARGETED DIAGNOSIS COMPLETE — READY FOR CP2 CORRECTION DESIGN**
+**Réserves :**
+- Ordre exact env au process 12:43:20 non journalisé (données CERTAINES, sélection d'URL PROBABLE).
+- Stock fixture historique hors T2 non inventorié en détail (hors mandat).
+- Contenu sémantique messages/docs non lu (agrégats).
 
-Preuve graduée : causes D2 UI + D4 continueAfter **CONFIRMÉES** ; serveur D2 **solide** ; chat D4 DET **cohérent** ; BROWSER D2 ACK-loss **PASS diagnostic** ; LIVE Studio @baseline **NOT RUN** → **READY WITH RESERVES**, jamais BEHAVIOR PROVEN global.
+### Verdict
 
-Aucun GO de développement, PR, merge, promotion ou ADOPTED n'est autorisé par ce verdict.
+**ENV-01 DIAGNOSIS COMPLETE — READY FOR MORRIS REVIEW**
+
+Sous-qualification : isolation Vitest PG incomplete for safe ML4C entry until fail-closed gate (D/E).
+Pas de CLEANUP COMPLETED. Pas de ML4C BUILD GO. Pas de BEHAVIOR PROVEN. Pas d'ADOPTED.
 
 ---
 
 ## 14. Instruction ChatGPT §9.1
 
-Avant toute revue de ce cycle, lire à distance :
-`sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
-et vérifier intégralité, preuves, branche, SHAs et réserves.
+Avant toute revue, relire depuis le Git distant
+`sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`,
+vérifier les SHAs, les preuves et les réserves, puis seulement préparer les décisions Morris.
 
 ---
 
@@ -263,8 +255,8 @@ et vérifier intégralité, preuves, branche, SHAs et réserves.
 
 | Ref | SHA |
 | --- | --- |
-| Code testé | 42aa373947446a8c20694b06c559ee0da1cba580 |
+| Code baseline | 42aa373947446a8c20694b06c559ee0da1cba580 |
 | Tree | a502ba7a9c708462b003f6ff4fe237b0072b0ee1 |
-| Docs CP2 | 05cd81ddcd1a2106199a2d7cc704ad21f6b7d623 |
-| REC-08 historique runtime | 93da44beb7e7571c9406180027896769579b9815 / build sHkE8sHJBxD3U9AJdHWi7 |
-| Prior Product integrate (non baseline) | fb4eaf9fef424153c48a4ab9917e4bda99b0e76c |
+| Docs CP2 | ab0c2ba3affc1556d2e5a57d863af20685509de1 |
+| Handoff T2 (entrée) | 768d32de9fc242dd88e9170ca46fa986e0eab40a |
+| ENV-01 blob | 14b61f0d1265cf85fcca09b028dd09bd8c71597f |
