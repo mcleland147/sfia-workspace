@@ -16,7 +16,9 @@
 #
 # Node: 24. Postgres: 16-alpine ephemeral Docker matching DEV gate identities:
 #   container sfia-next-dev-pg, 127.0.0.1:5433→5432, DBs sfia_next_dev + sfia_next_e2e.
-# Migrations (ML2): 001→006 via scripts/db-migrate.sh.
+# Migrations: 001→012 via scripts/db-migrate.sh.
+# Vitest mutative (ENV-B): targets sfia_next_e2e only — migrate E2E schema before integration.
+# Playwright webServer still migrates E2E after preflight (migrations are IF NOT EXISTS / rejouable).
 # Nora: STUDIO_E2E=1 + OPENAI_API_KEY neutralized — FAKE only.
 #
 # Corrections vs Cycle-7 proposal artefact:
@@ -140,7 +142,8 @@ jobs:
         (github.event_name == 'pull_request' && needs.detect.outputs.next_changed == 'true') ||
         github.event_name == 'push'
       )
-    runs-on: ubuntu-latest
+    # Pin 24.04: ubuntu-latest→26 (resolute) currently breaks Playwright --with-deps apt DNS.
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     defaults:
       run:
@@ -282,7 +285,14 @@ jobs:
       - name: Vitest unit
         run: npm run test:unit
 
-      - name: Apply migrations 001→006 on operator DB
+      - name: Apply migrations 001→012 on operator DB
+        run: npm run db:migrate
+
+      # ENV-B: Vitest setup rewrites DATABASE_URL → sfia_next_e2e; schema must exist first.
+      # Keep operator migrate above (synthetic CI operator lane). Playwright re-migrates E2E later.
+      - name: Apply migrations 001→012 on E2E DB (Vitest mutative target)
+        env:
+          SFIA_PG_DATABASE: sfia_next_e2e
         run: npm run db:migrate
 
       - name: Vitest PostgreSQL integration
@@ -294,7 +304,24 @@ jobs:
           npm run test:integration
 
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: |
+          set -euo pipefail
+          # Retry bounded: GHA runners intermittently fail apt DNS for --with-deps
+          # (Temporary failure resolving security.ubuntu.com). Do not continue-on-error.
+          ok="false"
+          for i in 1 2 3; do
+            echo "Playwright Chromium install attempt ${i}/3…"
+            if npx playwright install --with-deps chromium; then
+              ok="true"
+              break
+            fi
+            echo "Playwright install attempt ${i} failed; waiting before retry…" >&2
+            sleep 20
+          done
+          if [ "${ok}" != "true" ]; then
+            echo "Playwright Chromium install failed after 3 attempts" >&2
+            exit 1
+          fi
 
       - name: Playwright BROWSER FAKE
         env:

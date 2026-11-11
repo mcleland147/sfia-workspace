@@ -1,6 +1,7 @@
 /**
- * Fail-closed gate for Playwright E2E Postgres targeting.
+ * Fail-closed gate for Playwright E2E and Vitest mutative Postgres targeting.
  * Pure validation — no CREATE DATABASE, no migrations, no network to OpenAI.
+ * Never logs credentials or full DSNs.
  */
 
 export const E2E_PG_EXPECTED = {
@@ -21,7 +22,9 @@ export type E2ePgGateErrorCode =
   | "E2E_PG_TARGET_FORBIDDEN"
   | "E2E_PG_TARGET_EQ_SOURCE"
   | "E2E_PG_USERINFO_AMBIGUOUS"
-  | "E2E_PG_CONTAINER_MAPPING_FORBIDDEN";
+  | "E2E_PG_CONTAINER_MAPPING_FORBIDDEN"
+  | "VITEST_PG_URL_MISSING"
+  | "VITEST_PG_TARGET_FORBIDDEN";
 
 export class E2ePgGateError extends Error {
   readonly code: E2ePgGateErrorCode;
@@ -156,4 +159,96 @@ export function assertContainerLoopbackPortMapping(
       `container must map 5432/tcp to loopback:${expectedHostPort}`,
     );
   }
+}
+
+function parsePostgresUrl(raw: string | undefined | null): URL {
+  if (raw == null || String(raw).trim() === "") {
+    throw new E2ePgGateError("VITEST_PG_URL_MISSING", "DATABASE_URL missing");
+  }
+  let u: URL;
+  try {
+    u = new URL(String(raw).trim());
+  } catch {
+    throw new E2ePgGateError("E2E_PG_URL_INVALID", "DATABASE_URL is not a valid URL");
+  }
+  if (u.protocol !== "postgres:" && u.protocol !== "postgresql:") {
+    throw new E2ePgGateError(
+      "E2E_PG_PROTOCOL_FORBIDDEN",
+      `protocol must be postgres/postgresql (got ${u.protocol})`,
+    );
+  }
+  return u;
+}
+
+function assertLoopbackDevPort(u: URL): void {
+  const host = u.hostname.toLowerCase();
+  if (!(E2E_PG_EXPECTED.hosts as readonly string[]).includes(host)) {
+    throw new E2ePgGateError(
+      "E2E_PG_HOST_FORBIDDEN",
+      "host must be exact loopback 127.0.0.1 or localhost",
+    );
+  }
+  const port = u.port === "" ? 5432 : Number(u.port);
+  if (port !== E2E_PG_EXPECTED.port) {
+    throw new E2ePgGateError(
+      "E2E_PG_PORT_FORBIDDEN",
+      `port must be ${E2E_PG_EXPECTED.port} (got ${port})`,
+    );
+  }
+}
+
+/**
+ * Fail-closed: Vitest mutative suites may only target sfia_next_e2e on DEV loopback :5433.
+ * Operator (`sfia_next_dev`), RECETTE, and other DB names are refused — no network I/O.
+ */
+export function assertApprovedVitestMutativeDatabaseUrl(
+  raw: string | undefined | null,
+): URL {
+  const u = parsePostgresUrl(raw);
+  assertLoopbackDevPort(u);
+  const db = databaseNameFromPathname(u.pathname);
+  if (!db) {
+    throw new E2ePgGateError("VITEST_PG_TARGET_FORBIDDEN", "database name missing");
+  }
+  if (db === E2E_PG_EXPECTED.operatorDatabase) {
+    throw new E2ePgGateError(
+      "VITEST_PG_TARGET_FORBIDDEN",
+      "Vitest mutative tests must not target operator database sfia_next_dev",
+    );
+  }
+  if (db !== E2E_PG_EXPECTED.e2eDatabase) {
+    throw new E2ePgGateError(
+      "VITEST_PG_TARGET_FORBIDDEN",
+      `Vitest mutative database must be ${E2E_PG_EXPECTED.e2eDatabase} (got ${db})`,
+    );
+  }
+  return u;
+}
+
+/**
+ * Prepare process DATABASE_URL for Vitest mutative PG without editing `.env.local`.
+ * - Already e2e → keep (after assert).
+ * - Approved operator URL → derive sibling e2e URL in-memory (Playwright preflight pattern).
+ * - Anything else → throw before any DB client is constructed.
+ */
+export function prepareVitestMutativeDatabaseUrl(raw: string | undefined | null): string {
+  if (raw == null || String(raw).trim() === "") {
+    throw new E2ePgGateError("VITEST_PG_URL_MISSING", "DATABASE_URL missing");
+  }
+  const trimmed = String(raw).trim();
+  let u: URL;
+  try {
+    u = new URL(trimmed);
+  } catch {
+    throw new E2ePgGateError("E2E_PG_URL_INVALID", "DATABASE_URL is not a valid URL");
+  }
+  const db = databaseNameFromPathname(u.pathname);
+  if (db === E2E_PG_EXPECTED.e2eDatabase) {
+    assertApprovedVitestMutativeDatabaseUrl(trimmed);
+    return trimmed;
+  }
+  // Operator source → in-process rewrite to e2e (does not modify .env.local).
+  const built = buildE2eDatabaseUrl(trimmed);
+  assertApprovedVitestMutativeDatabaseUrl(built.e2eDatabaseUrl);
+  return built.e2eDatabaseUrl;
 }

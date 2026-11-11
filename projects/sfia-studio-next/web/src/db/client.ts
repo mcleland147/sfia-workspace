@@ -1,10 +1,16 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as schema from "./schema";
+import { assertApprovedVitestMutativeDatabaseUrl } from "@/lib/e2e-pg-gate";
 
 const url = process.env.DATABASE_URL;
 if (!url) {
   throw new Error("DATABASE_URL missing — refuse to start without explicit lane DSN");
+}
+
+// Vitest sets VITEST=true. Refuse operator/RECETTE/ambiguous targets before first socket.
+if (process.env.VITEST === "true") {
+  assertApprovedVitestMutativeDatabaseUrl(url);
 }
 
 const globalForDb = globalThis as unknown as { __sfiaSql?: ReturnType<typeof postgres> };

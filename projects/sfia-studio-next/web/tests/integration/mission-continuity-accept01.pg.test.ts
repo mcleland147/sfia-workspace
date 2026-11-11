@@ -70,7 +70,8 @@ async function seedProjectWithGit(label: string) {
 describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
   beforeAll(() => {
     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    expect(process.env.DATABASE_URL).toMatch(/5433|sfia_next_dev/);
+    // Mutative Vitest PG must target e2e only (see tests/setup/vitest-pg-target.ts).
+    expect(process.env.DATABASE_URL).toMatch(/\/sfia_next_e2e(?:\?|$)/);
     delete process.env.OPENAI_API_KEY;
     process.env.STUDIO_LANE = "DEV";
     process.env.STUDIO_E2E = "1";
