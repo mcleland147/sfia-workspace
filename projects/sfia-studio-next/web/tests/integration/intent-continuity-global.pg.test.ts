@@ -34,7 +34,10 @@ import {
 } from "@/domains/execution/effect-service";
 import { listMessages, postUserMessageAndNora } from "@/domains/conversation/service";
 import { listDocuments, savePreparationDocument } from "@/domains/document/service";
-import { qualifyDocumentAct } from "@/domains/conversation/document-act";
+import {
+  hasCompetingTransactionalClaim,
+  qualifyDocumentAct,
+} from "@/domains/conversation/document-act";
 import {
   capitalizeAcquis,
   ensureSubject,
@@ -211,6 +214,66 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
     const docs = await listDocuments(pilotId, preparationId);
     expect(docs.some((d) => d.document.id === cont.documentSave?.documentId)).toBe(true);
+
+    // S03: persisted assistant must carry D4 applicative ACK and no competing claim.
+    const msgs = await listMessages(pilotId, preparationId);
+    const assistant = [...msgs].reverse().find((m) => m.role === "assistant");
+    expect(assistant?.content).toMatch(/Résultat applicatif D4/i);
+    expect(assistant?.content).toMatch(/AVAILABLE/i);
+    expect(
+      hasCompetingTransactionalClaim(assistant?.content ?? "", {
+        act: "CREATE",
+        status: "AVAILABLE",
+        documentId: cont.documentSave?.documentId,
+        revisionId: cont.documentSave?.revisionId,
+        revisionNumber: cont.documentSave?.revisionNumber,
+      }),
+    ).toBe(false);
+  });
+
+  it("S05: independent question while AWAITING_PILOT_ACT keeps mission and creates no project", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-s05-independent");
+    const clientTurnKey = newId("ctk");
+    const first = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Wait Decision S05.",
+      { clientTurnKey },
+    );
+    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    expect(first.missionProjection?.clientIntentKey).toBe(clientTurnKey);
+
+    const q = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Pendant que j'y réfléchis : quelle est la différence entre un blob et un commit ?",
+      { clientTurnKey: newId("ctk") },
+    );
+    expect(q.documentSave == null || q.documentSave.status === "NOT_EXECUTED").toBe(true);
+
+    const ctx = await getPreparationContext(pilotId, preparationId);
+    expect(ctx.project).toBeFalsy();
+    expect(ctx.conversation?.id).toBeTruthy();
+
+    // Independent question must not authorize create — original mission key still binds D2.
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const verified = await verifyMissionForD2Act({
+      conversationId: ctx.conversation!.id,
+      preparationId,
+      clientIntentKey: clientTurnKey,
+      projectName: prep.previewName || "Wait Decision S05",
+    });
+    expect(verified.status).toBe("OK");
+
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: prep.previewName || "Wait Decision S05",
+      previewSummary: prep.previewSummary || "s",
+      idempotencyKey: d2MissionIdempotencyKey(clientTurnKey),
+    });
+    expect(created.status).toBe("CREATED");
   });
 
   it("G1+S04: after continue, mission is not awaiting; double continue is replay", async () => {

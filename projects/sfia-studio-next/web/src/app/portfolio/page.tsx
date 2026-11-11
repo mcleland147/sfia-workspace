@@ -31,11 +31,12 @@ type PortfolioResponse = {
   errorCategory?: string;
 };
 
-function statusForProject(index: number, total: number): { label: string; tone: string } {
-  if (total === 0) return { label: "—", tone: "fig-tag-muted" };
-  if (index === 0) return { label: "Actif", tone: "fig-tag-ok" };
-  if (index === 1) return { label: "En réflexion", tone: "fig-tag-muted" };
-  return { label: "À reprendre", tone: "fig-tag-warn" };
+/**
+ * ML4C S01 — portfolio labels must come from owner truth, never list index.
+ * Decorative progression (Actif / En réflexion / À reprendre by index) is forbidden.
+ */
+function statusForOwnedProject(): { label: string; tone: string } {
+  return { label: "Accessible", tone: "fig-tag-ok" };
 }
 
 export default function PortfolioPage() {
@@ -339,13 +340,15 @@ export default function PortfolioPage() {
             </button>
           </div>
           <ul className="fig-card-grid" data-testid="portfolio-projects">
-            {projects.map((proj, idx) => {
-              const st = statusForProject(idx, projects.length);
+            {projects.map((proj) => {
+              const st = statusForOwnedProject();
               return (
                 <li key={proj.id} className="fig-card">
                   <div className="fig-card-top">
                     <div className="fig-card-title">{proj.name}</div>
-                    <span className={`fig-tag ${st.tone}`}>{st.label}</span>
+                    <span className={`fig-tag ${st.tone}`} data-testid="portfolio-project-status">
+                      {st.label}
+                    </span>
                   </div>
                   <p className="fig-card-desc text-xs muted break-all">{proj.id}</p>
                   <p className="fig-card-meta">Projet accessible · ouverture par projectId</p>

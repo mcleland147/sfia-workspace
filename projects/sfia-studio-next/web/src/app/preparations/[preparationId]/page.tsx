@@ -479,39 +479,106 @@ export default function PreparationPage() {
     }
   }
 
+  /**
+   * ML4C S02 — after lost ACK, reconcile with the same idempotency key before any new create.
+   * Read-only GET; never mints a second mutation automatically.
+   */
+  async function reconcileCreateAfterAckLoss(key: string): Promise<string | null> {
+    try {
+      const res = await fetch(
+        `/api/preparations/${preparationId}/reconcile?idempotencyKey=${encodeURIComponent(key)}`,
+      );
+      let j: {
+        status?: string;
+        projectId?: string;
+        reason?: string;
+      } = {};
+      try {
+        j = (await res.json()) as typeof j;
+      } catch {
+        j = {};
+      }
+      if (j.status === "ALREADY_CREATED" && j.projectId) {
+        setProjectId(j.projectId);
+        setAwaitingClientIntentKey(null);
+        setStatus(`ALREADY_CREATED (réconcilié après ACK perdu) → ${j.projectId}`);
+        router.push(`/projects/${j.projectId}`);
+        return j.projectId;
+      }
+      setStatus(
+        `Réconciliation ${j.status ?? (res.ok ? "UNKNOWN" : `HTTP_${res.status}`)} — clé d'intention conservée`,
+      );
+      return null;
+    } catch {
+      setStatus("Réconciliation impossible (réseau) — clé d'intention conservée");
+      return null;
+    }
+  }
+
   async function createProject() {
     setBusy(true);
     // Structured binding only — server verifies clientIntentKey against durable mission.
     const clientIntentKey = awaitingClientIntentKey ?? undefined;
-    const res = await fetch(`/api/preparations/${preparationId}/create-project`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        expectedCreationRevision: creationRevision,
-        projectName: previewName || "Projet sans titre",
-        previewSummary,
-        idempotencyKey: clientIntentKey
-          ? `d2:mission:${clientIntentKey}`
-          : idempotencyKey,
-        clientIntentKey,
-      }),
-    });
-    const j = await res.json();
-    setBusy(false);
-    const bindErr = j.missionBindingError ? ` · bind ${j.missionBindingError}` : "";
-    const cont =
-      j.missionContinue?.continued && j.missionContinue?.documentSave?.documentId
-        ? ` · doc ${j.missionContinue.documentSave.documentId}`
-        : j.missionContinue?.reason
-          ? ` · continue ${j.missionContinue.reason}`
-          : "";
-    setStatus(`${j.status}${j.projectId ? ` → ${j.projectId}` : ""}${cont}${bindErr}`);
-    if (j.projectId && !j.missionBindingError) {
-      setProjectId(j.projectId);
-      setAwaitingClientIntentKey(null);
-      router.push(`/projects/${j.projectId}`);
+    const key = clientIntentKey ? `d2:mission:${clientIntentKey}` : idempotencyKey;
+    try {
+      const res = await fetch(`/api/preparations/${preparationId}/create-project`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          expectedCreationRevision: creationRevision,
+          projectName: previewName || "Projet sans titre",
+          previewSummary,
+          idempotencyKey: key,
+          clientIntentKey,
+        }),
+      });
+      let j: {
+        status?: string;
+        projectId?: string;
+        missionBindingError?: string;
+        missionContinue?: {
+          continued?: boolean;
+          documentSave?: { documentId?: string };
+          reason?: string;
+        };
+      } = {};
+      try {
+        j = (await res.json()) as typeof j;
+      } catch {
+        j = {};
+      }
+
+      const bindErr = j.missionBindingError ? ` · bind ${j.missionBindingError}` : "";
+      const cont =
+        j.missionContinue?.continued && j.missionContinue?.documentSave?.documentId
+          ? ` · doc ${j.missionContinue.documentSave.documentId}`
+          : j.missionContinue?.reason
+            ? ` · continue ${j.missionContinue.reason}`
+            : "";
+      if (j.status || j.projectId) {
+        setStatus(`${j.status ?? ""}${j.projectId ? ` → ${j.projectId}` : ""}${cont}${bindErr}`);
+      }
+      if (j.projectId && !j.missionBindingError) {
+        setProjectId(j.projectId);
+        setAwaitingClientIntentKey(null);
+        router.push(`/projects/${j.projectId}`);
+        return;
+      }
+
+      // No usable projectId in response (parse failure, opaque error, ACK truncated):
+      // reconcile with the SAME key before any new create mutation.
+      const recovered = await reconcileCreateAfterAckLoss(key);
+      if (recovered) return;
+      await reload();
+    } catch {
+      // Network throw after possible server commit — same key, reconcile only.
+      const recovered = await reconcileCreateAfterAckLoss(key);
+      if (!recovered) {
+        setStatus("Échec réseau / ACK perdu — intention et clé conservées pour retry");
+      }
+    } finally {
+      setBusy(false);
     }
-    await reload();
   }
 
   async function renameSubject(subjectId: string, title: string) {

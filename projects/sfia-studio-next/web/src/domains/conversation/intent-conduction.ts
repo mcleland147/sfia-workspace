@@ -18,7 +18,13 @@ import { savePreparationDocument } from "@/domains/document/service";
 import { StudioError } from "@/lib/http-errors";
 import { newId } from "@/lib/ids";
 import { emitObs } from "@/lib/observability";
-import { extractContractualDocumentProposal, qualifyDocumentAct } from "./document-act";
+import {
+  appendDocumentEffectAck,
+  extractContractualDocumentProposal,
+  hasCompetingTransactionalClaim,
+  qualifyDocumentAct,
+  type DocumentEffectSummary,
+} from "./document-act";
 import { generateNoraReply } from "./nora-adapter";
 import { TURN_RUNNING_STALE_MS, turnClock } from "./turn-command";
 import {
@@ -1136,27 +1142,37 @@ export async function continueAfterProjectCreated(input: {
       };
     }
 
+    // S03: same document-effect composition as the main chat path — never leave
+    // Nora prose as the sole post-D4 message (AVAILABLE + « non enregistré » contradiction).
+    const documentEffect: DocumentEffectSummary =
+      documentSave?.status === "AVAILABLE"
+        ? {
+            act: "CREATE",
+            status: "AVAILABLE",
+            documentId: documentSave.documentId,
+            revisionId: documentSave.revisionId,
+            revisionNumber: documentSave.revisionNumber,
+          }
+        : {
+            act: "CREATE",
+            status: documentSave?.status === "CONFLICT" ? "CONFLICT" : "FAILED",
+            reason: documentSave?.reason ?? documentSave?.status,
+          };
     const canonical = composeCanonicalMissionRestitution({
-      documentEffect:
-        documentSave?.status === "AVAILABLE"
-          ? {
-              act: "CREATE",
-              status: "AVAILABLE",
-              documentId: documentSave.documentId,
-              revisionId: documentSave.revisionId,
-              revisionNumber: documentSave.revisionNumber,
-            }
-          : {
-              act: "CREATE",
-              status: "FAILED",
-              reason: documentSave?.reason,
-            },
+      documentEffect,
       restitutionNote: `Reprise automatique après création projet ${input.projectId} — même intention (${mission.clientIntentKey}).`,
     });
-    assistantContent =
-      reply.status === "COMPLETE" && reply.content.trim()
-        ? appendMissionAck(reply.content, mission)
-        : appendMissionAck(canonical, mission);
+    const noraBody =
+      reply.status === "COMPLETE" && reply.content.trim() ? reply.content : canonical;
+    const withDocAck = appendDocumentEffectAck(noraBody, documentEffect);
+    assistantContent = appendMissionAck(withDocAck, mission);
+    if (hasCompetingTransactionalClaim(assistantContent, documentEffect)) {
+      // Fail-closed narration: prefer canonical + structured ACKs over competing claims.
+      assistantContent = appendMissionAck(
+        appendDocumentEffectAck(canonical, documentEffect),
+        mission,
+      );
+    }
     generationId = `mission-continue-d2d4:${mission.clientIntentKey}:${input.projectId}`;
   }
 
