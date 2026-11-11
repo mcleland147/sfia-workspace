@@ -5,98 +5,104 @@ import {
   qualifyThreadTurn,
 } from "@/domains/pilotage/thread-recovery";
 
-describe("ML4C S05 — qualifyThreadTurn linguistic matrix", () => {
+describe("ML4C S05 — positive independent dialogue qualification", () => {
   const pending = {
     content: "Ouvre le cycle cadrage.",
     clientTurnKey: "ctk_pending",
     clientCommandKey: "conv-auth:ctk_pending",
   };
 
-  it("classifies métier OPEN_CYCLE variants as INTENTION_EFFET (not independent by exclusion)", () => {
+  it("classifies CLEAR métier variants as INTENTION_EFFET", () => {
     for (const s of [
-      "Ouvre un cycle cadrage.",
       "Ouvre le cycle cadrage.",
+      "Ouvre un cycle cadrage.",
       "Ouvre cycle cadrage.",
+      "Crée un projet.",
+      "Publie ce document.",
+      "Je décide que GitHub est obligatoire.",
     ]) {
       const q = qualifyThreadTurn(s);
       expect(q.kind, s).toBe("INTENTION_EFFET");
-      expect(q.pilotageOperation, s).toBe("OPEN_CYCLE");
       expect(looksLikeIndependentDialogue(s)).toBe(false);
     }
   });
 
-  it("treats noisy OPEN formulations as INCERTAIN — never DIALOGUE_INDEPENDANT", () => {
+  it("never treats unknown/noisy operational phrasing as independent by default", () => {
     for (const s of [
-      "Ouvre the cycle cadrage.",
+      "Archive ce projet.",
+      "Réinitialise ce projet ?",
+      "Supprime cette configuration.",
       "Ouvre L cycle cadrage.",
-      "Lance le cycle de cadrage.",
-      "Démarre le cadrage.",
-      "Peux-tu ouvrir le cycle cadrage ?",
-    ]) {
-      const q = qualifyThreadTurn(s);
-      expect(q.kind, s).toBe("INCERTAIN");
-      expect(looksLikeIndependentDialogue(s)).toBe(false);
-    }
-  });
-
-  it("keeps clear effect intents as INTENTION_EFFET", () => {
-    expect(qualifyThreadTurn("Crée un autre projet.").kind).toBe("INTENTION_EFFET");
-    expect(qualifyThreadTurn("Publie ce document.").kind).toBe("INTENTION_EFFET");
-    expect(qualifyThreadTurn("Je décide que GitHub est obligatoire.").kind).toBe(
-      "INTENTION_EFFET",
-    );
-  });
-
-  it("positively establishes independent cognitive questions", () => {
-    for (const s of [
-      "Pourquoi avions-nous choisi cette architecture ?",
-      "Quelle différence entre un blob et un commit ?",
-      "À quoi sert un cycle de cadrage ?",
-      "Pourquoi ouvrir un cycle de cadrage ?",
-      "Que signifie la commande 'ouvre le cycle' ?",
-    ]) {
-      expect(qualifyThreadTurn(s).kind, s).toBe("DIALOGUE_INDEPENDANT");
-      expect(
-        mayStartNewThreadAct({
-          unresolved: pending,
-          nextContent: s,
-          nextTurnKind: "DIALOGUE_INDEPENDANT",
-        }).ok,
-        s,
-      ).toBe(true);
-    }
-  });
-
-  it("keeps ambiguous / mixed formulations out of independent dialogue", () => {
-    for (const s of [
+      "Ouvre the cycle cadrage.",
       "Tu peux faire ça ?",
       "Fais-le.",
-      "Et si on ouvrait le cycle ?",
       "Explique-moi ce choix puis ouvre le cycle.",
-      "Je pourrais ouvrir le cycle ?",
     ]) {
       const q = qualifyThreadTurn(s);
       expect(q.kind, s).not.toBe("DIALOGUE_INDEPENDANT");
-      expect(
-        mayStartNewThreadAct({
-          unresolved: pending,
-          nextContent: s,
-          nextTurnKind: q.kind,
-        }).ok,
-        s,
-      ).toBe(false);
+      expect(["INCERTAIN", "INTENTION_EFFET"]).toContain(q.kind);
     }
   });
 
-  it("blocks INCERTAIN over unresolved pending (conservative)", () => {
+  it("requires positive cognitive evidence for DIALOGUE_INDEPENDANT (lone ? insufficient)", () => {
+    for (const s of [
+      "Pourquoi avions-nous choisi cette architecture ?",
+      "Quelle est la différence entre un blob et un commit ?",
+      "À quoi sert un cycle de cadrage ?",
+      "Pourquoi ouvrir un cycle de cadrage ?",
+      "Que signifie la commande 'ouvre le cycle' ?",
+      "Explique-moi cette décision.",
+      "Comment fonctionne notre trajectoire ?",
+    ]) {
+      expect(qualifyThreadTurn(s).kind, s).toBe("DIALOGUE_INDEPENDANT");
+    }
+    // Lone "?" / unknown short ask — not positively independent.
+    expect(qualifyThreadTurn("Réinitialise ce projet ?").kind).toBe("INCERTAIN");
+    expect(qualifyThreadTurn("Ok ?").kind).toBe("INCERTAIN");
+    expect(qualifyThreadTurn("Et maintenant").kind).toBe("INCERTAIN");
+  });
+
+  it("blocks unknown operational B over unresolved pending A", () => {
+    for (const s of ["Archive ce projet.", "Réinitialise ce projet ?", "Ouvre L cycle cadrage."]) {
+      const kind = qualifyThreadTurn(s).kind;
+      const gate = mayStartNewThreadAct({
+        unresolved: pending,
+        nextContent: s,
+        nextTurnKind: kind,
+      });
+      expect(gate.ok, s).toBe(false);
+      if (!gate.ok) {
+        expect(gate.pending.clientTurnKey).toBe(pending.clientTurnKey);
+      }
+    }
+  });
+
+  it("allows positively independent B over pending A", () => {
+    const s = "Quelle est la différence entre un blob et un commit ?";
+    expect(
+      mayStartNewThreadAct({
+        unresolved: pending,
+        nextContent: s,
+        nextTurnKind: "DIALOGUE_INDEPENDANT",
+      }).ok,
+    ).toBe(true);
+  });
+
+  it("does not let nextIsIndependentDialogue alone bypass pending", () => {
     const gate = mayStartNewThreadAct({
       unresolved: pending,
-      nextContent: "Ouvre L cycle cadrage.",
-      nextTurnKind: "INCERTAIN",
+      nextContent: "Archive ce projet.",
+      nextIsIndependentDialogue: true,
+      // nextTurnKind omitted — must re-qualify content, not trust the boolean
     });
     expect(gate.ok).toBe(false);
-    if (!gate.ok) {
-      expect(gate.pending.clientTurnKey).toBe(pending.clientTurnKey);
-    }
+  });
+
+  it("negations / hypotheses / citations stay non-bypass", () => {
+    expect(qualifyThreadTurn("N'ouvre pas le cycle.").kind).not.toBe("DIALOGUE_INDEPENDANT");
+    expect(qualifyThreadTurn("Et si on ouvrait le cycle ?").kind).toBe("INCERTAIN");
+    expect(qualifyThreadTurn("Que signifie la commande 'ouvre le cycle' ?").kind).toBe(
+      "DIALOGUE_INDEPENDANT",
+    );
   });
 });

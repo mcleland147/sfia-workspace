@@ -127,6 +127,13 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
     expect(looksLikeIndependentDialogue("Est-ce qu'on peut autoriser cette action ?")).toBe(false);
     expect(looksLikeIndependentDialogue("Ouvre le cycle cadrage.")).toBe(false);
     expect(looksLikeIndependentDialogue("Ouvre L cycle cadrage.")).toBe(false);
+    expect(looksLikeIndependentDialogue("Archive ce projet.")).toBe(false);
+    expect(looksLikeIndependentDialogue("Réinitialise ce projet ?")).toBe(false);
+  });
+
+  it("lone question mark does not establish independence", () => {
+    expect(looksLikeIndependentDialogue("Ok ?")).toBe(false);
+    expect(looksLikeIndependentDialogue("Pourquoi ouvrir un cycle de cadrage ?")).toBe(true);
   });
 
   it("COMPLETE on independent turn must not clear unresolved métier pending", () => {

@@ -4,7 +4,8 @@
  *
  * ML4C S05 — thread turn qualification reuses owner linguistic qualifiers
  * (qualifyPilotageIntent / qualifyDocumentAct). Never invents authority.
- * Unrecognized ≠ automatically independent.
+ * Independent dialogue must be positively established — never by exclusion
+ * or by a lone "?".
  */
 
 import { qualifyDocumentAct } from "@/domains/conversation/document-act";
@@ -43,13 +44,18 @@ const PUBLISH_RE =
 /**
  * Residual operational surface — present when an effect may be intended even if
  * owner CLEAR qualification missed a noisy variant. Never authorizes alone.
+ * Not an exhaustive verb allowlist for all future effects.
  */
 const RESIDUAL_EFFECT_SURFACE_RE =
   /\b(?:ouvr(?:e|ir|ez|ait|irait)|lance|lancer|démarre|demarre|démarrer|demarrer|publie|publier|crée|créer|créez|creez|autorise|autoriser|accorde|accorder|clôture|cloture|clôturer|cloturer|révoque|revoque|enregistre\s+(?:cette\s+)?décision|je\s+décide|j['']autorise|fais[- ]le|fais(?:\s+ça|\s+le)?|tu\s+peux|peux[- ]tu|peut[- ]on|pourrais[- ]tu|pourrait[- ]on|et\s+si\s+on)\b/i;
 
-/** Positive cognitive / meta markers for independent dialogue (must not request an effect). */
+/**
+ * Positive cognitive / explanatory markers — required to establish
+ * DIALOGUE_INDEPENDANT. A lone "?" is never sufficient.
+ * Unicode-aware left edge: JS `\b` fails before accented starters (À/à).
+ */
 const COGNITIVE_INDEPENDENT_RE =
-  /\b(?:pourquoi|quelle\s+(?:est\s+la\s+)?différence|quelles?\s+sont|à\s+quoi\s+sert|que\s+signifie|que\s+veut\s+dire|explique(?:[- ]moi)?|comment\s+(?:fonctionne|marche)|en\s+quoi|pour\s+quelle\s+raison)\b/i;
+  /(?:^|[^\p{L}\p{N}_])(?:pourquoi|quelle\s+(?:est\s+la\s+)?différence|quelles?\s+sont|à\s+quoi\s+sert|que\s+signifie|que\s+veut\s+dire|explique(?:[- ]moi)?|comment\s+(?:fonctionne|marche)|en\s+quoi|pour\s+quelle\s+raison)\b/iu;
 
 /** Quotation / meta mention of a command (not performing it). */
 const META_COMMAND_CITATION_RE =
@@ -63,6 +69,36 @@ function hasCompoundEffectAfterExplain(text: string): boolean {
       text,
     )
   );
+}
+
+/** Explanatory question that evokes an operation without requesting it. */
+function isExplanatoryEvocationOfOperation(text: string): boolean {
+  return (
+    /\bpourquoi\b/i.test(text) &&
+    /\b(?:ouvrir|ouvre|publier|créer)\b/i.test(text) &&
+    !/\b(?:peux[- ]tu|peut[- ]on|pourrais[- ]tu|fais|lance|démarre)\b/i.test(text) &&
+    !/\bje\s+d[eé]cide\b/i.test(text) &&
+    !hasCompoundEffectAfterExplain(text)
+  );
+}
+
+function isMetaCommandCitation(text: string): boolean {
+  return (
+    META_COMMAND_CITATION_RE.test(text) ||
+    (/^que\s+signifie\b/i.test(text) && !/\b(?:puis|ensuite)\b/i.test(text))
+  );
+}
+
+/**
+ * Positive evidence of independent cognitive dialogue.
+ * Absence of residual effect signals is NOT evidence of independence.
+ */
+function isPositivelyIndependentDialogue(text: string): boolean {
+  if (hasCompoundEffectAfterExplain(text)) return false;
+  if (isMetaCommandCitation(text)) return true;
+  if (isExplanatoryEvocationOfOperation(text)) return true;
+  if (COGNITIVE_INDEPENDENT_RE.test(text)) return true;
+  return false;
 }
 
 /**
@@ -127,29 +163,12 @@ export function qualifyThreadTurn(text: string): ThreadTurnQualification {
   }
 
   // Residual operational vocabulary without CLEAR owner match → uncertain,
-  // never auto-independent (fixes « Ouvre le/L/the cycle » bypass class).
+  // unless positively established as explanatory / meta.
   if (RESIDUAL_EFFECT_SURFACE_RE.test(t)) {
-    // Pure meta/citation about a command can still be cognitive.
-    if (
-      META_COMMAND_CITATION_RE.test(t) ||
-      (/^que\s+signifie\b/i.test(t) && !/\b(?:puis|ensuite)\b/i.test(t))
-    ) {
+    if (isPositivelyIndependentDialogue(t)) {
       return {
         kind: "DIALOGUE_INDEPENDANT",
-        reason: "Citation / méta-question sur une commande",
-        pilotageClarity: "NONE",
-      };
-    }
-    // « Pourquoi ouvrir… » — explanation about an act, not a request (owner already NONE).
-    if (
-      /\bpourquoi\b/i.test(t) &&
-      /\b(?:ouvrir|ouvre|publier|créer|créer)\b/i.test(t) &&
-      !/\b(?:peux[- ]tu|peut[- ]on|pourrais[- ]tu|fais|lance|démarre)\b/i.test(t) &&
-      !/\bje\s+d[eé]cide\b/i.test(t)
-    ) {
-      return {
-        kind: "DIALOGUE_INDEPENDANT",
-        reason: "Question explicative évoquant une opération",
+        reason: "Dialogue explicatif/méta positivement établi",
         pilotageClarity: "NONE",
       };
     }
@@ -160,18 +179,18 @@ export function qualifyThreadTurn(text: string): ThreadTurnQualification {
     };
   }
 
-  if (COGNITIVE_INDEPENDENT_RE.test(t) || /\?$/.test(t)) {
+  // Independence only when positively demonstrated — never by lone "?" or exclusion.
+  if (isPositivelyIndependentDialogue(t)) {
     return {
       kind: "DIALOGUE_INDEPENDANT",
-      reason: "Question / dialogue cognitif sans surface d'effet",
+      reason: "Dialogue cognitif/explicatif positivement établi",
       pilotageClarity: "NONE",
     };
   }
 
-  // Soft non-operational prose (no residual effect surface) — independent.
   return {
-    kind: "DIALOGUE_INDEPENDANT",
-    reason: "Dialogue sans signal d'effet résiduel",
+    kind: "INCERTAIN",
+    reason: "Indépendance non établie positivement",
     pilotageClarity: "NONE",
   };
 }
@@ -221,11 +240,17 @@ export function shouldClearThreadPending(input: {
  * an unresolved pending. Same content ⇒ retry of the same logical act.
  * Only positively established independent dialogue may proceed without
  * replacing pending. INCERTAIN and INTENTION_EFFET stay blocked.
+ *
+ * `nextIsIndependentDialogue` alone never establishes independence — when
+ * `nextTurnKind` is omitted, content is re-qualified.
  */
 export function mayStartNewThreadAct(input: {
   unresolved: ThreadPendingTurn | null | undefined;
   nextContent: string;
-  /** When true, allow a cognitive question without overwriting métier pending. */
+  /**
+   * Legacy hint — ignored as authority. Independence is always derived from
+   * `nextTurnKind` or `qualifyThreadTurn(nextContent)`.
+   */
   nextIsIndependentDialogue?: boolean;
   /** Preferred: full turn kind (INCERTAIN never bypasses pending). */
   nextTurnKind?: ThreadTurnKind;
@@ -234,9 +259,7 @@ export function mayStartNewThreadAct(input: {
   if (!pending) return { ok: true };
   if (pending.content.trim() === input.nextContent.trim()) return { ok: true };
 
-  const kind =
-    input.nextTurnKind ??
-    (input.nextIsIndependentDialogue ? "DIALOGUE_INDEPENDANT" : "INTENTION_EFFET");
+  const kind = input.nextTurnKind ?? qualifyThreadTurn(input.nextContent).kind;
 
   if (kind === "DIALOGUE_INDEPENDANT") return { ok: true };
 

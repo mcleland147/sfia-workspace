@@ -710,9 +710,10 @@ export default function ProjectPage() {
     }
     const clientTurnKey = messageTurnKeyRef.current.key;
     const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
-    // Remember métier (or uncertain effect-seeking) turns for ACK recovery.
+    // Remember only CLEAR métier effect turns for ACK recovery.
+    // INCERTAIN without pending must not invent a durable métier pending.
     // Independent cognitive dialogue must not clobber an unresolved pending key.
-    if (turn.kind === "INTENTION_EFFET" || turn.kind === "INCERTAIN") {
+    if (turn.kind === "INTENTION_EFFET") {
       rememberPending({ content: text, clientTurnKey, clientCommandKey });
     }
     const preserveMetierPending = independent && Boolean(pendingBefore);

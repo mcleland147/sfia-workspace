@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-11-ML4C-S05-POSITIVE-INDEPENDENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-11 (Europe/Paris) |
+| Macro-lot | ML4C — INC S05 qualification positive (PR #676) |
+| Type | INC — indépendance positivement établie ; inconnu → INCERTAIN (NO RELEASE) |
+| Branch | `build/next-ml4c-functional-convergence` |
+| Parent tip | `8cff1591` |
+| Lane | DEV :5433; mutative → `sfia_next_e2e`; RECETTE/STABLE untouched |
+| Changes | Supprime repli « inconnu/? ⇒ indépendant » ; `qualifyThreadTurn` n'établit DIALOGUE_INDEPENDANT que sur marqueurs cognitifs positifs ; INCERTAIN sans pending n'invente pas de pending métier |
+| Schema | unchanged |
+| Status | PR #676 corrective — CI à rejouer — LIVE/REAL carried |
+
 ## delivery_id: DELIV-2026-11-11-ML4C-S05-INTENT-QUALIFICATION
 
 | Field | Value |
