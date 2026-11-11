@@ -5,7 +5,7 @@
 **Environnement local, DB active, navigateur, capture Figma et exécution LIVE actuelle : NON OBSERVÉS**. Les résultats de tests cités sont **historiques**.
 **Verdict provisoire :** `ML3 136/136 R2 IDS INDEXED / CORE D5-D6 SOURCE IMPLEMENTED / TARGETED LIVE 8/8 + C03 / GENERAL E2E & F2-G5 NOT PROVEN / CP1 OPEN`.
 
-[Retour à ML4B](../README.md) · [Contrat R5 ML3](../../ml3-pilotage-et-decisions/specification-technique.md) · [Matrice historique individualisée](../../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) · [Sortie Morris du 07/11](../../../governance/decisions/2026-11-07-pilotage-decisions-formal-exit.md).
+[Retour à ML4B](../README.md) · [Continuité E2E02/E2E04 et frontière Git](reconciliation-e2e02-e2e04-continuite-autorite-git.md) · [Contrat R5 ML3](../../ml3-pilotage-et-decisions/specification-technique.md) · [Matrice historique individualisée](../../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) · [Sortie Morris du 07/11](../../../governance/decisions/2026-11-07-pilotage-decisions-formal-exit.md).
 
 ## 1. Résultat Pilote et périmètre actuel
 
