@@ -7,6 +7,8 @@
 **État :** `DOCUMENTED / CP1 SYNTHESIS CANDIDATE FOR MORRIS REVIEW / GATE B NOT HELD / NO PRODUCT CHANGE`.
 **Environnement local, runtime, DB et navigateur :** `NON OBSERVÉS`.
 
+> **MISE À JOUR DE GOUVERNANCE DU 11/11/2026 (postérieure au diagnostic CP1) :** Morris a validé **ML4C fonctionnel intégré, puis ML4D UX/UI global**, dans la [décision complémentaire](../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md). **Ce choix remplace les options A/B/C comme trajectoire de réalisation uniquement** ; les 628 références indexées, sept E2E/43 étapes, X-01..08 et leurs statuts de preuve restent inchangés. Inclure cockpit/portefeuille, accès, sas et navigation en ML4C lorsqu'un écart fonctionnel ou d'UX bloquante l'exige, puis reprendre toutes les surfaces applicables en ML4D pour la fidélité Figma. **CP1/Gate B non acceptés par ce seul arbitrage ; aucun GO de construction.**
+
 ## 1. Résultat du dossier et frontière
 
 Conformément à la [décision CP0](../../governance/decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md), ML4B confronte la **vision R1, les contrats R2, la conception UX R3, l'architecture R4, les contrats R5, le code intégré, les tests et les comportements réellement prouvés**.

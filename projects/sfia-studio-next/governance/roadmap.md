@@ -1,5 +1,21 @@
 # SFIA Studio Next — Living Roadmap
 
+> **ÉTAT COURANT R5 — 2026-11-11 / ARBITRAGE MORRIS ML4C+ML4D VALIDÉ EN ORIENTATION** : la [nouvelle décision complémentaire](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) introduit **ML4C — convergence fonctionnelle intégrée de toutes les capacités construites ML1–ML4, cockpit et UX fonctionnelle compris**, puis **ML4D — convergence UX/UI globale et fidélité Figma**, avant le Gate C final. Le diagnostic ML4B/CP1 est intégré sur `main` via [PR #674](https://github.com/mcleland147/sfia-workspace/pull/674) (merge `42aa373947446a8c20694b06c559ee0da1cba580`) mais **CP1 reste candidat à acceptation Morris / Gate B NON TENU**. Aucune construction, Figma, GO Cursor, PR/merge projet, ML5, STABLE, release ou ADOPTED n'est autorisée par cet arbitrage.
+
+## R5 — Addendum de trajectoire ML4C / ML4D (11 novembre 2026)
+
+**Ordre de convergence approuvé en orientation :** `ML1–ML4 → ML4B diagnostic CP1 → Gate Morris B → CP2 contrat intégré ML4C+ML4D → ML4C fonctionnel → réception intermédiaire ML4C → ML4D UX/UI global → Gate Morris C final → ML5 Cursor → R6`. **GO techniques distincts** et contrats d'acceptation Morris requis avant chaque construction. Cette mise à jour prévaut sur la séquence CP0 plus courte ci-dessous, conservée comme instantané historique.
+
+- **ML4C — Convergence fonctionnelle intégrée :** accès/session D1, portefeuille-cockpit/tableau de bord, sas et création D2, navigation, Nora, mémoire, raisonnement, documents D4, pilotage D5, HumanDecision D6, publication Git gouvernée D7–D9, vérité des effets, continuité et résilience ; inclure **l'UX indispensable au fonctionnement de chaque parcours**. Conduite Nora ≠ exécution/autorité des services Studio : aucun second moteur.
+- **ML4D — Convergence UX/UI globale :** tous les écrans, états, rails et variantes Figma **applicables aux capacités construites ML1–ML4**, y compris le cockpit, plus évolutions approuvées durant ML4C ; harmoniser hiérarchie, navigation, composants, responsive/accessibilité et fidélité visuelle réelle. Réutiliser R3, A1–A3, P1–P3, F1/F2 et le protocole Figma/runtime ; **F2/G5 non prouvés** par les transpositions G4. Une fonctionnalité ML5 non construite n'entre pas automatiquement dans le périmètre.
+- **CP1 / Gate B :** [diagnostic ML4B](../construction/reconciliation-produit/README.md) et [synthèse R1](../construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md) restent des constats de preuve ; huit familles X-01..08 conservées. Les options analytiques A/B/C ne sont plus le découpage décidé pour l'exécution. Gate B doit encore arbitrer diagnostic, priorités, risques, périmètre de sortie et réserves.
+- **CP2 :** avant tout code, préparer le contrat commun de la cible ML4C/ML4D et l'architecture candidate, avec frontières D1–D9, interfaces et critères UX visuels ; distinguer GO ML4C et GO ML4D.
+- **CP3 / Gate C :** réception ML4C **intermédiaire**, puis réalisation/recette ML4D et **Gate C final seulement après convergence fonctionnelle et UX globale**. CP4 conserve la qualification préalable à ML5 ; R6 reste la qualification globale.
+
+**Statuts :** `ML4B DOCUMENTED / CP1 CANDIDATE / GATE B OPEN / ML4C+ML4D TRAJECTORY VALIDATED IN CONTENT / NO BUILD GO / ML5 NOT STARTED / R6 NOT STARTED / NO ADOPTED`. Les sources R1–R5, les anciennes clôtures et leurs réserves ne sont pas réécrites. L'addendum [D2 du 11/11](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) est propriétaire de l'arbitrage de séquence ; les contrats de réalisation restent à établir.
+
+---
+
 > **ÉTAT COURANT R5 — CP0 VALIDATED IN CONTENT BY MORRIS (2026-11-10 ; PUBLICATION DOCUMENTAIRE SUR BRANCHE CANDIDATE)** : [décision de trajectoire ML4B/ML4C](decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md). Baseline de cadrage `main@0182b0a7053babefe33aa4de181631b21613ac69`. Ce bloc actualise les statuts du programme sans effacer les instantanés datés ci-dessous. Aucune PR, fusion `main`, exécution Cursor, promotion, release ou adoption n'est autorisée par CP0.
 
 ## R5 — Réconciliation et convergence produit avant ML5 (2026-11-10, CP0)
