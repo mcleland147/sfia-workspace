@@ -20,6 +20,7 @@ import { newId } from "@/lib/ids";
 import { emitObs } from "@/lib/observability";
 import {
   appendDocumentEffectAck,
+  documentSaveToEffectSummary,
   extractContractualDocumentProposal,
   hasCompetingTransactionalClaim,
   qualifyDocumentAct,
@@ -1108,7 +1109,21 @@ export async function continueAfterProjectCreated(input: {
       documentSave = { status: "FAILED", reason: "CONTINUE_GENERATION_FAILED", act: "CREATE" };
     }
 
-    if (documentSave.status === "AVAILABLE" && documentSave.documentId) {
+    // Assigned on every branch above; local const keeps callbacks type-narrowed.
+    const d4Save = documentSave!;
+
+    // S03: preserve owner D4 status on restitution (AVAILABLE|FAILED|CONFLICT|UNKNOWN|NOT_EXECUTED).
+    // Never collapse UNKNOWN / absent → FAILED by default.
+    const documentEffect: DocumentEffectSummary = documentSaveToEffectSummary({
+      act: "CREATE",
+      status: d4Save.status,
+      documentId: d4Save.documentId,
+      revisionId: d4Save.revisionId,
+      revisionNumber: d4Save.revisionNumber,
+      reason: d4Save.reason,
+    });
+
+    if (d4Save.status === "AVAILABLE" && d4Save.documentId) {
       mission = {
         ...mission,
         steps: mission.steps.map((s) =>
@@ -1116,14 +1131,32 @@ export async function continueAfterProjectCreated(input: {
             ? {
                 ...s,
                 status: "DONE" as const,
-                documentId: documentSave!.documentId,
-                revisionId: documentSave!.revisionId,
+                documentId: d4Save.documentId,
+                revisionId: d4Save.revisionId,
                 reason: undefined,
               }
             : s,
         ),
         status: "COMPLETED",
         restitution: "DELIVERED",
+      };
+    } else if (
+      documentEffect.status === "UNKNOWN" ||
+      documentEffect.status === "NOT_EXECUTED"
+    ) {
+      mission = {
+        ...mission,
+        steps: mission.steps.map((s) =>
+          s.id === "d4_create" || s.capabilityId === "d4.create_document"
+            ? {
+                ...s,
+                status: "WAITING" as const,
+                reason: d4Save.reason ?? documentEffect.status,
+              }
+            : s,
+        ),
+        status: "RESTITUTION_PENDING",
+        restitution: "CANONICAL",
       };
     } else {
       mission = {
@@ -1133,7 +1166,7 @@ export async function continueAfterProjectCreated(input: {
             ? {
                 ...s,
                 status: "FAILED" as const,
-                reason: documentSave?.reason ?? documentSave?.status,
+                reason: d4Save.reason ?? d4Save.status,
               }
             : s,
         ),
@@ -1141,23 +1174,6 @@ export async function continueAfterProjectCreated(input: {
         restitution: "CANONICAL",
       };
     }
-
-    // S03: same document-effect composition as the main chat path — never leave
-    // Nora prose as the sole post-D4 message (AVAILABLE + « non enregistré » contradiction).
-    const documentEffect: DocumentEffectSummary =
-      documentSave?.status === "AVAILABLE"
-        ? {
-            act: "CREATE",
-            status: "AVAILABLE",
-            documentId: documentSave.documentId,
-            revisionId: documentSave.revisionId,
-            revisionNumber: documentSave.revisionNumber,
-          }
-        : {
-            act: "CREATE",
-            status: documentSave?.status === "CONFLICT" ? "CONFLICT" : "FAILED",
-            reason: documentSave?.reason ?? documentSave?.status,
-          };
     const canonical = composeCanonicalMissionRestitution({
       documentEffect,
       restitutionNote: `Reprise automatique après création projet ${input.projectId} — même intention (${mission.clientIntentKey}).`,

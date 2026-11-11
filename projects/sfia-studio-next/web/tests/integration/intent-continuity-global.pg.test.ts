@@ -2,7 +2,7 @@
  * Global intent continuity — multi-domain scenarios (not Git-only).
  * DEV PG + fixture Nora + SCRIPTED Git when needed.
  */
-import { beforeAll, describe, expect, it } from "vitest";
+import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { config } from "dotenv";
 config({ path: ".env.local" });
 
@@ -33,6 +33,7 @@ import {
   preparePublication,
 } from "@/domains/execution/effect-service";
 import { listMessages, postUserMessageAndNora } from "@/domains/conversation/service";
+import * as documentService from "@/domains/document/service";
 import { listDocuments, savePreparationDocument } from "@/domains/document/service";
 import {
   hasCompetingTransactionalClaim,
@@ -229,6 +230,62 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
         revisionNumber: cont.documentSave?.revisionNumber,
       }),
     ).toBe(false);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    delete continuationRaceHooks.afterReserveBeforeWork;
+    delete continuationRaceHooks.afterNoraBeforeD4;
+    delete continuationRaceHooks.afterD4BeforeCommit;
+  });
+
+  it("S03: D4 UNKNOWN is restituted as UNKNOWN (not collapsed to FAILED)", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-s03-unknown");
+    const clientTurnKey = newId("ctk");
+    const first = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Unknown Atlas puis prépare un document de cadrage Unknown.",
+      { clientTurnKey },
+    );
+    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: "Unknown Atlas",
+      previewSummary: "s",
+      idempotencyKey: d2MissionIdempotencyKey(clientTurnKey),
+    });
+    expect(created.status).toBe("CREATED");
+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
+
+    vi.spyOn(documentService, "savePreparationDocument").mockResolvedValue({
+      status: "UNKNOWN",
+      reason: "CREATION_IN_FLIGHT",
+      documentId: "doc_unknown_s03",
+    });
+
+    const cont = await continueAfterProjectCreated({
+      pilotId,
+      preparationId,
+      projectId: created.projectId,
+      projectName: "Unknown Atlas",
+      clientIntentKey: clientTurnKey,
+    });
+    expect(cont.continued).toBe(true);
+    expect(cont.documentSave?.status).toBe("UNKNOWN");
+    expect(cont.missionProjection?.status).toBe("RESTITUTION_PENDING");
+    expect(cont.missionProjection?.steps.find((s) => s.capabilityId === "d4.create_document")?.status).toBe(
+      "WAITING",
+    );
+
+    const msgs = await listMessages(pilotId, preparationId);
+    const assistant = [...msgs].reverse().find((m) => m.role === "assistant");
+    expect(assistant?.content).toMatch(/Résultat applicatif D4/i);
+    expect(assistant?.content).toMatch(/\bUNKNOWN\b/);
+    expect(assistant?.content).not.toMatch(/Statut observé:\s*FAILED/i);
   });
 
   it("S05: independent question while AWAITING_PILOT_ACT keeps mission and creates no project", async () => {

@@ -1081,6 +1081,68 @@ export type DocumentEffectSummary = {
   idempotentReplay?: boolean;
 };
 
+/** CP2 S03 — owner D4 statuses that may appear on DocumentEffectSummary. */
+export const DOCUMENT_EFFECT_OWNER_STATUSES = [
+  "AVAILABLE",
+  "FAILED",
+  "CONFLICT",
+  "UNKNOWN",
+  "NOT_EXECUTED",
+] as const;
+
+export type DocumentEffectOwnerStatus =
+  (typeof DOCUMENT_EFFECT_OWNER_STATUSES)[number];
+
+/**
+ * Map an owner D4 / DocumentSave status onto DocumentEffectSummary.status.
+ * Absent or ambiguous values become UNKNOWN — never invent FAILED without proof.
+ */
+export function mapOwnerDocumentStatusToEffect(
+  status: string | null | undefined,
+): DocumentEffectOwnerStatus {
+  const s = (status ?? "").trim().toUpperCase();
+  if (s === "AVAILABLE") return "AVAILABLE";
+  if (s === "FAILED") return "FAILED";
+  if (s === "CONFLICT") return "CONFLICT";
+  if (s === "UNKNOWN") return "UNKNOWN";
+  if (s === "NOT_EXECUTED") return "NOT_EXECUTED";
+  return "UNKNOWN";
+}
+
+/**
+ * Build the post-D4 DocumentEffectSummary used by continuation restitution.
+ * Preserves owner status, ids, and reason without collapsing UNKNOWN→FAILED.
+ */
+export function documentSaveToEffectSummary(input: {
+  act?: "CREATE" | "REVISE";
+  status?: string | null;
+  documentId?: string;
+  revisionId?: string;
+  revisionNumber?: number;
+  reason?: string;
+  /** When no save object exists at all (no D4 attempt in this branch). */
+  absentMeans?: "NOT_EXECUTED" | "UNKNOWN";
+}): DocumentEffectSummary {
+  if (input.status == null && !input.documentId && !input.reason) {
+    return {
+      act: input.act ?? "CREATE",
+      status: input.absentMeans ?? "NOT_EXECUTED",
+      reason: "NO_DOCUMENT_SAVE",
+    };
+  }
+  const status = mapOwnerDocumentStatusToEffect(input.status);
+  return {
+    act: input.act ?? "CREATE",
+    status,
+    documentId: input.documentId,
+    revisionId: input.revisionId,
+    revisionNumber: input.revisionNumber,
+    reason:
+      input.reason ??
+      (status === "AVAILABLE" ? undefined : input.status ?? status),
+  };
+}
+
 /** Sentences/paragraphs that assert a D4 write outcome (must not compete with applicative truth). */
 const TRANSACTIONAL_CLAIM_RE =
   /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+(?:sont\s+en\s+lecture\s+seule|ne\s+permettent\s+pas)|outils?\s+(?:en\s+)?lecture\s+seule|je\s+ne\s+(?:peux|puis)\s+(?:donc\s+)?pas\s+(?:exécuter\s+l['’]enregistrement|appliquer|enregistrer|créer|réviser|confirmer(?:\s+(?:la\s+)?(?:sauvegarde|l['’]enregistrement|que(?:\s+la)?\s*sauvegarde)?|garantir(?:\s+(?:la\s+)?sauvegarde)?))|(?:impossible|incapable)\s+de\s+confirmer(?:\s+(?:la\s+)?(?:sauvegarde|l['’]enregistrement))?|ne\s+(?:peux|puis)\s+pas\s+confirmer(?:\s+(?:la\s+)?sauvegarde)?|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;

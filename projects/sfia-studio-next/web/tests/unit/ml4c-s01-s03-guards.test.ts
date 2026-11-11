@@ -3,13 +3,16 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   appendDocumentEffectAck,
+  documentSaveToEffectSummary,
   hasCompetingTransactionalClaim,
+  mapOwnerDocumentStatusToEffect,
 } from "@/domains/conversation/document-act";
 import { emptyMission } from "@/domains/conversation/intent-conduction";
 import { appendMissionAck } from "@/domains/conversation/mission-continuity";
 import {
   looksLikeIndependentDialogue,
   mayStartNewThreadAct,
+  shouldClearThreadPending,
 } from "@/domains/pilotage/thread-recovery";
 
 describe("ML4C S01 portfolio — no index-derived status", () => {
@@ -57,6 +60,36 @@ describe("ML4C S03 continueAfter composition — document ACK", () => {
     expect(composed).toMatch(/AVAILABLE/);
     expect(hasCompetingTransactionalClaim(composed, effect)).toBe(false);
   });
+
+  it("maps owner D4 statuses faithfully — never collapses UNKNOWN to FAILED", () => {
+    expect(mapOwnerDocumentStatusToEffect("AVAILABLE")).toBe("AVAILABLE");
+    expect(mapOwnerDocumentStatusToEffect("FAILED")).toBe("FAILED");
+    expect(mapOwnerDocumentStatusToEffect("CONFLICT")).toBe("CONFLICT");
+    expect(mapOwnerDocumentStatusToEffect("UNKNOWN")).toBe("UNKNOWN");
+    expect(mapOwnerDocumentStatusToEffect("NOT_EXECUTED")).toBe("NOT_EXECUTED");
+    expect(mapOwnerDocumentStatusToEffect(undefined)).toBe("UNKNOWN");
+    expect(mapOwnerDocumentStatusToEffect("")).toBe("UNKNOWN");
+    expect(mapOwnerDocumentStatusToEffect("weird")).toBe("UNKNOWN");
+
+    expect(documentSaveToEffectSummary({ status: "UNKNOWN", reason: "CREATION_IN_FLIGHT" }).status).toBe(
+      "UNKNOWN",
+    );
+    expect(documentSaveToEffectSummary({ status: "CONFLICT", reason: "REV_CONFLICT" }).status).toBe(
+      "CONFLICT",
+    );
+    expect(documentSaveToEffectSummary({}).status).toBe("NOT_EXECUTED");
+  });
+
+  it("continueAfterProjectCreated uses documentSaveToEffectSummary (no CONFLICT→FAILED collapse)", () => {
+    const src = readFileSync(
+      join(__dirname, "../../src/domains/conversation/intent-conduction.ts"),
+      "utf8",
+    );
+    expect(src).toMatch(/documentSaveToEffectSummary\(/);
+    expect(src).not.toMatch(
+      /status:\s*documentSave\?\.status\s*===\s*"CONFLICT"\s*\?\s*"CONFLICT"\s*:\s*"FAILED"/,
+    );
+  });
 });
 
 describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () => {
@@ -86,5 +119,40 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
       nextIsIndependentDialogue: false,
     });
     expect(gate.ok).toBe(false);
+  });
+
+  it("interrogative effect requests are not independent (no client bypass)", () => {
+    expect(looksLikeIndependentDialogue("Tu peux publier ce document ?")).toBe(false);
+    expect(looksLikeIndependentDialogue("Peux-tu créer un autre projet ?")).toBe(false);
+    expect(looksLikeIndependentDialogue("Est-ce qu'on peut autoriser cette action ?")).toBe(false);
+  });
+
+  it("COMPLETE on independent turn must not clear unresolved métier pending", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "COMPLETE",
+        effectAttempted: false,
+        effectStatus: null,
+        preserveUnresolvedMetierPending: true,
+      }),
+    ).toBe(false);
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "COMPLETE",
+        effectAttempted: false,
+        effectStatus: null,
+        preserveUnresolvedMetierPending: false,
+      }),
+    ).toBe(true);
+  });
+
+  it("project page preserves métier pending across independent COMPLETE", () => {
+    const src = readFileSync(
+      join(__dirname, "../../src/app/projects/[projectId]/page.tsx"),
+      "utf8",
+    );
+    expect(src).toMatch(/preserveUnresolvedMetierPending/);
+    expect(src).toMatch(/preserveMetierPending/);
+    expect(src).toMatch(/pendingBefore/);
   });
 });

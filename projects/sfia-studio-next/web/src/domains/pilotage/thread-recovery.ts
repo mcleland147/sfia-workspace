@@ -11,16 +11,18 @@ export type ThreadPendingTurn = {
   clientCommandKey: string;
 };
 
-const PROJECT_CREATE_RE = /\b(?:crée|créer|créez)\s+(?:un\s+)?projet\b/i;
+const PROJECT_CREATE_RE =
+  /\b(?:crée|créer|créez|creez)\s+(?:(?:un|une|le|la|ce|cet)\s+)?(?:autre\s+)?projet\b/i;
 /** Effectual publish/merge intent — not explanatory mentions of « commit » / Git vocabulary. */
 const PUBLISH_RE =
   /\b(?:publie|publier|publication\s+(?:le|la|ce|sur)|(?:crée|créer)\s+(?:un\s+)?(?:commit|pr|pull\s*request)|(?:ouvre|ouvrir)\s+(?:une\s+)?(?:pr|pull\s*request)|merge\s+(?:la\s+|le\s+)?(?:pr|branche|request))\b/i;
 const PILOTAGE_SIGNAL_RE =
-  /\b(?:je\s+décide|j['']autorise|ouvre\s+(?:un\s+)?cycle|enregistre\s+(?:cette\s+)?décision)\b/i;
+  /\b(?:je\s+décide|j['']autorise|autorise(?:r|z)?|accorde(?:r|z)?|ouvre\s+(?:un\s+)?cycle|enregistre\s+(?:cette\s+)?décision)\b/i;
 
 /**
  * ML4C S05 / Decision 1 — independent cognitive turn (no D2/D4/D6/D9 effect intent).
- * Does not authorize or replace an unresolved métier pending.
+ * Client UX aid only — never an execution authority.
+ * Interrogative phrasing that still requests an effect stays non-independent.
  */
 export function looksLikeIndependentDialogue(text: string): boolean {
   const t = text.trim();
@@ -45,12 +47,16 @@ export function pendingStorageKey(projectId: string): string {
  * Clear pending only when the business effect is terminal, or when no
  * business attempt occurred and Nora reached a conversational terminal.
  * Nora COMPLETE must NOT close an UNKNOWN / unresolved métier effect.
+ * Independent dialogue COMPLETE must NOT clear a distinct unresolved métier pending.
  */
 export function shouldClearThreadPending(input: {
   noraStatus?: string | null;
   effectAttempted?: boolean | null;
   effectStatus?: string | null;
+  /** True when this COMPLETE belongs to an independent turn over pending A. */
+  preserveUnresolvedMetierPending?: boolean;
 }): boolean {
+  if (input.preserveUnresolvedMetierPending) return false;
   const biz = (input.effectStatus ?? "").trim().toUpperCase();
   if (input.effectAttempted === true) {
     if (!biz || biz === "UNKNOWN" || biz.startsWith("UNKNOWN")) return false;

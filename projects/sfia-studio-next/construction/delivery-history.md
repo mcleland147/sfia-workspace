@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-11-ML4C-S03-S05-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-11 (Europe/Paris) |
+| Macro-lot | ML4C — INC correctif S03/S05 (même candidat) |
+| Type | INC — vérité des effets + pending préservé (NO RELEASE) |
+| Branch | `build/next-ml4c-functional-convergence` (local — no project push) |
+| Parent tip | `cb0738b5` (S02 taxonomy + S05 dialogue) |
+| Lane | DEV :5433; mutative tests → `sfia_next_e2e`; RECETTE/STABLE untouched |
+| Changes | S03 `documentSaveToEffectSummary` / no UNKNOWN→FAILED collapse in `continueAfterProjectCreated`; S05 `preserveUnresolvedMetierPending` on independent COMPLETE; classifier tightens interrogative effect requests |
+| Schema | unchanged |
+| Status | LOCAL CORRECTIVE — ChatGPT technical review — LIVE/REAL gates carried |
+
 ## delivery_id: DELIV-2026-11-11-ML4C-FUNCTIONAL-CONVERGENCE
 
 | Field | Value |

@@ -302,15 +302,23 @@ export default function ProjectPage() {
   function applyClearFromResponse(
     noraStatus: string | undefined,
     effect: PilotageEffectView | undefined,
+    opts?: { preserveUnresolvedMetierPending?: boolean },
   ) {
     if (
       shouldClearThreadPending({
         noraStatus,
         effectAttempted: effect?.attempted,
         effectStatus: effect?.status,
+        preserveUnresolvedMetierPending: opts?.preserveUnresolvedMetierPending,
       })
     ) {
       rememberPending(null);
+      messageTurnKeyRef.current = null;
+      return true;
+    }
+    // Independent cognitive COMPLETE over pending A: drop only this turn key,
+    // never the unresolved métier pending.
+    if (opts?.preserveUnresolvedMetierPending) {
       messageTurnKeyRef.current = null;
       return true;
     }
@@ -672,9 +680,10 @@ export default function ProjectPage() {
     const text = draft.trim();
     // CR-02 — exclusive unresolved pending: never overwrite a distinct act silently.
     // ML4C S05 Decision 1 — independent cognitive Q may proceed without replacing pending.
+    const pendingBefore = unresolvedPending ?? readPending();
     const independent = looksLikeIndependentDialogue(text);
     const gate = mayStartNewThreadAct({
-      unresolved: unresolvedPending ?? readPending(),
+      unresolved: pendingBefore,
       nextContent: text,
       nextIsIndependentDialogue: independent,
     });
@@ -703,6 +712,7 @@ export default function ProjectPage() {
     if (!independent) {
       rememberPending({ content: text, clientTurnKey, clientCommandKey });
     }
+    const preserveMetierPending = independent && Boolean(pendingBefore);
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
@@ -720,7 +730,11 @@ export default function ProjectPage() {
         setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
-        if (applyClearFromResponse(String(j.status ?? ""), effect)) {
+        if (
+          applyClearFromResponse(String(j.status ?? ""), effect, {
+            preserveUnresolvedMetierPending: preserveMetierPending,
+          })
+        ) {
           setDraft("");
         } else if (j.status === "UNKNOWN" || j.status === "FAILED") {
           setNoraActivity("error");
