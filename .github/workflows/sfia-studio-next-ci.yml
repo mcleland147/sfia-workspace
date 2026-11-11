@@ -303,7 +303,24 @@ jobs:
           npm run test:integration
 
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: |
+          set -euo pipefail
+          # Retry bounded: GHA runners intermittently fail apt DNS for --with-deps
+          # (Temporary failure resolving security.ubuntu.com). Do not continue-on-error.
+          ok="false"
+          for i in 1 2 3; do
+            echo "Playwright Chromium install attempt ${i}/3…"
+            if npx playwright install --with-deps chromium; then
+              ok="true"
+              break
+            fi
+            echo "Playwright install attempt ${i} failed; waiting before retry…" >&2
+            sleep 20
+          done
+          if [ "${ok}" != "true" ]; then
+            echo "Playwright Chromium install failed after 3 attempts" >&2
+            exit 1
+          fi
 
       - name: Playwright BROWSER FAKE
         env:
