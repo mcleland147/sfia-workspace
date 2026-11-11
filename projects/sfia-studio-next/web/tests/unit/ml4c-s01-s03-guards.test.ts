@@ -7,6 +7,10 @@ import {
 } from "@/domains/conversation/document-act";
 import { emptyMission } from "@/domains/conversation/intent-conduction";
 import { appendMissionAck } from "@/domains/conversation/mission-continuity";
+import {
+  looksLikeIndependentDialogue,
+  mayStartNewThreadAct,
+} from "@/domains/pilotage/thread-recovery";
 
 describe("ML4C S01 portfolio — no index-derived status", () => {
   it("portfolio page does not invent Actif/En réflexion/À reprendre by list index", () => {
@@ -52,5 +56,35 @@ describe("ML4C S03 continueAfter composition — document ACK", () => {
     expect(composed).toMatch(/Résultat applicatif D4/i);
     expect(composed).toMatch(/AVAILABLE/);
     expect(hasCompetingTransactionalClaim(composed, effect)).toBe(false);
+  });
+});
+
+describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () => {
+  const pending = {
+    content: "Publie le document sur la branche feature/x",
+    clientTurnKey: "ctk_pending",
+    clientCommandKey: "conv-auth:ctk_pending",
+  };
+
+  it("allows a cognitive question without overwriting the gate", () => {
+    expect(looksLikeIndependentDialogue("Quelle est la différence entre blob et commit ?")).toBe(
+      true,
+    );
+    const gate = mayStartNewThreadAct({
+      unresolved: pending,
+      nextContent: "Quelle est la différence entre blob et commit ?",
+      nextIsIndependentDialogue: true,
+    });
+    expect(gate.ok).toBe(true);
+  });
+
+  it("still blocks a distinct métier act while pending is unresolved", () => {
+    expect(looksLikeIndependentDialogue("Crée un projet nommé Autre")).toBe(false);
+    const gate = mayStartNewThreadAct({
+      unresolved: pending,
+      nextContent: "Crée un projet nommé Autre",
+      nextIsIndependentDialogue: false,
+    });
+    expect(gate.ok).toBe(false);
   });
 });

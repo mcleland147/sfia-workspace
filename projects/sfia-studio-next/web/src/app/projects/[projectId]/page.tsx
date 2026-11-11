@@ -14,6 +14,7 @@ import {
 } from "@/components/figma/DocumentSurfaces";
 import {
   conversationalClientCommandKey,
+  looksLikeIndependentDialogue,
   mayStartNewThreadAct,
   pendingStorageKey,
   shouldClearThreadPending,
@@ -670,9 +671,12 @@ export default function ProjectPage() {
     if (!draft.trim() || !preparationId) return;
     const text = draft.trim();
     // CR-02 — exclusive unresolved pending: never overwrite a distinct act silently.
+    // ML4C S05 Decision 1 — independent cognitive Q may proceed without replacing pending.
+    const independent = looksLikeIndependentDialogue(text);
     const gate = mayStartNewThreadAct({
       unresolved: unresolvedPending ?? readPending(),
       nextContent: text,
+      nextIsIndependentDialogue: independent,
     });
     if (!gate.ok) {
       setPilotageStatus(
@@ -695,7 +699,10 @@ export default function ProjectPage() {
     }
     const clientTurnKey = messageTurnKeyRef.current.key;
     const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
-    rememberPending({ content: text, clientTurnKey, clientCommandKey });
+    // Independent dialogue must not clobber an unresolved métier pending key.
+    if (!independent) {
+      rememberPending({ content: text, clientTurnKey, clientCommandKey });
+    }
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
