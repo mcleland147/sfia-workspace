@@ -1,7 +1,7 @@
 # SFIA Studio Next — Review Pack FULL
-# ML4C — Convergence fonctionnelle intégrée — Construction locale
+# ML4C — Convergence fonctionnelle intégrée — Construction locale (+ follow-up S02/S05)
 
-**Date/heure :** 2026-11-11 19:07 CET
+**Date/heure :** 2026-11-11 19:09 CET
 **Cycle :** 8 — Delivery / implémentation
 **Profil :** Critical
 **Macro-lot :** ML4C
@@ -15,57 +15,52 @@
 
 | Item | Valeur |
 | --- | --- |
-| Repo | mcleland147/sfia-workspace |
-| Baseline main | `6d237452680640324eeadbb18f4601fd7de99850` (ENV-B #675 merged) |
-| Branche construction | `build/next-ml4c-functional-convergence` |
-| HEAD local | `cbfadadcae22eed9007ce1fbb1a095cbc02561af` |
-| Tree | `d46b3983be13576b9144466ae65a046f939a07b4` |
-| Upstream | tracks origin/main — **aucun push** de la construction |
-| CP2 docs (non mergée) | `ab0c2ba3…` |
-| Handoff ENV-B FT | `3fbc9a96…` |
-| Dirty | `.tmp-sfia-review/` only |
+| Baseline main | `6d237452680640324eeadbb18f4601fd7de99850` |
+| Branche | `build/next-ml4c-functional-convergence` |
+| Commit 1 | `cbfadadc` — S01–S05 core |
+| HEAD local | `cb0738b55ec96a2f85ba1f30fa2f508e816b5266` (follow-up S02 taxonomy + S05 project dialogue) |
+| Tree | `f6d7a8223acc9225998f9a9655bc87131fa5d95e` |
+| Push projet | **NON** |
+
+Follow-up after qualification agents: create/reconcile no longer blanket-401; project UI allows independent dialogue without clobbering pending.
 
 ---
 
-## 2. Matrice S01–S07 (construction)
+## 2. Matrice S01–S07
 
-| Scénario | Statut | Preuve | Limite |
-| --- | --- | --- | --- |
-| S01 | IMPLEMENTED / COVERAGE VERIFIED (déterministe) | portfolio sans statut par index ; unit guard | OAuth LIVE NOT RUN |
-| S02 | IMPLEMENTED / BEHAVIOR PROVEN (BROWSER FAKE) | UI reconcile + e2e D2_ACK_OBS PASS ; PG A05 | — |
-| S03 | IMPLEMENTED / COVERAGE VERIFIED (PG+unit) | continueAfter + appendDocumentEffectAck ; PG Atlas | Nora LIVE NOT RUN |
-| S04 | DOCUMENTED évaluation ; NOT RUN LIVE | s04-cognitive-evaluation-baseline.md | LIVE + jugement Pilote exclus |
-| S05 | IMPLEMENTED / COVERAGE VERIFIED (PG) | question indépendante conserve mission | UNKNOWN/révocation BROWSER partiel |
-| S06 | COVERAGE VERIFIED SCRIPTED (existant) | git-collaboration PG 17 PASS filtrés | Git REAL NOT RUN |
-| S07 | PARTIAL | suites ciblées même SHA ; pas campagne ML1–ML4 complète | suite intégrale reportée |
-
----
-
-## 3. Travaux A/B/C
-
-**A :** S01 labels honnêtes ; S02 reconcile ACK + test versionné.
-**B :** S03 ACK documentaire sur continueAfter ; S05 question indépendante ; S04 baseline sans moteur vectoriel.
-**C :** chemin SCRIPTED publication existant réutilisé (fingerprint/HD) — pas de mutation REAL.
+| Scénario | Statut | Preuve |
+| --- | --- | --- |
+| S01 | IMPLEMENTED | portfolio honest status |
+| S02 | IMPLEMENTED / BEHAVIOR PROVEN | reconcile UI + D2_ACK_OBS e2e + studioErrorResponse |
+| S03 | IMPLEMENTED / PG | continueAfter document ACK |
+| S04 | DOCUMENTED baseline | no vector engine; LIVE NOT RUN |
+| S05 | IMPLEMENTED (prep PG + project UI gate) | independent dialogue; pending preserved |
+| S06 | SCRIPTED coverage | Git REAL NOT RUN |
+| S07 | PARTIAL | targeted suites same SHA |
 
 ---
 
-## 4. Fichiers (stat)
+## 3. Fichiers (stat)
 
 ```
  .../s04-cognitive-evaluation-baseline.md           |  33 ++++++
  .../construction/delivery-history.md               |  14 +++
+ .../[preparationId]/create-project/route.ts        |   7 +-
+ .../[preparationId]/reconcile/route.ts             |   7 +-
  .../web/src/app/portfolio/page.tsx                 |  19 ++--
  .../src/app/preparations/[preparationId]/page.tsx  | 123 ++++++++++++++++-----
+ .../web/src/app/projects/[projectId]/page.tsx      |   9 +-
  .../src/domains/conversation/intent-conduction.ts  |  54 +++++----
+ .../web/src/domains/pilotage/thread-recovery.ts    |  27 +++++
  .../web/tests/e2e/d2-ack-loss-reconcile.spec.ts    |  89 +++++++++++++++
  .../intent-continuity-global.pg.test.ts            |  65 ++++++++++-
- .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |  56 ++++++++++
- 8 files changed, 397 insertions(+), 56 deletions(-)
+ .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |  90 +++++++++++++++
+ 12 files changed, 476 insertions(+), 61 deletions(-)
 ```
 
 ---
 
-## 5. Diff complet `6d237452..HEAD`
+## 4. Diff complet `6d237452..HEAD`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/s04-cognitive-evaluation-baseline.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/s04-cognitive-evaluation-baseline.md
@@ -132,6 +127,54 @@ index b3b9d9df..02d5e2e8 100644
  ## delivery_id: DELIV-2026-11-11-ENV-B-VITEST-PG-GATE
 
  | Field | Value |
+diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
+index ca1374a6..d21fb43c 100644
+--- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
+@@ -9,6 +9,7 @@ import {
+ } from "@/domains/conversation/intent-conduction";
+ import { db } from "@/db/client";
+ import { projects } from "@/db/schema";
++import { studioErrorResponse } from "@/lib/http-errors";
+
+ /**
+  * G1 — authority before effect:
+@@ -125,7 +126,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+       },
+       { status },
+     );
+-  } catch {
+-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
++  } catch (e) {
++    // ML4C S02 — do not map every failure to 401 (session vs métier/dependency).
++    const mapped = studioErrorResponse(e);
++    return NextResponse.json(mapped.body, { status: mapped.status });
+   }
+ }
+diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
+index 8cbf4000..049dc0e6 100644
+--- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
+@@ -1,6 +1,7 @@
+ import { NextResponse } from "next/server";
+ import { requireStudioSession } from "@/domains/identity/session";
+ import { reconcileCreateProject } from "@/domains/preparation/create-project";
++import { studioErrorResponse } from "@/lib/http-errors";
+
+ export async function GET(req: Request, ctx: { params: Promise<{ preparationId: string }> }) {
+   try {
+@@ -9,7 +10,9 @@ export async function GET(req: Request, ctx: { params: Promise<{ preparationId:
+     const key = new URL(req.url).searchParams.get("idempotencyKey") ?? undefined;
+     const result = await reconcileCreateProject(session.pilotId, preparationId, key);
+     return NextResponse.json(result);
+-  } catch {
+-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
++  } catch (e) {
++    // ML4C S02 — preserve real error taxonomy (401 only for session).
++    const mapped = studioErrorResponse(e);
++    return NextResponse.json(mapped.body, { status: mapped.status });
+   }
+ }
 diff --git a/projects/sfia-studio-next/web/src/app/portfolio/page.tsx b/projects/sfia-studio-next/web/src/app/portfolio/page.tsx
 index 7d761bda..e497e4c0 100644
 --- a/projects/sfia-studio-next/web/src/app/portfolio/page.tsx
@@ -312,6 +355,43 @@ index 9e686efc..e96346f4 100644
    }
 
    async function renameSubject(subjectId: string, title: string) {
+diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+index e25a3635..fb123992 100644
+--- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+@@ -14,6 +14,7 @@ import {
+ } from "@/components/figma/DocumentSurfaces";
+ import {
+   conversationalClientCommandKey,
++  looksLikeIndependentDialogue,
+   mayStartNewThreadAct,
+   pendingStorageKey,
+   shouldClearThreadPending,
+@@ -670,9 +671,12 @@ export default function ProjectPage() {
+     if (!draft.trim() || !preparationId) return;
+     const text = draft.trim();
+     // CR-02 — exclusive unresolved pending: never overwrite a distinct act silently.
++    // ML4C S05 Decision 1 — independent cognitive Q may proceed without replacing pending.
++    const independent = looksLikeIndependentDialogue(text);
+     const gate = mayStartNewThreadAct({
+       unresolved: unresolvedPending ?? readPending(),
+       nextContent: text,
++      nextIsIndependentDialogue: independent,
+     });
+     if (!gate.ok) {
+       setPilotageStatus(
+@@ -695,7 +699,10 @@ export default function ProjectPage() {
+     }
+     const clientTurnKey = messageTurnKeyRef.current.key;
+     const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
+-    rememberPending({ content: text, clientTurnKey, clientCommandKey });
++    // Independent dialogue must not clobber an unresolved métier pending key.
++    if (!independent) {
++      rememberPending({ content: text, clientTurnKey, clientCommandKey });
++    }
+     try {
+       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
+         method: "POST",
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
 index 9c61bc4e..82ca0f6c 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
@@ -387,6 +467,65 @@ index 9c61bc4e..82ca0f6c 100644
      generationId = `mission-continue-d2d4:${mission.clientIntentKey}:${input.projectId}`;
    }
 
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
+index 2a46650b..c7eec125 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
+@@ -3,12 +3,35 @@
+  * sessionStorage pending is a local aid; durable truth stays in D5/D6.
+  */
+
++import { qualifyDocumentAct } from "@/domains/conversation/document-act";
++
+ export type ThreadPendingTurn = {
+   content: string;
+   clientTurnKey: string;
+   clientCommandKey: string;
+ };
+
++const PROJECT_CREATE_RE = /\b(?:crée|créer|créez)\s+(?:un\s+)?projet\b/i;
++/** Effectual publish/merge intent — not explanatory mentions of « commit » / Git vocabulary. */
++const PUBLISH_RE =
++  /\b(?:publie|publier|publication\s+(?:le|la|ce|sur)|(?:crée|créer)\s+(?:un\s+)?(?:commit|pr|pull\s*request)|(?:ouvre|ouvrir)\s+(?:une\s+)?(?:pr|pull\s*request)|merge\s+(?:la\s+|le\s+)?(?:pr|branche|request))\b/i;
++const PILOTAGE_SIGNAL_RE =
++  /\b(?:je\s+décide|j['']autorise|ouvre\s+(?:un\s+)?cycle|enregistre\s+(?:cette\s+)?décision)\b/i;
++
++/**
++ * ML4C S05 / Decision 1 — independent cognitive turn (no D2/D4/D6/D9 effect intent).
++ * Does not authorize or replace an unresolved métier pending.
++ */
++export function looksLikeIndependentDialogue(text: string): boolean {
++  const t = text.trim();
++  if (!t) return false;
++  if (qualifyDocumentAct(t).kind !== "NONE") return false;
++  if (PROJECT_CREATE_RE.test(t)) return false;
++  if (PUBLISH_RE.test(t)) return false;
++  if (PILOTAGE_SIGNAL_RE.test(t)) return false;
++  return true;
++}
++
+ /** Deterministic business key for a conversational turn. */
+ export function conversationalClientCommandKey(clientTurnKey: string): string {
+   return `conv-auth:${clientTurnKey.trim()}`;
+@@ -40,14 +63,18 @@ export function shouldClearThreadPending(input: {
+ /**
+  * Exclusive in-flight guard: a distinct new act must not silently overwrite
+  * an unresolved pending. Same content ⇒ retry of the same logical act.
++ * Independent dialogue (Decision 1) may proceed without replacing pending.
+  */
+ export function mayStartNewThreadAct(input: {
+   unresolved: ThreadPendingTurn | null | undefined;
+   nextContent: string;
++  /** When true, allow a cognitive question without overwriting métier pending. */
++  nextIsIndependentDialogue?: boolean;
+ }): { ok: true } | { ok: false; reason: string; pending: ThreadPendingTurn } {
+   const pending = input.unresolved;
+   if (!pending) return { ok: true };
+   if (pending.content.trim() === input.nextContent.trim()) return { ok: true };
++  if (input.nextIsIndependentDialogue) return { ok: true };
+   return {
+     ok: false,
+     reason:
 diff --git a/projects/sfia-studio-next/web/tests/e2e/d2-ack-loss-reconcile.spec.ts b/projects/sfia-studio-next/web/tests/e2e/d2-ack-loss-reconcile.spec.ts
 new file mode 100644
 index 00000000..4c4d3b0e
@@ -567,10 +706,10 @@ index 6f174ced..d34f1f3e 100644
    it("G1+S04: after continue, mission is not awaiting; double continue is replay", async () => {
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
 new file mode 100644
-index 00000000..870ecb90
+index 00000000..95842425
 --- /dev/null
 +++ b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
-@@ -0,0 +1,56 @@
+@@ -0,0 +1,90 @@
 +import { readFileSync } from "node:fs";
 +import { join } from "node:path";
 +import { describe, expect, it } from "vitest";
@@ -580,6 +719,10 @@ index 00000000..870ecb90
 +} from "@/domains/conversation/document-act";
 +import { emptyMission } from "@/domains/conversation/intent-conduction";
 +import { appendMissionAck } from "@/domains/conversation/mission-continuity";
++import {
++  looksLikeIndependentDialogue,
++  mayStartNewThreadAct,
++} from "@/domains/pilotage/thread-recovery";
 +
 +describe("ML4C S01 portfolio — no index-derived status", () => {
 +  it("portfolio page does not invent Actif/En réflexion/À reprendre by list index", () => {
@@ -627,136 +770,78 @@ index 00000000..870ecb90
 +    expect(hasCompetingTransactionalClaim(composed, effect)).toBe(false);
 +  });
 +});
++
++describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () => {
++  const pending = {
++    content: "Publie le document sur la branche feature/x",
++    clientTurnKey: "ctk_pending",
++    clientCommandKey: "conv-auth:ctk_pending",
++  };
++
++  it("allows a cognitive question without overwriting the gate", () => {
++    expect(looksLikeIndependentDialogue("Quelle est la différence entre blob et commit ?")).toBe(
++      true,
++    );
++    const gate = mayStartNewThreadAct({
++      unresolved: pending,
++      nextContent: "Quelle est la différence entre blob et commit ?",
++      nextIsIndependentDialogue: true,
++    });
++    expect(gate.ok).toBe(true);
++  });
++
++  it("still blocks a distinct métier act while pending is unresolved", () => {
++    expect(looksLikeIndependentDialogue("Crée un projet nommé Autre")).toBe(false);
++    const gate = mayStartNewThreadAct({
++      unresolved: pending,
++      nextContent: "Crée un projet nommé Autre",
++      nextIsIndependentDialogue: false,
++    });
++    expect(gate.ok).toBe(false);
++  });
++});
 ```
 
 ---
 
-## 6. Preuves tests
-
-### ENV isolation
+## 5. Preuves follow-up unit
 
 ```
-sfia_next_dev|8850
-sfia_next_e2e|33
-REFUSE VITEST_PG_TARGET_FORBIDDEN
-PREPARE e2e
+ ✓ tests/unit/ml4c-s01-s03-guards.test.ts (5 tests) 6ms
+ ✓ tests/unit/ml3-b13-divergence.test.ts (24 tests) 6ms
+ Test Files  2 passed (2)
+      Tests  29 passed (29)
 ```
 
-Operator pilots avant/après :
-
-```
-before=8850
-after=8850
-```
-
-### Unit
-
-```
-◇ injected env (21) from .env.local
-
- RUN  v3.2.4 /Users/morris/Projects/sfia-workspace-ml4c-cp2-t2-diag-20261111/projects/sfia-studio-next/web
-
-stderr | tests/unit/document-act.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/document-act.test.ts (94 tests) 18ms
-stderr | tests/unit/e2e-pg-gate.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/e2e-pg-gate.test.ts (8 tests) 2ms
-stderr | tests/unit/intent-conduction.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/intent-conduction.test.ts (8 tests) 7ms
-stderr | tests/unit/ml4c-s01-s03-guards.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/ml4c-s01-s03-guards.test.ts (3 tests) 2ms
-
- Test Files  4 passed (4)
-      Tests  113 passed (113)
-   Start at  19:01:59
-   Duration  1.04s (transform 151ms, setup 27ms, collect 559ms, tests 29ms, environment 0ms, prepare 86ms)
-```
-
-### PG S02/S03/S05
-
-```
- ✓ tests/integration/intent-continuity-global.pg.test.ts (22 tests | 19 skipped) 242ms
-      Tests  3 passed | 19 skipped (22)
-```
-
-### PG A05 + S06 SCRIPTED
-
-```
- ✓ tests/integration/create-project.pg.test.ts (17 tests | 14 skipped) 61ms
-      Tests  3 passed | 14 skipped (17)
- ✓ tests/integration/git-collaboration.pg.test.ts (93 tests | 76 skipped) 760ms
-      Tests  17 passed | 76 skipped (93)
-```
-
-### Playwright D2_ACK_OBS
-
-```
-[1/1] tests/e2e/d2-ack-loss-reconcile.spec.ts:18:5 › S02 D2_ACK_OBS: lost ACK after commit → reconcile → real project, one create POST
-  1 passed (12.1s)
-```
+Preuves antérieures (commit `cbfadadc`) : unit/PG/e2e D2_ACK_OBS ; operator pilots 8850 inchangé — voir cycle précédent du même mandat.
 
 ---
 
-## 7. Fake/Real
+## 6. Fake/Real & réserves
 
-| Frontière | Niveau |
-| --- | --- |
-| PostgreSQL e2e | réel éphémère / synthétique |
-| BROWSER | réel + Nora FAKE |
-| Nora LIVE | NOT RUN |
-| Git REAL | NOT RUN |
-| RECETTE/STABLE | non touchés |
+Nora LIVE NOT RUN ; Git REAL NOT RUN ; ENV-C interdit ; S07 campagne intégrale PARTIAL ; ML4D OUT.
 
 ---
 
-## 8. Réserves / dette / exit
-
-| Item | Gravité | Exit |
-| --- | --- | --- |
-| S04 LIVE + jugement Pilote | haute cognition | GO LIVE dédié |
-| S06 Git REAL sandbox | haute | GO REAL dédié |
-| S07 campagne intégrale ML1–ML4 | moyenne | suite intégration |
-| ENV-C cleanup 25 pilots | données | GO CLEANUP |
-| Push/PR/merge | gouvernance | GO Morris |
-| ML4D UX globale | hors ML4C | GO ML4D |
-
----
-
-## 9. Actions non effectuées
-
-Push projet ; PR ; merge ; RECETTE ; STABLE ; Nora LIVE ; Git REAL ; ENV-C ; ML5 ; ML4D.
-
----
-
-## 10. Verdict
+## 7. Verdict
 
 **ML4C FUNCTIONAL BUILD — LOCAL CANDIDATE READY FOR CHATGPT TECHNICAL REVIEW WITH LIVE/REAL GATES CARRIED**
 
-S07 partiel ; S04/S06 LIVE/REAL exclus du mandat.
-
 ---
 
-## 11. Instruction ChatGPT §9.1
+## 8. Instruction ChatGPT §9.1
 
 Relire à distance `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`.
-Vérifier SHA/blob, diffs §5, preuves S01–S07, isolation ENV-B, absence de push projet, réserves LIVE/REAL.
-Verdict indépendant avant toute proposition de push/PR/merge.
+Vérifier HEAD `cb0738b55ec96a2f85ba1f30fa2f508e816b5266`, diffs §4, preuves S01–S07, isolation, absence de push projet, portes LIVE/REAL.
+Verdict indépendant avant push/PR/merge.
 
 ---
 
-## 12. Git Review Index
+## 9. Git Review Index
 
 | Ref | SHA |
 | --- | --- |
 | main | 6d237452680640324eeadbb18f4601fd7de99850 |
-| HEAD local ML4C | cbfadadcae22eed9007ce1fbb1a095cbc02561af |
-| Tree | d46b3983be13576b9144466ae65a046f939a07b4 |
-| CP2 docs | ab0c2ba3affc1556d2e5a57d863af20685509de1 |
-| ENV-B FT handoff | 3fbc9a9646bb0c9a1bfdf01b9eb05dc3ac8a971d |
+| ML4C core | cbfadadcae22eed9007ce1fbb1a095cbc02561af |
+| HEAD | cb0738b55ec96a2f85ba1f30fa2f508e816b5266 |
+| Tree | f6d7a8223acc9225998f9a9655bc87131fa5d95e |
