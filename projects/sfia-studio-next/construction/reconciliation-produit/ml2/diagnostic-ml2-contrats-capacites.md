@@ -5,7 +5,7 @@
 **Environnement local / runtime / navigateur : NON OBSERVÉS.** Aucun test n'a été réexécuté dans ce diagnostic.
 **Statut :** `ML2 17/17 CAPABILITIES SOURCE-TO-CODE MAPPED / D3 118/118 + D4 46/46 IDS MAPPED / E2E03-E2E04 FIRST PASS / FULL LIVE & F2-G5 NOT RUN / CP1 OPEN`.
 
-[Index ML4B](../README.md) · [Revue individuelle D3](verification-detaillee-conduite-nora-d3.md) · [Revue individuelle D4](verification-detaillee-connaissance-d4.md).
+[Index ML4B](../README.md) · [Revue individuelle D3](verification-detaillee-conduite-nora-d3.md) · [Revue individuelle D4](verification-detaillee-connaissance-d4.md) · [Réconciliation E2E03/E2E04](reconciliation-e2e03-e2e04-preuves.md).
 
 ## 1. Contrat initial, résultat et frontières
 
@@ -83,6 +83,6 @@ Le tableau provient des IDs `ML2-COH-01..17` déjà existants dans la **matrice 
 
 ## 6. Suite de ML4B
 
-Les deux matrices individuelles [D3](verification-detaillee-conduite-nora-d3.md) et [D4](verification-detaillee-connaissance-d4.md) sont maintenant publiées pour **118+46 références**. D3 apporte également un premier rapprochement des **six étapes E2E03 et six étapes E2E04**, des limites SDK/activité/rendu et des interfaces D5/D6/D9. La suite doit confronter les preuves de chaque chaîne complète (cognition LIVE, D4, browser, Figma, conséquences et reprise), puis réconcilier ML3/ML4 et les gaps transverses ; pas de micro-reprise documentaire par RG.
+Les deux matrices individuelles [D3](verification-detaillee-conduite-nora-d3.md) et [D4](verification-detaillee-connaissance-d4.md) sont maintenant publiées pour **118+46 références**. D3 apporte également un premier rapprochement des **six étapes E2E03 et six étapes E2E04**, des limites SDK/activité/rendu et des interfaces D5/D6/D9. Le [diagnostic transversal E2E03/E2E04](reconciliation-e2e03-e2e04-preuves.md) réalise maintenant ce rapprochement pour **12/12 étapes R1**, avec neuf exceptions, sans prétendre à une recette LIVE unique. La suite est la **consolidation probatoire ML2**, puis la réconciliation ML3/ML4 et la confrontation Figma/runtime. Pas de micro-reprise documentaire par RG.
 
-**État de cette publication :** `17/17 ML2 CAPACITIES INDEXED / 164/164 D3-D4 REFERENCES MAPPED (VALIDATED/CANDIDATE DISTINCT) / NO FULL LIVE E2E OR FIGMA VERDICT / NO CP1 GATE`. Aucune correction, décision de convergence, PR, merge ou promotion n'est induite.
+**État de cette publication :** `17/17 ML2 CAPACITIES INDEXED / D3+D4 164/164 R2 IDS MAPPED / E2E03+E2E04 12/12 STEPS RECONCILED / NO FULL LIVE E2E OR FIGMA VERDICT / NO CP1 GATE`. Aucune correction, décision de convergence, PR, merge ou promotion n'est induite.
