@@ -1,5 +1,7 @@
 # SFIA Studio Next — Réconciliation produit R5 (ML4B)
 
+> **DÉCISION DE SORTIE POSTÉRIEURE — 11/11/2026 :** Morris a **accepté le Gate B avec réserves** et considéré l'objectif documentaire de ML4B **clôturé avec réserves**, selon la [décision D2](../../governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) (sur branche candidate, `main` non modifiée). Le diagnostic CP1 est une **base de convergence acceptée**, pas une preuve globale de comportement : 628 références indexées, 43 étapes E2E rapprochées et huit familles X-01..X-08 conservent exactement leurs preuves, limites et réserves. Les mentions historiques `CP1 CANDIDATE / GATE B NOT HELD` ci-dessous décrivent **l'état avant cet arbitrage**. Suite autorisée : finaliser CP2 ; **aucun GO build/PR/merge/ADOPTED**.
+
 **Nature :** dossier de diagnostic documentaire D1, non normatif.
 **Ouverture :** 10 novembre 2026.
 **Baseline d'analyse :** `mcleland147/sfia-workspace`, `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4` (après PR #673).
