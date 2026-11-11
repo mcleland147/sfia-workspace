@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML4B : synthèse transverse des sept parcours R1 et options pour le gate B
 
+> **DÉCISION POSTÉRIEURE AU DIAGNOSTIC — GATE B ACCEPTED WITH RESERVES (Morris, 11/11/2026)** : [enregistrement D2](../../../governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md). Les 628 références indexées, les 43 étapes mappées et les huit familles X-01..08 sont acceptées comme **base CP1**, non comme preuves PASS. Les options A/B/C et les questions B-01..B-06 qui suivent décrivent la préparation historique ; leur arbitrage effectif est consigné dans la décision D2. Objectif documentaire ML4B clôturé avec réserves, CP2 à finaliser, **aucun GO technique**.
+
 **Date :** 2026-11-11. **Nature :** dossier de diagnostic D1, **candidat à la revue Morris**, non normatif et non approuvé.
 **Source de code :** `mcleland147/sfia-workspace`, `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4` ; **branche documentaire :** `docs/next-reconciliation-produit-ml1-20261110`.
 **Hors observation directe :** poste/local, DB active, navigateur, captures Figma natives, fournisseur GitHub et tests rejoués. Les preuves PG/FAKE/LIVE/REAL décrites sont des preuves **historiques à SHA/lane distincts**.
