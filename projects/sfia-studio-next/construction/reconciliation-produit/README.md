@@ -57,7 +57,7 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 | --- | --- | --- |
 | **ML1 — Accès, sas, création et continuité** | [Diagnostic ML1](ml1/diagnostic-acces-preparation-creation.md), [D1 (55)](ml1/verification-detaillee-acces-portefeuille.md), [D2 (60)](ml1/verification-detaillee-sas-creation-continuite.md), [E2E01/D3–D4](ml1/reconciliation-e2e01-nora-connaissance.md), [Consolidation ML1↔ML2–ML4](ml1/consolidation-capacites-reserves-ml2-ml4.md) | **115/115 IDs D1/D2 rattachés ; 8/8 capacités ML1 et A01–A16 consolidés** avec apports ML2–ML4 et réserves. **Ni conformité LIVE globale, ni Figma, ni gate CP1** |
 | **ML2 — Production et capitalisation** | [17 capacités](ml2/diagnostic-ml2-contrats-capacites.md) · [Consolidation ML2/QA/réserves](ml2/consolidation-capacites-qa-reserves-ml2-ml4.md) · [D3 : 118 RG/PF](ml2/verification-detaillee-conduite-nora-d3.md) · [D4 : 46 RG/PF](ml2/verification-detaillee-connaissance-d4.md) · [E2E03 + E2E04](ml2/reconciliation-e2e03-e2e04-preuves.md) | **17/17 capacités, Q01–Q29, COG-01–07, OBS-Q01–12 rapprochés des preuves**, 164/164 références D3/D4 rattachées et 12 étapes E2E étudiées ; conformité LIVE globale et Figma/runtime non certifiées, CP1 ouvert |
-| **ML3 — Pilotage et décisions** | Matrice et contrat [ML3](../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) | Pré-inventaire ; couverture de guidance et frontières d'autorité à requalifier |
+| **ML3 — Pilotage et décisions** | [Diagnostic détaillé D5/D6 : 136 références](ml3/diagnostic-pilotage-decisions-d5-d6.md) · [Matrice historique ML3](../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) · [Décision Morris](../../governance/decisions/2026-11-07-pilotage-decisions-formal-exit.md) | **40 RG TRJ + 37 RG GOV + 30 PF TRJ + 29 PF GOV = 136/136 références rapprochées** ; B01–B18, T01–T08 et C03 requalifiés avec leurs limites. **Pilotage réel, maturité/CKI DELIVERED/UX E2E non certifiés globalement** |
 | **ML4 — Collaboration et Git** | [Registre de RECETTE](../ml4-integration-git/recette-ml4-r01-r14-anomalies.md) | Code mergé (#672), première campagne non acceptée globalement ; R13/R14 NOT RUN |
 | **UX transversal** | [G4 as-built](../convergence-ux-parcours-pilote-nora/as-built-g4-figma-ux-transposition-2026-11-08.md) | 19/20 frames **déclarées** implémentées, 1 partielle ; F2/G5 NOT RUN : aucune conformité visuelle acquise |
 
@@ -138,6 +138,14 @@ Le [bilan consolidé ML2](ml2/consolidation-capacites-qa-reserves-ml2-ml4.md) r�
 **Reports explicitement conservés :** comparatif formel ChatGPT↔Nora non exigé pour la RECETTE ML2, modèle/effort effectivement appliqués `UNVERIFIED`, streaming UI progressif non câblé, `PG-DBFAIL-03` non garanti exercé par CI. Pas de gate rétroactif ni correctif technique avant arbitrage Morris.
 
 **Suite :** passer à la réconciliation **ML3 — Pilotage et décisions**, puis ML4 et transverse avant le Gate B ; ML2 reste **consolidé analytiquement, non déclaré globalement conforme**.
+
+## 5.9. ML3 — Réconciliation D5/D6 et CKI (2026-11-11)
+
+Le [diagnostic ML3](ml3/diagnostic-pilotage-decisions-d5-d6.md) conserve **136/136 références R2 D5/D6** en lignes individuelles (`40 RG-TRJ + 37 RG-GOV + 30 PF-TRJ + 29 PF-GOV`) ; chaque ligne rattache le contrat canonique, la portée ML3 ou interface, l'oracle B01–B18 et les modules présents. Les **18 oracles historiques**, la RECETTE **RCT-02 T01–T08 8/8 LIVE** et l'essai **C03 intercycles** sont distingués des preuves absentes, du code intégré et de la décision de sortie Morris.
+
+**Acquis étayés :** trajectoire suggérée non autorisante, cycle ACTIVE unique/transaction/rollback, décisions D6 révisées et conservées, restrictions appliquées/levées, méthodes choisies et retirées, CKI versionné/résolu ; F01/F02 relient le langage du Pilote au service D5/D6. **Limites :** B08 (maturité proactive) sans oracle dédié, détection linguistique hors formulations de recette non certifiée, `CKI RESOLVED` ≠ injection `DELIVERED`, cognition longue et Figma/browser non comparés, E2E externe D7/D8/D9 et restauration REAL non prouvés globalement.
+
+La décision du 7 novembre demeure **ML3 CLOSED BY MORRIS WITH CARRIED RESERVES** ; **CP1/Gate B restent ouverts**. La prochaine analyse suit les interfaces ML3→ML4, puis le diagnostic ML4 et les E2E transverses avant tout arbitrage de convergence.
 
 ## 6. Preuve UX à produire et gate CP1
 
