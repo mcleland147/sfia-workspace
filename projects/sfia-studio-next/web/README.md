@@ -55,6 +55,8 @@ npm run test:e2e
 
 `test:e2e` starts an **owned** server on `127.0.0.1:3101` against isolated DB `sfia_next_e2e` (same Postgres instance, separate database). Preflight (`scripts/e2e-preflight.ts`) validates operator `DATABASE_URL` (loopback `:5433` / `sfia_next_dev`) and Docker port mapping **before** any `CREATE DATABASE` or migrate. Nora fixture FAKE requires `STUDIO_LANE=DEV` + `STUDIO_E2E=1` (`OPENAI_API_KEY` neutralized). Cache dir: `.next-e2e` (operator DEV keeps `.next`). Does **not** reuse `:3100`. Operator data in `sfia_next_dev` (including project « Test 1 ») is untouched.
 
+**Vitest PostgreSQL (ENV-B):** mutative integration suites must target **`sfia_next_e2e` only**. Setup `tests/setup/vitest-pg-target.ts` + `assertApprovedVitestMutativeDatabaseUrl` refuse `sfia_next_dev` / RECETTE / ambiguous URLs **before** `@/db/client` opens a socket. If `.env.local` still points at the operator DB, Vitest rewrites the **process** URL in-memory to the sibling e2e database (same pattern as Playwright preflight) — do **not** hand-edit `.env.local` to flip lanes. Pure unit tests without `DATABASE_URL` remain unblocked.
+
 
 Historical local ML1 candidate evidence: 22 unit and 26 PostgreSQL integration tests PASS; 1 Playwright E2E PASS using DEV fake identity and Nora fixture. The legacy GitHub Required Gate for PR #649 was SUCCESS but **did not execute Next CI**; a dedicated Next workflow remains open (reserve B). These results must not be presented as remote Next CI proof.
 
