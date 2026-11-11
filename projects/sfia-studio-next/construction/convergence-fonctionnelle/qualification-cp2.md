@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML4C : préparation de la convergence fonctionnelle intégrée
 
+> **GATE B — ACCEPTÉ AVEC RÉSERVES PAR MORRIS (11/11/2026)** : [décision de sortie ML4B/CP1](../../governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md), publiée sur la présente **branche candidate**. Le diagnostic ML4B est une base acceptée et son objectif documentaire clôturé avec réserves ; **les constats X-01..08, les preuves manquantes, les causes à établir et la préparation CP2 restent à traiter**. Ce document demeure `CP2 PREPARATION CANDIDATE`, il **n'est pas encore un contrat de construction approuvé**. Les mentions `GATE B OPEN` dans la préparation initiale sont des instantanés antérieurs. **Aucun GO Cursor, Figma, Git REAL, PR, merge ou ADOPTED.**
+
 **Nature :** contrat de préparation CP2 **candidat** — support D0 de qualification et de revue Morris, non décision de construction.
 
 **Date :** 11 novembre 2026 (Europe/Paris).  
