@@ -1,13 +1,13 @@
 # SFIA Studio Next — Review Pack FULL
-# ML4C / CP2 — ENV-B Fast-Track — Finalisation / PR / CI
+# ML4C — Convergence fonctionnelle intégrée — Construction locale
 
-**Date/heure :** 2026-11-11 18:04 CET
-**Cycle :** 7 — Intégration / DevOps (PR readiness intégré)
-**Profil :** Standard — INC sûreté tests PostgreSQL
-**Macro-lot :** ML4C / CP2 ENV-B
+**Date/heure :** 2026-11-11 19:07 CET
+**Cycle :** 8 — Delivery / implémentation
+**Profil :** Critical
+**Macro-lot :** ML4C
 **Versioning :** NO RELEASE
 **Publisher :** Cursor
-**Merge / auto-merge / ENV-C / ENV-D / ML4C S01–S07 :** NON AUTORISÉS
+**Push projet / PR / merge / RECETTE / LIVE / REAL Git / ENV-C :** NON AUTORISÉS
 
 ---
 
@@ -16,469 +16,640 @@
 | Item | Valeur |
 | --- | --- |
 | Repo | mcleland147/sfia-workspace |
-| Worktree | `sfia-workspace-ml4c-cp2-t2-diag-20261111` |
-| Branche | `fix/next-env-b-vitest-pg-gate` |
-| main distant | `42aa373947446a8c20694b06c559ee0da1cba580` (inchangé) |
-| Merge-base | `42aa3739…` |
-| Commit ENV-B initial | `b7166fd8ef99452af33413c2b77a67fc9ed20bac` (tree `7c17e56b…`) |
-| CI migrate E2E | `25d6e2fbeaa5dbef036159e900b5ba545785be43` |
-| CI Playwright retry | `871953ac790dcb3b96ae2e109363127bdfa6a3f1` |
-| HEAD PR final | `051aaf36f02bc05114a4c4240353b62bd96a628c` |
-| Tree final | `fc359ccb0aaa22e0e3a8aa2328eadc2fec677976` |
-| Upstream | `origin/fix/next-env-b-vitest-pg-gate` (poussé) |
-| Handoff ENV-B précédent | `a44251b5…` / blob `e863d961…` |
-| Dirty hors pack | `.tmp-sfia-review/chatgpt-review.md` local only (non inclus PR) |
+| Baseline main | `6d237452680640324eeadbb18f4601fd7de99850` (ENV-B #675 merged) |
+| Branche construction | `build/next-ml4c-functional-convergence` |
+| HEAD local | `cbfadadcae22eed9007ce1fbb1a095cbc02561af` |
+| Tree | `d46b3983be13576b9144466ae65a046f939a07b4` |
+| Upstream | tracks origin/main — **aucun push** de la construction |
+| CP2 docs (non mergée) | `ab0c2ba3…` |
+| Handoff ENV-B FT | `3fbc9a96…` |
+| Dirty | `.tmp-sfia-review/` only |
 
 ---
 
-## 2. PR
+## 2. Matrice S01–S07 (construction)
 
-| Champ | Valeur |
-| --- | --- |
-| Numéro | **#675** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/675 |
-| Base | `main` @ `42aa3739…` |
-| Head | `fix/next-env-b-vitest-pg-gate` @ `051aaf36f02bc05114a4c4240353b62bd96a628c` |
-| État | OPEN — **merge NON effectué** |
-
----
-
-## 3. Analyse raccord Vitest / migration / CI
-
-1. ENV-B : setup Vitest + `db/client` forcent `sfia_next_e2e` avant toute écriture.
-2. CI écrivait `.env.local` opérateur et ne migrait que `sfia_next_dev` → Vitest aurait ciblé e2e **sans schéma**.
-3. Correctif : étape `SFIA_PG_DATABASE=sfia_next_e2e npm run db:migrate` avant Vitest integration.
-4. Playwright `e2e-web-server.sh` remigre e2e après preflight ; migrations `IF NOT EXISTS` → double migrate sûr.
-5. Séparation conservée : opérateur CI synthétique + e2e migrée ; `.env.local` CI reste opérateur (preflight Playwright).
-6. Blocage observé hors ENV-B : `ubuntu-latest`→Ubuntu 26 casse apt DNS pour Playwright `--with-deps`. Mitigation bornée : retry + pin `ubuntu-24.04` sur le job validate uniquement.
+| Scénario | Statut | Preuve | Limite |
+| --- | --- | --- | --- |
+| S01 | IMPLEMENTED / COVERAGE VERIFIED (déterministe) | portfolio sans statut par index ; unit guard | OAuth LIVE NOT RUN |
+| S02 | IMPLEMENTED / BEHAVIOR PROVEN (BROWSER FAKE) | UI reconcile + e2e D2_ACK_OBS PASS ; PG A05 | — |
+| S03 | IMPLEMENTED / COVERAGE VERIFIED (PG+unit) | continueAfter + appendDocumentEffectAck ; PG Atlas | Nora LIVE NOT RUN |
+| S04 | DOCUMENTED évaluation ; NOT RUN LIVE | s04-cognitive-evaluation-baseline.md | LIVE + jugement Pilote exclus |
+| S05 | IMPLEMENTED / COVERAGE VERIFIED (PG) | question indépendante conserve mission | UNKNOWN/révocation BROWSER partiel |
+| S06 | COVERAGE VERIFIED SCRIPTED (existant) | git-collaboration PG 17 PASS filtrés | Git REAL NOT RUN |
+| S07 | PARTIAL | suites ciblées même SHA ; pas campagne ML1–ML4 complète | suite intégrale reportée |
 
 ---
 
-## 4. Fichiers PR (stat `main...HEAD`)
+## 3. Travaux A/B/C
+
+**A :** S01 labels honnêtes ; S02 reconcile ACK + test versionné.
+**B :** S03 ACK documentaire sur continueAfter ; S05 question indépendante ; S04 baseline sans moteur vectoriel.
+**C :** chemin SCRIPTED publication existant réutilisé (fingerprint/HD) — pas de mutation REAL.
+
+---
+
+## 4. Fichiers (stat)
 
 ```
- .github/workflows/sfia-studio-next-ci.yml          | 35 +++++++-
- .../construction/delivery-history.md               | 14 +++
- projects/sfia-studio-next/web/README.md            |  2 +
- projects/sfia-studio-next/web/src/db/client.ts     |  6 ++
- .../web/src/lib/e2e-pg-gate.ts                     | 99 +++++++++++++++++++++-
- .../intent-continuity-global.pg.test.ts            |  3 +-
- .../mission-continuity-accept01.pg.test.ts         |  3 +-
- .../web/tests/setup/vitest-pg-target.ts            | 20 +++++
- .../web/tests/unit/e2e-pg-gate.test.ts             | 50 +++++++++++
- projects/sfia-studio-next/web/vitest.config.ts     |  3 +
- 10 files changed, 227 insertions(+), 8 deletions(-)
+ .../s04-cognitive-evaluation-baseline.md           |  33 ++++++
+ .../construction/delivery-history.md               |  14 +++
+ .../web/src/app/portfolio/page.tsx                 |  19 ++--
+ .../src/app/preparations/[preparationId]/page.tsx  | 123 ++++++++++++++++-----
+ .../src/domains/conversation/intent-conduction.ts  |  54 +++++----
+ .../web/tests/e2e/d2-ack-loss-reconcile.spec.ts    |  89 +++++++++++++++
+ .../intent-continuity-global.pg.test.ts            |  65 ++++++++++-
+ .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |  56 ++++++++++
+ 8 files changed, 397 insertions(+), 56 deletions(-)
 ```
 
 ---
 
-## 5. Diff ENV-B web (`42aa3739..b7166fd8`)
+## 5. Diff complet `6d237452..HEAD`
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/README.md b/projects/sfia-studio-next/web/README.md
-index 8df6f4de..01098acf 100644
---- a/projects/sfia-studio-next/web/README.md
-+++ b/projects/sfia-studio-next/web/README.md
-@@ -55,6 +55,8 @@ npm run test:e2e
-
- `test:e2e` starts an **owned** server on `127.0.0.1:3101` against isolated DB `sfia_next_e2e` (same Postgres instance, separate database). Preflight (`scripts/e2e-preflight.ts`) validates operator `DATABASE_URL` (loopback `:5433` / `sfia_next_dev`) and Docker port mapping **before** any `CREATE DATABASE` or migrate. Nora fixture FAKE requires `STUDIO_LANE=DEV` + `STUDIO_E2E=1` (`OPENAI_API_KEY` neutralized). Cache dir: `.next-e2e` (operator DEV keeps `.next`). Does **not** reuse `:3100`. Operator data in `sfia_next_dev` (including project « Test 1 ») is untouched.
-
-+**Vitest PostgreSQL (ENV-B):** mutative integration suites must target **`sfia_next_e2e` only**. Setup `tests/setup/vitest-pg-target.ts` + `assertApprovedVitestMutativeDatabaseUrl` refuse `sfia_next_dev` / RECETTE / ambiguous URLs **before** `@/db/client` opens a socket. If `.env.local` still points at the operator DB, Vitest rewrites the **process** URL in-memory to the sibling e2e database (same pattern as Playwright preflight) — do **not** hand-edit `.env.local` to flip lanes. Pure unit tests without `DATABASE_URL` remain unblocked.
-+
-
- Historical local ML1 candidate evidence: 22 unit and 26 PostgreSQL integration tests PASS; 1 Playwright E2E PASS using DEV fake identity and Nora fixture. The legacy GitHub Required Gate for PR #649 was SUCCESS but **did not execute Next CI**; a dedicated Next workflow remains open (reserve B). These results must not be presented as remote Next CI proof.
-
-diff --git a/projects/sfia-studio-next/web/src/db/client.ts b/projects/sfia-studio-next/web/src/db/client.ts
-index 63ca37de..903d6569 100644
---- a/projects/sfia-studio-next/web/src/db/client.ts
-+++ b/projects/sfia-studio-next/web/src/db/client.ts
-@@ -1,12 +1,18 @@
- import { drizzle } from "drizzle-orm/postgres-js";
- import postgres from "postgres";
- import * as schema from "./schema";
-+import { assertApprovedVitestMutativeDatabaseUrl } from "@/lib/e2e-pg-gate";
-
- const url = process.env.DATABASE_URL;
- if (!url) {
-   throw new Error("DATABASE_URL missing — refuse to start without explicit lane DSN");
- }
-
-+// Vitest sets VITEST=true. Refuse operator/RECETTE/ambiguous targets before first socket.
-+if (process.env.VITEST === "true") {
-+  assertApprovedVitestMutativeDatabaseUrl(url);
-+}
-+
- const globalForDb = globalThis as unknown as { __sfiaSql?: ReturnType<typeof postgres> };
-
- export const sql =
-diff --git a/projects/sfia-studio-next/web/src/lib/e2e-pg-gate.ts b/projects/sfia-studio-next/web/src/lib/e2e-pg-gate.ts
-index 18fd8928..e5a480f6 100644
---- a/projects/sfia-studio-next/web/src/lib/e2e-pg-gate.ts
-+++ b/projects/sfia-studio-next/web/src/lib/e2e-pg-gate.ts
-@@ -1,6 +1,7 @@
- /**
-- * Fail-closed gate for Playwright E2E Postgres targeting.
-+ * Fail-closed gate for Playwright E2E and Vitest mutative Postgres targeting.
-  * Pure validation — no CREATE DATABASE, no migrations, no network to OpenAI.
-+ * Never logs credentials or full DSNs.
-  */
-
- export const E2E_PG_EXPECTED = {
-@@ -21,7 +22,9 @@ export type E2ePgGateErrorCode =
-   | "E2E_PG_TARGET_FORBIDDEN"
-   | "E2E_PG_TARGET_EQ_SOURCE"
-   | "E2E_PG_USERINFO_AMBIGUOUS"
--  | "E2E_PG_CONTAINER_MAPPING_FORBIDDEN";
-+  | "E2E_PG_CONTAINER_MAPPING_FORBIDDEN"
-+  | "VITEST_PG_URL_MISSING"
-+  | "VITEST_PG_TARGET_FORBIDDEN";
-
- export class E2ePgGateError extends Error {
-   readonly code: E2ePgGateErrorCode;
-@@ -157,3 +160,95 @@ export function assertContainerLoopbackPortMapping(
-     );
-   }
- }
-+
-+function parsePostgresUrl(raw: string | undefined | null): URL {
-+  if (raw == null || String(raw).trim() === "") {
-+    throw new E2ePgGateError("VITEST_PG_URL_MISSING", "DATABASE_URL missing");
-+  }
-+  let u: URL;
-+  try {
-+    u = new URL(String(raw).trim());
-+  } catch {
-+    throw new E2ePgGateError("E2E_PG_URL_INVALID", "DATABASE_URL is not a valid URL");
-+  }
-+  if (u.protocol !== "postgres:" && u.protocol !== "postgresql:") {
-+    throw new E2ePgGateError(
-+      "E2E_PG_PROTOCOL_FORBIDDEN",
-+      `protocol must be postgres/postgresql (got ${u.protocol})`,
-+    );
-+  }
-+  return u;
-+}
-+
-+function assertLoopbackDevPort(u: URL): void {
-+  const host = u.hostname.toLowerCase();
-+  if (!(E2E_PG_EXPECTED.hosts as readonly string[]).includes(host)) {
-+    throw new E2ePgGateError(
-+      "E2E_PG_HOST_FORBIDDEN",
-+      "host must be exact loopback 127.0.0.1 or localhost",
-+    );
-+  }
-+  const port = u.port === "" ? 5432 : Number(u.port);
-+  if (port !== E2E_PG_EXPECTED.port) {
-+    throw new E2ePgGateError(
-+      "E2E_PG_PORT_FORBIDDEN",
-+      `port must be ${E2E_PG_EXPECTED.port} (got ${port})`,
-+    );
-+  }
-+}
-+
-+/**
-+ * Fail-closed: Vitest mutative suites may only target sfia_next_e2e on DEV loopback :5433.
-+ * Operator (`sfia_next_dev`), RECETTE, and other DB names are refused — no network I/O.
-+ */
-+export function assertApprovedVitestMutativeDatabaseUrl(
-+  raw: string | undefined | null,
-+): URL {
-+  const u = parsePostgresUrl(raw);
-+  assertLoopbackDevPort(u);
-+  const db = databaseNameFromPathname(u.pathname);
-+  if (!db) {
-+    throw new E2ePgGateError("VITEST_PG_TARGET_FORBIDDEN", "database name missing");
-+  }
-+  if (db === E2E_PG_EXPECTED.operatorDatabase) {
-+    throw new E2ePgGateError(
-+      "VITEST_PG_TARGET_FORBIDDEN",
-+      "Vitest mutative tests must not target operator database sfia_next_dev",
-+    );
-+  }
-+  if (db !== E2E_PG_EXPECTED.e2eDatabase) {
-+    throw new E2ePgGateError(
-+      "VITEST_PG_TARGET_FORBIDDEN",
-+      `Vitest mutative database must be ${E2E_PG_EXPECTED.e2eDatabase} (got ${db})`,
-+    );
-+  }
-+  return u;
-+}
-+
-+/**
-+ * Prepare process DATABASE_URL for Vitest mutative PG without editing `.env.local`.
-+ * - Already e2e → keep (after assert).
-+ * - Approved operator URL → derive sibling e2e URL in-memory (Playwright preflight pattern).
-+ * - Anything else → throw before any DB client is constructed.
-+ */
-+export function prepareVitestMutativeDatabaseUrl(raw: string | undefined | null): string {
-+  if (raw == null || String(raw).trim() === "") {
-+    throw new E2ePgGateError("VITEST_PG_URL_MISSING", "DATABASE_URL missing");
-+  }
-+  const trimmed = String(raw).trim();
-+  let u: URL;
-+  try {
-+    u = new URL(trimmed);
-+  } catch {
-+    throw new E2ePgGateError("E2E_PG_URL_INVALID", "DATABASE_URL is not a valid URL");
-+  }
-+  const db = databaseNameFromPathname(u.pathname);
-+  if (db === E2E_PG_EXPECTED.e2eDatabase) {
-+    assertApprovedVitestMutativeDatabaseUrl(trimmed);
-+    return trimmed;
-+  }
-+  // Operator source → in-process rewrite to e2e (does not modify .env.local).
-+  const built = buildE2eDatabaseUrl(trimmed);
-+  assertApprovedVitestMutativeDatabaseUrl(built.e2eDatabaseUrl);
-+  return built.e2eDatabaseUrl;
-+}
-diff --git a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-index 34206692..6f174ced 100644
---- a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-@@ -109,7 +109,8 @@ async function seedProjectWithGit(label: string) {
- describe("Global Nora/Studio intent continuity (PG)", () => {
-   beforeAll(() => {
-     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
--    expect(process.env.DATABASE_URL).toMatch(/5433|sfia_next_dev/);
-+    // Mutative Vitest PG must target e2e only (see tests/setup/vitest-pg-target.ts).
-+    expect(process.env.DATABASE_URL).toMatch(/\/sfia_next_e2e(?:\?|$)/);
-     delete process.env.OPENAI_API_KEY;
-     process.env.STUDIO_LANE = "DEV";
-     process.env.STUDIO_E2E = "1";
-diff --git a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-index c87e77e3..5c9138b0 100644
---- a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-@@ -70,7 +70,8 @@ async function seedProjectWithGit(label: string) {
- describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
-   beforeAll(() => {
-     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
--    expect(process.env.DATABASE_URL).toMatch(/5433|sfia_next_dev/);
-+    // Mutative Vitest PG must target e2e only (see tests/setup/vitest-pg-target.ts).
-+    expect(process.env.DATABASE_URL).toMatch(/\/sfia_next_e2e(?:\?|$)/);
-     delete process.env.OPENAI_API_KEY;
-     process.env.STUDIO_LANE = "DEV";
-     process.env.STUDIO_E2E = "1";
-diff --git a/projects/sfia-studio-next/web/tests/setup/vitest-pg-target.ts b/projects/sfia-studio-next/web/tests/setup/vitest-pg-target.ts
+diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/s04-cognitive-evaluation-baseline.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/s04-cognitive-evaluation-baseline.md
 new file mode 100644
-index 00000000..741860d5
+index 00000000..a6f3d4bf
 --- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/setup/vitest-pg-target.ts
-@@ -0,0 +1,20 @@
-+/**
-+ * Vitest setup — fail-closed Postgres target for mutative suites.
-+ * Runs before test files load so `@/db/client` never connects to operator DB.
-+ *
-+ * Policy:
-+ * - If DATABASE_URL is unset: no-op (pure unit tests stay unblocked).
-+ * - If set to approved operator URL: rewrite in-process to sfia_next_e2e (does not edit .env.local).
-+ * - If set to sfia_next_e2e: keep after assert.
-+ * - Otherwise: throw before any mutative import.
-+ */
-+import { config } from "dotenv";
-+import path from "path";
-+import { prepareVitestMutativeDatabaseUrl } from "@/lib/e2e-pg-gate";
++++ b/projects/sfia-studio-next/construction/convergence-fonctionnelle/s04-cognitive-evaluation-baseline.md
+@@ -0,0 +1,33 @@
++# ML4C S04 — Évaluation cognitive préalable (baseline)
 +
-+config({ path: path.resolve(__dirname, "../../.env.local") });
++| Champ | Valeur |
++| --- | --- |
++| Date | 2026-11-11 |
++| Statut | DOCUMENTED — évaluation déterministe locale |
++| Nora LIVE | **NOT RUN** (mandat ML4C : LIVE exclu) |
++| Décision technique | **Aucun** moteur vectoriel / second système mémoire ajouté |
 +
-+const raw = process.env.DATABASE_URL;
-+if (raw != null && String(raw).trim() !== "") {
-+  process.env.DATABASE_URL = prepareVitestMutativeDatabaseUrl(raw);
-+}
-diff --git a/projects/sfia-studio-next/web/tests/unit/e2e-pg-gate.test.ts b/projects/sfia-studio-next/web/tests/unit/e2e-pg-gate.test.ts
-index 7d578652..265969e9 100644
---- a/projects/sfia-studio-next/web/tests/unit/e2e-pg-gate.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/e2e-pg-gate.test.ts
-@@ -1,13 +1,17 @@
- import { describe, expect, it } from "vitest";
- import {
-   assertApprovedOperatorDatabaseUrl,
-+  assertApprovedVitestMutativeDatabaseUrl,
-   assertContainerLoopbackPortMapping,
-   buildE2eDatabaseUrl,
-+  prepareVitestMutativeDatabaseUrl,
-   E2ePgGateError,
- } from "@/lib/e2e-pg-gate";
-
- const good =
-   "postgres://sfia_next_dev:local-only@127.0.0.1:5433/sfia_next_dev";
-+const e2eGood =
-+  "postgres://sfia_next_dev:local-only@127.0.0.1:5433/sfia_next_e2e";
-
- function expectCode(fn: () => unknown, code: string) {
-   try {
-@@ -69,3 +73,49 @@ describe("E2E Postgres preflight gate (no writes)", () => {
-     expectCode(() => assertContainerLoopbackPortMapping(""), "E2E_PG_CONTAINER_MAPPING_FORBIDDEN");
-   });
- });
++## Constat code (main@6d237452 + branche build)
 +
-+describe("Vitest mutative Postgres gate (no network / no writes)", () => {
-+  it("A: refuses operator sfia_next_dev as mutative target", () => {
-+    expectCode(
-+      () => assertApprovedVitestMutativeDatabaseUrl(good),
-+      "VITEST_PG_TARGET_FORBIDDEN",
-+    );
-+  });
++`selectRelevantKnowledgeContext` (`web/src/domains/knowledge/service.ts`) :
 +
-+  it("B: refuses missing / invalid / ambiguous / wrong-port / non-e2e names", () => {
-+    expectCode(() => assertApprovedVitestMutativeDatabaseUrl(undefined), "VITEST_PG_URL_MISSING");
-+    expectCode(() => assertApprovedVitestMutativeDatabaseUrl(""), "VITEST_PG_URL_MISSING");
-+    expectCode(() => assertApprovedVitestMutativeDatabaseUrl("not-a-url"), "E2E_PG_URL_INVALID");
-+    expectCode(
-+      () => assertApprovedVitestMutativeDatabaseUrl("postgres://u:p@127.0.0.1:5433/sfia_next_recette"),
-+      "VITEST_PG_TARGET_FORBIDDEN",
-+    );
-+    expectCode(
-+      () => assertApprovedVitestMutativeDatabaseUrl("postgres://u:p@127.0.0.1:5434/sfia_next_e2e"),
-+      "E2E_PG_PORT_FORBIDDEN",
-+    );
-+    expectCode(
-+      () => assertApprovedVitestMutativeDatabaseUrl("postgres://u:p@db.example.com:5433/sfia_next_e2e"),
-+      "E2E_PG_HOST_FORBIDDEN",
-+    );
-+  });
++- Méthode : `lexical-heuristic` (tokens longueur > 3, score d'inclusion).
++- Limite explicite dans le retour : ne constitue pas une vérité épistémique.
++- Pas de paraphrase/synonymie, pas de fraîcheur décisionnelle opposable, pas de résolution de contradiction.
 +
-+  it("C: accepts sfia_next_e2e on DEV loopback :5433", () => {
-+    const u = assertApprovedVitestMutativeDatabaseUrl(e2eGood);
-+    expect(u.pathname).toBe("/sfia_next_e2e");
-+    expect(u.port).toBe("5433");
-+  });
++## Corpus représentatif (déterministe)
 +
-+  it("prepare: derives e2e URL from operator without accepting operator as final target", () => {
-+    const prepared = prepareVitestMutativeDatabaseUrl(good);
-+    expect(prepared).toContain("/sfia_next_e2e");
-+    expect(prepared).not.toMatch(/\/sfia_next_dev(?:\?|$)/);
-+    assertApprovedVitestMutativeDatabaseUrl(prepared);
-+    expect(prepareVitestMutativeDatabaseUrl(e2eGood)).toContain("/sfia_next_e2e");
-+    expectCode(() => prepareVitestMutativeDatabaseUrl(undefined), "VITEST_PG_URL_MISSING");
-+    expectCode(
-+      () => prepareVitestMutativeDatabaseUrl("postgres://u:p@127.0.0.1:5433/other_db"),
-+      "E2E_PG_SOURCE_DB_FORBIDDEN",
-+    );
-+  });
-+});
-diff --git a/projects/sfia-studio-next/web/vitest.config.ts b/projects/sfia-studio-next/web/vitest.config.ts
-index be8459d9..d352cbf9 100644
---- a/projects/sfia-studio-next/web/vitest.config.ts
-+++ b/projects/sfia-studio-next/web/vitest.config.ts
-@@ -10,8 +10,11 @@ export default defineConfig({
-     include: ["tests/**/*.test.ts"],
-     fileParallelism: false,
-     sequence: { concurrent: false },
-+    // Before any test file / db client import: resolve DATABASE_URL to sfia_next_e2e only.
-+    setupFiles: [path.resolve(__dirname, "tests/setup/vitest-pg-target.ts")],
-     env: {
-       // DATABASE_URL must come from .env.local / process env — never hardcode credentials here.
-+      // Mutative PG target is enforced by tests/setup/vitest-pg-target.ts + db/client.ts (VITEST).
-       STUDIO_DEV_TEST_LOGIN: process.env.STUDIO_DEV_TEST_LOGIN ?? "1",
-       STUDIO_LANE: process.env.STUDIO_LANE ?? "DEV",
-       // Explicit SCRIPTED GitHub auth for unit/integration fixtures only.
-```
-
----
-
-## 6. Diff CI + delivery (`b7166fd8..051aaf36` / total CI file vs main)
-
-```diff
-diff --git a/.github/workflows/sfia-studio-next-ci.yml b/.github/workflows/sfia-studio-next-ci.yml
-index cca2c8ef..3edc4650 100644
---- a/.github/workflows/sfia-studio-next-ci.yml
-+++ b/.github/workflows/sfia-studio-next-ci.yml
-@@ -16,7 +16,9 @@
- #
- # Node: 24. Postgres: 16-alpine ephemeral Docker matching DEV gate identities:
- #   container sfia-next-dev-pg, 127.0.0.1:5433→5432, DBs sfia_next_dev + sfia_next_e2e.
--# Migrations (ML2): 001→006 via scripts/db-migrate.sh.
-+# Migrations: 001→012 via scripts/db-migrate.sh.
-+# Vitest mutative (ENV-B): targets sfia_next_e2e only — migrate E2E schema before integration.
-+# Playwright webServer still migrates E2E after preflight (migrations are IF NOT EXISTS / rejouable).
- # Nora: STUDIO_E2E=1 + OPENAI_API_KEY neutralized — FAKE only.
- #
- # Corrections vs Cycle-7 proposal artefact:
-@@ -140,7 +142,8 @@ jobs:
-         (github.event_name == 'pull_request' && needs.detect.outputs.next_changed == 'true') ||
-         github.event_name == 'push'
-       )
--    runs-on: ubuntu-latest
-+    # Pin 24.04: ubuntu-latest→26 (resolute) currently breaks Playwright --with-deps apt DNS.
-+    runs-on: ubuntu-24.04
-     timeout-minutes: 45
-     defaults:
-       run:
-@@ -282,7 +285,14 @@ jobs:
-       - name: Vitest unit
-         run: npm run test:unit
-
--      - name: Apply migrations 001→006 on operator DB
-+      - name: Apply migrations 001→012 on operator DB
-+        run: npm run db:migrate
++| Cas | Attendu métier | Baseline lexicale |
++| --- | --- | --- |
++| Reformulation / paraphrase | Retrouver l'acquis | **Écart** si tokens absents |
++| Décision historique vs actuelle | Préférer l'actuelle | Non discriminé hors texte |
++| Sources contradictoires | Ne pas aplatir | Non traité |
++| Point ouvert | Remonter OPEN | Partiel (boost +1) |
++| Restriction d'accès | Respecter droits | Hors sélection (D1/D6) |
++| Données insuffisantes | Limite honnête | Via `selectionLimit` string |
 +
-+      # ENV-B: Vitest setup rewrites DATABASE_URL → sfia_next_e2e; schema must exist first.
-+      # Keep operator migrate above (synthetic CI operator lane). Playwright re-migrates E2E later.
-+      - name: Apply migrations 001→012 on E2E DB (Vitest mutative target)
-+        env:
-+          SFIA_PG_DATABASE: sfia_next_e2e
-         run: npm run db:migrate
-
-       - name: Vitest PostgreSQL integration
-@@ -294,7 +304,24 @@ jobs:
-           npm run test:integration
-
-       - name: Install Playwright Chromium
--        run: npx playwright install --with-deps chromium
-+        run: |
-+          set -euo pipefail
-+          # Retry bounded: GHA runners intermittently fail apt DNS for --with-deps
-+          # (Temporary failure resolving security.ubuntu.com). Do not continue-on-error.
-+          ok="false"
-+          for i in 1 2 3; do
-+            echo "Playwright Chromium install attempt ${i}/3…"
-+            if npx playwright install --with-deps chromium; then
-+              ok="true"
-+              break
-+            fi
-+            echo "Playwright install attempt ${i} failed; waiting before retry…" >&2
-+            sleep 20
-+          done
-+          if [ "${ok}" != "true" ]; then
-+            echo "Playwright Chromium install failed after 3 attempts" >&2
-+            exit 1
-+          fi
-
-       - name: Playwright BROWSER FAKE
-         env:
++## Choix ML4C
++
++Correction au niveau **minimum** : conserver la sélection lexicale, documenter l'écart, exiger Nora LIVE + appréciation Pilote sous GO distinct avant toute refonte S04.
++
++Exit qualité cognitive LIVE : gate Morris spécifique (hors ce mandat).
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 55963580..b3b9d9df 100644
+index b3b9d9df..02d5e2e8 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
 @@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
-+## delivery_id: DELIV-2026-11-11-ENV-B-VITEST-PG-GATE
++## delivery_id: DELIV-2026-11-11-ML4C-FUNCTIONAL-CONVERGENCE
 +
 +| Field | Value |
 +| --- | --- |
 +| Date | 2026-11-11 (Europe/Paris) |
-+| Macro-lot | ML4C / CP2 — ENV-B sécurisation tests PostgreSQL |
-+| Type | INC — sûreté dispositif de test (NO RELEASE) |
-+| Branch | `fix/next-env-b-vitest-pg-gate` |
-+| Parent | main `42aa3739` |
-+| Lane | DEV :5433; mutative Vitest → `sfia_next_e2e` only; RECETTE/STABLE untouched |
-+| Changes | Fail-closed Vitest PG gate (`e2e-pg-gate` + setup + `db/client`); CI migrates `sfia_next_e2e` before Vitest integration |
-+| Schema | unchanged (reuse migrations 001→012 on ephemeral CI E2E DB) |
-+| Status | PR readiness — merge soumis à décision Morris — NO RELEASE |
++| Macro-lot | ML4C — Convergence fonctionnelle intégrée |
++| Type | EVOL — construction locale (NO RELEASE) |
++| Branch | `build/next-ml4c-functional-convergence` (local — no project push) |
++| Parent | main `6d237452` (ENV-B merged) |
++| Lane | DEV :5433; mutative tests → `sfia_next_e2e`; RECETTE/STABLE untouched |
++| Changes | S01 honest portfolio status; S02 create ACK reconcile UI + versioned D2_ACK_OBS; S03 continueAfter document ACK; S05 independent-Q while awaiting; S04 cognitive baseline doc (no vector engine); SCRIPTED S06 path reused |
++| Schema | unchanged |
++| Status | LOCAL CANDIDATE — ChatGPT technical review — LIVE/REAL gates carried |
 +
- ## delivery_id: DELIV-2026-11-10-ML4-NORA-PR-READINESS-INTEGRATION
+ ## delivery_id: DELIV-2026-11-11-ENV-B-VITEST-PG-GATE
 
  | Field | Value |
+diff --git a/projects/sfia-studio-next/web/src/app/portfolio/page.tsx b/projects/sfia-studio-next/web/src/app/portfolio/page.tsx
+index 7d761bda..e497e4c0 100644
+--- a/projects/sfia-studio-next/web/src/app/portfolio/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/portfolio/page.tsx
+@@ -31,11 +31,12 @@ type PortfolioResponse = {
+   errorCategory?: string;
+ };
+
+-function statusForProject(index: number, total: number): { label: string; tone: string } {
+-  if (total === 0) return { label: "—", tone: "fig-tag-muted" };
+-  if (index === 0) return { label: "Actif", tone: "fig-tag-ok" };
+-  if (index === 1) return { label: "En réflexion", tone: "fig-tag-muted" };
+-  return { label: "À reprendre", tone: "fig-tag-warn" };
++/**
++ * ML4C S01 — portfolio labels must come from owner truth, never list index.
++ * Decorative progression (Actif / En réflexion / À reprendre by index) is forbidden.
++ */
++function statusForOwnedProject(): { label: string; tone: string } {
++  return { label: "Accessible", tone: "fig-tag-ok" };
+ }
+
+ export default function PortfolioPage() {
+@@ -339,13 +340,15 @@ export default function PortfolioPage() {
+             </button>
+           </div>
+           <ul className="fig-card-grid" data-testid="portfolio-projects">
+-            {projects.map((proj, idx) => {
+-              const st = statusForProject(idx, projects.length);
++            {projects.map((proj) => {
++              const st = statusForOwnedProject();
+               return (
+                 <li key={proj.id} className="fig-card">
+                   <div className="fig-card-top">
+                     <div className="fig-card-title">{proj.name}</div>
+-                    <span className={`fig-tag ${st.tone}`}>{st.label}</span>
++                    <span className={`fig-tag ${st.tone}`} data-testid="portfolio-project-status">
++                      {st.label}
++                    </span>
+                   </div>
+                   <p className="fig-card-desc text-xs muted break-all">{proj.id}</p>
+                   <p className="fig-card-meta">Projet accessible · ouverture par projectId</p>
+diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+index 9e686efc..e96346f4 100644
+--- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+@@ -479,39 +479,106 @@ export default function PreparationPage() {
+     }
+   }
+
++  /**
++   * ML4C S02 — after lost ACK, reconcile with the same idempotency key before any new create.
++   * Read-only GET; never mints a second mutation automatically.
++   */
++  async function reconcileCreateAfterAckLoss(key: string): Promise<string | null> {
++    try {
++      const res = await fetch(
++        `/api/preparations/${preparationId}/reconcile?idempotencyKey=${encodeURIComponent(key)}`,
++      );
++      let j: {
++        status?: string;
++        projectId?: string;
++        reason?: string;
++      } = {};
++      try {
++        j = (await res.json()) as typeof j;
++      } catch {
++        j = {};
++      }
++      if (j.status === "ALREADY_CREATED" && j.projectId) {
++        setProjectId(j.projectId);
++        setAwaitingClientIntentKey(null);
++        setStatus(`ALREADY_CREATED (réconcilié après ACK perdu) → ${j.projectId}`);
++        router.push(`/projects/${j.projectId}`);
++        return j.projectId;
++      }
++      setStatus(
++        `Réconciliation ${j.status ?? (res.ok ? "UNKNOWN" : `HTTP_${res.status}`)} — clé d'intention conservée`,
++      );
++      return null;
++    } catch {
++      setStatus("Réconciliation impossible (réseau) — clé d'intention conservée");
++      return null;
++    }
++  }
++
+   async function createProject() {
+     setBusy(true);
+     // Structured binding only — server verifies clientIntentKey against durable mission.
+     const clientIntentKey = awaitingClientIntentKey ?? undefined;
+-    const res = await fetch(`/api/preparations/${preparationId}/create-project`, {
+-      method: "POST",
+-      headers: { "Content-Type": "application/json" },
+-      body: JSON.stringify({
+-        expectedCreationRevision: creationRevision,
+-        projectName: previewName || "Projet sans titre",
+-        previewSummary,
+-        idempotencyKey: clientIntentKey
+-          ? `d2:mission:${clientIntentKey}`
+-          : idempotencyKey,
+-        clientIntentKey,
+-      }),
+-    });
+-    const j = await res.json();
+-    setBusy(false);
+-    const bindErr = j.missionBindingError ? ` · bind ${j.missionBindingError}` : "";
+-    const cont =
+-      j.missionContinue?.continued && j.missionContinue?.documentSave?.documentId
+-        ? ` · doc ${j.missionContinue.documentSave.documentId}`
+-        : j.missionContinue?.reason
+-          ? ` · continue ${j.missionContinue.reason}`
+-          : "";
+-    setStatus(`${j.status}${j.projectId ? ` → ${j.projectId}` : ""}${cont}${bindErr}`);
+-    if (j.projectId && !j.missionBindingError) {
+-      setProjectId(j.projectId);
+-      setAwaitingClientIntentKey(null);
+-      router.push(`/projects/${j.projectId}`);
++    const key = clientIntentKey ? `d2:mission:${clientIntentKey}` : idempotencyKey;
++    try {
++      const res = await fetch(`/api/preparations/${preparationId}/create-project`, {
++        method: "POST",
++        headers: { "Content-Type": "application/json" },
++        body: JSON.stringify({
++          expectedCreationRevision: creationRevision,
++          projectName: previewName || "Projet sans titre",
++          previewSummary,
++          idempotencyKey: key,
++          clientIntentKey,
++        }),
++      });
++      let j: {
++        status?: string;
++        projectId?: string;
++        missionBindingError?: string;
++        missionContinue?: {
++          continued?: boolean;
++          documentSave?: { documentId?: string };
++          reason?: string;
++        };
++      } = {};
++      try {
++        j = (await res.json()) as typeof j;
++      } catch {
++        j = {};
++      }
++
++      const bindErr = j.missionBindingError ? ` · bind ${j.missionBindingError}` : "";
++      const cont =
++        j.missionContinue?.continued && j.missionContinue?.documentSave?.documentId
++          ? ` · doc ${j.missionContinue.documentSave.documentId}`
++          : j.missionContinue?.reason
++            ? ` · continue ${j.missionContinue.reason}`
++            : "";
++      if (j.status || j.projectId) {
++        setStatus(`${j.status ?? ""}${j.projectId ? ` → ${j.projectId}` : ""}${cont}${bindErr}`);
++      }
++      if (j.projectId && !j.missionBindingError) {
++        setProjectId(j.projectId);
++        setAwaitingClientIntentKey(null);
++        router.push(`/projects/${j.projectId}`);
++        return;
++      }
++
++      // No usable projectId in response (parse failure, opaque error, ACK truncated):
++      // reconcile with the SAME key before any new create mutation.
++      const recovered = await reconcileCreateAfterAckLoss(key);
++      if (recovered) return;
++      await reload();
++    } catch {
++      // Network throw after possible server commit — same key, reconcile only.
++      const recovered = await reconcileCreateAfterAckLoss(key);
++      if (!recovered) {
++        setStatus("Échec réseau / ACK perdu — intention et clé conservées pour retry");
++      }
++    } finally {
++      setBusy(false);
+     }
+-    await reload();
+   }
+
+   async function renameSubject(subjectId: string, title: string) {
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+index 9c61bc4e..82ca0f6c 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+@@ -18,7 +18,13 @@ import { savePreparationDocument } from "@/domains/document/service";
+ import { StudioError } from "@/lib/http-errors";
+ import { newId } from "@/lib/ids";
+ import { emitObs } from "@/lib/observability";
+-import { extractContractualDocumentProposal, qualifyDocumentAct } from "./document-act";
++import {
++  appendDocumentEffectAck,
++  extractContractualDocumentProposal,
++  hasCompetingTransactionalClaim,
++  qualifyDocumentAct,
++  type DocumentEffectSummary,
++} from "./document-act";
+ import { generateNoraReply } from "./nora-adapter";
+ import { TURN_RUNNING_STALE_MS, turnClock } from "./turn-command";
+ import {
+@@ -1136,27 +1142,37 @@ export async function continueAfterProjectCreated(input: {
+       };
+     }
+
++    // S03: same document-effect composition as the main chat path — never leave
++    // Nora prose as the sole post-D4 message (AVAILABLE + « non enregistré » contradiction).
++    const documentEffect: DocumentEffectSummary =
++      documentSave?.status === "AVAILABLE"
++        ? {
++            act: "CREATE",
++            status: "AVAILABLE",
++            documentId: documentSave.documentId,
++            revisionId: documentSave.revisionId,
++            revisionNumber: documentSave.revisionNumber,
++          }
++        : {
++            act: "CREATE",
++            status: documentSave?.status === "CONFLICT" ? "CONFLICT" : "FAILED",
++            reason: documentSave?.reason ?? documentSave?.status,
++          };
+     const canonical = composeCanonicalMissionRestitution({
+-      documentEffect:
+-        documentSave?.status === "AVAILABLE"
+-          ? {
+-              act: "CREATE",
+-              status: "AVAILABLE",
+-              documentId: documentSave.documentId,
+-              revisionId: documentSave.revisionId,
+-              revisionNumber: documentSave.revisionNumber,
+-            }
+-          : {
+-              act: "CREATE",
+-              status: "FAILED",
+-              reason: documentSave?.reason,
+-            },
++      documentEffect,
+       restitutionNote: `Reprise automatique après création projet ${input.projectId} — même intention (${mission.clientIntentKey}).`,
+     });
+-    assistantContent =
+-      reply.status === "COMPLETE" && reply.content.trim()
+-        ? appendMissionAck(reply.content, mission)
+-        : appendMissionAck(canonical, mission);
++    const noraBody =
++      reply.status === "COMPLETE" && reply.content.trim() ? reply.content : canonical;
++    const withDocAck = appendDocumentEffectAck(noraBody, documentEffect);
++    assistantContent = appendMissionAck(withDocAck, mission);
++    if (hasCompetingTransactionalClaim(assistantContent, documentEffect)) {
++      // Fail-closed narration: prefer canonical + structured ACKs over competing claims.
++      assistantContent = appendMissionAck(
++        appendDocumentEffectAck(canonical, documentEffect),
++        mission,
++      );
++    }
+     generationId = `mission-continue-d2d4:${mission.clientIntentKey}:${input.projectId}`;
+   }
+
+diff --git a/projects/sfia-studio-next/web/tests/e2e/d2-ack-loss-reconcile.spec.ts b/projects/sfia-studio-next/web/tests/e2e/d2-ack-loss-reconcile.spec.ts
+new file mode 100644
+index 00000000..4c4d3b0e
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/e2e/d2-ack-loss-reconcile.spec.ts
+@@ -0,0 +1,89 @@
++import { test, expect } from "@playwright/test";
++
++/**
++ * ML4C S02 — D2_ACK_OBS (versioned).
++ * Simulates lost ACK after create-project commit: UI must reconcile with the same
++ * idempotency key and open the real project — without a second create POST by default.
++ * Nora FAKE / E2E lane only — not LIVE.
++ */
++
++async function openNewPreparation(page: import("@playwright/test").Page): Promise<string> {
++  await page.getByTestId("portfolio-new-prep").click();
++  await page.waitForURL(/\/preparations\//, { timeout: 30000 });
++  const id = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
++  if (!id) throw new Error("preparationId missing");
++  return id;
++}
++
++test("S02 D2_ACK_OBS: lost ACK after commit → reconcile → real project, one create POST", async ({
++  page,
++}) => {
++  test.setTimeout(120_000);
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  const preparationId = await openNewPreparation(page);
++
++  // Mirror G4: Nora turn unlocks constitute (FAKE fixture).
++  await page.getByTestId("prep-draft").fill("Intention E2E D2 ACK loss (fixture FAKE Nora)");
++  await page.getByTestId("prep-send").click();
++  await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
++    timeout: 30000,
++  });
++
++  await page.getByTestId("prep-constitute").click();
++  await page.getByTestId("prep-adopt-nora").click();
++  await page.getByTestId("prep-proposal-name").fill("ML4C D2 AckLost");
++  await page.getByTestId("prep-proposal-save").click();
++  await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 15000 });
++  const createBtn = page.getByTestId("prep-create-project");
++  await expect(createBtn).toBeEnabled({ timeout: 20000 });
++
++  let createPosts = 0;
++  const keys: string[] = [];
++  await page.route("**/api/preparations/*/create-project", async (route) => {
++    const req = route.request();
++    if (req.method() !== "POST") {
++      await route.continue();
++      return;
++    }
++    createPosts += 1;
++    try {
++      const body = req.postDataJSON() as { idempotencyKey?: string };
++      if (body.idempotencyKey) keys.push(body.idempotencyKey);
++    } catch {
++      /* ignore */
++    }
++    if (createPosts === 1) {
++      // page.request bypasses this page.route so the server commits.
++      const upstream = await page.request.fetch(req);
++      expect(upstream.ok()).toBeTruthy();
++      await route.fulfill({
++        status: 502,
++        contentType: "application/json",
++        body: JSON.stringify({
++          status: "FAILED",
++          reason: "ACK_LOST_SIM_D2",
++          errorCategory: "ACK_LOST_SIM",
++        }),
++      });
++      return;
++    }
++    await route.continue();
++  });
++
++  await createBtn.click();
++  await expect(page).toHaveURL(/\/projects\//, { timeout: 30000 });
++  expect(createPosts).toBe(1);
++  expect(keys[0]).toBe(`create-${preparationId}`);
++
++  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
++  expect(projectId).toBeTruthy();
++
++  const recon = await page.request.get(
++    `/api/preparations/${preparationId}/reconcile?idempotencyKey=${encodeURIComponent(keys[0]!)}`,
++  );
++  const reconJson = (await recon.json()) as { status?: string; projectId?: string };
++  expect(reconJson.status).toBe("ALREADY_CREATED");
++  expect(reconJson.projectId).toBe(projectId);
++});
+diff --git a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
+index 6f174ced..d34f1f3e 100644
+--- a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
+@@ -34,7 +34,10 @@ import {
+ } from "@/domains/execution/effect-service";
+ import { listMessages, postUserMessageAndNora } from "@/domains/conversation/service";
+ import { listDocuments, savePreparationDocument } from "@/domains/document/service";
+-import { qualifyDocumentAct } from "@/domains/conversation/document-act";
++import {
++  hasCompetingTransactionalClaim,
++  qualifyDocumentAct,
++} from "@/domains/conversation/document-act";
+ import {
+   capitalizeAcquis,
+   ensureSubject,
+@@ -211,6 +214,66 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
+
+     const docs = await listDocuments(pilotId, preparationId);
+     expect(docs.some((d) => d.document.id === cont.documentSave?.documentId)).toBe(true);
++
++    // S03: persisted assistant must carry D4 applicative ACK and no competing claim.
++    const msgs = await listMessages(pilotId, preparationId);
++    const assistant = [...msgs].reverse().find((m) => m.role === "assistant");
++    expect(assistant?.content).toMatch(/Résultat applicatif D4/i);
++    expect(assistant?.content).toMatch(/AVAILABLE/i);
++    expect(
++      hasCompetingTransactionalClaim(assistant?.content ?? "", {
++        act: "CREATE",
++        status: "AVAILABLE",
++        documentId: cont.documentSave?.documentId,
++        revisionId: cont.documentSave?.revisionId,
++        revisionNumber: cont.documentSave?.revisionNumber,
++      }),
++    ).toBe(false);
++  });
++
++  it("S05: independent question while AWAITING_PILOT_ACT keeps mission and creates no project", async () => {
++    const { pilotId, preparationId } = await seedPrepOnly("scen-s05-independent");
++    const clientTurnKey = newId("ctk");
++    const first = await postUserMessageAndNora(
++      pilotId,
++      preparationId,
++      "Crée un projet nommé Wait Decision S05.",
++      { clientTurnKey },
++    );
++    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
++    expect(first.missionProjection?.clientIntentKey).toBe(clientTurnKey);
++
++    const q = await postUserMessageAndNora(
++      pilotId,
++      preparationId,
++      "Pendant que j'y réfléchis : quelle est la différence entre un blob et un commit ?",
++      { clientTurnKey: newId("ctk") },
++    );
++    expect(q.documentSave == null || q.documentSave.status === "NOT_EXECUTED").toBe(true);
++
++    const ctx = await getPreparationContext(pilotId, preparationId);
++    expect(ctx.project).toBeFalsy();
++    expect(ctx.conversation?.id).toBeTruthy();
++
++    // Independent question must not authorize create — original mission key still binds D2.
++    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
++    const verified = await verifyMissionForD2Act({
++      conversationId: ctx.conversation!.id,
++      preparationId,
++      clientIntentKey: clientTurnKey,
++      projectName: prep.previewName || "Wait Decision S05",
++    });
++    expect(verified.status).toBe("OK");
++
++    const created = await createProjectCommand({
++      pilotId,
++      preparationId,
++      expectedCreationRevision: prep.creationRevision,
++      projectName: prep.previewName || "Wait Decision S05",
++      previewSummary: prep.previewSummary || "s",
++      idempotencyKey: d2MissionIdempotencyKey(clientTurnKey),
++    });
++    expect(created.status).toBe("CREATED");
+   });
+
+   it("G1+S04: after continue, mission is not awaiting; double continue is replay", async () => {
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
+new file mode 100644
+index 00000000..870ecb90
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
+@@ -0,0 +1,56 @@
++import { readFileSync } from "node:fs";
++import { join } from "node:path";
++import { describe, expect, it } from "vitest";
++import {
++  appendDocumentEffectAck,
++  hasCompetingTransactionalClaim,
++} from "@/domains/conversation/document-act";
++import { emptyMission } from "@/domains/conversation/intent-conduction";
++import { appendMissionAck } from "@/domains/conversation/mission-continuity";
++
++describe("ML4C S01 portfolio — no index-derived status", () => {
++  it("portfolio page does not invent Actif/En réflexion/À reprendre by list index", () => {
++    const src = readFileSync(
++      join(__dirname, "../../src/app/portfolio/page.tsx"),
++      "utf8",
++    );
++    expect(src).not.toMatch(/statusForProject\s*\(\s*index/);
++    expect(src).toMatch(/statusForOwnedProject/);
++    expect(src).toMatch(/Accessible/);
++    expect(src).not.toMatch(/if \(index === 0\) return \{ label: "Actif"/);
++  });
++});
++
++describe("ML4C S02 create UI — reconcile after ACK loss", () => {
++  it("preparations page reconciles create-project with same idempotency key", () => {
++    const src = readFileSync(
++      join(__dirname, "../../src/app/preparations/[preparationId]/page.tsx"),
++      "utf8",
++    );
++    expect(src).toMatch(/reconcileCreateAfterAckLoss/);
++    expect(src).toMatch(/\/reconcile\?idempotencyKey=/);
++    expect(src).toMatch(/ALREADY_CREATED \(réconcilié après ACK perdu\)/);
++  });
++});
++
++describe("ML4C S03 continueAfter composition — document ACK", () => {
++  it("AVAILABLE effect with Nora « non enregistré » yields no competing claim after ACK path", () => {
++    const noraLie =
++      "Je ne peux pas enregistrer le document : les outils disponibles sont en lecture seule. Aucune révision créée.";
++    const effect = {
++      act: "CREATE" as const,
++      status: "AVAILABLE" as const,
++      documentId: "doc_1",
++      revisionId: "rev_1",
++      revisionNumber: 1,
++    };
++    const composed = appendMissionAck(appendDocumentEffectAck(noraLie, effect), {
++      ...emptyMission("ctk_1", "continue after create"),
++      status: "COMPLETED",
++      restitution: "DELIVERED",
++    });
++    expect(composed).toMatch(/Résultat applicatif D4/i);
++    expect(composed).toMatch(/AVAILABLE/);
++    expect(hasCompetingTransactionalClaim(composed, effect)).toBe(false);
++  });
++});
 ```
 
 ---
 
-## 7. Validations locales
+## 6. Preuves tests
 
-### 7.1 Unit gate + document-act
+### ENV isolation
+
+```
+sfia_next_dev|8850
+sfia_next_e2e|33
+REFUSE VITEST_PG_TARGET_FORBIDDEN
+PREPARE e2e
+```
+
+Operator pilots avant/après :
+
+```
+before=8850
+after=8850
+```
+
+### Unit
 
 ```
 ◇ injected env (21) from .env.local
@@ -488,133 +659,104 @@ index 55963580..b3b9d9df 100644
 stderr | tests/unit/document-act.test.ts
 ◇ injected env (0) from .env.local
 
- ✓ tests/unit/document-act.test.ts (94 tests) 20ms
+ ✓ tests/unit/document-act.test.ts (94 tests) 18ms
 stderr | tests/unit/e2e-pg-gate.test.ts
 ◇ injected env (0) from .env.local
 
- ✓ tests/unit/e2e-pg-gate.test.ts (8 tests) 3ms
-
- Test Files  2 passed (2)
-      Tests  102 passed (102)
-   Start at  16:53:10
-   Duration  483ms (transform 74ms, setup 30ms, collect 60ms, tests 22ms, environment 0ms, prepare 68ms)
-```
-
-### 7.2 Refuse opérateur (tsx, no network)
-
-```
-REFUSE_OPERATOR VITEST_PG_TARGET_FORBIDDEN
-PREPARE e2e
-```
-
-### 7.3 A05 direct PG + oracle opérateur READ ONLY
-
-```
-◇ injected env (21) from .env.local
-
- RUN  v3.2.4 /Users/morris/Projects/sfia-workspace-ml4c-cp2-t2-diag-20261111/projects/sfia-studio-next/web
-
-stderr | tests/integration/create-project.pg.test.ts
+ ✓ tests/unit/e2e-pg-gate.test.ts (8 tests) 2ms
+stderr | tests/unit/intent-conduction.test.ts
 ◇ injected env (0) from .env.local
 
-stderr | tests/integration/create-project.pg.test.ts
+ ✓ tests/unit/intent-conduction.test.ts (8 tests) 7ms
+stderr | tests/unit/ml4c-s01-s03-guards.test.ts
 ◇ injected env (0) from .env.local
 
- ✓ tests/integration/create-project.pg.test.ts (17 tests | 16 skipped) 51ms
+ ✓ tests/unit/ml4c-s01-s03-guards.test.ts (3 tests) 2ms
 
- Test Files  1 passed (1)
-      Tests  1 passed | 16 skipped (17)
-   Start at  16:53:19
-   Duration  567ms (transform 170ms, setup 14ms, collect 409ms, tests 51ms, environment 0ms, prepare 23ms)
+ Test Files  4 passed (4)
+      Tests  113 passed (113)
+   Start at  19:01:59
+   Duration  1.04s (transform 151ms, setup 27ms, collect 559ms, tests 29ms, environment 0ms, prepare 86ms)
 ```
 
-Avant :
+### PG S02/S03/S05
 
 ```
-BEGIN
-8850|2026-11-11 12:45:55.987538+00
-COMMIT
+ ✓ tests/integration/intent-continuity-global.pg.test.ts (22 tests | 19 skipped) 242ms
+      Tests  3 passed | 19 skipped (22)
 ```
 
-Après :
+### PG A05 + S06 SCRIPTED
 
 ```
-BEGIN
-8850|2026-11-11 12:45:55.987538+00
-COMMIT
+ ✓ tests/integration/create-project.pg.test.ts (17 tests | 14 skipped) 61ms
+      Tests  3 passed | 14 skipped (17)
+ ✓ tests/integration/git-collaboration.pg.test.ts (93 tests | 76 skipped) 760ms
+      Tests  17 passed | 76 skipped (93)
 ```
 
-Identique **8850** / max `created_at` inchangé. tsc PASS ; lint PASS (warnings préexistants hors périmètre) ; build PASS.
+### Playwright D2_ACK_OBS
+
+```
+[1/1] tests/e2e/d2-ack-loss-reconcile.spec.ts:18:5 › S02 D2_ACK_OBS: lost ACK after commit → reconcile → real project, one create POST
+  1 passed (12.1s)
+```
 
 ---
 
-## 8. CI réelle liée au HEAD final `051aaf36`
+## 7. Fake/Real
 
-| Check | Résultat | Run |
-| --- | --- | --- |
-| Detect SFIA Studio Next changes | **PASS** | 43063114018 |
-| Build and validate SFIA Studio Next | **PASS** (7m37s) | job 130670803034 |
-| — Apply migrations E2E (Vitest) | **PASS** | step OK |
-| — Vitest PostgreSQL integration | **PASS** | step OK |
-| — Playwright BROWSER FAKE | **PASS** | step OK |
-| SFIA Studio Next Required Gate | **PASS** | job 130675284749 |
-| Detect/Required Gate legacy Studio | PASS / validate skipped (hors Next) | 43063114020 |
-
-URL run Next : https://github.com/mcleland147/sfia-workspace/actions/runs/43063114018
-
-Historique échecs antérieurs (même PR, SHA antérieurs) : Playwright install apt DNS sur Ubuntu 26 — **non lié** au gate ENV-B (E2E migrate + Vitest PG déjà PASS sur `25d6e2fb` / `871953ac`).
-
----
-
-## 9. Non-régression / environnements
-
-- DEV poste : opérateur non muté (oracle 8850).
-- RECETTE / STABLE : non touchés.
-- CI : Postgres Docker éphémère synthétique uniquement.
-- Nora : FAKE only.
-- Branche docs CP2 : non incluse.
-
----
-
-## 10. Actions non effectuées
-
-Merge ; auto-merge ; ENV-C cleanup ; ENV-D LIVE ; ML4C S01–S07 ; permissions PG ; release/promotion ; push main.
-
----
-
-## 11. Réserves et décisions Morris
-
-| Réserve | Exit |
+| Frontière | Niveau |
 | --- | --- |
-| Merge PR #675 | **GO Morris explicite** après revue ChatGPT |
-| Pin ubuntu-24.04 | conserver jusqu’à stabilisation apt Ubuntu 26 |
-| ENV-C cleanup | GO distinct |
-| Rôles PG e2e-only | GO ultérieur |
-| ML4C build | GO global distinct |
+| PostgreSQL e2e | réel éphémère / synthétique |
+| BROWSER | réel + Nora FAKE |
+| Nora LIVE | NOT RUN |
+| Git REAL | NOT RUN |
+| RECETTE/STABLE | non touchés |
 
 ---
 
-## 12. Verdict
+## 8. Réserves / dette / exit
 
-**ENV-B FAST-TRACK — PR READY FOR MORRIS MERGE REVIEW**
-
-CI Next Required Gate PASS sur HEAD `051aaf36`. Merge NON autorisé dans ce cycle.
+| Item | Gravité | Exit |
+| --- | --- | --- |
+| S04 LIVE + jugement Pilote | haute cognition | GO LIVE dédié |
+| S06 Git REAL sandbox | haute | GO REAL dédié |
+| S07 campagne intégrale ML1–ML4 | moyenne | suite intégration |
+| ENV-C cleanup 25 pilots | données | GO CLEANUP |
+| Push/PR/merge | gouvernance | GO Morris |
+| ML4D UX globale | hors ML4C | GO ML4D |
 
 ---
 
-## 13. Instruction ChatGPT §9.1
+## 9. Actions non effectuées
 
-Relire ce handoff canonique distant ; vérifier PR #675 et CI run `43063114018` liés au SHA `051aaf36f02bc05114a4c4240353b62bd96a628c` ; examiner diffs §5–§6 ; puis verdict indépendant. Fusion = GO Morris séparé.
+Push projet ; PR ; merge ; RECETTE ; STABLE ; Nora LIVE ; Git REAL ; ENV-C ; ML5 ; ML4D.
 
 ---
 
-## 14. Git Review Index
+## 10. Verdict
+
+**ML4C FUNCTIONAL BUILD — LOCAL CANDIDATE READY FOR CHATGPT TECHNICAL REVIEW WITH LIVE/REAL GATES CARRIED**
+
+S07 partiel ; S04/S06 LIVE/REAL exclus du mandat.
+
+---
+
+## 11. Instruction ChatGPT §9.1
+
+Relire à distance `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`.
+Vérifier SHA/blob, diffs §5, preuves S01–S07, isolation ENV-B, absence de push projet, réserves LIVE/REAL.
+Verdict indépendant avant toute proposition de push/PR/merge.
+
+---
+
+## 12. Git Review Index
 
 | Ref | SHA |
 | --- | --- |
-| main | 42aa373947446a8c20694b06c559ee0da1cba580 |
-| ENV-B code | b7166fd8ef99452af33413c2b77a67fc9ed20bac |
-| PR HEAD | 051aaf36f02bc05114a4c4240353b62bd96a628c |
-| Tree | fc359ccb0aaa22e0e3a8aa2328eadc2fec677976 |
-| CI run Next | 43063114018 |
-| Handoff ENV-B review antérieur | a44251b5ab26e38b5db16b47536a658467e13ca8 |
+| main | 6d237452680640324eeadbb18f4601fd7de99850 |
+| HEAD local ML4C | cbfadadcae22eed9007ce1fbb1a095cbc02561af |
+| Tree | d46b3983be13576b9144466ae65a046f939a07b4 |
+| CP2 docs | ab0c2ba3affc1556d2e5a57d863af20685509de1 |
+| ENV-B FT handoff | 3fbc9a9646bb0c9a1bfdf01b9eb05dc3ac8a971d |
