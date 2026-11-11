@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-11-ENV-B-VITEST-PG-GATE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-11 (Europe/Paris) |
+| Macro-lot | ML4C / CP2 — ENV-B sécurisation tests PostgreSQL |
+| Type | INC — sûreté dispositif de test (NO RELEASE) |
+| Branch | `fix/next-env-b-vitest-pg-gate` |
+| Parent | main `42aa3739` |
+| Lane | DEV :5433; mutative Vitest → `sfia_next_e2e` only; RECETTE/STABLE untouched |
+| Changes | Fail-closed Vitest PG gate (`e2e-pg-gate` + setup + `db/client`); CI migrates `sfia_next_e2e` before Vitest integration |
+| Schema | unchanged (reuse migrations 001→012 on ephemeral CI E2E DB) |
+| Status | PR readiness — merge soumis à décision Morris — NO RELEASE |
+
 ## delivery_id: DELIV-2026-11-10-ML4-NORA-PR-READINESS-INTEGRATION
 
 | Field | Value |

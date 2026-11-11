@@ -16,7 +16,9 @@
 #
 # Node: 24. Postgres: 16-alpine ephemeral Docker matching DEV gate identities:
 #   container sfia-next-dev-pg, 127.0.0.1:5433→5432, DBs sfia_next_dev + sfia_next_e2e.
-# Migrations (ML2): 001→006 via scripts/db-migrate.sh.
+# Migrations: 001→012 via scripts/db-migrate.sh.
+# Vitest mutative (ENV-B): targets sfia_next_e2e only — migrate E2E schema before integration.
+# Playwright webServer still migrates E2E after preflight (migrations are IF NOT EXISTS / rejouable).
 # Nora: STUDIO_E2E=1 + OPENAI_API_KEY neutralized — FAKE only.
 #
 # Corrections vs Cycle-7 proposal artefact:
@@ -282,7 +284,14 @@ jobs:
       - name: Vitest unit
         run: npm run test:unit
 
-      - name: Apply migrations 001→006 on operator DB
+      - name: Apply migrations 001→012 on operator DB
+        run: npm run db:migrate
+
+      # ENV-B: Vitest setup rewrites DATABASE_URL → sfia_next_e2e; schema must exist first.
+      # Keep operator migrate above (synthetic CI operator lane). Playwright re-migrates E2E later.
+      - name: Apply migrations 001→012 on E2E DB (Vitest mutative target)
+        env:
+          SFIA_PG_DATABASE: sfia_next_e2e
         run: npm run db:migrate
 
       - name: Vitest PostgreSQL integration
