@@ -4,7 +4,7 @@
 **Ouverture :** 10 novembre 2026.
 **Baseline d'analyse :** `mcleland147/sfia-workspace`, `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4` (après PR #673).
 **Branche candidate :** `docs/next-reconciliation-produit-ml1-20261110`.
-**État :** `DOCUMENTED / CP1 IN PROGRESS / NOT REVIEWED BY MORRIS / NO PRODUCT CHANGE`.
+**État :** `DOCUMENTED / CP1 SYNTHESIS CANDIDATE FOR MORRIS REVIEW / GATE B NOT HELD / NO PRODUCT CHANGE`.
 **Environnement local, runtime, DB et navigateur :** `NON OBSERVÉS`.
 
 ## 1. Résultat du dossier et frontière
@@ -59,6 +59,7 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 | **ML2 — Production et capitalisation** | [17 capacités](ml2/diagnostic-ml2-contrats-capacites.md) · [Consolidation ML2/QA/réserves](ml2/consolidation-capacites-qa-reserves-ml2-ml4.md) · [D3 : 118 RG/PF](ml2/verification-detaillee-conduite-nora-d3.md) · [D4 : 46 RG/PF](ml2/verification-detaillee-connaissance-d4.md) · [E2E03 + E2E04](ml2/reconciliation-e2e03-e2e04-preuves.md) | **17/17 capacités, Q01–Q29, COG-01–07, OBS-Q01–12 rapprochés des preuves**, 164/164 références D3/D4 rattachées et 12 étapes E2E étudiées ; conformité LIVE globale et Figma/runtime non certifiées, CP1 ouvert |
 | **ML3 — Pilotage et décisions** | [Diagnostic détaillé D5/D6 : 136 références](ml3/diagnostic-pilotage-decisions-d5-d6.md) · [E2E02/E2E04 : continuité et autorité Git](ml3/reconciliation-e2e02-e2e04-continuite-autorite-git.md) · [Matrice ML3](../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) · [Décision Morris](../../governance/decisions/2026-11-07-pilotage-decisions-formal-exit.md) | **136/136 références D5/D6 et 12/12 étapes R1 E2E02/E2E04 rapprochées**, 18 oracles QA et LIVE 8/8 + C03 requalifiés ; **4 constats transverses principaux, 2 réserves complémentaires**, preuves UX/LIVE globales manquantes |
 | **ML4 — Collaboration et Git** | [Diagnostic capacités/22 QA/E2E07](ml4/diagnostic-capacites-qa-recette-ml4.md) · [213 références R2 D7/D8/D9](ml4/inventaire-r2-d7-d8-d9.md) · [Registre historique de RECETTE](../ml4-integration-git/recette-ml4-r01-r14-anomalies.md) | **213/213 références R2 indexées, 22/22 critères ML4-AT qualifiés, E2E07 7/7 étapes rapprochées** ; REAL documentaire borné historique, G1 ciblé ; **R12 Git/R13/R14 USER non exécutés**, merge REAL hard-blocked, UX Figma non certifiée ; **ML4 non accepté globalement** |
+| **Synthèse transverse R1 → Gate B** | [Sept parcours et 43 étapes, 628 IDs R2, options de convergence](transversal/synthese-r1-e2e-gate-b.md) | **Neuf domaines rattachés, huit familles d'écarts non dupliquées et trois options de macro-lots A/B/C** ; dossier documentaire **candidat à revue Morris**, conformité E2E/Figma globale non prouvée, gate B non tenu |
 | **UX transversal** | [G4 as-built](../convergence-ux-parcours-pilote-nora/as-built-g4-figma-ux-transposition-2026-11-08.md) | 19/20 frames **déclarées** implémentées, 1 partielle ; F2/G5 NOT RUN : aucune conformité visuelle acquise |
 
 **Statuts historiques à préserver :** ML1 fermé Morris avec réserves (#649) ; ML2 accepté fonctionnellement avec réserves (#659), sans clôture nouvelle inférée ; ML3 fermé avec réserves (#661) ; ML4 code intégré mais recette globale non acceptée. Aucun ADOPTED.
@@ -162,6 +163,16 @@ La [réconciliation des capacités ML4](ml4/diagnostic-capacites-qa-recette-ml4.
 **Acquis :** intégration GitHub App/OAuth et lecture REAL ciblées ; publication documentaire API/Studio REAL bornée antérieure (commit et PR ouverte sur sandbox), code de mandat D6/fingerprint/permissions/restrictions et dédoublonnage/réconciliation ; G1 a qualifié un chemin absent sous ref vérifiée, préparé un diff D7 `PREPARED/CREATE` et corrigé une provenance ciblée en LIVE. **Réserves :** en USER RECETTE aucune nouvelle mutation Git R12, R13/R14 non exécutés, **merge REAL hard-blocked** ; `ML4-REC-08` demeure un FAIL LIVE de narration malgré `D4 REVISE AVAILABLE` ; multi-compte/revocation/adversarial et fidélité Figma/runtime insuffisamment prouvés.
 
 **E2E :** les **sept étapes de R1 E2E07** sont rapprochées des services et preuves ; E2E05/E2E06 ne sont couverts qu'à la frontière **Git documentaire** de D7/D8/D9, tandis que l'exécution technique Cursor reste **ML5 OUT**. Il n'y a ni second moteur d'autorisation, ni nouvelle décision, ni publication Git. **ML4 globalement NOT ACCEPTED ; CP1/Gate B reste ouvert.**
+
+## 5.12. CP1 — Synthèse transverse des sept E2E et préparation du gate B (2026-11-11)
+
+La [synthèse transverse](transversal/synthese-r1-e2e-gate-b.md) rapproche **43/43 étapes nominales R1 E2E01–E2E07** aux capacités historiques, responsabilités D1–D9, sources de code et QA disponibles. Les annexes ML1–ML4 indexent au total **628 identifiants RG/PF**, y compris les addenda/candidats explicitement distingués. **Ce total est une couverture documentaire, pas 628 PASS individuels ni sept parcours prouvés LIVE.**
+
+Le registre de consolidation réunit **huit familles de constats** sans doublonner les découvertes précédentes : parole Nora vs effet D4 réel, mémoire pertinente, pending et reprise, publication Git USER, autorité et permissions, restitution UX/Figma, erreurs/résilience, et frontière de périmètre merge REAL/ML5. Les preuves historiques demeurent attachées à leurs SHA/lanes ; le dernier rejeu G1 ne vaut ni R12–R14 complet ni acceptation ML4.
+
+Trois **options de convergence ML4C** sont proposées **à arbitrage**, et non décidées : **A** continuité/vérité des actions, **B** valeur cognitive/mémoire/restitution, **C** publication Git documentaire gouvernée. Les cas négatifs/UX/observabilité sont intégrés à leur parcours propriétaire. Le merge REAL ne sort pas de son blocage sans décision Morris distincte ; Cursor reste **ML5 OUT**.
+
+**État :** `CP1 DOCUMENTED / GATE B NOT HELD / MORRIS REVIEW PENDING / NO ML4C GO`. Le dossier peut être challengé et corrigé avant toute validation ; cette publication documentaire ne déclenche aucune opération technique, Figma, PR, merge ou R6.
 
 ## 6. Preuve UX à produire et gate CP1
 
