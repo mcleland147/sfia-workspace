@@ -979,7 +979,7 @@ Sortie Playwright (extrait) :
 | tree | `9d2770066454289d7797c6e28c24d244d40c396b` |
 | parent tip | `cb0738b55ec96a2f85ba1f30fa2f508e816b5266` |
 | prior handoff | `fbc83e84` / blob `0e8ee695` |
-| this handoff | `3d60a8027bbafd533bed948cd422fcd69e05ec53` / blob `0e6989e9bee3d5654982be7f59ea4784870d76a7` |
+| this handoff | `WILL_SET` / blob `WILL_SET` |
 
 Fichiers touchés (correctif) : 9 (dont 1 créé). Push ML4C : non.
 
