@@ -1,7 +1,7 @@
 # SFIA Studio Next — Review Pack FULL
 # ML4C / CP2 / T2 — Qualification causale D2 ACK + D4/ML4-REC-08
 
-**Date/heure :** 2026-11-11 13:48 +0100 (Europe/Paris)
+**Date/heure :** 2026-11-11 13:56 +0100 (Europe/Paris)
 **Cycle projet :** 9 — QA / validation
 **Profil :** Standard — QA diagnostique ciblée
 **Macro-lot :** ML4C — CP2 / T2 Expliquer
@@ -56,11 +56,12 @@ Worktree Product d'origine restauré : `sfia-workspace-next-intent-continuity-de
 | DB opérateur | `sfia_next_dev` | **touch accidentel** 1er run create-project + recheck A05 après restore `.env.local` | RÉSERVE ENV |
 | RECETTE | :5434 / `sfia_next_recette` | lecture identité seule ; **aucune écriture** | PROTÉGÉE |
 | :3200 | process node listen | RECETTE-like — **non utiliséé** | OK |
-| :3100 / :3101 | non listen au moment du diagnostic | BROWSER E2E non démarré | NOT RUN |
-| Nora fixture | `STUDIO_FORCE_NORA_FIXTURE=1` | tests PG/unit | DETERMINISTIC |
-| Nora LIVE | credentials présents (longueur seule) | **NOT RUN** — LIVE sur :3100 = DB opérateur ; E2E server force fixture / neutralise OPENAI | REALISM GAP |
+| :3101 E2E | `sfia_next_e2e` + Next owned | Playwright FAKE (ml2-c3 + disposable D2 ACK) | OK |
+| :3100 DEV operator | non listen / non démarré | évité volontairement | OK |
+| Nora fixture | `STUDIO_FORCE_NORA_FIXTURE=1` (E2E/PG) | tests | DETERMINISTIC |
+| Nora LIVE | credential HTTP 200 (sonde models) | **Studio turn NOT RUN** — E2E force fixture ; pas de serveur LIVE isolé | REALISM GAP |
 
-**ENV-01 :** isolation E2E démontrée pour preuves retenues. Pollution opérateur bornée (pilotes de test seed `A01`…`projCtx*` créés ~12:43Z et ~12:45Z) — **pas de cleanup** sans GO. Aucun secret dans ce pack.
+**ENV-01 :** preuves retenues sur `sfia_next_e2e` + :3101. Un premier run Vitest a pu toucher l'opérateur si `.env.local` pointait e2e/opérateur de façon ambiguë — **réserve pollution opérateur possible** ; pas de cleanup sans GO. RECETTE non touchée. Aucun secret dans ce pack.
 
 ---
 
@@ -73,10 +74,13 @@ Worktree Product d'origine restauré : `sfia-workspace-next-intent-continuity-de
 | `vitest ml4-chat-first-d4-provenance.pg.test.ts` | `sfia_next_e2e` | **19 PASS** (CREATE/REVISE ACK, R06 fixture) |
 | `vitest mission-continuity-accept01.pg.test.ts` | `sfia_next_e2e` | **8 PASS** |
 | Sous-ensemble ACK coherence document-act | n/a | **8 PASS** |
-| Playwright BROWSER D2 ACK-loss inject | — | **NOT RUN** |
+| `vitest intent-continuity-global.pg.test.ts` | `sfia_next_e2e` | **21 PASS** (avec accept01 = 29) |
+| Playwright `ml2-c3-stable-key.spec.ts` | :3101 FAKE | **1 PASS** (ACK doc) |
+| Playwright disposable D2 ACK-loss (hors `tests/e2e` versionné) | :3101 FAKE | **1 PASS** — `D2_ACK_OBS` |
 | Nora LIVE REVISE@42aa3739 | — | **NOT RUN** |
 
-Sorties locales : `/tmp/sfia-ml4c-t2-*.txt` (jetables, non versionnés).
+Observation BROWSER D2 (anonymisée) :
+`createPosts=1`, key=`d2:mission:turn-…`, `reconHttp=200`, `reconStatus=ALREADY_CREATED`, `projectId=proj_…`, `navigatedToProject=false`, `statusSnippet=FAILED`, `secondClick=false`, `pageErrors=[]`.
 
 ---
 
@@ -89,7 +93,7 @@ Sorties locales : `/tmp/sfia-ml4c-t2-*.txt` (jetables, non versionnés).
 | D2 replay after commit (lost ACK serveur) | PASS | A05 + reconcile |
 | D2 fingerprint conflict | PASS | A04b |
 | D2 cross-prep key / foreign reconcile | PASS | A04d / FORBIDDEN |
-| D2 ACK perdu **navigateur** post-commit | **INCOMPLETE / TOOLING GAP** | UI sans try/catch/reconcile **CONFIRMÉ code** ; injection `route.fetch` existante ailleurs (`ml3-pilotage`) non rejouée ici sans serveur :3101 |
+| D2 ACK perdu **navigateur** post-commit | **PASS diagnostic** | Serveur `ALREADY_CREATED` + UI `FAILED` sans navigation ; pas de 2ᵉ clic (`secondClick=false`) — gap reprise UI **CONFIRMÉ BROWSER** |
 | D2 refresh après create silencieux | **HYPOTHESIS→CODE CONFIRMED path** | `projectId` → bouton « déjà créé », **pas** de `router.push` hors succès fetch |
 | Erreur non-auth ≠ session expiry | NOT RUN browser | — |
 | Autre Pilote | PASS domaine | A10 / reconcile foreign |
@@ -118,7 +122,7 @@ Sorties locales : `/tmp/sfia-ml4c-t2-*.txt` (jetables, non versionnés).
 3. **Aucun** appel à `GET .../reconcile` (route API existe, non branchée UI).
 4. Navigation `router.push` uniquement sur succès JSON ; refresh avec projet déjà lié → « Projet déjà créé » sans navigation automatique.
 
-**HYPOTHESIS (UX ressentie) :** rejet non géré = « échec inventé » côté Pilote alors que PG a commité.
+**CONFIRMÉ BROWSER :** après drop ACK post-commit, UI affiche `FAILED` (corps de substitution) alors que reconcile = `ALREADY_CREATED` ; pas de navigation succès inventée ; bouton create non réessayé (`secondClick=false`) — reprise opaque vs contrat Documents.
 
 **Garantie à préserver :** transaction create + unique key + reconcile ownership ; ne pas créer de second projet.
 
@@ -162,7 +166,7 @@ assistantContent = reply COMPLETE
 | CODE | CONFIRMED gap UI + solidité serveur | CONFIRMED divergence chat vs continueAfter |
 | PG DET | PASS e2e A04/A05… | PASS provenance + ACCEPT-01 |
 | UNIT | — | PASS ACK coherence |
-| BROWSER | NOT RUN (tooling décrit) | NOT RUN |
+| BROWSER | PASS D2_ACK_OBS (+ ml2-c3 doc) | NOT RUN (REC-08 LIVE/UI) |
 | LIVE | NOT RUN | NOT RUN @42aa3739 ; historique FAIL @93da44be |
 
 Fake/Real : DETERMINISTIC ≠ LIVE ; D4 AVAILABLE ≠ restitution Nora LIVE prouvée ; PG ≠ browser.
@@ -209,7 +213,7 @@ Ne pas : second moteur conversation/TX ; changement schéma ; rouvrir ML4D/ML5/G
 
 | Réserve | Propriétaire | Exit |
 | --- | --- | --- |
-| BROWSER D2 ACK-loss non injecté | Cursor+Morris | GO E2E :3101 + script disposable ou test dédié |
+| E2E create-project ACK-loss **absent du dépôt** (seul harness disposable T2) | Cursor ML4C | Ajouter spec versionnée sur pattern D2_ACK_OBS |
 | LIVE REC-08 @42aa3739 NOT RUN | Morris | Lane DEV isolée sans toucher RECETTE/opérateur métier |
 | Pollution opérateur ~25 pilots test | Morris | GO cleanup ou laisser (pas d'action ce cycle) |
 | Historique ≠ baseline | — | Ne pas merger preuves 93da44be comme PASS actuel |
@@ -241,7 +245,7 @@ Artefacts locaux non commités : `.env.local` (gitignored, DSN e2e), `.tmp-sfia-
 
 **T2 TARGETED DIAGNOSIS COMPLETE — READY FOR CP2 CORRECTION DESIGN**
 
-Preuve graduée : causes D2 UI + D4 continueAfter **CONFIRMÉES** ; serveur D2 **solide** ; chat D4 DET **cohérent** ; BROWSER inject et LIVE @baseline **NOT RUN** → **READY WITH RESERVES**, jamais BEHAVIOR PROVEN global.
+Preuve graduée : causes D2 UI + D4 continueAfter **CONFIRMÉES** ; serveur D2 **solide** ; chat D4 DET **cohérent** ; BROWSER D2 ACK-loss **PASS diagnostic** ; LIVE Studio @baseline **NOT RUN** → **READY WITH RESERVES**, jamais BEHAVIOR PROVEN global.
 
 Aucun GO de développement, PR, merge, promotion ou ADOPTED n'est autorisé par ce verdict.
 
@@ -260,6 +264,7 @@ et vérifier intégralité, preuves, branche, SHAs et réserves.
 | Ref | SHA |
 | --- | --- |
 | Code testé | 42aa373947446a8c20694b06c559ee0da1cba580 |
+| Tree | a502ba7a9c708462b003f6ff4fe237b0072b0ee1 |
 | Docs CP2 | 05cd81ddcd1a2106199a2d7cc704ad21f6b7d623 |
 | REC-08 historique runtime | 93da44beb7e7571c9406180027896769579b9815 / build sHkE8sHJBxD3U9AJdHWi7 |
 | Prior Product integrate (non baseline) | fb4eaf9fef424153c48a4ab9917e4bda99b0e76c |
