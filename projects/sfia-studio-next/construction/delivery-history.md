@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-11-ML4C-S05-INTENT-QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-11 (Europe/Paris) |
+| Macro-lot | ML4C — INC correctif S05 qualification d'intention (PR #676) |
+| Type | INC — robustesse qualification vs exclusion (NO RELEASE) |
+| Branch | `build/next-ml4c-functional-convergence` |
+| Parent tip | `ba91cf71` |
+| Lane | DEV :5433; mutative → `sfia_next_e2e`; RECETTE/STABLE untouched |
+| Changes | `qualifyThreadTurn` (DIALOGUE_INDEPENDANT / INTENTION_EFFET / INCERTAIN) réutilise `qualifyPilotageIntent` + D4 ; fin du défaut « aucune regex ⇒ indépendant » ; CR-02 OPEN_CYCLE « le » |
+| Schema | unchanged |
+| Status | PR #676 corrective — CI à rejouer — LIVE/REAL carried |
+
 ## delivery_id: DELIV-2026-11-11-ML4C-S03-S05-CORRECTIVE
 
 | Field | Value |

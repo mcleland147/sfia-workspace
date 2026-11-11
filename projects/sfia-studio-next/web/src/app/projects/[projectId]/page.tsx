@@ -14,9 +14,9 @@ import {
 } from "@/components/figma/DocumentSurfaces";
 import {
   conversationalClientCommandKey,
-  looksLikeIndependentDialogue,
   mayStartNewThreadAct,
   pendingStorageKey,
+  qualifyThreadTurn,
   shouldClearThreadPending,
   type ThreadPendingTurn,
 } from "@/domains/pilotage/thread-recovery";
@@ -681,10 +681,12 @@ export default function ProjectPage() {
     // CR-02 — exclusive unresolved pending: never overwrite a distinct act silently.
     // ML4C S05 Decision 1 — independent cognitive Q may proceed without replacing pending.
     const pendingBefore = unresolvedPending ?? readPending();
-    const independent = looksLikeIndependentDialogue(text);
+    const turn = qualifyThreadTurn(text);
+    const independent = turn.kind === "DIALOGUE_INDEPENDANT";
     const gate = mayStartNewThreadAct({
       unresolved: pendingBefore,
       nextContent: text,
+      nextTurnKind: turn.kind,
       nextIsIndependentDialogue: independent,
     });
     if (!gate.ok) {
@@ -708,8 +710,9 @@ export default function ProjectPage() {
     }
     const clientTurnKey = messageTurnKeyRef.current.key;
     const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
-    // Independent dialogue must not clobber an unresolved métier pending key.
-    if (!independent) {
+    // Remember métier (or uncertain effect-seeking) turns for ACK recovery.
+    // Independent cognitive dialogue must not clobber an unresolved pending key.
+    if (turn.kind === "INTENTION_EFFET" || turn.kind === "INCERTAIN") {
       rememberPending({ content: text, clientTurnKey, clientCommandKey });
     }
     const preserveMetierPending = independent && Boolean(pendingBefore);

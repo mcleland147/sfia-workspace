@@ -125,6 +125,8 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
     expect(looksLikeIndependentDialogue("Tu peux publier ce document ?")).toBe(false);
     expect(looksLikeIndependentDialogue("Peux-tu créer un autre projet ?")).toBe(false);
     expect(looksLikeIndependentDialogue("Est-ce qu'on peut autoriser cette action ?")).toBe(false);
+    expect(looksLikeIndependentDialogue("Ouvre le cycle cadrage.")).toBe(false);
+    expect(looksLikeIndependentDialogue("Ouvre L cycle cadrage.")).toBe(false);
   });
 
   it("COMPLETE on independent turn must not clear unresolved métier pending", () => {
@@ -146,13 +148,15 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
     ).toBe(true);
   });
 
-  it("project page preserves métier pending across independent COMPLETE", () => {
+  it("project page uses qualifyThreadTurn (not exclusion-only independence)", () => {
     const src = readFileSync(
       join(__dirname, "../../src/app/projects/[projectId]/page.tsx"),
       "utf8",
     );
+    expect(src).toMatch(/qualifyThreadTurn/);
     expect(src).toMatch(/preserveUnresolvedMetierPending/);
     expect(src).toMatch(/preserveMetierPending/);
     expect(src).toMatch(/pendingBefore/);
+    expect(src).toMatch(/nextTurnKind/);
   });
 });
