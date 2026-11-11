@@ -1,5 +1,20 @@
 # SFIA Studio Next — Living Roadmap
 
+> **ÉTAT COURANT R5 — GATE B ACCEPTÉ AVEC RÉSERVES PAR MORRIS (11/11/2026 ; décision sur branche documentaire candidate)** : [décision Gate B](decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md). Le diagnostic ML4B/CP1, intégré sur `main` via PR #674, est **accepté comme base de convergence** et son objectif documentaire est **clôturé avec réserves** ; cette clôture ne vaut ni acceptation globale ML4 ni `BEHAVIOR PROVEN`. Les familles X-01..X-08 et les limites de preuve restent ouvertes selon leur propriétaire. **CP2 peut être finalisé**, sans GO Cursor, code, Git REAL, PR, merge, ML4D exécuté ou `ADOPTED`. Cette entrée postérieure prévaut sur les instantanés « Gate B ouvert » conservés plus bas.
+
+## R5 — Sortie Gate B et entrée CP2 (11 novembre 2026)
+
+- **B-01** : CP1 accepté **avec réserves**, 628 RG/PF indexés / 43 étapes R1 source-mappées, sans PASS/BEHAVIOR PROVEN global.
+- **B-02** : convergence ML4C intégrée sur capacités **ML1–ML4 / D1–D9**, incluant cockpit/sas/Nora/documents/décisions/Git documentaire et UX fonctionnelle indispensable ; ML4D reste UX/UI globale.
+- **B-03** : priorités vérité des états/effets, autorité, continuité/idempotence et valeurs cognitives ; oracles négatifs et preuves proportionnées avant acceptation.
+- **B-04** : tests Git REAL sur sandbox et sous GO spécifique uniquement ; merge REAL **HARD-BLOCKED / OUT** sauf arbitrage distinct.
+- **B-05** : Figma/runtime global F2/G5 **NOT RUN** ; UX indispensable dans ML4C, fidélité globale et responsive à revoir dans ML4D, sans chantier « shell-first ».
+- **B-06** : CP2 finalisation, GO ML4C distinct, réception intermédiaire, ML4D sous GO distinct, Gate C final, puis ML5 et R6 ; réserves avec propriétaire/risque/exit.
+
+**Statut de contenu :** `ML4B DOCUMENTARY CLOSED WITH RESERVES / GATE B ACCEPTED WITH RESERVES / CP2 CANDIDATE IN FINALIZATION / NO BUILD GO / GATE C OPEN / NO ADOPTED`. **Statut Git :** contribution D2 sur branche candidate, `main` non modifiée. Les diagnostics et décisions historiques conservent leur statut daté.
+
+---
+
 > **ÉTAT COURANT R5 — 2026-11-11 / ARBITRAGE MORRIS ML4C+ML4D VALIDÉ EN ORIENTATION** : la [nouvelle décision complémentaire](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) introduit **ML4C — convergence fonctionnelle intégrée de toutes les capacités construites ML1–ML4, cockpit et UX fonctionnelle compris**, puis **ML4D — convergence UX/UI globale et fidélité Figma**, avant le Gate C final. Le diagnostic ML4B/CP1 est intégré sur `main` via [PR #674](https://github.com/mcleland147/sfia-workspace/pull/674) (merge `42aa373947446a8c20694b06c559ee0da1cba580`) mais **CP1 reste candidat à acceptation Morris / Gate B NON TENU**. Aucune construction, Figma, GO Cursor, PR/merge projet, ML5, STABLE, release ou ADOPTED n'est autorisée par cet arbitrage.
 
 ## R5 — Addendum de trajectoire ML4C / ML4D (11 novembre 2026)
