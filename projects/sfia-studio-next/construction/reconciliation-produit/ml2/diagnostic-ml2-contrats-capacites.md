@@ -5,7 +5,7 @@
 **Environnement local / runtime / navigateur : NON OBSERVÉS.** Aucun test n'a été réexécuté dans ce diagnostic.
 **Statut :** `ML2 17/17 CAPABILITIES SOURCE-TO-CODE MAPPED / D3 118/118 + D4 46/46 IDS MAPPED / E2E03-E2E04 FIRST PASS / FULL LIVE & F2-G5 NOT RUN / CP1 OPEN`.
 
-[Index ML4B](../README.md) · [Revue individuelle D3](verification-detaillee-conduite-nora-d3.md) · [Revue individuelle D4](verification-detaillee-connaissance-d4.md) · [Réconciliation E2E03/E2E04](reconciliation-e2e03-e2e04-preuves.md).
+[Index ML4B](../README.md) · [Consolidation ML2 complète](consolidation-capacites-qa-reserves-ml2-ml4.md) · [Revue D3](verification-detaillee-conduite-nora-d3.md) · [Revue D4](verification-detaillee-connaissance-d4.md) · [E2E03/E2E04](reconciliation-e2e03-e2e04-preuves.md).
 
 ## 1. Contrat initial, résultat et frontières
 
@@ -81,8 +81,16 @@ Le tableau provient des IDs `ML2-COH-01..17` déjà existants dans la **matrice 
 
 **Nuance :** les écarts de code déjà remontés en ML1, les anomalies enregistrées par la RECETTE ML4 et les problèmes de D4 sont des **liens vers un même problème**, pas des tickets multipliés par document.
 
+## 5.1. Consolidation des 17 capacités, Q01–29, COG/OBS et réserves (2026-11-11)
+
+La [consolidation complète ML2](consolidation-capacites-qa-reserves-ml2-ml4.md) rassemble les **17/17 capacités**, les **29/29 oracles Q**, les **7/7 COG** et les **12/12 OBS-Q (dont deux OUT ML2)**, avec les acquisitions PG/FAKE, RECETTE ML2 LIVE, apports ML3/ML4 et les plafonds probatoires. Les contrôles `Q27/Q28` exigent un **parcours intégrateur** et ne sont pas PASS par combinaison artificielle de tests ou de SHA différents.
+
+Le lot présente de vrais acquis techniques (sauvegarde/version/concurrence, D4, lecture, fil) et des **limites produit** : sélectivité cognitive heuristique, qualité de restitution adaptative, effets D4 correctement enregistrés mais parfois **mal racontés par Nora** (`ML4-REC-08`, LIVE), et expérience Figma/runtime non certifiée. Le test comparatif ChatGPT↔Nora et le streaming étaient explicitement reportés/encadrés ; aucune nouvelle obligation rétroactive.
+
+**Statut :** `ML2 CAPABILITIES & HISTORICAL QA CONSOLIDATED / GLOBAL E2E LIVE NOT PROVEN / NO GATE B`. Les documents D3/D4/E2E restent les annexes de preuve ; celui-ci n'introduit aucun second corpus normatif.
+
 ## 6. Suite de ML4B
 
-Les deux matrices individuelles [D3](verification-detaillee-conduite-nora-d3.md) et [D4](verification-detaillee-connaissance-d4.md) sont maintenant publiées pour **118+46 références**. D3 apporte également un premier rapprochement des **six étapes E2E03 et six étapes E2E04**, des limites SDK/activité/rendu et des interfaces D5/D6/D9. Le [diagnostic transversal E2E03/E2E04](reconciliation-e2e03-e2e04-preuves.md) réalise maintenant ce rapprochement pour **12/12 étapes R1**, avec neuf exceptions, sans prétendre à une recette LIVE unique. La suite est la **consolidation probatoire ML2**, puis la réconciliation ML3/ML4 et la confrontation Figma/runtime. Pas de micro-reprise documentaire par RG.
+Les deux matrices individuelles [D3](verification-detaillee-conduite-nora-d3.md) et [D4](verification-detaillee-connaissance-d4.md) sont maintenant publiées pour **118+46 références**. D3 apporte également un premier rapprochement des **six étapes E2E03 et six étapes E2E04**, des limites SDK/activité/rendu et des interfaces D5/D6/D9. Le [diagnostic transversal E2E03/E2E04](reconciliation-e2e03-e2e04-preuves.md) réalise maintenant ce rapprochement pour **12/12 étapes R1**, avec neuf exceptions, sans prétendre à une recette LIVE unique. La [consolidation probatoire ML2](consolidation-capacites-qa-reserves-ml2-ml4.md) confronte désormais les 17 capacités aux **Q01–Q29, COG et OBS** et aux preuves post-livraison. La suite porte sur **ML3**, puis ML4 et le transverse Figma/runtime. Pas de micro-reprise documentaire par RG.
 
-**État de cette publication :** `17/17 ML2 CAPACITIES INDEXED / D3+D4 164/164 R2 IDS MAPPED / E2E03+E2E04 12/12 STEPS RECONCILED / NO FULL LIVE E2E OR FIGMA VERDICT / NO CP1 GATE`. Aucune correction, décision de convergence, PR, merge ou promotion n'est induite.
+**État de cette publication :** `17/17 ML2 CAPACITIES + Q01–Q29/COG-01–07/OBS-Q01–12 HISTORICALLY RECONCILED / 164/164 D3+D4 IDS MAPPED / E2E03+E2E04 STEPS REVIEWED / NO GLOBAL LIVE/F2-G5 VERDICT / CP1 OPEN`. Aucune correction, décision de convergence, PR, merge ou promotion n'est induite.

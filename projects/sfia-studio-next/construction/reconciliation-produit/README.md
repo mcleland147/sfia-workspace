@@ -56,7 +56,7 @@ Le code présent ne démontre pas son usage réel ; un test BROWSER FAKE ne prou
 | Ensemble | Restitution actuelle | État |
 | --- | --- | --- |
 | **ML1 — Accès, sas, création et continuité** | [Diagnostic ML1](ml1/diagnostic-acces-preparation-creation.md), [D1 (55)](ml1/verification-detaillee-acces-portefeuille.md), [D2 (60)](ml1/verification-detaillee-sas-creation-continuite.md), [E2E01/D3–D4](ml1/reconciliation-e2e01-nora-connaissance.md), [Consolidation ML1↔ML2–ML4](ml1/consolidation-capacites-reserves-ml2-ml4.md) | **115/115 IDs D1/D2 rattachés ; 8/8 capacités ML1 et A01–A16 consolidés** avec apports ML2–ML4 et réserves. **Ni conformité LIVE globale, ni Figma, ni gate CP1** |
-| **ML2 — Production et capitalisation** | [17 capacités](ml2/diagnostic-ml2-contrats-capacites.md) · [D3 : 118 RG/PF](ml2/verification-detaillee-conduite-nora-d3.md) · [D4 : 46 RG/PF](ml2/verification-detaillee-connaissance-d4.md) · [E2E03 + E2E04 / preuves](ml2/reconciliation-e2e03-e2e04-preuves.md) · [QA ML2](../ml2-production-et-capitalisation-nora/matrice-tracabilite.md) | **17/17 capacités et 164/164 références documentaires D3/D4 rattachées ; 6+6 étapes E2E03/E2E04 rapprochées avec neuf exceptions**. Aucun E2E LIVE global ni verdict visuel Figma/runtime ; CP1 ouvert |
+| **ML2 — Production et capitalisation** | [17 capacités](ml2/diagnostic-ml2-contrats-capacites.md) · [Consolidation ML2/QA/réserves](ml2/consolidation-capacites-qa-reserves-ml2-ml4.md) · [D3 : 118 RG/PF](ml2/verification-detaillee-conduite-nora-d3.md) · [D4 : 46 RG/PF](ml2/verification-detaillee-connaissance-d4.md) · [E2E03 + E2E04](ml2/reconciliation-e2e03-e2e04-preuves.md) | **17/17 capacités, Q01–Q29, COG-01–07, OBS-Q01–12 rapprochés des preuves**, 164/164 références D3/D4 rattachées et 12 étapes E2E étudiées ; conformité LIVE globale et Figma/runtime non certifiées, CP1 ouvert |
 | **ML3 — Pilotage et décisions** | Matrice et contrat [ML3](../ml3-pilotage-et-decisions/tracabilite-r2-r3-r4.md) | Pré-inventaire ; couverture de guidance et frontières d'autorité à requalifier |
 | **ML4 — Collaboration et Git** | [Registre de RECETTE](../ml4-integration-git/recette-ml4-r01-r14-anomalies.md) | Code mergé (#672), première campagne non acceptée globalement ; R13/R14 NOT RUN |
 | **UX transversal** | [G4 as-built](../convergence-ux-parcours-pilote-nora/as-built-g4-figma-ux-transposition-2026-11-08.md) | 19/20 frames **déclarées** implémentées, 1 partielle ; F2/G5 NOT RUN : aucune conformité visuelle acquise |
@@ -128,6 +128,16 @@ Le [diagnostic E2E03/E2E04](ml2/reconciliation-e2e03-e2e04-preuves.md) reconstru
 **Résultats de code et de recette :** Nora dialogue et consulte D4 ; PG prouve identité/version/concurrence et récupération sélective ; ML3 prouve des décisions D6 ciblées, ML4 des créations/révisions D4 `AVAILABLE`, du Git sourcé ciblé et la reprise du même fil. **Mais** la qualité cognitive longue, la capitalisation implicite, le choix d'une présentation interactive adaptée et la narration fiable après effet **ne sont pas prouvés comme une chaîne unique LIVE**. `ML4-REC-08` demeure une contradiction observée, non une disparition supposée des données.
 
 **Aucun nouveau test ni GO de correction :** les comparaisons COG formelles avaient été reportées par Morris à l'acceptation ML2 ; ce diagnostic prépare des **oracles possibles** pour le gate B, pas un gate rétroactif. Les preuves Figma/browser sont `NOT RUN`. La prochaine passe consolide ML2 par capacité puis qualifie ML3/ML4, sans fragmentation en micro-cycles documentaires.
+
+## 5.8. ML2 — Consolidation de l'ensemble du lot et des réserves (2026-11-11)
+
+Le [bilan consolidé ML2](ml2/consolidation-capacites-qa-reserves-ml2-ml4.md) réconcilie **les 17 capacités R5**, **Q01–Q29**, **COG-01–07** et **OBS-Q01–12**, les preuves PG/FAKE/LIVE historiques et les effets réellement observés plus tard en ML3/ML4. Il sépare **statut de code, résultat de test et comportement utilisateur**, sans déclarer une conformité des 164 RG/PF parce qu'ils ont été cartographiés.
+
+**Acquis :** SDK Nora et outils D4, fil unique, documents/version/CAS, Sujets/Acquis/Points ouverts en PostgreSQL, garde-fous, RECETTE ML2 9/9 **acceptée avec réserves**. **Gaps ou preuves manquantes :** qualité cognitive à long terme et initiative de capitalisation, rappel sourcé après session/cycle, restitution post-effet D4 (`ML4-REC-08` FAIL LIVE sur REVISE), création/révision commandée selon intention, orchestration E2E unique et conformité R3/Figma. Les preuves ML3/ML4 sont **complémentaires**, à leurs SHA propres, et ne réécrivent pas l'acceptation ML2.
+
+**Reports explicitement conservés :** comparatif formel ChatGPT↔Nora non exigé pour la RECETTE ML2, modèle/effort effectivement appliqués `UNVERIFIED`, streaming UI progressif non câblé, `PG-DBFAIL-03` non garanti exercé par CI. Pas de gate rétroactif ni correctif technique avant arbitrage Morris.
+
+**Suite :** passer à la réconciliation **ML3 — Pilotage et décisions**, puis ML4 et transverse avant le Gate B ; ML2 reste **consolidé analytiquement, non déclaré globalement conforme**.
 
 ## 6. Preuve UX à produire et gate CP1
 
