@@ -34,13 +34,13 @@
 | Famille | Cas | PASS | FAIL | BLOCKED | NOT RUN | Réserves ouvertes |
 |---|---:|---:|---:|---:|---:|---:|
 | S01 | 6 | 4 | 0 | 0 | 2 | 5 |
-| S02 | 6 | 4 | 0 | 1 | 1 | 3 |
+| S02 | 6 | 5 | 0 | 1 | 0 | 3 |
 | S03 | 7 | 0 | 0 | 0 | 7 | 0 |
 | S04 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S05 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **8** | **0** | **1** | **44** | **8** |
+| **TOTAL** | **53** | **9** | **0** | **1** | **43** | **8** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -317,6 +317,23 @@
 
 **Référence de décision : `S02-05-D01`** — arbitrage Morris dans la conversation du 12 novembre 2026. **Aucune capture / exécution spécifique S02-05**, aucune écriture produit ni action Cursor.
 
+
+### Clôture utilisateur `S02-06` — refus de cible étrangère sans mutation (12 novembre 2026)
+
+**Décision Morris : `PASS` à portée utilisateur**, sur le candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`. Test réalisé depuis `Intervencia` / `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Champ | Constat et qualification |
+|---|---|
+| Intention testée | Demande à Nora d'**ouvrir un cycle de cadrage sur un autre projet** nommé `Projet Inexistant S02-06`, en précisant qu'il ne s'agit **pas** d'Intervencia et qu'il ne faut **ni créer de projet, ni transférer l'opération** sur Intervencia. Nom du cas de test ≠ preuve d'inexistence du projet. |
+| Réponse Nora — `S02-06-E01` | Statut affiché `NORA · UNKNOWN`. Nora indique que ses outils sont bornés au projet Intervencia, qu'elle ne peut ni rechercher le projet cible, ni prouver son absence ou vérifier les droits, ni y ouvrir de cycle ; elle refuse de conclure à l'inexistence du projet et déclare n'avoir rien ouvert. Elle invite à ouvrir le projet cible s'il est accessible. |
+| Inspection Pilotage — `S02-06-E02` | `Sans / actif`, `Aucun cycle actif`, `Trajectoire · Révision 0`, aucune décision D6, aucune méthode retenue, aucune restriction active. Les champs de formulaire préremplis `UX_UI` / `sfia-fast-track 2.6` ne sont pas des actions exécutées. |
+| Portefeuille — `S02-06-E03` | **02 projets accessibles** : `CampusFlow` et `Intervencia` uniquement ; **03 préparations ouvertes**, inchangé ; aucun `Projet Inexistant S02-06` visible. Aucune création parasite ni mutation apparente aux écrans consultés. |
+| Observation `S02-06-R01` | `NORA · UNKNOWN` : sémantique **à rapprocher du contrat de statuts**, car le texte décrit une impossibilité de cibler/exécuter plutôt qu'un ACK d'effet perdu. Il peut s'agir d'un état de réponse cognitive plutôt que transactionnel ; **aucun défaut prouvé sans examen du contrat**. Observation non comptée comme nouvel identifiant d'anomalie et non clôturée. |
+| Portée / limites | **PASS sur le refus sans cible accessible et l'absence d'effet visible**. Ni conflit technique transactionnel, ni mutation concurrente, ni audit DB, ni preuve exhaustive d'absence de side effects. Aucun autre scénario validé par propagation. |
+| Verdict / suite | Morris confirme **`S02-06 = PASS`** après revue de la réponse Nora, du Pilotage et du Portefeuille (`S02-06-D01`). Famille **S02 terminée au périmètre UAT** : 5 PASS et 1 BLOCKED (`S02-05`). Prochain scénario : **`S03-01 NOT RUN`**, demande de document de cadrage à Nora ; examiner le contenu et le contrat d'enregistrement. |
+
+**Preuves :** `S02-06-E01` transcription de réponse Nora dans la conversation ; `S02-06-E02` capture Pilotage ; `S02-06-E03` capture Portefeuille ; `S02-06-D01` validation Morris dans la conversation. Captures non publiées comme fichiers Git. Aucun test de conflit contrôlé n'a été exécuté.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -375,7 +392,7 @@
 | `S02-03` | Inspecter le projet après création | Aucun cycle, Git ou Cursor démarré automatiquement | **PASS — portée utilisateur** ; aucun cycle ni effet Git visible, pas de lancement Cursor observé ; réserve A-009 maintenue | `S02-03-E01/E02/U01/D01` ; `ML4C-A-009` OPEN |
 | `S02-04` | Rafraîchir et revenir au projet créé | Proposition, conversation et informations conservées | **PASS — portée utilisateur**, fil/projet conservés après refresh/réouverture ; **réserve de preuve S02-04-R01** sur proposition rev. 2 après création | `S02-04-E01/E02/E03/D01`, `S02-04-R01`, `ML4C-A-008` (rapprochement UX) |
 | `S02-05` | Simuler perte d’ACK après création (dispositif autorisé) | Intention réconciliée, projet retrouvé sans doublon | **BLOCKED — NON RÉALISABLE EN UAT MANUELLE EN L'ÉTAT** ; dispositif d'injection non qualifié ; test automatisé Cursor seulement sous gate ultérieur | `S02-05-D01` ; aucun test d'ACK réalisé |
-| `S02-06` | Provoquer un refus ou conflit maîtrisé | Résultat exact, aucune mutation silencieuse | NOT RUN | — |
+| `S02-06` | Provoquer un refus ou conflit maîtrisé | Résultat exact, aucune mutation silencieuse | **PASS — refus de cible à portée utilisateur** ; absence de mutation visible, conflit transactionnel non testé ; sémantique UNKNOWN à qualifier | `S02-06-E01/E02/E03/D01` ; observation `S02-06-R01` |
 
 ### S03 — Document et vérité des effets
 
@@ -486,6 +503,10 @@
 | `S02-04-E03` | Capture RECETTE, portefeuille et reprises | 02 projets dont un seul Intervencia ; 03 préparations ouvertes dont l'ancien sas Intervencia conservé ; préparation de création récente absente des OPEN | N'établit pas la consultation de proposition révision 2 après création | Conversation du 12/11, non versée sur Git |
 | `S02-04-D01` | Verdict Morris en conversation | `S02-04 PASS` avec réserve de vérification de la proposition enregistrée | Aucune clôture du point `S02-04-R01` ni verdict S02-05 | Conversation du 12/11, non versée sur Git |
 | `S02-05-D01` | Arbitrage Morris du 12/11/2026 | Scénario jugé non réalisable manuellement dans la campagne ; option de test automatisé Cursor évoquée sans GO ; verdict contractuel `BLOCKED` | Aucune exécution d'injection ACK, de reprise ni de vérification PG ; pas de bug produit démontré | Présente conversation, sans capture spécifique |
+| `S02-06-E01` | Transcription de réponse Nora | Refus de cibler un autre projet depuis Intervencia ; ne conclut pas à son inexistence, n'ouvre aucun cycle selon Nora ; statut `NORA · UNKNOWN` | Déclaration de Nora, non preuve serveur ; observation `S02-06-R01` | Conversation du 12/11, sans pièce Git |
+| `S02-06-E02` | Capture RECETTE, Pilotage Intervencia après refus | Aucun cycle actif, révision 0, aucune décision D6/méthode/restriction | Contrôle visuel, pas audit transactionnel | Conversation du 12/11, sans pièce Git |
+| `S02-06-E03` | Capture RECETTE, Portefeuille après refus | 02 projets : CampusFlow + Intervencia ; 03 préparations ouvertes ; projet-cible absent | Contrôle portefeuille visible, pas recensement DB | Conversation du 12/11, sans pièce Git |
+| `S02-06-D01` | Confirmation Morris après les trois contrôles | `S02-06 = PASS` à portée UAT du refus et de l'absence de mutation visible | Conflit technique non testé et `UNKNOWN` à qualifier | Conversation du 12/11, sans pièce Git |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -504,6 +525,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S02-06 — refus de cible étrangère | **PASS confirmé Morris** : Nora n'a pas redirigé vers Intervencia ; Pilotage révision 0 et aucun cycle/D6/restriction ; 02 projets et 03 préparations conservés à l'écran. `S02-06-R01` observation ouverte sur le sens de `NORA · UNKNOWN`, sans anomalie contractuelle encore démontrée. Conflit transactionnel NON TESTÉ. |
 | S02-05 — perte d'ACK après création | **BLOCKED — non réalisable en UAT manuelle à ce stade**, décision Morris ; injection contrôlée et preuve transactionnelle non qualifiées. Éventuel test automatisé Cursor après gate distinct, sans GO implicite. Ne pas rejouer Intervencia ni altérer la RECETTE figée. |
 | S02-04 — conservation / reprise Intervencia | **PASS Morris à portée navigateur** : fil, IDs et projet retrouvés après `Cmd + R` et réouverture ; **S02-04-R01 NOT VERIFIED** — proposition rev. 2 non consultée après création. Réserve documentaire non bloquante ; pas de perte de données démontrée. |
 | S02-03 — clôture après inspection Sources Git | **PASS validé par Morris**, portée utilisateur : aucune source Git rattachée, aucun effet Git observé, pas de cycle actif ni de lancement Cursor observable. Fournisseur `REAL` ≠ WRITE ; absence de jobs non auditée indépendamment. `A-009` reste OPEN, ML4D + qualification fonctionnelle ML4C. |
@@ -537,6 +559,8 @@
 **Bilan CURRENT après validation Morris de S02-04 (12/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 8 PASS / 0 FAIL courants / 45 NOT RUN`, 8 anomalies/réserves ouvertes sur 9 identifiants existants.** S02-04 est PASS à portée utilisateur, les preuves `E01/E02/E03` montrent l'identité du projet, le fil Nora et la présence dans le portefeuille après actualisation et reprise. **`S02-04-R01` demeure NON VERIFIED** : la proposition révision 2 n'a pas pu être inspectée après création ; ne pas inférer sa perte ou sa persistance DB. Suite `S02-05 NOT RUN` : test de perte d'ACK réservé à un protocole contrôlé, sans interaction mutative improvisée. Gate C OPEN, ML4C NOT ACCEPTED, aucune promotion/merge/REAL WRITE implicite.
 
 **Bilan CURRENT après décision Morris S02-05 (12/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 8 PASS / 0 FAIL courants / 1 BLOCKED / 44 NOT RUN` ; 8 réserves/anomalies OPEN sur 9 identifiants.** S02-05 est `BLOCKED` avec motif « non réalisable en UAT manuelle » : aucune simulation de perte d'ACK n'a été réalisée, aucune défaillance produit n'est prouvée. Une preuve automatisée pourra être recherchée ultérieurement avec Cursor uniquement sous pré-check, GO et protocole propres, sans assimilation automatique à une recette utilisateur LIVE. Prochain cas S02-06 `NOT RUN`. Aucun changement du candidat RECETTE figé, aucun GO technique ou de merge/promotion, Gate C OPEN et ML4C NOT ACCEPTED.
+
+**Bilan CURRENT après validation Morris de S02-06 (12/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 9 PASS / 0 FAIL courants / 1 BLOCKED / 43 NOT RUN` ; 8 réserves/anomalies OPEN sur 9 identifiants enregistrés, observation `S02-06-R01` en qualification hors compteur d'anomalies.** S02 est clos pour les essais utilisateur : S02-01/02/03/04/06 PASS, S02-05 BLOCKED (ACK perdu non simulable manuellement). `S02-06` valide seulement le refus d'une cible non accessible avec absence de mutation visible : ni erreur transactionnelle provoquée ni audit PostgreSQL indépendant. Prochain cas `S03-01 NOT RUN`. Aucun changement du candidat RECETTE, Gate C OPEN, ML4C NOT ACCEPTED, aucun GO d'effet Git REAL, merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
