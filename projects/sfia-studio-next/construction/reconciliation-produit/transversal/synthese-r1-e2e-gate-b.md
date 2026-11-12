@@ -1,10 +1,14 @@
 # SFIA Studio Next — ML4B : synthèse transverse des sept parcours R1 et options pour le gate B
 
+> **DÉCISION POSTÉRIEURE AU DIAGNOSTIC — GATE B ACCEPTED WITH RESERVES (Morris, 11/11/2026)** : [enregistrement D2](../../../governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md). Les 628 références indexées, les 43 étapes mappées et les huit familles X-01..08 sont acceptées comme **base CP1**, non comme preuves PASS. Les options A/B/C et les questions B-01..B-06 qui suivent décrivent la préparation historique ; leur arbitrage effectif est consigné dans la décision D2. Objectif documentaire ML4B clôturé avec réserves, CP2 à finaliser, **aucun GO technique**.
+
 **Date :** 2026-11-11. **Nature :** dossier de diagnostic D1, **candidat à la revue Morris**, non normatif et non approuvé.
 **Source de code :** `mcleland147/sfia-workspace`, `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4` ; **branche documentaire :** `docs/next-reconciliation-produit-ml1-20261110`.
 **Hors observation directe :** poste/local, DB active, navigateur, captures Figma natives, fournisseur GitHub et tests rejoués. Les preuves PG/FAKE/LIVE/REAL décrites sont des preuves **historiques à SHA/lane distincts**.
 
 [Index ML4B](../README.md) · [Vision R1 propriétaire](../../../cadrage/vision-produit.md) · [Décision de trajectoire CP0](../../../governance/decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md) · [Roadmap](../../../governance/roadmap.md).
+
+> **ADDENDUM D'ORIENTATION DU 11/11/2026 :** l'arbitrage Morris postérieur à cette synthèse retient **ML4C convergence fonctionnelle intégrée (cockpit/entrée/sas compris, UX fonctionnelle incluse), suivi de ML4D convergence UX/UI globale**. Voir [décision complémentaire](../../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md). Les options A/B/C ci-dessous restent **des hypothèses de classement historiques du diagnostic**, pas trois macro-lots désormais retenus. Les huit familles X-01..08, preuves, 628 références et 43 étapes ne changent pas. **Gate B encore ouvert ; pas de GO code/UX/PR/merge.**
 
 ## 1. Résultat consolidé
 
@@ -117,7 +121,9 @@ Les noms d'étapes sont extraits des [sept scénarios R1 §§2.30–2.36](../../
 
 **Regroupement sans doublon :** `ML4-REC-08` = X-01 même si ML2/ML4 le mentionnent ; `R-UX-01` = X-03 ; `ML4-REC-07` ancien FAIL puis G1 ciblé PASS ; `ML4-AT-13` = X-08. `NOT RUN` n'est pas `FAIL`.
 
-## 4. Trois options de macro-lots de convergence ML4C, non arbitrées
+## 4. Trois options historiques de convergence envisagées au diagnostic CP1 (avant arbitrage du 11/11)
+
+> **Lecture historique uniquement :** A/B/C détaillent des familles de problèmes et des dépendances. La réalisation approuvée en orientation est désormais **ML4C fonctionnel intégré → ML4D UX/UI global** ; voir l'addendum et la décision D2 ci-dessus. Aucun constat ou niveau de preuve n'est effacé.
 
 | Option cohérente | Résultat Pilote | IN / OUT et responsabilités | Preuve de sortie et dette/exit |
 | --- | --- | --- | --- |

@@ -1,6 +1,41 @@
 # SFIA Studio Next — Living Roadmap
 
-> **ÉTAT COURANT R5 — CP0 VALIDATED IN CONTENT BY MORRIS (2026-11-10 ; PUBLICATION DOCUMENTAIRE SUR BRANCHE CANDIDATE)** : [décision de trajectoire ML4B/ML4C](decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md). Baseline de cadrage `main@0182b0a7053babefe33aa4de181631b21613ac69`. Ce bloc actualise les statuts du programme sans effacer les instantanés datés ci-dessous. Aucune PR, fusion `main`, exécution Cursor, promotion, release ou adoption n'est autorisée par CP0.
+> **POINT DE SITUATION R5 — 12 NOVEMBRE 2026, AVANT PUBLICATION DU DOC GATE.** À cette date, la consolidation documentaire ML4C est préparée sur la branche locale `docs/next-ml4c-documentary-gate-20261112`, issue de `main@6d237452680640324eeadbb18f4601fd7de99850`. Elle reprend les décisions et contrats validés en contenu par Morris depuis `docs/next-r5-ml4c-cp2-preparation-20261111@8b41fe1640a61f531a449ced67b1d27f7dbace1e`. **Ce bloc est un instantané daté avant commit, push et PR documentaire ; il ne prétend pas décrire leur état après publication.** La trajectoire demeure **ML4B → ML4C → ML4D → Gate C → ML5 → R6**. Gate C reste **OPEN**. Aucune acceptation ML4C, adoption, qualification READY FOR REAL, promotion STABLE ou release n'est acquise.
+
+### Correspondance avec le candidat produit — instantané du 12/11/2026
+
+| Qualification | Statut factuel |
+| --- | --- |
+| VALIDATED SPEC (décision/contrats 11–12/11) | décisions A1–A3 + contrats/conception B* importés **à l'identique** dans ce candidat docs |
+| IMPLEMENTED LOCAL | correctif sémantique sur `fix/next-semantic-intent-convergence-20261112` commit **`83fd9ecef2d952c90a828d68a192e105c83be35f`** (parent `2416e2ee`, tree `bed6bff5`) — **LOCAL / NOT INTEGRATED** |
+| COVERAGE VERIFIED (déterministe) | selon handoff `sfia/review-handoff@77fda513` : unit/PG/browser DEV isolée (Q1/Q2, AUTH, S05, D4 gouvernée) |
+| DETERMINISTIC BEHAVIOR PROVEN | à la portée des suites rejouées en DEV ; **≠** LIVE/REAL |
+| PR READINESS (instantané du 12/11 avant publication) | Produit : commit local prêt à revue, non intégré ; documentation : candidat local préparé, sans commit, push ni PR à la date du constat |
+| REMOTE CI NOT RUN | aucune CI GitHub sur `83fd9ece` ; PR #676 head reste `2416e2ee` |
+| LIVE NOT RUN | Nora LIVE OpenAI **NOT RUN** |
+| USER RECETTE NOT ACCEPTED | cahier 53 cas conservé ; journal conserve observations ; **S02-01 FAIL** ; **ML4C-A-006/A-007 OPEN** ; acceptation utilisateur ML4C **NON ACQUISE** |
+| ENV-R09 | sessions/cookies multi-lane **NOT VERIFIED** |
+| ML4D | **NON DÉMARRÉE** |
+| Gate C | **OPEN** |
+| Versioning | `0.0.0-dev` / **NO RELEASE** |
+
+**As-built technique** du candidat produit : `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md` **dans** `83fd9ece` (référence LOCAL) — **non recopié** ici.
+
+**Sources normatives importées (contenu Morris inchangé) :** [décision trajectoire ML4C/ML4D](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) · [Gate B accepté avec réserves](decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) · [qualification sémantique Nora](decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md) · [conception](../construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md) · [contrat technique](../construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md) · [contrat ML4C intégré](../construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md) · [design S02/S03](../construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md) · [cahier](../construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md) · [journal](../construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md). Les mentions historiques **NO BUILD GO / NON IMPLÉMENTÉ** dans conception/contrat technique restent le constat **à la date d'approbation** ; elles ne sont **pas** réécrites. L'avancement technique LOCAL est porté **uniquement** par le tableau ci-dessus et le commit `83fd9ece`.
+
+**Traçabilité Git — instantané du 12/11/2026 avant publication documentaire :** le candidat DOC GATE est alors local et non commité ; le correctif produit `83fd9ecef2d952c90a828d68a192e105c83be35f` est également local, tandis que la PR produit #676 reste ouverte sur `2416e2ee25662821b015407346c64ec204f67488`. La publication documentaire ultérieure doit être identifiée par son propre commit et sa propre PR ; elle ne vaut ni merge, ni intégration du correctif produit, ni acceptation ML4C.
+
+---
+
+> **SNAPSHOT HISTORIQUE — 12/11/2026 (contenu validé sur branche docs CP2, non baseline main)** : la [décision de principe sémantique](decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md) et la [conception](../construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md) sont **VALIDATED IN CONTENT BY MORRIS** à leur date ; le [contrat technique](../construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md) est **VALIDATED IN CONTENT WITH EXECUTABILITY RESERVES**. Ces textes conservent leurs formulations d'époque (y compris NO BUILD GO) ; le suivi CURRENT ci-dessus décrit l'implémentation candidate ultérieure.
+
+> **SNAPSHOT HISTORIQUE — 11/11/2026 — Gate B + CP2** : [Gate B accepted with reserves](decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) ; [contrat ML4C intégré](../construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md) et [design vérité des effets](../construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md) validés en contenu avec réserves ; [trajectoire ML4C puis ML4D](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md). Objectif documentaire ML4B clôturé avec réserves ; **pas** d'acceptation globale ML4 ni BEHAVIOR PROVEN.
+
+---
+
+> **RÈGLE DE LECTURE CHRONOLOGIQUE — GATE B :** la décision Morris du 11 novembre 2026, `2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md`, établit **GATE B ACCEPTED WITH RESERVES / ML4B CLOSED WITH RESERVES**. Elle prévaut sur les mentions antérieures « Gate B OPEN » ou « Gate B NOT HELD » conservées dans les diagnostics historiques. Cette précédence ne vaut ni clôture de Gate C, ni acceptation ML4C, ni adoption du produit.
+
+> **SNAPSHOT HISTORIQUE R5 — CP0 VALIDATED IN CONTENT BY MORRIS (2026-11-10 ; PUBLICATION DOCUMENTAIRE SUR BRANCHE CANDIDATE)** : [décision de trajectoire ML4B/ML4C](decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md). Baseline de cadrage `main@0182b0a7053babefe33aa4de181631b21613ac69`. Ce bloc actualise les statuts du programme sans effacer les instantanés datés ci-dessous. Aucune PR, fusion `main`, exécution Cursor, promotion, release ou adoption n'est autorisée par CP0.
 
 ## R5 — Réconciliation et convergence produit avant ML5 (2026-11-10, CP0)
 

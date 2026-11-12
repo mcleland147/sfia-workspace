@@ -1,11 +1,15 @@
 # SFIA Studio Next — Réconciliation produit R5 (ML4B)
 
+> **DÉCISION DE SORTIE POSTÉRIEURE — 11/11/2026 :** Morris a **accepté le Gate B avec réserves** et considéré l'objectif documentaire de ML4B **clôturé avec réserves**, selon la [décision D2](../../governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) (sur branche candidate, `main` non modifiée). Le diagnostic CP1 est une **base de convergence acceptée**, pas une preuve globale de comportement : 628 références indexées, 43 étapes E2E rapprochées et huit familles X-01..X-08 conservent exactement leurs preuves, limites et réserves. Les mentions historiques `CP1 CANDIDATE / GATE B NOT HELD` ci-dessous décrivent **l'état avant cet arbitrage**. Suite autorisée : finaliser CP2 ; **aucun GO build/PR/merge/ADOPTED**.
+
 **Nature :** dossier de diagnostic documentaire D1, non normatif.
 **Ouverture :** 10 novembre 2026.
 **Baseline d'analyse :** `mcleland147/sfia-workspace`, `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4` (après PR #673).
 **Branche candidate :** `docs/next-reconciliation-produit-ml1-20261110`.
 **État :** `DOCUMENTED / CP1 SYNTHESIS CANDIDATE FOR MORRIS REVIEW / GATE B NOT HELD / NO PRODUCT CHANGE`.
 **Environnement local, runtime, DB et navigateur :** `NON OBSERVÉS`.
+
+> **MISE À JOUR DE GOUVERNANCE DU 11/11/2026 (postérieure au diagnostic CP1) :** Morris a validé **ML4C fonctionnel intégré, puis ML4D UX/UI global**, dans la [décision complémentaire](../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md). **Ce choix remplace les options A/B/C comme trajectoire de réalisation uniquement** ; les 628 références indexées, sept E2E/43 étapes, X-01..08 et leurs statuts de preuve restent inchangés. Inclure cockpit/portefeuille, accès, sas et navigation en ML4C lorsqu'un écart fonctionnel ou d'UX bloquante l'exige, puis reprendre toutes les surfaces applicables en ML4D pour la fidélité Figma. **CP1/Gate B non acceptés par ce seul arbitrage ; aucun GO de construction.**
 
 ## 1. Résultat du dossier et frontière
 
