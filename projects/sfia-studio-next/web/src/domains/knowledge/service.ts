@@ -658,54 +658,57 @@ export async function listKnowledge(pilotId: string, preparationId: string) {
   return { subjects, acquis, openPoints };
 }
 
+/**
+ * Bounded D4 listing by rights/state. When Nora supplies preferred ids
+ * (qualification hints), those are prioritized — not recency-as-authority.
+ */
 export async function selectRelevantKnowledgeContext(
   pilotId: string,
   preparationId: string,
-  userText: string,
-  opts?: { limit?: number },
+  _userText: string,
+  opts?: {
+    limit?: number;
+    preferredAcquisIds?: string[];
+    preferredOpenPointIds?: string[];
+    preferredSubjectIds?: string[];
+  },
 ) {
   const { subjects, acquis, openPoints } = await listKnowledge(pilotId, preparationId);
   const limit = opts?.limit ?? 8;
-  const q = userText.toLowerCase();
-  const tokens = q
-    .split(/[^a-zàâäéèêëïîôùûüç0-9]+/i)
-    .filter((t) => t.length > 3)
-    .slice(0, 12);
+  const prefA = new Set((opts?.preferredAcquisIds ?? []).filter(Boolean));
+  const prefO = new Set((opts?.preferredOpenPointIds ?? []).filter(Boolean));
+  const prefS = new Set((opts?.preferredSubjectIds ?? []).filter(Boolean));
 
-  function score(text: string): number {
-    const lower = text.toLowerCase();
-    let s = 0;
-    for (const t of tokens) if (lower.includes(t)) s += 2;
-    return s;
-  }
+  const currentAcquis = acquis.filter((a) => a.status === "CURRENT");
+  const openOps = openPoints.filter((o) => o.status === "OPEN");
+  const activeSubjects = subjects.filter((s) => s.status === "ACTIVE");
 
-  const rankedAcquis = acquis
-    .filter((a) => a.status === "CURRENT")
-    .map((a) => ({ a, s: score(a.statement) }))
-    .sort((x, y) => y.s - x.s || (y.a.createdAt?.getTime?.() ?? 0) - (x.a.createdAt?.getTime?.() ?? 0));
+  const preferThenRest = <T extends { id: string }>(rows: T[], pref: Set<string>, n: number) => {
+    const preferred = rows.filter((r) => pref.has(r.id));
+    const rest = rows.filter((r) => !pref.has(r.id));
+    return [...preferred, ...rest].slice(0, n);
+  };
 
-  const rankedOpen = openPoints
-    .filter((o) => o.status === "OPEN")
-    .map((o) => ({ o, s: score(o.statement) + 1 }))
-    .sort((x, y) => y.s - x.s);
-
-  const pickedAcquis = rankedAcquis.slice(0, Math.min(limit, 5));
-  const pickedOpen = rankedOpen.slice(0, Math.min(4, limit));
-  const pickedSubjects = subjects.filter((s) => s.status === "ACTIVE").slice(0, 5);
+  const pickedAcquis = preferThenRest(currentAcquis, prefA, Math.min(limit, 5));
+  const pickedOpen = preferThenRest(openOps, prefO, Math.min(4, limit));
+  const pickedSubjects = preferThenRest(activeSubjects, prefS, 5);
 
   const snippets: string[] = [];
-  for (const { a } of pickedAcquis) {
+  for (const a of pickedAcquis) {
+    const mark = prefA.has(a.id) ? "PREFERRED" : "AVAILABLE";
     snippets.push(
-      `ACQUIS[${a.kind}/${a.id}] subject=${a.subjectId ?? "∅"}: ${a.statement.slice(0, 280)} | provenance=${a.provenanceJson.slice(0, 160)}`,
+      `ACQUIS[${a.kind}/${a.id}/${mark}] subject=${a.subjectId ?? "∅"}: ${a.statement.slice(0, 280)} | provenance=${a.provenanceJson.slice(0, 160)}`,
     );
   }
-  for (const { o } of pickedOpen) {
+  for (const o of pickedOpen) {
+    const mark = prefO.has(o.id) ? "PREFERRED" : "AVAILABLE";
     snippets.push(
-      `POINT_OUVERT[${o.id}] subject=${o.subjectId ?? "∅"}: ${o.statement.slice(0, 240)} | provenance=${o.provenanceJson.slice(0, 120)}`,
+      `POINT_OUVERT[${o.id}/${mark}] subject=${o.subjectId ?? "∅"}: ${o.statement.slice(0, 240)} | provenance=${o.provenanceJson.slice(0, 120)}`,
     );
   }
   for (const s of pickedSubjects) {
-    snippets.push(`SUJET[${s.id}/${s.status}]: ${s.title}`);
+    const mark = prefS.has(s.id) ? "PREFERRED" : "AVAILABLE";
+    snippets.push(`SUJET[${s.id}/${s.status}/${mark}]: ${s.title}`);
   }
 
   return {
@@ -715,11 +718,14 @@ export async function selectRelevantKnowledgeContext(
       acquisCurrent: acquis.filter((a) => a.status === "CURRENT").length,
       openPoints: openPoints.filter((o) => o.status === "OPEN").length,
     },
-    selectedAcquisIds: pickedAcquis.map((x) => x.a.id),
-    selectedOpenPointIds: pickedOpen.map((x) => x.o.id),
-    selectionMethod: "lexical-heuristic" as const,
+    selectedAcquisIds: pickedAcquis.map((a) => a.id),
+    selectedOpenPointIds: pickedOpen.map((o) => o.id),
+    selectionMethod:
+      prefA.size || prefO.size || prefS.size
+        ? ("semantic-preferred-then-bounded" as const)
+        : ("bounded-resource-listing" as const),
     selectionLimit:
-      "Sélection lexicale bornée — n'établit pas de vérité épistémique; D3 doit qualifier pertinence et limites.",
+      "RG-KNOW-011: ids préférés Nora d'abord, sinon listing borné droits/état — pas de scoring lexical métier.",
   };
 }
 
@@ -929,8 +935,8 @@ export async function reconstituteConfirmedD4Effects(
 }
 
 /**
- * Heuristic capitalisation — auxiliary only, not epistemic authority.
- * Defaults to HYPOTHESIS; FACT only if explicitly established.
+ * Selective D4 capitalisation from typed Nora proposals (RG-KNOW-001).
+ * No lexical detection. Never creates HumanDecision. Owner validates each write.
  */
 export async function maybeCapitalizeFromExchange(
   pilotId: string,
@@ -940,8 +946,17 @@ export async function maybeCapitalizeFromExchange(
     assistantText: string;
     generationId: string;
     userMessageId: string;
-    /** Propagated into every D4 capitalisation write TX. */
     turnFence?: TurnOwnershipFence;
+    /** Typed proposals from durable qualification — required for any write. */
+    proposals?: Array<{
+      intentId: string;
+      kind: "ACQUIS" | "OPEN_POINT" | "SUBJECT";
+      statement: string;
+      epistemic: "hypothesized" | "recommended" | "established" | "limited";
+      subjectTitle?: string;
+      subjectId?: string;
+      continuityReason?: string;
+    }>;
   },
 ) {
   const results: Array<{
@@ -951,152 +966,149 @@ export async function maybeCapitalizeFromExchange(
     epistemicNote?: string;
     reason?: string;
   }> = [];
-  const lower = `${input.userText}\n${input.assistantText}`.toLowerCase();
-  const selectionLimit =
-    "Capitalisation heuristique (regex/lexical) — pas une autorité épistémique; LIVE COG requis pour qualification.";
+  const proposals = input.proposals ?? [];
+  if (proposals.length === 0) {
+    return {
+      capitalisations: results,
+      selectionMethod: "semantic-proposals" as const,
+      selectionLimit: "Aucune proposition d4.record_knowledge — zéro écriture D4",
+      humanDecisionCreated: false as const,
+      ownershipLost: false as const,
+    };
+  }
+
   const fence = input.turnFence;
-
   let subjectId: string | null = null;
-  const topicMatch = input.userText.match(
-    /(?:sujet|thème|theme|à propos de|concernant)\s*[:«"]?\s*([^\n.«"]{4,80})/i,
-  );
-  if (topicMatch?.[1]) {
-    const s = await ensureSubject(
-      pilotId,
-      preparationId,
-      topicMatch[1].trim(),
-      undefined,
-      fence,
-    );
-    if (s.status === "AVAILABLE" && s.subjectId) {
-      subjectId = s.subjectId;
-    } else if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
-      results.push({
-        kind: "subject",
-        status: "FAILED",
-        reason: "TURN_OWNERSHIP_LOST",
-        epistemicNote: selectionLimit,
-      });
-      return {
-        capitalisations: results,
-        selectionMethod: "lexical-heuristic" as const,
-        selectionLimit: "OWNERSHIP_LOST",
-        humanDecisionCreated: false as const,
-        ownershipLost: true as const,
-      };
+
+  for (const p of proposals) {
+    if (p.kind === "SUBJECT" || p.subjectTitle) {
+      const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
+      if (title.length >= 3) {
+        const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
+        if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
+          results.push({
+            kind: "subject",
+            status: "FAILED",
+            reason: "TURN_OWNERSHIP_LOST",
+            epistemicNote: p.continuityReason,
+          });
+          return {
+            capitalisations: results,
+            selectionMethod: "semantic-proposals" as const,
+            selectionLimit: "OWNERSHIP_LOST",
+            humanDecisionCreated: false as const,
+            ownershipLost: true as const,
+          };
+        }
+        if (s.status === "AVAILABLE" && s.subjectId) {
+          subjectId = s.subjectId;
+          results.push({
+            kind: "subject",
+            id: s.subjectId,
+            status: s.status,
+            epistemicNote: p.continuityReason,
+          });
+        }
+      }
+      if (p.kind === "SUBJECT") continue;
     }
-  }
 
-  // Stronger gate than keyword alone: require comparative structure or explicit durable ask
-  const looksComparative =
-    /compar(e|er|aison).{0,80}(option|compromis|avantage|inconvénient|critère)/i.test(lower) ||
-    (/option[s]?\s*[abc]/i.test(lower) && /compromis|avantage|inconvénient/i.test(lower));
-  const looksOpen =
-    /\b(point ouvert|question ouverte|à clarifier|dépendance non résolue)\b/i.test(lower);
-  const looksDurableAsk =
-    /\b(retenir comme acquis|capitalise|mémorise|enregistre (cet|cette) acquis)\b/i.test(
-      input.userText,
-    );
-  const looksRecommendation = /\brecommandation conditionnelle\b/i.test(lower);
+    if (p.subjectId) subjectId = p.subjectId;
 
-  if (looksDurableAsk || looksComparative) {
-    const statement = extractSalientLine(input.assistantText) ?? input.userText.slice(0, 200);
-    const kind: KnowledgeKind = looksRecommendation
-      ? "RECOMMENDATION"
-      : looksComparative
-        ? "HYPOTHESIS"
-        : "HYPOTHESIS";
-    const cap = await capitalizeAcquis(pilotId, preparationId, {
-      statement,
-      kind,
-      subjectId,
-      turnFence: fence,
-      provenance: {
-        sourceKind: "message",
-        sourceId: input.userMessageId,
-        generationId: input.generationId,
-        note: "heuristic capitalisation — not epistemic authority",
-        epistemic: kind === "RECOMMENDATION" ? "recommended" : "hypothesized",
-      },
-    });
-    if (cap.status === "FAILED" && "reason" in cap && cap.reason === "TURN_OWNERSHIP_LOST") {
-      results.push({
-        kind: "acquis",
-        status: "FAILED",
-        reason: "TURN_OWNERSHIP_LOST",
-        epistemicNote: selectionLimit,
+    if (p.kind === "OPEN_POINT") {
+      const op = await openPoint(pilotId, preparationId, {
+        statement: p.statement,
+        subjectId,
+        turnFence: fence,
+        provenance: {
+          sourceKind: "message",
+          sourceId: input.userMessageId,
+          generationId: input.generationId,
+          epistemic: p.epistemic === "established" ? "limited" : p.epistemic,
+          note: p.continuityReason ?? "semantic qualification d4.record_knowledge",
+        },
       });
-      return {
-        capitalisations: results,
-        selectionMethod: "lexical-heuristic" as const,
-        selectionLimit: "OWNERSHIP_LOST",
-        humanDecisionCreated: false as const,
-        ownershipLost: true as const,
-      };
-    }
-    results.push({
-      kind: "acquis",
-      id: "acquisId" in cap ? cap.acquisId : undefined,
-      status: cap.status,
-      epistemicNote: selectionLimit,
-    });
-  }
-
-  if (looksOpen) {
-    const statement =
-      extractOpenLine(input.assistantText) ??
-      `Point ouvert issu de l'échange: ${input.userText.slice(0, 160)}`;
-    const op = await openPoint(pilotId, preparationId, {
-      statement,
-      subjectId,
-      turnFence: fence,
-      provenance: {
-        sourceKind: "message",
-        sourceId: input.userMessageId,
-        generationId: input.generationId,
-        epistemic: "limited",
-      },
-    });
-    if (op.status === "FAILED" && "reason" in op && op.reason === "TURN_OWNERSHIP_LOST") {
+      if (op.status === "FAILED" && "reason" in op && op.reason === "TURN_OWNERSHIP_LOST") {
+        results.push({
+          kind: "open_point",
+          status: "FAILED",
+          reason: "TURN_OWNERSHIP_LOST",
+          epistemicNote: p.continuityReason,
+        });
+        return {
+          capitalisations: results,
+          selectionMethod: "semantic-proposals" as const,
+          selectionLimit: "OWNERSHIP_LOST",
+          humanDecisionCreated: false as const,
+          ownershipLost: true as const,
+        };
+      }
       results.push({
         kind: "open_point",
-        status: "FAILED",
-        reason: "TURN_OWNERSHIP_LOST",
-        epistemicNote: selectionLimit,
+        id: "openPointId" in op ? op.openPointId : undefined,
+        status: op.status,
+        epistemicNote: p.continuityReason,
       });
-      return {
-        capitalisations: results,
-        selectionMethod: "lexical-heuristic" as const,
-        selectionLimit: "OWNERSHIP_LOST",
-        humanDecisionCreated: false as const,
-        ownershipLost: true as const,
-      };
+      continue;
     }
-    results.push({
-      kind: "open_point",
-      id: "openPointId" in op ? op.openPointId : undefined,
-      status: op.status,
-      epistemicNote: selectionLimit,
-    });
+
+    if (p.kind === "ACQUIS") {
+      // F4: Nora's epistemic="established" is NOT independent proof.
+      // Never promote to FACT from the model envelope alone — store as HYPOTHESIS /
+      // RECOMMENDATION until D4 has a verified independent source contract.
+      const kind: KnowledgeKind =
+        p.epistemic === "recommended" ? "RECOMMENDATION" : "HYPOTHESIS";
+      const epistemicNote =
+        p.epistemic === "established"
+          ? `${p.continuityReason ?? "semantic"} — Nora marked established but D4 refused FACT without independent verified source`
+          : p.continuityReason;
+      const cap = await capitalizeAcquis(pilotId, preparationId, {
+        statement: p.statement,
+        kind,
+        subjectId,
+        turnFence: fence,
+        provenance: {
+          sourceKind: "message",
+          sourceId: input.userMessageId,
+          generationId: input.generationId,
+          note: epistemicNote ?? "semantic qualification d4.record_knowledge",
+          epistemic: "hypothesized",
+        },
+      });
+      if (cap.status === "FAILED" && "reason" in cap && cap.reason === "TURN_OWNERSHIP_LOST") {
+        results.push({
+          kind: "acquis",
+          status: "FAILED",
+          reason: "TURN_OWNERSHIP_LOST",
+          epistemicNote: p.continuityReason,
+        });
+        return {
+          capitalisations: results,
+          selectionMethod: "semantic-proposals" as const,
+          selectionLimit: "OWNERSHIP_LOST",
+          humanDecisionCreated: false as const,
+          ownershipLost: true as const,
+        };
+      }
+      results.push({
+        kind: "acquis",
+        id: "acquisId" in cap ? cap.acquisId : undefined,
+        status: cap.status,
+        epistemicNote: epistemicNote,
+        reason:
+          p.epistemic === "established"
+            ? "FACT_PROMOTION_REFUSED_NO_INDEPENDENT_SOURCE"
+            : undefined,
+      });
+    }
   }
 
   return {
     capitalisations: results,
-    selectionMethod: "lexical-heuristic" as const,
-    selectionLimit,
+    selectionMethod: "semantic-proposals" as const,
+    selectionLimit:
+      "RG-KNOW-001: capitalisation sélective depuis propositions Nora typées — pas d'autorité D6",
     humanDecisionCreated: false as const,
     ownershipLost: false as const,
   };
-}
-function extractSalientLine(text: string): string | null {
-  const lines = text
-    .split(/\n+/)
-    .map((l) => l.replace(/^#+\s*/, "").replace(/^[-*]\s*/, "").trim())
-    .filter((l) => l.length > 40 && l.length < 400);
-  return lines[0] ?? null;
-}
-
-function extractOpenLine(text: string): string | null {
-  const m = text.match(/(?:point[s]? ouvert[s]?|à clarifier|reste à)[^\n]{8,200}/i);
-  return m?.[0]?.trim() ?? null;
 }

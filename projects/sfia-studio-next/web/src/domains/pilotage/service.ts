@@ -31,7 +31,9 @@ import {
   type DbTx,
   type MutateResult,
 } from "@/domains/pilotage/command-runner";
-import { qualifyPilotageIntent, type IntentQualification } from "@/domains/pilotage/intent";
+import type { IntentQualification } from "@/domains/pilotage/intent";
+import { loadDurableQualificationForUserMessage } from "@/domains/conversation/durable-qualification";
+import { matchPilotageIntentInQualification } from "@/domains/conversation/semantic-qualification";
 import {
   PILOTAGE_OPERATIONS,
   SOURCE_KINDS,
@@ -338,9 +340,14 @@ function fromClearIntent(
   qualified: ClearIntent,
   body: PilotageRequestBody,
 ): ClassifyResult {
-  const cycleType =
-    qualified.cycleType ?? (body.cycleType && isCycleType(body.cycleType) ? body.cycleType : null);
-  if (qualified.operation === "REVISE_DECISION" && !(body.decisionId ?? qualified.decisionId)) {
+  // USER_MESSAGE: durable qualification owns authority fields — body may only
+  // carry server-authenticated envelope (keys, actInstanceId). Never fill gaps
+  // from client-supplied cycleType/decisionId/objectRef/targetRef/"*".
+  const fromDurable = sourceKind === "USER_MESSAGE";
+  const cycleType = fromDurable
+    ? qualified.cycleType ?? null
+    : qualified.cycleType ?? (body.cycleType && isCycleType(body.cycleType) ? body.cycleType : null);
+  if (qualified.operation === "REVISE_DECISION" && !(qualified.decisionId ?? (!fromDurable ? body.decisionId : null))) {
     return {
       ok: false,
       reasonCode: "AMBIGUOUS",
@@ -352,24 +359,33 @@ function fromClearIntent(
     operation: qualified.operation,
     sourceKind,
     sourceRef,
-    objective: (body.objective ?? qualified.objective ?? "").trim() || (cycleType ? `Cycle ${cycleType}` : ""),
+    objective: (
+      fromDurable
+        ? (qualified.objective ?? "")
+        : (body.objective ?? qualified.objective ?? "")
+    ).trim() || (cycleType ? `Cycle ${cycleType}` : ""),
     cycleType,
-    cycleId: body.cycleId ?? null,
+    cycleId: fromDurable ? null : (body.cycleId ?? null),
     toCycleType: qualified.toCycleType ?? null,
-    orientation: (body.orientation ?? "").trim(),
-    trajectoryRevisionId: body.trajectoryRevisionId ?? null,
-    methodRef: (qualified.methodRef ?? body.methodRef ?? "").trim(),
-    methodVersion: (qualified.methodVersion || body.methodVersion || "").trim(),
-    decisionId: body.decisionId ?? qualified.decisionId ?? null,
-    restrictionId: body.restrictionId ?? null,
-    targetKind: body.targetKind ?? "",
-    targetRef: (body.targetRef ?? "*").trim() || "*",
-    statement: (body.statement ?? qualified.statement ?? qualified.objective ?? "")
+    orientation: fromDurable ? "" : (body.orientation ?? "").trim(),
+    trajectoryRevisionId: fromDurable ? null : (body.trajectoryRevisionId ?? null),
+    methodRef: (qualified.methodRef ?? (!fromDurable ? body.methodRef : undefined) ?? "").trim(),
+    methodVersion: (qualified.methodVersion || (!fromDurable ? body.methodVersion : undefined) || "").trim(),
+    decisionId: qualified.decisionId ?? (!fromDurable ? body.decisionId : null) ?? null,
+    restrictionId: fromDurable ? null : (body.restrictionId ?? null),
+    // Never default targetRef to "*" for USER_MESSAGE — that widens scope silently.
+    targetKind: fromDurable
+      ? (qualified.restrictionKindHint ?? "")
+      : (body.targetKind ?? ""),
+    targetRef: fromDurable
+      ? (qualified.restrictionTargetRefHint ?? "").trim()
+      : ((body.targetRef ?? "*").trim() || "*"),
+    statement: (qualified.statement ?? qualified.objective ?? (!fromDurable ? body.statement : undefined) ?? "")
       .trim()
       .slice(0, 500),
-    balanceNote: (body.balanceNote ?? "").trim(),
-    actInstanceId: (body.actInstanceId ?? "").trim(),
-    objectRef: (body.objectRef ?? qualified.objectRef ?? "").trim(),
+    balanceNote: fromDurable ? "" : (body.balanceNote ?? "").trim(),
+    actInstanceId: (body.actInstanceId ?? "").trim() || sourceRef,
+    objectRef: (qualified.objectRef ?? (!fromDurable ? body.objectRef : undefined) ?? "").trim(),
     sourceActionKey: "",
   };
   if (
@@ -425,25 +441,105 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
         sourceActionKey: "REJECT|SOURCE|mismatch",
       };
     }
-    const qualified = qualifyPilotageIntent(utterance || message.content);
-    if (qualified.clarity !== "CLEAR") {
-      const reasonCode = qualified.clarity === "AMBIGUOUS" ? "AMBIGUOUS" : "INVALID";
-      return {
-        ok: false,
-        reasonCode,
-        reason: qualified.reason,
-        sourceActionKey: `REJECT|${reasonCode}`,
-      };
-    }
-    if (body.operation && body.operation !== qualified.operation) {
+    // SEM corrective: USER_MESSAGE effects must match durable Nora qualification
+    // for THIS authenticated message — body.operation alone is never sufficient.
+    const durable = await loadDurableQualificationForUserMessage({
+      pilotId: input.pilotId,
+      projectId: input.projectId,
+      userMessageId: sourceRef,
+    });
+    if (!durable) {
       return {
         ok: false,
         reasonCode: "AMBIGUOUS",
-        reason: "L'opération ne correspond pas à l'énoncé",
-        sourceActionKey: `REJECT|MISMATCH|${body.operation}`,
+        reason:
+          "Qualification sémantique durable absente pour ce message — aucun effet D5/D6",
+        sourceActionKey: "REJECT|AMBIGUOUS|NO_DURABLE_QUALIFICATION",
       };
     }
-    return fromClearIntent(sourceKind, sourceRef, qualified, body);
+    const matched = matchPilotageIntentInQualification(durable.qualification, {
+      operation: (body.operation ?? "").trim() || undefined,
+      intentId: (body as { semanticIntentId?: string }).semanticIntentId?.trim(),
+    });
+    if ("reject" in matched) {
+      return {
+        ok: false,
+        reasonCode: matched.reasonCode as "AMBIGUOUS" | "INVALID",
+        reason: matched.reason,
+        sourceActionKey: `REJECT|${matched.reasonCode}|QUALIFICATION_MISMATCH`,
+      };
+    }
+    // USER_MESSAGE: authority parameters come ONLY from durable qualification +
+    // server-authenticated envelope. Never complete missing fields from body.
+    const clientSensitive: Array<[string, string | undefined, string | undefined]> = [
+      ["operation", (body.operation ?? "").trim() || undefined, matched.operation],
+      ["cycleType", body.cycleType?.trim(), matched.cycleType],
+      ["toCycleType", body.toCycleType?.trim(), matched.toCycleType],
+      ["methodRef", body.methodRef?.trim(), matched.methodRef],
+      ["methodVersion", body.methodVersion?.trim(), matched.methodVersion],
+      ["decisionId", body.decisionId?.trim(), matched.decisionId],
+      ["objectRef", body.objectRef?.trim(), matched.objectRef],
+      ["statement", body.statement?.trim(), matched.statement],
+      ["targetKind", body.targetKind?.trim(), undefined],
+      ["targetRef", body.targetRef?.trim(), undefined],
+      ["restrictionId", body.restrictionId?.trim(), undefined],
+      ["orientation", body.orientation?.trim(), undefined],
+      ["trajectoryRevisionId", body.trajectoryRevisionId?.trim(), undefined],
+      ["objective", body.objective?.trim(), matched.objective],
+    ];
+    for (const [name, clientVal, durableVal] of clientSensitive) {
+      if (!clientVal) continue;
+      // Client may only echo a durable value; never supply a field absent from durable.
+      if (!durableVal || clientVal !== durableVal) {
+        return {
+          ok: false,
+          reasonCode: "AMBIGUOUS",
+          reason: `Champ ${name} non issu de la qualification durable — refuse (pas de complément body)`,
+          sourceActionKey: `REJECT|AMBIGUOUS|BODY_${name.toUpperCase()}`,
+        };
+      }
+    }
+    const qualified: ClearIntent = {
+      clarity: "CLEAR",
+      operation: matched.operation,
+      objective: matched.objective ?? (utterance || message.content),
+      statement: matched.statement,
+      objectRef: matched.objectRef,
+      decisionId: matched.decisionId,
+      methodRef: matched.methodRef,
+      methodVersion: matched.methodVersion,
+      restrictionKindHint: matched.restrictionKindHint,
+      restrictionTargetRefHint: matched.restrictionTargetRefHint,
+      semanticIntentId: matched.intentId,
+      semanticSchemaVersion: matched.schemaVersion,
+      cycleType: matched.cycleType && isCycleType(matched.cycleType) ? matched.cycleType : undefined,
+      toCycleType:
+        matched.toCycleType && isCycleType(matched.toCycleType) ? matched.toCycleType : undefined,
+    };
+    // Server-stable human-act identity: never accept client actInstanceId for USER_MESSAGE.
+    // Same message + same intent ⇒ same act even if clientCommandKey / actInstanceId change.
+    const serverActInstanceId = matched.intentId
+      ? `${sourceRef}:${matched.intentId}`
+      : sourceRef;
+    return fromClearIntent(sourceKind, sourceRef, qualified, {
+      clientCommandKey: body.clientCommandKey,
+      expectedRevision: body.expectedRevision,
+      sourceKind: "USER_MESSAGE",
+      sourceRef,
+      utterance: utterance || message.content,
+      actInstanceId: serverActInstanceId,
+      operation: matched.operation,
+      cycleType: matched.cycleType,
+      toCycleType: matched.toCycleType,
+      methodRef: matched.methodRef,
+      methodVersion: matched.methodVersion,
+      decisionId: matched.decisionId,
+      objectRef: matched.objectRef,
+      statement: matched.statement,
+      objective: matched.objective,
+      semanticIntentId: matched.intentId,
+      semanticSchemaVersion: matched.schemaVersion,
+    });
   }
 
   if (sourceKind === "COGNITIVE_PROPOSAL" && body.operation !== "PROPOSE_TRAJECTORY") {
@@ -1080,14 +1176,13 @@ function explicit(
 }
 
 /**
- * EXPLICIT_INTERACTION with an utterance and no operation follows the same
- * qualifier as USER_MESSAGE. A present operation stays on the structured path.
- * Returns null when this body is not an utterance-only explicit GO.
+ * EXPLICIT_INTERACTION without a structured operation used to fall back to
+ * lexical qualifyPilotageIntent. SEM-02 removes that path — fail closed.
+ * Returns null when a structured operation is present (caller continues).
  */
 export function classifyExplicitInteraction(body: PilotageRequestBody): ClassifyResult | null {
   if (body.sourceKind !== "EXPLICIT_INTERACTION") return null;
   if ((body.operation ?? "").trim()) return null;
-  const sourceRef = body.sourceRef?.trim() ?? "";
   const utterance = (body.utterance ?? "").trim();
   if (!utterance) {
     return {
@@ -1097,17 +1192,13 @@ export function classifyExplicitInteraction(body: PilotageRequestBody): Classify
       sourceActionKey: "REJECT|INVALID|",
     };
   }
-  const qualified = qualifyPilotageIntent(utterance);
-  if (qualified.clarity !== "CLEAR") {
-    const reasonCode = qualified.clarity === "AMBIGUOUS" ? "AMBIGUOUS" : "INVALID";
-    return {
-      ok: false,
-      reasonCode,
-      reason: qualified.reason,
-      sourceActionKey: `REJECT|${reasonCode}`,
-    };
-  }
-  return fromClearIntent("EXPLICIT_INTERACTION", sourceRef, qualified, body);
+  return {
+    ok: false,
+    reasonCode: "AMBIGUOUS",
+    reason:
+      "EXPLICIT_INTERACTION utterance-only interdit sans opération structurée (SEM-02 — lexical retiré)",
+    sourceActionKey: "REJECT|AMBIGUOUS|NO_STRUCTURED_OPERATION",
+  };
 }
 
 export function proposeTrajectory(

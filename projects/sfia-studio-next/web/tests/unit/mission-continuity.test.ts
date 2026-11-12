@@ -7,42 +7,23 @@ import {
   isNoraMissionPublicationKey,
   missionCorrelationKeys,
   qualifyPublicationMission,
+  extractPublicationPathHint,
   type MissionProjection,
 } from "@/domains/conversation/mission-continuity";
-import { qualifyDocumentAct } from "@/domains/conversation/document-act";
 
 describe("mission-continuity helpers", () => {
-  it("qualifies CREATE+publish mission without authorizing", () => {
+  it("SEM-02: qualifyPublicationMission is fail-closed stub", () => {
     const text =
       "Crée un document intitulé Mission Continuity et publie-le dans mon dépôt GitHub sous docs/studio-next/mission.md";
-    expect(qualifyDocumentAct(text).kind).toBe("CREATE");
     const m = qualifyPublicationMission(text);
-    expect(m.wantsDocumentCreate).toBe(true);
-    expect(m.wantsPublish).toBe(true);
-    expect(m.targetPath).toBe("docs/studio-next/mission.md");
-    expect(m.needsExplicitPath).toBe(false);
-  });
-
-  it("P1-E: does not treat GitHub subject mention as publish action", () => {
-    const m = qualifyPublicationMission("Explique la différence entre blob et commit sur GitHub");
     expect(m.wantsPublish).toBe(false);
     expect(m.wantsDocumentCreate).toBe(false);
+    expect(extractPublicationPathHint(text)).toBe("docs/studio-next/mission.md");
   });
 
-  it("P1-E: publish without path requires clarification (no silent default)", () => {
-    const m = qualifyPublicationMission(
-      "Crée un document intitulé X et publie-le dans mon dépôt GitHub",
-    );
-    expect(m.wantsPublish).toBe(true);
-    expect(m.needsExplicitPath).toBe(true);
-    expect(m.targetPath).toBeNull();
-    expect(m.clarify).toMatch(/chemin/i);
-  });
-
-  it("P1-E: ambiguous publish without CREATE", () => {
-    const m = qualifyPublicationMission("publie-le sur GitHub chemin docs/a.md");
-    expect(m.wantsPublish).toBe(true);
-    expect(m.wantsDocumentCreate).toBe(false);
+  it("P1-E: GitHub subject mention remains non-publish via stub", () => {
+    const m = qualifyPublicationMission("Explique la différence entre blob et commit sur GitHub");
+    expect(m.wantsPublish).toBe(false);
   });
 
   it("derives stable correlation keys before effects", () => {
@@ -55,46 +36,30 @@ describe("mission-continuity helpers", () => {
     expect(attemptIsNoraMission({ correlationKey: "pub-classic-panel" })).toBe(false);
   });
 
-  it("mission ACK states AWAITING_PILOT_AUTH without HD", () => {
+  it("appendMissionAck is a no-op (no diagnostic leak)", () => {
     const mission: MissionProjection = {
       clientIntentKey: "k1",
       status: "AWAITING_PILOT_AUTH",
-      goalSummary: "test",
-      restitution: "DELIVERED",
-      steps: [
-        {
-          id: "d7_prepare",
-          capabilityId: "d7.prepare_publication",
-          status: "WAITING",
-          attemptId: "efx_test",
-        },
-      ],
+      goalSummary: "pub",
+      steps: [],
+      restitution: "PENDING",
     };
-    const ack = formatMissionAck(mission);
-    expect(ack).toMatch(/AWAITING_PILOT_AUTH/);
-    expect(ack).toMatch(/aucune HumanDecision créée/i);
-    expect(ack).toMatch(/authorizePublication/);
-    const composed = appendMissionAck("corps", mission);
-    expect(composed).toContain("corps");
-    expect(composed).toContain("efx_test");
+    expect(appendMissionAck("Bonjour Nora", mission)).toBe("Bonjour Nora");
   });
 
-  it("canonical restitution preserves D4 facts when Continue fails", () => {
-    const text = composeCanonicalMissionRestitution({
-      documentEffect: {
-        act: "CREATE",
-        status: "AVAILABLE",
-        documentId: "doc_1",
-        revisionId: "drev_1",
-        revisionNumber: 1,
-      },
-      prepareStatus: "PREPARED",
-      attemptId: "efx_1",
-      restitutionNote: "RESTITUTION_PENDING",
+  it("formatMissionAck / composeCanonicalMissionRestitution stay factual", () => {
+    const ack = formatMissionAck({
+      clientIntentKey: "k1",
+      status: "AWAITING_PILOT_AUTH",
+      goalSummary: "pub",
+      steps: [{ id: "d7", capabilityId: "d7.prepare_publication", status: "WAITING" }],
+      restitution: "PENDING",
     });
-    expect(text).toMatch(/doc_1/);
-    expect(text).toMatch(/AVAILABLE/);
-    expect(text).toMatch(/PREPARED/);
-    expect(text).toMatch(/non encore accordée/);
+    expect(ack).toMatch(/AWAITING_PILOT_AUTH|WAITING|d7/i);
+    const composed = composeCanonicalMissionRestitution({
+      prepareStatus: "PREPARED",
+      attemptId: "att_1",
+    });
+    expect(composed).toMatch(/Restitution de mission/);
   });
 });

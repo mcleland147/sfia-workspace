@@ -371,16 +371,10 @@ export async function runBusinessCommand(
         return toCommandResult(prior, effects, "replay");
       }
 
+      // F1: classify + reconcile known human acts BEFORE stale-revision gate.
+      // A committed act with a new clientCommandKey and obsolete expectedRevision
+      // must replay — not be refused as STALE_REVISION.
       const revision = await currentRevision(tx, input.projectId);
-      if (revision !== input.body.expectedRevision) {
-        return bare(input, {
-          status: "CONFLICT",
-          revision,
-          reason: "Révision attendue périmée",
-          reasonCode: "STALE_REVISION",
-        });
-      }
-
       const classified = await handlers.classify(tx);
       const intentKey = classified.ok
         ? {
@@ -401,25 +395,27 @@ export async function runBusinessCommand(
         intentKey.sourceActionKey,
       );
       if (intent) {
-        return bare(input, {
-          status: "CONFLICT",
-          commandId: intent.id,
-          revision,
-          reason: "Intention humaine déjà enregistrée",
-          reasonCode: "HUMAN_INTENT",
-        });
+        // Same human act under a new clientCommandKey → reconcile, do not re-mutate.
+        // Do not re-emit effects when status is UNKNOWN — return stored truth only.
+        const effects = await loadEffects(tx, intent.id);
+        return toCommandResult(intent, effects, "replay");
       }
       if (classified.ok && classified.command.actInstanceId) {
         const sameAct = await findByActionKey(tx, input.projectId, classified.command.sourceActionKey);
         if (sameAct) {
-          return bare(input, {
-            status: "CONFLICT",
-            commandId: sameAct.id,
-            revision,
-            reason: "Acte humain déjà enregistré",
-            reasonCode: "HUMAN_INTENT",
-          });
+          const effects = await loadEffects(tx, sameAct.id);
+          return toCommandResult(sameAct, effects, "replay");
         }
+      }
+
+      // NEW act only: expectedRevision guards concurrency before mutation.
+      if (revision !== input.body.expectedRevision) {
+        return bare(input, {
+          status: "CONFLICT",
+          revision,
+          reason: "Révision attendue périmée",
+          reasonCode: "STALE_REVISION",
+        });
       }
 
       if (!classified.ok) {

@@ -29,7 +29,13 @@ export type BudgetLimits = {
  * MUST NOT become implicit operational defaults.
  */
 export const TEST_BOUNDARY_BUDGETS: Record<CognitiveProfile, BudgetLimits> = {
-  simple: { maxProviderCalls: 1, maxD4ToolCalls: 0, wallClockMs: 30_000, maxD4CharsReturned: 0 },
+  // Lot E/D5: short messages must still be able to call authorized read tools.
+  simple: {
+    maxProviderCalls: 4,
+    maxD4ToolCalls: 2,
+    wallClockMs: 60_000,
+    maxD4CharsReturned: 16_000,
+  },
   analyse: {
     maxProviderCalls: 6,
     maxD4ToolCalls: 4,
@@ -162,45 +168,28 @@ export function resolveProfileType(override?: PolicyProfileType): PolicyProfileT
 }
 
 /**
- * Deterministic proportional qualification — no nested LLM classifier.
- * Unknown / risky intents default away from "simple".
+ * SEM / Lot D5: length may raise cost ceilings, never strip authorized tools.
+ * Short complex requests keep at least `analyse` tool budgets.
  */
 export function qualifyCognitiveProfile(userText: string): {
   profile: CognitiveProfile;
   effort: ReasoningEffort;
   reasonCodes: string[];
 } {
-  const t = userText.toLowerCase();
-  const reasonCodes: string[] = [];
-
-  const investigationHints =
-    /investig|approfond|contradict|corpus|sources?\b|vérifi|preuve|audit|exhaust|relire|comparer les versions|périmé|stale/i.test(
-      t,
-    );
-  const analyseHints =
-    /compar(e|er|aison)|option|arbitrage|analys|structur|trade-?off|avantage|inconvénient|matrice|plusieurs/i.test(
-      t,
-    );
-  const simpleHints =
-    userText.trim().length < 120 &&
-    !analyseHints &&
-    !investigationHints &&
-    /^(qui|quoi|où|quand|combien|rappel|c'est quoi|définition|merci)\b/i.test(t.trim());
-
-  if (investigationHints) {
-    reasonCodes.push("INTENT_INVESTIGATION_HINTS");
-    return { profile: "investigation", effort: "high", reasonCodes };
+  const len = userText.trim().length;
+  if (len > 600) {
+    return {
+      profile: "investigation",
+      effort: "high",
+      reasonCodes: ["BUDGET_LEN_LONG"],
+    };
   }
-  if (analyseHints) {
-    reasonCodes.push("INTENT_ANALYSE_HINTS");
-    return { profile: "analyse", effort: "medium", reasonCodes };
-  }
-  if (simpleHints || userText.trim().length < 80) {
-    reasonCodes.push("INTENT_SIMPLE_SHORT");
-    return { profile: "simple", effort: "low", reasonCodes };
-  }
-  reasonCodes.push("INTENT_DEFAULT_ANALYSE_SAFE");
-  return { profile: "analyse", effort: "medium", reasonCodes };
+  // Default analyse — never demote short utterances to tool-less simple.
+  return {
+    profile: "analyse",
+    effort: "medium",
+    reasonCodes: len < 80 ? ["BUDGET_LEN_SHORT_KEPT_ANALYSE"] : ["BUDGET_LEN_DEFAULT"],
+  };
 }
 
 export function buildCognitivePolicy(
@@ -214,16 +203,15 @@ export function buildCognitivePolicy(
       ? TEST_BOUNDARY_BUDGETS[q.profile]
       : OPERATIONAL_BUDGETS_PROVISIONAL[q.profile];
 
-  const toolAllowlist: CognitivePolicy["toolAllowlist"] =
-    q.profile === "simple"
-      ? []
-      : [
-          "search_project_resources",
-          "read_project_document_revision",
-          "list_project_git_sources",
-          "read_git_file",
-          "list_git_refs",
-        ];
+  // SEM corrective: short utterances still get authorized read tools.
+  // Length budgets control cost (maxTurns/chars), not métier intent detection.
+  const toolAllowlist: CognitivePolicy["toolAllowlist"] = [
+    "search_project_resources",
+    "read_project_document_revision",
+    "list_project_git_sources",
+    "read_git_file",
+    "list_git_refs",
+  ];
 
   return {
     policyVersion: COGNITIVE_POLICY_VERSION,
@@ -243,6 +231,6 @@ export function buildCognitivePolicy(
  * Gap: SDK maxTurns ≠ maxProviderCalls — documented honestly in reason/meta.
  */
 export function maxTurnsForPolicy(policy: CognitivePolicy): number {
-  if (policy.profile === "simple") return 1;
-  return Math.max(1, policy.budgets.maxProviderCalls);
+  // Always allow at least one tool loop for authorized read capabilities.
+  return Math.max(2, policy.budgets.maxProviderCalls);
 }

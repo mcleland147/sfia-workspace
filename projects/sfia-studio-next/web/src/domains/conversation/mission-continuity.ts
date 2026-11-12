@@ -19,7 +19,6 @@ import { StudioError } from "@/lib/http-errors";
 import { emitObs } from "@/lib/observability";
 import { generateNoraReply } from "./nora-adapter";
 import type { DocumentEffectSummary } from "./document-act";
-import { qualifyDocumentAct } from "./document-act";
 
 export type MissionStatus =
   | "ACTIVE"
@@ -90,13 +89,7 @@ export type PublicationMissionIntent = {
 /** Server-side marker: only attempts prepared with this prefix are Nora missions. */
 export const NORA_MISSION_PUB_PREFIX = "pub:mission:";
 
-/**
- * Publish ACTION verbs — not mere mention of GitHub/dépôt as a subject.
- * P1-E: "explique GitHub" must not trigger D7 prepare.
- */
-const PUBLISH_ACTION_RE =
-  /\b(?:publie(?:-le|-la|-les|-moi)?|publier|pousse(?:-le|-la|-les)?|pousser)\b/i;
-
+/** Technical path/branch capture — not a métier intent router. */
 const PATH_RE =
   /(?:(?:chemin|path|fichier)\s*[:=]?\s*|sous\s+)[`"]?([A-Za-z0-9_./\-]+\.(?:md|markdown|txt))[`"]?/i;
 
@@ -111,36 +104,29 @@ export function attemptIsNoraMission(row: { correlationKey: string }): boolean {
   return isNoraMissionPublicationKey(row.correlationKey);
 }
 
-export function qualifyPublicationMission(userText: string): PublicationMissionIntent {
-  const act = qualifyDocumentAct(userText);
-  const wantsDocumentCreate = act.kind === "CREATE";
-  const wantsPublish = PUBLISH_ACTION_RE.test(userText);
-  const pathMatch = userText.match(PATH_RE);
-  const branchMatch = userText.match(BRANCH_RE);
-  const targetPath = pathMatch?.[1] ?? null;
-  const targetBranch = branchMatch?.[1] ?? null;
-  const needsExplicitPath = wantsPublish && !targetPath;
-  const ambiguous =
-    wantsPublish &&
-    ((needsExplicitPath && true) || (!wantsDocumentCreate && act.kind === "NONE"));
-
-  let clarify: string | undefined;
-  if (wantsPublish && needsExplicitPath) {
-    clarify =
-      "Chemin cible de publication non précisé — indiquer le chemin (ex. chemin docs/studio-next/x.md) avant préparation Git.";
-  } else if (wantsPublish && !wantsDocumentCreate && act.kind === "NONE") {
-    clarify = "Publication demandée sans document CREATE/REVISE explicite — préciser le document cible.";
-  }
-
+/**
+ * SEM-02 — retired as production métier router.
+ * Publication intent comes from Nora semantic qualification (capability d7.*).
+ * Technical path/branch helpers remain available for already-qualified missions.
+ */
+export function qualifyPublicationMission(_userText: string): PublicationMissionIntent {
   return {
-    wantsDocumentCreate,
-    wantsPublish,
-    targetPath,
-    targetBranch,
-    ambiguous: Boolean(ambiguous),
-    needsExplicitPath,
-    clarify,
+    wantsDocumentCreate: false,
+    wantsPublish: false,
+    targetPath: null,
+    targetBranch: null,
+    ambiguous: false,
+    needsExplicitPath: false,
   };
+}
+
+/** Extract explicit publication path from text when an effect is already qualified. */
+export function extractPublicationPathHint(userText: string): string | null {
+  return userText.match(PATH_RE)?.[1] ?? null;
+}
+
+export function extractPublicationBranchHint(userText: string): string | null {
+  return userText.match(BRANCH_RE)?.[1] ?? null;
 }
 
 export function missionCorrelationKeys(clientIntentKey: string): {
@@ -198,9 +184,16 @@ export function formatMissionAck(mission: MissionProjection): string {
   return lines.join("\n");
 }
 
-export function appendMissionAck(content: string, mission: MissionProjection | null): string {
-  if (!mission) return content;
-  return `${content.trimEnd()}\n\n---\n${formatMissionAck(mission)}\n`;
+/**
+ * ML4C SEM / A-007: mission state stays in structured missionProjection.
+ * Do not dump status/clientIntentKey/step/capability into Nora user text.
+ */
+export function appendMissionAck(
+  content: string,
+  mission: MissionProjection | null,
+): string {
+  void mission;
+  return content;
 }
 
 export function composeCanonicalMissionRestitution(input: {

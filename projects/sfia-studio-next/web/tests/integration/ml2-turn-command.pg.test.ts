@@ -84,12 +84,13 @@ describe("ML2 turn command idempotence (PG)", () => {
 
   it("fixture investigation path records D4 tool call under TEST_BOUNDARY", async () => {
     const key = `turn-tools-${Date.now()}`;
-    const result = await postUserMessageAndNora(
-      pilotId,
-      preparationId,
-      "Investigue les contradictions éventuelles dans les sources du projet et vérifie les versions",
-      { clientTurnKey: key },
-    );
+    // Lot D5: investigation only when length > 600; tools remain available below that.
+    const longProbe =
+      "Investigue les contradictions éventuelles dans les sources du projet et vérifie les versions. " +
+      "x".repeat(520);
+    const result = await postUserMessageAndNora(pilotId, preparationId, longProbe, {
+      clientTurnKey: key,
+    });
     expect(result.policy?.profile).toBe("investigation");
     expect(result.toolCallsObserved).toBeGreaterThanOrEqual(1);
   });

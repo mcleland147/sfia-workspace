@@ -100,13 +100,14 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
   };
 
   it("allows a cognitive question without overwriting the gate", () => {
+    // Lot C/SEM-02: client lexical independence always false — server nextTurnKind owns it.
     expect(looksLikeIndependentDialogue("Quelle est la différence entre blob et commit ?")).toBe(
-      true,
+      false,
     );
     const gate = mayStartNewThreadAct({
       unresolved: pending,
       nextContent: "Quelle est la différence entre blob et commit ?",
-      nextIsIndependentDialogue: true,
+      nextTurnKind: "DIALOGUE_INDEPENDANT",
     });
     expect(gate.ok).toBe(true);
   });
@@ -133,7 +134,8 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
 
   it("lone question mark does not establish independence", () => {
     expect(looksLikeIndependentDialogue("Ok ?")).toBe(false);
-    expect(looksLikeIndependentDialogue("Pourquoi ouvrir un cycle de cadrage ?")).toBe(true);
+    // Client no longer lexicically classifies questions as independent.
+    expect(looksLikeIndependentDialogue("Pourquoi ouvrir un cycle de cadrage ?")).toBe(false);
   });
 
   it("COMPLETE on independent turn must not clear unresolved métier pending", () => {
@@ -155,15 +157,16 @@ describe("ML4C S05 Decision 1 — independent dialogue vs pending métier", () =
     ).toBe(true);
   });
 
-  it("project page uses qualifyThreadTurn (not exclusion-only independence)", () => {
+  it("project page uses server nextTurnKind (no client lexical qualifyThreadTurn)", () => {
     const src = readFileSync(
       join(__dirname, "../../src/app/projects/[projectId]/page.tsx"),
       "utf8",
     );
-    expect(src).toMatch(/qualifyThreadTurn/);
+    expect(src).not.toMatch(/qualifyThreadTurn/);
     expect(src).toMatch(/preserveUnresolvedMetierPending/);
     expect(src).toMatch(/preserveMetierPending/);
     expect(src).toMatch(/pendingBefore/);
     expect(src).toMatch(/nextTurnKind/);
+    expect(src).toMatch(/serverKind/);
   });
 });

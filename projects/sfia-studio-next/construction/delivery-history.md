@@ -4,6 +4,107 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-FINAL-RUNTIME-QUAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~15:10 CET (Europe/Paris) |
+| Macro-lot | ML4C — Q1 real D2 AWAITING_PILOT_ACT + S05 / Q2 ENV-01 runtime+PG isolation |
+| Type | EVOL Critical corrective QA (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé ; Playwright :3101 / `sfia_next_e2e` ; RECETTE :3200 non mutée (creds DENIED :5434) |
+| Changes | Tests Q1 parcours D2 réel (PG+E2E) ; ENV-01 matrix + cross-lane auth deny ; as-built Q1/Q2 ; **aucune** injection artificielle de mission pour Q1-A |
+| Schema | unchanged |
+| Tests | Q1 PG 3 PASS ; Q1 E2E 1 PASS ; ENV 6 PASS ; tsc PASS ; related unit/PG PASS ; LIVE NOT RUN |
+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED — READY FOR CHATGPT REVIEW (reserves LIVE/S02-01/A-006) |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-ADMISSIBILITY-CLOSURE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~14:45 CET (Europe/Paris) |
+| Macro-lot | ML4C — C-01 AUTH-R06 positif / C-02 S05-REAL-05 AWAITING / C-03 fixture isolation / C-04 pack cumulatif |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE non mutée |
+| Changes | AUTH-R06 OPEN+TRANSITION both APPLIED ; seed_awaiting_mission + S05-REAL-05 ; e2eFixtureMutationsAllowed (E2E obligatoire) ; pack FULL cumulatif |
+| Schema | unchanged |
+| Tests | AUTH 13 PASS ; fixture gate 6 PASS ; S05 real-api 7 PASS ; LIVE NOT RUN |
+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES — REVIEW REQUIRED |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-EVIDENCE-CLOSURE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~14:05 CET (Europe/Paris) |
+| Macro-lot | ML4C — F1–F4 evidence closure (reconcile / AUTH real / S05 real API / D4 epistemic) |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE :3200 non mutée |
+| Changes | F1 runner reorder ; F2 AUTH-R01–R14 PG ; F3 S05 real-api E2E ; F4 no FACT from Nora alone + pre/post knowledge roles ; multi-intent durable match |
+| Schema | unchanged (no DB migration) |
+| Tests | unit+ML4C PG 264 PASS ; AUTH 13 PASS ; E2E S05 real-api 3 PASS ; LIVE NOT RUN ; S02-01 FAIL (source) |
+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES — REVIEW REQUIRED |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-INTEGRATOR-CLOSURE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~13:35 CET (Europe/Paris) |
+| Macro-lot | ML4C — Integrator closure R1 S05 full / R2 human-act idempotence / R3 D4 semantic knowledge / R4 preuves |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE :3200 non mutée |
+| Changes | S05 gate D2/D4/D5/D6/D7 + missions ; actInstanceId serveur + replay ALREADY_APPLIED ; `d4.record_knowledge` + capitalisation sélective ; sélection preferred-ids |
+| Schema | unchanged (Zod envelope extended ; no DB migration) |
+| Tests | unit 240 PASS ; PG 35 PASS ; E2E S05 1 PASS ; LIVE NOT RUN ; S02-01 FAIL (source) |
+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-INTEGRATOR
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~12:45 CET (Europe/Paris) |
+| Macro-lot | ML4C — Integrator Lots A–E (superseded by INTEGRATOR-CLOSURE) |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Status | SUPERSEDED |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~12:10 CET (Europe/Paris) |
+| Macro-lot | ML4C — Corrective convergence sémantique (D5/D6 / T-03 / S05 / lexical purge) |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé ; RECETTE figée ; STABLE N/A |
+| Changes | `pilotageOperation` typé ; match qualification durable owner ; stash `applied` obligatoire ; merge terminal ; `nextTurnKind` serveur ; fixture scénarios exacts ; purge `PHRASES` / corps lexical D4/D5 ; page S05 sans `qualifyThreadTurn` |
+| Schema | unchanged |
+| Tests | unit 36 PASS ; PG/E2E/LIVE NOT RUN |
+| Status | LOCAL ONLY — Review Handoff L3 corrective ; IMPLEMENTED WITH RESERVES |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 11:43 CET (Europe/Paris) |
+| Macro-lot | ML4C — Qualification sémantique Nora + mobilisation gouvernée |
+| Type | EVOL Critical — remplacement routeurs lexicaux métier (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé ; RECETTE figée `2416e2ee` ; STABLE N/A |
+| Changes | Enveloppe `ml4c-sem-qual-v1` ; LIVE `outputType`+Zod ; fixture TEST_BOUNDARY ; D5/D6 après Nora + `preQualified` ; stubs fail-closed ; stash pré-effet — **revue ChatGPT NOT READY → corrective** |
+| Schema | unchanged (stash via `resultJson` existant) |
+| Tests | unit semantic/intent/S05/cognitive/mission PASS ; PG/E2E/LIVE NOT RUN |
+| Status | SUPERSEDED BY CORRECTIVE — réserves D5/D6/T-03/S05/lexical |
+
 ## delivery_id: DELIV-2026-11-11-ML4C-S05-POSITIVE-INDEPENDENCE
 
 | Field | Value |

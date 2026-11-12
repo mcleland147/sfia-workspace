@@ -18,9 +18,11 @@ import {
 import {
   bindTurnGenerationId,
   commitTurnTerminal,
+  findUnresolvedSiblingTurns,
   markTurnUnknown,
   requireTurnOwnership,
   reserveTurnCommand,
+  stashTurnQualification,
   touchTurnLease,
   turnRaceHooks,
 } from "./turn-command";
@@ -37,19 +39,27 @@ import {
   applyTargetedSectionRevision,
   assertSectionScope,
   extractContractualDocumentProposal,
-  hasDocumentaryWriteSignal,
-  qualifyDocumentAct,
   resolveReviseTarget,
   type DocumentEffectSummary,
   type DocumentProposalExtract,
 } from "./document-act";
+import {
+  deriveThreadTurnKind,
+  effectIntents,
+  extractKnowledgeProposals,
+  extractKnowledgeSelectionHints,
+  extractPilotageBinding,
+  projectStudioEffects,
+  type NoraTurnQualification,
+} from "./semantic-qualification";
+import { loadLatestMissionsByIntentKey } from "./intent-conduction";
+import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
 import {
   appendMissionAck,
   cognitiveContinueFromFacts,
   composeCanonicalMissionRestitution,
   missionCorrelationKeys,
   preparePublicationForMission,
-  qualifyPublicationMission,
   recoverAuthorizedNoraMissions,
   type MissionProjection,
 } from "./mission-continuity";
@@ -61,7 +71,6 @@ import {
   emptyMission,
   loadPriorMissionProjection,
   mergeMissionSteps,
-  qualifyStudioIntent,
   recoverPendingMissionContinuation,
 } from "./intent-conduction";
 import { updatePreview } from "@/domains/preparation/service";
@@ -178,6 +187,8 @@ export type TurnResult = {
   d4CharsReturned?: number;
   streaming?: { attempted: boolean; delivered: boolean; notes: string | null };
   knowledgeSelection?: unknown;
+  /** Post-qualification preferred listing — resume hint only, not cognition of current reply. */
+  knowledgeResumeHints?: unknown;
   capitalisation?: unknown;
   capitalisationAttempted?: unknown;
   capitalisationLimit?: string;
@@ -216,6 +227,14 @@ export type TurnResult = {
   reconciled?: boolean;
   /** Refs-only mission projection — never owner truth for D4/D6/D7. */
   missionProjection?: MissionProjection | null;
+  /** S05 — server-derived turn kind from Nora qualification (not client lexical). */
+  nextTurnKind?: ThreadTurnKind;
+  /** Echo of durable qualification status for clients / recovery. */
+  semanticQualificationStatus?: string;
+  /** S05 — true when a sibling pending blocked owner effects for this turn. */
+  pendingEffectBlocked?: boolean;
+  pendingBlockReason?: string;
+  unresolvedPendingClientTurnKey?: string | null;
 };
 
 function pilotageEffectFromAuthority(
@@ -280,7 +299,13 @@ export async function postUserMessageAndNora(
   pilotId: string,
   preparationId: string,
   content: string,
-  opts?: { correlationKey?: string; clientTurnKey?: string; requestId?: string },
+  opts?: {
+    correlationKey?: string;
+    clientTurnKey?: string;
+    requestId?: string;
+    /** Client UX hint only — server DB siblings are authoritative for S05. */
+    unresolvedPendingClientTurnKey?: string;
+  },
 ): Promise<TurnResult> {
   const requestId = opts?.requestId ?? newRequestId();
   const ctx = await getPreparationContext(pilotId, preparationId);
@@ -430,47 +455,8 @@ export async function postUserMessageAndNora(
     meta: { client_turn_key_fp: reserved.requestFingerprint.slice(0, 12) },
   });
 
-  /**
-   * F01/F02 — USER → D5/D6 before Nora provider call.
-   * Message is already COMPLETE; business TX is short and separate from Nora.
-   * Lost ownership ⇒ skip mutation (do not invent a late second command).
-   */
+  /** SEM/TV: D5/D6 after Nora semantic qualification — not before. */
   let authority: ConversationalAuthorityOutcome | null = null;
-  const stillOwnedBeforeAuthority = await requireTurnOwnership(
-    reserved.commandId,
-    reserved.ownerToken,
-  );
-  if (stillOwnedBeforeAuthority && ctx.project?.id) {
-    authority = await applyConversationalAuthority({
-      pilotId,
-      projectId: ctx.project.id,
-      userMessageId: reserved.userMessageId,
-      content,
-      clientTurnKey,
-    });
-    emitObs({
-      event_name: "d3.turn.conversational_authority",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      outcome: authority.attempted
-        ? authority.command?.status === "APPLIED" || authority.command?.status === "ALREADY_APPLIED"
-          ? "SUCCESS"
-          : authority.command?.status === "UNKNOWN"
-            ? "UNKNOWN"
-            : "FAILED"
-        : "PARTIAL",
-      meta: {
-        attempted: authority.attempted,
-        intent_clarity: authority.intentClarity,
-        operation: authority.operation ?? null,
-        command_status: authority.command?.status ?? null,
-        reason_code: authority.command?.reasonCode ?? null,
-        decision_id: authority.decisionId,
-        source: authority.source,
-      },
-    });
-  }
 
   const existing = await listMessages(pilotId, preparationId);
   const contextSnippets = existing
@@ -478,7 +464,11 @@ export async function postUserMessageAndNora(
     .slice(-6)
     .map((m) => `${m.role}: ${m.content.slice(0, 200)}`);
 
-  const knowledge = await selectRelevantKnowledgeContext(pilotId, preparationId, content);
+  // F4: pre-Nora context ONLY feeds generation. Post-qual preferred ids are resume hints,
+  // never claimed as having nourished the reply already produced.
+  const knowledgeForNora = await selectRelevantKnowledgeContext(pilotId, preparationId, content);
+  let knowledgeResumeHints: Awaited<ReturnType<typeof selectRelevantKnowledgeContext>> | null =
+    null;
 
   const docs = await listDocuments(pilotId, preparationId);
   const docSnippets = docs.slice(0, 5).map((d) => {
@@ -486,29 +476,12 @@ export async function postUserMessageAndNora(
     return `DOCUMENT[${d.document.id}] «${d.document.title}» v${rev?.revisionNumber ?? "?"} status=${rev?.status ?? "∅"}`;
   });
 
-  // Rebuild after authority so Nora observes confirmed D5/D6 state (projection only).
+  // SEM/TV: Nora qualifies first; same-turn D5/D6 runs after structured qualification.
+  // Prior-turn D5/D6 facts still arrive via buildNoraPilotageContext projection only.
   const pilotageCtx = await buildNoraPilotageContext(pilotId, preparationId, content);
-  const authoritySnippets: string[] = [];
-  if (authority?.attempted && authority.command) {
-    authoritySnippets.push(
-      "### Effet métier confirmé (D5/D6 — pas une permission Nora)",
-      `status=${authority.command.status} operation=${authority.operation ?? "?"} reasonCode=${authority.command.reasonCode ?? "∅"} decisionId=${authority.decisionId ?? "∅"}`,
-    );
-    if (authority.command.effects?.length) {
-      authoritySnippets.push(
-        `effects=${authority.command.effects.map((e) => `${e.effectKind}:${e.targetRef}`).join(",")}`,
-      );
-    }
-  } else if (authority?.clarification) {
-    authoritySnippets.push(
-      "### Clarification pilotage requise",
-      authority.clarification.slice(0, 300),
-    );
-  }
 
   let reply;
   try {
-    // C02 fault boundary: after authority, before/during Nora — same recovery path.
     if (turnRaceHooks.afterAuthorityBeforeNora) {
       await turnRaceHooks.afterAuthorityBeforeNora();
     }
@@ -520,8 +493,8 @@ export async function postUserMessageAndNora(
       reply = await generateNoraReply({
         userText: content,
         contextSnippets,
-        knowledgeSnippets: [...knowledge.snippets, ...docSnippets],
-        pilotageSnippets: [...pilotageCtx.snippets, ...authoritySnippets],
+        knowledgeSnippets: [...knowledgeForNora.snippets, ...docSnippets],
+        pilotageSnippets: pilotageCtx.snippets,
         // C01: same structured Level A contract for fixture and LIVE — never authority.
         levelASignals: pilotageCtx.levelASignals,
         // Requested level only. The adapter emits DELIVERED after a real generate.
@@ -537,8 +510,9 @@ export async function postUserMessageAndNora(
       clearInterval(leasePulse);
     }
   } catch {
-    // C02 — Nora failure must not erase a already-committed D5/D6 effect.
-    // Persist an honest UNKNOWN turn payload that still surfaces pilotageEffect.
+    // SEM order: Nora runs before same-turn D5/D6, so a provider failure here
+    // cannot have produced a same-turn HumanDecision. Prior-turn recovery stays
+    // on the reconstitution path below.
     const unknownPayload: TurnResult = {
       userMessageId: reserved.userMessageId,
       assistantMessageId: null,
@@ -546,8 +520,8 @@ export async function postUserMessageAndNora(
       requestId,
       status: "UNKNOWN",
       idempotentReplay: false,
-      humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
-      pilotageEffect: pilotageEffectFromAuthority(authority),
+      humanDecisionCreated: false,
+      pilotageEffect: null,
       noraMode: "provider-exception",
     };
     try {
@@ -622,13 +596,217 @@ export async function postUserMessageAndNora(
   // Bind generationId while ownership holds so D4 provenance + UNKNOWN reconstitution share one key.
   await bindTurnGenerationId(reserved.commandId, reserved.ownerToken, reply.generationId);
 
+  const qualification: NoraTurnQualification =
+    reply.qualification ??
+    ({
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "UNAVAILABLE",
+      goal: "",
+      intents: [],
+      clarifications: ["MISSING_QUALIFICATION"],
+      replyDraft: reply.content,
+    } as NoraTurnQualification);
+
+  // TV-04 / T-03 — durable qualification before first owner mutation; applied required.
+  const stashed = await stashTurnQualification({
+    commandId: reserved.commandId,
+    ownerToken: reserved.ownerToken,
+    qualificationJson: JSON.stringify(qualification),
+  });
+  if (!stashed.applied) {
+    emitObs({
+      event_name: "d3.turn.qualification_stash_failed",
+      component: "d3.conversation",
+      request_id: requestId,
+      operation_id: reserved.operationId,
+      outcome: "FAILED",
+      error_category: "QUALIFICATION_STASH_NOT_APPLIED",
+    });
+    try {
+      await markTurnUnknown(
+        reserved.commandId,
+        "QUALIFICATION_STASH_NOT_APPLIED",
+        reserved.ownerToken,
+        JSON.stringify({
+          userMessageId: reserved.userMessageId,
+          assistantMessageId: null,
+          operationId: reserved.operationId,
+          requestId,
+          status: "UNKNOWN",
+          idempotentReplay: false,
+          humanDecisionCreated: false,
+          semanticQualificationStatus: "STASH_FAILED",
+        }),
+      );
+    } catch {
+      /* ownership may already be lost */
+    }
+    return {
+      operationId: reserved.operationId,
+      requestId,
+      status: "UNKNOWN",
+      generationId: reply.generationId,
+      userMessageId: reserved.userMessageId,
+      assistantMessageId: null,
+      idempotentReplay: false,
+      humanDecisionCreated: false,
+      noraMode: reply.mode,
+      nextTurnKind: "INCERTAIN",
+      semanticQualificationStatus: "STASH_FAILED",
+    };
+  }
+
+  const nextTurnKind = deriveThreadTurnKind(qualification);
+  const studioProjection = projectStudioEffects(qualification);
+  const pilotageBinding = extractPilotageBinding(qualification);
+  const knowledgeHints = extractKnowledgeSelectionHints(qualification);
+  if (
+    knowledgeHints.acquisIds.length ||
+    knowledgeHints.openPointIds.length ||
+    knowledgeHints.subjectIds.length
+  ) {
+    knowledgeResumeHints = await selectRelevantKnowledgeContext(pilotId, preparationId, content, {
+      preferredAcquisIds: knowledgeHints.acquisIds,
+      preferredOpenPointIds: knowledgeHints.openPointIds,
+      preferredSubjectIds: knowledgeHints.subjectIds,
+    });
+  }
+
+  // S05 — durable unresolved work (turns + missions). Client hint is UX only.
+  const siblings = await findUnresolvedSiblingTurns({
+    conversationId: ctx.conversation.id,
+    ownerPilotId: pilotId,
+    excludeClientTurnKey: clientTurnKey,
+  });
+  const clientPendingHint = opts?.unresolvedPendingClientTurnKey?.trim() || null;
+  const blockingSibling =
+    siblings.find((s) => s.clientTurnKey === clientPendingHint) ?? siblings[0] ?? null;
+  const missionsByKey = await loadLatestMissionsByIntentKey(ctx.conversation.id);
+  const unresolvedMissions = [...missionsByKey.values()].filter((m) =>
+    ["AWAITING_PILOT_ACT", "AWAITING_PILOT_AUTH", "AWAITING_CLARIFICATION", "ACTIVE"].includes(
+      m.status,
+    ),
+  );
+  // ACTIVE only blocks when a step is still WAITING/PENDING (real unfinished work).
+  const blockingMission =
+    unresolvedMissions.find((m) =>
+      m.status === "ACTIVE"
+        ? m.steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
+        : true,
+    ) ?? null;
+  const hasUnresolvedWork = Boolean(blockingSibling || blockingMission);
+  let pendingEffectBlocked = false;
+  let pendingBlockReason: string | undefined;
+  let allowOwnerEffects = true;
+  if (hasUnresolvedWork && (nextTurnKind === "INTENTION_EFFET" || nextTurnKind === "INCERTAIN")) {
+    allowOwnerEffects = false;
+    pendingEffectBlocked = true;
+    pendingBlockReason = blockingSibling
+      ? nextTurnKind === "INTENTION_EFFET"
+        ? `S05_PENDING_BLOCKS_EFFECT:${blockingSibling.clientTurnKey}`
+        : `S05_PENDING_BLOCKS_AMBIGUOUS:${blockingSibling.clientTurnKey}`
+      : nextTurnKind === "INTENTION_EFFET"
+        ? `S05_MISSION_BLOCKS_EFFECT:${blockingMission?.clientIntentKey ?? "mission"}`
+        : `S05_MISSION_BLOCKS_AMBIGUOUS:${blockingMission?.clientIntentKey ?? "mission"}`;
+    emitObs({
+      event_name: "d3.turn.s05_pending_block",
+      component: "d3.conversation",
+      request_id: requestId,
+      operation_id: reserved.operationId,
+      outcome: "PARTIAL",
+      meta: {
+        pending_client_turn_key: blockingSibling?.clientTurnKey ?? null,
+        pending_status: blockingSibling?.status ?? null,
+        mission_status: blockingMission?.status ?? null,
+        mission_key: blockingMission?.clientIntentKey ?? null,
+        next_turn_kind: nextTurnKind,
+        client_hint_ignored_as_authority: true,
+      },
+    });
+  }
+  // DIALOGUE_INDEPENDANT may answer without métier mutations that bypass A.
+
+  // D5/D6 after semantic qualification — typed binding only (never parameters.notes).
+  if (
+    allowOwnerEffects &&
+    pilotageBinding &&
+    !("ambiguous" in pilotageBinding) &&
+    ctx.project?.id
+  ) {
+    const stillOwned = await requireTurnOwnership(reserved.commandId, reserved.ownerToken);
+    if (stillOwned) {
+      const preQualified = {
+        clarity: "CLEAR" as const,
+        operation: pilotageBinding.operation,
+        objective: pilotageBinding.objective ?? content,
+        statement: pilotageBinding.statement,
+        objectRef: pilotageBinding.objectRef,
+        decisionId: pilotageBinding.decisionId,
+        methodRef: pilotageBinding.methodRef,
+        methodVersion: pilotageBinding.methodVersion,
+        restrictionKindHint: pilotageBinding.restrictionKindHint,
+        restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
+        cycleType: pilotageBinding.cycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
+        toCycleType: pilotageBinding.toCycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
+        semanticIntentId: pilotageBinding.intentId,
+        semanticSchemaVersion: pilotageBinding.schemaVersion,
+      };
+      authority = await applyConversationalAuthority({
+        pilotId,
+        projectId: ctx.project.id,
+        userMessageId: reserved.userMessageId,
+        content,
+        clientTurnKey,
+        preQualified,
+      });
+      emitObs({
+        event_name: "d3.turn.conversational_authority",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        outcome: authority.attempted
+          ? authority.command?.status === "APPLIED" || authority.command?.status === "ALREADY_APPLIED"
+            ? "SUCCESS"
+            : authority.command?.status === "UNKNOWN"
+              ? "UNKNOWN"
+              : "FAILED"
+          : "PARTIAL",
+        meta: {
+          attempted: authority.attempted,
+          intent_clarity: authority.intentClarity,
+          operation: authority.operation ?? null,
+          command_status: authority.command?.status ?? null,
+          reason_code: authority.command?.reasonCode ?? null,
+          decision_id: authority.decisionId,
+          source: authority.source,
+          semantic_gate: true,
+          semantic_intent_id: pilotageBinding.intentId,
+        },
+      });
+    }
+  } else if (pilotageBinding && "ambiguous" in pilotageBinding) {
+    emitObs({
+      event_name: "d3.turn.conversational_authority",
+      component: "d3.conversation",
+      request_id: requestId,
+      operation_id: reserved.operationId,
+      outcome: "PARTIAL",
+      meta: {
+        attempted: false,
+        intent_clarity: "AMBIGUOUS",
+        semantic_gate: true,
+        reason: pilotageBinding.reason,
+      },
+    });
+  }
+
   const assistantId = newId("msg");
 
   let capitalisation: Awaited<ReturnType<typeof maybeCapitalizeFromExchange>> = {
     capitalisations: [],
-    selectionMethod: "lexical-heuristic",
+    selectionMethod: "semantic-proposals",
     selectionLimit:
-      "Capitalisation heuristique — pas une autorité épistémique; LIVE COG requis pour qualification.",
+      "SEM-02: capitalisation depuis propositions Nora typées (d4.record_knowledge).",
     humanDecisionCreated: false,
     ownershipLost: false,
   };
@@ -646,25 +824,25 @@ export async function postUserMessageAndNora(
   let documentSave: DocumentSaveResult | null = null;
   let documentSaveUnknown = false;
   let ownershipLostBeforeD4 = false;
-  const documentAct = qualifyDocumentAct(content);
-  const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
-  const missionIntent = qualifyPublicationMission(content);
-  const studioIntent = qualifyStudioIntent(content);
+  const documentAct = studioProjection.documentAct;
+  const documentaryIntentSignal = documentAct.kind !== "NONE";
+  const missionIntent = studioProjection.publication;
+  const studioIntent = studioProjection;
   const clientIntentKey = clientTurnKey;
   const missionKeys = missionCorrelationKeys(clientIntentKey);
-  // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
+  // Semantic qualification visible before extract/D4. Absence of obs must never invent D4.
   emitDocumentActQualificationObs({
     requestId,
     operationId: reserved.operationId,
     generationId: reply.generationId,
     qualificationKind: documentAct.kind,
-    qualificationReason: documentAct.kind === "NONE" ? (documentAct.reason ?? null) : null,
+    qualificationReason: documentAct.kind === "NONE" ? "SEMANTIC_NONE" : null,
     documentaryIntentSignal,
     d4Attempted: false,
     d4Effect: null,
   });
 
-  if (reply.status === "COMPLETE") {
+  if (reply.status === "COMPLETE" && allowOwnerEffects) {
     if (turnRaceHooks.beforeD4Effect) {
       await turnRaceHooks.beforeD4Effect();
     }
@@ -677,6 +855,7 @@ export async function postUserMessageAndNora(
           assistantText: reply.content,
           generationId: reply.generationId,
           userMessageId: reserved.userMessageId,
+          proposals: extractKnowledgeProposals(qualification),
           turnFence: {
             commandId: reserved.commandId,
             ownerToken: reserved.ownerToken,
@@ -1002,7 +1181,7 @@ export async function postUserMessageAndNora(
           ? {
               act: "NONE",
               status: "NOT_EXECUTED",
-              reason: documentAct.reason ?? "NO_EXPLICIT_WRITE",
+              reason: "NO_EXPLICIT_WRITE",
             }
           : null;
 
@@ -1063,6 +1242,7 @@ export async function postUserMessageAndNora(
   }
 
   if (
+    allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
     documentEffectForAck?.status === "AVAILABLE" &&
     documentEffectForAck.documentId &&
@@ -1165,12 +1345,17 @@ export async function postUserMessageAndNora(
   }
 
   // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
+  // S05: never mutate preview / invent mission while unresolved work A blocks B effects.
   if (
+    allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
     studioIntent.wantsProjectCreate &&
     !ctx.project?.id
   ) {
-    const proposed = studioIntent.proposedProjectName?.trim() || "Nouveau projet";
+    const proposed =
+      (studioIntent.proposedProjectName?.trim()
+        ? studioIntent.proposedProjectName.trim()
+        : null) || "Nouveau projet";
     try {
       await updatePreview(
         pilotId,
@@ -1313,10 +1498,24 @@ export async function postUserMessageAndNora(
       notes: reply.streamingNotes ?? null,
     },
     knowledgeSelection: {
-      ...knowledge.counts,
-      selectionMethod: knowledge.selectionMethod,
-      selectionLimit: knowledge.selectionLimit,
+      ...knowledgeForNora.counts,
+      selectionMethod: knowledgeForNora.selectionMethod,
+      selectionLimit: knowledgeForNora.selectionLimit,
+      role: "pre_generation_context" as const,
+      selectedAcquisIds: knowledgeForNora.selectedAcquisIds,
+      selectedOpenPointIds: knowledgeForNora.selectedOpenPointIds,
     },
+    knowledgeResumeHints: knowledgeResumeHints
+      ? {
+          ...knowledgeResumeHints.counts,
+          selectionMethod: knowledgeResumeHints.selectionMethod,
+          selectionLimit: knowledgeResumeHints.selectionLimit,
+          role: "post_qualification_resume_only" as const,
+          selectedAcquisIds: knowledgeResumeHints.selectedAcquisIds,
+          selectedOpenPointIds: knowledgeResumeHints.selectedOpenPointIds,
+          note: "Indice de reprise — n'a pas nourri la réponse déjà générée",
+        }
+      : null,
     capitalisation: ownershipLostBeforeD4
       ? (unknownCapReconstituted?.capitalisation ?? [])
       : confirmedCapitalisations,
@@ -1331,6 +1530,14 @@ export async function postUserMessageAndNora(
     humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
     pilotageEffect: pilotageEffectFromAuthority(authority),
     missionProjection,
+    nextTurnKind,
+    pendingEffectBlocked,
+    pendingBlockReason,
+    unresolvedPendingClientTurnKey:
+      blockingSibling?.clientTurnKey ??
+      blockingMission?.clientIntentKey ??
+      clientPendingHint,
+    semanticQualificationStatus: qualification.status,
   };
 
   if (turnRaceHooks.beforeTerminalCommit) {

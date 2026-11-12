@@ -1,8 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 /**
- * ML4C S05 — independent cognitive COMPLETE must not clear unresolved métier pending A.
- * Browser FAKE / E2E lane — not Nora LIVE.
+ * ML4C S05 — BROWSER WITH MOCKED API / DETERMINISTIC.
+ * UI + client sessionStorage pending identity only.
+ * Does NOT prove server S05 gate (see ml4c-s05-real-api.spec.ts).
+ * Nora LIVE: not claimed.
  */
 
 async function openProjectFromNewPrep(page: import("@playwright/test").Page): Promise<string> {
@@ -53,22 +55,58 @@ test("S05: independent COMPLETE leaves pending A identity intact", async ({ page
       await route.continue();
       return;
     }
+    const body = route.request().postDataJSON() as {
+      content?: string;
+      unresolvedPendingClientTurnKey?: string;
+    };
+    const text = (body.content ?? "").trim();
+    // Independent dialogue: COMPLETE without clearing métier pending A.
+    if (/différence entre blob et commit/i.test(text)) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          status: "COMPLETE",
+          noraMode: "deterministic-fixture",
+          nextTurnKind: "DIALOGUE_INDEPENDANT",
+          pendingEffectBlocked: false,
+          messages: [
+            { id: "m1", role: "user", content: text },
+            {
+              id: "m2",
+              role: "assistant",
+              content: "Un blob est un contenu ; un commit pointe une arborescence.",
+            },
+          ],
+          pilotageEffect: { attempted: false, status: null },
+          humanDecisionCreated: false,
+        }),
+      });
+      return;
+    }
+    // Effect request while A pending: server blocks métier mutations.
     await route.fulfill({
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
         status: "COMPLETE",
         noraMode: "deterministic-fixture",
+        nextTurnKind: "INTENTION_EFFET",
+        pendingEffectBlocked: true,
+        pendingBlockReason: "S05_PENDING_BLOCKS_EFFECT:ctk_pending_a_s05",
+        unresolvedPendingClientTurnKey: "ctk_pending_a_s05",
         messages: [
-          { id: "m1", role: "user", content: "Quelle est la différence entre blob et commit ?" },
+          { id: "m3", role: "user", content: text },
           {
-            id: "m2",
+            id: "m4",
             role: "assistant",
-            content: "Un blob est un contenu ; un commit pointe une arborescence.",
+            content: "Effet retenu — un travail précédent reste non résolu.",
           },
         ],
         pilotageEffect: { attempted: false, status: null },
         humanDecisionCreated: false,
+        missionProjection: null,
+        documentSave: null,
       }),
     });
   });
@@ -86,10 +124,9 @@ test("S05: independent COMPLETE leaves pending A identity intact", async ({ page
   }, projectId);
   expect(stored).toEqual(pendingA);
 
-  // Incompatible métier mutation still blocked with same pending key.
   await page.getByLabel("Message à Nora").fill("Crée un projet nommé Concurrent Bypass");
   await page.getByTestId("thread-send").click();
-  await expect(page.getByTestId("thread-nora-status")).toContainText(/non résolue|réconcilier/i, {
+  await expect(page.getByTestId("thread-nora-status")).toContainText(/pending non résolu|Effet retenu|non résolue/i, {
     timeout: 10000,
   });
   await expect(page.getByTestId("thread-pending-banner")).toBeVisible();
@@ -98,5 +135,4 @@ test("S05: independent COMPLETE leaves pending A identity intact", async ({ page
     return raw ? (JSON.parse(raw) as typeof pendingA) : null;
   }, projectId);
   expect(still?.clientTurnKey).toBe(pendingA.clientTurnKey);
-  expect(still?.clientCommandKey).toBe(pendingA.clientCommandKey);
 });

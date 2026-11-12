@@ -18,7 +18,7 @@ import {
   type DecisionBrief,
 } from "@/domains/decisions/divergence-assist";
 import { toCommandResult } from "@/domains/pilotage/command-runner";
-import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
+import type { IntentQualification } from "@/domains/pilotage/intent";
 import {
   executePilotageCommand,
   getPilotageProjection,
@@ -94,7 +94,8 @@ async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
  * (e.g. « je révise la décision d'ouverture du cycle »). Must not fall through
  * to an opportunistic RECORD_DECISION match.
  */
-function designatesFoundingReviseTarget(utterance: string): string | null {
+/** @deprecated Lot D2 — lexical founding revise designation retired from authority path. */
+export function designatesFoundingReviseTarget(utterance: string): string | null {
   const t = utterance.trim();
   if (
     /\b(?:d[eé]cision\s+d['’]ouverture|ouverture\s+du\s+cycle|d[eé]cision\s+d['’]ouvrir)\b/i.test(
@@ -131,7 +132,8 @@ function designatesFoundingReviseTarget(utterance: string): string | null {
  * which case refuse typed (never rewrite OPEN via documentary REVISE).
  * 0 / many admissible candidates ⇒ clarification; never chronological newest-wins.
  */
-function resolveReviseTarget(
+/** @deprecated Lot D2 — lexical revise target selection retired from authority path. */
+export function resolveReviseTargetLexical(
   utterance: string,
   briefs: DecisionBrief[],
 ):
@@ -182,10 +184,9 @@ function resolveReviseTarget(
   if (!target || target.state !== "APPLICABLE") {
     return { ok: false, reason: "Cible de révision non applicable" };
   }
-  const qualified = qualifyPilotageIntent(utterance);
-  const statement =
-    (qualified.clarity === "CLEAR" && qualified.statement) ||
-    utterance.replace(/^(?:finalement|désormais|dorénavant)[,:]?\s+/i, "").trim();
+  const statement = utterance
+    .replace(/^(?:finalement|désormais|dorénavant)[,:]?\s+/i, "")
+    .trim();
   return { ok: true, decisionId: target.id, statement: statement.slice(0, 500) };
 }
 
@@ -284,6 +285,11 @@ export async function applyConversationalAuthority(input: {
   userMessageId: string;
   content: string;
   clientTurnKey: string;
+  /**
+   * SEM/TV-02: semantic qualification from Nora (correlated to USER message).
+   * When omitted, do NOT fall back to lexical qualifyPilotageIntent — fail closed.
+   */
+  preQualified?: IntentQualification | null;
 }): Promise<ConversationalAuthorityOutcome> {
   const content = input.content.trim();
   const clientCommandKey = conversationalCommandKey(input.clientTurnKey);
@@ -309,7 +315,13 @@ export async function applyConversationalAuthority(input: {
     return prior;
   }
 
-  const qualified = qualifyPilotageIntent(content);
+  const qualified: IntentQualification =
+    input.preQualified ??
+    ({
+      clarity: "NONE",
+      reason: "NO_SEMANTIC_PILOTAGE_QUALIFICATION",
+    } as IntentQualification);
+  // Lexical qualifyPilotageIntent removed from this production path (SEM-02 / TV-05).
   if (qualified.clarity === "NONE") {
     return { ...empty, intentClarity: "NONE", intentReason: qualified.reason };
   }
@@ -330,21 +342,65 @@ export async function applyConversationalAuthority(input: {
     sourceKind: "USER_MESSAGE",
     sourceRef: input.userMessageId,
     utterance: content,
-    actInstanceId: input.userMessageId,
+    // Server-derived act identity — ignore any client-supplied actInstanceId.
+    actInstanceId: qualified.semanticIntentId
+      ? `${input.userMessageId}:${qualified.semanticIntentId}`
+      : input.userMessageId,
+    operation: qualified.operation,
+    semanticIntentId: qualified.semanticIntentId,
+    semanticSchemaVersion: qualified.semanticSchemaVersion,
+    cycleType: qualified.cycleType,
+    toCycleType: qualified.toCycleType,
+    methodRef: qualified.methodRef,
+    methodVersion: qualified.methodVersion,
+    decisionId: qualified.decisionId,
+    objectRef: qualified.objectRef,
+    statement: qualified.statement,
   };
 
   if (qualified.operation === "REVISE_DECISION") {
+    // Lot D2 — target from durable qualification or unique objectRef match on
+    // known APPLICABLE RECORD_DECISION resources. No lexical utterance router.
     const briefs = await loadDecisionBriefs(input.projectId);
-    const resolved = resolveReviseTarget(content, briefs);
-    if (!resolved.ok) {
+    let decisionId = (qualified.decisionId ?? "").trim();
+    const statement =
+      (qualified.statement ?? "").trim() || content.replace(/^(?:finalement|désormais|dorénavant)[,:]?\s+/i, "").trim();
+    if (!decisionId && qualified.objectRef?.trim()) {
+      const objectRef = qualified.objectRef.trim();
+      const matches = briefs.filter(
+        (b) =>
+          b.state === "APPLICABLE" &&
+          b.kind === "RECORD_DECISION" &&
+          b.objectRef.trim() === objectRef,
+      );
+      if (matches.length === 1) {
+        decisionId = matches[0]!.id;
+      } else if (matches.length > 1) {
+        return {
+          attempted: false,
+          intentClarity: "AMBIGUOUS",
+          intentReason: "Plusieurs décisions pour objectRef — précisez decisionId",
+          command: null,
+          humanDecisionCreated: false,
+          decisionId: null,
+          clarification: "Plusieurs décisions pour objectRef — précisez decisionId",
+          source: "clarification_only",
+          operation: "REVISE_DECISION",
+          clientCommandKey,
+        };
+      }
+    }
+    if (!decisionId) {
       return {
         attempted: false,
         intentClarity: "AMBIGUOUS",
-        intentReason: resolved.reason,
+        intentReason:
+          "REVISE_DECISION sans decisionId/objectRef durable — clarification requise (pas de cible lexicale)",
         command: null,
         humanDecisionCreated: false,
         decisionId: null,
-        clarification: resolved.reason,
+        clarification:
+          "Précisez la décision à réviser (identifiant ou objectRef unique) — pas de choix heuristique",
         source: "clarification_only",
         operation: "REVISE_DECISION",
         clientCommandKey,
@@ -353,8 +409,8 @@ export async function applyConversationalAuthority(input: {
     const command = await executePilotageCommand(input.pilotId, input.projectId, {
       ...base,
       operation: "REVISE_DECISION",
-      decisionId: resolved.decisionId,
-      statement: resolved.statement,
+      decisionId,
+      statement: statement.slice(0, 500),
       objectRef: qualified.objectRef,
     });
     return outcomeFromCommand(command, "REVISE_DECISION", clientCommandKey);
