@@ -51,14 +51,32 @@ Le fonctionnement cible demeure **Pilote → Nora → capacités Studio → auto
 4. Le macro-lot de convergence devra réunir architecture, implémentation, suppression effective, tests, documentation et revue ; la conception détaillée décidera d'éventuelles frontières de livraison motivées.
 5. Les sources R1/R2 conformes à cette orientation gardent leur autorité et n'ont pas à être réécrites pour une simple correction d'implémentation. Les contradictions et documents \`as-built\` doivent en revanche être traités.
 
-## 5. Gates restants
+## 5. Complément Morris du 12 novembre 2026 — validation des principes techniques
+
+Après revue du [contrat technique de qualification sémantique et mobilisation gouvernée](../../construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md), Morris confirme **« OK GO, je valide l'ensemble »**, portant sur les cinq principes soumis lors de la revue.
+
+**Arbitrages complémentaires validés en contenu :**
+
+1. Qualification canonique structurée par Nora D3 dans la même conduite cognitive ; \`outputType\` + Zod **privilégié**, pas encore prouvé compatible en intégration Next sur la version verrouillée \`@openai/agents@0.21.0\`.
+2. Aucune création, décision, publication ou mutation sur la seule sortie IA.
+3. Autorité humaine ancrée dans le message USER authentifié, vérifiée au point d'effet par le propriétaire compétent D2/D4/D5/D6/D9 ; la sortie de Nora ne vaut pas HumanDecision.
+4. Qualification validée **durablement avant tout nouvel effet** et réutilisée lors des reprises sans reclassification libre ; aucune migration DB autorisée implicitement.
+5. Suppression effective, après remplacement et preuve, des routeurs lexicaux métier ; aucun fallback caché ou silencieux. Les contrôles déterministes de sécurité, format, droits et état sont préservés.
+
+**Décision de gouvernance : CONTRAT TECHNIQUE VALIDÉ EN CONTENU AVEC RÉSERVES D'EXÉCUTABILITÉ.** Il ne s'agit **ni de l'approbation d'une API finalisée et testée**, ni d'un GO Cursor, d'un pivot persistance, d'un déploiement, d'un merge ou d'une adoption produit.
+
+**Réserves à lever :** compatibilité SDK verrouillé (sorties structurées, \`finalOutput\`, outils, streaming), contrat détaillé de preuve d'acte humain conversationnel D5/D6, stockage pré-effet et reprise dans le journal existant, mesure des budgets/latences et corpus LIVE avec limites explicites. Si une migration ou un changement d'autorité s'avère indispensable : **STOP et nouveau gate Morris**.
+
+**Documentation :** la présente décision, le contrat technique, le contrat ML4C et la roadmap sont tenus en cohérence sur branche documentaire candidate. La mise à jour de l'architecture \`as-built\`, des contrats R2 impactés, des tests et de \`delivery-history.md\` sera obligatoire **dans la même livraison que les modifications techniques**, avec gate sur toute modification normative. Le journal de recette conserve \`S02-01 FAIL\` jusqu'à retest effectif.
+
+## 6. Gates restants
 
 **Acquis :** orientation produit et conception fonctionnelle de la qualification sémantique validées par Morris le 12/11 ; documentation du principe autorisée.
 
-**À instruire / valider :** contrat technique Nora → Studio (sorties structurées, catalogue de capacités, ordre des opérations, frontières d'autorité, erreurs, reprise, budget et tests), ainsi que blast radius final et condition de retrait de chaque routeur lexical métier.
+**Validé en contenu :** les cinq principes du contrat technique Nora → Studio. **À vérifier et lever :** l'exécutabilité SDK/streaming, la preuve d'autorité D5/D6 par acte, la persistance pré-effet, le blast radius final, la mesure coût/latence et les preuves de suppression des routeurs lexicaux métier.
 
 **Non autorisé par la présente décision :** développement ou reprise Cursor, écriture DB/runtime/CI, restructuration normative imprévue, édition de sources protégées, push projet, PR/merge, mise à disposition RECETTE, STABLE, release, clôture de Gate C ou ADOPTED.
 
-**Prochain gate Morris :** validation du contrat technique détaillé **avant** préparation d'un nouveau contrat d'exécution SFIA v2.6.
+**Prochain gate Morris :** arbitrage des écarts d'implémentation ou de persistance qui dépasseraient la conception approuvée, puis **GO d'exécution SFIA v2.6 distinct** après pré-check et sécurisation des réserves ; aucun GO Cursor implicite.
 
-**Verdict : DÉCISION DE PRINCIPE VALIDÉE / CONCEPTION FONCTIONNELLE VALIDÉE / CONTRAT TECHNIQUE NON ENCORE VALIDÉ / CONSTRUCTION ET PREUVES NON ACQUISES.**
+**Verdict actualisé au 12/11 : DÉCISION DE PRINCIPE VALIDÉE / CONCEPTION FONCTIONNELLE VALIDÉE / CONTRAT TECHNIQUE VALIDÉ EN CONTENU AVEC RÉSERVES D'EXÉCUTABILITÉ / CONSTRUCTION ET PREUVES NON ACQUISES.**
