@@ -13,6 +13,16 @@
 | **Vérification** | Aucune exécution nouvelle du code, PostgreSQL, navigateur, Nora LIVE ou Git REAL pour cette validation documentaire |
 | **Portée du GO** | Morris valide le **contenu du contrat**, pas une réalisation, un effet provider, une publication technique, une PR, un merge, une promotion, le Gate C ou ADOPTED |
 
+## Addendum du 12/11/2026 — Qualification sémantique et suppression des routeurs lexicaux métier
+
+**Décision Morris :** [Qualification sémantique Nora et mobilisation gouvernée](../../governance/decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md), **VALIDATED IN CONTENT**. **Conception approuvée :** [Convergence de qualification sémantique](conception-qualification-semantique-mobilisation-gouvernee.md), sur la branche documentaire candidate. Ces sources explicitent la vision déjà validée : **Nora interprète les intentions ; Studio valide les contrats et l'autorité, et les domaines réalisent les effets**.
+
+L'audit du candidat produit \`2416e2ee\` a établi l'existence de classificateurs lexicaux métier D2/D3/D4/D5/D6/D9 et d'heuristiques de sélection/capitalisation. **Ils doivent être remplacés puis supprimés des chemins d'exécution**, une fois leur remplacement prouvé, et non conservés comme fallback. Les parseurs de formats, contrôles de droits, schémas, types, identifiants, sécurité, reprise, idempotence et preuve déterministes ne sont pas visés. Le contrôle final doit inventorier les appels et anciennes règles résiduels.
+
+**Conséquence ML4C :** traiter le problème dans une convergence intégrée (qualification D3, mobilisation, interfaces D2–D9, protection des effets, tests sémantiques/live, documentation cohérente), et **non** par accumulation de regex sur A-006/A-007. \`S02-01\` reste FAIL ; le correctif local non commité du 12/11 est \`REVIEW NOT READY\` ; aucune réception n'est anticipée. **Le contrat technique reste candidat et soumis à validation Morris, sans GO de code ni PR/merge.**
+
+**Exigence documentaire d'exit :** synchroniser architecture Next, contrats R2 applicables, documentation technique \`as-built\`, tests, \`delivery-history.md\`, cahier/journal de recette et roadmap selon leurs gates, **dans la même livraison que les modifications de fonctionnement**. Le présent addendum n'altère pas les constats historiques du contrat CP2 daté du 11/11.
+
 ## 1. Pourquoi ces travaux — fidélité à la vision
 
 La raison de ML4B puis de ML4C **n'est pas une accumulation de correctifs isolés**. Après la construction des capacités ML1–ML4, la première campagne utilisateur R01–R14 et le diagnostic CP1 ont montré des acquis locaux, mais pas encore la continuité, la cohérence des états et la valeur utilisateur d'un Studio unifié. Une couverture documentaire RG/PF ou un test déterministe réussi ne prouvent pas un parcours Pilote–Nora complet.
