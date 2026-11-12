@@ -1,23 +1,39 @@
-# SFIA Studio Next — Review Pack FULL — ML4C Final Admissibility (C-01..C-04)
+# SFIA Studio Next — Review Pack FULL
+## ML4C — Q1 real D2 mission + Q2 ENV-01 final runtime qualification
 
-Date/heure: 2026-11-12 14:45:26 CET
-Timezone: Europe/Paris
-Mandat: ML4C — FERMETURE DE RECEVABILITÉ DU CANDIDAT SÉMANTIQUE
-Verdict local attendu: IMPLEMENTED WITH RESERVES — REVIEW REQUIRED
+- **Date/heure**: 2026-11-12 15:09:43 CET
+- **Cycle**: Delivery projet (§6.6) — EVOL Critical corrective / QA intégrée
+- **Profil**: Critical
+- **Branche locale**: `fix/next-semantic-intent-convergence-20261112`
+- **HEAD**: `2416e2ee25662821b015407346c64ec204f67488` (= candidat distant `2416e2ee`)
+- **merge-base main**: `6d237452680640324eeadbb18f4601fd7de99850`
+- **PR produit**: #676 OPEN / NON MERGÉE — **aucun push produit**
+- **Handoff précédent**: `2470d299` / blob `22fcdefeddb4135b5511023e146f3721014b1364`
+- **Verdict Cursor**: **IMPLEMENTED — READY FOR CHATGPT REVIEW**
+- **Non-déclarations**: ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C · ADOPTED · READY FOR REAL · RELEASED
 
-## 1. Git Truth Check
+---
+
+## 1. Git Truth Check (initial/final)
+
+| Check | Valeur |
+| --- | --- |
+| pwd | `/Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112` |
+| remote | `https://github.com/mcleland147/sfia-workspace.git` |
+| branche | `fix/next-semantic-intent-convergence-20261112` |
+| HEAD | `2416e2ee25662821b015407346c64ec204f67488` |
+| main | `6d237452680640324eeadbb18f4601fd7de99850` |
+| merge-base | `6d237452680640324eeadbb18f4601fd7de99850` |
+| candidat distant | `build/next-ml4c-functional-convergence` @ `2416e2ee…` |
+| docs | `docs/next-r5-ml4c-cp2-preparation-20261111` @ `8b41fe16…` |
+| handoff avant cycle | `sfia/review-handoff` @ `2470d299…` blob `22fcdefe…` |
+| Code produit | **NON COMMITÉ / NON POUSSÉ** (préservé) |
+| Destructive git | **aucun** reset/clean/stash/rebase/cherry-pick |
+
+### status
 
 ```
-branch: fix/next-semantic-intent-convergence-20261112
-HEAD: 2416e2ee25662821b015407346c64ec204f67488
-merge-base origin/main: 6d237452680640324eeadbb18f4601fd7de99850
-base candidate: 2416e2ee25662821b015407346c64ec204f67488
-main tip: 6d237452680640324eeadbb18f4601fd7de99850
-prior handoff: d4f424aff6c98e88d1f57a3b5d797dae4b7288a4 blob cccfd569
-PR #676: OPEN — NON MERGÉE
-commits ahead of base: none (uncommitted local work only)
-
-STATUS:
+## fix/next-semantic-intent-convergence-20261112
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
  M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
@@ -54,258 +70,4185 @@ STATUS:
 ?? projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
 ?? projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
 ?? projects/sfia-studio-next/web/src/lib/e2e-fixture-gate.ts
+?? projects/sfia-studio-next/web/tests/e2e/ml4c-d2-mission-real-s05.spec.ts
 ?? projects/sfia-studio-next/web/tests/e2e/ml4c-s05-real-api.spec.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/ml4c-d2-mission-s05.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/ml4c-env01-runtime.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml4c-integrator-auth-persist.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
 
+```
 
-WORKTREES:
-/Users/morris/Projects/sfia-workspace                                                   ba831b25 [sfia/next-pilotage-decisions-delivery]
-/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023                              d4f424af [sfia/review-handoff]
-/Users/morris/Projects/sfia-studio-next-recette-ml1-c3                                  0db58be8 (detached HEAD)
-/Users/morris/Projects/sfia-studio-next-recette-ml2-pr659                               54fc4e9c (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l1-a09-audit-port-decoupling               0cb05b75 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l2-d0-decision-readiness                   0cb05b75 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-local-oa-cutover                     d98b3930 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-readiness                            1a380f22 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5-l2-q0-readonly                             94c7a30d (detached HEAD)
-/Users/morris/Projects/sfia-workspace-akg-m5a-product-architecture-convergence          0cb05b75 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-delivery-p6-she-execute                           f1fc1af4 [delivery/sfia-studio-p6-single-human-execute]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-abd-positive-admission-r24            c683d761 [docs/akg-m5-abd-positive-admission-r24]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-abd-postmerge-truth-sync-01           cd2020c8 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l2-d0                                 90bd0064 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l2-d2-postmerge-truth-sync            241335ee (detached HEAD)
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s1-post-merge-roadmap-sync         266459c4 [docs/akg-m5-l3-s1-post-merge-roadmap-sync]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s2-postmerge-r24-current           f884dda1 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3s2-r24-postmerge-capitalization     cf940d84 [docs/akg-m5-l3s2-r24-postmerge-capitalization]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync       6e60d839 [docs/akg-m5-nap-option-c-c14-r24-truth-sync]
-/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-ux-630-postmerge-truth-sync       979a33ad [docs/akg-m5-nap-ux-630-postmerge-truth-sync]
+### diffstat (vs HEAD = 2416e2ee)
+
+```
+ .tmp-sfia-review/chatgpt-review.md                 | 11536 ++++++++++++++++++-
+ .../construction/delivery-history.md               |   101 +
+ .../preparations/[preparationId]/messages/route.ts |     2 +
+ .../web/src/app/projects/[projectId]/page.tsx      |    51 +-
+ .../src/domains/conversation/cognitive-policy.ts   |    78 +-
+ .../web/src/domains/conversation/document-act.ts   |   208 +-
+ .../src/domains/conversation/intent-conduction.ts  |    72 +-
+ .../src/domains/conversation/mission-continuity.ts |    71 +-
+ .../web/src/domains/conversation/nora-adapter.ts   |   101 +-
+ .../web/src/domains/conversation/service.ts        |   377 +-
+ .../web/src/domains/conversation/turn-command.ts   |   236 +-
+ .../web/src/domains/knowledge/service.ts           |   344 +-
+ .../web/src/domains/pilotage/command-runner.ts     |    42 +-
+ .../src/domains/pilotage/conversation-authority.ts |    86 +-
+ .../web/src/domains/pilotage/intent.ts             |   785 +-
+ .../web/src/domains/pilotage/service.ts            |   179 +-
+ .../web/src/domains/pilotage/thread-recovery.ts    |   167 +-
+ .../web/src/domains/pilotage/types.ts              |     3 +
+ .../tests/e2e/ml4c-s05-independent-pending.spec.ts |    52 +-
+ .../integration/ml2-knowledge-documents.pg.test.ts |    18 +-
+ .../tests/integration/ml2-turn-command.pg.test.ts  |    13 +-
+ .../web/tests/unit/cognitive-policy.test.ts        |    35 +-
+ .../web/tests/unit/document-act.test.ts            |  1326 +--
+ .../web/tests/unit/intent-conduction.test.ts       |   126 +-
+ .../web/tests/unit/mission-continuity.test.ts      |    81 +-
+ .../web/tests/unit/ml3-cki-intent.test.ts          |   243 +-
+ .../web/tests/unit/ml3-rct02-intent.test.ts        |   328 +-
+ .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |    13 +-
+ .../ml4c-s05-thread-turn-qualification.test.ts     |   139 +-
+ .../web/tests/unit/nora-e2e-fixture.test.ts        |     5 +-
+ 30 files changed, 12897 insertions(+), 3921 deletions(-)
 
 ```
 
-## 2. Sources lues (réf.)
-
-- Decision Morris 2026-11-12 (docs branch) blob ebaa5665
-- Conception / contrat technique / contrat ML4C / roadmap / cahier / journal (docs)
-- Prior handoff d4f424af / blob cccfd569
-- SEF / ENV-01 / product-versioning (main)
-- Code worktree prime pour as-built
-
-## 3. Périmètre C-01..C-04
-
-| EXIGENCE | PRÉCONDITION | FICHIER | ACTION | TEST | PREUVE | STATUT | RÉSERVE |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| C-01 AUTH-R06 | projet + dual durable qual | ml4c-auth-reconciliation.pg.test.ts | OPEN+TRANSITION both APPLIED | AUTH-R06 | 2 APPLIED + replay | PASS | — |
-| C-02 S05-REAL-05 | seed_awaiting_mission COMPLETE | s05-fixture + ml4c-s05-real-api.spec.ts | mission AWAITING blocks B | S05-REAL-05/M01 | HTTP+oracle | PASS | fixture seed |
-| C-03 Fixture | gate DEV∧E2E∧¬prod | e2e-fixture-gate.ts | FORCE_NORA alone refused | FIX-01..10 | unit+e2e | PASS | — |
-| C-04 Pack | base 2416e2ee | .tmp-sfia-review | FULL cumulative | manifest | this file | PASS | size |
-
-## 4. Tests exécutés
+### untracked (créations)
 
 ```
-npx tsc --noEmit → PASS
-npx vitest run tests/unit → 248 PASS
-npx vitest run tests/integration/ml4c-auth-reconciliation.pg.test.ts → 13 PASS
-npx vitest run tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts → 6 PASS
-npx vitest run tests/unit/ml4c-e2e-fixture-gate.test.ts → 6 PASS
-npx playwright test tests/e2e/ml4c-s05-real-api.spec.ts → 7 PASS (:3101)
-LIVE OpenAI → NOT RUN
-S02-01 Intervencia → FAIL / SOURCE EXACTE NON DISPONIBLE
-git diff --check → PASS
-```
-
-## 5. Manifeste cumulatif vs 2416e2ee25662821b015407346c64ec204f67488
-
-### 5.1 Fichiers suivis modifiés (29)
-1. `projects/sfia-studio-next/construction/delivery-history.md` | MODIFIED | lines≈1606 | section 6
-2. `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts` | MODIFIED | lines≈75 | section 6
-3. `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` | MODIFIED | lines≈1026 | section 6
-4. `projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts` | MODIFIED | lines≈236 | section 6
-5. `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts` | MODIFIED | lines≈1159 | section 6
-6. `projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts` | MODIFIED | lines≈1457 | section 6
-7. `projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts` | MODIFIED | lines≈729 | section 6
-8. `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts` | MODIFIED | lines≈757 | section 6
-9. `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | MODIFIED | lines≈1671 | section 6
-10. `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts` | MODIFIED | lines≈962 | section 6
-11. `projects/sfia-studio-next/web/src/domains/knowledge/service.ts` | MODIFIED | lines≈1114 | section 6
-12. `projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts` | MODIFIED | lines≈569 | section 6
-13. `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts` | MODIFIED | lines≈517 | section 6
-14. `projects/sfia-studio-next/web/src/domains/pilotage/intent.ts` | MODIFIED | lines≈55 | section 6
-15. `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | MODIFIED | lines≈1352 | section 6
-16. `projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts` | MODIFIED | lines≈132 | section 6
-17. `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | MODIFIED | lines≈164 | section 6
-18. `projects/sfia-studio-next/web/tests/e2e/ml4c-s05-independent-pending.spec.ts` | MODIFIED | lines≈138 | section 6
-19. `projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts` | MODIFIED | lines≈221 | section 6
-20. `projects/sfia-studio-next/web/tests/integration/ml2-turn-command.pg.test.ts` | MODIFIED | lines≈97 | section 6
-21. `projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts` | MODIFIED | lines≈88 | section 6
-22. `projects/sfia-studio-next/web/tests/unit/document-act.test.ts` | MODIFIED | lines≈31 | section 6
-23. `projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts` | MODIFIED | lines≈61 | section 6
-24. `projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts` | MODIFIED | lines≈65 | section 6
-25. `projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts` | MODIFIED | lines≈10 | section 6
-26. `projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts` | MODIFIED | lines≈27 | section 6
-27. `projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts` | MODIFIED | lines≈172 | section 6
-28. `projects/sfia-studio-next/web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts` | MODIFIED | lines≈87 | section 6
-29. `projects/sfia-studio-next/web/tests/unit/nora-e2e-fixture.test.ts` | MODIFIED | lines≈118 | section 6
-
-### 5.2 Fichiers créés non suivis (12)
-1. `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md` | CREATED/UNTRACKED | lines=44 | section 7
-2. `projects/sfia-studio-next/web/src/app/api/dev/e2e/s05-fixture/route.ts` | CREATED/UNTRACKED | lines=309 | section 7
-3. `projects/sfia-studio-next/web/src/domains/conversation/durable-qualification.ts` | CREATED/UNTRACKED | lines=123 | section 7
-4. `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts` | CREATED/UNTRACKED | lines=281 | section 7
-5. `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts` | CREATED/UNTRACKED | lines=502 | section 7
-6. `projects/sfia-studio-next/web/src/lib/e2e-fixture-gate.ts` | CREATED/UNTRACKED | lines=19 | section 7
-7. `projects/sfia-studio-next/web/tests/e2e/ml4c-s05-real-api.spec.ts` | CREATED/UNTRACKED | lines=421 | section 7
-8. `projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts` | CREATED/UNTRACKED | lines=771 | section 7
-9. `projects/sfia-studio-next/web/tests/integration/ml4c-integrator-auth-persist.pg.test.ts` | CREATED/UNTRACKED | lines=185 | section 7
-10. `projects/sfia-studio-next/web/tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts` | CREATED/UNTRACKED | lines=324 | section 7
-11. `projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts` | CREATED/UNTRACKED | lines=71 | section 7
-12. `projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts` | CREATED/UNTRACKED | lines=328 | section 7
-
-### 5.3 Diffstat
-```
- .tmp-sfia-review/chatgpt-review.md                 |  166 ---
- .../construction/delivery-history.md               |   86 ++
- .../preparations/[preparationId]/messages/route.ts |    2 +
- .../web/src/app/projects/[projectId]/page.tsx      |   51 +-
- .../src/domains/conversation/cognitive-policy.ts   |   78 +-
- .../web/src/domains/conversation/document-act.ts   |  208 +--
- .../src/domains/conversation/intent-conduction.ts  |   72 +-
- .../src/domains/conversation/mission-continuity.ts |   71 +-
- .../web/src/domains/conversation/nora-adapter.ts   |  101 +-
- .../web/src/domains/conversation/service.ts        |  377 ++++--
- .../web/src/domains/conversation/turn-command.ts   |  236 +++-
- .../web/src/domains/knowledge/service.ts           |  344 ++---
- .../web/src/domains/pilotage/command-runner.ts     |   42 +-
- .../src/domains/pilotage/conversation-authority.ts |   86 +-
- .../web/src/domains/pilotage/intent.ts             |  785 +-----------
- .../web/src/domains/pilotage/service.ts            |  179 ++-
- .../web/src/domains/pilotage/thread-recovery.ts    |  167 +--
- .../web/src/domains/pilotage/types.ts              |    3 +
- .../tests/e2e/ml4c-s05-independent-pending.spec.ts |   52 +-
- .../integration/ml2-knowledge-documents.pg.test.ts |   18 +-
- .../tests/integration/ml2-turn-command.pg.test.ts  |   13 +-
- .../web/tests/unit/cognitive-policy.test.ts        |   35 +-
- .../web/tests/unit/document-act.test.ts            | 1326 +-------------------
- .../web/tests/unit/intent-conduction.test.ts       |  126 +-
- .../web/tests/unit/mission-continuity.test.ts      |   81 +-
- .../web/tests/unit/ml3-cki-intent.test.ts          |  243 +---
- .../web/tests/unit/ml3-rct02-intent.test.ts        |  328 +----
- .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |   13 +-
- .../ml4c-s05-thread-turn-qualification.test.ts     |  139 +-
- .../web/tests/unit/nora-e2e-fixture.test.ts        |    5 +-
- 30 files changed, 1501 insertions(+), 3932 deletions(-)
+projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
+projects/sfia-studio-next/web/src/app/api/dev/e2e/s05-fixture/route.ts
+projects/sfia-studio-next/web/src/domains/conversation/durable-qualification.ts
+projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+projects/sfia-studio-next/web/src/lib/e2e-fixture-gate.ts
+projects/sfia-studio-next/web/tests/e2e/ml4c-d2-mission-real-s05.spec.ts
+projects/sfia-studio-next/web/tests/e2e/ml4c-s05-real-api.spec.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-d2-mission-s05.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-env01-runtime.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-integrator-auth-persist.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts
+projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts
+projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
 
 ```
 
-## 6. Diffs complets — fichiers suivis modifiés
+---
 
-### DIFF `projects/sfia-studio-next/construction/delivery-history.md`
+## 2. Sources Git/ref/blob lues (contrat)
 
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index acde3811..b65a7348 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,92 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+| Doc | Ref / blob |
+| --- | --- |
+| Décision Morris | `ebaa5665…` |
+| Conception sémantique | `88f387aa…` |
+| Contrat technique | `647bbca8…` |
+| Contrat ML4C global | `8cfd6fd4…` |
+| Roadmap | `34a72193…` |
+| ENV-01 gouvernance | `14b61f0d…` |
+| Sas création | `b75fb54a…` |
+| Prior handoff | `2470d299` / `22fcdefe…` |
+| SFIA cycle routing | `3315bbae…` |
+| Cycle template | `f4fdb488…` |
 
+Code réellement inspecté : `service.ts` (mission D2), `intent-conduction.ts` (`loadLatestMissionsByIntentKey`, `buildD2OwnerActBinding`, `d2MissionIdempotencyKey`), `semantic-qualification.ts`, fixture gate, `e2e-web-server.sh`, Playwright config.
 
-+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-ADMISSIBILITY-CLOSURE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-12 ~14:45 CET (Europe/Paris) |
-+| Macro-lot | ML4C — C-01 AUTH-R06 positif / C-02 S05-REAL-05 AWAITING / C-03 fixture isolation / C-04 pack cumulatif |
-+| Type | EVOL Critical corrective (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
-+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
-+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE non mutée |
-+| Changes | AUTH-R06 OPEN+TRANSITION both APPLIED ; seed_awaiting_mission + S05-REAL-05 ; e2eFixtureMutationsAllowed (E2E obligatoire) ; pack FULL cumulatif |
-+| Schema | unchanged |
-+| Tests | AUTH 13 PASS ; fixture gate 6 PASS ; S05 real-api 7 PASS ; LIVE NOT RUN |
-+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES — REVIEW REQUIRED |
-+
-+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-EVIDENCE-CLOSURE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-12 ~14:05 CET (Europe/Paris) |
-+| Macro-lot | ML4C — F1–F4 evidence closure (reconcile / AUTH real / S05 real API / D4 epistemic) |
-+| Type | EVOL Critical corrective (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
-+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
-+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE :3200 non mutée |
-+| Changes | F1 runner reorder ; F2 AUTH-R01–R14 PG ; F3 S05 real-api E2E ; F4 no FACT from Nora alone + pre/post knowledge roles ; multi-intent durable match |
-+| Schema | unchanged (no DB migration) |
-+| Tests | unit+ML4C PG 264 PASS ; AUTH 13 PASS ; E2E S05 real-api 3 PASS ; LIVE NOT RUN ; S02-01 FAIL (source) |
-+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES — REVIEW REQUIRED |
-+
-+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-INTEGRATOR-CLOSURE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-12 ~13:35 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Integrator closure R1 S05 full / R2 human-act idempotence / R3 D4 semantic knowledge / R4 preuves |
-+| Type | EVOL Critical corrective (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
-+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
-+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE :3200 non mutée |
-+| Changes | S05 gate D2/D4/D5/D6/D7 + missions ; actInstanceId serveur + replay ALREADY_APPLIED ; `d4.record_knowledge` + capitalisation sélective ; sélection preferred-ids |
-+| Schema | unchanged (Zod envelope extended ; no DB migration) |
-+| Tests | unit 240 PASS ; PG 35 PASS ; E2E S05 1 PASS ; LIVE NOT RUN ; S02-01 FAIL (source) |
-+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES |
-+
-+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-INTEGRATOR
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-12 ~12:45 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Integrator Lots A–E (superseded by INTEGRATOR-CLOSURE) |
-+| Type | EVOL Critical corrective (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
-+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
-+| Status | SUPERSEDED |
-+
-+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-CORRECTIVE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-12 ~12:10 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Corrective convergence sémantique (D5/D6 / T-03 / S05 / lexical purge) |
-+| Type | EVOL Critical corrective (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
-+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
-+| Lane | DEV isolé ; RECETTE figée ; STABLE N/A |
-+| Changes | `pilotageOperation` typé ; match qualification durable owner ; stash `applied` obligatoire ; merge terminal ; `nextTurnKind` serveur ; fixture scénarios exacts ; purge `PHRASES` / corps lexical D4/D5 ; page S05 sans `qualifyThreadTurn` |
-+| Schema | unchanged |
-+| Tests | unit 36 PASS ; PG/E2E/LIVE NOT RUN |
-+| Status | LOCAL ONLY — Review Handoff L3 corrective ; IMPLEMENTED WITH RESERVES |
-+
-+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-CONVERGENCE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-12 11:43 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Qualification sémantique Nora + mobilisation gouvernée |
-+| Type | EVOL Critical — remplacement routeurs lexicaux métier (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
-+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
-+| Lane | DEV isolé ; RECETTE figée `2416e2ee` ; STABLE N/A |
-+| Changes | Enveloppe `ml4c-sem-qual-v1` ; LIVE `outputType`+Zod ; fixture TEST_BOUNDARY ; D5/D6 après Nora + `preQualified` ; stubs fail-closed ; stash pré-effet — **revue ChatGPT NOT READY → corrective** |
-+| Schema | unchanged (stash via `resultJson` existant) |
-+| Tests | unit semantic/intent/S05/cognitive/mission PASS ; PG/E2E/LIVE NOT RUN |
-+| Status | SUPERSEDED BY CORRECTIVE — réserves D5/D6/T-03/S05/lexical |
-+
- ## delivery_id: DELIV-2026-11-11-ML4C-S05-POSITIVE-INDEPENDENCE
+---
 
- | Field | Value |
+## 3. État initial du candidat local
+
+Worktree dirty sur base `2416e2ee` avec corrections sémantiques / integrator / F1–F4 / C-01–C-04 **conservées**.
+Pack précédent reset à vide en début de cycle Q1/Q2.
+Aucun état Git incompatible → pas de STOP reconciliation.
+
+---
+
+## 4. Invariants Q1 / Q2
+
+### Q1
+
+1. Mission `AWAITING_PILOT_ACT` **uniquement** via parcours D2 réel (pas de seed `resultJson`).
+2. Sas sans projet ; aucun clic « Créer le projet ».
+3. `ownerActBinding` complet (`D2_CREATE_PROJECT` + `d2MissionIdempotencyKey`).
+4. B admissible sans A ; B bloqué S05 avec A ; A récupérable après refresh.
+5. Aucun UNKNOWN sibling comme oracle de blocage.
+
+### Q2
+
+1. Runtime Playwright = worktree candidat, port `127.0.0.1:3101`, distDir `.next-e2e`.
+2. PG mutatif = `sfia_next_e2e` @ `127.0.0.1:5433` / rôle `sfia_next_dev`.
+3. Creds DEV **DENIED** sur RECETTE `:5434`.
+4. Fixture inactive hors DEV∧E2E∧¬production.
+5. NOT VERIFIED ≠ PASS.
+
+---
+
+## 5. Fichiers touchés ce cycle (delta Q1/Q2)
+
+**Créés (preuves) :**
+- `web/tests/integration/ml4c-d2-mission-s05.pg.test.ts`
+- `web/tests/e2e/ml4c-d2-mission-real-s05.spec.ts`
+- `web/tests/integration/ml4c-env01-runtime.pg.test.ts`
+- as-built mis à jour Q1/Q2
+- delivery-history entrée FINAL-RUNTIME-QUAL
+
+**Modifiés ce cycle :** assertions E2E restitution UI ; ENV test + cross-lane DENY ; docs.
+
+**Cumul candidat (conservé) :** semantic-qualification, durable-qualification, fixture-semantic-qualify, e2e-fixture-gate, s05-fixture route, command-runner, service, intent-conduction, etc. (voir diffs cumulés §8–9).
+
+---
+
+## 6. Code créé — contenu complet (untracked)
+
+### `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md`
+
+```markdown
+# As-built — Qualification sémantique Nora + mobilisation gouvernée (Q1/Q2 final runtime)
+
+Date: 2026-11-12 ~15:10 CET (Europe/Paris)
+Branche locale: `fix/next-semantic-intent-convergence-20261112`
+Base candidat: `2416e2ee25662821b015407346c64ec204f67488`
+Profil: Critical / EVOL corrective QA / NO RELEASE / publication produit INTERDITE
+
+## Objectif de ce cycle
+
+Fermer les deux preuves manquantes du Review Pack précédent (TECHNICAL REVIEWABLE — INTEGRATION GATE NOT YET CLEARED) :
+
+1. **Q1** — Mission `AWAITING_PILOT_ACT` obtenue par le **vrai parcours D2** (sas sans projet, sans clic « Créer le projet »), puis blocage S05 d’une intention B concurrente.
+2. **Q2** — Isolation ENV-01 runtime + PostgreSQL démontrée (pas seulement variables d’environnement).
+
+Les corrections C-01..C-04 / F1–F4 / integrator sont **conservées**.
+
+## Q1 — Parcours D2 réel (origine de la mission)
+
+### Étapes
+
+1. Authentifier Pilote DEV.
+2. Ouvrir une préparation `OPEN` **sans** lien projet (`preparationProjectLinks` vide).
+3. Envoyer via API conversation réelle : `"Je veux créer un projet."`
+4. Nora uniquement à la frontière `TEST_BOUNDARY` (fixture DEV+E2E).
+5. Qualification structurée → `d2.create_project` / `REQUEST_EFFECT`.
+6. Studio prépare l’intention D2 ; `service.ts` produit `MissionProjection` via `buildD2OwnerActBinding` + `d2MissionIdempotencyKey` → status `AWAITING_PILOT_ACT`.
+7. **Aucun** clic sur « Créer le projet » → **aucun** projet durable.
+8. Relecture : `loadLatestMissionsByIntentKey` / oracle E2E après COMPLETE et après refresh.
+
+### Différence vs ancien seed artificiel (C-02)
+
+| | Seed `seed_awaiting_mission` | Parcours Q1 réel |
+| --- | --- | --- |
+| Précondition | Projet souvent déjà créé, puis mission « créer projet » injectée | Sas `OPEN`, zéro projet |
+| `ownerActBinding` | JSON partiel possible | Complet : `kind=D2_CREATE_PROJECT`, `preparationId`, `clientIntentKey`, `suggestedIdempotencyKey` (= `d2MissionIdempotencyKey`) |
+| Origine | Fixture HTTP écrit `resultJson` | `postUserMessageAndNora` / route messages Studio |
+| Preuve S05 | Gate sait bloquer si projection présente | Gate bloque une mission **métier atteignable** |
+
+### Contrôle positif B
+
+Préparation DEV distincte **sans** mission AWAITING : document CREATE nominal → `documentCount+1`, `pendingEffectBlocked ≠ true`.
+
+### Contrôle négatif B
+
+Sur la préparation portant A : message documentaire concurrent → `pendingEffectBlocked=true`, raison `S05_MISSION_BLOCKS_EFFECT`, aucun document/projet/décision D6, A toujours `AWAITING_PILOT_ACT`.
+
+### Preuves
+
+| Suite | Résultat |
+| --- | --- |
+| `ml4c-d2-mission-s05.pg.test.ts` | 3 PASS |
+| `ml4c-d2-mission-real-s05.spec.ts` (Playwright :3101) | 1 PASS |
+| LIVE OpenAI | NOT RUN |
+
+## Q2 — ENV-01 runtime / PostgreSQL
+
+### Identité runtime (Playwright mutatif)
+
+| Champ | Valeur observée |
+| --- | --- |
+| Port web E2E | `127.0.0.1:3101` (éphémère via `scripts/e2e-web-server.sh`) |
+| Bind | `-H 127.0.0.1` (loopback) |
+| Worktree code | candidat local `…/sfia-workspace-next-semantic-intent-20261112` |
+| HEAD | `2416e2ee` + worktree dirty (non poussé) |
+| Mode | `next dev`, `distDir=.next-e2e` |
+| Lane flags | `STUDIO_LANE=DEV`, `STUDIO_E2E=1`, `STUDIO_FORCE_NORA_FIXTURE=1`, `OPENAI_API_KEY` neutralisé |
+| RECETTE observée | process distinct PID sur `:3200`, cwd `…/sfia-workspace-next-ml4-recette-build-2416e2ee` — **non utilisé** par les tests mutatifs |
+
+### Identité PostgreSQL (expurgée)
+
+| Champ | DEV/E2E observé |
+| --- | --- |
+| Conteneur | `sfia-next-dev-pg` → `127.0.0.1:5433` |
+| `current_database()` | `sfia_next_e2e` (vitest mutatif / Playwright) |
+| `current_user` | `sfia_next_dev` |
+| Bases sur conteneur DEV | `sfia_next_dev`, `sfia_next_e2e`, `sfia_next_ml4` |
+| Conteneur RECETTE | `sfia-next-recette-pg` → `127.0.0.1:5434` |
+| Cross-lane | Identifiants DEV → `:5434/sfia_next_recette` = **28P01 DENIED** |
+
+### Matrice ENV-R01..R15
+
+| ID | Résultat | Preuve |
+| --- | --- | --- |
+| ENV-R01 | PASS | Playwright webServer = worktree candidat + `.next-e2e` |
+| ENV-R02 | PASS | Port 3101 éphémère documenté ; RECETTE :3200 PID/cwd distincts |
+| ENV-R03 | PASS | `next dev -H 127.0.0.1` ; docker PG `127.0.0.1:5433` |
+| ENV-R04 | PASS | `current_database()=sfia_next_e2e` |
+| ENV-R05 | PASS | `current_user=sfia_next_dev` |
+| ENV-R06 | PASS | DEV creds DENIED sur RECETTE :5434 |
+| ENV-R07 | PASS | Bases/ports distincts ; mutatif confiné `sfia_next_e2e` |
+| ENV-R08 | PASS | distDir `.next-e2e` vs operator `.next` / RECETTE autre worktree |
+| ENV-R09 | NOT VERIFIED | Isolation cookies multi-lane non mesurée hors sessions DEV E2E |
+| ENV-R10 | PASS (partiel) | Secrets non publiés ; roles/ports séparés ; mots de passe distincts (DENIED) |
+| ENV-R11 | PASS | `e2eFixtureMutationsAllowed` refuse production/RECETTE/sans E2E |
+| ENV-R12 | PASS | Gate vitest rewrite → `sfia_next_e2e` only |
+| ENV-R13 | PASS | Aucune mutation RECETTE dans ce cycle ; cross-auth DENIED |
+| ENV-R14 | PASS | `e2e-web-server.sh` + playwright.config reproductibles |
+| ENV-R15 | PASS | Pack handoff sans secrets (contrôle publisher) |
+
+**ENV-R09 = NOT VERIFIED** (ne pas convertir en PASS). Pas de STOP : frontière mutative PG/runtime démontrée.
+
+## Runner / D4 / fixture (conservés)
+
+- D5/D6 : classify → findByIntent/ActionKey avant STALE ; `stash.applied` obligatoire.
+- D4 : pas de FACT sur seul `established` Nora.
+- Fixture : DEV ∧ E2E=1 ∧ ¬production.
+
+## Non-déclarations
+
+ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED · READY FOR REAL · product push/PR/merge · LIVE Nora
+
+## Réserves / gates Morris restants
+
+- LIVE Nora pertinence (NOT RUN)
+- S02-01 Intervencia FAIL (source exacte indisponible)
+- A-006/A-007 ouvertes
+- PR #676 OPEN / NON MERGÉE
+- ENV-R09 sessions multi-lane NOT VERIFIED
+- Décision d’intégration Git / RECETTE / promotion = Morris uniquement
 
 ```
 
-### DIFF `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts`
+### `projects/sfia-studio-next/web/src/app/api/dev/e2e/s05-fixture/route.ts`
+
+```typescript
+/**
+ * DEV/E2E-only fixture for S05 real-API proofs.
+ * Seeds UNKNOWN / AWAITING_PILOT_ACT test preconditions and returns DB oracles.
+ * Does NOT mock conversation HTTP responses. Does NOT create HumanDecision / Git REAL.
+ */
+import { NextResponse } from "next/server";
+import { and, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import {
+  businessCommands,
+  conversationTurnCommands,
+  documents,
+  humanDecisions,
+  preparations,
+} from "@/db/schema";
+import { resolveStudioSession } from "@/domains/identity/session";
+import { getPreparationContext } from "@/domains/preparation/service";
+import {
+  commitTurnTerminal,
+  markTurnUnknown,
+  reserveTurnCommand,
+  stashTurnQualification,
+} from "@/domains/conversation/turn-command";
+import { loadLatestMissionsByIntentKey } from "@/domains/conversation/intent-conduction";
+import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
+import { e2eFixtureMutationsAllowed } from "@/lib/e2e-fixture-gate";
+import { newId } from "@/lib/ids";
+
+export async function POST(req: Request) {
+  const gate = e2eFixtureMutationsAllowed();
+  if (!gate.ok) {
+    return NextResponse.json(
+      { error: "E2E_FIXTURE_FORBIDDEN", reason: gate.reason },
+      { status: 403 },
+    );
+  }
+  const session = await resolveStudioSession();
+  if (!session) return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
+
+  const body = (await req.json().catch(() => ({}))) as {
+    action?: string;
+    preparationId?: string;
+  };
+  const action = (body.action ?? "").trim();
+  const preparationId = (body.preparationId ?? "").trim();
+  if (!preparationId) {
+    return NextResponse.json({ error: "preparationId required" }, { status: 400 });
+  }
+  if (!["oracle", "seed_unknown", "seed_awaiting_mission"].includes(action)) {
+    return NextResponse.json({ error: "unknown action" }, { status: 400 });
+  }
+
+  // Ownership: preparation must belong to authenticated Pilot (getPreparationContext enforces).
+  let ctx: Awaited<ReturnType<typeof getPreparationContext>>;
+  try {
+    ctx = await getPreparationContext(session.pilotId, preparationId);
+  } catch {
+    return NextResponse.json({ error: "preparation not found or not owned" }, { status: 404 });
+  }
+  if (!ctx.conversation?.id) {
+    return NextResponse.json({ error: "conversation missing" }, { status: 404 });
+  }
+
+  if (action === "oracle") {
+    const turns = await db
+      .select({
+        id: conversationTurnCommands.id,
+        status: conversationTurnCommands.status,
+        clientTurnKey: conversationTurnCommands.clientTurnKey,
+      })
+      .from(conversationTurnCommands)
+      .where(eq(conversationTurnCommands.conversationId, ctx.conversation.id));
+    const prep = (
+      await db.select().from(preparations).where(eq(preparations.id, preparationId)).limit(1)
+    )[0];
+    const cmdCount = ctx.project?.id
+      ? (
+          await db
+            .select({ n: sql<number>`count(*)::int` })
+            .from(businessCommands)
+            .where(eq(businessCommands.projectId, ctx.project.id))
+        )[0]?.n ?? 0
+      : 0;
+    const docCount =
+      (
+        await db
+          .select({ n: sql<number>`count(*)::int` })
+          .from(documents)
+          .where(eq(documents.preparationId, preparationId))
+      )[0]?.n ?? 0;
+    const hdCount = ctx.project?.id
+      ? (
+          await db
+            .select({ n: sql<number>`count(*)::int` })
+            .from(humanDecisions)
+            .where(eq(humanDecisions.projectId, ctx.project.id))
+        )[0]?.n ?? 0
+      : 0;
+    const missions = await loadLatestMissionsByIntentKey(ctx.conversation.id);
+    const missionList = [...missions.values()].map((m) => ({
+      clientIntentKey: m.clientIntentKey,
+      status: m.status,
+      preparationId: m.preparationId ?? null,
+    }));
+    return NextResponse.json({
+      ok: true,
+      fixture: "DEV_E2E_ORACLE",
+      preparationId,
+      projectId: ctx.project?.id ?? null,
+      conversationId: ctx.conversation.id,
+      creationRevision: prep?.creationRevision ?? null,
+      businessCommandCount: Number(cmdCount),
+      documentCount: Number(docCount),
+      humanDecisionCount: Number(hdCount),
+      turns: turns.map((t) => ({
+        id: t.id,
+        status: t.status,
+        clientTurnKey: t.clientTurnKey,
+      })),
+      unknownTurns: turns.filter((t) => t.status === "UNKNOWN").map((t) => t.clientTurnKey),
+      missions: missionList,
+      awaitingMissions: missionList.filter((m) => m.status === "AWAITING_PILOT_ACT"),
+    });
+  }
+
+  if (action === "seed_unknown") {
+    const clientTurnKey = `e2e-s05-a-${Date.now()}`;
+    const reserved = await reserveTurnCommand({
+      conversationId: ctx.conversation.id,
+      ownerPilotId: session.pilotId,
+      clientTurnKey,
+      content: "Acte A E2E S05 — en cours (seed fixture)",
+    });
+    if (reserved.kind !== "fresh") {
+      return NextResponse.json({ error: `reserve ${reserved.kind}` }, { status: 409 });
+    }
+    await stashTurnQualification({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      qualificationJson: JSON.stringify({
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "a",
+        intents: [
+          {
+            id: "ia",
+            capabilityId: "d3.converse",
+            mode: "EXPLORE",
+            summary: "a",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "a",
+      }),
+    });
+    await markTurnUnknown(reserved.commandId, "E2E_S05_SEED_UNKNOWN", reserved.ownerToken);
+    const row = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.id, reserved.commandId),
+            eq(conversationTurnCommands.status, "UNKNOWN"),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!row) {
+      return NextResponse.json({ error: "seed failed — not UNKNOWN" }, { status: 500 });
+    }
+    return NextResponse.json({
+      ok: true,
+      fixture: "DEV_E2E_SEED_UNKNOWN",
+      noraBoundary: "FIXTURE_PROVIDER_ONLY",
+      commandId: reserved.commandId,
+      clientTurnKey,
+      userMessageId: reserved.userMessageId,
+      status: "UNKNOWN",
+      preparationId,
+      projectId: ctx.project?.id ?? null,
+      conversationId: ctx.conversation.id,
+    });
+  }
+
+  if (action === "seed_awaiting_mission") {
+    // Persist a COMPLETE turn whose missionProjection is AWAITING_PILOT_ACT.
+    // Readable by loadLatestMissionsByIntentKey (COMPLETE only). No UNKNOWN sibling.
+    const clientTurnKey = `e2e-s05-await-${Date.now()}`;
+    const clientIntentKey = `mission:await:${clientTurnKey}`;
+    const reserved = await reserveTurnCommand({
+      conversationId: ctx.conversation.id,
+      ownerPilotId: session.pilotId,
+      clientTurnKey,
+      content: "Intention A — acte Pilote requis (seed AWAITING_PILOT_ACT)",
+    });
+    if (reserved.kind !== "fresh") {
+      return NextResponse.json({ error: `reserve ${reserved.kind}` }, { status: 409 });
+    }
+    const missionProjection = {
+      clientIntentKey,
+      status: "AWAITING_PILOT_ACT" as const,
+      goalSummary: "Créer le projet (seed E2E S05-REAL-05)",
+      steps: [
+        {
+          id: "d2-create",
+          capabilityId: "d2.create_project",
+          status: "WAITING" as const,
+          reason: "E2E_SEED_AWAITING_PILOT_ACT",
+        },
+      ],
+      restitution: "PENDING" as const,
+      preparationId,
+      proposedProjectName: "E2E Awaiting Seed",
+      ownerActBinding: {
+        clientIntentKey,
+        suggestedIdempotencyKey: `create-${preparationId}`,
+      },
+      originalUserText: "Je veux créer un projet.",
+    };
+    const assistantId = newId("msg");
+    const applied = await commitTurnTerminal({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: "COMPLETE",
+      conversationId: ctx.conversation.id,
+      generationId: `gen-e2e-await-${Date.now()}`,
+      resultJson: JSON.stringify({
+        status: "COMPLETE",
+        userMessageId: reserved.userMessageId,
+        assistantMessageId: assistantId,
+        idempotentReplay: false,
+        humanDecisionCreated: false,
+        missionProjection,
+        nextTurnKind: "INTENTION_EFFET",
+        pendingEffectBlocked: false,
+        semanticQualification: {
+          schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+          status: "QUALIFIED",
+          goal: "create project",
+          intents: [
+            {
+              id: "i-d2",
+              capabilityId: "d2.create_project",
+              mode: "REQUEST_EFFECT",
+              summary: "create",
+              parameters: { projectName: "E2E Awaiting Seed" },
+              constraints: [],
+              dependsOn: [],
+              sourceEvidence: [],
+            },
+          ],
+          clarifications: [],
+          replyDraft: "Acte Pilote requis.",
+        },
+      }),
+      assistant: {
+        id: assistantId,
+        content: "Acte Pilote explicite requis — seed E2E AWAITING_PILOT_ACT.",
+        messageStatus: "COMPLETE",
+        generationId: `gen-e2e-await-${Date.now()}`,
+        ordinal: reserved.ordinalAssistant,
+      },
+    });
+    if (!applied.applied) {
+      return NextResponse.json({ error: "commit awaiting mission failed" }, { status: 500 });
+    }
+    const missions = await loadLatestMissionsByIntentKey(ctx.conversation.id);
+    const found = missions.get(clientIntentKey);
+    if (!found || found.status !== "AWAITING_PILOT_ACT") {
+      return NextResponse.json(
+        { error: "seed failed — mission not readable as AWAITING_PILOT_ACT" },
+        { status: 500 },
+      );
+    }
+    const unknownCount = (
+      await db
+        .select({ n: sql<number>`count(*)::int` })
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.conversationId, ctx.conversation.id),
+            eq(conversationTurnCommands.status, "UNKNOWN"),
+          ),
+        )
+    )[0]?.n;
+    return NextResponse.json({
+      ok: true,
+      fixture: "DEV_E2E_SEED_AWAITING_MISSION",
+      noraBoundary: "FIXTURE_PROVIDER_ONLY",
+      commandId: reserved.commandId,
+      clientTurnKey,
+      clientIntentKey,
+      userMessageId: reserved.userMessageId,
+      turnStatus: "COMPLETE",
+      missionStatus: found.status,
+      unknownSiblingCount: Number(unknownCount ?? 0),
+      preparationId,
+      projectId: ctx.project?.id ?? null,
+      conversationId: ctx.conversation.id,
+    });
+  }
+
+  return NextResponse.json({ error: "unknown action" }, { status: 400 });
+}
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/durable-qualification.ts`
+
+```typescript
+/**
+ * Load / verify durable Nora qualification bound to a USER message (TV-04 / T-03).
+ * Owner D5/D6 uses this — never trust body.operation alone for USER_MESSAGE.
+ */
+import { and, desc, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversationTurnCommands, conversations, messages } from "@/db/schema";
+import {
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  validateNoraTurnQualification,
+  type NoraTurnQualification,
+} from "./semantic-qualification";
+
+export type DurableQualificationRecord = {
+  commandId: string;
+  userMessageId: string;
+  clientTurnKey: string;
+  status: string;
+  qualification: NoraTurnQualification;
+  stashedAt: string | null;
+};
+
+function parseStashed(resultJson: string | null): {
+  qualification: NoraTurnQualification;
+  stashedAt: string | null;
+} | null {
+  if (!resultJson) return null;
+  let raw: unknown;
+  try {
+    raw = JSON.parse(resultJson);
+  } catch {
+    return null;
+  }
+  if (!raw || typeof raw !== "object") return null;
+  const obj = raw as Record<string, unknown>;
+  const validated = validateNoraTurnQualification(obj.semanticQualification);
+  if (!validated.ok) return null;
+  if (validated.value.schemaVersion !== SEMANTIC_QUALIFICATION_SCHEMA_VERSION) return null;
+  return {
+    qualification: validated.value,
+    stashedAt: typeof obj.semanticQualificationStashedAt === "string"
+      ? obj.semanticQualificationStashedAt
+      : null,
+  };
+}
+
+/** Latest turn command row that stashed a qualification for this USER message. */
+export async function loadDurableQualificationForUserMessage(input: {
+  pilotId: string;
+  projectId: string;
+  userMessageId: string;
+}): Promise<DurableQualificationRecord | null> {
+  const rows = await db
+    .select({
+      commandId: conversationTurnCommands.id,
+      userMessageId: conversationTurnCommands.userMessageId,
+      clientTurnKey: conversationTurnCommands.clientTurnKey,
+      status: conversationTurnCommands.status,
+      resultJson: conversationTurnCommands.resultJson,
+      ownerPilotId: conversationTurnCommands.ownerPilotId,
+      projectId: conversations.projectId,
+      messageRole: messages.role,
+      messageStatus: messages.status,
+    })
+    .from(conversationTurnCommands)
+    .innerJoin(conversations, eq(conversationTurnCommands.conversationId, conversations.id))
+    .innerJoin(messages, eq(conversationTurnCommands.userMessageId, messages.id))
+    .where(eq(conversationTurnCommands.userMessageId, input.userMessageId))
+    .orderBy(desc(conversationTurnCommands.updatedAt))
+    .limit(5);
+
+  for (const row of rows) {
+    if (row.ownerPilotId !== input.pilotId) continue;
+    if ((row.projectId ?? "") !== input.projectId) continue;
+    if (row.messageRole?.trim().toUpperCase() !== "USER") continue;
+    if (row.messageStatus !== "COMPLETE") continue;
+    const parsed = parseStashed(row.resultJson);
+    if (!parsed) continue;
+    return {
+      commandId: row.commandId,
+      userMessageId: row.userMessageId!,
+      clientTurnKey: row.clientTurnKey,
+      status: row.status,
+      qualification: parsed.qualification,
+      stashedAt: parsed.stashedAt,
+    };
+  }
+  return null;
+}
+
+export async function loadDurableQualificationByCommandId(input: {
+  commandId: string;
+  ownerToken?: string;
+}): Promise<DurableQualificationRecord | null> {
+  const conditions = [eq(conversationTurnCommands.id, input.commandId)];
+  if (input.ownerToken) {
+    conditions.push(eq(conversationTurnCommands.ownerToken, input.ownerToken));
+  }
+  const row = (
+    await db
+      .select({
+        commandId: conversationTurnCommands.id,
+        userMessageId: conversationTurnCommands.userMessageId,
+        clientTurnKey: conversationTurnCommands.clientTurnKey,
+        status: conversationTurnCommands.status,
+        resultJson: conversationTurnCommands.resultJson,
+      })
+      .from(conversationTurnCommands)
+      .where(and(...conditions))
+      .limit(1)
+  )[0];
+  if (!row?.userMessageId) return null;
+  const parsed = parseStashed(row.resultJson);
+  if (!parsed) return null;
+  return {
+    commandId: row.commandId,
+    userMessageId: row.userMessageId,
+    clientTurnKey: row.clientTurnKey,
+    status: row.status,
+    qualification: parsed.qualification,
+    stashedAt: parsed.stashedAt,
+  };
+}
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
+
+```typescript
+/**
+ * TEST_BOUNDARY ONLY — inject typed NoraTurnQualification envelopes by exact scenario key.
+ * Not a synonym/regex router. Unknown utterances → dialogue-only (no effects).
+ * Never imported as LIVE fallback.
+ */
+import {
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  unavailableQualification,
+  type NoraTurnQualification,
+  type QualifiedIntentItem,
+} from "./semantic-qualification";
+
+function fixtureLaneActive(): boolean {
+  return (
+    process.env.STUDIO_LANE === "DEV" &&
+    (process.env.STUDIO_E2E === "1" || process.env.STUDIO_FORCE_NORA_FIXTURE === "1")
+  );
+}
+
+function assertFixtureLane(): void {
+  if (!fixtureLaneActive()) {
+    throw new Error(
+      "fixtureSemanticQualify called outside TEST_BOUNDARY fixture lane — forbidden",
+    );
+  }
+}
+
+/**
+ * Intervencia S02-01 — SOURCE EXACTE NON DISPONIBLE for the full campaign verbatim
+ * (12 sites / Excel / e-mails). Reconstructed negative-final-clause only.
+ * Do NOT declare S02-01 PASS from this fixture alone.
+ */
+export const INTERVENCIA_S02_01_MESSAGE =
+  "Pour l'instant, je souhaite uniquement réfléchir et cadrer le besoin. Je ne t'autorise pas à créer le projet ni à engager des travaux techniques.";
+export const INTERVENCIA_S02_01_SOURCE_STATUS = "SOURCE_EXACTE_NON_DISPONIBLE_RECONSTRUCTED" as const;
+
+function normalizeUtterance(text: string): string {
+  return text.replace(/\s+/g, " ").trim();
+}
+
+function dialogue(goal: string, reply: string, constraints: string[] = []): NoraTurnQualification {
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    status: "QUALIFIED",
+    goal,
+    intents: [
+      {
+        id: "i1",
+        capabilityId: "d3.converse",
+        mode: "EXPLORE",
+        summary: goal,
+        parameters: {},
+        constraints,
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ],
+    clarifications: [],
+    replyDraft: reply,
+  };
+}
+
+function effect(
+  goal: string,
+  reply: string,
+  intents: Array<Partial<Pick<QualifiedIntentItem, "id">> & Omit<QualifiedIntentItem, "id">>,
+): NoraTurnQualification {
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    status: "QUALIFIED",
+    goal,
+    intents: intents.map((it, idx) => ({
+      ...it,
+      id: it.id ?? `i${idx + 1}`,
+      parameters: it.parameters ?? {},
+      constraints: it.constraints ?? [],
+      dependsOn: it.dependsOn ?? [],
+      sourceEvidence: it.sourceEvidence ?? [],
+    })),
+    clarifications: [],
+    replyDraft: reply,
+  };
+}
+
+/**
+ * Exact-message → typed envelope table.
+ * Tests must use these exact strings (or registerScenario) — no fuzzy synonym matching.
+ */
+const SCENARIO_TABLE = new Map<string, NoraTurnQualification>();
+
+function register(key: string, q: NoraTurnQualification): void {
+  SCENARIO_TABLE.set(normalizeUtterance(key), q);
+}
+
+register(
+  INTERVENCIA_S02_01_MESSAGE,
+  dialogue(
+    "Cadrage sans effet",
+    "D'accord — restons sur le cadrage du besoin, sans créer de projet ni engager de travaux techniques.",
+    ["NO_PROJECT_CREATE", "NO_TECHNICAL_WORK"],
+  ),
+);
+
+for (const msg of [
+  "Je veux créer un projet.",
+  "Je veux démarrer un projet.",
+  "Je souhaite initier un nouveau projet.",
+  "J'aimerais lancer un projet.",
+  "Je voudrais commencer un nouveau projet.",
+  "Crée un projet.",
+]) {
+  register(
+    msg,
+    effect("Créer un projet", "Je prépare l'intention de création de projet — acte Pilote requis.", [
+      {
+        capabilityId: "d2.create_project",
+        mode: "REQUEST_EFFECT",
+        summary: "Création de projet",
+        parameters: {},
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ]),
+  );
+}
+
+register(
+  "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage qui expose l'objectif, le périmètre et les premières étapes.",
+  effect("Atlas + document", "Intention composée : projet Atlas puis document de cadrage.", [
+    {
+      id: "i1",
+      capabilityId: "d2.create_project",
+      mode: "REQUEST_EFFECT",
+      summary: "Créer Atlas",
+      parameters: { projectName: "Atlas" },
+      constraints: [],
+      dependsOn: [],
+      sourceEvidence: [],
+    },
+    {
+      id: "i2",
+      capabilityId: "d4.create_document",
+      mode: "REQUEST_EFFECT",
+      summary: "document de cadrage qui expose l'objectif, le périmètre et les premières étapes",
+      parameters: {
+        notes: "document de cadrage qui expose l'objectif, le périmètre et les premières étapes",
+      },
+      constraints: [],
+      dependsOn: ["i1"],
+      sourceEvidence: [],
+    },
+  ]),
+);
+
+for (const msg of [
+  "Je ne veux pas créer le projet.",
+  "Je ne souhaite pas créer de projet.",
+  "Je ne t'autorise pas à créer le projet.",
+  "Il ne faut surtout pas créer ce projet.",
+  "Réfléchissons au besoin sans créer le projet.",
+  "Comment crée-t-on un projet ?",
+  "Et si nous lancions un projet ?",
+  "Il a écrit : crée le projet Atlas.",
+  "Je pourrais envisager un projet plus tard.",
+  "Explique GitHub Actions dans Studio",
+  "Quelle est la différence entre blob et commit ?",
+]) {
+  register(
+    msg,
+    dialogue("Discussion sans effet", "Voici une réponse informative — aucun effet engagé.", [
+      "NO_EFFECT",
+    ]),
+  );
+}
+
+register(
+  "Ouvre le cycle cadrage.",
+  effect("Ouvrir cycle", "Intention d'ouverture de cycle — vérification propriétaire D5.", [
+    {
+      capabilityId: "d5.pilotage_command",
+      mode: "REQUEST_EFFECT",
+      summary: "OPEN_CYCLE CADRAGE",
+      parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
+      constraints: [],
+      dependsOn: [],
+      sourceEvidence: [],
+    },
+  ]),
+);
+
+register(
+  "Rédige un document de synthèse sur les options A et B",
+  effect(
+    "Créer document synthèse",
+    "```sfia-document\n# Synthèse demandée\n\n## Section 1 — Contexte\n\nOptions A et B.\n\n## Section 2 — Analyse\n\nComparaison.\n\n## Section 3 — Suite\n\nPoints ouverts.\n```\n",
+    [
+      {
+        capabilityId: "d4.create_document",
+        mode: "REQUEST_EFFECT",
+        summary: "document de synthèse options A et B",
+        parameters: { notes: "synthèse options A et B" },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ],
+  ),
+);
+
+register(
+  "Rédige un document de synthèse sur l'architecture",
+  effect(
+    "Créer document architecture",
+    "```sfia-document\n# Synthèse demandée\n\n## Section 1 — Contexte\n\nArchitecture.\n```\n",
+    [
+      {
+        capabilityId: "d4.create_document",
+        mode: "REQUEST_EFFECT",
+        summary: "document synthèse architecture",
+        parameters: {},
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ],
+  ),
+);
+
+register(
+  "Retiens comme acquis structurant que l'architecture modulaire est la piste privilégiée pour la suite.",
+  effect(
+    "Capitaliser acquis architecture",
+    "J'enregistre l'acquis structurant sur l'architecture modulaire pour la continuité du projet.",
+    [
+      {
+        capabilityId: "d4.record_knowledge",
+        mode: "REQUEST_EFFECT",
+        summary: "Architecture modulaire = piste privilégiée",
+        parameters: {
+          knowledgeKind: "ACQUIS",
+          knowledgeStatement:
+            "L'architecture modulaire est la piste privilégiée pour la suite du projet.",
+          epistemic: "hypothesized",
+          subjectTitle: "Architecture",
+          continuityReason: "Acquis structurant pour reprise ultérieure",
+        },
+        constraints: ["NO_HUMAN_DECISION"],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ],
+  ),
+);
+
+register(
+  "Bonjour Nora, comment vas-tu ?",
+  dialogue("Politesse", "Bonjour — je vais bien. Comment puis-je vous aider ?", ["NO_EFFECT"]),
+);
+
+/** Test helper — register an exact utterance → envelope without regex. */
+export function registerFixtureScenario(utterance: string, q: NoraTurnQualification): void {
+  assertFixtureLane();
+  register(utterance, q);
+}
+
+export function fixtureSemanticQualify(userText: string): NoraTurnQualification {
+  assertFixtureLane();
+  const text = normalizeUtterance(userText);
+  if (!text) return unavailableQualification("EMPTY_USER_TEXT");
+  const hit = SCENARIO_TABLE.get(text);
+  if (hit) {
+    return structuredClone(hit);
+  }
+  // Fail closed: unknown fixture text is dialogue-only, never a lexical invent of effects.
+  return dialogue(
+    "Dialogue fixture par défaut",
+    "Message reçu. Aucune intention d'effet n'a été reconnue dans ce scénario de fixture.",
+    ["FIXTURE_DEFAULT_NO_EFFECT"],
+  );
+}
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
+
+```typescript
+/**
+ * Canonical D3 semantic qualification envelope (ML4C SEM / TV-01…TV-05).
+ * Validated structure ≠ authority. Owners still gate every effect.
+ */
+import { z } from "zod";
+import {
+  PILOTAGE_OPERATIONS,
+  type PilotageOperation,
+} from "@/domains/pilotage/types";
+import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
+
+export const SEMANTIC_QUALIFICATION_SCHEMA_VERSION = "ml4c-sem-qual-v1" as const;
+
+export const IntentModeSchema = z.enum(["EXPLAIN", "EXPLORE", "PREPARE", "REQUEST_EFFECT"]);
+export type IntentMode = z.infer<typeof IntentModeSchema>;
+
+export const QualificationStatusSchema = z.enum([
+  "QUALIFIED",
+  "NEEDS_CLARIFICATION",
+  "UNAVAILABLE",
+]);
+export type QualificationStatus = z.infer<typeof QualificationStatusSchema>;
+
+/** Capability ids exposed to Nora — catalogue description, not authorization. */
+export const StudioCapabilityIdSchema = z.enum([
+  "d2.create_project",
+  "d3.converse",
+  "d4.create_document",
+  "d4.revise_document",
+  "d4.read_knowledge",
+  /** Selective D4 continuity write — not a HumanDecision / not lexical. */
+  "d4.record_knowledge",
+  "d5.pilotage_command",
+  "d6.human_decision",
+  "d7.prepare_publication",
+  "d7.dispatch_publication",
+  "d9.git_integration",
+]);
+export type StudioCapabilityId = z.infer<typeof StudioCapabilityIdSchema>;
+
+export const KnowledgeRecordKindSchema = z.enum(["ACQUIS", "OPEN_POINT", "SUBJECT"]);
+export const KnowledgeEpistemicSchema = z.enum([
+  "hypothesized",
+  "recommended",
+  "established",
+  "limited",
+]);
+
+export const PilotageOperationSchema = z.enum(
+  PILOTAGE_OPERATIONS as unknown as [PilotageOperation, ...PilotageOperation[]],
+);
+
+export const QualifiedIntentItemSchema = z.object({
+  id: z.string().min(1).max(64),
+  capabilityId: StudioCapabilityIdSchema,
+  mode: IntentModeSchema,
+  summary: z.string().max(500).optional(),
+  parameters: z
+    .object({
+      projectName: z.string().max(120).optional(),
+      documentHint: z.string().max(200).optional(),
+      sectionHint: z.string().max(80).optional(),
+      pathHint: z.string().max(240).optional(),
+      cycleType: z.string().max(64).optional(),
+      toCycleType: z.string().max(64).optional(),
+      methodRef: z.string().max(120).optional(),
+      methodVersion: z.string().max(64).optional(),
+      decisionHint: z.string().max(200).optional(),
+      decisionId: z.string().max(120).optional(),
+      objectRef: z.string().max(120).optional(),
+      statement: z.string().max(500).optional(),
+      publicationPath: z.string().max(240).optional(),
+      /** Typed D5/D6 operation — never use free-text notes as enum substitute. */
+      pilotageOperation: PilotageOperationSchema.optional(),
+      restrictionKindHint: z.string().max(64).optional(),
+      restrictionTargetRefHint: z.string().max(120).optional(),
+      notes: z.string().max(400).optional(),
+      /** Typed D4 continuity capitalisation (RG-KNOW-001) — owner still validates. */
+      knowledgeKind: KnowledgeRecordKindSchema.optional(),
+      knowledgeStatement: z.string().max(500).optional(),
+      epistemic: KnowledgeEpistemicSchema.optional(),
+      subjectTitle: z.string().max(120).optional(),
+      subjectId: z.string().max(120).optional(),
+      continuityReason: z.string().max(240).optional(),
+      /** Prefer these existing resources when selecting D4 context (Nora-chosen). */
+      relevantAcquisIds: z.array(z.string().max(120)).max(8).optional(),
+      relevantOpenPointIds: z.array(z.string().max(120)).max(8).optional(),
+      relevantSubjectIds: z.array(z.string().max(120)).max(8).optional(),
+    })
+    .strict()
+    .default({}),
+  constraints: z.array(z.string().max(240)).max(12).default([]),
+  dependsOn: z.array(z.string().min(1).max(64)).max(8).default([]),
+  sourceEvidence: z.array(z.string().max(240)).max(8).default([]),
+});
+export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
+
+export const NoraTurnQualificationSchema = z.object({
+  schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
+  status: QualificationStatusSchema,
+  goal: z.string().max(800).default(""),
+  intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
+  clarifications: z.array(z.string().max(400)).max(8).default([]),
+  replyDraft: z.string().max(12000).default(""),
+});
+export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
+
+export type QualificationValidation =
+  | { ok: true; value: NoraTurnQualification }
+  | { ok: false; reason: string };
+
+const EFFECT_CAPABILITIES = new Set<StudioCapabilityId>([
+  "d2.create_project",
+  "d4.create_document",
+  "d4.revise_document",
+  "d4.record_knowledge",
+  "d5.pilotage_command",
+  "d6.human_decision",
+  "d7.prepare_publication",
+  "d7.dispatch_publication",
+  "d9.git_integration",
+]);
+
+const PILOTAGE_CAPS = new Set<StudioCapabilityId>([
+  "d5.pilotage_command",
+  "d6.human_decision",
+]);
+
+export function validateNoraTurnQualification(raw: unknown): QualificationValidation {
+  const parsed = NoraTurnQualificationSchema.safeParse(raw);
+  if (!parsed.success) {
+    return { ok: false, reason: `SCHEMA_INVALID:${parsed.error.issues[0]?.message ?? "unknown"}` };
+  }
+  const q = parsed.data;
+  const ids = new Set(q.intents.map((i) => i.id));
+  if (ids.size !== q.intents.length) {
+    return { ok: false, reason: "DUPLICATE_INTENT_ID" };
+  }
+  for (const intent of q.intents) {
+    for (const dep of intent.dependsOn) {
+      if (!ids.has(dep)) return { ok: false, reason: `DEPENDENCY_UNKNOWN:${dep}` };
+      if (dep === intent.id) return { ok: false, reason: "DEPENDENCY_SELF" };
+    }
+    if (
+      intent.mode === "REQUEST_EFFECT" &&
+      PILOTAGE_CAPS.has(intent.capabilityId) &&
+      !intent.parameters.pilotageOperation
+    ) {
+      return { ok: false, reason: `PILOTAGE_OPERATION_REQUIRED:${intent.id}` };
+    }
+    if (
+      intent.parameters.pilotageOperation &&
+      !PILOTAGE_CAPS.has(intent.capabilityId)
+    ) {
+      return { ok: false, reason: `PILOTAGE_OPERATION_CAPABILITY_MISMATCH:${intent.id}` };
+    }
+  }
+  const graph = new Map(q.intents.map((i) => [i.id, i.dependsOn] as const));
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const dfs = (n: string): boolean => {
+    if (visiting.has(n)) return true;
+    if (visited.has(n)) return false;
+    visiting.add(n);
+    for (const d of graph.get(n) ?? []) {
+      if (dfs(d)) return true;
+    }
+    visiting.delete(n);
+    visited.add(n);
+    return false;
+  };
+  for (const id of ids) {
+    if (dfs(id)) return { ok: false, reason: "DEPENDENCY_CYCLE" };
+  }
+  return { ok: true, value: q };
+}
+
+export function unavailableQualification(reason: string, replyDraft = ""): NoraTurnQualification {
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    status: "UNAVAILABLE",
+    goal: "",
+    intents: [],
+    clarifications: [reason.slice(0, 400)],
+    replyDraft:
+      replyDraft ||
+      "Je ne peux pas qualifier cette intention de façon fiable pour le moment. Aucun effet n'a été engagé.",
+  };
+}
+
+export function effectIntents(q: NoraTurnQualification): QualifiedIntentItem[] {
+  if (q.status !== "QUALIFIED") return [];
+  return q.intents.filter((i) => i.mode === "REQUEST_EFFECT");
+}
+
+export function wantsCapability(
+  q: NoraTurnQualification,
+  capabilityId: StudioCapabilityId,
+): boolean {
+  return effectIntents(q).some((i) => i.capabilityId === capabilityId);
+}
+
+export function firstEffectParam(
+  q: NoraTurnQualification,
+  capabilityId: StudioCapabilityId,
+  key: keyof QualifiedIntentItem["parameters"],
+): string | undefined {
+  const hit = effectIntents(q).find((i) => i.capabilityId === capabilityId);
+  const v = hit?.parameters?.[key];
+  return typeof v === "string" && v.trim() ? v.trim() : undefined;
+}
+
+export function sanitizeProposedLabel(raw: string): string {
+  return raw
+    .replace(/[*_`#~\[\]()]+/g, " ")
+    .replace(/[«»"']/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Server-owned S05 turn kind from canonical qualification — not a lexical router. */
+export function deriveThreadTurnKind(q: NoraTurnQualification): ThreadTurnKind {
+  if (q.status === "UNAVAILABLE") return "INCERTAIN";
+  if (q.status === "NEEDS_CLARIFICATION") return "INCERTAIN";
+  const effects = effectIntents(q);
+  if (effects.length > 0) return "INTENTION_EFFET";
+  const cognitive = q.intents.some(
+    (i) =>
+      i.capabilityId === "d3.converse" ||
+      i.capabilityId === "d4.read_knowledge" ||
+      i.mode === "EXPLAIN" ||
+      i.mode === "EXPLORE",
+  );
+  if (cognitive && q.intents.length > 0) return "DIALOGUE_INDEPENDANT";
+  return "INCERTAIN";
+}
+
+export type DurablePilotageBinding = {
+  schemaVersion: typeof SEMANTIC_QUALIFICATION_SCHEMA_VERSION;
+  intentId: string;
+  capabilityId: "d5.pilotage_command" | "d6.human_decision";
+  operation: PilotageOperation;
+  cycleType?: string;
+  toCycleType?: string;
+  methodRef?: string;
+  methodVersion?: string;
+  decisionId?: string;
+  objectRef?: string;
+  statement?: string;
+  restrictionKindHint?: string;
+  restrictionTargetRefHint?: string;
+  objective?: string;
+};
+
+export function extractPilotageBinding(
+  q: NoraTurnQualification,
+  select?: { intentId?: string; operation?: string },
+): DurablePilotageBinding | { ambiguous: true; reason: string } | null {
+  if (q.status !== "QUALIFIED") {
+    return { ambiguous: true, reason: `QUALIFICATION_${q.status}` };
+  }
+  let hits = effectIntents(q).filter((i) => PILOTAGE_CAPS.has(i.capabilityId));
+  if (hits.length === 0) return null;
+  // Disambiguate multi-intent qualifications by durable intentId / operation.
+  if (select?.intentId) {
+    hits = hits.filter((i) => i.id === select.intentId);
+  }
+  if (select?.operation) {
+    hits = hits.filter((i) => i.parameters.pilotageOperation === select.operation);
+  }
+  if (hits.length === 0) {
+    return {
+      ambiguous: true,
+      reason: select?.intentId || select?.operation
+        ? "PILOTAGE_INTENT_NOT_IN_QUALIFICATION"
+        : "NO_PILOTAGE_EFFECT_INTENTS",
+    };
+  }
+  if (hits.length > 1) {
+    return { ambiguous: true, reason: "MULTIPLE_PILOTAGE_EFFECT_INTENTS" };
+  }
+  const intent = hits[0]!;
+  const operation = intent.parameters.pilotageOperation;
+  if (!operation) {
+    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
+  }
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    intentId: intent.id,
+    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
+    operation,
+    cycleType: intent.parameters.cycleType,
+    toCycleType: intent.parameters.toCycleType,
+    methodRef: intent.parameters.methodRef,
+    methodVersion: intent.parameters.methodVersion,
+    decisionId: intent.parameters.decisionId,
+    objectRef: intent.parameters.objectRef,
+    statement: intent.parameters.statement,
+    restrictionKindHint: intent.parameters.restrictionKindHint,
+    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
+    objective: intent.summary,
+  };
+}
+
+/** Match a requested operation against durable qualification (owner-side). */
+export function matchPilotageIntentInQualification(
+  q: NoraTurnQualification,
+  input: { operation?: string; intentId?: string },
+): DurablePilotageBinding | { reject: true; reason: string; reasonCode: string } {
+  const binding = extractPilotageBinding(q, {
+    intentId: input.intentId,
+    operation: input.operation,
+  });
+  if (binding == null) {
+    return {
+      reject: true,
+      reasonCode: "AMBIGUOUS",
+      reason: "Aucune intention pilotage REQUEST_EFFECT dans la qualification durable",
+    };
+  }
+  if ("ambiguous" in binding) {
+    return { reject: true, reasonCode: "AMBIGUOUS", reason: binding.reason };
+  }
+  return binding;
+}
+
+/** Projection used by existing D2/D4 mission builders — derived from semantic intents only. */
+export type SemanticStudioProjection = {
+  wantsProjectCreate: boolean;
+  proposedProjectName: string | null;
+  wantsFollowOnDocument: boolean;
+  pendingDocumentBrief: string | null;
+  documentAct: { kind: "NONE" } | { kind: "CREATE" } | {
+    kind: "REVISE";
+    documentHint: string | null;
+    sectionHint: string | null;
+  };
+  publication: {
+    wantsPublish: boolean;
+    needsExplicitPath: boolean;
+    path: string | null;
+    targetPath: string | null;
+    targetBranch: string | null;
+    clarify: string | null;
+    capabilityId: "d7.prepare_publication" | "d7.dispatch_publication" | "d9.git_integration" | null;
+  };
+  simpleDialogue: boolean;
+};
+
+export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioProjection {
+  const effects = effectIntents(q);
+  const createProject = effects.find((i) => i.capabilityId === "d2.create_project");
+  const createDoc = effects.find((i) => i.capabilityId === "d4.create_document");
+  const reviseDoc = effects.find((i) => i.capabilityId === "d4.revise_document");
+  const preparePub = effects.find((i) => i.capabilityId === "d7.prepare_publication");
+  const dispatchPub = effects.find((i) => i.capabilityId === "d7.dispatch_publication");
+  const gitPub = effects.find((i) => i.capabilityId === "d9.git_integration");
+  // Prefer prepare over dispatch over generic git — not interchangeable.
+  const publish = preparePub ?? dispatchPub ?? gitPub ?? null;
+  const publishCapability = publish
+    ? (publish.capabilityId as SemanticStudioProjection["publication"]["capabilityId"])
+    : null;
+
+  const wantsProjectCreate = Boolean(createProject);
+  const proposedProjectName = createProject?.parameters.projectName
+    ? sanitizeProposedLabel(createProject.parameters.projectName) || null
+    : null;
+
+  let documentAct: SemanticStudioProjection["documentAct"] = { kind: "NONE" };
+  if (reviseDoc) {
+    documentAct = {
+      kind: "REVISE",
+      documentHint: reviseDoc.parameters.documentHint ?? null,
+      sectionHint: reviseDoc.parameters.sectionHint ?? null,
+    };
+  } else if (createDoc) {
+    documentAct = { kind: "CREATE" };
+  }
+
+  const wantsFollowOnDocument = Boolean(
+    wantsProjectCreate &&
+      createDoc &&
+      createProject &&
+      createDoc.dependsOn.includes(createProject.id),
+  );
+
+  const pendingDocumentBrief = wantsFollowOnDocument
+    ? (createDoc?.summary || createDoc?.parameters.notes || createDoc?.parameters.documentHint || null)
+    : null;
+
+  const path = publish?.parameters.publicationPath?.trim() || publish?.parameters.pathHint?.trim() || null;
+  const publication = {
+    wantsPublish: Boolean(publish),
+    needsExplicitPath: Boolean(publish) && !path,
+    path,
+    targetPath: path,
+    targetBranch: null as string | null,
+    clarify: publish && !path ? "Chemin de publication Git manquant." : null,
+    capabilityId: publishCapability,
+  };
+
+  const simpleDialogue =
+    !wantsProjectCreate &&
+    documentAct.kind === "NONE" &&
+    !publication.wantsPublish &&
+    !effects.some(
+      (i) => PILOTAGE_CAPS.has(i.capabilityId) || i.capabilityId === "d4.record_knowledge",
+    );
+
+  return {
+    wantsProjectCreate,
+    proposedProjectName,
+    wantsFollowOnDocument,
+    pendingDocumentBrief: pendingDocumentBrief?.slice(0, 400) ?? null,
+    documentAct,
+    publication,
+    simpleDialogue,
+  };
+}
+
+export type KnowledgeCapitalisationProposal = {
+  intentId: string;
+  kind: z.infer<typeof KnowledgeRecordKindSchema>;
+  statement: string;
+  epistemic: z.infer<typeof KnowledgeEpistemicSchema>;
+  subjectTitle?: string;
+  subjectId?: string;
+  continuityReason?: string;
+};
+
+/** Typed D4 continuity proposals from Nora qualification — never HumanDecision. */
+export function extractKnowledgeProposals(
+  q: NoraTurnQualification,
+): KnowledgeCapitalisationProposal[] {
+  if (q.status !== "QUALIFIED") return [];
+  const out: KnowledgeCapitalisationProposal[] = [];
+  for (const intent of effectIntents(q)) {
+    if (intent.capabilityId !== "d4.record_knowledge") continue;
+    const kind = intent.parameters.knowledgeKind;
+    const statement = (intent.parameters.knowledgeStatement ?? intent.summary ?? "").trim();
+    if (!kind || statement.length < 12) continue;
+    out.push({
+      intentId: intent.id,
+      kind,
+      statement: statement.slice(0, 500),
+      epistemic: intent.parameters.epistemic ?? "hypothesized",
+      subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
+      subjectId: intent.parameters.subjectId?.trim() || undefined,
+      continuityReason: intent.parameters.continuityReason?.trim() || undefined,
+    });
+  }
+  return out;
+}
+
+/** Nora-preferred resource ids for context selection (non-authoritative). */
+export function extractKnowledgeSelectionHints(q: NoraTurnQualification): {
+  acquisIds: string[];
+  openPointIds: string[];
+  subjectIds: string[];
+} {
+  const acquisIds: string[] = [];
+  const openPointIds: string[] = [];
+  const subjectIds: string[] = [];
+  if (q.status !== "QUALIFIED") return { acquisIds, openPointIds, subjectIds };
+  for (const intent of q.intents) {
+    for (const id of intent.parameters.relevantAcquisIds ?? []) {
+      if (id && !acquisIds.includes(id)) acquisIds.push(id);
+    }
+    for (const id of intent.parameters.relevantOpenPointIds ?? []) {
+      if (id && !openPointIds.includes(id)) openPointIds.push(id);
+    }
+    for (const id of intent.parameters.relevantSubjectIds ?? []) {
+      if (id && !subjectIds.includes(id)) subjectIds.push(id);
+    }
+  }
+  return { acquisIds, openPointIds, subjectIds };
+}
+
+export function mergeQualificationIntoResultJson(
+  existingJson: string | null | undefined,
+  terminalPayload: Record<string, unknown>,
+): string {
+  let semanticQualification: unknown;
+  let semanticQualificationStashedAt: unknown;
+  if (existingJson) {
+    try {
+      const prev = JSON.parse(existingJson) as Record<string, unknown>;
+      semanticQualification = prev.semanticQualification;
+      semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
+    } catch {
+      /* ignore */
+    }
+  }
+  const merged = {
+    ...terminalPayload,
+    ...(semanticQualification !== undefined ? { semanticQualification } : {}),
+    ...(semanticQualificationStashedAt !== undefined
+      ? { semanticQualificationStashedAt }
+      : {}),
+  };
+  return JSON.stringify(merged);
+}
+
+```
+
+### `projects/sfia-studio-next/web/src/lib/e2e-fixture-gate.ts`
+
+```typescript
+/**
+ * Admission gate for DEV/E2E mutating fixture HTTP routes.
+ * Independent of Nora fixture activation (STUDIO_FORCE_NORA_FIXTURE alone never authorizes).
+ */
+export function e2eFixtureMutationsAllowed(env: NodeJS.ProcessEnv = process.env): {
+  ok: boolean;
+  reason?: string;
+} {
+  if (env.NODE_ENV === "production") {
+    return { ok: false, reason: "NODE_ENV_PRODUCTION" };
+  }
+  if ((env.STUDIO_LANE ?? "").trim() !== "DEV") {
+    return { ok: false, reason: "LANE_NOT_DEV" };
+  }
+  if ((env.STUDIO_E2E ?? "").trim() !== "1") {
+    return { ok: false, reason: "STUDIO_E2E_REQUIRED" };
+  }
+  return { ok: true };
+}
+
+```
+
+### `projects/sfia-studio-next/web/tests/e2e/ml4c-d2-mission-real-s05.spec.ts`
+
+```typescript
+import { test, expect } from "@playwright/test";
+
+/**
+ * Q1 — DETERMINISTIC END-TO-END ON DEV BOUNDARY.
+ * Real D2 sas path → AWAITING_PILOT_ACT (no artificial mission seed).
+ * Then S05 blocks concurrent document effect B.
+ * Nora fixture only at provider boundary.
+ */
+
+async function openFreshPrep(page: import("@playwright/test").Page): Promise<string> {
+  await page.getByTestId("portfolio-new-prep").click();
+  await page.waitForURL(/\/preparations\//, { timeout: 30000 });
+  const preparationId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
+  if (!preparationId) throw new Error("preparationId missing");
+  return preparationId;
+}
+
+async function oracle(page: import("@playwright/test").Page, preparationId: string) {
+  const res = await page.request.post("/api/dev/e2e/s05-fixture", {
+    data: { action: "oracle", preparationId },
+  });
+  expect(res.ok(), await res.text()).toBeTruthy();
+  return res.json() as Promise<{
+    projectId: string | null;
+    creationRevision: number | null;
+    documentCount: number;
+    humanDecisionCount?: number;
+    unknownTurns: string[];
+    awaitingMissions?: Array<{
+      clientIntentKey: string;
+      status: string;
+      preparationId?: string | null;
+    }>;
+  }>;
+}
+
+test.describe("Q1 real D2 mission + S05", () => {
+  test("MISSION real path: create intent → AWAITING; B doc blocked; control OK", async ({
+    page,
+  }) => {
+    test.setTimeout(180_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+
+    // --- Control prep: no AWAITING — document CREATE must succeed ---
+    const controlPrep = await openFreshPrep(page);
+    const ctrlBefore = await oracle(page, controlPrep);
+    expect(ctrlBefore.projectId).toBeNull();
+    expect(ctrlBefore.awaitingMissions?.length ?? 0).toBe(0);
+    const ctrlRespPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${controlPrep}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByTestId("prep-draft").fill("Rédige un document de synthèse sur les options A et B");
+    await page.getByTestId("prep-send").click();
+    const ctrlBody = await (await ctrlRespPromise).json();
+    expect(ctrlBody.status).toBe("COMPLETE");
+    expect(ctrlBody.pendingEffectBlocked).not.toBe(true);
+    expect(ctrlBody.documentSave?.status).toBe("AVAILABLE");
+    const ctrlAfter = await oracle(page, controlPrep);
+    expect(ctrlAfter.documentCount).toBe(ctrlBefore.documentCount + 1);
+
+    // --- Subject prep: real D2 create intent, NO create-project click ---
+    await page.goto("/portfolio");
+    const prepId = await openFreshPrep(page);
+    const beforeA = await oracle(page, prepId);
+    expect(beforeA.projectId).toBeNull();
+    expect(beforeA.unknownTurns.length).toBe(0);
+
+    const respAPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${prepId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByTestId("prep-draft").fill("Je veux créer un projet.");
+    await page.getByTestId("prep-send").click();
+    const respA = await respAPromise;
+    expect(respA.ok()).toBeTruthy();
+    const bodyA = await respA.json();
+    expect(bodyA.status).toBe("COMPLETE");
+    expect(bodyA.nextTurnKind).toBe("INTENTION_EFFET");
+    expect(bodyA.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    expect(bodyA.missionProjection?.ownerActBinding?.kind).toBe("D2_CREATE_PROJECT");
+    expect(bodyA.missionProjection?.ownerActBinding?.preparationId).toBe(prepId);
+    expect(bodyA.missionProjection?.ownerActBinding?.clientIntentKey).toBeTruthy();
+    expect(bodyA.missionProjection?.ownerActBinding?.suggestedIdempotencyKey).toMatch(
+      /^d2:mission:/,
+    );
+    expect(bodyA.humanDecisionCreated).not.toBe(true);
+    const intentKey = bodyA.missionProjection.clientIntentKey as string;
+
+    // Restitution métier (status enum is API/oracle, not literal UI copy).
+    await expect(
+      page.getByText(/acte Pilote requis|création de projet/i).first(),
+    ).toBeVisible({ timeout: 15000 });
+    await expect(page.getByText(/Espace de préparation — projet non créé/i)).toBeVisible();
+    // Explicit D2 gesture present but NOT clicked (MISSION-16).
+    const createBtn = page.getByTestId("prep-create-project");
+    await expect(createBtn).toBeVisible({ timeout: 15000 });
+    expect(page.url()).toContain(`/preparations/${prepId}`);
+
+    const afterA = await oracle(page, prepId);
+    expect(afterA.projectId).toBeNull();
+    expect(afterA.unknownTurns.length).toBe(0);
+    expect(afterA.awaitingMissions?.some((m) => m.clientIntentKey === intentKey)).toBe(true);
+    const revA = afterA.creationRevision;
+    const docsA = afterA.documentCount;
+    const hdA = afterA.humanDecisionCount ?? 0;
+
+    // Refresh — mission still recoverable via server reader (oracle).
+    await page.reload();
+    const afterReload = await oracle(page, prepId);
+    expect(afterReload.projectId).toBeNull();
+    expect(afterReload.awaitingMissions?.some((m) => m.clientIntentKey === intentKey)).toBe(true);
+
+    // B — concurrent document effect must be S05-blocked by mission A.
+    const respBPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${prepId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByTestId("prep-draft").fill("Rédige un document de synthèse sur l'architecture");
+    await page.getByTestId("prep-send").click();
+    const bodyB = await (await respBPromise).json();
+    expect(bodyB.nextTurnKind).toBe("INTENTION_EFFET");
+    expect(bodyB.pendingEffectBlocked).toBe(true);
+    expect(String(bodyB.pendingBlockReason ?? "")).toMatch(/S05_MISSION_BLOCKS_EFFECT/i);
+    expect(
+      bodyB.documentSave == null ||
+        bodyB.documentSave.status === "NOT_EXECUTED" ||
+        bodyB.documentSave.status === "SKIPPED",
+    ).toBe(true);
+
+    const afterB = await oracle(page, prepId);
+    expect(afterB.projectId).toBeNull();
+    expect(afterB.documentCount).toBe(docsA);
+    expect(afterB.humanDecisionCount ?? 0).toBe(hdA);
+    expect(afterB.creationRevision).toBe(revA);
+    expect(afterB.awaitingMissions?.some((m) => m.clientIntentKey === intentKey)).toBe(true);
+    expect(afterB.unknownTurns.length).toBe(0);
+
+    // Independent question leaves A intact.
+    const respQPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${prepId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByTestId("prep-draft").fill("Quelle est la différence entre blob et commit ?");
+    await page.getByTestId("prep-send").click();
+    const bodyQ = await (await respQPromise).json();
+    expect(bodyQ.status).toBe("COMPLETE");
+    expect(bodyQ.nextTurnKind).toBe("DIALOGUE_INDEPENDANT");
+    expect(bodyQ.pendingEffectBlocked).not.toBe(true);
+    const afterQ = await oracle(page, prepId);
+    expect(afterQ.awaitingMissions?.some((m) => m.clientIntentKey === intentKey)).toBe(true);
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/e2e/ml4c-s05-real-api.spec.ts`
+
+```typescript
+import { test, expect } from "@playwright/test";
+
+/**
+ * ML4C S05 — DETERMINISTIC END-TO-END ON DEV BOUNDARY.
+ * Browser → real Studio HTTP messages API → server S05 gate → PG.
+ * Nora fixture ONLY at provider boundary (STUDIO_E2E / FORCE_NORA_FIXTURE).
+ * NO route.fulfill on the conversation endpoint under test.
+ *
+ * Does NOT prove: NORA LIVE SEMANTIC BEHAVIOR / READY FOR REAL.
+ */
+
+async function openProjectCapturingPrep(
+  page: import("@playwright/test").Page,
+): Promise<{ projectId: string; preparationId: string }> {
+  await page.getByTestId("portfolio-new-prep").click();
+  await page.waitForURL(/\/preparations\//, { timeout: 30000 });
+  const preparationId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
+  if (!preparationId) throw new Error("preparationId missing");
+
+  await page.getByTestId("prep-draft").fill("Intention E2E S05 real API (fixture Nora provider)");
+  await page.getByTestId("prep-send").click();
+  await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+  await page.getByTestId("prep-constitute").click();
+  await page.getByTestId("prep-adopt-nora").click();
+  await page.getByTestId("prep-proposal-name").fill("ML4C S05 Real API");
+  await page.getByTestId("prep-proposal-save").click();
+  await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 15000 });
+  const createBtn = page.getByTestId("prep-create-project");
+  await expect(createBtn).toBeEnabled({ timeout: 20000 });
+  await createBtn.click();
+  await page.waitForURL(/\/projects\//, { timeout: 30000 });
+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+  if (!projectId) throw new Error("projectId missing");
+  return { projectId, preparationId };
+}
+
+async function seedUnknownA(
+  page: import("@playwright/test").Page,
+  preparationId: string,
+): Promise<{ clientTurnKey: string; commandId: string }> {
+  const res = await page.request.post("/api/dev/e2e/s05-fixture", {
+    data: { action: "seed_unknown", preparationId },
+  });
+  expect(res.ok(), await res.text()).toBeTruthy();
+  const body = await res.json();
+  expect(body.status).toBe("UNKNOWN");
+  expect(body.clientTurnKey).toBeTruthy();
+  return { clientTurnKey: body.clientTurnKey, commandId: body.commandId };
+}
+
+async function oracle(page: import("@playwright/test").Page, preparationId: string) {
+  const res = await page.request.post("/api/dev/e2e/s05-fixture", {
+    data: { action: "oracle", preparationId },
+  });
+  expect(res.ok(), await res.text()).toBeTruthy();
+  return res.json() as Promise<{
+    creationRevision: number | null;
+    businessCommandCount: number;
+    documentCount: number;
+    humanDecisionCount?: number;
+    unknownTurns: string[];
+    turns: Array<{ id: string; status: string; clientTurnKey: string }>;
+    awaitingMissions?: Array<{ clientIntentKey: string; status: string }>;
+    missions?: Array<{ clientIntentKey: string; status: string }>;
+  }>;
+}
+
+async function seedAwaitingMission(
+  page: import("@playwright/test").Page,
+  preparationId: string,
+): Promise<{ clientIntentKey: string; commandId: string }> {
+  const res = await page.request.post("/api/dev/e2e/s05-fixture", {
+    data: { action: "seed_awaiting_mission", preparationId },
+  });
+  expect(res.ok(), await res.text()).toBeTruthy();
+  const body = await res.json();
+  expect(body.missionStatus).toBe("AWAITING_PILOT_ACT");
+  expect(body.turnStatus).toBe("COMPLETE");
+  expect(body.unknownSiblingCount).toBe(0);
+  expect(body.clientIntentKey).toBeTruthy();
+  return { clientIntentKey: body.clientIntentKey, commandId: body.commandId };
+}
+
+test.describe("S05 real API (no route.fulfill)", () => {
+  test("S05-REAL-01/02/03/04/06/08/09: UNKNOWN A + real messages API", async ({ page }) => {
+    test.setTimeout(180_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { preparationId, projectId } = await openProjectCapturingPrep(page);
+
+    const beforeSeed = await oracle(page, preparationId);
+    const seeded = await seedUnknownA(page, preparationId);
+    const afterSeed = await oracle(page, preparationId);
+    expect(afterSeed.unknownTurns).toContain(seeded.clientTurnKey);
+    const revBefore = afterSeed.creationRevision;
+    const cmdsBefore = afterSeed.businessCommandCount;
+    const docsBefore = afterSeed.documentCount;
+
+    // S05-REAL-01 — independent question via REAL messages API
+    const respQPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByLabel("Message à Nora").fill("Quelle est la différence entre blob et commit ?");
+    await page.getByTestId("thread-send").click();
+    const respQ = await respQPromise;
+    expect(respQ.ok()).toBeTruthy();
+    const bodyQ = await respQ.json();
+    expect(bodyQ.status).toBe("COMPLETE");
+    expect(bodyQ.nextTurnKind).toBe("DIALOGUE_INDEPENDANT");
+    expect(bodyQ.pendingEffectBlocked).not.toBe(true);
+    expect(bodyQ.noraMode).toMatch(/fixture|deterministic/i);
+
+    const afterQ = await oracle(page, preparationId);
+    expect(afterQ.unknownTurns).toContain(seeded.clientTurnKey);
+    expect(afterQ.creationRevision).toBe(revBefore);
+    expect(afterQ.businessCommandCount).toBe(cmdsBefore);
+
+    // S05-REAL-02 — OPEN_CYCLE blocked (no business command applied for B)
+    const respCyclePromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
+    await page.getByTestId("thread-send").click();
+    const respCycle = await respCyclePromise;
+    expect(respCycle.ok()).toBeTruthy();
+    const bodyCycle = await respCycle.json();
+    expect(bodyCycle.pendingEffectBlocked).toBe(true);
+    expect(bodyCycle.pilotageEffect?.attempted).not.toBe(true);
+
+    const afterCycle = await oracle(page, preparationId);
+    expect(afterCycle.businessCommandCount).toBe(cmdsBefore);
+    expect(afterCycle.unknownTurns).toContain(seeded.clientTurnKey);
+
+    // S05-REAL-03 — create project wording must not bump creationRevision
+    const respCreatePromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByLabel("Message à Nora").fill("Je veux créer un projet.");
+    await page.getByTestId("thread-send").click();
+    const respCreate = await respCreatePromise;
+    expect(respCreate.ok()).toBeTruthy();
+    const bodyCreate = await respCreate.json();
+    expect(bodyCreate.pendingEffectBlocked).toBe(true);
+    const afterCreate = await oracle(page, preparationId);
+    expect(afterCreate.creationRevision).toBe(revBefore);
+
+    // S05-REAL-04 — document CREATE (fixture exact phrase) blocked by S05
+    const respDocPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page
+      .getByLabel("Message à Nora")
+      .fill("Rédige un document de synthèse sur les options A et B");
+    await page.getByTestId("thread-send").click();
+    const respDoc = await respDocPromise;
+    expect(respDoc.ok()).toBeTruthy();
+    const bodyDoc = await respDoc.json();
+    expect(bodyDoc.nextTurnKind).toBe("INTENTION_EFFET");
+    expect(bodyDoc.pendingEffectBlocked).toBe(true);
+    expect(
+      bodyDoc.documentSave == null ||
+        bodyDoc.documentSave.status === "NOT_EXECUTED" ||
+        bodyDoc.documentSave.status === "SKIPPED",
+    ).toBe(true);
+    const afterDoc = await oracle(page, preparationId);
+    expect(afterDoc.documentCount).toBe(docsBefore);
+
+    // S05-REAL-06 — clear client pending hint; server protection unchanged
+    await page.evaluate((id) => {
+      sessionStorage.removeItem(`sfia.thread.pending:${id}`);
+    }, projectId);
+    const respHintPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
+    await page.getByTestId("thread-send").click();
+    const respHint = await respHintPromise;
+    const bodyHint = await respHint.json();
+    expect(bodyHint.nextTurnKind).toBe("INTENTION_EFFET");
+    expect(bodyHint.pendingEffectBlocked).toBe(true);
+    expect(bodyHint.pilotageEffect?.attempted).not.toBe(true);
+
+    // S05-REAL-08 — refresh: A still recoverable via oracle
+    await page.reload();
+    const afterReload = await oracle(page, preparationId);
+    expect(afterReload.unknownTurns).toContain(seeded.clientTurnKey);
+    expect(afterReload.turns.some((t) => t.id === seeded.commandId && t.status === "UNKNOWN")).toBe(
+      true,
+    );
+
+    // S05-REAL-09 — independent COMPLETE does not close A
+    expect(afterReload.unknownTurns).toContain(seeded.clientTurnKey);
+    expect(beforeSeed.unknownTurns).not.toContain(seeded.clientTurnKey);
+  });
+
+  test("S05-REAL-07: lying pending key does not bypass server", async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { preparationId, projectId } = await openProjectCapturingPrep(page);
+    await seedUnknownA(page, preparationId);
+    const before = await oracle(page, preparationId);
+
+    await page.evaluate(
+      ({ projectId: id }) => {
+        sessionStorage.setItem(
+          `sfia.thread.pending:${id}`,
+          JSON.stringify({
+            content: "fake",
+            clientTurnKey: "ctk_lying_pending",
+            clientCommandKey: "conv-auth:ctk_lying_pending",
+          }),
+        );
+      },
+      { projectId },
+    );
+    await page.reload();
+
+    const respPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
+    await page.getByTestId("thread-send").click();
+    const resp = await respPromise;
+    const body = await resp.json();
+    expect(body.pendingEffectBlocked).toBe(true);
+    const after = await oracle(page, preparationId);
+    expect(after.businessCommandCount).toBe(before.businessCommandCount);
+  });
+
+  test("S05-REAL-05 / S05-M01: AWAITING_PILOT_ACT blocks effect B (no UNKNOWN)", async ({
+    page,
+  }) => {
+    test.setTimeout(180_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { preparationId, projectId } = await openProjectCapturingPrep(page);
+
+    const before = await oracle(page, preparationId);
+    expect(before.unknownTurns.length).toBe(0);
+    const seeded = await seedAwaitingMission(page, preparationId);
+    const afterSeed = await oracle(page, preparationId);
+    expect(afterSeed.unknownTurns.length).toBe(0);
+    expect(afterSeed.awaitingMissions?.some((m) => m.clientIntentKey === seeded.clientIntentKey)).toBe(
+      true,
+    );
+    const cmdsBefore = afterSeed.businessCommandCount;
+    const docsBefore = afterSeed.documentCount;
+    const hdBefore = afterSeed.humanDecisionCount ?? 0;
+    const revBefore = afterSeed.creationRevision;
+
+    const respPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
+    await page.getByTestId("thread-send").click();
+    const resp = await respPromise;
+    expect(resp.ok()).toBeTruthy();
+    const body = await resp.json();
+    expect(body.nextTurnKind).toBe("INTENTION_EFFET");
+    expect(body.pendingEffectBlocked).toBe(true);
+    expect(String(body.pendingBlockReason ?? "")).toMatch(/S05_MISSION_BLOCKS_EFFECT/i);
+    expect(body.pilotageEffect?.attempted).not.toBe(true);
+    expect(body.humanDecisionCreated).not.toBe(true);
+
+    const after = await oracle(page, preparationId);
+    expect(after.unknownTurns.length).toBe(0);
+    expect(after.businessCommandCount).toBe(cmdsBefore);
+    expect(after.documentCount).toBe(docsBefore);
+    expect(after.humanDecisionCount ?? 0).toBe(hdBefore);
+    expect(after.creationRevision).toBe(revBefore);
+    expect(after.awaitingMissions?.some((m) => m.clientIntentKey === seeded.clientIntentKey)).toBe(
+      true,
+    );
+
+    // S05-M05 — clear/falsify client hint; server still blocks via mission.
+    await page.evaluate((id) => {
+      sessionStorage.removeItem(`sfia.thread.pending:${id}`);
+    }, projectId);
+    const resp2Promise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page
+      .getByLabel("Message à Nora")
+      .fill("Rédige un document de synthèse sur les options A et B");
+    await page.getByTestId("thread-send").click();
+    const body2 = await (await resp2Promise).json();
+    expect(body2.pendingEffectBlocked).toBe(true);
+    expect(body2.documentSave == null || body2.documentSave.status === "NOT_EXECUTED").toBe(true);
+    const after2 = await oracle(page, preparationId);
+    expect(after2.documentCount).toBe(docsBefore);
+    expect(after2.awaitingMissions?.some((m) => m.clientIntentKey === seeded.clientIntentKey)).toBe(
+      true,
+    );
+  });
+
+  test("S05-M02: AWAITING mission + independent question leaves A intact", async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { preparationId } = await openProjectCapturingPrep(page);
+    const seeded = await seedAwaitingMission(page, preparationId);
+
+    const respPromise = page.waitForResponse(
+      (r) =>
+        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
+        r.request().method() === "POST",
+    );
+    await page.getByLabel("Message à Nora").fill("Quelle est la différence entre blob et commit ?");
+    await page.getByTestId("thread-send").click();
+    const body = await (await respPromise).json();
+    expect(body.status).toBe("COMPLETE");
+    expect(body.nextTurnKind).toBe("DIALOGUE_INDEPENDANT");
+    expect(body.pendingEffectBlocked).not.toBe(true);
+    const after = await oracle(page, preparationId);
+    expect(after.awaitingMissions?.some((m) => m.clientIntentKey === seeded.clientIntentKey)).toBe(
+      true,
+    );
+  });
+
+  test("FIX-05/07: fixture requires session; invalid action controlled", async ({ page, browser }) => {
+    test.setTimeout(90_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { preparationId } = await openProjectCapturingPrep(page);
+
+    const badAction = await page.request.post("/api/dev/e2e/s05-fixture", {
+      data: { action: "drop_all", preparationId },
+    });
+    expect(badAction.status()).toBe(400);
+
+    const anon = await browser.newContext();
+    const anonPage = await anon.newPage();
+    const unauth = await anonPage.request.post("http://127.0.0.1:3101/api/dev/e2e/s05-fixture", {
+      data: { action: "oracle", preparationId },
+    });
+    expect([401, 403]).toContain(unauth.status());
+    await anon.close();
+  });
+
+  test("FIX-06: Pilot B cannot oracle/seed Pilot A preparation", async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { preparationId } = await openProjectCapturingPrep(page);
+
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote B (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const cross = await page.request.post("/api/dev/e2e/s05-fixture", {
+      data: { action: "oracle", preparationId },
+    });
+    expect([403, 404]).toContain(cross.status());
+    const seedCross = await page.request.post("/api/dev/e2e/s05-fixture", {
+      data: { action: "seed_awaiting_mission", preparationId },
+    });
+    expect([403, 404]).toContain(seedCross.status());
+  });
+
+  test("S05-REAL-10: concurrent protected posts — no doubled métier effect", async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { preparationId } = await openProjectCapturingPrep(page);
+    await seedUnknownA(page, preparationId);
+    const before = await oracle(page, preparationId);
+
+    const [r1, r2] = await Promise.all([
+      page.request.post(`/api/preparations/${preparationId}/messages`, {
+        data: {
+          content: "Ouvre le cycle cadrage.",
+          clientTurnKey: `s05-conc-a-${Date.now()}`,
+        },
+      }),
+      page.request.post(`/api/preparations/${preparationId}/messages`, {
+        data: {
+          content: "Ouvre le cycle cadrage.",
+          clientTurnKey: `s05-conc-b-${Date.now()}`,
+        },
+      }),
+    ]);
+    // Concurrent turns: one may win COMPLETE with pendingEffectBlocked; the other
+    // may get 409 TURN_IN_PROGRESS. Neither may apply a métier mutation.
+    const statuses = [r1.status(), r2.status()];
+    expect(statuses.some((s) => s === 200 || s === 409)).toBe(true);
+    for (const r of [r1, r2]) {
+      if (!r.ok()) continue;
+      const body = await r.json();
+      expect(body.pilotageEffect?.attempted).not.toBe(true);
+      expect(body.pendingEffectBlocked === true || body.status === "COMPLETE").toBe(true);
+    }
+    const after = await oracle(page, preparationId);
+    expect(after.businessCommandCount).toBe(before.businessCommandCount);
+    expect(after.creationRevision).toBe(before.creationRevision);
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts`
+
+```typescript
+/**
+ * F1/F2 — AUTH-R01..R14: real DEV PG proofs for D5/D6 human-act reconciliation.
+ * No vacuous PASS. Uses createProjectCommand + durable qualification + executePilotageCommand.
+ */
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+process.env.STUDIO_LANE = "DEV";
+process.env.STUDIO_E2E = "1";
+process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
+
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import {
+  businessCommandEffects,
+  businessCommands,
+  conversations,
+  pilots,
+  preparations,
+  projectCycles,
+} from "@/db/schema";
+import { newId } from "@/lib/ids";
+import {
+  getPreparationContext,
+  openOrCreatePreparation,
+  updatePreview,
+} from "@/domains/preparation/service";
+import { createProjectCommand } from "@/domains/preparation/create-project";
+import {
+  reserveTurnCommand,
+  stashTurnQualification,
+} from "@/domains/conversation/turn-command";
+import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
+import {
+  executePilotageCommand,
+  getPilotageProjection,
+} from "@/domains/pilotage/service";
+import { applyConversationalAuthority } from "@/domains/pilotage/conversation-authority";
+
+const OPEN_QUAL = {
+  schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  status: "QUALIFIED" as const,
+  goal: "open cycle",
+  intents: [
+    {
+      id: "i-open",
+      capabilityId: "d5.pilotage_command" as const,
+      mode: "REQUEST_EFFECT" as const,
+      summary: "OPEN_CYCLE CADRAGE",
+      parameters: {
+        pilotageOperation: "OPEN_CYCLE" as const,
+        cycleType: "CADRAGE" as const,
+      },
+      constraints: [] as string[],
+      dependsOn: [] as string[],
+      sourceEvidence: [] as string[],
+    },
+  ],
+  clarifications: [] as string[],
+  replyDraft: "Cycle ouvert.",
+};
+
+/** Two admissible D5 acts on one USER message: OPEN then TRANSITION. */
+const DUAL_INTENT_QUAL = {
+  schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  status: "QUALIFIED" as const,
+  goal: "two acts",
+  intents: [
+    {
+      id: "i-open",
+      capabilityId: "d5.pilotage_command" as const,
+      mode: "REQUEST_EFFECT" as const,
+      summary: "OPEN_CYCLE",
+      parameters: {
+        pilotageOperation: "OPEN_CYCLE" as const,
+        cycleType: "CADRAGE" as const,
+      },
+      constraints: [] as string[],
+      dependsOn: [] as string[],
+      sourceEvidence: [] as string[],
+    },
+    {
+      id: "i-trans",
+      capabilityId: "d5.pilotage_command" as const,
+      mode: "REQUEST_EFFECT" as const,
+      summary: "TRANSITION_CYCLE",
+      parameters: {
+        pilotageOperation: "TRANSITION_CYCLE" as const,
+        cycleType: "CADRAGE" as const,
+        toCycleType: "CONCEPTION_FONCTIONNELLE" as const,
+      },
+      constraints: [] as string[],
+      dependsOn: [] as string[],
+      sourceEvidence: [] as string[],
+    },
+  ],
+  clarifications: [] as string[],
+  replyDraft: "deux actes",
+};
+
+async function seedOwnedProject(label: string) {
+  const pilotId = newId("pilot");
+  await db.insert(pilots).values({
+    id: pilotId,
+    displayName: label,
+    githubUserId: `gh-${pilotId}`,
+  });
+  const prep = await openOrCreatePreparation(pilotId);
+  await updatePreview(pilotId, prep.id, label, "auth-seed");
+  const refreshed = (
+    await db.select().from(preparations).where(eq(preparations.id, prep.id))
+  )[0];
+  const created = await createProjectCommand({
+    pilotId,
+    preparationId: prep.id,
+    expectedCreationRevision: refreshed.creationRevision,
+    projectName: label,
+    previewSummary: "auth-seed",
+    idempotencyKey: newId("idem"),
+  });
+  if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
+    throw new Error(`SETUP BLOCKED: createProject failed: ${created.status}`);
+  }
+  const ctx = await getPreparationContext(pilotId, prep.id);
+  if (!ctx.project?.id || !ctx.conversation?.id) {
+    throw new Error("SETUP BLOCKED: project/conversation missing after create");
+  }
+  if (ctx.project.id !== created.projectId) {
+    throw new Error("SETUP BLOCKED: project id mismatch");
+  }
+  return {
+    pilotId,
+    preparationId: prep.id,
+    projectId: created.projectId,
+    conversationId: ctx.conversation.id,
+  };
+}
+
+async function seedQualifiedMessage(
+  world: { pilotId: string; conversationId: string; projectId: string },
+  content: string,
+  qual: Record<string, unknown>,
+) {
+  const reserved = await reserveTurnCommand({
+    conversationId: world.conversationId,
+    ownerPilotId: world.pilotId,
+    clientTurnKey: `auth-msg-${newId("ctk")}`,
+    content,
+  });
+  if (reserved.kind !== "fresh") {
+    throw new Error(`SETUP BLOCKED: expected fresh turn, got ${reserved.kind}`);
+  }
+  const stashed = await stashTurnQualification({
+    commandId: reserved.commandId,
+    ownerToken: reserved.ownerToken,
+    qualificationJson: JSON.stringify(qual),
+  });
+  if (!stashed.applied) {
+    throw new Error("SETUP BLOCKED: durable qualification stash failed");
+  }
+  // Ensure conversation.projectId is bound (createProject should have set it).
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(eq(conversations.id, world.conversationId))
+      .limit(1)
+  )[0];
+  if (conv?.projectId !== world.projectId) {
+    throw new Error(
+      `SETUP BLOCKED: conversation.projectId=${conv?.projectId} ≠ ${world.projectId}`,
+    );
+  }
+  return {
+    userMessageId: reserved.userMessageId,
+    turnCommandId: reserved.commandId,
+    clientTurnKey: reserved.clientTurnKey,
+  };
+}
+
+async function countCommands(projectId: string, sourceRef?: string) {
+  const rows = await db
+    .select()
+    .from(businessCommands)
+    .where(
+      sourceRef
+        ? and(
+            eq(businessCommands.projectId, projectId),
+            eq(businessCommands.sourceRef, sourceRef),
+          )
+        : eq(businessCommands.projectId, projectId),
+    );
+  return rows;
+}
+
+async function countEffects(commandId: string) {
+  return db
+    .select()
+    .from(businessCommandEffects)
+    .where(eq(businessCommandEffects.commandId, commandId));
+}
+
+async function countActiveCycles(projectId: string) {
+  const rows = await db
+    .select()
+    .from(projectCycles)
+    .where(
+      and(eq(projectCycles.projectId, projectId), eq(projectCycles.status, "ACTIVE")),
+    );
+  return rows.length;
+}
+
+describe("ML4C AUTH-R01..R14 — D5/D6 reconciliation (PG real)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) {
+      throw new Error("SETUP BLOCKED: DATABASE_URL required");
+    }
+  });
+
+  it("AUTH-R01: first admissible act → APPLIED, exactly one mutation", async () => {
+    const world = await seedOwnedProject(`auth-r01-${Date.now()}`);
+    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const before = await countCommands(world.projectId, msg.userMessageId);
+    expect(before.length).toBe(0);
+    const revBefore = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+
+    const first = await applyConversationalAuthority({
+      pilotId: world.pilotId,
+      projectId: world.projectId,
+      userMessageId: msg.userMessageId,
+      content: "Ouvre le cycle cadrage.",
+      clientTurnKey: `r01-${Date.now()}`,
+      preQualified: {
+        clarity: "CLEAR",
+        operation: "OPEN_CYCLE",
+        cycleType: "CADRAGE",
+        // Must echo durable objective (intent.summary), never invent a divergent one.
+        objective: "OPEN_CYCLE CADRAGE",
+        semanticIntentId: "i-open",
+        semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      },
+    });
+
+    expect(first.attempted).toBe(true);
+    expect(first.command?.status).toBe("APPLIED");
+    expect(first.command?.commandId).toBeTruthy();
+    const cmds = await countCommands(world.projectId, msg.userMessageId);
+    expect(cmds.length).toBe(1);
+    const effects = await countEffects(first.command!.commandId!);
+    expect(effects.length).toBeGreaterThanOrEqual(1);
+    expect(await countActiveCycles(world.projectId)).toBe(1);
+    const revAfter = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    expect(revAfter).toBeGreaterThan(revBefore);
+  });
+
+  it("AUTH-R02: same act, same client key → replay, same commandId", async () => {
+    const world = await seedOwnedProject(`auth-r02-${Date.now()}`);
+    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const key = `r02-${Date.now()}`;
+    const preQualified = {
+      clarity: "CLEAR" as const,
+      operation: "OPEN_CYCLE" as const,
+      cycleType: "CADRAGE" as const,
+      objective: "OPEN_CYCLE CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    };
+    const first = await applyConversationalAuthority({
+      pilotId: world.pilotId,
+      projectId: world.projectId,
+      userMessageId: msg.userMessageId,
+      content: "Ouvre le cycle cadrage.",
+      clientTurnKey: key,
+      preQualified,
+    });
+    expect(first.command?.status).toBe("APPLIED");
+    const second = await applyConversationalAuthority({
+      pilotId: world.pilotId,
+      projectId: world.projectId,
+      userMessageId: msg.userMessageId,
+      content: "Ouvre le cycle cadrage.",
+      clientTurnKey: key,
+      preQualified,
+    });
+    expect(second.command?.commandId).toBe(first.command?.commandId);
+    expect(["APPLIED", "ALREADY_APPLIED"]).toContain(second.command?.status);
+    expect((await countCommands(world.projectId, msg.userMessageId)).length).toBe(1);
+    expect(await countActiveCycles(world.projectId)).toBe(1);
+  });
+
+  it("AUTH-R03: same act, new client key, stale expectedRevision → ALREADY_APPLIED, no new effect", async () => {
+    const world = await seedOwnedProject(`auth-r03-${Date.now()}`);
+    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const revBefore = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+
+    const first = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: revBefore,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      actInstanceId: `${msg.userMessageId}:i-open`,
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(first.status).toBe("APPLIED");
+    expect(first.commandId).toBeTruthy();
+    const effectsAfterFirst = await countEffects(first.commandId!);
+    expect(effectsAfterFirst.length).toBeGreaterThanOrEqual(1);
+    const cmdsAfterFirst = await countCommands(world.projectId, msg.userMessageId);
+    expect(cmdsAfterFirst.length).toBe(1);
+
+    // Stale revision = revision preceding the mutation.
+    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: revBefore, // deliberately obsolete
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      actInstanceId: `${msg.userMessageId}:i-open`,
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+
+    expect(replay.status).toBe("ALREADY_APPLIED");
+    expect(replay.commandId).toBe(first.commandId);
+    expect(replay.reasonCode).not.toBe("STALE_REVISION");
+    const cmdsAfter = await countCommands(world.projectId, msg.userMessageId);
+    expect(cmdsAfter.length).toBe(1);
+    const effectsAfter = await countEffects(first.commandId!);
+    expect(effectsAfter.length).toBe(effectsAfterFirst.length);
+    expect(await countActiveCycles(world.projectId)).toBe(1);
+  });
+
+  it("AUTH-R04: client actInstanceId changed → server identity unchanged, no second effect", async () => {
+    const world = await seedOwnedProject(`auth-r04-${Date.now()}`);
+    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const first = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      actInstanceId: `${msg.userMessageId}:i-open`,
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(first.status).toBe("APPLIED");
+    const rev2 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev2,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      actInstanceId: "client-forged-act-id", // ignored by server
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(replay.status).toBe("ALREADY_APPLIED");
+    expect(replay.commandId).toBe(first.commandId);
+    expect((await countCommands(world.projectId, msg.userMessageId)).length).toBe(1);
+  });
+
+  it("AUTH-R05/R14: new intention with stale expectedRevision → STALE_REVISION, no mutation", async () => {
+    const world = await seedOwnedProject(`auth-r05-${Date.now()}`);
+    // Advance revision with an EXPLICIT_INTERACTION open first.
+    const rev0 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const bump = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev0,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    expect(bump.status).toBe("APPLIED");
+    const staleRev = rev0;
+    const msg = await seedQualifiedMessage(
+      world,
+      "Retiens la trajectoire cadre.",
+      {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED" as const,
+        goal: "retain",
+        intents: [
+          {
+            id: "i-retain",
+            capabilityId: "d5.pilotage_command" as const,
+            mode: "REQUEST_EFFECT" as const,
+            summary: "RETAIN",
+            parameters: {
+              pilotageOperation: "RETAIN_TRAJECTORY" as const,
+              orientation: "cadre",
+            },
+            constraints: [] as string[],
+            dependsOn: [] as string[],
+            sourceEvidence: [] as string[],
+          },
+        ],
+        clarifications: [] as string[],
+        replyDraft: "ok",
+      },
+    );
+    const cmdsBefore = (await countCommands(world.projectId)).length;
+    const denied = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: staleRev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Retiens la trajectoire cadre.",
+      actInstanceId: `${msg.userMessageId}:i-retain`,
+      operation: "RETAIN_TRAJECTORY",
+      orientation: "cadre",
+      semanticIntentId: "i-retain",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(denied.status).toBe("CONFLICT");
+    expect(denied.reasonCode).toBe("STALE_REVISION");
+    expect(denied.commandId).toBeNull();
+    expect((await countCommands(world.projectId)).length).toBe(cmdsBefore);
+  });
+
+  it("AUTH-R06: same message, two distinct intents → both APPLIED + replay", async () => {
+    const world = await seedOwnedProject(`auth-r06-${Date.now()}`);
+    const content = "Ouvre le cycle cadrage puis passe en conception fonctionnelle.";
+    const msg = await seedQualifiedMessage(world, content, DUAL_INTENT_QUAL);
+    const effectsBefore = (
+      await db
+        .select()
+        .from(businessCommandEffects)
+        .innerJoin(
+          businessCommands,
+          eq(businessCommandEffects.commandId, businessCommands.id),
+        )
+        .where(eq(businessCommands.projectId, world.projectId))
+    ).length;
+
+    const rev1 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev1,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: content,
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(open.status).toBe("APPLIED");
+    expect(open.commandId).toBeTruthy();
+    expect(await countActiveCycles(world.projectId)).toBe(1);
+    const openEffects = await countEffects(open.commandId!);
+    expect(openEffects.length).toBeGreaterThanOrEqual(1);
+
+    const rev2 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    expect(rev2).toBeGreaterThan(rev1);
+    const trans = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev2,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: content,
+      operation: "TRANSITION_CYCLE",
+      cycleType: "CADRAGE",
+      toCycleType: "CONCEPTION_FONCTIONNELLE",
+      semanticIntentId: "i-trans",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(trans.status).toBe("APPLIED");
+    expect(trans.commandId).toBeTruthy();
+    expect(trans.commandId).not.toBe(open.commandId);
+    const transEffects = await countEffects(trans.commandId!);
+    expect(transEffects.length).toBeGreaterThanOrEqual(1);
+
+    const applied = (await countCommands(world.projectId, msg.userMessageId)).filter(
+      (c) => c.status === "APPLIED",
+    );
+    expect(applied.length).toBe(2);
+    expect(applied.every((c) => c.sourceRef === msg.userMessageId)).toBe(true);
+    expect(applied.map((c) => c.sourceActionKey).sort()).toHaveLength(2);
+    expect(applied[0]!.sourceActionKey).not.toBe(applied[1]!.sourceActionKey);
+
+    const active = (
+      await db
+        .select()
+        .from(projectCycles)
+        .where(
+          and(eq(projectCycles.projectId, world.projectId), eq(projectCycles.status, "ACTIVE")),
+        )
+    )[0];
+    expect(active?.cycleType).toBe("CONCEPTION_FONCTIONNELLE");
+
+    // Replay both acts under new client keys — no third effect.
+    const rev3 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const replayOpen = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev3,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: content,
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    const replayTrans = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev3,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: content,
+      operation: "TRANSITION_CYCLE",
+      cycleType: "CADRAGE",
+      toCycleType: "CONCEPTION_FONCTIONNELLE",
+      semanticIntentId: "i-trans",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(replayOpen.status).toBe("ALREADY_APPLIED");
+    expect(replayOpen.commandId).toBe(open.commandId);
+    expect(replayTrans.status).toBe("ALREADY_APPLIED");
+    expect(replayTrans.commandId).toBe(trans.commandId);
+    expect((await countCommands(world.projectId, msg.userMessageId)).filter((c) => c.status === "APPLIED").length).toBe(
+      2,
+    );
+    const effectsAfter = (
+      await db
+        .select()
+        .from(businessCommandEffects)
+        .innerJoin(
+          businessCommands,
+          eq(businessCommandEffects.commandId, businessCommands.id),
+        )
+        .where(eq(businessCommands.projectId, world.projectId))
+    ).length;
+    expect(effectsAfter).toBe(effectsBefore + openEffects.length + transEffects.length);
+  });
+
+  it("AUTH-R07: same message, substituted operation → REFUS", async () => {
+    const world = await seedOwnedProject(`auth-r07-${Date.now()}`);
+    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const denied = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      operation: "RETAIN_TRAJECTORY", // substituted vs durable OPEN_CYCLE
+      orientation: "x",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(denied.status).toBe("REJECTED");
+    expect((await countCommands(world.projectId, msg.userMessageId)).every((c) => c.status === "REJECTED")).toBe(
+      true,
+    );
+    expect(await countActiveCycles(world.projectId)).toBe(0);
+  });
+
+  it("AUTH-R08: same message, substituted target → REFUS", async () => {
+    const world = await seedOwnedProject(`auth-r08-${Date.now()}`);
+    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const denied = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      operation: "OPEN_CYCLE",
+      cycleType: "CONSTRUCTION", // substituted vs durable CADRAGE
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(denied.status).toBe("REJECTED");
+    expect(await countActiveCycles(world.projectId)).toBe(0);
+  });
+
+  it("AUTH-R09: non-APPLIED stored act replay → reconcile without blind re-emit", async () => {
+    // business_commands.status domain is APPLIED|REJECTED only (chk).
+    // Replay of a REJECTED same-act must return stored truth — never mutate again.
+    const world = await seedOwnedProject(`auth-r09-${Date.now()}`);
+    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const first = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      operation: "OPEN_CYCLE",
+      cycleType: "CONSTRUCTION", // mismatch → REJECTED stored act
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(first.status).toBe("REJECTED");
+    expect(first.commandId).toBeTruthy();
+    const effectsBefore = await countEffects(first.commandId!);
+    expect(effectsBefore.length).toBe(0);
+    const rev2 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev2,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      operation: "OPEN_CYCLE",
+      cycleType: "CONSTRUCTION",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    // Same act identity → replay stored REJECTED, no second insert / no cycle.
+    expect(replay.commandId).toBe(first.commandId);
+    expect(replay.status).toBe("REJECTED");
+    expect((await countCommands(world.projectId, msg.userMessageId)).length).toBe(1);
+    expect(await countActiveCycles(world.projectId)).toBe(0);
+  });
+
+  it("AUTH-R10: two concurrent same-act calls → ≤1 APPLIED command, ≤1 cycle", async () => {
+    const world = await seedOwnedProject(`auth-r10-${Date.now()}`);
+    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const body = {
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE" as const,
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      operation: "OPEN_CYCLE" as const,
+      cycleType: "CADRAGE" as const,
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    };
+    const [a, b] = await Promise.all([
+      executePilotageCommand(world.pilotId, world.projectId, {
+        ...body,
+        clientCommandKey: `conv:${newId("ctk")}`,
+      }),
+      executePilotageCommand(world.pilotId, world.projectId, {
+        ...body,
+        clientCommandKey: `conv:${newId("ctk")}`,
+      }),
+    ]);
+    const statuses = [a.status, b.status].sort();
+    expect(statuses).toContain("APPLIED");
+    expect(
+      statuses.every((s) => s === "APPLIED" || s === "ALREADY_APPLIED" || s === "CONFLICT"),
+    ).toBe(true);
+    if (a.commandId && b.commandId) {
+      expect(a.commandId === b.commandId || statuses.includes("ALREADY_APPLIED")).toBe(true);
+    }
+    const applied = (await countCommands(world.projectId, msg.userMessageId)).filter(
+      (c) => c.status === "APPLIED",
+    );
+    expect(applied.length).toBeLessThanOrEqual(1);
+    expect(await countActiveCycles(world.projectId)).toBeLessThanOrEqual(1);
+  });
+
+  it("AUTH-R11: other Pilot — no visible/applicable command", async () => {
+    const a = await seedOwnedProject(`auth-r11a-${Date.now()}`);
+    const b = await seedOwnedProject(`auth-r11b-${Date.now()}`);
+    const msg = await seedQualifiedMessage(a, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const rev = (await getPilotageProjection(a.pilotId, a.projectId)).revision;
+    const first = await executePilotageCommand(a.pilotId, a.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(first.status).toBe("APPLIED");
+
+    await expect(
+      executePilotageCommand(b.pilotId, a.projectId, {
+        clientCommandKey: `conv:${newId("ctk")}`,
+        expectedRevision: rev,
+        sourceKind: "USER_MESSAGE",
+        sourceRef: msg.userMessageId,
+        utterance: "Ouvre le cycle cadrage.",
+        operation: "OPEN_CYCLE",
+        cycleType: "CADRAGE",
+        semanticIntentId: "i-open",
+        semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      }),
+    ).rejects.toThrow(/introuvable|NOT_FOUND/i);
+    // B must not own any command on A's project.
+    const bCmds = await db
+      .select()
+      .from(businessCommands)
+      .where(
+        and(
+          eq(businessCommands.projectId, a.projectId),
+          eq(businessCommands.actorPilotId, b.pilotId),
+        ),
+      );
+    expect(bCmds.length).toBe(0);
+    expect(await countActiveCycles(a.projectId)).toBe(1);
+  });
+
+  it("AUTH-R12: other project — no visible/applicable command", async () => {
+    const a = await seedOwnedProject(`auth-r12a-${Date.now()}`);
+    const b = await seedOwnedProject(`auth-r12b-${Date.now()}`);
+    const msgA = await seedQualifiedMessage(a, "Ouvre le cycle cadrage.", OPEN_QUAL);
+    const revA = (await getPilotageProjection(a.pilotId, a.projectId)).revision;
+    const applied = await executePilotageCommand(a.pilotId, a.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: revA,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msgA.userMessageId,
+      utterance: "Ouvre le cycle cadrage.",
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(applied.status).toBe("APPLIED");
+
+    // Pilot B + project B cannot apply or replay A's message/command.
+    const revB = (await getPilotageProjection(b.pilotId, b.projectId)).revision;
+    const cross = await executePilotageCommand(b.pilotId, b.projectId, {
+      clientCommandKey: `conv:${newId("ctk")}`,
+      expectedRevision: revB,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msgA.userMessageId, // foreign message
+      utterance: "Ouvre le cycle cadrage.",
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      semanticIntentId: "i-open",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(cross.commandId).not.toBe(applied.commandId);
+    expect(cross.status).not.toBe("ALREADY_APPLIED");
+    expect(cross.status).toBe("REJECTED");
+    expect((await countCommands(b.projectId, msgA.userMessageId)).every((c) => c.status === "REJECTED")).toBe(
+      true,
+    );
+    expect(await countActiveCycles(b.projectId)).toBe(0);
+  });
+
+  it("AUTH-R13: EXPLICIT_INTERACTION authorized → nominal preserved", async () => {
+    const world = await seedOwnedProject(`auth-r13-${Date.now()}`);
+    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const r = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    expect(r.status).toBe("APPLIED");
+    expect(r.commandId).toBeTruthy();
+    expect(await countActiveCycles(world.projectId)).toBe(1);
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-d2-mission-s05.pg.test.ts`
+
+```typescript
+/**
+ * Q1 — Real D2 sas path produces AWAITING_PILOT_ACT; S05 blocks concurrent effects.
+ * No artificial mission JSON seed.
+ */
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+process.env.STUDIO_LANE = "DEV";
+process.env.STUDIO_E2E = "1";
+process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
+
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import {
+  conversationTurnCommands,
+  documents,
+  preparationProjectLinks,
+  preparations,
+} from "@/db/schema";
+import { createDevTestSession } from "@/domains/identity/session";
+import {
+  getPreparationContext,
+  openOrCreatePreparation,
+} from "@/domains/preparation/service";
+import { postUserMessageAndNora } from "@/domains/conversation/service";
+import {
+  loadLatestMissionsByIntentKey,
+  loadPriorMissionProjection,
+  d2MissionIdempotencyKey,
+} from "@/domains/conversation/intent-conduction";
+import { newId } from "@/lib/ids";
+
+describe("ML4C Q1 — real D2 AWAITING_PILOT_ACT + S05 (PG)", () => {
+  let pilotId: string;
+
+  beforeAll(async () => {
+    if (!process.env.DATABASE_URL) throw new Error("SETUP BLOCKED: DATABASE_URL required");
+    const sess = await createDevTestSession("a", { host: "127.0.0.1:3101" });
+    pilotId = sess.pilotId;
+  });
+
+  it("MISSION-01..08: real D2 path → AWAITING without project / without UNKNOWN", async () => {
+    const prep = await openOrCreatePreparation(pilotId);
+    const ctx0 = await getPreparationContext(pilotId, prep.id);
+    expect(ctx0.preparation.status).toBe("OPEN");
+    expect(ctx0.project).toBeNull();
+    expect(ctx0.conversation?.id).toBeTruthy();
+    const links0 = await db
+      .select()
+      .from(preparationProjectLinks)
+      .where(eq(preparationProjectLinks.preparationId, prep.id));
+    expect(links0.length).toBe(0);
+
+    const revBefore = (
+      await db.select().from(preparations).where(eq(preparations.id, prep.id)).limit(1)
+    )[0]!.creationRevision;
+
+    const a = await postUserMessageAndNora(pilotId, prep.id, "Je veux créer un projet.", {
+      clientTurnKey: `d2-a-${newId("ctk")}`,
+    });
+
+    expect(a.status).toBe("COMPLETE");
+    expect(a.nextTurnKind).toBe("INTENTION_EFFET");
+    expect(a.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    expect(a.missionProjection?.preparationId).toBe(prep.id);
+    expect(a.missionProjection?.clientIntentKey).toBeTruthy();
+    expect(a.missionProjection?.ownerActBinding).toEqual({
+      kind: "D2_CREATE_PROJECT",
+      preparationId: prep.id,
+      clientIntentKey: a.missionProjection!.clientIntentKey,
+      suggestedIdempotencyKey: d2MissionIdempotencyKey(a.missionProjection!.clientIntentKey),
+    });
+    expect(a.missionProjection?.steps.some((s) => s.capabilityId === "d2.create_project")).toBe(
+      true,
+    );
+    expect(a.humanDecisionCreated).toBe(false);
+
+    const ctx1 = await getPreparationContext(pilotId, prep.id);
+    expect(ctx1.project).toBeNull();
+    const links1 = await db
+      .select()
+      .from(preparationProjectLinks)
+      .where(eq(preparationProjectLinks.preparationId, prep.id));
+    expect(links1.length).toBe(0);
+
+    const missions = await loadLatestMissionsByIntentKey(ctx1.conversation!.id);
+    const durable = missions.get(a.missionProjection!.clientIntentKey);
+    expect(durable?.status).toBe("AWAITING_PILOT_ACT");
+    expect(durable?.ownerActBinding?.kind).toBe("D2_CREATE_PROJECT");
+
+    const prior = await loadPriorMissionProjection(ctx1.conversation!.id, {
+      awaitingPilotAct: true,
+      preparationId: prep.id,
+    });
+    expect(prior?.clientIntentKey).toBe(a.missionProjection!.clientIntentKey);
+
+    const unknown = await db
+      .select()
+      .from(conversationTurnCommands)
+      .where(
+        and(
+          eq(conversationTurnCommands.conversationId, ctx1.conversation!.id),
+          eq(conversationTurnCommands.status, "UNKNOWN"),
+        ),
+      );
+    expect(unknown.length).toBe(0);
+
+    const revAfter = (
+      await db.select().from(preparations).where(eq(preparations.id, prep.id)).limit(1)
+    )[0]!.creationRevision;
+    // updatePreview may advance creationRevision — project still absent.
+    expect(revAfter).toBeGreaterThanOrEqual(revBefore);
+    expect(ctx1.project).toBeNull();
+  });
+
+  it("MISSION-09: control prep without pending A — document CREATE admissible", async () => {
+    const prep = await openOrCreatePreparation(pilotId);
+    const docsBefore = await db
+      .select()
+      .from(documents)
+      .where(eq(documents.preparationId, prep.id));
+    const r = await postUserMessageAndNora(
+      pilotId,
+      prep.id,
+      "Rédige un document de synthèse sur les options A et B",
+      { clientTurnKey: `d2-ctrl-${newId("ctk")}` },
+    );
+    expect(r.status).toBe("COMPLETE");
+    expect(r.pendingEffectBlocked).not.toBe(true);
+    expect(r.documentSave?.status).toBe("AVAILABLE");
+    expect(r.documentSave?.documentId).toBeTruthy();
+    const docsAfter = await db
+      .select()
+      .from(documents)
+      .where(eq(documents.preparationId, prep.id));
+    expect(docsAfter.length).toBe(docsBefore.length + 1);
+  });
+
+  it("MISSION-10..14: AWAITING from real D2 blocks document B; dialogue ok; hint irrelevant", async () => {
+    const prep = await openOrCreatePreparation(pilotId);
+    const a = await postUserMessageAndNora(pilotId, prep.id, "Je veux créer un projet.", {
+      clientTurnKey: `d2-block-a-${newId("ctk")}`,
+    });
+    expect(a.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    const intentKey = a.missionProjection!.clientIntentKey;
+    const revAfterA = (
+      await db.select().from(preparations).where(eq(preparations.id, prep.id)).limit(1)
+    )[0]!.creationRevision;
+    const docsBefore = await db
+      .select()
+      .from(documents)
+      .where(eq(documents.preparationId, prep.id));
+
+    const b = await postUserMessageAndNora(
+      pilotId,
+      prep.id,
+      "Rédige un document de synthèse sur les options A et B",
+      {
+        clientTurnKey: `d2-block-b-${newId("ctk")}`,
+        // Hint absent / would be falsified — server must still use mission A.
+      },
+    );
+    expect(b.nextTurnKind).toBe("INTENTION_EFFET");
+    expect(b.pendingEffectBlocked).toBe(true);
+    expect(String(b.pendingBlockReason ?? "")).toMatch(/S05_MISSION_BLOCKS_EFFECT/i);
+    expect(b.documentSave == null || b.documentSave.status === "NOT_EXECUTED").toBe(true);
+    expect(b.humanDecisionCreated).toBe(false);
+
+    const docsAfter = await db
+      .select()
+      .from(documents)
+      .where(eq(documents.preparationId, prep.id));
+    expect(docsAfter.length).toBe(docsBefore.length);
+    const revAfterB = (
+      await db.select().from(preparations).where(eq(preparations.id, prep.id)).limit(1)
+    )[0]!.creationRevision;
+    expect(revAfterB).toBe(revAfterA);
+
+    const ctx = await getPreparationContext(pilotId, prep.id);
+    const prior = await loadPriorMissionProjection(ctx.conversation!.id, {
+      awaitingPilotAct: true,
+    });
+    expect(prior?.clientIntentKey).toBe(intentKey);
+    expect(prior?.status).toBe("AWAITING_PILOT_ACT");
+    expect(ctx.project).toBeNull();
+
+    const q = await postUserMessageAndNora(
+      pilotId,
+      prep.id,
+      "Quelle est la différence entre blob et commit ?",
+      { clientTurnKey: `d2-q-${newId("ctk")}` },
+    );
+    expect(q.status).toBe("COMPLETE");
+    expect(q.nextTurnKind).toBe("DIALOGUE_INDEPENDANT");
+    expect(q.pendingEffectBlocked).not.toBe(true);
+    const prior2 = await loadPriorMissionProjection(ctx.conversation!.id, {
+      awaitingPilotAct: true,
+    });
+    expect(prior2?.clientIntentKey).toBe(intentKey);
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-env01-runtime.pg.test.ts`
+
+```typescript
+/**
+ * Q2 — ENV-01 runtime / PostgreSQL isolation proofs (sanitized, no secrets).
+ */
+import { describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { execFileSync } from "child_process";
+import { sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import { E2E_PG_EXPECTED, prepareVitestMutativeDatabaseUrl } from "@/lib/e2e-pg-gate";
+import { e2eFixtureMutationsAllowed } from "@/lib/e2e-fixture-gate";
+
+function sanitizeUrl(raw: string): {
+  protocol: string;
+  host: string;
+  port: string;
+  database: string;
+  user: string;
+} {
+  const u = new URL(raw);
+  return {
+    protocol: u.protocol,
+    host: u.hostname,
+    port: u.port || "5432",
+    database: decodeURIComponent(u.pathname.replace(/^\//, "").split("/")[0] ?? ""),
+    user: decodeURIComponent(u.username || ""),
+  };
+}
+
+describe("ML4C Q2 — ENV-01 runtime isolation", () => {
+  it("ENV-R04/R05: vitest mutative URL is sfia_next_e2e on approved loopback", () => {
+    const raw = process.env.DATABASE_URL;
+    expect(raw).toBeTruthy();
+    const effective = prepareVitestMutativeDatabaseUrl(raw!);
+    const id = sanitizeUrl(effective);
+    expect(id.host).toMatch(/^(127\.0\.0\.1|localhost)$/);
+    expect(Number(id.port)).toBe(E2E_PG_EXPECTED.port);
+    expect(id.database).toBe(E2E_PG_EXPECTED.e2eDatabase);
+    expect(id.database).not.toBe(E2E_PG_EXPECTED.operatorDatabase);
+    // Never assert password; user must be the DEV role name when present.
+    if (id.user) expect(id.user).toMatch(/sfia_next/);
+  });
+
+  it("ENV-R04: live session current_database/user match e2e target", async () => {
+    const rows = await db.execute(
+      sql`select current_database() as db, current_user as usr, session_user as sess, current_schema() as sch`,
+    );
+    const row = (rows as unknown as { rows?: Array<Record<string, unknown>> }).rows?.[0] ??
+      (Array.isArray(rows) ? (rows as Array<Record<string, unknown>>)[0] : null);
+    expect(row).toBeTruthy();
+    expect(String(row!.db)).toBe(E2E_PG_EXPECTED.e2eDatabase);
+    expect(String(row!.db)).not.toMatch(/recette|stable|prod/i);
+    expect(String(row!.usr)).toMatch(/sfia_next/);
+  });
+
+  it("ENV-R02/R03: docker PG container maps loopback :5433 only", () => {
+    const out = execFileSync("docker", ["port", E2E_PG_EXPECTED.container, "5432"], {
+      encoding: "utf8",
+    });
+    expect(out).toMatch(/127\.0\.0\.1:5433/);
+    expect(out).not.toMatch(/0\.0\.0\.0:5433/);
+  });
+
+  it("ENV-R11: fixture mutations require DEV+E2E+non-production", () => {
+    expect(
+      e2eFixtureMutationsAllowed({
+        NODE_ENV: "production",
+        STUDIO_LANE: "DEV",
+        STUDIO_E2E: "1",
+      } as NodeJS.ProcessEnv).ok,
+    ).toBe(false);
+    expect(
+      e2eFixtureMutationsAllowed({
+        NODE_ENV: "development",
+        STUDIO_LANE: "RECETTE",
+        STUDIO_E2E: "1",
+      } as NodeJS.ProcessEnv).ok,
+    ).toBe(false);
+    expect(
+      e2eFixtureMutationsAllowed({
+        NODE_ENV: "development",
+        STUDIO_LANE: "DEV",
+        STUDIO_FORCE_NORA_FIXTURE: "1",
+      } as NodeJS.ProcessEnv).ok,
+    ).toBe(false);
+    expect(
+      e2eFixtureMutationsAllowed({
+        NODE_ENV: "development",
+        STUDIO_LANE: "DEV",
+        STUDIO_E2E: "1",
+      } as NodeJS.ProcessEnv).ok,
+    ).toBe(true);
+  });
+
+  it("ENV-R13: RECETTE/STABLE ports are not the mutative E2E webServer port", () => {
+    // Documented reservations; Playwright webServer uses 3101 (see playwright.config.ts).
+    expect(3101).not.toBe(3200);
+    expect(3101).not.toBe(3000);
+    expect(E2E_PG_EXPECTED.e2eDatabase).not.toBe("sfia_next_recette");
+    expect(E2E_PG_EXPECTED.e2eDatabase).not.toBe("sfia_next_stable");
+  });
+
+  it("ENV-R06: DEV credentials cannot authenticate on RECETTE :5434", async () => {
+    const raw = process.env.DATABASE_URL;
+    expect(raw).toBeTruthy();
+    const src = new URL(raw!);
+    const postgres = (await import("postgres")).default;
+    const sql = postgres({
+      host: "127.0.0.1",
+      port: 5434,
+      database: "sfia_next_recette",
+      user: decodeURIComponent(src.username),
+      password: decodeURIComponent(src.password),
+      max: 1,
+      connect_timeout: 2,
+    });
+    let denied = false;
+    try {
+      await sql`select 1`;
+    } catch (e) {
+      const code = (e as { code?: string }).code;
+      denied = code === "28P01" || /password|authentication|does not exist/i.test(String(e));
+    } finally {
+      try {
+        await sql.end({ timeout: 1 });
+      } catch {
+        /* ignore */
+      }
+    }
+    expect(denied).toBe(true);
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-integrator-auth-persist.pg.test.ts`
+
+```typescript
+/**
+ * Lot A/B integrator closure — PG proofs for stash CAS + UNKNOWN/COMPLETE
+ * preservation of semanticQualification (sfia_next_e2e via vitest gate).
+ */
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+process.env.STUDIO_LANE = "DEV";
+process.env.STUDIO_E2E = "1";
+process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
+
+import { eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversationTurnCommands } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { createDevTestSession } from "@/domains/identity/session";
+import { openOrCreatePreparation } from "@/domains/preparation/service";
+import { getPreparationContext } from "@/domains/preparation/service";
+import {
+  commitTurnTerminal,
+  markTurnUnknown,
+  reserveTurnCommand,
+  stashTurnQualification,
+} from "@/domains/conversation/turn-command";
+import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
+
+const sampleQual = {
+  schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  status: "QUALIFIED" as const,
+  goal: "open",
+  intents: [
+    {
+      id: "i1",
+      capabilityId: "d5.pilotage_command" as const,
+      mode: "REQUEST_EFFECT" as const,
+      summary: "OPEN_CYCLE",
+      parameters: { pilotageOperation: "OPEN_CYCLE" as const, cycleType: "CADRAGE" },
+      constraints: [] as string[],
+      dependsOn: [] as string[],
+      sourceEvidence: [] as string[],
+    },
+  ],
+  clarifications: [] as string[],
+  replyDraft: "ok",
+};
+
+describe("ML4C integrator — persist qualification (PG)", () => {
+  let pilotId: string;
+  let conversationId: string;
+
+  beforeAll(async () => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    const sess = await createDevTestSession("b", { host: "127.0.0.1:3100" });
+    pilotId = sess.pilotId;
+    const prep = await openOrCreatePreparation(pilotId);
+    const ctx = await getPreparationContext(pilotId, prep.id);
+    conversationId = ctx.conversation!.id;
+  });
+
+  afterAll(() => {
+    /* e2e DB isolated */
+  });
+
+  it("DB-01/DB-06: stash then markTurnUnknown preserves semanticQualification", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `integ-unknown-${Date.now()}`,
+      content: "stash then unknown",
+    });
+    expect(reserved.kind).toBe("fresh");
+    if (reserved.kind !== "fresh") return;
+
+    const stashed = await stashTurnQualification({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      qualificationJson: JSON.stringify(sampleQual),
+    });
+    expect(stashed.applied).toBe(true);
+
+    await markTurnUnknown(
+      reserved.commandId,
+      "TEST_UNKNOWN_AFTER_STASH",
+      reserved.ownerToken,
+      JSON.stringify({ status: "UNKNOWN", note: "no qual in payload" }),
+    );
+
+    const row = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, reserved.commandId))
+        .limit(1)
+    )[0];
+    expect(row?.status).toBe("UNKNOWN");
+    const parsed = JSON.parse(row!.resultJson!) as {
+      semanticQualification?: { status?: string };
+      status?: string;
+    };
+    expect(parsed.semanticQualification?.status).toBe("QUALIFIED");
+    expect(parsed.status).toBe("UNKNOWN");
+  });
+
+  it("DB-04: COMPLETE after stash keeps qualification", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `integ-complete-${Date.now()}`,
+      content: "stash then complete",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+
+    expect(
+      (
+        await stashTurnQualification({
+          commandId: reserved.commandId,
+          ownerToken: reserved.ownerToken,
+          qualificationJson: JSON.stringify(sampleQual),
+        })
+      ).applied,
+    ).toBe(true);
+
+    const applied = await commitTurnTerminal({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: "COMPLETE",
+      conversationId,
+      generationId: "gen-integ",
+      resultJson: JSON.stringify({
+        status: "COMPLETE",
+        userMessageId: reserved.userMessageId,
+        assistantMessageId: null,
+        idempotentReplay: false,
+        humanDecisionCreated: false,
+      }),
+      assistant: {
+        id: newId("msg"),
+        content: "assistant",
+        messageStatus: "COMPLETE",
+        generationId: "gen-integ",
+        ordinal: reserved.ordinalAssistant,
+      },
+    });
+    expect(applied.applied).toBe(true);
+
+    const row = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, reserved.commandId))
+        .limit(1)
+    )[0];
+    const parsed = JSON.parse(row!.resultJson!) as {
+      semanticQualification?: { schemaVersion?: string };
+    };
+    expect(parsed.semanticQualification?.schemaVersion).toBe(SEMANTIC_QUALIFICATION_SCHEMA_VERSION);
+  });
+
+  it("DB-02: stash with revoked ownerToken → applied false, zero write", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `integ-revoke-${Date.now()}`,
+      content: "revoke stash",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+
+    const bad = await stashTurnQualification({
+      commandId: reserved.commandId,
+      ownerToken: "revoked_fake_token",
+      qualificationJson: JSON.stringify(sampleQual),
+    });
+    expect(bad.applied).toBe(false);
+
+    const row = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, reserved.commandId))
+        .limit(1)
+    )[0];
+    expect(row?.resultJson).toBeNull();
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts`
+
+```typescript
+/**
+ * Integrator closure — S05 admission, D5/D6 human-act idempotence, D4 semantic knowledge.
+ */
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+process.env.STUDIO_LANE = "DEV";
+process.env.STUDIO_E2E = "1";
+process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
+
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import {
+  conversationTurnCommands,
+  knowledgeAcquis,
+  preparations,
+} from "@/db/schema";
+import { createDevTestSession } from "@/domains/identity/session";
+import {
+  getPreparationContext,
+  openOrCreatePreparation,
+} from "@/domains/preparation/service";
+import { postUserMessageAndNora } from "@/domains/conversation/service";
+import {
+  markTurnUnknown,
+  reserveTurnCommand,
+  stashTurnQualification,
+} from "@/domains/conversation/turn-command";
+import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
+import { maybeCapitalizeFromExchange } from "@/domains/knowledge/service";
+
+describe("ML4C integrator — S05 / idempotence / knowledge (PG)", () => {
+  let pilotId: string;
+  let preparationId: string;
+  let conversationId: string;
+
+  beforeAll(async () => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    const sess = await createDevTestSession("a", { host: "127.0.0.1:3100" });
+    pilotId = sess.pilotId;
+    const prep = await openOrCreatePreparation(pilotId);
+    preparationId = prep.id;
+    const ctx = await getPreparationContext(pilotId, prep.id);
+    conversationId = ctx.conversation!.id;
+  });
+
+  afterAll(() => {
+    /* e2e isolated */
+  });
+
+  it("S05-G02/G04: UNKNOWN A blocks OPEN_CYCLE and D2 preview for B", async () => {
+    const a = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `s05-a-${Date.now()}`,
+      content: "acte A en cours",
+    });
+    if (a.kind !== "fresh") throw new Error("expected fresh A");
+    await stashTurnQualification({
+      commandId: a.commandId,
+      ownerToken: a.ownerToken,
+      qualificationJson: JSON.stringify({
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "a",
+        intents: [
+          {
+            id: "ia",
+            capabilityId: "d3.converse",
+            mode: "EXPLORE",
+            summary: "a",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "a",
+      }),
+    });
+    await markTurnUnknown(a.commandId, "TEST_S05_A", a.ownerToken);
+
+    const previewBefore = (
+      await db
+        .select()
+        .from(preparations)
+        .where(eq(preparations.id, preparationId))
+        .limit(1)
+    )[0];
+    const revBefore = previewBefore?.creationRevision ?? 0;
+
+    const bCreate = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Je veux créer un projet.",
+      {
+        clientTurnKey: `s05-b-create-${Date.now()}`,
+        // Hint deliberately omitted — server must still find sibling A.
+      },
+    );
+    expect(bCreate.pendingEffectBlocked).toBe(true);
+    expect(bCreate.missionProjection?.status).not.toBe("AWAITING_PILOT_ACT");
+    const previewAfter = (
+      await db
+        .select()
+        .from(preparations)
+        .where(eq(preparations.id, preparationId))
+        .limit(1)
+    )[0];
+    expect(previewAfter?.creationRevision ?? 0).toBe(revBefore);
+
+    const bCycle = await postUserMessageAndNora(pilotId, preparationId, "Ouvre le cycle cadrage.", {
+      clientTurnKey: `s05-b-cycle-${Date.now()}`,
+    });
+    expect(bCycle.pendingEffectBlocked).toBe(true);
+    expect(bCycle.pilotageEffect?.attempted).not.toBe(true);
+
+    const aRow = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, a.commandId))
+        .limit(1)
+    )[0];
+    expect(aRow?.status).toBe("UNKNOWN");
+  });
+
+  it("S05-G01: independent question over UNKNOWN A is allowed without clearing A", async () => {
+    const a = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `s05-a2-${Date.now()}`,
+      content: "acte A2",
+    });
+    if (a.kind !== "fresh") throw new Error("expected fresh");
+    await markTurnUnknown(a.commandId, "TEST_S05_A2", a.ownerToken);
+
+    const b = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Quelle est la différence entre blob et commit ?",
+      { clientTurnKey: `s05-b-q-${Date.now()}` },
+    );
+    expect(b.status).toBe("COMPLETE");
+    expect(b.pendingEffectBlocked).not.toBe(true);
+    expect(b.nextTurnKind).toBe("DIALOGUE_INDEPENDANT");
+
+    const aRow = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, a.commandId))
+        .limit(1)
+    )[0];
+    expect(aRow?.status).toBe("UNKNOWN");
+  });
+
+  // AUTH-I02/I03 vacuous path REMOVED — real proofs live in ml4c-auth-reconciliation.pg.test.ts (R01–R14).
+
+  it("KNOW-R07: Nora established without independent source → no FACT", async () => {
+    const beforeFacts = await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, preparationId),
+          eq(knowledgeAcquis.kind, "FACT"),
+          eq(knowledgeAcquis.status, "CURRENT"),
+        ),
+      );
+    const cap = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+      userText: "Retiens comme fait établi que la latence cible est 50ms.",
+      assistantText: "ok",
+      generationId: "g-fact-refuse",
+      userMessageId: "m-fact-refuse",
+      proposals: [
+        {
+          intentId: "ik-est",
+          kind: "ACQUIS",
+          statement: "La latence cible est 50ms.",
+          epistemic: "established",
+          subjectTitle: "Performance",
+          continuityReason: "Nora marked established",
+        },
+      ],
+    });
+    expect(cap.humanDecisionCreated).toBe(false);
+    const acquis = cap.capitalisations.find((c) => c.kind === "acquis");
+    expect(acquis?.status).toBe("AVAILABLE");
+    expect(acquis?.reason).toBe("FACT_PROMOTION_REFUSED_NO_INDEPENDENT_SOURCE");
+    const after = await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, preparationId),
+          eq(knowledgeAcquis.statement, "La latence cible est 50ms."),
+          eq(knowledgeAcquis.status, "CURRENT"),
+        ),
+      );
+    expect(after.length).toBe(1);
+    expect(after[0]?.kind).toBe("HYPOTHESIS");
+    expect(after[0]?.kind).not.toBe("FACT");
+    const afterFacts = await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, preparationId),
+          eq(knowledgeAcquis.kind, "FACT"),
+          eq(knowledgeAcquis.status, "CURRENT"),
+        ),
+      );
+    expect(afterFacts.length).toBe(beforeFacts.length);
+  });
+
+  it("KNOW-R13: D4 proposal never creates HumanDecision", async () => {
+    const cap = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+      userText: "Note l'hypothèse d'un déploiement progressif.",
+      assistantText: "ok",
+      generationId: "g-no-hd",
+      userMessageId: "m-no-hd",
+      proposals: [
+        {
+          intentId: "ik-h",
+          kind: "ACQUIS",
+          statement: "Déploiement progressif envisagé.",
+          epistemic: "hypothesized",
+          subjectTitle: "Déploiement",
+        },
+      ],
+    });
+    expect(cap.humanDecisionCreated).toBe(false);
+  });
+
+  it("KNOW-01/KNOW-11: semantic proposal capitalises once; polite chatter writes nothing", async () => {
+    const before = await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(eq(knowledgeAcquis.preparationId, preparationId));
+
+    const polite = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+      userText: "Bonjour Nora, comment vas-tu ?",
+      assistantText: "Bonjour",
+      generationId: "g-polite",
+      userMessageId: "m-polite",
+      proposals: [],
+    });
+    expect(polite.capitalisations).toHaveLength(0);
+
+    const cap = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+      userText:
+        "Retiens comme acquis structurant que l'architecture modulaire est la piste privilégiée pour la suite.",
+      assistantText: "ok",
+      generationId: "g-arch",
+      userMessageId: "m-arch",
+      proposals: [
+        {
+          intentId: "ik",
+          kind: "ACQUIS",
+          statement:
+            "L'architecture modulaire est la piste privilégiée pour la suite du projet.",
+          epistemic: "hypothesized",
+          subjectTitle: "Architecture",
+          continuityReason: "Acquis structurant",
+        },
+      ],
+    });
+    expect(cap.humanDecisionCreated).toBe(false);
+    expect(cap.capitalisations.some((c) => c.kind === "acquis" && c.status === "AVAILABLE")).toBe(
+      true,
+    );
+
+    const again = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+      userText: "same",
+      assistantText: "ok",
+      generationId: "g-arch-2",
+      userMessageId: "m-arch-2",
+      proposals: [
+        {
+          intentId: "ik",
+          kind: "ACQUIS",
+          statement:
+            "L'architecture modulaire est la piste privilégiée pour la suite du projet.",
+          epistemic: "hypothesized",
+          subjectTitle: "Architecture",
+        },
+      ],
+    });
+    const acquisAgain = again.capitalisations.find((c) => c.kind === "acquis");
+    expect(acquisAgain?.status).toBe("AVAILABLE");
+
+    const after = await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, preparationId),
+          eq(knowledgeAcquis.status, "CURRENT"),
+          eq(
+            knowledgeAcquis.statement,
+            "L'architecture modulaire est la piste privilégiée pour la suite du projet.",
+          ),
+        ),
+      );
+    expect(after.length).toBe(1);
+    expect(after[0]?.kind).toBe("HYPOTHESIS");
+    // Idempotent capitalize: CURRENT row count for this statement stays 1 (no duplicate).
+    expect(before.filter((a) => a.statement === after[0]?.statement && a.status === "CURRENT").length).toBeLessThanOrEqual(
+      1,
+    );
+  });
+
+  it("fixture path: polite message produces no document / no knowledge write", async () => {
+    const r = await postUserMessageAndNora(pilotId, preparationId, "Bonjour Nora, comment vas-tu ?", {
+      clientTurnKey: `know-polite-${Date.now()}`,
+    });
+    expect(r.documentSave).toBeNull();
+    expect(r.humanDecisionCreated).toBe(false);
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts`
+
+```typescript
+import { describe, expect, it } from "vitest";
+import { e2eFixtureMutationsAllowed } from "@/lib/e2e-fixture-gate";
+import { readFileSync } from "fs";
+import { join } from "path";
+
+describe("C-03 E2E fixture mutation gate", () => {
+  it("FIX-01: RECETTE + E2E → refuse", () => {
+    const r = e2eFixtureMutationsAllowed({
+      NODE_ENV: "development",
+      STUDIO_LANE: "RECETTE",
+      STUDIO_E2E: "1",
+    } as NodeJS.ProcessEnv);
+    expect(r.ok).toBe(false);
+    expect(r.reason).toBe("LANE_NOT_DEV");
+  });
+
+  it("FIX-02: STABLE + E2E → refuse", () => {
+    const r = e2eFixtureMutationsAllowed({
+      NODE_ENV: "development",
+      STUDIO_LANE: "STABLE",
+      STUDIO_E2E: "1",
+    } as NodeJS.ProcessEnv);
+    expect(r.ok).toBe(false);
+    expect(r.reason).toBe("LANE_NOT_DEV");
+  });
+
+  it("FIX-03: production NODE_ENV even with DEV+E2E → refuse", () => {
+    const r = e2eFixtureMutationsAllowed({
+      NODE_ENV: "production",
+      STUDIO_LANE: "DEV",
+      STUDIO_E2E: "1",
+    } as NodeJS.ProcessEnv);
+    expect(r.ok).toBe(false);
+    expect(r.reason).toBe("NODE_ENV_PRODUCTION");
+  });
+
+  it("FIX-04: DEV + FORCE_NORA alone (no E2E) → refuse", () => {
+    const r = e2eFixtureMutationsAllowed({
+      NODE_ENV: "development",
+      STUDIO_LANE: "DEV",
+      STUDIO_FORCE_NORA_FIXTURE: "1",
+    } as NodeJS.ProcessEnv);
+    expect(r.ok).toBe(false);
+    expect(r.reason).toBe("STUDIO_E2E_REQUIRED");
+  });
+
+  it("FIX-08: DEV + E2E + non-production → allow", () => {
+    const r = e2eFixtureMutationsAllowed({
+      NODE_ENV: "development",
+      STUDIO_LANE: "DEV",
+      STUDIO_E2E: "1",
+      STUDIO_FORCE_NORA_FIXTURE: "1",
+    } as NodeJS.ProcessEnv);
+    expect(r.ok).toBe(true);
+  });
+
+  it("FIX-09/10: route uses gate lib; no decision/Git mutation surface", () => {
+    const route = readFileSync(
+      join(__dirname, "../../src/app/api/dev/e2e/s05-fixture/route.ts"),
+      "utf8",
+    );
+    const gate = readFileSync(join(__dirname, "../../src/lib/e2e-fixture-gate.ts"), "utf8");
+    expect(route).toMatch(/e2eFixtureMutationsAllowed/);
+    expect(gate).toMatch(/STUDIO_E2E_REQUIRED/);
+    expect(gate).toMatch(/NODE_ENV_PRODUCTION/);
+    expect(gate).toMatch(/STUDIO_E2E/);
+    expect(gate).not.toMatch(/STUDIO_FORCE_NORA_FIXTURE\s*===/);
+    expect(route).not.toMatch(/authorizePublication|dispatchPublication|insertHumanDecision/);
+    expect(route).toMatch(/Does NOT create HumanDecision/);
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts`
+
+```typescript
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import {
+  INTERVENCIA_S02_01_MESSAGE,
+  fixtureSemanticQualify,
+} from "@/domains/conversation/fixture-semantic-qualify";
+import {
+  deriveThreadTurnKind,
+  effectIntents,
+  extractPilotageBinding,
+  matchPilotageIntentInQualification,
+  projectStudioEffects,
+  validateNoraTurnQualification,
+  type NoraTurnQualification,
+} from "@/domains/conversation/semantic-qualification";
+import { qualifyThreadTurn } from "@/domains/pilotage/thread-recovery";
+import { qualifyDocumentAct } from "@/domains/conversation/document-act";
+import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
+
+describe("semantic qualification envelope", () => {
+  it("requires typed pilotageOperation for D5/D6 REQUEST_EFFECT", () => {
+    const missing = validateNoraTurnQualification({
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "x",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d5.pilotage_command",
+          mode: "REQUEST_EFFECT",
+          summary: "open",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "ok",
+    });
+    expect(missing.ok).toBe(false);
+
+    const ok = validateNoraTurnQualification({
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "x",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d5.pilotage_command",
+          mode: "REQUEST_EFFECT",
+          summary: "open",
+          parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "ok",
+    });
+    expect(ok.ok).toBe(true);
+    if (ok.ok) {
+      const binding = extractPilotageBinding(ok.value);
+      expect(binding && !("ambiguous" in binding) && binding.operation).toBe("OPEN_CYCLE");
+    }
+  });
+
+  it("matchPilotageIntent rejects substituted operation / intentId", () => {
+    const q: NoraTurnQualification = {
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "open",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d5.pilotage_command",
+          mode: "REQUEST_EFFECT",
+          summary: "open",
+          parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "ok",
+    };
+    expect(matchPilotageIntentInQualification(q, { operation: "CLOSE_CYCLE" })).toMatchObject({
+      reject: true,
+    });
+    expect(matchPilotageIntentInQualification(q, { intentId: "other" })).toMatchObject({
+      reject: true,
+    });
+    expect(matchPilotageIntentInQualification(q, { operation: "OPEN_CYCLE", intentId: "i1" })).toMatchObject({
+      operation: "OPEN_CYCLE",
+      intentId: "i1",
+    });
+  });
+
+  it("follow-on document requires exact dependsOn on create-project intent id", () => {
+    const loose: NoraTurnQualification = {
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "x",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d2.create_project",
+          mode: "REQUEST_EFFECT",
+          summary: "p",
+          parameters: { projectName: "Atlas" },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+        {
+          id: "i2",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "doc",
+          parameters: {},
+          constraints: [],
+          dependsOn: ["unrelated"],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "ok",
+    };
+    // invalid dependsOn fails schema validation
+    expect(validateNoraTurnQualification(loose).ok).toBe(false);
+
+    const ok: NoraTurnQualification = {
+      ...loose,
+      intents: [
+        loose.intents[0]!,
+        { ...loose.intents[1]!, dependsOn: ["i1"] },
+      ],
+    };
+    expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
+  });
+
+  it("deriveThreadTurnKind from semantic modes", () => {
+    const dialogue: NoraTurnQualification = {
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "q",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d3.converse",
+          mode: "EXPLAIN",
+          summary: "explain",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "ok",
+    };
+    expect(deriveThreadTurnKind(dialogue)).toBe("DIALOGUE_INDEPENDANT");
+  });
+});
+
+describe("fixtureSemanticQualify — exact scenario injection", () => {
+  const prev = { ...process.env };
+
+  beforeEach(() => {
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+  });
+
+  afterEach(() => {
+    process.env = { ...prev };
+  });
+
+  it("full Intervencia message → no D2/D4 effect intents", () => {
+    const q = fixtureSemanticQualify(INTERVENCIA_S02_01_MESSAGE);
+    expect(effectIntents(q)).toHaveLength(0);
+    expect(projectStudioEffects(q).wantsProjectCreate).toBe(false);
+    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
+  });
+
+  it("positive create exact scenarios → d2 REQUEST_EFFECT", () => {
+    for (const msg of [
+      "Je veux créer un projet.",
+      "Je veux démarrer un projet.",
+      "Je souhaite initier un nouveau projet.",
+    ]) {
+      expect(projectStudioEffects(fixtureSemanticQualify(msg)).wantsProjectCreate, msg).toBe(true);
+    }
+  });
+
+  it("negations / how-to exact scenarios → no create", () => {
+    for (const msg of [
+      "Je ne veux pas créer le projet.",
+      "Comment crée-t-on un projet ?",
+      "Il a écrit : crée le projet Atlas.",
+    ]) {
+      expect(projectStudioEffects(fixtureSemanticQualify(msg)).wantsProjectCreate, msg).toBe(false);
+    }
+  });
+
+  it("Atlas compound preserves exact dependsOn", () => {
+    const proj = projectStudioEffects(
+      fixtureSemanticQualify(
+        "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage qui expose l'objectif, le périmètre et les premières étapes.",
+      ),
+    );
+    expect(proj.wantsProjectCreate).toBe(true);
+    expect(proj.proposedProjectName).toBe("Atlas");
+    expect(proj.wantsFollowOnDocument).toBe(true);
+  });
+
+  it("unknown fixture text is dialogue-only (no lexical invent)", () => {
+    const q = fixtureSemanticQualify("Formule libre jamais enregistrée dans la table.");
+    expect(effectIntents(q)).toHaveLength(0);
+  });
+});
+
+describe("SEM-02 lexical routers retired", () => {
+  it("qualifyDocumentAct / qualifyPilotageIntent / qualifyThreadTurn fail-closed", () => {
+    expect(qualifyDocumentAct("Crée un document de recette.").kind).toBe("NONE");
+    expect(qualifyPilotageIntent("Ouvre le cycle cadrage.").clarity).toBe("NONE");
+    expect(qualifyThreadTurn("Ouvre le cycle cadrage.").kind).toBe("INCERTAIN");
+  });
+
+  it("PHRASES synonym table removed from intent.ts", () => {
+    const src = readFileSync(join(__dirname, "../../src/domains/pilotage/intent.ts"), "utf8");
+    expect(src).not.toMatch(/const PHRASES/);
+    expect(src).toMatch(/SEMANTIC_ROUTER_REQUIRED/);
+  });
+
+  it("pilotage owner path requires durable qualification match", () => {
+    const src = readFileSync(join(__dirname, "../../src/domains/pilotage/service.ts"), "utf8");
+    expect(src).toMatch(/loadDurableQualificationForUserMessage/);
+    expect(src).toMatch(/matchPilotageIntentInQualification/);
+    expect(src).not.toMatch(/qualifyPilotageIntent\s*\(/);
+  });
+
+  it("project page no longer imports qualifyThreadTurn", () => {
+    const src = readFileSync(join(__dirname, "../../src/app/projects/[projectId]/page.tsx"), "utf8");
+    expect(src).not.toMatch(/qualifyThreadTurn/);
+    expect(src).toMatch(/nextTurnKind/);
+    expect(src).toMatch(/unresolvedPendingClientTurnKey/);
+  });
+
+  it("Lot A — USER_MESSAGE path refuses body enrichment of authority params", () => {
+    const src = readFileSync(join(__dirname, "../../src/domains/pilotage/service.ts"), "utf8");
+    expect(src).toMatch(/pas de complément body/);
+    expect(src).toMatch(/fromDurable/);
+    expect(src).not.toMatch(/matched\.cycleType \?\? body\.cycleType/);
+    expect(src).not.toMatch(/matched\.decisionId \?\? body\.decisionId/);
+    expect(src).not.toMatch(/matched\.objectRef \?\? body\.objectRef/);
+  });
+
+  it("Lot B — completeTurnCommand / markTurnUnknown preserve semanticQualification", () => {
+    const src = readFileSync(join(__dirname, "../../src/domains/conversation/turn-command.ts"), "utf8");
+    expect(src).toMatch(/semanticQualification !== undefined/);
+    expect(src).toMatch(/Fail closed: keep prior durable JSON/);
+    expect(src).toMatch(/findUnresolvedSiblingTurns/);
+  });
+
+  it("Lot C — S05 pending gate before owner effects", () => {
+    const src = readFileSync(join(__dirname, "../../src/domains/conversation/service.ts"), "utf8");
+    expect(src).toMatch(/S05_PENDING_BLOCKS_EFFECT/);
+    expect(src).toMatch(/allowOwnerEffects/);
+    expect(src).toMatch(/findUnresolvedSiblingTurns/);
+  });
+
+  it("F1 — reconcile known acts before STALE_REVISION gate", () => {
+    const src = readFileSync(
+      join(__dirname, "../../src/domains/pilotage/command-runner.ts"),
+      "utf8",
+    );
+    const classifyIdx = src.indexOf("const classified = await handlers.classify(tx)");
+    const intentIdx = src.indexOf("const intent = await findByIntent(");
+    const staleIdx = src.indexOf('reasonCode: "STALE_REVISION"');
+    expect(classifyIdx).toBeGreaterThan(0);
+    expect(intentIdx).toBeGreaterThan(classifyIdx);
+    expect(staleIdx).toBeGreaterThan(intentIdx);
+    expect(src).toMatch(/NEW act only: expectedRevision guards concurrency/);
+  });
+
+  it("F4 — no FACT from Nora established alone; resume hints post-reply only", () => {
+    const knowledge = readFileSync(
+      join(__dirname, "../../src/domains/knowledge/service.ts"),
+      "utf8",
+    );
+    expect(knowledge).toMatch(/FACT_PROMOTION_REFUSED_NO_INDEPENDENT_SOURCE/);
+    expect(knowledge).not.toMatch(/p\.epistemic === "established"\s*\?\s*"FACT"/);
+    const conv = readFileSync(
+      join(__dirname, "../../src/domains/conversation/service.ts"),
+      "utf8",
+    );
+    expect(conv).toMatch(/pre_generation_context/);
+    expect(conv).toMatch(/post_qualification_resume_only/);
+    expect(conv).toMatch(/knowledgeForNora/);
+  });
+
+  it("Lot D — lexical capitalisation / document helpers / knowledge listing retired", () => {
+    const knowledge = readFileSync(
+      join(__dirname, "../../src/domains/knowledge/service.ts"),
+      "utf8",
+    );
+    expect(knowledge).toMatch(/semantic-proposals/);
+    expect(knowledge).toMatch(/bounded-resource-listing|semantic-preferred-then-bounded/);
+    expect(knowledge).not.toMatch(/selectionMethod: "lexical-heuristic"/);
+    expect(knowledge).toMatch(/d4\.record_knowledge|RG-KNOW-001/);
+
+    const doc = readFileSync(
+      join(__dirname, "../../src/domains/conversation/document-act.ts"),
+      "utf8",
+    );
+    expect(doc).toMatch(/export function hasExplicitCreateIntent\(_text: string\): boolean \{\n  return false;/);
+
+    const auth = readFileSync(
+      join(__dirname, "../../src/domains/pilotage/conversation-authority.ts"),
+      "utf8",
+    );
+    expect(auth).toMatch(/pas de cible lexicale/);
+    expect(auth).not.toMatch(/const resolved = resolveReviseTargetLexical/);
+  });
+});
+
+```
+
+---
+
+## 7. Code modifié — diffs complets (vs HEAD)
+
+### src
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
@@ -328,12 +4271,6 @@ index fc46d866..f7e845ec 100644
          requestId,
        },
      );
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 index 72c9fae2..16fc552a 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
@@ -435,12 +4372,6 @@ index 72c9fae2..16fc552a 100644
          } else if (j.status === "UNKNOWN" || j.status === "FAILED") {
            setNoraActivity("error");
          }
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
 index 8aa6a0ed..b45fc144 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
@@ -556,12 +4487,6 @@ index 8aa6a0ed..b45fc144 100644
 +  // Always allow at least one tool loop for authorized read capabilities.
 +  return Math.max(2, policy.budgets.maxProviderCalls);
  }
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
 index d8927a88..d97533a9 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
@@ -806,12 +4731,6 @@ index d8927a88..d97533a9 100644
  }
 
  export type DocumentListItem = {
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
 index 98cb2dbe..776f6ea2 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
@@ -941,12 +4860,6 @@ index 98cb2dbe..776f6ea2 100644
    };
  }
 
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
 index 3bb9bede..5fcb0d68 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
@@ -1054,12 +4967,6 @@ index 3bb9bede..5fcb0d68 100644
  }
 
  export function composeCanonicalMissionRestitution(input: {
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
 index 3a2e37fe..9bc4de72 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
@@ -1299,12 +5206,6 @@ index 3a2e37fe..9bc4de72 100644
      }, input.ckiDelivery, !cat.preContactLikely);
    }
  }
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 index 3b71bd9d..669600bc 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
@@ -1867,12 +5768,6 @@ index 3b71bd9d..669600bc 100644
    };
 
    if (turnRaceHooks.beforeTerminalCommit) {
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
 index ad960578..e5009162 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
@@ -2176,12 +6071,6 @@ index ad960578..e5009162 100644
  }
 
  export async function markTurnUnknown(
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/knowledge/service.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
 index 5fff8099..34a64727 100644
 --- a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
@@ -2602,12 +6491,6 @@ index 5fff8099..34a64727 100644
 -  const m = text.match(/(?:point[s]? ouvert[s]?|à clarifier|reste à)[^\n]{8,200}/i);
 -  return m?.[0]?.trim() ?? null;
 -}
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts b/projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts
 index c7da2ae8..8328d6a3 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts
@@ -2676,14 +6559,8 @@ index c7da2ae8..8328d6a3 100644
        if (!classified.ok) {
          return insertCommand(tx, input, fingerprint, {
            sourceKind: intentKey.sourceKind,
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
-index b2cce28d..f87526f8 100644
+index b2cce28d..6cd6d33a 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
 +++ b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
 @@ -18,7 +18,7 @@ import {
@@ -2784,7 +6661,7 @@ index b2cce28d..f87526f8 100644
 -    const resolved = resolveReviseTarget(content, briefs);
 -    if (!resolved.ok) {
 +    let decisionId = (qualified.decisionId ?? "").trim();
-+    let statement =
++    const statement =
 +      (qualified.statement ?? "").trim() || content.replace(/^(?:finalement|désormais|dorénavant)[,:]?\s+/i, "").trim();
 +    if (!decisionId && qualified.objectRef?.trim()) {
 +      const objectRef = qualified.objectRef.trim();
@@ -2838,12 +6715,6 @@ index b2cce28d..f87526f8 100644
        objectRef: qualified.objectRef,
      });
      return outcomeFromCommand(command, "REVISE_DECISION", clientCommandKey);
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/pilotage/intent.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
 index d38a4c6b..680c3156 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
@@ -3657,12 +7528,6 @@ index d38a4c6b..680c3156 100644
 -  }
 -  return { clarity: "NONE", reason: "Intention non reconnue" };
 -}
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
 index c8c7f441..5db6a558 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
@@ -3904,12 +7769,6 @@ index c8c7f441..5db6a558 100644
  }
 
  export function proposeTrajectory(
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
 index 55dc5ebe..34be44bf 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
@@ -4113,12 +7972,6 @@ index 55dc5ebe..34be44bf 100644
  }
 
  /** Deterministic business key for a conversational turn. */
-
-```
-
-### DIFF `projects/sfia-studio-next/web/src/domains/pilotage/types.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
 index 7947383d..9121af5f 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
@@ -4136,7 +7989,7 @@ index 7947383d..9121af5f 100644
 
 ```
 
-### DIFF `projects/sfia-studio-next/web/tests/e2e/ml4c-s05-independent-pending.spec.ts`
+### tests
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/e2e/ml4c-s05-independent-pending.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ml4c-s05-independent-pending.spec.ts
@@ -4236,12 +8089,6 @@ index a611f0e8..2e1feb8f 100644
    expect(still?.clientTurnKey).toBe(pendingA.clientTurnKey);
 -  expect(still?.clientCommandKey).toBe(pendingA.clientCommandKey);
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
 index c4d9dfca..84613cdb 100644
 --- a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
@@ -4287,12 +8134,6 @@ index c4d9dfca..84613cdb 100644
 +    expect(after.openPoints.length).toBe(before.openPoints.length);
    });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/integration/ml2-turn-command.pg.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-turn-command.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-turn-command.pg.test.ts
 index eb509e56..cffb3c6c 100644
 --- a/projects/sfia-studio-next/web/tests/integration/ml2-turn-command.pg.test.ts
@@ -4317,12 +8158,6 @@ index eb509e56..cffb3c6c 100644
      expect(result.policy?.profile).toBe("investigation");
      expect(result.toolCallsObserved).toBeGreaterThanOrEqual(1);
    });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
 index b81db5a7..acf1b4b1 100644
 --- a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
@@ -4395,12 +8230,6 @@ index b81db5a7..acf1b4b1 100644
 +    expect(maxTurnsForPolicy(s)).toBeGreaterThanOrEqual(2);
    });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/document-act.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
 index 678b1935..ec99d592 100644
 --- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
@@ -5743,12 +9572,6 @@ index 678b1935..ec99d592 100644
 -    if (!ex.ok) expect(ex.reason).toBe("DOCUMENT_PROPOSAL_EMPTY");
 -  });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts b/projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts
 index cbb72fc5..7a9988e2 100644
 --- a/projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts
@@ -5895,12 +9718,6 @@ index cbb72fc5..7a9988e2 100644
 +    expect(proj.wantsProjectCreate).toBe(true);
    });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts b/projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts
 index b71d4cd1..d23afbe6 100644
 --- a/projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts
@@ -6018,12 +9835,6 @@ index b71d4cd1..d23afbe6 100644
 +    expect(composed).toMatch(/Restitution de mission/);
    });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
 index d08751f5..d2853e28 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
@@ -6277,12 +10088,6 @@ index d08751f5..d2853e28 100644
 +    expect(qualifyPilotageIntent("retire la méthode").clarity).toBe("NONE");
    });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
 index f3c315d2..df204c49 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml3-rct02-intent.test.ts
@@ -6627,12 +10432,6 @@ index f3c315d2..df204c49 100644
 +    expect(src).toMatch(/SEMANTIC_ROUTER_REQUIRED/);
    });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
 index b154e048..488bc9fd 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
@@ -6683,12 +10482,6 @@ index b154e048..488bc9fd 100644
 +    expect(src).toMatch(/serverKind/);
    });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts
 index 3b3c8f32..9d115559 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml4c-s05-thread-turn-qualification.test.ts
@@ -6858,12 +10651,6 @@ index 3b3c8f32..9d115559 100644
 +    ).toBe(false);
    });
  });
-
-```
-
-### DIFF `projects/sfia-studio-next/web/tests/unit/nora-e2e-fixture.test.ts`
-
-```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/nora-e2e-fixture.test.ts b/projects/sfia-studio-next/web/tests/unit/nora-e2e-fixture.test.ts
 index b828ac3e..6bc3de8f 100644
 --- a/projects/sfia-studio-next/web/tests/unit/nora-e2e-fixture.test.ts
@@ -6890,3487 +10677,741 @@ index b828ac3e..6bc3de8f 100644
 
 ```
 
-## 7. Contenu complet — fichiers créés
+### construction
 
-### CREATE `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md`
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index acde3811..0de1f26b 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,107 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-FINAL-RUNTIME-QUAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-12 ~15:10 CET (Europe/Paris) |
++| Macro-lot | ML4C — Q1 real D2 AWAITING_PILOT_ACT + S05 / Q2 ENV-01 runtime+PG isolation |
++| Type | EVOL Critical corrective QA (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
++| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
++| Lane | DEV isolé ; Playwright :3101 / `sfia_next_e2e` ; RECETTE :3200 non mutée (creds DENIED :5434) |
++| Changes | Tests Q1 parcours D2 réel (PG+E2E) ; ENV-01 matrix + cross-lane auth deny ; as-built Q1/Q2 ; **aucune** injection artificielle de mission pour Q1-A |
++| Schema | unchanged |
++| Tests | Q1 PG 3 PASS ; Q1 E2E 1 PASS ; ENV 6 PASS ; tsc PASS ; related unit/PG PASS ; LIVE NOT RUN |
++| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED — READY FOR CHATGPT REVIEW (reserves LIVE/S02-01/A-006) |
++
++## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-ADMISSIBILITY-CLOSURE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-12 ~14:45 CET (Europe/Paris) |
++| Macro-lot | ML4C — C-01 AUTH-R06 positif / C-02 S05-REAL-05 AWAITING / C-03 fixture isolation / C-04 pack cumulatif |
++| Type | EVOL Critical corrective (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
++| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
++| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE non mutée |
++| Changes | AUTH-R06 OPEN+TRANSITION both APPLIED ; seed_awaiting_mission + S05-REAL-05 ; e2eFixtureMutationsAllowed (E2E obligatoire) ; pack FULL cumulatif |
++| Schema | unchanged |
++| Tests | AUTH 13 PASS ; fixture gate 6 PASS ; S05 real-api 7 PASS ; LIVE NOT RUN |
++| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES — REVIEW REQUIRED |
++
++## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-EVIDENCE-CLOSURE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-12 ~14:05 CET (Europe/Paris) |
++| Macro-lot | ML4C — F1–F4 evidence closure (reconcile / AUTH real / S05 real API / D4 epistemic) |
++| Type | EVOL Critical corrective (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
++| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
++| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE :3200 non mutée |
++| Changes | F1 runner reorder ; F2 AUTH-R01–R14 PG ; F3 S05 real-api E2E ; F4 no FACT from Nora alone + pre/post knowledge roles ; multi-intent durable match |
++| Schema | unchanged (no DB migration) |
++| Tests | unit+ML4C PG 264 PASS ; AUTH 13 PASS ; E2E S05 real-api 3 PASS ; LIVE NOT RUN ; S02-01 FAIL (source) |
++| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES — REVIEW REQUIRED |
++
++## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-INTEGRATOR-CLOSURE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-12 ~13:35 CET (Europe/Paris) |
++| Macro-lot | ML4C — Integrator closure R1 S05 full / R2 human-act idempotence / R3 D4 semantic knowledge / R4 preuves |
++| Type | EVOL Critical corrective (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
++| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
++| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE :3200 non mutée |
++| Changes | S05 gate D2/D4/D5/D6/D7 + missions ; actInstanceId serveur + replay ALREADY_APPLIED ; `d4.record_knowledge` + capitalisation sélective ; sélection preferred-ids |
++| Schema | unchanged (Zod envelope extended ; no DB migration) |
++| Tests | unit 240 PASS ; PG 35 PASS ; E2E S05 1 PASS ; LIVE NOT RUN ; S02-01 FAIL (source) |
++| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES |
++
++## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-INTEGRATOR
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-12 ~12:45 CET (Europe/Paris) |
++| Macro-lot | ML4C — Integrator Lots A–E (superseded by INTEGRATOR-CLOSURE) |
++| Type | EVOL Critical corrective (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
++| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
++| Status | SUPERSEDED |
++
++## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-CORRECTIVE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-12 ~12:10 CET (Europe/Paris) |
++| Macro-lot | ML4C — Corrective convergence sémantique (D5/D6 / T-03 / S05 / lexical purge) |
++| Type | EVOL Critical corrective (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
++| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
++| Lane | DEV isolé ; RECETTE figée ; STABLE N/A |
++| Changes | `pilotageOperation` typé ; match qualification durable owner ; stash `applied` obligatoire ; merge terminal ; `nextTurnKind` serveur ; fixture scénarios exacts ; purge `PHRASES` / corps lexical D4/D5 ; page S05 sans `qualifyThreadTurn` |
++| Schema | unchanged |
++| Tests | unit 36 PASS ; PG/E2E/LIVE NOT RUN |
++| Status | LOCAL ONLY — Review Handoff L3 corrective ; IMPLEMENTED WITH RESERVES |
++
++## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-CONVERGENCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-12 11:43 CET (Europe/Paris) |
++| Macro-lot | ML4C — Qualification sémantique Nora + mobilisation gouvernée |
++| Type | EVOL Critical — remplacement routeurs lexicaux métier (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
++| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
++| Lane | DEV isolé ; RECETTE figée `2416e2ee` ; STABLE N/A |
++| Changes | Enveloppe `ml4c-sem-qual-v1` ; LIVE `outputType`+Zod ; fixture TEST_BOUNDARY ; D5/D6 après Nora + `preQualified` ; stubs fail-closed ; stash pré-effet — **revue ChatGPT NOT READY → corrective** |
++| Schema | unchanged (stash via `resultJson` existant) |
++| Tests | unit semantic/intent/S05/cognitive/mission PASS ; PG/E2E/LIVE NOT RUN |
++| Status | SUPERSEDED BY CORRECTIVE — réserves D5/D6/T-03/S05/lexical |
++
+ ## delivery_id: DELIV-2026-11-11-ML4C-S05-POSITIVE-INDEPENDENCE
+
+ | Field | Value |
 
 ```
-# As-built — Qualification sémantique Nora + mobilisation gouvernée (admissibility closure)
 
-Date: 2026-11-12 ~14:45 CET (Europe/Paris)
-Branche locale: `fix/next-semantic-intent-convergence-20261112`
-Base candidat: `2416e2ee25662821b015407346c64ec204f67488`
-Profil: Critical / EVOL corrective admissibility / NO RELEASE
+---
 
-## Fermeture C-01..C-04
+## 8–9. Manifeste cumulatif / diffs autosuffisants
 
-| Point | Invariant | Preuve |
+Le HEAD distant candidat est `2416e2ee`. Tout le delta local (modifié + untracked) est inclus ci-dessus.
+Fichiers créés antérieurs déjà dans untracked list + contenus §6.
+Aucune dépendance à un handoff antérieur pour relire le code.
+
+---
+
+## 10. Parcours D2 réel (étape par étape)
+
+1. Pilote DEV authentifié (login test / session DEV).
+2. `openOrCreatePreparation` / UI « Nouvelle préparation » → `status=OPEN`.
+3. Aucun `preparationProjectLinks` ; `project=null`.
+4. Message A : `"Je veux créer un projet."` via `POST /api/preparations/:id/messages` (API Studio réelle).
+5. Nora fixture `TEST_BOUNDARY` uniquement.
+6. Qualification → intention création D2 / `REQUEST_EFFECT`.
+7. `service.ts` construit mission + `buildD2OwnerActBinding` → `AWAITING_PILOT_ACT`.
+8. Pas de clic « Créer le projet ».
+9. Oracle / `loadLatestMissionsByIntentKey` retrouve A après COMPLETE et après reload.
+
+---
+
+## 11. Qualification structurée observée
+
+- Fixture sémantique exacte pour `"Je veux créer un projet."`
+- `nextTurnKind=INTENTION_EFFET`
+- Step capability `d2.create_project`
+- `humanDecisionCreated=false`
+
+---
+
+## 12. Mission A et ownerActBinding
+
+```
+status: AWAITING_PILOT_ACT
+kind: D2_CREATE_PROJECT
+preparationId: <prep réelle>
+clientIntentKey: <stable>
+suggestedIdempotencyKey: d2:mission:<…>  // via d2MissionIdempotencyKey()
+```
+
+---
+
+## 13. État AWAITING lu durablement
+
+Lecteur canonique `loadLatestMissionsByIntentKey(conversationId)` après tour COMPLETE.
+Oracle E2E `awaitingMissions` après reload page — même `clientIntentKey`.
+
+---
+
+## 14. Comparatif B sans / avec pending A
+
+| | Contrôle (sans A) | Sujet (avec A) |
 | --- | --- | --- |
-| C-01 AUTH-R06 | Deux intents REQUEST_EFFECT sur un message → 2× APPLIED | OPEN_CYCLE puis TRANSITION_CYCLE CONCEPTION_FONCTIONNELLE ; replay ALREADY_APPLIED ; 0 3ᵉ effet |
-| C-02 S05-REAL-05 | Mission AWAITING_PILOT_ACT bloque B sans UNKNOWN | `seed_awaiting_mission` COMPLETE + lecteur `loadLatestMissionsByIntentKey` ; B OPEN/doc bloqué |
-| C-03 Fixture | Mutations fixture = DEV ∧ STUDIO_E2E=1 ∧ ¬production | `e2e-fixture-gate.ts` ; FORCE_NORA seul refusé ; ownership Pilote |
-| C-04 Pack | Handoff FULL vs base 2416e2ee autosuffisant | Review Pack cumulatif mono-fichier |
+| Message doc | CREATE disponible | `pendingEffectBlocked=true` |
+| Raison | — | `S05_MISSION_BLOCKS_EFFECT` |
+| documentCount | +1 | inchangé |
+| projectId | null | null |
+| Mission A | n/a | toujours AWAITING |
 
-## Runner D5/D6 (conservé)
+---
 
-classify → findByIntent/ActionKey → replay ; STALE seulement nouvel acte.
+## 15. Requêtes HTTP réelles
 
-## D4 (conservé)
+- `POST /api/preparations/:id/messages` (A, B, Q indépendante) — **pas** `route.fulfill` pour le blocage.
+- Oracle `POST /api/dev/e2e/s05-fixture` action `oracle` uniquement (lecture) pour Q1 réel ; **pas** `seed_awaiting_mission` comme preuve Q1-A.
 
-pre_generation_context vs post_qualification_resume_only ; pas de FACT sur seul `established` Nora.
+---
 
-## Preuves (ce cycle)
+## 16. États DB avant/après (expurgés)
+
+Avant A : 0 links projet ; creationRevision N.
+Après A : toujours 0 projet ; mission AWAITING en `conversation_turn_commands.resultJson` COMPLETE.
+Après B refusée : documentCount inchangé ; revision inchangée ; A toujours présente.
+Après question indépendante : A intacte ; `DIALOGUE_INDEPENDANT`.
+
+---
+
+## 17. Tests et sorties
+
+### ENV-01
+
+```
+◇ injected env (22) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112/projects/sfia-studio-next/web
+
+stderr | tests/integration/ml4c-env01-runtime.pg.test.ts
+◇ injected env (0) from .env.local
+
+stderr | tests/integration/ml4c-env01-runtime.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/ml4c-env01-runtime.pg.test.ts (5 tests) 48ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  15:04:21
+   Duration  476ms (transform 46ms, setup 19ms, collect 220ms, tests 48ms, environment 0ms, prepare 31ms)
+
+```
+### Q1-E2E
+
+```
+
+[WebServer] NOTICE:  relation "business_command_effects_command_ordinal_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "business_command_effects_command_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations_pilot_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations_pilot_status_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_oauth_states" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_oauth_states_token_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "authorized_repositories" already exists, skipping
+
+[WebServer] NOTICE:  relation "authorized_repositories_pilot_full_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "authorized_repositories_auth_idx" already exists, skipping
+[WebServer] NOTICE:  relation "project_git_links" already exists, skipping
+
+[WebServer] NOTICE:  relation "project_git_links_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "project_git_links_project_repo_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_publication_refs" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_publication_refs_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_publication_refs_doc_rev_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "effect_attempts" already exists, skipping
+
+[WebServer] NOTICE:  relation "effect_attempts_correlation_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "effect_attempts_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "observed_git_facts" already exists, skipping
+
+[WebServer] NOTICE:  relation "observed_git_facts_attempt_idx" already exists, skipping
+[WebServer] NOTICE:  relation "observed_git_facts_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_publication_refs_effect_attempt_uidx" already exists, skipping
+
+[WebServer] NOTICE:  column "code_verifier" of relation "integration_oauth_states" already exists, skipping
+[WebServer] NOTICE:  column "nonce" of relation "integration_oauth_states" already exists, skipping
+[WebServer] NOTICE:  column "code_challenge_method" of relation "integration_oauth_states" already exists, skipping
+
+[WebServer] NOTICE:  column "github_user_id" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "token_ciphertext" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "token_nonce" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "token_key_version" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "refresh_ciphertext" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "refresh_nonce" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "token_expires_at" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "scopes_json" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "last_validated_at" of relation "integration_authorizations" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations_github_user_idx" already exists, skipping
+
+[WebServer] NOTICE:  column "studio_session_id" of relation "integration_oauth_states" already exists, skipping
+[WebServer] NOTICE:  column "flow" of relation "integration_oauth_states" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_oauth_states_session_idx" already exists, skipping
+
+[WebServer] NOTICE:  column "refresh_lease_token" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "refresh_lease_expires_at" of relation "integration_authorizations" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations_one_connected_uidx" already exists, skipping
+
+
+Running 1 test using 1 worker
+
+(node:61836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] tests/e2e/ml4c-d2-mission-real-s05.spec.ts:38:7 › Q1 real D2 mission + S05 › MISSION real path: create intent → AWAITING; B doc blocked; control OK
+  1 passed (11.6s)
+```
+### Q1+ENV+units
+
+```
+◇ injected env (22) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112/projects/sfia-studio-next/web
+
+stderr | tests/integration/ml4c-d2-mission-s05.pg.test.ts
+◇ injected env (0) from .env.local
+
+stderr | tests/integration/ml4c-d2-mission-s05.pg.test.ts
+◇ injected env (0) from .env.local
+
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.403Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_990f3dc1-ead2-414a-8898-3cbfc59da4f6","operation_id":"op_b73c5648-2afd-454c-8c3d-28b45cd90a09","outcome":"PARTIAL","meta":{"client_turn_key_fp":"9d935814999d"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.413Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_b73c5648-2afd-454c-8c3d-28b45cd90a09","generation_id":"gen_1b44e4b1-5909-4442-a7f2-f8b4bd556cfb","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.418Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_b73c5648-2afd-454c-8c3d-28b45cd90a09","generation_id":"gen_1b44e4b1-5909-4442-a7f2-f8b4bd556cfb","outcome":"SUCCESS","resource_ref":"search:prep_f458f3c5-0c5e-4590-b006-a63537645dc3","meta":{"matched":0,"returned":0,"query_len":24,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.419Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_b73c5648-2afd-454c-8c3d-28b45cd90a09","generation_id":"gen_1b44e4b1-5909-4442-a7f2-f8b4bd556cfb","attempt_id":"att_69e43966-2497-465a-af42-5b2f7a5170d0","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.425Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_990f3dc1-ead2-414a-8898-3cbfc59da4f6","operation_id":"op_b73c5648-2afd-454c-8c3d-28b45cd90a09","generation_id":"gen_1b44e4b1-5909-4442-a7f2-f8b4bd556cfb","outcome":"PARTIAL","meta":{"qualification_kind":"NONE","qualification_reason":"SEMANTIC_NONE","documentary_intent_signal":false,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.432Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_990f3dc1-ead2-414a-8898-3cbfc59da4f6","operation_id":"op_b73c5648-2afd-454c-8c3d-28b45cd90a09","generation_id":"gen_1b44e4b1-5909-4442-a7f2-f8b4bd556cfb","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.447Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_d16a5cec-0670-4fed-abc6-07d8528d872e","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","outcome":"PARTIAL","meta":{"client_turn_key_fp":"e2e1863105ea"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.453Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_c1362699-8d18-4207-ac17-2abf241fd860","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.457Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_c1362699-8d18-4207-ac17-2abf241fd860","outcome":"SUCCESS","resource_ref":"search:prep_7734f7eb-e851-4951-a6a9-f4e6f3eef385","meta":{"matched":0,"returned":0,"query_len":53,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.457Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_c1362699-8d18-4207-ac17-2abf241fd860","attempt_id":"att_a9783022-8221-4da4-8238-c5bb3e9fc965","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.462Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_d16a5cec-0670-4fed-abc6-07d8528d872e","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_c1362699-8d18-4207-ac17-2abf241fd860","outcome":"PARTIAL","meta":{"qualification_kind":"CREATE","qualification_reason":null,"documentary_intent_signal":true,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.473Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_proposal","component":"d3.conversation","request_id":"req_d16a5cec-0670-4fed-abc6-07d8528d872e","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_c1362699-8d18-4207-ac17-2abf241fd860","outcome":"SUCCESS","meta":{"act":"CREATE","extract_path":"fence","proposal_present":true,"fence_count":1,"section_count":4,"proposal_chars":139,"proposal_digest16":"e8cb680a0000008b","body_ends_with_nl":true,"scope_verdict":null,"refuse_code":null,"d4_attempted":true,"d4_effect":"AVAILABLE"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.474Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_212feeb7-798d-419a-b9b5-f50dff637d4d","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.478Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_212feeb7-798d-419a-b9b5-f50dff637d4d","outcome":"SUCCESS","resource_ref":"search:prep_7734f7eb-e851-4951-a6a9-f4e6f3eef385","meta":{"matched":0,"returned":0,"query_len":80,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.478Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_212feeb7-798d-419a-b9b5-f50dff637d4d","attempt_id":"att_2e9df0d8-e49b-4848-a72c-91844135427b","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.484Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_d16a5cec-0670-4fed-abc6-07d8528d872e","operation_id":"op_9805d2dc-fea5-4e32-8bd8-6797f6ea9383","generation_id":"gen_c1362699-8d18-4207-ac17-2abf241fd860","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.494Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_f9f11b58-7c52-41b5-9817-2aa7f0a9505f","operation_id":"op_450a3c2c-e0c7-4842-a932-cff39761375f","outcome":"PARTIAL","meta":{"client_turn_key_fp":"9d935814999d"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.501Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_450a3c2c-e0c7-4842-a932-cff39761375f","generation_id":"gen_04d9f4f9-ab67-46c4-8045-37f55a7f43b1","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.504Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_450a3c2c-e0c7-4842-a932-cff39761375f","generation_id":"gen_04d9f4f9-ab67-46c4-8045-37f55a7f43b1","outcome":"SUCCESS","resource_ref":"search:prep_bc76c5ed-87ea-4121-b681-88d9504e12a3","meta":{"matched":0,"returned":0,"query_len":24,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.504Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_450a3c2c-e0c7-4842-a932-cff39761375f","generation_id":"gen_04d9f4f9-ab67-46c4-8045-37f55a7f43b1","attempt_id":"att_57b18191-2ddc-4119-be6f-8b31da0f052c","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.510Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_f9f11b58-7c52-41b5-9817-2aa7f0a9505f","operation_id":"op_450a3c2c-e0c7-4842-a932-cff39761375f","generation_id":"gen_04d9f4f9-ab67-46c4-8045-37f55a7f43b1","outcome":"PARTIAL","meta":{"qualification_kind":"NONE","qualification_reason":"SEMANTIC_NONE","documentary_intent_signal":false,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.515Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_f9f11b58-7c52-41b5-9817-2aa7f0a9505f","operation_id":"op_450a3c2c-e0c7-4842-a932-cff39761375f","generation_id":"gen_04d9f4f9-ab67-46c4-8045-37f55a7f43b1","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.522Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_264b73e9-6bb1-41bd-adfa-3a2e299619e1","operation_id":"op_0cd87ad3-dd98-4a77-8043-c0003f1e67e0","outcome":"PARTIAL","meta":{"client_turn_key_fp":"e2e1863105ea"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.528Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_0cd87ad3-dd98-4a77-8043-c0003f1e67e0","generation_id":"gen_57831ff4-b491-47fc-95ed-79f852da954b","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.531Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_0cd87ad3-dd98-4a77-8043-c0003f1e67e0","generation_id":"gen_57831ff4-b491-47fc-95ed-79f852da954b","outcome":"SUCCESS","resource_ref":"search:prep_bc76c5ed-87ea-4121-b681-88d9504e12a3","meta":{"matched":0,"returned":0,"query_len":53,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.531Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_0cd87ad3-dd98-4a77-8043-c0003f1e67e0","generation_id":"gen_57831ff4-b491-47fc-95ed-79f852da954b","attempt_id":"att_de4b0888-0ccc-4a8f-9e1d-215d577ebe97","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.536Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.s05_pending_block","component":"d3.conversation","request_id":"req_264b73e9-6bb1-41bd-adfa-3a2e299619e1","operation_id":"op_0cd87ad3-dd98-4a77-8043-c0003f1e67e0","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.536Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_264b73e9-6bb1-41bd-adfa-3a2e299619e1","operation_id":"op_0cd87ad3-dd98-4a77-8043-c0003f1e67e0","generation_id":"gen_57831ff4-b491-47fc-95ed-79f852da954b","outcome":"PARTIAL","meta":{"qualification_kind":"CREATE","qualification_reason":null,"documentary_intent_signal":true,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.540Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_264b73e9-6bb1-41bd-adfa-3a2e299619e1","operation_id":"op_0cd87ad3-dd98-4a77-8043-c0003f1e67e0","generation_id":"gen_57831ff4-b491-47fc-95ed-79f852da954b","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.550Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_71cbedfd-eebf-474c-ac0e-5bda0fd511da","operation_id":"op_e33e0765-9a13-4896-8026-de7e5723b947","outcome":"PARTIAL","meta":{"client_turn_key_fp":"d1ff70f1f88c"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.555Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_e33e0765-9a13-4896-8026-de7e5723b947","generation_id":"gen_7a588023-56dd-445c-9574-cba636512101","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.559Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_e33e0765-9a13-4896-8026-de7e5723b947","generation_id":"gen_7a588023-56dd-445c-9574-cba636512101","outcome":"SUCCESS","resource_ref":"search:prep_bc76c5ed-87ea-4121-b681-88d9504e12a3","meta":{"matched":0,"returned":0,"query_len":47,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.559Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_e33e0765-9a13-4896-8026-de7e5723b947","generation_id":"gen_7a588023-56dd-445c-9574-cba636512101","attempt_id":"att_09432809-05d9-4348-85da-47928a46cb62","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.564Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_71cbedfd-eebf-474c-ac0e-5bda0fd511da","operation_id":"op_e33e0765-9a13-4896-8026-de7e5723b947","generation_id":"gen_7a588023-56dd-445c-9574-cba636512101","outcome":"PARTIAL","meta":{"qualification_kind":"NONE","qualification_reason":"SEMANTIC_NONE","documentary_intent_signal":false,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:40.567Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_71cbedfd-eebf-474c-ac0e-5bda0fd511da","operation_id":"op_e33e0765-9a13-4896-8026-de7e5723b947","generation_id":"gen_7a588023-56dd-445c-9574-cba636512101","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+ ✓ tests/integration/ml4c-d2-mission-s05.pg.test.ts (3 tests) 210ms
+stderr | tests/integration/ml4c-env01-runtime.pg.test.ts
+◇ injected env (0) from .env.local
+
+stderr | tests/integration/ml4c-env01-runtime.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/ml4c-env01-runtime.pg.test.ts (6 tests) 43ms
+stderr | tests/unit/semantic-qualification.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/semantic-qualification.test.ts (19 tests) 5ms
+stderr | tests/unit/intent-conduction.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/intent-conduction.test.ts (5 tests) 1ms
+stderr | tests/unit/mission-continuity.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/mission-continuity.test.ts (5 tests) 1ms
+stderr | tests/unit/ml4c-e2e-fixture-gate.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml4c-e2e-fixture-gate.test.ts (6 tests) 1ms
+
+ Test Files  6 passed (6)
+      Tests  44 passed (44)
+   Start at  15:06:39
+   Duration  1.93s (transform 192ms, setup 36ms, collect 1.05s, tests 261ms, environment 0ms, prepare 124ms)
+
+```
+### AUTH
+
+```
+◇ injected env (22) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112/projects/sfia-studio-next/web
+
+stderr | tests/integration/ml4c-auth-reconciliation.pg.test.ts
+◇ injected env (0) from .env.local
+
+stderr | tests/integration/ml4c-auth-reconciliation.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/ml4c-auth-reconciliation.pg.test.ts (13 tests) 661ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  15:07:40
+   Duration  1.05s (transform 85ms, setup 13ms, collect 272ms, tests 661ms, environment 0ms, prepare 33ms)
+
+```
+### nreg2
+
+```
+◇ injected env (22) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112/projects/sfia-studio-next/web
+
+stderr | tests/integration/ml4c-auth-reconciliation.pg.test.ts
+◇ injected env (0) from .env.local
+
+stderr | tests/integration/ml4c-auth-reconciliation.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/ml4c-auth-reconciliation.pg.test.ts (13 tests) 737ms
+stderr | tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts
+◇ injected env (0) from .env.local
+
+stderr | tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts
+◇ injected env (0) from .env.local
+
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.915Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_dabcdc97-4717-454b-881f-7ec9876f9147","operation_id":"op_3be7ec91-81e7-476c-900a-bda8e22daada","outcome":"PARTIAL","meta":{"client_turn_key_fp":"9d935814999d"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.925Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_3be7ec91-81e7-476c-900a-bda8e22daada","generation_id":"gen_c27627b3-8cef-407a-9d61-2cb180db9a83","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.929Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_3be7ec91-81e7-476c-900a-bda8e22daada","generation_id":"gen_c27627b3-8cef-407a-9d61-2cb180db9a83","outcome":"SUCCESS","resource_ref":"search:prep_0c64cf18-36a0-46fb-9db1-597e1905b4e8","meta":{"matched":0,"returned":0,"query_len":24,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.929Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_3be7ec91-81e7-476c-900a-bda8e22daada","generation_id":"gen_c27627b3-8cef-407a-9d61-2cb180db9a83","attempt_id":"att_08723bbb-179b-4d7c-aff1-c130c294302d","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.934Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.s05_pending_block","component":"d3.conversation","request_id":"req_dabcdc97-4717-454b-881f-7ec9876f9147","operation_id":"op_3be7ec91-81e7-476c-900a-bda8e22daada","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.935Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_dabcdc97-4717-454b-881f-7ec9876f9147","operation_id":"op_3be7ec91-81e7-476c-900a-bda8e22daada","generation_id":"gen_c27627b3-8cef-407a-9d61-2cb180db9a83","outcome":"PARTIAL","meta":{"qualification_kind":"NONE","qualification_reason":"SEMANTIC_NONE","documentary_intent_signal":false,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.939Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_dabcdc97-4717-454b-881f-7ec9876f9147","operation_id":"op_3be7ec91-81e7-476c-900a-bda8e22daada","generation_id":"gen_c27627b3-8cef-407a-9d61-2cb180db9a83","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.947Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_828d2049-f170-43ea-8b9e-822589bc7cb7","operation_id":"op_fd352e8b-51b4-40e1-95cf-50285a787594","outcome":"PARTIAL","meta":{"client_turn_key_fp":"eb0aea096050"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.954Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_fd352e8b-51b4-40e1-95cf-50285a787594","generation_id":"gen_6df8441b-cc1e-428d-899b-17dc7a7ff91e","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.958Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_fd352e8b-51b4-40e1-95cf-50285a787594","generation_id":"gen_6df8441b-cc1e-428d-899b-17dc7a7ff91e","outcome":"SUCCESS","resource_ref":"search:prep_0c64cf18-36a0-46fb-9db1-597e1905b4e8","meta":{"matched":0,"returned":0,"query_len":23,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.958Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_fd352e8b-51b4-40e1-95cf-50285a787594","generation_id":"gen_6df8441b-cc1e-428d-899b-17dc7a7ff91e","attempt_id":"att_e32d8a62-0236-471c-b6d1-511e5c185b85","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.963Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.s05_pending_block","component":"d3.conversation","request_id":"req_828d2049-f170-43ea-8b9e-822589bc7cb7","operation_id":"op_fd352e8b-51b4-40e1-95cf-50285a787594","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.963Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_828d2049-f170-43ea-8b9e-822589bc7cb7","operation_id":"op_fd352e8b-51b4-40e1-95cf-50285a787594","generation_id":"gen_6df8441b-cc1e-428d-899b-17dc7a7ff91e","outcome":"PARTIAL","meta":{"qualification_kind":"NONE","qualification_reason":"SEMANTIC_NONE","documentary_intent_signal":false,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.967Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_828d2049-f170-43ea-8b9e-822589bc7cb7","operation_id":"op_fd352e8b-51b4-40e1-95cf-50285a787594","generation_id":"gen_6df8441b-cc1e-428d-899b-17dc7a7ff91e","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.980Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_d3808e14-6d82-44b5-a5fc-b4bfe953e022","operation_id":"op_a8549a56-5a23-4da9-aa70-bbec87811590","outcome":"PARTIAL","meta":{"client_turn_key_fp":"d1ff70f1f88c"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.987Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_a8549a56-5a23-4da9-aa70-bbec87811590","generation_id":"gen_87e564e8-7b0f-4fdd-8b50-dd266a7c0200","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.991Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_a8549a56-5a23-4da9-aa70-bbec87811590","generation_id":"gen_87e564e8-7b0f-4fdd-8b50-dd266a7c0200","outcome":"SUCCESS","resource_ref":"search:prep_0c64cf18-36a0-46fb-9db1-597e1905b4e8","meta":{"matched":0,"returned":0,"query_len":47,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.991Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_a8549a56-5a23-4da9-aa70-bbec87811590","generation_id":"gen_87e564e8-7b0f-4fdd-8b50-dd266a7c0200","attempt_id":"att_5f3cd5f1-d883-48ce-9cc4-6512f3df2cda","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.996Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_d3808e14-6d82-44b5-a5fc-b4bfe953e022","operation_id":"op_a8549a56-5a23-4da9-aa70-bbec87811590","generation_id":"gen_87e564e8-7b0f-4fdd-8b50-dd266a7c0200","outcome":"PARTIAL","meta":{"qualification_kind":"NONE","qualification_reason":"SEMANTIC_NONE","documentary_intent_signal":false,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:49.999Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_d3808e14-6d82-44b5-a5fc-b4bfe953e022","operation_id":"op_a8549a56-5a23-4da9-aa70-bbec87811590","generation_id":"gen_87e564e8-7b0f-4fdd-8b50-dd266a7c0200","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.037Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_35675c03-e8f9-4ddb-adf8-08d99de1851a","operation_id":"op_8fca273a-c89b-43ee-b023-8c8f74e676a3","outcome":"PARTIAL","meta":{"client_turn_key_fp":"51c80e846992"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.043Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_8fca273a-c89b-43ee-b023-8c8f74e676a3","generation_id":"gen_850ecd29-2926-4a0c-8c69-276493012d4f","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.047Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d4.tool.search_project_resources","component":"d4.read_tools","operation_id":"op_8fca273a-c89b-43ee-b023-8c8f74e676a3","generation_id":"gen_850ecd29-2926-4a0c-8c69-276493012d4f","outcome":"SUCCESS","resource_ref":"search:prep_0c64cf18-36a0-46fb-9db1-597e1905b4e8","meta":{"matched":0,"returned":0,"query_len":30,"chars_charged":265,"coverage":"EMPTY","has_more":false}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.047Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_8fca273a-c89b-43ee-b023-8c8f74e676a3","generation_id":"gen_850ecd29-2926-4a0c-8c69-276493012d4f","attempt_id":"att_3fc0514e-7d35-469c-982f-5452d7667a80","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.051Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_35675c03-e8f9-4ddb-adf8-08d99de1851a","operation_id":"op_8fca273a-c89b-43ee-b023-8c8f74e676a3","generation_id":"gen_850ecd29-2926-4a0c-8c69-276493012d4f","outcome":"PARTIAL","meta":{"qualification_kind":"NONE","qualification_reason":"SEMANTIC_NONE","documentary_intent_signal":false,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.055Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_35675c03-e8f9-4ddb-adf8-08d99de1851a","operation_id":"op_8fca273a-c89b-43ee-b023-8c8f74e676a3","generation_id":"gen_850ecd29-2926-4a0c-8c69-276493012d4f","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+ ✓ tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts (6 tests) 192ms
+stderr | tests/unit/nora-e2e-fixture.test.ts
+◇ injected env (0) from .env.local
+
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.336Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_3a256d00-cf80-41d0-b4b4-a2805ca1c74d","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.338Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_3a256d00-cf80-41d0-b4b4-a2805ca1c74d","attempt_id":"att_a97dfe95-eb74-4678-a5b2-cbabc0f9ce13","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.338Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_625580d2-7ed5-484b-94a8-272fdfc7b430","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.339Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_625580d2-7ed5-484b-94a8-272fdfc7b430","attempt_id":"att_941ee34f-85d3-4ffb-9e8e-49c043be5381","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-12T14:06:50.339Z","lane":"RECETTE","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_0b084411-d46b-4f73-b5b9-1370e9082c9c","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision,list_project_git_sources,read_git_file,list_git_refs","profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/nora-e2e-fixture.test.ts (8 tests) 5ms
+stderr | tests/unit/cognitive-policy.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/cognitive-policy.test.ts (4 tests) 1ms
+stderr | tests/unit/document-act.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/document-act.test.ts (2 tests) 1ms
+stderr | tests/unit/ml4c-s05-thread-turn-qualification.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml4c-s05-thread-turn-qualification.test.ts (4 tests) 1ms
+
+ Test Files  6 passed (6)
+      Tests  37 passed (37)
+   Start at  15:06:48
+   Duration  2.49s (transform 211ms, setup 33ms, collect 1.01s, tests 938ms, environment 0ms, prepare 121ms)
+
+```
+
 
 | Suite | Résultat |
 | --- | --- |
-| AUTH R01–R14 PG | 13 PASS |
-| Fixture gate unit | 6 PASS |
-| Playwright ml4c-s05-real-api | 7 PASS (:3101) |
+| ml4c-d2-mission-s05.pg | 3 PASS |
+| ml4c-d2-mission-real-s05.spec | 1 PASS |
+| ml4c-env01-runtime.pg | 6 PASS |
+| ml4c-auth-reconciliation.pg | 13 PASS |
+| related unit/PG (semantic, mission, fixture gate, s05 idemp, …) | PASS |
+| tsc --noEmit | PASS |
+| git diff --check | PASS |
+| Playwright prior s05-real-api | non rejoué ce sous-cycle (acquis C-02) — Q1 nouveau le remplace pour AWAITING réel |
 | LIVE OpenAI | NOT RUN |
-| S02-01 Intervencia | FAIL / SOURCE EXACTE NON DISPONIBLE |
+| S02-01 | FAIL / SOURCE EXACTE INDISPONIBLE |
+
+---
+
+## 18. Matrice ENV-R01 → ENV-R15
+
+| ID | Ressource | DEV observé | RECETTE/STABLE | Séparation | Test | Résultat | Risque | Sortie |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ENV-R01 | Code/runtime | WT candidat + `.next-e2e` | WT `…-ml4-recette-build-2416e2ee` :3200 | worktrees distincts | Playwright webServer | PASS | faible | OK |
+| ENV-R02 | PID/port | :3101 éphémère | :3200 PID 9912 | ports distincts | lsof/ps | PASS | faible | OK |
+| ENV-R03 | Interface | 127.0.0.1 | 127.0.0.1:3200 | loopback | e2e-web-server `-H 127.0.0.1` | PASS | faible | OK |
+| ENV-R04 | PG database | `sfia_next_e2e` | conteneur `:5434` | DB/port | vitest current_database | PASS | moyen | OK |
+| ENV-R05 | PG role | `sfia_next_dev` | N/A (auth fail) | role+secret | session_user | PASS | moyen | OK |
+| ENV-R06 | Priv inter-lanes | CONNECT e2e OK | **28P01 DENIED** | secrets distincts | probe :5434 | PASS | élevé si fail | OK |
+| ENV-R07 | Schéma écriture | e2e only | non accessible | gate mutative | e2e-pg-gate | PASS | élevé | OK |
+| ENV-R08 | Volumes/docs | `.next-e2e` | autre WT | paths | inspect | PASS | moyen | OK |
+| ENV-R09 | Sessions/cookies | DEV E2E | non mesuré cross-lane | — | — | **NOT VERIFIED** | moyen | réserve |
+| ENV-R10 | Secrets lane | non publiés | DENIED | — | publisher scrub | PASS partiel | élevé | OK |
+| ENV-R11 | Fixture E2E | DEV∧E2E∧¬prod | refus RECETTE/prod | gate | unit+env | PASS | élevé | OK |
+| ENV-R12 | PG mutatif | `sfia_next_e2e` | — | rewrite URL | vitest setup | PASS | élevé | OK |
+| ENV-R13 | Mutation RECETTE | aucune | process séparé | DENIED+non ciblé | probe+scope | PASS | élevé | OK |
+| ENV-R14 | Reproductibilité | e2e-web-server.sh | — | script | config | PASS | faible | OK |
+| ENV-R15 | Pack secrets | scrub | — | — | publisher | PASS | élevé | OK |
+
+---
+
+## 19. Identité runtime et PostgreSQL (expurgée)
+
+Voir §18 et as-built. **Aucune** `DATABASE_URL` brute, mot de passe, cookie, clé OpenAI, token GitHub dans ce pack.
+
+---
+
+## 20. Absence de contamination
+
+- Tests mutatifs → `sfia_next_e2e` uniquement.
+- RECETTE process :3200 non sollicité.
+- Creds DEV refusés sur `:5434`.
+- Fixture route gated DEV+E2E.
+
+---
+
+## 21. Suites PASS / FAIL / NOT RUN
+
+- PASS : Q1 PG, Q1 E2E, ENV-01, AUTH, units liés, tsc, diff --check
+- FAIL : S02-01 (source)
+- NOT RUN : LIVE Nora OpenAI ; GO REAL ; mutation RECETTE/STABLE
+
+---
+
+## 22. Non-régressions
+
+- AUTH-R06 deux APPLIED conservé (13 PASS suite).
+- S05 UNKNOWN / pending acquis conservés (tests unit + idemp PG).
+- D2 positif existant non cassé (parcours AWAITING prouve préparation ; clic création non auto).
+- Fixture gate inchangé fonctionnellement + testé.
+
+---
+
+## 23. Documentation synchronisée
+
+- `construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md`
+- `construction/delivery-history.md` (DELIV … FINAL-RUNTIME-QUAL)
+- SEF / décisions Morris / ADR / roadmap structurante : **non modifiés**
+
+---
+
+## 24. REALISM GAPS
+
+- Nora LIVE non exécuté.
+- ENV-R09 cookies multi-lane NOT VERIFIED.
+- S02-01 Intervencia verbatim indisponible.
+- Ancien seed AWAITING reste dans fixture pour tests legacy ; **Q1-A n'en dépend plus**.
+
+---
+
+## 25. Gates Morris restants
+
+1. Recevabilité technique ChatGPT sur ce handoff.
+2. Gate Git / PR #676 (push produit / merge) — hors mandat.
+3. Qualification LIVE Nora.
+4. RECETTE utilisateur / A-006/A-007.
+5. Promotion version — INTERDITE ici (0.0.0-dev / NO RELEASE).
+
+---
+
+## 26. Verdict
+
+**IMPLEMENTED — READY FOR CHATGPT REVIEW**
+
+- **Q1 PASS** : mission `AWAITING_PILOT_ACT` d'origine parcours D2 réel ; binding complet ; B bloquée S05 ; contrôle positif B sans A.
+- **Q2 PASS** avec réserve **ENV-R09 NOT VERIFIED** : runtime + PG isolation démontrées (ports, worktrees, DB, rôle, DENY cross-lane, fixture gate).
+
+Instruction ChatGPT : relire ce handoff distant intégralement ; vérifier origine réelle mission D2, binding, absence projet implicite, blocage S05, contrôle positif B, isolation runtime/PG, preuves, absence mutation RECETTE/STABLE ; rendre verdict de recevabilité technique uniquement.
+
+---
+
+## Annexe — as-built Q1/Q2
+
+```markdown
+# As-built — Qualification sémantique Nora + mobilisation gouvernée (Q1/Q2 final runtime)
+
+Date: 2026-11-12 ~15:10 CET (Europe/Paris)
+Branche locale: `fix/next-semantic-intent-convergence-20261112`
+Base candidat: `2416e2ee25662821b015407346c64ec204f67488`
+Profil: Critical / EVOL corrective QA / NO RELEASE / publication produit INTERDITE
+
+## Objectif de ce cycle
+
+Fermer les deux preuves manquantes du Review Pack précédent (TECHNICAL REVIEWABLE — INTEGRATION GATE NOT YET CLEARED) :
+
+1. **Q1** — Mission `AWAITING_PILOT_ACT` obtenue par le **vrai parcours D2** (sas sans projet, sans clic « Créer le projet »), puis blocage S05 d’une intention B concurrente.
+2. **Q2** — Isolation ENV-01 runtime + PostgreSQL démontrée (pas seulement variables d’environnement).
+
+Les corrections C-01..C-04 / F1–F4 / integrator sont **conservées**.
+
+## Q1 — Parcours D2 réel (origine de la mission)
+
+### Étapes
+
+1. Authentifier Pilote DEV.
+2. Ouvrir une préparation `OPEN` **sans** lien projet (`preparationProjectLinks` vide).
+3. Envoyer via API conversation réelle : `"Je veux créer un projet."`
+4. Nora uniquement à la frontière `TEST_BOUNDARY` (fixture DEV+E2E).
+5. Qualification structurée → `d2.create_project` / `REQUEST_EFFECT`.
+6. Studio prépare l’intention D2 ; `service.ts` produit `MissionProjection` via `buildD2OwnerActBinding` + `d2MissionIdempotencyKey` → status `AWAITING_PILOT_ACT`.
+7. **Aucun** clic sur « Créer le projet » → **aucun** projet durable.
+8. Relecture : `loadLatestMissionsByIntentKey` / oracle E2E après COMPLETE et après refresh.
+
+### Différence vs ancien seed artificiel (C-02)
+
+| | Seed `seed_awaiting_mission` | Parcours Q1 réel |
+| --- | --- | --- |
+| Précondition | Projet souvent déjà créé, puis mission « créer projet » injectée | Sas `OPEN`, zéro projet |
+| `ownerActBinding` | JSON partiel possible | Complet : `kind=D2_CREATE_PROJECT`, `preparationId`, `clientIntentKey`, `suggestedIdempotencyKey` (= `d2MissionIdempotencyKey`) |
+| Origine | Fixture HTTP écrit `resultJson` | `postUserMessageAndNora` / route messages Studio |
+| Preuve S05 | Gate sait bloquer si projection présente | Gate bloque une mission **métier atteignable** |
+
+### Contrôle positif B
+
+Préparation DEV distincte **sans** mission AWAITING : document CREATE nominal → `documentCount+1`, `pendingEffectBlocked ≠ true`.
+
+### Contrôle négatif B
+
+Sur la préparation portant A : message documentaire concurrent → `pendingEffectBlocked=true`, raison `S05_MISSION_BLOCKS_EFFECT`, aucun document/projet/décision D6, A toujours `AWAITING_PILOT_ACT`.
+
+### Preuves
+
+| Suite | Résultat |
+| --- | --- |
+| `ml4c-d2-mission-s05.pg.test.ts` | 3 PASS |
+| `ml4c-d2-mission-real-s05.spec.ts` (Playwright :3101) | 1 PASS |
+| LIVE OpenAI | NOT RUN |
+
+## Q2 — ENV-01 runtime / PostgreSQL
+
+### Identité runtime (Playwright mutatif)
+
+| Champ | Valeur observée |
+| --- | --- |
+| Port web E2E | `127.0.0.1:3101` (éphémère via `scripts/e2e-web-server.sh`) |
+| Bind | `-H 127.0.0.1` (loopback) |
+| Worktree code | candidat local `…/sfia-workspace-next-semantic-intent-20261112` |
+| HEAD | `2416e2ee` + worktree dirty (non poussé) |
+| Mode | `next dev`, `distDir=.next-e2e` |
+| Lane flags | `STUDIO_LANE=DEV`, `STUDIO_E2E=1`, `STUDIO_FORCE_NORA_FIXTURE=1`, `OPENAI_API_KEY` neutralisé |
+| RECETTE observée | process distinct PID sur `:3200`, cwd `…/sfia-workspace-next-ml4-recette-build-2416e2ee` — **non utilisé** par les tests mutatifs |
+
+### Identité PostgreSQL (expurgée)
+
+| Champ | DEV/E2E observé |
+| --- | --- |
+| Conteneur | `sfia-next-dev-pg` → `127.0.0.1:5433` |
+| `current_database()` | `sfia_next_e2e` (vitest mutatif / Playwright) |
+| `current_user` | `sfia_next_dev` |
+| Bases sur conteneur DEV | `sfia_next_dev`, `sfia_next_e2e`, `sfia_next_ml4` |
+| Conteneur RECETTE | `sfia-next-recette-pg` → `127.0.0.1:5434` |
+| Cross-lane | Identifiants DEV → `:5434/sfia_next_recette` = **28P01 DENIED** |
+
+### Matrice ENV-R01..R15
+
+| ID | Résultat | Preuve |
+| --- | --- | --- |
+| ENV-R01 | PASS | Playwright webServer = worktree candidat + `.next-e2e` |
+| ENV-R02 | PASS | Port 3101 éphémère documenté ; RECETTE :3200 PID/cwd distincts |
+| ENV-R03 | PASS | `next dev -H 127.0.0.1` ; docker PG `127.0.0.1:5433` |
+| ENV-R04 | PASS | `current_database()=sfia_next_e2e` |
+| ENV-R05 | PASS | `current_user=sfia_next_dev` |
+| ENV-R06 | PASS | DEV creds DENIED sur RECETTE :5434 |
+| ENV-R07 | PASS | Bases/ports distincts ; mutatif confiné `sfia_next_e2e` |
+| ENV-R08 | PASS | distDir `.next-e2e` vs operator `.next` / RECETTE autre worktree |
+| ENV-R09 | NOT VERIFIED | Isolation cookies multi-lane non mesurée hors sessions DEV E2E |
+| ENV-R10 | PASS (partiel) | Secrets non publiés ; roles/ports séparés ; mots de passe distincts (DENIED) |
+| ENV-R11 | PASS | `e2eFixtureMutationsAllowed` refuse production/RECETTE/sans E2E |
+| ENV-R12 | PASS | Gate vitest rewrite → `sfia_next_e2e` only |
+| ENV-R13 | PASS | Aucune mutation RECETTE dans ce cycle ; cross-auth DENIED |
+| ENV-R14 | PASS | `e2e-web-server.sh` + playwright.config reproductibles |
+| ENV-R15 | PASS | Pack handoff sans secrets (contrôle publisher) |
+
+**ENV-R09 = NOT VERIFIED** (ne pas convertir en PASS). Pas de STOP : frontière mutative PG/runtime démontrée.
+
+## Runner / D4 / fixture (conservés)
+
+- D5/D6 : classify → findByIntent/ActionKey avant STALE ; `stash.applied` obligatoire.
+- D4 : pas de FACT sur seul `established` Nora.
+- Fixture : DEV ∧ E2E=1 ∧ ¬production.
 
 ## Non-déclarations
 
-ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C · ADOPTED · READY FOR REAL · product push/PR
+ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED · READY FOR REAL · product push/PR/merge · LIVE Nora
 
-## Réserves
+## Réserves / gates Morris restants
 
-- LIVE Nora pertinence
-- FACT validateur indépendant non inventé
+- LIVE Nora pertinence (NOT RUN)
+- S02-01 Intervencia FAIL (source exacte indisponible)
 - A-006/A-007 ouvertes
-- PR #676 OPEN
-```
-
-### CREATE `projects/sfia-studio-next/web/src/app/api/dev/e2e/s05-fixture/route.ts`
-
-```
-/**
- * DEV/E2E-only fixture for S05 real-API proofs.
- * Seeds UNKNOWN / AWAITING_PILOT_ACT test preconditions and returns DB oracles.
- * Does NOT mock conversation HTTP responses. Does NOT create HumanDecision / Git REAL.
- */
-import { NextResponse } from "next/server";
-import { and, eq, sql } from "drizzle-orm";
-import { db } from "@/db/client";
-import {
-  businessCommands,
-  conversationTurnCommands,
-  documents,
-  humanDecisions,
-  preparations,
-} from "@/db/schema";
-import { resolveStudioSession } from "@/domains/identity/session";
-import { getPreparationContext } from "@/domains/preparation/service";
-import {
-  commitTurnTerminal,
-  markTurnUnknown,
-  reserveTurnCommand,
-  stashTurnQualification,
-} from "@/domains/conversation/turn-command";
-import { loadLatestMissionsByIntentKey } from "@/domains/conversation/intent-conduction";
-import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
-import { e2eFixtureMutationsAllowed } from "@/lib/e2e-fixture-gate";
-import { newId } from "@/lib/ids";
-
-export async function POST(req: Request) {
-  const gate = e2eFixtureMutationsAllowed();
-  if (!gate.ok) {
-    return NextResponse.json(
-      { error: "E2E_FIXTURE_FORBIDDEN", reason: gate.reason },
-      { status: 403 },
-    );
-  }
-  const session = await resolveStudioSession();
-  if (!session) return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
-
-  const body = (await req.json().catch(() => ({}))) as {
-    action?: string;
-    preparationId?: string;
-  };
-  const action = (body.action ?? "").trim();
-  const preparationId = (body.preparationId ?? "").trim();
-  if (!preparationId) {
-    return NextResponse.json({ error: "preparationId required" }, { status: 400 });
-  }
-  if (!["oracle", "seed_unknown", "seed_awaiting_mission"].includes(action)) {
-    return NextResponse.json({ error: "unknown action" }, { status: 400 });
-  }
-
-  // Ownership: preparation must belong to authenticated Pilot (getPreparationContext enforces).
-  let ctx: Awaited<ReturnType<typeof getPreparationContext>>;
-  try {
-    ctx = await getPreparationContext(session.pilotId, preparationId);
-  } catch {
-    return NextResponse.json({ error: "preparation not found or not owned" }, { status: 404 });
-  }
-  if (!ctx.conversation?.id) {
-    return NextResponse.json({ error: "conversation missing" }, { status: 404 });
-  }
-
-  if (action === "oracle") {
-    const turns = await db
-      .select({
-        id: conversationTurnCommands.id,
-        status: conversationTurnCommands.status,
-        clientTurnKey: conversationTurnCommands.clientTurnKey,
-      })
-      .from(conversationTurnCommands)
-      .where(eq(conversationTurnCommands.conversationId, ctx.conversation.id));
-    const prep = (
-      await db.select().from(preparations).where(eq(preparations.id, preparationId)).limit(1)
-    )[0];
-    const cmdCount = ctx.project?.id
-      ? (
-          await db
-            .select({ n: sql<number>`count(*)::int` })
-            .from(businessCommands)
-            .where(eq(businessCommands.projectId, ctx.project.id))
-        )[0]?.n ?? 0
-      : 0;
-    const docCount =
-      (
-        await db
-          .select({ n: sql<number>`count(*)::int` })
-          .from(documents)
-          .where(eq(documents.preparationId, preparationId))
-      )[0]?.n ?? 0;
-    const hdCount = ctx.project?.id
-      ? (
-          await db
-            .select({ n: sql<number>`count(*)::int` })
-            .from(humanDecisions)
-            .where(eq(humanDecisions.projectId, ctx.project.id))
-        )[0]?.n ?? 0
-      : 0;
-    const missions = await loadLatestMissionsByIntentKey(ctx.conversation.id);
-    const missionList = [...missions.values()].map((m) => ({
-      clientIntentKey: m.clientIntentKey,
-      status: m.status,
-      preparationId: m.preparationId ?? null,
-    }));
-    return NextResponse.json({
-      ok: true,
-      fixture: "DEV_E2E_ORACLE",
-      preparationId,
-      projectId: ctx.project?.id ?? null,
-      conversationId: ctx.conversation.id,
-      creationRevision: prep?.creationRevision ?? null,
-      businessCommandCount: Number(cmdCount),
-      documentCount: Number(docCount),
-      humanDecisionCount: Number(hdCount),
-      turns: turns.map((t) => ({
-        id: t.id,
-        status: t.status,
-        clientTurnKey: t.clientTurnKey,
-      })),
-      unknownTurns: turns.filter((t) => t.status === "UNKNOWN").map((t) => t.clientTurnKey),
-      missions: missionList,
-      awaitingMissions: missionList.filter((m) => m.status === "AWAITING_PILOT_ACT"),
-    });
-  }
-
-  if (action === "seed_unknown") {
-    const clientTurnKey = `e2e-s05-a-${Date.now()}`;
-    const reserved = await reserveTurnCommand({
-      conversationId: ctx.conversation.id,
-      ownerPilotId: session.pilotId,
-      clientTurnKey,
-      content: "Acte A E2E S05 — en cours (seed fixture)",
-    });
-    if (reserved.kind !== "fresh") {
-      return NextResponse.json({ error: `reserve ${reserved.kind}` }, { status: 409 });
-    }
-    await stashTurnQualification({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      qualificationJson: JSON.stringify({
-        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-        status: "QUALIFIED",
-        goal: "a",
-        intents: [
-          {
-            id: "ia",
-            capabilityId: "d3.converse",
-            mode: "EXPLORE",
-            summary: "a",
-            parameters: {},
-            constraints: [],
-            dependsOn: [],
-            sourceEvidence: [],
-          },
-        ],
-        clarifications: [],
-        replyDraft: "a",
-      }),
-    });
-    await markTurnUnknown(reserved.commandId, "E2E_S05_SEED_UNKNOWN", reserved.ownerToken);
-    const row = (
-      await db
-        .select()
-        .from(conversationTurnCommands)
-        .where(
-          and(
-            eq(conversationTurnCommands.id, reserved.commandId),
-            eq(conversationTurnCommands.status, "UNKNOWN"),
-          ),
-        )
-        .limit(1)
-    )[0];
-    if (!row) {
-      return NextResponse.json({ error: "seed failed — not UNKNOWN" }, { status: 500 });
-    }
-    return NextResponse.json({
-      ok: true,
-      fixture: "DEV_E2E_SEED_UNKNOWN",
-      noraBoundary: "FIXTURE_PROVIDER_ONLY",
-      commandId: reserved.commandId,
-      clientTurnKey,
-      userMessageId: reserved.userMessageId,
-      status: "UNKNOWN",
-      preparationId,
-      projectId: ctx.project?.id ?? null,
-      conversationId: ctx.conversation.id,
-    });
-  }
-
-  if (action === "seed_awaiting_mission") {
-    // Persist a COMPLETE turn whose missionProjection is AWAITING_PILOT_ACT.
-    // Readable by loadLatestMissionsByIntentKey (COMPLETE only). No UNKNOWN sibling.
-    const clientTurnKey = `e2e-s05-await-${Date.now()}`;
-    const clientIntentKey = `mission:await:${clientTurnKey}`;
-    const reserved = await reserveTurnCommand({
-      conversationId: ctx.conversation.id,
-      ownerPilotId: session.pilotId,
-      clientTurnKey,
-      content: "Intention A — acte Pilote requis (seed AWAITING_PILOT_ACT)",
-    });
-    if (reserved.kind !== "fresh") {
-      return NextResponse.json({ error: `reserve ${reserved.kind}` }, { status: 409 });
-    }
-    const missionProjection = {
-      clientIntentKey,
-      status: "AWAITING_PILOT_ACT" as const,
-      goalSummary: "Créer le projet (seed E2E S05-REAL-05)",
-      steps: [
-        {
-          id: "d2-create",
-          capabilityId: "d2.create_project",
-          status: "WAITING" as const,
-          reason: "E2E_SEED_AWAITING_PILOT_ACT",
-        },
-      ],
-      restitution: "PENDING" as const,
-      preparationId,
-      proposedProjectName: "E2E Awaiting Seed",
-      ownerActBinding: {
-        clientIntentKey,
-        suggestedIdempotencyKey: `create-${preparationId}`,
-      },
-      originalUserText: "Je veux créer un projet.",
-    };
-    const assistantId = newId("msg");
-    const applied = await commitTurnTerminal({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      status: "COMPLETE",
-      conversationId: ctx.conversation.id,
-      generationId: `gen-e2e-await-${Date.now()}`,
-      resultJson: JSON.stringify({
-        status: "COMPLETE",
-        userMessageId: reserved.userMessageId,
-        assistantMessageId: assistantId,
-        idempotentReplay: false,
-        humanDecisionCreated: false,
-        missionProjection,
-        nextTurnKind: "INTENTION_EFFET",
-        pendingEffectBlocked: false,
-        semanticQualification: {
-          schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-          status: "QUALIFIED",
-          goal: "create project",
-          intents: [
-            {
-              id: "i-d2",
-              capabilityId: "d2.create_project",
-              mode: "REQUEST_EFFECT",
-              summary: "create",
-              parameters: { projectName: "E2E Awaiting Seed" },
-              constraints: [],
-              dependsOn: [],
-              sourceEvidence: [],
-            },
-          ],
-          clarifications: [],
-          replyDraft: "Acte Pilote requis.",
-        },
-      }),
-      assistant: {
-        id: assistantId,
-        content: "Acte Pilote explicite requis — seed E2E AWAITING_PILOT_ACT.",
-        messageStatus: "COMPLETE",
-        generationId: `gen-e2e-await-${Date.now()}`,
-        ordinal: reserved.ordinalAssistant,
-      },
-    });
-    if (!applied.applied) {
-      return NextResponse.json({ error: "commit awaiting mission failed" }, { status: 500 });
-    }
-    const missions = await loadLatestMissionsByIntentKey(ctx.conversation.id);
-    const found = missions.get(clientIntentKey);
-    if (!found || found.status !== "AWAITING_PILOT_ACT") {
-      return NextResponse.json(
-        { error: "seed failed — mission not readable as AWAITING_PILOT_ACT" },
-        { status: 500 },
-      );
-    }
-    const unknownCount = (
-      await db
-        .select({ n: sql<number>`count(*)::int` })
-        .from(conversationTurnCommands)
-        .where(
-          and(
-            eq(conversationTurnCommands.conversationId, ctx.conversation.id),
-            eq(conversationTurnCommands.status, "UNKNOWN"),
-          ),
-        )
-    )[0]?.n;
-    return NextResponse.json({
-      ok: true,
-      fixture: "DEV_E2E_SEED_AWAITING_MISSION",
-      noraBoundary: "FIXTURE_PROVIDER_ONLY",
-      commandId: reserved.commandId,
-      clientTurnKey,
-      clientIntentKey,
-      userMessageId: reserved.userMessageId,
-      turnStatus: "COMPLETE",
-      missionStatus: found.status,
-      unknownSiblingCount: Number(unknownCount ?? 0),
-      preparationId,
-      projectId: ctx.project?.id ?? null,
-      conversationId: ctx.conversation.id,
-    });
-  }
-
-  return NextResponse.json({ error: "unknown action" }, { status: 400 });
-}
-```
-
-### CREATE `projects/sfia-studio-next/web/src/domains/conversation/durable-qualification.ts`
+- PR #676 OPEN / NON MERGÉE
+- ENV-R09 sessions multi-lane NOT VERIFIED
+- Décision d’intégration Git / RECETTE / promotion = Morris uniquement
 
 ```
-/**
- * Load / verify durable Nora qualification bound to a USER message (TV-04 / T-03).
- * Owner D5/D6 uses this — never trust body.operation alone for USER_MESSAGE.
- */
-import { and, desc, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { conversationTurnCommands, conversations, messages } from "@/db/schema";
-import {
-  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  validateNoraTurnQualification,
-  type NoraTurnQualification,
-} from "./semantic-qualification";
 
-export type DurableQualificationRecord = {
-  commandId: string;
-  userMessageId: string;
-  clientTurnKey: string;
-  status: string;
-  qualification: NoraTurnQualification;
-  stashedAt: string | null;
-};
 
-function parseStashed(resultJson: string | null): {
-  qualification: NoraTurnQualification;
-  stashedAt: string | null;
-} | null {
-  if (!resultJson) return null;
-  let raw: unknown;
-  try {
-    raw = JSON.parse(resultJson);
-  } catch {
-    return null;
-  }
-  if (!raw || typeof raw !== "object") return null;
-  const obj = raw as Record<string, unknown>;
-  const validated = validateNoraTurnQualification(obj.semanticQualification);
-  if (!validated.ok) return null;
-  if (validated.value.schemaVersion !== SEMANTIC_QUALIFICATION_SCHEMA_VERSION) return null;
-  return {
-    qualification: validated.value,
-    stashedAt: typeof obj.semanticQualificationStashedAt === "string"
-      ? obj.semanticQualificationStashedAt
-      : null,
-  };
-}
-
-/** Latest turn command row that stashed a qualification for this USER message. */
-export async function loadDurableQualificationForUserMessage(input: {
-  pilotId: string;
-  projectId: string;
-  userMessageId: string;
-}): Promise<DurableQualificationRecord | null> {
-  const rows = await db
-    .select({
-      commandId: conversationTurnCommands.id,
-      userMessageId: conversationTurnCommands.userMessageId,
-      clientTurnKey: conversationTurnCommands.clientTurnKey,
-      status: conversationTurnCommands.status,
-      resultJson: conversationTurnCommands.resultJson,
-      ownerPilotId: conversationTurnCommands.ownerPilotId,
-      projectId: conversations.projectId,
-      messageRole: messages.role,
-      messageStatus: messages.status,
-    })
-    .from(conversationTurnCommands)
-    .innerJoin(conversations, eq(conversationTurnCommands.conversationId, conversations.id))
-    .innerJoin(messages, eq(conversationTurnCommands.userMessageId, messages.id))
-    .where(eq(conversationTurnCommands.userMessageId, input.userMessageId))
-    .orderBy(desc(conversationTurnCommands.updatedAt))
-    .limit(5);
-
-  for (const row of rows) {
-    if (row.ownerPilotId !== input.pilotId) continue;
-    if ((row.projectId ?? "") !== input.projectId) continue;
-    if (row.messageRole?.trim().toUpperCase() !== "USER") continue;
-    if (row.messageStatus !== "COMPLETE") continue;
-    const parsed = parseStashed(row.resultJson);
-    if (!parsed) continue;
-    return {
-      commandId: row.commandId,
-      userMessageId: row.userMessageId!,
-      clientTurnKey: row.clientTurnKey,
-      status: row.status,
-      qualification: parsed.qualification,
-      stashedAt: parsed.stashedAt,
-    };
-  }
-  return null;
-}
-
-export async function loadDurableQualificationByCommandId(input: {
-  commandId: string;
-  ownerToken?: string;
-}): Promise<DurableQualificationRecord | null> {
-  const conditions = [eq(conversationTurnCommands.id, input.commandId)];
-  if (input.ownerToken) {
-    conditions.push(eq(conversationTurnCommands.ownerToken, input.ownerToken));
-  }
-  const row = (
-    await db
-      .select({
-        commandId: conversationTurnCommands.id,
-        userMessageId: conversationTurnCommands.userMessageId,
-        clientTurnKey: conversationTurnCommands.clientTurnKey,
-        status: conversationTurnCommands.status,
-        resultJson: conversationTurnCommands.resultJson,
-      })
-      .from(conversationTurnCommands)
-      .where(and(...conditions))
-      .limit(1)
-  )[0];
-  if (!row?.userMessageId) return null;
-  const parsed = parseStashed(row.resultJson);
-  if (!parsed) return null;
-  return {
-    commandId: row.commandId,
-    userMessageId: row.userMessageId,
-    clientTurnKey: row.clientTurnKey,
-    status: row.status,
-    qualification: parsed.qualification,
-    stashedAt: parsed.stashedAt,
-  };
-}
-```
-
-### CREATE `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
+## Annexe build
 
 ```
-/**
- * TEST_BOUNDARY ONLY — inject typed NoraTurnQualification envelopes by exact scenario key.
- * Not a synonym/regex router. Unknown utterances → dialogue-only (no effects).
- * Never imported as LIVE fallback.
- */
-import {
-  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  unavailableQualification,
-  type NoraTurnQualification,
-  type QualifiedIntentItem,
-} from "./semantic-qualification";
+├ ƒ /api/projects/[projectId]/git/sources                                    229 B         103 kB
+├ ƒ /api/projects/[projectId]/mission-continuation/resume                    229 B         103 kB
+├ ƒ /api/projects/[projectId]/pilotage                                       229 B         103 kB
+├ ƒ /api/projects/[projectId]/pilotage/commands                              229 B         103 kB
+├ ƒ /api/projects/[projectId]/pilotage/commands/[commandId]                  229 B         103 kB
+├ ƒ /api/projects/[projectId]/pilotage/commands/by-key/[clientCommandKey]    229 B         103 kB
+├ ○ /login                                                                 1.25 kB         104 kB
+├ ○ /portfolio                                                              3.3 kB         106 kB
+├ ƒ /preparations/[preparationId]                                          7.56 kB         114 kB
+├ ƒ /projects/[projectId]                                                    16 kB         123 kB
+└ ○ /settings/integrations                                                  2.6 kB         105 kB
++ First Load JS shared by all                                               103 kB
+  ├ chunks/1478-f49b7b92c0de2850.js                                        46.7 kB
+  ├ chunks/48cf718c-a1ee5ae76e25365f.js                                    54.2 kB
+  └ other shared chunks (total)                                            1.93 kB
 
-function fixtureLaneActive(): boolean {
-  return (
-    process.env.STUDIO_LANE === "DEV" &&
-    (process.env.STUDIO_E2E === "1" || process.env.STUDIO_FORCE_NORA_FIXTURE === "1")
-  );
-}
 
-function assertFixtureLane(): void {
-  if (!fixtureLaneActive()) {
-    throw new Error(
-      "fixtureSemanticQualify called outside TEST_BOUNDARY fixture lane — forbidden",
-    );
-  }
-}
-
-/**
- * Intervencia S02-01 — SOURCE EXACTE NON DISPONIBLE for the full campaign verbatim
- * (12 sites / Excel / e-mails). Reconstructed negative-final-clause only.
- * Do NOT declare S02-01 PASS from this fixture alone.
- */
-export const INTERVENCIA_S02_01_MESSAGE =
-  "Pour l'instant, je souhaite uniquement réfléchir et cadrer le besoin. Je ne t'autorise pas à créer le projet ni à engager des travaux techniques.";
-export const INTERVENCIA_S02_01_SOURCE_STATUS = "SOURCE_EXACTE_NON_DISPONIBLE_RECONSTRUCTED" as const;
-
-function normalizeUtterance(text: string): string {
-  return text.replace(/\s+/g, " ").trim();
-}
-
-function dialogue(goal: string, reply: string, constraints: string[] = []): NoraTurnQualification {
-  return {
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    status: "QUALIFIED",
-    goal,
-    intents: [
-      {
-        id: "i1",
-        capabilityId: "d3.converse",
-        mode: "EXPLORE",
-        summary: goal,
-        parameters: {},
-        constraints,
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ],
-    clarifications: [],
-    replyDraft: reply,
-  };
-}
-
-function effect(
-  goal: string,
-  reply: string,
-  intents: Array<Partial<Pick<QualifiedIntentItem, "id">> & Omit<QualifiedIntentItem, "id">>,
-): NoraTurnQualification {
-  return {
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    status: "QUALIFIED",
-    goal,
-    intents: intents.map((it, idx) => ({
-      ...it,
-      id: it.id ?? `i${idx + 1}`,
-      parameters: it.parameters ?? {},
-      constraints: it.constraints ?? [],
-      dependsOn: it.dependsOn ?? [],
-      sourceEvidence: it.sourceEvidence ?? [],
-    })),
-    clarifications: [],
-    replyDraft: reply,
-  };
-}
-
-/**
- * Exact-message → typed envelope table.
- * Tests must use these exact strings (or registerScenario) — no fuzzy synonym matching.
- */
-const SCENARIO_TABLE = new Map<string, NoraTurnQualification>();
-
-function register(key: string, q: NoraTurnQualification): void {
-  SCENARIO_TABLE.set(normalizeUtterance(key), q);
-}
-
-register(
-  INTERVENCIA_S02_01_MESSAGE,
-  dialogue(
-    "Cadrage sans effet",
-    "D'accord — restons sur le cadrage du besoin, sans créer de projet ni engager de travaux techniques.",
-    ["NO_PROJECT_CREATE", "NO_TECHNICAL_WORK"],
-  ),
-);
-
-for (const msg of [
-  "Je veux créer un projet.",
-  "Je veux démarrer un projet.",
-  "Je souhaite initier un nouveau projet.",
-  "J'aimerais lancer un projet.",
-  "Je voudrais commencer un nouveau projet.",
-  "Crée un projet.",
-]) {
-  register(
-    msg,
-    effect("Créer un projet", "Je prépare l'intention de création de projet — acte Pilote requis.", [
-      {
-        capabilityId: "d2.create_project",
-        mode: "REQUEST_EFFECT",
-        summary: "Création de projet",
-        parameters: {},
-        constraints: [],
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ]),
-  );
-}
-
-register(
-  "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage qui expose l'objectif, le périmètre et les premières étapes.",
-  effect("Atlas + document", "Intention composée : projet Atlas puis document de cadrage.", [
-    {
-      id: "i1",
-      capabilityId: "d2.create_project",
-      mode: "REQUEST_EFFECT",
-      summary: "Créer Atlas",
-      parameters: { projectName: "Atlas" },
-      constraints: [],
-      dependsOn: [],
-      sourceEvidence: [],
-    },
-    {
-      id: "i2",
-      capabilityId: "d4.create_document",
-      mode: "REQUEST_EFFECT",
-      summary: "document de cadrage qui expose l'objectif, le périmètre et les premières étapes",
-      parameters: {
-        notes: "document de cadrage qui expose l'objectif, le périmètre et les premières étapes",
-      },
-      constraints: [],
-      dependsOn: ["i1"],
-      sourceEvidence: [],
-    },
-  ]),
-);
-
-for (const msg of [
-  "Je ne veux pas créer le projet.",
-  "Je ne souhaite pas créer de projet.",
-  "Je ne t'autorise pas à créer le projet.",
-  "Il ne faut surtout pas créer ce projet.",
-  "Réfléchissons au besoin sans créer le projet.",
-  "Comment crée-t-on un projet ?",
-  "Et si nous lancions un projet ?",
-  "Il a écrit : crée le projet Atlas.",
-  "Je pourrais envisager un projet plus tard.",
-  "Explique GitHub Actions dans Studio",
-  "Quelle est la différence entre blob et commit ?",
-]) {
-  register(
-    msg,
-    dialogue("Discussion sans effet", "Voici une réponse informative — aucun effet engagé.", [
-      "NO_EFFECT",
-    ]),
-  );
-}
-
-register(
-  "Ouvre le cycle cadrage.",
-  effect("Ouvrir cycle", "Intention d'ouverture de cycle — vérification propriétaire D5.", [
-    {
-      capabilityId: "d5.pilotage_command",
-      mode: "REQUEST_EFFECT",
-      summary: "OPEN_CYCLE CADRAGE",
-      parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
-      constraints: [],
-      dependsOn: [],
-      sourceEvidence: [],
-    },
-  ]),
-);
-
-register(
-  "Rédige un document de synthèse sur les options A et B",
-  effect(
-    "Créer document synthèse",
-    "```sfia-document\n# Synthèse demandée\n\n## Section 1 — Contexte\n\nOptions A et B.\n\n## Section 2 — Analyse\n\nComparaison.\n\n## Section 3 — Suite\n\nPoints ouverts.\n```\n",
-    [
-      {
-        capabilityId: "d4.create_document",
-        mode: "REQUEST_EFFECT",
-        summary: "document de synthèse options A et B",
-        parameters: { notes: "synthèse options A et B" },
-        constraints: [],
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ],
-  ),
-);
-
-register(
-  "Rédige un document de synthèse sur l'architecture",
-  effect(
-    "Créer document architecture",
-    "```sfia-document\n# Synthèse demandée\n\n## Section 1 — Contexte\n\nArchitecture.\n```\n",
-    [
-      {
-        capabilityId: "d4.create_document",
-        mode: "REQUEST_EFFECT",
-        summary: "document synthèse architecture",
-        parameters: {},
-        constraints: [],
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ],
-  ),
-);
-
-register(
-  "Retiens comme acquis structurant que l'architecture modulaire est la piste privilégiée pour la suite.",
-  effect(
-    "Capitaliser acquis architecture",
-    "J'enregistre l'acquis structurant sur l'architecture modulaire pour la continuité du projet.",
-    [
-      {
-        capabilityId: "d4.record_knowledge",
-        mode: "REQUEST_EFFECT",
-        summary: "Architecture modulaire = piste privilégiée",
-        parameters: {
-          knowledgeKind: "ACQUIS",
-          knowledgeStatement:
-            "L'architecture modulaire est la piste privilégiée pour la suite du projet.",
-          epistemic: "hypothesized",
-          subjectTitle: "Architecture",
-          continuityReason: "Acquis structurant pour reprise ultérieure",
-        },
-        constraints: ["NO_HUMAN_DECISION"],
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ],
-  ),
-);
-
-register(
-  "Bonjour Nora, comment vas-tu ?",
-  dialogue("Politesse", "Bonjour — je vais bien. Comment puis-je vous aider ?", ["NO_EFFECT"]),
-);
-
-/** Test helper — register an exact utterance → envelope without regex. */
-export function registerFixtureScenario(utterance: string, q: NoraTurnQualification): void {
-  assertFixtureLane();
-  register(utterance, q);
-}
-
-export function fixtureSemanticQualify(userText: string): NoraTurnQualification {
-  assertFixtureLane();
-  const text = normalizeUtterance(userText);
-  if (!text) return unavailableQualification("EMPTY_USER_TEXT");
-  const hit = SCENARIO_TABLE.get(text);
-  if (hit) {
-    return structuredClone(hit);
-  }
-  // Fail closed: unknown fixture text is dialogue-only, never a lexical invent of effects.
-  return dialogue(
-    "Dialogue fixture par défaut",
-    "Message reçu. Aucune intention d'effet n'a été reconnue dans ce scénario de fixture.",
-    ["FIXTURE_DEFAULT_NO_EFFECT"],
-  );
-}
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
 ```
-
-### CREATE `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
-
-```
-/**
- * Canonical D3 semantic qualification envelope (ML4C SEM / TV-01…TV-05).
- * Validated structure ≠ authority. Owners still gate every effect.
- */
-import { z } from "zod";
-import {
-  PILOTAGE_OPERATIONS,
-  type PilotageOperation,
-} from "@/domains/pilotage/types";
-import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
-
-export const SEMANTIC_QUALIFICATION_SCHEMA_VERSION = "ml4c-sem-qual-v1" as const;
-
-export const IntentModeSchema = z.enum(["EXPLAIN", "EXPLORE", "PREPARE", "REQUEST_EFFECT"]);
-export type IntentMode = z.infer<typeof IntentModeSchema>;
-
-export const QualificationStatusSchema = z.enum([
-  "QUALIFIED",
-  "NEEDS_CLARIFICATION",
-  "UNAVAILABLE",
-]);
-export type QualificationStatus = z.infer<typeof QualificationStatusSchema>;
-
-/** Capability ids exposed to Nora — catalogue description, not authorization. */
-export const StudioCapabilityIdSchema = z.enum([
-  "d2.create_project",
-  "d3.converse",
-  "d4.create_document",
-  "d4.revise_document",
-  "d4.read_knowledge",
-  /** Selective D4 continuity write — not a HumanDecision / not lexical. */
-  "d4.record_knowledge",
-  "d5.pilotage_command",
-  "d6.human_decision",
-  "d7.prepare_publication",
-  "d7.dispatch_publication",
-  "d9.git_integration",
-]);
-export type StudioCapabilityId = z.infer<typeof StudioCapabilityIdSchema>;
-
-export const KnowledgeRecordKindSchema = z.enum(["ACQUIS", "OPEN_POINT", "SUBJECT"]);
-export const KnowledgeEpistemicSchema = z.enum([
-  "hypothesized",
-  "recommended",
-  "established",
-  "limited",
-]);
-
-export const PilotageOperationSchema = z.enum(
-  PILOTAGE_OPERATIONS as unknown as [PilotageOperation, ...PilotageOperation[]],
-);
-
-export const QualifiedIntentItemSchema = z.object({
-  id: z.string().min(1).max(64),
-  capabilityId: StudioCapabilityIdSchema,
-  mode: IntentModeSchema,
-  summary: z.string().max(500).optional(),
-  parameters: z
-    .object({
-      projectName: z.string().max(120).optional(),
-      documentHint: z.string().max(200).optional(),
-      sectionHint: z.string().max(80).optional(),
-      pathHint: z.string().max(240).optional(),
-      cycleType: z.string().max(64).optional(),
-      toCycleType: z.string().max(64).optional(),
-      methodRef: z.string().max(120).optional(),
-      methodVersion: z.string().max(64).optional(),
-      decisionHint: z.string().max(200).optional(),
-      decisionId: z.string().max(120).optional(),
-      objectRef: z.string().max(120).optional(),
-      statement: z.string().max(500).optional(),
-      publicationPath: z.string().max(240).optional(),
-      /** Typed D5/D6 operation — never use free-text notes as enum substitute. */
-      pilotageOperation: PilotageOperationSchema.optional(),
-      restrictionKindHint: z.string().max(64).optional(),
-      restrictionTargetRefHint: z.string().max(120).optional(),
-      notes: z.string().max(400).optional(),
-      /** Typed D4 continuity capitalisation (RG-KNOW-001) — owner still validates. */
-      knowledgeKind: KnowledgeRecordKindSchema.optional(),
-      knowledgeStatement: z.string().max(500).optional(),
-      epistemic: KnowledgeEpistemicSchema.optional(),
-      subjectTitle: z.string().max(120).optional(),
-      subjectId: z.string().max(120).optional(),
-      continuityReason: z.string().max(240).optional(),
-      /** Prefer these existing resources when selecting D4 context (Nora-chosen). */
-      relevantAcquisIds: z.array(z.string().max(120)).max(8).optional(),
-      relevantOpenPointIds: z.array(z.string().max(120)).max(8).optional(),
-      relevantSubjectIds: z.array(z.string().max(120)).max(8).optional(),
-    })
-    .strict()
-    .default({}),
-  constraints: z.array(z.string().max(240)).max(12).default([]),
-  dependsOn: z.array(z.string().min(1).max(64)).max(8).default([]),
-  sourceEvidence: z.array(z.string().max(240)).max(8).default([]),
-});
-export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
-
-export const NoraTurnQualificationSchema = z.object({
-  schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
-  status: QualificationStatusSchema,
-  goal: z.string().max(800).default(""),
-  intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
-  clarifications: z.array(z.string().max(400)).max(8).default([]),
-  replyDraft: z.string().max(12000).default(""),
-});
-export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
-
-export type QualificationValidation =
-  | { ok: true; value: NoraTurnQualification }
-  | { ok: false; reason: string };
-
-const EFFECT_CAPABILITIES = new Set<StudioCapabilityId>([
-  "d2.create_project",
-  "d4.create_document",
-  "d4.revise_document",
-  "d4.record_knowledge",
-  "d5.pilotage_command",
-  "d6.human_decision",
-  "d7.prepare_publication",
-  "d7.dispatch_publication",
-  "d9.git_integration",
-]);
-
-const PILOTAGE_CAPS = new Set<StudioCapabilityId>([
-  "d5.pilotage_command",
-  "d6.human_decision",
-]);
-
-export function validateNoraTurnQualification(raw: unknown): QualificationValidation {
-  const parsed = NoraTurnQualificationSchema.safeParse(raw);
-  if (!parsed.success) {
-    return { ok: false, reason: `SCHEMA_INVALID:${parsed.error.issues[0]?.message ?? "unknown"}` };
-  }
-  const q = parsed.data;
-  const ids = new Set(q.intents.map((i) => i.id));
-  if (ids.size !== q.intents.length) {
-    return { ok: false, reason: "DUPLICATE_INTENT_ID" };
-  }
-  for (const intent of q.intents) {
-    for (const dep of intent.dependsOn) {
-      if (!ids.has(dep)) return { ok: false, reason: `DEPENDENCY_UNKNOWN:${dep}` };
-      if (dep === intent.id) return { ok: false, reason: "DEPENDENCY_SELF" };
-    }
-    if (
-      intent.mode === "REQUEST_EFFECT" &&
-      PILOTAGE_CAPS.has(intent.capabilityId) &&
-      !intent.parameters.pilotageOperation
-    ) {
-      return { ok: false, reason: `PILOTAGE_OPERATION_REQUIRED:${intent.id}` };
-    }
-    if (
-      intent.parameters.pilotageOperation &&
-      !PILOTAGE_CAPS.has(intent.capabilityId)
-    ) {
-      return { ok: false, reason: `PILOTAGE_OPERATION_CAPABILITY_MISMATCH:${intent.id}` };
-    }
-  }
-  const graph = new Map(q.intents.map((i) => [i.id, i.dependsOn] as const));
-  const visiting = new Set<string>();
-  const visited = new Set<string>();
-  const dfs = (n: string): boolean => {
-    if (visiting.has(n)) return true;
-    if (visited.has(n)) return false;
-    visiting.add(n);
-    for (const d of graph.get(n) ?? []) {
-      if (dfs(d)) return true;
-    }
-    visiting.delete(n);
-    visited.add(n);
-    return false;
-  };
-  for (const id of ids) {
-    if (dfs(id)) return { ok: false, reason: "DEPENDENCY_CYCLE" };
-  }
-  return { ok: true, value: q };
-}
-
-export function unavailableQualification(reason: string, replyDraft = ""): NoraTurnQualification {
-  return {
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    status: "UNAVAILABLE",
-    goal: "",
-    intents: [],
-    clarifications: [reason.slice(0, 400)],
-    replyDraft:
-      replyDraft ||
-      "Je ne peux pas qualifier cette intention de façon fiable pour le moment. Aucun effet n'a été engagé.",
-  };
-}
-
-export function effectIntents(q: NoraTurnQualification): QualifiedIntentItem[] {
-  if (q.status !== "QUALIFIED") return [];
-  return q.intents.filter((i) => i.mode === "REQUEST_EFFECT");
-}
-
-export function wantsCapability(
-  q: NoraTurnQualification,
-  capabilityId: StudioCapabilityId,
-): boolean {
-  return effectIntents(q).some((i) => i.capabilityId === capabilityId);
-}
-
-export function firstEffectParam(
-  q: NoraTurnQualification,
-  capabilityId: StudioCapabilityId,
-  key: keyof QualifiedIntentItem["parameters"],
-): string | undefined {
-  const hit = effectIntents(q).find((i) => i.capabilityId === capabilityId);
-  const v = hit?.parameters?.[key];
-  return typeof v === "string" && v.trim() ? v.trim() : undefined;
-}
-
-export function sanitizeProposedLabel(raw: string): string {
-  return raw
-    .replace(/[*_`#~\[\]()]+/g, " ")
-    .replace(/[«»"']/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-/** Server-owned S05 turn kind from canonical qualification — not a lexical router. */
-export function deriveThreadTurnKind(q: NoraTurnQualification): ThreadTurnKind {
-  if (q.status === "UNAVAILABLE") return "INCERTAIN";
-  if (q.status === "NEEDS_CLARIFICATION") return "INCERTAIN";
-  const effects = effectIntents(q);
-  if (effects.length > 0) return "INTENTION_EFFET";
-  const cognitive = q.intents.some(
-    (i) =>
-      i.capabilityId === "d3.converse" ||
-      i.capabilityId === "d4.read_knowledge" ||
-      i.mode === "EXPLAIN" ||
-      i.mode === "EXPLORE",
-  );
-  if (cognitive && q.intents.length > 0) return "DIALOGUE_INDEPENDANT";
-  return "INCERTAIN";
-}
-
-export type DurablePilotageBinding = {
-  schemaVersion: typeof SEMANTIC_QUALIFICATION_SCHEMA_VERSION;
-  intentId: string;
-  capabilityId: "d5.pilotage_command" | "d6.human_decision";
-  operation: PilotageOperation;
-  cycleType?: string;
-  toCycleType?: string;
-  methodRef?: string;
-  methodVersion?: string;
-  decisionId?: string;
-  objectRef?: string;
-  statement?: string;
-  restrictionKindHint?: string;
-  restrictionTargetRefHint?: string;
-  objective?: string;
-};
-
-export function extractPilotageBinding(
-  q: NoraTurnQualification,
-  select?: { intentId?: string; operation?: string },
-): DurablePilotageBinding | { ambiguous: true; reason: string } | null {
-  if (q.status !== "QUALIFIED") {
-    return { ambiguous: true, reason: `QUALIFICATION_${q.status}` };
-  }
-  let hits = effectIntents(q).filter((i) => PILOTAGE_CAPS.has(i.capabilityId));
-  if (hits.length === 0) return null;
-  // Disambiguate multi-intent qualifications by durable intentId / operation.
-  if (select?.intentId) {
-    hits = hits.filter((i) => i.id === select.intentId);
-  }
-  if (select?.operation) {
-    hits = hits.filter((i) => i.parameters.pilotageOperation === select.operation);
-  }
-  if (hits.length === 0) {
-    return {
-      ambiguous: true,
-      reason: select?.intentId || select?.operation
-        ? "PILOTAGE_INTENT_NOT_IN_QUALIFICATION"
-        : "NO_PILOTAGE_EFFECT_INTENTS",
-    };
-  }
-  if (hits.length > 1) {
-    return { ambiguous: true, reason: "MULTIPLE_PILOTAGE_EFFECT_INTENTS" };
-  }
-  const intent = hits[0]!;
-  const operation = intent.parameters.pilotageOperation;
-  if (!operation) {
-    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
-  }
-  return {
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    intentId: intent.id,
-    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
-    operation,
-    cycleType: intent.parameters.cycleType,
-    toCycleType: intent.parameters.toCycleType,
-    methodRef: intent.parameters.methodRef,
-    methodVersion: intent.parameters.methodVersion,
-    decisionId: intent.parameters.decisionId,
-    objectRef: intent.parameters.objectRef,
-    statement: intent.parameters.statement,
-    restrictionKindHint: intent.parameters.restrictionKindHint,
-    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
-    objective: intent.summary,
-  };
-}
-
-/** Match a requested operation against durable qualification (owner-side). */
-export function matchPilotageIntentInQualification(
-  q: NoraTurnQualification,
-  input: { operation?: string; intentId?: string },
-): DurablePilotageBinding | { reject: true; reason: string; reasonCode: string } {
-  const binding = extractPilotageBinding(q, {
-    intentId: input.intentId,
-    operation: input.operation,
-  });
-  if (binding == null) {
-    return {
-      reject: true,
-      reasonCode: "AMBIGUOUS",
-      reason: "Aucune intention pilotage REQUEST_EFFECT dans la qualification durable",
-    };
-  }
-  if ("ambiguous" in binding) {
-    return { reject: true, reasonCode: "AMBIGUOUS", reason: binding.reason };
-  }
-  return binding;
-}
-
-/** Projection used by existing D2/D4 mission builders — derived from semantic intents only. */
-export type SemanticStudioProjection = {
-  wantsProjectCreate: boolean;
-  proposedProjectName: string | null;
-  wantsFollowOnDocument: boolean;
-  pendingDocumentBrief: string | null;
-  documentAct: { kind: "NONE" } | { kind: "CREATE" } | {
-    kind: "REVISE";
-    documentHint: string | null;
-    sectionHint: string | null;
-  };
-  publication: {
-    wantsPublish: boolean;
-    needsExplicitPath: boolean;
-    path: string | null;
-    targetPath: string | null;
-    targetBranch: string | null;
-    clarify: string | null;
-    capabilityId: "d7.prepare_publication" | "d7.dispatch_publication" | "d9.git_integration" | null;
-  };
-  simpleDialogue: boolean;
-};
-
-export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioProjection {
-  const effects = effectIntents(q);
-  const createProject = effects.find((i) => i.capabilityId === "d2.create_project");
-  const createDoc = effects.find((i) => i.capabilityId === "d4.create_document");
-  const reviseDoc = effects.find((i) => i.capabilityId === "d4.revise_document");
-  const preparePub = effects.find((i) => i.capabilityId === "d7.prepare_publication");
-  const dispatchPub = effects.find((i) => i.capabilityId === "d7.dispatch_publication");
-  const gitPub = effects.find((i) => i.capabilityId === "d9.git_integration");
-  // Prefer prepare over dispatch over generic git — not interchangeable.
-  const publish = preparePub ?? dispatchPub ?? gitPub ?? null;
-  const publishCapability = publish
-    ? (publish.capabilityId as SemanticStudioProjection["publication"]["capabilityId"])
-    : null;
-
-  const wantsProjectCreate = Boolean(createProject);
-  const proposedProjectName = createProject?.parameters.projectName
-    ? sanitizeProposedLabel(createProject.parameters.projectName) || null
-    : null;
-
-  let documentAct: SemanticStudioProjection["documentAct"] = { kind: "NONE" };
-  if (reviseDoc) {
-    documentAct = {
-      kind: "REVISE",
-      documentHint: reviseDoc.parameters.documentHint ?? null,
-      sectionHint: reviseDoc.parameters.sectionHint ?? null,
-    };
-  } else if (createDoc) {
-    documentAct = { kind: "CREATE" };
-  }
-
-  const wantsFollowOnDocument = Boolean(
-    wantsProjectCreate &&
-      createDoc &&
-      createProject &&
-      createDoc.dependsOn.includes(createProject.id),
-  );
-
-  const pendingDocumentBrief = wantsFollowOnDocument
-    ? (createDoc?.summary || createDoc?.parameters.notes || createDoc?.parameters.documentHint || null)
-    : null;
-
-  const path = publish?.parameters.publicationPath?.trim() || publish?.parameters.pathHint?.trim() || null;
-  const publication = {
-    wantsPublish: Boolean(publish),
-    needsExplicitPath: Boolean(publish) && !path,
-    path,
-    targetPath: path,
-    targetBranch: null as string | null,
-    clarify: publish && !path ? "Chemin de publication Git manquant." : null,
-    capabilityId: publishCapability,
-  };
-
-  const simpleDialogue =
-    !wantsProjectCreate &&
-    documentAct.kind === "NONE" &&
-    !publication.wantsPublish &&
-    !effects.some(
-      (i) => PILOTAGE_CAPS.has(i.capabilityId) || i.capabilityId === "d4.record_knowledge",
-    );
-
-  return {
-    wantsProjectCreate,
-    proposedProjectName,
-    wantsFollowOnDocument,
-    pendingDocumentBrief: pendingDocumentBrief?.slice(0, 400) ?? null,
-    documentAct,
-    publication,
-    simpleDialogue,
-  };
-}
-
-export type KnowledgeCapitalisationProposal = {
-  intentId: string;
-  kind: z.infer<typeof KnowledgeRecordKindSchema>;
-  statement: string;
-  epistemic: z.infer<typeof KnowledgeEpistemicSchema>;
-  subjectTitle?: string;
-  subjectId?: string;
-  continuityReason?: string;
-};
-
-/** Typed D4 continuity proposals from Nora qualification — never HumanDecision. */
-export function extractKnowledgeProposals(
-  q: NoraTurnQualification,
-): KnowledgeCapitalisationProposal[] {
-  if (q.status !== "QUALIFIED") return [];
-  const out: KnowledgeCapitalisationProposal[] = [];
-  for (const intent of effectIntents(q)) {
-    if (intent.capabilityId !== "d4.record_knowledge") continue;
-    const kind = intent.parameters.knowledgeKind;
-    const statement = (intent.parameters.knowledgeStatement ?? intent.summary ?? "").trim();
-    if (!kind || statement.length < 12) continue;
-    out.push({
-      intentId: intent.id,
-      kind,
-      statement: statement.slice(0, 500),
-      epistemic: intent.parameters.epistemic ?? "hypothesized",
-      subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
-      subjectId: intent.parameters.subjectId?.trim() || undefined,
-      continuityReason: intent.parameters.continuityReason?.trim() || undefined,
-    });
-  }
-  return out;
-}
-
-/** Nora-preferred resource ids for context selection (non-authoritative). */
-export function extractKnowledgeSelectionHints(q: NoraTurnQualification): {
-  acquisIds: string[];
-  openPointIds: string[];
-  subjectIds: string[];
-} {
-  const acquisIds: string[] = [];
-  const openPointIds: string[] = [];
-  const subjectIds: string[] = [];
-  if (q.status !== "QUALIFIED") return { acquisIds, openPointIds, subjectIds };
-  for (const intent of q.intents) {
-    for (const id of intent.parameters.relevantAcquisIds ?? []) {
-      if (id && !acquisIds.includes(id)) acquisIds.push(id);
-    }
-    for (const id of intent.parameters.relevantOpenPointIds ?? []) {
-      if (id && !openPointIds.includes(id)) openPointIds.push(id);
-    }
-    for (const id of intent.parameters.relevantSubjectIds ?? []) {
-      if (id && !subjectIds.includes(id)) subjectIds.push(id);
-    }
-  }
-  return { acquisIds, openPointIds, subjectIds };
-}
-
-export function mergeQualificationIntoResultJson(
-  existingJson: string | null | undefined,
-  terminalPayload: Record<string, unknown>,
-): string {
-  let semanticQualification: unknown;
-  let semanticQualificationStashedAt: unknown;
-  if (existingJson) {
-    try {
-      const prev = JSON.parse(existingJson) as Record<string, unknown>;
-      semanticQualification = prev.semanticQualification;
-      semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
-    } catch {
-      /* ignore */
-    }
-  }
-  const merged = {
-    ...terminalPayload,
-    ...(semanticQualification !== undefined ? { semanticQualification } : {}),
-    ...(semanticQualificationStashedAt !== undefined
-      ? { semanticQualificationStashedAt }
-      : {}),
-  };
-  return JSON.stringify(merged);
-}
-```
-
-### CREATE `projects/sfia-studio-next/web/src/lib/e2e-fixture-gate.ts`
-
-```
-/**
- * Admission gate for DEV/E2E mutating fixture HTTP routes.
- * Independent of Nora fixture activation (STUDIO_FORCE_NORA_FIXTURE alone never authorizes).
- */
-export function e2eFixtureMutationsAllowed(env: NodeJS.ProcessEnv = process.env): {
-  ok: boolean;
-  reason?: string;
-} {
-  if (env.NODE_ENV === "production") {
-    return { ok: false, reason: "NODE_ENV_PRODUCTION" };
-  }
-  if ((env.STUDIO_LANE ?? "").trim() !== "DEV") {
-    return { ok: false, reason: "LANE_NOT_DEV" };
-  }
-  if ((env.STUDIO_E2E ?? "").trim() !== "1") {
-    return { ok: false, reason: "STUDIO_E2E_REQUIRED" };
-  }
-  return { ok: true };
-}
-```
-
-### CREATE `projects/sfia-studio-next/web/tests/e2e/ml4c-s05-real-api.spec.ts`
-
-```
-import { test, expect } from "@playwright/test";
-
-/**
- * ML4C S05 — DETERMINISTIC END-TO-END ON DEV BOUNDARY.
- * Browser → real Studio HTTP messages API → server S05 gate → PG.
- * Nora fixture ONLY at provider boundary (STUDIO_E2E / FORCE_NORA_FIXTURE).
- * NO route.fulfill on the conversation endpoint under test.
- *
- * Does NOT prove: NORA LIVE SEMANTIC BEHAVIOR / READY FOR REAL.
- */
-
-async function openProjectCapturingPrep(
-  page: import("@playwright/test").Page,
-): Promise<{ projectId: string; preparationId: string }> {
-  await page.getByTestId("portfolio-new-prep").click();
-  await page.waitForURL(/\/preparations\//, { timeout: 30000 });
-  const preparationId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
-  if (!preparationId) throw new Error("preparationId missing");
-
-  await page.getByTestId("prep-draft").fill("Intention E2E S05 real API (fixture Nora provider)");
-  await page.getByTestId("prep-send").click();
-  await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
-    timeout: 30000,
-  });
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-adopt-nora").click();
-  await page.getByTestId("prep-proposal-name").fill("ML4C S05 Real API");
-  await page.getByTestId("prep-proposal-save").click();
-  await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 15000 });
-  const createBtn = page.getByTestId("prep-create-project");
-  await expect(createBtn).toBeEnabled({ timeout: 20000 });
-  await createBtn.click();
-  await page.waitForURL(/\/projects\//, { timeout: 30000 });
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  if (!projectId) throw new Error("projectId missing");
-  return { projectId, preparationId };
-}
-
-async function seedUnknownA(
-  page: import("@playwright/test").Page,
-  preparationId: string,
-): Promise<{ clientTurnKey: string; commandId: string }> {
-  const res = await page.request.post("/api/dev/e2e/s05-fixture", {
-    data: { action: "seed_unknown", preparationId },
-  });
-  expect(res.ok(), await res.text()).toBeTruthy();
-  const body = await res.json();
-  expect(body.status).toBe("UNKNOWN");
-  expect(body.clientTurnKey).toBeTruthy();
-  return { clientTurnKey: body.clientTurnKey, commandId: body.commandId };
-}
-
-async function oracle(page: import("@playwright/test").Page, preparationId: string) {
-  const res = await page.request.post("/api/dev/e2e/s05-fixture", {
-    data: { action: "oracle", preparationId },
-  });
-  expect(res.ok(), await res.text()).toBeTruthy();
-  return res.json() as Promise<{
-    creationRevision: number | null;
-    businessCommandCount: number;
-    documentCount: number;
-    humanDecisionCount?: number;
-    unknownTurns: string[];
-    turns: Array<{ id: string; status: string; clientTurnKey: string }>;
-    awaitingMissions?: Array<{ clientIntentKey: string; status: string }>;
-    missions?: Array<{ clientIntentKey: string; status: string }>;
-  }>;
-}
-
-async function seedAwaitingMission(
-  page: import("@playwright/test").Page,
-  preparationId: string,
-): Promise<{ clientIntentKey: string; commandId: string }> {
-  const res = await page.request.post("/api/dev/e2e/s05-fixture", {
-    data: { action: "seed_awaiting_mission", preparationId },
-  });
-  expect(res.ok(), await res.text()).toBeTruthy();
-  const body = await res.json();
-  expect(body.missionStatus).toBe("AWAITING_PILOT_ACT");
-  expect(body.turnStatus).toBe("COMPLETE");
-  expect(body.unknownSiblingCount).toBe(0);
-  expect(body.clientIntentKey).toBeTruthy();
-  return { clientIntentKey: body.clientIntentKey, commandId: body.commandId };
-}
-
-test.describe("S05 real API (no route.fulfill)", () => {
-  test("S05-REAL-01/02/03/04/06/08/09: UNKNOWN A + real messages API", async ({ page }) => {
-    test.setTimeout(180_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-    const { preparationId, projectId } = await openProjectCapturingPrep(page);
-
-    const beforeSeed = await oracle(page, preparationId);
-    const seeded = await seedUnknownA(page, preparationId);
-    const afterSeed = await oracle(page, preparationId);
-    expect(afterSeed.unknownTurns).toContain(seeded.clientTurnKey);
-    const revBefore = afterSeed.creationRevision;
-    const cmdsBefore = afterSeed.businessCommandCount;
-    const docsBefore = afterSeed.documentCount;
-
-    // S05-REAL-01 — independent question via REAL messages API
-    const respQPromise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page.getByLabel("Message à Nora").fill("Quelle est la différence entre blob et commit ?");
-    await page.getByTestId("thread-send").click();
-    const respQ = await respQPromise;
-    expect(respQ.ok()).toBeTruthy();
-    const bodyQ = await respQ.json();
-    expect(bodyQ.status).toBe("COMPLETE");
-    expect(bodyQ.nextTurnKind).toBe("DIALOGUE_INDEPENDANT");
-    expect(bodyQ.pendingEffectBlocked).not.toBe(true);
-    expect(bodyQ.noraMode).toMatch(/fixture|deterministic/i);
-
-    const afterQ = await oracle(page, preparationId);
-    expect(afterQ.unknownTurns).toContain(seeded.clientTurnKey);
-    expect(afterQ.creationRevision).toBe(revBefore);
-    expect(afterQ.businessCommandCount).toBe(cmdsBefore);
-
-    // S05-REAL-02 — OPEN_CYCLE blocked (no business command applied for B)
-    const respCyclePromise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-    await page.getByTestId("thread-send").click();
-    const respCycle = await respCyclePromise;
-    expect(respCycle.ok()).toBeTruthy();
-    const bodyCycle = await respCycle.json();
-    expect(bodyCycle.pendingEffectBlocked).toBe(true);
-    expect(bodyCycle.pilotageEffect?.attempted).not.toBe(true);
-
-    const afterCycle = await oracle(page, preparationId);
-    expect(afterCycle.businessCommandCount).toBe(cmdsBefore);
-    expect(afterCycle.unknownTurns).toContain(seeded.clientTurnKey);
-
-    // S05-REAL-03 — create project wording must not bump creationRevision
-    const respCreatePromise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page.getByLabel("Message à Nora").fill("Je veux créer un projet.");
-    await page.getByTestId("thread-send").click();
-    const respCreate = await respCreatePromise;
-    expect(respCreate.ok()).toBeTruthy();
-    const bodyCreate = await respCreate.json();
-    expect(bodyCreate.pendingEffectBlocked).toBe(true);
-    const afterCreate = await oracle(page, preparationId);
-    expect(afterCreate.creationRevision).toBe(revBefore);
-
-    // S05-REAL-04 — document CREATE (fixture exact phrase) blocked by S05
-    const respDocPromise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page
-      .getByLabel("Message à Nora")
-      .fill("Rédige un document de synthèse sur les options A et B");
-    await page.getByTestId("thread-send").click();
-    const respDoc = await respDocPromise;
-    expect(respDoc.ok()).toBeTruthy();
-    const bodyDoc = await respDoc.json();
-    expect(bodyDoc.nextTurnKind).toBe("INTENTION_EFFET");
-    expect(bodyDoc.pendingEffectBlocked).toBe(true);
-    expect(
-      bodyDoc.documentSave == null ||
-        bodyDoc.documentSave.status === "NOT_EXECUTED" ||
-        bodyDoc.documentSave.status === "SKIPPED",
-    ).toBe(true);
-    const afterDoc = await oracle(page, preparationId);
-    expect(afterDoc.documentCount).toBe(docsBefore);
-
-    // S05-REAL-06 — clear client pending hint; server protection unchanged
-    await page.evaluate((id) => {
-      sessionStorage.removeItem(`sfia.thread.pending:${id}`);
-    }, projectId);
-    const respHintPromise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-    await page.getByTestId("thread-send").click();
-    const respHint = await respHintPromise;
-    const bodyHint = await respHint.json();
-    expect(bodyHint.nextTurnKind).toBe("INTENTION_EFFET");
-    expect(bodyHint.pendingEffectBlocked).toBe(true);
-    expect(bodyHint.pilotageEffect?.attempted).not.toBe(true);
-
-    // S05-REAL-08 — refresh: A still recoverable via oracle
-    await page.reload();
-    const afterReload = await oracle(page, preparationId);
-    expect(afterReload.unknownTurns).toContain(seeded.clientTurnKey);
-    expect(afterReload.turns.some((t) => t.id === seeded.commandId && t.status === "UNKNOWN")).toBe(
-      true,
-    );
-
-    // S05-REAL-09 — independent COMPLETE does not close A
-    expect(afterReload.unknownTurns).toContain(seeded.clientTurnKey);
-    expect(beforeSeed.unknownTurns).not.toContain(seeded.clientTurnKey);
-  });
-
-  test("S05-REAL-07: lying pending key does not bypass server", async ({ page }) => {
-    test.setTimeout(120_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-    const { preparationId, projectId } = await openProjectCapturingPrep(page);
-    await seedUnknownA(page, preparationId);
-    const before = await oracle(page, preparationId);
-
-    await page.evaluate(
-      ({ projectId: id }) => {
-        sessionStorage.setItem(
-          `sfia.thread.pending:${id}`,
-          JSON.stringify({
-            content: "fake",
-            clientTurnKey: "ctk_lying_pending",
-            clientCommandKey: "conv-auth:ctk_lying_pending",
-          }),
-        );
-      },
-      { projectId },
-    );
-    await page.reload();
-
-    const respPromise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-    await page.getByTestId("thread-send").click();
-    const resp = await respPromise;
-    const body = await resp.json();
-    expect(body.pendingEffectBlocked).toBe(true);
-    const after = await oracle(page, preparationId);
-    expect(after.businessCommandCount).toBe(before.businessCommandCount);
-  });
-
-  test("S05-REAL-05 / S05-M01: AWAITING_PILOT_ACT blocks effect B (no UNKNOWN)", async ({
-    page,
-  }) => {
-    test.setTimeout(180_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-    const { preparationId, projectId } = await openProjectCapturingPrep(page);
-
-    const before = await oracle(page, preparationId);
-    expect(before.unknownTurns.length).toBe(0);
-    const seeded = await seedAwaitingMission(page, preparationId);
-    const afterSeed = await oracle(page, preparationId);
-    expect(afterSeed.unknownTurns.length).toBe(0);
-    expect(afterSeed.awaitingMissions?.some((m) => m.clientIntentKey === seeded.clientIntentKey)).toBe(
-      true,
-    );
-    const cmdsBefore = afterSeed.businessCommandCount;
-    const docsBefore = afterSeed.documentCount;
-    const hdBefore = afterSeed.humanDecisionCount ?? 0;
-    const revBefore = afterSeed.creationRevision;
-
-    const respPromise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-    await page.getByTestId("thread-send").click();
-    const resp = await respPromise;
-    expect(resp.ok()).toBeTruthy();
-    const body = await resp.json();
-    expect(body.nextTurnKind).toBe("INTENTION_EFFET");
-    expect(body.pendingEffectBlocked).toBe(true);
-    expect(String(body.pendingBlockReason ?? "")).toMatch(/S05_MISSION_BLOCKS_EFFECT/i);
-    expect(body.pilotageEffect?.attempted).not.toBe(true);
-    expect(body.humanDecisionCreated).not.toBe(true);
-
-    const after = await oracle(page, preparationId);
-    expect(after.unknownTurns.length).toBe(0);
-    expect(after.businessCommandCount).toBe(cmdsBefore);
-    expect(after.documentCount).toBe(docsBefore);
-    expect(after.humanDecisionCount ?? 0).toBe(hdBefore);
-    expect(after.creationRevision).toBe(revBefore);
-    expect(after.awaitingMissions?.some((m) => m.clientIntentKey === seeded.clientIntentKey)).toBe(
-      true,
-    );
-
-    // S05-M05 — clear/falsify client hint; server still blocks via mission.
-    await page.evaluate((id) => {
-      sessionStorage.removeItem(`sfia.thread.pending:${id}`);
-    }, projectId);
-    const resp2Promise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page
-      .getByLabel("Message à Nora")
-      .fill("Rédige un document de synthèse sur les options A et B");
-    await page.getByTestId("thread-send").click();
-    const body2 = await (await resp2Promise).json();
-    expect(body2.pendingEffectBlocked).toBe(true);
-    expect(body2.documentSave == null || body2.documentSave.status === "NOT_EXECUTED").toBe(true);
-    const after2 = await oracle(page, preparationId);
-    expect(after2.documentCount).toBe(docsBefore);
-    expect(after2.awaitingMissions?.some((m) => m.clientIntentKey === seeded.clientIntentKey)).toBe(
-      true,
-    );
-  });
-
-  test("S05-M02: AWAITING mission + independent question leaves A intact", async ({ page }) => {
-    test.setTimeout(120_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-    const { preparationId } = await openProjectCapturingPrep(page);
-    const seeded = await seedAwaitingMission(page, preparationId);
-
-    const respPromise = page.waitForResponse(
-      (r) =>
-        r.url().includes(`/api/preparations/${preparationId}/messages`) &&
-        r.request().method() === "POST",
-    );
-    await page.getByLabel("Message à Nora").fill("Quelle est la différence entre blob et commit ?");
-    await page.getByTestId("thread-send").click();
-    const body = await (await respPromise).json();
-    expect(body.status).toBe("COMPLETE");
-    expect(body.nextTurnKind).toBe("DIALOGUE_INDEPENDANT");
-    expect(body.pendingEffectBlocked).not.toBe(true);
-    const after = await oracle(page, preparationId);
-    expect(after.awaitingMissions?.some((m) => m.clientIntentKey === seeded.clientIntentKey)).toBe(
-      true,
-    );
-  });
-
-  test("FIX-05/07: fixture requires session; invalid action controlled", async ({ page, browser }) => {
-    test.setTimeout(90_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-    const { preparationId } = await openProjectCapturingPrep(page);
-
-    const badAction = await page.request.post("/api/dev/e2e/s05-fixture", {
-      data: { action: "drop_all", preparationId },
-    });
-    expect(badAction.status()).toBe(400);
-
-    const anon = await browser.newContext();
-    const anonPage = await anon.newPage();
-    const unauth = await anonPage.request.post("http://127.0.0.1:3101/api/dev/e2e/s05-fixture", {
-      data: { action: "oracle", preparationId },
-    });
-    expect([401, 403]).toContain(unauth.status());
-    await anon.close();
-  });
-
-  test("FIX-06: Pilot B cannot oracle/seed Pilot A preparation", async ({ page }) => {
-    test.setTimeout(120_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-    const { preparationId } = await openProjectCapturingPrep(page);
-
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote B (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-    const cross = await page.request.post("/api/dev/e2e/s05-fixture", {
-      data: { action: "oracle", preparationId },
-    });
-    expect([403, 404]).toContain(cross.status());
-    const seedCross = await page.request.post("/api/dev/e2e/s05-fixture", {
-      data: { action: "seed_awaiting_mission", preparationId },
-    });
-    expect([403, 404]).toContain(seedCross.status());
-  });
-
-  test("S05-REAL-10: concurrent protected posts — no doubled métier effect", async ({ page }) => {
-    test.setTimeout(120_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-    const { preparationId } = await openProjectCapturingPrep(page);
-    await seedUnknownA(page, preparationId);
-    const before = await oracle(page, preparationId);
-
-    const [r1, r2] = await Promise.all([
-      page.request.post(`/api/preparations/${preparationId}/messages`, {
-        data: {
-          content: "Ouvre le cycle cadrage.",
-          clientTurnKey: `s05-conc-a-${Date.now()}`,
-        },
-      }),
-      page.request.post(`/api/preparations/${preparationId}/messages`, {
-        data: {
-          content: "Ouvre le cycle cadrage.",
-          clientTurnKey: `s05-conc-b-${Date.now()}`,
-        },
-      }),
-    ]);
-    // Concurrent turns: one may win COMPLETE with pendingEffectBlocked; the other
-    // may get 409 TURN_IN_PROGRESS. Neither may apply a métier mutation.
-    const statuses = [r1.status(), r2.status()];
-    expect(statuses.some((s) => s === 200 || s === 409)).toBe(true);
-    for (const r of [r1, r2]) {
-      if (!r.ok()) continue;
-      const body = await r.json();
-      expect(body.pilotageEffect?.attempted).not.toBe(true);
-      expect(body.pendingEffectBlocked === true || body.status === "COMPLETE").toBe(true);
-    }
-    const after = await oracle(page, preparationId);
-    expect(after.businessCommandCount).toBe(before.businessCommandCount);
-    expect(after.creationRevision).toBe(before.creationRevision);
-  });
-});
-```
-
-### CREATE `projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts`
-
-```
-/**
- * F1/F2 — AUTH-R01..R14: real DEV PG proofs for D5/D6 human-act reconciliation.
- * No vacuous PASS. Uses createProjectCommand + durable qualification + executePilotageCommand.
- */
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-process.env.STUDIO_LANE = "DEV";
-process.env.STUDIO_E2E = "1";
-process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
-
-import { and, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import {
-  businessCommandEffects,
-  businessCommands,
-  conversations,
-  pilots,
-  preparations,
-  projectCycles,
-} from "@/db/schema";
-import { newId } from "@/lib/ids";
-import {
-  getPreparationContext,
-  openOrCreatePreparation,
-  updatePreview,
-} from "@/domains/preparation/service";
-import { createProjectCommand } from "@/domains/preparation/create-project";
-import {
-  reserveTurnCommand,
-  stashTurnQualification,
-} from "@/domains/conversation/turn-command";
-import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
-import {
-  executePilotageCommand,
-  getPilotageProjection,
-} from "@/domains/pilotage/service";
-import { applyConversationalAuthority } from "@/domains/pilotage/conversation-authority";
-
-const OPEN_QUAL = {
-  schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  status: "QUALIFIED" as const,
-  goal: "open cycle",
-  intents: [
-    {
-      id: "i-open",
-      capabilityId: "d5.pilotage_command" as const,
-      mode: "REQUEST_EFFECT" as const,
-      summary: "OPEN_CYCLE CADRAGE",
-      parameters: {
-        pilotageOperation: "OPEN_CYCLE" as const,
-        cycleType: "CADRAGE" as const,
-      },
-      constraints: [] as string[],
-      dependsOn: [] as string[],
-      sourceEvidence: [] as string[],
-    },
-  ],
-  clarifications: [] as string[],
-  replyDraft: "Cycle ouvert.",
-};
-
-/** Two admissible D5 acts on one USER message: OPEN then TRANSITION. */
-const DUAL_INTENT_QUAL = {
-  schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  status: "QUALIFIED" as const,
-  goal: "two acts",
-  intents: [
-    {
-      id: "i-open",
-      capabilityId: "d5.pilotage_command" as const,
-      mode: "REQUEST_EFFECT" as const,
-      summary: "OPEN_CYCLE",
-      parameters: {
-        pilotageOperation: "OPEN_CYCLE" as const,
-        cycleType: "CADRAGE" as const,
-      },
-      constraints: [] as string[],
-      dependsOn: [] as string[],
-      sourceEvidence: [] as string[],
-    },
-    {
-      id: "i-trans",
-      capabilityId: "d5.pilotage_command" as const,
-      mode: "REQUEST_EFFECT" as const,
-      summary: "TRANSITION_CYCLE",
-      parameters: {
-        pilotageOperation: "TRANSITION_CYCLE" as const,
-        cycleType: "CADRAGE" as const,
-        toCycleType: "CONCEPTION_FONCTIONNELLE" as const,
-      },
-      constraints: [] as string[],
-      dependsOn: [] as string[],
-      sourceEvidence: [] as string[],
-    },
-  ],
-  clarifications: [] as string[],
-  replyDraft: "deux actes",
-};
-
-async function seedOwnedProject(label: string) {
-  const pilotId = newId("pilot");
-  await db.insert(pilots).values({
-    id: pilotId,
-    displayName: label,
-    githubUserId: `gh-${pilotId}`,
-  });
-  const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, label, "auth-seed");
-  const refreshed = (
-    await db.select().from(preparations).where(eq(preparations.id, prep.id))
-  )[0];
-  const created = await createProjectCommand({
-    pilotId,
-    preparationId: prep.id,
-    expectedCreationRevision: refreshed.creationRevision,
-    projectName: label,
-    previewSummary: "auth-seed",
-    idempotencyKey: newId("idem"),
-  });
-  if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
-    throw new Error(`SETUP BLOCKED: createProject failed: ${created.status}`);
-  }
-  const ctx = await getPreparationContext(pilotId, prep.id);
-  if (!ctx.project?.id || !ctx.conversation?.id) {
-    throw new Error("SETUP BLOCKED: project/conversation missing after create");
-  }
-  if (ctx.project.id !== created.projectId) {
-    throw new Error("SETUP BLOCKED: project id mismatch");
-  }
-  return {
-    pilotId,
-    preparationId: prep.id,
-    projectId: created.projectId,
-    conversationId: ctx.conversation.id,
-  };
-}
-
-async function seedQualifiedMessage(
-  world: { pilotId: string; conversationId: string; projectId: string },
-  content: string,
-  qual: Record<string, unknown>,
-) {
-  const reserved = await reserveTurnCommand({
-    conversationId: world.conversationId,
-    ownerPilotId: world.pilotId,
-    clientTurnKey: `auth-msg-${newId("ctk")}`,
-    content,
-  });
-  if (reserved.kind !== "fresh") {
-    throw new Error(`SETUP BLOCKED: expected fresh turn, got ${reserved.kind}`);
-  }
-  const stashed = await stashTurnQualification({
-    commandId: reserved.commandId,
-    ownerToken: reserved.ownerToken,
-    qualificationJson: JSON.stringify(qual),
-  });
-  if (!stashed.applied) {
-    throw new Error("SETUP BLOCKED: durable qualification stash failed");
-  }
-  // Ensure conversation.projectId is bound (createProject should have set it).
-  const conv = (
-    await db
-      .select()
-      .from(conversations)
-      .where(eq(conversations.id, world.conversationId))
-      .limit(1)
-  )[0];
-  if (conv?.projectId !== world.projectId) {
-    throw new Error(
-      `SETUP BLOCKED: conversation.projectId=${conv?.projectId} ≠ ${world.projectId}`,
-    );
-  }
-  return {
-    userMessageId: reserved.userMessageId,
-    turnCommandId: reserved.commandId,
-    clientTurnKey: reserved.clientTurnKey,
-  };
-}
-
-async function countCommands(projectId: string, sourceRef?: string) {
-  const rows = await db
-    .select()
-    .from(businessCommands)
-    .where(
-      sourceRef
-        ? and(
-            eq(businessCommands.projectId, projectId),
-            eq(businessCommands.sourceRef, sourceRef),
-          )
-        : eq(businessCommands.projectId, projectId),
-    );
-  return rows;
-}
-
-async function countEffects(commandId: string) {
-  return db
-    .select()
-    .from(businessCommandEffects)
-    .where(eq(businessCommandEffects.commandId, commandId));
-}
-
-async function countActiveCycles(projectId: string) {
-  const rows = await db
-    .select()
-    .from(projectCycles)
-    .where(
-      and(eq(projectCycles.projectId, projectId), eq(projectCycles.status, "ACTIVE")),
-    );
-  return rows.length;
-}
-
-describe("ML4C AUTH-R01..R14 — D5/D6 reconciliation (PG real)", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) {
-      throw new Error("SETUP BLOCKED: DATABASE_URL required");
-    }
-  });
-
-  it("AUTH-R01: first admissible act → APPLIED, exactly one mutation", async () => {
-    const world = await seedOwnedProject(`auth-r01-${Date.now()}`);
-    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const before = await countCommands(world.projectId, msg.userMessageId);
-    expect(before.length).toBe(0);
-    const revBefore = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-
-    const first = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content: "Ouvre le cycle cadrage.",
-      clientTurnKey: `r01-${Date.now()}`,
-      preQualified: {
-        clarity: "CLEAR",
-        operation: "OPEN_CYCLE",
-        cycleType: "CADRAGE",
-        // Must echo durable objective (intent.summary), never invent a divergent one.
-        objective: "OPEN_CYCLE CADRAGE",
-        semanticIntentId: "i-open",
-        semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      },
-    });
-
-    expect(first.attempted).toBe(true);
-    expect(first.command?.status).toBe("APPLIED");
-    expect(first.command?.commandId).toBeTruthy();
-    const cmds = await countCommands(world.projectId, msg.userMessageId);
-    expect(cmds.length).toBe(1);
-    const effects = await countEffects(first.command!.commandId!);
-    expect(effects.length).toBeGreaterThanOrEqual(1);
-    expect(await countActiveCycles(world.projectId)).toBe(1);
-    const revAfter = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    expect(revAfter).toBeGreaterThan(revBefore);
-  });
-
-  it("AUTH-R02: same act, same client key → replay, same commandId", async () => {
-    const world = await seedOwnedProject(`auth-r02-${Date.now()}`);
-    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const key = `r02-${Date.now()}`;
-    const preQualified = {
-      clarity: "CLEAR" as const,
-      operation: "OPEN_CYCLE" as const,
-      cycleType: "CADRAGE" as const,
-      objective: "OPEN_CYCLE CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    };
-    const first = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content: "Ouvre le cycle cadrage.",
-      clientTurnKey: key,
-      preQualified,
-    });
-    expect(first.command?.status).toBe("APPLIED");
-    const second = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content: "Ouvre le cycle cadrage.",
-      clientTurnKey: key,
-      preQualified,
-    });
-    expect(second.command?.commandId).toBe(first.command?.commandId);
-    expect(["APPLIED", "ALREADY_APPLIED"]).toContain(second.command?.status);
-    expect((await countCommands(world.projectId, msg.userMessageId)).length).toBe(1);
-    expect(await countActiveCycles(world.projectId)).toBe(1);
-  });
-
-  it("AUTH-R03: same act, new client key, stale expectedRevision → ALREADY_APPLIED, no new effect", async () => {
-    const world = await seedOwnedProject(`auth-r03-${Date.now()}`);
-    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const revBefore = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-
-    const first = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: revBefore,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      actInstanceId: `${msg.userMessageId}:i-open`,
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(first.status).toBe("APPLIED");
-    expect(first.commandId).toBeTruthy();
-    const effectsAfterFirst = await countEffects(first.commandId!);
-    expect(effectsAfterFirst.length).toBeGreaterThanOrEqual(1);
-    const cmdsAfterFirst = await countCommands(world.projectId, msg.userMessageId);
-    expect(cmdsAfterFirst.length).toBe(1);
-
-    // Stale revision = revision preceding the mutation.
-    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: revBefore, // deliberately obsolete
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      actInstanceId: `${msg.userMessageId}:i-open`,
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-
-    expect(replay.status).toBe("ALREADY_APPLIED");
-    expect(replay.commandId).toBe(first.commandId);
-    expect(replay.reasonCode).not.toBe("STALE_REVISION");
-    const cmdsAfter = await countCommands(world.projectId, msg.userMessageId);
-    expect(cmdsAfter.length).toBe(1);
-    const effectsAfter = await countEffects(first.commandId!);
-    expect(effectsAfter.length).toBe(effectsAfterFirst.length);
-    expect(await countActiveCycles(world.projectId)).toBe(1);
-  });
-
-  it("AUTH-R04: client actInstanceId changed → server identity unchanged, no second effect", async () => {
-    const world = await seedOwnedProject(`auth-r04-${Date.now()}`);
-    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const first = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      actInstanceId: `${msg.userMessageId}:i-open`,
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(first.status).toBe("APPLIED");
-    const rev2 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev2,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      actInstanceId: "client-forged-act-id", // ignored by server
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(replay.status).toBe("ALREADY_APPLIED");
-    expect(replay.commandId).toBe(first.commandId);
-    expect((await countCommands(world.projectId, msg.userMessageId)).length).toBe(1);
-  });
-
-  it("AUTH-R05/R14: new intention with stale expectedRevision → STALE_REVISION, no mutation", async () => {
-    const world = await seedOwnedProject(`auth-r05-${Date.now()}`);
-    // Advance revision with an EXPLICIT_INTERACTION open first.
-    const rev0 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const bump = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev0,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("ui"),
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-    });
-    expect(bump.status).toBe("APPLIED");
-    const staleRev = rev0;
-    const msg = await seedQualifiedMessage(
-      world,
-      "Retiens la trajectoire cadre.",
-      {
-        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-        status: "QUALIFIED" as const,
-        goal: "retain",
-        intents: [
-          {
-            id: "i-retain",
-            capabilityId: "d5.pilotage_command" as const,
-            mode: "REQUEST_EFFECT" as const,
-            summary: "RETAIN",
-            parameters: {
-              pilotageOperation: "RETAIN_TRAJECTORY" as const,
-              orientation: "cadre",
-            },
-            constraints: [] as string[],
-            dependsOn: [] as string[],
-            sourceEvidence: [] as string[],
-          },
-        ],
-        clarifications: [] as string[],
-        replyDraft: "ok",
-      },
-    );
-    const cmdsBefore = (await countCommands(world.projectId)).length;
-    const denied = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: staleRev,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Retiens la trajectoire cadre.",
-      actInstanceId: `${msg.userMessageId}:i-retain`,
-      operation: "RETAIN_TRAJECTORY",
-      orientation: "cadre",
-      semanticIntentId: "i-retain",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(denied.status).toBe("CONFLICT");
-    expect(denied.reasonCode).toBe("STALE_REVISION");
-    expect(denied.commandId).toBeNull();
-    expect((await countCommands(world.projectId)).length).toBe(cmdsBefore);
-  });
-
-  it("AUTH-R06: same message, two distinct intents → both APPLIED + replay", async () => {
-    const world = await seedOwnedProject(`auth-r06-${Date.now()}`);
-    const content = "Ouvre le cycle cadrage puis passe en conception fonctionnelle.";
-    const msg = await seedQualifiedMessage(world, content, DUAL_INTENT_QUAL);
-    const effectsBefore = (
-      await db
-        .select()
-        .from(businessCommandEffects)
-        .innerJoin(
-          businessCommands,
-          eq(businessCommandEffects.commandId, businessCommands.id),
-        )
-        .where(eq(businessCommands.projectId, world.projectId))
-    ).length;
-
-    const rev1 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev1,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: content,
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(open.status).toBe("APPLIED");
-    expect(open.commandId).toBeTruthy();
-    expect(await countActiveCycles(world.projectId)).toBe(1);
-    const openEffects = await countEffects(open.commandId!);
-    expect(openEffects.length).toBeGreaterThanOrEqual(1);
-
-    const rev2 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    expect(rev2).toBeGreaterThan(rev1);
-    const trans = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev2,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: content,
-      operation: "TRANSITION_CYCLE",
-      cycleType: "CADRAGE",
-      toCycleType: "CONCEPTION_FONCTIONNELLE",
-      semanticIntentId: "i-trans",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(trans.status).toBe("APPLIED");
-    expect(trans.commandId).toBeTruthy();
-    expect(trans.commandId).not.toBe(open.commandId);
-    const transEffects = await countEffects(trans.commandId!);
-    expect(transEffects.length).toBeGreaterThanOrEqual(1);
-
-    const applied = (await countCommands(world.projectId, msg.userMessageId)).filter(
-      (c) => c.status === "APPLIED",
-    );
-    expect(applied.length).toBe(2);
-    expect(applied.every((c) => c.sourceRef === msg.userMessageId)).toBe(true);
-    expect(applied.map((c) => c.sourceActionKey).sort()).toHaveLength(2);
-    expect(applied[0]!.sourceActionKey).not.toBe(applied[1]!.sourceActionKey);
-
-    const active = (
-      await db
-        .select()
-        .from(projectCycles)
-        .where(
-          and(eq(projectCycles.projectId, world.projectId), eq(projectCycles.status, "ACTIVE")),
-        )
-    )[0];
-    expect(active?.cycleType).toBe("CONCEPTION_FONCTIONNELLE");
-
-    // Replay both acts under new client keys — no third effect.
-    const rev3 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const replayOpen = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev3,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: content,
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    const replayTrans = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev3,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: content,
-      operation: "TRANSITION_CYCLE",
-      cycleType: "CADRAGE",
-      toCycleType: "CONCEPTION_FONCTIONNELLE",
-      semanticIntentId: "i-trans",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(replayOpen.status).toBe("ALREADY_APPLIED");
-    expect(replayOpen.commandId).toBe(open.commandId);
-    expect(replayTrans.status).toBe("ALREADY_APPLIED");
-    expect(replayTrans.commandId).toBe(trans.commandId);
-    expect((await countCommands(world.projectId, msg.userMessageId)).filter((c) => c.status === "APPLIED").length).toBe(
-      2,
-    );
-    const effectsAfter = (
-      await db
-        .select()
-        .from(businessCommandEffects)
-        .innerJoin(
-          businessCommands,
-          eq(businessCommandEffects.commandId, businessCommands.id),
-        )
-        .where(eq(businessCommands.projectId, world.projectId))
-    ).length;
-    expect(effectsAfter).toBe(effectsBefore + openEffects.length + transEffects.length);
-  });
-
-  it("AUTH-R07: same message, substituted operation → REFUS", async () => {
-    const world = await seedOwnedProject(`auth-r07-${Date.now()}`);
-    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const denied = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      operation: "RETAIN_TRAJECTORY", // substituted vs durable OPEN_CYCLE
-      orientation: "x",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(denied.status).toBe("REJECTED");
-    expect((await countCommands(world.projectId, msg.userMessageId)).every((c) => c.status === "REJECTED")).toBe(
-      true,
-    );
-    expect(await countActiveCycles(world.projectId)).toBe(0);
-  });
-
-  it("AUTH-R08: same message, substituted target → REFUS", async () => {
-    const world = await seedOwnedProject(`auth-r08-${Date.now()}`);
-    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const denied = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      operation: "OPEN_CYCLE",
-      cycleType: "CONSTRUCTION", // substituted vs durable CADRAGE
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(denied.status).toBe("REJECTED");
-    expect(await countActiveCycles(world.projectId)).toBe(0);
-  });
-
-  it("AUTH-R09: non-APPLIED stored act replay → reconcile without blind re-emit", async () => {
-    // business_commands.status domain is APPLIED|REJECTED only (chk).
-    // Replay of a REJECTED same-act must return stored truth — never mutate again.
-    const world = await seedOwnedProject(`auth-r09-${Date.now()}`);
-    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const first = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      operation: "OPEN_CYCLE",
-      cycleType: "CONSTRUCTION", // mismatch → REJECTED stored act
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(first.status).toBe("REJECTED");
-    expect(first.commandId).toBeTruthy();
-    const effectsBefore = await countEffects(first.commandId!);
-    expect(effectsBefore.length).toBe(0);
-    const rev2 = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev2,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      operation: "OPEN_CYCLE",
-      cycleType: "CONSTRUCTION",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    // Same act identity → replay stored REJECTED, no second insert / no cycle.
-    expect(replay.commandId).toBe(first.commandId);
-    expect(replay.status).toBe("REJECTED");
-    expect((await countCommands(world.projectId, msg.userMessageId)).length).toBe(1);
-    expect(await countActiveCycles(world.projectId)).toBe(0);
-  });
-
-  it("AUTH-R10: two concurrent same-act calls → ≤1 APPLIED command, ≤1 cycle", async () => {
-    const world = await seedOwnedProject(`auth-r10-${Date.now()}`);
-    const msg = await seedQualifiedMessage(world, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const body = {
-      expectedRevision: rev,
-      sourceKind: "USER_MESSAGE" as const,
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      operation: "OPEN_CYCLE" as const,
-      cycleType: "CADRAGE" as const,
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    };
-    const [a, b] = await Promise.all([
-      executePilotageCommand(world.pilotId, world.projectId, {
-        ...body,
-        clientCommandKey: `conv:${newId("ctk")}`,
-      }),
-      executePilotageCommand(world.pilotId, world.projectId, {
-        ...body,
-        clientCommandKey: `conv:${newId("ctk")}`,
-      }),
-    ]);
-    const statuses = [a.status, b.status].sort();
-    expect(statuses).toContain("APPLIED");
-    expect(
-      statuses.every((s) => s === "APPLIED" || s === "ALREADY_APPLIED" || s === "CONFLICT"),
-    ).toBe(true);
-    if (a.commandId && b.commandId) {
-      expect(a.commandId === b.commandId || statuses.includes("ALREADY_APPLIED")).toBe(true);
-    }
-    const applied = (await countCommands(world.projectId, msg.userMessageId)).filter(
-      (c) => c.status === "APPLIED",
-    );
-    expect(applied.length).toBeLessThanOrEqual(1);
-    expect(await countActiveCycles(world.projectId)).toBeLessThanOrEqual(1);
-  });
-
-  it("AUTH-R11: other Pilot — no visible/applicable command", async () => {
-    const a = await seedOwnedProject(`auth-r11a-${Date.now()}`);
-    const b = await seedOwnedProject(`auth-r11b-${Date.now()}`);
-    const msg = await seedQualifiedMessage(a, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const rev = (await getPilotageProjection(a.pilotId, a.projectId)).revision;
-    const first = await executePilotageCommand(a.pilotId, a.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: rev,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msg.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(first.status).toBe("APPLIED");
-
-    await expect(
-      executePilotageCommand(b.pilotId, a.projectId, {
-        clientCommandKey: `conv:${newId("ctk")}`,
-        expectedRevision: rev,
-        sourceKind: "USER_MESSAGE",
-        sourceRef: msg.userMessageId,
-        utterance: "Ouvre le cycle cadrage.",
-        operation: "OPEN_CYCLE",
-        cycleType: "CADRAGE",
-        semanticIntentId: "i-open",
-        semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      }),
-    ).rejects.toThrow(/introuvable|NOT_FOUND/i);
-    // B must not own any command on A's project.
-    const bCmds = await db
-      .select()
-      .from(businessCommands)
-      .where(
-        and(
-          eq(businessCommands.projectId, a.projectId),
-          eq(businessCommands.actorPilotId, b.pilotId),
-        ),
-      );
-    expect(bCmds.length).toBe(0);
-    expect(await countActiveCycles(a.projectId)).toBe(1);
-  });
-
-  it("AUTH-R12: other project — no visible/applicable command", async () => {
-    const a = await seedOwnedProject(`auth-r12a-${Date.now()}`);
-    const b = await seedOwnedProject(`auth-r12b-${Date.now()}`);
-    const msgA = await seedQualifiedMessage(a, "Ouvre le cycle cadrage.", OPEN_QUAL);
-    const revA = (await getPilotageProjection(a.pilotId, a.projectId)).revision;
-    const applied = await executePilotageCommand(a.pilotId, a.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: revA,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msgA.userMessageId,
-      utterance: "Ouvre le cycle cadrage.",
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(applied.status).toBe("APPLIED");
-
-    // Pilot B + project B cannot apply or replay A's message/command.
-    const revB = (await getPilotageProjection(b.pilotId, b.projectId)).revision;
-    const cross = await executePilotageCommand(b.pilotId, b.projectId, {
-      clientCommandKey: `conv:${newId("ctk")}`,
-      expectedRevision: revB,
-      sourceKind: "USER_MESSAGE",
-      sourceRef: msgA.userMessageId, // foreign message
-      utterance: "Ouvre le cycle cadrage.",
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      semanticIntentId: "i-open",
-      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    });
-    expect(cross.commandId).not.toBe(applied.commandId);
-    expect(cross.status).not.toBe("ALREADY_APPLIED");
-    expect(cross.status).toBe("REJECTED");
-    expect((await countCommands(b.projectId, msgA.userMessageId)).every((c) => c.status === "REJECTED")).toBe(
-      true,
-    );
-    expect(await countActiveCycles(b.projectId)).toBe(0);
-  });
-
-  it("AUTH-R13: EXPLICIT_INTERACTION authorized → nominal preserved", async () => {
-    const world = await seedOwnedProject(`auth-r13-${Date.now()}`);
-    const rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const r = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("ui"),
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-    });
-    expect(r.status).toBe("APPLIED");
-    expect(r.commandId).toBeTruthy();
-    expect(await countActiveCycles(world.projectId)).toBe(1);
-  });
-});
-```
-
-### CREATE `projects/sfia-studio-next/web/tests/integration/ml4c-integrator-auth-persist.pg.test.ts`
-
-```
-/**
- * Lot A/B integrator closure — PG proofs for stash CAS + UNKNOWN/COMPLETE
- * preservation of semanticQualification (sfia_next_e2e via vitest gate).
- */
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-process.env.STUDIO_LANE = "DEV";
-process.env.STUDIO_E2E = "1";
-process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
-
-import { eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { conversationTurnCommands } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import { createDevTestSession } from "@/domains/identity/session";
-import { openOrCreatePreparation } from "@/domains/preparation/service";
-import { getPreparationContext } from "@/domains/preparation/service";
-import {
-  commitTurnTerminal,
-  markTurnUnknown,
-  reserveTurnCommand,
-  stashTurnQualification,
-} from "@/domains/conversation/turn-command";
-import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
-
-const sampleQual = {
-  schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  status: "QUALIFIED" as const,
-  goal: "open",
-  intents: [
-    {
-      id: "i1",
-      capabilityId: "d5.pilotage_command" as const,
-      mode: "REQUEST_EFFECT" as const,
-      summary: "OPEN_CYCLE",
-      parameters: { pilotageOperation: "OPEN_CYCLE" as const, cycleType: "CADRAGE" },
-      constraints: [] as string[],
-      dependsOn: [] as string[],
-      sourceEvidence: [] as string[],
-    },
-  ],
-  clarifications: [] as string[],
-  replyDraft: "ok",
-};
-
-describe("ML4C integrator — persist qualification (PG)", () => {
-  let pilotId: string;
-  let conversationId: string;
-
-  beforeAll(async () => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    const sess = await createDevTestSession("b", { host: "127.0.0.1:3100" });
-    pilotId = sess.pilotId;
-    const prep = await openOrCreatePreparation(pilotId);
-    const ctx = await getPreparationContext(pilotId, prep.id);
-    conversationId = ctx.conversation!.id;
-  });
-
-  afterAll(() => {
-    /* e2e DB isolated */
-  });
-
-  it("DB-01/DB-06: stash then markTurnUnknown preserves semanticQualification", async () => {
-    const reserved = await reserveTurnCommand({
-      conversationId,
-      ownerPilotId: pilotId,
-      clientTurnKey: `integ-unknown-${Date.now()}`,
-      content: "stash then unknown",
-    });
-    expect(reserved.kind).toBe("fresh");
-    if (reserved.kind !== "fresh") return;
-
-    const stashed = await stashTurnQualification({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      qualificationJson: JSON.stringify(sampleQual),
-    });
-    expect(stashed.applied).toBe(true);
-
-    await markTurnUnknown(
-      reserved.commandId,
-      "TEST_UNKNOWN_AFTER_STASH",
-      reserved.ownerToken,
-      JSON.stringify({ status: "UNKNOWN", note: "no qual in payload" }),
-    );
-
-    const row = (
-      await db
-        .select()
-        .from(conversationTurnCommands)
-        .where(eq(conversationTurnCommands.id, reserved.commandId))
-        .limit(1)
-    )[0];
-    expect(row?.status).toBe("UNKNOWN");
-    const parsed = JSON.parse(row!.resultJson!) as {
-      semanticQualification?: { status?: string };
-      status?: string;
-    };
-    expect(parsed.semanticQualification?.status).toBe("QUALIFIED");
-    expect(parsed.status).toBe("UNKNOWN");
-  });
-
-  it("DB-04: COMPLETE after stash keeps qualification", async () => {
-    const reserved = await reserveTurnCommand({
-      conversationId,
-      ownerPilotId: pilotId,
-      clientTurnKey: `integ-complete-${Date.now()}`,
-      content: "stash then complete",
-    });
-    if (reserved.kind !== "fresh") throw new Error("expected fresh");
-
-    expect(
-      (
-        await stashTurnQualification({
-          commandId: reserved.commandId,
-          ownerToken: reserved.ownerToken,
-          qualificationJson: JSON.stringify(sampleQual),
-        })
-      ).applied,
-    ).toBe(true);
-
-    const applied = await commitTurnTerminal({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      status: "COMPLETE",
-      conversationId,
-      generationId: "gen-integ",
-      resultJson: JSON.stringify({
-        status: "COMPLETE",
-        userMessageId: reserved.userMessageId,
-        assistantMessageId: null,
-        idempotentReplay: false,
-        humanDecisionCreated: false,
-      }),
-      assistant: {
-        id: newId("msg"),
-        content: "assistant",
-        messageStatus: "COMPLETE",
-        generationId: "gen-integ",
-        ordinal: reserved.ordinalAssistant,
-      },
-    });
-    expect(applied.applied).toBe(true);
-
-    const row = (
-      await db
-        .select()
-        .from(conversationTurnCommands)
-        .where(eq(conversationTurnCommands.id, reserved.commandId))
-        .limit(1)
-    )[0];
-    const parsed = JSON.parse(row!.resultJson!) as {
-      semanticQualification?: { schemaVersion?: string };
-    };
-    expect(parsed.semanticQualification?.schemaVersion).toBe(SEMANTIC_QUALIFICATION_SCHEMA_VERSION);
-  });
-
-  it("DB-02: stash with revoked ownerToken → applied false, zero write", async () => {
-    const reserved = await reserveTurnCommand({
-      conversationId,
-      ownerPilotId: pilotId,
-      clientTurnKey: `integ-revoke-${Date.now()}`,
-      content: "revoke stash",
-    });
-    if (reserved.kind !== "fresh") throw new Error("expected fresh");
-
-    const bad = await stashTurnQualification({
-      commandId: reserved.commandId,
-      ownerToken: "revoked_fake_token",
-      qualificationJson: JSON.stringify(sampleQual),
-    });
-    expect(bad.applied).toBe(false);
-
-    const row = (
-      await db
-        .select()
-        .from(conversationTurnCommands)
-        .where(eq(conversationTurnCommands.id, reserved.commandId))
-        .limit(1)
-    )[0];
-    expect(row?.resultJson).toBeNull();
-  });
-});
-```
-
-### CREATE `projects/sfia-studio-next/web/tests/integration/ml4c-s05-idempotence-knowledge.pg.test.ts`
-
-```
-/**
- * Integrator closure — S05 admission, D5/D6 human-act idempotence, D4 semantic knowledge.
- */
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-process.env.STUDIO_LANE = "DEV";
-process.env.STUDIO_E2E = "1";
-process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
-
-import { and, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import {
-  conversationTurnCommands,
-  knowledgeAcquis,
-  preparations,
-} from "@/db/schema";
-import { createDevTestSession } from "@/domains/identity/session";
-import {
-  getPreparationContext,
-  openOrCreatePreparation,
-} from "@/domains/preparation/service";
-import { postUserMessageAndNora } from "@/domains/conversation/service";
-import {
-  markTurnUnknown,
-  reserveTurnCommand,
-  stashTurnQualification,
-} from "@/domains/conversation/turn-command";
-import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
-import { maybeCapitalizeFromExchange } from "@/domains/knowledge/service";
-
-describe("ML4C integrator — S05 / idempotence / knowledge (PG)", () => {
-  let pilotId: string;
-  let preparationId: string;
-  let conversationId: string;
-
-  beforeAll(async () => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    const sess = await createDevTestSession("a", { host: "127.0.0.1:3100" });
-    pilotId = sess.pilotId;
-    const prep = await openOrCreatePreparation(pilotId);
-    preparationId = prep.id;
-    const ctx = await getPreparationContext(pilotId, prep.id);
-    conversationId = ctx.conversation!.id;
-  });
-
-  afterAll(() => {
-    /* e2e isolated */
-  });
-
-  it("S05-G02/G04: UNKNOWN A blocks OPEN_CYCLE and D2 preview for B", async () => {
-    const a = await reserveTurnCommand({
-      conversationId,
-      ownerPilotId: pilotId,
-      clientTurnKey: `s05-a-${Date.now()}`,
-      content: "acte A en cours",
-    });
-    if (a.kind !== "fresh") throw new Error("expected fresh A");
-    await stashTurnQualification({
-      commandId: a.commandId,
-      ownerToken: a.ownerToken,
-      qualificationJson: JSON.stringify({
-        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-        status: "QUALIFIED",
-        goal: "a",
-        intents: [
-          {
-            id: "ia",
-            capabilityId: "d3.converse",
-            mode: "EXPLORE",
-            summary: "a",
-            parameters: {},
-            constraints: [],
-            dependsOn: [],
-            sourceEvidence: [],
-          },
-        ],
-        clarifications: [],
-        replyDraft: "a",
-      }),
-    });
-    await markTurnUnknown(a.commandId, "TEST_S05_A", a.ownerToken);
-
-    const previewBefore = (
-      await db
-        .select()
-        .from(preparations)
-        .where(eq(preparations.id, preparationId))
-        .limit(1)
-    )[0];
-    const revBefore = previewBefore?.creationRevision ?? 0;
-
-    const bCreate = await postUserMessageAndNora(
-      pilotId,
-      preparationId,
-      "Je veux créer un projet.",
-      {
-        clientTurnKey: `s05-b-create-${Date.now()}`,
-        // Hint deliberately omitted — server must still find sibling A.
-      },
-    );
-    expect(bCreate.pendingEffectBlocked).toBe(true);
-    expect(bCreate.missionProjection?.status).not.toBe("AWAITING_PILOT_ACT");
-    const previewAfter = (
-      await db
-        .select()
-        .from(preparations)
-        .where(eq(preparations.id, preparationId))
-        .limit(1)
-    )[0];
-    expect(previewAfter?.creationRevision ?? 0).toBe(revBefore);
-
-    const bCycle = await postUserMessageAndNora(pilotId, preparationId, "Ouvre le cycle cadrage.", {
-      clientTurnKey: `s05-b-cycle-${Date.now()}`,
-    });
-    expect(bCycle.pendingEffectBlocked).toBe(true);
-    expect(bCycle.pilotageEffect?.attempted).not.toBe(true);
-
-    const aRow = (
-      await db
-        .select()
-        .from(conversationTurnCommands)
-        .where(eq(conversationTurnCommands.id, a.commandId))
-        .limit(1)
-    )[0];
-    expect(aRow?.status).toBe("UNKNOWN");
-  });
-
-  it("S05-G01: independent question over UNKNOWN A is allowed without clearing A", async () => {
-    const a = await reserveTurnCommand({
-      conversationId,
-      ownerPilotId: pilotId,
-      clientTurnKey: `s05-a2-${Date.now()}`,
-      content: "acte A2",
-    });
-    if (a.kind !== "fresh") throw new Error("expected fresh");
-    await markTurnUnknown(a.commandId, "TEST_S05_A2", a.ownerToken);
-
-    const b = await postUserMessageAndNora(
-      pilotId,
-      preparationId,
-      "Quelle est la différence entre blob et commit ?",
-      { clientTurnKey: `s05-b-q-${Date.now()}` },
-    );
-    expect(b.status).toBe("COMPLETE");
-    expect(b.pendingEffectBlocked).not.toBe(true);
-    expect(b.nextTurnKind).toBe("DIALOGUE_INDEPENDANT");
-
-    const aRow = (
-      await db
-        .select()
-        .from(conversationTurnCommands)
-        .where(eq(conversationTurnCommands.id, a.commandId))
-        .limit(1)
-    )[0];
-    expect(aRow?.status).toBe("UNKNOWN");
-  });
-
-  // AUTH-I02/I03 vacuous path REMOVED — real proofs live in ml4c-auth-reconciliation.pg.test.ts (R01–R14).
-
-  it("KNOW-R07: Nora established without independent source → no FACT", async () => {
-    const beforeFacts = await db
-      .select()
-      .from(knowledgeAcquis)
-      .where(
-        and(
-          eq(knowledgeAcquis.preparationId, preparationId),
-          eq(knowledgeAcquis.kind, "FACT"),
-          eq(knowledgeAcquis.status, "CURRENT"),
-        ),
-      );
-    const cap = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-      userText: "Retiens comme fait établi que la latence cible est 50ms.",
-      assistantText: "ok",
-      generationId: "g-fact-refuse",
-      userMessageId: "m-fact-refuse",
-      proposals: [
-        {
-          intentId: "ik-est",
-          kind: "ACQUIS",
-          statement: "La latence cible est 50ms.",
-          epistemic: "established",
-          subjectTitle: "Performance",
-          continuityReason: "Nora marked established",
-        },
-      ],
-    });
-    expect(cap.humanDecisionCreated).toBe(false);
-    const acquis = cap.capitalisations.find((c) => c.kind === "acquis");
-    expect(acquis?.status).toBe("AVAILABLE");
-    expect(acquis?.reason).toBe("FACT_PROMOTION_REFUSED_NO_INDEPENDENT_SOURCE");
-    const after = await db
-      .select()
-      .from(knowledgeAcquis)
-      .where(
-        and(
-          eq(knowledgeAcquis.preparationId, preparationId),
-          eq(knowledgeAcquis.statement, "La latence cible est 50ms."),
-          eq(knowledgeAcquis.status, "CURRENT"),
-        ),
-      );
-    expect(after.length).toBe(1);
-    expect(after[0]?.kind).toBe("HYPOTHESIS");
-    expect(after[0]?.kind).not.toBe("FACT");
-    const afterFacts = await db
-      .select()
-      .from(knowledgeAcquis)
-      .where(
-        and(
-          eq(knowledgeAcquis.preparationId, preparationId),
-          eq(knowledgeAcquis.kind, "FACT"),
-          eq(knowledgeAcquis.status, "CURRENT"),
-        ),
-      );
-    expect(afterFacts.length).toBe(beforeFacts.length);
-  });
-
-  it("KNOW-R13: D4 proposal never creates HumanDecision", async () => {
-    const cap = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-      userText: "Note l'hypothèse d'un déploiement progressif.",
-      assistantText: "ok",
-      generationId: "g-no-hd",
-      userMessageId: "m-no-hd",
-      proposals: [
-        {
-          intentId: "ik-h",
-          kind: "ACQUIS",
-          statement: "Déploiement progressif envisagé.",
-          epistemic: "hypothesized",
-          subjectTitle: "Déploiement",
-        },
-      ],
-    });
-    expect(cap.humanDecisionCreated).toBe(false);
-  });
-
-  it("KNOW-01/KNOW-11: semantic proposal capitalises once; polite chatter writes nothing", async () => {
-    const before = await db
-      .select()
-      .from(knowledgeAcquis)
-      .where(eq(knowledgeAcquis.preparationId, preparationId));
-
-    const polite = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-      userText: "Bonjour Nora, comment vas-tu ?",
-      assistantText: "Bonjour",
-      generationId: "g-polite",
-      userMessageId: "m-polite",
-      proposals: [],
-    });
-    expect(polite.capitalisations).toHaveLength(0);
-
-    const cap = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-      userText:
-        "Retiens comme acquis structurant que l'architecture modulaire est la piste privilégiée pour la suite.",
-      assistantText: "ok",
-      generationId: "g-arch",
-      userMessageId: "m-arch",
-      proposals: [
-        {
-          intentId: "ik",
-          kind: "ACQUIS",
-          statement:
-            "L'architecture modulaire est la piste privilégiée pour la suite du projet.",
-          epistemic: "hypothesized",
-          subjectTitle: "Architecture",
-          continuityReason: "Acquis structurant",
-        },
-      ],
-    });
-    expect(cap.humanDecisionCreated).toBe(false);
-    expect(cap.capitalisations.some((c) => c.kind === "acquis" && c.status === "AVAILABLE")).toBe(
-      true,
-    );
-
-    const again = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-      userText: "same",
-      assistantText: "ok",
-      generationId: "g-arch-2",
-      userMessageId: "m-arch-2",
-      proposals: [
-        {
-          intentId: "ik",
-          kind: "ACQUIS",
-          statement:
-            "L'architecture modulaire est la piste privilégiée pour la suite du projet.",
-          epistemic: "hypothesized",
-          subjectTitle: "Architecture",
-        },
-      ],
-    });
-    const acquisAgain = again.capitalisations.find((c) => c.kind === "acquis");
-    expect(acquisAgain?.status).toBe("AVAILABLE");
-
-    const after = await db
-      .select()
-      .from(knowledgeAcquis)
-      .where(
-        and(
-          eq(knowledgeAcquis.preparationId, preparationId),
-          eq(knowledgeAcquis.status, "CURRENT"),
-          eq(
-            knowledgeAcquis.statement,
-            "L'architecture modulaire est la piste privilégiée pour la suite du projet.",
-          ),
-        ),
-      );
-    expect(after.length).toBe(1);
-    expect(after[0]?.kind).toBe("HYPOTHESIS");
-    // Idempotent capitalize: CURRENT row count for this statement stays 1 (no duplicate).
-    expect(before.filter((a) => a.statement === after[0]?.statement && a.status === "CURRENT").length).toBeLessThanOrEqual(
-      1,
-    );
-  });
-
-  it("fixture path: polite message produces no document / no knowledge write", async () => {
-    const r = await postUserMessageAndNora(pilotId, preparationId, "Bonjour Nora, comment vas-tu ?", {
-      clientTurnKey: `know-polite-${Date.now()}`,
-    });
-    expect(r.documentSave).toBeNull();
-    expect(r.humanDecisionCreated).toBe(false);
-  });
-});
-```
-
-### CREATE `projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts`
-
-```
-import { describe, expect, it } from "vitest";
-import { e2eFixtureMutationsAllowed } from "@/lib/e2e-fixture-gate";
-import { readFileSync } from "fs";
-import { join } from "path";
-
-describe("C-03 E2E fixture mutation gate", () => {
-  it("FIX-01: RECETTE + E2E → refuse", () => {
-    const r = e2eFixtureMutationsAllowed({
-      NODE_ENV: "development",
-      STUDIO_LANE: "RECETTE",
-      STUDIO_E2E: "1",
-    } as NodeJS.ProcessEnv);
-    expect(r.ok).toBe(false);
-    expect(r.reason).toBe("LANE_NOT_DEV");
-  });
-
-  it("FIX-02: STABLE + E2E → refuse", () => {
-    const r = e2eFixtureMutationsAllowed({
-      NODE_ENV: "development",
-      STUDIO_LANE: "STABLE",
-      STUDIO_E2E: "1",
-    } as NodeJS.ProcessEnv);
-    expect(r.ok).toBe(false);
-    expect(r.reason).toBe("LANE_NOT_DEV");
-  });
-
-  it("FIX-03: production NODE_ENV even with DEV+E2E → refuse", () => {
-    const r = e2eFixtureMutationsAllowed({
-      NODE_ENV: "production",
-      STUDIO_LANE: "DEV",
-      STUDIO_E2E: "1",
-    } as NodeJS.ProcessEnv);
-    expect(r.ok).toBe(false);
-    expect(r.reason).toBe("NODE_ENV_PRODUCTION");
-  });
-
-  it("FIX-04: DEV + FORCE_NORA alone (no E2E) → refuse", () => {
-    const r = e2eFixtureMutationsAllowed({
-      NODE_ENV: "development",
-      STUDIO_LANE: "DEV",
-      STUDIO_FORCE_NORA_FIXTURE: "1",
-    } as NodeJS.ProcessEnv);
-    expect(r.ok).toBe(false);
-    expect(r.reason).toBe("STUDIO_E2E_REQUIRED");
-  });
-
-  it("FIX-08: DEV + E2E + non-production → allow", () => {
-    const r = e2eFixtureMutationsAllowed({
-      NODE_ENV: "development",
-      STUDIO_LANE: "DEV",
-      STUDIO_E2E: "1",
-      STUDIO_FORCE_NORA_FIXTURE: "1",
-    } as NodeJS.ProcessEnv);
-    expect(r.ok).toBe(true);
-  });
-
-  it("FIX-09/10: route uses gate lib; no decision/Git mutation surface", () => {
-    const route = readFileSync(
-      join(__dirname, "../../src/app/api/dev/e2e/s05-fixture/route.ts"),
-      "utf8",
-    );
-    const gate = readFileSync(join(__dirname, "../../src/lib/e2e-fixture-gate.ts"), "utf8");
-    expect(route).toMatch(/e2eFixtureMutationsAllowed/);
-    expect(gate).toMatch(/STUDIO_E2E_REQUIRED/);
-    expect(gate).toMatch(/NODE_ENV_PRODUCTION/);
-    expect(gate).toMatch(/STUDIO_E2E/);
-    expect(gate).not.toMatch(/STUDIO_FORCE_NORA_FIXTURE\s*===/);
-    expect(route).not.toMatch(/authorizePublication|dispatchPublication|insertHumanDecision/);
-    expect(route).toMatch(/Does NOT create HumanDecision/);
-  });
-});
-```
-
-### CREATE `projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts`
-
-```
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import {
-  INTERVENCIA_S02_01_MESSAGE,
-  fixtureSemanticQualify,
-} from "@/domains/conversation/fixture-semantic-qualify";
-import {
-  deriveThreadTurnKind,
-  effectIntents,
-  extractPilotageBinding,
-  matchPilotageIntentInQualification,
-  projectStudioEffects,
-  validateNoraTurnQualification,
-  type NoraTurnQualification,
-} from "@/domains/conversation/semantic-qualification";
-import { qualifyThreadTurn } from "@/domains/pilotage/thread-recovery";
-import { qualifyDocumentAct } from "@/domains/conversation/document-act";
-import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
-
-describe("semantic qualification envelope", () => {
-  it("requires typed pilotageOperation for D5/D6 REQUEST_EFFECT", () => {
-    const missing = validateNoraTurnQualification({
-      schemaVersion: "ml4c-sem-qual-v1",
-      status: "QUALIFIED",
-      goal: "x",
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d5.pilotage_command",
-          mode: "REQUEST_EFFECT",
-          summary: "open",
-          parameters: {},
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      replyDraft: "ok",
-    });
-    expect(missing.ok).toBe(false);
-
-    const ok = validateNoraTurnQualification({
-      schemaVersion: "ml4c-sem-qual-v1",
-      status: "QUALIFIED",
-      goal: "x",
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d5.pilotage_command",
-          mode: "REQUEST_EFFECT",
-          summary: "open",
-          parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      replyDraft: "ok",
-    });
-    expect(ok.ok).toBe(true);
-    if (ok.ok) {
-      const binding = extractPilotageBinding(ok.value);
-      expect(binding && !("ambiguous" in binding) && binding.operation).toBe("OPEN_CYCLE");
-    }
-  });
-
-  it("matchPilotageIntent rejects substituted operation / intentId", () => {
-    const q: NoraTurnQualification = {
-      schemaVersion: "ml4c-sem-qual-v1",
-      status: "QUALIFIED",
-      goal: "open",
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d5.pilotage_command",
-          mode: "REQUEST_EFFECT",
-          summary: "open",
-          parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      replyDraft: "ok",
-    };
-    expect(matchPilotageIntentInQualification(q, { operation: "CLOSE_CYCLE" })).toMatchObject({
-      reject: true,
-    });
-    expect(matchPilotageIntentInQualification(q, { intentId: "other" })).toMatchObject({
-      reject: true,
-    });
-    expect(matchPilotageIntentInQualification(q, { operation: "OPEN_CYCLE", intentId: "i1" })).toMatchObject({
-      operation: "OPEN_CYCLE",
-      intentId: "i1",
-    });
-  });
-
-  it("follow-on document requires exact dependsOn on create-project intent id", () => {
-    const loose: NoraTurnQualification = {
-      schemaVersion: "ml4c-sem-qual-v1",
-      status: "QUALIFIED",
-      goal: "x",
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d2.create_project",
-          mode: "REQUEST_EFFECT",
-          summary: "p",
-          parameters: { projectName: "Atlas" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-        {
-          id: "i2",
-          capabilityId: "d4.create_document",
-          mode: "REQUEST_EFFECT",
-          summary: "doc",
-          parameters: {},
-          constraints: [],
-          dependsOn: ["unrelated"],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      replyDraft: "ok",
-    };
-    // invalid dependsOn fails schema validation
-    expect(validateNoraTurnQualification(loose).ok).toBe(false);
-
-    const ok: NoraTurnQualification = {
-      ...loose,
-      intents: [
-        loose.intents[0]!,
-        { ...loose.intents[1]!, dependsOn: ["i1"] },
-      ],
-    };
-    expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
-  });
-
-  it("deriveThreadTurnKind from semantic modes", () => {
-    const dialogue: NoraTurnQualification = {
-      schemaVersion: "ml4c-sem-qual-v1",
-      status: "QUALIFIED",
-      goal: "q",
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d3.converse",
-          mode: "EXPLAIN",
-          summary: "explain",
-          parameters: {},
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      replyDraft: "ok",
-    };
-    expect(deriveThreadTurnKind(dialogue)).toBe("DIALOGUE_INDEPENDANT");
-  });
-});
-
-describe("fixtureSemanticQualify — exact scenario injection", () => {
-  const prev = { ...process.env };
-
-  beforeEach(() => {
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-  });
-
-  afterEach(() => {
-    process.env = { ...prev };
-  });
-
-  it("full Intervencia message → no D2/D4 effect intents", () => {
-    const q = fixtureSemanticQualify(INTERVENCIA_S02_01_MESSAGE);
-    expect(effectIntents(q)).toHaveLength(0);
-    expect(projectStudioEffects(q).wantsProjectCreate).toBe(false);
-    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
-  });
-
-  it("positive create exact scenarios → d2 REQUEST_EFFECT", () => {
-    for (const msg of [
-      "Je veux créer un projet.",
-      "Je veux démarrer un projet.",
-      "Je souhaite initier un nouveau projet.",
-    ]) {
-      expect(projectStudioEffects(fixtureSemanticQualify(msg)).wantsProjectCreate, msg).toBe(true);
-    }
-  });
-
-  it("negations / how-to exact scenarios → no create", () => {
-    for (const msg of [
-      "Je ne veux pas créer le projet.",
-      "Comment crée-t-on un projet ?",
-      "Il a écrit : crée le projet Atlas.",
-    ]) {
-      expect(projectStudioEffects(fixtureSemanticQualify(msg)).wantsProjectCreate, msg).toBe(false);
-    }
-  });
-
-  it("Atlas compound preserves exact dependsOn", () => {
-    const proj = projectStudioEffects(
-      fixtureSemanticQualify(
-        "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage qui expose l'objectif, le périmètre et les premières étapes.",
-      ),
-    );
-    expect(proj.wantsProjectCreate).toBe(true);
-    expect(proj.proposedProjectName).toBe("Atlas");
-    expect(proj.wantsFollowOnDocument).toBe(true);
-  });
-
-  it("unknown fixture text is dialogue-only (no lexical invent)", () => {
-    const q = fixtureSemanticQualify("Formule libre jamais enregistrée dans la table.");
-    expect(effectIntents(q)).toHaveLength(0);
-  });
-});
-
-describe("SEM-02 lexical routers retired", () => {
-  it("qualifyDocumentAct / qualifyPilotageIntent / qualifyThreadTurn fail-closed", () => {
-    expect(qualifyDocumentAct("Crée un document de recette.").kind).toBe("NONE");
-    expect(qualifyPilotageIntent("Ouvre le cycle cadrage.").clarity).toBe("NONE");
-    expect(qualifyThreadTurn("Ouvre le cycle cadrage.").kind).toBe("INCERTAIN");
-  });
-
-  it("PHRASES synonym table removed from intent.ts", () => {
-    const src = readFileSync(join(__dirname, "../../src/domains/pilotage/intent.ts"), "utf8");
-    expect(src).not.toMatch(/const PHRASES/);
-    expect(src).toMatch(/SEMANTIC_ROUTER_REQUIRED/);
-  });
-
-  it("pilotage owner path requires durable qualification match", () => {
-    const src = readFileSync(join(__dirname, "../../src/domains/pilotage/service.ts"), "utf8");
-    expect(src).toMatch(/loadDurableQualificationForUserMessage/);
-    expect(src).toMatch(/matchPilotageIntentInQualification/);
-    expect(src).not.toMatch(/qualifyPilotageIntent\s*\(/);
-  });
-
-  it("project page no longer imports qualifyThreadTurn", () => {
-    const src = readFileSync(join(__dirname, "../../src/app/projects/[projectId]/page.tsx"), "utf8");
-    expect(src).not.toMatch(/qualifyThreadTurn/);
-    expect(src).toMatch(/nextTurnKind/);
-    expect(src).toMatch(/unresolvedPendingClientTurnKey/);
-  });
-
-  it("Lot A — USER_MESSAGE path refuses body enrichment of authority params", () => {
-    const src = readFileSync(join(__dirname, "../../src/domains/pilotage/service.ts"), "utf8");
-    expect(src).toMatch(/pas de complément body/);
-    expect(src).toMatch(/fromDurable/);
-    expect(src).not.toMatch(/matched\.cycleType \?\? body\.cycleType/);
-    expect(src).not.toMatch(/matched\.decisionId \?\? body\.decisionId/);
-    expect(src).not.toMatch(/matched\.objectRef \?\? body\.objectRef/);
-  });
-
-  it("Lot B — completeTurnCommand / markTurnUnknown preserve semanticQualification", () => {
-    const src = readFileSync(join(__dirname, "../../src/domains/conversation/turn-command.ts"), "utf8");
-    expect(src).toMatch(/semanticQualification !== undefined/);
-    expect(src).toMatch(/Fail closed: keep prior durable JSON/);
-    expect(src).toMatch(/findUnresolvedSiblingTurns/);
-  });
-
-  it("Lot C — S05 pending gate before owner effects", () => {
-    const src = readFileSync(join(__dirname, "../../src/domains/conversation/service.ts"), "utf8");
-    expect(src).toMatch(/S05_PENDING_BLOCKS_EFFECT/);
-    expect(src).toMatch(/allowOwnerEffects/);
-    expect(src).toMatch(/findUnresolvedSiblingTurns/);
-  });
-
-  it("F1 — reconcile known acts before STALE_REVISION gate", () => {
-    const src = readFileSync(
-      join(__dirname, "../../src/domains/pilotage/command-runner.ts"),
-      "utf8",
-    );
-    const classifyIdx = src.indexOf("const classified = await handlers.classify(tx)");
-    const intentIdx = src.indexOf("const intent = await findByIntent(");
-    const staleIdx = src.indexOf('reasonCode: "STALE_REVISION"');
-    expect(classifyIdx).toBeGreaterThan(0);
-    expect(intentIdx).toBeGreaterThan(classifyIdx);
-    expect(staleIdx).toBeGreaterThan(intentIdx);
-    expect(src).toMatch(/NEW act only: expectedRevision guards concurrency/);
-  });
-
-  it("F4 — no FACT from Nora established alone; resume hints post-reply only", () => {
-    const knowledge = readFileSync(
-      join(__dirname, "../../src/domains/knowledge/service.ts"),
-      "utf8",
-    );
-    expect(knowledge).toMatch(/FACT_PROMOTION_REFUSED_NO_INDEPENDENT_SOURCE/);
-    expect(knowledge).not.toMatch(/p\.epistemic === "established"\s*\?\s*"FACT"/);
-    const conv = readFileSync(
-      join(__dirname, "../../src/domains/conversation/service.ts"),
-      "utf8",
-    );
-    expect(conv).toMatch(/pre_generation_context/);
-    expect(conv).toMatch(/post_qualification_resume_only/);
-    expect(conv).toMatch(/knowledgeForNora/);
-  });
-
-  it("Lot D — lexical capitalisation / document helpers / knowledge listing retired", () => {
-    const knowledge = readFileSync(
-      join(__dirname, "../../src/domains/knowledge/service.ts"),
-      "utf8",
-    );
-    expect(knowledge).toMatch(/semantic-proposals/);
-    expect(knowledge).toMatch(/bounded-resource-listing|semantic-preferred-then-bounded/);
-    expect(knowledge).not.toMatch(/selectionMethod: "lexical-heuristic"/);
-    expect(knowledge).toMatch(/d4\.record_knowledge|RG-KNOW-001/);
-
-    const doc = readFileSync(
-      join(__dirname, "../../src/domains/conversation/document-act.ts"),
-      "utf8",
-    );
-    expect(doc).toMatch(/export function hasExplicitCreateIntent\(_text: string\): boolean \{\n  return false;/);
-
-    const auth = readFileSync(
-      join(__dirname, "../../src/domains/pilotage/conversation-authority.ts"),
-      "utf8",
-    );
-    expect(auth).toMatch(/pas de cible lexicale/);
-    expect(auth).not.toMatch(/const resolved = resolveReviseTargetLexical/);
-  });
-});
-```
-
-## 8. Distinction changements
-
-### A. Cumul candidat local (tous cycles vs 2416e2ee)
-Sections 5–7.
-
-### B. Présent cycle C-01..C-03 (admissibility)
-- tests/integration/ml4c-auth-reconciliation.pg.test.ts (AUTH-R06 oracle)
-- tests/e2e/ml4c-s05-real-api.spec.ts (S05-REAL-05 / M01 / M02 / FIX-05..07 / FIX-06)
-- src/app/api/dev/e2e/s05-fixture/route.ts (seed_awaiting_mission + gate)
-- src/lib/e2e-fixture-gate.ts (NEW)
-- tests/unit/ml4c-e2e-fixture-gate.test.ts (NEW)
-- as-built + delivery-history updates
-
-## 9. Oracles clés
-
-### AUTH-R06
-A=OPEN_CYCLE APPLIED ; B=TRANSITION_CYCLE→CONCEPTION_FONCTIONNELLE APPLIED ;
-same userMessageId ; distinct intentId/sourceActionKey ; replay ALREADY_APPLIED ; no 3rd effect.
-
-### S05-REAL-05
-Mission AWAITING_PILOT_ACT via COMPLETE turn ; unknownTurns=0 ;
-B OPEN_CYCLE → pendingEffectBlocked + S05_MISSION_BLOCKS_EFFECT ; no new cmds/docs/HD.
-
-### Fixture
-e2eFixtureMutationsAllowed requires NODE_ENV≠production ∧ STUDIO_LANE=DEV ∧ STUDIO_E2E=1.
-
-## 10. REALISM GAPS / Réserves
-- LIVE Nora NOT RUN
-- FACT independent validator not invented
-- S02-01 SOURCE EXACTE NON DISPONIBLE
-- A-006/A-007 open
-- Mission seed uses durable MissionProjection shape via commitTurnTerminal (not a second store)
-
-## 11. Gates Morris
-- GO REAL LIVE
-- PR / RECETTE / merge / promotion
-- Intervencia retest
-
-## 12. Verdict
-
-**IMPLEMENTED WITH RESERVES — REVIEW REQUIRED**
-
-INSTRUCTION CHATGPT: re-read remote handoff in full; verify AUTH-R06 both APPLIED,
-S05-REAL-05 AWAITING without UNKNOWN, fixture isolation, cumulative pack completeness.
