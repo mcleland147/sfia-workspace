@@ -2409,11 +2409,15 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         objective: "À lever",
       });
       expect(opened.status).toBe("APPLIED");
+      // Specific cycle instance — not global "*". CADRAGE durable hint must not lift "*".
+      const cycleId =
+        opened.effects.find((e) => e.effectKind === "OPEN_CYCLE")?.targetRef ?? "CADRAGE";
       const applied = await applyGovernanceRestriction(pilotId, projectId, {
         clientCommandKey: newId("idem"),
         expectedRevision: opened.revision ?? 1,
         sourceRef: newId("src"),
         targetKind: "CYCLE_MUTATION",
+        targetRef: cycleId,
         statement: "Freeze",
       });
       expect(applied.status).toBe("APPLIED");

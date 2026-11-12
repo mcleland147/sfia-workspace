@@ -22,16 +22,40 @@ export type DurableResolveFail = {
 };
 export type DurableResolveResult = DurableResolveOk | DurableResolveFail;
 
-/** Exact targetRef match, wildcard, or active cycle id when hint is the cycle type. */
+/** True when durable / stored targetRef denotes global scope (empty or "*"). */
+export function isGlobalRestrictionTarget(targetRef: string | null | undefined): boolean {
+  const value = (targetRef ?? "").trim();
+  return value === "" || value === "*";
+}
+
+/**
+ * Match an ACTIVE restriction targetRef against a durable target hint.
+ * Specific durable hints never select a global "*" restriction.
+ * Global durable hints ("" / "*") match only global ACTIVE targets.
+ * CycleType ↔ active cycle id remains an explicit contractual equivalence.
+ */
 export function restrictionTargetMatchesHint(input: {
   targetRef: string;
   hint: string;
   activeCycle?: { id: string; cycleType: string } | null;
 }): boolean {
-  const ref = (input.targetRef || "*").trim().toUpperCase();
-  const hint = input.hint.trim().toUpperCase();
-  if (!hint) return true;
-  if (ref === "*" || ref === hint) return true;
+  const refRaw = (input.targetRef ?? "").trim();
+  const hintRaw = input.hint.trim();
+  const ref = refRaw.toUpperCase();
+  const hint = hintRaw.toUpperCase();
+
+  // Empty / "*" durable hint ⇒ only an explicitly global ACTIVE restriction.
+  if (isGlobalRestrictionTarget(hintRaw)) {
+    return isGlobalRestrictionTarget(refRaw);
+  }
+
+  // Specific durable hint never widens to a global restriction.
+  if (isGlobalRestrictionTarget(refRaw)) {
+    return false;
+  }
+
+  if (ref === hint) return true;
+
   const cycle = input.activeCycle;
   if (
     cycle &&
@@ -72,6 +96,14 @@ export async function resolveReviseDecisionTarget(
         ok: false,
         reasonCode: "AMBIGUOUS",
         reason: "decisionId durable absent, hors projet ou non APPLICABLE",
+      };
+    }
+    // Same strictness as objectRef resolution: only RECORD_DECISION is revisable via D6.
+    if (row.kind !== "RECORD_DECISION") {
+      return {
+        ok: false,
+        reasonCode: "INVALID",
+        reason: "decisionId durable n'est pas une RECORD_DECISION APPLICABLE",
       };
     }
     const objectRef = (input.objectRef ?? "").trim();
@@ -157,15 +189,24 @@ export async function resolveLiftRestrictionTarget(
     ? active.filter((r) => r.targetKind.toUpperCase() === kindHint)
     : active;
 
-  if (targetHint) {
-    pool = pool.filter((r) =>
-      restrictionTargetMatchesHint({
-        targetRef: r.targetRef,
-        hint: targetHint,
-        activeCycle: input.activeCycle,
-      }),
-    );
+  // Absent / empty target hint is not an implicit authorization to lift a global "*".
+  // Require an explicit durable target (specific or global "*") before matching.
+  if (!targetHint.trim()) {
+    return {
+      ok: false,
+      reasonCode: "AMBIGUOUS",
+      reason:
+        "LIFT_RESTRICTION sans restrictionTargetRefHint durable — clarification requise",
+    };
   }
+
+  pool = pool.filter((r) =>
+    restrictionTargetMatchesHint({
+      targetRef: r.targetRef,
+      hint: targetHint,
+      activeCycle: input.activeCycle,
+    }),
+  );
 
   if (pool.length === 0) {
     return {

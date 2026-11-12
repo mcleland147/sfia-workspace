@@ -156,6 +156,29 @@ Parent produit: `9c163d62`. Mandat: sécuriser les réserves Critical Review R1/
 | tsc / eslint / Next build | PASS (warnings non bloquants) |
 | LIVE Nora / Git REAL | NOT RUN |
 
+## Correctif final d'autorité + freeze RECETTE (2026-11-12 ~19:20 CET)
+
+Parent produit: `d7c28a21`. Mandat R5 : deux cas limites + mise à disposition RECETTE pour reprise ML4C-UAT-2026-11-12 (S02-01).
+
+### Cas A — portée globale `*`
+
+- `restrictionTargetMatchesHint` : un hint durable spécifique (ex. CADRAGE) **ne sélectionne plus** une restriction ACTIVE `targetRef="*"`.
+- Hint durable global (`*` / vide normalisé) ne matche que des cibles globales.
+- `resolveLiftRestrictionTarget` exige un `restrictionTargetRefHint` durable explicite (pas d'autorisation implicite de levée globale).
+- Preuves G01–G05 via `executePilotageCommand`.
+
+### Cas B — kind D6
+
+- Branche `decisionId` de `resolveReviseDecisionTarget` exige `kind === RECORD_DECISION` (même stricteé que objectRef).
+- OPEN_CYCLE / APPLY_RESTRICTION / autres fondateurs D5 → INVALID.
+- Preuves D01–D07 via `executePilotageCommand`.
+
+### Campagne utilisateur
+
+- Identifiant conservé : `ML4C-UAT-2026-11-12`.
+- Cahier/journal historiques non remplacés ; premier retest attendu : **S02-01**.
+- A-006/A-007 : FIX IMPLEMENTED / RETEST USER PENDING (pas CLOSED).
+
 ## Non-déclarations
 
 ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED · READY FOR REAL · LIVE Nora

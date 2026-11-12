@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~19:20 CET (Europe/Paris) |
+| Macro-lot | ML4C R5 — gardes finales cible durable (`*` / kind D6) + freeze RECETTE |
+| Type | EVOL Critical corrective + mise à disposition RECETTE (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
+| Parent tip | `d7c28a21a9e41c5e5fb2af7415fb59e8a6cf247b` |
+| Lane | DEV/E2E tests ; RECETTE figée après CI GREEN (campagne ML4C-UAT-2026-11-12) |
+| Changes | `restrictionTargetMatchesHint` fail-closed vs globale ; LIFT exige hint durable ; `resolveReviseDecisionTarget` exige RECORD_DECISION ; tests G01–G05 / D01–D07 |
+| Schema | unchanged |
+| Tests | unit 252 PASS (248+4) ; PG 336 PASS (324+12 G/D) ; Playwright 25 PASS ; LIVE NOT RUN |
+| Status | PUSH PR #676 puis freeze RECETTE si CI GREEN |
+
 ## delivery_id: DELIV-2026-11-12-ML4C-AUTHORITY-HARDENING
 
 | Field | Value |
