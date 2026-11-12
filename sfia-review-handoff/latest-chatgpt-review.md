@@ -1,464 +1,638 @@
 # SFIA Studio Next — Review Pack FULL
-# ML4C — RECETTE LIVE/REAL readiness qualification
+# ML4C INC S02-01 — ML4C-A-006 / ML4C-A-007
+# Intent authority + D3 restitution
 
-**Date/heure :** 2026-11-11 22:14 CET (2026-11-11 21:14 UTC)
-**Cycle :** 11 — Déploiement / release (RUN)
-**Typologie :** RUN — activation/qualification LIVE/REAL
-**Profil :** Critical
-**Macro-lot :** R5 / ML4C
-**Niveau review pack :** **full**
-**PR produit :** https://github.com/mcleland147/sfia-workspace/pull/676 — **inchangée**
-**Merge / STABLE / Git write / release :** **NON AUTORISÉS**
-**Version :** NO RELEASE / `0.0.0-dev`
+**Date/heure :** 2026-11-12T07:06 Europe/Paris
+**Cycle :** Delivery projet — RUN INC (correctif fonctionnel intégré)
+**Macro-lot :** ML4C — convergence fonctionnelle intégrée (correctif local, pas un nouveau macro-lot produit)
+**GO Morris :** 12 novembre 2026 — correction A-006/A-007 uniquement
+**Verdict cycle :** FIX IMPLEMENTED WITH RESERVES — REVIEW REQUIRED
+**Statut produit :** NO RELEASE — PATCH sans nouvelle capacité — package `0.0.0-dev` inchangé
+**STABLE :** NOT AVAILABLE
 
 ---
 
-## 0. Review pack content coverage (§7.5)
+## 1. Git Truth (obligatoire)
 
-| Champ | Valeur |
+| Item | Valeur vérifiée |
 | --- | --- |
-| review pack réinitialisé au démarrage | oui |
-| review pack complété | oui |
-| niveau | **full** |
-| created files full content | **yes** (manifeste mis à jour, preuves JSON smoke) |
-| modified product files | **not applicable** (aucun commit produit) |
-| useful diff included | **not applicable** |
-| synthesis only | **no** |
-| review pack verdict | **complete** |
+| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
+| `origin/main` | `6d237452680640324eeadbb18f4601fd7de99850` |
+| Branche candidate (base) | `build/next-ml4c-functional-convergence` @ `2416e2ee25662821b015407346c64ec204f67488` |
+| PR #676 | OPEN, non mergée (contexte porté, non modifié ici) |
+| Branche locale de correction | `fix/next-ml4c-intent-authority-restitution-20261112` |
+| HEAD local au démarrage / base | `2416e2ee` (identique candidat) |
+| Modifications projet | **non commités** sur la branche de correction (worktree dirty attendu) |
+| Push projet / PR / merge | **AUCUN** |
+| Journal distant ML4C | **non modifié** |
+| Branche RECETTE figée | **non modifiée** ; runtime RECETTE non muté |
+| ENV-01 politique (main blob) | `environnements-recette-et-promotions.md` — 26273 octets ; SHA-256 `ecbbc14a0c0530f5d74e0434fcf1821ed57e85af0caed0966483bd77d1e86b71` |
+| Lane mutative | DEV `:5433` → Vitest réécrit vers `sfia_next_e2e` ; RECETTE `:5434` / CampusFlow/Intervencia **non touchés** |
+
+Shell au démarrage : `DATABASE_URL` opérateur pointait parfois RECETTE (`:5434`) — **explicitement unset** avant tout test mutatif. `NODE_ENV=production` dans le shell cassait Playwright webServer — unset pour E2E.
 
 ---
 
-## 1. Local Git Truth Check
+## 2. Analyse causale (avant → après)
 
-| Contrôle | Observé |
+### Avant (candidat `2416e2ee`, observation S02-01 Intervencia)
+
+1. **A-006 — qualification :** `qualifyStudioIntent` faisait `wantsProjectCreate = PROJECT_CREATE_RE.test(userText)` → tout « créer … projet » lexical, y compris sous négation / non-autorisation / how-to / possibilité.
+2. **A-006 — effet sas :** `wantsProjectCreate` ⇒ `updatePreview` (bump `creationRevision`) + mission D2 `AWAITING_PILOT_ACT` + éventuelle étape D4 `PENDING` si follow-on/doc.
+3. **A-007 — restitution :** `appendMissionAck` concaténait `formatMissionAck` (status / clientIntentKey / step / capability / attemptId) dans le **texte conversationnel** Nora.
+
+Cas Intervencia exact : *« Pour l'instant, je souhaite uniquement réfléchir et cadrer le besoin. Je ne t'autorise pas à créer le projet ni à engager des travaux techniques. »* → FAIL S02-01.
+
+### Après (correctif local)
+
+1. `hasPositiveProjectCreateIntent` : exige un match non nié (`isVerbNegated`), non précédé de « ne … autorise pas à », et hors méta how-to / « possibilité de créer ».
+2. Sans intention positive : **pas** d'`updatePreview`, **pas** de mission D2/D4 artificielle ; conversation durable OK.
+3. `appendMissionAck` = no-op sur le corps utilisateur ; `formatMissionAck` conservé pour outillage ; état dans `missionProjection` / `awaitingMission` / surface sas `prep-mission-awaiting-pilot-act` (intelligible, sans dump technique).
+4. Sanitize léger Markdown des noms proposés ; extraction « créer le projet Atlas ».
+
+**Non-objectifs respectés :** pas de nouveau moteur ; parcours positifs create / multi-cap / idempotence / reprise ACK préservés (preuves PG + E2E) ; pas de migration silencieuse des messages historiques.
+
+---
+
+## 3. Blast radius
+
+| Domaine | Impact |
 | --- | --- |
-| Remote | `mcleland147/sfia-workspace` |
-| Branche | `build/next-ml4c-functional-convergence` |
-| HEAD / tree | `2416e2ee…` / `88c05766…` |
-| main / merge-base | `6d237452…` |
-| Handoff tip initial | `bc0ce897` / blob `9b96d7eb` |
-| Produit modifié | non |
-| RECETTE servie | worktree `...-2416e2ee`, BUILD `qB8JvXfdL7FMOFYMf31kL`, :3200 |
-
-**Verdict Git Truth :** PASS.
-
----
-
-## 2. Git Review Index (§7.4)
-
-```text
-Git Review Index
-- base branch : main @ 6d237452…
-- HEAD avant/après : 2416e2ee… (inchangé)
-- fichiers modifiés (produit) : aucun
-- artefacts ops : ops/recette-served-manifest.yaml (complété) ; smokes locaux .tmp-live-smoke/
-- commits produit : aucun
-- validations : Nora LIVE smoke ; GitHub REAL READ ; negatives ; DB fingerprint
-- review pack : full
-- Fake/Real applicable : oui
-- décisions Morris : scénarios S01–S07 ; OAuth navigateur interactif ; GO écriture documentaire REAL
-```
+| D2 | Qualification create plus stricte ; preview/mission seulement si intention positive ; acte Pilote toujours requis |
+| D3 | Plus d'injection diagnostics dans le fil ; projection structurée inchangée côté API |
+| D4 | Plus d'étape PENDING artificielle depuis cadrage négatif ; create document explicite inchangé |
+| API | Contrat JSON `missionProjection` inchangé ; corps assistant allégé |
+| DB / migrations | **aucune** |
+| UX sas | Surface minimale `data-testid=prep-mission-awaiting-pilot-act` ; pas de refonte ; ML4C-A-003 hors scope |
+| Autorité | Frontière D2/D3/D4 renforcée (négation ≠ autorisation) |
+| RECETTE/STABLE | **inchangés** |
 
 ---
 
-## 3. Matrice de preuve LIVE/REAL
+## 4. Fichiers modifiés / créés
 
-| CAPACITÉ | CONFIGURATION OBSERVÉE | FOURNISSEUR CONTACTÉ | EFFET / LECTURE | PREUVE | RÉSULTAT | RÉSERVE |
-| --- | --- | --- | --- | --- | --- | --- |
-| Nora OpenAI | RECETTE, key PRESENT, fixture ABSENT, TEST_BOUNDARY | YES | 2 réponses COMPLETE | smoke JSON + OBS provider_attempt | **LIVE BEHAVIOR PROVEN** | modelApplied UNVERIFIED (contrat adapter) |
-| OAuth Studio identity | Better Auth + GitHub OAuth CONFIGURED | n/a ce cycle | sessions DB `github-oauth`×6 / 2 users | `/api/auth/status` + SQL | **CONFIGURED** + sessions persistées | callback navigateur interactif **NOT RUN** — ACTION MORRIS |
-| GitHub App RECETTE | App 5677465 / inst 180092114 / lane RECETTE | YES (installation token) | install repos=1 | REAL provider | **CONFIGURED** | — |
-| Git REAL READ | PROVIDER=real | YES | meta+refs+README.md | smoke JSON | **REAL READ PROVEN** | — |
-| Git REAL documentary write | ALLOW_MUTATIONS=documentary | n/a | aucun write | flag + gate code | **REAL DOCUMENTARY WRITE CONFIGURED** | **NOT RUN** end-to-end |
-| Git merge | hard-block code | n/a | mergePullRequest refused | exception ACCESS_DENIED | **HARD-BLOCKED** | — |
-| Fixture hors DEV | FORCE=1 + LANE=RECETTE | NO | boundary FAILED | smoke | **FAILED CLOSED** | parent shell FORCE polluted harness until cleaned |
-| Repo non autorisé | REAL READ gate | YES attempt | ACCESS_DENIED | smoke | **BLOCKED** | — |
-| PostgreSQL RECETTE | :5434 / sfia_next_recette_ml4 | local | counts stables | SQL | **AVAILABLE** | — |
-| ML5 Cursor-in-Studio | — | — | — | — | **NOT IMPLEMENTED / N/A** | — |
-| S01–S07 user campaign | — | — | — | — | **NOT RUN** | étape 2 |
+### Modifiés
+- `projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+- `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx`
+- `projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts`
+- `projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts`
+- `projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts`
+- `projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts`
+- `projects/sfia-studio-next/web/tests/e2e/intent-continuity-atlas.spec.ts`
+- `projects/sfia-studio-next/construction/delivery-history.md`
+- `.tmp-sfia-review/chatgpt-review.md` (ce pack)
 
----
-
-## 4. Preuves Nora LIVE (contenu exploitable)
-
-```json
-{
-  "pre": {
-    "STUDIO_LANE": "RECETTE",
-    "STUDIO_E2E": null,
-    "STUDIO_FORCE_NORA_FIXTURE": null,
-    "SFIA_COG_PROFILE_TYPE": "TEST_BOUNDARY",
-    "keyPresent": true,
-    "noraFixtureFlagsOutsideDev": false,
-    "mustUseNoraFixture": false
-  },
-  "exchanges": [
-    {
-      "generationId": "gen_273b06e0-1706-4092-9052-b79974cea20e",
-      "mode": "openai-agents-sdk-live",
-      "status": "COMPLETE",
-      "modelRequested": "gpt-6.1-sol",
-      "modelApplied": "UNVERIFIED",
-      "effortRequested": "low",
-      "effortApplied": "UNVERIFIED",
-      "policyProfileType": "TEST_BOUNDARY",
-      "policyProfile": "simple",
-      "toolCallsObserved": 0,
-      "attempts": [
-        {
-          "kind": "stream",
-          "outcome": "SUCCESS",
-          "providerContacted": "YES",
-          "notes": "stream_fragments_received"
-        }
-      ],
-      "contentChars": 88,
-      "contentExcerptRedacted": "Un blob Git est un objet qui stocke le contenu d’un fichier, sans son nom ni son chemin.",
-      "streamingNotes": "stream_fragments_received"
-    },
-    {
-      "generationId": "gen_ad5537f1-4876-4610-aafd-3702cddf1bd4",
-      "mode": "openai-agents-sdk-live",
-      "status": "COMPLETE",
-      "modelRequested": "gpt-6.1-sol",
-      "modelApplied": "UNVERIFIED",
-      "effortRequested": "low",
-      "effortApplied": "UNVERIFIED",
-      "policyProfileType": "TEST_BOUNDARY",
-      "policyProfile": "simple",
-      "toolCallsObserved": 0,
-      "attempts": [
-        {
-          "kind": "stream",
-          "outcome": "SUCCESS",
-          "providerContacted": "YES",
-          "notes": "stream_fragments_received"
-        }
-      ],
-      "contentChars": 51,
-      "contentExcerptRedacted": "Je suis en mode conversationnel, sans effet métier.",
-      "streamingNotes": "stream_fragments_received"
-    }
-  ],
-  "at": "2026-11-11T21:13:12.618Z"
-}
-```
-
-## 5. Preuves GitHub REAL READ + negatives
-
-```json
-{
-  "at": "2026-11-11T21:10:08.662Z",
-  "config": {
-    "STUDIO_LANE": "RECETTE",
-    "resolveStudioGithubAppLane": "RECETTE",
-    "STUDIO_GITHUB_PROVIDER": "real",
-    "STUDIO_GITHUB_ALLOW_MUTATIONS": "documentary",
-    "STUDIO_GITHUB_USER_OAUTH": "real",
-    "isBoundedRealMutationAllowed": true,
-    "resolvedMode": "REAL",
-    "appId": "5677465",
-    "installationId": "180092114",
-    "allowedFullName": "mcleland147/chantiers360",
-    "expectedOwner": "mcleland147"
-  },
-  "realRead": {
-    "installationReposCount": 1,
-    "installationIncludesAllowed": true,
-    "meta": {
-      "fullName": "mcleland147/chantiers360",
-      "defaultBranch": "main",
-      "headShaPrefix": "8c398c494dd9",
-      "private": false,
-      "installationRepos": [
-        "mcleland147/chantiers360"
-      ],
-      "tokenPermissionKeys": [
-        "contents",
-        "metadata",
-        "pull_requests"
-      ],
-      "tokenExpiresAt": "2026-11-11T22:10:07Z"
-    },
-    "refsSample": [
-      {
-        "name": "cursor/evol-001-upload-photos-lot-1.1-a",
-        "shaPrefix": "9837ad856b53"
-      },
-      {
-        "name": "dependabot/npm_and_yarn/backend/eslint-10.6.0",
-        "shaPrefix": "62d4251ce200"
-      },
-      {
-        "name": "dependabot/npm_and_yarn/backend/eslint/js-10.0.1",
-        "shaPrefix": "1578f01ec2de"
-      },
-      {
-        "name": "dependabot/npm_and_yarn/backend/types/node-26.0.1",
-        "shaPrefix": "f210bf27d5e0"
-      },
-      {
-        "name": "dependabot/npm_and_yarn/backend/typescript-6.0.3",
-        "shaPrefix": "10b88845cd39"
-      }
-    ],
-    "fileRead": {
-      "path": "README.md",
-      "encoding": "utf-8",
-      "shaPrefix": "91b85b76c9fa",
-      "contentChars": 3610,
-      "refUsed": "cursor/evol-001-upload-photos-lot-1.1-a",
-      "headShaPrefix": "9837ad856b53"
-    }
-  },
-  "negatives": {
-    "deniedRepo": {
-      "ok": false,
-      "message": "Dépôt hors périmètre REAL READ (mcleland147/not-authorized-repo-smoke)"
-    },
-    "mergeBlocked": {
-      "blocked": true,
-      "message": "Mutation GitHub REAL interdite (mergePullRequest) — STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary ou merge hors périmètre"
-    },
-    "wrongInstallation": {
-      "blocked": true,
-      "message": "Installation ID hors mandat REAL READ"
-    }
-  }
-}
-```
-
-## 6. Capacités internes (non destructif)
-
-```json
-{
-  "db": "sfia_next_recette_ml4",
-  "schemaRevisionCode": "012_auth_concurrency_safety",
-  "counts": {
-    "pilots": 168,
-    "projects": 15,
-    "documents": 116,
-    "document_revisions": 186,
-    "human_decisions": 0,
-    "project_cycles": 0,
-    "github_oauth_sessions": 6,
-    "distinct_oauth_users": 2
-  },
-  "sampleProj": [
-    {
-      "id": "proj_b6dc56af-2b00-4671-89a3-46ea2c00c5c1",
-      "name": "git-at"
-    },
-    {
-      "id": "proj_dbb72351-4dab-4c74-9d17-df9932179eba",
-      "name": "ml4-rec11"
-    },
-    {
-      "id": "proj_baf667d0-6af4-4a06-9089-9359a9eb8d97",
-      "name": "ml4-prov"
-    }
-  ]
-}
-```
-
-## 7. Contrôles négatifs
-
-- `STUDIO_FORCE_NORA_FIXTURE=1` hors DEV → `NORA_FIXTURE_LANE_FORBIDDEN` / FAILED (pas de FAKE usable).
-- Parent shell avait `STUDIO_FORCE_NORA_FIXTURE=1` (pollution harness) ; **absent** de `~/.config/.../recette/.env.local` et du runtime LaunchAgent attendu.
-- Dépôt hors allowlist → ACCESS_DENIED.
-- Installation ID faux → ACCESS_DENIED.
-- `mergePullRequest` → ACCESS_DENIED (hors périmètre même si documentary).
-- Aucune branche/commit/PR créée ce cycle.
-- Login DEV non utilisé comme preuve.
+### Créés
+- `projects/sfia-studio-next/construction/convergence-fonctionnelle/correctif-ml4c-a006-a007-intent-authority-restitution.md` (intégral ci-dessous)
 
 ---
 
-## 8. Manifeste effectif (complet)
+## 5. Contenu intégral — fichier créé
 
-```yaml
-# ENV-01 §6 — manifeste non secret de mise à disposition RECETTE
-# Secrets: NEVER included. Statuses only.
+# Correctif ML4C-A-006 / ML4C-A-007 — intention, autorité D2, restitution D3
 
-lane: RECETTE
-version_policy: NO_RELEASE
-package_version: 0.0.0-dev
-candidate_sha: 2416e2ee25662821b015407346c64ec204f67488
-tree: 88c05766afa04355f5fbb63dcda603686a3f11a6
-build_identifier: qB8JvXfdL7FMOFYMf31kL
-previous_candidate_sha: d7f1507a56e50660ea24903c2dc563c249ba9086
-previous_build_identifier: 8vZjme4-KnnPkAqm_QxMz
-served_address: 'http://127.0.0.1:3200'
-served_worktree: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-2416e2ee
-service_label: com.sfia.studio.next.recette.ml4
-service_launcher: LaunchAgent macOS (existing label reused)
-start_script: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-2416e2ee/start-recette.sh
-database:
-  host: 127.0.0.1
-  port: 5434
-  name: sfia_next_recette_ml4
-  role: sfia_next_recette_ml4
-  container: sfia-next-recette-pg
-schemaRevision: 012_auth_concurrency_safety
-migrations_applied_this_cycle: false
-migrations_reason: identical 001→012 vs previous served build; no schema write
-dataset_preserved: true
-document_root: /Users/morris/.config/sfia-studio-next/recette/documents
-document_root_files: 0
-configuration_file: ~/.config/sfia-studio-next/recette/.env.local
-configuration_statuses:
-  STUDIO_LANE: RECETTE
-  STUDIO_PORT: 3200
-  STUDIO_GITHUB_PROVIDER: real
-  STUDIO_GITHUB_ALLOW_MUTATIONS: documentary
-  STUDIO_GITHUB_USER_OAUTH: real
-  SFIA_COG_PROFILE_TYPE: TEST_BOUNDARY
-  OPENAI_API_KEY: PRESENT
-  GITHUB_APP_ID: '5677465'
-  GITHUB_APP_INSTALLATION_ID: '180092114'
-  GITHUB_APP_EXPECTED_OWNER: mcleland147
-  GITHUB_APP_ALLOWED_REPO: mcleland147/chantiers360
-  GITHUB_APP_CALLBACK_URL: http://127.0.0.1:3200/api/integrations/github/callback
-  BETTER_AUTH_URL: http://127.0.0.1:3200
-  GITHUB_APP_PRIVATE_KEY_PATH_FILE: PRESENT
-identity_callbacks: PRESERVED
-github_app: sfia-studio-next-recette / App ID 5677465 / Installation 180092114
-functions_available:
-  - HTTP login page
-  - GitHub OAuth studio identity endpoint CONFIGURED
-  - existing RECETTE dataset read path
-functions_blocked_this_cycle:
-  - Nora LIVE voluntary calls (NOT RUN — separate GO required)
-  - Git REAL write mutations (NOT RUN — documentary flag preserved, no write)
-  - STABLE promotion
-  - merge PR #676
-backup_path: /Users/morris/Projects/sfia-recette-backups/ml4c-20261111-215235-pre-2416e2ee
-rollback_strategy: restore LaunchAgent plist from backup and bootstrap previous start-recette.sh; DB dump conservative only — no DROP/TRUNCATE
-ci_reference: '43093786931 SUCCESS on candidate SHA (not a LIVE user-recette proof)'
-pr: 'https://github.com/mcleland147/sfia-workspace/pull/676'
-smoke:
-  http_login: 200
-  build_id_served: qB8JvXfdL7FMOFYMf31kL
-  cwd_match_new_worktree: true
-  db_counts_stable: true
-  dev_3100_untouched: true
-  single_listener_3200: true
-ml4c_scenarios_prepared:
-  S01: NOT_RUN
-  S02: NOT_RUN
-  S03: NOT_RUN
-  S04: NOT_RUN
-  S05: NOT_RUN
-  S06: NOT_RUN
-  S07: NOT_RUN
-reserves:
-  - cookie isolation same-host 3100/3200 (ENV-01 réserve A) carried
-  - S04 DOCUMENTED/INCOMPLETE
-  - S07 PARTIAL until global proof
-  - Nora LIVE / Git REAL require distinct GO
-  - 6 sessions unexpired at switch (brief restart; no data wipe)
+**Date :** 2026-11-12
+**Base candidat :** `2416e2ee` (`build/next-ml4c-functional-convergence`)
+**Branche locale :** `fix/next-ml4c-intent-authority-restitution-20261112`
+**Statut :** NO RELEASE — correctif local ; pas de push projet / PR / merge / RECETTE
+**Anomalies :** ML4C-A-006 (qualification / autorité), ML4C-A-007 (restitution interne)
 
-# --- LIVE/REAL readiness qualification (2026-11-11T21:14:36Z) ---
-live_real_qualification:
-  cycle: "11 RUN activation/qualification"
-  candidate_sha: 2416e2ee25662821b015407346c64ec204f67488
-  build_identifier: qB8JvXfdL7FMOFYMf31kL
-  openai:
-    key_status: PRESENT
-    fixture_flags_in_recette_env: ABSENT
-    SFIA_COG_PROFILE_TYPE: TEST_BOUNDARY
-    mode_observed: openai-agents-sdk-live
-    providerContacted: YES
-    status: COMPLETE
-    exchanges: 2
-    model_requested: gpt-6.1-sol
-    model_applied: UNVERIFIED
-    streamingNotes: stream_fragments_received
-    result: LIVE_BEHAVIOR_PROVEN
-    note: "Adapter smoke with empty context snippets; no métier project/document created"
-  github_oauth_studio_identity:
-    /api/auth/status: CONFIGURED
-    persisted_sessions_auth_mode: github-oauth
-    live_sessions: 6
-    distinct_users: 2
-    interactive_browser_callback_this_cycle: NOT_RUN
-    raw_db_token_cookie_replay: NOT_PROVEN
-    action_morris: "Interactive OAuth browser login may be required for user campaign S01+"
-    result: CONFIGURED_AND_PERSISTED_SESSIONS_OBSERVED
-  github_app:
-    lane_profile: RECETTE
-    app_id: "5677465"
-    installation_id: "180092114"
-    allowed_repo: mcleland147/chantiers360
-    result: CONFIGURED
-  github_real_read:
-    provider_mode: REAL
-    installation_repos: 1
-    includes_allowed: true
-    default_branch: main
-    head_sha_prefix: 8c398c494dd9
-    file_read: README.md
-    result: REAL_READ_PROVEN
-  github_real_documentary_write:
-    STUDIO_GITHUB_PROVIDER: real
-    STUDIO_GITHUB_ALLOW_MUTATIONS: documentary
-    isBoundedRealMutationAllowed: true
-    end_to_end_publication: NOT_RUN
-    result: REAL_DOCUMENTARY_WRITE_CONFIGURED
-  github_merge:
-    result: HARD_BLOCKED
-  negatives:
-    fixture_force_outside_dev: FAILED_CLOSED
-    denied_repo_read: ACCESS_DENIED
-    wrong_installation_id: ACCESS_DENIED
-    no_git_write_this_cycle: true
-  open_actions_morris:
-    - interactive_oauth_browser_for_campaign
-    - scenario_design_S01_S07
-    - explicit_GO_before_any_REAL_documentary_write
+## Cause
+
+1. `qualifyStudioIntent` traitait tout match lexical `PROJECT_CREATE_RE` (« créer … projet ») comme demande d’effet D2, y compris négation, cadrage et méta-explication.
+2. `wantsProjectCreate` déclenchait `updatePreview` + mission `AWAITING_PILOT_ACT` (+ éventuelle étape D4 dépendante).
+3. `appendMissionAck` injectait `formatMissionAck` (status / clientIntentKey / step / capability) dans le texte conversationnel Nora.
+
+## Correction (sans nouveau moteur)
+
+- Qualification positive D2 : `hasPositiveProjectCreateIntent` — ignore matches niés (`isVerbNegated`), refus d’autorisation local (« ne … autorise pas à »), mentions exploratoires / how-to.
+- Pas de constitution d’aperçu ni de mission D2/D4 sur cadrage conversationnel (cas Intervencia).
+- `appendMissionAck` ne modifie plus le corps utilisateur ; l’état reste dans `missionProjection` / surfaces structurées. `formatMissionAck` est conservé pour outillage / observabilité.
+- Assainissement léger des marqueurs Markdown dans les noms proposés.
+
+## Non-objectifs
+
+- Pas de migration silencieuse des messages / projections déjà persistés.
+- Pas de refonte UX (réserve ML4C-A-003 → ML4D).
+- Parcours positifs create / multi-cap / idempotence / reprise ACK préservés.
+
+---
+
+## 6. Diff exploitable (sources + tests)
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+index e96346f4..fdcdb4e0 100644
+--- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+@@ -708,6 +708,16 @@ export default function PreparationPage() {
+             onDraftChange={setDraft}
+             onSend={() => void sendMessage()}
+           />
++          {awaitingClientIntentKey ? (
++            <p
++              className="text-xs muted"
++              data-testid="prep-mission-awaiting-pilot-act"
++              data-mission-status="AWAITING_PILOT_ACT"
++            >
++              Acte Pilote requis pour créer le projet — la mission structurée reste en attente
++              (sans diagnostic technique dans le fil Nora).
++            </p>
++          ) : null}
+           <PreparationProposal
+             projectId={projectId}
+             previewName={previewName}
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+index 98cb2dbe..eab73503 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+@@ -23,6 +23,7 @@ import {
+   documentSaveToEffectSummary,
+   extractContractualDocumentProposal,
+   hasCompetingTransactionalClaim,
++  isVerbNegated,
+   qualifyDocumentAct,
+   type DocumentEffectSummary,
+ } from "./document-act";
+@@ -31,7 +32,6 @@ import { TURN_RUNNING_STALE_MS, turnClock } from "./turn-command";
+ import {
+   appendMissionAck,
+   composeCanonicalMissionRestitution,
+-  formatMissionAck,
+   qualifyPublicationMission,
+   type MissionOwnerActBinding,
+   type MissionProjection,
+@@ -93,6 +93,77 @@ export type QualifiedIntent = {
+ const PROJECT_CREATE_RE =
+   /\b(?:cr[eé]e(?:r)?|cr[eé]ation)\s+(?:un\s+|le\s+|mon\s+|notre\s+)?projet\b/i;
+
++/** Strip accidental Markdown markers from a proposed project label. */
++export function sanitizeProposedProjectName(raw: string): string {
++  return raw
++    .replace(/[*_`#~\[\]()]+/g, " ")
++    .replace(/[«»"']/g, "")
++    .replace(/\s+/g, " ")
++    .trim();
++}
++
++/**
++ * True when every project-create mention in the utterance is exploratory or meta
++ * (how-to / possibilité) — a bare lexical hit on « créer … projet » is not enough.
++ * Negation and « ne … autorise pas » are handled per-match in hasPositiveProjectCreateIntent.
++ */
++export function isNonEffectProjectCreateMention(userText: string): boolean {
++  const t = userText.replace(/\s+/g, " ").trim();
++  if (!t) return false;
++
++  // Meta / how-to — not an effect request.
++  if (
++    /\b(?:explique|expliquer|expliques)[- ]?(?:moi)?\b[\s\S]{0,64}\bcomment\b[\s\S]{0,96}\b(?:cr[eé]e(?:r)?|cr[eé]ation)\b[\s\S]{0,48}\bprojet\b/i.test(
++      t,
++    ) ||
++    /\bcomment\s+(?:(?:puis-je|peut-on|faire\s+pour)\s+)?(?:cr[eé]e(?:r)?|cr[eé]ation)\b[\s\S]{0,48}\bprojet\b/i.test(
++      t,
++    ) ||
++    /\b(?:quelles?\s+(?:sont|seraient)\s+les\s+)?[eé]tapes\s+(?:pour\s+)?(?:cr[eé]e(?:r)?|cr[eé]ation)\b[\s\S]{0,48}\bprojet\b/i.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++
++  // Exploratory hypothesis — not a request to constitute a proposal / mission.
++  if (
++    /\b(?:[eé]tudier|explorer|examiner)\s+(?:la\s+)?possibilit[eé]\s+de\s+(?:cr[eé]e(?:r)?|cr[eé]ation)\b/i.test(
++      t,
++    ) ||
++    /\bpossibilit[eé]\s+de\s+(?:cr[eé]e(?:r)?|cr[eé]ation)\s+(?:un\s+|le\s+)?projet\b/i.test(t)
++  ) {
++    return true;
++  }
++
++  return false;
++}
++
++/**
++ * Positive D2 create request: at least one non-negated « créer … projet » match,
++ * and the turn is not solely exploratory / explanatory / authorization-refused.
++ */
++export function hasPositiveProjectCreateIntent(userText: string): boolean {
++  if (isNonEffectProjectCreateMention(userText)) return false;
++
++  const re = new RegExp(PROJECT_CREATE_RE.source, "gi");
++  let m: RegExpExecArray | null;
++  while ((m = re.exec(userText)) !== null) {
++    const local = /cr[eé]e(?:r)?|cr[eé]ation/i.exec(m[0]);
++    const verbText = local?.[0] ?? m[0];
++    const verbIndex = m.index + (local?.index ?? 0);
++    if (isVerbNegated(userText, verbIndex, verbText.length)) continue;
++
++    // Local « ne … autorise pas à » immediately before this match.
++    const before = userText.slice(Math.max(0, m.index - 72), m.index);
++    if (/\bne\s+(?:t['’]|l['’]|vous\s+)?autorise\s+pas(?:\s+\w+){0,8}\s*(?:à\s*)?$/i.test(before)) {
++      continue;
++    }
++    return true;
++  }
++  return false;
++}
++
+ /**
+  * GAP-05: stop at puis/et/comma/period — name must not swallow follow-on clauses.
+  * "projet nommé Continuity Global B puis un document…" → "Continuity Global B"
+@@ -102,7 +173,18 @@ export function extractProposedProjectName(userText: string): string | null {
+   const named = userText.match(
+     /projet\s+(?:nomm[eé]|intitul[eé]|appel[eé])\s+[«"]?(.+?)[»"]?(?=\s+puis\b|\s+ensuite\b|\s+et\s+(?:un|une|le|la|des|ce|cet|cette)\b|\s+pour\s+(?:la|le|les|un|une|ce|cet|cette|l['’])\b|\s*[,.;:]|$)/i,
+   );
+-  if (named?.[1]) return named[1].replace(/[«»"']/g, "").trim();
++  if (named?.[1]) {
++    const cleaned = sanitizeProposedProjectName(named[1]);
++    return cleaned || null;
++  }
++  // « créer le projet Atlas » — label immediately after projet (stop at follow-on words).
++  const bare = userText.match(
++    /\b(?:cr[eé]e(?:r)?|cr[eé]ation)\s+(?:un\s+|le\s+|mon\s+|notre\s+)?projet\s+([A-ZÀ-Ÿ][\wÀ-ÿ-]{1,47})\b/i,
++  );
++  if (bare?.[1]) {
++    const cleaned = sanitizeProposedProjectName(bare[1]);
++    return cleaned || null;
++  }
+   return null;
+ }
+
+@@ -247,8 +329,11 @@ export async function mobilizeCapability(
+ export function qualifyStudioIntent(userText: string): QualifiedIntent {
+   const documentAct = qualifyDocumentAct(userText);
+   const publication = qualifyPublicationMission(userText);
+-  const wantsProjectCreate = PROJECT_CREATE_RE.test(userText);
+-  const proposedProjectName = extractProposedProjectName(userText);
++  // Lexical « créer … projet » alone is insufficient — require positive effect intent.
++  const wantsProjectCreate = hasPositiveProjectCreateIntent(userText);
++  const proposedProjectName = wantsProjectCreate
++    ? extractProposedProjectName(userText)
++    : null;
+   const wantsFollowOnDocument =
+     wantsProjectCreate && (FOLLOWON_DOC_RE.test(userText) || documentAct.kind === "CREATE");
+   let pendingDocumentBrief: string | null = null;
+@@ -1022,10 +1107,10 @@ export async function continueAfterProjectCreated(input: {
+   if (!pendingDoc) {
+     mission = { ...mission, status: "COMPLETED", restitution: "DELIVERED" };
+     generationId = `mission-continue-d2:${mission.clientIntentKey}:${input.projectId}`;
++    // User-facing continuity only — no raw D3 diagnostic dump (ML4C-A-007).
+     assistantContent =
+       `### Suite de mission\nProjet créé (projectId=${input.projectId}). ` +
+-      `Aucune étape documentaire dépendante dans l'intention initiale.\n\n` +
+-      formatMissionAck(mission);
++      `Aucune étape documentaire dépendante dans l'intention initiale.`;
+   } else {
+     const original =
+       mission.originalUserText ??
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
+index 3bb9bede..756acb7f 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
+@@ -198,9 +198,17 @@ export function formatMissionAck(mission: MissionProjection): string {
+   return lines.join("\n");
+ }
+
+-export function appendMissionAck(content: string, mission: MissionProjection | null): string {
+-  if (!mission) return content;
+-  return `${content.trimEnd()}\n\n---\n${formatMissionAck(mission)}\n`;
++/**
++ * ML4C-A-007: mission projection stays structured (`missionProjection` / owner surfaces).
++ * Do not dump status/clientIntentKey/step/capability diagnostics into Nora user text.
++ * `formatMissionAck` remains available for observability / structured tooling.
++ */
++export function appendMissionAck(
++  content: string,
++  mission: MissionProjection | null,
++): string {
++  void mission;
++  return content;
+ }
+
+ export function composeCanonicalMissionRestitution(input: {
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index 3b71bd9d..eb28a67d 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -1170,12 +1170,14 @@ export async function postUserMessageAndNora(
+     studioIntent.wantsProjectCreate &&
+     !ctx.project?.id
+   ) {
+-    const proposed = studioIntent.proposedProjectName?.trim() || "Nouveau projet";
++    const proposedRaw = studioIntent.proposedProjectName?.trim() || "Nouveau projet";
++    const proposed = proposedRaw.replace(/[*_`#~]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 120) ||
++      "Nouveau projet";
+     try {
+       await updatePreview(
+         pilotId,
+         preparationId,
+-        proposed.slice(0, 120),
++        proposed,
+         `Intention Nora — création de projet «${proposed}». Acte Pilote requis.`,
+       );
+     } catch {
+diff --git a/projects/sfia-studio-next/web/tests/e2e/intent-continuity-atlas.spec.ts b/projects/sfia-studio-next/web/tests/e2e/intent-continuity-atlas.spec.ts
+index 5249d328..e925ac3f 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/intent-continuity-atlas.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/intent-continuity-atlas.spec.ts
+@@ -24,7 +24,11 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
+   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
+     timeout: 30000,
+   });
+-  await expect(page.getByText("AWAITING_PILOT_ACT", { exact: false })).toBeVisible();
++  // ML4C-A-007: mission status is structured UI — not raw D3 dump in Nora chat.
++  await expect(page.getByTestId("prep-mission-awaiting-pilot-act")).toBeVisible({
++    timeout: 30000,
++  });
++  await expect(page.getByTestId("prep-draft")).not.toContainText("clientIntentKey=");
+
+   const createBtn = page.getByTestId("prep-create-project");
+   if (!(await createBtn.isEnabled().catch(() => false))) {
+@@ -113,7 +117,7 @@ test("Atlas: forged mission key refused BEFORE create (zero project)", async ({
+
+   await page.getByTestId("prep-draft").fill("Crée un projet nommé Atlas Guard puis un document.");
+   await page.getByTestId("prep-send").click();
+-  await expect(page.getByText("AWAITING_PILOT_ACT", { exact: false })).toBeVisible({
++  await expect(page.getByTestId("prep-mission-awaiting-pilot-act")).toBeVisible({
+     timeout: 30000,
+   });
+
+diff --git a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
+index 33fdea83..3594110d 100644
+--- a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
+@@ -132,6 +132,45 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
+     expect(chat.missionProjection == null).toBe(true);
+   });
+
++  it("ML4C-A-006/A-007 Intervencia: framing ≠ D2/D4 mission; no preview bump; no D3 dump", async () => {
++    const { pilotId, preparationId } = await seedPrepOnly("Intervencia");
++    const before = (
++      await db.select().from(preparations).where(eq(preparations.id, preparationId))
++    )[0]!;
++    const revisionBefore = before.creationRevision;
++    const previewNameBefore = before.previewName;
++    const previewSummaryBefore = before.previewSummary;
++
++    const ask =
++      "Pour l'instant, je souhaite uniquement réfléchir et cadrer le besoin. Je ne t'autorise pas à créer le projet ni à engager des travaux techniques.";
++    const chat = await postUserMessageAndNora(pilotId, preparationId, ask, {
++      clientTurnKey: newId("ctk"),
++    });
++
++    expect(chat.missionProjection == null).toBe(true);
++    expect(chat.documentSave == null || chat.documentSave.status === "NOT_EXECUTED").toBe(true);
++    expect(chat.assistantMessageId).toBeTruthy();
++
++    const after = (
++      await db.select().from(preparations).where(eq(preparations.id, preparationId))
++    )[0]!;
++    expect(after.creationRevision).toBe(revisionBefore);
++    expect(after.previewName).toBe(previewNameBefore);
++    expect(after.previewSummary).toBe(previewSummaryBefore);
++    const ctx = await getPreparationContext(pilotId, preparationId);
++    expect(ctx.project == null).toBe(true);
++
++    const msgs = await listMessages(pilotId, preparationId);
++    const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
++    expect(assistant?.content.trim().length).toBeGreaterThan(0);
++    expect(assistant?.content).not.toMatch(/clientIntentKey=/);
++    expect(assistant?.content).not.toMatch(/Suite de mission \(projection D3 — refs owners\)/);
++    expect(assistant?.content).not.toMatch(/capability=/);
++    // Durable conversation remains readable after the turn.
++    expect(msgs.filter((m) => m.role === "user").length).toBeGreaterThanOrEqual(1);
++    expect(msgs.filter((m) => m.role === "assistant").length).toBeGreaterThanOrEqual(1);
++  });
++
+   it("S02: D2 alone — Pilot act creates one project; no forced document", async () => {
+     const { pilotId, preparationId } = await seedPrepOnly("scen-b-d2-only");
+     const first = await postUserMessageAndNora(
+diff --git a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
+index 5c9138b0..92767529 100644
+--- a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
+@@ -226,8 +226,11 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
+
+     const msgs = await listMessages(pilotId, preparationId);
+     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+-    expect(assistant?.content).toMatch(/Résultat applicatif D4|Suite de mission|AVAILABLE/);
+-    expect(assistant?.content).toMatch(/AWAITING_PILOT_AUTH|aucune HumanDecision créée/i);
++    // Owner D4 effect ack may appear; raw D3 diagnostic dump must not (ML4C-A-007).
++    expect(assistant?.content).toMatch(/Résultat applicatif D4|AVAILABLE/);
++    expect(assistant?.content).not.toMatch(/clientIntentKey=/);
++    expect(assistant?.content).not.toMatch(/Suite de mission \(projection D3 — refs owners\)/);
++    expect(chat.missionProjection?.status).toBe("AWAITING_PILOT_AUTH");
+     expect(projectId).toBeTruthy();
+   });
+
+diff --git a/projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts b/projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts
+index cbb72fc5..efcc7051 100644
+--- a/projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/intent-conduction.test.ts
+@@ -7,9 +7,11 @@ import {
+   d2MissionIdempotencyKey,
+   emptyMission,
+   extractProposedProjectName,
++  hasPositiveProjectCreateIntent,
+   mergeMissionSteps,
+   mobilizeCapability,
+   qualifyStudioIntent,
++  sanitizeProposedProjectName,
+ } from "@/domains/conversation/intent-conduction";
+
+ describe("intent-conduction (domain-agnostic D3)", () => {
+@@ -21,6 +23,46 @@ describe("intent-conduction (domain-agnostic D3)", () => {
+     expect(q.publication.wantsPublish).toBe(false);
+   });
+
++  it("ML4C-A-006 Intervencia: framing + explicit non-authorization ≠ project create", () => {
++    const text =
++      "Pour l'instant, je souhaite uniquement réfléchir et cadrer le besoin. Je ne t'autorise pas à créer le projet ni à engager des travaux techniques.";
++    const q = qualifyStudioIntent(text);
++    expect(hasPositiveProjectCreateIntent(text)).toBe(false);
++    expect(q.wantsProjectCreate).toBe(false);
++    expect(q.wantsFollowOnDocument).toBe(false);
++    expect(q.proposedProjectName).toBeNull();
++    expect(q.documentAct.kind).toBe("NONE");
++    expect(q.simpleDialogue).toBe(true);
++  });
++
++  it("ML4C-A-006: negation / explanation / exploratory do not qualify D2", () => {
++    expect(qualifyStudioIntent("Ne crée pas encore le projet.").wantsProjectCreate).toBe(false);
++    expect(
++      qualifyStudioIntent("Explique-moi comment créer un projet.").wantsProjectCreate,
++    ).toBe(false);
++    expect(
++      qualifyStudioIntent("Je voudrais étudier la possibilité de créer un projet.").wantsProjectCreate,
++    ).toBe(false);
++  });
++
++  it("ML4C-A-006: positive create and multi-cap still qualify", () => {
++    expect(qualifyStudioIntent("Je veux créer le projet Atlas").wantsProjectCreate).toBe(true);
++    expect(qualifyStudioIntent("Je veux créer le projet Atlas").proposedProjectName).toBe("Atlas");
++    const multi = qualifyStudioIntent(
++      "Crée le projet Atlas puis prépare un document de cadrage pour ce projet.",
++    );
++    expect(multi.wantsProjectCreate).toBe(true);
++    expect(multi.proposedProjectName).toBe("Atlas");
++    expect(multi.wantsFollowOnDocument).toBe(true);
++  });
++
++  it("ML4C-A-006: sanitize markdown from proposed names", () => {
++    expect(sanitizeProposedProjectName("**Intervencia**")).toBe("Intervencia");
++    expect(
++      extractProposedProjectName('Crée un projet nommé **Atlas** puis un document.'),
++    ).toBe("Atlas");
++  });
++
+   it("GAP-05: project name stops before follow-on clause", () => {
+     expect(
+       extractProposedProjectName(
+diff --git a/projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts b/projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts
+index b71d4cd1..254d3f18 100644
+--- a/projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/mission-continuity.test.ts
+@@ -74,9 +74,12 @@ describe("mission-continuity helpers", () => {
+     expect(ack).toMatch(/AWAITING_PILOT_AUTH/);
+     expect(ack).toMatch(/aucune HumanDecision créée/i);
+     expect(ack).toMatch(/authorizePublication/);
++    // ML4C-A-007: structured formatter remains; user-facing append must not dump diagnostics.
+     const composed = appendMissionAck("corps", mission);
+-    expect(composed).toContain("corps");
+-    expect(composed).toContain("efx_test");
++    expect(composed).toBe("corps");
++    expect(composed).not.toMatch(/clientIntentKey=/);
++    expect(composed).not.toMatch(/capability=/);
++    expect(composed).not.toMatch(/Suite de mission \(projection D3/);
+   });
+
+   it("canonical restitution preserves D4 facts when Continue fails", () => {
 ```
 
-## 9. Fake / Real Qualification (§6.16)
+### Diff delivery-history (entrée ajoutée en tête)
 
-| Capacité | Mode | Statut |
+Voir section 4 / `DELIV-2026-11-12-ML4C-A006-A007-INTENT-AUTHORITY-RESTITUTION`.
+
+---
+
+## 7. Tests exécutés (séparés)
+
+### 7.1 Déterministes — unitaires
+
+```
+unset DATABASE_URL NODE_ENV
+npx vitest run tests/unit/intent-conduction.test.ts \
+  tests/unit/mission-continuity.test.ts \
+  tests/unit/ml4c-s01-s03-guards.test.ts
+→ 3 files / 30 tests PASSED
+```
+
+Couverture : Intervencia exact ; « Ne crée pas encore » ; « Explique-moi comment » ; « étudier la possibilité » ; « Je veux créer le projet Atlas » ; multi-cap Atlas+document ; sanitize Markdown ; `appendMissionAck` no-op (A-007).
+
+### 7.2 PostgreSQL — intégration (DEV `sfia_next_e2e` via gate)
+
+```
+unset DATABASE_URL ; STUDIO_LANE=DEV STUDIO_E2E=1 STUDIO_GITHUB_PROVIDER=scripted
+npx vitest run tests/integration/intent-continuity-global.pg.test.ts \
+  tests/integration/mission-continuity-accept01.pg.test.ts \
+  tests/integration/create-project.pg.test.ts
+→ 3 files / 49 tests PASSED
+```
+
+Dont nouvel oracle Intervencia : `missionProjection == null`, `creationRevision` inchangé, preview inchangé, pas de projet, pas de dump `clientIntentKey=` / « Suite de mission (projection D3 — refs owners) » dans le message assistant durable.
+
+ACCEPT-01 : ACK D4 owner préservé ; dump D3 absent du corps ; `missionProjection.status === AWAITING_PILOT_AUTH` structuré.
+
+### 7.3 Navigateur — Playwright E2E (`:3101` / `sfia_next_e2e`)
+
+```
+env -u DATABASE_URL -u OPENAI_API_KEY -u NODE_ENV STUDIO_LANE=DEV \
+  npx playwright test \
+  tests/e2e/intent-continuity-atlas.spec.ts \
+  tests/e2e/d2-ack-loss-reconcile.spec.ts \
+  tests/e2e/g4-chat-first-sas.spec.ts
+→ 4 passed (17.7s)
+```
+
+Réserve outillage : `NODE_ENV=production` dans le shell parent faisait échouer `next dev` (ENOENT `required-server-files.json`) — documenté ; pas un défaut produit.
+
+### 7.4 Typecheck / build / lint
+
+| Contrôle | Résultat |
+| --- | --- |
+| `npx tsc --noEmit` | PASS (exit 0) |
+| `npm run build` | PASS |
+| `npm run lint` | Warnings préexistants hors scope ; pas d'erreur bloquante sur le correctif |
+
+---
+
+## 8. Scénarios positifs / négatifs
+
+| Scénario | Résultat attendu | Preuve |
 | --- | --- | --- |
-| Nora | LIVE openai-agents-sdk-live | **PROVEN** (2 échanges) |
-| GitHub read | REAL installation | **PROVEN** |
-| GitHub write documentary | REAL gate configured | **CONFIGURED / NOT RUN** |
-| GitHub merge | blocked | **HARD-BLOCKED** |
-| OAuth | real identity configured | **CONFIGURED** ; interactive callback NOT RUN |
-| SCRIPTED/FAKE as LIVE proof | — | **NOT USED** |
+| Intervencia exact (négatif) | pas D2/D4/preview bump/dump | unit + PG |
+| Ne crée pas encore | wantsProjectCreate false | unit |
+| Explique comment créer | false | unit |
+| Étudier la possibilité | false | unit |
+| Je veux créer Atlas | true + nom Atlas | unit |
+| Crée Atlas puis document | true + follow-on | unit + PG S03 + E2E Atlas |
+| Doc explicite sans D2 | inchangé (ACCEPT-01 chemins) | PG |
+| Perte ACK / reconcile | E2E D2_ACK_OBS | E2E PASS |
+| Idempotence clés | create-project PG | PG PASS |
+| Anciens messages | pas de migration | by design / no schema change |
 
 ---
 
-## 10. Risques / réserves / exits
+## 9. Incertitudes / risques résiduels
 
-- OAuth navigateur interactif non rejoué ce cycle (cookies Better Auth non rejouables depuis token SQL brut) → **ACTION MORRIS REQUIRED** pour campagne utilisateur.
-- Cookie isolation same-host DEV/RECETTE (ENV-01 A) portée.
-- `modelApplied=UNVERIFIED` malgré COMPLETE — conforme au contrat adapter.
-- REAL documentary write end-to-end exige GO Morris distinct + HumanDecision/cible/idempotence.
-- S01–S07 non acceptés ici.
-
----
-
-## 11. Décisions Morris restantes
-
-1. Concevoir le cahier de scénarios ML4C S01–S07 (étape séparée).
-2. Eventuel login OAuth navigateur interactif sur :3200.
-3. GO distinct avant toute publication Git REAL documentaire.
-4. Aucun merge / STABLE.
+1. **Re-recette utilisateur S02-01** non rejouée en RECETTE (interdit sans GO) — verdict utilisateur reste FAIL jusqu'à nouveau candidat + mise à disposition + GO Morris.
+2. Formulations adverses hors motifs (négations ambigües, anglais, double intention contradictoire dans une même phrase) : couverture regex bornée, pas un NLU.
+3. Messages historiques déjà persistés avec appendice D3 : **non migrés** (volontaire) ; nouveaux tours propres.
+4. ML4C-A-003 (compositeur Nora) hors correctif.
+5. E2E sensibles à `NODE_ENV` du shell opérateur.
 
 ---
 
-## 12. Verdict
+## 10. Dette / condition de sortie
 
-**ML4C RECETTE — LIVE/REAL READINESS VERIFIED
-READY FOR TEST SCENARIO DESIGN**
+- Sortie correctif local : pack + handoff L3 + relecture ChatGPT.
+- Sortie produit : décision Morris → éventuel commit/push branche projet → PR → CI → GO RECETTE distinct → retest S02-01.
+- Ne pas déclarer S02-01 PASS ni ML4C ACCEPTED ici.
 
-Explicitement : **REAL DOCUMENTARY WRITE NOT RUN**.
+---
 
-- URL : http://127.0.0.1:3200
-- SHA / BUILD : `2416e2ee` / `qB8JvXfdL7FMOFYMf31kL`
-- Nora LIVE : PROVEN
-- GitHub REAL READ : PROVEN
-- OAuth : CONFIGURED (+ sessions persistées) ; callback interactif NOT RUN
-- Produit/PR : inchangés
+## 11. Verdict de conformité du correctif
+
+**FIX IMPLEMENTED WITH RESERVES — REVIEW REQUIRED**
+
+Réserves : (a) re-recette utilisateur non exécutée ; (b) couverture linguistique bornée ; (c) pas de push candidat projet.
+
+Gates restants : revue ChatGPT → décision Morris → push/PR/CI → mise à disposition RECETTE → retest S02-01.
+
+---
+
+## 12. À retester par Morris
+
+1. S02-01 Intervencia sur candidat après intégration (pas ce worktree dirty).
+2. Matrice négative/positive listée §8 en UI RECETTE.
+3. Vérifier absence d'appendice « Suite de mission (projection D3 — refs owners) » dans le fil.
+4. Vérifier surface `prep-mission-awaiting-pilot-act` sur create positif.
+5. Régression Atlas multi-cap + ACK loss.
+
+---
+
+## 13. Handoff / publication
+
+- Review Pack local : `.tmp-sfia-review/chatgpt-review.md`
+- Publication L3 : `scripts/sfia/publish-review-handoff.sh` → branche `sfia/review-handoff` fichier `sfia-review-handoff/latest-chatgpt-review.md` uniquement.
+- **Aucun push de la branche projet de correction.**
+
+---
+
+## 14. Instruction ChatGPT (obligatoire)
+
+Relire le handoff distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (SHA tip après publication) et contrôler son **contenu complet** avant d'émettre une revue, une recommandation d'intégration ou un verdict d'acceptation. Ne pas se fier à une synthèse partielle ni au pack local non publié.
