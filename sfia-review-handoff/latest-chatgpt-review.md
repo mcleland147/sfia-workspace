@@ -1,20 +1,16 @@
 # SFIA Studio Next — Review Pack FULL
-## R5 / ML4C — DOC GATE finalisation et publication documentaire
+## ML4C — Correctif CI documentaire PR #677
 
-- **Date/heure**: 2026-11-12 16:12:47 CET
-- **Cycle**: Delivery projet (§6.6) — DOC Critical — publication PR
+- **Date/heure**: 2026-11-12 16:36:29 CET
 - **Branche**: `docs/next-ml4c-documentary-gate-20261112`
-- **Commit docs**: `63ebdc3370f640d1f2817d0a415b908d54e8c509`
-- **Parent**: `6d237452680640324eeadbb18f4601fd7de99850` (= `origin/main`)
-- **Tree**: `5b5f348fe5ccac4f56789fa335f3aced23bbfc91`
-- **PR**: [#677](https://github.com/mcleland147/sfia-workspace/pull/677) — **OPEN**
-- **Head PR**: `63ebdc3370f640d1f2817d0a415b908d54e8c509`
-- **Base**: `main` @ `6d237452…`
-- **Mergeable**: MERGEABLE
-- **CI**: **PENDING** (checks QUEUED au contrôle)
-- **Produit préservé**: `83fd9ece…` ; PR #676 head `2416e2ee…` inchangé
-- **Verdict**: **DOCUMENTARY PR OPEN WITH RESERVES — REVIEW REQUIRED** (réserve CI PENDING)
-- **Non-déclarations**: MERGED · DOC GATE APPROVED BY MORRIS · PRODUCT INTEGRATED · ML4C ACCEPTED · GATE C CLOSED · ADOPTED · READY FOR REAL
+- **Commit correctif**: `889edd51da14115edf88b501ba9c09806558b690`
+- **Parent**: `63ebdc3370f640d1f2817d0a415b908d54e8c509` (= `63ebdc33…`)
+- **Tree**: `9f0c65a87657a47825dd22031eb9590fb550b867`
+- **PR**: [#677](https://github.com/mcleland147/sfia-workspace/pull/677) OPEN / MERGEABLE
+- **CI nouveau HEAD**: **GREEN** (Trailing whitespace SUCCESS ; Build Next SUCCESS ; Required Gates SUCCESS)
+- **Produit**: `83fd9ece…` intact ; PR #676 @ `2416e2ee…` intacte
+- **Verdict**: **DOCUMENTARY PR CI GREEN — READY FOR CHATGPT MERGE REVIEW**
+- **Non-déclarations**: MERGED · PRODUCT INTEGRATED · ML4C ACCEPTED · GATE C CLOSED · ADOPTED · READY FOR REAL
 
 ---
 
@@ -22,607 +18,354 @@
 
 | Check | Valeur |
 | --- | --- |
-| origin/main | `6d237452680640324eeadbb18f4601fd7de99850` inchangé |
-| docs WT | `/Users/morris/Projects/sfia-workspace-docs-next-ml4c-documentary-gate-20261112` |
-| HEAD avant | `6d237452…` ; 14 dirty ; 0 ahead |
-| roadmap blob avant éditions §5 | `8e91c600…` |
-| source docs historique | `8b41fe16…` |
-| PR docs préexistante | aucune |
-| remote branch avant push | absente |
+| origin/main | `6d237452…` |
+| HEAD avant | `63ebdc33…` |
+| HEAD après | `889edd51da14115edf88b501ba9c09806558b690` |
+| Push | FF `63ebdc33..889edd51` |
+| Force | non |
 
 ---
 
-## 2–3. Sources / état initial
+## 2–4. Diagnostic CI et correction
 
-Handoff préparation `f3f50654` / blob `149b2714…` ; SEF/roadmap/naming/ENV main ; SFIA v2.6 main.
-Allowlist 14 chemins ; 13 imports exacts ; D1 seul édité.
+Échec initial run `43245177567` / job `131275891391` : `git diff --check 6d237452...HEAD` → 17 trailing whitespace (deux espaces).
 
----
+### 17 lignes avant / après
 
-## 4–6. Six opérations Roadmap (§5) — appliquées une fois
+```
+projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md:3
+  BEFORE: '**Version :** 0.1 — validée en contenu par Morris le 12 novembre 2026  '
+  AFTER:  '**Version :** 0.1 — validée en contenu par Morris le 12 novembre 2026\\'
 
-1. Remplacement en-tête CURRENT → **POINT DE SITUATION R5 — 12 NOVEMBRE 2026…**
-2. Titre tableau → **Correspondance … instantané du 12/11/2026**
-3. Ligne PR READINESS (instantané avant publication)
-4. Traçabilité Git (instantané avant publication)
-5. Insertion **RÈGLE DE LECTURE CHRONOLOGIQUE — GATE B**
-6. CP0 **ÉTAT COURANT** → **SNAPSHOT HISTORIQUE R5 — CP0…**
+projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md:4
+  BEFORE: '**Date :** 12 novembre 2026  '
+  AFTER:  '**Date :** 12 novembre 2026\\'
 
-Blob Roadmap après éditions (dans commit) : `db71f154b8e9c6bcbd141365274765706258cc8d`
+projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md:5
+  BEFORE: '**Statut :** VALIDATED CONTENT BY MORRIS — RECETTE UTILISATEUR NOT RUN  '
+  AFTER:  '**Statut :** VALIDATED CONTENT BY MORRIS — RECETTE UTILISATEUR NOT RUN\\'
 
-### Diff Roadmap (commit)
+projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md:6
+  BEFORE: '**Programme :** R5 — ML4C, convergence fonctionnelle intégrée  '
+  AFTER:  '**Programme :** R5 — ML4C, convergence fonctionnelle intégrée\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md:7
+  BEFORE: '**Responsable de la réception :** Morris  '
+  AFTER:  '**Responsable de la réception :** Morris\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md:8
+  BEFORE: '**Périmètre :** Capacités ML1–ML4, scénarios S01–S07 du contrat CP2  '
+  AFTER:  '**Périmètre :** Capacités ML1–ML4, scénarios S01–S07 du contrat CP2\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md:3
+  BEFORE: '**Campagne :** `ML4C-UAT-2026-11-12`  '
+  AFTER:  '**Campagne :** `ML4C-UAT-2026-11-12`\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md:4
+  BEFORE: '**Version du registre :** `v0.1 — 2026-11-12`  '
+  AFTER:  '**Version du registre :** `v0.1 — 2026-11-12`\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md:5
+  BEFORE: '**Statut :** `D1 — registre factuel évolutif, non normatif ; publié sur branche documentaire candidate, non fusionné`  '
+  AFTER:  '**Statut :** `D1 — registre factuel évolutif, non normatif ; publié sur branche documentaire candidate, non fusionné`\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md:6
+  BEFORE: '**Autorité :** Morris (Pilote, verdict d’acceptation et gates) ; ChatGPT (qualification, suivi, analyse).  '
+  AFTER:  '**Autorité :** Morris (Pilote, verdict d’acceptation et gates) ; ChatGPT (qualification, suivi, analyse).\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md:7
+  BEFORE: '**Périmètre :** 53 cas S01–S07 de la convergence fonctionnelle intégrée ML4C.  '
+  AFTER:  '**Périmètre :** 53 cas S01–S07 de la convergence fonctionnelle intégrée ML4C.\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md:11
+  BEFORE: '**Date :** 11 novembre 2026 (Europe/Paris).  '
+  AFTER:  '**Date :** 11 novembre 2026 (Europe/Paris).\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md:12
+  BEFORE: '**Dépôt :** `mcleland147/sfia-workspace` ; périmètre `projects/sfia-studio-next/`.  '
+  AFTER:  '**Dépôt :** `mcleland147/sfia-workspace` ; périmètre `projects/sfia-studio-next/`.\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md:13
+  BEFORE: '**Référence de code / diagnostic intégré :** `main@42aa373947446a8c20694b06c559ee0da1cba580` (PR #674 ML4B mergée).  '
+  AFTER:  '**Référence de code / diagnostic intégré :** `main@42aa373947446a8c20694b06c559ee0da1cba580` (PR #674 ML4B mergée).\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md:14
+  BEFORE: '**Référence de trajectoire candidate :** `docs/next-r5-ml4c-ml4d-trajectory-20261111@5717b6c938288404f71c9281f1c92be99a51fb89` — **non fusionnée sur main** au pré-check du 11/11/2026.  '
+  AFTER:  '**Référence de trajectoire candidate :** `docs/next-r5-ml4c-ml4d-trajectory-20261111@5717b6c938288404f71c9281f1c92be99a51fb89` — **non fusionnée sur main** au pré-check du 11/11/2026.\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md:15
+  BEFORE: '**État local / DB / navigateur / environnement LIVE :** **NON OBSERVÉS** dans cette préparation ; aucun test nouveau exécuté.  '
+  AFTER:  '**État local / DB / navigateur / environnement LIVE :** **NON OBSERVÉS** dans cette préparation ; aucun test nouveau exécuté.\\'
+
+projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md:16
+  BEFORE: '**Autorité :** Morris arbitre le diagnostic, le contrat, les gates et les autorisations Git ; ChatGPT prépare et revoit ; Cursor réalise les changements D3 sous SFIA v2.6 et GO borné.  '
+  AFTER:  '**Autorité :** Morris arbitre le diagnostic, le contrat, les gates et les autorisations Git ; ChatGPT prépare et revoit ; Cursor réalise les changements D3 sous SFIA v2.6 et GO borné.\\'
+
+```
+
+Substitution unique : `␠␠` → `\` (hard break Markdown). Réversibilité vérifiée vs blob `63ebdc33`.
+
+### Diff complet commit
 
 ```diff
-commit 63ebdc3370f640d1f2817d0a415b908d54e8c509
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Thu Nov 12 16:11:29 2026 +0100
+diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md
+index 27475cf3..4a4cb3ce 100644
+--- a/projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md
++++ b/projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md
+@@ -1,11 +1,11 @@
+ # SFIA Studio Next — Cahier de recette utilisateur ML4C
 
-    docs(next): consolidate ML4C decisions and semantic convergence contracts
+-**Version :** 0.1 — validée en contenu par Morris le 12 novembre 2026
+-**Date :** 12 novembre 2026
+-**Statut :** VALIDATED CONTENT BY MORRIS — RECETTE UTILISATEUR NOT RUN
+-**Programme :** R5 — ML4C, convergence fonctionnelle intégrée
+-**Responsable de la réception :** Morris
+-**Périmètre :** Capacités ML1–ML4, scénarios S01–S07 du contrat CP2
++**Version :** 0.1 — validée en contenu par Morris le 12 novembre 2026\
++**Date :** 12 novembre 2026\
++**Statut :** VALIDATED CONTENT BY MORRIS — RECETTE UTILISATEUR NOT RUN\
++**Programme :** R5 — ML4C, convergence fonctionnelle intégrée\
++**Responsable de la réception :** Morris\
++**Périmètre :** Capacités ML1–ML4, scénarios S01–S07 du contrat CP2\
+ **Git :** branche documentaire candidate `docs/next-r5-ml4c-cp2-preparation-20261111` ; **non mergée dans main**.
 
-diff --git a/projects/sfia-studio-next/governance/roadmap.md b/projects/sfia-studio-next/governance/roadmap.md
-index 556686dc..db71f154 100644
---- a/projects/sfia-studio-next/governance/roadmap.md
-+++ b/projects/sfia-studio-next/governance/roadmap.md
-@@ -1,6 +1,41 @@
- # SFIA Studio Next — Living Roadmap
+ ---
+diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md
+index fa794105..a31d8910 100644
+--- a/projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md
++++ b/projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md
+@@ -1,10 +1,10 @@
+ # SFIA Studio Next — Journal de campagne de recette utilisateur ML4C
 
--> **ÉTAT COURANT R5 — CP0 VALIDATED IN CONTENT BY MORRIS (2026-11-10 ; PUBLICATION DOCUMENTAIRE SUR BRANCHE CANDIDATE)** : [décision de trajectoire ML4B/ML4C](decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md). Baseline de cadrage `main@0182b0a7053babefe33aa4de181631b21613ac69`. Ce bloc actualise les statuts du programme sans effacer les instantanés datés ci-dessous. Aucune PR, fusion `main`, exécution Cursor, promotion, release ou adoption n'est autorisée par CP0.
-+> **POINT DE SITUATION R5 — 12 NOVEMBRE 2026, AVANT PUBLICATION DU DOC GATE.** À cette date, la consolidation documentaire ML4C est préparée sur la branche locale `docs/next-ml4c-documentary-gate-20261112`, issue de `main@6d237452680640324eeadbb18f4601fd7de99850`. Elle reprend les décisions et contrats validés en contenu par Morris depuis `docs/next-r5-ml4c-cp2-preparation-20261111@8b41fe1640a61f531a449ced67b1d27f7dbace1e`. **Ce bloc est un instantané daté avant commit, push et PR documentaire ; il ne prétend pas décrire leur état après publication.** La trajectoire demeure **ML4B → ML4C → ML4D → Gate C → ML5 → R6**. Gate C reste **OPEN**. Aucune acceptation ML4C, adoption, qualification READY FOR REAL, promotion STABLE ou release n'est acquise.
-+
-+### Correspondance avec le candidat produit — instantané du 12/11/2026
-+
-+| Qualification | Statut factuel |
-+| --- | --- |
-+| VALIDATED SPEC (décision/contrats 11–12/11) | décisions A1–A3 + contrats/conception B* importés **à l'identique** dans ce candidat docs |
-+| IMPLEMENTED LOCAL | correctif sémantique sur `fix/next-semantic-intent-convergence-20261112` commit **`83fd9ecef2d952c90a828d68a192e105c83be35f`** (parent `2416e2ee`, tree `bed6bff5`) — **LOCAL / NOT INTEGRATED** |
-+| COVERAGE VERIFIED (déterministe) | selon handoff `sfia/review-handoff@77fda513` : unit/PG/browser DEV isolée (Q1/Q2, AUTH, S05, D4 gouvernée) |
-+| DETERMINISTIC BEHAVIOR PROVEN | à la portée des suites rejouées en DEV ; **≠** LIVE/REAL |
-+| PR READINESS (instantané du 12/11 avant publication) | Produit : commit local prêt à revue, non intégré ; documentation : candidat local préparé, sans commit, push ni PR à la date du constat |
-+| REMOTE CI NOT RUN | aucune CI GitHub sur `83fd9ece` ; PR #676 head reste `2416e2ee` |
-+| LIVE NOT RUN | Nora LIVE OpenAI **NOT RUN** |
-+| USER RECETTE NOT ACCEPTED | cahier 53 cas conservé ; journal conserve observations ; **S02-01 FAIL** ; **ML4C-A-006/A-007 OPEN** ; acceptation utilisateur ML4C **NON ACQUISE** |
-+| ENV-R09 | sessions/cookies multi-lane **NOT VERIFIED** |
-+| ML4D | **NON DÉMARRÉE** |
-+| Gate C | **OPEN** |
-+| Versioning | `0.0.0-dev` / **NO RELEASE** |
-+
-+**As-built technique** du candidat produit : `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md` **dans** `83fd9ece` (référence LOCAL) — **non recopié** ici.
-+
-+**Sources normatives importées (contenu Morris inchangé) :** [décision trajectoire ML4C/ML4D](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) · [Gate B accepté avec réserves](decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) · [qualification sémantique Nora](decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md) · [conception](../construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md) · [contrat technique](../construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md) · [contrat ML4C intégré](../construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md) · [design S02/S03](../construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md) · [cahier](../construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md) · [journal](../construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md). Les mentions historiques **NO BUILD GO / NON IMPLÉMENTÉ** dans conception/contrat technique restent le constat **à la date d'approbation** ; elles ne sont **pas** réécrites. L'avancement technique LOCAL est porté **uniquement** par le tableau ci-dessus et le commit `83fd9ece`.
-+
-+**Traçabilité Git — instantané du 12/11/2026 avant publication documentaire :** le candidat DOC GATE est alors local et non commité ; le correctif produit `83fd9ecef2d952c90a828d68a192e105c83be35f` est également local, tandis que la PR produit #676 reste ouverte sur `2416e2ee25662821b015407346c64ec204f67488`. La publication documentaire ultérieure doit être identifiée par son propre commit et sa propre PR ; elle ne vaut ni merge, ni intégration du correctif produit, ni acceptation ML4C.
-+
-+---
-+
-+> **SNAPSHOT HISTORIQUE — 12/11/2026 (contenu validé sur branche docs CP2, non baseline main)** : la [décision de principe sémantique](decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md) et la [conception](../construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md) sont **VALIDATED IN CONTENT BY MORRIS** à leur date ; le [contrat technique](../construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md) est **VALIDATED IN CONTENT WITH EXECUTABILITY RESERVES**. Ces textes conservent leurs formulations d'époque (y compris NO BUILD GO) ; le suivi CURRENT ci-dessus décrit l'implémentation candidate ultérieure.
-+
-+> **SNAPSHOT HISTORIQUE — 11/11/2026 — Gate B + CP2** : [Gate B accepted with reserves](decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) ; [contrat ML4C intégré](../construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md) et [design vérité des effets](../construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md) validés en contenu avec réserves ; [trajectoire ML4C puis ML4D](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md). Objectif documentaire ML4B clôturé avec réserves ; **pas** d'acceptation globale ML4 ni BEHAVIOR PROVEN.
-+
-+---
-+
-+> **RÈGLE DE LECTURE CHRONOLOGIQUE — GATE B :** la décision Morris du 11 novembre 2026, `2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md`, établit **GATE B ACCEPTED WITH RESERVES / ML4B CLOSED WITH RESERVES**. Elle prévaut sur les mentions antérieures « Gate B OPEN » ou « Gate B NOT HELD » conservées dans les diagnostics historiques. Cette précédence ne vaut ni clôture de Gate C, ni acceptation ML4C, ni adoption du produit.
-+
-+> **SNAPSHOT HISTORIQUE R5 — CP0 VALIDATED IN CONTENT BY MORRIS (2026-11-10 ; PUBLICATION DOCUMENTAIRE SUR BRANCHE CANDIDATE)** : [décision de trajectoire ML4B/ML4C](decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md). Baseline de cadrage `main@0182b0a7053babefe33aa4de181631b21613ac69`. Ce bloc actualise les statuts du programme sans effacer les instantanés datés ci-dessous. Aucune PR, fusion `main`, exécution Cursor, promotion, release ou adoption n'est autorisée par CP0.
+-**Campagne :** `ML4C-UAT-2026-11-12`
+-**Version du registre :** `v0.1 — 2026-11-12`
+-**Statut :** `D1 — registre factuel évolutif, non normatif ; publié sur branche documentaire candidate, non fusionné`
+-**Autorité :** Morris (Pilote, verdict d’acceptation et gates) ; ChatGPT (qualification, suivi, analyse).
+-**Périmètre :** 53 cas S01–S07 de la convergence fonctionnelle intégrée ML4C.
++**Campagne :** `ML4C-UAT-2026-11-12`\
++**Version du registre :** `v0.1 — 2026-11-12`\
++**Statut :** `D1 — registre factuel évolutif, non normatif ; publié sur branche documentaire candidate, non fusionné`\
++**Autorité :** Morris (Pilote, verdict d’acceptation et gates) ; ChatGPT (qualification, suivi, analyse).\
++**Périmètre :** 53 cas S01–S07 de la convergence fonctionnelle intégrée ML4C.\
 
- ## R5 — Réconciliation et convergence produit avant ML5 (2026-11-10, CP0)
+ > Ce registre est le journal d’exécution de la campagne, **pas** le cahier de recette validé. Il s’inspire du registre historique ML4 `construction/ml4-integration-git/recette-ml4-r01-r14-anomalies.md` (constats, preuves, anomalies et verdicts bornés). La tenue de ce registre ne vaut ni validation normative, ni autorisation d'effet produit, ni acceptation ML4C.
 
+diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md
+index 1533343e..067657c1 100644
+--- a/projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md
++++ b/projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md
+@@ -8,12 +8,12 @@
+
+ **Nature :** contrat de préparation CP2 **candidat** — support D0 de qualification et de revue Morris, non décision de construction.
+
+-**Date :** 11 novembre 2026 (Europe/Paris).
+-**Dépôt :** `mcleland147/sfia-workspace` ; périmètre `projects/sfia-studio-next/`.
+-**Référence de code / diagnostic intégré :** `main@42aa373947446a8c20694b06c559ee0da1cba580` (PR #674 ML4B mergée).
+-**Référence de trajectoire candidate :** `docs/next-r5-ml4c-ml4d-trajectory-20261111@5717b6c938288404f71c9281f1c92be99a51fb89` — **non fusionnée sur main** au pré-check du 11/11/2026.
+-**État local / DB / navigateur / environnement LIVE :** **NON OBSERVÉS** dans cette préparation ; aucun test nouveau exécuté.
+-**Autorité :** Morris arbitre le diagnostic, le contrat, les gates et les autorisations Git ; ChatGPT prépare et revoit ; Cursor réalise les changements D3 sous SFIA v2.6 et GO borné.
++**Date :** 11 novembre 2026 (Europe/Paris).\
++**Dépôt :** `mcleland147/sfia-workspace` ; périmètre `projects/sfia-studio-next/`.\
++**Référence de code / diagnostic intégré :** `main@42aa373947446a8c20694b06c559ee0da1cba580` (PR #674 ML4B mergée).\
++**Référence de trajectoire candidate :** `docs/next-r5-ml4c-ml4d-trajectory-20261111@5717b6c938288404f71c9281f1c92be99a51fb89` — **non fusionnée sur main** au pré-check du 11/11/2026.\
++**État local / DB / navigateur / environnement LIVE :** **NON OBSERVÉS** dans cette préparation ; aucun test nouveau exécuté.\
++**Autorité :** Morris arbitre le diagnostic, le contrat, les gates et les autorisations Git ; ChatGPT prépare et revoit ; Cursor réalise les changements D3 sous SFIA v2.6 et GO borné.\
+ **Statut :** `DOCUMENTED — CP2 PREPARATION CANDIDATE / GATE B OPEN / NO BUILD GO / NO PR / NO MERGE / NO ADOPTED`.
+
+ ## 1. Mandat de préparation et résultat cible
 
 ```
 
-### Contenu Roadmap publié (autosuffisant)
-
-```markdown
-# SFIA Studio Next — Living Roadmap
-
-> **POINT DE SITUATION R5 — 12 NOVEMBRE 2026, AVANT PUBLICATION DU DOC GATE.** À cette date, la consolidation documentaire ML4C est préparée sur la branche locale `docs/next-ml4c-documentary-gate-20261112`, issue de `main@6d237452680640324eeadbb18f4601fd7de99850`. Elle reprend les décisions et contrats validés en contenu par Morris depuis `docs/next-r5-ml4c-cp2-preparation-20261111@8b41fe1640a61f531a449ced67b1d27f7dbace1e`. **Ce bloc est un instantané daté avant commit, push et PR documentaire ; il ne prétend pas décrire leur état après publication.** La trajectoire demeure **ML4B → ML4C → ML4D → Gate C → ML5 → R6**. Gate C reste **OPEN**. Aucune acceptation ML4C, adoption, qualification READY FOR REAL, promotion STABLE ou release n'est acquise.
-
-### Correspondance avec le candidat produit — instantané du 12/11/2026
-
-| Qualification | Statut factuel |
-| --- | --- |
-| VALIDATED SPEC (décision/contrats 11–12/11) | décisions A1–A3 + contrats/conception B* importés **à l'identique** dans ce candidat docs |
-| IMPLEMENTED LOCAL | correctif sémantique sur `fix/next-semantic-intent-convergence-20261112` commit **`83fd9ecef2d952c90a828d68a192e105c83be35f`** (parent `2416e2ee`, tree `bed6bff5`) — **LOCAL / NOT INTEGRATED** |
-| COVERAGE VERIFIED (déterministe) | selon handoff `sfia/review-handoff@77fda513` : unit/PG/browser DEV isolée (Q1/Q2, AUTH, S05, D4 gouvernée) |
-| DETERMINISTIC BEHAVIOR PROVEN | à la portée des suites rejouées en DEV ; **≠** LIVE/REAL |
-| PR READINESS (instantané du 12/11 avant publication) | Produit : commit local prêt à revue, non intégré ; documentation : candidat local préparé, sans commit, push ni PR à la date du constat |
-| REMOTE CI NOT RUN | aucune CI GitHub sur `83fd9ece` ; PR #676 head reste `2416e2ee` |
-| LIVE NOT RUN | Nora LIVE OpenAI **NOT RUN** |
-| USER RECETTE NOT ACCEPTED | cahier 53 cas conservé ; journal conserve observations ; **S02-01 FAIL** ; **ML4C-A-006/A-007 OPEN** ; acceptation utilisateur ML4C **NON ACQUISE** |
-| ENV-R09 | sessions/cookies multi-lane **NOT VERIFIED** |
-| ML4D | **NON DÉMARRÉE** |
-| Gate C | **OPEN** |
-| Versioning | `0.0.0-dev` / **NO RELEASE** |
-
-**As-built technique** du candidat produit : `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md` **dans** `83fd9ece` (référence LOCAL) — **non recopié** ici.
-
-**Sources normatives importées (contenu Morris inchangé) :** [décision trajectoire ML4C/ML4D](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) · [Gate B accepté avec réserves](decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) · [qualification sémantique Nora](decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md) · [conception](../construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md) · [contrat technique](../construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md) · [contrat ML4C intégré](../construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md) · [design S02/S03](../construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md) · [cahier](../construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md) · [journal](../construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md). Les mentions historiques **NO BUILD GO / NON IMPLÉMENTÉ** dans conception/contrat technique restent le constat **à la date d'approbation** ; elles ne sont **pas** réécrites. L'avancement technique LOCAL est porté **uniquement** par le tableau ci-dessus et le commit `83fd9ece`.
-
-**Traçabilité Git — instantané du 12/11/2026 avant publication documentaire :** le candidat DOC GATE est alors local et non commité ; le correctif produit `83fd9ecef2d952c90a828d68a192e105c83be35f` est également local, tandis que la PR produit #676 reste ouverte sur `2416e2ee25662821b015407346c64ec204f67488`. La publication documentaire ultérieure doit être identifiée par son propre commit et sa propre PR ; elle ne vaut ni merge, ni intégration du correctif produit, ni acceptation ML4C.
-
----
-
-> **SNAPSHOT HISTORIQUE — 12/11/2026 (contenu validé sur branche docs CP2, non baseline main)** : la [décision de principe sémantique](decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md) et la [conception](../construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md) sont **VALIDATED IN CONTENT BY MORRIS** à leur date ; le [contrat technique](../construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md) est **VALIDATED IN CONTENT WITH EXECUTABILITY RESERVES**. Ces textes conservent leurs formulations d'époque (y compris NO BUILD GO) ; le suivi CURRENT ci-dessus décrit l'implémentation candidate ultérieure.
-
-> **SNAPSHOT HISTORIQUE — 11/11/2026 — Gate B + CP2** : [Gate B accepted with reserves](decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) ; [contrat ML4C intégré](../construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md) et [design vérité des effets](../construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md) validés en contenu avec réserves ; [trajectoire ML4C puis ML4D](decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md). Objectif documentaire ML4B clôturé avec réserves ; **pas** d'acceptation globale ML4 ni BEHAVIOR PROVEN.
-
----
-
-> **RÈGLE DE LECTURE CHRONOLOGIQUE — GATE B :** la décision Morris du 11 novembre 2026, `2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md`, établit **GATE B ACCEPTED WITH RESERVES / ML4B CLOSED WITH RESERVES**. Elle prévaut sur les mentions antérieures « Gate B OPEN » ou « Gate B NOT HELD » conservées dans les diagnostics historiques. Cette précédence ne vaut ni clôture de Gate C, ni acceptation ML4C, ni adoption du produit.
-
-> **SNAPSHOT HISTORIQUE R5 — CP0 VALIDATED IN CONTENT BY MORRIS (2026-11-10 ; PUBLICATION DOCUMENTAIRE SUR BRANCHE CANDIDATE)** : [décision de trajectoire ML4B/ML4C](decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md). Baseline de cadrage `main@0182b0a7053babefe33aa4de181631b21613ac69`. Ce bloc actualise les statuts du programme sans effacer les instantanés datés ci-dessous. Aucune PR, fusion `main`, exécution Cursor, promotion, release ou adoption n'est autorisée par CP0.
-
-## R5 — Réconciliation et convergence produit avant ML5 (2026-11-10, CP0)
-
-**Finalité :** confronter le produit effectivement construit à la vision Pilote–Nora et aux exigences validées, puis faire converger ses capacités fonctionnelles, conversationnelles et UX avant d'engager la réalisation technique Cursor.
-
-**État au HEAD de cadrage :**
-- **ML1 :** clôturé par Morris avec réserves ; intégré via PR #649.
-- **ML2 :** recette fonctionnelle acceptée avec réserves ; intégré via PR #659 ; ne pas inférer de nouvelle clôture formelle.
-- **ML3 :** clôturé par Morris avec réserves ; intégré via PR #661.
-- **ML4 :** code intégré sur `main` via [PR #672](https://github.com/mcleland147/sfia-workspace/pull/672), mergée le 10 novembre 2026 ; première campagne RECETTE terminée avec réserves, sans acceptation globale. Rejeux correctifs et scénarios non exécutés à considérer avec leur portée exacte dans le [registre de RECETTE](../construction/ml4-integration-git/recette-ml4-r01-r14-anomalies.md). Aucune conclusion `BEHAVIOR PROVEN` globale.
-- **ML4B :** trajectoire approuvée ; diagnostic de réconciliation à ouvrir, sans GO code.
-- **ML4C :** trajectoire approuvée ; périmètre de convergence à arbitrer au gate ML4B ; aucune construction autorisée par CP0.
-- **ML5 :** réalisation technique gouvernée avec Cursor selon [décision de séquencement](decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md), construction non engagée.
-- **R6 :** qualification globale non démarrée ; `STABLE`, release et `ADOPTED` non acquis.
-
-**Trajectoire R5 :** `ML1–ML4 → ML4B réconciliation → Gate Morris B → ML4C convergence → Gate Morris C → ML5 Cursor → R6`.
-
-**ML4B — Réconciliation produit et conformité des capacités.** Comparer les contrats théoriques et leurs décisions d'évolution, la vision R1 et les exigences R2, le code intégré et les comportements réellement prouvés. Sortie : matrice de couverture traçable, écarts qualifiés, risques, dépendances, options et arbitrages Morris. Les correctifs techniques et les modifications UX sont hors de ce diagnostic, sauf mandat dérogatoire distinct en cas de risque critique.
-
-**ML4C — Convergence fonctionnelle et expérience Pilote–Nora.** Sur la base des écarts arbitrés, synchroniser comportements, conduite cognitive de Nora, contrats, parcours UX/Figma, composants, code, documentation et preuves de bout en bout. Réutiliser [le dossier de convergence existant](../construction/convergence-ux-parcours-pilote-nora/qualification.md), ainsi que les décisions A1–A3 et P1–P3/F1–F2 déjà validées, sans second moteur de décision ou d'effets ni multiplication de micro-lots par écran. ML5 conserve l'exécution technique Cursor hors de ML4C.
-
-**Checkpoints :** CP0 trajectoire approuvée en contenu et contribution documentaire bornée ; CP1 diagnostic ML4B et gate B ; CP2 contrat de convergence et GO technique distinct ; CP3 réalisation/RECETTE et gate C ; CP4 qualification d'ouverture de ML5. Les documents R1–R5 restent propriétaires de leurs exigences et historiques. **Aucune requalification automatique des clôtures passées, ni GO PR/merge ou promotion.**
-
----
-
-
-> **2026-11-07 — CONVERGENCE UX / G3 A1+A2 VALIDATED SPEC MORRIS** : [contrat technique G3 v1.1 §7](../construction/convergence-ux-parcours-pilote-nora/contrat-technique-convergence-ux.md) : A1 `GET /api/portfolio` additif, liste 25/page, pagination keyset et reprise sans POST ; A2 lien profond `/projects/{projectId}?surface=document&documentId={documentId}` read-only, révision D4 seulement sur action explicite avec version/corrélation. **G1 validé ; G2 source partiel avec L2 + PNG Figma hashés absents ; G3 choix A1/A2 validés mais préflight/contrat d'exécution à qualifier ; G4 NO GO Cursor ; G5 NOT RUN.** [Préflight G2](../construction/convergence-ux-parcours-pilote-nora/protocole-preflight-source-figma.md). Cette entrée prévaut sur les formulations candidates antérieures sans effacer leur historique.
-
-> **2026-11-07 — CONVERGENCE UX / DOSSIER G2-G3 ACTUALISÉ** : les pièces [préflight Figma G2](../construction/convergence-ux-parcours-pilote-nora/protocole-preflight-source-figma.md), [contrat technique G3 v1 candidat](../construction/convergence-ux-parcours-pilote-nora/contrat-technique-convergence-ux.md) et [revue des gates](../construction/convergence-ux-parcours-pilote-nora/revue-gates-g2-g3.md) sont intégrées comme **préparation validée en orientation par Morris**. G1 reste `VALIDATED SPEC` ; G2-`Source PARTIAL` (L2 et PNG SHA-256 incomplets) ; G3-`CANDIDATE` (volumétrie A1 et lien profond A2 à borner) ; G4 **sans GO Cursor** ; G5 `NOT RUN`. Préflight G2 bloquant **avant tout code UI**, calibration image G5 après le premier rendu, sans ouvrir ML4 technique ni ML5 produit. Cette note est prioritaire sur les snapshots précédents, qui restent historiques.
-
-> **2026-11-07 — EXTENSION F1 INSPECTION VALIDÉE MORRIS** : le [record F1](decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md) complète les variantes du rail partagé à **personnel=246 / projet=246 / conversation=240 / inspection=244 CSS px** ; 04/18/19 sont les références d'inspection, 19 D8 reste hors construction de convergence. [Contrat UX v0.5](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) · [préparation G2/G3](../construction/convergence-ux-parcours-pilote-nora/preparation-technique-g2-g3.md). **G1 validé ; G2 extraction partielle ; G3 candidat non accepté ; aucun GO Cursor et aucune recette PASS.** Cet état prévaut sur les snapshots « trois variantes » ci-dessous.
-
-> **ÉTAT COURANT CONVERGENCE UX — DÉCISION MORRIS P1/P2/P3/F1/F2 VALIDATED SPEC (2026-11-07)** : suite à la [validation du parcours et des critères de fidélité](decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md), le [contrat de convergence v0.4](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) fixe P1 reprise OPEN/non liée, P2 révision D4 protégée dans projet, P3 shell partagé, F1 variantes de rail **246/246/240 px**, F2 objectif 0 / maximum 2 CSS px sur rectangles stables. **G1 validé ; G2 DIP partiel (8 frames/55 nœuds, source non figée, seuil image non calibré) ; G3 non préparé ; G4 sans GO Cursor ; G5 NOT RUN.** Cette entrée prévaut sur les anciennes annotations candidates de 2026-11-07, qui restent archivées ci-dessous. [Dossier](../construction/convergence-ux-parcours-pilote-nora/securisation-parcours-fidelite.md) · [L2 partiel](../ux-ui/releves-geometriques-convergence-l2-partiel.json).
-
-
-> **R5 / CONVERGENCE UX — PROTOCOLE DE FIDÉLITÉ FIGMA CANDIDAT (2026-11-07)** : [contrat d'acceptation v0.3](../construction/convergence-ux-parcours-pilote-nora/contrat-acceptation.md) et [protocole mesuré R3](../ux-ui/protocole-fidelite-figma-runtime.md) préparés avec [11 relevés L1 partiels](../ux-ui/releves-geometriques-convergence-l1.json). L'intention de fidélité a l'accord de principe Morris ; **P1–P3, rail 240/246, tolérances et pack L2 restent à finaliser**, sans GO code. L'intégration documentaire ne clôture pas la convergence ni ML4.
-
-
-> **QUALIFICATION DE CONVERGENCE UX — DÉCISION MORRIS DU 2026-11-07 :** après l'intégration documentaire de ML4 via [PR #663](https://github.com/mcleland147/sfia-workspace/pull/663), Morris a validé les **arbitrages A1 (reprise ciblée des préparations), A2 (révision D4 depuis le projet), A3 (pas de nouveau moteur d'actions Nora)** et autorisé la publication de la qualification et du contrat **candidat** sur branche documentaire. [Décision](decisions/2026-11-07-convergence-ux-arbitrages.md) · [Dossier R5](../construction/convergence-ux-parcours-pilote-nora/qualification.md). **Contrat d'acceptation complet NON VALIDÉ ; code/Figma NON MODIFIÉS ; convergence NOT STARTED / BUILD NOT AUTHORIZED ; ML4 Git technique NOT STARTED / BUILD NOT AUTHORIZED.** Cette note prévaut sur les anciennes propositions restées dans les snapshots datés.
-
-
-> **DÉCISION DE TRAJECTOIRE MORRIS DU 2026-11-07 (contenu validé, Git sur branche candidate) :** ML4 couvre l'accès GitHub à la carte, les intégrations, la lecture Nora et la publication documentaire Git native gouvernée (D6/D7/D8/D9, PR puis merge distinct) ; ML5 couvre la réalisation technique Cursor. Voir [décision](decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). **ML4 NOT STARTED / BUILD NOT AUTHORIZED ; UX FIGMA 218–235 VALIDATED SPEC Morris, aucun merge documentaire, aucune implémentation ML4, release ou ADOPTED.**
-
-
-**Nature :** feuille de route de construction Next ; distincte de `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`.
-
-> **SITUATION COURANTE — 2026-11-07, APRÈS CLÔTURE MORRIS DE ML3 ET INTÉGRATION #661 :** R5 **IN PROGRESS** ; ML1 **CLOSED BY MORRIS WITH CARRIED RESERVES** / [#649](https://github.com/mcleland147/sfia-workspace/pull/649) MERGED ; ML2 **RECETTE FONCTIONNELLE ACCEPTED WITH CARRIED RESERVES** / [#659](https://github.com/mcleland147/sfia-workspace/pull/659) MERGED (**aucune clôture ML2 supplémentaire inférée**) ; ML3 « Piloter et décider » **CLOSED BY MORRIS AT BOUNDED D5/D6 + CKI GUIDANCE SCOPE — WITH CARRIED RESERVES** ; [#661](https://github.com/mcleland147/sfia-workspace/pull/661) MERGED, `main@56d263e83de7bb3af4a5b480131002684a5626ca`, CI pré/post-merge Next PASS avec migration `007`. RECETTE ciblée RCT-02 T01–T08 **8/8 PASS** sur `61fe295b` (build `ZCkIWQ341KK1KOHTD1a5L`) ; C03 intercycles **TARGETED LIVE PASS** (rév. 7, `CONCEPTION_FONCTIONNELLE ACTIVE`, CKI02 `RESOLVED` / pin `0.2.0`) sans preuve indépendante `DELIVERED`. Réserves gouvernées : cookies ENV-01 A, restauration PostgreSQL, `PG-DBFAIL-03`, qualification E2E/REAL générale R6. **ML4 (Git documentaire natif + Intégrations) — SCOPE APPROVED BY MORRIS / NOT STARTED / BUILD NOT AUTHORIZED ; R6 NOT STARTED ; STABLE NOT AVAILABLE / NO RELEASE / NOT ADOPTED.** La date des sections inférieures fait foi pour leurs constats historiques ; Git et preuves primaires priment.
-
-> **SNAPSHOT HISTORIQUE (2026-11-05) — APRÈS RECETTE ML2 MORRIS, CANDIDATE NON INTÉGRÉE :** R5 **IN PROGRESS** ; ML1 clos avec réserves et intégré via [#649](https://github.com/mcleland147/sfia-workspace/pull/649). ML2 « Produire et capitaliser avec Nora » : **RECETTE FONCTIONNELLE MORRIS ACCEPTED WITH CARRIED TECHNICAL RESERVES**, 9/9 scénarios conformes après requalification de T08 (refus Nora conforme au contrat d'autorité, création explicite réservée au Pilote). Branche intégratrice `sfia/next-ml2-cognition-observability-integrated@54fc4e9cd68f37b8ce0fd999a0c00969ad6b583f`, [PR #659](https://github.com/mcleland147/sfia-workspace/pull/659) **OPEN / DRAFT**, base `main@6e4406c63639330c7826423cdcf08f06ff019eed` ; #655–#658 **OPEN, non mergées, toutes ancêtres de #659** : une seule intégration envisagée. CI Next [run 42101980546](https://github.com/mcleland147/sfia-workspace/actions/runs/42101980546) **SUCCESS** (52 unitaires, 93 PG comptabilisés, 3 Playwright FAKE ; Required Gate PASS). LIVE Nora borné en DEV sur `01ae25e1` (3 contacts REAL, mission complexe avec lectures D4 déclarées), smoke RECETTE sur `54fc4e9c` ; build candidat RECETTE `IoagwNyGsev4V5B0UZPMf`, schéma `006`. **Aucun GO merge, aucune STABLE/release/ADOPTED.** L'état local hors Git et la disponibilité du serveur RECETTE au présent sont NON OBSERVÉS depuis GitHub. Les passages datés plus bas restent des snapshots historiques, pas les statuts actuels.
-
-**Snapshot historique vérifié au 2026-11-04 (après PR #649 ; antérieur aux branches ML2 candidates) :** R0-A/R0-B/R1/R2/R3 clôturés et intégrés ; R4 CLOSED IN DESIGN BY MORRIS WITH CARRIED RESERVES ; R5 **IN PROGRESS — ML1 CLOSED BY MORRIS WITH CARRIED RESERVES / MERGED #649 / RECETTE ACCEPTÉE** ; ML2 non démarré ; R6 NOT STARTED. **Git `main@2a232f595d4673efa3ddd743711b991ca819e4d8` à l'ouverture de cette préclôture documentaire** (après #650) ; code ML1 mergé via #649 à `747cbec0ac9c161306db34121b0447391b23589c`, arbre candidat `0db58be...` conservé. DEV et RECETTE ont servi à construire et recetter ML1 ; disponibilité runtime au présent et smoke post-merge indépendant NON OBSERVÉS. Réserves ouvertes : A collision de cookies DEV/RECETTE sur `127.0.0.1` malgré bases/secrets distincts ; B CI Next non couverte par le Required Gate historique. **STABLE NOT AVAILABLE / NO RELEASE / NO ADOPTED.** Git local et worktrees : **NON OBSERVÉS**.
-
-> **Fraîcheur :** le tableau des jalons R5 a été réactualisé le 2026-11-07 après clôture Morris ML3 ; les références ci-dessous datées 2026-11-05 restent historiques. Le snapshot ML1 ci-dessous et les sections historiques décrivent la situation post-merge ML1. Les sections R4 et préparation R5 en dessous conservent leurs constats datés **historiques pré-construction** ; leurs mentions `CODE NOT STARTED`, `AUCUNE LANE` ou `NOT MERGED` ne sont plus l'état actuel. Git et preuves primaires priment sur les descriptions anciennes.
-
-| Jalon | Statut | Résultat/exit |
-| --- | --- | --- |
-| R0-A — méthode et rebaseline | **VALIDATED — ON MAIN via PR #636** | SEF v0.2 approuvé, frontières et périmètre Next décidés |
-| R0-B — bootstrap gouverné | **CLOSED BY MORRIS GO — POST-MERGE VERIFIED** | PR #636 merged sur `main` ; SEF, Roadmap et naming validés ; vision + 3 PNG originaux et routage Next présents ; preuves Git post-merge ; pas de preuve produit LIVE/REAL ni de CI Next revendiquée |
-| R1 — cadrage produit | **CLOSED BY MORRIS WITH CARRIED RESERVES — PR #639 MERGED / POST-MERGE VERIFIED** | Vision R1, neuf domaines et sept E2E ; `main@8751775…` prouvé, runtime Next non implémenté. |
-| R2 — conception fonctionnelle | **CLOSED BY MORRIS — WITH CARRIED RESERVES ; PR #640 MERGED / POST-MERGE VERIFIED** | [Décision R2](decisions/2026-11-02-r2-functional-exit.md) ; 9 specs, 300 RG, 241 PF, 15 CKI et 50 relations validés ; réserves R3–R6 conservées. [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640), CI applicable PASS (build historique SKIPPED), `main@455bb706ecdb13cc046b65b531e72ce96f4a4455` vérifié. **À la date de clôture R2, R3 était non démarré ; son statut actuel est reporté dans la ligne R3 et la section de preuve ci-dessous.** |
-| R3 — UX/UI | **CLOSED BY MORRIS — WITH CARRIED RESERVES ; PR #644 MERGED / POST-MERGE DOCUMENTARY VERIFIED** | [Décision R3](decisions/2026-11-03-r3-ux-formal-exit.md), [revue R3](../ux-ui/revue-formelle-sortie-r3.md) : macro-lots A–D et activité Nora ; neuf domaines et sept E2E inspectables ; 223 frames Figma et 901 blocs racines ; quatre clarifications R1/R2 intégrées. Réserves R4–R6 portées, aucun comportement runtime prouvé. |
-| R4 — architecture technique | **CLOSED IN DESIGN BY MORRIS — WITH CARRIED RESERVES ; PR #646 MERGED / POST-MERGE VERIFIED** | [Décision R4](decisions/2026-11-04-r4-architecture-exit.md) : ADR R4-01..04 + DATA-01 approuvés ; A–D consolidés, ENV-01 intégrée sur `main@a0b80b9...` ; 84 cas QA candidats, **aucun exécuté** |
-| R5 — reconstruction par macro-capacités | **IN PROGRESS — ML1 CLOSED WITH RESERVES / #649 MERGED ; ML2 RECETTE ACCEPTED WITH RESERVES / #659 MERGED ; ML3 CLOSED BY MORRIS WITH CARRIED RESERVES / #661 MERGED / POST-MERGE VERIFIED** | ML3 D5/D6, cycles, CKI et migration `007` intégrés sur `main@56d263e8` ; CI avant/après merge PASS ; LIVE RCT-02 T01–T08 8/8 sur SHA `61fe295b`, C03 intercycles ciblé PASS avec CKI02 RESOLVED (preuve DELIVERED distincte absente). Réserves cookies ENV-01 A, PG restore, PG-DBFAIL-03, R6. **ML4 Git/D9 candidate, NOT STARTED/NOT AUTHORIZED** ; aucune STABLE/release/ADOPTED. |
-| R6 — qualification et bascule | **NOT STARTED** | Tests E2E/REAL applicables, gouvernance de transition, GO adoption |
-
-
-## R5 / ML3 — Sortie formelle « Piloter et décider » (2026-11-07 ; décision Morris)
-
-**Décision :** [ML3 — CLOSED BY MORRIS AT BOUNDED D5/D6 + CKI GUIDANCE SCOPE — WITH CARRIED RESERVES](decisions/2026-11-07-pilotage-decisions-formal-exit.md). Cette décision de clôture du macro-lot ne vaut pas adoption/runtime STABLE, release, R6, ML4 START ni GO de promotion. La publication sur branche documentaire reste distincte de son intégration ultérieure à `main`.
-
-**Git / CI :** [PR #661](https://github.com/mcleland147/sfia-workspace/pull/661) MERGED ; merge `56d263e83de7bb3af4a5b480131002684a5626ca` ; six commits ML3 intégrés, arbres `web/` et `cki/` identiques à la RECETTE `61fe295b` ; [CI pré-merge 42332186084](https://github.com/mcleland147/sfia-workspace/actions/runs/42332186084) et [CI post-merge 42333954356](https://github.com/mcleland147/sfia-workspace/actions/runs/42333954356) SUCCESS (Next validate exécuté, migration 001→007, Required Gate PASS). Le résultat PG `PG-DBFAIL-03` n'a pas été réellement exécuté, malgré suite comptabilisée verte.
-
-**Preuves LIVE :** [RCT-02 T01–T08](../construction/ml3-pilotage-et-decisions/recette-ml3-rct02-live-retest-61fe295b.md) 8/8 PASS ; [C03 intercycles](../construction/ml3-pilotage-et-decisions/recette-cki-intercycles-live.md) : ouverture de CONCEPTION_FONCTIONNELLE et second échange cognitif, même projet RECETTE, rév.7/journal7, CKI02 `RESOLVED` pin 0.2.0, aucun nouveau GO lors de l'échange B ; `DELIVERED` n'est **pas** prouvé indépendamment.
-
-**Réserves transférées :** isolation cookies ENV-01 A (**avant STABLE**), restauration PostgreSQL (**avant promotion applicable**), exécution réelle `PG-DBFAIL-03` sur PG SAFE-01 (qualification reprise/DB), preuve CKI `DELIVERED` si le niveau supérieur la requiert, R6 E2E/REAL globale (**NOT STARTED**). Le libellé CI « 001→006 » reste cosmétique ; le script a réellement migré jusqu'à 007. Les limites des sources et des captures historiques sont conservées.
-
-**Suite candidate :** ML4 — Git / D9 ; **NOT STARTED / NOT AUTHORIZED**, à qualifier et soumettre au GO Morris avant exécution. R5 reste ouvert ; aucune promotion STABLE/release/ADOPTED.
-
-## R5 / ML2 — Acceptation utilisateur et arbitrage des réserves (2026-11-05 ; candidate Git)
-
-**Portée du verdict Morris :** RECETTE utilisateur réalisée sur le candidat code `54fc4e9c` / build `IoagwNyGsev4V5B0UZPMf` ; T01–T07 et T09 PASS, T08 requalifié PASS après vérification du contrat Nora : recommandation ≠ décision, création projet au geste explicite du Pilote, Git non accessible à Nora dans ML2. **9/9 conformes ; aucune anomalie métier bloquante signalée.** Verdict de portée : `RECETTE MORRIS ACCEPTED WITH CARRIED TECHNICAL RESERVES`, **pas** `ML2 CLOSED`, `MERGED`, `STABLE` ni `ADOPTED`.
-
-**Preuves et qualification :** GitHub [#659](https://github.com/mcleland147/sfia-workspace/pull/659) à `54fc4e9c` ; [CI Next 42101980546](https://github.com/mcleland147/sfia-workspace/actions/runs/42101980546) SUCCESS ; [revue GitHub et compte rendu de RECETTE](https://github.com/mcleland147/sfia-workspace/pull/659#issuecomment-6669719531). LIVE initial `01ae25e1` ≠ smoke SDK RECETTE au SHA `54fc4e9c` ; ne pas étendre la preuve LIVE historique à tous les scénarios du SHA final. Le manifeste local RECETTE a été déclaré par Cursor mais sa disponibilité en temps réel n'est pas contrôlée par cette Roadmap.
-
-**Arbitrage Morris des réserves pour ce gate ML2 :**
-- **SAFE-01 / déconnexion PostgreSQL :** pas de nouvelle contre-épreuve exigée pour le merge ML2. `PG-DBFAIL-03` exécuté localement sur PostgreSQL éphémère selon Cursor ; en CI, le test **retourne sans exercer son oracle** si ce service manque, tout en étant inclus dans les 93 PASS. Limite de preuve conservée, **non bloquante pour l'acceptation ML2** ; ne pas écrire `CI DISCONNECT PROVEN`.
-- **Comparaison formelle ChatGPT↔Nora :** **non exigée dans cette campagne ML2** par Morris, sans effacer le protocole transverse R5 §14 ni empêcher une comparaison ultérieure sur un besoin justifié.
-- **`modelApplied` souvent `UNVERIFIED` :** report explicitement accepté ; instrumentation réelle du modèle/effort à réexaminer avec l'observabilité à une étape pertinente, sans prétendre la métadonnée prouvée.
-- **GitHub OAuth :** preuve LIVE et acceptation utilisateur **historiques ML1** sur build `PMCGeil9wv8DZNBfEGf4H`, documentées dans [spécification ML1 §15.2](../construction/ml1-entree-et-continuite/specification-technique.md) et [delivery-history](../construction/delivery-history.md). **Non rejoué en ML2** ; ne pas dégrader cet acquis en « jamais testé » ni le déclarer requalifié sur `54fc4e9c`.
-- **Review Pack :** insuffisance formelle d'extraits/diffs du handoff dernier cycle, connue et non bloquante dans l'arbitrage produit ; aucun micro-cycle documentaire dédié.
-- **Routage des PR :** #655–#658 restent OPEN/non mergées ; leurs HEAD sont tous ancêtres du candidat #659 ; éviter le double merge. **Clôture/requalification de ces PR et merge #659 soumis au GO Morris distinct.**
-
-**Suite :** revue finale de l'arbre intégrable et des gates CI après cette synchronisation documentaire ; préparer **une décision d'intégration unique** de #659. Toute modification du code/runtime recetté impose les requalifications ENV-01 adaptées. La présente actualisation factuelle n'est ni un nouveau contrat normatif ni un GO de merge.
-
-## R5 — Trajectoire ML2 intégrée avant RECETTE (arbitrage Morris 2026-11-05 — branche candidate)
-
-**Décision stratégique APPROUVÉE EN CONTENU :** [Decision Record de trajectoire](decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md) ; complément de [référence delivery R5 §17](../construction/reference-delivery-r5.md) ; contrat [ML2 §17](../construction/ml2-production-et-capitalisation-nora/specification-technique.md), [QA §10](../construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md) et [observabilité R4](../architecture-technique/contrat-observabilite-transverse.md). Ces éléments sont **sur branches candidates**, pas sur la baseline main. Aucune modification de la sortie R1–R4 ni du périmètre de preuve historique ML1.
-
-| Dimension de trajectoire | Résultat accepté en stratégie | Condition avant RECETTE ML2 |
-| --- | --- | --- |
-| **Valeur Pilote** | Nora sait investiguer un besoin simple/complexe et conclure utilement, sans autonomie d'effet protégé | Comparaison COG-01..07, demandes simples/complexes, contradictions et limites |
-| **D3 cognitive** | Modèle/effort explicites, qualification proportionnée, boucle SDK native multi-étapes bornée | Configuration fournisseur effective, budgets/états connus, itérations tracées |
-| **D3 ↔ D4** | Lecture complémentaire réellement autorisée, sources/version/permissions courantes, sauvegarde seulement confirmée | D4 DB/INTEGRATION, au moins un cas LIVE de recherche incrémentale, non-régression C1–C6 |
-| **Observabilité existante** | AUTH/API/DB/D1–D4 corrélés ; événements natifs réutilisés, erreurs fidèles, diagnostic consultable en RECETTE | OBS-Q01..10 applicables, confidentialité DATA-01, lane/build ENV-01, défaillance du tracing détectée |
-| **QA / gates** | Tests cohérents code+docs ; comparer qualité et coût réel avant optimisation | CI Next applicable vraiment exécutée, RECETTE au SHA figé et verdict Morris distinct |
-| **Capacités suivantes** | D5–D9 instrumentées à leur livraison, sans précréer leur runtime | Reporter avec propriétaire, risque, exit ; aucun Git/dispatch externe ML2 |
-
-**Travaux déjà engagés (non écartés) :** intégrité transactionnelle ML2 (corrections C1–C6), documents/révisions/Sujets, fil unique et capitalisation. La trajectoire complète la capacité, elle ne redémarre pas ML2, ne supprime aucune réserve et ne présume pas de nouveaux tests PASS.
-
-**Trajectoire aval :** ML3 (trajectoire/cycles/gouvernance selon propriété), ML4 (Git D9), ML5 (exécution/preuves selon frontières) et R6 consomment le socle transverse lorsqu'ils existent ; aucun système de supervision global ni architecture D5–D9 anticipés. **Historique de la décision initiale du 05-11 :** l'autorisation était alors limitée à la rédaction/consolidation documentaire. Depuis, des GO Morris distincts ont autorisé la construction, la PR #659, les tests LIVE bornés et l'activation RECETTE. **État actuel :** verdict RECETTE utilisateur favorable ; **aucun GO merge ni promotion**, voir le constat d'actualisation ci-dessous.
-
-## R5 — Décision formelle de clôture ML1 par Morris, avec réserves (2026-11-04)
-
-**Exercice distinct du REX :** le REX a identifié **quatre enseignements méthodologiques validés** ; la préclôture ML1 n'est pas un cinquième principe méthodologique. Les mises à jour de la présente branche documentaire rapprochent `construction/ml1-entree-et-continuite/specification-technique.md` §15, `matrice-tracabilite.md` §8 et les preuves Git de #649. **Aucun code ni nouveau test** ne sont produits par cette préclôture.
-
-**Décision explicite Morris, 2026-11-04 :** `R5 IN PROGRESS / ML1 CLOSED BY MORRIS WITH CARRIED RESERVES / CODE MERGED #649 / FUNCTIONAL RECETTE ACCEPTED`. Morris accepte la clôture **au périmètre ML1**, sans exiger de correctif applicatif immédiat, sur la base de la revue documentaire As-Built et des réserves nommées. Le GO de clôture **n'est pas** un GO de ML2, de promotion STABLE, de release ou d'ADOPTED. Source de l'autorité : validation conversationnelle de la préclôture et des reports le 2026-11-04 ; publication documentaire candidate sous PR #651 avec merge Git distinct.
-
-**Résultat pilote :** parcours nominal entrée/portefeuille → préparation et dialogue Nora → premier document → création explicite, idempotence et continuité du projet ; périmètre ML1 recetté au C3. **Réserves et écarts reconnus** : A cookies DEV/RECETTE (avant STABLE), B CI Next (avant prochaine livraison significative) ; A05/A13/A15/A16 et DATA-01 non totalement prouvés ; A11 Git relevant de ML4 ; Figma incomplet, Markdown riche absent, streaming D3 non implémenté, métadonnée de schéma à vérifier. Les niveaux de preuve restent ceux de la matrice, sans `16/16 PASS`.
-
-**Arbitrage de sortie consommé :** ML1 est **CLOSED WITH CARRIED RESERVES** selon GO Morris ; la documentation reconnaît les limites de preuves et les conditions de sortie propres à chaque réserve. **Aucun ML1-B correctif n'est déclenché automatiquement** : un éventuel lot correctif exige une raison bloquante et un gate propres. ML2 demeure `NOT STARTED` jusqu'à son GO ; la CI Next doit être effectivement prouvée avant une prochaine intégration significative. **Pas de STABLE, release, ADOPTED ou smoke postmerge inventé.**
-
-## R5 — Snapshot post-merge ML1 (2026-11-04)
-
-- **Preuve Git :** [PR #649](https://github.com/mcleland147/sfia-workspace/pull/649) `MERGED` ; candidat `0db58be8240a00593092048ee74299f19374f489` ; merge et `main` `747cbec0ac9c161306db34121b0447391b23589c` ; tree identique `69d48cc33a91af6635856babb620a7735aa55fe6` ; trois commits candidats préservés.
-- **Résultat livré au périmètre ML1 :** authentification GitHub OAuth, portefeuille personnel, sas et messages persistés, première ressource documentaire, Nora LIVE bornée, création explicite/idempotente, rattachement et réouverture du projet. **Recette fonctionnelle acceptée par Morris** sur le build RECETTE `PMCGeil9wv8DZNBfEGf4H`, au SHA candidat C3. Tests historiques : 22 unitaires, 26 intégration, 1 Playwright à identité/fixture FAKE ; ces tests ne sont ni CI Next ni qualification R6.
-- **Réserve A — sessions :** DEV/RECETTE sur `127.0.0.1` à ports différents ; risque de collision des cookies confirmé, **aucune violation d'autorité inter-bases démontrée** ; profils navigateur séparés comme mitigation provisoire. Correction et re-recette des sessions requises avant STABLE.
-- **Réserve B — CI :** `SFIA Studio Required Gate` historique `SUCCESS`, mais build Next `SKIPPED` ; workflow Next dédié et preuve CI à prévoir sous GO GitHub Actions distinct avant la prochaine livraison significative.
-- **Gates et dette :** absence de smoke runtime post-merge indépendant ; DATA-01, fidélité Figma, rendu Markdown et autres preuves non couvertes ne sont pas réputés clos par le merge. **ML1 intégré ≠ ML1 intégralement qualifié ; STABLE/RELEASE/ADOPTED non acquis.**
-
-## R4 — sortie d'architecture approuvée et gate d'intégration Git (historique pré-ML1, 2026-11-04)
-
-- **Décideur et portée :** Morris approuve explicitement les ADR R4-01..04, la politique DATA-01 et la sortie de **conception R4 avec réserves**. Source décisionnelle propriétaire : [Decision Record R4](decisions/2026-11-04-r4-architecture-exit.md). Il s'agit de **VALIDATED ARCHITECTURE DESIGN**, pas d'implémentation ni de `ADOPTED`.
-- **Livrable unique de conception :** [cadrage R4 v1.0](../architecture-technique/cadrage-r4.md) intégré sur `main` via #646 (branche d'origine `sfia/next-r4-architecture-scoping`) ; quatre macro-lots A–D, neuf domaines et sept parcours E2E couverts en conception ; 84 scénarios QA candidats, aucun exécuté.
-- **Principes validés :** application web neuve modulaire, V-A et persistance transactionnelle PostgreSQL au premier R5 local, frontières Nora/D6/D7/D8/D9, Git facultatif/permissions bornées, étude prioritaire Cursor CLI avec comparaison Cloud API et vérification des effets réels, migration contrôlée locale → serveur. **DATA-01 :** préparations non purgées automatiquement, archivage à J+90, corbeille J+30, logs non critiques 14 jours, sauvegardes chiffrées et rétention telles que décidées ; détails RGPD/restauration à prouver en R5/R6.
-- **Gouvernance de delivery :** [ENV-01](environnements-recette-et-promotions.md), guide et template SFIA v2.6 **Next-only** présents sur `main` via #646, enrichis du versioning produit via #647 ; ENV-01 impose DEV/RECETTE/STABLE isolés, candidat recette figé par SHA, secrets hors Git, corrections et retests avant merge, autorisation de promotion distincte. Aucune lane n'est encore implémentée.
-- **Gates Git non confondus :** validation de contenu et publication sur branche candidate ≠ PR ouverte ≠ CI/required checks PASS ≠ merge ≠ post-merge vérifié ; les opérations Git sont conditionnées à l'état observé et au mandat Morris. Les chemins partagés `method/` et `prompts/` sont bornés à la spécialisation Next, sans altération du parcours historique.
-- **Risques transmis à R5/R6 :** isolation des identités, droits GitHub et Cursor, STOP et idempotence réelle, reprise, DATA-01 et effacement légal, sauvegardes, QA E2E, sécurité, environnement de recette, UX Figma fidèle. Les détails de cognition Nora et d'authentification seront **conçus techniquement et implémentés en R5** sous l'architecture validée ; tout pivot architectural revient à Morris.
-- **Suite actualisée :** #646 et #647 sont mergées et vérifiées sur `main`. Préparer la validation finale du contrat ML1 sous SFIA v2.6, puis un **GO Morris D3 explicite** pour construire ; aucune autorisation technique ou promotion n'est déduite de l'intégration documentaire. **R5 CODE NOT STARTED.**
-
-## R5 — préparation intégrée / qualification ML1 (historique pré-construction, 2026-11-04)
-
-- **Source de vérité Git :** [#646](https://github.com/mcleland147/sfia-workspace/pull/646) merged sur `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; [#647](https://github.com/mcleland147/sfia-workspace/pull/647) merged puis relu à `main@5a972f291ef8819b179d879ae73b5943307ec3c1`. #647 intègre 12 fichiers documentaires, pas de runtime ; required gate GitHub `SUCCESS`, build historique `SKIPPED` ; aucune CI Next ni test applicatif revendiqué.
-- **Préparation R5 sur `main` :** [référence de delivery](../construction/reference-delivery-r5.md), [qualification ML1](../construction/ml1-entree-et-continuite/qualification.md), [spécification ML1 candidate v0.3](../construction/ml1-entree-et-continuite/specification-technique.md), [matrice](../construction/ml1-entree-et-continuite/matrice-tracabilite.md), [inventaire R2](../construction/ml1-entree-et-continuite/inventaire-r2.csv), [revue transverse](../construction/ml1-entree-et-continuite/revue-coherence-technique.md), [versioning produit](product-versioning.md) et routage Next-only du guide/template v2.6.
-- **ML1 — capacité et acceptation de principe :** entrée du Pilote, portefeuille personnel, préparation durable, Nora cognitive minimale, première ressource D4 versionnée, création explicite idempotente, même fil visible après passage sas→projet. Stack proposée et **acceptée sur le principe** : Next.js/React/TypeScript, Better Auth avec GitHub OAuth pour l'identité Studio, PostgreSQL/Drizzle, OpenAI Agents SDK derrière D3, Vitest/Playwright. Le modèle des API, du DDL, des sessions, de la reprise, du stockage et les versions exactes restent à démontrer et stabiliser **avec le lot technique**.
-- **Contrats validés préservés :** D1 identité, D2 sas/création, D3 messages, D4 documents, interfaces D5–D9 sans déclenchement implicite de cycle, HumanDecision, Git ou Cursor. R3 : référence Figma native à consulter par composant ; R4 : V-A, une seule vérité et PostgreSQL. Corpus 103 références D1/D2, oracles A01–A16 (A11 Git partiel), aucun test exécuté.
-- **Versioning et environnement :** politique produit validée en contenu et routeur sur `main` ; aucune version produit initiale ni candidate RECETTE attribuée, `STABLE = NOT AVAILABLE` ; le journal des deliveries naîtra avec le premier code. ENV-01 exige lanes isolées et build au SHA réel, sans preuve d'implémentation actuelle.
-- **Gates non consommés :** ML1 `SPEC NOT YET VALIDATED`, aucun GO D3, aucune création de code ou CI Next, pas de RECETTE, PR technique, merge, promotion ou ADOPTED. Prochaine capacité : faire passer le contrat ML1 en revue finale, puis mandat D3 borné Cursor si Morris l'autorise. Les capacités documentaires ML2, gouvernance ML3, Git ML4 et réalisation ML5 utilisent les interfaces préservées sans extension prématurée.
-- **Écart de fraîcheur connexe :** l'en-tête du document `governance/product-versioning.md` conserve la mention historique `GIT CANDIDATE / NOT MERGED` malgré #647. **Git fait foi** ; correction de ce statut documentaire à traiter sous son propre gate, sans modifier ici la politique approuvée.
-
-## Chemin critique
-
-**Point courant (2026-11-04, après #649) :** ML1 est intégré et sa recette fonctionnelle a été acceptée avec réserves. La suite immédiate est la consolidation de traçabilité et le REX sous arbitrages Morris, **pas une ouverture automatique de ML2**. Les items 1–5 ci-dessous conservent leur caractère historique.
-
-1. **Routage SFIA v2.6 Next : ON MAIN — STATIC VERIFIED** — guide partagé `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` §4.3.0b et template partagé `prompts/templates/sfia-cycle-execution-template.md` §2.0.H présents à `main@aeb4b81…`, avec conservation du routage historique et statut naming `VALIDATED BY MORRIS` harmonisé. Les effets LIVE/REAL du routage n'ont pas été testés. Les instructions projet ChatGPT ont été approuvées par Morris dans la conversation ; l'application effective des réglages n'est **pas vérifiable depuis Git** (aucun claim d'installation).
-2. **THREE ORIGINAL PNG ON MAIN — POST-MERGE VERIFIED** — commit source `3d3d09eca427e6dcaaec589a6a64561227f8a622`, merge #636 `aeb4b81…` ; chemins et blob SHA Git des 3 PNG vérifiés sur `main`, identiques aux blobs distants candidats dont les octets ont été vérifiés contre les SHA-256 originaux :
-   - `01-pilote-nora-capacites.png` → `df80a9470c32d5f18aa0a21087300648f80dde5beec4f3fbba68d3d61073f1ef`
-   - `02-cockpit-architecture-conceptuelle.png` → `1c12dedcca1ec1060636d9197b9e6039ef8aaa6edd99763a4cc74e710b139f50`
-   - `03-mission-execution-restitution.png` → `b84363a0a3e70eb94013d998975f8646c83daf67013ffb5888e60d704d5fcede`
-   Index navigable : `cadrage/vision-cible/README.md` (VISION FONDATRICE, non architecture validée / non REAL).
-3. **R0-B Git integration : MERGED #636 / POST-MERGE VERIFIED — CLOSURE GO MORRIS (2026-11-01)** — documents Next, 3 PNG et deux fichiers partagés présents sur `main`; pas de modification du runtime historique `projects/sfia-studio/`. Merge GitHub autorisé par Morris et réalisé le 2026-11-01 ; post-merge Git vérifié. Le gate CI commun PR a réussi, la suite applicative historique a été SKIPPED ; **aucune CI Next ni test runtime Next n'est revendiqué**.
-4. **Nomenclature : VALIDATED BY MORRIS / ON MAIN** — règles de nommage de construction Next validées le 2026-11-01 ; guide et template partagés harmonisés et présents sur `main`. Le glossaire R1/R2 et les conventions techniques R4 restent à concevoir ; aucun exemple de classe automatiquement adopté.
-5. **R1 — CLOSED BY MORRIS / PR #639 MERGED ET POST-MERGE VÉRIFIÉ (2026-11-02)** — base `main@8751775…` ; **R2 fermé par Morris avec réserves puis PR #640 mergée et vérifiée** sur `main@455bb706ecdb13cc046b65b531e72ce96f4a4455`. Aucun choix d'architecture ni runtime adopté.
-
-**Dépendance structurante :** décisions historiques H7/H8 et G0-A/B conservées en tant qu'historique ; leur portée pour la nouvelle architecture reste à arbitrer, sans supersession implicite. Ancien runtime v3 **NON ADOPTED**.
-
-**Règle de mise à jour :** un statut ne devient PASSED/READY/ADOPTED qu'après preuve et décision ; mettre à jour cette roadmap dans le même macro-lot que le changement, sans cycle documentaire artificiel.
-
-## R2 — consolidation documentaire (2026-11-02)
-
-- **Base R1 :** PR #639 mergée sur `main@8751775edc314e8fc7f0855104e5000290be9839` ; branche R2 distincte.
-- **R2 :** 9 specs individuelles validées par Morris, 300 RG, 241 PF documentaires après les 4 PF D3 approuvés ; sept E2E R1 non exécutés.
-- **CKI :** 15 fiches et 50 relations `VALIDATED CONTENT v0.2` par Morris le 2026-11-02 ; preuve d'usage et de valeur cognitive à obtenir en R5/R6.
-- **Gates :** clôture R2 Morris confirmée ; PR #640 et CI vérifiées, merge et lecture `main` réalisés. **L'entrée effective R3 UX demeure une décision distincte**, avec cadrage du premier macro-lot ; le produit Next reste non implémenté.
-
-## R0-B — critères de clôture et réserves factuelles (2026-11-01)
-
-| Contrôle | État | Preuve / suite |
-| --- | --- | --- |
-| R0-A SEF v0.2 | **VALIDATED MORRIS / ON MAIN** | `governance/SEF.md` sur `main@aeb4b81…` + décision du 2026-11-01 |
-| Convention nommage | **VALIDATED MORRIS / ON MAIN** | `governance/product-naming-conventions.md` + décision et guide/template partagés sur `main` |
-| Routage v2.6 Next | **ON MAIN / STATIC VERIFIED** | Guide §4.3.0b + template §2.0.H présents ; effets LIVE/REAL non prouvés |
-| Trois schémas | **ON MAIN / POST-MERGE GIT VERIFIED** | Merge `aeb4b81…` ; trois blobs identiques à la candidate ; SHA-256 originaux vérifiés sur la candidate distante |
-| Instructions ChatGPT Next | **APPROVED MORRIS / SETTINGS NOT OBSERVED** | Instructions Next validées dans la conversation ; leur activation effective dans les paramètres n'est pas une preuve Git ; source documentaire `governance/chatgpt-project-instructions-next.md` sur main |
-| CI/validation intégration | **PR REQUIRED GATE PASS / LEGACY BUILD SKIPPED ; NEXT CI NOT IMPLEMENTED** | PR #636 : `Detect SFIA Studio changes = SUCCESS`, `SFIA Studio Required Gate = SUCCESS`, `Build and validate SFIA Studio = SKIPPED`, workflow [#41311482392](https://github.com/mcleland147/sfia-workspace/actions/runs/41311482392). Aucun workflow post-merge observé sur le merge SHA au contrôle du 2026-11-01. Ces checks ne prouvent **aucune qualité runtime Next** ; CI Next à concevoir en R4/R5 sous GO technique. |
-| PR / merge / main | **MERGED / POST-MERGE GIT VERIFIED** | Morris GO PR puis GO MERGE consommés ; PR [#636](https://github.com/mcleland147/sfia-workspace/pull/636) merged le 2026-11-01T13:31:18Z, SHA `aeb4b81fd598f9440a23a6a7f1ce36da4de9a97c` ; HEAD `main` vérifié au même SHA |
-
-**Verdict post-merge : R0-B MERGED AND POST-MERGE GIT VERIFIED — CLOSURE FORMALIZED UNDER MORRIS GO (2026-11-01).** Cette synchronisation de statut est soumise aux contrôles Git d'intégration de la Roadmap ; elle n'entraîne aucune promotion du runtime. Réserves non bloquantes et traçables : paramètres ChatGPT non observables depuis Git ; pas de CI produit Next avant sa conception R4/R5 ; aucun comportement produit Next ni runtime ADOPTED revendiqué. **R1 NOT STARTED / REQUIRES ITS OWN GO.**
-
-
-## R0-B — enregistrement de clôture post-merge (2026-11-01)
-
-- **Autorité :** GO Morris donné en conversation pour formaliser la clôture après post-merge #636, puis GO complémentaire pour **publier cette seule synchronisation documentaire par PR et merge contrôlés** ; ce mandat n'autorise pas d'ouverture Delivery R1 ni de modification technique.
-- **Preuve principale :** PR #636 merged ; `main@aeb4b81fd598f9440a23a6a7f1ce36da4de9a97c` observé ; 12 fichiers de la PR présents ; aucune modification de l'application historique dans le périmètre de la PR.
-- **Livrables :** SEF v0.2, conventions de nommage validées, Roadmap Next, décisions, vision avec trois schémas originaux, routage SFIA v2.6 Next spécialisé sur guide/template canoniques.
-- **Qualité limitée au périmètre R0-B :** Git post-merge et empreintes des actifs ; gate PR `SFIA Studio Required Gate` PASS avec build historique SKIPPED ; pas de pipeline ni de runtime Next à tester à ce jalon.
-- **Reste à instruire, sans réouverture R0-B :** stratégie CI Next proportionnée aux capacités nouvelles (R4/R5), application des instructions ChatGPT si non déjà faite, conception fonctionnelle/UX/architecture et preuves futures.
-- **Trajectoire :** R1 cadrage produit est le prochain jalon, **non engagé** tant que son propre périmètre, son contrat et son GO ne sont pas posés.
-- **Traçabilité :** synchronisation documentaire bornée à `governance/roadmap.md` depuis `docs/sfia-studio-next-r0b-postmerge-closure-20261101`, issue du merge #636 (`aeb4b81…`) ; publication sous PR/merge distincts. L'intégration effective sur `main` est à établir par preuve Git post-merge, et non à déduire du contenu du présent document.
-
-
-## R1 — cadrage produit : formal exit Morris et réserves reportées (2026-11-02)
-
-- **Autorité et statut :** décision explicite Morris du 2026-11-02 : **R1 CLOSED BY MORRIS WITH CARRIED RESERVES** ; 9 domaines et 7 E2E validés ; critères de sortie évalués ; §2.39 et [Decision Record](decisions/2026-11-02-r1-cadrage-formal-exit.md). **L'exit décidé n'est ni merge déjà réalisé, ni R2 commencé, ni conformité Next démontrée.**
-- **Référence unique de cadrage :** [`cadrage/vision-produit.md`](../cadrage/vision-produit.md), version documentaire 0.15 et §2.39 de sortie R1, sur la branche candidate jusqu'à preuve Git d'intégration. Aucun document parallèle de revue n'est requis ; les décisions et remplacements (dont simplification du journal) sont retracés dans le document vivant.
-- **Acquis du périmètre :** cockpit sans Nora, sas pré-création récupérable, création explicite/fil continu ; un cycle actif et CKC de guidance non prescriptif ; production cognitive directe et restitution riche/proportionnée ; continuité des connaissances/decisions, journal Sujets/Décisions et points ouverts ; autorité du Pilote, contrat « Exécuter », suivi véridique de Cursor, revue de preuves, correction non lancée automatiquement ; identité GitHub par Pilote, Git facultatif, collaboration Git sans fusion des projets.
-- **Revue transverse documentaire :** neuf domaines couverts au niveau cadrage par sept parcours de référence ; pas de contradiction structurante majeure identifiée. Cinq familles d'exceptions et six ensembles de risques/dépendances explicités en §2.37, notamment **identité/isolation Cursor CLI**, **continuité et autorité persistante**, **preuve/observabilité**, **concurrence Git**, **restitution interactive**, **sources/accès envisagés**. Résolution technique/UX reportée aux jalons R2–R6 selon la nature de chaque risque, **sans prétendre les capacités disponibles**.
-- **Reprise méthodologique et instructions Nora — quatre qualifications R2 VALIDATED BY MORRIS (2026-11-02) :** (1) responsabilités/versions/provenance d'une méthode applicable et évaluation comparative **DoctrinePackage vs plus simple** ; (2) instructions opérationnelles de Nora : hiérarchie, composition, protection contre sources non fiables et séparation de la méthode de construction ; (3) adaptation ciblée SFIA v2.6 (nature du travail, profils, lenses, contrats, STOP, preuves), sans dépendance runtime ; (4) gouvernance des apprentissages/versions et des changements applicables sans promotion automatique. **R2 : contrats métier ; R3 : représentation utile ; R4 : mécanismes ; R5–R6 : preuves.** Aucun GO R2 ou choix d'architecture.
-- **Critères d'exit R1 : CONSOMMÉS DANS LA DÉCISION MORRIS.** Vision et frontières approuvées, sept scénarios et exceptions, responsabilités cohérentes, risques/dépendances transférés, cohérence documentaire sur candidate. **Le GO de sortie est accordé avec réserves reportées**, sans prétendre à une spécification R2 ou un runtime prouvé.
-- **Git vérifié pour la reprise :** branche `docs/sfia-studio-next-r1-vision-pilote-nora-01`, issue de la baseline `main@2f47d7e63663ed4a18aa1dad0409c12df2d7dfbe`, **non mergée** au moment de cette revue. HEAD et blobs des deux documents à relire après synchronisation ; état local **NON OBSERVÉ**.
-- **Gates restants :** GO Morris de sortie R1 **accordé** ; autorisation de publication **commit/PR/merge avec contrôles** également accordée pour la branche R1 et son périmètre documentaire. **Restent à prouver :** PR, checks applicables, merge et relecture de `main`; puis lancer R2 sur la baseline intégrée. Pas de code Next, CI Next, UX/ADR adoptés ni preuve LIVE/REAL.
-
-**Frontière de cette décision :** R0-B reste historique ; **R1 est clos sur décision de Morris avec réserves**, mais l'intégration Git doit être constatée après merge. Les validations R2/R4 et l'adoption runtime restent indépendantes. **La Roadmap doit être requalifiée sur preuves après chaque gate et R2 n'est pas engagé par le seul commit R1.**
-
-
-## Décision R2 — clôture fonctionnelle confirmée (2026-11-02)
-
-Morris valide la [sortie R2 avec réserves](decisions/2026-11-02-r2-functional-exit.md) et les quinze CKI en contenu ; la PR #640 a ensuite été **mergée le 2026-11-02T19:33:10Z et vérifiée sur `main@455bb706ecdb13cc046b65b531e72ce96f4a4455`**. Il s'agit d'une intégration Git documentaire, sans preuve de fonctionnement produit. L'entrée R3 UX reste à décider, sans automatisme.
-
-
-## R2 — preuve post-merge Git #640 (constat du 2026-11-02)
-
-- **Autorité :** sortie R2 avec réserves approuvée par Morris ; GO merge #640 expressément accordé dans la conversation. La décision [R2](decisions/2026-11-02-r2-functional-exit.md) conserve sa portée historique ; ce constat n'en modifie pas rétroactivement les autorisations.
-- **Références :** [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640) `merged=true` le `2026-11-02T19:33:10Z` ; branche candidate finale `sfia/next-r2-functional-specs@61e2848035b41a237fbfe09dca3ae52f19f04c54` ; merge `455bb706ecdb13cc046b65b531e72ce96f4a4455` ; parents `8751775edc314e8fc7f0855104e5000290be9839` et `61e2848035b41a237fbfe09dca3ae52f19f04c54`.
-- **Équivalence des arborescences :** Git `tree=ffce65b39114773c56506ae12768d86fc0d886fd` identique sur le commit candidat et le commit de merge ; diff candidat → `main` ne contient aucun changement de fichier. `main@455bb706ecdb13cc046b65b531e72ce96f4a4455` lu après le merge.
-- **Portée :** 32 fichiers Markdown dans `projects/sfia-studio-next/`, aucun fichier runtime, CI, chemin `method/` ou ancien Studio modifié. [Workflow #41510344563](https://github.com/mcleland147/sfia-workspace/actions/runs/41510344563) `SUCCESS` : détection `SUCCESS`, gate requis `SUCCESS`, build historique `SKIPPED` ; **aucune CI Next ni preuve produit LIVE/REAL**.
-- **Vérifications documentaires :** [spécifications D1–D9](../conception-fonctionnelle/README.md), [corpus CKI](../cki/README.md), [matrice](../cki/relations-methodologiques-cki.md), [décision R2](decisions/2026-11-02-r2-functional-exit.md) et rapport de sortie effectivement accessibles sur `main` ; contenu conforme.
-- **Suite au constat R2 du 2026-11-02 (historique) :** gate Git R2 **ACQUIS — POST-MERGE VERIFIED**. À cette date, R3 UX était non démarré ; ce statut historique est remplacé par la décision R3 du 2026-11-03 et la preuve de merge #644 ci-dessous. **R4 reste non démarré.**
-
-## R3 — UX/UI : clôture Morris et preuve Git post-merge #644 (2026-11-03)
-
-**Statut opposable : `R3 CLOSED BY MORRIS — WITH CARRIED RESERVES / PR #644 MERGED / DOCUMENTARY POST-MERGE VERIFIED`.** [Decision Record R3](decisions/2026-11-03-r3-ux-formal-exit.md) et [revue formelle de sortie](../ux-ui/revue-formelle-sortie-r3.md). Les réserves sont acceptées pour la sortie de conception et restent opposables à R4–R6.
-
-- **Résultat et IN :** macro-lots UX A (entrée, conversation et continuité), B (trajectoire, cycles, décisions), C (contrat, instruction Cursor, résultats et preuves), D (Git facultatif, droits et qualité transverse), avec consolidation du travail visible de Nora, STOP demandé vs confirmé, acquis et reprise. Neuf domaines D1–D9 et sept scénarios E2E représentés au niveau conception.
-- **Preuves UX :** [revue intégrale Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=264-401) : **223/223 frames accessibles**, 2 263 liens NODE et zéro destination manquante lors de l'audit ; parcours nominal distinct des alternatives conditionnelles. [Conception UX](../ux-ui/espace-projet-interaction-pilote-nora.md), [audit](../ux-ui/audit-couverture-ux-r3.md), [contrat de transposition Figma → code](../ux-ui/contrat-transposition-figma-code.md) et [manifeste géométrique v0.3](../ux-ui/index-geometrie-frames-r3.json) : **223 frames / 901 blocs racines**. La géométrie de chaque descendant n'est pas encore intégralement mesurée ; aucune conformité pixel-perfect en navigateur n'est revendiquée.
-- **Quatre clarifications R1/R2 validées Morris et intégrées :** visibilité honnête du travail de Nora ; distinction cognition / outils / Cursor ; commande Arrêter avec autorité, état de transmission et confirmation/inconnu ; conservation des acquis et reprise sans duplication. Sources canoniques : [Vision R1 §9](../cadrage/vision-produit.md), [D3 §13](../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [D6 §9](../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md), [D7 §9](../conception-fonctionnelle/realisation-operationnelle-gouvernee.md), [D8 §9](../conception-fonctionnelle/resultats-et-preuves.md) et [index R2 §24](../conception-fonctionnelle/README.md). Aucun nouveau moteur concurrent ni RG/PF supplémentaire.
-- **Preuve post-merge :** [PR #644](https://github.com/mcleland147/sfia-workspace/pull/644) `merged=true` ; commit de merge **`a5aa3ca175aad866cfad7a1fbc9ee45d625a9df0`**. Relecture distante : `main` identique à ce SHA et **12/12 fichiers documentaires identiques** à la branche d'intégration. [Workflow #41702121579](https://github.com/mcleland147/sfia-workspace/actions/runs/41702121579) : `SFIA Studio Required Gate SUCCESS`, build applicatif historique `SKIPPED` pour PR documentaire. Aucun workflow post-merge observé sur le merge SHA au contrôle ; aucune CI Next ou preuve runtime déduite.
-- **Réserves/exit R4–R6 :** R4 qualifie événements Nora/Cursor réellement accessibles, autorité D6, effets D7, preuves D8, persistance, idempotence, reprise et limites STOP ; arbitre fondations visuelles (rail 240/246 px), responsabilités et architecture. R5 construit par macro-capacités avec tests et mesures profondes ; R6 éprouve navigateur, accessibilité, effets, interruption et reprise en conditions applicables. `IMPLEMENTED`, `BEHAVIOR PROVEN` et `ADOPTED` **non acquis**.
-- **Suite : R4 ARCHITECTURE NOT STARTED.** Cadrage de capacité, risques, dépendances, contrats et sortie sous **GO Morris distinct**. Aucun lancement R4, nouveau PR ou merge implicite.
-
-**Gate de publication Roadmap :** la branche `main` est protégée ; l'écriture directe a été refusée par GitHub (PR + `SFIA Studio Required Gate` exigés). Cette mise à jour est préparée sur `sfia/next-r3-roadmap-post-merge-sync`, créée depuis `main@a5aa3ca175aad866cfad7a1fbc9ee45d625a9df0`. La promotion sur `main` nécessite un gate PR/merge séparé.
-
-
-## ML4/ML5 — décision de séquencement 2026-11-07
-
-## Addendum R5 — 2026-11-07 : ML4 Git gouverné, ML5 réalisation Cursor
-
-**Référence :** [décision](decisions/2026-11-07-ml4-git-publication-ml5-cursor-trajectoire.md). **ML4 — Collaborer et publier avec Git** : GitHub seul connecteur réel, page « Paramètres → Intégrations », installation/autorisation à la carte, lecture/version/provenance pour Nora, révision D4, publication documentaire via D6/D7/D8/D9 avec branche/commit/PR et merge autorisé séparément. **ML5 — Faire réaliser et vérifier avec Cursor** : contrat technique, instruction exacte, identité/exécuteur Cursor, tentative, STOP/reprise et preuve D8, avec D9 si nécessaire ; aucun second moteur d'effets.
-
-**Pièces propriétaires :** [qualification](../construction/ml4-integration-git/qualification-impact-ml4-ml5.md), [contrat d'acceptation](../construction/ml4-integration-git/contrat-acceptation.md), [matrice](../construction/ml4-integration-git/matrice-acceptation.md), [brief Figma](../construction/ml4-integration-git/brief-ux-figma.md), [spécification technique candidate](../construction/ml4-integration-git/specification-technique.md). Tracer R1 E2E07, R2 41 RG/36 PF historiques et N-01..N-27, R3 171–205 et nouvelles surfaces, R4 ADR/QA, R5 code/tests/preuves lorsqu'ils existeront.
-
-**Gates :** synchronisation documentaire D2 → Figma et validation visuelle Morris → consolidation des contrats et test de faisabilité fournisseur → GO Cursor SFIA v2.6 → construction/tests/recette REAL → revue et acceptation Morris distinctes. **ML4 non implémenté / pas de GO build ; R6 non démarré ; aucune STABLE, release ou ADOPTED.** Les réserves ML1–ML3 ne sont pas effacées.
-
----
-
-## R5 — Préparation ML4 et convergence UX avant construction Git (2026-11-07)
-
-**Décision Morris :** finaliser et intégrer la documentation ML4, dont la conception Figma **218–235 et INDEX 388:425 VALIDATED SPEC UX**, puis qualifier et construire la convergence UX du parcours réellement implémenté ML1–ML3 **avant** le développement technique Git ML4. [Décision d'ordonnancement](decisions/2026-11-07-ml4-ux-validation-convergence.md), [registre UX](../ux-ui/integration-git-ux-ml4.md), [revue de préparation](../construction/ml4-integration-git/revue-preparation-ml4.md).
-
-**État :** R5 IN PROGRESS ; ML1 CLOSE avec réserves, ML2 recette acceptée avec réserves, ML3 CLOSE avec réserves ; ML4 **préparation documentaire en candidature / UX validée en conception / NON IMPLÉMENTÉ / GO BUILD ABSENT**. La publication de cet addendum ne constitue ni un merge sur `main`, ni un GO de construction, ni STABLE/release/ADOPTED.
-
 ```
-
----
-
-## 7–10. Imports exacts (13) + diffs C
-
-| ID | Chemin | Ref source | Blob source | Blob candidat | Relecture |
-| --- | --- | --- | --- | --- | --- |
-| A1 | `projects/sfia-studio-next/governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `a9f7823128fe5652d3b80df2fd3df98d2e5fc99e` | `a9f7823128fe5652d3b80df2fd3df98d2e5fc99e` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md |
-| A2 | `projects/sfia-studio-next/governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `c4a0337f1243180fcec3d9fadebd180a6b33c9e6` | `c4a0337f1243180fcec3d9fadebd180a6b33c9e6` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md |
-| A3 | `projects/sfia-studio-next/governance/decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `ebaa5665c87099146d70c9445ff981bbcaf7fc2a` | `ebaa5665c87099146d70c9445ff981bbcaf7fc2a` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/governance/decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md |
-| B1 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `27475cf3afd2e779c7832a94e0ce7a8c3036d05a` | `27475cf3afd2e779c7832a94e0ce7a8c3036d05a` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md |
-| B2 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `88f387aa3ae847a5098e6d0d620d8da9a36d71ee` | `88f387aa3ae847a5098e6d0d620d8da9a36d71ee` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md |
-| B3 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `8cfd6fd45d5157ab9eefa50bf3056c223b02a683` | `8cfd6fd45d5157ab9eefa50bf3056c223b02a683` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md |
-| B4 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `647bbca85c31453e7ff0d58684367c8e2edb8c9d` | `647bbca85c31453e7ff0d58684367c8e2edb8c9d` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md |
-| B5 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `a14d43619871c2d35ca2a83e1609af92c620c7cd` | `a14d43619871c2d35ca2a83e1609af92c620c7cd` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md |
-| B6 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `fa794105ce5448ba9404dd2fb011724566f6daf5` | `fa794105ce5448ba9404dd2fb011724566f6daf5` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md |
-| B7 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `1533343e8caa9788714123135cfab853c1232a13` | `1533343e8caa9788714123135cfab853c1232a13` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md |
-| C1 | `projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `99d8130a42ee6812a6567cc6dd477c81673e628e` | `99d8130a42ee6812a6567cc6dd477c81673e628e` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md |
-| C2 | `projects/sfia-studio-next/construction/reconciliation-produit/README.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `3aa8b5a50808cfb04da1ff925d21cd1c95ec47a0` | `3aa8b5a50808cfb04da1ff925d21cd1c95ec47a0` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/reconciliation-produit/README.md |
-| C3 | `projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md` | `docs/next-r5-ml4c-cp2-preparation-20261111` | `53850453891569f04b92d26015f920f68deafbef` | `53850453891569f04b92d26015f920f68deafbef` | https://github.com/mcleland147/sfia-workspace/blob/63ebdc3370f640d1f2817d0a415b908d54e8c509/projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md |
-
-### `projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md`
-
-```diff
-commit 63ebdc3370f640d1f2817d0a415b908d54e8c509
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Thu Nov 12 16:11:29 2026 +0100
-
-    docs(next): consolidate ML4C decisions and semantic convergence contracts
-
-diff --git a/projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md b/projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md
-index 3f89c065..99d8130a 100644
---- a/projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md
-+++ b/projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md
-@@ -7,6 +7,8 @@
- **Source UX :** fichier Figma `itgvCulInEnFY6DvgIegvP`, page `01 · Parcours produit — Référence UX R3` (`94:49`), consultée en lecture native. Page à **242 frames** dont écrans ML4 218–235 et INDEX déjà validés ; aucune mutation Figma réalisée lors de cette qualification.
- **Autorité :** Morris a validé **A1, A2, A3** et autorisé le **versement documentaire borné** sur une branche Git ainsi que les addenda de traçabilité R3/R5. Aucun GO code/DB/Figma, aucune PR, aucun merge, aucune promotion ou adoption. Voir [décision des arbitrages](../../governance/decisions/2026-11-07-convergence-ux-arbitrages.md).
-
-+> **ADDENDUM DE TRAJECTOIRE DU 11/11/2026 — PÉRIMÈTRE HISTORIQUE CONSERVÉ :** la présente qualification date du 07/11 et reste le dossier propriétaire des décisions A1–A3, P1–P3, F1/F2, des contrats et des preuves G1–G5 à leur portée. La [décision complémentaire R5](../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) retient ensuite **ML4C convergence fonctionnelle intégrée avec UX indispensable aux parcours**, puis **ML4D convergence UX/UI globale des surfaces effectivement construites ML1–ML4**. Cette qualification ne constitue **ni** l'inventaire complet ML4D, **ni** une preuve F2/G5, **ni** un GO Figma/code ; sa chronologie pré-ML4 ne prévaut pas sur l'addendum R5 du 11/11.
-+
- ## 1. Décision de trajectoire applicable
-
- Le document `governance/decisions/2026-11-07-ml4-ux-validation-convergence.md`, désormais intégré dans `main` via PR #663, définit la suite : **préparation documentaire ML4 achevée et intégrée → convergence UX des capacités ML1–ML3 sous contrat et GO distinct → construction technique ML4 Git → ML5 Cursor → R6**. La présente qualification applique cet ordre sans réouvrir les clôtures historiques ML1 et ML3 ni inventer une clôture formelle ML2.
-```
-### `projects/sfia-studio-next/construction/reconciliation-produit/README.md`
-
-```diff
-commit 63ebdc3370f640d1f2817d0a415b908d54e8c509
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Thu Nov 12 16:11:29 2026 +0100
-
-    docs(next): consolidate ML4C decisions and semantic convergence contracts
-
-diff --git a/projects/sfia-studio-next/construction/reconciliation-produit/README.md b/projects/sfia-studio-next/construction/reconciliation-produit/README.md
-index 35e0e6e6..3aa8b5a5 100644
---- a/projects/sfia-studio-next/construction/reconciliation-produit/README.md
-+++ b/projects/sfia-studio-next/construction/reconciliation-produit/README.md
-@@ -1,5 +1,7 @@
- # SFIA Studio Next — Réconciliation produit R5 (ML4B)
-
-+> **DÉCISION DE SORTIE POSTÉRIEURE — 11/11/2026 :** Morris a **accepté le Gate B avec réserves** et considéré l'objectif documentaire de ML4B **clôturé avec réserves**, selon la [décision D2](../../governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md) (sur branche candidate, `main` non modifiée). Le diagnostic CP1 est une **base de convergence acceptée**, pas une preuve globale de comportement : 628 références indexées, 43 étapes E2E rapprochées et huit familles X-01..X-08 conservent exactement leurs preuves, limites et réserves. Les mentions historiques `CP1 CANDIDATE / GATE B NOT HELD` ci-dessous décrivent **l'état avant cet arbitrage**. Suite autorisée : finaliser CP2 ; **aucun GO build/PR/merge/ADOPTED**.
-+
- **Nature :** dossier de diagnostic documentaire D1, non normatif.
- **Ouverture :** 10 novembre 2026.
- **Baseline d'analyse :** `mcleland147/sfia-workspace`, `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4` (après PR #673).
-@@ -7,6 +9,8 @@
- **État :** `DOCUMENTED / CP1 SYNTHESIS CANDIDATE FOR MORRIS REVIEW / GATE B NOT HELD / NO PRODUCT CHANGE`.
- **Environnement local, runtime, DB et navigateur :** `NON OBSERVÉS`.
-
-+> **MISE À JOUR DE GOUVERNANCE DU 11/11/2026 (postérieure au diagnostic CP1) :** Morris a validé **ML4C fonctionnel intégré, puis ML4D UX/UI global**, dans la [décision complémentaire](../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md). **Ce choix remplace les options A/B/C comme trajectoire de réalisation uniquement** ; les 628 références indexées, sept E2E/43 étapes, X-01..08 et leurs statuts de preuve restent inchangés. Inclure cockpit/portefeuille, accès, sas et navigation en ML4C lorsqu'un écart fonctionnel ou d'UX bloquante l'exige, puis reprendre toutes les surfaces applicables en ML4D pour la fidélité Figma. **CP1/Gate B non acceptés par ce seul arbitrage ; aucun GO de construction.**
-+
- ## 1. Résultat du dossier et frontière
-
- Conformément à la [décision CP0](../../governance/decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md), ML4B confronte la **vision R1, les contrats R2, la conception UX R3, l'architecture R4, les contrats R5, le code intégré, les tests et les comportements réellement prouvés**.
-```
-### `projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md`
-
-```diff
-commit 63ebdc3370f640d1f2817d0a415b908d54e8c509
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Thu Nov 12 16:11:29 2026 +0100
-
-    docs(next): consolidate ML4C decisions and semantic convergence contracts
-
-diff --git a/projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md b/projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md
-index f36b9c33..53850453 100644
---- a/projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md
-+++ b/projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md
-@@ -1,11 +1,15 @@
- # SFIA Studio Next — ML4B : synthèse transverse des sept parcours R1 et options pour le gate B
-
-+> **DÉCISION POSTÉRIEURE AU DIAGNOSTIC — GATE B ACCEPTED WITH RESERVES (Morris, 11/11/2026)** : [enregistrement D2](../../../governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md). Les 628 références indexées, les 43 étapes mappées et les huit familles X-01..08 sont acceptées comme **base CP1**, non comme preuves PASS. Les options A/B/C et les questions B-01..B-06 qui suivent décrivent la préparation historique ; leur arbitrage effectif est consigné dans la décision D2. Objectif documentaire ML4B clôturé avec réserves, CP2 à finaliser, **aucun GO technique**.
-+
- **Date :** 2026-11-11. **Nature :** dossier de diagnostic D1, **candidat à la revue Morris**, non normatif et non approuvé.
- **Source de code :** `mcleland147/sfia-workspace`, `main@deba6ee40dfe0ac395555460a0bd7d6bc48d5aa4` ; **branche documentaire :** `docs/next-reconciliation-produit-ml1-20261110`.
- **Hors observation directe :** poste/local, DB active, navigateur, captures Figma natives, fournisseur GitHub et tests rejoués. Les preuves PG/FAKE/LIVE/REAL décrites sont des preuves **historiques à SHA/lane distincts**.
-
- [Index ML4B](../README.md) · [Vision R1 propriétaire](../../../cadrage/vision-produit.md) · [Décision de trajectoire CP0](../../../governance/decisions/2026-11-10-r5-reconciliation-convergence-trajectory.md) · [Roadmap](../../../governance/roadmap.md).
-
-+> **ADDENDUM D'ORIENTATION DU 11/11/2026 :** l'arbitrage Morris postérieur à cette synthèse retient **ML4C convergence fonctionnelle intégrée (cockpit/entrée/sas compris, UX fonctionnelle incluse), suivi de ML4D convergence UX/UI globale**. Voir [décision complémentaire](../../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md). Les options A/B/C ci-dessous restent **des hypothèses de classement historiques du diagnostic**, pas trois macro-lots désormais retenus. Les huit familles X-01..08, preuves, 628 références et 43 étapes ne changent pas. **Gate B encore ouvert ; pas de GO code/UX/PR/merge.**
-+
- ## 1. Résultat consolidé
-
- | Lot et domaines R2 | Couverture de référence publiée | Acquis probants et limite déterminante |
-@@ -117,7 +121,9 @@ Les noms d'étapes sont extraits des [sept scénarios R1 §§2.30–2.36](../../
-
- **Regroupement sans doublon :** `ML4-REC-08` = X-01 même si ML2/ML4 le mentionnent ; `R-UX-01` = X-03 ; `ML4-REC-07` ancien FAIL puis G1 ciblé PASS ; `ML4-AT-13` = X-08. `NOT RUN` n'est pas `FAIL`.
-
--## 4. Trois options de macro-lots de convergence ML4C, non arbitrées
-+## 4. Trois options historiques de convergence envisagées au diagnostic CP1 (avant arbitrage du 11/11)
-+
-+> **Lecture historique uniquement :** A/B/C détaillent des familles de problèmes et des dépendances. La réalisation approuvée en orientation est désormais **ML4C fonctionnel intégré → ML4D UX/UI global** ; voir l'addendum et la décision D2 ci-dessus. Aucun constat ou niveau de preuve n'est effacé.
-
- | Option cohérente | Résultat Pilote | IN / OUT et responsabilités | Preuve de sortie et dette/exit |
- | --- | --- | --- | --- |
-```
-
-
-Trailing whitespace historique dans B1/B6/B7 : **conservé** (IMPORT EXACT) ; `git diff --check` les signale sans autoriser de rewrite.
-
----
-
-## 11–12. Commit / push
-
-```
-commit 63ebdc3370f640d1f2817d0a415b908d54e8c509
+commit 889edd51da14115edf88b501ba9c09806558b690
 Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Thu Nov 12 16:11:29 2026 +0100
+AuthorDate: Thu Nov 12 16:28:51 2026 +0100
 Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Thu Nov 12 16:11:29 2026 +0100
+CommitDate: Thu Nov 12 16:28:51 2026 +0100
 
-    docs(next): consolidate ML4C decisions and semantic convergence contracts
+    docs(next): normalize ML4C Markdown hard breaks for CI
 
-A	projects/sfia-studio-next/construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md
-A	projects/sfia-studio-next/construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md
-A	projects/sfia-studio-next/construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md
-A	projects/sfia-studio-next/construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md
-A	projects/sfia-studio-next/construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md
-A	projects/sfia-studio-next/construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md
-A	projects/sfia-studio-next/construction/convergence-fonctionnelle/qualification-cp2.md
-M	projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md
-M	projects/sfia-studio-next/construction/reconciliation-produit/README.md
-M	projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md
-A	projects/sfia-studio-next/governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md
-A	projects/sfia-studio-next/governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md
-A	projects/sfia-studio-next/governance/decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md
-M	projects/sfia-studio-next/governance/roadmap.md
+ .../cahier-recette-utilisateur-ml4c.md                       | 12 ++++++------
+ .../journal-recette-utilisateur-ml4c.md                      | 10 +++++-----
+ .../convergence-fonctionnelle/qualification-cp2.md           | 12 ++++++------
+ 3 files changed, 17 insertions(+), 17 deletions(-)
 
 ```
-
-```
-63ebdc33 docs(next): consolidate ML4C decisions and semantic convergence contracts
- .../cahier-recette-utilisateur-ml4c.md             | 368 +++++++++++++++++++++
- ...lification-semantique-mobilisation-gouvernee.md | 145 ++++++++
- .../contrat-convergence-fonctionnelle-integree.md  | 252 ++++++++++++++
- ...lification-semantique-mobilisation-gouvernee.md | 249 ++++++++++++++
- .../design-correctif-verite-effets-continuite.md   | 180 ++++++++++
- .../journal-recette-utilisateur-ml4c.md            | 353 ++++++++++++++++++++
- .../convergence-fonctionnelle/qualification-cp2.md | 211 ++++++++++++
- .../qualification.md                               |   2 +
- .../construction/reconciliation-produit/README.md  |   4 +
- .../transversal/synthese-r1-e2e-gate-b.md          |   8 +-
- ...-r5-convergence-fonctionnelle-ux-trajectoire.md |  71 ++++
- ...-11-r5-ml4b-gate-b-acceptation-avec-reserves.md |  55 +++
- ...ation-semantique-nora-mobilisation-capacites.md |  82 +++++
- projects/sfia-studio-next/governance/roadmap.md    |  37 ++-
- 14 files changed, 2015 insertions(+), 2 deletions(-)
-
-```
-
-- Push FF : `origin/docs/next-ml4c-documentary-gate-20261112` = `63ebdc3370f640d1f2817d0a415b908d54e8c509`
-- Force-push : non
 
 ---
 
-## 13–14. PR #677 vérifiée
+## 5. Preuve contenu métier / 10 exacts / 3 normalisés
 
-| Champ | Valeur |
+| ID | Chemin | Blob source | Blob HEAD | Exact? |
+| --- | --- | --- | --- | --- |
+| A1 | `projects/sfia-studio-next/governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md` | `a9f7823128fe5652d3b80df2fd3df98d2e5fc99e` | `a9f7823128fe5652d3b80df2fd3df98d2e5fc99e` | OK |
+| A2 | `projects/sfia-studio-next/governance/decisions/2026-11-11-r5-ml4b-gate-b-acceptation-avec-reserves.md` | `c4a0337f1243180fcec3d9fadebd180a6b33c9e6` | `c4a0337f1243180fcec3d9fadebd180a6b33c9e6` | OK |
+| A3 | `projects/sfia-studio-next/governance/decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md` | `ebaa5665c87099146d70c9445ff981bbcaf7fc2a` | `ebaa5665c87099146d70c9445ff981bbcaf7fc2a` | OK |
+| B2 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/conception-qualification-semantique-mobilisation-gouvernee.md` | `88f387aa3ae847a5098e6d0d620d8da9a36d71ee` | `88f387aa3ae847a5098e6d0d620d8da9a36d71ee` | OK |
+| B3 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/contrat-convergence-fonctionnelle-integree.md` | `8cfd6fd45d5157ab9eefa50bf3056c223b02a683` | `8cfd6fd45d5157ab9eefa50bf3056c223b02a683` | OK |
+| B4 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/contrat-technique-qualification-semantique-mobilisation-gouvernee.md` | `647bbca85c31453e7ff0d58684367c8e2edb8c9d` | `647bbca85c31453e7ff0d58684367c8e2edb8c9d` | OK |
+| B5 | `projects/sfia-studio-next/construction/convergence-fonctionnelle/design-correctif-verite-effets-continuite.md` | `a14d43619871c2d35ca2a83e1609af92c620c7cd` | `a14d43619871c2d35ca2a83e1609af92c620c7cd` | OK |
+| C1 | `projects/sfia-studio-next/construction/convergence-ux-parcours-pilote-nora/qualification.md` | `99d8130a42ee6812a6567cc6dd477c81673e628e` | `99d8130a42ee6812a6567cc6dd477c81673e628e` | OK |
+| C2 | `projects/sfia-studio-next/construction/reconciliation-produit/README.md` | `3aa8b5a50808cfb04da1ff925d21cd1c95ec47a0` | `3aa8b5a50808cfb04da1ff925d21cd1c95ec47a0` | OK |
+| C3 | `projects/sfia-studio-next/construction/reconciliation-produit/transversal/synthese-r1-e2e-gate-b.md` | `53850453891569f04b92d26015f920f68deafbef` | `53850453891569f04b92d26015f920f68deafbef` | OK |
+
+3 normalisés (fins de ligne uniquement) : B1 cahier, B6 journal, B7 qualification-cp2.
+Roadmap / décisions : **non touchées** dans ce commit.
+
+`git diff --check origin/main...HEAD` local : **PASS**.
+CI step « Trailing whitespace / conflict marker check » sur `889edd51da14115edf88b501ba9c09806558b690` : **SUCCESS**.
+
+---
+
+## 6–9. Push / PR body / CI
+
+Description #677 mise à jour (2 remplacements + 1 bullet Contrôles).
+
+### Body avant
+
+```
+## Objectif
+
+Intégrer les décisions Morris des 11–12 novembre
+2026, les contrats et sources ML4C déjà validés
+en contenu, ainsi que les addenda historiques
+et la Roadmap consolidée.
+
+## Périmètre
+
+- 3 décisions Morris importées sans modification.
+- 7 documents ML4C importés sans modification.
+- 3 documents historiques repris depuis les
+  blobs documentaires déjà préparés.
+- 1 Roadmap actualisée selon validation Morris.
+
+## Gouvernance et preuves
+
+- ML4B Gate B accepté avec réserves.
+- ML4C produit candidat local non intégré.
+- Aucun changement runtime ou DB.
+- CI du correctif produit 83fd9ece non exécutée.
+- Nora LIVE NOT RUN.
+- S02-01 FAIL ; A-006/A-007 OPEN.
+- ENV-R09 NOT VERIFIED.
+- Gate C OPEN ; aucune adoption produit.
+
+## Dépendance produit
+
+Le correctif local
+83fd9ecef2d952c90a828d68a192e105c83be35f
+n'est pas inclus dans cette PR.
+
+La PR produit #676 reste distincte et nécessite
+une autorisation ultérieure de push/actualisation.
+
+## Contrôles
+
+- 14 fichiers attendus, exclusivement documentaires.
+- 13 blobs importés conformes à la source.
+- Roadmap corrigée selon six opérations bornées.
+- Liens, Markdown, diffs et absence de secrets vérifiés.
+- Aucun changement de doctrine, code ou migration.
+
+## Limites
+
+La validation documentaire ne vaut ni recette
+utilisateur, ni LIVE Nora, ni Gate C, ni release,
+ni ADOPTED.
+
+## Gate
+
+Merge documentaire soumis à GO Morris distinct.
+
+
+```
+
+### Body après
+
+```
+## Objectif
+
+Intégrer les décisions Morris des 11–12 novembre
+2026, les contrats et sources ML4C déjà validés
+en contenu, ainsi que les addenda historiques
+et la Roadmap consolidée.
+
+## Périmètre
+
+- 3 décisions Morris importées sans modification.
+- 7 documents ML4C conservés sans modification de fond : 4 blobs identiques aux sources et 3 documents normalisés uniquement sur 17 fins de ligne Markdown pour satisfaire la CI.
+- 3 documents historiques repris depuis les
+  blobs documentaires déjà préparés.
+- 1 Roadmap actualisée selon validation Morris.
+
+## Gouvernance et preuves
+
+- ML4B Gate B accepté avec réserves.
+- ML4C produit candidat local non intégré.
+- Aucun changement runtime ou DB.
+- CI du correctif produit 83fd9ece non exécutée.
+- Nora LIVE NOT RUN.
+- S02-01 FAIL ; A-006/A-007 OPEN.
+- ENV-R09 NOT VERIFIED.
+- Gate C OPEN ; aucune adoption produit.
+
+## Dépendance produit
+
+Le correctif local
+83fd9ecef2d952c90a828d68a192e105c83be35f
+n'est pas inclus dans cette PR.
+
+La PR produit #676 reste distincte et nécessite
+une autorisation ultérieure de push/actualisation.
+
+## Contrôles
+
+- 14 fichiers attendus, exclusivement documentaires.
+- 10 blobs strictement identiques aux sources validées ; 3 documents normalisés uniquement sur les retours à la ligne Markdown, sans modification du contenu métier.
+- Roadmap corrigée selon six opérations bornées.
+- Liens, Markdown, diffs et absence de secrets vérifiés.
+- Aucun changement de doctrine, code ou migration.
+- Correctif CI sur le nouveau commit : 17 substitutions de fins de ligne dans le cahier, le journal et la qualification CP2 ; contrôle git diff --check à revérifier sur le nouveau HEAD.
+
+## Limites
+
+La validation documentaire ne vaut ni recette
+utilisateur, ni LIVE Nora, ni Gate C, ni release,
+ni ADOPTED.
+
+## Gate
+
+Merge documentaire soumis à GO Morris distinct.
+
+
+```
+
+### Checks CI sur `889edd51da14115edf88b501ba9c09806558b690`
+
+| Check | Résultat |
 | --- | --- |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/677 |
-| State | OPEN |
-| Base | main |
-| Head OID | `63ebdc3370f640d1f2817d0a415b908d54e8c509` |
-| Fichiers | **14** (10 A + 4 M) |
-| Code produit | aucun |
-| Mergeable | MERGEABLE |
-| Auto-merge | non |
-| CI | PENDING (Detect SFIA Studio / Next changes QUEUED) |
+| Detect SFIA Studio changes | SUCCESS |
+| Detect SFIA Studio Next changes | SUCCESS |
+| Build and validate SFIA Studio | SKIPPED |
+| Build and validate SFIA Studio Next | SUCCESS |
+| Trailing whitespace / conflict marker check | SUCCESS |
+| SFIA Studio Required Gate | SUCCESS |
+| SFIA Studio Next Required Gate | SUCCESS |
+
+Run Next CI : https://github.com/mcleland147/sfia-workspace/actions/runs/43248254615
 
 ---
 
-## 15–17. Validations / réserves / gates
+## 10. Réserves / gates Morris
 
-Validations PASS : 13 hashes ; 6 éditions ; allowlist ; secrets ; produit intact ; PR #676 intacte.
-Réserves : CI PENDING · S02-01 FAIL · A-006/A-007 OPEN · ENV-R09 · LIVE NOT RUN · CI 83fd9ece NOT RUN · Gate C OPEN · ML4C NOT ACCEPTED.
-Gates Morris : revue ChatGPT PR #677 → **GO merge docs distinct** → puis GO push produit `83fd9ece` / #676.
+Réserves produit inchangées : S02-01 FAIL · A-006/A-007 OPEN · ENV-R09 · LIVE NOT RUN · CI `83fd9ece` NOT RUN · Gate C OPEN.
 
----
-
-## 18. État Git final
-
-| WT | HEAD | Note |
-| --- | --- | --- |
-| docs | `63ebdc3370f640d1f2817d0a415b908d54e8c509` | propre ; tracking origin |
-| produit | `83fd9ece…` | `.tmp` review only |
-| handoff | (ce cycle) | L3 |
+Gates : ChatGPT merge review #677 → **GO merge docs** → GO push produit `83fd9ece`/#676 → CI produit → GO merge produit.
 
 ---
 
-## 19. Verdict
+## 11. Verdict
 
-**DOCUMENTARY PR OPEN WITH RESERVES — REVIEW REQUIRED**
+**DOCUMENTARY PR CI GREEN — READY FOR CHATGPT MERGE REVIEW**
 
-Réserve non bloquante : CI **PENDING** au moment du contrôle.
-Merge **interdit** sans GO Morris distinct.
+Merge **non effectué**.
