@@ -1,17 +1,35 @@
-# SFIA Studio Next — Contrat technique candidat : qualification sémantique et mobilisation gouvernée
+# SFIA Studio Next — Contrat technique : qualification sémantique et mobilisation gouvernée
 
 | Champ | Qualification |
 | --- | --- |
 | Date | 12 novembre 2026 — Europe/Paris |
-| Statut | **CANDIDATE / D0 — NON VALIDÉ PAR MORRIS / NO BUILD GO** |
+| Statut | **VALIDATED IN CONTENT BY MORRIS — CONTRAT TECHNIQUE DE PRINCIPE, AVEC RÉSERVES D'EXÉCUTABILITÉ / NO BUILD GO** (12/11/2026) |
 | Relation à la décision | [Décision de principe validée du 12/11](../../governance/decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md) ; [conception fonctionnelle validée](conception-qualification-semantique-mobilisation-gouvernee.md) |
-| Objet | Proposer une traduction implémentable et testable de la conception validée, **sans nouvelle autorité ni moteur parallèle** |
+| Objet | Traduction technique approuvée en principe, implémentable et testable après vérifications ciblées, **sans nouvelle autorité ni moteur parallèle** |
 | Base de lecture | \`main@6d237452680640324eeadbb18f4601fd7de99850\`, PR #676 \`2416e2ee25662821b015407346c64ec204f67488\` (OPEN/NON MERGÉ) |
 | Correctif local non publié | Branche Cursor annoncée \`fix/next-ml4c-intent-authority-restitution-20261112\`, contenu local **NON OBSERVÉ** depuis Git ; handoff \`a9dceaf9\` relu, verdict \`REVIEW NOT READY\` |
 | Périmètre | D3 comme qualificateur et conducteur ; contrats et points d'effet existants D1–D9 |
-| Gates | **À revoir avec Morris avant toute exécution Cursor**, modification normative, PR, merge ou déploiement |
+| Gates | **Cinq principes T-01/T-02/T-03 et garde-fous validés par Morris ; vérifications d'exécutabilité et éventuel nouveau gate d'architecture/DB toujours requis. Aucun GO Cursor, PR, merge ou déploiement.** |
 
-> **Portée** : la décision de supprimer les routeurs lexicaux métier est validée. Les mécanismes précis ci-dessous sont des **choix techniques proposés**, pas encore arbitrés. Aucun de ces choix ne devient \`ADOPTED\` du seul fait de cette publication candidate.
+> **Portée** : la suppression des routeurs lexicaux métier et les cinq principes techniques détaillés ci-dessous sont **validés en contenu par Morris**. Les API exactes, la persistance avant mutation et certains contrats d'autorité doivent encore être **vérifiés dans le code et prouvés**. Aucune implémentation, preuve LIVE ou adoption produit n'est acquise.
+
+## Addendum de validation Morris — 12 novembre 2026
+
+**Décision exprimée :** « OK GO, je valide l'ensemble », à la suite de la revue des cinq principes techniques. Cette validation porte sur **la cible de conception et ses garanties**, non sur un code compilé, une migration ni un mandat d'exécution.
+
+| Principe validé | Contrat retenu | Vérification à produire |
+| --- | --- | --- |
+| **TV-01 — Qualification canonique** | Nora D3 produit une interprétation structurée et typée au cours de sa conduite cognitive ; **`outputType` + Zod** est l'option privilégiée, sans double routeur lexical. | Sur **`@openai/agents@0.21.0`**, vérifier outils D4/Git, `finalOutput`, streaming, tool-use et génération invalide ; comparaison à l'alternative outil D3 non mutatif uniquement si nécessaire. |
+| **TV-02 — Aucun effet sur parole du modèle** | La qualification sémantique propose des opérations ; chaque propriétaire contrôle état, cible, droits, contrat et acte humain. | Les cas D2/D5/D6/D9 prouveront l'absence d'effet et de HumanDecision inventés. |
+| **TV-03 — Autorité ancrée dans le Pilote** | Toute autorité conversationnelle admissible est liée au message USER authentifié et au contrat D5/D6 ; Nora ne signe ni décision ni mandat. | Déterminer par opération les preuves d'acte admissibles, résolutions de cible et confirmations indépendantes exigées, **sans regex métier de secours**. |
+| **TV-04 — Qualification durable avant mutation** | Une qualification validée est liée durablement à la commande de tour et réutilisée lors des reprises ; ne jamais redemander une interprétation libre d'un tour déjà engagé. | Examiner la faisabilité de l'écriture pré-effet avec le journal existant ; si schéma DB nécessaire, **STOP + arbitrage Morris** avant migration. |
+| **TV-05 — Pas de fallback lexical** | Échec modèle, schéma invalide, absence de droits ou cible ambiguë : blocage/clarification/restauration sûre, jamais réactivation de l'ancien routeur lexical métier. | Tests négatifs, e2e, LIVE et recherche statique exhaustive avant clôture. |
+
+**Constat de version :** `web/package-lock.json` au candidat `2416e2ee`, blob `d7075a4b770d06ee2c6e917369cdf491c563ebb2`, verrouille `@openai/agents@0.21.0`, `@openai/agents-core@0.21.0` et `zod@4.6.7`. La documentation SDK contemporaine décrit les sorties structurées avec `outputType` et `finalOutput`, **mais la compatibilité complète du runtime Next épinglé n'a pas été testée dans cette revue**. Ne pas confondre API documentée et comportement Next vérifié.
+
+**Point d'attention sémantique :** une validation Zod assure une structure, pas l'absence d'omission ou de mauvaise compréhension. Garder les barrières indépendantes du propriétaire d'effet et un corpus représentatif ; un acte sensible ambigu est bloqué/clarifié.
+
+**Gates :** le contrat est **validé en contenu avec réserves techniques**. Les détails de mise en œuvre, le blast radius final, l'éventuelle évolution de schéma et le GO Cursor restent séparés. Le futur macro-lot devra synchroniser **code, suppressions, tests, architecture, R2 applicables, documentation as-built, delivery-history, cahier/journal de recette et Roadmap**, avec vérification distante selon les autorisations Git.
 
 ## 1. Résultat, IN/OUT et invariants
 
@@ -85,7 +103,7 @@ La validation structurelle **n'est pas** un second classificateur de synonymes. 
 
 ### 3.4. Une conduite cognitive, non un double routeur
 
-**Option de mise en œuvre privilégiée (à confirmer techniquement) :** utiliser l'agent Nora existant avec une sortie structurée et/ou un outil D3 **non mutatif** émettant l'enveloppe de qualification ; dans le même tour logique, Nora produit la réponse cognitive. Aucune opération propriétaire n'est exécutée par l'outil d'émission.
+**Orientation validée en contenu — faisabilité à confirmer sur SDK épinglé :** réutiliser l'agent Nora existant avec une sortie structurée `outputType` + Zod en premier choix, ou un outil D3 **non mutatif** si la version/les contraintes de streaming le justifient ; dans le même tour logique, Nora produit la réponse cognitive. Aucune opération propriétaire n'est exécutée par l'outil d'émission.
 
 Les alternatives \`tool call\` structuré et \`structured output\` doivent être vérifiées avec l'API Agents SDK réellement installée : compatibilité avec streaming, outils de lecture, \`finalOutput\`, interruption et traçabilité. Choisir la solution minimale viable démontrée, sans multiplier les appels au modèle par défaut.
 
@@ -117,7 +135,7 @@ Le code candidat exécute aujourd'hui \`applyConversationalAuthority\` **avant**
 
 La vérification D5/D6 **ne doit pas recréer un détecteur lexical de GO**. Le contrat propriétaire déterminera si un acte exprimé en langage naturel et lié au message authentifié est suffisant pour l'opération, ou si une confirmation indépendante est requise. Aucune confirmation générale artificielle ni retrait de protection décidé par inertie.
 
-**Garde de validation Morris** : l'interface exacte entre \`authorizationClaim\` sémantique et preuve admissible de l'acte humain doit être approuvée avant code. Une sortie de modèle seule ne constitue pas une preuve d'autorité.
+**Principe Morris validé :** la qualification n'est jamais autorisation. **Réserve à lever avant code** : qualifier pour chaque type d'acte l'interface exacte entre \`authorizationClaim\` sémantique et preuve admissible de l'acte humain. Une sortie de modèle seule ne constitue pas une preuve d'autorité.
 
 ## 5. Commandes, persistance et reprise
 
@@ -204,12 +222,12 @@ La preuve finale doit fournir un inventaire **avant/après de tous les appels et
 
 | Point | Proposition | Vérification / décision manquante |
 | --- | --- | --- |
-| **T-01 Sortie Nora** | Une qualification canonique structurée associée à la même conduite cognitive | Agents SDK : \`structured output\` vs outil d'émission non mutatif ; streaming, tool calling et \`finalOutput\` à vérifier sur les versions Git installées |
-| **T-02 Autorité D5/D6** | Qualification D3 d'abord, validation des actes sur source USER authentifiée par propriétaire | Nature de la preuve d'autorité suffisante pour actes conversationnels ; pas de GO extrait de la seule sortie LLM |
-| **T-03 Persistance** | Enregistrer la qualification stable avant dispatch, liée au tour durable existant | Possibilité sans migration, ou demande d'arbitrage DB/architecture si nécessaire |
+| **T-01 Sortie Nora** | **VALIDÉ EN PRINCIPE** : qualification canonique structurée dans la même conduite, `outputType` + Zod privilégié | Compatibilité/runtime **`@openai/agents@0.21.0`** : `finalOutput`, streaming, tool calling, outils de lecture et absence de fuite du JSON à vérifier avant choix d'API final |
+| **T-02 Autorité D5/D6** | **VALIDÉ EN PRINCIPE** : qualification D3 d'abord ; preuve d'acte humain reliée au message USER authentifié et validée par propriétaire | Typologie des actes autorisés, détermination exacte de la cible et confirmation indépendante si due ; aucun GO dérivé du seul LLM |
+| **T-03 Persistance** | **VALIDÉ EN PRINCIPE** : qualification stable et durable **avant dispatch** ; reprise sur cette même qualification | Vérifier journal/atomicité actuelle ; **STOP et arbitrage DB/architecture si migration requise**, aucune migration préautorisée |
 | **T-04 Pending** | Arbitrage de coexistence au serveur sur qualification sémantique réutilisée | Contrat exact de concurrence/latence et interface UI, sans bypass |
 | **T-05 Budget/outils** | Outils bornés par politiques/droits, sélection utile par Nora | Budget, coût, latence, disponibilité et stratégie de continuation à mesurer |
 | **T-06 Documentation** | Synchronisation R2/architecture/as-built/tests/recette dans le même delivery | Liste finale de fichiers normatifs soumis à autorisation et preuves de suppression |
 | **T-07 Exit LIVE** | Corpus multi-intention et multilingue + aucune mutation sur interdictions | Seuils d'évaluation, échantillonnage, build/lane et protocole à valider |
 
-**Verdict : CONTRAT TECHNIQUE CANDIDAT — REVIEW MORRIS REQUIRED / NON VALIDATED / NO CODE GO / NO ADOPTED.**
+**Verdict : CONTRAT TECHNIQUE VALIDATED IN CONTENT BY MORRIS — AVEC RÉSERVES D'EXÉCUTABILITÉ / NO BUILD GO / NO PR / NO MERGE / NO ADOPTED.**
