@@ -6,7 +6,7 @@
 | Statut du contenu | **VALIDATED IN CONTENT BY MORRIS — orientation et conception fonctionnelle** (échange du 12/11) |
 | Niveau de preuve | **DOCUMENTED / VALIDATED SPEC sur le principe**, **NON IMPLÉMENTÉ / NON PROUVÉ** pour cette convergence |
 | Programme | R5 — ML4C, convergence fonctionnelle transverse |
-| Source technique analysée | \`mcleland147/sfia-workspace\` ; \`main@6d237452680640324eeadbb18f4601fd7de99850\` ; candidat PR #676 \`2416e2ee25662821b015407346c64ec204f67488\` (**non fusionné**) |
+| Source technique analysée | `mcleland147/sfia-workspace` ; `main@6d237452680640324eeadbb18f4601fd7de99850` ; candidat PR #676 `2416e2ee25662821b015407346c64ec204f67488` (**non fusionné**) |
 | Responsabilité de décision | Morris ; rédaction/qualification ChatGPT ; réalisation technique Cursor sous mandat SFIA v2.6 distinct |
 | Source de l'orientation | [Décision du 12/11 — qualification sémantique Nora](../../governance/decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md) |
 | Contrats associés | [Convergence ML4C](contrat-convergence-fonctionnelle-integree.md) ; [conduite des intentions](../../cadrage/conduite-intentions-continuite-cognitive-nora-studio.md) ; [conduite Nora R2](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md) |
@@ -22,11 +22,11 @@ Deux formulations sémantiquement équivalentes doivent conduire à des qualific
 
 ## 2. État existant et écart connu
 
-Audit statique du candidat \`2416e2ee\` : plusieurs fonctions reconnaissent des expressions du Pilote pour sélectionner des actes. Exemples démontrés : \`qualifyStudioIntent\`, \`qualifyDocumentAct\`, \`qualifyPilotageIntent\`, \`qualifyPublicationMission\`, \`qualifyThreadTurn\`, \`qualifyCognitiveProfile\` ; la sélection et la capitalisation de connaissances utilisent également des heuristiques lexicales. Le traitement des décisions emploie des rapprochements linguistiques bornés.
+Audit statique du candidat `2416e2ee` : plusieurs fonctions reconnaissent des expressions du Pilote pour sélectionner des actes. Exemples démontrés : `qualifyStudioIntent`, `qualifyDocumentAct`, `qualifyPilotageIntent`, `qualifyPublicationMission`, `qualifyThreadTurn`, `qualifyCognitiveProfile` ; la sélection et la capitalisation de connaissances utilisent également des heuristiques lexicales. Le traitement des décisions emploie des rapprochements linguistiques bornés.
 
-Le cas utilisateur \`S02-01\` — Intervencia — a produit un **FAIL** : malgré une interdiction explicite de création, Studio a enrichi l'aperçu de projet, exposé une mission D2/D4 en attente et ajouté des diagnostics D3 à la réponse. **Aucune création effective de projet/document n'est démontrée par cette observation.** Les réserves \`ML4C-A-006\` et \`ML4C-A-007\` restent ouvertes dans le [journal de recette](journal-recette-utilisateur-ml4c.md).
+Le cas utilisateur `S02-01` — Intervencia — a produit un **FAIL** : malgré une interdiction explicite de création, Studio a enrichi l'aperçu de projet, exposé une mission D2/D4 en attente et ajouté des diagnostics D3 à la réponse. **Aucune création effective de projet/document n'est démontrée par cette observation.** Les réserves `ML4C-A-006` et `ML4C-A-007` restent ouvertes dans le [journal de recette](journal-recette-utilisateur-ml4c.md).
 
-Le premier correctif local A-006/A-007 sur \`2416e2ee\` est **non commité, non intégré et REVIEW NOT READY** : le handoff \`a9dceaf9\` contient encore des cas de négations erronément qualifiés et un diff documentaire incomplet. Son éventuelle valeur doit être réconciliée avec la conception présente ; **ne pas le fusionner tel quel**.
+Le premier correctif local A-006/A-007 sur `2416e2ee` est **non commité, non intégré et REVIEW NOT READY** : le handoff `a9dceaf9` contient encore des cas de négations erronément qualifiés et un diff documentaire incomplet. Son éventuelle valeur doit être réconciliée avec la conception présente ; **ne pas le fusionner tel quel**.
 
 Cet audit établit des familles et des chemins connus, **pas une certification d'exhaustivité ligne par ligne** de tout le dépôt. Un balayage statique complet des sources et des appels résiduels est une preuve de sortie requise avant toute prétention de suppression exhaustive.
 
@@ -69,13 +69,13 @@ Une phrase exploratoire ne doit pas neutraliser une commande positive indépenda
 
 - **Nora ne crée pas une autorité.** Toute HumanDecision, création D2, changement de cycle ou publication Git est soumise au contrat applicable et au Pilote là où son acte est requis.
 - Une qualification IA, même typée, **ne constitue pas à elle seule le GO humain**. La preuve doit rester ancrée dans le message authentifié, la ressource et le contrôle propriétaire.
-- **D2 :** conserver l'acte explicite \`Créer le projet\` et la frontière sas/projet. Une simple exploration ne crée ni proposition artificielle ni mission D2.
+- **D2 :** conserver l'acte explicite `Créer le projet` et la frontière sas/projet. Une simple exploration ne crée ni proposition artificielle ni mission D2.
 - **D4 :** séparer rédaction, création persistée, révision, consultation, sélection et capitalisation de connaissance. Une projection de document n'est pas un document AVAILABLE.
 - **D5/D6 :** préserver les actes conversationnels humains admissibles selon leurs règles, sans faire de la parole de Nora une signature. Les règles de désignation, unicité et applicabilité des cibles restent aux propriétaires.
 - **D7/D8/D9 :** ne pas inventer une capacité, une preuve ou un droit Git ; les autorisations au point d'effet et les références vérifiables restent distinctes.
 - **Reprise :** conserver identité du tour, clés d'idempotence, fingerprints, lease, état UNKNOWN et réconciliation des effets déjà commis avant tout nouvel essai.
 - **Panne cognitive :** pas de fallback lexical métier silencieux. Restituer la limite, conserver les états et demander reprise ou clarification.
-- **Observabilité :** exposer diagnostics et projections via surfaces structurées prévues, sans injecter \`clientIntentKey\`, \`step\`, \`capability\` et autres traces dans la prose de Nora.
+- **Observabilité :** exposer diagnostics et projections via surfaces structurées prévues, sans injecter `clientIntentKey`, `step`, `capability` et autres traces dans la prose de Nora.
 
 La convergence ne doit pas ajouter un second orchestrateur d'intentions, un état d'autorité concurrent ni une transaction générique transversale par défaut.
 
@@ -83,15 +83,15 @@ La convergence ne doit pas ajouter un second orchestrateur d'intentions, un éta
 
 | Source du candidat | Sortie visée |
 | --- | --- |
-| \`conversation/intent-conduction.ts\` | Retirer classification lexicale D2 et documents dépendants |
-| \`conversation/document-act.ts\` | Retirer verbes/listes comme oracles d'intention CREATE/REVISE ; garder parseurs de structure documentaire |
-| \`conversation/mission-continuity.ts\` | Retirer détection de publication fondée sur les verbes ; conserver corrélation, mission et reprise |
-| \`pilotage/intent.ts\` | Retirer phrases/synonymes et actes D5/D6 identifiés lexicalement ; conserver types, contrats et données structurées |
-| \`pilotage/conversation-authority.ts\` | Remplacer choix des actes/cibles par la qualification sémantique + validation propriétaire |
-| \`pilotage/thread-recovery.ts\` et interface | Retirer classificateurs lexicaux dialogue/effet ; conserver protection du pending et reprise |
-| \`conversation/cognitive-policy.ts\` | Dissocier droits/outils disponibles de mots-clés ; contrôler budgets, profils et sécurité par politique validée |
-| \`knowledge/service.ts\` | Reconcevoir sélection et capitalisation lexicales, tout en conservant provenance et autorité D4 |
-| \`decisions/divergence-assist.ts\` | Qualifier séparément heuristiques d'aide cognitive et leurs risques ; ne pas supprimer aveuglément les contrôles D6 |
+| `conversation/intent-conduction.ts` | Retirer classification lexicale D2 et documents dépendants |
+| `conversation/document-act.ts` | Retirer verbes/listes comme oracles d'intention CREATE/REVISE ; garder parseurs de structure documentaire |
+| `conversation/mission-continuity.ts` | Retirer détection de publication fondée sur les verbes ; conserver corrélation, mission et reprise |
+| `pilotage/intent.ts` | Retirer phrases/synonymes et actes D5/D6 identifiés lexicalement ; conserver types, contrats et données structurées |
+| `pilotage/conversation-authority.ts` | Remplacer choix des actes/cibles par la qualification sémantique + validation propriétaire |
+| `pilotage/thread-recovery.ts` et interface | Retirer classificateurs lexicaux dialogue/effet ; conserver protection du pending et reprise |
+| `conversation/cognitive-policy.ts` | Dissocier droits/outils disponibles de mots-clés ; contrôler budgets, profils et sécurité par politique validée |
+| `knowledge/service.ts` | Reconcevoir sélection et capitalisation lexicales, tout en conservant provenance et autorité D4 |
+| `decisions/divergence-assist.ts` | Qualifier séparément heuristiques d'aide cognitive et leurs risques ; ne pas supprimer aveuglément les contrôles D6 |
 | Fixture Nora | Aides déterministes uniquement pour tests, jamais autorité métier de production |
 
 Ces désignations sont un **inventaire de départ** : supprimer seulement après inventaire exhaustif des usages, remplacement prouvé et vérification des appels. Les regex de validation de SHA, identifiants, chemins Git, noms de fichiers, formats Markdown, contrats API et sécurité sont explicitement **hors suppression**.
@@ -116,8 +116,8 @@ La mise à jour de documentation est **dans le contrat d'acceptation**, pas diff
 - Spécifications fonctionnelles R2 réellement impactées, sous gates normatifs appropriés.
 - Architecture technique Next : contrat D3, entrée/sortie structurée, catalogue de capacités, sécurité et reprise.
 - Contrat de convergence ML4C et matrice de suppression.
-- Documentation \`as-built\`, tests de comportement, preuves et \`construction/delivery-history.md\`.
-- Cahier et journal de recette : historique préservé, nouveaux scénarios et retests de \`ML4C-A-006/A-007\`.
+- Documentation `as-built`, tests de comportement, preuves et `construction/delivery-history.md`.
+- Cahier et journal de recette : historique préservé, nouveaux scénarios et retests de `ML4C-A-006/A-007`.
 - Roadmap : nouveau statut **après** les gates, jamais par anticipation.
 
 **Contradiction code/document après livraison = KNOWN GAP.** Une conception validée n'est pas une preuve d'implémentation ; un test déterministe n'est pas un PASS LIVE.
