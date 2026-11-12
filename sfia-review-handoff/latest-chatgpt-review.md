@@ -2276,13 +2276,17 @@ index 55dc5ebe..34be44bf 100644
 
 ---
 
-## 13. Handoff Git (à publier)
+## 13. Handoff Git — PUBLIÉ ET VÉRIFIÉ
 
 - Source: `.tmp-sfia-review/chatgpt-review.md`
 - Branche: `sfia/review-handoff`
 - Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
 - Message: `docs(review-handoff): review Next semantic convergence`
 - Publisher: `scripts/sfia/publish-review-handoff.sh`
+- Commit distant: `74abf1b7fd68e974e4a2c92d27349ff7d57c26b1`
+- Blob: `f7bc374d76365fd3e5dfc42cce906688f067d0d9`
+- Relecture distante: 2295 lignes ; titre FULL + verdict IMPLEMENTED WITH RESERVES
+- Product branch push: **NON**
 
 ---
 
