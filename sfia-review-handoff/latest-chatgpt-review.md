@@ -6265,8 +6265,9 @@ DATABASE_URL=postgresql://…@127.0.0.1:5433/sfia_next_e2e \
 - Branche: `sfia/review-handoff`
 - Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
 - Message: `docs(review-handoff): review Next semantic convergence corrective`
-- Commit distant vérifié: `8c04a05bb92a2b421cff1b299a0e5e11eed23882`
-- Blob vérifié: `865545c5eaa9de4e51ee5653f8e087aee2076523`
+- Commit distant (contenu FULL précédent): `8c04a05bb92a2b421cff1b299a0e5e11eed23882`
+- Blob FULL précédent: `865545c5eaa9de4e51ee5653f8e087aee2076523`
+- Commit/blob exacts de CE fichier: voir tip `sfia/review-handoff` après publication
 - Contenu FULL: diffs conversation/pilotage/app/tests/construction + fichiers créés
 - Product push: **NON**
 
