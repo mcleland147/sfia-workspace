@@ -34,13 +34,13 @@
 | Famille | Cas | PASS | FAIL | BLOCKED | NOT RUN | Réserves ouvertes |
 |---|---:|---:|---:|---:|---:|---:|
 | S01 | 6 | 4 | 0 | 0 | 2 | 5 |
-| S02 | 6 | 2 | 0 | 0 | 4 | 2 |
+| S02 | 6 | 2 | 0 | 0 | 4 | 3 |
 | S03 | 7 | 0 | 0 | 0 | 7 | 0 |
 | S04 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S05 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **6** | **0** | **0** | **47** | **7** |
+| **TOTAL** | **53** | **6** | **0** | **0** | **47** | **8** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -247,6 +247,22 @@
 
 **Index de preuves S02-02 :** `S02-02-E02` aperçu inspecté/révision 2 ; `S02-02-E03` écran projet et conversation conservée après création ; `S02-02-E04` portefeuille avec deux projets, un seul Intervencia ; `S02-02-D01` décision Morris PASS + réserve ML4D. Les traces `S02-02-E01/F01/U01` de la fiche précédente restent valables. Les captures ont été fournies **dans la conversation, non publiées comme fichiers de preuves dans Git**.
 
+
+### Fiche de suivi `S02-03` — inspection initiale Pilotage et écart de conduite Nora (12 novembre 2026)
+
+| Champ | Observation actuelle |
+|---|---|
+| Scénario | `S02-03` — vérifier immédiatement après création d'Intervencia qu'aucun cycle, dépôt Git ou travail Cursor n'a démarré automatiquement. **Verdict contractuel : NOT RUN — sous-contrôle Pilotage réalisé, scénario non clôturé.** |
+| Identité du projet | `proj_683bcd2e-986a-4015-a58e-060909a75ec0` (Intervencia), issu de la création explicite S02-02 ; candidat RECETTE figé `67bf6b0b` / BUILD_ID `wYKCZCblBxWLiVsNjIr3e` selon manifeste technique. |
+| Geste | Morris ouvre la vue `Pilotage` du projet et transmet une capture sans déclencher d'action de pilotage. |
+| Absence d'effet visible | `Aucun cycle actif`, trajectoire `révision 0`, panneau `Cycle : Sans / actif` ; aucune décision D6 enregistrée, aucune restriction active ; panneau `Méthode` : `Aucune méthode retenue — état normal`. |
+| Contrôles disponibles mais non actionnés | Champs de type de cycle `UX_UI`, objectif `Qualifier l'expérience Pilote–Nora`, référence méthode `sfia-fast-track` et version `2.6` affichés ; boutons `Ouvrir ce cycle`, `Proposer une trajectoire`, `Retenir cette méthode`, `Appliquer la restriction`. **Valeurs présentes ≠ cycle ouvert ou méthode retenue.** |
+| Limites | Captures du Pilotage uniquement : absence de cycle/décision/restriction **visible**, pas d'inspection transactionnelle PostgreSQL. L'absence de dépôt Git créé, d'opération Git ou de tâche Cursor automatiquement lancée n'est **pas encore vérifiée** ; l'absence de ces éléments dans cette page ne suffit pas à conclure. |
+| Réserve signalée par Morris | La page ressemble à une **interface d'administration métier** (cycle, méthode, restriction), alors que le parcours cible attendu par Morris doit être conduit par **Nora** dans la relation Pilote–Nora ; ce type d'écran ne figure pas, selon Morris, dans les maquettes de son parcours utilisateur. Cette appréciation de référence est rapportée par Morris ; aucun inventaire Figma exhaustif n'a été réalisé ici. |
+| Qualification | `ML4C-A-009` — **OPEN — RÉSERVE IMPORTANTE de parcours et répartition des responsabilités**. Convergence UX/UI en **ML4D**, avec vérification de l'invariant fonctionnel **ML4C** : Nora qualifie/conduit la demande, Studio contrôle/exécute l'effet admissible, le Pilote décide. Ne pas qualifier l'ensemble de la situation comme simple cosmétique ni prétendre qu'une défaillance d'autorité est déjà démontrée. |
+| Preuves | `S02-03-E01` capture du panneau Pilotage ; `S02-03-U01` remarque Morris dans la conversation. Captures non ajoutées au dépôt Git. |
+| Suite | Contrôler sans mutation la surface `Sources Git` du projet et les éventuels objets/activités disponibles pour déceler une liaison ou un lancement automatique. **Ne pas ouvrir de cycle, retenir de méthode, appliquer de restriction, connecter de dépôt ou déclencher Cursor.** Maintenir S02-03 sans verdict tant que les aspects Git/Cursor ne sont pas suffisamment qualifiés. |
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -265,6 +281,8 @@
 | `ML4C-A-007` | S02-01 / S04 / S07-06 | **Majeure — restitution conversationnelle D3/UX fonctionnelle** | Dans le message persistant Nora, appendice `Suite de mission (projection D3 — refs owners)` et diagnostics `clientIntentKey`, `status`, `step`, `capability`, `PENDING`. Le code candidat `service.ts` assemble `appendMissionAck` au contenu de Nora ; `mission-continuity.ts` formate cette annexe brute. | Le Pilote doit recevoir une restitution intelligible, distincte des diagnostics techniques et cohérente avec les effets ; les références de preuve restent accessibles via surfaces structurées, pas dans la prose conversationnelle | **D3 + UI conversation + vérité des effets** : séparation réponse métier/état de mission/observabilité, messages utilisateur lisibles, diagnostic accessible seulement dans les vues prévues ; régression sur missions valides et simples conversations, preuve navigateur LIVE | **OPEN — REPORT ML4D décidé par Morris ; diagnostic technique latéral encore visible sur 67bf6b0b ; réserve non bloquante pour S02-01, sévérité historique conservée** |
 
 | `ML4C-A-008` | S02-02 / S07-06 / ML4D | **Réserve UX importante — parcours de constitution de proposition** (priorité Morris ; blocage fonctionnel non démontré à ce stade) | En RECETTE 67bf6b0b, le clic `Constituer une proposition` ouvre un formulaire libre `Nom envisagé` / `Résumé inspecté`, avec reprise manuelle possible du dernier message Nora. La maquette Figma R3 UX partagée par Morris présente plutôt un dialogue Nora + un aperçu structuré (intention, résultat visé, points ouverts, hypothèses), sans ce formulaire libre ; deux états distincts sont comparés, non une preuve de conformité géométrique exhaustive. | La proposition doit s'inscrire dans la continuité Pilote–Nora et permettre l'inspection du cadrage sans obliger le Pilote à réécrire le travail conversationnel ; garder les actes de constitution et de création explicites et les autorités D2 intactes | **ML4D** — confronter la frame Figma validée pertinente et le runtime au même état, spécifier l'interaction de constitution/inspection/révision, corriger le parcours si confirmé, produire des captures comparatives et recette UX ; **Morris** statue sur la clôture. Ne pas corriger le build figé durant ML4C sans gate. | **OPEN — IMPORTANT / CARRIED TO ML4D PAR MORRIS ; S02-02 EN COURS ET NON CLÔTURÉ** |
+
+| `ML4C-A-009` | S02-03 / S07-02 / S07-06 | **Réserve importante — parcours Pilotage et frontière Pilote/Nora/Studio**, conformité UX et capacité Nora à qualifier | En projet Intervencia, la vue Pilotage expose au Pilote des champs et commandes de création de cycle, de proposition de trajectoire, de choix de méthode `sfia-fast-track 2.6` et d'application de restriction. Morris constate que cette surface a un caractère administratif absent, selon sa référence de parcours, des maquettes Figma ; la conduite de ces intentions devrait relever du dialogue avec Nora. Les valeurs préremplies ne sont pas des effets constatés. | Expérience Pilote–Nora cohérente : Nora comprend/guide/mobilise les capacités ; Studio contrôle les cibles, les autorités, les états et les effets ; Pilote conserve ses décisions/confirmations. Les éventuelles vues d'inspection doivent rester compréhensibles et bornées, sans obliger le Pilote à administrer les capacités. | **ML4D** : inventorier les références Figma applicables et cadrer les surfaces de pilotage/inspection, navigation et actions métier. **Point ML4C à qualifier séparément** : vérifier que Nora peut conduire ces intentions sans dépendre du formulaire ; si non, écart fonctionnel à arbitrer, non reportable automatiquement à une retouche UX. Capture de comparaison et tests de comportement requis pour clôture Morris. | **OPEN — IMPORTANT / ORIENTÉ ML4D SOUS RÉSERVE DE VÉRIFICATION FONCTIONNELLE ML4C ; PAS DE FAIL S02-03 PRONONCÉ** |
 
 ### Observation qualifiée, non comptée comme anomalie
 
@@ -300,7 +318,7 @@
 |---|---|---|---|---|
 | `S02-01` | Décrire un projet à Nora et avancer dans le sas | Intention et préparation persistées | **PASS** — retest négatif sur 67bf6b0b ; réserve A-007 non bloquante ML4D ; FAIL initial conservé | `S02-01-R01-E00..E05/U01/D01` ; historique `S02-01-E01/E02/U01` ; `ML4C-A-006` RESOLVED UAT, `ML4C-A-007` OPEN |
 | `S02-02` | Demander puis autoriser la création | Un seul projet réel, le bon projet ouvert | **PASS — création explicite**, un seul Intervencia visible et fil Nora conservé ; **réserve ML4D** | `S02-02-E01..E04/F01/U01/D01` ; `ML4C-A-008` OPEN |
-| `S02-03` | Inspecter le projet après création | Aucun cycle, Git ou Cursor démarré automatiquement | NOT RUN | — |
+| `S02-03` | Inspecter le projet après création | Aucun cycle, Git ou Cursor démarré automatiquement | NOT RUN — contrôle Pilotage partiel : aucun cycle actif/décision D6/restriction ; Git et Cursor à vérifier | `S02-03-E01/U01` ; `ML4C-A-009` OPEN |
 | `S02-04` | Rafraîchir et revenir au projet créé | Proposition, conversation et informations conservées | NOT RUN | — |
 | `S02-05` | Simuler perte d’ACK après création (dispositif autorisé) | Intention réconciliée, projet retrouvé sans doublon | NOT RUN | — |
 | `S02-06` | Provoquer un refus ou conflit maîtrisé | Résultat exact, aucune mutation silencieuse | NOT RUN | — |
@@ -405,6 +423,8 @@
 | `S02-02-E03` | Capture RECETTE après `Créer le projet` | Travail avec Nora ouvert sur `proj_683bcd2e-986a-4015-a58e-060909a75ec0`, référence à la même préparation et conversation retrouvée | Preuve navigateur, sans lecture PostgreSQL ni audit d'idempotence | Conversation du 12/11, non versée sur Git |
 | `S02-02-E04` | Capture RECETTE portefeuille | 02 projets : CampusFlow + un seul Intervencia, identifiant concordant ; 03 préparations ouvertes, ancienne Intervencia visible | Pas une preuve transactionnelle exhaustive de non-duplication en DB | Conversation du 12/11, non versée sur Git |
 | `S02-02-D01` | Confirmation explicite Morris | Verdict `S02-02 = PASS` et maintien `ML4C-A-008` en réserve ML4D | Aucun verdict S02-03 implicite | Conversation du 12/11, non versée sur Git |
+| `S02-03-E01` | Capture de la vue `Pilotage` du projet Intervencia | Trajectoire révision 0, aucun cycle actif, aucune décision D6 ou restriction active ; formulaire d'administration de cycle/méthode visible | Contrôle visuel uniquement ; Git/Cursor et base de données non audités | Conversation du 12/11, non versée sur Git |
+| `S02-03-U01` | Retour explicite Morris | L'écran de pilotage affiché paraît administratif et absent du parcours Figma prévu ; Nora devrait conduire ces intentions, sans faire administrer les commandes au Pilote | Témoignage de vision et d'écart UX ; inventaire Figma et test de mobilisation par Nora encore à faire | Conversation du 12/11, non versée sur Git |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -422,6 +442,7 @@
 | S02-01 — cadrage Intervencia, **état historique au candidat 2416e2ee** | **FAIL MAJEUR historique** ; correctif alors non prêt ; ce constat demeure, supersédé pour le statut actuel du scénario par le retest 67bf6b0b ci-dessous |
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
+| S02-03 — inspection Pilotage Intervencia | **NOT RUN / PARTIAL** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor non contrôlés ; **ML4C-A-009 OPEN** pour écart du parcours Pilotage/Nora à instruire dans ML4D et frontière fonctionnelle ML4C. Aucun effet déclenché. |
 | S02-02 — création explicite Intervencia | **PASS USER UAT confirmé par Morris** : proposition révision 2, création D2 explicite, projet `proj_683bcd2e-986a-4015-a58e-060909a75ec0` ouvert, fil conservé et un seul Intervencia visible au portefeuille ; **A-008 OPEN / ML4D** ; aucun audit transactionnel/idempotence complet revendiqué |
 | Revue du correctif local A-006/A-007 — handoff `a9dceaf9` (**historique antérieur au candidat 67bf6b0b**) | **NOT READY** : refus courants encore mal qualifiés ; diff `delivery-history.md` manquant dans le pack. Révision Cursor requise avant nouvelle décision Morris |
 | S02-02 — ancien sas Intervencia du FAIL `2416e2ee` (**historique uniquement**) | **NOT RUN SUR CET ANCIEN SAS / SUSPENDU** : ne pas déclencher `Créer le projet` à partir de la mission non voulue `prep_cd6f1d24-…` ; **ne pas confondre avec le PASS S02-02 obtenu sur la nouvelle préparation `prep_51effa9f-…`** |
@@ -444,6 +465,8 @@
 **Bilan intermédiaire après arbitrage Morris du retest S02-01 (12/11/2026, avant S02-02) : `INCOMPLETE — 5 PASS / 0 FAIL courants / 48 NOT RUN`, 7 anomalies/réserves OPEN sur 8 enregistrées.** S02-01 passe au statut contractuel `PASS`, avec `ML4C-A-006 RESOLVED` à la portée utilisateur observée et `ML4C-A-007 OPEN` portée vers ML4D pour la présentation des diagnostics techniques. Le FAIL originel reste conservé comme preuve historique et ne compte pas comme FAIL courant. `S01-02` et `S01-05` demeurent `NOT RUN` (contrôles partiels). `S02-02` est en cours, sans création ni verdict ; la réserve UX `A-008` relative au formulaire libre de constitution est portée à ML4D après rapprochement de la maquette Figma fournie. Aucun contrôle transactionnel exhaustif D2/D4 n'a été exécuté, aucune écriture Git REAL ni Gate C / ML4C acceptance / release / STABLE / ADOPTED n'est acquise.
 
 **Bilan CURRENT après verdict Morris S02-02 (12/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 6 PASS / 0 FAIL courants / 47 NOT RUN`, 7 anomalies/réserves OPEN sur 8 enregistrées.** L'ancien FAIL S02-01 reste traçable, mais S02-01 et S02-02 sont PASS courants. S02-02 n'a été exécuté qu'une fois sur le nouveau sas, avec projet Intervencia identifié et visible une fois au portefeuille. `ML4C-A-008` demeure OPEN / ML4D, ainsi que `ML4C-A-007` ; `ML4C-A-006` demeure RESOLVED à la portée UAT convenue. Prochain contrôle : S02-03, aucun démarrage automatique de cycle/Git/Cursor ; **NOT RUN** avant inspection. L'absence de doublons transactionnels ou d'effets techniques n'a pas été auditée ; Gate C OPEN, ML4C NOT ACCEPTED, ML4D NOT STARTED, Git REAL WRITE et merge non autorisés.
+
+**Observation CURRENT S02-03 (12/11/2026, avant verdict) :** 6 PASS / 0 FAIL / 47 NOT RUN inchangés ; **8 réserves OPEN sur 9 identifiants** après ouverture `ML4C-A-009`. Pilotage indique aucun cycle actif (trajectoire révision 0), aucune HumanDecision D6 ou restriction active, mais il n'y a pas encore de preuve suffisante de l'absence de dépôt ou lancement Cursor. La réserve UX/parcours Nora est importante, orientée ML4D avec qualification fonctionnelle ML4C si nécessaire. Aucun verdict S02-03 n'est attribué.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
