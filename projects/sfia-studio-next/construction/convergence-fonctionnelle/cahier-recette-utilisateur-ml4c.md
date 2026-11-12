@@ -1,11 +1,11 @@
 # SFIA Studio Next — Cahier de recette utilisateur ML4C
 
-**Version :** 0.1 — validée en contenu par Morris le 12 novembre 2026  
-**Date :** 12 novembre 2026  
-**Statut :** VALIDATED CONTENT BY MORRIS — RECETTE UTILISATEUR NOT RUN  
-**Programme :** R5 — ML4C, convergence fonctionnelle intégrée  
-**Responsable de la réception :** Morris  
-**Périmètre :** Capacités ML1–ML4, scénarios S01–S07 du contrat CP2  
+**Version :** 0.1 — validée en contenu par Morris le 12 novembre 2026\
+**Date :** 12 novembre 2026\
+**Statut :** VALIDATED CONTENT BY MORRIS — RECETTE UTILISATEUR NOT RUN\
+**Programme :** R5 — ML4C, convergence fonctionnelle intégrée\
+**Responsable de la réception :** Morris\
+**Périmètre :** Capacités ML1–ML4, scénarios S01–S07 du contrat CP2\
 **Git :** branche documentaire candidate `docs/next-r5-ml4c-cp2-preparation-20261111` ; **non mergée dans main**.
 
 ---

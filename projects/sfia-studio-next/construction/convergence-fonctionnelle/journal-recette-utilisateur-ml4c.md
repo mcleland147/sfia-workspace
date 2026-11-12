@@ -1,10 +1,10 @@
 # SFIA Studio Next — Journal de campagne de recette utilisateur ML4C
 
-**Campagne :** `ML4C-UAT-2026-11-12`  
-**Version du registre :** `v0.1 — 2026-11-12`  
-**Statut :** `D1 — registre factuel évolutif, non normatif ; publié sur branche documentaire candidate, non fusionné`  
-**Autorité :** Morris (Pilote, verdict d’acceptation et gates) ; ChatGPT (qualification, suivi, analyse).  
-**Périmètre :** 53 cas S01–S07 de la convergence fonctionnelle intégrée ML4C.  
+**Campagne :** `ML4C-UAT-2026-11-12`\
+**Version du registre :** `v0.1 — 2026-11-12`\
+**Statut :** `D1 — registre factuel évolutif, non normatif ; publié sur branche documentaire candidate, non fusionné`\
+**Autorité :** Morris (Pilote, verdict d’acceptation et gates) ; ChatGPT (qualification, suivi, analyse).\
+**Périmètre :** 53 cas S01–S07 de la convergence fonctionnelle intégrée ML4C.\
 
 > Ce registre est le journal d’exécution de la campagne, **pas** le cahier de recette validé. Il s’inspire du registre historique ML4 `construction/ml4-integration-git/recette-ml4-r01-r14-anomalies.md` (constats, preuves, anomalies et verdicts bornés). La tenue de ce registre ne vaut ni validation normative, ni autorisation d'effet produit, ni acceptation ML4C.
 

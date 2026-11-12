@@ -8,12 +8,12 @@
 
 **Nature :** contrat de préparation CP2 **candidat** — support D0 de qualification et de revue Morris, non décision de construction.
 
-**Date :** 11 novembre 2026 (Europe/Paris).  
-**Dépôt :** `mcleland147/sfia-workspace` ; périmètre `projects/sfia-studio-next/`.  
-**Référence de code / diagnostic intégré :** `main@42aa373947446a8c20694b06c559ee0da1cba580` (PR #674 ML4B mergée).  
-**Référence de trajectoire candidate :** `docs/next-r5-ml4c-ml4d-trajectory-20261111@5717b6c938288404f71c9281f1c92be99a51fb89` — **non fusionnée sur main** au pré-check du 11/11/2026.  
-**État local / DB / navigateur / environnement LIVE :** **NON OBSERVÉS** dans cette préparation ; aucun test nouveau exécuté.  
-**Autorité :** Morris arbitre le diagnostic, le contrat, les gates et les autorisations Git ; ChatGPT prépare et revoit ; Cursor réalise les changements D3 sous SFIA v2.6 et GO borné.  
+**Date :** 11 novembre 2026 (Europe/Paris).\
+**Dépôt :** `mcleland147/sfia-workspace` ; périmètre `projects/sfia-studio-next/`.\
+**Référence de code / diagnostic intégré :** `main@42aa373947446a8c20694b06c559ee0da1cba580` (PR #674 ML4B mergée).\
+**Référence de trajectoire candidate :** `docs/next-r5-ml4c-ml4d-trajectory-20261111@5717b6c938288404f71c9281f1c92be99a51fb89` — **non fusionnée sur main** au pré-check du 11/11/2026.\
+**État local / DB / navigateur / environnement LIVE :** **NON OBSERVÉS** dans cette préparation ; aucun test nouveau exécuté.\
+**Autorité :** Morris arbitre le diagnostic, le contrat, les gates et les autorisations Git ; ChatGPT prépare et revoit ; Cursor réalise les changements D3 sous SFIA v2.6 et GO borné.\
 **Statut :** `DOCUMENTED — CP2 PREPARATION CANDIDATE / GATE B OPEN / NO BUILD GO / NO PR / NO MERGE / NO ADOPTED`.
 
 ## 1. Mandat de préparation et résultat cible
