@@ -366,23 +366,27 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
     ? sanitizeProposedLabel(createProject.parameters.projectName) || null
     : null;
 
-  let documentAct: SemanticStudioProjection["documentAct"] = { kind: "NONE" };
-  if (reviseDoc) {
-    documentAct = {
-      kind: "REVISE",
-      documentHint: reviseDoc.parameters.documentHint ?? null,
-      sectionHint: reviseDoc.parameters.sectionHint ?? null,
-    };
-  } else if (createDoc) {
-    documentAct = { kind: "CREATE" };
-  }
-
   const wantsFollowOnDocument = Boolean(
     wantsProjectCreate &&
       createDoc &&
       createProject &&
       createDoc.dependsOn.includes(createProject.id),
   );
+
+  // Follow-on D4 after D2: defer immediate documentAct until Pilot create.
+  // Immediate CREATE/REVISE only when not gated by an unresolved project-create intent.
+  let documentAct: SemanticStudioProjection["documentAct"] = { kind: "NONE" };
+  if (!wantsFollowOnDocument) {
+    if (reviseDoc) {
+      documentAct = {
+        kind: "REVISE",
+        documentHint: reviseDoc.parameters.documentHint ?? null,
+        sectionHint: reviseDoc.parameters.sectionHint ?? null,
+      };
+    } else if (createDoc) {
+      documentAct = { kind: "CREATE" };
+    }
+  }
 
   const pendingDocumentBrief = wantsFollowOnDocument
     ? (createDoc?.summary || createDoc?.parameters.notes || createDoc?.parameters.documentHint || null)

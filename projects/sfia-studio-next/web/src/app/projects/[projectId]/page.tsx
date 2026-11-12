@@ -715,27 +715,33 @@ export default function ProjectPage() {
         const serverKind = (j.nextTurnKind as ThreadTurnKind | undefined) ?? "INCERTAIN";
         const independent = serverKind === "DIALOGUE_INDEPENDANT";
         const effectBlocked = Boolean(j.pendingEffectBlocked);
-        // Remember only server-declared effect turns for ACK recovery.
-        // If B was blocked by pending A, keep A — do not replace with B.
-        if (serverKind === "INTENTION_EFFET" && !effectBlocked) {
+        const distinctFromUnresolved =
+          Boolean(pendingBefore) && pendingBefore!.clientTurnKey !== clientTurnKey;
+        // Remember effect turns for ACK recovery — never let B overwrite unresolved A.
+        if (serverKind === "INTENTION_EFFET" && !effectBlocked && !distinctFromUnresolved) {
           rememberPending({ content: text, clientTurnKey, clientCommandKey });
+        } else if (distinctFromUnresolved && pendingBefore) {
+          rememberPending(pendingBefore);
         }
         const preserveMetierPending =
-          (independent || effectBlocked) && Boolean(pendingBefore);
+          (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
         setMessages((j.messages as Msg[]) ?? []);
         setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
         if (
           !effectBlocked &&
+          !distinctFromUnresolved &&
           applyClearFromResponse(String(j.status ?? ""), effect, {
             preserveUnresolvedMetierPending: preserveMetierPending,
           })
         ) {
           setDraft("");
-        } else if (effectBlocked) {
+        } else if (effectBlocked || (distinctFromUnresolved && serverKind === "INTENTION_EFFET")) {
           setStatus(
-            `Effet retenu — pending non résolu (${String(j.unresolvedPendingClientTurnKey ?? pendingBefore?.clientTurnKey ?? "A")})`,
+            effectBlocked
+              ? `Effet retenu — pending non résolu (${String(j.unresolvedPendingClientTurnKey ?? pendingBefore?.clientTurnKey ?? "A")})`
+              : "Intention précédente non résolue — réconcilier avant un nouveau tour.",
           );
         } else if (j.status === "UNKNOWN" || j.status === "FAILED") {
           setNoraActivity("error");
@@ -751,7 +757,8 @@ export default function ProjectPage() {
           j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
         );
       } else {
-        // ACK lost / HTTP error — keep pending with the same key.
+        // ACK lost / HTTP error — retain the same turn key for reconcile (server may have applied).
+        rememberPending({ content: text, clientTurnKey, clientCommandKey });
         setNoraActivity("error");
         setStatus(
           res.status === 409
@@ -760,6 +767,7 @@ export default function ProjectPage() {
         );
       }
     } catch {
+      rememberPending({ content: text, clientTurnKey, clientCommandKey });
       setNoraActivity("error");
       setStatus("échec réseau — intention de tour conservée");
     } finally {

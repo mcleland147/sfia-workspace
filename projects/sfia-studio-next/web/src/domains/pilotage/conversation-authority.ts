@@ -355,7 +355,11 @@ export async function applyConversationalAuthority(input: {
     methodVersion: qualified.methodVersion,
     decisionId: qualified.decisionId,
     objectRef: qualified.objectRef,
-    statement: qualified.statement,
+    // Statement only for documentary D6 — never echo full utterance as statement on D5 opens.
+    statement:
+      qualified.operation === "RECORD_DECISION" || qualified.operation === "REVISE_DECISION"
+        ? qualified.statement
+        : undefined,
   };
 
   if (qualified.operation === "REVISE_DECISION") {

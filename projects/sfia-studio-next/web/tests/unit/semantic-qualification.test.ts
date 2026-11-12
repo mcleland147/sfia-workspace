@@ -214,6 +214,8 @@ describe("fixtureSemanticQualify — exact scenario injection", () => {
     expect(proj.wantsProjectCreate).toBe(true);
     expect(proj.proposedProjectName).toBe("Atlas");
     expect(proj.wantsFollowOnDocument).toBe(true);
+    // Immediate D4 must stay deferred until Pilot create (mission pending step).
+    expect(proj.documentAct.kind).toBe("NONE");
   });
 
   it("unknown fixture text is dialogue-only (no lexical invent)", () => {

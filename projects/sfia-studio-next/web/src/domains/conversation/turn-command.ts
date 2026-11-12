@@ -113,7 +113,10 @@ export async function assertTurnFenceInTx(
 
 /** Test hooks — must stay no-op in production paths. */
 export const turnRaceHooks: {
-  /** C02 — after D5/D6 authority, before Nora provider (fault injection). */
+  /**
+   * C02 — after same-turn D5/D6 authority (SEM/TV: Nora qualifies first).
+   * Historical name retained; must not run before Nora.
+   */
   afterAuthorityBeforeNora?: () => Promise<void>;
   afterGenerateBeforeEffects?: () => Promise<void>;
   beforeD4Effect?: () => Promise<void>;

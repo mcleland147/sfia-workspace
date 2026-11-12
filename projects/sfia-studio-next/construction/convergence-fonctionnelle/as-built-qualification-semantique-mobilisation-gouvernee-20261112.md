@@ -105,15 +105,31 @@ Sur la préparation portant A : message documentaire concurrent → `pendingEffe
 - D4 : pas de FACT sur seul `established` Nora.
 - Fixture : DEV ∧ E2E=1 ∧ ¬production.
 
+## Correctif CI sémantique (2026-11-12 ~17:50 CET)
+
+Parent produit: `83fd9ece`. Cause CI: 53 PG (oracles lexicaux + fixtures exactes absentes + ENV-R06 :5434 absent en runner + P1 decisionId/restrictionId résolus refusés par gate durable USER_MESSAGE).
+
+Corrections:
+- Helpers `tests/helpers/semantic-fixture-envelopes.ts` (enveloppes typées TEST_BOUNDARY).
+- Suites intent/mission/ml3/ml4/env01 adaptées au contrat SEM-02 (sans routeur lexical).
+- ENV-R06: si endpoint RECETTE absent → `NOT_VERIFIED / ENDPOINT_NOT_AVAILABLE` (pas AUTH DENIED sur ECONNREFUSED).
+- P1: `service.ts` accepte decisionId/restrictionId serveur résolus depuis hints durables vérifiés ; statement D5 non echoé comme D6 ; hook C02 après autorité.
+- P1: `projectStudioEffects` — follow-on D4 (`dependsOn` create-project) → `documentAct=NONE` jusqu'à l'acte Pilote D2 (pas de CREATE immédiat en sas).
+- P1: thread ACK-lost — `rememberPending` sur HTTP/réseau ; pending A non écrasé par un effet B distinct.
+- UI: `PilotagePanel` OPEN toujours structuré (`cycleType` contrôle) ; utterance = echo.
+
+Preuve locale: PG 318/318 ; unit 248/248 ; Playwright Atlas+ML3 9/9. LIVE NOT RUN. Gate C OPEN.
+
 ## Non-déclarations
 
-ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED · READY FOR REAL · product push/PR/merge · LIVE Nora
+ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED · READY FOR REAL · LIVE Nora
 
 ## Réserves / gates Morris restants
 
 - LIVE Nora pertinence (NOT RUN)
 - S02-01 Intervencia FAIL (source exacte indisponible)
 - A-006/A-007 ouvertes
-- PR #676 OPEN / NON MERGÉE
+- PR #676 OPEN / NON MERGÉE (correctif CI en cours de publication)
 - ENV-R09 sessions multi-lane NOT VERIFIED
+- ENV-R06 isolation runtime réelle: seulement si endpoint RECETTE disponible
 - Décision d’intégration Git / RECETTE / promotion = Morris uniquement

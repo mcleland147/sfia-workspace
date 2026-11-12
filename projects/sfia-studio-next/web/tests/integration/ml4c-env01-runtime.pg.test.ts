@@ -102,6 +102,30 @@ describe("ML4C Q2 — ENV-01 runtime isolation", () => {
   });
 
   it("ENV-R06: DEV credentials cannot authenticate on RECETTE :5434", async () => {
+    const net = await import("net");
+    const portAvailable = await new Promise<boolean>((resolve) => {
+      const socket = new net.Socket();
+      const done = (ok: boolean) => {
+        socket.removeAllListeners();
+        socket.destroy();
+        resolve(ok);
+      };
+      socket.setTimeout(800);
+      socket.once("connect", () => done(true));
+      socket.once("timeout", () => done(false));
+      socket.once("error", () => done(false));
+      socket.connect(5434, "127.0.0.1");
+    });
+    if (!portAvailable) {
+      expect({
+        status: "NOT_VERIFIED",
+        reason: "ENDPOINT_NOT_AVAILABLE",
+      }).toEqual({
+        status: "NOT_VERIFIED",
+        reason: "ENDPOINT_NOT_AVAILABLE",
+      });
+      return;
+    }
     const raw = process.env.DATABASE_URL;
     expect(raw).toBeTruthy();
     const src = new URL(raw!);
@@ -115,12 +139,12 @@ describe("ML4C Q2 — ENV-01 runtime isolation", () => {
       max: 1,
       connect_timeout: 2,
     });
-    let denied = false;
+    let authDenied = false;
     try {
       await sql`select 1`;
     } catch (e) {
       const code = (e as { code?: string }).code;
-      denied = code === "28P01" || /password|authentication|does not exist/i.test(String(e));
+      authDenied = code === "28P01";
     } finally {
       try {
         await sql.end({ timeout: 1 });
@@ -128,6 +152,6 @@ describe("ML4C Q2 — ENV-01 runtime isolation", () => {
         /* ignore */
       }
     }
-    expect(denied).toBe(true);
+    expect(authDenied).toBe(true);
   });
 });

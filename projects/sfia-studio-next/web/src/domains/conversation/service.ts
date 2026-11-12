@@ -482,9 +482,6 @@ export async function postUserMessageAndNora(
 
   let reply;
   try {
-    if (turnRaceHooks.afterAuthorityBeforeNora) {
-      await turnRaceHooks.afterAuthorityBeforeNora();
-    }
     // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
     const leasePulse = setInterval(() => {
       void touchTurnLease(reserved.commandId, reserved.ownerToken);
@@ -798,6 +795,57 @@ export async function postUserMessageAndNora(
         reason: pilotageBinding.reason,
       },
     });
+  }
+
+  // C02 fault injection — AFTER same-turn D5/D6 (SEM/TV order: Nora → qualify → authority).
+  // Hook name is historical; it must not run before Nora anymore.
+  if (turnRaceHooks.afterAuthorityBeforeNora) {
+    try {
+      await turnRaceHooks.afterAuthorityBeforeNora();
+    } catch {
+      const unknownPayload: TurnResult = {
+        userMessageId: reserved.userMessageId,
+        assistantMessageId: null,
+        operationId: reserved.operationId,
+        requestId,
+        status: "UNKNOWN",
+        idempotentReplay: false,
+        humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
+        pilotageEffect: pilotageEffectFromAuthority(authority),
+        noraMode: reply.mode,
+      };
+      try {
+        await markTurnUnknown(
+          reserved.commandId,
+          "PROVIDER_EXCEPTION",
+          reserved.ownerToken,
+          JSON.stringify(unknownPayload),
+        );
+      } catch {
+        /* ownership may already be lost */
+      }
+      emitObs({
+        event_name: "d3.turn.unknown",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        outcome: "UNKNOWN",
+        error_category: "POST_AUTHORITY_FAULT",
+      });
+      const resolved = await resolvePilotageEffectForReplay({
+        pilotId,
+        projectId: ctx.project?.id,
+        clientTurnKey,
+        userMessageId: reserved.userMessageId,
+        fromJson: unknownPayload.pilotageEffect,
+        humanDecisionCreated: unknownPayload.humanDecisionCreated,
+      });
+      return {
+        ...unknownPayload,
+        humanDecisionCreated: resolved.humanDecisionCreated,
+        pilotageEffect: resolved.pilotageEffect,
+      };
+    }
   }
 
   const assistantId = newId("msg");

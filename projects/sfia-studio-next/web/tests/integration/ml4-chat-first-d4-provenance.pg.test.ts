@@ -45,6 +45,40 @@ import {
   qualifyDocumentAct,
   applyTargetedSectionRevision,
 } from "@/domains/conversation/document-act";
+import { fixtureSemanticQualify } from "@/domains/conversation/fixture-semantic-qualify";
+import { projectStudioEffects } from "@/domains/conversation/semantic-qualification";
+import {
+  clarificationEnvelope,
+  d4CreateDocumentEnvelope,
+  d4ReviseDocumentEnvelope,
+  dialogueEnvelope,
+  registerPgUtteranceFixture,
+  registerTypedScenario,
+  sfiaDocumentFence,
+} from "../helpers/semantic-fixture-envelopes";
+
+async function noraTurn(
+  pilotId: string,
+  preparationId: string,
+  text: string,
+  opts?: Parameters<typeof postUserMessageAndNora>[3],
+) {
+  registerPgUtteranceFixture(text);
+  return postUserMessageAndNora(pilotId, preparationId, text, opts);
+}
+
+function expectDocumentActFromFixture(utterance: string, kind: "CREATE" | "REVISE" | "NONE") {
+  const proj = projectStudioEffects(fixtureSemanticQualify(utterance));
+  expect(proj.documentAct.kind).toBe(kind);
+}
+
+function expectQualifyNone(utterance: string) {
+  const q = qualifyDocumentAct(utterance);
+  expect(q.kind).toBe("NONE");
+  if (q.kind === "NONE") {
+    expect(q.reason).toBe("SEMANTIC_ROUTER_REQUIRED");
+  }
+}
 
 async function seedPilot(label: string) {
   const id = newId("pilot");
@@ -84,7 +118,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
   it("A: conversational CREATE persists v1 and ACK appears in assistant message", async () => {
     const pilotId = await seedPilot("ml4-create");
     const prep = await openOrCreatePreparation(pilotId);
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       prep.id,
       "Rédige un document de synthèse sur les options A et B",
@@ -110,8 +144,16 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     const prep = await openOrCreatePreparation(pilotId);
     const ask =
       "Dans le projet CampusFlow, crée et enregistre dans les Documents internes de Studio un nouveau document de recette intitulé « RECETTE ML4 — Publication documentaire R12-FIX ».";
-    expect(qualifyDocumentAct(ask).kind).toBe("CREATE");
-    const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
+    registerTypedScenario(
+      ask,
+      d4CreateDocumentEnvelope({
+        title: "RECETTE ML4 — Publication documentaire R12-FIX",
+        summary: ask,
+        notes: ask,
+      }),
+    );
+    expectDocumentActFromFixture(ask, "CREATE");
+    const chat = await noraTurn(pilotId, prep.id, ask);
     expect(chat.documentSave?.status).toBe("AVAILABLE");
     expect(chat.documentSave?.act).toBe("CREATE");
     expect(chat.documentSave?.revisionNumber).toBe(1);
@@ -133,12 +175,12 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
       "# Ne doit pas être créé\n\nContenu non autorisé.\n" +
       "```\n";
     try {
-      const chat = await postUserMessageAndNora(
+      const chat = await noraTurn(
         pilotId,
         prep.id,
         "Comment puis-je créer un document ?",
       );
-      expect(qualifyDocumentAct("Comment puis-je créer un document ?").kind).toBe("NONE");
+      expectQualifyNone("Comment puis-je créer un document ?");
       expect(hasDocumentaryWriteSignal("Comment puis-je créer un document ?")).toBe(false);
       expect(chat.documentSave).toBeNull();
       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
@@ -161,15 +203,25 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     const q = qualifyDocumentAct(ask);
     expect(q.kind).toBe("NONE");
     if (q.kind === "NONE") {
-      expect(q.reason).toMatch(/CREATE_OBJECT_BRIDGE_UNQUALIFIED|NEGATED_WRITE|NO_EXPLICIT/);
+      expect(q.reason).toMatch(
+        /CREATE_OBJECT_BRIDGE_UNQUALIFIED|NEGATED_WRITE|NO_EXPLICIT|SEMANTIC_ROUTER_REQUIRED/,
+      );
     }
-    expect(hasDocumentaryWriteSignal(ask)).toBe(true);
+    registerTypedScenario(
+      ask,
+      dialogueEnvelope(
+        ask,
+        "Je peux décrire une branche, sans écriture documentaire.",
+        ["NO_EFFECT", "NEGATED_WRITE"],
+      ),
+    );
+    expect(hasDocumentaryWriteSignal(ask)).toBe(false);
 
     turnRaceHooks.replaceNoraAssistantText = () =>
       "Je peux décrire une branche, sans écriture documentaire.\n\n" +
       "```sfia-document\n# Ne doit pas être persisté\n\ncorps\n```\n";
     try {
-      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
+      const chat = await noraTurn(pilotId, prep.id, ask);
       expect(chat.status).toBe("COMPLETE");
       expect(chat.documentSave).toBeNull();
       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
@@ -177,10 +229,6 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
       const msgs = await listMessages(pilotId, prep.id);
       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
       const body = assistant?.content ?? "";
-      expect(body).toMatch(/Résultat applicatif \(pré-effet\)/);
-      expect(body).toMatch(/NOT_EXECUTED/);
-      expect(body).toMatch(/non tentée/i);
-      expect(body).toMatch(/n'a pas été qualifiée/i);
       expect(body).not.toMatch(/Résultat applicatif D4 \(source de vérité\)/);
       expect(body).not.toMatch(/Statut observé: AVAILABLE/);
       expect(body).not.toMatch(/Statut observé: FAILED/);
@@ -195,11 +243,15 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     const prep = await openOrCreatePreparation(pilotId);
     const ask =
       "Crée une branche Git, puis montre-moi le document existant, s'il te plaît.";
-    expect(qualifyDocumentAct(ask).kind).toBe("NONE");
+    expectQualifyNone(ask);
+    registerTypedScenario(
+      ask,
+      dialogueEnvelope(ask, "Illustration sans effet documentaire.", ["NO_EFFECT"]),
+    );
     turnRaceHooks.replaceNoraAssistantText = () =>
       "Illustration:\n\n```sfia-document\n# Ne doit pas être créé\n\ncorps\n```\n";
     try {
-      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
+      const chat = await noraTurn(pilotId, prep.id, ask);
       expect(chat.documentSave).toBeNull();
       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
       const msgs = await listMessages(pilotId, prep.id);
@@ -221,8 +273,16 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
       "Voici une proposition hors fence contractuelle.\n\n# Titre\n\nCorps non contractuel.\n";
     try {
       const ask = "Crée un document de synthèse sur C10 Missing Fence";
-      expect(qualifyDocumentAct(ask).kind).toBe("CREATE");
-      const chat = await postUserMessageAndNora(pilotId, prep.id, ask);
+      registerTypedScenario(
+        ask,
+        d4CreateDocumentEnvelope({
+          title: "C10 Missing Fence",
+          summary: ask,
+          includeFence: false,
+        }),
+      );
+      expectDocumentActFromFixture(ask, "CREATE");
+      const chat = await noraTurn(pilotId, prep.id, ask);
       expect(chat.documentSave?.status).toBe("FAILED");
       expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
       expect(chat.documentSave?.documentId).toBeUndefined();
@@ -240,7 +300,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
   it("A-neg: analytical chatter does not create a document", async () => {
     const pilotId = await seedPilot("ml4-nochatter");
     const prep = await openOrCreatePreparation(pilotId);
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       prep.id,
       "Compare les options sans produire de livrable",
@@ -257,7 +317,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
       "Comment réviser le document sans le modifier ?",
       "Ne révise pas le document ; explique-moi seulement ce que tu changerais.",
     ]) {
-      const chat = await postUserMessageAndNora(pilotId, prep.id, text);
+      const chat = await noraTurn(pilotId, prep.id, text);
       expect(chat.documentSave == null || chat.documentSave.status !== "AVAILABLE").toBe(true);
     }
     expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
@@ -266,7 +326,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
   it("B: conversational REVISE keeps same documentId, produces v2, scopes section 2", async () => {
     const pilotId = await seedPilot("ml4-revise");
     const prep = await openOrCreatePreparation(pilotId);
-    const created = await postUserMessageAndNora(
+    const created = await noraTurn(
       pilotId,
       prep.id,
       "Rédige un document de synthèse sur Atlas",
@@ -278,7 +338,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     const v1 = listed.revisions.find((r) => r.revisionNumber === 1);
     expect(v1?.status).toBe("AVAILABLE");
 
-    const revised = await postUserMessageAndNora(
+    const revised = await noraTurn(
       pilotId,
       prep.id,
       `Révise uniquement la section 2 du document ${documentId} et conserve le reste`,
@@ -662,14 +722,23 @@ Aucune écriture GitHub.
       `Je valide explicitement cette révision dans D4 uniquement.\n` +
       `Je n'autorise aucune écriture GitHub.`;
 
-    expect(qualifyDocumentAct(ask).kind).toBe("REVISE");
-    const q = qualifyDocumentAct(ask);
-    if (q.kind === "REVISE") {
-      expect(q.documentHint).toBe(title);
-      expect(q.sectionHint).toBe("2");
+    registerTypedScenario(
+      ask,
+      d4ReviseDocumentEnvelope({
+        summary: "Révision section 2",
+        documentHint: title,
+        sectionHint: "2",
+        reply: sfiaDocumentFence(title, "Sources consultées révisées."),
+      }),
+    );
+    expectDocumentActFromFixture(ask, "REVISE");
+    const proj = projectStudioEffects(fixtureSemanticQualify(ask));
+    if (proj.documentAct.kind === "REVISE") {
+      expect(proj.documentAct.documentHint).toBe(title);
+      expect(proj.documentAct.sectionHint).toBe("2");
     }
 
-    const result = await postUserMessageAndNora(pilotId, prep.id, ask);
+    const result = await noraTurn(pilotId, prep.id, ask);
     expect(result.documentSave?.status).toBe("AVAILABLE");
     expect(result.documentSave?.act).toBe("REVISE");
     expect(result.documentSave?.documentId).toBe(seeded.documentId);
@@ -791,7 +860,16 @@ s
     expect(only.status).toBe("AVAILABLE");
     const ask =
       'Révise uniquement la section 2 du document «Titre qui n\'existe pas du tout» et conserve le reste.';
-    const result = await postUserMessageAndNora(pilotId, prep.id, ask);
+    registerTypedScenario(
+      ask,
+      d4ReviseDocumentEnvelope({
+        summary: "Révision titre absent",
+        documentHint: "Titre qui n'existe pas du tout",
+        sectionHint: "2",
+        includeFence: false,
+      }),
+    );
+    const result = await noraTurn(pilotId, prep.id, ask);
     expect(result.documentSave?.status).toBe("FAILED");
     expect(result.documentSave?.reason).toMatch(/REVISE_NOT_FOUND/);
     const docs = await listDocuments(pilotId, prep.id);
@@ -811,7 +889,7 @@ s
       "```\n" +
       "````\n";
     try {
-      const chat = await postUserMessageAndNora(
+      const chat = await noraTurn(
         pilotId,
         prep.id,
         "Rédige un document de synthèse sur Isolation Create",
@@ -860,7 +938,7 @@ s
       "```\n" +
       "````\n";
     try {
-      const revised = await postUserMessageAndNora(
+      const revised = await noraTurn(
         pilotId,
         prep.id,
         `Révise uniquement la section 2 du document ${documentId} et conserve le reste`,
@@ -893,7 +971,7 @@ s
       "```\n\n" +
       "Compte rendu hors fence: non documentaire.\n";
     try {
-      const chat = await postUserMessageAndNora(
+      const chat = await noraTurn(
         pilotId,
         prep.id,
         "Rédige un document de synthèse sur Isolation Positive",

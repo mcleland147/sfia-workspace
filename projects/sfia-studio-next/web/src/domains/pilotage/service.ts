@@ -355,6 +355,12 @@ function fromClearIntent(
       sourceActionKey: "REJECT|AMBIGUOUS|revise-target",
     };
   }
+  // USER_MESSAGE: restrictionId may be server-resolved by applyConversationalAuthority
+  // from durable restrictionKindHint / restrictionTargetRefHint (never from raw client HTTP).
+  const durableLiftRestrictionId =
+    fromDurable && qualified.operation === "LIFT_RESTRICTION"
+      ? (body.restrictionId?.trim() || null)
+      : null;
   const command: ClassifiedCommand = {
     operation: qualified.operation,
     sourceKind,
@@ -372,7 +378,7 @@ function fromClearIntent(
     methodRef: (qualified.methodRef ?? (!fromDurable ? body.methodRef : undefined) ?? "").trim(),
     methodVersion: (qualified.methodVersion || (!fromDurable ? body.methodVersion : undefined) || "").trim(),
     decisionId: qualified.decisionId ?? (!fromDurable ? body.decisionId : null) ?? null,
-    restrictionId: fromDurable ? null : (body.restrictionId ?? null),
+    restrictionId: fromDurable ? durableLiftRestrictionId : (body.restrictionId ?? null),
     // Never default targetRef to "*" for USER_MESSAGE — that widens scope silently.
     targetKind: fromDurable
       ? (qualified.restrictionKindHint ?? "")
@@ -477,12 +483,10 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
       ["toCycleType", body.toCycleType?.trim(), matched.toCycleType],
       ["methodRef", body.methodRef?.trim(), matched.methodRef],
       ["methodVersion", body.methodVersion?.trim(), matched.methodVersion],
-      ["decisionId", body.decisionId?.trim(), matched.decisionId],
       ["objectRef", body.objectRef?.trim(), matched.objectRef],
       ["statement", body.statement?.trim(), matched.statement],
       ["targetKind", body.targetKind?.trim(), undefined],
       ["targetRef", body.targetRef?.trim(), undefined],
-      ["restrictionId", body.restrictionId?.trim(), undefined],
       ["orientation", body.orientation?.trim(), undefined],
       ["trajectoryRevisionId", body.trajectoryRevisionId?.trim(), undefined],
       ["objective", body.objective?.trim(), matched.objective],
@@ -499,13 +503,113 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
         };
       }
     }
+
+    // Authority bridge may resolve decisionId / restrictionId from durable hints.
+    let decisionId = matched.decisionId;
+    const bodyDecisionId = body.decisionId?.trim();
+    if (bodyDecisionId) {
+      if (matched.decisionId && bodyDecisionId !== matched.decisionId) {
+        return {
+          ok: false,
+          reasonCode: "AMBIGUOUS",
+          reason: "Champ decisionId non issu de la qualification durable — refuse (pas de complément body)",
+          sourceActionKey: "REJECT|AMBIGUOUS|BODY_DECISIONID",
+        };
+      }
+      if (!matched.decisionId) {
+        if (matched.operation !== "REVISE_DECISION" || !matched.objectRef?.trim()) {
+          return {
+            ok: false,
+            reasonCode: "AMBIGUOUS",
+            reason: "Champ decisionId non issu de la qualification durable — refuse (pas de complément body)",
+            sourceActionKey: "REJECT|AMBIGUOUS|BODY_DECISIONID",
+          };
+        }
+        const row = (
+          await tx
+            .select({
+              id: humanDecisions.id,
+              objectRef: humanDecisions.objectRef,
+              kind: humanDecisions.kind,
+              state: humanDecisions.state,
+            })
+            .from(humanDecisions)
+            .where(
+              and(
+                eq(humanDecisions.id, bodyDecisionId),
+                eq(humanDecisions.projectId, input.projectId),
+              ),
+            )
+            .limit(1)
+        )[0];
+        if (
+          !row ||
+          row.kind !== "RECORD_DECISION" ||
+          row.state !== "APPLICABLE" ||
+          (row.objectRef ?? "").trim() !== matched.objectRef.trim()
+        ) {
+          return {
+            ok: false,
+            reasonCode: "AMBIGUOUS",
+            reason: "decisionId résolu incompatible avec objectRef durable — refuse",
+            sourceActionKey: "REJECT|AMBIGUOUS|DECISIONID_OBJECTREF_MISMATCH",
+          };
+        }
+        decisionId = bodyDecisionId;
+      }
+    }
+
+    let restrictionId: string | undefined;
+    const bodyRestrictionId = body.restrictionId?.trim();
+    if (bodyRestrictionId) {
+      if (matched.operation !== "LIFT_RESTRICTION") {
+        return {
+          ok: false,
+          reasonCode: "AMBIGUOUS",
+          reason: "Champ restrictionId non issu de la qualification durable — refuse",
+          sourceActionKey: "REJECT|AMBIGUOUS|BODY_RESTRICTIONID",
+        };
+      }
+      const row = (
+        await tx
+          .select()
+          .from(governanceRestrictions)
+          .where(
+            and(
+              eq(governanceRestrictions.id, bodyRestrictionId),
+              eq(governanceRestrictions.projectId, input.projectId),
+              eq(governanceRestrictions.status, "ACTIVE"),
+            ),
+          )
+          .limit(1)
+      )[0];
+      if (!row) {
+        return {
+          ok: false,
+          reasonCode: "AMBIGUOUS",
+          reason: "restrictionId résolu absent ou inactif — refuse",
+          sourceActionKey: "REJECT|AMBIGUOUS|RESTRICTIONID_INVALID",
+        };
+      }
+      const hint = (matched.restrictionKindHint ?? "").trim().toUpperCase();
+      if (hint && row.targetKind.toUpperCase() !== hint) {
+        return {
+          ok: false,
+          reasonCode: "AMBIGUOUS",
+          reason: "restrictionId incompatible avec restrictionKindHint durable — refuse",
+          sourceActionKey: "REJECT|AMBIGUOUS|RESTRICTION_HINT_MISMATCH",
+        };
+      }
+      restrictionId = bodyRestrictionId;
+    }
+
     const qualified: ClearIntent = {
       clarity: "CLEAR",
       operation: matched.operation,
       objective: matched.objective ?? (utterance || message.content),
       statement: matched.statement,
       objectRef: matched.objectRef,
-      decisionId: matched.decisionId,
+      decisionId,
       methodRef: matched.methodRef,
       methodVersion: matched.methodVersion,
       restrictionKindHint: matched.restrictionKindHint,
@@ -533,10 +637,11 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
       toCycleType: matched.toCycleType,
       methodRef: matched.methodRef,
       methodVersion: matched.methodVersion,
-      decisionId: matched.decisionId,
+      decisionId,
       objectRef: matched.objectRef,
       statement: matched.statement,
       objective: matched.objective,
+      restrictionId,
       semanticIntentId: matched.intentId,
       semanticSchemaVersion: matched.schemaVersion,
     });

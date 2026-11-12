@@ -127,27 +127,99 @@ for (const msg of [
 
 register(
   "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage qui expose l'objectif, le périmètre et les premières étapes.",
-  effect("Atlas + document", "Intention composée : projet Atlas puis document de cadrage.", [
+  effect(
+    "Atlas + document",
+    "Intention composée : projet Atlas puis document de cadrage.\n\n```sfia-document\n# Document de cadrage Atlas\n\n## Section 1 — Objectif\n\nObjectif Atlas.\n\n## Section 2 — Périmètre\n\nPérimètre initial.\n\n## Section 3 — Premières étapes\n\nÉtapes.\n```\n",
+    [
+      {
+        id: "i1",
+        capabilityId: "d2.create_project",
+        mode: "REQUEST_EFFECT",
+        summary: "Créer Atlas",
+        parameters: { projectName: "Atlas" },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+      {
+        id: "i2",
+        capabilityId: "d4.create_document",
+        mode: "REQUEST_EFFECT",
+        summary: "document de cadrage qui expose l'objectif, le périmètre et les premières étapes",
+        parameters: {
+          notes: "document de cadrage qui expose l'objectif, le périmètre et les premières étapes",
+        },
+        constraints: [],
+        dependsOn: ["i1"],
+        sourceEvidence: [],
+      },
+    ],
+  ),
+);
+
+register(
+  "Crée un projet nommé Atlas Guard puis un document.",
+  effect(
+    "Atlas Guard + document",
+    "Intention composée Atlas Guard.\n\n```sfia-document\n# Document Atlas Guard\n\n## Section 1\n\nGarde.\n```\n",
+    [
+      {
+        id: "i1",
+        capabilityId: "d2.create_project",
+        mode: "REQUEST_EFFECT",
+        summary: "Créer Atlas Guard",
+        parameters: { projectName: "Atlas Guard" },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+      {
+        id: "i2",
+        capabilityId: "d4.create_document",
+        mode: "REQUEST_EFFECT",
+        summary: "document Atlas Guard",
+        parameters: { notes: "document Atlas Guard" },
+        constraints: [],
+        dependsOn: ["i1"],
+        sourceEvidence: [],
+      },
+    ],
+  ),
+);
+
+register(
+  "Je décide que la connexion GitHub est obligatoire pour ce projet.",
+  effect("RECORD GitHub", "Intention RECORD_DECISION GitHub — vérification propriétaire D6.", [
     {
-      id: "i1",
-      capabilityId: "d2.create_project",
+      capabilityId: "d6.human_decision",
       mode: "REQUEST_EFFECT",
-      summary: "Créer Atlas",
-      parameters: { projectName: "Atlas" },
+      summary: "La connexion GitHub est obligatoire pour ce projet.",
+      parameters: {
+        pilotageOperation: "RECORD_DECISION",
+        statement: "La connexion GitHub est obligatoire pour ce projet.",
+        objectRef: "github-connexion",
+      },
       constraints: [],
       dependsOn: [],
       sourceEvidence: [],
     },
+  ]),
+);
+
+register(
+  "Je décide que GitHub est obligatoire pour ce projet.",
+  effect("RECORD GitHub court", "Intention RECORD_DECISION GitHub — vérification propriétaire D6.", [
     {
-      id: "i2",
-      capabilityId: "d4.create_document",
+      capabilityId: "d6.human_decision",
       mode: "REQUEST_EFFECT",
-      summary: "document de cadrage qui expose l'objectif, le périmètre et les premières étapes",
+      summary: "GitHub est obligatoire pour ce projet.",
       parameters: {
-        notes: "document de cadrage qui expose l'objectif, le périmètre et les premières étapes",
+        pilotageOperation: "RECORD_DECISION",
+        statement: "GitHub est obligatoire pour ce projet.",
+        objectRef: "github",
       },
       constraints: [],
-      dependsOn: ["i1"],
+      dependsOn: [],
       sourceEvidence: [],
     },
   ]),

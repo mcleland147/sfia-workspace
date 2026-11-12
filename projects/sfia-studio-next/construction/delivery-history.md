@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-CI-PARITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~17:50 CET (Europe/Paris) |
+| Macro-lot | ML4C — correctif non-régression sémantique + CI PG (PR #676) |
+| Type | EVOL Critical corrective QA (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
+| Parent tip | `83fd9ecef2d952c90a828d68a192e105c83be35f` |
+| Lane | DEV/E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | Helpers fixtures typées ; adaptation 5 suites PG (53 échecs CI) ; ENV-R06 NOT_VERIFIED si :5434 absent ; P1 USER_MESSAGE accepte decisionId/restrictionId résolus depuis hints durables ; C02 fault hook après autorité SEM/TV ; P1 follow-on D4 différé tant que D2 attend l'acte Pilote ; P1 pending ACK-lost conservé (pas d'écrasement B) ; PilotagePanel OPEN toujours structuré |
+| Schema | unchanged |
+| Tests | unit 248 PASS ; PG 318 PASS (baseline conservée) ; Playwright Atlas+ML3 9 PASS ; lint/build PASS ; LIVE NOT RUN |
+| Status | PUSH PR #676 — CI distante à observer sur nouveau SHA |
+
 ## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-FINAL-RUNTIME-QUAL
 
 | Field | Value |
