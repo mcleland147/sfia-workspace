@@ -14,10 +14,10 @@ import {
 } from "@/components/figma/DocumentSurfaces";
 import {
   conversationalClientCommandKey,
-  mayStartNewThreadAct,
   pendingStorageKey,
   shouldClearThreadPending,
   type ThreadPendingTurn,
+  type ThreadTurnKind,
 } from "@/domains/pilotage/thread-recovery";
 import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
 
@@ -301,15 +301,23 @@ export default function ProjectPage() {
   function applyClearFromResponse(
     noraStatus: string | undefined,
     effect: PilotageEffectView | undefined,
+    opts?: { preserveUnresolvedMetierPending?: boolean },
   ) {
     if (
       shouldClearThreadPending({
         noraStatus,
         effectAttempted: effect?.attempted,
         effectStatus: effect?.status,
+        preserveUnresolvedMetierPending: opts?.preserveUnresolvedMetierPending,
       })
     ) {
       rememberPending(null);
+      messageTurnKeyRef.current = null;
+      return true;
+    }
+    // Independent cognitive COMPLETE over pending A: drop only this turn key,
+    // never the unresolved métier pending.
+    if (opts?.preserveUnresolvedMetierPending) {
       messageTurnKeyRef.current = null;
       return true;
     }
@@ -669,18 +677,10 @@ export default function ProjectPage() {
   async function sendMessage() {
     if (!draft.trim() || !preparationId) return;
     const text = draft.trim();
-    // CR-02 — exclusive unresolved pending: never overwrite a distinct act silently.
-    const gate = mayStartNewThreadAct({
-      unresolved: unresolvedPending ?? readPending(),
-      nextContent: text,
-    });
-    if (!gate.ok) {
-      setPilotageStatus(
-        `${gate.reason} · ${gate.pending.clientCommandKey.slice(0, 24)}…`,
-      );
-      setDraft(gate.pending.content);
-      return;
-    }
+    // SEM-02 / S05: no client lexical gate. Server returns nextTurnKind from Nora
+    // qualification. Same-content retry reuses the turn key; distinct content may
+    // proceed — coexistence is decided from the server kind after the response.
+    const pendingBefore = unresolvedPending ?? readPending();
     setBusy(true);
     setNoraActivity("preparing");
     // Same content reuses the same turn key until a terminal result clears it.
@@ -695,12 +695,15 @@ export default function ProjectPage() {
     }
     const clientTurnKey = messageTurnKeyRef.current.key;
     const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
-    rememberPending({ content: text, clientTurnKey, clientCommandKey });
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: text, clientTurnKey }),
+        body: JSON.stringify({
+          content: text,
+          clientTurnKey,
+          unresolvedPendingClientTurnKey: pendingBefore?.clientTurnKey,
+        }),
       });
       let j: Record<string, unknown> = {};
       try {
@@ -709,12 +712,37 @@ export default function ProjectPage() {
         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
       }
       if (res.ok) {
+        const serverKind = (j.nextTurnKind as ThreadTurnKind | undefined) ?? "INCERTAIN";
+        const independent = serverKind === "DIALOGUE_INDEPENDANT";
+        const effectBlocked = Boolean(j.pendingEffectBlocked);
+        const distinctFromUnresolved =
+          Boolean(pendingBefore) && pendingBefore!.clientTurnKey !== clientTurnKey;
+        // Remember effect turns for ACK recovery — never let B overwrite unresolved A.
+        if (serverKind === "INTENTION_EFFET" && !effectBlocked && !distinctFromUnresolved) {
+          rememberPending({ content: text, clientTurnKey, clientCommandKey });
+        } else if (distinctFromUnresolved && pendingBefore) {
+          rememberPending(pendingBefore);
+        }
+        const preserveMetierPending =
+          (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
         setMessages((j.messages as Msg[]) ?? []);
         setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
-        if (applyClearFromResponse(String(j.status ?? ""), effect)) {
+        if (
+          !effectBlocked &&
+          !distinctFromUnresolved &&
+          applyClearFromResponse(String(j.status ?? ""), effect, {
+            preserveUnresolvedMetierPending: preserveMetierPending,
+          })
+        ) {
           setDraft("");
+        } else if (effectBlocked || (distinctFromUnresolved && serverKind === "INTENTION_EFFET")) {
+          setStatus(
+            effectBlocked
+              ? `Effet retenu — pending non résolu (${String(j.unresolvedPendingClientTurnKey ?? pendingBefore?.clientTurnKey ?? "A")})`
+              : "Intention précédente non résolue — réconcilier avant un nouveau tour.",
+          );
         } else if (j.status === "UNKNOWN" || j.status === "FAILED") {
           setNoraActivity("error");
         }
@@ -729,7 +757,8 @@ export default function ProjectPage() {
           j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
         );
       } else {
-        // ACK lost / HTTP error — keep pending with the same key.
+        // ACK lost / HTTP error — retain the same turn key for reconcile (server may have applied).
+        rememberPending({ content: text, clientTurnKey, clientCommandKey });
         setNoraActivity("error");
         setStatus(
           res.status === 409
@@ -738,6 +767,7 @@ export default function ProjectPage() {
         );
       }
     } catch {
+      rememberPending({ content: text, clientTurnKey, clientCommandKey });
       setNoraActivity("error");
       setStatus("échec réseau — intention de tour conservée");
     } finally {

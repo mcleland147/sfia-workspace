@@ -516,18 +516,14 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
                   data-testid="open-cycle"
                   onClick={() =>
                     void runCommand(
-                      utterance.trim()
-                        ? {
-                            utterance,
-                            sourceKind: "EXPLICIT_INTERACTION",
-                          }
-                        : {
-                            operation: "OPEN_CYCLE",
-                            cycleType,
-                            objective,
-                            sourceKind: "EXPLICIT_INTERACTION",
-                            utterance: `GO : ouvrir cycle ${cycleType}.`,
-                          },
+                      {
+                        // SEM-02: always structured operation — utterance is echo, not lexical authority.
+                        operation: "OPEN_CYCLE",
+                        cycleType,
+                        objective,
+                        sourceKind: "EXPLICIT_INTERACTION",
+                        utterance: utterance.trim() || `GO : ouvrir cycle ${cycleType}.`,
+                      },
                       "Ouverture à confirmer",
                     )
                   }

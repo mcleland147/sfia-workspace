@@ -9,6 +9,7 @@ import {
 } from "@/domains/conversation/intent-conduction";
 import { db } from "@/db/client";
 import { projects } from "@/db/schema";
+import { studioErrorResponse } from "@/lib/http-errors";
 
 /**
  * G1 — authority before effect:
@@ -125,7 +126,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       },
       { status },
     );
-  } catch {
-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
+  } catch (e) {
+    // ML4C S02 — do not map every failure to 401 (session vs métier/dependency).
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }

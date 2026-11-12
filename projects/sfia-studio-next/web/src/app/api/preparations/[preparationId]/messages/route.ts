@@ -33,6 +33,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       content?: string;
       correlationKey?: string;
       clientTurnKey?: string;
+      unresolvedPendingClientTurnKey?: string;
     };
     if (!body.content?.trim()) {
       return NextResponse.json(
@@ -47,6 +48,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       {
         correlationKey: body.correlationKey,
         clientTurnKey: body.clientTurnKey ?? body.correlationKey,
+        unresolvedPendingClientTurnKey: body.unresolvedPendingClientTurnKey,
         requestId,
       },
     );

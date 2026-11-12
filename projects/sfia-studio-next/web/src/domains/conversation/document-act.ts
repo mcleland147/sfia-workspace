@@ -249,218 +249,52 @@ export function isPolitePositiveDocumentAction(text: string): boolean {
  * in the *same clause window* (complements / novelty / persist verbs allowed).
  * Does not treat co-presence of words across contradictory clauses as authority.
  */
-export function hasExplicitCreateIntent(text: string): boolean {
-  const t = text.replace(/\s+/g, " ").trim();
-  if (!t || !hasPositiveVerb(t, CREATE_VERB_RE)) return false;
-  if (hasDurableSaveNegation(t)) return false;
-  if (hasAmbiguousCreateContradiction(t)) return false;
-
-  // Polite CREATE only when the positive create verb and documentary object share
-  // the same clause window — never « crée [branche] … document, s'il te plaît ».
-  for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
-    if (isVerbNegated(t, verb.index, verb.text.length)) continue;
-    const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
-    const obj = window.match(
-      /\b(nouveau(?:x)?|nouvelle(?:s)?)?\s*(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i,
-    );
-    if (!obj || obj.index == null) continue;
-    const between = window.slice(0, obj.index).trim();
-    if (!between) return true;
-    // Persist verbs between create and object (« crée et enregistre … document »)
-    if (/\b(enregistre|enregistrer|sauvegarde|sauvegarder|persist(?:e|er)?)\b/i.test(between)) {
-      return true;
-    }
-    const tokens = between.split(/\s+/).filter(Boolean);
-    if (tokens.length > 16) continue;
-    if (tokens.every((tok) => isCreateComplementToken(tok))) return true;
-  }
+export function hasExplicitCreateIntent(_text: string): boolean {
   return false;
 }
 
+
 /** Consultative listing / show docs — not a write. */
-export function isDocumentaryConsultationOnly(text: string): boolean {
-  const t = text.trim();
-  if (hasPositiveVerb(t, CREATE_VERB_RE) || hasPositiveVerb(t, REVISE_VERB_RE)) return false;
-  return (
-    /\b(montre[- ]moi|affiche|liste|consulte|voir|quels?\s+sont|disponible)\b[\s\S]{0,40}\bdocuments?\b/i.test(
-      t,
-    ) || /\bdocuments?\s+disponibles?\b/i.test(t)
-  );
+export function isDocumentaryConsultationOnly(_text: string): boolean {
+  return false;
 }
 
+
 /**
- * Plausible documentary write language (signal only — not authority to mutate).
- * Used for loyal NOT_EXECUTED restitution / observability when kind is NONE.
+ * SEM-02 — retired lexical signal. Documentary write intent comes from Nora
+ * semantic qualification (d4.create_document / d4.revise_document REQUEST_EFFECT).
  */
-export function hasDocumentaryWriteSignal(text: string): boolean {
-  const t = text.trim();
-  if (!t || isDocumentaryConsultationOnly(t)) return false;
-  // Pure questions / drafts-without-save must not trigger NOT_EXECUTED pollution.
-  if (isInformativeOrHypothetical(t)) return false;
-  if (hasExplicitCreateIntent(t)) return true;
-  if (hasPositiveVerb(t, REVISE_VERB_RE) && DOC_OBJECT_RE.test(t)) return true;
-  if (hasPositiveVerb(t, CREATE_VERB_RE) && DOC_OBJECT_RE.test(t)) return true;
+export function hasDocumentaryWriteSignal(_text: string): boolean {
   return false;
 }
 
 /** Informative / hypothetical questions are not mutation requests. */
-export function isInformativeOrHypothetical(text: string): boolean {
-  const t = text.trim();
-  // Leading question framing wins over a create/revise verb later in the same utterance (N3/N4/N9).
-  if (/^(comment|pourquoi|quelles?\b|que\s+se\s+passerait)\b/i.test(t)) {
-    return true;
-  }
-  // « Explique comment créer… » is instructional, not a write authorization (C7).
-  if (/\bexplique\b[\s\S]{0,48}\bcomment\b[\s\S]{0,80}\b(créer|crée|réviser|révise|modifier|enregistrer)\b/i.test(t)) {
-    return true;
-  }
-  // Explicit refusal of durable save — draft in chat only (C6 / N6).
-  if (hasDurableSaveNegation(t)) return true;
-  // Explicit CREATE intent wins over trailing « comment je peux le retrouver » clauses.
-  if (hasExplicitCreateIntent(t)) return false;
-  // Polite positive action first — « Peux-tu réviser le document X ? » is not informative.
-  if (isPolitePositiveDocumentAction(t) && !/\bm['’]?expliquer\b|\bcomment\b|\bétapes\b/i.test(t)) {
-    return false;
-  }
-  if (
-    /\b(comment|peux-tu\s+m['’]?expliquer|explique[- ]moi|quelles?\s+(?:seraient|sont)\s+les\s+étapes)\b[\s\S]{0,80}\b(créer|crée|réviser|révise|revise|modifier|modifie|enregistrer)\b/i.test(
-      t,
-    )
-  ) {
-    return true;
-  }
-  if (
-    /\b(que\s+se\s+passerait[- ]il|si\s+(?:nous|on|je)\s+(?:le\s+)?(?:révisions|modifi(?:ais|ons)|créions))\b/i.test(
-      t,
-    )
-  ) {
-    return true;
-  }
-  if (
-    /\bexplique[- ]moi\s+seulement\b/i.test(t) ||
-    /\bce\s+que\s+tu\s+changerais\b/i.test(t) ||
-    /\bsans\s+(?:le\s+)?(?:créer|modifier|réviser|enregistrer)\b/i.test(t)
-  ) {
-    if (!hasPositiveVerb(t, REVISE_VERB_RE) && !hasPositiveVerb(t, CREATE_VERB_RE)) {
-      return true;
-    }
-  }
-  if (
-    /\b(proposition|brouillon|draft)\b[\s\S]{0,40}\b(sans\s+enregistrer|non\s+enregistr)/i.test(t) ||
-    /\bsans\s+(?:créer\s+ni\s+)?enregistrer\b/i.test(t) ||
-    /\bne\s+(?:l['’])?enregistre\s+pas\b/i.test(t)
-  ) {
-    return true;
-  }
+export function isInformativeOrHypothetical(_text: string): boolean {
   return false;
 }
+
 
 /**
  * Global prohibition of documentary write (not a local "don't touch other sections").
  */
-export function isGlobalDocumentWriteNegation(text: string): boolean {
-  const t = text.trim();
-  // Local scope restriction: positive revise + don't touch other sections → not global.
-  const localScope =
-    hasPositiveVerb(t, REVISE_VERB_RE) &&
-    /\b(uniquement|seulement)\b[\s\S]{0,40}\b(section|partie|chapitre)\b/i.test(t) &&
-    /\bne\s+(?:modifie|touche|change)\s+pas\s+(?:les\s+)?(?:autres|le\s+reste)\b/i.test(t);
-  if (localScope) return false;
-
-  if (
-    /\bne\s+(?:me\s+)?(?:crée|créer|modifie|modifier|révise|réviser|revise|enregistre|enregistrer|touche)\s+(?:pas|aucun|aucune)\b/i.test(
-      t,
-    ) ||
-    /\bn['’]enregistre\s+pas\b/i.test(t) ||
-    /\bne\s+touche\s+pas\s+au\s+document\b/i.test(t) ||
-    /\bsans\s+créer\s+ni\s+enregistrer\b/i.test(t) ||
-    /\baucun(?:e)?\s+documents?\b/i.test(t)
-  ) {
-    // If the only create/revise verbs are negated, treat as global refuse.
-    // A positive CREATE/REVISE on another clause is preserved (A5 / N8).
-    const posCreate = hasPositiveVerb(t, CREATE_VERB_RE);
-    const posRevise = hasPositiveVerb(t, REVISE_VERB_RE);
-    if (!posCreate && !posRevise) return true;
-    // "Ne crée pas …" with a create verb only under negation:
-    if (hasOnlyNegatedVerbs(t, CREATE_VERB_RE) && !posRevise) return true;
-    if (hasOnlyNegatedVerbs(t, REVISE_VERB_RE) && !posCreate) return true;
-  }
+export function isGlobalDocumentWriteNegation(_text: string): boolean {
   return false;
 }
 
+
 /**
- * Qualify explicit documentary intent. Analytical / negative / informative → NONE.
- * Act qualification uses authority-stripped text; target designation uses raw text.
+ * SEM-02 — retired as production métier router.
+ * Documentary CREATE/REVISE comes from Nora semantic qualification only.
+ * Technical helpers (extractContractualDocumentProposal, resolveReviseTarget, fences)
+ * remain for owner execution after semantic REQUEST_EFFECT.
  */
-export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
-  const trimmed = text.trim();
-  if (!trimmed) return { kind: "NONE", reason: "EMPTY" };
-
-  const designation = extractDocumentDesignation(trimmed);
-  const authorityText = stripNonAuthoritativeSpans(trimmed).replace(/\s+/g, " ").trim();
-  if (!authorityText) return { kind: "NONE", reason: "NO_AUTHORITATIVE_TEXT" };
-
-  if (isGlobalDocumentWriteNegation(authorityText) || isGlobalDocumentWriteNegation(trimmed)) {
-    return { kind: "NONE", reason: "NEGATED_WRITE" };
-  }
-  if (hasAmbiguousCreateContradiction(authorityText) || hasAmbiguousCreateContradiction(trimmed)) {
-    return { kind: "NONE", reason: "AMBIGUOUS_CREATE" };
-  }
-  if (hasDurableSaveNegation(authorityText) || hasDurableSaveNegation(trimmed)) {
-    return { kind: "NONE", reason: "DURABLE_SAVE_NEGATED" };
-  }
-  if (isInformativeOrHypothetical(authorityText) || isInformativeOrHypothetical(trimmed)) {
-    const allowLocalRevise =
-      (hasPositiveVerb(authorityText, REVISE_VERB_RE) || hasPositiveVerb(trimmed, REVISE_VERB_RE)) &&
-      (DOC_OBJECT_RE.test(authorityText) ||
-        DOC_ID_RE.test(trimmed) ||
-        Boolean(designation.titleHint)) &&
-      /\b(uniquement|seulement)\b[\s\S]{0,40}\b(section|partie|chapitre)\b/i.test(trimmed);
-    if (!allowLocalRevise && !isPolitePositiveDocumentAction(trimmed)) {
-      return { kind: "NONE", reason: "INFORMATIVE_OR_HYPOTHETICAL" };
-    }
-  }
-
-  const hasDocObject =
-    DOC_OBJECT_RE.test(authorityText) ||
-    Boolean(designation.documentId) ||
-    Boolean(designation.titleHint);
-  const positiveRevise =
-    hasPositiveVerb(authorityText, REVISE_VERB_RE) ||
-    (isPolitePositiveDocumentAction(trimmed) &&
-      /\b(?:réviser|reviser|révise|modifier|modifie|corriger|corrige)\b/i.test(trimmed));
-
-  // REVISE before CREATE — « ne crée pas …, révise la section 2 » → REVISE (N8), never CREATE.
-  if (positiveRevise && hasDocObject) {
-    return {
-      kind: "REVISE",
-      documentHint: designation.documentId ?? designation.titleHint,
-      sectionHint: designation.sectionHint,
-    };
-  }
-
-  // CREATE — structured recognition on authority-stripped text only (A7: never Git/quote/tool).
-  // No CREATE_PLEASE_RE shortcut: « document, s'il te plaît » alone never authorizes D4,
-  // and politeness cannot bind a create verb from another clause (T1/T2/T8).
-  if (hasExplicitCreateIntent(authorityText)) {
-    return { kind: "CREATE" };
-  }
-
-  if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && !DOC_OBJECT_RE.test(authorityText)) {
-    return { kind: "NONE", reason: "CREATE_WITHOUT_OBJECT" };
-  }
-
-  if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && DOC_OBJECT_RE.test(authorityText)) {
-    return { kind: "NONE", reason: "CREATE_OBJECT_BRIDGE_UNQUALIFIED" };
-  }
-
-  return { kind: "NONE", reason: "NO_EXPLICIT_WRITE" };
+export function qualifyDocumentAct(_text: string): QualifiedDocumentAct {
+  return { kind: "NONE", reason: "SEMANTIC_ROUTER_REQUIRED" };
 }
 
-/** Backward-compatible predicate used by older call sites / tests. */
-export function explicitDocumentIntent(text: string): boolean {
-  const q = qualifyDocumentAct(text);
-  return q.kind === "CREATE" || q.kind === "REVISE";
+/** Backward-compatible predicate — always false after SEM-02 retirement. */
+export function explicitDocumentIntent(_text: string): boolean {
+  return false;
 }
 
 export type DocumentListItem = {
@@ -1080,6 +914,68 @@ export type DocumentEffectSummary = {
   reason?: string;
   idempotentReplay?: boolean;
 };
+
+/** CP2 S03 — owner D4 statuses that may appear on DocumentEffectSummary. */
+export const DOCUMENT_EFFECT_OWNER_STATUSES = [
+  "AVAILABLE",
+  "FAILED",
+  "CONFLICT",
+  "UNKNOWN",
+  "NOT_EXECUTED",
+] as const;
+
+export type DocumentEffectOwnerStatus =
+  (typeof DOCUMENT_EFFECT_OWNER_STATUSES)[number];
+
+/**
+ * Map an owner D4 / DocumentSave status onto DocumentEffectSummary.status.
+ * Absent or ambiguous values become UNKNOWN — never invent FAILED without proof.
+ */
+export function mapOwnerDocumentStatusToEffect(
+  status: string | null | undefined,
+): DocumentEffectOwnerStatus {
+  const s = (status ?? "").trim().toUpperCase();
+  if (s === "AVAILABLE") return "AVAILABLE";
+  if (s === "FAILED") return "FAILED";
+  if (s === "CONFLICT") return "CONFLICT";
+  if (s === "UNKNOWN") return "UNKNOWN";
+  if (s === "NOT_EXECUTED") return "NOT_EXECUTED";
+  return "UNKNOWN";
+}
+
+/**
+ * Build the post-D4 DocumentEffectSummary used by continuation restitution.
+ * Preserves owner status, ids, and reason without collapsing UNKNOWN→FAILED.
+ */
+export function documentSaveToEffectSummary(input: {
+  act?: "CREATE" | "REVISE";
+  status?: string | null;
+  documentId?: string;
+  revisionId?: string;
+  revisionNumber?: number;
+  reason?: string;
+  /** When no save object exists at all (no D4 attempt in this branch). */
+  absentMeans?: "NOT_EXECUTED" | "UNKNOWN";
+}): DocumentEffectSummary {
+  if (input.status == null && !input.documentId && !input.reason) {
+    return {
+      act: input.act ?? "CREATE",
+      status: input.absentMeans ?? "NOT_EXECUTED",
+      reason: "NO_DOCUMENT_SAVE",
+    };
+  }
+  const status = mapOwnerDocumentStatusToEffect(input.status);
+  return {
+    act: input.act ?? "CREATE",
+    status,
+    documentId: input.documentId,
+    revisionId: input.revisionId,
+    revisionNumber: input.revisionNumber,
+    reason:
+      input.reason ??
+      (status === "AVAILABLE" ? undefined : input.status ?? status),
+  };
+}
 
 /** Sentences/paragraphs that assert a D4 write outcome (must not compete with applicative truth). */
 const TRANSACTIONAL_CLAIM_RE =

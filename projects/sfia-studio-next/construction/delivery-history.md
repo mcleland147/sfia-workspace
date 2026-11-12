@@ -4,6 +4,208 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~19:20 CET (Europe/Paris) |
+| Macro-lot | ML4C R5 — gardes finales cible durable (`*` / kind D6) + freeze RECETTE |
+| Type | EVOL Critical corrective + mise à disposition RECETTE (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
+| Parent tip | `d7c28a21a9e41c5e5fb2af7415fb59e8a6cf247b` |
+| Lane | DEV/E2E tests ; RECETTE figée après CI GREEN (campagne ML4C-UAT-2026-11-12) |
+| Changes | `restrictionTargetMatchesHint` fail-closed vs globale ; LIFT exige hint durable ; `resolveReviseDecisionTarget` exige RECORD_DECISION ; tests G01–G05 / D01–D07 |
+| Schema | unchanged |
+| Tests | unit 252 PASS (248+4) ; PG 336 PASS (324+12 G/D) ; Playwright 25 PASS ; LIVE NOT RUN |
+| Status | PUSH PR #676 puis freeze RECETTE si CI GREEN |
+
+## delivery_id: DELIV-2026-11-12-ML4C-AUTHORITY-HARDENING
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~18:40 CET (Europe/Paris) |
+| Macro-lot | ML4C — sécurisation frontières d’autorité R1/R2/R3 (PR #676) |
+| Type | EVOL Critical corrective / SECURITY / QUALITY (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
+| Parent tip | `9c163d621589e7ba9d7369ad5a0342a9bbde8b04` |
+| Lane | DEV/E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | Résolveur propriétaire unique `durable-target-resolve.ts` (REVISE/LIFT) ; body HTTP = écho uniquement ; fixtures explicites (`registerExplicitFixture`) ; suppression `registerPgUtteranceFixture` ; ENV-R06A/B (NOT_VERIFIED si :5434 absent) ; tests négatifs multi-cible D6/restriction |
+| Schema | unchanged |
+| Tests | unit 248 PASS ; PG 324 PASS ; Playwright 25 PASS ; tsc/eslint/build PASS ; LIVE NOT RUN |
+| Status | PUSH PR #676 — CI distante à observer sur nouveau SHA |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-CI-PARITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~17:50 CET (Europe/Paris) |
+| Macro-lot | ML4C — correctif non-régression sémantique + CI PG (PR #676) |
+| Type | EVOL Critical corrective QA (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
+| Parent tip | `83fd9ecef2d952c90a828d68a192e105c83be35f` |
+| Lane | DEV/E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | Helpers fixtures typées ; adaptation 5 suites PG (53 échecs CI) ; ENV-R06 NOT_VERIFIED si :5434 absent ; P1 USER_MESSAGE accepte decisionId/restrictionId résolus depuis hints durables ; C02 fault hook après autorité SEM/TV ; P1 follow-on D4 différé tant que D2 attend l'acte Pilote ; P1 pending ACK-lost conservé (pas d'écrasement B) ; PilotagePanel OPEN toujours structuré |
+| Schema | unchanged |
+| Tests | unit 248 PASS ; PG 318 PASS (baseline conservée) ; Playwright Atlas+ML3 9 PASS ; lint/build PASS ; LIVE NOT RUN |
+| Status | PUSH PR #676 — CI distante à observer sur nouveau SHA |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-FINAL-RUNTIME-QUAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~15:10 CET (Europe/Paris) |
+| Macro-lot | ML4C — Q1 real D2 AWAITING_PILOT_ACT + S05 / Q2 ENV-01 runtime+PG isolation |
+| Type | EVOL Critical corrective QA (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé ; Playwright :3101 / `sfia_next_e2e` ; RECETTE :3200 non mutée (creds DENIED :5434) |
+| Changes | Tests Q1 parcours D2 réel (PG+E2E) ; ENV-01 matrix + cross-lane auth deny ; as-built Q1/Q2 ; **aucune** injection artificielle de mission pour Q1-A |
+| Schema | unchanged |
+| Tests | Q1 PG 3 PASS ; Q1 E2E 1 PASS ; ENV 6 PASS ; tsc PASS ; related unit/PG PASS ; LIVE NOT RUN |
+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED — READY FOR CHATGPT REVIEW (reserves LIVE/S02-01/A-006) |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-ADMISSIBILITY-CLOSURE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~14:45 CET (Europe/Paris) |
+| Macro-lot | ML4C — C-01 AUTH-R06 positif / C-02 S05-REAL-05 AWAITING / C-03 fixture isolation / C-04 pack cumulatif |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE non mutée |
+| Changes | AUTH-R06 OPEN+TRANSITION both APPLIED ; seed_awaiting_mission + S05-REAL-05 ; e2eFixtureMutationsAllowed (E2E obligatoire) ; pack FULL cumulatif |
+| Schema | unchanged |
+| Tests | AUTH 13 PASS ; fixture gate 6 PASS ; S05 real-api 7 PASS ; LIVE NOT RUN |
+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES — REVIEW REQUIRED |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-EVIDENCE-CLOSURE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~14:05 CET (Europe/Paris) |
+| Macro-lot | ML4C — F1–F4 evidence closure (reconcile / AUTH real / S05 real API / D4 epistemic) |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE :3200 non mutée |
+| Changes | F1 runner reorder ; F2 AUTH-R01–R14 PG ; F3 S05 real-api E2E ; F4 no FACT from Nora alone + pre/post knowledge roles ; multi-intent durable match |
+| Schema | unchanged (no DB migration) |
+| Tests | unit+ML4C PG 264 PASS ; AUTH 13 PASS ; E2E S05 real-api 3 PASS ; LIVE NOT RUN ; S02-01 FAIL (source) |
+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES — REVIEW REQUIRED |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-INTEGRATOR-CLOSURE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~13:35 CET (Europe/Paris) |
+| Macro-lot | ML4C — Integrator closure R1 S05 full / R2 human-act idempotence / R3 D4 semantic knowledge / R4 preuves |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé + PG e2e + Playwright :3101 ; RECETTE :3200 non mutée |
+| Changes | S05 gate D2/D4/D5/D6/D7 + missions ; actInstanceId serveur + replay ALREADY_APPLIED ; `d4.record_knowledge` + capitalisation sélective ; sélection preferred-ids |
+| Schema | unchanged (Zod envelope extended ; no DB migration) |
+| Tests | unit 240 PASS ; PG 35 PASS ; E2E S05 1 PASS ; LIVE NOT RUN ; S02-01 FAIL (source) |
+| Status | LOCAL ONLY — Review Handoff L3 ; IMPLEMENTED WITH RESERVES |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-INTEGRATOR
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~12:45 CET (Europe/Paris) |
+| Macro-lot | ML4C — Integrator Lots A–E (superseded by INTEGRATOR-CLOSURE) |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Status | SUPERSEDED |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~12:10 CET (Europe/Paris) |
+| Macro-lot | ML4C — Corrective convergence sémantique (D5/D6 / T-03 / S05 / lexical purge) |
+| Type | EVOL Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé ; RECETTE figée ; STABLE N/A |
+| Changes | `pilotageOperation` typé ; match qualification durable owner ; stash `applied` obligatoire ; merge terminal ; `nextTurnKind` serveur ; fixture scénarios exacts ; purge `PHRASES` / corps lexical D4/D5 ; page S05 sans `qualifyThreadTurn` |
+| Schema | unchanged |
+| Tests | unit 36 PASS ; PG/E2E/LIVE NOT RUN |
+| Status | LOCAL ONLY — Review Handoff L3 corrective ; IMPLEMENTED WITH RESERVES |
+
+## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-INTENT-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 11:43 CET (Europe/Paris) |
+| Macro-lot | ML4C — Qualification sémantique Nora + mobilisation gouvernée |
+| Type | EVOL Critical — remplacement routeurs lexicaux métier (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local only) |
+| Parent tip | `2416e2ee25662821b015407346c64ec204f67488` |
+| Lane | DEV isolé ; RECETTE figée `2416e2ee` ; STABLE N/A |
+| Changes | Enveloppe `ml4c-sem-qual-v1` ; LIVE `outputType`+Zod ; fixture TEST_BOUNDARY ; D5/D6 après Nora + `preQualified` ; stubs fail-closed ; stash pré-effet — **revue ChatGPT NOT READY → corrective** |
+| Schema | unchanged (stash via `resultJson` existant) |
+| Tests | unit semantic/intent/S05/cognitive/mission PASS ; PG/E2E/LIVE NOT RUN |
+| Status | SUPERSEDED BY CORRECTIVE — réserves D5/D6/T-03/S05/lexical |
+
+## delivery_id: DELIV-2026-11-11-ML4C-S05-POSITIVE-INDEPENDENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-11 (Europe/Paris) |
+| Macro-lot | ML4C — INC S05 qualification positive (PR #676) |
+| Type | INC — indépendance positivement établie ; inconnu → INCERTAIN (NO RELEASE) |
+| Branch | `build/next-ml4c-functional-convergence` |
+| Parent tip | `8cff1591` |
+| Lane | DEV :5433; mutative → `sfia_next_e2e`; RECETTE/STABLE untouched |
+| Changes | Supprime repli « inconnu/? ⇒ indépendant » ; `qualifyThreadTurn` n'établit DIALOGUE_INDEPENDANT que sur marqueurs cognitifs positifs ; INCERTAIN sans pending n'invente pas de pending métier |
+| Schema | unchanged |
+| Status | PR #676 corrective — CI à rejouer — LIVE/REAL carried |
+
+## delivery_id: DELIV-2026-11-11-ML4C-S05-INTENT-QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-11 (Europe/Paris) |
+| Macro-lot | ML4C — INC correctif S05 qualification d'intention (PR #676) |
+| Type | INC — robustesse qualification vs exclusion (NO RELEASE) |
+| Branch | `build/next-ml4c-functional-convergence` |
+| Parent tip | `ba91cf71` |
+| Lane | DEV :5433; mutative → `sfia_next_e2e`; RECETTE/STABLE untouched |
+| Changes | `qualifyThreadTurn` (DIALOGUE_INDEPENDANT / INTENTION_EFFET / INCERTAIN) réutilise `qualifyPilotageIntent` + D4 ; fin du défaut « aucune regex ⇒ indépendant » ; CR-02 OPEN_CYCLE « le » |
+| Schema | unchanged |
+| Status | PR #676 corrective — CI à rejouer — LIVE/REAL carried |
+
+## delivery_id: DELIV-2026-11-11-ML4C-S03-S05-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-11 (Europe/Paris) |
+| Macro-lot | ML4C — INC correctif S03/S05 (même candidat) |
+| Type | INC — vérité des effets + pending préservé (NO RELEASE) |
+| Branch | `build/next-ml4c-functional-convergence` (local — no project push) |
+| Parent tip | `cb0738b5` (S02 taxonomy + S05 dialogue) |
+| Lane | DEV :5433; mutative tests → `sfia_next_e2e`; RECETTE/STABLE untouched |
+| Changes | S03 `documentSaveToEffectSummary` / no UNKNOWN→FAILED collapse in `continueAfterProjectCreated`; S05 `preserveUnresolvedMetierPending` on independent COMPLETE; classifier tightens interrogative effect requests |
+| Schema | unchanged |
+| Status | LOCAL CORRECTIVE — ChatGPT technical review — LIVE/REAL gates carried |
+
+## delivery_id: DELIV-2026-11-11-ML4C-FUNCTIONAL-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-11 (Europe/Paris) |
+| Macro-lot | ML4C — Convergence fonctionnelle intégrée |
+| Type | EVOL — construction locale (NO RELEASE) |
+| Branch | `build/next-ml4c-functional-convergence` (local — no project push) |
+| Parent | main `6d237452` (ENV-B merged) |
+| Lane | DEV :5433; mutative tests → `sfia_next_e2e`; RECETTE/STABLE untouched |
+| Changes | S01 honest portfolio status; S02 create ACK reconcile UI + versioned D2_ACK_OBS; S03 continueAfter document ACK; S05 independent-Q while awaiting; S04 cognitive baseline doc (no vector engine); SCRIPTED S06 path reused |
+| Schema | unchanged |
+| Status | LOCAL CANDIDATE — ChatGPT technical review — LIVE/REAL gates carried |
+
 ## delivery_id: DELIV-2026-11-11-ENV-B-VITEST-PG-GATE
 
 | Field | Value |
