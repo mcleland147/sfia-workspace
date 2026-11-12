@@ -1,7 +1,7 @@
 # SFIA Studio Next — Journal de campagne de recette utilisateur ML4C
 
 **Campagne :** `ML4C-UAT-2026-11-12`\
-**Version du registre :** `v0.1 — 2026-11-12`\
+**Version du registre :** `v0.2 — 2026-11-12`\
 **Statut :** `D1 — registre factuel évolutif, non normatif ; publié sur branche documentaire candidate, non fusionné`\
 **Autorité :** Morris (Pilote, verdict d’acceptation et gates) ; ChatGPT (qualification, suivi, analyse).\
 **Périmètre :** 53 cas S01–S07 de la convergence fonctionnelle intégrée ML4C.\
@@ -23,7 +23,9 @@
 | Cahier de recette | `construction/convergence-fonctionnelle/cahier-recette-utilisateur-ml4c.md`, branche documentaire `docs/next-r5-ml4c-cp2-preparation-20261111` @ `493fead2295e7d0deaf660f24e4bba31289b6067` |
 | Source historique de suivi | `construction/ml4-integration-git/recette-ml4-r01-r14-anomalies.md` sur `main` |
 | Vérité Git locale / sessions / logs | **NON OBSERVÉS** indépendamment au cours de S01-01 |
-| Publication Git du présent registre | **D1 — branche documentaire** `docs/next-r5-ml4c-cp2-preparation-20261111` ; fichier vivant, non fusionné sur `main` |
+| Publication Git du registre initial (historique) | **D1 — branche documentaire** `docs/next-r5-ml4c-cp2-preparation-20261111` ; fichier vivant, ensuite intégré sur `main` par la PR #677 |
+
+**Reprise CURRENT — retest utilisateur du 12/11/2026 :** candidat RECETTE figé selon le handoff Cursor [Git](https://github.com/mcleland147/sfia-workspace/blob/sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md) : `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`, tree `64167c6fc4c98da3c3d4168518911636961bc5c6`, BUILD_ID `wYKCZCblBxWLiVsNjIr3e`, [CI Next SUCCESS](https://github.com/mcleland147/sfia-workspace/actions/runs/43278752662), PR #676 **OPEN / NON MERGÉE**. Le runtime servi/BUILD_ID ont été contrôlés par Cursor lors du freeze ; les captures UAT suivantes prouvent l'interface et les effets visibles, **pas** une inspection indépendante du BUILD_ID ni des transactions PostgreSQL. Base historique `sfia_next_recette_ml4:5434` et sas FAIL `prep_cd6f1d24-81d0-4e98-99d0-90aec8a94a3b` annoncés conservés. Nouvelle préparation distincte : `prep_51effa9f-edc5-47fa-81c1-c18838de362a`. Journal D1 de reprise sur branche `docs/next-ml4c-uat-journal-20261112`, sans changement du cahier validé.
 
 **Gouvernance des preuves :** retour utilisateur et captures navigateur ≠ preuve de callback serveur ≠ état du serveur/DB ≠ preuve Git distant. Le PASS ci-dessous concerne le parcours navigateur réellement réalisé ; il ne clôt ni la politique de session ni la sécurité inter-identités. Tout changement de SHA/build requiert une requalification des preuves affectées. Aucune LIVE/REAL supplémentaire n’est inférée.
 
@@ -32,13 +34,13 @@
 | Famille | Cas | PASS | FAIL | BLOCKED | NOT RUN | Réserves ouvertes |
 |---|---:|---:|---:|---:|---:|---:|
 | S01 | 6 | 4 | 0 | 0 | 2 | 5 |
-| S02 | 6 | 0 | 1 | 0 | 5 | 2 |
+| S02 | 6 | 1 | 0 | 0 | 5 | 1 |
 | S03 | 7 | 0 | 0 | 0 | 7 | 0 |
 | S04 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S05 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **4** | **1** | **0** | **48** | **7** |
+| **TOTAL** | **53** | **5** | **0** | **0** | **48** | **6** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -174,6 +176,43 @@
 | Verdict de revue | **NOT READY — complément correctif et handoff requis**. Ne pas commiter/pousser/promouvoir ce candidat sur la seule base de ce pack. |
 | Suite | Corriger les refus usuels et les messages mixtes sans moteur parallèle ; étendre unitaires + PG sur refus avec absence de preview/mission/projet/doc, conserver positifs et reprise ; fournir le diff/section exacte de `delivery-history.md` ; rééditer pack FULL et republier handoff L3. Puis nouvelle revue ChatGPT. |
 
+
+### Retest utilisateur `S02-01` — candidat RECETTE figé, 12 novembre 2026
+
+**Provenance :** campagne `ML4C-UAT-2026-11-12`, retest négatif Intervencia après correctif sémantique, sous arbitrage de Morris. **L'échec initial sur `2416e2ee` reste conservé ci-dessus ; ce retest n'efface ni ses observations ni ses preuves.**
+
+| Champ | Observation du nouveau retest |
+|---|---|
+| Candidat | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; tree `64167c6fc4c98da3c3d4168518911636961bc5c6` ; BUILD_ID `wYKCZCblBxWLiVsNjIr3e` selon manifeste du freeze ; CI Next `43278752662` SUCCESS |
+| Environnement / identité | RECETTE `http://127.0.0.1:3200`, Pilote GitHub `mcleland147` ; portefeuille accessible, `CampusFlow` et **3 préparations ouvertes**, dont l'Intervencia historique |
+| Nouvelle préparation | `prep_51effa9f-edc5-47fa-81c1-c18838de362a`, distincte de l'ancienne `prep_cd6f1d24-81d0-4e98-99d0-90aec8a94a3b`, à préserver |
+| État initial | `Espace de préparation — projet non créé` ; aucune proposition ; `Constituer une proposition` et `Créer le projet` désactivés ; fil Nora disponible |
+| Nature du message | **Reconstruction de l'intention S02-01-U01**, et **non rejeu mot pour mot** : exploration Intervencia / coordination de 12 sites / e-mails et Excel / questions et démarche ; interdiction expresse de créer un projet ou d'engager des travaux |
+| Résultat Nora LIVE visible | `NORA · COMPLETE`, réponse métier contextualisée, distinguant faits et hypothèses, problèmes possibles, acteurs, démarche et questions initiales ; Nora confirme rester au stade de la réflexion sans création ni travaux |
+| Aperçu après le tour | `Échange en cours`, **aucune proposition enregistrée**, projet `Non créé` ; `Constituer une proposition` devenu disponible mais **non actionné** ; `Créer le projet` désactivé ; pas de D2 `AWAITING_PILOT_ACT` ni D4 `PENDING` visible dans les surfaces inspectées |
+| Après rafraîchissement `Cmd + R` | Message Pilote et réponse Nora visibles dans le même sas ; aperçu toujours sans proposition ; projet toujours `Non créé` |
+| Onglet Documents | Bibliothèque **0 document**, aucun document dans ce sas, aucune révision listée ; aucun clic de création documentaire |
+| Onglet Journal | **0 sujet / 0 acquis / 0 point ouvert** ; aucune décision D6 affichée dans le journal ; ce journal ne constitue pas un inventaire exhaustif des missions D2/D4 |
+| Réserve résiduelle A-007 | Un diagnostic technique est apparu **hors du texte de Nora, dans la colonne droite du sas** : `openai-agents-sdk-live · COMPLETE · policy investigation/TEST_BOUNDARY · op_… · stream attempted=true delivered=true`. Il n'apparaît plus dans la capture après rafraîchissement ; l'observation initiale demeure. Pas de secret démontré. |
+| Portée de preuve | **UAT navigateur et retour Pilote** : pas de lecture DB/API/transactions ni audit exhaustif des missions ; identité précise du build tirée du manifeste Cursor, non affichée dans les captures |
+| Verdict décidé par Morris | **PASS** du retest S02-01 **avec réserve distincte non bloquante** ; motif : l'absence de création implicite et la négation, principales causes du FAIL historique, sont conformes dans le parcours observable |
+| Anomalies / suites | `ML4C-A-006` : **RESOLVED — portée UAT S02-01**, sans revendication d'audit transactionnel exhaustif. `ML4C-A-007` : **OPEN — reportée au macro-lot ML4D** pour la présentation/observabilité, sans bloquer S02-01. S02-02 reste `NOT RUN` mais peut être engagé **dans la nouvelle préparation uniquement**, après contrôle de l'acte explicite de création. |
+| Autorité / interdictions | Décision Morris de PASS/portage ML4D constatée dans la conversation ; ni Git REAL WRITE, ni merge PR #676, ni promotion, ni Gate C CLOSED, ni acceptation ML4C globale, ni ADOPTED |
+
+#### Message de retest transmis à Nora — texte reconstruit
+
+> Je réfléchis à un projet fictif appelé Intervencia.
+>
+> L'idée serait d'améliorer la coordination des interventions techniques sur 12 sites. Aujourd'hui, les équipes utilisent principalement des échanges par e-mail et des fichiers Excel pour organiser, suivre et partager les informations sur les interventions.
+>
+> J'aimerais que tu m'aides à réfléchir au besoin, à identifier les principaux problèmes, les acteurs concernés, les questions à se poser et une démarche pertinente pour cadrer cette initiative.
+>
+> Pour l'instant, je souhaite uniquement réfléchir et cadrer le besoin. Je ne t'autorise pas à créer le projet ni à engager des travaux techniques.
+
+**Traces retest :** `S02-01-R01-E00` portefeuille, `E01` sas avant envoi, `E02` réponse Nora et aperçu avant rafraîchissement, `E03` après `Cmd + R`, `E04` Documents, `E05` Journal ; `S02-01-R01-U01` message et réponse transmis dans la conversation ; `S02-01-R01-D01` arbitrage Morris `PASS` avec réserve `A-007` orientée ML4D. **Captures vues dans la conversation, non versées au dépôt Git ni présumées présentes dans un ZIP.**
+
+**Statut courant :** scénario `S02-01 = PASS` ; le **FAIL historique demeure dans sa fiche d'origine**, et la réserve `ML4C-A-007` reste `OPEN` jusqu'au macro-lot ML4D. Aucun scénario voisin n'est déclaré PASS par propagation.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -188,8 +227,8 @@
 
 | `ML4C-A-005` | S01-05 / S01-06 | Cohérence identité / refus d'accès — gravité à qualifier | Pilote B authentifié via GitHub, portefeuille vide ; lors de la tentative d'URL directe CampusFlow, navigateur dirigé vers `Connexion Studio` et, après authentification, portefeuille B toujours vide. Le code candidat attend normalement `404` et un message « Projet introuvable ou non autorisé » si session B valide ; redirection login en cas de `401`. **Hypothèse Morris du 12/11 : comportement possiblement induit par la navigation privée Safari**, car le navigateur normal semble assurer les redirections attendues. **Cause non démontrée**, pas de preuve que la navigation privée invalide systématiquement une session en cours. | Refuser un projet étranger sans fuite **et** sans confondre session absente et droits insuffisants ; prévenir les reconnexions inutiles, fausses erreurs 401 et pertes de contexte | **Responsables : identité/autorisation et UX fonctionnelle ML4C** ; observer l'URL, le statut HTTP API, la validité de session B avant/après et le BUILD_ID servi en contrôle sûr ; décider ensuite si anomalie reproductible et éventuel correctif sous GO distinct. | **OPEN — INVESTIGATION DIFFÉRÉE PAR MORRIS / NON BLOQUANTE À CE STADE / NO LEAK DEMONSTRATED** |
 
-| `ML4C-A-006` | S02-01 / S02-02 / S03-07 | **Majeure — qualification d'intention, frontière d'autorité D2/D3/D4** | Prompt explicitement négatif « je ne t'autorise pas à créer le projet » ; cependant proposition/preview nommée créée automatiquement en révision 2, D2 `AWAITING_PILOT_ACT`, D4 `PENDING`, et nom avec astérisques Markdown. Code candidat : regex `PROJECT_CREATE_RE` sans gestion visible de la négation, `updatePreview` automatique, heuristique `FOLLOWON_DOC_RE` pouvant interpréter « démarche de cadrage » comme suite documentaire. | Un dialogue de cadrage ne doit pas se transformer en demande de création ou préparation d'effets ; constitution/autorisation explicites, nom nettoyé, aucune étape D2/D4 hors intention qualifiée | **D2 + D3 + D4 (macro-lot intégré)** : corriger la qualification sémantique des négations et la séparation discussion/proposition/mission ; tests en langage naturel, y compris demandes négatives et mixed-intents, DB/autorité, UI, reprise ; retest LIVE sur build identifié, revue Morris | **OPEN — MAJEURE / S02-01 FAIL / GO CORRECTIF REÇU / REVIEW NOT READY** |
-| `ML4C-A-007` | S02-01 / S04 / S07-06 | **Majeure — restitution conversationnelle D3/UX fonctionnelle** | Dans le message persistant Nora, appendice `Suite de mission (projection D3 — refs owners)` et diagnostics `clientIntentKey`, `status`, `step`, `capability`, `PENDING`. Le code candidat `service.ts` assemble `appendMissionAck` au contenu de Nora ; `mission-continuity.ts` formate cette annexe brute. | Le Pilote doit recevoir une restitution intelligible, distincte des diagnostics techniques et cohérente avec les effets ; les références de preuve restent accessibles via surfaces structurées, pas dans la prose conversationnelle | **D3 + UI conversation + vérité des effets** : séparation réponse métier/état de mission/observabilité, messages utilisateur lisibles, diagnostic accessible seulement dans les vues prévues ; régression sur missions valides et simples conversations, preuve navigateur LIVE | **OPEN — MAJEURE / S02-01 FAIL / NO TECH GO** |
+| `ML4C-A-006` | S02-01 / S02-02 / S03-07 | **Majeure — qualification d'intention, frontière d'autorité D2/D3/D4** | Prompt explicitement négatif « je ne t'autorise pas à créer le projet » ; cependant proposition/preview nommée créée automatiquement en révision 2, D2 `AWAITING_PILOT_ACT`, D4 `PENDING`, et nom avec astérisques Markdown. Code candidat : regex `PROJECT_CREATE_RE` sans gestion visible de la négation, `updatePreview` automatique, heuristique `FOLLOWON_DOC_RE` pouvant interpréter « démarche de cadrage » comme suite documentaire. | Un dialogue de cadrage ne doit pas se transformer en demande de création ou préparation d'effets ; constitution/autorisation explicites, nom nettoyé, aucune étape D2/D4 hors intention qualifiée | **D2 + D3 + D4 (macro-lot intégré)** : corriger la qualification sémantique des négations et la séparation discussion/proposition/mission ; tests en langage naturel, y compris demandes négatives et mixed-intents, DB/autorité, UI, reprise ; retest LIVE sur build identifié, revue Morris | **RESOLVED — RETEST UTILISATEUR S02-01 PASS sur 67bf6b0b (périmètre UAT observé) ; historique FAIL conservé ; absence d'effet DB non auditée** |
+| `ML4C-A-007` | S02-01 / S04 / S07-06 | **Majeure — restitution conversationnelle D3/UX fonctionnelle** | Dans le message persistant Nora, appendice `Suite de mission (projection D3 — refs owners)` et diagnostics `clientIntentKey`, `status`, `step`, `capability`, `PENDING`. Le code candidat `service.ts` assemble `appendMissionAck` au contenu de Nora ; `mission-continuity.ts` formate cette annexe brute. | Le Pilote doit recevoir une restitution intelligible, distincte des diagnostics techniques et cohérente avec les effets ; les références de preuve restent accessibles via surfaces structurées, pas dans la prose conversationnelle | **D3 + UI conversation + vérité des effets** : séparation réponse métier/état de mission/observabilité, messages utilisateur lisibles, diagnostic accessible seulement dans les vues prévues ; régression sur missions valides et simples conversations, preuve navigateur LIVE | **OPEN — REPORT ML4D décidé par Morris ; diagnostic technique latéral encore visible sur 67bf6b0b ; réserve non bloquante pour S02-01, sévérité historique conservée** |
 
 ### Observation qualifiée, non comptée comme anomalie
 
@@ -223,7 +262,7 @@
 
 | Cas | Manipulation (abrégée) | Oracle de succès (abrégé) | Verdict | Preuve / anomalie |
 |---|---|---|---|---|
-| `S02-01` | Décrire un projet à Nora et avancer dans le sas | Intention et préparation persistées | **FAIL** — qualification négative/autorité et restitution | `S02-01-E01/E02/U01` ; `ML4C-A-006/007` |
+| `S02-01` | Décrire un projet à Nora et avancer dans le sas | Intention et préparation persistées | **PASS** — retest négatif sur 67bf6b0b ; réserve A-007 non bloquante ML4D ; FAIL initial conservé | `S02-01-R01-E00..E05/U01/D01` ; historique `S02-01-E01/E02/U01` ; `ML4C-A-006` RESOLVED UAT, `ML4C-A-007` OPEN |
 | `S02-02` | Demander puis autoriser la création | Un seul projet réel, le bon projet ouvert | NOT RUN | — |
 | `S02-03` | Inspecter le projet après création | Aucun cycle, Git ou Cursor démarré automatiquement | NOT RUN | — |
 | `S02-04` | Rafraîchir et revenir au projet créé | Proposition, conversation et informations conservées | NOT RUN | — |
@@ -315,6 +354,14 @@
 | `S02-01-E01` | Capture Morris du 12/11 — nouveau sas initial | Préparation `prep_cd6f1d24-81d0-4e98-99d0-90aec8a94a3b` ; projet non créé, aucune proposition, composer visible, boutons de proposition et création désactivés | Pas de prompt métier Nora LIVE, de persistance ni de BUILD_ID prouvés | Présente conversation — capture hors Git |
 | `S02-01-E02` | Capture Morris du 12/11 après un message métier à Nora | Mission D2 `AWAITING_PILOT_ACT`, D4 `PENDING`, texte technique brut, proposition révision 2, projet `Non créé` | Pas de lecture DB/BUILD_ID ni preuve de D2/D4 effectivement créés | Présente conversation — capture hors Git |
 | `S02-01-U01` | Demande Intervencia et réponse Nora intégrale copiées dans la conversation | Négation explicite, réponse métier pertinente puis annexe technique D3 ; aucun clic de constitution/création indiqué | Pas de logs outil internes ou de statut DB indépendant | Présente conversation |
+| `S02-01-R01-E00` | Capture Pilote, préflight portefeuille RECETTE | Session `mcleland147 · github-oauth`, `CampusFlow` accessible, 3 préparations ouvertes dont ancienne Intervencia | Aucune preuve autonome du BUILD_ID ou de l'état DB | Conversation du 12/11, non versée sur Git |
+| `S02-01-R01-E01` | Capture Pilote, sas Intervencia propre | Nouvelle préparation `prep_51effa9f-edc5-47fa-81c1-c18838de362a`, `Non créé`, aucune proposition, actions désactivées | Pas de preuve DB indépendante | Conversation du 12/11, non versée sur Git |
+| `S02-01-R01-E02` | Capture Pilote, réponse Nora | Réponse métier visible, aperçu `Échange en cours` sans proposition ; `Créer le projet` désactivé ; diagnostic `openai-agents-sdk-live` visible en colonne droite | Pas de trace transactionnelle D2/D4, ni secret démontré | Conversation du 12/11, non versée sur Git |
+| `S02-01-R01-E03` | Capture Pilote après `Cmd + R` | Message et réponse retrouvés ; `Non créé`, pas de proposition | Persistance visuelle, pas lecture PostgreSQL | Conversation du 12/11, non versée sur Git |
+| `S02-01-R01-E04` | Capture Pilote, onglet Documents | 0 document dans le sas, pas de révision | Vue fonctionnelle uniquement | Conversation du 12/11, non versée sur Git |
+| `S02-01-R01-E05` | Capture Pilote, onglet Journal | 0 sujets / acquis / points ouverts ; aucune décision D6 affichée | Ne prouve pas l'absence exhaustive de missions D2/D4 | Conversation du 12/11, non versée sur Git |
+| `S02-01-R01-U01` | Échange utilisateur / Nora | Prompt reconstruit explicite négatif et réponse Nora COMPLETE pertinente | Non identique mot pour mot au S02-01-U01 historique | Conversation du 12/11, non versée sur Git |
+| `S02-01-R01-D01` | Décision Morris en conversation | `S02-01 PASS` ; `A-006 RESOLVED` en portée UAT ; `A-007 OPEN` / ML4D, non bloquant | Ne vaut ni inspection DB ni acceptation ML4C globale | Conversation du 12/11, non versée sur Git |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -329,8 +376,11 @@
 | Réserve `ML4C-A-004` — contrôles DEV affichés en RECETTE | **OPEN — qualification read-only** de la configuration et du gate ; ne pas cliquer sur les boutons de test |
 | S01-06 — isolation entre comptes GitHub | **PASS utilisateur**, portefeuille B vide et accès CampusFlow interdit ; mécanisme du refus à qualifier |
 | `ML4C-A-005` — renvoi login depuis un projet étranger avec B authentifié | **OPEN — investigation différée, non bloquante selon Morris** ; hypothèse navigation privée à examiner ultérieurement (statut HTTP 401/404 et session B) ; aucun retest immédiat |
-| S02-01 — cadrage Intervencia après dialogue LIVE | **FAIL MAJEUR** ; correctif local déclaré, revue ChatGPT NOT READY, retest RECETTE non autorisé |
-| Revue du correctif local A-006/A-007 — handoff `a9dceaf9` | **NOT READY** : refus courants encore mal qualifiés ; diff `delivery-history.md` manquant dans le pack. Révision Cursor requise avant nouvelle décision Morris |
+| S02-01 — cadrage Intervencia, **état historique au candidat 2416e2ee** | **FAIL MAJEUR historique** ; correctif alors non prêt ; ce constat demeure, supersédé pour le statut actuel du scénario par le retest 67bf6b0b ci-dessous |
+| S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
+| `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
+| S02-02 — prochaine action de recette | **NOT RUN — reprise autorisée par Morris sur le nouveau sas `prep_51effa9f-…`** ; aucune création avant geste explicite et inspection |
+| Revue du correctif local A-006/A-007 — handoff `a9dceaf9` (**historique antérieur au candidat 67bf6b0b**) | **NOT READY** : refus courants encore mal qualifiés ; diff `delivery-history.md` manquant dans le pack. Révision Cursor requise avant nouvelle décision Morris |
 | S02-02 — création explicite / continuation D4 sur Intervencia | **NOT RUN — SUSPENDU SUR CET ÉTAT** ; ne pas déclencher `Créer le projet` à partir de la mission non voulue |
 | Définir une correction intégrée et son gate | **À ARBITRER MORRIS** — pas de GO Cursor/code implicite ; préserver l'état et les preuves. S01-02/05 restent incomplets |
 | Confirmer BUILD_ID réellement servi si une preuve technique est nécessaire | **À rapprocher du manifeste**, ne pas déduire d’une capture |
@@ -342,12 +392,17 @@
 
 ## 8. Bilan provisoire et prochaine saisie
 
+**Snapshot historique — avant retest S02-01 (candidat 2416e2ee).**
+
 **Campagne : `INCOMPLETE — 4 PASS / 1 FAIL / 48 NOT RUN`.** Les parcours OAuth, continuité de projet, reprise de préparation et isolation utilisateur sont validés à leur portée observée. **Sept réserves/anomalies ouvertes**, dont deux majeures en S02-01. Le Pilote a explicitement refusé la création ; le candidat a néanmoins qualifié une mission D2/D4 et modifié l'aperçu. Aucun projet ni document D2/D4 réel n'est confirmé. `ML4C-A-005` reste en investigation différée. Les niveaux de sécurité session, durée, isolation et refus appartiennent aux tests complémentaires et aux investigations documentées.
 
 **Contrôle partiel S01-02 :** après rafraîchissement, `CampusFlow` et les 2 préparations restent affichés ; confirmation Morris enregistrée en `S01-02-U01`. La vérification des droits et de la vérité métier demeure ouverte. **S01-03 PASS utilisateur :** ouverture, navigation, retour et conservation du contexte et de l'historique après rafraîchissement explicitement confirmés par Morris (`S01-03-U02`). Réserve UX `ML4C-A-003` ouverte et orientée vers ML4D, sans correction pendant cette séance. **S01-04 PASS utilisateur :** reprise de `prep_cd1`, fil conservé et état `Non créé` observés sur capture (`S01-04-E01`) ; aucun effet réel DB non audité n'est revendiqué. Message Nora FAILED historique noté sans nouvelle anomalie. **S01-05 partiel :** un navigateur non authentifié est renvoyé vers l'écran de connexion à partir de `/portfolio` et du lien direct CampusFlow ; la session existante reste valide dans le navigateur normal (`S01-05-E01/U01/U02`). Aucun test d'expiration réelle, de permission refusée ou de panne contrôlée n'a été effectué. Les boutons DEV visibles sont sous qualification `ML4C-A-004` ; ils n'ont pas été utilisés. **S01-06 PASS utilisateur :** second compte GitHub, portefeuille B vide et refus d'accès au projet CampusFlow observés (`S01-06-U01`). La redirection vers login mérite qualification (`ML4C-A-005`) : sous code candidat, un projet étranger devrait produire 404 si B conserve une session valide, tandis que 401 déclenche login. Le mécanisme réel n'est pas prouvé. **Arbitrage Morris du 12/11 :** `ML4C-A-005` reste en **investigation différée**, sans correction ni nouveau test maintenant ; hypothèse de rôle de la navigation privée non démontrée, refus de consultation de CampusFlow observé. **S02-01 FAIL :** après la demande de cadrage sans création, Nora répond correctement sur le fond, mais la préparation affiche une proposition automatique révision 2, une mission `AWAITING_PILOT_ACT` avec D4 `PENDING` et des diagnostics D3 bruts dans le fil. `ML4C-A-006/007` majeures ; STOP de l'état Intervencia sans clic de création ou nouveau message. **Suite :** GO correctif Morris reçu ; code local rapporté avec tests, mais revue ChatGPT **NOT READY**. `A-006` conserve des négations erronées ; le handoff manque le diff de `delivery-history.md`. Exiger amendement du correctif et du pack, puis nouvelle revue. Ne pas poursuivre S02-02 ni modifier la RECETTE sur cette base.
+
+**Bilan CURRENT après arbitrage Morris du retest S02-01 (12/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 5 PASS / 0 FAIL courants / 48 NOT RUN`, 6 anomalies/réserves OPEN sur 7 enregistrées.** S02-01 passe au statut contractuel `PASS`, avec `ML4C-A-006 RESOLVED` à la portée utilisateur observée et `ML4C-A-007 OPEN` portée vers ML4D pour la présentation des diagnostics techniques. Le FAIL originel reste conservé comme preuve historique et ne compte pas comme FAIL courant. `S01-02` et `S01-05` demeurent `NOT RUN` (contrôles partiels). `S02-02` est la prochaine entrée de recette, sans effet anticipé. Aucun contrôle transactionnel exhaustif D2/D4 n'a été exécuté, aucune écriture Git REAL ni Gate C / ML4C acceptance / release / STABLE / ADOPTED n'est acquise.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
 ---
 
 **Statut de diffusion :** journal documentaire D1 publié sur branche candidate Git. Les captures S01-01 restent conservées dans le dossier ZIP local et ne sont pas versées au dépôt. **Aucune PR, merge, suppression, mutation RECETTE, écriture Git REAL ou promotion produit n'est autorisée par cette publication.**
+**Publication D1 — reprise S02-01 :** mandat Morris explicite du 12/11/2026 pour actualiser directement **ce seul journal**, sur branche dédiée `docs/next-ml4c-uat-journal-20261112`, avec commit Git distant ; sans revue préalable du contenu déjà arbitré, sans ouverture de PR/merge. Le présent document tient le suivi factuel courant ; il ne modifie pas le cahier validé et n'accorde aucune permission Product, Git REAL ou promotion. Les SHA du commit documentaire et du blob sont restitués après vérification distante, sans inventer leur valeur dans le corps du journal.
