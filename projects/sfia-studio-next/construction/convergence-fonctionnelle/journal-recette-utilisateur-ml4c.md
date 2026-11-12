@@ -34,13 +34,13 @@
 | Famille | Cas | PASS | FAIL | BLOCKED | NOT RUN | Réserves ouvertes |
 |---|---:|---:|---:|---:|---:|---:|
 | S01 | 6 | 4 | 0 | 0 | 2 | 5 |
-| S02 | 6 | 3 | 0 | 0 | 3 | 3 |
+| S02 | 6 | 4 | 0 | 0 | 2 | 3 |
 | S03 | 7 | 0 | 0 | 0 | 7 | 0 |
 | S04 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S05 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **7** | **0** | **0** | **46** | **8** |
+| **TOTAL** | **53** | **8** | **0** | **0** | **45** | **8** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -280,6 +280,24 @@
 
 **Preuves :** `S02-03-E01` Pilotage ; `S02-03-E02` Sources Git ; `S02-03-U01` remarque Morris ; `S02-03-D01` verdict confirmé. Captures dans la conversation, non versées au dépôt Git.
 
+
+### Clôture utilisateur `S02-04` — persistance et réouverture d'Intervencia (12 novembre 2026)
+
+**Candidat RECETTE :** `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` / BUILD_ID `wYKCZCblBxWLiVsNjIr3e` selon le manifeste de freeze Cursor. Projet `Intervencia`, ID `proj_683bcd2e-986a-4015-a58e-060909a75ec0` ; préparation d'origine `prep_51effa9f-edc5-47fa-81c1-c18838de362a` et conversation `conv_d7b4495b-0e67-453f-ba09-d9cf15127101` affichées après réouverture.
+
+| Champ | Observation / limite |
+|---|---|
+| Objectif / oracle | Rafraîchir et retrouver le projet créé, son fil Nora, ses informations et la proposition enregistrée avant création, sans création supplémentaire. |
+| Contrôle 1 — actualisation | Depuis `Travail`, Morris déclenche `Cmd + R`. Le message initial Intervencia et la réponse `NORA · COMPLETE` restent visibles, avec le contexte de cadrage ; indicateurs cohérents : 0 acquis, 0 point ouvert, 0 document Nora. Aucune erreur visible. |
+| Contrôle 2 — réouverture | Morris revient au portefeuille, puis ouvre Intervencia. L'écran affiche de nouveau le **même ID projet**, la **même préparation** et la **même conversation**, ainsi que le message initial du Pilote et la réponse contextualisée de Nora. Aucun doublon apparent. |
+| Contrôle 3 — portefeuille / reprises | Portefeuille : **02 projets accessibles**, `CampusFlow` et un seul `Intervencia` portant le même ID ; **03 préparations OPEN** listées : ancienne `**Intervencia**` du FAIL historique `prep_cd6f1d24-…`, `prep_cd1` et `prep_faf`. La préparation `prep_51effa9f-…` qui a servi à la création ne figure plus dans la liste des préparations *ouvertes*, observation cohérente avec la constitution du projet, mais sans preuve du statut DB exact. |
+| Proposition / révision 2 | L'aperçu `Intervencia` en **révision 2** avait été inspecté et enregistré *avant* la création (`S02-02-E02`). **Son accès et sa persistance après création ne sont pas établis par les vues contrôlées.** Ne conclure ni à sa perte ni à une preuve de persistance transactionnelle. |
+| Limite de preuve à reprendre | **`S02-04-R01` — consultation/persistance de la proposition après création NON VERIFIED** ; à rapprocher des capacités de lecture et de la réserve `ML4C-A-008` (inspection/convergence du sas) lors de ML4D, tout en préservant une requalification fonctionnelle ML4C si une perte réelle est démontrée. Ce point ne constitue pas à lui seul une nouvelle anomalie avérée. |
+| Décision Morris | **S02-04 = PASS — portée utilisateur**, avec réserve de vérification de la proposition enregistrée ; verdict explicitement confirmé dans la conversation après les trois contrôles. Aucun autre scénario validé par propagation. |
+| Interdictions et suite | Pas de création ou mutation supplémentaire. **S02-05 NOT RUN** : perte d'ACK à tester uniquement sous dispositif contrôlé et autorisé ; pas de répétition libre du clic `Créer le projet`, ni de simulation destructive sur ce projet. |
+
+**Index de preuves :** `S02-04-E01` capture `Travail` après rafraîchissement ; `S02-04-E02` capture de l'espace projet après réouverture, montrant les IDs et la conversation ; `S02-04-E03` capture du portefeuille complet avec 2 projets et 3 préparations OPEN ; `S02-04-D01` confirmation Morris du verdict `PASS`. Captures fournies dans la conversation, **non ajoutées en pièces jointes au dépôt Git**. Les résultats sont des observations du navigateur, pas un audit PostgreSQL indépendant.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -336,7 +354,7 @@
 | `S02-01` | Décrire un projet à Nora et avancer dans le sas | Intention et préparation persistées | **PASS** — retest négatif sur 67bf6b0b ; réserve A-007 non bloquante ML4D ; FAIL initial conservé | `S02-01-R01-E00..E05/U01/D01` ; historique `S02-01-E01/E02/U01` ; `ML4C-A-006` RESOLVED UAT, `ML4C-A-007` OPEN |
 | `S02-02` | Demander puis autoriser la création | Un seul projet réel, le bon projet ouvert | **PASS — création explicite**, un seul Intervencia visible et fil Nora conservé ; **réserve ML4D** | `S02-02-E01..E04/F01/U01/D01` ; `ML4C-A-008` OPEN |
 | `S02-03` | Inspecter le projet après création | Aucun cycle, Git ou Cursor démarré automatiquement | **PASS — portée utilisateur** ; aucun cycle ni effet Git visible, pas de lancement Cursor observé ; réserve A-009 maintenue | `S02-03-E01/E02/U01/D01` ; `ML4C-A-009` OPEN |
-| `S02-04` | Rafraîchir et revenir au projet créé | Proposition, conversation et informations conservées | NOT RUN | — |
+| `S02-04` | Rafraîchir et revenir au projet créé | Proposition, conversation et informations conservées | **PASS — portée utilisateur**, fil/projet conservés après refresh/réouverture ; **réserve de preuve S02-04-R01** sur proposition rev. 2 après création | `S02-04-E01/E02/E03/D01`, `S02-04-R01`, `ML4C-A-008` (rapprochement UX) |
 | `S02-05` | Simuler perte d’ACK après création (dispositif autorisé) | Intention réconciliée, projet retrouvé sans doublon | NOT RUN | — |
 | `S02-06` | Provoquer un refus ou conflit maîtrisé | Résultat exact, aucune mutation silencieuse | NOT RUN | — |
 
@@ -444,6 +462,10 @@
 | `S02-03-U01` | Retour explicite Morris | L'écran de pilotage affiché paraît administratif et absent du parcours Figma prévu ; Nora devrait conduire ces intentions, sans faire administrer les commandes au Pilote | Témoignage de vision et d'écart UX ; inventaire Figma et test de mobilisation par Nora encore à faire | Conversation du 12/11, non versée sur Git |
 | `S02-03-E02` | Capture RECETTE `Sources Git` du projet Intervencia | Aucune source rattachée, bandeau « Aucun effet Git n'a encore eu lieu », tentative/PR vides et mandat D6 non accordé ; fournisseur `REAL` affiché | Preuve UI, non preuve d'inspection GitHub/DB ou de mutation REAL | Conversation du 12/11, non versée sur Git |
 | `S02-03-D01` | Décision Morris dans la conversation | Confirmation `S02-03 PASS` sur les deux écrans Pilotage et Sources Git, réserve `A-009` maintenue | Absence de job Cursor non vérifiée indépendamment, pas de verdict Gate C | Conversation du 12/11, non versée sur Git |
+| `S02-04-E01` | Capture RECETTE, Travail après `Cmd + R` | Demande initiale du Pilote et réponse complète Nora retrouvées dans le projet, 0 acquis / ouvert / document | Portée navigateur seulement | Conversation du 12/11, non versée sur Git |
+| `S02-04-E02` | Capture RECETTE, projet rouvert depuis portefeuille | IDs projet `proj_683bcd2e-…`, préparation `prep_51effa9f-…` et conversation `conv_d7b4495b-…` identiques ; messages toujours présents | Sans inspection des révisions D2 en DB | Conversation du 12/11, non versée sur Git |
+| `S02-04-E03` | Capture RECETTE, portefeuille et reprises | 02 projets dont un seul Intervencia ; 03 préparations ouvertes dont l'ancien sas Intervencia conservé ; préparation de création récente absente des OPEN | N'établit pas la consultation de proposition révision 2 après création | Conversation du 12/11, non versée sur Git |
+| `S02-04-D01` | Verdict Morris en conversation | `S02-04 PASS` avec réserve de vérification de la proposition enregistrée | Aucune clôture du point `S02-04-R01` ni verdict S02-05 | Conversation du 12/11, non versée sur Git |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -462,6 +484,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S02-04 — conservation / reprise Intervencia | **PASS Morris à portée navigateur** : fil, IDs et projet retrouvés après `Cmd + R` et réouverture ; **S02-04-R01 NOT VERIFIED** — proposition rev. 2 non consultée après création. Réserve documentaire non bloquante ; pas de perte de données démontrée. |
 | S02-03 — clôture après inspection Sources Git | **PASS validé par Morris**, portée utilisateur : aucune source Git rattachée, aucun effet Git observé, pas de cycle actif ni de lancement Cursor observable. Fournisseur `REAL` ≠ WRITE ; absence de jobs non auditée indépendamment. `A-009` reste OPEN, ML4D + qualification fonctionnelle ML4C. |
 | S02-02 — création explicite Intervencia | **PASS USER UAT confirmé par Morris** : proposition révision 2, création D2 explicite, projet `proj_683bcd2e-986a-4015-a58e-060909a75ec0` ouvert, fil conservé et un seul Intervencia visible au portefeuille ; **A-008 OPEN / ML4D** ; aucun audit transactionnel/idempotence complet revendiqué |
 | Revue du correctif local A-006/A-007 — handoff `a9dceaf9` (**historique antérieur au candidat 67bf6b0b**) | **NOT READY** : refus courants encore mal qualifiés ; diff `delivery-history.md` manquant dans le pack. Révision Cursor requise avant nouvelle décision Morris |
@@ -489,6 +512,8 @@
 **Observation CURRENT S02-03 (12/11/2026, avant verdict) :** 6 PASS / 0 FAIL / 47 NOT RUN inchangés ; **8 réserves OPEN sur 9 identifiants** après ouverture `ML4C-A-009`. Pilotage indique aucun cycle actif (trajectoire révision 0), aucune HumanDecision D6 ou restriction active, mais il n'y a pas encore de preuve suffisante de l'absence de dépôt ou lancement Cursor. La réserve UX/parcours Nora est importante, orientée ML4D avec qualification fonctionnelle ML4C si nécessaire. Aucun verdict S02-03 n'est attribué.
 
 **Bilan CURRENT après validation Morris de S02-03 (12/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 7 PASS / 0 FAIL courants / 46 NOT RUN`, 8 réserves/anomalies OPEN sur 9 identifiants enregistrés.** S02-01, S02-02 et S02-03 sont PASS utilisateur ; le FAIL historique de S02-01 est conservé. `ML4C-A-009` reste ouverte (conduite du Pilotage via Nora, ML4D et qualification ML4C). S02-04 est la prochaine entrée `NOT RUN` ; aucun audit de jobs Cursor, des transactions PostgreSQL ou des effets Git indépendants n'a été réalisé. Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO Git REAL, PR/merge, promotion STABLE, release ou ADOPTED.
+
+**Bilan CURRENT après validation Morris de S02-04 (12/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 8 PASS / 0 FAIL courants / 45 NOT RUN`, 8 anomalies/réserves ouvertes sur 9 identifiants existants.** S02-04 est PASS à portée utilisateur, les preuves `E01/E02/E03` montrent l'identité du projet, le fil Nora et la présence dans le portefeuille après actualisation et reprise. **`S02-04-R01` demeure NON VERIFIED** : la proposition révision 2 n'a pas pu être inspectée après création ; ne pas inférer sa perte ou sa persistance DB. Suite `S02-05 NOT RUN` : test de perte d'ACK réservé à un protocole contrôlé, sans interaction mutative improvisée. Gate C OPEN, ML4C NOT ACCEPTED, aucune promotion/merge/REAL WRITE implicite.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
