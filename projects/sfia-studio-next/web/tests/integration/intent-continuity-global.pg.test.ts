@@ -59,16 +59,22 @@ import { TURN_RUNNING_STALE_MS } from "@/domains/conversation/turn-command";
 import { conversationTurnCommands } from "@/db/schema";
 import { getPreparationContext } from "@/domains/preparation/service";
 import { and, eq as eqCol } from "drizzle-orm";
-import { registerPgUtteranceFixture } from "../helpers/semantic-fixture-envelopes";
+import {
+  registerExplicitFixture,
+  type ExplicitFixtureSpec,
+} from "../helpers/semantic-fixture-envelopes";
 
 async function noraTurn(
   pilotId: string,
   preparationId: string,
   text: string,
-  opts?: Parameters<typeof postUserMessageAndNora>[3],
+  opts?: Parameters<typeof postUserMessageAndNora>[3] & { fixture?: ExplicitFixtureSpec },
 ) {
-  registerPgUtteranceFixture(text);
-  return postUserMessageAndNora(pilotId, preparationId, text, opts);
+  if (opts?.fixture) {
+    registerExplicitFixture(text, opts.fixture);
+  }
+  const { fixture: _f, ...turnOpts } = opts ?? {};
+  return postUserMessageAndNora(pilotId, preparationId, text, turnOpts);
 }
 
 async function seedPilot(label: string) {
@@ -149,7 +155,10 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
       pilotId,
       preparationId,
       "Crée un projet nommé Solo Project B.",
-      { clientTurnKey: newId("ctk") },
+      {
+        clientTurnKey: newId("ctk"),
+        fixture: { kind: "d2", projectName: "Solo Project B" },
+      },
     );
     expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
     expect(first.missionProjection?.ownerActBinding?.kind).toBe("D2_CREATE_PROJECT");
@@ -256,8 +265,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const first = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Unknown Atlas puis prépare un document de cadrage Unknown.",
-      { clientTurnKey },
+      "Crée un projet nommé Unknown Atlas puis prépare un document de cadrage Unknown.", {
+        fixture: { kind: "d2", projectName: "Unknown Atlas", documentSummary: "document de cadrage Unknown" },
+         clientTurnKey },
     );
     expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
@@ -305,8 +315,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const first = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Wait Decision S05.",
-      { clientTurnKey },
+      "Crée un projet nommé Wait Decision S05.", {
+        fixture: { kind: "d2", projectName: "Wait Decision S05" },
+         clientTurnKey },
     );
     expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
     expect(first.missionProjection?.clientIntentKey).toBe(clientTurnKey);
@@ -350,8 +361,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const first = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Recover Atlas puis un document de cadrage Recover.",
-      { clientTurnKey },
+      "Crée un projet nommé Recover Atlas puis un document de cadrage Recover.", {
+        fixture: { kind: "d2", projectName: "Recover Atlas", documentSummary: "document de cadrage Recover" },
+         clientTurnKey },
     );
     expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
@@ -408,8 +420,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const a = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Mission Alpha puis un document d'accueil Alpha.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Mission Alpha puis un document d'accueil Alpha.", {
+        fixture: { kind: "d2", projectName: "Mission Alpha", documentSummary: "document d'accueil Alpha" },
+         clientTurnKey: keyA },
     );
     expect(a.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
     expect(a.missionProjection?.ownerActBinding?.clientIntentKey).toBe(keyA);
@@ -448,8 +461,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const indep = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un document intitulé Document Indépendant Beta.",
-      { clientTurnKey: newId("ctk") },
+      "Crée un document intitulé Document Indépendant Beta.", {
+        fixture: { kind: "d4_create", title: "Document Indépendant Beta" },
+         clientTurnKey: newId("ctk") },
     );
     expect(indep.documentSave?.status).toBe("AVAILABLE");
     expect(indep.documentSave?.documentId).not.toBe(cont.documentSave?.documentId);
@@ -460,8 +474,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const created = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un document intitulé Continuity CD pour révision ciblée.",
-      { clientTurnKey: newId("ctk") },
+      "Crée un document intitulé Continuity CD pour révision ciblée.", {
+        fixture: { kind: "d4_create", title: "Continuity CD pour révision ciblée" },
+         clientTurnKey: newId("ctk") },
     );
     expect(created.documentSave?.status).toBe("AVAILABLE");
     expect(created.documentSave?.act).toBe("CREATE");
@@ -476,6 +491,11 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     }
     const revised = await noraTurn(pilotId, preparationId, reviseAsk, {
       clientTurnKey: newId("ctk"),
+      fixture: {
+        kind: "d4_revise",
+        documentHint: documentId,
+        sectionHint: "2",
+      },
     });
     expect(revised.documentSave?.act).toBe("REVISE");
     expect(revised.documentSave?.status).toBe("AVAILABLE");
@@ -548,8 +568,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const chat = await noraTurn(
       pilotId,
       preparationId,
-      "Ouvre le cycle cadrage puis crée un document intitulé Suite Après Cycle.",
-      { clientTurnKey: newId("ctk") },
+      "Ouvre le cycle cadrage puis crée un document intitulé Suite Après Cycle.", {
+        fixture: { kind: "d5_then_d4", cycleType: "CADRAGE", documentTitle: "Suite Après Cycle", documentSummary: "Suite Après Cycle" },
+         clientTurnKey: newId("ctk") },
     );
     if (chat.pilotageEffect?.operation) {
       expect(chat.pilotageEffect.operation).toBe("OPEN_CYCLE");
@@ -577,6 +598,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
       pilotId,
       preparationId,
       "Crée un document intitulé D6 Decision Doc pour publication.",
+      { fixture: { kind: "d4_create", title: "D6 Decision Doc pour publication" } },
     );
     const prepared = await preparePublication({
       pilotId,
@@ -626,6 +648,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
       pilotId,
       preparationId,
       "Crée un document intitulé Read Isolation pour publication classique.",
+      { fixture: { kind: "d4_create", title: "Read Isolation pour publication classique" } },
     );
     const prepared = await preparePublication({
       pilotId,
@@ -741,8 +764,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Concours puis un document concurrent.",
-      { clientTurnKey },
+      "Crée un projet nommé Concours puis un document concurrent.", {
+        fixture: { kind: "d2", projectName: "Concours", documentSummary: "document concurrent" },
+         clientTurnKey },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const created = await createProjectCommand({
@@ -823,8 +847,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Auth Exact puis un document Exact.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Auth Exact puis un document Exact.", {
+        fixture: { kind: "d2", projectName: "Auth Exact", documentSummary: "document Exact" },
+         clientTurnKey: keyA },
     );
     const before = await db.select().from(preparations).where(eq(preparations.id, preparationId));
     expect(before[0]?.status).not.toBe("ATTACHED");
@@ -884,14 +909,16 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Mission A puis un document Alpha.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Mission A puis un document Alpha.", {
+        fixture: { kind: "d2", projectName: "Mission A", documentSummary: "document Alpha" },
+         clientTurnKey: keyA },
     );
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Mission B puis un document Beta.",
-      { clientTurnKey: keyB },
+      "Crée un projet nommé Mission B puis un document Beta.", {
+        fixture: { kind: "d2", projectName: "Mission B", documentSummary: "document Beta" },
+         clientTurnKey: keyB },
     );
 
     // Neighbor B remains awaiting; only A is authorized and creates the project.
@@ -943,14 +970,16 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Done A puis un document DoneA.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Done A puis un document DoneA.", {
+        fixture: { kind: "d2", projectName: "Done A", documentSummary: "document DoneA" },
+         clientTurnKey: keyA },
     );
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Still B puis un document StillB.",
-      { clientTurnKey: keyB },
+      "Crée un projet nommé Still B puis un document StillB.", {
+        fixture: { kind: "d2", projectName: "Still B", documentSummary: "document StillB" },
+         clientTurnKey: keyB },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const authA = await authorizeMissionBoundD2Create({
@@ -1019,14 +1048,16 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       atlas.pilotId,
       atlas.preparationId,
-      "Crée un projet nommé Atlas Iso puis un document AtlasDoc.",
-      { clientTurnKey: keyAtlas },
+      "Crée un projet nommé Atlas Iso puis un document AtlasDoc.", {
+        fixture: { kind: "d2", projectName: "Atlas Iso", documentSummary: "document AtlasDoc" },
+         clientTurnKey: keyAtlas },
     );
     await noraTurn(
       atlas.pilotId,
       orionPrep.id,
-      "Crée un projet nommé Orion Iso puis un document OrionDoc.",
-      { clientTurnKey: keyOrion },
+      "Crée un projet nommé Orion Iso puis un document OrionDoc.", {
+        fixture: { kind: "d2", projectName: "Orion Iso", documentSummary: "document OrionDoc" },
+         clientTurnKey: keyOrion },
     );
 
     const prepA = (await db.select().from(preparations).where(eq(preparations.id, atlas.preparationId)))[0]!;
@@ -1096,8 +1127,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Recover Nominal puis un document Recover.",
-      { clientTurnKey },
+      "Crée un projet nommé Recover Nominal puis un document Recover.", {
+        fixture: { kind: "d2", projectName: "Recover Nominal", documentSummary: "document Recover" },
+         clientTurnKey },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const auth = await authorizeMissionBoundD2Create({
@@ -1146,8 +1178,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Bind Exact puis un document Exact.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Bind Exact puis un document Exact.", {
+        fixture: { kind: "d2", projectName: "Bind Exact", documentSummary: "document Exact" },
+         clientTurnKey: keyA },
     );
     const ctx = await getPreparationContext(pilotId, preparationId);
     const verified = await verifyMissionForD2Act({
@@ -1194,8 +1227,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Crash P3 puis un document P3.",
-      { clientTurnKey },
+      "Crée un projet nommé Crash P3 puis un document P3.", {
+        fixture: { kind: "d2", projectName: "Crash P3", documentSummary: "document P3" },
+         clientTurnKey },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const created = await createProjectCommand({
@@ -1251,8 +1285,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Crash P5 puis un document P5.",
-      { clientTurnKey },
+      "Crée un projet nommé Crash P5 puis un document P5.", {
+        fixture: { kind: "d2", projectName: "Crash P5", documentSummary: "document P5" },
+         clientTurnKey },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const created = await createProjectCommand({

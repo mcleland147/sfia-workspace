@@ -324,7 +324,8 @@ describe("SEM-02 lexical routers retired", () => {
       join(__dirname, "../../src/domains/pilotage/conversation-authority.ts"),
       "utf8",
     );
-    expect(auth).toMatch(/pas de cible lexicale/);
-    expect(auth).not.toMatch(/const resolved = resolveReviseTargetLexical/);
+    expect(auth).toMatch(/resolveReviseDecisionTarget/);
+    expect(auth).toMatch(/resolveLiftRestrictionTarget/);
+    expect(auth).not.toMatch(/const resolved = resolveReviseTargetLexical\(/);
   });
 });

@@ -101,7 +101,18 @@ describe("ML4C Q2 — ENV-01 runtime isolation", () => {
     expect(E2E_PG_EXPECTED.e2eDatabase).not.toBe("sfia_next_stable");
   });
 
-  it("ENV-R06: DEV credentials cannot authenticate on RECETTE :5434", async () => {
+  it("ENV-R06A: mutative Vitest target stays sfia_next_e2e (deterministic CI contract)", () => {
+    const raw = process.env.DATABASE_URL;
+    expect(raw).toBeTruthy();
+    const rewritten = prepareVitestMutativeDatabaseUrl(raw!);
+    const u = new URL(rewritten);
+    expect(u.pathname.replace(/^\//, "")).toBe(E2E_PG_EXPECTED.e2eDatabase);
+    expect(Number(u.port)).toBe(E2E_PG_EXPECTED.port);
+    expect(E2E_PG_EXPECTED.e2eDatabase).not.toBe("sfia_next_recette");
+    expect(E2E_PG_EXPECTED.e2eDatabase).not.toBe("sfia_next_stable");
+  });
+
+  it("ENV-R06B: RECETTE runtime isolation — NOT VERIFIED when endpoint absent; 28P01 when present", async () => {
     const net = await import("net");
     const portAvailable = await new Promise<boolean>((resolve) => {
       const socket = new net.Socket();
@@ -116,16 +127,24 @@ describe("ML4C Q2 — ENV-01 runtime isolation", () => {
       socket.once("error", () => done(false));
       socket.connect(5434, "127.0.0.1");
     });
+
+    const runtimeProof: {
+      status: "VERIFIED_AUTH_DENIED" | "NOT_VERIFIED";
+      reason: string;
+    } = portAvailable
+      ? { status: "NOT_VERIFIED", reason: "PENDING_AUTH_PROBE" }
+      : { status: "NOT_VERIFIED", reason: "ENDPOINT_NOT_AVAILABLE" };
+
     if (!portAvailable) {
-      expect({
-        status: "NOT_VERIFIED",
-        reason: "ENDPOINT_NOT_AVAILABLE",
-      }).toEqual({
-        status: "NOT_VERIFIED",
-        reason: "ENDPOINT_NOT_AVAILABLE",
-      });
+      // Honest non-proof: absence of :5434 is not AUTH DENIED and is not PASS isolation.
+      expect(runtimeProof.status).toBe("NOT_VERIFIED");
+      expect(runtimeProof.reason).toBe("ENDPOINT_NOT_AVAILABLE");
+      console.info(
+        "ENV-R06 RUNTIME = NOT VERIFIED — reason=ENDPOINT_NOT_AVAILABLE (RECETTE :5434 absent)",
+      );
       return;
     }
+
     const raw = process.env.DATABASE_URL;
     expect(raw).toBeTruthy();
     const src = new URL(raw!);
@@ -140,11 +159,13 @@ describe("ML4C Q2 — ENV-01 runtime isolation", () => {
       connect_timeout: 2,
     });
     let authDenied = false;
+    let observedCode: string | undefined;
     try {
       await sql`select 1`;
     } catch (e) {
-      const code = (e as { code?: string }).code;
-      authDenied = code === "28P01";
+      observedCode = (e as { code?: string }).code;
+      // ECONNREFUSED / timeout are not authentication denial.
+      authDenied = observedCode === "28P01";
     } finally {
       try {
         await sql.end({ timeout: 1 });
@@ -153,5 +174,6 @@ describe("ML4C Q2 — ENV-01 runtime isolation", () => {
       }
     }
     expect(authDenied).toBe(true);
+    expect(observedCode).toBe("28P01");
   });
 });

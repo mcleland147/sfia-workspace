@@ -52,8 +52,9 @@ import {
   d4CreateDocumentEnvelope,
   d4ReviseDocumentEnvelope,
   dialogueEnvelope,
-  registerPgUtteranceFixture,
+  registerExplicitFixture,
   registerTypedScenario,
+  type ExplicitFixtureSpec,
   sfiaDocumentFence,
 } from "../helpers/semantic-fixture-envelopes";
 
@@ -61,10 +62,13 @@ async function noraTurn(
   pilotId: string,
   preparationId: string,
   text: string,
-  opts?: Parameters<typeof postUserMessageAndNora>[3],
+  opts?: Parameters<typeof postUserMessageAndNora>[3] & { fixture?: ExplicitFixtureSpec },
 ) {
-  registerPgUtteranceFixture(text);
-  return postUserMessageAndNora(pilotId, preparationId, text, opts);
+  if (opts?.fixture) {
+    registerExplicitFixture(text, opts.fixture);
+  }
+  const { fixture: _f, ...turnOpts } = opts ?? {};
+  return postUserMessageAndNora(pilotId, preparationId, text, turnOpts);
 }
 
 function expectDocumentActFromFixture(utterance: string, kind: "CREATE" | "REVISE" | "NONE") {
@@ -330,6 +334,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
       pilotId,
       prep.id,
       "Rédige un document de synthèse sur Atlas",
+      { fixture: { kind: "d4_create", title: "Atlas", summary: "Atlas", notes: "Atlas" } },
     );
     expect(created.documentSave?.status).toBe("AVAILABLE");
     const documentId = created.documentSave!.documentId!;
@@ -342,6 +347,13 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
       pilotId,
       prep.id,
       `Révise uniquement la section 2 du document ${documentId} et conserve le reste`,
+      {
+        fixture: {
+          kind: "d4_revise",
+          documentHint: documentId,
+          sectionHint: "2",
+        },
+      },
     );
     expect(revised.documentSave?.status).toBe("AVAILABLE");
     expect(revised.documentSave?.act).toBe("REVISE");
@@ -893,6 +905,13 @@ s
         pilotId,
         prep.id,
         "Rédige un document de synthèse sur Isolation Create",
+        {
+          fixture: {
+            kind: "d4_create",
+            title: "Isolation Create",
+            includeFence: false,
+          },
+        },
       );
       expect(chat.documentSave?.status).toBe("FAILED");
       expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
@@ -942,6 +961,14 @@ s
         pilotId,
         prep.id,
         `Révise uniquement la section 2 du document ${documentId} et conserve le reste`,
+        {
+          fixture: {
+            kind: "d4_revise",
+            documentHint: documentId,
+            sectionHint: "2",
+            includeFence: false,
+          },
+        },
       );
       expect(revised.documentSave?.status).toBe("FAILED");
       expect(revised.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
@@ -975,6 +1002,13 @@ s
         pilotId,
         prep.id,
         "Rédige un document de synthèse sur Isolation Positive",
+        {
+          fixture: {
+            kind: "d4_create",
+            title: "Isolation Positive",
+            includeFence: false,
+          },
+        },
       );
       expect(chat.documentSave?.status).toBe("AVAILABLE");
       expect(chat.documentSave?.act).toBe("CREATE");

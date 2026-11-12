@@ -18,6 +18,10 @@ import {
   type DecisionBrief,
 } from "@/domains/decisions/divergence-assist";
 import { toCommandResult } from "@/domains/pilotage/command-runner";
+import {
+  resolveLiftRestrictionTarget,
+  resolveReviseDecisionTarget,
+} from "@/domains/pilotage/durable-target-resolve";
 import type { IntentQualification } from "@/domains/pilotage/intent";
 import {
   executePilotageCommand,
@@ -64,7 +68,8 @@ export function conversationalCommandKey(clientTurnKey: string): string {
   return conversationalClientCommandKey(clientTurnKey);
 }
 
-async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
+/** @deprecated retained for lexical helper tests only — authority path uses durable resolvers. */
+export async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
   const rows = await db
     .select({
       id: humanDecisions.id,
@@ -363,48 +368,22 @@ export async function applyConversationalAuthority(input: {
   };
 
   if (qualified.operation === "REVISE_DECISION") {
-    // Lot D2 — target from durable qualification or unique objectRef match on
-    // known APPLICABLE RECORD_DECISION resources. No lexical utterance router.
-    const briefs = await loadDecisionBriefs(input.projectId);
-    let decisionId = (qualified.decisionId ?? "").trim();
+    // Same owner resolver as classifyCommand — unique durable target only.
     const statement =
       (qualified.statement ?? "").trim() || content.replace(/^(?:finalement|désormais|dorénavant)[,:]?\s+/i, "").trim();
-    if (!decisionId && qualified.objectRef?.trim()) {
-      const objectRef = qualified.objectRef.trim();
-      const matches = briefs.filter(
-        (b) =>
-          b.state === "APPLICABLE" &&
-          b.kind === "RECORD_DECISION" &&
-          b.objectRef.trim() === objectRef,
-      );
-      if (matches.length === 1) {
-        decisionId = matches[0]!.id;
-      } else if (matches.length > 1) {
-        return {
-          attempted: false,
-          intentClarity: "AMBIGUOUS",
-          intentReason: "Plusieurs décisions pour objectRef — précisez decisionId",
-          command: null,
-          humanDecisionCreated: false,
-          decisionId: null,
-          clarification: "Plusieurs décisions pour objectRef — précisez decisionId",
-          source: "clarification_only",
-          operation: "REVISE_DECISION",
-          clientCommandKey,
-        };
-      }
-    }
-    if (!decisionId) {
+    const resolved = await resolveReviseDecisionTarget(db, input.projectId, {
+      decisionId: qualified.decisionId,
+      objectRef: qualified.objectRef,
+    });
+    if (!resolved.ok) {
       return {
         attempted: false,
         intentClarity: "AMBIGUOUS",
-        intentReason:
-          "REVISE_DECISION sans decisionId/objectRef durable — clarification requise (pas de cible lexicale)",
+        intentReason: resolved.reason,
         command: null,
         humanDecisionCreated: false,
         decisionId: null,
-        clarification:
-          "Précisez la décision à réviser (identifiant ou objectRef unique) — pas de choix heuristique",
+        clarification: resolved.reason,
         source: "clarification_only",
         operation: "REVISE_DECISION",
         clientCommandKey,
@@ -413,7 +392,7 @@ export async function applyConversationalAuthority(input: {
     const command = await executePilotageCommand(input.pilotId, input.projectId, {
       ...base,
       operation: "REVISE_DECISION",
-      decisionId,
+      decisionId: resolved.id,
       statement: statement.slice(0, 500),
       objectRef: qualified.objectRef,
     });
@@ -431,79 +410,33 @@ export async function applyConversationalAuthority(input: {
     return outcomeFromCommand(command, "RECORD_DECISION", clientCommandKey);
   }
 
-  /** C06 — resolve a unique ACTIVE restriction before LIFT (never approximate). */
+  /** C06 — same owner LIFT resolver as classifyCommand (unique ACTIVE target). */
   if (qualified.operation === "LIFT_RESTRICTION") {
-    const hint = (qualified.restrictionKindHint ?? "").trim().toUpperCase();
-    const targetHint = (qualified.restrictionTargetRefHint ?? "").trim();
-    const active = projection.restrictions.filter((r) => r.status === "ACTIVE");
-    let pool = hint
-      ? active.filter((r) => r.targetKind.toUpperCase() === hint)
-      : active;
-    // If the pilot named an instance/specialty, require a matching targetRef
-    // (a lone matching kind with a contradictory target is not enough).
-    if (targetHint && pool.length > 0) {
-      const hintNorm = targetHint.toUpperCase();
-      const narrowed = pool.filter((r) => {
-        const ref = (r.targetRef || "*").toUpperCase();
-        if (ref === "*" || ref === hintNorm) return true;
-        // Specialty name vs cycle id: allow when pilot says CADRAGE and target is cycle id
-        // only if projection cycle type matches — otherwise require exact/soft includes.
-        if (projection.cycle && hintNorm === projection.cycle.cycleType.toUpperCase()) {
-          return ref === projection.cycle.id.toUpperCase() || ref === "*";
-        }
-        return ref.includes(hintNorm) || hintNorm.includes(ref);
-      });
-      if (narrowed.length === 0) {
-        return {
-          attempted: false,
-          intentClarity: "AMBIGUOUS",
-          intentReason:
-            "Restriction active d'un autre cible que celle indiquée — précisez la cible exacte",
-          command: null,
-          humanDecisionCreated: false,
-          decisionId: null,
-          clarification:
-            "Restriction active d'un autre cible que celle indiquée — précisez la cible exacte",
-          source: "clarification_only",
-          operation: "LIFT_RESTRICTION",
-          clientCommandKey,
-        };
-      }
-      pool = narrowed;
-    }
-    if (pool.length === 0) {
+    const resolved = await resolveLiftRestrictionTarget(db, input.projectId, {
+      restrictionKindHint: qualified.restrictionKindHint,
+      restrictionTargetRefHint: qualified.restrictionTargetRefHint,
+      activeCycle: projection.cycle
+        ? { id: projection.cycle.id, cycleType: projection.cycle.cycleType }
+        : null,
+    });
+    if (!resolved.ok) {
       return {
         attempted: false,
         intentClarity: "AMBIGUOUS",
-        intentReason: "Aucune restriction active correspondant à la demande",
+        intentReason: resolved.reason,
         command: null,
         humanDecisionCreated: false,
         decisionId: null,
-        clarification: "Aucune restriction active correspondant à la demande — précisez la cible",
+        clarification: resolved.reason,
         source: "clarification_only",
         operation: "LIFT_RESTRICTION",
         clientCommandKey,
       };
     }
-    if (pool.length > 1) {
-      return {
-        attempted: false,
-        intentClarity: "AMBIGUOUS",
-        intentReason: "Plusieurs restrictions actives — précisez laquelle lever",
-        command: null,
-        humanDecisionCreated: false,
-        decisionId: null,
-        clarification: "Plusieurs restrictions actives — précisez laquelle lever",
-        source: "clarification_only",
-        operation: "LIFT_RESTRICTION",
-        clientCommandKey,
-      };
-    }
-    const target = pool[0];
     const command = await executePilotageCommand(input.pilotId, input.projectId, {
       ...base,
       operation: "LIFT_RESTRICTION",
-      restrictionId: target.id,
+      restrictionId: resolved.id,
     });
     return outcomeFromCommand(command, "LIFT_RESTRICTION", clientCommandKey);
   }

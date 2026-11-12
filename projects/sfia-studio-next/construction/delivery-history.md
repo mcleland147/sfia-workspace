@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-12-ML4C-AUTHORITY-HARDENING
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-12 ~18:40 CET (Europe/Paris) |
+| Macro-lot | ML4C — sécurisation frontières d’autorité R1/R2/R3 (PR #676) |
+| Type | EVOL Critical corrective / SECURITY / QUALITY (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
+| Parent tip | `9c163d621589e7ba9d7369ad5a0342a9bbde8b04` |
+| Lane | DEV/E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | Résolveur propriétaire unique `durable-target-resolve.ts` (REVISE/LIFT) ; body HTTP = écho uniquement ; fixtures explicites (`registerExplicitFixture`) ; suppression `registerPgUtteranceFixture` ; ENV-R06A/B (NOT_VERIFIED si :5434 absent) ; tests négatifs multi-cible D6/restriction |
+| Schema | unchanged |
+| Tests | unit 248 PASS ; PG 324 PASS ; Playwright 25 PASS ; tsc/eslint/build PASS ; LIVE NOT RUN |
+| Status | PUSH PR #676 — CI distante à observer sur nouveau SHA |
+
 ## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-CI-PARITY
 
 | Field | Value |

@@ -2,10 +2,7 @@
  * TEST_BOUNDARY ONLY — typed NoraTurnQualification builders for PG/integration fixtures.
  * Not a production router. Unknown live utterances stay fail-closed in fixtureSemanticQualify.
  */
-import {
-  fixtureSemanticQualify,
-  registerFixtureScenario,
-} from "@/domains/conversation/fixture-semantic-qualify";
+import { registerFixtureScenario } from "@/domains/conversation/fixture-semantic-qualify";
 import {
   SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
   validateNoraTurnQualification,
@@ -346,159 +343,181 @@ export function ambiguousPilotagePreQualified(reason: string): IntentQualificati
   return { clarity: "AMBIGUOUS", reason };
 }
 
-/** Parse « Crée un projet nommé X » / « Crée un projet nommé X puis … document … » */
-export function registerNamedProjectCreate(utterance: string): void {
-  const named = utterance.match(
-    /projet nommé\s+(.+?)(?:\s+puis\s+|\s*\.|$)/i,
-  );
-  const projectName = (named?.[1] ?? "Projet").trim().replace(/\.$/, "");
-  const wantsDoc = /document/i.test(utterance);
-  const docMatch = utterance.match(/document(?:\s+de\s+cadrage)?(?:\s+intitulé)?\s+(.+?)\.?$/i);
-  const docSummary = wantsDoc
-    ? (docMatch?.[1] ?? "document de cadrage").trim()
-    : undefined;
-  registerTypedScenario(
-    utterance,
-    d2CreateProjectEnvelope({
-      projectName,
-      followOnDocument: docSummary
-        ? { summary: docSummary, notes: docSummary }
-        : undefined,
-    }),
-  );
-}
+/**
+ * Explicit TEST_BOUNDARY registration — utterance is the exact key only.
+ * Capability / targets come from opts, never from regex inference on the text.
+ */
+export type ExplicitFixtureSpec =
+  | { kind: "dialogue"; reply?: string; constraints?: string[] }
+  | {
+      kind: "d2";
+      projectName: string;
+      documentSummary?: string;
+      reply?: string;
+    }
+  | {
+      kind: "d4_create";
+      title: string;
+      summary?: string;
+      notes?: string;
+      includeFence?: boolean;
+    }
+  | {
+      kind: "d4_revise";
+      documentHint: string;
+      sectionHint?: string;
+      includeFence?: boolean;
+      reply?: string;
+    }
+  | {
+      kind: "d4_publish";
+      title: string;
+      publicationPath?: string | null;
+      includeFence?: boolean;
+    }
+  | {
+      kind: "d5";
+      operation: PilotageOperation;
+      cycleType?: string;
+      toCycleType?: string;
+      objective?: string;
+    }
+  | {
+      kind: "d5_then_d4";
+      cycleType: string;
+      documentTitle: string;
+      documentSummary: string;
+    }
+  | { kind: "qualification"; q: NoraTurnQualification };
 
-export function registerCreateDocumentTitled(utterance: string, opts?: {
-  publicationPath?: string | null;
-  includeFence?: boolean;
-}): void {
-  const titled = utterance.match(/document intitulé\s+(.+?)(?:\s+et\s+publie|\s+pour\s+|\.|$)/i);
-  const title = (titled?.[1] ?? "Document").trim();
-  const wantsPublish = /publie/i.test(utterance);
-  if (wantsPublish) {
-    const pathMatch = utterance.match(/chemin\s+(\S+)/i);
-    registerTypedScenario(
-      utterance,
-      d4CreateAndPublishEnvelope({
-        title,
-        summary: title,
-        publicationPath:
-          opts && "publicationPath" in (opts ?? {})
-            ? opts!.publicationPath
-            : pathMatch?.[1] ?? null,
-        includeFence: opts?.includeFence,
-      }),
-    );
-    return;
-  }
-  registerTypedScenario(
-    utterance,
-    d4CreateDocumentEnvelope({
-      title,
-      summary: title,
-      includeFence: opts?.includeFence,
-    }),
-  );
-}
-
-/** PG integration: register a fixture envelope from utterance shape (TEST_BOUNDARY). */
-function pgFixtureAlreadyHasEffect(utterance: string): boolean {
-  const q = fixtureSemanticQualify(utterance.trim());
-  return q.intents.some(
-    (i) => i.mode === "REQUEST_EFFECT" && i.capabilityId !== "d3.converse",
-  );
-}
-
-export function registerPgUtteranceFixture(utterance: string, opts?: {
-  publicationPath?: string | null;
-  includeFence?: boolean;
-}): void {
+export function registerExplicitFixture(utterance: string, spec: ExplicitFixtureSpec): void {
   const t = utterance.trim();
-  if (pgFixtureAlreadyHasEffect(t)) {
-    return;
-  }
-  if (/intitulé\s*«/.test(t)) {
-    const m = t.match(/intitulé\s*«([^»]+)»/i);
-    const title = m?.[1]?.trim();
-    if (title) {
+  switch (spec.kind) {
+    case "dialogue":
       registerTypedScenario(
         t,
-        d4CreateDocumentEnvelope({ title, summary: title, notes: t }),
+        dialogueEnvelope(
+          t,
+          spec.reply ?? "Réponse fixture — exploration sans effet.",
+          spec.constraints ?? ["NO_EFFECT"],
+        ),
       );
       return;
+    case "d2":
+      registerTypedScenario(
+        t,
+        d2CreateProjectEnvelope({
+          projectName: spec.projectName,
+          reply: spec.reply,
+          followOnDocument: spec.documentSummary
+            ? { summary: spec.documentSummary, notes: spec.documentSummary }
+            : undefined,
+        }),
+      );
+      return;
+    case "d4_create":
+      registerTypedScenario(
+        t,
+        d4CreateDocumentEnvelope({
+          title: spec.title,
+          summary: spec.summary ?? spec.title,
+          notes: spec.notes ?? spec.summary ?? spec.title,
+          includeFence: spec.includeFence,
+        }),
+      );
+      return;
+    case "d4_revise":
+      registerTypedScenario(
+        t,
+        d4ReviseDocumentEnvelope({
+          summary: "Révision documentaire",
+          documentHint: spec.documentHint,
+          sectionHint: spec.sectionHint,
+          includeFence: spec.includeFence,
+          reply: spec.reply,
+        }),
+      );
+      return;
+    case "d4_publish":
+      registerTypedScenario(
+        t,
+        d4CreateAndPublishEnvelope({
+          title: spec.title,
+          summary: spec.title,
+          publicationPath: spec.publicationPath,
+          includeFence: spec.includeFence,
+        }),
+      );
+      return;
+    case "d5":
+      registerTypedScenario(
+        t,
+        d5PilotageEnvelope({
+          operation: spec.operation,
+          cycleType: spec.cycleType,
+          toCycleType: spec.toCycleType,
+          objective: spec.objective,
+        }),
+      );
+      return;
+    case "d5_then_d4":
+      registerTypedScenario(
+        t,
+        d5ThenD4Envelope({
+          cycleType: spec.cycleType,
+          documentTitle: spec.documentTitle,
+          documentSummary: spec.documentSummary,
+        }),
+      );
+      return;
+    case "qualification":
+      registerTypedScenario(t, spec.q);
+      return;
+    default: {
+      const _exhaustive: never = spec;
+      void _exhaustive;
+      throw new Error("explicit fixture kind inconnu");
     }
   }
-  if (/révise.*document.*«/i.test(t)) {
-    const title = t.match(/document\s+(?:D4\s+)?existant\s+«([^»]+)»/i)?.[1]?.trim();
-    const section = t.match(/section\s+(\d+)/i)?.[1];
-    registerTypedScenario(
-      t,
-      d4ReviseDocumentEnvelope({
-        summary: "Révision documentaire",
-        documentHint: title ?? "document",
-        sectionHint: section,
-        reply: title ? sfiaDocumentFence(title, "Révision section.") : undefined,
-      }),
-    );
+}
+
+/** @deprecated Use registerExplicitFixture with kind:"d2" — kept name for call-site clarity. */
+export function registerNamedProjectCreate(
+  utterance: string,
+  opts: { projectName: string; documentSummary?: string; reply?: string },
+): void {
+  registerExplicitFixture(utterance, {
+    kind: "d2",
+    projectName: opts.projectName,
+    documentSummary: opts.documentSummary,
+    reply: opts.reply,
+  });
+}
+
+/** @deprecated Use registerExplicitFixture with kind:"d4_create"|"d4_publish". */
+export function registerCreateDocumentTitled(
+  utterance: string,
+  opts: {
+    title: string;
+    publicationPath?: string | null;
+    includeFence?: boolean;
+    publish?: boolean;
+  },
+): void {
+  if (opts.publish || opts.publicationPath !== undefined) {
+    registerExplicitFixture(utterance, {
+      kind: "d4_publish",
+      title: opts.title,
+      publicationPath: opts.publicationPath,
+      includeFence: opts.includeFence,
+    });
     return;
   }
-  if (/projet nommé/i.test(t)) {
-    registerNamedProjectCreate(t);
-    return;
-  }
-  if (/document intitulé/i.test(t)) {
-    registerCreateDocumentTitled(t, opts);
-    return;
-  }
-  if (/^Ouvre le cycle cadrage\.?$/i.test(t)) {
-    registerTypedScenario(
-      t,
-      d5PilotageEnvelope({ operation: "OPEN_CYCLE", cycleType: "CADRAGE", objective: "cadrage" }),
-    );
-    return;
-  }
-  if (/Ouvre le cycle cadrage puis crée un document intitulé/i.test(t)) {
-    const m = t.match(/document intitulé\s+(.+?)\./i);
-    const title = m?.[1]?.trim() ?? "Document";
-    registerTypedScenario(
-      t,
-      d5ThenD4Envelope({
-        cycleType: "CADRAGE",
-        documentTitle: title,
-        documentSummary: title,
-      }),
-    );
-    return;
-  }
-  if (/^Rédige un document de synthèse sur /i.test(t) || /^Crée un document de synthèse sur /i.test(t)) {
-    const topic = t.match(/sur\s+(.+)$/i)?.[1]?.trim().replace(/\.$/, "") ?? "Synthèse";
-    registerTypedScenario(
-      t,
-      d4CreateDocumentEnvelope({
-        title: topic,
-        summary: topic,
-        notes: topic,
-        includeFence: opts?.includeFence,
-      }),
-    );
-    return;
-  }
-  if (/^Révise/i.test(t)) {
-    const quoted = t.match(/document\s+«([^»]+)»/i);
-    const bare = t.match(/document\s+(\S+)/i);
-    const section = t.match(/section\s+(\d+|[^»\n]+)/i)?.[1];
-    registerTypedScenario(
-      t,
-      d4ReviseDocumentEnvelope({
-        summary: "Révision documentaire",
-        documentHint: quoted?.[1] ?? bare?.[1] ?? "document",
-        sectionHint: section?.trim(),
-        includeFence: opts?.includeFence ?? true,
-      }),
-    );
-    return;
-  }
-  registerTypedScenario(t, dialogueEnvelope(t, "Réponse fixture — exploration sans effet.", ["NO_EFFECT"]));
+  registerExplicitFixture(utterance, {
+    kind: "d4_create",
+    title: opts.title,
+    includeFence: opts.includeFence,
+  });
 }
 
 export type { NoraTurnQualification, StudioCapabilityId, PilotageOperation };

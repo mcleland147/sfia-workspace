@@ -35,6 +35,10 @@ import type { IntentQualification } from "@/domains/pilotage/intent";
 import { loadDurableQualificationForUserMessage } from "@/domains/conversation/durable-qualification";
 import { matchPilotageIntentInQualification } from "@/domains/conversation/semantic-qualification";
 import {
+  resolveLiftRestrictionTarget,
+  resolveReviseDecisionTarget,
+} from "@/domains/pilotage/durable-target-resolve";
+import {
   PILOTAGE_OPERATIONS,
   SOURCE_KINDS,
   type ClassifiedCommand,
@@ -504,103 +508,83 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
       }
     }
 
-    // Authority bridge may resolve decisionId / restrictionId from durable hints.
+    // Owner resolves durable targets first. body.decisionId / restrictionId may only echo.
     let decisionId = matched.decisionId;
-    const bodyDecisionId = body.decisionId?.trim();
-    if (bodyDecisionId) {
-      if (matched.decisionId && bodyDecisionId !== matched.decisionId) {
+    if (matched.operation === "REVISE_DECISION") {
+      const resolved = await resolveReviseDecisionTarget(tx, input.projectId, {
+        decisionId: matched.decisionId,
+        objectRef: matched.objectRef,
+      });
+      if (!resolved.ok) {
+        return {
+          ok: false,
+          reasonCode: resolved.reasonCode,
+          reason: resolved.reason,
+          sourceActionKey: `REJECT|${resolved.reasonCode}|REVISE_TARGET`,
+        };
+      }
+      const bodyDecisionId = body.decisionId?.trim();
+      if (bodyDecisionId && bodyDecisionId !== resolved.id) {
         return {
           ok: false,
           reasonCode: "AMBIGUOUS",
-          reason: "Champ decisionId non issu de la qualification durable — refuse (pas de complément body)",
+          reason: "body.decisionId divergent de la cible propriétaire durable — refuse",
           sourceActionKey: "REJECT|AMBIGUOUS|BODY_DECISIONID",
         };
       }
-      if (!matched.decisionId) {
-        if (matched.operation !== "REVISE_DECISION" || !matched.objectRef?.trim()) {
-          return {
-            ok: false,
-            reasonCode: "AMBIGUOUS",
-            reason: "Champ decisionId non issu de la qualification durable — refuse (pas de complément body)",
-            sourceActionKey: "REJECT|AMBIGUOUS|BODY_DECISIONID",
-          };
-        }
-        const row = (
-          await tx
-            .select({
-              id: humanDecisions.id,
-              objectRef: humanDecisions.objectRef,
-              kind: humanDecisions.kind,
-              state: humanDecisions.state,
-            })
-            .from(humanDecisions)
-            .where(
-              and(
-                eq(humanDecisions.id, bodyDecisionId),
-                eq(humanDecisions.projectId, input.projectId),
-              ),
-            )
-            .limit(1)
-        )[0];
-        if (
-          !row ||
-          row.kind !== "RECORD_DECISION" ||
-          row.state !== "APPLICABLE" ||
-          (row.objectRef ?? "").trim() !== matched.objectRef.trim()
-        ) {
-          return {
-            ok: false,
-            reasonCode: "AMBIGUOUS",
-            reason: "decisionId résolu incompatible avec objectRef durable — refuse",
-            sourceActionKey: "REJECT|AMBIGUOUS|DECISIONID_OBJECTREF_MISMATCH",
-          };
-        }
-        decisionId = bodyDecisionId;
-      }
+      decisionId = resolved.id;
+    } else if (body.decisionId?.trim()) {
+      return {
+        ok: false,
+        reasonCode: "AMBIGUOUS",
+        reason: "Champ decisionId non applicable à cette opération durable — refuse",
+        sourceActionKey: "REJECT|AMBIGUOUS|BODY_DECISIONID",
+      };
     }
 
     let restrictionId: string | undefined;
-    const bodyRestrictionId = body.restrictionId?.trim();
-    if (bodyRestrictionId) {
-      if (matched.operation !== "LIFT_RESTRICTION") {
-        return {
-          ok: false,
-          reasonCode: "AMBIGUOUS",
-          reason: "Champ restrictionId non issu de la qualification durable — refuse",
-          sourceActionKey: "REJECT|AMBIGUOUS|BODY_RESTRICTIONID",
-        };
-      }
-      const row = (
+    if (matched.operation === "LIFT_RESTRICTION") {
+      const activeCycleRow = (
         await tx
-          .select()
-          .from(governanceRestrictions)
+          .select({ id: projectCycles.id, cycleType: projectCycles.cycleType })
+          .from(projectCycles)
           .where(
-            and(
-              eq(governanceRestrictions.id, bodyRestrictionId),
-              eq(governanceRestrictions.projectId, input.projectId),
-              eq(governanceRestrictions.status, "ACTIVE"),
-            ),
+            and(eq(projectCycles.projectId, input.projectId), eq(projectCycles.status, "ACTIVE")),
           )
           .limit(1)
       )[0];
-      if (!row) {
+      const resolved = await resolveLiftRestrictionTarget(tx, input.projectId, {
+        restrictionKindHint: matched.restrictionKindHint,
+        restrictionTargetRefHint: matched.restrictionTargetRefHint,
+        activeCycle: activeCycleRow
+          ? { id: activeCycleRow.id, cycleType: activeCycleRow.cycleType }
+          : null,
+      });
+      if (!resolved.ok) {
+        return {
+          ok: false,
+          reasonCode: resolved.reasonCode,
+          reason: resolved.reason,
+          sourceActionKey: `REJECT|${resolved.reasonCode}|LIFT_TARGET`,
+        };
+      }
+      const bodyRestrictionId = body.restrictionId?.trim();
+      if (bodyRestrictionId && bodyRestrictionId !== resolved.id) {
         return {
           ok: false,
           reasonCode: "AMBIGUOUS",
-          reason: "restrictionId résolu absent ou inactif — refuse",
-          sourceActionKey: "REJECT|AMBIGUOUS|RESTRICTIONID_INVALID",
+          reason: "body.restrictionId divergent de la cible propriétaire durable — refuse",
+          sourceActionKey: "REJECT|AMBIGUOUS|BODY_RESTRICTIONID",
         };
       }
-      const hint = (matched.restrictionKindHint ?? "").trim().toUpperCase();
-      if (hint && row.targetKind.toUpperCase() !== hint) {
-        return {
-          ok: false,
-          reasonCode: "AMBIGUOUS",
-          reason: "restrictionId incompatible avec restrictionKindHint durable — refuse",
-          sourceActionKey: "REJECT|AMBIGUOUS|RESTRICTION_HINT_MISMATCH",
-        };
-      }
-      restrictionId = bodyRestrictionId;
+      restrictionId = resolved.id;
+    } else if (body.restrictionId?.trim()) {
+      return {
+        ok: false,
+        reasonCode: "AMBIGUOUS",
+        reason: "Champ restrictionId non applicable à cette opération durable — refuse",
+        sourceActionKey: "REJECT|AMBIGUOUS|BODY_RESTRICTIONID",
+      };
     }
 
     const qualified: ClearIntent = {

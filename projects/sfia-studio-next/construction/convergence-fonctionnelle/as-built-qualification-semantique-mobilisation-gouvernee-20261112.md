@@ -120,6 +120,42 @@ Corrections:
 
 Preuve locale: PG 318/318 ; unit 248/248 ; Playwright Atlas+ML3 9/9. LIVE NOT RUN. Gate C OPEN.
 
+## Correctif autorités D5/D6 + fixtures + ENV-R06 (2026-11-12 ~18:40 CET)
+
+Parent produit: `9c163d62`. Mandat: sécuriser les réserves Critical Review R1/R2/R3 sans refaire ML4C.
+
+### R1 — Binding cible durable (propriétaire)
+
+- Nouveau module unique `durable-target-resolve.ts` :
+  - `resolveReviseDecisionTarget` — CAS A decisionId durable ; CAS B objectRef → 0/1/N APPLICABLE RECORD_DECISION (jamais choix d’ordre) ; CAS C refus.
+  - `resolveLiftRestrictionTarget` — filtre ACTIVE + kindHint + targetRefHint ; unicité obligatoire.
+- `classifyCommand` (USER_MESSAGE) et `applyConversationalAuthority` réutilisent le même résolveur.
+- `body.decisionId` / `body.restrictionId` ne peuvent qu’**écho**er la cible déjà résolue ; divergence → REJECTED / AMBIGUOUS.
+- Preuves négatives/positives dans `ml4c-auth-reconciliation.pg.test.ts` via `executePilotageCommand` (multi-cible D6, multi-restriction, hors projet, idempotence).
+
+### R2 — Fixtures sémantiques explicites
+
+- Suppression de `registerPgUtteranceFixture` (inférence regex d’intentions positives).
+- `registerExplicitFixture` / builders typés (`d2`, `d4_*`, `d5`, `d6`, …) ; call sites intent/mission/ml3/ml4 migrés.
+- Texte USER = clé de fixture, **pas** source d’inférence de capacité.
+- Message inconnu reste fail-closed.
+
+### R3 — ENV-R06
+
+- ENV-R06A : contrat CI déterministe (cible mutative `sfia_next_e2e`, lanes interdites).
+- ENV-R06B : si `:5434` absent → `NOT_VERIFIED / ENDPOINT_NOT_AVAILABLE` (trace console, pas faux PASS) ; si présent → exiger `28P01` (ECONNREFUSED ≠ AUTH DENIED).
+- ENV-R09 reste NOT VERIFIED.
+
+### Preuves locales (ce lot)
+
+| Suite | Résultat |
+| --- | --- |
+| Vitest unit | 248 PASS |
+| Vitest PostgreSQL | 324 PASS (318 + R1/R3) |
+| Playwright BROWSER FAKE | 25 PASS |
+| tsc / eslint / Next build | PASS (warnings non bloquants) |
+| LIVE Nora / Git REAL | NOT RUN |
+
 ## Non-déclarations
 
 ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED · READY FOR REAL · LIVE Nora
@@ -127,9 +163,10 @@ ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED �
 ## Réserves / gates Morris restants
 
 - LIVE Nora pertinence (NOT RUN)
+- Git REAL (NOT RUN)
 - S02-01 Intervencia FAIL (source exacte indisponible)
 - A-006/A-007 ouvertes
-- PR #676 OPEN / NON MERGÉE (correctif CI en cours de publication)
+- PR #676 OPEN / NON MERGÉE (hardening autorités en publication)
 - ENV-R09 sessions multi-lane NOT VERIFIED
-- ENV-R06 isolation runtime réelle: seulement si endpoint RECETTE disponible
+- ENV-R06 isolation runtime réelle: NOT VERIFIED si endpoint RECETTE absent
 - Décision d’intégration Git / RECETTE / promotion = Morris uniquement

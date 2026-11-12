@@ -47,8 +47,7 @@ import {
   d5PilotageEnvelope,
   d6DecisionEnvelope,
   dialogueEnvelope,
-  registerPgUtteranceFixture,
-  registerTypedScenario,
+    registerTypedScenario,
 } from "../helpers/semantic-fixture-envelopes";
 
 function preQualifiedFromFixture(content: string): IntentQualification {
@@ -327,9 +326,8 @@ async function noraTurn(
   registerMl3ConversationFixtures();
   if (opts?.qualification) {
     registerTypedScenario(text, opts.qualification);
-  } else {
-    registerPgUtteranceFixture(text);
   }
+  // else: built-in SCENARIO_TABLE / registerMl3ConversationFixtures only — no regex inference
   const { postUserMessageAndNora } = await import("@/domains/conversation/service");
   const { qualification: _q, ...turnOpts } = opts ?? {};
   return postUserMessageAndNora(pilotId, preparationId, text, turnOpts);
@@ -369,7 +367,6 @@ async function insertUserMessageWithDurableQualification(
 
 function envelopeForConvAuth(content: string): NoraTurnQualification {
   registerMl3ConversationFixtures();
-  registerPgUtteranceFixture(content);
   return fixtureSemanticQualify(content.trim());
 }
 

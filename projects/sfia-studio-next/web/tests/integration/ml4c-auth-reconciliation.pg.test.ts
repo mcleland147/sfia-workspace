@@ -17,6 +17,8 @@ import {
   businessCommandEffects,
   businessCommands,
   conversations,
+  governanceRestrictions,
+  humanDecisions,
   pilots,
   preparations,
   projectCycles,
@@ -767,5 +769,435 @@ describe("ML4C AUTH-R01..R14 — D5/D6 reconciliation (PG real)", () => {
     expect(r.status).toBe("APPLIED");
     expect(r.commandId).toBeTruthy();
     expect(await countActiveCycles(world.projectId)).toBe(1);
+  });
+});
+
+const REVISE_OBJECT_REF = "auth-r1-shared-object";
+
+function reviseQualWithoutDecisionId() {
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    status: "QUALIFIED" as const,
+    goal: "revise",
+    intents: [
+      {
+        id: "i-revise",
+        capabilityId: "d6.human_decision" as const,
+        mode: "REQUEST_EFFECT" as const,
+        summary: "REVISE shared object",
+        parameters: {
+          pilotageOperation: "REVISE_DECISION" as const,
+          statement: "Révision autorité propriétaire",
+          objectRef: REVISE_OBJECT_REF,
+        },
+        constraints: [] as string[],
+        dependsOn: [] as string[],
+        sourceEvidence: [] as string[],
+      },
+    ],
+    clarifications: [] as string[],
+    replyDraft: "revise",
+  };
+}
+
+function liftQual(targetHint: string) {
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    status: "QUALIFIED" as const,
+    goal: "lift",
+    intents: [
+      {
+        id: "i-lift",
+        capabilityId: "d6.human_decision" as const,
+        mode: "REQUEST_EFFECT" as const,
+        summary: "LIFT_RESTRICTION",
+        parameters: {
+          pilotageOperation: "LIFT_RESTRICTION" as const,
+          restrictionKindHint: "CYCLE_MUTATION",
+          restrictionTargetRefHint: targetHint,
+          statement: `Lever restriction ${targetHint}`,
+        },
+        constraints: [] as string[],
+        dependsOn: [] as string[],
+        sourceEvidence: [] as string[],
+      },
+    ],
+    clarifications: [] as string[],
+    replyDraft: "lift",
+  };
+}
+
+describe("ML4C R1 — durable USER_MESSAGE target binding (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) {
+      throw new Error("SETUP BLOCKED: DATABASE_URL required");
+    }
+  });
+
+  it("R1-A multi: body.decisionId cannot pick among ambiguous objectRef matches", async () => {
+    const world = await seedOwnedProject(`r1-multi-${Date.now()}`);
+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    expect(open.status).toBe("APPLIED");
+    rev = open.revision ?? rev + 1;
+
+    const d1 = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "RECORD_DECISION",
+      statement: "Décision A même objectRef",
+      objectRef: REVISE_OBJECT_REF,
+    });
+    expect(d1.status).toBe("APPLIED");
+    rev = d1.revision ?? rev + 1;
+    const d2 = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "RECORD_DECISION",
+      statement: "Décision B même objectRef",
+      objectRef: REVISE_OBJECT_REF,
+    });
+    expect(d2.status).toBe("APPLIED");
+    rev = d2.revision ?? rev + 1;
+
+    const applicable = await db
+      .select()
+      .from(humanDecisions)
+      .where(
+        and(
+          eq(humanDecisions.projectId, world.projectId),
+          eq(humanDecisions.kind, "RECORD_DECISION"),
+          eq(humanDecisions.state, "APPLICABLE"),
+          eq(humanDecisions.objectRef, REVISE_OBJECT_REF),
+        ),
+      );
+    expect(applicable.length).toBe(2);
+    const victim = applicable[0]!;
+
+    const msg = await seedQualifiedMessage(
+      world,
+      "Je révise la décision partagée.",
+      reviseQualWithoutDecisionId(),
+    );
+    const beforeStates = applicable.map((r) => r.state);
+    const attack = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Je révise la décision partagée.",
+      operation: "REVISE_DECISION",
+      decisionId: victim.id,
+      statement: "Révision autorité propriétaire",
+      objectRef: REVISE_OBJECT_REF,
+      semanticIntentId: "i-revise",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(attack.status).toBe("REJECTED");
+    expect(attack.reasonCode).toMatch(/AMBIGUOUS|INVALID/);
+
+    const after = await db
+      .select()
+      .from(humanDecisions)
+      .where(
+        and(
+          eq(humanDecisions.projectId, world.projectId),
+          eq(humanDecisions.kind, "RECORD_DECISION"),
+          eq(humanDecisions.objectRef, REVISE_OBJECT_REF),
+        ),
+      );
+    expect(after.filter((r) => r.state === "APPLICABLE").length).toBe(2);
+    expect(after.every((r) => beforeStates.includes(r.state) || r.state === "APPLICABLE")).toBe(true);
+    expect(after.some((r) => r.state === "REVISED")).toBe(false);
+  });
+
+  it("R1-A unique: Studio resolves single objectRef; body echo optional", async () => {
+    const world = await seedOwnedProject(`r1-unique-${Date.now()}`);
+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    rev = open.revision ?? rev + 1;
+    const recorded = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "RECORD_DECISION",
+      statement: "Décision unique",
+      objectRef: REVISE_OBJECT_REF,
+    });
+    expect(recorded.status).toBe("APPLIED");
+    rev = recorded.revision ?? rev + 1;
+    const targetId = recorded.decisionId!;
+
+    const msg = await seedQualifiedMessage(
+      world,
+      "Je révise la décision unique.",
+      reviseQualWithoutDecisionId(),
+    );
+    const ok = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Je révise la décision unique.",
+      operation: "REVISE_DECISION",
+      decisionId: targetId,
+      statement: "Révision autorité propriétaire",
+      objectRef: REVISE_OBJECT_REF,
+      semanticIntentId: "i-revise",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(ok.status).toBe("APPLIED");
+    expect(ok.decisionId).toBeTruthy();
+
+    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: ok.revision ?? rev + 1,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Je révise la décision unique.",
+      operation: "REVISE_DECISION",
+      decisionId: targetId,
+      statement: "Révision autorité propriétaire",
+      objectRef: REVISE_OBJECT_REF,
+      semanticIntentId: "i-revise",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(["ALREADY_APPLIED", "APPLIED", "REJECTED"]).toContain(replay.status);
+    if (replay.status === "ALREADY_APPLIED" || replay.status === "APPLIED") {
+      expect(replay.commandId === ok.commandId || replay.status === "ALREADY_APPLIED").toBe(true);
+    }
+  });
+
+  it("R1-B multi: body.restrictionId cannot substitute UX_UI when durable targets CADRAGE", async () => {
+    const world = await seedOwnedProject(`r1-lift-multi-${Date.now()}`);
+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      objective: "cadrage",
+    });
+    expect(open.status).toBe("APPLIED");
+    rev = open.revision ?? rev + 1;
+
+    const rCadrage = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "APPLY_RESTRICTION",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "CADRAGE",
+      statement: "Freeze CADRAGE",
+    });
+    expect(rCadrage.status).toBe("APPLIED");
+    rev = rCadrage.revision ?? rev + 1;
+    const rUx = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "APPLY_RESTRICTION",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "UX_UI",
+      statement: "Freeze UX_UI",
+    });
+    expect(rUx.status).toBe("APPLIED");
+    rev = rUx.revision ?? rev + 1;
+
+    const active = await db
+      .select()
+      .from(governanceRestrictions)
+      .where(
+        and(
+          eq(governanceRestrictions.projectId, world.projectId),
+          eq(governanceRestrictions.status, "ACTIVE"),
+        ),
+      );
+    expect(active.length).toBe(2);
+    const uxRow = active.find((r) => r.targetRef === "UX_UI")!;
+    const cadrageRow = active.find((r) => r.targetRef === "CADRAGE")!;
+
+    const msg = await seedQualifiedMessage(
+      world,
+      "Je lève la restriction CYCLE_MUTATION sur CADRAGE.",
+      liftQual("CADRAGE"),
+    );
+    const attack = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Je lève la restriction CYCLE_MUTATION sur CADRAGE.",
+      operation: "LIFT_RESTRICTION",
+      restrictionId: uxRow.id,
+      semanticIntentId: "i-lift",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(attack.status).toBe("REJECTED");
+
+    const still = await db
+      .select()
+      .from(governanceRestrictions)
+      .where(
+        and(
+          eq(governanceRestrictions.projectId, world.projectId),
+          eq(governanceRestrictions.status, "ACTIVE"),
+        ),
+      );
+    expect(still.map((r) => r.id).sort()).toEqual([cadrageRow.id, uxRow.id].sort());
+  });
+
+  it("R1-B unique: lift succeeds only for durable CADRAGE target", async () => {
+    const world = await seedOwnedProject(`r1-lift-unique-${Date.now()}`);
+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    rev = open.revision ?? rev + 1;
+    const applied = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "APPLY_RESTRICTION",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "CADRAGE",
+      statement: "Freeze CADRAGE only",
+    });
+    expect(applied.status).toBe("APPLIED");
+    rev = applied.revision ?? rev + 1;
+    const restrictionId = applied.effects.find((e) => e.effectKind === "APPLY_RESTRICTION")
+      ?.targetRef;
+    expect(restrictionId).toBeTruthy();
+
+    const msg = await seedQualifiedMessage(
+      world,
+      "Je lève la restriction CYCLE_MUTATION sur CADRAGE.",
+      liftQual("CADRAGE"),
+    );
+    const lift = await executePilotageCommand(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: rev,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msg.userMessageId,
+      utterance: "Je lève la restriction CYCLE_MUTATION sur CADRAGE.",
+      operation: "LIFT_RESTRICTION",
+      restrictionId,
+      semanticIntentId: "i-lift",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(lift.status).toBe("APPLIED");
+    const active = await db
+      .select()
+      .from(governanceRestrictions)
+      .where(
+        and(
+          eq(governanceRestrictions.projectId, world.projectId),
+          eq(governanceRestrictions.status, "ACTIVE"),
+        ),
+      );
+    expect(active).toHaveLength(0);
+  });
+
+  it("R1-E: foreign decisionId / restrictionId rejected without effect", async () => {
+    const a = await seedOwnedProject(`r1-e-a-${Date.now()}`);
+    const b = await seedOwnedProject(`r1-e-b-${Date.now()}`);
+    let revA = (await getPilotageProjection(a.pilotId, a.projectId)).revision;
+    const openA = await executePilotageCommand(a.pilotId, a.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: revA,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    revA = openA.revision ?? revA + 1;
+    const recA = await executePilotageCommand(a.pilotId, a.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: revA,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "RECORD_DECISION",
+      statement: "A only",
+      objectRef: REVISE_OBJECT_REF,
+    });
+    expect(recA.status).toBe("APPLIED");
+
+    let revB = (await getPilotageProjection(b.pilotId, b.projectId)).revision;
+    const openB = await executePilotageCommand(b.pilotId, b.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: revB,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+    });
+    revB = openB.revision ?? revB + 1;
+    const recB = await executePilotageCommand(b.pilotId, b.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: revB,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("ui"),
+      operation: "RECORD_DECISION",
+      statement: "B only",
+      objectRef: REVISE_OBJECT_REF,
+    });
+    expect(recB.status).toBe("APPLIED");
+    revB = recB.revision ?? revB + 1;
+
+    const msgB = await seedQualifiedMessage(
+      b,
+      "Je révise la décision partagée.",
+      reviseQualWithoutDecisionId(),
+    );
+    const cross = await executePilotageCommand(b.pilotId, b.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: revB,
+      sourceKind: "USER_MESSAGE",
+      sourceRef: msgB.userMessageId,
+      utterance: "Je révise la décision partagée.",
+      operation: "REVISE_DECISION",
+      decisionId: recA.decisionId!,
+      statement: "Révision autorité propriétaire",
+      objectRef: REVISE_OBJECT_REF,
+      semanticIntentId: "i-revise",
+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    });
+    expect(cross.status).toBe("REJECTED");
+    const aStill = (
+      await db
+        .select()
+        .from(humanDecisions)
+        .where(eq(humanDecisions.id, recA.decisionId!))
+    )[0];
+    expect(aStill?.state).toBe("APPLICABLE");
   });
 });
