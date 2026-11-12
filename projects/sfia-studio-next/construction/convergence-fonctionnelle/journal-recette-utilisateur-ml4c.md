@@ -31,14 +31,14 @@
 
 | Famille | Cas | PASS | FAIL | BLOCKED | NOT RUN | Réserves ouvertes |
 |---|---:|---:|---:|---:|---:|---:|
-| S01 | 6 | 1 | 0 | 0 | 5 | 3 |
+| S01 | 6 | 2 | 0 | 0 | 4 | 3 |
 | S02 | 6 | 0 | 0 | 0 | 6 | 0 |
 | S03 | 7 | 0 | 0 | 0 | 7 | 0 |
 | S04 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S05 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **1** | **0** | **0** | **52** | **3** |
+| **TOTAL** | **53** | **2** | **0** | **0** | **51** | **3** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -73,7 +73,7 @@
 | Verdict du scénario | **NOT RUN (verdict final non attribué)** tant que les autres contrôles d’autorité et de vérité métier nécessaires ne sont pas rapprochés. Aucune anomalie nouvelle enregistrée. |
 | Suite | Ouvrir `CampusFlow` et vérifier sa continuité en `S01-03`, puis le sas en `S01-04` ; réévaluer `S01-02` selon les preuves disponibles. |
 
-### Fiche de suivi `S01-03` — observation intermédiaire du 12 novembre 2026
+### Fiche de test `S01-03` — clôture utilisateur du 12 novembre 2026
 
 | Champ | Contenu |
 |---|---|
@@ -82,10 +82,11 @@
 | Observé | Ouverture correcte du projet `CampusFlow` ; retour sur `Travail` sans problème rapporté ; historique conversationnel et contexte du projet visibles. Morris signale une navigation fluide, sans problème de performance ressenti. |
 | Preuve | `S01-03-E01` — capture de l’espace `Travail avec Nora` : projet `proj_1b52eb8f-3c63-4c72-a4dd-a47f34e1bb4d`, même fil visible, message initial du Pilote et réponse Nora. `S01-03-U01` — confirmation Morris du changement de vue et du retour au contexte. |
 | Contrôle réalisé | **PASS observé** sur ouverture, changement de vue, retour et restitution visuelle du fil. |
-| Limites | Le `Cmd + R` dans la vue projet n'est **pas explicitement confirmé dans ce retour**. Il n’y a pas de lecture indépendante de l’état DB/conversation ; le build effectivement servi reste à rapprocher du manifeste. |
-| Verdict du scénario | **NOT RUN (verdict final non attribué)** : sous-contrôle de rafraîchissement encore à confirmer, sans inférer la totalité du scénario. |
+| Actualisation après retour sur `Travail` | Morris confirme explicitement « oui. toujours présent » à la demande de `Cmd + R` dans la vue projet : historique et contexte encore visibles après rafraîchissement. |
+| Limites | Vérification navigateur et utilisateur uniquement : pas de lecture indépendante de l’état DB/conversation ; build effectivement servi à rapprocher du manifeste. |
+| Verdict du scénario | **PASS — parcours utilisateur** : ouverture, changement de vue, retour, persistance après rafraîchissement ; réserve UX `ML4C-A-003` maintenue ouverte. |
 | Réserve UX connexe | `ML4C-A-003` : compositeur `Écrire à Nora` partiellement hors de la fenêtre visible, obligeant le Pilote à défiler pour accéder à la saisie et à l’envoi. |
-| Suite | Confirmer la conservation du contexte après `Cmd + R` ; reporter la réserve visuelle au macro-lot ML4D sous contrôle de l’impact fonctionnel. |
+| Suite | Poursuivre `S01-04` — reprise d'une préparation ouverte ; reporter la réserve visuelle au macro-lot ML4D sous contrôle de l’impact fonctionnel. |
 
 ## 4. Registre des anomalies, améliorations et observations
 
@@ -119,7 +120,7 @@
 |---|---|---|---|---|
 | `S01-01` | Ouvrir RECETTE et se connecter via GitHub OAuth | Authentification effective, identité correcte, sans contournement | **PASS** | E01, E02 ; `ML4C-A-001/002` |
 | `S01-02` | Consulter portefeuille et préparations | Éléments autorisés ; noms et états conformes à la vérité métier | NOT RUN — contrôle partiel réussi | `S01-02-U01` ; état métier à confirmer |
-| `S01-03` | Ouvrir un projet, changer de vue, revenir et rafraîchir | Même projet ; conversation et contexte conservés | NOT RUN — navigation observée PASS, refresh à confirmer | `S01-03-E01/U01` ; `ML4C-A-003` |
+| `S01-03` | Ouvrir un projet, changer de vue, revenir et rafraîchir | Même projet ; conversation et contexte conservés | **PASS** — parcours utilisateur | `S01-03-E01/U01/U02` ; `ML4C-A-003` |
 | `S01-04` | Reprendre un sas de création ouvert | Préparation retrouvée ; aucun faux projet créé | NOT RUN | — |
 | `S01-05` | Examiner session expirée, refus d’accès et panne technique | Erreurs distinctes ; ni faux 401 ni faux succès | NOT RUN | — |
 | `S01-06` | Tester deux identités RECETTE autorisées | Aucun accès indu aux projets d’un autre Pilote | NOT RUN | — |
@@ -211,6 +212,7 @@
 | `S01-02-U01` | Confirmation Morris du 12/11, après `Cmd + R` | 1 projet et 2 préparations toujours visibles, sans erreur signalée | Ne prouve pas à elle seule l’exactitude des données métier/autorisation | Présente conversation |
 | `S01-03-E01` | Capture Morris, espace projet `Travail avec Nora` | `CampusFlow` rouvert, même fil et historique visibles ; compositeur partiellement hors fenêtre | Capture ne prouve pas `Cmd + R`, ni l’état transactionnel DB, ni le BUILD_ID | Présente conversation — capture du 12/11/2026, hors Git |
 | `S01-03-U01` | Compte rendu Morris du 12/11 | Ouverture du projet, changement de vue, retour sur `Travail`, contexte et historique retrouvés, sans problème de navigation rapporté | Pas de rafraîchissement projet explicitement confirmé ni mesure de performance instrumentée | Présente conversation |
+| `S01-03-U02` | Confirmation Morris du 12/11 après `Cmd + R` dans `CampusFlow > Travail` | Même projet, contexte et historique toujours présents après rechargement | Retour utilisateur, pas de preuve DB ou BUILD_ID indépendant | Présente conversation |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -218,9 +220,9 @@
 | Action / décision | État |
 |---|---|
 | S01-02 : stabilité visuelle après refresh | **Observé PASS**, oracle métier non entièrement démontré ; verdict final non attribué |
-| S01-03 : ouverture, navigation et restitution du fil | **Observé PASS** au périmètre ; `Cmd + R` sur le projet restant à confirmer |
+| S01-03 : ouverture, navigation, retour et rafraîchissement | **PASS utilisateur — scénario clôturé** ; réserve UX `ML4C-A-003` ouverte |
 | Réserve `ML4C-A-003` — compositeur Nora tronqué | **OPEN**, traçabilité ML4D, contrôle de non-blocage en S07-06 ; aucun correctif lancé |
-| Finaliser S01-03 par rafraîchissement dans `CampusFlow > Travail` | **Prochain geste utilisateur recommandé** — aucun développement requis |
+| Poursuivre S01-04 — reprise d'une préparation ouverte | **Prochain geste utilisateur recommandé** — aucun développement requis |
 | Confirmer BUILD_ID réellement servi si une preuve technique est nécessaire | **À rapprocher du manifeste**, ne pas déduire d’une capture |
 | Vérifier durée/rotation/révocation des sessions | **Investigation read-only à qualifier** ; pas d’injection de panne non autorisée |
 | Ajouter une déconnexion | **Pas de GO** ; amélioration à arbitrer, aucun correctif demandé à Cursor |
@@ -230,9 +232,9 @@
 
 ## 8. Bilan provisoire et prochaine saisie
 
-**Campagne : `INCOMPLETE — 1 PASS / 52 NOT RUN`.** Le premier parcours OAuth utilisateur est validé. Trois réserves restent ouvertes ; la troisième relève de la visibilité du compositeur Nora et ne démontre pas une panne d’authentification. Les niveaux de sécurité session, durée, isolation et refus appartiennent aux tests complémentaires et aux investigations documentées.
+**Campagne : `INCOMPLETE — 2 PASS / 51 NOT RUN`.** Le premier parcours OAuth utilisateur est validé. Trois réserves restent ouvertes ; la troisième relève de la visibilité du compositeur Nora et ne démontre pas une panne d’authentification. Les niveaux de sécurité session, durée, isolation et refus appartiennent aux tests complémentaires et aux investigations documentées.
 
-**Contrôle partiel S01-02 :** après rafraîchissement, `CampusFlow` et les 2 préparations restent affichés ; confirmation Morris enregistrée en `S01-02-U01`. La vérification des droits et de la vérité métier demeure ouverte. **Contrôle partiel S01-03 :** ouverture, navigation et historique Nora observés PASS ; `Cmd + R` dans l’espace projet non confirmé. Réserve UX `ML4C-A-003` ouverte et orientée vers ML4D, sans correction pendant cette séance. **Prochain geste :** rafraîchir dans `CampusFlow > Travail` et vérifier la permanence du contexte ; puis S01-04.
+**Contrôle partiel S01-02 :** après rafraîchissement, `CampusFlow` et les 2 préparations restent affichés ; confirmation Morris enregistrée en `S01-02-U01`. La vérification des droits et de la vérité métier demeure ouverte. **S01-03 PASS utilisateur :** ouverture, navigation, retour et conservation du contexte et de l'historique après rafraîchissement explicitement confirmés par Morris (`S01-03-U02`). Réserve UX `ML4C-A-003` ouverte et orientée vers ML4D, sans correction pendant cette séance. **Prochain cas :** S01-04 — reprendre une préparation ouverte sans déclarer de projet artificiellement créé.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
