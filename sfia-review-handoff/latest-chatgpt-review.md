@@ -6259,15 +6259,16 @@ DATABASE_URL=postgresql://…@127.0.0.1:5433/sfia_next_e2e \
 
 ---
 
-## 13. Handoff Git
+## 13. Handoff Git — PUBLIÉ ET VÉRIFIÉ
 
-À publier dans ce cycle via publisher canonique :
 - Source: `.tmp-sfia-review/chatgpt-review.md`
 - Branche: `sfia/review-handoff`
 - Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
 - Message: `docs(review-handoff): review Next semantic convergence corrective`
-
----
+- Commit distant vérifié: `8c04a05bb92a2b421cff1b299a0e5e11eed23882`
+- Blob vérifié: `865545c5eaa9de4e51ee5653f8e087aee2076523`
+- Contenu FULL: diffs conversation/pilotage/app/tests/construction + fichiers créés
+- Product push: **NON**
 
 ## 14. Verdict
 
