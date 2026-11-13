@@ -33,14 +33,14 @@
 
 | Famille | Cas | PASS | FAIL | BLOCKED | NOT RUN | Réserves ouvertes |
 |---|---:|---:|---:|---:|---:|---:|
-| S01 | 6 | 4 | 0 | 0 | 2 | 7 |
+| S01 | 6 | 5 | 0 | 0 | 1 | 7 |
 | S02 | 6 | 5 | 0 | 1 | 0 | 3 |
 | S03 | 7 | 0 | 1 | 5 | 1 | 1 |
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
 | S05 | 8 | 1 | 0 | 7 | 0 | 0 |
 | S06 | 11 | 2 | 0 | 9 | 0 | 2 |
 | S07 | 7 | 2 | 1 | 4 | 0 | 0 |
-| **TOTAL** | **53** | **16** | **6** | **28** | **3** | **14** |
+| **TOTAL** | **53** | **17** | **6** | **28** | **2** | **14** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -871,7 +871,7 @@
 
 ### Observation complémentaire `S01-02` — portefeuille, préparations et surfaces de gestion (13 novembre 2026)
 
-**Statut du cas : `NOT RUN` au sens du verdict final, avec **contrôles positifs utilisateur** et **deux réserves nouvelles `ML4C-A-012` et `ML4C-A-013`** ouvertes à la demande de Morris. Aucun verdict global `PASS/FAIL` n'est présumé sans arbitrage spécifique. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`.
+**Verdict final du cas : `PASS AVEC RÉSERVES` validé par Morris le 13/11/2026**, comptabilisé **PASS** sur l'accès et la restitution des objets du portefeuille à la portée observée, avec **deux réserves `ML4C-A-012` et `ML4C-A-013`** toujours OPEN. Le verdict ne prouve pas la vérité DB/permissions de chaque objet ni l'existence ou l'absence globale de capacités de suppression. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`.
 
 | Champ / preuve | Constat et portée |
 |---|---|
@@ -880,9 +880,9 @@
 | Réserve gestion des objets — `ML4C-A-012` | Sur les **cartes visibles** du portefeuille, les seuls gestes d'objet sont `Ouvrir le projet` ou `Reprendre` ; **aucune action Supprimer n'est visible**. Morris souhaite pouvoir supprimer ses préparations/brouillons facilement et évoque également les projets. **Absence générale de suppression dans tout Studio NON VÉRIFIÉE**. Le besoin relève de capacités distinctes : abandon/suppression de brouillon (fréquent, moindre risque) et suppression de projet (données, documents, décisions, Git potentiellement liés, autorité/risque plus élevés) ; pas de destruction automatique ni de comportement prescrit sans arbitrage. |
 | Réserve présentation/nommage — `ML4C-A-013` | Les préparations affichent notamment `**Intervencia**` avec **astérisques Markdown visibles dans le nom**, `Préparation prep_cd1`, `Préparation prep_faf` : libellés techniques peu intelligibles. Les cartes projet montrent des **identifiants internes `proj_<UUID>`** sur toute la largeur, jugés inutiles/inesthétiques par Morris dans le portefeuille. **Ne pas supprimer les identifiants de traçabilité en stockage, uniquement revoir leur exposition au Pilote** ; noms métier, libellés de brouillon et nettoyage du Markdown à définir selon les conventions Next. |
 | Frontière produit/UX et gate | `ML4C-A-012` **demande d'évolution fonctionnelle à arbitrer par Morris** (sécurité, droits, confirmation, impact et reprise avant toute suppression) ; `ML4C-A-013` **présentation UX/UI orientée ML4D**, avec vérification de la bonne origine et normalisation des libellés (possible impact fonctionnel mineur). Aucun GO Cursor, runtime, migration, suppression ou adaptation des droits. |
-| Verdict en attente | Le contrôle d'accès/présence est positif. Le cahier S01-02 attend aussi la cohérence **des noms/états avec la vérité métier**, non prouvée sur source indépendante ; **`S01-02` reste `NOT RUN` pour le verdict entier** tant que Morris n'a pas tranché **`PASS avec réserves`** ou une autre qualification. Aucun `FAIL` nouveau introduit à partir des seules attentes d'amélioration. |
+| Verdict Morris — `S01-02-D01` | **« oui ok »** valide explicitement **`S01-02 = PASS avec réserves `ML4C-A-012` et `ML4C-A-013`**. Comptabilisé **PASS** au regard des projets/préparations accessibles et compteurs cohérents sur la capture ; les contrôles de vérité métier/permissions en source indépendante ne sont **pas** revendiqués. Les besoins de gestion et de nommage restent OPEN, sans nouveau `FAIL` ni GO de correction. |
 
-**Preuves :** `S01-02-U02` capture utilisateur du 13/11 (conversation, hors dépôt Git), `S01-02-U03` retour/commentaires Morris, `ML4C-A-012/A-013` réserves ouvertes. Image non recopiée dans Git.
+**Preuves :** `S01-02-U02` capture utilisateur du 13/11 (conversation, hors dépôt Git), `S01-02-U03` retour/commentaires Morris, `S01-02-D01` arbitrage explicite PASS avec réserves, `ML4C-A-012/A-013` réserves ouvertes. Image non recopiée dans Git.
 
 ## 4. Registre des anomalies, améliorations et observations
 
@@ -938,7 +938,7 @@
 | Cas | Manipulation (abrégée) | Oracle de succès (abrégé) | Verdict | Preuve / anomalie |
 |---|---|---|---|---|
 | `S01-01` | Ouvrir RECETTE et se connecter via GitHub OAuth | Authentification effective, identité correcte, sans contournement | **PASS** | E01, E02 ; `ML4C-A-001/002` |
-| `S01-02` | Consulter portefeuille et préparations | Éléments autorisés ; noms et états conformes à la vérité métier | **NOT RUN — accès et décompte visibles confirmés ; arbitrage PASS avec réserves en attente** | `S01-02-U01/U02/U03` ; `ML4C-A-012/A-013` OPEN ; vérité DB/droits non auditée |
+| `S01-02` | Consulter portefeuille et préparations | Éléments autorisés ; noms et états conformes à la vérité métier | **PASS — avec réserves sur suppression et présentation ; accès et compteurs confirmés par Morris** | `S01-02-U01/U02/U03/D01` ; `ML4C-A-012/A-013` OPEN ; vérité DB/droits non auditée |
 | `S01-03` | Ouvrir un projet, changer de vue, revenir et rafraîchir | Même projet ; conversation et contexte conservés | **PASS** — parcours utilisateur | `S01-03-E01/U01/U02` ; `ML4C-A-003` |
 | `S01-04` | Reprendre un sas de création ouvert | Préparation retrouvée ; aucun faux projet créé | **PASS** — restitution et état visible | `S01-04-E01` ; `ML4C-O-002`, `ML4C-A-003` |
 | `S01-05` | Examiner session expirée, refus d’accès et panne technique | Erreurs distinctes ; ni faux 401 ni faux succès | NOT RUN — accès non authentifié PASS ; refus B sans fuite, sémantique à qualifier | `S01-05-E01/U01/U02`, `S01-06-U01` ; `ML4C-A-002/004/005` |
@@ -1157,13 +1157,14 @@
 | `S07-BD01` | Qualification groupée suivant mandat Morris | `S07-05/07 BLOCKED` faute de préconditions/oracles complets, preuves positives existantes conservées et aucun nouvel ID ; famille S07 2 PASS / 1 FAIL / 4 BLOCKED | Aucun nouveau navigateur, compte, pending, mutation, test Git REAL ou verdict sur les 3 cas restants S01/S03 | Consigne « okk go » du 13/11 et fiche de synthèse |
 | `S01-02-U02` | Capture RECETTE portefeuille Morris du 13/11 | Deux projets `CampusFlow` / `Intervencia` accessibles, trois préparations `OPEN`, compteurs 02/03 concordants ; pas de commande Supprimer visible sur cartes, UUID `proj_...`, labels `prep_...` et `**Intervencia**` | Capture UI uniquement, aucun contrôle des menus alternatifs, droits serveur, données/identités en DB ou Figma | Image fournie en conversation, non versée Git |
 | `S01-02-U03` | Retour métier Morris | Accès effectif déclaré aux projets et préparations ; demande suppression des brouillons/projets et présentation de noms/intitulés fonctionnels, retrait des UUID des cartes | Les améliorations sont des réserves, pas un verdict FAIL automatiquement ; absence totale de suppression non démontrée | Conversation du 13/11 |
+| `S01-02-D01` | Arbitrage Morris « oui ok » après capture et réserves | **`S01-02 PASS avec réserves`** validé, deux identifiants déjà ouverts `ML4C-A-012/013` maintenus OPEN ; compteurs 2 projets/3 préparations et accès utilisateur confirmés | Pas d'audit indépendant des droits/états métier, pas de GO code/suppression/PR/merge | Conversation du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
 
 | Action / décision | État |
 |---|---|
-| S01-02 : portefeuille actuel et réserves de gestion/affichage | **Contrôle positif Morris**, capture 2 projets et 3 préparations ; **aucune commande Supprimer visible sur cartes**, libellés préparations techniques/Markdown brut et UUID projet affichés. **`ML4C-A-012` OPEN** (gestion cycle de vie brouillons/projets, évolution fonctionnelle à arbitrer) et **`ML4C-A-013` OPEN** (noms/identifiants, UX ML4D). Verdict final du cas **NOT RUN — proposition PASS avec réserves à arbitrer**, sans nouveau FAIL produit. |
+| S01-02 : portefeuille et réserves de gestion/affichage | **PASS AVEC RÉSERVES validé Morris** (« oui ok ») : 2 projets et 3 préparations accessibles selon le Pilote, compteurs et cartes concordants ; **pas de commande Supprimer visible sur cartes**, préparations aux libellés techniques/Markdown brut et UUID projet affichés. **`ML4C-A-012` OPEN** (cycle de vie brouillons/projets à arbitrer) et **`ML4C-A-013` OPEN** (présentation/noms, UX ML4D), sans nouveau FAIL ni GO produit. |
 | S01-03 : ouverture, navigation, retour et rafraîchissement | **PASS utilisateur — scénario clôturé** ; réserve UX `ML4C-A-003` ouverte |
 | Réserve `ML4C-A-003` — compositeur Nora tronqué | **OPEN / S07-06 FAIL validé** : capture Intervencia avec saisie partiellement hors viewport et bouton Envoyer non visible sans scroll ; **écart fonctionnel à arbitrer pour réception ML4C**, refonte visuelle Figma orientée ML4D ; aucun GO correctif |
 | S01-04 — reprise de préparation ouverte | **PASS utilisateur** ; absence de création affirmée par l’UI, non auditée côté DB |
@@ -1306,6 +1307,8 @@
 **Bilan CURRENT après tri groupé S07-05/S07-07 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 16 PASS / 6 FAIL courants / 28 BLOCKED / 3 NOT RUN`, 12 réserves/anomalies OPEN sur 13 identifiants (aucun nouvel ID).** `S07-05 BLOCKED` sur l'absence de test Git entre deux Pilotes malgré `S01-06` et `S06-07` positifs bornés ; `S07-07 BLOCKED` faute de pending vérifiable malgré reprise UI d'une préparation `S01-04`. **Famille S07 entièrement qualifiée : 2 PASS / 1 FAIL / 4 BLOCKED**. Reste uniquement `S01-02`, `S01-05`, `S03-06 NOT RUN` dans les 53 cas. Candidat RECETTE figé ; `ML4C-A-003/A-010/A-011` OPEN, Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après observations S01-02 et réserves Morris (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 16 PASS / 6 FAIL courants / 28 BLOCKED / 3 NOT RUN`, 14 réserves/anomalies OPEN sur 15 identifiants (`ML4C-A-012` et `ML4C-A-013` nouvelles réserves de besoin/UX).** Capture portefeuille : 2 projets et 3 préparations visibles et accessibles selon Morris, état de présentation insatisfaisant (bouton suppression non visible sur cartes, noms techniques des préparations et UUID internes des projets). A012 = décision fonctionnelle de cycle de vie avec risque distinct préparation/projet ; A013 = lisibilité/noms métiers et fidélité ML4D. **S01-02 reste `NOT RUN` pour verdict final en attente d'arbitrage Morris**, sans conclure que la suppression n'existe nulle part. Les autres cas `S01-05/S03-06` restent NOT RUN. Candidat RECETTE figé, Gate C OPEN et ML4C NOT ACCEPTED ; aucun GO de suppression, code, Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT après arbitrage Morris S01-02 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 17 PASS / 6 FAIL courants / 28 BLOCKED / 2 NOT RUN`, 14 réserves/anomalies OPEN sur 15 identifiants (aucun nouvel ID depuis S01-02-U02).** `S01-02 PASS AVEC RÉSERVES` au périmètre des projets/préparations visibles et accessibles, avec compteurs 02/03 ; `ML4C-A-012/A-013` demeurent OPEN pour la gestion de suppression et les noms/identifiants, sans preuve DB indépendante ni création de capacité. **Seuls S01-05 et S03-06 restent NOT RUN**, à qualifier selon le mandat de tri accéléré et les limites de preuve observées. Candidat RECETTE figé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, publication Git REAL, PR/merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
