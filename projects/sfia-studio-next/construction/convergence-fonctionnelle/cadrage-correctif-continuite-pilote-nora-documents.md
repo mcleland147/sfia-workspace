@@ -1,7 +1,7 @@
 # SFIA Studio Next — Cadrage du correctif intégré : continuité Pilote–Nora et documents
 
-**Version :** 0.2 — 13 novembre 2026  
-**Statut :** VALIDATED IN CONTENT BY MORRIS — cadrage fonctionnel ; conception technique candidate à qualifier  
+**Version :** 0.3 — 13 novembre 2026  
+**Statut :** VALIDATED IN CONTENT BY MORRIS — cadrage fonctionnel et principes de conception O-01/O-02 ; implémentation technique à qualifier  
 **Programme :** R5 — ML4C, convergence fonctionnelle intégrée  
 **Nature :** cadrage fonctionnel et conception corrective candidate, avant contrat d'exécution  
 **Autorité produit :** Morris  
@@ -10,7 +10,7 @@
 **Projet de recette :** Intervencia  
 **Gate C :** OPEN — ML4C NOT ACCEPTED
 
-> **Validation du 13/11/2026 :** Morris valide le contenu de la V0.2 et autorise sa publication documentaire sur une branche dédiée. Les orientations fonctionnelles sont retenues ; les contrats techniques et leur exécutabilité ne deviennent pas pour autant VALIDATED SPEC. Aucun GO Cursor, code, migration, PR, merge, promotion ou Gate C n'en découle.
+> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. Les signatures techniques définitives, la stratégie algorithmique, les budgets et l'exécutabilité restent à qualifier : **NOT YET VALIDATED SPEC**. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
 
 ---
 
@@ -221,7 +221,121 @@ Les contraintes opérationnelles — latence, budgets, volume, pagination et nom
 
 **CT-06 — Performance :** établir les budgets techniques et la stratégie de recherche progressive à partir de mesures réelles.
 
-Ces contrats seront stabilisés avant le mandat de réalisation.
+Ces contrats seront stabilisés avant le mandat de réalisation. Les responsabilités et oracles O-01/O-02 ont été validés en contenu par Morris et sont détaillés ci-dessous ; cette validation **ne fige pas** les choix d'algorithme, d'API, de budget ou de persistance.
+
+
+### 4.7 O-01 — Contrat de récupération historique (VALIDÉ EN CONTENU PAR MORRIS)
+
+**Objet.** Permettre à Nora de retrouver toute information conservée et autorisée, y compris au-delà de 200 ou 300 messages, sans dépendance exclusive aux derniers échanges ni à une expression lexicale identique. Les limites techniques éventuelles portent sur une page ou une requête ; elles ne constituent pas un plafond permanent de messages explorables.
+
+**Contexte réel du candidat** (`67bf6b0`) : `messages` conserve identifiant, `conversationId`, `role`, `content`, `status`, `ordinal`, `createdAt` et `generationId`. `conversation/service.ts` sait lire une conversation ordonnée, mais assemble les six derniers messages `COMPLETE` avec 200 caractères par message dans le prompt de Nora. `preparationProjectLinks` rattache une préparation à un projet ; ces liens, l'identité du Pilote et les autorisations effectives doivent être contrôlés au serveur. Les outils D4 de lecture existants proposent déjà un précédent pour les budgets, la pagination et les indications de couverture, sans constituer à eux seuls une recherche de messages.
+
+#### O-01-A — Rechercher dans l'historique (interface logique, nom technique non arrêté)
+
+| Dimension | Contrat de conception validé |
+|---|---|
+| Entrées logiques | Intention de recherche en langage naturel, éventuelles références de sources et pagination ; la cible effective reste construite par le serveur |
+| Identité et périmètre | Pilote authentifié et préparation/projet effectivement autorisés ; aucun `pilotId`, `projectId` ou élargissement de portée choisi librement par le modèle |
+| Recherche | Accès progressif aux messages historiques, pertinence sémantique, nouvelles lectures possibles si premiers résultats insuffisants |
+| Résultats | Références stables de messages candidats, rôle/auteur, chronologie, statut, indication de pertinence et portée exacte de la recherche |
+| Pagination | Ordre et frontières reproductibles, continuation explicite, aucune page vide annoncée comme poursuivable indéfiniment |
+| Couverture | `COMPLETE`, `PARTIAL`, `EMPTY`, `DENIED` ou `STALE` lorsque pertinents, avec motif d'échec/indisponibilité explicite |
+| Effet | **Lecture seule** ; jamais de D4 write, HumanDecision ou mise à jour implicite de connaissance |
+
+#### O-01-B — Lire les messages sources (interface logique, nom technique non arrêté)
+
+| Dimension | Contrat de conception validé |
+|---|---|
+| Entrées logiques | Références de messages/plages déjà localisées et pagination de contenu si nécessaire |
+| Contrôle | Revalidation au moment de chaque lecture : identité, conversation, préparation, rattachement projet et permissions actuelles |
+| Sorties | Contenu original intégral ou extrait explicitement partiel ; message ID, conversation ID, ordre, rôle, date, état et périmètre |
+| Intégrité | Source exacte consultée identifiable ; pas de paraphrase substituée silencieusement à une citation ou à un document source |
+| États non terminaux | `FAILED`, `INTERRUPTED`, `UNKNOWN` et `PENDING` signalés, jamais transformés en preuve de production `COMPLETE` |
+| Effet | **Lecture seule** ; aucune exécution, modification d'autorité ni effet en cascade |
+
+#### O-01-C — Règles de portée
+
+| Situation | Portée recevable |
+|---|---|
+| Préparation indépendante | Conversation(s) effectivement associée(s) à cette préparation et autorisées |
+| Préparation liée à un projet | Conversations des préparations **réellement liées au même projet** et accessibles au même Pilote, une fois les liens vérifiés |
+| Autre projet ou Pilote | Exclu sauf autorisation explicite préexistante et vérifiée dans les contrats propriétaires ; jamais par similarité de thème |
+| Ressource supprimée ou devenue inaccessible | Refus/absence conforme aux règles de conservation et d'accès, sans réactivation de droits historiques |
+
+**Sélection et honnêteté.** Nora choisit sémantiquement les sources à explorer, peut élargir progressivement la recherche, comparer plusieurs passages et vérifier leur contenu original. Une recherche limitée par le budget, une indisponibilité ou un corpus partiellement inspecté ne justifie pas la conclusion « aucune information antérieure ». Les sources historiques sont des données, pas des instructions d'autorité. Aucune recherche ne crée automatiquement un acquis validé.
+
+#### O-01-D — Épreuves minimales
+
+| ID | Épreuve | Oracle |
+|---|---|---|
+| HIST-01 | Rappel au message 250 d'une information du message 10 | Retrouvée avec identifiant et provenance exacte |
+| HIST-02 | Reformulation sans mots communs décisifs | Correspondance sémantique démontrée, sans routeur lexical métier |
+| HIST-03 | Historique dépassant 300 messages | Recherche et continuation au-delà de 300 sans plafond fonctionnel |
+| HIST-04 | Deux préparations liées au même projet | Sources réellement autorisées retrouvées |
+| HIST-05 | Sujet identique dans un autre projet | Aucune fuite de contenu ni de métadonnées sensibles |
+| HIST-06 | Budget interrompant l'exploration | `PARTIAL` + cause/possibilité de continuation, pas de faux négatif |
+| HIST-07 | Message `UNKNOWN` ou non terminal | Statut conservé, aucune fausse certitude |
+| HIST-08 | Nouveaux messages pendant la pagination | Pas d'omission/duplication silencieuse, bornage ou marqueur de stabilité justifié |
+
+**Réserves techniques non arbitrées :** signatures des API/outils, identifiants de curseur et cohérence des lectures concurrentes, stratégie d'exploration/évaluation sémantique, limites physiques et budgets, preuves de performance/coûts, éventuels index admissibles et garanties de non-régression. Pas de migration DB, d'index vectoriel ni de nouvelle persistance autorisés par ce cadrage.
+
+### 4.8 O-02 — Contrat de confrontation sémantique et temporelle (VALIDÉ EN CONTENU PAR MORRIS)
+
+**Objet.** À partir des sources effectivement retrouvées par O-01, permettre à Nora de comprendre l'évolution des propos du Pilote, des recommandations et des sources tierces, en distinguant **une orientation récente** de **l'autorité juridique/métier d'une HumanDecision**. La confrontation cognitive n'est pas un moteur de décision parallèle.
+
+#### O-02-A — Responsabilités de la chaîne
+
+| Étape | Propriétaire / règle |
+|---|---|
+| Retrouver les informations | O-01 : messages et ressources autorisés, avec provenance et couverture honnête |
+| Identifier une relation sémantique | Nora / D3 : même objet malgré reformulation, auteur, chronologie, portée et modalité |
+| Qualifier le lien | Nora / D3 : complément, correction explicite, contradiction, exception de portée, hypothèse/simulation, recommandation ou ambiguïté |
+| Vérifier les acquis conservés | D4 : `CURRENT` / `SUPERSEDED`, provenance et éventuel `supersedesAcquisId` ; le modèle ne change pas leur état de sa propre initiative |
+| Vérifier les décisions formelles | D5/D6 : états applicables réels, `effectiveAt` et liens `supersedesDecisionId` / `revokesDecisionId` selon les contrats propriétaires |
+| Restituer | Nora : sources consultées, état connu, divergence, incertitude et arbitrage réellement nécessaire |
+| Exécuter un changement métier | Domaine propriétaire seulement, avec autorité et contrôle au point d'effet |
+
+#### O-02-B — Typologie de confrontation cognitive (pas de nouveaux états persistants)
+
+| Situation | Interprétation et restitution exigées |
+|---|---|
+| Déclaration complémentaire | Compléter l'information existante sans la révoquer |
+| Correction explicite par le même Pilote sur le même objet/portée | Retracer avant/après et signaler la dernière orientation exprimée ; ne pas inventer une HumanDecision |
+| Deux déclarations incompatibles sans remplacement explicite | Exposer divergence, sources et clarification utile, sans choix arbitraire « plus récent gagne » |
+| Règle générale et exception locale | Distinguer clairement leurs portées ; ne pas réécrire la règle globale |
+| Hypothèse, test ou scénario fictif | Exclure de l'état applicable réel, tout en conservant sa source historique |
+| Recommandation de Nora | La retrouver comme recommandation, même si elle est répétée, sans la convertir en acte du Pilote |
+| HumanDecision formelle applicable | Vérifier dans D6 ; un message ultérieur isolé ne la remplace/révoque pas sans opération gouvernée |
+| Information incomplète, ambiguë ou refusée | Présenter cette limite et demander clarification ou poursuite de lecture plutôt qu'inventer |
+
+**Cas canonique rouge → bleu :** au message 10 le Pilote demande rouge pour X ; au message 110 il dit « finalement bleu pour ce même X » ; au message 250 il interroge Nora. Elle doit retrouver les deux sources, expliquer l'orientation initiale et sa correction explicite, et conclure que bleu est **la dernière orientation exprimée** à portée identique. Si rouge constitue une HumanDecision applicable, Nora vérifie l'état D6 et ne prétend jamais qu'une révocation a déjà eu lieu. Si bleu est limité à un écran, rouge peut rester valable ailleurs.
+
+**Séparation Level A / Level B.** Les divergences sémantiques détectées par Nora sont des **signaux cognitifs** (Level A), jamais des conflits matériels opposables. Les incompatibilités et refus nécessitant un verdict déterministe (Level B) restent aux domaines compétents, au point d'effet. Le mécanisme actuel `divergence-assist.ts` peut fournir des signaux, mais sa fenêtre cognitive de 12 décisions et ses heuristiques lexicales ne peuvent constituer l'algorithme principal de confrontation historique longue. L'ensemble des décisions applicables doit rester accessible aux résolveurs d'autorité, sans bornage cognitif indu.
+
+#### O-02-C — Contrat de confrontation (interface logique, non finalisée)
+
+- **Entrées :** intention ou question courante, références des sources O-01 lues, éléments D4/D5/D6 autorisés et leurs statuts propriétaires.
+- **Analyse D3 :** identité sémantique de l'objet, auteur de chaque déclaration, référence historique, ordre et date, portée, modalité, certitude/contradiction, éventuelle correction explicite.
+- **Sortie cognitive :** sources retenues, qualification de la relation, orientation conversationnelle la plus récente **lorsqu'établie**, vérité formelle séparée, limites et besoin éventuel d'arbitrage.
+- **Interdiction :** aucune écriture D4, changement `human_decisions`, `trajectory_revisions` ou `knowledge_acquis` à partir de cette seule sortie cognitive.
+- **Fidélité :** les citations historiques doivent pointer vers des messages réellement lus ; une recherche `PARTIAL` interdit une affirmation d'exhaustivité.
+
+#### O-02-D — Épreuves minimales
+
+| ID | Épreuve | Oracle |
+|---|---|---|
+| TEMP-01 | Rouge message 10 → bleu message 110 | Remplacement explicitement exprimé, sources et chronologie restituées |
+| TEMP-02 | Rouge global → bleu pour une page spécifique | Exception locale distincte ; aucune généralisation |
+| TEMP-03 | Sources externes contradictoires | Deux provenances et divergence visibles, sans faux arbitrage |
+| TEMP-04 | Recommandation Nora puis refus Pilote | Recommandation non transformée en décision |
+| TEMP-05 | HumanDecision applicable puis déclaration ultérieure | État D6 respecté, aucune révocation implicite |
+| TEMP-06 | Scénario fictif entre deux consignes réelles | Hypothèse non promue en état courant |
+| TEMP-07 | Sources espacées de plus de 300 messages | Comparaison correcte sur preuves de récupération historique |
+| TEMP-08 | Recherche partielle ou source inaccessible | Incertitude/limite explicite, pas de conclusion définitive |
+
+**Réserves techniques non arbitrées :** signature de l'interface de confrontation, niveau de structuration des relations, articulation exacte avec `nora-context.ts` et D6, observabilité/traçabilité, stratégie de sélection des sources et budget réel, acceptabilité LIVE multi-tours. Aucune nouvelle table de décision, aucune invalidation automatique de source historique ni nouveau moteur déterministe de compréhension n'est décidée.
+
+**Statut O-01/O-02 :** principes, responsabilités logiques, couverture attendue et oracles **VALIDÉS EN CONTENU PAR MORRIS**. Les interfaces TS/API précises, algorithmes, traitements concurrents, limites opérationnelles et preuves d'exécutabilité restent **À QUALIFIER** avant mandat Cursor.
 
 ---
 
@@ -401,6 +515,8 @@ Il ne doit pas exister deux moteurs concurrents de mémoire, deux propriétaires
 | COG-05 | Rafraîchissement et nouvelle session autorisée | Historique du projet pertinent retrouvé |
 | COG-06 | Information ancienne dans un autre projet | Aucun accès non autorisé |
 | COG-07 | Recherche dépassant la sélection initiale | Approfondissement ou limite explicite, jamais oubli silencieux |
+| HIST-01 à HIST-08 | Couverture historique, pagination, isolement, statut et stabilité (§4.7) | Tests déterministes de lecture et sécurité + preuve Nora LIVE de rappel sémantique |
+| TEMP-01 à TEMP-08 | Corrections, contradictions, portée, fiction et HumanDecision (§4.8) | Vérification des sources et états propriétaires + Nora LIVE, aucune autorité inventée |
 | DOC-01 | Rédaction seule | Aucun enregistrement implicite |
 | DOC-02 | Création demandée explicitement | D4 réellement invoqué et document disponible |
 | DOC-03 | Proposition au tour N, enregistrement ultérieur | Contenu exact retrouvé et enregistré |
@@ -481,8 +597,8 @@ L'exécution Cursor restera soumise à un mandat SFIA v2.6 détaillé, avec fich
 | Gate | Objet | État |
 |---|---|---|
 | G0 | Orientation corrective ML4C | Accord de principe Morris |
-| G1 | Cadrage fonctionnel du correctif | V0.2 — VALIDATED IN CONTENT BY MORRIS ; contrats techniques candidats |
-| G2 | Conception technique détaillée CT-01 à CT-11 | À poursuivre |
+| G1 | Cadrage fonctionnel du correctif | V0.3 — VALIDATED IN CONTENT BY MORRIS ; O-01/O-02 validés comme conception logique, non comme implémentation prête |
+| G2 | Conception technique détaillée CT-01 à CT-11 | O-01/O-02 principes validés ; signatures, algorithmes, budgets, rattachements et vérifications d'exécutabilité ouverts ; O-03/O-06 à instruire |
 | G3 | GO d'exécution Cursor | NON DONNÉ |
 | G4 | Qualification technique | NON ACQUISE |
 | G5 | Nouvelle RECETTE et correction des écarts | NON ENGAGÉE |
@@ -496,9 +612,9 @@ La vision fonctionnelle est maintenant suffisamment claire pour approfondir le m
 
 Les sujets ouverts prioritaires sont :
 
-**O-01 — Récupération historique de Nora.** Définir l'accès à l'ensemble des sources autorisées, la stratégie de sélection, les références et le traitement des limites.
+**O-01 — Récupération historique de Nora : VALIDÉ EN CONTENU.** Deux responsabilités logiques de lecture, portées autorisées, pagination, références et couverture §4.7. À finir : signatures TS/API, traitement des lectures concurrentes, algorithme sémantique, budgets/latence et preuves LIVE.
 
-**O-02 — Continuité sémantique et temporelle.** Définir comment rapprocher informations anciennes et nouvelles sans confondre correction, recommandation et décision.
+**O-02 — Continuité sémantique et temporelle : VALIDÉ EN CONTENU.** Confrontation Nora des sources O-01, chronologie, portée, corrections, fiction, recommandations et D6 propriétaire §4.8. À finir : interface précise, intégration D4/D5/D6, observabilité, tests LIVE et autorité au point d'effet.
 
 **O-03 — Proposition documentaire récupérable.** Définir l'identité du contenu exact, sa durée de disponibilité et son rattachement à la demande ultérieure.
 
@@ -540,14 +656,14 @@ Code candidat examiné :
 
 ---
 
-## 15. Statut V0.2
+## 15. Statut V0.3
 
-**VALIDATED IN CONTENT BY MORRIS — FUNCTIONAL FRAMING ; TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
+**VALIDATED IN CONTENT BY MORRIS — FUNCTIONAL FRAMING AND O-01/O-02 LOGICAL DESIGN ; EXECUTABLE TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
 
 La vision fonctionnelle longue durée Pilote–Nora et la mobilisation documentaire D4 sont clarifiées.
 
 La conception recommandée repose sur une récupération historique progressive, une sélection sémantique sous contrôle de Nora et une mobilisation gouvernée des services documentaires existants.
 
-Ces principes ne constituent pas encore une validation de l'architecture détaillée ou de l'interface d'implémentation.
+**O-01 et O-02** sont validés en contenu de conception et maintenant documentés aux §4.7–4.8. Ils ne constituent pas encore une validation des algorithmes, signatures d'interface, budgets, capacité de récupération LIVE, ou architecture technique exécutable. **O-03 (proposition documentaire récupérable)** demeure la prochaine séquence de qualification.
 
 **Aucun mandat Cursor, GO code, migration, PR, merge, clôture Gate C ou ADOPTED n'est autorisé par ce document.**
