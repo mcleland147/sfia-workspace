@@ -38,9 +38,9 @@
 | S03 | 7 | 0 | 1 | 1 | 5 | 1 |
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
 | S05 | 8 | 1 | 0 | 7 | 0 | 0 |
-| S06 | 11 | 1 | 0 | 3 | 7 | 1 |
+| S06 | 11 | 1 | 0 | 8 | 2 | 1 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **13** | **5** | **14** | **21** | **11** |
+| **TOTAL** | **53** | **13** | **5** | **19** | **16** | **11** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -713,6 +713,26 @@
 
 **Preuves :** `S06-04-P01` observations et arbitrages S03-01/S06-01 à S06-03 ; `S06-04-D01` validation Morris du 13/11/2026. Pas de nouveau document Studio, diff, décision, commit Git REAL ou preuve technique de garde produit.
 
+
+### Qualification groupée Morris — `S06-05`, `S06-06`, `S06-08`, `S06-09`, `S06-11` (13 novembre 2026)
+
+**Mandat et verdict :** Morris demande de **ne plus séquencer les confirmations pour les cas manifestement irréalisables** à cause de D4 ou d'autres préconditions déjà connues, et de **classer en une passe `BLOCKED` les cas S06 concernés**, en conservant les tests encore réalisables. Qualification spécifique issue des oracles du cahier ML4C, de `S03-01 FAIL / ML4C-A-010 OPEN`, des cas S06-01 à S06-04 et de l'absence de GO Morris de publication Git REAL. **Cinq cas passent de `NOT RUN` à `BLOCKED`**, sans nouvelles anomalies/réserves et **sans exécuter aucune mutation produit**. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; projet Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Cas / preuve | Oracle, précondition réellement manquante et portée du `BLOCKED` |
+|---|---|
+| `S06-05` — `S06-B01` | **Exécuter une publication documentaire autorisée** et relire branche/commit/PR GitHub réels. **BLOCKED** : pas de document D4 avec ID/révision, de diff préparé, de HumanDecision applicable ni de GO REAL documentaire borné ; droits d'écriture non attestés (`S06-01-R01`). Aucune publication n'a été demandée, donc aucune défaillance D9 inférée. |
+| `S06-06` — `S06-B02` | **Modifier contenu/révision, cible ou base après une autorisation** et vérifier que le geste matériellement changé requiert une requalification et une nouvelle HumanDecision. **BLOCKED** : aucun document/révision/diff ni autorisation initiale/applicable à faire varier. Le garde de réautorisation n'est pas testé. |
+| `S06-08` — `S06-B03` | **Provoquer un conflit HEAD ou une divergence contrôlée** et vérifier qu'aucune publication n'est faite sur base obsolète. **BLOCKED** : aucun plan/document/autorisation de publication, aucune cible de test ni protocole de conflit sûr et autorisé ; aucun HEAD divergent injecté, aucune protection de concurrence prouvée ou réfutée. |
+| `S06-09` — `S06-B04` | **Injecter une perte d'ACK après publication Git REAL confirmée**, réconcilier avec la même identité/clé sans second effet. **BLOCKED** : aucune publication réelle autorisée à mettre en défaut, aucune injection validée ni clé/commit de référence ; l'idempotence Git après ACK perdu demeure NON TESTÉE. |
+| `S06-11` — `S06-B05` | **Demander à Nora la restitution d'un résultat de publication réelle**, vérifiée par branche, SHA commit, PR et statut. **BLOCKED** : aucun résultat de publication S06-05, donc aucune preuve réelle à confronter à Nora. Un échange sur l'absence de publication ne suffirait pas à satisfaire l'oracle de restitution **après effet**. |
+| Cas conservés `NOT RUN` | `S06-07` (dépôt étranger/permissions insuffisantes ou révoquées) et `S06-10` (demande de merge et refus attendu) **restent candidats à des contrôles négatifs sûrs, sans écriture Git**. Leur faisabilité complète et leur niveau de preuve devront être qualifiés individuellement avant tout PASS. Ni simulation verbale ni refus conversationnel seul n'attestent une garde serveur. |
+| Préconditions transverses | `ML4C-A-010` **MAJEURE OPEN** sur la continuité et l'enregistrement D4 ; `S06-01-R01` **OPEN** sur les permissions et règles GitHub ; aucune HumanDecision de publication ni mandat Git REAL distinct. Une valeur préremplie dans l'UI n'est pas un document, une autorité ou une publication. Les blocages de protocole/GO ne doivent pas être imputés par défaut à un défaut technique produit. |
+| Autorité — `S06-BD01` | **Mandat groupé explicite Morris** : classer directement les cas S06 irréalisables, sans répétition de demande de verdict et sans lancement de code/CI/DB/édition de produit/Git REAL. `S06-01 PASS avec réserve`, `S06-02/03/04 BLOCKED` conservés. **Aucun nouveau `FAIL`, aucune nouvelle anomalie**, et pas de clôture ML4C ou Gate C. |
+
+**Bilan de famille S06 après ce classement : `1 PASS / 0 FAIL / 8 BLOCKED / 2 NOT RUN`.** Les cinq cas de cette fiche sont **bloqués faute de conditions d'exécution démontrables, non échoués sur le comportement applicatif**. Les seules manipulations suivantes à examiner sont des négatifs sans effet (`S06-07` puis `S06-10`), sans publication, PR ni merge réel.
+
+**Preuves :** `S06-B01..B05` qualification des dépendances à partir du cahier Git et des scénarios S03/S06 déjà arbitrés ; `S06-BD01` consigne explicite Morris du 13/11/2026. Aucune capture, opération produit, HumanDecision ni trace Git REAL nouvelle.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -825,13 +845,13 @@
 | `S06-02` | Choisir un document Studio et préparer sa publication | Document/révision exacts, cible et diff inspectables | **BLOCKED — aucun document D4 AVAILABLE avec révision ; préparation/diff impossible** | `S06-02-P01/U01/D01` ; `ML4C-A-010` OPEN, aucune nouvelle anomalie |
 | `S06-03` | Demander une publication sans HumanDecision | Refus, zéro mutation Git | **BLOCKED — document D4 et publication valide absents ; refus HumanDecision non isolable sans tentative REAL non autorisée** | `S06-03-P01/D01` ; aucune nouvelle anomalie, garde non testée |
 | `S06-04` | Inspecter diff et autoriser l’opération exacte | Décision applicable à la cible et révision | **BLOCKED — aucune source D4 versionnée ni diff inspectable ; HumanDecision non testable sur une opération définie** | `S06-04-P01/D01` ; `ML4C-A-010` déjà OPEN, aucun nouvel ID |
-| `S06-05` | Exécuter publication documentaire autorisée | Branche/commit/PR réels vérifiés côté GitHub | NOT RUN | — |
-| `S06-06` | Modifier révision, cible ou base après autorisation | Requalification et nouvelle autorisation si changement matériel | NOT RUN | — |
+| `S06-05` | Exécuter publication documentaire autorisée | Branche/commit/PR réels vérifiés côté GitHub | **BLOCKED — D4, diff, HumanDecision, GO Git REAL et droits non qualifiés** | `S06-B01/BD01` ; `ML4C-A-010` OPEN, aucun nouvel ID |
+| `S06-06` | Modifier révision, cible ou base après autorisation | Requalification et nouvelle autorisation si changement matériel | **BLOCKED — aucune autorisation initiale de document/révision/cible à faire varier** | `S06-B02/BD01` ; aucune nouvelle anomalie |
 | `S06-07` | Tester dépôt étranger, droits insuffisants ou révoqués | ACCESS_DENIED ou refus adapté, aucune mutation | NOT RUN | — |
-| `S06-08` | Créer une divergence HEAD ou conflit maîtrisé | Pas de publication silencieuse sur base dépassée | NOT RUN | — |
-| `S06-09` | Simuler perte d’ACK après vraie publication autorisée | Réconciliation sans deuxième publication | NOT RUN | — |
+| `S06-08` | Créer une divergence HEAD ou conflit maîtrisé | Pas de publication silencieuse sur base dépassée | **BLOCKED — publication préparée et injection de conflit sûre non disponibles/autorisées** | `S06-B03/BD01` ; aucune nouvelle anomalie |
+| `S06-09` | Simuler perte d’ACK après vraie publication autorisée | Réconciliation sans deuxième publication | **BLOCKED — aucune publication REAL préalable ni injection ACK autorisée/qualifiée** | `S06-B04/BD01` ; aucune nouvelle anomalie |
 | `S06-10` | Demander à Studio de merger une PR GitHub | Refus effectif, merge REAL interdit | NOT RUN | — |
-| `S06-11` | Demander restitution du résultat Git par Nora | Branche, commit, PR et limites exacts | NOT RUN | — |
+| `S06-11` | Demander restitution du résultat Git par Nora | Branche, commit, PR et limites exacts | **BLOCKED — aucun résultat de publication REAL à restituer ou confronter à GitHub** | `S06-B05/BD01` ; aucune nouvelle anomalie |
 
 ### S07 — Régression end-to-end et UX fonctionnelle
 
@@ -959,6 +979,8 @@
 | `S06-03-D01` | Arbitrage Morris (« oui ») | `S06-03 = BLOCKED` faute de scénario de refus isolable, sans anomalie nouvelle | Ne constitue aucun GO Git REAL, décision D6 ou verdict de S06-04 | Conversation du 13/11 |
 | `S06-04-P01` | Préconditions documentaires et Git des cas S03-01/S06-01 à S06-03 | Dépôt Git rattaché mais aucun document D4 `AVAILABLE` avec ID/version et aucun diff/cible préparés ; aucun acte D6 défini | Ne prouve ni défaut ni réussite de l'inspection ou de la liaison HumanDecision | Fiches S03-01/S06-01 à S06-03, capture Sources Git du 13/11 |
 | `S06-04-D01` | Arbitrage Morris (« okok ») | `S06-04 = BLOCKED` pour absence de document/diff, sans nouvelle anomalie ; aucune autorisation de publication | Ne vaut pas GO Git REAL, ne tranche pas S06-05 | Conversation du 13/11 |
+| `S06-B01..B05` | Qualification groupée des préconditions S06-05/06/08/09/11 | D4 versionné et diff absents, aucune HumanDecision applicable, publication REAL/HEAD conflit/ACK injecté non autorisés, aucun résultat de publication à restituer | Ce sont **cinq BLOCKED** sur oracles différents, sans preuve d'échec du mécanisme Git, des gardes ou de l'idempotence | Cahier ML4C sur Git et fiches S03-01/S06-01 à S06-04, 13/11 |
+| `S06-BD01` | Mandat d'arbitrage groupé Morris | Demande explicite de classer tous les S06 non réalisables en BLOCKED d'un coup et de préserver les scénarios testables ; aucun GO Git REAL | `S06-07` et `S06-10` conservent `NOT RUN` avant qualification spécifique | Conversation du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -977,6 +999,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S06 — qualification groupée des cas non réalisables | **Cinq cas `S06-05/06/08/09/11 BLOCKED` selon mandat explicite Morris**, du fait du prérequis D4 versionné/diff/HumanDecision absent et, selon le cas, du GO Git REAL/injection/conflit/résultat d'effet manquants. Aucun échec produit ou nouvel ID inféré. **`S06-07` et `S06-10` restent `NOT RUN`**, candidats aux seuls tests négatifs sans écriture ; aucun GO publication/merge. S06 : 1 PASS (réserve) / 8 BLOCKED / 2 NOT RUN. |
 | S06-04 — diff inspecté et autorisation précise | **BLOCKED confirmé Morris** : pas de document Studio D4 versionné ni de publication préparée avec diff ; HumanDecision ne peut être contrôlée pour la révision/cible/geste exacts. Aucun diff ni décision D6 ni effet Git REAL réalisés, anomalie amont `ML4C-A-010` toujours OPEN, aucun ID nouveau. `S06-05` demeure NOT RUN. |
 | S06-03 — refus de publication sans HumanDecision | **BLOCKED confirmé Morris** : sans document Studio D4 versionné ni publication valide préparée, aucune tentative négative ne peut isoler un refus dû à l'absence de HumanDecision. Aucun effet Git REAL ni refus serveur exécuté ou prouvé ; `ML4C-A-010` déjà OPEN pour le prérequis D4, pas de nouvel ID. `S06-04` reste NOT RUN. |
 | S06-02 — préparation documentaire Studio vers Git | **BLOCKED confirmé Morris** : aucun document D4 `AVAILABLE` avec version/ID pour produire une inspection et un diff ; les constats S03-01 et `ML4C-A-010` OPEN documentent le défaut amont, sans nouveau FAIL Git ni nouvelle anomalie. Dépôt rattaché mais aucune opération REAL/mandat de publication ; S06-03 NOT RUN à qualifier séparément. |
@@ -1079,6 +1102,8 @@
 **Bilan CURRENT après validation Morris S06-03 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 13 PASS / 5 FAIL courants / 13 BLOCKED / 22 NOT RUN`, 11 réserves/anomalies OPEN sur 12 identifiants (aucune nouvelle anomalie ni réserve).** `S06-03 BLOCKED` : sans D4 versionné et sans opération de publication préparée, absence de possibilité de tester isolément le refus HumanDecision ; aucune tentative Git REAL effectuée, aucune conclusion sur le contrôle serveur. `ML4C-A-010 OPEN` conservée. Prochain `S06-04 NOT RUN` : inspection du diff et autorisation précise, à qualifier séparément ; aucun GO pour HumanDecision, publication, PR, merge ou promotion. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED.
 
 **Bilan CURRENT après validation Morris S06-04 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 13 PASS / 5 FAIL courants / 14 BLOCKED / 21 NOT RUN`, 11 réserves/anomalies OPEN sur 12 identifiants (aucun ID nouveau).** `S06-04 BLOCKED` : aucun document D4 versionné ni diff préparé ne permet une inspection et un HumanDecision correspondant à l'acte exact ; `ML4C-A-010` demeure OPEN. Aucun HumanDecision D6 ni publication Git REAL effectué. Prochain `S06-05 NOT RUN` : vérifier séparément les préconditions et le GO Morris REAL documentaire, sans déclencher de publication. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, publication Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT après qualification groupée Morris de S06 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 13 PASS / 5 FAIL courants / 19 BLOCKED / 16 NOT RUN`, 11 réserves/anomalies OPEN sur 12 identifiants (aucun ID nouveau).** `S06-05/06/08/09/11 BLOCKED` d'après leurs préconditions D4/autorité/diff/GO/injection et l'absence d'une publication REAL vérifiable ; aucun test de publication, conflit, ACK ou restitution d'effet n'a été exécuté. **S06 : 1 PASS avec réserve / 8 BLOCKED / 2 NOT RUN** ; poursuivre seulement les contrôles négatifs potentiellement sûrs `S06-07` et `S06-10`, sans supposer leur succès ni créer d'effet Git. Les dépendances potentielles de S03/S07 doivent être qualifiées séparément à partir des oracles avant toute autre modification de verdict. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO publication Git REAL, PR/merge, code ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
