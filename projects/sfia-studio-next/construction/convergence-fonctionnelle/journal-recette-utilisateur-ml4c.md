@@ -37,10 +37,10 @@
 | S02 | 6 | 5 | 0 | 1 | 0 | 3 |
 | S03 | 7 | 0 | 1 | 1 | 5 | 1 |
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
-| S05 | 8 | 1 | 0 | 6 | 1 | 0 |
+| S05 | 8 | 1 | 0 | 7 | 0 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **12** | **5** | **10** | **26** | **10** |
+| **TOTAL** | **53** | **12** | **5** | **11** | **25** | **10** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -627,6 +627,24 @@
 
 **Preuves :** `S05-07-P01` qualification des préconditions et absence d'injection autorisée pendant la campagne ; `S05-07-D01` accord Morris du 13/11/2026. Aucun log d'injection, ACK, cycle ni preuve DB/Git REAL nouvelle.
 
+
+### Clôture utilisateur `S05-08` — refus ou révocation d'autorisation en attente (13 novembre 2026)
+
+**Décision Morris : `S05-08 = BLOCKED`**, faute d'une **demande d'autorisation humaine réellement en attente, identifiable et accessible**, et d'un mécanisme de refus/révocation qualifié pour l'environnement courant. **Aucune nouvelle anomalie** : absence de précondition et de protocole ≠ échec démontré des contrôles d'autorité. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; projet Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Champ / preuve | Constat, portée et limites |
+|---|---|
+| Oracle S05-08 | **Refuser/révoquer une autorisation en attente**, vérifier qu'**aucun effet interdit** n'est exécuté et que l'état, l'opération visée et l'historique sont fidèlement restitués. Il faut distinguer **autorisation humaine** et **opération métier pending** ; leur correspondance éventuelle n'est pas présumée. |
+| Demande de préqualification — `S05-08-E01` | Le Pilote interroge Nora **en lecture seule** sur les autorisations réellement en attente et leurs références, les mécanismes applicatifs de refus/révocation, le blocage effectif côté serveur et les preuves de résultat/historique. Interdiction explicite de créer, refuser ou révoquer une décision ou autorisation et de lancer des effets. |
+| Réponse Nora — `S05-08-E02` | `NORA · COMPLETE` : Nora indique **ne pouvoir confirmer ni autorisation humaine pending, ni ID ou état vérifiable**. La projection Intervencia `révision 0` ne montre **aucune D6 applicable avec `objectRef`**, mais **n'est pas un registre des demandes en attente**. Recherches D4 « autorisation » et inventaire sans filtre déclarés **vides** ; liste Git des dépôts rattachés déclarée vide ; code du mécanisme non inspecté. Les lectures et leurs résultats sont **déclarés par Nora**, non audités indépendamment. |
+| Distinctions correctes | Nora différencie les **capacités accessibles dans la session** des **mécanismes théoriques non vérifiés**, et **refus** d'une demande pending / **révocation** d'un accord déjà donné / décision D6 formelle. Elle n'assimile pas `restrictions_actives=aucune` à une permission, ne conclut pas à l'absence générale des mécanismes, et précise qu'une révocation ne supprime pas automatiquement les effets déjà commis. |
+| Conditions techniques exposées, non prouvées | Nora décrit **à titre théorique** des contrôles serveur d'autorité valides pour l'opération et la cible, une protection de concurrence révocation/exécution, des traces de rejet après refus ou révocation et un historique corrélé (demande, état, auteur habilité, événements et effet). **Aucune de ces garanties n'a été vérifiée en exécution réelle** ; un bouton grisé ne serait pas une preuve suffisante. |
+| Non-exécution / limite de preuve | **Aucun refus, aucune révocation, aucune tentative de mutation après refus et aucun blocage serveur n'ont été effectués ou observés dans ce scénario**. La projection seule ne démontre pas l'absence d'une autorisation pending ni une faille de sécurité ; absence d'effet backend non auditée indépendamment. |
+| Arbitrage — `S05-08-D01` | **`BLOCKED` confirmé par Morris (« okok ca me va »)**. Précondition et mécanisme de test non qualifiés, **aucune anomalie nouvelle** ; ne pas transformer le non-test en FAIL produit ou en PASS d'autorité. |
+| Reprise / suite | Retest dans un contexte autorisé avec demande d'autorisation identifiable et liée à l'acte exact, mécanisme de refus/révocation prouvé, événements et état corrélés, essais de rejet permis, historique persistant et vérification serveur de l'absence d'effet. **Famille S05 entièrement qualifiée au plan du journal : 1 PASS / 0 FAIL / 7 BLOCKED / 0 NOT RUN** ; les garanties pending/idempotence/autorité **ne sont pas acquises**. Prochaine famille `S06` : publication documentaire Git gouvernée ; **GO Morris REAL documentaire obligatoire avant toute opération de publication**, qualification read-only préalable séparée. |
+
+**Preuves :** `S05-08-E01` question de qualification, `S05-08-E02` réponse détaillée Nora, `S05-08-D01` validation Morris du 13/11. Transcriptions conservées en conversation, **aucun test serveur, identifiant d'autorisation ou pièce Git technique** ajouté.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -727,7 +745,7 @@
 | `S05-05` | Rafraîchir pendant l’opération A | État et clés récupérables | **BLOCKED — pas d'opération A pending/ID/clé pour un rafraîchissement probant** | `S05-05-P01/D01` ; précondition absente, aucun nouvel ID |
 | `S05-06` | Reprendre A après réponse COMPLETE à B | Reprise ou réconciliation sans double effet | **BLOCKED — aucune A pending ni B indépendante pendant A ; reprise/idempotence non testées** | `S05-06-P01/D01` ; aucun nouvel ID |
 | `S05-07` | Rejouer CR-02 avec perte d’ACK OPEN_CYCLE sous injection autorisée | Même clé ; un seul cycle réellement ouvert | **BLOCKED — injection de perte d'ACK autorisée non disponible ; aucune ouverture/reprise réelle testée** | `S05-07-P01/D01` ; aucune nouvelle anomalie |
-| `S05-08` | Refuser/révoquer une autorisation en attente | Aucun effet interdit ; état fidèle | NOT RUN | — |
+| `S05-08` | Refuser/révoquer une autorisation en attente | Aucun effet interdit ; état fidèle | **BLOCKED — aucune autorisation humaine pending identifiable ni mécanisme de refus/révocation vérifiable dans cette session** | `S05-08-E01/E02/D01` ; aucun nouvel ID |
 
 ### S06 — Publication documentaire Git
 
@@ -857,6 +875,9 @@
 | `S05-06-D01` | Accord Morris (« okok ») | `S05-06 BLOCKED`, absence de préconditions de test, aucune anomalie nouvelle | Aucun GO injection/OPEN_CYCLE ; S05-07 indépendant et NOT RUN | Conversation du 13/11 |
 | `S05-07-P01` | Qualification du protocole de test CR-02/OPEN_CYCLE | Rejeu sur même clé, injection ACK après effet et unicité de cycle nécessitent commande/cible/outil/GO qualifiés, absents dans la recette manuelle | Aucun cycle, ACK ou événement technique provoqué/audité ici ; pas de défaut d'idempotence démontré | Conversation du 13/11 et cahier ML4C |
 | `S05-07-D01` | Accord Morris (« ok ca marche ») | `S05-07 BLOCKED` pour dispositif d'injection non autorisé/qualifié ; aucune anomalie nouvelle | Ne vaut ni GO Cursor ni autorisation d'ouvrir un cycle ; S05-08 garde son verdict indépendant | Conversation du 13/11 |
+| `S05-08-E01` | Préqualification Pilote lecture seule | Questions sur autorisation pending, refus/révocation, blocage serveur, identité/état et preuves ; aucun effet autorisé | Non-exécution d'un refus ou d'une révocation | Conversation du 13/11 |
+| `S05-08-E02` | Réponse Nora `COMPLETE` | Pas d'autorisation pending/ID/état accessible selon Nora ; projection D6 sans décision applicable, ressources D4 et Git déclarées vides, distinction refus/révocation/contrôles théoriques | Déclarations Nora non vérifiées par traces techniques ; pas de preuve sur l'existence générale des capacités | Conversation du 13/11 |
+| `S05-08-D01` | Validation Morris (« okok ca me va ») | `S05-08 BLOCKED` pour préconditions absentes ; famille S05 1 PASS / 7 BLOCKED, aucun ID nouveau | Ne vaut ni GO d'autorité ni validation de mécanismes non testés | Conversation du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -875,6 +896,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S05-08 — refus/révocation d'autorisation | **BLOCKED confirmé Morris** : aucune autorisation réellement en attente et identifiable ni mécanisme applicatif de refus/révocation vérifiable dans la session ; Nora distingue état projet, autorisation humaine, D6 et modèles théoriques. Aucun effet/refus serveur exercé et aucune nouvelle anomalie. Famille S05 : **1 PASS / 7 BLOCKED**, qualification des cas sans garantie de continuité produit. |
 | S05-07 — ACK perdu OPEN_CYCLE | **BLOCKED confirmé Morris** : le dispositif d'injection de perte d'ACK après effet et le protocole d'ouverture/rejeu sous même clé ne sont pas autorisés/qualifiés dans cette campagne. Aucun cycle ouvert, aucun rejeu et aucun test d'unicité d'effet ; aucune anomalie nouvelle. Retest technique sous GO SFIA v2.6 distinct. |
 | S05-06 — reprise A après B COMPLETE | **BLOCKED confirmé Morris** : aucune opération A pending enregistrée, aucune réponse B indépendante pendant A, donc aucune reprise/réconciliation ni preuve d'unicité d'effet. Préconditions absentes, pas de défaut applicatif ni de nouvel ID inféré ; S05-07 nécessite sa propre qualification d'injection `OPEN_CYCLE` sous GO adapté. |
 | S05-05 — rafraîchissement pendant A pending | **BLOCKED confirmé Morris** : aucune opération A pending avec ID/clé/état de référence ; aucun rafraîchissement pendant A effectué, donc ni persistance ni perte de clé testée. Aucune anomalie nouvelle, précondition à qualifier pour un retest autorisé. |
@@ -962,6 +984,8 @@
 **Bilan CURRENT après validation Morris S05-06 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 12 PASS / 5 FAIL courants / 9 BLOCKED / 27 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** `S05-06 BLOCKED` : sans A pending réellement enregistrée et sans B indépendante traitée pendant A, aucune reprise/réconciliation ni garantie contre un double effet n'a pu être testée ; aucun nouvel ID. `S05-07 NOT RUN` requiert injection autorisée et contrôle de clé/effet unique, à qualifier séparément, sans injection ni ouverture de cycle spontanée. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après validation Morris S05-07 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 12 PASS / 5 FAIL courants / 10 BLOCKED / 26 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** `S05-07 BLOCKED` : perte d'ACK après `OPEN_CYCLE` non injectable sous contrat/GO dans la RECETTE manuelle ; pas de commande, de cycle ouvert, de rejeu ni de vérification d'unicité d'effet. Aucun nouvel ID d'anomalie et aucun GO technique implicite. `S05-08 NOT RUN` : qualifier indépendamment refus/révocation d'une autorisation réellement en attente, sans la créer artificiellement. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT après validation Morris S05-08 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 12 PASS / 5 FAIL courants / 11 BLOCKED / 25 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** `S05-08 BLOCKED` : aucune demande d'autorisation humaine pending avec ID/état ou mécanisme de refus/révocation qualifié ; aucun blocage serveur testé, sans anomalie nouvelle. **Famille S05 entièrement qualifiée : 1 PASS borné / 7 BLOCKED**, sans prétendre démontrer l'idempotence, la reprise ni l'autorité en exécution. Suite `S06-01 NOT RUN` : examen initial du dépôt Git autorisé en lecture seule ; publication réelle interdite sans **GO Morris REAL documentaire borné**. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
