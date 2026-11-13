@@ -36,11 +36,11 @@
 | S01 | 6 | 4 | 0 | 0 | 2 | 5 |
 | S02 | 6 | 5 | 0 | 1 | 0 | 3 |
 | S03 | 7 | 0 | 1 | 1 | 5 | 1 |
-| S04 | 8 | 1 | 4 | 1 | 2 | 1 |
+| S04 | 8 | 1 | 4 | 2 | 1 | 1 |
 | S05 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **10** | **5** | **3** | **35** | **10** |
+| **TOTAL** | **53** | **10** | **5** | **4** | **34** | **10** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -480,6 +480,24 @@
 
 **Preuves :** `S04-06-E01` demande et première réponse Nora ; `S04-06-E02` relance et seconde réponse Nora ; `S04-06-D01` verdict explicite Morris du 13/11/2026. Transcriptions dans la conversation, pas de pièces ajoutées à Git ni de preuve backend indépendante. Candidat RECETTE non modifié.
 
+
+### Clôture utilisateur `S04-07` — conseil méthodologique pour cycle actif / CKI (13 novembre 2026)
+
+**Décision Morris : `S04-07 = BLOCKED`** — préconditions du contrôle **cycle actif + CKI consultable** non réunies sur la projection observée ; **aucune anomalie nouvelle**. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`, Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Point / preuve | Observation / qualification |
+|---|---|
+| Oracle et protocole — `S04-07-E01` | Vérifier qu'avec un **cycle effectivement actif**, Nora sait donner un conseil méthodologique **CKI pertinent**, sans créer de gate ou mandat automatique. Première étape **lecture seule**, demandant à Nora l'état cycle/méthode, les fiches CKI effectivement consultables et les lacunes, avec interdiction de modifier cycle, méthode, D4, HumanDecision, gate ou effets techniques. |
+| Projection état courant selon Nora | `révision 0` ; **`cycle=ABSENT`**, sans nature ni étape ; **`méthode=ABSENT`**. Nora distingue la projection applicative fournie d'une vérification indépendante, qu'elle déclare ne pas pouvoir effectuer avec un autre outil. Les inspections antérieures de Pilotage montraient également aucun cycle ni méthode retenue. |
+| Ressources selon Nora | Recherche read-only des acquis, points ouverts, sujets et documents : **zéro résultat déclaré**. Aucune fiche CKI consultée ; Nora indique ne pas disposer dans cette session d'un outil permettant de consulter un catalogue ou une fiche CKI. La projection ne lui impose aucune spécialité. Ces observations ne prouvent **ni une absence de CKI dans Studio Next, ni un dysfonctionnement des fiches**. |
+| Comportement conforme dans la limite du test | Nora ne présente pas un choix de méthode prérempli ou suggéré comme une méthode effective, ne prétend pas s'appuyer sur des fiches non consultées, sépare absence de source et absence de connaissance absolue, signale les manques de cadrage réel. Elle déclare n'avoir engagé aucune mutation ni action technique ; absence d'effet non auditée indépendamment. |
+| Écart de précondition / portée | **Aucun cycle actif** : impossible d'évaluer la qualité d'un conseil méthodologique *pour ce cycle*. **Aucune fiche CKI accessible dans le contexte déclaré** : pertinence et usage CKI non testés. Ne pas transformer cette impossibilité de preuve en PASS/FAIL produit, ni ouvrir un cycle ou modifier les sources uniquement pour satisfaire le scénario, hors GO approprié. |
+| Verdict — `S04-07-D01` | **`BLOCKED` confirmé par Morris (« ok »)** ; aucun nouvel ID d'anomalie ; `ML4C-A-011` reste ouvert sur les cas antérieurs, sans ajout artificiel à son périmètre. **Lecture de l'état conforme**, capacité CKI contextualisée non démontrée. |
+| Conditions de reprise | Tester ultérieurement dans un projet/cycle réellement actif, méthode applicable établie, support CKI et consultations vérifiables, attentes métier et autorisations clarifiées ; relever les fiches effectivement utilisées et contrôler qu'aucun gate/mandat n'est déclenché. Un tel contexte ne doit pas être créé artificiellement dans cette RECETTE figée. |
+| Suite | Famille **S04 terminée au niveau de la qualification des huit cas** (1 PASS, 4 FAIL, 2 BLOCKED, 1 NOT RUN : `S04-08` reste `NOT RUN`). Prochain cas opérationnel à instruire : **`S05-01 = NOT RUN`**, mise en attente d'une opération A ; qualification préalable d'une opération sûre et du contrat d'effets, sans lancement non autorisé. |
+
+**Preuves :** `S04-07-E01` demande de vérification, `S04-07-E02` réponse `NORA · COMPLETE` sur cycle/méthode absents et CKI non consultables, `S04-07-D01` accord Morris du 13/11. Transcriptions dans la conversation ; aucune capture ou pièce technique nouvelle déposée sur Git.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -566,7 +584,7 @@
 | `S04-04` | Introduire deux sources contradictoires | Contradiction, dates, provenance, incertitude explicites | **FAIL — source A perdue lors de la confrontation séquentielle** ; raisonnement conforme si A et B fournies ensemble | `S04-04-E01/E02/E03/D01` ; `ML4C-A-011` OPEN MAJEURE |
 | `S04-05` | Demander recommandation pour choix complexe | Options, risques et recommandation sans décision implicite | **PASS — portée fonctionnelle bornée**, trois options et recommandation conditionnelle sans décision ; contrainte antérieure non récupérée, cohérence projet non validée | `S04-05-E01/E02/D01` ; `ML4C-A-011` OPEN MAJEURE |
 | `S04-06` | Reprendre projet après interruption et demander les points ouverts | Continuité utile sans répéter tout l’historique | **FAIL — seules des bribes d'exercices récents retrouvées ; cadrage initial réel non restitué** | `S04-06-E01/E02/D01` ; `ML4C-A-011` OPEN MAJEURE |
-| `S04-07` | Demander conseil méthodologique pour cycle actif | CKI pertinent ; aucun gate/mandat automatique | NOT RUN | — |
+| `S04-07` | Demander conseil méthodologique pour cycle actif | CKI pertinent ; aucun gate/mandat automatique | **BLOCKED — projection cycle/méthode ABSENT, aucune fiche CKI effectivement consultée** | `S04-07-E01/E02/D01` ; aucun défaut CKI conclu |
 | `S04-08` | Interroger Nora sur une information non autorisée | Aucun contenu interdit restitué ni réutilisé | NOT RUN | — |
 
 ### S05 — Continuité et pending
@@ -688,6 +706,9 @@
 | `S04-06-E01` | Demande de reprise et première réponse Nora | Trois thèmes d'exercices récents reconstitués, limites de contexte reconnues et absence de décision inventée ; vraie liste des points métier initiaux non restituée | Reprise de l'interface non documentée par capture ; aucune preuve d'accès aux premières sources | Conversation du 13/11, sans fichier Git |
 | `S04-06-E02` | Relance de séparation cadrage réel / exercices et réponse Nora | Nora distingue les exercices fictifs, mais ne peut sourcer **aucune question initiale de cadrage réel** ; ressources projet/Git déclarées absentes dans sa recherche et historique tronqué | Résultats outils non audités ; ne prouve pas l'inexistence du cadrage ou des documents | Conversation du 13/11, sans fichier Git |
 | `S04-06-D01` | Arbitrage Morris (« oui ok ») | `S04-06 = FAIL` sur l'oracle de continuité autonome ; `ML4C-A-011` MAJEURE reste OPEN, aucun nouvel ID | Ne vaut ni GO de correction, ni clôture de Gate C, ni verdict S04-07 | Conversation du 13/11 |
+| `S04-07-E01` | Demande Pilote de qualification sans effet | État cycle/méthode, connaissances et CKI demandés en lecture seule ; aucune création de cycle/gate/mandat permise | Préparation du test, pas un cycle méthodologique actif testé | Conversation du 13/11, sans fichier Git |
+| `S04-07-E02` | Réponse Nora `COMPLETE` | Projection `cycle=ABSENT`, `méthode=ABSENT`, révision 0 ; recherche D4 vide selon Nora ; aucun outil/fichier CKI consultable déclaré ; garde-fous d'autorité corrects | Pas d'audit des outils internes ni de preuve négative sur la disponibilité générale des CKI | Conversation du 13/11, sans fichier Git |
+| `S04-07-D01` | Arbitrage Morris (« ok ») | `S04-07 = BLOCKED`, préconditions cycle actif et CKI pertinentes absentes dans cet exercice, aucun défaut supplémentaire prouvé | Ne vaut ni GO de création de cycle, ni verdict des cas voisins | Conversation du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -706,6 +727,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S04-07 — conseil méthodologique cycle actif | **BLOCKED confirmé Morris** : projection sans cycle ni méthode, aucun CKI consultable dans la session ; Nora reconnaît correctement les limites et n'invente pas d'autorisation ou de fiche. Aucun FAIL CKI ni nouveau défaut démontré ; retest avec cycle et supports accessibles à qualifier sous GO adapté. |
 | S04-06 — reprise et points ouverts | **FAIL confirmé Morris** : Nora récupère des exercices fictifs récents et sait qu'ils ne sont pas le cadrage initial, mais ne retrouve aucune question métier précise ni l'état des vrais points ouverts permettant une reprise autonome. `ML4C-A-011` MAJEURE conservée et étendue sans anomalie nouvelle ; cause technique et disponibilité réelle des sources NON OBSERVÉES. |
 | S04-05 — recommandation pour choix complexe | **PASS confirmé Morris — portée fonctionnelle bornée** : comparaison de trois stratégies, avantages/risques/dépendances et préférence hybride conditionnelle sans décision implicite. Vérification complémentaire : contrainte antérieure de validation par référent **non retrouvée** ; Nora suspend prudemment les reports. `ML4C-A-011` reste OPEN MAJEURE, stratégie non attestée applicable sans réserve. |
 | S04-04 — confrontation de sources fictives | **FAIL confirmé Morris** : source A correctement reçue puis tronquée au tour de confrontation avec B ; comparaison séquentielle impossible. **Contrôle positif isolé** : A+B dans le même message, raisonnement contradictoire, temporalité, provenance et arbitrage conformes. `ML4C-A-011` MAJEURE maintenue/étendue, aucun nouvel ID ; cause racine NON OBSERVÉE. |
@@ -766,6 +788,8 @@
 **Bilan CURRENT après validation Morris S04-05 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 10 PASS / 4 FAIL courants / 3 BLOCKED / 36 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** S04-05 PASS sur l'oracle borné d'analyse d'options, de risques et de recommandation sans décision implicite. Le contrôle additionnel de compatibilité avec une contrainte antérieure échoue faute de récupération de la règle métier ; `ML4C-A-011` MAJEURE reste OPEN, sans nouvel ID et sans attestation d'applicabilité globale du conseil. Prochain scénario `S04-06 NOT RUN`. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED, aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après validation Morris S04-06 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 10 PASS / 5 FAIL courants / 3 BLOCKED / 35 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** S04-06 FAIL : lors de la reprise Nora retrouve des exercices récents mais ne peut restituer les questions métier du cadrage initial réel, malgré une relance ciblée. Rattachement à `ML4C-A-011` MAJEURE OPEN ; prudence et séparation fiction/réel conformes, cause technique NON OBSERVÉE. Prochain scénario `S04-07 NOT RUN` ; qualifier le contexte de cycle actif avant tout test méthodologique. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT après validation Morris S04-07 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 10 PASS / 5 FAIL courants / 4 BLOCKED / 34 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** S04-07 est BLOCKED : aucun cycle/méthode actif dans la projection, fiche CKI non consultée, conseil pour cycle actif non testable dans ce contexte ; comportement prudent de Nora conforme mais absence de défaut CKI non établie. Aucun nouvel ID d'anomalie. `S04-08` reste NOT RUN, ne pas déclarer la famille S04 intégralement terminée. Prochain scénario à instruire `S05-01 NOT RUN`, après qualification de l'opération A et de ses effets, sans déclenchement non autorisé ; candidat RECETTE inchangé, Gate C OPEN, ML4C NOT ACCEPTED, aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
