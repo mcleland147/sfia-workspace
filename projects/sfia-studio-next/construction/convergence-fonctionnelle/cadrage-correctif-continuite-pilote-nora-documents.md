@@ -1,7 +1,7 @@
 # SFIA Studio Next — Cadrage du correctif intégré : continuité Pilote–Nora et documents
 
-**Version :** 0.4 — 13 novembre 2026  
-**Statut :** VALIDATED IN CONTENT BY MORRIS — cadrage fonctionnel et principes de conception O-01/O-02/O-03 ; implémentation technique à qualifier  
+**Version :** 0.5 — 13 novembre 2026  
+**Statut :** VALIDATED IN CONTENT BY MORRIS — cadrage fonctionnel et principes de conception O-01/O-02/O-03/O-04 ; implémentation technique à qualifier  
 **Programme :** R5 — ML4C, convergence fonctionnelle intégrée  
 **Nature :** cadrage fonctionnel et conception corrective candidate, avant contrat d'exécution  
 **Autorité produit :** Morris  
@@ -10,7 +10,7 @@
 **Projet de recette :** Intervencia  
 **Gate C :** OPEN — ML4C NOT ACCEPTED
 
-> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. (4) Morris valide O-03 — identité, provenance, intégrité, résolution et autorité séparée des propositions documentaires — et autorise son intégration dans la V0.4. Les signatures techniques définitives, la stratégie algorithmique, les budgets et l'exécutabilité restent à qualifier : **NOT YET VALIDATED SPEC**. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
+> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. (4) Morris valide O-03 — identité, provenance, intégrité, résolution et autorité séparée des propositions documentaires — et autorise son intégration dans la V0.4. (5) Morris valide ensuite O-04 — mobilisation D4 sous admission canonique, acte USER distinct, proposition vérifiée, garde et absence de doublon — et autorise son intégration en V0.5. Les signatures techniques définitives, la stratégie algorithmique, la réconciliation O-05, les budgets et l'exécutabilité restent à qualifier : **NOT YET VALIDATED SPEC**. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
 
 ---
 
@@ -535,6 +535,91 @@ La proposition doit rester retrouvable après rafraîchissement et reprises auto
 
 **Statut : VALIDÉ EN CONTENU par Morris.** À qualifier avant Cursor : signatures API, moment de durabilité, récupération d'un contenu hors fence, empreinte robuste et compatibilité de longueur, cible inter-préparations, validation USER, intégration à l'écriture gouvernée et preuves LIVE. **O-03 n'est pas une preuve de création D4 et ne ferme pas `ML4C-A-010`.**
 
+
+### 5.8 O-04 — Mobilisation gouvernée des opérations documentaires D4 (VALIDÉ EN CONTENU PAR MORRIS)
+
+**Résultat utilisateur.** Nora doit pouvoir mobiliser **réellement** la création et la modification documentaire à partir du langage naturel. Une rédaction sans acte d'enregistrement reste une proposition ; une demande positive autorisée doit conduire à une tentative D4 gouvernée, puis à une restitution véridique de l'effet observé. Le Pilote n'a pas à reconstituer la procédure interne ni à recopier une proposition antérieure.
+
+**Diagnostic sur le candidat figé `67bf6b0`, non preuve de cause.** Le catalogue sémantique inclut `d4.create_document` et `d4.revise_document`, avec modes `EXPLAIN / EXPLORE / PREPARE / REQUEST_EFFECT` ; `projectStudioEffects` convertit les intentions en `CREATE` ou `REVISE`. Les outils fournis au Runner Nora sont aujourd'hui surtout `search_project_resources` et `read_project_document_revision` (lecture), alors que `conversation/service.ts` appelle directement `savePreparationDocument` / `reviseDocument` à partir de l'extraction de la **réponse courante**. Cette articulation ne démontre pas la résolution O-03 d'une proposition antérieure. D4 conserve déjà des contrôles de propriété/préparation, d'intégrité, de révision et de corrélation. Le chemin `CREATE` passe un `turnFence` au propriétaire D4 ; la signature `reviseDocument` n'expose actuellement pas ce même paramètre : **écart de contrat à qualifier**, sans conclure à un défaut de sécurité exploitable. La RECETTE S03-01 et le diagnostic du même tour n'ont confirmé aucune écriture D4 ; la panne précise n'est pas attribuée arbitrairement à D4.
+
+#### O-04-A — Architecture logique et voie canonique
+
+**Une seule admission applicative et une seule voie propriétaire d'effet D4**, utilisables pour les demandes conversationnelles et, lorsqu'ils existent, les autres consommateurs autorisés. Les interfaces du modèle ne doivent jamais devenir une seconde autorité transactionnelle.
+
+| Étape | Responsabilité et contrat |
+|---|---|
+| 1. Demande du Pilote | Message `USER` authentifié, conservé et interprété dans son contexte |
+| 2. Qualification Nora (D3) | Identifier sémantiquement la capacité, l'opération, la cible et les dépendances ; `REQUEST_EFFECT` seulement pour une demande positive d'effet |
+| 3. Résolution O-03 | Récupérer la proposition précise, complète, admissible et vérifiée ; ne pas régénérer son contenu par mémoire |
+| 4. Admission serveur | Lier l'acte `USER`, la proposition, l'opération et la cible ; vérifier permissions, préconditions, version de base, corrélation et idempotence |
+| 5. Propriétaire D4 | Exécuter `CREATE` ou `REVISE` sous ses propres contrôles transactionnels, sans effet hors autorisation |
+| 6. Restitution | Communiquer à Nora et au Pilote **le verdict propriétaire**, les références D4 réellement présentes et l'incertitude si elle subsiste |
+
+La modalité finale de mobilisation reste ouverte : consolidation de la qualification/commande serveur existante, interface d'outil gouvernée, ou présentation d'une capacité d'action au Runner **qui appelle exactement la même admission**. Aucune API de mutation directe librement paramétrée par le modèle, aucune seconde voie d'écriture, aucun nouveau moteur d'autorité.
+
+#### O-04-B — Parcours fonctionnels et négatifs
+
+| Demande du Pilote | Exigence |
+|---|---|
+| « Rédige un document de cadrage » | Proposer un texte ; zéro `CREATE` tant qu'aucun acte d'enregistrement n'est recevable |
+| « Rédige et enregistre ce document » | Qualifier l'intention positive et demander l'admission D4, sans confirmation redondante si l'acte initial suffit au contrat |
+| « Enregistre la note proposée hier » | Réutiliser **la proposition exacte O-03**, vérifier sa cible et l'acte ultérieur, puis solliciter D4 |
+| « Modifie la section Risques du document X » | Vérifier document et base `AVAILABLE`, résoudre la section et préserver les sections hors portée ; révision gouvernée |
+| « Montre la dernière version » | Lecture uniquement ; aucun acte D4 d'écriture |
+| « Comment pourrais-tu enregistrer une note ? » | Explication sans effet |
+| « Ne sauvegarde pas encore » | Qualification négative ; aucune écriture |
+| Plusieurs intentions `CREATE` et `REVISE` | Préserver dépendances et ordre contractuel ; ne pas choisir arbitrairement `REVISE` ou `CREATE` |
+
+Une demande explicitement autorisante peut suffire si le contrat propriétaire le prévoit : **pas de confirmation systématique inventée**. Une demande ambiguë, hypothétique ou négative ne vaut pas acte d'écriture. Un résultat Nora `COMPLETE` ne constitue **pas** une preuve D4 `AVAILABLE`.
+
+#### O-04-C — Contrats techniques de conception
+
+| ID | Invariant à réaliser et prouver |
+|---|---|
+| D4-CMD-01 | Admission canonique unique pour `CREATE` et `REVISE`, depuis les intentions sémantiques structurées et validées, sans routeur lexical métier concurrent |
+| D4-CMD-02 | Acte positif `USER` authentifié et durable, séparé de la proposition Nora ; preuve de la cible et de l'opération demandées |
+| D4-CMD-03 | Référence et empreinte O-03 de la proposition exacte avant écriture ; refus/clarification si ambiguïté, troncature ou divergence |
+| D4-CMD-04 | Contrôles D4 au point d'effet : droits, préparation, document, statut et révision de base, portée de la modification |
+| D4-CMD-05 | Identités stables reliant demande, proposition, opération, tentative et effet, avec absence de mutation de payload sous une clé existante |
+| D4-CMD-06 | Rejeu ou interruption sans nouvelle écriture non autorisée ; protection de propriété du tour, perte d'ownership et maintien de la même identité d'opération |
+| D4-CMD-07 | Restitution issue du propriétaire D4 : `NOT_EXECUTED`, `AVAILABLE`, `FAILED`, `CONFLICT` ou `UNKNOWN` non confondus |
+| D4-CMD-08 | Respect des opérations multi-intentions, dépendances D2→D4 et coexistence des demandes sans priorité silencieuse |
+
+**Durabilité pré-effet.** La référence d'une proposition, son contenu admissible/empreinte et l'acte `USER` doivent être récupérables avant toute mutation autorisée. Le candidat peut aujourd'hui tenter D4 avant le commit terminal assistant : il faut examiner si le journal `conversationTurnCommands` et les messages existants permettent un gel pré-effet, un rattachement durable et une reprise cohérente **sans** inventer une nouvelle table par défaut. Ce principe ne fige ni l'ordre exact des transactions ni un mécanisme de persistance nouveau ; ces choix seront qualifiés à la jonction O-04/O-05.
+
+**Garde de révision.** Le parcours `REVISE` doit disposer de protections d'ownership/concurrence proportionnées au `CREATE` et conserver l'intégrité des sections non ciblées. Le cas d'une base périmée reste un `CONFLICT` propriétaire, pas un arbitrage Nora.
+
+#### O-04-D — États, reprise et séparation O-05
+
+| État d'effet | Lecture attendue pour le Pilote |
+|---|---|
+| `NOT_EXECUTED` | Aucune transaction D4 tentée ; ni refus propriétaire inventé ni faux succès |
+| `AVAILABLE` | Document/révision confirmés et inspectables, avec identifiants et numéro de révision |
+| `FAILED` | Refus ou échec confirmé au périmètre et à l'étape réellement observés |
+| `CONFLICT` | Conflit de base, d'intégrité de commande ou de précondition ; aucune nouvelle version prétendue |
+| `UNKNOWN` | Effet non établi : contrôle/réconciliation nécessaires avant toute nouvelle émission |
+
+**Frontière :** O-04 fixe les obligations d'admission et d'invocation ; **O-05** établira le protocole détaillé de réconciliation, d'ACK perdu, d'UNKNOWN, de reprise et de restitution terminale. Une action confirmée par le modèle mais non par D4 ne vaut pas enregistrement. Une absence d'ACK ne prouve pas l'absence d'effet.
+
+#### O-04-E — Épreuves minimales
+
+| ID | Scénario | Oracle |
+|---|---|---|
+| D4-CMD-T01 | Demande explicite de rédaction + enregistrement | Un seul `CREATE`, document/révision vérifiables |
+| D4-CMD-T02 | Accord ultérieur sur une proposition antérieure | Exact contenu O-03 enregistré sous l'autorité du message `USER` |
+| D4-CMD-T03 | Simple rédaction ou consultation | Zéro mutation D4 |
+| D4-CMD-T04 | Modification d'une section déterminée | Une nouvelle révision, hors-périmètre inchangé |
+| D4-CMD-T05 | Révision sur base obsolète | `CONFLICT`, aucune révision concurrente indue |
+| D4-CMD-T06 | Négation, hypothèse ou autorité insuffisante | Pas d'écriture ; motif fidèle |
+| D4-CMD-T07 | Perte d'ownership avant mutation | Aucun effet tardif non admis ; preuve de la garde |
+| D4-CMD-T08 | Rejeu de la même opération et même payload | Idempotence, aucune duplication |
+| D4-CMD-T09 | Commandes `CREATE` et `REVISE` liées | Dépendances et ordre respectés, ou clarification sans effet |
+| D4-CMD-T10 | Document créé mais réponse interrompue | Résultat réel récupérable via O-05, jamais de faux échec |
+
+**Preuves attendues au futur macro-lot :** déterministes pour l'admission, les négations, la sélection et l'autorité ; PostgreSQL pour l'unicité, les versions, la corrélation et la reprise ; navigateur pour l'état utilisateur ; **Nora LIVE → D4 → PostgreSQL → bibliothèque navigateur** pour le comportement métier. Tests `FAKE` ≠ preuve `LIVE/REAL`. Les essais avec effet doivent respecter l'isolation ENV-01 ; la RECETTE existante reste figée sans mandat distinct.
+
+**Statut :** **VALIDÉ EN CONTENU PAR MORRIS** pour la voie gouvernée unique, les rôles, les obligations d'admission, la durabilité pré-effet et les dix oracles. **NON VALIDATED SPEC** pour la signature API, le transport du document, l'extension exacte des gardes de révision, l'implémentation du journal, la stratégie de reprise O-05 et les preuves d'exécutabilité. Aucune écriture technique, migration ou nouveau gate n'est autorisé.
+
 ---
 
 ## 6. Capacité C — Accessibilité du dialogue
@@ -588,6 +673,7 @@ Il ne doit pas exister deux moteurs concurrents de mémoire, deux propriétaires
 | HIST-01 à HIST-08 | Couverture historique, pagination, isolement, statut et stabilité (§4.7) | Tests déterministes de lecture et sécurité + preuve Nora LIVE de rappel sémantique |
 | TEMP-01 à TEMP-08 | Corrections, contradictions, portée, fiction et HumanDecision (§4.8) | Vérification des sources et états propriétaires + Nora LIVE, aucune autorité inventée |
 | PROP-01 à PROP-10 | Identité et intégrité d'une proposition antérieure, droits et séparation des actes (§5.7) | Sources et gardes vérifiées ; effet D4 uniquement démontré en O-04/O-05 |
+| D4-CMD-T01 à T10 | Admission gouvernée, droits, création/révision, non-régression et reprise (§5.8) | Tests DET/PG/BROWSER et parcours LIVE ; effets et réconciliation détaillés en O-05 |
 | DOC-01 | Rédaction seule | Aucun enregistrement implicite |
 | DOC-02 | Création demandée explicitement | D4 réellement invoqué et document disponible |
 | DOC-03 | Proposition au tour N, enregistrement ultérieur | Contenu exact retrouvé et enregistré |
@@ -668,8 +754,8 @@ L'exécution Cursor restera soumise à un mandat SFIA v2.6 détaillé, avec fich
 | Gate | Objet | État |
 |---|---|---|
 | G0 | Orientation corrective ML4C | Accord de principe Morris |
-| G1 | Cadrage fonctionnel du correctif | V0.4 — VALIDATED IN CONTENT BY MORRIS ; O-01/O-02/O-03 validés en conception logique, non comme implémentation prête |
-| G2 | Conception technique détaillée CT-01 à CT-11 | O-01/O-02/O-03 principes validés ; signatures, algorithmes, séquence pré-effet, budgets, contrats d'écriture et preuves à instruire ; O-04/O-06 ouverts |
+| G1 | Cadrage fonctionnel du correctif | V0.5 — VALIDATED IN CONTENT BY MORRIS ; O-01/O-02/O-03/O-04 validés en conception logique, pas comme implémentation prête |
+| G2 | Conception technique détaillée CT-01 à CT-11 | O-01 à O-04 principes validés ; signatures, algorithmes, transport de contenu, ordre pré-effet, réconciliation O-05 et preuves d'exécutabilité ouverts |
 | G3 | GO d'exécution Cursor | NON DONNÉ |
 | G4 | Qualification technique | NON ACQUISE |
 | G5 | Nouvelle RECETTE et correction des écarts | NON ENGAGÉE |
@@ -689,7 +775,7 @@ Les sujets ouverts prioritaires sont :
 
 **O-03 — Proposition documentaire récupérable : VALIDÉ EN CONTENU.** Source exacte et durable, empreinte robuste, version identifiable, droits, acte USER séparé, test PROP-01…PROP-10 (§5.7). Reste à qualifier : interfaces, ordre de persistance, source hors format, contenus longs et jonction O-04/O-05.
 
-**O-04 — Mobilisation D4 par Nora.** Arrêter une voie de commande canonique réutilisant les services de D4 et les contrôles d'autorité applicables.
+**O-04 — Mobilisation D4 par Nora : VALIDÉ EN CONTENU.** Une admission/écriture canonique, proposition O-03 et acte USER distingués, gardes et résultat propriétaire, tests D4-CMD-T01…T10 (§5.8). À qualifier : signature API, ordre durable, ownership `REVISE` et reprise O-05.
 
 **O-05 — Résultat et reprise.** Définir la corrélation entre tentative, effet, révision et restitution, y compris en cas d'incertitude.
 
@@ -727,14 +813,14 @@ Code candidat examiné :
 
 ---
 
-## 15. Statut V0.4
+## 15. Statut V0.5
 
-**VALIDATED IN CONTENT BY MORRIS — FUNCTIONAL FRAMING AND O-01/O-02/O-03 LOGICAL DESIGN ; EXECUTABLE TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
+**VALIDATED IN CONTENT BY MORRIS — FUNCTIONAL FRAMING AND O-01/O-02/O-03/O-04 LOGICAL DESIGN ; EXECUTABLE TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
 
 La vision fonctionnelle longue durée Pilote–Nora et la mobilisation documentaire D4 sont clarifiées.
 
 La conception recommandée repose sur une récupération historique progressive, une sélection sémantique sous contrôle de Nora et une mobilisation gouvernée des services documentaires existants.
 
-**O-01, O-02 et O-03** sont validés en contenu de conception et documentés aux §4.7–4.8 et §5.7. Ils ne constituent pas une validation des signatures, algorithmes, budgets, ordre de durabilité, tests LIVE ou de l'architecture exécutable. **O-04 — mobilisation gouvernée des commandes D4** est le prochain sujet.
+**O-01, O-02, O-03 et O-04** sont validés en contenu de conception et documentés aux §4.7–4.8 et §5.7–5.8. Ils ne constituent pas une validation des signatures, algorithmes, budgets, ordre pré-effet, tests LIVE ou de l'architecture exécutable. **O-05 — résultat, réconciliation et reprise D4** est le prochain sujet.
 
 **Aucun mandat Cursor, GO code, migration, PR, merge, clôture Gate C ou ADOPTED n'est autorisé par ce document.**
