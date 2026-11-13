@@ -37,10 +37,10 @@
 | S02 | 6 | 5 | 0 | 1 | 0 | 3 |
 | S03 | 7 | 0 | 1 | 1 | 5 | 1 |
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
-| S05 | 8 | 1 | 0 | 4 | 3 | 0 |
+| S05 | 8 | 1 | 0 | 5 | 2 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **12** | **5** | **8** | **28** | **10** |
+| **TOTAL** | **53** | **12** | **5** | **9** | **27** | **10** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -595,6 +595,22 @@
 
 **Preuves :** `S05-05-P01` précondition issue des contrôles S05-01 à S05-04 ; `S05-05-D01` accord Morris du 13/11/2026. Aucun cycle, pending, rafraîchissement concurrent, identifiant opérationnel ou résultat technique supplémentaire créé ou observé dans ce cas.
 
+
+### Clôture utilisateur `S05-06` — reprise A après réponse `COMPLETE` à B (13 novembre 2026)
+
+**Décision Morris : `S05-06 = BLOCKED`** — préconditions de reprise/réconciliation non réunies ; aucune anomalie nouvelle. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Champ / preuve | Constat, portée et limite |
+|---|---|
+| Oracle S05-06 | Une **opération A réellement `pending`**, identifiée par sa clé et son état, doit rester récupérable pendant qu'une question B indépendante reçoit une réponse `COMPLETE` ; A reprend ou se réconcilie **sans double effet**. Les preuves exigent l'identité de A, les retours d'opérations, les statuts et le comptage des effets. |
+| Préconditions — `S05-06-P01` | S05-01 a été **BLOCKED** : aucun mécanisme/candidat A pending sûr, autorisé et vérifiable n'a été qualifié. S05-02 a été **BLOCKED** : aucune question B indépendante n'a été traitée **pendant A**. Les constats S05-03 et S05-05 concernent les mêmes limites sans prouver de défaut technique. |
+| Exécution du cas | **Aucune opération A n'a été reprise** après une réponse B `COMPLETE` dans le cadre de ce test. Une réponse `COMPLETE` isolée ou une intention de reprise dans la conversation ne prouverait pas la réconciliation d'une commande existante ; aucun ID/clé ni événement serveur/DB n'est disponible pour établir une absence de doublon. |
+| Verdict — `S05-06-D01` | Morris valide **`BLOCKED`** (« okok »). **Absence de préconditions de test**, et non échec démontré du moteur pending, de la reprise ou de l'idempotence ; aucune nouvelle anomalie, aucun GO technique implicite. |
+| Conditions de reprise | Sous mandat et environnement qualifiés : enregistrer A réellement pending avec ID/clé/état, qualifier B comme indépendante, vérifier `COMPLETE` de B, reprendre ou réconcilier A, confronter les preuves serveur/persistance et le nombre d'effets **sans duplication**. |
+| Suite | **`S05-07 = NOT RUN`** : perte d'ACK d'`OPEN_CYCLE` et rejeu `CR-02` avec **injection contrôlée explicitement autorisée**, nécessitant son propre pré-check, un dispositif sûr, des clés traçables et des preuves d'un seul cycle réellement ouvert. Ne pas provoquer de perte d'ACK ni ouvrir un cycle en RECETTE sans GO approprié. |
+
+**Preuves :** `S05-06-P01` préconditions établies lors des cas S05-01 et S05-02 ; `S05-06-D01` accord Morris du 13/11/2026. Aucune manipulation de reprise ni trace transactionnelle supplémentaire ; dossier de blocage de précondition uniquement.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -693,7 +709,7 @@
 | `S05-03` | Demander une mutation incompatible pendant A | Refus ou report explicite | **BLOCKED — aucune opération A pending qualifiée ; mutation concurrente non testable** | `S05-03-P01/D01` ; précondition non réunie, aucun nouvel ID |
 | `S05-04` | Utiliser un impératif ambigu/non reconnu | Pas de faux dialogue indépendant ni contournement | **PASS — portée bornée : clarification d'un impératif sans cible, aucune mutation visible** ; protection pendant A pending non testée | `S05-04-E01/E02/U01/D01` ; aucune anomalie nouvelle |
 | `S05-05` | Rafraîchir pendant l’opération A | État et clés récupérables | **BLOCKED — pas d'opération A pending/ID/clé pour un rafraîchissement probant** | `S05-05-P01/D01` ; précondition absente, aucun nouvel ID |
-| `S05-06` | Reprendre A après réponse COMPLETE à B | Reprise ou réconciliation sans double effet | NOT RUN | — |
+| `S05-06` | Reprendre A après réponse COMPLETE à B | Reprise ou réconciliation sans double effet | **BLOCKED — aucune A pending ni B indépendante pendant A ; reprise/idempotence non testées** | `S05-06-P01/D01` ; aucun nouvel ID |
 | `S05-07` | Rejouer CR-02 avec perte d’ACK OPEN_CYCLE sous injection autorisée | Même clé ; un seul cycle réellement ouvert | NOT RUN | — |
 | `S05-08` | Refuser/révoquer une autorisation en attente | Aucun effet interdit ; état fidèle | NOT RUN | — |
 
@@ -821,6 +837,8 @@
 | `S05-04-D01` | Accord Morris (« ok ») | `S05-04 PASS` à portée bornée, sans nouvel ID d'anomalie ; pending/concurrence non testés | Pas de verdict sur S05-05 ni de GO technique | Conversation du 13/11 |
 | `S05-05-P01` | Précondition S05-01 à S05-04 | Aucun A pending enregistré et identifié dans la campagne ; la capture S05-04 n'affiche pas de pending ; aucun ID/clé/état avant/après à comparer | Ne prouve ni persistance ni défaut de récupération après rafraîchissement | Conversation du 13/11 et fiches S05-01 à S05-04 |
 | `S05-05-D01` | Arbitrage Morris (« okok ») | `S05-05 = BLOCKED` pour précondition non satisfaite ; aucun nouvel ID d'anomalie | Ne vaut ni GO de mutation ni verdict sur S05-06 | Conversation du 13/11 |
+| `S05-06-P01` | Préconditions documentées S05-01/S05-02 | Pas de commande A pending persistée ni de question B posée durant A ; aucun ID/clé à réconcilier | Ne prouve ni réussite ni échec de reprise/idempotence | Conversation du 13/11 et fiches S05-01/S05-02 |
+| `S05-06-D01` | Accord Morris (« okok ») | `S05-06 BLOCKED`, absence de préconditions de test, aucune anomalie nouvelle | Aucun GO injection/OPEN_CYCLE ; S05-07 indépendant et NOT RUN | Conversation du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -839,6 +857,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S05-06 — reprise A après B COMPLETE | **BLOCKED confirmé Morris** : aucune opération A pending enregistrée, aucune réponse B indépendante pendant A, donc aucune reprise/réconciliation ni preuve d'unicité d'effet. Préconditions absentes, pas de défaut applicatif ni de nouvel ID inféré ; S05-07 nécessite sa propre qualification d'injection `OPEN_CYCLE` sous GO adapté. |
 | S05-05 — rafraîchissement pendant A pending | **BLOCKED confirmé Morris** : aucune opération A pending avec ID/clé/état de référence ; aucun rafraîchissement pendant A effectué, donc ni persistance ni perte de clé testée. Aucune anomalie nouvelle, précondition à qualifier pour un retest autorisé. |
 | S05-04 — impératif ambigu sans cible | **PASS borné confirmé Morris** : Nora reconnaît l'intention d'action mais ne peut identifier « ça », sollicite l'opération et la cible, et n'affirme aucune autorisation. Capture Pilotage : révision 0, aucun cycle/méthode/D6/restriction ni pending visible. Pas de preuve backend exhaustive ni protection concurrente pendant A. Aucun nouvel ID. |
 | S05-03 — mutation incompatible pendant A | **BLOCKED confirmé Morris** : aucun A pending effectivement identifiable ; le contrôle d'une seconde mutation incompatible, son refus ou son report n'a pas été réalisé. Pas de défaut produit déduit ni d'anomalie nouvelle. `S05-04` à qualifier séparément, éventuellement sur un contrôle d'intention sans effet. |
@@ -920,6 +939,8 @@
 **Bilan CURRENT après validation Morris S05-04 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 12 PASS / 5 FAIL courants / 7 BLOCKED / 29 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** `S05-04 PASS` à portée bornée : l'impératif sans cible est clarifié avant effet et la capture Pilotage ne révèle aucune mutation de cycle/méthode/D6/restriction. L'absence de pending A et d'audit serveur limite le verdict ; pas de preuve de protection de concurrence pendant A, aucun nouvel ID. Prochain `S05-05 NOT RUN`, à qualifier individuellement sur une opération A pending sûre et traçable. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après validation Morris S05-05 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 12 PASS / 5 FAIL courants / 8 BLOCKED / 28 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** `S05-05 BLOCKED` : aucun A pending traçable ne permet de vérifier ses clés/états après rafraîchissement ; aucune manipulation pendant A ni nouvelle anomalie. `S05-06 NOT RUN` : qualifier séparément la reprise de A après réponse B COMPLETE, sans propagation automatique. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT après validation Morris S05-06 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 12 PASS / 5 FAIL courants / 9 BLOCKED / 27 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** `S05-06 BLOCKED` : sans A pending réellement enregistrée et sans B indépendante traitée pendant A, aucune reprise/réconciliation ni garantie contre un double effet n'a pu être testée ; aucun nouvel ID. `S05-07 NOT RUN` requiert injection autorisée et contrôle de clé/effet unique, à qualifier séparément, sans injection ni ouverture de cycle spontanée. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
