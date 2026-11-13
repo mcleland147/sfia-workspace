@@ -38,9 +38,9 @@
 | S03 | 7 | 0 | 1 | 1 | 5 | 1 |
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
 | S05 | 8 | 1 | 0 | 7 | 0 | 0 |
-| S06 | 11 | 1 | 0 | 2 | 8 | 1 |
+| S06 | 11 | 1 | 0 | 3 | 7 | 1 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **13** | **5** | **13** | **22** | **11** |
+| **TOTAL** | **53** | **13** | **5** | **14** | **21** | **11** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -697,6 +697,22 @@
 
 **Preuves :** `S06-03-P01` dépendances et état visible de S06-01/S06-02/S03-01 ; `S06-03-D01` validation Morris du 13/11/2026. Aucun appel de publication ou refus technique attribuable à la garde HumanDecision n'a été enregistré dans ce cas.
 
+
+### Clôture utilisateur `S06-04` — inspection du diff et autorisation de l'opération exacte (13 novembre 2026)
+
+**Décision Morris : `S06-04 = BLOCKED`**, sans nouvelle anomalie. Aucun **document D4 avec identifiant/révision** ni aucune **publication préparable avec diff inspectable** ne permet d'exercer le lien entre inspection et HumanDecision applicable. Le prérequis documentaire reste suivi sous `ML4C-A-010` (**MAJEURE / OPEN**). Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; projet Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Champ / preuve | Constat, limite et qualification |
+|---|---|
+| Oracle S06-04 | Après sélection d'une version **exacte** de document Studio, inspecter le contenu, la cible Git (dépôt/branche/chemin), la base et le **diff**, puis autoriser **précisément cette opération** par une décision humaine applicable à ces références. Une autorisation vague ou portant sur une autre révision/base ne suffirait pas. |
+| Préconditions — `S06-04-P01` | `S06-02 BLOCKED` : sélecteur `Document AVAILABLE : —` après rattachement Git, pas de document D4, ID/version, inspection ni diff ; en amont `S03-01 FAIL` et `ML4C-A-010 OPEN`. `S06-03 BLOCKED` confirme que la garde HumanDecision n'a pas été exercée dans un scénario de publication documentaire valide. Le dépôt `mcleland147/chantiers360` est rattaché et lu (`S06-01 PASS avec réserve`), mais cela ne supplée pas le document source ni le diff. |
+| Autorité / exécution | Aucun HumanDecision D6 applicable à une cible, révision et geste identifiés n'a été créé dans S06-04 ; **aucune inspection de diff réel, autorisation de publication, mutation Git REAL ni appel de publication** n'a été réalisé. Le GO Morris antérieur concernait **uniquement le rattachement et la lecture** du dépôt, pas la publication ni la création d'une décision pour ce test. |
+| Qualification | **BLOCKED de précondition**, sans verdict sur la qualité de l'interface d'inspection, sur la liaison HumanDecision/revision/cible ou sur la garde applicative réelle : aucun défaut indépendant de l'étape d'inspection/autorité n'a été démontré. La cause technique D4 reste non établie ; `ML4C-A-010` n'est pas clôturée. |
+| Décision — `S06-04-D01` | Morris valide le `BLOCKED` proposé (« okok »), **sans nouvel ID d'anomalie ni nouvelle réserve**. Ce verdict n'autorise aucune publication, action Git REAL, décision D6 ou traitement du défaut amont. |
+| Conditions de reprise et suite | Disposer d'une source D4 enregistrée et versionnée, d'une cible Git sûre explicitement désignée, d'un diff document/révision/base/chemin inspectable et d'une procédure HumanDecision avec autorité et preuves avant tout effet. **`S06-05 = NOT RUN`**, exécution d'une publication documentaire réelle gouvernée : son GO REAL spécifique, ses droits Git et ses préconditions documentaires doivent être examinés séparément, sans propagation automatique. |
+
+**Preuves :** `S06-04-P01` observations et arbitrages S03-01/S06-01 à S06-03 ; `S06-04-D01` validation Morris du 13/11/2026. Pas de nouveau document Studio, diff, décision, commit Git REAL ou preuve technique de garde produit.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -808,7 +824,7 @@
 | `S06-01` | Connecter et consulter le dépôt autorisé | Identité, permissions, branche, HEAD réels | **PASS — avec réserve de preuve : rattachement/lecture main & SHA observés via Nora ; droits GitHub et défaut de branche non attestés** | `S06-01-U01/U02/E01/E02/D00/D01` ; `S06-01-R01` OPEN |
 | `S06-02` | Choisir un document Studio et préparer sa publication | Document/révision exacts, cible et diff inspectables | **BLOCKED — aucun document D4 AVAILABLE avec révision ; préparation/diff impossible** | `S06-02-P01/U01/D01` ; `ML4C-A-010` OPEN, aucune nouvelle anomalie |
 | `S06-03` | Demander une publication sans HumanDecision | Refus, zéro mutation Git | **BLOCKED — document D4 et publication valide absents ; refus HumanDecision non isolable sans tentative REAL non autorisée** | `S06-03-P01/D01` ; aucune nouvelle anomalie, garde non testée |
-| `S06-04` | Inspecter diff et autoriser l’opération exacte | Décision applicable à la cible et révision | NOT RUN | — |
+| `S06-04` | Inspecter diff et autoriser l’opération exacte | Décision applicable à la cible et révision | **BLOCKED — aucune source D4 versionnée ni diff inspectable ; HumanDecision non testable sur une opération définie** | `S06-04-P01/D01` ; `ML4C-A-010` déjà OPEN, aucun nouvel ID |
 | `S06-05` | Exécuter publication documentaire autorisée | Branche/commit/PR réels vérifiés côté GitHub | NOT RUN | — |
 | `S06-06` | Modifier révision, cible ou base après autorisation | Requalification et nouvelle autorisation si changement matériel | NOT RUN | — |
 | `S06-07` | Tester dépôt étranger, droits insuffisants ou révoqués | ACCESS_DENIED ou refus adapté, aucune mutation | NOT RUN | — |
@@ -941,6 +957,8 @@
 | `S06-02-D01` | Arbitrage Morris (« ok donc oui blocked ») | `S06-02 BLOCKED` faute de document Studio D4 ; `ML4C-A-010` déjà OPEN, aucun nouvel ID | Pas de publication/GO Git REAL et aucun verdict automatique S06-03 | Conversation du 13/11 |
 | `S06-03-P01` | Qualification des préconditions depuis S06-01/S06-02 et S03-01 | Dépôt rattaché mais aucun D4 sélectionnable, aucune opération/document/révision/diff préparés, aucun GO REAL documentaire pour effet Git | La garde HumanDecision n'a pas été sollicitée dans une opération valide ; absence d'effet non auditée en backend | Fiches précédentes et captures Sources Git du 13/11 |
 | `S06-03-D01` | Arbitrage Morris (« oui ») | `S06-03 = BLOCKED` faute de scénario de refus isolable, sans anomalie nouvelle | Ne constitue aucun GO Git REAL, décision D6 ou verdict de S06-04 | Conversation du 13/11 |
+| `S06-04-P01` | Préconditions documentaires et Git des cas S03-01/S06-01 à S06-03 | Dépôt Git rattaché mais aucun document D4 `AVAILABLE` avec ID/version et aucun diff/cible préparés ; aucun acte D6 défini | Ne prouve ni défaut ni réussite de l'inspection ou de la liaison HumanDecision | Fiches S03-01/S06-01 à S06-03, capture Sources Git du 13/11 |
+| `S06-04-D01` | Arbitrage Morris (« okok ») | `S06-04 = BLOCKED` pour absence de document/diff, sans nouvelle anomalie ; aucune autorisation de publication | Ne vaut pas GO Git REAL, ne tranche pas S06-05 | Conversation du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -959,6 +977,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S06-04 — diff inspecté et autorisation précise | **BLOCKED confirmé Morris** : pas de document Studio D4 versionné ni de publication préparée avec diff ; HumanDecision ne peut être contrôlée pour la révision/cible/geste exacts. Aucun diff ni décision D6 ni effet Git REAL réalisés, anomalie amont `ML4C-A-010` toujours OPEN, aucun ID nouveau. `S06-05` demeure NOT RUN. |
 | S06-03 — refus de publication sans HumanDecision | **BLOCKED confirmé Morris** : sans document Studio D4 versionné ni publication valide préparée, aucune tentative négative ne peut isoler un refus dû à l'absence de HumanDecision. Aucun effet Git REAL ni refus serveur exécuté ou prouvé ; `ML4C-A-010` déjà OPEN pour le prérequis D4, pas de nouvel ID. `S06-04` reste NOT RUN. |
 | S06-02 — préparation documentaire Studio vers Git | **BLOCKED confirmé Morris** : aucun document D4 `AVAILABLE` avec version/ID pour produire une inspection et un diff ; les constats S03-01 et `ML4C-A-010` OPEN documentent le défaut amont, sans nouveau FAIL Git ni nouvelle anomalie. Dépôt rattaché mais aucune opération REAL/mandat de publication ; S06-03 NOT RUN à qualifier séparément. |
 | S06-01 — connexion et consultation Git | **PASS AVEC RÉSERVE confirmé Morris** : rattachement du dépôt `mcleland147/chantiers360` et lecture `main`/`README.md` avec SHA réel rapportés par Nora ; droits d'écriture, identité et règles du connecteur, branche par défaut GitHub non attestés. `S06-01-R01` OPEN comme réserve de preuve, sans nouvel ID d'anomalie produit. GO de rattachement **n'autorise aucune publication Git REAL**. |
@@ -1058,6 +1077,8 @@
 **Bilan CURRENT après validation Morris S06-02 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 13 PASS / 5 FAIL courants / 12 BLOCKED / 23 NOT RUN`, 11 réserves/anomalies OPEN sur 12 identifiants (aucune nouvelle anomalie ni réserve).** `S06-02 BLOCKED` : `Document AVAILABLE : —` sur la capture Sources Git après rattachement ; source D4 et révision absentes dans la campagne suite à `S03-01 FAIL / ML4C-A-010 OPEN`. Aucun diff, inspection Git ou effet de publication exécutés ; `S06-01 PASS avec réserve` conservé. Prochain `S06-03 NOT RUN` : qualifier séparément le refus sans HumanDecision, sans tentative Git REAL interdite. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, publication Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après validation Morris S06-03 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 13 PASS / 5 FAIL courants / 13 BLOCKED / 22 NOT RUN`, 11 réserves/anomalies OPEN sur 12 identifiants (aucune nouvelle anomalie ni réserve).** `S06-03 BLOCKED` : sans D4 versionné et sans opération de publication préparée, absence de possibilité de tester isolément le refus HumanDecision ; aucune tentative Git REAL effectuée, aucune conclusion sur le contrôle serveur. `ML4C-A-010 OPEN` conservée. Prochain `S06-04 NOT RUN` : inspection du diff et autorisation précise, à qualifier séparément ; aucun GO pour HumanDecision, publication, PR, merge ou promotion. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED.
+
+**Bilan CURRENT après validation Morris S06-04 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 13 PASS / 5 FAIL courants / 14 BLOCKED / 21 NOT RUN`, 11 réserves/anomalies OPEN sur 12 identifiants (aucun ID nouveau).** `S06-04 BLOCKED` : aucun document D4 versionné ni diff préparé ne permet une inspection et un HumanDecision correspondant à l'acte exact ; `ML4C-A-010` demeure OPEN. Aucun HumanDecision D6 ni publication Git REAL effectué. Prochain `S06-05 NOT RUN` : vérifier séparément les préconditions et le GO Morris REAL documentaire, sans déclencher de publication. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, publication Git REAL, PR/merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
