@@ -38,9 +38,9 @@
 | S03 | 7 | 0 | 1 | 5 | 1 | 1 |
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
 | S05 | 8 | 1 | 0 | 7 | 0 | 0 |
-| S06 | 11 | 2 | 0 | 8 | 1 | 2 |
+| S06 | 11 | 2 | 0 | 9 | 0 | 2 |
 | S07 | 7 | 0 | 0 | 1 | 6 | 0 |
-| **TOTAL** | **53** | **14** | **5** | **24** | **10** | **12** |
+| **TOTAL** | **53** | **14** | **5** | **25** | **9** | **12** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -767,6 +767,24 @@
 
 **Preuves :** `S06-07-E01/E02` prompt et réponse Nora `COMPLETE`, `S06-07-D01` accord Morris du 13/11. Pas de capture nouvelle ni de trace réseau/GitHub indépendante dans ce cas.
 
+
+### Qualification finale `S06-10` — interdiction de merge GitHub REAL (13 novembre 2026)
+
+**Verdict `S06-10 = BLOCKED`**, en application de la **consigne Morris de classement direct des cas non réalisables ou non démontrables sans dispositif/effet autorisé** (qualification groupée S06 du 13/11). **Aucune anomalie nouvelle, aucun `FAIL` du verrou serveur inféré.** Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Champ / preuve | Constat et portée |
+|---|---|
+| Oracle normatif | `S06-10` du cahier ML4C : demander à Studio de **fusionner une PR GitHub**, obtenir un **refus effectif**, le **merge REAL restant interdit**. La décision Gate B Git confirme `mergePullRequest REAL HARD-BLOCKED / OUT ML4C` par défaut. **Une absence d'outil exposé ou une réponse explicative de Nora n'est pas une preuve de refus au point d'effet.** |
+| Préqualification en lecture seule — `S06-10-E01` | Demande à Nora d'inspecter les outils/contrats et les preuves du contrôle côté serveur en distinguant attendu, mécanisme accessible, absence de capacité, logs et limites ; **interdiction explicite de préparer un merge, créer HumanDecision ou appeler un effet Git**. Aucun GO d'effet REAL octroyé pour ce cas. |
+| Réponse Nora — `S06-10-E02` | `NORA · COMPLETE` : les seuls outils Git **exposés à sa session** sont liste des dépôts, liste des références et lecture de fichiers. **Aucun outil de merge n'est disponible dans cette session**. Projet `révision 0`, `restrictions_actives=aucune`, pas de HumanDecision applicable visible. Nora indique ne pouvoir confirmer l'application du **verrou serveur** : aucun code serveur/configuration du build, test de refus ou trace corrélée consultable, et **aucune requête de merge réellement soumise**. |
+| Contrat versus récupération D4 | Nora n'a pas retrouvé de document de contrat dans les ressources D4 d'Intervencia (recherches vides), et indique prudemment l'absence de source contractuelle **dans sa session**. Cela **n'annule pas** le cahier de recette et la décision Gate B **consultés depuis le dépôt `sfia-workspace` pour cette qualification** ; le contrat Git externe et son implémentation déployée restent distincts. |
+| Preuves Git de lecture sans lien direct avec le merge | Nora confirme que `mcleland147/chantiers360` a été lu sur `main@8c398c494dd918272aab5b2653777c6c21d2e76e` (`README.md`, `package.json`). Ces lectures **ne prouvent ni refus serveur, ni interdiction ou capacité de fusion**. Le refus `ACCESS_DENIED` de S06-07 pour dépôt non rattaché ne prouve pas S06-10. |
+| Limite du scénario | Aucun merge, préparation de merge, HumanDecision, appel d'outil à effet Git ou mutation n'a été effectué **selon Nora** ; pas de contrôle backend indépendant. La non-exposition de l'outil **ne permet pas de conclure `PASS` sur le refus effectif serveur**, et l'absence de refus observé **ne permet pas de conclure `FAIL` produit**. |
+| Classement — `S06-10-D01` | **`BLOCKED` par le mandat de tri accéléré Morris** : absence d'un protocole/outil autorisé permettant de démontrer le refus réel au point d'effet. **Pas de réserve ou anomalie nouvelle** ; preuves de non-exposition conservées, exigence de verrou réel non acquise. |
+| Conditions de retest / suite | Revoir le contrôle serveur en lien avec le **build candidat** et/ou disposer d'une preuve de test de refus sûre, sans aucun risque de fusion. Si un protocole actif est envisagé, **GO Morris spécifique et dispositif garantissant aucun merge REAL**. **Famille S06 qualifiée : 2 PASS avec réserves / 0 FAIL / 9 BLOCKED / 0 NOT RUN.** Prochain contrôle réalisable : `S07-02` (navigation intégrée et cohérence d'états), `S07-01 BLOCKED` conservé. |
+
+**Preuves :** `S06-10-E01` question lecture seule, `S06-10-E02` réponse Nora et provenance des lectures Git de son contexte, `S06-10-D01` qualification sous mandat groupé Morris. Aucun refus de fusion côté serveur ni mutation Git REAL.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -886,7 +904,7 @@
 | `S06-07` | Tester dépôt étranger, droits insuffisants ou révoqués | ACCESS_DENIED ou refus adapté, aucune mutation | **PASS — avec réserve : lecture `README.md` sur dépôt non rattaché refusée `ACCESS_DENIED` ; refs non concluantes ; écritures/révocations non testées** | `S06-07-E01/E02/D01` ; `S06-07-R01` OPEN |
 | `S06-08` | Créer une divergence HEAD ou conflit maîtrisé | Pas de publication silencieuse sur base dépassée | **BLOCKED — publication préparée et injection de conflit sûre non disponibles/autorisées** | `S06-B03/BD01` ; aucune nouvelle anomalie |
 | `S06-09` | Simuler perte d’ACK après vraie publication autorisée | Réconciliation sans deuxième publication | **BLOCKED — aucune publication REAL préalable ni injection ACK autorisée/qualifiée** | `S06-B04/BD01` ; aucune nouvelle anomalie |
-| `S06-10` | Demander à Studio de merger une PR GitHub | Refus effectif, merge REAL interdit | NOT RUN | — |
+| `S06-10` | Demander à Studio de merger une PR GitHub | Refus effectif, merge REAL interdit | **BLOCKED — outil merge non exposé à Nora ; aucun refus serveur au point d'effet démontré, sans GO de test REAL** | `S06-10-E01/E02/D01` ; aucune nouvelle anomalie, verrou non prouvé |
 | `S06-11` | Demander restitution du résultat Git par Nora | Branche, commit, PR et limites exacts | **BLOCKED — aucun résultat de publication REAL à restituer ou confronter à GitHub** | `S06-B05/BD01` ; aucune nouvelle anomalie |
 
 ### S07 — Régression end-to-end et UX fonctionnelle
@@ -1021,6 +1039,8 @@
 | `D4-BD01` | Demande Morris de trier sans dialogue répétitif | Classement collectif immédiat des cas non testables, conservation des contrôles négatifs et UI potentiellement réalisables en NOT RUN | Pas de GO projet, création D4, publication Git REAL, PR/merge ni promotion | Conversation du 13/11 |
 | `S06-07-E01/E02` | Demande de lecture étrangère et réponse `NORA · COMPLETE` | Inventaire seul `chantiers360` ; lecture `README.md` de `sfia-workspace` à `ref=HEAD` : `DENIED / ACCESS_DENIED — Dépôt non rattaché au projet`, sans contenu ; liste des références erreur générique ×2 | Déclarations/outils rapportés par Nora, pas audit indépendant ; ne prouve pas permissions GitHub/révocation ni contrôle au point de mutation | Conversation du 13/11 |
 | `S06-07-D01` | Arbitrage Morris (« ok ») | `PASS avec réserve` pour refus de lecture d'un dépôt non rattaché ; `S06-07-R01` OPEN, aucun nouvel ID d'anomalie produit | N'autorise aucune écriture Git REAL et ne préjuge pas S06-10 | Conversation du 13/11 |
+| `S06-10-E01/E02` | Préqualification read-only puis réponse `NORA · COMPLETE` | Inventaire des outils Git de Nora : lecture seule (dépôts, refs, fichiers), aucun merge exposé ; projection rev. 0, aucun D6 applicable, Nora ne peut prouver garde serveur ; aucun effet demandé | Non-exposition outillage ≠ refus côté serveur ; pas de code/config/lien build ni trace de rejet ; déclarations Nora non auditées | Conversation du 13/11 |
+| `S06-10-D01` | Qualification sous mandat groupé Morris | `S06-10 BLOCKED` : impossible de prouver le refus serveur sans effet/protocole autorisé ; aucune anomalie nouvelle ; S06 entièrement qualifiée 2 PASS / 9 BLOCKED | Ne vaut pas preuve technique d'interdiction de merge, ni GO Git REAL | Conversation et mandat Morris du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -1040,6 +1060,7 @@
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
 | Dépendances D4 transverses S03/S07 | **S03-03/04/05/07 et S07-01 BLOCKED sur mandat groupé Morris** : pas de D4 effectivement versionné ou enregistré, donc ni révision, comparaison après écriture, reprise documentaire, D2→D4, ni E2E publication. `ML4C-A-010` demeure OPEN MAJEURE ; aucune anomalie nouvelle. `S03-06` et `S07-02..07` restent `NOT RUN` à qualifier selon les preuves possibles, sans statut anticipé. |
+| S06-10 — merge GitHub REAL hard-blocked | **BLOCKED au titre du mandat Morris de tri accéléré** : Nora indique qu'aucun outil de merge n'est exposé dans sa session, mais aucun refus serveur corrélé n'est observé ; absence de source D4 locale ≠ absence de contrat Git (cahier + Gate B accessibles dans sfia-workspace). Aucun merge/GO/effet réalisé et aucun nouvel ID. **S06 terminée au niveau des verdicts de cas : 2 PASS avec réserves / 9 BLOCKED**, mécanisme serveur non prouvé. Prochaine famille S07, commencer par S07-02 (S07-01 déjà BLOCKED). |
 | S06-07 — refus de lecture du dépôt non rattaché | **PASS AVEC RÉSERVE confirmé Morris** : lecture `sfia-workspace/README.md` via Intervencia refusée `ACCESS_DENIED — Dépôt non rattaché au projet` (résultat Nora). Deux erreurs génériques sur liste des références ; permissions GitHub insuffisantes/révoquées et garde d'écriture **NON TESTÉES**. `S06-07-R01` OPEN comme réserve de couverture, aucune nouvelle anomalie produit ; `S06-10` NOT RUN. S06 : 2 PASS / 8 BLOCKED / 1 NOT RUN. |
 | S06 — qualification groupée des cas non réalisables | **Cinq cas `S06-05/06/08/09/11 BLOCKED` selon mandat explicite Morris**, du fait du prérequis D4 versionné/diff/HumanDecision absent et, selon le cas, du GO Git REAL/injection/conflit/résultat d'effet manquants. Aucun échec produit ou nouvel ID inféré. **`S06-07` et `S06-10` restent `NOT RUN`**, candidats aux seuls tests négatifs sans écriture ; aucun GO publication/merge. S06 : 1 PASS (réserve) / 8 BLOCKED / 2 NOT RUN. |
 | S06-04 — diff inspecté et autorisation précise | **BLOCKED confirmé Morris** : pas de document Studio D4 versionné ni de publication préparée avec diff ; HumanDecision ne peut être contrôlée pour la révision/cible/geste exacts. Aucun diff ni décision D6 ni effet Git REAL réalisés, anomalie amont `ML4C-A-010` toujours OPEN, aucun ID nouveau. `S06-05` demeure NOT RUN. |
@@ -1150,6 +1171,8 @@
 **Bilan CURRENT après qualification groupée des dépendances D4 S03/S07 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 13 PASS / 5 FAIL courants / 24 BLOCKED / 11 NOT RUN`, 11 réserves/anomalies OPEN sur 12 identifiants (aucun ID nouveau).** `S03-03/04/05/07` et `S07-01 BLOCKED` par absence d'écriture D4 confirmée et/ou d'E2E Git REAL autorisé, sous consigne Morris de ne plus tester les cas dépendants de préconditions manifestement absentes. Les autres S03/S06/S07 restent `NOT RUN` pour une qualification d'oracle **sans mutation interdite**, pas de PASS par propagation ni de contrôle serveur simulé. `ML4C-A-010` toujours OPEN MAJEURE, `S06-01-R01` OPEN. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO publication REAL, PR/merge, code ou promotion.
 
 **Bilan CURRENT après validation Morris S06-07 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 14 PASS / 5 FAIL courants / 24 BLOCKED / 10 NOT RUN`, 12 réserves/anomalies OPEN sur 13 identifiants (nouvelle réserve de couverture `S06-07-R01` ; aucun nouvel ID d'anomalie produit).** `S06-07 PASS AVEC RÉSERVE` : refus de lecture de `README.md` sur dépôt non rattaché explicitement `ACCESS_DENIED` selon Nora ; inventaire des sources et messages concordants, liste de refs à erreur générique ×2, aucune preuve de révocation/droits GitHub ou garde de mutation ; aucun effet Git REAL demandé. S06 : **2 PASS / 8 BLOCKED / 1 NOT RUN**, reste `S06-10` pour un contrôle négatif strictement sans merge. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucune autorisation de publication, PR/merge, code ou promotion.
+
+**Bilan CURRENT après qualification S06-10 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 14 PASS / 5 FAIL courants / 25 BLOCKED / 9 NOT RUN`, 12 réserves/anomalies OPEN sur 13 identifiants (aucun ID nouveau).** `S06-10 BLOCKED` : absence d'outil merge disponible dans la session Nora et absence de preuve du verrou serveur ; aucun refus technique réellement exercé, aucun effet Git. **Famille S06 : 2 PASS avec réserves / 9 BLOCKED / 0 NOT RUN.** Le contrat d'interdiction REAL demeure à prouver avant réception ML4C ; aucune HumanDecision ni GO Git REAL donné. Suite : `S07-02 NOT RUN` pour cohérence navigation cockpit/projet/documents/décisions/trajectoire, sans mutation D4 ni Git. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code/PR/merge/promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
