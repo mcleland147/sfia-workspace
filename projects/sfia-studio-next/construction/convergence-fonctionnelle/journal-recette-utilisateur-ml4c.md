@@ -36,11 +36,11 @@
 | S01 | 6 | 4 | 0 | 0 | 2 | 5 |
 | S02 | 6 | 5 | 0 | 1 | 0 | 3 |
 | S03 | 7 | 0 | 1 | 1 | 5 | 1 |
-| S04 | 8 | 0 | 2 | 0 | 6 | 1 |
+| S04 | 8 | 0 | 2 | 1 | 5 | 1 |
 | S05 | 8 | 0 | 0 | 0 | 8 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **9** | **3** | **2** | **39** | **10** |
+| **TOTAL** | **53** | **9** | **3** | **3** | **38** | **10** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -408,6 +408,24 @@
 
 **Preuves :** `S04-02-E00` réponse historique Nora « Trois approches possibles » présente dans la conversation ; `S04-02-E01` demande de rappel ; `S04-02-E02` réponse Nora signalant l'insuffisance des extraits ; `S04-02-D01` validation Morris. Toutes sont des transcriptions utilisateur et conversation, **sans inspection indépendante du moteur mémoire ou du backend**.
 
+
+### Qualification `S04-03` — décisions successives / remplacement (13 novembre 2026)
+
+**Décision Morris : `S04-03 = BLOCKED`**, motif : **mécanisme et support de décision formelle / remplacement non qualifiés dans ce contexte de recette** ; aucun essai de création ou supersession d'une décision persistée. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`, projet `Intervencia` / `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Champ | Constat / portée |
+|---|---|
+| Oracle de S04-03 | Enregistrer une décision applicable, puis une décision qui la remplace ; inspecter les identifiants, états, provenance, applicabilité de la nouvelle et historique de l'ancienne. Deux énoncés dans le fil Nora ne valent pas deux HumanDecisions enregistrées. |
+| Exploration read-only — `S04-03-E01` | Le Pilote demande à Nora d'expliquer les mécanismes disponibles pour créer, retrouver et remplacer une décision, en précisant **qu'il s'agit d'une question seulement**, sans écriture ni autre effet. |
+| Réponse Nora — `S04-03-E02` | `NORA · COMPLETE` affirme **n'appeler aucun outil**. Elle distingue recommandation / HumanDecision, préparation d'un énoncé / enregistrement, révision / nouvelle décision remplaçante, validation du sens / autorité humaine / contrôles applicatifs. Elle précise qu'une décision contradictoire ne révoque pas automatiquement l'ancienne. |
+| Limites exposées par Nora | Elle déclare ne pas disposer dans cette session d'un outil de **recherche exhaustive** des décisions. Sa projection ne montre aucun cycle, aucune restriction active ni décision applicable avec référence d'objet. Cette projection **ne prouve pas l'inexistence du registre ou des mécanismes d'enregistrement**. L'interface Intervencia n'a pas été explorée davantage pour une opération formelle autorisée. |
+| Précondition d'exécution absente / non qualifiée | Aucun contexte de décision métier applicable, cycle ou objet décisionnel avec contrat de remplacement et permissions clarifiés n'a été préparé. Exécuter deux déclarations conversationnelles n'aurait pas démontré la supersession D6 ; créer un cycle ou modifier les autorités uniquement pour ce test serait une mutation hors périmètre convenu. |
+| Verdict — `S04-03-D01` | **`BLOCKED` confirmé par Morris (« okok »)**, et non FAIL produit. Aucune HumanDecision créée, remplacée ou révoquée **au cours de ce scénario selon Nora** ; absence d'effets indépendamment vérifiée : **NON**. Aucune nouvelle anomalie ouverte. |
+| Condition de reprise | Identifier le contrat de décision applicable, l'objet cible, les autorisations HumanDecision, un environnement/scénario contrôlé et les surfaces de preuve (registre, IDs, statut applicable, supersession, historique). Définir le protocole et obtenir tout GO nécessaire avant écriture. Un éventuel test automatisé serait qualifié séparément du LIVE utilisateur. |
+| Suite | **`S04-04 = NOT RUN`** : contradiction entre deux sources ; construire un cas conversationnel sans écrire de décision formelle ni document et sans réutiliser comme source un artefact non prouvé. |
+
+**Preuves :** `S04-03-E01` demande explicative, `S04-03-E02` réponse Nora, `S04-03-D01` arbitrage Morris du 13/11. Transcriptions dans la conversation, pas de capture ou preuve d'effets DB/Git. Pas de mandat code Cursor, de mutation RECETTE ou de publication Git produit.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -490,7 +508,7 @@
 |---|---|---|---|---|
 | `S04-01` | Établir une contrainte puis la reformuler après plusieurs sujets | Contrainte pertinente retrouvée malgré vocabulaire différent | **FAIL — rappel incomplet après rafraîchissement** malgré reformulation initiale et réemploi spontané correct ; source Pilote partiellement perdue | `S04-01-E01..E05/D01` ; `ML4C-A-011` OPEN MAJEURE |
 | `S04-02` | Interroger Nora sur une orientation passée | Réponse sourcée et contextualisée | **FAIL — orientation hybride et alternatives non retrouvées**, provenance insuffisante ; prudence sur l'incertitude et les décisions conforme | `S04-02-E00/E01/E02/D01` ; `ML4C-A-011` OPEN MAJEURE |
-| `S04-03` | Enregistrer une décision puis une décision qui la remplace | Décision applicable distinguée de l’ancienne | NOT RUN | — |
+| `S04-03` | Enregistrer une décision puis une décision qui la remplace | Décision applicable distinguée de l’ancienne | **BLOCKED — mécanisme de décision formelle/supersession non qualifié** ; explication Nora conforme, aucune décision de test persistée ni remplacement exécuté | `S04-03-E01/E02/D01` ; aucun nouveau défaut prouvé |
 | `S04-04` | Introduire deux sources contradictoires | Contradiction, dates, provenance, incertitude explicites | NOT RUN | — |
 | `S04-05` | Demander recommandation pour choix complexe | Options, risques et recommandation sans décision implicite | NOT RUN | — |
 | `S04-06` | Reprendre projet après interruption et demander les points ouverts | Continuité utile sans répéter tout l’historique | NOT RUN | — |
@@ -603,6 +621,9 @@
 | `S04-02-E01` | Demande du Pilote à Nora de restituer l'orientation | Demande de recommandation, options, motifs/conditions et provenance sans rappeler le contenu | Vérification fonctionnelle UAT, aucune action déclenchée | Conversation, non versée sur Git |
 | `S04-02-E02` | Réponse Nora `COMPLETE` après interrogation | Recherche sans ressource, seul début de réponse historique retrouvable ; aucune approche/recommandation restituée, absence de décision explicitement respectée | Ne prouve ni cause racine ni absence de message en base | Conversation, non versée sur Git |
 | `S04-02-D01` | Validation Morris du 13/11/2026 | `S04-02 = FAIL` ; rattachement `ML4C-A-011` MAJEURE sans nouveau bug ID | Ne vaut pas GO technique, ne statue pas sur S04-03 | Conversation du 13/11 |
+| `S04-03-E01` | Demande explicative Pilote | Mécanismes de création, restitution et remplacement de décisions demandés, **aucun effet autorisé** | Pas un scénario de mutation, simplement cadrage de capacité | Conversation du 13/11, sans pièce Git |
+| `S04-03-E02` | Réponse Nora `COMPLETE` | Frontières HumanDecision et validation expliquées ; absence d'outil de recherche exhaustive déclaré dans cette session ; aucun outil appelé selon Nora | Mécanisme de supersession réel non inspecté ; pas de preuve qu'il n'existe pas | Conversation du 13/11, sans pièce Git |
+| `S04-03-D01` | Accord Morris (« okok ») | `S04-03 BLOCKED` pour absence de protocole qualifié et objet décisionnel testé ; aucun FAIL produit ni nouvelle anomalie | Ne vaut pas GO D6/technique, et ne statue pas sur S04-04 | Conversation du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -621,6 +642,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S04-03 — remplacement de décision formelle | **BLOCKED confirmé Morris** : Nora décrit correctement HumanDecision, autorité, supersession non automatique, mais aucun acte formel ni registre de décisions remplaçantes n'a été exercé ; contrat et support à qualifier. Ne pas déduire que la capacité n'existe pas. Aucun défaut ni GO technique généré. |
 | S04-02 — rappel d'une orientation passée | **FAIL confirmé Morris** : Nora ne retrouve pas sa recommandation hybride conditionnelle ni les deux alternatives après interrogation, malgré ses échanges antérieurs ; elle ne fabrique ni décision ni preuve. `ML4C-A-011` MAJEURE maintenue/élargie, **aucun nouvel ID** ; défaut de récupération/provenance non expliqué techniquement. |
 | S04-01 — mémoire/provenance de contrainte métier | **FAIL validé par Morris**, anomalie `ML4C-A-011 MAJEURE OPEN` : compréhension puis réutilisation spontanée conformes ; après `Cmd + R`, message Pilote tronqué dans le contexte déclaré de Nora et règle complète dégradée en interprétation incertaine. Source/contrat de mémoire non audités ; rapprochement `A-010` sans présumer une cause commune. |
 | S03-02 — ouverture d'un document D4 réel | **BLOCKED confirmé par Morris** : aucun document à inspecter dans Intervencia après proposition non enregistrée et tentative diagnostique distincte. La réponse `UNKNOWN / NO_EFFECT_OBSERVED` ne prouve pas une panne de base ; `ML4C-A-010` reste OPEN MAJEURE, investigation élargie à la mobilisation/persistance/vérité d'effet D4. |
@@ -669,6 +691,8 @@
 **Bilan CURRENT après validation Morris S04-01 (12/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 9 PASS / 2 FAIL courants / 2 BLOCKED / 40 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants enregistrés.** `S04-01 FAIL` et `ML4C-A-011 MAJEURE OPEN` : Nora a correctement réutilisé une contrainte métier à court terme, puis n'a pas retrouvé sa formulation/provenance complète après actualisation. Les erreurs D4 `A-010` et mémoire/provenance `A-011` sont à investiguer sans supposer une cause racine commune. `S04-02` reste NOT RUN, aucun effet déclenché ni audit du stockage/contexte. Candidat RECETTE figé, Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO Cursor, Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après validation Morris S04-02 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 9 PASS / 3 FAIL courants / 2 BLOCKED / 39 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants enregistrés.** `S04-02 FAIL` : Nora ne retrouve pas son orientation hybride conditionnelle et ses alternatives, alors qu'elle avait réellement émis cette recommandation ; elle évite les reconstructions et décisions fictives. Constat rattaché à `ML4C-A-011 MAJEURE` déjà ouverte sous S04-01, sans nouvelle anomalie. La cause mémoire/retrieval reste non observée, et aucune cause partagée avec `A-010` n'est démontrée. Prochain scénario `S04-03 NOT RUN`. Build RECETTE figé, Gate C OPEN, ML4C NOT ACCEPTED, aucun GO de code, Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT après qualification Morris S04-03 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 9 PASS / 3 FAIL courants / 3 BLOCKED / 38 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** S04-03 est `BLOCKED` car le mécanisme D6 de décision enregistrée et remplacée n'a pas été mis en situation sous contrat et autorisations qualifiés. L'explication conceptuelle de Nora est conforme, mais aucune preuve de supersession réelle n'existe ; pas d'anomalie applicative nouvelle. `S04-04` reste `NOT RUN` et peut être testé comme confrontation conversationnelle de sources en gardant les statuts documentaires/autorités inchangés. Candidat RECETTE inchangé, Gate C OPEN, ML4C NOT ACCEPTED, aucun GO de code, Git REAL, PR/merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
