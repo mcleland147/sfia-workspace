@@ -1,7 +1,7 @@
 # SFIA Studio Next — Cadrage du correctif intégré : continuité Pilote–Nora et documents
 
-**Version :** 0.5 — 13 novembre 2026  
-**Statut :** VALIDATED IN CONTENT BY MORRIS — cadrage fonctionnel et principes de conception O-01/O-02/O-03/O-04 ; implémentation technique à qualifier  
+**Version :** 0.6 — 13 novembre 2026  
+**Statut :** VALIDATED IN CONTENT BY MORRIS — O-01/O-02/O-03/O-04 ; O-05/O-06 DOCUMENTED — conception technique candidate ChatGPT sous mandat Git Morris ; NOT YET VALIDATED SPEC  
 **Programme :** R5 — ML4C, convergence fonctionnelle intégrée  
 **Nature :** cadrage fonctionnel et conception corrective candidate, avant contrat d'exécution  
 **Autorité produit :** Morris  
@@ -10,7 +10,7 @@
 **Projet de recette :** Intervencia  
 **Gate C :** OPEN — ML4C NOT ACCEPTED
 
-> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. (4) Morris valide O-03 — identité, provenance, intégrité, résolution et autorité séparée des propositions documentaires — et autorise son intégration dans la V0.4. (5) Morris valide ensuite O-04 — mobilisation D4 sous admission canonique, acte USER distinct, proposition vérifiée, garde et absence de doublon — et autorise son intégration en V0.5. Les signatures techniques définitives, la stratégie algorithmique, la réconciliation O-05, les budgets et l'exécutabilité restent à qualifier : **NOT YET VALIDATED SPEC**. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
+> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. (4) Morris valide O-03 — identité, provenance, intégrité, résolution et autorité séparée des propositions documentaires — et autorise son intégration dans la V0.4. (5) Morris valide ensuite O-04 — mobilisation D4 sous admission canonique, acte USER distinct, proposition vérifiée, garde et absence de doublon — et autorise son intégration en V0.5. (6) Morris demande à ChatGPT d'assumer l'instruction des contrats techniques restants sans micro-arbitrages, puis autorise leur **intégration documentaire Git directe**. La V0.6 intègre les propositions détaillées O-05 et O-06 **DRAFT/DOCUMENTED** ; cette autorisation de publication ne vaut ni validation d'architecture structurante, ni preuve d'exécutabilité, ni GO Cursor. Les signatures exactes, les tests et tout pivot de persistance restent soumis aux gates applicables : **NOT YET VALIDATED SPEC**. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
 
 ---
 
@@ -620,6 +620,154 @@ Une demande explicitement autorisante peut suffire si le contrat propriétaire l
 
 **Statut :** **VALIDÉ EN CONTENU PAR MORRIS** pour la voie gouvernée unique, les rôles, les obligations d'admission, la durabilité pré-effet et les dix oracles. **NON VALIDATED SPEC** pour la signature API, le transport du document, l'extension exacte des gardes de révision, l'implémentation du journal, la stratégie de reprise O-05 et les preuves d'exécutabilité. Aucune écriture technique, migration ou nouveau gate n'est autorisé.
 
+
+### 5.9 O-05 — Vérité de l'effet, corrélation, réconciliation et reprise (CONCEPTION CANDIDATE CHATGPT)
+
+**Mandat de conception :** Morris délègue l'instruction technique à ChatGPT et autorise la publication documentaire de ce travail. Le présent contrat est **DOCUMENTED — NOT YET VALIDATED SPEC** ; il ne modifie ni code, ni autorité, ni schéma. O-05 complète O-03 (identité de la proposition) et O-04 (admission canonique), sans introduire un second moteur transactionnel.
+
+#### O-05-A — Analyse du candidat, séparer les preuves des hypothèses
+
+- `conversation_turn_commands` possède déjà `clientTurnKey`, `requestFingerprint`, `operationId`, `ownerToken`, `userMessageId`, `generationId` et `resultJson`. `reserveTurnCommand` assure l'unicité de `(conversationId,clientTurnKey)` et refuse le même identifiant avec empreinte de requête divergente. La qualification Nora est persistée pré-effet par `stashTurnQualification`.
+- Le terminal du tour est écrit par `commitTurnTerminal` avec une transaction et contrôle CAS d'ownership. `reconcileRunningCommand` peut révoquer un propriétaire devenu stale, avec statut `UNKNOWN`. Le replay d'un tour `FAILED/UNKNOWN` sollicite `reconstituteConfirmedD4Effects` : **mécanismes existants à réutiliser**, non preuve que tous les chemins D4 sont sûrs en production.
+- `savePreparationDocument` prend une clé de corrélation, compare un SHA-256 de **titre + contenu** et sait retrouver une première révision de création. La ligne `documents` peut cependant être insérée **avant** la transaction de la première révision : une interruption peut laisser une ligne sans révision disponible. Le schéma source inspecté déclare un index de préparation pour `documents` mais **ne montre pas de contrainte d'unicité sur `creationCorrelationKey`**. La prévention effective des doublons en concurrence est donc **NON PROUVÉE** ; vérifier toutes les migrations/contraintes déployées avant de choisir le remède.
+- `reviseDocument` contrôle la propriété, la préparation et la version de base, puis sérialise sur le document. Son replay sur clé de corrélation renvoie la révision antérieure, **sans comparaison explicite du contenu/empreinte** dans ce chemin ; sa signature n'expose pas encore le `turnFence` de la création. Ce sont des écarts contractuels à instruire, **pas** une preuve de comportement LIVE incorrect.
+- `formatDocumentEffectAck` distingue les effets documentaires ; le message conversationnel Nora `COMPLETE` et le succès documentaire `AVAILABLE` demeurent deux faits différents. Les UAT S03-01 et le diagnostic adjoint ne prouvent pas la cause des `UNKNOWN / NO_EFFECT_OBSERVED` observés.
+
+#### O-05-B — Identités et séquence pré-effet recommandées
+
+**Séquence canonique candidate, sans second registre métier :**
+
+1. Recevoir et **persister le message USER** sous une commande de tour identifiée par session/fil, `clientTurnKey` et empreinte de requête. Conserver `operationId` stable pour tout rejeu de la même commande.
+2. Laisser Nora qualifier sémantiquement l'acte ; valider la sortie et **conserver durablement la qualification** dans le journal de commande avant tout effet. Refuser une requalification libre d'un tour déjà engagé.
+3. Résoudre la proposition O-03 (message assistant antérieur durable, ou **instantané immuable pré-effet** de la production du même tour), sa cible, sa révision de base éventuelle et son empreinte robuste. **Conserver dans le journal existant** les références et, si nécessaire pour reprendre après crash, le contenu exact borné de cet instantané avant D4 ; ceci n'est ni un nouveau document D4, ni un moteur mémoire.
+4. Lier de façon **immuable** la commande documentaire à : `operationId`, acte USER, action `CREATE/REVISE`, proposition/empreinte, titre/cible, préparation, document/baseRev et corrélation. Construire la clé à partir d'identités **stables de commande et d'étape**, **pas exclusivement d'un generationId susceptible de changer en cas de nouvelle génération**.
+5. Admettre la commande selon O-04 ; recontrôler les droits, la cible et la propriété du tour **dans la transaction qui réalise l'effet**. Même clé + payload différent : `CONFLICT` sans mutation ni changement de contenu associé.
+6. Exécuter le seul propriétaire D4, recueillir et persister les références/verdicts effectifs ; construire ensuite la restitution utilisateur, le message assistant et l'ACK applicatif. Le commit terminal de la narration peut être distinct d'un effet D4 déjà confirmé ; un échec tardif de ce commit n'annule pas l'effet propriétaire.
+7. En reprise, **réutiliser le même identifiant de commande et les mêmes références pré-effet**, réconcilier D4 et reconstruire la restitution ; ne jamais repartir d'une nouvelle génération ou d'une nouvelle clé pour « retenter ».
+
+Le journal `conversation_turn_commands.resultJson` est l'option **candidate** pour le binding/instantané immuable pré-effet, sous contrôle de taille et d'intégrité, car il existe déjà et est écrit avant la mutation. La faisabilité doit être prouvée face aux limites SDK/`replyDraft`, aux contenus longs, aux écritures concurrentes et aux données déjà persistées ; si une nouvelle persistance ou migration s'avère indispensable, **STOP + gate Morris d'architecture/DB avant Cursor**, et exit de la dette explicitée.
+
+#### O-05-C — Matrice des verdicts (deux axes indépendants)
+
+| État documentaire / origine | Vérité à restituer |
+|---|---|
+| `NOT_EXECUTED` — admission/qualification refusée ou non-engagée | Aucune transaction D4 déclenchée, motif de non-exécution ; ne pas inventer `FAILED` |
+| `AVAILABLE` — révision propriétaire vérifiée | Effet confirmé : documentId, revisionId, numéro, cible et intégrité admissible, relisibles sous droits |
+| `FAILED` — refus ou échec du propriétaire établi | Échec à l'étape observée ; distinguer validation/refus, rollback et éventuelle ligne sans révision |
+| `CONFLICT` — base stale, identité/empreinte/cible divergente | Conflit sans nouvelle révision autorisée sous cette commande ; ne pas écraser la version courante |
+| `UNKNOWN` — ACK perdu, en vol, transaction/lecture non concluante | Ni succès ni échec définitif ; reprendre la **réconciliation** avant toute tentative de nouvelle écriture |
+| `SAVING` / absence de révision finale | État interne transitoire ou incomplet, **jamais** une preuve de `AVAILABLE` |
+
+**Axes indépendants :** `conversationTurnCommand.status = COMPLETE` signifie que le **tour** est clos ; `message.status = COMPLETE` signifie que la **réponse Nora** est terminée ; `documentRevisions.status = AVAILABLE` signifie que **D4** a rendu une révision disponible. Aucun de ces trois succès n'implique automatiquement les autres. Un document confirmé doit rester identifiable même si le tour devient `UNKNOWN`.
+
+#### O-05-D — Protocole de réconciliation et non-duplication
+
+- **Démarrage :** identifier la commande durable et son binding pré-effet à partir de la même identité d'intention, sans accepter une nouvelle proposition ou clé opaque fournie par Nora.
+- **Lecture sous droits actuels :** consulter D4 par clé de corrélation/cible, révisions, propriétaire et empreinte ; distinguer absence prouvée, document sans révision, révision `SAVING/UNKNOWN`, `AVAILABLE`, `FAILED` et version contradictoire. Ne pas considérer « aucun document affiché dans l'UI » comme preuve d'absence transactionnelle.
+- **Si `AVAILABLE` :** valider l'identité de commande et de payload, retourner la **même** révision, reconstruire l'ACK et ne pas écrire à nouveau.
+- **Si `CONFLICT/FAILED` établi :** retourner le résultat propriétaire sans nouvelle écriture implicite ; une autre intention, version ou autorisation exige une **nouvelle commande**.
+- **Si incertitude persistante :** conserver `UNKNOWN`, identité d'origine et état de consultation ; la reprise peut être répétée sans mutation, y compris après rafraîchissement ou changement de tour.
+- **Si absence d'effet réellement démontrée :** une réémission éventuelle ne peut réutiliser que **la même commande/binding/clé et les mêmes contrôles de garde**, après avoir établi qu'elle ne peut pas créer de doublon. Le mécanisme de relance exact est soumis à preuve de concurrence, non présumé sûr.
+- **Concurrence :** aucun worker détenteur d'un `ownerToken` révoqué ne doit écrire après réconciliation. Étendre les protections nécessaires au chemin `REVISE` et vérifier les courses `CREATE` où la ligne document précède sa première révision.
+- **Lecture simple :** consultation des messages, de la bibliothèque ou des révisions ne déclenche jamais de commande/replay d'écriture. Une reprise effectrice passe par le contrat de **commande gouvernée**, pas par une route de lecture.
+
+**Point bloquant potentiel :** s'il n'existe pas de garantie DB prouvable d'unicité du CREATE par corrélation en cas de courses réelles, il faut concevoir une garantie transactionnelle minimale réutilisant le propriétaire D4. Toute contrainte/migration structurelle non évitable est un **arbitrage Morris explicite** ; ne pas masquer le problème derrière un retry applicatif.
+
+#### O-05-E — Erreurs, observabilité et sortie
+
+La chaîne de preuve doit permettre de corréler sans divulguer le contenu sensible : `requestId`, `operationId`, `clientTurnKey` (empreinte si exposée aux logs), `userMessageId`, `generationId`, référence de proposition/empreinte, action D4, cible, `correlationKey`, `documentId/revisionId`, statut propriétaire, tentative et résultat de réconciliation, sans journaliser les corps intégraux inutilement. Les erreurs d'accès et d'identité doivent rester non révélatrices ; le corps source n'est lu qu'après autorisation.
+
+La restitution doit rester stable après replay : **un seul verdict applicatif**, distinct de la narration Nora, avec mention de « non exécuté », « confirmé », « refusé/conflit » ou « résultat encore incertain ». Les messages contradictoires (« document créé » + « aucune révision ») sont interdits.
+
+#### O-05-F — Oracles minimaux
+
+| ID | Scénario | Résultat attendu |
+|---|---|---|
+| REC-01 | ACK perdu après commit D4 `AVAILABLE` | Même ID/révision retrouvés, aucun second CREATE |
+| REC-02 | Crash après ligne `documents` et avant première révision | Ligne incomplète reconnue, pas de faux succès/doublon |
+| REC-03 | Deux CREATE concurrents avec même corrélation | Un seul document/révision admissible ; contrainte/concurrence prouvées |
+| REC-04 | Même commande, contenu ou titre différent | `CONFLICT`, aucun payload divergent appliqué |
+| REC-05 | Même clé REVISE, contenu/base différents | `CONFLICT`, replay jamais présenté comme succès de l'autre contenu |
+| REC-06 | Base de révision obsolète | `CONFLICT` sans nouvelle révision |
+| REC-07 | Perte d'ownership avant/pendant D4 CREATE et REVISE | Pas d'effet tardif non autorisé, course lock/CAS prouvée |
+| REC-08 | Échec du commit terminal après D4 `AVAILABLE` | Effet D4 conservé, réponse reconstruite depuis propriétaire |
+| REC-09 | `UNKNOWN` prolongé sur plusieurs reprises | Même opération, état honnête, aucune nouvelle écriture aveugle |
+| REC-10 | Consultation de bibliothèque/fil pendant `UNKNOWN` | Aucune écriture déclenchée par simple lecture |
+| REC-11 | Échec/rollback D4 réellement prouvé | `FAILED` exact, pas de success narration ni d'absence inventée |
+| REC-12 | Réponse Nora `COMPLETE` mais aucun D4 engagé | `NOT_EXECUTED` distinct de `AVAILABLE` |
+
+**Niveau de preuve :** DET pour les gardes/états, PostgreSQL concurrent pour unicité, versionnement et crash/rollback, BROWSER pour reprise utilisateur ; Nora LIVE + D4 + PG pour la vérité end-to-end. Aucun verdict RECETTE avant un nouveau candidat figé.
+
+### 5.10 O-06 — Architecture intégrée, blast radius et preuve de sortie (CONCEPTION CANDIDATE CHATGPT)
+
+**Résultat :** un macro-lot correctif unique, traversant cognition, mémoire historique, propositions documentaires, admission D4, révisions, reprise, UX indispensable et preuve utilisateur. **Aucun nouveau sous-produit, moteur parallèle, POC, fixture de production ou registre documentaire autonome.**
+
+#### O-06-A — Chaîne end-to-end candidate
+
+1. **Entrée D1/D2 :** identité USER authentifiée, préparation/projet courants et accès déterminés par Studio ; aucun élargissement sémantique implicite.
+2. **D3/Nora :** comprendre la demande libre, mobiliser O-01 pour rechercher les sources historiques, O-02 pour confronter les versions et leur autorité, O-03 pour identifier le contenu exact de la proposition.
+3. **Admission O-04 :** qualifier une demande d'effet uniquement si positive, lier de manière durable les éléments d'autorité et de payload, appliquer l'unique garde serveur.
+4. **D4 :** conserver les connaissances/documents propriétaires ; réaliser CREATE/REVISE, versions, permissions, idempotence et résultats observés ; **D5/D6** conservent les seules HumanDecision.
+5. **Réconciliation O-05 :** vérifier la vérité D4, permettre la reprise d'un tour ou d'un effet incomplet sans doublon ni mutation sur une route READ.
+6. **UX D3/produit :** afficher source, proposition, état réel et référence vérifiable ; zone de saisie et commande Envoyer restent accessibles même avec 300+ messages.
+7. **Qualification :** tests unitaires/déterministes, PG concurrence, navigateur et Nora LIVE sur un même candidat, preuves raccordées aux scénarios UAT.
+
+#### O-06-B — Contrats et responsables intégrateurs
+
+| Frontière | Contrat à stabiliser avant Cursor | Source/candidat à examiner |
+|---|---|---|
+| D1/D2 → D3 lecture | Scope USER/préparation/projet autorisé, accès inter-préparations, pagination stable | `preparation/service.ts`, `db/schema.ts`, `conversation/service.ts` |
+| D3 → Nora | O-01/O-02 : recherche sémantique sans routeur lexical métier, provenance et couverture ; limites affichées | `conversation/nora-adapter.ts`, `cognitive-policy.ts`, `knowledge/service.ts`, `d4-read-tools.ts` |
+| D3 → proposition | O-03 : message source, génération, identité, format `sfia-document`, intégrité et taille | `conversation/document-act.ts`, `turn-command.ts` |
+| Nora → commande | O-04 : qualifications typées, dépendances, consentement USER, une seule admission D4 | `conversation/semantic-qualification.ts`, `conversation/service.ts` |
+| D3 ↔ D4 effecteur | O-05 : pré-effet durable, garde d'ownership, clé/corps immuables, révision de base, réponse propriétaire | `conversation/turn-command.ts`, `document/service.ts`, `db/schema.ts` |
+| D4 → restitution/UX | Statuts exacts, réconciliation après perte d'ACK, consultation et bibliothèque cohérentes | `conversation/document-act.ts`, `conversation/mission-continuity.ts`, surfaces projet/Document |
+| D5/D6 autorité | HumanDecision jamais déduite du modèle ni d'une nouvelle déclaration ; accès et état gouvernés | `pilotage/service.ts`, `decisions/service.ts` et leurs contrats |
+| UX minimum indispensable | Composeur et Envoyer accessibles sur fil long, état `UNKNOWN` non masqué | Écrans de conversation du projet, tests BROWSER, captures runtime |
+
+**Le contrat d'acceptation du macro-lot est transversal**, pas une collection de petits correctifs indépendants. Les responsabilités propriétaires sont conservées ; un changement de fonctionnement implique la synchronisation du contrat technique, de l'architecture, de l'as-built et des tests **dans le même cycle de réalisation**.
+
+#### O-06-C — Blast radius et décisions de conception
+
+| Risque / dépendance | Mesure retenue ou condition |
+|---|---|
+| Contexte Nora limité à six messages tronqués | Conserver le journal complet, ajouter la récupération historique gouvernée O-01 ; pas de « tout mettre dans le prompt » systématique |
+| Contradictions et HumanDecision | Séparer interprétation O-02 des décisions propriétaires D5/D6 |
+| Proposition ancienne et contenu long | Source O-03 vérifiée, extrait complet et identité robuste ; pas de régénération silencieuse |
+| Deux voies de mutation D4 | Unifier l'admission O-04 ; aucune écriture autonome du modèle |
+| Doc créé sans révision, duplication CREATE | Verrou/garantie d'unicité et réconciliation à prouver O-05 ; **gate Morris si nouvelle contrainte DB indispensable** |
+| REVISE sans garde symétrique/digest de replay | Converger protection de ownership et comparaison du payload avec CREATE |
+| Crash ou ACK perdu | Relecture propriétaire, même commande et même clé, réponse honnête ; pas de retry aveugle |
+| Sécurité multi-projets | Périmètre serveur et vérification à chaque lecture/écriture, pas de références client faisant autorité |
+| SDK et coûts/latence | Démontrer compatibilité `@openai/agents`, sorties typées, streaming, outils, gros contenus, budgets et recherche longue ; aucun seuil de coût fixé sans mesure |
+| État UX et RECETTE | Captures runtime, build/lane/DB isolés, nouveau SHA de candidat pour tout correctif ; pas de modification du candidat RECETTE figé |
+
+**Choix prioritaire :** réutiliser le journal D3 et D4 existants, et compléter les garanties là où elles sont absentes. **Choix non autorisés sans Morris :** nouvelle table ou pivot de persistance, changement des responsabilités D1–D9, nouvelle HumanDecision implicite, PR/merge, publication Git REAL, promotion, clôture Gate C. Si un impératif technique démontre l'un de ces besoins, fournir un arbitrage borné : motif, alternatives, blast radius, migration/rollback, dette/exit et preuve.
+
+#### O-06-D — Contrat d'acceptation macro-lot
+
+| Bloc de preuve | Oracle de sortie |
+|---|---|
+| COG/HIST/TEMP | Réponse Nora correcte et sourcée à partir de messages espacés de 200–300+, contradiction rouge/bleu et source de projet correctement isolée |
+| PROP | Document Nora complet exact retrouvé plusieurs tours après, même titre/empreinte, sans recopie |
+| D4-CMD | Création puis révision ciblée réellement réalisées par les services D4, sans autorisation fictive |
+| REC | Crash/ACK/replay/concurrence résolus sans duplication, statuts OWNER fidèles |
+| UX | Fil long utilisable, bouton Envoyer toujours accessible, résultats documentaires inspectables |
+| REG | Tous les tests déjà PASS impactés rejoués ; les scénarios BLOCKED ne sont pas transformés en PASS par déduction |
+
+**Gates de preuve :**
+- **G2 conception exécutable :** signatures, schémas logiques, flux de données, opérations SQL/contraintes réellement déployées, algorithmes sémantiques, budgets mesurables, politique de reprise et plan de tests documentés ; revue des impacts et dette/exit. Le présent texte **ne clôt pas G2**.
+- **G3 mandat Cursor :** possible **seulement après** pré-check Git SFIA v2.6, lecture template/routing depuis Git et GO Morris spécifique. Un seul macro-lot document/code/tests/UX nécessaire, STOP pour besoin de migration ou pivot non autorisés.
+- **G4 couverture :** unit/DET + PG + BROWSER avec statistiques et SHA du candidat ; ni local ni FAKE ne prouvent Nora LIVE.
+- **G5 usage réel :** journal RECETTE sur un **nouveau candidat figé** : S03-01 proposition/consentement/enregistrement et S03-02 lecture/revision, S04 mémoire, et tests négatifs/régression. Distinguer LIVE provider, D4 PostgreSQL réel et publication Git REAL hors périmètre.
+- **Gate C :** demeure **OPEN** jusqu'à arbitrage Morris à partir des preuves utilisateur complètes, y compris les autres anomalies et BLOCKED pertinents.
+
+#### O-06-E — Dette et exit
+
+**Dette acceptée implicitement : aucune.** Optimisation d'indexation/recherche sémantique, stockage pré-effet d'un contenu long, migration d'unicité et ajustements d'admission ne sont pas des choix déjà arbitrés. Les tests et observabilités peuvent réutiliser les interfaces existantes ; pas de contournement temporaire promis comme fonctionnement cible. Toute réduction volontaire de couverture doit être marquée **KNOWN GAP** avec propriétaire, risque, déclencheur et condition d'exit soumise à Morris, et ne peut servir à accepter ML4C.
+
+**Statut global :** O-05 et O-06 sont **DOCUMENTED / CANDIDATE TECHNICAL DESIGN** sous mandat Git Morris. La conception intégrée est suffisamment structurée pour instruire la qualification d'exécutabilité, **pas encore VALIDATED SPEC, IMPLEMENTED, BEHAVIOR PROVEN ni ADOPTED**.
+
 ---
 
 ## 6. Capacité C — Accessibilité du dialogue
@@ -674,6 +822,8 @@ Il ne doit pas exister deux moteurs concurrents de mémoire, deux propriétaires
 | TEMP-01 à TEMP-08 | Corrections, contradictions, portée, fiction et HumanDecision (§4.8) | Vérification des sources et états propriétaires + Nora LIVE, aucune autorité inventée |
 | PROP-01 à PROP-10 | Identité et intégrité d'une proposition antérieure, droits et séparation des actes (§5.7) | Sources et gardes vérifiées ; effet D4 uniquement démontré en O-04/O-05 |
 | D4-CMD-T01 à T10 | Admission gouvernée, droits, création/révision, non-régression et reprise (§5.8) | Tests DET/PG/BROWSER et parcours LIVE ; effets et réconciliation détaillés en O-05 |
+| REC-01 à REC-12 | ACK perdu, effet partiel, payload divergent, concurrence, tour UNKNOWN (§5.9) | PG concurrence/crash + restitution LIVE/BROWSER, sans doublon |
+| O-06 E2E | Continuité conversationnelle → proposition → admission → effet → reprise → restitution (§5.10) | Nouveau SHA de candidat et traces cross-domain, RECETTE utilisateur distincte des fixtures |
 | DOC-01 | Rédaction seule | Aucun enregistrement implicite |
 | DOC-02 | Création demandée explicitement | D4 réellement invoqué et document disponible |
 | DOC-03 | Proposition au tour N, enregistrement ultérieur | Contenu exact retrouvé et enregistré |
@@ -754,8 +904,8 @@ L'exécution Cursor restera soumise à un mandat SFIA v2.6 détaillé, avec fich
 | Gate | Objet | État |
 |---|---|---|
 | G0 | Orientation corrective ML4C | Accord de principe Morris |
-| G1 | Cadrage fonctionnel du correctif | V0.5 — VALIDATED IN CONTENT BY MORRIS ; O-01/O-02/O-03/O-04 validés en conception logique, pas comme implémentation prête |
-| G2 | Conception technique détaillée CT-01 à CT-11 | O-01 à O-04 principes validés ; signatures, algorithmes, transport de contenu, ordre pré-effet, réconciliation O-05 et preuves d'exécutabilité ouverts |
+| G1 | Cadrage fonctionnel du correctif | V0.6 — O-01/O-02/O-03/O-04 VALIDÉS EN CONTENU ; O-05/O-06 DOCUMENTED / CANDIDATE DESIGN (publication autorisée par Morris) |
+| G2 | Conception technique détaillée CT-01 à CT-11 | O-05/O-06 documentés ; signatures exactes, algorithmique, SQL/contraintes de corrélation, ordre des commits, SDK, preuves et arbitres éventuels à qualifier — OPEN |
 | G3 | GO d'exécution Cursor | NON DONNÉ |
 | G4 | Qualification technique | NON ACQUISE |
 | G5 | Nouvelle RECETTE et correction des écarts | NON ENGAGÉE |
@@ -777,9 +927,9 @@ Les sujets ouverts prioritaires sont :
 
 **O-04 — Mobilisation D4 par Nora : VALIDÉ EN CONTENU.** Une admission/écriture canonique, proposition O-03 et acte USER distingués, gardes et résultat propriétaire, tests D4-CMD-T01…T10 (§5.8). À qualifier : signature API, ordre durable, ownership `REVISE` et reprise O-05.
 
-**O-05 — Résultat et reprise.** Définir la corrélation entre tentative, effet, révision et restitution, y compris en cas d'incertitude.
+**O-05 — Résultat et reprise : DOCUMENTED / CONCEPTION CANDIDATE (§5.9).** Identité stable, binding pré-effet, garde en transaction, états indépendants, réconciliation sans doublon et douze tests REC. À prouver : contraintes DB réelles, crash et contrats exacts ; gate Morris si migration nécessaire.
 
-**O-06 — Architecture et validation.** Qualifier précisément les interfaces, les fichiers, les impacts, les scénarios d'évolutivité et les preuves de sortie.
+**O-06 — Architecture et validation : DOCUMENTED / CONCEPTION CANDIDATE (§5.10).** Chaîne intégrée O-01→O-05, responsabilités, blast radius, preuves DET/PG/BROWSER/LIVE et gates. À prouver : exécutabilité, APIs finalisées et comportement réel sous nouveau candidat.
 
 Aucun de ces sujets ne doit être abandonné à l'interprétation de Cursor.
 
@@ -813,14 +963,14 @@ Code candidat examiné :
 
 ---
 
-## 15. Statut V0.5
+## 15. Statut V0.6
 
-**VALIDATED IN CONTENT BY MORRIS — FUNCTIONAL FRAMING AND O-01/O-02/O-03/O-04 LOGICAL DESIGN ; EXECUTABLE TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
+**O-01/O-02/O-03/O-04 VALIDATED IN CONTENT BY MORRIS ; O-05/O-06 DOCUMENTED BY CHATGPT UNDER MORRIS GIT PUBLICATION MANDATE — EXECUTABLE TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
 
 La vision fonctionnelle longue durée Pilote–Nora et la mobilisation documentaire D4 sont clarifiées.
 
 La conception recommandée repose sur une récupération historique progressive, une sélection sémantique sous contrôle de Nora et une mobilisation gouvernée des services documentaires existants.
 
-**O-01, O-02, O-03 et O-04** sont validés en contenu de conception et documentés aux §4.7–4.8 et §5.7–5.8. Ils ne constituent pas une validation des signatures, algorithmes, budgets, ordre pré-effet, tests LIVE ou de l'architecture exécutable. **O-05 — résultat, réconciliation et reprise D4** est le prochain sujet.
+**O-01, O-02, O-03 et O-04** sont validés en contenu de conception. **O-05 et O-06** ont été instruits et ajoutés aux §5.9–5.10 comme **conception technique candidate ChatGPT**, avec autorisation Morris de publication documentaire. Il reste à qualifier les signatures, les contraintes d'unicité D4 sur les sources déployées, les limites SDK, les transactions/reprises, les performances et les preuves LIVE. Aucun arbitrage structurant nouveau n'est présumé validé. La suite pertinente est une **revue intégrée d'exécutabilité G2**, pas un nouveau micro-cycle documentaire.
 
 **Aucun mandat Cursor, GO code, migration, PR, merge, clôture Gate C ou ADOPTED n'est autorisé par ce document.**
