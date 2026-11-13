@@ -1,7 +1,7 @@
 # SFIA Studio Next — Cadrage du correctif intégré : continuité Pilote–Nora et documents
 
-**Version :** 0.3 — 13 novembre 2026  
-**Statut :** VALIDATED IN CONTENT BY MORRIS — cadrage fonctionnel et principes de conception O-01/O-02 ; implémentation technique à qualifier  
+**Version :** 0.4 — 13 novembre 2026  
+**Statut :** VALIDATED IN CONTENT BY MORRIS — cadrage fonctionnel et principes de conception O-01/O-02/O-03 ; implémentation technique à qualifier  
 **Programme :** R5 — ML4C, convergence fonctionnelle intégrée  
 **Nature :** cadrage fonctionnel et conception corrective candidate, avant contrat d'exécution  
 **Autorité produit :** Morris  
@@ -10,7 +10,7 @@
 **Projet de recette :** Intervencia  
 **Gate C :** OPEN — ML4C NOT ACCEPTED
 
-> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. Les signatures techniques définitives, la stratégie algorithmique, les budgets et l'exécutabilité restent à qualifier : **NOT YET VALIDATED SPEC**. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
+> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. (4) Morris valide O-03 — identité, provenance, intégrité, résolution et autorité séparée des propositions documentaires — et autorise son intégration dans la V0.4. Les signatures techniques définitives, la stratégie algorithmique, les budgets et l'exécutabilité restent à qualifier : **NOT YET VALIDATED SPEC**. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
 
 ---
 
@@ -463,7 +463,77 @@ Le modèle ne doit pas disposer d'une voie directe non gouvernée qui contourner
 
 **CT-11 — Restitution :** garantir un résultat conversationnel construit à partir du verdict D4 réellement obtenu.
 
-Ces contrats doivent être validés en conception avant de figer les fichiers à modifier.
+Ces contrats doivent être validés en conception avant de figer les fichiers à modifier. La résolution d'O-03, validée en contenu, est détaillée au §5.7 ; l'acheminement D4, les effets et la reprise restent à concevoir en O-04/O-05.
+
+
+### 5.7 O-03 — Proposition documentaire récupérable (VALIDÉ EN CONTENU PAR MORRIS)
+
+**Résultat utilisateur.** Nora peut retrouver **le contenu exact** d'une proposition documentaire produite des dizaines ou centaines de messages auparavant, sans demander sa recopie au Pilote, puis la présenter à la capacité D4 compétente **sans confondre proposition, demande USER et effet enregistré**.
+
+**Diagnostic candidat `67bf6b0` — constats, non causes prouvées.** Le journal `messages` conserve le contenu, le rôle, l'ordre, le statut et la génération, mais le message assistant n'est généralement persisté qu'au commit terminal du tour (`turn-command.ts`), alors qu'une tentative D4 peut avoir lieu plus tôt (`conversation/service.ts`). Le parseur `extractContractualDocumentProposal` exige une unique fence `sfia-document` et calcule un `proposalDigest16`. D4 possède déjà une empreinte SHA-256 du titre et du contenu pour ses effets idempotents. Le champ de qualification `replyDraft` est plafonné à 12 000 caractères, là où D4 accepte jusqu'à 100 000 caractères : leur compatibilité effective et l'absence de troncature restent à démontrer. **S03-01 FAIL** prouve la perte de continuité proposition → accord ; le test complémentaire avec contenu et accord **dans le même tour** a aussi produit `UNKNOWN / NO_EFFECT_OBSERVED`. O-03 ne prétend donc pas résoudre seul `ML4C-A-010`.
+
+#### O-03-A — Identité de la proposition, sans registre concurrent
+
+Source prioritaire : **message assistant source complet, réellement durable et admissible**, relu dans la conversation existante. Un simple résumé, une régénération par Nora, un texte tronqué ou une référence D4 inventée ne sont pas recevables. Chaque version différente constitue une proposition différente.
+
+| Champ logique provisoire | Garantie |
+|---|---|
+| `assistantMessageId` | Message Nora source effectivement enregistré |
+| `conversationId` | Conversation d'origine |
+| `generationId` | Génération reliée au message |
+| `preparationId` | Périmètre source dérivé des liens propriétaires, non déclaré librement par Nora |
+| `proposalDigest` | Empreinte robuste du **titre et contenu exact** ; l'actuel digest court ne suffit pas seul à garantir l'intégrité |
+| `proposalStatus` | Admissibilité logique de cette proposition ; **pas** un statut d'enregistrement documentaire D4 |
+
+La référence doit être vérifiable depuis les sources propriétaires. Un pointeur de lecture dérivé est admissible ; **aucune nouvelle table de brouillons, migration ou seconde vérité documentaire n'est décidée**.
+
+#### O-03-B — Résolution et admissibilité
+
+| Situation | Exigence de traitement |
+|---|---|
+| Une proposition précisément identifiable | Lire le message complet, extraire la bonne proposition, contrôler identité, statut, droits et empreinte |
+| Plusieurs propositions compatibles | Clarifier la version visée ; pas de sélection arbitraire par ancienneté ou récence |
+| Désignation d'une ancienne version | Retrouver **cette** version, même si une nouvelle rédaction existe |
+| Message `PENDING`, `FAILED`, `INTERRUPTED`, `UNKNOWN` ou contenu incomplet | Ne pas le déclarer comme proposition définitive confirmée ; vérifier les sources durables et qualifier la limite |
+| Fence `sfia-document` bien formée | Réutiliser les validations structurelles d'extraction (unicité, clôture, titre, contenu) |
+| Texte hors format documentaire contractuel | Ne pas convertir implicitement en commande d'écriture ; préparer si nécessaire une version structurée **inspectable**, puis soumettre à l'autorisation applicable |
+| Divergence de titre, contenu, empreinte ou cible | Aucune substitution silencieuse ; présenter la divergence et obtenir l'acte adéquat |
+| Autre projet ou autre Pilote | Refuser la lecture non autorisée et toute divulgation |
+| Contenu long | Pas de troncature silencieuse ; version intégrale réellement transportée ou limitation explicite |
+
+La recherche O-01 peut localiser le message et O-02 l'identifier sémantiquement, mais **le contenu à transmettre à D4 doit être celui de la source vérifiée**, pas la paraphrase issue du raisonnement.
+
+#### O-03-C — Acte humain et sortie vers O-04
+
+1. **Rédaction sans demande positive d'enregistrement = zéro écriture.** Hypothèse, négation, question ou lecture ne valent pas autorisation.
+2. La proposition Nora n'est ni HumanDecision, ni autorisation, ni document D4 `AVAILABLE`.
+3. La demande d'enregistrement doit être rattachée à un **message USER authentifié et durable**, à la version retenue et à la cible.
+4. D4 conserve le contrôle des permissions, de l'opération, de la préparation, de la cible, de l'idempotence et de l'effet **au point d'écriture**.
+5. O-01 peut lire plusieurs préparations d'un projet ; cela **n'étend pas** les droits d'écriture D4, aujourd'hui contrôlés notamment par préparation.
+6. Toute modification matérielle du document après l'accord exige une autorisation adaptée : jamais de substitution par Nora.
+
+**Sortie logique vers O-04 :** référence exacte de proposition + contenu vérifié + cible documentaire candidate + acte USER authentifié + intention d'opération qualifiée. Les signatures TS et la voie canonique d'admission restent à arrêter dans O-04. La réponse cognitive Nora ne vaut jamais commande auto-autorisée.
+
+#### O-03-D — Durabilité, interruption et frontière O-05
+
+La proposition doit rester retrouvable après rafraîchissement et reprises autorisées **lorsqu'une source durable existe**. Une interruption du tour peut laisser une tentative D4 à réconcilier sans message assistant terminal : ce cas **ne doit ni inventer une proposition disponible ni faire disparaître un effet possible**. Le traitement de l'ordre pré-effet/commit, des clés de corrélation, d'une perte d'ACK et du rejeu sans doublon appartient à O-04/O-05 et nécessite une inspection technique avant implémentation. Le simple rappel d'une proposition ne déclenche aucune écriture.
+
+#### O-03-E — Oracles de validation
+
+| Cas | Scénario | Attendu |
+|---|---|---|
+| PROP-01 | Proposition puis enregistrement demandé au tour N+1 | Identité et texte exact retrouvés |
+| PROP-02 | Accord demandé 100 messages après | Source, empreinte et version exactes retrouvées |
+| PROP-03 | Trois versions proposées | Version précise sélectionnée ou clarification |
+| PROP-04 | Nouvelle variante après accord initial | Aucune substitution silencieuse |
+| PROP-05 | Simple rédaction sans demande d'enregistrement | Aucune écriture D4 |
+| PROP-06 | Source incomplète ou non terminale | Refus d'admissibilité et statut fidèle |
+| PROP-07 | Source d'un autre projet/Pilote | Aucun accès non autorisé |
+| PROP-08 | Rafraîchissement/interruption | Source durable accessible ; incertitudes distinguées |
+| PROP-09 | Document plus long que `replyDraft` | Aucune troncature silencieuse ; transport vérifié ou refus explicite |
+| PROP-10 | Confirmer ou rejouer une proposition | Même identité et acte ; aucune opération D4 supplémentaire non autorisée |
+
+**Statut : VALIDÉ EN CONTENU par Morris.** À qualifier avant Cursor : signatures API, moment de durabilité, récupération d'un contenu hors fence, empreinte robuste et compatibilité de longueur, cible inter-préparations, validation USER, intégration à l'écriture gouvernée et preuves LIVE. **O-03 n'est pas une preuve de création D4 et ne ferme pas `ML4C-A-010`.**
 
 ---
 
@@ -517,6 +587,7 @@ Il ne doit pas exister deux moteurs concurrents de mémoire, deux propriétaires
 | COG-07 | Recherche dépassant la sélection initiale | Approfondissement ou limite explicite, jamais oubli silencieux |
 | HIST-01 à HIST-08 | Couverture historique, pagination, isolement, statut et stabilité (§4.7) | Tests déterministes de lecture et sécurité + preuve Nora LIVE de rappel sémantique |
 | TEMP-01 à TEMP-08 | Corrections, contradictions, portée, fiction et HumanDecision (§4.8) | Vérification des sources et états propriétaires + Nora LIVE, aucune autorité inventée |
+| PROP-01 à PROP-10 | Identité et intégrité d'une proposition antérieure, droits et séparation des actes (§5.7) | Sources et gardes vérifiées ; effet D4 uniquement démontré en O-04/O-05 |
 | DOC-01 | Rédaction seule | Aucun enregistrement implicite |
 | DOC-02 | Création demandée explicitement | D4 réellement invoqué et document disponible |
 | DOC-03 | Proposition au tour N, enregistrement ultérieur | Contenu exact retrouvé et enregistré |
@@ -597,8 +668,8 @@ L'exécution Cursor restera soumise à un mandat SFIA v2.6 détaillé, avec fich
 | Gate | Objet | État |
 |---|---|---|
 | G0 | Orientation corrective ML4C | Accord de principe Morris |
-| G1 | Cadrage fonctionnel du correctif | V0.3 — VALIDATED IN CONTENT BY MORRIS ; O-01/O-02 validés comme conception logique, non comme implémentation prête |
-| G2 | Conception technique détaillée CT-01 à CT-11 | O-01/O-02 principes validés ; signatures, algorithmes, budgets, rattachements et vérifications d'exécutabilité ouverts ; O-03/O-06 à instruire |
+| G1 | Cadrage fonctionnel du correctif | V0.4 — VALIDATED IN CONTENT BY MORRIS ; O-01/O-02/O-03 validés en conception logique, non comme implémentation prête |
+| G2 | Conception technique détaillée CT-01 à CT-11 | O-01/O-02/O-03 principes validés ; signatures, algorithmes, séquence pré-effet, budgets, contrats d'écriture et preuves à instruire ; O-04/O-06 ouverts |
 | G3 | GO d'exécution Cursor | NON DONNÉ |
 | G4 | Qualification technique | NON ACQUISE |
 | G5 | Nouvelle RECETTE et correction des écarts | NON ENGAGÉE |
@@ -616,7 +687,7 @@ Les sujets ouverts prioritaires sont :
 
 **O-02 — Continuité sémantique et temporelle : VALIDÉ EN CONTENU.** Confrontation Nora des sources O-01, chronologie, portée, corrections, fiction, recommandations et D6 propriétaire §4.8. À finir : interface précise, intégration D4/D5/D6, observabilité, tests LIVE et autorité au point d'effet.
 
-**O-03 — Proposition documentaire récupérable.** Définir l'identité du contenu exact, sa durée de disponibilité et son rattachement à la demande ultérieure.
+**O-03 — Proposition documentaire récupérable : VALIDÉ EN CONTENU.** Source exacte et durable, empreinte robuste, version identifiable, droits, acte USER séparé, test PROP-01…PROP-10 (§5.7). Reste à qualifier : interfaces, ordre de persistance, source hors format, contenus longs et jonction O-04/O-05.
 
 **O-04 — Mobilisation D4 par Nora.** Arrêter une voie de commande canonique réutilisant les services de D4 et les contrôles d'autorité applicables.
 
@@ -656,14 +727,14 @@ Code candidat examiné :
 
 ---
 
-## 15. Statut V0.3
+## 15. Statut V0.4
 
-**VALIDATED IN CONTENT BY MORRIS — FUNCTIONAL FRAMING AND O-01/O-02 LOGICAL DESIGN ; EXECUTABLE TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
+**VALIDATED IN CONTENT BY MORRIS — FUNCTIONAL FRAMING AND O-01/O-02/O-03 LOGICAL DESIGN ; EXECUTABLE TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
 
 La vision fonctionnelle longue durée Pilote–Nora et la mobilisation documentaire D4 sont clarifiées.
 
 La conception recommandée repose sur une récupération historique progressive, une sélection sémantique sous contrôle de Nora et une mobilisation gouvernée des services documentaires existants.
 
-**O-01 et O-02** sont validés en contenu de conception et maintenant documentés aux §4.7–4.8. Ils ne constituent pas encore une validation des algorithmes, signatures d'interface, budgets, capacité de récupération LIVE, ou architecture technique exécutable. **O-03 (proposition documentaire récupérable)** demeure la prochaine séquence de qualification.
+**O-01, O-02 et O-03** sont validés en contenu de conception et documentés aux §4.7–4.8 et §5.7. Ils ne constituent pas une validation des signatures, algorithmes, budgets, ordre de durabilité, tests LIVE ou de l'architecture exécutable. **O-04 — mobilisation gouvernée des commandes D4** est le prochain sujet.
 
 **Aucun mandat Cursor, GO code, migration, PR, merge, clôture Gate C ou ADOPTED n'est autorisé par ce document.**
