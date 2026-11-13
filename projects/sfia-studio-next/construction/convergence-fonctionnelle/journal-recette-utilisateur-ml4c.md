@@ -39,8 +39,8 @@
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
 | S05 | 8 | 1 | 0 | 7 | 0 | 0 |
 | S06 | 11 | 2 | 0 | 9 | 0 | 2 |
-| S07 | 7 | 2 | 0 | 1 | 4 | 0 |
-| **TOTAL** | **53** | **16** | **5** | **25** | **7** | **12** |
+| S07 | 7 | 2 | 0 | 2 | 3 | 0 |
+| **TOTAL** | **53** | **16** | **5** | **26** | **6** | **12** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -817,6 +817,24 @@
 
 **Preuves :** `S07-03-E01` consigne de rafraîchissement, `S07-03-U01/D01` retour Morris du 13/11. Observation utilisateur, aucune capture ni preuve serveur nouvelle.
 
+
+### Qualification `S07-04` — états d'erreur, résultats inconnus et reprise (13 novembre 2026)
+
+**Verdict : `S07-04 = BLOCKED`**, conformément au **mandat Morris de classement accéléré des cas dont l'oracle complet n'est pas réalisable** sans opérations artificielles ou préconditions indisponibles. **Preuve positive partielle de lecture `AVAILABLE` et de prudence sémantique** ; absence de démonstration empirique des états négatifs et de la reprise. **Aucune anomalie nouvelle ni réserve formelle ouverte** ; le diagnostic antérieur `S03-D4-DIAG-E01` sur `UNKNOWN / NO_EFFECT_OBSERVED` reste une observation historique distincte et ne vaut pas couverture S07-04 de tous les états. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; projet Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Champ / preuve | Observation, interprétation et limite |
+|---|---|
+| Oracle `S07-04` | Examiner en UI/runtime états **loading, refus, conflit, UNKNOWN, reprise** : messages compréhensibles, actions possibles et absence de faux succès. L'analyse conceptuelle des statuts ne suffit pas à démontrer la gestion réelle de tous les cas. |
+| Demande de qualification — `S07-04-E01` | Morris transmet à Nora une demande **lecture seule** distinguant `FAILED`, `CONFLICT`, `UNKNOWN`, `NOT_EXECUTED`, `AVAILABLE` ; obligation de séparer observations Intervencia et théorie, de ne jamais annoncer une réussite non prouvée. **Aucune écriture, décision, publication ou simulation d'erreur**. |
+| Réponse — `S07-04-E02` | `NORA · COMPLETE` : **seul `AVAILABLE` observé pendant cet examen**. `search_project_resources` retourne `AVAILABLE / coverage=EMPTY / 0 résultat` (recherche disponible mais vide) ; `list_project_git_sources` retourne `AVAILABLE` avec le dépôt `mcleland147/chantiers360`, `defaultBranch=main` (métadonnée de liste, **pas** une vérification externe indépendante de la branche GitHub). Ce sont des résultats **rapportés par Nora**, sans audit d'appels serveur externe. |
+| États négatifs non observés | `FAILED`, `CONFLICT`, `UNKNOWN`, `NOT_EXECUTED` **non retournés dans cet examen**. Nora en donne des distinctions plausibles et prudentes : échec ≠ preuve d'absence d'effets partiels ; conflit ≠ désaccord de décisions ; inconnu ≠ absence d'effet, exiger réconciliation avant relance ; `NOT_EXECUTED` ≠ fait de ne pas avoir demandé d'écriture ; `AVAILABLE` de consultation ≠ succès d'un autre geste. **Ces explications ne valent pas un test runtime de ces états.** |
+| Couverture historique et insuffisance | `S03-D4-DIAG-E01` avait déjà rapporté `UNKNOWN / NO_EFFECT_OBSERVED` lors d'une demande D4 et zéro document dans la bibliothèque après rafraîchissement ; cela **ne démontre pas** les traitements `FAILED / CONFLICT / NOT_EXECUTED`, les chargements, les refus applicatifs, les actions de reprise, ni une réconciliation transactionnelle. Les outils consultés n'exposent pas d'historique général des résultats. |
+| Exécution et vérité des effets | Aucun état d'erreur n'a été provoqué, aucun loading, conflit ou reprise opérationnelle démontrés. Nora **ne revendique aucun succès d'écriture** et qualifie explicitement les limites du test. Aucune nouvelle anomalie technique inférée, `ML4C-A-010` (D4) et les réserves pertinentes demeurent inchangées. |
+| Qualification — `S07-04-D01` | **`BLOCKED` sous le mandat global Morris de trier automatiquement les tests non réalisables**. Résultat positif conservé sur l'honnêteté de la restitution des deux lectures `AVAILABLE`, mais **oracle composite non couvert** ; ni `PASS` complet, ni `FAIL` d'un comportement serveur jamais exercé. |
+| Suite | `S07-05 = NOT RUN` : isolation entre deux identités et accès projets/Git. Réutiliser les preuves existantes de `S01-06` et `S06-07` sans confondre contrôle sur même identité, dépôt non rattaché et droits GitHub réellement révoqués ; n'exécuter que les contrôles sûrs et autorisés. |
+
+**Preuves :** `S07-04-E01/E02` prompt et réponse `NORA · COMPLETE` du 13/11, `S07-04-D01` qualification selon mandat groupé Morris et lien avec preuves historiques `S03-D4-DIAG`. Aucun événement serveur, simulation d'erreur, mutation ou capture nouvelle.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -946,7 +964,7 @@
 | `S07-01` | Parcours connexion → projet → Nora → document → décision → Git | Continuité des identités, informations et effets | **BLOCKED — parcours E2E impossible sans D4, HumanDecision et publication Git REAL qualifiés** | `D4-B05/BD01` ; anomalies/prérequis existants, sans nouvel ID |
 | `S07-02` | Naviguer cockpit, conversation, documents, décisions, trajectoire | Liens et états cohérents | **PASS — navigation navigateur sans incohérence rapportée, portée limitée à l'UI** | `S07-02-E01/U01/D01` ; aucune nouvelle anomalie |
 | `S07-03` | Revenir après fermeture/rafraîchissement | Projet, contexte, documents, décisions retrouvés | **PASS — après rafraîchissement navigateur, état UI retrouvé selon Morris ; fermeture session et mémoire Nora non démontrées** | `S07-03-E01/U01/D01` ; `ML4C-A-010/011` OPEN |
-| `S07-04` | Examiner loading, refus, conflit, UNKNOWN, reprise | Messages et actions honnêtes ; aucun faux succès | NOT RUN | — |
+| `S07-04` | Examiner loading, refus, conflit, UNKNOWN, reprise | Messages et actions honnêtes ; aucun faux succès | **BLOCKED — seules deux lectures AVAILABLE observées ; erreurs, conflits, UNKNOWN et reprise non exercés** | `S07-04-E01/E02/D01` ; aucune nouvelle anomalie, preuve partielle positive |
 | `S07-05` | Vérifier isolation entre deux identités | Projets privés et Git soumis aux droits réels | NOT RUN | — |
 | `S07-06` | Examiner écrans fonctionnels modifiés ML4C | Pas de régression UX bloquante ; écarts ML4D identifiés | NOT RUN | — |
 | `S07-07` | Reprendre action incomplète après autre parcours | État durable sans duplication | NOT RUN | — |
@@ -1077,6 +1095,8 @@
 | `S07-02-U01/D01` | Retour utilisateur Morris « oui pas de pb » | Navigation fonctionnelle et aucune incohérence signalée pour le parcours proposé ; `S07-02 PASS` borné au constat navigateur | Absence de capture récente et de preuve d'API/DB ; ne couvre pas D4/D6/D9 ou la continuité cognitive | Conversation du 13/11 |
 | `S07-03-E01` | Consigne utilisateur de reprise sans effet | `Cmd + R` dans Travail, vérification projet/conversation, Documents, Pilotage, Sources Git et états visibles | Pas de test de déconnexion/reconnexion ni d'effet D4/D6/D9 | Conversation du 13/11 |
 | `S07-03-U01/D01` | Réponse Pilote Morris « oui tout est ok » | Reprise navigateur et disponibilité des surfaces observées sans problème rapporté ; `S07-03 PASS` borné | Pas de capture récente ni contrôle DB/API ; absence de preuve de rappel cognitif, `ML4C-A-011` OPEN | Conversation du 13/11 |
+| `S07-04-E01/E02` | Demande read-only et réponse `NORA · COMPLETE` | Deux retours `AVAILABLE` rapportés : ressources D4 `coverage=EMPTY, 0` ; sources Git `chantiers360` avec `defaultBranch=main`. Les quatre autres statuts sont distingués théoriquement sans prétendre les avoir observés | Aucune erreur, conflit, UNKNOWN, loading ou reprise provoqués/observés pour cet examen ; outils rapportés par Nora, pas de trace serveur | Conversation du 13/11 |
+| `S07-04-D01` | Classement suivant consigne de recette accélérée Morris | `S07-04 BLOCKED` : couverture empirique insuffisante de l'oracle composite, constats AVAILABLE et prudence conservés, aucun nouvel ID | Aucune preuve de défaillance produit ou de maîtrise de tous les états ; pas d'exécution d'effet | Mandat Morris et réponse du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -1096,6 +1116,7 @@
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
 | Dépendances D4 transverses S03/S07 | **S03-03/04/05/07 et S07-01 BLOCKED sur mandat groupé Morris** : pas de D4 effectivement versionné ou enregistré, donc ni révision, comparaison après écriture, reprise documentaire, D2→D4, ni E2E publication. `ML4C-A-010` demeure OPEN MAJEURE ; aucune anomalie nouvelle. `S03-06` et `S07-02..07` restent `NOT RUN` à qualifier selon les preuves possibles, sans statut anticipé. |
+| S07-04 — erreurs et états inconnus | **BLOCKED par consigne de tri accéléré Morris** : réponse Nora positive sur deux consultations read-only `AVAILABLE` (ressources D4 vides, dépôt Git rattaché) avec distinctions conceptuelles correctes ; pas de retours `FAILED/CONFLICT/UNKNOWN/NOT_EXECUTED` dans l'examen, ni loading/refus/reprise exécutés. `UNKNOWN` historique S03 ne suffit pas à couvrir le scénario. Pas de nouveau `FAIL` ni ID d'anomalie ; prochain `S07-05 NOT RUN`. |
 | S07-03 — reprise après rafraîchissement | **PASS utilisateur à portée navigateur** (« oui tout est ok ») après `Cmd + R` : Intervencia, conversation et vues Documents/Pilotage/Sources Git retrouvées sans incohérence signalée. **Fermeture de session/reconnexion, durabilité d'un document D4 ou d'une décision et récupération cognitive Nora NON TESTÉES** ; `ML4C-A-010/011` demeurent OPEN. `S07-04 NOT RUN`. |
 | S07-02 — navigation entre surfaces du projet | **PASS borné selon Morris** (« oui pas de pb ») : navigation portefeuille → projet Intervencia → Travail → Documents → Pilotage/Décisions → Sources Git → Travail sans incohérence signalée. Pas de nouvelle capture, de contrôle serveur ni de preuve d'opérations D4/D6/D9 ; les anomalies de mémoire, document et parcours Pilotage restent OPEN. Prochain `S07-03` NOT RUN. |
 | S06-10 — merge GitHub REAL hard-blocked | **BLOCKED au titre du mandat Morris de tri accéléré** : Nora indique qu'aucun outil de merge n'est exposé dans sa session, mais aucun refus serveur corrélé n'est observé ; absence de source D4 locale ≠ absence de contrat Git (cahier + Gate B accessibles dans sfia-workspace). Aucun merge/GO/effet réalisé et aucun nouvel ID. **S06 terminée au niveau des verdicts de cas : 2 PASS avec réserves / 9 BLOCKED**, mécanisme serveur non prouvé. Prochaine famille S07, commencer par S07-02 (S07-01 déjà BLOCKED). |
@@ -1215,6 +1236,8 @@
 **Bilan CURRENT après S07-02 confirmé par Morris (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 15 PASS / 5 FAIL courants / 25 BLOCKED / 8 NOT RUN`, 12 réserves/anomalies OPEN sur 13 identifiants (aucun ID nouveau).** `S07-02 PASS` sur la navigation utilisateur sans problème constaté entre portefeuille, Intervencia, Travail, Documents, Pilotage/Décisions et Sources Git ; aucune preuve D4/D6/Git REAL déduite. `S07-03 NOT RUN` est la prochaine qualification de reprise visible après retour/rafraîchissement ; continuité cognitive déjà suivie sous `ML4C-A-011`. Candidat RECETTE figé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après S07-03 confirmé par Morris (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 16 PASS / 5 FAIL courants / 25 BLOCKED / 7 NOT RUN`, 12 réserves/anomalies OPEN sur 13 identifiants (aucun ID nouveau).** `S07-03 PASS` pour retour après `Cmd + R` sur projet/conversation/surfaces et état UI visibles, sans fermeture/reconnexion ni preuve de persistance D4/D6. Échec de récupération cognitive `ML4C-A-011` toujours OPEN MAJEURE, indisponibilité de document `ML4C-A-010` OPEN. `S07-04 NOT RUN` doit être qualifié par des contrôles d'état négatifs/non mutateurs disponibles, sans fabriquer de conflit D4 ou Git REAL. Candidat RECETTE figé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT après qualification S07-04 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 16 PASS / 5 FAIL courants / 26 BLOCKED / 6 NOT RUN`, 12 réserves/anomalies OPEN sur 13 identifiants (aucun nouveau).** `S07-04 BLOCKED` : deux lectures `AVAILABLE` observées selon Nora et distinctions prudentes des autres statuts, mais aucune démonstration runtime de `FAILED/CONFLICT/UNKNOWN/NOT_EXECUTED`, loading ou reprise. Pas de faux succès et pas de preuve suffisante de couverture du cas entier. `S07-05 NOT RUN` à qualifier séparément avec preuves d'isolation existantes, sans inférer des permissions GitHub non testées. Candidat RECETTE figé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
