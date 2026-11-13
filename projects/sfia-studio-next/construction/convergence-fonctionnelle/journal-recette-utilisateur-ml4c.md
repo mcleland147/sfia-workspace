@@ -33,16 +33,16 @@
 
 | Famille | Cas | PASS | FAIL | BLOCKED | NOT RUN | Réserves ouvertes |
 |---|---:|---:|---:|---:|---:|---:|
-| S01 | 6 | 5 | 0 | 0 | 1 | 7 |
+| S01 | 6 | 5 | 0 | 1 | 0 | 7 |
 | S02 | 6 | 5 | 0 | 1 | 0 | 3 |
-| S03 | 7 | 0 | 1 | 5 | 1 | 1 |
+| S03 | 7 | 0 | 1 | 6 | 0 | 1 |
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
 | S05 | 8 | 1 | 0 | 7 | 0 | 0 |
 | S06 | 11 | 2 | 0 | 9 | 0 | 2 |
 | S07 | 7 | 2 | 1 | 4 | 0 | 0 |
-| **TOTAL** | **53** | **17** | **6** | **28** | **2** | **14** |
+| **TOTAL** | **53** | **17** | **6** | **30** | **0** | **14** |
 
-**Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
+**Verdict global : `INCOMPLETE — CASE QUALIFICATION COMPLETE / ML4C NOT ACCEPTED`**. Les 53 cas ont un verdict, mais les 30 `BLOCKED` et 6 `FAIL` ne constituent pas des preuves de réussite ; aucune réception ML4C, clôture Gate C ni adoption prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
 ## 3. Journal d’exécution — S01-01
 
@@ -884,6 +884,22 @@
 
 **Preuves :** `S01-02-U02` capture utilisateur du 13/11 (conversation, hors dépôt Git), `S01-02-U03` retour/commentaires Morris, `S01-02-D01` arbitrage explicite PASS avec réserves, `ML4C-A-012/A-013` réserves ouvertes. Image non recopiée dans Git.
 
+
+### Qualification groupée finale `S01-05` et `S03-06` — fin du tri des 53 cas (13 novembre 2026)
+
+**Consigne Morris :** terminer rapidement la campagne en classant les cas non testables **`BLOCKED` sur leurs préconditions identifiées**, sans provoquer d'expiration, panne, conflit D4, injection, opération destructive ou publication Git REAL. **`S01-05 = BLOCKED` et `S03-06 = BLOCKED`**, sans nouvel identifiant d'anomalie ni réserve. Les preuves positives partielles sont conservées ; il n'est inféré **ni succès complet ni défaut technique nouveau**. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Cas / référence | Preuves existantes, limites de l'oracle et verdict |
+|---|---|
+| `S01-05` — `S01-05-B01` | **Oracle :** différencier **session réellement expirée**, **accès interdit avec identité authentifiée** et **panne technique**, avec messages adaptés, sans faux `401` ou faux succès. **Positif partiel :** `S01-05-E01/U01/U02` documentent l'écran Connexion Studio sans session privée sur `/portfolio` et URL directe CampusFlow ; aucun contenu privé exposé. `S01-06-U01` rapporte le portefeuille B vide et l'absence de fuite du projet A. **Non démontré :** expiration réelle/rotation/invalidation, contrôles HTTP effectifs `401/403/404` et état authentifié stable de B pendant la redirection, panne technique distincte et réponse affichée. Les boutons DEV affichés en RECETTE n'ont pas été activés. **`BLOCKED` sur scénario composite**, contrôles d'accès partiels conservés ; `ML4C-A-002/A-004/A-005` restent OPEN, sans lien causal prouvé. |
+| `S03-06` — `S03-06-B01` | **Oracle :** provoquer ou examiner de manière contrôlée un résultat D4 `FAILED`, `CONFLICT` ou `UNKNOWN` et vérifier les distinctions `AVAILABLE/FAILED/CONFLICT/UNKNOWN/NOT_EXECUTED` ainsi que la vérité des effets et reprise. **Positif partiel :** diagnostic `S03-D4-DIAG-E01/E02` : création autorisée avec contenu complet au même tour, Nora déclare `UNKNOWN / NO_EFFECT_OBSERVED`, n'annonce pas d'enregistrement et la bibliothèque après rafraîchissement reste à `0 doc(s)`. `S07-04-E01/E02` : deux consultations en lecture `AVAILABLE` rapportées par Nora, explication prudente des autres états **sans les avoir observés**. **Non démontré :** retours D4 `FAILED`, `CONFLICT`, `NOT_EXECUTED` dans des conditions contrôlées, absence d'effet transactionnel après UNKNOWN, réconciliation/relance sûre et gestion d'une écriture D4 disponible. **`BLOCKED`**, sans fausse couverture par explication théorique ; `ML4C-A-010` reste OPEN MAJEURE, cause D4 non prouvée. |
+| Décision — `UAT-BD01` | **Qualification sous mandat de tri accéléré Morris**, sans nouvelle manipulation ni nouveaux outils à effet. Aucun `PASS` par propagation et aucun `FAIL` produit supplémentaire ; l'absence de protocole autorisé/conditions nécessaires n'est pas imputée à un défaut de contrôle non exercé. |
+| Reprise S01-05 | Retest ciblé sous environnement/mandat sécurisé : session **réellement expirée**, refus authentifié avec statut API et identité corrélés, panne technique isolée, comportement client et absence de fuite, sans activer de compte DEV ou modifier l'authentification par contournement. Clarifier `ML4C-A-002/A-004/A-005` séparément ; GO technique requis avant injection/paramétrage. |
+| Reprise S03-06 | Retest D4 avec document/révision et voie d'enregistrement rétablis, états contrôlés et outil d'injection sous GO si nécessaire ; preuves PG/API/BROWSER/LIVE adéquates de réconciliation `UNKNOWN`, non-duplication et absence de faux succès. Tenir `S03-01 FAIL` et `ML4C-A-010 OPEN` séparés tant que non corrigés. |
+| Bilan campagne après classement | **`53/53` cas qualifiés : `17 PASS / 6 FAIL / 30 BLOCKED / 0 NOT RUN`**. Toutes les familles S01–S07 disposent de verdicts de cas ; **ceci ne vaut ni `ML4C ACCEPTED`, ni `BEHAVIOR PROVEN` pour les cas bloqués, ni `Gate C CLOSED`, ni `ADOPTED`**. Revue et arbitrages produit/risques restant nécessaires sous autorité Morris. |
+
+**Preuves :** `S01-05-B01` synthèse des captures/retours du 12/11, `S03-06-B01` diagnostic D4 + lecture S07-04, `UAT-BD01` mandat Morris des 13/11. **Aucune preuve technique nouvelle, aucune mutation produit, aucun effet Git REAL** dans ce regroupement.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -941,7 +957,7 @@
 | `S01-02` | Consulter portefeuille et préparations | Éléments autorisés ; noms et états conformes à la vérité métier | **PASS — avec réserves sur suppression et présentation ; accès et compteurs confirmés par Morris** | `S01-02-U01/U02/U03/D01` ; `ML4C-A-012/A-013` OPEN ; vérité DB/droits non auditée |
 | `S01-03` | Ouvrir un projet, changer de vue, revenir et rafraîchir | Même projet ; conversation et contexte conservés | **PASS** — parcours utilisateur | `S01-03-E01/U01/U02` ; `ML4C-A-003` |
 | `S01-04` | Reprendre un sas de création ouvert | Préparation retrouvée ; aucun faux projet créé | **PASS** — restitution et état visible | `S01-04-E01` ; `ML4C-O-002`, `ML4C-A-003` |
-| `S01-05` | Examiner session expirée, refus d’accès et panne technique | Erreurs distinctes ; ni faux 401 ni faux succès | NOT RUN — accès non authentifié PASS ; refus B sans fuite, sémantique à qualifier | `S01-05-E01/U01/U02`, `S01-06-U01` ; `ML4C-A-002/004/005` |
+| `S01-05` | Examiner session expirée, refus d’accès et panne technique | Erreurs distinctes ; ni faux 401 ni faux succès | **BLOCKED — accès sans session et non-divulgation observés ; expiration, statuts 401/403/404 et panne non testés** | `S01-05-B01/UAT-BD01`, `S01-05-E01/U01/U02`, `S01-06-U01` ; `ML4C-A-002/004/005` OPEN |
 | `S01-06` | Tester deux identités RECETTE autorisées | Aucun accès indu aux projets d’un autre Pilote | **PASS** — isolation utilisateur | `S01-06-U01` ; `ML4C-A-005` |
 
 ### S02 — Sas et création récupérable
@@ -964,7 +980,7 @@
 | `S03-03` | Demander une révision explicite | Nouvelle révision, historique cohérent | **BLOCKED — aucun document D4 initial/versionné à réviser** | `D4-B01/BD01` ; `ML4C-A-010` OPEN, sans nouvelle anomalie |
 | `S03-04` | Comparer narration Nora et bibliothèque après écriture | Aucune contradiction entre effet, état et restitution | **BLOCKED — aucun enregistrement D4 confirmé pour une comparaison après écriture** | `D4-B02/BD01` ; diagnostic UNKNOWN antérieur conservé, sans nouvel ID |
 | `S03-05` | Interrompre puis reprendre après écriture confirmée | Résultat retrouvé, aucune écriture redondante | **BLOCKED — pas de D4 confirmé à retrouver ou réconcilier après interruption** | `D4-B03/BD01` ; sans nouvelle anomalie |
-| `S03-06` | Tester échec, conflit ou résultat inconnu | AVAILABLE / FAILED / CONFLICT / UNKNOWN / NOT_EXECUTED correctement distingués | NOT RUN | — |
+| `S03-06` | Tester échec, conflit ou résultat inconnu | AVAILABLE / FAILED / CONFLICT / UNKNOWN / NOT_EXECUTED correctement distingués | **BLOCKED — UNKNOWN D4 et AVAILABLE lectures observés, mais FAILED/CONFLICT/NOT_EXECUTED et réconciliation non testables** | `S03-06-B01/UAT-BD01`, `S03-D4-DIAG-E01/E02`, `S07-04-E01/E02` ; `ML4C-A-010` OPEN |
 | `S03-07` | Créer un projet puis demander un document | D2 et D4 distincts, sans faux succès documentaire | **BLOCKED — E2E D2→D4 non qualifiable sans D4 confirmable ni GO projet de test** | `D4-B04/BD01` ; `ML4C-A-010` OPEN, sans nouvelle anomalie |
 
 ### S04 — Mémoire et raisonnement Nora
@@ -1158,6 +1174,9 @@
 | `S01-02-U02` | Capture RECETTE portefeuille Morris du 13/11 | Deux projets `CampusFlow` / `Intervencia` accessibles, trois préparations `OPEN`, compteurs 02/03 concordants ; pas de commande Supprimer visible sur cartes, UUID `proj_...`, labels `prep_...` et `**Intervencia**` | Capture UI uniquement, aucun contrôle des menus alternatifs, droits serveur, données/identités en DB ou Figma | Image fournie en conversation, non versée Git |
 | `S01-02-U03` | Retour métier Morris | Accès effectif déclaré aux projets et préparations ; demande suppression des brouillons/projets et présentation de noms/intitulés fonctionnels, retrait des UUID des cartes | Les améliorations sont des réserves, pas un verdict FAIL automatiquement ; absence totale de suppression non démontrée | Conversation du 13/11 |
 | `S01-02-D01` | Arbitrage Morris « oui ok » après capture et réserves | **`S01-02 PASS avec réserves`** validé, deux identifiants déjà ouverts `ML4C-A-012/013` maintenus OPEN ; compteurs 2 projets/3 préparations et accès utilisateur confirmés | Pas d'audit indépendant des droits/états métier, pas de GO code/suppression/PR/merge | Conversation du 13/11 |
+| `S01-05-B01` | Qualification des preuves existantes d'accès, session et erreur | `S01-05-E01/U01/U02` : sans session, login affiché, aucun portefeuille/projet divulgué ; `S01-06-U01` : portefeuille B vide, projet A non exposé | Pas d'expiration réelle, 401/403/404 vérifiés par HTTP, panne contrôlée ; `ML4C-A-002/004/005` OPEN | Fiches S01-05/06, conversation du 12/11 |
+| `S03-06-B01` | Qualification des preuves D4 et erreurs | `S03-D4-DIAG-E01/E02` : `UNKNOWN / NO_EFFECT_OBSERVED`, bibliothèque 0 doc(s) ; `S07-04-E01/E02` : lectures `AVAILABLE` | Pas de `FAILED/CONFLICT/NOT_EXECUTED` D4 contrôlés ni réconciliation transactionnelle, pas de cause racine démontrée ; `ML4C-A-010` OPEN | Diagnostic D4 du 12/11 et cas S07-04 du 13/11 |
+| `UAT-BD01` | Classement groupé selon mandat Morris | `S01-05/S03-06 BLOCKED`, aucune nouvelle anomalie et **53/53 cas qualifiés : 17 PASS / 6 FAIL / 30 BLOCKED / 0 NOT RUN** | Bilan de qualification **non équivalent à une acceptation ML4C**, une preuve LIVE/REAL des cas bloqués ou une clôture Gate C | Consigne de recette accélérée Morris et preuves conservées |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -1168,7 +1187,7 @@
 | S01-03 : ouverture, navigation, retour et rafraîchissement | **PASS utilisateur — scénario clôturé** ; réserve UX `ML4C-A-003` ouverte |
 | Réserve `ML4C-A-003` — compositeur Nora tronqué | **OPEN / S07-06 FAIL validé** : capture Intervencia avec saisie partiellement hors viewport et bouton Envoyer non visible sans scroll ; **écart fonctionnel à arbitrer pour réception ML4C**, refonte visuelle Figma orientée ML4D ; aucun GO correctif |
 | S01-04 — reprise de préparation ouverte | **PASS utilisateur** ; absence de création affirmée par l’UI, non auditée côté DB |
-| S01-05 — accès sans session à `/portfolio` et au projet CampusFlow | **PASS des deux sous-contrôles navigateur**, verdict complet en attente d'expiration/refus authentifié/panne |
+| S01-05 — accès, expiration et panne | **BLOCKED sous mandat de tri accéléré Morris** : accès sans session aux URLs portefeuille/CampusFlow renvoyé à la connexion, aucun projet privé exposé, mais expiration réelle, distinction de statuts 401/403/404 et panne technique non testés. `ML4C-A-002/004/005` OPEN ; pas de nouvel ID ni fail produit. |
 | Réserve `ML4C-A-004` — contrôles DEV affichés en RECETTE | **OPEN — qualification read-only** de la configuration et du gate ; ne pas cliquer sur les boutons de test |
 | S01-06 — isolation entre comptes GitHub | **PASS utilisateur**, portefeuille B vide et accès CampusFlow interdit ; mécanisme du refus à qualifier |
 | `ML4C-A-005` — renvoi login depuis un projet étranger avec B authentifié | **OPEN — investigation différée, non bloquante selon Morris** ; hypothèse navigation privée à examiner ultérieurement (statut HTTP 401/404 et session B) ; aucun retest immédiat |
@@ -1177,6 +1196,7 @@
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
 | Dépendances D4 transverses S03/S07 | **S03-03/04/05/07 et S07-01 BLOCKED sur mandat groupé Morris** : pas de D4 effectivement versionné ou enregistré, donc ni révision, comparaison après écriture, reprise documentaire, D2→D4, ni E2E publication. `ML4C-A-010` demeure OPEN MAJEURE ; aucune anomalie nouvelle. `S03-06` et `S07-02..07` restent `NOT RUN` à qualifier selon les preuves possibles, sans statut anticipé. |
+| Clôture des 53 verdicts : S01-05 et S03-06 | **BLOCKED sur préconditions manquantes** selon mandat Morris : S01-05 n'a que des contrôles d'accès sans session et sans fuite (pas expiration/401/403/404/panne) ; S03-06 a `UNKNOWN / NO_EFFECT_OBSERVED` D4 et lectures `AVAILABLE`, pas de tests `FAILED/CONFLICT/NOT_EXECUTED` ni réconciliation. `ML4C-A-002/004/005/010` OPEN, aucun nouvel ID. **53/53 cas qualifiés : 17 PASS / 6 FAIL / 30 BLOCKED / 0 NOT RUN ; ML4C non acceptée, Gate C ouverte.** |
 | S07-05 et S07-07 — clôture groupée des préconditions manquantes | **BLOCKED selon le mandat Morris de tri accéléré** : S07-05 a une preuve positive d'isolation projets S01-06 et un refus Git pour dépôt non rattaché S06-07, mais **pas de preuve Git entre deux identités** ; S07-07 a une préparation retrouvée S01-04 mais **aucune opération A pending avec clé/état** permettant de vérifier la reprise après autre parcours et l'unicité d'effet. Aucun nouvel ID ni effet de test. **S07 clôturée : 2 PASS / 1 FAIL / 4 BLOCKED / 0 NOT RUN** ; restent S01-02, S01-05, S03-06 NOT RUN. |
 | S07-06 — ergonomie du dialogue Nora / Figma | **FAIL décidé Morris (« oui ok »)** sur capture Intervencia : compositeur `Écrire à Nora` tronqué et bouton Envoyer non visible sans défilement, confirmation utilisateur. Figma déclaré non conforme par Morris mais comparaison indépendante non faite. **`ML4C-A-003` OPEN** enrichie, sans nouvel ID ; accessibilité fonctionnelle essentielle à arbitrer pour ML4C, fidélité visuelle ML4D ; aucun correctif ni GO produit. `S07-05/07` NOT RUN. |
 | S07-04 — erreurs et états inconnus | **BLOCKED par consigne de tri accéléré Morris** : réponse Nora positive sur deux consultations read-only `AVAILABLE` (ressources D4 vides, dépôt Git rattaché) avec distinctions conceptuelles correctes ; pas de retours `FAILED/CONFLICT/UNKNOWN/NOT_EXECUTED` dans l'examen, ni loading/refus/reprise exécutés. `UNKNOWN` historique S03 ne suffit pas à couvrir le scénario. Pas de nouveau `FAIL` ni ID d'anomalie ; prochain `S07-05 NOT RUN`. |
@@ -1309,6 +1329,8 @@
 **Bilan CURRENT après observations S01-02 et réserves Morris (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 16 PASS / 6 FAIL courants / 28 BLOCKED / 3 NOT RUN`, 14 réserves/anomalies OPEN sur 15 identifiants (`ML4C-A-012` et `ML4C-A-013` nouvelles réserves de besoin/UX).** Capture portefeuille : 2 projets et 3 préparations visibles et accessibles selon Morris, état de présentation insatisfaisant (bouton suppression non visible sur cartes, noms techniques des préparations et UUID internes des projets). A012 = décision fonctionnelle de cycle de vie avec risque distinct préparation/projet ; A013 = lisibilité/noms métiers et fidélité ML4D. **S01-02 reste `NOT RUN` pour verdict final en attente d'arbitrage Morris**, sans conclure que la suppression n'existe nulle part. Les autres cas `S01-05/S03-06` restent NOT RUN. Candidat RECETTE figé, Gate C OPEN et ML4C NOT ACCEPTED ; aucun GO de suppression, code, Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après arbitrage Morris S01-02 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 17 PASS / 6 FAIL courants / 28 BLOCKED / 2 NOT RUN`, 14 réserves/anomalies OPEN sur 15 identifiants (aucun nouvel ID depuis S01-02-U02).** `S01-02 PASS AVEC RÉSERVES` au périmètre des projets/préparations visibles et accessibles, avec compteurs 02/03 ; `ML4C-A-012/A-013` demeurent OPEN pour la gestion de suppression et les noms/identifiants, sans preuve DB indépendante ni création de capacité. **Seuls S01-05 et S03-06 restent NOT RUN**, à qualifier selon le mandat de tri accéléré et les limites de preuve observées. Candidat RECETTE figé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, publication Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT de qualification de campagne (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — CASE QUALIFICATION COMPLETE / ML4C NOT ACCEPTED` : 53/53 cas arbitrés, `17 PASS / 6 FAIL / 30 BLOCKED / 0 NOT RUN`, 14 réserves/anomalies OPEN sur 15 identifiants (aucun ID nouveau à la clôture des deux derniers cas).** `S01-05 BLOCKED` sur expiration et panne non testées malgré accès sans session positif ; `S03-06 BLOCKED` sur états négatifs D4 et réconciliation non exercés malgré `UNKNOWN` historique et lectures `AVAILABLE`. **Campagne de verdicts terminée, capacité ML4C non démontrée de bout en bout** : 6 FAIL, 30 BLOCKED et écarts majeurs, dont `ML4C-A-003/A-010/A-011`, restent à traiter/arbitrer. **Morris conserve toute autorité d'acceptation, priorisation des corrections, Gates et promotions** ; aucun GO code, Git REAL, PR/merge ni ADOPTED. Produit RECETTE figé et PR #676 non mergée lors du dernier contrôle Git déclaré.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
