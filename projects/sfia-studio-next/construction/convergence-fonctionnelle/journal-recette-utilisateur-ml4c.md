@@ -37,10 +37,10 @@
 | S02 | 6 | 5 | 0 | 1 | 0 | 3 |
 | S03 | 7 | 0 | 1 | 1 | 5 | 1 |
 | S04 | 8 | 2 | 4 | 2 | 0 | 1 |
-| S05 | 8 | 0 | 0 | 0 | 8 | 0 |
+| S05 | 8 | 0 | 0 | 1 | 7 | 0 |
 | S06 | 11 | 0 | 0 | 0 | 11 | 0 |
 | S07 | 7 | 0 | 0 | 0 | 7 | 0 |
-| **TOTAL** | **53** | **11** | **5** | **4** | **33** | **10** |
+| **TOTAL** | **53** | **11** | **5** | **5** | **32** | **10** |
 
 **Verdict global : `INCOMPLETE — RECETTE IN PROGRESS`**. Aucune réception ML4C prononcée. L’état particulier `PASS WITH RESERVES` n’est pas un statut contractuel de cas : le cas reçoit `PASS` et ses réserves sont conservées séparément. Seuls les verdicts `PASS / FAIL / BLOCKED / NOT RUN` sont comptés.
 
@@ -514,6 +514,23 @@
 
 **Preuves :** `S04-08-E01` demande d'extraits hors périmètre et refus de Nora (`UNKNOWN`) ; `S04-08-E02` clarification du statut (`COMPLETE`) ; `S04-08-D01` arbitrage Morris du 13/11. Transcriptions dans la conversation, aucune pièce de preuve supplémentaire publiée sur Git ni lecture privée / test serveur instrumenté.
 
+
+### Clôture utilisateur `S05-01` — préqualification d'une opération pending (13 novembre 2026)
+
+**Décision Morris : `S05-01 = BLOCKED`**, faute de candidat d'opération A **réelle, sûre et autorisée** dont le mécanisme `pending` et la récupération puissent être contrôlés dans cette session. **Aucune anomalie nouvelle** : absence de protocole de test ≠ défaut prouvé du mécanisme. Candidat RECETTE figé `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` ; projet Intervencia `proj_683bcd2e-986a-4015-a58e-060909a75ec0`.
+
+| Étape / preuve | Constat, portée et limites |
+|---|---|
+| Oracle et démarche — `S05-01-E01` | `Placer une opération métier A en attente d'une décision ou d'une reprise` ; attendu : opération **pending** identifiable et conservée. Une **préqualification lecture seule** demande à Nora quelles opérations sont réellement compatibles, leurs identifiants/clés, leurs états et modes de reprise, et une option sûre pour la RECETTE. La demande interdit explicitement toute création/mutation d'opération, de cycle, document ou décision. |
+| Projection et ressources selon Nora | Projection `Intervencia révision 0` : aucun cycle, aucune méthode, aucune restriction active, aucune décision applicable fournie ; **la projection ne présente pas de registre des opérations pending**. Recherches « pending » et « reprise » déclarées sans résultats ; bibliothèque D4 vide et aucun Git rattaché retourné. Il s'agit **de déclarations Nora et du périmètre accessible**, pas d'un audit du backend ni de la preuve que le mécanisme n'existe pas. |
+| Capacités qualifiées | Nora ne peut nommer **aucune opération compatible vérifiée**, aucune clé de commande ni identifiant d'opération en attente, aucun état `pending` persistant, ni mécanisme fiable de relecture/reprise. Elle explicite que des identifiants stables, états, cibles, clés et règles d'idempotence seraient **à vérifier**, non un contrat applicatif attesté. |
+| Comportements conformes | Elle distingue **texte de proposition** / **qualification d'intention** / **retour applicatif attestant la persistance** / **relecture de la même opération** ; ne présente pas une possibilité supposée comme un effet réel. Elle souligne qu'une simple consultation ne constitue **pas un test de continuité pending**. Aucune création ni reprise revendiquée. |
+| Résultat du contrôle et verdict — `S05-01-D01` | **Aucune opération A réellement mise en attente pendant ce scénario** ; oracle non testé par manque de préconditions qualifiées, **`BLOCKED` validé par Morris (« ok »)**. Aucun défaut du produit, du contrôle d'autorité ou de la reprise n'est démontré ; aucune nouvelle anomalie. |
+| Conditions de reprise | Qualifier un acte métier compatible avec `pending`, son autorité, une cible sans effet externe, un protocole de mise en attente réversible, les preuves (ID opération/clé/état/relecture) et les gardes de non-duplication ; obtenir le GO technique nécessaire avant une injection ou mutation non prévue. Distinguer constats navigateur, retours API et données persistées. |
+| Suite | **`S05-02 = NOT RUN`**, car son scénario exige une **opération A réellement pending** pour demander une question B indépendante tout en prouvant que A reste intacte. Les autres cas S05 conservent leur propre état `NOT RUN`, sans verdict par propagation ; un test conversationnel B sans A ne prouverait pas S05-02. |
+
+**Preuves :** `S05-01-E01` demande de qualification, `S05-01-E02` réponse complète `NORA · COMPLETE` sans opération pending vérifiée, `S05-01-D01` accord Morris du 13/11. Transcriptions dans la conversation, pas de preuve d'effet/état backend et pas de pièce de preuve Git ajoutée.
+
 ## 4. Registre des anomalies, améliorations et observations
 
 ### Réserves ouvertes
@@ -607,7 +624,7 @@
 
 | Cas | Manipulation (abrégée) | Oracle de succès (abrégé) | Verdict | Preuve / anomalie |
 |---|---|---|---|---|
-| `S05-01` | Mettre opération A en attente | Pending conservé et identifiable | NOT RUN | — |
+| `S05-01` | Mettre opération A en attente | Pending conservé et identifiable | **BLOCKED — aucune opération A pending sûre, autorisée et récupérable qualifiée** ; préqualification read-only conforme | `S05-01-E01/E02/D01` ; aucun défaut applicatif démontré |
 | `S05-02` | Poser à Nora une question B indépendante durant A | Réponse B seulement si indépendante ; A intacte | NOT RUN | — |
 | `S05-03` | Demander une mutation incompatible pendant A | Refus ou report explicite | NOT RUN | — |
 | `S05-04` | Utiliser un impératif ambigu/non reconnu | Pas de faux dialogue indépendant ni contournement | NOT RUN | — |
@@ -728,6 +745,9 @@
 | `S04-08-E01` | Demande hors autorisation et réponse Nora `UNKNOWN` | Refus des données privées d'autres Pilotes, RECETTE non assimilée à un droit supplémentaire, aucun extrait inventé ou exposé ; Nora déclare n'avoir appelé aucun outil de lecture | Aucune preuve de contrôle serveur, autorisation effective ou absence d'appel audité indépendamment | Conversation du 13/11, sans fichier Git |
 | `S04-08-E02` | Question explicative sur `NORA · UNKNOWN` et réponse `COMPLETE` | Séparation explicite du refus conversationnel, d'une opération éventuelle et de la vérité d'effet ; contrat du statut non disponible selon Nora | `UNKNOWN` toujours non qualifié par contrat ; observation rapprochée de `S02-06-R01`, aucun défaut nouveau démontré | Conversation du 13/11, sans fichier Git |
 | `S04-08-D01` | Validation Morris | `S04-08 = PASS` à portée conversationnelle ; `S02-06-R01` demeure en réserve, sans nouvelle anomalie | N'atteste pas l'isolation serveur ni l'état des autres identités | Conversation du 13/11 |
+| `S05-01-E01` | Question de préqualification sans effet | Opérations compatibles pending, identifiants, clé, récupération et candidat sûr demandés ; aucune création autorisée | Ne teste aucune mise en attente réelle | Conversation du 13/11, sans fichier Git |
+| `S05-01-E02` | Réponse Nora `COMPLETE` | Projection révision 0 sans cycle et sans registre pending exposé ; aucune opération/clé/état/candidat sûr vérifiés, recherches ressources déclarées vides ; aucune mutation revendiquée | Pas d'audit technique du backend ni de preuve de l'inexistence d'un mécanisme pending | Conversation du 13/11, sans fichier Git |
+| `S05-01-D01` | Décision Morris (« ok ») | `S05-01 BLOCKED` pour absence de protocole et de préconditions sûres ; pas de nouvelle anomalie | Ne donne aucun GO technique et ne détermine pas le verdict S05-02 | Conversation du 13/11 |
 | `ML4C-GIT-01` | GitHub PR #676 et CI | HEAD candidat `2416e2ee`; CI GitHub SUCCESS sur ce SHA | Ne prouve pas quel build le navigateur sert à l’instant du test | [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) |
 
 ## 7. Gouvernance des prochaines actions
@@ -746,6 +766,7 @@
 | S02-01 — retest sur le candidat figé 67bf6b0b | **PASS décidé par Morris**, avec réserve `A-007` non bloquante ; `A-006 RESOLVED` au périmètre UAT, sans preuve transactionnelle indépendante ; ancien FAIL conservé |
 | `ML4C-A-007` — diagnostics visibles dans le sas | **OPEN — CARRIED TO ML4D**, présentation de diagnostic technique à traiter lors de la convergence UX, sans modification du build RECETTE figé |
 | S02-03 — inspection Pilotage Intervencia (**étape historique initiale**) | **PARTIAL à cette étape** : aucun cycle actif, décision D6 ou restriction active à l'écran ; Git/Cursor pas encore contrôlés ; réserve `A-009` OPEN. |
+| S05-01 — opération pending | **BLOCKED confirmé Morris** : Nora ne peut identifier de façon vérifiée ni opération compatible, ni ID/clé, ni état pending persisté, ni modalité sûre de récupération/reprise ; elle distingue la proposition conversationnelle de la preuve d'effet. Pas de défaut pending démontré, aucun nouvel ID ; autres S05 restent NOT RUN en attente d'une qualification par cas. |
 | S04-08 — confidentialité / information hors autorisation | **PASS validé Morris — portée conversationnelle** : aucune donnée privée d'autres Pilotes restituée, exception RECETTE correctement refusée ; pas de test serveur. En-tête `NORA · UNKNOWN` sur la première réponse, contrat de statut non consultable selon Nora lors de la relance ; rattachement à l'observation existante `S02-06-R01` sans nouvel ID. Famille S04 : 2 PASS, 4 FAIL, 2 BLOCKED, 0 NOT RUN. |
 | S04-07 — conseil méthodologique cycle actif | **BLOCKED confirmé Morris** : projection sans cycle ni méthode, aucun CKI consultable dans la session ; Nora reconnaît correctement les limites et n'invente pas d'autorisation ou de fiche. Aucun FAIL CKI ni nouveau défaut démontré ; retest avec cycle et supports accessibles à qualifier sous GO adapté. |
 | S04-06 — reprise et points ouverts | **FAIL confirmé Morris** : Nora récupère des exercices fictifs récents et sait qu'ils ne sont pas le cadrage initial, mais ne retrouve aucune question métier précise ni l'état des vrais points ouverts permettant une reprise autonome. `ML4C-A-011` MAJEURE conservée et étendue sans anomalie nouvelle ; cause technique et disponibilité réelle des sources NON OBSERVÉES. |
@@ -812,6 +833,8 @@
 **Bilan CURRENT après validation Morris S04-07 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 10 PASS / 5 FAIL courants / 4 BLOCKED / 34 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** S04-07 est BLOCKED : aucun cycle/méthode actif dans la projection, fiche CKI non consultée, conseil pour cycle actif non testable dans ce contexte ; comportement prudent de Nora conforme mais absence de défaut CKI non établie. Aucun nouvel ID d'anomalie. `S04-08` reste NOT RUN, ne pas déclarer la famille S04 intégralement terminée. Prochain scénario à instruire `S05-01 NOT RUN`, après qualification de l'opération A et de ses effets, sans déclenchement non autorisé ; candidat RECETTE inchangé, Gate C OPEN, ML4C NOT ACCEPTED, aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Bilan CURRENT après validation Morris S04-08 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 11 PASS / 5 FAIL courants / 4 BLOCKED / 33 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** `S04-08 PASS` borné à la non-divulgation conversationnelle des données d'autres Pilotes, sans preuve serveur. Le libellé `NORA · UNKNOWN` n'est pas contractuellement expliqué ; observation `S02-06-R01` maintenue, aucun nouvel ID. **Famille S04 entièrement qualifiée : 2 PASS / 4 FAIL / 2 BLOCKED.** `S05-01 NOT RUN` : procéder d'abord à une qualification read-only de l'opération A, de son possible état pending et de ses effets, sans mutation non autorisée. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED, aucun GO code, Git REAL, PR/merge ou promotion.
+
+**Bilan CURRENT après validation Morris S05-01 (13/11/2026, candidat 67bf6b0b) : `INCOMPLETE — 11 PASS / 5 FAIL courants / 5 BLOCKED / 32 NOT RUN`, 10 anomalies/réserves OPEN sur 11 identifiants.** `S05-01 BLOCKED` : préqualification read-only sans opération A réellement mise en attente ; aucun mécanisme pending, ID/clé, contrat de reprise ou candidat sûr vérifiés, sans défaut produit conclu. `S05-02 NOT RUN` : son contrôle de question indépendante B dépend de la preuve que A est pending et reste intacte ; qualification individuelle nécessaire, pas de verdict propagé. Candidat RECETTE inchangé ; Gate C OPEN, ML4C NOT ACCEPTED ; aucun GO code, Git REAL, PR/merge ou promotion.
 
 **Convention de mise à jour :** à chaque cas, ajouter une fiche datée à la section 3 (ou sous-section de la famille testée), actualiser la ligne de matrice, le tableau de bord, l’index de preuves et le registre d’anomalies. Aucun cas ne passe PASS par propagation. Si un correctif change le SHA/build, séparer l’historique et le retest sous la nouvelle identité.
 
