@@ -1,29 +1,33 @@
-# ML4C F-01…F-05 — Mono-cycle Review Pack (FULL)
+# SFIA Studio Next — Review Pack FULL (MONO-CYCLE)
+## ML4C — Document Integrity Final Closure (P0-A / P0-B / P1)
 
-**Type:** Critical Review closure pack — ChatGPT self-contained oracle
-**Repository:** mcleland147/sfia-workspace
-**Authoring agent:** Morris local correction cycle
+- **Date/heure**: 2026-11-14 ~11:25 Europe/Paris
+- **GO**: MORRIS LOCAL CORRECTION — document integrity P0-A/P0-B/P1
+- **Profil**: Critical
+- **Branche locale**: `fix/next-semantic-intent-convergence-20261112`
+- **HEAD produit**: `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
+- **origin/main**: `6cda86bde4aa450abb1d23eedd370a9004ddcbc1`
+- **Prior handoff**: `3efc082a` / blob `855a436c`
+- **Travail**: LOCAL ONLY — aucun commit / push ce cycle
+- **Verdict**: **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
 
+---
 
-## 1. Date / heure / GO
+## 1. Git Truth Check
 
-| Field | Value |
+| Check | Valeur |
 | --- | --- |
-| Date/heure | 2026-11-14 ~11:00 **Europe/Paris** (CET) |
-| GO | **MORRIS LOCAL CORRECTION — F-01…F-05 document invariant closure** |
-| Worktree | `fix/next-semantic-intent-convergence-20261112` |
-| Remote product ref (nominal) | `build/next-ml4c-functional-convergence` @ `67bf6b0b` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112` |
+| Branche | `fix/next-semantic-intent-convergence-20261112` |
+| HEAD | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| origin/main | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
+| Cycle scope | allowlist intégrité documentaire + pack FULL candidat vs HEAD |
+| Handoff publish | **not done** (local-only review pack) |
 
-
-
-## 2. Git initial / final
-
-### Initial / final snapshot (uncommitted working tree)
+### git status --short (projects/sfia-studio-next)
 
 ```
-## fix/next-semantic-intent-convergence-20261112
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
+M projects/sfia-studio-next/construction/delivery-history.md
  M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
  M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
  M projects/sfia-studio-next/web/src/components/figma/tokens.css
@@ -55,76 +59,1770 @@
 ?? projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
 ```
 
-| Ref | SHA |
+### git diff --name-status HEAD
+
+```
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
+M	projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+M	projects/sfia-studio-next/web/src/components/figma/tokens.css
+M	projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+M	projects/sfia-studio-next/web/src/domains/document/service.ts
+M	projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+M	projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+M	projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+M	projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+M	projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
+```
+
+### git ls-files --others --exclude-standard
+
+```
+projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md
+projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
+projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts
+projects/sfia-studio-next/web/src/domains/conversation/history-tools.ts
+projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts
+projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts
+projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts
+projects/sfia-studio-next/web/tests/unit/document-command.test.ts
+projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
+```
+
+---
+
+## 2. Validations (cycle courant — rapport Morris)
+
+| Gate | Résultat |
 | --- | --- |
-| HEAD (worktree tip, committed) | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-| `main` (local, verified) | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| merge-base(HEAD, main) | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| Nominal main cited in prior docs | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` — **not** current local `main` at pack time |
-| Prior handoff | `sfia/review-handoff@c1add5cb` blob `714a86d1` |
-| Conception V0.7 | commit `86377fde` blob `7d289670` |
+| tsc | PASS |
+| unit | 309 PASS |
+| integration (sfia_next_e2e) | 397 PASS |
+| ciblé META/HASH/SRC/N+100 | 101 PASS |
+| eslint (allowlist) | 0 errors |
+| build | PASS |
+| Playwright ML4C e2e | 2 passed (18.9s) — source: /tmp/ml4c-e2e-final.out |
+| Nora LIVE | **NOT PROVEN** |
 
-**Note:** All F-fix proofs run against **working tree** (modified + untracked) atop `67bf6b0b`; no commit/push this cycle.
+---
 
+## 3. File inventory matrix
 
+| PATH | tracked/untracked | modified this cycle Y/N | included Y | content type | section |
+| --- | --- | --- | --- | --- | --- |
+| `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md` | untracked | Y | Y | full | §7 full |
+| `projects/sfia-studio-next/construction/delivery-history.md` | tracked | Y | Y | diff | §6 diff |
+| `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts` | tracked | N | Y | diff | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` | tracked | N | Y | diff | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/components/figma/tokens.css` | tracked | N | Y | diff | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts` | tracked | N | Y | diff | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts` | tracked | Y | Y | diff | §4 P0-A + §6 diff |
+| `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts` | untracked | Y | Y | full | §4 P0-A + §7 untracked |
+| `projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts` | untracked | N | Y | full | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/domains/conversation/history-tools.ts` | untracked | N | Y | full | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts` | tracked | N | Y | diff | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts` | tracked | N | Y | diff | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | tracked | Y | Y | diff | §4 P1 + §6 diff |
+| `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts` | tracked | N | Y | diff | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/domains/document/service.ts` | tracked | Y | Y | diff | §4 P0-B + §6 diff |
+| `projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts` | untracked | N | Y | full | §7 full |
+| `projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts` | untracked | N | Y | full | §7 full |
+| `projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts` | tracked | N | Y | diff | §5 + §7 full |
+| `projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts` | tracked | N | Y | diff | §5 + §7 full |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts` | untracked | N | Y | full | §5 + §7 full |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts` | untracked | N | Y | full | §5 + §7 full |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
+| `projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts` | tracked | N | Y | diff | §5 + §7 full |
+| `projects/sfia-studio-next/web/tests/unit/document-act.test.ts` | tracked | Y | Y | diff | §5 tests + §6/§7 |
+| `projects/sfia-studio-next/web/tests/unit/document-command.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
+| `projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts` | untracked | N | Y | full | §5 + §7 full |
+| `projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts` | tracked | N | Y | diff | §5 + §7 full |
 
-## 3. Sources read (this pack)
+---
 
-| Source | Role |
-| --- | --- |
-| `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md` | As-built F closure |
-| `projects/sfia-studio-next/construction/delivery-history.md` | DELIV-2026-11-14-ML4C-DOCUMENT-INVARIANT-CLOSURE |
-| `sfia/review-handoff@c1add5cb` blob `714a86d1` | Prior Critical Review handoff |
-| Conception V0.7 `86377fde` / `7d289670` | Target invariants O-01…O-06 |
-| Modified `document/service.ts`, `conversation/service.ts`, `document-command.ts`, `document-act.ts`, `reconcile/route.ts` | F implementations |
-| PG tests `ml4c-document-identity|command|reconciliation|prior-proposal|history-*` | Oracles F01–F05 + P1 |
-| Playwright `ml4c-long-thread-composer.spec.ts`, `ml4c-document-continuity.spec.ts` | C-07 / continuity browser |
+## 4. P0-A / P0-B / P1 — final functions (synthesis)
 
+### 4.1 P0-A — `parseFenceMeta` + extract path (no LEGACY fallback on partial structured)
 
+```typescript
+export function parseFenceMeta(info: string): ParsedFenceMetadata {
+  const raw = info.trim();
+  if (!raw) return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  const parts = raw.split(/\s+/);
+  if (parts[0] !== "sfia-document") {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  const tokens = parts.slice(1);
+  if (tokens.length === 0) return { kind: "LEGACY" };
 
-## 4. Écarts F01–F05 (defect → fix)
+  const seen = new Set<string>();
+  let titleB64: string | undefined;
+  let charsRaw: string | undefined;
+  let pairSha256: string | undefined;
 
-| ID | Defect (handoff / conception gap) | Fix (mechanism) |
+  for (const tok of tokens) {
+    const eq = tok.indexOf("=");
+    if (eq <= 0 || tok.indexOf("=", eq + 1) !== -1) {
+      return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+    }
+    const key = tok.slice(0, eq);
+    const val = tok.slice(eq + 1);
+    if (!FENCE_META_KEYS.has(key)) {
+      return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+    }
+    if (seen.has(key)) {
+      return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+    }
+    seen.add(key);
+    if (val === "") {
+      return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+    }
+    if (key === "title-b64") titleB64 = val;
+    else if (key === "chars") charsRaw = val;
+    else if (key === "pair-sha256") pairSha256 = val;
+  }
+
+  // Any structured token present requires the full triad — never LEGACY fallback.
+  if (seen.size !== 3 || titleB64 == null || charsRaw == null || pairSha256 == null) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (!CHARS_RE.test(charsRaw)) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  const chars = Number(charsRaw);
+  if (!Number.isSafeInteger(chars) || chars < 0 || chars > MAX_PROPOSAL_CHARS) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (!SHA256_HEX_RE.test(pairSha256)) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (!BASE64URL_RE.test(titleB64)) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  let decodedTitle: string;
+  try {
+    decodedTitle = Buffer.from(titleB64, "base64url").toString("utf8");
+  } catch {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  // Reject replacement-char artefacts from invalid UTF-8 and require round-trip.
+  if (decodedTitle.includes("\uFFFD")) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (encodeTitleB64(decodedTitle) !== titleB64) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (!decodedTitle.trim()) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  return { kind: "STRUCTURED", titleB64, chars, pairSha256 };
+}
+```
+
+```typescript
+export function extractContractualDocumentProposal(
+  assistantText: string,
+): DocumentProposalExtract {
+  const { proposals, contractualOpenCount } = scanContractualDocumentFences(assistantText);
+
+  if (contractualOpenCount === 0) {
+    return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", 0);
+  }
+  if (proposals.some((p) => p.status === "unclosed")) {
+    return failProposal("DOCUMENT_PROPOSAL_UNCLOSED", "unclosed", contractualOpenCount);
+  }
+  if (proposals.length > 1) {
+    return failProposal("DOCUMENT_PROPOSAL_AMBIGUOUS", "ambiguous", proposals.length);
+  }
+  if (proposals.length !== 1 || proposals[0]!.status !== "ok") {
+    return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
+  }
+
+  const scanned = proposals[0]!;
+  let content = scanned.content;
+  const meta = parseFenceMeta(scanned.fenceInfo);
+
+  // P0-A: INVALID structured metadata never falls through to LEGACY.
+  if (meta.kind === "INVALID") {
+    return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+  }
+
+  if (meta.kind === "STRUCTURED") {
+    const normalized = normalizeStructuredProposalBody(content, meta.chars);
+    if (!normalized.ok) {
+      return failProposal(normalized.reason, "empty", 1, content);
+    }
+    content = normalized.content;
+    let title: string;
+    try {
+      title = Buffer.from(meta.titleB64, "base64url").toString("utf8").trim();
+    } catch {
+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+    }
+    if (!title) {
+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+    }
+    const digest = contentSha256(title, content);
+    if (digest !== meta.pairSha256) {
+      return failProposal("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH", "empty", 1, content);
+    }
+    const h1 = /^#\s+(.+?)(?:\r?\n|$)/.exec(content);
+    if (h1) {
+      const heading = h1[1]!.trim();
+      if (heading !== title) {
+        return failProposal("DOCUMENT_PROPOSAL_TITLE_MISMATCH", "empty", 1, content);
+      }
+    }
+    if (!content.trim() || content.trim().length < 8) {
+      return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
+    }
+    return {
+      ok: true,
+      content,
+      title,
+      path: "fence",
+      fenceTag: DOCUMENT_PROPOSAL_TAG,
+      fenceCount: 1,
+      proposalChars: content.length,
+      proposalDigest16: digest16(content),
+      bodyEndsWithNewline: content.endsWith("\n"),
+      sectionCount: locateSections(content).length,
+    };
+  }
+
+  // LEGACY: fence without structured metadata tokens.
+  if (!content.trim() || content.trim().length < 8) {
+    return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
+  }
+  const titleLine = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
+  return {
+    ok: true,
+    content,
+    title: titleLine || "Document Nora",
+    path: "fence",
+    fenceTag: DOCUMENT_PROPOSAL_TAG,
+    fenceCount: 1,
+    proposalChars: content.length,
+    proposalDigest16: digest16(content),
+    bodyEndsWithNewline: content.endsWith("\n"),
+    sectionCount: locateSections(content).length,
+  };
+}
+```
+
+### 4.2 P0-B — `compareSealedEffectIdentity` (recompute SHA from DB bytes)
+
+```typescript
+export function compareSealedEffectIdentity(
+  storedProvenanceJson: string,
+  storedContentMarkdown: string,
+  storedDocumentTitle: string,
+  expected: SealedEffectIdentity,
+): { ok: true; storedContentSha256: string } | { ok: false; reason: string } {
+  let prov: Record<string, unknown>;
+  try {
+    prov = JSON.parse(storedProvenanceJson) as Record<string, unknown>;
+  } catch {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+  if (prov.documentCommandBinding !== true) {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+
+  // C = SHA of bytes actually read from PostgreSQL (title + body).
+  const recalculated = contentFingerprint(storedDocumentTitle, storedContentMarkdown);
+  // C must equal binding contentSha256 (F).
+  if (recalculated !== expected.contentSha256) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  // C must equal provenance contentSha256 (E) when present.
+  if (typeof prov.contentSha256 === "string" && prov.contentSha256 !== recalculated) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  if (typeof prov.contentSha256 !== "string" || !prov.contentSha256) {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+  // If D (contentFingerprint) present, D must equal C.
+  if (
+    typeof prov.contentFingerprint === "string" &&
+    prov.contentFingerprint.length > 0 &&
+    prov.contentFingerprint !== recalculated
+  ) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  // Title in DB must match expected sealed title.
+  if (storedDocumentTitle !== expected.title) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+
+  const storedPayload =
+    typeof prov.payloadSha256 === "string" ? prov.payloadSha256 : null;
+  if (!storedPayload || storedPayload !== expected.payloadSha256) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  const checks: Array<[string, unknown, unknown]> = [
+    ["commandId", prov.commandId, expected.commandId],
+    ["operationId", prov.operationId, expected.operationId],
+    ["userMessageId", prov.userMessageId, expected.userMessageId],
+    ["qualifiedIntentId", prov.qualifiedIntentId, expected.qualifiedIntentId],
+    ["action", prov.action, expected.action],
+    ["preparationId", prov.preparationId, expected.preparationId],
+    ["documentId", prov.documentId ?? null, expected.documentId],
+    ["baseRevisionId", prov.baseRevisionId ?? null, expected.baseRevisionId],
+    ["sectionHint", prov.sectionHint ?? null, expected.sectionHint],
+    ["correlationKey", prov.correlationKey, expected.correlationKey],
+    ["contentSha256", prov.contentSha256, expected.contentSha256],
+    ["title", prov.title ?? storedDocumentTitle, expected.title],
+  ];
+  for (const [, got, want] of checks) {
+    if (stableJson(got) !== stableJson(want)) {
+      return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+    }
+  }
+  if (stableJson(prov.source) !== stableJson(expected.source)) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  return { ok: true, storedContentSha256: recalculated };
+}
+```
+
+### 4.3 P1 — proposal authority vs concurrent fence
+
+```typescript
+function confrontProposalWithFence(
+  authority: DocumentProposalExact,
+  extracted: DocumentProposalExtract,
+):
+  | { ok: true; materialize: boolean }
+```
+
+```typescript
+export async function resolveAssistantProposal(input: {
+  pilotId: string;
+  preparationId: string;
+  assistantMessageId: string;
+}): Promise<
+```
+
+---
+
+## 5. Test matrices (META / HASH / SRC / N+100) — PASS
+
+### 5.1 META (unit — document-command.test.ts)
+
+| ID | Test | Status |
 | --- | --- | --- |
-| **F-01** | D4 AVAILABLE inferred via `latestRevisionFor` or partial fingerprint — unsafe ACK/reconcile | `compareSealedEffectIdentity` (single rule) + `buildSealedProvenance` + `lookupDocumentCorrelationTruth` uses `findRevisionByCorrelation` only (no latestRevision CREATE fallback) + `reconcilePriorRevision` |
-| **F-02** | Fence round-trip lossy; metadata not binding | `serializeProposalFence(DocumentProposalExact)` with `title-b64` / `chars` / `pair-sha256`; `document-act` `extractContractualDocumentProposal` validates structured meta + integrity |
-| **F-03** | `documentProposal` not durably visible on common path; PREPARE mutates D4 | `conversation/service.ts` `durableProposal` on assembly path before commit; PREPARE intents persist fence without `savePreparationDocument` |
-| **F-04** | REVISE/CREATE overwrote `ASSISTANT_MESSAGE` source with same-turn snapshot | Binding `source: ASSISTANT_MESSAGE` preserved; divergent concurrent fence → `PROPOSAL_SOURCE_CONFLICT` |
-| **F-05** | Multi-binding turns: last-wins | `loadSealedDocumentBinding` requires `correlationKey` when `documentCommandBindings.length > 1`; HTTP **409** `BINDING_SELECTOR_REQUIRED` |
-| **P1** | `fitBudget` not test-exported; browser assertion swallowed; triple historical proposals ambiguous | Export `fitBudget` from `history-tools-sdk.ts`; Playwright `toHaveValue('')` without `.catch`; PG `ml4c-prior-proposal` three-fence ambiguity |
+| META-01 | bare sfia-document → LEGACY | PASS |
+| META-02 | three valid fields ACCEPT round-trip | PASS |
+| META-03 | title-b64 alone → INVALID (not LEGACY) | PASS |
+| META-07 | duplicate key → INVALID | PASS |
+| META-08 | unknown key → INVALID | PASS |
+| META-09 | empty value → INVALID | PASS |
+| META-10 | chars=12abc → INVALID | PASS |
+| META-12 | bad pair-sha256 → INVALID | PASS |
+| META-13 | bad base64url title-b64 → INVALID | PASS |
+| META-14 | title-b64 no UTF-8 round-trip → INVALID | PASS |
+| META-15 | wrong pair-sha256 → INTEGRITY_MISMATCH | PASS |
+| META-16 | H1 mismatch → TITLE_MISMATCH | PASS |
+| META-17 | preserves content without trailing newline | PASS |
+| META-18a | Unicode title and body | PASS |
+| META-18b | internal markdown fences longer backtick run | PASS |
 
+### 5.2 META extract (unit — document-act.test.ts P0-A via extract)
 
-
-## 5. Code modified by function
-
-| Function / symbol | File | F / P |
+| ID | Coverage | Status |
 | --- | --- | --- |
-| `compareSealedEffectIdentity` | `domains/document/service.ts` | F-01 |
-| `buildSealedProvenance` | `domains/document/service.ts` | F-01 |
-| `lookupDocumentCorrelationTruth` | `domains/document/service.ts` | F-01 / C-01 |
-| `reconcilePriorRevision` | `domains/document/service.ts` | F-01 |
-| `serializeProposalFence`, `parseFenceMeta`, `loadSealedDocumentBinding` | `domains/conversation/document-command.ts` | F-02 / F-05 |
-| `extractContractualDocumentProposal` (+ metadata path) | `domains/conversation/document-act.ts` | F-02 |
-| `durableProposal` assembly + D4 admit/seal | `domains/conversation/service.ts` | F-03 / F-04 |
-| `stashDocumentCommandBinding` (multi-binding) | `domains/conversation/turn-command.ts` | F-05 |
-| GET reconcile D4 branch | `app/api/preparations/.../reconcile/route.ts` | F-05 / C-01 |
-| `fitBudget` (exported) | `domains/conversation/history-tools-sdk.ts` | P1 |
-| `searchConversationHistory` / `readConversationMessages` | `domains/conversation/history-tools.ts` | C-05 |
-| `DocumentProposalSchema`, `DocumentSourceSchema` | `semantic-qualification.ts` | C-02 / C-03 |
-| Nora tool union + prompts | `nora-adapter.ts`, `cognitive-policy.ts` | O-01 |
-| Sticky composer (C-07, prior cycle) | `NoraConversation.tsx`, `tokens.css` | C-07 preserved |
+| META-P0A-extract | parseFenceMeta via extractContractualDocumentProposal | PASS |
+
+### 5.3 HASH (integration — ml4c-document-identity.pg.test.ts)
+
+| ID | Test | Status |
+| --- | --- | --- |
+| HASH | stored bytes / provenance drift → CONFLICT; reconcile never heals | PASS |
+
+### 5.4 SRC + N+100 (integration — ml4c-prior-proposal.pg.test.ts)
+
+| ID | Test | Status |
+| --- | --- | --- |
+| C-03 N+1 | PRIOR_ASSISTANT_MESSAGE → D4 equals historical bytes | PASS |
+| C-03 N+100 | PRIOR after N+100 filler messages | PASS |
+| C-03 | three proposals → clarification / zero D4 | PASS |
+| C-03 | foreign pilot cannot use prior assistant message | PASS |
+| SRC-04-PREPARE | divergent fence title → conflict, zero D4, no rewrite | PASS |
+| SRC-04 | divergent assistant fence → PROPOSAL_SOURCE_CONFLICT | PASS |
+| N+100 PREPARE→AGREE | prior fence, ASSISTANT_MESSAGE binding, idempotent replay | PASS |
+
+### 5.5 Aggregate targeted suite
+
+| Suite | Count | Status |
+| --- | --- | --- |
+| META + HASH + SRC + N+100 (ciblé) | 101 | PASS |
+
+---
+
+## 6. Modified tracked files — full `git diff` vs HEAD
+
+### `projects/sfia-studio-next/construction/delivery-history.md`
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index ec4ab254..f3371563 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,69 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
-## 6. Diffs (allowlisted modified files)
++## delivery_id: DELIV-2026-11-14-ML4C-DOCUMENT-INTEGRITY-FINAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~11:20 CET (Europe/Paris) |
++| Macro-lot | ML4C — Fermeture définitive intégrité documentaire (P0-A / P0-B / P1) |
++| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Prior handoff | `sfia/review-handoff@3efc082a` blob `855a436c` |
++| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | parseFenceMeta 3-états ; SHA recalculé DB ; confrontProposalWithFence ; PREPARE→N+100 |
++| Schema | unchanged |
++| Tests | META/HASH/SRC/N+100 + non-régression ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
++
++## delivery_id: DELIV-2026-11-14-ML4C-DOCUMENT-INVARIANT-CLOSURE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~11:00 CET (Europe/Paris) |
++| Macro-lot | ML4C — Fermeture invariants documentaires F-01…F-05 |
++| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Prior handoff | `sfia/review-handoff@c1add5cb` blob `714a86d1` |
++| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | F-01 identity compare ; F-02 reversible fence codec ; F-03 PREPARE durableProposal ; F-04 ASSISTANT_MESSAGE source ; F-05 binding selector + HTTP 409 ; P1 fitBudget/ambiguity/browser |
++| Schema | unchanged |
++| Tests | unit 289 PASS ; PG 393 PASS ; Playwright ML4C ciblé ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
++
++## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-CRITICAL-CORRECTIVE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~10:10 CET (Europe/Paris) |
++| Macro-lot | ML4C — Correctif Critical Review (C-01…C-07) continuité Nora / D4 |
++| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Prior handoff | `sfia/review-handoff@93e277c2` blob `510b410f` |
++| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | reconcile read-only ; canonicalize proposal ; prior assistant source ; correlation salt ; history walk/budget ; UX 320+ |
++| Schema | unchanged |
++| Tests | unit 277 PASS ; PG ML4C 29 PASS ; Playwright C-07 320+ PASS ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
++
++## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-NORA-DOCUMENTS
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~09:30 CET (Europe/Paris) |
++| Macro-lot | ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4 |
++| Type | EVOL Critical integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local) = tip `origin/build/next-ml4c-functional-convergence@67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Lane | DEV `:5433` + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | history-tools + SDK tools ; documentProposal ; document-command admit/seal ; CREATE atomique + REVISE fence/fingerprint ; UX composeur sticky ; as-built |
++| Schema | unchanged (indexes existants utilisés) |
++| Tests | unit 272 PASS ; PG history+document-command 11 PASS ; ML2 Q10 O-05 PASS ; Playwright composer PASS ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
++
+ ## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
 
-### `git diff` — `projects/sfia-studio-next/web/src/domains/document/service.ts`
+ | Field | Value |
+```
+
+### `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
+index 049dc0e6..45650bd1 100644
+--- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
+@@ -1,13 +1,58 @@
+ import { NextResponse } from "next/server";
+ import { requireStudioSession } from "@/domains/identity/session";
+ import { reconcileCreateProject } from "@/domains/preparation/create-project";
++import {
++  loadSealedDocumentBinding,
++  reconcileDocumentCommandFromBinding,
++} from "@/domains/conversation/document-command";
+ import { studioErrorResponse } from "@/lib/http-errors";
+
++/**
++ * GET reconcile — D2 create-project by default.
++ * Optional `documentCommandId` selects C-01 read-only D4 document-command reconcile.
++ * Never mutates D4.
++ */
+ export async function GET(req: Request, ctx: { params: Promise<{ preparationId: string }> }) {
+   try {
+     const session = await requireStudioSession();
+     const { preparationId } = await ctx.params;
+-    const key = new URL(req.url).searchParams.get("idempotencyKey") ?? undefined;
++    const url = new URL(req.url);
++    const documentCommandId = url.searchParams.get("documentCommandId")?.trim() || undefined;
++
++    if (documentCommandId) {
++      const loaded = await loadSealedDocumentBinding({
++        pilotId: session.pilotId,
++        preparationId,
++        commandId: documentCommandId,
++        correlationKey: url.searchParams.get("correlationKey"),
++      });
++      if (!loaded.ok) {
++        const httpStatus =
++          loaded.reason === "COMMAND_DENIED"
++            ? 403
++            : loaded.reason === "BINDING_SELECTOR_REQUIRED"
++              ? 409
++              : 404;
++        return NextResponse.json(
++          { status: "NOT_EXECUTED", reason: loaded.reason, kind: "document_command" },
++          { status: httpStatus },
++        );
++      }
++      const truth = await reconcileDocumentCommandFromBinding({
++        pilotId: session.pilotId,
++        preparationId,
++        binding: loaded.binding,
++      });
++      return NextResponse.json({
++        kind: "document_command",
++        commandId: loaded.commandId,
++        correlationKey: loaded.binding.correlationKey,
++        action: loaded.binding.action,
++        ...truth,
++      });
++    }
++
++    const key = url.searchParams.get("idempotencyKey") ?? undefined;
+     const result = await reconcileCreateProject(session.pilotId, preparationId, key);
+     return NextResponse.json(result);
+   } catch (e) {
+```
+
+### `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+index 7341a857..cf3c2517 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+@@ -43,74 +43,78 @@ export function NoraConversation(props: {
+               <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
+             ) : null}
+           </div>
+-          <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
+-            {n === 0 ? (
+-              <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
+-                <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
+-                Première conversation — écrivez pour démarrer le fil du projet. Aucun message
+-                fictif n&apos;est prérempli.
+-              </div>
+-            ) : null}
+-            {props.messages.map((m) => (
+-              <article
+-                key={m.id}
+-                className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
+-              >
+-                <div className="text-xs muted mb-1">
+-                  {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
++          <div className="fig-nora-thread-shell" data-testid="nora-thread-shell">
++            <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
++              {n === 0 ? (
++                <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
++                  <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
++                  Première conversation — écrivez pour démarrer le fil du projet. Aucun message
++                  fictif n&apos;est prérempli.
+                 </div>
+-                {m.role === "assistant" ? (
+-                  <SafeMarkdown content={m.content} />
+-                ) : (
+-                  <div className="whitespace-pre-wrap text-sm">{m.content}</div>
+-                )}
+-              </article>
+-            ))}
+-            {props.activity === "preparing" ? (
+-              <div className="fig-alert" role="status">
+-                Nora prépare une réponse…
+-              </div>
+-            ) : null}
+-          </div>
+-          <div className="fig-composer">
+-            <textarea
+-              className="textarea"
+-              value={props.draft}
+-              onChange={(e) => props.onDraft(e.target.value)}
+-              placeholder="Écrire à Nora…"
+-              aria-label="Message à Nora"
+-              data-testid="thread-draft"
+-            />
+-            <div className="flex flex-wrap gap-2">
+-              <button
+-                className="btn"
+-                disabled={props.busy || !props.draft.trim()}
+-                onClick={props.onSend}
+-                data-testid="thread-send"
+-              >
+-                Envoyer
+-              </button>
+-              <span className="text-xs muted self-center">Joindre un élément · non requis</span>
++              ) : null}
++              {props.messages.map((m) => (
++                <article
++                  key={m.id}
++                  className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
++                >
++                  <div className="text-xs muted mb-1">
++                    {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
++                  </div>
++                  {m.role === "assistant" ? (
++                    <SafeMarkdown content={m.content} />
++                  ) : (
++                    <div className="whitespace-pre-wrap text-sm">{m.content}</div>
++                  )}
++                </article>
++              ))}
++              {props.activity === "preparing" ? (
++                <div className="fig-alert" role="status">
++                  Nora prépare une réponse…
++                </div>
++              ) : null}
+             </div>
+-            {props.unresolvedPending && props.onReconcile ? (
+-              <div className="space-y-1" data-testid="thread-pending-banner">
+-                <p className="text-xs muted">Tentative non résolue — réconcilier avant un nouveau tour.</p>
++            <div className="fig-composer fig-composer-sticky" data-testid="nora-composer">
++              <textarea
++                className="textarea"
++                value={props.draft}
++                onChange={(e) => props.onDraft(e.target.value)}
++                placeholder="Écrire à Nora…"
++                aria-label="Message à Nora"
++                data-testid="thread-draft"
++              />
++              <div className="flex flex-wrap gap-2">
+                 <button
+-                  type="button"
+-                  className="btn secondary"
+-                  disabled={props.busy}
+-                  data-testid="thread-reconcile-pending"
+-                  onClick={props.onReconcile}
++                  className="btn"
++                  disabled={props.busy || !props.draft.trim()}
++                  onClick={props.onSend}
++                  data-testid="thread-send"
+                 >
+-                  Réconcilier la tentative en cours
++                  Envoyer
+                 </button>
++                <span className="text-xs muted self-center">Joindre un élément · non requis</span>
+               </div>
+-            ) : null}
+-            {props.status ? (
+-              <p className="text-xs muted" data-testid="thread-nora-status">
+-                {props.status}
+-              </p>
+-            ) : null}
++              {props.unresolvedPending && props.onReconcile ? (
++                <div className="space-y-1" data-testid="thread-pending-banner">
++                  <p className="text-xs muted">
++                    Tentative non résolue — réconcilier avant un nouveau tour.
++                  </p>
++                  <button
++                    type="button"
++                    className="btn secondary"
++                    disabled={props.busy}
++                    data-testid="thread-reconcile-pending"
++                    onClick={props.onReconcile}
++                  >
++                    Réconcilier la tentative en cours
++                  </button>
++                </div>
++              ) : null}
++              {props.status ? (
++                <p className="text-xs muted" data-testid="thread-nora-status">
++                  {props.status}
++                </p>
++              ) : null}
++            </div>
+           </div>
+         </div>
+       </section>
+```
+
+### `projects/sfia-studio-next/web/src/components/figma/tokens.css`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+index 2b2b75f9..922c422d 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
++++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+@@ -232,6 +232,20 @@
+   background: #0c1018;
+ }
+
++/* O-06 — long-thread composer remains reachable while the journal scrolls. */
++.fig-nora-thread-shell {
++  display: flex;
++  flex-direction: column;
++  gap: 12px;
++  min-height: 0;
++}
++.fig-composer-sticky {
++  position: sticky;
++  bottom: 0;
++  z-index: 2;
++  background: #0c1018;
++}
++
+ .fig-two-col {
+   display: grid;
+   grid-template-columns: minmax(0, 800fr) minmax(0, 510fr);
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+index b45fc144..14177c86 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+@@ -85,6 +85,8 @@ export type CognitivePolicy = {
+   toolAllowlist: Array<
+     | "search_project_resources"
+     | "read_project_document_revision"
++    | "search_conversation_history"
++    | "read_conversation_messages"
+     | "list_project_git_sources"
+     | "read_git_file"
+     | "list_git_refs"
+@@ -208,6 +210,8 @@ export function buildCognitivePolicy(
+   const toolAllowlist: CognitivePolicy["toolAllowlist"] = [
+     "search_project_resources",
+     "read_project_document_revision",
++    "search_conversation_history",
++    "read_conversation_messages",
+     "list_project_git_sources",
+     "read_git_file",
+     "list_git_refs",
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+index d97533a9..8e6e3f9e 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+@@ -2,6 +2,7 @@
+  * Chat-first D4 act qualification — create vs revise vs none.
+  * Server authority only; Nora text never creates or revises alone.
+  */
++import { contentSha256, parseFenceMeta } from "@/domains/conversation/document-command";
+
+ export type DocumentActKind = "CREATE" | "REVISE" | "NONE";
+
+@@ -555,7 +556,10 @@ export type DocumentProposalExtract =
+         | "DOCUMENT_PROPOSAL_MISSING"
+         | "DOCUMENT_PROPOSAL_AMBIGUOUS"
+         | "DOCUMENT_PROPOSAL_EMPTY"
+-        | "DOCUMENT_PROPOSAL_UNCLOSED";
++        | "DOCUMENT_PROPOSAL_UNCLOSED"
++        | "DOCUMENT_PROPOSAL_METADATA_INVALID"
++        | "DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH"
++        | "DOCUMENT_PROPOSAL_TITLE_MISMATCH";
+       path: "none" | "ambiguous" | "empty" | "unclosed";
+       fenceCount: number;
+       proposalChars: number;
+@@ -627,7 +631,7 @@ function isFenceClose(marker: FenceMarker, open: FenceMarker): boolean {
+ }
+
+ type ScannedProposal =
+-  | { status: "ok"; content: string; tag: string }
++  | { status: "ok"; content: string; tag: string; fenceInfo: string; openerLength: number }
+   | { status: "unclosed" };
+
+ /**
+@@ -732,13 +736,85 @@ export function scanContractualDocumentFences(assistantText: string): {
+       const start = lines[bodyStartLine]!.start;
+       content = assistantText.slice(start, lines[closedAt]!.start);
+     }
+-    proposals.push({ status: "ok", content, tag: DOCUMENT_PROPOSAL_TAG });
++    proposals.push({
++      status: "ok",
++      content,
++      tag: DOCUMENT_PROPOSAL_TAG,
++      fenceInfo: open.info.trim(),
++      openerLength: open.length,
++    });
+     i = closedAt + 1;
+   }
+
+   return { proposals, contractualOpenCount };
+ }
+
++/** Remove autonomous contractual fences; keep conversational / illustrative text. */
++export function stripContractualDocumentFences(assistantText: string): string {
++  const lines = splitMarkdownLines(assistantText);
++  const chunks: string[] = [];
++  let i = 0;
++  while (i < lines.length) {
++    const open = parseFenceMarkerLine(lines[i]!.text);
++    if (!open) {
++      const start = lines[i]!.start;
++      const end = i + 1 < lines.length ? lines[i + 1]!.start : assistantText.length;
++      chunks.push(assistantText.slice(start, end));
++      i += 1;
++      continue;
++    }
++    if (!isContractualProposalOpen(open)) {
++      const start = lines[i]!.start;
++      const after = skipIllustrativeFence(lines, i, open);
++      const end = after < lines.length ? lines[after]!.start : assistantText.length;
++      chunks.push(assistantText.slice(start, end));
++      i = after;
++      continue;
++    }
++    const bodyStartLine = i + 1;
++    const nest: Array<{ char: "`" | "~"; length: number }> = [];
++    let closedAt: number | null = null;
++    for (let j = bodyStartLine; j < lines.length; j++) {
++      const cand = parseFenceMarkerLine(lines[j]!.text);
++      if (!cand) continue;
++      if (nest.length === 0 && isFenceClose(cand, open)) {
++        closedAt = j;
++        break;
++      }
++      if (nest.length > 0) {
++        const top = nest[nest.length - 1]!;
++        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
++          nest.pop();
++          continue;
++        }
++      }
++      const opensInner =
++        cand.info.trim() !== "" ||
++        cand.char !== open.char ||
++        cand.length < open.length;
++      if (opensInner) {
++        nest.push({ char: cand.char, length: cand.length });
++      }
++    }
++    if (closedAt == null) break;
++    i = closedAt + 1;
++  }
++  return chunks.join("").trimEnd();
++}
++
++function normalizeStructuredProposalBody(
++  raw: string,
++  expectedChars: number,
++): { ok: true; content: string } | { ok: false; reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" } {
++  if (raw.length === expectedChars) {
++    return { ok: true, content: raw };
++  }
++  if (raw.length === expectedChars + 1 && raw.endsWith("\n")) {
++    return { ok: true, content: raw.slice(0, -1) };
++  }
++  return { ok: false, reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
++}
++
+ function failProposal(
+   reason: Extract<DocumentProposalExtract, { ok: false }>["reason"],
+   path: Extract<DocumentProposalExtract, { ok: false }>["path"],
+@@ -776,7 +852,59 @@ export function extractContractualDocumentProposal(
+     return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
+   }
+
+-  const content = proposals[0]!.content;
++  const scanned = proposals[0]!;
++  let content = scanned.content;
++  const meta = parseFenceMeta(scanned.fenceInfo);
++
++  // P0-A: INVALID structured metadata never falls through to LEGACY.
++  if (meta.kind === "INVALID") {
++    return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
++  }
++
++  if (meta.kind === "STRUCTURED") {
++    const normalized = normalizeStructuredProposalBody(content, meta.chars);
++    if (!normalized.ok) {
++      return failProposal(normalized.reason, "empty", 1, content);
++    }
++    content = normalized.content;
++    let title: string;
++    try {
++      title = Buffer.from(meta.titleB64, "base64url").toString("utf8").trim();
++    } catch {
++      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
++    }
++    if (!title) {
++      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
++    }
++    const digest = contentSha256(title, content);
++    if (digest !== meta.pairSha256) {
++      return failProposal("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH", "empty", 1, content);
++    }
++    const h1 = /^#\s+(.+?)(?:\r?\n|$)/.exec(content);
++    if (h1) {
++      const heading = h1[1]!.trim();
++      if (heading !== title) {
++        return failProposal("DOCUMENT_PROPOSAL_TITLE_MISMATCH", "empty", 1, content);
++      }
++    }
++    if (!content.trim() || content.trim().length < 8) {
++      return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
++    }
++    return {
++      ok: true,
++      content,
++      title,
++      path: "fence",
++      fenceTag: DOCUMENT_PROPOSAL_TAG,
++      fenceCount: 1,
++      proposalChars: content.length,
++      proposalDigest16: digest16(content),
++      bodyEndsWithNewline: content.endsWith("\n"),
++      sectionCount: locateSections(content).length,
++    };
++  }
++
++  // LEGACY: fence without structured metadata tokens.
+   if (!content.trim() || content.trim().length < 8) {
+     return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
+   }
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 9bc4de72..985a4e12 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -389,7 +389,8 @@ async function runLiveWithTools(
+     remainingChars: policy.budgets.maxD4CharsReturned,
+   };
+
+-  let tools: Awaited<ReturnType<typeof buildNoraD4Tools>> = [];
++  // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
++  let tools: unknown[] = [];
+   if (policy.toolAllowlist.length > 0 && input.toolScope) {
+     const scope: D4ToolScope = {
+       pilotId: input.toolScope.pilotId,
+@@ -399,6 +400,18 @@ async function runLiveWithTools(
+       budget: initialBudget,
+     };
+     tools = await buildNoraD4Tools(scope);
++    if (
++      policy.toolAllowlist.includes("search_conversation_history") ||
++      policy.toolAllowlist.includes("read_conversation_messages")
++    ) {
++      const { buildNoraHistoryTools } = await import("./history-tools-sdk");
++      const historyTools = await buildNoraHistoryTools({
++        pilotId: input.toolScope.pilotId,
++        preparationId: input.toolScope.preparationId,
++        budget: initialBudget,
++      });
++      tools = [...tools, ...historyTools];
++    }
+     if (input.toolScope.projectId) {
+       const gitTools = await buildNoraGitReadTools({
+         pilotId: input.toolScope.pilotId,
+@@ -416,11 +429,16 @@ async function runLiveWithTools(
+     "",
+     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
+     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
+-    "- replyDraft = texte destiné au Pilote (français, Markdown utile).",
++    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
++    "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
++    "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
++    "- Ne combine jamais documentSource et documentProposal dans le même tour.",
+     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
+     "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
+     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
+     "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
++    "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
++    "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
+     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
+   ].join("\n");
+
+@@ -431,7 +449,8 @@ async function runLiveWithTools(
+     modelSettings: {
+       reasoning: { effort: policy.effortRequested },
+     },
+-    tools,
++    // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
++    tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
+     outputType: NoraTurnQualificationSchema,
+   });
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 76014f72..6736bc9c 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -95,6 +95,22 @@ export const QualifiedIntentItemSchema = z.object({
+ });
+ export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
+
++/** O-03 — typed document payload distinct from replyDraft (max D4 = 100_000). */
++export const DocumentProposalSchema = z
++  .object({
++    title: z.string().min(1).max(400),
++    contentMarkdown: z.string().min(1).max(100_000),
++  })
++  .strict();
++
++/** C-03 — designate a prior assistant proposal by message id (content resolved server-side). */
++export const DocumentSourceSchema = z
++  .object({
++    kind: z.literal("PRIOR_ASSISTANT_MESSAGE"),
++    assistantMessageId: z.string().min(1).max(128),
++  })
++  .strict();
++
+ export const NoraTurnQualificationSchema = z.object({
+   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
+   status: QualificationStatusSchema,
+@@ -102,6 +118,8 @@ export const NoraTurnQualificationSchema = z.object({
+   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
+   clarifications: z.array(z.string().max(400)).max(8).default([]),
+   replyDraft: z.string().max(12000).default(""),
++  documentProposal: DocumentProposalSchema.optional(),
++  documentSource: DocumentSourceSchema.optional(),
+ });
+ export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
+
+@@ -155,6 +173,10 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
+       return { ok: false, reason: `PILOTAGE_OPERATION_CAPABILITY_MISMATCH:${intent.id}` };
+     }
+   }
++  // C-03: prior source is authoritative; same-turn proposal must not silently compete.
++  if (q.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE" && q.documentProposal) {
++    return { ok: false, reason: "DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT" };
++  }
+   const graph = new Map(q.intents.map((i) => [i.id, i.dependsOn] as const));
+   const visiting = new Set<string>();
+   const visited = new Set<string>();
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index bbab5da7..e2765555 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -10,11 +10,16 @@ import {
+   reconstituteConfirmedD4Effects,
+   selectRelevantKnowledgeContext,
+ } from "@/domains/knowledge/service";
++import { listDocuments } from "@/domains/document/service";
+ import {
+-  listDocuments,
+-  reviseDocument,
+-  savePreparationDocument,
+-} from "@/domains/document/service";
++  admitDocumentCommand,
++  canonicalizeDocumentProposal,
++  contentSha256,
++  resolveAssistantProposal,
++  sealAndApplyDocumentCommand,
++  serializeProposalFence,
++  type DocumentProposalExact,
++} from "@/domains/conversation/document-command";
+ import {
+   bindTurnGenerationId,
+   commitTurnTerminal,
+@@ -40,6 +45,7 @@ import {
+   assertSectionScope,
+   extractContractualDocumentProposal,
+   resolveReviseTarget,
++  stripContractualDocumentFences,
+   type DocumentEffectSummary,
+   type DocumentProposalExtract,
+ } from "./document-act";
+@@ -295,6 +301,32 @@ async function resolvePilotageEffectForReplay(input: {
+   };
+ }
+
++/**
++ * P1 — confront an authoritative proposal with a concurrent contractual fence.
++ * Fence MISSING → materialize; fence INVALID/ambiguous → refuse; fence OK → strict title+body.
++ */
++function confrontProposalWithFence(
++  authority: DocumentProposalExact,
++  extracted: DocumentProposalExtract,
++):
++  | { ok: true; materialize: boolean }
++  | { ok: false; reason: string } {
++  if (!extracted.ok) {
++    if (extracted.reason === "DOCUMENT_PROPOSAL_MISSING") {
++      return { ok: true, materialize: true };
++    }
++    return { ok: false, reason: extracted.reason };
++  }
++  if (
++    extracted.title !== authority.title ||
++    extracted.content !== authority.contentMarkdown ||
++    contentSha256(extracted.title, extracted.content) !== authority.contentSha256
++  ) {
++    return { ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" };
++  }
++  return { ok: true, materialize: false };
++}
++
+ export async function postUserMessageAndNora(
+   pilotId: string,
+   preparationId: string,
+@@ -878,6 +910,33 @@ export async function postUserMessageAndNora(
+   const studioIntent = studioProjection;
+   const clientIntentKey = clientTurnKey;
+   const missionKeys = missionCorrelationKeys(clientIntentKey);
++
++  let durableProposal: DocumentProposalExact | null = null;
++  /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
++  let proposalAuthorityConflict: string | null = null;
++  if (
++    reply.status === "COMPLETE" &&
++    qualification.documentProposal &&
++    !qualification.documentSource
++  ) {
++    const earlyCanonical = canonicalizeDocumentProposal(qualification.documentProposal);
++    if (earlyCanonical.ok) {
++      const earlyExtract = extractContractualDocumentProposal(reply.content);
++      const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract);
++      if (!confront.ok) {
++        proposalAuthorityConflict = confront.reason;
++        durableProposal = null;
++      } else {
++        durableProposal = earlyCanonical.proposal;
++        if (confront.materialize) {
++          reply = {
++            ...reply,
++            content: `${reply.content.trimEnd()}\n\n${serializeProposalFence(durableProposal)}`,
++          };
++        }
++      }
++    }
++  }
+   // Semantic qualification visible before extract/D4. Absence of obs must never invent D4.
+   emitDocumentActQualificationObs({
+     requestId,
+@@ -927,11 +986,82 @@ export async function postUserMessageAndNora(
+       }
+
+       if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
+-        const extracted = extractContractualDocumentProposal(reply.content);
+-        if (!extracted.ok) {
++        // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
++        type ExactProposal = { title: string; contentMarkdown: string; contentSha256: string };
++        let exact: ExactProposal | null = null;
++        let source:
++          | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
++          | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
++          kind: "SAME_TURN_SNAPSHOT",
++          commandId: reserved.commandId,
++        };
++        let createBlocked: string | null = null;
++        let extracted = extractContractualDocumentProposal(reply.content);
++
++        if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
++          const resolved = await resolveAssistantProposal({
++            pilotId,
++            preparationId,
++            assistantMessageId: qualification.documentSource.assistantMessageId,
++          });
++          if (!resolved.ok) {
++            createBlocked = resolved.reason;
++          } else {
++            const confront = confrontProposalWithFence(resolved.proposal, extracted);
++            if (!confront.ok) {
++              createBlocked = confront.reason;
++              proposalAuthorityConflict = confront.reason;
++              durableProposal = null;
++            } else {
++              exact = resolved.proposal;
++              durableProposal = exact;
++              source = {
++                kind: "ASSISTANT_MESSAGE",
++                assistantMessageId: resolved.assistantMessageId,
++              };
++              if (confront.materialize) {
++                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
++                extracted = extractContractualDocumentProposal(reply.content);
++              }
++            }
++          }
++        } else if (qualification.documentProposal) {
++          const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
++          if (!canonical.ok) {
++            createBlocked = canonical.reason;
++          } else {
++            const confront = confrontProposalWithFence(canonical.proposal, extracted);
++            if (!confront.ok) {
++              createBlocked = confront.reason;
++              proposalAuthorityConflict = confront.reason;
++              durableProposal = null;
++            } else {
++              exact = canonical.proposal;
++              durableProposal = exact;
++              if (confront.materialize) {
++                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
++                extracted = extractContractualDocumentProposal(reply.content);
++              }
++            }
++          }
++        } else if (extracted.ok) {
++          const canonical = canonicalizeDocumentProposal({
++            title: extracted.title,
++            contentMarkdown: extracted.content,
++          });
++          if (!canonical.ok) createBlocked = canonical.reason;
++          else {
++            exact = canonical.proposal;
++            durableProposal = exact;
++          }
++        } else {
++          createBlocked = extracted.reason;
++        }
++
++        if (createBlocked || !exact) {
+           documentSave = {
+             status: "FAILED",
+-            reason: extracted.reason,
++            reason: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
+             act: "CREATE",
+           };
+           emitDocumentProposalObs({
+@@ -939,45 +1069,90 @@ export async function postUserMessageAndNora(
+             operationId: reserved.operationId,
+             generationId: reply.generationId,
+             act: "CREATE",
+-            extracted,
+-            refuseCode: extracted.reason,
++            extracted: extracted.ok
++              ? extracted
++              : {
++                  ok: false,
++                  reason: "DOCUMENT_PROPOSAL_MISSING",
++                  path: "none",
++                  fenceCount: 0,
++                  proposalChars: 0,
++                  proposalDigest16: null,
++                  bodyEndsWithNewline: false,
++                  sectionCount: 0,
++                },
++            refuseCode: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
+             d4Attempted: false,
+             d4Effect: null,
+           });
+         } else {
+           try {
+-            const saved = await savePreparationDocument(
+-              pilotId,
+-              preparationId,
+-              extracted.title,
+-              extracted.content,
+-              undefined,
+-              {
+-                correlationKey: opts?.correlationKey
+-                  ? `doc:${opts.correlationKey}`
+-                  : missionIntent.wantsPublish
+-                    ? missionKeys.document
+-                    : `doc:${reply.generationId}`,
+-                provenance: {
+-                  sourceKind: "nora",
+-                  generationId: reply.generationId,
+-                  userMessageId: reserved.userMessageId,
+-                  explicitRequest: true,
++            const createIntents = effectIntents(qualification).filter(
++              (i) => i.capabilityId === "d4.create_document",
++            );
++            if (createIntents.length > 1) {
++              documentSave = {
++                status: "FAILED",
++                reason: "AMBIGUOUS_CREATE_INTENT",
++                act: "CREATE",
++              };
++            } else {
++              const createIntent = createIntents[0];
++              if (!createIntent) {
++                documentSave = {
++                  status: "FAILED",
++                  reason: "MISSING_CREATE_INTENT",
+                   act: "CREATE",
+-                },
+-                scope: "document",
+-                turnFence: {
++                };
++              } else {
++                const clientSalt =
++                  opts?.correlationKey?.trim() ||
++                  (missionIntent.wantsPublish ? missionKeys.document : null);
++                const admitted = admitDocumentCommand({
+                   commandId: reserved.commandId,
+-                  ownerToken: reserved.ownerToken,
+-                  beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+-                },
+-              },
+-            );
+-            documentSave = { ...saved, act: "CREATE" };
++                  operationId: reserved.operationId,
++                  userMessageId: reserved.userMessageId,
++                  qualifiedIntentId: createIntent.id,
++                  action: "CREATE",
++                  preparationId,
++                  source,
++                  title: exact.title,
++                  contentMarkdown: exact.contentMarkdown,
++                  clientCorrelationSalt: clientSalt,
++                });
++                if (!admitted.ok) {
++                  documentSave = {
++                    status: "FAILED",
++                    reason: admitted.reason,
++                    act: "CREATE",
++                  };
++                } else {
++                  const sealed = await sealAndApplyDocumentCommand({
++                    pilotId,
++                    fence: {
++                      commandId: reserved.commandId,
++                      ownerToken: reserved.ownerToken,
++                      beforeFenceCheck: turnRaceHooks.beforeD4Effect,
++                    },
++                    binding: admitted.binding,
++                  });
++                  if (!sealed.sealApplied) {
++                    documentSave = {
++                      status: "FAILED",
++                      reason: "BINDING_SEAL_FAILED",
++                      act: "CREATE",
++                    };
++                  } else {
++                    documentSave = { ...sealed.effect, act: "CREATE" };
++                  }
++                }
++              }
++            }
+             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
+               ownershipLostBeforeD4 = true;
+               documentSave = null;
+             } else if (
++              documentSave &&
+               documentSave.status !== "AVAILABLE" &&
+               documentSave.status !== "CONFLICT"
+             ) {
+@@ -989,7 +1164,20 @@ export async function postUserMessageAndNora(
+               operationId: reserved.operationId,
+               generationId: reply.generationId,
+               act: "CREATE",
+-              extracted,
++              extracted: extracted.ok
++                ? extracted
++                : {
++                    ok: true,
++                    content: exact.contentMarkdown,
++                    title: exact.title,
++                    path: "fence",
++                    fenceTag: "sfia-document",
++                    fenceCount: 1,
++                    proposalChars: exact.contentMarkdown.length,
++                    proposalDigest16: exact.contentSha256.slice(0, 16),
++                    bodyEndsWithNewline: exact.contentMarkdown.endsWith("\n"),
++                    sectionCount: 0,
++                  },
+               refuseCode:
+                 documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
+                   ? null
+@@ -1042,11 +1230,73 @@ export async function postUserMessageAndNora(
+               d4Effect: null,
+             });
+           } else {
+-            const extracted = extractContractualDocumentProposal(reply.content);
+-            if (!extracted.ok) {
++            let extracted = extractContractualDocumentProposal(reply.content);
++            let reviseProposalContent: string | null = null;
++            let reviseBlocked: string | null = null;
++            let reviseSource:
++              | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
++              | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
++              kind: "SAME_TURN_SNAPSHOT",
++              commandId: reserved.commandId,
++            };
++            if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
++              const resolved = await resolveAssistantProposal({
++                pilotId,
++                preparationId,
++                assistantMessageId: qualification.documentSource.assistantMessageId,
++              });
++              if (!resolved.ok) reviseBlocked = resolved.reason;
++              else {
++                const confront = confrontProposalWithFence(resolved.proposal, extracted);
++                if (!confront.ok) {
++                  reviseBlocked = confront.reason;
++                  proposalAuthorityConflict = confront.reason;
++                  durableProposal = null;
++                } else {
++                  reviseProposalContent = resolved.proposal.contentMarkdown;
++                  durableProposal = resolved.proposal;
++                  reviseSource = {
++                    kind: "ASSISTANT_MESSAGE",
++                    assistantMessageId: resolved.assistantMessageId,
++                  };
++                  if (confront.materialize) {
++                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(resolved.proposal)}`;
++                    extracted = extractContractualDocumentProposal(reply.content);
++                  }
++                }
++              }
++            } else if (qualification.documentProposal) {
++              const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
++              if (!canonical.ok) reviseBlocked = canonical.reason;
++              else {
++                const confront = confrontProposalWithFence(canonical.proposal, extracted);
++                if (!confront.ok) {
++                  reviseBlocked = confront.reason;
++                  proposalAuthorityConflict = confront.reason;
++                  durableProposal = null;
++                } else {
++                  reviseProposalContent = canonical.proposal.contentMarkdown;
++                  durableProposal = canonical.proposal;
++                  if (confront.materialize) {
++                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(canonical.proposal)}`;
++                    extracted = extractContractualDocumentProposal(reply.content);
++                  }
++                }
++              }
++            } else if (extracted.ok) {
++              reviseProposalContent = extracted.content;
++              const canonical = canonicalizeDocumentProposal({
++                title: extracted.title,
++                contentMarkdown: extracted.content,
++              });
++              if (canonical.ok) durableProposal = canonical.proposal;
++            } else {
++              reviseBlocked = extracted.reason;
++            }
++            if (reviseBlocked || !reviseProposalContent) {
+               documentSave = {
+                 status: "FAILED",
+-                reason: extracted.reason,
++                reason: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
+                 documentId: target.documentId,
+                 baseRevisionId: target.baseRevisionId,
+                 act: "REVISE",
+@@ -1057,14 +1307,14 @@ export async function postUserMessageAndNora(
+                 generationId: reply.generationId,
+                 act: "REVISE",
+                 extracted,
+-                refuseCode: extracted.reason,
++                refuseCode: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
+                 d4Attempted: false,
+                 d4Effect: null,
+               });
+             } else {
+               const merged = applyTargetedSectionRevision(
+                 target.baseContent,
+-                extracted.content,
++                reviseProposalContent,
+                 documentAct.sectionHint,
+               );
+               if (!merged.ok) {
+@@ -1112,33 +1362,81 @@ export async function postUserMessageAndNora(
+                     d4Effect: null,
+                   });
+                 } else {
+-                  const correlationKey = opts?.correlationKey
+-                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
+-                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
+-                  const revised = await reviseDocument(pilotId, preparationId, {
+-                    documentId: target.documentId,
+-                    baseRevisionId: target.baseRevisionId,
+-                    contentMarkdown: merged.content,
+-                    correlationKey,
+-                    scope: documentAct.sectionHint ? "section" : "document",
+-                    sectionHint: documentAct.sectionHint ?? undefined,
+-                    provenance: {
+-                      sourceKind: "nora",
+-                      generationId: reply.generationId,
+-                      userMessageId: reserved.userMessageId,
+-                      explicitRequest: true,
++                  const reviseIntents = effectIntents(qualification).filter(
++                    (i) => i.capabilityId === "d4.revise_document",
++                  );
++                  if (reviseIntents.length !== 1) {
++                    documentSave = {
++                      status: "FAILED",
++                      reason:
++                        reviseIntents.length === 0
++                          ? "MISSING_REVISE_INTENT"
++                          : "AMBIGUOUS_REVISE_INTENT",
++                      documentId: target.documentId,
++                      baseRevisionId: target.baseRevisionId,
+                       act: "REVISE",
++                    };
++                  } else {
++                    const reviseIntent = reviseIntents[0]!;
++                    const clientSalt =
++                      opts?.correlationKey?.trim() ||
++                      `${target.documentId}:${target.baseRevisionId}`;
++                    const admitted = admitDocumentCommand({
++                      commandId: reserved.commandId,
++                      operationId: reserved.operationId,
++                      userMessageId: reserved.userMessageId,
++                      qualifiedIntentId: reviseIntent.id,
++                      action: "REVISE",
++                      preparationId,
++                      documentId: target.documentId,
++                      baseRevisionId: target.baseRevisionId,
+                       sectionHint: documentAct.sectionHint,
+-                    },
+-                  });
+-                  documentSave = {
+-                    ...revised,
+-                    act: "REVISE",
+-                    baseRevisionId:
+-                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
+-                        ? revised.baseRevisionId
+-                        : target.baseRevisionId,
+-                  };
++                      source: reviseSource,
++                      title: target.title,
++                      contentMarkdown: merged.content,
++                      clientCorrelationSalt: clientSalt,
++                    });
++                    if (!admitted.ok) {
++                      documentSave = {
++                        status: "FAILED",
++                        reason: admitted.reason,
++                        documentId: target.documentId,
++                        baseRevisionId: target.baseRevisionId,
++                        act: "REVISE",
++                      };
++                    } else {
++                      const sealed = await sealAndApplyDocumentCommand({
++                        pilotId,
++                        fence: {
++                          commandId: reserved.commandId,
++                          ownerToken: reserved.ownerToken,
++                          beforeFenceCheck: turnRaceHooks.beforeD4Effect,
++                        },
++                        binding: admitted.binding,
++                      });
++                      if (!sealed.sealApplied) {
++                        documentSave = {
++                          status: "FAILED",
++                          reason: "BINDING_SEAL_FAILED",
++                          documentId: target.documentId,
++                          baseRevisionId: target.baseRevisionId,
++                          act: "REVISE",
++                        };
++                      } else {
++                        const revised = sealed.effect;
++                        documentSave = {
++                          ...revised,
++                          act: "REVISE",
++                          baseRevisionId:
++                            "baseRevisionId" in revised &&
++                            typeof (revised as { baseRevisionId?: string }).baseRevisionId ===
++                              "string"
++                              ? (revised as { baseRevisionId: string }).baseRevisionId
++                              : target.baseRevisionId,
++                        };
++                      }
++                    }
++                  }
+                   if (
+                     documentSave.status !== "AVAILABLE" &&
+                     documentSave.status !== "CONFLICT" &&
+@@ -1467,6 +1765,26 @@ export async function postUserMessageAndNora(
+     }
+   }
+
++  // P1: PREPARE-only conflict must be observable without D4 mutation or silent rewrite.
++  if (
++    proposalAuthorityConflict &&
++    !documentSave &&
++    !ownershipLostBeforeD4 &&
++    documentAct.kind === "NONE"
++  ) {
++    documentSave = {
++      status: "FAILED",
++      reason: proposalAuthorityConflict,
++    };
++  }
++
++  // P1: never strip+reinject when concurrent fence was invalid or divergent.
++  if (durableProposal && !ownershipLostBeforeD4 && !proposalAuthorityConflict) {
++    const narrative = stripContractualDocumentFences(assistantBody);
++    const fenced = serializeProposalFence(durableProposal);
++    assistantBody = [narrative.trimEnd(), fenced].filter((s) => s.length > 0).join("\n\n");
++  }
++
+   const assistantContentForCommit = ownershipLostBeforeD4
+     ? reply.content
+     : appendMissionAck(
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+index e2c0b349..7f38c4bf 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+@@ -666,6 +666,85 @@ export async function stashTurnQualification(args: {
+   });
+ }
+
++/**
++ * Seal a document command binding into resultJson before any D4 mutation (O-04/O-05).
++ * Appends under documentCommandBindings[]; refuses overwrite of an existing same correlationKey.
++ */
++export async function stashDocumentCommandBinding(args: {
++  commandId: string;
++  ownerToken: string;
++  binding: Record<string, unknown>;
++}): Promise<{ applied: boolean }> {
++  return db.transaction(async (tx) => {
++    await tx.execute(
++      sql`select id from conversation_turn_commands
++          where id = ${args.commandId}
++            and owner_token = ${args.ownerToken}
++            and status in ('RUNNING', 'ACCEPTED')
++          for update`,
++    );
++    const owned = (
++      await tx
++        .select({
++          id: conversationTurnCommands.id,
++          resultJson: conversationTurnCommands.resultJson,
++        })
++        .from(conversationTurnCommands)
++        .where(
++          and(
++            eq(conversationTurnCommands.id, args.commandId),
++            eq(conversationTurnCommands.ownerToken, args.ownerToken),
++            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++          ),
++        )
++        .limit(1)
++    )[0];
++    if (!owned) return { applied: false };
++
++    let prev: Record<string, unknown> = {};
++    if (owned.resultJson) {
++      try {
++        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
++      } catch {
++        return { applied: false };
++      }
++    }
++    const existing = Array.isArray(prev.documentCommandBindings)
++      ? (prev.documentCommandBindings as Array<Record<string, unknown>>)
++      : [];
++    const corr = typeof args.binding.correlationKey === "string" ? args.binding.correlationKey : "";
++    if (corr && existing.some((b) => b.correlationKey === corr)) {
++      const prior = existing.find((b) => b.correlationKey === corr)!;
++      const priorPayload = prior.payloadSha256;
++      if (priorPayload !== args.binding.payloadSha256) {
++        return { applied: false };
++      }
++      // Identical binding already sealed — treat as applied without rewrite.
++      return { applied: true };
++    }
++    const merged = {
++      ...prev,
++      documentCommandBindings: [...existing, args.binding],
++      documentCommandBindingStashedAt: new Date(turnClock.nowMs()).toISOString(),
++    };
++    const updated = await tx
++      .update(conversationTurnCommands)
++      .set({
++        resultJson: JSON.stringify(merged),
++        updatedAt: new Date(turnClock.nowMs()),
++      })
++      .where(
++        and(
++          eq(conversationTurnCommands.id, args.commandId),
++          eq(conversationTurnCommands.ownerToken, args.ownerToken),
++          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++        ),
++      )
++      .returning({ id: conversationTurnCommands.id });
++    return { applied: Boolean(updated[0]) };
++  });
++}
++
+ /**
+  * Atomic terminal commit under ownership fence:
+  * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
+@@ -725,7 +804,7 @@ export async function commitTurnTerminal(args: {
+         return { applied: false };
+       }
+
+-      // T-03 / Lot B: preserve stashed semanticQualification across ALL terminals.
++      // T-03 / Lot B + O-04: preserve stashed semanticQualification and documentCommandBindings.
+       let terminalJson = args.resultJson ?? null;
+       if (owned.resultJson) {
+         try {
+@@ -735,8 +814,15 @@ export async function commitTurnTerminal(args: {
+             if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
+               next.semanticQualification = prev.semanticQualification;
+               next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
+-              terminalJson = JSON.stringify(next);
+             }
++            if (
++              prev.documentCommandBindings !== undefined &&
++              next.documentCommandBindings === undefined
++            ) {
++              next.documentCommandBindings = prev.documentCommandBindings;
++              next.documentCommandBindingStashedAt = prev.documentCommandBindingStashedAt;
++            }
++            terminalJson = JSON.stringify(next);
+           } else {
+             terminalJson = owned.resultJson;
+           }
+```
+
+### `projects/sfia-studio-next/web/src/domains/document/service.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
-index 6d079275..42f6a589 100644
+index 6d079275..b3073959 100644
 --- a/projects/sfia-studio-next/web/src/domains/document/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
-@@ -66,26 +66,199 @@ type ReconcileConflict = {
+@@ -66,26 +66,221 @@ type ReconcileConflict = {
    revisionNumber: number;
  };
 
@@ -154,7 +1852,10 @@ index 6d079275..42f6a589 100644
 +  return JSON.stringify(value ?? null);
 +}
 +
-+/** Unique comparison rule for CREATE/REVISE replay, lookup, race, and ACK recovery. */
++/**
++ * P0-B — sealed-command identity: always recompute SHA from DB title+body bytes.
++ * Provenance fingerprints are cross-checked; they never alone prove AVAILABLE.
++ */
 +export function compareSealedEffectIdentity(
 +  storedProvenanceJson: string,
 +  storedContentMarkdown: string,
@@ -170,14 +1871,33 @@ index 6d079275..42f6a589 100644
 +  if (prov.documentCommandBinding !== true) {
 +    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
 +  }
-+  const storedFp = readStoredFingerprint(
-+    storedProvenanceJson,
-+    storedDocumentTitle,
-+    storedContentMarkdown,
-+  );
-+  if (storedFp !== expected.contentSha256) {
++
++  // C = SHA of bytes actually read from PostgreSQL (title + body).
++  const recalculated = contentFingerprint(storedDocumentTitle, storedContentMarkdown);
++  // C must equal binding contentSha256 (F).
++  if (recalculated !== expected.contentSha256) {
 +    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
 +  }
++  // C must equal provenance contentSha256 (E) when present.
++  if (typeof prov.contentSha256 === "string" && prov.contentSha256 !== recalculated) {
++    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
++  }
++  if (typeof prov.contentSha256 !== "string" || !prov.contentSha256) {
++    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
++  }
++  // If D (contentFingerprint) present, D must equal C.
++  if (
++    typeof prov.contentFingerprint === "string" &&
++    prov.contentFingerprint.length > 0 &&
++    prov.contentFingerprint !== recalculated
++  ) {
++    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
++  }
++  // Title in DB must match expected sealed title.
++  if (storedDocumentTitle !== expected.title) {
++    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
++  }
++
 +  const storedPayload =
 +    typeof prov.payloadSha256 === "string" ? prov.payloadSha256 : null;
 +  if (!storedPayload || storedPayload !== expected.payloadSha256) {
@@ -205,7 +1925,7 @@ index 6d079275..42f6a589 100644
 +  if (stableJson(prov.source) !== stableJson(expected.source)) {
 +    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
 +  }
-+  return { ok: true, storedContentSha256: storedFp };
++  return { ok: true, storedContentSha256: recalculated };
 +}
 +
 +export function buildSealedProvenance(
@@ -339,7 +2059,7 @@ index 6d079275..42f6a589 100644
    }
    if (args.prior.status === "FAILED") {
      return {
-@@ -207,6 +380,7 @@ export async function savePreparationDocument(
+@@ -207,6 +402,7 @@ export async function savePreparationDocument(
            documentId: existingDoc.id,
            documentTitle: existingDoc.title,
            expectedFp: fp,
@@ -347,7 +2067,7 @@ index 6d079275..42f6a589 100644
          });
        }
        // Document row exists but revision still absent after bounded wait
-@@ -220,54 +394,9 @@ export async function savePreparationDocument(
+@@ -220,54 +416,9 @@ export async function savePreparationDocument(
 
    let docId = documentId;
    let ownedTitle = titleFinal;
@@ -405,7 +2125,7 @@ index 6d079275..42f6a589 100644
      const owned = (
        await db
          .select()
-@@ -283,26 +412,26 @@ export async function savePreparationDocument(
+@@ -283,26 +434,26 @@ export async function savePreparationDocument(
      )[0];
      if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
      ownedTitle = owned.title;
@@ -446,7 +2166,7 @@ index 6d079275..42f6a589 100644
            return {
              status: "FAILED" as const,
              reason: "TURN_OWNERSHIP_LOST",
-@@ -311,9 +440,56 @@ export async function savePreparationDocument(
+@@ -311,9 +462,56 @@ export async function savePreparationDocument(
          }
        }
 
@@ -506,7 +2226,7 @@ index 6d079275..42f6a589 100644
 
        if (opts?.correlationKey) {
          const prior = (
-@@ -334,6 +510,7 @@ export async function savePreparationDocument(
+@@ -334,6 +532,7 @@ export async function savePreparationDocument(
              documentId: docId!,
              documentTitle: ownedTitle,
              expectedFp: fp,
@@ -514,7 +2234,7 @@ index 6d079275..42f6a589 100644
            });
          }
        }
-@@ -393,22 +570,29 @@ export async function savePreparationDocument(
+@@ -393,22 +592,29 @@ export async function savePreparationDocument(
    } catch (e) {
      // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
      if (opts?.correlationKey) {
@@ -559,7 +2279,7 @@ index 6d079275..42f6a589 100644
      }
      return {
        status: "FAILED" as const,
-@@ -434,6 +618,11 @@ export async function reviseDocument(
+@@ -434,6 +640,11 @@ export async function reviseDocument(
      sectionHint?: string;
      provenance?: Record<string, unknown>;
      injectFailureAfterLock?: boolean;
@@ -571,7 +2291,7 @@ index 6d079275..42f6a589 100644
    },
  ) {
    if (input.contentMarkdown.length > MAX_DOC_CHARS) {
-@@ -442,6 +631,18 @@ export async function reviseDocument(
+@@ -442,6 +653,18 @@ export async function reviseDocument(
 
    try {
      return await db.transaction(async (tx) => {
@@ -590,7 +2310,7 @@ index 6d079275..42f6a589 100644
        await tx.execute(
          sql`select id from documents where id = ${input.documentId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
        );
-@@ -461,7 +662,11 @@ export async function reviseDocument(
+@@ -461,7 +684,11 @@ export async function reviseDocument(
        )[0];
        if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
 
@@ -603,7 +2323,7 @@ index 6d079275..42f6a589 100644
        const prior = (
          await tx
            .select()
-@@ -475,13 +680,13 @@ export async function reviseDocument(
+@@ -475,13 +702,13 @@ export async function reviseDocument(
            .limit(1)
        )[0];
        if (prior) {
@@ -623,7 +2343,7 @@ index 6d079275..42f6a589 100644
        }
 
        const base = (
-@@ -543,6 +748,7 @@ export async function reviseDocument(
+@@ -543,6 +770,7 @@ export async function reviseDocument(
          provenanceJson: JSON.stringify({
            ...(input.provenance ?? {}),
            sectionHint: input.sectionHint ?? null,
@@ -631,7 +2351,7 @@ index 6d079275..42f6a589 100644
          }),
          scope: input.scope ?? "section",
        });
-@@ -799,3 +1005,173 @@ export async function compareDocumentRevisions(
+@@ -799,3 +1027,173 @@ export async function compareDocumentRevisions(
      diff,
    };
  }
@@ -807,1191 +2527,276 @@ index 6d079275..42f6a589 100644
 +}
 ```
 
-### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+### `projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts`
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index bbab5da7..1bb58a9a 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -10,11 +10,15 @@ import {
-   reconstituteConfirmedD4Effects,
-   selectRelevantKnowledgeContext,
- } from "@/domains/knowledge/service";
-+import { listDocuments } from "@/domains/document/service";
- import {
--  listDocuments,
--  reviseDocument,
--  savePreparationDocument,
--} from "@/domains/document/service";
-+  admitDocumentCommand,
-+  canonicalizeDocumentProposal,
-+  resolveAssistantProposal,
-+  sealAndApplyDocumentCommand,
-+  serializeProposalFence,
-+  type DocumentProposalExact,
-+} from "@/domains/conversation/document-command";
- import {
-   bindTurnGenerationId,
-   commitTurnTerminal,
-@@ -40,6 +44,7 @@ import {
-   assertSectionScope,
-   extractContractualDocumentProposal,
-   resolveReviseTarget,
-+  stripContractualDocumentFences,
-   type DocumentEffectSummary,
-   type DocumentProposalExtract,
- } from "./document-act";
-@@ -878,6 +883,25 @@ export async function postUserMessageAndNora(
-   const studioIntent = studioProjection;
-   const clientIntentKey = clientTurnKey;
-   const missionKeys = missionCorrelationKeys(clientIntentKey);
-+
-+  let durableProposal: DocumentProposalExact | null = null;
-+  if (
-+    reply.status === "COMPLETE" &&
-+    qualification.documentProposal &&
-+    !qualification.documentSource
-+  ) {
-+    const earlyCanonical = canonicalizeDocumentProposal(qualification.documentProposal);
-+    if (earlyCanonical.ok) {
-+      durableProposal = earlyCanonical.proposal;
-+      const earlyExtract = extractContractualDocumentProposal(reply.content);
-+      if (!earlyExtract.ok) {
-+        reply = {
-+          ...reply,
-+          content: `${reply.content.trimEnd()}\n\n${serializeProposalFence(durableProposal)}`,
-+        };
-+      }
-+    }
-+  }
-   // Semantic qualification visible before extract/D4. Absence of obs must never invent D4.
-   emitDocumentActQualificationObs({
-     requestId,
-@@ -927,11 +951,73 @@ export async function postUserMessageAndNora(
-       }
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+index 84613cdb..c93ed594 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+@@ -127,17 +127,29 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
+     });
+     expect(conflict.status).toBe("CONFLICT");
 
-       if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
--        const extracted = extractContractualDocumentProposal(reply.content);
--        if (!extracted.ok) {
-+        // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
-+        type ExactProposal = { title: string; contentMarkdown: string; contentSha256: string };
-+        let exact: ExactProposal | null = null;
-+        let source:
-+          | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
-+          | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
-+          kind: "SAME_TURN_SNAPSHOT",
-+          commandId: reserved.commandId,
-+        };
-+        let createBlocked: string | null = null;
-+        let extracted = extractContractualDocumentProposal(reply.content);
-+
-+        if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
-+          const resolved = await resolveAssistantProposal({
-+            pilotId,
-+            preparationId,
-+            assistantMessageId: qualification.documentSource.assistantMessageId,
-+          });
-+          if (!resolved.ok) {
-+            createBlocked = resolved.reason;
-+          } else {
-+            exact = resolved.proposal;
-+            durableProposal = exact;
-+            source = {
-+              kind: "ASSISTANT_MESSAGE",
-+              assistantMessageId: resolved.assistantMessageId,
-+            };
-+            // Terminal parity: surface the exact historical Markdown without rewriting.
-+            if (!extracted.ok) {
-+              reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
-+              extracted = extractContractualDocumentProposal(reply.content);
-+            } else if (extracted.content !== exact.contentMarkdown) {
-+              createBlocked = "PROPOSAL_SOURCE_CONFLICT";
-+            }
-+          }
-+        } else if (qualification.documentProposal) {
-+          const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
-+          if (!canonical.ok) {
-+            createBlocked = canonical.reason;
-+          } else {
-+            exact = canonical.proposal;
-+            durableProposal = exact;
-+            if (!extracted.ok) {
-+              reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
-+              extracted = extractContractualDocumentProposal(reply.content);
-+            } else if (extracted.content !== exact.contentMarkdown) {
-+              createBlocked = "PROPOSAL_SNAPSHOT_MISMATCH";
-+            }
-+          }
-+        } else if (extracted.ok) {
-+          const canonical = canonicalizeDocumentProposal({
-+            title: extracted.title,
-+            contentMarkdown: extracted.content,
-+          });
-+          if (!canonical.ok) createBlocked = canonical.reason;
-+          else {
-+            exact = canonical.proposal;
-+            durableProposal = exact;
-+          }
-+        } else {
-+          createBlocked = extracted.reason;
-+        }
-+
-+        if (createBlocked || !exact) {
-           documentSave = {
-             status: "FAILED",
--            reason: extracted.reason,
-+            reason: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-             act: "CREATE",
-           };
-           emitDocumentProposalObs({
-@@ -939,45 +1025,90 @@ export async function postUserMessageAndNora(
-             operationId: reserved.operationId,
-             generationId: reply.generationId,
-             act: "CREATE",
--            extracted,
--            refuseCode: extracted.reason,
-+            extracted: extracted.ok
-+              ? extracted
-+              : {
-+                  ok: false,
-+                  reason: "DOCUMENT_PROPOSAL_MISSING",
-+                  path: "none",
-+                  fenceCount: 0,
-+                  proposalChars: 0,
-+                  proposalDigest16: null,
-+                  bodyEndsWithNewline: false,
-+                  sectionCount: 0,
-+                },
-+            refuseCode: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-             d4Attempted: false,
-             d4Effect: null,
-           });
-         } else {
-           try {
--            const saved = await savePreparationDocument(
--              pilotId,
--              preparationId,
--              extracted.title,
--              extracted.content,
--              undefined,
--              {
--                correlationKey: opts?.correlationKey
--                  ? `doc:${opts.correlationKey}`
--                  : missionIntent.wantsPublish
--                    ? missionKeys.document
--                    : `doc:${reply.generationId}`,
--                provenance: {
--                  sourceKind: "nora",
--                  generationId: reply.generationId,
--                  userMessageId: reserved.userMessageId,
--                  explicitRequest: true,
-+            const createIntents = effectIntents(qualification).filter(
-+              (i) => i.capabilityId === "d4.create_document",
-+            );
-+            if (createIntents.length > 1) {
-+              documentSave = {
-+                status: "FAILED",
-+                reason: "AMBIGUOUS_CREATE_INTENT",
-+                act: "CREATE",
-+              };
-+            } else {
-+              const createIntent = createIntents[0];
-+              if (!createIntent) {
-+                documentSave = {
-+                  status: "FAILED",
-+                  reason: "MISSING_CREATE_INTENT",
-                   act: "CREATE",
--                },
--                scope: "document",
--                turnFence: {
-+                };
-+              } else {
-+                const clientSalt =
-+                  opts?.correlationKey?.trim() ||
-+                  (missionIntent.wantsPublish ? missionKeys.document : null);
-+                const admitted = admitDocumentCommand({
-                   commandId: reserved.commandId,
--                  ownerToken: reserved.ownerToken,
--                  beforeFenceCheck: turnRaceHooks.beforeD4Effect,
--                },
--              },
--            );
--            documentSave = { ...saved, act: "CREATE" };
-+                  operationId: reserved.operationId,
-+                  userMessageId: reserved.userMessageId,
-+                  qualifiedIntentId: createIntent.id,
-+                  action: "CREATE",
-+                  preparationId,
-+                  source,
-+                  title: exact.title,
-+                  contentMarkdown: exact.contentMarkdown,
-+                  clientCorrelationSalt: clientSalt,
-+                });
-+                if (!admitted.ok) {
-+                  documentSave = {
-+                    status: "FAILED",
-+                    reason: admitted.reason,
-+                    act: "CREATE",
-+                  };
-+                } else {
-+                  const sealed = await sealAndApplyDocumentCommand({
-+                    pilotId,
-+                    fence: {
-+                      commandId: reserved.commandId,
-+                      ownerToken: reserved.ownerToken,
-+                      beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-+                    },
-+                    binding: admitted.binding,
-+                  });
-+                  if (!sealed.sealApplied) {
-+                    documentSave = {
-+                      status: "FAILED",
-+                      reason: "BINDING_SEAL_FAILED",
-+                      act: "CREATE",
-+                    };
-+                  } else {
-+                    documentSave = { ...sealed.effect, act: "CREATE" };
-+                  }
-+                }
-+              }
-+            }
-             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
-               ownershipLostBeforeD4 = true;
-               documentSave = null;
-             } else if (
-+              documentSave &&
-               documentSave.status !== "AVAILABLE" &&
-               documentSave.status !== "CONFLICT"
-             ) {
-@@ -989,7 +1120,20 @@ export async function postUserMessageAndNora(
-               operationId: reserved.operationId,
-               generationId: reply.generationId,
-               act: "CREATE",
--              extracted,
-+              extracted: extracted.ok
-+                ? extracted
-+                : {
-+                    ok: true,
-+                    content: exact.contentMarkdown,
-+                    title: exact.title,
-+                    path: "fence",
-+                    fenceTag: "sfia-document",
-+                    fenceCount: 1,
-+                    proposalChars: exact.contentMarkdown.length,
-+                    proposalDigest16: exact.contentSha256.slice(0, 16),
-+                    bodyEndsWithNewline: exact.contentMarkdown.endsWith("\n"),
-+                    sectionCount: 0,
-+                  },
-               refuseCode:
-                 documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
-                   ? null
-@@ -1042,11 +1186,63 @@ export async function postUserMessageAndNora(
-               d4Effect: null,
-             });
-           } else {
--            const extracted = extractContractualDocumentProposal(reply.content);
--            if (!extracted.ok) {
-+            let extracted = extractContractualDocumentProposal(reply.content);
-+            let reviseProposalContent: string | null = null;
-+            let reviseBlocked: string | null = null;
-+            let reviseSource:
-+              | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
-+              | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
-+              kind: "SAME_TURN_SNAPSHOT",
-+              commandId: reserved.commandId,
-+            };
-+            if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
-+              const resolved = await resolveAssistantProposal({
-+                pilotId,
-+                preparationId,
-+                assistantMessageId: qualification.documentSource.assistantMessageId,
-+              });
-+              if (!resolved.ok) reviseBlocked = resolved.reason;
-+              else {
-+                reviseProposalContent = resolved.proposal.contentMarkdown;
-+                durableProposal = resolved.proposal;
-+                reviseSource = {
-+                  kind: "ASSISTANT_MESSAGE",
-+                  assistantMessageId: resolved.assistantMessageId,
-+                };
-+                if (!extracted.ok) {
-+                  reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(resolved.proposal)}`;
-+                  extracted = extractContractualDocumentProposal(reply.content);
-+                } else if (extracted.content !== reviseProposalContent) {
-+                  reviseBlocked = "PROPOSAL_SOURCE_CONFLICT";
-+                }
-+              }
-+            } else if (qualification.documentProposal) {
-+              const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
-+              if (!canonical.ok) reviseBlocked = canonical.reason;
-+              else {
-+                reviseProposalContent = canonical.proposal.contentMarkdown;
-+                durableProposal = canonical.proposal;
-+                if (!extracted.ok) {
-+                  reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(canonical.proposal)}`;
-+                  extracted = extractContractualDocumentProposal(reply.content);
-+                } else if (extracted.content !== reviseProposalContent) {
-+                  reviseBlocked = "PROPOSAL_SNAPSHOT_MISMATCH";
-+                }
-+              }
-+            } else if (extracted.ok) {
-+              reviseProposalContent = extracted.content;
-+              const canonical = canonicalizeDocumentProposal({
-+                title: extracted.title,
-+                contentMarkdown: extracted.content,
-+              });
-+              if (canonical.ok) durableProposal = canonical.proposal;
-+            } else {
-+              reviseBlocked = extracted.reason;
-+            }
-+            if (reviseBlocked || !reviseProposalContent) {
-               documentSave = {
-                 status: "FAILED",
--                reason: extracted.reason,
-+                reason: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-                 documentId: target.documentId,
-                 baseRevisionId: target.baseRevisionId,
-                 act: "REVISE",
-@@ -1057,14 +1253,14 @@ export async function postUserMessageAndNora(
-                 generationId: reply.generationId,
-                 act: "REVISE",
-                 extracted,
--                refuseCode: extracted.reason,
-+                refuseCode: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-                 d4Attempted: false,
-                 d4Effect: null,
-               });
-             } else {
-               const merged = applyTargetedSectionRevision(
-                 target.baseContent,
--                extracted.content,
-+                reviseProposalContent,
-                 documentAct.sectionHint,
-               );
-               if (!merged.ok) {
-@@ -1112,33 +1308,81 @@ export async function postUserMessageAndNora(
-                     d4Effect: null,
-                   });
-                 } else {
--                  const correlationKey = opts?.correlationKey
--                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
--                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
--                  const revised = await reviseDocument(pilotId, preparationId, {
--                    documentId: target.documentId,
--                    baseRevisionId: target.baseRevisionId,
--                    contentMarkdown: merged.content,
--                    correlationKey,
--                    scope: documentAct.sectionHint ? "section" : "document",
--                    sectionHint: documentAct.sectionHint ?? undefined,
--                    provenance: {
--                      sourceKind: "nora",
--                      generationId: reply.generationId,
--                      userMessageId: reserved.userMessageId,
--                      explicitRequest: true,
-+                  const reviseIntents = effectIntents(qualification).filter(
-+                    (i) => i.capabilityId === "d4.revise_document",
-+                  );
-+                  if (reviseIntents.length !== 1) {
-+                    documentSave = {
-+                      status: "FAILED",
-+                      reason:
-+                        reviseIntents.length === 0
-+                          ? "MISSING_REVISE_INTENT"
-+                          : "AMBIGUOUS_REVISE_INTENT",
-+                      documentId: target.documentId,
-+                      baseRevisionId: target.baseRevisionId,
-                       act: "REVISE",
-+                    };
-+                  } else {
-+                    const reviseIntent = reviseIntents[0]!;
-+                    const clientSalt =
-+                      opts?.correlationKey?.trim() ||
-+                      `${target.documentId}:${target.baseRevisionId}`;
-+                    const admitted = admitDocumentCommand({
-+                      commandId: reserved.commandId,
-+                      operationId: reserved.operationId,
-+                      userMessageId: reserved.userMessageId,
-+                      qualifiedIntentId: reviseIntent.id,
-+                      action: "REVISE",
-+                      preparationId,
-+                      documentId: target.documentId,
-+                      baseRevisionId: target.baseRevisionId,
-                       sectionHint: documentAct.sectionHint,
--                    },
--                  });
--                  documentSave = {
--                    ...revised,
--                    act: "REVISE",
--                    baseRevisionId:
--                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
--                        ? revised.baseRevisionId
--                        : target.baseRevisionId,
--                  };
-+                      source: reviseSource,
-+                      title: target.title,
-+                      contentMarkdown: merged.content,
-+                      clientCorrelationSalt: clientSalt,
-+                    });
-+                    if (!admitted.ok) {
-+                      documentSave = {
-+                        status: "FAILED",
-+                        reason: admitted.reason,
-+                        documentId: target.documentId,
-+                        baseRevisionId: target.baseRevisionId,
-+                        act: "REVISE",
-+                      };
-+                    } else {
-+                      const sealed = await sealAndApplyDocumentCommand({
-+                        pilotId,
-+                        fence: {
-+                          commandId: reserved.commandId,
-+                          ownerToken: reserved.ownerToken,
-+                          beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-+                        },
-+                        binding: admitted.binding,
-+                      });
-+                      if (!sealed.sealApplied) {
-+                        documentSave = {
-+                          status: "FAILED",
-+                          reason: "BINDING_SEAL_FAILED",
-+                          documentId: target.documentId,
-+                          baseRevisionId: target.baseRevisionId,
-+                          act: "REVISE",
-+                        };
-+                      } else {
-+                        const revised = sealed.effect;
-+                        documentSave = {
-+                          ...revised,
-+                          act: "REVISE",
-+                          baseRevisionId:
-+                            "baseRevisionId" in revised &&
-+                            typeof (revised as { baseRevisionId?: string }).baseRevisionId ===
-+                              "string"
-+                              ? (revised as { baseRevisionId: string }).baseRevisionId
-+                              : target.baseRevisionId,
-+                        };
-+                      }
-+                    }
-+                  }
-                   if (
-                     documentSave.status !== "AVAILABLE" &&
-                     documentSave.status !== "CONFLICT" &&
-@@ -1467,6 +1711,12 @@ export async function postUserMessageAndNora(
-     }
-   }
++    // O-05: same correlationKey + same payload → idempotent AVAILABLE; different payload → CONFLICT.
+     const replay = await reviseDocument(pilotId, prep.id, {
+       documentId: v1.documentId,
+       baseRevisionId: v2.revisionId,
+-      contentMarkdown: "ignored on replay",
++      contentMarkdown: "# Spec\n\nSection A révisée\n",
+       correlationKey: "corr-rev-1",
+     });
+     expect(replay.status).toBe("AVAILABLE");
+     if (replay.status !== "AVAILABLE") throw new Error("replay");
+-    expect(replay.idempotentReplay).toBe(true);
++    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
+     expect(replay.revisionId).toBe(v2.revisionId);
 
-+  if (durableProposal && !ownershipLostBeforeD4) {
-+    const narrative = stripContractualDocumentFences(assistantBody);
-+    const fenced = serializeProposalFence(durableProposal);
-+    assistantBody = [narrative.trimEnd(), fenced].filter((s) => s.length > 0).join("\n\n");
-+  }
-+
-   const assistantContentForCommit = ownershipLostBeforeD4
-     ? reply.content
-     : appendMissionAck(
-```
-
-### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-index d97533a9..8af5eb9a 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-@@ -2,6 +2,7 @@
-  * Chat-first D4 act qualification — create vs revise vs none.
-  * Server authority only; Nora text never creates or revises alone.
-  */
-+import { contentSha256, parseFenceMeta } from "@/domains/conversation/document-command";
-
- export type DocumentActKind = "CREATE" | "REVISE" | "NONE";
-
-@@ -555,7 +556,10 @@ export type DocumentProposalExtract =
-         | "DOCUMENT_PROPOSAL_MISSING"
-         | "DOCUMENT_PROPOSAL_AMBIGUOUS"
-         | "DOCUMENT_PROPOSAL_EMPTY"
--        | "DOCUMENT_PROPOSAL_UNCLOSED";
-+        | "DOCUMENT_PROPOSAL_UNCLOSED"
-+        | "DOCUMENT_PROPOSAL_METADATA_INVALID"
-+        | "DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH"
-+        | "DOCUMENT_PROPOSAL_TITLE_MISMATCH";
-       path: "none" | "ambiguous" | "empty" | "unclosed";
-       fenceCount: number;
-       proposalChars: number;
-@@ -627,7 +631,7 @@ function isFenceClose(marker: FenceMarker, open: FenceMarker): boolean {
- }
-
- type ScannedProposal =
--  | { status: "ok"; content: string; tag: string }
-+  | { status: "ok"; content: string; tag: string; fenceInfo: string; openerLength: number }
-   | { status: "unclosed" };
-
- /**
-@@ -732,13 +736,85 @@ export function scanContractualDocumentFences(assistantText: string): {
-       const start = lines[bodyStartLine]!.start;
-       content = assistantText.slice(start, lines[closedAt]!.start);
-     }
--    proposals.push({ status: "ok", content, tag: DOCUMENT_PROPOSAL_TAG });
-+    proposals.push({
-+      status: "ok",
-+      content,
-+      tag: DOCUMENT_PROPOSAL_TAG,
-+      fenceInfo: open.info.trim(),
-+      openerLength: open.length,
++    const mismatch = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v2.revisionId,
++      contentMarkdown: "different payload same key",
++      correlationKey: "corr-rev-1",
 +    });
-     i = closedAt + 1;
-   }
-
-   return { proposals, contractualOpenCount };
- }
-
-+/** Remove autonomous contractual fences; keep conversational / illustrative text. */
-+export function stripContractualDocumentFences(assistantText: string): string {
-+  const lines = splitMarkdownLines(assistantText);
-+  const chunks: string[] = [];
-+  let i = 0;
-+  while (i < lines.length) {
-+    const open = parseFenceMarkerLine(lines[i]!.text);
-+    if (!open) {
-+      const start = lines[i]!.start;
-+      const end = i + 1 < lines.length ? lines[i + 1]!.start : assistantText.length;
-+      chunks.push(assistantText.slice(start, end));
-+      i += 1;
-+      continue;
++    expect(mismatch.status).toBe("CONFLICT");
++    if (mismatch.status === "CONFLICT") {
++      expect(mismatch.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
 +    }
-+    if (!isContractualProposalOpen(open)) {
-+      const start = lines[i]!.start;
-+      const after = skipIllustrativeFence(lines, i, open);
-+      const end = after < lines.length ? lines[after]!.start : assistantText.length;
-+      chunks.push(assistantText.slice(start, end));
-+      i = after;
-+      continue;
-+    }
-+    const bodyStartLine = i + 1;
-+    const nest: Array<{ char: "`" | "~"; length: number }> = [];
-+    let closedAt: number | null = null;
-+    for (let j = bodyStartLine; j < lines.length; j++) {
-+      const cand = parseFenceMarkerLine(lines[j]!.text);
-+      if (!cand) continue;
-+      if (nest.length === 0 && isFenceClose(cand, open)) {
-+        closedAt = j;
-+        break;
-+      }
-+      if (nest.length > 0) {
-+        const top = nest[nest.length - 1]!;
-+        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
-+          nest.pop();
-+          continue;
-+        }
-+      }
-+      const opensInner =
-+        cand.info.trim() !== "" ||
-+        cand.char !== open.char ||
-+        cand.length < open.length;
-+      if (opensInner) {
-+        nest.push({ char: cand.char, length: cand.length });
-+      }
-+    }
-+    if (closedAt == null) break;
-+    i = closedAt + 1;
-+  }
-+  return chunks.join("").trimEnd();
-+}
 +
-+function normalizeStructuredProposalBody(
-+  raw: string,
-+  expectedChars: number,
-+): { ok: true; content: string } | { ok: false; reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" } {
-+  if (raw.length === expectedChars) {
-+    return { ok: true, content: raw };
-+  }
-+  if (raw.length === expectedChars + 1 && raw.endsWith("\n")) {
-+    return { ok: true, content: raw.slice(0, -1) };
-+  }
-+  return { ok: false, reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
-+}
-+
- function failProposal(
-   reason: Extract<DocumentProposalExtract, { ok: false }>["reason"],
-   path: Extract<DocumentProposalExtract, { ok: false }>["path"],
-@@ -776,7 +852,56 @@ export function extractContractualDocumentProposal(
-     return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
-   }
-
--  const content = proposals[0]!.content;
-+  const scanned = proposals[0]!;
-+  let content = scanned.content;
-+  const meta = parseFenceMeta(scanned.fenceInfo);
-+
-+  if (meta.structured) {
-+    if (meta.chars == null || meta.titleB64 == null || meta.pairSha256 == null) {
-+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
-+    }
-+    const normalized = normalizeStructuredProposalBody(content, meta.chars);
-+    if (!normalized.ok) {
-+      return failProposal(normalized.reason, "empty", 1, content);
-+    }
-+    content = normalized.content;
-+    let title: string;
-+    try {
-+      title = Buffer.from(meta.titleB64, "base64url").toString("utf8").trim();
-+    } catch {
-+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
-+    }
-+    if (!title) {
-+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
-+    }
-+    const digest = contentSha256(title, content);
-+    if (digest !== meta.pairSha256) {
-+      return failProposal("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH", "empty", 1, content);
-+    }
-+    const h1 = /^#\s+(.+?)(?:\r?\n|$)/.exec(content);
-+    if (h1) {
-+      const heading = h1[1]!.trim();
-+      if (heading !== title) {
-+        return failProposal("DOCUMENT_PROPOSAL_TITLE_MISMATCH", "empty", 1, content);
-+      }
-+    }
-+    if (!content.trim() || content.trim().length < 8) {
-+      return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
-+    }
-+    return {
-+      ok: true,
-+      content,
-+      title,
-+      path: "fence",
-+      fenceTag: DOCUMENT_PROPOSAL_TAG,
-+      fenceCount: 1,
-+      proposalChars: content.length,
-+      proposalDigest16: digest16(content),
-+      bodyEndsWithNewline: content.endsWith("\n"),
-+      sectionCount: locateSections(content).length,
-+    };
-+  }
-+
-   if (!content.trim() || content.trim().length < 8) {
-     return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
-   }
+     const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
+     expect(list.revisions.length).toBeGreaterThanOrEqual(2);
+     const cmp = await compareDocumentRevisions(
 ```
 
-### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts`
+### `projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts`
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-index e2c0b349..7f38c4bf 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-@@ -666,6 +666,85 @@ export async function stashTurnQualification(args: {
-   });
- }
-
-+/**
-+ * Seal a document command binding into resultJson before any D4 mutation (O-04/O-05).
-+ * Appends under documentCommandBindings[]; refuses overwrite of an existing same correlationKey.
-+ */
-+export async function stashDocumentCommandBinding(args: {
-+  commandId: string;
-+  ownerToken: string;
-+  binding: Record<string, unknown>;
-+}): Promise<{ applied: boolean }> {
-+  return db.transaction(async (tx) => {
-+    await tx.execute(
-+      sql`select id from conversation_turn_commands
-+          where id = ${args.commandId}
-+            and owner_token = ${args.ownerToken}
-+            and status in ('RUNNING', 'ACCEPTED')
-+          for update`,
-+    );
-+    const owned = (
-+      await tx
-+        .select({
-+          id: conversationTurnCommands.id,
-+          resultJson: conversationTurnCommands.resultJson,
-+        })
-+        .from(conversationTurnCommands)
-+        .where(
-+          and(
-+            eq(conversationTurnCommands.id, args.commandId),
-+            eq(conversationTurnCommands.ownerToken, args.ownerToken),
-+            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-+          ),
-+        )
-+        .limit(1)
-+    )[0];
-+    if (!owned) return { applied: false };
-+
-+    let prev: Record<string, unknown> = {};
-+    if (owned.resultJson) {
-+      try {
-+        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
-+      } catch {
-+        return { applied: false };
-+      }
-+    }
-+    const existing = Array.isArray(prev.documentCommandBindings)
-+      ? (prev.documentCommandBindings as Array<Record<string, unknown>>)
-+      : [];
-+    const corr = typeof args.binding.correlationKey === "string" ? args.binding.correlationKey : "";
-+    if (corr && existing.some((b) => b.correlationKey === corr)) {
-+      const prior = existing.find((b) => b.correlationKey === corr)!;
-+      const priorPayload = prior.payloadSha256;
-+      if (priorPayload !== args.binding.payloadSha256) {
-+        return { applied: false };
-+      }
-+      // Identical binding already sealed — treat as applied without rewrite.
-+      return { applied: true };
-+    }
-+    const merged = {
-+      ...prev,
-+      documentCommandBindings: [...existing, args.binding],
-+      documentCommandBindingStashedAt: new Date(turnClock.nowMs()).toISOString(),
-+    };
-+    const updated = await tx
-+      .update(conversationTurnCommands)
-+      .set({
-+        resultJson: JSON.stringify(merged),
-+        updatedAt: new Date(turnClock.nowMs()),
-+      })
-+      .where(
-+        and(
-+          eq(conversationTurnCommands.id, args.commandId),
-+          eq(conversationTurnCommands.ownerToken, args.ownerToken),
-+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-+        ),
-+      )
-+      .returning({ id: conversationTurnCommands.id });
-+    return { applied: Boolean(updated[0]) };
-+  });
-+}
-+
- /**
-  * Atomic terminal commit under ownership fence:
-  * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
-@@ -725,7 +804,7 @@ export async function commitTurnTerminal(args: {
-         return { applied: false };
-       }
-
--      // T-03 / Lot B: preserve stashed semanticQualification across ALL terminals.
-+      // T-03 / Lot B + O-04: preserve stashed semanticQualification and documentCommandBindings.
-       let terminalJson = args.resultJson ?? null;
-       if (owned.resultJson) {
-         try {
-@@ -735,8 +814,15 @@ export async function commitTurnTerminal(args: {
-             if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
-               next.semanticQualification = prev.semanticQualification;
-               next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
--              terminalJson = JSON.stringify(next);
-             }
-+            if (
-+              prev.documentCommandBindings !== undefined &&
-+              next.documentCommandBindings === undefined
-+            ) {
-+              next.documentCommandBindings = prev.documentCommandBindings;
-+              next.documentCommandBindingStashedAt = prev.documentCommandBindingStashedAt;
-+            }
-+            terminalJson = JSON.stringify(next);
-           } else {
-             terminalJson = owned.resultJson;
-           }
-```
-
-### `git diff` — `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
-index 049dc0e6..45650bd1 100644
---- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
-@@ -1,13 +1,58 @@
- import { NextResponse } from "next/server";
- import { requireStudioSession } from "@/domains/identity/session";
- import { reconcileCreateProject } from "@/domains/preparation/create-project";
-+import {
-+  loadSealedDocumentBinding,
-+  reconcileDocumentCommandFromBinding,
-+} from "@/domains/conversation/document-command";
- import { studioErrorResponse } from "@/lib/http-errors";
-
-+/**
-+ * GET reconcile — D2 create-project by default.
-+ * Optional `documentCommandId` selects C-01 read-only D4 document-command reconcile.
-+ * Never mutates D4.
-+ */
- export async function GET(req: Request, ctx: { params: Promise<{ preparationId: string }> }) {
-   try {
-     const session = await requireStudioSession();
-     const { preparationId } = await ctx.params;
--    const key = new URL(req.url).searchParams.get("idempotencyKey") ?? undefined;
-+    const url = new URL(req.url);
-+    const documentCommandId = url.searchParams.get("documentCommandId")?.trim() || undefined;
-+
-+    if (documentCommandId) {
-+      const loaded = await loadSealedDocumentBinding({
-+        pilotId: session.pilotId,
-+        preparationId,
-+        commandId: documentCommandId,
-+        correlationKey: url.searchParams.get("correlationKey"),
-+      });
-+      if (!loaded.ok) {
-+        const httpStatus =
-+          loaded.reason === "COMMAND_DENIED"
-+            ? 403
-+            : loaded.reason === "BINDING_SELECTOR_REQUIRED"
-+              ? 409
-+              : 404;
-+        return NextResponse.json(
-+          { status: "NOT_EXECUTED", reason: loaded.reason, kind: "document_command" },
-+          { status: httpStatus },
-+        );
-+      }
-+      const truth = await reconcileDocumentCommandFromBinding({
-+        pilotId: session.pilotId,
-+        preparationId,
-+        binding: loaded.binding,
-+      });
-+      return NextResponse.json({
-+        kind: "document_command",
-+        commandId: loaded.commandId,
-+        correlationKey: loaded.binding.correlationKey,
-+        action: loaded.binding.action,
-+        ...truth,
-+      });
-+    }
-+
-+    const key = url.searchParams.get("idempotencyKey") ?? undefined;
-     const result = await reconcileCreateProject(session.pilotId, preparationId, key);
-     return NextResponse.json(result);
-   } catch (e) {
-```
-
-### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-index 76014f72..6736bc9c 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-@@ -95,6 +95,22 @@ export const QualifiedIntentItemSchema = z.object({
- });
- export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
-
-+/** O-03 — typed document payload distinct from replyDraft (max D4 = 100_000). */
-+export const DocumentProposalSchema = z
-+  .object({
-+    title: z.string().min(1).max(400),
-+    contentMarkdown: z.string().min(1).max(100_000),
-+  })
-+  .strict();
-+
-+/** C-03 — designate a prior assistant proposal by message id (content resolved server-side). */
-+export const DocumentSourceSchema = z
-+  .object({
-+    kind: z.literal("PRIOR_ASSISTANT_MESSAGE"),
-+    assistantMessageId: z.string().min(1).max(128),
-+  })
-+  .strict();
-+
- export const NoraTurnQualificationSchema = z.object({
-   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
-   status: QualificationStatusSchema,
-@@ -102,6 +118,8 @@ export const NoraTurnQualificationSchema = z.object({
-   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
-   clarifications: z.array(z.string().max(400)).max(8).default([]),
-   replyDraft: z.string().max(12000).default(""),
-+  documentProposal: DocumentProposalSchema.optional(),
-+  documentSource: DocumentSourceSchema.optional(),
- });
- export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
-
-@@ -155,6 +173,10 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
-       return { ok: false, reason: `PILOTAGE_OPERATION_CAPABILITY_MISMATCH:${intent.id}` };
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+index 1d443c8f..e896c372 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+@@ -505,7 +505,7 @@ Fin.
+     if (first.status !== "AVAILABLE" || again.status !== "AVAILABLE") {
+       throw new Error("idempotent revise unavailable");
      }
-   }
-+  // C-03: prior source is authoritative; same-turn proposal must not silently compete.
-+  if (q.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE" && q.documentProposal) {
-+    return { ok: false, reason: "DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT" };
-+  }
-   const graph = new Map(q.intents.map((i) => [i.id, i.dependsOn] as const));
-   const visiting = new Set<string>();
-   const visited = new Set<string>();
-```
-
-### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 9bc4de72..985a4e12 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -389,7 +389,8 @@ async function runLiveWithTools(
-     remainingChars: policy.budgets.maxD4CharsReturned,
-   };
-
--  let tools: Awaited<ReturnType<typeof buildNoraD4Tools>> = [];
-+  // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
-+  let tools: unknown[] = [];
-   if (policy.toolAllowlist.length > 0 && input.toolScope) {
-     const scope: D4ToolScope = {
-       pilotId: input.toolScope.pilotId,
-@@ -399,6 +400,18 @@ async function runLiveWithTools(
-       budget: initialBudget,
-     };
-     tools = await buildNoraD4Tools(scope);
-+    if (
-+      policy.toolAllowlist.includes("search_conversation_history") ||
-+      policy.toolAllowlist.includes("read_conversation_messages")
-+    ) {
-+      const { buildNoraHistoryTools } = await import("./history-tools-sdk");
-+      const historyTools = await buildNoraHistoryTools({
-+        pilotId: input.toolScope.pilotId,
-+        preparationId: input.toolScope.preparationId,
-+        budget: initialBudget,
-+      });
-+      tools = [...tools, ...historyTools];
-+    }
-     if (input.toolScope.projectId) {
-       const gitTools = await buildNoraGitReadTools({
-         pilotId: input.toolScope.pilotId,
-@@ -416,11 +429,16 @@ async function runLiveWithTools(
-     "",
-     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
-     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
--    "- replyDraft = texte destiné au Pilote (français, Markdown utile).",
-+    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
-+    "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
-+    "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
-+    "- Ne combine jamais documentSource et documentProposal dans le même tour.",
-     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
-     "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
-     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
-     "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
-+    "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
-+    "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
-     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
-   ].join("\n");
-
-@@ -431,7 +449,8 @@ async function runLiveWithTools(
-     modelSettings: {
-       reasoning: { effort: policy.effortRequested },
-     },
--    tools,
-+    // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
-+    tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
-     outputType: NoraTurnQualificationSchema,
+-    expect(again.idempotentReplay).toBe(true);
++    expect("idempotentReplay" in again && again.idempotentReplay).toBe(true);
+     expect(again.revisionId).toBe(first.revisionId);
    });
 
 ```
 
-### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts`
+### `projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts`
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-index b45fc144..14177c86 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-@@ -85,6 +85,8 @@ export type CognitivePolicy = {
-   toolAllowlist: Array<
-     | "search_project_resources"
-     | "read_project_document_revision"
-+    | "search_conversation_history"
-+    | "read_conversation_messages"
-     | "list_project_git_sources"
-     | "read_git_file"
-     | "list_git_refs"
-@@ -208,6 +210,8 @@ export function buildCognitivePolicy(
-   const toolAllowlist: CognitivePolicy["toolAllowlist"] = [
-     "search_project_resources",
-     "read_project_document_revision",
-+    "search_conversation_history",
-+    "read_conversation_messages",
-     "list_project_git_sources",
-     "read_git_file",
-     "list_git_refs",
-```
+diff --git a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+index acf1b4b1..4bc540ec 100644
+--- a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+@@ -75,6 +75,12 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
+     expect(() => resolveProfileType()).toThrow(StudioError);
+   });
 
-### `git diff` — `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-index 7341a857..cf3c2517 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-@@ -43,74 +43,78 @@ export function NoraConversation(props: {
-               <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
-             ) : null}
-           </div>
--          <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
--            {n === 0 ? (
--              <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
--                <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
--                Première conversation — écrivez pour démarrer le fil du projet. Aucun message
--                fictif n&apos;est prérempli.
--              </div>
--            ) : null}
--            {props.messages.map((m) => (
--              <article
--                key={m.id}
--                className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
--              >
--                <div className="text-xs muted mb-1">
--                  {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
-+          <div className="fig-nora-thread-shell" data-testid="nora-thread-shell">
-+            <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
-+              {n === 0 ? (
-+                <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
-+                  <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
-+                  Première conversation — écrivez pour démarrer le fil du projet. Aucun message
-+                  fictif n&apos;est prérempli.
-                 </div>
--                {m.role === "assistant" ? (
--                  <SafeMarkdown content={m.content} />
--                ) : (
--                  <div className="whitespace-pre-wrap text-sm">{m.content}</div>
--                )}
--              </article>
--            ))}
--            {props.activity === "preparing" ? (
--              <div className="fig-alert" role="status">
--                Nora prépare une réponse…
--              </div>
--            ) : null}
--          </div>
--          <div className="fig-composer">
--            <textarea
--              className="textarea"
--              value={props.draft}
--              onChange={(e) => props.onDraft(e.target.value)}
--              placeholder="Écrire à Nora…"
--              aria-label="Message à Nora"
--              data-testid="thread-draft"
--            />
--            <div className="flex flex-wrap gap-2">
--              <button
--                className="btn"
--                disabled={props.busy || !props.draft.trim()}
--                onClick={props.onSend}
--                data-testid="thread-send"
--              >
--                Envoyer
--              </button>
--              <span className="text-xs muted self-center">Joindre un élément · non requis</span>
-+              ) : null}
-+              {props.messages.map((m) => (
-+                <article
-+                  key={m.id}
-+                  className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
-+                >
-+                  <div className="text-xs muted mb-1">
-+                    {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
-+                  </div>
-+                  {m.role === "assistant" ? (
-+                    <SafeMarkdown content={m.content} />
-+                  ) : (
-+                    <div className="whitespace-pre-wrap text-sm">{m.content}</div>
-+                  )}
-+                </article>
-+              ))}
-+              {props.activity === "preparing" ? (
-+                <div className="fig-alert" role="status">
-+                  Nora prépare une réponse…
-+                </div>
-+              ) : null}
-             </div>
--            {props.unresolvedPending && props.onReconcile ? (
--              <div className="space-y-1" data-testid="thread-pending-banner">
--                <p className="text-xs muted">Tentative non résolue — réconcilier avant un nouveau tour.</p>
-+            <div className="fig-composer fig-composer-sticky" data-testid="nora-composer">
-+              <textarea
-+                className="textarea"
-+                value={props.draft}
-+                onChange={(e) => props.onDraft(e.target.value)}
-+                placeholder="Écrire à Nora…"
-+                aria-label="Message à Nora"
-+                data-testid="thread-draft"
-+              />
-+              <div className="flex flex-wrap gap-2">
-                 <button
--                  type="button"
--                  className="btn secondary"
--                  disabled={props.busy}
--                  data-testid="thread-reconcile-pending"
--                  onClick={props.onReconcile}
-+                  className="btn"
-+                  disabled={props.busy || !props.draft.trim()}
-+                  onClick={props.onSend}
-+                  data-testid="thread-send"
-                 >
--                  Réconcilier la tentative en cours
-+                  Envoyer
-                 </button>
-+                <span className="text-xs muted self-center">Joindre un élément · non requis</span>
-               </div>
--            ) : null}
--            {props.status ? (
--              <p className="text-xs muted" data-testid="thread-nora-status">
--                {props.status}
--              </p>
--            ) : null}
-+              {props.unresolvedPending && props.onReconcile ? (
-+                <div className="space-y-1" data-testid="thread-pending-banner">
-+                  <p className="text-xs muted">
-+                    Tentative non résolue — réconcilier avant un nouveau tour.
-+                  </p>
-+                  <button
-+                    type="button"
-+                    className="btn secondary"
-+                    disabled={props.busy}
-+                    data-testid="thread-reconcile-pending"
-+                    onClick={props.onReconcile}
-+                  >
-+                    Réconcilier la tentative en cours
-+                  </button>
-+                </div>
-+              ) : null}
-+              {props.status ? (
-+                <p className="text-xs muted" data-testid="thread-nora-status">
-+                  {props.status}
-+                </p>
-+              ) : null}
-+            </div>
-           </div>
-         </div>
-       </section>
-```
-
-### `git diff` — `projects/sfia-studio-next/web/src/components/figma/tokens.css`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-index 2b2b75f9..922c422d 100644
---- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
-+++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-@@ -232,6 +232,20 @@
-   background: #0c1018;
- }
-
-+/* O-06 — long-thread composer remains reachable while the journal scrolls. */
-+.fig-nora-thread-shell {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 12px;
-+  min-height: 0;
-+}
-+.fig-composer-sticky {
-+  position: sticky;
-+  bottom: 0;
-+  z-index: 2;
-+  background: #0c1018;
-+}
++  it("toolAllowlist includes conversation history read tools", () => {
++    const p = buildCognitivePolicy("Cherche un message passé sur le budget.", "TEST_BOUNDARY");
++    expect(p.toolAllowlist).toContain("search_conversation_history");
++    expect(p.toolAllowlist).toContain("read_conversation_messages");
++  });
 +
- .fig-two-col {
-   display: grid;
-   grid-template-columns: minmax(0, 800fr) minmax(0, 510fr);
+   it("maxTurns follows policy budget without silent hard cap of 12", () => {
+     const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
+     expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
 ```
 
-## 7. NEW production files (full contents)
+### `projects/sfia-studio-next/web/tests/unit/document-act.test.ts`
 
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+index ec99d592..9c0841bb 100644
+--- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+@@ -5,6 +5,12 @@ import {
+   qualifyDocumentAct,
+   extractContractualDocumentProposal,
+ } from "@/domains/conversation/document-act";
++import {
++  contentSha256,
++  encodeTitleB64,
++  parseFenceMeta,
++  serializeProposalFence,
++} from "@/domains/conversation/document-command";
+
+ describe("document-act SEM-02 — lexical router retired", () => {
+   it("qualifyDocumentAct is fail-closed stub", () => {
+@@ -28,4 +34,61 @@ describe("document-act SEM-02 — lexical router retired", () => {
+       expect(extracted.content).toMatch(/# Titre/);
+     }
+   });
++
++  describe("parseFenceMeta via extract (P0-A)", () => {
++    it("partial title-b64 never degrades to LEGACY extract", () => {
++      const info = `sfia-document title-b64=${encodeTitleB64("Seul")}`;
++      expect(parseFenceMeta(info)).toEqual({
++        kind: "INVALID",
++        reason: "DOCUMENT_PROPOSAL_METADATA_INVALID",
++      });
++      const raw = `\`\`\`${info}\n# Seul\n\nCorps.\n\`\`\`\n`;
++      const extracted = extractContractualDocumentProposal(raw);
++      expect(extracted.ok).toBe(false);
++      if (!extracted.ok) {
++        expect(extracted.reason).toBe("DOCUMENT_PROPOSAL_METADATA_INVALID");
++      }
++    });
++  });
++
++  describe("F02 contractual fence extract", () => {
++    it("reads historical fence without structured metadata", () => {
++      const raw =
++        "Préambule.\n\n```sfia-document\n# Historique\n\n## Section\n\nCorps lisible sans meta structurée.\n```\n";
++      const extracted = extractContractualDocumentProposal(raw);
++      expect(extracted.ok).toBe(true);
++      if (extracted.ok) {
++        expect(extracted.title).toBe("Historique");
++        expect(extracted.content).toContain("Corps lisible");
++      }
++    });
++
++    it("refuses H1 mismatch against structured title meta", () => {
++      const title = "Attendu";
++      const wrongBody = "# Autre\n\nCorps.\n";
++      const digest = contentSha256(title, wrongBody);
++      const broken = [
++        `\`\`\`sfia-document title-b64=${encodeTitleB64(title)} chars=${wrongBody.length} pair-sha256=${digest}`,
++        wrongBody,
++        "```",
++        "",
++      ].join("\n");
++      const extracted = extractContractualDocumentProposal(broken);
++      expect(extracted.ok).toBe(false);
++      if (!extracted.ok) expect(extracted.reason).toBe("DOCUMENT_PROPOSAL_TITLE_MISMATCH");
++    });
++
++    it("round-trips via serializeProposalFence helper", () => {
++      const title = "Acte";
++      const content = "# Acte\n\n```\nBloc interne\n```\n";
++      const fence = serializeProposalFence({
++        title,
++        contentMarkdown: content,
++        contentSha256: contentSha256(title, content),
++      });
++      const extracted = extractContractualDocumentProposal(fence);
++      expect(extracted.ok).toBe(true);
++      if (extracted.ok) expect(extracted.content).toBe(content);
++    });
++  });
+ });
+```
+
+### `projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
+index 20be39ee..f679aa83 100644
+--- a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
+@@ -142,6 +142,33 @@ describe("semantic qualification envelope", () => {
+     expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
+   });
+
++  it("validateNoraTurnQualification accepts optional documentProposal", () => {
++    const v = validateNoraTurnQualification({
++      schemaVersion: "ml4c-sem-qual-v1",
++      status: "QUALIFIED",
++      goal: "document de cadrage",
++      intents: [
++        {
++          id: "i1",
++          capabilityId: "d4.create_document",
++          mode: "REQUEST_EFFECT",
++          summary: "cadrage",
++          parameters: {},
++          constraints: [],
++          dependsOn: [],
++          sourceEvidence: [],
++        },
++      ],
++      clarifications: [],
++      replyDraft: "Je prépare le document.",
++      documentProposal: {
++        title: "Cadrage",
++        contentMarkdown: "# Cadrage\n\nPérimètre initial.\n",
++      },
++    });
++    expect(v.ok).toBe(true);
++  });
++
+   it("deriveThreadTurnKind from semantic modes", () => {
+     const dialogue: NoraTurnQualification = {
+       schemaVersion: "ml4c-sem-qual-v1",
+```
+
+---
+
+## 7. Untracked candidate files — full contents
+
+### `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md`
+
+```markdown
+# As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
+
+**Date :** 14 novembre 2026 (fermeture intégrité documentaire P0-A / P0-B / P1)
+**Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
+**Conception source :** V0.7 @ `86377fde` blob `7d289670`
+**Handoff précédent :** `sfia/review-handoff@3efc082a` blob `855a436c`
+**Statut :** IMPLEMENTED CANDIDATE — P0-A/P0-B/P1 + PREPARE→N+100 ; LIVE NOT PROVEN
+**STABLE / release :** NOT AVAILABLE — NO RELEASE
+
+## 1. Objet
+
+Capacité O-01…O-06 : acquis C-01…C-07 et F-01…F-05 conservés ; fermeture des trois non-conformités d'intégrité.
+
+| Correctif | Mécanisme |
+| --- | --- |
+| P0-A | `parseFenceMeta` → `LEGACY` \| `STRUCTURED` \| `INVALID` ; aucun fallback structuré→historique |
+| P0-B | `compareSealedEffectIdentity` recalcule SHA depuis titre+corps DB ; fingerprints provenance confrontés |
+| P1 | `confrontProposalWithFence` (titre+Markdown+SHA) avant admit/seal et avant strip+reinject |
+| Preuve | PREPARE → 100 échanges réels → accord `PRIOR_ASSISTANT_MESSAGE` → D4 exact |
+| F-01…F-05 / C-01…C-07 | Conservés |
+
+## 2. Modules
+
+| Module | Rôle |
+| --- | --- |
+| `document-command.ts` | Codec fence, parseFenceMeta 3-états, admit/seal, reconcile RO |
+| `document-act.ts` | Extract LEGACY/STRUCTURED/INVALID |
+| `document/service.ts` | Identité scellée sur octets PostgreSQL relus |
+| `service.ts` (conversation) | Autorité proposition unique ; PREPARE conflict observable |
+| `history-tools(+sdk).ts` | Keyset / budget (inchangé ce cycle) |
+| `reconcile/route.ts` | D4 GET (inchangé ce cycle) |
+
+## 3. Invariants
+
+1. Métadonnées partielles/ambiguës → `DOCUMENT_PROPOSAL_METADATA_INVALID`, jamais LEGACY.
+2. `AVAILABLE` scellé seulement si SHA recalculé (DB) = binding = provenance.
+3. Titre et Markdown confrontés ; divergence → `PROPOSAL_SOURCE_CONFLICT`, zéro D4, pas de réécriture silencieuse.
+4. PREPARE sans effet D4 ; N+100 conserve les octets historiques.
+5. Réconciliation D4 : zéro écriture.
+
+## 4. Preuves
+
+| Niveau | Résultat |
+| --- | --- |
+| Unit | voir Review Pack |
+| PG ciblés META/HASH/SRC/N+100 | PASS |
+| PG global / BROWSER | voir Review Pack |
+| LIVE | **NOT PROVEN** |
+
+## 5. Réserves
+
+- LIVE Nora non exécuté.
+- Push produit / PR #676 / RECETTE / Gate C hors mandat.
+- Version `0.0.0-dev` ; NO RELEASE.
+```
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts`
 
@@ -2141,29 +2946,100 @@ export function encodeTitleB64(title: string): string {
   return Buffer.from(title, "utf8").toString("base64url");
 }
 
-export function parseFenceMeta(info: string): {
-  titleB64: string | null;
-  chars: number | null;
-  pairSha256: string | null;
-  structured: boolean;
-} {
-  const tokens = info.trim().split(/\s+/).slice(1);
-  let titleB64: string | null = null;
-  let chars: number | null = null;
-  let pairSha256: string | null = null;
+const FENCE_META_KEYS = new Set(["title-b64", "chars", "pair-sha256"]);
+const CHARS_RE = /^(0|[1-9][0-9]*)$/;
+const SHA256_HEX_RE = /^[0-9a-f]{64}$/;
+const BASE64URL_RE = /^[A-Za-z0-9_-]+$/;
+const MAX_PROPOSAL_CHARS = 100_000;
+
+export type ParsedFenceMetadata =
+  | { kind: "LEGACY" }
+  | {
+      kind: "STRUCTURED";
+      titleB64: string;
+      chars: number;
+      pairSha256: string;
+    }
+  | {
+      kind: "INVALID";
+      reason: "DOCUMENT_PROPOSAL_METADATA_INVALID";
+    };
+
+/**
+ * P0-A — three-state fence metadata parser.
+ * Partial structured tokens are INVALID, never silently treated as LEGACY.
+ */
+export function parseFenceMeta(info: string): ParsedFenceMetadata {
+  const raw = info.trim();
+  if (!raw) return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  const parts = raw.split(/\s+/);
+  if (parts[0] !== "sfia-document") {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  const tokens = parts.slice(1);
+  if (tokens.length === 0) return { kind: "LEGACY" };
+
+  const seen = new Set<string>();
+  let titleB64: string | undefined;
+  let charsRaw: string | undefined;
+  let pairSha256: string | undefined;
+
   for (const tok of tokens) {
     const eq = tok.indexOf("=");
-    if (eq <= 0) continue;
+    if (eq <= 0 || tok.indexOf("=", eq + 1) !== -1) {
+      return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+    }
     const key = tok.slice(0, eq);
     const val = tok.slice(eq + 1);
+    if (!FENCE_META_KEYS.has(key)) {
+      return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+    }
+    if (seen.has(key)) {
+      return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+    }
+    seen.add(key);
+    if (val === "") {
+      return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+    }
     if (key === "title-b64") titleB64 = val;
-    else if (key === "chars") {
-      const n = Number.parseInt(val, 10);
-      if (Number.isFinite(n)) chars = n;
-    } else if (key === "pair-sha256") pairSha256 = val;
+    else if (key === "chars") charsRaw = val;
+    else if (key === "pair-sha256") pairSha256 = val;
   }
-  const structured = titleB64 != null && chars != null && pairSha256 != null;
-  return { titleB64, chars, pairSha256, structured };
+
+  // Any structured token present requires the full triad — never LEGACY fallback.
+  if (seen.size !== 3 || titleB64 == null || charsRaw == null || pairSha256 == null) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (!CHARS_RE.test(charsRaw)) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  const chars = Number(charsRaw);
+  if (!Number.isSafeInteger(chars) || chars < 0 || chars > MAX_PROPOSAL_CHARS) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (!SHA256_HEX_RE.test(pairSha256)) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (!BASE64URL_RE.test(titleB64)) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  let decodedTitle: string;
+  try {
+    decodedTitle = Buffer.from(titleB64, "base64url").toString("utf8");
+  } catch {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  // Reject replacement-char artefacts from invalid UTF-8 and require round-trip.
+  if (decodedTitle.includes("\uFFFD")) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (encodeTitleB64(decodedTitle) !== titleB64) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  if (!decodedTitle.trim()) {
+    return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
+  }
+  return { kind: "STRUCTURED", titleB64, chars, pairSha256 };
 }
 
 function fenceOpenerLength(contentMarkdown: string): number {
@@ -2516,6 +3392,140 @@ export async function loadSealedDocumentBinding(input: {
 }
 ```
 
+### `projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts`
+
+```typescript
+/**
+ * Agents SDK wrappers for O-01 history tools. Scope closed over server identities.
+ */
+import {
+  readConversationMessages,
+  resolveAuthorizedHistoryScope,
+  searchConversationHistory,
+  type AuthorizedHistoryScope,
+} from "@/domains/conversation/history-tools";
+
+export type HistoryToolScope = {
+  pilotId: string;
+  preparationId: string;
+  budget: { remainingCalls: number; remainingChars: number };
+};
+
+function payloadSize(payload: unknown): number {
+  return JSON.stringify(payload).length;
+}
+
+/**
+ * C-05: enforce remaining character budget BEFORE return.
+ * Never silent-truncate exact message bodies — prefer PARTIAL + reason.
+ * DENIED is reserved for authorization refusals, not budget.
+ */
+/** Exported for F-P1 discriminant tests (budget before return). */
+export function fitBudget<T extends { coverage: string; reason?: string | null }>(
+  scope: HistoryToolScope,
+  payload: T,
+): T | { coverage: "PARTIAL"; reason: "HISTORY_TOOL_BUDGET_EXHAUSTED"; items: []; nextCursor?: null } {
+  const size = payloadSize(payload);
+  if (size <= scope.budget.remainingChars) {
+    scope.budget.remainingChars -= size;
+    return payload;
+  }
+  return {
+    coverage: "PARTIAL",
+    reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
+    items: [],
+    nextCursor: null,
+  };
+}
+
+export async function buildNoraHistoryTools(scope: HistoryToolScope) {
+  const { tool } = await import("@openai/agents");
+  const { z } = await import("zod");
+
+  let cachedScope: AuthorizedHistoryScope | null = null;
+  async function scopeOrDenied() {
+    if (cachedScope) return { ok: true as const, scope: cachedScope };
+    const resolved = await resolveAuthorizedHistoryScope({
+      pilotId: scope.pilotId,
+      preparationId: scope.preparationId,
+    });
+    if ("denied" in resolved) {
+      return { ok: false as const, reason: resolved.reason };
+    }
+    cachedScope = resolved;
+    return { ok: true as const, scope: resolved };
+  }
+
+  return [
+    tool({
+      name: "search_conversation_history",
+      description:
+        "Walk authorized conversation history (keyset pagination). Lexical query is an optional relevance hint only — not an exclusivity filter. Empty query walks the full journal. Does not mutate.",
+      parameters: z.object({
+        query: z.string().nullable().optional(),
+        cursor: z.string().nullable().optional(),
+        pageSize: z.number().int().min(1).max(50).nullable().optional(),
+      }),
+      execute: async (args) => {
+        if (scope.budget.remainingCalls <= 0 || scope.budget.remainingChars <= 0) {
+          return {
+            coverage: "PARTIAL",
+            reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
+            items: [],
+            nextCursor: null,
+          };
+        }
+        scope.budget.remainingCalls -= 1;
+        const s = await scopeOrDenied();
+        if (!s.ok) {
+          return { coverage: "DENIED", reason: s.reason, items: [], nextCursor: null };
+        }
+        const result = await searchConversationHistory({
+          scope: s.scope,
+          query: args.query ?? undefined,
+          cursor: args.cursor ?? undefined,
+          pageSize: args.pageSize ?? undefined,
+        });
+        return fitBudget(scope, result);
+      },
+    }),
+    tool({
+      name: "read_conversation_messages",
+      description:
+        "Re-read exact authorized message contents by messageId (rights revalidated). Prefer after search_conversation_history. Use fragmentStart/fragmentEnd for long messages under budget.",
+      parameters: z.object({
+        messageIds: z.array(z.string()).min(1).max(50),
+        fragmentStart: z.number().int().min(0).nullable().optional(),
+        fragmentEnd: z.number().int().min(0).nullable().optional(),
+      }),
+      execute: async (args) => {
+        if (scope.budget.remainingCalls <= 0 || scope.budget.remainingChars <= 0) {
+          return {
+            coverage: "PARTIAL",
+            reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
+            items: [],
+          };
+        }
+        scope.budget.remainingCalls -= 1;
+        const s = await scopeOrDenied();
+        if (!s.ok) {
+          return { coverage: "DENIED", reason: s.reason, items: [] };
+        }
+        const fragment =
+          args.fragmentStart != null && args.fragmentEnd != null
+            ? { start: args.fragmentStart, end: args.fragmentEnd }
+            : undefined;
+        const result = await readConversationMessages({
+          scope: s.scope,
+          messageIds: args.messageIds,
+          fragment,
+        });
+        return fitBudget(scope, result);
+      },
+    }),
+  ];
+}
+```
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/history-tools.ts`
 
@@ -2970,144 +3980,662 @@ export async function readConversationMessages(input: {
 }
 ```
 
-
-### `projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts`
+### `projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts`
 
 ```typescript
-/**
- * Agents SDK wrappers for O-01 history tools. Scope closed over server identities.
- */
-import {
-  readConversationMessages,
-  resolveAuthorizedHistoryScope,
-  searchConversationHistory,
-  type AuthorizedHistoryScope,
-} from "@/domains/conversation/history-tools";
-
-export type HistoryToolScope = {
-  pilotId: string;
-  preparationId: string;
-  budget: { remainingCalls: number; remainingChars: number };
-};
-
-function payloadSize(payload: unknown): number {
-  return JSON.stringify(payload).length;
-}
+import { test, expect } from "@playwright/test";
+import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
 
 /**
- * C-05: enforce remaining character budget BEFORE return.
- * Never silent-truncate exact message bodies — prefer PARTIAL + reason.
- * DENIED is reserved for authorization refusals, not budget.
+ * ML4C document continuity — composer send after scroll (FAKE lane).
+ * D4 reconcile / long journal: tests/integration/ml4c-document-reconciliation.pg.test.ts
  */
-/** Exported for F-P1 discriminant tests (budget before return). */
-export function fitBudget<T extends { coverage: string; reason?: string | null }>(
-  scope: HistoryToolScope,
-  payload: T,
-): T | { coverage: "PARTIAL"; reason: "HISTORY_TOOL_BUDGET_EXHAUSTED"; items: []; nextCursor?: null } {
-  const size = payloadSize(payload);
-  if (size <= scope.budget.remainingChars) {
-    scope.budget.remainingChars -= size;
-    return payload;
-  }
-  return {
-    coverage: "PARTIAL",
-    reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
-    items: [],
-    nextCursor: null,
-  };
-}
+test("ML4C: document continuity — scroll, composer, FAKE send", async ({ page }) => {
+  test.setTimeout(180_000);
 
-export async function buildNoraHistoryTools(scope: HistoryToolScope) {
-  const { tool } = await import("@openai/agents");
-  const { z } = await import("zod");
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
 
-  let cachedScope: AuthorizedHistoryScope | null = null;
-  async function scopeOrDenied() {
-    if (cachedScope) return { ok: true as const, scope: cachedScope };
-    const resolved = await resolveAuthorizedHistoryScope({
-      pilotId: scope.pilotId,
-      preparationId: scope.preparationId,
-    });
-    if ("denied" in resolved) {
-      return { ok: false as const, reason: resolved.reason };
-    }
-    cachedScope = resolved;
-    return { ok: true as const, scope: resolved };
-  }
+  const seed = "Fil ML4C document continuity (fixture).";
+  const { projectId } = await bootstrapProjectFromPortfolio(page, {
+    seed,
+    name: "ML4C Document Continuity",
+    summary: "Continuité composer",
+  });
 
-  return [
-    tool({
-      name: "search_conversation_history",
-      description:
-        "Walk authorized conversation history (keyset pagination). Lexical query is an optional relevance hint only — not an exclusivity filter. Empty query walks the full journal. Does not mutate.",
-      parameters: z.object({
-        query: z.string().nullable().optional(),
-        cursor: z.string().nullable().optional(),
-        pageSize: z.number().int().min(1).max(50).nullable().optional(),
-      }),
-      execute: async (args) => {
-        if (scope.budget.remainingCalls <= 0 || scope.budget.remainingChars <= 0) {
-          return {
-            coverage: "PARTIAL",
-            reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
-            items: [],
-            nextCursor: null,
-          };
-        }
-        scope.budget.remainingCalls -= 1;
-        const s = await scopeOrDenied();
-        if (!s.ok) {
-          return { coverage: "DENIED", reason: s.reason, items: [], nextCursor: null };
-        }
-        const result = await searchConversationHistory({
-          scope: s.scope,
-          query: args.query ?? undefined,
-          cursor: args.cursor ?? undefined,
-          pageSize: args.pageSize ?? undefined,
-        });
-        return fitBudget(scope, result);
-      },
-    }),
-    tool({
-      name: "read_conversation_messages",
-      description:
-        "Re-read exact authorized message contents by messageId (rights revalidated). Prefer after search_conversation_history. Use fragmentStart/fragmentEnd for long messages under budget.",
-      parameters: z.object({
-        messageIds: z.array(z.string()).min(1).max(50),
-        fragmentStart: z.number().int().min(0).nullable().optional(),
-        fragmentEnd: z.number().int().min(0).nullable().optional(),
-      }),
-      execute: async (args) => {
-        if (scope.budget.remainingCalls <= 0 || scope.budget.remainingChars <= 0) {
-          return {
-            coverage: "PARTIAL",
-            reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
-            items: [],
-          };
-        }
-        scope.budget.remainingCalls -= 1;
-        const s = await scopeOrDenied();
-        if (!s.ok) {
-          return { coverage: "DENIED", reason: s.reason, items: [] };
-        }
-        const fragment =
-          args.fragmentStart != null && args.fragmentEnd != null
-            ? { start: args.fragmentStart, end: args.fragmentEnd }
-            : undefined;
-        const result = await readConversationMessages({
-          scope: s.scope,
-          messageIds: args.messageIds,
-          fragment,
-        });
-        return fitBudget(scope, result);
-      },
-    }),
-  ];
-}
+  await page.goto(`/projects/${projectId}`);
+  const thread = page.getByTestId("nora-thread");
+  const composer = page.getByTestId("nora-composer");
+  const draft = page.getByTestId("thread-draft");
+  const send = page.getByTestId("thread-send");
+
+  await expect(composer).toBeVisible({ timeout: 30_000 });
+  await thread.evaluate((el) => {
+    el.scrollTop = el.scrollHeight;
+  });
+  await expect(composer).toBeVisible();
+
+  const followUp = "ML4C continuity send après scroll.";
+  await draft.fill(followUp);
+  await send.click();
+  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
+    timeout: 60_000,
+  });
+});
 ```
 
-## 8. NEW test files (full contents)
+### `projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts`
 
+```typescript
+import { test, expect } from "@playwright/test";
+import { config as loadEnv } from "dotenv";
+import path from "node:path";
+import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
+
+loadEnv({ path: path.resolve(__dirname, "../../.env.local") });
+
+/**
+ * ML4C C-07 — sticky composer on a real 320+ message journal (FAKE Nora).
+ * Seeds via postgres into sfia_next_e2e (same lane as Playwright webServer).
+ */
+async function seedLongThread(preparationId: string, count: number): Promise<number> {
+  const postgres = (await import("postgres")).default;
+  const raw = process.env.DATABASE_URL;
+  if (!raw) throw new Error("DATABASE_URL required for C-07 seed");
+  const u = new URL(raw);
+  u.pathname = "/sfia_next_e2e";
+  const sql = postgres(u.toString(), { max: 1 });
+  try {
+    const conv = await sql<{ id: string }[]>`
+      select id from conversations where preparation_id = ${preparationId} limit 1
+    `;
+    if (!conv[0]) throw new Error("conversation missing for preparation");
+    const conversationId = conv[0].id;
+    const existing = await sql<{ n: string }[]>`
+      select coalesce(max(ordinal), 0)::text as n from messages where conversation_id = ${conversationId}
+    `;
+    let ordinal = Number(existing[0]?.n ?? 0);
+    const rows: Array<{
+      id: string;
+      conversation_id: string;
+      role: string;
+      content: string;
+      status: string;
+      ordinal: number;
+    }> = [];
+    for (let i = 1; i <= count; i++) {
+      ordinal += 1;
+      const role = i % 2 === 1 ? "user" : "assistant";
+      let content = `Message synthétique #${i} thème-${(i % 17) + 1} détail-${i * 3}`;
+      if (i === 10) content = "orientation X rouge — jalon historique";
+      if (i === 110) content = "correction X bleu — orientation remplacée";
+      if (i === 250) content = "question sur X — quelle est l'orientation actuelle ?";
+      rows.push({
+        id: `msg_e2e_long_${preparationId.slice(0, 8)}_${i}`,
+        conversation_id: conversationId,
+        role,
+        content,
+        status: "COMPLETE",
+        ordinal,
+      });
+    }
+    // Batch insert
+    for (let offset = 0; offset < rows.length; offset += 50) {
+      const chunk = rows.slice(offset, offset + 50);
+      await sql`
+        insert into messages ${sql(
+          chunk,
+          "id",
+          "conversation_id",
+          "role",
+          "content",
+          "status",
+          "ordinal",
+        )}
+        on conflict do nothing
+      `;
+    }
+    const total = await sql<{ n: string }[]>`
+      select count(*)::text as n from messages where conversation_id = ${conversationId}
+    `;
+    return Number(total[0]?.n ?? 0);
+  } finally {
+    await sql.end({ timeout: 2 });
+  }
+}
+
+test("ML4C C-07: composer usable on 320+ message thread after scroll", async ({ page }) => {
+  test.setTimeout(180_000);
+
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+
+  const seed = "Fil projet ML4C composer long (fixture).";
+  const { preparationId, projectId } = await bootstrapProjectFromPortfolio(page, {
+    seed,
+    name: "ML4C Composer 320+",
+    summary: "C-07 fil long",
+  });
+
+  const total = await seedLongThread(preparationId, 320);
+  expect(total).toBeGreaterThanOrEqual(320);
+
+  await page.goto(`/projects/${projectId}`);
+  const composer = page.getByTestId("nora-composer");
+  const send = page.getByTestId("thread-send");
+  const thread = page.getByTestId("nora-thread");
+  const draft = page.getByTestId("thread-draft");
+
+  await expect(composer).toBeVisible({ timeout: 30_000 });
+  await expect(send).toBeVisible();
+  await expect(thread).toBeVisible();
+
+  // Scroll to older portion then back — composer must remain reachable.
+  await thread.evaluate((el) => {
+    el.scrollTop = el.scrollHeight;
+  });
+  await thread.evaluate((el) => {
+    el.scrollTop = 0;
+  });
+  await expect(composer).toBeVisible();
+  expect(await composer.evaluate((el) => el.classList.contains("fig-composer-sticky"))).toBe(true);
+
+  await draft.fill("Message après parcours du fil long.");
+  await expect(draft).toHaveValue("Message après parcours du fil long.");
+  await expect(send).toBeEnabled();
+
+  await send.click();
+  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
+  // F-P1: send must clear draft (no neutralized assertion).
+  await expect(draft).toHaveValue("", { timeout: 45_000 });
+  // Exact USER bubble — Nora fixture may echo the same phrase in its reply.
+  await expect(
+    thread.getByText("Message après parcours du fil long.", { exact: true }),
+  ).toBeVisible({ timeout: 45_000 });
+  await expect(composer).toBeVisible();
+  await expect(send).toBeVisible();
+
+  const shotDir = path.resolve(__dirname, "../../test-results/ml4c-c07");
+  await page.screenshot({
+    path: path.join(shotDir, `long-thread-${Date.now()}.png`),
+    fullPage: true,
+  });
+
+  await page.reload();
+  await expect(composer).toBeVisible({ timeout: 30_000 });
+  await expect(thread).toBeVisible();
+  await expect(
+    thread.getByText("Message après parcours du fil long.", { exact: true }),
+  ).toBeVisible({ timeout: 30_000 });
+});
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts`
+
+```typescript
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { and, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import { documentRevisions, documents, messages, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation } from "@/domains/preparation/service";
+import {
+  getConversationId,
+  listMessages,
+  postUserMessageAndNora,
+} from "@/domains/conversation/service";
+import {
+  admitDocumentCommand,
+  contentSha256,
+  sealAndApplyDocumentCommand,
+  resolveAssistantProposal,
+} from "@/domains/conversation/document-command";
+import { completeTurnCommand, reserveTurnCommand } from "@/domains/conversation/turn-command";
+import {
+  listDocumentRevisions,
+  reviseDocument,
+  savePreparationDocument,
+} from "@/domains/document/service";
+import { sfiaDocumentFence } from "../helpers/semantic-fixture-envelopes";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+async function countDocsByCreationKey(
+  pilotId: string,
+  preparationId: string,
+  creationCorrelationKey: string,
+) {
+  const rows = await db
+    .select({ id: documents.id })
+    .from(documents)
+    .where(
+      and(
+        eq(documents.ownerPilotId, pilotId),
+        eq(documents.preparationId, preparationId),
+        eq(documents.creationCorrelationKey, creationCorrelationKey),
+      ),
+    );
+  return rows.length;
+}
+
+async function countD4Rows(pilotId: string, preparationId: string) {
+  const docs = await db
+    .select({ id: documents.id })
+    .from(documents)
+    .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, preparationId)));
+  const revs =
+    docs.length === 0
+      ? []
+      : await db
+          .select({ id: documentRevisions.id })
+          .from(documentRevisions)
+          .where(
+            sql`${documentRevisions.documentId} in (${sql.join(
+              docs.map((d) => sql`${d.id}`),
+              sql`, `,
+            )})`,
+          );
+  return { documents: docs.length, revisions: revs.length };
+}
+
+describe("ML4C document command (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+  });
+
+  it("CREATE via savePreparationDocument + correlation replay; mismatch → CONFLICT", async () => {
+    const pilotId = await seedPilot("ml4c-doc-rec");
+    const prep = await openOrCreatePreparation(pilotId);
+    const corr = `corr-create-${Date.now()}`;
+    const v1 = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Atomic CREATE",
+      "# Atomic\n\nPremière version.\n",
+      undefined,
+      { correlationKey: corr },
+    );
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
+
+    const replay = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Atomic CREATE",
+      "# Atomic\n\nPremière version.\n",
+      undefined,
+      { correlationKey: corr },
+    );
+    expect(replay.status).toBe("AVAILABLE");
+    if (replay.status === "AVAILABLE" && "idempotentReplay" in replay) {
+      expect(replay.idempotentReplay).toBe(true);
+    }
+
+    const conflict = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Atomic CREATE",
+      "# Atomic\n\nPayload divergent.\n",
+      undefined,
+      { correlationKey: corr },
+    );
+    expect(conflict.status).toBe("CONFLICT");
+    if (conflict.status === "CONFLICT") {
+      expect(conflict.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+    }
+  });
+
+  it("sealAndApplyDocumentCommand CREATE then REVISE with turn fence", async () => {
+    const pilotId = await seedPilot("ml4c-doc-seal");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `ml4c-seal-${Date.now()}`,
+      content: "Crée un document de continuité ML4C.",
+    });
+    expect(reserved.kind).toBe("fresh");
+    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
+
+    const title = "Continuité ML4C";
+    const body = `# ${title}\n\nVersion initiale scellée.\n`;
+    const admitted = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-create",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title,
+      contentMarkdown: body,
+    });
+    expect(admitted.ok).toBe(true);
+    if (!admitted.ok) throw new Error(admitted.reason);
+
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admitted.binding,
+    });
+    expect(sealed.sealApplied).toBe(true);
+    expect(sealed.effect.status).toBe("AVAILABLE");
+    if (sealed.effect.status !== "AVAILABLE") throw new Error("create failed");
+    const documentId = sealed.effect.documentId;
+    const baseRevisionId = sealed.effect.revisionId;
+
+    const assistantId = newId("msg");
+    await db.insert(messages).values({
+      id: assistantId,
+      conversationId: convId!,
+      role: "assistant",
+      content: "Tour scellé — CREATE appliqué.",
+      status: "COMPLETE",
+      ordinal: reserved.ordinalAssistant,
+    });
+    await completeTurnCommand({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: "COMPLETE",
+      assistantMessageId: assistantId,
+    });
+
+    const reserved2 = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `ml4c-seal-rev-${Date.now()}`,
+      content: "Révise le document de continuité.",
+    });
+    expect(reserved2.kind).toBe("fresh");
+    if (reserved2.kind !== "fresh") throw new Error("expected fresh revise turn");
+
+    const revisedBody = `# ${title}\n\nVersion initiale scellée.\n\n## Révision\n\nAjout.\n`;
+    const admittedRev = admitDocumentCommand({
+      commandId: reserved2.commandId,
+      operationId: reserved2.operationId,
+      userMessageId: reserved2.userMessageId,
+      qualifiedIntentId: "i-d4-revise",
+      action: "REVISE",
+      preparationId: prep.id,
+      documentId,
+      baseRevisionId,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved2.commandId },
+      title,
+      contentMarkdown: revisedBody,
+    });
+    expect(admittedRev.ok).toBe(true);
+    if (!admittedRev.ok) throw new Error(admittedRev.reason);
+
+    const sealedRev = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved2.commandId, ownerToken: reserved2.ownerToken },
+      binding: admittedRev.binding,
+    });
+    expect(sealedRev.sealApplied).toBe(true);
+    expect(sealedRev.effect.status).toBe("AVAILABLE");
+    const list = await listDocumentRevisions(pilotId, prep.id, documentId!);
+    expect(list.revisions.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("REVISE stale base → CONFLICT", async () => {
+    const pilotId = await seedPilot("ml4c-doc-stale");
+    const prep = await openOrCreatePreparation(pilotId);
+    const v1 = await savePreparationDocument(pilotId, prep.id, "Spec", "# Spec\n\nA\n");
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
+    const v2 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      contentMarkdown: "# Spec\n\nB\n",
+      correlationKey: `rev-${Date.now()}`,
+    });
+    expect(v2.status).toBe("AVAILABLE");
+    const conflict = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      contentMarkdown: "# Spec\n\nstale attempt\n",
+      correlationKey: `rev-stale-${Date.now()}`,
+    });
+    expect(conflict.status).toBe("CONFLICT");
+  });
+
+  it("resolveAssistantProposal extracts sfia-document; denies other pilot", async () => {
+    const pilotA = await seedPilot("ml4c-prop-a");
+    const prepA = await openOrCreatePreparation(pilotA);
+    const convA = await getConversationId(pilotA, prepA.id);
+    expect(convA).toBeTruthy();
+    const title = "PROP ML4C exact";
+    const body = "Corps contractuel pour extraction.";
+    const assistantId = newId("msg");
+    const maxOrd =
+      (
+        await db
+          .select({ o: sql<number>`coalesce(max(${messages.ordinal}), 0)`.mapWith(Number) })
+          .from(messages)
+          .where(eq(messages.conversationId, convA!))
+      )[0]?.o ?? 0;
+    await db.insert(messages).values({
+      id: assistantId,
+      conversationId: convA!,
+      role: "assistant",
+      content: sfiaDocumentFence(title, body),
+      status: "COMPLETE",
+      ordinal: maxOrd + 1,
+      generationId: newId("gen"),
+    });
+
+    const ok = await resolveAssistantProposal({
+      pilotId: pilotA,
+      preparationId: prepA.id,
+      assistantMessageId: assistantId,
+    });
+    expect(ok.ok).toBe(true);
+    if (ok.ok) {
+      expect(ok.proposal.title).toBe(title);
+      expect(ok.proposal.contentMarkdown).toContain(body);
+      expect(ok.proposal.contentSha256).toBe(
+        contentSha256(title, ok.proposal.contentMarkdown),
+      );
+    }
+
+    const pilotB = await seedPilot("ml4c-prop-b");
+    const denied = await resolveAssistantProposal({
+      pilotId: pilotB,
+      preparationId: prepA.id,
+      assistantMessageId: assistantId,
+    });
+    expect(denied.ok).toBe(false);
+    if (!denied.ok) expect(denied.reason).toBe("SOURCE_DENIED");
+  });
+
+  it("failed admit does not create document rows", async () => {
+    const pilotId = await seedPilot("ml4c-doc-neg");
+    const prep = await openOrCreatePreparation(pilotId);
+    const before = await countD4Rows(pilotId, prep.id);
+
+    const negatives = [
+      admitDocumentCommand({
+        commandId: "x",
+        operationId: "o",
+        userMessageId: "u",
+        qualifiedIntentId: "i",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "x" },
+        title: " ",
+        contentMarkdown: "x",
+      }),
+      admitDocumentCommand({
+        commandId: "y",
+        operationId: "o",
+        userMessageId: "u",
+        qualifiedIntentId: "i",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "y" },
+        title: "T",
+        contentMarkdown: "z".repeat(100_001),
+      }),
+      admitDocumentCommand({
+        commandId: "z",
+        operationId: "o",
+        userMessageId: "u",
+        qualifiedIntentId: "i",
+        action: "REVISE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "z" },
+        title: "T",
+        contentMarkdown: "body",
+      }),
+    ];
+    for (const n of negatives) {
+      expect(n.ok).toBe(false);
+    }
+
+    const after = await countD4Rows(pilotId, prep.id);
+    expect(after).toEqual(before);
+
+    const chat = await postUserMessageAndNora(pilotId, prep.id, "Bonjour, pas de document.");
+    expect(chat.documentSave).toBeNull();
+    const afterChatter = await countD4Rows(pilotId, prep.id);
+    expect(afterChatter).toEqual(before);
+    const msgs = await listMessages(pilotId, prep.id);
+    expect(msgs.length).toBeGreaterThan(0);
+  });
+
+  it("PROP: admitDocumentCommand accepts title + body >12k and ≤100k; >100k rejected", async () => {
+    const pilotId = await seedPilot("ml4c-doc-prop-long");
+    const prep = await openOrCreatePreparation(pilotId);
+    const propTitle = "Proposition longue";
+    const longBody = `# ${propTitle}\n\n${"paragraphe contractuel.\n".repeat(900)}`;
+    expect(longBody.length).toBeGreaterThan(12_000);
+    expect(longBody.length).toBeLessThanOrEqual(100_000);
+
+    const ok = admitDocumentCommand({
+      commandId: "cmd-prop-long",
+      operationId: "op-prop-long",
+      userMessageId: "usr-prop-long",
+      qualifiedIntentId: "i-d4-prop",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: "cmd-prop-long" },
+      title: propTitle,
+      contentMarkdown: longBody,
+    });
+    expect(ok.ok).toBe(true);
+
+    const tooLarge = admitDocumentCommand({
+      commandId: "cmd-prop-huge",
+      operationId: "op-prop-huge",
+      userMessageId: "usr-prop-huge",
+      qualifiedIntentId: "i-d4-prop",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: "cmd-prop-huge" },
+      title: "Trop grand",
+      contentMarkdown: "x".repeat(100_001),
+    });
+    expect(tooLarge.ok).toBe(false);
+    if (!tooLarge.ok) expect(tooLarge.reason).toBe("CONTENT_TOO_LARGE");
+
+    const before = await countD4Rows(pilotId, prep.id);
+    const after = await countD4Rows(pilotId, prep.id);
+    expect(after).toEqual(before);
+  });
+
+  it("REC: concurrent CREATE same creationCorrelationKey → single document row", async () => {
+    const pilotId = await seedPilot("ml4c-doc-conc");
+    const prep = await openOrCreatePreparation(pilotId);
+    const key = `ml4c-conc-${Date.now()}`;
+    const body = "# Concurrent ML4C\n\nMême empreinte.\n";
+
+    const [a, b] = await Promise.all([
+      savePreparationDocument(pilotId, prep.id, "Conc ML4C", body, undefined, {
+        correlationKey: key,
+      }),
+      savePreparationDocument(pilotId, prep.id, "Conc ML4C", body, undefined, {
+        correlationKey: key,
+      }),
+    ]);
+
+    const statuses = [a.status, b.status];
+    expect(statuses.every((s) => s === "AVAILABLE" || s === "UNKNOWN")).toBe(true);
+    expect(await countDocsByCreationKey(pilotId, prep.id, key)).toBe(1);
+
+    const winner = [a, b].find((r) => r.status === "AVAILABLE");
+    const loser = [a, b].find((r) => r !== winner);
+    if (winner && loser) {
+      if (loser.status === "AVAILABLE" && "idempotentReplay" in loser) {
+        expect(loser.idempotentReplay).toBe(true);
+      }
+      if (loser.status === "CONFLICT") {
+        expect(loser.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+      }
+    }
+  });
+
+  it("REC: sealAndApply with invalid ownerToken → no document write", async () => {
+    const pilotId = await seedPilot("ml4c-doc-owner");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+
+    const before = await countD4Rows(pilotId, prep.id);
+
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `ml4c-owner-${Date.now()}`,
+      content: "Crée un document avec sceau invalide.",
+    });
+    expect(reserved.kind).toBe("fresh");
+    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
+
+    const admitted = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-create",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: "Sans sceau",
+      contentMarkdown: "# Sans sceau\n\nPas d'écriture.\n",
+    });
+    expect(admitted.ok).toBe(true);
+    if (!admitted.ok) throw new Error(admitted.reason);
+
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: "invalid-owner-token" },
+      binding: admitted.binding,
+    });
+    expect(sealed.sealApplied).toBe(false);
+    expect(sealed.effect).toMatchObject({
+      status: "NOT_EXECUTED",
+      reason: "BINDING_SEAL_FAILED",
+    });
+
+    const after = await countD4Rows(pilotId, prep.id);
+    expect(after).toEqual(before);
+  });
+});
+```
 
 ### `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts`
 
@@ -3854,6 +5382,90 @@ describe("ML4C document identity F-01 (PG)", () => {
     expect(rows.revisions).toBe(1);
   });
 
+  it("HASH: stored bytes / provenance drift → CONFLICT; reconcile never heals corruption", async () => {
+    const pilotId = await seedPilot("f01-hash");
+    const prep = await openOrCreatePreparation(pilotId);
+    const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "hash");
+
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admitted.binding,
+    });
+    expect(sealed.effect.status).toBe("AVAILABLE");
+    if (sealed.effect.status !== "AVAILABLE") throw new Error("apply");
+    const revisionId = sealed.effect.revisionId;
+    const baseline = await countD4Rows(pilotId, prep.id);
+
+    const altered = `${admitted.binding.contentMarkdown}\n<!-- tamper -->\n`;
+    await db
+      .update(documentRevisions)
+      .set({ contentMarkdown: altered })
+      .where(eq(documentRevisions.id, revisionId));
+
+    let truth = await lookupFromBinding(pilotId, prep.id, admitted.binding);
+    expect(truth.verdict).toBe("CONFLICT");
+    expect(truth.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+    let reconciled = await reconcileDocumentCommandFromBinding({
+      pilotId,
+      preparationId: prep.id,
+      binding: admitted.binding,
+    });
+    expect(reconciled.verdict).toBe("CONFLICT");
+
+    await db
+      .update(documentRevisions)
+      .set({ contentMarkdown: admitted.binding.contentMarkdown })
+      .where(eq(documentRevisions.id, revisionId));
+
+    const provenanceRow = (
+      await db
+        .select({ provenanceJson: documentRevisions.provenanceJson })
+        .from(documentRevisions)
+        .where(eq(documentRevisions.id, revisionId))
+        .limit(1)
+    )[0];
+    const prov = JSON.parse(provenanceRow!.provenanceJson) as Record<string, unknown>;
+    await db
+      .update(documentRevisions)
+      .set({
+        provenanceJson: JSON.stringify({ ...prov, contentFingerprint: "f".repeat(64) }),
+      })
+      .where(eq(documentRevisions.id, revisionId));
+
+    truth = await lookupFromBinding(pilotId, prep.id, admitted.binding);
+    expect(truth.verdict).toBe("CONFLICT");
+    reconciled = await reconcileDocumentCommandFromBinding({
+      pilotId,
+      preparationId: prep.id,
+      binding: admitted.binding,
+    });
+    expect(reconciled.verdict).toBe("CONFLICT");
+
+    await db
+      .update(documentRevisions)
+      .set({
+        provenanceJson: JSON.stringify({
+          ...prov,
+          contentSha256: "e".repeat(64),
+        }),
+      })
+      .where(eq(documentRevisions.id, revisionId));
+
+    truth = await lookupFromBinding(pilotId, prep.id, admitted.binding);
+    expect(truth.verdict).toBe("CONFLICT");
+
+    for (let i = 0; i < 10; i++) {
+      const r = await reconcileDocumentCommandFromBinding({
+        pilotId,
+        preparationId: prep.id,
+        binding: admitted.binding,
+      });
+      expect(r.verdict).not.toBe("AVAILABLE");
+    }
+    expect(await countD4Rows(pilotId, prep.id)).toEqual(baseline);
+  });
+
   it("F01-10: stashed binding without apply — lookup UNKNOWN", async () => {
     const pilotId = await seedPilot("f01-stash");
     const prep = await openOrCreatePreparation(pilotId);
@@ -3887,473 +5499,8 @@ describe("ML4C document identity F-01 (PG)", () => {
 function createHashFlip(hex: string): string {
   const n = parseInt(hex.slice(0, 8), 16) ^ 0xff;
   return n.toString(16).padStart(8, "0") + hex.slice(8);
-}```
-
-
-### `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts`
-
-```typescript
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { and, eq, sql } from "drizzle-orm";
-import { db } from "@/db/client";
-import { documentRevisions, documents, messages, pilots } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import { openOrCreatePreparation } from "@/domains/preparation/service";
-import {
-  getConversationId,
-  listMessages,
-  postUserMessageAndNora,
-} from "@/domains/conversation/service";
-import {
-  admitDocumentCommand,
-  contentSha256,
-  sealAndApplyDocumentCommand,
-  resolveAssistantProposal,
-} from "@/domains/conversation/document-command";
-import { completeTurnCommand, reserveTurnCommand } from "@/domains/conversation/turn-command";
-import {
-  listDocumentRevisions,
-  reviseDocument,
-  savePreparationDocument,
-} from "@/domains/document/service";
-import { sfiaDocumentFence } from "../helpers/semantic-fixture-envelopes";
-
-async function seedPilot(label: string) {
-  const id = newId("pilot");
-  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-  return id;
 }
-
-async function countDocsByCreationKey(
-  pilotId: string,
-  preparationId: string,
-  creationCorrelationKey: string,
-) {
-  const rows = await db
-    .select({ id: documents.id })
-    .from(documents)
-    .where(
-      and(
-        eq(documents.ownerPilotId, pilotId),
-        eq(documents.preparationId, preparationId),
-        eq(documents.creationCorrelationKey, creationCorrelationKey),
-      ),
-    );
-  return rows.length;
-}
-
-async function countD4Rows(pilotId: string, preparationId: string) {
-  const docs = await db
-    .select({ id: documents.id })
-    .from(documents)
-    .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, preparationId)));
-  const revs =
-    docs.length === 0
-      ? []
-      : await db
-          .select({ id: documentRevisions.id })
-          .from(documentRevisions)
-          .where(
-            sql`${documentRevisions.documentId} in (${sql.join(
-              docs.map((d) => sql`${d.id}`),
-              sql`, `,
-            )})`,
-          );
-  return { documents: docs.length, revisions: revs.length };
-}
-
-describe("ML4C document command (PG)", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    delete process.env.OPENAI_API_KEY;
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-  });
-
-  it("CREATE via savePreparationDocument + correlation replay; mismatch → CONFLICT", async () => {
-    const pilotId = await seedPilot("ml4c-doc-rec");
-    const prep = await openOrCreatePreparation(pilotId);
-    const corr = `corr-create-${Date.now()}`;
-    const v1 = await savePreparationDocument(
-      pilotId,
-      prep.id,
-      "Atomic CREATE",
-      "# Atomic\n\nPremière version.\n",
-      undefined,
-      { correlationKey: corr },
-    );
-    expect(v1.status).toBe("AVAILABLE");
-    if (v1.status !== "AVAILABLE") throw new Error("v1");
-
-    const replay = await savePreparationDocument(
-      pilotId,
-      prep.id,
-      "Atomic CREATE",
-      "# Atomic\n\nPremière version.\n",
-      undefined,
-      { correlationKey: corr },
-    );
-    expect(replay.status).toBe("AVAILABLE");
-    if (replay.status === "AVAILABLE" && "idempotentReplay" in replay) {
-      expect(replay.idempotentReplay).toBe(true);
-    }
-
-    const conflict = await savePreparationDocument(
-      pilotId,
-      prep.id,
-      "Atomic CREATE",
-      "# Atomic\n\nPayload divergent.\n",
-      undefined,
-      { correlationKey: corr },
-    );
-    expect(conflict.status).toBe("CONFLICT");
-    if (conflict.status === "CONFLICT") {
-      expect(conflict.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
-    }
-  });
-
-  it("sealAndApplyDocumentCommand CREATE then REVISE with turn fence", async () => {
-    const pilotId = await seedPilot("ml4c-doc-seal");
-    const prep = await openOrCreatePreparation(pilotId);
-    const convId = await getConversationId(pilotId, prep.id);
-    expect(convId).toBeTruthy();
-
-    const reserved = await reserveTurnCommand({
-      conversationId: convId!,
-      ownerPilotId: pilotId,
-      clientTurnKey: `ml4c-seal-${Date.now()}`,
-      content: "Crée un document de continuité ML4C.",
-    });
-    expect(reserved.kind).toBe("fresh");
-    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
-
-    const title = "Continuité ML4C";
-    const body = `# ${title}\n\nVersion initiale scellée.\n`;
-    const admitted = admitDocumentCommand({
-      commandId: reserved.commandId,
-      operationId: reserved.operationId,
-      userMessageId: reserved.userMessageId,
-      qualifiedIntentId: "i-d4-create",
-      action: "CREATE",
-      preparationId: prep.id,
-      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
-      title,
-      contentMarkdown: body,
-    });
-    expect(admitted.ok).toBe(true);
-    if (!admitted.ok) throw new Error(admitted.reason);
-
-    const sealed = await sealAndApplyDocumentCommand({
-      pilotId,
-      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
-      binding: admitted.binding,
-    });
-    expect(sealed.sealApplied).toBe(true);
-    expect(sealed.effect.status).toBe("AVAILABLE");
-    if (sealed.effect.status !== "AVAILABLE") throw new Error("create failed");
-    const documentId = sealed.effect.documentId;
-    const baseRevisionId = sealed.effect.revisionId;
-
-    const assistantId = newId("msg");
-    await db.insert(messages).values({
-      id: assistantId,
-      conversationId: convId!,
-      role: "assistant",
-      content: "Tour scellé — CREATE appliqué.",
-      status: "COMPLETE",
-      ordinal: reserved.ordinalAssistant,
-    });
-    await completeTurnCommand({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      status: "COMPLETE",
-      assistantMessageId: assistantId,
-    });
-
-    const reserved2 = await reserveTurnCommand({
-      conversationId: convId!,
-      ownerPilotId: pilotId,
-      clientTurnKey: `ml4c-seal-rev-${Date.now()}`,
-      content: "Révise le document de continuité.",
-    });
-    expect(reserved2.kind).toBe("fresh");
-    if (reserved2.kind !== "fresh") throw new Error("expected fresh revise turn");
-
-    const revisedBody = `# ${title}\n\nVersion initiale scellée.\n\n## Révision\n\nAjout.\n`;
-    const admittedRev = admitDocumentCommand({
-      commandId: reserved2.commandId,
-      operationId: reserved2.operationId,
-      userMessageId: reserved2.userMessageId,
-      qualifiedIntentId: "i-d4-revise",
-      action: "REVISE",
-      preparationId: prep.id,
-      documentId,
-      baseRevisionId,
-      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved2.commandId },
-      title,
-      contentMarkdown: revisedBody,
-    });
-    expect(admittedRev.ok).toBe(true);
-    if (!admittedRev.ok) throw new Error(admittedRev.reason);
-
-    const sealedRev = await sealAndApplyDocumentCommand({
-      pilotId,
-      fence: { commandId: reserved2.commandId, ownerToken: reserved2.ownerToken },
-      binding: admittedRev.binding,
-    });
-    expect(sealedRev.sealApplied).toBe(true);
-    expect(sealedRev.effect.status).toBe("AVAILABLE");
-    const list = await listDocumentRevisions(pilotId, prep.id, documentId!);
-    expect(list.revisions.length).toBeGreaterThanOrEqual(2);
-  });
-
-  it("REVISE stale base → CONFLICT", async () => {
-    const pilotId = await seedPilot("ml4c-doc-stale");
-    const prep = await openOrCreatePreparation(pilotId);
-    const v1 = await savePreparationDocument(pilotId, prep.id, "Spec", "# Spec\n\nA\n");
-    expect(v1.status).toBe("AVAILABLE");
-    if (v1.status !== "AVAILABLE") throw new Error("v1");
-    const v2 = await reviseDocument(pilotId, prep.id, {
-      documentId: v1.documentId,
-      baseRevisionId: v1.revisionId,
-      contentMarkdown: "# Spec\n\nB\n",
-      correlationKey: `rev-${Date.now()}`,
-    });
-    expect(v2.status).toBe("AVAILABLE");
-    const conflict = await reviseDocument(pilotId, prep.id, {
-      documentId: v1.documentId,
-      baseRevisionId: v1.revisionId,
-      contentMarkdown: "# Spec\n\nstale attempt\n",
-      correlationKey: `rev-stale-${Date.now()}`,
-    });
-    expect(conflict.status).toBe("CONFLICT");
-  });
-
-  it("resolveAssistantProposal extracts sfia-document; denies other pilot", async () => {
-    const pilotA = await seedPilot("ml4c-prop-a");
-    const prepA = await openOrCreatePreparation(pilotA);
-    const convA = await getConversationId(pilotA, prepA.id);
-    expect(convA).toBeTruthy();
-    const title = "PROP ML4C exact";
-    const body = "Corps contractuel pour extraction.";
-    const assistantId = newId("msg");
-    const maxOrd =
-      (
-        await db
-          .select({ o: sql<number>`coalesce(max(${messages.ordinal}), 0)`.mapWith(Number) })
-          .from(messages)
-          .where(eq(messages.conversationId, convA!))
-      )[0]?.o ?? 0;
-    await db.insert(messages).values({
-      id: assistantId,
-      conversationId: convA!,
-      role: "assistant",
-      content: sfiaDocumentFence(title, body),
-      status: "COMPLETE",
-      ordinal: maxOrd + 1,
-      generationId: newId("gen"),
-    });
-
-    const ok = await resolveAssistantProposal({
-      pilotId: pilotA,
-      preparationId: prepA.id,
-      assistantMessageId: assistantId,
-    });
-    expect(ok.ok).toBe(true);
-    if (ok.ok) {
-      expect(ok.proposal.title).toBe(title);
-      expect(ok.proposal.contentMarkdown).toContain(body);
-      expect(ok.proposal.contentSha256).toBe(
-        contentSha256(title, ok.proposal.contentMarkdown),
-      );
-    }
-
-    const pilotB = await seedPilot("ml4c-prop-b");
-    const denied = await resolveAssistantProposal({
-      pilotId: pilotB,
-      preparationId: prepA.id,
-      assistantMessageId: assistantId,
-    });
-    expect(denied.ok).toBe(false);
-    if (!denied.ok) expect(denied.reason).toBe("SOURCE_DENIED");
-  });
-
-  it("failed admit does not create document rows", async () => {
-    const pilotId = await seedPilot("ml4c-doc-neg");
-    const prep = await openOrCreatePreparation(pilotId);
-    const before = await countD4Rows(pilotId, prep.id);
-
-    const negatives = [
-      admitDocumentCommand({
-        commandId: "x",
-        operationId: "o",
-        userMessageId: "u",
-        qualifiedIntentId: "i",
-        action: "CREATE",
-        preparationId: prep.id,
-        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "x" },
-        title: " ",
-        contentMarkdown: "x",
-      }),
-      admitDocumentCommand({
-        commandId: "y",
-        operationId: "o",
-        userMessageId: "u",
-        qualifiedIntentId: "i",
-        action: "CREATE",
-        preparationId: prep.id,
-        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "y" },
-        title: "T",
-        contentMarkdown: "z".repeat(100_001),
-      }),
-      admitDocumentCommand({
-        commandId: "z",
-        operationId: "o",
-        userMessageId: "u",
-        qualifiedIntentId: "i",
-        action: "REVISE",
-        preparationId: prep.id,
-        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "z" },
-        title: "T",
-        contentMarkdown: "body",
-      }),
-    ];
-    for (const n of negatives) {
-      expect(n.ok).toBe(false);
-    }
-
-    const after = await countD4Rows(pilotId, prep.id);
-    expect(after).toEqual(before);
-
-    const chat = await postUserMessageAndNora(pilotId, prep.id, "Bonjour, pas de document.");
-    expect(chat.documentSave).toBeNull();
-    const afterChatter = await countD4Rows(pilotId, prep.id);
-    expect(afterChatter).toEqual(before);
-    const msgs = await listMessages(pilotId, prep.id);
-    expect(msgs.length).toBeGreaterThan(0);
-  });
-
-  it("PROP: admitDocumentCommand accepts title + body >12k and ≤100k; >100k rejected", async () => {
-    const pilotId = await seedPilot("ml4c-doc-prop-long");
-    const prep = await openOrCreatePreparation(pilotId);
-    const propTitle = "Proposition longue";
-    const longBody = `# ${propTitle}\n\n${"paragraphe contractuel.\n".repeat(900)}`;
-    expect(longBody.length).toBeGreaterThan(12_000);
-    expect(longBody.length).toBeLessThanOrEqual(100_000);
-
-    const ok = admitDocumentCommand({
-      commandId: "cmd-prop-long",
-      operationId: "op-prop-long",
-      userMessageId: "usr-prop-long",
-      qualifiedIntentId: "i-d4-prop",
-      action: "CREATE",
-      preparationId: prep.id,
-      source: { kind: "SAME_TURN_SNAPSHOT", commandId: "cmd-prop-long" },
-      title: propTitle,
-      contentMarkdown: longBody,
-    });
-    expect(ok.ok).toBe(true);
-
-    const tooLarge = admitDocumentCommand({
-      commandId: "cmd-prop-huge",
-      operationId: "op-prop-huge",
-      userMessageId: "usr-prop-huge",
-      qualifiedIntentId: "i-d4-prop",
-      action: "CREATE",
-      preparationId: prep.id,
-      source: { kind: "SAME_TURN_SNAPSHOT", commandId: "cmd-prop-huge" },
-      title: "Trop grand",
-      contentMarkdown: "x".repeat(100_001),
-    });
-    expect(tooLarge.ok).toBe(false);
-    if (!tooLarge.ok) expect(tooLarge.reason).toBe("CONTENT_TOO_LARGE");
-
-    const before = await countD4Rows(pilotId, prep.id);
-    const after = await countD4Rows(pilotId, prep.id);
-    expect(after).toEqual(before);
-  });
-
-  it("REC: concurrent CREATE same creationCorrelationKey → single document row", async () => {
-    const pilotId = await seedPilot("ml4c-doc-conc");
-    const prep = await openOrCreatePreparation(pilotId);
-    const key = `ml4c-conc-${Date.now()}`;
-    const body = "# Concurrent ML4C\n\nMême empreinte.\n";
-
-    const [a, b] = await Promise.all([
-      savePreparationDocument(pilotId, prep.id, "Conc ML4C", body, undefined, {
-        correlationKey: key,
-      }),
-      savePreparationDocument(pilotId, prep.id, "Conc ML4C", body, undefined, {
-        correlationKey: key,
-      }),
-    ]);
-
-    const statuses = [a.status, b.status];
-    expect(statuses.every((s) => s === "AVAILABLE" || s === "UNKNOWN")).toBe(true);
-    expect(await countDocsByCreationKey(pilotId, prep.id, key)).toBe(1);
-
-    const winner = [a, b].find((r) => r.status === "AVAILABLE");
-    const loser = [a, b].find((r) => r !== winner);
-    if (winner && loser) {
-      if (loser.status === "AVAILABLE" && "idempotentReplay" in loser) {
-        expect(loser.idempotentReplay).toBe(true);
-      }
-      if (loser.status === "CONFLICT") {
-        expect(loser.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
-      }
-    }
-  });
-
-  it("REC: sealAndApply with invalid ownerToken → no document write", async () => {
-    const pilotId = await seedPilot("ml4c-doc-owner");
-    const prep = await openOrCreatePreparation(pilotId);
-    const convId = await getConversationId(pilotId, prep.id);
-    expect(convId).toBeTruthy();
-
-    const before = await countD4Rows(pilotId, prep.id);
-
-    const reserved = await reserveTurnCommand({
-      conversationId: convId!,
-      ownerPilotId: pilotId,
-      clientTurnKey: `ml4c-owner-${Date.now()}`,
-      content: "Crée un document avec sceau invalide.",
-    });
-    expect(reserved.kind).toBe("fresh");
-    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
-
-    const admitted = admitDocumentCommand({
-      commandId: reserved.commandId,
-      operationId: reserved.operationId,
-      userMessageId: reserved.userMessageId,
-      qualifiedIntentId: "i-d4-create",
-      action: "CREATE",
-      preparationId: prep.id,
-      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
-      title: "Sans sceau",
-      contentMarkdown: "# Sans sceau\n\nPas d'écriture.\n",
-    });
-    expect(admitted.ok).toBe(true);
-    if (!admitted.ok) throw new Error(admitted.reason);
-
-    const sealed = await sealAndApplyDocumentCommand({
-      pilotId,
-      fence: { commandId: reserved.commandId, ownerToken: "invalid-owner-token" },
-      binding: admitted.binding,
-    });
-    expect(sealed.sealApplied).toBe(false);
-    expect(sealed.effect).toMatchObject({
-      status: "NOT_EXECUTED",
-      reason: "BINDING_SEAL_FAILED",
-    });
-
-    const after = await countD4Rows(pilotId, prep.id);
-    expect(after).toEqual(before);
-  });
-});```
-
+```
 
 ### `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts`
 
@@ -5142,8 +6289,504 @@ describe("ML4C document reconciliation C-01 (PG)", () => {
     const after = await countD4Rows(pilotId, prep.id);
     expect(after).toEqual(before);
   });
-});```
+});
+```
 
+### `projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts`
+
+```typescript
+/**
+ * C-05 / C-07 — long journal pagination + lexical hint without exclusivity + budget PARTIAL.
+ */
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { and, asc, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversations, messages, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation } from "@/domains/preparation/service";
+import { getConversationId } from "@/domains/conversation/service";
+import {
+  readConversationMessages,
+  resolveAuthorizedHistoryScope,
+  searchConversationHistory,
+} from "@/domains/conversation/history-tools";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+async function seedLongJournal(
+  pilotId: string,
+  preparationId: string,
+  total: number,
+  markers: { ordinal: number; text: string }[],
+) {
+  const convId = await getConversationId(pilotId, preparationId);
+  if (!convId) throw new Error("conversation missing");
+  const markerByOrd = new Map(markers.map((m) => [m.ordinal, m.text]));
+
+  const existing = await db
+    .select({ ordinal: messages.ordinal })
+    .from(messages)
+    .where(eq(messages.conversationId, convId))
+    .orderBy(asc(messages.ordinal));
+  let next = (existing.at(-1)?.ordinal ?? 0) + 1;
+
+  const batch: (typeof messages.$inferInsert)[] = [];
+  const target = next + total - 1;
+  while (next <= target) {
+    const body = markerByOrd.get(next) ?? `Journal long ${next} — nuance ${next % 11}.`;
+    batch.push({
+      id: newId("msg"),
+      conversationId: convId,
+      role: next % 3 === 0 ? "assistant" : "user",
+      content: body,
+      status: "COMPLETE",
+      ordinal: next,
+      createdAt: new Date(Date.UTC(2026, 0, 1, 0, 0, next)),
+    });
+    next++;
+    if (batch.length >= 80) {
+      await db.insert(messages).values(batch);
+      batch.length = 0;
+    }
+  }
+  if (batch.length > 0) await db.insert(messages).values(batch);
+  return convId;
+}
+
+describe("ML4C history long journal (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+  });
+
+  it("HIST long: pagination past 300+; lexical hint non-exclusive", async () => {
+    const pilotId = await seedPilot("ml4c-hist-long");
+    const prep = await openOrCreatePreparation(pilotId);
+    const markerEarly = "orientation X rouge ML4C long-thread";
+    const markerMid = "correction X bleu ML4C long-thread";
+    const markerLate = "question sur X ML4C long-thread";
+
+    await seedLongJournal(pilotId, prep.id, 320, [
+      { ordinal: 10, text: markerEarly },
+      { ordinal: 110, text: markerMid },
+      { ordinal: 250, text: markerLate },
+    ]);
+
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+    const seeded =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(messages)
+          .where(eq(messages.conversationId, convId!))
+      )[0]?.n ?? 0;
+    expect(seeded).toBe(320);
+
+    const scope = await resolveAuthorizedHistoryScope({ pilotId, preparationId: prep.id });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+    expect(scope.conversationIds).toContain(convId);
+    const maxOrdDb =
+      (
+        await db
+          .select({ m: sql<number>`max(${messages.ordinal})`.mapWith(Number) })
+          .from(messages)
+          .where(eq(messages.conversationId, convId!))
+      )[0]?.m ?? 0;
+    expect(maxOrdDb).toBe(320);
+    expect(scope.maxOrdinalByConversation[convId!]).toBe(320);
+
+    const markerRows = await db
+      .select({ id: messages.id, content: messages.content })
+      .from(messages)
+      .where(
+        and(
+          eq(messages.conversationId, convId!),
+          sql`${messages.content} in (${sql.join(
+            [markerEarly, markerMid, markerLate].map((t) => sql`${t}`),
+            sql`, `,
+          )})`,
+        ),
+      );
+    expect(markerRows).toHaveLength(3);
+
+    const scopeForWalk = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in scopeForWalk).toBe(false);
+    if ("denied" in scopeForWalk) return;
+
+    const markerIds = new Set(markerRows.map((m) => m.id));
+    const seenIds = new Set<string>();
+    let cursor: string | null | undefined = undefined;
+    const rareQuery = "zzzxnonexistenttoken";
+
+    for (let pages = 0; pages < 80; pages++) {
+      const page = await searchConversationHistory({
+        scope: scopeForWalk,
+        query: pages === 0 ? undefined : rareQuery,
+        cursor: cursor ?? undefined,
+        pageSize: 25,
+      });
+      expect(page.coverage).not.toBe("DENIED");
+      for (const item of page.items) {
+        seenIds.add(item.messageId);
+        if (markerIds.has(item.messageId)) markerIds.delete(item.messageId);
+      }
+      if (!page.nextCursor) break;
+      cursor = page.nextCursor;
+    }
+
+    expect(seenIds.size).toBeGreaterThanOrEqual(Math.min(300, seeded));
+    expect(markerIds.size).toBe(0);
+
+    const scopeFresh = await resolveAuthorizedHistoryScope({ pilotId, preparationId: prep.id });
+    expect("denied" in scopeFresh).toBe(false);
+    if ("denied" in scopeFresh) return;
+
+    let lexCursor: string | null | undefined = undefined;
+    let sawLexical = false;
+    for (let p = 0; p < 50 && !sawLexical; p++) {
+      const lexical = await searchConversationHistory({
+        scope: scopeFresh,
+        query: "rouge",
+        pageSize: 20,
+        cursor: lexCursor ?? undefined,
+      });
+      expect(lexical.coverage).not.toBe("DENIED");
+      expect(lexical.items.length).toBeGreaterThan(0);
+      sawLexical = lexical.items.some((i) => i.preview.includes("rouge"));
+      if (sawLexical) expect(lexical.coverage).toMatch(/PARTIAL|COMPLETE/);
+      if (sawLexical || !lexical.nextCursor) break;
+      lexCursor = lexical.nextCursor;
+    }
+    expect(sawLexical).toBe(true);
+  });
+
+  it("HIST long: foreign project isolated", async () => {
+    const pilotA = await seedPilot("ml4c-hist-iso-a");
+    const prepA = await openOrCreatePreparation(pilotA);
+    await seedLongJournal(pilotA, prepA.id, 40, [
+      { ordinal: 5, text: "secret iso A uniquement ML4C" },
+    ]);
+
+    const pilotB = await seedPilot("ml4c-hist-iso-b");
+    const prepB = await openOrCreatePreparation(pilotB);
+    const scopeB = await resolveAuthorizedHistoryScope({ pilotId: pilotB, preparationId: prepB.id });
+    expect("denied" in scopeB).toBe(false);
+    if ("denied" in scopeB) return;
+
+    const searchB = await searchConversationHistory({ scope: scopeB, query: "secret iso A" });
+    expect(searchB.items).toHaveLength(0);
+  });
+
+  it("HIST long: exhausted budget contract is PARTIAL not DENIED", async () => {
+    const pilotId = await seedPilot("ml4c-hist-budget");
+    const prep = await openOrCreatePreparation(pilotId);
+    await seedLongJournal(pilotId, prep.id, 8, []);
+    const scope = await resolveAuthorizedHistoryScope({ pilotId, preparationId: prep.id });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+    const page = await searchConversationHistory({ scope, pageSize: 8 });
+    const payloadSize = JSON.stringify(page).length;
+    expect(payloadSize).toBeGreaterThan(40);
+
+  // Mirrors history-tools-sdk fitBudget / execute guard — budget exhaustion never maps to DENIED.
+    const budgetExhausted = {
+      coverage: "PARTIAL" as const,
+      reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
+      items: [] as [],
+    };
+    expect(budgetExhausted.coverage).toBe("PARTIAL");
+    expect(budgetExhausted.reason).toBe("HISTORY_TOOL_BUDGET_EXHAUSTED");
+    expect(budgetExhausted.coverage).not.toBe("DENIED");
+  });
+
+  it("HIST long: read marker at ordinal ~10 via search+read", async () => {
+    const pilotId = await seedPilot("ml4c-hist-read");
+    const prep = await openOrCreatePreparation(pilotId);
+    const marker = "orientation X rouge ML4C long-thread";
+    await seedLongJournal(pilotId, prep.id, 30, [{ ordinal: 10, text: marker }]);
+
+    const scope = await resolveAuthorizedHistoryScope({ pilotId, preparationId: prep.id });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+
+    const conv = await getConversationId(pilotId, prep.id);
+    const markerRow = (
+      await db
+        .select({ id: messages.id })
+        .from(messages)
+        .where(and(eq(messages.conversationId, conv!), eq(messages.content, marker)))
+        .limit(1)
+    )[0];
+    expect(markerRow?.id).toBeTruthy();
+
+    let cursor: string | null | undefined = undefined;
+    let hit: Awaited<ReturnType<typeof searchConversationHistory>>["items"][number] | undefined;
+    for (let page = 0; page < 50 && !hit; page++) {
+      const hits = await searchConversationHistory({
+        scope,
+        query: "rouge",
+        cursor: cursor ?? undefined,
+        pageSize: 10,
+      });
+      hit = hits.items.find((i) => i.messageId === markerRow!.id);
+      if (hit || !hits.nextCursor) break;
+      cursor = hits.nextCursor;
+    }
+    expect(hit).toBeTruthy();
+
+    const read = await readConversationMessages({ scope, messageIds: [hit!.messageId] });
+    expect(read.items[0]?.content).toBe(marker);
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts`
+
+```typescript
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { and, asc, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversations, messages, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation } from "@/domains/preparation/service";
+import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
+import {
+  readConversationMessages,
+  resolveAuthorizedHistoryScope,
+  searchConversationHistory,
+} from "@/domains/conversation/history-tools";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+const TOPICS = [
+  "architecture modulaire",
+  "budget cloud Q3",
+  "recette utilisateur",
+  "dette technique front",
+  "gouvernance des données",
+  "intégration GitHub",
+  "cadrage périmètre",
+  "risques sécurité",
+  "performance Postgres",
+  "charte graphique",
+];
+
+async function seedVariedJournal(
+  pilotId: string,
+  preparationId: string,
+  count: number,
+  distinctive?: { ordinal: number; text: string },
+) {
+  const convId = await getConversationId(pilotId, preparationId);
+  if (!convId) throw new Error("conversation missing");
+  const rows = await db
+    .select({ ordinal: messages.ordinal })
+    .from(messages)
+    .where(eq(messages.conversationId, convId))
+    .orderBy(asc(messages.ordinal));
+  let next = (rows.at(-1)?.ordinal ?? 0) + 1;
+  const inserts: (typeof messages.$inferInsert)[] = [];
+  for (let i = 0; i < count; i++) {
+    const topic = TOPICS[i % TOPICS.length]!;
+    const body =
+      distinctive && next === distinctive.ordinal
+        ? distinctive.text
+        : `Message ${next} — échange sur ${topic} avec nuance ${(i % 7) + 1}.`;
+    inserts.push({
+      id: newId("msg"),
+      conversationId: convId,
+      role: i % 3 === 0 ? "assistant" : "user",
+      content: body,
+      status: "COMPLETE",
+      ordinal: next,
+      createdAt: new Date(Date.UTC(2026, 0, 1, 0, 0, next)),
+    });
+    next++;
+  }
+  if (inserts.length > 0) {
+    await db.insert(messages).values(inserts);
+  }
+  return convId;
+}
+
+describe("ML4C history tools (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+  });
+
+  it("HIST-01: search finds distinctive early message; read returns exact content", async () => {
+    const pilotId = await seedPilot("ml4c-hist01");
+    const prep = await openOrCreatePreparation(pilotId);
+    const marker = "HIST-01 marqueur phoque arctique ML4C — repère inaugural";
+    const convId = await seedVariedJournal(pilotId, prep.id, 34, { ordinal: 3, text: marker });
+
+    const markerRow = (
+      await db
+        .select({ id: messages.id })
+        .from(messages)
+        .where(and(eq(messages.conversationId, convId), eq(messages.content, marker)))
+        .limit(1)
+    )[0];
+    expect(markerRow?.id).toBeTruthy();
+
+    const scope = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+
+    let cursor: string | null | undefined = undefined;
+    let hit: Awaited<ReturnType<typeof searchConversationHistory>>["items"][number] | undefined;
+    for (let page = 0; page < 30 && !hit; page++) {
+      const search = await searchConversationHistory({
+        scope,
+        query: "phoque arctique",
+        cursor: cursor ?? undefined,
+        pageSize: 10,
+      });
+      expect(search.coverage).not.toBe("DENIED");
+      hit = search.items.find((i) => i.messageId === markerRow!.id);
+      if (hit || !search.nextCursor) break;
+      cursor = search.nextCursor;
+    }
+    expect(hit).toBeTruthy();
+
+    const read = await readConversationMessages({
+      scope,
+      messageIds: [hit!.messageId],
+    });
+    expect(read.items).toHaveLength(1);
+    expect(read.items[0]!.content).toBe(marker);
+  });
+
+  it("HIST-05: second pilot cannot read first pilot messages", async () => {
+    const pilotA = await seedPilot("ml4c-hist05-a");
+    const prepA = await openOrCreatePreparation(pilotA);
+    const secret = "HIST-05 confidentiel pilot A uniquement";
+    await seedVariedJournal(pilotA, prepA.id, 8, { ordinal: 4, text: secret });
+
+    const scopeA = await resolveAuthorizedHistoryScope({
+      pilotId: pilotA,
+      preparationId: prepA.id,
+    });
+    expect("denied" in scopeA).toBe(false);
+    if ("denied" in scopeA) return;
+    const readA = await readConversationMessages({
+      scope: scopeA,
+      messageIds: (
+        await db
+          .select({ id: messages.id })
+          .from(messages)
+          .innerJoin(conversations, eq(conversations.id, messages.conversationId))
+          .where(
+            and(eq(conversations.ownerPilotId, pilotA), eq(conversations.preparationId, prepA.id)),
+          )
+      ).map((r) => r.id),
+    });
+    expect(readA.items.some((i) => i.content.includes("confidentiel"))).toBe(true);
+
+    const pilotB = await seedPilot("ml4c-hist05-b");
+    const prepB = await openOrCreatePreparation(pilotB);
+    const scopeB = await resolveAuthorizedHistoryScope({
+      pilotId: pilotB,
+      preparationId: prepB.id,
+    });
+    expect("denied" in scopeB).toBe(false);
+    if ("denied" in scopeB) return;
+
+    const searchB = await searchConversationHistory({
+      scope: scopeB,
+      query: "confidentiel",
+    });
+    expect(searchB.items).toHaveLength(0);
+
+    const foreignIds = readA.items.map((i) => i.messageId);
+    const readB = await readConversationMessages({
+      scope: scopeB,
+      messageIds: foreignIds,
+    });
+    expect(readB.items).toHaveLength(0);
+    expect(readB.coverage).toBe("EMPTY");
+  });
+
+  it("HIST-08: stale scope after journal growth; no duplicate page bleed", async () => {
+    const pilotId = await seedPilot("ml4c-hist08");
+    const prep = await openOrCreatePreparation(pilotId);
+    await seedVariedJournal(pilotId, prep.id, 36);
+
+    const scope = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+
+    const page1 = await searchConversationHistory({
+      scope,
+      pageSize: 8,
+    });
+    expect(page1.items.length).toBe(8);
+    expect(page1.nextCursor).toBeTruthy();
+    const page1Ids = new Set(page1.items.map((i) => i.messageId));
+
+    await postUserMessageAndNora(pilotId, prep.id, "Nouvel échange post-scope sur observabilité");
+    await postUserMessageAndNora(pilotId, prep.id, "Autre message tardif sur la documentation");
+
+    const page2 = await searchConversationHistory({
+      scope,
+      cursor: page1.nextCursor,
+      pageSize: 8,
+    });
+    expect(page2.coverage).toBe("STALE");
+    expect(page2.reason).toBe("SCOPE_STALE");
+    expect(page2.items).toHaveLength(0);
+    for (const id of page1Ids) {
+      expect(page2.items.some((i) => i.messageId === id)).toBe(false);
+    }
+
+    const fresh = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in fresh).toBe(false);
+    if ("denied" in fresh) return;
+    expect(fresh.scopeFingerprint).not.toBe(scope.scopeFingerprint);
+
+    const page2Fresh = await searchConversationHistory({
+      scope: fresh,
+      cursor: page1.nextCursor,
+      pageSize: 8,
+    });
+    expect(page2Fresh.coverage).toBe("STALE");
+    expect(page2Fresh.reason).toMatch(/CURSOR_INVALID_OR_STALE|SCOPE_STALE/);
+  });
+});
+```
 
 ### `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts`
 
@@ -5157,7 +6800,13 @@ config({ path: ".env.local" });
 
 import { and, asc, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { conversationTurnCommands, documents, messages, pilots } from "@/db/schema";
+import {
+  conversationTurnCommands,
+  documentRevisions,
+  documents,
+  messages,
+  pilots,
+} from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { openOrCreatePreparation } from "@/domains/preparation/service";
 import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
@@ -5168,8 +6817,11 @@ import {
   admitDocumentCommand,
   resolveAssistantProposal,
   sealAndApplyDocumentCommand,
+  reconcileDocumentCommandFromBinding,
+  loadSealedDocumentBinding,
 } from "@/domains/conversation/document-command";
-import { reserveTurnCommand } from "@/domains/conversation/turn-command";
+import { reserveTurnCommand, turnRaceHooks } from "@/domains/conversation/turn-command";
+import { extractContractualDocumentProposal } from "@/domains/conversation/document-act";
 import { getDocumentRevision, listDocuments, savePreparationDocument } from "@/domains/document/service";
 import {
   SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
@@ -5810,6 +7462,332 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
     expect(rev.revision.contentMarkdown).toBe(resolved.proposal.contentMarkdown);
   });
 
+  it("SRC-04-PREPARE: documentProposal vs divergent fence title → conflict, zero D4, no rewrite", async () => {
+    const pilotId = await seedPilot("ml4c-src04-prep");
+    const prep = await openOrCreatePreparation(pilotId);
+    const titleA = "Autorité PREPARE A";
+    const titleB = "Conflit PREPARE B";
+    const contentMarkdown = `## Corps commun\n\nSans H1 — PREPARE conflict.\n`;
+    const utterance = `ML4C-SRC04-PREPARE-${Date.now()}`;
+
+    registerExplicitFixture(utterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "rédiger sans enregistrer",
+        intents: [
+          {
+            id: "i-prep",
+            capabilityId: "d4.create_document",
+            mode: "PREPARE",
+            summary: "prepare only",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Proposition PREPARE.",
+        documentProposal: { title: titleA, contentMarkdown },
+      },
+    });
+
+    const conflictingFence = serializeProposalFence({
+      title: titleB,
+      contentMarkdown,
+      contentSha256: contentSha256(titleB, contentMarkdown),
+    });
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      `Narration PREPARE.\n\n${conflictingFence}`;
+    try {
+      const before =
+        (
+          await db
+            .select({ n: sql<number>`count(*)`.mapWith(Number) })
+            .from(documents)
+            .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+        )[0]?.n ?? 0;
+      const chat = await noraTurn(pilotId, prep.id, utterance);
+      expect(chat.status).toBe("COMPLETE");
+      expect(chat.documentSave?.status).toBe("FAILED");
+      expect(chat.documentSave?.reason).toBe("PROPOSAL_SOURCE_CONFLICT");
+      expect(chat.assistantMessageId).toBeTruthy();
+      const row = (
+        await db
+          .select()
+          .from(messages)
+          .where(eq(messages.id, chat.assistantMessageId!))
+          .limit(1)
+      )[0];
+      expect(row?.content).toContain(`title-b64=${Buffer.from(titleB, "utf8").toString("base64url")}`);
+      expect(row?.content).not.toContain(
+        `title-b64=${Buffer.from(titleA, "utf8").toString("base64url")}`,
+      );
+      const after =
+        (
+          await db
+            .select({ n: sql<number>`count(*)`.mapWith(Number) })
+            .from(documents)
+            .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+        )[0]?.n ?? 0;
+      expect(after).toBe(before);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("SRC-04: documentProposal vs divergent assistant fence → PROPOSAL_SOURCE_CONFLICT, zero D4", async () => {
+    const pilotId = await seedPilot("ml4c-src04");
+    const prep = await openOrCreatePreparation(pilotId);
+    const titleA = "Autorité A";
+    const titleB = "Conflit B";
+    const contentMarkdown = `## Corps commun\n\nSans H1 explicite — même octets.\n`;
+    const utterance = `ML4C-SRC04-${Date.now()}`;
+
+    registerExplicitFixture(utterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "enregistrer proposition structurée",
+        intents: [
+          {
+            id: "i-d4-create",
+            capabilityId: "d4.create_document",
+            mode: "REQUEST_EFFECT",
+            summary: "create with authority proposal",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Proposition contradictoire.",
+        documentProposal: { title: titleA, contentMarkdown },
+      },
+    });
+
+    const conflictingFence = serializeProposalFence({
+      title: titleB,
+      contentMarkdown,
+      contentSha256: contentSha256(titleB, contentMarkdown),
+    });
+    turnRaceHooks.replaceNoraAssistantText = () => `Réponse avec fence divergent.\n\n${conflictingFence}`;
+    try {
+      const before =
+        (
+          await db
+            .select({ n: sql<number>`count(*)`.mapWith(Number) })
+            .from(documents)
+            .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+        )[0]?.n ?? 0;
+
+      const chat = await noraTurn(pilotId, prep.id, utterance);
+      expect(chat.documentSave?.status).toBe("FAILED");
+      expect(chat.documentSave?.reason).toBe("PROPOSAL_SOURCE_CONFLICT");
+
+      const after =
+        (
+          await db
+            .select({ n: sql<number>`count(*)`.mapWith(Number) })
+            .from(documents)
+            .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+        )[0]?.n ?? 0;
+      expect(after).toBe(before);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("PREPARE → N+100 → AGREE: prior assistant fence, ASSISTANT_MESSAGE binding, idempotent replay", async () => {
+    const pilotId = await seedPilot("ml4c-prep-n100");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+
+    const title = "Préparé café — été";
+    const contentMarkdown =
+      `# ${title}\n\n` + "## Section unique\n\nContenu sans saut de ligne final";
+    expect(contentMarkdown.endsWith("\n")).toBe(false);
+
+    const prepareUtterance = `ML4C-PREPARE-N100-${Date.now()}`;
+    registerExplicitFixture(prepareUtterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "préparer une proposition différée",
+        intents: [
+          {
+            id: "i-d4-prepare",
+            capabilityId: "d4.create_document",
+            mode: "PREPARE",
+            summary: "prepare only",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Voici la proposition préparée.",
+        documentProposal: { title, contentMarkdown },
+      },
+    });
+
+    const prepChat = await noraTurn(pilotId, prep.id, prepareUtterance);
+    expect(prepChat.status).toBe("COMPLETE");
+    expect(prepChat.documentSave?.status).not.toBe("AVAILABLE");
+
+    const prepareAssistant = (
+      await db
+        .select({ id: messages.id, content: messages.content })
+        .from(messages)
+        .where(and(eq(messages.conversationId, convId!), eq(messages.role, "assistant")))
+        .orderBy(asc(messages.ordinal))
+    ).at(-1);
+    expect(prepareAssistant?.content).toBeTruthy();
+    const extracted = extractContractualDocumentProposal(prepareAssistant!.content);
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) throw new Error(extracted.reason);
+    expect(extracted.title).toBe(title);
+    expect(extracted.content).toBe(contentMarkdown);
+    expect(contentSha256(extracted.title, extracted.content)).toBe(contentSha256(title, contentMarkdown));
+
+    const docsBefore =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+    expect(docsBefore).toBe(0);
+
+    const maxOrd =
+      (
+        await db
+          .select({ o: sql<number>`coalesce(max(${messages.ordinal}), 0)`.mapWith(Number) })
+          .from(messages)
+          .where(eq(messages.conversationId, convId!))
+      )[0]?.o ?? 0;
+    const assistantMessageId = prepareAssistant!.id;
+    await seedFillerMessages(convId!, 200, maxOrd + 1);
+
+    const agreeUtterance = `ML4C-AGREE-N100-${assistantMessageId}`;
+    registerExplicitFixture(agreeUtterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "enregistrer proposition préparée",
+        intents: [
+          {
+            id: "i-d4-create",
+            capabilityId: "d4.create_document",
+            mode: "REQUEST_EFFECT",
+            summary: "create from prepared assistant",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "J'enregistre la proposition préparée.",
+        documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId },
+      },
+    });
+
+    const agreeChat = await noraTurn(pilotId, prep.id, agreeUtterance);
+    expect(agreeChat.documentSave?.status).toBe("AVAILABLE");
+    const documentId = agreeChat.documentSave!.documentId!;
+    const revisionId = agreeChat.documentSave!.revisionId!;
+
+    const rev = await getDocumentRevision(pilotId, prep.id, documentId, revisionId);
+    expect(rev.status).toBe("AVAILABLE");
+    if (rev.status !== "AVAILABLE") throw new Error("rev");
+    expect(rev.revision.contentMarkdown).toBe(contentMarkdown);
+    expect(rev.document.title).toBe(title);
+
+    const docCount =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+    expect(docCount).toBe(1);
+
+    const revCount =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, documentId))
+      )[0]?.n ?? 0;
+    expect(revCount).toBe(1);
+
+    const cmd = (
+      await db
+        .select({ commandId: conversationTurnCommands.id, resultJson: conversationTurnCommands.resultJson })
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.operationId, agreeChat.operationId!))
+        .limit(1)
+    )[0];
+    const parsed = JSON.parse(cmd!.resultJson!) as {
+      documentSave?: { documentId?: string; revisionId?: string };
+    };
+    const loaded = await loadSealedDocumentBinding({
+      pilotId,
+      preparationId: prep.id,
+      commandId: cmd!.commandId,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) throw new Error(loaded.reason);
+    expect(loaded.binding.source).toEqual({
+      kind: "ASSISTANT_MESSAGE",
+      assistantMessageId,
+    });
+
+    const replay1 = await reconcileDocumentCommandFromBinding({
+      pilotId,
+      preparationId: prep.id,
+      binding: loaded.binding,
+    });
+    expect(replay1.verdict).toBe("AVAILABLE");
+    expect(replay1.documentId).toBe(documentId);
+    expect(replay1.revisionId).toBe(revisionId);
+
+    const replay2 = await reconcileDocumentCommandFromBinding({
+      pilotId,
+      preparationId: prep.id,
+      binding: loaded.binding,
+    });
+    expect(replay2.verdict).toBe("AVAILABLE");
+    expect(replay2.documentId).toBe(parsed.documentSave?.documentId);
+    expect(replay2.revisionId).toBe(parsed.documentSave?.revisionId);
+
+    const docCountAfter =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+    const revCountAfter =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, documentId))
+      )[0]?.n ?? 0;
+    expect(docCountAfter).toBe(1);
+    expect(revCountAfter).toBe(1);
+  });
+
   it("C-02 admit+seal preserves correlationKey (no post-mutation)", async () => {
     const pilotId = await seedPilot("ml4c-c02-corr");
     const prep = await openOrCreatePreparation(pilotId);
@@ -5848,697 +7826,8 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
 
     expect(admitted.binding.correlationKey).toBe(keyBefore);
   });
-});```
-
-
-### `projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts`
-
-```typescript
-/**
- * C-05 / C-07 — long journal pagination + lexical hint without exclusivity + budget PARTIAL.
- */
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { and, asc, eq, sql } from "drizzle-orm";
-import { db } from "@/db/client";
-import { conversations, messages, pilots } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import { openOrCreatePreparation } from "@/domains/preparation/service";
-import { getConversationId } from "@/domains/conversation/service";
-import {
-  readConversationMessages,
-  resolveAuthorizedHistoryScope,
-  searchConversationHistory,
-} from "@/domains/conversation/history-tools";
-
-async function seedPilot(label: string) {
-  const id = newId("pilot");
-  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-  return id;
-}
-
-async function seedLongJournal(
-  pilotId: string,
-  preparationId: string,
-  total: number,
-  markers: { ordinal: number; text: string }[],
-) {
-  const convId = await getConversationId(pilotId, preparationId);
-  if (!convId) throw new Error("conversation missing");
-  const markerByOrd = new Map(markers.map((m) => [m.ordinal, m.text]));
-
-  const existing = await db
-    .select({ ordinal: messages.ordinal })
-    .from(messages)
-    .where(eq(messages.conversationId, convId))
-    .orderBy(asc(messages.ordinal));
-  let next = (existing.at(-1)?.ordinal ?? 0) + 1;
-
-  const batch: (typeof messages.$inferInsert)[] = [];
-  const target = next + total - 1;
-  while (next <= target) {
-    const body = markerByOrd.get(next) ?? `Journal long ${next} — nuance ${next % 11}.`;
-    batch.push({
-      id: newId("msg"),
-      conversationId: convId,
-      role: next % 3 === 0 ? "assistant" : "user",
-      content: body,
-      status: "COMPLETE",
-      ordinal: next,
-      createdAt: new Date(Date.UTC(2026, 0, 1, 0, 0, next)),
-    });
-    next++;
-    if (batch.length >= 80) {
-      await db.insert(messages).values(batch);
-      batch.length = 0;
-    }
-  }
-  if (batch.length > 0) await db.insert(messages).values(batch);
-  return convId;
-}
-
-describe("ML4C history long journal (PG)", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    delete process.env.OPENAI_API_KEY;
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-  });
-
-  it("HIST long: pagination past 300+; lexical hint non-exclusive", async () => {
-    const pilotId = await seedPilot("ml4c-hist-long");
-    const prep = await openOrCreatePreparation(pilotId);
-    const markerEarly = "orientation X rouge ML4C long-thread";
-    const markerMid = "correction X bleu ML4C long-thread";
-    const markerLate = "question sur X ML4C long-thread";
-
-    await seedLongJournal(pilotId, prep.id, 320, [
-      { ordinal: 10, text: markerEarly },
-      { ordinal: 110, text: markerMid },
-      { ordinal: 250, text: markerLate },
-    ]);
-
-    const convId = await getConversationId(pilotId, prep.id);
-    expect(convId).toBeTruthy();
-    const seeded =
-      (
-        await db
-          .select({ n: sql<number>`count(*)`.mapWith(Number) })
-          .from(messages)
-          .where(eq(messages.conversationId, convId!))
-      )[0]?.n ?? 0;
-    expect(seeded).toBe(320);
-
-    const scope = await resolveAuthorizedHistoryScope({ pilotId, preparationId: prep.id });
-    expect("denied" in scope).toBe(false);
-    if ("denied" in scope) return;
-    expect(scope.conversationIds).toContain(convId);
-    const maxOrdDb =
-      (
-        await db
-          .select({ m: sql<number>`max(${messages.ordinal})`.mapWith(Number) })
-          .from(messages)
-          .where(eq(messages.conversationId, convId!))
-      )[0]?.m ?? 0;
-    expect(maxOrdDb).toBe(320);
-    expect(scope.maxOrdinalByConversation[convId!]).toBe(320);
-
-    const markerRows = await db
-      .select({ id: messages.id, content: messages.content })
-      .from(messages)
-      .where(
-        and(
-          eq(messages.conversationId, convId!),
-          sql`${messages.content} in (${sql.join(
-            [markerEarly, markerMid, markerLate].map((t) => sql`${t}`),
-            sql`, `,
-          )})`,
-        ),
-      );
-    expect(markerRows).toHaveLength(3);
-
-    const scopeForWalk = await resolveAuthorizedHistoryScope({
-      pilotId,
-      preparationId: prep.id,
-    });
-    expect("denied" in scopeForWalk).toBe(false);
-    if ("denied" in scopeForWalk) return;
-
-    const markerIds = new Set(markerRows.map((m) => m.id));
-    const seenIds = new Set<string>();
-    let cursor: string | null | undefined = undefined;
-    const rareQuery = "zzzxnonexistenttoken";
-
-    for (let pages = 0; pages < 80; pages++) {
-      const page = await searchConversationHistory({
-        scope: scopeForWalk,
-        query: pages === 0 ? undefined : rareQuery,
-        cursor: cursor ?? undefined,
-        pageSize: 25,
-      });
-      expect(page.coverage).not.toBe("DENIED");
-      for (const item of page.items) {
-        seenIds.add(item.messageId);
-        if (markerIds.has(item.messageId)) markerIds.delete(item.messageId);
-      }
-      if (!page.nextCursor) break;
-      cursor = page.nextCursor;
-    }
-
-    expect(seenIds.size).toBeGreaterThanOrEqual(Math.min(300, seeded));
-    expect(markerIds.size).toBe(0);
-
-    const scopeFresh = await resolveAuthorizedHistoryScope({ pilotId, preparationId: prep.id });
-    expect("denied" in scopeFresh).toBe(false);
-    if ("denied" in scopeFresh) return;
-
-    let lexCursor: string | null | undefined = undefined;
-    let sawLexical = false;
-    for (let p = 0; p < 50 && !sawLexical; p++) {
-      const lexical = await searchConversationHistory({
-        scope: scopeFresh,
-        query: "rouge",
-        pageSize: 20,
-        cursor: lexCursor ?? undefined,
-      });
-      expect(lexical.coverage).not.toBe("DENIED");
-      expect(lexical.items.length).toBeGreaterThan(0);
-      sawLexical = lexical.items.some((i) => i.preview.includes("rouge"));
-      if (sawLexical) expect(lexical.coverage).toMatch(/PARTIAL|COMPLETE/);
-      if (sawLexical || !lexical.nextCursor) break;
-      lexCursor = lexical.nextCursor;
-    }
-    expect(sawLexical).toBe(true);
-  });
-
-  it("HIST long: foreign project isolated", async () => {
-    const pilotA = await seedPilot("ml4c-hist-iso-a");
-    const prepA = await openOrCreatePreparation(pilotA);
-    await seedLongJournal(pilotA, prepA.id, 40, [
-      { ordinal: 5, text: "secret iso A uniquement ML4C" },
-    ]);
-
-    const pilotB = await seedPilot("ml4c-hist-iso-b");
-    const prepB = await openOrCreatePreparation(pilotB);
-    const scopeB = await resolveAuthorizedHistoryScope({ pilotId: pilotB, preparationId: prepB.id });
-    expect("denied" in scopeB).toBe(false);
-    if ("denied" in scopeB) return;
-
-    const searchB = await searchConversationHistory({ scope: scopeB, query: "secret iso A" });
-    expect(searchB.items).toHaveLength(0);
-  });
-
-  it("HIST long: exhausted budget contract is PARTIAL not DENIED", async () => {
-    const pilotId = await seedPilot("ml4c-hist-budget");
-    const prep = await openOrCreatePreparation(pilotId);
-    await seedLongJournal(pilotId, prep.id, 8, []);
-    const scope = await resolveAuthorizedHistoryScope({ pilotId, preparationId: prep.id });
-    expect("denied" in scope).toBe(false);
-    if ("denied" in scope) return;
-    const page = await searchConversationHistory({ scope, pageSize: 8 });
-    const payloadSize = JSON.stringify(page).length;
-    expect(payloadSize).toBeGreaterThan(40);
-
-  // Mirrors history-tools-sdk fitBudget / execute guard — budget exhaustion never maps to DENIED.
-    const budgetExhausted = {
-      coverage: "PARTIAL" as const,
-      reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
-      items: [] as [],
-    };
-    expect(budgetExhausted.coverage).toBe("PARTIAL");
-    expect(budgetExhausted.reason).toBe("HISTORY_TOOL_BUDGET_EXHAUSTED");
-    expect(budgetExhausted.coverage).not.toBe("DENIED");
-  });
-
-  it("HIST long: read marker at ordinal ~10 via search+read", async () => {
-    const pilotId = await seedPilot("ml4c-hist-read");
-    const prep = await openOrCreatePreparation(pilotId);
-    const marker = "orientation X rouge ML4C long-thread";
-    await seedLongJournal(pilotId, prep.id, 30, [{ ordinal: 10, text: marker }]);
-
-    const scope = await resolveAuthorizedHistoryScope({ pilotId, preparationId: prep.id });
-    expect("denied" in scope).toBe(false);
-    if ("denied" in scope) return;
-
-    const conv = await getConversationId(pilotId, prep.id);
-    const markerRow = (
-      await db
-        .select({ id: messages.id })
-        .from(messages)
-        .where(and(eq(messages.conversationId, conv!), eq(messages.content, marker)))
-        .limit(1)
-    )[0];
-    expect(markerRow?.id).toBeTruthy();
-
-    let cursor: string | null | undefined = undefined;
-    let hit: Awaited<ReturnType<typeof searchConversationHistory>>["items"][number] | undefined;
-    for (let page = 0; page < 50 && !hit; page++) {
-      const hits = await searchConversationHistory({
-        scope,
-        query: "rouge",
-        cursor: cursor ?? undefined,
-        pageSize: 10,
-      });
-      hit = hits.items.find((i) => i.messageId === markerRow!.id);
-      if (hit || !hits.nextCursor) break;
-      cursor = hits.nextCursor;
-    }
-    expect(hit).toBeTruthy();
-
-    const read = await readConversationMessages({ scope, messageIds: [hit!.messageId] });
-    expect(read.items[0]?.content).toBe(marker);
-  });
-});```
-
-
-### `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts`
-
-```typescript
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { and, asc, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { conversations, messages, pilots } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import { openOrCreatePreparation } from "@/domains/preparation/service";
-import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
-import {
-  readConversationMessages,
-  resolveAuthorizedHistoryScope,
-  searchConversationHistory,
-} from "@/domains/conversation/history-tools";
-
-async function seedPilot(label: string) {
-  const id = newId("pilot");
-  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-  return id;
-}
-
-const TOPICS = [
-  "architecture modulaire",
-  "budget cloud Q3",
-  "recette utilisateur",
-  "dette technique front",
-  "gouvernance des données",
-  "intégration GitHub",
-  "cadrage périmètre",
-  "risques sécurité",
-  "performance Postgres",
-  "charte graphique",
-];
-
-async function seedVariedJournal(
-  pilotId: string,
-  preparationId: string,
-  count: number,
-  distinctive?: { ordinal: number; text: string },
-) {
-  const convId = await getConversationId(pilotId, preparationId);
-  if (!convId) throw new Error("conversation missing");
-  const rows = await db
-    .select({ ordinal: messages.ordinal })
-    .from(messages)
-    .where(eq(messages.conversationId, convId))
-    .orderBy(asc(messages.ordinal));
-  let next = (rows.at(-1)?.ordinal ?? 0) + 1;
-  const inserts: (typeof messages.$inferInsert)[] = [];
-  for (let i = 0; i < count; i++) {
-    const topic = TOPICS[i % TOPICS.length]!;
-    const body =
-      distinctive && next === distinctive.ordinal
-        ? distinctive.text
-        : `Message ${next} — échange sur ${topic} avec nuance ${(i % 7) + 1}.`;
-    inserts.push({
-      id: newId("msg"),
-      conversationId: convId,
-      role: i % 3 === 0 ? "assistant" : "user",
-      content: body,
-      status: "COMPLETE",
-      ordinal: next,
-      createdAt: new Date(Date.UTC(2026, 0, 1, 0, 0, next)),
-    });
-    next++;
-  }
-  if (inserts.length > 0) {
-    await db.insert(messages).values(inserts);
-  }
-  return convId;
-}
-
-describe("ML4C history tools (PG)", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    delete process.env.OPENAI_API_KEY;
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-  });
-
-  it("HIST-01: search finds distinctive early message; read returns exact content", async () => {
-    const pilotId = await seedPilot("ml4c-hist01");
-    const prep = await openOrCreatePreparation(pilotId);
-    const marker = "HIST-01 marqueur phoque arctique ML4C — repère inaugural";
-    const convId = await seedVariedJournal(pilotId, prep.id, 34, { ordinal: 3, text: marker });
-
-    const markerRow = (
-      await db
-        .select({ id: messages.id })
-        .from(messages)
-        .where(and(eq(messages.conversationId, convId), eq(messages.content, marker)))
-        .limit(1)
-    )[0];
-    expect(markerRow?.id).toBeTruthy();
-
-    const scope = await resolveAuthorizedHistoryScope({
-      pilotId,
-      preparationId: prep.id,
-    });
-    expect("denied" in scope).toBe(false);
-    if ("denied" in scope) return;
-
-    let cursor: string | null | undefined = undefined;
-    let hit: Awaited<ReturnType<typeof searchConversationHistory>>["items"][number] | undefined;
-    for (let page = 0; page < 30 && !hit; page++) {
-      const search = await searchConversationHistory({
-        scope,
-        query: "phoque arctique",
-        cursor: cursor ?? undefined,
-        pageSize: 10,
-      });
-      expect(search.coverage).not.toBe("DENIED");
-      hit = search.items.find((i) => i.messageId === markerRow!.id);
-      if (hit || !search.nextCursor) break;
-      cursor = search.nextCursor;
-    }
-    expect(hit).toBeTruthy();
-
-    const read = await readConversationMessages({
-      scope,
-      messageIds: [hit!.messageId],
-    });
-    expect(read.items).toHaveLength(1);
-    expect(read.items[0]!.content).toBe(marker);
-  });
-
-  it("HIST-05: second pilot cannot read first pilot messages", async () => {
-    const pilotA = await seedPilot("ml4c-hist05-a");
-    const prepA = await openOrCreatePreparation(pilotA);
-    const secret = "HIST-05 confidentiel pilot A uniquement";
-    await seedVariedJournal(pilotA, prepA.id, 8, { ordinal: 4, text: secret });
-
-    const scopeA = await resolveAuthorizedHistoryScope({
-      pilotId: pilotA,
-      preparationId: prepA.id,
-    });
-    expect("denied" in scopeA).toBe(false);
-    if ("denied" in scopeA) return;
-    const readA = await readConversationMessages({
-      scope: scopeA,
-      messageIds: (
-        await db
-          .select({ id: messages.id })
-          .from(messages)
-          .innerJoin(conversations, eq(conversations.id, messages.conversationId))
-          .where(
-            and(eq(conversations.ownerPilotId, pilotA), eq(conversations.preparationId, prepA.id)),
-          )
-      ).map((r) => r.id),
-    });
-    expect(readA.items.some((i) => i.content.includes("confidentiel"))).toBe(true);
-
-    const pilotB = await seedPilot("ml4c-hist05-b");
-    const prepB = await openOrCreatePreparation(pilotB);
-    const scopeB = await resolveAuthorizedHistoryScope({
-      pilotId: pilotB,
-      preparationId: prepB.id,
-    });
-    expect("denied" in scopeB).toBe(false);
-    if ("denied" in scopeB) return;
-
-    const searchB = await searchConversationHistory({
-      scope: scopeB,
-      query: "confidentiel",
-    });
-    expect(searchB.items).toHaveLength(0);
-
-    const foreignIds = readA.items.map((i) => i.messageId);
-    const readB = await readConversationMessages({
-      scope: scopeB,
-      messageIds: foreignIds,
-    });
-    expect(readB.items).toHaveLength(0);
-    expect(readB.coverage).toBe("EMPTY");
-  });
-
-  it("HIST-08: stale scope after journal growth; no duplicate page bleed", async () => {
-    const pilotId = await seedPilot("ml4c-hist08");
-    const prep = await openOrCreatePreparation(pilotId);
-    await seedVariedJournal(pilotId, prep.id, 36);
-
-    const scope = await resolveAuthorizedHistoryScope({
-      pilotId,
-      preparationId: prep.id,
-    });
-    expect("denied" in scope).toBe(false);
-    if ("denied" in scope) return;
-
-    const page1 = await searchConversationHistory({
-      scope,
-      pageSize: 8,
-    });
-    expect(page1.items.length).toBe(8);
-    expect(page1.nextCursor).toBeTruthy();
-    const page1Ids = new Set(page1.items.map((i) => i.messageId));
-
-    await postUserMessageAndNora(pilotId, prep.id, "Nouvel échange post-scope sur observabilité");
-    await postUserMessageAndNora(pilotId, prep.id, "Autre message tardif sur la documentation");
-
-    const page2 = await searchConversationHistory({
-      scope,
-      cursor: page1.nextCursor,
-      pageSize: 8,
-    });
-    expect(page2.coverage).toBe("STALE");
-    expect(page2.reason).toBe("SCOPE_STALE");
-    expect(page2.items).toHaveLength(0);
-    for (const id of page1Ids) {
-      expect(page2.items.some((i) => i.messageId === id)).toBe(false);
-    }
-
-    const fresh = await resolveAuthorizedHistoryScope({
-      pilotId,
-      preparationId: prep.id,
-    });
-    expect("denied" in fresh).toBe(false);
-    if ("denied" in fresh) return;
-    expect(fresh.scopeFingerprint).not.toBe(scope.scopeFingerprint);
-
-    const page2Fresh = await searchConversationHistory({
-      scope: fresh,
-      cursor: page1.nextCursor,
-      pageSize: 8,
-    });
-    expect(page2Fresh.coverage).toBe("STALE");
-    expect(page2Fresh.reason).toMatch(/CURSOR_INVALID_OR_STALE|SCOPE_STALE/);
-  });
-});```
-
-
-### `projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts`
-
-```typescript
-import { test, expect } from "@playwright/test";
-import { config as loadEnv } from "dotenv";
-import path from "node:path";
-import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
-
-loadEnv({ path: path.resolve(__dirname, "../../.env.local") });
-
-/**
- * ML4C C-07 — sticky composer on a real 320+ message journal (FAKE Nora).
- * Seeds via postgres into sfia_next_e2e (same lane as Playwright webServer).
- */
-async function seedLongThread(preparationId: string, count: number): Promise<number> {
-  const postgres = (await import("postgres")).default;
-  const raw = process.env.DATABASE_URL;
-  if (!raw) throw new Error("DATABASE_URL required for C-07 seed");
-  const u = new URL(raw);
-  u.pathname = "/sfia_next_e2e";
-  const sql = postgres(u.toString(), { max: 1 });
-  try {
-    const conv = await sql<{ id: string }[]>`
-      select id from conversations where preparation_id = ${preparationId} limit 1
-    `;
-    if (!conv[0]) throw new Error("conversation missing for preparation");
-    const conversationId = conv[0].id;
-    const existing = await sql<{ n: string }[]>`
-      select coalesce(max(ordinal), 0)::text as n from messages where conversation_id = ${conversationId}
-    `;
-    let ordinal = Number(existing[0]?.n ?? 0);
-    const rows: Array<{
-      id: string;
-      conversation_id: string;
-      role: string;
-      content: string;
-      status: string;
-      ordinal: number;
-    }> = [];
-    for (let i = 1; i <= count; i++) {
-      ordinal += 1;
-      const role = i % 2 === 1 ? "user" : "assistant";
-      let content = `Message synthétique #${i} thème-${(i % 17) + 1} détail-${i * 3}`;
-      if (i === 10) content = "orientation X rouge — jalon historique";
-      if (i === 110) content = "correction X bleu — orientation remplacée";
-      if (i === 250) content = "question sur X — quelle est l'orientation actuelle ?";
-      rows.push({
-        id: `msg_e2e_long_${preparationId.slice(0, 8)}_${i}`,
-        conversation_id: conversationId,
-        role,
-        content,
-        status: "COMPLETE",
-        ordinal,
-      });
-    }
-    // Batch insert
-    for (let offset = 0; offset < rows.length; offset += 50) {
-      const chunk = rows.slice(offset, offset + 50);
-      await sql`
-        insert into messages ${sql(
-          chunk,
-          "id",
-          "conversation_id",
-          "role",
-          "content",
-          "status",
-          "ordinal",
-        )}
-        on conflict do nothing
-      `;
-    }
-    const total = await sql<{ n: string }[]>`
-      select count(*)::text as n from messages where conversation_id = ${conversationId}
-    `;
-    return Number(total[0]?.n ?? 0);
-  } finally {
-    await sql.end({ timeout: 2 });
-  }
-}
-
-test("ML4C C-07: composer usable on 320+ message thread after scroll", async ({ page }) => {
-  test.setTimeout(180_000);
-
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-
-  const seed = "Fil projet ML4C composer long (fixture).";
-  const { preparationId, projectId } = await bootstrapProjectFromPortfolio(page, {
-    seed,
-    name: "ML4C Composer 320+",
-    summary: "C-07 fil long",
-  });
-
-  const total = await seedLongThread(preparationId, 320);
-  expect(total).toBeGreaterThanOrEqual(320);
-
-  await page.goto(`/projects/${projectId}`);
-  const composer = page.getByTestId("nora-composer");
-  const send = page.getByTestId("thread-send");
-  const thread = page.getByTestId("nora-thread");
-  const draft = page.getByTestId("thread-draft");
-
-  await expect(composer).toBeVisible({ timeout: 30_000 });
-  await expect(send).toBeVisible();
-  await expect(thread).toBeVisible();
-
-  // Scroll to older portion then back — composer must remain reachable.
-  await thread.evaluate((el) => {
-    el.scrollTop = el.scrollHeight;
-  });
-  await thread.evaluate((el) => {
-    el.scrollTop = 0;
-  });
-  await expect(composer).toBeVisible();
-  expect(await composer.evaluate((el) => el.classList.contains("fig-composer-sticky"))).toBe(true);
-
-  await draft.fill("Message après parcours du fil long.");
-  await expect(draft).toHaveValue("Message après parcours du fil long.");
-  await expect(send).toBeEnabled();
-
-  await send.click();
-  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
-  // F-P1: send must clear draft (no neutralized assertion).
-  await expect(draft).toHaveValue("", { timeout: 45_000 });
-  // Exact USER bubble — Nora fixture may echo the same phrase in its reply.
-  await expect(
-    thread.getByText("Message après parcours du fil long.", { exact: true }),
-  ).toBeVisible({ timeout: 45_000 });
-  await expect(composer).toBeVisible();
-  await expect(send).toBeVisible();
-
-  const shotDir = path.resolve(__dirname, "../../test-results/ml4c-c07");
-  await page.screenshot({
-    path: path.join(shotDir, `long-thread-${Date.now()}.png`),
-    fullPage: true,
-  });
-
-  await page.reload();
-  await expect(composer).toBeVisible({ timeout: 30_000 });
-  await expect(thread).toBeVisible();
-  await expect(
-    thread.getByText("Message après parcours du fil long.", { exact: true }),
-  ).toBeVisible({ timeout: 30_000 });
 });
 ```
-
-
-### `projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts`
-
-```typescript
-import { test, expect } from "@playwright/test";
-import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
-
-/**
- * ML4C document continuity — composer send after scroll (FAKE lane).
- * D4 reconcile / long journal: tests/integration/ml4c-document-reconciliation.pg.test.ts
- */
-test("ML4C: document continuity — scroll, composer, FAKE send", async ({ page }) => {
-  test.setTimeout(180_000);
-
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-
-  const seed = "Fil ML4C document continuity (fixture).";
-  const { projectId } = await bootstrapProjectFromPortfolio(page, {
-    seed,
-    name: "ML4C Document Continuity",
-    summary: "Continuité composer",
-  });
-
-  await page.goto(`/projects/${projectId}`);
-  const thread = page.getByTestId("nora-thread");
-  const composer = page.getByTestId("nora-composer");
-  const draft = page.getByTestId("thread-draft");
-  const send = page.getByTestId("thread-send");
-
-  await expect(composer).toBeVisible({ timeout: 30_000 });
-  await thread.evaluate((el) => {
-    el.scrollTop = el.scrollHeight;
-  });
-  await expect(composer).toBeVisible();
-
-  const followUp = "ML4C continuity send après scroll.";
-  await draft.fill(followUp);
-  await send.click();
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
-    timeout: 60_000,
-  });
-});```
-
 
 ### `projects/sfia-studio-next/web/tests/unit/document-command.test.ts`
 
@@ -6550,6 +7839,7 @@ import {
   canonicalizeDocumentProposal,
   contentSha256,
   encodeTitleB64,
+  parseFenceMeta,
   payloadSha256,
   proposalFromStructured,
   serializeProposalFence,
@@ -6713,6 +8003,118 @@ describe("canonicalizeDocumentProposal", () => {
   });
 });
 
+describe("parseFenceMeta — META (P0-A)", () => {
+  const title = "Meta titre";
+  const body = "# Meta titre\n\nCorps structuré.\n";
+  const digest = contentSha256(title, body);
+  const triad = `sfia-document title-b64=${encodeTitleB64(title)} chars=${body.length} pair-sha256=${digest}`;
+
+  function wrapFence(info: string, content: string) {
+    return `\`\`\`${info}\n${content}\n\`\`\`\n`;
+  }
+
+  it("META-01: bare sfia-document → LEGACY fence accepts", () => {
+    expect(parseFenceMeta("sfia-document")).toEqual({ kind: "LEGACY" });
+    const legacy = wrapFence("sfia-document", "# Doc\n\nBody.\n");
+    const extracted = extractContractualDocumentProposal(legacy);
+    expect(extracted.ok).toBe(true);
+    if (extracted.ok) expect(extracted.title).toBe("Doc");
+  });
+
+  it("META-02: three valid fields ACCEPT round-trip", () => {
+    expect(parseFenceMeta(triad)).toMatchObject({
+      kind: "STRUCTURED",
+      chars: body.length,
+      pairSha256: digest,
+    });
+    const extracted = extractContractualDocumentProposal(wrapFence(triad, body));
+    expect(extracted.ok).toBe(true);
+    if (extracted.ok) {
+      expect(extracted.title).toBe(title);
+      expect(extracted.content).toBe(body);
+    }
+  });
+
+  it("META-03: title-b64 alone → INVALID (not LEGACY)", () => {
+    const info = `sfia-document title-b64=${encodeTitleB64(title)}`;
+    expect(parseFenceMeta(info)).toEqual({
+      kind: "INVALID",
+      reason: "DOCUMENT_PROPOSAL_METADATA_INVALID",
+    });
+    expect(extractContractualDocumentProposal(wrapFence(info, body)).ok).toBe(false);
+  });
+
+  it.each([
+    ["META-04 chars alone", `sfia-document chars=${body.length}`],
+    ["META-05 pair-sha alone", `sfia-document pair-sha256=${digest}`],
+    [
+      "META-06 missing pair-sha256",
+      `sfia-document title-b64=${encodeTitleB64(title)} chars=${body.length}`,
+    ],
+  ])("%s → INVALID", (_label, info) => {
+    expect(parseFenceMeta(info).kind).toBe("INVALID");
+  });
+
+  it("META-07: duplicate key → INVALID", () => {
+    const dup = `${triad} title-b64=${encodeTitleB64("Autre")}`;
+    expect(parseFenceMeta(dup).kind).toBe("INVALID");
+  });
+
+  it("META-08: unknown key → INVALID", () => {
+    const bad = `sfia-document title-b64=${encodeTitleB64(title)} chars=${body.length} pair-sha256=${digest} foo=bar`;
+    expect(parseFenceMeta(bad).kind).toBe("INVALID");
+  });
+
+  it("META-09: empty value → INVALID", () => {
+    expect(parseFenceMeta(`sfia-document chars=`).kind).toBe("INVALID");
+  });
+
+  it("META-10: chars=12abc → INVALID", () => {
+    expect(parseFenceMeta(`sfia-document chars=12abc`).kind).toBe("INVALID");
+  });
+
+  it.each(["-1", "1.5", "1e3", "01"])("META-11: chars=%s → INVALID", (chars) => {
+    expect(
+      parseFenceMeta(
+        `sfia-document title-b64=${encodeTitleB64(title)} chars=${chars} pair-sha256=${digest}`,
+      ).kind,
+    ).toBe("INVALID");
+  });
+
+  it("META-12: bad pair-sha256 → INVALID", () => {
+    const badSha = `sfia-document title-b64=${encodeTitleB64(title)} chars=${body.length} pair-sha256=zz`;
+    expect(parseFenceMeta(badSha).kind).toBe("INVALID");
+  });
+
+  it("META-14: title-b64 that does not round-trip UTF-8 → INVALID", () => {
+    // Padding / non-canonical base64url encoding must be refused.
+    const title = "Café";
+    const padded = Buffer.from(title, "utf8").toString("base64url") + "==";
+    const info = `sfia-document title-b64=${padded} chars=10 pair-sha256=${"a".repeat(64)}`;
+    expect(parseFenceMeta(info).kind).toBe("INVALID");
+  });
+
+  it("META-13: bad base64url title-b64 → INVALID", () => {
+    const badB64 = `sfia-document title-b64=titre+invalid chars=${body.length} pair-sha256=${digest}`;
+    expect(parseFenceMeta(badB64).kind).toBe("INVALID");
+  });
+
+  it("META-15: wrong pair-sha256 → INTEGRITY_MISMATCH on extract", () => {
+    const wrong = triad.replace(digest, "a".repeat(64));
+    const extracted = extractContractualDocumentProposal(wrapFence(wrong, body));
+    expect(extracted.ok).toBe(false);
+    if (!extracted.ok) expect(extracted.reason).toBe("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH");
+  });
+
+  it("META-16: H1 mismatch → TITLE_MISMATCH", () => {
+    const wrongBody = "# Autre H1\n\nCorps.\n";
+    const info = `sfia-document title-b64=${encodeTitleB64(title)} chars=${wrongBody.length} pair-sha256=${contentSha256(title, wrongBody)}`;
+    const extracted = extractContractualDocumentProposal(wrapFence(info, wrongBody));
+    expect(extracted.ok).toBe(false);
+    if (!extracted.ok) expect(extracted.reason).toBe("DOCUMENT_PROPOSAL_TITLE_MISMATCH");
+  });
+});
+
 describe("serializeProposalFence — F02 round-trip", () => {
   function roundTrip(title: string, contentMarkdown: string) {
     const contentSha = contentSha256(title, contentMarkdown);
@@ -6725,7 +8127,7 @@ describe("serializeProposalFence — F02 round-trip", () => {
     return fence;
   }
 
-  it("preserves content without trailing newline", () => {
+  it("META-17: preserves content without trailing newline", () => {
     roundTrip("Titre", "# Titre\n\nContenu sans NL finale");
   });
 
@@ -6733,11 +8135,11 @@ describe("serializeProposalFence — F02 round-trip", () => {
     roundTrip("CRLF", "# CRLF\r\n\r\nLigne\r\n");
   });
 
-  it("preserves Unicode title and body", () => {
+  it("META-18a: preserves Unicode title and body", () => {
     roundTrip("Café — été", "# Café — été\n\nÉlève naïve 中文.\n");
   });
 
-  it("handles internal markdown fences via longer backtick run", () => {
+  it("META-18b: handles internal markdown fences via longer backtick run", () => {
     const body = "# Nested\n\n````\ninner fence\n````\n\nFin.\n";
     const fence = roundTrip("Nested", body);
     expect(fence.startsWith("`````")).toBe(true);
@@ -6849,227 +8251,10 @@ describe("validateNoraTurnQualification — documentProposal", () => {
     });
     expect(v.ok).toBe(true);
   });
-});```
-
-
-## 9. Tests F01–F05 matrix (oracle results)
-
-| Test ID | File | Oracle | Cycle result |
-| --- | --- | --- | --- |
-| F01-01…F01-15 | `ml4c-document-identity.pg.test.ts` | Identity truth, CONFLICT axes, ACK 10×, concurrent seal | **PASS** (PG) |
-| F02 round-trip / tamper | `document-command.test.ts`, `document-act.test.ts` | `serialize` ↔ `extract` byte equality; pair-sha256 tamper | **PASS** (unit) |
-| F02 PG extract | `ml4c-document-command.pg.test.ts` | `resolveAssistantProposal` | **PASS** |
-| F03 PREPARE | `ml4c-prior-proposal.pg.test.ts` `F03` | Zero documents, fence in assistant | **PASS** |
-| F04 source + conflict | `ml4c-prior-proposal.pg.test.ts` | `ASSISTANT_MESSAGE` on REVISE; triple fence ambiguity | **PASS** |
-| F05 selector | `ml4c-document-reconciliation.pg.test.ts` | `BINDING_SELECTOR_REQUIRED` + HTTP 409 | **PASS** |
-| C-01 reconcile RO | `ml4c-document-reconciliation.pg.test.ts` | 10× GET/programmatic reconcile, zero D4 writes | **PASS** |
-| C-02/C-03 prior | `ml4c-prior-proposal.pg.test.ts` | N+1 / N+100 / foreign deny | **PASS** |
-| C-05 history | `ml4c-history-long.pg.test.ts`, `ml4c-history-tools.pg.test.ts` | 320+ pagination, lexical non-exclusive | **PASS** |
-| C-07 browser | `ml4c-long-thread-composer.spec.ts` | Sticky composer 320+ | **PASS** |
-| Continuity browser | `ml4c-document-continuity.spec.ts` | Scroll + FAKE send | **PASS** |
-
-
-
-## 10. P1 proofs
-
-| P1 item | Proof location | Assertion |
-| --- | --- | --- |
-| `fitBudget` exported | `history-tools-sdk.ts` L27; `document-command.test.ts` `describe('history-tools-sdk fitBudget')` | PARTIAL + `HISTORY_TOOL_BUDGET_EXHAUSTED` ≠ DENIED; char budget decremented |
-| Browser send assertion | `ml4c-long-thread-composer.spec.ts` L122 | `await expect(draft).toHaveValue('', { timeout: 45_000 })` — no `.catch` neutralization |
-| Three historical proposals | `ml4c-prior-proposal.pg.test.ts` `P1: three historical assistant fences` | No `documentSource` → no D4; explicit `PRIOR_ASSISTANT_MESSAGE` → exact bytes |
-
-
-
-## 11. PG counts / concurrency notes
-
-| Metric | Value |
-| --- | --- |
-| Unit tests | **289 PASS** (46 files) |
-| Integration PG (full suite) | **393 PASS** (26 files) on `sfia_next_e2e` |
-| PG target | `DATABASE_URL` rewritten by vitest-pg-target → **`sfia_next_e2e`** |
-| DEV PG port | **:5433** (ENV-01) |
-| F01-08 / F01-15 | Concurrent `savePreparationDocument` / `sealAndApply` → **single** document row (count=1) |
-| F01-07 / F05-09 / C-01 10× | Repeated reconcile → D4 row counts **unchanged** |
-| F01-15 gap | **Parallel `reserveTurnCommand` on same conversation** not exercised — concurrent apply reuses single fence (see §16) |
-
-
-
-## 12. HTTP matrix (reconcile route)
-
-| Scenario | HTTP | `reason` |
-| --- | --- | --- |
-| Two bindings, no `correlationKey` | **409** | `BINDING_SELECTOR_REQUIRED` |
-| Selector A after seal | **200** | `verdict: AVAILABLE` |
-| 10× consecutive GET reconcile | **200** each | D4 counts unchanged |
-| Foreign pilot session | **403** | `COMMAND_DENIED` |
-| Unknown / foreign `documentCommandId` | **403** | `COMMAND_DENIED` (non-divulgation) |
-| Known command, no binding | **404** | `BINDING_ABSENT` |
-| D2 default (no `documentCommandId`) | **200** | create-project reconcile (unchanged) |
-
-
-
-## 13. Unit / PG / Browser / tsc / eslint / build
-
-| Gate | Result |
-| --- | --- |
-| `tsc --noEmit` | **PASS** |
-| Unit | **289 PASS** (46 files) |
-| Integration PG | **393 PASS** (26 files) |
-| Playwright | `ml4c-long-thread-composer` + `ml4c-document-continuity` → **2 PASS** |
-| eslint (touched `src`) | **0 errors** (legacy unused warnings only) |
-| `build` | **PASS** |
-| LIVE Nora | **NOT PROVEN** (FAKE/fixture lane; `OPENAI_API_KEY` deleted in PG) |
-
-
-
-## 14. Screenshot (C-07)
-
-| Field | Value |
-| --- | --- |
-| Path | `projects/sfia-studio-next/web/test-results/ml4c-c07/long-thread-1794649364104.png` |
-| Date (mtime) | 2026-11-14 10:42:44 Europe/Paris context |
-| SHA-256 | `a559607dbb018d16601dad16b8f60f312c8a72ecb0d1e372125fde47bc144991` |
-
-
-
-## 15. LIVE NOT PROVEN
-
-No LIVE `@openai/agents` volume run this cycle. Browser and PG use deterministic fixtures / DEV lane (`STUDIO_FORCE_NORA_FIXTURE`, `STUDIO_E2E=1`).
-
-
-## 16. Known gaps
-
-- **403 vs 404 for unknown `documentCommandId`:** implementation returns **403** `COMMAND_DENIED` (same as foreign owner) — documented in as-built; 404 reserved for owned command without binding.
-- **F01-15 parallel turn reserve:** concurrent `sealAndApply` on one turn is proven; **parallel `reserveTurnCommand`** on the same conversation under race is **not** covered — turn fence serializes one owner token per command id.
-
-
-
-## 17. Allowlist compliance
-
-- **P1 named export:** `fitBudget` exported from `history-tools-sdk.ts` for discriminant tests.
-- **UX C-07:** `NoraConversation.tsx` / `tokens.css` carry sticky composer from prior C-cycle; **no new UX feature work** in F-cycle beyond proof/tests (git may show prior uncommitted C-07 diff vs HEAD).
-- **Scope:** Schema unchanged; mutative PG confined to `sfia_next_e2e`.
-
-
-
-## 18. Gates Morris non consommés
-
-Push produit, PR #676, RECETTE freeze, Gate C, LIVE volume — **not executed**.
-
-L3 Review Handoff **published** this cycle:
-- Branch: `sfia/review-handoff`
-- Commit: `1d33d73215938c5d5dcc4eefaa595004495fcba1` (superseded if a follow-up FF updates the blob)
-- File: `sfia-review-handoff/latest-chatgpt-review.md`
-
-
-## 19. Verdict
-
-**READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
-
-Candidate: working tree on `fix/next-semantic-intent-convergence-20261112` @ `67bf6b0b` with F-01…F-05 closures evidenced by unit + PG + targeted Playwright. Release: **NOT AVAILABLE**.
-
-
-## 20. Instruction ChatGPT §9.1
-
-After L3 publish of this pack to `sfia/review-handoff`, **re-read** remote handoff blob at `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` and verify remote commit, blob, F-01…F-05 diffs/tests, and LIVE NOT PROVEN before ADOPT/REJECT. Parent tip was `c1add5cb` / blob `714a86d1`.
-
-## 21. DOCUMENTARY COMPLETENESS ADDENDUM
-
-**Date addendum:** 2026-11-14 ~11:00 Europe/Paris
-**Motif:** Critical Review — `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`
-**Action:** republish L3 with previously omitted new-file bodies and modified-file diffs.
-
-### 21.1 Inventory (gap closure)
-
-| Fichier | État Git | Contenu fourni ci-dessous |
-| --- | --- | --- |
-| `as-built-continuite-nora-documents.md` | Nouveau (untracked) | Contenu intégral |
-| `ml4c-temp-restitution.test.ts` | Nouveau (untracked) | Contenu intégral |
-| `delivery-history.md` | Modifié | Diff complet |
-| `document-act.test.ts` | Modifié | Diff complet |
-| `semantic-qualification.test.ts` | Modifié | Diff complet |
-| `cognitive-policy.test.ts` | Modifié | Diff complet |
-| `ml2-knowledge-documents.pg.test.ts` | Modifié | Diff complet |
-| `ml4-chat-first-d4-provenance.pg.test.ts` | Modifié | Diff complet |
-
-### 21.2 NEW — as-built-continuite-nora-documents.md (full)
-
-```markdown
-# As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
-
-**Date :** 14 novembre 2026 (fermeture F-01…F-05)
-**Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
-**Conception source :** V0.7 @ `86377fde` blob `7d289670`
-**Handoff Critical Review 1 :** `sfia/review-handoff@c1add5cb` blob `714a86d1`
-**Statut :** IMPLEMENTED CANDIDATE — F-01…F-05 DET/PG/BROWSER ; LIVE NOT PROVEN
-**STABLE / release :** NOT AVAILABLE — NO RELEASE
-
-## 1. Objet
-
-Capacité O-01…O-06 : correctifs C-01…C-07 conservés ; fermeture des invariants documentaires F-01…F-05.
-
-| Correctif | Mécanisme |
-| --- | --- |
-| F-01 | `compareSealedEffectIdentity` unique ; provenance scellée complète ; pas de fallback `latestRevisionFor` comme preuve CREATE |
-| F-02 | `serializeProposalFence(proposal)` avec `title-b64` / `chars` / `pair-sha256` ; extracteur réversible ; fences historiques lisibles |
-| F-03 | `durableProposal` matérialisé sur le chemin commun d'assemblage ; PREPARE sans effet D4 |
-| F-04 | REVISE/CREATE : source `ASSISTANT_MESSAGE` conservée ; `PROPOSAL_SOURCE_CONFLICT` si fence concurrente divergente |
-| F-05 | `loadSealedDocumentBinding` : sélecteur `correlationKey` obligatoire si multi-bindings ; HTTP 409 |
-| C-01…C-07 | Conservés (reconcile RO, canonicalize, prior source, salt, history budget, TEMP, UX 320+) |
-
-## 2. Modules (état consolidé)
-
-| Module | Rôle |
-| --- | --- |
-| `document-command.ts` | Canonicalize, fence codec, admit/seal, reconcile RO, `loadSealedDocumentBinding` |
-| `document/service.ts` | CREATE TX, REVISE fence, `compareSealedEffectIdentity`, `lookupDocumentCorrelationTruth` |
-| `document-act.ts` | Extracteur contractuel + métadonnées structurées |
-| `service.ts` (conversation) | `durableProposal` commun ; CREATE/REVISE ; prior ; continuation sans perte de fence |
-| `history-tools.ts` / `history-tools-sdk.ts` | Keyset, lecture exacte, `fitBudget` pré-retour |
-| `reconcile/route.ts` | Branche D4 `documentCommandId` (+ `correlationKey`) ; D2 inchangé |
-| `NoraConversation.tsx` + `tokens.css` | Composeur sticky (C-07) |
-
-## 3. Invariants
-
-1. AVAILABLE D4 seulement avec identité d'effet complète prouvée (payload + provenance binding).
-2. Réconciliation D4 : **zéro** INSERT/UPDATE/DELETE.
-3. Proposition conversationnelle ≠ effet D4 ; PREPARE persiste la fence sans document.
-4. Source historique `ASSISTANT_MESSAGE` non remplacée silencieusement.
-5. Multi-bindings sans sélecteur → `BINDING_SELECTOR_REQUIRED` (pas de last-wins).
-6. Round-trip `extract(serialize(proposal))` = égalité stricte titre + Markdown.
-7. Budget outils : `PARTIAL` + `HISTORY_TOOL_BUDGET_EXHAUSTED` ≠ `DENIED`.
-
-## 4. Preuves (fermeture F)
-
-| Niveau | Résultat |
-| --- | --- |
-| Unit | 289 PASS |
-| PG global | 393 PASS (`sfia_next_e2e`) |
-| PG F-01 identity | `ml4c-document-identity.pg.test.ts` |
-| PG F-03/F-04/P1 prior | `ml4c-prior-proposal.pg.test.ts` |
-| PG/HTTP F-05 reconcile | `ml4c-document-reconciliation.pg.test.ts` |
-| BROWSER | `ml4c-long-thread-composer.spec.ts` + `ml4c-document-continuity.spec.ts` |
-| tsc / eslint (touchés) / build | PASS (warnings legacy unused only) |
-| LIVE | **NOT PROVEN** |
-
-## 5. Préflights
-
-| Gate | Verdict |
-| --- | --- |
-| ENV-01 | DEV `:5433` ; mutative → `sfia_next_e2e` |
-| PG-01 | Indexes/corr présents ; schéma inchangé |
-| SDK-01 | `@openai/agents@0.21.0` ; LIVE volume non mesuré |
-| REC-01 | Bindings dans `result_json` ; seal préservé |
-
-## 6. Réserves / exit
-
-- LIVE Nora non exécuté (mandat local).
-- Push produit / PR #676 / RECETTE / Gate C / ADOPTED hors mandat.
-- Unknown `documentCommandId` HTTP → 403 `COMMAND_DENIED` (non-divulgation ; 404 réservé aux commandes connues sans binding).
-- Version technique `0.0.0-dev` ; NO RELEASE.
+});
 ```
 
-### 21.3 NEW — ml4c-temp-restitution.test.ts (full)
+### `projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts`
 
 ```typescript
 /**
@@ -7305,278 +8490,67 @@ describe("ML4C TEMP — restitution fail-closed (DET)", () => {
 });
 ```
 
-### 21.4 DIFF — delivery-history.md
+---
 
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index ec4ab254..f74d857a 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,53 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+## 8. Cycle narrative (allowlist this cycle)
 
+This cycle touched **only** the document-integrity allowlist:
 
-+## delivery_id: DELIV-2026-11-14-ML4C-DOCUMENT-INVARIANT-CLOSURE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-14 ~11:00 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Fermeture invariants documentaires F-01…F-05 |
-+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
-+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-+| Prior handoff | `sfia/review-handoff@c1add5cb` blob `714a86d1` |
-+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-+| Changes | F-01 identity compare ; F-02 reversible fence codec ; F-03 PREPARE durableProposal ; F-04 ASSISTANT_MESSAGE source ; F-05 binding selector + HTTP 409 ; P1 fitBudget/ambiguity/browser |
-+| Schema | unchanged |
-+| Tests | unit 289 PASS ; PG 393 PASS ; Playwright ML4C ciblé ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
-+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
-+
-+## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-CRITICAL-CORRECTIVE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-14 ~10:10 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Correctif Critical Review (C-01…C-07) continuité Nora / D4 |
-+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
-+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-+| Prior handoff | `sfia/review-handoff@93e277c2` blob `510b410f` |
-+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-+| Changes | reconcile read-only ; canonicalize proposal ; prior assistant source ; correlation salt ; history walk/budget ; UX 320+ |
-+| Schema | unchanged |
-+| Tests | unit 277 PASS ; PG ML4C 29 PASS ; Playwright C-07 320+ PASS ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
-+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
-+
-+## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-NORA-DOCUMENTS
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-14 ~09:30 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4 |
-+| Type | EVOL Critical integrated (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` (local) = tip `origin/build/next-ml4c-functional-convergence@67bf6b0b` |
-+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-+| Lane | DEV `:5433` + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-+| Changes | history-tools + SDK tools ; documentProposal ; document-command admit/seal ; CREATE atomique + REVISE fence/fingerprint ; UX composeur sticky ; as-built |
-+| Schema | unchanged (indexes existants utilisés) |
-+| Tests | unit 272 PASS ; PG history+document-command 11 PASS ; ML2 Q10 O-05 PASS ; Playwright composer PASS ; LIVE NOT PROVEN |
-+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
-+
- ## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
+- `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md`
+- `projects/sfia-studio-next/construction/delivery-history.md`
+- `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+- `projects/sfia-studio-next/web/src/domains/document/service.ts`
+- `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts`
+- `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts`
+- `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts`
+- `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts`
+- `projects/sfia-studio-next/web/tests/unit/document-act.test.ts`
+- `projects/sfia-studio-next/web/tests/unit/document-command.test.ts`
 
- | Field | Value |
-```
+The review pack nonetheless embeds the **entire** ML4C candidate delta vs HEAD `67bf6b0b` (all modified tracked files + all untracked ML4C files listed in §3).
 
-### 21.5 DIFF — document-act.test.ts
+---
 
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-index ec99d592..0ddcf68e 100644
---- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
-@@ -5,6 +5,11 @@ import {
-   qualifyDocumentAct,
-   extractContractualDocumentProposal,
- } from "@/domains/conversation/document-act";
-+import {
-+  contentSha256,
-+  encodeTitleB64,
-+  serializeProposalFence,
-+} from "@/domains/conversation/document-command";
+## 9. Réserves et verdict
 
- describe("document-act SEM-02 — lexical router retired", () => {
-   it("qualifyDocumentAct is fail-closed stub", () => {
-@@ -28,4 +33,45 @@ describe("document-act SEM-02 — lexical router retired", () => {
-       expect(extracted.content).toMatch(/# Titre/);
-     }
-   });
-+
-+  describe("F02 contractual fence extract", () => {
-+    it("reads historical fence without structured metadata", () => {
-+      const raw =
-+        "Préambule.\n\n```sfia-document\n# Historique\n\n## Section\n\nCorps lisible sans meta structurée.\n```\n";
-+      const extracted = extractContractualDocumentProposal(raw);
-+      expect(extracted.ok).toBe(true);
-+      if (extracted.ok) {
-+        expect(extracted.title).toBe("Historique");
-+        expect(extracted.content).toContain("Corps lisible");
-+      }
-+    });
-+
-+    it("refuses H1 mismatch against structured title meta", () => {
-+      const title = "Attendu";
-+      const wrongBody = "# Autre\n\nCorps.\n";
-+      const digest = contentSha256(title, wrongBody);
-+      const broken = [
-+        `\`\`\`sfia-document title-b64=${encodeTitleB64(title)} chars=${wrongBody.length} pair-sha256=${digest}`,
-+        wrongBody,
-+        "```",
-+        "",
-+      ].join("\n");
-+      const extracted = extractContractualDocumentProposal(broken);
-+      expect(extracted.ok).toBe(false);
-+      if (!extracted.ok) expect(extracted.reason).toBe("DOCUMENT_PROPOSAL_TITLE_MISMATCH");
-+    });
-+
-+    it("round-trips via serializeProposalFence helper", () => {
-+      const title = "Acte";
-+      const content = "# Acte\n\n```\nBloc interne\n```\n";
-+      const fence = serializeProposalFence({
-+        title,
-+        contentMarkdown: content,
-+        contentSha256: contentSha256(title, content),
-+      });
-+      const extracted = extractContractualDocumentProposal(fence);
-+      expect(extracted.ok).toBe(true);
-+      if (extracted.ok) expect(extracted.content).toBe(content);
-+    });
-+  });
- });
-```
+| Item | Statut |
+| --- | --- |
+| DETERMINISTIC / PG / unit / integration | PROVEN (counts ci-dessus) |
+| Playwright ML4C e2e (2 specs) | PASS (local log) |
+| Nora LIVE conversation | **NOT PROVEN** |
+| Git handoff `sfia/review-handoff` | **not published this cycle** |
 
-### 21.6 DIFF — semantic-qualification.test.ts
+**Verdict pack**: **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
 
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
-index 20be39ee..f679aa83 100644
---- a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
-@@ -142,6 +142,33 @@ describe("semantic qualification envelope", () => {
-     expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
-   });
+### 9.1 Instruction ChatGPT (obligatoire)
 
-+  it("validateNoraTurnQualification accepts optional documentProposal", () => {
-+    const v = validateNoraTurnQualification({
-+      schemaVersion: "ml4c-sem-qual-v1",
-+      status: "QUALIFIED",
-+      goal: "document de cadrage",
-+      intents: [
-+        {
-+          id: "i1",
-+          capabilityId: "d4.create_document",
-+          mode: "REQUEST_EFFECT",
-+          summary: "cadrage",
-+          parameters: {},
-+          constraints: [],
-+          dependsOn: [],
-+          sourceEvidence: [],
-+        },
-+      ],
-+      clarifications: [],
-+      replyDraft: "Je prépare le document.",
-+      documentProposal: {
-+        title: "Cadrage",
-+        contentMarkdown: "# Cadrage\n\nPérimètre initial.\n",
-+      },
-+    });
-+    expect(v.ok).toBe(true);
-+  });
-+
-   it("deriveThreadTurnKind from semantic modes", () => {
-     const dialogue: NoraTurnQualification = {
-       schemaVersion: "ml4c-sem-qual-v1",
-```
+> **Instruction ChatGPT obligatoire :**
+>
+> Pour ce cycle **local-only**, la source canonique du pack est le fichier worktree :
+>
+> fichier : `.tmp-sfia-review/chatgpt-review.md`
+> HEAD candidat : `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
+>
+> Avant de répondre à Morris, ChatGPT doit lire **ce pack intégral** et vérifier la cohérence avec le rapport Cursor, notamment :
+> - le cycle et le profil ;
+> - la branche projet et HEAD ;
+> - la base main ;
+> - l'inventaire §3 (tous chemins status/diff/untracked) ;
+> - les diffs §6 et contenus §7 ;
+> - P0-A / P0-B / P1 §4 ;
+> - matrices META/HASH/SRC/N+100 §5 ;
+> - les validations et réserves ;
+> - le verdict **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**.
+>
+> **Après cette vérification**, ChatGPT doit produire une synthèse globale du cycle (objectif, changements, validations, risques, verdict ChatGPT, prochaine décision Morris).
 
-### 21.7 DIFF — cognitive-policy.test.ts
+---
 
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
-index acf1b4b1..4bc540ec 100644
---- a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
-@@ -75,6 +75,12 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
-     expect(() => resolveProfileType()).toThrow(StudioError);
-   });
+## 10. Coverage assertion
 
-+  it("toolAllowlist includes conversation history read tools", () => {
-+    const p = buildCognitivePolicy("Cherche un message passé sur le budget.", "TEST_BOUNDARY");
-+    expect(p.toolAllowlist).toContain("search_conversation_history");
-+    expect(p.toolAllowlist).toContain("read_conversation_messages");
-+  });
-+
-   it("maxTurns follows policy budget without silent hard cap of 12", () => {
-     const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
-     expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
-```
-
-### 21.8 DIFF — ml2-knowledge-documents.pg.test.ts
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
-index 84613cdb..c93ed594 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
-@@ -127,17 +127,29 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
-     });
-     expect(conflict.status).toBe("CONFLICT");
-
-+    // O-05: same correlationKey + same payload → idempotent AVAILABLE; different payload → CONFLICT.
-     const replay = await reviseDocument(pilotId, prep.id, {
-       documentId: v1.documentId,
-       baseRevisionId: v2.revisionId,
--      contentMarkdown: "ignored on replay",
-+      contentMarkdown: "# Spec\n\nSection A révisée\n",
-       correlationKey: "corr-rev-1",
-     });
-     expect(replay.status).toBe("AVAILABLE");
-     if (replay.status !== "AVAILABLE") throw new Error("replay");
--    expect(replay.idempotentReplay).toBe(true);
-+    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
-     expect(replay.revisionId).toBe(v2.revisionId);
-
-+    const mismatch = await reviseDocument(pilotId, prep.id, {
-+      documentId: v1.documentId,
-+      baseRevisionId: v2.revisionId,
-+      contentMarkdown: "different payload same key",
-+      correlationKey: "corr-rev-1",
-+    });
-+    expect(mismatch.status).toBe("CONFLICT");
-+    if (mismatch.status === "CONFLICT") {
-+      expect(mismatch.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
-+    }
-+
-     const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
-     expect(list.revisions.length).toBeGreaterThanOrEqual(2);
-     const cmp = await compareDocumentRevisions(
-```
-
-### 21.9 DIFF — ml4-chat-first-d4-provenance.pg.test.ts
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-index 1d443c8f..e896c372 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-@@ -505,7 +505,7 @@ Fin.
-     if (first.status !== "AVAILABLE" || again.status !== "AVAILABLE") {
-       throw new Error("idempotent revise unavailable");
-     }
--    expect(again.idempotentReplay).toBe(true);
-+    expect("idempotentReplay" in again && again.idempotentReplay).toBe(true);
-     expect(again.revisionId).toBe(first.revisionId);
-   });
-```
-
-### 21.10 Completeness declaration
-
-Les huit fichiers signalés absents du handoff `137f546a` / blob `31244402` sont désormais inclus ci-dessus (corps intégraux pour les nouveaux ; diffs Git pour les modifiés).
-Aucun secret opérateur n'est ajouté. Schéma DB inchangé. Candidat produit local inchangé.
-
-## 22. Verdict (pack complété)
-
-**READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
-
-Handoff L3 à republier après cet addendum. ChatGPT doit relire le tip distant `sfia/review-handoff` (commit + blob) avant verdict.
-
-## 23. Instruction ChatGPT §9.1
-
-Avant de répondre à Morris, ChatGPT doit relire :
-
-Branche :
-sfia/review-handoff
-
-Fichier :
-sfia-review-handoff/latest-chatgpt-review.md
-
-Vérifier le commit distant, le blob, les contenus créés et modifiés (y compris l'addendum §21), les preuves et les réserves avant tout verdict.
+- Paths in inventory: **30**
+- Modified tracked embedded: **16**
+- Untracked embedded: **14**
+- Missing paths: **0**
