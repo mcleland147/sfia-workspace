@@ -1,46 +1,34 @@
-# SFIA Studio Next — Review Pack FULL L3
-## ML4C — Correctif Critical Review (C-01…C-07) Continuité Nora / D4
+# ML4C F-01…F-05 — Mono-cycle Review Pack (FULL)
 
-- **Date/heure**: 2026-11-14 10:09:18 CET
-- **Cycle**: Delivery projet §6.6 — INC/EVOL Critical corrective
-- **GO Morris**: ACCORDÉ 14/11/2026 — correction technique locale
-- **Profil**: Critical
-- **Review**: Full + Handoff publish-in-cycle REQUIRED
-- **Branche locale**: `fix/next-semantic-intent-convergence-20261112`
-- **HEAD base**: `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` (= 67bf6b0b)
-- **Tip produit distant**: `build/next-ml4c-functional-convergence` @ même SHA
-- **Handoff précédent**: `sfia/review-handoff@93e277c2` blob `510b410f`
-- **V0.7**: `86377fde` blob `7d289670`
-- **Travail**: LOCAL ONLY — aucun push produit / PR / merge / RECETTE / STABLE / ADOPTED
-- **Verdict**: **READY FOR CHATGPT CRITICAL REVIEW** (sous réserve LIVE NOT PROVEN)
+**Type:** Critical Review closure pack — ChatGPT self-contained oracle
+**Repository:** mcleland147/sfia-workspace
+**Authoring agent:** Morris local correction cycle
 
----
 
-## 1. Objectif
+## 1. Date / heure / GO
 
-Corriger les non-conformités C-01…C-07 du premier delivery ML4C continuité, en conservant les acquis conformes.
-
-## 2. Git Truth
-
-| Check | Valeur |
+| Field | Value |
 | --- | --- |
-| Worktree | `/Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112` |
-| Branche | `fix/next-semantic-intent-convergence-20261112` |
-| HEAD | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-| origin/main | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
-| merge-base | `6d237452680640324eeadbb18f4601fd7de99850` |
-| Premier delivery local | Présent (dirty + untracked) — conservé |
-| Product push | **NON** |
+| Date/heure | 2026-11-14 ~11:00 **Europe/Paris** (CET) |
+| GO | **MORRIS LOCAL CORRECTION — F-01…F-05 document invariant closure** |
+| Worktree | `fix/next-semantic-intent-convergence-20261112` |
+| Remote product ref (nominal) | `build/next-ml4c-functional-convergence` @ `67bf6b0b` |
 
-### git status --short (final)
+
+
+## 2. Git initial / final
+
+### Initial / final snapshot (uncommitted working tree)
 
 ```
+## fix/next-semantic-intent-convergence-20261112
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
  M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
  M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
  M projects/sfia-studio-next/web/src/components/figma/tokens.css
  M projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
  M projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
  M projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
  M projects/sfia-studio-next/web/src/domains/conversation/service.ts
@@ -49,6 +37,7 @@ Corriger les non-conformités C-01…C-07 du premier delivery ML4C continuité, 
  M projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
  M projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
  M projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+ M projects/sfia-studio-next/web/tests/unit/document-act.test.ts
  M projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
 ?? projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md
 ?? projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
@@ -57,345 +46,1564 @@ Corriger les non-conformités C-01…C-07 du premier delivery ML4C continuité, 
 ?? projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts
 ?? projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/document-command.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
-
 ```
 
-### git diff --stat
-
-```
- .../construction/delivery-history.md               |  31 ++
- .../[preparationId]/reconcile/route.ts             |  41 ++-
- .../web/src/components/figma/NoraConversation.tsx  | 128 ++++----
- .../web/src/components/figma/tokens.css            |  14 +
- .../src/domains/conversation/cognitive-policy.ts   |   4 +
- .../web/src/domains/conversation/nora-adapter.ts   |  25 +-
- .../domains/conversation/semantic-qualification.ts |  22 ++
- .../web/src/domains/conversation/service.ts        | 329 +++++++++++++++----
- .../web/src/domains/conversation/turn-command.ts   |  90 +++++-
- .../web/src/domains/document/service.ts            | 356 ++++++++++++++++-----
- .../integration/ml2-knowledge-documents.pg.test.ts |  16 +-
- .../ml4-chat-first-d4-provenance.pg.test.ts        |   2 +-
- .../web/tests/unit/cognitive-policy.test.ts        |   6 +
- .../web/tests/unit/semantic-qualification.test.ts  |  27 ++
- 14 files changed, 867 insertions(+), 224 deletions(-)
-
-```
-
-## 3. Préflights
-
-| Gate | Verdict |
+| Ref | SHA |
 | --- | --- |
-| ENV-01 | PASS — DEV :5433 ; Vitest/E2E → sfia_next_e2e |
-| PG-01 | PASS — indexes/corr présents |
-| SDK-01 | PASS WITH RESERVE — agents 0.21.0 ; LIVE volume non mesuré |
-| REC-01 | PASS — binding pré-effet + loadSealed + reconcile RO |
+| HEAD (worktree tip, committed) | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| `main` (local, verified) | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| merge-base(HEAD, main) | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| Nominal main cited in prior docs | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` — **not** current local `main` at pack time |
+| Prior handoff | `sfia/review-handoff@c1add5cb` blob `714a86d1` |
+| Conception V0.7 | commit `86377fde` blob `7d289670` |
 
-## 4. Corrections C-01…C-07
+**Note:** All F-fix proofs run against **working tree** (modified + untracked) atop `67bf6b0b`; no commit/push this cycle.
 
-### C-01
-`lookupDocumentCorrelationTruth` + `reconcileDocumentCommandFromBinding` sans mutation ; route `?documentCommandId=`.
 
-### C-02
-`canonicalizeDocumentProposal` / `serializeProposalFence` — Markdown exact, H1 cohérent ou absent, SHA stable.
 
-### C-03
-`documentSource.PRIOR_ASSISTANT_MESSAGE` raccordé au CREATE/REVISE conversationnel ; conflit avec `documentProposal`.
+## 3. Sources read (this pack)
 
-### C-04
-`clientCorrelationSalt` à l'admit uniquement ; intents filtrés par capabilityId ; pas de fallback `[0]` générique.
-
-### C-05
-Search sans LIKE exclusif ; `lexicalHit` hint ; budget PARTIAL ; corpus 320+ PG.
-
-### C-06
-TEMP DET conservés ; consignes Nora ; **LIVE NOT PROVEN**.
-
-### C-07
-Playwright seed 320 messages PG e2e + scroll + composeur sticky + envoi FAKE + refresh — PASS.
-
-## 5. Matrice de preuves
-
-| ID | Résultat |
+| Source | Role |
 | --- | --- |
-| C01-* | PASS PG reconcile |
-| C02-* | PASS prior-proposal / canonicalize |
-| C03-* | PASS prior-proposal |
-| C04-* | PASS document-command PG |
-| C05-* | PASS history-long 320 |
-| C06-* | DET PASS ; LIVE NOT PROVEN |
-| C07-* | PASS Playwright 320+ |
-| Unit | **277 PASS** |
-| PG ML4C bundle | **29 PASS** |
-| tsc / build | **PASS** |
-
-### Logs unit (extrait)
-
-```
-d env (0) from .env.local
-
- ✓ tests/unit/durable-target-resolve.test.ts (4 tests) 1ms
-stderr | tests/unit/git-proof-qualify.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/git-proof-qualify.test.ts (2 tests) 1ms
-stderr | tests/unit/ml3-rct02-intent.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/ml3-rct02-intent.test.ts (2 tests) 1ms
-stderr | tests/unit/ml3-cki-intent.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/ml3-cki-intent.test.ts (1 test) 1ms
-stderr | tests/unit/non-effects.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/non-effects.test.ts (1 test) 1ms
-
- Test Files  46 passed (46)
-      Tests  277 passed (277)
-   Start at  10:08:08
-   Duration  7.84s (transform 253ms, setup 189ms, collect 3.61s, tests 259ms, environment 2ms, prepare 871ms)
+| `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md` | As-built F closure |
+| `projects/sfia-studio-next/construction/delivery-history.md` | DELIV-2026-11-14-ML4C-DOCUMENT-INVARIANT-CLOSURE |
+| `sfia/review-handoff@c1add5cb` blob `714a86d1` | Prior Critical Review handoff |
+| Conception V0.7 `86377fde` / `7d289670` | Target invariants O-01…O-06 |
+| Modified `document/service.ts`, `conversation/service.ts`, `document-command.ts`, `document-act.ts`, `reconcile/route.ts` | F implementations |
+| PG tests `ml4c-document-identity|command|reconciliation|prior-proposal|history-*` | Oracles F01–F05 + P1 |
+| Playwright `ml4c-long-thread-composer.spec.ts`, `ml4c-document-continuity.spec.ts` | C-07 / continuity browser |
 
 
-```
 
-### Logs PG (extrait)
+## 4. Écarts F01–F05 (defect → fix)
 
-```
-"d4_effect":null}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-14T09:08:20.058Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_2d8a9c72-6212-41fb-8277-8ae6151d0226","operation_id":"op_4307c67e-d4b4-4223-b764-92208d943d70","generation_id":"gen_7df9fd9e-96fe-4cd2-9f81-8bc2fd512cb1","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
- ✓ tests/integration/ml4c-history-tools.pg.test.ts (3 tests) 151ms
-
- Test Files  5 passed (5)
-      Tests  29 passed (29)
-   Start at  10:08:16
-   Duration  3.09s (transform 203ms, setup 36ms, collect 1.33s, tests 1.26s, environment 0ms, prepare 100ms)
+| ID | Defect (handoff / conception gap) | Fix (mechanism) |
+| --- | --- | --- |
+| **F-01** | D4 AVAILABLE inferred via `latestRevisionFor` or partial fingerprint — unsafe ACK/reconcile | `compareSealedEffectIdentity` (single rule) + `buildSealedProvenance` + `lookupDocumentCorrelationTruth` uses `findRevisionByCorrelation` only (no latestRevision CREATE fallback) + `reconcilePriorRevision` |
+| **F-02** | Fence round-trip lossy; metadata not binding | `serializeProposalFence(DocumentProposalExact)` with `title-b64` / `chars` / `pair-sha256`; `document-act` `extractContractualDocumentProposal` validates structured meta + integrity |
+| **F-03** | `documentProposal` not durably visible on common path; PREPARE mutates D4 | `conversation/service.ts` `durableProposal` on assembly path before commit; PREPARE intents persist fence without `savePreparationDocument` |
+| **F-04** | REVISE/CREATE overwrote `ASSISTANT_MESSAGE` source with same-turn snapshot | Binding `source: ASSISTANT_MESSAGE` preserved; divergent concurrent fence → `PROPOSAL_SOURCE_CONFLICT` |
+| **F-05** | Multi-binding turns: last-wins | `loadSealedDocumentBinding` requires `correlationKey` when `documentCommandBindings.length > 1`; HTTP **409** `BINDING_SELECTOR_REQUIRED` |
+| **P1** | `fitBudget` not test-exported; browser assertion swallowed; triple historical proposals ambiguous | Export `fitBudget` from `history-tools-sdk.ts`; Playwright `toHaveValue('')` without `.catch`; PG `ml4c-prior-proposal` three-fence ambiguity |
 
 
-```
 
-### Logs C-07 (extrait)
+## 5. Code modified by function
 
-```
-ease_expires_at" of relation "integration_authorizations" already exists, skipping
-[WebServer] NOTICE:  relation "integration_authorizations_one_connected_uidx" already exists, skipping
-◇ injected env (22) from .env.local
-
-Running 1 test using 1 worker
-
-(node:5989) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-(Use `node --trace-warnings ...` to show where the warning was created)
-◇ injected env (0) from .env.local
-  ✓  1 tests/e2e/ml4c-long-thread-composer.spec.ts:78:5 › ML4C C-07: composer usable on 320+ message thread after scroll (9.4s)
-
-  1 passed (13.5s)
-
-```
-
-### Build (extrait)
-
-```
-red by all                                               103 kB
-  ├ chunks/1478-f49b7b92c0de2850.js                                        46.7 kB
-  ├ chunks/48cf718c-a1ee5ae76e25365f.js                                    54.2 kB
-  └ other shared chunks (total)                                            1.93 kB
+| Function / symbol | File | F / P |
+| --- | --- | --- |
+| `compareSealedEffectIdentity` | `domains/document/service.ts` | F-01 |
+| `buildSealedProvenance` | `domains/document/service.ts` | F-01 |
+| `lookupDocumentCorrelationTruth` | `domains/document/service.ts` | F-01 / C-01 |
+| `reconcilePriorRevision` | `domains/document/service.ts` | F-01 |
+| `serializeProposalFence`, `parseFenceMeta`, `loadSealedDocumentBinding` | `domains/conversation/document-command.ts` | F-02 / F-05 |
+| `extractContractualDocumentProposal` (+ metadata path) | `domains/conversation/document-act.ts` | F-02 |
+| `durableProposal` assembly + D4 admit/seal | `domains/conversation/service.ts` | F-03 / F-04 |
+| `stashDocumentCommandBinding` (multi-binding) | `domains/conversation/turn-command.ts` | F-05 |
+| GET reconcile D4 branch | `app/api/preparations/.../reconcile/route.ts` | F-05 / C-01 |
+| `fitBudget` (exported) | `domains/conversation/history-tools-sdk.ts` | P1 |
+| `searchConversationHistory` / `readConversationMessages` | `domains/conversation/history-tools.ts` | C-05 |
+| `DocumentProposalSchema`, `DocumentSourceSchema` | `semantic-qualification.ts` | C-02 / C-03 |
+| Nora tool union + prompts | `nora-adapter.ts`, `cognitive-policy.ts` | O-01 |
+| Sticky composer (C-07, prior cycle) | `NoraConversation.tsx`, `tokens.css` | C-07 preserved |
 
 
-○  (Static)   prerendered as static content
-ƒ  (Dynamic)  server-rendered on demand
+## 6. Diffs (allowlisted modified files)
 
-
-```
-
-## 6. As-built
-
-# As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
-
-**Date :** 14 novembre 2026 (correctif post Critical Review)
-**Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
-**Conception source :** V0.7 @ `86377fde` blob `7d289670`
-**Handoff 1ʳᵉ livraison :** `sfia/review-handoff@93e277c2`
-**Statut :** IMPLEMENTED CANDIDATE CORRECTED — DET/PG/BROWSER ; LIVE NOT PROVEN
-**STABLE / release :** NOT AVAILABLE — NO RELEASE
-
-## 1. Objet
-
-Capacité O-01…O-06 corrigée selon C-01…C-07 (Critical Review) :
-
-| Correctif | Mécanisme |
-| --- | --- |
-| C-01 | `lookupDocumentCorrelationTruth` lecture pure ; reconcile HTTP `documentCommandId` |
-| C-02 | `canonicalizeDocumentProposal` + fence = Markdown exact (pas d'injection `# titre`) |
-| C-03 | `documentSource.PRIOR_ASSISTANT_MESSAGE` → `resolveAssistantProposal` → D4 |
-| C-04 | corrélation figée à l'admit (`clientCorrelationSalt`) ; intents capability exacts |
-| C-05 | search sans filtre LIKE exclusif ; budget → PARTIAL ; corpus 320+ |
-| C-06 | TEMP DET + consignes Nora ; LIVE non revendiqué |
-| C-07 | Playwright fil 320+ + composeur sticky |
-
-## 2. Modules (état consolidé)
-
-| Module | Rôle |
-| --- | --- |
-| `history-tools.ts` / `history-tools-sdk.ts` | Portée, keyset, lecture exacte, budget pré-retour |
-| `document-command.ts` | Canonicalize, admit, seal, reconcile read-only, loadSealedBinding |
-| `document/service.ts` | CREATE TX, REVISE fence, `lookupDocumentCorrelationTruth` |
-| `semantic-qualification.ts` | `documentProposal` + `documentSource` mutuellement exclusifs |
-| `service.ts` (conversation) | CREATE/REVISE exacts ; prior message ; intents filtrés |
-| `reconcile/route.ts` | Branche `documentCommandId` (D2 inchangé) |
-| `NoraConversation.tsx` + `tokens.css` | Composeur sticky |
-
-## 3. Invariants
-
-1. Réconciliation D4 : **zéro** INSERT/UPDATE/DELETE.
-2. Une proposition = `{ title, contentMarkdown }` octet-stables ; SHA sur cette paire.
-3. Source historique : contenu vérifié serveur ; jamais régénéré.
-4. Binding scellé immuable après admit ; corrélation dérivée une seule fois.
-5. LIKE lexical = hint (`lexicalHit`) ; parcours paginé pour couverture.
-6. Budget outils : `PARTIAL` + `HISTORY_TOOL_BUDGET_EXHAUSTED` ≠ `DENIED`.
-
-## 4. Preuves (correctif)
-
-| Niveau | Résultat |
-| --- | --- |
-| Unit | 277 PASS |
-| PG ML4C (reconcile, prior, history-long, command, history-tools) | 29 PASS |
-| BROWSER C-07 320+ | PASS (`ml4c-long-thread-composer.spec.ts`) |
-| tsc / eslint (fichiers touchés) | PASS |
-| build | voir Review Pack |
-| LIVE | **NOT PROVEN — PROVIDER OR AUTHORIZATION UNAVAILABLE** (mandat) |
-
-## 5. Préflights
-
-| Gate | Verdict |
-| --- | --- |
-| ENV-01 | DEV `:5433` ; mutative → `sfia_next_e2e` |
-| PG-01 | Indexes/corr présents |
-| SDK-01 | `@openai/agents@0.21.0` ; LIVE volume non mesuré |
-| REC-01 | Bindings dans `result_json` ; seal préservé |
-
-## 6. Réserves / exit
-
-- LIVE Nora (C-06 rouge→bleu sourcé) non exécuté.
-- Push produit / PR #676 / RECETTE / Gate C / ADOPTED hors mandat.
-- Version technique `0.0.0-dev` ; NO RELEASE.
-
-
-## 7. Delivery history (tête)
-
-```
-# SFIA Studio Next — Delivery history
-
-Append-only logical journal of Cursor product deliveries.
-**Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-
-## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-CRITICAL-CORRECTIVE
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-14 ~10:10 CET (Europe/Paris) |
-| Macro-lot | ML4C — Correctif Critical Review (C-01…C-07) continuité Nora / D4 |
-| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
-| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
-| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-| Prior handoff | `sfia/review-handoff@93e277c2` blob `510b410f` |
-| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-| Changes | reconcile read-only ; canonicalize proposal ; prior assistant source ; correlation salt ; history walk/budget ; UX 320+ |
-| Schema | unchanged |
-| Tests | unit 277 PASS ; PG ML4C 29 PASS ; Playwright C-07 320+ PASS ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
-| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
-
-## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-NORA-DOCUMENTS
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-14 ~09:30 CET (Europe/Paris) |
-| Macro-lot | ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4 |
-| Type | EVOL Critical integrated (NO RELEASE) |
-| Branch | `fix/next-semantic-intent-convergence-20261112` (local) = tip `origin/build/next-ml4c-functional-convergence@67bf6b0b` |
-| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-| Lane | DEV `:5433` + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-| Changes | history-tools + SDK tools ; documentProposal ; document-command admit/seal ; CREATE atomique + REVISE fence/fingerprint ; UX composeur sticky ; as-built |
-| Schema | unchanged (indexes existants utilisés) |
-| Tests | unit 272 PASS ; PG history+document-command 11 PASS ; ML2 Q10 O-05 PASS ; Playwright composer PASS ; LIVE NOT PROVEN |
-| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
-
-## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-12 ~19:20 CET (Europe/Paris) |
-| Macro-lot | ML4C R5 — gardes finales cible durable (`*` / kind D6) + freeze RECETTE |
-| Type | EVOL Critical corrective + mise à disposition RECETTE (NO RELEASE) |
-| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
-| Parent tip | `d7c28a21a9e41c5e5fb2af7415fb59e8a6cf247b` |
-| Lane | DEV/E2E tests ; RECETTE figée après CI GREEN (campagne ML4C-UAT-2026-11-12) |
-| Changes | `restrictionTargetMatchesHint` fail-closed vs globale ; LIFT exige hint durable ; `resolveReviseDecisionTarget` exige RECORD_DECISION ; tests G01–G05 / D01–D07 |
-| Schema | unchanged |
-| Tests | unit 252 PASS (248+4) ; PG 336 PASS (324+12 G/D) ; Playwright 25 PASS ; LIVE NOT RUN |
-| Status | PUSH PR #676 puis freeze RECETTE si CI GREEN |
-
-## delivery_id: DELIV-2026-11-12-ML4C-AUTHORITY-HARDENING
-
-| Field | Value |
-```
-
-## 8. Diff tracked
+### `git diff` — `projects/sfia-studio-next/web/src/domains/document/service.ts`
 
 ```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index ec4ab254..8c036434 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,37 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
+index 6d079275..42f6a589 100644
+--- a/projects/sfia-studio-next/web/src/domains/document/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
+@@ -66,26 +66,199 @@ type ReconcileConflict = {
+   revisionNumber: number;
+ };
 
+-/** Same fingerprint rule for every reconcile path (nominal, race, catch, TX). */
++/**
++ * F-01 — sealed command identity carried in revision provenanceJson.
++ * Legacy revisions without documentCommandBinding remain readable but not ML4C-command proofs.
++ */
++export type SealedEffectIdentity = {
++  commandId: string;
++  operationId: string;
++  userMessageId: string;
++  qualifiedIntentId: string;
++  action: "CREATE" | "REVISE";
++  source: unknown;
++  preparationId: string;
++  documentId: string | null;
++  baseRevisionId: string | null;
++  sectionHint: string | null;
++  correlationKey: string;
++  contentSha256: string;
++  payloadSha256: string;
++  title: string;
++};
++
++function stableJson(value: unknown): string {
++  return JSON.stringify(value ?? null);
++}
++
++/** Unique comparison rule for CREATE/REVISE replay, lookup, race, and ACK recovery. */
++export function compareSealedEffectIdentity(
++  storedProvenanceJson: string,
++  storedContentMarkdown: string,
++  storedDocumentTitle: string,
++  expected: SealedEffectIdentity,
++): { ok: true; storedContentSha256: string } | { ok: false; reason: string } {
++  let prov: Record<string, unknown>;
++  try {
++    prov = JSON.parse(storedProvenanceJson) as Record<string, unknown>;
++  } catch {
++    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
++  }
++  if (prov.documentCommandBinding !== true) {
++    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
++  }
++  const storedFp = readStoredFingerprint(
++    storedProvenanceJson,
++    storedDocumentTitle,
++    storedContentMarkdown,
++  );
++  if (storedFp !== expected.contentSha256) {
++    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
++  }
++  const storedPayload =
++    typeof prov.payloadSha256 === "string" ? prov.payloadSha256 : null;
++  if (!storedPayload || storedPayload !== expected.payloadSha256) {
++    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
++  }
++  const checks: Array<[string, unknown, unknown]> = [
++    ["commandId", prov.commandId, expected.commandId],
++    ["operationId", prov.operationId, expected.operationId],
++    ["userMessageId", prov.userMessageId, expected.userMessageId],
++    ["qualifiedIntentId", prov.qualifiedIntentId, expected.qualifiedIntentId],
++    ["action", prov.action, expected.action],
++    ["preparationId", prov.preparationId, expected.preparationId],
++    ["documentId", prov.documentId ?? null, expected.documentId],
++    ["baseRevisionId", prov.baseRevisionId ?? null, expected.baseRevisionId],
++    ["sectionHint", prov.sectionHint ?? null, expected.sectionHint],
++    ["correlationKey", prov.correlationKey, expected.correlationKey],
++    ["contentSha256", prov.contentSha256, expected.contentSha256],
++    ["title", prov.title ?? storedDocumentTitle, expected.title],
++  ];
++  for (const [, got, want] of checks) {
++    if (stableJson(got) !== stableJson(want)) {
++      return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
++    }
++  }
++  if (stableJson(prov.source) !== stableJson(expected.source)) {
++    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
++  }
++  return { ok: true, storedContentSha256: storedFp };
++}
++
++export function buildSealedProvenance(
++  identity: SealedEffectIdentity,
++  extra?: Record<string, unknown>,
++): Record<string, unknown> {
++  return {
++    documentCommandBinding: true,
++    commandId: identity.commandId,
++    operationId: identity.operationId,
++    userMessageId: identity.userMessageId,
++    qualifiedIntentId: identity.qualifiedIntentId,
++    action: identity.action,
++    source: identity.source,
++    preparationId: identity.preparationId,
++    documentId: identity.documentId,
++    baseRevisionId: identity.baseRevisionId,
++    sectionHint: identity.sectionHint,
++    correlationKey: identity.correlationKey,
++    contentSha256: identity.contentSha256,
++    payloadSha256: identity.payloadSha256,
++    title: identity.title,
++    ...(extra ?? {}),
++  };
++}
++
++function identityFromProvenance(
++  provenance: Record<string, unknown> | undefined | null,
++): SealedEffectIdentity | null {
++  if (!provenance || provenance.documentCommandBinding !== true) return null;
++  if (
++    typeof provenance.commandId !== "string" ||
++    typeof provenance.operationId !== "string" ||
++    typeof provenance.userMessageId !== "string" ||
++    typeof provenance.qualifiedIntentId !== "string" ||
++    (provenance.action !== "CREATE" && provenance.action !== "REVISE") ||
++    typeof provenance.preparationId !== "string" ||
++    typeof provenance.correlationKey !== "string" ||
++    typeof provenance.contentSha256 !== "string" ||
++    typeof provenance.payloadSha256 !== "string" ||
++    typeof provenance.title !== "string"
++  ) {
++    return null;
++  }
++  return {
++    commandId: provenance.commandId,
++    operationId: provenance.operationId,
++    userMessageId: provenance.userMessageId,
++    qualifiedIntentId: provenance.qualifiedIntentId,
++    action: provenance.action,
++    source: provenance.source ?? null,
++    preparationId: provenance.preparationId,
++    documentId: (provenance.documentId as string | null | undefined) ?? null,
++    baseRevisionId: (provenance.baseRevisionId as string | null | undefined) ?? null,
++    sectionHint: (provenance.sectionHint as string | null | undefined) ?? null,
++    correlationKey: provenance.correlationKey,
++    contentSha256: provenance.contentSha256,
++    payloadSha256: provenance.payloadSha256,
++    title: provenance.title,
++  };
++}
++
++/** Same fingerprint/identity rule for every reconcile path (nominal, race, catch, TX). */
+ function reconcilePriorRevision(args: {
+   prior: { id: string; revisionNumber: number; status: string; contentMarkdown: string; provenanceJson: string };
+   documentId: string;
+   documentTitle: string;
+   expectedFp: string;
+-}): ReconcileOk | ReconcileFailedPrior | ReconcileConflict {
+-  const storedFp = readStoredFingerprint(
+-    args.prior.provenanceJson,
+-    args.documentTitle,
+-    args.prior.contentMarkdown,
+-  );
+-  if (storedFp !== args.expectedFp) {
+-    return {
+-      status: "CONFLICT",
+-      reason: "CORRELATION_PAYLOAD_MISMATCH",
+-      documentId: args.documentId,
+-      revisionId: args.prior.id,
+-      revisionNumber: args.prior.revisionNumber,
+-    };
++  expectedIdentity?: SealedEffectIdentity | null;
++}): ReconcileOk | ReconcileFailedPrior | ReconcileConflict | {
++  status: "UNKNOWN";
++  reason: string;
++  documentId: string;
++  revisionId: string;
++  revisionNumber: number;
++} {
++  if (args.expectedIdentity) {
++    const cmp = compareSealedEffectIdentity(
++      args.prior.provenanceJson,
++      args.prior.contentMarkdown,
++      args.documentTitle,
++      args.expectedIdentity,
++    );
++    if (!cmp.ok) {
++      if (cmp.reason === "COMMAND_PROVENANCE_UNVERIFIABLE") {
++        return {
++          status: "UNKNOWN",
++          reason: cmp.reason,
++          documentId: args.documentId,
++          revisionId: args.prior.id,
++          revisionNumber: args.prior.revisionNumber,
++        };
++      }
++      return {
++        status: "CONFLICT",
++        reason: "CORRELATION_PAYLOAD_MISMATCH",
++        documentId: args.documentId,
++        revisionId: args.prior.id,
++        revisionNumber: args.prior.revisionNumber,
++      };
++    }
++  } else {
++    const storedFp = readStoredFingerprint(
++      args.prior.provenanceJson,
++      args.documentTitle,
++      args.prior.contentMarkdown,
++    );
++    if (storedFp !== args.expectedFp) {
++      return {
++        status: "CONFLICT",
++        reason: "CORRELATION_PAYLOAD_MISMATCH",
++        documentId: args.documentId,
++        revisionId: args.prior.id,
++        revisionNumber: args.prior.revisionNumber,
++      };
++    }
+   }
+   if (args.prior.status === "FAILED") {
+     return {
+@@ -207,6 +380,7 @@ export async function savePreparationDocument(
+           documentId: existingDoc.id,
+           documentTitle: existingDoc.title,
+           expectedFp: fp,
++          expectedIdentity: identityFromProvenance(opts?.provenance),
+         });
+       }
+       // Document row exists but revision still absent after bounded wait
+@@ -220,54 +394,9 @@ export async function savePreparationDocument(
 
-+## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-CRITICAL-CORRECTIVE
+   let docId = documentId;
+   let ownedTitle = titleFinal;
+-  if (!docId) {
+-    docId = newId("doc");
+-    try {
+-      await db.insert(documents).values({
+-        id: docId,
+-        preparationId,
+-        projectId: ctx.project?.id ?? null,
+-        ownerPilotId: pilotId,
+-        title: titleFinal,
+-        creationCorrelationKey: opts?.correlationKey ?? null,
+-      });
+-    } catch (e) {
+-      // Concurrent create with same correlation key — reconcile WITH fingerprint
+-      if (opts?.correlationKey) {
+-        const raced = await findByCreationCorrelation(
+-          pilotId,
+-          preparationId,
+-          opts.correlationKey,
+-        );
+-        if (raced) {
+-          const priorRev =
+-            (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
+-            (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
+-          if (priorRev) {
+-            return reconcilePriorRevision({
+-              prior: priorRev,
+-              documentId: raced.id,
+-              documentTitle: raced.title,
+-              expectedFp: fp,
+-            });
+-          }
+-          return {
+-            status: "UNKNOWN" as const,
+-            reason: "CREATION_IN_FLIGHT",
+-            documentId: raced.id,
+-          };
+-        }
+-        return {
+-          status: "FAILED" as const,
+-          reason: e instanceof Error ? e.message : "document create failed",
+-        };
+-      }
+-      return {
+-        status: "FAILED" as const,
+-        reason: e instanceof Error ? e.message : "document create failed",
+-      };
+-    }
+-  } else {
 +
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-14 ~10:10 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Correctif Critical Review (C-01…C-07) continuité Nora / D4 |
-+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
-+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-+| Prior handoff | `sfia/review-handoff@93e277c2` blob `510b410f` |
-+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-+| Changes | reconcile read-only ; canonicalize proposal ; prior assistant source ; correlation salt ; history walk/budget ; UX 320+ |
-+| Schema | unchanged |
-+| Tests | unit 277 PASS ; PG ML4C 29 PASS ; Playwright C-07 320+ PASS ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
-+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
-+
-+## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-NORA-DOCUMENTS
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-14 ~09:30 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4 |
-+| Type | EVOL Critical integrated (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` (local) = tip `origin/build/next-ml4c-functional-convergence@67bf6b0b` |
-+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-+| Lane | DEV `:5433` + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-+| Changes | history-tools + SDK tools ; documentProposal ; document-command admit/seal ; CREATE atomique + REVISE fence/fingerprint ; UX composeur sticky ; as-built |
-+| Schema | unchanged (indexes existants utilisés) |
-+| Tests | unit 272 PASS ; PG history+document-command 11 PASS ; ML2 Q10 O-05 PASS ; Playwright composer PASS ; LIVE NOT PROVEN |
-+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
-+
- ## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
++  // Existing-document path: ownership check before TX.
++  if (docId) {
+     const owned = (
+       await db
+         .select()
+@@ -283,26 +412,26 @@ export async function savePreparationDocument(
+     )[0];
+     if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
+     ownedTitle = owned.title;
+-  }
+-
+-  // Revision-level idempotence for known document
+-  if (opts?.correlationKey) {
+-    const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
+-    if (prior) {
+-      return reconcilePriorRevision({
+-        prior,
+-        documentId: docId,
+-        documentTitle: ownedTitle,
+-        expectedFp: fp,
+-      });
++    if (opts?.correlationKey) {
++      const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
++      if (prior) {
++        return reconcilePriorRevision({
++          prior,
++          documentId: docId,
++          documentTitle: ownedTitle,
++          expectedFp: fp,
++          expectedIdentity: identityFromProvenance(opts?.provenance),
++        });
++      }
+     }
+   }
 
- | Field | Value |
+   try {
+     return await db.transaction(async (tx) => {
++      // O-05: ownership fence BEFORE any document/revision mutation.
+       if (opts?.turnFence) {
+-        const owned = await assertTurnFenceInTx(tx, opts.turnFence);
+-        if (!owned) {
++        const fenceOwned = await assertTurnFenceInTx(tx, opts.turnFence);
++        if (!fenceOwned) {
+           return {
+             status: "FAILED" as const,
+             reason: "TURN_OWNERSHIP_LOST",
+@@ -311,9 +440,56 @@ export async function savePreparationDocument(
+         }
+       }
+
+-      await tx.execute(
+-        sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
+-      );
++      // CREATE: insert documents + first revision in the SAME transaction (no orphan row).
++      if (!docId) {
++        docId = newId("doc");
++        try {
++          await tx.insert(documents).values({
++            id: docId,
++            preparationId,
++            projectId: ctx.project?.id ?? null,
++            ownerPilotId: pilotId,
++            title: titleFinal,
++            creationCorrelationKey: opts?.correlationKey ?? null,
++          });
++        } catch (e) {
++          if (opts?.correlationKey) {
++            const raced = await findByCreationCorrelation(
++              pilotId,
++              preparationId,
++              opts.correlationKey,
++            );
++            if (raced) {
++              const priorRev =
++                (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
++                (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
++              if (priorRev) {
++                return reconcilePriorRevision({
++                  prior: priorRev,
++                  documentId: raced.id,
++                  documentTitle: raced.title,
++                  expectedFp: fp,
++                  expectedIdentity: identityFromProvenance(opts?.provenance),
++                });
++              }
++              return {
++                status: "UNKNOWN" as const,
++                reason: "CREATION_IN_FLIGHT",
++                documentId: raced.id,
++              };
++            }
++          }
++          return {
++            status: "FAILED" as const,
++            reason: e instanceof Error ? e.message : "document create failed",
++          };
++        }
++        ownedTitle = titleFinal;
++      } else {
++        await tx.execute(
++          sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
++        );
++      }
+
+       if (opts?.correlationKey) {
+         const prior = (
+@@ -334,6 +510,7 @@ export async function savePreparationDocument(
+             documentId: docId!,
+             documentTitle: ownedTitle,
+             expectedFp: fp,
++            expectedIdentity: identityFromProvenance(opts?.provenance),
+           });
+         }
+       }
+@@ -393,22 +570,29 @@ export async function savePreparationDocument(
+   } catch (e) {
+     // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
+     if (opts?.correlationKey) {
+-      const prior =
+-        (await findRevisionByCorrelation(docId, opts.correlationKey)) ??
+-        (await waitForRevisionByCorrelation(docId, opts.correlationKey));
+-      if (prior) {
+-        return reconcilePriorRevision({
+-          prior,
+-          documentId: docId,
+-          documentTitle: ownedTitle,
+-          expectedFp: fp,
+-        });
++      const racedDoc =
++        (docId
++          ? { id: docId, title: ownedTitle }
++          : await findByCreationCorrelation(pilotId, preparationId, opts.correlationKey)) ?? null;
++      if (racedDoc) {
++        const prior =
++          (await findRevisionByCorrelation(racedDoc.id, opts.correlationKey)) ??
++          (await waitForRevisionByCorrelation(racedDoc.id, opts.correlationKey));
++        if (prior) {
++          return reconcilePriorRevision({
++            prior,
++            documentId: racedDoc.id,
++            documentTitle: "title" in racedDoc ? racedDoc.title : ownedTitle,
++            expectedFp: fp,
++            expectedIdentity: identityFromProvenance(opts?.provenance),
++          });
++        }
++        return {
++          status: "UNKNOWN" as const,
++          reason: "CREATION_IN_FLIGHT",
++          documentId: racedDoc.id,
++        };
+       }
+-      return {
+-        status: "UNKNOWN" as const,
+-        reason: "CREATION_IN_FLIGHT",
+-        documentId: docId,
+-      };
+     }
+     return {
+       status: "FAILED" as const,
+@@ -434,6 +618,11 @@ export async function reviseDocument(
+     sectionHint?: string;
+     provenance?: Record<string, unknown>;
+     injectFailureAfterLock?: boolean;
++    /** Symmetric with CREATE — abort unless turn still owned. */
++    turnFence?: TurnOwnershipFence;
++    /** Title used for fingerprint reconcile on replay (defaults to owned document title). */
++    expectedTitle?: string;
++    expectedContentSha256?: string;
+   },
+ ) {
+   if (input.contentMarkdown.length > MAX_DOC_CHARS) {
+@@ -442,6 +631,18 @@ export async function reviseDocument(
+
+   try {
+     return await db.transaction(async (tx) => {
++      // Lock order: turn command / ownership → document → mutation.
++      if (input.turnFence) {
++        const fenceOwned = await assertTurnFenceInTx(tx, input.turnFence);
++        if (!fenceOwned) {
++          return {
++            status: "FAILED" as const,
++            reason: "TURN_OWNERSHIP_LOST",
++            rolledBack: true as const,
++          };
++        }
++      }
++
+       await tx.execute(
+         sql`select id from documents where id = ${input.documentId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+       );
+@@ -461,7 +662,11 @@ export async function reviseDocument(
+       )[0];
+       if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
+
+-      // Idempotent correlation inside the lock
++      const expectedFp =
++        input.expectedContentSha256 ??
++        contentFingerprint(input.expectedTitle ?? owned.title, input.contentMarkdown);
++
++      // Idempotent correlation inside the lock — fingerprint must match.
+       const prior = (
+         await tx
+           .select()
+@@ -475,13 +680,13 @@ export async function reviseDocument(
+           .limit(1)
+       )[0];
+       if (prior) {
+-        return {
+-          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
++        return reconcilePriorRevision({
++          prior,
+           documentId: input.documentId,
+-          revisionId: prior.id,
+-          revisionNumber: prior.revisionNumber,
+-          idempotentReplay: true as const,
+-        };
++          documentTitle: input.expectedTitle ?? owned.title,
++          expectedFp,
++          expectedIdentity: identityFromProvenance(input.provenance),
++        });
+       }
+
+       const base = (
+@@ -543,6 +748,7 @@ export async function reviseDocument(
+         provenanceJson: JSON.stringify({
+           ...(input.provenance ?? {}),
+           sectionHint: input.sectionHint ?? null,
++          contentFingerprint: expectedFp,
+         }),
+         scope: input.scope ?? "section",
+       });
+@@ -799,3 +1005,173 @@ export async function compareDocumentRevisions(
+     diff,
+   };
+ }
++
++/**
++ * C-01 / F-01 — pure D4 truth lookup by sealed correlation. Never inserts/updates/deletes.
++ * No latest-revision fallback; full sealed identity comparison required for AVAILABLE.
++ */
++export type DocumentCorrelationTruth = {
++  verdict: "AVAILABLE" | "UNKNOWN" | "CONFLICT" | "NOT_EXECUTED";
++  documentId?: string;
++  revisionId?: string;
++  revisionNumber?: number;
++  reason?: string;
++  contentSha256?: string;
++};
++
++export async function lookupDocumentCorrelationTruth(input: {
++  pilotId: string;
++  preparationId: string;
++  action: "CREATE" | "REVISE";
++  correlationKey: string;
++  title: string;
++  contentMarkdown: string;
++  contentSha256: string;
++  payloadSha256?: string | null;
++  documentId?: string | null;
++  baseRevisionId?: string | null;
++  /** Full sealed identity — required for AVAILABLE proof of an ML4C document command. */
++  expectedIdentity?: SealedEffectIdentity | null;
++}): Promise<DocumentCorrelationTruth> {
++  // F-01: AVAILABLE only with a complete sealed identity from the binding.
++  // Partial payloadSha256 alone never proves command identity.
++  const fullIdentity =
++    input.expectedIdentity &&
++    input.expectedIdentity.commandId &&
++    input.expectedIdentity.payloadSha256
++      ? input.expectedIdentity
++      : null;
++
++  if (input.action === "CREATE") {
++    const doc = await findByCreationCorrelation(
++      input.pilotId,
++      input.preparationId,
++      input.correlationKey,
++    );
++    if (!doc) {
++      return { verdict: "UNKNOWN", reason: "CREATE_CORRELATION_ABSENT" };
++    }
++    if (doc.ownerPilotId !== input.pilotId || doc.preparationId !== input.preparationId) {
++      return { verdict: "NOT_EXECUTED", reason: "SOURCE_DENIED" };
++    }
++    // F-01: never use latestRevisionFor as CREATE correlation proof.
++    const rev = await findRevisionByCorrelation(doc.id, input.correlationKey);
++    if (!rev) {
++      return {
++        verdict: "UNKNOWN",
++        reason: "CREATE_REVISION_ABSENT",
++        documentId: doc.id,
++      };
++    }
++    if (!fullIdentity) {
++      return {
++        verdict: "UNKNOWN",
++        reason: "COMMAND_PROVENANCE_UNVERIFIABLE",
++        documentId: doc.id,
++        revisionId: rev.id,
++        revisionNumber: rev.revisionNumber,
++      };
++    }
++    const cmp = compareSealedEffectIdentity(
++      rev.provenanceJson,
++      rev.contentMarkdown,
++      doc.title,
++      fullIdentity,
++    );
++    if (!cmp.ok) {
++      return {
++        verdict: cmp.reason === "COMMAND_PROVENANCE_UNVERIFIABLE" ? "UNKNOWN" : "CONFLICT",
++        reason: cmp.reason,
++        documentId: doc.id,
++        revisionId: rev.id,
++        revisionNumber: rev.revisionNumber,
++      };
++    }
++    if (rev.status === "AVAILABLE") {
++      return {
++        verdict: "AVAILABLE",
++        documentId: doc.id,
++        revisionId: rev.id,
++        revisionNumber: rev.revisionNumber,
++        contentSha256: cmp.storedContentSha256,
++      };
++    }
++    return {
++      verdict: "UNKNOWN",
++      reason: `CREATE_REVISION_${rev.status}`,
++      documentId: doc.id,
++      revisionId: rev.id,
++      revisionNumber: rev.revisionNumber,
++      contentSha256: cmp.storedContentSha256,
++    };
++  }
++
++  if (!input.documentId) {
++    return { verdict: "NOT_EXECUTED", reason: "REVISE_TARGET_INCOMPLETE" };
++  }
++  const owned = (
++    await db
++      .select()
++      .from(documents)
++      .where(
++        and(
++          eq(documents.id, input.documentId),
++          eq(documents.ownerPilotId, input.pilotId),
++          eq(documents.preparationId, input.preparationId),
++        ),
++      )
++      .limit(1)
++  )[0];
++  if (!owned) {
++    return { verdict: "NOT_EXECUTED", reason: "SOURCE_DENIED" };
++  }
++  const rev = await findRevisionByCorrelation(input.documentId, input.correlationKey);
++  if (!rev) {
++    return {
++      verdict: "UNKNOWN",
++      reason: "REVISE_CORRELATION_ABSENT",
++      documentId: input.documentId,
++    };
++  }
++  if (!fullIdentity) {
++    return {
++      verdict: "UNKNOWN",
++      reason: "COMMAND_PROVENANCE_UNVERIFIABLE",
++      documentId: input.documentId,
++      revisionId: rev.id,
++      revisionNumber: rev.revisionNumber,
++    };
++  }
++  const cmp = compareSealedEffectIdentity(
++    rev.provenanceJson,
++    rev.contentMarkdown,
++    owned.title,
++    fullIdentity,
++  );
++  if (!cmp.ok) {
++    return {
++      verdict: cmp.reason === "COMMAND_PROVENANCE_UNVERIFIABLE" ? "UNKNOWN" : "CONFLICT",
++      reason: cmp.reason,
++      documentId: input.documentId,
++      revisionId: rev.id,
++      revisionNumber: rev.revisionNumber,
++    };
++  }
++  if (rev.status === "AVAILABLE") {
++    return {
++      verdict: "AVAILABLE",
++      documentId: input.documentId,
++      revisionId: rev.id,
++      revisionNumber: rev.revisionNumber,
++      contentSha256: cmp.storedContentSha256,
++    };
++  }
++  return {
++    verdict: "UNKNOWN",
++    reason: `REVISE_REVISION_${rev.status}`,
++    documentId: input.documentId,
++    revisionId: rev.id,
++    revisionNumber: rev.revisionNumber,
++    contentSha256: cmp.storedContentSha256,
++  };
++}
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index bbab5da7..1bb58a9a 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -10,11 +10,15 @@ import {
+   reconstituteConfirmedD4Effects,
+   selectRelevantKnowledgeContext,
+ } from "@/domains/knowledge/service";
++import { listDocuments } from "@/domains/document/service";
+ import {
+-  listDocuments,
+-  reviseDocument,
+-  savePreparationDocument,
+-} from "@/domains/document/service";
++  admitDocumentCommand,
++  canonicalizeDocumentProposal,
++  resolveAssistantProposal,
++  sealAndApplyDocumentCommand,
++  serializeProposalFence,
++  type DocumentProposalExact,
++} from "@/domains/conversation/document-command";
+ import {
+   bindTurnGenerationId,
+   commitTurnTerminal,
+@@ -40,6 +44,7 @@ import {
+   assertSectionScope,
+   extractContractualDocumentProposal,
+   resolveReviseTarget,
++  stripContractualDocumentFences,
+   type DocumentEffectSummary,
+   type DocumentProposalExtract,
+ } from "./document-act";
+@@ -878,6 +883,25 @@ export async function postUserMessageAndNora(
+   const studioIntent = studioProjection;
+   const clientIntentKey = clientTurnKey;
+   const missionKeys = missionCorrelationKeys(clientIntentKey);
++
++  let durableProposal: DocumentProposalExact | null = null;
++  if (
++    reply.status === "COMPLETE" &&
++    qualification.documentProposal &&
++    !qualification.documentSource
++  ) {
++    const earlyCanonical = canonicalizeDocumentProposal(qualification.documentProposal);
++    if (earlyCanonical.ok) {
++      durableProposal = earlyCanonical.proposal;
++      const earlyExtract = extractContractualDocumentProposal(reply.content);
++      if (!earlyExtract.ok) {
++        reply = {
++          ...reply,
++          content: `${reply.content.trimEnd()}\n\n${serializeProposalFence(durableProposal)}`,
++        };
++      }
++    }
++  }
+   // Semantic qualification visible before extract/D4. Absence of obs must never invent D4.
+   emitDocumentActQualificationObs({
+     requestId,
+@@ -927,11 +951,73 @@ export async function postUserMessageAndNora(
+       }
+
+       if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
+-        const extracted = extractContractualDocumentProposal(reply.content);
+-        if (!extracted.ok) {
++        // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
++        type ExactProposal = { title: string; contentMarkdown: string; contentSha256: string };
++        let exact: ExactProposal | null = null;
++        let source:
++          | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
++          | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
++          kind: "SAME_TURN_SNAPSHOT",
++          commandId: reserved.commandId,
++        };
++        let createBlocked: string | null = null;
++        let extracted = extractContractualDocumentProposal(reply.content);
++
++        if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
++          const resolved = await resolveAssistantProposal({
++            pilotId,
++            preparationId,
++            assistantMessageId: qualification.documentSource.assistantMessageId,
++          });
++          if (!resolved.ok) {
++            createBlocked = resolved.reason;
++          } else {
++            exact = resolved.proposal;
++            durableProposal = exact;
++            source = {
++              kind: "ASSISTANT_MESSAGE",
++              assistantMessageId: resolved.assistantMessageId,
++            };
++            // Terminal parity: surface the exact historical Markdown without rewriting.
++            if (!extracted.ok) {
++              reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
++              extracted = extractContractualDocumentProposal(reply.content);
++            } else if (extracted.content !== exact.contentMarkdown) {
++              createBlocked = "PROPOSAL_SOURCE_CONFLICT";
++            }
++          }
++        } else if (qualification.documentProposal) {
++          const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
++          if (!canonical.ok) {
++            createBlocked = canonical.reason;
++          } else {
++            exact = canonical.proposal;
++            durableProposal = exact;
++            if (!extracted.ok) {
++              reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
++              extracted = extractContractualDocumentProposal(reply.content);
++            } else if (extracted.content !== exact.contentMarkdown) {
++              createBlocked = "PROPOSAL_SNAPSHOT_MISMATCH";
++            }
++          }
++        } else if (extracted.ok) {
++          const canonical = canonicalizeDocumentProposal({
++            title: extracted.title,
++            contentMarkdown: extracted.content,
++          });
++          if (!canonical.ok) createBlocked = canonical.reason;
++          else {
++            exact = canonical.proposal;
++            durableProposal = exact;
++          }
++        } else {
++          createBlocked = extracted.reason;
++        }
++
++        if (createBlocked || !exact) {
+           documentSave = {
+             status: "FAILED",
+-            reason: extracted.reason,
++            reason: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
+             act: "CREATE",
+           };
+           emitDocumentProposalObs({
+@@ -939,45 +1025,90 @@ export async function postUserMessageAndNora(
+             operationId: reserved.operationId,
+             generationId: reply.generationId,
+             act: "CREATE",
+-            extracted,
+-            refuseCode: extracted.reason,
++            extracted: extracted.ok
++              ? extracted
++              : {
++                  ok: false,
++                  reason: "DOCUMENT_PROPOSAL_MISSING",
++                  path: "none",
++                  fenceCount: 0,
++                  proposalChars: 0,
++                  proposalDigest16: null,
++                  bodyEndsWithNewline: false,
++                  sectionCount: 0,
++                },
++            refuseCode: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
+             d4Attempted: false,
+             d4Effect: null,
+           });
+         } else {
+           try {
+-            const saved = await savePreparationDocument(
+-              pilotId,
+-              preparationId,
+-              extracted.title,
+-              extracted.content,
+-              undefined,
+-              {
+-                correlationKey: opts?.correlationKey
+-                  ? `doc:${opts.correlationKey}`
+-                  : missionIntent.wantsPublish
+-                    ? missionKeys.document
+-                    : `doc:${reply.generationId}`,
+-                provenance: {
+-                  sourceKind: "nora",
+-                  generationId: reply.generationId,
+-                  userMessageId: reserved.userMessageId,
+-                  explicitRequest: true,
++            const createIntents = effectIntents(qualification).filter(
++              (i) => i.capabilityId === "d4.create_document",
++            );
++            if (createIntents.length > 1) {
++              documentSave = {
++                status: "FAILED",
++                reason: "AMBIGUOUS_CREATE_INTENT",
++                act: "CREATE",
++              };
++            } else {
++              const createIntent = createIntents[0];
++              if (!createIntent) {
++                documentSave = {
++                  status: "FAILED",
++                  reason: "MISSING_CREATE_INTENT",
+                   act: "CREATE",
+-                },
+-                scope: "document",
+-                turnFence: {
++                };
++              } else {
++                const clientSalt =
++                  opts?.correlationKey?.trim() ||
++                  (missionIntent.wantsPublish ? missionKeys.document : null);
++                const admitted = admitDocumentCommand({
+                   commandId: reserved.commandId,
+-                  ownerToken: reserved.ownerToken,
+-                  beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+-                },
+-              },
+-            );
+-            documentSave = { ...saved, act: "CREATE" };
++                  operationId: reserved.operationId,
++                  userMessageId: reserved.userMessageId,
++                  qualifiedIntentId: createIntent.id,
++                  action: "CREATE",
++                  preparationId,
++                  source,
++                  title: exact.title,
++                  contentMarkdown: exact.contentMarkdown,
++                  clientCorrelationSalt: clientSalt,
++                });
++                if (!admitted.ok) {
++                  documentSave = {
++                    status: "FAILED",
++                    reason: admitted.reason,
++                    act: "CREATE",
++                  };
++                } else {
++                  const sealed = await sealAndApplyDocumentCommand({
++                    pilotId,
++                    fence: {
++                      commandId: reserved.commandId,
++                      ownerToken: reserved.ownerToken,
++                      beforeFenceCheck: turnRaceHooks.beforeD4Effect,
++                    },
++                    binding: admitted.binding,
++                  });
++                  if (!sealed.sealApplied) {
++                    documentSave = {
++                      status: "FAILED",
++                      reason: "BINDING_SEAL_FAILED",
++                      act: "CREATE",
++                    };
++                  } else {
++                    documentSave = { ...sealed.effect, act: "CREATE" };
++                  }
++                }
++              }
++            }
+             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
+               ownershipLostBeforeD4 = true;
+               documentSave = null;
+             } else if (
++              documentSave &&
+               documentSave.status !== "AVAILABLE" &&
+               documentSave.status !== "CONFLICT"
+             ) {
+@@ -989,7 +1120,20 @@ export async function postUserMessageAndNora(
+               operationId: reserved.operationId,
+               generationId: reply.generationId,
+               act: "CREATE",
+-              extracted,
++              extracted: extracted.ok
++                ? extracted
++                : {
++                    ok: true,
++                    content: exact.contentMarkdown,
++                    title: exact.title,
++                    path: "fence",
++                    fenceTag: "sfia-document",
++                    fenceCount: 1,
++                    proposalChars: exact.contentMarkdown.length,
++                    proposalDigest16: exact.contentSha256.slice(0, 16),
++                    bodyEndsWithNewline: exact.contentMarkdown.endsWith("\n"),
++                    sectionCount: 0,
++                  },
+               refuseCode:
+                 documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
+                   ? null
+@@ -1042,11 +1186,63 @@ export async function postUserMessageAndNora(
+               d4Effect: null,
+             });
+           } else {
+-            const extracted = extractContractualDocumentProposal(reply.content);
+-            if (!extracted.ok) {
++            let extracted = extractContractualDocumentProposal(reply.content);
++            let reviseProposalContent: string | null = null;
++            let reviseBlocked: string | null = null;
++            let reviseSource:
++              | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
++              | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
++              kind: "SAME_TURN_SNAPSHOT",
++              commandId: reserved.commandId,
++            };
++            if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
++              const resolved = await resolveAssistantProposal({
++                pilotId,
++                preparationId,
++                assistantMessageId: qualification.documentSource.assistantMessageId,
++              });
++              if (!resolved.ok) reviseBlocked = resolved.reason;
++              else {
++                reviseProposalContent = resolved.proposal.contentMarkdown;
++                durableProposal = resolved.proposal;
++                reviseSource = {
++                  kind: "ASSISTANT_MESSAGE",
++                  assistantMessageId: resolved.assistantMessageId,
++                };
++                if (!extracted.ok) {
++                  reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(resolved.proposal)}`;
++                  extracted = extractContractualDocumentProposal(reply.content);
++                } else if (extracted.content !== reviseProposalContent) {
++                  reviseBlocked = "PROPOSAL_SOURCE_CONFLICT";
++                }
++              }
++            } else if (qualification.documentProposal) {
++              const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
++              if (!canonical.ok) reviseBlocked = canonical.reason;
++              else {
++                reviseProposalContent = canonical.proposal.contentMarkdown;
++                durableProposal = canonical.proposal;
++                if (!extracted.ok) {
++                  reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(canonical.proposal)}`;
++                  extracted = extractContractualDocumentProposal(reply.content);
++                } else if (extracted.content !== reviseProposalContent) {
++                  reviseBlocked = "PROPOSAL_SNAPSHOT_MISMATCH";
++                }
++              }
++            } else if (extracted.ok) {
++              reviseProposalContent = extracted.content;
++              const canonical = canonicalizeDocumentProposal({
++                title: extracted.title,
++                contentMarkdown: extracted.content,
++              });
++              if (canonical.ok) durableProposal = canonical.proposal;
++            } else {
++              reviseBlocked = extracted.reason;
++            }
++            if (reviseBlocked || !reviseProposalContent) {
+               documentSave = {
+                 status: "FAILED",
+-                reason: extracted.reason,
++                reason: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
+                 documentId: target.documentId,
+                 baseRevisionId: target.baseRevisionId,
+                 act: "REVISE",
+@@ -1057,14 +1253,14 @@ export async function postUserMessageAndNora(
+                 generationId: reply.generationId,
+                 act: "REVISE",
+                 extracted,
+-                refuseCode: extracted.reason,
++                refuseCode: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
+                 d4Attempted: false,
+                 d4Effect: null,
+               });
+             } else {
+               const merged = applyTargetedSectionRevision(
+                 target.baseContent,
+-                extracted.content,
++                reviseProposalContent,
+                 documentAct.sectionHint,
+               );
+               if (!merged.ok) {
+@@ -1112,33 +1308,81 @@ export async function postUserMessageAndNora(
+                     d4Effect: null,
+                   });
+                 } else {
+-                  const correlationKey = opts?.correlationKey
+-                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
+-                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
+-                  const revised = await reviseDocument(pilotId, preparationId, {
+-                    documentId: target.documentId,
+-                    baseRevisionId: target.baseRevisionId,
+-                    contentMarkdown: merged.content,
+-                    correlationKey,
+-                    scope: documentAct.sectionHint ? "section" : "document",
+-                    sectionHint: documentAct.sectionHint ?? undefined,
+-                    provenance: {
+-                      sourceKind: "nora",
+-                      generationId: reply.generationId,
+-                      userMessageId: reserved.userMessageId,
+-                      explicitRequest: true,
++                  const reviseIntents = effectIntents(qualification).filter(
++                    (i) => i.capabilityId === "d4.revise_document",
++                  );
++                  if (reviseIntents.length !== 1) {
++                    documentSave = {
++                      status: "FAILED",
++                      reason:
++                        reviseIntents.length === 0
++                          ? "MISSING_REVISE_INTENT"
++                          : "AMBIGUOUS_REVISE_INTENT",
++                      documentId: target.documentId,
++                      baseRevisionId: target.baseRevisionId,
+                       act: "REVISE",
++                    };
++                  } else {
++                    const reviseIntent = reviseIntents[0]!;
++                    const clientSalt =
++                      opts?.correlationKey?.trim() ||
++                      `${target.documentId}:${target.baseRevisionId}`;
++                    const admitted = admitDocumentCommand({
++                      commandId: reserved.commandId,
++                      operationId: reserved.operationId,
++                      userMessageId: reserved.userMessageId,
++                      qualifiedIntentId: reviseIntent.id,
++                      action: "REVISE",
++                      preparationId,
++                      documentId: target.documentId,
++                      baseRevisionId: target.baseRevisionId,
+                       sectionHint: documentAct.sectionHint,
+-                    },
+-                  });
+-                  documentSave = {
+-                    ...revised,
+-                    act: "REVISE",
+-                    baseRevisionId:
+-                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
+-                        ? revised.baseRevisionId
+-                        : target.baseRevisionId,
+-                  };
++                      source: reviseSource,
++                      title: target.title,
++                      contentMarkdown: merged.content,
++                      clientCorrelationSalt: clientSalt,
++                    });
++                    if (!admitted.ok) {
++                      documentSave = {
++                        status: "FAILED",
++                        reason: admitted.reason,
++                        documentId: target.documentId,
++                        baseRevisionId: target.baseRevisionId,
++                        act: "REVISE",
++                      };
++                    } else {
++                      const sealed = await sealAndApplyDocumentCommand({
++                        pilotId,
++                        fence: {
++                          commandId: reserved.commandId,
++                          ownerToken: reserved.ownerToken,
++                          beforeFenceCheck: turnRaceHooks.beforeD4Effect,
++                        },
++                        binding: admitted.binding,
++                      });
++                      if (!sealed.sealApplied) {
++                        documentSave = {
++                          status: "FAILED",
++                          reason: "BINDING_SEAL_FAILED",
++                          documentId: target.documentId,
++                          baseRevisionId: target.baseRevisionId,
++                          act: "REVISE",
++                        };
++                      } else {
++                        const revised = sealed.effect;
++                        documentSave = {
++                          ...revised,
++                          act: "REVISE",
++                          baseRevisionId:
++                            "baseRevisionId" in revised &&
++                            typeof (revised as { baseRevisionId?: string }).baseRevisionId ===
++                              "string"
++                              ? (revised as { baseRevisionId: string }).baseRevisionId
++                              : target.baseRevisionId,
++                        };
++                      }
++                    }
++                  }
+                   if (
+                     documentSave.status !== "AVAILABLE" &&
+                     documentSave.status !== "CONFLICT" &&
+@@ -1467,6 +1711,12 @@ export async function postUserMessageAndNora(
+     }
+   }
+
++  if (durableProposal && !ownershipLostBeforeD4) {
++    const narrative = stripContractualDocumentFences(assistantBody);
++    const fenced = serializeProposalFence(durableProposal);
++    assistantBody = [narrative.trimEnd(), fenced].filter((s) => s.length > 0).join("\n\n");
++  }
++
+   const assistantContentForCommit = ownershipLostBeforeD4
+     ? reply.content
+     : appendMissionAck(
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+index d97533a9..8af5eb9a 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+@@ -2,6 +2,7 @@
+  * Chat-first D4 act qualification — create vs revise vs none.
+  * Server authority only; Nora text never creates or revises alone.
+  */
++import { contentSha256, parseFenceMeta } from "@/domains/conversation/document-command";
+
+ export type DocumentActKind = "CREATE" | "REVISE" | "NONE";
+
+@@ -555,7 +556,10 @@ export type DocumentProposalExtract =
+         | "DOCUMENT_PROPOSAL_MISSING"
+         | "DOCUMENT_PROPOSAL_AMBIGUOUS"
+         | "DOCUMENT_PROPOSAL_EMPTY"
+-        | "DOCUMENT_PROPOSAL_UNCLOSED";
++        | "DOCUMENT_PROPOSAL_UNCLOSED"
++        | "DOCUMENT_PROPOSAL_METADATA_INVALID"
++        | "DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH"
++        | "DOCUMENT_PROPOSAL_TITLE_MISMATCH";
+       path: "none" | "ambiguous" | "empty" | "unclosed";
+       fenceCount: number;
+       proposalChars: number;
+@@ -627,7 +631,7 @@ function isFenceClose(marker: FenceMarker, open: FenceMarker): boolean {
+ }
+
+ type ScannedProposal =
+-  | { status: "ok"; content: string; tag: string }
++  | { status: "ok"; content: string; tag: string; fenceInfo: string; openerLength: number }
+   | { status: "unclosed" };
+
+ /**
+@@ -732,13 +736,85 @@ export function scanContractualDocumentFences(assistantText: string): {
+       const start = lines[bodyStartLine]!.start;
+       content = assistantText.slice(start, lines[closedAt]!.start);
+     }
+-    proposals.push({ status: "ok", content, tag: DOCUMENT_PROPOSAL_TAG });
++    proposals.push({
++      status: "ok",
++      content,
++      tag: DOCUMENT_PROPOSAL_TAG,
++      fenceInfo: open.info.trim(),
++      openerLength: open.length,
++    });
+     i = closedAt + 1;
+   }
+
+   return { proposals, contractualOpenCount };
+ }
+
++/** Remove autonomous contractual fences; keep conversational / illustrative text. */
++export function stripContractualDocumentFences(assistantText: string): string {
++  const lines = splitMarkdownLines(assistantText);
++  const chunks: string[] = [];
++  let i = 0;
++  while (i < lines.length) {
++    const open = parseFenceMarkerLine(lines[i]!.text);
++    if (!open) {
++      const start = lines[i]!.start;
++      const end = i + 1 < lines.length ? lines[i + 1]!.start : assistantText.length;
++      chunks.push(assistantText.slice(start, end));
++      i += 1;
++      continue;
++    }
++    if (!isContractualProposalOpen(open)) {
++      const start = lines[i]!.start;
++      const after = skipIllustrativeFence(lines, i, open);
++      const end = after < lines.length ? lines[after]!.start : assistantText.length;
++      chunks.push(assistantText.slice(start, end));
++      i = after;
++      continue;
++    }
++    const bodyStartLine = i + 1;
++    const nest: Array<{ char: "`" | "~"; length: number }> = [];
++    let closedAt: number | null = null;
++    for (let j = bodyStartLine; j < lines.length; j++) {
++      const cand = parseFenceMarkerLine(lines[j]!.text);
++      if (!cand) continue;
++      if (nest.length === 0 && isFenceClose(cand, open)) {
++        closedAt = j;
++        break;
++      }
++      if (nest.length > 0) {
++        const top = nest[nest.length - 1]!;
++        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
++          nest.pop();
++          continue;
++        }
++      }
++      const opensInner =
++        cand.info.trim() !== "" ||
++        cand.char !== open.char ||
++        cand.length < open.length;
++      if (opensInner) {
++        nest.push({ char: cand.char, length: cand.length });
++      }
++    }
++    if (closedAt == null) break;
++    i = closedAt + 1;
++  }
++  return chunks.join("").trimEnd();
++}
++
++function normalizeStructuredProposalBody(
++  raw: string,
++  expectedChars: number,
++): { ok: true; content: string } | { ok: false; reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" } {
++  if (raw.length === expectedChars) {
++    return { ok: true, content: raw };
++  }
++  if (raw.length === expectedChars + 1 && raw.endsWith("\n")) {
++    return { ok: true, content: raw.slice(0, -1) };
++  }
++  return { ok: false, reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
++}
++
+ function failProposal(
+   reason: Extract<DocumentProposalExtract, { ok: false }>["reason"],
+   path: Extract<DocumentProposalExtract, { ok: false }>["path"],
+@@ -776,7 +852,56 @@ export function extractContractualDocumentProposal(
+     return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
+   }
+
+-  const content = proposals[0]!.content;
++  const scanned = proposals[0]!;
++  let content = scanned.content;
++  const meta = parseFenceMeta(scanned.fenceInfo);
++
++  if (meta.structured) {
++    if (meta.chars == null || meta.titleB64 == null || meta.pairSha256 == null) {
++      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
++    }
++    const normalized = normalizeStructuredProposalBody(content, meta.chars);
++    if (!normalized.ok) {
++      return failProposal(normalized.reason, "empty", 1, content);
++    }
++    content = normalized.content;
++    let title: string;
++    try {
++      title = Buffer.from(meta.titleB64, "base64url").toString("utf8").trim();
++    } catch {
++      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
++    }
++    if (!title) {
++      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
++    }
++    const digest = contentSha256(title, content);
++    if (digest !== meta.pairSha256) {
++      return failProposal("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH", "empty", 1, content);
++    }
++    const h1 = /^#\s+(.+?)(?:\r?\n|$)/.exec(content);
++    if (h1) {
++      const heading = h1[1]!.trim();
++      if (heading !== title) {
++        return failProposal("DOCUMENT_PROPOSAL_TITLE_MISMATCH", "empty", 1, content);
++      }
++    }
++    if (!content.trim() || content.trim().length < 8) {
++      return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
++    }
++    return {
++      ok: true,
++      content,
++      title,
++      path: "fence",
++      fenceTag: DOCUMENT_PROPOSAL_TAG,
++      fenceCount: 1,
++      proposalChars: content.length,
++      proposalDigest16: digest16(content),
++      bodyEndsWithNewline: content.endsWith("\n"),
++      sectionCount: locateSections(content).length,
++    };
++  }
++
+   if (!content.trim() || content.trim().length < 8) {
+     return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
+   }
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+index e2c0b349..7f38c4bf 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+@@ -666,6 +666,85 @@ export async function stashTurnQualification(args: {
+   });
+ }
+
++/**
++ * Seal a document command binding into resultJson before any D4 mutation (O-04/O-05).
++ * Appends under documentCommandBindings[]; refuses overwrite of an existing same correlationKey.
++ */
++export async function stashDocumentCommandBinding(args: {
++  commandId: string;
++  ownerToken: string;
++  binding: Record<string, unknown>;
++}): Promise<{ applied: boolean }> {
++  return db.transaction(async (tx) => {
++    await tx.execute(
++      sql`select id from conversation_turn_commands
++          where id = ${args.commandId}
++            and owner_token = ${args.ownerToken}
++            and status in ('RUNNING', 'ACCEPTED')
++          for update`,
++    );
++    const owned = (
++      await tx
++        .select({
++          id: conversationTurnCommands.id,
++          resultJson: conversationTurnCommands.resultJson,
++        })
++        .from(conversationTurnCommands)
++        .where(
++          and(
++            eq(conversationTurnCommands.id, args.commandId),
++            eq(conversationTurnCommands.ownerToken, args.ownerToken),
++            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++          ),
++        )
++        .limit(1)
++    )[0];
++    if (!owned) return { applied: false };
++
++    let prev: Record<string, unknown> = {};
++    if (owned.resultJson) {
++      try {
++        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
++      } catch {
++        return { applied: false };
++      }
++    }
++    const existing = Array.isArray(prev.documentCommandBindings)
++      ? (prev.documentCommandBindings as Array<Record<string, unknown>>)
++      : [];
++    const corr = typeof args.binding.correlationKey === "string" ? args.binding.correlationKey : "";
++    if (corr && existing.some((b) => b.correlationKey === corr)) {
++      const prior = existing.find((b) => b.correlationKey === corr)!;
++      const priorPayload = prior.payloadSha256;
++      if (priorPayload !== args.binding.payloadSha256) {
++        return { applied: false };
++      }
++      // Identical binding already sealed — treat as applied without rewrite.
++      return { applied: true };
++    }
++    const merged = {
++      ...prev,
++      documentCommandBindings: [...existing, args.binding],
++      documentCommandBindingStashedAt: new Date(turnClock.nowMs()).toISOString(),
++    };
++    const updated = await tx
++      .update(conversationTurnCommands)
++      .set({
++        resultJson: JSON.stringify(merged),
++        updatedAt: new Date(turnClock.nowMs()),
++      })
++      .where(
++        and(
++          eq(conversationTurnCommands.id, args.commandId),
++          eq(conversationTurnCommands.ownerToken, args.ownerToken),
++          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++        ),
++      )
++      .returning({ id: conversationTurnCommands.id });
++    return { applied: Boolean(updated[0]) };
++  });
++}
++
+ /**
+  * Atomic terminal commit under ownership fence:
+  * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
+@@ -725,7 +804,7 @@ export async function commitTurnTerminal(args: {
+         return { applied: false };
+       }
+
+-      // T-03 / Lot B: preserve stashed semanticQualification across ALL terminals.
++      // T-03 / Lot B + O-04: preserve stashed semanticQualification and documentCommandBindings.
+       let terminalJson = args.resultJson ?? null;
+       if (owned.resultJson) {
+         try {
+@@ -735,8 +814,15 @@ export async function commitTurnTerminal(args: {
+             if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
+               next.semanticQualification = prev.semanticQualification;
+               next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
+-              terminalJson = JSON.stringify(next);
+             }
++            if (
++              prev.documentCommandBindings !== undefined &&
++              next.documentCommandBindings === undefined
++            ) {
++              next.documentCommandBindings = prev.documentCommandBindings;
++              next.documentCommandBindingStashedAt = prev.documentCommandBindingStashedAt;
++            }
++            terminalJson = JSON.stringify(next);
+           } else {
+             terminalJson = owned.resultJson;
+           }
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts`
+
+```diff
 diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
-index 049dc0e6..716b1570 100644
+index 049dc0e6..45650bd1 100644
 --- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
 +++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
-@@ -1,13 +1,52 @@
+@@ -1,13 +1,58 @@
  import { NextResponse } from "next/server";
  import { requireStudioSession } from "@/domains/identity/session";
  import { reconcileCreateProject } from "@/domains/preparation/create-project";
@@ -426,9 +1634,15 @@ index 049dc0e6..716b1570 100644
 +        correlationKey: url.searchParams.get("correlationKey"),
 +      });
 +      if (!loaded.ok) {
++        const httpStatus =
++          loaded.reason === "COMMAND_DENIED"
++            ? 403
++            : loaded.reason === "BINDING_SELECTOR_REQUIRED"
++              ? 409
++              : 404;
 +        return NextResponse.json(
 +          { status: "NOT_EXECUTED", reason: loaded.reason, kind: "document_command" },
-+          { status: loaded.reason === "COMMAND_DENIED" ? 403 : 404 },
++          { status: httpStatus },
 +        );
 +      }
 +      const truth = await reconcileDocumentCommandFromBinding({
@@ -449,6 +1663,156 @@ index 049dc0e6..716b1570 100644
      const result = await reconcileCreateProject(session.pilotId, preparationId, key);
      return NextResponse.json(result);
    } catch (e) {
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 76014f72..6736bc9c 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -95,6 +95,22 @@ export const QualifiedIntentItemSchema = z.object({
+ });
+ export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
+
++/** O-03 — typed document payload distinct from replyDraft (max D4 = 100_000). */
++export const DocumentProposalSchema = z
++  .object({
++    title: z.string().min(1).max(400),
++    contentMarkdown: z.string().min(1).max(100_000),
++  })
++  .strict();
++
++/** C-03 — designate a prior assistant proposal by message id (content resolved server-side). */
++export const DocumentSourceSchema = z
++  .object({
++    kind: z.literal("PRIOR_ASSISTANT_MESSAGE"),
++    assistantMessageId: z.string().min(1).max(128),
++  })
++  .strict();
++
+ export const NoraTurnQualificationSchema = z.object({
+   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
+   status: QualificationStatusSchema,
+@@ -102,6 +118,8 @@ export const NoraTurnQualificationSchema = z.object({
+   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
+   clarifications: z.array(z.string().max(400)).max(8).default([]),
+   replyDraft: z.string().max(12000).default(""),
++  documentProposal: DocumentProposalSchema.optional(),
++  documentSource: DocumentSourceSchema.optional(),
+ });
+ export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
+
+@@ -155,6 +173,10 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
+       return { ok: false, reason: `PILOTAGE_OPERATION_CAPABILITY_MISMATCH:${intent.id}` };
+     }
+   }
++  // C-03: prior source is authoritative; same-turn proposal must not silently compete.
++  if (q.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE" && q.documentProposal) {
++    return { ok: false, reason: "DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT" };
++  }
+   const graph = new Map(q.intents.map((i) => [i.id, i.dependsOn] as const));
+   const visiting = new Set<string>();
+   const visited = new Set<string>();
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 9bc4de72..985a4e12 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -389,7 +389,8 @@ async function runLiveWithTools(
+     remainingChars: policy.budgets.maxD4CharsReturned,
+   };
+
+-  let tools: Awaited<ReturnType<typeof buildNoraD4Tools>> = [];
++  // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
++  let tools: unknown[] = [];
+   if (policy.toolAllowlist.length > 0 && input.toolScope) {
+     const scope: D4ToolScope = {
+       pilotId: input.toolScope.pilotId,
+@@ -399,6 +400,18 @@ async function runLiveWithTools(
+       budget: initialBudget,
+     };
+     tools = await buildNoraD4Tools(scope);
++    if (
++      policy.toolAllowlist.includes("search_conversation_history") ||
++      policy.toolAllowlist.includes("read_conversation_messages")
++    ) {
++      const { buildNoraHistoryTools } = await import("./history-tools-sdk");
++      const historyTools = await buildNoraHistoryTools({
++        pilotId: input.toolScope.pilotId,
++        preparationId: input.toolScope.preparationId,
++        budget: initialBudget,
++      });
++      tools = [...tools, ...historyTools];
++    }
+     if (input.toolScope.projectId) {
+       const gitTools = await buildNoraGitReadTools({
+         pilotId: input.toolScope.pilotId,
+@@ -416,11 +429,16 @@ async function runLiveWithTools(
+     "",
+     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
+     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
+-    "- replyDraft = texte destiné au Pilote (français, Markdown utile).",
++    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
++    "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
++    "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
++    "- Ne combine jamais documentSource et documentProposal dans le même tour.",
+     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
+     "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
+     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
+     "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
++    "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
++    "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
+     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
+   ].join("\n");
+
+@@ -431,7 +449,8 @@ async function runLiveWithTools(
+     modelSettings: {
+       reasoning: { effort: policy.effortRequested },
+     },
+-    tools,
++    // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
++    tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
+     outputType: NoraTurnQualificationSchema,
+   });
+
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+index b45fc144..14177c86 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+@@ -85,6 +85,8 @@ export type CognitivePolicy = {
+   toolAllowlist: Array<
+     | "search_project_resources"
+     | "read_project_document_revision"
++    | "search_conversation_history"
++    | "read_conversation_messages"
+     | "list_project_git_sources"
+     | "read_git_file"
+     | "list_git_refs"
+@@ -208,6 +210,8 @@ export function buildCognitivePolicy(
+   const toolAllowlist: CognitivePolicy["toolAllowlist"] = [
+     "search_project_resources",
+     "read_project_document_revision",
++    "search_conversation_history",
++    "read_conversation_messages",
+     "list_project_git_sources",
+     "read_git_file",
+     "list_git_refs",
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
+
+```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
 index 7341a857..cf3c2517 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
@@ -594,6 +1958,11 @@ index 7341a857..cf3c2517 100644
            </div>
          </div>
        </section>
+```
+
+### `git diff` — `projects/sfia-studio-next/web/src/components/figma/tokens.css`
+
+```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
 index 2b2b75f9..922c422d 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
@@ -619,1201 +1988,9 @@ index 2b2b75f9..922c422d 100644
  .fig-two-col {
    display: grid;
    grid-template-columns: minmax(0, 800fr) minmax(0, 510fr);
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-index b45fc144..14177c86 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-@@ -85,6 +85,8 @@ export type CognitivePolicy = {
-   toolAllowlist: Array<
-     | "search_project_resources"
-     | "read_project_document_revision"
-+    | "search_conversation_history"
-+    | "read_conversation_messages"
-     | "list_project_git_sources"
-     | "read_git_file"
-     | "list_git_refs"
-@@ -208,6 +210,8 @@ export function buildCognitivePolicy(
-   const toolAllowlist: CognitivePolicy["toolAllowlist"] = [
-     "search_project_resources",
-     "read_project_document_revision",
-+    "search_conversation_history",
-+    "read_conversation_messages",
-     "list_project_git_sources",
-     "read_git_file",
-     "list_git_refs",
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 9bc4de72..985a4e12 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -389,7 +389,8 @@ async function runLiveWithTools(
-     remainingChars: policy.budgets.maxD4CharsReturned,
-   };
-
--  let tools: Awaited<ReturnType<typeof buildNoraD4Tools>> = [];
-+  // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
-+  let tools: unknown[] = [];
-   if (policy.toolAllowlist.length > 0 && input.toolScope) {
-     const scope: D4ToolScope = {
-       pilotId: input.toolScope.pilotId,
-@@ -399,6 +400,18 @@ async function runLiveWithTools(
-       budget: initialBudget,
-     };
-     tools = await buildNoraD4Tools(scope);
-+    if (
-+      policy.toolAllowlist.includes("search_conversation_history") ||
-+      policy.toolAllowlist.includes("read_conversation_messages")
-+    ) {
-+      const { buildNoraHistoryTools } = await import("./history-tools-sdk");
-+      const historyTools = await buildNoraHistoryTools({
-+        pilotId: input.toolScope.pilotId,
-+        preparationId: input.toolScope.preparationId,
-+        budget: initialBudget,
-+      });
-+      tools = [...tools, ...historyTools];
-+    }
-     if (input.toolScope.projectId) {
-       const gitTools = await buildNoraGitReadTools({
-         pilotId: input.toolScope.pilotId,
-@@ -416,11 +429,16 @@ async function runLiveWithTools(
-     "",
-     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
-     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
--    "- replyDraft = texte destiné au Pilote (français, Markdown utile).",
-+    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
-+    "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
-+    "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
-+    "- Ne combine jamais documentSource et documentProposal dans le même tour.",
-     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
-     "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
-     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
-     "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
-+    "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
-+    "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
-     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
-   ].join("\n");
-
-@@ -431,7 +449,8 @@ async function runLiveWithTools(
-     modelSettings: {
-       reasoning: { effort: policy.effortRequested },
-     },
--    tools,
-+    // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
-+    tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
-     outputType: NoraTurnQualificationSchema,
-   });
-
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-index 76014f72..6736bc9c 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-@@ -95,6 +95,22 @@ export const QualifiedIntentItemSchema = z.object({
- });
- export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
-
-+/** O-03 — typed document payload distinct from replyDraft (max D4 = 100_000). */
-+export const DocumentProposalSchema = z
-+  .object({
-+    title: z.string().min(1).max(400),
-+    contentMarkdown: z.string().min(1).max(100_000),
-+  })
-+  .strict();
-+
-+/** C-03 — designate a prior assistant proposal by message id (content resolved server-side). */
-+export const DocumentSourceSchema = z
-+  .object({
-+    kind: z.literal("PRIOR_ASSISTANT_MESSAGE"),
-+    assistantMessageId: z.string().min(1).max(128),
-+  })
-+  .strict();
-+
- export const NoraTurnQualificationSchema = z.object({
-   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
-   status: QualificationStatusSchema,
-@@ -102,6 +118,8 @@ export const NoraTurnQualificationSchema = z.object({
-   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
-   clarifications: z.array(z.string().max(400)).max(8).default([]),
-   replyDraft: z.string().max(12000).default(""),
-+  documentProposal: DocumentProposalSchema.optional(),
-+  documentSource: DocumentSourceSchema.optional(),
- });
- export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
-
-@@ -155,6 +173,10 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
-       return { ok: false, reason: `PILOTAGE_OPERATION_CAPABILITY_MISMATCH:${intent.id}` };
-     }
-   }
-+  // C-03: prior source is authoritative; same-turn proposal must not silently compete.
-+  if (q.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE" && q.documentProposal) {
-+    return { ok: false, reason: "DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT" };
-+  }
-   const graph = new Map(q.intents.map((i) => [i.id, i.dependsOn] as const));
-   const visiting = new Set<string>();
-   const visited = new Set<string>();
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index bbab5da7..2447610b 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -10,11 +10,14 @@ import {
-   reconstituteConfirmedD4Effects,
-   selectRelevantKnowledgeContext,
- } from "@/domains/knowledge/service";
-+import { listDocuments } from "@/domains/document/service";
- import {
--  listDocuments,
--  reviseDocument,
--  savePreparationDocument,
--} from "@/domains/document/service";
-+  admitDocumentCommand,
-+  canonicalizeDocumentProposal,
-+  resolveAssistantProposal,
-+  sealAndApplyDocumentCommand,
-+  serializeProposalFence,
-+} from "@/domains/conversation/document-command";
- import {
-   bindTurnGenerationId,
-   commitTurnTerminal,
-@@ -927,11 +930,66 @@ export async function postUserMessageAndNora(
-       }
-
-       if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
--        const extracted = extractContractualDocumentProposal(reply.content);
--        if (!extracted.ok) {
-+        // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
-+        type ExactProposal = { title: string; contentMarkdown: string; contentSha256: string };
-+        let exact: ExactProposal | null = null;
-+        let source:
-+          | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
-+          | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
-+          kind: "SAME_TURN_SNAPSHOT",
-+          commandId: reserved.commandId,
-+        };
-+        let createBlocked: string | null = null;
-+        let extracted = extractContractualDocumentProposal(reply.content);
-+
-+        if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
-+          const resolved = await resolveAssistantProposal({
-+            pilotId,
-+            preparationId,
-+            assistantMessageId: qualification.documentSource.assistantMessageId,
-+          });
-+          if (!resolved.ok) {
-+            createBlocked = resolved.reason;
-+          } else {
-+            exact = resolved.proposal;
-+            source = {
-+              kind: "ASSISTANT_MESSAGE",
-+              assistantMessageId: resolved.assistantMessageId,
-+            };
-+            // Terminal parity: surface the exact historical Markdown without rewriting.
-+            if (!extracted.ok) {
-+              reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact.contentMarkdown)}`;
-+              extracted = extractContractualDocumentProposal(reply.content);
-+            }
-+          }
-+        } else if (qualification.documentProposal) {
-+          const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
-+          if (!canonical.ok) {
-+            createBlocked = canonical.reason;
-+          } else {
-+            exact = canonical.proposal;
-+            if (!extracted.ok) {
-+              reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact.contentMarkdown)}`;
-+              extracted = extractContractualDocumentProposal(reply.content);
-+            } else if (extracted.content !== exact.contentMarkdown) {
-+              createBlocked = "PROPOSAL_SNAPSHOT_MISMATCH";
-+            }
-+          }
-+        } else if (extracted.ok) {
-+          const canonical = canonicalizeDocumentProposal({
-+            title: extracted.title,
-+            contentMarkdown: extracted.content,
-+          });
-+          if (!canonical.ok) createBlocked = canonical.reason;
-+          else exact = canonical.proposal;
-+        } else {
-+          createBlocked = extracted.reason;
-+        }
-+
-+        if (createBlocked || !exact) {
-           documentSave = {
-             status: "FAILED",
--            reason: extracted.reason,
-+            reason: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-             act: "CREATE",
-           };
-           emitDocumentProposalObs({
-@@ -939,45 +997,90 @@ export async function postUserMessageAndNora(
-             operationId: reserved.operationId,
-             generationId: reply.generationId,
-             act: "CREATE",
--            extracted,
--            refuseCode: extracted.reason,
-+            extracted: extracted.ok
-+              ? extracted
-+              : {
-+                  ok: false,
-+                  reason: "DOCUMENT_PROPOSAL_MISSING",
-+                  path: "none",
-+                  fenceCount: 0,
-+                  proposalChars: 0,
-+                  proposalDigest16: null,
-+                  bodyEndsWithNewline: false,
-+                  sectionCount: 0,
-+                },
-+            refuseCode: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-             d4Attempted: false,
-             d4Effect: null,
-           });
-         } else {
-           try {
--            const saved = await savePreparationDocument(
--              pilotId,
--              preparationId,
--              extracted.title,
--              extracted.content,
--              undefined,
--              {
--                correlationKey: opts?.correlationKey
--                  ? `doc:${opts.correlationKey}`
--                  : missionIntent.wantsPublish
--                    ? missionKeys.document
--                    : `doc:${reply.generationId}`,
--                provenance: {
--                  sourceKind: "nora",
--                  generationId: reply.generationId,
--                  userMessageId: reserved.userMessageId,
--                  explicitRequest: true,
-+            const createIntents = effectIntents(qualification).filter(
-+              (i) => i.capabilityId === "d4.create_document",
-+            );
-+            if (createIntents.length > 1) {
-+              documentSave = {
-+                status: "FAILED",
-+                reason: "AMBIGUOUS_CREATE_INTENT",
-+                act: "CREATE",
-+              };
-+            } else {
-+              const createIntent = createIntents[0];
-+              if (!createIntent) {
-+                documentSave = {
-+                  status: "FAILED",
-+                  reason: "MISSING_CREATE_INTENT",
-                   act: "CREATE",
--                },
--                scope: "document",
--                turnFence: {
-+                };
-+              } else {
-+                const clientSalt =
-+                  opts?.correlationKey?.trim() ||
-+                  (missionIntent.wantsPublish ? missionKeys.document : null);
-+                const admitted = admitDocumentCommand({
-                   commandId: reserved.commandId,
--                  ownerToken: reserved.ownerToken,
--                  beforeFenceCheck: turnRaceHooks.beforeD4Effect,
--                },
--              },
--            );
--            documentSave = { ...saved, act: "CREATE" };
-+                  operationId: reserved.operationId,
-+                  userMessageId: reserved.userMessageId,
-+                  qualifiedIntentId: createIntent.id,
-+                  action: "CREATE",
-+                  preparationId,
-+                  source,
-+                  title: exact.title,
-+                  contentMarkdown: exact.contentMarkdown,
-+                  clientCorrelationSalt: clientSalt,
-+                });
-+                if (!admitted.ok) {
-+                  documentSave = {
-+                    status: "FAILED",
-+                    reason: admitted.reason,
-+                    act: "CREATE",
-+                  };
-+                } else {
-+                  const sealed = await sealAndApplyDocumentCommand({
-+                    pilotId,
-+                    fence: {
-+                      commandId: reserved.commandId,
-+                      ownerToken: reserved.ownerToken,
-+                      beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-+                    },
-+                    binding: admitted.binding,
-+                  });
-+                  if (!sealed.sealApplied) {
-+                    documentSave = {
-+                      status: "FAILED",
-+                      reason: "BINDING_SEAL_FAILED",
-+                      act: "CREATE",
-+                    };
-+                  } else {
-+                    documentSave = { ...sealed.effect, act: "CREATE" };
-+                  }
-+                }
-+              }
-+            }
-             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
-               ownershipLostBeforeD4 = true;
-               documentSave = null;
-             } else if (
-+              documentSave &&
-               documentSave.status !== "AVAILABLE" &&
-               documentSave.status !== "CONFLICT"
-             ) {
-@@ -989,7 +1092,20 @@ export async function postUserMessageAndNora(
-               operationId: reserved.operationId,
-               generationId: reply.generationId,
-               act: "CREATE",
--              extracted,
-+              extracted: extracted.ok
-+                ? extracted
-+                : {
-+                    ok: true,
-+                    content: exact.contentMarkdown,
-+                    title: exact.title,
-+                    path: "fence",
-+                    fenceTag: "sfia-document",
-+                    fenceCount: 1,
-+                    proposalChars: exact.contentMarkdown.length,
-+                    proposalDigest16: exact.contentSha256.slice(0, 16),
-+                    bodyEndsWithNewline: exact.contentMarkdown.endsWith("\n"),
-+                    sectionCount: 0,
-+                  },
-               refuseCode:
-                 documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
-                   ? null
-@@ -1042,11 +1158,44 @@ export async function postUserMessageAndNora(
-               d4Effect: null,
-             });
-           } else {
--            const extracted = extractContractualDocumentProposal(reply.content);
--            if (!extracted.ok) {
-+            let extracted = extractContractualDocumentProposal(reply.content);
-+            let reviseProposalContent: string | null = null;
-+            let reviseBlocked: string | null = null;
-+            if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
-+              const resolved = await resolveAssistantProposal({
-+                pilotId,
-+                preparationId,
-+                assistantMessageId: qualification.documentSource.assistantMessageId,
-+              });
-+              if (!resolved.ok) reviseBlocked = resolved.reason;
-+              else {
-+                reviseProposalContent = resolved.proposal.contentMarkdown;
-+                if (!extracted.ok) {
-+                  reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(reviseProposalContent)}`;
-+                  extracted = extractContractualDocumentProposal(reply.content);
-+                }
-+              }
-+            } else if (qualification.documentProposal) {
-+              const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
-+              if (!canonical.ok) reviseBlocked = canonical.reason;
-+              else {
-+                reviseProposalContent = canonical.proposal.contentMarkdown;
-+                if (!extracted.ok) {
-+                  reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(reviseProposalContent)}`;
-+                  extracted = extractContractualDocumentProposal(reply.content);
-+                } else if (extracted.content !== reviseProposalContent) {
-+                  reviseBlocked = "PROPOSAL_SNAPSHOT_MISMATCH";
-+                }
-+              }
-+            } else if (extracted.ok) {
-+              reviseProposalContent = extracted.content;
-+            } else {
-+              reviseBlocked = extracted.reason;
-+            }
-+            if (reviseBlocked || !reviseProposalContent) {
-               documentSave = {
-                 status: "FAILED",
--                reason: extracted.reason,
-+                reason: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-                 documentId: target.documentId,
-                 baseRevisionId: target.baseRevisionId,
-                 act: "REVISE",
-@@ -1057,14 +1206,14 @@ export async function postUserMessageAndNora(
-                 generationId: reply.generationId,
-                 act: "REVISE",
-                 extracted,
--                refuseCode: extracted.reason,
-+                refuseCode: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-                 d4Attempted: false,
-                 d4Effect: null,
-               });
-             } else {
-               const merged = applyTargetedSectionRevision(
-                 target.baseContent,
--                extracted.content,
-+                reviseProposalContent,
-                 documentAct.sectionHint,
-               );
-               if (!merged.ok) {
-@@ -1112,33 +1261,81 @@ export async function postUserMessageAndNora(
-                     d4Effect: null,
-                   });
-                 } else {
--                  const correlationKey = opts?.correlationKey
--                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
--                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
--                  const revised = await reviseDocument(pilotId, preparationId, {
--                    documentId: target.documentId,
--                    baseRevisionId: target.baseRevisionId,
--                    contentMarkdown: merged.content,
--                    correlationKey,
--                    scope: documentAct.sectionHint ? "section" : "document",
--                    sectionHint: documentAct.sectionHint ?? undefined,
--                    provenance: {
--                      sourceKind: "nora",
--                      generationId: reply.generationId,
--                      userMessageId: reserved.userMessageId,
--                      explicitRequest: true,
-+                  const reviseIntents = effectIntents(qualification).filter(
-+                    (i) => i.capabilityId === "d4.revise_document",
-+                  );
-+                  if (reviseIntents.length !== 1) {
-+                    documentSave = {
-+                      status: "FAILED",
-+                      reason:
-+                        reviseIntents.length === 0
-+                          ? "MISSING_REVISE_INTENT"
-+                          : "AMBIGUOUS_REVISE_INTENT",
-+                      documentId: target.documentId,
-+                      baseRevisionId: target.baseRevisionId,
-                       act: "REVISE",
-+                    };
-+                  } else {
-+                    const reviseIntent = reviseIntents[0]!;
-+                    const clientSalt =
-+                      opts?.correlationKey?.trim() ||
-+                      `${target.documentId}:${target.baseRevisionId}`;
-+                    const admitted = admitDocumentCommand({
-+                      commandId: reserved.commandId,
-+                      operationId: reserved.operationId,
-+                      userMessageId: reserved.userMessageId,
-+                      qualifiedIntentId: reviseIntent.id,
-+                      action: "REVISE",
-+                      preparationId,
-+                      documentId: target.documentId,
-+                      baseRevisionId: target.baseRevisionId,
-                       sectionHint: documentAct.sectionHint,
--                    },
--                  });
--                  documentSave = {
--                    ...revised,
--                    act: "REVISE",
--                    baseRevisionId:
--                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
--                        ? revised.baseRevisionId
--                        : target.baseRevisionId,
--                  };
-+                      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
-+                      title: target.title,
-+                      contentMarkdown: merged.content,
-+                      clientCorrelationSalt: clientSalt,
-+                    });
-+                    if (!admitted.ok) {
-+                      documentSave = {
-+                        status: "FAILED",
-+                        reason: admitted.reason,
-+                        documentId: target.documentId,
-+                        baseRevisionId: target.baseRevisionId,
-+                        act: "REVISE",
-+                      };
-+                    } else {
-+                      const sealed = await sealAndApplyDocumentCommand({
-+                        pilotId,
-+                        fence: {
-+                          commandId: reserved.commandId,
-+                          ownerToken: reserved.ownerToken,
-+                          beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-+                        },
-+                        binding: admitted.binding,
-+                      });
-+                      if (!sealed.sealApplied) {
-+                        documentSave = {
-+                          status: "FAILED",
-+                          reason: "BINDING_SEAL_FAILED",
-+                          documentId: target.documentId,
-+                          baseRevisionId: target.baseRevisionId,
-+                          act: "REVISE",
-+                        };
-+                      } else {
-+                        const revised = sealed.effect;
-+                        documentSave = {
-+                          ...revised,
-+                          act: "REVISE",
-+                          baseRevisionId:
-+                            "baseRevisionId" in revised &&
-+                            typeof (revised as { baseRevisionId?: string }).baseRevisionId ===
-+                              "string"
-+                              ? (revised as { baseRevisionId: string }).baseRevisionId
-+                              : target.baseRevisionId,
-+                        };
-+                      }
-+                    }
-+                  }
-                   if (
-                     documentSave.status !== "AVAILABLE" &&
-                     documentSave.status !== "CONFLICT" &&
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-index e2c0b349..7f38c4bf 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-@@ -666,6 +666,85 @@ export async function stashTurnQualification(args: {
-   });
- }
-
-+/**
-+ * Seal a document command binding into resultJson before any D4 mutation (O-04/O-05).
-+ * Appends under documentCommandBindings[]; refuses overwrite of an existing same correlationKey.
-+ */
-+export async function stashDocumentCommandBinding(args: {
-+  commandId: string;
-+  ownerToken: string;
-+  binding: Record<string, unknown>;
-+}): Promise<{ applied: boolean }> {
-+  return db.transaction(async (tx) => {
-+    await tx.execute(
-+      sql`select id from conversation_turn_commands
-+          where id = ${args.commandId}
-+            and owner_token = ${args.ownerToken}
-+            and status in ('RUNNING', 'ACCEPTED')
-+          for update`,
-+    );
-+    const owned = (
-+      await tx
-+        .select({
-+          id: conversationTurnCommands.id,
-+          resultJson: conversationTurnCommands.resultJson,
-+        })
-+        .from(conversationTurnCommands)
-+        .where(
-+          and(
-+            eq(conversationTurnCommands.id, args.commandId),
-+            eq(conversationTurnCommands.ownerToken, args.ownerToken),
-+            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-+          ),
-+        )
-+        .limit(1)
-+    )[0];
-+    if (!owned) return { applied: false };
-+
-+    let prev: Record<string, unknown> = {};
-+    if (owned.resultJson) {
-+      try {
-+        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
-+      } catch {
-+        return { applied: false };
-+      }
-+    }
-+    const existing = Array.isArray(prev.documentCommandBindings)
-+      ? (prev.documentCommandBindings as Array<Record<string, unknown>>)
-+      : [];
-+    const corr = typeof args.binding.correlationKey === "string" ? args.binding.correlationKey : "";
-+    if (corr && existing.some((b) => b.correlationKey === corr)) {
-+      const prior = existing.find((b) => b.correlationKey === corr)!;
-+      const priorPayload = prior.payloadSha256;
-+      if (priorPayload !== args.binding.payloadSha256) {
-+        return { applied: false };
-+      }
-+      // Identical binding already sealed — treat as applied without rewrite.
-+      return { applied: true };
-+    }
-+    const merged = {
-+      ...prev,
-+      documentCommandBindings: [...existing, args.binding],
-+      documentCommandBindingStashedAt: new Date(turnClock.nowMs()).toISOString(),
-+    };
-+    const updated = await tx
-+      .update(conversationTurnCommands)
-+      .set({
-+        resultJson: JSON.stringify(merged),
-+        updatedAt: new Date(turnClock.nowMs()),
-+      })
-+      .where(
-+        and(
-+          eq(conversationTurnCommands.id, args.commandId),
-+          eq(conversationTurnCommands.ownerToken, args.ownerToken),
-+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-+        ),
-+      )
-+      .returning({ id: conversationTurnCommands.id });
-+    return { applied: Boolean(updated[0]) };
-+  });
-+}
-+
- /**
-  * Atomic terminal commit under ownership fence:
-  * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
-@@ -725,7 +804,7 @@ export async function commitTurnTerminal(args: {
-         return { applied: false };
-       }
-
--      // T-03 / Lot B: preserve stashed semanticQualification across ALL terminals.
-+      // T-03 / Lot B + O-04: preserve stashed semanticQualification and documentCommandBindings.
-       let terminalJson = args.resultJson ?? null;
-       if (owned.resultJson) {
-         try {
-@@ -735,8 +814,15 @@ export async function commitTurnTerminal(args: {
-             if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
-               next.semanticQualification = prev.semanticQualification;
-               next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
--              terminalJson = JSON.stringify(next);
-             }
-+            if (
-+              prev.documentCommandBindings !== undefined &&
-+              next.documentCommandBindings === undefined
-+            ) {
-+              next.documentCommandBindings = prev.documentCommandBindings;
-+              next.documentCommandBindingStashedAt = prev.documentCommandBindingStashedAt;
-+            }
-+            terminalJson = JSON.stringify(next);
-           } else {
-             terminalJson = owned.resultJson;
-           }
-diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
-index 6d079275..65d4ad72 100644
---- a/projects/sfia-studio-next/web/src/domains/document/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
-@@ -220,54 +220,9 @@ export async function savePreparationDocument(
-
-   let docId = documentId;
-   let ownedTitle = titleFinal;
--  if (!docId) {
--    docId = newId("doc");
--    try {
--      await db.insert(documents).values({
--        id: docId,
--        preparationId,
--        projectId: ctx.project?.id ?? null,
--        ownerPilotId: pilotId,
--        title: titleFinal,
--        creationCorrelationKey: opts?.correlationKey ?? null,
--      });
--    } catch (e) {
--      // Concurrent create with same correlation key — reconcile WITH fingerprint
--      if (opts?.correlationKey) {
--        const raced = await findByCreationCorrelation(
--          pilotId,
--          preparationId,
--          opts.correlationKey,
--        );
--        if (raced) {
--          const priorRev =
--            (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
--            (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
--          if (priorRev) {
--            return reconcilePriorRevision({
--              prior: priorRev,
--              documentId: raced.id,
--              documentTitle: raced.title,
--              expectedFp: fp,
--            });
--          }
--          return {
--            status: "UNKNOWN" as const,
--            reason: "CREATION_IN_FLIGHT",
--            documentId: raced.id,
--          };
--        }
--        return {
--          status: "FAILED" as const,
--          reason: e instanceof Error ? e.message : "document create failed",
--        };
--      }
--      return {
--        status: "FAILED" as const,
--        reason: e instanceof Error ? e.message : "document create failed",
--      };
--    }
--  } else {
-+
-+  // Existing-document path: ownership check before TX.
-+  if (docId) {
-     const owned = (
-       await db
-         .select()
-@@ -283,26 +238,25 @@ export async function savePreparationDocument(
-     )[0];
-     if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
-     ownedTitle = owned.title;
--  }
--
--  // Revision-level idempotence for known document
--  if (opts?.correlationKey) {
--    const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
--    if (prior) {
--      return reconcilePriorRevision({
--        prior,
--        documentId: docId,
--        documentTitle: ownedTitle,
--        expectedFp: fp,
--      });
-+    if (opts?.correlationKey) {
-+      const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
-+      if (prior) {
-+        return reconcilePriorRevision({
-+          prior,
-+          documentId: docId,
-+          documentTitle: ownedTitle,
-+          expectedFp: fp,
-+        });
-+      }
-     }
-   }
-
-   try {
-     return await db.transaction(async (tx) => {
-+      // O-05: ownership fence BEFORE any document/revision mutation.
-       if (opts?.turnFence) {
--        const owned = await assertTurnFenceInTx(tx, opts.turnFence);
--        if (!owned) {
-+        const fenceOwned = await assertTurnFenceInTx(tx, opts.turnFence);
-+        if (!fenceOwned) {
-           return {
-             status: "FAILED" as const,
-             reason: "TURN_OWNERSHIP_LOST",
-@@ -311,9 +265,55 @@ export async function savePreparationDocument(
-         }
-       }
-
--      await tx.execute(
--        sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
--      );
-+      // CREATE: insert documents + first revision in the SAME transaction (no orphan row).
-+      if (!docId) {
-+        docId = newId("doc");
-+        try {
-+          await tx.insert(documents).values({
-+            id: docId,
-+            preparationId,
-+            projectId: ctx.project?.id ?? null,
-+            ownerPilotId: pilotId,
-+            title: titleFinal,
-+            creationCorrelationKey: opts?.correlationKey ?? null,
-+          });
-+        } catch (e) {
-+          if (opts?.correlationKey) {
-+            const raced = await findByCreationCorrelation(
-+              pilotId,
-+              preparationId,
-+              opts.correlationKey,
-+            );
-+            if (raced) {
-+              const priorRev =
-+                (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
-+                (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
-+              if (priorRev) {
-+                return reconcilePriorRevision({
-+                  prior: priorRev,
-+                  documentId: raced.id,
-+                  documentTitle: raced.title,
-+                  expectedFp: fp,
-+                });
-+              }
-+              return {
-+                status: "UNKNOWN" as const,
-+                reason: "CREATION_IN_FLIGHT",
-+                documentId: raced.id,
-+              };
-+            }
-+          }
-+          return {
-+            status: "FAILED" as const,
-+            reason: e instanceof Error ? e.message : "document create failed",
-+          };
-+        }
-+        ownedTitle = titleFinal;
-+      } else {
-+        await tx.execute(
-+          sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
-+        );
-+      }
-
-       if (opts?.correlationKey) {
-         const prior = (
-@@ -393,22 +393,28 @@ export async function savePreparationDocument(
-   } catch (e) {
-     // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
-     if (opts?.correlationKey) {
--      const prior =
--        (await findRevisionByCorrelation(docId, opts.correlationKey)) ??
--        (await waitForRevisionByCorrelation(docId, opts.correlationKey));
--      if (prior) {
--        return reconcilePriorRevision({
--          prior,
--          documentId: docId,
--          documentTitle: ownedTitle,
--          expectedFp: fp,
--        });
-+      const racedDoc =
-+        (docId
-+          ? { id: docId, title: ownedTitle }
-+          : await findByCreationCorrelation(pilotId, preparationId, opts.correlationKey)) ?? null;
-+      if (racedDoc) {
-+        const prior =
-+          (await findRevisionByCorrelation(racedDoc.id, opts.correlationKey)) ??
-+          (await waitForRevisionByCorrelation(racedDoc.id, opts.correlationKey));
-+        if (prior) {
-+          return reconcilePriorRevision({
-+            prior,
-+            documentId: racedDoc.id,
-+            documentTitle: "title" in racedDoc ? racedDoc.title : ownedTitle,
-+            expectedFp: fp,
-+          });
-+        }
-+        return {
-+          status: "UNKNOWN" as const,
-+          reason: "CREATION_IN_FLIGHT",
-+          documentId: racedDoc.id,
-+        };
-       }
--      return {
--        status: "UNKNOWN" as const,
--        reason: "CREATION_IN_FLIGHT",
--        documentId: docId,
--      };
-     }
-     return {
-       status: "FAILED" as const,
-@@ -434,6 +440,11 @@ export async function reviseDocument(
-     sectionHint?: string;
-     provenance?: Record<string, unknown>;
-     injectFailureAfterLock?: boolean;
-+    /** Symmetric with CREATE — abort unless turn still owned. */
-+    turnFence?: TurnOwnershipFence;
-+    /** Title used for fingerprint reconcile on replay (defaults to owned document title). */
-+    expectedTitle?: string;
-+    expectedContentSha256?: string;
-   },
- ) {
-   if (input.contentMarkdown.length > MAX_DOC_CHARS) {
-@@ -442,6 +453,18 @@ export async function reviseDocument(
-
-   try {
-     return await db.transaction(async (tx) => {
-+      // Lock order: turn command / ownership → document → mutation.
-+      if (input.turnFence) {
-+        const fenceOwned = await assertTurnFenceInTx(tx, input.turnFence);
-+        if (!fenceOwned) {
-+          return {
-+            status: "FAILED" as const,
-+            reason: "TURN_OWNERSHIP_LOST",
-+            rolledBack: true as const,
-+          };
-+        }
-+      }
-+
-       await tx.execute(
-         sql`select id from documents where id = ${input.documentId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
-       );
-@@ -461,7 +484,11 @@ export async function reviseDocument(
-       )[0];
-       if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
-
--      // Idempotent correlation inside the lock
-+      const expectedFp =
-+        input.expectedContentSha256 ??
-+        contentFingerprint(input.expectedTitle ?? owned.title, input.contentMarkdown);
-+
-+      // Idempotent correlation inside the lock — fingerprint must match.
-       const prior = (
-         await tx
-           .select()
-@@ -475,13 +502,12 @@ export async function reviseDocument(
-           .limit(1)
-       )[0];
-       if (prior) {
--        return {
--          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
-+        return reconcilePriorRevision({
-+          prior,
-           documentId: input.documentId,
--          revisionId: prior.id,
--          revisionNumber: prior.revisionNumber,
--          idempotentReplay: true as const,
--        };
-+          documentTitle: input.expectedTitle ?? owned.title,
-+          expectedFp,
-+        });
-       }
-
-       const base = (
-@@ -543,6 +569,7 @@ export async function reviseDocument(
-         provenanceJson: JSON.stringify({
-           ...(input.provenance ?? {}),
-           sectionHint: input.sectionHint ?? null,
-+          contentFingerprint: expectedFp,
-         }),
-         scope: input.scope ?? "section",
-       });
-@@ -799,3 +826,158 @@ export async function compareDocumentRevisions(
-     diff,
-   };
- }
-+
-+/**
-+ * C-01 — pure D4 truth lookup by sealed correlation. Never inserts/updates/deletes.
-+ */
-+export type DocumentCorrelationTruth = {
-+  verdict: "AVAILABLE" | "UNKNOWN" | "CONFLICT" | "NOT_EXECUTED";
-+  documentId?: string;
-+  revisionId?: string;
-+  revisionNumber?: number;
-+  reason?: string;
-+  contentSha256?: string;
-+};
-+
-+export async function lookupDocumentCorrelationTruth(input: {
-+  pilotId: string;
-+  preparationId: string;
-+  action: "CREATE" | "REVISE";
-+  correlationKey: string;
-+  title: string;
-+  contentMarkdown: string;
-+  contentSha256: string;
-+  payloadSha256?: string | null;
-+  documentId?: string | null;
-+  baseRevisionId?: string | null;
-+}): Promise<DocumentCorrelationTruth> {
-+  const expectedFp =
-+    input.contentSha256 || contentFingerprint(input.title, input.contentMarkdown);
-+
-+  if (input.action === "CREATE") {
-+    const doc = await findByCreationCorrelation(
-+      input.pilotId,
-+      input.preparationId,
-+      input.correlationKey,
-+    );
-+    if (!doc) {
-+      // Absence after ACK loss / timeout is inconclusive — not a fresh NOT_EXECUTED proof.
-+      return { verdict: "UNKNOWN", reason: "CREATE_CORRELATION_ABSENT" };
-+    }
-+    if (doc.ownerPilotId !== input.pilotId || doc.preparationId !== input.preparationId) {
-+      return { verdict: "NOT_EXECUTED", reason: "SOURCE_DENIED" };
-+    }
-+    const rev =
-+      (await findRevisionByCorrelation(doc.id, input.correlationKey)) ??
-+      (await latestRevisionFor(doc.id));
-+    if (!rev) {
-+      return {
-+        verdict: "UNKNOWN",
-+        reason: "CREATE_REVISION_ABSENT",
-+        documentId: doc.id,
-+      };
-+    }
-+    const storedFp = readStoredFingerprint(rev.provenanceJson, doc.title, rev.contentMarkdown);
-+    if (storedFp !== expectedFp) {
-+      return {
-+        verdict: "CONFLICT",
-+        reason: "CORRELATION_PAYLOAD_MISMATCH",
-+        documentId: doc.id,
-+        revisionId: rev.id,
-+        revisionNumber: rev.revisionNumber,
-+        contentSha256: storedFp,
-+      };
-+    }
-+    if (rev.status === "AVAILABLE") {
-+      return {
-+        verdict: "AVAILABLE",
-+        documentId: doc.id,
-+        revisionId: rev.id,
-+        revisionNumber: rev.revisionNumber,
-+        contentSha256: storedFp,
-+      };
-+    }
-+    return {
-+      verdict: "UNKNOWN",
-+      reason: `CREATE_REVISION_${rev.status}`,
-+      documentId: doc.id,
-+      revisionId: rev.id,
-+      revisionNumber: rev.revisionNumber,
-+      contentSha256: storedFp,
-+    };
-+  }
-+
-+  // REVISE
-+  if (!input.documentId) {
-+    return { verdict: "NOT_EXECUTED", reason: "REVISE_TARGET_INCOMPLETE" };
-+  }
-+  const owned = (
-+    await db
-+      .select()
-+      .from(documents)
-+      .where(
-+        and(
-+          eq(documents.id, input.documentId),
-+          eq(documents.ownerPilotId, input.pilotId),
-+          eq(documents.preparationId, input.preparationId),
-+        ),
-+      )
-+      .limit(1)
-+  )[0];
-+  if (!owned) {
-+    return { verdict: "NOT_EXECUTED", reason: "SOURCE_DENIED" };
-+  }
-+  const rev = await findRevisionByCorrelation(input.documentId, input.correlationKey);
-+  if (!rev) {
-+    return {
-+      verdict: "UNKNOWN",
-+      reason: "REVISE_CORRELATION_ABSENT",
-+      documentId: input.documentId,
-+    };
-+  }
-+  const storedFp = readStoredFingerprint(
-+    rev.provenanceJson,
-+    input.title || owned.title,
-+    rev.contentMarkdown,
-+  );
-+  if (storedFp !== expectedFp) {
-+    return {
-+      verdict: "CONFLICT",
-+      reason: "CORRELATION_PAYLOAD_MISMATCH",
-+      documentId: input.documentId,
-+      revisionId: rev.id,
-+      revisionNumber: rev.revisionNumber,
-+      contentSha256: storedFp,
-+    };
-+  }
-+  if (
-+    input.baseRevisionId &&
-+    rev.baseRevisionId &&
-+    rev.baseRevisionId !== input.baseRevisionId
-+  ) {
-+    return {
-+      verdict: "CONFLICT",
-+      reason: "BASE_REVISION_MISMATCH",
-+      documentId: input.documentId,
-+      revisionId: rev.id,
-+      revisionNumber: rev.revisionNumber,
-+    };
-+  }
-+  if (rev.status === "AVAILABLE") {
-+    return {
-+      verdict: "AVAILABLE",
-+      documentId: input.documentId,
-+      revisionId: rev.id,
-+      revisionNumber: rev.revisionNumber,
-+      contentSha256: storedFp,
-+    };
-+  }
-+  return {
-+    verdict: "UNKNOWN",
-+    reason: `REVISE_REVISION_${rev.status}`,
-+    documentId: input.documentId,
-+    revisionId: rev.id,
-+    revisionNumber: rev.revisionNumber,
-+    contentSha256: storedFp,
-+  };
-+}
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
-index 84613cdb..c93ed594 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
-@@ -127,17 +127,29 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
-     });
-     expect(conflict.status).toBe("CONFLICT");
-
-+    // O-05: same correlationKey + same payload → idempotent AVAILABLE; different payload → CONFLICT.
-     const replay = await reviseDocument(pilotId, prep.id, {
-       documentId: v1.documentId,
-       baseRevisionId: v2.revisionId,
--      contentMarkdown: "ignored on replay",
-+      contentMarkdown: "# Spec\n\nSection A révisée\n",
-       correlationKey: "corr-rev-1",
-     });
-     expect(replay.status).toBe("AVAILABLE");
-     if (replay.status !== "AVAILABLE") throw new Error("replay");
--    expect(replay.idempotentReplay).toBe(true);
-+    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
-     expect(replay.revisionId).toBe(v2.revisionId);
-
-+    const mismatch = await reviseDocument(pilotId, prep.id, {
-+      documentId: v1.documentId,
-+      baseRevisionId: v2.revisionId,
-+      contentMarkdown: "different payload same key",
-+      correlationKey: "corr-rev-1",
-+    });
-+    expect(mismatch.status).toBe("CONFLICT");
-+    if (mismatch.status === "CONFLICT") {
-+      expect(mismatch.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
-+    }
-+
-     const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
-     expect(list.revisions.length).toBeGreaterThanOrEqual(2);
-     const cmp = await compareDocumentRevisions(
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-index 1d443c8f..e896c372 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-@@ -505,7 +505,7 @@ Fin.
-     if (first.status !== "AVAILABLE" || again.status !== "AVAILABLE") {
-       throw new Error("idempotent revise unavailable");
-     }
--    expect(again.idempotentReplay).toBe(true);
-+    expect("idempotentReplay" in again && again.idempotentReplay).toBe(true);
-     expect(again.revisionId).toBe(first.revisionId);
-   });
-
-diff --git a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
-index acf1b4b1..4bc540ec 100644
---- a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
-@@ -75,6 +75,12 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
-     expect(() => resolveProfileType()).toThrow(StudioError);
-   });
-
-+  it("toolAllowlist includes conversation history read tools", () => {
-+    const p = buildCognitivePolicy("Cherche un message passé sur le budget.", "TEST_BOUNDARY");
-+    expect(p.toolAllowlist).toContain("search_conversation_history");
-+    expect(p.toolAllowlist).toContain("read_conversation_messages");
-+  });
-+
-   it("maxTurns follows policy budget without silent hard cap of 12", () => {
-     const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
-     expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
-diff --git a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
-index 20be39ee..f679aa83 100644
---- a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
-@@ -142,6 +142,33 @@ describe("semantic qualification envelope", () => {
-     expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
-   });
-
-+  it("validateNoraTurnQualification accepts optional documentProposal", () => {
-+    const v = validateNoraTurnQualification({
-+      schemaVersion: "ml4c-sem-qual-v1",
-+      status: "QUALIFIED",
-+      goal: "document de cadrage",
-+      intents: [
-+        {
-+          id: "i1",
-+          capabilityId: "d4.create_document",
-+          mode: "REQUEST_EFFECT",
-+          summary: "cadrage",
-+          parameters: {},
-+          constraints: [],
-+          dependsOn: [],
-+          sourceEvidence: [],
-+        },
-+      ],
-+      clarifications: [],
-+      replyDraft: "Je prépare le document.",
-+      documentProposal: {
-+        title: "Cadrage",
-+        contentMarkdown: "# Cadrage\n\nPérimètre initial.\n",
-+      },
-+    });
-+    expect(v.ok).toBe(true);
-+  });
-+
-   it("deriveThreadTurnKind from semantic modes", () => {
-     const dialogue: NoraTurnQualification = {
-       schemaVersion: "ml4c-sem-qual-v1",
-
 ```
 
-## 9. Fichiers créés / consolidés (contenu)
+## 7. NEW production files (full contents)
 
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts`
@@ -1833,9 +2010,11 @@ import {
   type TurnOwnershipFence,
 } from "@/domains/conversation/turn-command";
 import {
+  buildSealedProvenance,
   lookupDocumentCorrelationTruth,
   reviseDocument,
   savePreparationDocument,
+  type SealedEffectIdentity,
 } from "@/domains/document/service";
 
 export const DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION = "ml4c-doc-cmd-v1" as const;
@@ -1958,9 +2137,80 @@ export function canonicalizeDocumentProposal(input: {
   };
 }
 
-/** Serialize exact Markdown into a contractual fence — no title injection. */
-export function serializeProposalFence(contentMarkdown: string): string {
-  return "```sfia-document\n" + contentMarkdown + "```\n";
+export function encodeTitleB64(title: string): string {
+  return Buffer.from(title, "utf8").toString("base64url");
+}
+
+export function parseFenceMeta(info: string): {
+  titleB64: string | null;
+  chars: number | null;
+  pairSha256: string | null;
+  structured: boolean;
+} {
+  const tokens = info.trim().split(/\s+/).slice(1);
+  let titleB64: string | null = null;
+  let chars: number | null = null;
+  let pairSha256: string | null = null;
+  for (const tok of tokens) {
+    const eq = tok.indexOf("=");
+    if (eq <= 0) continue;
+    const key = tok.slice(0, eq);
+    const val = tok.slice(eq + 1);
+    if (key === "title-b64") titleB64 = val;
+    else if (key === "chars") {
+      const n = Number.parseInt(val, 10);
+      if (Number.isFinite(n)) chars = n;
+    } else if (key === "pair-sha256") pairSha256 = val;
+  }
+  const structured = titleB64 != null && chars != null && pairSha256 != null;
+  return { titleB64, chars, pairSha256, structured };
+}
+
+function fenceOpenerLength(contentMarkdown: string): number {
+  let need = 3;
+  const re = /`{3,}/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(contentMarkdown)) !== null) {
+    need = Math.max(need, m[0]!.length + 1);
+  }
+  return need;
+}
+
+/** Serialize exact Markdown into a contractual fence — metadata + byte-stable body. */
+export function serializeProposalFence(proposal: DocumentProposalExact): string {
+  const canonical = canonicalizeDocumentProposal({
+    title: proposal.title,
+    contentMarkdown: proposal.contentMarkdown,
+  });
+  if (!canonical.ok) {
+    throw new Error(`PROPOSAL_NOT_CANONICAL:${canonical.reason}`);
+  }
+  const { title, contentMarkdown, contentSha256: digest } = canonical.proposal;
+  const tickLen = fenceOpenerLength(contentMarkdown);
+  const ticks = "`".repeat(tickLen);
+  const info = `sfia-document title-b64=${encodeTitleB64(title)} chars=${contentMarkdown.length} pair-sha256=${digest}`;
+  const needsStructuralNl = !contentMarkdown.endsWith("\n");
+  const body = needsStructuralNl ? `${contentMarkdown}\n` : contentMarkdown;
+  return `${ticks}${info}\n${body}${ticks}\n`;
+}
+
+export function sealedIdentityFromBinding(binding: DocumentCommandBinding): SealedEffectIdentity {
+  return {
+    commandId: binding.commandId,
+    operationId: binding.operationId,
+    userMessageId: binding.userMessageId,
+    qualifiedIntentId: binding.qualifiedIntentId,
+    action: binding.action,
+    source: binding.source,
+    preparationId: binding.preparationId,
+    documentId: binding.documentId,
+    baseRevisionId: binding.baseRevisionId,
+    sectionHint: binding.sectionHint ?? null,
+    correlationKey: binding.correlationKey,
+    contentSha256: binding.contentSha256,
+    payloadSha256: binding.payloadSha256,
+    title: binding.title,
+  };
 }
 
 export function proposalFromStructured(input: {
@@ -2135,14 +2385,7 @@ export async function sealAndApplyDocumentCommand(input: {
       {
         correlationKey: input.binding.correlationKey,
         turnFence: input.fence,
-        provenance: {
-          documentCommandBinding: true,
-          payloadSha256: input.binding.payloadSha256,
-          contentSha256: input.binding.contentSha256,
-          source: input.binding.source,
-          userMessageId: input.binding.userMessageId,
-          qualifiedIntentId: input.binding.qualifiedIntentId,
-        },
+        provenance: buildSealedProvenance(sealedIdentityFromBinding(input.binding)),
       },
     );
     return { sealApplied: true, effect };
@@ -2158,14 +2401,7 @@ export async function sealAndApplyDocumentCommand(input: {
     turnFence: input.fence,
     expectedTitle: input.binding.title,
     expectedContentSha256: input.binding.contentSha256,
-    provenance: {
-      documentCommandBinding: true,
-      payloadSha256: input.binding.payloadSha256,
-      contentSha256: input.binding.contentSha256,
-      source: input.binding.source,
-      userMessageId: input.binding.userMessageId,
-      qualifiedIntentId: input.binding.qualifiedIntentId,
-    },
+    provenance: buildSealedProvenance(sealedIdentityFromBinding(input.binding)),
   });
   return { sealApplied: true, effect };
 }
@@ -2183,6 +2419,7 @@ export async function reconcileDocumentCommandFromBinding(input: {
   reason?: string;
   contentSha256?: string;
 }> {
+  const expectedIdentity = sealedIdentityFromBinding(input.binding);
   const truth = await lookupDocumentCorrelationTruth({
     pilotId: input.pilotId,
     preparationId: input.preparationId,
@@ -2194,6 +2431,7 @@ export async function reconcileDocumentCommandFromBinding(input: {
     payloadSha256: input.binding.payloadSha256,
     documentId: input.binding.documentId,
     baseRevisionId: input.binding.baseRevisionId,
+    expectedIdentity,
   });
   return {
     verdict: truth.verdict,
@@ -2246,22 +2484,38 @@ export async function loadSealedDocumentBinding(input: {
   } catch {
     return { ok: false, reason: "BINDING_JSON_INVALID" };
   }
-  const list = Array.isArray(parsed.documentCommandBindings)
-    ? (parsed.documentCommandBindings as DocumentCommandBinding[])
+  const rawList = Array.isArray(parsed.documentCommandBindings)
+    ? parsed.documentCommandBindings
     : [];
+  const list = rawList.filter((b): b is DocumentCommandBinding => {
+    if (!b || typeof b !== "object") return false;
+    const x = b as DocumentCommandBinding;
+    return (
+      x.schemaVersion === DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION &&
+      x.commandId === input.commandId &&
+      typeof x.correlationKey === "string" &&
+      x.correlationKey.length > 0
+    );
+  });
   if (list.length === 0) {
-    return { ok: false, reason: "BINDING_ABSENT" };
+    return { ok: false, reason: rawList.length === 0 ? "BINDING_ABSENT" : "BINDING_NOT_FOUND" };
   }
-  const binding = input.correlationKey
-    ? list.find((b) => b.correlationKey === input.correlationKey)
-    : list[list.length - 1];
-  if (!binding || binding.schemaVersion !== DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION) {
-    return { ok: false, reason: "BINDING_NOT_FOUND" };
+  const correlationKey = input.correlationKey?.trim() || null;
+  let binding: DocumentCommandBinding | undefined;
+  if (correlationKey) {
+    binding = list.find((b) => b.correlationKey === correlationKey);
+    if (!binding) {
+      return { ok: false, reason: "BINDING_NOT_FOUND" };
+    }
+  } else if (list.length === 1) {
+    binding = list[0];
+  } else {
+    return { ok: false, reason: "BINDING_SELECTOR_REQUIRED" };
   }
   return { ok: true, binding, commandId: row.id };
 }
-
 ```
+
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/history-tools.ts`
 
@@ -2714,8 +2968,8 @@ export async function readConversationMessages(input: {
     items.length === 0 ? "EMPTY" : items.length < ids.length ? "PARTIAL" : "COMPLETE";
   return { items, coverage, reason: null };
 }
-
 ```
+
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts`
 
@@ -2745,7 +2999,8 @@ function payloadSize(payload: unknown): number {
  * Never silent-truncate exact message bodies — prefer PARTIAL + reason.
  * DENIED is reserved for authorization refusals, not budget.
  */
-function fitBudget<T extends { coverage: string; reason?: string | null }>(
+/** Exported for F-P1 discriminant tests (budget before return). */
+export function fitBudget<T extends { coverage: string; reason?: string | null }>(
   scope: HistoryToolScope,
   payload: T,
 ): T | { coverage: "PARTIAL"; reason: "HISTORY_TOOL_BUDGET_EXHAUSTED"; items: []; nextCursor?: null } {
@@ -2849,530 +3104,791 @@ export async function buildNoraHistoryTools(scope: HistoryToolScope) {
     }),
   ];
 }
-
 ```
 
-### `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md`
+## 8. NEW test files (full contents)
 
-```markdown
-# As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
 
-**Date :** 14 novembre 2026 (correctif post Critical Review)
-**Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
-**Conception source :** V0.7 @ `86377fde` blob `7d289670`
-**Handoff 1ʳᵉ livraison :** `sfia/review-handoff@93e277c2`
-**Statut :** IMPLEMENTED CANDIDATE CORRECTED — DET/PG/BROWSER ; LIVE NOT PROVEN
-**STABLE / release :** NOT AVAILABLE — NO RELEASE
-
-## 1. Objet
-
-Capacité O-01…O-06 corrigée selon C-01…C-07 (Critical Review) :
-
-| Correctif | Mécanisme |
-| --- | --- |
-| C-01 | `lookupDocumentCorrelationTruth` lecture pure ; reconcile HTTP `documentCommandId` |
-| C-02 | `canonicalizeDocumentProposal` + fence = Markdown exact (pas d'injection `# titre`) |
-| C-03 | `documentSource.PRIOR_ASSISTANT_MESSAGE` → `resolveAssistantProposal` → D4 |
-| C-04 | corrélation figée à l'admit (`clientCorrelationSalt`) ; intents capability exacts |
-| C-05 | search sans filtre LIKE exclusif ; budget → PARTIAL ; corpus 320+ |
-| C-06 | TEMP DET + consignes Nora ; LIVE non revendiqué |
-| C-07 | Playwright fil 320+ + composeur sticky |
-
-## 2. Modules (état consolidé)
-
-| Module | Rôle |
-| --- | --- |
-| `history-tools.ts` / `history-tools-sdk.ts` | Portée, keyset, lecture exacte, budget pré-retour |
-| `document-command.ts` | Canonicalize, admit, seal, reconcile read-only, loadSealedBinding |
-| `document/service.ts` | CREATE TX, REVISE fence, `lookupDocumentCorrelationTruth` |
-| `semantic-qualification.ts` | `documentProposal` + `documentSource` mutuellement exclusifs |
-| `service.ts` (conversation) | CREATE/REVISE exacts ; prior message ; intents filtrés |
-| `reconcile/route.ts` | Branche `documentCommandId` (D2 inchangé) |
-| `NoraConversation.tsx` + `tokens.css` | Composeur sticky |
-
-## 3. Invariants
-
-1. Réconciliation D4 : **zéro** INSERT/UPDATE/DELETE.
-2. Une proposition = `{ title, contentMarkdown }` octet-stables ; SHA sur cette paire.
-3. Source historique : contenu vérifié serveur ; jamais régénéré.
-4. Binding scellé immuable après admit ; corrélation dérivée une seule fois.
-5. LIKE lexical = hint (`lexicalHit`) ; parcours paginé pour couverture.
-6. Budget outils : `PARTIAL` + `HISTORY_TOOL_BUDGET_EXHAUSTED` ≠ `DENIED`.
-
-## 4. Preuves (correctif)
-
-| Niveau | Résultat |
-| --- | --- |
-| Unit | 277 PASS |
-| PG ML4C (reconcile, prior, history-long, command, history-tools) | 29 PASS |
-| BROWSER C-07 320+ | PASS (`ml4c-long-thread-composer.spec.ts`) |
-| tsc / eslint (fichiers touchés) | PASS |
-| build | voir Review Pack |
-| LIVE | **NOT PROVEN — PROVIDER OR AUTHORIZATION UNAVAILABLE** (mandat) |
-
-## 5. Préflights
-
-| Gate | Verdict |
-| --- | --- |
-| ENV-01 | DEV `:5433` ; mutative → `sfia_next_e2e` |
-| PG-01 | Indexes/corr présents |
-| SDK-01 | `@openai/agents@0.21.0` ; LIVE volume non mesuré |
-| REC-01 | Bindings dans `result_json` ; seal préservé |
-
-## 6. Réserves / exit
-
-- LIVE Nora (C-06 rouge→bleu sourcé) non exécuté.
-- Push produit / PR #676 / RECETTE / Gate C / ADOPTED hors mandat.
-- Version technique `0.0.0-dev` ; NO RELEASE.
-
-```
-
-### `projects/sfia-studio-next/web/tests/unit/document-command.test.ts`
-
-```typescript
-import { describe, expect, it } from "vitest";
-import {
-  admitDocumentCommand,
-  canonicalizeDocumentProposal,
-  contentSha256,
-  payloadSha256,
-  proposalFromStructured,
-  serializeProposalFence,
-} from "@/domains/conversation/document-command";
-import {
-  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  validateNoraTurnQualification,
-} from "@/domains/conversation/semantic-qualification";
-
-const baseAdmit = {
-  commandId: "tcmd-test-1",
-  operationId: "op-test-1",
-  userMessageId: "msg-user-1",
-  qualifiedIntentId: "i-d4-create",
-  preparationId: "prep-test-1",
-  source: { kind: "SAME_TURN_SNAPSHOT" as const, commandId: "tcmd-test-1" },
-};
-
-describe("document-command admission", () => {
-  it("admit CREATE when title and body are valid", () => {
-    const r = admitDocumentCommand({
-      ...baseAdmit,
-      action: "CREATE",
-      title: "Spec ML4C",
-      contentMarkdown: "# Spec ML4C\n\nCorps minimal.\n",
-    });
-    expect(r.ok).toBe(true);
-    if (r.ok) {
-      expect(r.binding.action).toBe("CREATE");
-      expect(r.binding.contentSha256).toBe(
-        contentSha256("Spec ML4C", "# Spec ML4C\n\nCorps minimal.\n"),
-      );
-      expect(r.binding.correlationKey).toHaveLength(48);
-    }
-  });
-
-  it("admit REVISE when targets are present", () => {
-    const r = admitDocumentCommand({
-      ...baseAdmit,
-      action: "REVISE",
-      documentId: "doc-1",
-      baseRevisionId: "rev-1",
-      title: "Spec",
-      contentMarkdown: "# Spec\n\nRévisé.\n",
-    });
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.binding.documentId).toBe("doc-1");
-  });
-
-  it("rejects empty title or body", () => {
-    expect(
-      admitDocumentCommand({
-        ...baseAdmit,
-        action: "CREATE",
-        title: "   ",
-        contentMarkdown: "x",
-      }).ok,
-    ).toBe(false);
-    const emptyBody = admitDocumentCommand({
-      ...baseAdmit,
-      action: "CREATE",
-      title: "T",
-      contentMarkdown: "  \n  ",
-    });
-    expect(emptyBody.ok).toBe(false);
-    if (!emptyBody.ok) expect(emptyBody.reason).toBe("EMPTY_PROPOSAL");
-  });
-
-  it("rejects content over 100k chars", () => {
-    const r = admitDocumentCommand({
-      ...baseAdmit,
-      action: "CREATE",
-      title: "Large",
-      contentMarkdown: "x".repeat(100_001),
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) {
-      expect(r.verdict).toBe("NOT_EXECUTED");
-      expect(r.reason).toBe("CONTENT_TOO_LARGE");
-    }
-  });
-
-  it("rejects REVISE without documentId / baseRevisionId", () => {
-    const r = admitDocumentCommand({
-      ...baseAdmit,
-      action: "REVISE",
-      title: "T",
-      contentMarkdown: "body",
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("REVISE_TARGET_INCOMPLETE");
-  });
-});
-
-describe("document-command hashes", () => {
-  it("contentSha256 is stable for the same inputs", () => {
-    const a = contentSha256("Titre", "# Corps\n");
-    const b = contentSha256("Titre", "# Corps\n");
-    expect(a).toBe(b);
-    expect(a).toHaveLength(64);
-  });
-
-  it("payloadSha256 changes when content hash changes", () => {
-    const source = { kind: "SAME_TURN_SNAPSHOT" as const, commandId: "c1" };
-    const p1 = payloadSha256({
-      action: "CREATE",
-      source,
-      preparationId: "prep-1",
-      documentId: null,
-      baseRevisionId: null,
-      title: "T",
-      contentSha256: contentSha256("T", "v1"),
-    });
-    const p2 = payloadSha256({
-      action: "CREATE",
-      source,
-      preparationId: "prep-1",
-      documentId: null,
-      baseRevisionId: null,
-      title: "T",
-      contentSha256: contentSha256("T", "v2"),
-    });
-    expect(p1).not.toBe(p2);
-  });
-});
-
-describe("proposalFromStructured", () => {
-  it("returns null for empty or oversized payloads", () => {
-    expect(proposalFromStructured({ title: "  ", contentMarkdown: "x" })).toBeNull();
-    expect(proposalFromStructured({ title: "T", contentMarkdown: "" })).toBeNull();
-    expect(
-      proposalFromStructured({ title: "T", contentMarkdown: "a".repeat(100_001) }),
-    ).toBeNull();
-  });
-
-  it("returns exact proposal with contentSha256", () => {
-    const p = proposalFromStructured({ title: "  Atlas  ", contentMarkdown: "# Atlas\n" });
-    expect(p).toMatchObject({ title: "Atlas", contentMarkdown: "# Atlas\n" });
-    expect(p?.contentSha256).toBe(contentSha256("Atlas", "# Atlas\n"));
-  });
-});
-
-describe("canonicalizeDocumentProposal", () => {
-  it("accepts when H1 matches title", () => {
-    const r = canonicalizeDocumentProposal({
-      title: "Atlas",
-      contentMarkdown: "# Atlas\n\nCorps.\n",
-    });
-    expect(r.ok).toBe(true);
-    if (r.ok) expect(r.proposal.title).toBe("Atlas");
-  });
-
-  it("rejects TITLE_H1_MISMATCH", () => {
-    const r = canonicalizeDocumentProposal({
-      title: "Atlas",
-      contentMarkdown: "# Autre titre\n\nCorps.\n",
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("TITLE_H1_MISMATCH");
-  });
-});
-
-describe("serializeProposalFence", () => {
-  it("wraps exact bytes without title injection", () => {
-    const body = "# Titre\n\nContenu.\n";
-    expect(serializeProposalFence(body)).toBe("```sfia-document\n" + body + "```\n");
-  });
-});
-
-describe("validateNoraTurnQualification — documentProposal", () => {
-  it("accepts documentProposal >12k while replyDraft stays ≤12k", () => {
-    const longDoc = `# Synthèse\n\n${"paragraphe détaillé.\n".repeat(900)}`;
-    expect(longDoc.length).toBeGreaterThan(12_000);
-    expect(longDoc.length).toBeLessThanOrEqual(100_000);
-
-    const v = validateNoraTurnQualification({
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      status: "QUALIFIED",
-      goal: "rédiger un document",
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d4.create_document",
-          mode: "REQUEST_EFFECT",
-          summary: "create doc",
-          parameters: {},
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      replyDraft: "Voici le brouillon court pour l’utilisateur.",
-      documentProposal: {
-        title: "Document long",
-        contentMarkdown: longDoc,
-      },
-    });
-    expect(v.ok).toBe(true);
-  });
-});
-```
-
-### `projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts`
+### `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts`
 
 ```typescript
 /**
- * ML4C TEMP (DET) — O-02 cognitive confrontation is Nora-led; these tests guard
- * server-side restitution / projection rules without inventing D4 or D6 from EXPLAIN,
- * negation-shaped drafts, or retired lexical routers.
+ * F-01 — sealed document-command identity truth (lookup + reconcile, read-only).
  */
-import { describe, expect, it } from "vitest";
-import { qualifyDocumentAct, explicitDocumentIntent } from "@/domains/conversation/document-act";
-import {
-  deriveThreadTurnKind,
-  effectIntents,
-  extractKnowledgeProposals,
-  extractPilotageBinding,
-  matchPilotageIntentInQualification,
-  projectStudioEffects,
-  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  validateNoraTurnQualification,
-  type NoraTurnQualification,
-} from "@/domains/conversation/semantic-qualification";
-import { proposalFromStructured } from "@/domains/conversation/document-command";
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
 
-function qualified(partial: Partial<NoraTurnQualification> & Pick<NoraTurnQualification, "intents">): NoraTurnQualification {
-  return {
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    status: "QUALIFIED",
-    goal: "test",
-    clarifications: [],
-    replyDraft: "Réponse courte.",
-    ...partial,
-  };
+import { and, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import { documentRevisions, documents, messages, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation } from "@/domains/preparation/service";
+import { getConversationId } from "@/domains/conversation/service";
+import {
+  admitDocumentCommand,
+  contentSha256,
+  payloadSha256,
+  reconcileDocumentCommandFromBinding,
+  sealAndApplyDocumentCommand,
+  sealedIdentityFromBinding,
+  type DocumentCommandBinding,
+} from "@/domains/conversation/document-command";
+import { lookupDocumentCorrelationTruth } from "@/domains/document/service";
+import { buildSealedProvenance, savePreparationDocument } from "@/domains/document/service";
+import {
+  completeTurnCommand,
+  reserveTurnCommand,
+  stashDocumentCommandBinding,
+} from "@/domains/conversation/turn-command";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
 }
 
-describe("ML4C TEMP — restitution fail-closed (DET)", () => {
-  it("TEMP-01: qualifyDocumentAct / explicitDocumentIntent stay lexical-retired", () => {
-    for (const utterance of [
-      "Crée un document de recette.",
-      "Ne crée pas de document, explique seulement.",
-      "Et si on rédigeait une synthèse ?",
-    ]) {
-      expect(qualifyDocumentAct(utterance)).toEqual({
-        kind: "NONE",
-        reason: "SEMANTIC_ROUTER_REQUIRED",
+async function countD4Rows(pilotId: string, preparationId: string) {
+  const docs = await db
+    .select({ id: documents.id })
+    .from(documents)
+    .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, preparationId)));
+  const revs =
+    docs.length === 0
+      ? []
+      : await db
+          .select({ id: documentRevisions.id })
+          .from(documentRevisions)
+          .where(
+            sql`${documentRevisions.documentId} in (${sql.join(
+              docs.map((d) => sql`${d.id}`),
+              sql`, `,
+            )})`,
+          );
+  return { documents: docs.length, revisions: revs.length };
+}
+
+async function lookupFromBinding(
+  pilotId: string,
+  preparationId: string,
+  binding: DocumentCommandBinding,
+) {
+  return lookupDocumentCorrelationTruth({
+    pilotId,
+    preparationId,
+    action: binding.action,
+    correlationKey: binding.correlationKey,
+    title: binding.title,
+    contentMarkdown: binding.contentMarkdown,
+    contentSha256: binding.contentSha256,
+    payloadSha256: binding.payloadSha256,
+    documentId: binding.documentId,
+    baseRevisionId: binding.baseRevisionId,
+    expectedIdentity: sealedIdentityFromBinding(binding),
+  });
+}
+
+async function completeReservedTurn(
+  convId: string,
+  reserved: Extract<Awaited<ReturnType<typeof reserveTurnCommand>>, { kind: "fresh" }>,
+) {
+  const assistantId = newId("msg");
+  await db.insert(messages).values({
+    id: assistantId,
+    conversationId: convId,
+    role: "assistant",
+    content: "Tour terminé.",
+    status: "COMPLETE",
+    ordinal: reserved.ordinalAssistant,
+  });
+  await completeTurnCommand({
+    commandId: reserved.commandId,
+    ownerToken: reserved.ownerToken,
+    status: "COMPLETE",
+    assistantMessageId: assistantId,
+  });
+}
+
+async function freshCreateBinding(pilotId: string, preparationId: string, label: string) {
+  const convId = await getConversationId(pilotId, preparationId);
+  expect(convId).toBeTruthy();
+  const reserved = await reserveTurnCommand({
+    conversationId: convId!,
+    ownerPilotId: pilotId,
+    clientTurnKey: `f01-${label}-${Date.now()}`,
+    content: `F01 ${label}`,
+  });
+  if (reserved.kind !== "fresh") throw new Error("fresh turn expected");
+  const title = `F01 ${label}`;
+  const body = `# ${title}\n\nCorps ${label}.\n`;
+  const admitted = admitDocumentCommand({
+    commandId: reserved.commandId,
+    operationId: reserved.operationId,
+    userMessageId: reserved.userMessageId,
+    qualifiedIntentId: "i-d4-create",
+    action: "CREATE",
+    preparationId,
+    source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+    title,
+    contentMarkdown: body,
+  });
+  if (!admitted.ok) throw new Error(admitted.reason);
+  return { reserved, admitted, title, body };
+}
+
+describe("ML4C document identity F-01 (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+  });
+
+  it("F01-01: same correlation + same sealed identity → same refs (lookup + reconcile)", async () => {
+    const pilotId = await seedPilot("f01-same-id");
+    const prep = await openOrCreatePreparation(pilotId);
+    const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "same");
+
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admitted.binding,
+    });
+    expect(sealed.effect.status).toBe("AVAILABLE");
+    if (sealed.effect.status !== "AVAILABLE") throw new Error("apply failed");
+
+    const truth = await lookupFromBinding(pilotId, prep.id, admitted.binding);
+    expect(truth.verdict).toBe("AVAILABLE");
+    expect(truth.documentId).toBe(sealed.effect.documentId);
+    expect(truth.revisionId).toBe(sealed.effect.revisionId);
+
+    const reconciled = await reconcileDocumentCommandFromBinding({
+      pilotId,
+      preparationId: prep.id,
+      binding: admitted.binding,
+    });
+    expect(reconciled.verdict).toBe("AVAILABLE");
+    expect(reconciled.documentId).toBe(sealed.effect.documentId);
+    expect(reconciled.revisionId).toBe(sealed.effect.revisionId);
+  });
+
+  it("F01-02: same correlation + divergent markdown → CONFLICT", async () => {
+    const pilotId = await seedPilot("f01-md-conf");
+    const prep = await openOrCreatePreparation(pilotId);
+    const corr = `corr-md-${Date.now()}`;
+    const title = "Mismatch markdown";
+    const bodyStored = "# Mismatch markdown\n\nStored.\n";
+    await savePreparationDocument(pilotId, prep.id, title, bodyStored, undefined, {
+      correlationKey: corr,
+      provenance: buildSealedProvenance({
+        commandId: "legacy-cmd",
+        operationId: "legacy-op",
+        userMessageId: "legacy-usr",
+        qualifiedIntentId: "i-legacy",
+        action: "CREATE",
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "legacy-cmd" },
+        preparationId: prep.id,
+        documentId: null,
+        baseRevisionId: null,
+        sectionHint: null,
+        correlationKey: corr,
+        contentSha256: contentSha256(title, bodyStored),
+        payloadSha256: "0".repeat(64),
+        title,
+      }),
+    });
+
+    const { admitted } = await freshCreateBinding(pilotId, prep.id, "md-mismatch");
+    const binding = { ...admitted.binding, correlationKey: corr };
+    const truth = await lookupFromBinding(pilotId, prep.id, binding);
+    expect(truth.verdict).toBe("CONFLICT");
+    expect(truth.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+  });
+
+  async function expectIdentityConflict(mutate: (stored: DocumentCommandBinding) => DocumentCommandBinding, label: string) {
+    const pilotId = await seedPilot(`f01-mut-${label}`);
+    const prep = await openOrCreatePreparation(pilotId);
+    const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, label);
+    await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admitted.binding,
+    });
+    const binding = mutate(admitted.binding);
+    const truth = await lookupFromBinding(pilotId, prep.id, binding);
+    expect(truth.verdict).toBe("CONFLICT");
+    expect(truth.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+  }
+
+  it("F01-03a: same correlation + different source → CONFLICT", async () => {
+    await expectIdentityConflict((b) => {
+      const assistantMessageId = newId("msg");
+      const source = { kind: "ASSISTANT_MESSAGE" as const, assistantMessageId };
+      return {
+        ...b,
+        source,
+        payloadSha256: payloadSha256({
+          action: b.action,
+          source,
+          preparationId: b.preparationId,
+          documentId: b.documentId,
+          baseRevisionId: b.baseRevisionId,
+          sectionHint: b.sectionHint,
+          title: b.title,
+          contentSha256: b.contentSha256,
+        }),
+      };
+    }, "source");
+  });
+
+  it("F01-03b: same correlation + different payloadSha256 → CONFLICT", async () => {
+    await expectIdentityConflict(
+      (b) => ({ ...b, payloadSha256: createHashFlip(b.payloadSha256) }),
+      "payload",
+    );
+  });
+
+  it("F01-03c: same correlation + different markdown bytes → CONFLICT", async () => {
+    await expectIdentityConflict((b) => {
+      const contentMarkdown = `${b.contentMarkdown}\n<!-- drift -->\n`;
+      const cSha = contentSha256(b.title, contentMarkdown);
+      return {
+        ...b,
+        contentMarkdown,
+        contentSha256: cSha,
+        payloadSha256: payloadSha256({
+          action: b.action,
+          source: b.source,
+          preparationId: b.preparationId,
+          documentId: b.documentId,
+          baseRevisionId: b.baseRevisionId,
+          sectionHint: b.sectionHint,
+          title: b.title,
+          contentSha256: cSha,
+        }),
+      };
+    }, "markdown");
+  });
+
+  it("F01-04: CREATE correlated document without first revision → UNKNOWN", async () => {
+    const pilotId = await seedPilot("f01-rev-abs");
+    const prep = await openOrCreatePreparation(pilotId);
+    const corr = `corr-norev-${Date.now()}`;
+    const docId = newId("doc");
+    await db.insert(documents).values({
+      id: docId,
+      ownerPilotId: pilotId,
+      preparationId: prep.id,
+      title: "Orphan corr",
+      creationCorrelationKey: corr,
+    });
+
+    const { admitted } = await freshCreateBinding(pilotId, prep.id, "no-rev");
+    const binding = { ...admitted.binding, correlationKey: corr };
+    const truth = await lookupFromBinding(pilotId, prep.id, binding);
+    expect(truth.verdict).toBe("UNKNOWN");
+    expect(truth.reason).toBe("CREATE_REVISION_ABSENT");
+    expect(truth.documentId).toBe(docId);
+  });
+
+  it("F01-05: latest AVAILABLE revision without matching correlation → not AVAILABLE", async () => {
+    const pilotId = await seedPilot("f01-uncorr");
+    const prep = await openOrCreatePreparation(pilotId);
+    const corr = `corr-uncorr-${Date.now()}`;
+    const saved = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Uncorrelated latest",
+      "# Uncorrelated latest\n\nSans empreinte scellée.\n",
+      undefined,
+      { correlationKey: corr },
+    );
+    expect(saved.status).toBe("AVAILABLE");
+    if (saved.status !== "AVAILABLE") throw new Error("save");
+
+    const otherCorr = `other-${Date.now()}`;
+    const { admitted } = await freshCreateBinding(pilotId, prep.id, "uncorr-lookup");
+    const binding = {
+      ...admitted.binding,
+      correlationKey: otherCorr,
+      documentId: saved.documentId,
+    };
+    const truth = await lookupDocumentCorrelationTruth({
+      pilotId,
+      preparationId: prep.id,
+      action: "REVISE",
+      correlationKey: otherCorr,
+      title: binding.title,
+      contentMarkdown: binding.contentMarkdown,
+      contentSha256: binding.contentSha256,
+      payloadSha256: binding.payloadSha256,
+      documentId: saved.documentId,
+      baseRevisionId: saved.revisionId,
+      expectedIdentity: sealedIdentityFromBinding(binding),
+    });
+    expect(truth.verdict).toBe("UNKNOWN");
+    expect(truth.reason).toMatch(/REVISE_CORRELATION_ABSENT/);
+  });
+
+  it("F01-06: provenance without documentCommandBinding → COMMAND_PROVENANCE_UNVERIFIABLE", async () => {
+    const pilotId = await seedPilot("f01-unver");
+    const prep = await openOrCreatePreparation(pilotId);
+    const corr = `corr-unver-${Date.now()}`;
+    const title = "Legacy provenance";
+    const body = "# Legacy provenance\n\nSans drapeau binding.\n";
+    const saved = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+      correlationKey: corr,
+      provenance: { note: "legacy-read-only", correlationKey: corr },
+    });
+    expect(saved.status).toBe("AVAILABLE");
+    if (saved.status !== "AVAILABLE") throw new Error("save");
+
+    const { admitted } = await freshCreateBinding(pilotId, prep.id, "unverifiable");
+    const binding = { ...admitted.binding, correlationKey: corr };
+    const truth = await lookupFromBinding(pilotId, prep.id, binding);
+    expect(truth.verdict).toBe("UNKNOWN");
+    expect(truth.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+  });
+
+  it("F01-07: ACK-loss — seal+apply then 10× reconcile, zero new D4 rows", async () => {
+    const pilotId = await seedPilot("f01-ack");
+    const prep = await openOrCreatePreparation(pilotId);
+    const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "ack");
+
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admitted.binding,
+    });
+    expect(sealed.effect.status).toBe("AVAILABLE");
+    const afterApply = await countD4Rows(pilotId, prep.id);
+
+    for (let i = 0; i < 10; i++) {
+      const r = await reconcileDocumentCommandFromBinding({
+        pilotId,
+        preparationId: prep.id,
+        binding: admitted.binding,
       });
-      expect(explicitDocumentIntent(utterance)).toBe(false);
+      expect(r.verdict).toBe("AVAILABLE");
+      expect(r.documentId).toBe(
+        sealed.effect.status === "AVAILABLE" ? sealed.effect.documentId : undefined,
+      );
     }
+    expect(await countD4Rows(pilotId, prep.id)).toEqual(afterApply);
   });
 
-  it("TEMP-02: EXPLAIN d4.create_document does not project D4 CREATE", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-explain-doc",
-          capabilityId: "d4.create_document",
-          mode: "EXPLAIN",
-          summary: "explain drafting",
-          parameters: {},
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
+  it("F01-08: concurrent CREATE same correlation → single document", async () => {
+    const pilotId = await seedPilot("f01-conc");
+    const prep = await openOrCreatePreparation(pilotId);
+    const corr = `corr-conc-${Date.now()}`;
+    const title = "Concurrent F01";
+    const body = `# ${title}\n\nMême clé.\n`;
+    const identity = {
+      commandId: "conc-a",
+      operationId: "op-conc",
+      userMessageId: "usr-conc",
+      qualifiedIntentId: "i-d4-create",
+      action: "CREATE" as const,
+      source: { kind: "SAME_TURN_SNAPSHOT" as const, commandId: "conc-a" },
+      preparationId: prep.id,
+      documentId: null,
+      baseRevisionId: null,
+      sectionHint: null,
+      correlationKey: corr,
+      contentSha256: contentSha256(title, body),
+      payloadSha256: "a".repeat(64),
+      title,
+    };
+
+    const [a, b] = await Promise.all([
+      savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: buildSealedProvenance(identity),
+      }),
+      savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: buildSealedProvenance({ ...identity, commandId: "conc-b" }),
+      }),
+    ]);
+    expect([a.status, b.status].every((s) => s === "AVAILABLE" || s === "UNKNOWN" || s === "CONFLICT")).toBe(
+      true,
+    );
+    const docCount = await db
+      .select({ n: sql<number>`count(*)`.mapWith(Number) })
+      .from(documents)
+      .where(
+        and(
+          eq(documents.ownerPilotId, pilotId),
+          eq(documents.preparationId, prep.id),
+          eq(documents.creationCorrelationKey, corr),
+        ),
+      );
+    expect(docCount[0]?.n).toBe(1);
+  });
+
+  it("F01-09: CREATE correlation absent → UNKNOWN, reconcile writes nothing", async () => {
+    const pilotId = await seedPilot("f01-absent");
+    const prep = await openOrCreatePreparation(pilotId);
+    const before = await countD4Rows(pilotId, prep.id);
+    const { admitted } = await freshCreateBinding(pilotId, prep.id, "absent");
+    const reconciled = await reconcileDocumentCommandFromBinding({
+      pilotId,
+      preparationId: prep.id,
+      binding: admitted.binding,
     });
-    expect(effectIntents(q)).toHaveLength(0);
-    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "NONE" });
-    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
+    expect(reconciled.verdict).toBe("UNKNOWN");
+    expect(reconciled.reason).toMatch(/CREATE_CORRELATION_ABSENT/);
+    expect(await countD4Rows(pilotId, prep.id)).toEqual(before);
   });
 
-  it("TEMP-03: EXPLAIN d6.human_decision never binds pilotage / HumanDecision", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-explain-d6",
-          capabilityId: "d6.human_decision",
-          mode: "EXPLAIN",
-          summary: "reflect on prior decision",
-          parameters: {
-            pilotageOperation: "RECORD_DECISION",
-            decisionId: "dec-prior",
-          },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: ["prior-turn-summary-only"],
-        },
-      ],
+  it("F01-11: same correlation + CREATE sealed, lookup as REVISE → CONFLICT", async () => {
+    const pilotId = await seedPilot("f01-act-mismatch");
+    const prep = await openOrCreatePreparation(pilotId);
+    const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "act-x");
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admitted.binding,
     });
-    expect(extractPilotageBinding(q)).toBeNull();
-    const match = matchPilotageIntentInQualification(q, { operation: "RECORD_DECISION" });
-    expect("reject" in match && match.reject).toBe(true);
-    expect(projectStudioEffects(q).simpleDialogue).toBe(true);
-  });
+    expect(sealed.effect.status).toBe("AVAILABLE");
+    if (sealed.effect.status !== "AVAILABLE") throw new Error("apply");
 
-  it("TEMP-04: REQUEST_EFFECT d4.create_document still projects CREATE when not follow-on gated", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-create",
-          capabilityId: "d4.create_document",
-          mode: "REQUEST_EFFECT",
-          summary: "create",
-          parameters: {},
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
+    const asRevise = {
+      ...admitted.binding,
+      action: "REVISE" as const,
+      documentId: sealed.effect.documentId,
+      baseRevisionId: sealed.effect.revisionId,
+      payloadSha256: payloadSha256({
+        action: "REVISE",
+        source: admitted.binding.source,
+        preparationId: prep.id,
+        documentId: sealed.effect.documentId,
+        baseRevisionId: sealed.effect.revisionId,
+        sectionHint: admitted.binding.sectionHint,
+        title: admitted.binding.title,
+        contentSha256: admitted.binding.contentSha256,
+      }),
+    };
+    const truth = await lookupDocumentCorrelationTruth({
+      pilotId,
+      preparationId: prep.id,
+      action: "REVISE",
+      correlationKey: asRevise.correlationKey,
+      title: asRevise.title,
+      contentMarkdown: asRevise.contentMarkdown,
+      contentSha256: asRevise.contentSha256,
+      payloadSha256: asRevise.payloadSha256,
+      documentId: asRevise.documentId,
+      baseRevisionId: asRevise.baseRevisionId,
+      expectedIdentity: sealedIdentityFromBinding(asRevise),
     });
-    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "CREATE" });
-    expect(deriveThreadTurnKind(q)).toBe("INTENTION_EFFET");
+    expect(truth.verdict).toBe("CONFLICT");
+    expect(truth.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
   });
 
-  it("TEMP-05: hypothetical d4.record_knowledge EXPLAIN does not capitalise", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-hyp",
-          capabilityId: "d4.record_knowledge",
-          mode: "EXPLAIN",
-          summary: "hypothesis only",
-          parameters: {
-            knowledgeKind: "ACQUIS",
-            knowledgeStatement: "L’architecture pourrait être event-driven.",
-            epistemic: "hypothesized",
-          },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
+  it("F01-11b: same correlation + REVISE sealed, lookup as CREATE → CONFLICT", async () => {
+    const pilotId = await seedPilot("f01-act-rev");
+    const prep = await openOrCreatePreparation(pilotId);
+    const { admitted: createAdmitted, reserved: createReserved } = await freshCreateBinding(
+      pilotId,
+      prep.id,
+      "rev-base",
+    );
+    const created = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: createReserved.commandId, ownerToken: createReserved.ownerToken },
+      binding: createAdmitted.binding,
     });
-    expect(extractKnowledgeProposals(q)).toHaveLength(0);
-    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "NONE" });
-  });
+    if (created.effect.status !== "AVAILABLE") throw new Error("create");
+    const sharedCorr = createAdmitted.binding.correlationKey;
 
-  it("TEMP-06: documentProposal >12k via proposalFromStructured stays admissible envelope", () => {
-    const longDoc = `# Synthèse\n\n${"ligne de contenu détaillée.\n".repeat(850)}`;
-    expect(longDoc.length).toBeGreaterThan(12_000);
-    expect(longDoc.length).toBeLessThanOrEqual(100_000);
-    const p = proposalFromStructured({ title: "Synthèse", contentMarkdown: longDoc });
-    expect(p).not.toBeNull();
-    expect(p!.contentMarkdown.length).toBeGreaterThan(12_000);
-  });
-
-  it("TEMP-07: conversation history in sourceEvidence alone does not add REQUEST_EFFECT", () => {
-    const q = qualified({
-      goal: "reprendre le fil",
-      intents: [
-        {
-          id: "i-dialogue",
-          capabilityId: "d3.converse",
-          mode: "EXPLAIN",
-          summary: "continue thread",
-          parameters: {},
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: ["msg-1", "msg-2", "msg-3"],
-        },
-      ],
+    const convId = await getConversationId(pilotId, prep.id);
+    await completeReservedTurn(convId!, createReserved);
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `f01-rev-${Date.now()}`,
+      content: "REVISE F01-11b.",
     });
-    expect(effectIntents(q)).toHaveLength(0);
-    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
-    expect(projectStudioEffects(q).simpleDialogue).toBe(true);
+    if (reserved.kind !== "fresh") throw new Error("fresh");
+    const revisedBody = `${createAdmitted.binding.contentMarkdown}\n## Add\n`;
+    const admittedRev = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-revise",
+      action: "REVISE",
+      preparationId: prep.id,
+      documentId: created.effect.documentId,
+      baseRevisionId: created.effect.revisionId,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: createAdmitted.binding.title,
+      contentMarkdown: revisedBody,
+    });
+    if (!admittedRev.ok) throw new Error(admittedRev.reason);
+    const reviseBinding = { ...admittedRev.binding, correlationKey: sharedCorr };
+    await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: reviseBinding,
+    });
+
+    const asCreate = {
+      ...reviseBinding,
+      action: "CREATE" as const,
+      documentId: null,
+      baseRevisionId: null,
+      payloadSha256: payloadSha256({
+        action: "CREATE",
+        source: admittedRev.binding.source,
+        preparationId: prep.id,
+        documentId: null,
+        baseRevisionId: null,
+        sectionHint: admittedRev.binding.sectionHint,
+        title: admittedRev.binding.title,
+        contentSha256: admittedRev.binding.contentSha256,
+      }),
+    };
+    const truth = await lookupFromBinding(pilotId, prep.id, asCreate);
+    expect(truth.verdict).toBe("CONFLICT");
+    expect(truth.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
   });
 
-  it("TEMP-09: documentSource schema accepts PRIOR_ASSISTANT_MESSAGE", () => {
-    const v = validateNoraTurnQualification({
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      status: "QUALIFIED",
-      goal: "reprise",
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d4.create_document",
-          mode: "REQUEST_EFFECT",
-          summary: "create",
-          parameters: {},
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      replyDraft: "ok",
-      documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId: "msg-hist-1" },
+  it("F01-12: same correlation + different baseRevisionId → CONFLICT (REVISE)", async () => {
+    const pilotId = await seedPilot("f01-base-rev");
+    const prep = await openOrCreatePreparation(pilotId);
+    const { admitted: createAdmitted, reserved: createReserved } = await freshCreateBinding(
+      pilotId,
+      prep.id,
+      "f01-12-base",
+    );
+    const created = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: createReserved.commandId, ownerToken: createReserved.ownerToken },
+      binding: createAdmitted.binding,
     });
-    expect(v.ok).toBe(true);
+    if (created.effect.status !== "AVAILABLE") throw new Error("create");
+
+    const convId = await getConversationId(pilotId, prep.id);
+    await completeReservedTurn(convId!, createReserved);
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `f01-12-${Date.now()}`,
+      content: "REVISE F01-12.",
+    });
+    if (reserved.kind !== "fresh") throw new Error("fresh");
+    const revisedBody = `${createAdmitted.binding.contentMarkdown}\n## F01-12\n`;
+    const admittedRev = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-revise",
+      action: "REVISE",
+      preparationId: prep.id,
+      documentId: created.effect.documentId,
+      baseRevisionId: created.effect.revisionId,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: createAdmitted.binding.title,
+      contentMarkdown: revisedBody,
+    });
+    if (!admittedRev.ok) throw new Error(admittedRev.reason);
+    await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admittedRev.binding,
+    });
+
+    const wrongBase = newId("rev");
+    const binding = {
+      ...admittedRev.binding,
+      baseRevisionId: wrongBase,
+      payloadSha256: payloadSha256({
+        action: admittedRev.binding.action,
+        source: admittedRev.binding.source,
+        preparationId: prep.id,
+        documentId: admittedRev.binding.documentId,
+        baseRevisionId: wrongBase,
+        sectionHint: admittedRev.binding.sectionHint,
+        title: admittedRev.binding.title,
+        contentSha256: admittedRev.binding.contentSha256,
+      }),
+    };
+    const truth = await lookupFromBinding(pilotId, prep.id, binding);
+    expect(truth.verdict).toBe("CONFLICT");
+    expect(truth.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
   });
 
-  it("TEMP-10: documentSource + documentProposal → DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT", () => {
-    const v = validateNoraTurnQualification({
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      status: "QUALIFIED",
-      goal: "conflit",
-      intents: [],
-      clarifications: [],
-      replyDraft: "ok",
-      documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId: "msg-hist-1" },
-      documentProposal: { title: "T", contentMarkdown: "# T\n\nx\n" },
-    });
-    expect(v.ok).toBe(false);
-    if (!v.ok) expect(v.reason).toBe("DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT");
+  it("F01-13: same correlation + different sectionHint → CONFLICT", async () => {
+    await expectIdentityConflict((b) => {
+      const sectionHint = "section-other";
+      return {
+        ...b,
+        sectionHint,
+        payloadSha256: payloadSha256({
+          action: b.action,
+          source: b.source,
+          preparationId: b.preparationId,
+          documentId: b.documentId,
+          baseRevisionId: b.baseRevisionId,
+          sectionHint,
+          title: b.title,
+          contentSha256: b.contentSha256,
+        }),
+      };
+    }, "section");
   });
 
-  it("TEMP-08: D2 follow-on chains defer immediate documentAct to mission pending", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-d2",
-          capabilityId: "d2.create_project",
-          mode: "REQUEST_EFFECT",
-          summary: "create project",
-          parameters: { projectName: "Atlas" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-        {
-          id: "i-d4",
-          capabilityId: "d4.create_document",
-          mode: "REQUEST_EFFECT",
-          summary: "follow-on doc",
-          parameters: {},
-          constraints: [],
-          dependsOn: ["i-d2"],
-          sourceEvidence: [],
-        },
-      ],
+  it("F01-14: same correlation + different documentId → CONFLICT (REVISE)", async () => {
+    const pilotId = await seedPilot("f01-doc-target");
+    const prep = await openOrCreatePreparation(pilotId);
+    const { admitted: createAdmitted, reserved: createReserved } = await freshCreateBinding(
+      pilotId,
+      prep.id,
+      "f01-14-a",
+    );
+    const created = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: createReserved.commandId, ownerToken: createReserved.ownerToken },
+      binding: createAdmitted.binding,
     });
-    const proj = projectStudioEffects(q);
-    expect(proj.wantsFollowOnDocument).toBe(true);
-    expect(proj.documentAct).toEqual({ kind: "NONE" });
+    if (created.effect.status !== "AVAILABLE") throw new Error("create");
+
+    const convId = await getConversationId(pilotId, prep.id);
+    await completeReservedTurn(convId!, createReserved);
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `f01-14-${Date.now()}`,
+      content: "REVISE F01-14.",
+    });
+    if (reserved.kind !== "fresh") throw new Error("fresh");
+    const admittedRev = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-revise",
+      action: "REVISE",
+      preparationId: prep.id,
+      documentId: created.effect.documentId,
+      baseRevisionId: created.effect.revisionId,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: createAdmitted.binding.title,
+      contentMarkdown: `${createAdmitted.binding.contentMarkdown}\n## F01-14\n`,
+    });
+    if (!admittedRev.ok) throw new Error(admittedRev.reason);
+    await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admittedRev.binding,
+    });
+
+    const otherDocId = newId("doc");
+    await db.insert(documents).values({
+      id: otherDocId,
+      ownerPilotId: pilotId,
+      preparationId: prep.id,
+      title: "Autre cible F01-14",
+    });
+    const mismatchedIdentity = sealedIdentityFromBinding({
+      ...admittedRev.binding,
+      documentId: otherDocId,
+      payloadSha256: payloadSha256({
+        action: admittedRev.binding.action,
+        source: admittedRev.binding.source,
+        preparationId: prep.id,
+        documentId: otherDocId,
+        baseRevisionId: admittedRev.binding.baseRevisionId,
+        sectionHint: admittedRev.binding.sectionHint,
+        title: admittedRev.binding.title,
+        contentSha256: admittedRev.binding.contentSha256,
+      }),
+    });
+    const truth = await lookupDocumentCorrelationTruth({
+      pilotId,
+      preparationId: prep.id,
+      action: "REVISE",
+      correlationKey: admittedRev.binding.correlationKey,
+      title: admittedRev.binding.title,
+      contentMarkdown: admittedRev.binding.contentMarkdown,
+      contentSha256: admittedRev.binding.contentSha256,
+      payloadSha256: mismatchedIdentity.payloadSha256,
+      documentId: created.effect.documentId,
+      baseRevisionId: admittedRev.binding.baseRevisionId,
+      expectedIdentity: mismatchedIdentity,
+    });
+    expect(truth.verdict).toBe("CONFLICT");
+    expect(truth.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+  });
+
+  it("F01-15: concurrent sealAndApply same correlation → single document", async () => {
+    const pilotId = await seedPilot("f01-conc-seal");
+    const prep = await openOrCreatePreparation(pilotId);
+    const corr = `corr-seal-conc-${Date.now()}`;
+    const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "conc-seal");
+    const binding = { ...admitted.binding, correlationKey: corr };
+    const fence = { commandId: reserved.commandId, ownerToken: reserved.ownerToken };
+
+    const [s1, s2] = await Promise.all([
+      sealAndApplyDocumentCommand({ pilotId, fence, binding }),
+      sealAndApplyDocumentCommand({ pilotId, fence, binding }),
+    ]);
+    expect([s1.effect.status, s2.effect.status].every((s) => s === "AVAILABLE" || s === "CONFLICT" || s === "UNKNOWN")).toBe(
+      true,
+    );
+
+    const docCount = await db
+      .select({ n: sql<number>`count(*)`.mapWith(Number) })
+      .from(documents)
+      .where(
+        and(
+          eq(documents.ownerPilotId, pilotId),
+          eq(documents.preparationId, prep.id),
+          eq(documents.creationCorrelationKey, corr),
+        ),
+      );
+    expect(docCount[0]?.n).toBe(1);
+
+    const rows = await countD4Rows(pilotId, prep.id);
+    expect(rows.documents).toBe(1);
+    expect(rows.revisions).toBe(1);
+  });
+
+  it("F01-10: stashed binding without apply — lookup UNKNOWN", async () => {
+    const pilotId = await seedPilot("f01-stash");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "stash-only");
+    await stashDocumentCommandBinding({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      binding: admitted.binding,
+    });
+    const assistantId = newId("msg");
+    await db.insert(messages).values({
+      id: assistantId,
+      conversationId: convId!,
+      role: "assistant",
+      content: "Sans D4.",
+      status: "COMPLETE",
+      ordinal: reserved.ordinalAssistant,
+    });
+    await completeTurnCommand({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: "COMPLETE",
+      assistantMessageId: assistantId,
+    });
+    const truth = await lookupFromBinding(pilotId, prep.id, admitted.binding);
+    expect(truth.verdict).toBe("UNKNOWN");
   });
 });
-```
+
+function createHashFlip(hex: string): string {
+  const n = parseInt(hex.slice(0, 8), 16) ^ 0xff;
+  return n.toString(16).padStart(8, "0") + hex.slice(8);
+}```
+
 
 ### `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts`
 
@@ -3836,8 +4352,8 @@ describe("ML4C document command (PG)", () => {
     const after = await countD4Rows(pilotId, prep.id);
     expect(after).toEqual(before);
   });
-});
-```
+});```
+
 
 ### `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts`
 
@@ -3845,10 +4361,28 @@ describe("ML4C document command (PG)", () => {
 /**
  * C-01 — read-only D4 reconcile via correlation truth (never writes on reconcile).
  */
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import { config } from "dotenv";
 config({ path: ".env.local" });
 
+const devSessionRef = vi.hoisted(() => ({ token: "" }));
+
+vi.mock("next/headers", () => ({
+  cookies: async () => ({
+    get: (name: string) => {
+      const token = devSessionRef.token;
+      if (!token) return undefined;
+      const lane = (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase() || "UNKNOWN";
+      const safe = lane.replace(/[^A-Z0-9]+/g, "_").slice(0, 24);
+      const cookie = `sfia_studio_session__${safe}`;
+      if (name !== cookie) return undefined;
+      return { name, value: token };
+    },
+  }),
+  headers: async () => new Headers(),
+}));
+
+import { GET } from "@/app/api/preparations/[preparationId]/reconcile/route";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { documentRevisions, documents, messages, pilots } from "@/db/schema";
@@ -3869,6 +4403,28 @@ import {
   stashDocumentCommandBinding,
 } from "@/domains/conversation/turn-command";
 import { savePreparationDocument } from "@/domains/document/service";
+import { createDevTestSession } from "@/domains/identity/session";
+
+async function reconcileHttpGet(
+  preparationId: string,
+  query: Record<string, string | undefined>,
+) {
+  const url = new URL(`http://127.0.0.1:3100/api/preparations/${preparationId}/reconcile`);
+  for (const [k, v] of Object.entries(query)) {
+    if (v !== undefined) url.searchParams.set(k, v);
+  }
+  const res = await GET(new Request(url.toString()), {
+    params: Promise.resolve({ preparationId }),
+  });
+  const body = (await res.json()) as Record<string, unknown>;
+  return { status: res.status, body };
+}
+
+async function bindDevSession(which: "a" | "b") {
+  const sess = await createDevTestSession(which, { host: "127.0.0.1:3100" });
+  devSessionRef.token = sess.token;
+  return sess;
+}
 
 async function seedPilot(label: string) {
   const id = newId("pilot");
@@ -4185,19 +4741,59 @@ describe("ML4C document reconciliation C-01 (PG)", () => {
   it("correlation + divergent payload → CONFLICT, zero writes", async () => {
     const pilotId = await seedPilot("ml4c-c01-conflict");
     const prep = await openOrCreatePreparation(pilotId);
-    const corr = `corr-div-${Date.now()}`;
     const title = "Divergent";
     const bodyA = "# Divergent\n\nVersion A.\n";
-    const saved = await savePreparationDocument(pilotId, prep.id, title, bodyA, undefined, {
-      correlationKey: corr,
-    });
-    expect(saved.status).toBe("AVAILABLE");
+    const { admitted: admittedA, sealed } = await (async () => {
+      const convId = await getConversationId(pilotId, prep.id);
+      const reserved = await reserveTurnCommand({
+        conversationId: convId!,
+        ownerPilotId: pilotId,
+        clientTurnKey: `ml4c-conf-a-${Date.now()}`,
+        content: "Seal version A.",
+      });
+      if (reserved.kind !== "fresh") throw new Error("fresh");
+      const admitted = admitDocumentCommand({
+        commandId: reserved.commandId,
+        operationId: reserved.operationId,
+        userMessageId: reserved.userMessageId,
+        qualifiedIntentId: "i-d4-create",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+        title,
+        contentMarkdown: bodyA,
+      });
+      if (!admitted.ok) throw new Error(admitted.reason);
+      const sealed = await sealAndApplyDocumentCommand({
+        pilotId,
+        fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+        binding: admitted.binding,
+      });
+      const assistantId = newId("msg");
+      await db.insert(messages).values({
+        id: assistantId,
+        conversationId: convId!,
+        role: "assistant",
+        content: "Version A scellée.",
+        status: "COMPLETE",
+        ordinal: reserved.ordinalAssistant,
+      });
+      await completeTurnCommand({
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        status: "COMPLETE",
+        assistantMessageId: assistantId,
+      });
+      return { admitted, sealed };
+    })();
+    expect(sealed.effect.status).toBe("AVAILABLE");
+    const corr = admittedA.binding.correlationKey;
 
     const convId = await getConversationId(pilotId, prep.id);
     const reserved = await reserveTurnCommand({
       conversationId: convId!,
       ownerPilotId: pilotId,
-      clientTurnKey: `ml4c-conf-${Date.now()}`,
+      clientTurnKey: `ml4c-conf-b-${Date.now()}`,
       content: "Mismatch reconcile.",
     });
     expect(reserved.kind).toBe("fresh");
@@ -4233,7 +4829,9 @@ describe("ML4C document reconciliation C-01 (PG)", () => {
     });
     expect(reconciled.verdict).toBe("CONFLICT");
     expect(reconciled.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
-    expect(reconciled.contentSha256).toBe(contentSha256(title, bodyA));
+    expect(reconciled.documentId).toBe(
+      sealed.effect.status === "AVAILABLE" ? sealed.effect.documentId : undefined,
+    );
 
     const after = await countD4Rows(pilotId, prep.id);
     expect(after).toEqual(before);
@@ -4253,6 +4851,269 @@ describe("ML4C document reconciliation C-01 (PG)", () => {
     expect(denied.ok).toBe(false);
     if (denied.ok) throw new Error("expected deny");
     expect(denied.reason).toBe("COMMAND_DENIED");
+  });
+
+  it("F05: two bindings without selector → BINDING_SELECTOR_REQUIRED", async () => {
+    const pilotId = await seedPilot("ml4c-f05-sel");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `ml4c-f05-${Date.now()}`,
+      content: "Double binding.",
+    });
+    expect(reserved.kind).toBe("fresh");
+    if (reserved.kind !== "fresh") throw new Error("fresh");
+
+    const admittedA = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-a",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: "Binding A",
+      contentMarkdown: "# Binding A\n\nA.\n",
+    });
+    const admittedB = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-b",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: "Binding B",
+      contentMarkdown: "# Binding B\n\nB.\n",
+    });
+    expect(admittedA.ok && admittedB.ok).toBe(true);
+    if (!admittedA.ok || !admittedB.ok) throw new Error("admit");
+
+    await stashDocumentCommandBinding({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      binding: admittedA.binding,
+    });
+    await stashDocumentCommandBinding({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      binding: admittedB.binding,
+    });
+
+    const loaded = await loadSealedDocumentBinding({
+      pilotId,
+      preparationId: prep.id,
+      commandId: reserved.commandId,
+    });
+    expect(loaded.ok).toBe(false);
+    if (loaded.ok) throw new Error("expected selector required");
+    expect(loaded.reason).toBe("BINDING_SELECTOR_REQUIRED");
+
+    const loadedA = await loadSealedDocumentBinding({
+      pilotId,
+      preparationId: prep.id,
+      commandId: reserved.commandId,
+      correlationKey: admittedA.binding.correlationKey,
+    });
+    expect(loadedA.ok).toBe(true);
+  });
+
+  describe("F-05 HTTP reconcile route", () => {
+    it("F05-08: two bindings without correlationKey → 409 BINDING_SELECTOR_REQUIRED", async () => {
+      const sess = await bindDevSession("a");
+      const prep = await openOrCreatePreparation(sess.pilotId);
+      const convId = await getConversationId(sess.pilotId, prep.id);
+      expect(convId).toBeTruthy();
+      const reserved = await reserveTurnCommand({
+        conversationId: convId!,
+        ownerPilotId: sess.pilotId,
+        clientTurnKey: `ml4c-f05-http-${Date.now()}`,
+        content: "Double binding HTTP.",
+      });
+      expect(reserved.kind).toBe("fresh");
+      if (reserved.kind !== "fresh") throw new Error("fresh");
+
+      const admittedA = admitDocumentCommand({
+        commandId: reserved.commandId,
+        operationId: reserved.operationId,
+        userMessageId: reserved.userMessageId,
+        qualifiedIntentId: "i-d4-a",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+        title: "HTTP Binding A",
+        contentMarkdown: "# HTTP Binding A\n\nA.\n",
+      });
+      const admittedB = admitDocumentCommand({
+        commandId: reserved.commandId,
+        operationId: reserved.operationId,
+        userMessageId: reserved.userMessageId,
+        qualifiedIntentId: "i-d4-b",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+        title: "HTTP Binding B",
+        contentMarkdown: "# HTTP Binding B\n\nB.\n",
+      });
+      if (!admittedA.ok || !admittedB.ok) throw new Error("admit");
+
+      await stashDocumentCommandBinding({
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        binding: admittedA.binding,
+      });
+      await stashDocumentCommandBinding({
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        binding: admittedB.binding,
+      });
+
+      const res = await reconcileHttpGet(prep.id, {
+        documentCommandId: reserved.commandId,
+      });
+      expect(res.status).toBe(409);
+      expect(res.body.reason).toBe("BINDING_SELECTOR_REQUIRED");
+    });
+
+    it("F05-08b: correlationKey A after seal → 200 AVAILABLE", async () => {
+      const sess = await bindDevSession("a");
+      const prep = await openOrCreatePreparation(sess.pilotId);
+      const convId = await getConversationId(sess.pilotId, prep.id);
+      expect(convId).toBeTruthy();
+      const reserved = await reserveTurnCommand({
+        conversationId: convId!,
+        ownerPilotId: sess.pilotId,
+        clientTurnKey: `ml4c-f05-http-ok-${Date.now()}`,
+        content: "Seal then reconcile HTTP.",
+      });
+      if (reserved.kind !== "fresh") throw new Error("fresh");
+
+      const admittedA = admitDocumentCommand({
+        commandId: reserved.commandId,
+        operationId: reserved.operationId,
+        userMessageId: reserved.userMessageId,
+        qualifiedIntentId: "i-d4-a",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+        title: "HTTP Seal A",
+        contentMarkdown: "# HTTP Seal A\n\nScellé.\n",
+      });
+      const admittedB = admitDocumentCommand({
+        commandId: reserved.commandId,
+        operationId: reserved.operationId,
+        userMessageId: reserved.userMessageId,
+        qualifiedIntentId: "i-d4-b",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+        title: "HTTP Seal B",
+        contentMarkdown: "# HTTP Seal B\n\nNon scellé.\n",
+      });
+      if (!admittedA.ok || !admittedB.ok) throw new Error("admit");
+
+      const sealed = await sealAndApplyDocumentCommand({
+        pilotId: sess.pilotId,
+        fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+        binding: admittedA.binding,
+      });
+      expect(sealed.effect.status).toBe("AVAILABLE");
+
+      await stashDocumentCommandBinding({
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        binding: admittedB.binding,
+      });
+
+      const res = await reconcileHttpGet(prep.id, {
+        documentCommandId: reserved.commandId,
+        correlationKey: admittedA.binding.correlationKey,
+      });
+      expect(res.status).toBe(200);
+      expect(res.body.verdict).toBe("AVAILABLE");
+      expect(res.body.correlationKey).toBe(admittedA.binding.correlationKey);
+    });
+
+    it("F05-09: ten consecutive HTTP GET → zero new D4 rows", async () => {
+      const sess = await bindDevSession("a");
+      const prep = await openOrCreatePreparation(sess.pilotId);
+      const { admitted, reserved } = await sealCreateTurn(sess.pilotId, prep.id, "http-10x");
+      const before = await countD4Rows(sess.pilotId, prep.id);
+
+      for (let i = 0; i < 10; i++) {
+        const res = await reconcileHttpGet(prep.id, {
+          documentCommandId: admitted.binding.commandId,
+          correlationKey: admitted.binding.correlationKey,
+        });
+        expect(res.status).toBe(200);
+        expect(res.body.verdict).toBe("AVAILABLE");
+      }
+
+      expect(await countD4Rows(sess.pilotId, prep.id)).toEqual(before);
+      expect(reserved.commandId).toBeTruthy();
+    });
+
+    it("foreign pilot session → 403 COMMAND_DENIED", async () => {
+      const owner = await bindDevSession("a");
+      const prep = await openOrCreatePreparation(owner.pilotId);
+      const { admitted } = await sealCreateTurn(owner.pilotId, prep.id, "http-deny");
+
+      await bindDevSession("b");
+      const res = await reconcileHttpGet(prep.id, {
+        documentCommandId: admitted.binding.commandId,
+        correlationKey: admitted.binding.correlationKey,
+      });
+      expect(res.status).toBe(403);
+      expect(res.body.reason).toBe("COMMAND_DENIED");
+    });
+
+    it("missing turn command id → 403 COMMAND_DENIED (indistinguishable from foreign owner)", async () => {
+      const sess = await bindDevSession("a");
+      const prep = await openOrCreatePreparation(sess.pilotId);
+      const res = await reconcileHttpGet(prep.id, {
+        documentCommandId: newId("tcmd"),
+      });
+      expect(res.status).toBe(403);
+      expect(res.body.reason).toBe("COMMAND_DENIED");
+    });
+
+    it("command without binding → 404 BINDING_ABSENT", async () => {
+      const sess = await bindDevSession("a");
+      const prep = await openOrCreatePreparation(sess.pilotId);
+      const convId = await getConversationId(sess.pilotId, prep.id);
+      expect(convId).toBeTruthy();
+      const reserved = await reserveTurnCommand({
+        conversationId: convId!,
+        ownerPilotId: sess.pilotId,
+        clientTurnKey: `ml4c-f05-absent-${Date.now()}`,
+        content: "Sans binding.",
+      });
+      if (reserved.kind !== "fresh") throw new Error("fresh");
+      const assistantId = newId("msg");
+      await db.insert(messages).values({
+        id: assistantId,
+        conversationId: convId!,
+        role: "assistant",
+        content: "Sans document binding.",
+        status: "COMPLETE",
+        ordinal: reserved.ordinalAssistant,
+      });
+      await completeTurnCommand({
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        status: "COMPLETE",
+        assistantMessageId: assistantId,
+      });
+
+      const res = await reconcileHttpGet(prep.id, {
+        documentCommandId: reserved.commandId,
+      });
+      expect(res.status).toBe(404);
+      expect(res.body.reason).toBe("BINDING_ABSENT");
+    });
   });
 
   it("10× reconcile GET path → D4 counts unchanged", async () => {
@@ -4281,8 +5142,8 @@ describe("ML4C document reconciliation C-01 (PG)", () => {
     const after = await countD4Rows(pilotId, prep.id);
     expect(after).toEqual(before);
   });
-});
-```
+});```
+
 
 ### `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts`
 
@@ -4296,7 +5157,7 @@ config({ path: ".env.local" });
 
 import { and, asc, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { documents, messages, pilots } from "@/db/schema";
+import { conversationTurnCommands, documents, messages, pilots } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { openOrCreatePreparation } from "@/domains/preparation/service";
 import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
@@ -4309,7 +5170,7 @@ import {
   sealAndApplyDocumentCommand,
 } from "@/domains/conversation/document-command";
 import { reserveTurnCommand } from "@/domains/conversation/turn-command";
-import { getDocumentRevision } from "@/domains/document/service";
+import { getDocumentRevision, listDocuments, savePreparationDocument } from "@/domains/document/service";
 import {
   SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
 } from "@/domains/conversation/semantic-qualification";
@@ -4431,8 +5292,10 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
     const canonical = canonicalizeDocumentProposal({ title, contentMarkdown });
     expect(canonical.ok).toBe(true);
     if (!canonical.ok) throw new Error(canonical.reason);
-    const fence = serializeProposalFence(contentMarkdown);
-    expect(fence).toBe("```sfia-document\n" + contentMarkdown + "```\n");
+    const fence = serializeProposalFence(canonical.proposal);
+    expect(fence).toContain("title-b64=");
+    expect(fence).toContain(`chars=${contentMarkdown.length}`);
+    expect(fence).toContain(`pair-sha256=${canonical.proposal.contentSha256}`);
     expect(fence).not.toContain(`# ${title}\n\n# ${title}`);
   });
 
@@ -4680,6 +5543,273 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
     expect(chat.documentSave?.reason).toMatch(/SOURCE_DENIED|FAILED|NOT_EXECUTED/);
   });
 
+  it("F03: PREPARE + documentProposal → COMPLETE assistant with fence, zero documents", async () => {
+    const pilotId = await seedPilot("ml4c-f03-prepare");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    const title = "Préparation seule F03";
+    const contentMarkdown = `# ${title}\n\nAucun effet D4 — mode PREPARE.\n`;
+    const utterance = `ML4C-F03-PREPARE-${Date.now()}`;
+    registerExplicitFixture(utterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "préparer une proposition sans effet",
+        intents: [
+          {
+            id: "i-d4-prepare",
+            capabilityId: "d4.create_document",
+            mode: "PREPARE",
+            summary: "prepare only",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Je prépare la proposition sans persister.",
+        documentProposal: { title, contentMarkdown },
+      },
+    });
+
+    const before =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+
+    const chat = await noraTurn(pilotId, prep.id, utterance);
+    expect(chat.status).toBe("COMPLETE");
+    expect(chat.documentSave?.status).not.toBe("AVAILABLE");
+
+    const after =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+    expect(after).toBe(before);
+
+    const assistant = (
+      await db
+        .select({ content: messages.content })
+        .from(messages)
+        .where(and(eq(messages.conversationId, convId!), eq(messages.role, "assistant")))
+        .orderBy(asc(messages.ordinal))
+    ).at(-1);
+    expect(assistant?.content).toMatch(/title-b64=|```sfia-document/);
+  });
+
+  it("F04: REVISE with PRIOR_ASSISTANT_MESSAGE → binding.source ASSISTANT_MESSAGE", async () => {
+    const pilotId = await seedPilot("ml4c-f04-prior-rev");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    const baseTitle = "Base F04";
+    const baseBody = `# ${baseTitle}\n\nVersion initiale.\n`;
+    const created = await savePreparationDocument(pilotId, prep.id, baseTitle, baseBody);
+    expect(created.status).toBe("AVAILABLE");
+    if (created.status !== "AVAILABLE") throw new Error("create base");
+
+    const assistantId = newId("msg");
+    const revisedTitle = baseTitle;
+    const revisedBody = `# ${revisedTitle}\n\nVersion initiale.\n\n## Revue\n\nPrior assistant.\n`;
+    const maxOrd =
+      (
+        await db
+          .select({ o: sql<number>`coalesce(max(${messages.ordinal}), 0)`.mapWith(Number) })
+          .from(messages)
+          .where(eq(messages.conversationId, convId!))
+      )[0]?.o ?? 0;
+    await db.insert(messages).values({
+      id: assistantId,
+      conversationId: convId!,
+      role: "assistant",
+      content: serializeProposalFence({
+        title: revisedTitle,
+        contentMarkdown: revisedBody,
+        contentSha256: contentSha256(revisedTitle, revisedBody),
+      }),
+      status: "COMPLETE",
+      ordinal: maxOrd + 1,
+      generationId: newId("gen"),
+    });
+
+    const docs = await listDocuments(pilotId, prep.id);
+    const doc = docs.find((d) => d.document.id === created.documentId);
+    expect(doc?.latestRevision?.id).toBe(created.revisionId);
+
+    const utterance = `ML4C-F04-REVISE-PRIOR-${assistantId}`;
+    registerExplicitFixture(utterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "réviser depuis proposition historique",
+        intents: [
+          {
+            id: "i-d4-revise",
+            capabilityId: "d4.revise_document",
+            mode: "REQUEST_EFFECT",
+            summary: "revise from prior",
+            parameters: { documentHint: baseTitle },
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Je révise depuis la proposition historique.",
+        documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId: assistantId },
+      },
+    });
+
+    const chat = await noraTurn(pilotId, prep.id, utterance);
+    expect(chat.documentSave?.status).toBe("AVAILABLE");
+    expect(chat.documentSave?.act).toBe("REVISE");
+
+    const cmd = (
+      await db
+        .select({ resultJson: conversationTurnCommands.resultJson })
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.operationId, chat.operationId!))
+        .limit(1)
+    )[0];
+    expect(cmd?.resultJson).toBeTruthy();
+    const parsed = JSON.parse(cmd!.resultJson!) as {
+      documentCommandBindings?: Array<{ source?: { kind?: string } }>;
+    };
+    const binding = parsed.documentCommandBindings?.[0];
+    expect(binding?.source?.kind).toBe("ASSISTANT_MESSAGE");
+  });
+
+  it("P1: three historical assistant fences — no source → zero D4; explicit id → exact create", async () => {
+    const pilotId = await seedPilot("ml4c-p1-ambig");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+
+    const ids = [newId("msg"), newId("msg"), newId("msg")];
+    const bodies = [
+      { title: "Doc P1 A", body: "Corps A." },
+      { title: "Doc P1 B", body: "Corps B." },
+      { title: "Doc P1 C", body: "Corps C." },
+    ];
+    let ord =
+      (
+        await db
+          .select({ o: sql<number>`coalesce(max(${messages.ordinal}), 0)`.mapWith(Number) })
+          .from(messages)
+          .where(eq(messages.conversationId, convId!))
+      )[0]?.o ?? 0;
+    for (let i = 0; i < 3; i++) {
+      const { title, body } = bodies[i]!;
+      ord += 1;
+      await db.insert(messages).values({
+        id: ids[i]!,
+        conversationId: convId!,
+        role: "assistant",
+        content: sfiaDocumentFence(title, body),
+        status: "COMPLETE",
+        ordinal: ord,
+        generationId: newId("gen"),
+      });
+    }
+
+    const noSourceUtterance = `ML4C-P1-NO-SOURCE-${Date.now()}`;
+    registerExplicitFixture(noSourceUtterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "enregistrer sans source explicite",
+        intents: [
+          {
+            id: "i-d4-create",
+            capabilityId: "d4.create_document",
+            mode: "REQUEST_EFFECT",
+            summary: "ambiguous historical",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Je ne choisis pas quelle proposition historique.",
+      },
+    });
+
+    const before =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+
+    const ambiguous = await noraTurn(pilotId, prep.id, noSourceUtterance);
+    expect(ambiguous.documentSave?.status).not.toBe("AVAILABLE");
+    const mid =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+    expect(mid).toBe(before);
+
+    const pickId = ids[1]!;
+    const resolved = await resolveAssistantProposal({
+      pilotId,
+      preparationId: prep.id,
+      assistantMessageId: pickId,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) throw new Error(resolved.reason);
+
+    const explicitUtterance = `ML4C-P1-EXPLICIT-${pickId}`;
+    registerExplicitFixture(explicitUtterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "enregistrer proposition B",
+        intents: [
+          {
+            id: "i-d4-create",
+            capabilityId: "d4.create_document",
+            mode: "REQUEST_EFFECT",
+            summary: "create from explicit prior",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "J'enregistre la proposition B.",
+        documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId: pickId },
+      },
+    });
+
+    const exact = await noraTurn(pilotId, prep.id, explicitUtterance);
+    expect(exact.documentSave?.status).toBe("AVAILABLE");
+    const rev = await getDocumentRevision(
+      pilotId,
+      prep.id,
+      exact.documentSave!.documentId!,
+      exact.documentSave!.revisionId!,
+    );
+    expect(rev.status).toBe("AVAILABLE");
+    if (rev.status !== "AVAILABLE") throw new Error("rev");
+    expect(rev.revision.contentMarkdown).toBe(resolved.proposal.contentMarkdown);
+  });
+
   it("C-02 admit+seal preserves correlationKey (no post-mutation)", async () => {
     const pilotId = await seedPilot("ml4c-c02-corr");
     const prep = await openOrCreatePreparation(pilotId);
@@ -4718,242 +5848,8 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
 
     expect(admitted.binding.correlationKey).toBe(keyBefore);
   });
-});
-```
+});```
 
-### `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts`
-
-```typescript
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { and, asc, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { conversations, messages, pilots } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import { openOrCreatePreparation } from "@/domains/preparation/service";
-import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
-import {
-  readConversationMessages,
-  resolveAuthorizedHistoryScope,
-  searchConversationHistory,
-} from "@/domains/conversation/history-tools";
-
-async function seedPilot(label: string) {
-  const id = newId("pilot");
-  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-  return id;
-}
-
-const TOPICS = [
-  "architecture modulaire",
-  "budget cloud Q3",
-  "recette utilisateur",
-  "dette technique front",
-  "gouvernance des données",
-  "intégration GitHub",
-  "cadrage périmètre",
-  "risques sécurité",
-  "performance Postgres",
-  "charte graphique",
-];
-
-async function seedVariedJournal(
-  pilotId: string,
-  preparationId: string,
-  count: number,
-  distinctive?: { ordinal: number; text: string },
-) {
-  const convId = await getConversationId(pilotId, preparationId);
-  if (!convId) throw new Error("conversation missing");
-  const rows = await db
-    .select({ ordinal: messages.ordinal })
-    .from(messages)
-    .where(eq(messages.conversationId, convId))
-    .orderBy(asc(messages.ordinal));
-  let next = (rows.at(-1)?.ordinal ?? 0) + 1;
-  const inserts: (typeof messages.$inferInsert)[] = [];
-  for (let i = 0; i < count; i++) {
-    const topic = TOPICS[i % TOPICS.length]!;
-    const body =
-      distinctive && next === distinctive.ordinal
-        ? distinctive.text
-        : `Message ${next} — échange sur ${topic} avec nuance ${(i % 7) + 1}.`;
-    inserts.push({
-      id: newId("msg"),
-      conversationId: convId,
-      role: i % 3 === 0 ? "assistant" : "user",
-      content: body,
-      status: "COMPLETE",
-      ordinal: next,
-      createdAt: new Date(Date.UTC(2026, 0, 1, 0, 0, next)),
-    });
-    next++;
-  }
-  if (inserts.length > 0) {
-    await db.insert(messages).values(inserts);
-  }
-  return convId;
-}
-
-describe("ML4C history tools (PG)", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    delete process.env.OPENAI_API_KEY;
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-  });
-
-  it("HIST-01: search finds distinctive early message; read returns exact content", async () => {
-    const pilotId = await seedPilot("ml4c-hist01");
-    const prep = await openOrCreatePreparation(pilotId);
-    const marker = "HIST-01 marqueur phoque arctique ML4C — repère inaugural";
-    const convId = await seedVariedJournal(pilotId, prep.id, 34, { ordinal: 3, text: marker });
-
-    const markerRow = (
-      await db
-        .select({ id: messages.id })
-        .from(messages)
-        .where(and(eq(messages.conversationId, convId), eq(messages.content, marker)))
-        .limit(1)
-    )[0];
-    expect(markerRow?.id).toBeTruthy();
-
-    const scope = await resolveAuthorizedHistoryScope({
-      pilotId,
-      preparationId: prep.id,
-    });
-    expect("denied" in scope).toBe(false);
-    if ("denied" in scope) return;
-
-    let cursor: string | null | undefined = undefined;
-    let hit: Awaited<ReturnType<typeof searchConversationHistory>>["items"][number] | undefined;
-    for (let page = 0; page < 30 && !hit; page++) {
-      const search = await searchConversationHistory({
-        scope,
-        query: "phoque arctique",
-        cursor: cursor ?? undefined,
-        pageSize: 10,
-      });
-      expect(search.coverage).not.toBe("DENIED");
-      hit = search.items.find((i) => i.messageId === markerRow!.id);
-      if (hit || !search.nextCursor) break;
-      cursor = search.nextCursor;
-    }
-    expect(hit).toBeTruthy();
-
-    const read = await readConversationMessages({
-      scope,
-      messageIds: [hit!.messageId],
-    });
-    expect(read.items).toHaveLength(1);
-    expect(read.items[0]!.content).toBe(marker);
-  });
-
-  it("HIST-05: second pilot cannot read first pilot messages", async () => {
-    const pilotA = await seedPilot("ml4c-hist05-a");
-    const prepA = await openOrCreatePreparation(pilotA);
-    const secret = "HIST-05 confidentiel pilot A uniquement";
-    await seedVariedJournal(pilotA, prepA.id, 8, { ordinal: 4, text: secret });
-
-    const scopeA = await resolveAuthorizedHistoryScope({
-      pilotId: pilotA,
-      preparationId: prepA.id,
-    });
-    expect("denied" in scopeA).toBe(false);
-    if ("denied" in scopeA) return;
-    const readA = await readConversationMessages({
-      scope: scopeA,
-      messageIds: (
-        await db
-          .select({ id: messages.id })
-          .from(messages)
-          .innerJoin(conversations, eq(conversations.id, messages.conversationId))
-          .where(
-            and(eq(conversations.ownerPilotId, pilotA), eq(conversations.preparationId, prepA.id)),
-          )
-      ).map((r) => r.id),
-    });
-    expect(readA.items.some((i) => i.content.includes("confidentiel"))).toBe(true);
-
-    const pilotB = await seedPilot("ml4c-hist05-b");
-    const prepB = await openOrCreatePreparation(pilotB);
-    const scopeB = await resolveAuthorizedHistoryScope({
-      pilotId: pilotB,
-      preparationId: prepB.id,
-    });
-    expect("denied" in scopeB).toBe(false);
-    if ("denied" in scopeB) return;
-
-    const searchB = await searchConversationHistory({
-      scope: scopeB,
-      query: "confidentiel",
-    });
-    expect(searchB.items).toHaveLength(0);
-
-    const foreignIds = readA.items.map((i) => i.messageId);
-    const readB = await readConversationMessages({
-      scope: scopeB,
-      messageIds: foreignIds,
-    });
-    expect(readB.items).toHaveLength(0);
-    expect(readB.coverage).toBe("EMPTY");
-  });
-
-  it("HIST-08: stale scope after journal growth; no duplicate page bleed", async () => {
-    const pilotId = await seedPilot("ml4c-hist08");
-    const prep = await openOrCreatePreparation(pilotId);
-    await seedVariedJournal(pilotId, prep.id, 36);
-
-    const scope = await resolveAuthorizedHistoryScope({
-      pilotId,
-      preparationId: prep.id,
-    });
-    expect("denied" in scope).toBe(false);
-    if ("denied" in scope) return;
-
-    const page1 = await searchConversationHistory({
-      scope,
-      pageSize: 8,
-    });
-    expect(page1.items.length).toBe(8);
-    expect(page1.nextCursor).toBeTruthy();
-    const page1Ids = new Set(page1.items.map((i) => i.messageId));
-
-    await postUserMessageAndNora(pilotId, prep.id, "Nouvel échange post-scope sur observabilité");
-    await postUserMessageAndNora(pilotId, prep.id, "Autre message tardif sur la documentation");
-
-    const page2 = await searchConversationHistory({
-      scope,
-      cursor: page1.nextCursor,
-      pageSize: 8,
-    });
-    expect(page2.coverage).toBe("STALE");
-    expect(page2.reason).toBe("SCOPE_STALE");
-    expect(page2.items).toHaveLength(0);
-    for (const id of page1Ids) {
-      expect(page2.items.some((i) => i.messageId === id)).toBe(false);
-    }
-
-    const fresh = await resolveAuthorizedHistoryScope({
-      pilotId,
-      preparationId: prep.id,
-    });
-    expect("denied" in fresh).toBe(false);
-    if ("denied" in fresh) return;
-    expect(fresh.scopeFingerprint).not.toBe(scope.scopeFingerprint);
-
-    const page2Fresh = await searchConversationHistory({
-      scope: fresh,
-      cursor: page1.nextCursor,
-      pageSize: 8,
-    });
-    expect(page2Fresh.coverage).toBe("STALE");
-    expect(page2Fresh.reason).toMatch(/CURSOR_INVALID_OR_STALE|SCOPE_STALE/);
-  });
-});
-```
 
 ### `projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts`
 
@@ -5214,8 +6110,242 @@ describe("ML4C history long journal (PG)", () => {
     const read = await readConversationMessages({ scope, messageIds: [hit!.messageId] });
     expect(read.items[0]?.content).toBe(marker);
   });
-});
-```
+});```
+
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts`
+
+```typescript
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { and, asc, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversations, messages, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation } from "@/domains/preparation/service";
+import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
+import {
+  readConversationMessages,
+  resolveAuthorizedHistoryScope,
+  searchConversationHistory,
+} from "@/domains/conversation/history-tools";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+const TOPICS = [
+  "architecture modulaire",
+  "budget cloud Q3",
+  "recette utilisateur",
+  "dette technique front",
+  "gouvernance des données",
+  "intégration GitHub",
+  "cadrage périmètre",
+  "risques sécurité",
+  "performance Postgres",
+  "charte graphique",
+];
+
+async function seedVariedJournal(
+  pilotId: string,
+  preparationId: string,
+  count: number,
+  distinctive?: { ordinal: number; text: string },
+) {
+  const convId = await getConversationId(pilotId, preparationId);
+  if (!convId) throw new Error("conversation missing");
+  const rows = await db
+    .select({ ordinal: messages.ordinal })
+    .from(messages)
+    .where(eq(messages.conversationId, convId))
+    .orderBy(asc(messages.ordinal));
+  let next = (rows.at(-1)?.ordinal ?? 0) + 1;
+  const inserts: (typeof messages.$inferInsert)[] = [];
+  for (let i = 0; i < count; i++) {
+    const topic = TOPICS[i % TOPICS.length]!;
+    const body =
+      distinctive && next === distinctive.ordinal
+        ? distinctive.text
+        : `Message ${next} — échange sur ${topic} avec nuance ${(i % 7) + 1}.`;
+    inserts.push({
+      id: newId("msg"),
+      conversationId: convId,
+      role: i % 3 === 0 ? "assistant" : "user",
+      content: body,
+      status: "COMPLETE",
+      ordinal: next,
+      createdAt: new Date(Date.UTC(2026, 0, 1, 0, 0, next)),
+    });
+    next++;
+  }
+  if (inserts.length > 0) {
+    await db.insert(messages).values(inserts);
+  }
+  return convId;
+}
+
+describe("ML4C history tools (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+  });
+
+  it("HIST-01: search finds distinctive early message; read returns exact content", async () => {
+    const pilotId = await seedPilot("ml4c-hist01");
+    const prep = await openOrCreatePreparation(pilotId);
+    const marker = "HIST-01 marqueur phoque arctique ML4C — repère inaugural";
+    const convId = await seedVariedJournal(pilotId, prep.id, 34, { ordinal: 3, text: marker });
+
+    const markerRow = (
+      await db
+        .select({ id: messages.id })
+        .from(messages)
+        .where(and(eq(messages.conversationId, convId), eq(messages.content, marker)))
+        .limit(1)
+    )[0];
+    expect(markerRow?.id).toBeTruthy();
+
+    const scope = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+
+    let cursor: string | null | undefined = undefined;
+    let hit: Awaited<ReturnType<typeof searchConversationHistory>>["items"][number] | undefined;
+    for (let page = 0; page < 30 && !hit; page++) {
+      const search = await searchConversationHistory({
+        scope,
+        query: "phoque arctique",
+        cursor: cursor ?? undefined,
+        pageSize: 10,
+      });
+      expect(search.coverage).not.toBe("DENIED");
+      hit = search.items.find((i) => i.messageId === markerRow!.id);
+      if (hit || !search.nextCursor) break;
+      cursor = search.nextCursor;
+    }
+    expect(hit).toBeTruthy();
+
+    const read = await readConversationMessages({
+      scope,
+      messageIds: [hit!.messageId],
+    });
+    expect(read.items).toHaveLength(1);
+    expect(read.items[0]!.content).toBe(marker);
+  });
+
+  it("HIST-05: second pilot cannot read first pilot messages", async () => {
+    const pilotA = await seedPilot("ml4c-hist05-a");
+    const prepA = await openOrCreatePreparation(pilotA);
+    const secret = "HIST-05 confidentiel pilot A uniquement";
+    await seedVariedJournal(pilotA, prepA.id, 8, { ordinal: 4, text: secret });
+
+    const scopeA = await resolveAuthorizedHistoryScope({
+      pilotId: pilotA,
+      preparationId: prepA.id,
+    });
+    expect("denied" in scopeA).toBe(false);
+    if ("denied" in scopeA) return;
+    const readA = await readConversationMessages({
+      scope: scopeA,
+      messageIds: (
+        await db
+          .select({ id: messages.id })
+          .from(messages)
+          .innerJoin(conversations, eq(conversations.id, messages.conversationId))
+          .where(
+            and(eq(conversations.ownerPilotId, pilotA), eq(conversations.preparationId, prepA.id)),
+          )
+      ).map((r) => r.id),
+    });
+    expect(readA.items.some((i) => i.content.includes("confidentiel"))).toBe(true);
+
+    const pilotB = await seedPilot("ml4c-hist05-b");
+    const prepB = await openOrCreatePreparation(pilotB);
+    const scopeB = await resolveAuthorizedHistoryScope({
+      pilotId: pilotB,
+      preparationId: prepB.id,
+    });
+    expect("denied" in scopeB).toBe(false);
+    if ("denied" in scopeB) return;
+
+    const searchB = await searchConversationHistory({
+      scope: scopeB,
+      query: "confidentiel",
+    });
+    expect(searchB.items).toHaveLength(0);
+
+    const foreignIds = readA.items.map((i) => i.messageId);
+    const readB = await readConversationMessages({
+      scope: scopeB,
+      messageIds: foreignIds,
+    });
+    expect(readB.items).toHaveLength(0);
+    expect(readB.coverage).toBe("EMPTY");
+  });
+
+  it("HIST-08: stale scope after journal growth; no duplicate page bleed", async () => {
+    const pilotId = await seedPilot("ml4c-hist08");
+    const prep = await openOrCreatePreparation(pilotId);
+    await seedVariedJournal(pilotId, prep.id, 36);
+
+    const scope = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+
+    const page1 = await searchConversationHistory({
+      scope,
+      pageSize: 8,
+    });
+    expect(page1.items.length).toBe(8);
+    expect(page1.nextCursor).toBeTruthy();
+    const page1Ids = new Set(page1.items.map((i) => i.messageId));
+
+    await postUserMessageAndNora(pilotId, prep.id, "Nouvel échange post-scope sur observabilité");
+    await postUserMessageAndNora(pilotId, prep.id, "Autre message tardif sur la documentation");
+
+    const page2 = await searchConversationHistory({
+      scope,
+      cursor: page1.nextCursor,
+      pageSize: 8,
+    });
+    expect(page2.coverage).toBe("STALE");
+    expect(page2.reason).toBe("SCOPE_STALE");
+    expect(page2.items).toHaveLength(0);
+    for (const id of page1Ids) {
+      expect(page2.items.some((i) => i.messageId === id)).toBe(false);
+    }
+
+    const fresh = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in fresh).toBe(false);
+    if ("denied" in fresh) return;
+    expect(fresh.scopeFingerprint).not.toBe(scope.scopeFingerprint);
+
+    const page2Fresh = await searchConversationHistory({
+      scope: fresh,
+      cursor: page1.nextCursor,
+      pageSize: 8,
+    });
+    expect(page2Fresh.coverage).toBe("STALE");
+    expect(page2Fresh.reason).toMatch(/CURSOR_INVALID_OR_STALE|SCOPE_STALE/);
+  });
+});```
+
 
 ### `projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts`
 
@@ -5340,17 +6470,30 @@ test("ML4C C-07: composer usable on 320+ message thread after scroll", async ({ 
 
   await send.click();
   await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
-  await expect(draft).toHaveValue("", { timeout: 45_000 }).catch(() => undefined);
-  // After FAKE turn, thread should still expose composer.
+  // F-P1: send must clear draft (no neutralized assertion).
+  await expect(draft).toHaveValue("", { timeout: 45_000 });
+  // Exact USER bubble — Nora fixture may echo the same phrase in its reply.
+  await expect(
+    thread.getByText("Message après parcours du fil long.", { exact: true }),
+  ).toBeVisible({ timeout: 45_000 });
   await expect(composer).toBeVisible();
   await expect(send).toBeVisible();
+
+  const shotDir = path.resolve(__dirname, "../../test-results/ml4c-c07");
+  await page.screenshot({
+    path: path.join(shotDir, `long-thread-${Date.now()}.png`),
+    fullPage: true,
+  });
 
   await page.reload();
   await expect(composer).toBeVisible({ timeout: 30_000 });
   await expect(thread).toBeVisible();
+  await expect(
+    thread.getByText("Message après parcours du fil long.", { exact: true }),
+  ).toBeVisible({ timeout: 30_000 });
 });
-
 ```
+
 
 ### `projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts`
 
@@ -5394,29 +6537,433 @@ test("ML4C: document continuity — scroll, composer, FAKE send", async ({ page 
   await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
     timeout: 60_000,
   });
+});```
+
+
+### `projects/sfia-studio-next/web/tests/unit/document-command.test.ts`
+
+```typescript
+import { describe, expect, it } from "vitest";
+import { fitBudget } from "@/domains/conversation/history-tools-sdk";
+import {
+  admitDocumentCommand,
+  canonicalizeDocumentProposal,
+  contentSha256,
+  encodeTitleB64,
+  payloadSha256,
+  proposalFromStructured,
+  serializeProposalFence,
+} from "@/domains/conversation/document-command";
+import { extractContractualDocumentProposal } from "@/domains/conversation/document-act";
+import {
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  validateNoraTurnQualification,
+} from "@/domains/conversation/semantic-qualification";
+
+const baseAdmit = {
+  commandId: "tcmd-test-1",
+  operationId: "op-test-1",
+  userMessageId: "msg-user-1",
+  qualifiedIntentId: "i-d4-create",
+  preparationId: "prep-test-1",
+  source: { kind: "SAME_TURN_SNAPSHOT" as const, commandId: "tcmd-test-1" },
+};
+
+describe("document-command admission", () => {
+  it("admit CREATE when title and body are valid", () => {
+    const r = admitDocumentCommand({
+      ...baseAdmit,
+      action: "CREATE",
+      title: "Spec ML4C",
+      contentMarkdown: "# Spec ML4C\n\nCorps minimal.\n",
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.binding.action).toBe("CREATE");
+      expect(r.binding.contentSha256).toBe(
+        contentSha256("Spec ML4C", "# Spec ML4C\n\nCorps minimal.\n"),
+      );
+      expect(r.binding.correlationKey).toHaveLength(48);
+    }
+  });
+
+  it("admit REVISE when targets are present", () => {
+    const r = admitDocumentCommand({
+      ...baseAdmit,
+      action: "REVISE",
+      documentId: "doc-1",
+      baseRevisionId: "rev-1",
+      title: "Spec",
+      contentMarkdown: "# Spec\n\nRévisé.\n",
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.binding.documentId).toBe("doc-1");
+  });
+
+  it("rejects empty title or body", () => {
+    expect(
+      admitDocumentCommand({
+        ...baseAdmit,
+        action: "CREATE",
+        title: "   ",
+        contentMarkdown: "x",
+      }).ok,
+    ).toBe(false);
+    const emptyBody = admitDocumentCommand({
+      ...baseAdmit,
+      action: "CREATE",
+      title: "T",
+      contentMarkdown: "  \n  ",
+    });
+    expect(emptyBody.ok).toBe(false);
+    if (!emptyBody.ok) expect(emptyBody.reason).toBe("EMPTY_PROPOSAL");
+  });
+
+  it("rejects content over 100k chars", () => {
+    const r = admitDocumentCommand({
+      ...baseAdmit,
+      action: "CREATE",
+      title: "Large",
+      contentMarkdown: "x".repeat(100_001),
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.verdict).toBe("NOT_EXECUTED");
+      expect(r.reason).toBe("CONTENT_TOO_LARGE");
+    }
+  });
+
+  it("rejects REVISE without documentId / baseRevisionId", () => {
+    const r = admitDocumentCommand({
+      ...baseAdmit,
+      action: "REVISE",
+      title: "T",
+      contentMarkdown: "body",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("REVISE_TARGET_INCOMPLETE");
+  });
 });
-```
+
+describe("document-command hashes", () => {
+  it("contentSha256 is stable for the same inputs", () => {
+    const a = contentSha256("Titre", "# Corps\n");
+    const b = contentSha256("Titre", "# Corps\n");
+    expect(a).toBe(b);
+    expect(a).toHaveLength(64);
+  });
+
+  it("payloadSha256 changes when content hash changes", () => {
+    const source = { kind: "SAME_TURN_SNAPSHOT" as const, commandId: "c1" };
+    const p1 = payloadSha256({
+      action: "CREATE",
+      source,
+      preparationId: "prep-1",
+      documentId: null,
+      baseRevisionId: null,
+      title: "T",
+      contentSha256: contentSha256("T", "v1"),
+    });
+    const p2 = payloadSha256({
+      action: "CREATE",
+      source,
+      preparationId: "prep-1",
+      documentId: null,
+      baseRevisionId: null,
+      title: "T",
+      contentSha256: contentSha256("T", "v2"),
+    });
+    expect(p1).not.toBe(p2);
+  });
+});
+
+describe("proposalFromStructured", () => {
+  it("returns null for empty or oversized payloads", () => {
+    expect(proposalFromStructured({ title: "  ", contentMarkdown: "x" })).toBeNull();
+    expect(proposalFromStructured({ title: "T", contentMarkdown: "" })).toBeNull();
+    expect(
+      proposalFromStructured({ title: "T", contentMarkdown: "a".repeat(100_001) }),
+    ).toBeNull();
+  });
+
+  it("returns exact proposal with contentSha256", () => {
+    const p = proposalFromStructured({ title: "  Atlas  ", contentMarkdown: "# Atlas\n" });
+    expect(p).toMatchObject({ title: "Atlas", contentMarkdown: "# Atlas\n" });
+    expect(p?.contentSha256).toBe(contentSha256("Atlas", "# Atlas\n"));
+  });
+});
+
+describe("canonicalizeDocumentProposal", () => {
+  it("accepts when H1 matches title", () => {
+    const r = canonicalizeDocumentProposal({
+      title: "Atlas",
+      contentMarkdown: "# Atlas\n\nCorps.\n",
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.proposal.title).toBe("Atlas");
+  });
+
+  it("rejects TITLE_H1_MISMATCH", () => {
+    const r = canonicalizeDocumentProposal({
+      title: "Atlas",
+      contentMarkdown: "# Autre titre\n\nCorps.\n",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("TITLE_H1_MISMATCH");
+  });
+});
+
+describe("serializeProposalFence — F02 round-trip", () => {
+  function roundTrip(title: string, contentMarkdown: string) {
+    const contentSha = contentSha256(title, contentMarkdown);
+    const fence = serializeProposalFence({ title, contentMarkdown, contentSha256: contentSha });
+    const extracted = extractContractualDocumentProposal(fence);
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) throw new Error(extracted.reason);
+    expect(extracted.title).toBe(title);
+    expect(extracted.content).toBe(contentMarkdown);
+    return fence;
+  }
+
+  it("preserves content without trailing newline", () => {
+    roundTrip("Titre", "# Titre\n\nContenu sans NL finale");
+  });
+
+  it("preserves CRLF line endings", () => {
+    roundTrip("CRLF", "# CRLF\r\n\r\nLigne\r\n");
+  });
+
+  it("preserves Unicode title and body", () => {
+    roundTrip("Café — été", "# Café — été\n\nÉlève naïve 中文.\n");
+  });
+
+  it("handles internal markdown fences via longer backtick run", () => {
+    const body = "# Nested\n\n````\ninner fence\n````\n\nFin.\n";
+    const fence = roundTrip("Nested", body);
+    expect(fence.startsWith("`````")).toBe(true);
+  });
+
+  it("rejects tampered pair-sha256 on extract", () => {
+    const title = "Tamper";
+    const contentMarkdown = "# Tamper\n\nIntègre.\n";
+    const digest = contentSha256(title, contentMarkdown);
+    let fence = serializeProposalFence({ title, contentMarkdown, contentSha256: digest });
+    fence = fence.replace(digest, "f".repeat(64));
+    const extracted = extractContractualDocumentProposal(fence);
+    expect(extracted.ok).toBe(false);
+    if (!extracted.ok) expect(extracted.reason).toBe("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH");
+  });
+
+  it("canonicalize refuses >100_001 chars", () => {
+    const r = canonicalizeDocumentProposal({ title: "Huge", contentMarkdown: "a".repeat(100_001) });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("CONTENT_TOO_LARGE");
+  });
+
+  it("canonicalize refuses empty title", () => {
+    const r = canonicalizeDocumentProposal({ title: "  ", contentMarkdown: "# x\n\ny\n" });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("EMPTY_TITLE");
+  });
+
+  it("structured meta encodes exact char count", () => {
+    const title = "Meta";
+    const contentMarkdown = "# Meta\n\nExact.\n";
+    const fence = serializeProposalFence({
+      title,
+      contentMarkdown,
+      contentSha256: contentSha256(title, contentMarkdown),
+    });
+    expect(fence).toContain(`title-b64=${encodeTitleB64(title)}`);
+    expect(fence).toContain(`chars=${contentMarkdown.length}`);
+  });
+});
+
+describe("history-tools-sdk fitBudget (F-P1)", () => {
+  it("returns payload and decrements remainingChars when within budget", () => {
+    const scope = {
+      pilotId: "pilot-1",
+      preparationId: "prep-1",
+      budget: { remainingCalls: 5, remainingChars: 10_000 },
+    };
+    const payload = {
+      coverage: "FULL" as const,
+      items: [{ id: "m1", content: "hello" }],
+      nextCursor: null,
+    };
+    const before = scope.budget.remainingChars;
+    const out = fitBudget(scope, payload);
+    expect("items" in out && out.items.length).toBe(1);
+    expect(scope.budget.remainingChars).toBeLessThan(before);
+    expect(scope.budget.remainingChars).toBe(before - JSON.stringify(payload).length);
+  });
+
+  it("returns PARTIAL HISTORY_TOOL_BUDGET_EXHAUSTED when over budget", () => {
+    const scope = {
+      pilotId: "pilot-1",
+      preparationId: "prep-1",
+      budget: { remainingCalls: 1, remainingChars: 10 },
+    };
+    const payload = {
+      coverage: "FULL" as const,
+      items: [{ id: "m1", content: "x".repeat(500) }],
+    };
+    const out = fitBudget(scope, payload);
+    expect(out).toMatchObject({
+      coverage: "PARTIAL",
+      reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
+      items: [],
+    });
+    expect(scope.budget.remainingChars).toBe(10);
+  });
+});
+
+describe("validateNoraTurnQualification — documentProposal", () => {
+  it("accepts documentProposal >12k while replyDraft stays ≤12k", () => {
+    const longDoc = `# Synthèse\n\n${"paragraphe détaillé.\n".repeat(900)}`;
+    expect(longDoc.length).toBeGreaterThan(12_000);
+    expect(longDoc.length).toBeLessThanOrEqual(100_000);
+
+    const v = validateNoraTurnQualification({
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "QUALIFIED",
+      goal: "rédiger un document",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "create doc",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "Voici le brouillon court pour l’utilisateur.",
+      documentProposal: {
+        title: "Document long",
+        contentMarkdown: longDoc,
+      },
+    });
+    expect(v.ok).toBe(true);
+  });
+});```
 
 
-## 10. Réserves
+## 9. Tests F01–F05 matrix (oracle results)
 
-1. LIVE Nora NOT PROVEN.
-2. Aucun push produit / PR #676.
-3. RECETTE/STABLE non mutées.
-4. Version `0.0.0-dev` — NO RELEASE.
+| Test ID | File | Oracle | Cycle result |
+| --- | --- | --- | --- |
+| F01-01…F01-15 | `ml4c-document-identity.pg.test.ts` | Identity truth, CONFLICT axes, ACK 10×, concurrent seal | **PASS** (PG) |
+| F02 round-trip / tamper | `document-command.test.ts`, `document-act.test.ts` | `serialize` ↔ `extract` byte equality; pair-sha256 tamper | **PASS** (unit) |
+| F02 PG extract | `ml4c-document-command.pg.test.ts` | `resolveAssistantProposal` | **PASS** |
+| F03 PREPARE | `ml4c-prior-proposal.pg.test.ts` `F03` | Zero documents, fence in assistant | **PASS** |
+| F04 source + conflict | `ml4c-prior-proposal.pg.test.ts` | `ASSISTANT_MESSAGE` on REVISE; triple fence ambiguity | **PASS** |
+| F05 selector | `ml4c-document-reconciliation.pg.test.ts` | `BINDING_SELECTOR_REQUIRED` + HTTP 409 | **PASS** |
+| C-01 reconcile RO | `ml4c-document-reconciliation.pg.test.ts` | 10× GET/programmatic reconcile, zero D4 writes | **PASS** |
+| C-02/C-03 prior | `ml4c-prior-proposal.pg.test.ts` | N+1 / N+100 / foreign deny | **PASS** |
+| C-05 history | `ml4c-history-long.pg.test.ts`, `ml4c-history-tools.pg.test.ts` | 320+ pagination, lexical non-exclusive | **PASS** |
+| C-07 browser | `ml4c-long-thread-composer.spec.ts` | Sticky composer 320+ | **PASS** |
+| Continuity browser | `ml4c-document-continuity.spec.ts` | Scroll + FAKE send | **PASS** |
 
-## 11. Gates Morris non consommés
 
-- GO push produit / PR
-- Campagne LIVE
-- Nouvelle RECETTE / Gate C / ADOPTED
 
-## 12. Instruction ChatGPT obligatoire (SFIA v2.6 §9.1)
+## 10. P1 proofs
 
-Relire exclusivement le Review Handoff distant :
+| P1 item | Proof location | Assertion |
+| --- | --- | --- |
+| `fitBudget` exported | `history-tools-sdk.ts` L27; `document-command.test.ts` `describe('history-tools-sdk fitBudget')` | PARTIAL + `HISTORY_TOOL_BUDGET_EXHAUSTED` ≠ DENIED; char budget decremented |
+| Browser send assertion | `ml4c-long-thread-composer.spec.ts` L122 | `await expect(draft).toHaveValue('', { timeout: 45_000 })` — no `.catch` neutralization |
+| Three historical proposals | `ml4c-prior-proposal.pg.test.ts` `P1: three historical assistant fences` | No `documentSource` → no D4; explicit `PRIOR_ASSISTANT_MESSAGE` → exact bytes |
 
-- Branche : `sfia/review-handoff`
-- Fichier canonique : `sfia-review-handoff/latest-chatgpt-review.md`
-- Ne pas utiliser de copie locale comme source de vérité après publication.
 
-**Fin Review Pack FULL — ML4C Critical Corrective — 2026-11-14 10:09:18 CET**
+
+## 11. PG counts / concurrency notes
+
+| Metric | Value |
+| --- | --- |
+| Unit tests | **289 PASS** (46 files) |
+| Integration PG (full suite) | **393 PASS** (26 files) on `sfia_next_e2e` |
+| PG target | `DATABASE_URL` rewritten by vitest-pg-target → **`sfia_next_e2e`** |
+| DEV PG port | **:5433** (ENV-01) |
+| F01-08 / F01-15 | Concurrent `savePreparationDocument` / `sealAndApply` → **single** document row (count=1) |
+| F01-07 / F05-09 / C-01 10× | Repeated reconcile → D4 row counts **unchanged** |
+| F01-15 gap | **Parallel `reserveTurnCommand` on same conversation** not exercised — concurrent apply reuses single fence (see §16) |
+
+
+
+## 12. HTTP matrix (reconcile route)
+
+| Scenario | HTTP | `reason` |
+| --- | --- | --- |
+| Two bindings, no `correlationKey` | **409** | `BINDING_SELECTOR_REQUIRED` |
+| Selector A after seal | **200** | `verdict: AVAILABLE` |
+| 10× consecutive GET reconcile | **200** each | D4 counts unchanged |
+| Foreign pilot session | **403** | `COMMAND_DENIED` |
+| Unknown / foreign `documentCommandId` | **403** | `COMMAND_DENIED` (non-divulgation) |
+| Known command, no binding | **404** | `BINDING_ABSENT` |
+| D2 default (no `documentCommandId`) | **200** | create-project reconcile (unchanged) |
+
+
+
+## 13. Unit / PG / Browser / tsc / eslint / build
+
+| Gate | Result |
+| --- | --- |
+| `tsc --noEmit` | **PASS** |
+| Unit | **289 PASS** (46 files) |
+| Integration PG | **393 PASS** (26 files) |
+| Playwright | `ml4c-long-thread-composer` + `ml4c-document-continuity` → **2 PASS** |
+| eslint (touched `src`) | **0 errors** (legacy unused warnings only) |
+| `build` | **PASS** |
+| LIVE Nora | **NOT PROVEN** (FAKE/fixture lane; `OPENAI_API_KEY` deleted in PG) |
+
+
+
+## 14. Screenshot (C-07)
+
+| Field | Value |
+| --- | --- |
+| Path | `projects/sfia-studio-next/web/test-results/ml4c-c07/long-thread-1794649364104.png` |
+| Date (mtime) | 2026-11-14 10:42:44 Europe/Paris context |
+| SHA-256 | `a559607dbb018d16601dad16b8f60f312c8a72ecb0d1e372125fde47bc144991` |
+
+
+
+## 15. LIVE NOT PROVEN
+
+No LIVE `@openai/agents` volume run this cycle. Browser and PG use deterministic fixtures / DEV lane (`STUDIO_FORCE_NORA_FIXTURE`, `STUDIO_E2E=1`).
+
+
+## 16. Known gaps
+
+- **403 vs 404 for unknown `documentCommandId`:** implementation returns **403** `COMMAND_DENIED` (same as foreign owner) — documented in as-built; 404 reserved for owned command without binding.
+- **F01-15 parallel turn reserve:** concurrent `sealAndApply` on one turn is proven; **parallel `reserveTurnCommand`** on the same conversation under race is **not** covered — turn fence serializes one owner token per command id.
+
+
+
+## 17. Allowlist compliance
+
+- **P1 named export:** `fitBudget` exported from `history-tools-sdk.ts` for discriminant tests.
+- **UX C-07:** `NoraConversation.tsx` / `tokens.css` carry sticky composer from prior C-cycle; **no new UX feature work** in F-cycle beyond proof/tests (git may show prior uncommitted C-07 diff vs HEAD).
+- **Scope:** Schema unchanged; mutative PG confined to `sfia_next_e2e`.
+
+
+
+## 18. Gates Morris non consommés
+
+Push produit, PR #676, RECETTE freeze, Gate C adoption, LIVE volume, publish L3 handoff — **not executed** this cycle (local correction only).
+
+
+## 19. Verdict
+
+**READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
+
+Candidate: working tree on `fix/next-semantic-intent-convergence-20261112` @ `67bf6b0b` with F-01…F-05 closures evidenced by unit + PG + targeted Playwright. Release: **NOT AVAILABLE**.
+
+
+## 20. Instruction ChatGPT §9.1
+
+After L3 publish of this pack to `sfia/review-handoff`, **re-read** remote handoff blob at `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` and reconcile any drift vs local `c1add5cb` / `714a86d1` parent expectations before ADOPT/REJECT.
