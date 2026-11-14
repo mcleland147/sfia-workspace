@@ -9,7 +9,7 @@
 - **origin/main**: `6cda86bde4aa450abb1d23eedd370a9004ddcbc1`
 - **Prior handoff**: `sfia/review-handoff@70f43b3f` blob `37ae086f`
 - **Product**: **LOCAL ONLY** — travail worktree, aucun commit / push produit ce cycle
-- **Review Handoff**: **REMOTE après publication post-pack** (handoff non poussé avec ce pack)
+- **Review Handoff**: **REMOTE** — branche `sfia/review-handoff` · fichier `sfia-review-handoff/latest-chatgpt-review.md` (tip/blob exacts dans le rapport Cursor §25 après publish)
 - **Verdict**: **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
 
 ---
@@ -24,7 +24,7 @@
 | origin/main | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
 | Cycle scope | P0 sealed identity dual request+stored ; hasOwn required keys ; refuse downgrade ; pack FULL candidat vs HEAD |
 | Changement production **ce cycle** | **UNIQUEMENT** `web/src/domains/document/service.ts` |
-| Handoff publish | **deferred** — pack local d'abord, puis publication L3 |
+| Handoff publish | **publish-in-cycle** — tip/blob exacts dans rapport Cursor §25 |
 
 ### git status --short (projects/sfia-studio-next)
 
@@ -10165,7 +10165,7 @@ Voir §2 — tsc, unit 319, integration 440, DOWN/FIELD/E2E 97, eslint document/
 | Item | Statut |
 | --- | --- |
 | Product git (commit/push) | **LOCAL ONLY** |
-| Review Handoff `sfia/review-handoff` | **REMOTE — publication après ce pack** |
+| Review Handoff `sfia/review-handoff` | **REMOTE** — tip/blob exacts dans rapport Cursor §25 |
 | DETERMINISTIC / PG / unit / integration | PROVEN (comptes §2) |
 | DOWN/FIELD/E2E ciblé | PROVEN (97) |
 | Playwright ML4C e2e (2 specs) | PASS |
@@ -10177,26 +10177,51 @@ Voir §2 — tsc, unit 319, integration 440, DOWN/FIELD/E2E 97, eslint document/
 
 > **Instruction ChatGPT obligatoire :**
 >
-> Pour ce cycle **local-only produit**, la source canonique du pack est le fichier worktree :
+> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
 >
-> fichier : `.tmp-sfia-review/chatgpt-review.md`
-> HEAD candidat : `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
+> branche : `sfia/review-handoff`
+> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 >
-> Avant de répondre à Morris, ChatGPT doit lire **ce pack intégral** et vérifier la cohérence avec le rapport Cursor, notamment :
+> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
 > - le cycle sealed identity final + profil Critical ;
-> - la branche projet et HEAD `67bf6b0b` ;
-> - prior handoff `70f43b3f` / blob `37ae086f` ;
-> - Product **LOCAL ONLY** vs Review Handoff **REMOTE** (post-pack publish) ;
-> - l'inventaire §3 (tous chemins status/diff/untracked sous `projects/sfia-studio-next`) ;
-> - les diffs §6 et contenus §7 ;
+> - la branche projet `fix/next-semantic-intent-convergence-20261112` ;
+> - le HEAD candidat `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` (LOCAL ONLY) ;
+> - la base main `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` ;
+> - les sources consultées ;
+> - l'inventaire §3 (30 chemins : 16 suivis + 14 non suivis) et le contenu complet §6/§7 ;
 > - P0 dual request+stored + hasOwn + no-downgrade §4 ;
 > - matrices DOWN/FIELD/E2E §5 ;
-> - as-built §8 et delivery `DELIV-2026-11-14-ML4C-SEALED-IDENTITY-FINAL` / verdict §9 ;
+> - as-built §8 et delivery `DELIV-2026-11-14-ML4C-SEALED-IDENTITY-FINAL` ;
 > - les validations §2 ;
 > - **changement production ce cycle = UNIQUEMENT `document/service.ts`** ;
-> - le verdict **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**.
+> - Product **LOCAL ONLY** vs Review Handoff **REMOTE** ;
+> - le verdict **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN** ;
+> - le commit et la vérification distante du handoff (rapport Cursor §25).
 >
-> **Après cette vérification**, ChatGPT doit produire une synthèse globale du cycle (objectif, changements, validations, risques, verdict ChatGPT, prochaine décision Morris).
+> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
+> 1. l'objectif et le périmètre du cycle ;
+> 2. les actions et changements réellement réalisés ;
+> 3. les principaux résultats et validations ;
+> 4. les risques, réserves, écarts ou éléments non couverts ;
+> 5. la distinction entre observations, recommandations et décisions déjà validées ;
+> 6. le verdict ChatGPT ;
+> 7. la prochaine décision ou action attendue de Morris.
+>
+> La synthèse doit être compréhensible sans devoir relire l'intégralité du rapport Cursor ou du review pack, tout en restant fidèle au contenu du handoff Git.
+>
+> Elle ne doit **pas** transformer une recommandation, une hypothèse ou un résultat technique en décision validée sans GO Morris.
+>
+> Si le handoff est absent, obsolète, incohérent, incomplet ou synthesis-only, ChatGPT doit répondre :
+>
+> **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
+>
+> Si Cursor annonce un handoff publié mais que le fichier distant reste ancien, absent ou incomplet, ChatGPT doit répondre :
+>
+> **REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED**
+>
+> **Le rapport Cursor seul ne remplace pas le handoff Git.** ChatGPT doit lire depuis Git :
+> branche `sfia/review-handoff` · fichier `sfia-review-handoff/latest-chatgpt-review.md`
+> (jamais le fichier racine historique comme canonique).
 
 ---
 
