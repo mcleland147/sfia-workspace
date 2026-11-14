@@ -4,6 +4,24 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-15-ML4C-S05-BROWSER-ORACLE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-15 ~00:05 CET (Europe/Paris) |
+| Macro-lot | ML4C — Triage/remédiation oracles E2E S05 real-api (SAFE vs RISK UNKNOWN) |
+| Type | PATCH test/fixture Critical (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` |
+| Parent tip | `6c50a1446734341b43a4f110aacde21c727fb2b1` (LOCAL ONLY) |
+| Design | `c883db07` / blob `da397424` |
+| Prior handoff | `sfia/review-handoff@9fe6f63c` blob `7d57f65b` |
+| Lane | Playwright E2E `:3101`/`sfia_next_e2e` ; UNIT/PG DEV ; RECETTE `:3200` non mutée |
+| Changes | `seed_unknown_effect_risk` + oracles SAFE/RISK dans `ml4c-s05-real-api.spec.ts` ; runtime inchangé |
+| Schema | unchanged |
+| Tests | UNIT 351 ; PG 468 ; BUILD PASS ; real-api 8 PASS ; continuity 3 PASS ; LIVE NOT RUN |
+| Status | Product LOCAL ONLY ; Review Handoff L3 in-cycle |
+
+
 ## delivery_id: DELIV-2026-11-14-ML4C-P3-ASSERTION-CLOSURE
 
 | Field | Value |

@@ -348,3 +348,57 @@ Assertions alignées sur NOT_EXECUTED + conservation des contrôles négatifs
 | BUILD | PASS |
 | BROWSER | PASS ciblé Playwright `:3101` E2E isolé (sas / continuity / S05) — fixture |
 | LIVE Nora | NOT RUN — harness E2E force fixture ; operator DEV `:3100` non démarré (RECETTE `:3200` présente) |
+
+## DELIV 2026-11-14 — S05 browser real-api oracle reconciliation
+
+Date: 2026-11-15 ~00:05 CET (Europe/Paris)
+Branche: `fix/next-semantic-intent-convergence-20261112`
+Parent: `6c50a1446734341b43a4f110aacde21c727fb2b1` (LOCAL ONLY)
+Profil: Critical PATCH test/fixture / NO RELEASE / runtime inchangé
+
+### Reproduction Phase A (HEAD `6c50a144`)
+
+`ml4c-s05-real-api.spec.ts` — 4 PASS / 3 FAIL :
+
+| Test | Assertion | Attendu (ancien oracle) | Observé |
+| --- | --- | --- | --- |
+| S05-REAL-01/02/… | L134 `pendingEffectBlocked` | `true` après `seed_unknown` + OPEN_CYCLE | `false` |
+| S05-REAL-07 | L242 `pendingEffectBlocked` | `true` (lying hint) | `false` |
+| S05-REAL-10 | L414 `pilotageEffect.attempted` | not `true` | `true` (owner reached) |
+
+Cause unique prouvée : `seed_unknown` = QUALIFIED / `d3.converse` / EXPLORE →
+owner probe vide → `PROVEN_NO_EFFECT`. L'ancien oracle exigeait encore le
+blocage global S05. Runtime conforme au contrat S05 actuel.
+
+### Corrections (allowlist)
+
+1. Fixture `seed_unknown_effect_risk` (DEV/E2E only) : UNKNOWN + QUALIFIED
+   `d5.pilotage_command` REQUEST_EFFECT OPEN_CYCLE, **sans** effet métier ;
+   vérifie `UNKNOWN_EFFECT_RISK` avant retour.
+2. Spec : scénarios SAFE (`seed_unknown`) vs RISK (`seed_unknown_effect_risk`)
+   séparés ; AWAITING / isolation / concurrence conservés.
+
+### Oracles
+
+| Fixture | Qualification | Classe S05 | Effet B indépendant |
+| --- | --- | --- | --- |
+| `seed_unknown` | EXPLORE d3 | PROVEN_NO_EFFECT | S05 ne bloque pas ; propriétaire décide |
+| `seed_unknown_effect_risk` | REQUEST_EFFECT d5 | UNKNOWN_EFFECT_RISK | `pendingEffectBlocked=true` ; zéro mutation |
+| `seed_awaiting_mission` | mission AWAITING | garde mission | `S05_MISSION_BLOCKS_EFFECT` |
+
+### Preuves
+
+| Couche | Résultat |
+| --- | --- |
+| UNIT | 351 PASS |
+| PG `test:integration` | 468 PASS |
+| BUILD | PASS |
+| Playwright `ml4c-s05-real-api` | **8 PASS** (SAFE+RISK+AWAITING+FIX) |
+| Continuity E2E | 3 PASS (independent-pending / document-continuity / g4-sas) |
+| LIVE Nora | NOT RUN |
+| RECETTE | non mutée |
+
+### Réserves
+
+- DETERMINISTIC E2E BEHAVIOR only — NORA LIVE NOT PROVEN.
+- USER RECETTE NOT RUN ; ML4C not ACCEPTED ; GATE C not closed.

@@ -22,7 +22,16 @@ import {
   stashTurnQualification,
 } from "@/domains/conversation/turn-command";
 import { loadLatestMissionsByIntentKey } from "@/domains/conversation/intent-conduction";
-import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
+import {
+  classifySiblingEffectRisk,
+  parseSiblingResultEvidence,
+} from "@/domains/conversation/s05-pending-policy";
+import {
+  effectIntents,
+  extractPilotageBinding,
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  validateNoraTurnQualification,
+} from "@/domains/conversation/semantic-qualification";
 import { e2eFixtureMutationsAllowed } from "@/lib/e2e-fixture-gate";
 import { newId } from "@/lib/ids";
 
@@ -46,7 +55,11 @@ export async function POST(req: Request) {
   if (!preparationId) {
     return NextResponse.json({ error: "preparationId required" }, { status: 400 });
   }
-  if (!["oracle", "seed_unknown", "seed_awaiting_mission"].includes(action)) {
+  if (
+    !["oracle", "seed_unknown", "seed_unknown_effect_risk", "seed_awaiting_mission"].includes(
+      action,
+    )
+  ) {
     return NextResponse.json({ error: "unknown action" }, { status: 400 });
   }
 
@@ -181,6 +194,141 @@ export async function POST(req: Request) {
       clientTurnKey,
       userMessageId: reserved.userMessageId,
       status: "UNKNOWN",
+      preparationId,
+      projectId: ctx.project?.id ?? null,
+      conversationId: ctx.conversation.id,
+    });
+  }
+
+  if (action === "seed_unknown_effect_risk") {
+    // UNKNOWN sibling with QUALIFIED REQUEST_EFFECT (D5 OPEN_CYCLE) and no owner row.
+    // Must classify UNKNOWN_EFFECT_RISK — never silently equivalent to seed_unknown (EXPLORE).
+    const clientTurnKey = `e2e-s05-risk-${Date.now()}`;
+    const qualificationRaw = {
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "QUALIFIED" as const,
+      goal: "open cycle cadrage (E2E S05 effect-risk seed)",
+      intents: [
+        {
+          id: "i-d5-open",
+          capabilityId: "d5.pilotage_command" as const,
+          mode: "REQUEST_EFFECT" as const,
+          summary: "OPEN_CYCLE CADRAGE",
+          parameters: {
+            pilotageOperation: "OPEN_CYCLE" as const,
+            cycleType: "CADRAGE",
+          },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "Cycle cadrage demandé — issue propriétaire non réconciliée (seed).",
+    };
+    const validated = validateNoraTurnQualification(qualificationRaw);
+    if (!validated.ok) {
+      return NextResponse.json(
+        { error: `qualification invalid: ${validated.reason}` },
+        { status: 500 },
+      );
+    }
+    if (effectIntents(validated.value).length === 0) {
+      return NextResponse.json(
+        { error: "seed failed — REQUEST_EFFECT not actionable" },
+        { status: 500 },
+      );
+    }
+    const pilotage = extractPilotageBinding(validated.value);
+    if (
+      pilotage == null ||
+      "ambiguous" in pilotage ||
+      pilotage.operation !== "OPEN_CYCLE"
+    ) {
+      return NextResponse.json(
+        { error: "seed failed — OPEN_CYCLE binding not extractable" },
+        { status: 500 },
+      );
+    }
+
+    const reserved = await reserveTurnCommand({
+      conversationId: ctx.conversation.id,
+      ownerPilotId: session.pilotId,
+      clientTurnKey,
+      content: "Acte A E2E S05 — UNKNOWN effect-risk (seed fixture)",
+    });
+    if (reserved.kind !== "fresh") {
+      return NextResponse.json({ error: `reserve ${reserved.kind}` }, { status: 409 });
+    }
+    const stashed = await stashTurnQualification({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      qualificationJson: JSON.stringify(validated.value),
+    });
+    if (!stashed.applied) {
+      return NextResponse.json({ error: "stash qualification failed" }, { status: 500 });
+    }
+    await markTurnUnknown(
+      reserved.commandId,
+      "E2E_S05_SEED_UNKNOWN_EFFECT_RISK",
+      reserved.ownerToken,
+    );
+    const row = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.id, reserved.commandId),
+            eq(conversationTurnCommands.status, "UNKNOWN"),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!row) {
+      return NextResponse.json({ error: "seed failed — not UNKNOWN" }, { status: 500 });
+    }
+    const parsed = parseSiblingResultEvidence(row.resultJson);
+    const s05RiskClass = classifySiblingEffectRisk(
+      {
+        id: row.id,
+        clientTurnKey,
+        status: "UNKNOWN",
+        createdAtMs: row.createdAt.getTime(),
+        qualificationStatus: parsed.qualificationStatus,
+        qualification: parsed.qualification,
+        documentSaveStatus: parsed.documentSaveStatus,
+        pilotageEffectAttempted: parsed.pilotageEffectAttempted,
+        humanDecisionCreated: parsed.humanDecisionCreated,
+        // Complete empty owner probe — no métier row created by this seed.
+        ownerEffectsFound: false,
+        correlationKeys: [],
+      },
+      { correlationKeys: [], requestsOwnerEffect: true },
+    );
+    if (s05RiskClass !== "UNKNOWN_EFFECT_RISK") {
+      return NextResponse.json(
+        {
+          error: "seed failed — expected UNKNOWN_EFFECT_RISK",
+          s05RiskClass,
+          qualificationStatus: parsed.qualificationStatus,
+        },
+        { status: 500 },
+      );
+    }
+    // No businessCommands / documents / humanDecisions / pilotage journal writes.
+    return NextResponse.json({
+      ok: true,
+      fixture: "DEV_E2E_SEED_UNKNOWN_EFFECT_RISK",
+      noraBoundary: "FIXTURE_PROVIDER_ONLY",
+      commandId: reserved.commandId,
+      clientTurnKey,
+      userMessageId: reserved.userMessageId,
+      status: "UNKNOWN",
+      s05RiskClass,
+      capabilityId: "d5.pilotage_command",
+      mode: "REQUEST_EFFECT",
+      pilotageOperation: "OPEN_CYCLE",
       preparationId,
       projectId: ctx.project?.id ?? null,
       conversationId: ctx.conversation.id,
