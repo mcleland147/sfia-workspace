@@ -54,7 +54,7 @@ Les chemins courts de gouvernance/construction ci-dessus sont relatifs à `proje
 
 **Ne pas confondre :** le rapport Cursor appelle « octets » les longueurs 433/434. L'implémentation JS mesure ici des unités de chaîne ; la différence EOF/`\n` est établie, pas une équivalence universelle avec les octets UTF-8. Les tests devront qualifier séparément longueur JS, octets UTF-8 et digest.
 
-**Le fait que `savePreparationDocument` accepte `projectId = null` prouve la possibilité de stockage d'un document rattaché à une préparation, **pas** la mobilisation D3/D4 depuis le sas.**
+**Le fait que `savePreparationDocument` accepte `projectId = null` prouve la possibilité de stockage d'un document rattaché à une préparation, mais pas la mobilisation D3/D4 depuis le sas.**
 
 ## 3. Contrat utilisateur et invariants impératifs
 
