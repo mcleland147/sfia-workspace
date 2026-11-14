@@ -6972,3 +6972,611 @@ Candidate: working tree on `fix/next-semantic-intent-convergence-20261112` @ `67
 ## 20. Instruction ChatGPT §9.1
 
 After L3 publish of this pack to `sfia/review-handoff`, **re-read** remote handoff blob at `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` and verify remote commit, blob, F-01…F-05 diffs/tests, and LIVE NOT PROVEN before ADOPT/REJECT. Parent tip was `c1add5cb` / blob `714a86d1`.
+
+## 21. DOCUMENTARY COMPLETENESS ADDENDUM
+
+**Date addendum:** 2026-11-14 ~11:00 Europe/Paris
+**Motif:** Critical Review — `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`
+**Action:** republish L3 with previously omitted new-file bodies and modified-file diffs.
+
+### 21.1 Inventory (gap closure)
+
+| Fichier | État Git | Contenu fourni ci-dessous |
+| --- | --- | --- |
+| `as-built-continuite-nora-documents.md` | Nouveau (untracked) | Contenu intégral |
+| `ml4c-temp-restitution.test.ts` | Nouveau (untracked) | Contenu intégral |
+| `delivery-history.md` | Modifié | Diff complet |
+| `document-act.test.ts` | Modifié | Diff complet |
+| `semantic-qualification.test.ts` | Modifié | Diff complet |
+| `cognitive-policy.test.ts` | Modifié | Diff complet |
+| `ml2-knowledge-documents.pg.test.ts` | Modifié | Diff complet |
+| `ml4-chat-first-d4-provenance.pg.test.ts` | Modifié | Diff complet |
+
+### 21.2 NEW — as-built-continuite-nora-documents.md (full)
+
+```markdown
+# As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
+
+**Date :** 14 novembre 2026 (fermeture F-01…F-05)
+**Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
+**Conception source :** V0.7 @ `86377fde` blob `7d289670`
+**Handoff Critical Review 1 :** `sfia/review-handoff@c1add5cb` blob `714a86d1`
+**Statut :** IMPLEMENTED CANDIDATE — F-01…F-05 DET/PG/BROWSER ; LIVE NOT PROVEN
+**STABLE / release :** NOT AVAILABLE — NO RELEASE
+
+## 1. Objet
+
+Capacité O-01…O-06 : correctifs C-01…C-07 conservés ; fermeture des invariants documentaires F-01…F-05.
+
+| Correctif | Mécanisme |
+| --- | --- |
+| F-01 | `compareSealedEffectIdentity` unique ; provenance scellée complète ; pas de fallback `latestRevisionFor` comme preuve CREATE |
+| F-02 | `serializeProposalFence(proposal)` avec `title-b64` / `chars` / `pair-sha256` ; extracteur réversible ; fences historiques lisibles |
+| F-03 | `durableProposal` matérialisé sur le chemin commun d'assemblage ; PREPARE sans effet D4 |
+| F-04 | REVISE/CREATE : source `ASSISTANT_MESSAGE` conservée ; `PROPOSAL_SOURCE_CONFLICT` si fence concurrente divergente |
+| F-05 | `loadSealedDocumentBinding` : sélecteur `correlationKey` obligatoire si multi-bindings ; HTTP 409 |
+| C-01…C-07 | Conservés (reconcile RO, canonicalize, prior source, salt, history budget, TEMP, UX 320+) |
+
+## 2. Modules (état consolidé)
+
+| Module | Rôle |
+| --- | --- |
+| `document-command.ts` | Canonicalize, fence codec, admit/seal, reconcile RO, `loadSealedDocumentBinding` |
+| `document/service.ts` | CREATE TX, REVISE fence, `compareSealedEffectIdentity`, `lookupDocumentCorrelationTruth` |
+| `document-act.ts` | Extracteur contractuel + métadonnées structurées |
+| `service.ts` (conversation) | `durableProposal` commun ; CREATE/REVISE ; prior ; continuation sans perte de fence |
+| `history-tools.ts` / `history-tools-sdk.ts` | Keyset, lecture exacte, `fitBudget` pré-retour |
+| `reconcile/route.ts` | Branche D4 `documentCommandId` (+ `correlationKey`) ; D2 inchangé |
+| `NoraConversation.tsx` + `tokens.css` | Composeur sticky (C-07) |
+
+## 3. Invariants
+
+1. AVAILABLE D4 seulement avec identité d'effet complète prouvée (payload + provenance binding).
+2. Réconciliation D4 : **zéro** INSERT/UPDATE/DELETE.
+3. Proposition conversationnelle ≠ effet D4 ; PREPARE persiste la fence sans document.
+4. Source historique `ASSISTANT_MESSAGE` non remplacée silencieusement.
+5. Multi-bindings sans sélecteur → `BINDING_SELECTOR_REQUIRED` (pas de last-wins).
+6. Round-trip `extract(serialize(proposal))` = égalité stricte titre + Markdown.
+7. Budget outils : `PARTIAL` + `HISTORY_TOOL_BUDGET_EXHAUSTED` ≠ `DENIED`.
+
+## 4. Preuves (fermeture F)
+
+| Niveau | Résultat |
+| --- | --- |
+| Unit | 289 PASS |
+| PG global | 393 PASS (`sfia_next_e2e`) |
+| PG F-01 identity | `ml4c-document-identity.pg.test.ts` |
+| PG F-03/F-04/P1 prior | `ml4c-prior-proposal.pg.test.ts` |
+| PG/HTTP F-05 reconcile | `ml4c-document-reconciliation.pg.test.ts` |
+| BROWSER | `ml4c-long-thread-composer.spec.ts` + `ml4c-document-continuity.spec.ts` |
+| tsc / eslint (touchés) / build | PASS (warnings legacy unused only) |
+| LIVE | **NOT PROVEN** |
+
+## 5. Préflights
+
+| Gate | Verdict |
+| --- | --- |
+| ENV-01 | DEV `:5433` ; mutative → `sfia_next_e2e` |
+| PG-01 | Indexes/corr présents ; schéma inchangé |
+| SDK-01 | `@openai/agents@0.21.0` ; LIVE volume non mesuré |
+| REC-01 | Bindings dans `result_json` ; seal préservé |
+
+## 6. Réserves / exit
+
+- LIVE Nora non exécuté (mandat local).
+- Push produit / PR #676 / RECETTE / Gate C / ADOPTED hors mandat.
+- Unknown `documentCommandId` HTTP → 403 `COMMAND_DENIED` (non-divulgation ; 404 réservé aux commandes connues sans binding).
+- Version technique `0.0.0-dev` ; NO RELEASE.
+```
+
+### 21.3 NEW — ml4c-temp-restitution.test.ts (full)
+
+```typescript
+/**
+ * ML4C TEMP (DET) — O-02 cognitive confrontation is Nora-led; these tests guard
+ * server-side restitution / projection rules without inventing D4 or D6 from EXPLAIN,
+ * negation-shaped drafts, or retired lexical routers.
+ */
+import { describe, expect, it } from "vitest";
+import { qualifyDocumentAct, explicitDocumentIntent } from "@/domains/conversation/document-act";
+import {
+  deriveThreadTurnKind,
+  effectIntents,
+  extractKnowledgeProposals,
+  extractPilotageBinding,
+  matchPilotageIntentInQualification,
+  projectStudioEffects,
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  validateNoraTurnQualification,
+  type NoraTurnQualification,
+} from "@/domains/conversation/semantic-qualification";
+import { proposalFromStructured } from "@/domains/conversation/document-command";
+
+function qualified(partial: Partial<NoraTurnQualification> & Pick<NoraTurnQualification, "intents">): NoraTurnQualification {
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    status: "QUALIFIED",
+    goal: "test",
+    clarifications: [],
+    replyDraft: "Réponse courte.",
+    ...partial,
+  };
+}
+
+describe("ML4C TEMP — restitution fail-closed (DET)", () => {
+  it("TEMP-01: qualifyDocumentAct / explicitDocumentIntent stay lexical-retired", () => {
+    for (const utterance of [
+      "Crée un document de recette.",
+      "Ne crée pas de document, explique seulement.",
+      "Et si on rédigeait une synthèse ?",
+    ]) {
+      expect(qualifyDocumentAct(utterance)).toEqual({
+        kind: "NONE",
+        reason: "SEMANTIC_ROUTER_REQUIRED",
+      });
+      expect(explicitDocumentIntent(utterance)).toBe(false);
+    }
+  });
+
+  it("TEMP-02: EXPLAIN d4.create_document does not project D4 CREATE", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-explain-doc",
+          capabilityId: "d4.create_document",
+          mode: "EXPLAIN",
+          summary: "explain drafting",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    expect(effectIntents(q)).toHaveLength(0);
+    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "NONE" });
+    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
+  });
+
+  it("TEMP-03: EXPLAIN d6.human_decision never binds pilotage / HumanDecision", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-explain-d6",
+          capabilityId: "d6.human_decision",
+          mode: "EXPLAIN",
+          summary: "reflect on prior decision",
+          parameters: {
+            pilotageOperation: "RECORD_DECISION",
+            decisionId: "dec-prior",
+          },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: ["prior-turn-summary-only"],
+        },
+      ],
+    });
+    expect(extractPilotageBinding(q)).toBeNull();
+    const match = matchPilotageIntentInQualification(q, { operation: "RECORD_DECISION" });
+    expect("reject" in match && match.reject).toBe(true);
+    expect(projectStudioEffects(q).simpleDialogue).toBe(true);
+  });
+
+  it("TEMP-04: REQUEST_EFFECT d4.create_document still projects CREATE when not follow-on gated", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-create",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "create",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "CREATE" });
+    expect(deriveThreadTurnKind(q)).toBe("INTENTION_EFFET");
+  });
+
+  it("TEMP-05: hypothetical d4.record_knowledge EXPLAIN does not capitalise", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-hyp",
+          capabilityId: "d4.record_knowledge",
+          mode: "EXPLAIN",
+          summary: "hypothesis only",
+          parameters: {
+            knowledgeKind: "ACQUIS",
+            knowledgeStatement: "L’architecture pourrait être event-driven.",
+            epistemic: "hypothesized",
+          },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    expect(extractKnowledgeProposals(q)).toHaveLength(0);
+    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "NONE" });
+  });
+
+  it("TEMP-06: documentProposal >12k via proposalFromStructured stays admissible envelope", () => {
+    const longDoc = `# Synthèse\n\n${"ligne de contenu détaillée.\n".repeat(850)}`;
+    expect(longDoc.length).toBeGreaterThan(12_000);
+    expect(longDoc.length).toBeLessThanOrEqual(100_000);
+    const p = proposalFromStructured({ title: "Synthèse", contentMarkdown: longDoc });
+    expect(p).not.toBeNull();
+    expect(p!.contentMarkdown.length).toBeGreaterThan(12_000);
+  });
+
+  it("TEMP-07: conversation history in sourceEvidence alone does not add REQUEST_EFFECT", () => {
+    const q = qualified({
+      goal: "reprendre le fil",
+      intents: [
+        {
+          id: "i-dialogue",
+          capabilityId: "d3.converse",
+          mode: "EXPLAIN",
+          summary: "continue thread",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: ["msg-1", "msg-2", "msg-3"],
+        },
+      ],
+    });
+    expect(effectIntents(q)).toHaveLength(0);
+    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
+    expect(projectStudioEffects(q).simpleDialogue).toBe(true);
+  });
+
+  it("TEMP-09: documentSource schema accepts PRIOR_ASSISTANT_MESSAGE", () => {
+    const v = validateNoraTurnQualification({
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "QUALIFIED",
+      goal: "reprise",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "create",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "ok",
+      documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId: "msg-hist-1" },
+    });
+    expect(v.ok).toBe(true);
+  });
+
+  it("TEMP-10: documentSource + documentProposal → DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT", () => {
+    const v = validateNoraTurnQualification({
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "QUALIFIED",
+      goal: "conflit",
+      intents: [],
+      clarifications: [],
+      replyDraft: "ok",
+      documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId: "msg-hist-1" },
+      documentProposal: { title: "T", contentMarkdown: "# T\n\nx\n" },
+    });
+    expect(v.ok).toBe(false);
+    if (!v.ok) expect(v.reason).toBe("DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT");
+  });
+
+  it("TEMP-08: D2 follow-on chains defer immediate documentAct to mission pending", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-d2",
+          capabilityId: "d2.create_project",
+          mode: "REQUEST_EFFECT",
+          summary: "create project",
+          parameters: { projectName: "Atlas" },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+        {
+          id: "i-d4",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "follow-on doc",
+          parameters: {},
+          constraints: [],
+          dependsOn: ["i-d2"],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    const proj = projectStudioEffects(q);
+    expect(proj.wantsFollowOnDocument).toBe(true);
+    expect(proj.documentAct).toEqual({ kind: "NONE" });
+  });
+});
+```
+
+### 21.4 DIFF — delivery-history.md
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index ec4ab254..f74d857a 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,53 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-14-ML4C-DOCUMENT-INVARIANT-CLOSURE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~11:00 CET (Europe/Paris) |
++| Macro-lot | ML4C — Fermeture invariants documentaires F-01…F-05 |
++| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Prior handoff | `sfia/review-handoff@c1add5cb` blob `714a86d1` |
++| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | F-01 identity compare ; F-02 reversible fence codec ; F-03 PREPARE durableProposal ; F-04 ASSISTANT_MESSAGE source ; F-05 binding selector + HTTP 409 ; P1 fitBudget/ambiguity/browser |
++| Schema | unchanged |
++| Tests | unit 289 PASS ; PG 393 PASS ; Playwright ML4C ciblé ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
++
++## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-CRITICAL-CORRECTIVE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~10:10 CET (Europe/Paris) |
++| Macro-lot | ML4C — Correctif Critical Review (C-01…C-07) continuité Nora / D4 |
++| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Prior handoff | `sfia/review-handoff@93e277c2` blob `510b410f` |
++| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | reconcile read-only ; canonicalize proposal ; prior assistant source ; correlation salt ; history walk/budget ; UX 320+ |
++| Schema | unchanged |
++| Tests | unit 277 PASS ; PG ML4C 29 PASS ; Playwright C-07 320+ PASS ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
++
++## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-NORA-DOCUMENTS
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~09:30 CET (Europe/Paris) |
++| Macro-lot | ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4 |
++| Type | EVOL Critical integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local) = tip `origin/build/next-ml4c-functional-convergence@67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Lane | DEV `:5433` + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | history-tools + SDK tools ; documentProposal ; document-command admit/seal ; CREATE atomique + REVISE fence/fingerprint ; UX composeur sticky ; as-built |
++| Schema | unchanged (indexes existants utilisés) |
++| Tests | unit 272 PASS ; PG history+document-command 11 PASS ; ML2 Q10 O-05 PASS ; Playwright composer PASS ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
++
+ ## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
+
+ | Field | Value |
+```
+
+### 21.5 DIFF — document-act.test.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+index ec99d592..0ddcf68e 100644
+--- a/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/document-act.test.ts
+@@ -5,6 +5,11 @@ import {
+   qualifyDocumentAct,
+   extractContractualDocumentProposal,
+ } from "@/domains/conversation/document-act";
++import {
++  contentSha256,
++  encodeTitleB64,
++  serializeProposalFence,
++} from "@/domains/conversation/document-command";
+
+ describe("document-act SEM-02 — lexical router retired", () => {
+   it("qualifyDocumentAct is fail-closed stub", () => {
+@@ -28,4 +33,45 @@ describe("document-act SEM-02 — lexical router retired", () => {
+       expect(extracted.content).toMatch(/# Titre/);
+     }
+   });
++
++  describe("F02 contractual fence extract", () => {
++    it("reads historical fence without structured metadata", () => {
++      const raw =
++        "Préambule.\n\n```sfia-document\n# Historique\n\n## Section\n\nCorps lisible sans meta structurée.\n```\n";
++      const extracted = extractContractualDocumentProposal(raw);
++      expect(extracted.ok).toBe(true);
++      if (extracted.ok) {
++        expect(extracted.title).toBe("Historique");
++        expect(extracted.content).toContain("Corps lisible");
++      }
++    });
++
++    it("refuses H1 mismatch against structured title meta", () => {
++      const title = "Attendu";
++      const wrongBody = "# Autre\n\nCorps.\n";
++      const digest = contentSha256(title, wrongBody);
++      const broken = [
++        `\`\`\`sfia-document title-b64=${encodeTitleB64(title)} chars=${wrongBody.length} pair-sha256=${digest}`,
++        wrongBody,
++        "```",
++        "",
++      ].join("\n");
++      const extracted = extractContractualDocumentProposal(broken);
++      expect(extracted.ok).toBe(false);
++      if (!extracted.ok) expect(extracted.reason).toBe("DOCUMENT_PROPOSAL_TITLE_MISMATCH");
++    });
++
++    it("round-trips via serializeProposalFence helper", () => {
++      const title = "Acte";
++      const content = "# Acte\n\n```\nBloc interne\n```\n";
++      const fence = serializeProposalFence({
++        title,
++        contentMarkdown: content,
++        contentSha256: contentSha256(title, content),
++      });
++      const extracted = extractContractualDocumentProposal(fence);
++      expect(extracted.ok).toBe(true);
++      if (extracted.ok) expect(extracted.content).toBe(content);
++    });
++  });
+ });
+```
+
+### 21.6 DIFF — semantic-qualification.test.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
+index 20be39ee..f679aa83 100644
+--- a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
+@@ -142,6 +142,33 @@ describe("semantic qualification envelope", () => {
+     expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
+   });
+
++  it("validateNoraTurnQualification accepts optional documentProposal", () => {
++    const v = validateNoraTurnQualification({
++      schemaVersion: "ml4c-sem-qual-v1",
++      status: "QUALIFIED",
++      goal: "document de cadrage",
++      intents: [
++        {
++          id: "i1",
++          capabilityId: "d4.create_document",
++          mode: "REQUEST_EFFECT",
++          summary: "cadrage",
++          parameters: {},
++          constraints: [],
++          dependsOn: [],
++          sourceEvidence: [],
++        },
++      ],
++      clarifications: [],
++      replyDraft: "Je prépare le document.",
++      documentProposal: {
++        title: "Cadrage",
++        contentMarkdown: "# Cadrage\n\nPérimètre initial.\n",
++      },
++    });
++    expect(v.ok).toBe(true);
++  });
++
+   it("deriveThreadTurnKind from semantic modes", () => {
+     const dialogue: NoraTurnQualification = {
+       schemaVersion: "ml4c-sem-qual-v1",
+```
+
+### 21.7 DIFF — cognitive-policy.test.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+index acf1b4b1..4bc540ec 100644
+--- a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+@@ -75,6 +75,12 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
+     expect(() => resolveProfileType()).toThrow(StudioError);
+   });
+
++  it("toolAllowlist includes conversation history read tools", () => {
++    const p = buildCognitivePolicy("Cherche un message passé sur le budget.", "TEST_BOUNDARY");
++    expect(p.toolAllowlist).toContain("search_conversation_history");
++    expect(p.toolAllowlist).toContain("read_conversation_messages");
++  });
++
+   it("maxTurns follows policy budget without silent hard cap of 12", () => {
+     const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
+     expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
+```
+
+### 21.8 DIFF — ml2-knowledge-documents.pg.test.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+index 84613cdb..c93ed594 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+@@ -127,17 +127,29 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
+     });
+     expect(conflict.status).toBe("CONFLICT");
+
++    // O-05: same correlationKey + same payload → idempotent AVAILABLE; different payload → CONFLICT.
+     const replay = await reviseDocument(pilotId, prep.id, {
+       documentId: v1.documentId,
+       baseRevisionId: v2.revisionId,
+-      contentMarkdown: "ignored on replay",
++      contentMarkdown: "# Spec\n\nSection A révisée\n",
+       correlationKey: "corr-rev-1",
+     });
+     expect(replay.status).toBe("AVAILABLE");
+     if (replay.status !== "AVAILABLE") throw new Error("replay");
+-    expect(replay.idempotentReplay).toBe(true);
++    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
+     expect(replay.revisionId).toBe(v2.revisionId);
+
++    const mismatch = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v2.revisionId,
++      contentMarkdown: "different payload same key",
++      correlationKey: "corr-rev-1",
++    });
++    expect(mismatch.status).toBe("CONFLICT");
++    if (mismatch.status === "CONFLICT") {
++      expect(mismatch.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
++    }
++
+     const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
+     expect(list.revisions.length).toBeGreaterThanOrEqual(2);
+     const cmp = await compareDocumentRevisions(
+```
+
+### 21.9 DIFF — ml4-chat-first-d4-provenance.pg.test.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+index 1d443c8f..e896c372 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+@@ -505,7 +505,7 @@ Fin.
+     if (first.status !== "AVAILABLE" || again.status !== "AVAILABLE") {
+       throw new Error("idempotent revise unavailable");
+     }
+-    expect(again.idempotentReplay).toBe(true);
++    expect("idempotentReplay" in again && again.idempotentReplay).toBe(true);
+     expect(again.revisionId).toBe(first.revisionId);
+   });
+```
+
+### 21.10 Completeness declaration
+
+Les huit fichiers signalés absents du handoff `137f546a` / blob `31244402` sont désormais inclus ci-dessus (corps intégraux pour les nouveaux ; diffs Git pour les modifiés).
+Aucun secret opérateur n'est ajouté. Schéma DB inchangé. Candidat produit local inchangé.
+
+## 22. Verdict (pack complété)
+
+**READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
+
+Handoff L3 à republier après cet addendum. ChatGPT doit relire le tip distant `sfia/review-handoff` (commit + blob) avant verdict.
+
+## 23. Instruction ChatGPT §9.1
+
+Avant de répondre à Morris, ChatGPT doit relire :
+
+Branche :
+sfia/review-handoff
+
+Fichier :
+sfia-review-handoff/latest-chatgpt-review.md
+
+Vérifier le commit distant, le blob, les contenus créés et modifiés (y compris l'addendum §21), les preuves et les réserves avant tout verdict.
