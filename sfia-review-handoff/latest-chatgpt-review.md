@@ -1,15 +1,15 @@
 # SFIA Studio Next — Review Pack FULL (MONO-CYCLE)
-## ML4C — Sealed Identity Final Closure (no-downgrade + field presence + E2E same-command HTTP)
+## ML4C — Provenance Parse Final Closure (stored parse refuse + FLOW-100 E2E)
 
-- **Date/heure**: 2026-11-14 ~12:25 Europe/Paris
-- **GO**: MORRIS LOCAL CORRECTION — sealed identity no-downgrade + field presence + E2E same-command HTTP
+- **Date/heure**: 2026-11-14 ~12:55 Europe/Paris
+- **GO**: MORRIS LOCAL CORRECTION — stored provenance parse refuse + 100 pairs E2E
 - **Profil**: Critical
 - **Branche locale**: `fix/next-semantic-intent-convergence-20261112`
 - **HEAD produit**: `67bf6b0b` (`67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`)
 - **origin/main**: `6cda86bde4aa450abb1d23eedd370a9004ddcbc1`
-- **Prior handoff**: `sfia/review-handoff@70f43b3f` blob `37ae086f`
+- **Prior handoff**: `sfia/review-handoff@357008ea` blob `b111a972`
 - **Product**: **LOCAL ONLY** — travail worktree, aucun commit / push produit ce cycle
-- **Review Handoff**: **REMOTE** — branche `sfia/review-handoff` · fichier `sfia-review-handoff/latest-chatgpt-review.md` (tip/blob exacts dans le rapport Cursor §25 après publish)
+- **Review Handoff**: **REMOTE après publication post-pack** (L3 borné ; tip/blob voir rapport Cursor §25)
 - **Verdict**: **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
 
 ---
@@ -22,9 +22,9 @@
 | Branche | `fix/next-semantic-intent-convergence-20261112` |
 | HEAD | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
 | origin/main | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
-| Cycle scope | P0 sealed identity dual request+stored ; hasOwn required keys ; refuse downgrade ; pack FULL candidat vs HEAD |
-| Changement production **ce cycle** | **UNIQUEMENT** `web/src/domains/document/service.ts` |
-| Handoff publish | **publish-in-cycle** — tip/blob exacts dans rapport Cursor §25 |
+| Cycle scope | P0 stored `parseProvenanceJson` refuse avant `resolveProvenanceIdentity` ; P1 FLOW-100 filler 200 msgs ; pack FULL candidat vs HEAD |
+| Changement production **ce cycle** | **UNIQUEMENT** `web/src/domains/document/service.ts` (P0) ; **P1** preuve E2E dans `ml4c-prior-proposal.pg.test.ts` |
+| Handoff publish | **deferred** — pack local d'abord, puis publication L3 (REMOTE) |
 
 ### git status --short (projects/sfia-studio-next)
 
@@ -109,8 +109,9 @@ projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
 | --- | --- |
 | tsc | PASS |
 | unit | 319 PASS |
-| integration (sfia_next_e2e) | 440 PASS |
-| ciblé DOWN/FIELD/E2E | 97 PASS |
+| integration (sfia_next_e2e) | 452 PASS |
+| ciblé identity+prior | 86 PASS |
+| ciblé command+recon | 23 PASS |
 | eslint (`document/service.ts`) | 0 errors |
 | build | PASS |
 | Playwright ML4C e2e | 2 PASS |
@@ -129,7 +130,7 @@ projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
 | `projects/sfia-studio-next/web/src/components/figma/tokens.css` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts` | tracked | N | Y | diff | §6 diff or §7 full |
-| `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts` | untracked | N | Y | full | §7 full (carry-over) |
+| `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts` | untracked | N | Y | full | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts` | untracked | N | Y | full | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/history-tools.ts` | untracked | N | Y | full | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts` | tracked | N | Y | diff | §6 diff or §7 full |
@@ -137,16 +138,16 @@ projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
 | `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/document/service.ts` | tracked | Y | Y | diff | §4 P0 + §6 diff |
-| `projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts` | untracked | N | Y | full | §5 E2E Playwright + §7 full |
-| `projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts` | untracked | N | Y | full | §5 E2E Playwright + §7 full |
+| `projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts` | untracked | N | Y | full | §5 Playwright + §7 full |
+| `projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts` | untracked | N | Y | full | §5 Playwright + §7 full |
 | `projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
 | `projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts` | untracked | N | Y | full | §5 carry-over + §6/§7 |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts` | untracked | N | Y | full | §5 DOWN/FIELD + §6 diff |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts` | untracked | N | Y | full | §5 E2E + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts` | untracked | N | Y | full | §5 command+recon + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts` | untracked | N | Y | full | §5 PARSE + §6 diff |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts` | untracked | N | Y | full | §5 command+recon + §6/§7 |
 | `projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts` | untracked | N | Y | full | §5 carry-over + §6/§7 |
 | `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts` | untracked | N | Y | full | §5 carry-over + §6/§7 |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts` | untracked | N | Y | full | §5 E2E + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts` | untracked | Y | Y | full | §4 P1 FLOW-100 + §6 diff |
 | `projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
 | `projects/sfia-studio-next/web/tests/unit/document-act.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
 | `projects/sfia-studio-next/web/tests/unit/document-command.test.ts` | untracked | N | Y | full | §5 carry-over + §6/§7 |
@@ -155,119 +156,32 @@ projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
 
 ---
 
-## 4. P0 sealed identity — no downgrade + field presence (before / after)
+## 4. P0 / P1 — stored provenance parse refuse (before / after)
 
 ### 4.1 Behaviour (synthesis)
 
-| Aspect | BEFORE (HEAD `67bf6b0b` + delta sans fermeture identité) | AFTER (candidat sealed identity final) |
+| Aspect | BEFORE (delta sans fermeture parse stockée) | AFTER (candidat provenance parse final) |
 | --- | --- | --- |
-| Résolution provenance | Request seul ; stored ignoré pour downgrade | `resolveProvenanceIdentity` sur **request ET stored** dans `reconcileWithProvenanceResolution` |
-| Downgrade sealed → historical | Risque fingerprint-only si request tronquée | `HISTORICAL` request + sealed stored → `UNKNOWN` / `COMMAND_PROVENANCE_UNVERIFIABLE` |
-| Marqueurs sealed partiels | Peut retomber HISTORICAL | `hasDistinctiveSealedMarkers` + binding absent/false → `SEALED_INVALID` (pas de downgrade silencieux) |
-| Champs nullables scellés | `undefined` vs absent non distingué | `hasOwn` + `SEALED_REQUIRED_KEYS` — clé **absente** → `SEALED_INVALID` ; `null` explicite autorisé CREATE |
-| Compare identity | hasOwn partiel dans compare | `compareSealedEffectIdentity` exige `documentId` / `baseRevisionId` / `sectionHint` présents via `hasOwnProperty` |
+| Provenance request absente | `resolveProvenanceIdentity(null)` → HISTORICAL | Inchangé — absence request ≠ preuve stored lisible |
+| Provenance stored illisible | `parseProvenanceJson` → null puis chemin HISTORICAL fingerprint | **`storedParsed === null` → `UNKNOWN` / `COMMAND_PROVENANCE_UNVERIFIABLE` avant toute résolution** |
+| Faux AVAILABLE | Risque reconcile fingerprint si JSON stocké corrompu | Refus fail-closed ; pas de downgrade silencieux vers fingerprint |
+| Dual request+stored | Déjà en place (cycle sealed identity) | Conservé — barrière parse **avant** `resolveProvenanceIdentity(stored)` |
 
-### 4.2 AFTER — `hasOwn` + `hasDistinctiveSealedMarkers`
+### 4.2 AFTER — `parseProvenanceJson`
 
 ```typescript
-function hasOwn(obj: object, key: string): boolean {
-  return Object.prototype.hasOwnProperty.call(obj, key);
-}
-
-function hasDistinctiveSealedMarkers(provenance: Record<string, unknown>): boolean {
-  if (provenance.documentCommandBinding === true) return true;
-  if (provenance.documentCommandBinding === false) {
-    // Explicit false + leftover sealed identity fields → not a clean historical.
-    return (
-      hasOwn(provenance, "qualifiedIntentId") ||
-      hasOwn(provenance, "payloadSha256") ||
-      hasOwn(provenance, "commandId")
-    );
+function parseProvenanceJson(raw: string): Record<string, unknown> | null {
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    return parsed as Record<string, unknown>;
+  } catch {
+    return null;
   }
-  // Marker absent: sealed remnants must not silently become HISTORICAL.
-  return hasOwn(provenance, "qualifiedIntentId") || hasOwn(provenance, "payloadSha256");
 }
 ```
 
-### 4.3 AFTER — `resolveProvenanceIdentity`
-
-```typescript
-export function resolveProvenanceIdentity(
-  provenance: Record<string, unknown> | undefined | null,
-): ProvenanceIdentityResolution {
-  const invalid = (): ProvenanceIdentityResolution => ({
-    kind: "SEALED_INVALID",
-    reason: "COMMAND_PROVENANCE_UNVERIFIABLE",
-  });
-
-  if (!provenance) return { kind: "HISTORICAL" };
-
-  const looksSealed = hasDistinctiveSealedMarkers(provenance);
-  if (!looksSealed) return { kind: "HISTORICAL" };
-
-  // Marker must be exactly true for VALID; otherwise remnants are INVALID.
-  if (provenance.documentCommandBinding !== true) return invalid();
-
-  for (const key of SEALED_REQUIRED_KEYS) {
-    if (!hasOwn(provenance, key)) return invalid();
-  }
-
-  if (
-    !nonEmptyString(provenance.commandId) ||
-    !nonEmptyString(provenance.operationId) ||
-    !nonEmptyString(provenance.userMessageId) ||
-    !nonEmptyString(provenance.qualifiedIntentId) ||
-    (provenance.action !== "CREATE" && provenance.action !== "REVISE") ||
-    !nonEmptyString(provenance.preparationId) ||
-    !nonEmptyString(provenance.correlationKey) ||
-    !nonEmptyString(provenance.title) ||
-    typeof provenance.contentSha256 !== "string" ||
-    !SHA256_HEX_RE.test(provenance.contentSha256) ||
-    typeof provenance.payloadSha256 !== "string" ||
-    !SHA256_HEX_RE.test(provenance.payloadSha256) ||
-    !isValidSealedSource(provenance.source)
-  ) {
-    return invalid();
-  }
-
-  // P0-B: nullable fields must be present; CREATE uses explicit null.
-  if (provenance.action === "CREATE") {
-    if (provenance.documentId !== null || provenance.baseRevisionId !== null) return invalid();
-  } else {
-    if (!nonEmptyString(provenance.documentId) || !nonEmptyString(provenance.baseRevisionId)) {
-      return invalid();
-    }
-  }
-  if (
-    provenance.sectionHint !== null &&
-    !nonEmptyString(provenance.sectionHint)
-  ) {
-    return invalid();
-  }
-
-  return {
-    kind: "SEALED_VALID",
-    identity: {
-      commandId: provenance.commandId,
-      operationId: provenance.operationId,
-      userMessageId: provenance.userMessageId,
-      qualifiedIntentId: provenance.qualifiedIntentId,
-      action: provenance.action,
-      source: provenance.source,
-      preparationId: provenance.preparationId,
-      documentId: provenance.documentId as string | null,
-      baseRevisionId: provenance.baseRevisionId as string | null,
-      sectionHint: provenance.sectionHint as string | null,
-      correlationKey: provenance.correlationKey,
-      contentSha256: provenance.contentSha256,
-      payloadSha256: provenance.payloadSha256,
-      title: provenance.title,
-    },
-  };
-}
-```
-
-### 4.4 AFTER — `reconcileWithProvenanceResolution` (dual request + stored)
+### 4.3 AFTER — `reconcileWithProvenanceResolution` (barrière parse stored)
 
 ```typescript
 function reconcileWithProvenanceResolution(args: {
@@ -292,7 +206,12 @@ function reconcileWithProvenanceResolution(args: {
   };
 
   const requestRes = resolveProvenanceIdentity(args.provenance ?? null);
+  // Stored provenance must be a valid JSON object before any HISTORICAL/SEALED path.
+  // parseProvenanceJson(null) → HISTORICAL would falsely authorize fingerprint reconcile.
   const storedParsed = parseProvenanceJson(args.prior.provenanceJson);
+  if (storedParsed === null) {
+    return unverifiable;
+  }
   const storedRes = resolveProvenanceIdentity(storedParsed);
 
   if (requestRes.kind === "SEALED_INVALID" || storedRes.kind === "SEALED_INVALID") {
@@ -328,76 +247,204 @@ function reconcileWithProvenanceResolution(args: {
 }
 ```
 
-### 4.5 BEFORE — `resolveProvenanceIdentity` @ HEAD (excerpt)
+### 4.4 BEFORE — reconcile excerpt @ HEAD (sans barrière parse stored explicite)
 
 ```typescript
-/* function resolveProvenanceIdentity not found */
+/* reconcileWithProvenanceResolution absent @ HEAD */
 ```
 
-### 4.6 BEFORE — reconcile entry @ HEAD (excerpt)
+### 4.5 P1 — FLOW-100 filler seed (E2E integrated — `ml4c-prior-proposal.pg.test.ts`)
 
-Au HEAD, pas de barrière explicite request HISTORICAL vs stored sealed dans ce helper.
+200 messages intermédiaires : **100 USER + 100 ASSISTANT**, ordinals contigus, comptages explicites avant AGREE / reconcile HTTP.
 
 ```typescript
-/* reconcileWithProvenanceResolution absent @ HEAD — fingerprint path direct */
+// FLOW-100: 100 complete exchanges = 100 USER + 100 ASSISTANT = 200 intermediate messages.
+    const fillerStart = maxOrd + 1;
+    await seedFillerMessages(convId!, 200, fillerStart);
+
+    const fillerRows = await db
+      .select({
+        id: messages.id,
+        role: messages.role,
+        ordinal: messages.ordinal,
+      })
+      .from(messages)
+      .where(eq(messages.conversationId, convId!))
+      .orderBy(asc(messages.ordinal));
+    const fillers = fillerRows.filter((m) => m.ordinal >= fillerStart);
+    expect(fillers.length).toBe(200);
+    expect(fillers.filter((m) => m.role === "user").length).toBe(100);
+    expect(fillers.filter((m) => m.role === "assistant").length).toBe(100);
+    const fillerOrdinals = fillers.map((m) => m.ordinal);
+    expect(new Set(fillerOrdinals).size).toBe(200);
+    for (let i = 1; i < fillerOrdinals.length; i++) {
+      expect(fillerOrdinals[i]).toBe(fillerOrdinals[i - 1]! + 1);
+    }
+    expect(fillerRows.some((m) => m.id === assistantMessageId)).toBe(true);
+
+    const agreeUtterance = `ML4C-E2E-AGREE-${assistantMessageId}`;
+    const stableAgreementTurnKey = `e2e-agree-${Date.now()}`;
+    registerExplicitFixture(agreeUtterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "agree prepared",
+        intents: [
+          {
+            id: "i-d4-create",
+            capabilityId: "d4.create_document",
+            mode: "REQUEST_EFFECT",
+            summary: "create from prepared",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "J'enregistre.",
+        documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId },
+      },
+    });
+
+    const first = await postUserMessageAndNora(pilotId, prep.id, agreeUtterance, {
+      clientTurnKey: stableAgreementTurnKey,
+    });
+    expect(first.documentSave?.status).toBe("AVAILABLE");
+    expect(first.idempotentReplay).toBe(false);
+    const documentId = first.documentSave!.documentId!;
+    const revisionId = first.documentSave!.revisionId!;
+    const operationId = first.operationId!;
+    expect(operationId).toBeTruthy();
+
+    const cmdRow = (
+      await db
+        .select({ commandId: conversationTurnCommands.id })
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.operationId, operationId))
+        .limit(1)
+    )[0];
+    const commandId = cmdRow!.commandId;
+    expect(commandId).toBeTruthy();
+
+    const loaded = await loadSealedDocumentBinding({
+      pilotId,
+      preparationId: prep.id,
+      commandId,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) throw new Error(loaded.reason);
+    const correlationKey = loaded.binding.correlationKey;
+    expect(loaded.binding.title).toBe(title);
+    expect(loaded.binding.contentMarkdown).toBe(contentMarkdown);
+    expect(loaded.binding.contentSha256).toBe(contentSha256(title, contentMarkdown));
+    expect(loaded.binding.source).toEqual({
+      kind: "ASSISTANT_MESSAGE",
+      assistantMessageId,
+    });
+
+    const storedRev = (
+      await db
+        .select({
+          contentMarkdown: documentRevisions.contentMarkdown,
+          title: documents.title,
+        })
+        .from(documentRevisions)
+        .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
+        .where(eq(documentRevisions.id, revisionId))
+        .limit(1)
+    )[0];
+    expect(storedRev?.title).toBe(title);
+    expect(storedRev?.contentMarkdown).toBe(contentMarkdown);
+
+    const docCountBefore = (await countD4Rows(pilotId, prep.id)).documents;
+    const revCountBefore = (
+      await db
+        .select({ n: sql<number>`count(*)`.mapWith(Number) })
+        .from(documentRevisions)
+        .where(eq(documentRevisions.documentId, documentId))
+    )[0]?.n ?? 0;
+
+    const second = await postUserMessageAndNora(pilotId, prep.id, agreeUtterance, {
+      clientTurnKey: stableAgreementTurnKey,
+    });
+    expect(second.idempotentReplay).toBe(true);
+    expect(second.operationId).toBe(operationId);
+    expect(second.documentSave?.documentId).toBe(documentId);
+    expect(second.documentSave?.revisionId).toBe(revisionId);
+
+    const httpBaseline = await countD4Rows(pilotId, prep.id);
+    for (let i = 0; i < 10; i++) {
+      const res = await reconcileHttpGet(prep.id, {
+        documentCommandId: commandId,
+        correlationKey,
+      });
+      expect(res.status).toBe(200);
+      expect(res.body.verdict).toBe("AVAILABLE");
+      expect(res.body.documentId).toBe(documentId);
+      expect(res.body.revisionId).toBe(revisionId);
+    }
+    expect(await countD4Rows
 ```
+
+### 4.6 Oracle adversarial central
+
+Révision valide en base → altération **uniquement** de `document_revisions.provenance_json` → reconcile ne doit **jamais** produire `AVAILABLE` par fingerprint historique sur stored illisible.
 
 ---
 
-## 5. Test matrices — DOWN / FIELD / E2E (97 PASS)
+## 5. Test matrices — PARSE / FLOW-100 (ciblé 86+23 + global)
 
-### 5.1 DOWN — downgrade refusal (`ml4c-document-identity.pg.test.ts`)
+### 5.1 PARSE — stored provenance parse (`ml4c-document-identity.pg.test.ts`)
 
-| ID | Coverage | Status |
+| ID | Scénario | Oracle | Status |
+| --- | --- | --- | --- |
+| PARSE-01 | Historique avec provenance JSON objet valide | AVAILABLE si corrélation et contenu concordent | PASS |
+| PARSE-02 | Historique avec provenance `{}` valide | Compatibilité maintenue | PASS |
+| PARSE-03 | Provenance stockée JSON syntaxiquement invalide | Jamais AVAILABLE | PASS |
+| PARSE-04 | Provenance stockée `null` | Jamais AVAILABLE | PASS |
+| PARSE-05 | Provenance stockée tableau `[]` | Jamais AVAILABLE | PASS |
+| PARSE-06 | Provenance stockée chaîne JSON primitive | Jamais AVAILABLE | PASS |
+| PARSE-07 | Provenance stockée vide | Jamais AVAILABLE | PASS |
+| PARSE-08 | Commande scellée saine | AVAILABLE | PASS |
+| PARSE-09 | Commande scellée + JSON stocké corrompu | UNKNOWN | PASS |
+| PARSE-10 | Demande historique vs révision scellée stored corrompue | Jamais AVAILABLE | PASS |
+| PARSE-11 | Dix replays provenance corrompue | Zéro nouvel effet D4 | PASS |
+| PARSE-12 | REVISE + provenance stockée corrompue | Jamais AVAILABLE | PASS |
+
+### 5.2 FLOW-100 — 100 paires E2E (`ml4c-prior-proposal.pg.test.ts`)
+
+| ID | Oracle | Status |
 | --- | --- | --- |
-| DOWN-01 | historical real (no sealed markers) → AVAILABLE historical | PASS |
-| DOWN-02 | CREATE sealed healthy → AVAILABLE | PASS |
-| DOWN-03 | sealed stored + request binding key removed → never AVAILABLE | PASS |
-| DOWN-04 | sealed stored + request documentCommandBinding:false → never AVAILABLE | PASS |
-| DOWN-05 | sealed stored + request provenance undefined → never AVAILABLE | PASS |
-| DOWN-06 | DB provenance — remove binding, keep sealed remnants → never AVAILABLE | PASS |
-| DOWN-07 | sealed request + altered stored identity → not AVAILABLE | PASS |
-| DOWN-08 | distinctive sealed remnants + binding marker absent → refuse | PASS |
-| DOWN-09 | same content+corr, incoherent request identity → never AVAILABLE | PASS |
-| DOWN-10 | after DB tamper — 10× reconcile, zero writes, never AVAILABLE | PASS |
-| DOWN-11 | historical CREATE/REVISE non-regression | PASS |
+| FLOW-100-01 | PREPARE ne crée aucun D4 | PASS |
+| FLOW-100-02 | 100 USER + 100 ASSISTANT persistés | PASS |
+| FLOW-100-03 | Proposition initiale retrouvée | PASS |
+| FLOW-100-04 | Accord sur le bon assistantMessageId | PASS |
+| FLOW-100-05 | Titre, corps et SHA identiques | PASS |
+| FLOW-100-06 | Un document / une révision | PASS |
+| FLOW-100-07 | Replay même clientTurnKey | PASS |
+| FLOW-100-08 | idempotentReplay=true | PASS |
+| FLOW-100-09 | Même commandId et operationId | PASS |
+| FLOW-100-10 | Dix GET 200 AVAILABLE sur C/K | PASS |
+| FLOW-100-11 | Zéro mutation des GET | PASS |
+| FLOW-100-12 | Après altération provenance, GET jamais AVAILABLE | PASS |
 
-### 5.2 FIELD — required key presence (`ml4c-document-identity.pg.test.ts`)
+### 5.3 Aggregate targeted suites
 
-| ID | Coverage | Status |
-| --- | --- | --- |
-| FIELD-01 | CREATE documentId:null present → SEALED_VALID | PASS |
-| FIELD-02 | CREATE documentId key absent → SEALED_INVALID | PASS |
-| FIELD-03 | CREATE baseRevisionId:null present → SEALED_VALID | PASS |
-| FIELD-04 | CREATE baseRevisionId absent → SEALED_INVALID | PASS |
-| FIELD-05 | CREATE sectionHint:null present → SEALED_VALID | PASS |
-| FIELD-06 | CREATE sectionHint absent → SEALED_INVALID | PASS |
-| FIELD-07 | REVISE documentId+baseRevisionId present → SEALED_VALID | PASS |
-| FIELD-08 | REVISE documentId absent → SEALED_INVALID | PASS |
-| FIELD-09 | REVISE baseRevisionId absent → SEALED_INVALID | PASS |
-| FIELD-10 | REVISE sectionHint:null present → SEALED_VALID | PASS |
-| FIELD-11 | REVISE sectionHint absent → SEALED_INVALID | PASS |
-| FIELD-12 | delete required field from DB provenance → never AVAILABLE | PASS |
-| FIELD-13 | delete required field from request provenance → never AVAILABLE | PASS |
-| FIELD-14 | same SHA+corr, missing required field on replay → never AVAILABLE | PASS |
-| FIELD-15 | nominal CREATE+REVISE replay same refs | PASS |
+| Suite | Fichiers | Count | Status |
+| --- | --- | --- | --- |
+| identity+prior | `ml4c-document-identity.pg.test.ts` + `ml4c-prior-proposal.pg.test.ts` | 86 | PASS |
+| command+recon | `ml4c-document-command.pg.test.ts` + `ml4c-document-reconciliation.pg.test.ts` | 23 | PASS |
+| PARSE-01…12 | identity | 12 | PASS |
+| FLOW-100-01…12 | prior integrated E2E | 12 | PASS |
 
-### 5.3 E2E — same-command HTTP + integrated flow
+### 5.4 Playwright (non-régression ML4C)
 
-| ID | Coverage | Status |
-| --- | --- | --- |
-| E2E-INTEGRATED | PREPARE → N+100 → AGREE → idempotent replay → 10× reconcileHttpGet (same commandId + correlationKey) — `ml4c-prior-proposal.pg.test.ts` | PASS |
-| E2E-HTTP-TAMPER | post-seal DB provenance tamper → HTTP verdict not AVAILABLE, zero D4 writes — same file | PASS |
-| FLOW-HTTP | sealed CREATE then 10× reconcileHttpGet — stable ids — `ml4c-document-reconciliation.pg.test.ts` | PASS |
-| F05-09 | ten consecutive HTTP GET → zero new D4 rows — reconciliation suite | PASS |
-| E2E-PW-CONTINUITY | Playwright `ml4c-document-continuity.spec.ts` — scroll + composer FAKE send | PASS |
-| E2E-PW-LONG-THREAD | Playwright `ml4c-long-thread-composer.spec.ts` — C-07 sticky composer 320+ journal | PASS |
-
-### 5.4 Aggregate targeted suite
-
-| Suite | Count | Status |
-| --- | --- | --- |
-| DOWN + FIELD + E2E (ciblé) | 97 | PASS |
+| Spec | Status |
+| --- | --- |
+| `ml4c-document-continuity.spec.ts` | PASS |
+| `ml4c-long-thread-composer.spec.ts` | PASS |
 
 ---
 
@@ -407,13 +454,29 @@ Au HEAD, pas de barrière explicite request HISTORICAL vs stored sealed dans ce 
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index ec4ab254..0f0c787f 100644
+index ec4ab254..e18fd7d0 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,101 @@ Append-only logical journal of Cursor product deliveries.
+@@ -4,6 +4,117 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
++## delivery_id: DELIV-2026-11-14-ML4C-PROVENANCE-PARSE-FINAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~12:50 CET (Europe/Paris) |
++| Macro-lot | ML4C — Fermeture fallback provenance stockée illisible + preuve 100 paires E2E |
++| Type | INC Critical corrective (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Prior handoff | `sfia/review-handoff@357008ea` blob `b111a972` |
++| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | `reconcileWithProvenanceResolution` refuse stored parse null ; E2E 200 msgs (100 pairs) |
++| Schema | unchanged |
++| Tests | PARSE-01…12 + FLOW-100 + non-rég ; LIVE NOT PROVEN |
++| Status | Product LOCAL ONLY ; Review Handoff L3 published in-cycle |
++
 +## delivery_id: DELIV-2026-11-14-ML4C-SEALED-IDENTITY-FINAL
 +
 +| Field | Value |
@@ -1779,10 +1842,10 @@ index e2c0b349..7f38c4bf 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
-index 6d079275..d057911a 100644
+index 6d079275..296527ce 100644
 --- a/projects/sfia-studio-next/web/src/domains/document/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
-@@ -66,26 +66,405 @@ type ReconcileConflict = {
+@@ -66,26 +66,410 @@ type ReconcileConflict = {
    revisionNumber: number;
  };
 
@@ -2097,7 +2160,12 @@ index 6d079275..d057911a 100644
 +  };
 +
 +  const requestRes = resolveProvenanceIdentity(args.provenance ?? null);
++  // Stored provenance must be a valid JSON object before any HISTORICAL/SEALED path.
++  // parseProvenanceJson(null) → HISTORICAL would falsely authorize fingerprint reconcile.
 +  const storedParsed = parseProvenanceJson(args.prior.provenanceJson);
++  if (storedParsed === null) {
++    return unverifiable;
++  }
 +  const storedRes = resolveProvenanceIdentity(storedParsed);
 +
 +  if (requestRes.kind === "SEALED_INVALID" || storedRes.kind === "SEALED_INVALID") {
@@ -2203,7 +2271,7 @@ index 6d079275..d057911a 100644
    }
    if (args.prior.status === "FAILED") {
      return {
-@@ -190,6 +569,14 @@ export async function savePreparationDocument(
+@@ -190,6 +574,14 @@ export async function savePreparationDocument(
    const titleFinal = title || "Document du sas";
    const fp = contentFingerprint(titleFinal, contentMarkdown);
 
@@ -2218,7 +2286,7 @@ index 6d079275..d057911a 100644
    // --- Creation idempotence: resolve durable command identity BEFORE allocating a new doc id ---
    if (!documentId && opts?.correlationKey) {
      const existingDoc = await findByCreationCorrelation(
-@@ -202,11 +589,12 @@ export async function savePreparationDocument(
+@@ -202,11 +594,12 @@ export async function savePreparationDocument(
          (await findRevisionByCorrelation(existingDoc.id, opts.correlationKey)) ??
          (await waitForRevisionByCorrelation(existingDoc.id, opts.correlationKey));
        if (priorRev) {
@@ -2232,7 +2300,7 @@ index 6d079275..d057911a 100644
          });
        }
        // Document row exists but revision still absent after bounded wait
-@@ -220,54 +608,9 @@ export async function savePreparationDocument(
+@@ -220,54 +613,9 @@ export async function savePreparationDocument(
 
    let docId = documentId;
    let ownedTitle = titleFinal;
@@ -2290,7 +2358,7 @@ index 6d079275..d057911a 100644
      const owned = (
        await db
          .select()
-@@ -283,26 +626,26 @@ export async function savePreparationDocument(
+@@ -283,26 +631,26 @@ export async function savePreparationDocument(
      )[0];
      if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
      ownedTitle = owned.title;
@@ -2331,7 +2399,7 @@ index 6d079275..d057911a 100644
            return {
              status: "FAILED" as const,
              reason: "TURN_OWNERSHIP_LOST",
-@@ -311,9 +654,56 @@ export async function savePreparationDocument(
+@@ -311,9 +659,56 @@ export async function savePreparationDocument(
          }
        }
 
@@ -2391,7 +2459,7 @@ index 6d079275..d057911a 100644
 
        if (opts?.correlationKey) {
          const prior = (
-@@ -329,11 +719,12 @@ export async function savePreparationDocument(
+@@ -329,11 +724,12 @@ export async function savePreparationDocument(
              .limit(1)
          )[0];
          if (prior) {
@@ -2405,7 +2473,7 @@ index 6d079275..d057911a 100644
            });
          }
        }
-@@ -393,22 +784,29 @@ export async function savePreparationDocument(
+@@ -393,22 +789,29 @@ export async function savePreparationDocument(
    } catch (e) {
      // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
      if (opts?.correlationKey) {
@@ -2450,7 +2518,7 @@ index 6d079275..d057911a 100644
      }
      return {
        status: "FAILED" as const,
-@@ -434,14 +832,39 @@ export async function reviseDocument(
+@@ -434,14 +837,39 @@ export async function reviseDocument(
      sectionHint?: string;
      provenance?: Record<string, unknown>;
      injectFailureAfterLock?: boolean;
@@ -2490,7 +2558,7 @@ index 6d079275..d057911a 100644
        await tx.execute(
          sql`select id from documents where id = ${input.documentId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
        );
-@@ -461,7 +884,11 @@ export async function reviseDocument(
+@@ -461,7 +889,11 @@ export async function reviseDocument(
        )[0];
        if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
 
@@ -2503,7 +2571,7 @@ index 6d079275..d057911a 100644
        const prior = (
          await tx
            .select()
-@@ -475,13 +902,13 @@ export async function reviseDocument(
+@@ -475,13 +907,13 @@ export async function reviseDocument(
            .limit(1)
        )[0];
        if (prior) {
@@ -2523,7 +2591,7 @@ index 6d079275..d057911a 100644
        }
 
        const base = (
-@@ -543,6 +970,7 @@ export async function reviseDocument(
+@@ -543,6 +975,7 @@ export async function reviseDocument(
          provenanceJson: JSON.stringify({
            ...(input.provenance ?? {}),
            sectionHint: input.sectionHint ?? null,
@@ -2531,7 +2599,7 @@ index 6d079275..d057911a 100644
          }),
          scope: input.scope ?? "section",
        });
-@@ -799,3 +1227,173 @@ export async function compareDocumentRevisions(
+@@ -799,3 +1232,173 @@ export async function compareDocumentRevisions(
      diff,
    };
  }
@@ -2924,54 +2992,55 @@ index 20be39ee..f679aa83 100644
 ```markdown
 # As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
 
-**Date :** 14 novembre 2026 (fermeture identité scellée + preuve E2E intégrée)
+**Date :** 14 novembre 2026 (fermeture parse provenance stockée + preuve 100 paires)
 **Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
 **Conception :** V0.7 @ `86377fde`
-**Handoff précédent :** `sfia/review-handoff@70f43b3f` blob `37ae086f`
-**Statut :** IMPLEMENTED CANDIDATE — no sealed→historical downgrade ; champs obligatoires présents ; E2E PREPARE→HTTP ; LIVE NOT PROVEN
+**Handoff précédent :** `sfia/review-handoff@357008ea` blob `b111a972`
+**Statut :** IMPLEMENTED CANDIDATE — stored JSON illisible ≠ HISTORICAL ; 100 paires E2E ; LIVE NOT PROVEN
 **STABLE / release :** NOT AVAILABLE — NO RELEASE
 
 ## 1. Objet
 
-Fermeture des deux derniers contournements d'identité scellée + une preuve intégrée unique.
+Fermeture des deux réserves Critical Review (parse provenance + preuve N+100 paires).
 
 | Correctif | Mécanisme |
 | --- | --- |
-| P0-A | Classification requête **et** révision stockée ; refuse downgrade HISTORICAL→scellé stocké |
-| P0-B | Champs scellés obligatoirement présents (`hasOwnProperty`) ; `null` ≠ absent |
-| E2E | PREPARE → N+100 → accord → replay USER → 10× GET HTTP **sur la même commande** |
-| Acquis antérieurs | F/C/P0 integrity / sealed replay / tag compat conservés |
+| P0 | Provenance PostgreSQL illisible / non-objet → `UNKNOWN` / `COMMAND_PROVENANCE_UNVERIFIABLE` ; jamais fallback historique |
+| P1 | E2E PREPARE → **100 paires** (200 messages) → accord → replay → 10× GET same command |
+| Acquis | no-downgrade ; champs `hasOwn` ; identité scellée ; HTTP RO |
 
 ## 2. Classification de provenance
 
 ```text
-HISTORICAL          — aucun marqueur distinctif de scellement
+HISTORICAL          — objet JSON valide, aucun marqueur distinctif de scellement
 SEALED_VALID        — documentCommandBinding===true + tous champs présents + invariants
 SEALED_INVALID      — marqueur/restes scellés incomplets ou invalides
+STORED_INVALID      — JSON illisible / null / tableau / primitive / vide → refuse avant classification
 ```
 
-Marqueurs distinctifs : `documentCommandBinding`, `qualifiedIntentId`, `payloadSha256`
-(pas `correlationKey` / `sectionHint` seuls).
+**Frontière :** absence de provenance **entrante** (demande historique) ≠ provenance **stockée** illisible.
 
-Réconciliation : jamais fingerprint historique si la révision stockée est scellée (VALID ou INVALID).
+Réconciliation : `parseProvenanceJson` doit produire un objet avant tout chemin HISTORICAL ou scellé.
 
 ## 3. Champs obligatoires scellés
 
-Présents explicitement : binding, commandId, operationId, userMessageId, qualifiedIntentId, action, source, preparationId, documentId, baseRevisionId, sectionHint, correlationKey, title, contentSha256, payloadSha256.
+Présents explicitement (hasOwn) : binding, commandId, operationId, userMessageId, qualifiedIntentId, action, source, preparationId, documentId, baseRevisionId, sectionHint, correlationKey, title, contentSha256, payloadSha256.
 
 CREATE : `documentId`/`baseRevisionId` présents avec `null`.
 REVISE : IDs non vides.
-`sectionHint` présent (`null` ou string).
+Contrôle entrée **et** provenance PostgreSQL objet valide.
 
-Contrôle entrée **et** provenance PostgreSQL.
+## 4. Preuve E2E (100 paires)
 
-## 4. Preuve E2E
+PREPARE → 100 USER + 100 ASSISTANT (ordinals uniques) → accord `PRIOR_ASSISTANT_MESSAGE` → D4 CREATE → replay `clientTurnKey` → 10× GET HTTP sur C/K → AVAILABLE inchangé ; altération provenance → refus AVAILABLE ; zéro écriture GET.
 
-Une seule commande C / corrélation K issue de l'accord différé : replay USER + dix GET HTTP → AVAILABLE inchangé, zéro écriture ; altération contrôlée → refus.
+## 5. Tests réellement exécutés (ce cycle)
 
-## 5. Réserves
+PARSE-01…12 ; FLOW-100 E2E ; suites ML4C PG ; unit/integration ; tsc ; eslint `document/service.ts` ; build ; Playwright ML4C ×2.
 
-LIVE NOT PROVEN ; push produit / PR #676 / RECETTE / Gate C hors mandat ; NO RELEASE.
+## 6. Réserves
+
+LIVE NOT PROVEN ; RECETTE NOT EXECUTED ; push produit / PR #676 / Gate C hors mandat ; NO RELEASE.
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts`
@@ -6572,6 +6641,268 @@ describe("ML4C document identity F-01 (PG)", () => {
     });
   });
 
+  describe("PARSE stored provenance readability (PG)", () => {
+    async function corruptRevisionProvenance(revisionId: string, raw: string) {
+      await db
+        .update(documentRevisions)
+        .set({ provenanceJson: raw })
+        .where(eq(documentRevisions.id, revisionId));
+    }
+
+    async function historicalCreate(
+      pilotId: string,
+      prepId: string,
+      label: string,
+      provenance: Record<string, unknown>,
+    ) {
+      const title = `PARSE ${label}`;
+      const body = `# ${title}\n\nCorps ${label} inchangé.\n`;
+      const correlationKey = `corr-parse-${label}-${Date.now()}`;
+      const saved = await savePreparationDocument(pilotId, prepId, title, body, undefined, {
+        correlationKey,
+        provenance,
+      });
+      return { title, body, correlationKey, saved };
+    }
+
+    it("PARSE-01: historical valid JSON object → AVAILABLE on content match", async () => {
+      const pilotId = await seedPilot("parse-01");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await historicalCreate(pilotId, prep.id, "01", {
+        note: "legacy-valid-object",
+        correlationKey: "placeholder",
+      });
+      expect(saved.status).toBe("AVAILABLE");
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: { note: "legacy-replay", correlationKey },
+      });
+      expect(replay.status).toBe("AVAILABLE");
+      if (saved.status === "AVAILABLE" && replay.status === "AVAILABLE") {
+        expect(replay.documentId).toBe(saved.documentId);
+        expect(replay.revisionId).toBe(saved.revisionId);
+      }
+    });
+
+    it("PARSE-02: historical provenance {} → AVAILABLE compatibility", async () => {
+      const pilotId = await seedPilot("parse-02");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await historicalCreate(pilotId, prep.id, "02", {});
+      expect(saved.status).toBe("AVAILABLE");
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: {},
+      });
+      expect(replay.status).toBe("AVAILABLE");
+    });
+
+    it("PARSE-03: stored JSON syntax invalid → never AVAILABLE", async () => {
+      const pilotId = await seedPilot("parse-03");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await historicalCreate(pilotId, prep.id, "03", {
+        note: "will-corrupt",
+      });
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+      const before = await countD4Rows(pilotId, prep.id);
+      await corruptRevisionProvenance(saved.revisionId, "{not-json");
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: { note: "hist-request" },
+      });
+      expect(replay.status).toBe("UNKNOWN");
+      if (replay.status === "UNKNOWN" && "reason" in replay) {
+        expect(replay.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+      }
+      expect(await countD4Rows(pilotId, prep.id)).toEqual(before);
+    });
+
+    it("PARSE-04: stored JSON null → never AVAILABLE", async () => {
+      const pilotId = await seedPilot("parse-04");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await historicalCreate(pilotId, prep.id, "04", {
+        note: "will-null",
+      });
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+      await corruptRevisionProvenance(saved.revisionId, "null");
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: { note: "hist-request" },
+      });
+      expect(replay.status).not.toBe("AVAILABLE");
+      if (replay.status === "UNKNOWN" && "reason" in replay) {
+        expect(replay.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+      }
+    });
+
+    it("PARSE-05: stored JSON array → never AVAILABLE", async () => {
+      const pilotId = await seedPilot("parse-05");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await historicalCreate(pilotId, prep.id, "05", {
+        note: "will-array",
+      });
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+      await corruptRevisionProvenance(saved.revisionId, "[]");
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: { note: "hist-request" },
+      });
+      expect(replay.status).not.toBe("AVAILABLE");
+    });
+
+    it("PARSE-06: stored JSON string primitive → never AVAILABLE", async () => {
+      const pilotId = await seedPilot("parse-06");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await historicalCreate(pilotId, prep.id, "06", {
+        note: "will-string",
+      });
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+      await corruptRevisionProvenance(saved.revisionId, '"legacy-string"');
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: { note: "hist-request" },
+      });
+      expect(replay.status).not.toBe("AVAILABLE");
+    });
+
+    it("PARSE-07: stored empty string → never AVAILABLE", async () => {
+      const pilotId = await seedPilot("parse-07");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await historicalCreate(pilotId, prep.id, "07", {
+        note: "will-empty",
+      });
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+      await corruptRevisionProvenance(saved.revisionId, "");
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: { note: "hist-request" },
+      });
+      expect(replay.status).not.toBe("AVAILABLE");
+    });
+
+    it("PARSE-08: sealed healthy → AVAILABLE", async () => {
+      const pilotId = await seedPilot("parse-08");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { saved } = await sealCreateViaSave(pilotId, prep.id, "parse-08");
+      expect(saved.status).toBe("AVAILABLE");
+    });
+
+    it("PARSE-09: sealed command + corrupted stored JSON → UNKNOWN", async () => {
+      const pilotId = await seedPilot("parse-09");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, prov, saved } = await sealCreateViaSave(
+        pilotId,
+        prep.id,
+        "parse-09",
+      );
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+      await corruptRevisionProvenance(saved.revisionId, "{broken");
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: prov,
+      });
+      expect(replay.status).toBe("UNKNOWN");
+      if (replay.status === "UNKNOWN" && "reason" in replay) {
+        expect(replay.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+      }
+    });
+
+    it("PARSE-10: historical request vs corrupted sealed-looking stored → never AVAILABLE", async () => {
+      const pilotId = await seedPilot("parse-10");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await sealCreateViaSave(
+        pilotId,
+        prep.id,
+        "parse-10",
+      );
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+      await corruptRevisionProvenance(saved.revisionId, "null");
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey,
+        provenance: { note: "hist-vs-corrupt", correlationKey },
+      });
+      expect(replay.status).not.toBe("AVAILABLE");
+      if (replay.status === "UNKNOWN" && "reason" in replay) {
+        expect(replay.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+      }
+    });
+
+    it("PARSE-11: ten corrupted replays → zero new D4 effects", async () => {
+      const pilotId = await seedPilot("parse-11");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { title, body, correlationKey, saved } = await historicalCreate(pilotId, prep.id, "11", {
+        note: "adversarial",
+      });
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+      await corruptRevisionProvenance(saved.revisionId, "{not-json");
+      const before = await countD4Rows(pilotId, prep.id);
+      for (let i = 0; i < 10; i++) {
+        const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+          correlationKey,
+          provenance: { note: `hist-replay-${i}`, correlationKey },
+        });
+        expect(replay.status).toBe("UNKNOWN");
+        if (replay.status === "UNKNOWN" && "reason" in replay) {
+          expect(replay.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+        }
+      }
+      expect(await countD4Rows(pilotId, prep.id)).toEqual(before);
+    });
+
+    it("PARSE-12: REVISE with corrupted stored provenance → never AVAILABLE", async () => {
+      const pilotId = await seedPilot("parse-12");
+      const prep = await openOrCreatePreparation(pilotId);
+      const created = await sealCreateViaSave(pilotId, prep.id, "parse-12-base");
+      expect(created.saved.status).toBe("AVAILABLE");
+      if (created.saved.status !== "AVAILABLE") throw new Error("create");
+
+      const corrRev = `corr-parse-12-rev-${Date.now()}`;
+      const bodyRev = `${created.body}\n## Rev\n\nParse-12.\n`;
+      const revId = minimalReviseIdentity(
+        prep.id,
+        corrRev,
+        created.title,
+        bodyRev,
+        created.saved.documentId,
+        created.saved.revisionId,
+      );
+      const revProv = buildSealedProvenance(revId);
+      const revised = await savePreparationDocument(
+        pilotId,
+        prep.id,
+        created.title,
+        bodyRev,
+        created.saved.documentId,
+        { correlationKey: corrRev, provenance: revProv },
+      );
+      expect(revised.status).toBe("AVAILABLE");
+      if (revised.status !== "AVAILABLE") throw new Error("revise");
+
+      const before = await countD4Rows(pilotId, prep.id);
+      await corruptRevisionProvenance(revised.revisionId, "[]");
+      const replay = await savePreparationDocument(
+        pilotId,
+        prep.id,
+        created.title,
+        bodyRev,
+        created.saved.documentId,
+        { correlationKey: corrRev, provenance: revProv },
+      );
+      expect(replay.status).not.toBe("AVAILABLE");
+      if (replay.status === "UNKNOWN" && "reason" in replay) {
+        expect(replay.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+      }
+      expect(await countD4Rows(pilotId, prep.id)).toEqual(before);
+    });
+  });
+
   it("F01-10: stashed binding without apply — lookup UNKNOWN", async () => {
     const pilotId = await seedPilot("f01-stash");
     const prep = await openOrCreatePreparation(pilotId);
@@ -9182,7 +9513,29 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
           .from(messages)
           .where(eq(messages.conversationId, convId!))
       )[0]?.o ?? 0;
-    await seedFillerMessages(convId!, 100, maxOrd + 1);
+    // FLOW-100: 100 complete exchanges = 100 USER + 100 ASSISTANT = 200 intermediate messages.
+    const fillerStart = maxOrd + 1;
+    await seedFillerMessages(convId!, 200, fillerStart);
+
+    const fillerRows = await db
+      .select({
+        id: messages.id,
+        role: messages.role,
+        ordinal: messages.ordinal,
+      })
+      .from(messages)
+      .where(eq(messages.conversationId, convId!))
+      .orderBy(asc(messages.ordinal));
+    const fillers = fillerRows.filter((m) => m.ordinal >= fillerStart);
+    expect(fillers.length).toBe(200);
+    expect(fillers.filter((m) => m.role === "user").length).toBe(100);
+    expect(fillers.filter((m) => m.role === "assistant").length).toBe(100);
+    const fillerOrdinals = fillers.map((m) => m.ordinal);
+    expect(new Set(fillerOrdinals).size).toBe(200);
+    for (let i = 1; i < fillerOrdinals.length; i++) {
+      expect(fillerOrdinals[i]).toBe(fillerOrdinals[i - 1]! + 1);
+    }
+    expect(fillerRows.some((m) => m.id === assistantMessageId)).toBe(true);
 
     const agreeUtterance = `ML4C-E2E-AGREE-${assistantMessageId}`;
     const stableAgreementTurnKey = `e2e-agree-${Date.now()}`;
@@ -9238,6 +9591,27 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
     expect(loaded.ok).toBe(true);
     if (!loaded.ok) throw new Error(loaded.reason);
     const correlationKey = loaded.binding.correlationKey;
+    expect(loaded.binding.title).toBe(title);
+    expect(loaded.binding.contentMarkdown).toBe(contentMarkdown);
+    expect(loaded.binding.contentSha256).toBe(contentSha256(title, contentMarkdown));
+    expect(loaded.binding.source).toEqual({
+      kind: "ASSISTANT_MESSAGE",
+      assistantMessageId,
+    });
+
+    const storedRev = (
+      await db
+        .select({
+          contentMarkdown: documentRevisions.contentMarkdown,
+          title: documents.title,
+        })
+        .from(documentRevisions)
+        .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
+        .where(eq(documentRevisions.id, revisionId))
+        .limit(1)
+    )[0];
+    expect(storedRev?.title).toBe(title);
+    expect(storedRev?.contentMarkdown).toBe(contentMarkdown);
 
     const docCountBefore = (await countD4Rows(pilotId, prep.id)).documents;
     const revCountBefore = (
@@ -10082,92 +10456,93 @@ Source: `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-bui
 ```markdown
 # As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
 
-**Date :** 14 novembre 2026 (fermeture identité scellée + preuve E2E intégrée)
+**Date :** 14 novembre 2026 (fermeture parse provenance stockée + preuve 100 paires)
 **Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
 **Conception :** V0.7 @ `86377fde`
-**Handoff précédent :** `sfia/review-handoff@70f43b3f` blob `37ae086f`
-**Statut :** IMPLEMENTED CANDIDATE — no sealed→historical downgrade ; champs obligatoires présents ; E2E PREPARE→HTTP ; LIVE NOT PROVEN
+**Handoff précédent :** `sfia/review-handoff@357008ea` blob `b111a972`
+**Statut :** IMPLEMENTED CANDIDATE — stored JSON illisible ≠ HISTORICAL ; 100 paires E2E ; LIVE NOT PROVEN
 **STABLE / release :** NOT AVAILABLE — NO RELEASE
 
 ## 1. Objet
 
-Fermeture des deux derniers contournements d'identité scellée + une preuve intégrée unique.
+Fermeture des deux réserves Critical Review (parse provenance + preuve N+100 paires).
 
 | Correctif | Mécanisme |
 | --- | --- |
-| P0-A | Classification requête **et** révision stockée ; refuse downgrade HISTORICAL→scellé stocké |
-| P0-B | Champs scellés obligatoirement présents (`hasOwnProperty`) ; `null` ≠ absent |
-| E2E | PREPARE → N+100 → accord → replay USER → 10× GET HTTP **sur la même commande** |
-| Acquis antérieurs | F/C/P0 integrity / sealed replay / tag compat conservés |
+| P0 | Provenance PostgreSQL illisible / non-objet → `UNKNOWN` / `COMMAND_PROVENANCE_UNVERIFIABLE` ; jamais fallback historique |
+| P1 | E2E PREPARE → **100 paires** (200 messages) → accord → replay → 10× GET same command |
+| Acquis | no-downgrade ; champs `hasOwn` ; identité scellée ; HTTP RO |
 
 ## 2. Classification de provenance
 
 ```text
-HISTORICAL          — aucun marqueur distinctif de scellement
+HISTORICAL          — objet JSON valide, aucun marqueur distinctif de scellement
 SEALED_VALID        — documentCommandBinding===true + tous champs présents + invariants
 SEALED_INVALID      — marqueur/restes scellés incomplets ou invalides
+STORED_INVALID      — JSON illisible / null / tableau / primitive / vide → refuse avant classification
 ```
 
-Marqueurs distinctifs : `documentCommandBinding`, `qualifiedIntentId`, `payloadSha256`
-(pas `correlationKey` / `sectionHint` seuls).
+**Frontière :** absence de provenance **entrante** (demande historique) ≠ provenance **stockée** illisible.
 
-Réconciliation : jamais fingerprint historique si la révision stockée est scellée (VALID ou INVALID).
+Réconciliation : `parseProvenanceJson` doit produire un objet avant tout chemin HISTORICAL ou scellé.
 
 ## 3. Champs obligatoires scellés
 
-Présents explicitement : binding, commandId, operationId, userMessageId, qualifiedIntentId, action, source, preparationId, documentId, baseRevisionId, sectionHint, correlationKey, title, contentSha256, payloadSha256.
+Présents explicitement (hasOwn) : binding, commandId, operationId, userMessageId, qualifiedIntentId, action, source, preparationId, documentId, baseRevisionId, sectionHint, correlationKey, title, contentSha256, payloadSha256.
 
 CREATE : `documentId`/`baseRevisionId` présents avec `null`.
 REVISE : IDs non vides.
-`sectionHint` présent (`null` ou string).
+Contrôle entrée **et** provenance PostgreSQL objet valide.
 
-Contrôle entrée **et** provenance PostgreSQL.
+## 4. Preuve E2E (100 paires)
 
-## 4. Preuve E2E
+PREPARE → 100 USER + 100 ASSISTANT (ordinals uniques) → accord `PRIOR_ASSISTANT_MESSAGE` → D4 CREATE → replay `clientTurnKey` → 10× GET HTTP sur C/K → AVAILABLE inchangé ; altération provenance → refus AVAILABLE ; zéro écriture GET.
 
-Une seule commande C / corrélation K issue de l'accord différé : replay USER + dix GET HTTP → AVAILABLE inchangé, zéro écriture ; altération contrôlée → refus.
+## 5. Tests réellement exécutés (ce cycle)
 
-## 5. Réserves
+PARSE-01…12 ; FLOW-100 E2E ; suites ML4C PG ; unit/integration ; tsc ; eslint `document/service.ts` ; build ; Playwright ML4C ×2.
 
-LIVE NOT PROVEN ; push produit / PR #676 / RECETTE / Gate C hors mandat ; NO RELEASE.
+## 6. Réserves
+
+LIVE NOT PROVEN ; RECETTE NOT EXECUTED ; push produit / PR #676 / Gate C hors mandat ; NO RELEASE.
 ```
 
 ---
 
 ## 9. Delivery, gates, verdict
 
-### 9.0 Delivery — `DELIV-2026-11-14-ML4C-SEALED-IDENTITY-FINAL`
+### 9.0 Delivery — `DELIV-2026-11-14-ML4C-PROVENANCE-PARSE-FINAL`
 
 ```markdown
-## delivery_id: DELIV-2026-11-14-ML4C-SEALED-IDENTITY-FINAL
+## delivery_id: DELIV-2026-11-14-ML4C-PROVENANCE-PARSE-FINAL
 
 | Field | Value |
 | --- | --- |
-| Date | 2026-11-14 ~12:20 CET (Europe/Paris) |
-| Macro-lot | ML4C — Fermeture identité scellée (no downgrade + field presence) + E2E HTTP same command |
-| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
+| Date | 2026-11-14 ~12:50 CET (Europe/Paris) |
+| Macro-lot | ML4C — Fermeture fallback provenance stockée illisible + preuve 100 paires E2E |
+| Type | INC Critical corrective (NO RELEASE) |
 | Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
 | Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
-| Prior handoff | `sfia/review-handoff@70f43b3f` blob `37ae086f` |
+| Prior handoff | `sfia/review-handoff@357008ea` blob `b111a972` |
 | Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-| Changes | resolveProvenanceIdentity dual (request+stored) ; hasOwn required fields ; integrated PREPARE→GET |
+| Changes | `reconcileWithProvenanceResolution` refuse stored parse null ; E2E 200 msgs (100 pairs) |
 | Schema | unchanged |
-| Tests | DOWN/FIELD/E2E + non-rég ; LIVE NOT PROVEN |
+| Tests | PARSE-01…12 + FLOW-100 + non-rég ; LIVE NOT PROVEN |
 | Status | Product LOCAL ONLY ; Review Handoff L3 published in-cycle |
 ```
 
 ### 9.0bis Gates (rappel)
 
-Voir §2 — tsc, unit 319, integration 440, DOWN/FIELD/E2E 97, eslint document/service.ts, build, Playwright 2 ; LIVE NOT PROVEN.
+Voir §2 — tsc, unit 319, integration 452, identity+prior 86, command+recon 23, PARSE+FLOW ciblé, eslint `document/service.ts`, build, Playwright 2 ; LIVE NOT PROVEN.
 
 ### 9.0ter Réserves et distinction produit / handoff
 
 | Item | Statut |
 | --- | --- |
 | Product git (commit/push) | **LOCAL ONLY** |
-| Review Handoff `sfia/review-handoff` | **REMOTE** — tip/blob exacts dans rapport Cursor §25 |
+| Review Handoff `sfia/review-handoff` | **REMOTE — publication après ce pack** (tip/blob : rapport Cursor §25) |
 | DETERMINISTIC / PG / unit / integration | PROVEN (comptes §2) |
-| DOWN/FIELD/E2E ciblé | PROVEN (97) |
+| PARSE-01…12 + FLOW-100-01…12 | PROVEN (matrices §5) |
 | Playwright ML4C e2e (2 specs) | PASS |
 | Nora LIVE | **NOT PROVEN** |
 
@@ -10177,51 +10552,31 @@ Voir §2 — tsc, unit 319, integration 440, DOWN/FIELD/E2E 97, eslint document/
 
 > **Instruction ChatGPT obligatoire :**
 >
-> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
+> Pour ce cycle **local-only produit**, la source canonique du pack est :
 >
-> branche : `sfia/review-handoff`
-> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+> **branche** : `fix/next-semantic-intent-convergence-20261112`
+> **fichier** : `.tmp-sfia-review/chatgpt-review.md`
+> **HEAD candidat** : `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
 >
-> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
-> - le cycle sealed identity final + profil Critical ;
-> - la branche projet `fix/next-semantic-intent-convergence-20261112` ;
-> - le HEAD candidat `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` (LOCAL ONLY) ;
-> - la base main `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` ;
-> - les sources consultées ;
-> - l'inventaire §3 (30 chemins : 16 suivis + 14 non suivis) et le contenu complet §6/§7 ;
-> - P0 dual request+stored + hasOwn + no-downgrade §4 ;
-> - matrices DOWN/FIELD/E2E §5 ;
-> - as-built §8 et delivery `DELIV-2026-11-14-ML4C-SEALED-IDENTITY-FINAL` ;
+> **Review Handoff REMOTE** (après publication L3) : tip `357008ea` / blob antérieur `b111a972` — remplacer par tip/blob **post-publish** indiqués dans le **rapport Cursor §25**.
+>
+> Avant de répondre à Morris, ChatGPT doit lire **ce pack intégral** et vérifier la cohérence avec le rapport Cursor, notamment :
+> - le cycle provenance parse final + profil Critical ;
+> - la branche `fix/next-semantic-intent-convergence-20261112` et HEAD `67bf6b0b` ;
+> - prior handoff `357008ea` / blob `b111a972` ;
+> - Product **LOCAL ONLY** vs Review Handoff **REMOTE** (post-pack publish, §25) ;
+> - l'inventaire §3 (tous chemins status/diff/untracked sous `projects/sfia-studio-next`, hors `.tmp`) ;
+> - les diffs §6 et contenus §7 ;
+> - P0 barrière `parseProvenanceJson(stored)` + dual request/stored §4 ;
+> - P1 FLOW-100 filler 200 msgs §4.5 ;
+> - matrices PARSE-01…12 et FLOW-100-01…12 §5 ;
+> - as-built §8 et delivery `DELIV-2026-11-14-ML4C-PROVENANCE-PARSE-FINAL` ;
 > - les validations §2 ;
-> - **changement production ce cycle = UNIQUEMENT `document/service.ts`** ;
-> - Product **LOCAL ONLY** vs Review Handoff **REMOTE** ;
-> - le verdict **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN** ;
-> - le commit et la vérification distante du handoff (rapport Cursor §25).
+> - **changement production ce cycle = P0 uniquement `document/service.ts`** ;
+> - absence de faux AVAILABLE sur stored illisible ;
+> - le verdict **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**.
 >
-> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
-> 1. l'objectif et le périmètre du cycle ;
-> 2. les actions et changements réellement réalisés ;
-> 3. les principaux résultats et validations ;
-> 4. les risques, réserves, écarts ou éléments non couverts ;
-> 5. la distinction entre observations, recommandations et décisions déjà validées ;
-> 6. le verdict ChatGPT ;
-> 7. la prochaine décision ou action attendue de Morris.
->
-> La synthèse doit être compréhensible sans devoir relire l'intégralité du rapport Cursor ou du review pack, tout en restant fidèle au contenu du handoff Git.
->
-> Elle ne doit **pas** transformer une recommandation, une hypothèse ou un résultat technique en décision validée sans GO Morris.
->
-> Si le handoff est absent, obsolète, incohérent, incomplet ou synthesis-only, ChatGPT doit répondre :
->
-> **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
->
-> Si Cursor annonce un handoff publié mais que le fichier distant reste ancien, absent ou incomplet, ChatGPT doit répondre :
->
-> **REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED**
->
-> **Le rapport Cursor seul ne remplace pas le handoff Git.** ChatGPT doit lire depuis Git :
-> branche `sfia/review-handoff` · fichier `sfia-review-handoff/latest-chatgpt-review.md`
-> (jamais le fichier racine historique comme canonique).
+> **Après cette vérification**, ChatGPT doit produire une synthèse globale du cycle (objectif, changements, validations, risques, verdict ChatGPT, prochaine décision Morris).
 
 ---
 
@@ -10229,10 +10584,13 @@ Voir §2 — tsc, unit 319, integration 440, DOWN/FIELD/E2E 97, eslint document/
 
 Changement **production** nominal **ce cycle** (sur le delta ML4C candidat vs HEAD) :
 
-- `web/src/domains/document/service.ts` uniquement :
-  - `resolveProvenanceIdentity` — `hasOwn` / `SEALED_REQUIRED_KEYS` / marqueurs distinctifs ;
-  - `reconcileWithProvenanceResolution` — résolution **request + stored** ; refus downgrade sealed↔historical ;
-  - alignement `compareSealedEffectIdentity` sur présence explicite des champs nullables.
+- `web/src/domains/document/service.ts` — `reconcileWithProvenanceResolution` :
+  - `const storedParsed = parseProvenanceJson(args.prior.provenanceJson)` ;
+  - si `storedParsed === null` → retour immédiat `UNKNOWN` / `COMMAND_PROVENANCE_UNVERIFIABLE` ;
+  - **avant** `resolveProvenanceIdentity(stored)` — l'absence de provenance **request** ne compense pas un stored illisible.
+
+- `web/tests/integration/ml4c-prior-proposal.pg.test.ts` (P1 preuve) :
+  - `seedFillerMessages` × 200 (100 paires USER/ASSISTANT) + assertions ordinal/count.
 
 Le pack embarque le **delta ML4C complet** vs HEAD (tous chemins §3) pour relecture intégrale.
 
