@@ -1,7 +1,7 @@
 # SFIA Studio Next — Cadrage du correctif intégré : continuité Pilote–Nora et documents
 
-**Version :** 0.6 — 13 novembre 2026  
-**Statut :** VALIDATED IN CONTENT BY MORRIS — O-01/O-02/O-03/O-04 ; O-05/O-06 DOCUMENTED — conception technique candidate ChatGPT sous mandat Git Morris ; NOT YET VALIDATED SPEC  
+**Version :** 0.7 — 14 novembre 2026  
+**Statut :** VALIDATED IN CONTENT BY MORRIS — O-01/O-02/O-03/O-04 ; O-05/O-06 CONCEPTION TECHNIQUE CONSOLIDÉE SOUS ORIENTATION MORRIS ; G2 OPEN — EXECUTABILITY NOT YET PROVEN  
 **Programme :** R5 — ML4C, convergence fonctionnelle intégrée  
 **Nature :** cadrage fonctionnel et conception corrective candidate, avant contrat d'exécution  
 **Autorité produit :** Morris  
@@ -10,7 +10,7 @@
 **Projet de recette :** Intervencia  
 **Gate C :** OPEN — ML4C NOT ACCEPTED
 
-> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. (4) Morris valide O-03 — identité, provenance, intégrité, résolution et autorité séparée des propositions documentaires — et autorise son intégration dans la V0.4. (5) Morris valide ensuite O-04 — mobilisation D4 sous admission canonique, acte USER distinct, proposition vérifiée, garde et absence de doublon — et autorise son intégration en V0.5. (6) Morris demande à ChatGPT d'assumer l'instruction des contrats techniques restants sans micro-arbitrages, puis autorise leur **intégration documentaire Git directe**. La V0.6 intègre les propositions détaillées O-05 et O-06 **DRAFT/DOCUMENTED** ; cette autorisation de publication ne vaut ni validation d'architecture structurante, ni preuve d'exécutabilité, ni GO Cursor. Les signatures exactes, les tests et tout pivot de persistance restent soumis aux gates applicables : **NOT YET VALIDATED SPEC**. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
+> **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. (4) Morris valide O-03 — identité, provenance, intégrité, résolution et autorité séparée des propositions documentaires — et autorise son intégration dans la V0.4. (5) Morris valide ensuite O-04 — mobilisation D4 sous admission canonique, acte USER distinct, proposition vérifiée, garde et absence de doublon — et autorise son intégration en V0.5. (6) Morris demande à ChatGPT d'assumer l'instruction des contrats techniques restants sans micro-arbitrages, puis autorise leur **intégration documentaire Git directe**. La V0.6 intègre les propositions détaillées O-05 et O-06 **DRAFT/DOCUMENTED** ; cette autorisation de publication ne vaut ni validation d'architecture structurante, ni preuve d'exécutabilité, ni GO Cursor. Les signatures exactes, les tests et tout pivot de persistance restent soumis aux gates applicables : **NOT YET VALIDATED SPEC**. (7) Le 14/11, Morris confirme l'orientation produit, confie à ChatGPT la consolidation technique et autorise explicitement son intégration documentaire Git dans la V0.7 (§5.11), sans pivot architecture/DB. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
 
 ---
 
@@ -768,6 +768,111 @@ La restitution doit rester stable après replay : **un seul verdict applicatif**
 
 **Statut global :** O-05 et O-06 sont **DOCUMENTED / CANDIDATE TECHNICAL DESIGN** sous mandat Git Morris. La conception intégrée est suffisamment structurée pour instruire la qualification d'exécutabilité, **pas encore VALIDATED SPEC, IMPLEMENTED, BEHAVIOR PROVEN ni ADOPTED**.
 
+
+### 5.11 Consolidation G2 — Contrat technique intégré O-01 à O-06 (14 novembre 2026)
+
+**Statut : CONCEPTION TECHNIQUE CONSOLIDÉE PAR CHATGPT — ORIENTATION VALIDÉE PAR MORRIS ; G2 OPEN / EXECUTABILITY NOT YET PROVEN.** Les contrats ci-dessous précisent les §4.7–4.8 et §5.7–5.10, sans les remplacer, sans nouvelle doctrine ni nouvelle autorité. Ce sont des interfaces cibles, pas du code implémenté ni une preuve LIVE.
+
+**Références Git vérifiées le 14/11 :** main à 6cda86bde4aa450abb1d23eedd370a9004ddcbc1 ; branche produit build/next-ml4c-functional-convergence à 67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0 (PR #676 OPEN et non mergée) ; V0.6 sur branche documentaire dédiée. Les 3 commits supplémentaires de main depuis la base commune de la PR doivent être pris en compte au futur contrat Cursor. État Git local, PostgreSQL déployé, BROWSER et Nora LIVE : **NON OBSERVÉS**.
+
+#### 5.11.1 Architecture et responsabilités
+
+| Interface logique cible | Responsable | Entrées / sorties contractuelles |
+|---|---|---|
+| resolveAuthorizedHistoryScope | D1/D2 + D3 serveur | Session USER, préparation active ; conversations accessibles selon liens propriétaire ; aucun scope librement choisi par le modèle |
+| searchConversationHistory | D3 lecture | Scope autorisé, requête, curseur, taille de page → références historiques, couverture, continuation ou motif |
+| readConversationMessages | D3 lecture | Scope, références, pagination de contenu → texte exact, offsets, auteur, état et provenance |
+| Confrontation temporelle Nora | D3 cognition | Sources lues et statuts D4/D6 → interprétation sourcée ; aucun changement métier |
+| sealDocumentCommand | D3 admission serveur | Acte USER, qualification, proposition source, cible et version → binding complet durable pré-effet |
+| applyDocumentCommand | D4 propriétaire | Commande immuable, identité, garde, permissions et corrélation → CREATE/REVISE transactionnel |
+| reconcileDocumentCommand | D3/D4 lecture | Identité/corrélation d'origine → résultat D4 vérifié, sans retry automatique |
+
+**Une seule voie d'effet D4** : réutiliser conversation/service.ts, turn-command.ts, document/service.ts et les services de lecture propriétaires. Aucun second orchestrateur, registre de brouillons indépendant, moteur parallèle de décision ni autorité implicite pour Nora.
+
+#### 5.11.2 O-01 — Recherche longue, autorisations et pagination
+
+1. Le serveur reconstruit le scope à partir de la session et des préparations accessibles. Pour un projet, il ne lit les autres conversations que si leurs préparations sont réellement liées au même projet et autorisées au Pilote. Les droits sont revalidés à chaque recherche/relecture.
+2. Une recherche progressive couvre potentiellement tout le journal conservé ; **200 ou 300 messages ne constituent pas un plafond**. Des limites sont permises par page, outil et budget, pas comme horizon historique définitif.
+3. Un parcours commence avec des bornes de lecture cohérentes par conversation (conversationId, maxOrdinal). Le curseur opaque doit être validé côté serveur, lié au périmètre, aux bornes et à un ordre déterministe incluant ordinal et messageId. Des messages nouveaux ne sont pas mélangés silencieusement à une pagination en cours ; droits modifiés → DENIED/STALE et nouvelle évaluation.
+4. Nora choisit les pistes de recherche et confronte sémantiquement les résultats. Un filtre lexical peut servir d'accélérateur technique, jamais de routeur exclusif supprimant la possibilité de parcourir des résultats non lexicaux. Les sources pertinentes doivent ensuite être relues intégralement ou par fragments à offsets fidèles.
+5. COMPLETE ne signifie exhaustive que dans le périmètre réellement exploré ; budget ou interruption → PARTIAL et reprise. EMPTY ne prouve pas l'absence hors du parcours effectivement couvert. Les messages PENDING/FAILED/INTERRUPTED/UNKNOWN ne deviennent jamais des sources assistant COMPLETE.
+
+**Oracle :** HIST-01…HIST-08, TEMP-07, corpus 300+, isolement inter-projets, pagination concurrente ; mesurer pages, latence, volume et coûts, sans seuil arbitraire excluant le besoin produit.
+
+#### 5.11.3 O-02 — Confrontation sémantique et temporelle
+
+À partir des références réellement lues, Nora représente au minimum auteur/rôle, ordre/date, objet, portée, modalité (réel, hypothèse, recommandation, refus), relation (complément, correction explicite, exception, contradiction, ambiguïté), provenance et limites.
+
+L'exemple rouge → bleu établit la **dernière orientation exprimée** lorsque l'objet et la portée sont identiques et la correction explicite. Il ne révise aucune HumanDecision D6 par conversation. D4/D5/D6 restent les seuls propriétaires de leurs états formels et sont consultés quand applicables. Une comparaison cognitive n'est ni une commande D4 ni un arbitrage métier autonome.
+
+**Oracle :** TEMP-01…TEMP-08 ; aucune hallucination de source ou d'autorité, aucune promotion automatique d'un scénario fictif.
+
+#### 5.11.4 O-03 — Proposition source exacte et transport documentaire
+
+**Ancienne proposition :** message assistant réellement durable, état admissible, assistantMessageId, conversationId, generationId, préparation serveur, titre et contenu exacts. L'unique proposition contractuelle sfia-document est extraite après relecture et vérification. Calculer une empreinte SHA-256 sur la représentation canonique du titre et du contenu ; le digest court actuel n'est qu'un diagnostic. Une proposition ambiguë, tronquée, non close ou non terminale n'est pas transformée en écriture.
+
+**Même tour :** séparer, dans la sortie Nora validée, replyDraft (narration plafonnée actuellement à 12 000 caractères) et un champ documentaire typé distinct contenant titre et Markdown intégral. Le snapshot complet est scellé dans conversation_turn_commands avant tout effet D4 ; au commit terminal, matérialiser la même proposition en fence sfia-document intacte dans le message assistant. Ce sont deux étapes de durabilité de **la même** proposition, pas deux autorités documentaires. Un accord ultérieur utilise la source exacte déjà conservée, jamais une régénération.
+
+La limite propriétaire D4 actuelle est MAX_DOC_CHARS = 100 000 ; le fonctionnement réel du package @openai/agents, de son schéma Zod, des budgets et du streaming finalOutput avec documents longs est à démontrer. Si le contenu intégral ne transite pas sans perte, renvoyer NOT_EXECUTED/refus explicite, et **STOP** si une nouvelle persistance devient nécessaire. Aucun fallback tronqué.
+
+**Oracle :** PROP-01…PROP-10, dont ancienne proposition à 100 tours, trois versions et document dépassant la limite actuelle de replyDraft.
+
+#### 5.11.5 O-04 — Une admission de commande D4
+
+Le binding logique complet, durable **avant tout effet**, doit au minimum porter :
+
+| Champ | Règle |
+|---|---|
+| commandId, operationId, userMessageId, qualifiedIntentId | Identité stable du message USER et de chaque intention qualifiée |
+| action | CREATE ou REVISE, jamais déduite d'un mot-clé métier |
+| source | assistantMessageId durable OU snapshot same-turn lié au même commandId |
+| preparationId, documentId, baseRevisionId | Cible serveur et base de révision, null uniquement si non applicable |
+| title, contentSha256, payloadSha256 | Texte exact vérifiable ; payload couvrant aussi action, source, cible, base et portée |
+| correlationKey | Déduite de l'identité de commande/intention/action/cible ; **identique lors du replay** |
+| fullContent | Contenu intégral conservé dans le journal ou référence durable vérifiable, jamais uniquement son empreinte |
+
+L'admission exige simultanément : acte USER positif et durable ; qualification sémantique validée REQUEST_EFFECT ; proposition complète, exacte et admissible ; droits actuels, cible et préconditions. Une simple rédaction, une lecture, une négation ou une hypothèse → NOT_EXECUTED ; une demande explicite « rédige et enregistre » peut être exécutée dans le même tour si toutes les gardes passent.
+
+Écrire le binding par CAS sous ownerToken dans conversation_turn_commands.resultJson, en reprenant le mécanisme existant de stashTurnQualification et en préservant ces champs lors de commitTurnTerminal. Ne jamais remplacer le payload d'une commande existante par un nouveau contenu lors de la reprise. Les intentions multiples ont des identités distinctes et leurs dépendances sont respectées ; cible ambiguë → clarification sans effet.
+
+#### 5.11.6 O-05 — Transaction, concurrence, idempotence et vérité
+
+**Écarts confirmés dans le candidat :**
+- CREATE : insertion dans documents aujourd'hui **avant**, et hors, la transaction de première révision ; le turnFence y est vérifié trop tard pour empêcher une ligne documentaire incomplète en cas de crash/perte d'ownership.
+- REVISE : verrou du document existant, mais pas de paramètre turnFence symétrique et retour d'un replay sur corrélation sans vérification du fingerprint intégral.
+- Migrations SQL 003/004 : les index de corrélation document_revisions_corr_uidx et documents_prep_owner_corr_uidx sont définis dans les sources. Leur existence **dans la DB cible** reste non observée ; absence de mapping ORM ne vaut pas absence d'index SQL.
+
+**Transaction cible :**
+1. Ordre de verrouillage cohérent, contrôle de la commande et de ownerToken **avant** verrou du document ; droits et cible revalidés au point d'effet.
+2. CREATE : insertion du document et de sa première révision dans **une transaction atomique**. Aucun document orphelin créé par cette voie ; statut AVAILABLE seulement si la révision est réellement committée.
+3. REVISE : même garde, verrou du document, base AVAILABLE et encore courante, portée de section et octets hors portée préservés, nouvelle révision transactionnelle.
+4. Corrélation existante : comparer identité complète, cible, base et payloadSha256 à la commande d'origine (et provenance de révision). Même contenu → même référence ; divergence → CONFLICT et aucune écriture. Un faux replay AVAILABLE est interdit.
+5. ACK perdu ou commit terminal échoué après effet : la révision D4 conserve sa vérité propriétaire ; relire par clé originale et restituer documentId/revisionId réellement confirmés. L'état du tour peut rester UNKNOWN, indépendamment de D4.
+6. UNKNOWN prolongé : réconciliation en lecture seule, aucune nouvelle corrélation et aucun retry aveugle. Une relance effectrice éventuelle nécessite preuve d'absence sûre et nouvelle garde de la **même commande**.
+7. Les éventuelles lignes documentaires historiques incomplètes sont diagnostiquées séparément ; aucune réparation destructive implicite.
+
+**Deux axes non interchangeables :** COMPLETE de la réponse Nora ou du tour ne prouve pas AVAILABLE d'une révision D4. Le verdict applicatif est NOT_EXECUTED, AVAILABLE, FAILED, CONFLICT ou UNKNOWN selon l'étape et les preuves réellement observées.
+
+**Oracle :** REC-01…REC-12, incluant CREATE concurrents, REVISE sur base stale, payload divergent, ownerToken révoqué, rollback, ACK perdu et relecture de vérité.
+
+#### 5.11.7 O-06 — UX minimale, préflight et contrat de preuve
+
+**ML4C inclut l'UX indispensable :** fil long, composeur et Envoyer accessibles avec 300+ messages, source/proposition vérifiables, version déterminée ou clarification, état UNKNOWN fidèle, document/révision inspectables. Le rebranding et la convergence géométrique globale restent à ML4D.
+
+**Préflight bloquant dans le futur contrat Cursor :**
+
+| Réf. | Contrôle à démontrer sur la lane appropriée | Verdict attendu |
+|---|---|---|
+| PG-01 | Index et schéma PostgreSQL **réellement déployés** sur DEV isolé, contrainte UNIQUE, lock/CAS, CREATE atomique, REVISE concurrent, rollback | Preuve SQL + tests PG ; STOP si une migration structurante s'avère indispensable |
+| SDK-01 | Version effectivement installée de @openai/agents, outputType Zod, fin du streaming et finalOutput, champ documentaire complet, interruptions, taille et budget/latence mesurés | Preuve exécutable ; package.json déclare ^0.21.0, sans prouver l'installation runtime |
+| REC-01 | Binding durable pré-effet, conservation au commit terminal, perte d'ownership, crash, ACK perdu, réconciliation sur même corrélation | Tests déterministes et PostgreSQL, sans doublon ni faux succès |
+
+**Même macro-lot :** code, tests, UX nécessaire, architecture/as-built Next, documentation et observations transversales. Vérifier HIST/TEMP/PROP/D4-CMD/REC en DET, PostgreSQL concurrence, BROWSER et Nora **LIVE + D4 + PG + bibliothèque**, avec SHA, lane, DB, captures, performances et états d'autorité. Ne pas transformer FAKE, NOT RUN, BLOCKED ou UNKNOWN en PASS. La campagne UAT de 53 scénarios reste historiquement **17 PASS / 6 FAIL / 30 BLOCKED**, notamment ML4C-A-010/A-011 ouverts, jusqu'à nouvelle RECETTE réellement exécutée.
+
+**STOP/gate Morris :** nouvelle table, migration structurante, pivot de persistance, nouvelle autorité, doctrine ou changement de périmètre. ChatGPT qualifie l'alternative, risques, dette/exit, impact/rollback et demande un arbitrage borné. Cursor exécute la technique sous contrat SFIA v2.6, sans arbitrage produit ou architecture.
+
+**Suite :** présent document sur branche candidate → contrat Cursor unique depuis routing + template v2.6 après pré-check et GO spécifique → préflight PG-01/SDK-01/REC-01 → intégration/tests/docs/revue → nouvelle RECETTE → Gate C Morris. La publication de ce document n'autorise ni Cursor, ni PR, ni merge, ni promotion, ni ADOPTED.
+
 ---
 
 ## 6. Capacité C — Accessibilité du dialogue
@@ -904,8 +1009,8 @@ L'exécution Cursor restera soumise à un mandat SFIA v2.6 détaillé, avec fich
 | Gate | Objet | État |
 |---|---|---|
 | G0 | Orientation corrective ML4C | Accord de principe Morris |
-| G1 | Cadrage fonctionnel du correctif | V0.6 — O-01/O-02/O-03/O-04 VALIDÉS EN CONTENU ; O-05/O-06 DOCUMENTED / CANDIDATE DESIGN (publication autorisée par Morris) |
-| G2 | Conception technique détaillée CT-01 à CT-11 | O-05/O-06 documentés ; signatures exactes, algorithmique, SQL/contraintes de corrélation, ordre des commits, SDK, preuves et arbitres éventuels à qualifier — OPEN |
+| G1 | Cadrage fonctionnel du correctif | V0.7 — O-01/O-02/O-03/O-04 VALIDÉS EN CONTENU ; O-05/O-06 CONCEPTION CONSOLIDÉE §5.11 (orientation Morris) |
+| G2 | Conception technique détaillée CT-01 à CT-11 | Contrats cibles consolidés §5.11 ; préflight PG-01 / SDK-01 / REC-01, preuves PG/LIVE et mesures restantes — OPEN |
 | G3 | GO d'exécution Cursor | NON DONNÉ |
 | G4 | Qualification technique | NON ACQUISE |
 | G5 | Nouvelle RECETTE et correction des écarts | NON ENGAGÉE |
@@ -915,7 +1020,7 @@ L'exécution Cursor restera soumise à un mandat SFIA v2.6 détaillé, avec fich
 
 ## 13. Questions restantes de conception
 
-La vision fonctionnelle est maintenant suffisamment claire pour approfondir le mécanisme technique.
+La vision fonctionnelle et la voie technique cible sont consolidées §5.11. Les éléments restants sont des conditions d'exécutabilité et de preuve, pas des micro-arbitrages produit.
 
 Les sujets ouverts prioritaires sont :
 
@@ -927,9 +1032,9 @@ Les sujets ouverts prioritaires sont :
 
 **O-04 — Mobilisation D4 par Nora : VALIDÉ EN CONTENU.** Une admission/écriture canonique, proposition O-03 et acte USER distingués, gardes et résultat propriétaire, tests D4-CMD-T01…T10 (§5.8). À qualifier : signature API, ordre durable, ownership `REVISE` et reprise O-05.
 
-**O-05 — Résultat et reprise : DOCUMENTED / CONCEPTION CANDIDATE (§5.9).** Identité stable, binding pré-effet, garde en transaction, états indépendants, réconciliation sans doublon et douze tests REC. À prouver : contraintes DB réelles, crash et contrats exacts ; gate Morris si migration nécessaire.
+**O-05 — Résultat et reprise : CONCEPTION CONSOLIDÉE (§5.9, §5.11).** Identité stable, binding pré-effet, garde en transaction, états indépendants, réconciliation sans doublon et douze tests REC. À prouver : contraintes DB réelles, crash et contrats exacts ; gate Morris si migration nécessaire.
 
-**O-06 — Architecture et validation : DOCUMENTED / CONCEPTION CANDIDATE (§5.10).** Chaîne intégrée O-01→O-05, responsabilités, blast radius, preuves DET/PG/BROWSER/LIVE et gates. À prouver : exécutabilité, APIs finalisées et comportement réel sous nouveau candidat.
+**O-06 — Architecture et validation : CONCEPTION CONSOLIDÉE (§5.10, §5.11).** Chaîne intégrée O-01→O-05, responsabilités, blast radius, preuves DET/PG/BROWSER/LIVE et gates. À prouver : exécutabilité, APIs finalisées et comportement réel sous nouveau candidat.
 
 Aucun de ces sujets ne doit être abandonné à l'interprétation de Cursor.
 
@@ -963,14 +1068,14 @@ Code candidat examiné :
 
 ---
 
-## 15. Statut V0.6
+## 15. Statut V0.7
 
-**O-01/O-02/O-03/O-04 VALIDATED IN CONTENT BY MORRIS ; O-05/O-06 DOCUMENTED BY CHATGPT UNDER MORRIS GIT PUBLICATION MANDATE — EXECUTABLE TECHNICAL CONTRACTS NOT YET VALIDATED SPEC.**
+**O-01/O-02/O-03/O-04 VALIDATED IN CONTENT BY MORRIS ; O-05/O-06 CONSOLIDATED TECHNICAL DESIGN UNDER MORRIS ORIENTATION — G2 OPEN / EXECUTABILITY NOT YET PROVEN.**
 
 La vision fonctionnelle longue durée Pilote–Nora et la mobilisation documentaire D4 sont clarifiées.
 
 La conception recommandée repose sur une récupération historique progressive, une sélection sémantique sous contrôle de Nora et une mobilisation gouvernée des services documentaires existants.
 
-**O-01, O-02, O-03 et O-04** sont validés en contenu de conception. **O-05 et O-06** ont été instruits et ajoutés aux §5.9–5.10 comme **conception technique candidate ChatGPT**, avec autorisation Morris de publication documentaire. Il reste à qualifier les signatures, les contraintes d'unicité D4 sur les sources déployées, les limites SDK, les transactions/reprises, les performances et les preuves LIVE. Aucun arbitrage structurant nouveau n'est présumé validé. La suite pertinente est une **revue intégrée d'exécutabilité G2**, pas un nouveau micro-cycle documentaire.
+**O-01, O-02, O-03 et O-04** restent validés en contenu. **O-05 et O-06** sont consolidés dans le contrat cible §5.11, sous orientation approuvée par Morris. Restent à prouver : index PG réellement déployés, transport SDK long, binding pré-effet, concurrence, coût/latence et comportement LIVE. Pas de migration ni d'autorité nouvelle validée. **Suite : contrat Cursor SFIA v2.6 unique après GO spécifique, comportant préflight PG-01 / SDK-01 / REC-01 bloquant**, puis qualification et nouvelle RECETTE.
 
 **Aucun mandat Cursor, GO code, migration, PR, merge, clôture Gate C ou ADOPTED n'est autorisé par ce document.**
