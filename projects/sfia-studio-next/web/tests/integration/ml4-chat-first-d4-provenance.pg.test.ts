@@ -270,7 +270,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     }
   });
 
-  it("C10: CREATE qualified but missing autonomous sfia-document → FAILED extract, zero D4", async () => {
+  it("C10: CREATE qualified but missing autonomous sfia-document → NOT_EXECUTED pre-effect, zero D4", async () => {
     const pilotId = await seedPilot("ml4-c10-missing");
     const prep = await openOrCreatePreparation(pilotId);
     turnRaceHooks.replaceNoraAssistantText = () =>
@@ -287,15 +287,20 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
       );
       expectDocumentActFromFixture(ask, "CREATE");
       const chat = await noraTurn(pilotId, prep.id, ask);
-      expect(chat.documentSave?.status).toBe("FAILED");
+      // CAS A — qualification CREATE, extract missing → D4 never attempted (not a transactional FAILED).
+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
       expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
       expect(chat.documentSave?.documentId).toBeUndefined();
+      expect(chat.documentSave?.revisionId).toBeUndefined();
       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
       const msgs = await listMessages(pilotId, prep.id);
       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-      expect(assistant?.content ?? "").toMatch(/FAILED|DOCUMENT_PROPOSAL_MISSING/);
-      expect(assistant?.content ?? "").not.toMatch(/NOT_EXECUTED/);
-      expect(assistant?.content ?? "").not.toMatch(/Statut observé: AVAILABLE/);
+      const body = assistant?.content ?? "";
+      expect(body).toMatch(/NOT_EXECUTED/);
+      expect(body).toMatch(/DOCUMENT_PROPOSAL_MISSING|pré-effet|Transaction D4: non tentée/i);
+      expect(body).not.toMatch(/Statut observé: FAILED/);
+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
+      expect(body).not.toMatch(/enregistré avec succès/i);
     } finally {
       delete turnRaceHooks.replaceNoraAssistantText;
     }
@@ -889,7 +894,7 @@ s
     expect(docs[0]!.latestRevision?.revisionNumber).toBe(1);
   });
 
-  it("B-iso-neg CREATE: nested illustrative sfia-document → FAILED MISSING, zero D4 write", async () => {
+  it("B-iso-neg CREATE: nested illustrative sfia-document → NOT_EXECUTED MISSING, zero D4 write", async () => {
     const pilotId = await seedPilot("ml4-iso-create");
     const prep = await openOrCreatePreparation(pilotId);
     turnRaceHooks.replaceNoraAssistantText = () =>
@@ -913,7 +918,8 @@ s
           },
         },
       );
-      expect(chat.documentSave?.status).toBe("FAILED");
+      // Nested fence is not autonomous contractual extract → pre-effect refuse, D4 not called.
+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
       expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
       expect(chat.documentSave?.act).toBe("CREATE");
       expect(chat.documentSave?.documentId).toBeUndefined();
@@ -921,14 +927,18 @@ s
       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
       const msgs = await listMessages(pilotId, prep.id);
       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-      expect(assistant?.content).not.toMatch(/enregistré avec succès/i);
-      expect(assistant?.content ?? "").toMatch(/DOCUMENT_PROPOSAL_MISSING|non enregistré|FAILED|proposition/i);
+      const body = assistant?.content ?? "";
+      expect(body).not.toMatch(/enregistré avec succès/i);
+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
+      expect(body).not.toMatch(/Statut observé: FAILED/);
+      expect(body).toMatch(/NOT_EXECUTED/);
+      expect(body).toMatch(/DOCUMENT_PROPOSAL_MISSING|pré-effet|Transaction D4: non tentée/i);
     } finally {
       delete turnRaceHooks.replaceNoraAssistantText;
     }
   });
 
-  it("B-iso-neg REVISE: nested illustrative sfia-document → FAILED MISSING, doc unchanged at v1", async () => {
+  it("B-iso-neg REVISE: nested illustrative sfia-document → NOT_EXECUTED MISSING, doc unchanged at v1", async () => {
     const pilotId = await seedPilot("ml4-iso-revise");
     const prep = await openOrCreatePreparation(pilotId);
     const seeded = await savePreparationDocument(
@@ -970,14 +980,24 @@ s
           },
         },
       );
-      expect(revised.documentSave?.status).toBe("FAILED");
+      // Nested illustrative fence ≠ autonomous proposal → REVISE not executed; no phantom v2.
+      // documentId may identify the revise target; absence of revisionId/mutation is the oracle.
+      expect(revised.documentSave?.status).toBe("NOT_EXECUTED");
       expect(revised.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
       expect(revised.documentSave?.act).toBe("REVISE");
+      expect(revised.documentSave?.documentId).toBe(documentId);
+      expect(revised.documentSave?.revisionId).toBeUndefined();
       const listed = await listDocumentRevisions(pilotId, prep.id, documentId);
       expect(listed.status).toBe("AVAILABLE");
       expect(listed.revisions).toHaveLength(1);
       expect(listed.revisions[0]!.revisionNumber).toBe(1);
       expect(listed.revisions[0]!.contentMarkdown).toBe(v1Body.revision.contentMarkdown);
+      const msgs = await listMessages(pilotId, prep.id);
+      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+      const body = assistant?.content ?? "";
+      expect(body).toMatch(/NOT_EXECUTED/);
+      expect(body).not.toMatch(/Statut observé: FAILED/);
+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
     } finally {
       delete turnRaceHooks.replaceNoraAssistantText;
     }

@@ -312,3 +312,39 @@ Profil: Critical PATCH corrective / NO RELEASE / STABLE NOT AVAILABLE
 
 - Subject-only sans provenance : non attribuable (contrat schéma inchangé).
 - BROWSER / LIVE / RECETTE : gates Morris distincts.
+
+## DELIV 2026-11-14 — Clôture P3 assertions NOT_EXECUTED + qualification DEV
+
+Date: 2026-11-14 ~23:30 CET (Europe/Paris)
+Branche: `fix/next-semantic-intent-convergence-20261112`
+Parent: `a2d37d1f600836f353f44061687f0795cdc10377` (LOCAL ONLY)
+Profil: Critical PATCH test/qualification / NO RELEASE
+
+### Diagnostic des trois FAIL
+
+Fichier: `ml4-chat-first-d4-provenance.pg.test.ts`
+
+| Test | Observé | Oracle |
+| --- | --- | --- |
+| C10 missing fence | `documentSave.status=NOT_EXECUTED`, reason=`DOCUMENT_PROPOSAL_MISSING`, `d4_attempted=false` | CAS A pré-effet |
+| B-iso-neg CREATE nested | idem | CAS A |
+| B-iso-neg REVISE nested | idem + `documentId` cible, `revisionId` absent, v1 inchangée | CAS A |
+
+Les assertions attendaient `FAILED` (échec transactionnel). Le runtime P3 et
+`formatDocumentEffectAck` restituent correctement `NOT_EXECUTED` lorsque D4
+n'est pas appelé. Aucune modification runtime.
+
+### Corrections
+
+Assertions alignées sur NOT_EXECUTED + conservation des contrôles négatifs
+(zéro document / zéro v2 / motif / ACK pré-effet).
+
+### Preuves
+
+| Couche | Résultat |
+| --- | --- |
+| UNIT | 351 PASS |
+| `test:integration` | **468 PASS** (0 FAIL) |
+| BUILD | PASS |
+| BROWSER | PASS ciblé Playwright `:3101` E2E isolé (sas / continuity / S05) — fixture |
+| LIVE Nora | NOT RUN — harness E2E force fixture ; operator DEV `:3100` non démarré (RECETTE `:3200` présente) |
