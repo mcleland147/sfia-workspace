@@ -505,7 +505,7 @@ Fin.
     if (first.status !== "AVAILABLE" || again.status !== "AVAILABLE") {
       throw new Error("idempotent revise unavailable");
     }
-    expect(again.idempotentReplay).toBe(true);
+    expect("idempotentReplay" in again && again.idempotentReplay).toBe(true);
     expect(again.revisionId).toBe(first.revisionId);
   });
 

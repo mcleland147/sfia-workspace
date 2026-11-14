@@ -10,11 +10,16 @@ import {
   reconstituteConfirmedD4Effects,
   selectRelevantKnowledgeContext,
 } from "@/domains/knowledge/service";
+import { listDocuments } from "@/domains/document/service";
 import {
-  listDocuments,
-  reviseDocument,
-  savePreparationDocument,
-} from "@/domains/document/service";
+  admitDocumentCommand,
+  canonicalizeDocumentProposal,
+  contentSha256,
+  resolveAssistantProposal,
+  sealAndApplyDocumentCommand,
+  serializeProposalFence,
+  type DocumentProposalExact,
+} from "@/domains/conversation/document-command";
 import {
   bindTurnGenerationId,
   commitTurnTerminal,
@@ -40,6 +45,7 @@ import {
   assertSectionScope,
   extractContractualDocumentProposal,
   resolveReviseTarget,
+  stripContractualDocumentFences,
   type DocumentEffectSummary,
   type DocumentProposalExtract,
 } from "./document-act";
@@ -293,6 +299,32 @@ async function resolvePilotageEffectForReplay(input: {
     humanDecisionCreated:
       input.humanDecisionCreated || Boolean(reconstituted.humanDecisionCreated),
   };
+}
+
+/**
+ * P1 — confront an authoritative proposal with a concurrent contractual fence.
+ * Fence MISSING → materialize; fence INVALID/ambiguous → refuse; fence OK → strict title+body.
+ */
+function confrontProposalWithFence(
+  authority: DocumentProposalExact,
+  extracted: DocumentProposalExtract,
+):
+  | { ok: true; materialize: boolean }
+  | { ok: false; reason: string } {
+  if (!extracted.ok) {
+    if (extracted.reason === "DOCUMENT_PROPOSAL_MISSING") {
+      return { ok: true, materialize: true };
+    }
+    return { ok: false, reason: extracted.reason };
+  }
+  if (
+    extracted.title !== authority.title ||
+    extracted.content !== authority.contentMarkdown ||
+    contentSha256(extracted.title, extracted.content) !== authority.contentSha256
+  ) {
+    return { ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" };
+  }
+  return { ok: true, materialize: false };
 }
 
 export async function postUserMessageAndNora(
@@ -878,6 +910,33 @@ export async function postUserMessageAndNora(
   const studioIntent = studioProjection;
   const clientIntentKey = clientTurnKey;
   const missionKeys = missionCorrelationKeys(clientIntentKey);
+
+  let durableProposal: DocumentProposalExact | null = null;
+  /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
+  let proposalAuthorityConflict: string | null = null;
+  if (
+    reply.status === "COMPLETE" &&
+    qualification.documentProposal &&
+    !qualification.documentSource
+  ) {
+    const earlyCanonical = canonicalizeDocumentProposal(qualification.documentProposal);
+    if (earlyCanonical.ok) {
+      const earlyExtract = extractContractualDocumentProposal(reply.content);
+      const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract);
+      if (!confront.ok) {
+        proposalAuthorityConflict = confront.reason;
+        durableProposal = null;
+      } else {
+        durableProposal = earlyCanonical.proposal;
+        if (confront.materialize) {
+          reply = {
+            ...reply,
+            content: `${reply.content.trimEnd()}\n\n${serializeProposalFence(durableProposal)}`,
+          };
+        }
+      }
+    }
+  }
   // Semantic qualification visible before extract/D4. Absence of obs must never invent D4.
   emitDocumentActQualificationObs({
     requestId,
@@ -927,11 +986,82 @@ export async function postUserMessageAndNora(
       }
 
       if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
-        const extracted = extractContractualDocumentProposal(reply.content);
-        if (!extracted.ok) {
+        // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
+        type ExactProposal = { title: string; contentMarkdown: string; contentSha256: string };
+        let exact: ExactProposal | null = null;
+        let source:
+          | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
+          | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
+          kind: "SAME_TURN_SNAPSHOT",
+          commandId: reserved.commandId,
+        };
+        let createBlocked: string | null = null;
+        let extracted = extractContractualDocumentProposal(reply.content);
+
+        if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
+          const resolved = await resolveAssistantProposal({
+            pilotId,
+            preparationId,
+            assistantMessageId: qualification.documentSource.assistantMessageId,
+          });
+          if (!resolved.ok) {
+            createBlocked = resolved.reason;
+          } else {
+            const confront = confrontProposalWithFence(resolved.proposal, extracted);
+            if (!confront.ok) {
+              createBlocked = confront.reason;
+              proposalAuthorityConflict = confront.reason;
+              durableProposal = null;
+            } else {
+              exact = resolved.proposal;
+              durableProposal = exact;
+              source = {
+                kind: "ASSISTANT_MESSAGE",
+                assistantMessageId: resolved.assistantMessageId,
+              };
+              if (confront.materialize) {
+                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
+                extracted = extractContractualDocumentProposal(reply.content);
+              }
+            }
+          }
+        } else if (qualification.documentProposal) {
+          const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
+          if (!canonical.ok) {
+            createBlocked = canonical.reason;
+          } else {
+            const confront = confrontProposalWithFence(canonical.proposal, extracted);
+            if (!confront.ok) {
+              createBlocked = confront.reason;
+              proposalAuthorityConflict = confront.reason;
+              durableProposal = null;
+            } else {
+              exact = canonical.proposal;
+              durableProposal = exact;
+              if (confront.materialize) {
+                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
+                extracted = extractContractualDocumentProposal(reply.content);
+              }
+            }
+          }
+        } else if (extracted.ok) {
+          const canonical = canonicalizeDocumentProposal({
+            title: extracted.title,
+            contentMarkdown: extracted.content,
+          });
+          if (!canonical.ok) createBlocked = canonical.reason;
+          else {
+            exact = canonical.proposal;
+            durableProposal = exact;
+          }
+        } else {
+          createBlocked = extracted.reason;
+        }
+
+        if (createBlocked || !exact) {
           documentSave = {
             status: "FAILED",
-            reason: extracted.reason,
+            reason: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
             act: "CREATE",
           };
           emitDocumentProposalObs({
@@ -939,45 +1069,90 @@ export async function postUserMessageAndNora(
             operationId: reserved.operationId,
             generationId: reply.generationId,
             act: "CREATE",
-            extracted,
-            refuseCode: extracted.reason,
+            extracted: extracted.ok
+              ? extracted
+              : {
+                  ok: false,
+                  reason: "DOCUMENT_PROPOSAL_MISSING",
+                  path: "none",
+                  fenceCount: 0,
+                  proposalChars: 0,
+                  proposalDigest16: null,
+                  bodyEndsWithNewline: false,
+                  sectionCount: 0,
+                },
+            refuseCode: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
             d4Attempted: false,
             d4Effect: null,
           });
         } else {
           try {
-            const saved = await savePreparationDocument(
-              pilotId,
-              preparationId,
-              extracted.title,
-              extracted.content,
-              undefined,
-              {
-                correlationKey: opts?.correlationKey
-                  ? `doc:${opts.correlationKey}`
-                  : missionIntent.wantsPublish
-                    ? missionKeys.document
-                    : `doc:${reply.generationId}`,
-                provenance: {
-                  sourceKind: "nora",
-                  generationId: reply.generationId,
-                  userMessageId: reserved.userMessageId,
-                  explicitRequest: true,
-                  act: "CREATE",
-                },
-                scope: "document",
-                turnFence: {
-                  commandId: reserved.commandId,
-                  ownerToken: reserved.ownerToken,
-                  beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-                },
-              },
+            const createIntents = effectIntents(qualification).filter(
+              (i) => i.capabilityId === "d4.create_document",
             );
-            documentSave = { ...saved, act: "CREATE" };
+            if (createIntents.length > 1) {
+              documentSave = {
+                status: "FAILED",
+                reason: "AMBIGUOUS_CREATE_INTENT",
+                act: "CREATE",
+              };
+            } else {
+              const createIntent = createIntents[0];
+              if (!createIntent) {
+                documentSave = {
+                  status: "FAILED",
+                  reason: "MISSING_CREATE_INTENT",
+                  act: "CREATE",
+                };
+              } else {
+                const clientSalt =
+                  opts?.correlationKey?.trim() ||
+                  (missionIntent.wantsPublish ? missionKeys.document : null);
+                const admitted = admitDocumentCommand({
+                  commandId: reserved.commandId,
+                  operationId: reserved.operationId,
+                  userMessageId: reserved.userMessageId,
+                  qualifiedIntentId: createIntent.id,
+                  action: "CREATE",
+                  preparationId,
+                  source,
+                  title: exact.title,
+                  contentMarkdown: exact.contentMarkdown,
+                  clientCorrelationSalt: clientSalt,
+                });
+                if (!admitted.ok) {
+                  documentSave = {
+                    status: "FAILED",
+                    reason: admitted.reason,
+                    act: "CREATE",
+                  };
+                } else {
+                  const sealed = await sealAndApplyDocumentCommand({
+                    pilotId,
+                    fence: {
+                      commandId: reserved.commandId,
+                      ownerToken: reserved.ownerToken,
+                      beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+                    },
+                    binding: admitted.binding,
+                  });
+                  if (!sealed.sealApplied) {
+                    documentSave = {
+                      status: "FAILED",
+                      reason: "BINDING_SEAL_FAILED",
+                      act: "CREATE",
+                    };
+                  } else {
+                    documentSave = { ...sealed.effect, act: "CREATE" };
+                  }
+                }
+              }
+            }
             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
               ownershipLostBeforeD4 = true;
               documentSave = null;
             } else if (
+              documentSave &&
               documentSave.status !== "AVAILABLE" &&
               documentSave.status !== "CONFLICT"
             ) {
@@ -989,7 +1164,20 @@ export async function postUserMessageAndNora(
               operationId: reserved.operationId,
               generationId: reply.generationId,
               act: "CREATE",
-              extracted,
+              extracted: extracted.ok
+                ? extracted
+                : {
+                    ok: true,
+                    content: exact.contentMarkdown,
+                    title: exact.title,
+                    path: "fence",
+                    fenceTag: "sfia-document",
+                    fenceCount: 1,
+                    proposalChars: exact.contentMarkdown.length,
+                    proposalDigest16: exact.contentSha256.slice(0, 16),
+                    bodyEndsWithNewline: exact.contentMarkdown.endsWith("\n"),
+                    sectionCount: 0,
+                  },
               refuseCode:
                 documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
                   ? null
@@ -1042,11 +1230,73 @@ export async function postUserMessageAndNora(
               d4Effect: null,
             });
           } else {
-            const extracted = extractContractualDocumentProposal(reply.content);
-            if (!extracted.ok) {
+            let extracted = extractContractualDocumentProposal(reply.content);
+            let reviseProposalContent: string | null = null;
+            let reviseBlocked: string | null = null;
+            let reviseSource:
+              | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
+              | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
+              kind: "SAME_TURN_SNAPSHOT",
+              commandId: reserved.commandId,
+            };
+            if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
+              const resolved = await resolveAssistantProposal({
+                pilotId,
+                preparationId,
+                assistantMessageId: qualification.documentSource.assistantMessageId,
+              });
+              if (!resolved.ok) reviseBlocked = resolved.reason;
+              else {
+                const confront = confrontProposalWithFence(resolved.proposal, extracted);
+                if (!confront.ok) {
+                  reviseBlocked = confront.reason;
+                  proposalAuthorityConflict = confront.reason;
+                  durableProposal = null;
+                } else {
+                  reviseProposalContent = resolved.proposal.contentMarkdown;
+                  durableProposal = resolved.proposal;
+                  reviseSource = {
+                    kind: "ASSISTANT_MESSAGE",
+                    assistantMessageId: resolved.assistantMessageId,
+                  };
+                  if (confront.materialize) {
+                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(resolved.proposal)}`;
+                    extracted = extractContractualDocumentProposal(reply.content);
+                  }
+                }
+              }
+            } else if (qualification.documentProposal) {
+              const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
+              if (!canonical.ok) reviseBlocked = canonical.reason;
+              else {
+                const confront = confrontProposalWithFence(canonical.proposal, extracted);
+                if (!confront.ok) {
+                  reviseBlocked = confront.reason;
+                  proposalAuthorityConflict = confront.reason;
+                  durableProposal = null;
+                } else {
+                  reviseProposalContent = canonical.proposal.contentMarkdown;
+                  durableProposal = canonical.proposal;
+                  if (confront.materialize) {
+                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(canonical.proposal)}`;
+                    extracted = extractContractualDocumentProposal(reply.content);
+                  }
+                }
+              }
+            } else if (extracted.ok) {
+              reviseProposalContent = extracted.content;
+              const canonical = canonicalizeDocumentProposal({
+                title: extracted.title,
+                contentMarkdown: extracted.content,
+              });
+              if (canonical.ok) durableProposal = canonical.proposal;
+            } else {
+              reviseBlocked = extracted.reason;
+            }
+            if (reviseBlocked || !reviseProposalContent) {
               documentSave = {
                 status: "FAILED",
-                reason: extracted.reason,
+                reason: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
                 documentId: target.documentId,
                 baseRevisionId: target.baseRevisionId,
                 act: "REVISE",
@@ -1057,14 +1307,14 @@ export async function postUserMessageAndNora(
                 generationId: reply.generationId,
                 act: "REVISE",
                 extracted,
-                refuseCode: extracted.reason,
+                refuseCode: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
                 d4Attempted: false,
                 d4Effect: null,
               });
             } else {
               const merged = applyTargetedSectionRevision(
                 target.baseContent,
-                extracted.content,
+                reviseProposalContent,
                 documentAct.sectionHint,
               );
               if (!merged.ok) {
@@ -1112,33 +1362,81 @@ export async function postUserMessageAndNora(
                     d4Effect: null,
                   });
                 } else {
-                  const correlationKey = opts?.correlationKey
-                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
-                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
-                  const revised = await reviseDocument(pilotId, preparationId, {
-                    documentId: target.documentId,
-                    baseRevisionId: target.baseRevisionId,
-                    contentMarkdown: merged.content,
-                    correlationKey,
-                    scope: documentAct.sectionHint ? "section" : "document",
-                    sectionHint: documentAct.sectionHint ?? undefined,
-                    provenance: {
-                      sourceKind: "nora",
-                      generationId: reply.generationId,
-                      userMessageId: reserved.userMessageId,
-                      explicitRequest: true,
+                  const reviseIntents = effectIntents(qualification).filter(
+                    (i) => i.capabilityId === "d4.revise_document",
+                  );
+                  if (reviseIntents.length !== 1) {
+                    documentSave = {
+                      status: "FAILED",
+                      reason:
+                        reviseIntents.length === 0
+                          ? "MISSING_REVISE_INTENT"
+                          : "AMBIGUOUS_REVISE_INTENT",
+                      documentId: target.documentId,
+                      baseRevisionId: target.baseRevisionId,
                       act: "REVISE",
+                    };
+                  } else {
+                    const reviseIntent = reviseIntents[0]!;
+                    const clientSalt =
+                      opts?.correlationKey?.trim() ||
+                      `${target.documentId}:${target.baseRevisionId}`;
+                    const admitted = admitDocumentCommand({
+                      commandId: reserved.commandId,
+                      operationId: reserved.operationId,
+                      userMessageId: reserved.userMessageId,
+                      qualifiedIntentId: reviseIntent.id,
+                      action: "REVISE",
+                      preparationId,
+                      documentId: target.documentId,
+                      baseRevisionId: target.baseRevisionId,
                       sectionHint: documentAct.sectionHint,
-                    },
-                  });
-                  documentSave = {
-                    ...revised,
-                    act: "REVISE",
-                    baseRevisionId:
-                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
-                        ? revised.baseRevisionId
-                        : target.baseRevisionId,
-                  };
+                      source: reviseSource,
+                      title: target.title,
+                      contentMarkdown: merged.content,
+                      clientCorrelationSalt: clientSalt,
+                    });
+                    if (!admitted.ok) {
+                      documentSave = {
+                        status: "FAILED",
+                        reason: admitted.reason,
+                        documentId: target.documentId,
+                        baseRevisionId: target.baseRevisionId,
+                        act: "REVISE",
+                      };
+                    } else {
+                      const sealed = await sealAndApplyDocumentCommand({
+                        pilotId,
+                        fence: {
+                          commandId: reserved.commandId,
+                          ownerToken: reserved.ownerToken,
+                          beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+                        },
+                        binding: admitted.binding,
+                      });
+                      if (!sealed.sealApplied) {
+                        documentSave = {
+                          status: "FAILED",
+                          reason: "BINDING_SEAL_FAILED",
+                          documentId: target.documentId,
+                          baseRevisionId: target.baseRevisionId,
+                          act: "REVISE",
+                        };
+                      } else {
+                        const revised = sealed.effect;
+                        documentSave = {
+                          ...revised,
+                          act: "REVISE",
+                          baseRevisionId:
+                            "baseRevisionId" in revised &&
+                            typeof (revised as { baseRevisionId?: string }).baseRevisionId ===
+                              "string"
+                              ? (revised as { baseRevisionId: string }).baseRevisionId
+                              : target.baseRevisionId,
+                        };
+                      }
+                    }
+                  }
                   if (
                     documentSave.status !== "AVAILABLE" &&
                     documentSave.status !== "CONFLICT" &&
@@ -1465,6 +1763,26 @@ export async function postUserMessageAndNora(
     } else {
       missionProjection = carriedMission;
     }
+  }
+
+  // P1: PREPARE-only conflict must be observable without D4 mutation or silent rewrite.
+  if (
+    proposalAuthorityConflict &&
+    !documentSave &&
+    !ownershipLostBeforeD4 &&
+    documentAct.kind === "NONE"
+  ) {
+    documentSave = {
+      status: "FAILED",
+      reason: proposalAuthorityConflict,
+    };
+  }
+
+  // P1: never strip+reinject when concurrent fence was invalid or divergent.
+  if (durableProposal && !ownershipLostBeforeD4 && !proposalAuthorityConflict) {
+    const narrative = stripContractualDocumentFences(assistantBody);
+    const fenced = serializeProposalFence(durableProposal);
+    assistantBody = [narrative.trimEnd(), fenced].filter((s) => s.length > 0).join("\n\n");
   }
 
   const assistantContentForCommit = ownershipLostBeforeD4

@@ -4,6 +4,117 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-14-ML4C-PROVENANCE-PARSE-FINAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~12:50 CET (Europe/Paris) |
+| Macro-lot | ML4C — Fermeture fallback provenance stockée illisible + preuve 100 paires E2E |
+| Type | INC Critical corrective (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Prior handoff | `sfia/review-handoff@357008ea` blob `b111a972` |
+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | `reconcileWithProvenanceResolution` refuse stored parse null ; E2E 200 msgs (100 pairs) |
+| Schema | unchanged |
+| Tests | PARSE-01…12 + FLOW-100 + non-rég ; LIVE NOT PROVEN |
+| Status | Product LOCAL ONLY ; Review Handoff L3 published in-cycle |
+
+## delivery_id: DELIV-2026-11-14-ML4C-SEALED-IDENTITY-FINAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~12:20 CET (Europe/Paris) |
+| Macro-lot | ML4C — Fermeture identité scellée (no downgrade + field presence) + E2E HTTP same command |
+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Prior handoff | `sfia/review-handoff@70f43b3f` blob `37ae086f` |
+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | resolveProvenanceIdentity dual (request+stored) ; hasOwn required fields ; integrated PREPARE→GET |
+| Schema | unchanged |
+| Tests | DOWN/FIELD/E2E + non-rég ; LIVE NOT PROVEN |
+| Status | Product LOCAL ONLY ; Review Handoff L3 published in-cycle |
+
+## delivery_id: DELIV-2026-11-14-ML4C-SEALED-REPLAY-FINAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~11:40 CET (Europe/Paris) |
+| Macro-lot | ML4C — Sealed replay fail-closed + historical fence tag compatibility |
+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Prior handoff | `sfia/review-handoff@c06ffffa` blob `48b0911a` |
+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | resolveProvenanceIdentity ; SEALED_INVALID refuse ; tag case-insensitive LEGACY ; FLOW USER replay + HTTP GET |
+| Schema | unchanged |
+| Tests | SEAL/COMPAT/FLOW + non-rég ; LIVE NOT PROVEN |
+| Status | LOCAL ONLY product ; Review Handoff L3 published in-cycle |
+
+## delivery_id: DELIV-2026-11-14-ML4C-DOCUMENT-INTEGRITY-FINAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~11:20 CET (Europe/Paris) |
+| Macro-lot | ML4C — Fermeture définitive intégrité documentaire (P0-A / P0-B / P1) |
+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Prior handoff | `sfia/review-handoff@3efc082a` blob `855a436c` |
+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | parseFenceMeta 3-états ; SHA recalculé DB ; confrontProposalWithFence ; PREPARE→N+100 |
+| Schema | unchanged |
+| Tests | META/HASH/SRC/N+100 + non-régression ; LIVE NOT PROVEN |
+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
+
+## delivery_id: DELIV-2026-11-14-ML4C-DOCUMENT-INVARIANT-CLOSURE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~11:00 CET (Europe/Paris) |
+| Macro-lot | ML4C — Fermeture invariants documentaires F-01…F-05 |
+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Prior handoff | `sfia/review-handoff@c1add5cb` blob `714a86d1` |
+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | F-01 identity compare ; F-02 reversible fence codec ; F-03 PREPARE durableProposal ; F-04 ASSISTANT_MESSAGE source ; F-05 binding selector + HTTP 409 ; P1 fitBudget/ambiguity/browser |
+| Schema | unchanged |
+| Tests | unit 289 PASS ; PG 393 PASS ; Playwright ML4C ciblé ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
+
+## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-CRITICAL-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~10:10 CET (Europe/Paris) |
+| Macro-lot | ML4C — Correctif Critical Review (C-01…C-07) continuité Nora / D4 |
+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Prior handoff | `sfia/review-handoff@93e277c2` blob `510b410f` |
+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | reconcile read-only ; canonicalize proposal ; prior assistant source ; correlation salt ; history walk/budget ; UX 320+ |
+| Schema | unchanged |
+| Tests | unit 277 PASS ; PG ML4C 29 PASS ; Playwright C-07 320+ PASS ; tsc/eslint/build PASS ; LIVE NOT PROVEN |
+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
+
+## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-NORA-DOCUMENTS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~09:30 CET (Europe/Paris) |
+| Macro-lot | ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4 |
+| Type | EVOL Critical integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local) = tip `origin/build/next-ml4c-functional-convergence@67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Lane | DEV `:5433` + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | history-tools + SDK tools ; documentProposal ; document-command admit/seal ; CREATE atomique + REVISE fence/fingerprint ; UX composeur sticky ; as-built |
+| Schema | unchanged (indexes existants utilisés) |
+| Tests | unit 272 PASS ; PG history+document-command 11 PASS ; ML2 Q10 O-05 PASS ; Playwright composer PASS ; LIVE NOT PROVEN |
+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
+
 ## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
 
 | Field | Value |

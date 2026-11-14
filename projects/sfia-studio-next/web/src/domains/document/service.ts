@@ -66,26 +66,410 @@ type ReconcileConflict = {
   revisionNumber: number;
 };
 
-/** Same fingerprint rule for every reconcile path (nominal, race, catch, TX). */
+/**
+ * F-01 — sealed command identity carried in revision provenanceJson.
+ * Legacy revisions without documentCommandBinding remain readable but not ML4C-command proofs.
+ */
+export type SealedEffectIdentity = {
+  commandId: string;
+  operationId: string;
+  userMessageId: string;
+  qualifiedIntentId: string;
+  action: "CREATE" | "REVISE";
+  source: unknown;
+  preparationId: string;
+  documentId: string | null;
+  baseRevisionId: string | null;
+  sectionHint: string | null;
+  correlationKey: string;
+  contentSha256: string;
+  payloadSha256: string;
+  title: string;
+};
+
+function stableJson(value: unknown): string {
+  return JSON.stringify(value ?? null);
+}
+
+/**
+ * P0-B — sealed-command identity: always recompute SHA from DB title+body bytes.
+ * Provenance fingerprints are cross-checked; they never alone prove AVAILABLE.
+ */
+export function compareSealedEffectIdentity(
+  storedProvenanceJson: string,
+  storedContentMarkdown: string,
+  storedDocumentTitle: string,
+  expected: SealedEffectIdentity,
+): { ok: true; storedContentSha256: string } | { ok: false; reason: string } {
+  let prov: Record<string, unknown>;
+  try {
+    prov = JSON.parse(storedProvenanceJson) as Record<string, unknown>;
+  } catch {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+  if (prov.documentCommandBinding !== true) {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+
+  // C = SHA of bytes actually read from PostgreSQL (title + body).
+  const recalculated = contentFingerprint(storedDocumentTitle, storedContentMarkdown);
+  // C must equal binding contentSha256 (F).
+  if (recalculated !== expected.contentSha256) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  // C must equal provenance contentSha256 (E) when present.
+  if (typeof prov.contentSha256 === "string" && prov.contentSha256 !== recalculated) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  if (typeof prov.contentSha256 !== "string" || !prov.contentSha256) {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+  // If D (contentFingerprint) present, D must equal C.
+  if (
+    typeof prov.contentFingerprint === "string" &&
+    prov.contentFingerprint.length > 0 &&
+    prov.contentFingerprint !== recalculated
+  ) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  // Title in DB must match expected sealed title.
+  if (storedDocumentTitle !== expected.title) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+
+  const storedPayload =
+    typeof prov.payloadSha256 === "string" ? prov.payloadSha256 : null;
+  if (!storedPayload || storedPayload !== expected.payloadSha256) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  // Title in provenance is mandatory for sealed commands — DB title does not substitute.
+  if (typeof prov.title !== "string" || !prov.title) {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+  // P0-B: nullable sealed fields must be explicitly present (absent ≠ null).
+  for (const key of ["documentId", "baseRevisionId", "sectionHint"] as const) {
+    if (!Object.prototype.hasOwnProperty.call(prov, key)) {
+      return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+    }
+  }
+  const checks: Array<[string, unknown, unknown]> = [
+    ["commandId", prov.commandId, expected.commandId],
+    ["operationId", prov.operationId, expected.operationId],
+    ["userMessageId", prov.userMessageId, expected.userMessageId],
+    ["qualifiedIntentId", prov.qualifiedIntentId, expected.qualifiedIntentId],
+    ["action", prov.action, expected.action],
+    ["preparationId", prov.preparationId, expected.preparationId],
+    ["documentId", prov.documentId, expected.documentId],
+    ["baseRevisionId", prov.baseRevisionId, expected.baseRevisionId],
+    ["sectionHint", prov.sectionHint, expected.sectionHint],
+    ["correlationKey", prov.correlationKey, expected.correlationKey],
+    ["contentSha256", prov.contentSha256, expected.contentSha256],
+    ["title", prov.title, expected.title],
+  ];
+  for (const [, got, want] of checks) {
+    if (stableJson(got) !== stableJson(want)) {
+      return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+    }
+  }
+  if (stableJson(prov.source) !== stableJson(expected.source)) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  return { ok: true, storedContentSha256: recalculated };
+}
+
+export function buildSealedProvenance(
+  identity: SealedEffectIdentity,
+  extra?: Record<string, unknown>,
+): Record<string, unknown> {
+  return {
+    documentCommandBinding: true,
+    commandId: identity.commandId,
+    operationId: identity.operationId,
+    userMessageId: identity.userMessageId,
+    qualifiedIntentId: identity.qualifiedIntentId,
+    action: identity.action,
+    source: identity.source,
+    preparationId: identity.preparationId,
+    documentId: identity.documentId,
+    baseRevisionId: identity.baseRevisionId,
+    sectionHint: identity.sectionHint,
+    correlationKey: identity.correlationKey,
+    contentSha256: identity.contentSha256,
+    payloadSha256: identity.payloadSha256,
+    title: identity.title,
+    ...(extra ?? {}),
+  };
+}
+
+const SHA256_HEX_RE = /^[0-9a-f]{64}$/;
+
+/** Sealed-command required keys — presence mandatory; null only where the contract allows. */
+const SEALED_REQUIRED_KEYS = [
+  "documentCommandBinding",
+  "commandId",
+  "operationId",
+  "userMessageId",
+  "qualifiedIntentId",
+  "action",
+  "source",
+  "preparationId",
+  "documentId",
+  "baseRevisionId",
+  "sectionHint",
+  "correlationKey",
+  "title",
+  "contentSha256",
+  "payloadSha256",
+] as const;
+
+export type ProvenanceIdentityResolution =
+  | { kind: "HISTORICAL" }
+  | { kind: "SEALED_VALID"; identity: SealedEffectIdentity }
+  | { kind: "SEALED_INVALID"; reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+
+function nonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.length > 0;
+}
+
+function hasOwn(obj: object, key: string): boolean {
+  return Object.prototype.hasOwnProperty.call(obj, key);
+}
+
+function isValidSealedSource(source: unknown): boolean {
+  if (!source || typeof source !== "object") return false;
+  const s = source as Record<string, unknown>;
+  if (s.kind === "ASSISTANT_MESSAGE") return nonEmptyString(s.assistantMessageId);
+  if (s.kind === "SAME_TURN_SNAPSHOT") return nonEmptyString(s.commandId);
+  return false;
+}
+
+/**
+ * Distinctive sealed markers — not correlationKey/sectionHint alone
+ * (those exist on historical documents).
+ */
+function hasDistinctiveSealedMarkers(provenance: Record<string, unknown>): boolean {
+  if (provenance.documentCommandBinding === true) return true;
+  if (provenance.documentCommandBinding === false) {
+    // Explicit false + leftover sealed identity fields → not a clean historical.
+    return (
+      hasOwn(provenance, "qualifiedIntentId") ||
+      hasOwn(provenance, "payloadSha256") ||
+      hasOwn(provenance, "commandId")
+    );
+  }
+  // Marker absent: sealed remnants must not silently become HISTORICAL.
+  return hasOwn(provenance, "qualifiedIntentId") || hasOwn(provenance, "payloadSha256");
+}
+
+function parseProvenanceJson(raw: string): Record<string, unknown> | null {
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    return parsed as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Classify request/stored provenance.
+ * SEALED_INVALID never falls through to historical fingerprint reconcile.
+ * Absent/false seal marker + distinctive sealed fields → SEALED_INVALID (no HISTORICAL downgrade).
+ */
+export function resolveProvenanceIdentity(
+  provenance: Record<string, unknown> | undefined | null,
+): ProvenanceIdentityResolution {
+  const invalid = (): ProvenanceIdentityResolution => ({
+    kind: "SEALED_INVALID",
+    reason: "COMMAND_PROVENANCE_UNVERIFIABLE",
+  });
+
+  if (!provenance) return { kind: "HISTORICAL" };
+
+  const looksSealed = hasDistinctiveSealedMarkers(provenance);
+  if (!looksSealed) return { kind: "HISTORICAL" };
+
+  // Marker must be exactly true for VALID; otherwise remnants are INVALID.
+  if (provenance.documentCommandBinding !== true) return invalid();
+
+  for (const key of SEALED_REQUIRED_KEYS) {
+    if (!hasOwn(provenance, key)) return invalid();
+  }
+
+  if (
+    !nonEmptyString(provenance.commandId) ||
+    !nonEmptyString(provenance.operationId) ||
+    !nonEmptyString(provenance.userMessageId) ||
+    !nonEmptyString(provenance.qualifiedIntentId) ||
+    (provenance.action !== "CREATE" && provenance.action !== "REVISE") ||
+    !nonEmptyString(provenance.preparationId) ||
+    !nonEmptyString(provenance.correlationKey) ||
+    !nonEmptyString(provenance.title) ||
+    typeof provenance.contentSha256 !== "string" ||
+    !SHA256_HEX_RE.test(provenance.contentSha256) ||
+    typeof provenance.payloadSha256 !== "string" ||
+    !SHA256_HEX_RE.test(provenance.payloadSha256) ||
+    !isValidSealedSource(provenance.source)
+  ) {
+    return invalid();
+  }
+
+  // P0-B: nullable fields must be present; CREATE uses explicit null.
+  if (provenance.action === "CREATE") {
+    if (provenance.documentId !== null || provenance.baseRevisionId !== null) return invalid();
+  } else {
+    if (!nonEmptyString(provenance.documentId) || !nonEmptyString(provenance.baseRevisionId)) {
+      return invalid();
+    }
+  }
+  if (
+    provenance.sectionHint !== null &&
+    !nonEmptyString(provenance.sectionHint)
+  ) {
+    return invalid();
+  }
+
+  return {
+    kind: "SEALED_VALID",
+    identity: {
+      commandId: provenance.commandId,
+      operationId: provenance.operationId,
+      userMessageId: provenance.userMessageId,
+      qualifiedIntentId: provenance.qualifiedIntentId,
+      action: provenance.action,
+      source: provenance.source,
+      preparationId: provenance.preparationId,
+      documentId: provenance.documentId as string | null,
+      baseRevisionId: provenance.baseRevisionId as string | null,
+      sectionHint: provenance.sectionHint as string | null,
+      correlationKey: provenance.correlationKey,
+      contentSha256: provenance.contentSha256,
+      payloadSha256: provenance.payloadSha256,
+      title: provenance.title,
+    },
+  };
+}
+
+/**
+ * Reconcile using BOTH request provenance and stored revision provenance.
+ * Never downgrade a sealed stored revision to historical fingerprint compare.
+ */
+function reconcileWithProvenanceResolution(args: {
+  prior: {
+    id: string;
+    revisionNumber: number;
+    status: string;
+    contentMarkdown: string;
+    provenanceJson: string;
+  };
+  documentId: string;
+  documentTitle: string;
+  expectedFp: string;
+  provenance?: Record<string, unknown> | null;
+}): ReturnType<typeof reconcilePriorRevision> {
+  const unverifiable = {
+    status: "UNKNOWN" as const,
+    reason: "COMMAND_PROVENANCE_UNVERIFIABLE" as const,
+    documentId: args.documentId,
+    revisionId: args.prior.id,
+    revisionNumber: args.prior.revisionNumber,
+  };
+
+  const requestRes = resolveProvenanceIdentity(args.provenance ?? null);
+  // Stored provenance must be a valid JSON object before any HISTORICAL/SEALED path.
+  // parseProvenanceJson(null) → HISTORICAL would falsely authorize fingerprint reconcile.
+  const storedParsed = parseProvenanceJson(args.prior.provenanceJson);
+  if (storedParsed === null) {
+    return unverifiable;
+  }
+  const storedRes = resolveProvenanceIdentity(storedParsed);
+
+  if (requestRes.kind === "SEALED_INVALID" || storedRes.kind === "SEALED_INVALID") {
+    return unverifiable;
+  }
+  // HISTORICAL request against sealed stored revision → refuse downgrade.
+  if (requestRes.kind === "HISTORICAL" && storedRes.kind !== "HISTORICAL") {
+    return unverifiable;
+  }
+  // Sealed request against historical stored → sealed compare would fail; refuse.
+  if (requestRes.kind === "SEALED_VALID" && storedRes.kind === "HISTORICAL") {
+    return unverifiable;
+  }
+
+  if (requestRes.kind === "SEALED_VALID" && storedRes.kind === "SEALED_VALID") {
+    return reconcilePriorRevision({
+      prior: args.prior,
+      documentId: args.documentId,
+      documentTitle: args.documentTitle,
+      expectedFp: args.expectedFp,
+      expectedIdentity: requestRes.identity,
+    });
+  }
+
+  // Both HISTORICAL — legacy fingerprint path.
+  return reconcilePriorRevision({
+    prior: args.prior,
+    documentId: args.documentId,
+    documentTitle: args.documentTitle,
+    expectedFp: args.expectedFp,
+    expectedIdentity: null,
+  });
+}
+
+/** Same fingerprint/identity rule for every reconcile path (nominal, race, catch, TX). */
 function reconcilePriorRevision(args: {
   prior: { id: string; revisionNumber: number; status: string; contentMarkdown: string; provenanceJson: string };
   documentId: string;
   documentTitle: string;
   expectedFp: string;
-}): ReconcileOk | ReconcileFailedPrior | ReconcileConflict {
-  const storedFp = readStoredFingerprint(
-    args.prior.provenanceJson,
-    args.documentTitle,
-    args.prior.contentMarkdown,
-  );
-  if (storedFp !== args.expectedFp) {
-    return {
-      status: "CONFLICT",
-      reason: "CORRELATION_PAYLOAD_MISMATCH",
-      documentId: args.documentId,
-      revisionId: args.prior.id,
-      revisionNumber: args.prior.revisionNumber,
-    };
+  expectedIdentity?: SealedEffectIdentity | null;
+}): ReconcileOk | ReconcileFailedPrior | ReconcileConflict | {
+  status: "UNKNOWN";
+  reason: string;
+  documentId: string;
+  revisionId: string;
+  revisionNumber: number;
+} {
+  if (args.expectedIdentity) {
+    const cmp = compareSealedEffectIdentity(
+      args.prior.provenanceJson,
+      args.prior.contentMarkdown,
+      args.documentTitle,
+      args.expectedIdentity,
+    );
+    if (!cmp.ok) {
+      if (cmp.reason === "COMMAND_PROVENANCE_UNVERIFIABLE") {
+        return {
+          status: "UNKNOWN",
+          reason: cmp.reason,
+          documentId: args.documentId,
+          revisionId: args.prior.id,
+          revisionNumber: args.prior.revisionNumber,
+        };
+      }
+      return {
+        status: "CONFLICT",
+        reason: "CORRELATION_PAYLOAD_MISMATCH",
+        documentId: args.documentId,
+        revisionId: args.prior.id,
+        revisionNumber: args.prior.revisionNumber,
+      };
+    }
+  } else {
+    const storedFp = readStoredFingerprint(
+      args.prior.provenanceJson,
+      args.documentTitle,
+      args.prior.contentMarkdown,
+    );
+    if (storedFp !== args.expectedFp) {
+      return {
+        status: "CONFLICT",
+        reason: "CORRELATION_PAYLOAD_MISMATCH",
+        documentId: args.documentId,
+        revisionId: args.prior.id,
+        revisionNumber: args.prior.revisionNumber,
+      };
+    }
   }
   if (args.prior.status === "FAILED") {
     return {
@@ -190,6 +574,14 @@ export async function savePreparationDocument(
   const titleFinal = title || "Document du sas";
   const fp = contentFingerprint(titleFinal, contentMarkdown);
 
+  // P0: sealed-invalid input refuses before any D4 mutation (no historical fallback).
+  if (opts?.provenance) {
+    const early = resolveProvenanceIdentity(opts.provenance);
+    if (early.kind === "SEALED_INVALID") {
+      return { status: "FAILED" as const, reason: early.reason };
+    }
+  }
+
   // --- Creation idempotence: resolve durable command identity BEFORE allocating a new doc id ---
   if (!documentId && opts?.correlationKey) {
     const existingDoc = await findByCreationCorrelation(
@@ -202,11 +594,12 @@ export async function savePreparationDocument(
         (await findRevisionByCorrelation(existingDoc.id, opts.correlationKey)) ??
         (await waitForRevisionByCorrelation(existingDoc.id, opts.correlationKey));
       if (priorRev) {
-        return reconcilePriorRevision({
+        return reconcileWithProvenanceResolution({
           prior: priorRev,
           documentId: existingDoc.id,
           documentTitle: existingDoc.title,
           expectedFp: fp,
+          provenance: opts?.provenance,
         });
       }
       // Document row exists but revision still absent after bounded wait
@@ -220,54 +613,9 @@ export async function savePreparationDocument(
 
   let docId = documentId;
   let ownedTitle = titleFinal;
-  if (!docId) {
-    docId = newId("doc");
-    try {
-      await db.insert(documents).values({
-        id: docId,
-        preparationId,
-        projectId: ctx.project?.id ?? null,
-        ownerPilotId: pilotId,
-        title: titleFinal,
-        creationCorrelationKey: opts?.correlationKey ?? null,
-      });
-    } catch (e) {
-      // Concurrent create with same correlation key — reconcile WITH fingerprint
-      if (opts?.correlationKey) {
-        const raced = await findByCreationCorrelation(
-          pilotId,
-          preparationId,
-          opts.correlationKey,
-        );
-        if (raced) {
-          const priorRev =
-            (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
-            (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
-          if (priorRev) {
-            return reconcilePriorRevision({
-              prior: priorRev,
-              documentId: raced.id,
-              documentTitle: raced.title,
-              expectedFp: fp,
-            });
-          }
-          return {
-            status: "UNKNOWN" as const,
-            reason: "CREATION_IN_FLIGHT",
-            documentId: raced.id,
-          };
-        }
-        return {
-          status: "FAILED" as const,
-          reason: e instanceof Error ? e.message : "document create failed",
-        };
-      }
-      return {
-        status: "FAILED" as const,
-        reason: e instanceof Error ? e.message : "document create failed",
-      };
-    }
-  } else {
+
+  // Existing-document path: ownership check before TX.
+  if (docId) {
     const owned = (
       await db
         .select()
@@ -283,26 +631,26 @@ export async function savePreparationDocument(
     )[0];
     if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
     ownedTitle = owned.title;
-  }
-
-  // Revision-level idempotence for known document
-  if (opts?.correlationKey) {
-    const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
-    if (prior) {
-      return reconcilePriorRevision({
-        prior,
-        documentId: docId,
-        documentTitle: ownedTitle,
-        expectedFp: fp,
-      });
+    if (opts?.correlationKey) {
+      const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
+      if (prior) {
+        return reconcileWithProvenanceResolution({
+          prior,
+          documentId: docId,
+          documentTitle: ownedTitle,
+          expectedFp: fp,
+          provenance: opts?.provenance,
+        });
+      }
     }
   }
 
   try {
     return await db.transaction(async (tx) => {
+      // O-05: ownership fence BEFORE any document/revision mutation.
       if (opts?.turnFence) {
-        const owned = await assertTurnFenceInTx(tx, opts.turnFence);
-        if (!owned) {
+        const fenceOwned = await assertTurnFenceInTx(tx, opts.turnFence);
+        if (!fenceOwned) {
           return {
             status: "FAILED" as const,
             reason: "TURN_OWNERSHIP_LOST",
@@ -311,9 +659,56 @@ export async function savePreparationDocument(
         }
       }
 
-      await tx.execute(
-        sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
-      );
+      // CREATE: insert documents + first revision in the SAME transaction (no orphan row).
+      if (!docId) {
+        docId = newId("doc");
+        try {
+          await tx.insert(documents).values({
+            id: docId,
+            preparationId,
+            projectId: ctx.project?.id ?? null,
+            ownerPilotId: pilotId,
+            title: titleFinal,
+            creationCorrelationKey: opts?.correlationKey ?? null,
+          });
+        } catch (e) {
+          if (opts?.correlationKey) {
+            const raced = await findByCreationCorrelation(
+              pilotId,
+              preparationId,
+              opts.correlationKey,
+            );
+            if (raced) {
+              const priorRev =
+                (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
+                (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
+              if (priorRev) {
+                return reconcileWithProvenanceResolution({
+                  prior: priorRev,
+                  documentId: raced.id,
+                  documentTitle: raced.title,
+                  expectedFp: fp,
+                  provenance: opts?.provenance,
+                });
+              }
+              return {
+                status: "UNKNOWN" as const,
+                reason: "CREATION_IN_FLIGHT",
+                documentId: raced.id,
+              };
+            }
+          }
+          return {
+            status: "FAILED" as const,
+            reason: e instanceof Error ? e.message : "document create failed",
+          };
+        }
+        ownedTitle = titleFinal;
+      } else {
+        await tx.execute(
+          sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
+        );
+      }
 
       if (opts?.correlationKey) {
         const prior = (
@@ -329,11 +724,12 @@ export async function savePreparationDocument(
             .limit(1)
         )[0];
         if (prior) {
-          return reconcilePriorRevision({
+          return reconcileWithProvenanceResolution({
             prior,
             documentId: docId!,
             documentTitle: ownedTitle,
             expectedFp: fp,
+            provenance: opts?.provenance,
           });
         }
       }
@@ -393,22 +789,29 @@ export async function savePreparationDocument(
   } catch (e) {
     // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
     if (opts?.correlationKey) {
-      const prior =
-        (await findRevisionByCorrelation(docId, opts.correlationKey)) ??
-        (await waitForRevisionByCorrelation(docId, opts.correlationKey));
-      if (prior) {
-        return reconcilePriorRevision({
-          prior,
-          documentId: docId,
-          documentTitle: ownedTitle,
-          expectedFp: fp,
-        });
+      const racedDoc =
+        (docId
+          ? { id: docId, title: ownedTitle }
+          : await findByCreationCorrelation(pilotId, preparationId, opts.correlationKey)) ?? null;
+      if (racedDoc) {
+        const prior =
+          (await findRevisionByCorrelation(racedDoc.id, opts.correlationKey)) ??
+          (await waitForRevisionByCorrelation(racedDoc.id, opts.correlationKey));
+        if (prior) {
+          return reconcileWithProvenanceResolution({
+            prior,
+            documentId: racedDoc.id,
+            documentTitle: "title" in racedDoc ? racedDoc.title : ownedTitle,
+            expectedFp: fp,
+            provenance: opts?.provenance,
+          });
+        }
+        return {
+          status: "UNKNOWN" as const,
+          reason: "CREATION_IN_FLIGHT",
+          documentId: racedDoc.id,
+        };
       }
-      return {
-        status: "UNKNOWN" as const,
-        reason: "CREATION_IN_FLIGHT",
-        documentId: docId,
-      };
     }
     return {
       status: "FAILED" as const,
@@ -434,14 +837,39 @@ export async function reviseDocument(
     sectionHint?: string;
     provenance?: Record<string, unknown>;
     injectFailureAfterLock?: boolean;
+    /** Symmetric with CREATE — abort unless turn still owned. */
+    turnFence?: TurnOwnershipFence;
+    /** Title used for fingerprint reconcile on replay (defaults to owned document title). */
+    expectedTitle?: string;
+    expectedContentSha256?: string;
   },
 ) {
   if (input.contentMarkdown.length > MAX_DOC_CHARS) {
     return { status: "FAILED" as const, reason: "content too large" };
   }
 
+  // P0: sealed-invalid REVISE provenance refuses before mutation.
+  if (input.provenance) {
+    const early = resolveProvenanceIdentity(input.provenance);
+    if (early.kind === "SEALED_INVALID") {
+      return { status: "FAILED" as const, reason: early.reason };
+    }
+  }
+
   try {
     return await db.transaction(async (tx) => {
+      // Lock order: turn command / ownership → document → mutation.
+      if (input.turnFence) {
+        const fenceOwned = await assertTurnFenceInTx(tx, input.turnFence);
+        if (!fenceOwned) {
+          return {
+            status: "FAILED" as const,
+            reason: "TURN_OWNERSHIP_LOST",
+            rolledBack: true as const,
+          };
+        }
+      }
+
       await tx.execute(
         sql`select id from documents where id = ${input.documentId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
       );
@@ -461,7 +889,11 @@ export async function reviseDocument(
       )[0];
       if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
 
-      // Idempotent correlation inside the lock
+      const expectedFp =
+        input.expectedContentSha256 ??
+        contentFingerprint(input.expectedTitle ?? owned.title, input.contentMarkdown);
+
+      // Idempotent correlation inside the lock — fingerprint must match.
       const prior = (
         await tx
           .select()
@@ -475,13 +907,13 @@ export async function reviseDocument(
           .limit(1)
       )[0];
       if (prior) {
-        return {
-          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+        return reconcileWithProvenanceResolution({
+          prior,
           documentId: input.documentId,
-          revisionId: prior.id,
-          revisionNumber: prior.revisionNumber,
-          idempotentReplay: true as const,
-        };
+          documentTitle: input.expectedTitle ?? owned.title,
+          expectedFp,
+          provenance: input.provenance,
+        });
       }
 
       const base = (
@@ -543,6 +975,7 @@ export async function reviseDocument(
         provenanceJson: JSON.stringify({
           ...(input.provenance ?? {}),
           sectionHint: input.sectionHint ?? null,
+          contentFingerprint: expectedFp,
         }),
         scope: input.scope ?? "section",
       });
@@ -797,5 +1230,175 @@ export async function compareDocumentRevisions(
       status: right.revision.status,
     },
     diff,
+  };
+}
+
+/**
+ * C-01 / F-01 — pure D4 truth lookup by sealed correlation. Never inserts/updates/deletes.
+ * No latest-revision fallback; full sealed identity comparison required for AVAILABLE.
+ */
+export type DocumentCorrelationTruth = {
+  verdict: "AVAILABLE" | "UNKNOWN" | "CONFLICT" | "NOT_EXECUTED";
+  documentId?: string;
+  revisionId?: string;
+  revisionNumber?: number;
+  reason?: string;
+  contentSha256?: string;
+};
+
+export async function lookupDocumentCorrelationTruth(input: {
+  pilotId: string;
+  preparationId: string;
+  action: "CREATE" | "REVISE";
+  correlationKey: string;
+  title: string;
+  contentMarkdown: string;
+  contentSha256: string;
+  payloadSha256?: string | null;
+  documentId?: string | null;
+  baseRevisionId?: string | null;
+  /** Full sealed identity — required for AVAILABLE proof of an ML4C document command. */
+  expectedIdentity?: SealedEffectIdentity | null;
+}): Promise<DocumentCorrelationTruth> {
+  // F-01: AVAILABLE only with a complete sealed identity from the binding.
+  // Partial payloadSha256 alone never proves command identity.
+  const fullIdentity =
+    input.expectedIdentity &&
+    input.expectedIdentity.commandId &&
+    input.expectedIdentity.payloadSha256
+      ? input.expectedIdentity
+      : null;
+
+  if (input.action === "CREATE") {
+    const doc = await findByCreationCorrelation(
+      input.pilotId,
+      input.preparationId,
+      input.correlationKey,
+    );
+    if (!doc) {
+      return { verdict: "UNKNOWN", reason: "CREATE_CORRELATION_ABSENT" };
+    }
+    if (doc.ownerPilotId !== input.pilotId || doc.preparationId !== input.preparationId) {
+      return { verdict: "NOT_EXECUTED", reason: "SOURCE_DENIED" };
+    }
+    // F-01: never use latestRevisionFor as CREATE correlation proof.
+    const rev = await findRevisionByCorrelation(doc.id, input.correlationKey);
+    if (!rev) {
+      return {
+        verdict: "UNKNOWN",
+        reason: "CREATE_REVISION_ABSENT",
+        documentId: doc.id,
+      };
+    }
+    if (!fullIdentity) {
+      return {
+        verdict: "UNKNOWN",
+        reason: "COMMAND_PROVENANCE_UNVERIFIABLE",
+        documentId: doc.id,
+        revisionId: rev.id,
+        revisionNumber: rev.revisionNumber,
+      };
+    }
+    const cmp = compareSealedEffectIdentity(
+      rev.provenanceJson,
+      rev.contentMarkdown,
+      doc.title,
+      fullIdentity,
+    );
+    if (!cmp.ok) {
+      return {
+        verdict: cmp.reason === "COMMAND_PROVENANCE_UNVERIFIABLE" ? "UNKNOWN" : "CONFLICT",
+        reason: cmp.reason,
+        documentId: doc.id,
+        revisionId: rev.id,
+        revisionNumber: rev.revisionNumber,
+      };
+    }
+    if (rev.status === "AVAILABLE") {
+      return {
+        verdict: "AVAILABLE",
+        documentId: doc.id,
+        revisionId: rev.id,
+        revisionNumber: rev.revisionNumber,
+        contentSha256: cmp.storedContentSha256,
+      };
+    }
+    return {
+      verdict: "UNKNOWN",
+      reason: `CREATE_REVISION_${rev.status}`,
+      documentId: doc.id,
+      revisionId: rev.id,
+      revisionNumber: rev.revisionNumber,
+      contentSha256: cmp.storedContentSha256,
+    };
+  }
+
+  if (!input.documentId) {
+    return { verdict: "NOT_EXECUTED", reason: "REVISE_TARGET_INCOMPLETE" };
+  }
+  const owned = (
+    await db
+      .select()
+      .from(documents)
+      .where(
+        and(
+          eq(documents.id, input.documentId),
+          eq(documents.ownerPilotId, input.pilotId),
+          eq(documents.preparationId, input.preparationId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!owned) {
+    return { verdict: "NOT_EXECUTED", reason: "SOURCE_DENIED" };
+  }
+  const rev = await findRevisionByCorrelation(input.documentId, input.correlationKey);
+  if (!rev) {
+    return {
+      verdict: "UNKNOWN",
+      reason: "REVISE_CORRELATION_ABSENT",
+      documentId: input.documentId,
+    };
+  }
+  if (!fullIdentity) {
+    return {
+      verdict: "UNKNOWN",
+      reason: "COMMAND_PROVENANCE_UNVERIFIABLE",
+      documentId: input.documentId,
+      revisionId: rev.id,
+      revisionNumber: rev.revisionNumber,
+    };
+  }
+  const cmp = compareSealedEffectIdentity(
+    rev.provenanceJson,
+    rev.contentMarkdown,
+    owned.title,
+    fullIdentity,
+  );
+  if (!cmp.ok) {
+    return {
+      verdict: cmp.reason === "COMMAND_PROVENANCE_UNVERIFIABLE" ? "UNKNOWN" : "CONFLICT",
+      reason: cmp.reason,
+      documentId: input.documentId,
+      revisionId: rev.id,
+      revisionNumber: rev.revisionNumber,
+    };
+  }
+  if (rev.status === "AVAILABLE") {
+    return {
+      verdict: "AVAILABLE",
+      documentId: input.documentId,
+      revisionId: rev.id,
+      revisionNumber: rev.revisionNumber,
+      contentSha256: cmp.storedContentSha256,
+    };
+  }
+  return {
+    verdict: "UNKNOWN",
+    reason: `REVISE_REVISION_${rev.status}`,
+    documentId: input.documentId,
+    revisionId: rev.id,
+    revisionNumber: rev.revisionNumber,
+    contentSha256: cmp.storedContentSha256,
   };
 }

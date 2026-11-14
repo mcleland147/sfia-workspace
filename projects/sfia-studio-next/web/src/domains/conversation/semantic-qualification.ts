@@ -95,6 +95,22 @@ export const QualifiedIntentItemSchema = z.object({
 });
 export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
 
+/** O-03 — typed document payload distinct from replyDraft (max D4 = 100_000). */
+export const DocumentProposalSchema = z
+  .object({
+    title: z.string().min(1).max(400),
+    contentMarkdown: z.string().min(1).max(100_000),
+  })
+  .strict();
+
+/** C-03 — designate a prior assistant proposal by message id (content resolved server-side). */
+export const DocumentSourceSchema = z
+  .object({
+    kind: z.literal("PRIOR_ASSISTANT_MESSAGE"),
+    assistantMessageId: z.string().min(1).max(128),
+  })
+  .strict();
+
 export const NoraTurnQualificationSchema = z.object({
   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
   status: QualificationStatusSchema,
@@ -102,6 +118,8 @@ export const NoraTurnQualificationSchema = z.object({
   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
   clarifications: z.array(z.string().max(400)).max(8).default([]),
   replyDraft: z.string().max(12000).default(""),
+  documentProposal: DocumentProposalSchema.optional(),
+  documentSource: DocumentSourceSchema.optional(),
 });
 export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
 
@@ -154,6 +172,10 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
     ) {
       return { ok: false, reason: `PILOTAGE_OPERATION_CAPABILITY_MISMATCH:${intent.id}` };
     }
+  }
+  // C-03: prior source is authoritative; same-turn proposal must not silently compete.
+  if (q.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE" && q.documentProposal) {
+    return { ok: false, reason: "DOCUMENT_SOURCE_AND_PROPOSAL_CONFLICT" };
   }
   const graph = new Map(q.intents.map((i) => [i.id, i.dependsOn] as const));
   const visiting = new Set<string>();

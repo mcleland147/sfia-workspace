@@ -127,16 +127,28 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
     });
     expect(conflict.status).toBe("CONFLICT");
 
+    // O-05: same correlationKey + same payload → idempotent AVAILABLE; different payload → CONFLICT.
     const replay = await reviseDocument(pilotId, prep.id, {
       documentId: v1.documentId,
       baseRevisionId: v2.revisionId,
-      contentMarkdown: "ignored on replay",
+      contentMarkdown: "# Spec\n\nSection A révisée\n",
       correlationKey: "corr-rev-1",
     });
     expect(replay.status).toBe("AVAILABLE");
     if (replay.status !== "AVAILABLE") throw new Error("replay");
-    expect(replay.idempotentReplay).toBe(true);
+    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
     expect(replay.revisionId).toBe(v2.revisionId);
+
+    const mismatch = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v2.revisionId,
+      contentMarkdown: "different payload same key",
+      correlationKey: "corr-rev-1",
+    });
+    expect(mismatch.status).toBe("CONFLICT");
+    if (mismatch.status === "CONFLICT") {
+      expect(mismatch.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+    }
 
     const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
     expect(list.revisions.length).toBeGreaterThanOrEqual(2);

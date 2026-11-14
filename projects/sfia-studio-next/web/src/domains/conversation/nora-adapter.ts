@@ -389,7 +389,8 @@ async function runLiveWithTools(
     remainingChars: policy.budgets.maxD4CharsReturned,
   };
 
-  let tools: Awaited<ReturnType<typeof buildNoraD4Tools>> = [];
+  // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
+  let tools: unknown[] = [];
   if (policy.toolAllowlist.length > 0 && input.toolScope) {
     const scope: D4ToolScope = {
       pilotId: input.toolScope.pilotId,
@@ -399,6 +400,18 @@ async function runLiveWithTools(
       budget: initialBudget,
     };
     tools = await buildNoraD4Tools(scope);
+    if (
+      policy.toolAllowlist.includes("search_conversation_history") ||
+      policy.toolAllowlist.includes("read_conversation_messages")
+    ) {
+      const { buildNoraHistoryTools } = await import("./history-tools-sdk");
+      const historyTools = await buildNoraHistoryTools({
+        pilotId: input.toolScope.pilotId,
+        preparationId: input.toolScope.preparationId,
+        budget: initialBudget,
+      });
+      tools = [...tools, ...historyTools];
+    }
     if (input.toolScope.projectId) {
       const gitTools = await buildNoraGitReadTools({
         pilotId: input.toolScope.pilotId,
@@ -416,11 +429,16 @@ async function runLiveWithTools(
     "",
     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
-    "- replyDraft = texte destiné au Pilote (français, Markdown utile).",
+    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
+    "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
+    "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
+    "- Ne combine jamais documentSource et documentProposal dans le même tour.",
     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
     "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
     "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
+    "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
+    "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
   ].join("\n");
 
@@ -431,7 +449,8 @@ async function runLiveWithTools(
     modelSettings: {
       reasoning: { effort: policy.effortRequested },
     },
-    tools,
+    // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
+    tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
     outputType: NoraTurnQualificationSchema,
   });
 

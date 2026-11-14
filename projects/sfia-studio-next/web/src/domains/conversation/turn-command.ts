@@ -667,6 +667,85 @@ export async function stashTurnQualification(args: {
 }
 
 /**
+ * Seal a document command binding into resultJson before any D4 mutation (O-04/O-05).
+ * Appends under documentCommandBindings[]; refuses overwrite of an existing same correlationKey.
+ */
+export async function stashDocumentCommandBinding(args: {
+  commandId: string;
+  ownerToken: string;
+  binding: Record<string, unknown>;
+}): Promise<{ applied: boolean }> {
+  return db.transaction(async (tx) => {
+    await tx.execute(
+      sql`select id from conversation_turn_commands
+          where id = ${args.commandId}
+            and owner_token = ${args.ownerToken}
+            and status in ('RUNNING', 'ACCEPTED')
+          for update`,
+    );
+    const owned = (
+      await tx
+        .select({
+          id: conversationTurnCommands.id,
+          resultJson: conversationTurnCommands.resultJson,
+        })
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.id, args.commandId),
+            eq(conversationTurnCommands.ownerToken, args.ownerToken),
+            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!owned) return { applied: false };
+
+    let prev: Record<string, unknown> = {};
+    if (owned.resultJson) {
+      try {
+        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
+      } catch {
+        return { applied: false };
+      }
+    }
+    const existing = Array.isArray(prev.documentCommandBindings)
+      ? (prev.documentCommandBindings as Array<Record<string, unknown>>)
+      : [];
+    const corr = typeof args.binding.correlationKey === "string" ? args.binding.correlationKey : "";
+    if (corr && existing.some((b) => b.correlationKey === corr)) {
+      const prior = existing.find((b) => b.correlationKey === corr)!;
+      const priorPayload = prior.payloadSha256;
+      if (priorPayload !== args.binding.payloadSha256) {
+        return { applied: false };
+      }
+      // Identical binding already sealed — treat as applied without rewrite.
+      return { applied: true };
+    }
+    const merged = {
+      ...prev,
+      documentCommandBindings: [...existing, args.binding],
+      documentCommandBindingStashedAt: new Date(turnClock.nowMs()).toISOString(),
+    };
+    const updated = await tx
+      .update(conversationTurnCommands)
+      .set({
+        resultJson: JSON.stringify(merged),
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(
+        and(
+          eq(conversationTurnCommands.id, args.commandId),
+          eq(conversationTurnCommands.ownerToken, args.ownerToken),
+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+        ),
+      )
+      .returning({ id: conversationTurnCommands.id });
+    return { applied: Boolean(updated[0]) };
+  });
+}
+
+/**
  * Atomic terminal commit under ownership fence:
  * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
  * CAS miss after INSERT throws → full TX rollback (no orphan assistant).
@@ -725,7 +804,7 @@ export async function commitTurnTerminal(args: {
         return { applied: false };
       }
 
-      // T-03 / Lot B: preserve stashed semanticQualification across ALL terminals.
+      // T-03 / Lot B + O-04: preserve stashed semanticQualification and documentCommandBindings.
       let terminalJson = args.resultJson ?? null;
       if (owned.resultJson) {
         try {
@@ -735,8 +814,15 @@ export async function commitTurnTerminal(args: {
             if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
               next.semanticQualification = prev.semanticQualification;
               next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
-              terminalJson = JSON.stringify(next);
             }
+            if (
+              prev.documentCommandBindings !== undefined &&
+              next.documentCommandBindings === undefined
+            ) {
+              next.documentCommandBindings = prev.documentCommandBindings;
+              next.documentCommandBindingStashedAt = prev.documentCommandBindingStashedAt;
+            }
+            terminalJson = JSON.stringify(next);
           } else {
             terminalJson = owned.resultJson;
           }

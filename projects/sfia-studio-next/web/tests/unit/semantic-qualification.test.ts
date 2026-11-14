@@ -142,6 +142,33 @@ describe("semantic qualification envelope", () => {
     expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
   });
 
+  it("validateNoraTurnQualification accepts optional documentProposal", () => {
+    const v = validateNoraTurnQualification({
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "document de cadrage",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "cadrage",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "Je prépare le document.",
+      documentProposal: {
+        title: "Cadrage",
+        contentMarkdown: "# Cadrage\n\nPérimètre initial.\n",
+      },
+    });
+    expect(v.ok).toBe(true);
+  });
+
   it("deriveThreadTurnKind from semantic modes", () => {
     const dialogue: NoraTurnQualification = {
       schemaVersion: "ml4c-sem-qual-v1",

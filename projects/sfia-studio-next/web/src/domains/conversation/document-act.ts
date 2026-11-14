@@ -2,6 +2,7 @@
  * Chat-first D4 act qualification — create vs revise vs none.
  * Server authority only; Nora text never creates or revises alone.
  */
+import { contentSha256, parseFenceMeta } from "@/domains/conversation/document-command";
 
 export type DocumentActKind = "CREATE" | "REVISE" | "NONE";
 
@@ -555,7 +556,10 @@ export type DocumentProposalExtract =
         | "DOCUMENT_PROPOSAL_MISSING"
         | "DOCUMENT_PROPOSAL_AMBIGUOUS"
         | "DOCUMENT_PROPOSAL_EMPTY"
-        | "DOCUMENT_PROPOSAL_UNCLOSED";
+        | "DOCUMENT_PROPOSAL_UNCLOSED"
+        | "DOCUMENT_PROPOSAL_METADATA_INVALID"
+        | "DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH"
+        | "DOCUMENT_PROPOSAL_TITLE_MISMATCH";
       path: "none" | "ambiguous" | "empty" | "unclosed";
       fenceCount: number;
       proposalChars: number;
@@ -627,7 +631,7 @@ function isFenceClose(marker: FenceMarker, open: FenceMarker): boolean {
 }
 
 type ScannedProposal =
-  | { status: "ok"; content: string; tag: string }
+  | { status: "ok"; content: string; tag: string; fenceInfo: string; openerLength: number }
   | { status: "unclosed" };
 
 /**
@@ -732,11 +736,83 @@ export function scanContractualDocumentFences(assistantText: string): {
       const start = lines[bodyStartLine]!.start;
       content = assistantText.slice(start, lines[closedAt]!.start);
     }
-    proposals.push({ status: "ok", content, tag: DOCUMENT_PROPOSAL_TAG });
+    proposals.push({
+      status: "ok",
+      content,
+      tag: DOCUMENT_PROPOSAL_TAG,
+      fenceInfo: open.info.trim(),
+      openerLength: open.length,
+    });
     i = closedAt + 1;
   }
 
   return { proposals, contractualOpenCount };
+}
+
+/** Remove autonomous contractual fences; keep conversational / illustrative text. */
+export function stripContractualDocumentFences(assistantText: string): string {
+  const lines = splitMarkdownLines(assistantText);
+  const chunks: string[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const open = parseFenceMarkerLine(lines[i]!.text);
+    if (!open) {
+      const start = lines[i]!.start;
+      const end = i + 1 < lines.length ? lines[i + 1]!.start : assistantText.length;
+      chunks.push(assistantText.slice(start, end));
+      i += 1;
+      continue;
+    }
+    if (!isContractualProposalOpen(open)) {
+      const start = lines[i]!.start;
+      const after = skipIllustrativeFence(lines, i, open);
+      const end = after < lines.length ? lines[after]!.start : assistantText.length;
+      chunks.push(assistantText.slice(start, end));
+      i = after;
+      continue;
+    }
+    const bodyStartLine = i + 1;
+    const nest: Array<{ char: "`" | "~"; length: number }> = [];
+    let closedAt: number | null = null;
+    for (let j = bodyStartLine; j < lines.length; j++) {
+      const cand = parseFenceMarkerLine(lines[j]!.text);
+      if (!cand) continue;
+      if (nest.length === 0 && isFenceClose(cand, open)) {
+        closedAt = j;
+        break;
+      }
+      if (nest.length > 0) {
+        const top = nest[nest.length - 1]!;
+        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
+          nest.pop();
+          continue;
+        }
+      }
+      const opensInner =
+        cand.info.trim() !== "" ||
+        cand.char !== open.char ||
+        cand.length < open.length;
+      if (opensInner) {
+        nest.push({ char: cand.char, length: cand.length });
+      }
+    }
+    if (closedAt == null) break;
+    i = closedAt + 1;
+  }
+  return chunks.join("").trimEnd();
+}
+
+function normalizeStructuredProposalBody(
+  raw: string,
+  expectedChars: number,
+): { ok: true; content: string } | { ok: false; reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" } {
+  if (raw.length === expectedChars) {
+    return { ok: true, content: raw };
+  }
+  if (raw.length === expectedChars + 1 && raw.endsWith("\n")) {
+    return { ok: true, content: raw.slice(0, -1) };
+  }
+  return { ok: false, reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
 }
 
 function failProposal(
@@ -776,7 +852,59 @@ export function extractContractualDocumentProposal(
     return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
   }
 
-  const content = proposals[0]!.content;
+  const scanned = proposals[0]!;
+  let content = scanned.content;
+  const meta = parseFenceMeta(scanned.fenceInfo);
+
+  // P0-A: INVALID structured metadata never falls through to LEGACY.
+  if (meta.kind === "INVALID") {
+    return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+  }
+
+  if (meta.kind === "STRUCTURED") {
+    const normalized = normalizeStructuredProposalBody(content, meta.chars);
+    if (!normalized.ok) {
+      return failProposal(normalized.reason, "empty", 1, content);
+    }
+    content = normalized.content;
+    let title: string;
+    try {
+      title = Buffer.from(meta.titleB64, "base64url").toString("utf8").trim();
+    } catch {
+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+    }
+    if (!title) {
+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+    }
+    const digest = contentSha256(title, content);
+    if (digest !== meta.pairSha256) {
+      return failProposal("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH", "empty", 1, content);
+    }
+    const h1 = /^#\s+(.+?)(?:\r?\n|$)/.exec(content);
+    if (h1) {
+      const heading = h1[1]!.trim();
+      if (heading !== title) {
+        return failProposal("DOCUMENT_PROPOSAL_TITLE_MISMATCH", "empty", 1, content);
+      }
+    }
+    if (!content.trim() || content.trim().length < 8) {
+      return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
+    }
+    return {
+      ok: true,
+      content,
+      title,
+      path: "fence",
+      fenceTag: DOCUMENT_PROPOSAL_TAG,
+      fenceCount: 1,
+      proposalChars: content.length,
+      proposalDigest16: digest16(content),
+      bodyEndsWithNewline: content.endsWith("\n"),
+      sectionCount: locateSections(content).length,
+    };
+  }
+
+  // LEGACY: fence without structured metadata tokens.
   if (!content.trim() || content.trim().length < 8) {
     return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
   }

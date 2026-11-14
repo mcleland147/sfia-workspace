@@ -75,6 +75,12 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     expect(() => resolveProfileType()).toThrow(StudioError);
   });
 
+  it("toolAllowlist includes conversation history read tools", () => {
+    const p = buildCognitivePolicy("Cherche un message passé sur le budget.", "TEST_BOUNDARY");
+    expect(p.toolAllowlist).toContain("search_conversation_history");
+    expect(p.toolAllowlist).toContain("read_conversation_messages");
+  });
+
   it("maxTurns follows policy budget without silent hard cap of 12", () => {
     const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
     expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);

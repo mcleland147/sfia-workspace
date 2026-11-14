@@ -85,6 +85,8 @@ export type CognitivePolicy = {
   toolAllowlist: Array<
     | "search_project_resources"
     | "read_project_document_revision"
+    | "search_conversation_history"
+    | "read_conversation_messages"
     | "list_project_git_sources"
     | "read_git_file"
     | "list_git_refs"
@@ -208,6 +210,8 @@ export function buildCognitivePolicy(
   const toolAllowlist: CognitivePolicy["toolAllowlist"] = [
     "search_project_resources",
     "read_project_document_revision",
+    "search_conversation_history",
+    "read_conversation_messages",
     "list_project_git_sources",
     "read_git_file",
     "list_git_refs",
