@@ -1,508 +1,303 @@
-# SFIA Review Pack FULL — ML4C P3 assertion closure + DEV qualification
+# SFIA Review Pack FULL — ML4C S05 browser real-api triage
 
-## A. Date et heure
-2026-11-14 23:25 CET
+## A. Date / heure
+
+2026-11-15 ~00:05 CET (Europe/Paris)
 
 ## B. GO / profil / cycle
-- Contrat: CLÔTURE DES ÉCARTS P3 ET QUALIFICATION DEV INTÉGRÉE
-- SFIA v2.6 — Cycle projet 6 — Delivery / qualification corrective
-- CRITICAL — INC/RUN — GO Morris 14 novembre 2026
-- Runtime code: **NON MODIFIÉ** (tests + docs only)
+
+- GO Morris : SFIA STUDIO NEXT — ML4C — TRIAGE ET REMÉDIATION DES TESTS NAVIGATEUR S05 REAL API
+- Contrat : SFIA v2.6
+- Cycle : 6 — Delivery projet
+- Profil : CRITICAL
+- Typologie : INC / RUN CORRECTIVE
+- Produit : `projects/sfia-studio-next/`
+- Version technique : `0.0.0-dev`
+- Classification : PATCH corrective candidate / NO RELEASE
+- STABLE : NOT AVAILABLE
 
 ## C. Git Truth initial / final
-| | SHA |
-|---|---|
-| HEAD initial | `a2d37d1f600836f353f44061687f0795cdc10377` |
-| TREE initial | `1a58f81d049311e28d1eddbec11702013f501d20` |
-| Parent initial | `67cfaceafbce89c6d30a150a43e57fcd1f7720ae` |
-| HEAD final | `6c50a1446734341b43a4f110aacde21c727fb2b1` |
-| Parent réel | `a2d37d1f600836f353f44061687f0795cdc10377` |
-| TREE final | `90ae38e3b0c4536bd3f4d062725ce460ce01e06c` |
-| Branche | `fix/next-semantic-intent-convergence-20261112` |
-| Push produit | NON |
-| PR #676 | OPEN / NOT MERGED (`67bf6b0b`) |
 
-Git Truth Check: PASS. Dirty préexistant: `.tmp-sfia-review` uniquement (réinitialisé).
+### Initial (avant correction)
 
-## D. Sources Git et refs
-- Conception corrective: `c883db07` / blob `da397424` (NOT_EXECUTED / vérité applicative)
-- Handoff précédent knowledge: `c3ec20fb` / blob `fd32dd8e`
-- Runtime inspecté (read-only): service.ts, document-act.ts (`formatDocumentEffectAck`), document-command.ts
+| Champ | Valeur |
+| --- | --- |
+| toplevel | `/Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112` |
+| branche | `fix/next-semantic-intent-convergence-20261112` |
+| HEAD | `6c50a1446734341b43a4f110aacde21c727fb2b1` |
+| tree | `90ae38e3b0c4536bd3f4d062725ce460ce01e06c` |
+| parent | `a2d37d1f600836f353f44061687f0795cdc10377` |
+| main distant | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
+| handoff distant | `sfia/review-handoff@9fe6f63cd44aa64ed14a66974e4b97ee71b28e7e` blob `7d57f65b…` |
+| status | clean hors `.tmp-sfia-review/` stub |
+| PR #676 | OPEN / NOT MERGED (hors cycle) |
 
-## E. Diagnostic de chacun des trois FAIL
+Git Truth : **PASS** (conforme contrat).
 
-Reproduction: `npx vitest run tests/integration/ml4-chat-first-d4-provenance.pg.test.ts` @ `a2d37d1f600836f353f44061687f0795cdc10377`
+### Final (après commit local produit)
 
-### E1 — C10
-- Qualif: CREATE (fixture)
-- Extract: hors fence autonome → `DOCUMENT_PROPOSAL_MISSING`
-- `d4_attempted=false` (obs)
-- `documentSave.status` observé: **NOT_EXECUTED**
-- Assertion obsolète: attendait **FAILED**
-- Tables: 0 document
+| Champ | Valeur |
+| --- | --- |
+| branche | `fix/next-semantic-intent-convergence-20261112` |
+| HEAD | `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` |
+| tree | `587ea8899550e8ee86376a8de4bb5176b52eaff1` |
+| parent | `6c50a1446734341b43a4f110aacde21c727fb2b1` |
+| message | `test(next): align S05 browser fixtures with effect-risk policy` |
+| status | clean hors `.tmp-sfia-review/chatgpt-review.md` (handoff source) |
 
-### E2 — B-iso-neg CREATE
-- Qualif: CREATE ; fence imbriqué illustratif non autonome
-- `d4_attempted=false`
-- Observé: **NOT_EXECUTED** / `DOCUMENT_PROPOSAL_MISSING`
-- Assertion obsolète: **FAILED**
-- Tables: 0 document
+- Push produit : **NON**
+- PR / merge : **NON**
+- RECETTE : **inchangée**
 
-### E3 — B-iso-neg REVISE
-- Qualif: REVISE ; fence imbriqué
-- `d4_attempted=false` ; status **NOT_EXECUTED**
-- `documentId` = cible resolve (référence pré-effet, pas mutation)
-- `revisionId` absent ; v1 inchangée
-- Assertion obsolète: **FAILED** (+ documentId undefined trop strict)
+## D. Sources lues et refs
 
-## F. Matrice FAILED / NOT_EXECUTED
-| Cas | D4 appelé | Mutation | documentSave.status | ACK |
-|---|---|---|---|---|
-| A pré-effet (manquante proposition) | non | non | NOT_EXECUTED | Résultat applicatif (pré-effet) |
-| B échec propriétaire | oui | non succès | FAILED | Statut observé: FAILED |
-| C CONFLICT | oui | non | CONFLICT | Statut observé: CONFLICT |
-| E AVAILABLE | oui | oui | AVAILABLE | succès |
+- Conception : `c883db07` / blob `da397424` — INV-01…10, politique S05, QA-01…20, G-01…10
+- Runtime RO : `s05-pending-policy.ts`, `service.ts` (sibling probe), `turn-command.ts` (stash/UNKNOWN), `semantic-qualification.ts`
+- Fixture / spec : `s05-fixture/route.ts`, `ml4c-s05-real-api.spec.ts`
+- Handoffs : `9fe6f63c` (P3), `c3ec20fb` (knowledge), `66b44bc2` (owner probe)
+- Code local HEAD prime sur PR non synchronisée
 
-Les trois FAIL = Cas A. Contrôle `formatDocumentEffectAck`: NOT_EXECUTED ≠ FAILED inventé.
+## E. Reproduction exacte des trois FAIL
 
-## G. Comparaison oracle / comportement
-Runtime conforme au contrat P3. Seules les assertions de tests étaient obsolètes.
-**Aucun changement runtime.**
+Commande (Phase A, HEAD `6c50a144`, aucune modification) :
 
-## H. Modifications de tests
-Fichier unique: `ml4-chat-first-d4-provenance.pg.test.ts`
-- status → NOT_EXECUTED
-- conservation reason DOCUMENT_PROPOSAL_MISSING
-- conservation zéro doc / zéro v2
-- ACK attend NOT_EXECUTED / pré-effet ; refuse faux FAILED/AVAILABLE
-- REVISE: documentId=cible, revisionId undefined
-
-## I. Fichiers créés
-Aucun fichier créé.
-
-## J. Diff / sections modifiées
-```diff
-diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
-index e0f940e8..ba712298 100644
---- a/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
-+++ b/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
-@@ -312,3 +312,39 @@ Profil: Critical PATCH corrective / NO RELEASE / STABLE NOT AVAILABLE
-
- - Subject-only sans provenance : non attribuable (contrat schéma inchangé).
- - BROWSER / LIVE / RECETTE : gates Morris distincts.
-+
-+## DELIV 2026-11-14 — Clôture P3 assertions NOT_EXECUTED + qualification DEV
-+
-+Date: 2026-11-14 ~23:30 CET (Europe/Paris)
-+Branche: `fix/next-semantic-intent-convergence-20261112`
-+Parent: `a2d37d1f600836f353f44061687f0795cdc10377` (LOCAL ONLY)
-+Profil: Critical PATCH test/qualification / NO RELEASE
-+
-+### Diagnostic des trois FAIL
-+
-+Fichier: `ml4-chat-first-d4-provenance.pg.test.ts`
-+
-+| Test | Observé | Oracle |
-+| --- | --- | --- |
-+| C10 missing fence | `documentSave.status=NOT_EXECUTED`, reason=`DOCUMENT_PROPOSAL_MISSING`, `d4_attempted=false` | CAS A pré-effet |
-+| B-iso-neg CREATE nested | idem | CAS A |
-+| B-iso-neg REVISE nested | idem + `documentId` cible, `revisionId` absent, v1 inchangée | CAS A |
-+
-+Les assertions attendaient `FAILED` (échec transactionnel). Le runtime P3 et
-+`formatDocumentEffectAck` restituent correctement `NOT_EXECUTED` lorsque D4
-+n'est pas appelé. Aucune modification runtime.
-+
-+### Corrections
-+
-+Assertions alignées sur NOT_EXECUTED + conservation des contrôles négatifs
-+(zéro document / zéro v2 / motif / ACK pré-effet).
-+
-+### Preuves
-+
-+| Couche | Résultat |
-+| --- | --- |
-+| UNIT | 351 PASS |
-+| `test:integration` | **468 PASS** (0 FAIL) |
-+| BUILD | PASS |
-+| BROWSER | PASS ciblé Playwright `:3101` E2E isolé (sas / continuity / S05) — fixture |
-+| LIVE Nora | NOT RUN — harness E2E force fixture ; operator DEV `:3100` non démarré (RECETTE `:3200` présente) |
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index ef21d023..47e6d013 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,23 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-
-+## delivery_id: DELIV-2026-11-14-ML4C-P3-ASSERTION-CLOSURE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-14 ~23:30 CET (Europe/Paris) |
-+| Macro-lot | ML4C — Clôture écarts P3 NOT_EXECUTED vs FAILED + qualification DEV |
-+| Type | PATCH test/qualification Critical (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` |
-+| Parent tip | `a2d37d1f600836f353f44061687f0795cdc10377` (LOCAL ONLY) |
-+| Prior handoff | `sfia/review-handoff@c3ec20fb` blob `fd32dd8e` |
-+| Lane | DEV PG `:5433` ; Playwright E2E `:3101`/`sfia_next_e2e` ; RECETTE `:3200` non mutée |
-+| Changes | assertions C10 / B-iso-neg CREATE+REVISE → NOT_EXECUTED pré-effet (runtime inchangé) |
-+| Schema | unchanged |
-+| Tests | UNIT 351 ; integration 468 GREEN ; BUILD PASS ; E2E targeted PASS ; LIVE NOT RUN |
-+| Status | Product LOCAL ONLY ; Review Handoff L3 in-cycle |
-+
-+
- ## delivery_id: DELIV-2026-11-14-ML4C-S05-KNOWLEDGE-OWNER-EVIDENCE
-
- | Field | Value |
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-index e896c372..cfbc192b 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
-@@ -270,7 +270,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
-     }
-   });
-
--  it("C10: CREATE qualified but missing autonomous sfia-document → FAILED extract, zero D4", async () => {
-+  it("C10: CREATE qualified but missing autonomous sfia-document → NOT_EXECUTED pre-effect, zero D4", async () => {
-     const pilotId = await seedPilot("ml4-c10-missing");
-     const prep = await openOrCreatePreparation(pilotId);
-     turnRaceHooks.replaceNoraAssistantText = () =>
-@@ -287,15 +287,20 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
-       );
-       expectDocumentActFromFixture(ask, "CREATE");
-       const chat = await noraTurn(pilotId, prep.id, ask);
--      expect(chat.documentSave?.status).toBe("FAILED");
-+      // CAS A — qualification CREATE, extract missing → D4 never attempted (not a transactional FAILED).
-+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
-       expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-       expect(chat.documentSave?.documentId).toBeUndefined();
-+      expect(chat.documentSave?.revisionId).toBeUndefined();
-       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
-       const msgs = await listMessages(pilotId, prep.id);
-       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
--      expect(assistant?.content ?? "").toMatch(/FAILED|DOCUMENT_PROPOSAL_MISSING/);
--      expect(assistant?.content ?? "").not.toMatch(/NOT_EXECUTED/);
--      expect(assistant?.content ?? "").not.toMatch(/Statut observé: AVAILABLE/);
-+      const body = assistant?.content ?? "";
-+      expect(body).toMatch(/NOT_EXECUTED/);
-+      expect(body).toMatch(/DOCUMENT_PROPOSAL_MISSING|pré-effet|Transaction D4: non tentée/i);
-+      expect(body).not.toMatch(/Statut observé: FAILED/);
-+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
-+      expect(body).not.toMatch(/enregistré avec succès/i);
-     } finally {
-       delete turnRaceHooks.replaceNoraAssistantText;
-     }
-@@ -889,7 +894,7 @@ s
-     expect(docs[0]!.latestRevision?.revisionNumber).toBe(1);
-   });
-
--  it("B-iso-neg CREATE: nested illustrative sfia-document → FAILED MISSING, zero D4 write", async () => {
-+  it("B-iso-neg CREATE: nested illustrative sfia-document → NOT_EXECUTED MISSING, zero D4 write", async () => {
-     const pilotId = await seedPilot("ml4-iso-create");
-     const prep = await openOrCreatePreparation(pilotId);
-     turnRaceHooks.replaceNoraAssistantText = () =>
-@@ -913,7 +918,8 @@ s
-           },
-         },
-       );
--      expect(chat.documentSave?.status).toBe("FAILED");
-+      // Nested fence is not autonomous contractual extract → pre-effect refuse, D4 not called.
-+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
-       expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-       expect(chat.documentSave?.act).toBe("CREATE");
-       expect(chat.documentSave?.documentId).toBeUndefined();
-@@ -921,14 +927,18 @@ s
-       expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
-       const msgs = await listMessages(pilotId, prep.id);
-       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
--      expect(assistant?.content).not.toMatch(/enregistré avec succès/i);
--      expect(assistant?.content ?? "").toMatch(/DOCUMENT_PROPOSAL_MISSING|non enregistré|FAILED|proposition/i);
-+      const body = assistant?.content ?? "";
-+      expect(body).not.toMatch(/enregistré avec succès/i);
-+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
-+      expect(body).not.toMatch(/Statut observé: FAILED/);
-+      expect(body).toMatch(/NOT_EXECUTED/);
-+      expect(body).toMatch(/DOCUMENT_PROPOSAL_MISSING|pré-effet|Transaction D4: non tentée/i);
-     } finally {
-       delete turnRaceHooks.replaceNoraAssistantText;
-     }
-   });
-
--  it("B-iso-neg REVISE: nested illustrative sfia-document → FAILED MISSING, doc unchanged at v1", async () => {
-+  it("B-iso-neg REVISE: nested illustrative sfia-document → NOT_EXECUTED MISSING, doc unchanged at v1", async () => {
-     const pilotId = await seedPilot("ml4-iso-revise");
-     const prep = await openOrCreatePreparation(pilotId);
-     const seeded = await savePreparationDocument(
-@@ -970,14 +980,24 @@ s
-           },
-         },
-       );
--      expect(revised.documentSave?.status).toBe("FAILED");
-+      // Nested illustrative fence ≠ autonomous proposal → REVISE not executed; no phantom v2.
-+      // documentId may identify the revise target; absence of revisionId/mutation is the oracle.
-+      expect(revised.documentSave?.status).toBe("NOT_EXECUTED");
-       expect(revised.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-       expect(revised.documentSave?.act).toBe("REVISE");
-+      expect(revised.documentSave?.documentId).toBe(documentId);
-+      expect(revised.documentSave?.revisionId).toBeUndefined();
-       const listed = await listDocumentRevisions(pilotId, prep.id, documentId);
-       expect(listed.status).toBe("AVAILABLE");
-       expect(listed.revisions).toHaveLength(1);
-       expect(listed.revisions[0]!.revisionNumber).toBe(1);
-       expect(listed.revisions[0]!.contentMarkdown).toBe(v1Body.revision.contentMarkdown);
-+      const msgs = await listMessages(pilotId, prep.id);
-+      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-+      const body = assistant?.content ?? "";
-+      expect(body).toMatch(/NOT_EXECUTED/);
-+      expect(body).not.toMatch(/Statut observé: FAILED/);
-+      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
-     } finally {
-       delete turnRaceHooks.replaceNoraAssistantText;
-     }
-
+```bash
+cd projects/sfia-studio-next/web
+npx playwright test tests/e2e/ml4c-s05-real-api.spec.ts --reporter=line
 ```
 
-### Sections tests après correction
-```typescript
-it("C10: CREATE qualified but missing autonomous sfia-document → NOT_EXECUTED pre-effect, zero D4", async () => {
-    const pilotId = await seedPilot("ml4-c10-missing");
-    const prep = await openOrCreatePreparation(pilotId);
-    turnRaceHooks.replaceNoraAssistantText = () =>
-      "Voici une proposition hors fence contractuelle.\n\n# Titre\n\nCorps non contractuel.\n";
-    try {
-      const ask = "Crée un document de synthèse sur C10 Missing Fence";
-      registerTypedScenario(
-        ask,
-        d4CreateDocumentEnvelope({
-          title: "C10 Missing Fence",
-          summary: ask,
-          includeFence: false,
-        }),
-      );
-      expectDocumentActFromFixture(ask, "CREATE");
-      const chat = await noraTurn(pilotId, prep.id, ask);
-      // CAS A — qualification CREATE, extract missing → D4 never attempted (not a transactional FAILED).
-      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
-      expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-      expect(chat.documentSave?.documentId).toBeUndefined();
-      expect(chat.documentSave?.revisionId).toBeUndefined();
-      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
-      const msgs = await listMessages(pilotId, prep.id);
-      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-      const body = assistant?.content ?? "";
-      expect(body).toMatch(/NOT_EXECUTED/);
-      expect(body).toMatch(/DOCUMENT_PROPOSAL_MISSING|pré-effet|Transaction D4: non tentée/i);
-      expect(body).not.toMatch(/Statut observé: FAILED/);
-      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
-      expect(body).not.toMatch(/enregistré avec succès/i);
-    } finally {
-      delete turnRaceHooks.replaceNoraAssistantText;
-    }
-  });
+ENV-01 observé (harness `e2e-web-server.sh`) : Web `127.0.0.1:3101`, DB `sfia_next_e2e` via container `sfia-next-dev-pg:5433`, Nora fixture, RECETTE non utilisée.
 
-```
+Résultat baseline : **4 PASS / 3 FAIL** (26.5s).
+
+### FAIL 1 — S05-REAL-01/02/03/04/06/08/09
+
+- Fichier : `ml4c-s05-real-api.spec.ts:134`
+- Assertion : `expect(bodyCycle.pendingEffectBlocked).toBe(true)`
+- Attendu : `true`
+- Observé : `false`
+- Contexte : après `seed_unknown` (QUALIFIED / `d3.converse` / EXPLORE), message « Ouvre le cycle cadrage. » via API messages réelle
+- Divergence : S05 classifie le sibling A en `PROVEN_NO_EFFECT` → `allowOwnerEffects=true` → pas de `pendingEffectBlocked`
+- Classification : **oracle obsolète** (ancien blocage global S05), pas défaut runtime
+
+### FAIL 2 — S05-REAL-07
+
+- Fichier : `ml4c-s05-real-api.spec.ts:242`
+- Assertion : `expect(body.pendingEffectBlocked).toBe(true)`
+- Attendu : `true` malgré lying `sessionStorage` pending key
+- Observé : `false`
+- Même sibling SAFE UNKNOWN → S05 ne bloque pas ; hint client non autorité (correct)
+- Classification : **oracle obsolète** (scénario RISK manquant)
+
+### FAIL 3 — S05-REAL-10
+
+- Fichier : `ml4c-s05-real-api.spec.ts:414`
+- Assertion : `expect(body.pilotageEffect?.attempted).not.toBe(true)`
+- Attendu : not `true`
+- Observé : `true` sur au moins une des deux réponses 200 concurrentes
+- Cause : avec SAFE UNKNOWN, S05 laisse le propriétaire D5 tenter OPEN_CYCLE ; concurrence ne doit pas être confondue avec blocage S05
+- Classification : **oracle obsolète** ; runtime conforme (owner atteint car A = PROVEN_NO_EFFECT)
+
+Les trois FAIL partagent la même racine d'oracle (SAFE fixture utilisée pour prouver un blocage RISK), mais les traces assertion/valeur sont distinctes (L134 / L242 / L414).
+
+## F. Matrice ancien oracle / contrat actuel
+
+| Scénario | Ancien oracle E2E | Contrat S05 actuel | Décision |
+| --- | --- | --- | --- |
+| UNKNOWN + EXPLORE + owner probe vide | Bloquer tout effet B | `PROVEN_NO_EFFECT` → ne pas bloquer | Corriger oracle |
+| UNKNOWN + REQUEST_EFFECT actionnable + issue non réconciliée | (non couvert) | `UNKNOWN_EFFECT_RISK` → bloquer | Ajouter fixture + oracle |
+| AWAITING_PILOT_ACT | Bloquer effets | Garde mission | Conserver (déjà PASS) |
+| clientPendingHint falsifié | Bloquer si A « pending » | Hint jamais autorité | RISK seed pour prouver blocage serveur |
+| Concurrence sous SAFE A | Interdire attempt D5 | S05 non-bloqueur ; owner/fencing | RISK seed pour « no métier under S05 block » |
+
+## G. Qualification des fixtures
+
+| Action | Statut tour | Qualification | Effet métier créé | Classe S05 attendue |
+| --- | --- | --- | --- | --- |
+| `seed_unknown` | UNKNOWN | QUALIFIED / `d3.converse` / EXPLORE | Aucun | PROVEN_NO_EFFECT |
+| `seed_unknown_effect_risk` (**nouveau**) | UNKNOWN | QUALIFIED / `d5.pilotage_command` / REQUEST_EFFECT / OPEN_CYCLE CADRAGE | Aucun | UNKNOWN_EFFECT_RISK |
+| `seed_awaiting_mission` | COMPLETE | mission AWAITING_PILOT_ACT | Aucun | Garde mission |
+| `oracle` | — | lecture DB | — | — |
+
+Gardes fixture inchangées : `e2eFixtureMutationsAllowed()`, session Pilote, ownership préparation, pas d'exception ID, pas de schéma.
+
+## H. Cas UNKNOWN sans effet (SAFE)
+
+Test `S05-SAFE-01/08/09` :
+
+- Dialogue indépendant → COMPLETE / `pendingEffectBlocked` not true / A reste UNKNOWN
+- Intention effet indépendante → S05 **ne** bloque **pas** sur A (`pendingBlockReason` ne cite pas A)
+- Hint client effacé → même règle
+- Reload → A recoverable via oracle
+- Autorité finale propriétaire non forcée (pas d'exigence OPEN_CYCLE APPLIED / doc AVAILABLE)
+
+## I. Cas UNKNOWN à effet incertain (RISK)
+
+Test `S05-RISK-01/02/03/04/06` + fixture `seed_unknown_effect_risk` :
+
+- Fixture refuse de retourner OK si `classifySiblingEffectRisk` ≠ `UNKNOWN_EFFECT_RISK`
+- OPEN_CYCLE / create project / document CREATE → `pendingEffectBlocked=true`, `S05_PENDING_BLOCKS*`, zéro mutation oracle (cmds/docs/revision)
+- Dialogue indépendant toujours admissible
+- Hint client effacé → protection serveur inchangée
+
+## J. Cas AWAITING_PILOT_ACT
+
+Tests `S05-REAL-05 / S05-M01` et `S05-M02` — **PASS inchangés** :
+
+- Effet B → `S05_MISSION_BLOCKS_EFFECT`
+- Question indépendante → COMPLETE sans terminer la mission
+
+## K. Cas pending hint frauduleux
+
+Test `S05-RISK-07` : lying `ctk_lying_pending` + RISK seed → blocage serveur + cmds inchangés.
+
+## L. Cas concurrence
+
+Test `S05-RISK-10` : deux POST concurrentes sous RISK seed → 200/409 ; aucun `pilotageEffect.attempted=true` ; cmds/revision stables.
+
+## M. Cas isolation Pilote
+
+- FIX-05/07 : action inconnue 400 ; anon 401/403 ; `seed_unknown_effect_risk` aussi 401/403 sans session
+- FIX-06 : Pilote B ne peut oracle / seed_awaiting / seed_unknown_effect_risk sur préparation A (403/404)
+
+## N. Fichiers créés
+
+Aucun fichier nouveau. Action ajoutée dans le route handler DEV/E2E existant.
+
+## O. Fichiers modifiés
+
+Allowlist uniquement :
+
+1. `projects/sfia-studio-next/web/src/app/api/dev/e2e/s05-fixture/route.ts`
+2. `projects/sfia-studio-next/web/tests/e2e/ml4c-s05-real-api.spec.ts`
+3. `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md`
+4. `projects/sfia-studio-next/construction/delivery-history.md`
+
+Runtime S05 / D2–D7 / schema : **NON MODIFIÉS**.
+
+### O.1 Fixture — action `seed_unknown_effect_risk` (contenu utile)
 
 ```typescript
-it("B-iso-neg CREATE: nested illustrative sfia-document → NOT_EXECUTED MISSING, zero D4 write", async () => {
-    const pilotId = await seedPilot("ml4-iso-create");
-    const prep = await openOrCreatePreparation(pilotId);
-    turnRaceHooks.replaceNoraAssistantText = () =>
-      "Je peux illustrer la syntaxe:\n\n" +
-      "````markdown\n" +
-      "```sfia-document\n" +
-      "# Document fictif imbriqué\n\n" +
-      "Ne doit jamais être persisté.\n" +
-      "```\n" +
-      "````\n";
-    try {
-      const chat = await noraTurn(
-        pilotId,
-        prep.id,
-        "Rédige un document de synthèse sur Isolation Create",
-        {
-          fixture: {
-            kind: "d4_create",
-            title: "Isolation Create",
-            includeFence: false,
-          },
-        },
-      );
-      // Nested fence is not autonomous contractual extract → pre-effect refuse, D4 not called.
-      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
-      expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-      expect(chat.documentSave?.act).toBe("CREATE");
-      expect(chat.documentSave?.documentId).toBeUndefined();
-      expect(chat.documentSave?.revisionId).toBeUndefined();
-      expect(await listDocuments(pilotId, prep.id)).toHaveLength(0);
-      const msgs = await listMessages(pilotId, prep.id);
-      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-      const body = assistant?.content ?? "";
-      expect(body).not.toMatch(/enregistré avec succès/i);
-      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
-      expect(body).not.toMatch(/Statut observé: FAILED/);
-      expect(body).toMatch(/NOT_EXECUTED/);
-      expect(body).toMatch(/DOCUMENT_PROPOSAL_MISSING|pré-effet|Transaction D4: non tentée/i);
-    } finally {
-      delete turnRaceHooks.replaceNoraAssistantText;
-    }
-  });
-
+if (action === "seed_unknown_effect_risk") {
+  // UNKNOWN + QUALIFIED REQUEST_EFFECT d5.pilotage_command OPEN_CYCLE
+  // validateNoraTurnQualification + effectIntents + extractPilotageBinding
+  // reserveTurnCommand → stashTurnQualification → markTurnUnknown
+  // classifySiblingEffectRisk(... ownerEffectsFound:false) MUST be UNKNOWN_EFFECT_RISK
+  // No businessCommands / documents / humanDecisions / pilotage journal writes
+}
 ```
 
-```typescript
-it("B-iso-neg REVISE: nested illustrative sfia-document → NOT_EXECUTED MISSING, doc unchanged at v1", async () => {
-    const pilotId = await seedPilot("ml4-iso-revise");
-    const prep = await openOrCreatePreparation(pilotId);
-    const seeded = await savePreparationDocument(
-      pilotId,
-      prep.id,
-      "Doc isolation revise",
-      "# Doc isolation revise\n\n## Section 1\n\na\n\n## Section 2\n\nb original\n\n## Section 3\n\nc\n",
-      undefined,
-      { correlationKey: newId("ck") },
-    );
-    expect(seeded.status).toBe("AVAILABLE");
-    if (seeded.status !== "AVAILABLE" || !seeded.documentId || !seeded.revisionId) {
-      throw new Error("seed AVAILABLE required");
-    }
-    const documentId = seeded.documentId;
-    const v1Body = await getDocumentRevision(pilotId, prep.id, documentId, seeded.revisionId);
-    expect(v1Body.status).toBe("AVAILABLE");
-    if (v1Body.status !== "AVAILABLE") return;
+Diff net : +~140 lignes ; allowlist actions étendue ; imports `classifySiblingEffectRisk`, `parseSiblingResultEvidence`, `validateNoraTurnQualification`, `effectIntents`, `extractPilotageBinding`.
 
-    turnRaceHooks.replaceNoraAssistantText = () =>
-      "Exemple de révision:\n\n" +
-      "````markdown\n" +
-      "```sfia-document\n" +
-      "## Section 2 — Contenu révisé\n\n" +
-      "corps fictif imbriqué\n" +
-      "```\n" +
-      "````\n";
-    try {
-      const revised = await noraTurn(
-        pilotId,
-        prep.id,
-        `Révise uniquement la section 2 du document ${documentId} et conserve le reste`,
-        {
-          fixture: {
-            kind: "d4_revise",
-            documentHint: documentId,
-            sectionHint: "2",
-            includeFence: false,
-          },
-        },
-      );
-      // Nested illustrative fence ≠ autonomous proposal → REVISE not executed; no phantom v2.
-      // documentId may identify the revise target; absence of revisionId/mutation is the oracle.
-      expect(revised.documentSave?.status).toBe("NOT_EXECUTED");
-      expect(revised.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
-      expect(revised.documentSave?.act).toBe("REVISE");
-      expect(revised.documentSave?.documentId).toBe(documentId);
-      expect(revised.documentSave?.revisionId).toBeUndefined();
-      const listed = await listDocumentRevisions(pilotId, prep.id, documentId);
-      expect(listed.status).toBe("AVAILABLE");
-      expect(listed.revisions).toHaveLength(1);
-      expect(listed.revisions[0]!.revisionNumber).toBe(1);
-      expect(listed.revisions[0]!.contentMarkdown).toBe(v1Body.revision.contentMarkdown);
-      const msgs = await listMessages(pilotId, prep.id);
-      const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-      const body = assistant?.content ?? "";
-      expect(body).toMatch(/NOT_EXECUTED/);
-      expect(body).not.toMatch(/Statut observé: FAILED/);
-      expect(body).not.toMatch(/Statut observé: AVAILABLE/);
-    } finally {
-      delete turnRaceHooks.replaceNoraAssistantText;
-    }
-  });
+### O.2 Spec — réorganisation SAFE / RISK
+
+- Ancien test unique SAFE+blocage → scindé :
+  - `S05-SAFE-01/08/09` (EXPLORE / non-blocage)
+  - `S05-RISK-01/02/03/04/06` (REQUEST_EFFECT / blocage)
+  - `S05-RISK-07` (lying hint)
+  - `S05-RISK-10` (concurrence sous RISK)
+- AWAITING + FIX conservés / renforcés (isolation sur nouvelle action)
+- Helper `seedUnknownEffectRisk` + `postThreadMessage`
+- Aucun `route.fulfill` sur messages API ; aucun skip/only/todo
+
+### O.3 Docs
+
+Entrées as-built + delivery-history pour ce delivery (reproduction, oracles, preuves).
+
+## P. UNIT
 
 ```
+Test Files  48 passed (48)
+Tests       351 passed (351)
+```
 
-## K. UNIT
-`npm run test:unit` → **351 PASS**
+`npm run test:unit` — GREEN.
 
-## L. PostgreSQL intégral
-`npm run test:integration` → **468 PASS / 0 FAIL** (28 files)
-Fichier ciblé: 19/19 PASS.
+## Q. PostgreSQL
 
-## M. BUILD
-`npm run build` → **PASS**
+```
+Test Files  28 passed (28)
+Tests       468 passed (468)
+```
 
-## N. E2E DEV (Playwright isolé)
-Harness canonique: `scripts/e2e-web-server.sh` → `:3101` + DB `sfia_next_e2e` + fixture Nora (pas LIVE).
-Ne réutilise pas operator `:3100` ; n'attache pas RECETTE `:3200`.
+`npm run test:integration` — GREEN (0 FAIL).
 
-| Spec | Résultat |
-|---|---|
-| g4-chat-first-sas | PASS |
-| ml4c-document-continuity | PASS |
-| ml4c-s05-independent-pending | PASS |
-| ml4c-s05-real-api (extra) | 4 PASS / 3 FAIL — **hors correctif P3** ; non introduits par ce diff tests PG ; réserve BROWSER |
+## R. BUILD
 
-Operator DEV `:3100`: **non démarré** (RECETTE `:3200` déjà active ; E2E harness préféré pour isolation).
+`npm run build` — PASS (`Compiled successfully`).
 
-## O. LIVE Nora DEV
-**LIVE NOT RUN — PREREQUISITES MISSING / ISOLATION CHOICE**
-- Harness E2E force fixture et neutralise OPENAI.
-- Operator DEV `:3100` non démarré ce cycle (présence RECETTE `:3200` ; risque cookies/session).
-- Aucun appel modèle LIVE exécuté.
-≠ LIVE FAILED.
+## S. Playwright et traces
 
-## P. Fake / Real Qualification
-- DETERMINISTIC: UNIT + PG + E2E fixture → PROVEN (ciblés)
-- LIVE BEHAVIOR: NOT PROVEN
-- USER RECETTE: NOT RUN
-- Git REAL: OUT OF SCOPE
+| Suite | Résultat |
+| --- | --- |
+| Baseline Phase A `ml4c-s05-real-api` @ `6c50a144` | 4 PASS / 3 FAIL |
+| Après correction `ml4c-s05-real-api` | **8 PASS** (28.3s) |
+| `ml4c-s05-independent-pending` | PASS |
+| `ml4c-document-continuity` | PASS |
+| `g4-chat-first-sas` | PASS |
 
-## Q. Sécurité / non-régression
-- Runtime D2–D7 / S05 / schema inchangés
-- Assertions de sécurité conservées (zéro mutation indésirable)
-- RECETTE non mutée
-- Aucun secret dans ce pack
+Preuve serveur réelle (pas de mock conversation). Nora = fixture provider only.
 
-## R. ENV-01
-- DEV PG: `sfia_next_dev@:5433`
-- E2E: `:3101` / `sfia_next_e2e`
-- RECETTE: `:3200` / `:5434` (présente, RO)
-- STABLE: NOT AVAILABLE
+## T. Fake / Real Qualification
 
-## S. Versioning
-NO RELEASE — 0.0.0-dev — STABLE NOT AVAILABLE — pas ADOPTED
+| Niveau | Statut |
+| --- | --- |
+| IMPLEMENTED | Oui (fixtures + oracles E2E) |
+| COVERAGE VERIFIED | Oui (SAFE / RISK / AWAITING / hint / concurrence / isolation) |
+| DETERMINISTIC BEHAVIOR PROVEN | Oui (Playwright + API réelle + Nora fixture) |
+| LIVE BEHAVIOR NOT PROVEN | Confirmé |
+| USER RECETTE NOT RUN | Confirmé |
+| NORA LIVE PROVEN | **NON** |
+| ML4C ACCEPTED | **NON** |
+| GATE C CLOSED | **NON** |
+| STABLE / ADOPTED | **NON** |
 
-## T. Git Review Index
-| Path | Role |
-|---|---|
-| ml4-chat-first-d4-provenance.pg.test.ts | diff + sections |
-| as-built / delivery-history | diff |
+## U. ENV-01 et versioning
 
-## U. Réserves
-1. LIVE NOT RUN
-2. Operator DEV `:3100` NOT STARTED
-3. ml4c-s05-real-api 3 FAIL résiduels (hors scope P3 assertion) — investigation Morris/GO distinct
-4. Produit LOCAL ONLY
+- Lane : DEV/E2E isolé `127.0.0.1:3101` / `sfia_next_e2e` / PG `:5433`
+- Nora : FIXTURE_PROVIDER_ONLY (`STUDIO_E2E` / force fixture harness)
+- Operator DEV `:3100` : non démarré
+- RECETTE `:3200` / PG `:5434` : read-only, non mutée, non utilisée
+- OpenAI LIVE : non appelé
+- Version produit : `0.0.0-dev` / NO RELEASE
 
-## V. Verdict
-**P3 RECONCILED WITH RESERVES — BROWSER/LIVE NOT FULLY PROVEN**
+## V. Git Review Index
 
-Gates:
-- A PASS (reproduction)
-- B PASS (contrat P3 / assertions)
-- C PASS (UNIT/PG/BUILD)
-- D PARTIAL (E2E ciblés PASS ; real-api réserve ; :3100 not run)
-- E NOT RUN
-- F PASS (allowlist)
-- G PASS (pas de push produit ; handoff L3 seul)
+| Artefact | Ref |
+| --- | --- |
+| Parent commit produit | `6c50a1446734341b43a4f110aacde21c727fb2b1` |
+| Commit produit LOCAL | `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` |
+| Tree produit | `587ea8899550e8ee86376a8de4bb5176b52eaff1` |
+| Message | `test(next): align S05 browser fixtures with effect-risk policy` |
+| Conception | `c883db07` / blob `da397424` |
+| Handoff précédent | `9fe6f63c` |
+| Branche handoff | `sfia/review-handoff` |
+| Publisher | `scripts/sfia/publish-review-handoff.sh` (L3) |
 
-Distinctions:
-- IMPLEMENTED (tests): oui
-- COVERAGE VERIFIED (déterministe UNIT/PG): oui
-- DETERMINISTIC BEHAVIOR PROVEN: oui (UNIT/PG/E2E ciblés)
-- LIVE BEHAVIOR PROVEN: non
+Blob handoff distant : renseigné après publish L3.
+
+## W. Réserves
+
+1. Preuve = DETERMINISTIC E2E only — pas de Nora LIVE DEV.
+2. Owner D5 peut appliquer OPEN_CYCLE quand S05 SAFE — non régressé ; non revendiqué comme preuve métier LIVE.
+3. PR #676 / main distants non mis à jour (interdit).
+4. Fixture RISK simule absence d'effet propriétaire, pas un échec mid-flight D5 avec journal partiel.
+
+## X. Verdict unique
+
+**S05 BROWSER CONTRACT RECONCILED — DETERMINISTIC E2E GREEN**
+
+Distinctions obligatoires :
+
+- IMPLEMENTED
+- COVERAGE VERIFIED
+- DETERMINISTIC BEHAVIOR PROVEN
+- LIVE BEHAVIOR NOT PROVEN
 - USER RECETTE NOT RUN
 
-Interdictions: pas ML4C ACCEPTED / GATE C CLOSED / STABLE / ADOPTED / S03-01 RECETTE PASS.
+## Y. Prochain gate Morris
 
-## W. Prochain gate Morris
-1. Revue ChatGPT handoff L3
-2. Décision sur démarrage operator DEV `:3100` + LIVE borné (GO distinct)
-3. Triage ml4c-s05-real-api (GO distinct si besoin)
-4. Candidat RECETTE figé seulement après revue + GO Morris distinct
+1. Relire ce handoff distant (SHA/blob vérifiés).
+2. Qualifier éventuellement Nora LIVE DEV sous mandat distinct + isolation ENV-01.
+3. Aucun GO RECETTE inclus.
+4. Pas de push produit / PR / merge dans ce cycle.
