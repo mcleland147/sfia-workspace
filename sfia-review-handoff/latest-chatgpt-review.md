@@ -6954,7 +6954,12 @@ No LIVE `@openai/agents` volume run this cycle. Browser and PG use deterministic
 
 ## 18. Gates Morris non consommés
 
-Push produit, PR #676, RECETTE freeze, Gate C adoption, LIVE volume, publish L3 handoff — **not executed** this cycle (local correction only).
+Push produit, PR #676, RECETTE freeze, Gate C, LIVE volume — **not executed**.
+
+L3 Review Handoff **published** this cycle:
+- Branch: `sfia/review-handoff`
+- Commit: `1d33d73215938c5d5dcc4eefaa595004495fcba1` (superseded if a follow-up FF updates the blob)
+- File: `sfia-review-handoff/latest-chatgpt-review.md`
 
 
 ## 19. Verdict
@@ -6966,4 +6971,4 @@ Candidate: working tree on `fix/next-semantic-intent-convergence-20261112` @ `67
 
 ## 20. Instruction ChatGPT §9.1
 
-After L3 publish of this pack to `sfia/review-handoff`, **re-read** remote handoff blob at `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` and reconcile any drift vs local `c1add5cb` / `714a86d1` parent expectations before ADOPT/REJECT.
+After L3 publish of this pack to `sfia/review-handoff`, **re-read** remote handoff blob at `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` and verify remote commit, blob, F-01…F-05 diffs/tests, and LIVE NOT PROVEN before ADOPT/REJECT. Parent tip was `c1add5cb` / blob `714a86d1`.
