@@ -1232,29 +1232,86 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
 }
 
 /**
+ * Exact byte slices of closed contractual fences from the original assistant text.
+ * Used so ACK composition never splits fence interiors on blank lines (QA-06).
+ */
+export function extractContractualFenceSlices(assistantText: string): string[] {
+  const lines = splitMarkdownLines(assistantText);
+  const slices: string[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const open = parseFenceMarkerLine(lines[i]!.text);
+    if (!open) {
+      i += 1;
+      continue;
+    }
+    if (!isContractualProposalOpen(open)) {
+      i = skipIllustrativeFence(lines, i, open);
+      continue;
+    }
+    const bodyStartLine = i + 1;
+    const nest: Array<{ char: "`" | "~"; length: number }> = [];
+    let closedAt: number | null = null;
+    for (let j = bodyStartLine; j < lines.length; j++) {
+      const cand = parseFenceMarkerLine(lines[j]!.text);
+      if (!cand) continue;
+      if (nest.length === 0 && isFenceClose(cand, open)) {
+        closedAt = j;
+        break;
+      }
+      if (nest.length > 0) {
+        const top = nest[nest.length - 1]!;
+        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
+          nest.pop();
+          continue;
+        }
+      }
+      const opensInner =
+        cand.info.trim() !== "" ||
+        cand.char !== open.char ||
+        cand.length < open.length;
+      if (opensInner) {
+        nest.push({ char: cand.char, length: cand.length });
+      }
+    }
+    if (closedAt == null) break;
+    const start = lines[i]!.start;
+    const end =
+      closedAt + 1 < lines.length ? lines[closedAt + 1]!.start : assistantText.length;
+    slices.push(assistantText.slice(start, end));
+    i = closedAt + 1;
+  }
+  return slices;
+}
+
+/**
  * Structured final message: prepared content (sanitized) + sole applicative verdict.
  * Guarantees no concurrent « aucune révision » + AVAILABLE.
+ * Preserves contractual fence integrity across ACK composition.
  */
 export function composeDocumentTurnMessage(
   assistantContent: string,
   effect: DocumentEffectSummary | null,
 ): string {
   if (!effect) return assistantContent;
-  const sanitized = reconcileNarrationWithDocumentEffect(assistantContent, effect);
+  const fenceSlices = extractContractualFenceSlices(assistantContent);
+  const narrativeOnly = stripContractualDocumentFences(assistantContent);
+  const sanitizedNarrative = reconcileNarrationWithDocumentEffect(narrativeOnly, effect);
   const ack = formatDocumentEffectAck(effect);
-  // Final safety: drop residual contradictory fragments after sanitize.
-  // When Studio observed any D4 effect, Nora tool-boundary claims must not compete
-  // with the applicative verdict (AVAILABLE *or* FAILED/CONFLICT/UNKNOWN).
-  let body = stripTransactionalClaimUnits(sanitized);
+  // Strip transactional claims on narrative only — never inside fence slices.
+  let body = stripTransactionalClaimUnits(sanitizedNarrative);
   if (effect.status !== "AVAILABLE") {
-    // Keep non-transactional cognitive text, but always drop tool-boundary excuses.
     const parts = body.split(/\n{2,}/);
     body = parts
       .filter((p) => !NORA_TOOL_BOUNDARY_CLAIM_RE.test(p))
       .join("\n\n")
       .trim();
   }
-  return `${body.trimEnd()}\n\n---\n${ack}\n`;
+  const withFences = [body, ...fenceSlices.map((s) => s.replace(/\s+$/u, ""))].filter(
+    (s) => s && s.length > 0,
+  ).join("\n\n");
+  // Trailing whitespace only at the assembly boundary before ACK — fence bodies already closed.
+  return `${withFences.replace(/\s+$/u, "")}\n\n---\n${ack}\n`;
 }
 
 export function appendDocumentEffectAck(

@@ -779,7 +779,7 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
         )[0]?.n ?? 0;
       const chat = await noraTurn(pilotId, prep.id, utterance);
       expect(chat.status).toBe("COMPLETE");
-      expect(chat.documentSave?.status).toBe("FAILED");
+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
       expect(chat.documentSave?.reason).toBe("PROPOSAL_SOURCE_CONFLICT");
       expect(chat.assistantMessageId).toBeTruthy();
       const row = (
@@ -801,6 +801,64 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
             .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
         )[0]?.n ?? 0;
       expect(after).toBe(before);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("SRC-02b: documentProposal without terminal LF vs legacy fence with structural LF → AVAILABLE", async () => {
+    const pilotId = await seedPilot("ml4c-src02b");
+    const prep = await openOrCreatePreparation(pilotId);
+    const title = "Structural LF";
+    const contentMarkdown =
+      `# ${title}\n\n` + "## Corps\n\nSans LF terminal voulu dans la proposition";
+    expect(contentMarkdown.endsWith("\n")).toBe(false);
+    const utterance = `ML4C-SRC02B-${Date.now()}`;
+
+    registerExplicitFixture(utterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "enregistrer avec séparateur structurel",
+        intents: [
+          {
+            id: "i-d4-create",
+            capabilityId: "d4.create_document",
+            mode: "REQUEST_EFFECT",
+            summary: "create",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Proposition.",
+        documentProposal: { title, contentMarkdown },
+      },
+    });
+
+    const legacyFence = "```sfia-document\n" + contentMarkdown + "\n```\n";
+    turnRaceHooks.replaceNoraAssistantText = () => `Narration.\n\n${legacyFence}`;
+    try {
+      const chat = await noraTurn(pilotId, prep.id, utterance);
+      expect(chat.documentSave?.status).toBe("AVAILABLE");
+      expect(chat.documentSave?.documentId).toBeTruthy();
+      expect(chat.assistantMessageId).toBeTruthy();
+      const row = (
+        await db
+          .select()
+          .from(messages)
+          .where(eq(messages.id, chat.assistantMessageId!))
+          .limit(1)
+      )[0];
+      const extracted = extractContractualDocumentProposal(row!.content);
+      expect(extracted.ok).toBe(true);
+      if (!extracted.ok) throw new Error(extracted.reason);
+      expect(extracted.content).toBe(contentMarkdown);
+      expect(row!.content).toMatch(/NOT_EXECUTED|AVAILABLE|Résultat applicatif/);
+      expect(row!.content).not.toMatch(/Studio a exécuté l'acte documentaire et a refusé/);
     } finally {
       delete turnRaceHooks.replaceNoraAssistantText;
     }
@@ -854,7 +912,7 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
         )[0]?.n ?? 0;
 
       const chat = await noraTurn(pilotId, prep.id, utterance);
-      expect(chat.documentSave?.status).toBe("FAILED");
+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
       expect(chat.documentSave?.reason).toBe("PROPOSAL_SOURCE_CONFLICT");
 
       const after =

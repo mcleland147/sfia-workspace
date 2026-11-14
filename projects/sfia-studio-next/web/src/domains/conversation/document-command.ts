@@ -270,6 +270,84 @@ export function serializeProposalFence(proposal: DocumentProposalExact): string 
   return `${ticks}${info}\n${body}${ticks}\n`;
 }
 
+/**
+ * P1 — structural fence separator only (serializer contract).
+ * True iff extracted body equals canonical body + exactly one trailing LF,
+ * titles match, canonical does not already end with LF, and
+ * serialize→extract round-trip restores the canonical title/body/digest.
+ * Never trims or rewrites content; never accepts any other difference.
+ */
+export function isStructuralFenceSeparatorOnly(input: {
+  authority: DocumentProposalExact;
+  extractedTitle: string;
+  extractedContent: string;
+}): boolean {
+  const { authority, extractedTitle, extractedContent } = input;
+  if (extractedTitle !== authority.title) return false;
+  if (authority.contentMarkdown.endsWith("\n")) return false;
+  if (extractedContent !== `${authority.contentMarkdown}\n`) return false;
+  if (contentSha256(extractedTitle, extractedContent) === authority.contentSha256) {
+    // Exact digest match means no separator-only case (bodies already equal).
+    return false;
+  }
+  try {
+    const fence = serializeProposalFence(authority);
+    const again = extractContractualDocumentProposal(fence);
+    if (!again.ok) return false;
+    return (
+      again.title === authority.title &&
+      again.content === authority.contentMarkdown &&
+      contentSha256(again.title, again.content) === authority.contentSha256
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * P1 — confront authoritative proposal with a concurrent contractual fence.
+ * Fence MISSING → materialize; INVALID → refuse; exact match → accept;
+ * sole structural LF separator (serializer contract) → accept for canonical rewrite.
+ */
+export function confrontProposalWithFence(
+  authority: DocumentProposalExact,
+  extracted: {
+    ok: false;
+    reason: string;
+  } | {
+    ok: true;
+    title: string;
+    content: string;
+  },
+):
+  | { ok: true; materialize: boolean }
+  | { ok: false; reason: string } {
+  if (!extracted.ok) {
+    if (extracted.reason === "DOCUMENT_PROPOSAL_MISSING") {
+      return { ok: true, materialize: true };
+    }
+    return { ok: false, reason: extracted.reason };
+  }
+  if (
+    extracted.title === authority.title &&
+    extracted.content === authority.contentMarkdown &&
+    contentSha256(extracted.title, extracted.content) === authority.contentSha256
+  ) {
+    return { ok: true, materialize: false };
+  }
+  if (
+    isStructuralFenceSeparatorOnly({
+      authority,
+      extractedTitle: extracted.title,
+      extractedContent: extracted.content,
+    })
+  ) {
+    // Accept: caller keeps canonical authority; later rewrite uses serializeProposalFence.
+    return { ok: true, materialize: false };
+  }
+  return { ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" };
+}
+
 export function sealedIdentityFromBinding(binding: DocumentCommandBinding): SealedEffectIdentity {
   return {
     commandId: binding.commandId,

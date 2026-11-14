@@ -296,7 +296,12 @@ describe("SEM-02 lexical routers retired", () => {
 
   it("Lot C — S05 pending gate before owner effects", () => {
     const src = readFileSync(join(__dirname, "../../src/domains/conversation/service.ts"), "utf8");
-    expect(src).toMatch(/S05_PENDING_BLOCKS_EFFECT/);
+    const policy = readFileSync(
+      join(__dirname, "../../src/domains/conversation/s05-pending-policy.ts"),
+      "utf8",
+    );
+    expect(policy).toMatch(/S05_PENDING_BLOCKS_EFFECT/);
+    expect(src).toMatch(/evaluateS05SiblingPolicy/);
     expect(src).toMatch(/allowOwnerEffects/);
     expect(src).toMatch(/findUnresolvedSiblingTurns/);
   });

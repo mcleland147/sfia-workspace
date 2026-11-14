@@ -4,6 +4,25 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-14-ML4C-D4-S05-CONTINUITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~22:05 CET (Europe/Paris) |
+| Macro-lot | ML4C — Fiabilité création/révision documentaire D3/D4 + continuité S05 |
+| Type | PATCH corrective Critical integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` |
+| Parent tip | `d936da81ebf7d17eb78cc11da0538df000281a4a` (LOCAL ONLY) |
+| Design | `c883db07` / blob `da397424` |
+| Prior P0 handoff | `ce53377c` / blob `ed74c45c` |
+| Lane | DEV + Vitest PG `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | confront structural LF ; S05 risk policy ; ACK NOT_EXECUTED ; fence-after-ACK ; Nora sas guidance |
+| Schema | unchanged |
+| Tests | UNIT PASS ; PG focused PASS ; BUILD PASS ; E2E/LIVE NOT RUN |
+| Status | Product LOCAL ONLY pending Morris RECETTE gate ; Review Handoff L3 in-cycle |
+
+
+
 ## delivery_id: DELIV-2026-11-14-ML4C-PROVENANCE-PARSE-FINAL
 
 | Field | Value |

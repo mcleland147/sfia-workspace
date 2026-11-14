@@ -3,7 +3,7 @@
  * Never hold a DB transaction open across the provider call.
  * Ownership fencing via owner_token: lost ownership ⇒ no COMPLETE, no further D4 commits.
  */
-import { and, eq, ne, sql } from "drizzle-orm";
+import { and, asc, eq, ne, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { conversationTurnCommands, messages } from "@/db/schema";
 import { newId } from "@/lib/ids";
@@ -553,6 +553,7 @@ export async function reserveTurnCommand(args: {
 /**
  * S05 — sibling turns still unresolved for the same conversation (excluding current key).
  * Server authority for pending coexistence; client sessionStorage is UX aid only.
+ * Ordered deterministically by createdAt then id (QA-19).
  */
 export async function findUnresolvedSiblingTurns(args: {
   conversationId: string;
@@ -564,6 +565,8 @@ export async function findUnresolvedSiblingTurns(args: {
     clientTurnKey: string;
     status: TurnCommandStatus;
     userMessageId: string | null;
+    createdAt: Date;
+    resultJson: string | null;
   }>
 > {
   const rows = await db
@@ -572,6 +575,8 @@ export async function findUnresolvedSiblingTurns(args: {
       clientTurnKey: conversationTurnCommands.clientTurnKey,
       status: conversationTurnCommands.status,
       userMessageId: conversationTurnCommands.userMessageId,
+      createdAt: conversationTurnCommands.createdAt,
+      resultJson: conversationTurnCommands.resultJson,
     })
     .from(conversationTurnCommands)
     .where(
@@ -581,12 +586,15 @@ export async function findUnresolvedSiblingTurns(args: {
         ne(conversationTurnCommands.clientTurnKey, args.excludeClientTurnKey),
         sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED', 'UNKNOWN')`,
       ),
-    );
+    )
+    .orderBy(asc(conversationTurnCommands.createdAt), asc(conversationTurnCommands.id));
   return rows.map((r) => ({
     id: r.id,
     clientTurnKey: r.clientTurnKey,
     status: r.status as TurnCommandStatus,
     userMessageId: r.userMessageId,
+    createdAt: r.createdAt,
+    resultJson: r.resultJson,
   }));
 }
 

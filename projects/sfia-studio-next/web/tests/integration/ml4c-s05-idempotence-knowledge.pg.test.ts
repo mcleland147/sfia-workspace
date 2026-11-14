@@ -50,12 +50,12 @@ describe("ML4C integrator — S05 / idempotence / knowledge (PG)", () => {
     /* e2e isolated */
   });
 
-  it("S05-G02/G04: UNKNOWN A blocks OPEN_CYCLE and D2 preview for B", async () => {
+  it("S05-G02: proven-harmless UNKNOWN (EXPLORE) does not block independent D2 for B", async () => {
     const a = await reserveTurnCommand({
       conversationId,
       ownerPilotId: pilotId,
-      clientTurnKey: `s05-a-${Date.now()}`,
-      content: "acte A en cours",
+      clientTurnKey: `s05-a-safe-${Date.now()}`,
+      content: "acte A cognitif",
     });
     if (a.kind !== "fresh") throw new Error("expected fresh A");
     await stashTurnQualification({
@@ -81,23 +81,82 @@ describe("ML4C integrator — S05 / idempotence / knowledge (PG)", () => {
         replyDraft: "a",
       }),
     });
-    await markTurnUnknown(a.commandId, "TEST_S05_A", a.ownerToken);
-
-    const previewBefore = (
-      await db
-        .select()
-        .from(preparations)
-        .where(eq(preparations.id, preparationId))
-        .limit(1)
-    )[0];
-    const revBefore = previewBefore?.creationRevision ?? 0;
+    await markTurnUnknown(a.commandId, "TEST_S05_A_SAFE", a.ownerToken);
 
     const bCreate = await postUserMessageAndNora(
       pilotId,
       preparationId,
       "Je veux créer un projet.",
       {
-        clientTurnKey: `s05-b-create-${Date.now()}`,
+        clientTurnKey: `s05-b-create-safe-${Date.now()}`,
+      },
+    );
+    // Cognitive-only UNKNOWN with empty owner footprint → PROVEN_NO_EFFECT.
+    expect(bCreate.pendingEffectBlocked).toBe(false);
+
+    const aRow = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, a.commandId))
+        .limit(1)
+    )[0];
+    expect(aRow?.status).toBe("UNKNOWN");
+  });
+
+  it("S05-G04: UNKNOWN with actionable REQUEST_EFFECT still blocks B", async () => {
+    // Fresh preparation so a prior AWAITING_PILOT_ACT mission cannot leak into assertions.
+    const prep = await openOrCreatePreparation(pilotId);
+    const ctx = await getPreparationContext(pilotId, prep.id);
+    const convId = ctx.conversation!.id;
+
+    const a = await reserveTurnCommand({
+      conversationId: convId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `s05-a-risk-${Date.now()}`,
+      content: "acte A effet",
+    });
+    if (a.kind !== "fresh") throw new Error("expected fresh A");
+    await stashTurnQualification({
+      commandId: a.commandId,
+      ownerToken: a.ownerToken,
+      qualificationJson: JSON.stringify({
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "create doc",
+        intents: [
+          {
+            id: "ia",
+            capabilityId: "d4.create_document",
+            mode: "REQUEST_EFFECT",
+            summary: "create",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "a",
+      }),
+    });
+    await markTurnUnknown(a.commandId, "TEST_S05_A_RISK", a.ownerToken);
+
+    const previewBefore = (
+      await db
+        .select()
+        .from(preparations)
+        .where(eq(preparations.id, prep.id))
+        .limit(1)
+    )[0];
+    const revBefore = previewBefore?.creationRevision ?? 0;
+
+    const bCreate = await postUserMessageAndNora(
+      pilotId,
+      prep.id,
+      "Je veux créer un projet.",
+      {
+        clientTurnKey: `s05-b-create-risk-${Date.now()}`,
         // Hint deliberately omitted — server must still find sibling A.
       },
     );
@@ -107,13 +166,13 @@ describe("ML4C integrator — S05 / idempotence / knowledge (PG)", () => {
       await db
         .select()
         .from(preparations)
-        .where(eq(preparations.id, preparationId))
+        .where(eq(preparations.id, prep.id))
         .limit(1)
     )[0];
     expect(previewAfter?.creationRevision ?? 0).toBe(revBefore);
 
-    const bCycle = await postUserMessageAndNora(pilotId, preparationId, "Ouvre le cycle cadrage.", {
-      clientTurnKey: `s05-b-cycle-${Date.now()}`,
+    const bCycle = await postUserMessageAndNora(pilotId, prep.id, "Ouvre le cycle cadrage.", {
+      clientTurnKey: `s05-b-cycle-risk-${Date.now()}`,
     });
     expect(bCycle.pendingEffectBlocked).toBe(true);
     expect(bCycle.pilotageEffect?.attempted).not.toBe(true);

@@ -193,3 +193,42 @@ ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED �
 - ENV-R09 sessions multi-lane NOT VERIFIED
 - ENV-R06 isolation runtime réelle: NOT VERIFIED si endpoint RECETTE absent
 - Décision d’intégration Git / RECETTE / promotion = Morris uniquement
+
+## DELIV 2026-11-14 — Fiabilité D3/D4 + continuité S05 (P1–P5)
+
+Date: 2026-11-14 ~22:05 CET (Europe/Paris)
+Branche: `fix/next-semantic-intent-convergence-20261112`
+Parent candidat: `d936da81ebf7d17eb78cc11da0538df000281a4a` (LOCAL ONLY)
+Conception: `docs/next-ml4c-d4-continuity-corrective-design-20261114@c883db07` blob `da397424`
+P0 handoff: `sfia/review-handoff@ce53377c` blob `ed74c45c`
+Profil: Critical PATCH corrective / NO RELEASE / STABLE NOT AVAILABLE
+
+### Causes traitées
+
+1. **PROPOSAL_SOURCE_CONFLICT faux positif** — LF structurel de `serializeProposalFence` vs proposition sans NL terminal.
+2. **S05** — tout UNKNOWN bloquait globalement ; désormais classification pure de risque (non persistée).
+3. **Sas / ACK** — guidance Nora clarifiée (outils RO ≠ impossibilité D4) ; pré-effet → `NOT_EXECUTED` ; fence préservée après ACK.
+
+### Mécanique réelle
+
+- `confrontProposalWithFence` / `isStructuralFenceSeparatorOnly` dans `document-command.ts` (égalité stricte + séparateur structurel unique + round-trip serialize/extract).
+- Helper pur `s05-pending-policy.ts` + `findUnresolvedSiblingTurns` ordonné ; missions D2/D5/D6 toujours fail-closed.
+- `composeDocumentTurnMessage` isole les fences contractuelles avant strip narratif.
+- `nora-adapter` instructions sas / propriétaire Studio.
+- Aucune migration ; `domains/document/service.ts` inchangé (`projectId` nullable conservé).
+
+### Preuves
+
+| Couche | Résultat |
+| --- | --- |
+| UNIT | PASS (`npm run test:unit`) |
+| PG E2E isolé `sfia_next_e2e@:5433` | PASS suites prior-proposal / S05 / document-command / d2-mission-s05 |
+| BUILD | PASS (`npm run build`) |
+| BROWSER E2E | NOT RUN (DEV :3100 absent) |
+| LIVE Nora | NOT RUN |
+
+### Réserves
+
+- LIVE / BROWSER / RECETTE rejeu : gates Morris distincts.
+- UNKNOWN historiques RECETTE non mutés.
+- Conception candidate non ADOPTED.

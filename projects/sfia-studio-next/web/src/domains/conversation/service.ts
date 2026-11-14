@@ -14,6 +14,7 @@ import { listDocuments } from "@/domains/document/service";
 import {
   admitDocumentCommand,
   canonicalizeDocumentProposal,
+  confrontProposalWithFence,
   contentSha256,
   resolveAssistantProposal,
   sealAndApplyDocumentCommand,
@@ -59,6 +60,11 @@ import {
   type NoraTurnQualification,
 } from "./semantic-qualification";
 import { loadLatestMissionsByIntentKey } from "./intent-conduction";
+import {
+  evaluateS05SiblingPolicy,
+  parseSiblingResultEvidence,
+  type S05SiblingEvidence,
+} from "./s05-pending-policy";
 import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
 import {
   appendMissionAck,
@@ -299,32 +305,6 @@ async function resolvePilotageEffectForReplay(input: {
     humanDecisionCreated:
       input.humanDecisionCreated || Boolean(reconstituted.humanDecisionCreated),
   };
-}
-
-/**
- * P1 — confront an authoritative proposal with a concurrent contractual fence.
- * Fence MISSING → materialize; fence INVALID/ambiguous → refuse; fence OK → strict title+body.
- */
-function confrontProposalWithFence(
-  authority: DocumentProposalExact,
-  extracted: DocumentProposalExtract,
-):
-  | { ok: true; materialize: boolean }
-  | { ok: false; reason: string } {
-  if (!extracted.ok) {
-    if (extracted.reason === "DOCUMENT_PROPOSAL_MISSING") {
-      return { ok: true, materialize: true };
-    }
-    return { ok: false, reason: extracted.reason };
-  }
-  if (
-    extracted.title !== authority.title ||
-    extracted.content !== authority.contentMarkdown ||
-    contentSha256(extracted.title, extracted.content) !== authority.contentSha256
-  ) {
-    return { ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" };
-  }
-  return { ok: true, materialize: false };
 }
 
 export async function postUserMessageAndNora(
@@ -708,8 +688,6 @@ export async function postUserMessageAndNora(
     excludeClientTurnKey: clientTurnKey,
   });
   const clientPendingHint = opts?.unresolvedPendingClientTurnKey?.trim() || null;
-  const blockingSibling =
-    siblings.find((s) => s.clientTurnKey === clientPendingHint) ?? siblings[0] ?? null;
   const missionsByKey = await loadLatestMissionsByIntentKey(ctx.conversation.id);
   const unresolvedMissions = [...missionsByKey.values()].filter((m) =>
     ["AWAITING_PILOT_ACT", "AWAITING_PILOT_AUTH", "AWAITING_CLARIFICATION", "ACTIVE"].includes(
@@ -723,20 +701,73 @@ export async function postUserMessageAndNora(
         ? m.steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
         : true,
     ) ?? null;
-  const hasUnresolvedWork = Boolean(blockingSibling || blockingMission);
+
+  const applyPendingGate =
+    nextTurnKind === "INTENTION_EFFET" || nextTurnKind === "INCERTAIN";
+  const currentCorrelationKeys: string[] = [];
+  const siblingEvidence: S05SiblingEvidence[] = siblings.map((s) => {
+    const parsed = parseSiblingResultEvidence(s.resultJson);
+    return {
+      id: s.id,
+      clientTurnKey: s.clientTurnKey,
+      status: s.status,
+      createdAtMs: s.createdAt.getTime(),
+      qualificationStatus: parsed.qualificationStatus,
+      qualification: parsed.qualification,
+      documentSaveStatus: parsed.documentSaveStatus,
+      pilotageEffectAttempted: parsed.pilotageEffectAttempted,
+      humanDecisionCreated: parsed.humanDecisionCreated,
+      // Durable resultJson + qualification are the owner-side evidence available without
+      // mutating RECETTE. Empty documentSave / pilotage / HD + UNAVAILABLE ⇒ probed false.
+      ownerEffectsFound:
+        parsed.qualificationStatus == null
+          ? null
+          : parsed.documentSaveStatus != null &&
+              parsed.documentSaveStatus !== "NOT_EXECUTED"
+            ? true
+            : parsed.pilotageEffectAttempted === true ||
+                parsed.humanDecisionCreated === true
+              ? true
+              : false,
+      correlationKeys: parsed.correlationKeys,
+    };
+  });
+  const siblingPolicy = evaluateS05SiblingPolicy({
+    siblings: siblingEvidence,
+    current: {
+      correlationKeys: currentCorrelationKeys,
+      requestsOwnerEffect: applyPendingGate,
+    },
+    clientPendingHint,
+    applyPendingGate,
+  });
+
   let pendingEffectBlocked = false;
   let pendingBlockReason: string | undefined;
   let allowOwnerEffects = true;
-  if (hasUnresolvedWork && (nextTurnKind === "INTENTION_EFFET" || nextTurnKind === "INCERTAIN")) {
-    allowOwnerEffects = false;
-    pendingEffectBlocked = true;
-    pendingBlockReason = blockingSibling
-      ? nextTurnKind === "INTENTION_EFFET"
-        ? `S05_PENDING_BLOCKS_EFFECT:${blockingSibling.clientTurnKey}`
-        : `S05_PENDING_BLOCKS_AMBIGUOUS:${blockingSibling.clientTurnKey}`
-      : nextTurnKind === "INTENTION_EFFET"
-        ? `S05_MISSION_BLOCKS_EFFECT:${blockingMission?.clientIntentKey ?? "mission"}`
-        : `S05_MISSION_BLOCKS_AMBIGUOUS:${blockingMission?.clientIntentKey ?? "mission"}`;
+  const blockingSiblingKey = siblingPolicy.primaryBlockingKey;
+  const blockingSibling =
+    siblings.find((s) => s.clientTurnKey === blockingSiblingKey) ?? null;
+
+  if (applyPendingGate) {
+    if (siblingPolicy.pendingEffectBlocked) {
+      allowOwnerEffects = false;
+      pendingEffectBlocked = true;
+      pendingBlockReason = siblingPolicy.pendingBlockReason;
+    }
+    if (blockingMission) {
+      allowOwnerEffects = false;
+      pendingEffectBlocked = true;
+      if (!pendingBlockReason) {
+        pendingBlockReason =
+          nextTurnKind === "INTENTION_EFFET"
+            ? `S05_MISSION_BLOCKS_EFFECT:${blockingMission.clientIntentKey ?? "mission"}`
+            : `S05_MISSION_BLOCKS_AMBIGUOUS:${blockingMission.clientIntentKey ?? "mission"}`;
+      }
+    }
+  }
+
+  if (pendingEffectBlocked) {
     emitObs({
       event_name: "d3.turn.s05_pending_block",
       component: "d3.conversation",
@@ -746,6 +777,15 @@ export async function postUserMessageAndNora(
       meta: {
         pending_client_turn_key: blockingSibling?.clientTurnKey ?? null,
         pending_status: blockingSibling?.status ?? null,
+        pending_block_reason: pendingBlockReason ?? null,
+        // Primitive summary only — emitObs allowlists scalar meta (QA-19).
+        sibling_risks_summary: siblingPolicy.classifications
+          .map((c) => `${c.clientTurnKey}:${c.status}:${c.risk}`)
+          .join("|")
+          .slice(0, 500),
+        sibling_blocker_count: siblingPolicy.classifications.filter((c) =>
+          ["ACTIVE_EFFECT_RISK", "UNKNOWN_EFFECT_RISK", "SAME_INTENT"].includes(c.risk),
+        ).length,
         mission_status: blockingMission?.status ?? null,
         mission_key: blockingMission?.clientIntentKey ?? null,
         next_turn_kind: nextTurnKind,
@@ -1059,8 +1099,9 @@ export async function postUserMessageAndNora(
         }
 
         if (createBlocked || !exact) {
+          // Pre-effect refuse — D4 not attempted (QA-16).
           documentSave = {
-            status: "FAILED",
+            status: "NOT_EXECUTED",
             reason: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
             act: "CREATE",
           };
@@ -1092,7 +1133,7 @@ export async function postUserMessageAndNora(
             );
             if (createIntents.length > 1) {
               documentSave = {
-                status: "FAILED",
+                status: "NOT_EXECUTED",
                 reason: "AMBIGUOUS_CREATE_INTENT",
                 act: "CREATE",
               };
@@ -1100,7 +1141,7 @@ export async function postUserMessageAndNora(
               const createIntent = createIntents[0];
               if (!createIntent) {
                 documentSave = {
-                  status: "FAILED",
+                  status: "NOT_EXECUTED",
                   reason: "MISSING_CREATE_INTENT",
                   act: "CREATE",
                 };
@@ -1122,7 +1163,7 @@ export async function postUserMessageAndNora(
                 });
                 if (!admitted.ok) {
                   documentSave = {
-                    status: "FAILED",
+                    status: "NOT_EXECUTED",
                     reason: admitted.reason,
                     act: "CREATE",
                   };
@@ -1138,7 +1179,7 @@ export async function postUserMessageAndNora(
                   });
                   if (!sealed.sealApplied) {
                     documentSave = {
-                      status: "FAILED",
+                      status: "NOT_EXECUTED",
                       reason: "BINDING_SEAL_FAILED",
                       act: "CREATE",
                     };
@@ -1295,7 +1336,7 @@ export async function postUserMessageAndNora(
             }
             if (reviseBlocked || !reviseProposalContent) {
               documentSave = {
-                status: "FAILED",
+                status: "NOT_EXECUTED",
                 reason: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
                 documentId: target.documentId,
                 baseRevisionId: target.baseRevisionId,
@@ -1319,7 +1360,7 @@ export async function postUserMessageAndNora(
               );
               if (!merged.ok) {
                 documentSave = {
-                  status: "FAILED",
+                  status: "NOT_EXECUTED",
                   reason: merged.reason,
                   documentId: target.documentId,
                   baseRevisionId: target.baseRevisionId,
@@ -1344,7 +1385,7 @@ export async function postUserMessageAndNora(
                 );
                 if (!scopeCheck.ok) {
                   documentSave = {
-                    status: "FAILED",
+                    status: "NOT_EXECUTED",
                     reason: scopeCheck.reason,
                     documentId: target.documentId,
                     baseRevisionId: target.baseRevisionId,
@@ -1367,7 +1408,7 @@ export async function postUserMessageAndNora(
                   );
                   if (reviseIntents.length !== 1) {
                     documentSave = {
-                      status: "FAILED",
+                      status: "NOT_EXECUTED",
                       reason:
                         reviseIntents.length === 0
                           ? "MISSING_REVISE_INTENT"
@@ -1398,7 +1439,7 @@ export async function postUserMessageAndNora(
                     });
                     if (!admitted.ok) {
                       documentSave = {
-                        status: "FAILED",
+                        status: "NOT_EXECUTED",
                         reason: admitted.reason,
                         documentId: target.documentId,
                         baseRevisionId: target.baseRevisionId,
@@ -1416,7 +1457,7 @@ export async function postUserMessageAndNora(
                       });
                       if (!sealed.sealApplied) {
                         documentSave = {
-                          status: "FAILED",
+                          status: "NOT_EXECUTED",
                           reason: "BINDING_SEAL_FAILED",
                           documentId: target.documentId,
                           baseRevisionId: target.baseRevisionId,
@@ -1516,8 +1557,9 @@ export async function postUserMessageAndNora(
       : documentAct.kind !== "NONE" && !ownershipLostBeforeD4
         ? {
             act: documentAct.kind === "REVISE" ? "REVISE" : "CREATE",
-            status: "UNKNOWN",
-            reason: "NO_EFFECT_OBSERVED",
+            // S05 block / skipped owner path: not a transactional UNKNOWN.
+            status: "NOT_EXECUTED",
+            reason: pendingBlockReason ?? "NO_EFFECT_OBSERVED",
           }
         : // Loyal pre-effect: plausible write language, not qualified → NOT_EXECUTED (never fake FAILED).
           documentAct.kind === "NONE" &&
@@ -1773,7 +1815,7 @@ export async function postUserMessageAndNora(
     documentAct.kind === "NONE"
   ) {
     documentSave = {
-      status: "FAILED",
+      status: "NOT_EXECUTED",
       reason: proposalAuthorityConflict,
     };
   }

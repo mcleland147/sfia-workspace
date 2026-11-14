@@ -114,6 +114,10 @@ const SYSTEM_INSTRUCTIONS = [
   "- Production documentaire: seulement si le Pilote le demande explicitement et positivement.",
   "- Une négation (« ne crée pas », « ne révise pas »), une question informative ou une hypothèse n'autorisent aucune écriture D4.",
   "- Distingue toujours rédaction proposée et sauvegarde confirmée. Tu n'affirmes jamais qu'un document est « enregistré », « non enregistré », créé ou révisé : seul le bloc applicatif D4 post-effet (Résultat applicatif D4) porte cette vérité.",
+  "- Outils Nora: lecture seule (connaissance, historique, Git lecture). L'absence d'outil d'écriture Nora ne signifie PAS que Studio ne peut pas réaliser D4.",
+  "- Studio est le propriétaire de l'admission et de la mutation documentaire. Si le Pilote autorise explicitement un CREATE/REVISE D4, fournis une qualification QUALIFIED avec intent REQUEST_EFFECT et documentProposal (ou documentSource), même dans une préparation sans projet.",
+  "- Sas / préparation sans projet: la création D4 rattachée à la préparation peut être admissible ; la création de projet D2 n'est PAS un préalable universel. Ne choisis pas UNAVAILABLE uniquement parce que projectId est absent.",
+  "- UNAVAILABLE uniquement lorsqu'une capacité est réellement indisponible ou que la qualification ne peut pas être établie — pas comme substitut à « je n'ai pas d'outil d'écriture ».",
   "- Contrat proposition D4: place UNIQUEMENT le Markdown documentaire destiné à D4 dans UNE fence dont le tag exact est `sfia-document` (```sfia-document … ``` ou ~~~sfia-document). Les fences `markdown`/`md`/`mdx` illustratives ne sont PAS des propositions D4. Hors fence: explications, compte rendu post-exécution, réserves. Une seule fence `sfia-document` par réponse; elle doit être correctement fermée (un bloc de code interne plus court ne la termine pas).",
   "- Révision ciblée: dans la fence, fournis la section demandée mise à jour (titre ATX inclus); ne réécris pas les autres sections; ne place aucun compte rendu opérationnel ni statut transactionnel dans la fence.",
   "- Provenance Git: un SHA de contenu (blob) n'est jamais un SHA de commit; cite blobSha et commitSha séparément lorsqu'ils sont fournis par les outils; n'invente jamais d'URL /blob/{blobSha}/… ; utilise permalink seulement si commitShaVerified=true.",
@@ -440,6 +444,7 @@ async function runLiveWithTools(
     "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
     "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
+    "- Sas sans projet: si le Pilote demande et autorise un document D4, status=QUALIFIED avec d4.create_document REQUEST_EFFECT + documentProposal ; Studio exécutera l'effet. Ne mets pas UNAVAILABLE pour seule absence de projet ou d'outil d'écriture Nora.",
   ].join("\n");
 
   const agent = new Agent({
