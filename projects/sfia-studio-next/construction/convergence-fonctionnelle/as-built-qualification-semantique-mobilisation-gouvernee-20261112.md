@@ -269,3 +269,46 @@ Profil: Critical PATCH corrective / NO RELEASE / STABLE NOT AVAILABLE
 - BROWSER / LIVE / RECETTE : gates Morris distincts.
 - Aucune mutation RECETTE ; UNKNOWN historiques non purgés.
 - `STUDIO_S05_PROBE_FORCE_ERROR` = seam DEV/E2E uniquement (R04).
+
+## DELIV 2026-11-14 — Complément S05 knowledge owner evidence
+
+Date: 2026-11-14 ~23:05 CET (Europe/Paris)
+Branche: `fix/next-semantic-intent-convergence-20261112`
+Parent: `67cfaceafbce89c6d30a150a43e57fcd1f7720ae` (LOCAL ONLY)
+Réserve revue: couverture incomplete D4 knowledge dans `probeSiblingOwnerEffects`
+Profil: Critical PATCH corrective / NO RELEASE / STABLE NOT AVAILABLE
+
+### Causes traitées
+
+1. Le probe cherchait `commandId` via LIKE dans `knowledge_acquis.provenance_json`.
+2. La provenance réelle écrite par `maybeCapitalizeFromExchange` est
+   `{ sourceKind: "message", sourceId: userMessageId, generationId }` — sans commandId.
+3. `knowledge_open_points` n'était pas sondé.
+4. `knowledge_subjects` n'a pas de provenance de tour — ne doit pas être attribué
+   par titre/date/préparation, ni servir de preuve négative partielle.
+
+### Mécanique réelle
+
+- Preuve positive acquis/points ouverts : jsonb structuré
+  `sourceKind` + `sourceId` / `generationId` (parité `reconstituteConfirmedD4Effects`).
+- LIKE(commandId) conservé en signal positif historique uniquement.
+- Identité knowledge absente (ni userMessageId ni generationId) → `null`.
+- Sujets : non attribués ; négatif `false` seulement après sondes acquis/OP
+  complètes + identité durable ; UNAVAILABLE ne produit pas
+  `extractKnowledgeProposals` (chemin écriture knowledge fermé).
+- QUALIFIED REQUEST_EFFECT knowledge reste bloqué via `effectIntents` même sans ligne.
+
+### Preuves
+
+| Couche | Résultat |
+| --- | --- |
+| UNIT | PASS 351 |
+| PG K01–K10 + S05/D4 | PASS |
+| BUILD | PASS |
+| BROWSER | NOT RUN (DEV :3100 absent ; RECETTE :3200 non utilisée) |
+| LIVE | NOT RUN |
+
+### Réserves
+
+- Subject-only sans provenance : non attribuable (contrat schéma inchangé).
+- BROWSER / LIVE / RECETTE : gates Morris distincts.

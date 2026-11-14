@@ -4,6 +4,24 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-14-ML4C-S05-KNOWLEDGE-OWNER-EVIDENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~23:05 CET (Europe/Paris) |
+| Macro-lot | ML4C — Complément S05 knowledge owner evidence (acquis/open_points/subjects) |
+| Type | PATCH corrective Critical complementary (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` |
+| Parent tip | `67cfaceafbce89c6d30a150a43e57fcd1f7720ae` (LOCAL ONLY) |
+| Design | `c883db07` / blob `da397424` |
+| Prior handoff | `sfia/review-handoff@66b44bc2` blob `f4c70543` |
+| Lane | DEV PG `:5433` ; RECETTE `:3200`/`:5434` non mutées |
+| Changes | structured knowledge provenance probe ; open_points ; subject non-attribution ; K01–K10 PG |
+| Schema | unchanged |
+| Tests | UNIT 351 PASS ; PG knowledge+S05+D4 PASS ; BUILD PASS ; BROWSER/LIVE NOT RUN |
+| Status | Product LOCAL ONLY ; Review Handoff L3 in-cycle |
+
+
 ## delivery_id: DELIV-2026-11-14-ML4C-S05-OWNER-EVIDENCE
 
 | Field | Value |

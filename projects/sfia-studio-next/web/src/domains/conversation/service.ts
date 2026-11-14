@@ -2,6 +2,7 @@ import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
   businessCommands,
+  conversationTurnCommands,
   conversations,
   createProjectCommands,
   documentRevisions,
@@ -9,6 +10,7 @@ import {
   effectAttempts,
   humanDecisions,
   knowledgeAcquis,
+  knowledgeOpenPoints,
   messages,
 } from "@/db/schema";
 // db still used by getConversationId / listMessages
@@ -260,19 +262,114 @@ export async function probeSiblingOwnerEffects(input: {
       }
     }
 
-    const know = await db
+    // D4 knowledge — use provenance keys actually written by maybeCapitalizeFromExchange:
+    // { sourceKind: "message", sourceId: userMessageId, generationId }.
+    // commandId is NOT written into knowledge provenance; LIKE(commandId) is not exhaustive.
+    // knowledge_subjects has no turn provenance — never attribute by title/createdAt/prep alone.
+    const msgId = sibling.userMessageId?.trim() || null;
+    let generationId: string | null = null;
+    const turnMeta = (
+      await db
+        .select({ generationId: conversationTurnCommands.generationId })
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, sibling.commandId))
+        .limit(1)
+    )[0];
+    generationId = turnMeta?.generationId?.trim() || null;
+
+    if (!msgId && !generationId) {
+      // Knowledge negative proof requires durable message/generation identity.
+      return null;
+    }
+
+    const acquisProv = generationId
+      ? sql`(
+          ${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${generationId}
+          or (
+            coalesce(${knowledgeAcquis.provenanceJson}::jsonb->>'generationId', '') = ''
+            and ${msgId}::text is not null
+            and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceKind' = 'message'
+            and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${msgId}
+          )
+        )`
+      : sql`(
+          ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceKind' = 'message'
+          and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${msgId}
+        )`;
+    const openProv = generationId
+      ? sql`(
+          ${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${generationId}
+          or (
+            coalesce(${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId', '') = ''
+            and ${msgId}::text is not null
+            and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceKind' = 'message'
+            and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${msgId}
+          )
+        )`
+      : sql`(
+          ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceKind' = 'message'
+          and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${msgId}
+        )`;
+
+    const acquisHit = await db
       .select({ id: knowledgeAcquis.id })
       .from(knowledgeAcquis)
       .where(
         and(
           eq(knowledgeAcquis.preparationId, input.preparationId),
           eq(knowledgeAcquis.ownerPilotId, input.pilotId),
-          sql`${knowledgeAcquis.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
+          acquisProv,
         ),
       )
       .limit(1);
-    if (know.length > 0) return true;
+    if (acquisHit.length > 0) return true;
 
+    const openHit = await db
+      .select({ id: knowledgeOpenPoints.id })
+      .from(knowledgeOpenPoints)
+      .where(
+        and(
+          eq(knowledgeOpenPoints.preparationId, input.preparationId),
+          eq(knowledgeOpenPoints.ownerPilotId, input.pilotId),
+          openProv,
+        ),
+      )
+      .limit(1);
+    if (openHit.length > 0) return true;
+
+    // Historical / non-canonical formats: positive-only commandId needle (never sole negative proof).
+    if (cmdNeedle) {
+      const acquisLegacy = await db
+        .select({ id: knowledgeAcquis.id })
+        .from(knowledgeAcquis)
+        .where(
+          and(
+            eq(knowledgeAcquis.preparationId, input.preparationId),
+            eq(knowledgeAcquis.ownerPilotId, input.pilotId),
+            sql`${knowledgeAcquis.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
+          ),
+        )
+        .limit(1);
+      if (acquisLegacy.length > 0) return true;
+      const openLegacy = await db
+        .select({ id: knowledgeOpenPoints.id })
+        .from(knowledgeOpenPoints)
+        .where(
+          and(
+            eq(knowledgeOpenPoints.preparationId, input.preparationId),
+            eq(knowledgeOpenPoints.ownerPilotId, input.pilotId),
+            sql`${knowledgeOpenPoints.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
+          ),
+        )
+        .limit(1);
+      if (openLegacy.length > 0) return true;
+    }
+
+    // Subjects: no command provenance on schema — do not invent attribution.
+    // Negative false here means acquis/open_points probes completed empty with durable
+    // message/generation identity. Subject-only writes remain unattributable; QUALIFIED
+    // REQUEST_EFFECT knowledge paths stay blocked by classifySiblingEffectRisk via effectIntents.
+    // UNAVAILABLE turns cannot produce extractKnowledgeProposals → knowledge write path closed.
     return false;
   } catch {
     return null;
