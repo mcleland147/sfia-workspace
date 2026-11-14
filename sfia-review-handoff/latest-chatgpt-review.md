@@ -1,14 +1,15 @@
 # SFIA Studio Next — Review Pack FULL (MONO-CYCLE)
-## ML4C — Document Integrity Final Closure (P0-A / P0-B / P1)
+## ML4C — Sealed Replay Final Correction (P0 fail-closed + P1 tag compat)
 
-- **Date/heure**: 2026-11-14 ~11:25 Europe/Paris
-- **GO**: MORRIS LOCAL CORRECTION — document integrity P0-A/P0-B/P1
+- **Date/heure**: 2026-11-14 ~11:45 Europe/Paris
+- **GO**: MORRIS LOCAL CORRECTION — sealed replay + tag compat
 - **Profil**: Critical
 - **Branche locale**: `fix/next-semantic-intent-convergence-20261112`
 - **HEAD produit**: `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
 - **origin/main**: `6cda86bde4aa450abb1d23eedd370a9004ddcbc1`
-- **Prior handoff**: `3efc082a` / blob `855a436c`
-- **Travail**: LOCAL ONLY — aucun commit / push ce cycle
+- **Prior handoff**: `sfia/review-handoff@c06ffffa` blob `48b0911a`
+- **Product**: **LOCAL ONLY** — travail worktree, aucun commit / push produit ce cycle
+- **Review Handoff**: **REMOTE to be published after pack** (pas encore poussé avec ce pack)
 - **Verdict**: **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
 
 ---
@@ -21,8 +22,8 @@
 | Branche | `fix/next-semantic-intent-convergence-20261112` |
 | HEAD | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
 | origin/main | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
-| Cycle scope | allowlist intégrité documentaire + pack FULL candidat vs HEAD |
-| Handoff publish | **not done** (local-only review pack) |
+| Cycle scope | P0 sealed fail-closed + P1 fence tag compat + pack FULL candidat vs HEAD |
+| Handoff publish | **deferred** — pack local d'abord, puis publication L3 |
 
 ### git status --short (projects/sfia-studio-next)
 
@@ -106,12 +107,12 @@ projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
 | Gate | Résultat |
 | --- | --- |
 | tsc | PASS |
-| unit | 309 PASS |
-| integration (sfia_next_e2e) | 397 PASS |
-| ciblé META/HASH/SRC/N+100 | 101 PASS |
-| eslint (allowlist) | 0 errors |
+| unit | 319 PASS |
+| integration (sfia_next_e2e) | 413 PASS |
+| ciblé SEAL/COMPAT/FLOW | 126+ PASS |
+| eslint | 0 errors |
 | build | PASS |
-| Playwright ML4C e2e | 2 passed (18.9s) — source: /tmp/ml4c-e2e-final.out |
+| Playwright ML4C e2e | 2 PASS |
 | Nora LIVE | **NOT PROVEN** |
 
 ---
@@ -120,49 +121,321 @@ projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
 
 | PATH | tracked/untracked | modified this cycle Y/N | included Y | content type | section |
 | --- | --- | --- | --- | --- | --- |
-| `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md` | untracked | Y | Y | full | §7 full |
-| `projects/sfia-studio-next/construction/delivery-history.md` | tracked | Y | Y | diff | §6 diff |
+| `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md` | untracked | Y | Y | full | §8 as-built + §7 full |
+| `projects/sfia-studio-next/construction/delivery-history.md` | tracked | Y | Y | diff | §9 delivery + §6 diff |
 | `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/components/figma/tokens.css` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts` | tracked | N | Y | diff | §6 diff or §7 full |
-| `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts` | tracked | Y | Y | diff | §4 P0-A + §6 diff |
-| `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts` | untracked | Y | Y | full | §4 P0-A + §7 untracked |
+| `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts` | tracked | N | Y | diff | §6 diff or §7 full |
+| `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts` | untracked | Y | Y | full | §4 P1 + §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts` | untracked | N | Y | full | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/history-tools.ts` | untracked | N | Y | full | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts` | tracked | N | Y | diff | §6 diff or §7 full |
-| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | tracked | Y | Y | diff | §4 P1 + §6 diff |
+| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | tracked | N | Y | diff | §6 diff or §7 full |
 | `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts` | tracked | N | Y | diff | §6 diff or §7 full |
-| `projects/sfia-studio-next/web/src/domains/document/service.ts` | tracked | Y | Y | diff | §4 P0-B + §6 diff |
+| `projects/sfia-studio-next/web/src/domains/document/service.ts` | tracked | Y | Y | diff | §4 P0 + §6 diff |
 | `projects/sfia-studio-next/web/tests/e2e/ml4c-document-continuity.spec.ts` | untracked | N | Y | full | §7 full |
 | `projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts` | untracked | N | Y | full | §7 full |
-| `projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts` | tracked | N | Y | diff | §5 + §7 full |
-| `projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts` | tracked | N | Y | diff | §5 + §7 full |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts` | untracked | N | Y | full | §5 + §7 full |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts` | untracked | N | Y | full | §5 + §7 full |
-| `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
-| `projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts` | tracked | N | Y | diff | §5 + §7 full |
-| `projects/sfia-studio-next/web/tests/unit/document-act.test.ts` | tracked | Y | Y | diff | §5 tests + §6/§7 |
-| `projects/sfia-studio-next/web/tests/unit/document-command.test.ts` | untracked | Y | Y | full | §5 tests + §6/§7 |
-| `projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts` | untracked | N | Y | full | §5 + §7 full |
-| `projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts` | tracked | N | Y | diff | §5 + §7 full |
+| `projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts` | untracked | N | Y | full | §5 carry-over + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts` | untracked | Y | Y | full | §5 SEAL + §7 full |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts` | untracked | Y | Y | full | §5 FLOW-HTTP + §7 full |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-history-long.pg.test.ts` | untracked | N | Y | full | §5 carry-over + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts` | untracked | N | Y | full | §5 carry-over + §6/§7 |
+| `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts` | untracked | Y | Y | full | §5 FLOW-USER + §7 full |
+| `projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
+| `projects/sfia-studio-next/web/tests/unit/document-act.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
+| `projects/sfia-studio-next/web/tests/unit/document-command.test.ts` | untracked | Y | Y | full | §5 COMPAT + §7 full |
+| `projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts` | untracked | N | Y | full | §5 carry-over + §6/§7 |
+| `projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts` | tracked | N | Y | diff | §5 carry-over + §6/§7 |
 
 ---
 
-## 4. P0-A / P0-B / P1 — final functions (synthesis)
+## 4. P0 sealed fail-closed — before / after
 
-### 4.1 P0-A — `parseFenceMeta` + extract path (no LEGACY fallback on partial structured)
+### 4.1 Behaviour (synthesis)
+
+| Aspect | BEFORE (HEAD `67bf6b0b` + candidat sans fermeture sealed) | AFTER (candidat sealed final) |
+| --- | --- | --- |
+| Provenance scellée incomplète | Risque de retomber sur reconcile historique (empreinte seule) | `resolveProvenanceIdentity` → `SEALED_INVALID` ; `reconcileWithProvenanceResolution` retourne `UNKNOWN` / `COMMAND_PROVENANCE_UNVERIFIABLE` |
+| `documentCommandBinding === true` invalide | Pas de barrière explicite avant reconcile | Refus fail-closed sur **tous** les chemins reconcile (nominal, race, catch, TX) |
+| Titre dans provenance scellée | Comparaisons pouvaient s'appuyer sur titre DB | `compareSealedEffectIdentity` : `prov.title` **obligatoire** ; DB title ne substitue pas |
+| Replay sealed | AVAILABLE possible avec provenance tronquée | Jamais AVAILABLE si identité sealed invalide (SEAL-12…14) |
+
+### 4.2 AFTER — `resolveProvenanceIdentity`
+
+```typescript
+export function resolveProvenanceIdentity(
+  provenance: Record<string, unknown> | undefined | null,
+): ProvenanceIdentityResolution {
+  if (!provenance || provenance.documentCommandBinding !== true) {
+    return { kind: "HISTORICAL" };
+  }
+  const invalid = (): ProvenanceIdentityResolution => ({
+    kind: "SEALED_INVALID",
+    reason: "COMMAND_PROVENANCE_UNVERIFIABLE",
+  });
+
+  if (
+    !nonEmptyString(provenance.commandId) ||
+    !nonEmptyString(provenance.operationId) ||
+    !nonEmptyString(provenance.userMessageId) ||
+    !nonEmptyString(provenance.qualifiedIntentId) ||
+    (provenance.action !== "CREATE" && provenance.action !== "REVISE") ||
+    !nonEmptyString(provenance.preparationId) ||
+    !nonEmptyString(provenance.correlationKey) ||
+    !nonEmptyString(provenance.title) ||
+    typeof provenance.contentSha256 !== "string" ||
+    !SHA256_HEX_RE.test(provenance.contentSha256) ||
+    typeof provenance.payloadSha256 !== "string" ||
+    !SHA256_HEX_RE.test(provenance.payloadSha256) ||
+    !isValidSealedSource(provenance.source)
+  ) {
+    return invalid();
+  }
+
+  const documentId =
+    provenance.documentId === undefined
+      ? null
+      : provenance.documentId === null
+        ? null
+        : nonEmptyString(provenance.documentId)
+          ? provenance.documentId
+          : undefined;
+  const baseRevisionId =
+    provenance.baseRevisionId === undefined
+      ? null
+      : provenance.baseRevisionId === null
+        ? null
+        : nonEmptyString(provenance.baseRevisionId)
+          ? provenance.baseRevisionId
+          : undefined;
+  if (documentId === undefined || baseRevisionId === undefined) return invalid();
+
+  if (provenance.action === "CREATE") {
+    if (documentId !== null || baseRevisionId !== null) return invalid();
+  } else {
+    // REVISE requires explicit targets.
+    if (documentId === null || baseRevisionId === null) return invalid();
+  }
+
+  const sectionHint =
+    provenance.sectionHint === undefined || provenance.sectionHint === null
+      ? null
+      : nonEmptyString(provenance.sectionHint)
+        ? provenance.sectionHint
+        : undefined;
+  if (sectionHint === undefined) return invalid();
+
+  return {
+    kind: "SEALED_VALID",
+    identity: {
+      commandId: provenance.commandId,
+      operationId: provenance.operationId,
+      userMessageId: provenance.userMessageId,
+      qualifiedIntentId: provenance.qualifiedIntentId,
+      action: provenance.action,
+      source: provenance.source,
+      preparationId: provenance.preparationId,
+      documentId,
+      baseRevisionId,
+      sectionHint,
+      correlationKey: provenance.correlationKey,
+      contentSha256: provenance.contentSha256,
+      payloadSha256: provenance.payloadSha256,
+      title: provenance.title,
+    },
+  };
+}
+```
+
+### 4.3 AFTER — `reconcileWithProvenanceResolution`
+
+```typescript
+function reconcileWithProvenanceResolution(args: {
+  prior: {
+    id: string;
+    revisionNumber: number;
+    status: string;
+    contentMarkdown: string;
+    provenanceJson: string;
+  };
+  documentId: string;
+  documentTitle: string;
+  expectedFp: string;
+  provenance?: Record<string, unknown> | null;
+}): ReturnType<typeof reconcilePriorRevision> {
+  const resolved = resolveProvenanceIdentity(args.provenance ?? null);
+  if (resolved.kind === "SEALED_INVALID") {
+    return {
+      status: "UNKNOWN",
+      reason: resolved.reason,
+      documentId: args.documentId,
+      revisionId: args.prior.id,
+      revisionNumber: args.prior.revisionNumber,
+    };
+  }
+  return reconcilePriorRevision({
+    prior: args.prior,
+    documentId: args.documentId,
+    documentTitle: args.documentTitle,
+    expectedFp: args.expectedFp,
+    expectedIdentity: resolved.kind === "SEALED_VALID" ? resolved.identity : null,
+  });
+}
+```
+
+### 4.4 AFTER — titre mandatory dans `compareSealedEffectIdentity`
+
+```typescript
+export function compareSealedEffectIdentity(
+  storedProvenanceJson: string,
+  storedContentMarkdown: string,
+  storedDocumentTitle: string,
+  expected: SealedEffectIdentity,
+): { ok: true; storedContentSha256: string } | { ok: false; reason: string } {
+  let prov: Record<string, unknown>;
+  try {
+    prov = JSON.parse(storedProvenanceJson) as Record<string, unknown>;
+  } catch {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+  if (prov.documentCommandBinding !== true) {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+
+  // C = SHA of bytes actually read from PostgreSQL (title + body).
+  const recalculated = contentFingerprint(storedDocumentTitle, storedContentMarkdown);
+  // C must equal binding contentSha256 (F).
+  if (recalculated !== expected.contentSha256) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  // C must equal provenance contentSha256 (E) when present.
+  if (typeof prov.contentSha256 === "string" && prov.contentSha256 !== recalculated) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  if (typeof prov.contentSha256 !== "string" || !prov.contentSha256) {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+  // If D (contentFingerprint) present, D must equal C.
+  if (
+    typeof prov.contentFingerprint === "string" &&
+    prov.contentFingerprint.length > 0 &&
+    prov.contentFingerprint !== recalculated
+  ) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  // Title in DB must match expected sealed title.
+  if (storedDocumentTitle !== expected.title) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+
+  const storedPayload =
+    typeof prov.payloadSha256 === "string" ? prov.payloadSha256 : null;
+  if (!storedPayload || storedPayload !== expected.payloadSha256) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  // Title in provenance is mandatory for sealed commands — DB title does not substitute.
+  if (typeof prov.title !== "string" || !prov.title) {
+    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
+  }
+  const checks: Array<[string, unknown, unknown]> = [
+    ["commandId", prov.commandId, expected.commandId],
+    ["operationId", prov.operationId, expected.operationId],
+    ["userMessageId", prov.userMessageId, expected.userMessageId],
+    ["qualifiedIntentId", prov.qualifiedIntentId, expected.qualifiedIntentId],
+    ["action", prov.action, expected.action],
+    ["preparationId", prov.preparationId, expected.preparationId],
+    ["documentId", prov.documentId ?? null, expected.documentId],
+    ["baseRevisionId", prov.baseRevisionId ?? null, expected.baseRevisionId],
+    ["sectionHint", prov.sectionHint ?? null, expected.sectionHint],
+    ["correlationKey", prov.correlationKey, expected.correlationKey],
+    ["contentSha256", prov.contentSha256, expected.contentSha256],
+    ["title", prov.title, expected.title],
+  ];
+  for (const [, got, want] of checks) {
+    if (stableJson(got) !== stableJson(want)) {
+      return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+    }
+  }
+  if (stableJson(prov.source) !== stableJson(expected.source)) {
+    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
+  }
+  return { ok: true, storedContentSha256: recalculated };
+}
+```
+
+### 4.5 BEFORE — reconcile fingerprint-only entry (HEAD excerpt)
+
+Au HEAD commit, `reconcilePriorRevision` était invoqué sans résolution sealed ; pas de `SEALED_INVALID`.
+
+```typescript
+function reconcilePriorRevision(args: {
+  prior: { id: string; revisionNumber: number; status: string; contentMarkdown: string; provenanceJson: string };
+  documentId: string;
+  documentTitle: string;
+  expectedFp: string;
+}): ReconcileOk | ReconcileFailedPrior | ReconcileConflict {
+  const storedFp = readStoredFingerprint(
+    args.prior.provenanceJson,
+    args.documentTitle,
+    args.prior.contentMarkdown,
+  );
+  if (storedFp !== args.expectedFp) {
+    return {
+      status: "CONFLICT",
+      reason: "CORRELATION_PAYLOAD_MISMATCH",
+      documentId: args.documentId,
+      revisionId: args.prior.id,
+      revisionNumber: args.prior.revisionNumber,
+    };
+  }
+  if (args.prior.status === "FAILED") {
+    return {
+      status: "FAILED",
+      reason: "PRIOR_REVISION_FAILED",
+      documentId: args.documentId,
+      revisionId: args.prior.id,
+      revisionNumber: args.prior.revisionNumber,
+      idempotentReplay: true,
+    };
+  }
+  const status =
+    args.prior.status === "SAVING" || args.prior.status === "UNKNOWN"
+      ? args.prior.status
+      : "AVAILABLE";
+  return {
+    status,
+    documentId: args.documentId,
+    revisionId: args.prior.id,
+    revisionNumber: args.prior.revisionNumber,
+    idempotentReplay: true,
+  };
+}
+```
+
+---
+
+## 4bis. P1 tag compat — before / after (`parseFenceMeta`)
+
+| Aspect | BEFORE | AFTER |
+| --- | --- | --- |
+| Tag fence | Égalité stricte `parts[0] === "sfia-document"` | `(parts[0] ?? "").toLowerCase()` — aligné scanner `document-act` |
+| Émission | — | Toujours canonical lowercase `sfia-document` |
+| Métadonnées structurées | Triade stricte | Inchangé — partiel → INVALID |
 
 ```typescript
 export function parseFenceMeta(info: string): ParsedFenceMetadata {
   const raw = info.trim();
   if (!raw) return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
   const parts = raw.split(/\s+/);
-  if (parts[0] !== "sfia-document") {
+  // P1: tag recognition is case-insensitive (align with document-act scanner).
+  // Emission remains canonical lowercase `sfia-document`.
+  const tag = (parts[0] ?? "").toLowerCase();
+  if (tag !== "sfia-document") {
     return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
   }
   const tokens = parts.slice(1);
@@ -232,244 +505,58 @@ export function parseFenceMeta(info: string): ParsedFenceMetadata {
 }
 ```
 
-```typescript
-export function extractContractualDocumentProposal(
-  assistantText: string,
-): DocumentProposalExtract {
-  const { proposals, contractualOpenCount } = scanContractualDocumentFences(assistantText);
-
-  if (contractualOpenCount === 0) {
-    return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", 0);
-  }
-  if (proposals.some((p) => p.status === "unclosed")) {
-    return failProposal("DOCUMENT_PROPOSAL_UNCLOSED", "unclosed", contractualOpenCount);
-  }
-  if (proposals.length > 1) {
-    return failProposal("DOCUMENT_PROPOSAL_AMBIGUOUS", "ambiguous", proposals.length);
-  }
-  if (proposals.length !== 1 || proposals[0]!.status !== "ok") {
-    return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
-  }
-
-  const scanned = proposals[0]!;
-  let content = scanned.content;
-  const meta = parseFenceMeta(scanned.fenceInfo);
-
-  // P0-A: INVALID structured metadata never falls through to LEGACY.
-  if (meta.kind === "INVALID") {
-    return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
-  }
-
-  if (meta.kind === "STRUCTURED") {
-    const normalized = normalizeStructuredProposalBody(content, meta.chars);
-    if (!normalized.ok) {
-      return failProposal(normalized.reason, "empty", 1, content);
-    }
-    content = normalized.content;
-    let title: string;
-    try {
-      title = Buffer.from(meta.titleB64, "base64url").toString("utf8").trim();
-    } catch {
-      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
-    }
-    if (!title) {
-      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
-    }
-    const digest = contentSha256(title, content);
-    if (digest !== meta.pairSha256) {
-      return failProposal("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH", "empty", 1, content);
-    }
-    const h1 = /^#\s+(.+?)(?:\r?\n|$)/.exec(content);
-    if (h1) {
-      const heading = h1[1]!.trim();
-      if (heading !== title) {
-        return failProposal("DOCUMENT_PROPOSAL_TITLE_MISMATCH", "empty", 1, content);
-      }
-    }
-    if (!content.trim() || content.trim().length < 8) {
-      return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
-    }
-    return {
-      ok: true,
-      content,
-      title,
-      path: "fence",
-      fenceTag: DOCUMENT_PROPOSAL_TAG,
-      fenceCount: 1,
-      proposalChars: content.length,
-      proposalDigest16: digest16(content),
-      bodyEndsWithNewline: content.endsWith("\n"),
-      sectionCount: locateSections(content).length,
-    };
-  }
-
-  // LEGACY: fence without structured metadata tokens.
-  if (!content.trim() || content.trim().length < 8) {
-    return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
-  }
-  const titleLine = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
-  return {
-    ok: true,
-    content,
-    title: titleLine || "Document Nora",
-    path: "fence",
-    fenceTag: DOCUMENT_PROPOSAL_TAG,
-    fenceCount: 1,
-    proposalChars: content.length,
-    proposalDigest16: digest16(content),
-    bodyEndsWithNewline: content.endsWith("\n"),
-    sectionCount: locateSections(content).length,
-  };
-}
-```
-
-### 4.2 P0-B — `compareSealedEffectIdentity` (recompute SHA from DB bytes)
-
-```typescript
-export function compareSealedEffectIdentity(
-  storedProvenanceJson: string,
-  storedContentMarkdown: string,
-  storedDocumentTitle: string,
-  expected: SealedEffectIdentity,
-): { ok: true; storedContentSha256: string } | { ok: false; reason: string } {
-  let prov: Record<string, unknown>;
-  try {
-    prov = JSON.parse(storedProvenanceJson) as Record<string, unknown>;
-  } catch {
-    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
-  }
-  if (prov.documentCommandBinding !== true) {
-    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
-  }
-
-  // C = SHA of bytes actually read from PostgreSQL (title + body).
-  const recalculated = contentFingerprint(storedDocumentTitle, storedContentMarkdown);
-  // C must equal binding contentSha256 (F).
-  if (recalculated !== expected.contentSha256) {
-    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
-  }
-  // C must equal provenance contentSha256 (E) when present.
-  if (typeof prov.contentSha256 === "string" && prov.contentSha256 !== recalculated) {
-    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
-  }
-  if (typeof prov.contentSha256 !== "string" || !prov.contentSha256) {
-    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
-  }
-  // If D (contentFingerprint) present, D must equal C.
-  if (
-    typeof prov.contentFingerprint === "string" &&
-    prov.contentFingerprint.length > 0 &&
-    prov.contentFingerprint !== recalculated
-  ) {
-    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
-  }
-  // Title in DB must match expected sealed title.
-  if (storedDocumentTitle !== expected.title) {
-    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
-  }
-
-  const storedPayload =
-    typeof prov.payloadSha256 === "string" ? prov.payloadSha256 : null;
-  if (!storedPayload || storedPayload !== expected.payloadSha256) {
-    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
-  }
-  const checks: Array<[string, unknown, unknown]> = [
-    ["commandId", prov.commandId, expected.commandId],
-    ["operationId", prov.operationId, expected.operationId],
-    ["userMessageId", prov.userMessageId, expected.userMessageId],
-    ["qualifiedIntentId", prov.qualifiedIntentId, expected.qualifiedIntentId],
-    ["action", prov.action, expected.action],
-    ["preparationId", prov.preparationId, expected.preparationId],
-    ["documentId", prov.documentId ?? null, expected.documentId],
-    ["baseRevisionId", prov.baseRevisionId ?? null, expected.baseRevisionId],
-    ["sectionHint", prov.sectionHint ?? null, expected.sectionHint],
-    ["correlationKey", prov.correlationKey, expected.correlationKey],
-    ["contentSha256", prov.contentSha256, expected.contentSha256],
-    ["title", prov.title ?? storedDocumentTitle, expected.title],
-  ];
-  for (const [, got, want] of checks) {
-    if (stableJson(got) !== stableJson(want)) {
-      return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
-    }
-  }
-  if (stableJson(prov.source) !== stableJson(expected.source)) {
-    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
-  }
-  return { ok: true, storedContentSha256: recalculated };
-}
-```
-
-### 4.3 P1 — proposal authority vs concurrent fence
-
-```typescript
-function confrontProposalWithFence(
-  authority: DocumentProposalExact,
-  extracted: DocumentProposalExtract,
-):
-  | { ok: true; materialize: boolean }
-```
-
-```typescript
-export async function resolveAssistantProposal(input: {
-  pilotId: string;
-  preparationId: string;
-  assistantMessageId: string;
-}): Promise<
-```
-
 ---
 
-## 5. Test matrices (META / HASH / SRC / N+100) — PASS
+## 5. Test matrices — SEAL / COMPAT / FLOW (126+ PASS)
 
-### 5.1 META (unit — document-command.test.ts)
-
-| ID | Test | Status |
-| --- | --- | --- |
-| META-01 | bare sfia-document → LEGACY | PASS |
-| META-02 | three valid fields ACCEPT round-trip | PASS |
-| META-03 | title-b64 alone → INVALID (not LEGACY) | PASS |
-| META-07 | duplicate key → INVALID | PASS |
-| META-08 | unknown key → INVALID | PASS |
-| META-09 | empty value → INVALID | PASS |
-| META-10 | chars=12abc → INVALID | PASS |
-| META-12 | bad pair-sha256 → INVALID | PASS |
-| META-13 | bad base64url title-b64 → INVALID | PASS |
-| META-14 | title-b64 no UTF-8 round-trip → INVALID | PASS |
-| META-15 | wrong pair-sha256 → INTEGRITY_MISMATCH | PASS |
-| META-16 | H1 mismatch → TITLE_MISMATCH | PASS |
-| META-17 | preserves content without trailing newline | PASS |
-| META-18a | Unicode title and body | PASS |
-| META-18b | internal markdown fences longer backtick run | PASS |
-
-### 5.2 META extract (unit — document-act.test.ts P0-A via extract)
+### 5.1 SEAL (`ml4c-document-identity.pg.test.ts`)
 
 | ID | Coverage | Status |
 | --- | --- | --- |
-| META-P0A-extract | parseFenceMeta via extractContractualDocumentProposal | PASS |
+| SEAL-01 | healthy CREATE sealed replay → AVAILABLE same refs | PASS |
+| SEAL-02 | CREATE missing payloadSha256 → never AVAILABLE | PASS |
+| SEAL-03 | missing commandId → refuse | PASS |
+| SEAL-04 | missing source → refuse | PASS |
+| SEAL-05 | wrong action string → refuse | PASS |
+| SEAL-06 | REVISE sealed complete → AVAILABLE | PASS |
+| SEAL-07 | REVISE missing baseRevisionId → refuse | PASS |
+| SEAL-08 | REVISE missing qualifiedIntentId → refuse | PASS |
+| SEAL-09 | tampered provenance (title removed) → UNKNOWN | PASS |
+| SEAL-10 | diverged identity field in DB → CONFLICT/UNKNOWN | PASS |
+| SEAL-11 | historical provenance → AVAILABLE | PASS |
+| SEAL-12 | incomplete sealed — 10× save/reconcile, zero new D4 | PASS |
+| SEAL-13 | sealed invalid on empty prep → FAILED | PASS |
+| SEAL-14 | sealed invalid replay on existing corr → no false AVAILABLE | PASS |
 
-### 5.3 HASH (integration — ml4c-document-identity.pg.test.ts)
+### 5.2 COMPAT (`document-command.test.ts`)
 
-| ID | Test | Status |
+| ID | Coverage | Status |
 | --- | --- | --- |
-| HASH | stored bytes / provenance drift → CONFLICT; reconcile never heals | PASS |
+| COMPAT-01 | tag SFIA-DOCUMENT → LEGACY | PASS |
+| COMPAT-02 | tag Sfia-Document → LEGACY | PASS |
+| COMPAT-03 | tag sfia-document → LEGACY | PASS |
+| COMPAT-04 | mixed-case legacy preserves title/markdown on extract | PASS |
+| COMPAT-05 | mixed-case + partial meta → INVALID | PASS |
+| COMPAT-06 | mixed-case + unknown key → INVALID | PASS |
+| COMPAT-07 | structured canonical → ACCEPT | PASS |
+| COMPAT-08 | incomplete structured triad → INVALID | PASS |
+| COMPAT-09 | two contractual fences → AMBIGUOUS | PASS |
+| COMPAT-10 | historical message without structured meta → COMPLETE extract | PASS |
 
-### 5.4 SRC + N+100 (integration — ml4c-prior-proposal.pg.test.ts)
+### 5.3 FLOW — USER replay + HTTP GET
 
-| ID | Test | Status |
+| ID | Coverage | Status |
 | --- | --- | --- |
-| C-03 N+1 | PRIOR_ASSISTANT_MESSAGE → D4 equals historical bytes | PASS |
-| C-03 N+100 | PRIOR after N+100 filler messages | PASS |
-| C-03 | three proposals → clarification / zero D4 | PASS |
-| C-03 | foreign pilot cannot use prior assistant message | PASS |
-| SRC-04-PREPARE | divergent fence title → conflict, zero D4, no rewrite | PASS |
-| SRC-04 | divergent assistant fence → PROPOSAL_SOURCE_CONFLICT | PASS |
-| N+100 PREPARE→AGREE | prior fence, ASSISTANT_MESSAGE binding, idempotent replay | PASS |
+| FLOW-USER | PREPARE → N+100 → AGREE ; stable clientTurnKey ; idempotentReplay false→true | PASS |
+| FLOW-HTTP | sealed CREATE then 10× reconcileHttpGet — stable ids, zero new D4 | PASS |
+| ML4C-FLOW-PREPARE/AGREE | integration prior-proposal end-to-end utterances | PASS |
+| F05-09 | ten consecutive HTTP GET → zero new D4 rows (carry-over) | PASS |
 
-### 5.5 Aggregate targeted suite
+### 5.4 Aggregate targeted suite
 
 | Suite | Count | Status |
 | --- | --- | --- |
-| META + HASH + SRC + N+100 (ciblé) | 101 | PASS |
+| SEAL + COMPAT + FLOW (ciblé) | 126+ | PASS |
 
 ---
 
@@ -479,13 +566,29 @@ export async function resolveAssistantProposal(input: {
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index ec4ab254..f3371563 100644
+index ec4ab254..4ecb8775 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,69 @@ Append-only logical journal of Cursor product deliveries.
+@@ -4,6 +4,85 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
++## delivery_id: DELIV-2026-11-14-ML4C-SEALED-REPLAY-FINAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~11:40 CET (Europe/Paris) |
++| Macro-lot | ML4C — Sealed replay fail-closed + historical fence tag compatibility |
++| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Prior handoff | `sfia/review-handoff@c06ffffa` blob `48b0911a` |
++| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | resolveProvenanceIdentity ; SEALED_INVALID refuse ; tag case-insensitive LEGACY ; FLOW USER replay + HTTP GET |
++| Schema | unchanged |
++| Tests | SEAL/COMPAT/FLOW + non-rég ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY product ; Review Handoff L3 published in-cycle |
++
 +## delivery_id: DELIV-2026-11-14-ML4C-DOCUMENT-INTEGRITY-FINAL
 +
 +| Field | Value |
@@ -1819,14 +1922,16 @@ index e2c0b349..7f38c4bf 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
-index 6d079275..b3073959 100644
+index 6d079275..f5c7271d 100644
 --- a/projects/sfia-studio-next/web/src/domains/document/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
-@@ -66,26 +66,221 @@ type ReconcileConflict = {
+@@ -66,27 +66,328 @@ type ReconcileConflict = {
    revisionNumber: number;
  };
 
 -/** Same fingerprint rule for every reconcile path (nominal, race, catch, TX). */
+-function reconcilePriorRevision(args: {
+-  prior: { id: string; revisionNumber: number; status: string; contentMarkdown: string; provenanceJson: string };
 +/**
 + * F-01 — sealed command identity carried in revision provenanceJson.
 + * Legacy revisions without documentCommandBinding remain readable but not ML4C-command proofs.
@@ -1903,6 +2008,10 @@ index 6d079275..b3073959 100644
 +  if (!storedPayload || storedPayload !== expected.payloadSha256) {
 +    return { ok: false, reason: "CORRELATION_PAYLOAD_MISMATCH" };
 +  }
++  // Title in provenance is mandatory for sealed commands — DB title does not substitute.
++  if (typeof prov.title !== "string" || !prov.title) {
++    return { ok: false, reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
++  }
 +  const checks: Array<[string, unknown, unknown]> = [
 +    ["commandId", prov.commandId, expected.commandId],
 +    ["operationId", prov.operationId, expected.operationId],
@@ -1915,7 +2024,7 @@ index 6d079275..b3073959 100644
 +    ["sectionHint", prov.sectionHint ?? null, expected.sectionHint],
 +    ["correlationKey", prov.correlationKey, expected.correlationKey],
 +    ["contentSha256", prov.contentSha256, expected.contentSha256],
-+    ["title", prov.title ?? storedDocumentTitle, expected.title],
++    ["title", prov.title, expected.title],
 +  ];
 +  for (const [, got, want] of checks) {
 +    if (stableJson(got) !== stableJson(want)) {
@@ -1952,45 +2061,120 @@ index 6d079275..b3073959 100644
 +  };
 +}
 +
-+function identityFromProvenance(
++const SHA256_HEX_RE = /^[0-9a-f]{64}$/;
++
++export type ProvenanceIdentityResolution =
++  | { kind: "HISTORICAL" }
++  | { kind: "SEALED_VALID"; identity: SealedEffectIdentity }
++  | { kind: "SEALED_INVALID"; reason: "COMMAND_PROVENANCE_UNVERIFIABLE" };
++
++function nonEmptyString(value: unknown): value is string {
++  return typeof value === "string" && value.length > 0;
++}
++
++function isValidSealedSource(source: unknown): boolean {
++  if (!source || typeof source !== "object") return false;
++  const s = source as Record<string, unknown>;
++  if (s.kind === "ASSISTANT_MESSAGE") return nonEmptyString(s.assistantMessageId);
++  if (s.kind === "SAME_TURN_SNAPSHOT") return nonEmptyString(s.commandId);
++  return false;
++}
++
++/**
++ * P0 sealed-replay — distinguish historical vs sealed-valid vs sealed-invalid.
++ * SEALED_INVALID must never fall through to historical fingerprint reconcile.
++ */
++export function resolveProvenanceIdentity(
 +  provenance: Record<string, unknown> | undefined | null,
-+): SealedEffectIdentity | null {
-+  if (!provenance || provenance.documentCommandBinding !== true) return null;
-+  if (
-+    typeof provenance.commandId !== "string" ||
-+    typeof provenance.operationId !== "string" ||
-+    typeof provenance.userMessageId !== "string" ||
-+    typeof provenance.qualifiedIntentId !== "string" ||
-+    (provenance.action !== "CREATE" && provenance.action !== "REVISE") ||
-+    typeof provenance.preparationId !== "string" ||
-+    typeof provenance.correlationKey !== "string" ||
-+    typeof provenance.contentSha256 !== "string" ||
-+    typeof provenance.payloadSha256 !== "string" ||
-+    typeof provenance.title !== "string"
-+  ) {
-+    return null;
++): ProvenanceIdentityResolution {
++  if (!provenance || provenance.documentCommandBinding !== true) {
++    return { kind: "HISTORICAL" };
 +  }
++  const invalid = (): ProvenanceIdentityResolution => ({
++    kind: "SEALED_INVALID",
++    reason: "COMMAND_PROVENANCE_UNVERIFIABLE",
++  });
++
++  if (
++    !nonEmptyString(provenance.commandId) ||
++    !nonEmptyString(provenance.operationId) ||
++    !nonEmptyString(provenance.userMessageId) ||
++    !nonEmptyString(provenance.qualifiedIntentId) ||
++    (provenance.action !== "CREATE" && provenance.action !== "REVISE") ||
++    !nonEmptyString(provenance.preparationId) ||
++    !nonEmptyString(provenance.correlationKey) ||
++    !nonEmptyString(provenance.title) ||
++    typeof provenance.contentSha256 !== "string" ||
++    !SHA256_HEX_RE.test(provenance.contentSha256) ||
++    typeof provenance.payloadSha256 !== "string" ||
++    !SHA256_HEX_RE.test(provenance.payloadSha256) ||
++    !isValidSealedSource(provenance.source)
++  ) {
++    return invalid();
++  }
++
++  const documentId =
++    provenance.documentId === undefined
++      ? null
++      : provenance.documentId === null
++        ? null
++        : nonEmptyString(provenance.documentId)
++          ? provenance.documentId
++          : undefined;
++  const baseRevisionId =
++    provenance.baseRevisionId === undefined
++      ? null
++      : provenance.baseRevisionId === null
++        ? null
++        : nonEmptyString(provenance.baseRevisionId)
++          ? provenance.baseRevisionId
++          : undefined;
++  if (documentId === undefined || baseRevisionId === undefined) return invalid();
++
++  if (provenance.action === "CREATE") {
++    if (documentId !== null || baseRevisionId !== null) return invalid();
++  } else {
++    // REVISE requires explicit targets.
++    if (documentId === null || baseRevisionId === null) return invalid();
++  }
++
++  const sectionHint =
++    provenance.sectionHint === undefined || provenance.sectionHint === null
++      ? null
++      : nonEmptyString(provenance.sectionHint)
++        ? provenance.sectionHint
++        : undefined;
++  if (sectionHint === undefined) return invalid();
++
 +  return {
-+    commandId: provenance.commandId,
-+    operationId: provenance.operationId,
-+    userMessageId: provenance.userMessageId,
-+    qualifiedIntentId: provenance.qualifiedIntentId,
-+    action: provenance.action,
-+    source: provenance.source ?? null,
-+    preparationId: provenance.preparationId,
-+    documentId: (provenance.documentId as string | null | undefined) ?? null,
-+    baseRevisionId: (provenance.baseRevisionId as string | null | undefined) ?? null,
-+    sectionHint: (provenance.sectionHint as string | null | undefined) ?? null,
-+    correlationKey: provenance.correlationKey,
-+    contentSha256: provenance.contentSha256,
-+    payloadSha256: provenance.payloadSha256,
-+    title: provenance.title,
++    kind: "SEALED_VALID",
++    identity: {
++      commandId: provenance.commandId,
++      operationId: provenance.operationId,
++      userMessageId: provenance.userMessageId,
++      qualifiedIntentId: provenance.qualifiedIntentId,
++      action: provenance.action,
++      source: provenance.source,
++      preparationId: provenance.preparationId,
++      documentId,
++      baseRevisionId,
++      sectionHint,
++      correlationKey: provenance.correlationKey,
++      contentSha256: provenance.contentSha256,
++      payloadSha256: provenance.payloadSha256,
++      title: provenance.title,
++    },
 +  };
 +}
 +
-+/** Same fingerprint/identity rule for every reconcile path (nominal, race, catch, TX). */
- function reconcilePriorRevision(args: {
-   prior: { id: string; revisionNumber: number; status: string; contentMarkdown: string; provenanceJson: string };
++function reconcileWithProvenanceResolution(args: {
++  prior: {
++    id: string;
++    revisionNumber: number;
++    status: string;
++    contentMarkdown: string;
++    provenanceJson: string;
++  };
    documentId: string;
    documentTitle: string;
    expectedFp: string;
@@ -2001,13 +2185,35 @@ index 6d079275..b3073959 100644
 -    args.prior.contentMarkdown,
 -  );
 -  if (storedFp !== args.expectedFp) {
--    return {
++  provenance?: Record<string, unknown> | null;
++}): ReturnType<typeof reconcilePriorRevision> {
++  const resolved = resolveProvenanceIdentity(args.provenance ?? null);
++  if (resolved.kind === "SEALED_INVALID") {
+     return {
 -      status: "CONFLICT",
 -      reason: "CORRELATION_PAYLOAD_MISMATCH",
--      documentId: args.documentId,
--      revisionId: args.prior.id,
--      revisionNumber: args.prior.revisionNumber,
--    };
++      status: "UNKNOWN",
++      reason: resolved.reason,
+       documentId: args.documentId,
+       revisionId: args.prior.id,
+       revisionNumber: args.prior.revisionNumber,
+     };
+   }
++  return reconcilePriorRevision({
++    prior: args.prior,
++    documentId: args.documentId,
++    documentTitle: args.documentTitle,
++    expectedFp: args.expectedFp,
++    expectedIdentity: resolved.kind === "SEALED_VALID" ? resolved.identity : null,
++  });
++}
++
++/** Same fingerprint/identity rule for every reconcile path (nominal, race, catch, TX). */
++function reconcilePriorRevision(args: {
++  prior: { id: string; revisionNumber: number; status: string; contentMarkdown: string; provenanceJson: string };
++  documentId: string;
++  documentTitle: string;
++  expectedFp: string;
 +  expectedIdentity?: SealedEffectIdentity | null;
 +}): ReconcileOk | ReconcileFailedPrior | ReconcileConflict | {
 +  status: "UNKNOWN";
@@ -2056,18 +2262,40 @@ index 6d079275..b3073959 100644
 +        revisionNumber: args.prior.revisionNumber,
 +      };
 +    }
-   }
++  }
    if (args.prior.status === "FAILED") {
      return {
-@@ -207,6 +402,7 @@ export async function savePreparationDocument(
+       status: "FAILED",
+@@ -190,6 +491,14 @@ export async function savePreparationDocument(
+   const titleFinal = title || "Document du sas";
+   const fp = contentFingerprint(titleFinal, contentMarkdown);
+
++  // P0: sealed-invalid input refuses before any D4 mutation (no historical fallback).
++  if (opts?.provenance) {
++    const early = resolveProvenanceIdentity(opts.provenance);
++    if (early.kind === "SEALED_INVALID") {
++      return { status: "FAILED" as const, reason: early.reason };
++    }
++  }
++
+   // --- Creation idempotence: resolve durable command identity BEFORE allocating a new doc id ---
+   if (!documentId && opts?.correlationKey) {
+     const existingDoc = await findByCreationCorrelation(
+@@ -202,11 +511,12 @@ export async function savePreparationDocument(
+         (await findRevisionByCorrelation(existingDoc.id, opts.correlationKey)) ??
+         (await waitForRevisionByCorrelation(existingDoc.id, opts.correlationKey));
+       if (priorRev) {
+-        return reconcilePriorRevision({
++        return reconcileWithProvenanceResolution({
+           prior: priorRev,
            documentId: existingDoc.id,
            documentTitle: existingDoc.title,
            expectedFp: fp,
-+          expectedIdentity: identityFromProvenance(opts?.provenance),
++          provenance: opts?.provenance,
          });
        }
        // Document row exists but revision still absent after bounded wait
-@@ -220,54 +416,9 @@ export async function savePreparationDocument(
+@@ -220,54 +530,9 @@ export async function savePreparationDocument(
 
    let docId = documentId;
    let ownedTitle = titleFinal;
@@ -2125,7 +2353,7 @@ index 6d079275..b3073959 100644
      const owned = (
        await db
          .select()
-@@ -283,26 +434,26 @@ export async function savePreparationDocument(
+@@ -283,26 +548,26 @@ export async function savePreparationDocument(
      )[0];
      if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
      ownedTitle = owned.title;
@@ -2144,12 +2372,12 @@ index 6d079275..b3073959 100644
 +    if (opts?.correlationKey) {
 +      const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
 +      if (prior) {
-+        return reconcilePriorRevision({
++        return reconcileWithProvenanceResolution({
 +          prior,
 +          documentId: docId,
 +          documentTitle: ownedTitle,
 +          expectedFp: fp,
-+          expectedIdentity: identityFromProvenance(opts?.provenance),
++          provenance: opts?.provenance,
 +        });
 +      }
      }
@@ -2166,7 +2394,7 @@ index 6d079275..b3073959 100644
            return {
              status: "FAILED" as const,
              reason: "TURN_OWNERSHIP_LOST",
-@@ -311,9 +462,56 @@ export async function savePreparationDocument(
+@@ -311,9 +576,56 @@ export async function savePreparationDocument(
          }
        }
 
@@ -2197,12 +2425,12 @@ index 6d079275..b3073959 100644
 +                (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
 +                (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
 +              if (priorRev) {
-+                return reconcilePriorRevision({
++                return reconcileWithProvenanceResolution({
 +                  prior: priorRev,
 +                  documentId: raced.id,
 +                  documentTitle: raced.title,
 +                  expectedFp: fp,
-+                  expectedIdentity: identityFromProvenance(opts?.provenance),
++                  provenance: opts?.provenance,
 +                });
 +              }
 +              return {
@@ -2226,15 +2454,21 @@ index 6d079275..b3073959 100644
 
        if (opts?.correlationKey) {
          const prior = (
-@@ -334,6 +532,7 @@ export async function savePreparationDocument(
+@@ -329,11 +641,12 @@ export async function savePreparationDocument(
+             .limit(1)
+         )[0];
+         if (prior) {
+-          return reconcilePriorRevision({
++          return reconcileWithProvenanceResolution({
+             prior,
              documentId: docId!,
              documentTitle: ownedTitle,
              expectedFp: fp,
-+            expectedIdentity: identityFromProvenance(opts?.provenance),
++            provenance: opts?.provenance,
            });
          }
        }
-@@ -393,22 +592,29 @@ export async function savePreparationDocument(
+@@ -393,22 +706,29 @@ export async function savePreparationDocument(
    } catch (e) {
      // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
      if (opts?.correlationKey) {
@@ -2257,12 +2491,12 @@ index 6d079275..b3073959 100644
 +          (await findRevisionByCorrelation(racedDoc.id, opts.correlationKey)) ??
 +          (await waitForRevisionByCorrelation(racedDoc.id, opts.correlationKey));
 +        if (prior) {
-+          return reconcilePriorRevision({
++          return reconcileWithProvenanceResolution({
 +            prior,
 +            documentId: racedDoc.id,
 +            documentTitle: "title" in racedDoc ? racedDoc.title : ownedTitle,
 +            expectedFp: fp,
-+            expectedIdentity: identityFromProvenance(opts?.provenance),
++            provenance: opts?.provenance,
 +          });
 +        }
 +        return {
@@ -2279,7 +2513,7 @@ index 6d079275..b3073959 100644
      }
      return {
        status: "FAILED" as const,
-@@ -434,6 +640,11 @@ export async function reviseDocument(
+@@ -434,14 +754,39 @@ export async function reviseDocument(
      sectionHint?: string;
      provenance?: Record<string, unknown>;
      injectFailureAfterLock?: boolean;
@@ -2291,8 +2525,17 @@ index 6d079275..b3073959 100644
    },
  ) {
    if (input.contentMarkdown.length > MAX_DOC_CHARS) {
-@@ -442,6 +653,18 @@ export async function reviseDocument(
+     return { status: "FAILED" as const, reason: "content too large" };
+   }
 
++  // P0: sealed-invalid REVISE provenance refuses before mutation.
++  if (input.provenance) {
++    const early = resolveProvenanceIdentity(input.provenance);
++    if (early.kind === "SEALED_INVALID") {
++      return { status: "FAILED" as const, reason: early.reason };
++    }
++  }
++
    try {
      return await db.transaction(async (tx) => {
 +      // Lock order: turn command / ownership → document → mutation.
@@ -2310,7 +2553,7 @@ index 6d079275..b3073959 100644
        await tx.execute(
          sql`select id from documents where id = ${input.documentId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
        );
-@@ -461,7 +684,11 @@ export async function reviseDocument(
+@@ -461,7 +806,11 @@ export async function reviseDocument(
        )[0];
        if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
 
@@ -2323,13 +2566,13 @@ index 6d079275..b3073959 100644
        const prior = (
          await tx
            .select()
-@@ -475,13 +702,13 @@ export async function reviseDocument(
+@@ -475,13 +824,13 @@ export async function reviseDocument(
            .limit(1)
        )[0];
        if (prior) {
 -        return {
 -          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
-+        return reconcilePriorRevision({
++        return reconcileWithProvenanceResolution({
 +          prior,
            documentId: input.documentId,
 -          revisionId: prior.id,
@@ -2338,12 +2581,12 @@ index 6d079275..b3073959 100644
 -        };
 +          documentTitle: input.expectedTitle ?? owned.title,
 +          expectedFp,
-+          expectedIdentity: identityFromProvenance(input.provenance),
++          provenance: input.provenance,
 +        });
        }
 
        const base = (
-@@ -543,6 +770,7 @@ export async function reviseDocument(
+@@ -543,6 +892,7 @@ export async function reviseDocument(
          provenanceJson: JSON.stringify({
            ...(input.provenance ?? {}),
            sectionHint: input.sectionHint ?? null,
@@ -2351,7 +2594,7 @@ index 6d079275..b3073959 100644
          }),
          scope: input.scope ?? "section",
        });
-@@ -799,3 +1027,173 @@ export async function compareDocumentRevisions(
+@@ -799,3 +1149,173 @@ export async function compareDocumentRevisions(
      diff,
    };
  }
@@ -2744,58 +2987,48 @@ index 20be39ee..f679aa83 100644
 ```markdown
 # As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
 
-**Date :** 14 novembre 2026 (fermeture intégrité documentaire P0-A / P0-B / P1)
+**Date :** 14 novembre 2026 (fermeture sealed replay + compat tags)
 **Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
-**Conception source :** V0.7 @ `86377fde` blob `7d289670`
-**Handoff précédent :** `sfia/review-handoff@3efc082a` blob `855a436c`
-**Statut :** IMPLEMENTED CANDIDATE — P0-A/P0-B/P1 + PREPARE→N+100 ; LIVE NOT PROVEN
+**Conception source :** V0.7 @ `86377fde`
+**Handoff précédent :** `sfia/review-handoff@c06ffffa` blob `48b0911a`
+**Statut :** IMPLEMENTED CANDIDATE — SEALED fail-closed + tag compat + FLOW replay/HTTP ; LIVE NOT PROVEN
 **STABLE / release :** NOT AVAILABLE — NO RELEASE
 
 ## 1. Objet
 
-Capacité O-01…O-06 : acquis C-01…C-07 et F-01…F-05 conservés ; fermeture des trois non-conformités d'intégrité.
+Fermeture des réserves Critical Review sur le replay D4 scellé et la compatibilité des fences historiques.
 
 | Correctif | Mécanisme |
 | --- | --- |
-| P0-A | `parseFenceMeta` → `LEGACY` \| `STRUCTURED` \| `INVALID` ; aucun fallback structuré→historique |
-| P0-B | `compareSealedEffectIdentity` recalcule SHA depuis titre+corps DB ; fingerprints provenance confrontés |
-| P1 | `confrontProposalWithFence` (titre+Markdown+SHA) avant admit/seal et avant strip+reinject |
-| Preuve | PREPARE → 100 échanges réels → accord `PRIOR_ASSISTANT_MESSAGE` → D4 exact |
-| F-01…F-05 / C-01…C-07 | Conservés |
+| P0 sealed | `resolveProvenanceIdentity` → HISTORICAL \| SEALED_VALID \| SEALED_INVALID ; jamais fallback historique si scellé invalide |
+| P1 tags | `parseFenceMeta` : tag case-insensitive ; métadonnées structurées restent strictes |
+| FLOW | PREPARE→N+100→AGREE + vrai replay `clientTurnKey` + GET HTTP reconcile |
+| P0-A/B, P1 autorité, F01–F05, C01–C07 | Conservés |
 
 ## 2. Modules
 
 | Module | Rôle |
 | --- | --- |
-| `document-command.ts` | Codec fence, parseFenceMeta 3-états, admit/seal, reconcile RO |
-| `document-act.ts` | Extract LEGACY/STRUCTURED/INVALID |
-| `document/service.ts` | Identité scellée sur octets PostgreSQL relus |
-| `service.ts` (conversation) | Autorité proposition unique ; PREPARE conflict observable |
-| `history-tools(+sdk).ts` | Keyset / budget (inchangé ce cycle) |
-| `reconcile/route.ts` | D4 GET (inchangé ce cycle) |
+| `document/service.ts` | `resolveProvenanceIdentity`, `reconcileWithProvenanceResolution`, SHA DB |
+| `document-command.ts` | `parseFenceMeta` tag case-insensitive + triad stricte |
+| `document-act.ts` | Extract LEGACY/STRUCTURED/INVALID (scanner déjà case-insensitive) |
+| `service.ts` | Autorité proposition / PREPARE (inchangé ce cycle) |
 
 ## 3. Invariants
 
-1. Métadonnées partielles/ambiguës → `DOCUMENT_PROPOSAL_METADATA_INVALID`, jamais LEGACY.
-2. `AVAILABLE` scellé seulement si SHA recalculé (DB) = binding = provenance.
-3. Titre et Markdown confrontés ; divergence → `PROPOSAL_SOURCE_CONFLICT`, zéro D4, pas de réécriture silencieuse.
-4. PREPARE sans effet D4 ; N+100 conserve les octets historiques.
-5. Réconciliation D4 : zéro écriture.
+1. `documentCommandBinding === true` + identité invalide → `COMMAND_PROVENANCE_UNVERIFIABLE`, jamais AVAILABLE.
+2. Titre de provenance scellée obligatoire (pas de `prov.title ?? storedTitle` comme preuve).
+3. Fence historique sans métadonnées : tag `SFIA-DOCUMENT` / `Sfia-Document` lisible.
+4. Métadonnées partielles sur tag mixte → INVALID.
+5. Replay USER même `clientTurnKey` → `idempotentReplay` ; GET reconcile RO.
 
 ## 4. Preuves
 
-| Niveau | Résultat |
-| --- | --- |
-| Unit | voir Review Pack |
-| PG ciblés META/HASH/SRC/N+100 | PASS |
-| PG global / BROWSER | voir Review Pack |
-| LIVE | **NOT PROVEN** |
+Voir Review Pack : SEAL-01…14, COMPAT-01…10, FLOW-01…14, unit/PG/BROWSER.
 
 ## 5. Réserves
 
-- LIVE Nora non exécuté.
-- Push produit / PR #676 / RECETTE / Gate C hors mandat.
-- Version `0.0.0-dev` ; NO RELEASE.
+LIVE NOT PROVEN ; push produit / PR #676 / RECETTE / Gate C hors mandat ; NO RELEASE.
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts`
@@ -2973,7 +3206,10 @@ export function parseFenceMeta(info: string): ParsedFenceMetadata {
   const raw = info.trim();
   if (!raw) return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
   const parts = raw.split(/\s+/);
-  if (parts[0] !== "sfia-document") {
+  // P1: tag recognition is case-insensitive (align with document-act scanner).
+  // Emission remains canonical lowercase `sfia-document`.
+  const tag = (parts[0] ?? "").toLowerCase();
+  if (tag !== "sfia-document") {
     return { kind: "INVALID", reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
   }
   const tokens = parts.slice(1);
@@ -4662,8 +4898,13 @@ import {
   sealedIdentityFromBinding,
   type DocumentCommandBinding,
 } from "@/domains/conversation/document-command";
-import { lookupDocumentCorrelationTruth } from "@/domains/document/service";
-import { buildSealedProvenance, savePreparationDocument } from "@/domains/document/service";
+import {
+  buildSealedProvenance,
+  lookupDocumentCorrelationTruth,
+  resolveProvenanceIdentity,
+  savePreparationDocument,
+  type SealedEffectIdentity,
+} from "@/domains/document/service";
 import {
   completeTurnCommand,
   reserveTurnCommand,
@@ -5466,6 +5707,378 @@ describe("ML4C document identity F-01 (PG)", () => {
     expect(await countD4Rows(pilotId, prep.id)).toEqual(baseline);
   });
 
+  describe("SEAL provenance identity (PG)", () => {
+    function minimalCreateIdentity(
+      prepId: string,
+      corr: string,
+      title: string,
+      body: string,
+      overrides?: Partial<SealedEffectIdentity>,
+    ): SealedEffectIdentity {
+      const cSha = contentSha256(title, body);
+      const source = { kind: "SAME_TURN_SNAPSHOT" as const, commandId: "seal-cmd" };
+      return {
+        commandId: "seal-cmd",
+        operationId: "seal-op",
+        userMessageId: "seal-usr",
+        qualifiedIntentId: "i-d4-create",
+        action: "CREATE",
+        source,
+        preparationId: prepId,
+        documentId: null,
+        baseRevisionId: null,
+        sectionHint: null,
+        correlationKey: corr,
+        contentSha256: cSha,
+        payloadSha256: payloadSha256({
+          action: "CREATE",
+          source,
+          preparationId: prepId,
+          documentId: null,
+          baseRevisionId: null,
+          title,
+          contentSha256: cSha,
+        }),
+        title,
+        ...overrides,
+      };
+    }
+
+    it("SEAL-01: healthy CREATE sealed replay → AVAILABLE same refs", async () => {
+      const pilotId = await seedPilot("seal-01");
+      const prep = await openOrCreatePreparation(pilotId);
+      const title = "SEAL-01";
+      const body = `# ${title}\n\nReplay.\n`;
+      const corr = `corr-seal-01-${Date.now()}`;
+      const identity = minimalCreateIdentity(prep.id, corr, title, body);
+      const prov = buildSealedProvenance(identity);
+
+      const first = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: prov,
+      });
+      expect(first.status).toBe("AVAILABLE");
+      if (first.status !== "AVAILABLE") throw new Error("first");
+
+      const second = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: prov,
+      });
+      expect(second.status).toBe("AVAILABLE");
+      if (second.status !== "AVAILABLE") throw new Error("second");
+      expect(second.documentId).toBe(first.documentId);
+      expect(second.revisionId).toBe(first.revisionId);
+    });
+
+    it("SEAL-02: CREATE missing payloadSha256 → never AVAILABLE", async () => {
+      const pilotId = await seedPilot("seal-02");
+      const prep = await openOrCreatePreparation(pilotId);
+      const title = "SEAL-02";
+      const body = `# ${title}\n\nSans payload.\n`;
+      const corr = `corr-seal-02-${Date.now()}`;
+      const identity = minimalCreateIdentity(prep.id, corr, title, body);
+      const prov = buildSealedProvenance(identity);
+      delete prov.payloadSha256;
+
+      const before = await countD4Rows(pilotId, prep.id);
+      const attempt = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: prov,
+      });
+      expect(attempt.status).toBe("FAILED");
+      if (attempt.status === "FAILED") expect(attempt.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+      expect(await countD4Rows(pilotId, prep.id)).toEqual(before);
+
+      const replay = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: prov,
+      });
+      expect(replay.status).not.toBe("AVAILABLE");
+    });
+
+    it("SEAL-03: missing commandId → refuse", () => {
+      const prov = buildSealedProvenance(
+        minimalCreateIdentity("prep-x", "corr-x", "T", "# T\n\nb.\n", { commandId: "" }),
+      );
+      prov.commandId = "";
+      expect(resolveProvenanceIdentity(prov).kind).toBe("SEALED_INVALID");
+    });
+
+    it("SEAL-04: missing source → refuse", () => {
+      const prov = buildSealedProvenance(
+        minimalCreateIdentity("prep-x", "corr-x", "T", "# T\n\nb.\n"),
+      );
+      delete prov.source;
+      expect(resolveProvenanceIdentity(prov).kind).toBe("SEALED_INVALID");
+    });
+
+    it("SEAL-05: wrong action string → refuse", () => {
+      const prov = buildSealedProvenance(
+        minimalCreateIdentity("prep-x", "corr-x", "T", "# T\n\nb.\n"),
+      );
+      prov.action = "PATCH";
+      expect(resolveProvenanceIdentity(prov).kind).toBe("SEALED_INVALID");
+    });
+
+    it("SEAL-06: REVISE sealed complete → AVAILABLE", async () => {
+      const pilotId = await seedPilot("seal-06");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "seal-06-base");
+      const created = await sealAndApplyDocumentCommand({
+        pilotId,
+        fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+        binding: admitted.binding,
+      });
+      if (created.effect.status !== "AVAILABLE") throw new Error("create");
+
+      const convId = await getConversationId(pilotId, prep.id);
+      await completeReservedTurn(convId!, reserved);
+      const reservedRev = await reserveTurnCommand({
+        conversationId: convId!,
+        ownerPilotId: pilotId,
+        clientTurnKey: `seal-06-rev-${Date.now()}`,
+        content: "REVISE SEAL-06.",
+      });
+      if (reservedRev.kind !== "fresh") throw new Error("fresh");
+      const revisedBody = `${admitted.binding.contentMarkdown}\n## SEAL-06\n`;
+      const admittedRev = admitDocumentCommand({
+        commandId: reservedRev.commandId,
+        operationId: reservedRev.operationId,
+        userMessageId: reservedRev.userMessageId,
+        qualifiedIntentId: "i-d4-revise",
+        action: "REVISE",
+        preparationId: prep.id,
+        documentId: created.effect.documentId,
+        baseRevisionId: created.effect.revisionId,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: reservedRev.commandId },
+        title: admitted.binding.title,
+        contentMarkdown: revisedBody,
+      });
+      expect(admittedRev.ok).toBe(true);
+      if (!admittedRev.ok) throw new Error(admittedRev.reason);
+
+      const revised = await sealAndApplyDocumentCommand({
+        pilotId,
+        fence: { commandId: reservedRev.commandId, ownerToken: reservedRev.ownerToken },
+        binding: admittedRev.binding,
+      });
+      expect(revised.effect.status).toBe("AVAILABLE");
+    });
+
+    it("SEAL-07: REVISE sealed missing baseRevisionId → refuse", () => {
+      const identity = minimalCreateIdentity("prep-x", "corr-rev", "T", "# T\n\nb.\n", {
+        action: "REVISE",
+        documentId: "doc-x",
+        baseRevisionId: null,
+      });
+      const prov = buildSealedProvenance(identity);
+      expect(resolveProvenanceIdentity(prov).kind).toBe("SEALED_INVALID");
+    });
+
+    it("SEAL-08: REVISE missing qualifiedIntentId → refuse", () => {
+      const r = admitDocumentCommand({
+        commandId: "tcmd-seal-08",
+        operationId: "op-seal-08",
+        userMessageId: "usr-seal-08",
+        qualifiedIntentId: "",
+        action: "REVISE",
+        preparationId: "prep-seal-08",
+        documentId: "doc-1",
+        baseRevisionId: "rev-1",
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "tcmd-seal-08" },
+        title: "T",
+        contentMarkdown: "# T\n\nRévisé.\n",
+      });
+      expect(r.ok).toBe(false);
+      if (!r.ok) expect(r.reason).toBe("MISSING_IDENTITIES");
+    });
+
+    it("SEAL-09: tampered provenance (title removed) → UNKNOWN, never AVAILABLE", async () => {
+      const pilotId = await seedPilot("seal-09");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "seal-09");
+      const sealed = await sealAndApplyDocumentCommand({
+        pilotId,
+        fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+        binding: admitted.binding,
+      });
+      if (sealed.effect.status !== "AVAILABLE") throw new Error("apply");
+      const revisionId = sealed.effect.revisionId;
+      const baseline = await countD4Rows(pilotId, prep.id);
+
+      const row = (
+        await db
+          .select({ provenanceJson: documentRevisions.provenanceJson })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.id, revisionId))
+          .limit(1)
+      )[0];
+      const prov = JSON.parse(row!.provenanceJson) as Record<string, unknown>;
+      delete prov.title;
+      await db
+        .update(documentRevisions)
+        .set({ provenanceJson: JSON.stringify(prov) })
+        .where(eq(documentRevisions.id, revisionId));
+
+      const truth = await lookupFromBinding(pilotId, prep.id, admitted.binding);
+      expect(truth.verdict).not.toBe("AVAILABLE");
+      expect(truth.verdict).toBe("UNKNOWN");
+      const reconciled = await reconcileDocumentCommandFromBinding({
+        pilotId,
+        preparationId: prep.id,
+        binding: admitted.binding,
+      });
+      expect(reconciled.verdict).not.toBe("AVAILABLE");
+      expect(await countD4Rows(pilotId, prep.id)).toEqual(baseline);
+    });
+
+    it("SEAL-10: diverged identity field in DB → CONFLICT/UNKNOWN, never AVAILABLE", async () => {
+      const pilotId = await seedPilot("seal-10");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "seal-10");
+      const sealed = await sealAndApplyDocumentCommand({
+        pilotId,
+        fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+        binding: admitted.binding,
+      });
+      if (sealed.effect.status !== "AVAILABLE") throw new Error("apply");
+
+      const row = (
+        await db
+          .select({ provenanceJson: documentRevisions.provenanceJson })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.id, sealed.effect.revisionId))
+          .limit(1)
+      )[0];
+      const prov = JSON.parse(row!.provenanceJson) as Record<string, unknown>;
+      prov.commandId = "other-command-id";
+      await db
+        .update(documentRevisions)
+        .set({ provenanceJson: JSON.stringify(prov) })
+        .where(eq(documentRevisions.id, sealed.effect.revisionId));
+
+      const truth = await lookupFromBinding(pilotId, prep.id, admitted.binding);
+      expect(truth.verdict).not.toBe("AVAILABLE");
+      expect(["CONFLICT", "UNKNOWN"]).toContain(truth.verdict);
+    });
+
+    it("SEAL-11: historical provenance same corr+content → AVAILABLE", async () => {
+      const pilotId = await seedPilot("seal-11");
+      const prep = await openOrCreatePreparation(pilotId);
+      const corr = `corr-hist-${Date.now()}`;
+      const title = "Historical SEAL-11";
+      const body = `# ${title}\n\nSans binding scellé.\n`;
+      const saved = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: { note: "legacy", correlationKey: corr },
+      });
+      expect(saved.status).toBe("AVAILABLE");
+      if (saved.status !== "AVAILABLE") throw new Error("save");
+
+      const again = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: { note: "legacy-replay", correlationKey: corr },
+      });
+      expect(again.status).toBe("AVAILABLE");
+      if (again.status !== "AVAILABLE" || saved.status !== "AVAILABLE") throw new Error("available");
+      expect(again.documentId).toBe(saved.documentId);
+      expect(again.revisionId).toBe(saved.revisionId);
+    });
+
+    it("SEAL-12: incomplete sealed provenance — 10× save/reconcile, zero new D4 rows", async () => {
+      const pilotId = await seedPilot("seal-12");
+      const prep = await openOrCreatePreparation(pilotId);
+      const { admitted, reserved } = await freshCreateBinding(pilotId, prep.id, "seal-12");
+      const prov = buildSealedProvenance(sealedIdentityFromBinding(admitted.binding));
+      delete prov.payloadSha256;
+      const before = await countD4Rows(pilotId, prep.id);
+
+      for (let i = 0; i < 10; i++) {
+        const saved = await savePreparationDocument(
+          pilotId,
+          prep.id,
+          admitted.binding.title,
+          admitted.binding.contentMarkdown,
+          undefined,
+          { correlationKey: admitted.binding.correlationKey, provenance: prov },
+        );
+        expect(saved.status).not.toBe("AVAILABLE");
+        const reconciled = await reconcileDocumentCommandFromBinding({
+          pilotId,
+          preparationId: prep.id,
+          binding: admitted.binding,
+        });
+        expect(reconciled.verdict).not.toBe("AVAILABLE");
+        await stashDocumentCommandBinding({
+          commandId: reserved.commandId,
+          ownerToken: reserved.ownerToken,
+          binding: admitted.binding,
+        });
+      }
+      expect(await countD4Rows(pilotId, prep.id)).toEqual(before);
+    });
+
+    it("SEAL-13: sealed invalid on empty prep → FAILED, zero docs", async () => {
+      const pilotId = await seedPilot("seal-13");
+      const prep = await openOrCreatePreparation(pilotId);
+      const corr = `corr-seal-13-${Date.now()}`;
+      const title = "SEAL-13";
+      const body = `# ${title}\n\nRefus.\n`;
+      const prov = buildSealedProvenance(minimalCreateIdentity(prep.id, corr, title, body));
+      delete prov.commandId;
+
+      const result = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: prov,
+      });
+      expect(result.status).toBe("FAILED");
+      if (result.status === "FAILED") expect(result.reason).toBe("COMMAND_PROVENANCE_UNVERIFIABLE");
+      expect((await countD4Rows(pilotId, prep.id)).documents).toBe(0);
+    });
+
+    it("SEAL-14: sealed invalid replay on existing corr → no false AVAILABLE", async () => {
+      const pilotId = await seedPilot("seal-14");
+      const prep = await openOrCreatePreparation(pilotId);
+      const corr = `corr-seal-14-${Date.now()}`;
+      const title = "SEAL-14 healthy";
+      const body = `# ${title}\n\nValide.\n`;
+      const valid = minimalCreateIdentity(prep.id, corr, title, body);
+      const healthy = await savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+        correlationKey: corr,
+        provenance: buildSealedProvenance(valid),
+      });
+      expect(healthy.status).toBe("AVAILABLE");
+
+      const invalidProv = buildSealedProvenance({ ...valid, commandId: "bad-cmd" });
+      delete invalidProv.payloadSha256;
+
+      const [a, b] = await Promise.all([
+        savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+          correlationKey: corr,
+          provenance: invalidProv,
+        }),
+        savePreparationDocument(pilotId, prep.id, title, body, undefined, {
+          correlationKey: corr,
+          provenance: invalidProv,
+        }),
+      ]);
+      expect(a.status).not.toBe("AVAILABLE");
+      expect(b.status).not.toBe("AVAILABLE");
+
+      const docCount = await db
+        .select({ n: sql<number>`count(*)`.mapWith(Number) })
+        .from(documents)
+        .where(
+          and(
+            eq(documents.ownerPilotId, pilotId),
+            eq(documents.preparationId, prep.id),
+            eq(documents.creationCorrelationKey, corr),
+          ),
+        );
+      expect(docCount[0]?.n).toBe(1);
+    });
+  });
+
   it("F01-10: stashed binding without apply — lookup UNKNOWN", async () => {
     const pilotId = await seedPilot("f01-stash");
     const prep = await openOrCreatePreparation(pilotId);
@@ -6187,8 +6800,12 @@ describe("ML4C document reconciliation C-01 (PG)", () => {
     it("F05-09: ten consecutive HTTP GET → zero new D4 rows", async () => {
       const sess = await bindDevSession("a");
       const prep = await openOrCreatePreparation(sess.pilotId);
-      const { admitted, reserved } = await sealCreateTurn(sess.pilotId, prep.id, "http-10x");
+      const { admitted, sealed } = await sealCreateTurn(sess.pilotId, prep.id, "http-10x");
       const before = await countD4Rows(sess.pilotId, prep.id);
+      const documentId =
+        sealed.effect.status === "AVAILABLE" ? sealed.effect.documentId : undefined;
+      const revisionId =
+        sealed.effect.status === "AVAILABLE" ? sealed.effect.revisionId : undefined;
 
       for (let i = 0; i < 10; i++) {
         const res = await reconcileHttpGet(prep.id, {
@@ -6197,10 +6814,32 @@ describe("ML4C document reconciliation C-01 (PG)", () => {
         });
         expect(res.status).toBe(200);
         expect(res.body.verdict).toBe("AVAILABLE");
+        expect(res.body.documentId).toBe(documentId);
+        expect(res.body.revisionId).toBe(revisionId);
       }
 
       expect(await countD4Rows(sess.pilotId, prep.id)).toEqual(before);
-      expect(reserved.commandId).toBeTruthy();
+    });
+
+    it("FLOW-HTTP: sealed CREATE then 10× reconcileHttpGet — stable ids", async () => {
+      const sess = await bindDevSession("a");
+      const prep = await openOrCreatePreparation(sess.pilotId);
+      const { admitted, sealed } = await sealCreateTurn(sess.pilotId, prep.id, "flow-http");
+      expect(sealed.effect.status).toBe("AVAILABLE");
+      if (sealed.effect.status !== "AVAILABLE") throw new Error("seal");
+      const baseline = await countD4Rows(sess.pilotId, prep.id);
+
+      for (let i = 0; i < 10; i++) {
+        const res = await reconcileHttpGet(prep.id, {
+          documentCommandId: admitted.binding.commandId,
+          correlationKey: admitted.binding.correlationKey,
+        });
+        expect(res.status).toBe(200);
+        expect(res.body.verdict).toBe("AVAILABLE");
+        expect(res.body.documentId).toBe(sealed.effect.documentId);
+        expect(res.body.revisionId).toBe(sealed.effect.revisionId);
+      }
+      expect(await countD4Rows(sess.pilotId, prep.id)).toEqual(baseline);
     });
 
     it("foreign pilot session → 403 COMMAND_DENIED", async () => {
@@ -7788,6 +8427,144 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
     expect(revCountAfter).toBe(1);
   });
 
+  it("FLOW: PREPARE → N+100 → AGREE with stable clientTurnKey idempotent replay", async () => {
+    const pilotId = await seedPilot("ml4c-flow-idem");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+
+    const title = "Flow idempotent";
+    const contentMarkdown = `# ${title}\n\n## Unique\n\nContenu flow.\n`;
+
+    const prepareUtterance = `ML4C-FLOW-PREPARE-${Date.now()}`;
+    registerExplicitFixture(prepareUtterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "préparer",
+        intents: [
+          {
+            id: "i-d4-prepare",
+            capabilityId: "d4.create_document",
+            mode: "PREPARE",
+            summary: "prepare",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Proposition préparée.",
+        documentProposal: { title, contentMarkdown },
+      },
+    });
+    await noraTurn(pilotId, prep.id, prepareUtterance);
+
+    const prepareAssistant = (
+      await db
+        .select({ id: messages.id })
+        .from(messages)
+        .where(and(eq(messages.conversationId, convId!), eq(messages.role, "assistant")))
+        .orderBy(asc(messages.ordinal))
+    ).at(-1);
+    const assistantMessageId = prepareAssistant!.id;
+    const maxOrd =
+      (
+        await db
+          .select({ o: sql<number>`coalesce(max(${messages.ordinal}), 0)`.mapWith(Number) })
+          .from(messages)
+          .where(eq(messages.conversationId, convId!))
+      )[0]?.o ?? 0;
+    await seedFillerMessages(convId!, 100, maxOrd + 1);
+
+    const agreeUtterance = `ML4C-FLOW-AGREE-${assistantMessageId}`;
+    const stableAgreementTurnKey = `agree-flow-${Date.now()}`;
+    registerExplicitFixture(agreeUtterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "agree prepared",
+        intents: [
+          {
+            id: "i-d4-create",
+            capabilityId: "d4.create_document",
+            mode: "REQUEST_EFFECT",
+            summary: "create from prepared",
+            parameters: {},
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "J'enregistre.",
+        documentSource: { kind: "PRIOR_ASSISTANT_MESSAGE", assistantMessageId },
+      },
+    });
+
+    const first = await postUserMessageAndNora(pilotId, prep.id, agreeUtterance, {
+      clientTurnKey: stableAgreementTurnKey,
+    });
+    expect(first.documentSave?.status).toBe("AVAILABLE");
+    expect(first.idempotentReplay).toBe(false);
+    const documentId = first.documentSave!.documentId!;
+    const revisionId = first.documentSave!.revisionId!;
+    const operationId = first.operationId!;
+    expect(operationId).toBeTruthy();
+
+    const cmdRow = (
+      await db
+        .select({ commandId: conversationTurnCommands.id })
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.operationId, operationId))
+        .limit(1)
+    )[0];
+    expect(cmdRow?.commandId).toBeTruthy();
+
+    const docCountBefore =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+    const revCountBefore =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, documentId))
+      )[0]?.n ?? 0;
+
+    const second = await postUserMessageAndNora(pilotId, prep.id, agreeUtterance, {
+      clientTurnKey: stableAgreementTurnKey,
+    });
+    expect(second.idempotentReplay).toBe(true);
+    expect(second.operationId).toBe(operationId);
+    expect(second.documentSave?.documentId).toBe(documentId);
+    expect(second.documentSave?.revisionId).toBe(revisionId);
+
+    const docCountAfter =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documents)
+          .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, prep.id)))
+      )[0]?.n ?? 0;
+    const revCountAfter =
+      (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, documentId))
+      )[0]?.n ?? 0;
+    expect(docCountAfter).toBe(docCountBefore);
+    expect(revCountAfter).toBe(revCountBefore);
+  });
+
   it("C-02 admit+seal preserves correlationKey (no post-mutation)", async () => {
     const pilotId = await seedPilot("ml4c-c02-corr");
     const prep = await openOrCreatePreparation(pilotId);
@@ -8000,6 +8777,83 @@ describe("canonicalizeDocumentProposal", () => {
     });
     expect(r.ok).toBe(false);
     if (!r.ok) expect(r.reason).toBe("TITLE_H1_MISMATCH");
+  });
+});
+
+describe("parseFenceMeta — COMPAT case + structured", () => {
+  const title = "Compat titre";
+  const body = "# Compat titre\n\nCorps.\n";
+  const digest = contentSha256(title, body);
+
+  function wrapFence(tag: string, content: string) {
+    return `\`\`\`${tag}\n${content}\n\`\`\`\n`;
+  }
+
+  it.each([
+    ["COMPAT-01 SFIA-DOCUMENT", "SFIA-DOCUMENT"],
+    ["COMPAT-02 Sfia-Document", "Sfia-Document"],
+    ["COMPAT-03 sfia-document", "sfia-document"],
+  ])("%s → LEGACY", (_label, tag) => {
+    expect(parseFenceMeta(tag)).toEqual({ kind: "LEGACY" });
+    const extracted = extractContractualDocumentProposal(wrapFence(tag, "# Doc\n\nBody.\n"));
+    expect(extracted.ok).toBe(true);
+  });
+
+  it("COMPAT-04: mixed-case legacy tag preserves title and Markdown on extract", () => {
+    const body = "# Document historique\n\nContenu conservé.\n";
+    const fence = "```SFIA-DOCUMENT\n" + body + "```\n";
+    const extracted = extractContractualDocumentProposal(fence);
+    expect(extracted.ok).toBe(true);
+    if (extracted.ok) {
+      expect(extracted.title).toBe("Document historique");
+      expect(extracted.content).toBe(body);
+    }
+  });
+
+  it("COMPAT-05: mixed-case tag + partial meta → INVALID", () => {
+    const info = `SFIA-DOCUMENT title-b64=${encodeTitleB64(title)}`;
+    expect(parseFenceMeta(info).kind).toBe("INVALID");
+  });
+
+  it("COMPAT-06: mixed-case tag + unknown key → INVALID", () => {
+    const info = `Sfia-Document title-b64=${encodeTitleB64(title)} chars=${body.length} pair-sha256=${digest} foo=bar`;
+    expect(parseFenceMeta(info).kind).toBe("INVALID");
+  });
+
+  it("COMPAT-07: structured canonical → ACCEPT", () => {
+    const triad = `sfia-document title-b64=${encodeTitleB64(title)} chars=${body.length} pair-sha256=${digest}`;
+    expect(parseFenceMeta(triad)).toMatchObject({ kind: "STRUCTURED", pairSha256: digest });
+    const extracted = extractContractualDocumentProposal(wrapFence(triad, body));
+    expect(extracted.ok).toBe(true);
+    if (extracted.ok) {
+      expect(extracted.title).toBe(title);
+      expect(extracted.content).toBe(body);
+    }
+  });
+
+  it("COMPAT-08: incomplete structured triad → INVALID", () => {
+    const partial = `sfia-document title-b64=${encodeTitleB64(title)} chars=${body.length}`;
+    expect(parseFenceMeta(partial).kind).toBe("INVALID");
+  });
+
+  it("COMPAT-09: two contractual fences → AMBIGUOUS", () => {
+    const fenceA = wrapFence("sfia-document", "# A\n\nUn.\n");
+    const fenceB = wrapFence("sfia-document", "# B\n\nDeux.\n");
+    const raw = `Prologue.\n\n${fenceA}\nSuite.\n\n${fenceB}`;
+    const extracted = extractContractualDocumentProposal(raw);
+    expect(extracted.ok).toBe(false);
+    if (!extracted.ok) expect(extracted.reason).toBe("DOCUMENT_PROPOSAL_AMBIGUOUS");
+  });
+
+  it("COMPAT-10: historical message without structured meta → COMPLETE extract", () => {
+    const raw =
+      "Message assistant historique.\n\n```sfia-document\n# Historique compat\n\n## Section\n\nCorps lisible.\n```\n";
+    const extracted = extractContractualDocumentProposal(raw);
+    expect(extracted.ok).toBe(true);
+    if (extracted.ok) {
+      expect(extracted.title).toBe("Historique compat");
+      expect(extracted.content).toContain("Corps lisible");
+    }
   });
 });
 
@@ -8492,35 +9346,95 @@ describe("ML4C TEMP — restitution fail-closed (DET)", () => {
 
 ---
 
-## 8. Cycle narrative (allowlist this cycle)
+## 8. As-built (extrait)
 
-This cycle touched **only** the document-integrity allowlist:
+Source: `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md`
 
-- `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md`
-- `projects/sfia-studio-next/construction/delivery-history.md`
-- `projects/sfia-studio-next/web/src/domains/conversation/document-act.ts`
-- `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts`
-- `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
-- `projects/sfia-studio-next/web/src/domains/document/service.ts`
-- `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts`
-- `projects/sfia-studio-next/web/tests/integration/ml4c-document-identity.pg.test.ts`
-- `projects/sfia-studio-next/web/tests/integration/ml4c-document-reconciliation.pg.test.ts`
-- `projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts`
-- `projects/sfia-studio-next/web/tests/unit/document-act.test.ts`
-- `projects/sfia-studio-next/web/tests/unit/document-command.test.ts`
+```markdown
+# As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
 
-The review pack nonetheless embeds the **entire** ML4C candidate delta vs HEAD `67bf6b0b` (all modified tracked files + all untracked ML4C files listed in §3).
+**Date :** 14 novembre 2026 (fermeture sealed replay + compat tags)
+**Candidat base :** `67bf6b0b` — worktree `fix/next-semantic-intent-convergence-20261112`
+**Conception source :** V0.7 @ `86377fde`
+**Handoff précédent :** `sfia/review-handoff@c06ffffa` blob `48b0911a`
+**Statut :** IMPLEMENTED CANDIDATE — SEALED fail-closed + tag compat + FLOW replay/HTTP ; LIVE NOT PROVEN
+**STABLE / release :** NOT AVAILABLE — NO RELEASE
+
+## 1. Objet
+
+Fermeture des réserves Critical Review sur le replay D4 scellé et la compatibilité des fences historiques.
+
+| Correctif | Mécanisme |
+| --- | --- |
+| P0 sealed | `resolveProvenanceIdentity` → HISTORICAL \| SEALED_VALID \| SEALED_INVALID ; jamais fallback historique si scellé invalide |
+| P1 tags | `parseFenceMeta` : tag case-insensitive ; métadonnées structurées restent strictes |
+| FLOW | PREPARE→N+100→AGREE + vrai replay `clientTurnKey` + GET HTTP reconcile |
+| P0-A/B, P1 autorité, F01–F05, C01–C07 | Conservés |
+
+## 2. Modules
+
+| Module | Rôle |
+| --- | --- |
+| `document/service.ts` | `resolveProvenanceIdentity`, `reconcileWithProvenanceResolution`, SHA DB |
+| `document-command.ts` | `parseFenceMeta` tag case-insensitive + triad stricte |
+| `document-act.ts` | Extract LEGACY/STRUCTURED/INVALID (scanner déjà case-insensitive) |
+| `service.ts` | Autorité proposition / PREPARE (inchangé ce cycle) |
+
+## 3. Invariants
+
+1. `documentCommandBinding === true` + identité invalide → `COMMAND_PROVENANCE_UNVERIFIABLE`, jamais AVAILABLE.
+2. Titre de provenance scellée obligatoire (pas de `prov.title ?? storedTitle` comme preuve).
+3. Fence historique sans métadonnées : tag `SFIA-DOCUMENT` / `Sfia-Document` lisible.
+4. Métadonnées partielles sur tag mixte → INVALID.
+5. Replay USER même `clientTurnKey` → `idempotentReplay` ; GET reconcile RO.
+
+## 4. Preuves
+
+Voir Review Pack : SEAL-01…14, COMPAT-01…10, FLOW-01…14, unit/PG/BROWSER.
+
+## 5. Réserves
+
+LIVE NOT PROVEN ; push produit / PR #676 / RECETTE / Gate C hors mandat ; NO RELEASE.
+```
 
 ---
 
-## 9. Réserves et verdict
+## 9. Delivery, gates, verdict
+
+### 9.0 Delivery — `DELIV-2026-11-14-ML4C-SEALED-REPLAY-FINAL`
+
+```markdown
+## delivery_id: DELIV-2026-11-14-ML4C-SEALED-REPLAY-FINAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~11:40 CET (Europe/Paris) |
+| Macro-lot | ML4C — Sealed replay fail-closed + historical fence tag compatibility |
+| Type | INC/EVOL Critical corrective integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` @ base `67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Prior handoff | `sfia/review-handoff@c06ffffa` blob `48b0911a` |
+| Lane | DEV + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | resolveProvenanceIdentity ; SEALED_INVALID refuse ; tag case-insensitive LEGACY ; FLOW USER replay + HTTP GET |
+| Schema | unchanged |
+| Tests | SEAL/COMPAT/FLOW + non-rég ; LIVE NOT PROVEN |
+| Status | LOCAL ONLY product ; Review Handoff L3 published in-cycle |
+```
+
+### 9.0bis Gates (rappel)
+
+Voir §2 — tsc, unit 319, integration 413, SEAL/COMPAT/FLOW 126+, eslint, build, Playwright 2 ; LIVE NOT PROVEN.
+
+### 9.0ter Réserves et distinction produit / handoff
 
 | Item | Statut |
 | --- | --- |
-| DETERMINISTIC / PG / unit / integration | PROVEN (counts ci-dessus) |
-| Playwright ML4C e2e (2 specs) | PASS (local log) |
-| Nora LIVE conversation | **NOT PROVEN** |
-| Git handoff `sfia/review-handoff` | **not published this cycle** |
+| Product git (commit/push) | **LOCAL ONLY** |
+| Review Handoff `sfia/review-handoff` | **REMOTE — publication après ce pack** |
+| DETERMINISTIC / PG / unit / integration | PROVEN (comptes §2) |
+| SEAL/COMPAT/FLOW ciblé | PROVEN (126+) |
+| Playwright ML4C e2e (2 specs) | PASS |
+| Nora LIVE | **NOT PROVEN** |
 
 **Verdict pack**: **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**
 
@@ -8528,27 +9442,41 @@ The review pack nonetheless embeds the **entire** ML4C candidate delta vs HEAD `
 
 > **Instruction ChatGPT obligatoire :**
 >
-> Pour ce cycle **local-only**, la source canonique du pack est le fichier worktree :
+> Pour ce cycle **local-only produit**, la source canonique du pack est le fichier worktree :
 >
 > fichier : `.tmp-sfia-review/chatgpt-review.md`
 > HEAD candidat : `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
 >
 > Avant de répondre à Morris, ChatGPT doit lire **ce pack intégral** et vérifier la cohérence avec le rapport Cursor, notamment :
-> - le cycle et le profil ;
+> - le cycle sealed replay + profil Critical ;
 > - la branche projet et HEAD ;
 > - la base main ;
+> - Product LOCAL ONLY vs Review Handoff REMOTE (post-pack) ;
 > - l'inventaire §3 (tous chemins status/diff/untracked) ;
 > - les diffs §6 et contenus §7 ;
-> - P0-A / P0-B / P1 §4 ;
-> - matrices META/HASH/SRC/N+100 §5 ;
-> - les validations et réserves ;
+> - P0 sealed before/after §4 et P1 tag compat §4bis ;
+> - matrices SEAL/COMPAT/FLOW §5 ;
+> - as-built §8 et delivery / verdict §9 ;
+> - les validations §2 et §9.1 ;
 > - le verdict **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**.
 >
 > **Après cette vérification**, ChatGPT doit produire une synthèse globale du cycle (objectif, changements, validations, risques, verdict ChatGPT, prochaine décision Morris).
 
 ---
 
-## 10. Coverage assertion
+## 10. Cycle narrative (allowlist this cycle)
+
+Changements **nominés** ce cycle (sur le delta ML4C candidat vs HEAD) :
+
+- `document/service.ts` : `resolveProvenanceIdentity`, `reconcileWithProvenanceResolution`, titre mandatory `compareSealedEffectIdentity`
+- `document-command.ts` : `parseFenceMeta` tag case-insensitive
+- Tests SEAL/COMPAT/FLOW + non-régression ; as-built ; delivery-history
+
+Le pack embarque néanmoins le **delta ML4C complet** vs HEAD (tous chemins §3).
+
+---
+
+## 11. Coverage assertion
 
 - Paths in inventory: **30**
 - Modified tracked embedded: **16**
