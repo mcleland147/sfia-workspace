@@ -1,6 +1,16 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { conversations, messages } from "@/db/schema";
+import {
+  businessCommands,
+  conversations,
+  createProjectCommands,
+  documentRevisions,
+  documents,
+  effectAttempts,
+  humanDecisions,
+  knowledgeAcquis,
+  messages,
+} from "@/db/schema";
 // db still used by getConversationId / listMessages
 import { newId } from "@/lib/ids";
 import { generateNoraReply } from "./nora-adapter";
@@ -36,6 +46,7 @@ import { emitObs, newRequestId } from "@/lib/observability";
 import { StudioError } from "@/lib/http-errors";
 import {
   applyConversationalAuthority,
+  conversationalCommandKey,
   reconstituteConversationalAuthority,
   type ConversationalAuthorityOutcome,
 } from "@/domains/pilotage/conversation-authority";
@@ -61,6 +72,7 @@ import {
 } from "./semantic-qualification";
 import { loadLatestMissionsByIntentKey } from "./intent-conduction";
 import {
+  buildTurnCorrelationKeys,
   evaluateS05SiblingPolicy,
   parseSiblingResultEvidence,
   type S05SiblingEvidence,
@@ -86,6 +98,186 @@ import {
   recoverPendingMissionContinuation,
 } from "./intent-conduction";
 import { updatePreview } from "@/domains/preparation/service";
+
+/**
+ * S05 R-01 — gather owner-side evidence for one unresolved sibling.
+ * true = correlated owner row found; false = applicable owners probed empty;
+ * null = incomplete / errored / identity insufficient.
+ * Never derives absence of effect from resultJson alone.
+ */
+export async function probeSiblingOwnerEffects(input: {
+  pilotId: string;
+  preparationId: string;
+  projectId: string | null;
+  sibling: {
+    commandId: string;
+    clientTurnKey: string;
+    userMessageId: string | null;
+    operationId: string | null;
+    bindingCorrelationKeys: string[];
+  };
+}): Promise<boolean | null> {
+  const { sibling } = input;
+  const missionKeys = missionCorrelationKeys(sibling.clientTurnKey);
+  const corrKeys = [
+    ...new Set(
+      [
+        ...sibling.bindingCorrelationKeys,
+        missionKeys.document,
+        missionKeys.publication,
+        sibling.clientTurnKey.trim() || null,
+      ].filter((k): k is string => Boolean(k && k.trim())),
+    ),
+  ];
+
+  try {
+    // DEV/E2E seam only — never set in RECETTE/STABLE; forces conservative null.
+    if (process.env.STUDIO_S05_PROBE_FORCE_ERROR === "1") {
+      throw new Error("STUDIO_S05_PROBE_FORCE_ERROR");
+    }
+
+    if (corrKeys.length > 0) {
+      const docs = await db
+        .select({ id: documents.id })
+        .from(documents)
+        .where(
+          and(
+            eq(documents.preparationId, input.preparationId),
+            eq(documents.ownerPilotId, input.pilotId),
+            inArray(documents.creationCorrelationKey, corrKeys),
+          ),
+        )
+        .limit(1);
+      if (docs.length > 0) return true;
+
+      const revs = await db
+        .select({ id: documentRevisions.id })
+        .from(documentRevisions)
+        .innerJoin(documents, eq(documentRevisions.documentId, documents.id))
+        .where(
+          and(
+            eq(documents.preparationId, input.preparationId),
+            eq(documents.ownerPilotId, input.pilotId),
+            inArray(documentRevisions.correlationKey, corrKeys),
+          ),
+        )
+        .limit(1);
+      if (revs.length > 0) return true;
+    }
+
+    const cmdNeedle = sibling.commandId;
+    const provenanceHits = await db
+      .select({ id: documentRevisions.id })
+      .from(documentRevisions)
+      .innerJoin(documents, eq(documentRevisions.documentId, documents.id))
+      .where(
+        and(
+          eq(documents.preparationId, input.preparationId),
+          eq(documents.ownerPilotId, input.pilotId),
+          sql`${documentRevisions.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
+        ),
+      )
+      .limit(1);
+    if (provenanceHits.length > 0) return true;
+
+    const d2 = await db
+      .select({ id: createProjectCommands.id })
+      .from(createProjectCommands)
+      .where(
+        and(
+          eq(createProjectCommands.pilotId, input.pilotId),
+          eq(createProjectCommands.preparationId, input.preparationId),
+          eq(createProjectCommands.idempotencyKey, sibling.clientTurnKey),
+        ),
+      )
+      .limit(1);
+    if (d2.length > 0) return true;
+
+    if (input.projectId) {
+      const bizKey = conversationalCommandKey(sibling.clientTurnKey);
+      const bizByKey = await db
+        .select({ id: businessCommands.id })
+        .from(businessCommands)
+        .where(
+          and(
+            eq(businessCommands.projectId, input.projectId),
+            eq(businessCommands.actorPilotId, input.pilotId),
+            eq(businessCommands.clientCommandKey, bizKey),
+          ),
+        )
+        .limit(1);
+      if (bizByKey.length > 0) return true;
+
+      if (sibling.userMessageId) {
+        const bizByMsg = await db
+          .select({ id: businessCommands.id })
+          .from(businessCommands)
+          .where(
+            and(
+              eq(businessCommands.projectId, input.projectId),
+              eq(businessCommands.actorPilotId, input.pilotId),
+              eq(businessCommands.sourceKind, "USER_MESSAGE"),
+              eq(businessCommands.sourceRef, sibling.userMessageId),
+            ),
+          )
+          .limit(1);
+        if (bizByMsg.length > 0) return true;
+
+        const hd = await db
+          .select({ id: humanDecisions.id })
+          .from(humanDecisions)
+          .where(
+            and(
+              eq(humanDecisions.projectId, input.projectId),
+              eq(humanDecisions.pilotId, input.pilotId),
+              eq(humanDecisions.sourceRef, sibling.userMessageId),
+            ),
+          )
+          .limit(1);
+        if (hd.length > 0) return true;
+      }
+
+      const eaKeys = [
+        ...new Set(
+          [missionKeys.publication, ...sibling.bindingCorrelationKeys].filter(
+            (k): k is string => Boolean(k && k.trim()),
+          ),
+        ),
+      ];
+      if (eaKeys.length > 0) {
+        const ea = await db
+          .select({ id: effectAttempts.id })
+          .from(effectAttempts)
+          .where(
+            and(
+              eq(effectAttempts.pilotId, input.pilotId),
+              eq(effectAttempts.projectId, input.projectId),
+              inArray(effectAttempts.correlationKey, eaKeys),
+            ),
+          )
+          .limit(1);
+        if (ea.length > 0) return true;
+      }
+    }
+
+    const know = await db
+      .select({ id: knowledgeAcquis.id })
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, input.preparationId),
+          eq(knowledgeAcquis.ownerPilotId, input.pilotId),
+          sql`${knowledgeAcquis.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
+        ),
+      )
+      .limit(1);
+    if (know.length > 0) return true;
+
+    return false;
+  } catch {
+    return null;
+  }
+}
 
 export async function listMessages(pilotId: string, preparationId: string) {
   // READ ≠ COMMAND: listing must not dispatch Git or mutate effects.
@@ -704,34 +896,59 @@ export async function postUserMessageAndNora(
 
   const applyPendingGate =
     nextTurnKind === "INTENTION_EFFET" || nextTurnKind === "INCERTAIN";
-  const currentCorrelationKeys: string[] = [];
-  const siblingEvidence: S05SiblingEvidence[] = siblings.map((s) => {
-    const parsed = parseSiblingResultEvidence(s.resultJson);
-    return {
-      id: s.id,
-      clientTurnKey: s.clientTurnKey,
-      status: s.status,
-      createdAtMs: s.createdAt.getTime(),
-      qualificationStatus: parsed.qualificationStatus,
-      qualification: parsed.qualification,
-      documentSaveStatus: parsed.documentSaveStatus,
-      pilotageEffectAttempted: parsed.pilotageEffectAttempted,
-      humanDecisionCreated: parsed.humanDecisionCreated,
-      // Durable resultJson + qualification are the owner-side evidence available without
-      // mutating RECETTE. Empty documentSave / pilotage / HD + UNAVAILABLE ⇒ probed false.
-      ownerEffectsFound:
-        parsed.qualificationStatus == null
-          ? null
-          : parsed.documentSaveStatus != null &&
-              parsed.documentSaveStatus !== "NOT_EXECUTED"
-            ? true
-            : parsed.pilotageEffectAttempted === true ||
-                parsed.humanDecisionCreated === true
-              ? true
-              : false,
-      correlationKeys: parsed.correlationKeys,
-    };
+  // R-02 — durable comparable identities only (never USER text / title / lexical).
+  const currentMissionKeys = missionCorrelationKeys(
+    carriedMission?.clientIntentKey?.trim() || clientTurnKey,
+  );
+  const currentCorrelationKeys = buildTurnCorrelationKeys({
+    commandId: reserved.commandId,
+    operationId: reserved.operationId,
+    userMessageId: reserved.userMessageId,
+    clientTurnKey,
+    clientCorrelationSalt: opts?.correlationKey?.trim() || null,
+    bindingCorrelationKeys: [],
+    businessClientCommandKey: conversationalCommandKey(clientTurnKey),
+    missionKeys: [currentMissionKeys.document, currentMissionKeys.publication],
   });
+  const siblingEvidence: S05SiblingEvidence[] = await Promise.all(
+    siblings.map(async (s) => {
+      const parsed = parseSiblingResultEvidence(s.resultJson);
+      const siblingMission = missionCorrelationKeys(s.clientTurnKey);
+      const ownerEffectsFound = await probeSiblingOwnerEffects({
+        pilotId,
+        preparationId,
+        projectId: ctx.project?.id ?? null,
+        sibling: {
+          commandId: s.id,
+          clientTurnKey: s.clientTurnKey,
+          userMessageId: s.userMessageId,
+          operationId: s.operationId,
+          bindingCorrelationKeys: parsed.bindingCorrelationKeys,
+        },
+      });
+      return {
+        id: s.id,
+        clientTurnKey: s.clientTurnKey,
+        status: s.status,
+        createdAtMs: s.createdAt.getTime(),
+        qualificationStatus: parsed.qualificationStatus,
+        qualification: parsed.qualification,
+        documentSaveStatus: parsed.documentSaveStatus,
+        pilotageEffectAttempted: parsed.pilotageEffectAttempted,
+        humanDecisionCreated: parsed.humanDecisionCreated,
+        ownerEffectsFound,
+        correlationKeys: buildTurnCorrelationKeys({
+          commandId: s.id,
+          operationId: s.operationId,
+          userMessageId: s.userMessageId,
+          clientTurnKey: s.clientTurnKey,
+          bindingCorrelationKeys: parsed.bindingCorrelationKeys,
+          businessClientCommandKey: conversationalCommandKey(s.clientTurnKey),
+          missionKeys: [siblingMission.document, siblingMission.publication],
+        }),
+      };
+    }),
+  );
   const siblingPolicy = evaluateS05SiblingPolicy({
     siblings: siblingEvidence,
     current: {

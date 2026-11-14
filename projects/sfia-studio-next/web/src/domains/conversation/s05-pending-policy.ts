@@ -26,11 +26,13 @@ export type S05SiblingEvidence = {
   pilotageEffectAttempted: boolean | null;
   humanDecisionCreated: boolean | null;
   /**
-   * Owner-side probe: true when any correlated owner mutation row was found
-   * for this turn's window/identity. false = probed empty. null = not probed.
+   * Owner-side probe result (never derived from resultJson alone):
+   * - true  = correlated owner mutation row identified
+   * - false = applicable owners probed to completion with zero hits
+   * - null  = probe absent, incomplete, errored, or identity insufficient
    */
   ownerEffectsFound: boolean | null;
-  /** Optional durable correlation / intent keys for SAME_INTENT. */
+  /** Durable correlation / intent keys for SAME_INTENT (comparable identities). */
   correlationKeys?: string[];
 };
 
@@ -209,6 +211,42 @@ export function evaluateS05SiblingPolicy(input: {
   };
 }
 
+/**
+ * Build comparable durable correlation keys for SAME_INTENT.
+ * Only stable identities — never USER text, title, or lexical similarity.
+ */
+export function buildTurnCorrelationKeys(input: {
+  commandId?: string | null;
+  operationId?: string | null;
+  userMessageId?: string | null;
+  clientTurnKey?: string | null;
+  /** Client salt / mission doc key / explicit correlation before seal. */
+  clientCorrelationSalt?: string | null;
+  /** Sealed documentCommandBindings[].correlationKey values. */
+  bindingCorrelationKeys?: string[] | null;
+  /** D5 conversational client command key when known. */
+  businessClientCommandKey?: string | null;
+  /** Mission continuity keys (doc:mission:… / pub:mission:…). */
+  missionKeys?: string[] | null;
+}): string[] {
+  const out = new Set<string>();
+  const add = (raw: string | null | undefined, prefix?: string) => {
+    const v = raw?.trim();
+    if (!v) return;
+    out.add(v);
+    if (prefix) out.add(`${prefix}${v}`);
+  };
+  add(input.commandId, "tcmd:");
+  add(input.operationId, "op:");
+  add(input.userMessageId, "umsg:");
+  add(input.clientTurnKey, "ctk:");
+  add(input.clientCorrelationSalt, "salt:");
+  add(input.businessClientCommandKey, "bck:");
+  for (const k of input.bindingCorrelationKeys ?? []) add(k, "bind:");
+  for (const k of input.missionKeys ?? []) add(k);
+  return [...out];
+}
+
 /** Parse durable qualification fields from a turn resultJson string. */
 export function parseSiblingResultEvidence(resultJson: string | null): {
   qualificationStatus: string | null;
@@ -216,7 +254,9 @@ export function parseSiblingResultEvidence(resultJson: string | null): {
   documentSaveStatus: string | null;
   pilotageEffectAttempted: boolean | null;
   humanDecisionCreated: boolean | null;
-  correlationKeys: string[];
+  /** Binding correlation keys only — not a substitute for owner probe. */
+  bindingCorrelationKeys: string[];
+  operationId: string | null;
 } {
   if (!resultJson) {
     return {
@@ -225,7 +265,8 @@ export function parseSiblingResultEvidence(resultJson: string | null): {
       documentSaveStatus: null,
       pilotageEffectAttempted: null,
       humanDecisionCreated: null,
-      correlationKeys: [],
+      bindingCorrelationKeys: [],
+      operationId: null,
     };
   }
   try {
@@ -238,12 +279,16 @@ export function parseSiblingResultEvidence(resultJson: string | null): {
       (sq && typeof sq.status === "string" ? sq.status : null);
     const docSave = parsed.documentSave as { status?: string } | null | undefined;
     const pilotage = parsed.pilotageEffect as { attempted?: boolean } | null | undefined;
-    const correlationKeys: string[] = [];
+    const bindingCorrelationKeys: string[] = [];
     const bindings = parsed.documentCommandBindings;
     if (Array.isArray(bindings)) {
       for (const b of bindings) {
-        if (b && typeof b === "object" && typeof (b as { correlationKey?: string }).correlationKey === "string") {
-          correlationKeys.push((b as { correlationKey: string }).correlationKey);
+        if (
+          b &&
+          typeof b === "object" &&
+          typeof (b as { correlationKey?: string }).correlationKey === "string"
+        ) {
+          bindingCorrelationKeys.push((b as { correlationKey: string }).correlationKey);
         }
       }
     }
@@ -251,12 +296,13 @@ export function parseSiblingResultEvidence(resultJson: string | null): {
       qualificationStatus: sqStatus,
       qualification: sq && typeof sq.status === "string" ? sq : null,
       documentSaveStatus:
-        docSave && typeof docSave.status === "string" ? docSave.status : docSave === null ? null : null,
+        docSave && typeof docSave.status === "string" ? docSave.status : null,
       pilotageEffectAttempted:
         pilotage && typeof pilotage.attempted === "boolean" ? pilotage.attempted : null,
       humanDecisionCreated:
         typeof parsed.humanDecisionCreated === "boolean" ? parsed.humanDecisionCreated : null,
-      correlationKeys,
+      bindingCorrelationKeys,
+      operationId: typeof parsed.operationId === "string" ? parsed.operationId : null,
     };
   } catch {
     return {
@@ -265,7 +311,8 @@ export function parseSiblingResultEvidence(resultJson: string | null): {
       documentSaveStatus: null,
       pilotageEffectAttempted: null,
       humanDecisionCreated: null,
-      correlationKeys: [],
+      bindingCorrelationKeys: [],
+      operationId: null,
     };
   }
 }

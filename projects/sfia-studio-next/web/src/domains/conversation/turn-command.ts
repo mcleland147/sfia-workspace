@@ -564,6 +564,7 @@ export async function findUnresolvedSiblingTurns(args: {
     id: string;
     clientTurnKey: string;
     status: TurnCommandStatus;
+    operationId: string;
     userMessageId: string | null;
     createdAt: Date;
     resultJson: string | null;
@@ -574,6 +575,7 @@ export async function findUnresolvedSiblingTurns(args: {
       id: conversationTurnCommands.id,
       clientTurnKey: conversationTurnCommands.clientTurnKey,
       status: conversationTurnCommands.status,
+      operationId: conversationTurnCommands.operationId,
       userMessageId: conversationTurnCommands.userMessageId,
       createdAt: conversationTurnCommands.createdAt,
       resultJson: conversationTurnCommands.resultJson,
@@ -592,6 +594,7 @@ export async function findUnresolvedSiblingTurns(args: {
     id: r.id,
     clientTurnKey: r.clientTurnKey,
     status: r.status as TurnCommandStatus,
+    operationId: r.operationId,
     userMessageId: r.userMessageId,
     createdAt: r.createdAt,
     resultJson: r.resultJson,

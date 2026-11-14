@@ -301,9 +301,16 @@ describe("SEM-02 lexical routers retired", () => {
       "utf8",
     );
     expect(policy).toMatch(/S05_PENDING_BLOCKS_EFFECT/);
+    expect(policy).toMatch(/buildTurnCorrelationKeys/);
     expect(src).toMatch(/evaluateS05SiblingPolicy/);
+    expect(src).toMatch(/probeSiblingOwnerEffects/);
+    expect(src).toMatch(/buildTurnCorrelationKeys/);
     expect(src).toMatch(/allowOwnerEffects/);
     expect(src).toMatch(/findUnresolvedSiblingTurns/);
+    // R-01: must not derive ownerEffectsFound from resultJson documentSave alone.
+    expect(src).not.toMatch(
+      /ownerEffectsFound:\s*\n?\s*parsed\.qualificationStatus == null/,
+    );
   });
 
   it("F1 — reconcile known acts before STALE_REVISION gate", () => {

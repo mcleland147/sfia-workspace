@@ -4,6 +4,24 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-14-ML4C-S05-OWNER-EVIDENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~22:30 CET (Europe/Paris) |
+| Macro-lot | ML4C — Remédiation S05 R-01/R-02 (owner evidence + SAME_INTENT) |
+| Type | PATCH corrective Critical complementary (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` |
+| Parent tip | `3d0eab6f01cb8013990193cea93e8bfa5248831d` (LOCAL ONLY) |
+| Design | `c883db07` / blob `da397424` |
+| Prior ChatGPT | REVIEW NOT APPROVED — SAFETY GAP / REVIEW PACK INCOMPLETE |
+| Lane | DEV + Vitest PG `:5433` ; RECETTE :3200/:5434 non mutées |
+| Changes | `probeSiblingOwnerEffects` ; `buildTurnCorrelationKeys` ; sibling `operationId` ; S05-R* UNIT+PG |
+| Schema | unchanged |
+| Tests | UNIT 351 PASS ; PG S05/D4 focused PASS ; BUILD PASS ; BROWSER/LIVE NOT RUN |
+| Status | Product LOCAL ONLY ; Review Handoff L3 remédiation in-cycle |
+
+
 ## delivery_id: DELIV-2026-11-14-ML4C-D4-S05-CONTINUITY
 
 | Field | Value |
@@ -19,7 +37,7 @@ Append-only logical journal of Cursor product deliveries.
 | Changes | confront structural LF ; S05 risk policy ; ACK NOT_EXECUTED ; fence-after-ACK ; Nora sas guidance |
 | Schema | unchanged |
 | Tests | UNIT PASS ; PG focused PASS ; BUILD PASS ; E2E/LIVE NOT RUN |
-| Status | Product LOCAL ONLY pending Morris RECETTE gate ; Review Handoff L3 in-cycle |
+| Status | SUPERSEDED IN PART by DELIV-2026-11-14-ML4C-S05-OWNER-EVIDENCE (R-01/R-02) ; P1/P3 retained | |
 
 
 

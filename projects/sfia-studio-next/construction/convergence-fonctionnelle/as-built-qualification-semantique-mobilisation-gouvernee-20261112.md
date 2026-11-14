@@ -232,3 +232,40 @@ Profil: Critical PATCH corrective / NO RELEASE / STABLE NOT AVAILABLE
 - LIVE / BROWSER / RECETTE rejeu : gates Morris distincts.
 - UNKNOWN historiques RECETTE non mutés.
 - Conception candidate non ADOPTED.
+
+## DELIV 2026-11-14 — Remédiation S05 R-01 / R-02 (owner evidence)
+
+Date: 2026-11-14 ~22:30 CET (Europe/Paris)
+Branche: `fix/next-semantic-intent-convergence-20261112`
+Parent: `3d0eab6f01cb8013990193cea93e8bfa5248831d` (LOCAL ONLY)
+Revue ChatGPT: R-01 (preuve propriétaire déduite de resultJson) / R-02 (SAME_INTENT non alimenté)
+Profil: Critical PATCH corrective / NO RELEASE / STABLE NOT AVAILABLE
+
+### Causes traitées
+
+1. **R-01** — `ownerEffectsFound` ne doit plus être dérivé de `documentSave` / flags conversationnels seuls ; une absence d’indice RJ n’est pas une preuve négative propriétaire.
+2. **R-02** — `currentCorrelationKeys` était `[]` ; SAME_INTENT ne pouvait pas reconnaître une identité durable réelle.
+
+### Mécanique réelle
+
+- `probeSiblingOwnerEffects` (service) lit D2 `create_project_commands`, D4 `documents` / `document_revisions` (+ provenance), D5 `business_commands`, D6 `human_decisions`, D7 `effect_attempts`, knowledge provenance — `true` / `false` / `null` (erreur → null, fail-closed).
+- `buildTurnCorrelationKeys` alimente les clés courantes et frères (commandId, operationId, userMessageId, clientTurnKey, salt, bindings, `conv-auth:…`, mission keys).
+- Helper pur inchangé dans son rôle de décision ; preuves recueillies en amont.
+- `findUnresolvedSiblingTurns` expose aussi `operationId` pour corrélation.
+- P1/P3 D4 (confront LF, NOT_EXECUTED, fence ACK, Nora sas) non touchés.
+
+### Preuves
+
+| Couche | Résultat |
+| --- | --- |
+| UNIT | PASS 351 (`npm run test:unit`) — +S05-R01..R14/R18 |
+| PG E2E isolé `:5433` | PASS owner-evidence + S05 + D4 prior-proposal / document-command / identity |
+| BUILD | PASS |
+| BROWSER E2E | NOT RUN (DEV :3100 absent ; RECETTE :3200 présente — non utilisée) |
+| LIVE Nora | NOT RUN |
+
+### Réserves
+
+- BROWSER / LIVE / RECETTE : gates Morris distincts.
+- Aucune mutation RECETTE ; UNKNOWN historiques non purgés.
+- `STUDIO_S05_PROBE_FORCE_ERROR` = seam DEV/E2E uniquement (R04).
