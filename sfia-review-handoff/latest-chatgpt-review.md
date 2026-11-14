@@ -1,539 +1,443 @@
-# SFIA STUDIO NEXT — ML4C Q2 RECETTE DELIVERY — REVIEW PACK FULL
+# SFIA STUDIO NEXT — ML4C Q2 EVIDENCE CLOSURE — REVIEW PACK FULL
 
-**Date/heure :** 2026-11-14 — Europe/Paris (UTC observations ~16:00–16:05Z)
-**GO :** MORRIS Q2 — MISE À DISPOSITION RECETTE
+**Date :** 2026-11-14 — Europe/Paris
+**GO :** MORRIS — Q2 EVIDENCE CLOSURE, READ-ONLY
+**Macro-lot :** R5 / ML4C
+**Cycle :** 9 — QA / validation (evidence closure)
 **Profil :** CRITICAL
-**Cycle :** 11 — DEPLOYMENT / RECETTE
-**Macro-lot :** R5 / ML4C — Convergence fonctionnelle intégrée
 **Review Pack :** FULL, mono-cycle
-**Review Handoff Git :** REQUIRED / PUBLISH-IN-CYCLE (L3 borné)
-**Push produit :** interdit
-**Q3 campagne utilisateur :** non exécutée
-**Git documentaire REAL WRITE :** non autorisé / barrière inactive
+**Review Handoff :** REQUIRED / PUBLISH-IN-CYCLE
+**Push produit :** INTERDIT
+**Q3 / Q4 / merge / release :** NON AUTORISÉS
 
-**Verdict Cursor (pré-handoff ; références distantes définitives en fin de rapport après publication) :**
-**ML4C Q2 DEPLOYED — PROVIDER READINESS INCOMPLETE**
+**Verdict Cursor (pré-handoff ; SHA/blob définitifs en rapport final post-publish) :**
+**ML4C Q2 EVIDENCE CLOSURE ACCEPTABLE FOR CHATGPT REVIEW — NORA LIVE VERIFIED**
+
+GitHub Studio user-OAuth / Studio-mediated REAL READ remains **explicitly PENDING** (authorization CONNECTED pre-Q2; no post-cutover revalidation; installation-token READ already proven in prior Q2 handoff).
 
 ---
 
-## 1. Git Truth initial et final
+## 1. Git Truth et sources
 
-### Product worktree (source GO)
+### Git Truth (vérifié localement)
 
 ```text
-Repository: mcleland147/sfia-workspace
-Product root: projects/sfia-studio-next/
-Worktree: /Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112
+Worktree produit: /Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112
 Branch: fix/next-semantic-intent-convergence-20261112
 HEAD: d936da81ebf7d17eb78cc11da0538df000281a4a
 TREE: 276679be1ea139525b2267cde9245b8fb88e9a76
-Parent: 67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0
 origin/main: 6cda86bde4aa450abb1d23eedd370a9004ddcbc1
 origin/build/next-ml4c-functional-convergence: 67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0
-PR #676: OPEN / NOT MERGED (unchanged by Q2)
-Dirty (non-product): M .tmp-sfia-review/chatgpt-review.md only
+PR #676: OPEN / NOT MERGED
+Dirty: M .tmp-sfia-review/chatgpt-review.md only
 ```
 
-### Q1 candidate identity (immutable)
+### Runtime RECETTE (inchangé pendant ce cycle)
 
 ```text
-candidate_sha: d936da81ebf7d17eb78cc11da0538df000281a4a
-candidate_tree: 276679be1ea139525b2267cde9245b8fb88e9a76
-Q1 isolated BUILD_ID (reference): dLmndR07XvR8bViUlUhEW
-Q1 last handoff: sfia/review-handoff@2afd7b576785a50ebbf9c0a6106479cad1f79da1
-Q1 handoff blob: 7e83a7ecab18c699bc6aab61cf0d1e620b501747
-Remote product absence of d936da81: EXPECTED — no fetch/rebase from origin/build or main
-```
-
-### RECETTE deploy worktree (Q2)
-
-```text
-Path: /Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81
-HEAD: d936da81ebf7d17eb78cc11da0538df000281a4a
-TREE: 276679be1ea139525b2267cde9245b8fb88e9a76
-Detached: yes
-Untracked ops only (not product commit): start-recette.sh, rollback-to-67bf6b0b.sh,
-  com.sfia.studio.next.recette.ml4.plist, switch-plan.md, ops/recette-manifest-q2.yaml
-```
-
-### Previous RECETTE (preserved)
-
-```text
-Path: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-67bf6b0b
-HEAD: 67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0
-BUILD_ID: wYKCZCblBxWLiVsNjIr3e
-Status: NOT DELETED — rollback script available
-```
-
----
-
-## 2. Sources et décisions
-
-Lues / appliquées (autorité selon SFIA v2.6 + contrat Q2) :
-
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` — Next §4.3.0b, Review Pack, handoff, REAL, ENV-01
-- `prompts/templates/sfia-cycle-execution-template.md`
-- Gouvernance Studio Next : SEF, roadmap, environnements-recette-et-promotions, product-versioning
-- Décisions : 2026-11-11 R5 convergence ; 2026-11-12 qualification sémantique Nora
-- Handoff Q1 : `sfia-review-handoff/latest-chatgpt-review.md` @ `2afd7b57…`
-- `construction/ml4-integration-git/recette-ml4-historique-et-scenarios-e2e.md`
-- `web/README.md`
-- Code Q1 (identité) : cognitive-policy, nora-adapter, github-* providers, auth, product-version
-- Journal UAT (reprise Q3, non exécuté) : `c4b4209c…` / `journal-recette-utilisateur-ml4c.md` — 17 PASS / 6 FAIL / 30 BLOCKED inchangé
-
-Produit Q1 : référencer le Review Pack Q1 pour le patch 30 fichiers — non recopié ici.
-
----
-
-## 3. Contrat d'autorisation Q2
-
-**Autorisé :** lecture Git/code/config ; worktree RECETTE depuis `d936da81` ; `npm ci` / build ; préservation ancienne RECETTE ; RO PostgreSQL ; ajustement config locale non secrète ; bascule port 3200 ; smokes HTTP/OAuth/LIVE/REAL bornés ; rollback app ; manifeste ; FULL pack ; handoff L3.
-
-**Interdit :** modification code Q1 ; push produit / PR / merge ; migration DB / reset / purge ; campagne 53 cas ; mutations Git documentaires ; `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` ; STABLE/ADOPTED ; usurpation session Pilote.
-
----
-
-## 4. Identité Q1 du candidat
-
-| Champ | Valeur | Preuve |
-|---|---|---|
-| SHA | `d936da81ebf7d17eb78cc11da0538df000281a4a` | `git rev-parse` product + deploy WT |
-| Tree | `276679be1ea139525b2267cde9245b8fb88e9a76` | `git rev-parse HEAD^{tree}` |
-| Parent | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` | `git rev-parse d936da81^` |
-| Mutation Q1 | NONE | aucun commit/rebase/cherry-pick en Q2 |
-
-**STOP Q1 CANDIDATE IDENTITY MISMATCH :** non déclenché.
-
----
-
-## 5. Inventaire environnements avant intervention (ENV-01)
-
-| Ressource | Observé pré-bascule |
-|---|---|
-| `127.0.0.1:3200` | PID 28429 `next-server (v15.5.29)` ; CWD `…-ml4-recette-build-67bf6b0b/…/web` |
-| launchd | `com.sfia.studio.next.recette.ml4` KeepAlive ; program `…/67bf6b0b/start-recette.sh` |
-| Ancienne RECETTE | SHA `67bf6b0b` ; BUILD_ID `wYKCZCblBxWLiVsNjIr3e` |
-| `SFIA_SOURCE_SHA` historique | `.env` stale `8ba77730…` ; start script override `67bf6b0b…` (B-03) |
-| PostgreSQL | `sfia-next-recette-pg` `127.0.0.1:5434` → `sfia_next_recette_ml4` |
-| DEV PG | `sfia-next-dev-pg` `:5433` distinct |
-| DEV app `:3100` | non en écoute |
-| Secrets | `~/.config/sfia-studio-next/recette/.env.local` mode `600` hors Git |
-| OpenAI | clé PRESENT ; `STUDIO_E2E` / `STUDIO_FORCE_NORA_FIXTURE` ABSENT |
-| GitHub App | ID `5677465` ; install `180092114` ; repo `mcleland147/chantiers360` ; callback `:3200/.../callback` |
-| Flag mutations | **était** `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` → **désactivé pour Q2** |
-| Cognitif | `SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY` |
-
----
-
-## 6. Contrôles de configuration (sans secrets)
-
-Après alignement Q2 :
-
-```text
-STUDIO_LANE=RECETTE
-STUDIO_PORT=3200
-BETTER_AUTH_URL=http://127.0.0.1:3200
-SFIA_SOURCE_SHA=d936da81ebf7d17eb78cc11da0538df000281a4a
-STUDIO_GITHUB_PROVIDER=real
-STUDIO_GITHUB_ALLOW_MUTATIONS= (empty — documentary DISABLED)
-SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY
-STUDIO_E2E=ABSENT
-STUDIO_FORCE_NORA_FIXTURE=ABSENT
-STUDIO_DEV_TEST_LOGIN=ABSENT
-OPENAI_API_KEY=PRESENT
-GITHUB_APP_ID=5677465
-GITHUB_APP_INSTALLATION_ID=180092114
-GITHUB_APP_ALLOWED_REPO=mcleland147/chantiers360
-GITHUB_APP_CALLBACK_URL=http://127.0.0.1:3200/api/integrations/github/callback
-```
-
-Start script Q2 force-export `SFIA_SOURCE_SHA=d936da81…` et `STUDIO_GITHUB_ALLOW_MUTATIONS=` (B-03 + write barrier).
-
-Backup config locale (hors pack) : `/Users/morris/Projects/sfia-recette-backups/ml4c-q2-20261114/env.local.bak`
-
----
-
-## 7. Compatibilité PostgreSQL
-
-```text
-Host: 127.0.0.1:5434
-Database: sfia_next_recette_ml4
-Container: sfia-next-recette-pg
-Migration exécutée Q2: NONE
-Schema revision code Q1: 012_auth_concurrency_safety
-Observation: tables concurrent-safety présentes (sessions.revoked_at, effect_attempts,
-  integration_authorizations, documents, …) — compatible ; pas de journal migrate dédié
-Fingerprints counts before/after cutover:
-  conversations=171 projects=16 users=2 documents=116 messages=428
-  preparations=171 sessions=9 — IDENTIQUES (préservation)
-```
-
-**Aucune migration, reset, purge.**
-
----
-
-## 8. Préservation ancienne RECETTE
-
-```text
-old_worktree_preserved: YES
-old_BUILD_ID: wYKCZCblBxWLiVsNjIr3e
-plist_backup: …/ml4c-q2-20261114/com.sfia.studio.next.recette.ml4.plist.bak
-start_script_backup: …/ml4c-q2-20261114/start-recette.sh.bak
-identity_snapshot: …/ml4c-q2-20261114/old-recette-identity.txt
-rollback_script: …/ml4c-recette-build-d936da81/rollback-to-67bf6b0b.sh
-rollback_required: NO
-rollback_attempted: NO
-rollback_result: N/A
-previous_build_restored: N/A (still available)
-RECETTE_data_preserved: YES
-```
-
----
-
-## 9. Build Q2
-
-```text
-worktree: /Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81
-source_sha: d936da81ebf7d17eb78cc11da0538df000281a4a
-source_tree: 276679be1ea139525b2267cde9245b8fb88e9a76
-base_main_sha: 6cda86bde4aa450abb1d23eedd370a9004ddcbc1
-node_version: v24.16.0
-npm_version: 11.13.0
-next_version: 15.5.29
-package_lock_sha256: 978a1e565454a70b437405a6e4f3c6f8ed6ae47b6ac417799d7960c6378903df
-commands: npm ci ; npx tsc --noEmit (via next build typecheck) ; npm run build
-BUILD_ID served: n-7E8DgbcVu4g_RJWZoiK
-Q1 isolated BUILD_ID (different artefact, same SHA): dLmndR07XvR8bViUlUhEW
-distDir: projects/sfia-studio-next/web/.next
-build_finished_utc: ~2026-11-14T16:01:46Z
-@openai/agents: 0.21.0
-```
-
-Lint warnings only (unused vars) — build OK.
-
----
-
-## 10. Bascule et identité processus
-
-1. `launchctl bootout` ancien job KeepAlive
-2. Port 3200 libéré
-3. Plist remplacé → `…/d936da81/start-recette.sh`
-4. `launchctl bootstrap` + `kickstart`
-5. Ready in ~231ms
-
-```text
-PID listen: 41282 (next-server v15.5.29)
-launchd pid: 41259
+URL: http://127.0.0.1:3200
+PID: 41282 next-server (v15.5.29)
 CWD: …/sfia-workspace-next-ml4c-recette-build-d936da81/projects/sfia-studio-next/web
-Command: next start -H 127.0.0.1 -p 3200 (via start-recette.sh)
-BUILD_ID file: n-7E8DgbcVu4g_RJWZoiK
-HTML comment identity: <!--n_7E8DgbcVu4g_RJWZoiK-->
+Deploy WT HEAD/TREE: d936da81 / 276679be
+BUILD_ID file + HTML: n-7E8DgbcVu4g_RJWZoiK
+Prior handoff Q2: 9344a79994e296bddff44f05380231f6ee0db681
+Prior blob: 6832e94337fc9ded25bfcb432bf0c13d11826d3f
 ```
+
+**STOP runtime mismatch :** non déclenché.
+
+### Sources
+
+SFIA v2.6 routing + cycle template; SEF/roadmap/ENV/product-versioning; décisions 2026-11-11 / 2026-11-12; code `d936da81` (service, nora-adapter, cognitive-policy, observability, schema, obs-query.ts); handoff Q2 `9344a799`.
 
 ---
 
-## 11. Manifeste réel ENV-01
+## 2. Identité du tour (unique)
 
-Voir aussi artefact local `ops/recette-manifest-q2.yaml` (worktree RECETTE) et backup.
+Recherche PostgreSQL READ ONLY, post-bascule Q2 (`created_at >= 2026-11-14 16:00:00+00`), marqueurs distinctifs copilote / proposition.
 
-```yaml
-lane: RECETTE
-deployment_status: DEPLOYED
-source_repository: mcleland147/sfia-workspace
-source_branch: fix/next-semantic-intent-convergence-20261112
-base_main_sha: "6cda86bde4aa450abb1d23eedd370a9004ddcbc1"
-candidate_sha: "d936da81ebf7d17eb78cc11da0538df000281a4a"
-candidate_tree_sha: "276679be1ea139525b2267cde9245b8fb88e9a76"
-build_identifier: "n-7E8DgbcVu4g_RJWZoiK"
-product_version: NOT AVAILABLE
-candidate_version: NOT ASSIGNED
-technical_package_version: 0.0.0-dev
-release_tag: N/A
-served_address: "http://127.0.0.1:3200"
-schema_revision: "012_auth_concurrency_safety"
-test_data_revision: "sfia_next_recette_ml4 preserved (conversations=171 documents=116 messages=428 preparations=171 projects=16 users=2 sessions=9)"
-capabilities:
-  openai: "LIVE configured (OPENAI_API_KEY PRESENT; fixture flags ABSENT; TEST_BOUNDARY) — conversation smoke PENDING USER INTERACTION"
-  github: "REAL READ verified via installation-token metadata for mcleland147/chantiers360; Studio user-OAuth path PENDING interactive auth"
-  github_write: NOT AUTHORIZED
-  cursor: NOT TESTED
-quality_evidence:
-  - "Q1 candidate d936da81 / tree 276679be / isolated BUILD_ID dLmndR07XvR8bViUlUhEW"
-  - "Q2 served BUILD_ID n-7E8DgbcVu4g_RJWZoiK"
-  - "HTTP /login 200; /api/auth/status CONFIGURED; /api/dev/login 403; /api/portfolio 401"
-  - "GitHub App RO smoke HTTP 200 full_name=mcleland147/chantiers360"
-known_gaps:
-  - "Nora LIVE conversation smoke PENDING USER INTERACTION"
-  - "Studio user-OAuth Git READ not E2E without interactive consent"
-  - "Login UI still shows DEV test login chrome; API refuses"
-  - "TEST_BOUNDARY ceilings on RECETTE"
-  - "documentary mutations disabled for Q2"
-review_decision: AWAITING CHATGPT REVIEW AND MORRIS Q3
-```
+**Correspondances assistant « copilote cognitif » post-cutover : 1**
+→ pas d'`AMBIGUOUS TURN MATCH`.
 
----
-
-## 12. Smokes HTTP
-
-| Route | Résultat |
+| Champ | Valeur |
 |---|---|
-| `GET /login` | 200 ; BUILD_ID HTML `n-7E8DgbcVu4g_RJWZoiK` ; GitHub OAuth CTA présent |
-| `GET /` | 307 → `/portfolio` |
-| `GET /portfolio` (page) | 200 (CSR shell) |
-| `GET /api/portfolio` | **401** `SESSION_INVALID` — protection session OK |
-| `GET /settings/integrations` (page) | 200 (CSR shell) |
-| `GET /api/integrations/status` | **401** `SESSION_INVALID` |
-| `GET /api/auth/status` | 200 `configured:true` provider github-oauth-studio-identity-only |
-| `POST /api/auth/sign-in/social` | 200 + URL `github.com/login/oauth/authorize` (client_id présent ; redirect `127.0.0.1:3200/api/auth/callback/github`) |
-| `POST /api/dev/login` | **403** `DEV_TEST_LOGIN_DISABLED` |
+| conversation_id | `conv_d7b4495b-0e67-453f-ba09-d9cf15127101` |
+| preparation_id | `prep_51effa9f-edc5-47fa-81c1-c18838de362a` |
+| project_id | `proj_683bcd2e-986a-4015-a58e-060909a75ec0` |
+| owner_pilot_id | `pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c` |
+| user_message_id | `msg_9672079c-e7df-48cb-ad3d-b03a9d1b180f` |
+| assistant_message_id | `msg_9949a7c5-ea7f-4ebc-9ac8-9372c8fe9589` |
+| ordinal_user | 57 |
+| ordinal_assistant | 58 |
+| generation_id | `gen_62bde697-5271-4a4a-a1f1-2c3383cff847` |
+| turn_command_id | `tcmd_dafb35ef-186b-4853-9d1b-7e22b46a22c3` |
+| operation_id | `op_0abaafba-d153-4a90-b243-b5e082b7ec22` |
+| request_id | `req_4c69e31d-ec03-49b5-aa55-0f5e77fabc47` |
+| user created_at | 2026-11-14 16:27:38.853966+00 |
+| assistant created_at | 2026-11-14 16:27:48.194677+00 |
+| status (messages + turn) | COMPLETE |
 
-**Réserve UI :** la page `/login` affiche toujours le panneau « DEV test login » côté client ; l’API refuse. Pas de contournement OAuth observé.
+Extrait minimal USER (préfixe) : demande de confirmation du rôle Nora + différence proposition / action exécutée + interdiction de créer projet/document/décision/Git.
 
----
-
-## 13. Nora LIVE — configuration, appels, limites
-
-### Configuration
-
-```text
-STUDIO_LANE=RECETTE
-OPENAI_API_KEY=PRESENT
-STUDIO_E2E=ABSENT
-STUDIO_FORCE_NORA_FIXTURE=ABSENT
-fixtureFlagsRequested=false
-SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY
-Model requested (code): gpt-6.1-sol (NORA_STUDY_MODEL)
-@openai/agents: 0.21.0
-OPERATIONAL_PROVISIONAL: interdit hors DEV (confirmé cognitive-policy.ts @ d936da81)
-OPERATIONAL_VALIDATED: non disponible
-```
-
-### Smoke conversation LIVE
-
-```text
-Nora provider actually contacted: NO (conversation path)
-Mode observed: UNKNOWN (not exercised)
-Response received: NO
-Effective cognitive profile: TEST_BOUNDARY (configured)
-Model requested: gpt-6.1-sol (NORA_STUDY_MODEL)
-Model applied: N/A
-Provider error: N/A
-Tool calls observed: N/A
-D2/D4/D5/D6 effects: 0
-Status: PENDING USER INTERACTION — session Pilote légitime requise ; usurpation interdite
-LIVE PROVEN: NO (clé présente ≠ preuve conversation)
-```
+Extrait minimal ASSISTANT (préfixe) : « Bonjour ! Je suis **Nora, copilote cognitif de SFIA Studio**… » — aligné avec l'observation Morris (non utilisée comme preuve fournisseur).
 
 ---
 
-## 14. GitHub REAL READ — configuration, appels, limites
+## 3. Corrélation D3
 
-### Configuration App RECETTE
-
-```text
-App: sfia-studio-next-recette (expected)
-App ID: 5677465 — MATCH code GITHUB_APP_LANE_PROFILES.RECETTE
-Installation: 180092114 — MATCH
-Repository allowlist: mcleland147/chantiers360 — MATCH
-Callback: http://127.0.0.1:3200/api/integrations/github/callback — MATCH
-STUDIO_GITHUB_PROVIDER=real
-STUDIO_GITHUB_USER_OAUTH=real (env present)
-```
-
-### Smoke READ (installation token — borné, 0 write)
+`conversation_turn_commands` lie sans ambiguïté :
 
 ```text
-Git provider: REAL
-GitHub App lane: RECETTE
-Installation match: YES
-Repository allowlist match: YES
-User OAuth state: PENDING (Studio-mediated path not interactively completed in Q2)
-REAL READ: VERIFIED (installation-token GET /repos/mcleland147/chantiers360 → 200)
-  full_name: mcleland147/chantiers360
-  default_branch: main
-  pushed_at: 2026-11-08T23:18:12Z
-REAL WRITE calls: 0
-Branches created: 0
-Commits created: 0
-PR created: 0
-Merge: 0
-Note: proves App/installation/repo visibility; not a Studio UI user-OAuth READ proof
+user_message_id ↔ assistant_message_id ↔ generation_id ↔ operation_id
+ordinal_user=57 ↔ ordinal_assistant=58
+status=COMPLETE
+updated_at=2026-11-14 16:27:48.201+00
 ```
 
-Artefact : `…/ml4c-q2-20261114/github-app-ro-smoke.json`
+`result_json` durable contient `noraMode`, `policy`, `attempts[]`, `toolCallsObserved`, `semanticQualification`, flags d'effet.
 
 ---
 
-## 15. Barrière Git WRITE
+## 4. Preuve fournisseur OpenAI LIVE
+
+### Sink d'observabilité (lecture seule)
 
 ```text
-STUDIO_GITHUB_ALLOW_MUTATIONS empty ≠ documentary → mutationsAllowed=false
-Code gate (real-github-provider.ts): only value "documentary" opens barrier
-Q2 action: commented out prior documentary value in local env; start script forces empty
-chantiers360 mutations: 0
-PR sandbox #18: not touched
+Tool: web/scripts/obs-query.ts (npx tsx) — openObsSinkReadOnly + queryObsByOperationId
+status: AVAILABLE
+sinkDir: …/web/.obs/recette
+eventCount: 5
+readOnly: true
 ```
+
+Événements pour `op_0abaafba-…` (tous `lane=RECETTE`, `source_sha=d936da81…`) :
+
+| ts_utc | event_name | Notes |
+|---|---|---|
+| 16:27:38.872Z | d3.turn.accepted | outcome PARTIAL |
+| 16:27:38.899Z | d3.nora.policy_selected | profile_type TEST_BOUNDARY; model gpt-6.1-sol; effort medium |
+| 16:27:39.015Z | d3.nora.provider_attempt | attempt_id att_836f1fdc-…; kind stream; model_requested gpt-6.1-sol; outcome PARTIAL (émission pré-drain) |
+| 16:27:48.192Z | d3.turn.document_act_qualification | qualification_kind NONE; d4_attempted false; documentary_intent_signal false |
+| 16:27:48.204Z | d3.turn.completed | outcome SUCCESS; turn_status COMPLETE; tool_calls 0; attempts 1 |
+
+`build_id` dans le sink : null (non peuplé) — identité build runtime confirmée hors sink (fichier `.next/BUILD_ID` + HTML).
+
+### Matrice de preuve
+
+| Preuve | Valeur |
+|---|---|
+| Lane | RECETTE |
+| Source SHA | d936da81ebf7d17eb78cc11da0538df000281a4a |
+| BUILD_ID | n-7E8DgbcVu4g_RJWZoiK (runtime) |
+| Nora mode | LIVE (`openai-agents-sdk-live` in result_json) — not fixture |
+| Provider contacted | **YES** (attempt record; stream chunks drained after `run()`) |
+| Attempt outcome | **SUCCESS** (`structured_stream_drained_no_provisional_json`) |
+| Generation status | COMPLETE |
+| Model requested | gpt-6.1-sol (`NORA_STUDY_MODEL` / policy / obs meta) |
+| Model applied | **UNVERIFIED** (explicit; content ≠ provider model id) |
+| Effective cognitive profile | TEST_BOUNDARY / profile analyse |
+| Tool calls | 0 |
+| Provider request ID | indisponible (non émis dans sink/result) |
+| Errors | none on successful attempt |
+
+### Règles de preuve appliquées
+
+- COMPLETE seul ≠ LIVE — ici corrélé à mode LIVE + providerContacted YES + stream SUCCESS.
+- `mode=openai-agents-sdk-live` = indice applicatif; contact YES vient du drain SDK post-`run()` (code nora-adapter : chunks → YES).
+- Pas de `provider_request_id` inventé.
+- Traces SDK non réactivées; **aucun nouvel appel OpenAI** dans ce cycle.
+- Fixture path non pris : pas d'événement `d3.nora.fixture_complete`; mode ≠ deterministic-fixture.
 
 ---
 
-## 16. Sessions / cookies
+## 5. Modèle / politique / tentatives
 
 ```text
-Lane-scoped cookie name pattern: sfia_studio_session__RECETTE
-Better Auth via BETTER_AUTH_URL=http://127.0.0.1:3200
-Active DB sessions (unrevoked, unexpired): 9 (preserved; not reset)
-DEV login adapter: API 403 on RECETTE
-Cross-lane: DEV :3100 idle ; distinct PG :5433
+policy.version: ml2-cog-policy-v2-corrective
+profileType: TEST_BOUNDARY
+profile: analyse
+modelRequested: gpt-6.1-sol
+modelApplied: UNVERIFIED
+effortRequested: medium
+effortApplied: UNVERIFIED
+reasonCodes: BUDGET_LEN_DEFAULT, PROFILE_TYPE_TEST_BOUNDARY, LANE_RECETTE
+attemptId: att_836f1fdc-2f34-4767-a195-1984d7f15557
+kind: stream
+streaming.attempted: true
+streaming.delivered: true
 ```
 
 ---
 
-## 17. Contrôle DEV / STABLE
+## 6. Outils réellement observés
 
 ```text
-DEV port 3100: unchanged / not listening
-DEV database :5433: not used by RECETTE process
-STABLE: no intervention
-main / PR #676: no push, no merge
-Product candidate commit: local only, unmodified
+toolCallsObserved (result_json): 0
+tool_calls (d3.turn.completed meta): 0
+d4CharsReturned: 0
+Tools authorized in policy_selected meta (available, not called):
+  search_project_resources, read_project_document_revision,
+  search_conversation_history, read_conversation_messages,
+  list_project_git_sources, read_git_file, list_git_refs
 ```
 
 ---
 
-## 18. Rollback
+## 7. D2 / D4 / D5 / D6 / Git — preuve négative d'effets
+
+Fenêtre bornée `2026-11-14 16:27:38+00` → `16:27:49+00` + corrélation `operation_id` / `generation_id` (SELECT READ ONLY).
+
+| Domaine | Observation | Classification |
+|---|---|---|
+| D2 create_project_commands | 0 rows | NO PERSISTED EFFECT |
+| D4 documents created | 0 rows | NO PERSISTED EFFECT |
+| D4 document_revisions | 0 rows | NO PERSISTED EFFECT |
+| D5/D6 business_commands | 0 rows | NO PERSISTED EFFECT |
+| D5/D6 human_decisions | 0 rows | NO PERSISTED EFFECT |
+| effect_attempts (window / op text) | 0 rows | NO AUTHORIZED/PERSISTED EFFECT |
+| observed_git_facts | 0 rows | NO Git WRITE attempt persisted |
+| document_publication_refs | 0 rows | NO publication |
+| project_cycles open/close | 0 rows | NO cycle effect |
+
+Depuis `result_json` du même tour :
 
 ```text
-rollback_required: NO
-rollback_attempted: NO
-rollback_result: N/A
-previous_build_restored: N/A — previous available
-RECETTE_data_preserved: YES
-Procedure ready: rollback-to-67bf6b0b.sh (application-only; not a data rollback)
+documentSave: null
+humanDecisionCreated: false
+pilotageEffect: null
+pendingEffectBlocked: false
+capitalisationAttempted: []
+semanticQualificationStatus: QUALIFIED
+semantic mode: EXPLAIN (capability d3.converse)
+constraints recorded: no project/document/decision/Git
+obs d4 qualification: NONE / SEMANTIC_NONE / d4_attempted=false
+nextTurnKind: DIALOGUE_INDEPENDANT
+```
+
+```text
+D2 effects: 0
+D4 effects: 0
+D5/D6 effects: 0
+Git WRITE attempts: 0
+Unauthorized effects detected: NO
+Scope of proof: turn-scoped DB window + operation_id/generation_id correlation + result_json + obs qualification event
+INTENT/QUALIFICATION: EXPLAIN QUALIFIED (not REQUEST_EFFECT)
+COMMAND ATTEMPT (mutative): none observed
+AUTHORIZED EFFECT: none
+PERSISTED EFFECT: none
 ```
 
 ---
 
-## 19. Matrice Q2-01…16
+## 8. GitHub OAuth et REAL READ
 
-| ID | Critère | Verdict | Preuve |
-|---|---|---|---|
-| Q2-01 | Commit source exact | **PASS** | `d936da81` local product + deploy WT |
-| Q2-02 | Tree exact | **PASS** | `276679be` |
-| Q2-03 | Worktree isolé | **PASS** | dedicated `…-recette-build-d936da81` |
-| Q2-04 | Build figé | **PASS** | `n-7E8DgbcVu4g_RJWZoiK` served |
-| Q2-05 | Source affichée cohérente | **PASS** | SHA/tree/env/start script/BUILD_ID aligned (B-03 corrected) |
-| Q2-06 | Port 3200 next start | **PASS** | PID 41282 CWD new WT |
-| Q2-07 | PostgreSQL RECETTE | **PASS** | `sfia_next_recette_ml4@5434` schema 012-compatible |
-| Q2-08 | Données préservées | **PASS** | counts identical |
-| Q2-09 | Sessions / OAuth | **PASS** (config) | OAuth URL + DEV login 403 ; interactive login not completed |
-| Q2-10 | Nora LIVE | **BLOCKED** / PENDING USER INTERACTION | configured LIVE ; conversation smoke not run |
-| Q2-11 | GitHub REAL READ | **PASS** (App/install READ) ; Studio user path PENDING | installation metadata 200 |
-| Q2-12 | Git REAL WRITE | **PASS** | barrier inactive ; 0 mutations |
-| Q2-13 | DEV | **PASS** | unchanged |
-| Q2-14 | STABLE | **PASS** | no intervention |
-| Q2-15 | Rollback | **PASS** | old WT + script preserved |
-| Q2-16 | Manifeste | **PASS** | `ops/recette-manifest-q2.yaml` + this pack |
+### Distinctions
 
----
+| Couche | État |
+|---|---|
+| Studio identity OAuth (Better Auth) | Hors scope preuve tour; Pilote a pu dialoguer (session valide) |
+| GitHub App user OAuth (integration_authorizations) | `CONNECTED` for pilot; installation_id `180092114`; has_token=true; connected_at / last_validated_at **2026-11-09** (pre-Q2 cutover) |
+| Installation token READ | Déjà VERIFIED dans handoff Q2 `9344a799` (GET repo metadata) — **non rejoué** ici |
+| Studio-mediated user REAL READ post-Q2 | **PENDING** — aucune autorisation revalidée depuis cutover; pas de smoke Studio user path dans ce cycle |
 
-## 20. Réserves et risques Q3
+```text
+Post-Q2 auth updates for pilot: 0 rows
+Studio Git REAL READ PROVEN (user path): NO
+Installation REAL READ (prior Q2): YES (reference only)
+Git WRITE this cycle: 0 / NOT AUTHORIZED
+```
 
-Six FAIL prioritaires (journal `c4b4209c…`) inchangés — non rejoués :
-
-- S03-01, S04-01, S04-02, S04-04, S04-06, S07-06
-
-BLOCKED dépendants D4 / HumanDecision / Git WRITE : S03-02…07, S06-02…06, S06-11, S07-01 — à réévaluer en Q3 après premier D4 réel + GO WRITE distinct.
-
-Préconditions Q3 :
-
-1. Pilote se reconnecte OAuth sur `:3200` (sessions Better Auth peuvent nécessiter re-login après bascule).
-2. Nora LIVE conversation smoke sous session réelle avant scénarios S03/S04.
-3. Consentement GitHub App user OAuth si requis pour lectures Studio-mediated.
-4. `TEST_BOUNDARY` peut plafonner continuité longue — ne pas confondre avec perf opérationnelle.
-5. WRITE documentaire toujours OFF jusqu’à GO Q4 borné.
+Pas de fabrication de session; pas de consentement déclenché.
 
 ---
 
-## 21. Absence de campagne utilisateur
+## 9. Audit runtime RECETTE inchangé
 
-Aucun des 53 cas du journal n’a été exécuté ni verdict modifié.
+```text
+PID before/during/after analysis: 41282 (same)
+BUILD_ID: n-7E8DgbcVu4g_RJWZoiK
+No restart, no .env edit, no script rewrite, no OpenAI call, no PG mutation
+```
 
 ---
 
-## 22. Gates Morris non consommés
+## 10. Artefacts opératoires Q2 — contenu exploitable (§7.2.1)
 
-- Q3 campagne utilisateur
+Fichiers dans `…/sfia-workspace-next-ml4c-recette-build-d936da81/` — **non modifiés** pendant ce contrôle (lecture seule; SHA-256 ci-dessous).
+
+### 10.1 `start-recette.sh`
+
+**SHA-256:** `6475358c4d9e10b3fd9bde0a1d393c2a535fd756793e67035d4a286e4343f666`
+
+**Rôle :** point d'entrée launchd; charge env RECETTE hors Git; force `SFIA_SOURCE_SHA`; force barrière mutations; `next start` loopback 3200.
+
+```bash
+#!/bin/bash
+set -euo pipefail
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+cd "/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/projects/sfia-studio-next/web"
+set -a
+source "$HOME/.config/sfia-studio-next/recette/.env.local"
+set +a
+export SFIA_SOURCE_SHA=d936da81ebf7d17eb78cc11da0538df000281a4a
+# Q2 hard barrier: never open documentary mutations via start script
+unset STUDIO_GITHUB_ALLOW_MUTATIONS || true
+export STUDIO_GITHUB_ALLOW_MUTATIONS=
+export NODE_ENV=production
+exec npx next start -H 127.0.0.1 -p 3200
+```
+
+**Secrets :** aucun inline; source fichier local mode 600 (non publié).
+
+### 10.2 `rollback-to-67bf6b0b.sh`
+
+**SHA-256:** `fb2c7839db2a87eb5423cb87f697345fc2a8bca5c3d3a1e51979d96346e54fc5`
+
+**Rôle :** rollback **application-only** vers build `67bf6b0b` / `wYKCZCblBxWLiVsNjIr3e` via restauration plist backup + kickstart. **Ne touche pas à la DB.**
+
+```bash
+#!/bin/bash
+set -euo pipefail
+# Application-only rollback to previous RECETTE build. Does NOT restore/alter DB data.
+launchctl bootout "gui/$(id -u)/com.sfia.studio.next.recette.ml4" 2>/dev/null || true
+cp /Users/morris/Projects/sfia-recette-backups/ml4c-q2-20261114/com.sfia.studio.next.recette.ml4.plist.bak \
+  /Users/morris/Library/LaunchAgents/com.sfia.studio.next.recette.ml4.plist
+launchctl bootstrap "gui/$(id -u)" /Users/morris/Library/LaunchAgents/com.sfia.studio.next.recette.ml4.plist
+launchctl kickstart -k "gui/$(id -u)/com.sfia.studio.next.recette.ml4"
+echo "rollback_attempted=YES previous_build=67bf6b0b/wYKCZCblBxWLiVsNjIr3e"
+```
+
+**Risques :** `bootout` + `kickstart -k` tuent/relancent le job KeepAlive (interruption courte du service). Dépend de l'existence du plist.bak. **Non exécuté** dans ce cycle.
+
+### 10.3 `com.sfia.studio.next.recette.ml4.plist`
+
+**SHA-256:** `c95bf894e9a4e748dc28f7e44fb4049c8e97b21c3e9c406d199b8c0cf2ef2c4f`
+
+**Rôle :** LaunchAgent KeepAlive/RunAtLoad pointant vers `start-recette.sh` et logs du WT d936da81.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.sfia.studio.next.recette.ml4</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/start-recette.sh</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/projects/sfia-studio-next/web</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/launchd.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/launchd.err.log</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>
+```
+
+### 10.4 `switch-plan.md`
+
+**SHA-256:** `f0c9d761e8745ec641e833531635189e5edadd4bd9f200dc0a787a9b1f861711`
+
+```markdown
+# Q2 cutover plan — 2026-11-14
+1. Preserve old WT: /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-67bf6b0b
+2. Build new WT at d936da81
+3. bootout launchd, install new plist, bootstrap
+4. Verify BUILD_ID / SFIA_SOURCE_SHA / HTTP
+5. Rollback script: /Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/rollback-to-67bf6b0b.sh
+```
+
+### 10.5 Cohérence manifeste Q2 (`ops/recette-manifest-q2.yaml`)
+
+**SHA-256:** `e0db08ee38ffa6f88e655dd3df470542980b2648e0252c45a82327935f94ea45`
+
+Cohérent avec runtime actuel (SHA/tree/BUILD_ID/port). Champs `capabilities.openai` / known_gaps du manifeste **pré-évidence** indiquaient encore Nora PENDING — **supersédés** par ce cycle d'évidence (conversation LIVE désormais vérifiée). Manifeste fichier non réécrit (interdit); la vérité à jour est ce Review Pack.
+
+---
+
+## 11. Analyse rollback (sans exécution)
+
+- Restaure uniquement le LaunchAgent vers l'ancien plist (build 67bf / wYKCZ…).
+- Pas de rollback de données.
+- Risque opérationnel : redémarrage service; KeepAlive peut relancer immédiatement.
+- Prérequis : backup plist présent sous `…/ml4c-q2-20261114/`.
+- Ancien worktree toujours présent.
+
+---
+
+## 12. Écarts Q2 clôturés vs ouverts
+
+### Clôturés par ce cycle
+
+- Nora LIVE conversation smoke (était PENDING USER INTERACTION) → **VERIFIED** pour le tour `op_0abaafba-…`
+- Contenu exploitable des 4 artefacts opératoires manquants dans le handoff précédent → **FOURNI**
+- Preuve négative d'effets métier sur le tour explicatif → **ÉTABLIE**
+
+### Encore ouverts
+
+- Studio user-OAuth Git REAL READ E2E post-Q2 → PENDING
+- `modelApplied` reste UNVERIFIED (by design)
+- `provider_request_id` indisponible
+- `build_id` absent du sink obs (runtime BUILD_ID OK par ailleurs)
+- UI login DEV chrome (API refuse) — dette UX non traitée
+- TEST_BOUNDARY ceilings — inchangés
+- Campagne UAT 53 cas — non commencée
+
+---
+
+## 13. Gates Morris non consommés
+
+- Q3 UAT campagne
 - Q4 Git REAL WRITE / HumanDecision publication
-- OPERATIONAL_VALIDATED / calibration cognitive
+- OPERATIONAL_VALIDATED
 - STABLE / merge / release / ADOPTED
 - Push produit / merge PR #676
 
 ---
 
-## 23. Nouveaux artefacts non secrets (cycle Q2)
+## 14. Verdict
+
+**ML4C Q2 EVIDENCE CLOSURE ACCEPTABLE FOR CHATGPT REVIEW — NORA LIVE VERIFIED**
+
+Conditions remplies :
+
+1. Tour unique identifié
+2. Contact OpenAI LIVE confirmé (YES + stream SUCCESS + mode LIVE) sur RECETTE d936da81
+3. État métier sans effet non autorisé démontré (scope tour)
+4. Contenu opératoire Q2 rendu exploitable
+5. RECETTE préservée / runtime inchangé
+6. Handoff L3 à publier (identifiants définitifs post-publish dans rapport Cursor)
+
+GitHub user path : **PENDING** — explicite, non dissimulé. N'empêche pas la clôture d'évidence Nora LIVE; peut conditionner certains scénarios Q3 Git-dépendants.
+
+---
+
+## 15. Handoff distant (pré-publication dans ce pack)
 
 ```text
-/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/start-recette.sh
-/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/rollback-to-67bf6b0b.sh
-/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/com.sfia.studio.next.recette.ml4.plist
-/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/switch-plan.md
-/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-d936da81/ops/recette-manifest-q2.yaml
-/Users/morris/Projects/sfia-recette-backups/ml4c-q2-20261114/* (identity, fingerprints, smoke JSON, env key inventory)
-LaunchAgents plist updated → new start script
-Local env: SFIA_SOURCE_SHA aligned ; STUDIO_GITHUB_ALLOW_MUTATIONS cleared
+Publication: EN ATTENTE — publish-review-handoff.sh
+Branch: sfia/review-handoff
+File: sfia-review-handoff/latest-chatgpt-review.md
+Parent tip at start: 9344a79994e296bddff44f05380231f6ee0db681
 ```
 
-Aucun secret dans ces artefacts de rapport.
+Le rapport final Cursor post-publish doit porter commit/parent/blob définitifs et la relecture distante. Ne pas traiter cet instantané « EN ATTENTE » comme preuve remote.
+
+### Instruction §9.1 ChatGPT
+
+Relire uniquement le blob distant `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` aux SHA définitifs du rapport final Cursor.
 
 ---
 
-## 24. Handoff distant et preuve de relecture
-
-**État au moment de la rédaction de ce pack (avant publication L3) :**
-
-```text
-Publication: EN ATTENTE — scripts/sfia/publish-review-handoff.sh
-Branche cible: sfia/review-handoff
-Fichier: sfia-review-handoff/latest-chatgpt-review.md
-Parent tip courant: 2afd7b576785a50ebbf9c0a6106479cad1f79da1
-```
-
-**Le rapport final Cursor post-publish doit distinguer cet instantané des SHA/blob distants définitifs après readback.**
-
-Ne pas affirmer de relecture distante avant exécution.
-
----
-
-## 25. Verdict
-
-**ML4C Q2 DEPLOYED — PROVIDER READINESS INCOMPLETE**
-
-Justification :
-
-- Candidat Q1 exact servi (`d936da81` / `276679be` / BUILD `n-7E8DgbcVu4g_RJWZoiK`)
-- Base/schéma compatibles ; données préservées
-- Environnement isolé ; B-03 corrigé ; write barrier inactive
-- HTTP / OAuth config / DEV login refuse PASS
-- GitHub App REAL READ metadata VERIFIED
-- Nora LIVE conversation **non** prouvée (PENDING USER INTERACTION)
-- Studio user-OAuth Git READ path PENDING
-- Rollback disponible ; pas de campagne Q3
-
-**Ne pas autoriser automatiquement Q3 pour scénarios dépendant d’une preuve Nora LIVE conversationnelle non obtenue.**
-
----
-
-## Instruction §9.1 — relecture Git destinée à ChatGPT
-
-Après publication L3, ChatGPT doit relire **uniquement** le blob distant du handoff :
-
-1. Branche `sfia/review-handoff`
-2. Fichier `sfia-review-handoff/latest-chatgpt-review.md`
-3. Utiliser le **commit SHA** et **blob SHA** définitifs reportés dans le rapport final Cursor post-publish (section HANDOFF / REMOTE READBACK)
-4. Ne pas se fier à un pack local `.tmp-sfia-review/` ni à un instantané « publication en attente »
-
-*(Les identifiants définitifs seront complétés immédiatement après `publish-review-handoff.sh`.)*
-
----
-
-*Fin Review Pack FULL — ML4C Q2 — instantané pré-publication L3*
+*Fin Review Pack FULL — ML4C Q2 EVIDENCE CLOSURE — instantané pré-publication L3*
