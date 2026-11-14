@@ -10552,31 +10552,41 @@ Voir §2 — tsc, unit 319, integration 452, identity+prior 86, command+recon 23
 
 > **Instruction ChatGPT obligatoire :**
 >
-> Pour ce cycle **local-only produit**, la source canonique du pack est :
+> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
 >
-> **branche** : `fix/next-semantic-intent-convergence-20261112`
-> **fichier** : `.tmp-sfia-review/chatgpt-review.md`
-> **HEAD candidat** : `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
+> branche : `sfia/review-handoff`
+> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 >
-> **Review Handoff REMOTE** (après publication L3) : tip `357008ea` / blob antérieur `b111a972` — remplacer par tip/blob **post-publish** indiqués dans le **rapport Cursor §25**.
->
-> Avant de répondre à Morris, ChatGPT doit lire **ce pack intégral** et vérifier la cohérence avec le rapport Cursor, notamment :
+> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
 > - le cycle provenance parse final + profil Critical ;
-> - la branche `fix/next-semantic-intent-convergence-20261112` et HEAD `67bf6b0b` ;
+> - la branche projet `fix/next-semantic-intent-convergence-20261112` ;
+> - le HEAD candidat `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` (LOCAL ONLY) ;
+> - la base main `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` ;
 > - prior handoff `357008ea` / blob `b111a972` ;
-> - Product **LOCAL ONLY** vs Review Handoff **REMOTE** (post-pack publish, §25) ;
-> - l'inventaire §3 (tous chemins status/diff/untracked sous `projects/sfia-studio-next`, hors `.tmp`) ;
-> - les diffs §6 et contenus §7 ;
-> - P0 barrière `parseProvenanceJson(stored)` + dual request/stored §4 ;
-> - P1 FLOW-100 filler 200 msgs §4.5 ;
+> - Product **LOCAL ONLY** vs Review Handoff **REMOTE** (tip/blob exacts dans le rapport Cursor §22–§23) ;
+> - l'inventaire §3 (30 chemins : 16 suivis + 14 non suivis) et le contenu complet §6/§7 ;
+> - P0 barrière `parseProvenanceJson(stored)===null` → `UNKNOWN` / `COMMAND_PROVENANCE_UNVERIFIABLE` ;
+> - P1 FLOW-100 filler 200 msgs (100 USER + 100 ASSISTANT) ;
 > - matrices PARSE-01…12 et FLOW-100-01…12 §5 ;
 > - as-built §8 et delivery `DELIV-2026-11-14-ML4C-PROVENANCE-PARSE-FINAL` ;
 > - les validations §2 ;
-> - **changement production ce cycle = P0 uniquement `document/service.ts`** ;
+> - **changement production ce cycle = uniquement `document/service.ts`** ;
 > - absence de faux AVAILABLE sur stored illisible ;
-> - le verdict **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN**.
+> - le verdict **READY FOR CHATGPT CRITICAL REVIEW — LIVE NOT PROVEN** ;
+> - le commit et la vérification distante du handoff.
 >
-> **Après cette vérification**, ChatGPT doit produire une synthèse globale du cycle (objectif, changements, validations, risques, verdict ChatGPT, prochaine décision Morris).
+> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
+> 1. l'objectif et le périmètre du cycle ;
+> 2. les actions et changements réellement réalisés ;
+> 3. les principaux résultats et validations ;
+> 4. les risques, réserves, écarts ou éléments non couverts ;
+> 5. la distinction entre observations, recommandations et décisions déjà validées ;
+> 6. le verdict ChatGPT ;
+> 7. la prochaine décision ou action attendue de Morris.
+>
+> **Le rapport Cursor seul ne remplace pas le handoff Git.** ChatGPT doit lire depuis Git :
+> branche `sfia/review-handoff` · fichier `sfia-review-handoff/latest-chatgpt-review.md`
+> (jamais le fichier racine historique comme canonique).
 
 ---
 
