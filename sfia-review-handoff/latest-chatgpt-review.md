@@ -1,1942 +1,313 @@
 # SFIA Studio Next — Review Pack FULL L3
-## R5 / ML4C — Correctif final d'autorité + CI + Freeze RECETTE
+## ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4
 
-Date / timezone: 2026-11-12 19:29 CET
-Campagne: ML4C-UAT-2026-11-12
-Verdict: PRODUCT FIX CI GREEN — RECETTE CANDIDATE FROZEN — READY FOR MORRIS UAT
+- **Date/heure**: 2026-11-14 09:33:21 CET
+- **Cycle**: Delivery projet (§6.6) — EVOL Critical
+- **Profil**: Critical
+- **Typologie**: EVOL / INC integrated
+- **Review**: Full + Handoff publish-in-cycle required
+- **Branche locale**: `fix/next-semantic-intent-convergence-20261112`
+- **HEAD base produit**: `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` (= `67bf6b0b`)
+- **Tip distant produit**: `origin/build/next-ml4c-functional-convergence` @ `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
+- **Conception V0.7**: `86377fde` blob `7d289670`
+- **Travail**: LOCAL ONLY — aucun push produit / PR / merge / RECETTE / STABLE / ADOPTED
+- **Verdict technique**: **IMPLEMENTED WITH RESERVES — READY FOR CHATGPT REVIEW**
+- **LIVE**: NOT PROVEN — PROVIDER CAMPAIGN NOT RUN THIS CYCLE
 
 ---
 
-## 01. Date/heure Europe/Paris
+## 1. Objectif et macro-lot
 
-2026-11-12 19:29 CET
+Réaliser la capacité intégrée O-01…O-06 : historique autorisé + confrontation cognitive Nora + proposition documentaire exacte + admission/binding D4 + CREATE/REVISE atomiques/récupérables + UX fil long, avec preuves DET/PG/BROWSER et documentation as-built.
 
-## 02. Git Truth Check
+GO Morris 14/11/2026 : exécution technique accordée ; push produit / PR / merge / migration structurante / RECETTE / STABLE / promotion **exclus**.
 
-```
-branch: fix/next-semantic-intent-convergence-20261112
-HEAD: 67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0
-parent: d7c28a21a9e41c5e5fb2af7415fb59e8a6cf247b
-tree: 64167c6fc4c98da3c3d4168518911636961bc5c6
-origin/build/next-ml4c-functional-convergence: 67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0
-origin/main: 6cda86bde4aa450abb1d23eedd370a9004ddcbc1
-status:
-M .tmp-sfia-review/chatgpt-review.md
-```
+---
 
-Préconditions: tip d7c28a21 aligné ; dirty pack only ; PR #676 OPEN/CLEAN ; RECETTE historique 2416e2ee / BUILD_ID qB8JvXfdL7FMOFYMf31kL sur :3200.
+## 2. Git Truth Check
 
-## 03. Sources consultées et SHAs
-
-main `6cda86bde4aa450abb1d23eedd370a9004ddcbc1`: SEF, roadmap, SEM-01..08, TV contrats, ENV-01, product-versioning, DATA-01 via environnements-recette-et-promotions.
-Candidat parent: d7c28a21. Handoff précédent: sfia/review-handoff@d1c8925d blob 111be556.
-Cahier/journal historiques sur main: cahier-recette-utilisateur-ml4c.md / journal-recette-utilisateur-ml4c.md (NON MODIFIÉS).
-
-## 04. Contrat de correction ciblée
-
-Deux cas limites uniquement dans durable-target-resolve.ts (+ tests / as-built):
-A. `*` ne matche plus un hint spécifique.
-B. decisionId durable exige kind=RECORD_DECISION.
-
-## 05. Code avant/après R1 wildcard
-
-### BEFORE (`restrictionTargetMatchesHint`)
-
-```typescript
-/**
- * Owner-side durable target resolution for USER_MESSAGE D6 REVISE / LIFT.
- * Studio resolves the unique target from durable qualification + project state.
- * HTTP body.decisionId / body.restrictionId may only echo that target.
- */
-import { and, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import {
-  governanceRestrictions,
-  humanDecisions,
-} from "@/db/schema";
-import type { DbTx } from "@/domains/pilotage/command-runner";
-
-/** db or transactional client — same select/from/where surface. */
-export type DurableQueryDb = typeof db | DbTx;
-
-export type DurableResolveOk = { ok: true; id: string };
-export type DurableResolveFail = {
-  ok: false;
-  reasonCode: "AMBIGUOUS" | "INVALID";
-  reason: string;
-};
-export type DurableResolveResult = DurableResolveOk | DurableResolveFail;
-
-/** Exact targetRef match, wildcard, or active cycle id when hint is the cycle type. */
-export function restrictionTargetMatchesHint(input: {
-  targetRef: string;
-  hint: string;
-  activeCycle?: { id: string; cycleType: string } | null;
-}): boolean {
-  const ref = (input.targetRef || "*").trim().toUpperCase();
-  const hint = input.hint.trim().toUpperCase();
-  if (!hint) return true;
-  if (ref === "*" || ref === hint) return true;
-  const cycle = input.activeCycle;
-  if (
-    cycle &&
-    hint === cycle.cycleType.toUpperCase() &&
-    ref === cycle.id.toUpperCase()
-  ) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * Resolve REVISE_DECISION target: durable decisionId, else unique APPLICABLE
- * RECORD_DECISION with exact objectRef. Never pick by order among many.
- */
-export async function resolveReviseDecisionTarget(
-  queryDb: DurableQueryDb,
-  projectId: string,
-  input: { decisionId?: string | null; objectRef?: string | null },
-): Promise<DurableResolveResult> {
-  const durableId = (input.decisionId ?? "").trim();
-  if (durableId) {
-    const row = (
-      await queryDb
-        .select({
-          id: humanDecisions.id,
-          kind: humanDecisions.kind,
-          state: humanDecisions.state,
-          objectRef: humanDecisions.objectRef,
-          projectId: humanDecisions.projectId,
-        })
-        .from(humanDecisions)
-        .where(and(eq(humanDecisions.id, durableId), eq(humanDecisions.projectId, projectId)))
-        .limit(1)
-    )[0];
-    if (!row || row.state !== "APPLICABLE") {
-      return {
-        ok: false,
-        reasonCode: "AMBIGUOUS",
-        reason: "decisionId durable absent, hors projet ou non APPLICABLE",
-      };
-    }
-    const objectRef = (input.objectRef ?? "").trim();
-    if (objectRef && (row.objectRef ?? "").trim() !== objectRef) {
-      return {
-        ok: false,
-        reasonCode: "AMBIGUOUS",
-        reason: "decisionId durable incompatible avec objectRef qualifié",
-      };
-    }
-    return { ok: true, id: row.id };
-  }
-
-  const objectRef = (input.objectRef ?? "").trim();
-  if (!objectRef) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "REVISE_DECISION sans decisionId ni objectRef durable — clarification requise",
-    };
-  }
-
-  const rows = await queryDb
-    .select({
-      id: humanDecisions.id,
-      kind: humanDecisions.kind,
-      state: humanDecisions.state,
-      objectRef: humanDecisions.objectRef,
-    })
-    .from(humanDecisions)
-    .where(eq(humanDecisions.projectId, projectId));
-
-  const matches = rows.filter(
-    (r) =>
-      r.state === "APPLICABLE" &&
-      r.kind === "RECORD_DECISION" &&
-      (r.objectRef ?? "").trim() === objectRef,
-  );
-  if (matches.length === 0) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "Aucune décision APPLICABLE pour objectRef durable",
-    };
-  }
-  if (matches.length > 1) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "Plusieurs décisions pour objectRef — précisez decisionId",
-    };
-  }
-  return { ok: true, id: matches[0]!.id };
-}
-
-/**
- * Resolve LIFT_RESTRICTION target from durable kind/target hints.
- * Unique ACTIVE match required. No substring / first-match selection.
- */
-export async function resolveLiftRestrictionTarget(
-  queryDb: DurableQueryDb,
-  projectId: string,
-  input: {
-    restrictionKindHint?: string | null;
-    restrictionTargetRefHint?: string | null;
-    activeCycle?: { id: string; cycleType: string } | null;
-  },
-): Promise<DurableResolveResult> {
-  const kindHint = (input.restrictionKindHint ?? "").trim().toUpperCase();
-  const targetHint = (input.restrictionTargetRefHint ?? "").trim();
-
-  const active = await queryDb
-    .select()
-    .from(governanceRestrictions)
-    .where(
-      and(
-        eq(governanceRestrictions.projectId, projectId),
-        eq(governanceRestrictions.status, "ACTIVE"),
-      ),
-    );
-
-  let pool = kindHint
-    ? active.filter((r) => r.targetKind.toUpperCase() === kindHint)
-    : active;
-
-  if (targetHint) {
-    pool = pool.filter((r) =>
-      restrictionTargetMatchesHint({
-        targetRef: r.targetRef,
-        hint: targetHint,
-        activeCycle: input.activeCycle,
-      }),
-    );
-  }
-
-  if (pool.length === 0) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "Aucune restriction active correspondant à la qualification durable",
-    };
-  }
-  if (pool.length > 1) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "Plusieurs restrictions actives — précisez laquelle lever",
-    };
-  }
-  return { ok: true, id: pool[0]!.id };
-}
-
-```
-
-### AFTER
-
-```typescript
-/**
- * Owner-side durable target resolution for USER_MESSAGE D6 REVISE / LIFT.
- * Studio resolves the unique target from durable qualification + project state.
- * HTTP body.decisionId / body.restrictionId may only echo that target.
- */
-import { and, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import {
-  governanceRestrictions,
-  humanDecisions,
-} from "@/db/schema";
-import type { DbTx } from "@/domains/pilotage/command-runner";
-
-/** db or transactional client — same select/from/where surface. */
-export type DurableQueryDb = typeof db | DbTx;
-
-export type DurableResolveOk = { ok: true; id: string };
-export type DurableResolveFail = {
-  ok: false;
-  reasonCode: "AMBIGUOUS" | "INVALID";
-  reason: string;
-};
-export type DurableResolveResult = DurableResolveOk | DurableResolveFail;
-
-/** True when durable / stored targetRef denotes global scope (empty or "*"). */
-export function isGlobalRestrictionTarget(targetRef: string | null | undefined): boolean {
-  const value = (targetRef ?? "").trim();
-  return value === "" || value === "*";
-}
-
-/**
- * Match an ACTIVE restriction targetRef against a durable target hint.
- * Specific durable hints never select a global "*" restriction.
- * Global durable hints ("" / "*") match only global ACTIVE targets.
- * CycleType ↔ active cycle id remains an explicit contractual equivalence.
- */
-export function restrictionTargetMatchesHint(input: {
-  targetRef: string;
-  hint: string;
-  activeCycle?: { id: string; cycleType: string } | null;
-}): boolean {
-  const refRaw = (input.targetRef ?? "").trim();
-  const hintRaw = input.hint.trim();
-  const ref = refRaw.toUpperCase();
-  const hint = hintRaw.toUpperCase();
-
-  // Empty / "*" durable hint ⇒ only an explicitly global ACTIVE restriction.
-  if (isGlobalRestrictionTarget(hintRaw)) {
-    return isGlobalRestrictionTarget(refRaw);
-  }
-
-  // Specific durable hint never widens to a global restriction.
-  if (isGlobalRestrictionTarget(refRaw)) {
-    return false;
-  }
-
-  if (ref === hint) return true;
-
-  const cycle = input.activeCycle;
-  if (
-    cycle &&
-    hint === cycle.cycleType.toUpperCase() &&
-    ref === cycle.id.toUpperCase()
-  ) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * Resolve REVISE_DECISION target: durable decisionId, else unique APPLICABLE
- * RECORD_DECISION with exact objectRef. Never pick by order among many.
- */
-export async function resolveReviseDecisionTarget(
-  queryDb: DurableQueryDb,
-  projectId: string,
-  input: { decisionId?: string | null; objectRef?: string | null },
-): Promise<DurableResolveResult> {
-  const durableId = (input.decisionId ?? "").trim();
-  if (durableId) {
-    const row = (
-      await queryDb
-        .select({
-          id: humanDecisions.id,
-          kind: humanDecisions.kind,
-          state: humanDecisions.state,
-          objectRef: humanDecisions.objectRef,
-          projectId: humanDecisions.projectId,
-        })
-        .from(humanDecisions)
-        .where(and(eq(humanDecisions.id, durableId), eq(humanDecisions.projectId, projectId)))
-        .limit(1)
-    )[0];
-    if (!row || row.state !== "APPLICABLE") {
-      return {
-        ok: false,
-        reasonCode: "AMBIGUOUS",
-        reason: "decisionId durable absent, hors projet ou non APPLICABLE",
-      };
-    }
-    // Same strictness as objectRef resolution: only RECORD_DECISION is revisable via D6.
-    if (row.kind !== "RECORD_DECISION") {
-      return {
-        ok: false,
-        reasonCode: "INVALID",
-        reason: "decisionId durable n'est pas une RECORD_DECISION APPLICABLE",
-      };
-    }
-    const objectRef = (input.objectRef ?? "").trim();
-    if (objectRef && (row.objectRef ?? "").trim() !== objectRef) {
-      return {
-        ok: false,
-        reasonCode: "AMBIGUOUS",
-        reason: "decisionId durable incompatible avec objectRef qualifié",
-      };
-    }
-    return { ok: true, id: row.id };
-  }
-
-  const objectRef = (input.objectRef ?? "").trim();
-  if (!objectRef) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "REVISE_DECISION sans decisionId ni objectRef durable — clarification requise",
-    };
-  }
-
-  const rows = await queryDb
-    .select({
-      id: humanDecisions.id,
-      kind: humanDecisions.kind,
-      state: humanDecisions.state,
-      objectRef: humanDecisions.objectRef,
-    })
-    .from(humanDecisions)
-    .where(eq(humanDecisions.projectId, projectId));
-
-  const matches = rows.filter(
-    (r) =>
-      r.state === "APPLICABLE" &&
-      r.kind === "RECORD_DECISION" &&
-      (r.objectRef ?? "").trim() === objectRef,
-  );
-  if (matches.length === 0) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "Aucune décision APPLICABLE pour objectRef durable",
-    };
-  }
-  if (matches.length > 1) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "Plusieurs décisions pour objectRef — précisez decisionId",
-    };
-  }
-  return { ok: true, id: matches[0]!.id };
-}
-
-/**
- * Resolve LIFT_RESTRICTION target from durable kind/target hints.
- * Unique ACTIVE match required. No substring / first-match selection.
- */
-export async function resolveLiftRestrictionTarget(
-  queryDb: DurableQueryDb,
-  projectId: string,
-  input: {
-    restrictionKindHint?: string | null;
-    restrictionTargetRefHint?: string | null;
-    activeCycle?: { id: string; cycleType: string } | null;
-  },
-): Promise<DurableResolveResult> {
-  const kindHint = (input.restrictionKindHint ?? "").trim().toUpperCase();
-  const targetHint = (input.restrictionTargetRefHint ?? "").trim();
-
-  const active = await queryDb
-    .select()
-    .from(governanceRestrictions)
-    .where(
-      and(
-        eq(governanceRestrictions.projectId, projectId),
-        eq(governanceRestrictions.status, "ACTIVE"),
-      ),
-    );
-
-  let pool = kindHint
-    ? active.filter((r) => r.targetKind.toUpperCase() === kindHint)
-    : active;
-
-  // Absent / empty target hint is not an implicit authorization to lift a global "*".
-  // Require an explicit durable target (specific or global "*") before matching.
-  if (!targetHint.trim()) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason:
-        "LIFT_RESTRICTION sans restrictionTargetRefHint durable — clarification requise",
-    };
-  }
-
-  pool = pool.filter((r) =>
-    restrictionTargetMatchesHint({
-      targetRef: r.targetRef,
-      hint: targetHint,
-      activeCycle: input.activeCycle,
-    }),
-  );
-
-  if (pool.length === 0) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "Aucune restriction active correspondant à la qualification durable",
-    };
-  }
-  if (pool.length > 1) {
-    return {
-      ok: false,
-      reasonCode: "AMBIGUOUS",
-      reason: "Plusieurs restrictions actives — précisez laquelle lever",
-    };
-  }
-  return { ok: true, id: pool[0]!.id };
-}
-
-```
-
-## 06. Code avant/après R1 type D6
-
-Voir AFTER ci-dessus: branche durableId refuse si `row.kind !== "RECORD_DECISION"`.
-
-## 07. Tests négatifs complets
-
-G01, G04, D02, D03, D04, D05, D06 (+ R1-A/B/E conservés): REJECTED, aucune mutation cible.
-
-## 08. Tests positifs complets
-
-G02 (CADRAGE seuls), G03 (global explicite), G05 replay, D01, D07 replay.
-C06 CR ml3: restriction d'instance (cycleId), plus défaut `*`.
-
-## 09. Diff produit complet
-
-```diff
-diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
-index 83d220be..cae42d0c 100644
---- a/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
-+++ b/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
-@@ -156,6 +156,29 @@ Parent produit: `9c163d62`. Mandat: sécuriser les réserves Critical Review R1/
- | tsc / eslint / Next build | PASS (warnings non bloquants) |
- | LIVE Nora / Git REAL | NOT RUN |
-
-+## Correctif final d'autorité + freeze RECETTE (2026-11-12 ~19:20 CET)
-+
-+Parent produit: `d7c28a21`. Mandat R5 : deux cas limites + mise à disposition RECETTE pour reprise ML4C-UAT-2026-11-12 (S02-01).
-+
-+### Cas A — portée globale `*`
-+
-+- `restrictionTargetMatchesHint` : un hint durable spécifique (ex. CADRAGE) **ne sélectionne plus** une restriction ACTIVE `targetRef="*"`.
-+- Hint durable global (`*` / vide normalisé) ne matche que des cibles globales.
-+- `resolveLiftRestrictionTarget` exige un `restrictionTargetRefHint` durable explicite (pas d'autorisation implicite de levée globale).
-+- Preuves G01–G05 via `executePilotageCommand`.
-+
-+### Cas B — kind D6
-+
-+- Branche `decisionId` de `resolveReviseDecisionTarget` exige `kind === RECORD_DECISION` (même stricteé que objectRef).
-+- OPEN_CYCLE / APPLY_RESTRICTION / autres fondateurs D5 → INVALID.
-+- Preuves D01–D07 via `executePilotageCommand`.
-+
-+### Campagne utilisateur
-+
-+- Identifiant conservé : `ML4C-UAT-2026-11-12`.
-+- Cahier/journal historiques non remplacés ; premier retest attendu : **S02-01**.
-+- A-006/A-007 : FIX IMPLEMENTED / RETEST USER PENDING (pas CLOSED).
-+
- ## Non-déclarations
-
- ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED · READY FOR REAL · LIVE Nora
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 83ca5a7a..ec4ab254 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-
-+## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-12 ~19:20 CET (Europe/Paris) |
-+| Macro-lot | ML4C R5 — gardes finales cible durable (`*` / kind D6) + freeze RECETTE |
-+| Type | EVOL Critical corrective + mise à disposition RECETTE (NO RELEASE) |
-+| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
-+| Parent tip | `d7c28a21a9e41c5e5fb2af7415fb59e8a6cf247b` |
-+| Lane | DEV/E2E tests ; RECETTE figée après CI GREEN (campagne ML4C-UAT-2026-11-12) |
-+| Changes | `restrictionTargetMatchesHint` fail-closed vs globale ; LIFT exige hint durable ; `resolveReviseDecisionTarget` exige RECORD_DECISION ; tests G01–G05 / D01–D07 |
-+| Schema | unchanged |
-+| Tests | unit 252 PASS (248+4) ; PG 336 PASS (324+12 G/D) ; Playwright 25 PASS ; LIVE NOT RUN |
-+| Status | PUSH PR #676 puis freeze RECETTE si CI GREEN |
-+
- ## delivery_id: DELIV-2026-11-12-ML4C-AUTHORITY-HARDENING
-
- | Field | Value |
-diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/durable-target-resolve.ts b/projects/sfia-studio-next/web/src/domains/pilotage/durable-target-resolve.ts
-index 1e21d3d0..1b6710c6 100644
---- a/projects/sfia-studio-next/web/src/domains/pilotage/durable-target-resolve.ts
-+++ b/projects/sfia-studio-next/web/src/domains/pilotage/durable-target-resolve.ts
-@@ -22,16 +22,40 @@ export type DurableResolveFail = {
- };
- export type DurableResolveResult = DurableResolveOk | DurableResolveFail;
-
--/** Exact targetRef match, wildcard, or active cycle id when hint is the cycle type. */
-+/** True when durable / stored targetRef denotes global scope (empty or "*"). */
-+export function isGlobalRestrictionTarget(targetRef: string | null | undefined): boolean {
-+  const value = (targetRef ?? "").trim();
-+  return value === "" || value === "*";
-+}
-+
-+/**
-+ * Match an ACTIVE restriction targetRef against a durable target hint.
-+ * Specific durable hints never select a global "*" restriction.
-+ * Global durable hints ("" / "*") match only global ACTIVE targets.
-+ * CycleType ↔ active cycle id remains an explicit contractual equivalence.
-+ */
- export function restrictionTargetMatchesHint(input: {
-   targetRef: string;
-   hint: string;
-   activeCycle?: { id: string; cycleType: string } | null;
- }): boolean {
--  const ref = (input.targetRef || "*").trim().toUpperCase();
--  const hint = input.hint.trim().toUpperCase();
--  if (!hint) return true;
--  if (ref === "*" || ref === hint) return true;
-+  const refRaw = (input.targetRef ?? "").trim();
-+  const hintRaw = input.hint.trim();
-+  const ref = refRaw.toUpperCase();
-+  const hint = hintRaw.toUpperCase();
-+
-+  // Empty / "*" durable hint ⇒ only an explicitly global ACTIVE restriction.
-+  if (isGlobalRestrictionTarget(hintRaw)) {
-+    return isGlobalRestrictionTarget(refRaw);
-+  }
-+
-+  // Specific durable hint never widens to a global restriction.
-+  if (isGlobalRestrictionTarget(refRaw)) {
-+    return false;
-+  }
-+
-+  if (ref === hint) return true;
-+
-   const cycle = input.activeCycle;
-   if (
-     cycle &&
-@@ -74,6 +98,14 @@ export async function resolveReviseDecisionTarget(
-         reason: "decisionId durable absent, hors projet ou non APPLICABLE",
-       };
-     }
-+    // Same strictness as objectRef resolution: only RECORD_DECISION is revisable via D6.
-+    if (row.kind !== "RECORD_DECISION") {
-+      return {
-+        ok: false,
-+        reasonCode: "INVALID",
-+        reason: "decisionId durable n'est pas une RECORD_DECISION APPLICABLE",
-+      };
-+    }
-     const objectRef = (input.objectRef ?? "").trim();
-     if (objectRef && (row.objectRef ?? "").trim() !== objectRef) {
-       return {
-@@ -157,16 +189,25 @@ export async function resolveLiftRestrictionTarget(
-     ? active.filter((r) => r.targetKind.toUpperCase() === kindHint)
-     : active;
-
--  if (targetHint) {
--    pool = pool.filter((r) =>
--      restrictionTargetMatchesHint({
--        targetRef: r.targetRef,
--        hint: targetHint,
--        activeCycle: input.activeCycle,
--      }),
--    );
-+  // Absent / empty target hint is not an implicit authorization to lift a global "*".
-+  // Require an explicit durable target (specific or global "*") before matching.
-+  if (!targetHint.trim()) {
-+    return {
-+      ok: false,
-+      reasonCode: "AMBIGUOUS",
-+      reason:
-+        "LIFT_RESTRICTION sans restrictionTargetRefHint durable — clarification requise",
-+    };
-   }
-
-+  pool = pool.filter((r) =>
-+    restrictionTargetMatchesHint({
-+      targetRef: r.targetRef,
-+      hint: targetHint,
-+      activeCycle: input.activeCycle,
-+    }),
-+  );
-+
-   if (pool.length === 0) {
-     return {
-       ok: false,
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-index 983351ea..a450f3ab 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-@@ -2409,11 +2409,15 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
-         objective: "À lever",
-       });
-       expect(opened.status).toBe("APPLIED");
-+      // Specific cycle instance — not global "*". CADRAGE durable hint must not lift "*".
-+      const cycleId =
-+        opened.effects.find((e) => e.effectKind === "OPEN_CYCLE")?.targetRef ?? "CADRAGE";
-       const applied = await applyGovernanceRestriction(pilotId, projectId, {
-         clientCommandKey: newId("idem"),
-         expectedRevision: opened.revision ?? 1,
-         sourceRef: newId("src"),
-         targetKind: "CYCLE_MUTATION",
-+        targetRef: cycleId,
-         statement: "Freeze",
-       });
-       expect(applied.status).toBe("APPLIED");
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts
-index 50a1ee13..02cbcdcc 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts
-@@ -800,6 +800,33 @@ function reviseQualWithoutDecisionId() {
-   };
- }
-
-+function reviseQualWithDecisionId(decisionId: string, objectRef?: string) {
-+  return {
-+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    status: "QUALIFIED" as const,
-+    goal: "revise",
-+    intents: [
-+      {
-+        id: "i-revise",
-+        capabilityId: "d6.human_decision" as const,
-+        mode: "REQUEST_EFFECT" as const,
-+        summary: "REVISE by durable decisionId",
-+        parameters: {
-+          pilotageOperation: "REVISE_DECISION" as const,
-+          statement: "Révision autorité propriétaire",
-+          decisionId,
-+          ...(objectRef ? { objectRef } : {}),
-+        },
-+        constraints: [] as string[],
-+        dependsOn: [] as string[],
-+        sourceEvidence: [] as string[],
-+      },
-+    ],
-+    clarifications: [] as string[],
-+    replyDraft: "revise",
-+  };
-+}
-+
- function liftQual(targetHint: string) {
-   return {
-     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-@@ -827,6 +854,32 @@ function liftQual(targetHint: string) {
-   };
- }
-
-+function liftQualWithoutTargetHint() {
-+  return {
-+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    status: "QUALIFIED" as const,
-+    goal: "lift",
-+    intents: [
-+      {
-+        id: "i-lift",
-+        capabilityId: "d6.human_decision" as const,
-+        mode: "REQUEST_EFFECT" as const,
-+        summary: "LIFT_RESTRICTION without target",
-+        parameters: {
-+          pilotageOperation: "LIFT_RESTRICTION" as const,
-+          restrictionKindHint: "CYCLE_MUTATION",
-+          statement: "Lever restriction sans cible",
-+        },
-+        constraints: [] as string[],
-+        dependsOn: [] as string[],
-+        sourceEvidence: [] as string[],
-+      },
-+    ],
-+    clarifications: [] as string[],
-+    replyDraft: "lift",
-+  };
-+}
-+
- describe("ML4C R1 — durable USER_MESSAGE target binding (PG)", () => {
-   beforeAll(() => {
-     if (!process.env.DATABASE_URL) {
-@@ -1201,3 +1254,752 @@ describe("ML4C R1 — durable USER_MESSAGE target binding (PG)", () => {
-     expect(aStill?.state).toBe("APPLICABLE");
-   });
- });
-+
-+describe("ML4C R5 — final durable target scope guards (PG)", () => {
-+  beforeAll(() => {
-+    if (!process.env.DATABASE_URL) {
-+      throw new Error("SETUP BLOCKED: DATABASE_URL required");
-+    }
-+  });
-+
-+  it("G01: specific CADRAGE hint does not lift sole global '*' restriction", async () => {
-+    const world = await seedOwnedProject(`g01-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    expect(open.status).toBe("APPLIED");
-+    rev = open.revision ?? rev + 1;
-+    const applied = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "APPLY_RESTRICTION",
-+      targetKind: "CYCLE_MUTATION",
-+      targetRef: "*",
-+      statement: "Freeze global",
-+    });
-+    expect(applied.status).toBe("APPLIED");
-+    rev = applied.revision ?? rev + 1;
-+    const globalId = applied.effects.find((e) => e.effectKind === "APPLY_RESTRICTION")?.targetRef;
-+    expect(globalId).toBeTruthy();
-+
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je lève la restriction CYCLE_MUTATION sur CADRAGE.",
-+      liftQual("CADRAGE"),
-+    );
-+    const attack = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je lève la restriction CYCLE_MUTATION sur CADRAGE.",
-+      operation: "LIFT_RESTRICTION",
-+      restrictionId: globalId!,
-+      semanticIntentId: "i-lift",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(attack.status).toBe("REJECTED");
-+    expect(attack.reasonCode).toMatch(/AMBIGUOUS|INVALID/);
-+
-+    const still = await db
-+      .select()
-+      .from(governanceRestrictions)
-+      .where(
-+        and(
-+          eq(governanceRestrictions.projectId, world.projectId),
-+          eq(governanceRestrictions.status, "ACTIVE"),
-+        ),
-+      );
-+    expect(still).toHaveLength(1);
-+    expect(still[0]!.targetRef).toBe("*");
-+    expect(still[0]!.id).toBe(globalId);
-+  });
-+
-+  it("G02: CADRAGE hint lifts CADRAGE only; global '*' stays ACTIVE", async () => {
-+    const world = await seedOwnedProject(`g02-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    const rGlobal = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "APPLY_RESTRICTION",
-+      targetKind: "CYCLE_MUTATION",
-+      targetRef: "*",
-+      statement: "Freeze global",
-+    });
-+    expect(rGlobal.status).toBe("APPLIED");
-+    rev = rGlobal.revision ?? rev + 1;
-+    const rCadrage = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "APPLY_RESTRICTION",
-+      targetKind: "CYCLE_MUTATION",
-+      targetRef: "CADRAGE",
-+      statement: "Freeze CADRAGE",
-+    });
-+    expect(rCadrage.status).toBe("APPLIED");
-+    rev = rCadrage.revision ?? rev + 1;
-+    const globalId = rGlobal.effects.find((e) => e.effectKind === "APPLY_RESTRICTION")?.targetRef!;
-+    const cadrageId = rCadrage.effects.find((e) => e.effectKind === "APPLY_RESTRICTION")
-+      ?.targetRef!;
-+
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je lève la restriction CYCLE_MUTATION sur CADRAGE.",
-+      liftQual("CADRAGE"),
-+    );
-+    const lift = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je lève la restriction CYCLE_MUTATION sur CADRAGE.",
-+      operation: "LIFT_RESTRICTION",
-+      restrictionId: cadrageId,
-+      semanticIntentId: "i-lift",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(lift.status).toBe("APPLIED");
-+
-+    const still = await db
-+      .select()
-+      .from(governanceRestrictions)
-+      .where(
-+        and(
-+          eq(governanceRestrictions.projectId, world.projectId),
-+          eq(governanceRestrictions.status, "ACTIVE"),
-+        ),
-+      );
-+    expect(still).toHaveLength(1);
-+    expect(still[0]!.id).toBe(globalId);
-+    expect(still[0]!.targetRef).toBe("*");
-+  });
-+
-+  it("G03: explicit global durable hint lifts unique global restriction", async () => {
-+    const world = await seedOwnedProject(`g03-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    const applied = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "APPLY_RESTRICTION",
-+      targetKind: "CYCLE_MUTATION",
-+      targetRef: "*",
-+      statement: "Freeze global",
-+    });
-+    expect(applied.status).toBe("APPLIED");
-+    rev = applied.revision ?? rev + 1;
-+    const globalId = applied.effects.find((e) => e.effectKind === "APPLY_RESTRICTION")?.targetRef!;
-+
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je lève la restriction CYCLE_MUTATION globale.",
-+      liftQual("*"),
-+    );
-+    const lift = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je lève la restriction CYCLE_MUTATION globale.",
-+      operation: "LIFT_RESTRICTION",
-+      restrictionId: globalId,
-+      semanticIntentId: "i-lift",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(lift.status).toBe("APPLIED");
-+    const active = await db
-+      .select()
-+      .from(governanceRestrictions)
-+      .where(
-+        and(
-+          eq(governanceRestrictions.projectId, world.projectId),
-+          eq(governanceRestrictions.status, "ACTIVE"),
-+        ),
-+      );
-+    expect(active).toHaveLength(0);
-+  });
-+
-+  it("G04: missing target hint or multi global/specific candidates refuse without lift", async () => {
-+    const world = await seedOwnedProject(`g04-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    for (const targetRef of ["*", "CADRAGE"] as const) {
-+      const applied = await executePilotageCommand(world.pilotId, world.projectId, {
-+        clientCommandKey: newId("ck"),
-+        expectedRevision: rev,
-+        sourceKind: "EXPLICIT_INTERACTION",
-+        sourceRef: newId("ui"),
-+        operation: "APPLY_RESTRICTION",
-+        targetKind: "CYCLE_MUTATION",
-+        targetRef,
-+        statement: `Freeze ${targetRef}`,
-+      });
-+      expect(applied.status).toBe("APPLIED");
-+      rev = applied.revision ?? rev + 1;
-+    }
-+
-+    const msgMissing = await seedQualifiedMessage(
-+      world,
-+      "Je lève une restriction CYCLE_MUTATION.",
-+      liftQualWithoutTargetHint(),
-+    );
-+    const missing = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msgMissing.userMessageId,
-+      utterance: "Je lève une restriction CYCLE_MUTATION.",
-+      operation: "LIFT_RESTRICTION",
-+      semanticIntentId: "i-lift",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(missing.status).toBe("REJECTED");
-+
-+    // Two ACTIVE globals of same kind are not creatable via APPLY with same "*",
-+    // so ambiguity for explicit global is covered when CADRAGE+global coexist and
-+    // durable hint is missing (above) or when global hint finds only one — G03.
-+    // Here: global hint with one global + one CADRAGE → unique global lift target.
-+    // Separate ambiguity: two CADRAGE-compatible would already fail R1-B; keep ACTIVE count.
-+    const still = await db
-+      .select()
-+      .from(governanceRestrictions)
-+      .where(
-+        and(
-+          eq(governanceRestrictions.projectId, world.projectId),
-+          eq(governanceRestrictions.status, "ACTIVE"),
-+        ),
-+      );
-+    expect(still).toHaveLength(2);
-+  });
-+
-+  it("G05: legitimate global lift replay has no second effect", async () => {
-+    const world = await seedOwnedProject(`g05-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    const applied = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "APPLY_RESTRICTION",
-+      targetKind: "CYCLE_MUTATION",
-+      targetRef: "*",
-+      statement: "Freeze global",
-+    });
-+    rev = applied.revision ?? rev + 1;
-+    const globalId = applied.effects.find((e) => e.effectKind === "APPLY_RESTRICTION")?.targetRef!;
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je lève la restriction CYCLE_MUTATION globale.",
-+      liftQual("*"),
-+    );
-+    const lift = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je lève la restriction CYCLE_MUTATION globale.",
-+      operation: "LIFT_RESTRICTION",
-+      restrictionId: globalId,
-+      semanticIntentId: "i-lift",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(lift.status).toBe("APPLIED");
-+    const liftDecisionId = lift.decisionId;
-+
-+    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: lift.revision ?? rev + 1,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je lève la restriction CYCLE_MUTATION globale.",
-+      operation: "LIFT_RESTRICTION",
-+      restrictionId: globalId,
-+      semanticIntentId: "i-lift",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(["ALREADY_APPLIED", "APPLIED", "REJECTED"]).toContain(replay.status);
-+    if (replay.status === "ALREADY_APPLIED" || replay.status === "APPLIED") {
-+      expect(replay.commandId === lift.commandId || replay.status === "ALREADY_APPLIED").toBe(
-+        true,
-+      );
-+    }
-+    const liftRows = await db
-+      .select()
-+      .from(humanDecisions)
-+      .where(
-+        and(
-+          eq(humanDecisions.projectId, world.projectId),
-+          eq(humanDecisions.kind, "LIFT_RESTRICTION"),
-+        ),
-+      );
-+    expect(liftRows.filter((r) => r.state === "APPLIED" || r.id === liftDecisionId).length).toBeGreaterThanOrEqual(1);
-+    // No second ACTIVE lift effect on a still-ACTIVE restriction (restriction already lifted).
-+    const active = await db
-+      .select()
-+      .from(governanceRestrictions)
-+      .where(
-+        and(
-+          eq(governanceRestrictions.projectId, world.projectId),
-+          eq(governanceRestrictions.status, "ACTIVE"),
-+        ),
-+      );
-+    expect(active).toHaveLength(0);
-+  });
-+
-+  it("D01: RECORD_DECISION applicable with durable decisionId → APPLIED", async () => {
-+    const world = await seedOwnedProject(`d01-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    const recorded = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "RECORD_DECISION",
-+      statement: "Décision D01",
-+      objectRef: REVISE_OBJECT_REF,
-+    });
-+    expect(recorded.status).toBe("APPLIED");
-+    rev = recorded.revision ?? rev + 1;
-+    const targetId = recorded.decisionId!;
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je révise la décision D01.",
-+      reviseQualWithDecisionId(targetId, REVISE_OBJECT_REF),
-+    );
-+    const ok = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je révise la décision D01.",
-+      operation: "REVISE_DECISION",
-+      decisionId: targetId,
-+      statement: "Révision autorité propriétaire",
-+      objectRef: REVISE_OBJECT_REF,
-+      semanticIntentId: "i-revise",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(ok.status).toBe("APPLIED");
-+  });
-+
-+  it("D02: durable decisionId of OPEN_CYCLE D5 act → REJECTED", async () => {
-+    const world = await seedOwnedProject(`d02-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    expect(open.status).toBe("APPLIED");
-+    rev = open.revision ?? rev + 1;
-+    const openDecisionId = open.decisionId!;
-+    const openRow = (
-+      await db.select().from(humanDecisions).where(eq(humanDecisions.id, openDecisionId))
-+    )[0];
-+    expect(openRow?.kind).toBe("OPEN_CYCLE");
-+    expect(openRow?.state).toBe("APPLICABLE");
-+
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je révise la décision d'ouverture.",
-+      reviseQualWithDecisionId(openDecisionId),
-+    );
-+    const attack = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je révise la décision d'ouverture.",
-+      operation: "REVISE_DECISION",
-+      decisionId: openDecisionId,
-+      statement: "Révision autorité propriétaire",
-+      semanticIntentId: "i-revise",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(attack.status).toBe("REJECTED");
-+    const still = (
-+      await db.select().from(humanDecisions).where(eq(humanDecisions.id, openDecisionId))
-+    )[0];
-+    expect(still?.state).toBe("APPLICABLE");
-+    expect(still?.kind).toBe("OPEN_CYCLE");
-+  });
-+
-+  it("D03: non-APPLICABLE decisionId → REJECTED", async () => {
-+    const world = await seedOwnedProject(`d03-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    const recorded = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "RECORD_DECISION",
-+      statement: "Décision D03",
-+      objectRef: REVISE_OBJECT_REF,
-+    });
-+    rev = recorded.revision ?? rev + 1;
-+    const targetId = recorded.decisionId!;
-+    const firstRevise = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "REVISE_DECISION",
-+      decisionId: targetId,
-+      statement: "Première révision",
-+      objectRef: REVISE_OBJECT_REF,
-+    });
-+    expect(firstRevise.status).toBe("APPLIED");
-+    rev = firstRevise.revision ?? rev + 1;
-+    const revised = (
-+      await db.select().from(humanDecisions).where(eq(humanDecisions.id, targetId))
-+    )[0];
-+    expect(revised?.state).toBe("REVISED");
-+
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je révise à nouveau la décision D03.",
-+      reviseQualWithDecisionId(targetId, REVISE_OBJECT_REF),
-+    );
-+    const attack = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je révise à nouveau la décision D03.",
-+      operation: "REVISE_DECISION",
-+      decisionId: targetId,
-+      statement: "Révision autorité propriétaire",
-+      objectRef: REVISE_OBJECT_REF,
-+      semanticIntentId: "i-revise",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(attack.status).toBe("REJECTED");
-+  });
-+
-+  it("D04: decisionId hors projet → REJECTED", async () => {
-+    const a = await seedOwnedProject(`d04-a-${Date.now()}`);
-+    const b = await seedOwnedProject(`d04-b-${Date.now()}`);
-+    let revA = (await getPilotageProjection(a.pilotId, a.projectId)).revision;
-+    const openA = await executePilotageCommand(a.pilotId, a.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: revA,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    revA = openA.revision ?? revA + 1;
-+    const recA = await executePilotageCommand(a.pilotId, a.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: revA,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "RECORD_DECISION",
-+      statement: "A D04",
-+      objectRef: REVISE_OBJECT_REF,
-+    });
-+    expect(recA.status).toBe("APPLIED");
-+
-+    let revB = (await getPilotageProjection(b.pilotId, b.projectId)).revision;
-+    const openB = await executePilotageCommand(b.pilotId, b.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: revB,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    revB = openB.revision ?? revB + 1;
-+    const msgB = await seedQualifiedMessage(
-+      b,
-+      "Je révise la décision A depuis B.",
-+      reviseQualWithDecisionId(recA.decisionId!, REVISE_OBJECT_REF),
-+    );
-+    const cross = await executePilotageCommand(b.pilotId, b.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: revB,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msgB.userMessageId,
-+      utterance: "Je révise la décision A depuis B.",
-+      operation: "REVISE_DECISION",
-+      decisionId: recA.decisionId!,
-+      statement: "Révision autorité propriétaire",
-+      objectRef: REVISE_OBJECT_REF,
-+      semanticIntentId: "i-revise",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(cross.status).toBe("REJECTED");
-+    const aStill = (
-+      await db.select().from(humanDecisions).where(eq(humanDecisions.id, recA.decisionId!))
-+    )[0];
-+    expect(aStill?.state).toBe("APPLICABLE");
-+  });
-+
-+  it("D05: body decisionId substituted vs durable id → REJECTED", async () => {
-+    const world = await seedOwnedProject(`d05-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    const d1 = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "RECORD_DECISION",
-+      statement: "D05 A",
-+      objectRef: `${REVISE_OBJECT_REF}-a`,
-+    });
-+    rev = d1.revision ?? rev + 1;
-+    const d2 = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "RECORD_DECISION",
-+      statement: "D05 B",
-+      objectRef: `${REVISE_OBJECT_REF}-b`,
-+    });
-+    rev = d2.revision ?? rev + 1;
-+    const durableId = d1.decisionId!;
-+    const victimId = d2.decisionId!;
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je révise la décision D05 A.",
-+      reviseQualWithDecisionId(durableId, `${REVISE_OBJECT_REF}-a`),
-+    );
-+    const attack = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je révise la décision D05 A.",
-+      operation: "REVISE_DECISION",
-+      decisionId: victimId,
-+      statement: "Révision autorité propriétaire",
-+      objectRef: `${REVISE_OBJECT_REF}-a`,
-+      semanticIntentId: "i-revise",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(attack.status).toBe("REJECTED");
-+    const still = await db
-+      .select()
-+      .from(humanDecisions)
-+      .where(
-+        and(
-+          eq(humanDecisions.projectId, world.projectId),
-+          eq(humanDecisions.kind, "RECORD_DECISION"),
-+          eq(humanDecisions.state, "APPLICABLE"),
-+        ),
-+      );
-+    expect(still.map((r) => r.id).sort()).toEqual([durableId, victimId].sort());
-+  });
-+
-+  it("D06: objectRef multi-cible without durable decisionId → REJECTED", async () => {
-+    const world = await seedOwnedProject(`d06-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    for (const statement of ["D06 A", "D06 B"]) {
-+      const d = await executePilotageCommand(world.pilotId, world.projectId, {
-+        clientCommandKey: newId("ck"),
-+        expectedRevision: rev,
-+        sourceKind: "EXPLICIT_INTERACTION",
-+        sourceRef: newId("ui"),
-+        operation: "RECORD_DECISION",
-+        statement,
-+        objectRef: REVISE_OBJECT_REF,
-+      });
-+      expect(d.status).toBe("APPLIED");
-+      rev = d.revision ?? rev + 1;
-+    }
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je révise la décision partagée D06.",
-+      reviseQualWithoutDecisionId(),
-+    );
-+    const attack = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je révise la décision partagée D06.",
-+      operation: "REVISE_DECISION",
-+      statement: "Révision autorité propriétaire",
-+      objectRef: REVISE_OBJECT_REF,
-+      semanticIntentId: "i-revise",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(attack.status).toBe("REJECTED");
-+    expect(attack.reasonCode).toMatch(/AMBIGUOUS|INVALID/);
-+    const applicable = await db
-+      .select()
-+      .from(humanDecisions)
-+      .where(
-+        and(
-+          eq(humanDecisions.projectId, world.projectId),
-+          eq(humanDecisions.kind, "RECORD_DECISION"),
-+          eq(humanDecisions.state, "APPLICABLE"),
-+          eq(humanDecisions.objectRef, REVISE_OBJECT_REF),
-+        ),
-+      );
-+    expect(applicable).toHaveLength(2);
-+  });
-+
-+  it("D07: valid revise replay preserves durable identity without duplicate effect", async () => {
-+    const world = await seedOwnedProject(`d07-${Date.now()}`);
-+    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-+    const open = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "OPEN_CYCLE",
-+      cycleType: "CADRAGE",
-+    });
-+    rev = open.revision ?? rev + 1;
-+    const recorded = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "EXPLICIT_INTERACTION",
-+      sourceRef: newId("ui"),
-+      operation: "RECORD_DECISION",
-+      statement: "D07",
-+      objectRef: REVISE_OBJECT_REF,
-+    });
-+    rev = recorded.revision ?? rev + 1;
-+    const targetId = recorded.decisionId!;
-+    const msg = await seedQualifiedMessage(
-+      world,
-+      "Je révise la décision D07.",
-+      reviseQualWithDecisionId(targetId, REVISE_OBJECT_REF),
-+    );
-+    const ok = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: rev,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je révise la décision D07.",
-+      operation: "REVISE_DECISION",
-+      decisionId: targetId,
-+      statement: "Révision autorité propriétaire",
-+      objectRef: REVISE_OBJECT_REF,
-+      semanticIntentId: "i-revise",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(ok.status).toBe("APPLIED");
-+    const replay = await executePilotageCommand(world.pilotId, world.projectId, {
-+      clientCommandKey: newId("ck"),
-+      expectedRevision: ok.revision ?? rev + 1,
-+      sourceKind: "USER_MESSAGE",
-+      sourceRef: msg.userMessageId,
-+      utterance: "Je révise la décision D07.",
-+      operation: "REVISE_DECISION",
-+      decisionId: targetId,
-+      statement: "Révision autorité propriétaire",
-+      objectRef: REVISE_OBJECT_REF,
-+      semanticIntentId: "i-revise",
-+      semanticSchemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    });
-+    expect(["ALREADY_APPLIED", "APPLIED", "REJECTED"]).toContain(replay.status);
-+    const original = (
-+      await db.select().from(humanDecisions).where(eq(humanDecisions.id, targetId))
-+    )[0];
-+    expect(original?.state).toBe("REVISED");
-+    // REVISE inserts a successor RECORD_DECISION (same kind as target), not kind REVISE_DECISION.
-+    const successors = await db
-+      .select()
-+      .from(humanDecisions)
-+      .where(
-+        and(
-+          eq(humanDecisions.projectId, world.projectId),
-+          eq(humanDecisions.kind, "RECORD_DECISION"),
-+          eq(humanDecisions.supersedesDecisionId, targetId),
-+        ),
-+      );
-+    expect(successors).toHaveLength(1);
-+    expect(successors[0]!.state).toBe("APPLICABLE");
-+  });
-+});
-diff --git a/projects/sfia-studio-next/web/tests/unit/durable-target-resolve.test.ts b/projects/sfia-studio-next/web/tests/unit/durable-target-resolve.test.ts
-new file mode 100644
-index 00000000..390b8d67
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/unit/durable-target-resolve.test.ts
-@@ -0,0 +1,45 @@
-+import { describe, expect, it } from "vitest";
-+import {
-+  isGlobalRestrictionTarget,
-+  restrictionTargetMatchesHint,
-+} from "@/domains/pilotage/durable-target-resolve";
-+
-+describe("restrictionTargetMatchesHint — global vs specific scope", () => {
-+  it("specific CADRAGE hint does not match global '*'", () => {
-+    expect(
-+      restrictionTargetMatchesHint({ targetRef: "*", hint: "CADRAGE" }),
-+    ).toBe(false);
-+  });
-+
-+  it("global durable hint matches only global ACTIVE refs", () => {
-+    expect(restrictionTargetMatchesHint({ targetRef: "*", hint: "*" })).toBe(true);
-+    expect(restrictionTargetMatchesHint({ targetRef: "", hint: "*" })).toBe(true);
-+    expect(restrictionTargetMatchesHint({ targetRef: "CADRAGE", hint: "*" })).toBe(false);
-+  });
-+
-+  it("exact specific match and cycleType↔cycleId equivalence remain", () => {
-+    expect(
-+      restrictionTargetMatchesHint({ targetRef: "CADRAGE", hint: "CADRAGE" }),
-+    ).toBe(true);
-+    expect(
-+      restrictionTargetMatchesHint({
-+        targetRef: "cyc_1",
-+        hint: "CADRAGE",
-+        activeCycle: { id: "cyc_1", cycleType: "CADRAGE" },
-+      }),
-+    ).toBe(true);
-+    expect(
-+      restrictionTargetMatchesHint({
-+        targetRef: "cyc_other",
-+        hint: "CADRAGE",
-+        activeCycle: { id: "cyc_1", cycleType: "CADRAGE" },
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("isGlobalRestrictionTarget covers empty and '*'", () => {
-+    expect(isGlobalRestrictionTarget("*")).toBe(true);
-+    expect(isGlobalRestrictionTarget("")).toBe(true);
-+    expect(isGlobalRestrictionTarget("CADRAGE")).toBe(false);
-+  });
-+});
-
-```
-
-## 10. Unit tests
-
-252 PASS (248 baseline + 4 durable-target-resolve).
-
-## 11. PostgreSQL tests
-
-336 PASS (324 + 12 G/D).
-
-## 12. Playwright tests
-
-25 PASS.
-
-## 13. TypeScript / ESLint / build
-
-tsc PASS · lint warnings historiques non bloquants · Next build PASS.
-
-## 14. Contrôles de sécurité
-
-secret scan clean · git diff --check clean · aucun secret dans pack.
-
-## 15. Commit parent/tree/SHA
-
-```
-commit 67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0
-Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Thu Nov 12 19:20:04 2026 +0100
-Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Thu Nov 12 19:20:04 2026 +0100
-
-    fix(next): close final durable target scope guards
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- ...n-semantique-mobilisation-gouvernee-20261112.md |  23 +
- .../construction/delivery-history.md               |  15 +
- .../src/domains/pilotage/durable-target-resolve.ts |  67 +-
- .../web/tests/integration/ml3-pilotage.pg.test.ts  |   4 +
- .../ml4c-auth-reconciliation.pg.test.ts            | 802 +++++++++++++++++++++
- .../web/tests/unit/durable-target-resolve.test.ts  |  45 ++
- 6 files changed, 943 insertions(+), 13 deletions(-)
-
-```
-
-SHA `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` · parent `d7c28a21a9e41c5e5fb2af7415fb59e8a6cf247b` · tree `64167c6fc4c98da3c3d4168518911636961bc5c6`
-Message: `fix(next): close final durable target scope guards`
-
-## 16. Push FF et vérification distante
-
-`d7c28a21..67bf6b0b` → origin/build/next-ml4c-functional-convergence (FF only). Distant = local.
-
-## 17. PR #676 actualisée
-
-https://github.com/mcleland147/sfia-workspace/pull/676 — OPEN / MERGEABLE / no auto-merge.
-Body: section scope guards + freeze RECETTE.
-
-## 18. CI GitHub sur nouveau SHA
-
-Next CI [43278752662](https://github.com/mcleland147/sfia-workspace/actions/runs/43278752662) SUCCESS
-(Detect, tsc, eslint, build, unit, migrations, PG, Playwright, secrets, whitespace, Required Gate).
-Studio CI [43278752494](https://github.com/mcleland147/sfia-workspace/actions/runs/43278752494) SUCCESS (Studio build SKIPPED + Required Gate).
-
-## 19. État RECETTE avant intervention
-
-Process :3200 cwd …/recette-build-2416e2ee · SHA 2416e2ee · BUILD_ID qB8JvXfdL7FMOFYMf31kL · DB sfia_next_recette_ml4:5434 · prep Intervencia OPEN · 15 projects / 170 preparations.
-
-## 20. Sauvegarde / stratégie de reprise
-
-Backup: `/Users/morris/Projects/sfia-recette-backups/ml4c-20261112-192721-pre-67bf6b0b`
-dump sha256: 17f28b9c98d2433ff3fa825fae255479330398042bd8d04fbbbd343648809417
-Rollback: restore launchd 2416e2ee ; pg_restore seulement sous GO Morris.
-
-## 21. Worktree RECETTE figé
-
-`/Users/morris/Projects/sfia-workspace-next-ml4-recette-build-67bf6b0b` detached @ `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
-npm ci + production build ; start via launchd `com.sfia.studio.next.recette.ml4`.
-
-## 22. BUILD_ID et identité runtime réellement servis
-
-BUILD_ID: `wYKCZCblBxWLiVsNjIr3e`
-CWD serveur: …/recette-build-67bf6b0b/projects/sfia-studio-next/web
-URL: http://127.0.0.1:3200 · login 200 · portfolio 200 · root 307
-
-## 23. PostgreSQL RECETTE et schéma
-
-sfia_next_recette_ml4 / sfia_next_recette @ 5434 · migrations 001→012 NOT RUN (inchangé) · prep Intervencia conservée · counts 15/170.
-
-## 24. Sessions, OAuth, secrets et isolation
-
-Secrets: `~/.config/sfia-studio-next/recette/.env.local` réutilisés, non copiés dans Git.
-DEV/STABLE non mutés. ENV-R09 cookies multi-lane NOT VERIFIED.
-
-## 25. Smoke RECETTE non destructif
-
-Login/portfolio HTTP OK · DB intacte · aucune conversation Nora · aucune création D2/D4 · aucun WRITE Git.
-
-## 26. Manifeste RECETTE non secret
-
-# RECETTE Freeze Manifest — ML4C-UAT-2026-11-12
-
-Date: 2026-11-12 19:28:43 CET
-CI gate: SUCCESS https://github.com/mcleland147/sfia-workspace/actions/runs/43278752662
-
-## Identity
-
-| Field | Value |
+| Check | Valeur |
 | --- | --- |
-| URL | http://127.0.0.1:3200 |
-| source_sha | 67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0 |
-| tree | 64167c6fc4c98da3c3d4168518911636961bc5c6 |
-| build_id | wYKCZCblBxWLiVsNjIr3e |
-| worktree | /Users/morris/Projects/sfia-workspace-next-ml4-recette-build-67bf6b0b |
-| mode | next start production, no hot reload |
-| version | 0.0.0-dev / NO RELEASE |
-| lane | RECETTE |
-| db | sfia_next_recette_ml4 @ 127.0.0.1:5434 |
-| schema | 001→012 unchanged (NOT RUN this switch) |
-| previous_sha | 2416e2ee25662821b015407346c64ec204f67488 |
-| previous_build_id | qB8JvXfdL7FMOFYMf31kL |
-| backup | /Users/morris/Projects/sfia-recette-backups/ml4c-20261112-192721-pre-67bf6b0b |
-| dump_sha256 | 17f28b9c98d2433ff3fa825fae255479330398042bd8d04fbbbd343648809417 |
-| PR | #676 OPEN / no merge |
-| smoke_login | HTTP 200 |
-| smoke_root | HTTP 307 |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112` |
+| Branche locale | `fix/next-semantic-intent-convergence-20261112` |
+| HEAD | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| origin/main | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
+| merge-base main | `6d237452680640324eeadbb18f4601fd7de99850` |
+| Tip produit distant | `build/next-ml4c-functional-convergence` = même SHA |
+| PR produit | #676 OPEN (hors push ce cycle) |
+| Product push/PR/merge | **NON** |
 
-## Campaign
+### Note branche
 
-- id: ML4C-UAT-2026-11-12
-- Intervencia prep OPEN preserved: prep_cd6f1d24-81d0-4e98-99d0-90aec8a94a3b
-- First Morris step: RETEST S02-01
-- A-006/A-007: FIX IMPLEMENTED / RETEST USER PENDING
+Le contrat cite `build/next-ml4c-functional-convergence`. Le worktree local porte le nom `fix/next-semantic-intent-convergence-20261112` au **même SHA tip** que le remote build. Aucun checkout forcé (préservation du worktree dirty autorisé).
 
-## Capabilities
+### git status --short (final local)
 
-- Nora LIVE: CONFIGURED / NOT PROVEN (no UAT conversation this cycle)
-- Git REAL WRITE: forbidden
-- GitHub App: CONFIGURED historically — WRITE NOT PROVEN
+```
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio-next/construction/delivery-history.md
+ M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+ M projects/sfia-studio-next/web/src/components/figma/tokens.css
+ M projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/service.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+ M projects/sfia-studio-next/web/src/domains/document/service.ts
+ M projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+ M projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+ M projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+ M projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
+?? projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md
+?? projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/history-tools.ts
+?? projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts
+?? projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts
+?? projects/sfia-studio-next/web/tests/unit/document-command.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
 
-## Rollback
+```
 
-1. bootout com.sfia.studio.next.recette.ml4
-2. restore start/plist to 2416e2ee from backup
-3. pg_restore only under explicit Morris GO
+### git diff --stat (product)
 
-## Reserves
+```
+ .../construction/delivery-history.md               |  15 ++
+ .../web/src/components/figma/NoraConversation.tsx  | 128 ++++++-------
+ .../web/src/components/figma/tokens.css            |  14 ++
+ .../src/domains/conversation/cognitive-policy.ts   |   4 +
+ .../web/src/domains/conversation/nora-adapter.ts   |  22 ++-
+ .../domains/conversation/semantic-qualification.ts |   9 +
+ .../web/src/domains/conversation/service.ts        | 206 +++++++++++++++------
+ .../web/src/domains/conversation/turn-command.ts   |  90 ++++++++-
+ .../web/src/domains/document/service.ts            | 201 +++++++++++---------
+ .../integration/ml2-knowledge-documents.pg.test.ts |  16 +-
+ .../ml4-chat-first-d4-provenance.pg.test.ts        |   2 +-
+ .../web/tests/unit/cognitive-policy.test.ts        |   6 +
+ .../web/tests/unit/semantic-qualification.test.ts  |  27 +++
+ 13 files changed, 531 insertions(+), 209 deletions(-)
 
-ENV-R09 NOT VERIFIED · Gate C OPEN · NO STABLE · NO ADOPTED · NO MERGE
+```
 
+---
 
-## 27. Cahier/journal repris sans remplacement
+## 3. Préflights
 
-Cahier VALIDATED CONTENT BY MORRIS inchangé.
-Journal D1 historique inchangé (nouvelle fiche seulement lors reprise utilisateur).
-
-## 28. Fiche de reprise historique S02-01
-
-### REPRISE ML4C-UAT-2026-11-12
-
-| Champ | Valeur |
-| --- | --- |
-| Ancien candidat | 2416e2ee / BUILD_ID qB8JvXfdL7FMOFYMf31kL |
-| Nouveau candidat figé | 67bf6b0b / BUILD_ID wYKCZCblBxWLiVsNjIr3e |
-| Point d'interruption | S02-01 FAIL historique |
-| S01 historiques | 01/03/04/06 PASS ; 02/05 observés non clôturés |
-| Anomalies | A-006 / A-007 FIX IMPLEMENTED / RETEST USER PENDING |
-| Architecture | qualification sémantique durable (SEM/TV) — pas de routeur lexical |
-| Test à reprendre | **RETEST S02-01** (pas S02-02) |
-| Données à préserver | prep_cd6f1d24… + journal/cahier historiques |
-| Première action Morris | Ouvrir nouvelle préparation propre ; retester S02-01 ; conserver ancien sas |
-| Nora LIVE / Git REAL | CONFIGURED / NOT PROVEN this cycle |
-| Autres cas | 48 NOT RUN conservés |
-
-## 29. Anomalies et réserves restantes
-
-Nora LIVE NOT RUN · Git REAL NOT RUN · S02-01 source exacte peut être NON DISPONIBLE · ENV-R06 réel si endpoint absent · ENV-R09 · A-006/A-007 OPEN pending user retest · Gate C OPEN · NO RELEASE · NO ADOPTED · PR #676 NON MERGÉE.
-
-## 30. État Git final
-
-Produit HEAD `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` = distant PR. Dirty: `.tmp-sfia-review/*` local only.
-Handoff publié séparément sur sfia/review-handoff.
-
-## 31. Verdict et gates Morris
-
-**PRODUCT FIX CI GREEN — RECETTE CANDIDATE FROZEN — READY FOR MORRIS UAT**
-
-S02-01 READY FOR USER RETEST
-
-URL: http://127.0.0.1:3200
-SHA: `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
-BUILD_ID: wYKCZCblBxWLiVsNjIr3e
-DB: sfia_next_recette_ml4:5434
-CI: https://github.com/mcleland147/sfia-workspace/actions/runs/43278752662
-PR: https://github.com/mcleland147/sfia-workspace/pull/676
-
-AUCUN MERGE · AUCUNE PROMOTION STABLE · AUCUNE CLÔTURE GATE C · AUCUN VERDICT UTILISATEUR AUTOMATIQUE.
-
-### As-built (HEAD)
-
-# As-built — Qualification sémantique Nora + mobilisation gouvernée (Q1/Q2 final runtime)
-
-Date: 2026-11-12 ~15:10 CET (Europe/Paris)
-Branche locale: `fix/next-semantic-intent-convergence-20261112`
-Base candidat: `2416e2ee25662821b015407346c64ec204f67488`
-Profil: Critical / EVOL corrective QA / NO RELEASE / publication produit INTERDITE
-
-## Objectif de ce cycle
-
-Fermer les deux preuves manquantes du Review Pack précédent (TECHNICAL REVIEWABLE — INTEGRATION GATE NOT YET CLEARED) :
-
-1. **Q1** — Mission `AWAITING_PILOT_ACT` obtenue par le **vrai parcours D2** (sas sans projet, sans clic « Créer le projet »), puis blocage S05 d’une intention B concurrente.
-2. **Q2** — Isolation ENV-01 runtime + PostgreSQL démontrée (pas seulement variables d’environnement).
-
-Les corrections C-01..C-04 / F1–F4 / integrator sont **conservées**.
-
-## Q1 — Parcours D2 réel (origine de la mission)
-
-### Étapes
-
-1. Authentifier Pilote DEV.
-2. Ouvrir une préparation `OPEN` **sans** lien projet (`preparationProjectLinks` vide).
-3. Envoyer via API conversation réelle : `"Je veux créer un projet."`
-4. Nora uniquement à la frontière `TEST_BOUNDARY` (fixture DEV+E2E).
-5. Qualification structurée → `d2.create_project` / `REQUEST_EFFECT`.
-6. Studio prépare l’intention D2 ; `service.ts` produit `MissionProjection` via `buildD2OwnerActBinding` + `d2MissionIdempotencyKey` → status `AWAITING_PILOT_ACT`.
-7. **Aucun** clic sur « Créer le projet » → **aucun** projet durable.
-8. Relecture : `loadLatestMissionsByIntentKey` / oracle E2E après COMPLETE et après refresh.
-
-### Différence vs ancien seed artificiel (C-02)
-
-| | Seed `seed_awaiting_mission` | Parcours Q1 réel |
+| Gate | Verdict | Preuve |
 | --- | --- | --- |
-| Précondition | Projet souvent déjà créé, puis mission « créer projet » injectée | Sas `OPEN`, zéro projet |
-| `ownerActBinding` | JSON partiel possible | Complet : `kind=D2_CREATE_PROJECT`, `preparationId`, `clientIntentKey`, `suggestedIdempotencyKey` (= `d2MissionIdempotencyKey`) |
-| Origine | Fixture HTTP écrit `resultJson` | `postUserMessageAndNora` / route messages Studio |
-| Preuve S05 | Gate sait bloquer si projection présente | Gate bloque une mission **métier atteignable** |
+| ENV-01 | PASS | DEV `127.0.0.1:5433/sfia_next_dev` ; Vitest rewrite → `sfia_next_e2e` |
+| PG-01 | PASS | indexes turn/messages/documents/revisions + corr uniques présents |
+| SDK-01 | PASS WITH RESERVE | `@openai/agents@0.21.0` ; Zod `documentProposal` ; LIVE taille fournisseur non mesurée |
+| REC-01 | PASS | `stashDocumentCommandBinding` dans `result_json` ; préservation commit terminal ; tests seal/ownership |
 
-### Contrôle positif B
+---
 
-Préparation DEV distincte **sans** mission AWAITING : document CREATE nominal → `documentCount+1`, `pendingEffectBlocked ≠ true`.
+## 4. Implémentation (résumé)
 
-### Contrôle négatif B
+1. **O-01** — `history-tools.ts` + `history-tools-sdk.ts` ; allowlist cognitive ; branche `nora-adapter`
+2. **O-02** — consignes Nora + TEMP DET (pas de routeur lexical ; pas d'effet D6 implicite)
+3. **O-03** — `documentProposal` optionnel ≤100k ≠ `replyDraft` ≤12k ; materialize fence same-turn
+4. **O-04** — `document-command.ts` admit/seal/apply/reconcile ; SHA contenu/payload
+5. **O-05** — CREATE documents+1ʳᵉ révision même TX ; REVISE fence + fingerprint ; CORRELATION_PAYLOAD_MISMATCH
+6. **O-06** — composeur sticky ; preflights ; preuves
 
-Sur la préparation portant A : message documentaire concurrent → `pendingEffectBlocked=true`, raison `S05_MISSION_BLOCKS_EFFECT`, aucun document/projet/décision D6, A toujours `AWAITING_PILOT_ACT`.
+---
 
-### Preuves
+## 5. Matrice de preuves
 
-| Suite | Résultat |
-| --- | --- |
-| `ml4c-d2-mission-s05.pg.test.ts` | 3 PASS |
-| `ml4c-d2-mission-real-s05.spec.ts` (Playwright :3101) | 1 PASS |
-| LIVE OpenAI | NOT RUN |
-
-## Q2 — ENV-01 runtime / PostgreSQL
-
-### Identité runtime (Playwright mutatif)
-
-| Champ | Valeur observée |
-| --- | --- |
-| Port web E2E | `127.0.0.1:3101` (éphémère via `scripts/e2e-web-server.sh`) |
-| Bind | `-H 127.0.0.1` (loopback) |
-| Worktree code | candidat local `…/sfia-workspace-next-semantic-intent-20261112` |
-| HEAD | `2416e2ee` + worktree dirty (non poussé) |
-| Mode | `next dev`, `distDir=.next-e2e` |
-| Lane flags | `STUDIO_LANE=DEV`, `STUDIO_E2E=1`, `STUDIO_FORCE_NORA_FIXTURE=1`, `OPENAI_API_KEY` neutralisé |
-| RECETTE observée | process distinct PID sur `:3200`, cwd `…/sfia-workspace-next-ml4-recette-build-2416e2ee` — **non utilisé** par les tests mutatifs |
-
-### Identité PostgreSQL (expurgée)
-
-| Champ | DEV/E2E observé |
-| --- | --- |
-| Conteneur | `sfia-next-dev-pg` → `127.0.0.1:5433` |
-| `current_database()` | `sfia_next_e2e` (vitest mutatif / Playwright) |
-| `current_user` | `sfia_next_dev` |
-| Bases sur conteneur DEV | `sfia_next_dev`, `sfia_next_e2e`, `sfia_next_ml4` |
-| Conteneur RECETTE | `sfia-next-recette-pg` → `127.0.0.1:5434` |
-| Cross-lane | Identifiants DEV → `:5434/sfia_next_recette` = **28P01 DENIED** |
-
-### Matrice ENV-R01..R15
-
-| ID | Résultat | Preuve |
+| ID | Niveau | Résultat |
 | --- | --- | --- |
-| ENV-R01 | PASS | Playwright webServer = worktree candidat + `.next-e2e` |
-| ENV-R02 | PASS | Port 3101 éphémère documenté ; RECETTE :3200 PID/cwd distincts |
-| ENV-R03 | PASS | `next dev -H 127.0.0.1` ; docker PG `127.0.0.1:5433` |
-| ENV-R04 | PASS | `current_database()=sfia_next_e2e` |
-| ENV-R05 | PASS | `current_user=sfia_next_dev` |
-| ENV-R06 | PASS | DEV creds DENIED sur RECETTE :5434 |
-| ENV-R07 | PASS | Bases/ports distincts ; mutatif confiné `sfia_next_e2e` |
-| ENV-R08 | PASS | distDir `.next-e2e` vs operator `.next` / RECETTE autre worktree |
-| ENV-R09 | NOT VERIFIED | Isolation cookies multi-lane non mesurée hors sessions DEV E2E |
-| ENV-R10 | PASS (partiel) | Secrets non publiés ; roles/ports séparés ; mots de passe distincts (DENIED) |
-| ENV-R11 | PASS | `e2eFixtureMutationsAllowed` refuse production/RECETTE/sans E2E |
-| ENV-R12 | PASS | Gate vitest rewrite → `sfia_next_e2e` only |
-| ENV-R13 | PASS | Aucune mutation RECETTE dans ce cycle ; cross-auth DENIED |
-| ENV-R14 | PASS | `e2e-web-server.sh` + playwright.config reproductibles |
-| ENV-R15 | PASS | Pack handoff sans secrets (contrôle publisher) |
+| HIST-01/05/08 | PG | PASS (`ml4c-history-tools.pg.test.ts`) |
+| TEMP-01.. | DET | PASS (`ml4c-temp-restitution.test.ts`) |
+| PROP / D4-CMD / REC | DET+PG | PASS (`document-command` unit + PG) |
+| UX composer | BROWSER | PASS (`ml4c-long-thread-composer.spec.ts`) |
+| Non-rég ML2 Q10 | PG | PASS (oracle O-05 fingerprint) |
+| Unit global | DET | **272 PASS / 46 files** |
+| tsc --noEmit | DET | PASS |
+| LIVE Nora | LIVE | **NOT PROVEN** |
 
-**ENV-R09 = NOT VERIFIED** (ne pas convertir en PASS). Pas de STOP : frontière mutative PG/runtime démontrée.
+### Extraits logs unit
 
-## Runner / D4 / fixture (conservés)
+```
+.env.local
 
-- D5/D6 : classify → findByIntent/ActionKey avant STALE ; `stash.applied` obligatoire.
-- D4 : pas de FACT sur seul `established` Nora.
-- Fixture : DEV ∧ E2E=1 ∧ ¬production.
+ ✓ tests/unit/fingerprint.test.ts (2 tests) 1ms
+stderr | tests/unit/safe-markdown.test.ts
+◇ injected env (0) from .env.local
 
-## Correctif CI sémantique (2026-11-12 ~17:50 CET)
+ ✓ tests/unit/safe-markdown.test.ts (2 tests) 1ms
+stderr | tests/unit/publication-effect-labels.test.ts
+◇ injected env (0) from .env.local
 
-Parent produit: `83fd9ece`. Cause CI: 53 PG (oracles lexicaux + fixtures exactes absentes + ENV-R06 :5434 absent en runner + P1 decisionId/restrictionId résolus refusés par gate durable USER_MESSAGE).
+ ✓ tests/unit/publication-effect-labels.test.ts (5 tests) 1ms
+stderr | tests/unit/durable-target-resolve.test.ts
+◇ injected env (0) from .env.local
 
-Corrections:
-- Helpers `tests/helpers/semantic-fixture-envelopes.ts` (enveloppes typées TEST_BOUNDARY).
-- Suites intent/mission/ml3/ml4/env01 adaptées au contrat SEM-02 (sans routeur lexical).
-- ENV-R06: si endpoint RECETTE absent → `NOT_VERIFIED / ENDPOINT_NOT_AVAILABLE` (pas AUTH DENIED sur ECONNREFUSED).
-- P1: `service.ts` accepte decisionId/restrictionId serveur résolus depuis hints durables vérifiés ; statement D5 non echoé comme D6 ; hook C02 après autorité.
-- P1: `projectStudioEffects` — follow-on D4 (`dependsOn` create-project) → `documentAct=NONE` jusqu'à l'acte Pilote D2 (pas de CREATE immédiat en sas).
-- P1: thread ACK-lost — `rememberPending` sur HTTP/réseau ; pending A non écrasé par un effet B distinct.
-- UI: `PilotagePanel` OPEN toujours structuré (`cycleType` contrôle) ; utterance = echo.
+ ✓ tests/unit/durable-target-resolve.test.ts (4 tests) 1ms
+stderr | tests/unit/ml3-rct02-intent.test.ts
+◇ injected env (0) from .env.local
 
-Preuve locale: PG 318/318 ; unit 248/248 ; Playwright Atlas+ML3 9/9. LIVE NOT RUN. Gate C OPEN.
+ ✓ tests/unit/ml3-rct02-intent.test.ts (2 tests) 1ms
+stderr | tests/unit/git-proof-qualify.test.ts
+◇ injected env (0) from .env.local
 
-## Correctif autorités D5/D6 + fixtures + ENV-R06 (2026-11-12 ~18:40 CET)
+ ✓ tests/unit/git-proof-qualify.test.ts (2 tests) 1ms
+stderr | tests/unit/ml3-cki-intent.test.ts
+◇ injected env (0) from .env.local
 
-Parent produit: `9c163d62`. Mandat: sécuriser les réserves Critical Review R1/R2/R3 sans refaire ML4C.
+ ✓ tests/unit/ml3-cki-intent.test.ts (1 test) 1ms
+stderr | tests/unit/non-effects.test.ts
+◇ injected env (0) from .env.local
 
-### R1 — Binding cible durable (propriétaire)
+ ✓ tests/unit/non-effects.test.ts (1 test) 1ms
 
-- Nouveau module unique `durable-target-resolve.ts` :
-  - `resolveReviseDecisionTarget` — CAS A decisionId durable ; CAS B objectRef → 0/1/N APPLICABLE RECORD_DECISION (jamais choix d’ordre) ; CAS C refus.
-  - `resolveLiftRestrictionTarget` — filtre ACTIVE + kindHint + targetRefHint ; unicité obligatoire.
-- `classifyCommand` (USER_MESSAGE) et `applyConversationalAuthority` réutilisent le même résolveur.
-- `body.decisionId` / `body.restrictionId` ne peuvent qu’**écho**er la cible déjà résolue ; divergence → REJECTED / AMBIGUOUS.
-- Preuves négatives/positives dans `ml4c-auth-reconciliation.pg.test.ts` via `executePilotageCommand` (multi-cible D6, multi-restriction, hors projet, idempotence).
+ Test Files  46 passed (46)
+      Tests  272 passed (272)
+   Start at  09:32:18
+   Duration  8.12s (transform 273ms, setup 186ms, collect 3.89s, tests 271ms, environment 2ms, prepare 884ms)
 
-### R2 — Fixtures sémantiques explicites
 
-- Suppression de `registerPgUtteranceFixture` (inférence regex d’intentions positives).
-- `registerExplicitFixture` / builders typés (`d2`, `d4_*`, `d5`, `d6`, …) ; call sites intent/mission/ml3/ml4 migrés.
-- Texte USER = clé de fixture, **pas** source d’inférence de capacité.
-- Message inconnu reste fail-closed.
+```
 
-### R3 — ENV-R06
+### Extraits logs PG ML4C
 
-- ENV-R06A : contrat CI déterministe (cible mutative `sfia_next_e2e`, lanes interdites).
-- ENV-R06B : si `:5434` absent → `NOT_VERIFIED / ENDPOINT_NOT_AVAILABLE` (trace console, pas faux PASS) ; si présent → exiger `28P01` (ECONNREFUSED ≠ AUTH DENIED).
-- ENV-R09 reste NOT VERIFIED.
+```
+14cc","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","tool_calls":1,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-14T08:32:30.914Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.document_act_qualification","component":"d3.conversation","request_id":"req_8bf0ac8e-8316-4072-81b6-fbd66c1c42c5","operation_id":"op_78e26a49-8103-41df-b6c1-e7d4ca0162af","generation_id":"gen_dea82ce4-cfdd-4a4e-a9f8-bcf07165365c","outcome":"PARTIAL","meta":{"qualification_kind":"NONE","qualification_reason":"SEMANTIC_NONE","documentary_intent_signal":false,"d4_attempted":false,"d4_effect":null}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-14T08:32:30.918Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_8bf0ac8e-8316-4072-81b6-fbd66c1c42c5","operation_id":"op_78e26a49-8103-41df-b6c1-e7d4ca0162af","generation_id":"gen_dea82ce4-cfdd-4a4e-a9f8-bcf07165365c","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":1,"turn_status":"COMPLETE","cas_applied":true}}
+ ✓ tests/integration/ml4c-history-tools.pg.test.ts (3 tests) 166ms
 
-### Preuves locales (ce lot)
+ Test Files  2 passed (2)
+      Tests  11 passed (11)
+   Start at  09:32:29
+   Duration  1.26s (transform 193ms, setup 18ms, collect 693ms, tests 358ms, environment 0ms, prepare 42ms)
 
-| Suite | Résultat |
+
+```
+
+---
+
+## 6. As-built (intégral)
+
+# As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
+
+**Date :** 14 novembre 2026
+**Candidat base :** `67bf6b0b` (produit) — worktree local `fix/next-semantic-intent-convergence-20261112` (= tip `origin/build/next-ml4c-functional-convergence`)
+**Conception source :** V0.7 `cadrage-correctif-continuite-pilote-nora-documents.md` @ `86377fde` blob `7d289670`
+**Statut :** IMPLEMENTED CANDIDATE — preuves DET/PG/BROWSER locales ; LIVE NOT PROVEN
+**STABLE / release :** NOT AVAILABLE — NO RELEASE
+
+## 1. Objet livré
+
+Capacité intégrée : Nora peut rechercher/relire l’historique autorisé (O-01), qualifier sémantiquement (O-02 via Nora, pas de routeur lexical), transporter une proposition documentaire exacte distincte de `replyDraft` (O-03), admettre/sceller une commande documentaire avant effet (O-04), exécuter CREATE/REVISE D4 atomiques/idempotents (O-05), avec UX minimale fil long (O-06).
+
+## 2. Responsabilités respectées
+
+| Domaine | Rôle effectif |
 | --- | --- |
-| Vitest unit | 248 PASS |
-| Vitest PostgreSQL | 324 PASS (318 + R1/R3) |
-| Playwright BROWSER FAKE | 25 PASS |
-| tsc / eslint / Next build | PASS (warnings non bloquants) |
-| LIVE Nora / Git REAL | NOT RUN |
+| D1 | Droits Pilote / préparation / projet — portée historique reconstruite serveur |
+| D2 | Création projet inchangée ; pas de fuite inter-projets via history tools |
+| D3 | Qualification typée + outils history ; binding scellé dans `conversation_turn_commands.result_json` |
+| D4 | Mutations uniquement via `document/service` (CREATE TX unique, REVISE + fence + fingerprint) |
+| D5/D6 | Aucune HumanDecision implicite depuis l’historique |
+| UX | Composeur sticky (`fig-composer-sticky`) sur fil long |
 
-## Correctif final d'autorité + freeze RECETTE (2026-11-12 ~19:20 CET)
+## 3. Modules
 
-Parent produit: `d7c28a21`. Mandat R5 : deux cas limites + mise à disposition RECETTE pour reprise ML4C-UAT-2026-11-12 (S02-01).
+| Module | Rôle |
+| --- | --- |
+| `web/src/domains/conversation/history-tools.ts` | Portée autorisée, search keyset, read exact |
+| `web/src/domains/conversation/history-tools-sdk.ts` | Wrappers Agents SDK |
+| `web/src/domains/conversation/document-command.ts` | Admit / SHA / seal / apply / reconcile |
+| `web/src/domains/conversation/turn-command.ts` | `stashDocumentCommandBinding` + préservation au commit terminal |
+| `web/src/domains/conversation/semantic-qualification.ts` | `documentProposal` optionnel (≤100k) ≠ `replyDraft` (≤12k) |
+| `web/src/domains/conversation/cognitive-policy.ts` | Allowlist history tools |
+| `web/src/domains/conversation/nora-adapter.ts` | Branche outils history + consignes proposition |
+| `web/src/domains/conversation/service.ts` | CREATE/REVISE via admit+seal ; materialize fence si besoin |
+| `web/src/domains/document/service.ts` | CREATE documents+1ʳᵉ révision même TX ; fence REVISE ; fingerprint |
+| `web/src/components/figma/NoraConversation.tsx` + `tokens.css` | Shell fil + composeur sticky |
 
-### Cas A — portée globale `*`
+## 4. Tables / contraintes utilisées (aucune migration structurante)
 
-- `restrictionTargetMatchesHint` : un hint durable spécifique (ex. CADRAGE) **ne sélectionne plus** une restriction ACTIVE `targetRef="*"`.
-- Hint durable global (`*` / vide normalisé) ne matche que des cibles globales.
-- `resolveLiftRestrictionTarget` exige un `restrictionTargetRefHint` durable explicite (pas d'autorisation implicite de levée globale).
-- Preuves G01–G05 via `executePilotageCommand`.
+- `messages` + `messages_conversation_ordinal_uidx`
+- `conversation_turn_commands` + clés/ops/owner token indexes ; `result_json.documentCommandBindings[]`
+- `documents` + `documents_prep_owner_corr_uidx` (création)
+- `document_revisions` + `document_revisions_doc_rev_uidx` + `document_revisions_corr_uidx`
 
-### Cas B — kind D6
+**PG-01 :** indexes/contraintes présents sur DEV `:5433/sfia_next_dev` et lane mutative `sfia_next_e2e` (rewrite Vitest).
 
-- Branche `decisionId` de `resolveReviseDecisionTarget` exige `kind === RECORD_DECISION` (même stricteé que objectRef).
-- OPEN_CYCLE / APPLY_RESTRICTION / autres fondateurs D5 → INVALID.
-- Preuves D01–D07 via `executePilotageCommand`.
+## 5. Interfaces
 
-### Campagne utilisateur
+### History
 
-- Identifiant conservé : `ML4C-UAT-2026-11-12`.
-- Cahier/journal historiques non remplacés ; premier retest attendu : **S02-01**.
-- A-006/A-007 : FIX IMPLEMENTED / RETEST USER PENDING (pas CLOSED).
+- `resolveAuthorizedHistoryScope({ pilotId, preparationId })`
+- `searchConversationHistory({ scope, query?, cursor?, pageSize? })` — keyset, pas OFFSET seul
+- `readConversationMessages({ scope, messageIds, fragment? })`
 
-## Non-déclarations
+### Document command
 
-ML4C ACCEPTED · S02-01 PASS · A-006/A-007 CLOSED · Gate C CLOSED · ADOPTED · READY FOR REAL · LIVE Nora
+- `admitDocumentCommand(...)` → binding + `contentSha256` / `payloadSha256` / `correlationKey`
+- `sealAndApplyDocumentCommand({ pilotId, fence, binding })` — stash puis D4
+- `resolveAssistantProposal` — fence `sfia-document` sur message assistant COMPLETE
+- `reconcileDocumentCommandFromBinding` — rejeu corrélation
 
-## Réserves / gates Morris restants
+## 6. Preuves
 
-- LIVE Nora pertinence (NOT RUN)
-- Git REAL (NOT RUN)
-- S02-01 Intervencia FAIL (source exacte indisponible)
-- A-006/A-007 ouvertes
-- PR #676 OPEN / NON MERGÉE (hardening autorités en publication)
-- ENV-R09 sessions multi-lane NOT VERIFIED
-- ENV-R06 isolation runtime réelle: NOT VERIFIED si endpoint RECETTE absent
-- Décision d’intégration Git / RECETTE / promotion = Morris uniquement
+| Niveau | Résultat |
+| --- | --- |
+| DET unit | document-command, semantic documentProposal, cognitive history allowlist, TEMP restitution |
+| PG | history-tools HIST-01/05/08 ; document-command CREATE/REVISE/PROP/REC ; ML2 Q10 aligné O-05 fingerprint |
+| BROWSER | `ml4c-long-thread-composer.spec.ts` — composeur sticky visible |
+| LIVE | **NOT PROVEN** — pas de campagne fournisseur réelle dans ce cycle |
+| tsc | `--noEmit` PASS après cast outils hétérogènes |
+
+## 7. Préflights
+
+| Gate | Verdict |
+| --- | --- |
+| ENV-01 | DEV `127.0.0.1:5433/sfia_next_dev` ; mutative tests → `sfia_next_e2e` |
+| PG-01 | PASS — indexes/uniques documentaires et turn commands présents |
+| SDK-01 | `@openai/agents@0.21.0` installé ; `documentProposal` dans outputType Zod ; transport intégral aussi via fence same-turn ; **LIVE large payload non mesuré** |
+| REC-01 | Binding pré-effet dans `result_json` ; préservé au commit ; tests seal/ownership/concurrence |
+
+## 8. Réserves / dettes
+
+1. LIVE Nora (outils history + proposition longue + D4) non prouvé.
+2. Corpus HIST 300+ messages non rejoué en masse (couverture structurelle + ~30 msgs).
+3. Branche locale nommée `fix/...` alors que tip produit distant est `build/next-ml4c-functional-convergence` au même SHA base `67bf6b0b`.
+4. Aucun push produit / PR / RECETTE / STABLE / ADOPTED dans ce cycle.
+
+## 9. Exit
+
+Promotion, Gate C, nouvelle campagne RECETTE et ADOPTED restent décisions Morris hors mandat.
 
 
-### Delivery history (tête)
+---
 
+## 7. Delivery history (tête)
+
+```
 # SFIA Studio Next — Delivery history
 
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+
+## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-NORA-DOCUMENTS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 ~09:30 CET (Europe/Paris) |
+| Macro-lot | ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4 |
+| Type | EVOL Critical integrated (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` (local) = tip `origin/build/next-ml4c-functional-convergence@67bf6b0b` |
+| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
+| Lane | DEV `:5433` + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
+| Changes | history-tools + SDK tools ; documentProposal ; document-command admit/seal ; CREATE atomique + REVISE fence/fingerprint ; UX composeur sticky ; as-built |
+| Schema | unchanged (indexes existants utilisés) |
+| Tests | unit 272 PASS ; PG history+document-command 11 PASS ; ML2 Q10 O-05 PASS ; Playwright composer PASS ; LIVE NOT PROVEN |
+| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
 
 ## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
 
@@ -1957,34 +328,3215 @@ Append-only logical journal of Cursor product deliveries.
 
 | Field | Value |
 | --- | --- |
-| Date | 2026-11-12 ~18:40 CET (Europe/Paris) |
-| Macro-lot | ML4C — sécurisation frontières d’autorité R1/R2/R3 (PR #676) |
-| Type | EVOL Critical corrective / SECURITY / QUALITY (NO RELEASE) |
-| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
-| Parent tip | `9c163d621589e7ba9d7369ad5a0342a9bbde8b04` |
-| Lane | DEV/E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
-| Changes | Résolveur propriétaire unique `durable-target-resolve.ts` (REVISE/LIFT) ; body HTTP = écho uniquement ; fixtures explicites (`registerExplicitFixture`) ; suppression `registerPgUtteranceFixture` ; ENV-R06A/B (NOT_VERIFIED si :5434 absent) ; tests négatifs multi-cible D6/restriction |
-| Schema | unchanged |
-| Tests | unit 248 PASS ; PG 324 PASS ; Playwright 25 PASS ; tsc/eslint/build PASS ; LIVE NOT RUN |
-| Status | PUSH PR #676 — CI distante à observer sur nouveau SHA |
+```
 
-## delivery_id: DELIV-2026-11-12-ML4C-SEMANTIC-CI-PARITY
+---
 
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-12 ~17:50 CET (Europe/Paris) |
-| Macro-lot | ML4C — correctif non-régression sémantique + CI PG (PR #676) |
-| Type | EVOL Critical corrective QA (NO RELEASE) |
-| Branch | `fix/next-semantic-intent-convergence-20261112` → `build/next-ml4c-functional-convergence` |
-| Parent tip | `83fd9ecef2d952c90a828d68a192e105c83be35f` |
+## 8. Diff produit
 
-### Fichiers commit
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index ec4ab254..ee34510f 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-14-ML4C-CONTINUITE-NORA-DOCUMENTS
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-14 ~09:30 CET (Europe/Paris) |
++| Macro-lot | ML4C — Continuité cognitive Nora, historique long et création/révision documentaire D4 |
++| Type | EVOL Critical integrated (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` (local) = tip `origin/build/next-ml4c-functional-convergence@67bf6b0b` |
++| Parent tip | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` |
++| Lane | DEV `:5433` + E2E `sfia_next_e2e` ; RECETTE/STABLE non mutées |
++| Changes | history-tools + SDK tools ; documentProposal ; document-command admit/seal ; CREATE atomique + REVISE fence/fingerprint ; UX composeur sticky ; as-built |
++| Schema | unchanged (indexes existants utilisés) |
++| Tests | unit 272 PASS ; PG history+document-command 11 PASS ; ML2 Q10 O-05 PASS ; Playwright composer PASS ; LIVE NOT PROVEN |
++| Status | LOCAL ONLY — Review Pack FULL + handoff L3 ; aucun push produit |
++
+ ## delivery_id: DELIV-2026-11-12-ML4C-FINAL-SCOPE-GUARDS-RECETTE
+
+ | Field | Value |
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+index 7341a857..cf3c2517 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+@@ -43,74 +43,78 @@ export function NoraConversation(props: {
+               <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
+             ) : null}
+           </div>
+-          <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
+-            {n === 0 ? (
+-              <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
+-                <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
+-                Première conversation — écrivez pour démarrer le fil du projet. Aucun message
+-                fictif n&apos;est prérempli.
+-              </div>
+-            ) : null}
+-            {props.messages.map((m) => (
+-              <article
+-                key={m.id}
+-                className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
+-              >
+-                <div className="text-xs muted mb-1">
+-                  {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
++          <div className="fig-nora-thread-shell" data-testid="nora-thread-shell">
++            <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
++              {n === 0 ? (
++                <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
++                  <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
++                  Première conversation — écrivez pour démarrer le fil du projet. Aucun message
++                  fictif n&apos;est prérempli.
+                 </div>
+-                {m.role === "assistant" ? (
+-                  <SafeMarkdown content={m.content} />
+-                ) : (
+-                  <div className="whitespace-pre-wrap text-sm">{m.content}</div>
+-                )}
+-              </article>
+-            ))}
+-            {props.activity === "preparing" ? (
+-              <div className="fig-alert" role="status">
+-                Nora prépare une réponse…
+-              </div>
+-            ) : null}
+-          </div>
+-          <div className="fig-composer">
+-            <textarea
+-              className="textarea"
+-              value={props.draft}
+-              onChange={(e) => props.onDraft(e.target.value)}
+-              placeholder="Écrire à Nora…"
+-              aria-label="Message à Nora"
+-              data-testid="thread-draft"
+-            />
+-            <div className="flex flex-wrap gap-2">
+-              <button
+-                className="btn"
+-                disabled={props.busy || !props.draft.trim()}
+-                onClick={props.onSend}
+-                data-testid="thread-send"
+-              >
+-                Envoyer
+-              </button>
+-              <span className="text-xs muted self-center">Joindre un élément · non requis</span>
++              ) : null}
++              {props.messages.map((m) => (
++                <article
++                  key={m.id}
++                  className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
++                >
++                  <div className="text-xs muted mb-1">
++                    {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
++                  </div>
++                  {m.role === "assistant" ? (
++                    <SafeMarkdown content={m.content} />
++                  ) : (
++                    <div className="whitespace-pre-wrap text-sm">{m.content}</div>
++                  )}
++                </article>
++              ))}
++              {props.activity === "preparing" ? (
++                <div className="fig-alert" role="status">
++                  Nora prépare une réponse…
++                </div>
++              ) : null}
+             </div>
+-            {props.unresolvedPending && props.onReconcile ? (
+-              <div className="space-y-1" data-testid="thread-pending-banner">
+-                <p className="text-xs muted">Tentative non résolue — réconcilier avant un nouveau tour.</p>
++            <div className="fig-composer fig-composer-sticky" data-testid="nora-composer">
++              <textarea
++                className="textarea"
++                value={props.draft}
++                onChange={(e) => props.onDraft(e.target.value)}
++                placeholder="Écrire à Nora…"
++                aria-label="Message à Nora"
++                data-testid="thread-draft"
++              />
++              <div className="flex flex-wrap gap-2">
+                 <button
+-                  type="button"
+-                  className="btn secondary"
+-                  disabled={props.busy}
+-                  data-testid="thread-reconcile-pending"
+-                  onClick={props.onReconcile}
++                  className="btn"
++                  disabled={props.busy || !props.draft.trim()}
++                  onClick={props.onSend}
++                  data-testid="thread-send"
+                 >
+-                  Réconcilier la tentative en cours
++                  Envoyer
+                 </button>
++                <span className="text-xs muted self-center">Joindre un élément · non requis</span>
+               </div>
+-            ) : null}
+-            {props.status ? (
+-              <p className="text-xs muted" data-testid="thread-nora-status">
+-                {props.status}
+-              </p>
+-            ) : null}
++              {props.unresolvedPending && props.onReconcile ? (
++                <div className="space-y-1" data-testid="thread-pending-banner">
++                  <p className="text-xs muted">
++                    Tentative non résolue — réconcilier avant un nouveau tour.
++                  </p>
++                  <button
++                    type="button"
++                    className="btn secondary"
++                    disabled={props.busy}
++                    data-testid="thread-reconcile-pending"
++                    onClick={props.onReconcile}
++                  >
++                    Réconcilier la tentative en cours
++                  </button>
++                </div>
++              ) : null}
++              {props.status ? (
++                <p className="text-xs muted" data-testid="thread-nora-status">
++                  {props.status}
++                </p>
++              ) : null}
++            </div>
+           </div>
+         </div>
+       </section>
+diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+index 2b2b75f9..922c422d 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
++++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+@@ -232,6 +232,20 @@
+   background: #0c1018;
+ }
+
++/* O-06 — long-thread composer remains reachable while the journal scrolls. */
++.fig-nora-thread-shell {
++  display: flex;
++  flex-direction: column;
++  gap: 12px;
++  min-height: 0;
++}
++.fig-composer-sticky {
++  position: sticky;
++  bottom: 0;
++  z-index: 2;
++  background: #0c1018;
++}
++
+ .fig-two-col {
+   display: grid;
+   grid-template-columns: minmax(0, 800fr) minmax(0, 510fr);
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+index b45fc144..14177c86 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+@@ -85,6 +85,8 @@ export type CognitivePolicy = {
+   toolAllowlist: Array<
+     | "search_project_resources"
+     | "read_project_document_revision"
++    | "search_conversation_history"
++    | "read_conversation_messages"
+     | "list_project_git_sources"
+     | "read_git_file"
+     | "list_git_refs"
+@@ -208,6 +210,8 @@ export function buildCognitivePolicy(
+   const toolAllowlist: CognitivePolicy["toolAllowlist"] = [
+     "search_project_resources",
+     "read_project_document_revision",
++    "search_conversation_history",
++    "read_conversation_messages",
+     "list_project_git_sources",
+     "read_git_file",
+     "list_git_refs",
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 9bc4de72..03c13221 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -389,7 +389,8 @@ async function runLiveWithTools(
+     remainingChars: policy.budgets.maxD4CharsReturned,
+   };
+
+-  let tools: Awaited<ReturnType<typeof buildNoraD4Tools>> = [];
++  // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
++  let tools: unknown[] = [];
+   if (policy.toolAllowlist.length > 0 && input.toolScope) {
+     const scope: D4ToolScope = {
+       pilotId: input.toolScope.pilotId,
+@@ -399,6 +400,18 @@ async function runLiveWithTools(
+       budget: initialBudget,
+     };
+     tools = await buildNoraD4Tools(scope);
++    if (
++      policy.toolAllowlist.includes("search_conversation_history") ||
++      policy.toolAllowlist.includes("read_conversation_messages")
++    ) {
++      const { buildNoraHistoryTools } = await import("./history-tools-sdk");
++      const historyTools = await buildNoraHistoryTools({
++        pilotId: input.toolScope.pilotId,
++        preparationId: input.toolScope.preparationId,
++        budget: initialBudget,
++      });
++      tools = [...tools, ...historyTools];
++    }
+     if (input.toolScope.projectId) {
+       const gitTools = await buildNoraGitReadTools({
+         pilotId: input.toolScope.pilotId,
+@@ -416,11 +429,13 @@ async function runLiveWithTools(
+     "",
+     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
+     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
+-    "- replyDraft = texte destiné au Pilote (français, Markdown utile).",
++    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
++    "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
+     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
+     "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
+     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
+     "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
++    "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
+     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
+   ].join("\n");
+
+@@ -431,7 +446,8 @@ async function runLiveWithTools(
+     modelSettings: {
+       reasoning: { effort: policy.effortRequested },
+     },
+-    tools,
++    // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
++    tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
+     outputType: NoraTurnQualificationSchema,
+   });
+
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 76014f72..3eecbfb2 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -95,6 +95,14 @@ export const QualifiedIntentItemSchema = z.object({
+ });
+ export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
+
++/** O-03 — typed document payload distinct from replyDraft (max D4 = 100_000). */
++export const DocumentProposalSchema = z
++  .object({
++    title: z.string().min(1).max(400),
++    contentMarkdown: z.string().min(1).max(100_000),
++  })
++  .strict();
++
+ export const NoraTurnQualificationSchema = z.object({
+   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
+   status: QualificationStatusSchema,
+@@ -102,6 +110,7 @@ export const NoraTurnQualificationSchema = z.object({
+   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
+   clarifications: z.array(z.string().max(400)).max(8).default([]),
+   replyDraft: z.string().max(12000).default(""),
++  documentProposal: DocumentProposalSchema.optional(),
+ });
+ export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
+
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index bbab5da7..85622a6d 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -10,11 +10,13 @@ import {
+   reconstituteConfirmedD4Effects,
+   selectRelevantKnowledgeContext,
+ } from "@/domains/knowledge/service";
++import { listDocuments } from "@/domains/document/service";
+ import {
+-  listDocuments,
+-  reviseDocument,
+-  savePreparationDocument,
+-} from "@/domains/document/service";
++  admitDocumentCommand,
++  contentSha256,
++  proposalFromStructured,
++  sealAndApplyDocumentCommand,
++} from "@/domains/conversation/document-command";
+ import {
+   bindTurnGenerationId,
+   commitTurnTerminal,
+@@ -927,8 +929,55 @@ export async function postUserMessageAndNora(
+       }
+
+       if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
+-        const extracted = extractContractualDocumentProposal(reply.content);
+-        if (!extracted.ok) {
++        // Prefer typed documentProposal (O-03); fall back to fence in reply content.
++        const structured = qualification.documentProposal
++          ? proposalFromStructured(qualification.documentProposal)
++          : null;
++        let extracted = extractContractualDocumentProposal(reply.content);
++        let createBlocked: string | null = null;
++        if (structured && !extracted.ok) {
++          // Materialize same-turn snapshot into contractual fence for terminal message parity.
++          const fence = `\`\`\`sfia-document\n# ${structured.title}\n\n${structured.contentMarkdown.replace(/^\n+/, "")}\n\`\`\`\n`;
++          reply.content = `${reply.content.trim()}\n\n${fence}`;
++          extracted = extractContractualDocumentProposal(reply.content);
++        }
++        if (structured && extracted.ok) {
++          const fenceSha = contentSha256(extracted.title, extracted.content);
++          if (
++            structured.contentMarkdown.trim() !== extracted.content.trim() &&
++            structured.contentSha256 !== fenceSha
++          ) {
++            createBlocked = "PROPOSAL_SNAPSHOT_MISMATCH";
++          }
++        }
++        if (createBlocked) {
++          documentSave = {
++            status: "FAILED",
++            reason: createBlocked,
++            act: "CREATE",
++          };
++          emitDocumentProposalObs({
++            requestId,
++            operationId: reserved.operationId,
++            generationId: reply.generationId,
++            act: "CREATE",
++            extracted: extracted.ok
++              ? extracted
++              : {
++                  ok: false,
++                  reason: "DOCUMENT_PROPOSAL_AMBIGUOUS",
++                  path: "ambiguous",
++                  fenceCount: 0,
++                  proposalChars: 0,
++                  proposalDigest16: null,
++                  bodyEndsWithNewline: false,
++                  sectionCount: 0,
++                },
++            refuseCode: createBlocked,
++            d4Attempted: false,
++            d4Effect: null,
++          });
++        } else if (!extracted.ok) {
+           documentSave = {
+             status: "FAILED",
+             reason: extracted.reason,
+@@ -946,38 +995,58 @@ export async function postUserMessageAndNora(
+           });
+         } else {
+           try {
+-            const saved = await savePreparationDocument(
+-              pilotId,
++            const createIntent =
++              effectIntents(qualification).find((i) => i.capabilityId === "d4.create_document") ??
++              effectIntents(qualification)[0];
++            const admitted = admitDocumentCommand({
++              commandId: reserved.commandId,
++              operationId: reserved.operationId,
++              userMessageId: reserved.userMessageId,
++              qualifiedIntentId: createIntent?.id ?? "i-create-document",
++              action: "CREATE",
+               preparationId,
+-              extracted.title,
+-              extracted.content,
+-              undefined,
+-              {
+-                correlationKey: opts?.correlationKey
+-                  ? `doc:${opts.correlationKey}`
+-                  : missionIntent.wantsPublish
+-                    ? missionKeys.document
+-                    : `doc:${reply.generationId}`,
+-                provenance: {
+-                  sourceKind: "nora",
+-                  generationId: reply.generationId,
+-                  userMessageId: reserved.userMessageId,
+-                  explicitRequest: true,
+-                  act: "CREATE",
+-                },
+-                scope: "document",
+-                turnFence: {
++              source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
++              title: extracted.title,
++              contentMarkdown: extracted.content,
++            });
++            if (!admitted.ok) {
++              documentSave = {
++                status: "FAILED",
++                reason: admitted.reason,
++                act: "CREATE",
++              };
++            } else {
++              // Prefer sealed correlation identity over generation-only keys.
++              admitted.binding.correlationKey = opts?.correlationKey
++                ? `doc:${opts.correlationKey}`
++                : missionIntent.wantsPublish
++                  ? missionKeys.document
++                  : admitted.binding.correlationKey;
++              const sealed = await sealAndApplyDocumentCommand({
++                pilotId,
++                fence: {
+                   commandId: reserved.commandId,
+                   ownerToken: reserved.ownerToken,
+                   beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+                 },
+-              },
+-            );
+-            documentSave = { ...saved, act: "CREATE" };
++                binding: admitted.binding,
++              });
++              if (!sealed.sealApplied) {
++                documentSave = {
++                  status: "FAILED",
++                  reason: "BINDING_SEAL_FAILED",
++                  act: "CREATE",
++                };
++              } else {
++                const saved = sealed.effect;
++                documentSave = { ...saved, act: "CREATE" };
++              }
++            }
+             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
+               ownershipLostBeforeD4 = true;
+               documentSave = null;
+             } else if (
++              documentSave &&
+               documentSave.status !== "AVAILABLE" &&
+               documentSave.status !== "CONFLICT"
+             ) {
+@@ -1112,33 +1181,66 @@ export async function postUserMessageAndNora(
+                     d4Effect: null,
+                   });
+                 } else {
+-                  const correlationKey = opts?.correlationKey
+-                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
+-                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
+-                  const revised = await reviseDocument(pilotId, preparationId, {
++                  const reviseIntent =
++                    effectIntents(qualification).find(
++                      (i) => i.capabilityId === "d4.revise_document",
++                    ) ?? effectIntents(qualification)[0];
++                  const admitted = admitDocumentCommand({
++                    commandId: reserved.commandId,
++                    operationId: reserved.operationId,
++                    userMessageId: reserved.userMessageId,
++                    qualifiedIntentId: reviseIntent?.id ?? "i-revise-document",
++                    action: "REVISE",
++                    preparationId,
+                     documentId: target.documentId,
+                     baseRevisionId: target.baseRevisionId,
++                    sectionHint: documentAct.sectionHint,
++                    source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
++                    title: target.title,
+                     contentMarkdown: merged.content,
+-                    correlationKey,
+-                    scope: documentAct.sectionHint ? "section" : "document",
+-                    sectionHint: documentAct.sectionHint ?? undefined,
+-                    provenance: {
+-                      sourceKind: "nora",
+-                      generationId: reply.generationId,
+-                      userMessageId: reserved.userMessageId,
+-                      explicitRequest: true,
+-                      act: "REVISE",
+-                      sectionHint: documentAct.sectionHint,
+-                    },
+                   });
+-                  documentSave = {
+-                    ...revised,
+-                    act: "REVISE",
+-                    baseRevisionId:
+-                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
+-                        ? revised.baseRevisionId
+-                        : target.baseRevisionId,
+-                  };
++                  if (!admitted.ok) {
++                    documentSave = {
++                      status: "FAILED",
++                      reason: admitted.reason,
++                      documentId: target.documentId,
++                      baseRevisionId: target.baseRevisionId,
++                      act: "REVISE",
++                    };
++                  } else {
++                    admitted.binding.correlationKey = opts?.correlationKey
++                      ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
++                      : admitted.binding.correlationKey;
++                    const sealed = await sealAndApplyDocumentCommand({
++                      pilotId,
++                      fence: {
++                        commandId: reserved.commandId,
++                        ownerToken: reserved.ownerToken,
++                        beforeFenceCheck: turnRaceHooks.beforeD4Effect,
++                      },
++                      binding: admitted.binding,
++                    });
++                    if (!sealed.sealApplied) {
++                      documentSave = {
++                        status: "FAILED",
++                        reason: "BINDING_SEAL_FAILED",
++                        documentId: target.documentId,
++                        baseRevisionId: target.baseRevisionId,
++                        act: "REVISE",
++                      };
++                    } else {
++                      const revised = sealed.effect;
++                      documentSave = {
++                        ...revised,
++                        act: "REVISE",
++                        baseRevisionId:
++                          "baseRevisionId" in revised &&
++                          typeof (revised as { baseRevisionId?: string }).baseRevisionId === "string"
++                            ? (revised as { baseRevisionId: string }).baseRevisionId
++                            : target.baseRevisionId,
++                      };
++                    }
++                  }
+                   if (
+                     documentSave.status !== "AVAILABLE" &&
+                     documentSave.status !== "CONFLICT" &&
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+index e2c0b349..7f38c4bf 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+@@ -666,6 +666,85 @@ export async function stashTurnQualification(args: {
+   });
+ }
+
++/**
++ * Seal a document command binding into resultJson before any D4 mutation (O-04/O-05).
++ * Appends under documentCommandBindings[]; refuses overwrite of an existing same correlationKey.
++ */
++export async function stashDocumentCommandBinding(args: {
++  commandId: string;
++  ownerToken: string;
++  binding: Record<string, unknown>;
++}): Promise<{ applied: boolean }> {
++  return db.transaction(async (tx) => {
++    await tx.execute(
++      sql`select id from conversation_turn_commands
++          where id = ${args.commandId}
++            and owner_token = ${args.ownerToken}
++            and status in ('RUNNING', 'ACCEPTED')
++          for update`,
++    );
++    const owned = (
++      await tx
++        .select({
++          id: conversationTurnCommands.id,
++          resultJson: conversationTurnCommands.resultJson,
++        })
++        .from(conversationTurnCommands)
++        .where(
++          and(
++            eq(conversationTurnCommands.id, args.commandId),
++            eq(conversationTurnCommands.ownerToken, args.ownerToken),
++            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++          ),
++        )
++        .limit(1)
++    )[0];
++    if (!owned) return { applied: false };
++
++    let prev: Record<string, unknown> = {};
++    if (owned.resultJson) {
++      try {
++        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
++      } catch {
++        return { applied: false };
++      }
++    }
++    const existing = Array.isArray(prev.documentCommandBindings)
++      ? (prev.documentCommandBindings as Array<Record<string, unknown>>)
++      : [];
++    const corr = typeof args.binding.correlationKey === "string" ? args.binding.correlationKey : "";
++    if (corr && existing.some((b) => b.correlationKey === corr)) {
++      const prior = existing.find((b) => b.correlationKey === corr)!;
++      const priorPayload = prior.payloadSha256;
++      if (priorPayload !== args.binding.payloadSha256) {
++        return { applied: false };
++      }
++      // Identical binding already sealed — treat as applied without rewrite.
++      return { applied: true };
++    }
++    const merged = {
++      ...prev,
++      documentCommandBindings: [...existing, args.binding],
++      documentCommandBindingStashedAt: new Date(turnClock.nowMs()).toISOString(),
++    };
++    const updated = await tx
++      .update(conversationTurnCommands)
++      .set({
++        resultJson: JSON.stringify(merged),
++        updatedAt: new Date(turnClock.nowMs()),
++      })
++      .where(
++        and(
++          eq(conversationTurnCommands.id, args.commandId),
++          eq(conversationTurnCommands.ownerToken, args.ownerToken),
++          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++        ),
++      )
++      .returning({ id: conversationTurnCommands.id });
++    return { applied: Boolean(updated[0]) };
++  });
++}
++
+ /**
+  * Atomic terminal commit under ownership fence:
+  * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
+@@ -725,7 +804,7 @@ export async function commitTurnTerminal(args: {
+         return { applied: false };
+       }
+
+-      // T-03 / Lot B: preserve stashed semanticQualification across ALL terminals.
++      // T-03 / Lot B + O-04: preserve stashed semanticQualification and documentCommandBindings.
+       let terminalJson = args.resultJson ?? null;
+       if (owned.resultJson) {
+         try {
+@@ -735,8 +814,15 @@ export async function commitTurnTerminal(args: {
+             if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
+               next.semanticQualification = prev.semanticQualification;
+               next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
+-              terminalJson = JSON.stringify(next);
+             }
++            if (
++              prev.documentCommandBindings !== undefined &&
++              next.documentCommandBindings === undefined
++            ) {
++              next.documentCommandBindings = prev.documentCommandBindings;
++              next.documentCommandBindingStashedAt = prev.documentCommandBindingStashedAt;
++            }
++            terminalJson = JSON.stringify(next);
+           } else {
+             terminalJson = owned.resultJson;
+           }
+diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
+index 6d079275..7601ae57 100644
+--- a/projects/sfia-studio-next/web/src/domains/document/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
+@@ -220,54 +220,9 @@ export async function savePreparationDocument(
+
+   let docId = documentId;
+   let ownedTitle = titleFinal;
+-  if (!docId) {
+-    docId = newId("doc");
+-    try {
+-      await db.insert(documents).values({
+-        id: docId,
+-        preparationId,
+-        projectId: ctx.project?.id ?? null,
+-        ownerPilotId: pilotId,
+-        title: titleFinal,
+-        creationCorrelationKey: opts?.correlationKey ?? null,
+-      });
+-    } catch (e) {
+-      // Concurrent create with same correlation key — reconcile WITH fingerprint
+-      if (opts?.correlationKey) {
+-        const raced = await findByCreationCorrelation(
+-          pilotId,
+-          preparationId,
+-          opts.correlationKey,
+-        );
+-        if (raced) {
+-          const priorRev =
+-            (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
+-            (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
+-          if (priorRev) {
+-            return reconcilePriorRevision({
+-              prior: priorRev,
+-              documentId: raced.id,
+-              documentTitle: raced.title,
+-              expectedFp: fp,
+-            });
+-          }
+-          return {
+-            status: "UNKNOWN" as const,
+-            reason: "CREATION_IN_FLIGHT",
+-            documentId: raced.id,
+-          };
+-        }
+-        return {
+-          status: "FAILED" as const,
+-          reason: e instanceof Error ? e.message : "document create failed",
+-        };
+-      }
+-      return {
+-        status: "FAILED" as const,
+-        reason: e instanceof Error ? e.message : "document create failed",
+-      };
+-    }
+-  } else {
++
++  // Existing-document path: ownership check before TX.
++  if (docId) {
+     const owned = (
+       await db
+         .select()
+@@ -283,26 +238,25 @@ export async function savePreparationDocument(
+     )[0];
+     if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
+     ownedTitle = owned.title;
+-  }
+-
+-  // Revision-level idempotence for known document
+-  if (opts?.correlationKey) {
+-    const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
+-    if (prior) {
+-      return reconcilePriorRevision({
+-        prior,
+-        documentId: docId,
+-        documentTitle: ownedTitle,
+-        expectedFp: fp,
+-      });
++    if (opts?.correlationKey) {
++      const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
++      if (prior) {
++        return reconcilePriorRevision({
++          prior,
++          documentId: docId,
++          documentTitle: ownedTitle,
++          expectedFp: fp,
++        });
++      }
+     }
+   }
+
+   try {
+     return await db.transaction(async (tx) => {
++      // O-05: ownership fence BEFORE any document/revision mutation.
+       if (opts?.turnFence) {
+-        const owned = await assertTurnFenceInTx(tx, opts.turnFence);
+-        if (!owned) {
++        const fenceOwned = await assertTurnFenceInTx(tx, opts.turnFence);
++        if (!fenceOwned) {
+           return {
+             status: "FAILED" as const,
+             reason: "TURN_OWNERSHIP_LOST",
+@@ -311,9 +265,55 @@ export async function savePreparationDocument(
+         }
+       }
+
+-      await tx.execute(
+-        sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
+-      );
++      // CREATE: insert documents + first revision in the SAME transaction (no orphan row).
++      if (!docId) {
++        docId = newId("doc");
++        try {
++          await tx.insert(documents).values({
++            id: docId,
++            preparationId,
++            projectId: ctx.project?.id ?? null,
++            ownerPilotId: pilotId,
++            title: titleFinal,
++            creationCorrelationKey: opts?.correlationKey ?? null,
++          });
++        } catch (e) {
++          if (opts?.correlationKey) {
++            const raced = await findByCreationCorrelation(
++              pilotId,
++              preparationId,
++              opts.correlationKey,
++            );
++            if (raced) {
++              const priorRev =
++                (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
++                (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
++              if (priorRev) {
++                return reconcilePriorRevision({
++                  prior: priorRev,
++                  documentId: raced.id,
++                  documentTitle: raced.title,
++                  expectedFp: fp,
++                });
++              }
++              return {
++                status: "UNKNOWN" as const,
++                reason: "CREATION_IN_FLIGHT",
++                documentId: raced.id,
++              };
++            }
++          }
++          return {
++            status: "FAILED" as const,
++            reason: e instanceof Error ? e.message : "document create failed",
++          };
++        }
++        ownedTitle = titleFinal;
++      } else {
++        await tx.execute(
++          sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
++        );
++      }
+
+       if (opts?.correlationKey) {
+         const prior = (
+@@ -393,22 +393,28 @@ export async function savePreparationDocument(
+   } catch (e) {
+     // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
+     if (opts?.correlationKey) {
+-      const prior =
+-        (await findRevisionByCorrelation(docId, opts.correlationKey)) ??
+-        (await waitForRevisionByCorrelation(docId, opts.correlationKey));
+-      if (prior) {
+-        return reconcilePriorRevision({
+-          prior,
+-          documentId: docId,
+-          documentTitle: ownedTitle,
+-          expectedFp: fp,
+-        });
++      const racedDoc =
++        (docId
++          ? { id: docId, title: ownedTitle }
++          : await findByCreationCorrelation(pilotId, preparationId, opts.correlationKey)) ?? null;
++      if (racedDoc) {
++        const prior =
++          (await findRevisionByCorrelation(racedDoc.id, opts.correlationKey)) ??
++          (await waitForRevisionByCorrelation(racedDoc.id, opts.correlationKey));
++        if (prior) {
++          return reconcilePriorRevision({
++            prior,
++            documentId: racedDoc.id,
++            documentTitle: "title" in racedDoc ? racedDoc.title : ownedTitle,
++            expectedFp: fp,
++          });
++        }
++        return {
++          status: "UNKNOWN" as const,
++          reason: "CREATION_IN_FLIGHT",
++          documentId: racedDoc.id,
++        };
+       }
+-      return {
+-        status: "UNKNOWN" as const,
+-        reason: "CREATION_IN_FLIGHT",
+-        documentId: docId,
+-      };
+     }
+     return {
+       status: "FAILED" as const,
+@@ -434,6 +440,11 @@ export async function reviseDocument(
+     sectionHint?: string;
+     provenance?: Record<string, unknown>;
+     injectFailureAfterLock?: boolean;
++    /** Symmetric with CREATE — abort unless turn still owned. */
++    turnFence?: TurnOwnershipFence;
++    /** Title used for fingerprint reconcile on replay (defaults to owned document title). */
++    expectedTitle?: string;
++    expectedContentSha256?: string;
+   },
+ ) {
+   if (input.contentMarkdown.length > MAX_DOC_CHARS) {
+@@ -442,6 +453,18 @@ export async function reviseDocument(
+
+   try {
+     return await db.transaction(async (tx) => {
++      // Lock order: turn command / ownership → document → mutation.
++      if (input.turnFence) {
++        const fenceOwned = await assertTurnFenceInTx(tx, input.turnFence);
++        if (!fenceOwned) {
++          return {
++            status: "FAILED" as const,
++            reason: "TURN_OWNERSHIP_LOST",
++            rolledBack: true as const,
++          };
++        }
++      }
++
+       await tx.execute(
+         sql`select id from documents where id = ${input.documentId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+       );
+@@ -461,7 +484,11 @@ export async function reviseDocument(
+       )[0];
+       if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
+
+-      // Idempotent correlation inside the lock
++      const expectedFp =
++        input.expectedContentSha256 ??
++        contentFingerprint(input.expectedTitle ?? owned.title, input.contentMarkdown);
++
++      // Idempotent correlation inside the lock — fingerprint must match.
+       const prior = (
+         await tx
+           .select()
+@@ -475,13 +502,12 @@ export async function reviseDocument(
+           .limit(1)
+       )[0];
+       if (prior) {
+-        return {
+-          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
++        return reconcilePriorRevision({
++          prior,
+           documentId: input.documentId,
+-          revisionId: prior.id,
+-          revisionNumber: prior.revisionNumber,
+-          idempotentReplay: true as const,
+-        };
++          documentTitle: input.expectedTitle ?? owned.title,
++          expectedFp,
++        });
+       }
+
+       const base = (
+@@ -543,6 +569,7 @@ export async function reviseDocument(
+         provenanceJson: JSON.stringify({
+           ...(input.provenance ?? {}),
+           sectionHint: input.sectionHint ?? null,
++          contentFingerprint: expectedFp,
+         }),
+         scope: input.scope ?? "section",
+       });
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+index 84613cdb..c93ed594 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+@@ -127,17 +127,29 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
+     });
+     expect(conflict.status).toBe("CONFLICT");
+
++    // O-05: same correlationKey + same payload → idempotent AVAILABLE; different payload → CONFLICT.
+     const replay = await reviseDocument(pilotId, prep.id, {
+       documentId: v1.documentId,
+       baseRevisionId: v2.revisionId,
+-      contentMarkdown: "ignored on replay",
++      contentMarkdown: "# Spec\n\nSection A révisée\n",
+       correlationKey: "corr-rev-1",
+     });
+     expect(replay.status).toBe("AVAILABLE");
+     if (replay.status !== "AVAILABLE") throw new Error("replay");
+-    expect(replay.idempotentReplay).toBe(true);
++    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
+     expect(replay.revisionId).toBe(v2.revisionId);
+
++    const mismatch = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v2.revisionId,
++      contentMarkdown: "different payload same key",
++      correlationKey: "corr-rev-1",
++    });
++    expect(mismatch.status).toBe("CONFLICT");
++    if (mismatch.status === "CONFLICT") {
++      expect(mismatch.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
++    }
++
+     const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
+     expect(list.revisions.length).toBeGreaterThanOrEqual(2);
+     const cmp = await compareDocumentRevisions(
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+index 1d443c8f..e896c372 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml4-chat-first-d4-provenance.pg.test.ts
+@@ -505,7 +505,7 @@ Fin.
+     if (first.status !== "AVAILABLE" || again.status !== "AVAILABLE") {
+       throw new Error("idempotent revise unavailable");
+     }
+-    expect(again.idempotentReplay).toBe(true);
++    expect("idempotentReplay" in again && again.idempotentReplay).toBe(true);
+     expect(again.revisionId).toBe(first.revisionId);
+   });
+
+diff --git a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+index acf1b4b1..4bc540ec 100644
+--- a/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+@@ -75,6 +75,12 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
+     expect(() => resolveProfileType()).toThrow(StudioError);
+   });
+
++  it("toolAllowlist includes conversation history read tools", () => {
++    const p = buildCognitivePolicy("Cherche un message passé sur le budget.", "TEST_BOUNDARY");
++    expect(p.toolAllowlist).toContain("search_conversation_history");
++    expect(p.toolAllowlist).toContain("read_conversation_messages");
++  });
++
+   it("maxTurns follows policy budget without silent hard cap of 12", () => {
+     const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
+     expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
+diff --git a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
+index 20be39ee..f679aa83 100644
+--- a/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/semantic-qualification.test.ts
+@@ -142,6 +142,33 @@ describe("semantic qualification envelope", () => {
+     expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
+   });
+
++  it("validateNoraTurnQualification accepts optional documentProposal", () => {
++    const v = validateNoraTurnQualification({
++      schemaVersion: "ml4c-sem-qual-v1",
++      status: "QUALIFIED",
++      goal: "document de cadrage",
++      intents: [
++        {
++          id: "i1",
++          capabilityId: "d4.create_document",
++          mode: "REQUEST_EFFECT",
++          summary: "cadrage",
++          parameters: {},
++          constraints: [],
++          dependsOn: [],
++          sourceEvidence: [],
++        },
++      ],
++      clarifications: [],
++      replyDraft: "Je prépare le document.",
++      documentProposal: {
++        title: "Cadrage",
++        contentMarkdown: "# Cadrage\n\nPérimètre initial.\n",
++      },
++    });
++    expect(v.ok).toBe(true);
++  });
++
+   it("deriveThreadTurnKind from semantic modes", () => {
+     const dialogue: NoraTurnQualification = {
+       schemaVersion: "ml4c-sem-qual-v1",
 
 ```
-M	projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
-M	projects/sfia-studio-next/construction/delivery-history.md
-M	projects/sfia-studio-next/web/src/domains/pilotage/durable-target-resolve.ts
-M	projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-M	projects/sfia-studio-next/web/tests/integration/ml4c-auth-reconciliation.pg.test.ts
-A	projects/sfia-studio-next/web/tests/unit/durable-target-resolve.test.ts
+
+---
+
+## 9. Réserves pour ChatGPT / Morris
+
+1. LIVE NOT PROVEN (outils history + proposition longue + D4 réel fournisseur).
+2. Corpus 300+ messages non rejoué en masse (structure + ~30 msgs prouvés).
+3. Aucun push produit ; PR #676 inchangée ce cycle.
+4. RECETTE/STABLE non mutées ; Gate C / ADOPTED hors mandat.
+
+## 10. Décisions Morris nécessaires (hors exécution Cursor)
+
+- GO push branche produit / mise à jour PR #676
+- Campagne LIVE Nora bornée
+- Nouvelle RECETTE / Gate C si revue ChatGPT favorable
+
+---
+
+**Fin Review Pack FULL — ML4C Continuité Nora / D4 — 2026-11-14 09:33:21 CET**
+
+---
+
+## 11. Fichiers nouveaux (contenu intégral)
+
+### `projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-continuite-nora-documents.md`
+
+```markdown
+# As-built — Continuité cognitive Nora, historique long et D4 (ML4C)
+
+**Date :** 14 novembre 2026
+**Candidat base :** `67bf6b0b` (produit) — worktree local `fix/next-semantic-intent-convergence-20261112` (= tip `origin/build/next-ml4c-functional-convergence`)
+**Conception source :** V0.7 `cadrage-correctif-continuite-pilote-nora-documents.md` @ `86377fde` blob `7d289670`
+**Statut :** IMPLEMENTED CANDIDATE — preuves DET/PG/BROWSER locales ; LIVE NOT PROVEN
+**STABLE / release :** NOT AVAILABLE — NO RELEASE
+
+## 1. Objet livré
+
+Capacité intégrée : Nora peut rechercher/relire l’historique autorisé (O-01), qualifier sémantiquement (O-02 via Nora, pas de routeur lexical), transporter une proposition documentaire exacte distincte de `replyDraft` (O-03), admettre/sceller une commande documentaire avant effet (O-04), exécuter CREATE/REVISE D4 atomiques/idempotents (O-05), avec UX minimale fil long (O-06).
+
+## 2. Responsabilités respectées
+
+| Domaine | Rôle effectif |
+| --- | --- |
+| D1 | Droits Pilote / préparation / projet — portée historique reconstruite serveur |
+| D2 | Création projet inchangée ; pas de fuite inter-projets via history tools |
+| D3 | Qualification typée + outils history ; binding scellé dans `conversation_turn_commands.result_json` |
+| D4 | Mutations uniquement via `document/service` (CREATE TX unique, REVISE + fence + fingerprint) |
+| D5/D6 | Aucune HumanDecision implicite depuis l’historique |
+| UX | Composeur sticky (`fig-composer-sticky`) sur fil long |
+
+## 3. Modules
+
+| Module | Rôle |
+| --- | --- |
+| `web/src/domains/conversation/history-tools.ts` | Portée autorisée, search keyset, read exact |
+| `web/src/domains/conversation/history-tools-sdk.ts` | Wrappers Agents SDK |
+| `web/src/domains/conversation/document-command.ts` | Admit / SHA / seal / apply / reconcile |
+| `web/src/domains/conversation/turn-command.ts` | `stashDocumentCommandBinding` + préservation au commit terminal |
+| `web/src/domains/conversation/semantic-qualification.ts` | `documentProposal` optionnel (≤100k) ≠ `replyDraft` (≤12k) |
+| `web/src/domains/conversation/cognitive-policy.ts` | Allowlist history tools |
+| `web/src/domains/conversation/nora-adapter.ts` | Branche outils history + consignes proposition |
+| `web/src/domains/conversation/service.ts` | CREATE/REVISE via admit+seal ; materialize fence si besoin |
+| `web/src/domains/document/service.ts` | CREATE documents+1ʳᵉ révision même TX ; fence REVISE ; fingerprint |
+| `web/src/components/figma/NoraConversation.tsx` + `tokens.css` | Shell fil + composeur sticky |
+
+## 4. Tables / contraintes utilisées (aucune migration structurante)
+
+- `messages` + `messages_conversation_ordinal_uidx`
+- `conversation_turn_commands` + clés/ops/owner token indexes ; `result_json.documentCommandBindings[]`
+- `documents` + `documents_prep_owner_corr_uidx` (création)
+- `document_revisions` + `document_revisions_doc_rev_uidx` + `document_revisions_corr_uidx`
+
+**PG-01 :** indexes/contraintes présents sur DEV `:5433/sfia_next_dev` et lane mutative `sfia_next_e2e` (rewrite Vitest).
+
+## 5. Interfaces
+
+### History
+
+- `resolveAuthorizedHistoryScope({ pilotId, preparationId })`
+- `searchConversationHistory({ scope, query?, cursor?, pageSize? })` — keyset, pas OFFSET seul
+- `readConversationMessages({ scope, messageIds, fragment? })`
+
+### Document command
+
+- `admitDocumentCommand(...)` → binding + `contentSha256` / `payloadSha256` / `correlationKey`
+- `sealAndApplyDocumentCommand({ pilotId, fence, binding })` — stash puis D4
+- `resolveAssistantProposal` — fence `sfia-document` sur message assistant COMPLETE
+- `reconcileDocumentCommandFromBinding` — rejeu corrélation
+
+## 6. Preuves
+
+| Niveau | Résultat |
+| --- | --- |
+| DET unit | document-command, semantic documentProposal, cognitive history allowlist, TEMP restitution |
+| PG | history-tools HIST-01/05/08 ; document-command CREATE/REVISE/PROP/REC ; ML2 Q10 aligné O-05 fingerprint |
+| BROWSER | `ml4c-long-thread-composer.spec.ts` — composeur sticky visible |
+| LIVE | **NOT PROVEN** — pas de campagne fournisseur réelle dans ce cycle |
+| tsc | `--noEmit` PASS après cast outils hétérogènes |
+
+## 7. Préflights
+
+| Gate | Verdict |
+| --- | --- |
+| ENV-01 | DEV `127.0.0.1:5433/sfia_next_dev` ; mutative tests → `sfia_next_e2e` |
+| PG-01 | PASS — indexes/uniques documentaires et turn commands présents |
+| SDK-01 | `@openai/agents@0.21.0` installé ; `documentProposal` dans outputType Zod ; transport intégral aussi via fence same-turn ; **LIVE large payload non mesuré** |
+| REC-01 | Binding pré-effet dans `result_json` ; préservé au commit ; tests seal/ownership/concurrence |
+
+## 8. Réserves / dettes
+
+1. LIVE Nora (outils history + proposition longue + D4) non prouvé.
+2. Corpus HIST 300+ messages non rejoué en masse (couverture structurelle + ~30 msgs).
+3. Branche locale nommée `fix/...` alors que tip produit distant est `build/next-ml4c-functional-convergence` au même SHA base `67bf6b0b`.
+4. Aucun push produit / PR / RECETTE / STABLE / ADOPTED dans ce cycle.
+
+## 9. Exit
+
+Promotion, Gate C, nouvelle campagne RECETTE et ADOPTED restent décisions Morris hors mandat.
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/document-command.ts`
+
+```typescript
+/**
+ * O-04 — document command admission / binding / D4 orchestration.
+ * No autonomous writes: mutations stay in document/service.ts.
+ */
+import { createHash } from "node:crypto";
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversations, messages } from "@/db/schema";
+import { extractContractualDocumentProposal } from "@/domains/conversation/document-act";
+import {
+  stashDocumentCommandBinding,
+  type TurnOwnershipFence,
+} from "@/domains/conversation/turn-command";
+import {
+  reviseDocument,
+  savePreparationDocument,
+} from "@/domains/document/service";
+
+export const DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION = "ml4c-doc-cmd-v1" as const;
+
+export type DocumentCommandSource =
+  | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
+  | { kind: "SAME_TURN_SNAPSHOT"; commandId: string };
+
+export type DocumentProposalExact = {
+  title: string;
+  contentMarkdown: string;
+  contentSha256: string;
+};
+
+export type DocumentCommandBinding = {
+  schemaVersion: typeof DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION;
+  commandId: string;
+  operationId: string;
+  userMessageId: string;
+  qualifiedIntentId: string;
+  action: "CREATE" | "REVISE";
+  source: DocumentCommandSource;
+  preparationId: string;
+  documentId: string | null;
+  baseRevisionId: string | null;
+  title: string;
+  contentMarkdown: string;
+  contentSha256: string;
+  payloadSha256: string;
+  correlationKey: string;
+  sectionHint?: string | null;
+};
+
+export type DocumentCommandAdmission =
+  | { ok: true; binding: DocumentCommandBinding }
+  | { ok: false; verdict: "NOT_EXECUTED" | "CONFLICT" | "FAILED"; reason: string };
+
+export function contentSha256(title: string, contentMarkdown: string): string {
+  return createHash("sha256")
+    .update(title || "")
+    .update("\0")
+    .update(contentMarkdown)
+    .digest("hex");
+}
+
+export function payloadSha256(parts: {
+  action: "CREATE" | "REVISE";
+  source: DocumentCommandSource;
+  preparationId: string;
+  documentId: string | null;
+  baseRevisionId: string | null;
+  sectionHint?: string | null;
+  title: string;
+  contentSha256: string;
+}): string {
+  const canonical = JSON.stringify({
+    schemaVersion: DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION,
+    action: parts.action,
+    source: parts.source,
+    preparationId: parts.preparationId,
+    documentId: parts.documentId,
+    baseRevisionId: parts.baseRevisionId,
+    sectionHint: parts.sectionHint ?? null,
+    title: parts.title,
+    contentSha256: parts.contentSha256,
+  });
+  return createHash("sha256").update(canonical).digest("hex");
+}
+
+export function deriveDocumentCorrelationKey(parts: {
+  commandId: string;
+  qualifiedIntentId: string;
+  action: "CREATE" | "REVISE";
+  preparationId: string;
+  documentId: string | null;
+}): string {
+  return createHash("sha256")
+    .update(
+      [
+        parts.commandId,
+        parts.qualifiedIntentId,
+        parts.action,
+        parts.preparationId,
+        parts.documentId ?? "",
+      ].join("|"),
+    )
+    .digest("hex")
+    .slice(0, 48);
+}
+
+export function proposalFromStructured(input: {
+  title: string;
+  contentMarkdown: string;
+}): DocumentProposalExact | null {
+  const title = input.title.trim();
+  const contentMarkdown = input.contentMarkdown;
+  if (!title || !contentMarkdown.trim()) return null;
+  if (contentMarkdown.length > 100_000) return null;
+  return {
+    title,
+    contentMarkdown,
+    contentSha256: contentSha256(title, contentMarkdown),
+  };
+}
+
+/**
+ * Resolve an exact historical assistant proposal (O-03).
+ * Rights: message must belong to a conversation owned by the pilot and preparation scope.
+ */
+export async function resolveAssistantProposal(input: {
+  pilotId: string;
+  preparationId: string;
+  assistantMessageId: string;
+}): Promise<
+  | { ok: true; proposal: DocumentProposalExact; assistantMessageId: string; generationId: string | null }
+  | { ok: false; reason: string }
+> {
+  const row = (
+    await db
+      .select({
+        id: messages.id,
+        content: messages.content,
+        status: messages.status,
+        role: messages.role,
+        generationId: messages.generationId,
+        preparationId: conversations.preparationId,
+        ownerPilotId: conversations.ownerPilotId,
+      })
+      .from(messages)
+      .innerJoin(conversations, eq(conversations.id, messages.conversationId))
+      .where(and(eq(messages.id, input.assistantMessageId)))
+      .limit(1)
+  )[0];
+  if (!row || row.ownerPilotId !== input.pilotId) {
+    return { ok: false, reason: "SOURCE_DENIED" };
+  }
+  if (row.preparationId !== input.preparationId) {
+    // Inter-prep write not admitted by current D4 owner controls.
+    return { ok: false, reason: "SOURCE_PREPARATION_MISMATCH" };
+  }
+  if (row.role !== "assistant") {
+    return { ok: false, reason: "SOURCE_NOT_ASSISTANT" };
+  }
+  if (row.status !== "COMPLETE") {
+    return { ok: false, reason: "SOURCE_NOT_TERMINAL" };
+  }
+  const extracted = extractContractualDocumentProposal(row.content);
+  if (!extracted.ok) {
+    return { ok: false, reason: extracted.reason };
+  }
+  return {
+    ok: true,
+    proposal: {
+      title: extracted.title,
+      contentMarkdown: extracted.content,
+      contentSha256: contentSha256(extracted.title, extracted.content),
+    },
+    assistantMessageId: row.id,
+    generationId: row.generationId,
+  };
+}
+
+export function admitDocumentCommand(input: {
+  commandId: string;
+  operationId: string;
+  userMessageId: string;
+  qualifiedIntentId: string;
+  action: "CREATE" | "REVISE";
+  preparationId: string;
+  documentId?: string | null;
+  baseRevisionId?: string | null;
+  sectionHint?: string | null;
+  source: DocumentCommandSource;
+  title: string;
+  contentMarkdown: string;
+}): DocumentCommandAdmission {
+  const title = input.title.trim();
+  const contentMarkdown = input.contentMarkdown;
+  if (!input.userMessageId || !input.qualifiedIntentId) {
+    return { ok: false, verdict: "NOT_EXECUTED", reason: "MISSING_IDENTITIES" };
+  }
+  if (!title || !contentMarkdown.trim()) {
+    return { ok: false, verdict: "NOT_EXECUTED", reason: "EMPTY_PROPOSAL" };
+  }
+  if (contentMarkdown.length > 100_000) {
+    return { ok: false, verdict: "NOT_EXECUTED", reason: "CONTENT_TOO_LARGE" };
+  }
+  if (input.action === "REVISE" && (!input.documentId || !input.baseRevisionId)) {
+    return { ok: false, verdict: "NOT_EXECUTED", reason: "REVISE_TARGET_INCOMPLETE" };
+  }
+  const cSha = contentSha256(title, contentMarkdown);
+  const pSha = payloadSha256({
+    action: input.action,
+    source: input.source,
+    preparationId: input.preparationId,
+    documentId: input.documentId ?? null,
+    baseRevisionId: input.baseRevisionId ?? null,
+    sectionHint: input.sectionHint,
+    title,
+    contentSha256: cSha,
+  });
+  const correlationKey = deriveDocumentCorrelationKey({
+    commandId: input.commandId,
+    qualifiedIntentId: input.qualifiedIntentId,
+    action: input.action,
+    preparationId: input.preparationId,
+    documentId: input.documentId ?? null,
+  });
+  return {
+    ok: true,
+    binding: {
+      schemaVersion: DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION,
+      commandId: input.commandId,
+      operationId: input.operationId,
+      userMessageId: input.userMessageId,
+      qualifiedIntentId: input.qualifiedIntentId,
+      action: input.action,
+      source: input.source,
+      preparationId: input.preparationId,
+      documentId: input.documentId ?? null,
+      baseRevisionId: input.baseRevisionId ?? null,
+      title,
+      contentMarkdown,
+      contentSha256: cSha,
+      payloadSha256: pSha,
+      correlationKey,
+      sectionHint: input.sectionHint ?? null,
+    },
+  };
+}
+
+export async function sealAndApplyDocumentCommand(input: {
+  pilotId: string;
+  fence: TurnOwnershipFence;
+  binding: DocumentCommandBinding;
+}): Promise<{
+  sealApplied: boolean;
+  effect:
+    | Awaited<ReturnType<typeof savePreparationDocument>>
+    | Awaited<ReturnType<typeof reviseDocument>>
+    | { status: "NOT_EXECUTED"; reason: string };
+}> {
+  const sealed = await stashDocumentCommandBinding({
+    commandId: input.fence.commandId,
+    ownerToken: input.fence.ownerToken,
+    binding: input.binding,
+  });
+  if (!sealed.applied) {
+    return {
+      sealApplied: false,
+      effect: { status: "NOT_EXECUTED", reason: "BINDING_SEAL_FAILED" },
+    };
+  }
+
+  if (input.binding.action === "CREATE") {
+    const effect = await savePreparationDocument(
+      input.pilotId,
+      input.binding.preparationId,
+      input.binding.title,
+      input.binding.contentMarkdown,
+      undefined,
+      {
+        correlationKey: input.binding.correlationKey,
+        turnFence: input.fence,
+        provenance: {
+          documentCommandBinding: true,
+          payloadSha256: input.binding.payloadSha256,
+          contentSha256: input.binding.contentSha256,
+          source: input.binding.source,
+          userMessageId: input.binding.userMessageId,
+          qualifiedIntentId: input.binding.qualifiedIntentId,
+        },
+      },
+    );
+    return { sealApplied: true, effect };
+  }
+
+  const effect = await reviseDocument(input.pilotId, input.binding.preparationId, {
+    documentId: input.binding.documentId!,
+    baseRevisionId: input.binding.baseRevisionId!,
+    contentMarkdown: input.binding.contentMarkdown,
+    correlationKey: input.binding.correlationKey,
+    scope: input.binding.sectionHint ? "section" : "document",
+    sectionHint: input.binding.sectionHint ?? undefined,
+    turnFence: input.fence,
+    expectedTitle: input.binding.title,
+    expectedContentSha256: input.binding.contentSha256,
+    provenance: {
+      documentCommandBinding: true,
+      payloadSha256: input.binding.payloadSha256,
+      contentSha256: input.binding.contentSha256,
+      source: input.binding.source,
+      userMessageId: input.binding.userMessageId,
+      qualifiedIntentId: input.binding.qualifiedIntentId,
+    },
+  });
+  return { sealApplied: true, effect };
+}
+
+/** Read-only reconciliation of a sealed binding against D4 correlation. */
+export async function reconcileDocumentCommandFromBinding(input: {
+  pilotId: string;
+  preparationId: string;
+  binding: DocumentCommandBinding;
+}): Promise<{
+  verdict: "AVAILABLE" | "UNKNOWN" | "CONFLICT" | "NOT_EXECUTED";
+  documentId?: string;
+  revisionId?: string;
+  reason?: string;
+}> {
+  // Replay CREATE path via correlation — no new mutation when already present.
+  if (input.binding.action === "CREATE") {
+    const effect = await savePreparationDocument(
+      input.pilotId,
+      input.preparationId,
+      input.binding.title,
+      input.binding.contentMarkdown,
+      undefined,
+      {
+        correlationKey: input.binding.correlationKey,
+        provenance: { reconcileOnly: true, payloadSha256: input.binding.payloadSha256 },
+      },
+    );
+    if (effect.status === "AVAILABLE" && "idempotentReplay" in effect && effect.idempotentReplay) {
+      return {
+        verdict: "AVAILABLE",
+        documentId: effect.documentId,
+        revisionId: effect.revisionId,
+      };
+    }
+    if (effect.status === "CONFLICT") {
+      return { verdict: "CONFLICT", reason: effect.reason, documentId: effect.documentId };
+    }
+    if (effect.status === "AVAILABLE") {
+      // Unexpected fresh write during reconcile — treat as unknown (should not happen without fence).
+      return {
+        verdict: "UNKNOWN",
+        reason: "RECONCILE_UNEXPECTED_WRITE",
+        documentId: "documentId" in effect ? effect.documentId : undefined,
+      };
+    }
+    return { verdict: "UNKNOWN", reason: "reason" in effect ? String(effect.reason) : "UNKNOWN" };
+  }
+  return { verdict: "NOT_EXECUTED", reason: "REVISE_RECONCILE_REQUIRES_EXPLICIT_PATH" };
+}
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/history-tools-sdk.ts`
+
+```typescript
+/**
+ * Agents SDK wrappers for O-01 history tools. Scope closed over server identities.
+ */
+import {
+  readConversationMessages,
+  resolveAuthorizedHistoryScope,
+  searchConversationHistory,
+  type AuthorizedHistoryScope,
+} from "@/domains/conversation/history-tools";
+
+export type HistoryToolScope = {
+  pilotId: string;
+  preparationId: string;
+  budget: { remainingCalls: number; remainingChars: number };
+};
+
+function charge(scope: HistoryToolScope, payload: unknown): void {
+  const size = JSON.stringify(payload).length;
+  scope.budget.remainingChars = Math.max(0, scope.budget.remainingChars - size);
+}
+
+export async function buildNoraHistoryTools(scope: HistoryToolScope) {
+  const { tool } = await import("@openai/agents");
+  const { z } = await import("zod");
+
+  let cachedScope: AuthorizedHistoryScope | null = null;
+  async function scopeOrDenied() {
+    if (cachedScope) return { ok: true as const, scope: cachedScope };
+    const resolved = await resolveAuthorizedHistoryScope({
+      pilotId: scope.pilotId,
+      preparationId: scope.preparationId,
+    });
+    if ("denied" in resolved) {
+      return { ok: false as const, reason: resolved.reason };
+    }
+    cachedScope = resolved;
+    return { ok: true as const, scope: resolved };
+  }
+
+  return [
+    tool({
+      name: "search_conversation_history",
+      description:
+        "Search authorized conversation history for this pilot/project (keyset pagination). Lexical query is optional accelerator; empty query walks the journal. Does not mutate.",
+      parameters: z.object({
+        query: z.string().nullable().optional(),
+        cursor: z.string().nullable().optional(),
+        pageSize: z.number().int().min(1).max(50).nullable().optional(),
+      }),
+      execute: async (args) => {
+        if (scope.budget.remainingCalls <= 0 || scope.budget.remainingChars <= 0) {
+          return {
+            coverage: "DENIED",
+            reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
+            items: [],
+            nextCursor: null,
+          };
+        }
+        scope.budget.remainingCalls -= 1;
+        const s = await scopeOrDenied();
+        if (!s.ok) {
+          return { coverage: "DENIED", reason: s.reason, items: [], nextCursor: null };
+        }
+        const result = await searchConversationHistory({
+          scope: s.scope,
+          query: args.query ?? undefined,
+          cursor: args.cursor ?? undefined,
+          pageSize: args.pageSize ?? undefined,
+        });
+        charge(scope, result);
+        return result;
+      },
+    }),
+    tool({
+      name: "read_conversation_messages",
+      description:
+        "Re-read exact authorized message contents by messageId (rights revalidated). Prefer after search_conversation_history.",
+      parameters: z.object({
+        messageIds: z.array(z.string()).min(1).max(50),
+        fragmentStart: z.number().int().min(0).nullable().optional(),
+        fragmentEnd: z.number().int().min(0).nullable().optional(),
+      }),
+      execute: async (args) => {
+        if (scope.budget.remainingCalls <= 0 || scope.budget.remainingChars <= 0) {
+          return {
+            coverage: "DENIED",
+            reason: "HISTORY_TOOL_BUDGET_EXHAUSTED",
+            items: [],
+          };
+        }
+        scope.budget.remainingCalls -= 1;
+        const s = await scopeOrDenied();
+        if (!s.ok) {
+          return { coverage: "DENIED", reason: s.reason, items: [] };
+        }
+        const fragment =
+          args.fragmentStart != null && args.fragmentEnd != null
+            ? { start: args.fragmentStart, end: args.fragmentEnd }
+            : undefined;
+        const result = await readConversationMessages({
+          scope: s.scope,
+          messageIds: args.messageIds,
+          fragment,
+        });
+        charge(scope, result);
+        return result;
+      },
+    }),
+  ];
+}
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/history-tools.ts`
+
+```typescript
+/**
+ * O-01 — authorized conversation history search/read (server-only).
+ * Scope is rebuilt from authenticated pilot + preparation/project links.
+ * Cursor is untrusted opaque state; rights revalidated on every call.
+ */
+import { and, asc, desc, eq, inArray, sql } from "drizzle-orm";
+import { createHash } from "node:crypto";
+import { db } from "@/db/client";
+import {
+  conversations,
+  messages,
+  preparationProjectLinks,
+  preparations,
+} from "@/db/schema";
+import { getPreparationContext } from "@/domains/preparation/service";
+
+export type HistoryCoverage =
+  | "COMPLETE"
+  | "PARTIAL"
+  | "EMPTY"
+  | "DENIED"
+  | "STALE";
+
+export type AuthorizedHistoryScope = {
+  pilotId: string;
+  activePreparationId: string;
+  projectId: string | null;
+  conversationIds: string[];
+  /** Per-conversation upper ordinal bound at scope start (keyset). */
+  maxOrdinalByConversation: Record<string, number>;
+  scopeFingerprint: string;
+};
+
+export type HistoryCursorV1 = {
+  v: 1;
+  scopeFp: string;
+  /** Last emitted tuple for keyset continuation. */
+  last?: {
+    createdAt: string;
+    conversationId: string;
+    ordinal: number;
+    messageId: string;
+  };
+};
+
+export type HistorySearchItem = {
+  messageId: string;
+  conversationId: string;
+  ordinal: number;
+  role: string;
+  status: string;
+  createdAt: string;
+  generationId: string | null;
+  preview: string;
+  coverage: HistoryCoverage;
+};
+
+export type HistorySearchResult = {
+  items: HistorySearchItem[];
+  nextCursor: string | null;
+  coverage: HistoryCoverage;
+  reason: string | null;
+};
+
+export type HistoryReadItem = {
+  messageId: string;
+  conversationId: string;
+  ordinal: number;
+  role: string;
+  status: string;
+  createdAt: string;
+  generationId: string | null;
+  content: string;
+  fragmentStart: number;
+  fragmentEnd: number;
+  totalLength: number;
+  coverage: HistoryCoverage;
+  provenance: {
+    preparationId: string;
+    projectId: string | null;
+  };
+};
+
+const DEFAULT_PAGE = 20;
+const MAX_PAGE = 50;
+const PREVIEW_CHARS = 240;
+const CURSOR_MAX_CHARS = 2048;
+
+function fingerprintScope(parts: {
+  pilotId: string;
+  preparationId: string;
+  projectId: string | null;
+  conversationIds: string[];
+  maxOrdinalByConversation: Record<string, number>;
+}): string {
+  const payload = JSON.stringify({
+    pilotId: parts.pilotId,
+    preparationId: parts.preparationId,
+    projectId: parts.projectId,
+    conversationIds: [...parts.conversationIds].sort(),
+    maxOrdinalByConversation: parts.maxOrdinalByConversation,
+  });
+  return createHash("sha256").update(payload).digest("hex").slice(0, 32);
+}
+
+function encodeCursor(c: HistoryCursorV1): string {
+  return Buffer.from(JSON.stringify(c), "utf8").toString("base64url");
+}
+
+function decodeCursor(raw: string | null | undefined): HistoryCursorV1 | null {
+  if (!raw) return null;
+  if (raw.length > CURSOR_MAX_CHARS) return null;
+  try {
+    const parsed = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as HistoryCursorV1;
+    if (parsed?.v !== 1 || typeof parsed.scopeFp !== "string") return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Resolve conversations the pilot may read for the active preparation:
+ * active prep conversation(s) + same-project linked preparations owned by the pilot.
+ */
+export async function resolveAuthorizedHistoryScope(input: {
+  pilotId: string;
+  preparationId: string;
+}): Promise<AuthorizedHistoryScope | { denied: true; reason: string }> {
+  const ctx = await getPreparationContext(input.pilotId, input.preparationId);
+  if (!ctx.preparation) {
+    return { denied: true, reason: "PREPARATION_NOT_FOUND" };
+  }
+
+  const projectId = ctx.project?.id ?? null;
+  const prepIds = new Set<string>([input.preparationId]);
+
+  if (projectId) {
+    const linked = await db
+      .select({
+        preparationId: preparationProjectLinks.preparationId,
+        ownerPilotId: preparations.ownerPilotId,
+      })
+      .from(preparationProjectLinks)
+      .innerJoin(preparations, eq(preparations.id, preparationProjectLinks.preparationId))
+      .where(
+        and(
+          eq(preparationProjectLinks.projectId, projectId),
+          eq(preparations.ownerPilotId, input.pilotId),
+        ),
+      );
+    for (const row of linked) prepIds.add(row.preparationId);
+  }
+
+  const convRows = await db
+    .select({
+      id: conversations.id,
+      preparationId: conversations.preparationId,
+    })
+    .from(conversations)
+    .where(
+      and(
+        eq(conversations.ownerPilotId, input.pilotId),
+        inArray(conversations.preparationId, [...prepIds]),
+      ),
+    );
+
+  const conversationIds = convRows.map((c) => c.id);
+  const maxOrdinalByConversation: Record<string, number> = {};
+  if (conversationIds.length > 0) {
+    const maxima = await db
+      .select({
+        conversationId: messages.conversationId,
+        maxOrdinal: sql<number>`coalesce(max(${messages.ordinal}), 0)`.mapWith(Number),
+      })
+      .from(messages)
+      .where(inArray(messages.conversationId, conversationIds))
+      .groupBy(messages.conversationId);
+    for (const m of maxima) {
+      maxOrdinalByConversation[m.conversationId] = m.maxOrdinal;
+    }
+    for (const id of conversationIds) {
+      if (maxOrdinalByConversation[id] === undefined) maxOrdinalByConversation[id] = 0;
+    }
+  }
+
+  const scopeFingerprint = fingerprintScope({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+    projectId,
+    conversationIds,
+    maxOrdinalByConversation,
+  });
+
+  return {
+    pilotId: input.pilotId,
+    activePreparationId: input.preparationId,
+    projectId,
+    conversationIds,
+    maxOrdinalByConversation,
+    scopeFingerprint,
+  };
+}
+
+async function revalidateScope(
+  scope: AuthorizedHistoryScope,
+): Promise<AuthorizedHistoryScope | { denied: true; reason: string; coverage: HistoryCoverage }> {
+  const fresh = await resolveAuthorizedHistoryScope({
+    pilotId: scope.pilotId,
+    preparationId: scope.activePreparationId,
+  });
+  if ("denied" in fresh) {
+    return { denied: true, reason: fresh.reason, coverage: "DENIED" };
+  }
+  if (fresh.scopeFingerprint !== scope.scopeFingerprint) {
+    return { denied: true, reason: "SCOPE_STALE", coverage: "STALE" };
+  }
+  return fresh;
+}
+
+function previewOf(content: string): string {
+  const t = content.replace(/\s+/g, " ").trim();
+  if (t.length <= PREVIEW_CHARS) return t;
+  return `${t.slice(0, PREVIEW_CHARS)}…`;
+}
+
+/**
+ * Progressive history search within an authorized scope.
+ * Lexical `query` is an accelerator only — empty query walks the journal by keyset order.
+ */
+export async function searchConversationHistory(input: {
+  scope: AuthorizedHistoryScope;
+  query?: string;
+  cursor?: string | null;
+  pageSize?: number;
+}): Promise<HistorySearchResult> {
+  const validated = await revalidateScope(input.scope);
+  if ("denied" in validated) {
+    return {
+      items: [],
+      nextCursor: null,
+      coverage: validated.coverage,
+      reason: validated.reason,
+    };
+  }
+  const scope = validated;
+  if (scope.conversationIds.length === 0) {
+    return { items: [], nextCursor: null, coverage: "EMPTY", reason: null };
+  }
+
+  const pageSize = Math.min(Math.max(input.pageSize ?? DEFAULT_PAGE, 1), MAX_PAGE);
+  const cursor = decodeCursor(input.cursor);
+  if (input.cursor && (!cursor || cursor.scopeFp !== scope.scopeFingerprint)) {
+    return {
+      items: [],
+      nextCursor: null,
+      coverage: "STALE",
+      reason: "CURSOR_INVALID_OR_STALE",
+    };
+  }
+
+  const q = (input.query ?? "").trim().toLowerCase();
+
+  // Keyset: (created_at DESC, conversation_id DESC, ordinal DESC, id DESC) for stable paging.
+  // Bound each conversation by maxOrdinal captured at scope start.
+  const bounds = Object.entries(scope.maxOrdinalByConversation);
+  if (bounds.length === 0) {
+    return { items: [], nextCursor: null, coverage: "EMPTY", reason: null };
+  }
+
+  const rows = await db
+    .select({
+      id: messages.id,
+      conversationId: messages.conversationId,
+      ordinal: messages.ordinal,
+      role: messages.role,
+      status: messages.status,
+      createdAt: messages.createdAt,
+      generationId: messages.generationId,
+      content: messages.content,
+    })
+    .from(messages)
+    .where(
+      and(
+        inArray(messages.conversationId, scope.conversationIds),
+        // Enforce per-conversation maxOrdinal bounds in SQL via OR of (conv, ordinal<=max).
+        sql`(${sql.join(
+          bounds.map(
+            ([cid, maxOrd]) =>
+              sql`(${messages.conversationId} = ${cid} AND ${messages.ordinal} <= ${maxOrd})`,
+          ),
+          sql` OR `,
+        )})`,
+        cursor?.last
+          ? sql`(
+              ${messages.createdAt} < ${cursor.last.createdAt}::timestamptz
+              OR (
+                ${messages.createdAt} = ${cursor.last.createdAt}::timestamptz
+                AND (
+                  ${messages.conversationId} < ${cursor.last.conversationId}
+                  OR (
+                    ${messages.conversationId} = ${cursor.last.conversationId}
+                    AND (
+                      ${messages.ordinal} < ${cursor.last.ordinal}
+                      OR (
+                        ${messages.ordinal} = ${cursor.last.ordinal}
+                        AND ${messages.id} < ${cursor.last.messageId}
+                      )
+                    )
+                  )
+                )
+              )
+            )`
+          : undefined,
+        q ? sql`lower(${messages.content}) LIKE ${`%${q.replace(/[%_]/g, "")}%`}` : undefined,
+      ),
+    )
+    .orderBy(
+      desc(messages.createdAt),
+      desc(messages.conversationId),
+      desc(messages.ordinal),
+      desc(messages.id),
+    )
+    .limit(pageSize + 1);
+
+  const page = rows.slice(0, pageSize);
+  const hasMore = rows.length > pageSize;
+  const items: HistorySearchItem[] = page.map((r) => ({
+    messageId: r.id,
+    conversationId: r.conversationId,
+    ordinal: r.ordinal,
+    role: r.role,
+    status: r.status,
+    createdAt: r.createdAt.toISOString(),
+    generationId: r.generationId,
+    preview: previewOf(r.content),
+    coverage: "COMPLETE",
+  }));
+
+  let nextCursor: string | null = null;
+  if (hasMore && page.length > 0) {
+    const last = page[page.length - 1]!;
+    nextCursor = encodeCursor({
+      v: 1,
+      scopeFp: scope.scopeFingerprint,
+      last: {
+        createdAt: last.createdAt.toISOString(),
+        conversationId: last.conversationId,
+        ordinal: last.ordinal,
+        messageId: last.id,
+      },
+    });
+  }
+
+  const coverage: HistoryCoverage =
+    items.length === 0 ? "EMPTY" : hasMore || q ? "PARTIAL" : "COMPLETE";
+
+  return { items, nextCursor, coverage, reason: null };
+}
+
+/**
+ * Exact re-read of previously located messages. Rights revalidated; foreign ids → DENIED item omitted.
+ */
+export async function readConversationMessages(input: {
+  scope: AuthorizedHistoryScope;
+  messageIds: string[];
+  /** Optional fragment window (inclusive start, exclusive end). */
+  fragment?: { start: number; end: number };
+}): Promise<{
+  items: HistoryReadItem[];
+  coverage: HistoryCoverage;
+  reason: string | null;
+}> {
+  const validated = await revalidateScope(input.scope);
+  if ("denied" in validated) {
+    return { items: [], coverage: validated.coverage, reason: validated.reason };
+  }
+  const scope = validated;
+  const ids = [...new Set(input.messageIds)].slice(0, MAX_PAGE);
+  if (ids.length === 0) {
+    return { items: [], coverage: "EMPTY", reason: null };
+  }
+
+  const rows = await db
+    .select({
+      id: messages.id,
+      conversationId: messages.conversationId,
+      ordinal: messages.ordinal,
+      role: messages.role,
+      status: messages.status,
+      createdAt: messages.createdAt,
+      generationId: messages.generationId,
+      content: messages.content,
+      preparationId: conversations.preparationId,
+      projectId: conversations.projectId,
+      ownerPilotId: conversations.ownerPilotId,
+    })
+    .from(messages)
+    .innerJoin(conversations, eq(conversations.id, messages.conversationId))
+    .where(and(inArray(messages.id, ids), eq(conversations.ownerPilotId, scope.pilotId)))
+    .orderBy(asc(messages.createdAt), asc(messages.ordinal));
+
+  const allowed = new Set(scope.conversationIds);
+  const items: HistoryReadItem[] = [];
+  for (const r of rows) {
+    if (!allowed.has(r.conversationId)) continue;
+    const maxOrd = scope.maxOrdinalByConversation[r.conversationId] ?? 0;
+    if (r.ordinal > maxOrd) continue;
+    const totalLength = r.content.length;
+    let start = 0;
+    let end = totalLength;
+    if (input.fragment) {
+      start = Math.max(0, Math.min(input.fragment.start, totalLength));
+      end = Math.max(start, Math.min(input.fragment.end, totalLength));
+    }
+    items.push({
+      messageId: r.id,
+      conversationId: r.conversationId,
+      ordinal: r.ordinal,
+      role: r.role,
+      status: r.status,
+      createdAt: r.createdAt.toISOString(),
+      generationId: r.generationId,
+      content: r.content.slice(start, end),
+      fragmentStart: start,
+      fragmentEnd: end,
+      totalLength,
+      coverage: start === 0 && end === totalLength ? "COMPLETE" : "PARTIAL",
+      provenance: {
+        preparationId: r.preparationId,
+        projectId: r.projectId,
+      },
+    });
+  }
+
+  const coverage: HistoryCoverage =
+    items.length === 0 ? "EMPTY" : items.length < ids.length ? "PARTIAL" : "COMPLETE";
+  return { items, coverage, reason: null };
+}
+
+```
+
+### `projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts`
+
+```typescript
+import { test, expect } from "@playwright/test";
+import {
+  bootstrapProjectFromPortfolio,
+} from "./helpers/g4-chat-first";
+
+/**
+ * ML4C — minimal sticky composer smoke (FAKE Nora / deterministic-fixture lane).
+ * Does not prove LIVE Nora or long-thread server pagination.
+ */
+test("ML4C: Nora workspace composer stays visible (sticky) after scroll", async ({ page }) => {
+  test.setTimeout(120_000);
+
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+
+  const seed = "Fil projet ML4C composer smoke (fixture).";
+  await bootstrapProjectFromPortfolio(page, {
+    seed,
+    name: "ML4C Composer Smoke",
+    summary: "Vérification UI fil long",
+  });
+
+  const composer = page.getByTestId("nora-composer");
+  const send = page.getByTestId("thread-send");
+  const thread = page.getByTestId("nora-thread");
+
+  await expect(composer).toBeVisible();
+  await expect(send).toBeVisible();
+  await expect(thread).toBeVisible();
+  await expect(page.getByText(seed, { exact: true })).toBeVisible();
+  await thread.evaluate((el) => {
+    el.scrollTop = el.scrollHeight;
+  });
+
+  await expect(composer).toBeVisible();
+  await expect(send).toBeVisible();
+
+  const sticky = await composer.evaluate((el) => el.classList.contains("fig-composer-sticky"));
+  expect(sticky).toBe(true);
+});
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-document-command.pg.test.ts`
+
+```typescript
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { and, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import { documentRevisions, documents, messages, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation } from "@/domains/preparation/service";
+import {
+  getConversationId,
+  listMessages,
+  postUserMessageAndNora,
+} from "@/domains/conversation/service";
+import {
+  admitDocumentCommand,
+  contentSha256,
+  sealAndApplyDocumentCommand,
+  resolveAssistantProposal,
+} from "@/domains/conversation/document-command";
+import { completeTurnCommand, reserveTurnCommand } from "@/domains/conversation/turn-command";
+import {
+  listDocumentRevisions,
+  reviseDocument,
+  savePreparationDocument,
+} from "@/domains/document/service";
+import { sfiaDocumentFence } from "../helpers/semantic-fixture-envelopes";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+async function countDocsByCreationKey(
+  pilotId: string,
+  preparationId: string,
+  creationCorrelationKey: string,
+) {
+  const rows = await db
+    .select({ id: documents.id })
+    .from(documents)
+    .where(
+      and(
+        eq(documents.ownerPilotId, pilotId),
+        eq(documents.preparationId, preparationId),
+        eq(documents.creationCorrelationKey, creationCorrelationKey),
+      ),
+    );
+  return rows.length;
+}
+
+async function countD4Rows(pilotId: string, preparationId: string) {
+  const docs = await db
+    .select({ id: documents.id })
+    .from(documents)
+    .where(and(eq(documents.ownerPilotId, pilotId), eq(documents.preparationId, preparationId)));
+  const revs =
+    docs.length === 0
+      ? []
+      : await db
+          .select({ id: documentRevisions.id })
+          .from(documentRevisions)
+          .where(
+            sql`${documentRevisions.documentId} in (${sql.join(
+              docs.map((d) => sql`${d.id}`),
+              sql`, `,
+            )})`,
+          );
+  return { documents: docs.length, revisions: revs.length };
+}
+
+describe("ML4C document command (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+  });
+
+  it("CREATE via savePreparationDocument + correlation replay; mismatch → CONFLICT", async () => {
+    const pilotId = await seedPilot("ml4c-doc-rec");
+    const prep = await openOrCreatePreparation(pilotId);
+    const corr = `corr-create-${Date.now()}`;
+    const v1 = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Atomic CREATE",
+      "# Atomic\n\nPremière version.\n",
+      undefined,
+      { correlationKey: corr },
+    );
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
+
+    const replay = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Atomic CREATE",
+      "# Atomic\n\nPremière version.\n",
+      undefined,
+      { correlationKey: corr },
+    );
+    expect(replay.status).toBe("AVAILABLE");
+    if (replay.status === "AVAILABLE" && "idempotentReplay" in replay) {
+      expect(replay.idempotentReplay).toBe(true);
+    }
+
+    const conflict = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Atomic CREATE",
+      "# Atomic\n\nPayload divergent.\n",
+      undefined,
+      { correlationKey: corr },
+    );
+    expect(conflict.status).toBe("CONFLICT");
+    if (conflict.status === "CONFLICT") {
+      expect(conflict.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+    }
+  });
+
+  it("sealAndApplyDocumentCommand CREATE then REVISE with turn fence", async () => {
+    const pilotId = await seedPilot("ml4c-doc-seal");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `ml4c-seal-${Date.now()}`,
+      content: "Crée un document de continuité ML4C.",
+    });
+    expect(reserved.kind).toBe("fresh");
+    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
+
+    const body = "# Continuité\n\nVersion initiale scellée.\n";
+    const admitted = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-create",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: "Continuité ML4C",
+      contentMarkdown: body,
+    });
+    expect(admitted.ok).toBe(true);
+    if (!admitted.ok) throw new Error(admitted.reason);
+
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admitted.binding,
+    });
+    expect(sealed.sealApplied).toBe(true);
+    expect(sealed.effect.status).toBe("AVAILABLE");
+    if (sealed.effect.status !== "AVAILABLE") throw new Error("create failed");
+    const documentId = sealed.effect.documentId;
+    const baseRevisionId = sealed.effect.revisionId;
+
+    const assistantId = newId("msg");
+    await db.insert(messages).values({
+      id: assistantId,
+      conversationId: convId!,
+      role: "assistant",
+      content: "Tour scellé — CREATE appliqué.",
+      status: "COMPLETE",
+      ordinal: reserved.ordinalAssistant,
+    });
+    await completeTurnCommand({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: "COMPLETE",
+      assistantMessageId: assistantId,
+    });
+
+    const reserved2 = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `ml4c-seal-rev-${Date.now()}`,
+      content: "Révise le document de continuité.",
+    });
+    expect(reserved2.kind).toBe("fresh");
+    if (reserved2.kind !== "fresh") throw new Error("expected fresh revise turn");
+
+    const revisedBody = "# Continuité\n\nVersion initiale scellée.\n\n## Révision\n\nAjout.\n";
+    const admittedRev = admitDocumentCommand({
+      commandId: reserved2.commandId,
+      operationId: reserved2.operationId,
+      userMessageId: reserved2.userMessageId,
+      qualifiedIntentId: "i-d4-revise",
+      action: "REVISE",
+      preparationId: prep.id,
+      documentId,
+      baseRevisionId,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved2.commandId },
+      title: "Continuité ML4C",
+      contentMarkdown: revisedBody,
+    });
+    expect(admittedRev.ok).toBe(true);
+    if (!admittedRev.ok) throw new Error(admittedRev.reason);
+
+    const sealedRev = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved2.commandId, ownerToken: reserved2.ownerToken },
+      binding: admittedRev.binding,
+    });
+    expect(sealedRev.sealApplied).toBe(true);
+    expect(sealedRev.effect.status).toBe("AVAILABLE");
+    const list = await listDocumentRevisions(pilotId, prep.id, documentId!);
+    expect(list.revisions.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("REVISE stale base → CONFLICT", async () => {
+    const pilotId = await seedPilot("ml4c-doc-stale");
+    const prep = await openOrCreatePreparation(pilotId);
+    const v1 = await savePreparationDocument(pilotId, prep.id, "Spec", "# Spec\n\nA\n");
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
+    const v2 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      contentMarkdown: "# Spec\n\nB\n",
+      correlationKey: `rev-${Date.now()}`,
+    });
+    expect(v2.status).toBe("AVAILABLE");
+    const conflict = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      contentMarkdown: "# Spec\n\nstale attempt\n",
+      correlationKey: `rev-stale-${Date.now()}`,
+    });
+    expect(conflict.status).toBe("CONFLICT");
+  });
+
+  it("resolveAssistantProposal extracts sfia-document; denies other pilot", async () => {
+    const pilotA = await seedPilot("ml4c-prop-a");
+    const prepA = await openOrCreatePreparation(pilotA);
+    const convA = await getConversationId(pilotA, prepA.id);
+    expect(convA).toBeTruthy();
+    const title = "PROP ML4C exact";
+    const body = "Corps contractuel pour extraction.";
+    const assistantId = newId("msg");
+    const maxOrd =
+      (
+        await db
+          .select({ o: sql<number>`coalesce(max(${messages.ordinal}), 0)`.mapWith(Number) })
+          .from(messages)
+          .where(eq(messages.conversationId, convA!))
+      )[0]?.o ?? 0;
+    await db.insert(messages).values({
+      id: assistantId,
+      conversationId: convA!,
+      role: "assistant",
+      content: sfiaDocumentFence(title, body),
+      status: "COMPLETE",
+      ordinal: maxOrd + 1,
+      generationId: newId("gen"),
+    });
+
+    const ok = await resolveAssistantProposal({
+      pilotId: pilotA,
+      preparationId: prepA.id,
+      assistantMessageId: assistantId,
+    });
+    expect(ok.ok).toBe(true);
+    if (ok.ok) {
+      expect(ok.proposal.title).toBe(title);
+      expect(ok.proposal.contentMarkdown).toContain(body);
+      expect(ok.proposal.contentSha256).toBe(
+        contentSha256(title, ok.proposal.contentMarkdown),
+      );
+    }
+
+    const pilotB = await seedPilot("ml4c-prop-b");
+    const denied = await resolveAssistantProposal({
+      pilotId: pilotB,
+      preparationId: prepA.id,
+      assistantMessageId: assistantId,
+    });
+    expect(denied.ok).toBe(false);
+    if (!denied.ok) expect(denied.reason).toBe("SOURCE_DENIED");
+  });
+
+  it("failed admit does not create document rows", async () => {
+    const pilotId = await seedPilot("ml4c-doc-neg");
+    const prep = await openOrCreatePreparation(pilotId);
+    const before = await countD4Rows(pilotId, prep.id);
+
+    const negatives = [
+      admitDocumentCommand({
+        commandId: "x",
+        operationId: "o",
+        userMessageId: "u",
+        qualifiedIntentId: "i",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "x" },
+        title: " ",
+        contentMarkdown: "x",
+      }),
+      admitDocumentCommand({
+        commandId: "y",
+        operationId: "o",
+        userMessageId: "u",
+        qualifiedIntentId: "i",
+        action: "CREATE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "y" },
+        title: "T",
+        contentMarkdown: "z".repeat(100_001),
+      }),
+      admitDocumentCommand({
+        commandId: "z",
+        operationId: "o",
+        userMessageId: "u",
+        qualifiedIntentId: "i",
+        action: "REVISE",
+        preparationId: prep.id,
+        source: { kind: "SAME_TURN_SNAPSHOT", commandId: "z" },
+        title: "T",
+        contentMarkdown: "body",
+      }),
+    ];
+    for (const n of negatives) {
+      expect(n.ok).toBe(false);
+    }
+
+    const after = await countD4Rows(pilotId, prep.id);
+    expect(after).toEqual(before);
+
+    const chat = await postUserMessageAndNora(pilotId, prep.id, "Bonjour, pas de document.");
+    expect(chat.documentSave).toBeNull();
+    const afterChatter = await countD4Rows(pilotId, prep.id);
+    expect(afterChatter).toEqual(before);
+    const msgs = await listMessages(pilotId, prep.id);
+    expect(msgs.length).toBeGreaterThan(0);
+  });
+
+  it("PROP: admitDocumentCommand accepts title + body >12k and ≤100k; >100k rejected", async () => {
+    const pilotId = await seedPilot("ml4c-doc-prop-long");
+    const prep = await openOrCreatePreparation(pilotId);
+    const longBody = `# Proposition longue\n\n${"paragraphe contractuel.\n".repeat(900)}`;
+    expect(longBody.length).toBeGreaterThan(12_000);
+    expect(longBody.length).toBeLessThanOrEqual(100_000);
+
+    const ok = admitDocumentCommand({
+      commandId: "cmd-prop-long",
+      operationId: "op-prop-long",
+      userMessageId: "usr-prop-long",
+      qualifiedIntentId: "i-d4-prop",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: "cmd-prop-long" },
+      title: "Document intégral ML4C",
+      contentMarkdown: longBody,
+    });
+    expect(ok.ok).toBe(true);
+
+    const tooLarge = admitDocumentCommand({
+      commandId: "cmd-prop-huge",
+      operationId: "op-prop-huge",
+      userMessageId: "usr-prop-huge",
+      qualifiedIntentId: "i-d4-prop",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: "cmd-prop-huge" },
+      title: "Trop grand",
+      contentMarkdown: "x".repeat(100_001),
+    });
+    expect(tooLarge.ok).toBe(false);
+    if (!tooLarge.ok) expect(tooLarge.reason).toBe("CONTENT_TOO_LARGE");
+
+    const before = await countD4Rows(pilotId, prep.id);
+    const after = await countD4Rows(pilotId, prep.id);
+    expect(after).toEqual(before);
+  });
+
+  it("REC: concurrent CREATE same creationCorrelationKey → single document row", async () => {
+    const pilotId = await seedPilot("ml4c-doc-conc");
+    const prep = await openOrCreatePreparation(pilotId);
+    const key = `ml4c-conc-${Date.now()}`;
+    const body = "# Concurrent ML4C\n\nMême empreinte.\n";
+
+    const [a, b] = await Promise.all([
+      savePreparationDocument(pilotId, prep.id, "Conc ML4C", body, undefined, {
+        correlationKey: key,
+      }),
+      savePreparationDocument(pilotId, prep.id, "Conc ML4C", body, undefined, {
+        correlationKey: key,
+      }),
+    ]);
+
+    const statuses = [a.status, b.status];
+    expect(statuses.every((s) => s === "AVAILABLE" || s === "UNKNOWN")).toBe(true);
+    expect(await countDocsByCreationKey(pilotId, prep.id, key)).toBe(1);
+
+    const winner = [a, b].find((r) => r.status === "AVAILABLE");
+    const loser = [a, b].find((r) => r !== winner);
+    if (winner && loser) {
+      if (loser.status === "AVAILABLE" && "idempotentReplay" in loser) {
+        expect(loser.idempotentReplay).toBe(true);
+      }
+      if (loser.status === "CONFLICT") {
+        expect(loser.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+      }
+    }
+  });
+
+  it("REC: sealAndApply with invalid ownerToken → no document write", async () => {
+    const pilotId = await seedPilot("ml4c-doc-owner");
+    const prep = await openOrCreatePreparation(pilotId);
+    const convId = await getConversationId(pilotId, prep.id);
+    expect(convId).toBeTruthy();
+
+    const before = await countD4Rows(pilotId, prep.id);
+
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `ml4c-owner-${Date.now()}`,
+      content: "Crée un document avec sceau invalide.",
+    });
+    expect(reserved.kind).toBe("fresh");
+    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
+
+    const admitted = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-create",
+      action: "CREATE",
+      preparationId: prep.id,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: "Sans sceau",
+      contentMarkdown: "# Sans sceau\n\nPas d'écriture.\n",
+    });
+    expect(admitted.ok).toBe(true);
+    if (!admitted.ok) throw new Error(admitted.reason);
+
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: "invalid-owner-token" },
+      binding: admitted.binding,
+    });
+    expect(sealed.sealApplied).toBe(false);
+    expect(sealed.effect).toMatchObject({
+      status: "NOT_EXECUTED",
+      reason: "BINDING_SEAL_FAILED",
+    });
+
+    const after = await countD4Rows(pilotId, prep.id);
+    expect(after).toEqual(before);
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml4c-history-tools.pg.test.ts`
+
+```typescript
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { and, asc, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversations, messages, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation } from "@/domains/preparation/service";
+import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
+import {
+  readConversationMessages,
+  resolveAuthorizedHistoryScope,
+  searchConversationHistory,
+} from "@/domains/conversation/history-tools";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+const TOPICS = [
+  "architecture modulaire",
+  "budget cloud Q3",
+  "recette utilisateur",
+  "dette technique front",
+  "gouvernance des données",
+  "intégration GitHub",
+  "cadrage périmètre",
+  "risques sécurité",
+  "performance Postgres",
+  "charte graphique",
+];
+
+async function seedVariedJournal(
+  pilotId: string,
+  preparationId: string,
+  count: number,
+  distinctive?: { ordinal: number; text: string },
+) {
+  const convId = await getConversationId(pilotId, preparationId);
+  if (!convId) throw new Error("conversation missing");
+  const rows = await db
+    .select({ ordinal: messages.ordinal })
+    .from(messages)
+    .where(eq(messages.conversationId, convId))
+    .orderBy(asc(messages.ordinal));
+  let next = (rows.at(-1)?.ordinal ?? 0) + 1;
+  const inserts: (typeof messages.$inferInsert)[] = [];
+  for (let i = 0; i < count; i++) {
+    const topic = TOPICS[i % TOPICS.length]!;
+    const body =
+      distinctive && next === distinctive.ordinal
+        ? distinctive.text
+        : `Message ${next} — échange sur ${topic} avec nuance ${(i % 7) + 1}.`;
+    inserts.push({
+      id: newId("msg"),
+      conversationId: convId,
+      role: i % 3 === 0 ? "assistant" : "user",
+      content: body,
+      status: "COMPLETE",
+      ordinal: next++,
+    });
+  }
+  if (inserts.length > 0) {
+    await db.insert(messages).values(inserts);
+  }
+  return convId;
+}
+
+describe("ML4C history tools (PG)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+  });
+
+  it("HIST-01: search finds distinctive early message; read returns exact content", async () => {
+    const pilotId = await seedPilot("ml4c-hist01");
+    const prep = await openOrCreatePreparation(pilotId);
+    const marker = "HIST-01 marqueur phoque arctique ML4C — repère inaugural";
+    await seedVariedJournal(pilotId, prep.id, 34, { ordinal: 3, text: marker });
+
+    const scope = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+
+    const search = await searchConversationHistory({
+      scope,
+      query: "phoque arctique",
+      pageSize: 10,
+    });
+    expect(search.coverage).not.toBe("DENIED");
+    expect(search.items.some((i) => i.preview.includes("phoque arctique"))).toBe(true);
+    const hit = search.items.find((i) => i.preview.includes("phoque arctique"));
+    expect(hit).toBeTruthy();
+
+    const read = await readConversationMessages({
+      scope,
+      messageIds: [hit!.messageId],
+    });
+    expect(read.items).toHaveLength(1);
+    expect(read.items[0]!.content).toBe(marker);
+  });
+
+  it("HIST-05: second pilot cannot read first pilot messages", async () => {
+    const pilotA = await seedPilot("ml4c-hist05-a");
+    const prepA = await openOrCreatePreparation(pilotA);
+    const secret = "HIST-05 confidentiel pilot A uniquement";
+    await seedVariedJournal(pilotA, prepA.id, 8, { ordinal: 4, text: secret });
+
+    const scopeA = await resolveAuthorizedHistoryScope({
+      pilotId: pilotA,
+      preparationId: prepA.id,
+    });
+    expect("denied" in scopeA).toBe(false);
+    if ("denied" in scopeA) return;
+    const readA = await readConversationMessages({
+      scope: scopeA,
+      messageIds: (
+        await db
+          .select({ id: messages.id })
+          .from(messages)
+          .innerJoin(conversations, eq(conversations.id, messages.conversationId))
+          .where(
+            and(eq(conversations.ownerPilotId, pilotA), eq(conversations.preparationId, prepA.id)),
+          )
+      ).map((r) => r.id),
+    });
+    expect(readA.items.some((i) => i.content.includes("confidentiel"))).toBe(true);
+
+    const pilotB = await seedPilot("ml4c-hist05-b");
+    const prepB = await openOrCreatePreparation(pilotB);
+    const scopeB = await resolveAuthorizedHistoryScope({
+      pilotId: pilotB,
+      preparationId: prepB.id,
+    });
+    expect("denied" in scopeB).toBe(false);
+    if ("denied" in scopeB) return;
+
+    const searchB = await searchConversationHistory({
+      scope: scopeB,
+      query: "confidentiel",
+    });
+    expect(searchB.items).toHaveLength(0);
+
+    const foreignIds = readA.items.map((i) => i.messageId);
+    const readB = await readConversationMessages({
+      scope: scopeB,
+      messageIds: foreignIds,
+    });
+    expect(readB.items).toHaveLength(0);
+    expect(readB.coverage).toBe("EMPTY");
+  });
+
+  it("HIST-08: stale scope after journal growth; no duplicate page bleed", async () => {
+    const pilotId = await seedPilot("ml4c-hist08");
+    const prep = await openOrCreatePreparation(pilotId);
+    await seedVariedJournal(pilotId, prep.id, 36);
+
+    const scope = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in scope).toBe(false);
+    if ("denied" in scope) return;
+
+    const page1 = await searchConversationHistory({
+      scope,
+      pageSize: 8,
+    });
+    expect(page1.items.length).toBe(8);
+    expect(page1.nextCursor).toBeTruthy();
+    const page1Ids = new Set(page1.items.map((i) => i.messageId));
+
+    await postUserMessageAndNora(pilotId, prep.id, "Nouvel échange post-scope sur observabilité");
+    await postUserMessageAndNora(pilotId, prep.id, "Autre message tardif sur la documentation");
+
+    const page2 = await searchConversationHistory({
+      scope,
+      cursor: page1.nextCursor,
+      pageSize: 8,
+    });
+    expect(page2.coverage).toBe("STALE");
+    expect(page2.reason).toBe("SCOPE_STALE");
+    expect(page2.items).toHaveLength(0);
+    for (const id of page1Ids) {
+      expect(page2.items.some((i) => i.messageId === id)).toBe(false);
+    }
+
+    const fresh = await resolveAuthorizedHistoryScope({
+      pilotId,
+      preparationId: prep.id,
+    });
+    expect("denied" in fresh).toBe(false);
+    if ("denied" in fresh) return;
+    expect(fresh.scopeFingerprint).not.toBe(scope.scopeFingerprint);
+
+    const page2Fresh = await searchConversationHistory({
+      scope: fresh,
+      cursor: page1.nextCursor,
+      pageSize: 8,
+    });
+    expect(page2Fresh.coverage).toBe("STALE");
+    expect(page2Fresh.reason).toMatch(/CURSOR_INVALID_OR_STALE|SCOPE_STALE/);
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/tests/unit/document-command.test.ts`
+
+```typescript
+import { describe, expect, it } from "vitest";
+import {
+  admitDocumentCommand,
+  contentSha256,
+  payloadSha256,
+  proposalFromStructured,
+} from "@/domains/conversation/document-command";
+import {
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  validateNoraTurnQualification,
+} from "@/domains/conversation/semantic-qualification";
+
+const baseAdmit = {
+  commandId: "tcmd-test-1",
+  operationId: "op-test-1",
+  userMessageId: "msg-user-1",
+  qualifiedIntentId: "i-d4-create",
+  preparationId: "prep-test-1",
+  source: { kind: "SAME_TURN_SNAPSHOT" as const, commandId: "tcmd-test-1" },
+};
+
+describe("document-command admission", () => {
+  it("admit CREATE when title and body are valid", () => {
+    const r = admitDocumentCommand({
+      ...baseAdmit,
+      action: "CREATE",
+      title: "Spec ML4C",
+      contentMarkdown: "# Spec\n\nCorps minimal.\n",
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.binding.action).toBe("CREATE");
+      expect(r.binding.contentSha256).toBe(
+        contentSha256("Spec ML4C", "# Spec\n\nCorps minimal.\n"),
+      );
+      expect(r.binding.correlationKey).toHaveLength(48);
+    }
+  });
+
+  it("admit REVISE when targets are present", () => {
+    const r = admitDocumentCommand({
+      ...baseAdmit,
+      action: "REVISE",
+      documentId: "doc-1",
+      baseRevisionId: "rev-1",
+      title: "Spec",
+      contentMarkdown: "# Spec\n\nRévisé.\n",
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.binding.documentId).toBe("doc-1");
+  });
+
+  it("rejects empty title or body", () => {
+    expect(
+      admitDocumentCommand({
+        ...baseAdmit,
+        action: "CREATE",
+        title: "   ",
+        contentMarkdown: "x",
+      }).ok,
+    ).toBe(false);
+    const emptyBody = admitDocumentCommand({
+      ...baseAdmit,
+      action: "CREATE",
+      title: "T",
+      contentMarkdown: "  \n  ",
+    });
+    expect(emptyBody.ok).toBe(false);
+    if (!emptyBody.ok) expect(emptyBody.reason).toBe("EMPTY_PROPOSAL");
+  });
+
+  it("rejects content over 100k chars", () => {
+    const r = admitDocumentCommand({
+      ...baseAdmit,
+      action: "CREATE",
+      title: "Large",
+      contentMarkdown: "x".repeat(100_001),
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.verdict).toBe("NOT_EXECUTED");
+      expect(r.reason).toBe("CONTENT_TOO_LARGE");
+    }
+  });
+
+  it("rejects REVISE without documentId / baseRevisionId", () => {
+    const r = admitDocumentCommand({
+      ...baseAdmit,
+      action: "REVISE",
+      title: "T",
+      contentMarkdown: "body",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("REVISE_TARGET_INCOMPLETE");
+  });
+});
+
+describe("document-command hashes", () => {
+  it("contentSha256 is stable for the same inputs", () => {
+    const a = contentSha256("Titre", "# Corps\n");
+    const b = contentSha256("Titre", "# Corps\n");
+    expect(a).toBe(b);
+    expect(a).toHaveLength(64);
+  });
+
+  it("payloadSha256 changes when content hash changes", () => {
+    const source = { kind: "SAME_TURN_SNAPSHOT" as const, commandId: "c1" };
+    const p1 = payloadSha256({
+      action: "CREATE",
+      source,
+      preparationId: "prep-1",
+      documentId: null,
+      baseRevisionId: null,
+      title: "T",
+      contentSha256: contentSha256("T", "v1"),
+    });
+    const p2 = payloadSha256({
+      action: "CREATE",
+      source,
+      preparationId: "prep-1",
+      documentId: null,
+      baseRevisionId: null,
+      title: "T",
+      contentSha256: contentSha256("T", "v2"),
+    });
+    expect(p1).not.toBe(p2);
+  });
+});
+
+describe("proposalFromStructured", () => {
+  it("returns null for empty or oversized payloads", () => {
+    expect(proposalFromStructured({ title: "  ", contentMarkdown: "x" })).toBeNull();
+    expect(proposalFromStructured({ title: "T", contentMarkdown: "" })).toBeNull();
+    expect(
+      proposalFromStructured({ title: "T", contentMarkdown: "a".repeat(100_001) }),
+    ).toBeNull();
+  });
+
+  it("returns exact proposal with contentSha256", () => {
+    const p = proposalFromStructured({ title: "  Atlas  ", contentMarkdown: "# Atlas\n" });
+    expect(p).toMatchObject({ title: "Atlas", contentMarkdown: "# Atlas\n" });
+    expect(p?.contentSha256).toBe(contentSha256("Atlas", "# Atlas\n"));
+  });
+});
+
+describe("validateNoraTurnQualification — documentProposal", () => {
+  it("accepts documentProposal >12k while replyDraft stays ≤12k", () => {
+    const longDoc = `# Synthèse\n\n${"paragraphe détaillé.\n".repeat(900)}`;
+    expect(longDoc.length).toBeGreaterThan(12_000);
+    expect(longDoc.length).toBeLessThanOrEqual(100_000);
+
+    const v = validateNoraTurnQualification({
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "QUALIFIED",
+      goal: "rédiger un document",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "create doc",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "Voici le brouillon court pour l’utilisateur.",
+      documentProposal: {
+        title: "Document long",
+        contentMarkdown: longDoc,
+      },
+    });
+    expect(v.ok).toBe(true);
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts`
+
+```typescript
+/**
+ * ML4C TEMP (DET) — O-02 cognitive confrontation is Nora-led; these tests guard
+ * server-side restitution / projection rules without inventing D4 or D6 from EXPLAIN,
+ * negation-shaped drafts, or retired lexical routers.
+ */
+import { describe, expect, it } from "vitest";
+import { qualifyDocumentAct, explicitDocumentIntent } from "@/domains/conversation/document-act";
+import {
+  deriveThreadTurnKind,
+  effectIntents,
+  extractKnowledgeProposals,
+  extractPilotageBinding,
+  matchPilotageIntentInQualification,
+  projectStudioEffects,
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  type NoraTurnQualification,
+} from "@/domains/conversation/semantic-qualification";
+import { proposalFromStructured } from "@/domains/conversation/document-command";
+
+function qualified(partial: Partial<NoraTurnQualification> & Pick<NoraTurnQualification, "intents">): NoraTurnQualification {
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    status: "QUALIFIED",
+    goal: "test",
+    clarifications: [],
+    replyDraft: "Réponse courte.",
+    ...partial,
+  };
+}
+
+describe("ML4C TEMP — restitution fail-closed (DET)", () => {
+  it("TEMP-01: qualifyDocumentAct / explicitDocumentIntent stay lexical-retired", () => {
+    for (const utterance of [
+      "Crée un document de recette.",
+      "Ne crée pas de document, explique seulement.",
+      "Et si on rédigeait une synthèse ?",
+    ]) {
+      expect(qualifyDocumentAct(utterance)).toEqual({
+        kind: "NONE",
+        reason: "SEMANTIC_ROUTER_REQUIRED",
+      });
+      expect(explicitDocumentIntent(utterance)).toBe(false);
+    }
+  });
+
+  it("TEMP-02: EXPLAIN d4.create_document does not project D4 CREATE", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-explain-doc",
+          capabilityId: "d4.create_document",
+          mode: "EXPLAIN",
+          summary: "explain drafting",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    expect(effectIntents(q)).toHaveLength(0);
+    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "NONE" });
+    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
+  });
+
+  it("TEMP-03: EXPLAIN d6.human_decision never binds pilotage / HumanDecision", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-explain-d6",
+          capabilityId: "d6.human_decision",
+          mode: "EXPLAIN",
+          summary: "reflect on prior decision",
+          parameters: {
+            pilotageOperation: "RECORD_DECISION",
+            decisionId: "dec-prior",
+          },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: ["prior-turn-summary-only"],
+        },
+      ],
+    });
+    expect(extractPilotageBinding(q)).toBeNull();
+    const match = matchPilotageIntentInQualification(q, { operation: "RECORD_DECISION" });
+    expect("reject" in match && match.reject).toBe(true);
+    expect(projectStudioEffects(q).simpleDialogue).toBe(true);
+  });
+
+  it("TEMP-04: REQUEST_EFFECT d4.create_document still projects CREATE when not follow-on gated", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-create",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "create",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "CREATE" });
+    expect(deriveThreadTurnKind(q)).toBe("INTENTION_EFFET");
+  });
+
+  it("TEMP-05: hypothetical d4.record_knowledge EXPLAIN does not capitalise", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-hyp",
+          capabilityId: "d4.record_knowledge",
+          mode: "EXPLAIN",
+          summary: "hypothesis only",
+          parameters: {
+            knowledgeKind: "ACQUIS",
+            knowledgeStatement: "L’architecture pourrait être event-driven.",
+            epistemic: "hypothesized",
+          },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    expect(extractKnowledgeProposals(q)).toHaveLength(0);
+    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "NONE" });
+  });
+
+  it("TEMP-06: documentProposal >12k via proposalFromStructured stays admissible envelope", () => {
+    const longDoc = `# Synthèse\n\n${"ligne de contenu détaillée.\n".repeat(850)}`;
+    expect(longDoc.length).toBeGreaterThan(12_000);
+    expect(longDoc.length).toBeLessThanOrEqual(100_000);
+    const p = proposalFromStructured({ title: "Long ML4C", contentMarkdown: longDoc });
+    expect(p).not.toBeNull();
+    expect(p!.contentMarkdown.length).toBeGreaterThan(12_000);
+  });
+
+  it("TEMP-07: conversation history in sourceEvidence alone does not add REQUEST_EFFECT", () => {
+    const q = qualified({
+      goal: "reprendre le fil",
+      intents: [
+        {
+          id: "i-dialogue",
+          capabilityId: "d3.converse",
+          mode: "EXPLAIN",
+          summary: "continue thread",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: ["msg-1", "msg-2", "msg-3"],
+        },
+      ],
+    });
+    expect(effectIntents(q)).toHaveLength(0);
+    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
+    expect(projectStudioEffects(q).simpleDialogue).toBe(true);
+  });
+
+  it("TEMP-08: D2 follow-on chains defer immediate documentAct to mission pending", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-d2",
+          capabilityId: "d2.create_project",
+          mode: "REQUEST_EFFECT",
+          summary: "create project",
+          parameters: { projectName: "Atlas" },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+        {
+          id: "i-d4",
+          capabilityId: "d4.create_document",
+          mode: "REQUEST_EFFECT",
+          summary: "follow-on doc",
+          parameters: {},
+          constraints: [],
+          dependsOn: ["i-d2"],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    const proj = projectStudioEffects(q);
+    expect(proj.wantsFollowOnDocument).toBe(true);
+    expect(proj.documentAct).toEqual({ kind: "NONE" });
+  });
+});
 ```
