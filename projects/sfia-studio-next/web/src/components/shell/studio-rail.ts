@@ -92,6 +92,71 @@ export function parseStudioSurface(raw: string | null | undefined): StudioSurfac
   return PROJECT_SURFACES.includes(v as StudioSurface) ? (v as StudioSurface) : null;
 }
 
+/**
+ * Transient project-surface navigation intent shared by StudioShell (rail Links)
+ * and ProjectPage (selectSurface / load normalisation).
+ *
+ * Scoped by projectId so an intent for project A cannot influence load() of B.
+ * Not a durable store: cleared when the URL catches up for that project.
+ */
+type ProjectSurfaceNavIntent = { projectId: string; surface: StudioSurface };
+
+let projectSurfaceNavIntent: ProjectSurfaceNavIntent | null = null;
+
+export function noteProjectSurfaceNavIntent(
+  projectId: string | null | undefined,
+  surface: StudioSurface | null,
+): void {
+  if (!projectId || !surface) {
+    return;
+  }
+  projectSurfaceNavIntent = { projectId, surface };
+}
+
+/** Peek intent only when it belongs to the given project. */
+export function peekProjectSurfaceNavIntent(
+  projectId: string | null | undefined,
+): StudioSurface | null {
+  if (!projectId || !projectSurfaceNavIntent) return null;
+  if (projectSurfaceNavIntent.projectId !== projectId) return null;
+  return projectSurfaceNavIntent.surface;
+}
+
+export function clearProjectSurfaceNavIntent(
+  projectId?: string | null,
+  matched?: StudioSurface | null,
+): void {
+  if (!projectSurfaceNavIntent) return;
+  if (projectId != null && projectSurfaceNavIntent.projectId !== projectId) return;
+  if (matched == null || projectSurfaceNavIntent.surface === matched) {
+    projectSurfaceNavIntent = null;
+  }
+}
+
+export type ProjectLoadSurfaceDecision = {
+  /** Surface to display after load settles. */
+  effectiveSurface: StudioSurface;
+  /** True when the live URL lacks a valid `surface` query and must be normalised. */
+  shouldNormalizeUrl: boolean;
+};
+
+/**
+ * Resolve surface after async project `load()` completes.
+ * Priority: valid live URL surface → recent nav intent → default `travail`.
+ * Normalise only when the URL has no valid surface; never invent a silent
+ * downgrade from an explicit user intent (e.g. pilotage) to travail.
+ */
+export function resolveProjectLoadSurface(input: {
+  rawSurface: string | null | undefined;
+  pendingIntent: StudioSurface | null;
+}): ProjectLoadSurfaceDecision {
+  const qSurface = parseStudioSurface(input.rawSurface ?? null);
+  const effectiveSurface = qSurface ?? input.pendingIntent ?? "travail";
+  const shouldNormalizeUrl =
+    !input.rawSurface || (Boolean(input.rawSurface) && !qSurface);
+  return { effectiveSurface, shouldNormalizeUrl };
+}
+
 export function parseProjectId(pathname: string): string | null {
   const m = pathname.match(/^\/projects\/([^/?#]+)/);
   return m?.[1] ?? null;

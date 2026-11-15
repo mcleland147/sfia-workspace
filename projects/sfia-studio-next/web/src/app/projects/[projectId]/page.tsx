@@ -20,6 +20,13 @@ import {
   type ThreadTurnKind,
 } from "@/domains/pilotage/thread-recovery";
 import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
+import {
+  clearProjectSurfaceNavIntent,
+  noteProjectSurfaceNavIntent,
+  peekProjectSurfaceNavIntent,
+  resolveProjectLoadSurface,
+  type StudioSurface,
+} from "@/components/shell/studio-rail";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -92,6 +99,8 @@ export default function ProjectPage() {
   const [preparationId, setPreparationId] = useState<string | null>(null);
   const [meta, setMeta] = useState("Chargement…");
   const [error, setError] = useState("");
+  /** Observable end of project load + surface URL sync (e2e / anti-race proof). */
+  const [projectLoadState, setProjectLoadState] = useState<"loading" | "ready">("loading");
   const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
@@ -146,6 +155,7 @@ export default function ProjectPage() {
 
   function selectSurface(next: Surface) {
     pendingSurfaceRef.current = next;
+    noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
     setSurface(next);
     setDocMissing("");
     if (next !== "document") {
@@ -389,8 +399,13 @@ export default function ProjectPage() {
   }
 
   useEffect(() => {
+    let cancelled = false;
+    setProjectLoadState("loading");
+    pendingSurfaceRef.current = null;
+
     async function load() {
       const res = await fetch(`/api/projects/${params.projectId}`);
+      if (cancelled) return;
       if (res.status === 401) {
         router.push("/login");
         return;
@@ -398,14 +413,17 @@ export default function ProjectPage() {
       if (res.status === 404) {
         setError("Projet introuvable ou non autorisé pour ce Pilote.");
         setMeta("");
+        setProjectLoadState("ready");
         return;
       }
       if (!res.ok) {
         setError("Impossible de charger le projet.");
         setMeta("");
+        setProjectLoadState("ready");
         return;
       }
       const j = await res.json();
+      if (cancelled) return;
       const docs = (j.documents ?? []) as Doc[];
       setMessages(j.messages ?? []);
       setDocuments(docs);
@@ -417,29 +435,33 @@ export default function ProjectPage() {
       setError("");
 
       // Read *current* URL — never stale searchParams from effect closure (race with rail nav).
-      // If the user already selected a surface while load() was in flight, prefer that intent
-      // when the URL has not yet caught up (router.push pending) — otherwise Pilotage/Journal
-      // flash back to travail and e2e/CI lose pilotage-panel.
+      // Rail Links and chrome selectSurface share one project-scoped intent so load() cannot
+      // replace a more recent user surface (e.g. pilotage) with default travail.
       const live =
         typeof window !== "undefined"
           ? new URL(window.location.href).searchParams
           : searchParams;
-      const qSurface = parseSurface(live.get("surface"));
-      const qDocId = live.get("documentId");
-      const pendingSurface = pendingSurfaceRef.current;
-      const effectiveSurface = qSurface ?? pendingSurface;
-      applyUrlDocumentState(docs, effectiveSurface, qDocId);
-      // Normalize only when surface missing/invalid; do not clobber a live navigation.
       const rawSurface = live.get("surface");
-      if (!rawSurface || (rawSurface && !qSurface)) {
-        const target = effectiveSurface ?? "travail";
+      const qSurface = parseSurface(rawSurface);
+      const qDocId = live.get("documentId");
+      const pendingSurface =
+        pendingSurfaceRef.current ?? peekProjectSurfaceNavIntent(params.projectId);
+      const decision = resolveProjectLoadSurface({
+        rawSurface,
+        pendingIntent: pendingSurface,
+      });
+      applyUrlDocumentState(docs, decision.effectiveSurface, qDocId);
+      if (decision.shouldNormalizeUrl) {
+        const target = decision.effectiveSurface;
         syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
       }
       if (qSurface && pendingSurface && qSurface === pendingSurface) {
         pendingSurfaceRef.current = null;
+        clearProjectSurfaceNavIntent(params.projectId, qSurface);
       }
 
       await refreshDurablePilotage();
+      if (cancelled) return;
       const pending = readPending();
       if (pending) {
         setUnresolvedPending(pending);
@@ -468,6 +490,7 @@ export default function ProjectPage() {
             const refreshed = await fetch(`/api/projects/${params.projectId}`);
             if (refreshed.ok) {
               const rj = await refreshed.json();
+              if (cancelled) return;
               setMessages(rj.messages ?? []);
               setDocuments(rj.documents ?? []);
               setKnowledge(rj.knowledge ?? null);
@@ -482,8 +505,14 @@ export default function ProjectPage() {
       } catch {
         /* non-blocking */
       }
+
+      // Mark ready only after surface sync from this load has been applied.
+      if (!cancelled) setProjectLoadState("ready");
     }
     void load();
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.projectId, router]);
 
@@ -494,6 +523,9 @@ export default function ProjectPage() {
     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
     if (qSurface && pendingSurfaceRef.current === qSurface) {
       pendingSurfaceRef.current = null;
+    }
+    if (qSurface && peekProjectSurfaceNavIntent(params.projectId) === qSurface) {
+      clearProjectSurfaceNavIntent(params.projectId, qSurface);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
@@ -793,6 +825,7 @@ export default function ProjectPage() {
       projectId={params.projectId}
       surface={surface}
       meta={meta}
+      loadState={projectLoadState}
       onSelectSurface={selectSurface}
     >
       {surface === "travail" ? (

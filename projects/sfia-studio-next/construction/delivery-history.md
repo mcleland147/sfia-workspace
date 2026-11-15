@@ -4,6 +4,34 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-15-ML4C-NAV-SURFACE-INTENT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-15 ~19:40 CET (Europe/Paris) ; régularisation preuves ~20:50 CET |
+| Macro-lot | ML4C — Fiabilisation navigation surface + clôture documentaire PR #678 |
+| Type | PATCH correctif / NO RELEASE |
+| Branch | `docs/next-ml4c-closure-20261115` |
+| Base | `main@05e71a7166562211b1c8c168a40dcd35e4f8c8a3` |
+| Parent tip (docs HEAD avant correctif) | `968ea252fb46732d0862e3809390b1a36e6f991b` |
+| Correctif initial SHA | `1a657684f44228768365f9f2d507e2e95e9857d2` |
+| Hygiene WS SHA | `69aa8b1d477fd3add7ca038815c7157b9b467f7e` |
+| CI SUCCESS (correctif+WS) | run `43749279172` on `69aa8b1d` — Build + Next Required Gate + Studio Required Gate |
+| Régularisation | intent scopé `projectId` ; `data-project-load-state` ; e2e concurrence post-ready + isolation A→B |
+| Tree web ML4C initial | `f2427adcd31b044115f85cdc48cfb6dd157d9551` |
+| Tree web @69aa8b1d | `787537cb344cc2c13dc3cd20c43e8572d52249af` |
+| Tree web post-régularisation | `3f34d2ad4a4340fc2fdf6f19ac0b15858441e39a` |
+| HEAD régularisation | `c2d9b24f5db474a7a40bc13edc027582b154480b` |
+| Cause | Concurrent `load()` `replace(?surface=travail)` vs rail `<Link>` sans intent partagé ; intent global non isolé entre projets |
+| Changes | Intent project-scoped ; load-state observable ; tests unit/e2e concurrence+isolation ; as-built addendum |
+| Schema | unchanged |
+| Lanes | DEV / E2E `:3101` / PG isolé ; RECETTE non mutée ; STABLE NOT AVAILABLE |
+| Tests locaux (régularisation) | UNIT 369 ; PG 471 ; BUILD PASS ; Playwright 31 PASS |
+| CI SUCCESS (régularisation) | run `43755023230` on `c2d9b24f` — Build + Next Required Gate ; Studio Required Gate `43755023210` |
+| Status | PR readiness — gate merge Morris |
+| Risks | Réserves ML4C historiques inchangées (S05-06/08, TTL, ENV-R09, Git REAL, LIVE) |
+
+
 ## delivery_id: DELIV-2026-11-15-ML4C-REVISE-FENCE-TITLE-PROVENANCE
 
 | Field | Value |

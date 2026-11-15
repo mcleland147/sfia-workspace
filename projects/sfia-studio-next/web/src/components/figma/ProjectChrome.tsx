@@ -15,11 +15,20 @@ export function ProjectChrome(props: {
   projectId: string;
   surface: Surface;
   meta?: string;
+  /** Observable project bootstrap: loading until load()+surface sync finish. */
+  loadState?: "loading" | "ready";
   onSelectSurface: (s: Surface) => void;
   children: React.ReactNode;
 }) {
+  const loadState = props.loadState ?? "ready";
   return (
-    <div className="fig-page" data-project-surface={props.surface}>
+    <div
+      className="fig-page"
+      data-project-surface={props.surface}
+      data-testid="project-load-state"
+      data-project-load-state={loadState}
+      data-project-id={props.projectId}
+    >
       <div className="fig-breadcrumb">
         <span>
           SFIA Studio / Projet / {LABELS[props.surface]}
