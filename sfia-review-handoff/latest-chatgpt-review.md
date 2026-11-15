@@ -455,8 +455,8 @@ Commit mono-fichier + push FF — **REMOTE VERIFIED**.
 | Commit (pack FULL contenu) | `f2511b0a1513b00102e0d3770f79d3df91de13b0` |
 | Blob (pack FULL contenu) | `ed27adf7c1bd61fa34e541c904999d2f14a77baf` |
 | Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Tip branche | _pending_ |
-| Blob tip | _pending_ |
+| Tip branche | `ce63b8dd53c039fd2a059b89576b3bbb053c5b49` |
+| Blob tip | `8a91e8d96c4bb9bdb5d00414d5c20ddd4cd55aa2` |
 | Relecture distante | `origin/sfia/review-handoff` == tip ; blob tip match |
 
 ---
