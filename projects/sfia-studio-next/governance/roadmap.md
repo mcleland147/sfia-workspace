@@ -1,5 +1,55 @@
 # SFIA Studio Next — Living Roadmap
 
+## ÉTAT COURANT — 15 NOVEMBRE 2026 : ML4C clôturé, ML4D prochaine capacité
+
+**Nature :** synchronisation factuelle après les PR #676 et #678 ; aucun nouvel arbitrage métier, gate, release ou adoption. Les blocs datés ci-dessous sont historiques et restent intacts.
+
+**Baseline vérifiée :** `mcleland147/sfia-workspace` · `main@2c2e88f12fad867d0b5d76233961bcb95280a2bf`. Git local et runtime RECETTE au présent : **NON OBSERVÉS**.
+
+### Situation actuelle et portée
+
+| Jalon | Statut actuel | Portée / réserve |
+| --- | --- | --- |
+| R0-A/R0-B | VALIDATED / CLOSED | SEF, bootstrap, sources et gouvernance intégrés |
+| R1 | CLOSED BY MORRIS WITH RESERVES | Vision Pilote–Nora, neuf domaines et sept E2E au niveau cadrage |
+| R2 | CLOSED WITH RESERVES | Contrats fonctionnels et CKI validés en contenu |
+| R3 | CLOSED IN DESIGN WITH RESERVES | UX/Figma conçus ; pas de preuve visuelle globale du produit |
+| R4 | CLOSED IN DESIGN WITH RESERVES | Architecture, DATA-01 et ENV-01 |
+| R5 / ML1 | CLOSED WITH RESERVES, PR #649 MERGED | Réserves historiques conservées |
+| R5 / ML2 | **RECETTE MORRIS ACCEPTED WITH RESERVES, PR #659 MERGED** | **Aucune décision séparée « ML2 CLOSED » établie** |
+| R5 / ML3 | CLOSED WITH RESERVES, PR #661 MERGED | Portée D5/D6 et CKI bornée |
+| R5 / ML4 | PR #672 MERGED | La seule intégration initiale n'emportait pas acceptation globale |
+| R5 / ML4B | CLOSED WITH RESERVES — Gate B ACCEPTED | Décision Morris 11/11 |
+| **R5 / ML4C** | **CLOSED WITH RESERVES — PRODUCT/DOC MERGED, POST-MERGE CI VERIFIED** | Décision Morris du 15/11, réserves maintenues |
+| **R5 / ML4D** | **NOT STARTED — NEXT** | Convergence UX/UI globale des capacités construites ML1–ML4 |
+| Gate C | OPEN | Décision Morris après réception ML4D et arbitrage des réserves |
+| ML5 | NOT STARTED | Réalisation technique gouvernée avec Cursor après Gate C et GO distinct |
+| R6 | NOT STARTED | Qualification globale et décision de bascule |
+| STABLE / release / ADOPTED | **NON ACQUIS** | Aucun PASS REAL/LIVE général inféré |
+
+### Preuves récentes ML4C (source Git)
+
+- [PR #676](https://github.com/mcleland147/sfia-workspace/pull/676) : MERGED, `main@05e71a7166562211b1c8c168a40dcd35e4f8c8a3`, arbre `web=f2427adcd31b044115f85cdc48cfb6dd157d9551` ; [CI post-merge #43736293441](https://github.com/mcleland147/sfia-workspace/actions/runs/43736293441) SUCCESS.
+- [PR #678](https://github.com/mcleland147/sfia-workspace/pull/678) : MERGED le 15/11 à 20:21:39 UTC, tête `bb21d24c3f6b096a268b9b03aa8b1841b98ee8fa` et merge `2c2e88f12fad867d0b5d76233961bcb95280a2bf` ; arbre `web=3f34d2ad4a4340fc2fdf6f19ac0b15858441e39a`.
+- [CI Next post-merge #43757632632](https://github.com/mcleland147/sfia-workspace/actions/runs/43757632632) : **SUCCESS sur `main@2c2e88f1`** (TypeScript, ESLint, build, Vitest unit/PG, Playwright BROWSER FAKE et Next Required Gate). Cela n'est pas une nouvelle recette utilisateur, ni une preuve LIVE/REAL complète.
+- La [décision D2 de clôture ML4C](decisions/2026-11-15-r5-ml4c-acceptation-cloture-avec-reserves.md) est devenue **effective** après publication, merge et vérification du dossier. [Journal UAT](../construction/convergence-fonctionnelle/journal-recette-utilisateur-ml4c.md), [qualification technique](../construction/convergence-fonctionnelle/cahier-qualification-technique-complementaire-ml4c.md), [cadrage de continuité v0.7](../construction/convergence-fonctionnelle/cadrage-correctif-continuite-pilote-nora-documents.md), as-built et delivery-history sont présents sur `main`.
+
+### Clarification de statut ML2 — sans décision rétroactive
+
+La [PR #659](https://github.com/mcleland147/sfia-workspace/pull/659) est **MERGED** (merge commit `ab18316b9c1e849ff557f4ba561c638e9961bb89`, 05/11/2026). La recette utilisateur Morris a été **acceptée avec réserves, 9/9 scénarios conformes** selon la section ML2 datée du 05/11. Cette acceptation et cette intégration **ne constituent pas une décision autonome de clôture formelle de ML2**, non retrouvée dans les décisions applicables.
+
+**Qualification :** `ML2 USER RECETTE ACCEPTED WITH RESERVES / MERGED / FORMAL LOT CLOSURE NOT EVIDENCED`. Aucune clôture ML2 supplémentaire n'est inventée ; cette réserve de gouvernance/traçabilité n'empêche pas à elle seule le cadrage de ML4D. PG-DBFAIL-03, modèle/effort non vérifié, limitations LIVE et autres réserves techniques restent au gate qui leur correspond.
+
+### Réserves et suite
+
+- **ML4C non levées :** `S05-06`, `S05-08`, TTL/`S01-05`, ENV-R09, Git REAL, Nora LIVE, D4/CKI partiels et `ML4C-A-014` ; conditions de sortie dans la décision D2.
+- **UX potentiellement ML4D :** `S03-02-R01` / `S07-06-R01` et fidélité visuelle. Les obligations métier, de sécurité et d'effet externe ne deviennent pas du travail ML4D par défaut.
+- **G2/G4/G5 :** l'as-built G4 du 08/11 déclarait 19/20 frames de son périmètre implémentées, 1 partielle ; vérification technique du pack source G2, **mais pas de réception visuelle F2/G5 globale** ni couverture exhaustive ML4D.
+
+**Trajectoire validée :** `ML4C → ML4D (convergence UX/UI globale) → Gate Morris C → ML5 → R6`. Prochain travail dans un nouveau chat : qualifier ML4D depuis le `main` courant, inventorier les surfaces/états/variantes, sources Figma natives et preuves G2 applicables, écarts code/UX, parcours prioritaires, accessibilité/responsive, critères F2/G5, risques et gates. Aucun GO de construction ML4D, promotion ni adoption n'est créé par cette note.
+
+---
+
 
 ## ÉTAT DE SORTIE R5 — 15 NOVEMBRE 2026 : clôture ML4C avec réserves, sous condition documentaire
 
