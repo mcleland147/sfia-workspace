@@ -447,7 +447,16 @@ CI code régularisation (même tree web) : [43755023230](https://github.com/mcle
 
 Branche : `sfia/review-handoff`  
 Fichier : `sfia-review-handoff/latest-chatgpt-review.md`  
-Commit mono-fichier + push FF — SHA / blob / relecture distante renseignés en bas de cycle après publication.
+Commit mono-fichier + push FF — **REMOTE VERIFIED**.
+
+| Champ | Valeur |
+| --- | --- |
+| Branche |  |
+| Commit |  |
+| Blob |  |
+| Fichier |  |
+| Relecture |  tip + blob match |
+
 
 ---
 
