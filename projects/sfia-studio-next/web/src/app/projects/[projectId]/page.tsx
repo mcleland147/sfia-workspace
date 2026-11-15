@@ -20,6 +20,13 @@ import {
   type ThreadTurnKind,
 } from "@/domains/pilotage/thread-recovery";
 import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
+import {
+  clearProjectSurfaceNavIntent,
+  noteProjectSurfaceNavIntent,
+  peekProjectSurfaceNavIntent,
+  resolveProjectLoadSurface,
+  type StudioSurface,
+} from "@/components/shell/studio-rail";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -146,6 +153,7 @@ export default function ProjectPage() {
 
   function selectSurface(next: Surface) {
     pendingSurfaceRef.current = next;
+    noteProjectSurfaceNavIntent(next as StudioSurface);
     setSurface(next);
     setDocMissing("");
     if (next !== "document") {
@@ -417,26 +425,29 @@ export default function ProjectPage() {
       setError("");
 
       // Read *current* URL — never stale searchParams from effect closure (race with rail nav).
-      // If the user already selected a surface while load() was in flight, prefer that intent
-      // when the URL has not yet caught up (router.push pending) — otherwise Pilotage/Journal
-      // flash back to travail and e2e/CI lose pilotage-panel.
+      // Rail Links and chrome selectSurface share one transient intent so load() cannot
+      // replace a more recent user surface (e.g. pilotage) with default travail.
       const live =
         typeof window !== "undefined"
           ? new URL(window.location.href).searchParams
           : searchParams;
-      const qSurface = parseSurface(live.get("surface"));
-      const qDocId = live.get("documentId");
-      const pendingSurface = pendingSurfaceRef.current;
-      const effectiveSurface = qSurface ?? pendingSurface;
-      applyUrlDocumentState(docs, effectiveSurface, qDocId);
-      // Normalize only when surface missing/invalid; do not clobber a live navigation.
       const rawSurface = live.get("surface");
-      if (!rawSurface || (rawSurface && !qSurface)) {
-        const target = effectiveSurface ?? "travail";
+      const qSurface = parseSurface(rawSurface);
+      const qDocId = live.get("documentId");
+      const pendingSurface =
+        pendingSurfaceRef.current ?? peekProjectSurfaceNavIntent();
+      const decision = resolveProjectLoadSurface({
+        rawSurface,
+        pendingIntent: pendingSurface,
+      });
+      applyUrlDocumentState(docs, decision.effectiveSurface, qDocId);
+      if (decision.shouldNormalizeUrl) {
+        const target = decision.effectiveSurface;
         syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
       }
       if (qSurface && pendingSurface && qSurface === pendingSurface) {
         pendingSurfaceRef.current = null;
+        clearProjectSurfaceNavIntent(qSurface);
       }
 
       await refreshDurablePilotage();
@@ -494,6 +505,9 @@ export default function ProjectPage() {
     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
     if (qSurface && pendingSurfaceRef.current === qSurface) {
       pendingSurfaceRef.current = null;
+    }
+    if (qSurface && peekProjectSurfaceNavIntent() === qSurface) {
+      clearProjectSurfaceNavIntent(qSurface);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);

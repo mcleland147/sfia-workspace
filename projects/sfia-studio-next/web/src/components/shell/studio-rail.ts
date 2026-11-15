@@ -92,6 +92,54 @@ export function parseStudioSurface(raw: string | null | undefined): StudioSurfac
   return PROJECT_SURFACES.includes(v as StudioSurface) ? (v as StudioSurface) : null;
 }
 
+/**
+ * Transient project-surface navigation intent shared by StudioShell (rail Links)
+ * and ProjectPage (selectSurface / load normalisation).
+ *
+ * Not a durable store: cleared when the URL catches up. Ensures one navigation
+ * authority so async load() cannot replace a more recent user surface choice
+ * with the default `travail` (NAV-01 / NAV-02 / NAV-03).
+ */
+let projectSurfaceNavIntent: StudioSurface | null = null;
+
+export function noteProjectSurfaceNavIntent(surface: StudioSurface | null): void {
+  projectSurfaceNavIntent = surface;
+}
+
+export function peekProjectSurfaceNavIntent(): StudioSurface | null {
+  return projectSurfaceNavIntent;
+}
+
+export function clearProjectSurfaceNavIntent(matched?: StudioSurface | null): void {
+  if (matched == null || projectSurfaceNavIntent === matched) {
+    projectSurfaceNavIntent = null;
+  }
+}
+
+export type ProjectLoadSurfaceDecision = {
+  /** Surface to display after load settles. */
+  effectiveSurface: StudioSurface;
+  /** True when the live URL lacks a valid `surface` query and must be normalised. */
+  shouldNormalizeUrl: boolean;
+};
+
+/**
+ * Resolve surface after async project `load()` completes.
+ * Priority: valid live URL surface → recent nav intent → default `travail`.
+ * Normalise only when the URL has no valid surface; never invent a silent
+ * downgrade from an explicit user intent (e.g. pilotage) to travail.
+ */
+export function resolveProjectLoadSurface(input: {
+  rawSurface: string | null | undefined;
+  pendingIntent: StudioSurface | null;
+}): ProjectLoadSurfaceDecision {
+  const qSurface = parseStudioSurface(input.rawSurface ?? null);
+  const effectiveSurface = qSurface ?? input.pendingIntent ?? "travail";
+  const shouldNormalizeUrl =
+    !input.rawSurface || (Boolean(input.rawSurface) && !qSurface);
+  return { effectiveSurface, shouldNormalizeUrl };
+}
+
 export function parseProjectId(pathname: string): string | null {
   const m = pathname.match(/^\/projects\/([^/?#]+)/);
   return m?.[1] ?? null;
