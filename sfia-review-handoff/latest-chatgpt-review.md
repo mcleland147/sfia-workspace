@@ -1,155 +1,167 @@
-# SFIA Studio Next — ML4C Technical Preflight Phase A — Review Pack FULL
+# SFIA Studio Next — ML4C Phase B Technical Campaign — Review Pack FULL
 
-**Date:** 2026-11-15T15:44:45+01:00
-**Cycle:** Audit projet — préflight qualification QA (Phase A uniquement)
+**Date:** 2026-11-15T16:04:43+01:00
+**Cycle:** Delivery QA/Test — recette technique complémentaire ML4C Phase B
 **Profil:** Standard
-**Macro-lot:** ML4C — qualification technique intégrée finale
-**GO Phase B:** NON ACCORDÉ
-**Verdict:** ML4C TECHNICAL PREFLIGHT — PARTIALLY QUALIFIED
+**GO Phase B:** ACCORDÉ — DEV/E2E isolé ; fixture S05-01 autorisée
+**GO Git REAL:** NON ACCORDÉ (avis seulement)
+**Candidat:** `11f7077edd08f1a0c680b6b920f20dbaf76c7bed` / tree `71e052cf…` / BUILD_ID RECETTE observé `0mTcR_VTrO_j6sIlW9Wdb` (non muté)
+**Verdict:** ML4C TECHNICAL CAMPAIGN — COMPLETED WITH RESERVES
 
 ---
 
-## A. GO et cadre
+## 1. Mandat et GO Morris
 
-Mandat : qualification d'exécutabilité des **25** scénarios du cahier technique complémentaire ML4C (`docs/next-ml4c-uat-journal-20261112@1f6d9cb4`), sans campagne, sans développement, sans correction, sans effet REAL, sans mutation RECETTE.
+Exécution unique des preuves techniques sur DEV/E2E pour les 25 scénarios. Interdits respectés : pas de développement, pas de correction, pas d'activation `STUDIO_GITHUB_ALLOW_MUTATIONS`, pas d'écriture RECETTE/STABLE, pas d'acceptation ML4C/ML4D/Gate C.
 
-Interdit respecté : aucun test exécuté ; aucun fichier produit modifié ; `STUDIO_GITHUB_ALLOW_MUTATIONS` non activé ; aucun GO Phase B.
-
-## B. Git Truth initial / final
-
-Worktree produit : `/Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112`
+## 2. Git Truth Check
 
 | Check | Observé |
 | --- | --- |
 | Branche | `fix/next-semantic-intent-convergence-20261112` |
-| HEAD | `11f7077edd08f1a0c680b6b920f20dbaf76c7bed` |
-| Tree | `71e052cf53232c70153a6056d948b97fb401b175` |
-| Parent | `c777358eacefa94c33b04a4d590ce9da7a8c525c` |
-| origin/main | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
-| docs UAT journal | `1f6d9cb41405b8079991b2efedc8b076c98c4864` (MATCH attendu) |
-| PR #676 | OPEN / head `67bf6b0b…` — NON MERGED |
-| Dirty local | `M .tmp-sfia-review/chatgpt-review.md` uniquement (pack) |
-| Staged | vide |
+| HEAD / tree | `11f7077e…` / `71e052cf…` |
+| origin/main | `6cda86bd…` |
+| docs UAT | `1f6d9cb4…` |
+| Handoff Phase A | `2fd7f40e…` MATCH |
+| PR #676 | OPEN / `67bf6b0b…` |
+| Dirty | `.tmp-sfia-review/chatgpt-review.md` seulement |
+| Final HEAD | inchangé `11f7077e…` |
 
-Aucune bascule de branche. Aucun reset. Aucun déploiement.
+## 3. ENV-01 et isolation
 
-## C. Runtime / ENV-01 (lecture seule)
-
-| Élément | Observé |
-| --- | --- |
-| :3200 | LISTEN — `next-server (v15.5.29)` |
-| Worktree runtime | `…-ml4c-recette-build-11f7077e` |
-| HEAD runtime | `11f7077e…` |
-| BUILD_ID | `0mTcR_VTrO_j6sIlW9Wdb` |
-| LaunchAgent | `com.sfia.studio.next.recette.ml4` running |
-| Mutations Git | `STUDIO_GITHUB_ALLOW_MUTATIONS` forcé vide dans `start-recette.sh` |
-| Lane tests techniques | DEV/E2E (`sfia_next_e2e`, `:3101`, fixtures) — distincte de RECETTE |
-| Versioning | NO PRODUCT RELEASE / READ-ONLY QUALIFICATION |
-
-## D. Sources consultées (refs)
-
-- Cahier technique : `origin/docs/next-ml4c-uat-journal-20261112:…/cahier-qualification-technique-complementaire-ml4c.md` @ `1f6d9cb4`
-- Cahier UAT + journal : même branche documentaire
-- Candidat `11f7077e` : tests sous `projects/sfia-studio-next/web/tests/**`
-- Handoff précédent : `origin/sfia/review-handoff@2dc98766` (bascule RECETTE)
-- Preuves d'entrée rapportées antérieurement @11f7077e : UNIT 363 / PG 471 / BUILD / E2E 11 — **suite-level**, non oracle-tagged 25/25
-
-## E. Inventaire des moyens disponibles
-
-**Déterministes existants :** vitest UNIT ; PG integration (`sfia_next_e2e`) ; Playwright E2E DEV (`STUDIO_E2E`, Nora fixture) ; SCRIPTED Git provider ; injecteurs ACK_LOST_SIM (route.fulfill) ; `/api/dev/e2e/s05-fixture` (DEV only).
-
-**Absents / hors mandat Phase A :** injecteur expiration TTL session ; injecteur panne DB HTTP ; refuse/revoke pending A dédié ; GO REAL `documentary` ; campagne navigateur RECETTE mutative ; Nora LIVE.
-
-**Règle :** DETERMINISTIC/SCRIPTED ≠ REAL PROVEN ≠ READY FOR REAL.
-
-## F. Matrice de faisabilité 25/25
-
-| ID | Oracle | Implémentation | Test existant | Preuve/SHA | Gap | Faisabilité | Méthode Phase B | Niveau atteignable | Risque/Gate |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| S01-05 | Session/refus/panne ≠ auth | revokeSession ; HTTP SESSION_INVALID→401 ; cross-pilot 403 | `http-errors.test.ts` ; `identity-session.pg.test.ts` ; FIX-05/06 `ml4c-s05-real-api` | Suite @11f7077e (non rejouée ici) | Pas d'expiry TTL ; pas panne DB→503 route métier | EXECUTABLE AS-IS | Rejouer UNIT/PG/E2E anon+revoke sur DEV | DETERMINISTIC PARTIAL ; BROWSER PARTIAL | A-002 OPEN ; ne pas forger cookie/horloge |
-| S02-05 | Lost ACK D2 → 1 projet | create+reconcile + ACK_LOST_SIM | `d2-ack-loss-reconcile.spec.ts` ; `create-project.pg` A05 | E2E/PG existants @candidat | — | EXECUTABLE AS-IS | Playwright DEV FAKE Nora | BROWSER + PG DETERMINISTIC | Lane DEV/E2E ; pas RECETTE |
-| S03-06 | 5 états D4 | reconcile/seal domain | `ml4c-document-identity/reconciliation/command.pg` ; guards unit | PG matrix inclus 471 @11f7077e | UI thread 5 labels absente | REUSE EXISTING PROOF | Optionnel re-run PG ciblé | DETERMINISTIC FULL domain ; BROWSER NOT | UAT BLOCKED reste distinct |
-| S03-07 | Continuum D2→D4 | intent continuity | `intent-continuity-global.pg` S03 ; `intent-continuity-atlas.spec.ts` | Tests @11f7077e | LIVE continuum non prouvé | EXECUTABLE AS-IS | PG + Atlas E2E DEV | DETERMINISTIC + BROWSER FAKE | Pas confondre avec Intervencia Q4 |
-| S04-03 | Supersession D6 | REVISE_DECISION / supersedesDecisionId | `ml3-pilotage.pg` CR-02 REVISE ; `ml4c-auth-reconciliation` D07 | PG @11f7077e | Pas E2E journal UX | REUSE EXISTING PROOF | Re-run PG si GO | DETERMINISTIC FULL D6 | UAT BLOCKED ≠ tech |
-| S04-07 | CKI cycle actif | openCycle pin CKI RESOLVED | `ml3-pilotage.pg` open+CKI ; nora-adapter ckiDelivery | PG @11f7077e | Conseil Nora LIVE / CKI après GO UI faible | EXECUTABLE AS-IS | PG openCycle+CKI digest | DETERMINISTIC PARTIAL ; LIVE NOT | Cycle RECETTE actif non requis pour PG |
-| S05-01 | A pending identifiable | UNKNOWN turn / AWAITING mission | s05-fixture seeds ; d2-mission ; CR-02 banner | Tests @11f7077e | Pending « organique » sans fixture limité | CONDITIONAL / GATE REQUIRED | Accepter fixture DEV ou D2 mission path | DETERMINISTIC / BROWSER FAKE | Fixture DEV only ; pas RECETTE |
-| S05-02 | B indépendant pendant A | S05 sibling policy + API | `ml4c-s05-real-api` SAFE ; S05-G01/G02 ; intent-continuity | Fort @11f7077e | LIVE NOT | EXECUTABLE AS-IS | E2E real-api + PG | DETERMINISTIC + BROWSER FAKE | — |
-| S05-03 | Demande incompatible | pendingEffectBlocked | S05-RISK-* ; S05-G04 ; d2-mission block | Fort @11f7077e | — | EXECUTABLE AS-IS | Idem | DETERMINISTIC + BROWSER FAKE | — |
-| S05-05 | Refresh pendant A | reload + oracle keys | real-api reload ; d2-mission reload ; CR-02 | @11f7077e | Script unique UAT absent | EXECUTABLE AS-IS | Stitch reload oracles | DETERMINISTIC + BROWSER FAKE | — |
-| S05-06 | Reprise A après B COMPLETE | — | Voisins CR-02 / real-api stop après B | Aucune preuve exacte | Enchaînement B COMPLETE→resume A manquant | NON EXECUTABLE AS-IS | Décision Morris : accepter voisin ou lot ultérieur | NOT PROVEN | Ne pas créer de test en Phase A |
-| S05-07 | Lost ACK OPEN_CYCLE | ACK_LOST_SIM + reconcile | `ml3-pilotage.spec.ts` CR-02 | E2E existant | Label ML3≠S05-07 | EXECUTABLE AS-IS | Rejouer CR-02 DEV | BROWSER FAKE + PG | Injecteur déjà présent |
-| S05-08 | Refus/révocation A pending | — | Aucun flux refuse/revoke pending A | — | Mécanisme/test absents | NON EXECUTABLE AS-IS | Gate Morris / lot ultérieur | NOT PROVEN | Sécurité/autorité : risque résiduel |
-| S06-03 | Sans HumanDecision | guards dispatch | git-collaboration T18/B1 ; gate unit | SCRIPTED @11f7077e | Cas PREPARED→dispatch absent peu nommé | EXECUTABLE AS-IS | PG SCRIPTED refus + counts 0 | DETERMINISTIC SCRIPTED | ≠ REAL |
-| S06-04 | Autorisation geste précis | fingerprint authz | B6 + AT composite ; mission-continuity | SCRIPTED | — | EXECUTABLE AS-IS | PG SCRIPTED | DETERMINISTIC SCRIPTED | PREPARED≠EXECUTED |
-| S06-05 | Publication REAL | provider real+documentary | SCRIPTED publish proxy only | Flag RECETTE OFF | Oracle REAL absente sans GO | CONDITIONAL / GATE REQUIRED | Uniquement si GO REAL distinct | SCRIPTED proxy ; REAL NOT | **Ne pas activer flag** |
-| S06-06 | Changement matériel post-auth | fingerprint mismatch | git-collaboration material/fingerprint | SCRIPTED | — | EXECUTABLE AS-IS | PG SCRIPTED | DETERMINISTIC SCRIPTED | — |
-| S06-08 | Conflit HEAD | CONFLICT stale | git-collaboration CONFLICT paths | SCRIPTED | — | EXECUTABLE AS-IS | PG SCRIPTED | DETERMINISTIC SCRIPTED | — |
-| S06-09 | Lost ACK post-publication | B4 lost ACK reconcile | git-collaboration B4/AT-15 | SCRIPTED | Dimension REAL absente | CONDITIONAL / GATE REQUIRED | SCRIPTED AS-IS ; REAL seulement avec GO | DETERMINISTIC SCRIPTED ; REAL NOT | Séparer les deux niveaux |
-| S06-10 | Merge interdit | merge always blocked real provider | T20 + `real-github-mutations-gate` / provider | Unit+PG | Ne pas appeler merge GitHub réel | EXECUTABLE AS-IS | Unit/PG refus sans effet fournisseur | DETERMINISTIC | Merge REAL hard-blocked |
-| S06-11 | Restitution fidèle | TEMP restitution fragments | unit/PG fragments ; pas résultat REAL | Partiel | Pas de résultat REAL à restituer | CONDITIONAL / GATE REQUIRED | SCRIPTED PREPARED/EXECUTED ; REAL si GO+S06-05 | DETERMINISTIC PARTIAL | Dépend S06-05 |
-| S07-01 | Parcours E2E complet | fragments D2/D4/D6/Git | Continuity + git SCRIPTED + pilotage | Fragments | Chaîne unique + REAL manquante | CONDITIONAL / GATE REQUIRED | Mutualiser AS-IS ; REAL hors défaut | PARTIAL DET ; REAL NOT | Journal BLOCKED E2E |
-| S07-04 | États négatifs/reprise | mutualisation S01/S03/S05/S06 | PG document+S05+git errors | Fort PG | UI copy complète CONDITIONAL | EXECUTABLE AS-IS | Rejouer familles PG | DETERMINISTIC | Pas d'injection panne ad hoc |
-| S07-05 | Isolation 2 Pilotes | foreign 403 ; FIX-06 | identity-session ; s05 FIX-06 ; doc 403 | PG/E2E | Matrice GitHub REAL inter-Pilote absente | CONDITIONAL / GATE REQUIRED | PG isolation AS-IS ; Git REAL gate | DETERMINISTIC PARTIAL | A-005 / droits Git |
-| S07-07 | Reprise après autre parcours | mission continuity / S05 keep | intent-continuity ; mission-continuity PG | PG | Lié à lacune S05-06 si oracle strict | EXECUTABLE AS-IS | PG continuity + S05 keep | DETERMINISTIC | Ne pas surclasser S05-06 |
-
-### Comptages
-
-| Catégorie | N |
-| --- | ---: |
-| REUSE EXISTING PROOF | 2 |
-| EXECUTABLE AS-IS | 15 |
-| CONDITIONAL / GATE REQUIRED | 6 |
-| NON EXECUTABLE AS-IS | 2 |
-| NOT QUALIFIED | 0 |
-| **Total** | **25** |
-
-## G. Synthèse structurée
-
-1. **Moyens :** UNIT/PG/E2E DEV + SCRIPTED Git + ACK_LOST_SIM + s05-fixture DEV ; RECETTE :3200 observée mais **non mutée** ; REAL OFF.
-2. **REUSE :** S03-06, S04-03 (déterministe PG déjà dans preuve suite @11f7077e ; limites explicites).
-3. **EXECUTABLE AS-IS :** 15 cas — surtout DEV/E2E/SCRIPTED, oracles discriminants sans nouvel outil.
-4. **CONDITIONAL :** S05-01 (acceptation fixture), S06-05/09/11 (REAL), S07-01 (chaîne/REAL), S07-05 (Git rights REAL).
-5. **NON EXECUTABLE :** S05-06 (reprise A après B COMPLETE exacte), S05-08 (refus/révocation pending A).
-6. **NOT QUALIFIED :** 0.
-7. **Mutualisations sûres :** S05-02/03/05/07 ↔ S07-04/07 ; S03-06 ↔ S07-04 ; S06-03/04/06/08/10 SCRIPTED bloc ; **sans** fusionner SCRIPTED→REAL.
-8. **Risques :** autorité pending (S05-08) ; Git REAL non prouvé ; A-002 expiry ; A-004 DEV buttons ; cookies R1 ; merge hard-block à ne pas « tester » via appel réel.
-9. **Ordre Phase B proposé (NON EXÉCUTÉ) :** A identité S01-05 → B D2/D4 S02-05/S03-06/07 → C D6/CKI S04-03/07 → D pending S05-02/03/05/07 (+S05-01 si gate fixture) → E Git SCRIPTED S06-03/04/06/08/10 → F S07-04/07 → STOP avant REAL ; S06-05/09/11/S07-01 REAL seulement sous GO distinct.
-10. **Arbitrages Morris avant GO Phase B :** (a) accepter fixtures DEV/`s05-fixture` pour S05-01 ; (b) traiter S05-06/S05-08 comme NOT PROVEN / exit risque ; (c) mandat REAL distinct ou exclusion assumée ; (d) lane DEV/E2E vs non-mutation RECETTE.
-
-## H. Réconciliation 53 / 28 PASS
-
-Les 28 PASS UAT historiques et les 12 PASS Q4 **ne sont pas requalifiés**. Les 25 cas de ce cahier restent la matrice technique. Six FAIL historiques déjà retestés Q4 positifs (S03-01, S04-01/02/04/06, S07-06) hors périmètre d'exécution Phase A.
-
-## I. Fake / Real Qualification
-
-| Frontière | Dispositif | Garantie | Limite |
+| Lane | Port | DB | Usage Phase B |
 | --- | --- | --- | --- |
-| Nora | FORCE_NORA_FIXTURE / E2E | Déterministe | ≠ LIVE |
-| GitHub | SCRIPTED provider | Idempotence/gardes | ≠ REAL PROVEN |
-| GitHub REAL | flag `documentary` | Gate unit prouve refus si OFF | Activation = GO distinct |
-| PostgreSQL | sfia_next_e2e | États durables | ≠ données RECETTE |
-| Browser | Playwright :3101 DEV | UI+API | ≠ RECETTE UAT |
+| DEV/E2E | `:3101` (Playwright webServer) | `sfia_next_e2e` @ `sfia-next-dev-pg:5433` | **Autorisé — mutatif tests** |
+| DEV opérateur | `:3100` | `sfia_next_dev` | Non utilisé comme runtime de preuve |
+| RECETTE | `:3200` | `sfia_next_recette_ml4@5434` | **Lecture seule** — tables=33 avant=après ; BUILD_ID inchangé ; pid 99811 worktree 11f7077e |
 
-## J. Contrôles de fin
+Vitest force : `STUDIO_GITHUB_PROVIDER=scripted`, `STUDIO_GITHUB_ALLOW_MUTATIONS=""`, rewrite DATABASE_URL → `sfia_next_e2e`.
+E2E webServer : même barrière + `STUDIO_FORCE_NORA_FIXTURE=1`.
+Note : `.env.local` DEV opérateur contient `ALLOW_MUTATIONS=documentary` — **neutralisé** dans les suites ; jamais activé pour ce cycle.
 
-- Aucun fichier projet suivi créé/modifié (hors pack local non suivi Git produit).
-- Aucun test déclenché ; aucun effet DB/fournisseur Phase A.
-- Aucune config modifiée.
-- HEAD final produit : `11f7077e…` inchangé.
-- Dirty : pack `.tmp-sfia-review/chatgpt-review.md` seulement.
+## 4. Exécution — commandes et totaux
 
-## K. Décisions Morris requises
+Lane : DEV ; SHA candidat : `11f7077e` ; fournisseur Git tests : SCRIPTED.
 
-1. GO Phase B (périmètre, lane DEV/E2E, jeux de données).
-2. Acceptation fixture S05-01 ou exclusion.
-3. Exit S05-06 / S05-08 (réserve vs blocage acceptation).
-4. GO REAL distinct **ou** exclusion assumée S06-05/09-REAL/S06-11/S07-01-Git.
-5. Non-activation `STUDIO_GITHUB_ALLOW_MUTATIONS` hors mandat explicite.
+| Lot | Commande | Résultat |
+| --- | --- | --- |
+| UNIT core | `vitest run` http-errors, gates, s05-policy, guards, cki, git-proof, nora-adapter, scripted-guard | 8 files / **52 PASS** |
+| PG A/B | identity-session, create-project, document-identity/reconciliation/command | 5 / **117 PASS** |
+| PG C/D | intent-continuity, d2-mission-s05, s05-idempotence, s05-owner, mission-continuity | 5 / **45 PASS** |
+| PG S04 | ml3-pilotage.pg | 1 / **49 PASS** |
+| PG S06 | git-collaboration.pg | 1 / **93 PASS** |
+| PG/UNIT extra | ml4c-auth-reconciliation, github-app-auth-real-provider, ml4-chat-first-d4 | 3 / **56 PASS** |
+| E2E | d2-ack, s05-real-api, d2-mission-s05, ml3-pilotage, atlas | **19 PASS** |
+| E2E Git | git-collaboration.spec | **1 PASS** |
 
-## L. Verdict
+**Totaux approximatifs exécutés ce cycle :** ~**432** cas PASS, **0 FAIL**, **0 skip forcé**.
+Logs : `/tmp/ml4c-phase-b-evidence/*.log` (hors Git).
 
-**ML4C TECHNICAL PREFLIGHT — PARTIALLY QUALIFIED**
+## 5. Matrice 25/25
 
-Motivation : majorité des oracles discriminants sont démontrables avec les moyens existants (2 REUSE + 15 EXECUTABLE), mais 6 cas restent conditionnels (surtout REAL/fixture) et 2 non exécutables sans nouveau dispositif (S05-06, S05-08). Aucune acceptation ML4C. Aucune Phase B. Aucun ML4D.
+| ID | Oracle (résumé) | Phase A | Tests/preuves | Exécution | Résultat scénario | Preuves clés | Manques | Niveau | Réserve/Gate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S01-05 | Refus session/révocation/accès étranger ; panne≠auth | EXECUTABLE AS-IS | http-errors ; identity-session ; FIX-05/06 | RUN | **PARTIAL PASS** | 401 SESSION_INVALID ; revoke null ; FIX anon 401/403 ; FIX-06 cross-pilot 403/404 | TTL expiry NOT PROVEN ; panne DB HTTP métier NOT PROVEN | DETERMINISTIC + BROWSER DEV PARTIAL | A-002 OPEN |
+| S02-05 | Lost ACK D2 → 1 projet | EXECUTABLE AS-IS | d2-ack-loss-reconcile ; create-project A05 | RUN | **PASS** | 1 create POST ; reconcile ALREADY_CREATED | — | BROWSER DEV + PG | — |
+| S03-06 | 5 états D4 | REUSE→RUN verify | document-identity/reconciliation/command ; guards ; chat-first NOT_EXECUTED | RUN | **PASS** domain ; UI PARTIAL | AVAILABLE/CONFLICT/UNKNOWN/FAILED/NOT_EXECUTED PG | Labels UI thread non exhaustifs | DETERMINISTIC FULL domain | — |
+| S03-07 | Continuum D2→D4 | EXECUTABLE AS-IS | intent-continuity-global S03 ; atlas e2e | RUN | **PASS** | one clientTurnKey ; D4 AVAILABLE ; reload-stable | LIVE continuum NOT | PG + BROWSER DEV FAKE | — |
+| S04-03 | Supersession D6 | REUSE→RUN | ml3-pilotage REVISE ; auth-reconciliation D07 | RUN | **PASS** | supersedesDecisionId ; prior REVISED | UX journal E2E non dédié | DETERMINISTIC | — |
+| S04-07 | CKI cycle actif | EXECUTABLE AS-IS | ml3-pilotage openCycle+CKI ; F01 e2e ACTIVE | RUN | **PARTIAL PASS** | ckiId RESOLVED + digest PG | Conseil Nora LIVE / digest UI NOT | DETERMINISTIC PARTIAL | LIVE NOT |
+| S05-01 | A pending | CONDITIONAL (fixture OK) | s05-fixture seed_* ; d2-mission AWAITING ; CR-02 | RUN | **PASS** (fixture/déterministe) | unknownTurns / AWAITING_PILOT_ACT oracles | Pending organique sans fixture NOT | DETERMINISTIC + BROWSER DEV fixture | Gap organique |
+| S05-02 | B pendant A | EXECUTABLE AS-IS | s05-real-api SAFE/M02 ; S05-G01 ; intent-continuity | RUN | **PASS** | DIALOGUE_INDEPENDANT ; A intact | LIVE NOT | PG + BROWSER DEV | — |
+| S05-03 | Incompatible pendant A | EXECUTABLE AS-IS | S05-RISK-* ; S05-M01 ; d2-mission block | RUN | **PASS** | pendingEffectBlocked ; counts inchangés | — | PG + BROWSER DEV | — |
+| S05-05 | Refresh pendant A | EXECUTABLE AS-IS | real-api reload ; d2-mission reload ; CR-02 | RUN | **PASS** | keys post-reload | — | PG + BROWSER DEV | — |
+| S05-06 | Reprise A après B COMPLETE | NON EXECUTABLE | — | NOT RUN | **NOT PROVEN** | — | Enchaînement exact absent | NOT PROVEN | Exit Morris |
+| S05-07 | Lost ACK OPEN_CYCLE | EXECUTABLE AS-IS | ml3-pilotage CR-02 e2e | RUN | **PASS** | ≤1 OPEN_CYCLE ; reconcile APPLIED | — | BROWSER DEV | — |
+| S05-08 | Refus/révocation pending A | NON EXECUTABLE | — | NOT RUN | **NOT PROVEN** | Autorité générique ≠ révocation pending A | Mécanisme/test dédié absent | NOT PROVEN | Risque autorité ; exit Morris |
+| S06-03 | Sans HumanDecision | EXECUTABLE AS-IS | git-collaboration T18/B1 | RUN | **PASS** SCRIPTED | ACCESS_DENIED ; mutations 0 | — | DETERMINISTIC SCRIPTED | ≠ REAL |
+| S06-04 | Autorisation geste | EXECUTABLE AS-IS | B6 fingerprint ; git e2e AT journey | RUN | **PASS** SCRIPTED | refuse wrong fingerprint ; authorize path | — | PG + BROWSER SCRIPTED | — |
+| S06-05 | Publication REAL | CONDITIONAL | SCRIPTED AT/T12/T14 proxy only | RUN proxy / NOT RUN REAL | **PARTIAL** — SCRIPTED PASS ; **REAL NOT PROVEN** | COMPLETED SCRIPTED + qualifyObservedFacts | GitHub.com NOT verified | DETERMINISTIC SCRIPTED | GO REAL distinct si besoin |
+| S06-06 | Changement matériel | EXECUTABLE AS-IS | T19/B6/B7 | RUN | **PASS** | REQUIRES_REQUALIFICATION | — | DETERMINISTIC SCRIPTED | — |
+| S06-08 | HEAD divergence | EXECUTABLE AS-IS | AT-14 stale_head | RUN | **PASS** | no silent publish | — | DETERMINISTIC SCRIPTED | — |
+| S06-09 | Lost ACK publication | CONDITIONAL | B4/AT-15/T13/REC-10 | RUN SCRIPTED | **PARTIAL** — SCRIPTED PASS ; REAL NOT | exactly-one-PR SCRIPTED | REAL lost ACK NOT | DETERMINISTIC SCRIPTED | GO REAL si exigé |
+| S06-10 | Merge interdit | EXECUTABLE AS-IS | T20 REAL merge hard-block ; provider unit | RUN | **PASS** | mergePR count 0 under documentary+real harness | Ne pas appeler merge GitHub live | DETERMINISTIC | Merge hard-blocked |
+| S06-11 | Restitution fidèle | CONDITIONAL | git-proof-qualify ; AT facts | RUN PARTIAL | **PARTIAL** | limits D8 ; PREPARED≠EXECUTED | Nora+REAL restitution NOT | DETERMINISTIC PARTIAL | Dépend S06-05 REAL |
+| S07-01 | E2E complet | CONDITIONAL | fragments D2/D4/D6/Git | RUN fragments | **PARTIAL** | Continuity + SCRIPTED Git slices | Chaîne unique + REAL NOT | PARTIAL DET/BROWSER | REAL GATE |
+| S07-04 | États négatifs | EXECUTABLE AS-IS | mutualisé S01/S03/S05/S06 PG | RUN | **PASS** DET | AMBIGUOUS/UNKNOWN/CONFLICT/refus | UI loading exhaustif PARTIAL | DETERMINISTIC | — |
+| S07-05 | Isolation 2 Pilotes | CONDITIONAL | identity-session ; FIX-06 ; AT-16 | RUN | **PARTIAL PASS** | distinct pilots ; cross-pilot deny ; fixture isolation | Matrice GitHub REAL rights NOT | PG + BROWSER DEV PARTIAL | Git REAL GATE |
+| S07-07 | Reprise après autre parcours | EXECUTABLE AS-IS | intent-continuity ; mission-continuity | RUN | **PASS** | owner-binding ; no neighbor steal | N'implique pas S05-06 | DETERMINISTIC | — |
 
-**STOP FINAL — prochaine action : Morris après revue ChatGPT du handoff distant.**
+### Synthèse scénarios
+
+| Qualification scénario | N | IDs |
+| --- | ---: | --- |
+| PASS (oracle technique atteint au niveau déclaré) | 15 | S02-05, S03-06*, S03-07, S04-03, S05-01†, S05-02/03/05/07, S06-03/04/06/08/10, S07-04, S07-07 |
+| PARTIAL | 8 | S01-05, S04-07, S06-05/09/11, S07-01, S07-05 (+ S03-06 UI) |
+| NOT PROVEN | 2 | S05-06, S05-08 |
+| FAIL | 0 | — |
+
+\* domain FULL / UI partial  † fixture-authorized deterministic
+
+## 6. Fake / Real Qualification
+
+| Frontière | Niveau atteint | Non atteint |
+| --- | --- | --- |
+| Nora fixture | DETERMINISTIC / BROWSER DEV | LIVE |
+| Git SCRIPTED | DETERMINISTIC PROVEN (93+1) | REAL PROVEN |
+| Git REAL | Gate unit prouve refus si flag OFF ; T20 merge block | Toute publication GitHub |
+| PG E2E | DETERMINISTIC | Données RECETTE |
+| RECETTE | Identity observée non mutée | UAT utilisateur |
+
+**DETERMINISTIC PROVEN ≠ READY FOR REAL.**
+
+## 7. Non exécutables et risques
+
+| ID | Statut | Risque | Exit proposé |
+| --- | --- | --- | --- |
+| S05-06 | NOT PROVEN | Continuité reprise après dialogue indépendant COMPLETE non démontrée | Accepter réserve OU lot ultérieur (pas de fabrication) |
+| S05-08 | NOT PROVEN | Autorité de révocation d'un pending A non démontrée | Accepter réserve (autorité générique prouvée ailleurs) OU lot dédié |
+| S01-05 TTL / panne DB | NOT PROVEN | A-002 ; confusion panne/auth possible non prouvée route métier | Réserve ENV/session |
+| S06-05/09/11 REAL | NOT PROVEN | Publication documentaire réelle non vérifiée | Voir §9 avis REAL |
+| S07-01/05 REAL | NOT PROVEN | E2E/Git rights réels | Réserve ou GO REAL |
+
+**Aucune anomalie FAIL produit observée** dans les suites exécutées. Aucun correctif.
+
+## 8. Bilan 53 cas UAT (sans rejeu)
+
+- 28 PASS UAT historiques **non requalifiés**.
+- 12 PASS Q4 **conservés**.
+- 25 cas de cette campagne : preuves techniques ci-dessus ; **ne convertit pas** automatiquement en PASS UAT.
+- Six FAIL historiques déjà retestés Q4 hors Phase B.
+
+## 9. Avis nécessité Git REAL
+
+Oracles restant non prouvés sans REAL : **S06-05** (publication vérifiée sur GitHub), dimension REAL de **S06-09**, restitution **S06-11**, chaîne **S07-01** Git WRITE, droits **S07-05**.
+
+Les preuves SCRIPTED couvrent gardes D6, empreintes, lost ACK, merge interdit, isolation mandates. Pour une acceptation ML4C **avec réserve Git REAL explicite**, le risque peut être assumé si Morris décide que Gate B + SCRIPTED + merge hard-block suffisent.
+
+Si Morris exige REAL PROVEN : contrat distinct minimal = repo sandbox `chantiers360` ou dépôt test, branche documentaire jetable, chemins `docs/…` only, `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` temporaire, 1 prepare→authorize→dispatch→verify SHA/PR, **aucun merge**, lost-ACK SCRIPTED déjà prouvé, remise en état PR close/branch delete, STOP si hors sandbox.
+
+**Ce cycle n'active rien.**
+
+## 10. Recommandation sortie ML4C
+
+Recommander à Morris :
+
+1. **Acceptation ML4C avec réserves explicites** viable si S05-06/S05-08, TTL session, et Git REAL sont assumés documentés.
+2. Sinon **report ciblé** : (a) lot pending revoke/resume si bloquant ; (b) GO REAL borné pour S06-05 seulement.
+3. **Ne pas** démarrer ML4D ni fermer Gate C sur la base de cette campagne seule.
+4. Ne pas activer mutations sur RECETTE.
+
+## 11. Contrôles fin
+
+- Fichiers produit créés/modifiés : **aucun**.
+- RECETTE tables 33=33 ; BUILD_ID `0mTcR_VTrO_j6sIlW9Wdb` ; process inchangé.
+- Flag REAL non activé dans les suites.
+- HEAD produit final : `11f7077e…` ; dirty = pack local.
+
+## 12. Verdict
+
+**ML4C TECHNICAL CAMPAIGN — COMPLETED WITH RESERVES**
+
+- 15 scénarios PASS techniques au niveau déclaré ; 8 PARTIAL ; 2 NOT PROVEN ; 0 FAIL.
+- SCRIPTED/PG/BROWSER DEV prouvés sur candidat `11f7077e`.
+- REAL / LIVE / UAT utilisateur : NOT RUN / NOT PROVEN.
+- Prochaine décision : **Morris** (acceptation avec réserves, remédiation, ou GO REAL distinct).
+
+**Ne pas déclarer ML4C ACCEPTED / Gate C / ML4D / ADOPTED.**
