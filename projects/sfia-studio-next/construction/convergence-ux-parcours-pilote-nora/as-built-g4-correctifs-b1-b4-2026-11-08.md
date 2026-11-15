@@ -75,3 +75,10 @@ NAV-01…NAV-10 du contrat 15/11/2026 : push utilisateur / replace normalisation
 
 - Preuve FAKE/BROWSER ; Nora LIVE / Git REAL non concernés.
 - Trace chronologique CI historique absente ; discrimination apportée par harness d’interception contrôlée.
+
+### Addendum 2026-11-15b — Régularisation preuves (PR #678)
+
+- Intent de navigation **scopé par `projectId`** (`note`/`peek`/`clear`) : une intention Pilotage sur A ne s'applique pas au load de B.
+- Signal produit `data-testid=project-load-state` / `data-project-load-state=loading|ready` après sync surface de `load()`.
+- E2E : concurrence attend `ready` puis URL+surface Pilotage ; test négatif isolation A→B.
+- Oracle G4 B1–B4 inchangé.

@@ -85,6 +85,13 @@ describe("project surface load vs nav intent (NAV-01/02/03)", () => {
   });
 
   it("preserves pending pilotage when URL has no surface yet (race with load)", () => {
+    // Old behaviour without pending would normalize to travail — discriminant.
+    const withoutPending = resolveProjectLoadSurface({
+      rawSurface: null,
+      pendingIntent: null,
+    });
+    expect(withoutPending.effectiveSurface).toBe("travail");
+
     const d = resolveProjectLoadSurface({
       rawSurface: null,
       pendingIntent: "pilotage",
@@ -118,11 +125,28 @@ describe("project surface load vs nav intent (NAV-01/02/03)", () => {
     expect(without.shouldNormalizeUrl).toBe(true);
   });
 
-  it("shares transient intent between note and peek (rail + page)", () => {
-    expect(peekProjectSurfaceNavIntent()).toBeNull();
-    noteProjectSurfaceNavIntent("pilotage");
-    expect(peekProjectSurfaceNavIntent()).toBe("pilotage");
-    clearProjectSurfaceNavIntent("pilotage");
-    expect(peekProjectSurfaceNavIntent()).toBeNull();
+  it("scopes transient intent to projectId (A cannot leak to B)", () => {
+    expect(peekProjectSurfaceNavIntent("proj-a")).toBeNull();
+    noteProjectSurfaceNavIntent("proj-a", "pilotage");
+    expect(peekProjectSurfaceNavIntent("proj-a")).toBe("pilotage");
+    expect(peekProjectSurfaceNavIntent("proj-b")).toBeNull();
+
+    // Load of B with null URL must not inherit A's pilotage.
+    const forB = resolveProjectLoadSurface({
+      rawSurface: null,
+      pendingIntent: peekProjectSurfaceNavIntent("proj-b"),
+    });
+    expect(forB.effectiveSurface).toBe("travail");
+
+    clearProjectSurfaceNavIntent("proj-a", "pilotage");
+    expect(peekProjectSurfaceNavIntent("proj-a")).toBeNull();
+  });
+
+  it("clear for unrelated project leaves intent intact", () => {
+    noteProjectSurfaceNavIntent("proj-a", "journal");
+    clearProjectSurfaceNavIntent("proj-b", "journal");
+    expect(peekProjectSurfaceNavIntent("proj-a")).toBe("journal");
+    clearProjectSurfaceNavIntent("proj-a", "journal");
+    expect(peekProjectSurfaceNavIntent("proj-a")).toBeNull();
   });
 });

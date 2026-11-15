@@ -99,6 +99,8 @@ export default function ProjectPage() {
   const [preparationId, setPreparationId] = useState<string | null>(null);
   const [meta, setMeta] = useState("Chargement…");
   const [error, setError] = useState("");
+  /** Observable end of project load + surface URL sync (e2e / anti-race proof). */
+  const [projectLoadState, setProjectLoadState] = useState<"loading" | "ready">("loading");
   const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
@@ -153,7 +155,7 @@ export default function ProjectPage() {
 
   function selectSurface(next: Surface) {
     pendingSurfaceRef.current = next;
-    noteProjectSurfaceNavIntent(next as StudioSurface);
+    noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
     setSurface(next);
     setDocMissing("");
     if (next !== "document") {
@@ -397,8 +399,13 @@ export default function ProjectPage() {
   }
 
   useEffect(() => {
+    let cancelled = false;
+    setProjectLoadState("loading");
+    pendingSurfaceRef.current = null;
+
     async function load() {
       const res = await fetch(`/api/projects/${params.projectId}`);
+      if (cancelled) return;
       if (res.status === 401) {
         router.push("/login");
         return;
@@ -406,14 +413,17 @@ export default function ProjectPage() {
       if (res.status === 404) {
         setError("Projet introuvable ou non autorisé pour ce Pilote.");
         setMeta("");
+        setProjectLoadState("ready");
         return;
       }
       if (!res.ok) {
         setError("Impossible de charger le projet.");
         setMeta("");
+        setProjectLoadState("ready");
         return;
       }
       const j = await res.json();
+      if (cancelled) return;
       const docs = (j.documents ?? []) as Doc[];
       setMessages(j.messages ?? []);
       setDocuments(docs);
@@ -425,7 +435,7 @@ export default function ProjectPage() {
       setError("");
 
       // Read *current* URL — never stale searchParams from effect closure (race with rail nav).
-      // Rail Links and chrome selectSurface share one transient intent so load() cannot
+      // Rail Links and chrome selectSurface share one project-scoped intent so load() cannot
       // replace a more recent user surface (e.g. pilotage) with default travail.
       const live =
         typeof window !== "undefined"
@@ -435,7 +445,7 @@ export default function ProjectPage() {
       const qSurface = parseSurface(rawSurface);
       const qDocId = live.get("documentId");
       const pendingSurface =
-        pendingSurfaceRef.current ?? peekProjectSurfaceNavIntent();
+        pendingSurfaceRef.current ?? peekProjectSurfaceNavIntent(params.projectId);
       const decision = resolveProjectLoadSurface({
         rawSurface,
         pendingIntent: pendingSurface,
@@ -447,10 +457,11 @@ export default function ProjectPage() {
       }
       if (qSurface && pendingSurface && qSurface === pendingSurface) {
         pendingSurfaceRef.current = null;
-        clearProjectSurfaceNavIntent(qSurface);
+        clearProjectSurfaceNavIntent(params.projectId, qSurface);
       }
 
       await refreshDurablePilotage();
+      if (cancelled) return;
       const pending = readPending();
       if (pending) {
         setUnresolvedPending(pending);
@@ -479,6 +490,7 @@ export default function ProjectPage() {
             const refreshed = await fetch(`/api/projects/${params.projectId}`);
             if (refreshed.ok) {
               const rj = await refreshed.json();
+              if (cancelled) return;
               setMessages(rj.messages ?? []);
               setDocuments(rj.documents ?? []);
               setKnowledge(rj.knowledge ?? null);
@@ -493,8 +505,14 @@ export default function ProjectPage() {
       } catch {
         /* non-blocking */
       }
+
+      // Mark ready only after surface sync from this load has been applied.
+      if (!cancelled) setProjectLoadState("ready");
     }
     void load();
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.projectId, router]);
 
@@ -506,8 +524,8 @@ export default function ProjectPage() {
     if (qSurface && pendingSurfaceRef.current === qSurface) {
       pendingSurfaceRef.current = null;
     }
-    if (qSurface && peekProjectSurfaceNavIntent() === qSurface) {
-      clearProjectSurfaceNavIntent(qSurface);
+    if (qSurface && peekProjectSurfaceNavIntent(params.projectId) === qSurface) {
+      clearProjectSurfaceNavIntent(params.projectId, qSurface);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
@@ -807,6 +825,7 @@ export default function ProjectPage() {
       projectId={params.projectId}
       surface={surface}
       meta={meta}
+      loadState={projectLoadState}
       onSelectSurface={selectSurface}
     >
       {surface === "travail" ? (

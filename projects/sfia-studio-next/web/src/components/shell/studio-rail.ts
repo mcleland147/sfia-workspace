@@ -96,22 +96,39 @@ export function parseStudioSurface(raw: string | null | undefined): StudioSurfac
  * Transient project-surface navigation intent shared by StudioShell (rail Links)
  * and ProjectPage (selectSurface / load normalisation).
  *
- * Not a durable store: cleared when the URL catches up. Ensures one navigation
- * authority so async load() cannot replace a more recent user surface choice
- * with the default `travail` (NAV-01 / NAV-02 / NAV-03).
+ * Scoped by projectId so an intent for project A cannot influence load() of B.
+ * Not a durable store: cleared when the URL catches up for that project.
  */
-let projectSurfaceNavIntent: StudioSurface | null = null;
+type ProjectSurfaceNavIntent = { projectId: string; surface: StudioSurface };
 
-export function noteProjectSurfaceNavIntent(surface: StudioSurface | null): void {
-  projectSurfaceNavIntent = surface;
+let projectSurfaceNavIntent: ProjectSurfaceNavIntent | null = null;
+
+export function noteProjectSurfaceNavIntent(
+  projectId: string | null | undefined,
+  surface: StudioSurface | null,
+): void {
+  if (!projectId || !surface) {
+    return;
+  }
+  projectSurfaceNavIntent = { projectId, surface };
 }
 
-export function peekProjectSurfaceNavIntent(): StudioSurface | null {
-  return projectSurfaceNavIntent;
+/** Peek intent only when it belongs to the given project. */
+export function peekProjectSurfaceNavIntent(
+  projectId: string | null | undefined,
+): StudioSurface | null {
+  if (!projectId || !projectSurfaceNavIntent) return null;
+  if (projectSurfaceNavIntent.projectId !== projectId) return null;
+  return projectSurfaceNavIntent.surface;
 }
 
-export function clearProjectSurfaceNavIntent(matched?: StudioSurface | null): void {
-  if (matched == null || projectSurfaceNavIntent === matched) {
+export function clearProjectSurfaceNavIntent(
+  projectId?: string | null,
+  matched?: StudioSurface | null,
+): void {
+  if (!projectSurfaceNavIntent) return;
+  if (projectId != null && projectSurfaceNavIntent.projectId !== projectId) return;
+  if (matched == null || projectSurfaceNavIntent.surface === matched) {
     projectSurfaceNavIntent = null;
   }
 }

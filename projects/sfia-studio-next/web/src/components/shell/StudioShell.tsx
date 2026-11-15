@@ -90,7 +90,9 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
                 data-testid={`nav-${item.key}`}
                 onClick={() => {
                   const surfaceKey = parseStudioSurface(item.key);
-                  if (surfaceKey) noteProjectSurfaceNavIntent(surfaceKey);
+                  if (projectId && surfaceKey) {
+                    noteProjectSurfaceNavIntent(projectId, surfaceKey);
+                  }
                 }}
               >
                 {item.label}
@@ -117,7 +119,7 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
             <Link
               href={`/projects/${projectId}?surface=document`}
               className="text-sm muted block px-2 py-1"
-              onClick={() => noteProjectSurfaceNavIntent("document")}
+              onClick={() => noteProjectSurfaceNavIntent(projectId, "document")}
             >
               Documents Nora
             </Link>
@@ -125,7 +127,7 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
               href={`/projects/${projectId}?surface=git`}
               className="text-sm muted block px-2 py-1"
               data-testid="nav-sources-git"
-              onClick={() => noteProjectSurfaceNavIntent("git")}
+              onClick={() => noteProjectSurfaceNavIntent(projectId, "git")}
             >
               Sources Git
             </Link>
@@ -168,7 +170,9 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
               aria-current={item.active ? "page" : undefined}
               onClick={() => {
                 const surfaceKey = parseStudioSurface(item.key);
-                if (surfaceKey) noteProjectSurfaceNavIntent(surfaceKey);
+                if (projectId && surfaceKey) {
+                  noteProjectSurfaceNavIntent(projectId, surfaceKey);
+                }
               }}
             >
               {item.label}
