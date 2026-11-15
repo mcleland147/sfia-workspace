@@ -199,9 +199,9 @@ Cursor **ne merge pas**.
 | --- | --- |
 | Message | `docs(review-handoff): ML4C navigation fix PR678 ready for merge go` |
 | Worktree | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` |
-
-| Commit tip |  |
-| Blob |  |
+| Commit tip | `3f2187f5ac474440b4abd7466f89b310df72264d` |
+| Blob | `9ae3748287a3e3840c87180910627cb37fe7590a` |
+| Chaîne | `c892727a` → `ec416694` → `3f2187f5` |
 | Verdict publisher | **HANDOFF UPDATED — REMOTE VERIFIED** |
 
 ---
