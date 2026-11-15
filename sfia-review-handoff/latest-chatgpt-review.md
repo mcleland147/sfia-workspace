@@ -1,269 +1,216 @@
-# SFIA Studio Next — ML4C Merge Produit / Post-merge — Review Pack FULL
+# SFIA Studio Next — Diagnostic CI PR #678 (g4-b1-b4 nav-pilotage) — Review Pack LIGHT
 
-**Date / heure :** 2026-11-15 17:42 CET (approx. cycle 16:34–16:42Z)
-**Produit :** SFIA Studio Next · Programme R5 · Macro-lot ML4C
-**Dépôt :** `mcleland147/sfia-workspace`
-**Type :** PR Integration / Post-merge · **NO RELEASE**
-**Profil SFIA :** Critical
-**Review Pack :** FULL — mono-cycle
-**Review Handoff :** required — publish-in-cycle L3
-
----
-
-## 0. Verdict du cycle
-
-**ML4C PRODUCT MERGED — POST-MERGE WITH RESERVES**
-
-| Axe | Résultat |
-| --- | --- |
-| Merge #676 | **MERGED** — merge commit `05e71a7166562211b1c8c168a40dcd35e4f8c8a3` |
-| Candidat dans main | `11f7077e` ancêtre de `origin/main` — **YES** |
-| Next `web/` vs candidat | Tree **identique** `f2427adc…` |
-| CI pré-merge | PASS run `43732809012` sur `11f7077e` |
-| CI post-merge main | **PASS** run [43736293441](https://github.com/mcleland147/sfia-workspace/actions/runs/43736293441) sur `05e71a71` |
-| Smoke local borné | **55 PASS / 0 FAIL** (3 fichiers unit) |
-| RECETTE / STABLE | **non mutés** |
-| Réserves ML4C | **conservées** (non clôturées par le merge) |
-| Documentaire / ML4D / Gate C / STABLE | PENDING / NOT STARTED / OPEN / NOT AVAILABLE |
+**Date / heure :** 2026-11-15 19:20 CET (2026-11-15T18:20Z approx.)
+**Type :** QA / Investigation technique · **NO RELEASE** · ENV-01 READ-ONLY
+**Profil SFIA :** STANDARD
+**Review Pack :** LIGHT — mono-cycle
+**Review Handoff :** required / publish-in-cycle
+**Mandat :** GO diagnostic 15/11/2026 — analyse seule · **aucune** correction / commit projet / push projet / merge / test mutatif / redeploy
 
 ---
 
-## 1. GO Morris consommé
+## 0. Verdict
 
-**GO MERGE EXPLICITE** PR #676 → `main` — 15/11/2026, après revue ChatGPT et acceptation ML4C avec réserves.
+**ROOT CAUSE PROVEN — FIX GO REQUIRED**
 
-**Autorisé :** intégration exacte du candidat `11f7077e` + vérifications post-merge.
+La navigation rail globale vers Pilotage utilise un `Link` Next.js qui **ne renseigne pas** `pendingSurfaceRef`. Pendant `load()` initial du projet, une normalisation `router.replace(...?surface=travail)` peut **écraser** une navigation concurrente vers `?surface=pilotage`. Le test Playwright (oracle B1) observe exactement ce symptôme. Le tree `web/` est **identique** entre candidat ML4C, `main` et PR #678 — pas de régression introduite par les docs #678.
 
-**Non autorisé / non réalisé :** correction · rebase · suppression branche · publication documentaire · D2/Roadmap · STABLE · ML4D · admin override · squash reconstruit.
-
----
-
-## 2. Sources et SHAs
-
-Gouvernance / décisions / contrat / delivery-history : présents sur `main` (pré et post-merge pour docs #677).
-Méthode SFIA v2.6 (ENV-01, PR readiness, post-merge, Fake/Real, Review Handoff).
-Handoff publication précédent : `sfia/review-handoff@4abecd46` blob `17e708ad`.
-PR #676 + checks GitHub + ruleset `19798462` (Main Required Gate).
-
-| Ref | SHA |
-| --- | --- |
-| Candidat HEAD | `11f7077edd08f1a0c680b6b920f20dbaf76c7bed` |
-| Candidat tree | `71e052cf53232c70153a6056d948b97fb401b175` |
-| `main` pré-merge | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
-| Merge commit / `main` post | `05e71a7166562211b1c8c168a40dcd35e4f8c8a3` |
-| Tree merge | `6b46c875518b0e693f5a5bdf2e10bb20ed81f22c` |
-| Parents merge | `6cda86bd` + `11f7077e` |
+Aucune correction effectuée. Aucune CI verte déclarée. Aucune clôture ML4C.
 
 ---
 
-## 3. Git Truth Check — initial / final
-
-### Initial (pré-merge)
+## 1. Git Truth Check
 
 | Champ | Valeur |
 | --- | --- |
 | Worktree | `/Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112` |
 | `origin` | `https://github.com/mcleland147/sfia-workspace.git` |
-| Branche | `fix/next-semantic-intent-convergence-20261112` |
-| HEAD / tree | `11f7077e` / `71e052cf` |
+| Branche locale | `fix/next-semantic-intent-convergence-20261112` |
+| HEAD / tree local | `11f7077e` / `71e052cf` |
 | Dirty | `.tmp-sfia-review/chatgpt-review.md` only |
-| RECETTE WT | `…-ml4c-recette-build-11f7077e` @ `11f7077e` / `71e052cf` |
-| `origin/PR` | `11f7077e` |
-| Ahead/behind | 17 / 3 (3 commits docs #677 sur main) |
+| `origin/main` | `05e71a7166562211b1c8c168a40dcd35e4f8c8a3` |
+| PR #678 HEAD | `968ea252fb46732d0862e3809390b1a36e6f991b` · OPEN · docs-only (5 files) |
+| Handoff tip (pré) | `8083b61d` |
 
-### Final (post-merge)
+### Tree `projects/sfia-studio-next/web`
 
-| Champ | Valeur |
+| Ref | Tree web |
 | --- | --- |
-| `origin/main` | `05e71a71` |
-| Branche source distante | **conservée** `build/next-ml4c-functional-convergence` @ `11f7077e` |
-| Worktree produit | inchangé @ `11f7077e` (hors pack) |
-| RECETTE | inchangée @ `11f7077e` |
+| Candidat `11f7077e` | `f2427adcd31b044115f85cdc48cfb6dd157d9551` |
+| `main` `05e71a71` | **identique** |
+| PR #678 `968ea252` | **identique** |
+
+→ Échec Playwright **non causé** par un diff applicatif de #678.
 
 ---
 
-## 4. Contrôles pré-merge (A–J)
+## 2. Sources et SHA
 
-| Gate | Résultat |
-| --- | --- |
-| A. PR OPEN | **PASS** |
-| B. HEAD `11f7077e` | **PASS** |
-| C. CI Next SUCCESS sur SHA | **PASS** `43732809012` |
-| D. MERGEABLE / CLEAN | **PASS** |
-| E. Règles GitHub | **PASS** — ruleset actif ; merge methods incluent `merge` ; required check `SFIA Studio Required Gate` PASS ; reviews requises = 0 ; non_fast_forward + deletion |
-| F. Candidat = RECETTE / décision | **PASS** |
-| G. Diff compréhensible | **PASS** — 79 fichiers web, ML4C accepté |
-| H. Aucune correction nécessaire | **PASS** |
-| I. Réserves conservées | **PASS** (déclarées) |
-| J. Pas de nouvelle condition Git | **PASS** |
+Relues depuis le tree web commun (`f2427adc` / HEAD local = candidat) :
+
+- `web/src/app/projects/[projectId]/page.tsx` — `pendingSurfaceRef`, `selectSurface`, `syncSurfaceUrl`, `load()`, effet `searchParams`
+- `web/src/components/shell/StudioShell.tsx` — `Link` `data-testid=nav-*`
+- `web/src/components/shell/studio-rail.ts` — href `?surface=`
+- `web/src/components/figma/ProjectChrome.tsx` — boutons → `onSelectSurface`
+- `web/tests/e2e/g4-b1-b4-correctifs.spec.ts` L47–54
+- as-built G4 B1–B4 ; gouvernance ENV/versioning (contexte NO RELEASE)
+- CI : run [43739913521](https://github.com/mcleland147/sfia-workspace/actions/runs/43739913521) (attempts 1–2) ; comparaison [43732809012](https://github.com/mcleland147/sfia-workspace/actions/runs/43732809012) (#676) et [43736293441](https://github.com/mcleland147/sfia-workspace/actions/runs/43736293441) (post-merge)
 
 ---
 
-## 5. Opération Git exécutée
+## 3. Reproduction documentée (CI)
 
-```text
-gh pr merge 676 --repo mcleland147/sfia-workspace --merge \
-  --match-head-commit 11f7077edd08f1a0c680b6b920f20dbaf76c7bed
-```
-
-- **Une seule** exécution · merge commit standard · pas de squash/rebase · pas d’auto-merge · pas de delete branch · pas de push direct main · pas d’admin override.
-
----
-
-## 6. PR avant / après
-
-| | Avant | Après |
-| --- | --- | --- |
-| State | OPEN | **MERGED** |
-| HEAD | `11f7077e` | `11f7077e` (source préservée) |
-| merged_at | — | `2026-11-15T16:35:01Z` |
-| merge_commit_sha | — | `05e71a7166562211b1c8c168a40dcd35e4f8c8a3` |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/676 | idem |
-
----
-
-## 7. Merge commit et tree
-
-```text
-05e71a71 Merge pull request #676 from mcleland147/build/next-ml4c-functional-convergence
-Merge: 6cda86bd 11f7077e
-tree: 6b46c875518b0e693f5a5bdf2e10bb20ed81f22c
-```
-
-Tree global candidat ≠ tree main (attendu : docs #677 sur parent main).
-Tree `projects/sfia-studio-next/web` : **identique** candidat ↔ main.
-
----
-
-## 8. CI pré / post-merge
-
-| Moment | Run | SHA | Conclusion |
+| Tentative | projectId | Attendu | Observé |
 | --- | --- | --- | --- |
-| Pré (PR) | [43732809012](https://github.com/mcleland147/sfia-workspace/actions/runs/43732809012) | `11f7077e` | SUCCESS (Build + Required Gate) |
-| Post (push main) | [43736293441](https://github.com/mcleland147/sfia-workspace/actions/runs/43736293441) | `05e71a71` | **SUCCESS** — Detect / Build / Required Gate |
+| attempt 1 | `proj_c86afd30-f1ee-43d2-83a0-8b1fc59ab4ce` | `?surface=pilotage` | `?surface=travail` |
+| attempt 2 | `proj_2d061df5-b810-4e75-9f56-20a923ba6ea2` | `?surface=pilotage` | `?surface=travail` |
+
+- Fichier : `g4-b1-b4-correctifs.spec.ts:54` — `nav-pilotage` click puis `toHaveURL(...pilotage)`
+- Bilan Playwright #678 : **27 PASS / 1 FAIL** → Required Gate FAIL
+- Autres étapes (TS, ESLint, Build, unit, PG) : PASS
+- Artefacts Playwright GitHub : **aucun** uploadé (`artifacts: []`) — pas de trace timeline navigateur récupérable
+- Error Context cité dans les logs (`error-context.md`) **non téléchargeable** sans artefact
+
+Transition scénario : login → prep → constitute → create project → `waitForURL(**/projects/**)` → assert href travail → **click `nav-pilotage`** → FAIL.
 
 ---
 
-## 9. Comparaison application Next
+## 4. Analyse des hypothèses
 
-- `11f7077e:projects/sfia-studio-next/web` = `main:projects/sfia-studio-next/web` = `f2427adcd31b044115f85cdc48cfb6dd157d9551`
-- As-built continuité + qualification sémantique : **présents** sur main
-- Tests clés (`s05-pending-policy`, `confront-proposal-fence`) : **présents**
-- Décisions / contrat documentaires de #677 : blobs **identiques** pré-main → post-main (pas de perte)
+### H1 — Concurrence `load()` vs `Link` rail (prioritaire) — **PROUVÉE au code + compatible symptôme**
 
----
+1. Après création, URL projet souvent **sans** `surface` (ou pas encore normalisée).
+2. `ProjectPage` monte → `useEffect` lance `load()` (fetch async).
+3. Le test clique **immédiatement** `StudioShell` `Link` → `/projects/{id}?surface=pilotage`.
+4. Ce `Link` **ne passe pas** par `selectSurface()` → **`pendingSurfaceRef` reste `null`**.
+5. Fin de `load()` : lit `window.location` ; si `surface` absente/invalide → `syncSurfaceUrl(effectiveSurface ?? "travail", "replace")`.
+6. Avec `pendingSurfaceRef === null` et URL encore sans `surface` (navigation Link non commitée) → **`replace(?surface=travail)`** écrase Pilotage.
 
-## 10. Tests / smokes réellement effectués
+Commentaire code L116–117 / L419–422 : protection conçue pour « chrome/rail while load() in flight », mais seule la voie **`selectSurface`** (ProjectChrome) pose le pending. Le rail global (`StudioShell` Link) n’est **pas** couvert.
 
-| Preuve | Périmètre | Résultat |
+### H2 — Deux propriétaires de navigation — **PROUVÉ**
+
+| Voie | Mécanisme | Pose `pendingSurfaceRef` ? |
 | --- | --- | --- |
-| Vitest unit borné | `confront-proposal-fence` + `s05-pending-policy` + `ml4c-s01-s03-guards` | **55 PASS / 0 FAIL** · ~1.0s |
-| Lane | Worktree produit @ `11f7077e` (web tree = main) | autorisée |
-| RECETTE | non utilisée pour smoke | — |
-| Élargissement PG/E2E/LIVE | **non** | — |
+| ProjectChrome `surface-*` | `onSelectSurface` → `selectSurface` → `router.push` | **Oui** |
+| StudioShell `nav-*` | Next `<Link href=?surface=…>` | **Non** |
+| `load()` normalisation | `router.replace` si surface manquante | Peut gagner la course |
+
+### H3 — Défaut de préparation Playwright seul — **NON suffisant comme cause racine**
+
+Le scénario suit l’oracle B1 (rail réel). Attendre plus longtemps masquerait la race sans la corriger (interdit comme substitut). Le test révèle un défaut produit ; ne pas l’assouplir.
+
+### H4 — Régression docs #678 — **RÉFUTÉE**
+
+Tree web identique cand/main/#678. Diff #678 = 5 fichiers docs/gouvernance uniquement.
+
+### H5 — Pourquoi #676 / post-merge PASS (28 passed) avec même web ?
+
+Course **timing-dépendante** : si `load()` termine et normalise `travail` **avant** le clic, le `Link` vers pilotage n’est plus concurrent → PASS. CI #678 plus lente/chargée → fenêtre de course ouverte → FAIL ×2. Preuve : même SHA web, résultats Playwright divergents (28 vs 27+1).
 
 ---
 
-## 11. Absence de mutation RECETTE / STABLE
+## 5. Preuves exactes et limites
 
-| Lane | Preuve |
+**Preuves :**
+
+- Identité tree web cand/main/#678
+- Logs CI attempt1/2 : même assertion, deux `projectId`, reçu `surface=travail`
+- Code : `selectSurface` set pending ; `StudioShell` Link sans pending ; `load()` replace si `!rawSurface`
+- as-built B1/B2 documente sync URL + anti-race via lecture live — incomplete pour Link rail
+- #676/#merge : `28 passed` Playwright ; #678 : `27 passed / 1 failed`
+
+**Limites :**
+
+- Pas de trace Playwright / CDP / ordre clic→push→replace dans artefacts CI
+- Ordre exact runtime de la course **inféré** (mécanisme code + symptôme), non filmé
+- Pas de re-exécution locale mutative (hors mandat)
+
+---
+
+## 6. Cause confirmée
+
+**Cause racine :** synchronisation d’état / concurrence runtime — normalisation `load()` → `replace(?surface=travail)` non protégée contre la navigation **Link** du rail global, faute de pose de `pendingSurfaceRef` (ou d’un propriétaire unique d’intention de surface).
+
+Classification contrat : concurrence runtime **confirmée** (mécanisme) + synchronisation d’état incorrecte (couverture pending incomplète). Pas un affaiblissement d’oracle légitime.
+
+---
+
+## 7. Blast radius
+
+| Surface / comportement | Risque |
 | --- | --- |
-| RECETTE WT | HEAD/tree toujours `11f7077e` / `71e052cf` ; aucun redeploy |
-| STABLE | **NOT AVAILABLE** — aucune promotion |
-| Ports/DB/secrets | non manipulés ce cycle |
+| Pilotage / Travail / Journal / Documents (rail) | Même race au **premier chargement** projet si clic rail pendant `load()` |
+| ProjectChrome boutons | Moins exposé (pending posé) |
+| Back/Forward / refresh / deep-link | Effet `searchParams` OK **après** load ; deep-link initial dépend de la même normalisation |
+| `documentId` / révision | Remplace peut dropper query si course pendant load document |
+| Reprise projet | Même montage `ProjectPage` |
+| G4 B1–B4 non-régression | Oracle B1 fragile tant que race ouverte (flake CI) |
 
 ---
 
-## 12. Réserves et anomalies
+## 8. Contrat correctif recommandé (**ne pas implémenter ici**)
 
-**Réserves conservées (merge ne clôt rien) :**
+**Objectif :** un seul propriétaire d’intention de surface pendant le chargement projet ; oracle B1 inchangé.
 
-- S05-06 / S05-08 — NOT PROVEN
-- S01-05 session TTL / panne≠auth
-- ENV-R09
-- Git REAL Studio — NOT PROVEN
-- Nora LIVE — partiel
-- Autres réserves UAT / D4 / UX documentées
+**Correctif minimal (orientation) :**
 
-**Anomalies post-merge :** aucune bloquante observée.
-CI post-merge PASS ; smoke local PASS ; identité web OK.
+1. Faire en sorte que toute navigation rail projet (`nav-pilotage`, `nav-travail`, `nav-journal`, `nav-document`, …) **enregistre la même intention** que `selectSurface` **avant/avec** le changement d’URL — p.ex. :
+   - passer le rail projet par le même contrôleur que ProjectChrome (boutons/`selectSurface` + `push`), **ou**
+   - contexte/callback partagé `setPendingSurface(surface)` invoqué depuis le rail **sans** créer un second store d’état durable concurrent.
+2. Conserver `load()` : préférer `pendingSurfaceRef` / URL live ; ne normaliser en `travail` que si **aucune** intention pending et surface absente.
+3. **Interdit :** augmenter timeout Playwright ; skip/disable/assouplir le test ; second propriétaire d’état durable de navigation ; toucher décisions/contrats produit hors code UI.
 
-**Statuts programme :**
+**Stratégie de tests (après GO fix) :**
 
-- Code ML4C **intégré** dans main
-- Acceptation Morris **WITH RESERVES** conservée
-- Clôture documentaire ML4C — **PENDING**
-- ML4D — **NOT STARTED**
-- Gate C — **OPEN**
-- STABLE — **NOT AVAILABLE** · NO RELEASE · NO ADOPTED
+- Garder `g4-b1-b4-correctifs.spec.ts` tel quel (oracle).
+- Ajouter test unitaire/déterministe de la politique : « load in-flight + intention pilotage → pas de replace travail ».
+- Optionnel : harness simulant fetch lent + navigation rail (sans allonger timeout CI comme « fix »).
+- Rejouer Playwright BROWSER FAKE sur le SHA correctif ; comparer Required Gate.
 
----
+**Fichiers potentiellement concernés :**
 
-## 13. Documentaire — relevé pour prochain cycle (RO only)
-
-| Élément | Valeur |
-| --- | --- |
-| PR mergée | #676 |
-| Merge SHA | `05e71a71` |
-| HEAD/tree main | `05e71a71` / `6b46c875` |
-| CI post-merge | PASS `43736293441` |
-| Docs restants | UAT journal `1f6d9cb4` · continuité v0.7 `86377fde` · v0.1 supersédé `de0fae28` · design D4/S05 `c883db07` · #677 déjà mergé |
-| Actions interdites ici | Roadmap · D2 · PR doc · delete branches · STABLE · CHANGELOG release |
+- `web/src/app/projects/[projectId]/page.tsx`
+- `web/src/components/shell/StudioShell.tsx` (et éventuellement `studio-rail.ts`)
+- `web/src/components/figma/ProjectChrome.tsx` (alignement API)
+- tests unitaires navigation/surface ; e2e existant **non affaibli**
 
 ---
 
-## 14. Fichiers réellement modifiés
+## 9. GO Morris nécessaires
 
-| Cible | Action |
-| --- | --- |
-| `main` via PR merge GitHub | **merge commit** `05e71a71` |
-| Branche source | **non** supprimée |
-| Produit local / tests / CI config | **aucun** commit |
-| Branches documentaires | **aucune** mutation |
-| `.tmp-sfia-review/chatgpt-review.md` | pack mono-cycle |
-| `sfia/review-handoff` | L3 (voir §16) |
+1. **GO FIX** borné — correctif navigation surface + tests (cycle séparé)
+2. Re-qualification CI sur SHA correctif (pas relance aveugle #678 sans fix)
+3. Merge #678 documentaire : **après** CI verte ou arbitrage explicite « docs malgré flake » — **non recommandé** tant que Required Gate FAIL sur le même job Next
+4. Toujours : pas ML4D, pas STABLE, pas clôture ML4C via ce diagnostic
 
 ---
 
-## 15. Gates restant à Morris
+## 10. Comparaison CI
 
-1. **GO documentaire** — consolidation UAT / continuité v0.7 / design D4
-2. Décision D2 + Roadmap post-clôture documentaire
-3. Traitement réserves (S05-06/08, TTL, ENV-R09, Git REAL, LIVE) — hors merge
-4. Promotion **STABLE** — distincte, non proposée
-5. **ML4D** — ne pas démarrer sans GO
-6. Gate C — reste OPEN
+| Run | SHA | Playwright | Note |
+| --- | --- | --- | --- |
+| 43732809012 (#676) | `11f7077e` | **28 passed** | même tree web |
+| 43736293441 (merge) | `05e71a71` | **28 passed** | même tree web |
+| 43739913521 att.1–2 (#678) | `968ea252` | **27+1 FAIL** g4-b1-b4 | docs only · même tree web |
 
 ---
 
-## 16. Review Handoff L3
+## 11. Review Handoff L3
 
 | Champ | Valeur |
 | --- | --- |
 | Branche | `sfia/review-handoff` |
 | Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Source | `.tmp-sfia-review/chatgpt-review.md` |
-| Publisher | `scripts/sfia/publish-review-handoff.sh` |
-| Message | `docs(review-handoff): ML4C product merge and post-merge verification` |
+| Message | `docs(review-handoff): diagnose ML4C PR678 Playwright pilotage nav race` |
 | Worktree | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` |
 
-| Commit tip distant | `949b1a99235818683f582bfd30bae43d040ed9a8` |
-| Parent | `4abecd46c727830e07200bdd05aa9682b4264410` |
-| Blob tip | `2ee18f100ad38ca0ab1f2ccb3db502e1d6029c9d` |
-| Push | FF `4abecd46..949b1a99` |
-| Verdict publisher | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Retour produit | `fix/next-semantic-intent-convergence-20261112` @ `11f7077e` |
+*(SHAs après publish.)*
 
 ---
 
-## 17. Instruction ChatGPT
+## 12. Verdict final
 
-Relire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`, vérifier PR #676 et `main` sur GitHub, puis verdict indépendant.
+**ROOT CAUSE PROVEN — FIX GO REQUIRED**
 
-Aucune clôture documentaire ni ouverture ML4D avant décision de suite.
-
----
-
-## 18. Verdict final
-
-**ML4C PRODUCT MERGED — POST-MERGE WITH RESERVES**
+Pas de correction dans ce cycle. Pas de CI verte. Pas de clôture ML4C. Pas de merge #678.
