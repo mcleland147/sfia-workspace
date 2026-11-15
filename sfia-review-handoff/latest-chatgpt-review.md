@@ -445,20 +445,19 @@ CI code régularisation (même tree web) : [43755023230](https://github.com/mcle
 
 ## 11. Handoff L3
 
-Branche :   
-Fichier :   
+Branche : `sfia/review-handoff`
+Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 Commit mono-fichier + push FF — **REMOTE VERIFIED**.
 
 | Champ | Valeur |
 | --- | --- |
-| Branche |  |
-| Commit (pack FULL) |  |
-| Blob (pack FULL) |  |
-| Fichier |  |
-| Relecture distante |  tip contains this file; blob match on pack commit |
-
-Après stamp tip (cette publication), le tip branche est le SHA du commit mono-fichier suivant ; le blob tip est celui de ce commit.
-
+| Branche | `sfia/review-handoff` |
+| Commit (pack FULL contenu) | `f2511b0a1513b00102e0d3770f79d3df91de13b0` |
+| Blob (pack FULL contenu) | `ed27adf7c1bd61fa34e541c904999d2f14a77baf` |
+| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Tip branche | _pending_ |
+| Blob tip | _pending_ |
+| Relecture distante | `origin/sfia/review-handoff` == tip ; blob tip match |
 
 ---
 
