@@ -24,7 +24,7 @@
 | CI verte HEAD final | **SUCCESS** [43755913981](https://github.com/mcleland147/sfia-workspace/actions/runs/43755913981) |
 | Required gates | Next **PASS** · Studio **PASS** [43755913982](https://github.com/mcleland147/sfia-workspace/actions/runs/43755913982) |
 | MERGEABLE / CLEAN | **oui** |
-| Handoff L3 | **REMOTE VERIFIED** (commit suivant pack) |
+| Handoff L3 | **REMOTE VERIFIED** |
 | Merge #678 | **NON** — gate Morris restant |
 
 ML4D NOT STARTED · Gate C OPEN · STABLE NOT AVAILABLE · NO RELEASE / NOT ADOPTED.
@@ -445,17 +445,19 @@ CI code régularisation (même tree web) : [43755023230](https://github.com/mcle
 
 ## 11. Handoff L3
 
-Branche : `sfia/review-handoff`  
-Fichier : `sfia-review-handoff/latest-chatgpt-review.md`  
+Branche :   
+Fichier :   
 Commit mono-fichier + push FF — **REMOTE VERIFIED**.
 
 | Champ | Valeur |
 | --- | --- |
 | Branche |  |
-| Commit |  |
-| Blob |  |
+| Commit (pack FULL) |  |
+| Blob (pack FULL) |  |
 | Fichier |  |
-| Relecture |  tip + blob match |
+| Relecture distante |  tip contains this file; blob match on pack commit |
+
+Après stamp tip (cette publication), le tip branche est le SHA du commit mono-fichier suivant ; le blob tip est celui de ce commit.
 
 
 ---
