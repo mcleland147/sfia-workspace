@@ -371,8 +371,13 @@ Confirmé **absent** ce cycle : force push · rebase · amend · cherry-pick rec
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
 | Message | `docs(review-handoff): ML4C accepted candidate publication and closure readiness` |
 | Worktree | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` |
-
-*(Rempli après exécution publisher — SHAs local/remote/blob/vérification/retour branche.)*
+| Commit local/remote | `cd2b0de545c4dfb3d0167110c519d0419564532d` |
+| Parent | `f6aaf49c3f398b226ad893a5e341c9e0cdcbcd71` |
+| Blob distant | `8ba28d4ddf37d656fb8cd51347af5e1a5f1fbad8` |
+| Push | fast-forward only `f6aaf49c..cd2b0de5` |
+| Verdict publisher | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Retour worktree produit | `fix/next-semantic-intent-convergence-20261112` @ `11f7077e` (inchangé hors pack) |
+| Dirty produit après handoff | `.tmp-sfia-review/chatgpt-review.md` only |
 
 ---
 
