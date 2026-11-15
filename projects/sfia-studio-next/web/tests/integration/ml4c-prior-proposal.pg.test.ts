@@ -1508,4 +1508,163 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
 
     expect(admitted.binding.correlationKey).toBe(keyBefore);
   });
+
+  it("LIVE-03/R01–R07: section REVISE with LEGACY untitled fence → AVAILABLE v2, Option A preserved", async () => {
+    const pilotId = await seedPilot("ml4c-live03-revise");
+    const prep = await openOrCreatePreparation(pilotId);
+    const title = "Options de solution DEV LIVE";
+    const v1Body = `# ${title}
+
+## Option A
+
+SOURCE-CANARI-BETA-73
+
+## Option B
+
+À préciser.
+`;
+    const created = await savePreparationDocument(pilotId, prep.id, title, v1Body);
+    expect(created.status).toBe("AVAILABLE");
+    if (created.status !== "AVAILABLE" || !created.documentId || !created.revisionId) {
+      throw new Error("v1 create");
+    }
+    const documentId = created.documentId;
+    const baseRevisionId = created.revisionId;
+
+    const sectionBody = "## Option B\n\nÀ préciser.\n\nREVISION-CANARI-GAMMA-91";
+    const utterance = `ML4C-LIVE03-REVISE-${Date.now()} — révise uniquement la section Option B du document ${documentId}`;
+    registerExplicitFixture(utterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "réviser Option B",
+        intents: [
+          {
+            id: "i-d4-revise",
+            capabilityId: "d4.revise_document",
+            mode: "REQUEST_EFFECT",
+            summary: "revise Option B",
+            parameters: {
+              documentHint: documentId,
+              sectionHint: "Option B",
+            },
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Modification proposée pour Option B.",
+        documentProposal: { title, contentMarkdown: sectionBody },
+      },
+    });
+
+    const legacyFence = "```sfia-document\n" + sectionBody + "\n```\n";
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      `Voici la modification proposée pour **Option B**.\n\n${legacyFence}`;
+    try {
+      const chat = await noraTurn(pilotId, prep.id, utterance);
+      expect(chat.documentSave?.status).toBe("AVAILABLE");
+      expect(chat.documentSave?.act).toBe("REVISE");
+      expect(chat.documentSave?.documentId).toBe(documentId);
+      expect(chat.documentSave?.revisionNumber).toBe(2);
+      expect(chat.documentSave?.baseRevisionId).toBe(baseRevisionId);
+      expect(chat.documentSave?.revisionId).not.toBe(baseRevisionId);
+
+      const v1 = await getDocumentRevision(pilotId, prep.id, documentId, baseRevisionId);
+      expect(v1.status).toBe("AVAILABLE");
+      if (v1.status !== "AVAILABLE") throw new Error("v1");
+      expect(v1.revision.contentMarkdown).toBe(v1Body);
+      expect(v1.revision.contentMarkdown).toContain("SOURCE-CANARI-BETA-73");
+      expect(v1.revision.contentMarkdown).not.toContain("REVISION-CANARI-GAMMA-91");
+
+      const v2 = await getDocumentRevision(
+        pilotId,
+        prep.id,
+        documentId,
+        chat.documentSave!.revisionId!,
+      );
+      expect(v2.status).toBe("AVAILABLE");
+      if (v2.status !== "AVAILABLE") throw new Error("v2");
+      expect(v2.revision.contentMarkdown).toContain("SOURCE-CANARI-BETA-73");
+      expect(v2.revision.contentMarkdown).toContain("REVISION-CANARI-GAMMA-91");
+      expect(v2.revision.contentMarkdown).toMatch(
+        /## Option A\n\nSOURCE-CANARI-BETA-73/,
+      );
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("LIVE-03/R11: section REVISE with divergent LEGACY body → PROPOSAL_SOURCE_CONFLICT, zero write", async () => {
+    const pilotId = await seedPilot("ml4c-live03-conflict");
+    const prep = await openOrCreatePreparation(pilotId);
+    const title = "Options conflit LIVE03";
+    const v1Body = `# ${title}
+
+## Option A
+
+KEEP-A
+
+## Option B
+
+Old B.
+`;
+    const created = await savePreparationDocument(pilotId, prep.id, title, v1Body);
+    expect(created.status).toBe("AVAILABLE");
+    if (created.status !== "AVAILABLE" || !created.documentId) throw new Error("v1");
+
+    const sectionBody = "## Option B\n\nAuthority body.\n";
+    const utterance = `ML4C-LIVE03-CONFLICT-${Date.now()} — révise Option B du document ${created.documentId}`;
+    registerExplicitFixture(utterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "réviser avec fence divergent",
+        intents: [
+          {
+            id: "i-d4-revise",
+            capabilityId: "d4.revise_document",
+            mode: "REQUEST_EFFECT",
+            summary: "revise conflict",
+            parameters: {
+              documentHint: created.documentId,
+              sectionHint: "Option B",
+            },
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Fence divergent.",
+        documentProposal: { title, contentMarkdown: sectionBody },
+      },
+    });
+
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "```sfia-document\n## Option B\n\nFence divergent body.\n```\n";
+    try {
+      const before = (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, created.documentId!))
+      )[0]?.n;
+      const chat = await noraTurn(pilotId, prep.id, utterance);
+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
+      expect(chat.documentSave?.reason).toBe("PROPOSAL_SOURCE_CONFLICT");
+      const after = (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, created.documentId!))
+      )[0]?.n;
+      expect(after).toBe(before);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
 });

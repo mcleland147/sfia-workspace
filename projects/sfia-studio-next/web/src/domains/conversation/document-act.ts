@@ -571,6 +571,13 @@ export type DocumentProposalExtract =
 /** Sole mutative proposal marker — exact first info-string token (case-insensitive). */
 export const DOCUMENT_PROPOSAL_TAG = "sfia-document";
 
+/**
+ * LEGACY fence sentinel when the body has no document-level `# H1`.
+ * Not a contractual document title — section-scoped REVISE may ignore it
+ * when comparing against the durable document title on the proposal.
+ */
+export const LEGACY_UNTITLED_DOCUMENT_TITLE = "Document Nora";
+
 type FenceMarker = {
   indent: number;
   char: "`" | "~";
@@ -912,7 +919,7 @@ export function extractContractualDocumentProposal(
   return {
     ok: true,
     content,
-    title: titleLine || "Document Nora",
+    title: titleLine || LEGACY_UNTITLED_DOCUMENT_TITLE,
     path: "fence",
     fenceTag: DOCUMENT_PROPOSAL_TAG,
     fenceCount: 1,

@@ -1268,6 +1268,8 @@ export async function postUserMessageAndNora(
   let durableProposal: DocumentProposalExact | null = null;
   /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
   let proposalAuthorityConflict: string | null = null;
+  const sectionScopedConfront =
+    documentAct.kind === "REVISE" && Boolean(documentAct.sectionHint);
   if (
     reply.status === "COMPLETE" &&
     qualification.documentProposal &&
@@ -1276,7 +1278,9 @@ export async function postUserMessageAndNora(
     const earlyCanonical = canonicalizeDocumentProposal(qualification.documentProposal);
     if (earlyCanonical.ok) {
       const earlyExtract = extractContractualDocumentProposal(reply.content);
-      const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract);
+      const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract, {
+        sectionScoped: sectionScopedConfront,
+      });
       if (!confront.ok) {
         proposalAuthorityConflict = confront.reason;
         durableProposal = null;
@@ -1602,7 +1606,9 @@ export async function postUserMessageAndNora(
               });
               if (!resolved.ok) reviseBlocked = resolved.reason;
               else {
-                const confront = confrontProposalWithFence(resolved.proposal, extracted);
+                const confront = confrontProposalWithFence(resolved.proposal, extracted, {
+                  sectionScoped: sectionScopedConfront,
+                });
                 if (!confront.ok) {
                   reviseBlocked = confront.reason;
                   proposalAuthorityConflict = confront.reason;
@@ -1624,7 +1630,9 @@ export async function postUserMessageAndNora(
               const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
               if (!canonical.ok) reviseBlocked = canonical.reason;
               else {
-                const confront = confrontProposalWithFence(canonical.proposal, extracted);
+                const confront = confrontProposalWithFence(canonical.proposal, extracted, {
+                  sectionScoped: sectionScopedConfront,
+                });
                 if (!confront.ok) {
                   reviseBlocked = confront.reason;
                   proposalAuthorityConflict = confront.reason;

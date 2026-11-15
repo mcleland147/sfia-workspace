@@ -6,7 +6,10 @@ import { createHash } from "node:crypto";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { conversationTurnCommands, conversations, messages } from "@/db/schema";
-import { extractContractualDocumentProposal } from "@/domains/conversation/document-act";
+import {
+  extractContractualDocumentProposal,
+  LEGACY_UNTITLED_DOCUMENT_TITLE,
+} from "@/domains/conversation/document-act";
 import {
   stashDocumentCommandBinding,
   type TurnOwnershipFence,
@@ -271,9 +274,31 @@ export function serializeProposalFence(proposal: DocumentProposalExact): string 
 }
 
 /**
+ * Document-level `# H1` (single hash + space). `## Section` does not qualify.
+ */
+export function hasDocumentLevelH1(content: string): boolean {
+  return /^#\s+.+$/m.test(content);
+}
+
+/**
+ * LEGACY fence that never claimed a document title — only the sentinel.
+ * Section-scoped REVISE proposals legitimately lack a document H1.
+ */
+export function isLegacyUntitledSectionFence(extracted: {
+  title: string;
+  content: string;
+}): boolean {
+  return (
+    extracted.title === LEGACY_UNTITLED_DOCUMENT_TITLE &&
+    !hasDocumentLevelH1(extracted.content)
+  );
+}
+
+/**
  * P1 — structural fence separator only (serializer contract).
  * True iff extracted body equals canonical body + exactly one trailing LF,
- * titles match, canonical does not already end with LF, and
+ * titles match (unless requireTitleMatch=false for section-scoped LEGACY),
+ * canonical does not already end with LF, and
  * serialize→extract round-trip restores the canonical title/body/digest.
  * Never trims or rewrites content; never accepts any other difference.
  */
@@ -281,9 +306,12 @@ export function isStructuralFenceSeparatorOnly(input: {
   authority: DocumentProposalExact;
   extractedTitle: string;
   extractedContent: string;
+  /** Default true. False only for section-scoped LEGACY untitled fences. */
+  requireTitleMatch?: boolean;
 }): boolean {
   const { authority, extractedTitle, extractedContent } = input;
-  if (extractedTitle !== authority.title) return false;
+  const requireTitleMatch = input.requireTitleMatch !== false;
+  if (requireTitleMatch && extractedTitle !== authority.title) return false;
   if (authority.contentMarkdown.endsWith("\n")) return false;
   if (extractedContent !== `${authority.contentMarkdown}\n`) return false;
   if (contentSha256(extractedTitle, extractedContent) === authority.contentSha256) {
@@ -304,10 +332,20 @@ export function isStructuralFenceSeparatorOnly(input: {
   }
 }
 
+export type ConfrontProposalFenceOptions = {
+  /**
+   * REVISE with a sectionHint: authority title is the durable document title;
+   * LEGACY fence body may be section-scoped without a document H1, so the
+   * sentinel title is not a contractual identity claim.
+   */
+  sectionScoped?: boolean;
+};
+
 /**
  * P1 — confront authoritative proposal with a concurrent contractual fence.
  * Fence MISSING → materialize; INVALID → refuse; exact match → accept;
  * sole structural LF separator (serializer contract) → accept for canonical rewrite.
+ * Section-scoped: LEGACY untitled fence may match on content (+ structural LF) only.
  */
 export function confrontProposalWithFence(
   authority: DocumentProposalExact,
@@ -319,6 +357,7 @@ export function confrontProposalWithFence(
     title: string;
     content: string;
   },
+  options?: ConfrontProposalFenceOptions,
 ):
   | { ok: true; materialize: boolean }
   | { ok: false; reason: string } {
@@ -344,6 +383,23 @@ export function confrontProposalWithFence(
   ) {
     // Accept: caller keeps canonical authority; later rewrite uses serializeProposalFence.
     return { ok: true, materialize: false };
+  }
+  // LIVE-03 / section REVISE: LEGACY fence without `# H1` synthesizes the
+  // untitled sentinel. Content identity (exact or structural LF) still required.
+  if (options?.sectionScoped && isLegacyUntitledSectionFence(extracted)) {
+    if (extracted.content === authority.contentMarkdown) {
+      return { ok: true, materialize: false };
+    }
+    if (
+      isStructuralFenceSeparatorOnly({
+        authority,
+        extractedTitle: extracted.title,
+        extractedContent: extracted.content,
+        requireTitleMatch: false,
+      })
+    ) {
+      return { ok: true, materialize: false };
+    }
   }
   return { ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" };
 }

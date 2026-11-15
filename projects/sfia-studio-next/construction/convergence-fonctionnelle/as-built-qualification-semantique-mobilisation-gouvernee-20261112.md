@@ -402,3 +402,70 @@ blocage global S05. Runtime conforme au contrat S05 actuel.
 
 - DETERMINISTIC E2E BEHAVIOR only — NORA LIVE NOT PROVEN.
 - USER RECETTE NOT RUN ; ML4C not ACCEPTED ; GATE C not closed.
+
+## DELIV 2026-11-15 — REVISE D4 PROPOSAL_SOURCE_CONFLICT (LIVE-03)
+
+Date: 2026-11-15 ~05:05 CET (Europe/Paris)
+Branche: `fix/next-semantic-intent-convergence-20261112`
+Parent: `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` (LOCAL ONLY)
+Profil: Critical PATCH corrective / NO RELEASE / pas de nouvelle autorité de contenu
+
+### Diagnostic LIVE-03 (lecture seule)
+
+| Champ | Valeur |
+| --- | --- |
+| turn / op / gen | `tcmd_a08cee84…` / `op_73c39114…` / `gen_32a649f2…` |
+| document / base | `doc_c78468e6…` / `drev_1e0061da…` v1 |
+| Qualification | QUALIFIED / REVISE / `sectionHint=Option B` |
+| documentProposal.title | `Options de solution DEV LIVE` |
+| documentProposal.content | `## Option B\n\nÀ préciser.\n\nREVISION-CANARI-GAMMA-91` (len JS 50, sans LF terminal) |
+| Fence | LEGACY `sfia-document` sans meta ; corps = proposition + 1 LF (len 51) |
+| Titre extrait | `Document Nora` (sentinel LEGACY, pas de `# H1`) |
+| documentSave | `NOT_EXECUTED` / `PROPOSAL_SOURCE_CONFLICT` ; zéro écriture D4 |
+| Cause | **CAUSE B** (représentations de portée titre différente) + **CAUSE A** (LF structurel seul sur le corps) |
+
+`isStructuralFenceSeparatorOnly` exigeait l’égalité des titres → le LF structurel n’était jamais admis.
+
+### Correctif minimal
+
+1. Exporter `LEGACY_UNTITLED_DOCUMENT_TITLE` depuis `document-act.ts`.
+2. `confrontProposalWithFence(authority, extracted, { sectionScoped })` :
+   si REVISE + `sectionHint` et fence LEGACY sans H1 documentaire,
+   admettre l’égalité de **contenu** (exacte ou LF structurel seul) en conservant le titre d’autorité.
+3. Câbler `sectionScoped` dans `service.ts` (early confront + chemins REVISE).
+4. Conserver le refus strict pour divergence substantielle, H1 contradictoire, CREATE non scopé, double fence, meta invalide.
+
+### Preuves déterministes
+
+| Couche | Résultat |
+| --- | --- |
+| UNIT | 359 PASS (dont LIVE-03 section-scoped confront) |
+| PG `test:integration` | 470 PASS (dont LIVE-03 R01–R07 AVAILABLE + R11 CONFLICT) |
+| BUILD | PASS |
+| Playwright ciblé | 11 PASS (`document-continuity`, `s05-real-api`, `g4-chat-first-sas`, `s05-independent-pending`) |
+| LIVE Nora | **PROVEN** — 1 soumission DEV `:3100` après restart code |
+| RECETTE | non mutée |
+
+### LIVE REVISE (après correctif)
+
+| Champ | Valeur |
+| --- | --- |
+| Préparation / Pilote | `prep_25257fcb-…` / `pilot_10ad4dd9-…` (Pilot A DEV) |
+| Document | `doc_c78468e6-…` (même id LIVE-02) |
+| Canari | `REVISION-CANARI-DELTA-15` (distinct de GAMMA-91) |
+| noraMode | `openai-agents-sdk-live` |
+| providerContacted | YES |
+| modelRequested | `gpt-6.1-sol` ; modelApplied=UNVERIFIED |
+| profileType | TEST_BOUNDARY |
+| documentSave | AVAILABLE / REVISE / revisionNumber=2 |
+| revisionId | `drev_d05ff434-…` (nouveau) |
+| baseRevisionId | `drev_1e0061da-…` (v1 inchangée) |
+| Option A | `SOURCE-CANARI-BETA-73` conservé exact |
+| Option B | contient `REVISION-CANARI-DELTA-15` |
+| LIVE-03 antérieur | reste NOT_EXECUTED / PROPOSAL_SOURCE_CONFLICT (preuve historique) |
+
+### Réserves
+
+- Pas de softener global de `PROPOSAL_SOURCE_CONFLICT`.
+- Pas de nouvelle machine d’états / schéma / politique S05.
+- ML4C not ACCEPTED ; GATE C not closed ; USER RECETTE NOT RUN.
