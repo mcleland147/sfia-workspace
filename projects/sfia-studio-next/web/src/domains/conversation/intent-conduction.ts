@@ -18,18 +18,25 @@ import { savePreparationDocument } from "@/domains/document/service";
 import { StudioError } from "@/lib/http-errors";
 import { newId } from "@/lib/ids";
 import { emitObs } from "@/lib/observability";
-import { extractContractualDocumentProposal, qualifyDocumentAct } from "./document-act";
+import {
+  appendDocumentEffectAck,
+  documentSaveToEffectSummary,
+  extractContractualDocumentProposal,
+  hasCompetingTransactionalClaim,
+  type DocumentEffectSummary,
+  type QualifiedDocumentAct,
+} from "./document-act";
 import { generateNoraReply } from "./nora-adapter";
 import { TURN_RUNNING_STALE_MS, turnClock } from "./turn-command";
 import {
   appendMissionAck,
   composeCanonicalMissionRestitution,
   formatMissionAck,
-  qualifyPublicationMission,
   type MissionOwnerActBinding,
   type MissionProjection,
   type MissionStep,
   type MissionStatus,
+  type PublicationMissionIntent,
 } from "./mission-continuity";
 
 /**
@@ -66,6 +73,7 @@ export type StudioCapabilityId =
   | "d4.create_document"
   | "d4.revise_document"
   | "d4.read_knowledge"
+  | "d4.record_knowledge"
   | "d5.pilotage_command"
   | "d6.human_decision"
   | "d7.prepare_publication"
@@ -77,19 +85,15 @@ export type QualifiedIntent = {
   proposedProjectName: string | null;
   wantsFollowOnDocument: boolean;
   pendingDocumentBrief: string | null;
-  documentAct: ReturnType<typeof qualifyDocumentAct>;
-  publication: ReturnType<typeof qualifyPublicationMission>;
+  documentAct: QualifiedDocumentAct;
+  publication: PublicationMissionIntent;
   likelyPilotageSignal: boolean;
   simpleDialogue: boolean;
 };
 
-const PROJECT_CREATE_RE =
-  /\b(?:cr[eé]e(?:r)?|cr[eé]ation)\s+(?:un\s+|le\s+|mon\s+|notre\s+)?projet\b/i;
-
 /**
- * GAP-05: stop at puis/et/comma/period — name must not swallow follow-on clauses.
- * "projet nommé Continuity Global B puis un document…" → "Continuity Global B"
- * "projet nommé Atlas puis prépare…" → "Atlas"
+ * Technical name capture from an already-qualified create-project intent.
+ * Not a métier intent router — do not use to decide whether create was requested.
  */
 export function extractProposedProjectName(userText: string): string | null {
   const named = userText.match(
@@ -98,13 +102,6 @@ export function extractProposedProjectName(userText: string): string | null {
   if (named?.[1]) return named[1].replace(/[«»"']/g, "").trim();
   return null;
 }
-
-/** Follow-on document after project create — allow intervening scope words (« dans ce projet »). */
-const FOLLOWON_DOC_RE =
-  /\b(?:puis|ensuite|et)\b[\s\S]{0,120}?\b(?:document|note|synthèse|rapport|cadrage)\b/i;
-
-const PILOTAGE_SIGNAL_RE =
-  /\b(?:ouvre|ouvrir|cl[oô]ture|cl[oô]turer|cycle|m[eé]thode|trajectoire|restriction|r[eé]voque)\b/i;
 
 /**
  * Executable mobilization contract — not metadata-only.
@@ -237,34 +234,28 @@ export async function mobilizeCapability(
   return out;
 }
 
-export function qualifyStudioIntent(userText: string): QualifiedIntent {
-  const documentAct = qualifyDocumentAct(userText);
-  const publication = qualifyPublicationMission(userText);
-  const wantsProjectCreate = PROJECT_CREATE_RE.test(userText);
-  const proposedProjectName = extractProposedProjectName(userText);
-  const wantsFollowOnDocument =
-    wantsProjectCreate && (FOLLOWON_DOC_RE.test(userText) || documentAct.kind === "CREATE");
-  let pendingDocumentBrief: string | null = null;
-  if (wantsFollowOnDocument) {
-    const afterPuis = userText.split(/\bpuis\b/i)[1] ?? userText.split(/\bensuite\b/i)[1];
-    pendingDocumentBrief = (afterPuis ?? userText).trim().slice(0, 400);
-  }
-  const likelyPilotageSignal = PILOTAGE_SIGNAL_RE.test(userText);
-  const simpleDialogue =
-    !wantsProjectCreate &&
-    documentAct.kind === "NONE" &&
-    !publication.wantsPublish &&
-    !likelyPilotageSignal;
-
+/**
+ * SEM-02 — retired as production métier router.
+ * Production uses Nora structured qualification + projectStudioEffects.
+ * Fail-closed dialogue stub so accidental callers cannot invent D2/D4/D7 effects.
+ */
+export function qualifyStudioIntent(_userText: string): QualifiedIntent {
   return {
-    wantsProjectCreate,
-    proposedProjectName,
-    wantsFollowOnDocument,
-    pendingDocumentBrief,
-    documentAct,
-    publication,
-    likelyPilotageSignal,
-    simpleDialogue,
+    wantsProjectCreate: false,
+    proposedProjectName: null,
+    wantsFollowOnDocument: false,
+    pendingDocumentBrief: null,
+    documentAct: { kind: "NONE" },
+    publication: {
+      wantsDocumentCreate: false,
+      wantsPublish: false,
+      targetPath: null,
+      targetBranch: null,
+      ambiguous: false,
+      needsExplicitPath: false,
+    },
+    likelyPilotageSignal: false,
+    simpleDialogue: true,
   };
 }
 
@@ -1102,7 +1093,21 @@ export async function continueAfterProjectCreated(input: {
       documentSave = { status: "FAILED", reason: "CONTINUE_GENERATION_FAILED", act: "CREATE" };
     }
 
-    if (documentSave.status === "AVAILABLE" && documentSave.documentId) {
+    // Assigned on every branch above; local const keeps callbacks type-narrowed.
+    const d4Save = documentSave!;
+
+    // S03: preserve owner D4 status on restitution (AVAILABLE|FAILED|CONFLICT|UNKNOWN|NOT_EXECUTED).
+    // Never collapse UNKNOWN / absent → FAILED by default.
+    const documentEffect: DocumentEffectSummary = documentSaveToEffectSummary({
+      act: "CREATE",
+      status: d4Save.status,
+      documentId: d4Save.documentId,
+      revisionId: d4Save.revisionId,
+      revisionNumber: d4Save.revisionNumber,
+      reason: d4Save.reason,
+    });
+
+    if (d4Save.status === "AVAILABLE" && d4Save.documentId) {
       mission = {
         ...mission,
         steps: mission.steps.map((s) =>
@@ -1110,14 +1115,32 @@ export async function continueAfterProjectCreated(input: {
             ? {
                 ...s,
                 status: "DONE" as const,
-                documentId: documentSave!.documentId,
-                revisionId: documentSave!.revisionId,
+                documentId: d4Save.documentId,
+                revisionId: d4Save.revisionId,
                 reason: undefined,
               }
             : s,
         ),
         status: "COMPLETED",
         restitution: "DELIVERED",
+      };
+    } else if (
+      documentEffect.status === "UNKNOWN" ||
+      documentEffect.status === "NOT_EXECUTED"
+    ) {
+      mission = {
+        ...mission,
+        steps: mission.steps.map((s) =>
+          s.id === "d4_create" || s.capabilityId === "d4.create_document"
+            ? {
+                ...s,
+                status: "WAITING" as const,
+                reason: d4Save.reason ?? documentEffect.status,
+              }
+            : s,
+        ),
+        status: "RESTITUTION_PENDING",
+        restitution: "CANONICAL",
       };
     } else {
       mission = {
@@ -1127,7 +1150,7 @@ export async function continueAfterProjectCreated(input: {
             ? {
                 ...s,
                 status: "FAILED" as const,
-                reason: documentSave?.reason ?? documentSave?.status,
+                reason: d4Save.reason ?? d4Save.status,
               }
             : s,
         ),
@@ -1135,28 +1158,21 @@ export async function continueAfterProjectCreated(input: {
         restitution: "CANONICAL",
       };
     }
-
     const canonical = composeCanonicalMissionRestitution({
-      documentEffect:
-        documentSave?.status === "AVAILABLE"
-          ? {
-              act: "CREATE",
-              status: "AVAILABLE",
-              documentId: documentSave.documentId,
-              revisionId: documentSave.revisionId,
-              revisionNumber: documentSave.revisionNumber,
-            }
-          : {
-              act: "CREATE",
-              status: "FAILED",
-              reason: documentSave?.reason,
-            },
+      documentEffect,
       restitutionNote: `Reprise automatique après création projet ${input.projectId} — même intention (${mission.clientIntentKey}).`,
     });
-    assistantContent =
-      reply.status === "COMPLETE" && reply.content.trim()
-        ? appendMissionAck(reply.content, mission)
-        : appendMissionAck(canonical, mission);
+    const noraBody =
+      reply.status === "COMPLETE" && reply.content.trim() ? reply.content : canonical;
+    const withDocAck = appendDocumentEffectAck(noraBody, documentEffect);
+    assistantContent = appendMissionAck(withDocAck, mission);
+    if (hasCompetingTransactionalClaim(assistantContent, documentEffect)) {
+      // Fail-closed narration: prefer canonical + structured ACKs over competing claims.
+      assistantContent = appendMissionAck(
+        appendDocumentEffectAck(canonical, documentEffect),
+        mission,
+      );
+    }
     generationId = `mission-continue-d2d4:${mission.clientIntentKey}:${input.projectId}`;
   }
 

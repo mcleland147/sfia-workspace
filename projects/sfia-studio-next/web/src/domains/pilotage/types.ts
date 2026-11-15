@@ -77,6 +77,9 @@ export type PilotageRequestBody = {
   actInstanceId?: string;
   /** Exact decision object. Empty does not participate in contradiction matching. */
   objectRef?: string;
+  /** Durable Nora intent id correlated to this USER_MESSAGE command (SEM). */
+  semanticIntentId?: string;
+  semanticSchemaVersion?: string;
 };
 
 export type ClassifiedCommand = {

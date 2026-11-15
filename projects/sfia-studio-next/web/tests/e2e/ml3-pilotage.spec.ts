@@ -27,6 +27,8 @@ test("ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible", a
   await expect(page.getByTestId("cycle-absent")).toBeVisible();
   await expect(page.getByTestId("method-absent")).toBeVisible();
 
+  // SEM-02: OPEN is structured from the cycle-type control — utterance is echo only.
+  await page.getByLabel("Type de cycle").selectOption("CADRAGE");
   await page.getByLabel("Énoncé GO").fill("ouvre le cycle cadrage");
   await page.getByTestId("open-cycle").click();
   await expect(page.getByTestId("pilotage-pending")).toBeVisible();

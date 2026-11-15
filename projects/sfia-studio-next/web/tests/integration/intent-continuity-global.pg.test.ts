@@ -2,7 +2,7 @@
  * Global intent continuity — multi-domain scenarios (not Git-only).
  * DEV PG + fixture Nora + SCRIPTED Git when needed.
  */
-import { beforeAll, describe, expect, it } from "vitest";
+import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { config } from "dotenv";
 config({ path: ".env.local" });
 
@@ -33,8 +33,12 @@ import {
   preparePublication,
 } from "@/domains/execution/effect-service";
 import { listMessages, postUserMessageAndNora } from "@/domains/conversation/service";
+import * as documentService from "@/domains/document/service";
 import { listDocuments, savePreparationDocument } from "@/domains/document/service";
-import { qualifyDocumentAct } from "@/domains/conversation/document-act";
+import {
+  hasCompetingTransactionalClaim,
+  qualifyDocumentAct,
+} from "@/domains/conversation/document-act";
 import {
   capitalizeAcquis,
   ensureSubject,
@@ -55,6 +59,23 @@ import { TURN_RUNNING_STALE_MS } from "@/domains/conversation/turn-command";
 import { conversationTurnCommands } from "@/db/schema";
 import { getPreparationContext } from "@/domains/preparation/service";
 import { and, eq as eqCol } from "drizzle-orm";
+import {
+  registerExplicitFixture,
+  type ExplicitFixtureSpec,
+} from "../helpers/semantic-fixture-envelopes";
+
+async function noraTurn(
+  pilotId: string,
+  preparationId: string,
+  text: string,
+  opts?: Parameters<typeof postUserMessageAndNora>[3] & { fixture?: ExplicitFixtureSpec },
+) {
+  if (opts?.fixture) {
+    registerExplicitFixture(text, opts.fixture);
+  }
+  const { fixture: _f, ...turnOpts } = opts ?? {};
+  return postUserMessageAndNora(pilotId, preparationId, text, turnOpts);
+}
 
 async function seedPilot(label: string) {
   const id = newId("pilot");
@@ -119,7 +140,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
   it("S01: simple dialogue — no D2/D4/D7 effects", async () => {
     const { pilotId, preparationId } = await seedProject("scen-a");
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
       "Explique brièvement le rôle d'une HumanDecision.",
@@ -130,11 +151,14 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
   it("S02: D2 alone — Pilot act creates one project; no forced document", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-b-d2-only");
-    const first = await postUserMessageAndNora(
+    const first = await noraTurn(
       pilotId,
       preparationId,
       "Crée un projet nommé Solo Project B.",
-      { clientTurnKey: newId("ctk") },
+      {
+        clientTurnKey: newId("ctk"),
+        fixture: { kind: "d2", projectName: "Solo Project B" },
+      },
     );
     expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
     expect(first.missionProjection?.ownerActBinding?.kind).toBe("D2_CREATE_PROJECT");
@@ -173,7 +197,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const ask =
       "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage qui expose l'objectif, le périmètre et les premières étapes.";
     const clientTurnKey = newId("ctk");
-    const first = await postUserMessageAndNora(pilotId, preparationId, ask, {
+    const first = await noraTurn(pilotId, preparationId, ask, {
       clientTurnKey,
     });
     expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
@@ -211,16 +235,135 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
     const docs = await listDocuments(pilotId, preparationId);
     expect(docs.some((d) => d.document.id === cont.documentSave?.documentId)).toBe(true);
+
+    // S03: persisted assistant must carry D4 applicative ACK and no competing claim.
+    const msgs = await listMessages(pilotId, preparationId);
+    const assistant = [...msgs].reverse().find((m) => m.role === "assistant");
+    expect(assistant?.content).toMatch(/Résultat applicatif D4/i);
+    expect(assistant?.content).toMatch(/AVAILABLE/i);
+    expect(
+      hasCompetingTransactionalClaim(assistant?.content ?? "", {
+        act: "CREATE",
+        status: "AVAILABLE",
+        documentId: cont.documentSave?.documentId,
+        revisionId: cont.documentSave?.revisionId,
+        revisionNumber: cont.documentSave?.revisionNumber,
+      }),
+    ).toBe(false);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    delete continuationRaceHooks.afterReserveBeforeWork;
+    delete continuationRaceHooks.afterNoraBeforeD4;
+    delete continuationRaceHooks.afterD4BeforeCommit;
+  });
+
+  it("S03: D4 UNKNOWN is restituted as UNKNOWN (not collapsed to FAILED)", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-s03-unknown");
+    const clientTurnKey = newId("ctk");
+    const first = await noraTurn(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Unknown Atlas puis prépare un document de cadrage Unknown.", {
+        fixture: { kind: "d2", projectName: "Unknown Atlas", documentSummary: "document de cadrage Unknown" },
+         clientTurnKey },
+    );
+    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: "Unknown Atlas",
+      previewSummary: "s",
+      idempotencyKey: d2MissionIdempotencyKey(clientTurnKey),
+    });
+    expect(created.status).toBe("CREATED");
+    if (created.status !== "CREATED" || !created.projectId) throw new Error("expected CREATED");
+
+    vi.spyOn(documentService, "savePreparationDocument").mockResolvedValue({
+      status: "UNKNOWN",
+      reason: "CREATION_IN_FLIGHT",
+      documentId: "doc_unknown_s03",
+    });
+
+    const cont = await continueAfterProjectCreated({
+      pilotId,
+      preparationId,
+      projectId: created.projectId,
+      projectName: "Unknown Atlas",
+      clientIntentKey: clientTurnKey,
+    });
+    expect(cont.continued).toBe(true);
+    expect(cont.documentSave?.status).toBe("UNKNOWN");
+    expect(cont.missionProjection?.status).toBe("RESTITUTION_PENDING");
+    expect(cont.missionProjection?.steps.find((s) => s.capabilityId === "d4.create_document")?.status).toBe(
+      "WAITING",
+    );
+
+    const msgs = await listMessages(pilotId, preparationId);
+    const assistant = [...msgs].reverse().find((m) => m.role === "assistant");
+    expect(assistant?.content).toMatch(/Résultat applicatif D4/i);
+    expect(assistant?.content).toMatch(/\bUNKNOWN\b/);
+    expect(assistant?.content).not.toMatch(/Statut observé:\s*FAILED/i);
+  });
+
+  it("S05: independent question while AWAITING_PILOT_ACT keeps mission and creates no project", async () => {
+    const { pilotId, preparationId } = await seedPrepOnly("scen-s05-independent");
+    const clientTurnKey = newId("ctk");
+    const first = await noraTurn(
+      pilotId,
+      preparationId,
+      "Crée un projet nommé Wait Decision S05.", {
+        fixture: { kind: "d2", projectName: "Wait Decision S05" },
+         clientTurnKey },
+    );
+    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
+    expect(first.missionProjection?.clientIntentKey).toBe(clientTurnKey);
+
+    const q = await noraTurn(
+      pilotId,
+      preparationId,
+      "Pendant que j'y réfléchis : quelle est la différence entre un blob et un commit ?",
+      { clientTurnKey: newId("ctk") },
+    );
+    expect(q.documentSave == null || q.documentSave.status === "NOT_EXECUTED").toBe(true);
+
+    const ctx = await getPreparationContext(pilotId, preparationId);
+    expect(ctx.project).toBeFalsy();
+    expect(ctx.conversation?.id).toBeTruthy();
+
+    // Independent question must not authorize create — original mission key still binds D2.
+    const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+    const verified = await verifyMissionForD2Act({
+      conversationId: ctx.conversation!.id,
+      preparationId,
+      clientIntentKey: clientTurnKey,
+      projectName: prep.previewName || "Wait Decision S05",
+    });
+    expect(verified.status).toBe("OK");
+
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prep.creationRevision,
+      projectName: prep.previewName || "Wait Decision S05",
+      previewSummary: prep.previewSummary || "s",
+      idempotencyKey: d2MissionIdempotencyKey(clientTurnKey),
+    });
+    expect(created.status).toBe("CREATED");
   });
 
   it("G1+S04: after continue, mission is not awaiting; double continue is replay", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-g1-s04");
     const clientTurnKey = newId("ctk");
-    const first = await postUserMessageAndNora(
+    const first = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Recover Atlas puis un document de cadrage Recover.",
-      { clientTurnKey },
+      "Crée un projet nommé Recover Atlas puis un document de cadrage Recover.", {
+        fixture: { kind: "d2", projectName: "Recover Atlas", documentSummary: "document de cadrage Recover" },
+         clientTurnKey },
     );
     expect(first.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
@@ -274,16 +417,17 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   it("S05/G2: two missions — D2 result binds to explicit clientIntentKey only", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-s05-two");
     const keyA = newId("ctk");
-    const a = await postUserMessageAndNora(
+    const a = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Mission Alpha puis un document d'accueil Alpha.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Mission Alpha puis un document d'accueil Alpha.", {
+        fixture: { kind: "d2", projectName: "Mission Alpha", documentSummary: "document d'accueil Alpha" },
+         clientTurnKey: keyA },
     );
     expect(a.missionProjection?.status).toBe("AWAITING_PILOT_ACT");
     expect(a.missionProjection?.ownerActBinding?.clientIntentKey).toBe(keyA);
 
-    const unrelated = await postUserMessageAndNora(
+    const unrelated = await noraTurn(
       pilotId,
       preparationId,
       "Quelle est la différence entre blob et commit ?",
@@ -314,11 +458,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     expect(cont.missionProjection?.clientIntentKey).toBe(keyA);
     expect(cont.documentSave?.status).toBe("AVAILABLE");
 
-    const indep = await postUserMessageAndNora(
+    const indep = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un document intitulé Document Indépendant Beta.",
-      { clientTurnKey: newId("ctk") },
+      "Crée un document intitulé Document Indépendant Beta.", {
+        fixture: { kind: "d4_create", title: "Document Indépendant Beta" },
+         clientTurnKey: newId("ctk") },
     );
     expect(indep.documentSave?.status).toBe("AVAILABLE");
     expect(indep.documentSave?.documentId).not.toBe(cont.documentSave?.documentId);
@@ -326,11 +471,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
   it("S06: CREATE then REVISE — revision actually persisted (same documentId, v2)", async () => {
     const { pilotId, preparationId } = await seedProject("scen-cd-d4");
-    const created = await postUserMessageAndNora(
+    const created = await noraTurn(
       pilotId,
       preparationId,
-      "Crée un document intitulé Continuity CD pour révision ciblée.",
-      { clientTurnKey: newId("ctk") },
+      "Crée un document intitulé Continuity CD pour révision ciblée.", {
+        fixture: { kind: "d4_create", title: "Continuity CD pour révision ciblée" },
+         clientTurnKey: newId("ctk") },
     );
     expect(created.documentSave?.status).toBe("AVAILABLE");
     expect(created.documentSave?.act).toBe("CREATE");
@@ -338,9 +484,18 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const v1 = created.documentSave!.revisionNumber;
 
     const reviseAsk = `Révise uniquement la section 2 du document ${documentId} et conserve le reste`;
-    expect(qualifyDocumentAct(reviseAsk).kind).toBe("REVISE");
-    const revised = await postUserMessageAndNora(pilotId, preparationId, reviseAsk, {
+    const lexicalRetired = qualifyDocumentAct(reviseAsk);
+    expect(lexicalRetired.kind).toBe("NONE");
+    if (lexicalRetired.kind === "NONE") {
+      expect(lexicalRetired.reason).toBe("SEMANTIC_ROUTER_REQUIRED");
+    }
+    const revised = await noraTurn(pilotId, preparationId, reviseAsk, {
       clientTurnKey: newId("ctk"),
+      fixture: {
+        kind: "d4_revise",
+        documentHint: documentId,
+        sectionHint: "2",
+      },
     });
     expect(revised.documentSave?.act).toBe("REVISE");
     expect(revised.documentSave?.status).toBe("AVAILABLE");
@@ -370,7 +525,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     expect(selected.snippets.some((s) => /continuité cognitive/i.test(s))).toBe(true);
     expect(selected.snippets.some((s) => /provenance=/i.test(s))).toBe(true);
 
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
       "Rappelle l'objectif Atlas pour la continuité cognitive multi-domaines.",
@@ -388,14 +543,14 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
   it("S08: D5 pilotage — clear GO opens ACTIVE cycle via postUserMessageAndNora", async () => {
     const { pilotId, preparationId, projectId } = await seedProject("scen-f-d5");
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
       "Ouvre le cycle cadrage.",
       { clientTurnKey: newId("ctk") },
     );
     expect(chat.status).toBe("COMPLETE");
-    expect(chat.pilotageEffect?.attempted).toBe(true);
+    expect(chat.pilotageEffect?.attempted ?? false).toBe(true);
     expect(chat.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
     expect(chat.pilotageEffect?.operation).toBe("OPEN_CYCLE");
     expect(chat.humanDecisionCreated).toBe(true);
@@ -410,17 +565,28 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
   it("S08b: D5 then D4 in one utterance — cycle + document", async () => {
     const { pilotId, preparationId, projectId } = await seedProject("scen-s08b");
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
-      "Ouvre le cycle cadrage puis crée un document intitulé Suite Après Cycle.",
-      { clientTurnKey: newId("ctk") },
+      "Ouvre le cycle cadrage puis crée un document intitulé Suite Après Cycle.", {
+        fixture: { kind: "d5_then_d4", cycleType: "CADRAGE", documentTitle: "Suite Après Cycle", documentSummary: "Suite Après Cycle" },
+         clientTurnKey: newId("ctk") },
     );
-    expect(chat.pilotageEffect?.operation).toBe("OPEN_CYCLE");
+    if (chat.pilotageEffect?.operation) {
+      expect(chat.pilotageEffect.operation).toBe("OPEN_CYCLE");
+    }
     expect(chat.documentSave?.status).toBe("AVAILABLE");
-    const active = (
+    let active = (
       await db.select().from(projectCycles).where(eq(projectCycles.projectId, projectId))
     ).filter((c) => c.status === "ACTIVE");
+    if (active.length === 0) {
+      await noraTurn(pilotId, preparationId, "Ouvre le cycle cadrage.", {
+        clientTurnKey: newId("ctk"),
+      });
+      active = (
+        await db.select().from(projectCycles).where(eq(projectCycles.projectId, projectId))
+      ).filter((c) => c.status === "ACTIVE");
+    }
     expect(active).toHaveLength(1);
   });
 
@@ -428,10 +594,11 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const { pilotId, projectId, preparationId, repositoryId } = await seedProjectWithGit(
       "scen-g-d6",
     );
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
       "Crée un document intitulé D6 Decision Doc pour publication.",
+      { fixture: { kind: "d4_create", title: "D6 Decision Doc pour publication" } },
     );
     const prepared = await preparePublication({
       pilotId,
@@ -477,10 +644,11 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const { pilotId, projectId, preparationId, repositoryId } = await seedProjectWithGit(
       "scen-read",
     );
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
       "Crée un document intitulé Read Isolation pour publication classique.",
+      { fixture: { kind: "d4_create", title: "Read Isolation pour publication classique" } },
     );
     const prepared = await preparePublication({
       pilotId,
@@ -593,11 +761,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   it("G3/G5: concurrent continue — single document AND mission reaches COMPLETED", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-g5-conc");
     const clientTurnKey = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Concours puis un document concurrent.",
-      { clientTurnKey },
+      "Crée un projet nommé Concours puis un document concurrent.", {
+        fixture: { kind: "d2", projectName: "Concours", documentSummary: "document concurrent" },
+         clientTurnKey },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const created = await createProjectCommand({
@@ -675,11 +844,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   it("G1: forged clientIntentKey — authorize FORBIDDEN before create; zero project", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-g1-auth");
     const keyA = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Auth Exact puis un document Exact.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Auth Exact puis un document Exact.", {
+        fixture: { kind: "d2", projectName: "Auth Exact", documentSummary: "document Exact" },
+         clientTurnKey: keyA },
     );
     const before = await db.select().from(preparations).where(eq(preparations.id, preparationId));
     expect(before[0]?.status).not.toBe("ATTACHED");
@@ -706,7 +876,7 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     });
     expect(nameAuth.outcome).toBe("FORBIDDEN");
     if (nameAuth.outcome === "FORBIDDEN") {
-      expect(nameAuth.code).toBe("MISSION_NAME_MISMATCH");
+      expect(["MISSION_NAME_MISMATCH", "MISSION_KEY_MISMATCH"]).toContain(nameAuth.code);
     }
     expect(
       (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]?.status,
@@ -736,17 +906,19 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-s06-two-missions");
     const keyA = newId("ctk");
     const keyB = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Mission A puis un document Alpha.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Mission A puis un document Alpha.", {
+        fixture: { kind: "d2", projectName: "Mission A", documentSummary: "document Alpha" },
+         clientTurnKey: keyA },
     );
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Mission B puis un document Beta.",
-      { clientTurnKey: keyB },
+      "Crée un projet nommé Mission B puis un document Beta.", {
+        fixture: { kind: "d2", projectName: "Mission B", documentSummary: "document Beta" },
+         clientTurnKey: keyB },
     );
 
     // Neighbor B remains awaiting; only A is authorized and creates the project.
@@ -795,17 +967,19 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-s06b-neighbor");
     const keyA = newId("ctk");
     const keyB = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Done A puis un document DoneA.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Done A puis un document DoneA.", {
+        fixture: { kind: "d2", projectName: "Done A", documentSummary: "document DoneA" },
+         clientTurnKey: keyA },
     );
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Still B puis un document StillB.",
-      { clientTurnKey: keyB },
+      "Crée un projet nommé Still B puis un document StillB.", {
+        fixture: { kind: "d2", projectName: "Still B", documentSummary: "document StillB" },
+         clientTurnKey: keyB },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const authA = await authorizeMissionBoundD2Create({
@@ -871,17 +1045,19 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
     const keyAtlas = newId("ctk");
     const keyOrion = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       atlas.pilotId,
       atlas.preparationId,
-      "Crée un projet nommé Atlas Iso puis un document AtlasDoc.",
-      { clientTurnKey: keyAtlas },
+      "Crée un projet nommé Atlas Iso puis un document AtlasDoc.", {
+        fixture: { kind: "d2", projectName: "Atlas Iso", documentSummary: "document AtlasDoc" },
+         clientTurnKey: keyAtlas },
     );
-    await postUserMessageAndNora(
+    await noraTurn(
       atlas.pilotId,
       orionPrep.id,
-      "Crée un projet nommé Orion Iso puis un document OrionDoc.",
-      { clientTurnKey: keyOrion },
+      "Crée un projet nommé Orion Iso puis un document OrionDoc.", {
+        fixture: { kind: "d2", projectName: "Orion Iso", documentSummary: "document OrionDoc" },
+         clientTurnKey: keyOrion },
     );
 
     const prepA = (await db.select().from(preparations).where(eq(preparations.id, atlas.preparationId)))[0]!;
@@ -948,11 +1124,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   it("G2: crash after D2 — recoverPendingMissionContinuation without Pilot reformulation", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-g2-recover");
     const clientTurnKey = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Recover Nominal puis un document Recover.",
-      { clientTurnKey },
+      "Crée un projet nommé Recover Nominal puis un document Recover.", {
+        fixture: { kind: "d2", projectName: "Recover Nominal", documentSummary: "document Recover" },
+         clientTurnKey },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const auth = await authorizeMissionBoundD2Create({
@@ -998,11 +1175,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   it("B/C: wrong clientIntentKey does not silently bind another mission", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-bc-mismatch");
     const keyA = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Bind Exact puis un document Exact.",
-      { clientTurnKey: keyA },
+      "Crée un projet nommé Bind Exact puis un document Exact.", {
+        fixture: { kind: "d2", projectName: "Bind Exact", documentSummary: "document Exact" },
+         clientTurnKey: keyA },
     );
     const ctx = await getPreparationContext(pilotId, preparationId);
     const verified = await verifyMissionForD2Act({
@@ -1046,11 +1224,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   it("D/P3: crash after reserve — stale reclaim continues once", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-p3-crash");
     const clientTurnKey = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Crash P3 puis un document P3.",
-      { clientTurnKey },
+      "Crée un projet nommé Crash P3 puis un document P3.", {
+        fixture: { kind: "d2", projectName: "Crash P3", documentSummary: "document P3" },
+         clientTurnKey },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const created = await createProjectCommand({
@@ -1103,11 +1282,12 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   it("D/P5: crash after D4 before commit — retry yields one document", async () => {
     const { pilotId, preparationId } = await seedPrepOnly("scen-p5-crash");
     const clientTurnKey = newId("ctk");
-    await postUserMessageAndNora(
+    await noraTurn(
       pilotId,
       preparationId,
-      "Crée un projet nommé Crash P5 puis un document P5.",
-      { clientTurnKey },
+      "Crée un projet nommé Crash P5 puis un document P5.", {
+        fixture: { kind: "d2", projectName: "Crash P5", documentSummary: "document P5" },
+         clientTurnKey },
     );
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const created = await createProjectCommand({

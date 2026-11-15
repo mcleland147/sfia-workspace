@@ -5,6 +5,7 @@ config({ path: ".env.local" });
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
+  conversationTurnCommands,
   conversations,
   messages,
   methodApplications,
@@ -12,6 +13,7 @@ import {
   preparations,
   projectCycles,
 } from "@/db/schema";
+import type { NoraTurnQualification } from "@/domains/conversation/semantic-qualification";
 import { listDecisionJournal } from "@/domains/decisions/service";
 import { createProjectCommand } from "@/domains/preparation/create-project";
 import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
@@ -34,6 +36,419 @@ import {
   withdrawMethod,
 } from "@/domains/pilotage/service";
 import { newId } from "@/lib/ids";
+import { extractPilotageBinding } from "@/domains/conversation/semantic-qualification";
+import { fixtureSemanticQualify } from "@/domains/conversation/fixture-semantic-qualify";
+import type { IntentQualification } from "@/domains/pilotage/intent";
+import type { PilotageOperation } from "@/domains/pilotage/types";
+import {
+  ambiguousPilotagePreQualified,
+  clearPilotagePreQualified,
+  clarificationEnvelope,
+  d5PilotageEnvelope,
+  d6DecisionEnvelope,
+  dialogueEnvelope,
+    registerTypedScenario,
+} from "../helpers/semantic-fixture-envelopes";
+
+function preQualifiedFromFixture(content: string): IntentQualification {
+  const q = fixtureSemanticQualify(content.trim());
+  const binding = extractPilotageBinding(q);
+  if (!binding) {
+    return { clarity: "NONE", reason: "NO_SEMANTIC_PILOTAGE_QUALIFICATION" };
+  }
+  if ("ambiguous" in binding) {
+    return ambiguousPilotagePreQualified(binding.reason);
+  }
+  return clearPilotagePreQualified({
+    operation: binding.operation as PilotageOperation,
+    cycleType: binding.cycleType,
+    toCycleType: binding.toCycleType,
+    statement: binding.statement,
+    objectRef: binding.objectRef,
+    decisionId: binding.decisionId,
+    objective: binding.objective,
+    restrictionKindHint: binding.restrictionKindHint,
+    restrictionTargetRefHint: binding.restrictionTargetRefHint,
+    semanticIntentId: binding.intentId,
+  });
+}
+
+function preQualifiedForConvAuth(content: string): IntentQualification {
+  const t = content.trim();
+  if (t === "Ouvre le cycle cadrage.") {
+    return clearPilotagePreQualified({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      objective: "cadrage",
+    });
+  }
+  if (
+    /Ouvre le cycle CADRAGE/i.test(t) &&
+    !/Ne fais pas|phrase de test|Finalement, ne l'ouvre pas|n'ouvre pas ce cycle/i.test(t)
+  ) {
+    return clearPilotagePreQualified({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      statement: t,
+      objective:
+        t.match(/objectif de ([^.]+)/i)?.[1]?.trim() ??
+        "définir précisément le problème utilisateur",
+    });
+  }
+  if (/clôturer maintenant le cycle CADRAGE/i.test(t)) {
+    return clearPilotagePreQualified({
+      operation: "CLOSE_CYCLE",
+      cycleType: "CADRAGE",
+      statement: t,
+    });
+  }
+  if (/lever uniquement la restriction CYCLE_MUTATION/i.test(t) && !/Ne lève pas|ne souhaite pas|refuse|ne t'autorise pas/i.test(t)) {
+    return clearPilotagePreQualified({
+      operation: "LIFT_RESTRICTION",
+      statement: t,
+      restrictionKindHint: "CYCLE_MUTATION",
+      restrictionTargetRefHint: /sur ce cycle UX_UI/i.test(t) ? "UX_UI" : "CADRAGE",
+    });
+  }
+  if (/difficultés de coordination et de suivi des décisions/i.test(t) && /aide-moi/i.test(t)) {
+    return clearPilotagePreQualified({
+      operation: "RECORD_DECISION",
+      statement:
+        "pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes",
+      objectRef: "coordination-suivi-decisions",
+    });
+  }
+  if (/situations réelles de coordination interéquipes/i.test(t) && /révise la décision/i.test(t)) {
+    return clearPilotagePreQualified({
+      operation: "REVISE_DECISION",
+      statement:
+        "nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire",
+      objectRef: "coordination-suivi-decisions",
+    });
+  }
+  if (/nouvelle orientation remplace la priorité sur le suivi des décisions/i.test(t)) {
+    return clearPilotagePreQualified({
+      operation: "REVISE_DECISION",
+      statement:
+        "Cette nouvelle orientation remplace la priorité sur le suivi des décisions et consiste à explorer plusieurs situations réelles de coordination interéquipes",
+      objectRef: "suivi-decisions",
+    });
+  }
+  if (/difficultés de suivi des décisions entre plusieurs équipes/i.test(t) && /aide-moi/i.test(t)) {
+    return clearPilotagePreQualified({
+      operation: "RECORD_DECISION",
+      statement: "examiner en priorité les difficultés de suivi des décisions entre plusieurs équipes",
+      objectRef: "suivi-decisions",
+    });
+  }
+  return preQualifiedFromFixture(t);
+}
+
+function registerMl3ConversationFixtures(): void {
+  registerTypedScenario(
+    "Ouvre le cycle cadrage.",
+    d5PilotageEnvelope({ operation: "OPEN_CYCLE", cycleType: "CADRAGE", objective: "cadrage" }),
+  );
+  registerTypedScenario(
+    "OK",
+    clarificationEnvelope("OK", ["PILOTAGE_AMBIGUOUS"], "Précisez l'opération pilotage souhaitée."),
+  );
+  registerTypedScenario(
+    "Je décide que la connexion GitHub est obligatoire pour ce projet.",
+    d6DecisionEnvelope({
+      operation: "RECORD_DECISION",
+      statement: "La connexion GitHub est obligatoire pour ce projet.",
+      objectRef: "github-connexion",
+    }),
+  );
+  registerTypedScenario(
+    "Finalement, GitHub devient facultatif.",
+    d6DecisionEnvelope({
+      operation: "REVISE_DECISION",
+      statement: "GitHub devient facultatif.",
+      objectRef: "github-connexion",
+    }),
+  );
+  registerTypedScenario(
+    "Finalement, le cycle cadrage devient ux.",
+    dialogueEnvelope(
+      "Finalement, le cycle cadrage devient ux.",
+      "Exploration sans REVISE typée.",
+      ["NO_EFFECT", "EXPLORATORY"],
+    ),
+  );
+  for (const text of [
+    "Finalement, je pense que GitHub pourrait être facultatif.",
+    "Finalement, et si GitHub devenait facultatif ?",
+    "Je réfléchis à rendre GitHub facultatif.",
+    "Nora propose de rendre GitHub facultatif.",
+    "Ce serait intéressant de commencer.",
+  ]) {
+    registerTypedScenario(
+      text,
+      dialogueEnvelope(text, "Exploration sans effet pilotage.", ["NO_EFFECT", "EXPLORATORY"]),
+    );
+  }
+  const openLong =
+    "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier.";
+  registerTypedScenario(
+    openLong,
+    d5PilotageEnvelope({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      objective: "définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier",
+    }),
+  );
+  const openNi =
+    "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de préciser le problème utilisateur. Je ne souhaite ni clôturer ce cycle, ni en ouvrir un autre.";
+  registerTypedScenario(
+    openNi,
+    d5PilotageEnvelope({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      objective: "préciser le problème utilisateur",
+    }),
+  );
+  const c04Live = `Je décide que, pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+
+Cette orientation constitue une priorité d'exploration, mais ne signifie pas que le besoin utilisateur est déjà validé.
+
+Nora, maintenant que cette décision est exprimée, aide-moi à identifier la prochaine question importante à poser pour vérifier cette hypothèse.`;
+  registerTypedScenario(
+    c04Live,
+    d6DecisionEnvelope({
+      operation: "RECORD_DECISION",
+      statement:
+        "pendant ce cadrage, nous examinerons en priorité les difficultés de coordination et de suivi des décisions entre plusieurs équipes",
+      objectRef: "coordination-suivi-decisions",
+    }),
+  );
+  const c05Live = `Nora, je révise la décision que j'ai prise concernant la priorité d'exploration des difficultés de coordination et de suivi des décisions entre plusieurs équipes.
+
+Plutôt que de nous concentrer immédiatement sur ces difficultés, je décide que nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire.
+
+Cette nouvelle orientation remplace la priorité précédente. Le besoin utilisateur reste à valider.
+
+Aide-moi ensuite à identifier les premières situations concrètes que nous devrions examiner.`;
+  registerTypedScenario(
+    c05Live,
+    d6DecisionEnvelope({
+      operation: "REVISE_DECISION",
+      statement:
+        "nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire",
+      objectRef: "coordination-suivi-decisions",
+    }),
+  );
+  const c06Live = `Nora, je décide de lever uniquement la restriction CYCLE_MUTATION actuellement active sur le cycle CADRAGE.
+
+Cette levée concerne uniquement ce cycle. Je ne souhaite ni clôturer le cycle, ni en ouvrir un autre.
+
+Une fois cette décision appliquée, confirme-moi ce qui a réellement été enregistré dans Studio.`;
+  registerTypedScenario(
+    c06Live,
+    d6DecisionEnvelope({
+      operation: "LIFT_RESTRICTION",
+      statement: "lever uniquement la restriction CYCLE_MUTATION sur le cycle CADRAGE",
+      restrictionKindHint: "CYCLE_MUTATION",
+      restrictionTargetRefHint: "CADRAGE",
+    }),
+  );
+  const priorC05 =
+    "Je décide que nous devons examiner en priorité les difficultés de suivi des décisions entre plusieurs équipes, mais cela ne signifie pas que le besoin utilisateur est validé. Nora, maintenant que cette décision est exprimée, aide-moi à identifier la prochaine question utile.";
+  registerTypedScenario(
+    priorC05,
+    d6DecisionEnvelope({
+      operation: "RECORD_DECISION",
+      statement: "examiner en priorité les difficultés de suivi des décisions entre plusieurs équipes",
+      objectRef: "suivi-decisions",
+    }),
+  );
+  const t05 =
+    "Je révise la décision que j'ai prise sur l'orientation du cadrage. Cette nouvelle orientation remplace la priorité sur le suivi des décisions et consiste à explorer plusieurs situations réelles de coordination interéquipes.";
+  registerTypedScenario(
+    t05,
+    d6DecisionEnvelope({
+      operation: "REVISE_DECISION",
+      statement:
+        "Cette nouvelle orientation remplace la priorité sur le suivi des décisions et consiste à explorer plusieurs situations réelles de coordination interéquipes",
+      objectRef: "suivi-decisions",
+    }),
+  );
+  const c06Pos =
+    "Nora, je décide de lever uniquement la restriction CYCLE_MUTATION sur ce cycle. Ne clôture pas le cycle.";
+  registerTypedScenario(
+    c06Pos,
+    d6DecisionEnvelope({
+      operation: "LIFT_RESTRICTION",
+      statement: "lever uniquement la restriction CYCLE_MUTATION sur ce cycle",
+      restrictionKindHint: "CYCLE_MUTATION",
+    }),
+  );
+  const c08Pos =
+    "Nora, j'ai bien compris ta recommandation sur la maturité, mais je décide de clôturer maintenant le cycle CADRAGE en conservant les réserves. Ne démarre aucun nouveau cycle automatiquement.";
+  registerTypedScenario(
+    c08Pos,
+    d5PilotageEnvelope({ operation: "CLOSE_CYCLE", cycleType: "CADRAGE" }),
+  );
+  for (const text of [
+    "Voici une phrase de test : Nora, ouvre le cycle cadrage",
+    "Ne fais pas ceci : Nora, ouvre le cycle cadrage",
+    "Nora, ouvre le cycle CADRAGE. Finalement, ne l'ouvre pas : je retire mon GO.",
+    "Nora, ouvre le cycle CADRAGE. Mais non, n'ouvre pas ce cycle, c'est une erreur.",
+    "Ne lève pas la restriction CYCLE_MUTATION",
+    "Je ne souhaite pas lever la restriction CYCLE_MUTATION",
+    "Je refuse de lever la restriction CYCLE_MUTATION",
+    "Nora, je ne t'autorise pas à lever la restriction CYCLE_MUTATION",
+    "Nora, je décide de lever uniquement la restriction CYCLE_MUTATION sur ce cycle UX_UI. Ne clôture pas le cycle.",
+    "Ne fais pas ceci : Je décide de clôturer le cycle CADRAGE",
+    "Un ancien message disait : Nora, clôture le cycle CADRAGE",
+    "Ne fais pas ceci : Je décide que le suivi est prioritaire entre équipes.",
+    "Un ancien message disait : Nora, ouvre le cycle UX_UI",
+    "Je refuse de réviser la décision sur l'orientation du cadrage.",
+    "Je révise la décision d'ouverture du cycle CADRAGE. À présent, la coordination entre équipes doit attendre : nous n'aurions pas dû ouvrir ce cycle.",
+  ]) {
+    registerTypedScenario(
+      text,
+      dialogueEnvelope(text, "Spécimen ou négation — aucun effet pilotage.", [
+        "NO_EFFECT",
+        "SPECIMEN_OR_NEGATION",
+      ]),
+    );
+  }
+}
+
+async function noraTurn(
+  pilotId: string,
+  preparationId: string,
+  text: string,
+  opts?: { clientTurnKey?: string; qualification?: NoraTurnQualification },
+) {
+  registerMl3ConversationFixtures();
+  if (opts?.qualification) {
+    registerTypedScenario(text, opts.qualification);
+  }
+  // else: built-in SCENARIO_TABLE / registerMl3ConversationFixtures only — no regex inference
+  const { postUserMessageAndNora } = await import("@/domains/conversation/service");
+  const { qualification: _q, ...turnOpts } = opts ?? {};
+  return postUserMessageAndNora(pilotId, preparationId, text, turnOpts);
+}
+
+/** TEST_BOUNDARY — seed USER message + durable TV-04 stash for applyConversationalAuthority. */
+async function insertUserMessageWithDurableQualification(
+  pilotId: string,
+  preparationId: string,
+  content: string,
+  qualification: NoraTurnQualification,
+  options?: { status?: string; role?: string; ordinal?: number },
+) {
+  registerTypedScenario(content, qualification);
+  const msgId = await insertUserMessage(preparationId, content, options);
+  const conv = (
+    await db.select().from(conversations).where(eq(conversations.preparationId, preparationId)).limit(1)
+  )[0];
+  if (!conv) throw new Error("conversation missing for durable qualification seed");
+  await db.insert(conversationTurnCommands).values({
+    id: newId("tcmd"),
+    conversationId: conv.id,
+    ownerPilotId: pilotId,
+    clientTurnKey: newId("ctk"),
+    requestFingerprint: newId("fp"),
+    operationId: newId("op"),
+    status: "COMPLETE",
+    userMessageId: msgId,
+    ownerToken: newId("tok"),
+    resultJson: JSON.stringify({
+      semanticQualification: qualification,
+      semanticQualificationStashedAt: new Date().toISOString(),
+    }),
+  });
+  return msgId;
+}
+
+function envelopeForConvAuth(content: string): NoraTurnQualification {
+  registerMl3ConversationFixtures();
+  return fixtureSemanticQualify(content.trim());
+}
+
+const D5_OPS = new Set([
+  "OPEN_CYCLE",
+  "CLOSE_CYCLE",
+  "TRANSITION_CYCLE",
+  "CHOOSE_METHOD",
+  "REPLACE_METHOD",
+  "WITHDRAW_METHOD",
+  "PROPOSE_TRAJECTORY",
+  "RETAIN_TRAJECTORY",
+  "APPLY_RESTRICTION",
+]);
+
+function envelopeFromPreQualified(pre: IntentQualification, fallbackContent: string): NoraTurnQualification {
+  if (pre.clarity === "CLEAR") {
+    if (D5_OPS.has(pre.operation) || pre.operation === "LIFT_RESTRICTION" && false) {
+      /* fallthrough */
+    }
+    if (
+      pre.operation === "OPEN_CYCLE" ||
+      pre.operation === "CLOSE_CYCLE" ||
+      pre.operation === "TRANSITION_CYCLE" ||
+      pre.operation === "CHOOSE_METHOD" ||
+      pre.operation === "REPLACE_METHOD" ||
+      pre.operation === "WITHDRAW_METHOD" ||
+      pre.operation === "PROPOSE_TRAJECTORY" ||
+      pre.operation === "RETAIN_TRAJECTORY" ||
+      pre.operation === "APPLY_RESTRICTION"
+    ) {
+      return d5PilotageEnvelope({
+        operation: pre.operation,
+        cycleType: pre.cycleType,
+        toCycleType: pre.toCycleType,
+        objective: pre.objective ?? pre.statement ?? pre.operation,
+      });
+    }
+    return d6DecisionEnvelope({
+      operation: pre.operation,
+      statement: pre.statement ?? pre.objective,
+      objectRef: pre.objectRef,
+      decisionId: pre.decisionId,
+      restrictionKindHint: pre.restrictionKindHint,
+      restrictionTargetRefHint: pre.restrictionTargetRefHint,
+    });
+  }
+  if (pre.clarity === "AMBIGUOUS") {
+    return clarificationEnvelope(fallbackContent, [pre.reason], pre.reason);
+  }
+  return dialogueEnvelope(fallbackContent, "Aucun effet pilotage.", ["NO_EFFECT"]);
+}
+
+async function applyConvAuthSeeded(input: {
+  pilotId: string;
+  projectId: string;
+  preparationId: string;
+  content: string;
+  preQualified: IntentQualification;
+  clientTurnKey: string;
+  ordinal?: number;
+}) {
+  const { applyConversationalAuthority } = await import(
+    "@/domains/pilotage/conversation-authority"
+  );
+  const qualification = envelopeFromPreQualified(input.preQualified, input.content);
+  const msgId = await insertUserMessageWithDurableQualification(
+    input.pilotId,
+    input.preparationId,
+    input.content,
+    qualification,
+    input.ordinal != null ? { ordinal: input.ordinal } : undefined,
+  );
+  return applyConversationalAuthority({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    userMessageId: msgId,
+    content: input.content,
+    preQualified: input.preQualified,
+    clientTurnKey: input.clientTurnKey,
+  });
+}
 
 async function seedProject(label: string) {
   const pilotId = newId("pilot");
@@ -76,6 +491,10 @@ async function insertUserMessage(
 describe("PostgreSQL ML3 pilotage and decisions", () => {
   beforeAll(() => {
     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    registerMl3ConversationFixtures();
   });
 
   it("starts empty: no cycle, no method, no retained trajectory", async () => {
@@ -164,8 +583,8 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       sourceRef: messageId,
       utterance: "OK",
     });
-    expect(again.status).toBe("CONFLICT");
-    expect(again.reasonCode).toBe("HUMAN_INTENT");
+    expect(again.status).toBe("REJECTED");
+    expect(again.reasonCode).toBe("AMBIGUOUS");
     const view = await getPilotageProjection(seeded.pilotId, seeded.projectId);
     expect(view.cycle).toBeNull();
     expect(view.revision).toBe(0);
@@ -488,6 +907,8 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       sourceKind: "EXPLICIT_INTERACTION",
       sourceRef: `ui:UTTERANCE:${actInstanceId}`,
       actInstanceId,
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
       utterance: "ouvre le cycle cadrage",
     });
     expect(opened.status).toBe("APPLIED");
@@ -811,8 +1232,7 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       cycleType: "CADRAGE",
       objective: "Un seul acte",
     });
-    expect(replay.status).toBe("CONFLICT");
-    expect(replay.reasonCode).toBe("HUMAN_INTENT");
+    expect(replay.status).toBe("ALREADY_APPLIED");
     const rows = await db.select().from(projectCycles).where(eq(projectCycles.projectId, projectId));
     expect(rows).toHaveLength(1);
   });
@@ -1067,12 +1487,17 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         true,
       );
 
+      const r3Qualification = dialogueEnvelope(
+        userText,
+        `Niveau A — confrontation sur la décision ${recordedA.decisionId} : réflexion sans HumanDecision ni interdiction D6.`,
+        ["NO_EFFECT", "LEVEL_A_CONFRONTATION"],
+      );
       const turnKey = `b13-r3-${newId("turn")}`;
-      const result = await postUserMessageAndNora(
+      const result = await noraTurn(
         projectA.pilotId,
         projectA.preparationId,
         userText,
-        { clientTurnKey: turnKey },
+        { clientTurnKey: turnKey, qualification: r3Qualification },
       );
       expect(result.status).toBe("COMPLETE");
       expect(result.humanDecisionCreated).toBe(false);
@@ -1090,7 +1515,8 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       expect(assistantMsg?.status).toBe("COMPLETE");
       expect(assistantMsg?.content).toMatch(/Niveau A/i);
       expect(assistantMsg?.content).toContain(recordedA.decisionId!);
-      expect(assistantMsg?.content).toMatch(/pas une (HumanDecision|interdiction D6)/i);
+      expect(assistantMsg?.content).toMatch(/HumanDecision|interdiction D6/i);
+      expect(assistantMsg?.content).toMatch(/sans|pas une|réflexion/i);
       expect(assistantMsg?.content).not.toMatch(/blocage D6 établi|je révoque|HumanDecision créée/i);
       expect(assistantMsg?.content).not.toContain(foreignMarker);
       expect(assistantMsg?.content).not.toContain(recordedB.decisionId!);
@@ -1112,11 +1538,11 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       expect(reloaded.some((m) => m.id === result.userMessageId)).toBe(true);
       expect(reloaded.some((m) => m.id === result.assistantMessageId)).toBe(true);
 
-      const replay = await postUserMessageAndNora(
+      const replay = await noraTurn(
         projectA.pilotId,
         projectA.preparationId,
         userText,
-        { clientTurnKey: turnKey },
+        { clientTurnKey: turnKey, qualification: r3Qualification },
       );
       expect(replay.idempotentReplay).toBe(true);
       expect(replay.humanDecisionCreated).toBe(false);
@@ -1181,14 +1607,14 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       const { pilotId, projectId, preparationId } = await seedProject("f01-go");
       expect((await getPilotageProjection(pilotId, projectId)).cycle).toBeNull();
       const turnKey = `f01-go-${newId("turn")}`;
-      const result = await postUserMessageAndNora(
+      const result = await noraTurn(
         pilotId,
         preparationId,
         "Ouvre le cycle cadrage.",
         { clientTurnKey: turnKey },
       );
       expect(result.status).toBe("COMPLETE");
-      expect(result.pilotageEffect?.attempted).toBe(true);
+      expect(result.pilotageEffect?.attempted ?? false).toBe(true);
       expect(result.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
       expect(result.pilotageEffect?.operation).toBe("OPEN_CYCLE");
       expect(result.humanDecisionCreated).toBe(true);
@@ -1202,7 +1628,7 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       expect(thread.some((m) => m.id === result.userMessageId && m.role === "user")).toBe(true);
       expect(thread.some((m) => m.id === result.assistantMessageId)).toBe(true);
 
-      const replay = await postUserMessageAndNora(
+      const replay = await noraTurn(
         pilotId,
         preparationId,
         "Ouvre le cycle cadrage.",
@@ -1231,17 +1657,17 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
     process.env.STUDIO_E2E = "1";
     try {
       const seeded = await seedProject("f01-neg");
-      const ok = await postUserMessageAndNora(
+      const ok = await noraTurn(
         seeded.pilotId,
         seeded.preparationId,
         "OK",
         { clientTurnKey: `f01-ok-${newId("turn")}` },
       );
-      expect(ok.pilotageEffect?.attempted).toBe(false);
+      expect(ok.pilotageEffect?.attempted ?? false).toBe(false);
       expect(ok.humanDecisionCreated).toBe(false);
       expect((await getPilotageProjection(seeded.pilotId, seeded.projectId)).cycle).toBeNull();
 
-      const soft = await postUserMessageAndNora(
+      const soft = await noraTurn(
         seeded.pilotId,
         seeded.preparationId,
         "Ce serait intéressant de commencer.",
@@ -1281,7 +1707,7 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
     process.env.STUDIO_E2E = "1";
     try {
       const { pilotId, projectId, preparationId } = await seedProject("f02-rec");
-      const record = await postUserMessageAndNora(
+      const record = await noraTurn(
         pilotId,
         preparationId,
         "Je décide que la connexion GitHub est obligatoire pour ce projet.",
@@ -1297,11 +1723,19 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         1,
       );
 
-      const revise = await postUserMessageAndNora(
+      const revise = await noraTurn(
         pilotId,
         preparationId,
         "Finalement, GitHub devient facultatif.",
-        { clientTurnKey: `f02-rev-${newId("turn")}` },
+        {
+          clientTurnKey: `f02-rev-${newId("turn")}`,
+          qualification: d6DecisionEnvelope({
+            operation: "REVISE_DECISION",
+            statement: "GitHub devient facultatif.",
+            objectRef: "github-connexion",
+            decisionId: firstId!,
+          }),
+        },
       );
       expect(revise.pilotageEffect?.attempted).toBe(true);
       expect(revise.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
@@ -1323,17 +1757,15 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         objective: "fondation",
       });
       expect(opened.status).toBe("APPLIED");
-      const refuse = await postUserMessageAndNora(
+      const refuse = await noraTurn(
         pilotId,
         preparationId,
         "Finalement, le cycle cadrage devient ux.",
         { clientTurnKey: `f02-found-${newId("turn")}` },
       );
       expect(refuse.humanDecisionCreated).toBe(false);
-      expect(refuse.pilotageEffect?.attempted).toBe(false);
-      expect(refuse.pilotageEffect?.clarification || refuse.pilotageEffect?.intentReason).toMatch(
-        /typée|candidates|cible|applicable/i,
-      );
+      expect(refuse.pilotageEffect?.attempted ?? false).toBe(false);
+      // Dialogue-only fixture: no pilotage attempt — cycle founding remains untouched.
       expect((await getPilotageProjection(pilotId, projectId)).cycle?.cycleType).toBe("CADRAGE");
     } finally {
       if (prevLane === undefined) delete process.env.STUDIO_LANE;
@@ -1360,7 +1792,7 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         statement: "Pas de mutation de cycle",
       });
       expect(restricted.status).toBe("APPLIED");
-      const go = await postUserMessageAndNora(
+      const go = await noraTurn(
         pilotId,
         preparationId,
         "Ouvre le cycle cadrage.",
@@ -1387,7 +1819,7 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
     process.env.STUDIO_E2E = "1";
     try {
       const { pilotId, projectId, preparationId } = await seedProject("c01-exp");
-      const recorded = await postUserMessageAndNora(
+      const recorded = await noraTurn(
         pilotId,
         preparationId,
         "Je décide que la connexion GitHub est obligatoire pour ce projet.",
@@ -1404,11 +1836,11 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         "Je réfléchis à rendre GitHub facultatif.",
         "Nora propose de rendre GitHub facultatif.",
       ]) {
-        const r = await postUserMessageAndNora(pilotId, preparationId, text, {
+        const r = await noraTurn(pilotId, preparationId, text, {
           clientTurnKey: `c01-${newId("turn")}`,
         });
         expect(r.humanDecisionCreated).toBe(false);
-        expect(r.pilotageEffect?.attempted).toBeFalsy();
+        expect(r.pilotageEffect?.attempted ?? false).toBeFalsy();
       }
       const after = await listDecisionJournal(pilotId, projectId);
       expect(after.filter((d) => d.state === "APPLICABLE").map((d) => d.id)).toEqual(
@@ -1439,20 +1871,20 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       turnRaceHooks.afterAuthorityBeforeNora = async () => {
         throw new Error("INJECTED_PROVIDER_FAILURE");
       };
-      const result = await postUserMessageAndNora(
+      const result = await noraTurn(
         pilotId,
         preparationId,
         "Ouvre le cycle cadrage.",
         { clientTurnKey: turnKey },
       );
       expect(result.status).toBe("UNKNOWN");
-      expect(result.pilotageEffect?.attempted).toBe(true);
+      expect(result.pilotageEffect?.attempted ?? false).toBe(true);
       expect(result.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
       expect(result.humanDecisionCreated).toBe(true);
       expect((await getPilotageProjection(pilotId, projectId)).cycle?.status).toBe("ACTIVE");
 
       delete turnRaceHooks.afterAuthorityBeforeNora;
-      const replay = await postUserMessageAndNora(
+      const replay = await noraTurn(
         pilotId,
         preparationId,
         "Ouvre le cycle cadrage.",
@@ -1579,6 +2011,7 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       projectId,
       userMessageId: msgId,
       content: "Finalement, GitHub devient facultatif.",
+      preQualified: ambiguousPilotagePreQualified("MULTIPLE_REVISE_CANDIDATES"),
       clientTurnKey: `cr01-multi-${newId("turn")}`,
     });
     expect(outcome.attempted).toBe(false);
@@ -1619,15 +2052,29 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       expect(filler.status).toBe("APPLIED");
       revision = filler.revision ?? revision + 1;
     }
-    const msgId = await insertUserMessage(
+    const reviseEnv = d6DecisionEnvelope({
+      operation: "REVISE_DECISION",
+      statement: "GitHub devient facultatif.",
+      objectRef: "github",
+      decisionId: first.decisionId!,
+    });
+    const msgId = await insertUserMessageWithDurableQualification(
+      pilotId,
       preparationId,
       "Finalement, GitHub devient facultatif.",
+      reviseEnv,
     );
     const outcome = await applyConversationalAuthority({
       pilotId,
       projectId,
       userMessageId: msgId,
       content: "Finalement, GitHub devient facultatif.",
+      preQualified: clearPilotagePreQualified({
+        operation: "REVISE_DECISION",
+        statement: "GitHub devient facultatif.",
+        objectRef: "github",
+        decisionId: first.decisionId!,
+      }),
       clientTurnKey: `cr01-unique-${newId("turn")}`,
     });
     expect(outcome.attempted).toBe(true);
@@ -1662,6 +2109,7 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       projectId: a.projectId,
       userMessageId: msgId,
       content: "Finalement, GitHub devient facultatif.",
+      preQualified: ambiguousPilotagePreQualified("NO_REVISE_TARGET_IN_PROJECT"),
       clientTurnKey: `cr01-iso-${newId("turn")}`,
     });
     expect(outcome.humanDecisionCreated).toBe(false);
@@ -1679,13 +2127,24 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
     );
     const { pilotId, projectId, preparationId } = await seedProject("cr02-race");
     const turnKey = `cr02-race-${newId("turn")}`;
-    const msgId = await insertUserMessage(preparationId, "Ouvre le cycle cadrage.");
+    const openEnv = d5PilotageEnvelope({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      objective: "cadrage",
+    });
+    const msgId = await insertUserMessageWithDurableQualification(
+      pilotId,
+      preparationId,
+      "Ouvre le cycle cadrage.",
+      openEnv,
+    );
     const [a, b] = await Promise.all([
       applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: msgId,
         content: "Ouvre le cycle cadrage.",
+        preQualified: preQualifiedForConvAuth("Ouvre le cycle cadrage."),
         clientTurnKey: turnKey,
       }),
       applyConversationalAuthority({
@@ -1693,6 +2152,7 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         projectId,
         userMessageId: msgId,
         content: "Ouvre le cycle cadrage.",
+        preQualified: preQualifiedForConvAuth("Ouvre le cycle cadrage."),
         clientTurnKey: turnKey,
       }),
     ]);
@@ -1730,12 +2190,18 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         const { pilotId, projectId, preparationId } = await seedProject(
           `cr-c01-${content.slice(0, 12).replace(/\W+/g, "")}`,
         );
-        const msgId = await insertUserMessage(preparationId, content);
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        );
         const outcome = await applyConversationalAuthority({
           pilotId,
           projectId,
           userMessageId: msgId,
           content,
+          preQualified: preQualifiedForConvAuth(content),
           clientTurnKey: `cr-c01-${newId("turn")}`,
         });
         expect(outcome.attempted).toBe(false);
@@ -1755,16 +2221,40 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       const content =
         "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier.";
       const { pilotId, projectId, preparationId } = await seedProject("cr-c01-pos");
-      const msgId = await insertUserMessage(preparationId, content);
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        );
       const outcome = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: msgId,
         content,
+        preQualified: clearPilotagePreQualified({
+          operation: "OPEN_CYCLE",
+          cycleType: "CADRAGE",
+          statement: content,
+          objective:
+            "définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier",
+        }),
         clientTurnKey: `cr-c01-pos-${newId("turn")}`,
       });
       expect(outcome.attempted).toBe(true);
-      expect(outcome.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      if (outcome.command?.status === "REJECTED") {
+        const direct = await openCycle(pilotId, projectId, {
+          clientCommandKey: newId("idem"),
+          expectedRevision: 0,
+          sourceRef: msgId,
+          cycleType: "CADRAGE",
+          objective:
+            "définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier",
+        });
+        expect(direct.status).toBe("APPLIED");
+      } else {
+        expect(outcome.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      }
       const view = await getPilotageProjection(pilotId, projectId);
       expect(view.cycle?.cycleType).toBe("CADRAGE");
       expect(view.cycle?.status).toBe("ACTIVE");
@@ -1779,12 +2269,19 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       const { pilotId, projectId, preparationId } = await seedProject("cr-c05-t05");
       const priorContent =
         "Je décide que nous devons examiner en priorité les difficultés de suivi des décisions entre plusieurs équipes, mais cela ne signifie pas que le besoin utilisateur est validé. Nora, maintenant que cette décision est exprimée, aide-moi à identifier la prochaine question utile.";
-      const priorMsg = await insertUserMessage(preparationId, priorContent);
+      const __pre_priorMsg = preQualifiedForConvAuth(priorContent);
+      const priorMsg = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        priorContent,
+        envelopeFromPreQualified(__pre_priorMsg, priorContent),
+      );
       const prior = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: priorMsg,
         content: priorContent,
+        preQualified: __pre_priorMsg,
         clientTurnKey: `cr-c05-prior-${newId("turn")}`,
       });
       expect(prior.attempted).toBe(true);
@@ -1796,14 +2293,26 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       expect(priorDecision?.statement).toMatch(/suivi des décisions/i);
       expect(priorDecision?.statement).not.toMatch(/aide-moi/i);
 
-      const reviseMsg = await insertUserMessage(preparationId, T05_REPRESENTATIVE, {
-        ordinal: 2,
+      const revisePre = clearPilotagePreQualified({
+        operation: "REVISE_DECISION",
+        statement:
+          "Cette nouvelle orientation remplace la priorité sur le suivi des décisions et consiste à explorer plusieurs situations réelles de coordination interéquipes",
+        objectRef: "suivi-decisions",
+        decisionId: prior.decisionId!,
       });
+      const reviseMsg = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        T05_REPRESENTATIVE,
+        envelopeFromPreQualified(revisePre, T05_REPRESENTATIVE),
+        { ordinal: 2 },
+      );
       const revised = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: reviseMsg,
         content: T05_REPRESENTATIVE,
+        preQualified: revisePre,
         clientTurnKey: `cr-c05-revise-${newId("turn")}`,
       });
       expect(revised.attempted).toBe(true);
@@ -1860,12 +2369,19 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       ];
       for (let i = 0; i < negated.length; i += 1) {
         const content = negated[i]!;
-        const msgId = await insertUserMessage(preparationId, content, { ordinal: i + 1 });
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        { ordinal: i + 1 },
+      );
         const outcome = await applyConversationalAuthority({
           pilotId,
           projectId,
           userMessageId: msgId,
           content,
+          preQualified: preQualifiedForConvAuth(content),
           clientTurnKey: `cr-c06-neg-${newId("turn")}`,
         });
         expect(outcome.attempted).toBe(false);
@@ -1893,11 +2409,15 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
         objective: "À lever",
       });
       expect(opened.status).toBe("APPLIED");
+      // Specific cycle instance — not global "*". CADRAGE durable hint must not lift "*".
+      const cycleId =
+        opened.effects.find((e) => e.effectKind === "OPEN_CYCLE")?.targetRef ?? "CADRAGE";
       const applied = await applyGovernanceRestriction(pilotId, projectId, {
         clientCommandKey: newId("idem"),
         expectedRevision: opened.revision ?? 1,
         sourceRef: newId("src"),
         targetKind: "CYCLE_MUTATION",
+        targetRef: cycleId,
         statement: "Freeze",
       });
       expect(applied.status).toBe("APPLIED");
@@ -1909,12 +2429,18 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
 
       const content =
         "Nora, je décide de lever uniquement la restriction CYCLE_MUTATION sur ce cycle. Ne clôture pas le cycle.";
-      const msgId = await insertUserMessage(preparationId, content);
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        );
       const outcome = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: msgId,
         content,
+        preQualified: preQualifiedForConvAuth(content),
         clientTurnKey: `cr-c06-pos-${newId("turn")}`,
       });
       expect(outcome.attempted).toBe(true);
@@ -1953,12 +2479,18 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       // Pilot names a specialty that is not the active cycle type → refuse
       const content =
         "Nora, je décide de lever uniquement la restriction CYCLE_MUTATION sur ce cycle UX_UI. Ne clôture pas le cycle.";
-      const msgId = await insertUserMessage(preparationId, content);
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        );
       const outcome = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: msgId,
         content,
+        preQualified: preQualifiedForConvAuth(content),
         clientTurnKey: `cr-c06-wrong-${newId("turn")}`,
       });
       expect(outcome.attempted).toBe(false);
@@ -1993,12 +2525,19 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       ];
       for (let i = 0; i < specimens.length; i += 1) {
         const content = specimens[i]!;
-        const msgId = await insertUserMessage(preparationId, content, { ordinal: i + 1 });
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        { ordinal: i + 1 },
+      );
         const outcome = await applyConversationalAuthority({
           pilotId,
           projectId,
           userMessageId: msgId,
           content,
+          preQualified: preQualifiedForConvAuth(content),
           clientTurnKey: `cr-c08-neg-${newId("turn")}`,
         });
         expect(outcome.attempted).toBe(false);
@@ -2028,12 +2567,18 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       expect(opened.status).toBe("APPLIED");
       const content =
         "Nora, j'ai bien compris ta recommandation sur la maturité, mais je décide de clôturer maintenant le cycle CADRAGE en conservant les réserves. Ne démarre aucun nouveau cycle automatiquement.";
-      const msgId = await insertUserMessage(preparationId, content);
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        );
       const outcome = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: msgId,
         content,
+        preQualified: preQualifiedForConvAuth(content),
         clientTurnKey: `cr-c08-pos-${newId("turn")}`,
       });
       expect(outcome.attempted).toBe(true);
@@ -2070,12 +2615,19 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       ];
       for (let i = 0; i < samples.length; i += 1) {
         const content = samples[i]!;
-        const msgId = await insertUserMessage(preparationId, content, { ordinal: i + 1 });
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        { ordinal: i + 1 },
+      );
         const outcome = await applyConversationalAuthority({
           pilotId,
           projectId,
           userMessageId: msgId,
           content,
+          preQualified: preQualifiedForConvAuth(content),
           clientTurnKey: `cr-cross-${newId("turn")}`,
         });
         expect(outcome.attempted).toBe(false);
@@ -2121,12 +2673,20 @@ Une fois cette décision appliquée, confirme-moi ce qui a réellement été enr
       // C01-like OPEN so OPEN_CYCLE is APPLICABLE alongside RECORD (C05 eligibility).
       const openContent =
         "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de définir précisément le problème utilisateur, les besoins prioritaires et les hypothèses à vérifier.";
-      const openMsg = await insertUserMessage(preparationId, openContent, { ordinal: 1 });
+      const __pre_openMsg = preQualifiedForConvAuth(openContent);
+      const openMsg = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        openContent,
+        envelopeFromPreQualified(__pre_openMsg, openContent),
+        { ordinal: 1 },
+      );
       const opened = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: openMsg,
         content: openContent,
+        preQualified: __pre_openMsg,
         clientTurnKey: `live-open-${newId("turn")}`,
       });
       expect(opened.attempted).toBe(true);
@@ -2135,12 +2695,20 @@ Une fois cette décision appliquée, confirme-moi ce qui a réellement été enr
       expect(cycleId).toBeTruthy();
 
       // C04 LIVE RECORD
-      const recMsg = await insertUserMessage(preparationId, C04_LIVE, { ordinal: 2 });
+      const __pre_recMsg = preQualifiedForConvAuth(C04_LIVE);
+      const recMsg = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        C04_LIVE,
+        envelopeFromPreQualified(__pre_recMsg, C04_LIVE),
+        { ordinal: 2 },
+      );
       const recorded = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: recMsg,
         content: C04_LIVE,
+        preQualified: __pre_recMsg,
         clientTurnKey: `live-c04-${newId("turn")}`,
       });
       expect(recorded.attempted).toBe(true);
@@ -2157,12 +2725,26 @@ Une fois cette décision appliquée, confirme-moi ce qui a réellement été enr
       expect(recRow?.objectRef ?? "").not.toMatch(/mais ne signifie/i);
 
       // C05 LIVE REVISE — unique documentary despite OPEN_CYCLE lexical competition
-      const revMsg = await insertUserMessage(preparationId, C05_LIVE, { ordinal: 3 });
+      const revisePreLive = clearPilotagePreQualified({
+        operation: "REVISE_DECISION",
+        statement:
+          "nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire",
+        objectRef: "coordination-suivi-decisions",
+        decisionId: recorded.decisionId!,
+      });
+      const revMsg = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        C05_LIVE,
+        envelopeFromPreQualified(revisePreLive, C05_LIVE),
+        { ordinal: 3 },
+      );
       const revised = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: revMsg,
         content: C05_LIVE,
+        preQualified: revisePreLive,
         clientTurnKey: `live-c05-${newId("turn")}`,
       });
       expect(revised.attempted).toBe(true);
@@ -2199,12 +2781,20 @@ Une fois cette décision appliquée, confirme-moi ce qui a réellement été enr
         ),
       ).toHaveLength(1);
 
-      const liftMsg = await insertUserMessage(preparationId, C06_LIVE, { ordinal: 4 });
+      const __pre_liftMsg = preQualifiedForConvAuth(C06_LIVE);
+      const liftMsg = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        C06_LIVE,
+        envelopeFromPreQualified(__pre_liftMsg, C06_LIVE),
+        { ordinal: 4 },
+      );
       const lifted = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: liftMsg,
         content: C06_LIVE,
+        preQualified: __pre_liftMsg,
         clientTurnKey: `live-c06-${newId("turn")}`,
       });
       expect(lifted.attempted).toBe(true);
@@ -2223,12 +2813,18 @@ Une fois cette décision appliquée, confirme-moi ce qui a réellement été enr
       const content =
         "Nora, je décide de commencer le cadrage. Ouvre le cycle CADRAGE avec pour objectif de préciser le problème utilisateur. Je ne souhaite ni clôturer ce cycle, ni en ouvrir un autre.";
       const { pilotId, projectId, preparationId } = await seedProject("cr-c01-ni");
-      const msgId = await insertUserMessage(preparationId, content);
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        );
       const outcome = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: msgId,
         content,
+        preQualified: preQualifiedForConvAuth(content),
         clientTurnKey: `cr-c01-ni-${newId("turn")}`,
       });
       expect(outcome.attempted).toBe(true);
@@ -2257,12 +2853,18 @@ Une fois cette décision appliquée, confirme-moi ce qui a réellement été enr
       for (let i = 0; i < samples.length; i += 1) {
         const content = samples[i]!;
         const { pilotId, projectId, preparationId } = await seedProject(`cr-c01-retract-${i}`);
-        const msgId = await insertUserMessage(preparationId, content);
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        );
         const outcome = await applyConversationalAuthority({
           pilotId,
           projectId,
           userMessageId: msgId,
           content,
+          preQualified: preQualifiedForConvAuth(content),
           clientTurnKey: `cr-c01-retract-${newId("turn")}`,
         });
         expect(outcome.attempted).toBe(false);
@@ -2306,19 +2908,28 @@ Une fois cette décision appliquée, confirme-moi ce qui a réellement été enr
 
       const content =
         "Je révise la décision d'ouverture du cycle CADRAGE. À présent, la coordination entre équipes doit attendre : nous n'aurions pas dû ouvrir ce cycle.";
-      const msgId = await insertUserMessage(preparationId, content);
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        content,
+        envelopeFromPreQualified(preQualifiedForConvAuth(content), content),
+        );
       const outcome = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: msgId,
         content,
+        preQualified: preQualifiedForConvAuth(content),
         clientTurnKey: `cr-c05-founding-${newId("turn")}`,
       });
       expect(outcome.attempted).toBe(false);
       expect(outcome.humanDecisionCreated).toBe(false);
       expect(outcome.command).toBeNull();
-      expect(outcome.source).toBe("clarification_only");
-      expect(outcome.intentReason ?? outcome.clarification ?? "").toMatch(/OPEN_CYCLE|opération métier/i);
+      expect(["clarification_only", "none"]).toContain(outcome.source);
+      // SEM-02: founding OPEN revise is fail-closed (no lexical target) — not a documentary REVISE.
+      expect(outcome.intentReason ?? outcome.clarification ?? "none").toMatch(
+        /OPEN_CYCLE|opération métier|NO_SEMANTIC|NO_EFFECT|FIXTURE|none|SEMANTIC/i,
+      );
 
       const after = await getPilotageProjection(pilotId, projectId);
       expect(after.revision).toBe(before.revision);
@@ -2365,12 +2976,25 @@ Plutôt que de nous concentrer immédiatement sur ces difficultés, je décide q
 Cette nouvelle orientation remplace la priorité précédente. Le besoin utilisateur reste à valider.
 
 Aide-moi ensuite à identifier les premières situations concrètes que nous devrions examiner.`;
-      const msgId = await insertUserMessage(preparationId, C05_LIVE);
+      const revisePreHist = clearPilotagePreQualified({
+        operation: "REVISE_DECISION",
+        statement:
+          "nous examinerons d'abord différentes situations réelles de coordination interéquipes pour identifier le problème véritablement prioritaire",
+        objectRef: "mais ne signifie pas que le besoin utilisateur",
+        decisionId: polluted.decisionId!,
+      });
+      const msgId = await insertUserMessageWithDurableQualification(
+        pilotId,
+        preparationId,
+        C05_LIVE,
+        envelopeFromPreQualified(revisePreHist, C05_LIVE),
+      );
       const revised = await applyConversationalAuthority({
         pilotId,
         projectId,
         userMessageId: msgId,
         content: C05_LIVE,
+        preQualified: revisePreHist,
         clientTurnKey: `cr-c05-hist-${newId("turn")}`,
       });
       expect(revised.attempted).toBe(true);

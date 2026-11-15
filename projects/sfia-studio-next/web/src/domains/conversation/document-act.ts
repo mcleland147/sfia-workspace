@@ -2,6 +2,7 @@
  * Chat-first D4 act qualification — create vs revise vs none.
  * Server authority only; Nora text never creates or revises alone.
  */
+import { contentSha256, parseFenceMeta } from "@/domains/conversation/document-command";
 
 export type DocumentActKind = "CREATE" | "REVISE" | "NONE";
 
@@ -249,218 +250,52 @@ export function isPolitePositiveDocumentAction(text: string): boolean {
  * in the *same clause window* (complements / novelty / persist verbs allowed).
  * Does not treat co-presence of words across contradictory clauses as authority.
  */
-export function hasExplicitCreateIntent(text: string): boolean {
-  const t = text.replace(/\s+/g, " ").trim();
-  if (!t || !hasPositiveVerb(t, CREATE_VERB_RE)) return false;
-  if (hasDurableSaveNegation(t)) return false;
-  if (hasAmbiguousCreateContradiction(t)) return false;
-
-  // Polite CREATE only when the positive create verb and documentary object share
-  // the same clause window — never « crée [branche] … document, s'il te plaît ».
-  for (const verb of findVerbMatches(t, CREATE_VERB_RE)) {
-    if (isVerbNegated(t, verb.index, verb.text.length)) continue;
-    const window = clauseWindowAfterVerb(t, verb.index + verb.text.length);
-    const obj = window.match(
-      /\b(nouveau(?:x)?|nouvelle(?:s)?)?\s*(documents?|notes?|synthèses?|rapports?|spécifications?)\b/i,
-    );
-    if (!obj || obj.index == null) continue;
-    const between = window.slice(0, obj.index).trim();
-    if (!between) return true;
-    // Persist verbs between create and object (« crée et enregistre … document »)
-    if (/\b(enregistre|enregistrer|sauvegarde|sauvegarder|persist(?:e|er)?)\b/i.test(between)) {
-      return true;
-    }
-    const tokens = between.split(/\s+/).filter(Boolean);
-    if (tokens.length > 16) continue;
-    if (tokens.every((tok) => isCreateComplementToken(tok))) return true;
-  }
+export function hasExplicitCreateIntent(_text: string): boolean {
   return false;
 }
 
+
 /** Consultative listing / show docs — not a write. */
-export function isDocumentaryConsultationOnly(text: string): boolean {
-  const t = text.trim();
-  if (hasPositiveVerb(t, CREATE_VERB_RE) || hasPositiveVerb(t, REVISE_VERB_RE)) return false;
-  return (
-    /\b(montre[- ]moi|affiche|liste|consulte|voir|quels?\s+sont|disponible)\b[\s\S]{0,40}\bdocuments?\b/i.test(
-      t,
-    ) || /\bdocuments?\s+disponibles?\b/i.test(t)
-  );
+export function isDocumentaryConsultationOnly(_text: string): boolean {
+  return false;
 }
 
+
 /**
- * Plausible documentary write language (signal only — not authority to mutate).
- * Used for loyal NOT_EXECUTED restitution / observability when kind is NONE.
+ * SEM-02 — retired lexical signal. Documentary write intent comes from Nora
+ * semantic qualification (d4.create_document / d4.revise_document REQUEST_EFFECT).
  */
-export function hasDocumentaryWriteSignal(text: string): boolean {
-  const t = text.trim();
-  if (!t || isDocumentaryConsultationOnly(t)) return false;
-  // Pure questions / drafts-without-save must not trigger NOT_EXECUTED pollution.
-  if (isInformativeOrHypothetical(t)) return false;
-  if (hasExplicitCreateIntent(t)) return true;
-  if (hasPositiveVerb(t, REVISE_VERB_RE) && DOC_OBJECT_RE.test(t)) return true;
-  if (hasPositiveVerb(t, CREATE_VERB_RE) && DOC_OBJECT_RE.test(t)) return true;
+export function hasDocumentaryWriteSignal(_text: string): boolean {
   return false;
 }
 
 /** Informative / hypothetical questions are not mutation requests. */
-export function isInformativeOrHypothetical(text: string): boolean {
-  const t = text.trim();
-  // Leading question framing wins over a create/revise verb later in the same utterance (N3/N4/N9).
-  if (/^(comment|pourquoi|quelles?\b|que\s+se\s+passerait)\b/i.test(t)) {
-    return true;
-  }
-  // « Explique comment créer… » is instructional, not a write authorization (C7).
-  if (/\bexplique\b[\s\S]{0,48}\bcomment\b[\s\S]{0,80}\b(créer|crée|réviser|révise|modifier|enregistrer)\b/i.test(t)) {
-    return true;
-  }
-  // Explicit refusal of durable save — draft in chat only (C6 / N6).
-  if (hasDurableSaveNegation(t)) return true;
-  // Explicit CREATE intent wins over trailing « comment je peux le retrouver » clauses.
-  if (hasExplicitCreateIntent(t)) return false;
-  // Polite positive action first — « Peux-tu réviser le document X ? » is not informative.
-  if (isPolitePositiveDocumentAction(t) && !/\bm['’]?expliquer\b|\bcomment\b|\bétapes\b/i.test(t)) {
-    return false;
-  }
-  if (
-    /\b(comment|peux-tu\s+m['’]?expliquer|explique[- ]moi|quelles?\s+(?:seraient|sont)\s+les\s+étapes)\b[\s\S]{0,80}\b(créer|crée|réviser|révise|revise|modifier|modifie|enregistrer)\b/i.test(
-      t,
-    )
-  ) {
-    return true;
-  }
-  if (
-    /\b(que\s+se\s+passerait[- ]il|si\s+(?:nous|on|je)\s+(?:le\s+)?(?:révisions|modifi(?:ais|ons)|créions))\b/i.test(
-      t,
-    )
-  ) {
-    return true;
-  }
-  if (
-    /\bexplique[- ]moi\s+seulement\b/i.test(t) ||
-    /\bce\s+que\s+tu\s+changerais\b/i.test(t) ||
-    /\bsans\s+(?:le\s+)?(?:créer|modifier|réviser|enregistrer)\b/i.test(t)
-  ) {
-    if (!hasPositiveVerb(t, REVISE_VERB_RE) && !hasPositiveVerb(t, CREATE_VERB_RE)) {
-      return true;
-    }
-  }
-  if (
-    /\b(proposition|brouillon|draft)\b[\s\S]{0,40}\b(sans\s+enregistrer|non\s+enregistr)/i.test(t) ||
-    /\bsans\s+(?:créer\s+ni\s+)?enregistrer\b/i.test(t) ||
-    /\bne\s+(?:l['’])?enregistre\s+pas\b/i.test(t)
-  ) {
-    return true;
-  }
+export function isInformativeOrHypothetical(_text: string): boolean {
   return false;
 }
+
 
 /**
  * Global prohibition of documentary write (not a local "don't touch other sections").
  */
-export function isGlobalDocumentWriteNegation(text: string): boolean {
-  const t = text.trim();
-  // Local scope restriction: positive revise + don't touch other sections → not global.
-  const localScope =
-    hasPositiveVerb(t, REVISE_VERB_RE) &&
-    /\b(uniquement|seulement)\b[\s\S]{0,40}\b(section|partie|chapitre)\b/i.test(t) &&
-    /\bne\s+(?:modifie|touche|change)\s+pas\s+(?:les\s+)?(?:autres|le\s+reste)\b/i.test(t);
-  if (localScope) return false;
-
-  if (
-    /\bne\s+(?:me\s+)?(?:crée|créer|modifie|modifier|révise|réviser|revise|enregistre|enregistrer|touche)\s+(?:pas|aucun|aucune)\b/i.test(
-      t,
-    ) ||
-    /\bn['’]enregistre\s+pas\b/i.test(t) ||
-    /\bne\s+touche\s+pas\s+au\s+document\b/i.test(t) ||
-    /\bsans\s+créer\s+ni\s+enregistrer\b/i.test(t) ||
-    /\baucun(?:e)?\s+documents?\b/i.test(t)
-  ) {
-    // If the only create/revise verbs are negated, treat as global refuse.
-    // A positive CREATE/REVISE on another clause is preserved (A5 / N8).
-    const posCreate = hasPositiveVerb(t, CREATE_VERB_RE);
-    const posRevise = hasPositiveVerb(t, REVISE_VERB_RE);
-    if (!posCreate && !posRevise) return true;
-    // "Ne crée pas …" with a create verb only under negation:
-    if (hasOnlyNegatedVerbs(t, CREATE_VERB_RE) && !posRevise) return true;
-    if (hasOnlyNegatedVerbs(t, REVISE_VERB_RE) && !posCreate) return true;
-  }
+export function isGlobalDocumentWriteNegation(_text: string): boolean {
   return false;
 }
 
+
 /**
- * Qualify explicit documentary intent. Analytical / negative / informative → NONE.
- * Act qualification uses authority-stripped text; target designation uses raw text.
+ * SEM-02 — retired as production métier router.
+ * Documentary CREATE/REVISE comes from Nora semantic qualification only.
+ * Technical helpers (extractContractualDocumentProposal, resolveReviseTarget, fences)
+ * remain for owner execution after semantic REQUEST_EFFECT.
  */
-export function qualifyDocumentAct(text: string): QualifiedDocumentAct {
-  const trimmed = text.trim();
-  if (!trimmed) return { kind: "NONE", reason: "EMPTY" };
-
-  const designation = extractDocumentDesignation(trimmed);
-  const authorityText = stripNonAuthoritativeSpans(trimmed).replace(/\s+/g, " ").trim();
-  if (!authorityText) return { kind: "NONE", reason: "NO_AUTHORITATIVE_TEXT" };
-
-  if (isGlobalDocumentWriteNegation(authorityText) || isGlobalDocumentWriteNegation(trimmed)) {
-    return { kind: "NONE", reason: "NEGATED_WRITE" };
-  }
-  if (hasAmbiguousCreateContradiction(authorityText) || hasAmbiguousCreateContradiction(trimmed)) {
-    return { kind: "NONE", reason: "AMBIGUOUS_CREATE" };
-  }
-  if (hasDurableSaveNegation(authorityText) || hasDurableSaveNegation(trimmed)) {
-    return { kind: "NONE", reason: "DURABLE_SAVE_NEGATED" };
-  }
-  if (isInformativeOrHypothetical(authorityText) || isInformativeOrHypothetical(trimmed)) {
-    const allowLocalRevise =
-      (hasPositiveVerb(authorityText, REVISE_VERB_RE) || hasPositiveVerb(trimmed, REVISE_VERB_RE)) &&
-      (DOC_OBJECT_RE.test(authorityText) ||
-        DOC_ID_RE.test(trimmed) ||
-        Boolean(designation.titleHint)) &&
-      /\b(uniquement|seulement)\b[\s\S]{0,40}\b(section|partie|chapitre)\b/i.test(trimmed);
-    if (!allowLocalRevise && !isPolitePositiveDocumentAction(trimmed)) {
-      return { kind: "NONE", reason: "INFORMATIVE_OR_HYPOTHETICAL" };
-    }
-  }
-
-  const hasDocObject =
-    DOC_OBJECT_RE.test(authorityText) ||
-    Boolean(designation.documentId) ||
-    Boolean(designation.titleHint);
-  const positiveRevise =
-    hasPositiveVerb(authorityText, REVISE_VERB_RE) ||
-    (isPolitePositiveDocumentAction(trimmed) &&
-      /\b(?:réviser|reviser|révise|modifier|modifie|corriger|corrige)\b/i.test(trimmed));
-
-  // REVISE before CREATE — « ne crée pas …, révise la section 2 » → REVISE (N8), never CREATE.
-  if (positiveRevise && hasDocObject) {
-    return {
-      kind: "REVISE",
-      documentHint: designation.documentId ?? designation.titleHint,
-      sectionHint: designation.sectionHint,
-    };
-  }
-
-  // CREATE — structured recognition on authority-stripped text only (A7: never Git/quote/tool).
-  // No CREATE_PLEASE_RE shortcut: « document, s'il te plaît » alone never authorizes D4,
-  // and politeness cannot bind a create verb from another clause (T1/T2/T8).
-  if (hasExplicitCreateIntent(authorityText)) {
-    return { kind: "CREATE" };
-  }
-
-  if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && !DOC_OBJECT_RE.test(authorityText)) {
-    return { kind: "NONE", reason: "CREATE_WITHOUT_OBJECT" };
-  }
-
-  if (hasPositiveVerb(authorityText, CREATE_VERB_RE) && DOC_OBJECT_RE.test(authorityText)) {
-    return { kind: "NONE", reason: "CREATE_OBJECT_BRIDGE_UNQUALIFIED" };
-  }
-
-  return { kind: "NONE", reason: "NO_EXPLICIT_WRITE" };
+export function qualifyDocumentAct(_text: string): QualifiedDocumentAct {
+  return { kind: "NONE", reason: "SEMANTIC_ROUTER_REQUIRED" };
 }
 
-/** Backward-compatible predicate used by older call sites / tests. */
-export function explicitDocumentIntent(text: string): boolean {
-  const q = qualifyDocumentAct(text);
-  return q.kind === "CREATE" || q.kind === "REVISE";
+/** Backward-compatible predicate — always false after SEM-02 retirement. */
+export function explicitDocumentIntent(_text: string): boolean {
+  return false;
 }
 
 export type DocumentListItem = {
@@ -702,11 +537,22 @@ function matchSectionSpans(spans: SectionSpan[], hint: string): SectionSpan[] {
  * outer contractual fence; truncated or unclosed proposals are refused.
  * No lexical scrubbing of legitimate métier wording.
  */
+/**
+ * Internal parsing provenance of the extracted title — not a durable business field.
+ * Distinguishes structured metadata titles from LEGACY H1 / untitled sentinel synthesis.
+ */
+export type DocumentProposalTitleProvenance =
+  | "STRUCTURED"
+  | "LEGACY_H1"
+  | "LEGACY_UNTITLED";
+
 export type DocumentProposalExtract =
   | {
       ok: true;
       content: string;
       title: string;
+      /** How the title was obtained from the fence source. */
+      titleProvenance: DocumentProposalTitleProvenance;
       path: "fence";
       fenceTag: string;
       fenceCount: 1;
@@ -721,7 +567,10 @@ export type DocumentProposalExtract =
         | "DOCUMENT_PROPOSAL_MISSING"
         | "DOCUMENT_PROPOSAL_AMBIGUOUS"
         | "DOCUMENT_PROPOSAL_EMPTY"
-        | "DOCUMENT_PROPOSAL_UNCLOSED";
+        | "DOCUMENT_PROPOSAL_UNCLOSED"
+        | "DOCUMENT_PROPOSAL_METADATA_INVALID"
+        | "DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH"
+        | "DOCUMENT_PROPOSAL_TITLE_MISMATCH";
       path: "none" | "ambiguous" | "empty" | "unclosed";
       fenceCount: number;
       proposalChars: number;
@@ -732,6 +581,13 @@ export type DocumentProposalExtract =
 
 /** Sole mutative proposal marker — exact first info-string token (case-insensitive). */
 export const DOCUMENT_PROPOSAL_TAG = "sfia-document";
+
+/**
+ * LEGACY fence sentinel when the body has no document-level `# H1`.
+ * Not a contractual document title — section-scoped REVISE may ignore it
+ * when comparing against the durable document title on the proposal.
+ */
+export const LEGACY_UNTITLED_DOCUMENT_TITLE = "Document Nora";
 
 type FenceMarker = {
   indent: number;
@@ -793,7 +649,7 @@ function isFenceClose(marker: FenceMarker, open: FenceMarker): boolean {
 }
 
 type ScannedProposal =
-  | { status: "ok"; content: string; tag: string }
+  | { status: "ok"; content: string; tag: string; fenceInfo: string; openerLength: number }
   | { status: "unclosed" };
 
 /**
@@ -898,11 +754,83 @@ export function scanContractualDocumentFences(assistantText: string): {
       const start = lines[bodyStartLine]!.start;
       content = assistantText.slice(start, lines[closedAt]!.start);
     }
-    proposals.push({ status: "ok", content, tag: DOCUMENT_PROPOSAL_TAG });
+    proposals.push({
+      status: "ok",
+      content,
+      tag: DOCUMENT_PROPOSAL_TAG,
+      fenceInfo: open.info.trim(),
+      openerLength: open.length,
+    });
     i = closedAt + 1;
   }
 
   return { proposals, contractualOpenCount };
+}
+
+/** Remove autonomous contractual fences; keep conversational / illustrative text. */
+export function stripContractualDocumentFences(assistantText: string): string {
+  const lines = splitMarkdownLines(assistantText);
+  const chunks: string[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const open = parseFenceMarkerLine(lines[i]!.text);
+    if (!open) {
+      const start = lines[i]!.start;
+      const end = i + 1 < lines.length ? lines[i + 1]!.start : assistantText.length;
+      chunks.push(assistantText.slice(start, end));
+      i += 1;
+      continue;
+    }
+    if (!isContractualProposalOpen(open)) {
+      const start = lines[i]!.start;
+      const after = skipIllustrativeFence(lines, i, open);
+      const end = after < lines.length ? lines[after]!.start : assistantText.length;
+      chunks.push(assistantText.slice(start, end));
+      i = after;
+      continue;
+    }
+    const bodyStartLine = i + 1;
+    const nest: Array<{ char: "`" | "~"; length: number }> = [];
+    let closedAt: number | null = null;
+    for (let j = bodyStartLine; j < lines.length; j++) {
+      const cand = parseFenceMarkerLine(lines[j]!.text);
+      if (!cand) continue;
+      if (nest.length === 0 && isFenceClose(cand, open)) {
+        closedAt = j;
+        break;
+      }
+      if (nest.length > 0) {
+        const top = nest[nest.length - 1]!;
+        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
+          nest.pop();
+          continue;
+        }
+      }
+      const opensInner =
+        cand.info.trim() !== "" ||
+        cand.char !== open.char ||
+        cand.length < open.length;
+      if (opensInner) {
+        nest.push({ char: cand.char, length: cand.length });
+      }
+    }
+    if (closedAt == null) break;
+    i = closedAt + 1;
+  }
+  return chunks.join("").trimEnd();
+}
+
+function normalizeStructuredProposalBody(
+  raw: string,
+  expectedChars: number,
+): { ok: true; content: string } | { ok: false; reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" } {
+  if (raw.length === expectedChars) {
+    return { ok: true, content: raw };
+  }
+  if (raw.length === expectedChars + 1 && raw.endsWith("\n")) {
+    return { ok: true, content: raw.slice(0, -1) };
+  }
+  return { ok: false, reason: "DOCUMENT_PROPOSAL_METADATA_INVALID" };
 }
 
 function failProposal(
@@ -942,15 +870,70 @@ export function extractContractualDocumentProposal(
     return failProposal("DOCUMENT_PROPOSAL_MISSING", "none", contractualOpenCount);
   }
 
-  const content = proposals[0]!.content;
+  const scanned = proposals[0]!;
+  let content = scanned.content;
+  const meta = parseFenceMeta(scanned.fenceInfo);
+
+  // P0-A: INVALID structured metadata never falls through to LEGACY.
+  if (meta.kind === "INVALID") {
+    return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+  }
+
+  if (meta.kind === "STRUCTURED") {
+    const normalized = normalizeStructuredProposalBody(content, meta.chars);
+    if (!normalized.ok) {
+      return failProposal(normalized.reason, "empty", 1, content);
+    }
+    content = normalized.content;
+    let title: string;
+    try {
+      title = Buffer.from(meta.titleB64, "base64url").toString("utf8").trim();
+    } catch {
+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+    }
+    if (!title) {
+      return failProposal("DOCUMENT_PROPOSAL_METADATA_INVALID", "empty", 1, content);
+    }
+    const digest = contentSha256(title, content);
+    if (digest !== meta.pairSha256) {
+      return failProposal("DOCUMENT_PROPOSAL_INTEGRITY_MISMATCH", "empty", 1, content);
+    }
+    const h1 = /^#\s+(.+?)(?:\r?\n|$)/.exec(content);
+    if (h1) {
+      const heading = h1[1]!.trim();
+      if (heading !== title) {
+        return failProposal("DOCUMENT_PROPOSAL_TITLE_MISMATCH", "empty", 1, content);
+      }
+    }
+    if (!content.trim() || content.trim().length < 8) {
+      return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
+    }
+    return {
+      ok: true,
+      content,
+      title,
+      titleProvenance: "STRUCTURED",
+      path: "fence",
+      fenceTag: DOCUMENT_PROPOSAL_TAG,
+      fenceCount: 1,
+      proposalChars: content.length,
+      proposalDigest16: digest16(content),
+      bodyEndsWithNewline: content.endsWith("\n"),
+      sectionCount: locateSections(content).length,
+    };
+  }
+
+  // LEGACY: fence without structured metadata tokens.
   if (!content.trim() || content.trim().length < 8) {
     return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
   }
   const titleLine = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
+  const title = titleLine || LEGACY_UNTITLED_DOCUMENT_TITLE;
   return {
     ok: true,
     content,
-    title: titleLine || "Document Nora",
+    title,
+    titleProvenance: titleLine ? "LEGACY_H1" : "LEGACY_UNTITLED",
     path: "fence",
     fenceTag: DOCUMENT_PROPOSAL_TAG,
     fenceCount: 1,
@@ -1081,6 +1064,68 @@ export type DocumentEffectSummary = {
   idempotentReplay?: boolean;
 };
 
+/** CP2 S03 — owner D4 statuses that may appear on DocumentEffectSummary. */
+export const DOCUMENT_EFFECT_OWNER_STATUSES = [
+  "AVAILABLE",
+  "FAILED",
+  "CONFLICT",
+  "UNKNOWN",
+  "NOT_EXECUTED",
+] as const;
+
+export type DocumentEffectOwnerStatus =
+  (typeof DOCUMENT_EFFECT_OWNER_STATUSES)[number];
+
+/**
+ * Map an owner D4 / DocumentSave status onto DocumentEffectSummary.status.
+ * Absent or ambiguous values become UNKNOWN — never invent FAILED without proof.
+ */
+export function mapOwnerDocumentStatusToEffect(
+  status: string | null | undefined,
+): DocumentEffectOwnerStatus {
+  const s = (status ?? "").trim().toUpperCase();
+  if (s === "AVAILABLE") return "AVAILABLE";
+  if (s === "FAILED") return "FAILED";
+  if (s === "CONFLICT") return "CONFLICT";
+  if (s === "UNKNOWN") return "UNKNOWN";
+  if (s === "NOT_EXECUTED") return "NOT_EXECUTED";
+  return "UNKNOWN";
+}
+
+/**
+ * Build the post-D4 DocumentEffectSummary used by continuation restitution.
+ * Preserves owner status, ids, and reason without collapsing UNKNOWN→FAILED.
+ */
+export function documentSaveToEffectSummary(input: {
+  act?: "CREATE" | "REVISE";
+  status?: string | null;
+  documentId?: string;
+  revisionId?: string;
+  revisionNumber?: number;
+  reason?: string;
+  /** When no save object exists at all (no D4 attempt in this branch). */
+  absentMeans?: "NOT_EXECUTED" | "UNKNOWN";
+}): DocumentEffectSummary {
+  if (input.status == null && !input.documentId && !input.reason) {
+    return {
+      act: input.act ?? "CREATE",
+      status: input.absentMeans ?? "NOT_EXECUTED",
+      reason: "NO_DOCUMENT_SAVE",
+    };
+  }
+  const status = mapOwnerDocumentStatusToEffect(input.status);
+  return {
+    act: input.act ?? "CREATE",
+    status,
+    documentId: input.documentId,
+    revisionId: input.revisionId,
+    revisionNumber: input.revisionNumber,
+    reason:
+      input.reason ??
+      (status === "AVAILABLE" ? undefined : input.status ?? status),
+  };
+}
+
 /** Sentences/paragraphs that assert a D4 write outcome (must not compete with applicative truth). */
 const TRANSACTIONAL_CLAIM_RE =
   /\b(?:non\s+enregistré|pas\s+enregistré|n['’]a\s+pas\s+été\s+(?:enregistré|sauvegardé)|aucun\s+outil\s+(?:d['’]écriture|disponible)|les\s+outils\s+disponibles\s+(?:sont\s+en\s+lecture\s+seule|ne\s+permettent\s+pas)|outils?\s+(?:en\s+)?lecture\s+seule|je\s+ne\s+(?:peux|puis)\s+(?:donc\s+)?pas\s+(?:exécuter\s+l['’]enregistrement|appliquer|enregistrer|créer|réviser|confirmer(?:\s+(?:la\s+)?(?:sauvegarde|l['’]enregistrement|que(?:\s+la)?\s*sauvegarde)?|garantir(?:\s+(?:la\s+)?sauvegarde)?))|(?:impossible|incapable)\s+de\s+confirmer(?:\s+(?:la\s+)?(?:sauvegarde|l['’]enregistrement))?|ne\s+(?:peux|puis)\s+pas\s+confirmer(?:\s+(?:la\s+)?sauvegarde)?|aucune\s+révision\s+(?:créée|enregistrée)|nouvelle\s+révision\s*:\s*aucune|la\s+version\s+1\s+reste\s+inchangée|sauvegarde\s+d4\s+uniquement\s+après|rédaction\s+seule\s+[—-]\s+sauvegarde|document\s+(?:créé|enregistré|sauvegardé)\s+avec\s+succès|j['’]ai\s+(?:enregistré|sauvegardé|créé)\s+le\s+document|écriture\s+d4\s+confirmée)\b/i;
@@ -1208,29 +1253,86 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
 }
 
 /**
+ * Exact byte slices of closed contractual fences from the original assistant text.
+ * Used so ACK composition never splits fence interiors on blank lines (QA-06).
+ */
+export function extractContractualFenceSlices(assistantText: string): string[] {
+  const lines = splitMarkdownLines(assistantText);
+  const slices: string[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const open = parseFenceMarkerLine(lines[i]!.text);
+    if (!open) {
+      i += 1;
+      continue;
+    }
+    if (!isContractualProposalOpen(open)) {
+      i = skipIllustrativeFence(lines, i, open);
+      continue;
+    }
+    const bodyStartLine = i + 1;
+    const nest: Array<{ char: "`" | "~"; length: number }> = [];
+    let closedAt: number | null = null;
+    for (let j = bodyStartLine; j < lines.length; j++) {
+      const cand = parseFenceMarkerLine(lines[j]!.text);
+      if (!cand) continue;
+      if (nest.length === 0 && isFenceClose(cand, open)) {
+        closedAt = j;
+        break;
+      }
+      if (nest.length > 0) {
+        const top = nest[nest.length - 1]!;
+        if (cand.char === top.char && cand.length >= top.length && cand.info.trim() === "") {
+          nest.pop();
+          continue;
+        }
+      }
+      const opensInner =
+        cand.info.trim() !== "" ||
+        cand.char !== open.char ||
+        cand.length < open.length;
+      if (opensInner) {
+        nest.push({ char: cand.char, length: cand.length });
+      }
+    }
+    if (closedAt == null) break;
+    const start = lines[i]!.start;
+    const end =
+      closedAt + 1 < lines.length ? lines[closedAt + 1]!.start : assistantText.length;
+    slices.push(assistantText.slice(start, end));
+    i = closedAt + 1;
+  }
+  return slices;
+}
+
+/**
  * Structured final message: prepared content (sanitized) + sole applicative verdict.
  * Guarantees no concurrent « aucune révision » + AVAILABLE.
+ * Preserves contractual fence integrity across ACK composition.
  */
 export function composeDocumentTurnMessage(
   assistantContent: string,
   effect: DocumentEffectSummary | null,
 ): string {
   if (!effect) return assistantContent;
-  const sanitized = reconcileNarrationWithDocumentEffect(assistantContent, effect);
+  const fenceSlices = extractContractualFenceSlices(assistantContent);
+  const narrativeOnly = stripContractualDocumentFences(assistantContent);
+  const sanitizedNarrative = reconcileNarrationWithDocumentEffect(narrativeOnly, effect);
   const ack = formatDocumentEffectAck(effect);
-  // Final safety: drop residual contradictory fragments after sanitize.
-  // When Studio observed any D4 effect, Nora tool-boundary claims must not compete
-  // with the applicative verdict (AVAILABLE *or* FAILED/CONFLICT/UNKNOWN).
-  let body = stripTransactionalClaimUnits(sanitized);
+  // Strip transactional claims on narrative only — never inside fence slices.
+  let body = stripTransactionalClaimUnits(sanitizedNarrative);
   if (effect.status !== "AVAILABLE") {
-    // Keep non-transactional cognitive text, but always drop tool-boundary excuses.
     const parts = body.split(/\n{2,}/);
     body = parts
       .filter((p) => !NORA_TOOL_BOUNDARY_CLAIM_RE.test(p))
       .join("\n\n")
       .trim();
   }
-  return `${body.trimEnd()}\n\n---\n${ack}\n`;
+  const withFences = [body, ...fenceSlices.map((s) => s.replace(/\s+$/u, ""))].filter(
+    (s) => s && s.length > 0,
+  ).join("\n\n");
+  // Trailing whitespace only at the assembly boundary before ACK — fence bodies already closed.
+  return `${withFences.replace(/\s+$/u, "")}\n\n---\n${ack}\n`;
 }
 
 export function appendDocumentEffectAck(

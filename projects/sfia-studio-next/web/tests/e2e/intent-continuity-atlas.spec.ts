@@ -24,7 +24,22 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
     timeout: 30000,
   });
-  await expect(page.getByText("AWAITING_PILOT_ACT", { exact: false })).toBeVisible();
+  // SEM A-007: mission status is structured (API), not dumped into Nora prose.
+  const prepUrl = page.url();
+  const preparationId = prepUrl.match(/\/preparations\/([^/?#]+)/)?.[1];
+  expect(preparationId).toBeTruthy();
+  await expect
+    .poll(
+      async () => {
+        const prepRes = await page.request.get(`/api/preparations/${preparationId}`);
+        if (!prepRes.ok()) return null;
+        const prepJson = await prepRes.json();
+        return prepJson.awaitingMission?.status ?? null;
+      },
+      { timeout: 30000 },
+    )
+    .toBe("AWAITING_PILOT_ACT");
+  await expect(page.getByText(/Acte Pilote requis/i)).toBeVisible();
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {
@@ -113,9 +128,17 @@ test("Atlas: forged mission key refused BEFORE create (zero project)", async ({ 
 
   await page.getByTestId("prep-draft").fill("Crée un projet nommé Atlas Guard puis un document.");
   await page.getByTestId("prep-send").click();
-  await expect(page.getByText("AWAITING_PILOT_ACT", { exact: false })).toBeVisible({
-    timeout: 30000,
-  });
+  await expect
+    .poll(
+      async () => {
+        const prepRes = await page.request.get(`/api/preparations/${preparationId}`);
+        if (!prepRes.ok()) return null;
+        const prepJson = await prepRes.json();
+        return prepJson.awaitingMission?.status ?? null;
+      },
+      { timeout: 30000 },
+    )
+    .toBe("AWAITING_PILOT_ACT");
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {
@@ -133,6 +156,8 @@ test("Atlas: forged mission key refused BEFORE create (zero project)", async ({ 
   const prepJson = await prepRes.json();
   const revision = prepJson.preparation?.creationRevision;
   expect(typeof revision).toBe("number");
+  // Follow-on D4 must not persist before Pilot create.
+  expect((prepJson.documents ?? []).length).toBe(0);
 
   const forged = await page.request.post(`/api/preparations/${preparationId}/create-project`, {
     data: {

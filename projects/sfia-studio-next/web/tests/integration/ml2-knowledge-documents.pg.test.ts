@@ -127,16 +127,28 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
     });
     expect(conflict.status).toBe("CONFLICT");
 
+    // O-05: same correlationKey + same payload → idempotent AVAILABLE; different payload → CONFLICT.
     const replay = await reviseDocument(pilotId, prep.id, {
       documentId: v1.documentId,
       baseRevisionId: v2.revisionId,
-      contentMarkdown: "ignored on replay",
+      contentMarkdown: "# Spec\n\nSection A révisée\n",
       correlationKey: "corr-rev-1",
     });
     expect(replay.status).toBe("AVAILABLE");
     if (replay.status !== "AVAILABLE") throw new Error("replay");
-    expect(replay.idempotentReplay).toBe(true);
+    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
     expect(replay.revisionId).toBe(v2.revisionId);
+
+    const mismatch = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v2.revisionId,
+      contentMarkdown: "different payload same key",
+      correlationKey: "corr-rev-1",
+    });
+    expect(mismatch.status).toBe("CONFLICT");
+    if (mismatch.status === "CONFLICT") {
+      expect(mismatch.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
+    }
 
     const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
     expect(list.revisions.length).toBeGreaterThanOrEqual(2);
@@ -178,9 +190,10 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
       prep.id,
       "reprends l'architecture modulaire et le budget",
     );
-    expect(selected.snippets.some((s) => /architecture modulaire|modulaire/i.test(s))).toBe(true);
-    expect(selected.snippets.some((s) => /Budget|budget/i.test(s))).toBe(true);
+    // Lot D3: bounded listing by rights/state — no lexical token score as authority.
+    expect(selected.selectionMethod).toBe("bounded-resource-listing");
     expect(selected.counts.acquisCurrent).toBeGreaterThanOrEqual(1);
+    expect(selected.snippets.length).toBeGreaterThan(0);
   });
 
   it("Q04/Q06: explicit document intent persists AVAILABLE; chatter does not", async () => {
@@ -199,9 +212,10 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
     expect(docReq.humanDecisionCreated).toBe(false);
   });
 
-  it("negative: recommendation capitalisation ≠ HumanDecision", async () => {
+  it("negative: lexical capitalisation retired — no D4 write / no HumanDecision", async () => {
     const pilotId = await seedPilot("ML2-nod6");
     const prep = await openOrCreatePreparation(pilotId);
+    const before = await listKnowledge(pilotId, prep.id);
     const r = await maybeCapitalizeFromExchange(pilotId, prep.id, {
       userText: "Quelle option retenir ?",
       assistantText:
@@ -209,9 +223,11 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
       generationId: "gen-x",
       userMessageId: "msg-x",
     });
-    expect(r.capitalisations.length).toBeGreaterThan(0);
-    // No D6 table write exists in ML2 — assert flag absence via conversation contract
-    const k = await listKnowledge(pilotId, prep.id);
-    expect(k.acquis.every((a) => a.kind !== "HUMAN_DECISION")).toBe(true);
+    expect(r.capitalisations).toHaveLength(0);
+    expect(r.selectionMethod).toBe("semantic-proposals");
+    expect(r.humanDecisionCreated).toBe(false);
+    const after = await listKnowledge(pilotId, prep.id);
+    expect(after.acquis.length).toBe(before.acquis.length);
+    expect(after.openPoints.length).toBe(before.openPoints.length);
   });
 });

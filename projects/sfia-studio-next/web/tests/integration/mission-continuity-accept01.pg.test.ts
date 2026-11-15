@@ -30,6 +30,29 @@ import {
   resumeMissionAfterPublicationAuthorize,
 } from "@/domains/conversation/mission-continuity";
 import { listDocuments } from "@/domains/document/service";
+import { fixtureSemanticQualify } from "@/domains/conversation/fixture-semantic-qualify";
+import { projectStudioEffects } from "@/domains/conversation/semantic-qualification";
+import {
+  d4CreateAndPublishEnvelope,
+  d4ReviseDocumentEnvelope,
+  registerCreateDocumentTitled,
+  registerExplicitFixture,
+  registerTypedScenario,
+  type ExplicitFixtureSpec,
+} from "../helpers/semantic-fixture-envelopes";
+
+async function noraTurn(
+  pilotId: string,
+  preparationId: string,
+  text: string,
+  opts?: Parameters<typeof postUserMessageAndNora>[3] & { fixture?: ExplicitFixtureSpec },
+) {
+  if (opts?.fixture) {
+    registerExplicitFixture(text, opts.fixture);
+  }
+  const { fixture: _f, ...turnOpts } = opts ?? {};
+  return postUserMessageAndNora(pilotId, preparationId, text, turnOpts);
+}
 
 async function seedPilot(label: string) {
   const id = newId("pilot");
@@ -80,7 +103,7 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
 
   it("T01: simple dialogue — no D4/D7 mission prepare", async () => {
     const { pilotId, preparationId } = await seedProjectWithGit("t01-simple");
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
       "Explique brièvement ce qu'est une HumanDecision dans Studio.",
@@ -91,20 +114,34 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
 
   it("T03 non-Git: CREATE then REVISE uses confirmed document (no publish)", async () => {
     const { pilotId, preparationId } = await seedProjectWithGit("t03-d4");
-    const create = await postUserMessageAndNora(
+    const create = await noraTurn(
       pilotId,
       preparationId,
       "Crée un document intitulé Continuity NonGit pour la suite.",
-      { clientTurnKey: newId("ctk") },
+      {
+        clientTurnKey: newId("ctk"),
+        fixture: { kind: "d4_create", title: "Continuity NonGit pour la suite" },
+      },
     );
     expect(create.documentSave?.status).toBe("AVAILABLE");
     const docId = create.documentSave!.documentId!;
-    const revise = await postUserMessageAndNora(
-      pilotId,
-      preparationId,
-      `Révise le document Continuity NonGit : ajoute une section Suite.`,
-      { clientTurnKey: newId("ctk") },
+    const reviseAsk = `Révise le document Continuity NonGit : ajoute une section Suite.`;
+    registerTypedScenario(
+      reviseAsk,
+      d4ReviseDocumentEnvelope({
+        summary: "Révision Continuity NonGit",
+        documentHint: "Continuity NonGit",
+        sectionHint: "Suite",
+      }),
     );
+    const revise = await noraTurn(pilotId, preparationId, reviseAsk, {
+      clientTurnKey: newId("ctk"),
+      fixture: {
+        kind: "d4_revise",
+        documentHint: "Continuity NonGit",
+        sectionHint: "Suite",
+      },
+    });
     // REVISE may or may not fire depending on fixture extract — at least no publish mission
     expect(revise.missionProjection == null || revise.missionProjection === null).toBe(true);
     const docs = await listDocuments(pilotId, preparationId);
@@ -115,10 +152,11 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const { pilotId, projectId, preparationId, repositoryId } = await seedProjectWithGit(
       "p0-d6-prepare",
     );
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
       "Crée un document intitulé P0 Prepare Only pour la suite.",
+      { fixture: { kind: "d4_create", title: "P0 Prepare Only pour la suite" } },
     );
     expect(chat.documentSave?.status).toBe("AVAILABLE");
     const docId = chat.documentSave!.documentId!;
@@ -146,10 +184,11 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const { pilotId, projectId, preparationId, repositoryId } = await seedProjectWithGit(
       "p0a-classic",
     );
-    const chat = await postUserMessageAndNora(
+    const chat = await noraTurn(
       pilotId,
       preparationId,
       "Crée un document intitulé Classic Pub pour inspection manuelle.",
+      { fixture: { kind: "d4_create", title: "Classic Pub pour inspection manuelle" } },
     );
     const prepared = await preparePublication({
       pilotId,
@@ -194,9 +233,21 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const { pilotId, preparationId } = await seedProjectWithGit("p1e-nopath");
     const ask =
       "Crée un document intitulé Path Required et publie-le dans mon dépôt GitHub";
-    expect(qualifyPublicationMission(ask).needsExplicitPath).toBe(true);
-    const chat = await postUserMessageAndNora(pilotId, preparationId, ask, {
+    registerCreateDocumentTitled(ask, {
+      title: "Path Required",
+      publicationPath: null,
+      publish: true,
+    });
+    const pubIntent = projectStudioEffects(fixtureSemanticQualify(ask)).publication;
+    expect(pubIntent.wantsPublish).toBe(true);
+    expect(pubIntent.needsExplicitPath).toBe(true);
+    const chat = await noraTurn(pilotId, preparationId, ask, {
       clientTurnKey: newId("ctk"),
+      fixture: {
+        kind: "d4_publish",
+        title: "Path Required",
+        publicationPath: null,
+      },
     });
     expect(chat.documentSave?.status).toBe("AVAILABLE");
     expect(chat.missionProjection?.status).toBe("AWAITING_CLARIFICATION");
@@ -207,9 +258,22 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const { pilotId, projectId, preparationId } = await seedProjectWithGit("accept01-chat");
     const ask =
       "Crée un document intitulé ACCEPT-01 Continuity et publie-le dans mon dépôt GitHub chemin docs/studio-next/accept01.md";
-    expect(qualifyPublicationMission(ask).wantsPublish).toBe(true);
-    const chat = await postUserMessageAndNora(pilotId, preparationId, ask, {
+    registerTypedScenario(
+      ask,
+      d4CreateAndPublishEnvelope({
+        title: "ACCEPT-01 Continuity",
+        summary: "ACCEPT-01 Continuity",
+        publicationPath: "docs/studio-next/accept01.md",
+      }),
+    );
+    expect(projectStudioEffects(fixtureSemanticQualify(ask)).publication.wantsPublish).toBe(true);
+    const chat = await noraTurn(pilotId, preparationId, ask, {
       clientTurnKey: newId("ctk"),
+      fixture: {
+        kind: "d4_publish",
+        title: "ACCEPT-01 Continuity",
+        publicationPath: "docs/studio-next/accept01.md",
+      },
     });
     expect(chat.documentSave?.status).toBe("AVAILABLE");
     expect(chat.missionProjection?.status).toBe("AWAITING_PILOT_AUTH");
@@ -227,7 +291,8 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const msgs = await listMessages(pilotId, preparationId);
     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
     expect(assistant?.content).toMatch(/Résultat applicatif D4|Suite de mission|AVAILABLE/);
-    expect(assistant?.content).toMatch(/AWAITING_PILOT_AUTH|aucune HumanDecision créée/i);
+    // SEM-02: mission auth state is on missionProjection; assistant may be D4-only.
+    expect(chat.missionProjection?.status).toBe("AWAITING_PILOT_AUTH");
     expect(projectId).toBeTruthy();
   });
 
@@ -235,8 +300,13 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const { pilotId, projectId, preparationId } = await seedProjectWithGit("accept01-resume");
     const ask =
       "Crée un document intitulé ACCEPT-01 Resume et publie-le dans mon dépôt GitHub chemin docs/studio-next/accept01-resume.md";
-    const chat = await postUserMessageAndNora(pilotId, preparationId, ask, {
+    const chat = await noraTurn(pilotId, preparationId, ask, {
       clientTurnKey: newId("ctk"),
+      fixture: {
+        kind: "d4_publish",
+        title: "ACCEPT-01 Resume",
+        publicationPath: "docs/studio-next/accept01-resume.md",
+      },
     });
     const attemptId = chat.missionProjection?.steps.find((s) => s.id === "d7_prepare")?.attemptId;
     expect(attemptId).toBeTruthy();
@@ -302,14 +372,25 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const ask =
       "Crée un document intitulé ACCEPT-01 Replay et publie-le dans mon dépôt GitHub chemin docs/studio-next/accept01-replay.md";
     const clientTurnKey = newId("ctk");
-    const first = await postUserMessageAndNora(pilotId, preparationId, ask, { clientTurnKey });
+    const replayFixture = {
+      kind: "d4_publish" as const,
+      title: "ACCEPT-01 Replay",
+      publicationPath: "docs/studio-next/accept01-replay.md",
+    };
+    const first = await noraTurn(pilotId, preparationId, ask, {
+      clientTurnKey,
+      fixture: replayFixture,
+    });
     expect(first.documentSave?.status).toBe("AVAILABLE");
     expect(first.missionProjection?.status).toBe("AWAITING_PILOT_AUTH");
     const firstDoc = first.documentSave!.documentId!;
     const firstAttempt = first.missionProjection!.steps.find((s) => s.id === "d7_prepare")!
       .attemptId!;
 
-    const replay = await postUserMessageAndNora(pilotId, preparationId, ask, { clientTurnKey });
+    const replay = await noraTurn(pilotId, preparationId, ask, {
+      clientTurnKey,
+      fixture: replayFixture,
+    });
     expect(replay.idempotentReplay === true || replay.documentSave?.documentId === firstDoc).toBe(
       true,
     );

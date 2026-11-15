@@ -3,7 +3,7 @@
  * Never hold a DB transaction open across the provider call.
  * Ownership fencing via owner_token: lost ownership ⇒ no COMPLETE, no further D4 commits.
  */
-import { and, eq, sql } from "drizzle-orm";
+import { and, asc, eq, ne, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { conversationTurnCommands, messages } from "@/db/schema";
 import { newId } from "@/lib/ids";
@@ -113,7 +113,10 @@ export async function assertTurnFenceInTx(
 
 /** Test hooks — must stay no-op in production paths. */
 export const turnRaceHooks: {
-  /** C02 — after D5/D6 authority, before Nora provider (fault injection). */
+  /**
+   * C02 — after same-turn D5/D6 authority (SEM/TV: Nora qualifies first).
+   * Historical name retained; must not run before Nora.
+   */
   afterAuthorityBeforeNora?: () => Promise<void>;
   afterGenerateBeforeEffects?: () => Promise<void>;
   beforeD4Effect?: () => Promise<void>;
@@ -328,12 +331,13 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
       };
     }
 
+    // Preserve prior resultJson (incl. stashed qualification) — update did not clear it.
     return {
       status: "UNKNOWN" as const,
       reconciled: true,
       assistantMessageId: assistantId,
       generationId,
-      resultJson: null,
+      resultJson: updated[0]?.resultJson ?? row.resultJson,
     };
   });
 }
@@ -547,6 +551,212 @@ export async function reserveTurnCommand(args: {
 }
 
 /**
+ * S05 — sibling turns still unresolved for the same conversation (excluding current key).
+ * Server authority for pending coexistence; client sessionStorage is UX aid only.
+ * Ordered deterministically by createdAt then id (QA-19).
+ */
+export async function findUnresolvedSiblingTurns(args: {
+  conversationId: string;
+  ownerPilotId: string;
+  excludeClientTurnKey: string;
+}): Promise<
+  Array<{
+    id: string;
+    clientTurnKey: string;
+    status: TurnCommandStatus;
+    operationId: string;
+    userMessageId: string | null;
+    createdAt: Date;
+    resultJson: string | null;
+  }>
+> {
+  const rows = await db
+    .select({
+      id: conversationTurnCommands.id,
+      clientTurnKey: conversationTurnCommands.clientTurnKey,
+      status: conversationTurnCommands.status,
+      operationId: conversationTurnCommands.operationId,
+      userMessageId: conversationTurnCommands.userMessageId,
+      createdAt: conversationTurnCommands.createdAt,
+      resultJson: conversationTurnCommands.resultJson,
+    })
+    .from(conversationTurnCommands)
+    .where(
+      and(
+        eq(conversationTurnCommands.conversationId, args.conversationId),
+        eq(conversationTurnCommands.ownerPilotId, args.ownerPilotId),
+        ne(conversationTurnCommands.clientTurnKey, args.excludeClientTurnKey),
+        sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED', 'UNKNOWN')`,
+      ),
+    )
+    .orderBy(asc(conversationTurnCommands.createdAt), asc(conversationTurnCommands.id));
+  return rows.map((r) => ({
+    id: r.id,
+    clientTurnKey: r.clientTurnKey,
+    status: r.status as TurnCommandStatus,
+    operationId: r.operationId,
+    userMessageId: r.userMessageId,
+    createdAt: r.createdAt,
+    resultJson: r.resultJson,
+  }));
+}
+
+/**
+ * Persist validated semantic qualification on a RUNNING turn before any owner mutation (TV-04).
+ * Merges into resultJson without changing status. CAS under ownerToken.
+ * Does not requalify: callers must pass the already-validated envelope.
+ */
+export async function stashTurnQualification(args: {
+  commandId: string;
+  ownerToken: string;
+  qualificationJson: string;
+}): Promise<{ applied: boolean }> {
+  return db.transaction(async (tx) => {
+    await tx.execute(
+      sql`select id from conversation_turn_commands
+          where id = ${args.commandId}
+            and owner_token = ${args.ownerToken}
+            and status in ('RUNNING', 'ACCEPTED')
+          for update`,
+    );
+    const owned = (
+      await tx
+        .select({
+          id: conversationTurnCommands.id,
+          resultJson: conversationTurnCommands.resultJson,
+        })
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.id, args.commandId),
+            eq(conversationTurnCommands.ownerToken, args.ownerToken),
+            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!owned) return { applied: false };
+
+    let qualification: unknown;
+    try {
+      qualification = JSON.parse(args.qualificationJson) as unknown;
+    } catch {
+      // Invalid qualification JSON — refuse stash (no mutation of resultJson).
+      return { applied: false };
+    }
+    let merged: Record<string, unknown> = {
+      semanticQualification: qualification,
+      semanticQualificationStashedAt: new Date(turnClock.nowMs()).toISOString(),
+    };
+    if (owned.resultJson) {
+      try {
+        const prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
+        // Never overwrite a terminal payload shape; only enrich while RUNNING.
+        merged = { ...prev, ...merged };
+      } catch {
+        // Prior JSON unreadable — refuse rather than risk losing prior durable state.
+        return { applied: false };
+      }
+    }
+
+    const updated = await tx
+      .update(conversationTurnCommands)
+      .set({
+        resultJson: JSON.stringify(merged),
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(
+        and(
+          eq(conversationTurnCommands.id, args.commandId),
+          eq(conversationTurnCommands.ownerToken, args.ownerToken),
+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+        ),
+      )
+      .returning({ id: conversationTurnCommands.id });
+    return { applied: Boolean(updated[0]) };
+  });
+}
+
+/**
+ * Seal a document command binding into resultJson before any D4 mutation (O-04/O-05).
+ * Appends under documentCommandBindings[]; refuses overwrite of an existing same correlationKey.
+ */
+export async function stashDocumentCommandBinding(args: {
+  commandId: string;
+  ownerToken: string;
+  binding: Record<string, unknown>;
+}): Promise<{ applied: boolean }> {
+  return db.transaction(async (tx) => {
+    await tx.execute(
+      sql`select id from conversation_turn_commands
+          where id = ${args.commandId}
+            and owner_token = ${args.ownerToken}
+            and status in ('RUNNING', 'ACCEPTED')
+          for update`,
+    );
+    const owned = (
+      await tx
+        .select({
+          id: conversationTurnCommands.id,
+          resultJson: conversationTurnCommands.resultJson,
+        })
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.id, args.commandId),
+            eq(conversationTurnCommands.ownerToken, args.ownerToken),
+            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!owned) return { applied: false };
+
+    let prev: Record<string, unknown> = {};
+    if (owned.resultJson) {
+      try {
+        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
+      } catch {
+        return { applied: false };
+      }
+    }
+    const existing = Array.isArray(prev.documentCommandBindings)
+      ? (prev.documentCommandBindings as Array<Record<string, unknown>>)
+      : [];
+    const corr = typeof args.binding.correlationKey === "string" ? args.binding.correlationKey : "";
+    if (corr && existing.some((b) => b.correlationKey === corr)) {
+      const prior = existing.find((b) => b.correlationKey === corr)!;
+      const priorPayload = prior.payloadSha256;
+      if (priorPayload !== args.binding.payloadSha256) {
+        return { applied: false };
+      }
+      // Identical binding already sealed — treat as applied without rewrite.
+      return { applied: true };
+    }
+    const merged = {
+      ...prev,
+      documentCommandBindings: [...existing, args.binding],
+      documentCommandBindingStashedAt: new Date(turnClock.nowMs()).toISOString(),
+    };
+    const updated = await tx
+      .update(conversationTurnCommands)
+      .set({
+        resultJson: JSON.stringify(merged),
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(
+        and(
+          eq(conversationTurnCommands.id, args.commandId),
+          eq(conversationTurnCommands.ownerToken, args.ownerToken),
+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+        ),
+      )
+      .returning({ id: conversationTurnCommands.id });
+    return { applied: Boolean(updated[0]) };
+  });
+}
+
+/**
  * Atomic terminal commit under ownership fence:
  * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
  * CAS miss after INSERT throws → full TX rollback (no orphan assistant).
@@ -589,6 +799,7 @@ export async function commitTurnTerminal(args: {
             id: conversationTurnCommands.id,
             assistantMessageId: conversationTurnCommands.assistantMessageId,
             generationId: conversationTurnCommands.generationId,
+            resultJson: conversationTurnCommands.resultJson,
           })
           .from(conversationTurnCommands)
           .where(
@@ -602,6 +813,34 @@ export async function commitTurnTerminal(args: {
       )[0];
       if (!owned) {
         return { applied: false };
+      }
+
+      // T-03 / Lot B + O-04: preserve stashed semanticQualification and documentCommandBindings.
+      let terminalJson = args.resultJson ?? null;
+      if (owned.resultJson) {
+        try {
+          const prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
+          if (terminalJson) {
+            const next = JSON.parse(terminalJson) as Record<string, unknown>;
+            if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
+              next.semanticQualification = prev.semanticQualification;
+              next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
+            }
+            if (
+              prev.documentCommandBindings !== undefined &&
+              next.documentCommandBindings === undefined
+            ) {
+              next.documentCommandBindings = prev.documentCommandBindings;
+              next.documentCommandBindingStashedAt = prev.documentCommandBindingStashedAt;
+            }
+            terminalJson = JSON.stringify(next);
+          } else {
+            terminalJson = owned.resultJson;
+          }
+        } catch {
+          // Fail closed: keep prior durable JSON rather than wipe qualification.
+          terminalJson = owned.resultJson;
+        }
       }
 
       let assistantMessageId = args.assistant?.id ?? owned.assistantMessageId ?? null;
@@ -674,7 +913,7 @@ export async function commitTurnTerminal(args: {
           status: args.status,
           assistantMessageId,
           generationId: args.generationId ?? args.assistant?.generationId ?? null,
-          resultJson: args.resultJson ?? null,
+          resultJson: terminalJson,
           errorCategory: args.errorCategory ?? null,
           updatedAt: new Date(turnClock.nowMs()),
         })
@@ -700,7 +939,11 @@ export async function commitTurnTerminal(args: {
     throw e;
   }
 }
-/** @deprecated Prefer commitTurnTerminal with ownerToken — kept for markTurnUnknown paths. */
+/**
+ * Terminal write for legacy UNKNOWN paths. ALWAYS preserves stashed
+ * semanticQualification (T-03 / Lot B) — never wipe resultJson to null when
+ * a prior stash exists.
+ */
 export async function completeTurnCommand(args: {
   commandId: string;
   status: TurnCommandStatus;
@@ -714,28 +957,73 @@ export async function completeTurnCommand(args: {
     throw new StudioError("INVALID_REQUEST", "completeTurnCommand exige un statut terminal");
   }
 
-  const conditions = [
-    eq(conversationTurnCommands.id, args.commandId),
-    sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-  ];
-  if (args.ownerToken) {
-    conditions.push(eq(conversationTurnCommands.ownerToken, args.ownerToken));
-  }
+  return db.transaction(async (tx) => {
+    const conditions = [
+      eq(conversationTurnCommands.id, args.commandId),
+      sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+    ];
+    if (args.ownerToken) {
+      conditions.push(eq(conversationTurnCommands.ownerToken, args.ownerToken));
+    }
 
-  const updated = await db
-    .update(conversationTurnCommands)
-    .set({
-      status: args.status,
-      assistantMessageId: args.assistantMessageId ?? null,
-      generationId: args.generationId ?? null,
-      resultJson: args.resultJson ?? null,
-      errorCategory: args.errorCategory ?? null,
-      updatedAt: new Date(turnClock.nowMs()),
-    })
-    .where(and(...conditions))
-    .returning({ id: conversationTurnCommands.id });
+    await tx.execute(
+      sql`select id from conversation_turn_commands
+          where id = ${args.commandId}
+            and status in ('RUNNING', 'ACCEPTED')
+          for update`,
+    );
 
-  return { applied: updated.length > 0 };
+    const owned = (
+      await tx
+        .select({
+          id: conversationTurnCommands.id,
+          resultJson: conversationTurnCommands.resultJson,
+          assistantMessageId: conversationTurnCommands.assistantMessageId,
+          generationId: conversationTurnCommands.generationId,
+        })
+        .from(conversationTurnCommands)
+        .where(and(...conditions))
+        .limit(1)
+    )[0];
+    if (!owned) return { applied: false };
+
+    let terminalJson = args.resultJson ?? null;
+    if (owned.resultJson) {
+      try {
+        const prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
+        if (terminalJson) {
+          const next = JSON.parse(terminalJson) as Record<string, unknown>;
+          if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
+            next.semanticQualification = prev.semanticQualification;
+            next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
+            terminalJson = JSON.stringify(next);
+          }
+        } else {
+          // No new payload — keep prior resultJson (qualification must survive UNKNOWN).
+          terminalJson = owned.resultJson;
+        }
+      } catch (e) {
+        // Fail closed on merge/parse: keep prior durable JSON rather than wipe.
+        terminalJson = owned.resultJson;
+        void e;
+      }
+    }
+
+    const updated = await tx
+      .update(conversationTurnCommands)
+      .set({
+        status: args.status,
+        assistantMessageId: args.assistantMessageId ?? owned.assistantMessageId ?? null,
+        generationId: args.generationId ?? owned.generationId ?? null,
+        resultJson: terminalJson,
+        errorCategory: args.errorCategory ?? null,
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(and(...conditions))
+      .returning({ id: conversationTurnCommands.id });
+
+    return { applied: updated.length > 0 };
+  });
 }
 
 export async function markTurnUnknown(

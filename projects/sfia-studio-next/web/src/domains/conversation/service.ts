@@ -1,6 +1,18 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { conversations, messages } from "@/db/schema";
+import {
+  businessCommands,
+  conversationTurnCommands,
+  conversations,
+  createProjectCommands,
+  documentRevisions,
+  documents,
+  effectAttempts,
+  humanDecisions,
+  knowledgeAcquis,
+  knowledgeOpenPoints,
+  messages,
+} from "@/db/schema";
 // db still used by getConversationId / listMessages
 import { newId } from "@/lib/ids";
 import { generateNoraReply } from "./nora-adapter";
@@ -10,17 +22,25 @@ import {
   reconstituteConfirmedD4Effects,
   selectRelevantKnowledgeContext,
 } from "@/domains/knowledge/service";
+import { listDocuments } from "@/domains/document/service";
 import {
-  listDocuments,
-  reviseDocument,
-  savePreparationDocument,
-} from "@/domains/document/service";
+  admitDocumentCommand,
+  canonicalizeDocumentProposal,
+  confrontProposalWithFence,
+  contentSha256,
+  resolveAssistantProposal,
+  sealAndApplyDocumentCommand,
+  serializeProposalFence,
+  type DocumentProposalExact,
+} from "@/domains/conversation/document-command";
 import {
   bindTurnGenerationId,
   commitTurnTerminal,
+  findUnresolvedSiblingTurns,
   markTurnUnknown,
   requireTurnOwnership,
   reserveTurnCommand,
+  stashTurnQualification,
   touchTurnLease,
   turnRaceHooks,
 } from "./turn-command";
@@ -28,6 +48,7 @@ import { emitObs, newRequestId } from "@/lib/observability";
 import { StudioError } from "@/lib/http-errors";
 import {
   applyConversationalAuthority,
+  conversationalCommandKey,
   reconstituteConversationalAuthority,
   type ConversationalAuthorityOutcome,
 } from "@/domains/pilotage/conversation-authority";
@@ -37,19 +58,34 @@ import {
   applyTargetedSectionRevision,
   assertSectionScope,
   extractContractualDocumentProposal,
-  hasDocumentaryWriteSignal,
-  qualifyDocumentAct,
   resolveReviseTarget,
+  stripContractualDocumentFences,
   type DocumentEffectSummary,
   type DocumentProposalExtract,
 } from "./document-act";
+import {
+  deriveThreadTurnKind,
+  effectIntents,
+  extractKnowledgeProposals,
+  extractKnowledgeSelectionHints,
+  extractPilotageBinding,
+  projectStudioEffects,
+  type NoraTurnQualification,
+} from "./semantic-qualification";
+import { loadLatestMissionsByIntentKey } from "./intent-conduction";
+import {
+  buildTurnCorrelationKeys,
+  evaluateS05SiblingPolicy,
+  parseSiblingResultEvidence,
+  type S05SiblingEvidence,
+} from "./s05-pending-policy";
+import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
 import {
   appendMissionAck,
   cognitiveContinueFromFacts,
   composeCanonicalMissionRestitution,
   missionCorrelationKeys,
   preparePublicationForMission,
-  qualifyPublicationMission,
   recoverAuthorizedNoraMissions,
   type MissionProjection,
 } from "./mission-continuity";
@@ -61,10 +97,284 @@ import {
   emptyMission,
   loadPriorMissionProjection,
   mergeMissionSteps,
-  qualifyStudioIntent,
   recoverPendingMissionContinuation,
 } from "./intent-conduction";
 import { updatePreview } from "@/domains/preparation/service";
+
+/**
+ * S05 R-01 — gather owner-side evidence for one unresolved sibling.
+ * true = correlated owner row found; false = applicable owners probed empty;
+ * null = incomplete / errored / identity insufficient.
+ * Never derives absence of effect from resultJson alone.
+ */
+export async function probeSiblingOwnerEffects(input: {
+  pilotId: string;
+  preparationId: string;
+  projectId: string | null;
+  sibling: {
+    commandId: string;
+    clientTurnKey: string;
+    userMessageId: string | null;
+    operationId: string | null;
+    bindingCorrelationKeys: string[];
+  };
+}): Promise<boolean | null> {
+  const { sibling } = input;
+  const missionKeys = missionCorrelationKeys(sibling.clientTurnKey);
+  const corrKeys = [
+    ...new Set(
+      [
+        ...sibling.bindingCorrelationKeys,
+        missionKeys.document,
+        missionKeys.publication,
+        sibling.clientTurnKey.trim() || null,
+      ].filter((k): k is string => Boolean(k && k.trim())),
+    ),
+  ];
+
+  try {
+    // DEV/E2E seam only — never set in RECETTE/STABLE; forces conservative null.
+    if (process.env.STUDIO_S05_PROBE_FORCE_ERROR === "1") {
+      throw new Error("STUDIO_S05_PROBE_FORCE_ERROR");
+    }
+
+    if (corrKeys.length > 0) {
+      const docs = await db
+        .select({ id: documents.id })
+        .from(documents)
+        .where(
+          and(
+            eq(documents.preparationId, input.preparationId),
+            eq(documents.ownerPilotId, input.pilotId),
+            inArray(documents.creationCorrelationKey, corrKeys),
+          ),
+        )
+        .limit(1);
+      if (docs.length > 0) return true;
+
+      const revs = await db
+        .select({ id: documentRevisions.id })
+        .from(documentRevisions)
+        .innerJoin(documents, eq(documentRevisions.documentId, documents.id))
+        .where(
+          and(
+            eq(documents.preparationId, input.preparationId),
+            eq(documents.ownerPilotId, input.pilotId),
+            inArray(documentRevisions.correlationKey, corrKeys),
+          ),
+        )
+        .limit(1);
+      if (revs.length > 0) return true;
+    }
+
+    const cmdNeedle = sibling.commandId;
+    const provenanceHits = await db
+      .select({ id: documentRevisions.id })
+      .from(documentRevisions)
+      .innerJoin(documents, eq(documentRevisions.documentId, documents.id))
+      .where(
+        and(
+          eq(documents.preparationId, input.preparationId),
+          eq(documents.ownerPilotId, input.pilotId),
+          sql`${documentRevisions.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
+        ),
+      )
+      .limit(1);
+    if (provenanceHits.length > 0) return true;
+
+    const d2 = await db
+      .select({ id: createProjectCommands.id })
+      .from(createProjectCommands)
+      .where(
+        and(
+          eq(createProjectCommands.pilotId, input.pilotId),
+          eq(createProjectCommands.preparationId, input.preparationId),
+          eq(createProjectCommands.idempotencyKey, sibling.clientTurnKey),
+        ),
+      )
+      .limit(1);
+    if (d2.length > 0) return true;
+
+    if (input.projectId) {
+      const bizKey = conversationalCommandKey(sibling.clientTurnKey);
+      const bizByKey = await db
+        .select({ id: businessCommands.id })
+        .from(businessCommands)
+        .where(
+          and(
+            eq(businessCommands.projectId, input.projectId),
+            eq(businessCommands.actorPilotId, input.pilotId),
+            eq(businessCommands.clientCommandKey, bizKey),
+          ),
+        )
+        .limit(1);
+      if (bizByKey.length > 0) return true;
+
+      if (sibling.userMessageId) {
+        const bizByMsg = await db
+          .select({ id: businessCommands.id })
+          .from(businessCommands)
+          .where(
+            and(
+              eq(businessCommands.projectId, input.projectId),
+              eq(businessCommands.actorPilotId, input.pilotId),
+              eq(businessCommands.sourceKind, "USER_MESSAGE"),
+              eq(businessCommands.sourceRef, sibling.userMessageId),
+            ),
+          )
+          .limit(1);
+        if (bizByMsg.length > 0) return true;
+
+        const hd = await db
+          .select({ id: humanDecisions.id })
+          .from(humanDecisions)
+          .where(
+            and(
+              eq(humanDecisions.projectId, input.projectId),
+              eq(humanDecisions.pilotId, input.pilotId),
+              eq(humanDecisions.sourceRef, sibling.userMessageId),
+            ),
+          )
+          .limit(1);
+        if (hd.length > 0) return true;
+      }
+
+      const eaKeys = [
+        ...new Set(
+          [missionKeys.publication, ...sibling.bindingCorrelationKeys].filter(
+            (k): k is string => Boolean(k && k.trim()),
+          ),
+        ),
+      ];
+      if (eaKeys.length > 0) {
+        const ea = await db
+          .select({ id: effectAttempts.id })
+          .from(effectAttempts)
+          .where(
+            and(
+              eq(effectAttempts.pilotId, input.pilotId),
+              eq(effectAttempts.projectId, input.projectId),
+              inArray(effectAttempts.correlationKey, eaKeys),
+            ),
+          )
+          .limit(1);
+        if (ea.length > 0) return true;
+      }
+    }
+
+    // D4 knowledge — use provenance keys actually written by maybeCapitalizeFromExchange:
+    // { sourceKind: "message", sourceId: userMessageId, generationId }.
+    // commandId is NOT written into knowledge provenance; LIKE(commandId) is not exhaustive.
+    // knowledge_subjects has no turn provenance — never attribute by title/createdAt/prep alone.
+    const msgId = sibling.userMessageId?.trim() || null;
+    let generationId: string | null = null;
+    const turnMeta = (
+      await db
+        .select({ generationId: conversationTurnCommands.generationId })
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, sibling.commandId))
+        .limit(1)
+    )[0];
+    generationId = turnMeta?.generationId?.trim() || null;
+
+    if (!msgId && !generationId) {
+      // Knowledge negative proof requires durable message/generation identity.
+      return null;
+    }
+
+    const acquisProv = generationId
+      ? sql`(
+          ${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${generationId}
+          or (
+            coalesce(${knowledgeAcquis.provenanceJson}::jsonb->>'generationId', '') = ''
+            and ${msgId}::text is not null
+            and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceKind' = 'message'
+            and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${msgId}
+          )
+        )`
+      : sql`(
+          ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceKind' = 'message'
+          and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${msgId}
+        )`;
+    const openProv = generationId
+      ? sql`(
+          ${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${generationId}
+          or (
+            coalesce(${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId', '') = ''
+            and ${msgId}::text is not null
+            and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceKind' = 'message'
+            and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${msgId}
+          )
+        )`
+      : sql`(
+          ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceKind' = 'message'
+          and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${msgId}
+        )`;
+
+    const acquisHit = await db
+      .select({ id: knowledgeAcquis.id })
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, input.preparationId),
+          eq(knowledgeAcquis.ownerPilotId, input.pilotId),
+          acquisProv,
+        ),
+      )
+      .limit(1);
+    if (acquisHit.length > 0) return true;
+
+    const openHit = await db
+      .select({ id: knowledgeOpenPoints.id })
+      .from(knowledgeOpenPoints)
+      .where(
+        and(
+          eq(knowledgeOpenPoints.preparationId, input.preparationId),
+          eq(knowledgeOpenPoints.ownerPilotId, input.pilotId),
+          openProv,
+        ),
+      )
+      .limit(1);
+    if (openHit.length > 0) return true;
+
+    // Historical / non-canonical formats: positive-only commandId needle (never sole negative proof).
+    if (cmdNeedle) {
+      const acquisLegacy = await db
+        .select({ id: knowledgeAcquis.id })
+        .from(knowledgeAcquis)
+        .where(
+          and(
+            eq(knowledgeAcquis.preparationId, input.preparationId),
+            eq(knowledgeAcquis.ownerPilotId, input.pilotId),
+            sql`${knowledgeAcquis.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
+          ),
+        )
+        .limit(1);
+      if (acquisLegacy.length > 0) return true;
+      const openLegacy = await db
+        .select({ id: knowledgeOpenPoints.id })
+        .from(knowledgeOpenPoints)
+        .where(
+          and(
+            eq(knowledgeOpenPoints.preparationId, input.preparationId),
+            eq(knowledgeOpenPoints.ownerPilotId, input.pilotId),
+            sql`${knowledgeOpenPoints.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
+          ),
+        )
+        .limit(1);
+      if (openLegacy.length > 0) return true;
+    }
+
+    // Subjects: no command provenance on schema — do not invent attribution.
+    // Negative false here means acquis/open_points probes completed empty with durable
+    // message/generation identity. Subject-only writes remain unattributable; QUALIFIED
+    // REQUEST_EFFECT knowledge paths stay blocked by classifySiblingEffectRisk via effectIntents.
+    // UNAVAILABLE turns cannot produce extractKnowledgeProposals → knowledge write path closed.
+    return false;
+  } catch {
+    return null;
+  }
+}
 
 export async function listMessages(pilotId: string, preparationId: string) {
   // READ ≠ COMMAND: listing must not dispatch Git or mutate effects.
@@ -178,6 +488,8 @@ export type TurnResult = {
   d4CharsReturned?: number;
   streaming?: { attempted: boolean; delivered: boolean; notes: string | null };
   knowledgeSelection?: unknown;
+  /** Post-qualification preferred listing — resume hint only, not cognition of current reply. */
+  knowledgeResumeHints?: unknown;
   capitalisation?: unknown;
   capitalisationAttempted?: unknown;
   capitalisationLimit?: string;
@@ -216,6 +528,14 @@ export type TurnResult = {
   reconciled?: boolean;
   /** Refs-only mission projection — never owner truth for D4/D6/D7. */
   missionProjection?: MissionProjection | null;
+  /** S05 — server-derived turn kind from Nora qualification (not client lexical). */
+  nextTurnKind?: ThreadTurnKind;
+  /** Echo of durable qualification status for clients / recovery. */
+  semanticQualificationStatus?: string;
+  /** S05 — true when a sibling pending blocked owner effects for this turn. */
+  pendingEffectBlocked?: boolean;
+  pendingBlockReason?: string;
+  unresolvedPendingClientTurnKey?: string | null;
 };
 
 function pilotageEffectFromAuthority(
@@ -280,7 +600,13 @@ export async function postUserMessageAndNora(
   pilotId: string,
   preparationId: string,
   content: string,
-  opts?: { correlationKey?: string; clientTurnKey?: string; requestId?: string },
+  opts?: {
+    correlationKey?: string;
+    clientTurnKey?: string;
+    requestId?: string;
+    /** Client UX hint only — server DB siblings are authoritative for S05. */
+    unresolvedPendingClientTurnKey?: string;
+  },
 ): Promise<TurnResult> {
   const requestId = opts?.requestId ?? newRequestId();
   const ctx = await getPreparationContext(pilotId, preparationId);
@@ -430,47 +756,8 @@ export async function postUserMessageAndNora(
     meta: { client_turn_key_fp: reserved.requestFingerprint.slice(0, 12) },
   });
 
-  /**
-   * F01/F02 — USER → D5/D6 before Nora provider call.
-   * Message is already COMPLETE; business TX is short and separate from Nora.
-   * Lost ownership ⇒ skip mutation (do not invent a late second command).
-   */
+  /** SEM/TV: D5/D6 after Nora semantic qualification — not before. */
   let authority: ConversationalAuthorityOutcome | null = null;
-  const stillOwnedBeforeAuthority = await requireTurnOwnership(
-    reserved.commandId,
-    reserved.ownerToken,
-  );
-  if (stillOwnedBeforeAuthority && ctx.project?.id) {
-    authority = await applyConversationalAuthority({
-      pilotId,
-      projectId: ctx.project.id,
-      userMessageId: reserved.userMessageId,
-      content,
-      clientTurnKey,
-    });
-    emitObs({
-      event_name: "d3.turn.conversational_authority",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      outcome: authority.attempted
-        ? authority.command?.status === "APPLIED" || authority.command?.status === "ALREADY_APPLIED"
-          ? "SUCCESS"
-          : authority.command?.status === "UNKNOWN"
-            ? "UNKNOWN"
-            : "FAILED"
-        : "PARTIAL",
-      meta: {
-        attempted: authority.attempted,
-        intent_clarity: authority.intentClarity,
-        operation: authority.operation ?? null,
-        command_status: authority.command?.status ?? null,
-        reason_code: authority.command?.reasonCode ?? null,
-        decision_id: authority.decisionId,
-        source: authority.source,
-      },
-    });
-  }
 
   const existing = await listMessages(pilotId, preparationId);
   const contextSnippets = existing
@@ -478,7 +765,11 @@ export async function postUserMessageAndNora(
     .slice(-6)
     .map((m) => `${m.role}: ${m.content.slice(0, 200)}`);
 
-  const knowledge = await selectRelevantKnowledgeContext(pilotId, preparationId, content);
+  // F4: pre-Nora context ONLY feeds generation. Post-qual preferred ids are resume hints,
+  // never claimed as having nourished the reply already produced.
+  const knowledgeForNora = await selectRelevantKnowledgeContext(pilotId, preparationId, content);
+  let knowledgeResumeHints: Awaited<ReturnType<typeof selectRelevantKnowledgeContext>> | null =
+    null;
 
   const docs = await listDocuments(pilotId, preparationId);
   const docSnippets = docs.slice(0, 5).map((d) => {
@@ -486,32 +777,12 @@ export async function postUserMessageAndNora(
     return `DOCUMENT[${d.document.id}] «${d.document.title}» v${rev?.revisionNumber ?? "?"} status=${rev?.status ?? "∅"}`;
   });
 
-  // Rebuild after authority so Nora observes confirmed D5/D6 state (projection only).
+  // SEM/TV: Nora qualifies first; same-turn D5/D6 runs after structured qualification.
+  // Prior-turn D5/D6 facts still arrive via buildNoraPilotageContext projection only.
   const pilotageCtx = await buildNoraPilotageContext(pilotId, preparationId, content);
-  const authoritySnippets: string[] = [];
-  if (authority?.attempted && authority.command) {
-    authoritySnippets.push(
-      "### Effet métier confirmé (D5/D6 — pas une permission Nora)",
-      `status=${authority.command.status} operation=${authority.operation ?? "?"} reasonCode=${authority.command.reasonCode ?? "∅"} decisionId=${authority.decisionId ?? "∅"}`,
-    );
-    if (authority.command.effects?.length) {
-      authoritySnippets.push(
-        `effects=${authority.command.effects.map((e) => `${e.effectKind}:${e.targetRef}`).join(",")}`,
-      );
-    }
-  } else if (authority?.clarification) {
-    authoritySnippets.push(
-      "### Clarification pilotage requise",
-      authority.clarification.slice(0, 300),
-    );
-  }
 
   let reply;
   try {
-    // C02 fault boundary: after authority, before/during Nora — same recovery path.
-    if (turnRaceHooks.afterAuthorityBeforeNora) {
-      await turnRaceHooks.afterAuthorityBeforeNora();
-    }
     // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
     const leasePulse = setInterval(() => {
       void touchTurnLease(reserved.commandId, reserved.ownerToken);
@@ -520,8 +791,8 @@ export async function postUserMessageAndNora(
       reply = await generateNoraReply({
         userText: content,
         contextSnippets,
-        knowledgeSnippets: [...knowledge.snippets, ...docSnippets],
-        pilotageSnippets: [...pilotageCtx.snippets, ...authoritySnippets],
+        knowledgeSnippets: [...knowledgeForNora.snippets, ...docSnippets],
+        pilotageSnippets: pilotageCtx.snippets,
         // C01: same structured Level A contract for fixture and LIVE — never authority.
         levelASignals: pilotageCtx.levelASignals,
         // Requested level only. The adapter emits DELIVERED after a real generate.
@@ -537,8 +808,9 @@ export async function postUserMessageAndNora(
       clearInterval(leasePulse);
     }
   } catch {
-    // C02 — Nora failure must not erase a already-committed D5/D6 effect.
-    // Persist an honest UNKNOWN turn payload that still surfaces pilotageEffect.
+    // SEM order: Nora runs before same-turn D5/D6, so a provider failure here
+    // cannot have produced a same-turn HumanDecision. Prior-turn recovery stays
+    // on the reconstitution path below.
     const unknownPayload: TurnResult = {
       userMessageId: reserved.userMessageId,
       assistantMessageId: null,
@@ -546,8 +818,8 @@ export async function postUserMessageAndNora(
       requestId,
       status: "UNKNOWN",
       idempotentReplay: false,
-      humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
-      pilotageEffect: pilotageEffectFromAuthority(authority),
+      humanDecisionCreated: false,
+      pilotageEffect: null,
       noraMode: "provider-exception",
     };
     try {
@@ -622,13 +894,353 @@ export async function postUserMessageAndNora(
   // Bind generationId while ownership holds so D4 provenance + UNKNOWN reconstitution share one key.
   await bindTurnGenerationId(reserved.commandId, reserved.ownerToken, reply.generationId);
 
+  const qualification: NoraTurnQualification =
+    reply.qualification ??
+    ({
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "UNAVAILABLE",
+      goal: "",
+      intents: [],
+      clarifications: ["MISSING_QUALIFICATION"],
+      replyDraft: reply.content,
+    } as NoraTurnQualification);
+
+  // TV-04 / T-03 — durable qualification before first owner mutation; applied required.
+  const stashed = await stashTurnQualification({
+    commandId: reserved.commandId,
+    ownerToken: reserved.ownerToken,
+    qualificationJson: JSON.stringify(qualification),
+  });
+  if (!stashed.applied) {
+    emitObs({
+      event_name: "d3.turn.qualification_stash_failed",
+      component: "d3.conversation",
+      request_id: requestId,
+      operation_id: reserved.operationId,
+      outcome: "FAILED",
+      error_category: "QUALIFICATION_STASH_NOT_APPLIED",
+    });
+    try {
+      await markTurnUnknown(
+        reserved.commandId,
+        "QUALIFICATION_STASH_NOT_APPLIED",
+        reserved.ownerToken,
+        JSON.stringify({
+          userMessageId: reserved.userMessageId,
+          assistantMessageId: null,
+          operationId: reserved.operationId,
+          requestId,
+          status: "UNKNOWN",
+          idempotentReplay: false,
+          humanDecisionCreated: false,
+          semanticQualificationStatus: "STASH_FAILED",
+        }),
+      );
+    } catch {
+      /* ownership may already be lost */
+    }
+    return {
+      operationId: reserved.operationId,
+      requestId,
+      status: "UNKNOWN",
+      generationId: reply.generationId,
+      userMessageId: reserved.userMessageId,
+      assistantMessageId: null,
+      idempotentReplay: false,
+      humanDecisionCreated: false,
+      noraMode: reply.mode,
+      nextTurnKind: "INCERTAIN",
+      semanticQualificationStatus: "STASH_FAILED",
+    };
+  }
+
+  const nextTurnKind = deriveThreadTurnKind(qualification);
+  const studioProjection = projectStudioEffects(qualification);
+  const pilotageBinding = extractPilotageBinding(qualification);
+  const knowledgeHints = extractKnowledgeSelectionHints(qualification);
+  if (
+    knowledgeHints.acquisIds.length ||
+    knowledgeHints.openPointIds.length ||
+    knowledgeHints.subjectIds.length
+  ) {
+    knowledgeResumeHints = await selectRelevantKnowledgeContext(pilotId, preparationId, content, {
+      preferredAcquisIds: knowledgeHints.acquisIds,
+      preferredOpenPointIds: knowledgeHints.openPointIds,
+      preferredSubjectIds: knowledgeHints.subjectIds,
+    });
+  }
+
+  // S05 — durable unresolved work (turns + missions). Client hint is UX only.
+  const siblings = await findUnresolvedSiblingTurns({
+    conversationId: ctx.conversation.id,
+    ownerPilotId: pilotId,
+    excludeClientTurnKey: clientTurnKey,
+  });
+  const clientPendingHint = opts?.unresolvedPendingClientTurnKey?.trim() || null;
+  const missionsByKey = await loadLatestMissionsByIntentKey(ctx.conversation.id);
+  const unresolvedMissions = [...missionsByKey.values()].filter((m) =>
+    ["AWAITING_PILOT_ACT", "AWAITING_PILOT_AUTH", "AWAITING_CLARIFICATION", "ACTIVE"].includes(
+      m.status,
+    ),
+  );
+  // ACTIVE only blocks when a step is still WAITING/PENDING (real unfinished work).
+  const blockingMission =
+    unresolvedMissions.find((m) =>
+      m.status === "ACTIVE"
+        ? m.steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
+        : true,
+    ) ?? null;
+
+  const applyPendingGate =
+    nextTurnKind === "INTENTION_EFFET" || nextTurnKind === "INCERTAIN";
+  // R-02 — durable comparable identities only (never USER text / title / lexical).
+  const currentMissionKeys = missionCorrelationKeys(
+    carriedMission?.clientIntentKey?.trim() || clientTurnKey,
+  );
+  const currentCorrelationKeys = buildTurnCorrelationKeys({
+    commandId: reserved.commandId,
+    operationId: reserved.operationId,
+    userMessageId: reserved.userMessageId,
+    clientTurnKey,
+    clientCorrelationSalt: opts?.correlationKey?.trim() || null,
+    bindingCorrelationKeys: [],
+    businessClientCommandKey: conversationalCommandKey(clientTurnKey),
+    missionKeys: [currentMissionKeys.document, currentMissionKeys.publication],
+  });
+  const siblingEvidence: S05SiblingEvidence[] = await Promise.all(
+    siblings.map(async (s) => {
+      const parsed = parseSiblingResultEvidence(s.resultJson);
+      const siblingMission = missionCorrelationKeys(s.clientTurnKey);
+      const ownerEffectsFound = await probeSiblingOwnerEffects({
+        pilotId,
+        preparationId,
+        projectId: ctx.project?.id ?? null,
+        sibling: {
+          commandId: s.id,
+          clientTurnKey: s.clientTurnKey,
+          userMessageId: s.userMessageId,
+          operationId: s.operationId,
+          bindingCorrelationKeys: parsed.bindingCorrelationKeys,
+        },
+      });
+      return {
+        id: s.id,
+        clientTurnKey: s.clientTurnKey,
+        status: s.status,
+        createdAtMs: s.createdAt.getTime(),
+        qualificationStatus: parsed.qualificationStatus,
+        qualification: parsed.qualification,
+        documentSaveStatus: parsed.documentSaveStatus,
+        pilotageEffectAttempted: parsed.pilotageEffectAttempted,
+        humanDecisionCreated: parsed.humanDecisionCreated,
+        ownerEffectsFound,
+        correlationKeys: buildTurnCorrelationKeys({
+          commandId: s.id,
+          operationId: s.operationId,
+          userMessageId: s.userMessageId,
+          clientTurnKey: s.clientTurnKey,
+          bindingCorrelationKeys: parsed.bindingCorrelationKeys,
+          businessClientCommandKey: conversationalCommandKey(s.clientTurnKey),
+          missionKeys: [siblingMission.document, siblingMission.publication],
+        }),
+      };
+    }),
+  );
+  const siblingPolicy = evaluateS05SiblingPolicy({
+    siblings: siblingEvidence,
+    current: {
+      correlationKeys: currentCorrelationKeys,
+      requestsOwnerEffect: applyPendingGate,
+    },
+    clientPendingHint,
+    applyPendingGate,
+  });
+
+  let pendingEffectBlocked = false;
+  let pendingBlockReason: string | undefined;
+  let allowOwnerEffects = true;
+  const blockingSiblingKey = siblingPolicy.primaryBlockingKey;
+  const blockingSibling =
+    siblings.find((s) => s.clientTurnKey === blockingSiblingKey) ?? null;
+
+  if (applyPendingGate) {
+    if (siblingPolicy.pendingEffectBlocked) {
+      allowOwnerEffects = false;
+      pendingEffectBlocked = true;
+      pendingBlockReason = siblingPolicy.pendingBlockReason;
+    }
+    if (blockingMission) {
+      allowOwnerEffects = false;
+      pendingEffectBlocked = true;
+      if (!pendingBlockReason) {
+        pendingBlockReason =
+          nextTurnKind === "INTENTION_EFFET"
+            ? `S05_MISSION_BLOCKS_EFFECT:${blockingMission.clientIntentKey ?? "mission"}`
+            : `S05_MISSION_BLOCKS_AMBIGUOUS:${blockingMission.clientIntentKey ?? "mission"}`;
+      }
+    }
+  }
+
+  if (pendingEffectBlocked) {
+    emitObs({
+      event_name: "d3.turn.s05_pending_block",
+      component: "d3.conversation",
+      request_id: requestId,
+      operation_id: reserved.operationId,
+      outcome: "PARTIAL",
+      meta: {
+        pending_client_turn_key: blockingSibling?.clientTurnKey ?? null,
+        pending_status: blockingSibling?.status ?? null,
+        pending_block_reason: pendingBlockReason ?? null,
+        // Primitive summary only — emitObs allowlists scalar meta (QA-19).
+        sibling_risks_summary: siblingPolicy.classifications
+          .map((c) => `${c.clientTurnKey}:${c.status}:${c.risk}`)
+          .join("|")
+          .slice(0, 500),
+        sibling_blocker_count: siblingPolicy.classifications.filter((c) =>
+          ["ACTIVE_EFFECT_RISK", "UNKNOWN_EFFECT_RISK", "SAME_INTENT"].includes(c.risk),
+        ).length,
+        mission_status: blockingMission?.status ?? null,
+        mission_key: blockingMission?.clientIntentKey ?? null,
+        next_turn_kind: nextTurnKind,
+        client_hint_ignored_as_authority: true,
+      },
+    });
+  }
+  // DIALOGUE_INDEPENDANT may answer without métier mutations that bypass A.
+
+  // D5/D6 after semantic qualification — typed binding only (never parameters.notes).
+  if (
+    allowOwnerEffects &&
+    pilotageBinding &&
+    !("ambiguous" in pilotageBinding) &&
+    ctx.project?.id
+  ) {
+    const stillOwned = await requireTurnOwnership(reserved.commandId, reserved.ownerToken);
+    if (stillOwned) {
+      const preQualified = {
+        clarity: "CLEAR" as const,
+        operation: pilotageBinding.operation,
+        objective: pilotageBinding.objective ?? content,
+        statement: pilotageBinding.statement,
+        objectRef: pilotageBinding.objectRef,
+        decisionId: pilotageBinding.decisionId,
+        methodRef: pilotageBinding.methodRef,
+        methodVersion: pilotageBinding.methodVersion,
+        restrictionKindHint: pilotageBinding.restrictionKindHint,
+        restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
+        cycleType: pilotageBinding.cycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
+        toCycleType: pilotageBinding.toCycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
+        semanticIntentId: pilotageBinding.intentId,
+        semanticSchemaVersion: pilotageBinding.schemaVersion,
+      };
+      authority = await applyConversationalAuthority({
+        pilotId,
+        projectId: ctx.project.id,
+        userMessageId: reserved.userMessageId,
+        content,
+        clientTurnKey,
+        preQualified,
+      });
+      emitObs({
+        event_name: "d3.turn.conversational_authority",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        outcome: authority.attempted
+          ? authority.command?.status === "APPLIED" || authority.command?.status === "ALREADY_APPLIED"
+            ? "SUCCESS"
+            : authority.command?.status === "UNKNOWN"
+              ? "UNKNOWN"
+              : "FAILED"
+          : "PARTIAL",
+        meta: {
+          attempted: authority.attempted,
+          intent_clarity: authority.intentClarity,
+          operation: authority.operation ?? null,
+          command_status: authority.command?.status ?? null,
+          reason_code: authority.command?.reasonCode ?? null,
+          decision_id: authority.decisionId,
+          source: authority.source,
+          semantic_gate: true,
+          semantic_intent_id: pilotageBinding.intentId,
+        },
+      });
+    }
+  } else if (pilotageBinding && "ambiguous" in pilotageBinding) {
+    emitObs({
+      event_name: "d3.turn.conversational_authority",
+      component: "d3.conversation",
+      request_id: requestId,
+      operation_id: reserved.operationId,
+      outcome: "PARTIAL",
+      meta: {
+        attempted: false,
+        intent_clarity: "AMBIGUOUS",
+        semantic_gate: true,
+        reason: pilotageBinding.reason,
+      },
+    });
+  }
+
+  // C02 fault injection — AFTER same-turn D5/D6 (SEM/TV order: Nora → qualify → authority).
+  // Hook name is historical; it must not run before Nora anymore.
+  if (turnRaceHooks.afterAuthorityBeforeNora) {
+    try {
+      await turnRaceHooks.afterAuthorityBeforeNora();
+    } catch {
+      const unknownPayload: TurnResult = {
+        userMessageId: reserved.userMessageId,
+        assistantMessageId: null,
+        operationId: reserved.operationId,
+        requestId,
+        status: "UNKNOWN",
+        idempotentReplay: false,
+        humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
+        pilotageEffect: pilotageEffectFromAuthority(authority),
+        noraMode: reply.mode,
+      };
+      try {
+        await markTurnUnknown(
+          reserved.commandId,
+          "PROVIDER_EXCEPTION",
+          reserved.ownerToken,
+          JSON.stringify(unknownPayload),
+        );
+      } catch {
+        /* ownership may already be lost */
+      }
+      emitObs({
+        event_name: "d3.turn.unknown",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        outcome: "UNKNOWN",
+        error_category: "POST_AUTHORITY_FAULT",
+      });
+      const resolved = await resolvePilotageEffectForReplay({
+        pilotId,
+        projectId: ctx.project?.id,
+        clientTurnKey,
+        userMessageId: reserved.userMessageId,
+        fromJson: unknownPayload.pilotageEffect,
+        humanDecisionCreated: unknownPayload.humanDecisionCreated,
+      });
+      return {
+        ...unknownPayload,
+        humanDecisionCreated: resolved.humanDecisionCreated,
+        pilotageEffect: resolved.pilotageEffect,
+      };
+    }
+  }
+
   const assistantId = newId("msg");
 
   let capitalisation: Awaited<ReturnType<typeof maybeCapitalizeFromExchange>> = {
     capitalisations: [],
-    selectionMethod: "lexical-heuristic",
+    selectionMethod: "semantic-proposals",
     selectionLimit:
-      "Capitalisation heuristique — pas une autorité épistémique; LIVE COG requis pour qualification.",
+      "SEM-02: capitalisation depuis propositions Nora typées (d4.record_knowledge).",
     humanDecisionCreated: false,
     ownershipLost: false,
   };
@@ -646,25 +1258,56 @@ export async function postUserMessageAndNora(
   let documentSave: DocumentSaveResult | null = null;
   let documentSaveUnknown = false;
   let ownershipLostBeforeD4 = false;
-  const documentAct = qualifyDocumentAct(content);
-  const documentaryIntentSignal = hasDocumentaryWriteSignal(content);
-  const missionIntent = qualifyPublicationMission(content);
-  const studioIntent = qualifyStudioIntent(content);
+  const documentAct = studioProjection.documentAct;
+  const documentaryIntentSignal = documentAct.kind !== "NONE";
+  const missionIntent = studioProjection.publication;
+  const studioIntent = studioProjection;
   const clientIntentKey = clientTurnKey;
   const missionKeys = missionCorrelationKeys(clientIntentKey);
-  // Qualification visible before extract/D4 (E). Absence of obs must never invent D4.
+
+  let durableProposal: DocumentProposalExact | null = null;
+  /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
+  let proposalAuthorityConflict: string | null = null;
+  const sectionScopedConfront =
+    documentAct.kind === "REVISE" && Boolean(documentAct.sectionHint);
+  if (
+    reply.status === "COMPLETE" &&
+    qualification.documentProposal &&
+    !qualification.documentSource
+  ) {
+    const earlyCanonical = canonicalizeDocumentProposal(qualification.documentProposal);
+    if (earlyCanonical.ok) {
+      const earlyExtract = extractContractualDocumentProposal(reply.content);
+      const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract, {
+        sectionScoped: sectionScopedConfront,
+      });
+      if (!confront.ok) {
+        proposalAuthorityConflict = confront.reason;
+        durableProposal = null;
+      } else {
+        durableProposal = earlyCanonical.proposal;
+        if (confront.materialize) {
+          reply = {
+            ...reply,
+            content: `${reply.content.trimEnd()}\n\n${serializeProposalFence(durableProposal)}`,
+          };
+        }
+      }
+    }
+  }
+  // Semantic qualification visible before extract/D4. Absence of obs must never invent D4.
   emitDocumentActQualificationObs({
     requestId,
     operationId: reserved.operationId,
     generationId: reply.generationId,
     qualificationKind: documentAct.kind,
-    qualificationReason: documentAct.kind === "NONE" ? (documentAct.reason ?? null) : null,
+    qualificationReason: documentAct.kind === "NONE" ? "SEMANTIC_NONE" : null,
     documentaryIntentSignal,
     d4Attempted: false,
     d4Effect: null,
   });
 
-  if (reply.status === "COMPLETE") {
+  if (reply.status === "COMPLETE" && allowOwnerEffects) {
     if (turnRaceHooks.beforeD4Effect) {
       await turnRaceHooks.beforeD4Effect();
     }
@@ -677,6 +1320,7 @@ export async function postUserMessageAndNora(
           assistantText: reply.content,
           generationId: reply.generationId,
           userMessageId: reserved.userMessageId,
+          proposals: extractKnowledgeProposals(qualification),
           turnFence: {
             commandId: reserved.commandId,
             ownerToken: reserved.ownerToken,
@@ -700,11 +1344,83 @@ export async function postUserMessageAndNora(
       }
 
       if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
-        const extracted = extractContractualDocumentProposal(reply.content);
-        if (!extracted.ok) {
+        // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
+        type ExactProposal = { title: string; contentMarkdown: string; contentSha256: string };
+        let exact: ExactProposal | null = null;
+        let source:
+          | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
+          | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
+          kind: "SAME_TURN_SNAPSHOT",
+          commandId: reserved.commandId,
+        };
+        let createBlocked: string | null = null;
+        let extracted = extractContractualDocumentProposal(reply.content);
+
+        if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
+          const resolved = await resolveAssistantProposal({
+            pilotId,
+            preparationId,
+            assistantMessageId: qualification.documentSource.assistantMessageId,
+          });
+          if (!resolved.ok) {
+            createBlocked = resolved.reason;
+          } else {
+            const confront = confrontProposalWithFence(resolved.proposal, extracted);
+            if (!confront.ok) {
+              createBlocked = confront.reason;
+              proposalAuthorityConflict = confront.reason;
+              durableProposal = null;
+            } else {
+              exact = resolved.proposal;
+              durableProposal = exact;
+              source = {
+                kind: "ASSISTANT_MESSAGE",
+                assistantMessageId: resolved.assistantMessageId,
+              };
+              if (confront.materialize) {
+                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
+                extracted = extractContractualDocumentProposal(reply.content);
+              }
+            }
+          }
+        } else if (qualification.documentProposal) {
+          const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
+          if (!canonical.ok) {
+            createBlocked = canonical.reason;
+          } else {
+            const confront = confrontProposalWithFence(canonical.proposal, extracted);
+            if (!confront.ok) {
+              createBlocked = confront.reason;
+              proposalAuthorityConflict = confront.reason;
+              durableProposal = null;
+            } else {
+              exact = canonical.proposal;
+              durableProposal = exact;
+              if (confront.materialize) {
+                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
+                extracted = extractContractualDocumentProposal(reply.content);
+              }
+            }
+          }
+        } else if (extracted.ok) {
+          const canonical = canonicalizeDocumentProposal({
+            title: extracted.title,
+            contentMarkdown: extracted.content,
+          });
+          if (!canonical.ok) createBlocked = canonical.reason;
+          else {
+            exact = canonical.proposal;
+            durableProposal = exact;
+          }
+        } else {
+          createBlocked = extracted.reason;
+        }
+
+        if (createBlocked || !exact) {
+          // Pre-effect refuse — D4 not attempted (QA-16).
           documentSave = {
-            status: "FAILED",
-            reason: extracted.reason,
+            status: "NOT_EXECUTED",
+            reason: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
             act: "CREATE",
           };
           emitDocumentProposalObs({
@@ -712,45 +1428,90 @@ export async function postUserMessageAndNora(
             operationId: reserved.operationId,
             generationId: reply.generationId,
             act: "CREATE",
-            extracted,
-            refuseCode: extracted.reason,
+            extracted: extracted.ok
+              ? extracted
+              : {
+                  ok: false,
+                  reason: "DOCUMENT_PROPOSAL_MISSING",
+                  path: "none",
+                  fenceCount: 0,
+                  proposalChars: 0,
+                  proposalDigest16: null,
+                  bodyEndsWithNewline: false,
+                  sectionCount: 0,
+                },
+            refuseCode: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
             d4Attempted: false,
             d4Effect: null,
           });
         } else {
           try {
-            const saved = await savePreparationDocument(
-              pilotId,
-              preparationId,
-              extracted.title,
-              extracted.content,
-              undefined,
-              {
-                correlationKey: opts?.correlationKey
-                  ? `doc:${opts.correlationKey}`
-                  : missionIntent.wantsPublish
-                    ? missionKeys.document
-                    : `doc:${reply.generationId}`,
-                provenance: {
-                  sourceKind: "nora",
-                  generationId: reply.generationId,
-                  userMessageId: reserved.userMessageId,
-                  explicitRequest: true,
-                  act: "CREATE",
-                },
-                scope: "document",
-                turnFence: {
-                  commandId: reserved.commandId,
-                  ownerToken: reserved.ownerToken,
-                  beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-                },
-              },
+            const createIntents = effectIntents(qualification).filter(
+              (i) => i.capabilityId === "d4.create_document",
             );
-            documentSave = { ...saved, act: "CREATE" };
+            if (createIntents.length > 1) {
+              documentSave = {
+                status: "NOT_EXECUTED",
+                reason: "AMBIGUOUS_CREATE_INTENT",
+                act: "CREATE",
+              };
+            } else {
+              const createIntent = createIntents[0];
+              if (!createIntent) {
+                documentSave = {
+                  status: "NOT_EXECUTED",
+                  reason: "MISSING_CREATE_INTENT",
+                  act: "CREATE",
+                };
+              } else {
+                const clientSalt =
+                  opts?.correlationKey?.trim() ||
+                  (missionIntent.wantsPublish ? missionKeys.document : null);
+                const admitted = admitDocumentCommand({
+                  commandId: reserved.commandId,
+                  operationId: reserved.operationId,
+                  userMessageId: reserved.userMessageId,
+                  qualifiedIntentId: createIntent.id,
+                  action: "CREATE",
+                  preparationId,
+                  source,
+                  title: exact.title,
+                  contentMarkdown: exact.contentMarkdown,
+                  clientCorrelationSalt: clientSalt,
+                });
+                if (!admitted.ok) {
+                  documentSave = {
+                    status: "NOT_EXECUTED",
+                    reason: admitted.reason,
+                    act: "CREATE",
+                  };
+                } else {
+                  const sealed = await sealAndApplyDocumentCommand({
+                    pilotId,
+                    fence: {
+                      commandId: reserved.commandId,
+                      ownerToken: reserved.ownerToken,
+                      beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+                    },
+                    binding: admitted.binding,
+                  });
+                  if (!sealed.sealApplied) {
+                    documentSave = {
+                      status: "NOT_EXECUTED",
+                      reason: "BINDING_SEAL_FAILED",
+                      act: "CREATE",
+                    };
+                  } else {
+                    documentSave = { ...sealed.effect, act: "CREATE" };
+                  }
+                }
+              }
+            }
             if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
               ownershipLostBeforeD4 = true;
               documentSave = null;
             } else if (
+              documentSave &&
               documentSave.status !== "AVAILABLE" &&
               documentSave.status !== "CONFLICT"
             ) {
@@ -762,7 +1523,22 @@ export async function postUserMessageAndNora(
               operationId: reserved.operationId,
               generationId: reply.generationId,
               act: "CREATE",
-              extracted,
+              extracted: extracted.ok
+                ? extracted
+                : {
+                    ok: true,
+                    content: exact.contentMarkdown,
+                    title: exact.title,
+                    // Obs-only snapshot of authority proposal — explicit title, never LEGACY_UNTITLED.
+                    titleProvenance: "STRUCTURED" as const,
+                    path: "fence",
+                    fenceTag: "sfia-document",
+                    fenceCount: 1,
+                    proposalChars: exact.contentMarkdown.length,
+                    proposalDigest16: exact.contentSha256.slice(0, 16),
+                    bodyEndsWithNewline: exact.contentMarkdown.endsWith("\n"),
+                    sectionCount: 0,
+                  },
               refuseCode:
                 documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
                   ? null
@@ -815,11 +1591,77 @@ export async function postUserMessageAndNora(
               d4Effect: null,
             });
           } else {
-            const extracted = extractContractualDocumentProposal(reply.content);
-            if (!extracted.ok) {
+            let extracted = extractContractualDocumentProposal(reply.content);
+            let reviseProposalContent: string | null = null;
+            let reviseBlocked: string | null = null;
+            let reviseSource:
+              | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
+              | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
+              kind: "SAME_TURN_SNAPSHOT",
+              commandId: reserved.commandId,
+            };
+            if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
+              const resolved = await resolveAssistantProposal({
+                pilotId,
+                preparationId,
+                assistantMessageId: qualification.documentSource.assistantMessageId,
+              });
+              if (!resolved.ok) reviseBlocked = resolved.reason;
+              else {
+                const confront = confrontProposalWithFence(resolved.proposal, extracted, {
+                  sectionScoped: sectionScopedConfront,
+                });
+                if (!confront.ok) {
+                  reviseBlocked = confront.reason;
+                  proposalAuthorityConflict = confront.reason;
+                  durableProposal = null;
+                } else {
+                  reviseProposalContent = resolved.proposal.contentMarkdown;
+                  durableProposal = resolved.proposal;
+                  reviseSource = {
+                    kind: "ASSISTANT_MESSAGE",
+                    assistantMessageId: resolved.assistantMessageId,
+                  };
+                  if (confront.materialize) {
+                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(resolved.proposal)}`;
+                    extracted = extractContractualDocumentProposal(reply.content);
+                  }
+                }
+              }
+            } else if (qualification.documentProposal) {
+              const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
+              if (!canonical.ok) reviseBlocked = canonical.reason;
+              else {
+                const confront = confrontProposalWithFence(canonical.proposal, extracted, {
+                  sectionScoped: sectionScopedConfront,
+                });
+                if (!confront.ok) {
+                  reviseBlocked = confront.reason;
+                  proposalAuthorityConflict = confront.reason;
+                  durableProposal = null;
+                } else {
+                  reviseProposalContent = canonical.proposal.contentMarkdown;
+                  durableProposal = canonical.proposal;
+                  if (confront.materialize) {
+                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(canonical.proposal)}`;
+                    extracted = extractContractualDocumentProposal(reply.content);
+                  }
+                }
+              }
+            } else if (extracted.ok) {
+              reviseProposalContent = extracted.content;
+              const canonical = canonicalizeDocumentProposal({
+                title: extracted.title,
+                contentMarkdown: extracted.content,
+              });
+              if (canonical.ok) durableProposal = canonical.proposal;
+            } else {
+              reviseBlocked = extracted.reason;
+            }
+            if (reviseBlocked || !reviseProposalContent) {
               documentSave = {
-                status: "FAILED",
-                reason: extracted.reason,
+                status: "NOT_EXECUTED",
+                reason: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
                 documentId: target.documentId,
                 baseRevisionId: target.baseRevisionId,
                 act: "REVISE",
@@ -830,19 +1672,19 @@ export async function postUserMessageAndNora(
                 generationId: reply.generationId,
                 act: "REVISE",
                 extracted,
-                refuseCode: extracted.reason,
+                refuseCode: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
                 d4Attempted: false,
                 d4Effect: null,
               });
             } else {
               const merged = applyTargetedSectionRevision(
                 target.baseContent,
-                extracted.content,
+                reviseProposalContent,
                 documentAct.sectionHint,
               );
               if (!merged.ok) {
                 documentSave = {
-                  status: "FAILED",
+                  status: "NOT_EXECUTED",
                   reason: merged.reason,
                   documentId: target.documentId,
                   baseRevisionId: target.baseRevisionId,
@@ -867,7 +1709,7 @@ export async function postUserMessageAndNora(
                 );
                 if (!scopeCheck.ok) {
                   documentSave = {
-                    status: "FAILED",
+                    status: "NOT_EXECUTED",
                     reason: scopeCheck.reason,
                     documentId: target.documentId,
                     baseRevisionId: target.baseRevisionId,
@@ -885,33 +1727,81 @@ export async function postUserMessageAndNora(
                     d4Effect: null,
                   });
                 } else {
-                  const correlationKey = opts?.correlationKey
-                    ? `docrev:${opts.correlationKey}:${target.documentId}:${target.baseRevisionId}`
-                    : `docrev:${reply.generationId}:${target.documentId}:${target.baseRevisionId}`;
-                  const revised = await reviseDocument(pilotId, preparationId, {
-                    documentId: target.documentId,
-                    baseRevisionId: target.baseRevisionId,
-                    contentMarkdown: merged.content,
-                    correlationKey,
-                    scope: documentAct.sectionHint ? "section" : "document",
-                    sectionHint: documentAct.sectionHint ?? undefined,
-                    provenance: {
-                      sourceKind: "nora",
-                      generationId: reply.generationId,
-                      userMessageId: reserved.userMessageId,
-                      explicitRequest: true,
+                  const reviseIntents = effectIntents(qualification).filter(
+                    (i) => i.capabilityId === "d4.revise_document",
+                  );
+                  if (reviseIntents.length !== 1) {
+                    documentSave = {
+                      status: "NOT_EXECUTED",
+                      reason:
+                        reviseIntents.length === 0
+                          ? "MISSING_REVISE_INTENT"
+                          : "AMBIGUOUS_REVISE_INTENT",
+                      documentId: target.documentId,
+                      baseRevisionId: target.baseRevisionId,
                       act: "REVISE",
+                    };
+                  } else {
+                    const reviseIntent = reviseIntents[0]!;
+                    const clientSalt =
+                      opts?.correlationKey?.trim() ||
+                      `${target.documentId}:${target.baseRevisionId}`;
+                    const admitted = admitDocumentCommand({
+                      commandId: reserved.commandId,
+                      operationId: reserved.operationId,
+                      userMessageId: reserved.userMessageId,
+                      qualifiedIntentId: reviseIntent.id,
+                      action: "REVISE",
+                      preparationId,
+                      documentId: target.documentId,
+                      baseRevisionId: target.baseRevisionId,
                       sectionHint: documentAct.sectionHint,
-                    },
-                  });
-                  documentSave = {
-                    ...revised,
-                    act: "REVISE",
-                    baseRevisionId:
-                      "baseRevisionId" in revised && typeof revised.baseRevisionId === "string"
-                        ? revised.baseRevisionId
-                        : target.baseRevisionId,
-                  };
+                      source: reviseSource,
+                      title: target.title,
+                      contentMarkdown: merged.content,
+                      clientCorrelationSalt: clientSalt,
+                    });
+                    if (!admitted.ok) {
+                      documentSave = {
+                        status: "NOT_EXECUTED",
+                        reason: admitted.reason,
+                        documentId: target.documentId,
+                        baseRevisionId: target.baseRevisionId,
+                        act: "REVISE",
+                      };
+                    } else {
+                      const sealed = await sealAndApplyDocumentCommand({
+                        pilotId,
+                        fence: {
+                          commandId: reserved.commandId,
+                          ownerToken: reserved.ownerToken,
+                          beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+                        },
+                        binding: admitted.binding,
+                      });
+                      if (!sealed.sealApplied) {
+                        documentSave = {
+                          status: "NOT_EXECUTED",
+                          reason: "BINDING_SEAL_FAILED",
+                          documentId: target.documentId,
+                          baseRevisionId: target.baseRevisionId,
+                          act: "REVISE",
+                        };
+                      } else {
+                        const revised = sealed.effect;
+                        documentSave = {
+                          ...revised,
+                          act: "REVISE",
+                          baseRevisionId:
+                            "baseRevisionId" in revised &&
+                            typeof (revised as { baseRevisionId?: string }).baseRevisionId ===
+                              "string"
+                              ? (revised as { baseRevisionId: string }).baseRevisionId
+                              : target.baseRevisionId,
+                        };
+                      }
+                    }
+                  }
                   if (
                     documentSave.status !== "AVAILABLE" &&
                     documentSave.status !== "CONFLICT" &&
@@ -991,8 +1881,9 @@ export async function postUserMessageAndNora(
       : documentAct.kind !== "NONE" && !ownershipLostBeforeD4
         ? {
             act: documentAct.kind === "REVISE" ? "REVISE" : "CREATE",
-            status: "UNKNOWN",
-            reason: "NO_EFFECT_OBSERVED",
+            // S05 block / skipped owner path: not a transactional UNKNOWN.
+            status: "NOT_EXECUTED",
+            reason: pendingBlockReason ?? "NO_EFFECT_OBSERVED",
           }
         : // Loyal pre-effect: plausible write language, not qualified → NOT_EXECUTED (never fake FAILED).
           documentAct.kind === "NONE" &&
@@ -1002,7 +1893,7 @@ export async function postUserMessageAndNora(
           ? {
               act: "NONE",
               status: "NOT_EXECUTED",
-              reason: documentAct.reason ?? "NO_EXPLICIT_WRITE",
+              reason: "NO_EXPLICIT_WRITE",
             }
           : null;
 
@@ -1063,6 +1954,7 @@ export async function postUserMessageAndNora(
   }
 
   if (
+    allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
     documentEffectForAck?.status === "AVAILABLE" &&
     documentEffectForAck.documentId &&
@@ -1165,12 +2057,17 @@ export async function postUserMessageAndNora(
   }
 
   // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
+  // S05: never mutate preview / invent mission while unresolved work A blocks B effects.
   if (
+    allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
     studioIntent.wantsProjectCreate &&
     !ctx.project?.id
   ) {
-    const proposed = studioIntent.proposedProjectName?.trim() || "Nouveau projet";
+    const proposed =
+      (studioIntent.proposedProjectName?.trim()
+        ? studioIntent.proposedProjectName.trim()
+        : null) || "Nouveau projet";
     try {
       await updatePreview(
         pilotId,
@@ -1232,6 +2129,26 @@ export async function postUserMessageAndNora(
     } else {
       missionProjection = carriedMission;
     }
+  }
+
+  // P1: PREPARE-only conflict must be observable without D4 mutation or silent rewrite.
+  if (
+    proposalAuthorityConflict &&
+    !documentSave &&
+    !ownershipLostBeforeD4 &&
+    documentAct.kind === "NONE"
+  ) {
+    documentSave = {
+      status: "NOT_EXECUTED",
+      reason: proposalAuthorityConflict,
+    };
+  }
+
+  // P1: never strip+reinject when concurrent fence was invalid or divergent.
+  if (durableProposal && !ownershipLostBeforeD4 && !proposalAuthorityConflict) {
+    const narrative = stripContractualDocumentFences(assistantBody);
+    const fenced = serializeProposalFence(durableProposal);
+    assistantBody = [narrative.trimEnd(), fenced].filter((s) => s.length > 0).join("\n\n");
   }
 
   const assistantContentForCommit = ownershipLostBeforeD4
@@ -1313,10 +2230,24 @@ export async function postUserMessageAndNora(
       notes: reply.streamingNotes ?? null,
     },
     knowledgeSelection: {
-      ...knowledge.counts,
-      selectionMethod: knowledge.selectionMethod,
-      selectionLimit: knowledge.selectionLimit,
+      ...knowledgeForNora.counts,
+      selectionMethod: knowledgeForNora.selectionMethod,
+      selectionLimit: knowledgeForNora.selectionLimit,
+      role: "pre_generation_context" as const,
+      selectedAcquisIds: knowledgeForNora.selectedAcquisIds,
+      selectedOpenPointIds: knowledgeForNora.selectedOpenPointIds,
     },
+    knowledgeResumeHints: knowledgeResumeHints
+      ? {
+          ...knowledgeResumeHints.counts,
+          selectionMethod: knowledgeResumeHints.selectionMethod,
+          selectionLimit: knowledgeResumeHints.selectionLimit,
+          role: "post_qualification_resume_only" as const,
+          selectedAcquisIds: knowledgeResumeHints.selectedAcquisIds,
+          selectedOpenPointIds: knowledgeResumeHints.selectedOpenPointIds,
+          note: "Indice de reprise — n'a pas nourri la réponse déjà générée",
+        }
+      : null,
     capitalisation: ownershipLostBeforeD4
       ? (unknownCapReconstituted?.capitalisation ?? [])
       : confirmedCapitalisations,
@@ -1331,6 +2262,14 @@ export async function postUserMessageAndNora(
     humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
     pilotageEffect: pilotageEffectFromAuthority(authority),
     missionProjection,
+    nextTurnKind,
+    pendingEffectBlocked,
+    pendingBlockReason,
+    unresolvedPendingClientTurnKey:
+      blockingSibling?.clientTurnKey ??
+      blockingMission?.clientIntentKey ??
+      clientPendingHint,
+    semanticQualificationStatus: qualification.status,
   };
 
   if (turnRaceHooks.beforeTerminalCommit) {

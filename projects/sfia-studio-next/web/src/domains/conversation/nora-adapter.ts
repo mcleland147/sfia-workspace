@@ -17,6 +17,13 @@ import {
 import { buildNoraGitReadTools } from "./git-read-tools";
 import { emitObs, newAttemptId } from "@/lib/observability";
 import { isStudioError } from "@/lib/http-errors";
+import { fixtureSemanticQualify } from "./fixture-semantic-qualify";
+import {
+  NoraTurnQualificationSchema,
+  unavailableQualification,
+  validateNoraTurnQualification,
+  type NoraTurnQualification,
+} from "./semantic-qualification";
 
 export type NoraGenerateInput = {
   userText: string;
@@ -72,6 +79,11 @@ export type NoraGenerateResult = {
   coverageNotes?: string;
   /** CKI delivery level actually observed for this generation. */
   ckiDelivery?: string;
+  /**
+   * Canonical semantic qualification for this turn (TV-01).
+   * Never an authorization. Absent/invalid → treat as UNAVAILABLE (no lexical fallback).
+   */
+  qualification: NoraTurnQualification;
 };
 
 const SYSTEM_INSTRUCTIONS = [
@@ -102,6 +114,10 @@ const SYSTEM_INSTRUCTIONS = [
   "- Production documentaire: seulement si le Pilote le demande explicitement et positivement.",
   "- Une négation (« ne crée pas », « ne révise pas »), une question informative ou une hypothèse n'autorisent aucune écriture D4.",
   "- Distingue toujours rédaction proposée et sauvegarde confirmée. Tu n'affirmes jamais qu'un document est « enregistré », « non enregistré », créé ou révisé : seul le bloc applicatif D4 post-effet (Résultat applicatif D4) porte cette vérité.",
+  "- Outils Nora: lecture seule (connaissance, historique, Git lecture). L'absence d'outil d'écriture Nora ne signifie PAS que Studio ne peut pas réaliser D4.",
+  "- Studio est le propriétaire de l'admission et de la mutation documentaire. Si le Pilote autorise explicitement un CREATE/REVISE D4, fournis une qualification QUALIFIED avec intent REQUEST_EFFECT et documentProposal (ou documentSource), même dans une préparation sans projet.",
+  "- Sas / préparation sans projet: la création D4 rattachée à la préparation peut être admissible ; la création de projet D2 n'est PAS un préalable universel. Ne choisis pas UNAVAILABLE uniquement parce que projectId est absent.",
+  "- UNAVAILABLE uniquement lorsqu'une capacité est réellement indisponible ou que la qualification ne peut pas être établie — pas comme substitut à « je n'ai pas d'outil d'écriture ».",
   "- Contrat proposition D4: place UNIQUEMENT le Markdown documentaire destiné à D4 dans UNE fence dont le tag exact est `sfia-document` (```sfia-document … ``` ou ~~~sfia-document). Les fences `markdown`/`md`/`mdx` illustratives ne sont PAS des propositions D4. Hors fence: explications, compte rendu post-exécution, réserves. Une seule fence `sfia-document` par réponse; elle doit être correctement fermée (un bloc de code interne plus court ne la termine pas).",
   "- Révision ciblée: dans la fence, fournis la section demandée mise à jour (titre ATX inclus); ne réécris pas les autres sections; ne place aucun compte rendu opérationnel ni statut transactionnel dans la fence.",
   "- Provenance Git: un SHA de contenu (blob) n'est jamais un SHA de commit; cite blobSha et commitSha séparément lorsqu'ils sont fournis par les outils; n'invente jamais d'URL /blob/{blobSha}/… ; utilise permalink seulement si commitShaVerified=true.",
@@ -167,6 +183,7 @@ function boundaryFail(
     attempts: [],
     toolCallsObserved: 0,
     d4CharsReturned: 0,
+    qualification: unavailableQualification(reason),
   };
 }
 
@@ -271,6 +288,16 @@ async function fixtureReply(
       "Décisions/restrictions/CKI fournis comme sources. Nora n'en tire aucune autorité.\n";
   }
 
+  const qualification = fixtureSemanticQualify(input.userText);
+  // Exact scenario replyDraft wins; default/unknown keeps the rich fixture body
+  // (Level A / document fence / comparative) while envelope stays effect-free.
+  const defaultNoEffect = qualification.intents.some((i) =>
+    i.constraints.includes("FIXTURE_DEFAULT_NO_EFFECT"),
+  );
+  if (!qualification.replyDraft.trim() || defaultNoEffect) {
+    qualification.replyDraft = body;
+  }
+
   emitObs({
     event_name: "d3.nora.fixture_complete",
     component: "d3.nora_adapter",
@@ -285,6 +312,8 @@ async function fixtureReply(
       profile: policy.profile,
       tool_calls: toolCallsObserved,
       profile_type_detail: policy.profileType,
+      qualification_status: qualification.status,
+      effect_intents: qualification.intents.filter((i) => i.mode === "REQUEST_EFFECT").length,
     },
   });
 
@@ -295,7 +324,7 @@ async function fixtureReply(
     streamingProvisional: false,
     streamingAttempted: false,
     streamingDelivered: false,
-    content: body,
+    content: qualification.replyDraft || body,
     policy,
     modelRequested: policy.modelRequested,
     modelApplied: "deterministic-fixture",
@@ -313,6 +342,7 @@ async function fixtureReply(
     toolCallsObserved,
     d4CharsReturned,
     coverageNotes: toolNotes || undefined,
+    qualification,
   };
 }
 
@@ -363,7 +393,8 @@ async function runLiveWithTools(
     remainingChars: policy.budgets.maxD4CharsReturned,
   };
 
-  let tools: Awaited<ReturnType<typeof buildNoraD4Tools>> = [];
+  // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
+  let tools: unknown[] = [];
   if (policy.toolAllowlist.length > 0 && input.toolScope) {
     const scope: D4ToolScope = {
       pilotId: input.toolScope.pilotId,
@@ -373,6 +404,18 @@ async function runLiveWithTools(
       budget: initialBudget,
     };
     tools = await buildNoraD4Tools(scope);
+    if (
+      policy.toolAllowlist.includes("search_conversation_history") ||
+      policy.toolAllowlist.includes("read_conversation_messages")
+    ) {
+      const { buildNoraHistoryTools } = await import("./history-tools-sdk");
+      const historyTools = await buildNoraHistoryTools({
+        pilotId: input.toolScope.pilotId,
+        preparationId: input.toolScope.preparationId,
+        budget: initialBudget,
+      });
+      tools = [...tools, ...historyTools];
+    }
     if (input.toolScope.projectId) {
       const gitTools = await buildNoraGitReadTools({
         pilotId: input.toolScope.pilotId,
@@ -385,14 +428,35 @@ async function runLiveWithTools(
     }
   }
 
+  const QUALIFICATION_INSTRUCTIONS = [
+    SYSTEM_INSTRUCTIONS,
+    "",
+    "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
+    "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
+    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
+    "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
+    "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
+    "- Ne combine jamais documentSource et documentProposal dans le même tour.",
+    "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
+    "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
+    "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
+    "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
+    "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
+    "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
+    "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
+    "- Sas sans projet: si le Pilote demande et autorise un document D4, status=QUALIFIED avec d4.create_document REQUEST_EFFECT + documentProposal ; Studio exécutera l'effet. Ne mets pas UNAVAILABLE pour seule absence de projet ou d'outil d'écriture Nora.",
+  ].join("\n");
+
   const agent = new Agent({
     name: "Nora",
-    instructions: SYSTEM_INSTRUCTIONS,
+    instructions: QUALIFICATION_INSTRUCTIONS,
     model: NORA_STUDY_MODEL,
     modelSettings: {
       reasoning: { effort: policy.effortRequested },
     },
-    tools,
+    // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
+    tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
+    outputType: NoraTurnQualificationSchema,
   });
 
   const prompt = buildPrompt(input, policy);
@@ -404,6 +468,7 @@ async function runLiveWithTools(
   let streamingDelivered = false;
   let streamingNotes = "";
   let content = "";
+  let qualification: NoraTurnQualification = unavailableQualification("NOT_YET_QUALIFIED");
   let providerContacted: "YES" | "NO" | "UNCERTAIN" = "NO";
 
   try {
@@ -442,41 +507,44 @@ async function runLiveWithTools(
         completed?: Promise<unknown>;
       };
 
+      // Drain structured stream without exposing JSON fragments as Nora prose (A3).
       if (typeof maybeStream.toTextStream === "function") {
         const textStream = maybeStream.toTextStream({ compatibleWithNodeStreams: false });
-        let buf = "";
-        for await (const chunk of textStream) {
+        for await (const _chunk of textStream) {
           streamingDelivered = true;
           providerContacted = "YES";
-          buf += chunk;
-          input.onProvisionalChunk?.(chunk);
         }
-        content = buf.trim();
         if (maybeStream.completed) await maybeStream.completed;
-        if (!content && maybeStream.finalOutput != null) {
-          content =
-            typeof maybeStream.finalOutput === "string"
-              ? maybeStream.finalOutput.trim()
-              : String(maybeStream.finalOutput).trim();
-        }
         streamingNotes = streamingDelivered
-          ? "stream_fragments_received"
-          : "stream_invoked_no_chunks_finalOutput_used";
+          ? "structured_stream_drained_no_provisional_json"
+          : "structured_stream_no_chunks";
+      } else if (maybeStream.completed) {
+        await maybeStream.completed;
+        providerContacted = "YES";
+        streamingNotes = "structured_completed_without_text_stream";
       } else if (maybeStream.finalOutput != null) {
         providerContacted = "YES";
-        content =
-          typeof maybeStream.finalOutput === "string"
-            ? maybeStream.finalOutput.trim()
-            : String(maybeStream.finalOutput).trim();
-        streamingNotes = "stream_true_without_toTextStream_finalOutput";
+        streamingNotes = "structured_finalOutput_without_stream";
       } else {
-        streamingNotes = "stream_result_shape_unrecognized";
+        streamingNotes = "structured_result_shape_unrecognized";
+      }
+
+      const validated = validateNoraTurnQualification(maybeStream.finalOutput);
+      if (validated.ok) {
+        qualification = validated.value;
+        content = qualification.replyDraft.trim();
+        providerContacted = "YES";
+      } else {
+        // TV-05: no lexical fallback on invalid structured output.
+        qualification = unavailableQualification(validated.reason);
+        content = qualification.replyDraft;
+        streamingNotes = `${streamingNotes}|QUALIFICATION_${validated.reason}`;
       }
 
       attempts.push({
         attemptId: streamAttemptId,
         kind: "stream",
-        outcome: content ? "SUCCESS" : "UNKNOWN",
+        outcome: validated.ok && content ? "SUCCESS" : "UNKNOWN",
         notes: streamingNotes,
         providerContacted,
       });
@@ -515,6 +583,7 @@ async function runLiveWithTools(
         attempts,
         toolCallsObserved: policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls,
         d4CharsReturned: policy.budgets.maxD4CharsReturned - initialBudget.remainingChars,
+        qualification: unavailableQualification(cat.category),
       };
     }
   } finally {
@@ -524,7 +593,7 @@ async function runLiveWithTools(
   const toolCallsObserved = policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
   const d4CharsReturned = policy.budgets.maxD4CharsReturned - initialBudget.remainingChars;
 
-  if (!content) {
+  if (!content || qualification.status === "UNAVAILABLE") {
     return {
       generationId,
       mode: "openai-agents-sdk-live",
@@ -533,7 +602,9 @@ async function runLiveWithTools(
       streamingAttempted,
       streamingDelivered,
       streamingNotes,
-      content: "Réponse Agents SDK vide — état UNKNOWN, aucun effet métier inventé.",
+      content:
+        content ||
+        "Réponse Agents SDK vide ou qualification indisponible — état UNKNOWN, aucun effet métier inventé.",
       policy,
       modelRequested: policy.modelRequested,
       modelApplied: null,
@@ -542,6 +613,10 @@ async function runLiveWithTools(
       attempts,
       toolCallsObserved,
       d4CharsReturned,
+      qualification:
+        qualification.status === "UNAVAILABLE"
+          ? qualification
+          : unavailableQualification("EMPTY_OR_INVALID_OUTPUT"),
     };
   }
 
@@ -563,6 +638,7 @@ async function runLiveWithTools(
     attempts,
     toolCallsObserved,
     d4CharsReturned,
+    qualification,
   };
 }
 
@@ -699,6 +775,7 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
       ],
       toolCallsObserved: 0,
       d4CharsReturned: 0,
+      qualification: unavailableQualification(cat.category),
     }, input.ckiDelivery, !cat.preContactLikely);
   }
 }

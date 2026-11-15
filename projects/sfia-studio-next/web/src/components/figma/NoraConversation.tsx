@@ -43,74 +43,78 @@ export function NoraConversation(props: {
               <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
             ) : null}
           </div>
-          <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
-            {n === 0 ? (
-              <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
-                <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
-                Première conversation — écrivez pour démarrer le fil du projet. Aucun message
-                fictif n&apos;est prérempli.
-              </div>
-            ) : null}
-            {props.messages.map((m) => (
-              <article
-                key={m.id}
-                className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
-              >
-                <div className="text-xs muted mb-1">
-                  {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
+          <div className="fig-nora-thread-shell" data-testid="nora-thread-shell">
+            <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
+              {n === 0 ? (
+                <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
+                  <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
+                  Première conversation — écrivez pour démarrer le fil du projet. Aucun message
+                  fictif n&apos;est prérempli.
                 </div>
-                {m.role === "assistant" ? (
-                  <SafeMarkdown content={m.content} />
-                ) : (
-                  <div className="whitespace-pre-wrap text-sm">{m.content}</div>
-                )}
-              </article>
-            ))}
-            {props.activity === "preparing" ? (
-              <div className="fig-alert" role="status">
-                Nora prépare une réponse…
-              </div>
-            ) : null}
-          </div>
-          <div className="fig-composer">
-            <textarea
-              className="textarea"
-              value={props.draft}
-              onChange={(e) => props.onDraft(e.target.value)}
-              placeholder="Écrire à Nora…"
-              aria-label="Message à Nora"
-              data-testid="thread-draft"
-            />
-            <div className="flex flex-wrap gap-2">
-              <button
-                className="btn"
-                disabled={props.busy || !props.draft.trim()}
-                onClick={props.onSend}
-                data-testid="thread-send"
-              >
-                Envoyer
-              </button>
-              <span className="text-xs muted self-center">Joindre un élément · non requis</span>
-            </div>
-            {props.unresolvedPending && props.onReconcile ? (
-              <div className="space-y-1" data-testid="thread-pending-banner">
-                <p className="text-xs muted">Tentative non résolue — réconcilier avant un nouveau tour.</p>
-                <button
-                  type="button"
-                  className="btn secondary"
-                  disabled={props.busy}
-                  data-testid="thread-reconcile-pending"
-                  onClick={props.onReconcile}
+              ) : null}
+              {props.messages.map((m) => (
+                <article
+                  key={m.id}
+                  className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
                 >
-                  Réconcilier la tentative en cours
+                  <div className="text-xs muted mb-1">
+                    {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
+                  </div>
+                  {m.role === "assistant" ? (
+                    <SafeMarkdown content={m.content} />
+                  ) : (
+                    <div className="whitespace-pre-wrap text-sm">{m.content}</div>
+                  )}
+                </article>
+              ))}
+              {props.activity === "preparing" ? (
+                <div className="fig-alert" role="status">
+                  Nora prépare une réponse…
+                </div>
+              ) : null}
+            </div>
+            <div className="fig-composer fig-composer-sticky" data-testid="nora-composer">
+              <textarea
+                className="textarea"
+                value={props.draft}
+                onChange={(e) => props.onDraft(e.target.value)}
+                placeholder="Écrire à Nora…"
+                aria-label="Message à Nora"
+                data-testid="thread-draft"
+              />
+              <div className="flex flex-wrap gap-2">
+                <button
+                  className="btn"
+                  disabled={props.busy || !props.draft.trim()}
+                  onClick={props.onSend}
+                  data-testid="thread-send"
+                >
+                  Envoyer
                 </button>
+                <span className="text-xs muted self-center">Joindre un élément · non requis</span>
               </div>
-            ) : null}
-            {props.status ? (
-              <p className="text-xs muted" data-testid="thread-nora-status">
-                {props.status}
-              </p>
-            ) : null}
+              {props.unresolvedPending && props.onReconcile ? (
+                <div className="space-y-1" data-testid="thread-pending-banner">
+                  <p className="text-xs muted">
+                    Tentative non résolue — réconcilier avant un nouveau tour.
+                  </p>
+                  <button
+                    type="button"
+                    className="btn secondary"
+                    disabled={props.busy}
+                    data-testid="thread-reconcile-pending"
+                    onClick={props.onReconcile}
+                  >
+                    Réconcilier la tentative en cours
+                  </button>
+                </div>
+              ) : null}
+              {props.status ? (
+                <p className="text-xs muted" data-testid="thread-nora-status">
+                  {props.status}
+                </p>
+              ) : null}
+            </div>
           </div>
         </div>
       </section>

@@ -328,6 +328,17 @@ describe("CR-02 thread pending lifecycle", () => {
     ).toBe(true);
   });
 
+  it("does not clear pending A when independent COMPLETE has preserveUnresolvedMetierPending", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "COMPLETE",
+        effectAttempted: false,
+        effectStatus: null,
+        preserveUnresolvedMetierPending: true,
+      }),
+    ).toBe(false);
+  });
+
   it("exclusive guard blocks a distinct new act over unresolved pending", () => {
     const pending = {
       content: "Ouvre le cycle cadrage.",
