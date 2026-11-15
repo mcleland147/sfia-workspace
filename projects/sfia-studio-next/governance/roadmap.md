@@ -1,5 +1,60 @@
 # SFIA Studio Next — Living Roadmap
 
+
+## ÉTAT COURANT R5 — 15 NOVEMBRE 2026 : ML4C intégré, clôture documentaire en cours
+
+**Source Git :** `mcleland147/sfia-workspace`
+**Baseline intégrée :** `main@05e71a7166562211b1c8c168a40dcd35e4f8c8a3`
+**Décision Morris :** ML4C ACCEPTED WITH RESERVES — 15/11/2026
+**PR produit :** [#676](https://github.com/mcleland147/sfia-workspace/pull/676) — MERGED
+**Clôture documentaire :** PENDING jusqu'à intégration et vérification du dossier final
+
+### État d'avancement
+
+| Objet | Situation actuelle |
+| --- | --- |
+| R5 | IN PROGRESS |
+| ML4B | CLOSED WITH RESERVES — Gate B accepté |
+| ML4C — réception fonctionnelle | ACCEPTED WITH RESERVES |
+| ML4C — code et tests | MERGED IN MAIN via PR #676 |
+| ML4C — post-merge | VERIFIED WITH RESERVES — CI PASS, tree web identique, smoke 55 PASS |
+| ML4C — documentaire | CLOSURE PENDING, conditionné au merge du présent dossier |
+| ML4D | NOT STARTED |
+| Gate C | OPEN |
+| ML5 | Non engagé par cette décision |
+| R6 | NOT STARTED |
+| STABLE / release / ADOPTED | NON ACQUIS |
+
+### Références de preuve
+
+Le candidat `11f7077e` est intégré dans `main@05e71a71`, via un merge commit possédant pour parents `6cda86bd` et `11f7077e`.
+
+La CI Next pré-merge [43732809012](https://github.com/mcleland147/sfia-workspace/actions/runs/43732809012) et la CI post-merge [43736293441](https://github.com/mcleland147/sfia-workspace/actions/runs/43736293441) sont SUCCESS.
+
+Les preuves de qualification technique complémentaire du 15 novembre comprennent environ 432 tests PASS / 0 FAIL et une consolidation rapportée de 25 scénarios : 15 PASS techniques, 8 PARTIAL et 2 NOT PROVEN (lecture par niveau de preuve, cf. `S03-06` domaine/UI).
+
+Le journal UAT distingue 12 PASS Q4 et 16 PASS historiques non rejoués sur Q4. Ces preuves ne se cumulent pas en 53 PASS utilisateur sur le même candidat.
+
+### Réserves transmises
+
+Les réserves principales demeurent :
+- `S05-06` et `S05-08` : continuité/reprise et autorité de révocation non prouvées ;
+- session TTL, traitement des pannes et ENV-R09 ;
+- Git REAL applicatif et certaines preuves Nora LIVE ;
+- anomalies D4 de sérialisation et réserves UX identifiées.
+
+Les réserves fonctionnelles et de sécurité conservent leurs gates propres ; ML4D ne devient pas leur propriétaire par défaut.
+
+### Prochaine étape
+
+**Finaliser l'intégration documentaire ML4C**, publier la [décision Morris](decisions/2026-11-15-r5-ml4c-acceptation-cloture-avec-reserves.md) et vérifier le merge documentaire. La clôture formelle est conditionnée à cette vérification.
+
+**Prochain macro-lot de la trajectoire : ML4D — convergence UX/UI globale**, à qualifier puis engager sous mandat Morris distinct après clôture. Aucun travail ML4D n'est démarré par le présent dossier.
+
+Les instantanés datés antérieurs de cette Roadmap sont conservés comme historique et ne décrivent pas le présent état courant.
+
+---
+
 > **POINT DE SITUATION R5 — 12 NOVEMBRE 2026, AVANT PUBLICATION DU DOC GATE.** À cette date, la consolidation documentaire ML4C est préparée sur la branche locale `docs/next-ml4c-documentary-gate-20261112`, issue de `main@6d237452680640324eeadbb18f4601fd7de99850`. Elle reprend les décisions et contrats validés en contenu par Morris depuis `docs/next-r5-ml4c-cp2-preparation-20261111@8b41fe1640a61f531a449ced67b1d27f7dbace1e`. **Ce bloc est un instantané daté avant commit, push et PR documentaire ; il ne prétend pas décrire leur état après publication.** La trajectoire demeure **ML4B → ML4C → ML4D → Gate C → ML5 → R6**. Gate C reste **OPEN**. Aucune acceptation ML4C, adoption, qualification READY FOR REAL, promotion STABLE ou release n'est acquise.
 
 ### Correspondance avec le candidat produit — instantané du 12/11/2026
