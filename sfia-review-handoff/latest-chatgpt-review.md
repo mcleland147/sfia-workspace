@@ -205,7 +205,10 @@ Classification contrat : concurrence runtime **confirmée** (mécanisme) + synch
 | Message | `docs(review-handoff): diagnose ML4C PR678 Playwright pilotage nav race` |
 | Worktree | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` |
 
-*(SHAs après publish.)*
+| Commit tip | `bc9d0737886992d916df5c858cc112f0a8820331` |
+| Blob | `ba04e962923a8a27a5393c223bd7836172ef41c0` |
+| Verdict publisher | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Retour produit | `fix/next-semantic-intent-convergence-20261112` @ `11f7077e` |
 
 ---
 
