@@ -1,645 +1,236 @@
-# SFIA Review Pack FULL — ML4C REVISE D4 PROPOSAL_SOURCE_CONFLICT remediation
+# SFIA Review Pack FULL — ML4C REVISE fence title provenance reserves
 
-## A. Date / heure
-2026-11-15 05:05:05 CET
+## A. GO / cycle / profil / date
+- Date : 2026-11-15 06:23:20 CET
+- GO Morris : 15 novembre 2026 — clôture réserves intégrité REVISE D4
+- Cycle projet 6 — Delivery / qualification corrective
+- Profil CRITICAL — RUN / INC borné
+- Produit : `projects/sfia-studio-next/` R5 / ML4C
+- Classification : PATCH corrective candidate — 0.0.0-dev — NO RELEASE — STABLE NOT AVAILABLE
+- LIVE : NOT RUN (ce cycle)
+- Interdit : push produit, PR, merge, RECETTE, ML4C ACCEPTED / Gate C CLOSED
 
-## B. GO / cycle / profil
-- GO Morris : 15 novembre 2026 — remédiation ciblée REVISE D4 LIVE-03
-- Cycle projet 6 — Delivery correctif intégré
-- Profil CRITICAL — typologie INC / RUN
-- Produit : `projects/sfia-studio-next/` — R5 / ML4C
-- Classification : PATCH corrective candidate — NO RELEASE — STABLE NOT AVAILABLE
-- Interdit : push produit, PR #676, merge, RECETTE, ML4C ACCEPTED / Gate C CLOSED
-
-## C. Git initial / final
-### Initial (avant édition)
+## B. Git Truth initial / final
+### Initial
 | Champ | Valeur |
 | --- | --- |
 | toplevel | `/Users/morris/Projects/sfia-workspace-next-semantic-intent-20261112` |
 | branche | `fix/next-semantic-intent-convergence-20261112` |
-| HEAD | `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` |
-| tree | `587ea8899550e8ee86376a8de4bb5176b52eaff1` |
-| parent | `6c50a1446734341b43a4f110aacde21c727fb2b1` |
-| status | clean produit ; `.tmp-sfia-review/chatgpt-review.md` dirty (pack) |
-| main distant observé | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
-| PR #676 HEAD | `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0` OPEN / NOT MERGED |
+| HEAD | `c777358eacefa94c33b04a4d590ce9da7a8c525c` |
+| tree | `54e45e8c66e3167f051b53c102d016d5a5ffaf92` |
+| parent | `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` |
+| dirty | `.tmp-sfia-review/chatgpt-review.md` seul |
+| main distant | `6cda86bde4aa450abb1d23eedd370a9004ddcbc1` |
+| handoff distant | `37dea98c125e68afe49224187fb277bda6448fa8` blob `b892e70d` |
+| PR #676 | OPEN / NOT MERGED @ `67bf6b0b…` |
 
 ### Final
 | Champ | Valeur |
 | --- | --- |
-| HEAD | `c777358eacefa94c33b04a4d590ce9da7a8c525c` |
-| tree | `54e45e8c66e3167f051b53c102d016d5a5ffaf92` |
-| parent | `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` |
-| message | `fix(next): reconcile D4 revise proposal and source contract` |
+| HEAD | `11f7077edd08f1a0c680b6b920f20dbaf76c7bed` |
+| tree | `71e052cf53232c70153a6056d948b97fb401b175` |
+| parent | `c777358eacefa94c33b04a4d590ce9da7a8c525c` |
+| message | `fix(next): preserve explicit fence title in document admission` |
 | push produit | NON |
-| dirty hors pack | `.tmp-sfia-review/chatgpt-review.md` seul |
 
-## D. Sources et refs
-- Conception corrective : branche `docs/next-ml4c-d4-continuity-corrective-design-20261114` @ `c883db07`
-- Handoff LIVE précédent : `sfia/review-handoff@7433bdfd` blob `0b1e87c8`
-- Code local HEAD `a30d47d2` prime pour diagnostic/implémentation
-- Allowlist respectée : `document-command.ts`, `document-act.ts`, `service.ts` (+ tests + as-built + delivery-history)
-- `nora-adapter.ts` : **non modifié** (cause non située)
+## C. Sources Git / refs / blobs
+- Conception corrective : `c883db07` (docs/next-ml4c-d4-continuity…)
+- ENV-01 main blob `14b61f0d…` ; versioning blob `8bc93e0f…`
+- Handoff précédent : `37dea98c` / `b892e70d`
+- Exécutable avant cycle : `c777358e` (vérifié)
 
-## E. ENV-01
-| Lane | Port | DB | Mutation |
+## D. ENV-01
+| Lane | Port / DB | Mutation ce cycle |
+| --- | --- | --- |
+| DEV | `:3100` / `sfia_next_dev@:5433` | aucune (LIVE NOT RUN) |
+| E2E | `:3101` / `sfia_next_e2e` | Playwright ciblé |
+| RECETTE | `:3200` / `sfia_next_recette_ml4@:5434` | **aucune** |
+
+## E. Audit du parsing
+| Cas | parseFenceMeta | title extrait | titleProvenance (après fix) |
 | --- | --- | --- | --- |
-| DEV LIVE | `127.0.0.1:3100` | `sfia_next_dev` @ `:5433` | LIVE REVISE borné |
-| E2E fixture | `127.0.0.1:3101` | `sfia_next_e2e` | Playwright ciblé |
-| RECETTE | `127.0.0.1:3200` | `sfia_next_recette_ml4` @ `:5434` | **aucune** |
-| Flags LIVE | `STUDIO_LANE=DEV`, `STUDIO_FORCE_NORA_FIXTURE=0`, `STUDIO_E2E` unset, `SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY` | | |
-| Identité LIVE | Pilot A DEV / `pilot_10ad4dd9-…` / `dev-test-login` (pas OAuth proof) | | |
+| A LEGACY sans tokens | LEGACY | sentinel ou H1 | LEGACY_UNTITLED / LEGACY_H1 |
+| B STRUCTURED title-b64 | STRUCTURED | titre décodé | STRUCTURED |
+| C triad chars/pair | STRUCTURED ou INVALID | — | — |
+| D STRUCTURED titre=`Document Nora` | STRUCTURED | Document Nora | STRUCTURED |
+| E STRUCTURED autre titre | STRUCTURED | autre | STRUCTURED |
+| F metadata malformée | INVALID | — | extract FAIL |
 
-## F. Identités LIVE-03
-| Champ | Valeur |
-| --- | --- |
-| USER | « Révise uniquement la section Option B du document doc_c78468e6-… … REVISION-CANARI-GAMMA-91 » |
-| operationId | `op_73c39114-1971-485b-9538-8971933cb468` |
-| generationId | `gen_32a649f2-da87-44a8-917b-923322fbf63e` |
-| documentId | `doc_c78468e6-6da4-4d0b-a928-99568e10b7af` |
-| baseRevisionId | `drev_1e0061da-00a4-41db-8fb3-f60913791e97` v1 |
-| prep / pilot | `prep_25257fcb-…` / `pilot_10ad4dd9-…` |
-| qualification | QUALIFIED / REVISE / sectionHint=`Option B` |
-| documentSource | null (same-turn) |
-| documentSave | NOT_EXECUTED / PROPOSAL_SOURCE_CONFLICT |
-| effet D4 | AUCUNE écriture ; v1 seule ; canari BETA présent |
+Informations perdues avant fix : le kind STRUCTURED/LEGACY n’était pas porté sur `DocumentProposalExtract` ; seul le texte de titre survivait → confusion sentinel / titre déclaré.
 
-## G. Proposition canonique (LIVE-03)
-- title : `Options de solution DEV LIVE`
-- contentMarkdown : `## Option B\n\nÀ préciser.\n\nREVISION-CANARI-GAMMA-91`
-- len JS : 50 ; endsWith LF : false
-- SHA-256 contenu : `21024a8824a7092501716fe932fc3947da9a7a1512f76b1ce89361c68fe50497`
-- contentSha256 (title\0content) : `862fd540ab2914551aa461c2ce7ca63974fc80fcbf2c320a3e9d8dd74ffb2239`
+## F. Qualification provenance titre
+1. Absence de titre contractuel déclaré → LEGACY + pas de `# H1` → `LEGACY_UNTITLED`.
+2. Titre synthétisé par extracteur → sentinel `Document Nora` uniquement dans ce cas.
+3. Titre réellement déclaré en metadata → `STRUCTURED` (même si texte = sentinel).
+4. H1 documentaire LEGACY → `LEGACY_H1`.
+5. Contenu + empreinte : inchangés ; confrontation reste octet/caractère stricte hors LF structurel.
 
-## H. Fence extraite (LIVE-03)
-- kind : LEGACY (pas de title-b64/chars/pair-sha256)
-- title extrait : `Document Nora` (sentinel)
-- content : proposition + exactement 1 LF terminal
-- len JS : 51
-- SHA-256 contenu : `b9347e9b11cdf00d24a34b744c0ed33de47a034eb101a5812714d70fad8e798d`
-- H1 documentaire (`# …`) : absent ; `## Option B` présent
+## G. Reproduction négative AVANT patch
+Authority title = `Options de solution DEV LIVE` ; body sectionnel exact.
+Fence STRUCTURED `title-b64=Document Nora` + même corps ; `sectionScoped=true`.
 
-## I. Matrice de comparaison
-| SOURCE A | SOURCE B | IDENTITÉ | CONTENU | EMPREINTE | DIFFÉRENCE | CAUSE | FRONTIÈRE | ACTION | RISQUE RÉSIDUEL |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| documentProposal | fence LEGACY | titres ≠ (`Options…` vs `Document Nora`) | corps ≈ (+1 LF) | SHA ≠ | titre + LF | **B** (+A) | confront pré-admission | sectionScoped LEGACY untitled | CREATE non scopé reste strict |
-| proposition | v1 Option B | section cible | fusion OK après admit | — | — | — | applyTargetedSectionRevision | réutiliser | hors cible inchangé |
-| fence | document entier | portées ≠ | section vs full | — | — | B | ne pas égaliser aveuglément | sectionScoped only | pas d’égalité sémantique |
+Avant correctif (@ `c777358e`) :
+- `parseFenceMeta` → STRUCTURED
+- extract title = `Document Nora`, pas de H1
+- `isLegacyUntitledSectionFence` → **true** (texte seul)
+- `confrontProposalWithFence(..., {sectionScoped:true})` → **`{ ok: true }`** — FAILLE
 
-## J. Première différence exacte
-1. Titre : index 0 — `"Options de solution DEV LIVE"` vs `"Document Nora"`.
-2. Contenu : à l’offset 50 — proposition EOF vs fence `\n` (LF structurel unique).
+Après correctif (@ `11f7077e`) :
+- `titleProvenance` = `STRUCTURED`
+- `isLegacyUntitledSectionFence` → **false**
+- confront → **`PROPOSAL_SOURCE_CONFLICT`**
 
-## K. Qualification de la cause
-**CAUSE B** (représentations de portée titre différente : titre documentaire d’autorité vs sentinel LEGACY sans H1)
-**CAUSE A** secondaire (LF structurel seul sur le corps ; bloqué car `isStructuralFenceSeparatorOnly` exigeait l’égalité des titres).
+LEGACY réellement sans titre : toujours ADMIT sous sectionScoped.
 
-Non retenues : C (pas de confusion H1 métier — absence de H1), D (pas de divergence substantielle du corps), E (`documentSource` null), F (pas de mutation de sérialisation hors LF fence), G (preuves suffisantes).
+## H. Analyse de risque
+Sévérité : CRITICAL pour intégrité source — une concurrente explicitement titrée sentinel pouvait être admise.
+Portée : pré-admission confront uniquement ; pas de schéma / S05 / D4 owner.
+Blast : CREATE non sectionné déjà strict ; REVISE LEGACY LIVE-03 path conservé.
 
-## L. Correction retenue
-`confrontProposalWithFence(authority, extracted, { sectionScoped })` :
-- si `sectionScoped` (REVISE + sectionHint) **et** fence LEGACY sans H1 documentaire (`title === LEGACY_UNTITLED_DOCUMENT_TITLE`),
-- admettre égalité de **contenu** exacte ou LF structurel seul (`requireTitleMatch: false`),
-- conserver le titre d’autorité ; **ne pas** supprimer `PROPOSAL_SOURCE_CONFLICT` ;
-- câblage dans `service.ts` (early + chemins REVISE).
+## I. Correctif et justification
+- Ajout interne `titleProvenance` sur extract réussi.
+- Exception sectionScoped uniquement si provenance `LEGACY_UNTITLED`.
+- Provenance absente → fail-closed.
+- Pas de nouveau format public de fence ; réutilise parseFenceMeta existant.
+- service.ts : snapshot obs CREATE sans fence porte `STRUCTURED` (titre d’autorité explicite).
 
-## M. Options écartées
-| Option | Motif d’écart |
-| --- | --- |
-| Softener global / trim / CRLF | Interdit ; affaiblirait CREATE et divergences réelles |
-| Changer extract LEGACY pour inventer le titre document | Seconde autorité / conjecture |
-| Ignorer la fence | Contournement du garde source |
-| Nouvelle meta / schéma / machine d’états | Hors mandat ; PRODUCT CONTRACT |
-| Contourner via D4 owner | Contournement propriétaire interdit |
-
-## N. Code modifié — diff complet utile
+## J. Diff code complet utile
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-index 33b2b447..e870a55f 100644
+index e870a55f..3ca58197 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-@@ -571,6 +571,13 @@ export type DocumentProposalExtract =
- /** Sole mutative proposal marker — exact first info-string token (case-insensitive). */
- export const DOCUMENT_PROPOSAL_TAG = "sfia-document";
-
+@@ -537,11 +537,22 @@ function matchSectionSpans(spans: SectionSpan[], hint: string): SectionSpan[] {
+  * outer contractual fence; truncated or unclosed proposals are refused.
+  * No lexical scrubbing of legitimate métier wording.
+  */
 +/**
-+ * LEGACY fence sentinel when the body has no document-level `# H1`.
-+ * Not a contractual document title — section-scoped REVISE may ignore it
-+ * when comparing against the durable document title on the proposal.
++ * Internal parsing provenance of the extracted title — not a durable business field.
++ * Distinguishes structured metadata titles from LEGACY H1 / untitled sentinel synthesis.
 + */
-+export const LEGACY_UNTITLED_DOCUMENT_TITLE = "Document Nora";
++export type DocumentProposalTitleProvenance =
++  | "STRUCTURED"
++  | "LEGACY_H1"
++  | "LEGACY_UNTITLED";
 +
- type FenceMarker = {
-   indent: number;
-   char: "`" | "~";
-@@ -912,7 +919,7 @@ export function extractContractualDocumentProposal(
+ export type DocumentProposalExtract =
+   | {
+       ok: true;
+       content: string;
+       title: string;
++      /** How the title was obtained from the fence source. */
++      titleProvenance: DocumentProposalTitleProvenance;
+       path: "fence";
+       fenceTag: string;
+       fenceCount: 1;
+@@ -901,6 +912,7 @@ export function extractContractualDocumentProposal(
+       ok: true,
+       content,
+       title,
++      titleProvenance: "STRUCTURED",
+       path: "fence",
+       fenceTag: DOCUMENT_PROPOSAL_TAG,
+       fenceCount: 1,
+@@ -916,10 +928,12 @@ export function extractContractualDocumentProposal(
+     return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
+   }
+   const titleLine = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
++  const title = titleLine || LEGACY_UNTITLED_DOCUMENT_TITLE;
    return {
      ok: true,
      content,
--    title: titleLine || "Document Nora",
-+    title: titleLine || LEGACY_UNTITLED_DOCUMENT_TITLE,
+-    title: titleLine || LEGACY_UNTITLED_DOCUMENT_TITLE,
++    title,
++    titleProvenance: titleLine ? "LEGACY_H1" : "LEGACY_UNTITLED",
      path: "fence",
      fenceTag: DOCUMENT_PROPOSAL_TAG,
      fenceCount: 1,
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
-index 940f4c7c..2c012fd0 100644
+index 2c012fd0..ae7a5842 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
-@@ -6,7 +6,10 @@ import { createHash } from "node:crypto";
- import { and, eq } from "drizzle-orm";
- import { db } from "@/db/client";
- import { conversationTurnCommands, conversations, messages } from "@/db/schema";
+@@ -281,13 +281,17 @@ export function hasDocumentLevelH1(content: string): boolean {
+ }
+
+ /**
+- * LEGACY fence that never claimed a document title — only the sentinel.
+- * Section-scoped REVISE proposals legitimately lack a document H1.
++ * LEGACY fence that never claimed a document title — only the untitled sentinel.
++ * Requires parser provenance `LEGACY_UNTITLED`: a STRUCTURED fence whose title
++ * text equals the sentinel is an explicit title claim and must not qualify.
++ * Missing provenance fails closed (no exception).
+  */
+ export function isLegacyUntitledSectionFence(extracted: {
+   title: string;
+   content: string;
++  titleProvenance?: "STRUCTURED" | "LEGACY_H1" | "LEGACY_UNTITLED";
+ }): boolean {
++  if (extracted.titleProvenance !== "LEGACY_UNTITLED") return false;
+   return (
+     extracted.title === LEGACY_UNTITLED_DOCUMENT_TITLE &&
+     !hasDocumentLevelH1(extracted.content)
+@@ -356,6 +360,8 @@ export function confrontProposalWithFence(
+     ok: true;
+     title: string;
+     content: string;
++    /** Present when extracted via parseur ; absent → no sectionScoped untitled exception. */
++    titleProvenance?: "STRUCTURED" | "LEGACY_H1" | "LEGACY_UNTITLED";
+   },
+   options?: ConfrontProposalFenceOptions,
+ ):
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index 5328ba58..8bcc322f 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -1529,6 +1529,8 @@ export async function postUserMessageAndNora(
+                     ok: true,
+                     content: exact.contentMarkdown,
+                     title: exact.title,
++                    // Obs-only snapshot of authority proposal — explicit title, never LEGACY_UNTITLED.
++                    titleProvenance: "STRUCTURED" as const,
+                     path: "fence",
+                     fenceTag: "sfia-document",
+                     fenceCount: 1,
+
+```
+
+## K. Diff tests complet utile
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts
+index 396d566e..2eb549d9 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts
+@@ -40,6 +40,7 @@ import { getConversationId, postUserMessageAndNora } from "@/domains/conversatio
+ import {
+   canonicalizeDocumentProposal,
+   contentSha256,
++  encodeTitleB64,
+   serializeProposalFence,
+   admitDocumentCommand,
+   resolveAssistantProposal,
+@@ -48,7 +49,10 @@ import {
+   loadSealedDocumentBinding,
+ } from "@/domains/conversation/document-command";
+ import { reserveTurnCommand, turnRaceHooks } from "@/domains/conversation/turn-command";
 -import { extractContractualDocumentProposal } from "@/domains/conversation/document-act";
 +import {
 +  extractContractualDocumentProposal,
 +  LEGACY_UNTITLED_DOCUMENT_TITLE,
 +} from "@/domains/conversation/document-act";
+ import { getDocumentRevision, listDocuments, savePreparationDocument } from "@/domains/document/service";
  import {
-   stashDocumentCommandBinding,
-   type TurnOwnershipFence,
-@@ -270,10 +273,32 @@ export function serializeProposalFence(proposal: DocumentProposalExact): string
-   return `${ticks}${info}\n${body}${ticks}\n`;
- }
-
-+/**
-+ * Document-level `# H1` (single hash + space). `## Section` does not qualify.
-+ */
-+export function hasDocumentLevelH1(content: string): boolean {
-+  return /^#\s+.+$/m.test(content);
-+}
-+
-+/**
-+ * LEGACY fence that never claimed a document title — only the sentinel.
-+ * Section-scoped REVISE proposals legitimately lack a document H1.
-+ */
-+export function isLegacyUntitledSectionFence(extracted: {
-+  title: string;
-+  content: string;
-+}): boolean {
-+  return (
-+    extracted.title === LEGACY_UNTITLED_DOCUMENT_TITLE &&
-+    !hasDocumentLevelH1(extracted.content)
-+  );
-+}
-+
- /**
-  * P1 — structural fence separator only (serializer contract).
-  * True iff extracted body equals canonical body + exactly one trailing LF,
-- * titles match, canonical does not already end with LF, and
-+ * titles match (unless requireTitleMatch=false for section-scoped LEGACY),
-+ * canonical does not already end with LF, and
-  * serialize→extract round-trip restores the canonical title/body/digest.
-  * Never trims or rewrites content; never accepts any other difference.
-  */
-@@ -281,9 +306,12 @@ export function isStructuralFenceSeparatorOnly(input: {
-   authority: DocumentProposalExact;
-   extractedTitle: string;
-   extractedContent: string;
-+  /** Default true. False only for section-scoped LEGACY untitled fences. */
-+  requireTitleMatch?: boolean;
- }): boolean {
-   const { authority, extractedTitle, extractedContent } = input;
--  if (extractedTitle !== authority.title) return false;
-+  const requireTitleMatch = input.requireTitleMatch !== false;
-+  if (requireTitleMatch && extractedTitle !== authority.title) return false;
-   if (authority.contentMarkdown.endsWith("\n")) return false;
-   if (extractedContent !== `${authority.contentMarkdown}\n`) return false;
-   if (contentSha256(extractedTitle, extractedContent) === authority.contentSha256) {
-@@ -304,10 +332,20 @@ export function isStructuralFenceSeparatorOnly(input: {
-   }
- }
-
-+export type ConfrontProposalFenceOptions = {
-+  /**
-+   * REVISE with a sectionHint: authority title is the durable document title;
-+   * LEGACY fence body may be section-scoped without a document H1, so the
-+   * sentinel title is not a contractual identity claim.
-+   */
-+  sectionScoped?: boolean;
-+};
-+
- /**
-  * P1 — confront authoritative proposal with a concurrent contractual fence.
-  * Fence MISSING → materialize; INVALID → refuse; exact match → accept;
-  * sole structural LF separator (serializer contract) → accept for canonical rewrite.
-+ * Section-scoped: LEGACY untitled fence may match on content (+ structural LF) only.
-  */
- export function confrontProposalWithFence(
-   authority: DocumentProposalExact,
-@@ -319,6 +357,7 @@ export function confrontProposalWithFence(
-     title: string;
-     content: string;
-   },
-+  options?: ConfrontProposalFenceOptions,
- ):
-   | { ok: true; materialize: boolean }
-   | { ok: false; reason: string } {
-@@ -345,6 +384,23 @@ export function confrontProposalWithFence(
-     // Accept: caller keeps canonical authority; later rewrite uses serializeProposalFence.
-     return { ok: true, materialize: false };
-   }
-+  // LIVE-03 / section REVISE: LEGACY fence without `# H1` synthesizes the
-+  // untitled sentinel. Content identity (exact or structural LF) still required.
-+  if (options?.sectionScoped && isLegacyUntitledSectionFence(extracted)) {
-+    if (extracted.content === authority.contentMarkdown) {
-+      return { ok: true, materialize: false };
-+    }
-+    if (
-+      isStructuralFenceSeparatorOnly({
-+        authority,
-+        extractedTitle: extracted.title,
-+        extractedContent: extracted.content,
-+        requireTitleMatch: false,
-+      })
-+    ) {
-+      return { ok: true, materialize: false };
-+    }
-+  }
-   return { ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" };
- }
-
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 234aef23..5328ba58 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -1268,6 +1268,8 @@ export async function postUserMessageAndNora(
-   let durableProposal: DocumentProposalExact | null = null;
-   /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
-   let proposalAuthorityConflict: string | null = null;
-+  const sectionScopedConfront =
-+    documentAct.kind === "REVISE" && Boolean(documentAct.sectionHint);
-   if (
-     reply.status === "COMPLETE" &&
-     qualification.documentProposal &&
-@@ -1276,7 +1278,9 @@ export async function postUserMessageAndNora(
-     const earlyCanonical = canonicalizeDocumentProposal(qualification.documentProposal);
-     if (earlyCanonical.ok) {
-       const earlyExtract = extractContractualDocumentProposal(reply.content);
--      const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract);
-+      const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract, {
-+        sectionScoped: sectionScopedConfront,
-+      });
-       if (!confront.ok) {
-         proposalAuthorityConflict = confront.reason;
-         durableProposal = null;
-@@ -1602,7 +1606,9 @@ export async function postUserMessageAndNora(
-               });
-               if (!resolved.ok) reviseBlocked = resolved.reason;
-               else {
--                const confront = confrontProposalWithFence(resolved.proposal, extracted);
-+                const confront = confrontProposalWithFence(resolved.proposal, extracted, {
-+                  sectionScoped: sectionScopedConfront,
-+                });
-                 if (!confront.ok) {
-                   reviseBlocked = confront.reason;
-                   proposalAuthorityConflict = confront.reason;
-@@ -1624,7 +1630,9 @@ export async function postUserMessageAndNora(
-               const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
-               if (!canonical.ok) reviseBlocked = canonical.reason;
-               else {
--                const confront = confrontProposalWithFence(canonical.proposal, extracted);
-+                const confront = confrontProposalWithFence(canonical.proposal, extracted, {
-+                  sectionScoped: sectionScopedConfront,
-+                });
-                 if (!confront.ok) {
-                   reviseBlocked = confront.reason;
-                   proposalAuthorityConflict = confront.reason;
-
-```
-
-### Source confront (extrait final)
-
-```typescript
-export function hasDocumentLevelH1(content: string): boolean {
-  return /^#\s+.+$/m.test(content);
-}
-
-/**
- * LEGACY fence that never claimed a document title — only the sentinel.
- * Section-scoped REVISE proposals legitimately lack a document H1.
- */
-export function isLegacyUntitledSectionFence(extracted: {
-  title: string;
-  content: string;
-}): boolean {
-  return (
-    extracted.title === LEGACY_UNTITLED_DOCUMENT_TITLE &&
-    !hasDocumentLevelH1(extracted.content)
-  );
-}
-
-/**
- * P1 — structural fence separator only (serializer contract).
- * True iff extracted body equals canonical body + exactly one trailing LF,
- * titles match (unless requireTitleMatch=false for section-scoped LEGACY),
- * canonical does not already end with LF, and
- * serialize→extract round-trip restores the canonical title/body/digest.
- * Never trims or rewrites content; never accepts any other difference.
- */
-export function isStructuralFenceSeparatorOnly(input: {
-  authority: DocumentProposalExact;
-  extractedTitle: string;
-  extractedContent: string;
-  /** Default true. False only for section-scoped LEGACY untitled fences. */
-  requireTitleMatch?: boolean;
-}): boolean {
-  const { authority, extractedTitle, extractedContent } = input;
-  const requireTitleMatch = input.requireTitleMatch !== false;
-  if (requireTitleMatch && extractedTitle !== authority.title) return false;
-  if (authority.contentMarkdown.endsWith("\n")) return false;
-  if (extractedContent !== `${authority.contentMarkdown}\n`) return false;
-  if (contentSha256(extractedTitle, extractedContent) === authority.contentSha256) {
-    // Exact digest match means no separator-only case (bodies already equal).
-    return false;
-  }
-  try {
-    const fence = serializeProposalFence(authority);
-    const again = extractContractualDocumentProposal(fence);
-    if (!again.ok) return false;
-    return (
-      again.title === authority.title &&
-      again.content === authority.contentMarkdown &&
-      contentSha256(again.title, again.content) === authority.contentSha256
-    );
-  } catch {
-    return false;
-  }
-}
-
-export type ConfrontProposalFenceOptions = {
-  /**
-   * REVISE with a sectionHint: authority title is the durable document title;
-   * LEGACY fence body may be section-scoped without a document H1, so the
-   * sentinel title is not a contractual identity claim.
-   */
-  sectionScoped?: boolean;
-};
-
-/**
- * P1 — confront authoritative proposal with a concurrent contractual fence.
- * Fence MISSING → materialize; INVALID → refuse; exact match → accept;
- * sole structural LF separator (serializer contract) → accept for canonical rewrite.
- * Section-scoped: LEGACY untitled fence may match on content (+ structural LF) only.
- */
-export function confrontProposalWithFence(
-  authority: DocumentProposalExact,
-  extracted: {
-    ok: false;
-    reason: string;
-  } | {
-    ok: true;
-    title: string;
-    content: string;
-  },
-  options?: ConfrontProposalFenceOptions,
-):
-  | { ok: true; materialize: boolean }
-  | { ok: false; reason: string } {
-  if (!extracted.ok) {
-    if (extracted.reason === "DOCUMENT_PROPOSAL_MISSING") {
-      return { ok: true, materialize: true };
-    }
-    return { ok: false, reason: extracted.reason };
-  }
-  if (
-    extracted.title === authority.title &&
-    extracted.content === authority.contentMarkdown &&
-    contentSha256(extracted.title, extracted.content) === authority.contentSha256
-  ) {
-    return { ok: true, materialize: false };
-  }
-  if (
-    isStructuralFenceSeparatorOnly({
-      authority,
-      extractedTitle: extracted.title,
-      extractedContent: extracted.content,
-    })
-  ) {
-    // Accept: caller keeps canonical authority; later rewrite uses serializeProposalFence.
-    return { ok: true, materialize: false };
-  }
-  // LIVE-03 / section REVISE: LEGACY fence without `# H1` synthesizes the
-  // untitled sentinel. Content identity (exact or structural LF) still required.
-  if (options?.sectionScoped && isLegacyUntitledSectionFence(extracted)) {
-    if (extracted.content === authority.contentMarkdown) {
-      return { ok: true, materialize: false };
-    }
-    if (
-      isStructuralFenceSeparatorOnly({
-        authority,
-        extractedTitle: extracted.title,
-        extractedContent: extracted.content,
-        requireTitleMatch: false,
-      })
-    ) {
-      return { ok: true, materialize: false };
-    }
-  }
-  return { ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" };
-}
-
-```
-
-## O. Fichiers créés
-Aucun fichier runtime créé. Tests étendus dans fichiers existants.
-
-## P. Tests R01..R28 (couverture)
-| ID | Couverture | Résultat |
-| --- | --- | --- |
-| R01 | UNIT LIVE-03 sectionScoped admit + PG AVAILABLE | PASS |
-| R02 | UNIT merge Option B seule | PASS |
-| R03 | UNIT/PG Option A BETA conservé | PASS |
-| R04 | PG canari section (GAMMA fixture / DELTA LIVE) | PASS |
-| R05 | PG v1 AVAILABLE intacte | PASS |
-| R06 | PG documentId inchangé | PASS |
-| R07 | PG revisionId nouveau après AVAILABLE | PASS |
-| R08 | PG existants baseRevision stale CONFLICT | covered suite |
-| R09–R11 | UNIT titres/H1/corps divergent → CONFLICT | PASS |
-| R12 | UNIT LF structurel sectionScoped | PASS |
-| R13–R14 | UNIT 2e LF / whitespace → CONFLICT | PASS |
-| R15–R17 | suite existante fences/meta/source | non régressé |
-| R18–R20 | suite identité/idempotence/négatif | non régressé |
-| R21–R22 | CREATE sas/projet via suite PG/E2E | non régressé |
-| R23–R24 | S05 E2E real-api | PASS |
-| R25 | autorités D2/D5… inchangées (pas de patch) | PASS |
-| R26–R28 | ACK AVAILABLE / NOT_EXECUTED / fence extractable | PASS (UNIT ACK + LIVE ACK) |
-
-## Q. UNIT
-`npm run test:unit` → **359 PASS** (48 files).
-
-## R. PostgreSQL
-`npm run test:integration` → **470 PASS** (28 files) dont LIVE-03 R01–R07 + R11.
-
-## S. BUILD
-`npm run build` → **PASS**.
-
-## T. Browser E2E
-Playwright ciblé `:3101` :
-`ml4c-document-continuity`, `ml4c-s05-real-api`, `g4-chat-first-sas`, `ml4c-s05-independent-pending`
-→ **11 PASS**.
-
-## U. LIVE ciblé (après gates)
-| Champ | Valeur |
-| --- | --- |
-| Soumissions Nora LIVE | **1** (après restart DEV code correctif) |
-| Tentative 400 préalable | `text` vs `content` — provider **non** contacté — non comptée |
-| Canari | `REVISION-CANARI-DELTA-15` |
-| noraMode | `openai-agents-sdk-live` |
-| providerContacted | YES |
-| modelRequested | `gpt-6.1-sol` |
-| modelApplied | UNVERIFIED |
-| profileType | TEST_BOUNDARY |
-| documentSave | AVAILABLE / REVISE / v2 |
-| revisionId | `drev_d05ff434-8b6d-411a-ac06-36b3e7fd5697` |
-| baseRevisionId | `drev_1e0061da-…` |
-| v1 | BETA présent ; DELTA/GAMMA absents |
-| v2 | BETA + DELTA présents ; Option A inchangée |
-| operationId | `op_4f456da7-391f-40a1-a883-7badfd2bc28a` |
-| generationId | `gen_fa72f637-4bd1-48ad-a86a-ec593c63e4df` |
-| assistant sha16 | `1a2f3c3e5ea73190` len 1085 |
-| Extrait assistant | La **révision 2** de **« Options de solution DEV LIVE »** est disponible. Sa lecture complète confirme :
-
-- **Titre** : « Options de solution DEV LIVE ». - **Option A** : « SOURCE-CANARI-BETA-73 ». - **Option B** : « À préciser. », puis la phrase exacte **« REVISION-CANARI-DELTA-15 »**.
-
-Source : document \`doc_c78468e6-6da4-4d0b-a928-99568e10b7af\`, révision \`drev_d05ff434-8b6d-411a-ac06-36b3e7fd56… |
-
-## V. Version / fence / provenance
-- Versioning produit : `0.0.0-dev` — NO RELEASE
-- Fence LEGACY same-turn encore refusée hors `sectionScoped`
-- Provenance : SAME_TURN_SNAPSHOT ; pas de source historique requalifiée
-
-## W. Sécurité / autorité / idempotence
-- `PROPOSAL_SOURCE_CONFLICT` conservé pour divergences substantielles
-- CREATE sans sectionScoped : LEGACY untitled reste CONFLICT (test UNIT)
-- D2/D5/D6/D7/D9 / S05 : non modifiés
-- Ownership / CAS : non touchés
-- RECETTE : non mutée ; aucun push produit
-
-## X. Fake / Real Qualification
-| Couche | Qualification |
-| --- | --- |
-| UNIT/PG/E2E | FAKE / déterministe (fixture Nora) |
-| LIVE DEV | REAL provider contacté ; modelApplied reste UNVERIFIED |
-| Login | FAKE `dev-test-login` (NOT GitHub OAuth proof) |
-
-## Y. ENV-01 / versioning
-Conformité DEV/E2E/RECETTE isolées. Version `0.0.0-dev`. STABLE NOT AVAILABLE.
-
-## Z. Git Review Index
-| Item | Valeur |
-| --- | --- |
-| Commit produit LOCAL | `c777358eacefa94c33b04a4d590ce9da7a8c525c` |
-| Tree | `54e45e8c66e3167f051b53c102d016d5a5ffaf92` |
-| Parent | `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` |
-| Files | document-act.ts, document-command.ts, service.ts, confront-proposal-fence.test.ts, ml4c-prior-proposal.pg.test.ts, as-built…, delivery-history.md |
-| Push produit | NON |
-| Handoff | voir publication L3 ci-dessous |
-
-### Diff tests
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts
-index 6bfae5ec..396d566e 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml4c-prior-proposal.pg.test.ts
-@@ -1508,4 +1508,163 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
-
-     expect(admitted.binding.correlationKey).toBe(keyBefore);
+   SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+@@ -1667,4 +1671,86 @@ Old B.
+       delete turnRaceHooks.replaceNoraAssistantText;
+     }
    });
 +
-+  it("LIVE-03/R01–R07: section REVISE with LEGACY untitled fence → AVAILABLE v2, Option A preserved", async () => {
-+    const pilotId = await seedPilot("ml4c-live03-revise");
++  it("P05: STRUCTURED title-b64=Document Nora with matching body → PROPOSAL_SOURCE_CONFLICT, zero D4", async () => {
++    const pilotId = await seedPilot("ml4c-p05-struct-sentinel");
 +    const prep = await openOrCreatePreparation(pilotId);
 +    const title = "Options de solution DEV LIVE";
-+    const v1Body = `# ${title}
-+
-+## Option A
-+
-+SOURCE-CANARI-BETA-73
-+
-+## Option B
-+
-+À préciser.
-+`;
-+    const created = await savePreparationDocument(pilotId, prep.id, title, v1Body);
-+    expect(created.status).toBe("AVAILABLE");
-+    if (created.status !== "AVAILABLE" || !created.documentId || !created.revisionId) {
-+      throw new Error("v1 create");
-+    }
-+    const documentId = created.documentId;
-+    const baseRevisionId = created.revisionId;
-+
-+    const sectionBody = "## Option B\n\nÀ préciser.\n\nREVISION-CANARI-GAMMA-91";
-+    const utterance = `ML4C-LIVE03-REVISE-${Date.now()} — révise uniquement la section Option B du document ${documentId}`;
-+    registerExplicitFixture(utterance, {
-+      kind: "qualification",
-+      q: {
-+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+        status: "QUALIFIED",
-+        goal: "réviser Option B",
-+        intents: [
-+          {
-+            id: "i-d4-revise",
-+            capabilityId: "d4.revise_document",
-+            mode: "REQUEST_EFFECT",
-+            summary: "revise Option B",
-+            parameters: {
-+              documentHint: documentId,
-+              sectionHint: "Option B",
-+            },
-+            constraints: [],
-+            dependsOn: [],
-+            sourceEvidence: [],
-+          },
-+        ],
-+        clarifications: [],
-+        replyDraft: "Modification proposée pour Option B.",
-+        documentProposal: { title, contentMarkdown: sectionBody },
-+      },
-+    });
-+
-+    const legacyFence = "```sfia-document\n" + sectionBody + "\n```\n";
-+    turnRaceHooks.replaceNoraAssistantText = () =>
-+      `Voici la modification proposée pour **Option B**.\n\n${legacyFence}`;
-+    try {
-+      const chat = await noraTurn(pilotId, prep.id, utterance);
-+      expect(chat.documentSave?.status).toBe("AVAILABLE");
-+      expect(chat.documentSave?.act).toBe("REVISE");
-+      expect(chat.documentSave?.documentId).toBe(documentId);
-+      expect(chat.documentSave?.revisionNumber).toBe(2);
-+      expect(chat.documentSave?.baseRevisionId).toBe(baseRevisionId);
-+      expect(chat.documentSave?.revisionId).not.toBe(baseRevisionId);
-+
-+      const v1 = await getDocumentRevision(pilotId, prep.id, documentId, baseRevisionId);
-+      expect(v1.status).toBe("AVAILABLE");
-+      if (v1.status !== "AVAILABLE") throw new Error("v1");
-+      expect(v1.revision.contentMarkdown).toBe(v1Body);
-+      expect(v1.revision.contentMarkdown).toContain("SOURCE-CANARI-BETA-73");
-+      expect(v1.revision.contentMarkdown).not.toContain("REVISION-CANARI-GAMMA-91");
-+
-+      const v2 = await getDocumentRevision(
-+        pilotId,
-+        prep.id,
-+        documentId,
-+        chat.documentSave!.revisionId!,
-+      );
-+      expect(v2.status).toBe("AVAILABLE");
-+      if (v2.status !== "AVAILABLE") throw new Error("v2");
-+      expect(v2.revision.contentMarkdown).toContain("SOURCE-CANARI-BETA-73");
-+      expect(v2.revision.contentMarkdown).toContain("REVISION-CANARI-GAMMA-91");
-+      expect(v2.revision.contentMarkdown).toMatch(
-+        /## Option A\n\nSOURCE-CANARI-BETA-73/,
-+      );
-+    } finally {
-+      delete turnRaceHooks.replaceNoraAssistantText;
-+    }
-+  });
-+
-+  it("LIVE-03/R11: section REVISE with divergent LEGACY body → PROPOSAL_SOURCE_CONFLICT, zero write", async () => {
-+    const pilotId = await seedPilot("ml4c-live03-conflict");
-+    const prep = await openOrCreatePreparation(pilotId);
-+    const title = "Options conflit LIVE03";
 +    const v1Body = `# ${title}
 +
 +## Option A
@@ -654,20 +245,20 @@ index 6bfae5ec..396d566e 100644
 +    expect(created.status).toBe("AVAILABLE");
 +    if (created.status !== "AVAILABLE" || !created.documentId) throw new Error("v1");
 +
-+    const sectionBody = "## Option B\n\nAuthority body.\n";
-+    const utterance = `ML4C-LIVE03-CONFLICT-${Date.now()} — révise Option B du document ${created.documentId}`;
++    const sectionBody = "## Option B\n\nAuthority body exact.\n";
++    const utterance = `ML4C-P05-STRUCT-${Date.now()} — révise Option B du document ${created.documentId}`;
 +    registerExplicitFixture(utterance, {
 +      kind: "qualification",
 +      q: {
 +        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
 +        status: "QUALIFIED",
-+        goal: "réviser avec fence divergent",
++        goal: "réviser avec fence structurée sentinel",
 +        intents: [
 +          {
 +            id: "i-d4-revise",
 +            capabilityId: "d4.revise_document",
 +            mode: "REQUEST_EFFECT",
-+            summary: "revise conflict",
++            summary: "revise P05",
 +            parameters: {
 +              documentHint: created.documentId,
 +              sectionHint: "Option B",
@@ -678,14 +269,25 @@ index 6bfae5ec..396d566e 100644
 +          },
 +        ],
 +        clarifications: [],
-+        replyDraft: "Fence divergent.",
++        replyDraft: "Fence structurée contradictoire.",
 +        documentProposal: { title, contentMarkdown: sectionBody },
 +      },
 +    });
 +
++    const sentinel = LEGACY_UNTITLED_DOCUMENT_TITLE;
++    const digest = contentSha256(sentinel, sectionBody);
++    const info = `sfia-document title-b64=${encodeTitleB64(sentinel)} chars=${sectionBody.length} pair-sha256=${digest}`;
 +    turnRaceHooks.replaceNoraAssistantText = () =>
-+      "```sfia-document\n## Option B\n\nFence divergent body.\n```\n";
++      "```" + info + "\n" + sectionBody + "\n```\n";
 +    try {
++      const parsed = extractContractualDocumentProposal(
++        "```" + info + "\n" + sectionBody + "\n```\n",
++      );
++      expect(parsed.ok).toBe(true);
++      if (!parsed.ok) throw new Error(parsed.reason);
++      expect(parsed.titleProvenance).toBe("STRUCTURED");
++      expect(parsed.title).toBe(sentinel);
++
 +      const before = (
 +        await db
 +          .select({ n: sql<number>`count(*)`.mapWith(Number) })
@@ -709,180 +311,382 @@ index 6bfae5ec..396d566e 100644
  });
 \ No newline at end of file
 diff --git a/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts b/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
-index 7a8a2bd7..aca70ce2 100644
+index aca70ce2..0fc00692 100644
 --- a/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
-@@ -3,12 +3,17 @@ import {
+@@ -3,9 +3,11 @@ import {
    canonicalizeDocumentProposal,
    confrontProposalWithFence,
    contentSha256,
-+  hasDocumentLevelH1,
-+  isLegacyUntitledSectionFence,
++  encodeTitleB64,
+   hasDocumentLevelH1,
+   isLegacyUntitledSectionFence,
    isStructuralFenceSeparatorOnly,
++  parseFenceMeta,
    serializeProposalFence,
  } from "@/domains/conversation/document-command";
  import {
-   appendDocumentEffectAck,
-+  applyTargetedSectionRevision,
-+  assertSectionScope,
-   extractContractualDocumentProposal,
-+  LEGACY_UNTITLED_DOCUMENT_TITLE,
- } from "@/domains/conversation/document-act";
+@@ -166,13 +168,15 @@ SOURCE-CANARI-BETA-73
+ À préciser.
+ `;
 
- function authorityOf(title: string, contentMarkdown: string) {
-@@ -147,6 +152,132 @@ describe("P1 confrontProposalWithFence — structural LF", () => {
+-  it("R01/R12: LIVE-03 shapes — LEGACY untitled + structural LF → admit when sectionScoped", () => {
++  it("P01/R01/R12: LIVE-03 shapes — LEGACY untitled + structural LF → admit when sectionScoped", () => {
+     const authority = authorityOf(docTitle, sectionBody);
+     const assistant = `Modification Option B.\n\n\`\`\`sfia-document\n${sectionBody}\n\`\`\`\n`;
+     const extracted = extractContractualDocumentProposal(assistant);
+     expect(extracted.ok).toBe(true);
+     if (!extracted.ok) throw new Error(extracted.reason);
+     expect(extracted.title).toBe(LEGACY_UNTITLED_DOCUMENT_TITLE);
++    expect(extracted.titleProvenance).toBe("LEGACY_UNTITLED");
++    expect(parseFenceMeta("sfia-document").kind).toBe("LEGACY");
+     expect(hasDocumentLevelH1(extracted.content)).toBe(false);
+     expect(isLegacyUntitledSectionFence(extracted)).toBe(true);
+     expect(extracted.content).toBe(`${sectionBody}\n`);
+@@ -182,6 +186,74 @@ SOURCE-CANARI-BETA-73
+     ).toEqual({ ok: true, materialize: false });
    });
- });
 
-+describe("LIVE-03 section-scoped REVISE confront", () => {
-+  const docTitle = "Options de solution DEV LIVE";
-+  const sectionBody = "## Option B\n\nÀ préciser.\n\nREVISION-CANARI-GAMMA-91";
-+  const v1 = `# Options de solution DEV LIVE
-+
-+## Option A
-+
-+SOURCE-CANARI-BETA-73
-+
-+## Option B
-+
-+À préciser.
-+`;
-+
-+  it("R01/R12: LIVE-03 shapes — LEGACY untitled + structural LF → admit when sectionScoped", () => {
++  it("P05: STRUCTURED title-b64=Document Nora ≠ authority → REFUS via real parser", () => {
 +    const authority = authorityOf(docTitle, sectionBody);
-+    const assistant = `Modification Option B.\n\n\`\`\`sfia-document\n${sectionBody}\n\`\`\`\n`;
-+    const extracted = extractContractualDocumentProposal(assistant);
++    const sentinel = LEGACY_UNTITLED_DOCUMENT_TITLE;
++    const digest = contentSha256(sentinel, sectionBody);
++    const info = `sfia-document title-b64=${encodeTitleB64(sentinel)} chars=${sectionBody.length} pair-sha256=${digest}`;
++    expect(parseFenceMeta(info).kind).toBe("STRUCTURED");
++    const fence = "```" + info + "\n" + sectionBody + "\n```\n";
++    const extracted = extractContractualDocumentProposal(fence);
 +    expect(extracted.ok).toBe(true);
 +    if (!extracted.ok) throw new Error(extracted.reason);
-+    expect(extracted.title).toBe(LEGACY_UNTITLED_DOCUMENT_TITLE);
++    expect(extracted.title).toBe(sentinel);
++    expect(extracted.titleProvenance).toBe("STRUCTURED");
 +    expect(hasDocumentLevelH1(extracted.content)).toBe(false);
-+    expect(isLegacyUntitledSectionFence(extracted)).toBe(true);
-+    expect(extracted.content).toBe(`${sectionBody}\n`);
-+    expect(confrontProposalWithFence(authority, extracted).ok).toBe(false);
++    expect(isLegacyUntitledSectionFence(extracted)).toBe(false);
++    expect(
++      confrontProposalWithFence(authority, extracted, { sectionScoped: true }),
++    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
++  });
++
++  it("P06: STRUCTURED explicit other title → REFUS", () => {
++    const authority = authorityOf(docTitle, sectionBody);
++    const other = "Titre concurrent";
++    const digest = contentSha256(other, sectionBody);
++    const info = `sfia-document title-b64=${encodeTitleB64(other)} chars=${sectionBody.length} pair-sha256=${digest}`;
++    const extracted = extractContractualDocumentProposal(
++      "```" + info + "\n" + sectionBody + "\n```\n",
++    );
++    expect(extracted.ok).toBe(true);
++    if (!extracted.ok) throw new Error(extracted.reason);
++    expect(extracted.titleProvenance).toBe("STRUCTURED");
++    expect(
++      confrontProposalWithFence(authority, extracted, { sectionScoped: true }),
++    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
++  });
++
++  it("P04: STRUCTURED title matching authority admits on exact content", () => {
++    const authority = authorityOf(docTitle, sectionBody);
++    const fence = serializeProposalFence(authority);
++    const extracted = extractContractualDocumentProposal(fence);
++    expect(extracted.ok).toBe(true);
++    if (!extracted.ok) throw new Error(extracted.reason);
++    expect(extracted.titleProvenance).toBe("STRUCTURED");
 +    expect(
 +      confrontProposalWithFence(authority, extracted, { sectionScoped: true }),
 +    ).toEqual({ ok: true, materialize: false });
 +  });
 +
-+  it("R02–R05: section merge keeps Option A canari and emits Option B canari", () => {
-+    const merged = applyTargetedSectionRevision(v1, sectionBody, "Option B");
-+    expect(merged.ok).toBe(true);
-+    if (!merged.ok) throw new Error(merged.reason);
-+    expect(assertSectionScope(v1, merged.content, "Option B")).toEqual({ ok: true });
-+    expect(merged.content).toContain("SOURCE-CANARI-BETA-73");
-+    expect(merged.content).toContain("REVISION-CANARI-GAMMA-91");
-+    expect(merged.content).toMatch(/## Option A[\s\S]*SOURCE-CANARI-BETA-73/);
-+  });
-+
-+  it("R09: different document title with claimed H1 still conflicts under sectionScoped", () => {
++  it("missing titleProvenance fails closed for sectionScoped exception", () => {
 +    const authority = authorityOf(docTitle, sectionBody);
-+    const other = "# Autre document\n\n## Option B\n\nREVISION-CANARI-GAMMA-91\n";
 +    expect(
-+      confrontProposalWithFence(
-+        authority,
-+        { ok: true, title: "Autre document", content: other },
-+        { sectionScoped: true },
-+      ),
-+    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
-+  });
-+
-+  it("R10: H1 that differs from authority title refuses even if body resembles section", () => {
-+    const authority = authorityOf(docTitle, `# ${docTitle}\n\n## Option B\n\nx\n`);
-+    expect(
-+      confrontProposalWithFence(
-+        authority,
-+        {
-+          ok: true,
-+          title: "Titre faux",
-+          content: "# Titre faux\n\n## Option B\n\nx\n",
-+        },
-+        { sectionScoped: true },
-+      ),
-+    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
-+  });
-+
-+  it("R11: substantive body divergence → PROPOSAL_SOURCE_CONFLICT", () => {
-+    const authority = authorityOf(docTitle, sectionBody);
++      isLegacyUntitledSectionFence({
++        title: LEGACY_UNTITLED_DOCUMENT_TITLE,
++        content: sectionBody,
++      }),
++    ).toBe(false);
 +    expect(
 +      confrontProposalWithFence(
 +        authority,
 +        {
 +          ok: true,
 +          title: LEGACY_UNTITLED_DOCUMENT_TITLE,
-+          content: "## Option B\n\nTexte divergent.\n",
++          content: sectionBody,
 +        },
 +        { sectionScoped: true },
 +      ),
 +    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
 +  });
 +
-+  it("R13: second trailing LF is not structural — refuse", () => {
-+    const authority = authorityOf(docTitle, sectionBody);
-+    expect(
-+      confrontProposalWithFence(
-+        authority,
-+        {
-+          ok: true,
-+          title: LEGACY_UNTITLED_DOCUMENT_TITLE,
-+          content: `${sectionBody}\n\n`,
-+        },
-+        { sectionScoped: true },
-+      ),
-+    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
-+  });
-+
-+  it("R14: significant internal whitespace difference refuses", () => {
-+    const authority = authorityOf(docTitle, "## Option B\n\nHello  world");
-+    expect(
-+      confrontProposalWithFence(
-+        authority,
-+        {
-+          ok: true,
-+          title: LEGACY_UNTITLED_DOCUMENT_TITLE,
-+          content: "## Option B\n\nHello world\n",
-+        },
-+        { sectionScoped: true },
-+      ),
-+    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
-+  });
-+
-+  it("CREATE path (no sectionScoped): LEGACY untitled still conflicts on title", () => {
-+    const authority = authorityOf(docTitle, sectionBody);
-+    const extracted = {
-+      ok: true as const,
-+      title: LEGACY_UNTITLED_DOCUMENT_TITLE,
-+      content: `${sectionBody}\n`,
-+    };
-+    expect(confrontProposalWithFence(authority, extracted)).toEqual({
-+      ok: false,
-+      reason: "PROPOSAL_SOURCE_CONFLICT",
-+    });
-+  });
-+});
-+
- describe("P3 ACK + fence integrity", () => {
-   it("QA-06: fence remains extractable after ACK", () => {
-     const authority = authorityOf("AckDoc", "# AckDoc\n\nParagraphe un.\n\nParagraphe deux.\n");
+   it("R02–R05: section merge keeps Option A canari and emits Option B canari", () => {
+     const merged = applyTargetedSectionRevision(v1, sectionBody, "Option B");
+     expect(merged.ok).toBe(true);
 
 ```
 
-## AA. Réserves
-- ML4C ACCEPTED / Gate C CLOSED : **non déclarés**
-- USER RECETTE NOT RUN
-- modelApplied=UNVERIFIED
-- Une seule soumission LIVE post-fix ; pas de campagne exploratoire
+## L. As-built — diff historique manquant (c777358e vs a30d47d2)
 
-## AB. Verdict
-**REVISE SOURCE CONTRACT CORRECTED — LIVE BEHAVIOR PROVEN**
+```diff
+diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
+index 837ee641..5657fbc4 100644
+--- a/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
++++ b/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
+@@ -402,3 +402,70 @@ blocage global S05. Runtime conforme au contrat S05 actuel.
 
-Distinctions :
-- IMPLEMENTED : oui
-- COVERAGE VERIFIED : oui (UNIT/PG/BUILD/E2E)
-- DETERMINISTIC BEHAVIOR PROVEN : oui
-- LIVE BEHAVIOR PROVEN : oui
-- USER RECETTE NOT RUN : oui
+ - DETERMINISTIC E2E BEHAVIOR only — NORA LIVE NOT PROVEN.
+ - USER RECETTE NOT RUN ; ML4C not ACCEPTED ; GATE C not closed.
++
++## DELIV 2026-11-15 — REVISE D4 PROPOSAL_SOURCE_CONFLICT (LIVE-03)
++
++Date: 2026-11-15 ~05:05 CET (Europe/Paris)
++Branche: `fix/next-semantic-intent-convergence-20261112`
++Parent: `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` (LOCAL ONLY)
++Profil: Critical PATCH corrective / NO RELEASE / pas de nouvelle autorité de contenu
++
++### Diagnostic LIVE-03 (lecture seule)
++
++| Champ | Valeur |
++| --- | --- |
++| turn / op / gen | `tcmd_a08cee84…` / `op_73c39114…` / `gen_32a649f2…` |
++| document / base | `doc_c78468e6…` / `drev_1e0061da…` v1 |
++| Qualification | QUALIFIED / REVISE / `sectionHint=Option B` |
++| documentProposal.title | `Options de solution DEV LIVE` |
++| documentProposal.content | `## Option B\n\nÀ préciser.\n\nREVISION-CANARI-GAMMA-91` (len JS 50, sans LF terminal) |
++| Fence | LEGACY `sfia-document` sans meta ; corps = proposition + 1 LF (len 51) |
++| Titre extrait | `Document Nora` (sentinel LEGACY, pas de `# H1`) |
++| documentSave | `NOT_EXECUTED` / `PROPOSAL_SOURCE_CONFLICT` ; zéro écriture D4 |
++| Cause | **CAUSE B** (représentations de portée titre différente) + **CAUSE A** (LF structurel seul sur le corps) |
++
++`isStructuralFenceSeparatorOnly` exigeait l’égalité des titres → le LF structurel n’était jamais admis.
++
++### Correctif minimal
++
++1. Exporter `LEGACY_UNTITLED_DOCUMENT_TITLE` depuis `document-act.ts`.
++2. `confrontProposalWithFence(authority, extracted, { sectionScoped })` :
++   si REVISE + `sectionHint` et fence LEGACY sans H1 documentaire,
++   admettre l’égalité de **contenu** (exacte ou LF structurel seul) en conservant le titre d’autorité.
++3. Câbler `sectionScoped` dans `service.ts` (early confront + chemins REVISE).
++4. Conserver le refus strict pour divergence substantielle, H1 contradictoire, CREATE non scopé, double fence, meta invalide.
++
++### Preuves déterministes
++
++| Couche | Résultat |
++| --- | --- |
++| UNIT | 359 PASS (dont LIVE-03 section-scoped confront) |
++| PG `test:integration` | 470 PASS (dont LIVE-03 R01–R07 AVAILABLE + R11 CONFLICT) |
++| BUILD | PASS |
++| Playwright ciblé | 11 PASS (`document-continuity`, `s05-real-api`, `g4-chat-first-sas`, `s05-independent-pending`) |
++| LIVE Nora | **PROVEN** — 1 soumission DEV `:3100` après restart code |
++| RECETTE | non mutée |
++
++### LIVE REVISE (après correctif)
++
++| Champ | Valeur |
++| --- | --- |
++| Préparation / Pilote | `prep_25257fcb-…` / `pilot_10ad4dd9-…` (Pilot A DEV) |
++| Document | `doc_c78468e6-…` (même id LIVE-02) |
++| Canari | `REVISION-CANARI-DELTA-15` (distinct de GAMMA-91) |
++| noraMode | `openai-agents-sdk-live` |
++| providerContacted | YES |
++| modelRequested | `gpt-6.1-sol` ; modelApplied=UNVERIFIED |
++| profileType | TEST_BOUNDARY |
++| documentSave | AVAILABLE / REVISE / revisionNumber=2 |
++| revisionId | `drev_d05ff434-…` (nouveau) |
++| baseRevisionId | `drev_1e0061da-…` (v1 inchangée) |
++| Option A | `SOURCE-CANARI-BETA-73` conservé exact |
++| Option B | contient `REVISION-CANARI-DELTA-15` |
++| LIVE-03 antérieur | reste NOT_EXECUTED / PROPOSAL_SOURCE_CONFLICT (preuve historique) |
++
++### Réserves
++
++- Pas de softener global de `PROPOSAL_SOURCE_CONFLICT`.
++- Pas de nouvelle machine d’états / schéma / politique S05.
++- ML4C not ACCEPTED ; GATE C not closed ; USER RECETTE NOT RUN.
 
-## AC. Gates Morris restants
-- Consolidation preuves ML4C (décision distincte)
-- Gate C global : OPEN
-- Propagation PR #676 / RECETTE : hors GO
+```
+
+## M. Delivery-history — diff historique manquant (c777358e vs a30d47d2)
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 4568fd28..8270df32 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,25 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-15-ML4C-REVISE-SOURCE-CONFLICT
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-15 ~05:05 CET (Europe/Paris) |
++| Macro-lot | ML4C — Remédiation REVISE D4 `PROPOSAL_SOURCE_CONFLICT` (LIVE-03) |
++| Type | PATCH corrective Critical (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` |
++| Parent tip | `a30d47d295979b93fbb0093ca38db1d3ccd20c5c` (LOCAL ONLY) |
++| Design | `c883db07` conception corrective D4 continuité |
++| Prior LIVE handoff | `sfia/review-handoff@7433bdfd` blob `0b1e87c8` |
++| Lane | UNIT/PG DEV ; Playwright E2E `:3101` ; LIVE DEV `:3100` borné ; RECETTE non mutée |
++| Cause | CAUSE B (+ A) — fence LEGACY sans H1 → titre sentinel `Document Nora` ≠ titre document ; LF structurel seul sur le corps |
++| Changes | `confrontProposalWithFence(..., { sectionScoped })` ; constante `LEGACY_UNTITLED_DOCUMENT_TITLE` ; câblage REVISE `service.ts` |
++| Schema | unchanged |
++| Tests | UNIT 359 ; PG 470 ; BUILD PASS ; E2E ciblés 11 PASS ; LIVE REVISE PROVEN (DELTA-15 → v2 AVAILABLE) |
++| Status | Product LOCAL ONLY ; Review Handoff L3 in-cycle |
++
++
+ ## delivery_id: DELIV-2026-11-15-ML4C-S05-BROWSER-ORACLE
+
+ | Field | Value |
+
+```
+
+## N. Nouveaux diffs documentaires (11f7077e vs c777358e)
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md b/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
+index 5657fbc4..84957dce 100644
+--- a/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
++++ b/projects/sfia-studio-next/construction/convergence-fonctionnelle/as-built-qualification-semantique-mobilisation-gouvernee-20261112.md
+@@ -469,3 +469,42 @@ Profil: Critical PATCH corrective / NO RELEASE / pas de nouvelle autorité de co
+ - Pas de softener global de `PROPOSAL_SOURCE_CONFLICT`.
+ - Pas de nouvelle machine d’états / schéma / politique S05.
+ - ML4C not ACCEPTED ; GATE C not closed ; USER RECETTE NOT RUN.
++
++## DELIV 2026-11-15 — REVISE fence title provenance (réserve A)
++
++Date: 2026-11-15 ~06:25 CET (Europe/Paris)
++Branche: `fix/next-semantic-intent-convergence-20261112`
++Parent: `c777358eacefa94c33b04a4d590ce9da7a8c525c` (LOCAL ONLY)
++Profil: Critical PATCH corrective / NO RELEASE / LIVE NOT RUN
++
++### Diagnostic (avant correctif)
++
++Fence STRUCTURED avec `title-b64` décodant `Document Nora`, corps sectionnel identique à
++`documentProposal`, `sectionScoped=true` → **ADMIT** (faille).
++
++Cause : `isLegacyUntitledSectionFence` ne distinguait pas titre **déclaré** (STRUCTURED)
++du sentinel **synthétisé** (LEGACY sans H1).
++
++### Correctif
++
++1. `DocumentProposalTitleProvenance` : `STRUCTURED` | `LEGACY_H1` | `LEGACY_UNTITLED`
++   porté par `extractContractualDocumentProposal` (info de parsing interne).
++2. `isLegacyUntitledSectionFence` exige `titleProvenance === "LEGACY_UNTITLED"`
++   (fail-closed si provenance absente).
++3. Tests UNIT P05/P06/P04 + PG P05 (parseur → confront → zéro révision).
++
++### Preuves
++
++| Couche | Résultat |
++| --- | --- |
++| UNIT | 363 PASS |
++| PG | 471 PASS |
++| BUILD | PASS |
++| Playwright ciblé | voir pack |
++| LIVE Nora | NOT RUN (preuve LIVE v2 reste historique sur `c777358e`) |
++| RECETTE | non mutée |
++
++### Réserves
++
++- LIVE comportement du nouveau SHA : non requalifié dans ce cycle.
++- ML4C not ACCEPTED ; GATE C not closed ; USER RECETTE NOT RUN.
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 8270df32..583470ff 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,24 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-15-ML4C-REVISE-FENCE-TITLE-PROVENANCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-15 ~06:25 CET (Europe/Paris) |
++| Macro-lot | ML4C — Clôture réserve A : provenance titre fence (STRUCTURED vs LEGACY_UNTITLED) |
++| Type | PATCH corrective Critical (NO RELEASE) |
++| Branch | `fix/next-semantic-intent-convergence-20261112` |
++| Parent tip | `c777358eacefa94c33b04a4d590ce9da7a8c525c` (LOCAL ONLY) |
++| Prior handoff | `sfia/review-handoff@37dea98c` blob `b892e70d` |
++| Lane | UNIT/PG DEV ; Playwright E2E `:3101` ; LIVE NOT RUN ; RECETTE non mutée |
++| Cause | `isLegacyUntitledSectionFence` s’appuyait sur le texte sentinel seul — une fence STRUCTURED `title-b64=Document Nora` était admise à tort |
++| Changes | `titleProvenance` sur extract ; exception sectionScoped uniquement si `LEGACY_UNTITLED` |
++| Schema | unchanged |
++| Tests | UNIT 363 ; PG 471 ; BUILD PASS ; E2E ciblés 11 PASS ; LIVE NOT RUN |
++| Status | Product LOCAL ONLY ; Review Handoff L3 in-cycle |
++
++
+ ## delivery_id: DELIV-2026-11-15-ML4C-REVISE-SOURCE-CONFLICT
+
+ | Field | Value |
+
+```
+
+## O. Matrice P01–P20
+| ID | Attendu | Preuve |
+| --- | --- | --- |
+| P01 | LEGACY untitled ADMIT | UNIT + PG LIVE-03 |
+| P02 | LF structurel ADMIT | UNIT |
+| P03 | CREATE sans exception | UNIT |
+| P04 | STRUCTURED titre = authority ADMIT | UNIT |
+| P05 | STRUCTURED Document Nora REFUS | UNIT + PG orchestration zéro rev |
+| P06 | STRUCTURED autre titre REFUS | UNIT |
+| P07–P10 | metadata invalide/partielle REFUS | suite document-command existante |
+| P11–P15 | corps/LF/H1/double fence REFUS | UNIT + suite |
+| P16–P17 | REVISE identité / stale base | PG suite |
+| P18 | S05 / D2… | E2E S05 ; code non touché hors allowlist |
+| P19–P20 | ACK / zéro écriture sur refus | PG P05 + LIVE-03 conflict |
+
+## P. UNIT / PG / BUILD
+- UNIT : **363 PASS**
+- PG : **471 PASS**
+- BUILD : **PASS**
+
+## Q. E2E ciblés
+`document-continuity` + `s05-real-api` + `g4-chat-first-sas` + `s05-independent-pending` → **11 PASS** (:3101).
+
+## R. Non-régressions
+- LEGACY untitled section REVISE : ADMIT conservé
+- CREATE LEGACY untitled : CONFLICT conservé
+- PROPOSAL_SOURCE_CONFLICT pour divergences substantielles : conservé
+- S05 E2E : PASS
+
+## S. Fake / Real Qualification
+| Couche | Qualif |
+| --- | --- |
+| UNIT/PG/E2E | FAKE déterministe |
+| LIVE ce cycle | NOT RUN |
+| LIVE historique `c777358e` | REVISE AVAILABLE v2 (DELTA-15) — **non transféré** au SHA `11f7077e` |
+
+## T. Versioning
+0.0.0-dev — NO RELEASE — STABLE NOT AVAILABLE — PATCH corrective candidate.
+
+## U. Git Review Index
+| Item | Valeur |
+| --- | --- |
+| Commit LOCAL | `11f7077edd08f1a0c680b6b920f20dbaf76c7bed` |
+| Tree | `71e052cf53232c70153a6056d948b97fb401b175` |
+| Parent | `c777358eacefa94c33b04a4d590ce9da7a8c525c` |
+| Files | document-act.ts, document-command.ts, service.ts, confront-proposal-fence.test.ts, ml4c-prior-proposal.pg.test.ts, as-built, delivery-history |
+| Push produit | NON |
+| Handoff | (à vérifier après publish) |
+
+## V. Réserves / dette / exit
+- LIVE du nouveau SHA non requalifié (hors GO).
+- ML4C ACCEPTED / Gate C : ouverts.
+- USER RECETTE NOT RUN.
+- Réserve B (diffs docs historiques) : régularisée dans ce pack (§L/§M).
+
+## W. Verdict
+**REVISE FENCE METADATA GUARD CORRECTED — DETERMINISTIC COVERAGE GREEN**
+
+- Diagnostic : prouvé (P05 ADMIT avant → CONFLICT après)
+- Code modifié : oui
+- HEAD final local : `11f7077e`
+- Tests exécutés : UNIT 363 / PG 471 / BUILD / E2E 11
+- Couverture déterministe : GREEN
+- LIVE ancien : historique `c777358e` ; LIVE nouveau SHA : NOT RUN
+- Intégrité documentaire : diffs historiques + nouveaux inclus
+- Handoff distant : voir publish
+- Réserves restantes : LIVE nouveau SHA ; Gate C ; RECETTE
+
+## X. Prochain gate Morris
+Décision distincte pour consolidation readiness ML4C / candidat RECETTE — sans acceptation dans ce cycle.
