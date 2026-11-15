@@ -247,7 +247,12 @@ CI post-merge PASS ; smoke local PASS ; identité web OK.
 | Message | `docs(review-handoff): ML4C product merge and post-merge verification` |
 | Worktree | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` |
 
-*(SHAs tip/blob remplis après publication vérifiée.)*
+| Commit tip distant | `949b1a99235818683f582bfd30bae43d040ed9a8` |
+| Parent | `4abecd46c727830e07200bdd05aa9682b4264410` |
+| Blob tip | `2ee18f100ad38ca0ab1f2ccb3db502e1d6029c9d` |
+| Push | FF `4abecd46..949b1a99` |
+| Verdict publisher | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Retour produit | `fix/next-semantic-intent-convergence-20261112` @ `11f7077e` |
 
 ---
 
