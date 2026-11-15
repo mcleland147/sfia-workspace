@@ -115,7 +115,7 @@
 | **BLOCKED uniquement historiques, non rejoués Q4** | **21** | Sous-ensembles à instruire techniquement ; **pas** des FAIL ni un déficit automatiquement attribué au produit |
 | **TOTAL** | **53** | **28 scénarios disposent d'un PASS UAT (12 Q4 + 16 historiques), 25 sans PASS suffisant** ; niveaux de preuve et SHAs restent distincts |
 
-**Périmètre restant sans PASS suffisant (25 scénarios) :** 
+**Périmètre restant sans PASS suffisant (25 scénarios) :**
 - **S01 (1)** : S01-05 — expiration session/refus/erreur.
 - **S02 (1)** : S02-05 — perte d'ACK D2 et réconciliation sans doublon.
 - **S03 (2)** : S03-06, S03-07 — états D4 négatifs/conflits et continuum D2→D4 sur même candidat.

@@ -2,14 +2,14 @@
 
 > **NOTE DE LECTURE POST-MERGE — 15/11/2026 :** ce document v0.7 est une conception datée des 13–14 novembre. Depuis, le candidat `11f7077e` a été accepté avec réserves par Morris et intégré dans `main@05e71a71` via PR #676. Les clauses O-05/O-06 et préflights candidats ne deviennent pas automatiquement VALIDATED SPEC ou BEHAVIOR PROVEN ; leur correspondance avec l'as-built et leurs écarts demeurent bornés. Voir l'addendum final daté. Les mentions historiques « ML4C NOT ACCEPTED / G2 OPEN » restent exactes pour leur date.
 
-**Version :** 0.7 — 14 novembre 2026  
-**Statut :** VALIDATED IN CONTENT BY MORRIS — O-01/O-02/O-03/O-04 ; O-05/O-06 CONCEPTION TECHNIQUE CONSOLIDÉE SOUS ORIENTATION MORRIS ; G2 OPEN — EXECUTABILITY NOT YET PROVEN  
-**Programme :** R5 — ML4C, convergence fonctionnelle intégrée  
-**Nature :** cadrage fonctionnel et conception corrective candidate, avant contrat d'exécution  
-**Autorité produit :** Morris  
-**Dépôt :** `mcleland147/sfia-workspace`  
-**Candidat RECETTE de référence :** `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`  
-**Projet de recette :** Intervencia  
+**Version :** 0.7 — 14 novembre 2026
+**Statut :** VALIDATED IN CONTENT BY MORRIS — O-01/O-02/O-03/O-04 ; O-05/O-06 CONCEPTION TECHNIQUE CONSOLIDÉE SOUS ORIENTATION MORRIS ; G2 OPEN — EXECUTABILITY NOT YET PROVEN
+**Programme :** R5 — ML4C, convergence fonctionnelle intégrée
+**Nature :** cadrage fonctionnel et conception corrective candidate, avant contrat d'exécution
+**Autorité produit :** Morris
+**Dépôt :** `mcleland147/sfia-workspace`
+**Candidat RECETTE de référence :** `67bf6b0b49cd5da64c1e10e872b8f80f4a64efd0`
+**Projet de recette :** Intervencia
 **Gate C :** OPEN — ML4C NOT ACCEPTED
 
 > **Historique des validations du 13/11/2026 :** (1) Morris valide la V0.2 et autorise sa publication sur branche documentaire dédiée ; (2) Morris valide ensuite O-01 (interfaces de récupération historique, portée, provenance, pagination, couverture et tests) ; (3) Morris valide O-02 (confrontation sémantique, temporalité et autorité) et autorise leur intégration Git. La V0.3 consigne ces deux validations **en contenu de conception**. (4) Morris valide O-03 — identité, provenance, intégrité, résolution et autorité séparée des propositions documentaires — et autorise son intégration dans la V0.4. (5) Morris valide ensuite O-04 — mobilisation D4 sous admission canonique, acte USER distinct, proposition vérifiée, garde et absence de doublon — et autorise son intégration en V0.5. (6) Morris demande à ChatGPT d'assumer l'instruction des contrats techniques restants sans micro-arbitrages, puis autorise leur **intégration documentaire Git directe**. La V0.6 intègre les propositions détaillées O-05 et O-06 **DRAFT/DOCUMENTED** ; cette autorisation de publication ne vaut ni validation d'architecture structurante, ni preuve d'exécutabilité, ni GO Cursor. Les signatures exactes, les tests et tout pivot de persistance restent soumis aux gates applicables : **NOT YET VALIDATED SPEC**. (7) Le 14/11, Morris confirme l'orientation produit, confie à ChatGPT la consolidation technique et autorise explicitement son intégration documentaire Git dans la V0.7 (§5.11), sans pivot architecture/DB. Aucun GO Cursor/code/DB, PR, merge, promotion, acceptation ML4C ou Gate C n'en découle.
