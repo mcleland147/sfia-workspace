@@ -40,6 +40,7 @@ import { getConversationId, postUserMessageAndNora } from "@/domains/conversatio
 import {
   canonicalizeDocumentProposal,
   contentSha256,
+  encodeTitleB64,
   serializeProposalFence,
   admitDocumentCommand,
   resolveAssistantProposal,
@@ -48,7 +49,10 @@ import {
   loadSealedDocumentBinding,
 } from "@/domains/conversation/document-command";
 import { reserveTurnCommand, turnRaceHooks } from "@/domains/conversation/turn-command";
-import { extractContractualDocumentProposal } from "@/domains/conversation/document-act";
+import {
+  extractContractualDocumentProposal,
+  LEGACY_UNTITLED_DOCUMENT_TITLE,
+} from "@/domains/conversation/document-act";
 import { getDocumentRevision, listDocuments, savePreparationDocument } from "@/domains/document/service";
 import {
   SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
@@ -1647,6 +1651,88 @@ Old B.
     turnRaceHooks.replaceNoraAssistantText = () =>
       "```sfia-document\n## Option B\n\nFence divergent body.\n```\n";
     try {
+      const before = (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, created.documentId!))
+      )[0]?.n;
+      const chat = await noraTurn(pilotId, prep.id, utterance);
+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
+      expect(chat.documentSave?.reason).toBe("PROPOSAL_SOURCE_CONFLICT");
+      const after = (
+        await db
+          .select({ n: sql<number>`count(*)`.mapWith(Number) })
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, created.documentId!))
+      )[0]?.n;
+      expect(after).toBe(before);
+    } finally {
+      delete turnRaceHooks.replaceNoraAssistantText;
+    }
+  });
+
+  it("P05: STRUCTURED title-b64=Document Nora with matching body → PROPOSAL_SOURCE_CONFLICT, zero D4", async () => {
+    const pilotId = await seedPilot("ml4c-p05-struct-sentinel");
+    const prep = await openOrCreatePreparation(pilotId);
+    const title = "Options de solution DEV LIVE";
+    const v1Body = `# ${title}
+
+## Option A
+
+KEEP-A
+
+## Option B
+
+Old B.
+`;
+    const created = await savePreparationDocument(pilotId, prep.id, title, v1Body);
+    expect(created.status).toBe("AVAILABLE");
+    if (created.status !== "AVAILABLE" || !created.documentId) throw new Error("v1");
+
+    const sectionBody = "## Option B\n\nAuthority body exact.\n";
+    const utterance = `ML4C-P05-STRUCT-${Date.now()} — révise Option B du document ${created.documentId}`;
+    registerExplicitFixture(utterance, {
+      kind: "qualification",
+      q: {
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "QUALIFIED",
+        goal: "réviser avec fence structurée sentinel",
+        intents: [
+          {
+            id: "i-d4-revise",
+            capabilityId: "d4.revise_document",
+            mode: "REQUEST_EFFECT",
+            summary: "revise P05",
+            parameters: {
+              documentHint: created.documentId,
+              sectionHint: "Option B",
+            },
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+        clarifications: [],
+        replyDraft: "Fence structurée contradictoire.",
+        documentProposal: { title, contentMarkdown: sectionBody },
+      },
+    });
+
+    const sentinel = LEGACY_UNTITLED_DOCUMENT_TITLE;
+    const digest = contentSha256(sentinel, sectionBody);
+    const info = `sfia-document title-b64=${encodeTitleB64(sentinel)} chars=${sectionBody.length} pair-sha256=${digest}`;
+    turnRaceHooks.replaceNoraAssistantText = () =>
+      "```" + info + "\n" + sectionBody + "\n```\n";
+    try {
+      const parsed = extractContractualDocumentProposal(
+        "```" + info + "\n" + sectionBody + "\n```\n",
+      );
+      expect(parsed.ok).toBe(true);
+      if (!parsed.ok) throw new Error(parsed.reason);
+      expect(parsed.titleProvenance).toBe("STRUCTURED");
+      expect(parsed.title).toBe(sentinel);
+
       const before = (
         await db
           .select({ n: sql<number>`count(*)`.mapWith(Number) })

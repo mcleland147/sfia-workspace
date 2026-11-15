@@ -469,3 +469,42 @@ Profil: Critical PATCH corrective / NO RELEASE / pas de nouvelle autorité de co
 - Pas de softener global de `PROPOSAL_SOURCE_CONFLICT`.
 - Pas de nouvelle machine d’états / schéma / politique S05.
 - ML4C not ACCEPTED ; GATE C not closed ; USER RECETTE NOT RUN.
+
+## DELIV 2026-11-15 — REVISE fence title provenance (réserve A)
+
+Date: 2026-11-15 ~06:25 CET (Europe/Paris)
+Branche: `fix/next-semantic-intent-convergence-20261112`
+Parent: `c777358eacefa94c33b04a4d590ce9da7a8c525c` (LOCAL ONLY)
+Profil: Critical PATCH corrective / NO RELEASE / LIVE NOT RUN
+
+### Diagnostic (avant correctif)
+
+Fence STRUCTURED avec `title-b64` décodant `Document Nora`, corps sectionnel identique à
+`documentProposal`, `sectionScoped=true` → **ADMIT** (faille).
+
+Cause : `isLegacyUntitledSectionFence` ne distinguait pas titre **déclaré** (STRUCTURED)
+du sentinel **synthétisé** (LEGACY sans H1).
+
+### Correctif
+
+1. `DocumentProposalTitleProvenance` : `STRUCTURED` | `LEGACY_H1` | `LEGACY_UNTITLED`
+   porté par `extractContractualDocumentProposal` (info de parsing interne).
+2. `isLegacyUntitledSectionFence` exige `titleProvenance === "LEGACY_UNTITLED"`
+   (fail-closed si provenance absente).
+3. Tests UNIT P05/P06/P04 + PG P05 (parseur → confront → zéro révision).
+
+### Preuves
+
+| Couche | Résultat |
+| --- | --- |
+| UNIT | 363 PASS |
+| PG | 471 PASS |
+| BUILD | PASS |
+| Playwright ciblé | voir pack |
+| LIVE Nora | NOT RUN (preuve LIVE v2 reste historique sur `c777358e`) |
+| RECETTE | non mutée |
+
+### Réserves
+
+- LIVE comportement du nouveau SHA : non requalifié dans ce cycle.
+- ML4C not ACCEPTED ; GATE C not closed ; USER RECETTE NOT RUN.

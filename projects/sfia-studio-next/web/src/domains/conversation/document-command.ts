@@ -281,13 +281,17 @@ export function hasDocumentLevelH1(content: string): boolean {
 }
 
 /**
- * LEGACY fence that never claimed a document title — only the sentinel.
- * Section-scoped REVISE proposals legitimately lack a document H1.
+ * LEGACY fence that never claimed a document title — only the untitled sentinel.
+ * Requires parser provenance `LEGACY_UNTITLED`: a STRUCTURED fence whose title
+ * text equals the sentinel is an explicit title claim and must not qualify.
+ * Missing provenance fails closed (no exception).
  */
 export function isLegacyUntitledSectionFence(extracted: {
   title: string;
   content: string;
+  titleProvenance?: "STRUCTURED" | "LEGACY_H1" | "LEGACY_UNTITLED";
 }): boolean {
+  if (extracted.titleProvenance !== "LEGACY_UNTITLED") return false;
   return (
     extracted.title === LEGACY_UNTITLED_DOCUMENT_TITLE &&
     !hasDocumentLevelH1(extracted.content)
@@ -356,6 +360,8 @@ export function confrontProposalWithFence(
     ok: true;
     title: string;
     content: string;
+    /** Present when extracted via parseur ; absent → no sectionScoped untitled exception. */
+    titleProvenance?: "STRUCTURED" | "LEGACY_H1" | "LEGACY_UNTITLED";
   },
   options?: ConfrontProposalFenceOptions,
 ):

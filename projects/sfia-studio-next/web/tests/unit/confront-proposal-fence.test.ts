@@ -3,9 +3,11 @@ import {
   canonicalizeDocumentProposal,
   confrontProposalWithFence,
   contentSha256,
+  encodeTitleB64,
   hasDocumentLevelH1,
   isLegacyUntitledSectionFence,
   isStructuralFenceSeparatorOnly,
+  parseFenceMeta,
   serializeProposalFence,
 } from "@/domains/conversation/document-command";
 import {
@@ -166,13 +168,15 @@ SOURCE-CANARI-BETA-73
 À préciser.
 `;
 
-  it("R01/R12: LIVE-03 shapes — LEGACY untitled + structural LF → admit when sectionScoped", () => {
+  it("P01/R01/R12: LIVE-03 shapes — LEGACY untitled + structural LF → admit when sectionScoped", () => {
     const authority = authorityOf(docTitle, sectionBody);
     const assistant = `Modification Option B.\n\n\`\`\`sfia-document\n${sectionBody}\n\`\`\`\n`;
     const extracted = extractContractualDocumentProposal(assistant);
     expect(extracted.ok).toBe(true);
     if (!extracted.ok) throw new Error(extracted.reason);
     expect(extracted.title).toBe(LEGACY_UNTITLED_DOCUMENT_TITLE);
+    expect(extracted.titleProvenance).toBe("LEGACY_UNTITLED");
+    expect(parseFenceMeta("sfia-document").kind).toBe("LEGACY");
     expect(hasDocumentLevelH1(extracted.content)).toBe(false);
     expect(isLegacyUntitledSectionFence(extracted)).toBe(true);
     expect(extracted.content).toBe(`${sectionBody}\n`);
@@ -180,6 +184,74 @@ SOURCE-CANARI-BETA-73
     expect(
       confrontProposalWithFence(authority, extracted, { sectionScoped: true }),
     ).toEqual({ ok: true, materialize: false });
+  });
+
+  it("P05: STRUCTURED title-b64=Document Nora ≠ authority → REFUS via real parser", () => {
+    const authority = authorityOf(docTitle, sectionBody);
+    const sentinel = LEGACY_UNTITLED_DOCUMENT_TITLE;
+    const digest = contentSha256(sentinel, sectionBody);
+    const info = `sfia-document title-b64=${encodeTitleB64(sentinel)} chars=${sectionBody.length} pair-sha256=${digest}`;
+    expect(parseFenceMeta(info).kind).toBe("STRUCTURED");
+    const fence = "```" + info + "\n" + sectionBody + "\n```\n";
+    const extracted = extractContractualDocumentProposal(fence);
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) throw new Error(extracted.reason);
+    expect(extracted.title).toBe(sentinel);
+    expect(extracted.titleProvenance).toBe("STRUCTURED");
+    expect(hasDocumentLevelH1(extracted.content)).toBe(false);
+    expect(isLegacyUntitledSectionFence(extracted)).toBe(false);
+    expect(
+      confrontProposalWithFence(authority, extracted, { sectionScoped: true }),
+    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
+  });
+
+  it("P06: STRUCTURED explicit other title → REFUS", () => {
+    const authority = authorityOf(docTitle, sectionBody);
+    const other = "Titre concurrent";
+    const digest = contentSha256(other, sectionBody);
+    const info = `sfia-document title-b64=${encodeTitleB64(other)} chars=${sectionBody.length} pair-sha256=${digest}`;
+    const extracted = extractContractualDocumentProposal(
+      "```" + info + "\n" + sectionBody + "\n```\n",
+    );
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) throw new Error(extracted.reason);
+    expect(extracted.titleProvenance).toBe("STRUCTURED");
+    expect(
+      confrontProposalWithFence(authority, extracted, { sectionScoped: true }),
+    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
+  });
+
+  it("P04: STRUCTURED title matching authority admits on exact content", () => {
+    const authority = authorityOf(docTitle, sectionBody);
+    const fence = serializeProposalFence(authority);
+    const extracted = extractContractualDocumentProposal(fence);
+    expect(extracted.ok).toBe(true);
+    if (!extracted.ok) throw new Error(extracted.reason);
+    expect(extracted.titleProvenance).toBe("STRUCTURED");
+    expect(
+      confrontProposalWithFence(authority, extracted, { sectionScoped: true }),
+    ).toEqual({ ok: true, materialize: false });
+  });
+
+  it("missing titleProvenance fails closed for sectionScoped exception", () => {
+    const authority = authorityOf(docTitle, sectionBody);
+    expect(
+      isLegacyUntitledSectionFence({
+        title: LEGACY_UNTITLED_DOCUMENT_TITLE,
+        content: sectionBody,
+      }),
+    ).toBe(false);
+    expect(
+      confrontProposalWithFence(
+        authority,
+        {
+          ok: true,
+          title: LEGACY_UNTITLED_DOCUMENT_TITLE,
+          content: sectionBody,
+        },
+        { sectionScoped: true },
+      ),
+    ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
   });
 
   it("R02–R05: section merge keeps Option A canari and emits Option B canari", () => {

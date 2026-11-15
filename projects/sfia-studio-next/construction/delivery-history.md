@@ -4,6 +4,24 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-15-ML4C-REVISE-FENCE-TITLE-PROVENANCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-15 ~06:25 CET (Europe/Paris) |
+| Macro-lot | ML4C — Clôture réserve A : provenance titre fence (STRUCTURED vs LEGACY_UNTITLED) |
+| Type | PATCH corrective Critical (NO RELEASE) |
+| Branch | `fix/next-semantic-intent-convergence-20261112` |
+| Parent tip | `c777358eacefa94c33b04a4d590ce9da7a8c525c` (LOCAL ONLY) |
+| Prior handoff | `sfia/review-handoff@37dea98c` blob `b892e70d` |
+| Lane | UNIT/PG DEV ; Playwright E2E `:3101` ; LIVE NOT RUN ; RECETTE non mutée |
+| Cause | `isLegacyUntitledSectionFence` s’appuyait sur le texte sentinel seul — une fence STRUCTURED `title-b64=Document Nora` était admise à tort |
+| Changes | `titleProvenance` sur extract ; exception sectionScoped uniquement si `LEGACY_UNTITLED` |
+| Schema | unchanged |
+| Tests | UNIT 363 ; PG 471 ; BUILD PASS ; E2E ciblés 11 PASS ; LIVE NOT RUN |
+| Status | Product LOCAL ONLY ; Review Handoff L3 in-cycle |
+
+
 ## delivery_id: DELIV-2026-11-15-ML4C-REVISE-SOURCE-CONFLICT
 
 | Field | Value |

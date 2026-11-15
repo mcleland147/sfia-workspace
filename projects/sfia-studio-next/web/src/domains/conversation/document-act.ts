@@ -537,11 +537,22 @@ function matchSectionSpans(spans: SectionSpan[], hint: string): SectionSpan[] {
  * outer contractual fence; truncated or unclosed proposals are refused.
  * No lexical scrubbing of legitimate métier wording.
  */
+/**
+ * Internal parsing provenance of the extracted title — not a durable business field.
+ * Distinguishes structured metadata titles from LEGACY H1 / untitled sentinel synthesis.
+ */
+export type DocumentProposalTitleProvenance =
+  | "STRUCTURED"
+  | "LEGACY_H1"
+  | "LEGACY_UNTITLED";
+
 export type DocumentProposalExtract =
   | {
       ok: true;
       content: string;
       title: string;
+      /** How the title was obtained from the fence source. */
+      titleProvenance: DocumentProposalTitleProvenance;
       path: "fence";
       fenceTag: string;
       fenceCount: 1;
@@ -901,6 +912,7 @@ export function extractContractualDocumentProposal(
       ok: true,
       content,
       title,
+      titleProvenance: "STRUCTURED",
       path: "fence",
       fenceTag: DOCUMENT_PROPOSAL_TAG,
       fenceCount: 1,
@@ -916,10 +928,12 @@ export function extractContractualDocumentProposal(
     return failProposal("DOCUMENT_PROPOSAL_EMPTY", "empty", 1, content);
   }
   const titleLine = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
+  const title = titleLine || LEGACY_UNTITLED_DOCUMENT_TITLE;
   return {
     ok: true,
     content,
-    title: titleLine || LEGACY_UNTITLED_DOCUMENT_TITLE,
+    title,
+    titleProvenance: titleLine ? "LEGACY_H1" : "LEGACY_UNTITLED",
     path: "fence",
     fenceTag: DOCUMENT_PROPOSAL_TAG,
     fenceCount: 1,

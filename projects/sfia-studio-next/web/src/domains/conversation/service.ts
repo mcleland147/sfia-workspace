@@ -1529,6 +1529,8 @@ export async function postUserMessageAndNora(
                     ok: true,
                     content: exact.contentMarkdown,
                     title: exact.title,
+                    // Obs-only snapshot of authority proposal — explicit title, never LEGACY_UNTITLED.
+                    titleProvenance: "STRUCTURED" as const,
                     path: "fence",
                     fenceTag: "sfia-document",
                     fenceCount: 1,
