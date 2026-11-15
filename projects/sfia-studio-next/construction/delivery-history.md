@@ -21,12 +21,13 @@ Append-only logical journal of Cursor product deliveries.
 | Tree web ML4C initial | `f2427adcd31b044115f85cdc48cfb6dd157d9551` |
 | Tree web @69aa8b1d | `787537cb344cc2c13dc3cd20c43e8572d52249af` |
 | Tree web post-régularisation | `3f34d2ad4a4340fc2fdf6f19ac0b15858441e39a` |
-| HEAD régularisation | `76d0776ce898bf1faea213a1347d34122b762035` |
+| HEAD régularisation | `c2d9b24f5db474a7a40bc13edc027582b154480b` |
 | Cause | Concurrent `load()` `replace(?surface=travail)` vs rail `<Link>` sans intent partagé ; intent global non isolé entre projets |
 | Changes | Intent project-scoped ; load-state observable ; tests unit/e2e concurrence+isolation ; as-built addendum |
 | Schema | unchanged |
 | Lanes | DEV / E2E `:3101` / PG isolé ; RECETTE non mutée ; STABLE NOT AVAILABLE |
-| Tests locaux (régularisation) | UNIT 369 ; PG 471 ; BUILD PASS ; Playwright ciblé 4 PASS ; suite complète à tracer |
+| Tests locaux (régularisation) | UNIT 369 ; PG 471 ; BUILD PASS ; Playwright 31 PASS |
+| CI SUCCESS (régularisation) | run `43755023230` on `c2d9b24f` — Build + Next Required Gate ; Studio Required Gate `43755023210` |
 | Status | PR readiness — gate merge Morris |
 | Risks | Réserves ML4C historiques inchangées (S05-06/08, TTL, ENV-R09, Git REAL, LIVE) |
 
