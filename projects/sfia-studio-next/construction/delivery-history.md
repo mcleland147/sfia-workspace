@@ -4,6 +4,27 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## Contrôle post-merge — 15/11/2026 — DELIV-2026-11-15-ML4C-NAV-SURFACE-INTENT
+
+**Complément daté :** l'entrée de livraison qui suit conserve le statut de PR readiness observé **avant** fusion ; ce constat établit la sortie d'intégration, sans modifier les preuves historiques.
+
+| Champ | Preuve post-merge |
+| --- | --- |
+| GO | Merge PR #678 autorisé par Morris le 15/11/2026 |
+| PR | [#678](https://github.com/mcleland147/sfia-workspace/pull/678) — MERGED le 15/11/2026 20:21:39 UTC |
+| HEAD candidat | `bb21d24c3f6b096a268b9b03aa8b1841b98ee8fa` |
+| Merge `main` | `2c2e88f12fad867d0b5d76233961bcb95280a2bf` ; parents `05e71a7166562211b1c8c168a40dcd35e4f8c8a3` + `bb21d24c3f6b096a268b9b03aa8b1841b98ee8fa` |
+| Tree `web` | `3f34d2ad4a4340fc2fdf6f19ac0b15858441e39a` — identique au HEAD candidat |
+| CI avant merge | [Next #43755913981](https://github.com/mcleland147/sfia-workspace/actions/runs/43755913981) SUCCESS ; [Studio Gate #43755913982](https://github.com/mcleland147/sfia-workspace/actions/runs/43755913982) SUCCESS |
+| CI après merge | [Next #43757632632](https://github.com/mcleland147/sfia-workspace/actions/runs/43757632632) **SUCCESS** sur `main@2c2e88f1`, build, TypeScript, ESLint, Vitest/PG, Playwright BROWSER FAKE et Next Required Gate |
+| Statut ML4C | **CLOSED WITH RESERVES**, Git et documentation post-merge vérifiés |
+| Limites | Réserves `S05-06/08`, TTL, ENV-R09, Git REAL, Nora LIVE, D4/CKI et UX non levées ; CI FAKE ≠ preuve LIVE/REAL |
+| Suite | ML4D NOT STARTED ; Gate C OPEN ; NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED |
+
+Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les réserves et ne donne pas de GO ML4D.
+
+---
+
 ## delivery_id: DELIV-2026-11-15-ML4C-NAV-SURFACE-INTENT
 
 | Field | Value |
