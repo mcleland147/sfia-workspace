@@ -1,13 +1,13 @@
 # SFIA Studio Next — Living Roadmap
 
 
-## ÉTAT COURANT R5 — 15 NOVEMBRE 2026 : ML4C intégré, clôture documentaire en cours
+## ÉTAT DE SORTIE R5 — 15 NOVEMBRE 2026 : clôture ML4C avec réserves, sous condition documentaire
 
 **Source Git :** `mcleland147/sfia-workspace`
 **Baseline intégrée :** `main@05e71a7166562211b1c8c168a40dcd35e4f8c8a3`
 **Décision Morris :** ML4C ACCEPTED WITH RESERVES — 15/11/2026
 **PR produit :** [#676](https://github.com/mcleland147/sfia-workspace/pull/676) — MERGED
-**Clôture documentaire :** PENDING jusqu'à intégration et vérification du dossier final
+**Clôture documentaire :** décision de **CLOSED WITH RESERVES**, effective dès intégration et relecture distante de la PR documentaire ; avant ces contrôles : **PENDING**
 
 ### État d'avancement
 
@@ -18,7 +18,7 @@
 | ML4C — réception fonctionnelle | ACCEPTED WITH RESERVES |
 | ML4C — code et tests | MERGED IN MAIN via PR #676 |
 | ML4C — post-merge | VERIFIED WITH RESERVES — CI PASS, tree web identique, smoke 55 PASS |
-| ML4C — documentaire | CLOSURE PENDING, conditionné au merge du présent dossier |
+| ML4C — documentaire | **CLOSED WITH RESERVES après merge documentaire vérifié** ; avant cette preuve : PENDING |
 | ML4D | NOT STARTED |
 | Gate C | OPEN |
 | ML5 | Non engagé par cette décision |
@@ -47,7 +47,7 @@ Les réserves fonctionnelles et de sécurité conservent leurs gates propres ; M
 
 ### Prochaine étape
 
-**Finaliser l'intégration documentaire ML4C**, publier la [décision Morris](decisions/2026-11-15-r5-ml4c-acceptation-cloture-avec-reserves.md) et vérifier le merge documentaire. La clôture formelle est conditionnée à cette vérification.
+**Gate de sortie ML4C :** intégrer la présente PR documentaire, relire les cinq fichiers et vérifier le commit sur `main` ; si ces conditions sont satisfaites, le statut **ML4C CLOSED WITH RESERVES** devient effectif, sans nouvelle décision technique. Voir la [décision Morris](decisions/2026-11-15-r5-ml4c-acceptation-cloture-avec-reserves.md).
 
 **Prochain macro-lot de la trajectoire : ML4D — convergence UX/UI globale**, à qualifier puis engager sous mandat Morris distinct après clôture. Aucun travail ML4D n'est démarré par le présent dossier.
 
