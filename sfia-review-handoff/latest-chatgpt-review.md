@@ -1140,9 +1140,17 @@ Note opérationnelle: shell agent avait `DATABASE_URL` RECETTE `:5434` — tests
 Mode: publish-in-cycle L3 borné via `scripts/sfia/publish-review-handoff.sh`.
 Cible: branche `sfia/review-handoff` · fichier unique `sfia-review-handoff/latest-chatgpt-review.md`.
 Worktree publisher: `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023`.
-Tip précédent vérifié: `68d149b6826d4cfab863f2e0b2f1cef90d2588ab` / blob `1a77139ce3bb1a385b1a0bbb6b953f9be23c8365`.
+Tip précédent: `68d149b6826d4cfab863f2e0b2f1cef90d2588ab` / blob `1a77139ce3bb1a385b1a0bbb6b953f9be23c8365`.
 
-*(Section complétée après publication — tip distant + blob.)*
+| Vérification | Résultat |
+| --- | --- |
+| Publisher verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Tip distant `origin/sfia/review-handoff` | `6c137a36f24ec27e30740d0cc14f93540e8c84f6` |
+| Blob distant canonique | `409c32493700e276df4e3d9ce6d8003132577ba0` |
+| Commit mono-fichier | OUI — uniquement `sfia-review-handoff/latest-chatgpt-review.md` |
+| Push | FF only (`68d149b6..6c137a36`) — aucun force push |
+| Relecture distante | titre FULL UX-004 CORRECTIF ; GO ; SHA `fb0ac5c8…` ; verdict READY ; pas de secret |
+| Branche projet préservée | `feat/next-ml4d-ux004-portfolio-20261116` @ `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
 
 ---
 
