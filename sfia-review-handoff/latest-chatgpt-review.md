@@ -230,4 +230,7 @@ NO ADOPTED
 - Branche : `sfia/review-handoff`
 - Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 - Publisher : `scripts/sfia/publish-review-handoff.sh`
-- (complété après publication L3)
+- Commit distant : `9d66b018032dd41f62b1c89b3a839a29e629349c`
+- Blob distant : `c58f488d95096885c9abc2fa7e0eb7845da9ed16`
+- Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+- Push projet : aucun
