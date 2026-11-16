@@ -283,7 +283,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                   }`}
                   data-testid="nav-resultats"
                   onClick={() => noteProjectSurfaceNavIntent(projectId, "publication")}
-                  title="Publication et preuves Git existantes"
+                  title="Publication Git existante (préparation / autorisation / dispatch) — libellé Figma provisoire"
                 >
                   Résultats et preuves
                 </Link>

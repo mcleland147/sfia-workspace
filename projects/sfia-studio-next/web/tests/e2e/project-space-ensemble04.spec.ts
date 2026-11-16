@@ -95,4 +95,138 @@ test.describe("Ensemble 04 project space", () => {
     await expect(page.getByTestId("rail-project-name")).toHaveText("Projet indisponible");
     await expect(page.getByTestId("studio-rail").getByTestId("nav-travail")).toHaveCount(0);
   });
+
+  test("T13 temporary HTTP 500 then retry recovers without cross-project leak", async ({
+    page,
+  }) => {
+    const projectName = `E04 T13 ${Date.now()}`;
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+
+    await page.getByTestId("portfolio-new-prep").click();
+    await page.waitForURL("**/preparations/**");
+    await page.getByTestId("prep-draft").fill("Ensemble 04 T13 temporary error");
+    await page.getByTestId("prep-send").click();
+    await expect(
+      page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false }),
+    ).toBeVisible({ timeout: 30000 });
+    await seedInspectedNameViaApi(page, { name: projectName, summary: "t13" });
+    await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
+    await page.getByTestId("prep-create-project").click();
+    await page.waitForURL("**/projects/**", { timeout: 15000 });
+    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+    expect(projectId).toBeTruthy();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    await expect(page.getByTestId("rail-project-name")).toHaveText(projectName);
+
+    let failRootGets = true;
+    let rootGetCount = 0;
+    await page.route("**/api/projects/**", async (route) => {
+      const url = route.request().url();
+      const method = route.request().method();
+      const isProjectRootGet =
+        method === "GET" &&
+        /\/api\/projects\/[^/?#]+\/?$/.test(new URL(url).pathname);
+      if (isProjectRootGet) {
+        rootGetCount += 1;
+        if (failRootGets) {
+          await route.fulfill({
+            status: 500,
+            contentType: "application/json",
+            body: JSON.stringify({ error: "INTERNAL" }),
+          });
+          return;
+        }
+      }
+      await route.continue();
+    });
+
+    await page.reload();
+    await expect(page.getByTestId("project-unavailable")).toHaveAttribute(
+      "data-unavailable-kind",
+      "temporary",
+      { timeout: 20000 },
+    );
+    await expect(page.getByTestId("unavailable-retry")).toBeVisible();
+    await expect(page.getByTestId("rail-project-name")).toHaveText("Projet indisponible");
+    await expect(page.getByTestId("rail-project-name")).not.toHaveText(projectName);
+    await expect(page.getByTestId("studio-rail").getByTestId("nav-travail")).toHaveCount(0);
+
+    const getsBeforeRetry = rootGetCount;
+    failRootGets = false;
+    await page.getByTestId("unavailable-retry").click();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    await expect(page.getByTestId("rail-project-name")).toHaveText(projectName);
+    await expect(page.getByTestId("project-unavailable")).toHaveCount(0);
+    expect(rootGetCount).toBeGreaterThan(getsBeforeRetry);
+  });
+
+  test("T16 pending thread state survives surface nav after Ensemble 04 shell", async ({
+    page,
+  }) => {
+    const projectName = `E04 T16 ${Date.now()}`;
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+
+    await page.getByTestId("portfolio-new-prep").click();
+    await page.waitForURL("**/preparations/**");
+    await page.getByTestId("prep-draft").fill("Ensemble 04 T16 pending preserve");
+    await page.getByTestId("prep-send").click();
+    await expect(
+      page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false }),
+    ).toBeVisible({ timeout: 30000 });
+    await seedInspectedNameViaApi(page, { name: projectName, summary: "t16" });
+    await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
+    await page.getByTestId("prep-create-project").click();
+    await page.waitForURL("**/projects/**", { timeout: 15000 });
+    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+    expect(projectId).toBeTruthy();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    const stamp = Date.now();
+    const pending = {
+      content: "Intention incertaine E04 T16 — ne pas dupliquer",
+      clientTurnKey: `ctk_e04_t16_${stamp}`,
+      clientCommandKey: `conv-auth:ctk_e04_t16_${stamp}`,
+    };
+    await page.evaluate(
+      ({ projectId: id, pending: p }) => {
+        sessionStorage.setItem(`sfia.thread.pending:${id}`, JSON.stringify(p));
+      },
+      { projectId, pending },
+    );
+    await page.reload();
+    await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId("nora-thread")).toBeVisible();
+
+    const rail = page.getByTestId("studio-rail");
+    await rail.getByTestId("nav-projet").click();
+    await expect(page.getByTestId("project-overview")).toBeVisible();
+    await expect(page.getByTestId("thread-pending-banner")).toHaveCount(0);
+
+    await rail.getByTestId("nav-journal").click();
+    await expect(page).toHaveURL(/surface=journal/);
+
+    await rail.getByTestId("nav-travail").click();
+    await expect(page).toHaveURL(/surface=travail/);
+    await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId("thread-reconcile-pending")).toBeVisible();
+    await expect(page.getByTestId("nora-thread")).toBeVisible();
+    // Scope: shell navigation must not clear client pending identity.
+    // Deep Nora scroll / structured replies remain Ensemble 05.
+  });
 });

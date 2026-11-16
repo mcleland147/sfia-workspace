@@ -5,6 +5,23 @@ Append-only logical journal of Cursor product deliveries.
 
 
 
+## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-TECHNICAL-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~21:55 CET |
+| Macro-lot | ML4D Ensemble 04 — consolidation technique + plan RECETTE |
+| Type | RUN / correction bornée · **NO RELEASE** |
+| Parent candidat | `660ff4243fafb586bfa0dd9b377382952e831ca9` |
+| Baseline UX-005 | `bd8e16728f3c2a726a49be4c94565a2d85fc41a9` |
+| Scope | T13 500+retry ; T16 pending×nav ; preuve tsc antérieur ; ESLint/build ; plan cutover RECETTE read-only ; clarif. title Résultats/preuves |
+| Non-scope | Déploiement RECETTE ; push projet ; Ensembles 05–07 ; fix fixtures ML4C tsc |
+| Preuves | next build PASS ; Playwright E04+T13/T16+nreg PASS ; tsc workspace FAIL=parent (32) / E04 src 0 |
+| RECETTE | observée `bd8e1672` / BUILD `bURdIMEzv8pRSJCzgsiDf` — **non modifiée** |
+| Push produit | **AUCUN** |
+| Verdict cible | `TECHNICAL CANDIDATE READY FOR CHATGPT REVIEW` |
+
+
 ## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-PROJECT-SPACE
 
 | Field | Value |
