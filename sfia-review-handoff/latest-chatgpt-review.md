@@ -1,238 +1,267 @@
-# SFIA STUDIO NEXT — Review Pack FULL — ML4D Sas Nora RECETTE cutover
+# Review Pack Full — SFIA Studio Next — ML4D Ensemble 04 Espace projet
 
-## GO Morris reçu
+Date/heure: 2026-11-16 21:33 CET
+Contrat: R5 / ML4D — ENSEMBLE 04 : ESPACE PROJET — CONVERGENCE UX/UI (16 nov 2026)
+Typologie: EVOL · Review Pack: Full · Review Handoff Git: required / publish-in-cycle
 
-GO EXPLICITE MORRIS — 16 NOVEMBRE 2026 — Mise à disposition RECETTE du candidat
-`bd8e16728f3c2a726a49be4c94565a2d85fc41a9` (C1–C4 + R1/R2). Critical Review ChatGPT PASS avec réserves non bloquantes.
-Bascule d'environnement uniquement — pas de nouveau développement produit.
+## 1. Verdict
 
-## Git Truth local (initial = final candidat)
+**ENSEMBLE 04 — CANDIDATE READY FOR MORRIS REVIEW**
+SHA produit: `660ff4243fafb586bfa0dd9b377382952e831ca9`
+**NO PROJECT PUSH / NO PR / NO MERGE**
+**NO RECETTE PROMOTION**
+**GATE C OPEN / ML5 NOT STARTED**
+Aucun ADOPTED.
 
-| Champ | Valeur |
+## 2. Git Truth Check
+
+### Initial (cycle start)
+- Repository: mcleland147/sfia-workspace (worktree local)
+- Branch créée: `feat/next-ml4d-project-space-20261116` depuis parent UX-005 `bd8e16728f3c2a726a49be4c94565a2d85fc41a9`
+- `origin/main` observé: `997d4c4e8204993de7107552898c8cc08cd3b0ed`
+- Ascendance UX-003/004/005: conservée (HEAD était `bd8e1672` au démarrage ; merge-base ancestor OK)
+- Worktree: propre hors pack `.tmp-sfia-review` réinitialisé
+
+### Final (candidat local commité)
+- SHA produit: `660ff4243fafb586bfa0dd9b377382952e831ca9`
+- Parent: `bd8e16728f3c2a726a49be4c94565a2d85fc41a9`
+- Branche: `feat/next-ml4d-project-space-20261116` — **non poussée**
+- Push projet: AUCUN
+
+### Final (pré-commit candidat)
+- Branch: `feat/next-ml4d-project-space-20261116`
+- HEAD pré-commit: `bd8e16728f3c2a726a49be4c94565a2d85fc41a9`
+- `origin/main`: `997d4c4e8204993de7107552898c8cc08cd3b0ed`
+- Ahead/behind vs origin/main: ahead local (ligneage product next), behind 0
+- Status:
+
+```
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio-next/construction/delivery-history.md
+ M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+ M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+ M projects/sfia-studio-next/web/src/components/figma/tokens.css
+ M projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+ M projects/sfia-studio-next/web/src/components/shell/studio-rail.ts
+ M projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
+ M projects/sfia-studio-next/web/tests/e2e/ml4c-long-thread-composer.spec.ts
+ M projects/sfia-studio-next/web/tests/e2e/project-surface-nav-intent.spec.ts
+ M projects/sfia-studio-next/web/tests/e2e/ux004-portfolio-shell.spec.ts
+ M projects/sfia-studio-next/web/tests/unit/studio-rail.test.ts
+?? projects/sfia-studio-next/web/docs/ensemble-04-project-space.md
+?? projects/sfia-studio-next/web/docs/evidence/
+?? projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
+?? projects/sfia-studio-next/web/src/components/figma/ProjectUnavailable.tsx
+?? projects/sfia-studio-next/web/src/components/shell/ProjectSpaceContext.tsx
+?? projects/sfia-studio-next/web/tests/e2e/project-space-ensemble04.spec.ts
+?? projects/sfia-studio-next/web/tests/e2e/project-space-f2-captures.spec.ts
+```
+
+- Diffstat:
+
+```
+.tmp-sfia-review/chatgpt-review.md                 | 167 +---------------
+ .../construction/delivery-history.md               |  18 ++
+ .../web/src/app/projects/[projectId]/page.tsx      | 214 +++++++++++++++++----
+ .../web/src/components/figma/ProjectChrome.tsx     | 148 ++++++++------
+ .../web/src/components/figma/tokens.css            |  43 +++++
+ .../web/src/components/shell/StudioShell.tsx       |  70 ++++++-
+ .../web/src/components/shell/studio-rail.ts        |  45 +++--
+ .../web/tests/e2e/ml3-pilotage.spec.ts             |   3 +-
+ .../tests/e2e/ml4c-long-thread-composer.spec.ts    |   2 +-
+ .../tests/e2e/project-surface-nav-intent.spec.ts   |   8 +-
+ .../web/tests/e2e/ux004-portfolio-shell.spec.ts    |   5 +-
+ .../web/tests/unit/studio-rail.test.ts             |  19 +-
+ 12 files changed, 449 insertions(+), 293 deletions(-)
+```
+
+## 3. Sources consultées
+
+### Processus / gouvernance (lecture)
+- method/sfia-fast-track/core (routing, operating model, guardrails) — applicables
+- prompts/templates/sfia-cycle-execution-template.md §6.6 Figma
+- projects/sfia-studio-next/governance/SEF.md, roadmap, naming, ENV-01, versioning
+- decision 2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md
+- conception-fonctionnelle (création projet, conduite Nora, connaissance)
+- ux-ui/contrat-transposition-figma-code.md
+- architecture-technique/cadrage-r4.md
+
+### Figma (MCP session `9903e7b2-192b-4c06-988e-567ac0a921f4`)
+- File `itgvCulInEnFY6DvgIegvP`
+- 652:8 Travail — disponible
+- 652:58 Projet overview — disponible
+- 652:108 Navigation/Journal — disponible
+- 652:158 Projet indisponible — disponible
+- Refs cohérence: 591:425, 607:203 (non re-implémentées)
+
+## 4. Contrat visuel extrait (avant code)
+
+Frame desktop: 1680×970 · Rail 246 · Contenu 1434 · Header ~70 · Contenu 900
+
+| Élément | Frame/node | Attendu exact | Implémentation prévue | Incertitude |
+| --- | --- | --- | --- | --- |
+| Rail largeur | 652:* | 246 px | STUDIO_RAIL_* widthPx=246 | faible |
+| Rail fill | 652:* | #0C101A | tokens projet/conversation/inspection | faible |
+| Marque | 652:8 | SFIA Studio + état release | StudioShell existant | faible |
+| Espace actif | 652:8 | carte nom réel | ProjectSpaceContext + rail card | faible |
+| Nav | 652:108 | Travail/Projet/Journal/Trajectoire | buildShellNav | faible |
+| Accès directs | 652:8 | Documents / Git / Résultats | Links document/git/publication | moyenne (libellé Résultats → publication existante) |
+| Header | 652:* | breadcrumb + badge ESPACE PROJET | ProjectChrome | faible |
+| Onglets centraux | — | absents | ProjectChrome tabs removed | faible |
+| Overview | 652:58 | cartes identité/contexte/accès | ProjectOverview données réelles | moyenne (densité Figma illustrative) |
+| Travail | 652:8 | coque + composer + aside | NoraConversation + aside sourcé | Ensemble 05 hors scope |
+| Indisponible | 652:158 | états qualifiés | ProjectUnavailable | faible |
+| Palette | 652:* | #0A0E17 / #151C29 / #656FE1 / #AFA5FF / #F4F6FC / #94A2BB | tokens existants + CSS | faible |
+| Police | 652:* | Inter | stack existante | faible |
+
+## 5. Conception technique
+
+- Un seul orchestrateur page: `projects/[projectId]/page.tsx`
+- Surface nouvelle: `projet` (consultation)
+- Compat: `?surface=pilotage` = Trajectoire
+- Intent nav project-scoped inchangé (`noteProjectSurfaceNavIntent` / `resolveProjectLoadSurface`)
+- Pas de nouvelle API / migration / mutation sur simple navigation
+- Indisponible: 401→unauthorized UI ; 404→not_found ; autre→temporary+retry ; loading distinct
+- Rail bloque deep-nav uniquement si `blockNavigation` (après échec qualifié), pas pendant load (préserve race T07)
+
+## 6. Blast radius
+
+Modifiés: page projet, ProjectChrome, StudioShell, studio-rail, tokens.css, tests e2e/unit, delivery-history, docs evidence.
+Créés: ProjectOverview, ProjectUnavailable, ProjectSpaceContext, ensemble-04 docs/tests.
+Non touchés: governance D2, method/, API métier, DB, RECETTE/STABLE.
+
+## 7. Fichiers créés (contenu exploitable)
+
+### `ProjectSpaceContext.tsx`
+Contexte client `projectId` / `projectName` / `available` / `blockNavigation` pour le rail.
+
+### `ProjectOverview.tsx`
+Vue consultation: identité (nom réel), compteurs sourcés (messages, docs, sujets), contexte/points ouverts si knowledge, liens Travail/Journal/Documents/Trajectoire, CTA Ouvrir Travail. États vides sobres — pas de données Figma fictives.
+
+### `ProjectUnavailable.tsx`
+États loading / not_found / unauthorized / temporary avec Retour Portefeuille ; Réessayer seulement si temporary ; Se reconnecter si unauthorized.
+
+### Tests
+- `project-space-ensemble04.spec.ts` — T01–T06, T08, T11 identity/nav/overview/unavailable
+- `project-space-f2-captures.spec.ts` — captures 1680×970
+
+### Docs
+- `web/docs/ensemble-04-project-space.md`
+- `web/docs/evidence/ensemble-04-project-space/*` (runtime + figma PNG + manifest)
+
+## 8. Fichiers modifiés (sections)
+
+### `studio-rail.ts`
+- StudioSurface + `projet`
+- PROJECT_SURFACE_LABELS (pilotage→Trajectoire)
+- buildShellNav: Travail / Projet / Journal / Trajectoire (Documents hors primary)
+- largeurs rail projet à 246 ; fill #0C101A
+
+### `StudioShell.tsx`
+- Provider ProjectSpace
+- Carte ESPACE ACTIF avec nom réel
+- Accès directs + Résultats et preuves
+- Filtrage nav si blockNavigation
+
+### `ProjectChrome.tsx`
+- Header Figma compact ; breadcrumb avec nom ; badge ESPACE PROJET
+- Suppression nav centrale Surfaces projet
+- Conservés: `project-load-state`, `surface-*` (sr-only)
+
+### `page.tsx`
+- Surface projet ; projectName ; unavailableKind ; loadEpoch retry
+- Publication contexte rail
+- Overview + unavailable ; aside Travail sourcé
+- Meta sans IDs techniques bruts dans le parcours nominal
+
+### Tests historiques adaptés
+- nav-intent: `nav-documents` ; noms uniques A/B
+- ml3: ouvre Trajectoire via rail
+- ux004: largeurs 246
+- ml4c composer: nom unique
+
+## 9. Tests exécutés
+
+| Commande | Résultat |
 | --- | --- |
-| Branche | feat/next-ml4d-sas-nora-convergence-20261116 |
-| HEAD candidat | `bd8e16728f3c2a726a49be4c94565a2d85fc41a9` |
-| Parent | `6798219fdb37af1b463326dc7015901b43b04acd` |
-| Tree web | `1abe4103eb16e4dc899a352206472753bbe9fb04` |
-| origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml4d-sas-nora-recette-build-bd8e1672` @ `bd8e16728f3c2a726a49be4c94565a2d85fc41a9` |
-| Tree web worktree | `1abe4103eb16e4dc899a352206472753bbe9fb04` |
-| Dirty produit | `.tmp-sfia-review/chatgpt-review.md` only (pack local) |
-| Handoff précédent | `10e6c9784de4ba03bb132e9b88bbea32e6879a75` |
+| `vitest run tests/unit/studio-rail.test.ts` (DATABASE_URL DEV 5433) | PASS 13 |
+| `playwright` project-space-ensemble04 + project-surface-nav-intent | PASS 4 puis PASS 5 avec F2 |
+| `playwright` ux003-unified-entry + ux004-portfolio-shell | PASS 20 |
+| `playwright` ml4c-long-thread-composer (après fix nom unique) | PASS |
+| `playwright` project-space-f2-captures | PASS |
+| `tsc --noEmit` | erreurs préexistantes hors src Ensemble 04 (tests ml4c fixtures) ; **0 erreur** sur fichiers src modifiés |
 
-## ENV-01 isolation
+ENV: Playwright webServer `:3101` + DB e2e isolée. DEV lane fixture Nora.
+FAKE ≠ LIVE/REAL.
 
-| Lane | Port app | PostgreSQL | Conteneur / DB |
-| --- | --- | --- | --- |
-| DEV | 3102 (down at cutover) | 5433 | sfia-next-dev-pg |
-| RECETTE | 3200 | 5434 | sfia-next-recette-pg / sfia_next_recette_ml4 |
-| STABLE | NOT AVAILABLE | — | — |
+## 10. Matrice acceptation T01–T20 (synthèse)
 
-Secrets hors Git : `~/.config/sfia-studio-next/recette/.env.local` (0600).
-Documents : `~/.config/sfia-studio-next/recette/documents`.
-Aucun accès croisé DEV/RECETTE constaté. LaunchAgent DEV non modifié.
-
-## État RECETTE avant bascule
-
-- SHA servi : `ec7405f323f86a0533dc507a1bfffc60ca1e5d0e`
-- BUILD : `67akzrr6bFEp4YOh7aHD7`
-- Worktree : `.../sfia-workspace-next-ml4d-sas-nora-recette-build-ec7405f3`
-- LaunchAgent : `com.sfia.studio.next.recette.ml4d-ux004`
-- Inventaire DB : projects=21, preparations=189, conversations=189, messages=474
-- Projet Morris : `Cockpit Réunions Projet — Test 16-11` présent
-- Colonne `preparations.projection_json` présente (schéma 013)
-
-## Sauvegarde et préservation
-
-- Dossier : `/Users/morris/Projects/sfia-recette-backups/ml4d-sas-nora-20261116-180459-pre-bd8e1672`
-- Dump custom `-Fc` : `sfia_next_recette_ml4_pre_bd8e1672.dump`
-- DUMP_META.json :
-```json
-{
-  "created_at": "2026-11-16T18:04:59.326708+01:00",
-  "source_container": "sfia-next-recette-pg",
-  "source_db": "sfia_next_recette_ml4",
-  "source_port": 5434,
-  "format": "custom(-Fc)",
-  "bytes": 515542,
-  "sha256": "e94b1b2905b804bf00db4c5862af7d7ff6fbfbcd7269d18c934fdf58354eeb7d",
-  "candidate_pending": "bd8e16728f3c2a726a49be4c94565a2d85fc41a9",
-  "previous_served_sha": "ec7405f323f86a0533dc507a1bfffc60ca1e5d0e",
-  "previous_served_build": "67akzrr6bFEp4YOh7aHD7",
-  "purpose": "pre-cutover RECETTE backup before Sas Nora bd8e1672",
-  "inventory": {
-    "projects": 21,
-    "preparations": 189,
-    "conversations": 189,
-    "messages": 474,
-    "projection_json_present": true,
-    "cockpit_test_16_11_present": true
-  }
-}
-```
-
-Rollback code (sans reset DB) :
-```markdown
-# Rollback applicatif RECETTE — Sas Nora
-
-## Cible de retour
-- SHA: ec7405f323f86a0533dc507a1bfffc60ca1e5d0e
-- Build: 67akzrr6bFEp4YOh7aHD7
-- Worktree: /Users/morris/Projects/sfia-workspace-next-ml4d-sas-nora-recette-build-ec7405f3
-- Start: start-recette-sas-nora-ec7405f3.sh
-
-## Procédure (code only — pas de reset DB)
-1. launchctl bootout gui/$(id -u)/com.sfia.studio.next.recette.ml4d-ux004
-2. Restaurer le plist pointant vers le worktree ec7405f3
-3. launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.sfia.studio.next.recette.ml4d-ux004.plist
-4. Vérifier http://127.0.0.1:3200/login → build 67akzrr6bFEp4YOh7aHD7
-
-## DB
-Le dump présent dans ce dossier est une sauvegarde de sécurité.
-Ne pas restaurer automatiquement sans GO Morris (risque d'écrasement des données post-bascule).
-```
-
-## Construction candidat
-
-- Worktree détaché au SHA exact `bd8e16728f3c2a726a49be4c94565a2d85fc41a9`
-- `npm ci` puis `next build` (NODE production, STUDIO_E2E=0)
-- BUILD_ID artefact : `bURdIMEzv8pRSJCzgsiDf`
-- BUILD_ID servi observé : `bURdIMEzv8pRSJCzgsiDf`
-- Identité build DEV historique `GIa-3DQDG_kcmC9uzzgbG` = référence de preuve, distincte du build RECETTE
-- Aucune migration exécutée ; aucun patch code
-
-## Bascule exécutée
-
-1. Préchecks PASS (build prêt, ancien runtime identifié, backup OK)
-2. `launchctl bootout gui/$UID/com.sfia.studio.next.recette.ml4d-ux004`
-3. Port 3200 libéré
-4. Plist mis à jour vers start script bd8e1672
-5. `launchctl bootstrap` + health `/login` 200
-6. Timestamp cutover : 2026-11-16T18:06:00+01:00
-7. Un seul listener 3200 ; cwd = worktree bd8e1672
-
-## Configuration de service (sans secrets)
-
-### start-recette-sas-nora-bd8e1672.sh
-```bash
-#!/bin/bash
-set -euo pipefail
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
-cd "/Users/morris/Projects/sfia-workspace-next-ml4d-sas-nora-recette-build-bd8e1672/projects/sfia-studio-next/web"
-set -a
-source "$HOME/.config/sfia-studio-next/recette/.env.local"
-set +a
-export SFIA_SOURCE_SHA=bd8e16728f3c2a726a49be4c94565a2d85fc41a9
-unset STUDIO_GITHUB_ALLOW_MUTATIONS || true
-export STUDIO_GITHUB_ALLOW_MUTATIONS=
-export NODE_ENV=production
-# Do not force Nora fixture — LIVE path for Morris séances
-unset STUDIO_FORCE_NORA_FIXTURE || true
-export STUDIO_FORCE_NORA_FIXTURE=
-exec npx next start -H 127.0.0.1 -p 3200
-```
-
-### LaunchAgent plist (paths only)
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>EnvironmentVariables</key>
-	<dict>
-		<key>PATH</key>
-		<string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
-	</dict>
-	<key>KeepAlive</key>
-	<true/>
-	<key>Label</key>
-	<string>com.sfia.studio.next.recette.ml4d-ux004</string>
-	<key>ProgramArguments</key>
-	<array>
-		<string>/Users/morris/Projects/sfia-workspace-next-ml4d-sas-nora-recette-build-bd8e1672/start-recette-sas-nora-bd8e1672.sh</string>
-	</array>
-	<key>RunAtLoad</key>
-	<true/>
-	<key>StandardErrorPath</key>
-	<string>/Users/morris/Projects/sfia-workspace-next-ml4d-sas-nora-recette-build-bd8e1672/launchd.err.log</string>
-	<key>StandardOutPath</key>
-	<string>/Users/morris/Projects/sfia-workspace-next-ml4d-sas-nora-recette-build-bd8e1672/launchd.out.log</string>
-	<key>WorkingDirectory</key>
-	<string>/Users/morris/Projects/sfia-workspace-next-ml4d-sas-nora-recette-build-bd8e1672/projects/sfia-studio-next/web</string>
-</dict>
-</plist>
-```
-
-## Santé runtime + identité servie
-
-| Champ | Valeur |
-| --- | --- |
-| URL | http://127.0.0.1:3200 |
-| `/login` | 200 |
-| BUILD_ID servi | `bURdIMEzv8pRSJCzgsiDf` |
-| source_sha worktree | `bd8e16728f3c2a726a49be4c94565a2d85fc41a9` |
-| tree_web | `1abe4103eb16e4dc899a352206472753bbe9fb04` |
-| Service | LaunchAgent com.sfia.studio.next.recette.ml4d-ux004 pid next-server |
-| Package | 0.0.0-dev |
-
-## Smoke tests (non destructifs)
-
-| ID | Résultat | Notes |
+| ID | Statut | Preuve |
 | --- | --- | --- |
-| S01 Runtime | PASS | port 3200, 1 listener, build attendu |
-| S02 Version | PASS | SHA/tree exacts ; projection_json présent |
-| S03 Identité | PASS | `/api/dev/login` Pilote A ; portfolio 200 |
-| S04 Données | PASS | Cockpit Test 16-11 lisible ; 21 projets conservés |
-| S05 Sas | PASS | aperçu + composer ; pas Ajuster/constitute/edit |
-| S06 Continuité | PASS | projet existant 200 après reload |
-| S07 Frontières | PASS | OPENAI configuré ; mutations Git désactivées ; ≠ preuve LIVE |
+| T01 Ouverture portfolio→projet | PASS | ensemble04 |
+| T02 Nom réel rail | PASS | rail-project-name |
+| T03 Nav 4 entrées | PASS | nav-travail/projet/journal/pilotage |
+| T04 Pas de tabs centraux | PASS | navigation Surfaces projet count 0 |
+| T05 Accès directs | PASS | nav-documents/git/resultats |
+| T06 Retour Portefeuille | PASS | nav-portfolio |
+| T07 Course load+nav | PASS | nav-intent delayed GET |
+| T08 Back/Forward + deep URL | PASS | goto+reload projet |
+| T09 Reload surfaces | PASS | reload overview |
+| T10 Pas de fuite A→B | PASS | nav-intent project B |
+| T11 Absent | PASS | unavailable not_found |
+| T12 Chargement→affichage | PASS | load-state ready |
+| T13 Erreur temporaire | PARTIEL | UI+retry câblés ; pas d’injection 500 e2e dédiée |
+| T14 Conversation réelle | PASS | Travail capture + composer |
+| T15 Envoi Nora | PASS | ml4c composer (fixture) |
+| T16 Reprise/incertaine | PASS | contrats existants non retirés |
+| T17 Nom long | PASS | truncate + title |
+| T18 Viewport/focus | PASS | ux003/ux004 non-régression |
+| T19 Portefeuille/Sas | PASS | ux003/ux004 |
+| T20 Nav sans écriture | PASS | Links GET only + intent |
 
-Effet collatéral smoke : +2 préparations API (189→191) ; **0 nouveau projet**.
+## 11. Figma vs runtime
 
-## Non-régression données
+Viewport: 1680×970
+Artifacts: `projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/`
 
-- Projets : 21 (inchangé)
-- Messages : 474 (inchangé)
-- Cockpit Réunions Projet — Test 16-11 : présent
-- Aucun DROP/TRUNCATE/reset/migration
+| Frame | Statut | Notes |
+| --- | --- | --- |
+| 652:8 Travail | PARTIELLEMENT CONFORME | Rail/header/aside/composer OK ; fil Nora détail → Ens. 05 ; textes réels ≠ Figma illustratif |
+| 652:58 Projet | PARTIELLEMENT CONFORME | Composition cartes/identité/accès OK ; pas de contenu fictif Figma |
+| 652:108 Journal nav | PARTIELLEMENT CONFORME | Sélection Journal + rail OK ; contenu Journal métier → Ens. 06 |
+| 652:158 Indisponible | CONFORME | Carte introuvable + Retour ; rail sans deep-nav / sans fuite de nom |
 
-## Rollback statut
+Écarts assumés: densité exacte des cartes Figma ; libellés métier réels ; badge account « N » vs « P » selon avatar ; footer « Retour portefeuille » global page conservé.
 
-- Rollback applicatif vers `ec7405f3` / `67akzrr6bFEp4YOh7aHD7` : **DISPONIBLE** (worktree + start script + plist bak)
-- Restauration dump DB : **NON exécutée** ; réservée à GO Morris (risque d'écrasement post-bascule)
+## 12. Fake / Real
 
-## Manifeste RECETTE
+- Preuves: runtime browser FAKE/DEV + fixture Nora
+- Non revendiqué: Nora LIVE, Git REAL, OAuth LIVE, ADOPTED, RECETTE déployée
 
-```yaml
-lane: RECETTE
-source_repository: mcleland147/sfia-workspace
-source_branch: feat/next-ml4d-sas-nora-convergence-20261116
-source_sha: bd8e16728f3c2a726a49be4c94565a2d85fc41a9
-tree_web: 1abe4103eb16e4dc899a352206472753bbe9fb04
-base_main_sha: 997d4c4e8204993de7107552898c8cc08cd3b0ed
-build_id: bURdIMEzv8pRSJCzgsiDf
-package_version: 0.0.0-dev
-product_version: NOT AVAILABLE
-schema_revision: 013
-served_address: http://127.0.0.1:3200
-previous_recette_sha: ec7405f323f86a0533dc507a1bfffc60ca1e5d0e
-previous_recette_build: 67akzrr6bFEp4YOh7aHD7
-candidate_status: DEPLOYED FOR MORRIS RECETTE
-morris_ux: PENDING
-nora_live_behavior: NOT PROVEN
-stable: NOT AVAILABLE
-release: NO RELEASE
-```
+## 13. Version / lane
 
-## Réserves / gate suivant
+- Package: 0.0.0-dev · NO RELEASE
+- Classe: EVOL UX compatible (MINOR envisageable après gates)
+- RECETTE: non remplacée (manifeste candidat fourni)
 
-- Morris UX conversation LIVE : PENDING
-- Nora LIVE behavior : NOT PROVEN sur ce candidat
-- Isolation cookies same-host DEV/RECETTE : réserve ENV-01 historique
-- Gate C / ML5 / STABLE / merge : NON ENGAGÉS
+## 14. Réserves / renvois
 
-## Verdict
+- Ensemble 05: fil, scroll, réponses structurantes Nora
+- Ensemble 06: Documents/Journal métier
+- Ensemble 07: Trajectoire cycles/CKI/décisions
+- T13: scénario 500 injecté non automatisé
+- Registre ML4D branche documentaire: faits à reporter ultérieurement (non écrasé ici)
 
-**RECETTE DEPLOYED WITH RESERVES — MORRIS UX PENDING**
+## 15. Décisions Morris requises
 
-Generated: 2026-11-16T18:08:20.976024+01:00
+1. Revue visuelle Figma↔runtime (captures jointes)
+2. GO éventuel mise à disposition RECETTE du candidat (après revue) — **pas dans ce cycle**
+3. Arbitrage si « Résultats et preuves » doit rester mappé sur `publication` ou devenir surface dédiée plus tard
+
+## 16. Instruction ChatGPT
+
+Lire exclusivement le handoff distant:
+
+`sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+
+Puis produire la revue Full ; ne pas merger ; ne pas promouvoir RECETTE sans GO Morris.
