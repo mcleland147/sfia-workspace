@@ -419,8 +419,16 @@ Aucun fichier produit modifié/commité dans ce cycle.
 
 ## 11. Handoff
 
-Mode publish-in-cycle L3.
-*(Complété après publication.)*
+Mode publish-in-cycle L3 via `scripts/sfia/publish-review-handoff.sh`.
+
+| Vérification | Résultat |
+| --- | --- |
+| Verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Tip distant | `be4df31b3cf8497849a3f03f6a69316f96b9bf68` |
+| Blob | `d1d010cd7b32ec04bccf25c470276751a53ff31a` |
+| Mono-fichier | OUI |
+| Push | FF only |
+| Projet | `feat/next-ml4d-ux004-portfolio-20261116` @ `b05dacf47983ed8d914c92619ede5ffe65ce9264` préservé (pas de commit produit) |
 
 ---
 
