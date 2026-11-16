@@ -964,7 +964,15 @@ Preuves clés :
 ## 10. Handoff
 
 Mode publish-in-cycle L3 via `scripts/sfia/publish-review-handoff.sh`.
-*(Complété après publication distante.)*
+
+| Vérification | Résultat |
+| --- | --- |
+| Verdict publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Tip distant | `e88b8c0c2aa5df47c473da828fd07602bb912395` |
+| Blob canonique | `0a4de52fb852d6c6057843158cbbc537166f9b99` |
+| Mono-fichier | OUI — `sfia-review-handoff/latest-chatgpt-review.md` |
+| Push | FF only — aucun force push |
+| Projet préservé | `feat/next-ml4d-ux004-portfolio-20261116` @ `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
 
 ---
 
