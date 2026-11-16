@@ -1,23 +1,34 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { UnifiedStudioEntry } from "@/components/entry/UnifiedStudioEntry";
+import { resolveUnifiedEntryVariant } from "@/components/entry/unified-entry-variant";
+import "@/components/entry/unified-studio-entry.css";
 
-export default function LoginPage() {
+function LoginPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const variant = useMemo(
+    () => resolveUnifiedEntryVariant(searchParams.get("reason")),
+    [searchParams],
+  );
   const [notice, setNotice] = useState<string>("");
+  const [noticeTone, setNoticeTone] = useState<"error" | "busy" | "info">("info");
   const [busy, setBusy] = useState(false);
 
   async function startGitHubOAuth() {
     setBusy(true);
-    setNotice("");
+    setNotice("Préparation de la connexion GitHub…");
+    setNoticeTone("busy");
     try {
       const statusRes = await fetch("/api/auth/status");
       const status = await statusRes.json().catch(() => ({}));
       if (!status.configured) {
         setNotice(
-          "GitHub OAuth BLOCKED — secrets clients absents. Pas de preuve LIVE dans ce cycle.",
+          "Connexion GitHub indisponible : la configuration OAuth n’est pas prête sur cet environnement. Aucun service n’est déclaré disponible.",
         );
+        setNoticeTone("error");
         setBusy(false);
         return;
       }
@@ -31,9 +42,15 @@ export default function LoginPage() {
         window.location.assign(data.url);
         return;
       }
-      setNotice(data?.message ?? data?.error ?? "Échec démarrage OAuth GitHub");
+      setNotice(
+        data?.message ??
+          data?.error ??
+          "La connexion GitHub n’a pas pu démarrer. Réessayez ou contactez l’opérateur.",
+      );
+      setNoticeTone("error");
     } catch (e) {
       setNotice(String(e));
+      setNoticeTone("error");
     } finally {
       setBusy(false);
     }
@@ -42,6 +59,7 @@ export default function LoginPage() {
   async function devLogin(pilot: "a" | "b") {
     setBusy(true);
     setNotice("");
+    setNoticeTone("info");
     const res = await fetch("/api/dev/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -50,43 +68,49 @@ export default function LoginPage() {
     const data = await res.json();
     setBusy(false);
     if (!res.ok) {
-      setNotice(data.error ?? "Échec");
+      setNotice(data.error ?? "Échec de l’accès DEV");
+      setNoticeTone("error");
       return;
     }
     setNotice(data.notice);
+    setNoticeTone("info");
     router.push("/portfolio");
   }
 
   return (
-    <div className="max-w-xl mx-auto panel p-6 space-y-4">
-      <h1 className="text-2xl font-semibold">Connexion Studio</h1>
-      <p className="muted text-sm">
-        GitHub OAuth sert uniquement l&apos;identité Studio. Aucun droit de dépôt n&apos;est accordé.
-      </p>
-      <div className="panel p-4 space-y-2">
-        <div className="font-medium">GitHub OAuth</div>
-        <p className="text-sm muted">
-          Statut: <code>/api/auth/status</code> — BLOCKED si secrets absents. LIVE non inventé.
-        </p>
-        <button type="button" className="btn secondary" disabled={busy} onClick={startGitHubOAuth}>
-          Continuer avec GitHub
-        </button>
-      </div>
-      <div className="panel p-4 space-y-3">
-        <div className="font-medium">DEV test login</div>
-        <p className="text-sm muted">
-          Fake/Real: connecteur de test local — <strong>pas</strong> une preuve OAuth GitHub.
-        </p>
-        <div className="flex gap-2">
-          <button className="btn" disabled={busy} onClick={() => devLogin("a")}>
-            Pilote A (DEV)
-          </button>
-          <button className="btn secondary" disabled={busy} onClick={() => devLogin("b")}>
-            Pilote B (DEV)
-          </button>
+    <UnifiedStudioEntry
+      variant={variant}
+      busy={busy}
+      notice={notice}
+      noticeTone={noticeTone}
+      onGitHubContinue={startGitHubOAuth}
+      onDevLogin={devLogin}
+    />
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="uxe-root" data-testid="unified-studio-entry-fallback">
+          <div className="uxe-shell">
+            <header className="uxe-header">
+              <div className="uxe-brand">
+                <span className="uxe-mark" aria-hidden>
+                  S
+                </span>
+                <p className="uxe-brand-name">SFIA Studio</p>
+              </div>
+            </header>
+            <main className="uxe-body">
+              <p className="uxe-lead">Chargement de l&apos;entrée Studio…</p>
+            </main>
+          </div>
         </div>
-      </div>
-      {notice ? <p className="text-sm">{notice}</p> : null}
-    </div>
+      }
+    >
+      <LoginPageInner />
+    </Suspense>
   );
 }

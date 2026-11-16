@@ -25,6 +25,15 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
   const preparationId = parsePreparationId(pathname);
   const inProductSpace = Boolean(projectId || preparationId);
 
+  // UX-003: /login is a public entry surface — no private project rail.
+  if (pathname === "/login") {
+    return (
+      <div className="min-h-screen" data-testid="studio-shell-entry" data-shell-mode="entry">
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex studio-shell" data-rail-variant={variant}>
       <aside

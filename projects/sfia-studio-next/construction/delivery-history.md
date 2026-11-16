@@ -25,6 +25,25 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-UX003-UNIFIED-ENTRY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~01:30 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-003 Entrée unifiée (desktop / mobile / session expirée) |
+| Type | EVOL / MINOR candidate UX · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux003-unified-entry-20261116` |
+| Base | `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Figma | `574:425` · `574:466` · `574:490` (file `itgvCulInEnFY6DvgIegvP`) |
+| Changes | Composant `UnifiedStudioEntry` ; `/login` sans rail ; assets décor ; variante `?reason=session_expired` ; tests unit+e2e+captures |
+| Schema | unchanged |
+| Lanes | DEV / E2E isolés ; RECETTE non mutée ; STABLE NOT AVAILABLE |
+| Push / PR | **NON** — GO Morris requis pour publication projet |
+| Version produit | NOT AVAILABLE (attribution Morris) |
+| Status | candidate locale — UX review Morris |
+| Risks | Session expirée non détectée nativement ; DEV strip hors Figma ; F2 ctaW delta 2 CSS px |
+
+
 ## delivery_id: DELIV-2026-11-15-ML4C-NAV-SURFACE-INTENT
 
 | Field | Value |
