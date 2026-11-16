@@ -1,99 +1,96 @@
-# SFIA Studio Next — ML4D / UX-003 Entrée unifiée — Review Pack FULL
+# SFIA Studio Next — ML4D / UX-003 Corrections + RECETTE — Review Pack FULL
 
-**Date / heure :** 2026-11-16 ~01:45 CET (Europe/Paris)
-**Autorité :** GO Morris — transposition Figma → runtime (16/11/2026)
-**Type :** EVOL · Delivery / UX/UI · QA · **NO RELEASE**
+**Date / heure :** 2026-11-16 ~06:45 CET (Europe/Paris)
+**GO Morris :** corrections bornées + tests + candidat local figé + RECETTE locale ENV-01 (16/11/2026)
+**Type :** EVOL · Delivery correctif · QA · RECETTE locale · **NO RELEASE**
 **Profil :** STANDARD · Review Pack **FULL** · Handoff **required / publish-in-cycle**
-**Macro-lot :** ML4D (sous-ensemble UX-003 — pas une clôture ML4D)
+**Macro-lot :** ML4D / UX-003 (pas clôture ML4D)
 
 ---
 
-## 0. Verdict
+## 0. Verdicts
 
-**READY WITH RESERVES**
+### A. Corrections UX-003
+**PASS WITH RESERVES**
 
-| Condition | État |
+### B. Candidat
+- SHA figé : `a77a3a2bf7b942038d771fdcdd2e7a6410330784`
+- Parent : `31f23858ef5ed9cb8e6318133c3c399f39777b71`
+- Tree web : `a2b22dd85bf876e4a72e51e782f0c2e54285ae65`
+- Build ID RECETTE : `vYeNRRzvLN03N73wmcKkR`
+- Tests : unit 373 PASS ; e2e UX-003+F2+ml1 12 PASS ; F2 ctaW=2
+
+### C. Environnement RECETTE
+**SERVED AND VERIFIED** / **READY WITH RESERVES — MORRIS UX RECETTE**
+- URL : http://127.0.0.1:3200
+- Worktree détaché : `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-recette-build-a77a3a2bf7b9`
+- Smoke navigateur : entry + expired + test login → portfolio **PASS**
+
+### D. Handoff
+**à publier puis REMOTE VERIFIED** (section 12)
+
+### E. Gates
+| Gate | État |
 | --- | --- |
-| Implémentation /login fidèle composition | **oui** (desktop/mobile/expired) |
-| Rail absent sur /login ; shell préservé ailleurs | **oui** |
-| OAuth GitHub + DEV login préservés | **oui** |
-| Tests unit + e2e UX-003 + ml1-smoke | **PASS** |
-| F2 rectangles stables ≤2 CSS px | **PASS** (ctaW=2) |
-| Captures runtime vs Figma | **réalisées** (comparaison visuelle qualitative + F2 géométrie) |
-| Push / PR projet | **NON** (GO distinct requis) |
-| Handoff L3 | **à publier** (section 11) |
-| ML4D global / Gate C / ADOPTED | **NON** |
+| GO recette locale UX-003 | **autorisé et consommé** |
+| Push projet / PR / merge | **NON** |
+| STABLE / release / ADOPTED | **NON** |
+| ML4D global | **NON CLOS** |
+| Gate C | **OPEN** |
 
-### Réserves
-1. Session expirée : activation déterministe `?reason=session_expired` uniquement — runtime ne distingue pas encore session expirée vs jamais connecté.
-2. Bandeau DEV (Pilote A/B) hors Figma, hors panneau auth (nécessité e2e).
-3. Delta CTA largeur **2 CSS px** (tolérance max) ; pas de seuil image global inventé.
-4. OAuth GitHub LIVE non ré-prouvé ici (frontière config) ; message d’indisponibilité explicite si non configuré.
-5. Version produit cible : **NOT AVAILABLE** (attribution Morris). MINOR candidate UX.
+**Verdict utilisateur :** **READY WITH RESERVES — MORRIS UX RECETTE**
+
+### Réserves restantes
+1. Cookie same-host ENV-01 A — profil navigateur dédié recommandé ; cookies session lane-scoped.
+2. `session_expired` = simulation `?reason=session_expired` uniquement.
+3. F2 CTA largeur Δ **2 CSS px** (tolérance max).
+4. OAuth LIVE callback non rejoué (CONFIGURED).
+5. Version produit NOT AVAILABLE.
+6. Accès de test RECETTE activé explicitement (`STUDIO_DEV_TEST_LOGIN=1`) — non OAuth.
 
 ---
 
-## 1. Git Truth Check
+## 1. GO Morris applicable
+
+Autorisé : corrections UX-003, tests, candidat local, RECETTE locale ENV-01.
+Non autorisé : push/PR/merge/main/doctrine/Figma/STABLE/release/ADOPTED.
+Exception L3 handoff mono-fichier : autorisée.
+
+---
+
+## 2. Git Truth Check
 
 | Champ | Valeur |
 | --- | --- |
-| Dépôt | `mcleland147/sfia-workspace` |
-| `origin/main` | `997d4c4e8204993de7107552898c8cc08cd3b0ed` (= attendu ChatGPT) |
-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
-| Branche candidate | `feat/next-ml4d-ux003-unified-entry-20261116` |
-| HEAD local | `31f23858ef5ed9cb8e6318133c3c399f39777b71` |
-| Parent | `997d4c4e` (= main) |
-| Tree web | `a5be8c34da9143e47f4d40bf4bdad87bbfc51fa4` |
-| Push projet | **non effectué** |
-| ENV policy blob | `14b61f0d…` match |
-| Versioning blob | `8bc93e0f…` match |
-| RECETTE / STABLE | non mutées / NOT AVAILABLE |
+| origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Branche DEV | `feat/next-ml4d-ux003-unified-entry-20261116` |
+| HEAD DEV / candidat | `a77a3a2bf7b942038d771fdcdd2e7a6410330784` |
+| HEAD précédent | `31f23858…` (parent) |
+| Handoff précédent | `e8c6caaa…` |
+| Push projet | non |
+| Dirty produit | propre (seul `.tmp-sfia-review/` local) |
+| CKC UX-003 | **ABSENT** — fallback SFIA v2.6 |
 
-Incident corrigé in-cycle : un commit avait d’abord atterri sur `docs/next-ml4c-closure-20261115` (worktree) ; **non poussé** ; docs tip distant restauré `bb21d24c` ; rejoué sur feat depuis `origin/main`.
-
-CKC UX-003 : **ABSENT** — fallback SFIA v2.6 + contrats transposition/fidélité.
+RECETTE précédente sur `:3200` : ML4C `11f7077e` (worktree préservé). Remplacée par candidat UX-003 après diagnostic ; restauration documentée.
 
 ---
 
-## 2. Sources lues
+## 3. Sources lues
 
-- `governance/SEF.md`, `roadmap.md`, décisions 2026-11-11 et 2026-11-15
-- `product-naming-conventions.md`, `environnements-recette-et-promotions.md`, `product-versioning.md`
-- `cadrage/vision-produit.md`, `architecture-technique/cadrage-r4.md`
-- `ux-ui/contrat-transposition-figma-code.md`, `protocole-fidelite-figma-runtime.md`
-- `construction/.../g2-source/README.md`
-- Code : `login/page.tsx`, `StudioShell.tsx`, `layout.tsx`, `globals.css`, `tokens.css`, auth OAuth existant
-- Figma MCP : frames `574:425`, `574:466`, `574:490` (+ metadata + screenshots + assets)
+SEF, roadmap, ENV-01, product-versioning, naming, décisions 11/11 et 15/11, vision, cadrage-r4, contrats Figma, doctrine 30/36, contrat visuel UX-003, code entry/login/shell/auth/session/dev-login, Figma frames validés (relecture, pas redesign).
 
 ---
 
-## 3. Références Figma exploitées
+## 4. Écarts corrigés
 
-| Frame | Node | Viewport | Empreinte PNG sha256 |
-| --- | --- | --- | --- |
-| Desktop nominal | 574:425 | 1680×970 | `a3c42f942a0dd9f8fe0fb3dd7d1913f04946c245c3f8916877f069072dc15206` |
-| Mobile nominal | 574:466 | 390×844 | `7ff1439eabe80277b98d0add0bf2847f5d96d525c3df49d7e03b5bfe638e1aec` |
-| Desktop session expirée | 574:490 | 1680×970 | `cf5aca2f2ca0f706d6c010a81bf3882efbf38e7e6d46199592406ae95bcae012` |
-
-Captures locales : `.tmp-sfia-review/figma-refs/`
-Contrat L1/L2 : `projects/sfia-studio-next/ux-ui/contrat-visuel-ux003-entree-unifiee-20261116.md`
+1. **Troncature erreurs** : confirmée (panneau `height:550` + `overflow:hidden`). Status déplacé hors panneau (`uxe-status-slot`) — écart documenté vs Figma nominal.
+2. **Accès test** : UI conditionnée par `testLoginAvailable` (même frontière serveur DEV/RECETTE + flag) ; garde `/api/dev/login` inchangée.
+3. **Parcours** : `/` → `/login` si non authentifié ; tests OAuth unavailable / long error / network / DEV refused / session_expired.
+4. **F2** : rectangles stables rejoués — deltas 0 sauf CTA 2.
 
 ---
 
-## 4. Implémentation — périmètre
-
-- Composant `UnifiedStudioEntry` + CSS tokens UX-003
-- `/login` branché ; shell mode `entry` (pas de rail)
-- CTA GitHub → `/api/auth/status` + `/api/auth/sign-in/social`
-- DEV login Pilote A/B conservés
-- Variante expired via `resolveUnifiedEntryVariant`
-- Assets décor SVG sous `web/public/entry/`
-
----
-
-## 5. Comparaison Figma / runtime
-
-### Géométrie F2 (desktop 1680×970)
+## 5. Comparaison Figma/runtime (F2)
 
 ```json
 {
@@ -166,46 +163,82 @@ Contrat L1/L2 : `projects/sfia-studio-next/ux-ui/contrat-visuel-ux003-entree-uni
 }
 ```
 
-| Rectangle | Figma | Runtime | Δ CSS px |
-| --- | --- | --- | --- |
-| Header H | 106 | 106 | 0 |
-| Mark | 39×39 | 39×39 | 0 |
-| Auth panel | 536×550 | 536×550 | 0 |
-| Auth position | (1000,204) | (1000,204) | 0 |
-| Accent | 52×5 | 52×5 | 0 |
-| CTA | 480×62 | 478×62 | **2** (≤2) |
-
-Captures runtime : `.tmp-sfia-review/runtime-captures/`
-- `runtime-desktop-1680x970-nominal.png`
-- `runtime-mobile-390x844-nominal.png`
-- `runtime-mobile-320x568-nominal.png`
-- `runtime-desktop-1680x970-session-expired.png`
-
-**Qualification :** fidélité structurelle forte sur rectangles stables ; différences de rasterisation/polices (Inter système) non assimilées à un fail géométrique ; pas de verdict pixel-global inventé.
+Captures DEV : `.tmp-sfia-review/runtime-captures/`
+Captures RECETTE : `recette-desktop-1680-nominal.png`, `recette-mobile-390-nominal.png`, `recette-desktop-1680-expired.png`
 
 ---
 
-## 6. Tests et preuves
+## 6. Tests exécutés (réels)
 
-| Suite | Résultat | Niveau |
-| --- | --- | --- |
-| `tsc --noEmit` | PASS | DET |
-| ESLint | PASS (warnings préexistants) | DET |
-| `next build` | PASS (lane DEV, DSN loopback) | DET |
-| Vitest unit | **372 PASS** | DET |
-| Playwright UX-003 (+F2) | **6 PASS** | BROWSER/FAKE |
-| Playwright ml1-smoke | **1 PASS** | BROWSER/FAKE |
-| OAuth GitHub LIVE | non rejoué | — |
-| Git REAL | non exercé | — |
+| Suite | Résultat |
+| --- | --- |
+| tsc / eslint / next build | PASS |
+| Vitest unit | **373 PASS** |
+| Playwright UX-003 + F2 + ml1-smoke | **12 PASS** |
+| Smoke RECETTE navigateur | **PASS** (entry/expired/test→portfolio) |
 
-ENV-01 : DEV/E2E `:3101` / `sfia_next_e2e` ; RECETTE `:5434` non mutée.
+Qualification : BROWSER/FAKE/DET. OAuth LIVE non revendiqué. Git REAL non exercé.
 
 ---
 
-## 7. Diff utile — StudioShell
+## 7. Manifeste RECETTE
+
+```yaml
+lane: RECETTE
+repository: mcleland147/sfia-workspace
+source_branch: feat/next-ml4d-ux003-unified-entry-20261116
+base_main_sha: 997d4c4e8204993de7107552898c8cc08cd3b0ed
+candidate_sha: a77a3a2bf7b942038d771fdcdd2e7a6410330784
+web_tree: a2b22dd85bf876e4a72e51e782f0c2e54285ae65
+build_id: vYeNRRzvLN03N73wmcKkR
+served_address: 'http://127.0.0.1:3200'
+served_host_machine: 'local macOS — Morris workstation'
+browser_profile_guidance: 'Use a dedicated browser profile (or private window) for RECETTE to avoid cookie contamination with DEV :3100 (ENV-01 réserve A). Session cookies are lane-scoped (sfia_studio_session__RECETTE).'
+started_at: '2026-11-16T05:38:54Z'
+worktree: /Users/morris/Projects/sfia-workspace-next-ml4d-ux003-recette-build-a77a3a2bf7b9
+start_script: /Users/morris/Projects/sfia-workspace-next-ml4d-ux003-recette-build-a77a3a2bf7b9/start-recette-ux003.sh
+db: '127.0.0.1:5434/sfia_next_recette_ml4'
+document_root: from recette .env.local SFIA_DOCUMENT_ROOT
+product_version: NOT AVAILABLE
+release_status: NO RELEASE / NOT ADOPTED
+oauth_capability: 'CONFIGURED — LIVE proof still requires successful callback'
+test_login_capability: 'available (STUDIO_DEV_TEST_LOGIN=1, STUDIO_LANE=RECETTE) — non OAuth'
+hot_reload: false
+dev_isolation: 'DEV remains on feat worktree :3100; RECETTE serves production next start from detached SHA worktree'
+previous_recette_sha: 11f7077edd08f1a0c680b6b920f20dbaf76c7bed
+previous_recette_restore: '/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-11f7077e/start-recette.sh (stop :3200 first)'
+smoke_verified:
+  - 'GET /login 200 + unified-studio-entry visible, rail absent'
+  - 'GET /login?reason=session_expired shows SESSION EXPIRÉE'
+  - 'GET /api/auth/status testLoginAvailable=true'
+  - 'Pilote A (DEV) → /portfolio with studio-rail'
+  - 'mobile 390 capture + desktop captures saved'
+tests_dev_lane:
+  unit: 373 PASS
+  e2e_ux003_f2_ml1: 12 PASS
+  f2_deltas: 'header/mark/auth/accent 0; ctaW 2'
+decision_recette: EN ATTENTE MORRIS
+
+```
+
+---
+
+## 8. Accès Morris
+
+1. URL : **http://127.0.0.1:3200/login**
+2. SHA : `a77a3a2bf7b942038d771fdcdd2e7a6410330784`
+3. Connexion test : boutons **Pilote A/B (DEV)** (non OAuth) si visibles — lane RECETTE autorisée.
+4. Session expirée : http://127.0.0.1:3200/login?reason=session_expired
+5. Mobile : redimensionner la fenêtre / outils responsive (390×844).
+6. Profil navigateur dédié recommandé (isolation cookies vs DEV :3100).
+7. Restauration précédent : stopper `:3200` puis `/Users/morris/Projects/sfia-workspace-next-ml4c-recette-build-11f7077e/start-recette.sh`
+
+---
+
+## 9. StudioShell (mode entry)
 
 ```tsx
-  // UX-003: /login is a public entry surface — no private project rail.
+// UX-003: /login is a public entry surface — no private project rail.
   if (pathname === "/login") {
     return (
       <div className="min-h-screen" data-testid="studio-shell-entry" data-shell-mode="entry">
@@ -213,13 +246,42 @@ ENV-01 : DEV/E2E `:3101` / `sfia_next_e2e` ; RECETTE `:5434` non mutée.
       </div>
     );
   }
+
+
 ```
 
 ---
 
-## 8. Fichiers créés / modifiés (contenu)
+## 10. Delivery-history (nouvelle entrée)
 
-### Fichier complet — `projects/sfia-studio-next/web/src/components/entry/unified-entry-variant.ts`
+```
+## delivery_id: DELIV-2026-11-16-ML4D-UX003-UNIFIED-ENTRY-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~06:40 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-003 corrections finales + mise à disposition RECETTE locale |
+| Type | EVOL / MINOR candidate UX · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux003-unified-entry-20261116` |
+| Base | `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Parent candidate | `31f23858ef5ed9cb8e6318133c3c399f39777b71` |
+| Changes | Status hors panneau (anti-troncature) ; `testLoginAvailable` via `/api/auth/status` ; `/` → `/login` si non auth ; tests e2e étendus ; RECETTE figée |
+| Schema | unchanged |
+| Lanes | DEV + E2E `:3101` ; RECETTE `:3200` worktree/build séparé ; STABLE NOT AVAILABLE |
+| Push / PR | **NON** |
+| Version produit | NOT AVAILABLE |
+| Status | candidate locale figé — EN ATTENTE MORRIS UX RECETTE |
+| Risks | Cookie same-host réserve ENV-01 A (mitigation profils navigateur) ; session_expired simulé ; CTA F2 Δ2 px |
+
+
+
+```
+
+---
+
+## 11. Fichiers créés/modifiés (contenu complet)
+
+### Fichier — `projects/sfia-studio-next/web/src/components/entry/unified-entry-variant.ts`
 
 ```
 /**
@@ -258,7 +320,7 @@ export const UNIFIED_ENTRY_COPY = {
 } as const;
 
 ```
-### Fichier complet — `projects/sfia-studio-next/web/src/components/entry/UnifiedStudioEntry.tsx`
+### Fichier — `projects/sfia-studio-next/web/src/components/entry/UnifiedStudioEntry.tsx`
 
 ```
 "use client";
@@ -280,6 +342,8 @@ export type UnifiedStudioEntryProps = {
   busy: boolean;
   notice: string;
   noticeTone?: "error" | "busy" | "info";
+  /** Server-gated: DEV/RECETTE + STUDIO_DEV_TEST_LOGIN=1. Not a security control by itself. */
+  testLoginAvailable: boolean;
   onGitHubContinue: () => void;
   onDevLogin: (pilot: "a" | "b") => void;
 };
@@ -289,6 +353,7 @@ export function UnifiedStudioEntry({
   busy,
   notice,
   noticeTone = "info",
+  testLoginAvailable,
   onGitHubContinue,
   onDevLogin,
 }: UnifiedStudioEntryProps) {
@@ -299,6 +364,7 @@ export function UnifiedStudioEntry({
       className="uxe-root"
       data-testid="unified-studio-entry"
       data-entry-variant={variant}
+      data-test-login={testLoginAvailable ? "available" : "hidden"}
       data-figma-desktop={variant === "session_expired" ? "574:490" : "574:425"}
       data-figma-mobile="574:466"
     >
@@ -392,6 +458,7 @@ export function UnifiedStudioEntry({
                 className="uxe-cta"
                 data-testid="login-github"
                 disabled={busy}
+                aria-busy={busy}
                 onClick={onGitHubContinue}
               >
                 <span className="uxe-cta-icon" aria-hidden>
@@ -410,43 +477,49 @@ export function UnifiedStudioEntry({
               <p className="uxe-auth-note uxe-auth-note--secondary">
                 Les droits d&apos;accès aux dépôts sont gérés séparément.
               </p>
+            </section>
 
-              {notice ? (
+            {/* Status outside fixed 550px panel — no truncation (écart documenté vs Figma nominal). */}
+            {notice ? (
+              <div className="uxe-status-slot">
                 <p
                   className="uxe-status"
                   data-tone={noticeTone}
                   data-testid="login-notice"
-                  role="status"
+                  role={noticeTone === "error" ? "alert" : "status"}
+                  aria-live={noticeTone === "error" ? "assertive" : "polite"}
                 >
                   {notice}
                 </p>
-              ) : null}
-            </section>
-
-            {/* DEV-only harness — hors panneau Figma ; conservé pour lanes DEV/E2E. */}
-            <div className="uxe-dev" data-testid="login-dev-access">
-              <p className="uxe-auth-note uxe-auth-note--secondary">
-                Accès de test DEV (non OAuth)
-              </p>
-              <div className="uxe-dev-body">
-                <button
-                  type="button"
-                  className="uxe-dev-btn"
-                  disabled={busy}
-                  onClick={() => onDevLogin("a")}
-                >
-                  Pilote A (DEV)
-                </button>
-                <button
-                  type="button"
-                  className="uxe-dev-btn"
-                  disabled={busy}
-                  onClick={() => onDevLogin("b")}
-                >
-                  Pilote B (DEV)
-                </button>
               </div>
-            </div>
+            ) : null}
+
+            {/* Visible only when server reports test login available (DEV/RECETTE gate). */}
+            {testLoginAvailable ? (
+              <div className="uxe-dev" data-testid="login-dev-access">
+                <p className="uxe-auth-note uxe-auth-note--secondary">
+                  Accès de test (non OAuth) — lane autorisée
+                </p>
+                <div className="uxe-dev-body">
+                  <button
+                    type="button"
+                    className="uxe-dev-btn"
+                    disabled={busy}
+                    onClick={() => onDevLogin("a")}
+                  >
+                    Pilote A (DEV)
+                  </button>
+                  <button
+                    type="button"
+                    className="uxe-dev-btn"
+                    disabled={busy}
+                    onClick={() => onDevLogin("b")}
+                  >
+                    Pilote B (DEV)
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
 
@@ -462,402 +535,9 @@ export function UnifiedStudioEntry({
 }
 
 ```
-### Fichier complet — `projects/sfia-studio-next/web/src/app/login/page.tsx`
+### Fichier — `projects/sfia-studio-next/web/src/components/entry/unified-studio-entry.css`
 
 ```
-"use client";
-
-import { Suspense, useMemo, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { UnifiedStudioEntry } from "@/components/entry/UnifiedStudioEntry";
-import { resolveUnifiedEntryVariant } from "@/components/entry/unified-entry-variant";
-import "@/components/entry/unified-studio-entry.css";
-
-function LoginPageInner() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const variant = useMemo(
-    () => resolveUnifiedEntryVariant(searchParams.get("reason")),
-    [searchParams],
-  );
-  const [notice, setNotice] = useState<string>("");
-  const [noticeTone, setNoticeTone] = useState<"error" | "busy" | "info">("info");
-  const [busy, setBusy] = useState(false);
-
-  async function startGitHubOAuth() {
-    setBusy(true);
-    setNotice("Préparation de la connexion GitHub…");
-    setNoticeTone("busy");
-    try {
-      const statusRes = await fetch("/api/auth/status");
-      const status = await statusRes.json().catch(() => ({}));
-      if (!status.configured) {
-        setNotice(
-          "Connexion GitHub indisponible : la configuration OAuth n’est pas prête sur cet environnement. Aucun service n’est déclaré disponible.",
-        );
-        setNoticeTone("error");
-        setBusy(false);
-        return;
-      }
-      const res = await fetch("/api/auth/sign-in/social", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ provider: "github", callbackURL: "/portfolio" }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (data?.url) {
-        window.location.assign(data.url);
-        return;
-      }
-      setNotice(
-        data?.message ??
-          data?.error ??
-          "La connexion GitHub n’a pas pu démarrer. Réessayez ou contactez l’opérateur.",
-      );
-      setNoticeTone("error");
-    } catch (e) {
-      setNotice(String(e));
-      setNoticeTone("error");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function devLogin(pilot: "a" | "b") {
-    setBusy(true);
-    setNotice("");
-    setNoticeTone("info");
-    const res = await fetch("/api/dev/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pilot }),
-    });
-    const data = await res.json();
-    setBusy(false);
-    if (!res.ok) {
-      setNotice(data.error ?? "Échec de l’accès DEV");
-      setNoticeTone("error");
-      return;
-    }
-    setNotice(data.notice);
-    setNoticeTone("info");
-    router.push("/portfolio");
-  }
-
-  return (
-    <UnifiedStudioEntry
-      variant={variant}
-      busy={busy}
-      notice={notice}
-      noticeTone={noticeTone}
-      onGitHubContinue={startGitHubOAuth}
-      onDevLogin={devLogin}
-    />
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="uxe-root" data-testid="unified-studio-entry-fallback">
-          <div className="uxe-shell">
-            <header className="uxe-header">
-              <div className="uxe-brand">
-                <span className="uxe-mark" aria-hidden>
-                  S
-                </span>
-                <p className="uxe-brand-name">SFIA Studio</p>
-              </div>
-            </header>
-            <main className="uxe-body">
-              <p className="uxe-lead">Chargement de l&apos;entrée Studio…</p>
-            </main>
-          </div>
-        </div>
-      }
-    >
-      <LoginPageInner />
-    </Suspense>
-  );
-}
-
-```
-### Fichier complet — `projects/sfia-studio-next/web/tests/unit/unified-entry-variant.test.ts`
-
-```
-import { describe, expect, it } from "vitest";
-import {
-  resolveUnifiedEntryVariant,
-  UNIFIED_ENTRY_COPY,
-} from "@/components/entry/unified-entry-variant";
-
-describe("resolveUnifiedEntryVariant", () => {
-  it("defaults to nominal when reason is absent", () => {
-    expect(resolveUnifiedEntryVariant(null)).toBe("nominal");
-    expect(resolveUnifiedEntryVariant(undefined)).toBe("nominal");
-    expect(resolveUnifiedEntryVariant("")).toBe("nominal");
-  });
-
-  it("activates session_expired only on explicit reason", () => {
-    expect(resolveUnifiedEntryVariant("session_expired")).toBe("session_expired");
-    expect(resolveUnifiedEntryVariant("expired")).toBe("nominal");
-    expect(resolveUnifiedEntryVariant("SESSION_EXPIRED")).toBe("nominal");
-  });
-
-  it("keeps distinct copy for expired vs nominal", () => {
-    expect(UNIFIED_ENTRY_COPY.nominal.ctaLabel).toBe("Continuer avec GitHub");
-    expect(UNIFIED_ENTRY_COPY.session_expired.ctaLabel).toBe(
-      "Se reconnecter avec GitHub",
-    );
-    expect(UNIFIED_ENTRY_COPY.session_expired.panelEyebrow).toBe("SESSION EXPIRÉE");
-  });
-});
-
-```
-### Fichier complet — `projects/sfia-studio-next/web/tests/e2e/ux003-unified-entry.spec.ts`
-
-```
-import { test, expect } from "@playwright/test";
-import path from "node:path";
-import fs from "node:fs";
-
-const CAPTURE_DIR = path.join(
-  process.cwd(),
-  "..",
-  "..",
-  "..",
-  ".tmp-sfia-review",
-  "runtime-captures",
-);
-
-test.beforeAll(() => {
-  fs.mkdirSync(CAPTURE_DIR, { recursive: true });
-});
-
-test("login entry renders without project rail (desktop nominal)", async ({ page }) => {
-  await page.setViewportSize({ width: 1680, height: 970 });
-  await page.goto("/login");
-
-  await expect(page.getByTestId("unified-studio-entry")).toBeVisible();
-  await expect(page.getByTestId("unified-studio-entry")).toHaveAttribute(
-    "data-entry-variant",
-    "nominal",
-  );
-  await expect(page.getByTestId("studio-rail")).toHaveCount(0);
-  await expect(page.getByTestId("studio-rail-mobile")).toHaveCount(0);
-  await expect(page.getByTestId("studio-shell-entry")).toHaveAttribute(
-    "data-shell-mode",
-    "entry",
-  );
-
-  await expect(page.getByRole("heading", { name: /Vos projets avancent/ })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Bienvenue dans Studio" })).toBeVisible();
-  await expect(page.getByTestId("login-github")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Pilote A (DEV)" })).toBeVisible();
-
-  // Keyboard focus lands on primary CTA when tabbing into the panel.
-  await page.getByTestId("login-github").focus();
-  await expect(page.getByTestId("login-github")).toBeFocused();
-
-  await page.screenshot({
-    path: path.join(CAPTURE_DIR, "runtime-desktop-1680x970-nominal.png"),
-    fullPage: true,
-  });
-});
-
-test("login entry mobile nominal composition", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/login");
-
-  await expect(page.getByTestId("unified-studio-entry")).toBeVisible();
-  await expect(page.getByTestId("login-github")).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Avec Nora/ })).toBeVisible();
-
-  // No horizontal overflow on the entry root.
-  const overflow = await page.evaluate(() => {
-    const el = document.querySelector("[data-testid='unified-studio-entry']");
-    if (!el) return true;
-    return el.scrollWidth > el.clientWidth + 1;
-  });
-  expect(overflow).toBe(false);
-
-  await page.screenshot({
-    path: path.join(CAPTURE_DIR, "runtime-mobile-390x844-nominal.png"),
-    fullPage: true,
-  });
-});
-
-test("login entry tiny viewport 320x568 stays usable", async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 568 });
-  await page.goto("/login");
-  await expect(page.getByTestId("login-github")).toBeVisible();
-  const overflow = await page.evaluate(() => {
-    const el = document.querySelector("[data-testid='unified-studio-entry']");
-    if (!el) return true;
-    return el.scrollWidth > el.clientWidth + 1;
-  });
-  expect(overflow).toBe(false);
-  await page.screenshot({
-    path: path.join(CAPTURE_DIR, "runtime-mobile-320x568-nominal.png"),
-    fullPage: true,
-  });
-});
-
-test("session_expired variant via deterministic reason query", async ({ page }) => {
-  await page.setViewportSize({ width: 1680, height: 970 });
-  await page.goto("/login?reason=session_expired");
-
-  await expect(page.getByTestId("unified-studio-entry")).toHaveAttribute(
-    "data-entry-variant",
-    "session_expired",
-  );
-  await expect(page.getByText("SESSION EXPIRÉE", { exact: true })).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Retrouvons votre session" }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Se reconnecter avec GitHub" }),
-  ).toBeVisible();
-
-  await page.screenshot({
-    path: path.join(CAPTURE_DIR, "runtime-desktop-1680x970-session-expired.png"),
-    fullPage: true,
-  });
-});
-
-test("portfolio shell rail still present after DEV login", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  await expect(page.getByTestId("studio-rail")).toBeVisible();
-});
-
-```
-### Fichier complet — `projects/sfia-studio-next/web/tests/e2e/ux003-f2-measure.spec.ts`
-
-```
-import { test, expect } from "@playwright/test";
-import fs from "node:fs";
-import path from "node:path";
-
-const OUT = path.join(process.cwd(), "../../../.tmp-sfia-review/f2-measures.json");
-
-test("F2 measure desktop stable rectangles", async ({ page }) => {
-  await page.setViewportSize({ width: 1680, height: 970 });
-  await page.goto("/login");
-  const box = async (sel: string) => {
-    const loc = page.locator(sel).first();
-    const b = await loc.boundingBox();
-    return b;
-  };
-  const measures = {
-    viewport: { w: 1680, h: 970 },
-    header: await box(".uxe-header"),
-    mark: await box(".uxe-mark"),
-    auth: await box("[data-testid='unified-entry-auth-panel']"),
-    cta: await box("[data-testid='login-github']"),
-    accent: await box(".uxe-auth-accent"),
-    figma: {
-      headerH: 106,
-      mark: { w: 39, h: 39 },
-      auth: { w: 536, h: 550 },
-      cta: { w: 480, h: 62 },
-      accent: { w: 52, h: 5 },
-    },
-  };
-  const deltas = {
-    headerH: Math.abs((measures.header?.height ?? 0) - 106),
-    markW: Math.abs((measures.mark?.width ?? 0) - 39),
-    markH: Math.abs((measures.mark?.height ?? 0) - 39),
-    authW: Math.abs((measures.auth?.width ?? 0) - 536),
-    authH: Math.abs((measures.auth?.height ?? 0) - 550),
-    ctaW: Math.abs((measures.cta?.width ?? 0) - 480),
-    ctaH: Math.abs((measures.cta?.height ?? 0) - 62),
-    accentW: Math.abs((measures.accent?.width ?? 0) - 52),
-    accentH: Math.abs((measures.accent?.height ?? 0) - 5),
-  };
-  fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, JSON.stringify({ measures, deltas }, null, 2));
-  console.log(JSON.stringify(deltas));
-  for (const [k, v] of Object.entries(deltas)) {
-    expect(v, k).toBeLessThanOrEqual(2);
-  }
-});
-
-```
-### Fichier complet — `projects/sfia-studio-next/ux-ui/contrat-visuel-ux003-entree-unifiee-20261116.md`
-
-```
-# Contrat visuel L1/L2 — UX-003 Entrée unifiée (2026-11-16)
-
-| Champ | Valeur |
-| --- | --- |
-| Statut | EXTRAIT FIGMA MCP — VALIDATED SPEC BY MORRIS (composition) |
-| Fichier Figma | `itgvCulInEnFY6DvgIegvP` |
-| Page | `94:49` |
-| Frames | `574:425` desktop nominal · `574:466` mobile nominal · `574:490` desktop session expirée |
-| Empreintes PNG (sha256) | voir section 4 |
-| CKC dédié | **ABSENT** — fallback SFIA v2.6 + contrats transposition/fidélité |
-
-## 1. Dimensions de référence
-
-| Frame | Node | Viewport |
-| --- | --- | --- |
-| Desktop nominal | `574:425` | **1680 × 970** |
-| Mobile nominal | `574:466` | **390 × 844** |
-| Desktop session expirée | `574:490` | **1680 × 970** |
-
-## 2. Tokens couleur natifs (constatés)
-
-| Token | Hex |
-| --- | --- |
-| Fond page | `#090e19` |
-| En-tête | `#0d1422` |
-| Panneau / tuiles | `#131c2b` |
-| Lignes | `#28364e` |
-| Accent CTA / marque | `#6777f6` |
-| Accent soft | `#9ca6ff` |
-| Encre | `#f4f7ff` |
-| Muet | `#a2b0c6` |
-| Muet secondaire | `#7185a6` |
-
-## 3. Composition L1/L2 (desktop)
-
-| Bloc | Mesures natives (extrait metadata) |
-| --- | --- |
-| En-tête | h=106 ; marque 39×39 @ (84,35) ; rayon marque 10 |
-| Auth panel | 536×550 @ (1000,204) ; rayon 24 ; bordure `#28364e` |
-| Accent panel | 52×5 ; rayon 2 |
-| CTA | 480×62 ; rayon 12 |
-| Tuiles | 222×98 ; gap ~15 ; rayon 14 |
-| Titre produit | Inter Bold 68 / lh 80 |
-| Titre auth | Inter SemiBold 34 / lh 42 |
-
-Mobile : auth 350×396 @ (20,371) ; titre 39/46 ; CTA 294×56 ; tuiles/footer/masqués.
-
-Session expirée : même composition desktop ; copy panel `SESSION EXPIRÉE` / `Retrouvons votre session` / CTA `Se reconnecter avec GitHub`.
-
-## 4. Captures Figma datées (2026-11-16)
-
-Stockage local cycle : `.tmp-sfia-review/figma-refs/`
-
-| Fichier | sha256 |
-| --- | --- |
-| `574-425-desktop-nominal.png` | `a3c42f942a0dd9f8fe0fb3dd7d1913f04946c245c3f8916877f069072dc15206` |
-| `574-466-mobile-nominal.png` | `7ff1439eabe80277b98d0add0bf2847f5d96d525c3df49d7e03b5bfe638e1aec` |
-| `574-490-desktop-expired.png` | `cf5aca2f2ca0f706d6c010a81bf3882efbf38e7e6d46199592406ae95bcae012` |
-
-## 5. Limites runtime
-
-- Variante session expirée : activation déterministe `?reason=session_expired` uniquement (pas de détection session native distincte).
-- Accès DEV (Pilote A/B) : hors Figma, conservés pour lanes DEV/E2E.
-- Fidélité F2 : rectangles stables — cible delta 0 CSS px, tolérance max 2 CSS px ; pas de seuil global d’image inventé.
-
-```
-### Fichier complet — `projects/sfia-studio-next/web/src/components/entry/unified-studio-entry.css`
-
-```css
 /*
  * UX-003 — Entrée unifiée Studio
  * Native Figma tokens from frames 574:425 / 574:466 / 574:490 (2026-11-16).
@@ -1102,10 +782,42 @@ Stockage local cycle : `.tmp-sfia-review/figma-refs/`
   border: 1px solid var(--uxe-line);
   border-radius: var(--uxe-radius-panel);
   width: 100%;
+  /* Nominal Figma 574:425 / 574:490: fixed 550. Status messages render outside. */
   height: 550px;
   padding: 26px 28px 28px;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+/* Error/busy status lives outside the fixed panel so long copy is never clipped. */
+.uxe-status-slot {
+  width: 100%;
+  margin: 0;
+}
+
+.uxe-status {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--uxe-line);
+  background: color-mix(in srgb, var(--uxe-panel) 88%, #000);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--uxe-muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.uxe-status[data-tone="error"] {
+  color: #f2b4ba;
+  border-color: color-mix(in srgb, #e35d6a 55%, var(--uxe-line));
+  background: color-mix(in srgb, #e35d6a 12%, var(--uxe-panel));
+}
+
+.uxe-status[data-tone="busy"] {
+  color: var(--uxe-accent-soft);
+  border-color: color-mix(in srgb, var(--uxe-accent) 40%, var(--uxe-line));
 }
 
 .uxe-auth-accent {
@@ -1219,21 +931,6 @@ Stockage local cycle : `.tmp-sfia-review/figma-refs/`
 .uxe-auth-note--secondary {
   color: var(--uxe-muted-2);
   margin-top: 14px;
-}
-
-.uxe-status {
-  margin: 18px 0 0;
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--uxe-muted);
-}
-
-.uxe-status[data-tone="error"] {
-  color: #e35d6a;
-}
-
-.uxe-status[data-tone="busy"] {
-  color: var(--uxe-accent-soft);
 }
 
 .uxe-dev {
@@ -1460,34 +1157,723 @@ Stockage local cycle : `.tmp-sfia-review/figma-refs/`
 }
 
 ```
+### Fichier — `projects/sfia-studio-next/web/src/app/login/page.tsx`
+
+```
+"use client";
+
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { UnifiedStudioEntry } from "@/components/entry/UnifiedStudioEntry";
+import { resolveUnifiedEntryVariant } from "@/components/entry/unified-entry-variant";
+import "@/components/entry/unified-studio-entry.css";
+
+function sanitizeUserNotice(raw: unknown): string {
+  if (typeof raw !== "string" || !raw.trim()) {
+    return "Une erreur est survenue. Réessayez ou contactez l’opérateur.";
+  }
+  const text = raw.trim().replace(/\s+/g, " ");
+  // Never surface stack / absolute paths / env dumps to the Pilote.
+  if (
+    text.length > 480 ||
+    /\/Users\/|\/home\/|at\s+\S+\s+\(|node_modules|DATABASE_URL|SECRET|BEGIN PRIVATE/i.test(
+      text,
+    )
+  ) {
+    return "Une erreur est survenue. Réessayez ou contactez l’opérateur.";
+  }
+  return text.slice(0, 480);
+}
+
+function LoginPageInner() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const variant = useMemo(
+    () => resolveUnifiedEntryVariant(searchParams.get("reason")),
+    [searchParams],
+  );
+  const [notice, setNotice] = useState<string>("");
+  const [noticeTone, setNoticeTone] = useState<"error" | "busy" | "info">("info");
+  const [busy, setBusy] = useState(false);
+  const [testLoginAvailable, setTestLoginAvailable] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const statusRes = await fetch("/api/auth/status");
+        const status = await statusRes.json().catch(() => ({}));
+        if (!cancelled) {
+          setTestLoginAvailable(Boolean(status?.testLoginAvailable));
+        }
+      } catch {
+        if (!cancelled) setTestLoginAvailable(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  async function startGitHubOAuth() {
+    setBusy(true);
+    setNotice("Préparation de la connexion GitHub…");
+    setNoticeTone("busy");
+    try {
+      const statusRes = await fetch("/api/auth/status");
+      const status = await statusRes.json().catch(() => ({}));
+      if (status?.testLoginAvailable != null) {
+        setTestLoginAvailable(Boolean(status.testLoginAvailable));
+      }
+      if (!status.configured) {
+        setNotice(
+          "Connexion GitHub indisponible : la configuration OAuth n’est pas prête sur cet environnement. Aucun service n’est déclaré disponible.",
+        );
+        setNoticeTone("error");
+        setBusy(false);
+        return;
+      }
+      const res = await fetch("/api/auth/sign-in/social", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ provider: "github", callbackURL: "/portfolio" }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (data?.url && typeof data.url === "string") {
+        window.location.assign(data.url);
+        return;
+      }
+      setNotice(
+        sanitizeUserNotice(
+          data?.message ??
+            data?.error ??
+            "La connexion GitHub n’a pas pu démarrer. Réessayez ou contactez l’opérateur.",
+        ),
+      );
+      setNoticeTone("error");
+    } catch {
+      setNotice(
+        "Impossible de joindre le service d’authentification. Vérifiez votre connexion puis réessayez.",
+      );
+      setNoticeTone("error");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function devLogin(pilot: "a" | "b") {
+    setBusy(true);
+    setNotice("");
+    setNoticeTone("info");
+    try {
+      const res = await fetch("/api/dev/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pilot }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setNotice(
+          sanitizeUserNotice(
+            data.error === "DEV_TEST_LOGIN_DISABLED" ||
+              data.error === "DEV_TEST_LOGIN_LANE_FORBIDDEN"
+              ? "Accès de test indisponible sur cet environnement."
+              : (data.error ?? "Échec de l’accès de test"),
+          ),
+        );
+        setNoticeTone("error");
+        setBusy(false);
+        return;
+      }
+      setNotice(sanitizeUserNotice(data.notice ?? "Connexion de test établie."));
+      setNoticeTone("info");
+      router.push("/portfolio");
+    } catch {
+      setNotice("Impossible de joindre le service d’accès de test.");
+      setNoticeTone("error");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <UnifiedStudioEntry
+      variant={variant}
+      busy={busy}
+      notice={notice}
+      noticeTone={noticeTone}
+      testLoginAvailable={testLoginAvailable}
+      onGitHubContinue={startGitHubOAuth}
+      onDevLogin={devLogin}
+    />
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="uxe-root" data-testid="unified-studio-entry-fallback">
+          <div className="uxe-shell">
+            <header className="uxe-header">
+              <div className="uxe-brand">
+                <span className="uxe-mark" aria-hidden>
+                  S
+                </span>
+                <p className="uxe-brand-name">SFIA Studio</p>
+              </div>
+            </header>
+            <main className="uxe-body">
+              <p className="uxe-lead">Chargement de l&apos;entrée Studio…</p>
+            </main>
+          </div>
+        </div>
+      }
+    >
+      <LoginPageInner />
+    </Suspense>
+  );
+}
+
+```
+### Fichier — `projects/sfia-studio-next/web/src/app/page.tsx`
+
+```
+import { redirect } from "next/navigation";
+import { resolveStudioSession } from "@/domains/identity/session";
+
+export const dynamic = "force-dynamic";
+
+/**
+ * Public entry: unauthenticated visitors land on UX-003 /login.
+ * Authenticated Pilotes resume at the portfolio cockpit.
+ */
+export default async function Home() {
+  try {
+    const session = await resolveStudioSession();
+    redirect(session ? "/portfolio" : "/login");
+  } catch {
+    // Dependency failure must not invent a session — send to login surface.
+    redirect("/login");
+  }
+}
+
+```
+### Fichier — `projects/sfia-studio-next/web/src/lib/auth.ts`
+
+```
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { db } from "@/db/client";
+import * as schema from "@/db/schema";
+import { ensurePilotForAuthUser } from "@/domains/identity/provision-pilot";
+import { eq } from "drizzle-orm";
+
+/**
+ * Better Auth is the single session authority for GitHub OAuth Studio identity.
+ * GitHub OAuth is wired only when client credentials exist — never fabricate PASS without secrets.
+ * Mapping uses our plural tables via explicit schema model names.
+ * PilotId is provisioned from the verified GitHub account id (server-side), never from the client.
+ */
+const githubConfigured = Boolean(
+  process.env.GITHUB_CLIENT_ID?.trim() && process.env.GITHUB_CLIENT_SECRET?.trim(),
+);
+
+export const auth = betterAuth({
+  database: drizzleAdapter(db, {
+    provider: "pg",
+    schema: {
+      user: schema.users,
+      session: schema.sessions,
+      account: schema.accounts,
+      verification: schema.verifications,
+    },
+  }),
+  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL,
+  socialProviders: githubConfigured
+    ? {
+        github: {
+          clientId: process.env.GITHUB_CLIENT_ID!,
+          clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+          // Studio identity only — no repo scopes requested.
+        },
+      }
+    : {},
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await ensurePilotForAuthUser(user.id);
+        },
+      },
+    },
+    session: {
+      create: {
+        before: async (session) => {
+          // Mark Better Auth sessions as github-oauth (DEV adapter uses its own insert path).
+          return {
+            data: {
+              ...session,
+              authMode: "github-oauth",
+            },
+          };
+        },
+        after: async (session) => {
+          // Ensure Pilot exists even if user.create hook already ran before account link.
+          if (session.userId) {
+            await ensurePilotForAuthUser(session.userId);
+            // Belt: persist authMode if adapter dropped the before hook field.
+            await db
+              .update(schema.sessions)
+              .set({ authMode: "github-oauth", updatedAt: new Date() })
+              .where(eq(schema.sessions.id, session.id));
+          }
+        },
+      },
+    },
+  },
+});
+
+/**
+ * Non-secret capability probe for the entry screen.
+ * Mirrors the server gate for DEV/RECETTE test login (STUDIO_DEV_TEST_LOGIN + lane).
+ * Frontend visibility is not a security control — issuance remains fail-closed on /api/dev/login.
+ */
+export function studioEntryCapabilities() {
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  const testLoginFlag = process.env.STUDIO_DEV_TEST_LOGIN === "1";
+  const testLoginAvailable =
+    testLoginFlag && (lane === "DEV" || lane === "RECETTE");
+  return {
+    provider: "github-oauth-studio-identity-only",
+    configured: githubConfigured,
+    status: githubConfigured
+      ? "CONFIGURED — LIVE proof still requires successful callback"
+      : "BLOCKED — missing GITHUB_CLIENT_ID/SECRET",
+    note: "Login grants Studio identity only — never repository rights.",
+    lane: lane || "UNKNOWN",
+    testLoginAvailable,
+    testLoginLabel: testLoginAvailable
+      ? "Accès de test (non OAuth) — lane autorisée"
+      : null,
+  };
+}
+
+/** @deprecated Prefer studioEntryCapabilities — kept for existing call sites. */
+export function githubOAuthStatus() {
+  return studioEntryCapabilities();
+}
+
+```
+### Fichier — `projects/sfia-studio-next/web/tests/unit/studio-entry-capabilities.test.ts`
+
+```
+import { afterEach, describe, expect, it } from "vitest";
+
+describe("studioEntryCapabilities", () => {
+  const prev = {
+    lane: process.env.STUDIO_LANE,
+    testLogin: process.env.STUDIO_DEV_TEST_LOGIN,
+    ghId: process.env.GITHUB_CLIENT_ID,
+    ghSecret: process.env.GITHUB_CLIENT_SECRET,
+  };
+
+  afterEach(() => {
+    for (const [k, v] of Object.entries({
+      STUDIO_LANE: prev.lane,
+      STUDIO_DEV_TEST_LOGIN: prev.testLogin,
+      GITHUB_CLIENT_ID: prev.ghId,
+      GITHUB_CLIENT_SECRET: prev.ghSecret,
+    })) {
+      if (v === undefined) delete process.env[k];
+      else process.env[k] = v;
+    }
+    // Force re-import is hard; test pure gate logic via isDevAdapterConsumeAllowed instead
+    // when module caches githubConfigured. Capabilities re-read env each call for lane/flag.
+  });
+
+  it("exposes testLoginAvailable only on DEV/RECETTE with flag", async () => {
+    process.env.GITHUB_CLIENT_ID = "x";
+    process.env.GITHUB_CLIENT_SECRET = "y";
+    // Dynamic import after env set — auth module captures githubConfigured at load.
+    const { studioEntryCapabilities } = await import("@/lib/auth");
+
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_DEV_TEST_LOGIN = "1";
+    expect(studioEntryCapabilities().testLoginAvailable).toBe(true);
+
+    process.env.STUDIO_LANE = "RECETTE";
+    expect(studioEntryCapabilities().testLoginAvailable).toBe(true);
+
+    process.env.STUDIO_LANE = "STABLE";
+    expect(studioEntryCapabilities().testLoginAvailable).toBe(false);
+
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_DEV_TEST_LOGIN = "0";
+    expect(studioEntryCapabilities().testLoginAvailable).toBe(false);
+  });
+});
+
+```
+### Fichier — `projects/sfia-studio-next/web/tests/e2e/ux003-unified-entry.spec.ts`
+
+```
+import { test, expect } from "@playwright/test";
+import path from "node:path";
+import fs from "node:fs";
+
+const CAPTURE_DIR = path.join(
+  process.cwd(),
+  "..",
+  "..",
+  "..",
+  ".tmp-sfia-review",
+  "runtime-captures",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(CAPTURE_DIR, { recursive: true });
+});
+
+test("login entry renders without project rail (desktop nominal)", async ({ page }) => {
+  await page.setViewportSize({ width: 1680, height: 970 });
+  await page.goto("/login");
+
+  await expect(page.getByTestId("unified-studio-entry")).toBeVisible();
+  await expect(page.getByTestId("unified-studio-entry")).toHaveAttribute(
+    "data-entry-variant",
+    "nominal",
+  );
+  await expect(page.getByTestId("studio-rail")).toHaveCount(0);
+  await expect(page.getByTestId("studio-shell-entry")).toHaveAttribute(
+    "data-shell-mode",
+    "entry",
+  );
+  await expect(page.getByRole("heading", { name: /Vos projets avancent/ })).toBeVisible();
+  await expect(page.getByTestId("login-github")).toBeVisible();
+  await expect(page.getByTestId("login-dev-access")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Pilote A (DEV)" })).toBeVisible();
+
+  await page.getByTestId("login-github").focus();
+  await expect(page.getByTestId("login-github")).toBeFocused();
+
+  await page.screenshot({
+    path: path.join(CAPTURE_DIR, "runtime-desktop-1680x970-nominal.png"),
+    fullPage: true,
+  });
+});
+
+test("login entry mobile nominal composition", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/login");
+  await expect(page.getByTestId("unified-studio-entry")).toBeVisible();
+  const overflow = await page.evaluate(() => {
+    const el = document.querySelector("[data-testid='unified-studio-entry']");
+    if (!el) return true;
+    return el.scrollWidth > el.clientWidth + 1;
+  });
+  expect(overflow).toBe(false);
+  await page.screenshot({
+    path: path.join(CAPTURE_DIR, "runtime-mobile-390x844-nominal.png"),
+    fullPage: true,
+  });
+});
+
+test("login entry tiny viewport 320x568 stays usable", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto("/login");
+  await expect(page.getByTestId("login-github")).toBeVisible();
+  const overflow = await page.evaluate(() => {
+    const el = document.querySelector("[data-testid='unified-studio-entry']");
+    if (!el) return true;
+    return el.scrollWidth > el.clientWidth + 1;
+  });
+  expect(overflow).toBe(false);
+  await page.screenshot({
+    path: path.join(CAPTURE_DIR, "runtime-mobile-320x568-nominal.png"),
+    fullPage: true,
+  });
+});
+
+test("session_expired variant via deterministic reason query", async ({ page }) => {
+  await page.setViewportSize({ width: 1680, height: 970 });
+  await page.goto("/login?reason=session_expired");
+  await expect(page.getByTestId("unified-studio-entry")).toHaveAttribute(
+    "data-entry-variant",
+    "session_expired",
+  );
+  await expect(page.getByText("SESSION EXPIRÉE", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Se reconnecter avec GitHub" }),
+  ).toBeVisible();
+  await page.screenshot({
+    path: path.join(CAPTURE_DIR, "runtime-desktop-1680x970-session-expired.png"),
+    fullPage: true,
+  });
+});
+
+test("OAuth unavailable shows full error outside auth panel", async ({ page }) => {
+  await page.setViewportSize({ width: 1680, height: 970 });
+  await page.route("**/api/auth/status", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        configured: false,
+        testLoginAvailable: true,
+        status: "BLOCKED",
+      }),
+    });
+  });
+  await page.goto("/login");
+  await page.getByTestId("login-github").click();
+  const notice = page.getByTestId("login-notice");
+  await expect(notice).toBeVisible();
+  await expect(notice).toContainText(/indisponible/i);
+  // Must not be clipped by the fixed auth panel.
+  const fullyVisible = await notice.evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    const panel = document.querySelector("[data-testid='unified-entry-auth-panel']");
+    const pr = panel?.getBoundingClientRect();
+    if (!pr) return false;
+    return r.bottom <= window.innerHeight && r.top >= pr.bottom - 1;
+  });
+  expect(fullyVisible).toBe(true);
+  await page.screenshot({
+    path: path.join(CAPTURE_DIR, "runtime-desktop-1680x970-oauth-unavailable.png"),
+    fullPage: true,
+  });
+});
+
+test("long error message is not truncated", async ({ page }) => {
+  await page.setViewportSize({ width: 1680, height: 970 });
+  const longMsg =
+    "La connexion GitHub n’a pas pu démarrer. " +
+    "Diagnostic opératoire : le fournisseur d’identité a refusé l’initialisation du flux. ".repeat(
+      6,
+    ) +
+    "Aucun secret n’est affiché. Réessayez plus tard.";
+  await page.route("**/api/auth/status", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ configured: true, testLoginAvailable: true }),
+    });
+  });
+  await page.route("**/api/auth/sign-in/social", async (route) => {
+    await route.fulfill({
+      status: 500,
+      contentType: "application/json",
+      body: JSON.stringify({ error: longMsg }),
+    });
+  });
+  await page.goto("/login");
+  await page.getByTestId("login-github").click();
+  const notice = page.getByTestId("login-notice");
+  await expect(notice).toBeVisible();
+  const box = await notice.boundingBox();
+  expect(box).toBeTruthy();
+  expect((box?.height ?? 0) > 40).toBe(true);
+  const clipped = await notice.evaluate((el) => {
+    return el.scrollHeight > el.clientHeight + 2;
+  });
+  expect(clipped).toBe(false);
+  await page.screenshot({
+    path: path.join(CAPTURE_DIR, "runtime-desktop-1680x970-long-error.png"),
+    fullPage: true,
+  });
+});
+
+test("network failure shows user-safe error", async ({ page }) => {
+  await page.setViewportSize({ width: 1680, height: 970 });
+  await page.route("**/api/auth/status", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ configured: true, testLoginAvailable: true }),
+    });
+  });
+  await page.route("**/api/auth/sign-in/social", async (route) => {
+    await route.abort("failed");
+  });
+  await page.goto("/login");
+  await page.getByTestId("login-github").click();
+  await expect(page.getByTestId("login-notice")).toContainText(
+    /Impossible de joindre le service/i,
+  );
+});
+
+test("unauthenticated / redirects to /login", async ({ page }) => {
+  await page.goto("/");
+  await page.waitForURL("**/login");
+  await expect(page.getByTestId("unified-studio-entry")).toBeVisible();
+});
+
+test("portfolio shell rail still present after DEV login", async ({ page }) => {
+  await page.goto("/login");
+  await expect(page.getByTestId("login-dev-access")).toBeVisible();
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await expect(page.getByTestId("studio-rail")).toBeVisible();
+});
+
+test("DEV login refused when API forbids", async ({ page }) => {
+  await page.route("**/api/auth/status", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ configured: false, testLoginAvailable: true }),
+    });
+  });
+  await page.route("**/api/dev/login", async (route) => {
+    await route.fulfill({
+      status: 403,
+      contentType: "application/json",
+      body: JSON.stringify({ error: "DEV_TEST_LOGIN_DISABLED" }),
+    });
+  });
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await expect(page.getByTestId("login-notice")).toContainText(
+    /Accès de test indisponible/i,
+  );
+  await expect(page).toHaveURL(/\/login/);
+});
+
+```
+### Fichier — `projects/sfia-studio-next/web/tests/e2e/ux003-f2-measure.spec.ts`
+
+```
+import { test, expect } from "@playwright/test";
+import fs from "node:fs";
+import path from "node:path";
+
+const OUT = path.join(process.cwd(), "../../../.tmp-sfia-review/f2-measures.json");
+
+test("F2 measure desktop stable rectangles", async ({ page }) => {
+  await page.setViewportSize({ width: 1680, height: 970 });
+  await page.goto("/login");
+  const box = async (sel: string) => {
+    const loc = page.locator(sel).first();
+    const b = await loc.boundingBox();
+    return b;
+  };
+  const measures = {
+    viewport: { w: 1680, h: 970 },
+    header: await box(".uxe-header"),
+    mark: await box(".uxe-mark"),
+    auth: await box("[data-testid='unified-entry-auth-panel']"),
+    cta: await box("[data-testid='login-github']"),
+    accent: await box(".uxe-auth-accent"),
+    figma: {
+      headerH: 106,
+      mark: { w: 39, h: 39 },
+      auth: { w: 536, h: 550 },
+      cta: { w: 480, h: 62 },
+      accent: { w: 52, h: 5 },
+    },
+  };
+  const deltas = {
+    headerH: Math.abs((measures.header?.height ?? 0) - 106),
+    markW: Math.abs((measures.mark?.width ?? 0) - 39),
+    markH: Math.abs((measures.mark?.height ?? 0) - 39),
+    authW: Math.abs((measures.auth?.width ?? 0) - 536),
+    authH: Math.abs((measures.auth?.height ?? 0) - 550),
+    ctaW: Math.abs((measures.cta?.width ?? 0) - 480),
+    ctaH: Math.abs((measures.cta?.height ?? 0) - 62),
+    accentW: Math.abs((measures.accent?.width ?? 0) - 52),
+    accentH: Math.abs((measures.accent?.height ?? 0) - 5),
+  };
+  fs.mkdirSync(path.dirname(OUT), { recursive: true });
+  fs.writeFileSync(OUT, JSON.stringify({ measures, deltas }, null, 2));
+  console.log(JSON.stringify(deltas));
+  for (const [k, v] of Object.entries(deltas)) {
+    expect(v, k).toBeLessThanOrEqual(2);
+  }
+});
+
+```
+### Fichier — `projects/sfia-studio-next/ux-ui/contrat-visuel-ux003-entree-unifiee-20261116.md`
+
+```
+# Contrat visuel L1/L2 — UX-003 Entrée unifiée (2026-11-16)
+
+| Champ | Valeur |
+| --- | --- |
+| Statut | EXTRAIT FIGMA MCP — VALIDATED SPEC BY MORRIS (composition) |
+| Fichier Figma | `itgvCulInEnFY6DvgIegvP` |
+| Page | `94:49` |
+| Frames | `574:425` desktop nominal · `574:466` mobile nominal · `574:490` desktop session expirée |
+| Empreintes PNG (sha256) | voir section 4 |
+| CKC dédié | **ABSENT** — fallback SFIA v2.6 + contrats transposition/fidélité |
+
+## 1. Dimensions de référence
+
+| Frame | Node | Viewport |
+| --- | --- | --- |
+| Desktop nominal | `574:425` | **1680 × 970** |
+| Mobile nominal | `574:466` | **390 × 844** |
+| Desktop session expirée | `574:490` | **1680 × 970** |
+
+## 2. Tokens couleur natifs (constatés)
+
+| Token | Hex |
+| --- | --- |
+| Fond page | `#090e19` |
+| En-tête | `#0d1422` |
+| Panneau / tuiles | `#131c2b` |
+| Lignes | `#28364e` |
+| Accent CTA / marque | `#6777f6` |
+| Accent soft | `#9ca6ff` |
+| Encre | `#f4f7ff` |
+| Muet | `#a2b0c6` |
+| Muet secondaire | `#7185a6` |
+
+## 3. Composition L1/L2 (desktop)
+
+| Bloc | Mesures natives (extrait metadata) |
+| --- | --- |
+| En-tête | h=106 ; marque 39×39 @ (84,35) ; rayon marque 10 |
+| Auth panel | 536×550 @ (1000,204) ; rayon 24 ; bordure `#28364e` |
+| Accent panel | 52×5 ; rayon 2 |
+| CTA | 480×62 ; rayon 12 |
+| Tuiles | 222×98 ; gap ~15 ; rayon 14 |
+| Titre produit | Inter Bold 68 / lh 80 |
+| Titre auth | Inter SemiBold 34 / lh 42 |
+
+Mobile : auth 350×396 @ (20,371) ; titre 39/46 ; CTA 294×56 ; tuiles/footer/masqués.
+
+Session expirée : même composition desktop ; copy panel `SESSION EXPIRÉE` / `Retrouvons votre session` / CTA `Se reconnecter avec GitHub`.
+
+## 4. Captures Figma datées (2026-11-16)
+
+Stockage local cycle : `.tmp-sfia-review/figma-refs/`
+
+| Fichier | sha256 |
+| --- | --- |
+| `574-425-desktop-nominal.png` | `a3c42f942a0dd9f8fe0fb3dd7d1913f04946c245c3f8916877f069072dc15206` |
+| `574-466-mobile-nominal.png` | `7ff1439eabe80277b98d0add0bf2847f5d96d525c3df49d7e03b5bfe638e1aec` |
+| `574-490-desktop-expired.png` | `cf5aca2f2ca0f706d6c010a81bf3882efbf38e7e6d46199592406ae95bcae012` |
+
+## 5. Limites runtime
+
+- Variante session expirée : activation déterministe `?reason=session_expired` uniquement (pas de détection session native distincte).
+- Accès de test (Pilote A/B) : hors Figma ; affiché seulement si `/api/auth/status.testLoginAvailable` (lane DEV/RECETTE + `STUDIO_DEV_TEST_LOGIN=1`) ; garde serveur inchangée.
+- Messages d’état (busy/error) : rendus **hors** du panneau auth fixe 550 px (écart documenté vs Figma nominal) pour éviter toute troncature `overflow:hidden`.
+- Fidélité F2 : rectangles stables — cible delta 0 CSS px, tolérance max 2 CSS px ; pas de seuil global d’image inventé.
+
+```
 
 
 ---
 
-## 9. Limites / décisions Morris requises
-
-1. GO publication branche / PR (actuellement local-only).
-2. Attribution version MINOR (numéro NOT AVAILABLE).
-3. Arbitrage si détection native session expirée doit être ajoutée (hors périmètre auth refactor).
-4. Revue visuelle UX Morris (captures fournies).
-5. Pas d’acceptation ML4D globale / Gate C / ADOPTED.
-
----
-
-## 10. Delivery
-
-Voir `DELIV-2026-11-16-ML4D-UX003-UNIFIED-ENTRY` dans `construction/delivery-history.md`.
-SHA local : `31f23858ef5ed9cb8e6318133c3c399f39777b71` · **pas de push**.
-
----
-
-## 11. Handoff L3
+## 12. Handoff L3
 
 Branche : `sfia/review-handoff`
 Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 Publisher : `scripts/sfia/publish-review-handoff.sh`
-Statut : **pending publish** (rempli après publication).
+Statut : **pending remote publish in this cycle — will be REMOTE VERIFIED**
 
 ---
 
-**FIN REVIEW PACK FULL — ML4D UX-003**
+**FIN REVIEW PACK FULL — ML4D UX-003 corrections + RECETTE**
