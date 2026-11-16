@@ -8,11 +8,11 @@
 | Autorité de la vision et de l'acceptation UX | **Morris** ; validation orale des cinq maquettes Figma le 16/11/2026 ; **pas** une validation du mécanisme technique |
 | Objet | Traduire la vision et les maquettes validées en comportement utilisateur testable, sans modifier les règles R1/R2 applicables |
 | Complément technique | [Contrat de convergence technique](contrat-convergence-technique.md) |
-| Source Git de vérification | \`mcleland147/sfia-workspace\`, \`main@997d4c4e8204993de7107552898c8cc08cd3b0ed\` ; état candidat local postérieur non directement accessible dans GitHub |
-| Baseline de recette précédente | UX-004 \`b05dacf47983ed8d914c92619ede5ffe65ce9264\` / build \`20blGylSEta7201PgVvlw\` sur RECETTE, **rapport Cursor**, pas nouvelle baseline Git |
+| Source Git de vérification | `mcleland147/sfia-workspace`, `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` ; état candidat local postérieur non directement accessible dans GitHub |
+| Baseline de recette précédente | UX-004 `b05dacf47983ed8d914c92619ede5ffe65ce9264` / build `20blGylSEta7201PgVvlw` sur RECETTE, **rapport Cursor**, pas nouvelle baseline Git |
 | Gates | Aucun GO Cursor, aucune migration, push projet, PR, merge, promotion RECETTE/STABLE, release, clôture ML4D, Gate C ou ADOPTED |
 
-> **Règle de lecture.** Ce texte est un **contrat candidat de transposition**. Il n'amende pas la vision R1, la spec D2 R2 \`VALIDATED SPEC\`, la doctrine Nora/D6 ni l'architecture R4. L'accord de Morris sur les cinq maquettes vaut validation de la **cible UX** et de son intention produit ; la réalisation, sa conformité fonctionnelle et sa preuve restent ouvertes. L'éventuelle validation du présent texte relève de la revue produit ultérieure avec Morris, sans exiger de lui une expertise d'implémentation.
+> **Règle de lecture.** Ce texte est un **contrat candidat de transposition**. Il n'amende pas la vision R1, la spec D2 R2 `VALIDATED SPEC`, la doctrine Nora/D6 ni l'architecture R4. L'accord de Morris sur les cinq maquettes vaut validation de la **cible UX** et de son intention produit ; la réalisation, sa conformité fonctionnelle et sa preuve restent ouvertes. L'éventuelle validation du présent texte relève de la revue produit ultérieure avec Morris, sans exiger de lui une expertise d'implémentation.
 
 ## 1. Résultat et promesse faite au Pilote
 
@@ -24,21 +24,21 @@
 
 ## 2. Sources, précédence et limites observées
 
-1. Vision : \`cadrage/vision-produit.md\` §§2.2, 2.7, 2.15, **2.20**, R1.
-2. Propriétaire D2 : \`conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md\` : \`RG-CRE-001..026\`, notamment **002/003/004/007/008/010/011/013/016/017/019/020/024** ; scénarios \`PF-CRE-01..26\`.
-3. Nora : \`conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md\` : \`RG-CONV-001..006\`, \`RG-CTX-001..003\` et \`RG-APP-001..008\` applicables.
-4. Mémoire : \`conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md\` : \`RG-KNOW-001/002/005/006/007/008/011/013/015\`.
-5. Architecture : \`architecture-technique/cadrage-r4.md\`, sas→projet, identité de fil, transaction et réconciliation ; responsabilités avant choix de stockage.
-6. Convergence : \`governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md\` ; ML4D peut révéler un écart fonctionnel, mais **ne se substitue pas à son propriétaire**.
-7. Maquettes UX **validées par Morris le 16/11/2026**, fichier Figma \`itgvCulInEnFY6DvgIegvP\`, page candidate \`606:2\` :
-   - [Première intention — \`607:3\`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-3)
-   - [Clarification — \`607:62\`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-62)
-   - [Proposition évolutive — \`607:131\`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-131)
-   - [Base suffisante — \`607:203\`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-203)
-   - [Reprise — \`607:277\`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-277)
+1. Vision : `cadrage/vision-produit.md` §§2.2, 2.7, 2.15, **2.20**, R1.
+2. Propriétaire D2 : `conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md` : `RG-CRE-001..026`, notamment **002/003/004/007/008/010/011/013/016/017/019/020/024** ; scénarios `PF-CRE-01..26`.
+3. Nora : `conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md` : `RG-CONV-001..006`, `RG-CTX-001..003` et `RG-APP-001..008` applicables.
+4. Mémoire : `conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md` : `RG-KNOW-001/002/005/006/007/008/011/013/015`.
+5. Architecture : `architecture-technique/cadrage-r4.md`, sas→projet, identité de fil, transaction et réconciliation ; responsabilités avant choix de stockage.
+6. Convergence : `governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md` ; ML4D peut révéler un écart fonctionnel, mais **ne se substitue pas à son propriétaire**.
+7. Maquettes UX **validées par Morris le 16/11/2026**, fichier Figma `itgvCulInEnFY6DvgIegvP`, page candidate `606:2` :
+   - [Première intention — `607:3`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-3)
+   - [Clarification — `607:62`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-62)
+   - [Proposition évolutive — `607:131`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-131)
+   - [Base suffisante — `607:203`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-203)
+   - [Reprise — `607:277`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=607-277)
 8. Revue utilisateur : screenshot du sas RECETTE actuel et arbitrage oral Morris du 16/11 ; forme actuelle jugée **trop chargée, semi-manuelle, non conforme à la vision**. La conversation est actuellement trop réduite ; le formulaire « Constituer une proposition » n'est pas le parcours voulu.
 
-**Vérité temporelle :** \`main\` reflète les sources et le code examinés. Le candidat UX-004 servi localement et les captures ont été **rapportés dans les revues**, sans inspection directe de l'environnement Mac dans ce dossier. L'implémentation du sas sur le futur candidat doit être lue à son SHA local réel avant tout mandat technique.
+**Vérité temporelle :** `main` reflète les sources et le code examinés. Le candidat UX-004 servi localement et les captures ont été **rapportés dans les revues**, sans inspection directe de l'environnement Mac dans ce dossier. L'implémentation du sas sur le futur candidat doit être lue à son SHA local réel avant tout mandat technique.
 
 ## 3. Périmètre cohérent, IN / OUT
 
@@ -47,7 +47,7 @@
 - Conversation libre Nora ; questions ciblées, hypothèses déclarées, propositions révisables.
 - Aperçu évolutif visible **au cours de l'échange**, avec nom de travail, intention, résultat visé, premier périmètre et points ouverts selon disponibilité ; provenance/validité réelle.
 - Appréciation qualitative de suffisance pour créer, non autorisante, expliquée et réversible.
-- Action explicite \`Créer le projet\`, inspection du contexte courant, identité/version, unicité, issue vérifiée/indéterminée.
+- Action explicite `Créer le projet`, inspection du contexte courant, identité/version, unicité, issue vérifiée/indéterminée.
 - Reprise de préparation, cohérence du fil, transfert des acquis et continuité dans le projet créé.
 - Rendu desktop fidèle aux cinq états UX, accessibilité clavier et erreurs ; smoke mobile limité.
 
@@ -78,13 +78,13 @@
 | **SAS-F-01** | Le Pilote écrit naturellement, sans étape d'inscription ni champ de titre requis pour **commencer la conversation**. | RG-CRE-001/002 |
 | **SAS-F-02** | Nora reformule l'intention de manière fidèle, distingue information donnée, hypothèse et suggestion ; elle ne remplit jamais les inconnus par invention. | RG-CONV-003/006, RG-CRE-003/016 |
 | **SAS-F-03** | L'aperçu se **met à jour après des échanges pertinents**, sans clic « Constituer une proposition », ni copie du dernier message Nora comme résumé. | RG-CRE-003, R1 §2.20 |
-| **SAS-F-04** | Chaque information utile affichée dans l'aperçu a un statut (\`EXPRIMÉ\`, \`PROPOSÉ\`, \`À CONFIRMER\` ou équivalent) et une origine récupérable. Une recommandation n'est pas une décision. | RG-CRE-016, RG-KNOW-006 |
+| **SAS-F-04** | Chaque information utile affichée dans l'aperçu a un statut (`EXPRIMÉ`, `PROPOSÉ`, `À CONFIRMER` ou équivalent) et une origine récupérable. Une recommandation n'est pas une décision. | RG-CRE-016, RG-KNOW-006 |
 | **SAS-F-05** | Nora pose seulement les questions susceptibles de changer sensiblement la portée, le résultat, le risque ou la capacité de créer ; les autres inconnues restent ouvertes. | RG-CRE-004/007, RG-CONV-002/003 |
 | **SAS-F-06** | Nora peut recommander de démarrer et **justifier** son appréciation sur une base intelligible ; aucun pourcentage, score opaque ou gate IA à franchir. | RG-CRE-004, R1 §2.20 |
 | **SAS-F-07** | Si le Pilote souhaite démarrer plus tôt, Studio vérifie seulement les vrais prérequis d'identité, de contexte et de création ; il n'exige pas une trajectoire/CKI, un long dialogue ou une recommandation Nora. | RG-CRE-004/007/008 |
 | **SAS-F-08** | La proposition est corrigeable dans la conversation ; Nora reconnaît la contradiction, produit une nouvelle version cohérente et signale les hypothèses remplacées. | RG-CONV-006, RG-KNOW-007/008 |
-| **SAS-F-09** | \`Créer le projet\` est un **acte UI volontaire** du Pilote sur l'aperçu courant ; sauvegarder / discuter / accepter un conseil ne crée aucun projet. | RG-CRE-008/016 |
-| **SAS-F-10** | Création \`CREATED/ALREADY_CREATED\` seulement après confirmation durable ; \`CONFLICT/REFUSED/UNKNOWN\` restent explicites, sans retry implicite ni projet fictif. | RG-CRE-010/011/013/024 |
+| **SAS-F-09** | `Créer le projet` est un **acte UI volontaire** du Pilote sur l'aperçu courant ; sauvegarder / discuter / accepter un conseil ne crée aucun projet. | RG-CRE-008/016 |
+| **SAS-F-10** | Création `CREATED/ALREADY_CREATED` seulement après confirmation durable ; `CONFLICT/REFUSED/UNKNOWN` restent explicites, sans retry implicite ni projet fictif. | RG-CRE-010/011/013/024 |
 | **SAS-F-11** | Au succès, le projet reprend le **même fil visible**, le contexte et les ressources autorisées ; événement « Projet créé » sourcé, aucune nouvelle conversation vide. | RG-CRE-017..021 |
 | **SAS-F-12** | Quitter/revenir/recharger retrouve la dernière préparation réellement persistée et son aperçu ; pas d'invention après panne. | RG-CRE-015/019/023/024, RG-KNOW-011 |
 | **SAS-F-13** | La navigation pré-projet est **minimaliste** : Portefeuille + Préparation en cours, identité Pilote ; pas de rail projet/cycles/documents comme menus principaux du sas. | Figma 607:3..277, arbitrage Morris |
@@ -159,7 +159,7 @@ La décision du Pilote reste possible même si Nora recommande d'approfondir un 
 
 **Dépendances / gates :** contrat technique lié ci-dessous ; qualification R4 des changements de persistance et d'interfaces ; préparation d'un mandat Cursor **uniquement après revue produit Morris de la cible et de son périmètre** ; code D3 par Cursor sous SFIA v2.6, Review Pack/handoff ; DEV → revue ChatGPT → **GO distinct RECETTE** → capture/revue Morris. Aucun PR/merge/push projet/STABLE/ADOPTED sans GO propre. Gate C **OPEN**.
 
-**Dette / exit :** le formulaire manuel \`Constituer une proposition\` et toute duplication de synthèse ne doivent pas rester comme deux parcours concurrents. La compatibilité et l'exit des anciennes propriétés d'aperçu sont précisés par le contrat technique avant toute suppression/migration ; aucun effacement silencieux des préparations existantes.
+**Dette / exit :** le formulaire manuel `Constituer une proposition` et toute duplication de synthèse ne doivent pas rester comme deux parcours concurrents. La compatibilité et l'exit des anciennes propriétés d'aperçu sont précisés par le contrat technique avant toute suppression/migration ; aucun effacement silencieux des préparations existantes.
 
 ## 9. Statut de sortie de la présente proposition
 
