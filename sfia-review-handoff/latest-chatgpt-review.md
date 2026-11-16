@@ -219,4 +219,7 @@ Mutation:     AUCUNE
 - Branche : `sfia/review-handoff`
 - Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 - Publisher : `scripts/sfia/publish-review-handoff.sh`
-- (SHA/blob après publication L3)
+- Commit distant : `19122ca076faa085c14220c19895220c4075d531`
+- Blob distant : `790e355caa2a4f7fe6ab4cc83956be4eb97de28c`
+- Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+- Push projet : aucun
