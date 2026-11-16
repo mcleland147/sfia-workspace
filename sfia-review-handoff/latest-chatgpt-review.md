@@ -1,157 +1,145 @@
-# SFIA Review Pack — FULL — UX-004 CORRECTIF (Nouveau projet + fil d'Ariane)
+# SFIA Review Pack — FULL — UX-004 D2 GUARDS
 
-- Date/heure: 2026-11-16T08:56:45+01:00
+- Date/heure: 2026-11-16T09:17:20+01:00
 - Produit: projects/sfia-studio-next/
-- Macro-lot: ML4D
-- Sous-ensemble: UX-004
-- Cycle SFIA v2.6: 8 — Delivery projet, correctif borné
-- Profil: Standard
-- Typologie: EVOL / correctif compatible
-- Review Pack: FULL, mono-cycle
-- Review Handoff: required / publish-in-cycle
-- Intégrateur: Cursor
-- Autorité produit et Git: Morris
-- GO Morris: **OUI** pour ces deux corrections techniques locales (mandat 16 nov 2026)
+- Macro-lot: ML4D / UX-004
+- Cycle: 8 — Delivery, correctif borné
+- Profil: Standard · Typologie: EVOL / PATCH candidate
+- Review Pack: FULL mono-cycle · Handoff: publish-in-cycle L3
+- Intégrateur: Cursor · Autorité: Morris
+- GO Morris: **OUI** (16 nov 2026) — vérité des effets + concurrence
 
 ## Verdict Cursor
 
-**READY FOR CHATGPT REVIEW — UX-004 CORRECTIF**
+**READY FOR CHATGPT REVIEW — UX-004 D2 GUARDS**
 
-### Instruction ChatGPT obligatoire
+### Instruction ChatGPT
 
-Avant de conclure la revue, lire depuis Git:
-
-- branche: `sfia/review-handoff`
-- fichier: `sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier le commit, les modifications réelles, les tests, les preuves, la complétude du rapport, la publication et sa relecture distante.
+Lire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` avant conclusion.
 
 ---
 
-## 1. Git Truth Check (local)
+## 1. Git Truth Check
 
 | Check | Résultat |
 | --- | --- |
-| Dépôt worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
-| Origin | `mcleland147/sfia-workspace` (remote `origin`) |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
 | Branche | `feat/next-ml4d-ux004-portfolio-20261116` |
-| HEAD avant correctif | `bc8785683c30430aa99bc76e138ba10f49c71c39` |
-| HEAD après commit | `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
-| origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` (= baseline ChatGPT `997d4c4e…`) |
-| Ascendance UX-003 `a77a3a2b…` | OUI |
-| Ascendance tip UX-004 `bc878568…` | OUI (parent du correctif) |
-| Base: ne pas repartir de main seul | OK — branche UX-004 réutilisée |
-| UX-003 non perdu | OK |
-| `git status --short` post-commit | ``` M .tmp-sfia-review/chatgpt-review.md``` |
-| Worktrees RECETTE | `…-ux004-recette-build-bc8785683c30` détaché `@bc878568` — **non modifié** |
-| DEV | `127.0.0.1:3102` HTTP 200 (redémarré après build) |
-| RECETTE | `127.0.0.1:3200` HTTP 200 — BUILD `3g7UH7AXjSWhxrT20D3-w` — SHA `bc878568` **inchangé** |
+| Parent candidat | `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
+| HEAD correctif | `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
+| origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Ascendance UX-004 `bc878568` | OUI |
+| Ascendance UX-003 `a77a3a2b` | OUI |
+| Ascendance parent `fb0ac5c8` | OUI |
+| status post-commit | ` M .tmp-sfia-review/chatgpt-review.md` |
+| RECETTE WT | `…-ux004-recette-build-bc8785683c30` @ `bc878568` / BUILD `3g7UH7AXjSWhxrT20D3-w` — **non modifié** |
+| DEV | `:3102` HTTP 200 |
+| RECETTE | `:3200` HTTP 200 inchangée |
+| Handoff tip précédent | `6bb19f74991f71f0a708411a8188e351b0b38195` / blob `4a8d6f8d…` |
 
-STOP non déclenché: base compatible.
-
----
-
-## 2. Sources lues / refs applicables
-
-CKC UX-004: ABSENT → fallback SFIA v2.6 déclaré (routing §4.3.0b, template §2.0.H, Review Pack §7, Handoff §7.10–7.11).
-
-Sources Next consultées (autorité produit / ENV / versioning):
-
-- governance/SEF.md, roadmap.md, product-naming-conventions.md
-- governance/environnements-recette-et-promotions.md (ENV-01 v0.1 VALIDATED / ON MAIN ; blob déclaré 14b61f0d…)
-- governance/product-versioning.md (v1.0 VALIDATED / ON MAIN ; blob déclaré 8bc93e0f…)
-- governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md
-- conception-fonctionnelle/acces-et-portefeuille.md
-- conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md
-- architecture-technique/cadrage-r4.md ; cadrage/vision-produit.md ; cadrage/vision-cible/README.md
-- Contrat visuel existant: `projects/sfia-studio-next/ux-ui/contrat-visuel-ux004-portefeuille-20261116.md` — **non concurrencé**
-- Frames Figma références conservées (pas de modification): 591:425, 591:543, 591:661, 591:721, 592:435
-
-Sources construction prioritaires touchées: studio-rail.ts, StudioShell.tsx, portfolio/page.tsx, open-preparation.ts, tests unit/e2e.
+STOP non déclenché.
 
 ---
 
-## 3. Causes des deux défauts
+## 2. Sources
 
-### A — Nouveau projet
-Dans le candidat UX-004 `bc878568`, `buildShellNav` exposait `new-prep` avec `href: "/portfolio#nouvelle-preparation"`. Clic rail → navigation GET portefeuille + ancre focus bouton — **pas** de POST D2. Contredit le parcours attendu (engager préparation → sas Nora).
+CKC UX-004: ABSENT → fallback SFIA v2.6 (§4.3.0b, §2.0.H, Review Pack §7, handoff §7.10–7.11).
 
-### B — Fil d'Ariane
-`StudioShell` affichait un libellé statique « SFIA Studio / Portefeuille » sur l'espace personnel, y compris `/settings/integrations`.
+Sources Next / conception / ENV-01 / versioning / décision R5 / as-built parent / contrat visuel UX-004 consultés. Pas de nouveau contrat Figma.
 
 ---
 
-## 4. Choix technique et justification
+## 3. État initial (parent `fb0ac5c8`)
 
-1. Extraire le comportement D2 client déjà présent dans `portfolio/page.tsx` vers **`openPreparation()`** (`web/src/lib/open-preparation.ts`) — une seule logique POST/ACK/uncertainty.
-2. `ShellNavItem.action = "open-preparation"` + `href: null` pour le rail ; bouton mobile « Créer » appelle le même handler shell.
-3. Portefeuille `startPreparation()` délègue à `openPreparation`.
-4. `resolvePersonalBreadcrumb(pathname)` — résolution simple sur routes produit connues ; pas de routeur concurrent.
-5. CSS: styles bouton rail/bottom-nav sans changer géométrie validée.
-
-Pas de nouvel API, pas de second moteur de navigation, pas de retry POST automatique.
+- `openPreparation({ knownPreparationIds })` : sur ACK vide, GET portfolio + id « nouveau » → message « Création confirmée… » + `discoveredId` (fausse garantie causale ; shell appelait sans known ids).
+- Concurrence : `openingRef` (shell) et `creatingRef` (portefeuille) séparés → double POST possible rail+portefeuille.
 
 ---
 
-## 5. Analyse des impacts (blast radius)
+## 4. Blast radius
 
 | Zone | Impact |
 | --- | --- |
-| Navigation rail | `new-prep` devient bouton action |
-| Création préparation | Canonique partagée |
-| D1 identité/portefeuille | Lecture portfolio inchangée ; CTA inchangé fonctionnellement |
-| D2 sas | Conservé (POST unique, id réel, navigation sas) |
-| Erreurs / idempotence | Refs concurrentes ; uncertain sans retry |
-| Shell partagé / header | Breadcrumb dynamique uniquement |
-| Mobile | Smoke: bouton Créer → même action |
-| Session / droits / sécurité | 401 → /login ; pas de contournement |
-| Tests / docs | unit + e2e + as-built + delivery-history |
-| Non modifié | OAuth UX-003, Nora, create-project définitif, DB, API, permissions, rails projet, Git, ML5, Figma, RECETTE |
-
-Versioning: PATCH candidate ; official version NOT AVAILABLE ; STABLE NOT AVAILABLE ; NO RELEASE.
+| `open-preparation.ts` | Classification honnête + single-flight |
+| StudioShell / portfolio | `runOpenPreparation` + busy partagé |
+| Tests | unit + Playwright concurrence / uncertain |
+| Docs | as-built + delivery-history |
+| Hors périmètre | API, DB, Figma, Nora, OAuth, RECETTE, rails projet |
 
 ---
 
-## 6. Fichiers créés (contenu complet)
+## 5. Correctifs
+
+### A — UNCERTAIN honnête
+`OPENED` seulement si POST OK + `preparationId` non vide. Sinon `UNCERTAIN` / `REFUSED` / `UNAUTHORIZED`. Aucune confirmation via diff d'ids. Pas de navigation par supposition. Pas de second POST.
+
+### B — Single-flight document-scoped
+`runOpenPreparation(onResult)` : un seul POST ; appel concurrent → `busy` ; verrou tenu jusqu'à fin de `onResult` (navigation incluse) ; `subscribeOpenPreparationBusy` pour UI.
+
+### Limites
+Garde mémoire frontend ≠ idempotence serveur. Ne couvre pas multi-onglet / multi-session / multi-appareil.
+
+---
+
+## 6. Fichiers — contenu complet (helpers / as-built)
 
 ### `projects/sfia-studio-next/web/src/lib/open-preparation.ts`
 
 ```
 /**
  * Canonical D2 open-preparation client action (UX-004).
- * One POST /api/preparations; no automatic second POST after uncertain ACK.
+ * One voluntary POST /api/preparations; no automatic second POST after uncertain ACK.
  * Does not create a durable project.
+ *
+ * OPENED requires an API preparationId for this command — portfolio diffs alone
+ * never upgrade UNCERTAIN to a confirmed creation (no causal correlation in the
+ * existing API contract).
+ *
+ * Single-flight is in-memory for the current browser document only — not
+ * server idempotence, and not cross-tab / cross-session protection.
  */
 
 export type OpenPreparationResult =
   | { kind: "opened"; preparationId: string }
   | { kind: "refused"; message: string; httpStatus?: number }
   | { kind: "unauthorized" }
-  | { kind: "uncertain"; message: string; discoveredId?: string };
+  | { kind: "uncertain"; message: string };
 
-type PrepItem = { id: string };
+export type OpenPreparationOutcome = OpenPreparationResult | { kind: "busy" };
 
-async function readPortfolioPrepItems(): Promise<PrepItem[]> {
-  try {
-    const r = await fetch("/api/portfolio");
-    if (!r.ok) return [];
-    const j = (await r.json()) as {
-      portfolio?: { preparations?: { items?: PrepItem[] } };
-    };
-    return j.portfolio?.preparations?.items ?? [];
-  } catch {
-    return [];
+const UNCERTAIN_MESSAGE =
+  "Création incertaine (accusé de réception insuffisant). La préparation a peut-être été enregistrée — consultez les préparations existantes. Aucun nouveau POST automatique.";
+
+const NETWORK_UNCERTAIN_MESSAGE =
+  "Réseau interrompu pendant la création. Résultat non vérifiable — consultez les préparations existantes. Pas de second POST automatique.";
+
+type BusyListener = (busy: boolean) => void;
+
+let flight: Promise<OpenPreparationResult> | null = null;
+const busyListeners = new Set<BusyListener>();
+
+function setFlight(next: Promise<OpenPreparationResult> | null): void {
+  flight = next;
+  const busy = flight !== null;
+  for (const listener of busyListeners) {
+    listener(busy);
   }
 }
 
-/**
- * Start a new OPEN preparation and return its real id, or a controlled uncertainty.
- * Callers must guard against concurrent invocations.
- */
-export async function openPreparation(input?: {
-  knownPreparationIds?: Iterable<string>;
-}): Promise<OpenPreparationResult> {
-  const before = new Set(input?.knownPreparationIds ?? []);
+/** Subscribe to shared open-preparation busy state (same document only). */
+export function subscribeOpenPreparationBusy(listener: BusyListener): () => void {
+  busyListeners.add(listener);
+  listener(flight !== null);
+  return () => {
+    busyListeners.delete(listener);
+  };
+}
+
+export function isOpenPreparationBusy(): boolean {
+  return flight !== null;
+}
+
+async function postOpenPreparation(): Promise<OpenPreparationResult> {
   try {
     const res = await fetch("/api/preparations", { method: "POST" });
     let j: { preparationId?: string; error?: string } = {};
@@ -165,7 +153,7 @@ export async function openPreparation(input?: {
       return { kind: "unauthorized" };
     }
 
-    if (res.ok && j.preparationId) {
+    if (res.ok && typeof j.preparationId === "string" && j.preparationId.length > 0) {
       return { kind: "opened", preparationId: j.preparationId };
     }
 
@@ -177,110 +165,46 @@ export async function openPreparation(input?: {
       };
     }
 
-    // ACK uncertainty: re-read portfolio, never auto-retry POST.
-    const items = await readPortfolioPrepItems();
-    const discovered = items.find((p) => !before.has(p.id));
-    if (discovered) {
-      return {
-        kind: "uncertain",
-        discoveredId: discovered.id,
-        message: `Création confirmée après relecture · ${discovered.id.slice(0, 8)}… — ouvrez « Reprendre ».`,
-      };
-    }
-    return {
-      kind: "uncertain",
-      message:
-        "Création incertaine (ACK perdu). Aucun nouveau POST automatique. Relisez le portefeuille ou réessayez explicitement.",
-    };
+    // ACK incomplete: never infer a new preparation from portfolio membership.
+    return { kind: "uncertain", message: UNCERTAIN_MESSAGE };
   } catch {
-    const items = await readPortfolioPrepItems();
-    const discovered = items.find((p) => !before.has(p.id));
-    if (discovered) {
-      return {
-        kind: "uncertain",
-        discoveredId: discovered.id,
-        message: `Réseau interrompu, mais une préparation nouvelle apparaît · ${discovered.id.slice(0, 8)}… — Reprendre (GET).`,
-      };
-    }
-    return {
-      kind: "uncertain",
-      message:
-        "Réseau interrompu pendant la création. Résultat non vérifiable — pas de second POST automatique.",
-    };
+    return { kind: "uncertain", message: NETWORK_UNCERTAIN_MESSAGE };
   }
 }
-```
-### `projects/sfia-studio-next/web/tests/unit/open-preparation.test.ts`
 
-```
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { openPreparation } from "@/lib/open-preparation";
+/**
+ * Run the canonical open-preparation POST under a document-scoped single-flight lock.
+ * Concurrent callers receive `{ kind: "busy" }` and do not start a second POST.
+ * The lock is held until `onResult` finishes (including navigation), closing the
+ * window between ACK and route change.
+ */
+export async function runOpenPreparation(
+  onResult: (result: OpenPreparationResult) => void | Promise<void>,
+): Promise<OpenPreparationOutcome> {
+  if (flight) {
+    return { kind: "busy" };
+  }
 
-describe("openPreparation (D2 client)", () => {
-  beforeEach(() => {
-    vi.restoreAllMocks();
-  });
+  const pending = postOpenPreparation();
+  setFlight(pending);
+  try {
+    const result = await pending;
+    await onResult(result);
+    return result;
+  } finally {
+    setFlight(null);
+  }
+}
 
-  it("returns opened with preparationId on successful POST", async () => {
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async () =>
-        new Response(JSON.stringify({ preparationId: "prep-1" }), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        }),
-      ),
-    );
-    const r = await openPreparation();
-    expect(r).toEqual({ kind: "opened", preparationId: "prep-1" });
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith("/api/preparations", { method: "POST" });
-  });
-
-  it("returns refused without second POST", async () => {
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async () =>
-        new Response(JSON.stringify({ error: "NOPE" }), {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }),
-      ),
-    );
-    const r = await openPreparation();
-    expect(r.kind).toBe("refused");
-    expect(fetch).toHaveBeenCalledTimes(1);
-  });
-
-  it("on uncertain empty body, reloads portfolio once and never retries POST", async () => {
-    const fetchMock = vi
-      .fn()
-      .mockResolvedValueOnce(
-        new Response("{}", { status: 200, headers: { "Content-Type": "application/json" } }),
-      )
-      .mockResolvedValueOnce(
-        new Response(
-          JSON.stringify({
-            portfolio: {
-              preparations: { items: [{ id: "prep-new" }], nextCursor: null },
-            },
-          }),
-          { status: 200, headers: { "Content-Type": "application/json" } },
-        ),
-      );
-    vi.stubGlobal("fetch", fetchMock);
-    const r = await openPreparation({ knownPreparationIds: [] });
-    expect(r.kind).toBe("uncertain");
-    if (r.kind === "uncertain") expect(r.discoveredId).toBe("prep-new");
-    expect(fetchMock).toHaveBeenCalledTimes(2);
-    expect(fetchMock.mock.calls.filter((c) => c[1]?.method === "POST")).toHaveLength(1);
-  });
-});
+/** Test-only: POST classification without acquiring the UI single-flight lock. */
+export async function openPreparationForTest(): Promise<OpenPreparationResult> {
+  return postOpenPreparation();
+}
 ```
 ### `projects/sfia-studio-next/construction/as-built-ux004-open-preparation-breadcrumb-20261116.md`
 
 ```
-# As-built — UX-004 correctif open-preparation + breadcrumb (2026-11-16)
+# As-built — UX-004 open-preparation + breadcrumb + D2 guards (2026-11-16)
 
 ## Scope
 
@@ -288,12 +212,12 @@ Borned shell/portfolio correctif on ML4D UX-004. No Figma change. No API/schema 
 
 ## Correction A — Nouveau projet → D2
 
-Canonical client action: `web/src/lib/open-preparation.ts` → `openPreparation()`.
+Canonical client action: `web/src/lib/open-preparation.ts` → `runOpenPreparation()`.
 
 - One voluntary `POST /api/preparations`.
-- Success → navigate to `/preparations/{preparationId}` (real id only).
-- Refused / unauthorized / uncertain ACK → user-visible state; **no automatic second POST**.
-- Callers guard concurrency (`openingRef` / `creatingRef`).
+- Success (`OPENED`) → navigate to `/preparations/{preparationId}` (API id only).
+- `REFUSED` / `UNAUTHORIZED` / `UNCERTAIN` → user-visible state; **no automatic second POST**.
+- `UNCERTAIN` never upgrades to confirmed creation via portfolio id diff (no causal correlation in the current API).
 
 Entry points sharing this action:
 
@@ -316,854 +240,737 @@ Removed: hash navigation `/portfolio#nouvelle-preparation` as the rail/mobile cr
 | `/settings` (other) | Paramètres |
 | unknown | `null` → shell shows `SFIA Studio` only (never invent / never keep Portefeuille by default) |
 
+## Correction C — D2 effect honesty (ACK)
+
+| Kind | Condition |
+| --- | --- |
+| `opened` | HTTP OK + non-empty `preparationId` from this POST |
+| `refused` | Explicit non-OK (≠ 401) |
+| `unauthorized` | HTTP 401 |
+| `uncertain` | Empty/incomplete ACK or network failure |
+
+Portfolio re-read after `uncertain` is an aid to reprise only — it does **not** confirm creation and does **not** drive navigation.
+
+## Correction D — Document-scoped single-flight
+
+`runOpenPreparation` holds one in-memory lock for the current browser document until `onResult` completes (including navigation). Concurrent entry points receive `{ kind: "busy" }` and do not start a second POST. Busy state is shared via `subscribeOpenPreparationBusy`.
+
+### Limits (not server idempotence)
+
+This guard does **not** cover: multiple tabs, multiple sessions, multiple devices, or server-side duplicate processing. Stronger guarantees would require a server/persistence mandate.
+
 ## Non-goals preserved
 
 D1 identity, durable project creation, Nora conversation, OAuth UX-003, rails projet/conversation/inspection, DB, permissions, ML5.
 ```
-## 7. Fichiers modifiés — diff exploitable (`bc878568..HEAD`)
+## 7. Diff parent→HEAD (`fb0ac5c8..HEAD`)
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/as-built-ux004-open-preparation-breadcrumb-20261116.md b/projects/sfia-studio-next/construction/as-built-ux004-open-preparation-breadcrumb-20261116.md
-new file mode 100644
-index 00000000..6e18b3fa
---- /dev/null
+index 6e18b3fa..e50bc4f0 100644
+--- a/projects/sfia-studio-next/construction/as-built-ux004-open-preparation-breadcrumb-20261116.md
 +++ b/projects/sfia-studio-next/construction/as-built-ux004-open-preparation-breadcrumb-20261116.md
-@@ -0,0 +1,39 @@
-+# As-built — UX-004 correctif open-preparation + breadcrumb (2026-11-16)
+@@ -1,4 +1,4 @@
+-# As-built — UX-004 correctif open-preparation + breadcrumb (2026-11-16)
++# As-built — UX-004 open-preparation + breadcrumb + D2 guards (2026-11-16)
+
+ ## Scope
+
+@@ -6,12 +6,12 @@ Borned shell/portfolio correctif on ML4D UX-004. No Figma change. No API/schema
+
+ ## Correction A — Nouveau projet → D2
+
+-Canonical client action: `web/src/lib/open-preparation.ts` → `openPreparation()`.
++Canonical client action: `web/src/lib/open-preparation.ts` → `runOpenPreparation()`.
+
+ - One voluntary `POST /api/preparations`.
+-- Success → navigate to `/preparations/{preparationId}` (real id only).
+-- Refused / unauthorized / uncertain ACK → user-visible state; **no automatic second POST**.
+-- Callers guard concurrency (`openingRef` / `creatingRef`).
++- Success (`OPENED`) → navigate to `/preparations/{preparationId}` (API id only).
++- `REFUSED` / `UNAUTHORIZED` / `UNCERTAIN` → user-visible state; **no automatic second POST**.
++- `UNCERTAIN` never upgrades to confirmed creation via portfolio id diff (no causal correlation in the current API).
+
+ Entry points sharing this action:
+
+@@ -34,6 +34,25 @@ Removed: hash navigation `/portfolio#nouvelle-preparation` as the rail/mobile cr
+ | `/settings` (other) | Paramètres |
+ | unknown | `null` → shell shows `SFIA Studio` only (never invent / never keep Portefeuille by default) |
+
++## Correction C — D2 effect honesty (ACK)
 +
-+## Scope
-+
-+Borned shell/portfolio correctif on ML4D UX-004. No Figma change. No API/schema change. No RECETTE redeploy in this cycle.
-+
-+## Correction A — Nouveau projet → D2
-+
-+Canonical client action: `web/src/lib/open-preparation.ts` → `openPreparation()`.
-+
-+- One voluntary `POST /api/preparations`.
-+- Success → navigate to `/preparations/{preparationId}` (real id only).
-+- Refused / unauthorized / uncertain ACK → user-visible state; **no automatic second POST**.
-+- Callers guard concurrency (`openingRef` / `creatingRef`).
-+
-+Entry points sharing this action:
-+
-+| UI | Location |
++| Kind | Condition |
 +| --- | --- |
-+| Rail « Nouveau projet » | `StudioShell` via `ShellNavItem.action = "open-preparation"` |
-+| Mobile « Créer » | bottom nav button |
-+| Portefeuille « Créer un projet » | `portfolio/page.tsx` `startPreparation()` |
++| `opened` | HTTP OK + non-empty `preparationId` from this POST |
++| `refused` | Explicit non-OK (≠ 401) |
++| `unauthorized` | HTTP 401 |
++| `uncertain` | Empty/incomplete ACK or network failure |
 +
-+Removed: hash navigation `/portfolio#nouvelle-preparation` as the rail/mobile create path.
++Portfolio re-read after `uncertain` is an aid to reprise only — it does **not** confirm creation and does **not** drive navigation.
 +
-+## Correction B — Fil d'Ariane
++## Correction D — Document-scoped single-flight
 +
-+`resolvePersonalBreadcrumb(pathname)` in `studio-rail.ts`:
++`runOpenPreparation` holds one in-memory lock for the current browser document until `onResult` completes (including navigation). Concurrent entry points receive `{ kind: "busy" }` and do not start a second POST. Busy state is shared via `subscribeOpenPreparationBusy`.
 +
-+| Route | Label |
-+| --- | --- |
-+| `/portfolio` | Portefeuille |
-+| `/settings/integrations` | Intégrations |
-+| `/settings` (other) | Paramètres |
-+| unknown | `null` → shell shows `SFIA Studio` only (never invent / never keep Portefeuille by default) |
++### Limits (not server idempotence)
 +
-+## Non-goals preserved
++This guard does **not** cover: multiple tabs, multiple sessions, multiple devices, or server-side duplicate processing. Stronger guarantees would require a server/persistence mandate.
 +
-+D1 identity, durable project creation, Nora conversation, OAuth UX-003, rails projet/conversation/inspection, DB, permissions, ML5.
+ ## Non-goals preserved
+
+ D1 identity, durable project creation, Nora conversation, OAuth UX-003, rails projet/conversation/inspection, DB, permissions, ML5.
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 3d5f5755..75c3aed6 100644
+index 75c3aed6..dea527f7 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -25,6 +25,26 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
+@@ -25,6 +25,23 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
  ---
 
-+## delivery_id: DELIV-2026-11-16-ML4D-UX004-NAV-BREADCRUMB-CORRECTIF
++## delivery_id: DELIV-2026-11-16-ML4D-UX004-D2-GUARDS
 +
 +| Field | Value |
 +| --- | --- |
-+| Date | 2026-11-16 ~09:00 CET (Europe/Paris) |
-+| Macro-lot | ML4D — UX-004 correctif borné navigation Nouveau projet + fil d'Ariane |
++| Date | 2026-11-16 ~09:20 CET (Europe/Paris) |
++| Macro-lot | ML4D — UX-004 D2 guards (effet honnête + single-flight) |
 +| Type | EVOL / PATCH candidate compatible · **NO RELEASE** |
 +| Branch locale | `feat/next-ml4d-ux004-portfolio-20261116` |
-+| Parent tip | `bc8785683c30430aa99bc76e138ba10f49c71c39` |
-+| Base UX-003 | `a77a3a2bf7b942038d771fdcdd2e7a6410330784` (préservé) |
-+| Base main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-+| Cause | Rail « Nouveau projet » → `/portfolio#nouvelle-preparation` (détour portefeuille) ; fil d'Ariane figé « Portefeuille » sur Intégrations |
-+| Changes | Action partagée `openPreparation` (POST D2 unique, ACK sans retry) ; rail/mobile/portefeuille même parcours ; breadcrumb route-aware (`Portefeuille` / `Intégrations`) ; tests unit + Playwright |
++| Parent tip | `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
++| Causes | (A) UNCERTAIN confirmé à tort via diff d'ids portefeuille ; (B) verrous locaux shell/portefeuille non partagés |
++| Changes | `runOpenPreparation` single-flight document-scoped ; UNCERTAIN sans upgrade portfolio ; messages honnêtes ; tests unit + Playwright concurrence inter-entrées |
 +| Schema / API | unchanged |
-+| Lanes | DEV `:3102` ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`bc878568` / BUILD `3g7UH7AXjSWhxrT20D3-w`) |
-+| Validations | tsc PASS ; lint warnings préexistants ; build PASS ; vitest open-preparation+studio-rail 16 PASS ; Playwright UX-004+UX-003 18 PASS (BROWSER FAKE) |
++| Limites | Garde frontend ≠ idempotence serveur ; hors multi-onglet / multi-session |
++| Lanes | DEV `:3102` ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`bc878568` / `3g7UH7AXjSWhxrT20D3-w`) |
 +| Push Product | **AUCUN** |
-+| RECETTE | **NON MODIFIÉE** — nouveau SHA non servi ; GO distinct requis |
-+| Verdict candidat | `READY FOR CHATGPT REVIEW — UX-004 CORRECTIF` |
++| Verdict candidat | `READY FOR CHATGPT REVIEW — UX-004 D2 GUARDS` |
 +
- ## delivery_id: DELIV-2026-11-16-ML4D-UX004-PORTFOLIO-SHELL
+ ## delivery_id: DELIV-2026-11-16-ML4D-UX004-NAV-BREADCRUMB-CORRECTIF
 
  | Field | Value |
 diff --git a/projects/sfia-studio-next/web/src/app/portfolio/page.tsx b/projects/sfia-studio-next/web/src/app/portfolio/page.tsx
-index a3bf1c19..b4477f76 100644
+index b4477f76..93f7a706 100644
 --- a/projects/sfia-studio-next/web/src/app/portfolio/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/portfolio/page.tsx
-@@ -3,6 +3,7 @@
+@@ -3,7 +3,10 @@
  import { useCallback, useEffect, useRef, useState } from "react";
  import { useRouter } from "next/navigation";
  import { preparationDisplayLabel } from "@/domains/identity/portfolio-labels";
-+import { openPreparation } from "@/lib/open-preparation";
+-import { openPreparation } from "@/lib/open-preparation";
++import {
++  runOpenPreparation,
++  subscribeOpenPreparationBusy,
++} from "@/lib/open-preparation";
 
  type PreparationSummary = {
    id: string;
-@@ -153,53 +154,23 @@ export default function PortfolioPage() {
+@@ -68,9 +71,10 @@ export default function PortfolioPage() {
+   const [creationUncertainty, setCreationUncertainty] = useState<string>("");
+   const [loadingMore, setLoadingMore] = useState(false);
+   const [creating, setCreating] = useState(false);
+-  const creatingRef = useRef(false);
+   const knownPrepIdsRef = useRef<Set<string>>(new Set());
+
++  useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
++
+   const applyPortfolio = useCallback((j: PortfolioResponse, append: boolean) => {
+     setData(j);
+     const prep = j.portfolio && "preparations" in j.portfolio ? j.portfolio.preparations : null;
+@@ -147,14 +151,9 @@ export default function PortfolioPage() {
+   }
+
+   async function startPreparation() {
+-    if (creatingRef.current) return;
+-    creatingRef.current = true;
+-    setCreating(true);
+     setCreationUncertainty("");
      setError("");
-     const before = new Set(knownPrepIdsRef.current);
-     try {
--      const res = await fetch("/api/preparations", { method: "POST" });
--      let j: { preparationId?: string; error?: string } = {};
--      try {
--        j = await res.json();
--      } catch {
--        j = {};
--      }
--      if (res.ok && j.preparationId) {
--        router.push(`/preparations/${j.preparationId}`);
-+      const result = await openPreparation({ knownPreparationIds: before });
-+      if (result.kind === "opened") {
-+        router.push(`/preparations/${result.preparationId}`);
+-    const before = new Set(knownPrepIdsRef.current);
+-    try {
+-      const result = await openPreparation({ knownPreparationIds: before });
++    const outcome = await runOpenPreparation(async (result) => {
+       if (result.kind === "opened") {
+         router.push(`/preparations/${result.preparationId}`);
+         return;
+@@ -168,13 +167,11 @@ export default function PortfolioPage() {
+         setError(result.message);
          return;
        }
--      if (!res.ok && res.status !== 0) {
--        setCreationUncertainty("");
--        setError(j.error ?? `création refusée (HTTP ${res.status})`);
-+      if (result.kind === "unauthorized") {
-+        router.push("/login");
-         return;
-       }
--      const refreshed = await reloadPortfolio();
--      const prep =
--        refreshed?.portfolio && "preparations" in refreshed.portfolio
--          ? refreshed.portfolio.preparations.items
--          : [];
--      const discovered = prep.find((p) => !before.has(p.id));
--      if (discovered) {
--        setCreationUncertainty(
--          `Création confirmée après relecture · ${discovered.id.slice(0, 8)}… — ouvrez « Reprendre ».`,
--        );
-+      if (result.kind === "refused") {
-+        setCreationUncertainty("");
-+        setError(result.message);
-         return;
-       }
--      setCreationUncertainty(
--        "Création incertaine (ACK perdu). Aucun nouveau POST automatique. Relisez le portefeuille ou réessayez explicitement.",
--      );
--    } catch {
--      const refreshed = await reloadPortfolio();
--      const prep =
--        refreshed?.portfolio && "preparations" in refreshed.portfolio
--          ? refreshed.portfolio.preparations.items
--          : [];
--      const discovered = prep.find((p) => !before.has(p.id));
--      if (discovered) {
--        setCreationUncertainty(
--          `Réseau interrompu, mais une préparation nouvelle apparaît · ${discovered.id.slice(0, 8)}… — Reprendre (GET).`,
--        );
--      } else {
--        setCreationUncertainty(
--          "Réseau interrompu pendant la création. Résultat non vérifiable — pas de second POST automatique.",
--        );
--      }
-+      // Uncertain ACK — refresh known ids; never auto-retry POST.
-+      await reloadPortfolio();
-+      setCreationUncertainty(result.message);
-     } finally {
-       creatingRef.current = false;
-       setCreating(false);
+-      // Uncertain ACK — refresh known ids; never auto-retry POST.
++      // UNCERTAIN: refresh list for reprise aid; never confirm creation or navigate by guess.
+       await reloadPortfolio();
+       setCreationUncertainty(result.message);
+-    } finally {
+-      creatingRef.current = false;
+-      setCreating(false);
+-    }
++    });
++    if (outcome.kind === "busy") return;
+   }
+
+   function resumePreparation(id: string) {
 diff --git a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-index 5c364d09..e6d9bedb 100644
+index e6d9bedb..f86cc0b4 100644
 --- a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
 +++ b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-@@ -1,8 +1,9 @@
+@@ -1,9 +1,12 @@
  "use client";
 
  import Link from "next/link";
--import { useEffect } from "react";
--import { usePathname, useSearchParams } from "next/navigation";
-+import { useEffect, useRef, useState } from "react";
-+import { usePathname, useRouter, useSearchParams } from "next/navigation";
-+import { openPreparation } from "@/lib/open-preparation";
+-import { useEffect, useRef, useState } from "react";
++import { useEffect, useState } from "react";
+ import { usePathname, useRouter, useSearchParams } from "next/navigation";
+-import { openPreparation } from "@/lib/open-preparation";
++import {
++  runOpenPreparation,
++  subscribeOpenPreparationBusy,
++} from "@/lib/open-preparation";
  import { PRODUCT_VERSIONING } from "@/lib/product-version";
  import {
    STUDIO_RAIL_VARIANTS,
-@@ -12,6 +13,7 @@ import {
-   parseProjectId,
-   parseStudioSurface,
-   railStyle,
-+  resolvePersonalBreadcrumb,
-   resolveRailVariant,
- } from "./studio-rail";
- import "./studio-shell.css";
-@@ -21,6 +23,7 @@ const ACCOUNT_HREF = "/settings/integrations";
-
- export function StudioShell({ children }: { children: React.ReactNode }) {
-   const pathname = usePathname() || "/";
-+  const router = useRouter();
-   const searchParams = useSearchParams();
-   const surface = searchParams.get("surface");
-   const variant = resolveRailVariant({ pathname, surface, searchParams });
-@@ -32,6 +35,36 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
-   const personalSpace = !inProductSpace;
-   const portfolioActive = pathname.startsWith("/portfolio") || pathname === "/";
-   const accountActive = pathname.startsWith("/settings");
-+  const breadcrumb = resolvePersonalBreadcrumb(pathname);
-+  const [openingPrep, setOpeningPrep] = useState(false);
-+  const [prepNotice, setPrepNotice] = useState("");
-+  const openingRef = useRef(false);
+@@ -38,15 +41,12 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
+   const breadcrumb = resolvePersonalBreadcrumb(pathname);
+   const [openingPrep, setOpeningPrep] = useState(false);
+   const [prepNotice, setPrepNotice] = useState("");
+-  const openingRef = useRef(false);
 +
-+  async function handleOpenPreparation() {
-+    if (openingRef.current) return;
-+    openingRef.current = true;
-+    setOpeningPrep(true);
-+    setPrepNotice("");
-+    try {
-+      const result = await openPreparation();
-+      if (result.kind === "opened") {
-+        router.push(`/preparations/${result.preparationId}`);
-+        return;
-+      }
-+      if (result.kind === "unauthorized") {
-+        router.push("/login");
-+        return;
-+      }
-+      if (result.kind === "refused") {
-+        setPrepNotice(result.message);
-+        return;
-+      }
-+      setPrepNotice(result.message);
-+    } finally {
-+      openingRef.current = false;
-+      setOpeningPrep(false);
-+    }
-+  }
++  useEffect(() => subscribeOpenPreparationBusy(setOpeningPrep), []);
+
+   async function handleOpenPreparation() {
+-    if (openingRef.current) return;
+-    openingRef.current = true;
+-    setOpeningPrep(true);
+     setPrepNotice("");
+-    try {
+-      const result = await openPreparation();
++    const outcome = await runOpenPreparation(async (result) => {
+       if (result.kind === "opened") {
+         router.push(`/preparations/${result.preparationId}`);
+         return;
+@@ -59,11 +59,10 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
+         setPrepNotice(result.message);
+         return;
+       }
++      // UNCERTAIN: honest message; never navigate by guess.
+       setPrepNotice(result.message);
+-    } finally {
+-      openingRef.current = false;
+-      setOpeningPrep(false);
+-    }
++    });
++    if (outcome.kind === "busy") return;
+   }
 
    // UX-003: /login is a public entry surface — no private project rail.
-   useEffect(() => {
-@@ -107,6 +140,23 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
-             aria-label="Principal"
-           >
-             {items.map((item) => {
-+              if (item.action === "open-preparation") {
-+                return (
-+                  <button
-+                    key={item.key}
-+                    type="button"
-+                    className="studio-rail-nav-item text-left w-full"
-+                    data-testid={`nav-${item.key}`}
-+                    disabled={openingPrep}
-+                    onClick={() => void handleOpenPreparation()}
-+                  >
-+                    <span aria-hidden className="text-[var(--accent-soft)] text-lg leading-none">
-+                      +
-+                    </span>
-+                    <span>{openingPrep ? "Ouverture…" : item.label}</span>
-+                  </button>
-+                );
-+              }
-               if (!item.href) {
-                 return (
-                   <span
-@@ -141,15 +191,15 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
-                       <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
-                     </span>
-                   ) : null}
--                  {item.key === "new-prep" ? (
--                    <span aria-hidden className="text-[var(--accent-soft)] text-lg leading-none">
--                      +
--                    </span>
--                  ) : null}
-                   <span>{item.label}</span>
-                 </Link>
-               );
-             })}
-+            {prepNotice ? (
-+              <p className="text-xs text-[var(--bad)] px-2" role="status" data-testid="shell-prep-notice">
-+                {prepNotice}
-+              </p>
-+            ) : null}
-
-             {personalSpace ? (
-               <div className="mt-2">
-@@ -228,8 +278,13 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
-               </span>
-               <span className="font-semibold truncate">SFIA Studio</span>
-             </div>
--            <p className="hidden md:block text-sm muted truncate m-0">
--              SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;Portefeuille
-+            <p
-+              className="hidden md:block text-sm muted truncate m-0"
-+              data-testid="studio-shell-breadcrumb"
-+            >
-+              {breadcrumb
-+                ? <>SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{breadcrumb}</>
-+                : <>SFIA Studio</>}
-             </p>
-             <Link
-               href={ACCOUNT_HREF}
-@@ -305,15 +360,18 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
-               </span>
-               Portefeuille
-             </Link>
--            <Link
--              href="/portfolio#nouvelle-preparation"
-+            <button
-+              type="button"
-+              className="studio-shell-bottom-nav-btn"
-               data-testid="mobile-nav-create"
-+              disabled={openingPrep}
-+              onClick={() => void handleOpenPreparation()}
-             >
-               <span className="nav-glyph" aria-hidden>
-                 +
-               </span>
--              Créer
--            </Link>
-+              {openingPrep ? "…" : "Créer"}
-+            </button>
-             <Link
-               href={ACCOUNT_HREF}
-               className={accountActive ? "is-active" : ""}
-diff --git a/projects/sfia-studio-next/web/src/components/shell/studio-rail.ts b/projects/sfia-studio-next/web/src/components/shell/studio-rail.ts
-index dd3f8573..0f7e16ef 100644
---- a/projects/sfia-studio-next/web/src/components/shell/studio-rail.ts
-+++ b/projects/sfia-studio-next/web/src/components/shell/studio-rail.ts
-@@ -216,6 +216,8 @@ export function resolveRailVariant(input: {
-   return "personnel";
- }
-
-+export type ShellNavAction = "open-preparation";
-+
- export type ShellNavItem = {
-   key: string;
-   label: string;
-@@ -223,8 +225,22 @@ export type ShellNavItem = {
-   active: boolean;
-   /** Inactive without context — never a fake # link. */
-   disabledReason?: string;
-+  /** Explicit UI action (not a GET navigation). */
-+  action?: ShellNavAction;
- };
-
-+/**
-+ * Personal-space breadcrumb second segment — known routes only.
-+ * Never invent a label; never keep « Portefeuille » on another route.
-+ */
-+export function resolvePersonalBreadcrumb(pathname: string): string | null {
-+  const path = pathname || "/";
-+  if (path.startsWith("/portfolio") || path === "/") return "Portefeuille";
-+  if (path.startsWith("/settings/integrations")) return "Intégrations";
-+  if (path.startsWith("/settings")) return "Paramètres";
-+  return null;
-+}
-+
- export function buildShellNav(input: {
-   pathname: string;
-   surface?: string | null;
-@@ -248,8 +264,9 @@ export function buildShellNav(input: {
-     items.push({
-       key: "new-prep",
-       label: "Nouveau projet",
--      href: "/portfolio#nouvelle-preparation",
-+      href: null,
-       active: false,
-+      action: "open-preparation",
-     });
-     // Connected personal space: no redundant « Connexion » rail entry.
-     return items;
-diff --git a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
-index 3fc4c75f..11e86ba5 100644
---- a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
-+++ b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
-@@ -126,7 +126,8 @@ html.studio-shell-lock body {
-     z-index: 20;
-   }
-
--  .studio-shell-bottom-nav a {
-+  .studio-shell-bottom-nav a,
-+  .studio-shell-bottom-nav-btn {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-@@ -137,6 +138,10 @@ html.studio-shell-lock body {
-     font-size: 0.72rem;
-     border-radius: 8px;
-     padding: 0.25rem;
-+    background: transparent;
-+    border: 0;
-+    cursor: pointer;
-+    font-family: inherit;
-   }
-
-   .studio-shell-bottom-nav a[aria-current="page"],
-@@ -145,6 +150,11 @@ html.studio-shell-lock body {
-     font-weight: 600;
-   }
-
-+  .studio-shell-bottom-nav-btn:disabled {
-+    opacity: 0.55;
-+    cursor: not-allowed;
-+  }
-+
-   .studio-shell-bottom-nav .nav-glyph {
-     font-size: 1.05rem;
-     line-height: 1;
-@@ -201,7 +211,20 @@ html.studio-shell-lock body {
-
- .studio-account-link:focus-visible,
- .studio-rail-nav-item:focus-visible,
--.studio-shell-bottom-nav a:focus-visible {
-+.studio-shell-bottom-nav a:focus-visible,
-+.studio-shell-bottom-nav-btn:focus-visible {
-   outline: 2px solid var(--accent-soft);
-   outline-offset: 2px;
- }
-+
-+button.studio-rail-nav-item {
-+  background: transparent;
-+  border: 0;
-+  cursor: pointer;
-+  font: inherit;
-+}
-+
-+button.studio-rail-nav-item:disabled {
-+  opacity: 0.55;
-+  cursor: not-allowed;
-+}
 diff --git a/projects/sfia-studio-next/web/src/lib/open-preparation.ts b/projects/sfia-studio-next/web/src/lib/open-preparation.ts
-new file mode 100644
-index 00000000..6af70b0d
---- /dev/null
+index 6af70b0d..0bdf44af 100644
+--- a/projects/sfia-studio-next/web/src/lib/open-preparation.ts
 +++ b/projects/sfia-studio-next/web/src/lib/open-preparation.ts
-@@ -0,0 +1,92 @@
-+/**
-+ * Canonical D2 open-preparation client action (UX-004).
-+ * One POST /api/preparations; no automatic second POST after uncertain ACK.
-+ * Does not create a durable project.
-+ */
+@@ -1,38 +1,57 @@
+ /**
+  * Canonical D2 open-preparation client action (UX-004).
+- * One POST /api/preparations; no automatic second POST after uncertain ACK.
++ * One voluntary POST /api/preparations; no automatic second POST after uncertain ACK.
+  * Does not create a durable project.
++ *
++ * OPENED requires an API preparationId for this command — portfolio diffs alone
++ * never upgrade UNCERTAIN to a confirmed creation (no causal correlation in the
++ * existing API contract).
++ *
++ * Single-flight is in-memory for the current browser document only — not
++ * server idempotence, and not cross-tab / cross-session protection.
+  */
+
+ export type OpenPreparationResult =
+   | { kind: "opened"; preparationId: string }
+   | { kind: "refused"; message: string; httpStatus?: number }
+   | { kind: "unauthorized" }
+-  | { kind: "uncertain"; message: string; discoveredId?: string };
++  | { kind: "uncertain"; message: string };
+
+-type PrepItem = { id: string };
++export type OpenPreparationOutcome = OpenPreparationResult | { kind: "busy" };
+
+-async function readPortfolioPrepItems(): Promise<PrepItem[]> {
+-  try {
+-    const r = await fetch("/api/portfolio");
+-    if (!r.ok) return [];
+-    const j = (await r.json()) as {
+-      portfolio?: { preparations?: { items?: PrepItem[] } };
+-    };
+-    return j.portfolio?.preparations?.items ?? [];
+-  } catch {
+-    return [];
++const UNCERTAIN_MESSAGE =
++  "Création incertaine (accusé de réception insuffisant). La préparation a peut-être été enregistrée — consultez les préparations existantes. Aucun nouveau POST automatique.";
 +
-+export type OpenPreparationResult =
-+  | { kind: "opened"; preparationId: string }
-+  | { kind: "refused"; message: string; httpStatus?: number }
-+  | { kind: "unauthorized" }
-+  | { kind: "uncertain"; message: string; discoveredId?: string };
++const NETWORK_UNCERTAIN_MESSAGE =
++  "Réseau interrompu pendant la création. Résultat non vérifiable — consultez les préparations existantes. Pas de second POST automatique.";
 +
-+type PrepItem = { id: string };
++type BusyListener = (busy: boolean) => void;
 +
-+async function readPortfolioPrepItems(): Promise<PrepItem[]> {
-+  try {
-+    const r = await fetch("/api/portfolio");
-+    if (!r.ok) return [];
-+    const j = (await r.json()) as {
-+      portfolio?: { preparations?: { items?: PrepItem[] } };
-+    };
-+    return j.portfolio?.preparations?.items ?? [];
-+  } catch {
-+    return [];
++let flight: Promise<OpenPreparationResult> | null = null;
++const busyListeners = new Set<BusyListener>();
++
++function setFlight(next: Promise<OpenPreparationResult> | null): void {
++  flight = next;
++  const busy = flight !== null;
++  for (const listener of busyListeners) {
++    listener(busy);
+   }
+ }
+
+-/**
+- * Start a new OPEN preparation and return its real id, or a controlled uncertainty.
+- * Callers must guard against concurrent invocations.
+- */
+-export async function openPreparation(input?: {
+-  knownPreparationIds?: Iterable<string>;
+-}): Promise<OpenPreparationResult> {
+-  const before = new Set(input?.knownPreparationIds ?? []);
++/** Subscribe to shared open-preparation busy state (same document only). */
++export function subscribeOpenPreparationBusy(listener: BusyListener): () => void {
++  busyListeners.add(listener);
++  listener(flight !== null);
++  return () => {
++    busyListeners.delete(listener);
++  };
++}
++
++export function isOpenPreparationBusy(): boolean {
++  return flight !== null;
++}
++
++async function postOpenPreparation(): Promise<OpenPreparationResult> {
+   try {
+     const res = await fetch("/api/preparations", { method: "POST" });
+     let j: { preparationId?: string; error?: string } = {};
+@@ -46,7 +65,7 @@ export async function openPreparation(input?: {
+       return { kind: "unauthorized" };
+     }
+
+-    if (res.ok && j.preparationId) {
++    if (res.ok && typeof j.preparationId === "string" && j.preparationId.length > 0) {
+       return { kind: "opened", preparationId: j.preparationId };
+     }
+
+@@ -58,35 +77,38 @@ export async function openPreparation(input?: {
+       };
+     }
+
+-    // ACK uncertainty: re-read portfolio, never auto-retry POST.
+-    const items = await readPortfolioPrepItems();
+-    const discovered = items.find((p) => !before.has(p.id));
+-    if (discovered) {
+-      return {
+-        kind: "uncertain",
+-        discoveredId: discovered.id,
+-        message: `Création confirmée après relecture · ${discovered.id.slice(0, 8)}… — ouvrez « Reprendre ».`,
+-      };
+-    }
+-    return {
+-      kind: "uncertain",
+-      message:
+-        "Création incertaine (ACK perdu). Aucun nouveau POST automatique. Relisez le portefeuille ou réessayez explicitement.",
+-    };
++    // ACK incomplete: never infer a new preparation from portfolio membership.
++    return { kind: "uncertain", message: UNCERTAIN_MESSAGE };
+   } catch {
+-    const items = await readPortfolioPrepItems();
+-    const discovered = items.find((p) => !before.has(p.id));
+-    if (discovered) {
+-      return {
+-        kind: "uncertain",
+-        discoveredId: discovered.id,
+-        message: `Réseau interrompu, mais une préparation nouvelle apparaît · ${discovered.id.slice(0, 8)}… — Reprendre (GET).`,
+-      };
+-    }
+-    return {
+-      kind: "uncertain",
+-      message:
+-        "Réseau interrompu pendant la création. Résultat non vérifiable — pas de second POST automatique.",
+-    };
++    return { kind: "uncertain", message: NETWORK_UNCERTAIN_MESSAGE };
 +  }
 +}
 +
 +/**
-+ * Start a new OPEN preparation and return its real id, or a controlled uncertainty.
-+ * Callers must guard against concurrent invocations.
++ * Run the canonical open-preparation POST under a document-scoped single-flight lock.
++ * Concurrent callers receive `{ kind: "busy" }` and do not start a second POST.
++ * The lock is held until `onResult` finishes (including navigation), closing the
++ * window between ACK and route change.
 + */
-+export async function openPreparation(input?: {
-+  knownPreparationIds?: Iterable<string>;
-+}): Promise<OpenPreparationResult> {
-+  const before = new Set(input?.knownPreparationIds ?? []);
++export async function runOpenPreparation(
++  onResult: (result: OpenPreparationResult) => void | Promise<void>,
++): Promise<OpenPreparationOutcome> {
++  if (flight) {
++    return { kind: "busy" };
+   }
++
++  const pending = postOpenPreparation();
++  setFlight(pending);
 +  try {
-+    const res = await fetch("/api/preparations", { method: "POST" });
-+    let j: { preparationId?: string; error?: string } = {};
-+    try {
-+      j = await res.json();
-+    } catch {
-+      j = {};
-+    }
-+
-+    if (res.status === 401) {
-+      return { kind: "unauthorized" };
-+    }
-+
-+    if (res.ok && j.preparationId) {
-+      return { kind: "opened", preparationId: j.preparationId };
-+    }
-+
-+    if (!res.ok) {
-+      return {
-+        kind: "refused",
-+        message: j.error ?? `création refusée (HTTP ${res.status})`,
-+        httpStatus: res.status,
-+      };
-+    }
-+
-+    // ACK uncertainty: re-read portfolio, never auto-retry POST.
-+    const items = await readPortfolioPrepItems();
-+    const discovered = items.find((p) => !before.has(p.id));
-+    if (discovered) {
-+      return {
-+        kind: "uncertain",
-+        discoveredId: discovered.id,
-+        message: `Création confirmée après relecture · ${discovered.id.slice(0, 8)}… — ouvrez « Reprendre ».`,
-+      };
-+    }
-+    return {
-+      kind: "uncertain",
-+      message:
-+        "Création incertaine (ACK perdu). Aucun nouveau POST automatique. Relisez le portefeuille ou réessayez explicitement.",
-+    };
-+  } catch {
-+    const items = await readPortfolioPrepItems();
-+    const discovered = items.find((p) => !before.has(p.id));
-+    if (discovered) {
-+      return {
-+        kind: "uncertain",
-+        discoveredId: discovered.id,
-+        message: `Réseau interrompu, mais une préparation nouvelle apparaît · ${discovered.id.slice(0, 8)}… — Reprendre (GET).`,
-+      };
-+    }
-+    return {
-+      kind: "uncertain",
-+      message:
-+        "Réseau interrompu pendant la création. Résultat non vérifiable — pas de second POST automatique.",
-+    };
++    const result = await pending;
++    await onResult(result);
++    return result;
++  } finally {
++    setFlight(null);
 +  }
 +}
++
++/** Test-only: POST classification without acquiring the UI single-flight lock. */
++export async function openPreparationForTest(): Promise<OpenPreparationResult> {
++  return postOpenPreparation();
+ }
 diff --git a/projects/sfia-studio-next/web/tests/e2e/ux004-portfolio-shell.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ux004-portfolio-shell.spec.ts
-index b8586040..d1b49629 100644
+index d1b49629..5f67e2dd 100644
 --- a/projects/sfia-studio-next/web/tests/e2e/ux004-portfolio-shell.spec.ts
 +++ b/projects/sfia-studio-next/web/tests/e2e/ux004-portfolio-shell.spec.ts
-@@ -29,9 +29,10 @@ test.describe("UX-004 portfolio shell", () => {
-     await expect(page.getByTestId("studio-shell-app")).toBeVisible();
-     await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-width", "246");
-     await expect(page.getByTestId("nav-portfolio")).toBeVisible();
--    await expect(page.getByTestId("nav-new-prep")).toHaveAttribute(
--      "href",
--      "/portfolio#nouvelle-preparation",
-+    await expect(page.getByTestId("nav-new-prep")).toBeVisible();
-+    await expect(page.getByTestId("nav-new-prep")).toHaveAttribute("type", "button");
-+    await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
-+      /SFIA Studio\s+\/\s+Portefeuille/,
-     );
-     await expect(page.getByTestId("nav-mes-projets")).toHaveCount(0);
-     await expect(page.getByTestId("nav-login")).toHaveCount(0);
-@@ -73,10 +74,7 @@ test.describe("UX-004 portfolio shell", () => {
-     const bottom = page.getByTestId("studio-mobile-bottom-nav");
-     await expect(bottom).toBeVisible();
-     await expect(page.getByTestId("mobile-nav-portfolio")).toBeVisible();
--    await expect(page.getByTestId("mobile-nav-create")).toHaveAttribute(
--      "href",
--      "/portfolio#nouvelle-preparation",
--    );
-+    await expect(page.getByTestId("mobile-nav-create")).toHaveAttribute("type", "button");
-     await expect(page.getByTestId("mobile-nav-account")).toHaveAttribute(
-       "href",
-       "/settings/integrations",
-@@ -173,32 +171,83 @@ test.describe("UX-004 portfolio shell", () => {
-     await expect(page.getByText("Préparations ouvertes")).toBeVisible();
+@@ -255,6 +255,116 @@ test.describe("UX-004 portfolio shell", () => {
+     await expect(page.getByTestId("studio-rail")).toHaveCount(0);
    });
 
--  test("nouveau projet → sas; resume GET; account destination real; UX-003 login still entry", async ({
-+  test("nouveau projet → sas; from Intégrations; double-click guard; breadcrumb; resume GET; UX-003 login", async ({
-     page,
-   }) => {
-     await page.setViewportSize({ width: 1280, height: 800 });
-     await loginPilotA(page);
-
-+    await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
-+      /SFIA Studio\s+\/\s+Portefeuille/,
-+    );
++  test("single-flight: rail + portfolio create during delayed POST → one POST", async ({ page }) => {
++    await page.setViewportSize({ width: 1280, height: 800 });
++    await loginPilotA(page);
 +
-     await page.getByTestId("nav-account").click();
-     await page.waitForURL("**/settings/integrations");
-     await expect(page.getByTestId("studio-rail")).toBeVisible();
-+    await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
-+      /SFIA Studio\s+\/\s+Intégrations/,
-+    );
-+
-+    // Correction A from Intégrations: rail « Nouveau projet » POSTs D2 directly.
-+    let postsFromIntegrations = 0;
-+    page.on("request", (req) => {
-+      if (req.method() === "POST" && req.url().includes("/api/preparations")) {
-+        postsFromIntegrations += 1;
-+      }
-+    });
-+    await page.getByTestId("nav-new-prep").click();
-+    await page.waitForURL("**/preparations/**");
-+    expect(postsFromIntegrations).toBe(1);
-+    const prepFromRail = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
-+    expect(prepFromRail).toBeTruthy();
-
-     await page.goto("/portfolio");
-+    await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
-+      /SFIA Studio\s+\/\s+Portefeuille/,
-+    );
-+
-+    // Portfolio CTA uses the same D2 path.
-     await page.getByTestId("portfolio-new-prep").click();
-     await page.waitForURL("**/preparations/**");
-     const prepId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
-     expect(prepId).toBeTruthy();
-
-+    // Double-click guard on rail (no second POST while opening).
-+    await page.goto("/portfolio");
 +    let posts = 0;
-+    const countPosts = (req: import("@playwright/test").Request) => {
++    page.on("request", (req) => {
 +      if (req.method() === "POST" && req.url().includes("/api/preparations")) posts += 1;
-+    };
-+    page.on("request", countPosts);
++    });
 +    await page.route("**/api/preparations", async (route) => {
 +      if (route.request().method() !== "POST") {
 +        await route.continue();
 +        return;
 +      }
-+      await new Promise((r) => setTimeout(r, 400));
++      await new Promise((r) => setTimeout(r, 500));
 +      await route.fulfill({
 +        status: 200,
 +        contentType: "application/json",
-+        body: JSON.stringify({ preparationId: "prep-dbl-guard" }),
++        body: JSON.stringify({ preparationId: "prep-cross-flight" }),
 +      });
 +    });
-+    const btn = page.getByTestId("nav-new-prep");
-+    await Promise.all([btn.click(), btn.click()]);
-+    await page.waitForURL("**/preparations/prep-dbl-guard");
++
++    // force: bypass disabled-after-busy so both entry points can race the lock
++    // (mirrors two near-simultaneous clicks before React re-render).
++    await Promise.all([
++      page.getByTestId("nav-new-prep").click({ force: true }),
++      page.getByTestId("portfolio-new-prep").click({ force: true }),
++    ]);
++    await page.waitForURL("**/preparations/prep-cross-flight");
 +    expect(posts).toBe(1);
-+    page.off("request", countPosts);
 +    await page.unroute("**/api/preparations");
++  });
 +
-     await page.goto("/portfolio");
-     const resume = page.locator(`[data-testid^="resume-prep-"]`).first();
-     if (await resume.count()) {
--      let posts = 0;
-+      let resumePosts = 0;
-       page.on("request", (req) => {
--        if (req.method() === "POST" && req.url().includes("/api/preparations")) posts += 1;
-+        if (req.method() === "POST" && req.url().includes("/api/preparations")) resumePosts += 1;
-       });
-       await resume.click();
-       await page.waitForURL(/resume=1/);
--      expect(posts).toBe(0);
-+      expect(resumePosts).toBe(0);
-     }
-
-     await page.goto("/login");
++  test("uncertain ACK: no confirm, no navigate by guess, no second POST", async ({ page }) => {
++    await page.setViewportSize({ width: 1280, height: 800 });
++    await loginPilotA(page);
++
++    // Pre-existing preparations must not be declared newly created.
++    await page.route("**/api/portfolio", async (route) => {
++      if (route.request().method() !== "GET") {
++        await route.continue();
++        return;
++      }
++      await route.fulfill({
++        status: 200,
++        contentType: "application/json",
++        body: JSON.stringify({
++          session: { displayName: "Pilote A", authMode: "dev" },
++          portfolio: {
++            kind: "empty",
++            openPreparations: 1,
++            preparations: {
++              items: [
++                {
++                  id: "prep-preexisting",
++                  previewName: "Déjà là",
++                  previewSummary: "",
++                  createdAt: "2026-11-15T10:00:00.000Z",
++                  status: "OPEN",
++                },
++              ],
++              nextCursor: null,
++            },
++          },
++        }),
++      });
++    });
++    await page.reload();
++    await expect(page.getByTestId("resume-prep-prep-preexisting")).toBeVisible();
++
++    let posts = 0;
++    page.on("request", (req) => {
++      if (req.method() === "POST" && req.url().includes("/api/preparations")) posts += 1;
++    });
++    await page.route("**/api/preparations", async (route) => {
++      if (route.request().method() !== "POST") {
++        await route.continue();
++        return;
++      }
++      await route.fulfill({
++        status: 200,
++        contentType: "application/json",
++        body: "{}",
++      });
++    });
++
++    await page.getByTestId("portfolio-new-prep").click();
++    await expect(page.getByText(/création incertaine|peut-être été enregistrée/i)).toBeVisible();
++    await expect(page).toHaveURL(/\/portfolio/);
++    expect(posts).toBe(1);
++    await expect(page.getByText(/création confirmée/i)).toHaveCount(0);
++
++    // Lock released: a later refused call must not retry-loop.
++    await page.unroute("**/api/preparations");
++    await page.route("**/api/preparations", async (route) => {
++      if (route.request().method() !== "POST") {
++        await route.continue();
++        return;
++      }
++      await route.fulfill({
++        status: 500,
++        contentType: "application/json",
++        body: JSON.stringify({ error: "refus métier" }),
++      });
++    });
++    posts = 0;
++    await page.getByTestId("nav-new-prep").click();
++    await expect(page.getByTestId("shell-prep-notice")).toContainText(/refus/i);
++    expect(posts).toBe(1);
++  });
++
+   test("rail variants widths preserved on project surfaces", async ({ page }) => {
+     await page.setViewportSize({ width: 1680, height: 970 });
+     await loginPilotA(page);
 diff --git a/projects/sfia-studio-next/web/tests/unit/open-preparation.test.ts b/projects/sfia-studio-next/web/tests/unit/open-preparation.test.ts
-new file mode 100644
-index 00000000..e8c7ceb9
---- /dev/null
+index e8c7ceb9..690db416 100644
+--- a/projects/sfia-studio-next/web/tests/unit/open-preparation.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/open-preparation.test.ts
-@@ -0,0 +1,63 @@
-+import { beforeEach, describe, expect, it, vi } from "vitest";
-+import { openPreparation } from "@/lib/open-preparation";
+@@ -1,7 +1,12 @@
+ import { beforeEach, describe, expect, it, vi } from "vitest";
+-import { openPreparation } from "@/lib/open-preparation";
++import {
++  isOpenPreparationBusy,
++  openPreparationForTest,
++  runOpenPreparation,
++  subscribeOpenPreparationBusy,
++} from "@/lib/open-preparation";
+
+-describe("openPreparation (D2 client)", () => {
++describe("openPreparation POST classification (D2 client)", () => {
+   beforeEach(() => {
+     vi.restoreAllMocks();
+   });
+@@ -16,7 +21,7 @@ describe("openPreparation (D2 client)", () => {
+         }),
+       ),
+     );
+-    const r = await openPreparation();
++    const r = await openPreparationForTest();
+     expect(r).toEqual({ kind: "opened", preparationId: "prep-1" });
+     expect(fetch).toHaveBeenCalledTimes(1);
+     expect(fetch).toHaveBeenCalledWith("/api/preparations", { method: "POST" });
+@@ -32,32 +37,137 @@ describe("openPreparation (D2 client)", () => {
+         }),
+       ),
+     );
+-    const r = await openPreparation();
++    const r = await openPreparationForTest();
+     expect(r.kind).toBe("refused");
+     expect(fetch).toHaveBeenCalledTimes(1);
+   });
+
+-  it("on uncertain empty body, reloads portfolio once and never retries POST", async () => {
+-    const fetchMock = vi
+-      .fn()
+-      .mockResolvedValueOnce(
+-        new Response("{}", { status: 200, headers: { "Content-Type": "application/json" } }),
+-      )
+-      .mockResolvedValueOnce(
+-        new Response(
++  it("returns unauthorized on 401", async () => {
++    vi.stubGlobal(
++      "fetch",
++      vi.fn(async () => new Response(JSON.stringify({ error: "auth" }), { status: 401 })),
++    );
++    const r = await openPreparationForTest();
++    expect(r).toEqual({ kind: "unauthorized" });
++    expect(fetch).toHaveBeenCalledTimes(1);
++  });
 +
-+describe("openPreparation (D2 client)", () => {
++  it("on empty ACK body stays UNCERTAIN without confirming via portfolio ids", async () => {
++    const fetchMock = vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => {
++      if (typeof url === "string" && url.includes("/api/portfolio")) {
++        return new Response(
+           JSON.stringify({
+             portfolio: {
+-              preparations: { items: [{ id: "prep-new" }], nextCursor: null },
++              preparations: { items: [{ id: "prep-preexisting" }], nextCursor: null },
+             },
+           }),
+           { status: 200, headers: { "Content-Type": "application/json" } },
+-        ),
+-      );
++        );
++      }
++      return new Response("{}", {
++        status: 200,
++        headers: { "Content-Type": "application/json" },
++      });
++    });
+     vi.stubGlobal("fetch", fetchMock);
+-    const r = await openPreparation({ knownPreparationIds: [] });
++    const r = await openPreparationForTest();
+     expect(r.kind).toBe("uncertain");
+-    if (r.kind === "uncertain") expect(r.discoveredId).toBe("prep-new");
+-    expect(fetchMock).toHaveBeenCalledTimes(2);
++    if (r.kind === "uncertain") {
++      expect(r.message).toMatch(/incertaine|peut-être/i);
++      expect(r.message).not.toMatch(/confirmée/i);
++      expect("discoveredId" in r).toBe(false);
++    }
+     expect(fetchMock.mock.calls.filter((c) => c[1]?.method === "POST")).toHaveLength(1);
++    // No portfolio GET required for classification — never invent OPENED from list diff.
++    expect(fetchMock.mock.calls.filter((c) => String(c[0]).includes("/api/portfolio"))).toHaveLength(
++      0,
++    );
++  });
++
++  it("network failure stays UNCERTAIN without second POST", async () => {
++    vi.stubGlobal(
++      "fetch",
++      vi.fn(async () => {
++        throw new Error("network down");
++      }),
++    );
++    const r = await openPreparationForTest();
++    expect(r.kind).toBe("uncertain");
++    expect(fetch).toHaveBeenCalledTimes(1);
++  });
++});
++
++describe("runOpenPreparation single-flight", () => {
 +  beforeEach(() => {
 +    vi.restoreAllMocks();
 +  });
 +
-+  it("returns opened with preparationId on successful POST", async () => {
-+    vi.stubGlobal(
-+      "fetch",
-+      vi.fn(async () =>
-+        new Response(JSON.stringify({ preparationId: "prep-1" }), {
-+          status: 200,
-+          headers: { "Content-Type": "application/json" },
-+        }),
-+      ),
++  it("serializes concurrent callers to a single POST", async () => {
++    let resolvePost!: (v: Response) => void;
++    const postGate = new Promise<Response>((r) => {
++      resolvePost = r;
++    });
++    const fetchMock = vi.fn(async (_url: RequestInfo | URL, init?: RequestInit) => {
++      if (init?.method === "POST") return postGate;
++      throw new Error("unexpected fetch");
++    });
++    vi.stubGlobal("fetch", fetchMock);
++
++    const busyStates: boolean[] = [];
++    const unsub = subscribeOpenPreparationBusy((b) => busyStates.push(b));
++
++    const navigations: string[] = [];
++    const first = runOpenPreparation(async (result) => {
++      if (result.kind === "opened") navigations.push(result.preparationId);
++    });
++    // Let first acquire the lock.
++    await Promise.resolve();
++    expect(isOpenPreparationBusy()).toBe(true);
++
++    const second = runOpenPreparation(async (result) => {
++      if (result.kind === "opened") navigations.push(`second:${result.preparationId}`);
++    });
++
++    resolvePost(
++      new Response(JSON.stringify({ preparationId: "prep-only" }), {
++        status: 200,
++        headers: { "Content-Type": "application/json" },
++      }),
 +    );
-+    const r = await openPreparation();
-+    expect(r).toEqual({ kind: "opened", preparationId: "prep-1" });
-+    expect(fetch).toHaveBeenCalledTimes(1);
-+    expect(fetch).toHaveBeenCalledWith("/api/preparations", { method: "POST" });
++
++    const [a, b] = await Promise.all([first, second]);
++    expect(a).toEqual({ kind: "opened", preparationId: "prep-only" });
++    expect(b).toEqual({ kind: "busy" });
++    expect(navigations).toEqual(["prep-only"]);
++    expect(fetchMock.mock.calls.filter((c) => c[1]?.method === "POST")).toHaveLength(1);
++    expect(isOpenPreparationBusy()).toBe(false);
++    expect(busyStates).toContain(true);
++    unsub();
 +  });
 +
-+  it("returns refused without second POST", async () => {
-+    vi.stubGlobal(
-+      "fetch",
-+      vi.fn(async () =>
++  it("releases lock after refused so a later call can POST", async () => {
++    const fetchMock = vi
++      .fn()
++      .mockResolvedValueOnce(
 +        new Response(JSON.stringify({ error: "NOPE" }), {
 +          status: 500,
 +          headers: { "Content-Type": "application/json" },
 +        }),
-+      ),
-+    );
-+    const r = await openPreparation();
-+    expect(r.kind).toBe("refused");
-+    expect(fetch).toHaveBeenCalledTimes(1);
-+  });
-+
-+  it("on uncertain empty body, reloads portfolio once and never retries POST", async () => {
-+    const fetchMock = vi
-+      .fn()
-+      .mockResolvedValueOnce(
-+        new Response("{}", { status: 200, headers: { "Content-Type": "application/json" } }),
 +      )
 +      .mockResolvedValueOnce(
-+        new Response(
-+          JSON.stringify({
-+            portfolio: {
-+              preparations: { items: [{ id: "prep-new" }], nextCursor: null },
-+            },
-+          }),
-+          { status: 200, headers: { "Content-Type": "application/json" } },
-+        ),
++        new Response(JSON.stringify({ preparationId: "prep-2" }), {
++          status: 200,
++          headers: { "Content-Type": "application/json" },
++        }),
 +      );
 +    vi.stubGlobal("fetch", fetchMock);
-+    const r = await openPreparation({ knownPreparationIds: [] });
-+    expect(r.kind).toBe("uncertain");
-+    if (r.kind === "uncertain") expect(r.discoveredId).toBe("prep-new");
-+    expect(fetchMock).toHaveBeenCalledTimes(2);
-+    expect(fetchMock.mock.calls.filter((c) => c[1]?.method === "POST")).toHaveLength(1);
-+  });
-+});
-diff --git a/projects/sfia-studio-next/web/tests/unit/studio-rail.test.ts b/projects/sfia-studio-next/web/tests/unit/studio-rail.test.ts
-index 6ade6f5e..bafddc30 100644
---- a/projects/sfia-studio-next/web/tests/unit/studio-rail.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/studio-rail.test.ts
-@@ -5,6 +5,7 @@ import {
-   clearProjectSurfaceNavIntent,
-   noteProjectSurfaceNavIntent,
-   peekProjectSurfaceNavIntent,
-+  resolvePersonalBreadcrumb,
-   resolveProjectLoadSurface,
-   resolveRailVariant,
- } from "@/components/shell/studio-rail";
-@@ -59,16 +60,25 @@ describe("B1 shell navigation", () => {
-     expect(items.find((i) => i.key === "pilotage")?.active).toBe(true);
-   });
-
--  it("keeps a single Portefeuille entry plus Nouveau projet (UX-004)", () => {
-+  it("keeps a single Portefeuille entry plus Nouveau projet action (UX-004)", () => {
-     const items = buildShellNav({ pathname: "/portfolio" });
-     expect(items.some((i) => i.key === "mes-projets")).toBe(false);
-     expect(items.some((i) => i.key === "login")).toBe(false);
-     expect(items.find((i) => i.key === "portfolio")?.label).toBe("Portefeuille");
--    expect(items.find((i) => i.key === "new-prep")?.label).toBe("Nouveau projet");
--    expect(items.find((i) => i.key === "new-prep")?.href).toBe("/portfolio#nouvelle-preparation");
-+    const create = items.find((i) => i.key === "new-prep");
-+    expect(create?.label).toBe("Nouveau projet");
-+    expect(create?.href).toBeNull();
-+    expect(create?.action).toBe("open-preparation");
-     expect(items.every((i) => i.href !== "#")).toBe(true);
-   });
-
-+  it("resolves personal breadcrumb for known routes only", () => {
-+    expect(resolvePersonalBreadcrumb("/portfolio")).toBe("Portefeuille");
-+    expect(resolvePersonalBreadcrumb("/settings/integrations")).toBe("Intégrations");
-+    expect(resolvePersonalBreadcrumb("/settings")).toBe("Paramètres");
-+    expect(resolvePersonalBreadcrumb("/unknown-personal")).toBeNull();
-+  });
 +
-   it("disables project surfaces without project context (prep)", () => {
-     const items = buildShellNav({ pathname: "/preparations/prep-1" });
-     const travail = items.find((i) => i.key === "travail");
++    const first = await runOpenPreparation(async () => undefined);
++    expect(first.kind).toBe("refused");
++    expect(isOpenPreparationBusy()).toBe(false);
++
++    const second = await runOpenPreparation(async () => undefined);
++    expect(second).toEqual({ kind: "opened", preparationId: "prep-2" });
++    expect(fetchMock.mock.calls.filter((c) => c[1]?.method === "POST")).toHaveLength(2);
+   });
+ });
 ```
 
 ---
 
-## 8. Preuves de comportement
-
-### A — Nouveau projet → sas D2
-- UNIT: `openPreparation` succès → `{kind:'opened', preparationId}` ; 1 POST (`tests/unit/open-preparation.test.ts`) — **UNIT / FAKE**
-- BROWSER: e2e — clic `nav-new-prep` depuis Intégrations → 1 POST → `/preparations/**` ; clic `portfolio-new-prep` → sas — **BROWSER / FAKE** (lane `:3101`, Nora fixture)
-- Pas de projet définitif créé par cette action (create-project non invoqué)
-
-### B — Double clic / concurrence
-- Shell `openingRef` + bouton `disabled` pendant ouverture
-- BROWSER: double-click `nav-new-prep` avec POST ralenti → **1 POST** uniquement — **BROWSER / FAKE**
-
-### C — Échec / uncertain
-- UNIT: refused HTTP 500 → 1 POST ; uncertain empty body → GET portfolio, **aucun second POST** — **UNIT / FAKE**
-- Message utilisateur via `shell-prep-notice` / `creationUncertainty` portfolio
-
-### D — Fil d'Ariane
-- UNIT: `resolvePersonalBreadcrumb` Portefeuille / Intégrations / Paramètres / null — **UNIT**
-- BROWSER: breadcrumb Portefeuille sur `/portfolio` ; Intégrations sur `/settings/integrations` ; retour Portefeuille — **BROWSER / FAKE**
-
-### E — Non-régression
-- Playwright UX-003 entry 10 PASS + UX-004 8 PASS = **18 PASS** — **BROWSER / FAKE**
-- Login entry sans rail ; resume GET sans POST ; rail widths 246/240/244 ; mobile bottom nav smoke
-- **Pas de preuve LIVE / REAL** déduite
-
-Qualification: aucune preuve LIVE Neo/OAuth/Git REAL dans ce cycle.
-
----
-
-## 9. Tests exécutés
+## 8. Tests et preuves
 
 | Suite | Résultat | Niveau |
 | --- | --- | --- |
-| `tsc --noEmit` | PASS | static |
-| `next lint` | PASS (warnings préexistants hors périmètre) | static |
-| `vitest` open-preparation + studio-rail | 16 PASS | UNIT / FAKE |
-| `next build` production | PASS · BUILD_ID `N3H-4PyOKwxr4-U7Is34c` | build |
-| Playwright `ux004-portfolio-shell` + `ux003-unified-entry` | 18 PASS | BROWSER / FAKE |
+| tsc | PASS | static |
+| lint | PASS (warnings préexistants) | static |
+| vitest open-preparation + studio-rail | 20 PASS | UNIT / FAKE |
+| Playwright UX-004+UX-003 | 20 PASS | BROWSER / FAKE |
+| next build | PASS · `BG3QbxjbuMuX_NOaP0rSo` | build |
 
-Note opérationnelle: shell agent avait `DATABASE_URL` RECETTE `:5434` — tests exécutés avec override explicite operator DEV `:5433` (aucune mutation RECETTE).
+Preuves clés :
+- UNIT : ACK vide → UNCERTAIN, pas de GET portfolio de confirmation, 1 POST
+- UNIT : concurrence → 1 POST, 2e `busy`, 1 navigation
+- BROWSER : rail+portefeuille force-click → 1 POST → sas
+- BROWSER : ACK `{}` + prep préexistante → message incertaine, reste `/portfolio`, pas « confirmée », 1 POST ; refus ultérieur libère le verrou
+- Pas de preuve LIVE / idempotence serveur
 
 ---
 
-## 10. Identifiants candidat
+## 9. Identifiants candidat
 
 | Champ | Valeur |
 | --- | --- |
-| Branch | `feat/next-ml4d-ux004-portfolio-20261116` |
-| Commit SHA | `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
-| Parent | `bc8785683c30430aa99bc76e138ba10f49c71c39` |
-| Tree `projects/sfia-studio-next/web` | `5baf5936d1813d62c653ebafec18545105d108f0` |
-| Build ID (prod local) | `N3H-4PyOKwxr4-U7Is34c` |
-| Push projet | **NON** |
-| PR / merge / main | **NON** |
-| RECETTE redeploy | **NON** — reste `bc878568` / `3g7UH7AXjSWhxrT20D3-w` |
-| Version produit | NOT AVAILABLE |
-| STABLE | NOT AVAILABLE |
-| Release | NO RELEASE |
+| SHA | `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
+| Tree web | `467a46216d45651063c7fdfe328f15abec9fd2fc` |
+| Build | `BG3QbxjbuMuX_NOaP0rSo` |
+| Parent | `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
+| Push projet | NON |
+| RECETTE redeploy | NON |
+| Version / STABLE / Release | NOT AVAILABLE / NOT AVAILABLE / NO RELEASE |
 | Gate C | OPEN |
-| ML4D clôture | NON |
-| ADOPTED | NON |
 
 ---
 
-## 11. Statut DEV / RECETTE
+## 10. Handoff
 
-- DEV `:3102` — code correctif local ; HTTP 200 après rebuild/restart (`.next` clobber par `next build` documenté ; pas d'impact RECETTE).
-- RECETTE `:3200` — LaunchAgent `com.sfia.studio.next.recette.ml4d-ux004` ; worktree détaché `bc878568` ; BUILD `3g7UH7AXjSWhxrT20D3-w` ; **inchangé**. Nouveau SHA nécessite GO + build + qualification distincts avant mise à disposition.
-
----
-
-## 12. Handoff
-
-Mode: publish-in-cycle L3 borné via `scripts/sfia/publish-review-handoff.sh`.
-Cible: branche `sfia/review-handoff` · fichier unique `sfia-review-handoff/latest-chatgpt-review.md`.
-Worktree publisher: `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023`.
-Tip précédent: `68d149b6826d4cfab863f2e0b2f1cef90d2588ab` / blob `1a77139ce3bb1a385b1a0bbb6b953f9be23c8365`.
-
-| Vérification | Résultat |
-| --- | --- |
-| Publisher verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
-| Tip distant `origin/sfia/review-handoff` | `6c137a36f24ec27e30740d0cc14f93540e8c84f6` |
-| Blob distant canonique | `409c32493700e276df4e3d9ce6d8003132577ba0` |
-| Commit mono-fichier | OUI — uniquement `sfia-review-handoff/latest-chatgpt-review.md` |
-| Push | FF only (`68d149b6..6c137a36`) — aucun force push |
-| Relecture distante | titre FULL UX-004 CORRECTIF ; GO ; SHA `fb0ac5c8…` ; verdict READY ; pas de secret |
-| Branche projet préservée | `feat/next-ml4d-ux004-portfolio-20261116` @ `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
+Mode publish-in-cycle L3 via `scripts/sfia/publish-review-handoff.sh`.
+*(Complété après publication distante.)*
 
 ---
 
-## 13. Réserves et prochaines décisions Morris
+## 11. Réserves
 
-1. RECETTE sert encore l'ancien candidat UX-004 `bc878568` — **pas** ce correctif jusqu'à GO distinct.
-2. Recette visuelle mobile Figma/runtime **non** redemandée ; smoke technique seulement — ne pas présenter comme F2/G5 mobile acquis.
-3. Aucune réception UX complète / ADOPTED / clôture ML4D.
-4. Push/PR/merge projet non autorisés dans ce cycle.
-5. BUILD_ID Next non déterministe entre rebuilds locaux — qualifier le SHA Git comme vérité candidat.
-
----
-
-## 14. Gates respectés
-
-modification Figma NON · push projet NON · PR NON · merge NON · main NON · déploiement RECETTE nouveau SHA NON · STABLE NON · release NON · ADOPTED NON · clôture ML4D NON · Gate C OPEN.
+1. RECETTE sert encore `bc878568` — pas ce SHA.
+2. Single-flight document-only — pas multi-onglet.
+3. Pas F2/G5 mobile Morris.
+4. Pas ADOPTED / clôture ML4D.
