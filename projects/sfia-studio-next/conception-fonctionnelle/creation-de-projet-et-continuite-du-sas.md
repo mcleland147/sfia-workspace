@@ -3,7 +3,7 @@
 
 | Métadonnée | Qualification |
 | --- | --- |
-| **Version/date** | **v0.1 — VALIDATED SPEC (Morris, 2026-11-02) — interfaces réservées** |
+| **Version/date** | **v0.1 — VALIDATED SPEC (Morris, 2026-11-02) — interfaces réservées** ; amendement R5 du **2026-11-16**, validé en contenu par Morris, publié sur branche documentaire candidate (non intégré à `main`) |
 | **Domaine propriétaire** | **2 — Création de projet et continuité du sas** |
 | **Résultat Pilote** | Exprimer une intention, obtenir l’aide utile de Nora, créer explicitement un projet Studio individuel, puis poursuivre visuellement le même fil de conversation dans cet espace réellement créé. |
 | **Sources Git** | `mcleland147/sfia-workspace` : `main@8751775edc314e8fc7f0855104e5000290be9839` ; branche R2 `sfia/next-r2-functional-specs@3855249a9b02cf484b47811e3aca538de9430ac6` |
@@ -77,6 +77,8 @@ Aucun schéma de table, protocole de session, route UI, SDK GitHub, event bus, v
 
 - **RG-CRE-016 — Pas de promotion implicite des propositions.** Les hypothèses, réserves, trajectoires proposées et conseils du sas restent qualifiés ; seules les décisions effectivement exprimées et applicables sont reconnues par le domaine 6. **Interfaces :** R1 §§2.7/2.20 ; D6 RG-GOV-002/005.
 
+- **RG-CRE-NOM-01 — Unicité du nom par Pilote (amendement Morris du 2026-11-16).** Pour un même Pilote propriétaire (`ownerPilotId`), Studio refuse la création d’un deuxième projet dont la clé de nom normalisée est identique à celle d’un projet existant : suppression des espaces initiaux/finaux, réduction des espaces consécutifs et normalisation de la casse selon la règle applicative `fr-FR`. Les accents restent significatifs ; aucune similarité sémantique ou IA ne définit un doublon. Le refus produit `CONFLICT` sans nouvel enregistrement. Deux Pilotes distincts peuvent utiliser le même nom. `projectId` reste l’identité durable (`RG-CRE-012` inchangé). La création concurrente ne peut produire qu’un gagnant par Pilote et nom normalisé ; le rejeu idempotent d’une création déjà confirmée retrouve le même projet sans être rejeté comme une nouvelle collision. Les projets historiques conservent nom, identité et données : aucun renommage, suppression ou fusion automatique. **Interfaces :** `RG-CRE-009/010/011/012/013`, `PF-CRE-14`, R4 A12 et commande transactionnelle D2. **Gate :** validé en contenu par Morris le 2026-11-16 ; intégration Git `main`, qualification runtime, RECETTE et adoption restent séparées.
+
 ### 3.C — Passage et continuité vers l’espace projet
 
 - **RG-CRE-017 — Continuité visuelle du même fil.** Après création effective, le Pilote rejoint l’espace projet avec le fil du sas qui se poursuit visuellement ; aucun nouveau chat imposant une reconstitution par résumé seul. **Interfaces :** R1 §2.20 — option A visuelle validée.
@@ -132,7 +134,7 @@ Chaque scénario ci-dessous constitue un **contrat de résultat vérifiable en R
 
 | **PF-CRE-13** | Abandon du sas sans validation | Aucune création automatique ni projet dans portefeuille | `RG-CRE-001`, `RG-CRE-015` |
 
-| **PF-CRE-14** | Création avec deux projets de même nom | Identités durables distinctes sans fusion de données | `RG-CRE-009`, `RG-CRE-012`, `RG-CRE-025` |
+| **PF-CRE-14** | Deux créations distinctes sous le même Pilote avec un nom normalisé identique | Première création conservée ; seconde refusée `CONFLICT` sans nouveau projet, sans fusion ni renommage ; même nom possible entre Pilotes distincts ; rejeu idempotent d'une création déjà confirmée retrouve son projet | `RG-CRE-NOM-01`, `RG-CRE-009/011/012/025` |
 
 | **PF-CRE-15** | Création puis continuation de conversation | Même fil visible avec marqueur exact de création | `RG-CRE-017`, `RG-CRE-018`, `RG-CRE-020` |
 
@@ -241,3 +243,15 @@ Les qualificatifs ci-dessus concernent **les textes examinés**, pas une compati
 - **RG-CRE-030 — Contexte de la lane.** Les anomalies de création et de reprise doivent pouvoir être rattachées au build/SHA et à l'environnement effectivement servis, sans mélange DEV/RECETTE/STABLE ni révélation interprojet.
 
 **Parcours candidats :** **PF-CRE-28** double clic/retry même intention → une création effective et plusieurs tentatives corrélées ; **PF-CRE-29** commit réussi mais réponse perdue → réconciliation de la commande existante sans doublon ; **PF-CRE-30** connexion DB indisponible et retour API → catégorie technique fidèle, échec/UNKNOWN sans session faussement invalidée. Tests DB/HTTP/BROWSER sur SHA et lane ; aucune nouvelle table de journal des commandes exigée par ce contrat.
+
+## 9. Amendement R5 — unicité des noms de projets par Pilote (2026-11-16)
+
+**Autorité et trace.** Morris a validé explicitement le comportement d'unicité par Pilote le 2026-11-16 puis a donné le GO D2 documentaire et l'autorisation de publication Git sur branche dédiée. La présente contribution est une **modification normative candidate publiée**, sans PR/merge, sans changement de `main`, sans GO RECETTE implicite ni `ADOPTED`.
+
+**Delta identifié.** Ajout de `RG-CRE-NOM-01` au propriétaire D2 (§3.B) et correction du scénario `PF-CRE-14` (§4). **Texte historique pré-amendement du scénario (2026-11-02, conservé ici pour audit) :** « Création avec deux projets de même nom » → « Identités durables distinctes sans fusion de données ». Ce résultat **n'est plus applicable aux créations nouvelles homonymes d'un même Pilote** ; le principe sous-jacent `RG-CRE-012` (identité du projet indépendante de son nom) demeure applicable, notamment entre Pilotes et aux éventuels objets historiques.
+
+**Portée.** Pas de contrainte de similarité sémantique, de migration corrective des anciens projets ou de modification de données. L'enforcement transactionnel, la validation des droits, l'idempotence et les tests de concurrence sont requis en R5 ; l'implémentation candidate `cd091385de10262918cf79bf8c86ad1d725cb9d1` n'est ni intégrée à `main` ni adoptée par la présente publication. L'architecture R4 §5.3.6 et A12 est alignée dans la même contribution documentaire.
+
+**Preuves attendues :** homonymes même Pilote refusés y compris sous deux transactions simultanées ; homonymes inter-Pilotes autorisés ; différence d'accents conservée ; rejouement confirmé `ALREADY_CREATED` sans doublon ; projets historiques non modifiés. Tests déterministes/PG ≠ acceptation Morris en RECETTE.
+
+**Gates inchangés :** PR, merge, déploiement du build, application migration `013`, recette UX/Nora LIVE, Gate C, ML5, STABLE, release et `ADOPTED` nécessitent leurs décisions et preuves propres.
