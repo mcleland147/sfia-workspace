@@ -3,7 +3,7 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | Nature | **Document de cadrage vivant** du jalon R4 ; support de travail et de synthèse, sans création d'une seconde autorité normative |
-| Version | **v1.0 — architecture R4 A/B/C/D validée en contenu avec réserves**, 2026-11-04 ; contribution documentaire sur branche R4, non mergée |
+| Version | **v1.0 — architecture R4 A/B/C/D validée en contenu avec réserves**, 2026-11-04 ; amendement ciblé A12 du **2026-11-16** validé par Morris sur branche documentaire candidate ; historique R4 conservé |
 | Statut | **R4 ARCHITECTURE DESIGN VALIDATED BY MORRIS — WITH CARRIED RESERVES ; ADR R4-01..04 + DATA-01 APPROUVÉS ; ENV-01 D2 VALIDÉ ET ROUTÉ SUR BRANCHE ; QA A–D DOCUMENTÉE**. Intégration `main` et démarrage R5 sous gates distincts ; aucun code, runtime, LIVE/REAL ou `ADOPTED` |
 | Responsable des arbitrages | Morris |
 | Rédaction / analyse | ChatGPT, sous contrôle des sources Git et des décisions Morris |
@@ -381,7 +381,7 @@ Le modèle ci-dessous est un **contrat de données**, non un schéma SQL approuv
 | Document en sauvegarde / contenu inaccessible | Métadonnées, état d'octets, révision | Afficher un état de sauvegarde vrai ; ne pas certifier disponibilité ni inventer une révision |
 | Message Nora terminé autour du commit | Fil/source et écriture durable | Attacher à la préparation stable ; résolution via lien du projet ; gérer écriture et affichage partiels |
 | Source Git/autre projet révoquée depuis sa lecture | Droits au moment de réutiliser la source | Référence et limite, pas de contenu désormais interdit, pas d'autorité héritée |
-| Plusieurs projets du même nom | `projectId` et titulaire | Projets indépendants ; noms ne servent ni de clés ni de filtres de sécurité |
+| Nom de projet déjà utilisé | `projectId`, Pilote propriétaire et nom normalisé | Même Pilote : nouvelle création homonyme refusée `CONFLICT` ; Pilotes distincts : homonymes indépendants ; aucun nom utilisé comme identifiant ni filtre de sécurité ; pas de modification rétroactive des projets historiques |
 | Modification de projet après transition | Contexte projet actuel et version | Actions nouvelles dans la portée du projet ; pas de réouverture artificielle du sas ou de mutation rétroactive du passé |
 
 **Modèle d'échec minimal :** domaine métier renvoie `NOT_FOUND/ACCESS_DENIED`, `CONFLICT`, `NOT_READY`, `UNAVAILABLE`, `INDETERMINATE` suivant l'origine réelle ; l'UX traduit sans révéler des données sensibles. Les réponses HTTP, traces applicatives et libellés exacts ne sont pas figés. La « vérification » doit être une opération en lecture, distincte d'une commande qui effectue une mutation.
@@ -429,11 +429,13 @@ Le modèle ci-dessous est un **contrat de données**, non un schéma SQL approuv
 | A09 — Document `SAVING` / échec | D4 `KNOW-018`, D2 `CRE-027` | Injection d'échec d'octets et reprise sans mensonge | R5 négatif |
 | A10 — Identités séparées A/B | D1 `ACC-001/005/006`, D2 `CRE-009` | Deux comptes, références croisées, refus et aucune fuite d'existence | R5 sécurité, R6 browser |
 | A11 — Source révoquée | D2 `CRE-022/026`, D4 `KNOW-006/014` | Source interdite non réinjectée dans Nora | R5 D3/D4, R6 LIVE ciblé |
-| A12 — Plusieurs projets homonymes | D2 `CRE-012`, `PF-CRE-14` | IDs distincts, portefeuille non fusionné | R5 transaction/UI |
+| A12 — Unicité de nom à la création par Pilote | D2 `CRE-012`, `RG-CRE-NOM-01`, `PF-CRE-14` (amendement 2026-11-16) | Même Pilote + nom normalisé existant : `CONFLICT` sans seconde création ; inter-Pilotes : homonymie possible avec IDs distincts ; portefeuille non fusionné ; historiques conservés | R5 transaction/concurrence/UI |
 | A13 — Reprise du même fil après reconnexion ou de nombreux échanges | D2 `CRE-019/023`, D4 `KNOW-011/015/019` | Même identité de projet/fil ; sélection D4 d'acquis/documents au-delà des derniers messages, sans transcript exhaustif ni second cycle | R5 ciblé, R6 LIVE/DB/BROWSER |
 | A14 — Navigation cockpit/projet | D1 `ACC-009/010/014/016`, UX P5 | Pas de Nora globale, contexte exact et retour après reload | R5/R6 navigateur |
 | A15 — Aucun effet dérivé | D2 `CRE-014/021`, D5–D9 | Absence prouvée de cycle, CKI, Git, Cursor ou mandat induit | R5 non-régression |
 | A16 — Restaurer/redémarrer | D2 `CRE-024`, D4 `KNOW-015/018` | Coupure serveur / restauration et réconciliation de métadonnées/objets | R5/R6 restart réel |
+
+**Erratum A12 / contrôle des noms — amendement de conception validé Morris le 2026-11-16.** Le scénario historique A12 du 2026-11-04 (« Plusieurs projets homonymes » → « IDs distincts, portefeuille non fusionné ») est conservé ici comme trace ; il est remplacé **pour les nouvelles créations du même Pilote** par le refus transactionnel des noms normalisés déjà utilisés (`RG-CRE-NOM-01` / `PF-CRE-14` amendé). Les identités durables demeurent distinctes des noms ; l'homonymie entre Pilotes et la préservation des objets historiques restent possibles. Cette modification ciblée aligne le comportement R4 avec l'arbitrage D2 ; elle ne rouvre pas les ADR R4-01..04, ne crée pas de contrainte SQL ni n'atteste de l'implémentation. Publication sur branche documentaire candidate uniquement, hors `main`, sans effet RECETTE ou adoption.
 
 **Clarification d'architecture retenue Morris (2026-11-04) :** l'identité de fil conservée pour le Pilote désigne **un fil de travail visible et continu par projet**, non plusieurs chats sélectionnables. Les anciennes expressions A-10/A13 « nouvelle conversation » désignaient une reprise ou un nouvel échange. Ne pas introduire de gestionnaire multi-chat ni d'obligation de plusieurs identités de conversation par projet. Cette portée produit n'interdit pas une optimisation interne de stockage sans nouvelle interface utilisateur. **Un seul cycle actif par projet reste l'invariant D5.**
 
