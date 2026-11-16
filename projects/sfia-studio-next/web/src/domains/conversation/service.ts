@@ -2082,12 +2082,15 @@ export async function postUserMessageAndNora(
       projectIntention: qualification.projectIntention || "",
       desiredOutcome: qualification.desiredOutcome || "",
       initialScope: qualification.initialScope || "",
-      clarifications: qualification.clarifications ?? [],
+      // Pass through undefined when envelope omitted clarifications (≠ explicit []).
+      clarifications: qualification.clarifications,
       proposedProjectName: proposedName,
       openPointStatements: openFromQual,
       preparationAssessment: qualification.preparationAssessment ?? null,
       preparationAssessmentExplanation:
         qualification.preparationAssessmentExplanation ?? null,
+      // Goal→intention bootstrap only when no durable intention exists yet (R1).
+      allowGoalIntentionBootstrap: !(ctx.projection?.intention?.value ?? "").trim(),
     });
     if (!preparationProjectionDraft && qualification.status === "UNAVAILABLE") {
       preparationProjectionAck = { status: "UNAVAILABLE" };

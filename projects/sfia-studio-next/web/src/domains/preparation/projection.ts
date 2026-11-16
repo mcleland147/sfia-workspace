@@ -157,13 +157,22 @@ export function pilotUiEditField(value: string, editKey: string): ProposedField<
   };
 }
 
+/** Nora draft before revision/observedAt — may carry open-questions replace semantics. */
+export type NoraProjectionDraft = Omit<PreparationProjection, "revision" | "observedAt"> & {
+  /**
+   * true (default) = clarifications were present on the envelope (including []): replace current open list.
+   * false = clarifications omitted / not re-evaluated: preserve prior openQuestions.
+   */
+  replaceOpenQuestions?: boolean;
+};
+
 /**
  * Preserve Pilot-expressed fields against Nora re-proposal of the same slot.
  * Do not clear an acquired field when the new turn leaves it empty.
  */
 export function mergeNoraDraftWithPrior(
   prior: PreparationProjection | null,
-  draft: Omit<PreparationProjection, "revision" | "observedAt">,
+  draft: NoraProjectionDraft,
 ): Omit<PreparationProjection, "revision" | "observedAt"> {
   function mergeField(
     prev: ProposedField<string> | null | undefined,
@@ -179,15 +188,21 @@ export function mergeNoraDraftWithPrior(
     return next ?? null;
   }
 
+  const replaceOpen = draft.replaceOpenQuestions !== false;
+
   return {
-    ...draft,
+    schemaVersion: draft.schemaVersion,
+    preparationId: draft.preparationId,
+    updatedFromTurnKey: draft.updatedFromTurnKey,
     name: mergeField(prior?.name, draft.name),
     intention: mergeField(prior?.intention, draft.intention),
     desiredOutcome: mergeField(prior?.desiredOutcome, draft.desiredOutcome),
     initialScope: mergeField(prior?.initialScope, draft.initialScope),
-    // Successful qualification owns the CURRENT open list (empty = all resolved this turn).
-    // Do not sticky-reattach prior questions when Nora intentionally returns [].
-    openQuestions: draft.openQuestions,
+    // Explicit clarifications (incl. []) own the CURRENT open list.
+    // Omitted clarifications → preserve prior; do not treat absence as resolution.
+    openQuestions: replaceOpen
+      ? draft.openQuestions
+      : (prior?.openQuestions ?? draft.openQuestions),
     suggestion: draft.suggestion ?? prior?.suggestion ?? null,
   };
 }
@@ -205,41 +220,55 @@ export function draftProjectionFromQualification(input: {
   projectIntention?: string;
   desiredOutcome?: string;
   initialScope?: string;
-  clarifications: string[];
+  /**
+   * Current open questions after this turn.
+   * - undefined = field omitted / not re-evaluated → merge preserves prior
+   * - [] = explicitly none remain
+   * - non-empty = current known set
+   */
+  clarifications?: string[];
   proposedProjectName: string | null;
   /**
    * Turn-local OPEN_POINT statements newly proposed in this qualification only.
    * Do not pass the full historical D4 open-point catalogue here.
+   * Applied only when clarifications were provided (re-evaluated).
    */
   openPointStatements?: string[];
   preparationAssessment?: ProjectionAssessment | null;
   preparationAssessmentExplanation?: string | null;
-}): Omit<PreparationProjection, "revision" | "observedAt"> | null {
+  /**
+   * Compatibility bootstrap: map turn-local goal → intention ONLY when no durable
+   * intention exists yet on the preparation. Never use after an intention is established.
+   */
+  allowGoalIntentionBootstrap?: boolean;
+}): NoraProjectionDraft | null {
   if (input.qualificationStatus === "UNAVAILABLE") return null;
 
   const turnKey = input.turnKey;
   const nameRaw = input.proposedProjectName?.trim() || "";
   /**
    * Intention slot = durable projectIntention when provided.
-   * Never map turn-local `goal` into intention when a name correction is present —
-   * that was the C1 failure mode (rename request overwrote métier intention).
-   * Bootstrap without projectIntention: use goal only when no proposedProjectName this turn.
+   * Turn-local `goal` never becomes intentionRaw after an intention exists (R1).
+   * Bootstrap: goal may seed intention only when allowGoalIntentionBootstrap is true.
    */
   const durableIntention = (input.projectIntention ?? "").trim();
   const intentionRaw =
     durableIntention ||
-    (!nameRaw ? input.goal.trim() : "");
+    (input.allowGoalIntentionBootstrap === true ? input.goal.trim() : "");
   const outcomeRaw = (input.desiredOutcome ?? "").trim();
   const scopeRaw = (input.initialScope ?? "").trim();
+  const clarificationsProvided = input.clarifications !== undefined;
   // Current open set = this turn's clarifications (+ turn-local open-point proposals only).
-  const openFromClarifications = input.clarifications
+  const openFromClarifications = (input.clarifications ?? [])
     .map((c) => c.trim())
     .filter(Boolean)
     .slice(0, 6);
-  const openFromKnowledge = (input.openPointStatements ?? [])
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .slice(0, 6);
+  const openFromKnowledge = clarificationsProvided
+    ? (input.openPointStatements ?? [])
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .slice(0, 6)
+    : [];
   const openMerged = [...openFromClarifications];
   for (const s of openFromKnowledge) {
     if (!openMerged.some((x) => x.toLocaleLowerCase("fr-FR") === s.toLocaleLowerCase("fr-FR"))) {
@@ -257,9 +286,9 @@ export function draftProjectionFromQualification(input: {
   const initialScope = scopeRaw
     ? noraProposedField(scopeRaw.slice(0, 500), turnKey, "NEEDS_CONFIRMATION")
     : null;
-  const openQuestions = openMerged.map((q) =>
-    noraProposedField(q.slice(0, 400), turnKey, "NEEDS_CONFIRMATION"),
-  );
+  const openQuestions = clarificationsProvided
+    ? openMerged.map((q) => noraProposedField(q.slice(0, 400), turnKey, "NEEDS_CONFIRMATION"))
+    : [];
 
   /**
    * Assessment is attributed to Nora only when the structured qualification provides it.
@@ -288,6 +317,7 @@ export function draftProjectionFromQualification(input: {
     initialScope,
     openQuestions,
     suggestion,
+    replaceOpenQuestions: clarificationsProvided,
   };
 }
 

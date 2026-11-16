@@ -11,12 +11,24 @@ export async function openNewPreparation(page: Page): Promise<string> {
 
 /** Send a Nora turn on the chat-first sas composer (fixture FAKE lane). */
 export async function sendPrepMessage(page: Page, text: string): Promise<void> {
-  await page.getByTestId("prep-draft").fill(text);
-  await page.getByTestId("prep-send").click();
+  const draft = page.getByTestId("prep-draft");
+  const send = page.getByTestId("prep-send");
+  // Idle composer: empty draft → send disabled. Wait before filling the next turn.
+  await expect(draft).toHaveValue("", { timeout: 60000 });
+  await draft.fill(text);
+  await expect(send).toBeEnabled({ timeout: 10000 });
+  await send.click();
+  // User turn must appear; do not treat a stale fixture badge as completion.
+  await expect(page.getByText(text.slice(0, Math.min(48, text.length)), { exact: false }).first()).toBeVisible({
+    timeout: 30000,
+  });
   await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
   await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
     timeout: 30000,
   });
+  // Turn finished: draft cleared and busy released.
+  await expect(draft).toHaveValue("", { timeout: 60000 });
+  await expect(send).toBeDisabled({ timeout: 10000 });
 }
 
 /** Open sas secondary Journal/Documents (not primary chrome). */

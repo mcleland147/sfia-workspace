@@ -23,31 +23,43 @@
 | C3 | Première intention trop longtemps + bande vide | EXPLORING→first_intention ; `max-height: 655px` | Présentation clarification après 1er échange ; workspace flex remplit la hauteur shell |
 | C4 | « Ajuster l'aperçu » | Parcours manuel UI | Supprimé du Sas ; API PATCH conservée (dette technique / tests) |
 
+## Consolidation critique R1/R2 (sur candidat C1–C4)
+
+| Id | Risque | Cause exacte | Correction |
+| --- | --- | --- | --- |
+| R1 | Tour ordinaire (`projectIntention=""`, pas de rename) écrase l'intention via `goal` | `intentionRaw = durableIntention \|\| (!nameRaw ? goal : "")` | `goal` → intention **uniquement** si `allowGoalIntentionBootstrap` (aucune intention antérieure) ; sinon `projectIntention` seul |
+| R2 | Enveloppe QUALIFIED **sans** `clarifications` normalisée en `[]` → clôture abusive | Zod `.default([])` + merge `openQuestions: draft.openQuestions` | `clarifications` **optional** (pas de default) ; `replaceOpenQuestions` ; omission conserve le courant ; `[]` explicite clôture |
+
+Contrats de données :
+- `projectIntention` renseigné → mise à jour sourcée ; vide → pas de mutation d'intention établie.
+- `clarifications` : non vide = courant connu ; `[]` = réévaluation vide fiable ; **absent** = non réévalué.
+- UNAVAILABLE → draft `null` (aucune mutation). Pas de migration, pas de rupture de schéma DB.
+
 ## Architecture (inchangée dans ses autorités)
 
 1. Qualification D3 unique → draft projection D2 après COMPLETE.
-2. `projectIntention` / `desiredOutcome` / `initialScope` / `proposedProjectName` / `clarifications` / assessment structurés.
+2. `projectIntention` / `desiredOutcome` / `initialScope` / `proposedProjectName` / `clarifications` (optional) / assessment structurés.
 3. Création = D2 `canCreate` + clic Pilote uniquement.
-4. Pas de second LLM, pas de parse Markdown, pas de lexique de résolution.
+4. Pas de second LLM, pas de parse Markdown, pas de lexique de résolution / regex de correction.
 5. D4 global hors périmètre — dette compteurs/sujets transmise à la revue espace projet.
 
 ## Preuves
 
 | Niveau | Résultat |
 | --- | --- |
-| UNIT (405) | PASS |
-| PG create-project + preparation-patch | PASS |
-| BROWSER FAKE Sas T1→T7 + chat-first (6) | PASS |
-| next build DEV | PASS (`jw9G3w66bIZxtpzFshlr6`) |
+| UNIT (419) dont R1/R2 discriminants | PASS |
+| PG create-project + intent-continuity (+ suite integration) | PASS |
+| BROWSER FAKE Sas T1→T7 enrichi (R1-B + R2-C) 5 | PASS |
+| next build DEV | PASS (BUILD_ID post-commit) |
 | Nora LIVE nouveau candidat | **NOT PROVEN** |
 | Morris UX candidat | **PENDING** (GO RECETTE ultérieur) |
-| RECETTE | **inchangée** |
+| RECETTE | **inchangée** `ec7405f3` / `67akzrr6bFEp4YOh7aHD7` |
 
 ## Manifeste candidat RECETTE (non déployé)
 
 - source_sha: (HEAD post-commit)
-- tree_web: (post-commit)
-- build_dev: `jw9G3w66bIZxtpzFshlr6`
+- tree_web: (post-commit `projects/sfia-studio-next/web`)
+- build_dev: (BUILD_ID post-commit)
 - schema: 013 present — aucune migration
 - previous_recette: `ec7405f3` / `67akzrr6bFEp4YOh7aHD7`
 - go_recette: **REQUIS** (mandat distinct)

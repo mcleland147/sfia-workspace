@@ -25,6 +25,21 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-R1R2-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~18:00 CET |
+| Macro-lot | ML4D — Correctif final consolidation R1/R2 (intention durable + clarifications) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL / PATCH · **NO RELEASE** |
+| Parent | `6798219fdb37af1b463326dc7015901b43b04acd` |
+| Scope | R1 goal≠intention après init ; R2 omission clarifications ≠ `[]` ; tests discriminants ; T1→T7 enrichi |
+| Non-scope | C3/C4, RECETTE, migrations, D4 global, Figma, PR/merge/STABLE/Gate C/ML5 |
+| Preuves | UNIT 419 ; PG integration PASS ; BROWSER Sas 5 (T1→T7 + R1-B/R2-C) ; next build PASS |
+| RECETTE | **inchangée** `ec7405f3` / `67akzrr6bFEp4YOh7aHD7` |
+| Push produit | **AUCUN** |
+| Verdict cible | `READY WITH RESERVES — R1/R2 CORRECTED` |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-POST-RECETTE-C1C4
 
 | Field | Value |

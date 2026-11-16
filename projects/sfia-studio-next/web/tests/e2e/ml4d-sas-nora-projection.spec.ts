@@ -5,6 +5,8 @@ import {
   sendPrepMessage,
 } from "./helpers/g4-chat-first";
 import {
+  SAS_MATURATION_INCOMPLETE_QUAL,
+  SAS_MATURATION_ORDINARY,
   SAS_MATURATION_T1,
   SAS_MATURATION_T2,
   SAS_MATURATION_T3,
@@ -91,7 +93,7 @@ test.describe("ML4D Sas Nora — post-recette corrections", () => {
   test("T1→T7 maturation: intention durable, questions résolues, rename, create", async ({
     page,
   }) => {
-    test.setTimeout(240_000);
+    test.setTimeout(360_000);
     await loginPilot(page, "b");
     await openNewPreparation(page);
 
@@ -109,6 +111,25 @@ test.describe("ML4D Sas Nora — post-recette corrections", () => {
       timeout: 30000,
     });
     await expect(page.getByTestId("prep-proposal")).toContainText(/automatique|manuelle|réunion/i);
+
+    // Incomplete QUALIFIED (clarifications omitted) — open question must remain (R2-C)
+    await sendPrepMessage(page, SAS_MATURATION_INCOMPLETE_QUAL);
+    await expect(page.getByTestId("prep-field-intention")).toContainText(/chefs de projet/i, {
+      timeout: 30000,
+    });
+    await expect(page.getByTestId("prep-proposal")).toContainText(
+      /récupération automatique depuis les outils existants est-elle indispensable/i,
+    );
+
+    // Ordinary turn without rename — durable intention unchanged (R1-B)
+    await sendPrepMessage(page, SAS_MATURATION_ORDINARY);
+    await expect(page.getByTestId("prep-field-intention")).toContainText(/chefs de projet/i, {
+      timeout: 30000,
+    });
+    await expect(page.getByTestId("prep-field-intention")).not.toContainText(/Recommander/i);
+    await expect(page.getByTestId("prep-proposal")).toContainText(
+      /récupération automatique depuis les outils existants est-elle indispensable/i,
+    );
 
     // T3 — V1 manual resolves that question; open list empty / not the old arbitration
     await sendPrepMessage(page, SAS_MATURATION_T3);

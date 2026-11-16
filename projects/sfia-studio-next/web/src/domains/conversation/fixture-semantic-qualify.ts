@@ -55,9 +55,9 @@ function dialogue(
   goal: string,
   reply: string,
   constraints: string[] = [],
-  extras?: QualExtras,
+  extras?: QualExtras & { omitClarifications?: boolean },
 ): NoraTurnQualification {
-  return {
+  const base: NoraTurnQualification = {
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "QUALIFIED",
     goal,
@@ -77,11 +77,15 @@ function dialogue(
         sourceEvidence: [],
       },
     ],
-    clarifications: extras?.clarifications ?? [],
     replyDraft: reply,
     preparationAssessment: extras?.preparationAssessment,
     preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
   };
+  if (extras?.omitClarifications) {
+    // Raw incomplete envelope: clarifications key absent (R2-C).
+    return base;
+  }
+  return { ...base, clarifications: extras?.clarifications ?? [] };
 }
 
 function effect(
@@ -248,6 +252,49 @@ register(
       preparationAssessment: "BASE_SUFFICIENTE",
       preparationAssessmentExplanation:
         "Intention, résultat et un premier périmètre personnel sont assez clairs pour démarrer. La collaboration d'équipe reste hors du périmètre immédiat.",
+    },
+  ),
+);
+
+/** Ordinary follow-up after intention is established — must not rewrite durable intention (R1-B). */
+export const SAS_MATURATION_ORDINARY =
+  "Peux-tu me recommander les prochaines étapes ?";
+
+register(
+  SAS_MATURATION_ORDINARY,
+  dialogue(
+    "Recommander les prochaines étapes",
+    "Voici des prochaines étapes utiles pour consolider le cadrage, sans changer l'objectif fondateur déjà établi.",
+    ["NO_EFFECT"],
+    {
+      projectIntention: "",
+      // Advice-only turn: do not pretend open questions were re-resolved (omit ≠ []).
+      omitClarifications: true,
+      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
+      preparationAssessment: "CLARIFYING",
+      preparationAssessmentExplanation:
+        "L'intention durable est déjà établie ; ce tour apporte seulement des conseils locaux.",
+    },
+  ),
+);
+
+/** Incomplete QUALIFIED envelope — clarifications omitted (not []). Prior open questions must remain. */
+export const SAS_MATURATION_INCOMPLETE_QUAL =
+  "Peux-tu reformuler brièvement ce que nous avons déjà dit, sans nouvelle question ?";
+
+register(
+  SAS_MATURATION_INCOMPLETE_QUAL,
+  dialogue(
+    "Reformuler l'acquis sans réévaluer les questions ouvertes",
+    "Je reformule l'acquis déjà partagé. Les questions encore ouvertes restent à trancher.",
+    ["NO_EFFECT", "INCOMPLETE_CLARIFICATIONS"],
+    {
+      projectIntention: "",
+      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
+      omitClarifications: true,
+      preparationAssessment: "CLARIFYING",
+      preparationAssessmentExplanation:
+        "Reformulation locale sans réévaluation fiable des questions ouvertes.",
     },
   ),
 );

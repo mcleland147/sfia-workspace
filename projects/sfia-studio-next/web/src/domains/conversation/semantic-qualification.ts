@@ -146,9 +146,12 @@ export const NoraTurnQualificationSchema = z.object({
   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
   /**
    * Questions encore ouvertes APRÈS ce tour.
-   * Liste vide intentionnelle = plus aucune question courante (ne pas réinjecter l'historique).
+   * - tableau non vide = questions courantes connues ;
+   * - tableau explicitement vide = aucune question courante après réévaluation fiable ;
+   * - champ ABSENT (undefined) = questions non réévaluées — D2 conserve le courant antérieur.
+   * Ne pas confondre omission et []. Pas de .default([]) : Zod effacerait la distinction.
    */
-  clarifications: z.array(z.string().max(400)).max(8).default([]),
+  clarifications: z.array(z.string().max(400)).max(8).optional(),
   replyDraft: z.string().max(12000).default(""),
   /** Appréciation qualitative de préparation (suggestion, jamais une autorité). */
   preparationAssessment: PreparationAssessmentSchema.optional(),

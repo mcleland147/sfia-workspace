@@ -9,6 +9,7 @@ import {
 import { newId } from "@/lib/ids";
 import {
   type ApplyProjectionResult,
+  type NoraProjectionDraft,
   type PreparationProjection,
   mergeNoraDraftWithPrior,
   parseProjectionJson,
@@ -208,7 +209,7 @@ export async function applyPreparationProjection(input: {
   pilotId: string;
   preparationId: string;
   expectedCreationRevision: number;
-  draft: Omit<PreparationProjection, "revision" | "observedAt">;
+  draft: NoraProjectionDraft;
 }): Promise<ApplyProjectionResult> {
   try {
     return await db.transaction(async (tx) => {
