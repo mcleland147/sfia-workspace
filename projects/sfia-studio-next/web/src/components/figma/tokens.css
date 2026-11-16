@@ -201,28 +201,34 @@
 /* Figma 652:8 — conversation ~968 / aside ~369 / gap ~25 at 1680×970 */
 .fig-travail-workspace {
   grid-template-columns: minmax(0, 968fr) minmax(260px, 369fr);
+  grid-template-rows: minmax(0, 1fr) auto;
   gap: 25px;
   align-items: stretch;
   min-height: 0;
 }
 
-.fig-travail-main {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+/* Participates in .project-travail-stage grid (intro | rule | conversation | composer × inspector). */
+.fig-travail-workspace-embed {
+  display: contents;
 }
 
 .fig-conversation-panel {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-width: 0;
   min-height: 0;
-  flex: 1 1 auto;
   background: #151c29;
   border: 1px solid #272e49;
   border-radius: 14px;
   padding: 18px 20px 16px;
+  grid-column: 1;
+  grid-row: 3;
+  overflow: hidden;
+}
+
+.fig-travail-workspace > .fig-conversation-panel {
+  grid-row: 1;
 }
 
 .fig-conversation-head {
@@ -239,8 +245,8 @@
   gap: 14px;
   flex: 1 1 auto;
   min-height: 0;
-  max-height: min(52vh, 500px);
   overflow: auto;
+  overscroll-behavior: contain;
   padding-right: 4px;
 }
 
@@ -318,7 +324,17 @@
   border-radius: 14px;
   padding: 16px 18px 12px;
   background: #151c29;
+  /* Figma 652:8 composer ≈ 137px — natural height, not stretched */
   min-height: 118px;
+  max-height: 160px;
+  flex-shrink: 0;
+  grid-column: 1;
+  grid-row: 4;
+  align-self: end;
+}
+
+.fig-travail-workspace > .fig-travail-composer {
+  grid-row: 2;
 }
 
 .fig-travail-composer-input {
@@ -393,6 +409,12 @@
 
 .fig-travail-aside {
   min-width: 0;
+  min-height: 0;
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
 }
 
 .fig-inspector {
@@ -400,7 +422,10 @@
   border: 1px solid #272e49;
   border-radius: 14px;
   padding: 20px 22px 22px;
-  min-height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
 }
 
 .fig-inspector-title {
@@ -1285,6 +1310,15 @@
   gap: 20px;
 }
 
+.project-space-page--travail {
+  min-height: 0;
+  gap: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
 .project-space-header {
   display: flex;
   flex-direction: column;
@@ -1295,6 +1329,16 @@
   z-index: 3;
   background: #0a0e17;
   padding-bottom: 8px;
+}
+
+.project-space-header--breadcrumb-only {
+  min-height: 0;
+  gap: 0;
+  padding-bottom: 4px;
+  flex-shrink: 0;
+  /* No differentiated navy panel behind intro — breadcrumb only. */
+  background: transparent;
+  position: relative;
 }
 
 .project-space-breadcrumb {
@@ -1319,31 +1363,110 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
+  margin: 0 0 6px;
 }
 
 .project-space-hero-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px 16px;
+  gap: 10px 14px;
 }
 
 .project-space-hero .fig-hero-title {
   font-size: clamp(1.55rem, 2vw, 1.95rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.25;
+  line-height: 1.2;
+  margin: 0;
 }
 
 .project-space-hero .fig-hero-sub {
-  margin-top: 0.35rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0;
   font-size: 14px;
   font-weight: 400;
+  line-height: 1.4;
   max-width: 56rem;
+}
+
+/* Compact Travail intro — same surface as page, no aplat. */
+.fig-travail-intro {
+  grid-column: 1;
+  grid-row: 1;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.fig-travail-intro-rule {
+  grid-column: 1;
+  grid-row: 2;
+  height: 1px;
+  width: 100%;
+  background: #272e49;
+  margin: 12px 0 0;
+  border: 0;
+}
+
+.project-travail-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 968fr) minmax(260px, 369fr);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  column-gap: 25px;
+  /* Figma conversation→composer gap ≈ 25px; intro→rule stays compact via rule margin. */
+  row-gap: 25px;
+  align-items: stretch;
+}
+
+.fig-travail-intro-rule {
+  margin-top: 0;
+  /* Pull rule closer under intro (override uniform 25px track gap for rows 1→2). */
+  translate: 0 -13px;
+}
+
+.project-travail-stage > .fig-travail-composer {
+  margin-top: 0;
+  align-self: stretch;
 }
 
 .project-space-page .fig-tag {
   font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .project-space-page--travail {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .project-travail-stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 16px;
+  }
+
+  .fig-travail-intro,
+  .fig-travail-intro-rule,
+  .fig-conversation-panel,
+  .fig-travail-composer,
+  .fig-travail-aside {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .fig-conversation-panel {
+    min-height: 280px;
+    max-height: min(60vh, 520px);
+  }
+
+  .fig-travail-aside {
+    max-height: none;
+  }
 }
 
 .project-unavailable {

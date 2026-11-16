@@ -52,20 +52,61 @@ test("F2 runtime captures Ensemble 04 project space", async ({ page }) => {
   const measures = await page.evaluate(() => {
     const rail = document.querySelector('[data-testid="studio-rail"]') as HTMLElement | null;
     const workspace = document.querySelector('[data-testid="nora-workspace"]') as HTMLElement | null;
-    const main = document.querySelector('[data-testid="nora-main"]') as HTMLElement | null;
+    const intro = document.querySelector('[data-testid="travail-intro"]') as HTMLElement | null;
+    const rule = document.querySelector('[data-testid="travail-intro-rule"]') as HTMLElement | null;
+    const main = document.querySelector('[data-testid="nora-conversation-panel"]') as HTMLElement | null;
     const aside = document.querySelector('[data-testid="nora-aside"]') as HTMLElement | null;
+    const inspector = document.querySelector('[data-testid="travail-aside-inspector"]') as HTMLElement | null;
     const composer = document.querySelector('[data-testid="nora-composer"]') as HTMLElement | null;
+    const thread = document.querySelector('[data-testid="nora-thread"]') as HTMLElement | null;
     const name = document.querySelector('[data-testid="rail-project-name"]') as HTMLElement | null;
+    const stage = document.querySelector('[data-testid="project-travail-stage"]') as HTMLElement | null;
     const cs = (el: HTMLElement | null) => (el ? getComputedStyle(el) : null);
-    const box = (el: HTMLElement | null) =>
-      el ? { w: Math.round(el.getBoundingClientRect().width), h: Math.round(el.getBoundingClientRect().height) } : null;
+    const box = (el: HTMLElement | null) => {
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return {
+        x: Math.round(r.x),
+        y: Math.round(r.y),
+        w: Math.round(r.width),
+        h: Math.round(r.height),
+        bottom: Math.round(r.bottom),
+      };
+    };
+    const introBox = box(intro);
+    const conv = box(main);
+    const comp = box(composer);
+    const insp = box(inspector) || box(aside);
     return {
       viewport: { w: window.innerWidth, h: window.innerHeight, dpr: window.devicePixelRatio },
       rail: { ...box(rail), widthAttr: rail?.getAttribute("data-rail-width"), fill: rail?.getAttribute("data-rail-fill") },
+      stage: box(stage),
+      intro: introBox,
+      introRule: box(rule),
       workspace: box(workspace),
-      conversation: box(main),
+      conversation: conv,
       aside: box(aside),
-      composer: box(composer),
+      inspector: insp,
+      composer: comp,
+      thread: {
+        ...box(thread),
+        overflowY: thread ? cs(thread)?.overflowY : null,
+        scrollHeight: thread?.scrollHeight ?? null,
+        clientHeight: thread?.clientHeight ?? null,
+      },
+      gaps: {
+        conversationToComposer:
+          conv && comp ? Math.round(comp.y - conv.bottom) : null,
+        composerInspectorBottomAlign:
+          comp && insp ? Math.round(comp.bottom - insp.bottom) : null,
+        introToInspectorTop:
+          introBox && insp ? Math.round(introBox.y - insp.y) : null,
+        bottomSlack: comp ? Math.round(window.innerHeight - comp.bottom) : null,
+      },
+      structure: {
+        composerInsideConversation: Boolean(main?.contains(composer)),
+        embed: workspace?.getAttribute("data-travail-embed"),
+      },
       projectName: {
         ...box(name),
         lineClamp: name ? cs(name)?.webkitLineClamp : null,
@@ -79,6 +120,16 @@ test("F2 runtime captures Ensemble 04 project space", async ({ page }) => {
     };
   });
   fs.writeFileSync(path.join(outDir, "dom-measures-travail.json"), JSON.stringify(measures, null, 2));
+
+  // Assert vertical composition contract (desktop 1680×970)
+  expect(measures.structure.composerInsideConversation).toBe(false);
+  expect(measures.gaps.conversationToComposer).not.toBeNull();
+  expect(measures.gaps.conversationToComposer!).toBeGreaterThanOrEqual(18);
+  expect(measures.gaps.conversationToComposer!).toBeLessThanOrEqual(32);
+  expect(Math.abs(measures.gaps.composerInspectorBottomAlign ?? 99)).toBeLessThanOrEqual(8);
+  expect(Math.abs(measures.gaps.introToInspectorTop ?? 99)).toBeLessThanOrEqual(8);
+  expect(measures.composer?.h ?? 999).toBeLessThanOrEqual(160);
+  expect(measures.gaps.bottomSlack ?? 999).toBeLessThanOrEqual(48);
 
   await page.screenshot({
     path: path.join(outDir, "runtime-travail-1680x970.png"),

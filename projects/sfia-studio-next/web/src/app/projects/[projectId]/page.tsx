@@ -916,6 +916,7 @@ export default function ProjectPage() {
 
       {surface === "travail" ? (
         <NoraConversation
+          embeddedInStage
           messages={messages}
           draft={draft}
           busy={busy || !preparationId}

@@ -80,6 +80,13 @@ test.describe("Ensemble 04 project space", () => {
     await expect(page.getByTestId("thread-send")).not.toHaveText(/Envoyer/);
     await expect(page.getByTestId("travail-aside-inspector")).toBeVisible();
     await expect(page.getByText(/Mémoire D4 récupérable/i)).toHaveCount(0);
+    await expect(page.getByTestId("travail-intro-rule")).toBeVisible();
+    await expect(page.getByTestId("nora-conversation-panel")).toBeVisible();
+    await expect(page.getByTestId("nora-composer")).toBeVisible();
+    // Conversation and composer are separate cards (composer not inside conversation panel).
+    await expect(
+      page.getByTestId("nora-conversation-panel").getByTestId("nora-composer"),
+    ).toHaveCount(0);
     await expect(page.getByText(/0 applicable/i)).toHaveCount(0);
 
     const railBox = await rail.boundingBox();

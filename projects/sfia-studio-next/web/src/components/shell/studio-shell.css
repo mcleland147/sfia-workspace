@@ -93,6 +93,22 @@ html.studio-shell-lock body {
   min-height: 0;
 }
 
+/* Travail: page owns height; conversation thread scrolls — avoid outer page scroll. */
+.studio-shell-main[data-travail-layout="1"] {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.studio-shell-main[data-travail-layout="1"] > .project-space-page--travail {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+}
+
 .studio-shell-main-mobile-pad {
   padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
 }

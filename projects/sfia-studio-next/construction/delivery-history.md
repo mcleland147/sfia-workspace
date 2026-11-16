@@ -5,6 +5,23 @@ Append-only logical journal of Cursor product deliveries.
 
 
 
+## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-VERTICAL-LAYOUT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~23:45 CET |
+| Macro-lot | ML4D Ensemble 04 — composition verticale Travail |
+| Type | RUN / correction bornée · **NO RELEASE** |
+| Parent candidat | `a30e75c77f4eed4f14cbcb8f83bb6521d571b3c6` |
+| Branch | `feat/next-ml4d-project-space-20261116` |
+| Scope | Intro compacte + séparateur ; conversation/compositeur cartes distinctes ; compositeur ancré bas ; inspecteur hauteur intro→compositeur ; scroll fil propriétaire |
+| Non-scope | Rail/DA déjà validés ; Ensembles 05–07 ; API/DB ; RECETTE ; amend a30e75c7 |
+| Preuves | next build PASS ; Playwright E04+T13/T16+F2+long-thread+UX-004 PASS ; DOM gaps conv→comp 25, bottoms align 0, intro∥inspector 0 |
+| RECETTE | **inchangée** `:3200` SHA `a30e75c7` / BUILD `WUqfWdCB7T2rHzDvk-Hre` |
+| Push produit | **AUCUN** |
+| Verdict cible | `ENSEMBLE 04 — VERTICAL LAYOUT CORRECTION CANDIDATE READY` |
+
+
 ## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-VISUAL-FIDELITY
 
 | Field | Value |

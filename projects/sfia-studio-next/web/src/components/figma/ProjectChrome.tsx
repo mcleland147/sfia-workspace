@@ -62,18 +62,43 @@ export function ProjectChrome(props: {
   const hero = HERO[props.surface];
   const surfaceLabel = PROJECT_SURFACE_LABELS[props.surface];
   const displayName = props.projectName?.trim() || "Projet";
+  const isTravail = props.surface === "travail";
+
+  const continuityBadge =
+    isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
+      <span className="fig-tag fig-tag-ok" data-testid="project-status-hint">
+        {/reprise|conservé|durable/i.test(props.statusHint)
+          ? "Contexte conservé"
+          : props.statusHint}
+      </span>
+    ) : null;
+
+  const intro = (
+    <header className="project-space-hero fig-travail-intro" data-testid="travail-intro">
+      <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
+      <div className="project-space-hero-row">
+        <h1 className="fig-hero-title" data-testid="project-surface-title">
+          {hero.title}
+        </h1>
+        {continuityBadge}
+      </div>
+      <p className="fig-hero-sub">{hero.sub}</p>
+    </header>
+  );
 
   return (
     <div
-      className="fig-page project-space-page"
+      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}`}
       data-project-surface={props.surface}
       data-testid="project-load-state"
       data-project-load-state={loadState}
       data-project-id={props.projectId}
       data-project-name={props.projectName ?? ""}
     >
-      {/* Compact Figma header — no second tab strip (rail owns navigation). */}
-      <div className="project-space-header" data-testid="project-space-header">
+      <div
+        className={`project-space-header${isTravail ? " project-space-header--breadcrumb-only" : ""}`}
+        data-testid="project-space-header"
+      >
         <div className="fig-breadcrumb project-space-breadcrumb">
           <span data-testid="project-breadcrumb">
             SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;Projet&nbsp;&nbsp;/&nbsp;&nbsp;
@@ -85,32 +110,24 @@ export function ProjectChrome(props: {
           </span>
         </div>
 
-        <header className="project-space-hero space-y-1">
-          <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
-          <div className="project-space-hero-row">
-            <h1 className="fig-hero-title" data-testid="project-surface-title">
-              {hero.title}
-            </h1>
-            {props.surface === "travail" &&
-            props.statusHint &&
-            !/^chargement/i.test(props.statusHint) ? (
-              <span className="fig-tag fig-tag-ok" data-testid="project-status-hint">
-                {/reprise|conservé|durable/i.test(props.statusHint)
-                  ? "Contexte conservé"
-                  : props.statusHint}
-              </span>
+        {!isTravail ? (
+          <header className="project-space-hero space-y-1">
+            <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
+            <div className="project-space-hero-row">
+              <h1 className="fig-hero-title" data-testid="project-surface-title">
+                {hero.title}
+              </h1>
+            </div>
+            <p className="fig-hero-sub">{hero.sub}</p>
+            {props.statusHint ? (
+              <p className="text-xs muted" data-testid="project-status-hint">
+                {props.statusHint}
+              </p>
             ) : null}
-          </div>
-          <p className="fig-hero-sub">{hero.sub}</p>
-          {props.surface !== "travail" && props.statusHint ? (
-            <p className="text-xs muted" data-testid="project-status-hint">
-              {props.statusHint}
-            </p>
-          ) : null}
-        </header>
+          </header>
+        ) : null}
       </div>
 
-      {/* Hidden anchors so historical e2e surface-* selectors remain meaningful. */}
       <div className="sr-only" aria-hidden>
         {(
           [
@@ -131,7 +148,19 @@ export function ProjectChrome(props: {
         ))}
       </div>
 
-      {props.children}
+      {isTravail ? (
+        <div className="project-travail-stage" data-testid="project-travail-stage">
+          {intro}
+          <div
+            className="fig-travail-intro-rule"
+            data-testid="travail-intro-rule"
+            aria-hidden
+          />
+          {props.children}
+        </div>
+      ) : (
+        props.children
+      )}
     </div>
   );
 }

@@ -476,6 +476,13 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
           className={`studio-shell-main ${personalSpace ? "studio-shell-main-mobile-pad" : ""}`}
           data-testid="studio-shell-main"
           data-sas-layout={onSasPreparation ? "1" : undefined}
+          data-travail-layout={
+            projectId &&
+            (parseStudioSurface(surface) ?? "travail") === "travail" &&
+            !projectSpaceBlocked
+              ? "1"
+              : undefined
+          }
         >
           {children}
         </main>
