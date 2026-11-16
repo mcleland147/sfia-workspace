@@ -25,6 +25,24 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~13:50 CET |
+| Macro-lot | ML4D — Mise à disposition RECETTE Sas Nora |
+| Type | Cycle 11 déploiement · **NO RELEASE** |
+| Candidate SHA | `cd091385de10262918cf79bf8c86ad1d725cb9d1` |
+| Tree web | `6f089bda818fa60e061f458fad928f3478e648b4` |
+| Build RECETTE servi | `E3J7wVO4MsKgl5aCTDhed` @ `http://127.0.0.1:3200` |
+| Worktree | `.../sfia-workspace-next-ml4d-sas-nora-recette-build-cd091385` |
+| Schema | Migration **013 seule** appliquée (`projection_json` jsonb nullable) |
+| Backup | pre-013 dump sha256 `436225aa…` + restore proof jetable PASS |
+| Rollback UX-004 | `b05dacf4` / `20blGylSEta7201PgVvlw` artefacts + plist `.b05dacf4.plist.bak` conservés |
+| D2 docs | `docs/...uniqueness-d2...@52012abe` validée contenu — **non mergée** |
+| Push produit | **AUCUN** |
+| Verdict | `RECETTE DEPLOYED WITH RESERVES — MORRIS USER REVIEW PENDING` |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-GUARANTEES
 
 | Field | Value |
