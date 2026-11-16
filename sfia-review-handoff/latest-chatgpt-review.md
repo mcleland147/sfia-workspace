@@ -1299,7 +1299,11 @@ worktree: /Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-bui
 
 - Branche : `sfia/review-handoff`
 - Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- (commit/blob après publication L3 — ne pas réutiliser 5621be0e)
+- Publisher : `scripts/sfia/publish-review-handoff.sh`
+- Commit distant vérifié : `03e121aff0c5336bb7872618d6b337df3e69598d`
+- Blob distant vérifié : `4f23c932eb0c7d59cb3d3af7d1c54ecf6b419ddb`
+- Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+- Push projet : aucun
 
 ## B11. Décisions Morris restantes
 
