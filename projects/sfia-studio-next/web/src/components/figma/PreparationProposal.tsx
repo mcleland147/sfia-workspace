@@ -2,15 +2,13 @@
 
 /**
  * Living D2 aperçu — single vertical panel aligned to Sas Nora Figma composition.
- * Create CTA lives inside this panel (frame 04). No separate authority card.
+ * Create CTA lives inside this panel (frame 04). Corrections flow via conversation only.
  */
 
 import type { PreparationProjection } from "@/domains/preparation/projection";
 import { canCreateFromProjection } from "@/domains/preparation/projection";
 import type { SasPresentationCopy } from "./sas-presentation";
 import { shouldShowCreateProjectCta } from "./sas-presentation";
-
-export type ProposalOpenPoint = { id: string; statement: string };
 
 function statusLabel(status: string | undefined, sourceKind?: string): string {
   if (status === "PILOT_EXPRESSED") {
@@ -43,21 +41,10 @@ export function PreparationProposal(props: {
   previewSummary: string;
   creationRevision: number;
   messageCount: number;
-  openPoints: ProposalOpenPoint[];
   projection: PreparationProjection | null;
   projectionFreshness?: "current" | "stale" | "unavailable" | "legacy";
   presentation: SasPresentationCopy;
   busy: boolean;
-  editing: boolean;
-  draftName: string;
-  draftSummary: string;
-  onDraftName: (v: string) => void;
-  onDraftSummary: (v: string) => void;
-  onStartConstitute: () => void;
-  onAdoptLastNoraSummary: () => void;
-  canAdoptLastNora: boolean;
-  onSaveProposal: () => void;
-  onCancelEdit: () => void;
   onCreateProject: () => void;
   status?: string;
 }) {
@@ -70,12 +57,10 @@ export function PreparationProposal(props: {
   const scope = projection?.initialScope?.value?.trim() || "";
   const assessment = projection?.suggestion?.assessment;
   const explanation = projection?.suggestion?.explanation?.trim() || "";
-  const openFromProjection = (projection?.openQuestions ?? []).filter((q) => q.value.trim());
-  const openFromKnowledge = props.openPoints;
-  const openCombined = [
-    ...openFromProjection.map((q) => q.value),
-    ...openFromKnowledge.map((o) => o.statement),
-  ].filter(Boolean);
+  // Current open set = D2 projection only (not the historical D4 OPEN catalogue).
+  const openCombined = (projection?.openQuestions ?? [])
+    .map((q) => q.value.trim())
+    .filter(Boolean);
   const hasLiving =
     Boolean(name) ||
     Boolean(intention) ||
@@ -86,8 +71,6 @@ export function PreparationProposal(props: {
     Boolean(props.previewSummary.trim());
   const canCreate = !created && canCreateFromProjection(projection, props.previewName);
   const stage = props.presentation.stage;
-  // CTA lives in the aperçu panel (Figma frame 04 composition). Eligibility is D2 only —
-  // Nora assessment must not gate the Pilote's right to create (SAS-F-07 / AF-06).
   const showCreateCta = shouldShowCreateProjectCta({ created, canCreate });
 
   const sections: Section[] = [];
@@ -116,26 +99,20 @@ export function PreparationProposal(props: {
     sections.push({
       key: "intention",
       label: "INTENTION CONSERVÉE",
-      value: name || intention || props.previewSummary.trim() || "Intention reprise",
-      testId: "prep-field-name",
-      provenance: projection?.name
-        ? statusLabel(projection.name.status, projection.name.source.kind)
-        : undefined,
+      value: intention || name || props.previewSummary.trim() || "Intention reprise",
+      testId: "prep-field-intention",
+      provenance: projection?.intention ? statusLabel(projection.intention.status) : undefined,
     });
-    if (outcome || intention || props.previewSummary.trim()) {
-      sections.push({
-        key: "acquis",
-        label: "ACQUIS",
-        value:
-          [intention || props.previewSummary.trim(), outcome, scope].filter(Boolean).join(" · ") ||
-          "Éléments déjà clarifiés",
-        testId: "prep-field-intention",
-      });
+    if (outcome) {
+      sections.push({ key: "outcome", label: "RÉSULTAT CONSERVÉ", value: outcome });
+    }
+    if (scope) {
+      sections.push({ key: "scope", label: "PÉRIMÈTRE CONSERVÉ", value: scope });
     }
     sections.push({
       key: "open",
-      label: "POINT EN SUSPENS",
-      value: openCombined[0] || "À préciser dans la conversation",
+      label: "POINTS TOUJOURS OUVERTS",
+      value: openCombined[0] || "Aucun point ouvert listé",
       tone: openCombined.length ? "amber" : "quiet",
     });
   } else {
@@ -224,109 +201,50 @@ export function PreparationProposal(props: {
         </h2>
         <p className="sas-preview-sub">Proposition évolutive de Nora · non autorisante</p>
 
-        {props.editing ? (
-          <div className="sas-preview-edit space-y-2" data-testid="prep-proposal-edit">
-            <p className="text-xs muted">
-              Ajustement explicite pour inspection — n&apos;est pas le parcours principal.
-            </p>
-            <label className="block text-xs muted" htmlFor="prep-prop-name">
-              Nom envisagé
-            </label>
-            <input
-              id="prep-prop-name"
-              className="input"
-              value={props.draftName}
-              onChange={(e) => props.onDraftName(e.target.value)}
-              placeholder="Nom du projet envisagé"
-              data-testid="prep-proposal-name"
-            />
-            <label className="block text-xs muted" htmlFor="prep-prop-summary">
-              Résumé inspecté
-            </label>
-            <textarea
-              id="prep-prop-summary"
-              className="textarea"
-              value={props.draftSummary}
-              onChange={(e) => props.onDraftSummary(e.target.value)}
-              placeholder="Intention, résultat visé, points ouverts…"
-              data-testid="prep-proposal-summary"
-            />
-            {props.canAdoptLastNora ? (
-              <button
-                type="button"
-                className="btn secondary"
-                onClick={props.onAdoptLastNoraSummary}
-                data-testid="prep-adopt-nora"
+        <div
+          className="sas-preview-sections"
+          data-testid={hasLiving ? "prep-proposal-ready" : "prep-proposal-empty"}
+        >
+          {sections.map((section) => (
+            <div key={section.key} className="sas-preview-section">
+              <p className="sas-preview-label">{section.label}</p>
+              <p
+                className={`sas-preview-value${
+                  section.tone === "amber"
+                    ? " is-amber"
+                    : section.tone === "quiet"
+                      ? " is-quiet"
+                      : ""
+                }`}
+                data-testid={section.testId}
               >
-                Reprendre le dernier message Nora comme résumé
-              </button>
-            ) : null}
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                className="btn"
-                disabled={props.busy}
-                onClick={props.onSaveProposal}
-                data-testid="prep-proposal-save"
-              >
-                Enregistrer pour inspection
-              </button>
-              <button
-                type="button"
-                className="btn secondary"
-                disabled={props.busy}
-                onClick={props.onCancelEdit}
-              >
-                Annuler
-              </button>
+                {section.value}
+              </p>
+              {section.provenance ? (
+                <span className="sas-preview-provenance" data-testid={`${section.testId}-provenance`}>
+                  · {section.provenance}
+                </span>
+              ) : null}
             </div>
-          </div>
-        ) : (
-          <div className="sas-preview-sections" data-testid={hasLiving ? "prep-proposal-ready" : "prep-proposal-empty"}>
-            {sections.map((section) => (
-              <div key={section.key} className="sas-preview-section">
-                <p className="sas-preview-label">{section.label}</p>
-                <p
-                  className={`sas-preview-value${
-                    section.tone === "amber"
-                      ? " is-amber"
-                      : section.tone === "quiet"
-                        ? " is-quiet"
-                        : ""
-                  }`}
-                  data-testid={section.testId}
-                >
-                  {section.value}
+          ))}
+          {openCombined.length > 1
+            ? openCombined.slice(1, 4).map((q, i) => (
+                <p key={`oq-${i}`} className="sas-preview-open-extra">
+                  · {q}
                 </p>
-                {section.provenance ? (
-                  <span className="sas-preview-provenance" data-testid={`${section.testId}-provenance`}>
-                    · {section.provenance}
-                  </span>
-                ) : null}
-              </div>
-            ))}
-            {openCombined.length > 1
-              ? openCombined.slice(1, 4).map((q, i) => (
-                  <p key={`oq-${i}`} className="sas-preview-open-extra">
-                    · {q}
-                  </p>
-                ))
-              : null}
-          </div>
-        )}
+              ))
+            : null}
+        </div>
 
-        {!props.editing ? (
-          <div
-            className={`sas-maturity ${stage === "base_sufficient" ? "sas-maturity-ok" : ""}`}
-            data-testid="prep-nora-assessment"
-          >
-            <p className="sas-maturity-title">{props.presentation.maturityTitle}</p>
-            <p className="sas-maturity-body">
-              {/* Nora qualitative advice stays visible at any stage; it never gates create. */}
-              {explanation || props.presentation.maturityBody}
-            </p>
-          </div>
-        ) : null}
+        <div
+          className={`sas-maturity ${stage === "base_sufficient" ? "sas-maturity-ok" : ""}`}
+          data-testid="prep-nora-assessment"
+        >
+          <p className="sas-maturity-title">{props.presentation.maturityTitle}</p>
+          <p className="sas-maturity-body">
+            {explanation || props.presentation.maturityBody}
+          </p>
+        </div>
 
         {showCreateCta ? (
           <div
@@ -352,20 +270,9 @@ export function PreparationProposal(props: {
           <p className="sas-preview-foot" data-testid="prep-create-unavailable">
             {created
               ? "Projet créé — continuité disponible dans l’espace projet."
-              : "Indiquez un nom de projet dans l’aperçu pour pouvoir créer."}
+              : "Indiquez un nom de projet dans la conversation pour pouvoir créer."}
           </p>
         )}
-
-        {!props.editing && !created ? (
-          <button
-            type="button"
-            className="btn secondary sas-preview-adjust"
-            onClick={props.onStartConstitute}
-            data-testid="prep-constitute"
-          >
-            Ajuster l&apos;aperçu
-          </button>
-        ) : null}
 
         <p className="sas-preview-meta muted text-xs sr-only" data-testid="prep-creation-revision">
           Révision création : {props.creationRevision}

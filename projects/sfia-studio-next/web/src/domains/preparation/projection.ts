@@ -185,8 +185,9 @@ export function mergeNoraDraftWithPrior(
     intention: mergeField(prior?.intention, draft.intention),
     desiredOutcome: mergeField(prior?.desiredOutcome, draft.desiredOutcome),
     initialScope: mergeField(prior?.initialScope, draft.initialScope),
-    openQuestions:
-      draft.openQuestions.length > 0 ? draft.openQuestions : (prior?.openQuestions ?? []),
+    // Successful qualification owns the CURRENT open list (empty = all resolved this turn).
+    // Do not sticky-reattach prior questions when Nora intentionally returns [].
+    openQuestions: draft.openQuestions,
     suggestion: draft.suggestion ?? prior?.suggestion ?? null,
   };
 }
@@ -200,10 +201,16 @@ export function draftProjectionFromQualification(input: {
   turnKey: string;
   qualificationStatus: string;
   goal: string;
+  /** Durable project intention — empty means unchanged this turn (preserve prior via merge). */
+  projectIntention?: string;
   desiredOutcome?: string;
   initialScope?: string;
   clarifications: string[];
   proposedProjectName: string | null;
+  /**
+   * Turn-local OPEN_POINT statements newly proposed in this qualification only.
+   * Do not pass the full historical D4 open-point catalogue here.
+   */
   openPointStatements?: string[];
   preparationAssessment?: ProjectionAssessment | null;
   preparationAssessmentExplanation?: string | null;
@@ -212,9 +219,19 @@ export function draftProjectionFromQualification(input: {
 
   const turnKey = input.turnKey;
   const nameRaw = input.proposedProjectName?.trim() || "";
-  const intentionRaw = input.goal.trim();
+  /**
+   * Intention slot = durable projectIntention when provided.
+   * Never map turn-local `goal` into intention when a name correction is present —
+   * that was the C1 failure mode (rename request overwrote métier intention).
+   * Bootstrap without projectIntention: use goal only when no proposedProjectName this turn.
+   */
+  const durableIntention = (input.projectIntention ?? "").trim();
+  const intentionRaw =
+    durableIntention ||
+    (!nameRaw ? input.goal.trim() : "");
   const outcomeRaw = (input.desiredOutcome ?? "").trim();
   const scopeRaw = (input.initialScope ?? "").trim();
+  // Current open set = this turn's clarifications (+ turn-local open-point proposals only).
   const openFromClarifications = input.clarifications
     .map((c) => c.trim())
     .filter(Boolean)

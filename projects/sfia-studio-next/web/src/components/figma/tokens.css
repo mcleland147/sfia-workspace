@@ -31,7 +31,8 @@
   --sas-conversation-w: 800px;
   --sas-preview-w: 518px;
   --sas-composer-h: 118px;
-  --sas-panel-h: 655px;
+  /* Figma reference height (655) is a proportion cue — runtime fills available shell height. */
+  --sas-panel-h-ref: 655px;
 }
 
 .fig-page {
@@ -249,8 +250,8 @@
   align-items: stretch;
   flex: 1 1 auto;
   min-height: 0;
-  height: 0; /* flex child fills remaining viewport without overflowing */
-  max-height: var(--sas-panel-h);
+  /* Fill remaining shell height — do not cap at Figma 655px (caused empty bottom band). */
+  height: 0;
   overflow: hidden;
 }
 

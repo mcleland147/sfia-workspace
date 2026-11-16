@@ -31,14 +31,22 @@ const ASSESSMENT_TO_STAGE: Record<string, SasPresentationStage> = {
   BASE_SUFFICIENTE: "base_sufficient",
 };
 
+/**
+ * Presentation stage ≠ Nora cognitive assessment ≠ D2 create eligibility.
+ * EXPLORING after the first exchange still advances presentation to clarification
+ * so the chrome does not stay on « Première intention » during substantive dialogue.
+ */
 export function resolveSasPresentationStage(input: {
   isResumed: boolean;
   assessment: ProjectionAssessment | null | undefined;
   messageCount: number;
 }): SasPresentationStage {
   if (input.isResumed) return "resume";
-  if (input.assessment && ASSESSMENT_TO_STAGE[input.assessment]) {
-    return ASSESSMENT_TO_STAGE[input.assessment];
+  if (input.assessment === "BASE_SUFFICIENTE") return "base_sufficient";
+  if (input.assessment === "PROPOSAL") return "proposal";
+  if (input.assessment === "CLARIFYING") return "clarification";
+  if (input.assessment === "EXPLORING") {
+    return input.messageCount === 0 ? "first_intention" : "clarification";
   }
   if (input.messageCount === 0) return "first_intention";
   return "clarification";

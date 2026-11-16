@@ -41,19 +41,44 @@ export async function backToSasConversation(page: Page): Promise<void> {
 }
 
 /**
- * Secondary adjust path then create project (explicit D2).
- * Not the primary sas proof — use createFromLivingProjection for the nominal path.
- * Leaves the browser on `/projects/{id}`.
+ * Technical compatibility: set inspected name via PATCH API.
+ * Product UI no longer exposes « Ajuster l'aperçu » — do not use this as the nominal Sas proof.
+ */
+export async function seedInspectedNameViaApi(
+  page: Page,
+  opts: { name: string; summary: string },
+): Promise<void> {
+  const preparationId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
+  expect(preparationId).toBeTruthy();
+  const getRes = await page.request.get(`/api/preparations/${preparationId}`);
+  expect(getRes.ok()).toBeTruthy();
+  const prep = (await getRes.json()) as {
+    creationRevision?: number;
+    preparation?: { creationRevision?: number };
+  };
+  const rev = prep.creationRevision ?? prep.preparation?.creationRevision;
+  expect(typeof rev).toBe("number");
+  const patchRes = await page.request.patch(`/api/preparations/${preparationId}`, {
+    data: {
+      previewName: opts.name,
+      previewSummary: opts.summary,
+      expectedCreationRevision: rev,
+    },
+  });
+  expect(patchRes.ok()).toBeTruthy();
+  await page.reload();
+  await expect(page.getByTestId("prep-create-project")).toBeEnabled({ timeout: 30000 });
+  await expect(page.getByTestId("prep-constitute")).toHaveCount(0);
+}
+
+/**
+ * Technical bootstrap: API seed then explicit D2 create CTA.
  */
 export async function constituteAndCreateProject(
   page: Page,
   opts: { name: string; summary: string },
 ): Promise<string> {
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill(opts.name);
-  await page.getByTestId("prep-proposal-summary").fill(opts.summary);
-  await page.getByTestId("prep-proposal-save").click();
-  await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
+  await seedInspectedNameViaApi(page, opts);
   await page.getByTestId("prep-create-project").click();
   await page.waitForURL("**/projects/**", { timeout: 20000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];

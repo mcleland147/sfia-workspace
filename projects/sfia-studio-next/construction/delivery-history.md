@@ -25,6 +25,21 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-POST-RECETTE-C1C4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~17:00 CET |
+| Macro-lot | ML4D — Correctif intégré post-recette Morris (C1–C4) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL · **NO RELEASE** |
+| Parent | `ec7405f323f86a0533dc507a1bfffc60ca1e5d0e` |
+| Scope | projectIntention ; openQuestions replace ; présentation/hauteur ; suppression Ajuster |
+| Non-scope | RECETTE, migrations, D4 global, Figma write, PR/merge/STABLE/Gate C/ML5 |
+| Preuves | UNIT 405 ; PG create+patch 30 ; BROWSER T1→T7 + chat-first 6 ; build `jw9G3w66bIZxtpzFshlr6` |
+| RECETTE | **inchangée** `ec7405f3` / `67akzrr6bFEp4YOh7aHD7` |
+| Push produit | **AUCUN** |
+| Verdict cible | `READY WITH RESERVES — SAS NORA POST-RECETTE CORRECTIONS IMPLEMENTED` |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-UX-CTA-RECETTE
 
 | Field | Value |

@@ -16,6 +16,14 @@ describe("Sas Nora presentation stage", () => {
         messageCount: 0,
       }),
     ).toBe("first_intention");
+    // EXPLORING after first exchange advances presentation (≠ cognitive freeze on Première intention)
+    expect(
+      resolveSasPresentationStage({
+        isResumed: false,
+        assessment: "EXPLORING",
+        messageCount: 2,
+      }),
+    ).toBe("clarification");
     expect(
       resolveSasPresentationStage({
         isResumed: false,

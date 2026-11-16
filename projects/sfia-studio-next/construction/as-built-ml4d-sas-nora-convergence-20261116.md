@@ -1,75 +1,57 @@
-# As-built — ML4D Sas Nora convergence + garanties de création (2026-11-16)
+# As-built — ML4D Sas Nora convergence + correctifs post-recette (2026-11-16)
 
 | Champ | Valeur |
 | --- | --- |
 | Macro-lot | R5 / ML4D — Sas conversationnel + projection + création + garanties |
-| Type | EVOL / MINOR candidate · **NO RELEASE** |
-| Base UX-004 | `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
-| Candidat Sas | `e52cec0d` + **correctif CTA D2 (ce cycle)** → SHA post-commit |
+| Type | EVOL / PATCH candidat · **NO RELEASE** |
 | Branche | `feat/next-ml4d-sas-nora-convergence-20261116` |
+| Parent | `ec7405f323f86a0533dc507a1bfffc60ca1e5d0e` |
+| Candidat | SHA post-commit (ce cycle) |
 | Contrats | docs@`22ee5540` (fonctionnel + technique) |
-| Figma | `itgvCulInEnFY6DvgIegvP` 607:3 / 62 / 131 / 203 / 277 — VALIDATED UX Morris, **aucune écriture Figma** |
-| Lane | DEV → RECETTE (GO Morris cutover ce cycle) |
-| CTA création | `shouldShowCreateProjectCta` = D2 `canCreate` uniquement — **pas** de gate Nora `BASE_SUFFICIENTE` (SAS-F-07 / AF-06) |
-| Build DEV | post-commit (voir delivery-history) |
-| RECETTE | nouveau SHA/build après bascule (rollback `cd091385` / `E3J7wVO4MsKgl5aCTDhed`) |
+| Figma | `itgvCulInEnFY6DvgIegvP` 607:* — lecture seule |
+| Lane | **DEV only** — RECETTE **inchangée** |
+| RECETTE servie | `ec7405f3` / `67akzrr6bFEp4YOh7aHD7` @ `:3200` |
+| Build DEV | `jw9G3w66bIZxtpzFshlr6` |
+| Package | `0.0.0-dev` |
 
-## Architecture
+## Correctifs post-recette Morris (C1–C4)
 
-1. Tour Nora unique → qualification structurée (`desiredOutcome`, `initialScope`, `proposedProjectName`, `preparationAssessment*`).
-2. Draft projection après qualification ; **persistance seulement après commit terminal COMPLETE**.
-3. `mergeNoraDraftWithPrior` protège les champs `PILOT_EXPRESSED` / `PILOT_UI_EDIT`.
-4. PATCH aperçu = `applyPilotApercuCorrection` + CAS `expectedCreationRevision` **obligatoire** ; résultat classifié `APPLIED_CURRENT` / `APPLIED_SUPERSEDED` / `CONFLICT_NOT_APPLIED` / `UNKNOWN`.
-5. Assessment Nora **uniquement** si fourni dans la qualification (pas d’heuristique).
-6. Création : `createProjectCommand` sous verrou ; **nom = proposition D2 inspectée** (projection.name sinon preview_name) ; refus d’un nom client arbitraire.
-7. UI : conversation + aperçu ; Journal/Documents secondaires ; pas de succès trompeur sur PATCH superseded.
+| Id | Anomalie | Cause vérifiée | Correction |
+| --- | --- | --- | --- |
+| C1 | Intention = demande de renommage | `goal` mappé dans `intention` | Champ structuré `projectIntention` ; `goal` = tour local ; merge conserve l'intention si vide |
+| C2 | Question résolue encore ouverte | merge sticky `draft.openQuestions.length > 0 ? draft : prior` + dump D4 OPEN dans l'UI | Remplacement courant par clarifications du tour ; aperçu = projection seulement |
+| C3 | Première intention trop longtemps + bande vide | EXPLORING→first_intention ; `max-height: 655px` | Présentation clarification après 1er échange ; workspace flex remplit la hauteur shell |
+| C4 | « Ajuster l'aperçu » | Parcours manuel UI | Supprimé du Sas ; API PATCH conservée (dette technique / tests) |
 
-## Garanties consolidées (ce cycle)
+## Architecture (inchangée dans ses autorités)
 
-| Écart | Constat | Correction |
-| --- | --- | --- |
-| G1 Nom inspecté | Mission binding acceptait un nom client arbitraire | Contrôle décisif sous `FOR UPDATE` dans `createProjectCommand` ; mission non réécrite depuis le payload |
-| G2 Parcours navigateur | E2E multi-tours PATCH injecté avant Créer | T1→T5 conversationnel avec nom unique ; aucun PATCH de rattrapage ; T3 sans `REQUEST_EFFECT` artificiel |
-| G3 PATCH concurrent | 200 + « Aperçu corrigé » après supersession | `writeStatus` honnête ; UI distingue courant / remplacé / non appliqué |
-
-## Contradiction PF-CRE-14
-
-Orientation Morris (unicité / Pilote) vs PF-CRE-14. **R2 non réécrit.** Gate Morris ouvert.
-
-## Migration 013
-
-Déjà appliquée sur RECETTE (cycle déploiement antérieur). **Aucune migration** dans le cycle UX.
-
-## Convergence UX Figma → code (cycle 8)
-
-Composition partagée `sas-*` pilotée par `sas-presentation` (assessment D2 + reprise), sans nouveau moteur métier.
-
-| État | Node Figma | Runtime |
-| --- | --- | --- |
-| Première intention | 607:3 | stage `first_intention` |
-| Clarification | 607:62 | `clarification` |
-| Proposition | 607:131 | `proposal` |
-| Base suffisante | 607:203 | `base_sufficient` + CTA aperçu mis en valeur |
-| Reprise | 607:277 | `resume` |
-
-CTA « Créer le projet » : visible dès préconditions D2 (`canCreateFromProjection`), y compris CLARIFYING / PROPOSAL / reprise / assessment absent. Emphase visuelle frame 04 conservée sans gate métier.
-
-F2 géométrie stable (1680×970) : rail 246 / header 72 / composer 118 / preview 518 / conversation 800 — **Δ 0 CSS px** (cycle UX précédent).
-
-Harness DEV : `/dev/sas-visual/[state]` (aide seulement). Route réelle : `/preparations/{id}`.
+1. Qualification D3 unique → draft projection D2 après COMPLETE.
+2. `projectIntention` / `desiredOutcome` / `initialScope` / `proposedProjectName` / `clarifications` / assessment structurés.
+3. Création = D2 `canCreate` + clic Pilote uniquement.
+4. Pas de second LLM, pas de parse Markdown, pas de lexique de résolution.
+5. D4 global hors périmètre — dette compteurs/sujets transmise à la revue espace projet.
 
 ## Preuves
 
 | Niveau | Résultat |
 | --- | --- |
-| UNIT presentation / CTA D2 / rail / projection | PASS |
-| PG create-project | PASS |
-| BROWSER FAKE Sas + chat-first | PASS |
-| Captures Figma cycle UX | réutilisées — **pas** de nouvelle campagne pixel |
-| NORA LIVE | **NOT PROVEN** |
-| MORRIS UX visuelle | **PENDING** (Morris sur RECETTE) |
-| Verdict technique | `TECHNICALLY READY FOR MORRIS USER REVIEW` |
+| UNIT (405) | PASS |
+| PG create-project + preparation-patch | PASS |
+| BROWSER FAKE Sas T1→T7 + chat-first (6) | PASS |
+| next build DEV | PASS (`jw9G3w66bIZxtpzFshlr6`) |
+| Nora LIVE nouveau candidat | **NOT PROVEN** |
+| Morris UX candidat | **PENDING** (GO RECETTE ultérieur) |
+| RECETTE | **inchangée** |
+
+## Manifeste candidat RECETTE (non déployé)
+
+- source_sha: (HEAD post-commit)
+- tree_web: (post-commit)
+- build_dev: `jw9G3w66bIZxtpzFshlr6`
+- schema: 013 present — aucune migration
+- previous_recette: `ec7405f3` / `67akzrr6bFEp4YOh7aHD7`
+- go_recette: **REQUIS** (mandat distinct)
 
 ## Rollback
 
-Applicatif : bascule LaunchAgent vers worktree `cd091385` / build `E3J7wVO4MsKgl5aCTDhed`. Aucune migration destructive. `projection_json` conservé.
+Revert commit local. RECETTE non touchée. `projection_json` v1 compatible.

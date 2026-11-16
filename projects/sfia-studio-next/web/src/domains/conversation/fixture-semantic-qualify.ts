@@ -41,6 +41,7 @@ function normalizeUtterance(text: string): string {
 type QualExtras = Partial<
   Pick<
     NoraTurnQualification,
+    | "projectIntention"
     | "desiredOutcome"
     | "initialScope"
     | "proposedProjectName"
@@ -60,6 +61,7 @@ function dialogue(
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "QUALIFIED",
     goal,
+    projectIntention: extras?.projectIntention ?? "",
     desiredOutcome: extras?.desiredOutcome ?? "",
     initialScope: extras?.initialScope ?? "",
     proposedProjectName: extras?.proposedProjectName ?? "",
@@ -92,6 +94,7 @@ function effect(
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "QUALIFIED",
     goal,
+    projectIntention: extras?.projectIntention ?? "",
     desiredOutcome: extras?.desiredOutcome ?? "",
     initialScope: extras?.initialScope ?? "",
     proposedProjectName: extras?.proposedProjectName ?? "",
@@ -195,6 +198,7 @@ register(
     "Je comprends que vous souhaitez mieux accompagner les chefs de projet, sans avoir encore fixé ce que l'outil doit faire. Reformulons : un espace d'aide au pilotage, dont le rôle reste à préciser. Quelle difficulté concrète voulez-vous réduire en premier ?",
     ["NO_EFFECT"],
     {
+      projectIntention: "Aider les chefs de projet sans avoir encore fixé le contenu exact de l'outil",
       clarifications: [
         "Quelle difficulté concrète voulez-vous réduire en premier pour les chefs de projet ?",
       ],
@@ -208,13 +212,16 @@ register(
 register(
   SAS_MATURATION_T2,
   dialogue(
-    "Retrouver les décisions importantes et savoir quoi faire ensuite",
+    "Préciser le résultat : décisions et prochaines actions",
     "Vous visez surtout à retrouver les décisions importantes et à savoir quoi faire ensuite. C'est un résultat clair : continuité des décisions et des prochaines actions. Le périmètre exact (personnel / équipe) reste ouvert.",
     ["NO_EFFECT"],
     {
+      projectIntention:
+        "Aider les chefs de projet à retrouver les décisions importantes et à savoir quoi faire ensuite",
       desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
       clarifications: [
         "Souhaitez-vous commencer seul, ou le travail en équipe fait-il déjà partie du premier périmètre ?",
+        "Pour une première version, le chef de projet pourrait-il déposer ou copier les éléments utiles après chaque réunion, ou la récupération automatique depuis les outils existants est-elle indispensable ?",
       ],
       preparationAssessment: "CLARIFYING",
       preparationAssessmentExplanation:
@@ -227,14 +234,16 @@ register(
   SAS_MATURATION_T3,
   // Proposition de démarrage ≠ REQUEST_EFFECT : proposedProjectName only; Pilot create remains D2.
   dialogue(
-    "Espace personnel : décisions, points ouverts, prochaines actions",
+    "Confirmer le périmètre V1 manuel (équipe plus tard)",
     "Premier périmètre : un espace personnel avec décisions, points ouverts et prochaines actions. Le travail en équipe est une piste ultérieure, pas une décision immédiate. Nom de travail proposé : Assistant de pilotage. Cette base me paraît suffisante pour démarrer si vous le souhaitez.",
     ["NO_EFFECT", "PROPOSAL_ONLY"],
     {
+      projectIntention:
+        "Aider les chefs de projet à retrouver les décisions importantes et à savoir quoi faire ensuite",
       proposedProjectName: "Assistant de pilotage",
       desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
       initialScope:
-        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
+        "Espace personnel alimenté manuellement : décisions, points ouverts, prochaines actions (intégrations / équipe plus tard)",
       clarifications: [],
       preparationAssessment: "BASE_SUFFICIENTE",
       preparationAssessmentExplanation:
@@ -246,15 +255,18 @@ register(
 register(
   SAS_MATURATION_T4,
   // Dialogue (no REQUEST_EFFECT): name correction; create remains an explicit D2 Pilot act.
+  // goal is turn-local; projectIntention empty → durable intention preserved by D2 merge.
   dialogue(
-    "Espace personnel de pilotage nommé Cockpit projets",
+    "Retenir Cockpit projets comme nom de travail et confirmer le premier périmètre",
     "Correction prise en compte : le nom de travail est Cockpit projets (et non Assistant de pilotage). Le reste de la proposition (résultat et périmètre personnel) est conservé.",
     ["NAME_CORRECTION", "NO_EFFECT"],
     {
+      projectIntention: "",
       proposedProjectName: "Cockpit projets",
       desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
       initialScope:
-        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
+        "Espace personnel alimenté manuellement : décisions, points ouverts, prochaines actions (intégrations / équipe plus tard)",
+      clarifications: [],
       preparationAssessment: "BASE_SUFFICIENTE",
       preparationAssessmentExplanation:
         "Après correction du nom, la base reste suffisante pour démarrer : résultat et périmètre personnel sont acquis ; le nom inspecté est Cockpit projets.",
@@ -270,14 +282,16 @@ export function sasMaturationT4Rename(uniqueName: string): string {
 function maturationRenameQualification(uniqueName: string): NoraTurnQualification {
   const name = uniqueName.trim().slice(0, 120);
   return dialogue(
-    `Espace personnel de pilotage nommé ${name}`,
+    `Retenir « ${name} » comme nom de travail et confirmer le premier périmètre`,
     `Correction prise en compte : le nom de travail est ${name} (et non Assistant de pilotage). Le reste de la proposition (résultat et périmètre personnel) est conservé.`,
     ["NAME_CORRECTION", "NO_EFFECT"],
     {
+      projectIntention: "",
       proposedProjectName: name,
       desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
       initialScope:
-        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
+        "Espace personnel alimenté manuellement : décisions, points ouverts, prochaines actions (intégrations / équipe plus tard)",
+      clarifications: [],
       preparationAssessment: "BASE_SUFFICIENTE",
       preparationAssessmentExplanation: `Après correction du nom, la base reste suffisante pour démarrer : résultat et périmètre personnel sont acquis ; le nom inspecté est ${name}.`,
     },
@@ -287,13 +301,15 @@ function maturationRenameQualification(uniqueName: string): NoraTurnQualificatio
 function cockpitNamedQualification(projectName: string): NoraTurnQualification {
   const name = projectName.trim().slice(0, 120);
   return dialogue(
-    "Cockpit de suivi des projets",
+    `Proposer le nom de travail ${name} pour le cockpit`,
     `Je comprends : un cockpit pour suivre vos projets, en commençant par le portefeuille et les risques. Nom de travail proposé : ${name}. Cette base me paraît suffisante pour démarrer ; les détails pourront se préciser ensuite.`,
     ["NO_EFFECT", "PROPOSAL_ONLY"],
     {
+      projectIntention: "Aider à suivre les projets via un cockpit (portefeuille et risques en premier)",
       proposedProjectName: name,
       desiredOutcome: "Voir portefeuille et risques en un seul endroit",
       initialScope: "Portefeuille et risques en premier",
+      clarifications: [],
       preparationAssessment: "BASE_SUFFICIENTE",
       preparationAssessmentExplanation:
         "Intention, résultat et périmètre initial sont assez clairs pour démarrer. Les raffinements peuvent se faire dans le projet.",

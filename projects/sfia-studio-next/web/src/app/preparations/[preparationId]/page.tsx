@@ -46,9 +46,6 @@ export default function PreparationPage() {
   const preparationId = params.preparationId;
   const isResumedPrep =
     searchParams.get("resume") === "1" || searchParams.get("from") === "portfolio";
-  const [proposalEditing, setProposalEditing] = useState(false);
-  const [draftProposalName, setDraftProposalName] = useState("");
-  const [draftProposalSummary, setDraftProposalSummary] = useState("");
   const [revRows, setRevRows] = useState<RevisionRow[]>([]);
   const [docViewMode, setDocViewMode] = useState<"read" | "edit">("read");
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -490,78 +487,6 @@ export default function PreparationPage() {
     } else setStatus(`Diff ${cmp.status}`);
   }
 
-  async function savePreview() {
-    const name = proposalEditing ? draftProposalName : previewName;
-    const summary = proposalEditing ? draftProposalSummary : previewSummary;
-    const res = await fetch(`/api/preparations/${preparationId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        previewName: name,
-        previewSummary: summary,
-        expectedCreationRevision: creationRevision,
-      }),
-    });
-    let j: {
-      writeStatus?: string;
-      appliedRevision?: number;
-      creationRevision?: number;
-      preparation?: { previewName?: string; previewSummary?: string; creationRevision?: number };
-      projection?: PreparationProjection | null;
-      appliedProjection?: PreparationProjection | null;
-      error?: string;
-      actualCreationRevision?: number;
-      reason?: string;
-    } = {};
-    try {
-      j = (await res.json()) as typeof j;
-    } catch {
-      j = {};
-    }
-    if (res.ok) {
-      const writeStatus = j.writeStatus ?? "APPLIED_CURRENT";
-      // Always show the coherent current pair (revision + projection + preparation).
-      setPreviewName(j.preparation?.previewName ?? name);
-      setPreviewSummary(j.preparation?.previewSummary ?? summary);
-      setCreationRevision(
-        typeof j.creationRevision === "number"
-          ? j.creationRevision
-          : (j.preparation?.creationRevision ?? creationRevision),
-      );
-      setProjection((j.projection as PreparationProjection | null) ?? null);
-      setProjectionFreshness("current");
-
-      if (writeStatus === "APPLIED_SUPERSEDED") {
-        // Write confirmed but no longer current — never announce plain « Aperçu corrigé ».
-        // Keep local draft so the Pilot can re-apply voluntarily on the newer revision.
-        setStatus(
-          `Correction enregistrée (rév. ${j.appliedRevision ?? "?"}) puis remplacée par une version plus récente (rév. ${j.creationRevision ?? "?"}) — inspectez l'état courant ; le brouillon local est conservé.`,
-        );
-        // Keep proposalEditing true with prior draft fields when in edit mode.
-      } else if (writeStatus === "UNCHANGED_CURRENT") {
-        setProposalEditing(false);
-        setStatus(`Aperçu inchangé · révision ${j.creationRevision ?? "?"}`);
-      } else {
-        setProposalEditing(false);
-        setStatus(`Aperçu corrigé · révision ${j.creationRevision ?? "?"}`);
-      }
-    } else if (res.status === 409) {
-      setStatus(
-        `CONFLICT: correction non appliquée (rév. actuelle ${j.actualCreationRevision ?? "?"}) — rechargement sans écrasement du brouillon`,
-      );
-      await reload();
-    } else if (res.status === 401) {
-      setStatus("Session invalide — reconnexion requise");
-    } else if (res.status === 400) {
-      setStatus(`Requête invalide: ${j.reason ?? j.error ?? "corps"}`);
-    } else if (res.status === 503 || res.status === 500) {
-      setStatus("Enregistrement non confirmé (panne) — aucun succès annoncé ; rechargement");
-      await reload();
-    } else {
-      setStatus(`Échec enregistrement aperçu (${res.status})`);
-    }
-  }
-
   /**
    * ML4C S02 — after lost ACK, reconcile with the same idempotency key before any new create.
    * Read-only GET; never mints a second mutation automatically.
@@ -723,19 +648,6 @@ export default function PreparationPage() {
     }
   }
 
-  function startConstituteProposal() {
-    setDraftProposalName(projection?.name?.value?.trim() || previewName);
-    setDraftProposalSummary(
-      projection?.intention?.value?.trim() || previewSummary,
-    );
-    setProposalEditing(true);
-  }
-
-  function adoptLastNoraSummary() {
-    const last = [...messages].reverse().find((m) => m.role === "assistant");
-    if (last) setDraftProposalSummary(last.content.slice(0, 2000));
-  }
-
   async function loadRevisionHistory(documentId: string) {
     const res = await fetch(`/api/preparations/${preparationId}/documents/${documentId}`);
     if (!res.ok) {
@@ -850,23 +762,10 @@ export default function PreparationPage() {
             previewSummary={previewSummary}
             creationRevision={creationRevision}
             messageCount={messages.length}
-            openPoints={(knowledge?.openPoints ?? [])
-              .filter((o) => o.status === "OPEN")
-              .map((o) => ({ id: o.id, statement: o.statement }))}
             projection={projection}
             projectionFreshness={projectionFreshness}
             presentation={presentation}
             busy={busy}
-            editing={proposalEditing}
-            draftName={draftProposalName}
-            draftSummary={draftProposalSummary}
-            onDraftName={setDraftProposalName}
-            onDraftSummary={setDraftProposalSummary}
-            onStartConstitute={startConstituteProposal}
-            onAdoptLastNoraSummary={adoptLastNoraSummary}
-            canAdoptLastNora={messages.some((m) => m.role === "assistant")}
-            onSaveProposal={() => void savePreview()}
-            onCancelEdit={() => setProposalEditing(false)}
             onCreateProject={() => void createProject()}
             status={status}
           />

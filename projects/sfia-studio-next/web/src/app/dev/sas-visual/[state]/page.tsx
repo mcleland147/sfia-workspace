@@ -19,9 +19,6 @@ export default function SasVisualHarnessPage() {
   const params = useParams<{ state: string }>();
   const fixture = useMemo(() => parseSasVisualFixture(params.state), [params.state]);
   const [draft, setDraft] = useState("");
-  const [editing, setEditing] = useState(false);
-  const [draftName, setDraftName] = useState(fixture?.previewName ?? "");
-  const [draftSummary, setDraftSummary] = useState(fixture?.previewSummary ?? "");
 
   if (process.env.NODE_ENV === "production" && process.env.STUDIO_LANE === "RECETTE") {
     return (
@@ -93,21 +90,10 @@ export default function SasVisualHarnessPage() {
           previewSummary={fixture.previewSummary}
           creationRevision={1}
           messageCount={fixture.messages.length}
-          openPoints={fixture.openPoints}
           projection={fixture.projection}
           projectionFreshness="current"
           presentation={presentation}
           busy={false}
-          editing={editing}
-          draftName={draftName}
-          draftSummary={draftSummary}
-          onDraftName={setDraftName}
-          onDraftSummary={setDraftSummary}
-          onStartConstitute={() => setEditing(true)}
-          onAdoptLastNoraSummary={() => undefined}
-          canAdoptLastNora={false}
-          onSaveProposal={() => setEditing(false)}
-          onCancelEdit={() => setEditing(false)}
           onCreateProject={() => undefined}
         />
       </div>

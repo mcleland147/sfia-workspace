@@ -22,14 +22,15 @@ async function loginPilot(
   await page.waitForURL("**/portfolio");
 }
 
-test.describe("ML4D Sas Nora — corrective convergence", () => {
-  test("AF living aperçu without primary constitute; secondary tools not permanent tabs", async ({
+test.describe("ML4D Sas Nora — post-recette corrections", () => {
+  test("AF living aperçu; no manual adjust; secondary tools not permanent tabs", async ({
     page,
   }) => {
     await loginPilot(page, "a");
     await openNewPreparation(page);
     await expect(page.getByTestId("prep-proposal")).toBeVisible();
-    await expect(page.getByRole("button", { name: /Constituer une proposition/i })).toHaveCount(0);
+    await expect(page.getByTestId("prep-constitute")).toHaveCount(0);
+    await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
     await expect(page.getByRole("navigation", { name: "Surfaces sas" })).toHaveCount(0);
     await expect(page.getByTestId("sas-secondary-tools")).toBeVisible();
 
@@ -39,6 +40,7 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
     );
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
     await expect(page.getByTestId("prep-field-name")).toContainText("Cockpit projets");
+    await expect(page.getByTestId("prep-field-intention")).not.toContainText(/Retenir/i);
     await expect(page.getByTestId("prep-nora-assessment")).toBeVisible();
     await expect(page.getByTestId("studio-rail").getByText("Préparation en cours")).toBeVisible();
   });
@@ -54,7 +56,7 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
     await expect(page.getByTestId("prep-field-name")).toContainText(unique);
     await expect(page.getByTestId("prep-create-project")).toBeEnabled();
-    await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
+    await expect(page.getByTestId("prep-constitute")).toHaveCount(0);
     await page.getByTestId("prep-create-project").click();
     await page.waitForURL("**/projects/**", { timeout: 30000 });
     const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
@@ -65,13 +67,13 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
     await expect(page.getByTestId("studio-rail")).toBeVisible();
   });
 
-  test("AF secondary adjust still works (not the primary proof)", async ({ page }) => {
+  test("AF technical API seed still works when UI adjust is removed", async ({ page }) => {
     await loginPilot(page, "a");
     await openNewPreparation(page);
     await sendPrepMessage(page, "Bonjour Nora depuis Playwright");
     const projectId = await constituteAndCreateProject(page, {
       name: `SasNoraAdjust-${Date.now()}`,
-      summary: "Correction manuelle secondaire",
+      summary: "Correction technique API (hors UI)",
     });
     expect(projectId).toBeTruthy();
     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
@@ -86,52 +88,56 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
     await expect(page.getByTestId("prep-nora-assessment")).toContainText(/pas suffisante/i);
   });
 
-  test("AF multi-turn maturation: vague → outcome → scope → rename → create (no PATCH)", async ({
+  test("T1→T7 maturation: intention durable, questions résolues, rename, create", async ({
     page,
   }) => {
     test.setTimeout(240_000);
     await loginPilot(page, "b");
     await openNewPreparation(page);
 
-    // T1 — vague intention: no invented name as fact, exploring; D2 blocks create
+    // T1 — vague / exploring presentation after first exchange
     await sendPrepMessage(page, SAS_MATURATION_T1);
     await expect(page.getByTestId("prep-proposal")).toBeVisible({ timeout: 30000 });
-    await expect(page.getByTestId("prep-proposal-state")).not.toHaveText(/Base suffisante/i);
+    await expect(page.getByTestId("prep-stage-kicker").or(page.getByTestId("sas-stage-kicker"))).toBeVisible();
+    await expect(page.getByTestId("sas-stage-kicker")).not.toHaveText(/PREMIÈRE INTENTION/i);
     await expect(page.getByTestId("prep-create-project")).toHaveCount(0);
     await expect(page.getByTestId("prep-create-unavailable")).toBeVisible();
-    await expect(page).toHaveURL(/\/preparations\//);
 
-    // T2 — desired outcome appears; still clarifying
+    // T2 — open question about manual vs automatic appears
     await sendPrepMessage(page, SAS_MATURATION_T2);
-    await expect(page.getByTestId("prep-field-intention")).toContainText(/décisions importantes/i, {
+    await expect(page.getByTestId("prep-field-intention")).toContainText(/chefs de projet/i, {
       timeout: 30000,
     });
-    await expect(page.getByTestId("prep-proposal-state")).not.toHaveText(/Base suffisante/i);
-    await expect(page).toHaveURL(/\/preparations\//);
+    await expect(page.getByTestId("prep-proposal")).toContainText(/automatique|manuelle|réunion/i);
 
-    // T3 — scope + proposed name via proposedProjectName (no REQUEST_EFFECT); no project
+    // T3 — V1 manual resolves that question; open list empty / not the old arbitration
     await sendPrepMessage(page, SAS_MATURATION_T3);
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
     await expect(page.getByTestId("prep-field-name")).toContainText("Assistant de pilotage");
     await expect(page.getByTestId("prep-proposal-state")).toHaveText(/Base suffisante/i);
-    await expect(page.getByTestId("prep-nora-assessment")).toBeVisible();
-    await expect(page).toHaveURL(/\/preparations\//);
+    await expect(page.getByTestId("prep-proposal")).not.toContainText(
+      /récupération automatique depuis les outils existants est-elle indispensable/i,
+    );
 
-    // T4 — conversational rename with unique name (no programmatic PATCH, no Ajuster)
+    // T4/T5 — rename only: name changes, durable intention preserved
     const unique = `Cockpit projets MT-${Date.now()}`;
     await sendPrepMessage(page, sasMaturationT4Rename(unique));
     await expect(page.getByTestId("prep-field-name")).toContainText(unique, {
       timeout: 30000,
     });
     await expect(page.getByTestId("prep-field-name")).not.toHaveText("Assistant de pilotage");
+    await expect(page.getByTestId("prep-field-intention")).not.toContainText(/Retenir/i);
+    await expect(page.getByTestId("prep-field-intention")).toContainText(/chefs de projet/i);
     await expect(page.getByTestId("prep-create-project")).toBeEnabled();
-    await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
+    await expect(page.getByTestId("prep-constitute")).toHaveCount(0);
 
-    // T5 — create directly from inspected T4 name
+    // T6 — explicit create
     await page.getByTestId("prep-create-project").click();
     await page.waitForURL("**/projects/**", { timeout: 30000 });
     const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
     expect(projectId).toBeTruthy();
+
+    // T7 — same thread after reload
     await page.reload();
     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
     await expect(page.getByText("Même fil", { exact: false })).toBeVisible({ timeout: 15000 });

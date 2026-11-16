@@ -1,3 +1,4 @@
+import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
 import path from "path";
 import fs from "fs";
@@ -376,12 +377,9 @@ test.describe("UX-004 portfolio shell", () => {
     await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
       timeout: 30000,
     });
-    await page.getByTestId("prep-constitute").click();
     // Unique name — same-pilot uniqueness (Morris 2026-11-16) rejects replay of fixed "Projet UX004".
     const uniqueName = `Projet UX004 ${Date.now()}`;
-    await page.getByTestId("prep-proposal-name").fill(uniqueName);
-    await page.getByTestId("prep-proposal-summary").fill("résumé");
-    await page.getByTestId("prep-proposal-save").click();
+    await seedInspectedNameViaApi(page, { name: uniqueName, summary: "résumé" });
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
     await page.getByTestId("prep-create-project").click();
     await page.waitForURL("**/projects/**", { timeout: 15000 });

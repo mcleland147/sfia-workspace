@@ -1,3 +1,4 @@
+import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
 
 /**
@@ -43,19 +44,7 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {
-    const constitute = page.getByTestId("prep-constitute");
-    if (await constitute.isVisible().catch(() => false)) {
-      await constitute.click({ force: true });
-    }
-    const adopt = page.getByTestId("prep-adopt-nora");
-    if (await adopt.isVisible().catch(() => false)) {
-      await adopt.click({ force: true });
-    }
-    const nameField = page.getByTestId("prep-proposal-name");
-    if (await nameField.isVisible().catch(() => false)) {
-      await nameField.fill("Atlas");
-      await page.getByTestId("prep-proposal-save").click();
-    }
+    await seedInspectedNameViaApi(page, { name: "Atlas", summary: "Atlas continuity" });
   }
 
   await expect(createBtn).toBeEnabled({ timeout: 20000 });
@@ -142,11 +131,7 @@ test("Atlas: forged mission key refused BEFORE create (zero project)", async ({ 
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {
-    const nameField = page.getByTestId("prep-proposal-name");
-    if (await nameField.isVisible().catch(() => false)) {
-      await nameField.fill("Atlas Guard");
-      await page.getByTestId("prep-proposal-save").click();
-    }
+    await seedInspectedNameViaApi(page, { name: "Atlas Guard", summary: "Atlas guard" });
   }
   await expect(createBtn).toBeEnabled({ timeout: 20000 });
 

@@ -2079,6 +2079,7 @@ export async function postUserMessageAndNora(
       turnKey: clientIntentKey,
       qualificationStatus: qualification.status,
       goal: qualification.goal || "",
+      projectIntention: qualification.projectIntention || "",
       desiredOutcome: qualification.desiredOutcome || "",
       initialScope: qualification.initialScope || "",
       clarifications: qualification.clarifications ?? [],

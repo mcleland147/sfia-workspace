@@ -1,3 +1,5 @@
+import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
+// seedInspectedNameViaApi replaces removed « Ajuster l'aperçu » UI
 import { test, expect } from "@playwright/test";
 
 /**
@@ -25,10 +27,7 @@ test("rail pilotage during delayed project load keeps surface=pilotage", async (
   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
     timeout: 30000,
   });
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill(`Projet NAV race ${Date.now()}`);
-  await page.getByTestId("prep-proposal-summary").fill("résumé nav");
-  await page.getByTestId("prep-proposal-save").click();
+  await seedInspectedNameViaApi(page, { name: `Projet NAV race ${Date.now()}`, summary: "résumé nav" });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
   // already on conversation surface
 
@@ -93,10 +92,7 @@ test("rapid rail surface switches keep the last user intent", async ({ page }) =
   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
     timeout: 30000,
   });
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill(`Projet NAV rapid ${Date.now()}`);
-  await page.getByTestId("prep-proposal-summary").fill("résumé");
-  await page.getByTestId("prep-proposal-save").click();
+  await seedInspectedNameViaApi(page, { name: `Projet NAV rapid ${Date.now()}`, summary: "résumé" });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
   // already on conversation surface
   await page.getByTestId("prep-create-project").click();
@@ -135,10 +131,7 @@ test("project B load ignores stale pilotage intent from project A", async ({ pag
     await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
       timeout: 30000,
     });
-    await page.getByTestId("prep-constitute").click();
-    await page.getByTestId("prep-proposal-name").fill(name);
-    await page.getByTestId("prep-proposal-summary").fill(`résumé ${name}`);
-    await page.getByTestId("prep-proposal-save").click();
+    await seedInspectedNameViaApi(page, { name: name, summary: `résumé ${name}` });
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
     // already on conversation surface
     await page.getByTestId("prep-create-project").click();

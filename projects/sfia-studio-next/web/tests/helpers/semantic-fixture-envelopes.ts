@@ -22,7 +22,7 @@ type IntentDraft = Partial<Pick<QualifiedIntentItem, "id">> &
     sourceEvidence?: string[];
   };
 
-function assertValid(q: NoraTurnQualification): NoraTurnQualification {
+function assertValid(q: unknown): NoraTurnQualification {
   const v = validateNoraTurnQualification(q);
   if (!v.ok) {
     throw new Error(`semantic fixture envelope invalid: ${v.reason}`);

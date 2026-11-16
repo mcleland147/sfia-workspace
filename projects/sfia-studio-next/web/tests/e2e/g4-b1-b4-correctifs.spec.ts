@@ -1,4 +1,8 @@
-import { openSasSecondaryTool, backToSasConversation } from "./helpers/g4-chat-first";
+import {
+  openSasSecondaryTool,
+  backToSasConversation,
+  seedInspectedNameViaApi,
+} from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
 
 /**
@@ -26,12 +30,12 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
     timeout: 30000,
   });
 
-  // Chat-first: no permanent nom/résumé form — constitute then inspect
   await expect(page.getByPlaceholder("Nom du projet")).toHaveCount(0);
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill(`Projet G4 B ${Date.now()}`);
-  await page.getByTestId("prep-proposal-summary").fill("résumé g4");
-  await page.getByTestId("prep-proposal-save").click();
+  await expect(page.getByTestId("prep-constitute")).toHaveCount(0);
+  await seedInspectedNameViaApi(page, {
+    name: `Projet G4 B ${Date.now()}`,
+    summary: "résumé g4",
+  });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
 
   await openSasSecondaryTool(page, "Documents");

@@ -123,7 +123,17 @@ export type PreparationAssessment = z.infer<typeof PreparationAssessmentSchema>;
 export const NoraTurnQualificationSchema = z.object({
   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
   status: QualificationStatusSchema,
+  /**
+   * Compréhension du tour courant (demande immédiate, reformulation locale).
+   * Ne pas confondre avec l'intention métier durable du projet.
+   */
   goal: z.string().max(800).default(""),
+  /**
+   * Intention métier durable du projet — distincte de goal / proposedProjectName.
+   * Chaîne vide = inchangée ce tour (D2 conserve la valeur antérieure).
+   * Renseigner uniquement pour établir ou corriger explicitement l'objectif fondateur.
+   */
+  projectIntention: z.string().max(800).default(""),
   /** Résultat envisagé lorsque réellement exprimé — ne pas inventer. */
   desiredOutcome: z.string().max(800).default(""),
   /** Périmètre initial lorsque réellement exprimé — ne pas inventer. */
@@ -134,6 +144,10 @@ export const NoraTurnQualificationSchema = z.object({
    */
   proposedProjectName: z.string().max(120).default(""),
   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
+  /**
+   * Questions encore ouvertes APRÈS ce tour.
+   * Liste vide intentionnelle = plus aucune question courante (ne pas réinjecter l'historique).
+   */
   clarifications: z.array(z.string().max(400)).max(8).default([]),
   replyDraft: z.string().max(12000).default(""),
   /** Appréciation qualitative de préparation (suggestion, jamais une autorité). */
@@ -223,6 +237,7 @@ export function unavailableQualification(reason: string, replyDraft = ""): NoraT
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "UNAVAILABLE",
     goal: "",
+    projectIntention: "",
     desiredOutcome: "",
     initialScope: "",
     proposedProjectName: "",

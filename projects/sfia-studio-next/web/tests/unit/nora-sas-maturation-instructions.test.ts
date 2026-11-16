@@ -15,12 +15,14 @@ describe("Nora LIVE instructions — sas maturation (structural)", () => {
   it("embeds maturation responsibilities in QUALIFICATION_INSTRUCTIONS", () => {
     expect(src).toContain("MATURATION DU SAS");
     expect(src).toContain("Comprendre l'intention libre");
-    expect(src).toContain("Reformuler fidèlement");
+    expect(src).toContain("projectIntention");
+    expect(src).toContain("demande de tour (goal) et intention métier durable");
     expect(src).toContain("desiredOutcome / initialScope");
     expect(src).toContain("Respecter négations et corrections");
     expect(src).toContain("preparationAssessment");
-    expect(src).toContain("Ne jamais déduire une décision humaine");
+    expect(src).toContain("jamais un GO de création");
     expect(src).toContain("omets preparationAssessment");
+    expect(src).toContain("questions encore ouvertes");
     // Single agent / single outputType — no second LLM for aperçu.
     expect(src).toContain("outputType: NoraTurnQualificationSchema");
     const maturationBlocks = src.split("MATURATION DU SAS").length - 1;
