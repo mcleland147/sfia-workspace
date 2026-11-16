@@ -12,37 +12,37 @@ const HERO: Record<
   { kicker: string; title: string; sub: string }
 > = {
   travail: {
-    kicker: "Travail avec Nora",
-    title: "Conversation du projet",
-    sub: "Collaborer, produire et approfondir le travail du projet.",
+    kicker: "Espace projet  /  Travail",
+    title: "Reprendre le fil du projet",
+    sub: "La préparation et les échanges avec Nora restent dans le contexte de ce projet.",
   },
   projet: {
-    kicker: "Espace projet",
+    kicker: "Espace projet  /  Projet",
     title: "Vue d'ensemble du projet",
     sub: "Identité, contexte et accès — consultation sans nouvelle autorité.",
   },
   pilotage: {
-    kicker: "Trajectoire",
+    kicker: "Espace projet  /  Trajectoire",
     title: "Pilotage · cycle et décisions",
     sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
   },
   journal: {
-    kicker: "Journal",
+    kicker: "Espace projet  /  Journal",
     title: "Sujets et acquis",
     sub: "Sujets, acquis et points ouverts — présentation sans nouvelle autorité.",
   },
   document: {
-    kicker: "Documents Nora",
+    kicker: "Espace projet  /  Documents Nora",
     title: "Bibliothèque",
     sub: "Bibliothèque, inspection et révision sous autorité D4.",
   },
   git: {
-    kicker: "Sources Git",
+    kicker: "Espace projet  /  Sources Git",
     title: "Intégration Git",
     sub: "Sources et liens Git du projet — capacités réellement disponibles.",
   },
   publication: {
-    kicker: "Résultats et preuves",
+    kicker: "Espace projet  /  Résultats et preuves",
     title: "Publication Git",
     sub: "Publication et preuves Git — capacités réellement disponibles.",
   },
@@ -86,12 +86,23 @@ export function ProjectChrome(props: {
         </div>
 
         <header className="project-space-hero space-y-1">
-          <p className="fig-kicker">{hero.kicker}</p>
-          <h1 className="fig-hero-title" data-testid="project-surface-title">
-            {hero.title}
-          </h1>
+          <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
+          <div className="project-space-hero-row">
+            <h1 className="fig-hero-title" data-testid="project-surface-title">
+              {hero.title}
+            </h1>
+            {props.surface === "travail" &&
+            props.statusHint &&
+            !/^chargement/i.test(props.statusHint) ? (
+              <span className="fig-tag fig-tag-ok" data-testid="project-status-hint">
+                {/reprise|conservé|durable/i.test(props.statusHint)
+                  ? "Contexte conservé"
+                  : props.statusHint}
+              </span>
+            ) : null}
+          </div>
           <p className="fig-hero-sub">{hero.sub}</p>
-          {props.statusHint ? (
+          {props.surface !== "travail" && props.statusHint ? (
             <p className="text-xs muted" data-testid="project-status-hint">
               {props.statusHint}
             </p>

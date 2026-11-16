@@ -5,6 +5,25 @@ Append-only logical journal of Cursor product deliveries.
 
 
 
+## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-VISUAL-FIDELITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~22:55 CET |
+| Macro-lot | ML4D Ensemble 04 — correction fidélité visuelle Figma 652:* |
+| Type | RUN / correction bornée · **NO RELEASE** |
+| Parent candidat RECETTE | `20fb41baa534b5a802a275b6944fc267ccaa2192` (inchangé) |
+| Baseline UX-005 | `bd8e16728f3c2a726a49be4c94565a2d85fc41a9` |
+| Branch | `feat/next-ml4d-project-space-20261116` |
+| Scope | Rail 2 lignes + icônes + séparateurs ; suppression Retour portefeuille doublon ; proportions 968/369 ; typo/messages/compositeur flèche ; inspecteur unifié ; sticky header ; preuves DOM 1680×970 |
+| Non-scope | Ensembles 05–07 ; API/DB ; amend RECETTE ; push projet ; PR/merge ; Gate C ; ML5 |
+| Preuves | next build PASS ; Vitest studio-rail PASS ; Playwright E04+T13/T16+F2+nav-intent+UX-004+composer PASS ; tsc workspace FAIL=parent (32) / src 0 |
+| Mesures DOM | rail 246 ; conversation 965 (~968) ; aside 368 (~369) ; send 52×35 ; name line-clamp 2 |
+| RECETTE | **inchangée** `:3200` SHA `20fb41ba` / BUILD `Bdn6zx0xBoavYTjWmiO4x` / LaunchAgent `com.sfia.studio.next.recette.ml4d-ux004` |
+| Push produit | **AUCUN** |
+| Verdict cible | `ENSEMBLE 04 — VISUAL FIDELITY CORRECTION CANDIDATE READY` |
+
+
 ## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-TECHNICAL-CONSOLIDATION
 
 | Field | Value |

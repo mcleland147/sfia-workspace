@@ -1,11 +1,11 @@
 {
-  "capturedAt": "2026-11-16T20:32:23.796Z",
+  "capturedAt": "2026-11-16T21:53:26.263Z",
   "viewport": {
     "width": 1680,
     "height": 970
   },
-  "projectName": "F2 Espace projet 1794861140944",
-  "projectId": "proj_6cd3db50-1a76-49dc-bb55-db92f9daef54",
+  "projectName": "F2 Espace projet 1794866003268",
+  "projectId": "proj_ac10a939-1f5b-481d-a6f7-21c3f6357be6",
   "frames": {
     "travail": "652:8",
     "projet": "652:58",
@@ -14,8 +14,63 @@
   },
   "files": [
     "runtime-travail-1680x970.png",
+    "runtime-travail-long-name-1680x970.png",
     "runtime-projet-overview-1680x970.png",
     "runtime-journal-nav-1680x970.png",
-    "runtime-unavailable-1680x970.png"
-  ]
+    "runtime-unavailable-1680x970.png",
+    "dom-measures-travail.json"
+  ],
+  "figmaReference": {
+    "viewport": {
+      "width": 1680,
+      "height": 970
+    },
+    "railPx": 246,
+    "conversationPx": 968,
+    "asidePx": 369,
+    "columnGapPx": 25,
+    "headerPx": 70
+  },
+  "measures": {
+    "viewport": {
+      "w": 1680,
+      "h": 970,
+      "dpr": 1
+    },
+    "rail": {
+      "w": 246,
+      "h": 970,
+      "widthAttr": "246",
+      "fill": "#0C101A"
+    },
+    "workspace": {
+      "w": 1357,
+      "h": 728
+    },
+    "conversation": {
+      "w": 965,
+      "h": 728
+    },
+    "aside": {
+      "w": 368,
+      "h": 728
+    },
+    "composer": {
+      "w": 923,
+      "h": 142
+    },
+    "projectName": {
+      "w": 187,
+      "h": 35,
+      "lineClamp": "2",
+      "fontSize": "13px",
+      "fontWeight": "600"
+    },
+    "send": {
+      "w": 52,
+      "h": 35,
+      "aria": "Envoyer",
+      "text": "↑"
+    }
+  }
 }

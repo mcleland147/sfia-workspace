@@ -25,6 +25,24 @@ import "./studio-shell.css";
 /** Existing real account destination — integrations settings (no invented account hub). */
 const ACCOUNT_HREF = "/settings/integrations";
 
+/** Figma 652:* rail glyphs — decorative, paired with visible labels. */
+function railNavGlyph(key: string): string {
+  switch (key) {
+    case "travail":
+      return "◉";
+    case "projet":
+      return "▦";
+    case "journal":
+      return "▤";
+    case "pilotage":
+      return "◇";
+    case "sas":
+      return "◇";
+    default:
+      return "·";
+  }
+}
+
 export function StudioShell({ children }: { children: React.ReactNode }) {
   return (
     <ProjectSpaceProvider>
@@ -130,43 +148,60 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
         data-rail-fill={tokens.fill}
       >
         <div className="studio-shell-rail-inner" style={{ gap: tokens.gap }}>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-[11px] shrink-0">
             <span
               aria-hidden
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[9px] text-[22px] font-bold"
-              style={{ background: "var(--fig-accent)", color: "white" }}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-[12px] text-[22px] font-bold leading-none"
+              style={{ background: "#656fe1", color: "#f4f6fc" }}
             >
               S
             </span>
-            <div>
-              <div className="text-[19px] font-semibold tracking-tight studio-title">SFIA Studio</div>
-              <div className="text-[10px] muted">{PRODUCT_VERSIONING.releaseStatus}</div>
+            <div className="min-w-0">
+              <div className="text-[19px] font-semibold tracking-tight studio-title leading-[27px]">
+                SFIA Studio
+              </div>
+              {personalSpace ? (
+                <div className="text-[10px] muted">{PRODUCT_VERSIONING.releaseStatus}</div>
+              ) : null}
             </div>
           </div>
 
-          <div className="shrink-0 border-t border-[var(--line)] my-1" aria-hidden />
+          <div className="studio-rail-rule shrink-0" aria-hidden />
 
           {projectId ? (
-            <div
-              className="mt-1 shrink-0 rounded-[10px] border border-[var(--line)] px-3 py-2.5"
-              style={{ background: "var(--fig-surface-2, #151C29)" }}
-              data-testid="rail-espace-actif"
-            >
-              <div className="text-[10px] muted uppercase tracking-wide">Espace actif</div>
-              <div
-                className="text-sm font-medium mt-1 truncate"
-                title={activeProjectName ?? undefined}
-                data-testid="rail-project-name"
-              >
-                {activeProjectName ??
-                  (projectSpaceBlocked ? "Projet indisponible" : "Chargement…")}
+            <>
+              <div className="studio-rail-section !mt-0" aria-hidden>
+                Espace actif
               </div>
-              {activeProjectSubtitle ? (
-                <div className="text-[11px] muted mt-0.5 truncate" data-testid="rail-project-subtitle">
-                  {activeProjectSubtitle}
+              <div
+                className="studio-rail-espace-actif shrink-0"
+                style={{ background: "#151c29" }}
+                data-testid="rail-espace-actif"
+              >
+                <div
+                  className="studio-rail-project-name"
+                  title={activeProjectName ?? undefined}
+                  data-testid="rail-project-name"
+                >
+                  {activeProjectName ??
+                    (projectSpaceBlocked ? "Projet indisponible" : "Chargement…")}
                 </div>
-              ) : null}
-            </div>
+                {activeProjectSubtitle ? (
+                  <div
+                    className="studio-rail-project-subtitle"
+                    data-testid="rail-project-subtitle"
+                  >
+                    {activeProjectSubtitle}
+                  </div>
+                ) : null}
+                {projectSpaceReady ? (
+                  <div className="studio-rail-project-status" data-testid="rail-project-status">
+                    <span className="studio-rail-status-dot" aria-hidden />
+                    Projet actif
+                  </div>
+                ) : null}
+              </div>
+            </>
           ) : (
             <div className="studio-rail-section" aria-hidden>
               Votre espace
@@ -189,7 +224,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                     disabled={openingPrep}
                     onClick={() => void handleOpenPreparation()}
                   >
-                    <span aria-hidden className="text-[var(--accent-soft)] text-lg leading-none">
+                    <span aria-hidden className="studio-rail-nav-glyph">
                       +
                     </span>
                     <span>{openingPrep ? "Ouverture…" : item.label}</span>
@@ -208,30 +243,60 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                   </span>
                 );
               }
+
+              if (item.key === "portfolio" && projectId) {
+                return (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    className="studio-rail-portfolio-link"
+                    data-testid={`nav-${item.key}`}
+                  >
+                    ←&nbsp;&nbsp;Portefeuille
+                  </Link>
+                );
+              }
+
+              const showNavSection =
+                projectId &&
+                item.key === "travail" &&
+                !projectSpaceBlocked;
+
               return (
-                <Link
-                  key={item.key}
-                  href={item.href}
-                  className={`studio-rail-nav-item ${item.active ? "is-active" : ""}`}
-                  aria-current={item.active ? "page" : undefined}
-                  data-testid={`nav-${item.key}`}
-                  onClick={() => {
-                    const surfaceKey = parseStudioSurface(item.key);
-                    if (projectId && surfaceKey) {
-                      noteProjectSurfaceNavIntent(projectId, surfaceKey);
-                    }
-                  }}
-                >
-                  {item.key === "portfolio" ? (
-                    <span aria-hidden className="grid grid-cols-2 gap-[2px] w-3.5 h-3.5 shrink-0">
-                      <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
-                      <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
-                      <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
-                      <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
-                    </span>
+                <div key={item.key} className="contents">
+                  {showNavSection ? (
+                    <>
+                      <div className="studio-rail-rule" aria-hidden />
+                      <div className="studio-rail-section">Navigation</div>
+                    </>
                   ) : null}
-                  <span>{item.label}</span>
-                </Link>
+                  <Link
+                    href={item.href}
+                    className={`studio-rail-nav-item ${item.active ? "is-active" : ""}`}
+                    aria-current={item.active ? "page" : undefined}
+                    data-testid={`nav-${item.key}`}
+                    onClick={() => {
+                      const surfaceKey = parseStudioSurface(item.key);
+                      if (projectId && surfaceKey) {
+                        noteProjectSurfaceNavIntent(projectId, surfaceKey);
+                      }
+                    }}
+                  >
+                    {item.key === "portfolio" ? (
+                      <span aria-hidden className="grid grid-cols-2 gap-[2px] w-3.5 h-3.5 shrink-0">
+                        <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
+                        <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
+                        <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
+                        <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
+                      </span>
+                    ) : (
+                      <span aria-hidden className="studio-rail-nav-glyph">
+                        {railNavGlyph(item.key)}
+                      </span>
+                    )}
+                    <span>{item.label}</span>
+                  </Link>
+                </div>
               );
             })}
             {prepNotice ? (
@@ -254,38 +319,48 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
             ) : null}
 
             {projectId && projectSpaceReady ? (
-              <div className="mt-2 space-y-1" data-testid="rail-acces-directs">
-                <div className="text-[10px] muted uppercase tracking-wide mb-1">Accès directs</div>
+              <div className="mt-1 space-y-0.5" data-testid="rail-acces-directs">
+                <div className="studio-rail-rule" aria-hidden />
+                <div className="studio-rail-section">Accès directs</div>
                 <Link
                   href={`/projects/${projectId}?surface=document`}
-                  className={`text-sm block px-2 py-1 ${
-                    surface === "document" ? "text-[var(--fig-accent-soft)]" : "muted"
+                  className={`studio-rail-direct-link ${
+                    surface === "document" ? "is-active" : ""
                   }`}
                   data-testid="nav-documents"
                   onClick={() => noteProjectSurfaceNavIntent(projectId, "document")}
                 >
-                  Documents Nora
+                  <span aria-hidden className="studio-rail-nav-glyph">
+                    ▤
+                  </span>
+                  <span>Documents Nora</span>
                 </Link>
                 <Link
                   href={`/projects/${projectId}?surface=git`}
-                  className={`text-sm block px-2 py-1 ${
-                    surface === "git" ? "text-[var(--fig-accent-soft)]" : "muted"
+                  className={`studio-rail-direct-link ${
+                    surface === "git" ? "is-active" : ""
                   }`}
                   data-testid="nav-sources-git"
                   onClick={() => noteProjectSurfaceNavIntent(projectId, "git")}
                 >
-                  Sources Git
+                  <span aria-hidden className="studio-rail-nav-glyph">
+                    ◇
+                  </span>
+                  <span>Sources Git</span>
                 </Link>
                 <Link
                   href={`/projects/${projectId}?surface=publication`}
-                  className={`text-sm block px-2 py-1 ${
-                    surface === "publication" ? "text-[var(--fig-accent-soft)]" : "muted"
+                  className={`studio-rail-direct-link ${
+                    surface === "publication" ? "is-active" : ""
                   }`}
                   data-testid="nav-resultats"
                   onClick={() => noteProjectSurfaceNavIntent(projectId, "publication")}
                   title="Publication Git existante (préparation / autorisation / dispatch) — libellé Figma provisoire"
                 >
-                  Résultats et preuves
+                  <span aria-hidden className="studio-rail-nav-glyph">
+                    ▦
+                  </span>
+                  <span>Résultats et preuves</span>
                 </Link>
               </div>
             ) : null}

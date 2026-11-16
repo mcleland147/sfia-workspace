@@ -1,0 +1,42 @@
+{
+  "viewport": {
+    "w": 1680,
+    "h": 970,
+    "dpr": 1
+  },
+  "rail": {
+    "w": 246,
+    "h": 970,
+    "widthAttr": "246",
+    "fill": "#0C101A"
+  },
+  "workspace": {
+    "w": 1357,
+    "h": 728
+  },
+  "conversation": {
+    "w": 965,
+    "h": 728
+  },
+  "aside": {
+    "w": 368,
+    "h": 728
+  },
+  "composer": {
+    "w": 923,
+    "h": 142
+  },
+  "projectName": {
+    "w": 187,
+    "h": 35,
+    "lineClamp": "2",
+    "fontSize": "13px",
+    "fontWeight": "600"
+  },
+  "send": {
+    "w": 52,
+    "h": 35,
+    "aria": "Envoyer",
+    "text": "↑"
+  }
+}

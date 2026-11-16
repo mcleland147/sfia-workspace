@@ -28,73 +28,105 @@ export function NoraConversation(props: {
 
   return (
     <div
-      className="fig-workspace fig-nora-responsive"
+      className="fig-workspace fig-nora-responsive fig-travail-workspace"
       data-figma-frame={frame}
       data-figma-mobile-frames="282:468,282:492"
       data-testid="nora-workspace"
     >
-      <section className="space-y-3">
-        <div className="fig-panel space-y-3">
-          <div className="flex flex-wrap gap-2 items-center">
-            <p className="fig-kicker !mb-0">Travail / projet</p>
-            <span className="fig-tag fig-tag-accent">PILOTE</span>
+      <section className="fig-travail-main" data-testid="nora-main">
+        <div className="fig-conversation-panel" data-testid="nora-conversation-panel">
+          <div className="fig-conversation-head">
+            <p className="fig-kicker !mb-0">Conversation du projet</p>
             <span className="fig-tag fig-tag-muted">{variantLabel}</span>
             {props.unresolvedPending ? (
               <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
             ) : null}
           </div>
+
           <div className="fig-nora-thread-shell" data-testid="nora-thread-shell">
-            <div className="space-y-3 max-h-[56vh] overflow-auto pr-1" data-testid="nora-thread">
+            <div className="fig-nora-thread" data-testid="nora-thread">
               {n === 0 ? (
                 <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
-                  <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
-                  Première conversation — écrivez pour démarrer le fil du projet. Aucun message
-                  fictif n&apos;est prérempli.
+                  <div className="fig-msg-meta">
+                    <span className="fig-msg-avatar" aria-hidden>
+                      N
+                    </span>
+                    <span className="fig-msg-role">Nora</span>
+                  </div>
+                  <p className="fig-msg-body">
+                    Première conversation — écrivez pour démarrer le fil du projet. Aucun message
+                    fictif n&apos;est prérempli.
+                  </p>
                 </div>
               ) : null}
-              {props.messages.map((m) => (
-                <article
-                  key={m.id}
-                  className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
-                >
-                  <div className="text-xs muted mb-1">
-                    {m.role === "assistant" ? "NORA" : "PILOTE"} · {m.status}
-                  </div>
-                  {m.role === "assistant" ? (
-                    <SafeMarkdown content={m.content} />
-                  ) : (
-                    <div className="whitespace-pre-wrap text-sm">{m.content}</div>
-                  )}
-                </article>
-              ))}
+              {props.messages.map((m) => {
+                const isNora = m.role === "assistant";
+                return (
+                  <article
+                    key={m.id}
+                    className={`fig-msg ${isNora ? "fig-msg-nora" : "fig-msg-pilot"}`}
+                  >
+                    <div className="fig-msg-meta">
+                      {isNora ? (
+                        <span className="fig-msg-avatar" aria-hidden>
+                          N
+                        </span>
+                      ) : null}
+                      <span className={`fig-msg-role ${isNora ? "" : "fig-msg-role-pilot"}`}>
+                        {isNora ? "Nora" : "Pilote"}
+                      </span>
+                      <span className="sr-only">{m.status}</span>
+                    </div>
+                    {isNora ? (
+                      <div className="fig-msg-body">
+                        <SafeMarkdown content={m.content} />
+                      </div>
+                    ) : (
+                      <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
+                    )}
+                  </article>
+                );
+              })}
               {props.activity === "preparing" ? (
                 <div className="fig-alert" role="status">
                   Nora prépare une réponse…
                 </div>
               ) : null}
             </div>
-            <div className="fig-composer fig-composer-sticky" data-testid="nora-composer">
+
+            <div className="fig-composer fig-composer-sticky fig-travail-composer" data-testid="nora-composer">
               <textarea
-                className="textarea"
+                className="fig-travail-composer-input"
                 value={props.draft}
                 onChange={(e) => props.onDraft(e.target.value)}
-                placeholder="Écrire à Nora…"
+                placeholder="Écrire à Nora dans ce projet…"
                 aria-label="Message à Nora"
                 data-testid="thread-draft"
+                rows={2}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
+                    e.preventDefault();
+                    props.onSend();
+                  }
+                }}
               />
-              <div className="flex flex-wrap gap-2">
+              <div className="fig-travail-composer-bar">
+                <span className="fig-travail-composer-hint">
+                  Votre message reste rattaché au projet actif
+                </span>
                 <button
-                  className="btn"
+                  type="button"
+                  className="fig-travail-composer-send"
                   disabled={props.busy || !props.draft.trim()}
                   onClick={props.onSend}
                   data-testid="thread-send"
+                  aria-label="Envoyer"
                 >
-                  Envoyer
+                  <span aria-hidden>↑</span>
                 </button>
-                <span className="text-xs muted self-center">Joindre un élément · non requis</span>
               </div>
               {props.unresolvedPending && props.onReconcile ? (
-                <div className="space-y-1" data-testid="thread-pending-banner">
+                <div className="space-y-1 mt-2" data-testid="thread-pending-banner">
                   <p className="text-xs muted">
                     Tentative non résolue — réconcilier avant un nouveau tour.
                   </p>
@@ -110,7 +142,7 @@ export function NoraConversation(props: {
                 </div>
               ) : null}
               {props.status ? (
-                <p className="text-xs muted" data-testid="thread-nora-status">
+                <p className="sr-only" data-testid="thread-nora-status" role="status">
                   {props.status}
                 </p>
               ) : null}
@@ -118,7 +150,11 @@ export function NoraConversation(props: {
           </div>
         </div>
       </section>
-      {props.aside ? <aside className="space-y-3">{props.aside}</aside> : null}
+      {props.aside ? (
+        <aside className="fig-travail-aside" data-testid="nora-aside">
+          {props.aside}
+        </aside>
+      ) : null}
     </div>
   );
 }

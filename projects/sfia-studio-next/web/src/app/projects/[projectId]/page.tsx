@@ -131,7 +131,6 @@ export default function ProjectPage() {
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [status, setStatus] = useState("");
   const [pilotageStatus, setPilotageStatus] = useState("");
-  const [decisionSummary, setDecisionSummary] = useState("");
   const [inspect, setInspect] = useState<Doc | null>(null);
   const [docUi, setDocUi] = useState<DocUiState>("READING");
   const [reviseDraft, setReviseDraft] = useState("");
@@ -311,28 +310,7 @@ export default function ProjectPage() {
   }
 
   async function refreshDurablePilotage() {
-    const [decRes, projRes] = await Promise.all([
-      fetch(`/api/projects/${params.projectId}/decisions`),
-      fetch(`/api/projects/${params.projectId}/pilotage`),
-    ]);
-    if (decRes.ok) {
-      const dj = await decRes.json();
-      const decisions = (dj.decisions ?? []) as Array<{
-        id: string;
-        kind: string;
-        state: string;
-        statement: string;
-        createdAt?: string;
-      }>;
-      const applicable = decisions.filter((d) => d.state === "APPLICABLE");
-      const latest = [...decisions].sort((a, b) =>
-        String(b.createdAt ?? "").localeCompare(String(a.createdAt ?? "")),
-      )[0];
-      setDecisionSummary(
-        `${applicable.length} applicable(s) · ${decisions.length} au journal` +
-          (latest ? ` · dernière ${latest.kind}/${latest.state}` : ""),
-      );
-    }
+    const projRes = await fetch(`/api/projects/${params.projectId}/pilotage`);
     if (projRes.ok) {
       const pj = await projRes.json();
       const cycle = pj.pilotage?.cycle ?? pj.cycle;
@@ -943,7 +921,7 @@ export default function ProjectPage() {
           busy={busy || !preparationId}
           unresolvedPending={Boolean(unresolvedPending)}
           activity={noraActivity}
-          status={[status, pilotageStatus, decisionSummary].filter(Boolean).join(" · ")}
+          status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
           onDraft={setDraft}
           onSend={() => void sendMessage()}
           onReconcile={
@@ -952,68 +930,68 @@ export default function ProjectPage() {
               : undefined
           }
           aside={
-            <>
-              <div className="fig-panel space-y-2" data-testid="travail-aside-bref">
-                <h2 className="fig-panel-title">En bref</h2>
-                <p className="text-sm muted">
-                  Un seul fil visible. Mémoire D4 récupérable au-delà des six derniers messages.
+            <div className="fig-inspector" data-testid="travail-aside-inspector">
+              <p className="fig-kicker">Contexte projet</p>
+              <h2 className="fig-inspector-title">En bref</h2>
+              <div className="fig-inspector-rule" aria-hidden />
+              <p className="fig-inspector-name" data-testid="travail-aside-bref">
+                {projectName ?? "Projet"}
+              </p>
+              <span className="fig-tag fig-tag-ok mt-2 inline-flex">
+                {statusHint && /reprise|conservé|durable/i.test(statusHint)
+                  ? "Contexte conservé"
+                  : "Projet actif"}
+              </span>
+              <div className="fig-inspector-rule" aria-hidden />
+              <p className="fig-inspector-section">Repères</p>
+              <div className="fig-inspector-card" data-testid="travail-aside-objets">
+                <p className="fig-inspector-card-title">Continuité</p>
+                <p className="fig-inspector-card-body">
+                  Fil de préparation et conversation consultables depuis Travail.
                 </p>
-                {knowledge ? (
-                  <p className="text-xs muted">
-                    Acquis capitalisés&nbsp;:{" "}
-                    {knowledge.acquis.filter((a) => a.status === "CURRENT").length}
-                    {" · "}
-                    Points ouverts&nbsp;:{" "}
-                    {knowledge.openPoints.filter((o) => o.status === "OPEN").length}
-                  </p>
-                ) : (
-                  <p className="text-xs muted">Synthèse knowledge non encore disponible.</p>
-                )}
               </div>
-              <div className="fig-panel space-y-2" data-testid="travail-aside-objets">
-                <h2 className="fig-panel-title">Objets du projet</h2>
-                <ul className="text-sm muted space-y-1">
-                  <li>Documents Nora · {documents.length}</li>
-                  <li>
-                    <button
-                      type="button"
-                      className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
-                      onClick={() => selectSurface("publication")}
-                    >
-                      Résultats et preuves
-                    </button>
-                    <span> · surface publication existante</span>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
-                      onClick={() => selectSurface("git")}
-                    >
-                      Sources Git
-                    </button>
-                  </li>
-                </ul>
+              <div className="fig-inspector-card">
+                <p className="fig-inspector-card-title">Dossier du projet</p>
+                <p className="fig-inspector-card-body">
+                  {documents.length > 0
+                    ? `${documents.length} document${documents.length > 1 ? "s" : ""} Nora disponible${documents.length > 1 ? "s" : ""}.`
+                    : "Les objets et sources du projet restent distincts du dialogue."}
+                </p>
+                <div className="fig-inspector-links">
+                  <button
+                    type="button"
+                    className="fig-inspector-link"
+                    onClick={() => selectSurface("git")}
+                  >
+                    Sources Git
+                  </button>
+                  <button
+                    type="button"
+                    className="fig-inspector-link"
+                    onClick={() => selectSurface("publication")}
+                  >
+                    Résultats et preuves
+                  </button>
+                </div>
               </div>
-              <div
-                className="fig-panel space-y-2"
-                style={{ background: "rgba(101,111,225,0.08)" }}
-                data-testid="travail-aside-clarifier"
-              >
-                <h2 className="fig-panel-title">Points à clarifier</h2>
+              <div className="fig-inspector-rule" aria-hidden />
+              <p className="fig-inspector-section">Points à clarifier</p>
+              <div data-testid="travail-aside-clarifier">
                 {(knowledge?.openPoints ?? [])
                   .filter((o) => o.status === "OPEN")
                   .slice(0, 5)
                   .map((o) => (
-                    <p key={o.id} className="text-sm">
+                    <p key={o.id} className="fig-inspector-card-body mb-2">
                       {o.statement}
                     </p>
                   ))}
                 {(knowledge?.openPoints ?? []).filter((o) => o.status === "OPEN").length === 0 ? (
-                  <p className="text-sm muted">Aucun point ouvert capitalisé.</p>
+                  <p className="fig-inspector-card-body">
+                    Seules les informations réellement connues seront affichées.
+                  </p>
                 ) : null}
               </div>
-            </>
+            </div>
           }
         />
       ) : null}
@@ -1192,10 +1170,6 @@ export default function ProjectPage() {
           onBackToThread={() => selectSurface("travail")}
         />
       ) : null}
-
-      <a className="btn secondary inline-block" href="/portfolio">
-        Retour portefeuille
-      </a>
     </ProjectChrome>
   );
 }

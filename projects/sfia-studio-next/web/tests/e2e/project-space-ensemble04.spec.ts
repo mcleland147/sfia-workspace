@@ -70,6 +70,22 @@ test.describe("Ensemble 04 project space", () => {
     await expect(page.getByTestId("nav-documents")).toBeVisible();
     await expect(page.getByTestId("nav-sources-git")).toBeVisible();
     await expect(page.getByTestId("nav-resultats")).toBeVisible();
+
+    // Visual fidelity — rail icons / separators / no duplicate portfolio footer
+    await expect(rail.getByText("Navigation", { exact: true })).toBeVisible();
+    await expect(rail.getByText("Accès directs", { exact: true })).toBeVisible();
+    await expect(rail.getByTestId("rail-project-status")).toHaveText(/Projet actif/);
+    await expect(page.getByRole("link", { name: /Retour portefeuille/i })).toHaveCount(0);
+    await expect(page.getByTestId("thread-send")).toHaveAttribute("aria-label", "Envoyer");
+    await expect(page.getByTestId("thread-send")).not.toHaveText(/Envoyer/);
+    await expect(page.getByTestId("travail-aside-inspector")).toBeVisible();
+    await expect(page.getByText(/Mémoire D4 récupérable/i)).toHaveCount(0);
+    await expect(page.getByText(/0 applicable/i)).toHaveCount(0);
+
+    const railBox = await rail.boundingBox();
+    expect(railBox?.width).toBeGreaterThanOrEqual(244);
+    expect(railBox?.width).toBeLessThanOrEqual(248);
+
     await page.getByTestId("nav-documents").click();
     await expect(page).toHaveURL(/surface=document/);
 
@@ -80,7 +96,7 @@ test.describe("Ensemble 04 project space", () => {
     await expect(page.getByTestId("project-overview")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId("rail-project-name")).toHaveText(projectName);
 
-    // T06 — Retour Portefeuille
+    // T06 — Retour Portefeuille (unique rail entry)
     await rail.getByTestId("nav-portfolio").click();
     await page.waitForURL("**/portfolio");
 
