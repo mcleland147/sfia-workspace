@@ -1273,7 +1273,7 @@ Commandes ci-dessus · PASS · BROWSER+FAKE+REAL bornés
 DEV `:3102` · RECETTE inchangée
 
 ### F. Handoff
-**à publier puis REMOTE VERIFIED**
+**HANDOFF UPDATED — REMOTE VERIFIED**
 
 ### G. Gates
 RECETTE NON · push/PR/merge/STABLE/ADOPTED/ML4D clos/Gate C : **NON / OPEN**
@@ -1285,3 +1285,7 @@ RECETTE NON · push/PR/merge/STABLE/ADOPTED/ML4D clos/Gate C : **NON / OPEN**
 3. Build : `8vsahDFPlzPO5IVsE0mX6`
 4. Login UX-003 : http://127.0.0.1:3102/login
 5. RECETTE reste UX-003 : http://127.0.0.1:3200/login
+
+## 13b. Publication handoff
+
+Statut : **REMOTE VERIFIED** — tip `808d22697d4ce64db17e1161e35f9716bd6d9515` · blob `62d7daa8bcd87e027a188a3d21ab6d1f16baaac9`
