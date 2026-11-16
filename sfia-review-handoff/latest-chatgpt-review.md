@@ -1,2295 +1,1173 @@
-# SFIA Review Pack — FULL — ML4D Sas Nora Convergence Corrected
-
-**Date:** 2026-11-16
-**Republication:** Review Pack Full complet (contenu modifié manquant dans le handoff précédent)
-**Cycle:** 8 — Delivery / implémentation · CRITICAL · EVOL
-**CKC:** absent → fallback **SFIA v2.6**
-**Verdict Cursor:** `READY WITH RESERVES — SAS NORA CONVERGENCE CORRECTED`
-**Note documentaire précédente:** `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` (diffs partiels) — **corrigée par cette republication**.
-
----
-
-## 1. GO Morris
-
-GO 16 novembre 2026 — correctif final convergence Sas Nora (API PATCH / qualification / multi-tours).
-
-Autorisé: DEV, tests, as-built, commit local, handoff L3.
-**PAS DE GO:** RECETTE, push projet, PR, merge, migration structurelle, Figma, ADOPTED, Gate C.
-
----
-
-## 2. Git Truth Check
+# SFIA Studio Next — Review Pack FULL
+## ML4D Sas Nora — Consolidation des garanties de création et des preuves de parcours
 
 | Champ | Valeur |
 | --- | --- |
-| Repo | `mcleland147/sfia-workspace` |
+| Date | 2026-11-16 |
+| GO Morris | Consolidation G1/G2/G3 — 16 novembre 2026 |
+| Profil | CRITICAL / EVOL / publish-in-cycle |
 | Branche | `feat/next-ml4d-sas-nora-convergence-20261116` |
-| HEAD correctif | `acb5ce65f189582fd6438e7c1d8c6acdd1027664` |
-| Parent | `1dfc79ff824a8c947ed7c013217ff948aaba5b06` |
-| Candidat Sas | `596718b1029f32e48c1cb5c9a6ac586372b857c1` |
-| Tree web | `c97e0be1bd91eb736d3a478f8fa29ea5f2f1e3f7` |
-| Build DEV | `4uaTx97JzcebLhzIfr8h-` @ `:3102` |
+| HEAD | `cd091385de10262918cf79bf8c86ad1d725cb9d1` |
+| Parent | `acb5ce65f189582fd6438e7c1d8c6acdd1027664` (`acb5ce65`) |
+| Tree web | `6f089bda818fa60e061f458fad928f3478e648b4` |
+| Build DEV | `T03qorYZpGs0odz56Nb9f` |
 | origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| RECETTE | `b05dacf4` / `20blGylSEta7201PgVvlw` @ `:3200` **inchangée** |
+| Contrats docs | `22ee5540052db0932149a74f53b5b389970e0118` |
+| Handoff précédent | `a148efd8` / blob `66c92fcc` |
+| RECETTE | inchangée `b05dacf4` / BUILD `20blGylSEta7201PgVvlw` @ :3200 (PID 80352 observé) |
 | Push produit | **AUCUN** |
-| Fichiers du commit | **19** (tous les diffs ci-dessous) |
+| CKC | absent → fallback SFIA v2.6 |
 
----
+## 1. Git Truth Check
 
-## 3–4. Sources, contrats, Figma
+- Repo: mcleland147/sfia-workspace (worktree local)
+- Branche/HEAD/parent/tree conformes au GO avant correctif ; un commit intégré ajouté
+- Worktree propre hors Review Pack local
+- Isolation DEV/RECETTE: RECETTE :3200 non touchée ; aucune migration nouvelle
 
-- SFIA v2.6 §4.3.0b / §6.16 / §7 / §7.10–7.11
-- Contrats docs@`22ee5540`
-- Figma `itgvCulInEnFY6DvgIegvP` 607:3…277 — non modifié
-- Handoff incomplet précédent tip `18c9505d` / blob `4d3d53a4`
+## 2. Trois écarts traités
 
----
+### G1 — Nom inspecté = autorité de création
+- **Avant:** `verifyMissionForD2Act` acceptait un nom client arbitraire en réécrivant `mission.proposedProjectName`.
+- **Après:** mission binding ne réécrit plus le nom ; `createProjectCommand` sous `FOR UPDATE` résout `resolveInspectedProjectName(projection, preview_name)` et refuse tout `projectName` qui ne matche pas ; création avec l'orthographe inspectée.
+- Replay ATTACHED / même clé+fingerprint préservé **avant** le contrôle de nom (pas de refus ACK perdu).
 
-## 5. Écarts
+### G2 — Parcours navigateur sans PATCH injecté
+- Suppression de `uniquifyInspectedNameThenCreate`.
+- T4 paramétré (`sasMaturationT4Rename`) : le nom unique est dans le message Pilote + qualification + projection + panneau + create.
+- T3: proposition via `proposedProjectName` / dialogue — **plus** de `REQUEST_EFFECT` artificiel.
+- E2E: clic Créer direct après T4.
 
-| ID | Constat | Correction |
-| --- | --- | --- |
-| A | PATCH CAS/HTTP incomplets | revision obligatoire ; 200/409/400/404/503 |
-| B | Assessment heuristique | structuré uniquement ; maturation LIVE ; `proposedProjectName` |
-| C | Preuve mono-message | multi-tours T1–T5 fixtures/PG/e2e |
+### G3 — PATCH concurrent honnête
+- Route: `writeStatus` = `APPLIED_CURRENT` | `APPLIED_SUPERSEDED` | `CONFLICT_NOT_APPLIED` | `UNKNOWN` (+ `UNCHANGED_CURRENT`).
+- UI: superseded ≠ « Aperçu corrigé » ; brouillon local conservé ; 409 = non appliqué.
 
----
+## 3. Blast radius
 
-## 6–7. Blast radius / choix
+API PATCH/create, createProjectCommand, intent binding, fixtures TEST_BOUNDARY, page sas, tests PG/E2E/UNIT, as-built/delivery-history.
+Pas de migration, Figma, gouvernance, RECETTE, push produit.
 
-PATCH API, projection, semantic-qualification, nora-adapter, conversation/service, preparation/service, intent-conduction (nom inspecté), UI, fixtures, tests. Pas de migration 014.
+## 4. Fake / Real
 
----
+| Niveau | Statut |
+| --- | --- |
+| UNIT | PASS (projection, writeStatus, maturation instructions) |
+| PG REAL | PASS (create-project, preparation-patch, intent-continuity) |
+| BROWSER/FAKE | PASS (5/5 ml4d-sas-nora-projection, multi-tours sans PATCH) |
+| NORA LIVE | **NOT PROVEN** |
+| MORRIS UI | **PENDING** |
 
-## 8. Code créé — intégral
+## 5. Contradiction PF-CRE-14 / Migration 013
 
-### `api/preparations/[preparationId]/route.ts` (POST-correctif intégral)
+Inchangées : unicité app-level vs PF-CRE-14 ouverte ; 013 additive non promue RECETTE.
 
-```typescript
-import { NextResponse } from "next/server";
-import { requireStudioSession } from "@/domains/identity/session";
-import { getPreparationContext, updatePreview } from "@/domains/preparation/service";
-import { listMessages } from "@/domains/conversation/service";
-import { getAwaitingMissionForPreparation } from "@/domains/conversation/intent-conduction";
-import { listDocuments } from "@/domains/document/service";
-import { listKnowledge } from "@/domains/knowledge/service";
-import { studioErrorResponse, toStudioError } from "@/lib/http-errors";
+## 6. Verdict
 
-export async function GET(_: Request, ctx: { params: Promise<{ preparationId: string }> }) {
-  try {
-    const session = await requireStudioSession();
-    const { preparationId } = await ctx.params;
-    const data = await getPreparationContext(session.pilotId, preparationId);
-    const msgs = await listMessages(session.pilotId, preparationId);
-    const docs = await listDocuments(session.pilotId, preparationId);
-    const knowledge = await listKnowledge(session.pilotId, preparationId);
-    // Structured awaiting mission — never parse Nora message text for binding.
-    const awaitingMission = await getAwaitingMissionForPreparation(
-      session.pilotId,
-      preparationId,
-    );
-    return NextResponse.json({
-      ...data,
-      messages: msgs,
-      documents: docs,
-      knowledge,
-      awaitingMission,
-    });
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
+**READY WITH RESERVES — SAS NORA GUARANTEES CONSOLIDATED**
 
-/**
- * Pilot aperçu correction — CAS on expectedCreationRevision required.
- * Never maps DB/conflict failures to SESSION_INVALID.
- */
-export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId: string }> }) {
-  try {
-    const session = await requireStudioSession();
-    const { preparationId } = await ctx.params;
+Réserves: Nora LIVE NOT PROVEN ; MORRIS UI PENDING ; PF-CRE-14 ; gate 013 RECETTE ; STABLE N/A.
 
-    let body: unknown;
-    try {
-      body = await req.json();
-    } catch {
-      return NextResponse.json({ error: "INVALID_REQUEST", reason: "JSON body required" }, { status: 400 });
-    }
+## 7. Fichiers de ce commit (liste)
 
-    if (!body || typeof body !== "object" || Array.isArray(body)) {
-      return NextResponse.json({ error: "INVALID_REQUEST", reason: "object body required" }, { status: 400 });
-    }
+M	projects/sfia-studio-next/construction/as-built-ml4d-sas-nora-convergence-20261116.md
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
+M	projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+M	projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+M	projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
+M	projects/sfia-studio-next/web/src/domains/preparation/projection.ts
+M	projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts
+M	projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
+M	projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
+M	projects/sfia-studio-next/web/tests/integration/preparation-patch.pg.test.ts
+M	projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts
 
-    const b = body as {
-      previewName?: unknown;
-      previewSummary?: unknown;
-      expectedCreationRevision?: unknown;
-    };
+## 8. Diffs complets exploitables
 
-    if (typeof b.expectedCreationRevision !== "number" || !Number.isFinite(b.expectedCreationRevision)) {
-      return NextResponse.json(
-        { error: "INVALID_REQUEST", reason: "expectedCreationRevision required" },
-        { status: 400 },
-      );
-    }
-    if (typeof b.previewName !== "string" || typeof b.previewSummary !== "string") {
-      return NextResponse.json(
-        { error: "INVALID_REQUEST", reason: "previewName and previewSummary strings required" },
-        { status: 400 },
-      );
-    }
-
-    const rev = await updatePreview(
-      session.pilotId,
-      preparationId,
-      b.previewName,
-      b.previewSummary,
-      b.expectedCreationRevision,
-    );
-    const data = await getPreparationContext(session.pilotId, preparationId);
-
-    // Re-read after commit: if another writer advanced revision, return coherent current state
-    // (same revision + projection pair) rather than mixing an old revision with a newer projection.
-    const confirmedRevision = data.preparation.creationRevision;
-    if (confirmedRevision !== rev) {
-      return NextResponse.json({
-        creationRevision: confirmedRevision,
-        projection: data.projection,
-        preparation: data.preparation,
-        reconciled: true,
-      });
-    }
-
-    return NextResponse.json({
-      creationRevision: rev,
-      projection: data.projection,
-      preparation: data.preparation,
-    });
-  } catch (e) {
-    const code = (e as { code?: string }).code;
-    if (code === "CONFLICT") {
-      return NextResponse.json(
-        {
-          error: "CONFLICT",
-          actualCreationRevision: (e as { actualCreationRevision?: number }).actualCreationRevision,
-        },
-        { status: 409 },
-      );
-    }
-    // FORBIDDEN on missing/foreign prep → 404 (non-disclosure); UNAVAILABLE → 503; else classified.
-    if (code === "FORBIDDEN") {
-      return NextResponse.json({ error: "NOT_FOUND" }, { status: 404 });
-    }
-    if (code === "UNAVAILABLE") {
-      return NextResponse.json(
-        { error: "DEPENDENCY_UNAVAILABLE", errorCategory: "DEPENDENCY_UNAVAILABLE" },
-        { status: 503 },
-      );
-    }
-    const mapped = studioErrorResponse(e);
-    // Guard: never advertise success/session for persistence failures.
-    if (mapped.status === 401 && toStudioError(e).code !== "SESSION_INVALID") {
-      return NextResponse.json(
-        { error: "INTERNAL", errorCategory: "INTERNAL" },
-        { status: 500 },
-      );
-    }
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
-
-```
-
-### `tests/integration/preparation-patch.pg.test.ts` (nouveau — intégral)
-
-```typescript
-/**
- * Gap A — PATCH /api/preparations/{id} CAS + HTTP classification (PG REAL).
- */
-import { beforeAll, describe, expect, it, vi } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-/**
- * COOKIE name in session.ts is frozen at module import — force DEV before any session import.
- */
-const devSessionRef = vi.hoisted(() => {
-  process.env.STUDIO_LANE = "DEV";
-  process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-  process.env.STUDIO_DEV_TEST_LOGIN = "1";
-  delete process.env.OPENAI_API_KEY;
-  return { token: "" };
-});
-
-vi.mock("next/headers", () => ({
-  cookies: async () => ({
-    get: (name: string) => {
-      const token = devSessionRef.token;
-      if (!token) return undefined;
-      // Must match session.ts studioSessionCookieName() at import time (DEV).
-      if (name !== "sfia_studio_session__DEV") return undefined;
-      return { name, value: token };
-    },
-  }),
-  headers: async () => new Headers(),
-}));
-
-import { PATCH } from "@/app/api/preparations/[preparationId]/route";
-import { createDevTestSession } from "@/domains/identity/session";
-import { db } from "@/db/client";
-import { pilots, preparations } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { newId } from "@/lib/ids";
-import {
-  applyPilotApercuCorrection,
-  getPreparationContext,
-  openOrCreatePreparation,
-  updatePreview,
-} from "@/domains/preparation/service";
-
-async function seedPilot(label: string) {
-  const id = newId("pilot");
-  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-  return id;
-}
-
-async function bindDevSession(which: "a" | "b") {
-  const sess = await createDevTestSession(which, { host: "127.0.0.1:3100" });
-  devSessionRef.token = sess.token;
-  return sess;
-}
-
-async function patchHttp(
-  preparationId: string,
-  body: unknown,
-): Promise<{ status: number; body: Record<string, unknown> }> {
-  const res = await PATCH(
-    new Request(`http://127.0.0.1:3100/api/preparations/${preparationId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    }),
-    { params: Promise.resolve({ preparationId }) },
-  );
-  let parsed: Record<string, unknown> = {};
-  try {
-    parsed = (await res.json()) as Record<string, unknown>;
-  } catch {
-    parsed = {};
-  }
-  return { status: res.status, body: parsed };
-}
-
-describe("PG REAL — preparation PATCH contract", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-    delete process.env.OPENAI_API_KEY;
-  });
-
-  it("PATCH 200: returns confirmed revision + projection + preparation", async () => {
-    const sess = await bindDevSession("a");
-    const prep = await openOrCreatePreparation(sess.pilotId);
-    const before = await getPreparationContext(sess.pilotId, prep.id);
-    const res = await patchHttp(prep.id, {
-      previewName: "Cockpit inspecté",
-      previewSummary: "Intention corrigée",
-      expectedCreationRevision: before.preparation.creationRevision,
-    });
-    expect(res.status).toBe(200);
-    expect(res.body.creationRevision).toBe(before.preparation.creationRevision + 1);
-    expect((res.body.preparation as { previewName: string }).previewName).toBe("Cockpit inspecté");
-    const proj = res.body.projection as {
-      name: { value: string; status: string; source: { kind: string } };
-    };
-    expect(proj.name.value).toBe("Cockpit inspecté");
-    expect(proj.name.status).toBe("PILOT_EXPRESSED");
-    expect(proj.name.source.kind).toBe("PILOT_UI_EDIT");
-  });
-
-  it("PATCH 400 when expectedCreationRevision missing", async () => {
-    const sess = await bindDevSession("a");
-    const prep = await openOrCreatePreparation(sess.pilotId);
-    const res = await patchHttp(prep.id, {
-      previewName: "X",
-      previewSummary: "Y",
-    });
-    expect(res.status).toBe(400);
-    expect(res.body.error).toBe("INVALID_REQUEST");
-    const row = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
-    expect(row.previewName).toBe("");
-  });
-
-  it("PATCH 409: second client with stale revision does not overwrite first", async () => {
-    const sess = await bindDevSession("a");
-    const prep = await openOrCreatePreparation(sess.pilotId);
-    const rev0 = (await getPreparationContext(sess.pilotId, prep.id)).preparation.creationRevision;
-
-    const first = await patchHttp(prep.id, {
-      previewName: "Premier gagnant",
-      previewSummary: "a",
-      expectedCreationRevision: rev0,
-    });
-    expect(first.status).toBe(200);
-    expect(first.body.creationRevision).toBe(rev0 + 1);
-
-    const second = await patchHttp(prep.id, {
-      previewName: "Deuxième perdant",
-      previewSummary: "b",
-      expectedCreationRevision: rev0,
-    });
-    expect(second.status).toBe(409);
-    expect(second.body.error).toBe("CONFLICT");
-    expect(second.body.actualCreationRevision).toBe(rev0 + 1);
-
-    const after = await getPreparationContext(sess.pilotId, prep.id);
-    expect(after.preparation.previewName).toBe("Premier gagnant");
-    expect(after.projection?.name?.value).toBe("Premier gagnant");
-    expect(after.preparation.creationRevision).toBe(rev0 + 1);
-  });
-
-  it("PATCH 404 for foreign preparation (non-disclosure)", async () => {
-    const owner = await seedPilot("PatchOwner");
-    const prep = await openOrCreatePreparation(owner);
-    await bindDevSession("a"); // different pilot session
-    const res = await patchHttp(prep.id, {
-      previewName: "Intrusion",
-      previewSummary: "x",
-      expectedCreationRevision: 1,
-    });
-    expect(res.status).toBe(404);
-    expect(res.body.error).toBe("NOT_FOUND");
-    const row = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
-    expect(row.previewName).toBe("");
-  });
-
-  it("service CAS: concurrent same revision → one APPLIED one CONFLICT", async () => {
-    const pilotId = await seedPilot("PatchRace");
-    const prep = await openOrCreatePreparation(pilotId);
-    const rev = (await getPreparationContext(pilotId, prep.id)).preparation.creationRevision;
-    const [a, b] = await Promise.all([
-      applyPilotApercuCorrection({
-        pilotId,
-        preparationId: prep.id,
-        previewName: "Race A",
-        previewSummary: "a",
-        expectedCreationRevision: rev,
-      }),
-      applyPilotApercuCorrection({
-        pilotId,
-        preparationId: prep.id,
-        previewName: "Race B",
-        previewSummary: "b",
-        expectedCreationRevision: rev,
-      }),
-    ]);
-    const statuses = [a.status, b.status].sort();
-    expect(statuses).toEqual(["APPLIED", "CONFLICT"]);
-    const ctx = await getPreparationContext(pilotId, prep.id);
-    expect(["Race A", "Race B"]).toContain(ctx.preparation.previewName);
-    expect(ctx.preparation.creationRevision).toBe(rev + 1);
-  });
-
-  it("create after PATCH uses inspected name", async () => {
-    const sess = await bindDevSession("a");
-    const prep = await openOrCreatePreparation(sess.pilotId);
-    const uniqueName = `Nom inspecté ${newId("n")}`;
-    await updatePreview(sess.pilotId, prep.id, "Ancien", "s");
-    const mid = await getPreparationContext(sess.pilotId, prep.id);
-    const patched = await patchHttp(prep.id, {
-      previewName: uniqueName,
-      previewSummary: mid.preparation.previewSummary,
-      expectedCreationRevision: mid.preparation.creationRevision,
-    });
-    expect(patched.status).toBe(200);
-    const fresh = await getPreparationContext(sess.pilotId, prep.id);
-    expect(fresh.projection?.name?.value).toBe(uniqueName);
-    const { createProjectCommand } = await import("@/domains/preparation/create-project");
-    const created = await createProjectCommand({
-      pilotId: sess.pilotId,
-      preparationId: prep.id,
-      expectedCreationRevision: fresh.preparation.creationRevision,
-      projectName: fresh.projection!.name!.value,
-      previewSummary: "s",
-      idempotencyKey: newId("idem"),
-    });
-    expect(created.status).toBe("CREATED");
-    if (created.status === "CREATED") {
-      const { projects } = await import("@/db/schema");
-      const proj = (await db.select().from(projects).where(eq(projects.id, created.projectId)))[0];
-      expect(proj?.name).toBe(uniqueName);
-    }
-  });
-});
-
-```
-
-### `tests/unit/nora-sas-maturation-instructions.test.ts` (nouveau — intégral)
-
-```typescript
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import { describe, expect, it } from "vitest";
-
-/**
- * Structural proof: LIVE agent instructions include sas maturation duties
- * in the same qualification turn (no second prompt). Does not prove LIVE cognition.
- */
-describe("Nora LIVE instructions — sas maturation (structural)", () => {
-  const src = readFileSync(
-    join(__dirname, "../../src/domains/conversation/nora-adapter.ts"),
-    "utf8",
-  );
-
-  it("embeds maturation responsibilities in QUALIFICATION_INSTRUCTIONS", () => {
-    expect(src).toContain("MATURATION DU SAS");
-    expect(src).toContain("Comprendre l'intention libre");
-    expect(src).toContain("Reformuler fidèlement");
-    expect(src).toContain("desiredOutcome / initialScope");
-    expect(src).toContain("Respecter négations et corrections");
-    expect(src).toContain("preparationAssessment");
-    expect(src).toContain("Ne jamais déduire une décision humaine");
-    expect(src).toContain("omets preparationAssessment");
-    // Single agent / single outputType — no second LLM for aperçu.
-    expect(src).toContain("outputType: NoraTurnQualificationSchema");
-    const maturationBlocks = src.split("MATURATION DU SAS").length - 1;
-    expect(maturationBlocks).toBe(1);
-  });
-});
-
-```
-
----
-
-## 8bis. Nora LIVE instructions — maturation (extrait inspectable — cœur Gap B)
-
-Fichier: `web/src/domains/conversation/nora-adapter.ts`
-Même tour, même enveloppe, `outputType: NoraTurnQualificationSchema`.
-
-```typescript
-  const QUALIFICATION_INSTRUCTIONS = [
-    SYSTEM_INSTRUCTIONS,
-    "",
-    "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
-    "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
-    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
-    "- goal = intention comprise (reformulation fidèle, sans invention).",
-    "- desiredOutcome / initialScope = seulement s'ils sont réellement exprimés ; sinon chaînes vides.",
-    "- proposedProjectName = nom de travail du sas s'il est proposé ou corrigé ; chaîne vide sinon. Préférer ce champ pour une correction de nom sans nouvel effet D2.",
-    "- clarifications = questions réellement utiles (peu nombreuses), pas une checklist.",
-    "- preparationAssessment = EXPLORING|CLARIFYING|PROPOSAL|BASE_SUFFICIENTE selon compréhension structurée — jamais un score, jamais un GO d'autorité.",
-    "- preparationAssessmentExplanation = justification qualitative courte fondée sur les acquis réels ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
-    "- Si tu n'as pas d'appréciation fiable : omets preparationAssessment (ne pas inventer BASE_SUFFICIENTE).",
-    "- Pour d2.create_project, parameters.projectName si un nom de travail est proposé (peut rejoindre proposedProjectName).",
-    "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
-    "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
-    "- Ne combine jamais documentSource et documentProposal dans le même tour.",
-    "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
-    "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
-    "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
-    "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
-    "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
-    "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
-    "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
-    "- Sas sans projet: si le Pilote demande et autorise un document D4, status=QUALIFIED avec d4.create_document REQUEST_EFFECT + documentProposal ; Studio exécutera l'effet. Ne mets pas UNAVAILABLE pour seule absence de projet ou d'outil d'écriture Nora.",
-    "",
-    "MATURATION DU SAS (préparation sans projet) — même tour, même enveloppe :",
-    "1. Comprendre l'intention libre du Pilote.",
-    "2. Reformuler fidèlement dans goal / replyDraft.",
-    "3. Identifier les questions déterminantes (clarifications).",
-    "4. Proposer une direction utile sans imposer un formulaire.",
-    "5. Expliciter les hypothèses ; ne pas les présenter comme des faits.",
-    "6. Renseigner desiredOutcome / initialScope seulement s'ils sont justifiés par l'échange.",
-    "7. Respecter négations et corrections du Pilote (y compris un nom préféré).",
-    "8. Apprécier qualitativement la possibilité de commencer (preparationAssessment).",
-    "9. Expliquer l'appréciation par les acquis réels (preparationAssessmentExplanation).",
-    "10. Ne jamais déduire une décision humaine ni un GO de création — le Pilote reste maître de Créer le projet.",
-  ].join("\n");
-
-
-```
-
----
-
-## 8ter. Fixtures multi-tours (extrait inspectable — cœur Gap C)
-
-Fichier: `web/src/domains/conversation/fixture-semantic-qualify.ts`
-
-```typescript
-export const SAS_MATURATION_T1 =
-  "J'aimerais créer un outil pour mieux accompagner les chefs de projet, mais je ne sais pas encore ce qu'il devrait faire exactement.";
-export const SAS_MATURATION_T2 =
-  "Ce qui me manque surtout, c'est de retrouver les décisions importantes et de savoir quoi faire ensuite.";
-export const SAS_MATURATION_T3 =
-  "On peut commencer par un espace personnel, avec les décisions, les points ouverts et les prochaines actions. Le travail en équipe pourra venir plus tard.";
-export const SAS_MATURATION_T4 =
-  "Je préfère l'appeler Cockpit projets plutôt qu'Assistant de pilotage.";
-
-register(
-  SAS_MATURATION_T1,
-  dialogue(
-    "Outil d'accompagnement pour chefs de projet — intention encore ouverte",
-    "Je comprends que vous souhaitez mieux accompagner les chefs de projet, sans avoir encore fixé ce que l'outil doit faire. Reformulons : un espace d'aide au pilotage, dont le rôle reste à préciser. Quelle difficulté concrète voulez-vous réduire en premier ?",
-    ["NO_EFFECT"],
-    {
-      clarifications: [
-        "Quelle difficulté concrète voulez-vous réduire en premier pour les chefs de projet ?",
-      ],
-      preparationAssessment: "EXPLORING",
-      preparationAssessmentExplanation:
-        "L'intention est libre et encore floue : aucun résultat ni périmètre n'est établi. Il est trop tôt pour affirmer une base de démarrage.",
-    },
-  ),
-);
-
-register(
-  SAS_MATURATION_T2,
-  dialogue(
-    "Retrouver les décisions importantes et savoir quoi faire ensuite",
-    "Vous visez surtout à retrouver les décisions importantes et à savoir quoi faire ensuite. C'est un résultat clair : continuité des décisions et des prochaines actions. Le périmètre exact (personnel / équipe) reste ouvert.",
-    ["NO_EFFECT"],
-    {
-      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
-      clarifications: [
-        "Souhaitez-vous commencer seul, ou le travail en équipe fait-il déjà partie du premier périmètre ?",
-      ],
-      preparationAssessment: "CLARIFYING",
-      preparationAssessmentExplanation:
-        "Un résultat visé est désormais exprimé ; le périmètre initial et un nom de travail restent à préciser.",
-    },
-  ),
-);
-
-register(
-  SAS_MATURATION_T3,
-  effect(
-    "Espace personnel : décisions, points ouverts, prochaines actions",
-    "Premier périmètre : un espace personnel avec décisions, points ouverts et prochaines actions. Le travail en équipe est une piste ultérieure, pas une décision immédiate. Nom de travail proposé : Assistant de pilotage. Cette base me paraît suffisante pour démarrer si vous le souhaitez.",
-    [
-      {
-        capabilityId: "d2.create_project",
-        mode: "REQUEST_EFFECT",
-        summary: "Proposition Assistant de pilotage",
-        parameters: { projectName: "Assistant de pilotage" },
-        constraints: [],
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ],
-    {
-      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
-      initialScope:
-        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
-      clarifications: [],
-      preparationAssessment: "BASE_SUFFICIENTE",
-      preparationAssessmentExplanation:
-        "Intention, résultat et un premier périmètre personnel sont assez clairs pour démarrer. La collaboration d'équipe reste hors du périmètre immédiat.",
-    },
-  ),
-);
-
-register(
-  SAS_MATURATION_T4,
-  // Dialogue (no REQUEST_EFFECT): name correction while a D2 mission may still await Pilot create (S05).
-  dialogue(
-    "Espace personnel de pilotage nommé Cockpit projets",
-    "Correction prise en compte : le nom de travail est Cockpit projets (et non Assistant de pilotage). Le reste de la proposition (résultat et périmètre personnel) est conservé.",
-    ["NAME_CORRECTION", "NO_EFFECT"],
-    {
-      proposedProjectName: "Cockpit projets",
-      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
-      initialScope:
-        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
-      preparationAssessment: "BASE_SUFFICIENTE",
-      preparationAssessmentExplanation:
-        "Après correction du nom, la base reste suffisante pour démarrer : résultat et périmètre personnel sont acquis ; le nom inspecté est Cockpit projets.",
-    },
-  ),
-);
-
-register(
-  "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
-  effect(
-    "Cockpit de suivi des projets",
-    "Je comprends : un cockpit pour suivre vos projets, en commençant par le portefeuille et les risques. Nom de travail proposé : Cockpit projets. Cette base me paraît suffisante pour démarrer ; les détails pourront se préciser ensuite.",
-    [
-      {
-        capabilityId: "d2.create_project",
-        mode: "REQUEST_EFFECT",
-        summary: "Création Cockpit projets",
-        parameters: { projectName: "Cockpit projets" },
-        constraints: [],
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ],
-    {
-      desiredOutcome: "Voir portefeuille et risques en un seul endroit",
-      initialScope: "Portefeuille et risques en premier",
-      preparationAssessment: "BASE_SUFFICIENTE",
-      preparationAssessmentExplanation:
-        "Intention, résultat et périmètre initial sont assez clairs pour démarrer. Les raffinements peuvent se faire dans le projet.",
-    },
-  ),
-);
-
-register(
-```
-
----
-
-## 9. Code modifié — TOUS les diffs du commit (19/19)
-
-Diff range: `1dfc79ff..acb5ce65`
-
-### `api/preparations/[preparationId]/route.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
-index a89ceee5..7cf992bd 100644
---- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
-@@ -5,6 +5,7 @@ import { listMessages } from "@/domains/conversation/service";
- import { getAwaitingMissionForPreparation } from "@/domains/conversation/intent-conduction";
- import { listDocuments } from "@/domains/document/service";
- import { listKnowledge } from "@/domains/knowledge/service";
-+import { studioErrorResponse, toStudioError } from "@/lib/http-errors";
-
- export async function GET(_: Request, ctx: { params: Promise<{ preparationId: string }> }) {
-   try {
-@@ -27,29 +28,71 @@ export async function GET(_: Request, ctx: { params: Promise<{ preparationId: st
-       awaitingMission,
-     });
-   } catch (e) {
--    const code = (e as { code?: string }).code;
--    if (code === "NOT_FOUND") return NextResponse.json({ error: "NOT_FOUND" }, { status: 404 });
--    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
-+    const mapped = studioErrorResponse(e);
-+    return NextResponse.json(mapped.body, { status: mapped.status });
-   }
- }
-
-+/**
-+ * Pilot aperçu correction — CAS on expectedCreationRevision required.
-+ * Never maps DB/conflict failures to SESSION_INVALID.
-+ */
- export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId: string }> }) {
-   try {
-     const session = await requireStudioSession();
-     const { preparationId } = await ctx.params;
--    const body = (await req.json()) as {
--      previewName?: string;
--      previewSummary?: string;
--      expectedCreationRevision?: number;
-+
-+    let body: unknown;
-+    try {
-+      body = await req.json();
-+    } catch {
-+      return NextResponse.json({ error: "INVALID_REQUEST", reason: "JSON body required" }, { status: 400 });
-+    }
-+
-+    if (!body || typeof body !== "object" || Array.isArray(body)) {
-+      return NextResponse.json({ error: "INVALID_REQUEST", reason: "object body required" }, { status: 400 });
-+    }
-+
-+    const b = body as {
-+      previewName?: unknown;
-+      previewSummary?: unknown;
-+      expectedCreationRevision?: unknown;
-     };
-+
-+    if (typeof b.expectedCreationRevision !== "number" || !Number.isFinite(b.expectedCreationRevision)) {
-+      return NextResponse.json(
-+        { error: "INVALID_REQUEST", reason: "expectedCreationRevision required" },
-+        { status: 400 },
-+      );
-+    }
-+    if (typeof b.previewName !== "string" || typeof b.previewSummary !== "string") {
-+      return NextResponse.json(
-+        { error: "INVALID_REQUEST", reason: "previewName and previewSummary strings required" },
-+        { status: 400 },
-+      );
-+    }
-+
-     const rev = await updatePreview(
-       session.pilotId,
-       preparationId,
--      body.previewName ?? "",
--      body.previewSummary ?? "",
--      body.expectedCreationRevision,
-+      b.previewName,
-+      b.previewSummary,
-+      b.expectedCreationRevision,
-     );
-     const data = await getPreparationContext(session.pilotId, preparationId);
-+
-+    // Re-read after commit: if another writer advanced revision, return coherent current state
-+    // (same revision + projection pair) rather than mixing an old revision with a newer projection.
-+    const confirmedRevision = data.preparation.creationRevision;
-+    if (confirmedRevision !== rev) {
-+      return NextResponse.json({
-+        creationRevision: confirmedRevision,
-+        projection: data.projection,
-+        preparation: data.preparation,
-+        reconciled: true,
-+      });
-+    }
-+
-     return NextResponse.json({
-       creationRevision: rev,
-       projection: data.projection,
-@@ -66,6 +109,24 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId
-         { status: 409 },
-       );
-     }
--    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
-+    // FORBIDDEN on missing/foreign prep → 404 (non-disclosure); UNAVAILABLE → 503; else classified.
-+    if (code === "FORBIDDEN") {
-+      return NextResponse.json({ error: "NOT_FOUND" }, { status: 404 });
-+    }
-+    if (code === "UNAVAILABLE") {
-+      return NextResponse.json(
-+        { error: "DEPENDENCY_UNAVAILABLE", errorCategory: "DEPENDENCY_UNAVAILABLE" },
-+        { status: 503 },
-+      );
-+    }
-+    const mapped = studioErrorResponse(e);
-+    // Guard: never advertise success/session for persistence failures.
-+    if (mapped.status === 401 && toStudioError(e).code !== "SESSION_INVALID") {
-+      return NextResponse.json(
-+        { error: "INTERNAL", errorCategory: "INTERNAL" },
-+        { status: 500 },
-+      );
-+    }
-+    return NextResponse.json(mapped.body, { status: mapped.status });
-   }
- }
-```
-
-### `app/preparations/[preparationId]/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-index ffda4a0b..8df4a8ba 100644
---- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-@@ -498,20 +498,46 @@ export default function PreparationPage() {
-         expectedCreationRevision: creationRevision,
-       }),
-     });
--    const j = await res.json();
-+    let j: {
-+      creationRevision?: number;
-+      preparation?: { previewName?: string; previewSummary?: string; creationRevision?: number };
-+      projection?: PreparationProjection | null;
-+      error?: string;
-+      actualCreationRevision?: number;
-+      reason?: string;
-+    } = {};
-+    try {
-+      j = (await res.json()) as typeof j;
-+    } catch {
-+      j = {};
-+    }
-     if (res.ok) {
-+      // Trust the coherent server pair (revision + projection + preparation) — never mix.
-       setPreviewName(j.preparation?.previewName ?? name);
-       setPreviewSummary(j.preparation?.previewSummary ?? summary);
--      setCreationRevision(j.creationRevision);
-+      setCreationRevision(
-+        typeof j.creationRevision === "number"
-+          ? j.creationRevision
-+          : (j.preparation?.creationRevision ?? creationRevision),
-+      );
-       setProjection((j.projection as PreparationProjection | null) ?? null);
-       setProjectionFreshness("current");
-       setProposalEditing(false);
--      setStatus(`Aperçu corrigé · révision ${j.creationRevision}`);
-+      setStatus(`Aperçu corrigé · révision ${j.creationRevision ?? "?"}`);
-     } else if (res.status === 409) {
--      setStatus("CONFLICT: aperçu modifié ailleurs — rechargement");
-+      setStatus(
-+        `CONFLICT: aperçu modifié ailleurs (rév. actuelle ${j.actualCreationRevision ?? "?"}) — rechargement sans écrasement`,
-+      );
-+      await reload();
-+    } else if (res.status === 401) {
-+      setStatus("Session invalide — reconnexion requise");
-+    } else if (res.status === 400) {
-+      setStatus(`Requête invalide: ${j.reason ?? j.error ?? "corps"}`);
-+    } else if (res.status === 503 || res.status === 500) {
-+      setStatus("Enregistrement non confirmé (panne) — aucun succès annoncé ; rechargement");
-       await reload();
-     } else {
--      setStatus(`Échec enregistrement aperçu`);
-+      setStatus(`Échec enregistrement aperçu (${res.status})`);
-     }
-   }
-```
-
-### `components/figma/PreparationProposal.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/PreparationProposal.tsx b/projects/sfia-studio-next/web/src/components/figma/PreparationProposal.tsx
-index 97bfadeb..b2cf861f 100644
---- a/projects/sfia-studio-next/web/src/components/figma/PreparationProposal.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/PreparationProposal.tsx
-@@ -18,8 +18,10 @@ const ASSESSMENT_LABEL: Record<string, string> = {
-   BASE_SUFFICIENTE: "Base suffisante",
- };
-
--function statusLabel(status: string | undefined): string {
--  if (status === "PILOT_EXPRESSED") return "Exprimé";
-+function statusLabel(status: string | undefined, sourceKind?: string): string {
-+  if (status === "PILOT_EXPRESSED") {
-+    return sourceKind === "PILOT_UI_EDIT" ? "Corrigé (inspection)" : "Exprimé";
-+  }
-   if (status === "NORA_PROPOSED") return "Proposé";
-   if (status === "NEEDS_CONFIRMATION") return "À préciser";
-   return "—";
-@@ -183,8 +185,8 @@ export function PreparationProposal(props: {
-                     {name}
-                   </span>
-                   {projection?.name ? (
--                    <span className="muted text-xs ml-2">
--                      · {statusLabel(projection.name.status)}
-+                    <span className="muted text-xs ml-2" data-testid="prep-field-name-provenance">
-+                      · {statusLabel(projection.name.status, projection.name.source.kind)}
-                     </span>
-                   ) : null}
-                 </div>
-```
-
-### `domains/conversation/nora-adapter.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 8993d9e6..6f2be5ee 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -436,10 +436,12 @@ async function runLiveWithTools(
-     "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
-     "- goal = intention comprise (reformulation fidèle, sans invention).",
-     "- desiredOutcome / initialScope = seulement s'ils sont réellement exprimés ; sinon chaînes vides.",
-+    "- proposedProjectName = nom de travail du sas s'il est proposé ou corrigé ; chaîne vide sinon. Préférer ce champ pour une correction de nom sans nouvel effet D2.",
-     "- clarifications = questions réellement utiles (peu nombreuses), pas une checklist.",
-     "- preparationAssessment = EXPLORING|CLARIFYING|PROPOSAL|BASE_SUFFICIENTE selon compréhension structurée — jamais un score, jamais un GO d'autorité.",
--    "- preparationAssessmentExplanation = justification qualitative courte ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
--    "- Pour d2.create_project, parameters.projectName si un nom de travail est proposé.",
-+    "- preparationAssessmentExplanation = justification qualitative courte fondée sur les acquis réels ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
-+    "- Si tu n'as pas d'appréciation fiable : omets preparationAssessment (ne pas inventer BASE_SUFFICIENTE).",
-+    "- Pour d2.create_project, parameters.projectName si un nom de travail est proposé (peut rejoindre proposedProjectName).",
-     "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
-     "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
-     "- Ne combine jamais documentSource et documentProposal dans le même tour.",
-@@ -451,6 +453,18 @@ async function runLiveWithTools(
-     "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
-     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
-     "- Sas sans projet: si le Pilote demande et autorise un document D4, status=QUALIFIED avec d4.create_document REQUEST_EFFECT + documentProposal ; Studio exécutera l'effet. Ne mets pas UNAVAILABLE pour seule absence de projet ou d'outil d'écriture Nora.",
-+    "",
-+    "MATURATION DU SAS (préparation sans projet) — même tour, même enveloppe :",
-+    "1. Comprendre l'intention libre du Pilote.",
-+    "2. Reformuler fidèlement dans goal / replyDraft.",
-+    "3. Identifier les questions déterminantes (clarifications).",
-+    "4. Proposer une direction utile sans imposer un formulaire.",
-+    "5. Expliciter les hypothèses ; ne pas les présenter comme des faits.",
-+    "6. Renseigner desiredOutcome / initialScope seulement s'ils sont justifiés par l'échange.",
-+    "7. Respecter négations et corrections du Pilote (y compris un nom préféré).",
-+    "8. Apprécier qualitativement la possibilité de commencer (preparationAssessment).",
-+    "9. Expliquer l'appréciation par les acquis réels (preparationAssessmentExplanation).",
-+    "10. Ne jamais déduire une décision humaine ni un GO de création — le Pilote reste maître de Créer le projet.",
-   ].join("\n");
-
-   const agent = new Agent({
-```
-
-### `domains/conversation/fixture-semantic-qualify.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-index 79879797..86174b7a 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-@@ -38,20 +38,23 @@ function normalizeUtterance(text: string): string {
-   return text.replace(/\s+/g, " ").trim();
- }
-
-+type QualExtras = Partial<
-+  Pick<
-+    NoraTurnQualification,
-+    | "desiredOutcome"
-+    | "initialScope"
-+    | "proposedProjectName"
-+    | "clarifications"
-+    | "preparationAssessment"
-+    | "preparationAssessmentExplanation"
-+  >
-+>;
-+
- function dialogue(
-   goal: string,
-   reply: string,
-   constraints: string[] = [],
--  extras?: Partial<
--    Pick<
--      NoraTurnQualification,
--      | "desiredOutcome"
--      | "initialScope"
--      | "clarifications"
--      | "preparationAssessment"
--      | "preparationAssessmentExplanation"
--    >
--  >,
-+  extras?: QualExtras,
- ): NoraTurnQualification {
-   return {
-     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-@@ -59,6 +62,7 @@ function dialogue(
-     goal,
-     desiredOutcome: extras?.desiredOutcome ?? "",
-     initialScope: extras?.initialScope ?? "",
-+    proposedProjectName: extras?.proposedProjectName ?? "",
-     intents: [
-       {
-         id: "i1",
-@@ -82,16 +86,7 @@ function effect(
-   goal: string,
-   reply: string,
-   intents: Array<Partial<Pick<QualifiedIntentItem, "id">> & Omit<QualifiedIntentItem, "id">>,
--  extras?: Partial<
--    Pick<
--      NoraTurnQualification,
--      | "desiredOutcome"
--      | "initialScope"
--      | "clarifications"
--      | "preparationAssessment"
--      | "preparationAssessmentExplanation"
--    >
--  >,
-+  extras?: QualExtras,
- ): NoraTurnQualification {
-   return {
-     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-@@ -99,6 +94,7 @@ function effect(
-     goal,
-     desiredOutcome: extras?.desiredOutcome ?? "",
-     initialScope: extras?.initialScope ?? "",
-+    proposedProjectName: extras?.proposedProjectName ?? "",
-     intents: intents.map((it, idx) => ({
-       ...it,
-       id: it.id ?? `i${idx + 1}`,
-@@ -182,6 +178,98 @@ register(
-   ),
- );
-
-+/** Multi-tour maturation scenario (exact utterances — TEST_BOUNDARY only). */
-+export const SAS_MATURATION_T1 =
-+  "J'aimerais créer un outil pour mieux accompagner les chefs de projet, mais je ne sais pas encore ce qu'il devrait faire exactement.";
-+export const SAS_MATURATION_T2 =
-+  "Ce qui me manque surtout, c'est de retrouver les décisions importantes et de savoir quoi faire ensuite.";
-+export const SAS_MATURATION_T3 =
-+  "On peut commencer par un espace personnel, avec les décisions, les points ouverts et les prochaines actions. Le travail en équipe pourra venir plus tard.";
-+export const SAS_MATURATION_T4 =
-+  "Je préfère l'appeler Cockpit projets plutôt qu'Assistant de pilotage.";
-+
-+register(
-+  SAS_MATURATION_T1,
-+  dialogue(
-+    "Outil d'accompagnement pour chefs de projet — intention encore ouverte",
-+    "Je comprends que vous souhaitez mieux accompagner les chefs de projet, sans avoir encore fixé ce que l'outil doit faire. Reformulons : un espace d'aide au pilotage, dont le rôle reste à préciser. Quelle difficulté concrète voulez-vous réduire en premier ?",
-+    ["NO_EFFECT"],
-+    {
-+      clarifications: [
-+        "Quelle difficulté concrète voulez-vous réduire en premier pour les chefs de projet ?",
-+      ],
-+      preparationAssessment: "EXPLORING",
-+      preparationAssessmentExplanation:
-+        "L'intention est libre et encore floue : aucun résultat ni périmètre n'est établi. Il est trop tôt pour affirmer une base de démarrage.",
-+    },
-+  ),
-+);
-+
-+register(
-+  SAS_MATURATION_T2,
-+  dialogue(
-+    "Retrouver les décisions importantes et savoir quoi faire ensuite",
-+    "Vous visez surtout à retrouver les décisions importantes et à savoir quoi faire ensuite. C'est un résultat clair : continuité des décisions et des prochaines actions. Le périmètre exact (personnel / équipe) reste ouvert.",
-+    ["NO_EFFECT"],
-+    {
-+      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
-+      clarifications: [
-+        "Souhaitez-vous commencer seul, ou le travail en équipe fait-il déjà partie du premier périmètre ?",
-+      ],
-+      preparationAssessment: "CLARIFYING",
-+      preparationAssessmentExplanation:
-+        "Un résultat visé est désormais exprimé ; le périmètre initial et un nom de travail restent à préciser.",
-+    },
-+  ),
-+);
-+
-+register(
-+  SAS_MATURATION_T3,
-+  effect(
-+    "Espace personnel : décisions, points ouverts, prochaines actions",
-+    "Premier périmètre : un espace personnel avec décisions, points ouverts et prochaines actions. Le travail en équipe est une piste ultérieure, pas une décision immédiate. Nom de travail proposé : Assistant de pilotage. Cette base me paraît suffisante pour démarrer si vous le souhaitez.",
-+    [
-+      {
-+        capabilityId: "d2.create_project",
-+        mode: "REQUEST_EFFECT",
-+        summary: "Proposition Assistant de pilotage",
-+        parameters: { projectName: "Assistant de pilotage" },
-+        constraints: [],
-+        dependsOn: [],
-+        sourceEvidence: [],
-+      },
-+    ],
-+    {
-+      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
-+      initialScope:
-+        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
-+      clarifications: [],
-+      preparationAssessment: "BASE_SUFFICIENTE",
-+      preparationAssessmentExplanation:
-+        "Intention, résultat et un premier périmètre personnel sont assez clairs pour démarrer. La collaboration d'équipe reste hors du périmètre immédiat.",
-+    },
-+  ),
-+);
-+
-+register(
-+  SAS_MATURATION_T4,
-+  // Dialogue (no REQUEST_EFFECT): name correction while a D2 mission may still await Pilot create (S05).
-+  dialogue(
-+    "Espace personnel de pilotage nommé Cockpit projets",
-+    "Correction prise en compte : le nom de travail est Cockpit projets (et non Assistant de pilotage). Le reste de la proposition (résultat et périmètre personnel) est conservé.",
-+    ["NAME_CORRECTION", "NO_EFFECT"],
-+    {
-+      proposedProjectName: "Cockpit projets",
-+      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
-+      initialScope:
-+        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
-+      preparationAssessment: "BASE_SUFFICIENTE",
-+      preparationAssessmentExplanation:
-+        "Après correction du nom, la base reste suffisante pour démarrer : résultat et périmètre personnel sont acquis ; le nom inspecté est Cockpit projets.",
-+    },
-+  ),
-+);
-+
- register(
-   "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
-   effect(
-```
-
-### `domains/conversation/service.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 7f04642a..b77dd839 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -2069,6 +2069,11 @@ export async function postUserMessageAndNora(
-       .filter((p) => p.kind === "OPEN_POINT")
-       .map((p) => p.statement)
-       .slice(0, 6);
-+    const proposedName =
-+      (qualification.proposedProjectName?.trim()
-+        ? qualification.proposedProjectName.trim()
-+        : null) ||
-+      studioIntent.proposedProjectName;
-     preparationProjectionDraft = draftProjectionFromQualification({
-       preparationId,
-       turnKey: clientIntentKey,
-@@ -2077,7 +2082,7 @@ export async function postUserMessageAndNora(
-       desiredOutcome: qualification.desiredOutcome || "",
-       initialScope: qualification.initialScope || "",
-       clarifications: qualification.clarifications ?? [],
--      proposedProjectName: studioIntent.proposedProjectName,
-+      proposedProjectName: proposedName,
-       openPointStatements: openFromQual,
-       preparationAssessment: qualification.preparationAssessment ?? null,
-       preparationAssessmentExplanation:
-```
-
-### `domains/conversation/semantic-qualification.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-index 4d4a9f90..48e32290 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-@@ -128,6 +128,11 @@ export const NoraTurnQualificationSchema = z.object({
-   desiredOutcome: z.string().max(800).default(""),
-   /** Périmètre initial lorsque réellement exprimé — ne pas inventer. */
-   initialScope: z.string().max(800).default(""),
-+  /**
-+   * Nom de travail proposé pour le sas — distinct d'un REQUEST_EFFECT D2.
-+   * Permet une correction de nom sans second acte d'effet concurrent (S05).
-+   */
-+  proposedProjectName: z.string().max(120).default(""),
-   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
-   clarifications: z.array(z.string().max(400)).max(8).default([]),
-   replyDraft: z.string().max(12000).default(""),
-@@ -220,6 +225,7 @@ export function unavailableQualification(reason: string, replyDraft = ""): NoraT
-     goal: "",
-     desiredOutcome: "",
-     initialScope: "",
-+    proposedProjectName: "",
-     intents: [],
-     clarifications: [reason.slice(0, 400)],
-     replyDraft:
-@@ -402,9 +408,13 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
-     : null;
-
-   const wantsProjectCreate = Boolean(createProject);
--  const proposedProjectName = createProject?.parameters.projectName
-+  const fromIntent = createProject?.parameters.projectName
-     ? sanitizeProposedLabel(createProject.parameters.projectName) || null
-     : null;
-+  const fromEnvelope = q.proposedProjectName?.trim()
-+    ? sanitizeProposedLabel(q.proposedProjectName) || null
-+    : null;
-+  const proposedProjectName = fromIntent || fromEnvelope;
-
-   const wantsFollowOnDocument = Boolean(
-     wantsProjectCreate &&
-```
-
-### `domains/conversation/intent-conduction.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
-index 776f6ea2..c9d7ca85 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
-@@ -410,12 +410,12 @@ export async function verifyMissionForD2Act(input: {
-     if (hinted.status === "AWAITING_PILOT_ACT") {
-       const expected = hinted.proposedProjectName?.trim();
-       const received = input.projectName?.trim();
-+      // Name may have been corrected by Nora (conversation) or Pilot (aperçu UI) after the
-+      // awaiting mission was opened. The Pilot create act remains explicit; use the inspected name.
-       if (expected && received && normalizeProjectName(expected) !== normalizeProjectName(received)) {
-         return {
--          status: "MISSION_NAME_MISMATCH",
--          reason: "projectName incompatible with awaiting mission proposal",
--          expected,
--          received,
-+          status: "OK",
-+          mission: { ...hinted, proposedProjectName: received },
-         };
-       }
-       return { status: "OK", mission: hinted };
-```
-
-### `domains/preparation/projection.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/preparation/projection.ts b/projects/sfia-studio-next/web/src/domains/preparation/projection.ts
-index a7f8cdec..0a334199 100644
---- a/projects/sfia-studio-next/web/src/domains/preparation/projection.ts
-+++ b/projects/sfia-studio-next/web/src/domains/preparation/projection.ts
-@@ -10,7 +10,11 @@ export type ProjectionFieldStatus =
-   | "NORA_PROPOSED"
-   | "NEEDS_CONFIRMATION";
-
--export type ProjectionFieldSourceKind = "PILOT_TURN" | "NORA_TURN" | "KNOWLEDGE_REF";
-+export type ProjectionFieldSourceKind =
-+  | "PILOT_TURN"
-+  | "PILOT_UI_EDIT"
-+  | "NORA_TURN"
-+  | "KNOWLEDGE_REF";
-
- export type ProposedField<T> = {
-   value: T;
-@@ -143,6 +147,16 @@ export function pilotExpressedField(value: string, editKey: string): ProposedFie
-   };
- }
-
-+/** UI aperçu correction — not a fabricated D3 conversation turn. */
-+export function pilotUiEditField(value: string, editKey: string): ProposedField<string> {
-+  return {
-+    value: value.trim().slice(0, 500),
-+    status: "PILOT_EXPRESSED",
-+    source: { kind: "PILOT_UI_EDIT", ref: editKey },
-+    isCurrent: true,
-+  };
-+}
-+
- /**
-  * Preserve Pilot-expressed fields against Nora re-proposal of the same slot.
-  * Do not clear an acquired field when the new turn leaves it empty.
-@@ -230,39 +244,21 @@ export function draftProjectionFromQualification(input: {
-     noraProposedField(q.slice(0, 400), turnKey, "NEEDS_CONFIRMATION"),
-   );
-
--  let assessment: ProjectionAssessment = "EXPLORING";
--  let explanation =
--    "Nora explore encore l'intention. Aucune base de démarrage n'est affirmée.";
--
-+  /**
-+   * Assessment is attributed to Nora only when the structured qualification provides it.
-+   * Presence of name/intention/outcome must NOT fabricate BASE_SUFFICIENTE / PROPOSAL.
-+   * D2 eligibility (canCreate) is separate from Nora's qualitative advice.
-+   */
-+  let suggestion: PreparationProjection["suggestion"] = null;
-   if (input.preparationAssessment) {
--    assessment = input.preparationAssessment;
--    explanation =
-+    const explanation =
-       input.preparationAssessmentExplanation?.trim() ||
--      (assessment === "BASE_SUFFICIENTE"
--        ? "Nora estime qu'une base de démarrage est raisonnable — suggestion qualitative, pas une autorisation."
--        : assessment === "PROPOSAL"
--          ? "Une proposition de travail est disponible."
--          : assessment === "CLARIFYING"
--            ? "Une clarification reste utile."
--            : explanation);
--  } else if (intention && openQuestions.length > 0 && !name) {
--    assessment = "CLARIFYING";
--    explanation =
--      "Des éléments sont compris, mais une clarification reste utile avant de figer un nom.";
--  } else if (intention && name && (desiredOutcome || initialScope) && openQuestions.length === 0) {
--    assessment = "BASE_SUFFICIENTE";
--    explanation =
--      "Intention, nom et premiers éléments de résultat/périmètre sont assez clairs pour démarrer.";
--  } else if (intention && name && openQuestions.length > 0) {
--    assessment = "PROPOSAL";
--    explanation =
--      "Une proposition de travail est disponible. Des points ouverts restent à préciser sans bloquer nécessairement la création.";
--  } else if (intention && name) {
--    assessment = "PROPOSAL";
--    explanation = "Une proposition de travail se dessine ; Nora peut encore préciser résultat et périmètre.";
--  } else if (intention) {
--    assessment = "CLARIFYING";
--    explanation = "Une intention se dessine ; Nora continue de clarifier le résultat et le périmètre.";
-+      "Appréciation structurée fournie par Nora — suggestion qualitative, pas une autorisation.";
-+    suggestion = {
-+      assessment: input.preparationAssessment,
-+      explanation,
-+      sourceTurnKey: turnKey,
-+    };
-   }
-
-   return {
-@@ -274,11 +270,7 @@ export function draftProjectionFromQualification(input: {
-     desiredOutcome,
-     initialScope,
-     openQuestions,
--    suggestion: {
--      assessment,
--      explanation,
--      sourceTurnKey: turnKey,
--    },
-+    suggestion,
-   };
- }
-```
-
-### `domains/preparation/service.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/preparation/service.ts b/projects/sfia-studio-next/web/src/domains/preparation/service.ts
-index 003a76b2..0e3b314c 100644
---- a/projects/sfia-studio-next/web/src/domains/preparation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/preparation/service.ts
-@@ -12,7 +12,7 @@ import {
-   type PreparationProjection,
-   mergeNoraDraftWithPrior,
-   parseProjectionJson,
--  pilotExpressedField,
-+  pilotUiEditField,
-   previewFieldsFromProjection,
-   projectionMateriallyChanged,
- } from "@/domains/preparation/projection";
-@@ -130,16 +130,18 @@ export async function applyPilotApercuCorrection(input: {
-       const prev = parseProjectionJson(row.projection_json, input.preparationId, currentRev);
-       const editKey =
-         input.editKey?.trim() ||
--        `pilot-edit:${input.preparationId}:${currentRev}:${Date.now()}`;
-+        `pilot-ui-edit:${input.preparationId}:${currentRev}:${Date.now()}`;
-       const nameRaw = input.previewName.trim();
-       const summaryRaw = input.previewSummary.trim();
-+      // Keep prior Nora suggestion if any; do not invent a Nora assessment from a UI edit.
-+      // Annotate pilot correction in explanation only when we already had a suggestion, else leave null.
-       const draft: Omit<PreparationProjection, "revision" | "observedAt"> = {
-         schemaVersion: 1,
-         preparationId: input.preparationId,
-         updatedFromTurnKey: editKey,
--        name: nameRaw ? pilotExpressedField(nameRaw.slice(0, 120), editKey) : null,
-+        name: nameRaw ? pilotUiEditField(nameRaw.slice(0, 120), editKey) : null,
-         intention: summaryRaw
--          ? pilotExpressedField(summaryRaw.slice(0, 500), editKey)
-+          ? pilotUiEditField(summaryRaw.slice(0, 500), editKey)
-           : (prev?.intention ?? null),
-         desiredOutcome: prev?.desiredOutcome ?? null,
-         initialScope: prev?.initialScope ?? null,
-@@ -147,17 +149,14 @@ export async function applyPilotApercuCorrection(input: {
-         suggestion: prev?.suggestion
-           ? {
-               ...prev.suggestion,
--              explanation:
--                prev.suggestion.explanation ||
--                "Aperçu ajusté par le Pilote — la création utilisera le nom inspecté.",
-+              explanation: [
-+                prev.suggestion.explanation?.trim(),
-+                "Aperçu ajusté explicitement par le Pilote (inspection UI) — la création utilisera le nom inspecté.",
-+              ]
-+                .filter(Boolean)
-+                .join(" "),
-             }
--          : {
--              assessment: nameRaw ? "PROPOSAL" : "EXPLORING",
--              explanation: nameRaw
--                ? "Aperçu ajusté explicitement par le Pilote."
--                : "Correction Pilote sans nom — clarification requise avant création.",
--              sourceTurnKey: editKey,
--            },
-+          : null,
-       };
-
-       if (!projectionMateriallyChanged(prev, draft) && nameRaw === (row.preview_name ?? "").trim()) {
-```
-
-### `tests/e2e/ml4d-sas-nora-projection.spec.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts
-index 7e74629d..d078c6c9 100644
---- a/projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts
-@@ -4,21 +4,65 @@ import {
-   openNewPreparation,
-   sendPrepMessage,
- } from "./helpers/g4-chat-first";
-+import {
-+  SAS_MATURATION_T1,
-+  SAS_MATURATION_T2,
-+  SAS_MATURATION_T3,
-+  SAS_MATURATION_T4,
-+} from "../../src/domains/conversation/fixture-semantic-qualify";
-
--async function loginPilotA(page: import("@playwright/test").Page) {
-+async function loginPilot(
-+  page: import("@playwright/test").Page,
-+  which: "a" | "b" = "a",
-+) {
-   await page.goto("/login");
--  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-+  await page
-+    .getByRole("button", { name: which === "a" ? "Pilote A (DEV)" : "Pilote B (DEV)" })
-+    .click();
-   await page.waitForURL("**/portfolio");
- }
-
--test.describe("ML4D Sas Nora — corrective convergence", () => {
--  test.beforeEach(async ({ page }) => {
--    await loginPilotA(page);
-+/**
-+ * Uniquify inspected name via PATCH (Gap A contract) then create — no UI adjust form.
-+ * Isolates same-pilot name CONFLICT across e2e DB pollution.
-+ */
-+async function uniquifyInspectedNameThenCreate(
-+  page: import("@playwright/test").Page,
-+  uniqueName: string,
-+): Promise<string> {
-+  const prepId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
-+  expect(prepId).toBeTruthy();
-+  const getRes = await page.request.get(`/api/preparations/${prepId}`);
-+  expect(getRes.ok()).toBeTruthy();
-+  const before = (await getRes.json()) as {
-+    preparation: { creationRevision: number; previewSummary: string };
-+  };
-+  const patchRes = await page.request.patch(`/api/preparations/${prepId}`, {
-+    data: {
-+      previewName: uniqueName,
-+      previewSummary: before.preparation.previewSummary || "aperçu inspecté",
-+      expectedCreationRevision: before.preparation.creationRevision,
-+    },
-   });
-+  expect(patchRes.status()).toBe(200);
-+  const patched = (await patchRes.json()) as { creationRevision?: number };
-+  expect(typeof patched.creationRevision).toBe("number");
-+  await page.reload();
-+  await expect(page.getByTestId("prep-field-name")).toContainText(uniqueName, { timeout: 15000 });
-+  await expect(page.getByTestId("prep-create-project")).toBeEnabled();
-+  await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
-+  await page.getByTestId("prep-create-project").click();
-+  await page.waitForURL("**/projects/**", { timeout: 30000 });
-+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-+  expect(projectId).toBeTruthy();
-+  return projectId!;
-+}
-
-+test.describe("ML4D Sas Nora — corrective convergence", () => {
-   test("AF living aperçu without primary constitute; secondary tools not permanent tabs", async ({
-     page,
-   }) => {
-+    await loginPilot(page, "a");
-     await openNewPreparation(page);
-     await expect(page.getByTestId("prep-proposal")).toBeVisible();
-     await expect(page.getByRole("button", { name: /Constituer une proposition/i })).toHaveCount(0);
-@@ -35,7 +79,8 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
-     await expect(page.getByTestId("studio-rail").getByText("Préparation en cours")).toBeVisible();
-   });
-
--  test("AF primary path: create without constitute/adjust clicks", async ({ page }) => {
-+  test("AF primary path: create without constitute/adjust UI clicks", async ({ page }) => {
-+    await loginPilot(page, "b");
-     await openNewPreparation(page);
-     await sendPrepMessage(
-       page,
-@@ -43,18 +88,18 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
-     );
-     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
-     await expect(page.getByTestId("prep-create-project")).toBeEnabled();
--    // Discriminant: never open adjust / constitute.
-     await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
--    await page.getByTestId("prep-create-project").click();
--    await page.waitForURL("**/projects/**", { timeout: 20000 });
--    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
--    expect(projectId).toBeTruthy();
-+    const unique = `Cockpit B-${Date.now()}`;
-+    const projectId = await uniquifyInspectedNameThenCreate(page, unique);
-     await page.reload();
-     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
-     await expect(page.getByText("Même fil", { exact: false })).toBeVisible({ timeout: 15000 });
-+    // Project shell may show truncated title; URL + continuity are the durable proofs.
-+    await expect(page.getByTestId("studio-rail")).toBeVisible();
-   });
-
-   test("AF secondary adjust still works (not the primary proof)", async ({ page }) => {
-+    await loginPilot(page, "a");
-     await openNewPreparation(page);
-     await sendPrepMessage(page, "Bonjour Nora depuis Playwright");
-     const projectId = await constituteAndCreateProject(page, {
-@@ -66,10 +111,56 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
-   });
-
-   test("AF negation: « pas suffisante » does not show Base suffisante", async ({ page }) => {
-+    await loginPilot(page, "a");
-     await openNewPreparation(page);
-     await sendPrepMessage(page, "Cette base n'est pas suffisante pour démarrer.");
-     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
-     await expect(page.getByTestId("prep-proposal-state")).not.toHaveText(/Base suffisante/i);
-     await expect(page.getByTestId("prep-nora-assessment")).toContainText(/pas suffisante/i);
-   });
-+
-+  test("AF multi-turn maturation: vague → outcome → scope → rename → create", async ({ page }) => {
-+    test.setTimeout(240_000);
-+    await loginPilot(page, "b");
-+    await openNewPreparation(page);
-+
-+    // T1 — vague intention: no invented name as fact, exploring
-+    await sendPrepMessage(page, SAS_MATURATION_T1);
-+    await expect(page.getByTestId("prep-proposal")).toBeVisible({ timeout: 30000 });
-+    await expect(page.getByTestId("prep-proposal-state")).not.toHaveText(/Base suffisante/i);
-+    await expect(page.getByTestId("prep-create-project")).toBeDisabled();
-+    await expect(page).toHaveURL(/\/preparations\//);
-+
-+    // T2 — desired outcome appears; still clarifying
-+    await sendPrepMessage(page, SAS_MATURATION_T2);
-+    await expect(page.getByTestId("prep-field-intention")).toContainText(/décisions importantes/i, {
-+      timeout: 30000,
-+    });
-+    await expect(page.getByTestId("prep-proposal-state")).not.toHaveText(/Base suffisante/i);
-+    await expect(page).toHaveURL(/\/preparations\//);
-+
-+    // T3 — scope + proposed name; Nora may recommend starting
-+    await sendPrepMessage(page, SAS_MATURATION_T3);
-+    await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
-+    await expect(page.getByTestId("prep-field-name")).toContainText("Assistant de pilotage");
-+    await expect(page.getByTestId("prep-proposal-state")).toHaveText(/Base suffisante/i);
-+    await expect(page.getByTestId("prep-nora-assessment")).toBeVisible();
-+    await expect(page).toHaveURL(/\/preparations\//);
-+
-+    // T4 — rename via conversation; old name must not remain current
-+    await sendPrepMessage(page, SAS_MATURATION_T4);
-+    await expect(page.getByTestId("prep-field-name")).toContainText("Cockpit projets", {
-+      timeout: 30000,
-+    });
-+    await expect(page.getByTestId("prep-field-name")).not.toHaveText("Assistant de pilotage");
-+    await expect(page.getByTestId("prep-create-project")).toBeEnabled();
-+
-+    // T5 — uniquify via PATCH (Gap A) then create; no UI adjust form
-+    const unique = `Cockpit projets MT-${Date.now()}`;
-+    const projectId = await uniquifyInspectedNameThenCreate(page, unique);
-+    await page.reload();
-+    await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
-+    await expect(page.getByText("Même fil", { exact: false })).toBeVisible({ timeout: 15000 });
-+    await expect(page.getByTestId("studio-rail")).toBeVisible();
-+  });
- });
-```
-
-### `tests/integration/create-project.pg.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
-index c46d8a64..76f29f27 100644
---- a/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
-@@ -1,7 +1,14 @@
--import { beforeAll, describe, expect, it } from "vitest";
-+import { beforeAll, describe, expect, it, vi } from "vitest";
- import { config } from "dotenv";
- config({ path: ".env.local" });
-
-+// Force DEV fixture before conversation/nora modules evaluate lane (operator .env may be RECETTE).
-+vi.hoisted(() => {
-+  process.env.STUDIO_LANE = "DEV";
-+  process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-+  delete process.env.OPENAI_API_KEY;
-+});
-+
- import { eq } from "drizzle-orm";
- import { db } from "@/db/client";
- import { pilots, preparations, projects, preparationProjectLinks } from "@/db/schema";
-@@ -27,6 +34,9 @@ describe("PostgreSQL create-project contracts", () => {
-   beforeAll(() => {
-     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-     // Integration suite must stay on deterministic Nora fixture — LIVE costs/proofs are separate.
-+    // Operator .env.local may set STUDIO_LANE=RECETTE + OPENAI_API_KEY; force DEV fixture lane.
-+    process.env.STUDIO_LANE = "DEV";
-+    process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-     delete process.env.OPENAI_API_KEY;
-   });
-
-@@ -242,6 +252,7 @@ describe("PostgreSQL create-project contracts", () => {
-     const afterEdit = await getPreparationContext(pilotId, prep.id);
-     expect(afterEdit.projection?.name?.value).toBe("Cockpit projets v2");
-     expect(afterEdit.projection?.name?.status).toBe("PILOT_EXPRESSED");
-+    expect(afterEdit.projection?.name?.source.kind).toBe("PILOT_UI_EDIT");
-     expect(afterEdit.preparation.previewName).toBe("Cockpit projets v2");
-     const created = await createProjectCommand({
-       pilotId,
-@@ -260,6 +271,65 @@ describe("PostgreSQL create-project contracts", () => {
-     }
-   });
-
-+  it("GapC multi-turn: vague → outcome → scope → rename → create (fixture path)", async () => {
-+    const {
-+      SAS_MATURATION_T1,
-+      SAS_MATURATION_T2,
-+      SAS_MATURATION_T3,
-+      SAS_MATURATION_T4,
-+    } = await import("@/domains/conversation/fixture-semantic-qualify");
-+    const pilotId = await seedPilot("Maturation");
-+    const prep = await openOrCreatePreparation(pilotId);
-+
-+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T1);
-+    let ctx = await getPreparationContext(pilotId, prep.id);
-+    expect(ctx.projection).toBeTruthy();
-+    expect(ctx.projection?.name ?? null).toBeNull();
-+    expect(ctx.projection?.desiredOutcome ?? null).toBeNull();
-+    expect(ctx.projection?.suggestion?.assessment).toBe("EXPLORING");
-+    expect(ctx.projectId ?? null).toBeNull();
-+    const rev1 = ctx.preparation.creationRevision;
-+
-+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T2);
-+    ctx = await getPreparationContext(pilotId, prep.id);
-+    expect(ctx.projection?.desiredOutcome?.value).toMatch(/décisions importantes/i);
-+    expect(ctx.projection?.initialScope ?? null).toBeNull();
-+    expect(ctx.projection?.suggestion?.assessment).toBe("CLARIFYING");
-+    expect(ctx.preparation.creationRevision).toBeGreaterThan(rev1);
-+    expect(ctx.projectId ?? null).toBeNull();
-+
-+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T3);
-+    ctx = await getPreparationContext(pilotId, prep.id);
-+    expect(ctx.projection?.name?.value).toBe("Assistant de pilotage");
-+    expect(ctx.projection?.initialScope?.value).toMatch(/Espace personnel/i);
-+    expect(ctx.projection?.suggestion?.assessment).toBe("BASE_SUFFICIENTE");
-+    expect(ctx.projectId ?? null).toBeNull();
-+
-+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T4);
-+    ctx = await getPreparationContext(pilotId, prep.id);
-+    expect(ctx.projection?.name?.value).toBe("Cockpit projets");
-+    expect(ctx.projection?.name?.value).not.toBe("Assistant de pilotage");
-+    expect(ctx.projectId ?? null).toBeNull();
-+
-+    const created = await createProjectCommand({
-+      pilotId,
-+      preparationId: prep.id,
-+      expectedCreationRevision: ctx.preparation.creationRevision,
-+      projectName: ctx.projection!.name!.value,
-+      previewSummary: ctx.preparation.previewSummary,
-+      idempotencyKey: newId("idem"),
-+    });
-+    expect(created.status).toBe("CREATED");
-+    if (created.status === "CREATED") {
-+      const proj = (
-+        await db.select().from(projects).where(eq(projects.id, created.projectId))
-+      )[0];
-+      expect(proj?.name).toBe("Cockpit projets");
-+      const msgs = await listMessages(pilotId, prep.id);
-+      expect(msgs.length).toBeGreaterThanOrEqual(8); // 4 user + 4 nora
-+    }
-+  });
-+
-   /**
-    * Morris 2026-11-16 — same-pilot name uniqueness (app-level).
-    * Diverges from design-only PF-CRE-14 (two same-name projects). Normative R2 not rewritten here.
-```
-
-### `tests/integration/intent-continuity-global.pg.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-index 6c42efc7..bcd73e47 100644
---- a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
-@@ -868,15 +868,17 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
-     const prepAfter = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
-     expect(prepAfter.status).not.toBe("ATTACHED");
-
-+    // Inspected name may diverge from the original Nora proposal (Pilot/Nora correction).
-+    // Binding remains AUTHORIZED; create uses the inspected name.
-     const nameAuth = await authorizeMissionBoundD2Create({
-       pilotId,
-       preparationId,
-       clientIntentKey: keyA,
-       projectName: "Wrong Name Entirely",
-     });
--    expect(nameAuth.outcome).toBe("FORBIDDEN");
--    if (nameAuth.outcome === "FORBIDDEN") {
--      expect(["MISSION_NAME_MISMATCH", "MISSION_KEY_MISMATCH"]).toContain(nameAuth.code);
-+    expect(nameAuth.outcome).toBe("AUTHORIZED");
-+    if (nameAuth.outcome === "AUTHORIZED") {
-+      expect(nameAuth.mission.proposedProjectName).toBe("Wrong Name Entirely");
-     }
-     expect(
-       (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]?.status,
-```
-
-### `tests/integration/preparation-patch.pg.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/integration/preparation-patch.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/preparation-patch.pg.test.ts
-new file mode 100644
-index 00000000..4003155d
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/integration/preparation-patch.pg.test.ts
-@@ -0,0 +1,219 @@
-+/**
-+ * Gap A — PATCH /api/preparations/{id} CAS + HTTP classification (PG REAL).
-+ */
-+import { beforeAll, describe, expect, it, vi } from "vitest";
-+import { config } from "dotenv";
-+config({ path: ".env.local" });
-+
-+/**
-+ * COOKIE name in session.ts is frozen at module import — force DEV before any session import.
-+ */
-+const devSessionRef = vi.hoisted(() => {
-+  process.env.STUDIO_LANE = "DEV";
-+  process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-+  process.env.STUDIO_DEV_TEST_LOGIN = "1";
-+  delete process.env.OPENAI_API_KEY;
-+  return { token: "" };
-+});
-+
-+vi.mock("next/headers", () => ({
-+  cookies: async () => ({
-+    get: (name: string) => {
-+      const token = devSessionRef.token;
-+      if (!token) return undefined;
-+      // Must match session.ts studioSessionCookieName() at import time (DEV).
-+      if (name !== "sfia_studio_session__DEV") return undefined;
-+      return { name, value: token };
-+    },
-+  }),
-+  headers: async () => new Headers(),
-+}));
-+
-+import { PATCH } from "@/app/api/preparations/[preparationId]/route";
-+import { createDevTestSession } from "@/domains/identity/session";
-+import { db } from "@/db/client";
-+import { pilots, preparations } from "@/db/schema";
-+import { eq } from "drizzle-orm";
-+import { newId } from "@/lib/ids";
-+import {
-+  applyPilotApercuCorrection,
-+  getPreparationContext,
-+  openOrCreatePreparation,
-+  updatePreview,
-+} from "@/domains/preparation/service";
-+
-+async function seedPilot(label: string) {
-+  const id = newId("pilot");
-+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-+  return id;
-+}
-+
-+async function bindDevSession(which: "a" | "b") {
-+  const sess = await createDevTestSession(which, { host: "127.0.0.1:3100" });
-+  devSessionRef.token = sess.token;
-+  return sess;
-+}
-+
-+async function patchHttp(
-+  preparationId: string,
-+  body: unknown,
-+): Promise<{ status: number; body: Record<string, unknown> }> {
-+  const res = await PATCH(
-+    new Request(`http://127.0.0.1:3100/api/preparations/${preparationId}`, {
-+      method: "PATCH",
-+      headers: { "Content-Type": "application/json" },
-+      body: JSON.stringify(body),
-+    }),
-+    { params: Promise.resolve({ preparationId }) },
-+  );
-+  let parsed: Record<string, unknown> = {};
-+  try {
-+    parsed = (await res.json()) as Record<string, unknown>;
-+  } catch {
-+    parsed = {};
-+  }
-+  return { status: res.status, body: parsed };
-+}
-+
-+describe("PG REAL — preparation PATCH contract", () => {
-+  beforeAll(() => {
-+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-+    process.env.STUDIO_LANE = "DEV";
-+    process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-+    delete process.env.OPENAI_API_KEY;
-+  });
-+
-+  it("PATCH 200: returns confirmed revision + projection + preparation", async () => {
-+    const sess = await bindDevSession("a");
-+    const prep = await openOrCreatePreparation(sess.pilotId);
-+    const before = await getPreparationContext(sess.pilotId, prep.id);
-+    const res = await patchHttp(prep.id, {
-+      previewName: "Cockpit inspecté",
-+      previewSummary: "Intention corrigée",
-+      expectedCreationRevision: before.preparation.creationRevision,
-+    });
-+    expect(res.status).toBe(200);
-+    expect(res.body.creationRevision).toBe(before.preparation.creationRevision + 1);
-+    expect((res.body.preparation as { previewName: string }).previewName).toBe("Cockpit inspecté");
-+    const proj = res.body.projection as {
-+      name: { value: string; status: string; source: { kind: string } };
-+    };
-+    expect(proj.name.value).toBe("Cockpit inspecté");
-+    expect(proj.name.status).toBe("PILOT_EXPRESSED");
-+    expect(proj.name.source.kind).toBe("PILOT_UI_EDIT");
-+  });
-+
-+  it("PATCH 400 when expectedCreationRevision missing", async () => {
-+    const sess = await bindDevSession("a");
-+    const prep = await openOrCreatePreparation(sess.pilotId);
-+    const res = await patchHttp(prep.id, {
-+      previewName: "X",
-+      previewSummary: "Y",
-+    });
-+    expect(res.status).toBe(400);
-+    expect(res.body.error).toBe("INVALID_REQUEST");
-+    const row = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
-+    expect(row.previewName).toBe("");
-+  });
-+
-+  it("PATCH 409: second client with stale revision does not overwrite first", async () => {
-+    const sess = await bindDevSession("a");
-+    const prep = await openOrCreatePreparation(sess.pilotId);
-+    const rev0 = (await getPreparationContext(sess.pilotId, prep.id)).preparation.creationRevision;
-+
-+    const first = await patchHttp(prep.id, {
-+      previewName: "Premier gagnant",
-+      previewSummary: "a",
-+      expectedCreationRevision: rev0,
-+    });
-+    expect(first.status).toBe(200);
-+    expect(first.body.creationRevision).toBe(rev0 + 1);
-+
-+    const second = await patchHttp(prep.id, {
-+      previewName: "Deuxième perdant",
-+      previewSummary: "b",
-+      expectedCreationRevision: rev0,
-+    });
-+    expect(second.status).toBe(409);
-+    expect(second.body.error).toBe("CONFLICT");
-+    expect(second.body.actualCreationRevision).toBe(rev0 + 1);
-+
-+    const after = await getPreparationContext(sess.pilotId, prep.id);
-+    expect(after.preparation.previewName).toBe("Premier gagnant");
-+    expect(after.projection?.name?.value).toBe("Premier gagnant");
-+    expect(after.preparation.creationRevision).toBe(rev0 + 1);
-+  });
-+
-+  it("PATCH 404 for foreign preparation (non-disclosure)", async () => {
-+    const owner = await seedPilot("PatchOwner");
-+    const prep = await openOrCreatePreparation(owner);
-+    await bindDevSession("a"); // different pilot session
-+    const res = await patchHttp(prep.id, {
-+      previewName: "Intrusion",
-+      previewSummary: "x",
-+      expectedCreationRevision: 1,
-+    });
-+    expect(res.status).toBe(404);
-+    expect(res.body.error).toBe("NOT_FOUND");
-+    const row = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
-+    expect(row.previewName).toBe("");
-+  });
-+
-+  it("service CAS: concurrent same revision → one APPLIED one CONFLICT", async () => {
-+    const pilotId = await seedPilot("PatchRace");
-+    const prep = await openOrCreatePreparation(pilotId);
-+    const rev = (await getPreparationContext(pilotId, prep.id)).preparation.creationRevision;
-+    const [a, b] = await Promise.all([
-+      applyPilotApercuCorrection({
-+        pilotId,
-+        preparationId: prep.id,
-+        previewName: "Race A",
-+        previewSummary: "a",
-+        expectedCreationRevision: rev,
-+      }),
-+      applyPilotApercuCorrection({
-+        pilotId,
-+        preparationId: prep.id,
-+        previewName: "Race B",
-+        previewSummary: "b",
-+        expectedCreationRevision: rev,
-+      }),
-+    ]);
-+    const statuses = [a.status, b.status].sort();
-+    expect(statuses).toEqual(["APPLIED", "CONFLICT"]);
-+    const ctx = await getPreparationContext(pilotId, prep.id);
-+    expect(["Race A", "Race B"]).toContain(ctx.preparation.previewName);
-+    expect(ctx.preparation.creationRevision).toBe(rev + 1);
-+  });
-+
-+  it("create after PATCH uses inspected name", async () => {
-+    const sess = await bindDevSession("a");
-+    const prep = await openOrCreatePreparation(sess.pilotId);
-+    const uniqueName = `Nom inspecté ${newId("n")}`;
-+    await updatePreview(sess.pilotId, prep.id, "Ancien", "s");
-+    const mid = await getPreparationContext(sess.pilotId, prep.id);
-+    const patched = await patchHttp(prep.id, {
-+      previewName: uniqueName,
-+      previewSummary: mid.preparation.previewSummary,
-+      expectedCreationRevision: mid.preparation.creationRevision,
-+    });
-+    expect(patched.status).toBe(200);
-+    const fresh = await getPreparationContext(sess.pilotId, prep.id);
-+    expect(fresh.projection?.name?.value).toBe(uniqueName);
-+    const { createProjectCommand } = await import("@/domains/preparation/create-project");
-+    const created = await createProjectCommand({
-+      pilotId: sess.pilotId,
-+      preparationId: prep.id,
-+      expectedCreationRevision: fresh.preparation.creationRevision,
-+      projectName: fresh.projection!.name!.value,
-+      previewSummary: "s",
-+      idempotencyKey: newId("idem"),
-+    });
-+    expect(created.status).toBe("CREATED");
-+    if (created.status === "CREATED") {
-+      const { projects } = await import("@/db/schema");
-+      const proj = (await db.select().from(projects).where(eq(projects.id, created.projectId)))[0];
-+      expect(proj?.name).toBe(uniqueName);
-+    }
-+  });
-+});
-```
-
-### `tests/unit/preparation-projection.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts
-index e7473f18..b7853da1 100644
---- a/projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts
-@@ -7,12 +7,13 @@ import {
-   namesConflictForSamePilot,
-   normalizeProjectNameKey,
-   pilotExpressedField,
-+  pilotUiEditField,
-   previewFieldsFromProjection,
-   projectionMateriallyChanged,
-   type PreparationProjection,
- } from "@/domains/preparation/projection";
-
--describe("preparation projection helpers (corrective)", () => {
-+describe("preparation projection helpers (final corrective)", () => {
-   it("normalizes name keys (trim, spaces, case) while preserving accents", () => {
-     expect(normalizeProjectNameKey("  Atlas   Pilot  ")).toBe("atlas pilot");
-     expect(normalizeProjectNameKey("École")).toBe("école");
-@@ -36,7 +37,25 @@ describe("preparation projection helpers (corrective)", () => {
-     expect(clarifying?.suggestion?.assessment).not.toBe("BASE_SUFFICIENTE");
-   });
-
--  it("fills desiredOutcome and initialScope from structured qualification", () => {
-+  it("does not fabricate Nora assessment from name/intention presence alone", () => {
-+    const draft = draftProjectionFromQualification({
-+      preparationId: "prep-1",
-+      turnKey: "t-no-assess",
-+      qualificationStatus: "QUALIFIED",
-+      goal: "Cockpit de suivi",
-+      desiredOutcome: "Voir portefeuille",
-+      initialScope: "Portefeuille",
-+      clarifications: [],
-+      proposedProjectName: "Cockpit projets",
-+      // no preparationAssessment
-+    });
-+    expect(draft?.name?.value).toBe("Cockpit projets");
-+    expect(draft?.suggestion).toBeNull();
-+    // D2 eligibility can still be true without Nora advice.
-+    expect(canCreateFromProjection(draft as PreparationProjection, "")).toBe(true);
-+  });
-+
-+  it("attributes BASE_SUFFICIENTE only from structured assessment", () => {
-     const draft = draftProjectionFromQualification({
-       preparationId: "prep-1",
-       turnKey: "t-rich",
-@@ -52,6 +71,7 @@ describe("preparation projection helpers (corrective)", () => {
-     expect(draft?.desiredOutcome?.value).toBe("Voir portefeuille et risques");
-     expect(draft?.initialScope?.value).toBe("Portefeuille et risques");
-     expect(draft?.suggestion?.assessment).toBe("BASE_SUFFICIENTE");
-+    expect(draft?.suggestion?.explanation).toContain("Base raisonnable");
-   });
-
-   it("preserves pilot-expressed name against Nora re-proposal", () => {
-@@ -59,17 +79,17 @@ describe("preparation projection helpers (corrective)", () => {
-       schemaVersion: 1,
-       preparationId: "prep-1",
-       revision: 2,
--      updatedFromTurnKey: "pilot-edit",
-+      updatedFromTurnKey: "pilot-ui-edit",
-       observedAt: "2026-11-16T10:00:00.000Z",
--      name: pilotExpressedField("Cockpit projets", "pilot-edit"),
--      intention: pilotExpressedField("Suivi projets", "pilot-edit"),
-+      name: pilotUiEditField("Cockpit projets", "pilot-ui-edit"),
-+      intention: pilotExpressedField("Suivi projets", "pilot-turn"),
-       desiredOutcome: null,
-       initialScope: null,
-       openQuestions: [],
-       suggestion: {
-         assessment: "PROPOSAL",
-         explanation: "corrigé",
--        sourceTurnKey: "pilot-edit",
-+        sourceTurnKey: "pilot-ui-edit",
-       },
-     };
-     const noraDraft = draftProjectionFromQualification({
-@@ -84,6 +104,7 @@ describe("preparation projection helpers (corrective)", () => {
-     const merged = mergeNoraDraftWithPrior(prior, noraDraft);
-     expect(merged.name?.value).toBe("Cockpit projets");
-     expect(merged.name?.status).toBe("PILOT_EXPRESSED");
-+    expect(merged.name?.source.kind).toBe("PILOT_UI_EDIT");
-   });
-
-   it("refuses inventing Projet sans titre", () => {
-@@ -102,6 +123,8 @@ describe("preparation projection helpers (corrective)", () => {
-       goal: "Intention A",
-       clarifications: [],
-       proposedProjectName: "Nom A",
-+      preparationAssessment: "PROPOSAL",
-+      preparationAssessmentExplanation: "Proposition de travail.",
-     })!;
-     const prev: PreparationProjection = {
-       ...draft,
-```
-
-### `tests/unit/nora-sas-maturation-instructions.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/nora-sas-maturation-instructions.test.ts b/projects/sfia-studio-next/web/tests/unit/nora-sas-maturation-instructions.test.ts
-new file mode 100644
-index 00000000..d45f24b6
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/unit/nora-sas-maturation-instructions.test.ts
-@@ -0,0 +1,29 @@
-+import { readFileSync } from "node:fs";
-+import { join } from "node:path";
-+import { describe, expect, it } from "vitest";
-+
-+/**
-+ * Structural proof: LIVE agent instructions include sas maturation duties
-+ * in the same qualification turn (no second prompt). Does not prove LIVE cognition.
-+ */
-+describe("Nora LIVE instructions — sas maturation (structural)", () => {
-+  const src = readFileSync(
-+    join(__dirname, "../../src/domains/conversation/nora-adapter.ts"),
-+    "utf8",
-+  );
-+
-+  it("embeds maturation responsibilities in QUALIFICATION_INSTRUCTIONS", () => {
-+    expect(src).toContain("MATURATION DU SAS");
-+    expect(src).toContain("Comprendre l'intention libre");
-+    expect(src).toContain("Reformuler fidèlement");
-+    expect(src).toContain("desiredOutcome / initialScope");
-+    expect(src).toContain("Respecter négations et corrections");
-+    expect(src).toContain("preparationAssessment");
-+    expect(src).toContain("Ne jamais déduire une décision humaine");
-+    expect(src).toContain("omets preparationAssessment");
-+    // Single agent / single outputType — no second LLM for aperçu.
-+    expect(src).toContain("outputType: NoraTurnQualificationSchema");
-+    const maturationBlocks = src.split("MATURATION DU SAS").length - 1;
-+    expect(maturationBlocks).toBe(1);
-+  });
-+});
-```
-
-### `tests/helpers/semantic-fixture-envelopes.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/helpers/semantic-fixture-envelopes.ts b/projects/sfia-studio-next/web/tests/helpers/semantic-fixture-envelopes.ts
-index 3de2eb1b..5589e302 100644
---- a/projects/sfia-studio-next/web/tests/helpers/semantic-fixture-envelopes.ts
-+++ b/projects/sfia-studio-next/web/tests/helpers/semantic-fixture-envelopes.ts
-@@ -65,6 +65,7 @@ export function dialogueEnvelope(
-     goal,
-     desiredOutcome: "",
-     initialScope: "",
-+    proposedProjectName: "",
-     intents: normalizeIntents([
-       {
-         capabilityId: "d3.converse",
-@@ -85,6 +86,7 @@ export function clarificationEnvelope(goal: string, clarifications: string[], re
-     goal,
-     desiredOutcome: "",
-     initialScope: "",
-+    proposedProjectName: "",
-     intents: [],
-     clarifications,
-     replyDraft: reply,
-@@ -102,6 +104,7 @@ export function effectEnvelope(
-     goal,
-     desiredOutcome: "",
-     initialScope: "",
-+    proposedProjectName: "",
-     intents: normalizeIntents(intents),
-     clarifications: [],
-     replyDraft: reply,
-```
-
-### `construction/as-built-ml4d-sas-nora-convergence-20261116.md`
-
-```diff
 diff --git a/projects/sfia-studio-next/construction/as-built-ml4d-sas-nora-convergence-20261116.md b/projects/sfia-studio-next/construction/as-built-ml4d-sas-nora-convergence-20261116.md
-index c1f46c92..bcab3836 100644
+index bcab3836..5a12dba8 100644
 --- a/projects/sfia-studio-next/construction/as-built-ml4d-sas-nora-convergence-20261116.md
 +++ b/projects/sfia-studio-next/construction/as-built-ml4d-sas-nora-convergence-20261116.md
-@@ -1,54 +1,54 @@
--# As-built — ML4D Sas Nora convergence + corrective (2026-11-16)
-+# As-built — ML4D Sas Nora convergence + correctifs (2026-11-16)
+@@ -1,16 +1,16 @@
+-# As-built — ML4D Sas Nora convergence + correctifs (2026-11-16)
++# As-built — ML4D Sas Nora convergence + garanties de création (2026-11-16)
 
  | Champ | Valeur |
  | --- | --- |
--| Macro-lot | R5 / ML4D — Sas conversationnel + projection + création + correctif |
-+| Macro-lot | R5 / ML4D — Sas conversationnel + projection + création + correctifs |
+-| Macro-lot | R5 / ML4D — Sas conversationnel + projection + création + correctifs |
++| Macro-lot | R5 / ML4D — Sas conversationnel + projection + création + garanties |
  | Type | EVOL / MINOR candidate · **NO RELEASE** |
  | Base UX-004 | `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
--| Candidat Sas initial | `596718b1029f32e48c1cb5c9a6ac586372b857c1` |
-+| Candidat Sas | `596718b1` → correctif `1dfc79ff` → **correctif final (ce cycle)** |
+-| Candidat Sas | `596718b1` → correctif `1dfc79ff` → **correctif final (ce cycle)** |
++| Candidat Sas | `596718b1` → `1dfc79ff` → `acb5ce65` → **garanties G1/G2/G3 (ce cycle)** |
  | Branche | `feat/next-ml4d-sas-nora-convergence-20261116` |
  | Contrats | docs@`22ee5540` (fonctionnel + technique) |
  | Figma | `itgvCulInEnFY6DvgIegvP` 607:3…277 — VALIDATED UX Morris, non modifié |
  | Lane | DEV only — RECETTE inchangée |
--| Build DEV (correctif) | `9uKvoZLw0AsjIFm46-eAC` @ `127.0.0.1:3102` |
-+| Build DEV | `4uaTx97JzcebLhzIfr8h-` @ `127.0.0.1:3102` |
+-| Build DEV | `4uaTx97JzcebLhzIfr8h-` @ `127.0.0.1:3102` |
++| Build DEV | `T03qorYZpGs0odz56Nb9f` @ `127.0.0.1:3102` (attendu) |
  | RECETTE | `b05dacf4` / BUILD `20blGylSEta7201PgVvlw` @ `:3200` — **non modifiée** |
 
  ## Architecture
-
--1. Tour Nora unique → qualification structurée (`desiredOutcome`, `initialScope`, `preparationAssessment*`).
-+1. Tour Nora unique → qualification structurée (`desiredOutcome`, `initialScope`, `proposedProjectName`, `preparationAssessment*`).
+@@ -18,18 +18,18 @@
+ 1. Tour Nora unique → qualification structurée (`desiredOutcome`, `initialScope`, `proposedProjectName`, `preparationAssessment*`).
  2. Draft projection après qualification ; **persistance seulement après commit terminal COMPLETE**.
--3. `mergeNoraDraftWithPrior` protège les champs `PILOT_EXPRESSED`.
--4. `updatePreview` / PATCH = `applyPilotApercuCorrection` (preview + projection, même révision).
--5. Création : `createProjectCommand` + verrou advisory pilote `sfia:d2:project-name` puis clé d’idempotence ; comparaison JS unique (`normalizeProjectNameKey` / `namesConflictForSamePilot`).
--6. UI : conversation + aperçu ; outils Journal/Documents en secondaire (`<details>`).
-+3. `mergeNoraDraftWithPrior` protège les champs `PILOT_EXPRESSED` / `PILOT_UI_EDIT`.
-+4. PATCH aperçu = `applyPilotApercuCorrection` + CAS `expectedCreationRevision` **obligatoire** ; HTTP 409/400/401/404/503 classifiés (jamais conflit/DB → SESSION_INVALID).
-+5. Assessment Nora **uniquement** si fourni dans la qualification (pas d’heuristique name+intention → BASE_SUFFICIENTE).
-+6. Création : `createProjectCommand` + verrou pilote ; nom inspecté après correction accepté sur mission awaiting.
-+7. UI : conversation + aperçu ; Journal/Documents secondaires.
+ 3. `mergeNoraDraftWithPrior` protège les champs `PILOT_EXPRESSED` / `PILOT_UI_EDIT`.
+-4. PATCH aperçu = `applyPilotApercuCorrection` + CAS `expectedCreationRevision` **obligatoire** ; HTTP 409/400/401/404/503 classifiés (jamais conflit/DB → SESSION_INVALID).
+-5. Assessment Nora **uniquement** si fourni dans la qualification (pas d’heuristique name+intention → BASE_SUFFICIENTE).
+-6. Création : `createProjectCommand` + verrou pilote ; nom inspecté après correction accepté sur mission awaiting.
+-7. UI : conversation + aperçu ; Journal/Documents secondaires.
++4. PATCH aperçu = `applyPilotApercuCorrection` + CAS `expectedCreationRevision` **obligatoire** ; résultat classifié `APPLIED_CURRENT` / `APPLIED_SUPERSEDED` / `CONFLICT_NOT_APPLIED` / `UNKNOWN`.
++5. Assessment Nora **uniquement** si fourni dans la qualification (pas d’heuristique).
++6. Création : `createProjectCommand` sous verrou ; **nom = proposition D2 inspectée** (projection.name sinon preview_name) ; refus d’un nom client arbitraire.
++7. UI : conversation + aperçu ; Journal/Documents secondaires ; pas de succès trompeur sur PATCH superseded.
 
--## Quatre écarts corrigés
-+## Écarts de ce correctif final
+-## Écarts de ce correctif final
++## Garanties consolidées (ce cycle)
 
--| Écart | Cause | Correction |
-+| Écart | Constat | Correction |
+ | Écart | Constat | Correction |
  | --- | --- | --- |
--| A Unicité concurrente | Verrou seulement sur idempotencyKey | Advisory lock pilote avant check ; comparaison JS (pas SQL `lower`) |
--| B Correction Pilote | PATCH preview sans projection | `applyPilotApercuCorrection` ; create via `inspectedCreatePayload` (pas « Projet sans titre ») |
--| C Maturation Nora | Regex « suffisant » ; outcome/scope null ; projection avant commit | Champs structurés ; assessment typé ; persist post-commit |
--| D UI sas | Onglets Discussion/Journal/Documents permanents | Outils secondaires ; pas de chrome projet avant création |
-+| A PATCH | CAS partiel ; erreurs → 401 | `expectedCreationRevision` requis ; 200 cohérent ; 409/400/404/503 |
-+| B Qualification | Heuristique fabriquait l’appréciation | Assessment seulement si structuré ; instructions LIVE maturation ; `proposedProjectName` |
-+| C Multi-tours | E2E mono-message riche | Fixtures T1–T4 + PG GapC + e2e multi-tours |
+-| A PATCH | CAS partiel ; erreurs → 401 | `expectedCreationRevision` requis ; 200 cohérent ; 409/400/404/503 |
+-| B Qualification | Heuristique fabriquait l’appréciation | Assessment seulement si structuré ; instructions LIVE maturation ; `proposedProjectName` |
+-| C Multi-tours | E2E mono-message riche | Fixtures T1–T4 + PG GapC + e2e multi-tours |
++| G1 Nom inspecté | Mission binding acceptait un nom client arbitraire | Contrôle décisif sous `FOR UPDATE` dans `createProjectCommand` ; mission non réécrite depuis le payload |
++| G2 Parcours navigateur | E2E multi-tours PATCH injecté avant Créer | T1→T5 conversationnel avec nom unique ; aucun PATCH de rattrapage ; T3 sans `REQUEST_EFFECT` artificiel |
++| G3 PATCH concurrent | 200 + « Aperçu corrigé » après supersession | `writeStatus` honnête ; UI distingue courant / remplacé / non appliqué |
 
  ## Contradiction PF-CRE-14
 
--Orientation Morris (unicité / Pilote) vs PF-CRE-14 (homonymes autorisés). Implémentation locale app-level. **R2 non réécrit.** Gate Morris D2 ouvert.
-+Orientation Morris (unicité / Pilote) vs PF-CRE-14. **R2 non réécrit.** Gate Morris ouvert.
-
- ## Migration 013
-
--`projection_json` jsonb additive — présente dans le candidat. Ce GO ne promeut pas RECETTE. Gate migration explicite avant mise à disposition RECETTE. Rollback logique = revert code ; `DROP COLUMN` perd les projections enregistrées.
-+Additive `projection_json` — **non promue RECETTE** par ce GO. Aucune migration 014.
-
- ## Preuves
+@@ -43,11 +43,11 @@ Additive `projection_json` — **non promue RECETTE** par ce GO. Aucune migratio
 
  | Niveau | Résultat |
  | --- | --- |
--| UNIT projection / rail | PASS |
--| PG REAL (21) dont GapA concurrent + GapB correction | PASS |
--| BROWSER FAKE sas corrective (4) | PASS (parcours sans formulaire + négation) |
--| UX-003/004 | voir Review Pack |
-+| UNIT projection + instructions LIVE structurelles | PASS |
-+| PG REAL create-project + PATCH | PASS |
-+| BROWSER FAKE sas (dont multi-tours) | voir Review Pack |
-+| UX-003/004 | PASS (cycle) |
+-| UNIT projection + instructions LIVE structurelles | PASS |
+-| PG REAL create-project + PATCH | PASS |
+-| BROWSER FAKE sas (dont multi-tours) | voir Review Pack |
+-| UX-003/004 | PASS (cycle) |
++| UNIT projection / writeStatus / instructions LIVE structurelles | PASS |
++| PG REAL create-project + PATCH + intent-continuity | PASS |
++| BROWSER FAKE sas (multi-tours sans PATCH) | PASS |
  | NORA LIVE | **NOT PROVEN** |
++| MORRIS UI | **PENDING** |
 
  ## Rollback
 
--Revert commit correctif (+ candidat Sas si besoin). Aucune migration destructive ajoutée dans ce correctif.
-+Revert commit(s) correctifs. Aucune migration destructive.
-```
-
-### `construction/delivery-history.md`
-
-```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 69114eb2..ba05ace5 100644
+index ba05ace5..8ee33ba0 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -25,6 +25,22 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
+@@ -25,6 +25,24 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
  ---
 
-+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CONVERGENCE-CORRECTED
++## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-GUARANTEES
 +
 +| Field | Value |
 +| --- | --- |
-+| Date | 2026-11-16 ~12:40 CET (Europe/Paris) |
-+| Macro-lot | ML4D — Sas Nora correctif final (PATCH API / qualification / multi-tours) |
++| Date | 2026-11-16 ~13:10 CET (Europe/Paris) |
++| Macro-lot | ML4D — Sas Nora consolidation garanties création / parcours / PATCH |
 +| Type | EVOL / MINOR candidate · **NO RELEASE** |
 +| Branch locale | `feat/next-ml4d-sas-nora-convergence-20261116` |
-+| Parent tip | `1dfc79ff824a8c947ed7c013217ff948aaba5b06` |
-+| Changes | PATCH CAS+HTTP ; assessment sans heuristique ; proposedProjectName ; multi-tours T1–T5 ; mission name binding accepte nom inspecté |
++| Parent tip | `acb5ce65f189582fd6438e7c1d8c6acdd1027664` |
++| Changes | G1 nom D2 inspecté sous verrou ; G2 E2E T1→T5 sans PATCH ; G3 writeStatus APPLIED_CURRENT/SUPERSEDED ; T3 sans REQUEST_EFFECT artificiel |
 +| Schema | aucune nouvelle migration (013 inchangée) |
-+| Limites | PF-CRE-14 ouvert ; Nora LIVE NOT PROVEN ; gate 013 avant RECETTE |
-+| Lanes | DEV `:3102` BUILD `4uaTx97JzcebLhzIfr8h-` ; RECETTE `:3200` **inchangée** (`b05dacf4` / `20blGylSEta7201PgVvlw`) |
++| Compatibilité | correctif compatible candidat MINOR |
++| Tests | UNIT projection/writeStatus PASS ; PG create/PATCH/intent PASS ; BROWSER multi-tours sans PATCH PASS |
++| Limites | PF-CRE-14 ouvert ; Nora LIVE NOT PROVEN ; MORRIS UI PENDING ; gate 013 avant RECETTE |
++| Lanes | DEV BUILD `T03qorYZpGs0odz56Nb9f` ; RECETTE `:3200` **inchangée** (`b05dacf4` / `20blGylSEta7201PgVvlw`) |
 +| Push Product | **AUCUN** |
-+| Verdict candidat | `READY WITH RESERVES — SAS NORA CONVERGENCE CORRECTED` |
++| Verdict candidat | `READY WITH RESERVES — SAS NORA GUARANTEES CONSOLIDATED` |
 +
- ## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CORRECTIVE
+ ## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CONVERGENCE-CORRECTED
 
  | Field | Value |
-```
+diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
+index 7cf992bd..eb014562 100644
+--- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
+@@ -1,6 +1,10 @@
+ import { NextResponse } from "next/server";
+ import { requireStudioSession } from "@/domains/identity/session";
+-import { getPreparationContext, updatePreview } from "@/domains/preparation/service";
++import {
++  applyPilotApercuCorrection,
++  getPreparationContext,
++} from "@/domains/preparation/service";
++import { classifyPilotPatchWrite } from "@/domains/preparation/projection";
+ import { listMessages } from "@/domains/conversation/service";
+ import { getAwaitingMissionForPreparation } from "@/domains/conversation/intent-conduction";
+ import { listDocuments } from "@/domains/document/service";
+@@ -72,31 +76,57 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId
+       );
+     }
 
+-    const rev = await updatePreview(
+-      session.pilotId,
++    const applied = await applyPilotApercuCorrection({
++      pilotId: session.pilotId,
+       preparationId,
+-      b.previewName,
+-      b.previewSummary,
+-      b.expectedCreationRevision,
+-    );
+-    const data = await getPreparationContext(session.pilotId, preparationId);
++      previewName: b.previewName,
++      previewSummary: b.previewSummary,
++      expectedCreationRevision: b.expectedCreationRevision,
++    });
 
----
+-    // Re-read after commit: if another writer advanced revision, return coherent current state
+-    // (same revision + projection pair) rather than mixing an old revision with a newer projection.
+-    const confirmedRevision = data.preparation.creationRevision;
+-    if (confirmedRevision !== rev) {
+-      return NextResponse.json({
+-        creationRevision: confirmedRevision,
+-        projection: data.projection,
+-        preparation: data.preparation,
+-        reconciled: true,
+-      });
++    if (applied.status === "CONFLICT") {
++      return NextResponse.json(
++        {
++          error: "CONFLICT",
++          writeStatus: "CONFLICT_NOT_APPLIED" as const,
++          actualCreationRevision: applied.actualRevision,
++        },
++        { status: 409 },
++      );
++    }
++    if (applied.status === "FORBIDDEN") {
++      return NextResponse.json({ error: "NOT_FOUND" }, { status: 404 });
++    }
++    if (applied.status === "UNAVAILABLE") {
++      return NextResponse.json(
++        {
++          error: "DEPENDENCY_UNAVAILABLE",
++          errorCategory: "DEPENDENCY_UNAVAILABLE",
++          writeStatus: "UNKNOWN" as const,
++        },
++        { status: 503 },
++      );
+     }
 
-## 10–12. PATCH HTTP
++    // Post-commit observation: distinguish still-current write from a later superseding write.
++    const data = await getPreparationContext(session.pilotId, preparationId);
++    const appliedRevision = applied.revision;
++    const observedRevision = data.preparation.creationRevision;
++    const writeStatus = classifyPilotPatchWrite({
++      applyStatus: applied.status,
++      appliedRevision,
++      observedRevision,
++    });
++
+     return NextResponse.json({
+-      creationRevision: rev,
++      writeStatus,
++      appliedRevision,
++      creationRevision: observedRevision,
++      appliedProjection: applied.projection,
+       projection: data.projection,
+       preparation: data.preparation,
++      // Legacy flag: true only when a later write already superseded this one.
++      reconciled: writeStatus === "APPLIED_SUPERSEDED",
+     });
+   } catch (e) {
+     const code = (e as { code?: string }).code;
+@@ -104,6 +134,7 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId
+       return NextResponse.json(
+         {
+           error: "CONFLICT",
++          writeStatus: "CONFLICT_NOT_APPLIED",
+           actualCreationRevision: (e as { actualCreationRevision?: number }).actualCreationRevision,
+         },
+         { status: 409 },
+@@ -115,7 +146,11 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId
+     }
+     if (code === "UNAVAILABLE") {
+       return NextResponse.json(
+-        { error: "DEPENDENCY_UNAVAILABLE", errorCategory: "DEPENDENCY_UNAVAILABLE" },
++        {
++          error: "DEPENDENCY_UNAVAILABLE",
++          errorCategory: "DEPENDENCY_UNAVAILABLE",
++          writeStatus: "UNKNOWN",
++        },
+         { status: 503 },
+       );
+     }
+diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+index 8df4a8ba..c124823f 100644
+--- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+@@ -499,9 +499,12 @@ export default function PreparationPage() {
+       }),
+     });
+     let j: {
++      writeStatus?: string;
++      appliedRevision?: number;
+       creationRevision?: number;
+       preparation?: { previewName?: string; previewSummary?: string; creationRevision?: number };
+       projection?: PreparationProjection | null;
++      appliedProjection?: PreparationProjection | null;
+       error?: string;
+       actualCreationRevision?: number;
+       reason?: string;
+@@ -512,7 +515,8 @@ export default function PreparationPage() {
+       j = {};
+     }
+     if (res.ok) {
+-      // Trust the coherent server pair (revision + projection + preparation) — never mix.
++      const writeStatus = j.writeStatus ?? "APPLIED_CURRENT";
++      // Always show the coherent current pair (revision + projection + preparation).
+       setPreviewName(j.preparation?.previewName ?? name);
+       setPreviewSummary(j.preparation?.previewSummary ?? summary);
+       setCreationRevision(
+@@ -522,11 +526,24 @@ export default function PreparationPage() {
+       );
+       setProjection((j.projection as PreparationProjection | null) ?? null);
+       setProjectionFreshness("current");
+-      setProposalEditing(false);
+-      setStatus(`Aperçu corrigé · révision ${j.creationRevision ?? "?"}`);
++
++      if (writeStatus === "APPLIED_SUPERSEDED") {
++        // Write confirmed but no longer current — never announce plain « Aperçu corrigé ».
++        // Keep local draft so the Pilot can re-apply voluntarily on the newer revision.
++        setStatus(
++          `Correction enregistrée (rév. ${j.appliedRevision ?? "?"}) puis remplacée par une version plus récente (rév. ${j.creationRevision ?? "?"}) — inspectez l'état courant ; le brouillon local est conservé.`,
++        );
++        // Keep proposalEditing true with prior draft fields when in edit mode.
++      } else if (writeStatus === "UNCHANGED_CURRENT") {
++        setProposalEditing(false);
++        setStatus(`Aperçu inchangé · révision ${j.creationRevision ?? "?"}`);
++      } else {
++        setProposalEditing(false);
++        setStatus(`Aperçu corrigé · révision ${j.creationRevision ?? "?"}`);
++      }
+     } else if (res.status === 409) {
+       setStatus(
+-        `CONFLICT: aperçu modifié ailleurs (rév. actuelle ${j.actualCreationRevision ?? "?"}) — rechargement sans écrasement`,
++        `CONFLICT: correction non appliquée (rév. actuelle ${j.actualCreationRevision ?? "?"}) — rechargement sans écrasement du brouillon`,
+       );
+       await reload();
+     } else if (res.status === 401) {
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+index 86174b7a..87df6cb9 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+@@ -225,21 +225,13 @@ register(
 
-| Code | Cas |
-| --- | --- |
-| 200 | creationRevision + projection + preparation cohérents |
-| 400 | expectedCreationRevision manquant / types |
-| 401 | SESSION_INVALID seulement |
-| 404 | prep étrangère |
-| 409 | CAS + actualCreationRevision |
-| 503 | UNAVAILABLE |
+ register(
+   SAS_MATURATION_T3,
+-  effect(
++  // Proposition de démarrage ≠ REQUEST_EFFECT : proposedProjectName only; Pilot create remains D2.
++  dialogue(
+     "Espace personnel : décisions, points ouverts, prochaines actions",
+     "Premier périmètre : un espace personnel avec décisions, points ouverts et prochaines actions. Le travail en équipe est une piste ultérieure, pas une décision immédiate. Nom de travail proposé : Assistant de pilotage. Cette base me paraît suffisante pour démarrer si vous le souhaitez.",
+-    [
+-      {
+-        capabilityId: "d2.create_project",
+-        mode: "REQUEST_EFFECT",
+-        summary: "Proposition Assistant de pilotage",
+-        parameters: { projectName: "Assistant de pilotage" },
+-        constraints: [],
+-        dependsOn: [],
+-        sourceEvidence: [],
+-      },
+-    ],
++    ["NO_EFFECT", "PROPOSAL_ONLY"],
+     {
++      proposedProjectName: "Assistant de pilotage",
+       desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
+       initialScope:
+         "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
+@@ -253,7 +245,7 @@ register(
 
-Provenance: `PILOT_UI_EDIT`.
+ register(
+   SAS_MATURATION_T4,
+-  // Dialogue (no REQUEST_EFFECT): name correction while a D2 mission may still await Pilot create (S05).
++  // Dialogue (no REQUEST_EFFECT): name correction; create remains an explicit D2 Pilot act.
+   dialogue(
+     "Espace personnel de pilotage nommé Cockpit projets",
+     "Correction prise en compte : le nom de travail est Cockpit projets (et non Assistant de pilotage). Le reste de la proposition (résultat et périmètre personnel) est conservé.",
+@@ -270,30 +262,48 @@ register(
+   ),
+ );
 
----
+-register(
+-  "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
+-  effect(
++/** Build a T4 rename utterance with an isolated unique name (BROWSER uniqueness). */
++export function sasMaturationT4Rename(uniqueName: string): string {
++  return `Je préfère l'appeler ${uniqueName.trim()} plutôt qu'Assistant de pilotage.`;
++}
++
++function maturationRenameQualification(uniqueName: string): NoraTurnQualification {
++  const name = uniqueName.trim().slice(0, 120);
++  return dialogue(
++    `Espace personnel de pilotage nommé ${name}`,
++    `Correction prise en compte : le nom de travail est ${name} (et non Assistant de pilotage). Le reste de la proposition (résultat et périmètre personnel) est conservé.`,
++    ["NAME_CORRECTION", "NO_EFFECT"],
++    {
++      proposedProjectName: name,
++      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
++      initialScope:
++        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
++      preparationAssessment: "BASE_SUFFICIENTE",
++      preparationAssessmentExplanation: `Après correction du nom, la base reste suffisante pour démarrer : résultat et périmètre personnel sont acquis ; le nom inspecté est ${name}.`,
++    },
++  );
++}
++
++function cockpitNamedQualification(projectName: string): NoraTurnQualification {
++  const name = projectName.trim().slice(0, 120);
++  return dialogue(
+     "Cockpit de suivi des projets",
+-    "Je comprends : un cockpit pour suivre vos projets, en commençant par le portefeuille et les risques. Nom de travail proposé : Cockpit projets. Cette base me paraît suffisante pour démarrer ; les détails pourront se préciser ensuite.",
+-    [
+-      {
+-        capabilityId: "d2.create_project",
+-        mode: "REQUEST_EFFECT",
+-        summary: "Création Cockpit projets",
+-        parameters: { projectName: "Cockpit projets" },
+-        constraints: [],
+-        dependsOn: [],
+-        sourceEvidence: [],
+-      },
+-    ],
++    `Je comprends : un cockpit pour suivre vos projets, en commençant par le portefeuille et les risques. Nom de travail proposé : ${name}. Cette base me paraît suffisante pour démarrer ; les détails pourront se préciser ensuite.`,
++    ["NO_EFFECT", "PROPOSAL_ONLY"],
+     {
++      proposedProjectName: name,
+       desiredOutcome: "Voir portefeuille et risques en un seul endroit",
+       initialScope: "Portefeuille et risques en premier",
+       preparationAssessment: "BASE_SUFFICIENTE",
+       preparationAssessmentExplanation:
+         "Intention, résultat et périmètre initial sont assez clairs pour démarrer. Les raffinements peuvent se faire dans le projet.",
+     },
+-  ),
++  );
++}
++
++register(
++  "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
++  cockpitNamedQualification("Cockpit projets"),
+ );
 
-## 13–16. Qualification / multi-tours / tests
+ register(
+@@ -507,6 +517,11 @@ export function registerFixtureScenario(utterance: string, q: NoraTurnQualificat
+   register(utterance, q);
+ }
 
-- Assessment **uniquement** si `preparationAssessment` fourni (voir diff `projection.ts`).
-- UNIT négation + no-fabrication PASS.
-- PG GapC + PATCH 6 PASS.
-- E2E sas 5 PASS (dont multi-tours).
-- NORA LIVE **NOT PROVEN** (instructions structurelles UNIT seulement).
++const MATURATION_RENAME_RE =
++  /^Je préfère l'appeler (.+?) plutôt qu'Assistant de pilotage\.$/;
++const COCKPIT_NAMED_RE =
++  /^Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé (.+)\.$/;
++
+ export function fixtureSemanticQualify(userText: string): NoraTurnQualification {
+   assertFixtureLane();
+   const text = normalizeUtterance(userText);
+@@ -515,6 +530,16 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification
+   if (hit) {
+     return structuredClone(hit);
+   }
++  // Parameterized T4 rename: name appears in the Pilot message and structured qualification —
++  // never injected directly into D2/DB outside the normal turn path.
++  const rename = text.match(MATURATION_RENAME_RE);
++  if (rename?.[1]?.trim()) {
++    return maturationRenameQualification(rename[1]);
++  }
++  const cockpit = text.match(COCKPIT_NAMED_RE);
++  if (cockpit?.[1]?.trim()) {
++    return cockpitNamedQualification(cockpit[1]);
++  }
+   // Fail closed: unknown fixture text is dialogue-only, never a lexical invent of effects.
+   return dialogue(
+     "Dialogue fixture par défaut",
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+index c9d7ca85..19d4b0a9 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+@@ -369,20 +369,17 @@ export type MissionD2Resolve =
+   | { status: "MISSION_NAME_MISMATCH"; reason: string; expected: string; received: string }
+   | { status: "AMBIGUOUS_AWAITING"; count: number };
 
----
+-function normalizeProjectName(name: string): string {
+-  return name.trim().replace(/[.]+$/g, "").replace(/\s+/g, " ").toLowerCase();
+-}
+-
+ /**
+  * Server-authoritative binding of a D2 create act to an awaiting mission.
+  * Client clientIntentKey is a hint that must match DB truth — never silent fallback
+  * to another mission when the hint is wrong (B/C).
++ * Project name authority is D2-inspected (createProjectCommand), not mission rewrite.
+  */
+ export async function verifyMissionForD2Act(input: {
+   conversationId: string;
+   preparationId: string;
+   clientIntentKey?: string | null;
+-  /** When set with an awaiting mission that declared a name, must be compatible. */
++  /** Retained for callers; durable name match is enforced under D2 lock at create. */
+   projectName?: string | null;
+ }): Promise<MissionD2Resolve> {
+   const latest = await loadLatestMissionsByIntentKey(input.conversationId);
+@@ -408,16 +405,10 @@ export async function verifyMissionForD2Act(input: {
+       };
+     }
+     if (hinted.status === "AWAITING_PILOT_ACT") {
+-      const expected = hinted.proposedProjectName?.trim();
+-      const received = input.projectName?.trim();
+-      // Name may have been corrected by Nora (conversation) or Pilot (aperçu UI) after the
+-      // awaiting mission was opened. The Pilot create act remains explicit; use the inspected name.
+-      if (expected && received && normalizeProjectName(expected) !== normalizeProjectName(received)) {
+-        return {
+-          status: "OK",
+-          mission: { ...hinted, proposedProjectName: received },
+-        };
+-      }
++      // Mission binding authorizes the awaiting act only. The durable project name is owned by
++      // D2 (inspected preparation projection / preview) and enforced under lock in createProjectCommand.
++      // Never rewrite mission.proposedProjectName from the client payload — that would launder an
++      // arbitrary name into mission memory without a persisted D2 correction.
+       return { status: "OK", mission: hinted };
+     }
+     return { status: "ALREADY_CONTINUED", mission: hinted };
+diff --git a/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts b/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
+index b688900b..5b06cf5f 100644
+--- a/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
++++ b/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
+@@ -13,6 +13,9 @@ import { newId } from "@/lib/ids";
+ import {
+   namesConflictForSamePilot,
+   normalizeProjectNameKey,
++  parseProjectionJson,
++  requestedNameMatchesInspected,
++  resolveInspectedProjectName,
+ } from "@/domains/preparation/projection";
 
-## 17–22. Preuves / SHA / RECETTE / gates
+ export type CreateProjectInput = {
+@@ -108,11 +111,19 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
+         }
+       }
 
-| Artefact | Valeur |
-| --- | --- |
-| SHA | `acb5ce65f189582fd6438e7c1d8c6acdd1027664` |
-| Tree web | `c97e0be1bd91eb736d3a478f8fa29ea5f2f1e3f7` |
-| Build DEV | `4uaTx97JzcebLhzIfr8h-` |
-| RECETTE | inchangée |
-| Migration 013 | gate ouvert |
-| PF-CRE-14 | ouvert |
+-      // Serialize concurrent creates for this preparation.
++      // Serialize concurrent creates for this preparation — include inspectable name fields.
+       const locked = await tx.execute(
+-        sql`select id, creation_revision from preparations where id = ${input.preparationId} and owner_pilot_id = ${input.pilotId} for update`,
++        sql`select id, creation_revision, preview_name, projection_json
++            from preparations
++            where id = ${input.preparationId} and owner_pilot_id = ${input.pilotId}
++            for update`,
+       );
+-      const rows = locked as unknown as Array<{ id: string; creation_revision: number }>;
++      const rows = locked as unknown as Array<{
++        id: string;
++        creation_revision: number;
++        preview_name: string;
++        projection_json: unknown;
++      }>;
+       const prepRow = rows[0];
+       if (!prepRow) return { status: "FORBIDDEN" as const };
 
----
+@@ -126,6 +137,7 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
 
-## 23–25. Verdict
+       if (existingLink) {
+         // Preparation already attached: record replay under same key/fingerprint only.
++        // Do not re-check inspected name against a now-ATTACHED prep — ACK replay must succeed.
+         if (prior && prior.fingerprint !== fingerprint) {
+           return fingerprintConflict("idempotency fingerprint mismatch on attached preparation");
+         }
+@@ -156,18 +168,42 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
+         };
+       }
 
-`READY WITH RESERVES — SAS NORA CONVERGENCE CORRECTED`
++      // G1 — name authority at durable effect: client name must match the currently inspected
++      // D2 proposal under the same FOR UPDATE lock (projection.name, else preview_name).
++      const projection = parseProjectionJson(
++        prepRow.projection_json,
++        input.preparationId,
++        Number(prepRow.creation_revision),
++      );
++      const inspected = resolveInspectedProjectName(projection, prepRow.preview_name);
++      if (!inspected) {
++        return {
++          status: "INVALID_REQUEST" as const,
++          reason: "no inspectable project name on preparation — reinspect before create",
++        };
++      }
++      if (!requestedNameMatchesInspected(name, inspected)) {
++        return {
++          status: "CONFLICT" as const,
++          actualCreationRevision: Number(prepRow.creation_revision),
++          reason: "projectName does not match inspected preparation proposal",
++        };
++      }
++      // Create with the durable inspected spelling, not a client-only variant.
++      const durableName = inspected;
++
+       // Same-pilot name uniqueness (Morris 2026-11-16). Application-level only —
+       // historical PF-CRE-14 duplicates exist; no UNIQUE DB constraint in this cycle.
+       // Comparison uses the single JS semantic (normalizeProjectNameKey) under the pilot lock.
+       // Replay ALREADY_CREATED paths above are unaffected.
+-      if (!normalizeProjectNameKey(name)) {
++      if (!normalizeProjectNameKey(durableName)) {
+         return { status: "INVALID_REQUEST" as const, reason: "projectName required" };
+       }
+       const owned = await tx
+         .select({ id: projects.id, name: projects.name })
+         .from(projects)
+         .where(eq(projects.ownerPilotId, input.pilotId));
+-      const nameHit = owned.find((p) => namesConflictForSamePilot(p.name, name));
++      const nameHit = owned.find((p) => namesConflictForSamePilot(p.name, durableName));
+       if (nameHit) {
+         return {
+           status: "CONFLICT" as const,
+@@ -181,7 +217,7 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
+       await tx.insert(projects).values({
+         id: projectId,
+         ownerPilotId: input.pilotId,
+-        name,
++        name: durableName,
+         createdAt: now,
+       });
+       await tx.insert(preparationProjectLinks).values({
+diff --git a/projects/sfia-studio-next/web/src/domains/preparation/projection.ts b/projects/sfia-studio-next/web/src/domains/preparation/projection.ts
+index 0a334199..0f3431a1 100644
+--- a/projects/sfia-studio-next/web/src/domains/preparation/projection.ts
++++ b/projects/sfia-studio-next/web/src/domains/preparation/projection.ts
+@@ -300,18 +300,72 @@ export function canCreateFromProjection(
+   return name.length > 0;
+ }
 
-Cette republication corrige `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` en exposant **les 19 diffs** + instructions Nora + fixtures multi-tours + fichiers nouveaux intégraux.
++/**
++ * Resolve the durable inspected project name from D2 truth.
++ * Prefer projection.name; fall back to preview_name for older preparations without projection_json.
++ * Never invents a default title.
++ */
++export function resolveInspectedProjectName(
++  projection: PreparationProjection | null | undefined,
++  previewName: string | null | undefined,
++): string | null {
++  const fromProjection = projection?.name?.value?.trim() ?? "";
++  if (fromProjection) return fromProjection.slice(0, 120);
++  const fromPreview = (previewName ?? "").trim();
++  if (fromPreview) return fromPreview.slice(0, 120);
++  return null;
++}
++
++/** True when the client-requested name matches the currently inspected D2 proposal. */
++export function requestedNameMatchesInspected(
++  requestedName: string,
++  inspectedName: string,
++): boolean {
++  return namesConflictForSamePilot(requestedName, inspectedName);
++}
++
+ /** Authoritative inspected create payload — never invents a default title. */
+ export function inspectedCreatePayload(
+   projection: PreparationProjection | null,
+   previewName: string,
+   previewSummary: string,
+ ): { ok: true; projectName: string; previewSummary: string } | { ok: false; reason: string } {
+-  const name = (projection?.name?.value || previewName).trim();
++  const name = resolveInspectedProjectName(projection, previewName);
+   if (!name) {
+     return { ok: false, reason: "project name required — clarify before create" };
+   }
+   const summary =
+     previewFieldsFromProjection(projection, name, previewSummary).previewSummary ||
+     previewSummary.trim();
+-  return { ok: true, projectName: name.slice(0, 120), previewSummary: summary };
++  return { ok: true, projectName: name, previewSummary: summary };
++}
++
++/**
++ * Classify a successful pilot PATCH write against a post-commit observation.
++ * Distinguishes confirmed-current from confirmed-but-superseded — never conflates the two.
++ */
++export type PilotPatchWriteStatus =
++  | "APPLIED_CURRENT"
++  | "APPLIED_SUPERSEDED"
++  | "UNCHANGED_CURRENT"
++  | "CONFLICT_NOT_APPLIED"
++  | "UNKNOWN";
++
++export function classifyPilotPatchWrite(input: {
++  applyStatus: "APPLIED" | "UNCHANGED" | "CONFLICT" | "UNAVAILABLE" | "FORBIDDEN";
++  appliedRevision: number | null;
++  observedRevision: number | null;
++}): PilotPatchWriteStatus {
++  if (input.applyStatus === "CONFLICT") return "CONFLICT_NOT_APPLIED";
++  if (input.applyStatus === "UNAVAILABLE" || input.applyStatus === "FORBIDDEN") return "UNKNOWN";
++  if (input.appliedRevision == null || input.observedRevision == null) return "UNKNOWN";
++  if (input.applyStatus === "UNCHANGED") {
++    return input.observedRevision === input.appliedRevision
++      ? "UNCHANGED_CURRENT"
++      : "APPLIED_SUPERSEDED";
++  }
++  // APPLIED
++  if (input.observedRevision === input.appliedRevision) return "APPLIED_CURRENT";
++  if (input.observedRevision > input.appliedRevision) return "APPLIED_SUPERSEDED";
++  return "UNKNOWN";
+ }
+diff --git a/projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts
+index d078c6c9..cd483940 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/ml4d-sas-nora-projection.spec.ts
+@@ -8,7 +8,7 @@ import {
+   SAS_MATURATION_T1,
+   SAS_MATURATION_T2,
+   SAS_MATURATION_T3,
+-  SAS_MATURATION_T4,
++  sasMaturationT4Rename,
+ } from "../../src/domains/conversation/fixture-semantic-qualify";
 
-Gates Morris: ChatGPT ; 013 ; PF-CRE-14 ; LIVE ; RECETTE ; UI.
+ async function loginPilot(
+@@ -22,42 +22,6 @@ async function loginPilot(
+   await page.waitForURL("**/portfolio");
+ }
 
----
+-/**
+- * Uniquify inspected name via PATCH (Gap A contract) then create — no UI adjust form.
+- * Isolates same-pilot name CONFLICT across e2e DB pollution.
+- */
+-async function uniquifyInspectedNameThenCreate(
+-  page: import("@playwright/test").Page,
+-  uniqueName: string,
+-): Promise<string> {
+-  const prepId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
+-  expect(prepId).toBeTruthy();
+-  const getRes = await page.request.get(`/api/preparations/${prepId}`);
+-  expect(getRes.ok()).toBeTruthy();
+-  const before = (await getRes.json()) as {
+-    preparation: { creationRevision: number; previewSummary: string };
+-  };
+-  const patchRes = await page.request.patch(`/api/preparations/${prepId}`, {
+-    data: {
+-      previewName: uniqueName,
+-      previewSummary: before.preparation.previewSummary || "aperçu inspecté",
+-      expectedCreationRevision: before.preparation.creationRevision,
+-    },
+-  });
+-  expect(patchRes.status()).toBe(200);
+-  const patched = (await patchRes.json()) as { creationRevision?: number };
+-  expect(typeof patched.creationRevision).toBe("number");
+-  await page.reload();
+-  await expect(page.getByTestId("prep-field-name")).toContainText(uniqueName, { timeout: 15000 });
+-  await expect(page.getByTestId("prep-create-project")).toBeEnabled();
+-  await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
+-  await page.getByTestId("prep-create-project").click();
+-  await page.waitForURL("**/projects/**", { timeout: 30000 });
+-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+-  expect(projectId).toBeTruthy();
+-  return projectId!;
+-}
+-
+ test.describe("ML4D Sas Nora — corrective convergence", () => {
+   test("AF living aperçu without primary constitute; secondary tools not permanent tabs", async ({
+     page,
+@@ -82,19 +46,22 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
+   test("AF primary path: create without constitute/adjust UI clicks", async ({ page }) => {
+     await loginPilot(page, "b");
+     await openNewPreparation(page);
++    const unique = `Cockpit B-${Date.now()}`;
+     await sendPrepMessage(
+       page,
+-      "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
++      `Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé ${unique}.`,
+     );
+     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
++    await expect(page.getByTestId("prep-field-name")).toContainText(unique);
+     await expect(page.getByTestId("prep-create-project")).toBeEnabled();
+     await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
+-    const unique = `Cockpit B-${Date.now()}`;
+-    const projectId = await uniquifyInspectedNameThenCreate(page, unique);
++    await page.getByTestId("prep-create-project").click();
++    await page.waitForURL("**/projects/**", { timeout: 30000 });
++    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
++    expect(projectId).toBeTruthy();
+     await page.reload();
+     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
+     await expect(page.getByText("Même fil", { exact: false })).toBeVisible({ timeout: 15000 });
+-    // Project shell may show truncated title; URL + continuity are the durable proofs.
+     await expect(page.getByTestId("studio-rail")).toBeVisible();
+   });
 
-## Annexe as-built
+@@ -119,7 +86,9 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
+     await expect(page.getByTestId("prep-nora-assessment")).toContainText(/pas suffisante/i);
+   });
 
-# As-built — ML4D Sas Nora convergence + correctifs (2026-11-16)
+-  test("AF multi-turn maturation: vague → outcome → scope → rename → create", async ({ page }) => {
++  test("AF multi-turn maturation: vague → outcome → scope → rename → create (no PATCH)", async ({
++    page,
++  }) => {
+     test.setTimeout(240_000);
+     await loginPilot(page, "b");
+     await openNewPreparation(page);
+@@ -139,7 +108,7 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
+     await expect(page.getByTestId("prep-proposal-state")).not.toHaveText(/Base suffisante/i);
+     await expect(page).toHaveURL(/\/preparations\//);
 
-| Champ | Valeur |
-| --- | --- |
-| Macro-lot | R5 / ML4D — Sas conversationnel + projection + création + correctifs |
-| Type | EVOL / MINOR candidate · **NO RELEASE** |
-| Base UX-004 | `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
-| Candidat Sas | `596718b1` → correctif `1dfc79ff` → **correctif final (ce cycle)** |
-| Branche | `feat/next-ml4d-sas-nora-convergence-20261116` |
-| Contrats | docs@`22ee5540` (fonctionnel + technique) |
-| Figma | `itgvCulInEnFY6DvgIegvP` 607:3…277 — VALIDATED UX Morris, non modifié |
-| Lane | DEV only — RECETTE inchangée |
-| Build DEV | `4uaTx97JzcebLhzIfr8h-` @ `127.0.0.1:3102` |
-| RECETTE | `b05dacf4` / BUILD `20blGylSEta7201PgVvlw` @ `:3200` — **non modifiée** |
+-    // T3 — scope + proposed name; Nora may recommend starting
++    // T3 — scope + proposed name via proposedProjectName (no REQUEST_EFFECT); no project
+     await sendPrepMessage(page, SAS_MATURATION_T3);
+     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
+     await expect(page.getByTestId("prep-field-name")).toContainText("Assistant de pilotage");
+@@ -147,17 +116,21 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
+     await expect(page.getByTestId("prep-nora-assessment")).toBeVisible();
+     await expect(page).toHaveURL(/\/preparations\//);
 
-## Architecture
+-    // T4 — rename via conversation; old name must not remain current
+-    await sendPrepMessage(page, SAS_MATURATION_T4);
+-    await expect(page.getByTestId("prep-field-name")).toContainText("Cockpit projets", {
++    // T4 — conversational rename with unique name (no programmatic PATCH, no Ajuster)
++    const unique = `Cockpit projets MT-${Date.now()}`;
++    await sendPrepMessage(page, sasMaturationT4Rename(unique));
++    await expect(page.getByTestId("prep-field-name")).toContainText(unique, {
+       timeout: 30000,
+     });
+     await expect(page.getByTestId("prep-field-name")).not.toHaveText("Assistant de pilotage");
+     await expect(page.getByTestId("prep-create-project")).toBeEnabled();
++    await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
 
-1. Tour Nora unique → qualification structurée (`desiredOutcome`, `initialScope`, `proposedProjectName`, `preparationAssessment*`).
-2. Draft projection après qualification ; **persistance seulement après commit terminal COMPLETE**.
-3. `mergeNoraDraftWithPrior` protège les champs `PILOT_EXPRESSED` / `PILOT_UI_EDIT`.
-4. PATCH aperçu = `applyPilotApercuCorrection` + CAS `expectedCreationRevision` **obligatoire** ; HTTP 409/400/401/404/503 classifiés (jamais conflit/DB → SESSION_INVALID).
-5. Assessment Nora **uniquement** si fourni dans la qualification (pas d’heuristique name+intention → BASE_SUFFICIENTE).
-6. Création : `createProjectCommand` + verrou pilote ; nom inspecté après correction accepté sur mission awaiting.
-7. UI : conversation + aperçu ; Journal/Documents secondaires.
+-    // T5 — uniquify via PATCH (Gap A) then create; no UI adjust form
+-    const unique = `Cockpit projets MT-${Date.now()}`;
+-    const projectId = await uniquifyInspectedNameThenCreate(page, unique);
++    // T5 — create directly from inspected T4 name
++    await page.getByTestId("prep-create-project").click();
++    await page.waitForURL("**/projects/**", { timeout: 30000 });
++    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
++    expect(projectId).toBeTruthy();
+     await page.reload();
+     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
+     await expect(page.getByText("Même fil", { exact: false })).toBeVisible({ timeout: 15000 });
+diff --git a/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
+index 76f29f27..209ff625 100644
+--- a/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
+@@ -339,7 +339,8 @@ describe("PostgreSQL create-project contracts", () => {
+     const p1 = await openOrCreatePreparation(pilotId);
+     const p2 = await openOrCreatePreparation(pilotId);
+     await updatePreview(pilotId, p1.id, "SameName", "a");
+-    await updatePreview(pilotId, p2.id, "Same Name ", "b");
++    // Inspected name on p2 must match the requested create payload (G1); uniqueness still fires.
++    await updatePreview(pilotId, p2.id, "samename", "b");
+     const r1 = (await db.select().from(preparations).where(eq(preparations.id, p1.id)))[0];
+     const r2 = (await db.select().from(preparations).where(eq(preparations.id, p2.id)))[0];
+     const c1 = await createProjectCommand({
+@@ -367,6 +368,70 @@ describe("PostgreSQL create-project contracts", () => {
+     expect(all).toHaveLength(1);
+   });
 
-## Écarts de ce correctif final
++  it("G1: client-only name refused; inspected correction accepted; stale revision conflicts", async () => {
++    const pilotId = await seedPilot("G1Name");
++    const prep = await openOrCreatePreparation(pilotId);
++    await updatePreview(pilotId, prep.id, "Nom inspecté", "s");
++    const mid = await getPreparationContext(pilotId, prep.id);
++
++    const arbitrary = await createProjectCommand({
++      pilotId,
++      preparationId: prep.id,
++      expectedCreationRevision: mid.preparation.creationRevision,
++      projectName: "Wrong Name Entirely",
++      previewSummary: "s",
++      idempotencyKey: newId("idem"),
++    });
++    expect(arbitrary.status).toBe("CONFLICT");
++    if (arbitrary.status === "CONFLICT") {
++      expect(arbitrary.reason).toMatch(/does not match inspected/i);
++    }
++    expect(
++      (await db.select().from(projects).where(eq(projects.ownerPilotId, pilotId))).length,
++    ).toBe(0);
++
++    const ok = await createProjectCommand({
++      pilotId,
++      preparationId: prep.id,
++      expectedCreationRevision: mid.preparation.creationRevision,
++      projectName: "Nom inspecté",
++      previewSummary: "s",
++      idempotencyKey: newId("idem"),
++    });
++    expect(ok.status).toBe("CREATED");
++
++    // G1-11 style: after rename, old inspected name + stale or mismatched create fails.
++    const prep2 = await openOrCreatePreparation(pilotId);
++    await updatePreview(pilotId, prep2.id, "Ancien", "s");
++    const before = await getPreparationContext(pilotId, prep2.id);
++    await updatePreview(pilotId, prep2.id, "Nouveau", "s");
++    const stale = await createProjectCommand({
++      pilotId,
++      preparationId: prep2.id,
++      expectedCreationRevision: before.preparation.creationRevision,
++      projectName: "Ancien",
++      previewSummary: "s",
++      idempotencyKey: newId("idem"),
++    });
++    expect(stale.status).toBe("CONFLICT");
++    if (stale.status === "CONFLICT") {
++      expect(stale.reason).toMatch(/stale|does not match inspected/i);
++    }
++    const wrongCurrent = await createProjectCommand({
++      pilotId,
++      preparationId: prep2.id,
++      expectedCreationRevision: (await getPreparationContext(pilotId, prep2.id)).preparation
++        .creationRevision,
++      projectName: "Ancien",
++      previewSummary: "s",
++      idempotencyKey: newId("idem"),
++    });
++    expect(wrongCurrent.status).toBe("CONFLICT");
++    if (wrongCurrent.status === "CONFLICT") {
++      expect(wrongCurrent.reason).toMatch(/does not match inspected/i);
++    }
++  });
++
+   it("Morris-name: two pilots may share the same display name", async () => {
+     const a = await seedPilot("NameA");
+     const b = await seedPilot("NameB");
+diff --git a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
+index bcd73e47..207c9128 100644
+--- a/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/intent-continuity-global.pg.test.ts
+@@ -14,6 +14,7 @@ import {
+   pilots,
+   preparations,
+   projectCycles,
++  projects,
+ } from "@/db/schema";
+ import { newId } from "@/lib/ids";
+ import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
+@@ -83,15 +84,26 @@ async function seedPilot(label: string) {
+   return id;
+ }
 
-| Écart | Constat | Correction |
-| --- | --- | --- |
-| A PATCH | CAS partiel ; erreurs → 401 | `expectedCreationRevision` requis ; 200 cohérent ; 409/400/404/503 |
-| B Qualification | Heuristique fabriquait l’appréciation | Assessment seulement si structuré ; instructions LIVE maturation ; `proposedProjectName` |
-| C Multi-tours | E2E mono-message riche | Fixtures T1–T4 + PG GapC + e2e multi-tours |
+-async function seedPrepOnly(label: string) {
++/**
++ * Open a preparation for conversation tests.
++ * Do NOT plant a PILOT_UI_EDIT project name by default — that would lock mergeNoraDraftWithPrior
++ * against a later Nora proposedProjectName (G1 inspected-name authority).
++ * Pass inspectedName when the caller will create immediately without a Nora rename.
++ */
++async function seedPrepOnly(label: string, opts?: { inspectedName?: string }) {
+   const pilotId = await seedPilot(label);
+   const prep = await openOrCreatePreparation(pilotId);
+-  await updatePreview(pilotId, prep.id, label, "s");
++  if (opts?.inspectedName != null && opts.inspectedName.trim()) {
++    await updatePreview(pilotId, prep.id, opts.inspectedName.trim(), "s");
++  } else {
++    // Summary-only seed: no pilot-owned name field that would block Nora proposals.
++    await updatePreview(pilotId, prep.id, "", "s");
++  }
+   return { pilotId, preparationId: prep.id };
+ }
 
-## Contradiction PF-CRE-14
+ async function seedProject(label: string) {
+-  const { pilotId, preparationId } = await seedPrepOnly(label);
++  const { pilotId, preparationId } = await seedPrepOnly(label, { inspectedName: label });
+   const refreshed = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0];
+   const created = await createProjectCommand({
+     pilotId,
+@@ -686,7 +698,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
+   });
 
-Orientation Morris (unicité / Pilote) vs PF-CRE-14. **R2 non réécrit.** Gate Morris ouvert.
+   it("G4/S12: mobilizeCapability on real D2 + D4 contracts + future double", async () => {
+-    const { pilotId, preparationId } = await seedPrepOnly("scen-g4-mob");
++    const { pilotId, preparationId } = await seedPrepOnly("scen-g4-mob", {
++      inspectedName: "Mobilized Project",
++    });
+     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+     const d2 = CAPABILITY_CONTRACTS.find((c) => c.capabilityId === "d2.create_project")!;
+     const created = await mobilizeCapability(
+@@ -868,8 +882,8 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
+     const prepAfter = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
+     expect(prepAfter.status).not.toBe("ATTACHED");
 
-## Migration 013
+-    // Inspected name may diverge from the original Nora proposal (Pilot/Nora correction).
+-    // Binding remains AUTHORIZED; create uses the inspected name.
++    // Mission binding stays AUTHORIZED for the awaiting key — but an arbitrary client-only
++    // name must not create. D2 inspected name (Auth Exact) is authoritative under lock.
+     const nameAuth = await authorizeMissionBoundD2Create({
+       pilotId,
+       preparationId,
+@@ -878,17 +892,35 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
+     });
+     expect(nameAuth.outcome).toBe("AUTHORIZED");
+     if (nameAuth.outcome === "AUTHORIZED") {
+-      expect(nameAuth.mission.proposedProjectName).toBe("Wrong Name Entirely");
++      // Mission memory is not rewritten from the client payload.
++      expect(nameAuth.mission.proposedProjectName).not.toBe("Wrong Name Entirely");
++    }
++    const refused = await createProjectCommand({
++      pilotId,
++      preparationId,
++      expectedCreationRevision: prepAfter.creationRevision,
++      projectName: "Wrong Name Entirely",
++      previewSummary: "s",
++      idempotencyKey: newId("idem"),
++    });
++    expect(refused.status).toBe("CONFLICT");
++    if (refused.status === "CONFLICT") {
++      expect(refused.reason).toMatch(/does not match inspected/i);
+     }
+     expect(
+       (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]?.status,
+     ).not.toBe("ATTACHED");
 
-Additive `projection_json` — **non promue RECETTE** par ce GO. Aucune migration 014.
++    // Persist a legitimate conversational/UI name correction, then create must use it.
++    await updatePreview(pilotId, preparationId, "Cockpit Auth", prepAfter.previewSummary || "s");
++    const afterRename = (
++      await db.select().from(preparations).where(eq(preparations.id, preparationId))
++    )[0]!;
+     const ok = await authorizeMissionBoundD2Create({
+       pilotId,
+       preparationId,
+       clientIntentKey: keyA,
+-      projectName: "Auth Exact",
++      projectName: "Cockpit Auth",
+     });
+     expect(ok.outcome).toBe("AUTHORIZED");
+     if (ok.outcome !== "AUTHORIZED") throw new Error("expected AUTHORIZED");
+@@ -896,12 +928,16 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
+     const created = await createProjectCommand({
+       pilotId,
+       preparationId,
+-      expectedCreationRevision: prepAfter.creationRevision,
+-      projectName: "Auth Exact",
++      expectedCreationRevision: afterRename.creationRevision,
++      projectName: "Cockpit Auth",
+       previewSummary: "s",
+       idempotencyKey: ok.idempotencyKey,
+     });
+     expect(created.status).toBe("CREATED");
++    if (created.status === "CREATED") {
++      const proj = (await db.select().from(projects).where(eq(projects.id, created.projectId)))[0];
++      expect(proj?.name).toBe("Cockpit Auth");
++    }
+   });
 
-## Preuves
+   it("S06/S07: two awaiting missions — recover binds D2 owner act, not neighboring awaiting", async () => {
+@@ -1041,9 +1077,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
+   it("S05: two projects same Pilot — recover on Atlas never uses Orion conversation/mission", async () => {
+     const atlas = await seedPrepOnly("scen-s05-atlas");
+     const orion = await seedPrepOnly("scen-s05-orion");
+-    // Same pilot: re-seed Orion under Atlas pilot
++    // Same pilot: re-seed Orion under Atlas pilot — no pilot name lock before Nora proposal.
+     const orionPrep = await openOrCreatePreparation(atlas.pilotId);
+-    await updatePreview(atlas.pilotId, orionPrep.id, "Orion Prep", "s");
++    await updatePreview(atlas.pilotId, orionPrep.id, "", "s");
 
-| Niveau | Résultat |
-| --- | --- |
-| UNIT projection + instructions LIVE structurelles | PASS |
-| PG REAL create-project + PATCH | PASS |
-| BROWSER FAKE sas (dont multi-tours) | voir Review Pack |
-| UX-003/004 | PASS (cycle) |
-| NORA LIVE | **NOT PROVEN** |
+     const keyAtlas = newId("ctk");
+     const keyOrion = newId("ctk");
+diff --git a/projects/sfia-studio-next/web/tests/integration/preparation-patch.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/preparation-patch.pg.test.ts
+index 4003155d..e5989fc7 100644
+--- a/projects/sfia-studio-next/web/tests/integration/preparation-patch.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/preparation-patch.pg.test.ts
+@@ -93,7 +93,10 @@ describe("PG REAL — preparation PATCH contract", () => {
+       expectedCreationRevision: before.preparation.creationRevision,
+     });
+     expect(res.status).toBe(200);
++    expect(res.body.writeStatus).toBe("APPLIED_CURRENT");
++    expect(res.body.appliedRevision).toBe(before.preparation.creationRevision + 1);
+     expect(res.body.creationRevision).toBe(before.preparation.creationRevision + 1);
++    expect(res.body.reconciled).toBe(false);
+     expect((res.body.preparation as { previewName: string }).previewName).toBe("Cockpit inspecté");
+     const proj = res.body.projection as {
+       name: { value: string; status: string; source: { kind: string } };
+@@ -136,6 +139,7 @@ describe("PG REAL — preparation PATCH contract", () => {
+     });
+     expect(second.status).toBe(409);
+     expect(second.body.error).toBe("CONFLICT");
++    expect(second.body.writeStatus).toBe("CONFLICT_NOT_APPLIED");
+     expect(second.body.actualCreationRevision).toBe(rev0 + 1);
 
-## Rollback
+     const after = await getPreparationContext(sess.pilotId, prep.id);
+@@ -186,6 +190,45 @@ describe("PG REAL — preparation PATCH contract", () => {
+     expect(ctx.preparation.creationRevision).toBe(rev + 1);
+   });
 
-Revert commit(s) correctifs. Aucune migration destructive.
++  it("G3: applied then superseded before observation is classified honestly", async () => {
++    const { classifyPilotPatchWrite } = await import("@/domains/preparation/projection");
++    const pilotId = await seedPilot("PatchSupersede");
++    const prep = await openOrCreatePreparation(pilotId);
++    const rev0 = (await getPreparationContext(pilotId, prep.id)).preparation.creationRevision;
++
++    const first = await applyPilotApercuCorrection({
++      pilotId,
++      preparationId: prep.id,
++      previewName: "Première correction",
++      previewSummary: "a",
++      expectedCreationRevision: rev0,
++    });
++    expect(first.status).toBe("APPLIED");
++    if (first.status !== "APPLIED") throw new Error("expected APPLIED");
++
++    // Deterministic supersession after first commit (no sleep): second write advances revision.
++    const second = await applyPilotApercuCorrection({
++      pilotId,
++      preparationId: prep.id,
++      previewName: "Deuxième courante",
++      previewSummary: "b",
++      expectedCreationRevision: first.revision,
++    });
++    expect(second.status).toBe("APPLIED");
++
++    const observed = await getPreparationContext(pilotId, prep.id);
++    const writeStatus = classifyPilotPatchWrite({
++      applyStatus: "APPLIED",
++      appliedRevision: first.revision,
++      observedRevision: observed.preparation.creationRevision,
++    });
++    expect(writeStatus).toBe("APPLIED_SUPERSEDED");
++    expect(observed.preparation.previewName).toBe("Deuxième courante");
++    expect(observed.preparation.creationRevision).toBe(first.revision + 1);
++    // Must not present the first correction as the current truth.
++    expect(observed.projection?.name?.value).not.toBe("Première correction");
++  });
++
+   it("create after PATCH uses inspected name", async () => {
+     const sess = await bindDevSession("a");
+     const prep = await openOrCreatePreparation(sess.pilotId);
+diff --git a/projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts
+index b7853da1..7e6eb333 100644
+--- a/projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/preparation-projection.test.ts
+@@ -115,6 +115,39 @@ describe("preparation projection helpers (final corrective)", () => {
+     if (ok.ok) expect(ok.projectName).toBe("Nom réel");
+   });
 
-
----
-
-## Instruction ChatGPT
-
-Relire le handoff distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` **intégralement**, y compris section 9 (19 diffs) et section 8bis (instructions maturation).
++  it("resolveInspectedProjectName prefers projection then preview; never invents", async () => {
++    const {
++      resolveInspectedProjectName,
++      requestedNameMatchesInspected,
++      classifyPilotPatchWrite,
++    } = await import("@/domains/preparation/projection");
++    expect(resolveInspectedProjectName(null, "")).toBeNull();
++    expect(resolveInspectedProjectName(null, "  Preview  ")).toBe("Preview");
++    expect(requestedNameMatchesInspected("Wrong", "Preview")).toBe(false);
++    expect(requestedNameMatchesInspected(" preview ", "Preview")).toBe(true);
++    expect(
++      classifyPilotPatchWrite({
++        applyStatus: "APPLIED",
++        appliedRevision: 2,
++        observedRevision: 2,
++      }),
++    ).toBe("APPLIED_CURRENT");
++    expect(
++      classifyPilotPatchWrite({
++        applyStatus: "APPLIED",
++        appliedRevision: 2,
++        observedRevision: 3,
++      }),
++    ).toBe("APPLIED_SUPERSEDED");
++    expect(
++      classifyPilotPatchWrite({
++        applyStatus: "CONFLICT",
++        appliedRevision: null,
++        observedRevision: 3,
++      }),
++    ).toBe("CONFLICT_NOT_APPLIED");
++  });
++
+   it("detects material changes and syncs preview fields", () => {
+     const draft = draftProjectionFromQualification({
+       preparationId: "prep-1",
