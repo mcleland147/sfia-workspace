@@ -30,14 +30,14 @@ export const STUDIO_RAIL_VARIANTS: Record<StudioRailVariant, StudioRailTokens> =
   personnel: {
     variant: "personnel",
     widthPx: 246,
-    fill: "#0C101A",
+    fill: "#0D1220",
     paddingTop: 20,
     paddingRight: 19,
     paddingBottom: 0,
     paddingLeft: 19,
     gap: 10,
     railComponentId: "shell.rail.personnel",
-    sourceNodeId: "94:51",
+    sourceNodeId: "606:20",
   },
   projet: {
     variant: "projet",
@@ -199,8 +199,8 @@ export function resolveRailVariant(input: {
     return "personnel";
   }
   if (path.startsWith("/preparations/")) {
-    // 159:145 « préparation retrouvée » uses projet rail when resume context is explicit.
-    if (sp?.get("resume") === "1" || sp?.get("from") === "portfolio") return "projet";
+    // Sas Nora Figma 607:* — all five states use the personal minimal rail (606:20).
+    void sp;
     return "personnel";
   }
   if (path.startsWith("/settings")) {
@@ -233,9 +233,19 @@ export type ShellNavItem = {
  * Personal-space breadcrumb second segment — known routes only.
  * Never invent a label; never keep « Portefeuille » on another route.
  */
-export function resolvePersonalBreadcrumb(pathname: string): string | null {
+export function resolvePersonalBreadcrumb(
+  pathname: string,
+  searchParams?: URLSearchParams | { get(name: string): string | null } | null,
+): string | null {
   const path = pathname || "/";
   if (path.startsWith("/portfolio") || path === "/") return "Portefeuille";
+  if (path.startsWith("/preparations/")) {
+    const resumed =
+      searchParams?.get("resume") === "1" || searchParams?.get("from") === "portfolio";
+    return resumed ? "Préparation reprise" : "Nouvelle préparation";
+  }
+  if (path.startsWith("/dev/sas-visual/resume")) return "Préparation reprise";
+  if (path.startsWith("/dev/sas-visual/")) return "Nouvelle préparation";
   if (path.startsWith("/settings/integrations")) return "Intégrations";
   if (path.startsWith("/settings")) return "Paramètres";
   return null;

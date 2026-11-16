@@ -5,13 +5,13 @@
 | Macro-lot | R5 / ML4D — Sas conversationnel + projection + création + garanties |
 | Type | EVOL / MINOR candidate · **NO RELEASE** |
 | Base UX-004 | `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
-| Candidat Sas | `596718b1` → `1dfc79ff` → `acb5ce65` → **garanties G1/G2/G3 (ce cycle)** |
+| Candidat Sas | `cd091385` + **convergence UX Figma→code (ce cycle)** |
 | Branche | `feat/next-ml4d-sas-nora-convergence-20261116` |
 | Contrats | docs@`22ee5540` (fonctionnel + technique) |
-| Figma | `itgvCulInEnFY6DvgIegvP` 607:3…277 — VALIDATED UX Morris, non modifié |
-| Lane | DEV only — RECETTE inchangée |
-| Build DEV | `T03qorYZpGs0odz56Nb9f` @ `127.0.0.1:3102` (attendu) |
-| RECETTE | `b05dacf4` / BUILD `20blGylSEta7201PgVvlw` @ `:3200` — **non modifiée** |
+| Figma | `itgvCulInEnFY6DvgIegvP` 607:3 / 62 / 131 / 203 / 277 — VALIDATED UX Morris, **aucune écriture Figma** |
+| Lane | DEV only — RECETTE figée |
+| Build DEV | turbopack @ `127.0.0.1:3102` (BUILD_ID fichier `T03qorYZpGs0odz56Nb9f` / source post-commit) |
+| RECETTE | `cd091385` / BUILD `E3J7wVO4MsKgl5aCTDhed` @ `:3200` — **inchangée** |
 
 ## Architecture
 
@@ -37,18 +37,35 @@ Orientation Morris (unicité / Pilote) vs PF-CRE-14. **R2 non réécrit.** Gate 
 
 ## Migration 013
 
-Additive `projection_json` — **non promue RECETTE** par ce GO. Aucune migration 014.
+Déjà appliquée sur RECETTE (cycle déploiement antérieur). **Aucune migration** dans le cycle UX.
+
+## Convergence UX Figma → code (cycle 8)
+
+Composition partagée `sas-*` pilotée par `sas-presentation` (assessment D2 + reprise), sans nouveau moteur métier.
+
+| État | Node Figma | Runtime |
+| --- | --- | --- |
+| Première intention | 607:3 | stage `first_intention` |
+| Clarification | 607:62 | `clarification` |
+| Proposition | 607:131 | `proposal` |
+| Base suffisante | 607:203 | `base_sufficient` + CTA aperçu |
+| Reprise | 607:277 | `resume` |
+
+F2 géométrie stable (1680×970) : rail 246 / header 72 / composer 118 / preview 518 / conversation 800 — **Δ 0 CSS px**.
+
+Harness DEV : `/dev/sas-visual/[state]` (fixtures déterministes, hors RECETTE).
 
 ## Preuves
 
 | Niveau | Résultat |
 | --- | --- |
-| UNIT projection / writeStatus / instructions LIVE structurelles | PASS |
-| PG REAL create-project + PATCH + intent-continuity | PASS |
-| BROWSER FAKE sas (multi-tours sans PATCH) | PASS |
+| UNIT presentation / rail | PASS |
+| Captures Figma + runtime 5 états | PASS (voir `.tmp-sfia-review/`) |
+| F2 géométrie | PASS (Δ0) |
 | NORA LIVE | **NOT PROVEN** |
-| MORRIS UI | **PENDING** |
+| MORRIS UI visuelle | **PENDING** |
+| RECETTE | **inchangée** `E3J7wVO4MsKgl5aCTDhed` |
 
 ## Rollback
 
-Revert commit(s) correctifs. Aucune migration destructive.
+Revert commit(s) UX. Aucune migration destructive. RECETTE non touchée.

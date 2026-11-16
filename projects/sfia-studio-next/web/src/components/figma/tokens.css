@@ -1,25 +1,37 @@
-/* Figma G2 visual tokens — frames 94:50 / 94:214 / 94:370 (VERIFY PASS pack) */
+/* Figma tokens — Sas Nora 607:* (1680×970) + prior G2 frames */
 :root {
-  --fig-bg: #0a0e17;
+  --fig-bg: #0b101b;
   --fig-bg-elev: #0f1520;
-  --fig-panel: #151c29;
-  --fig-panel-2: #1a2233;
-  --fig-ink: #f4f6fc;
-  --fig-muted: #94a2bb;
-  --fig-line: #313c51;
-  --fig-accent: #656fe1;
+  --fig-panel: #151d2c;
+  --fig-panel-2: #1b2639;
+  --fig-panel-hi: #1b2639;
+  --fig-rail: #0d1220;
+  --fig-header: #0b1019;
+  --fig-ink: #f3f5ff;
+  --fig-muted: #a3b0c7;
+  --fig-quiet: #7787a4;
+  --fig-line: #2b3850;
+  --fig-accent: #7477ed;
   --fig-accent-soft: #afa5ff;
-  --fig-ok: #3ecf8e;
-  --fig-ok-bg: rgba(62, 207, 142, 0.12);
-  --fig-warn: #ebc789;
-  --fig-warn-bg: rgba(235, 199, 137, 0.12);
+  --fig-accent-deep: #343e8b;
+  --fig-accent-bg: #242c4b;
+  --fig-ok: #6cdbba;
+  --fig-ok-bg: #17382f;
+  --fig-warn: #e6ba76;
+  --fig-warn-bg: #3d3021;
   --fig-info: #5b8def;
   --fig-info-bg: rgba(91, 141, 239, 0.12);
   --fig-tag: #2a3347;
-  --fig-radius: 10px;
-  --fig-radius-sm: 8px;
+  --fig-radius: 13px;
+  --fig-radius-sm: 12px;
   --fig-gap: 18px;
-  --fig-content-max: 1330px;
+  --fig-content-max: 1434px;
+  --sas-rail: 246px;
+  --sas-header: 72px;
+  --sas-conversation-w: 800px;
+  --sas-preview-w: 518px;
+  --sas-composer-h: 118px;
+  --sas-panel-h: 655px;
 }
 
 .fig-page {
@@ -183,6 +195,536 @@
   grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.7fr);
   gap: 18px;
   align-items: start;
+}
+
+/* —— Sas Nora composition (Figma 607:3…607:277) —— */
+.sas-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.sas-stage {
+  margin: 0 0 0.85rem;
+  flex-shrink: 0;
+}
+
+.sas-stage-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fig-accent);
+  line-height: 16px;
+}
+
+.sas-stage-title {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.55rem, 2.1vw, 1.94rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fig-ink);
+  line-height: 1.2;
+}
+
+.sas-stage-sub {
+  margin: 0.65rem 0 0;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--fig-muted);
+  max-width: 51rem;
+}
+
+.sas-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, var(--sas-conversation-w)) minmax(280px, var(--sas-preview-w));
+  gap: 28px;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 0; /* flex child fills remaining viewport without overflowing */
+  max-height: var(--sas-panel-h);
+  overflow: hidden;
+}
+
+.sas-workspace > * {
+  min-height: 0;
+  max-height: 100%;
+}
+
+.sas-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.sas-thread-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-right: 4px;
+  overscroll-behavior: contain;
+}
+
+.sas-resume-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 51px;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--fig-accent-deep);
+  background: var(--fig-accent-bg);
+  color: var(--fig-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sas-msg {
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius-sm);
+  padding: 16px 18px 18px;
+  background: var(--fig-panel);
+}
+
+.sas-msg-pilot {
+  background: var(--fig-panel-hi);
+}
+
+.sas-msg-nora-emphasis {
+  background: var(--fig-accent-bg);
+  border-color: var(--fig-accent-deep);
+}
+
+.sas-msg-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.7rem;
+}
+
+.sas-msg-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sas-msg-avatar-nora {
+  background: var(--fig-accent-bg);
+  color: var(--fig-accent);
+  border-radius: 7px;
+}
+
+.sas-msg-avatar-pilot {
+  background: var(--fig-panel);
+  color: var(--fig-muted);
+  border-radius: 12px;
+}
+
+.sas-msg-role {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sas-msg-role-nora { color: var(--fig-accent); }
+.sas-msg-role-pilot { color: var(--fig-muted); }
+
+.sas-msg-body {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fig-ink);
+}
+
+.sas-msg-body p { margin: 0 0 0.55rem; }
+.sas-msg-body p:last-child { margin-bottom: 0; }
+
+.sas-thread-status {
+  border: 1px solid color-mix(in srgb, var(--fig-info) 55%, var(--fig-line));
+  background: var(--fig-info-bg);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  color: #c9d7ff;
+}
+
+.sas-thread-status-error {
+  border-color: color-mix(in srgb, var(--bad) 55%, var(--fig-line));
+}
+
+.sas-composer {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  height: var(--sas-composer-h);
+  min-height: var(--sas-composer-h);
+  max-height: var(--sas-composer-h);
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  background: var(--fig-panel);
+  padding: 14px 16px 10px;
+  box-sizing: border-box;
+}
+
+.sas-composer-input {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 42px;
+  resize: none;
+  border: 0;
+  background: transparent;
+  color: var(--fig-ink);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.35;
+  padding: 0;
+  outline: none;
+}
+
+.sas-composer-input::placeholder {
+  color: var(--fig-quiet);
+}
+
+.sas-composer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--fig-line);
+  flex-shrink: 0;
+}
+
+.sas-composer-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--fig-quiet);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.sas-composer-plus {
+  color: var(--fig-muted);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.sas-composer-send {
+  width: 48px;
+  height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--fig-accent);
+  color: var(--fig-ink);
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sas-composer-send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sas-composer-send:focus-visible,
+.sas-composer-input:focus-visible {
+  outline: 2px solid var(--fig-accent);
+  outline-offset: 2px;
+}
+
+.sas-preview {
+  min-width: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.sas-preview-inner {
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 18px 20px 16px;
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  background: var(--fig-panel);
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.sas-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sas-preview-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fig-muted);
+}
+
+.sas-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 29px;
+  padding: 0 13px;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sas-badge-muted {
+  background: var(--fig-panel-hi);
+  color: var(--fig-muted);
+}
+.sas-badge-amber {
+  background: var(--fig-warn-bg);
+  color: var(--fig-warn);
+}
+.sas-badge-green {
+  background: var(--fig-ok-bg);
+  color: var(--fig-ok);
+}
+.sas-badge-accent {
+  background: var(--fig-accent-bg);
+  color: var(--fig-accent);
+}
+
+.sas-preview-title {
+  margin: 1rem 0 0;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 33px;
+  color: var(--fig-ink);
+}
+
+.sas-preview-sub {
+  margin: 0.15rem 0 0;
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--fig-quiet);
+}
+
+.sas-preview-sections {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.85rem;
+}
+
+.sas-preview-section {
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--fig-line);
+}
+
+.sas-preview-label {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fig-quiet);
+  line-height: 15px;
+}
+
+.sas-preview-value {
+  margin: 0.35rem 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--fig-ink);
+  white-space: pre-wrap;
+}
+
+.sas-preview-value.is-quiet { color: var(--fig-quiet); }
+.sas-preview-value.is-amber { color: var(--fig-warn); }
+
+.sas-preview-provenance {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 11px;
+  color: var(--fig-quiet);
+}
+
+.sas-preview-open-extra {
+  margin: 0;
+  padding: 0 0 0.35rem;
+  font-size: 12px;
+  color: var(--fig-quiet);
+}
+
+.sas-maturity {
+  margin-top: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--fig-line);
+  border-radius: 10px;
+  background: var(--fig-panel-hi);
+  color: var(--fig-muted);
+}
+
+.sas-maturity-ok {
+  background: var(--fig-ok-bg);
+  border-color: var(--fig-ok);
+}
+
+.sas-maturity-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 19px;
+  color: var(--fig-muted);
+}
+
+.sas-maturity-ok .sas-maturity-title {
+  color: var(--fig-ok);
+}
+
+.sas-maturity-body {
+  margin: 0.35rem 0 0;
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--fig-muted);
+}
+
+.sas-preview-adjust {
+  margin-top: 0.75rem;
+  align-self: flex-start;
+}
+
+.sas-create-block {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.sas-create-btn {
+  width: 100%;
+  min-height: 49px;
+  border: 1px solid var(--fig-accent);
+  border-radius: 9px;
+  background: var(--fig-accent-deep);
+  color: var(--fig-ink);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sas-create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sas-create-btn:focus-visible {
+  outline: 2px solid var(--fig-accent);
+  outline-offset: 2px;
+}
+
+.sas-create-hint {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fig-muted);
+  text-align: center;
+}
+
+.sas-preview-foot {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--fig-quiet);
+}
+
+.sas-preview-meta {
+  margin-top: 0.65rem;
+}
+
+.sas-secondary-tools {
+  margin-top: 0.35rem;
+}
+
+.sas-project-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 29px;
+  padding: 0 13px;
+  border-radius: 14px;
+  background: var(--fig-panel-hi);
+  color: var(--fig-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@media (max-width: 1280px) {
+  .sas-workspace {
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.85fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .sas-workspace {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .sas-preview-inner {
+    min-height: 0;
+  }
+  .sas-composer {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .sas-stage-title {
+    font-size: 1.35rem;
+  }
+  .sas-preview-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
 }
 
 .fig-workspace-3 {

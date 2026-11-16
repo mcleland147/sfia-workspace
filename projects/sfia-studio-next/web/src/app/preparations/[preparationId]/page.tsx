@@ -16,6 +16,10 @@ import {
   inspectedCreatePayload,
   type PreparationProjection,
 } from "@/domains/preparation/projection";
+import {
+  resolveSasPresentationStage,
+  sasPresentationCopy,
+} from "@/components/figma/sas-presentation";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -756,31 +760,44 @@ export default function PreparationPage() {
   }
 
   const inspected = docs.find((d) => d.document.id === inspectDocId) ?? docs[0];
-  const sasFrame = isResumedPrep ? "159:145" : "94:135";
+  const presentationStage = resolveSasPresentationStage({
+    isResumed: isResumedPrep,
+    assessment: projection?.suggestion?.assessment,
+    messageCount: messages.length,
+  });
+  const presentation = sasPresentationCopy(presentationStage);
+  const sasFrame =
+    presentationStage === "resume"
+      ? "607:277"
+      : presentationStage === "base_sufficient"
+        ? "607:203"
+        : presentationStage === "proposal"
+          ? "607:131"
+          : presentationStage === "clarification"
+            ? "607:62"
+            : "607:3";
 
   return (
-    <div className="fig-page" data-figma-frame={sasFrame} data-sas-resume={isResumedPrep ? "1" : "0"}>
-      <div className="fig-breadcrumb">
-        <span>
-          SFIA Studio / Nouveau projet / préparation{isResumedPrep ? " · reprise" : ""}
-        </span>
-        <span className="text-xs muted truncate max-w-[40%]">{preparationId}</span>
-      </div>
-      <header className="space-y-2">
-        <p className="fig-kicker">Espace de préparation — projet non créé</p>
-        <h1 className="fig-hero-title">
-          {isResumedPrep ? "Préparation retrouvée" : "Clarifions votre intention"}
-        </h1>
-        <p className="fig-hero-sub">
-          {isResumedPrep
-            ? "Continuité du même fil. L’aperçu reflète ce qui est déjà acquis ; créez explicitement si prêt."
-            : "Discutez librement avec Nora. L’aperçu du projet évolue pendant la conversation."}
-          {projectId ? ` Projet lié : ${projectId}.` : ""}
+    <div
+      className="sas-page"
+      data-figma-frame={sasFrame}
+      data-sas-stage={presentationStage}
+      data-sas-resume={isResumedPrep ? "1" : "0"}
+      data-testid="sas-page"
+    >
+      <header className="sas-stage">
+        <p className="sas-stage-kicker" data-testid="sas-stage-kicker">
+          {presentation.kicker}
         </p>
-        {/* Gap D — no permanent Discussion/Journal/Documents tabs as primary sas chrome.
-            Contextual tools remain reachable without competing with conversation + aperçu. */}
+        <h1 className="sas-stage-title" data-testid="sas-stage-title">
+          {presentation.title}
+        </h1>
+        <p className="sas-stage-sub" data-testid="sas-stage-sub">
+          {presentation.subtitle}
+        </p>
+        {/* Secondary tools stay contextual — never permanent Travail/Pilotage/Journal tabs. */}
         {surface !== "travail" ? (
-          <nav className="flex flex-wrap gap-2 pt-1" aria-label="Retour conversation sas">
+          <nav className="flex flex-wrap gap-2 pt-2" aria-label="Retour conversation sas">
             <button
               type="button"
               className="btn secondary"
@@ -791,7 +808,7 @@ export default function PreparationPage() {
             </button>
           </nav>
         ) : (
-          <details className="pt-1 text-xs muted" data-testid="sas-secondary-tools">
+          <details className="sas-secondary-tools text-xs muted" data-testid="sas-secondary-tools">
             <summary className="cursor-pointer">Outils secondaires du sas</summary>
             <div className="flex flex-wrap gap-2 pt-2">
               <button
@@ -811,10 +828,13 @@ export default function PreparationPage() {
             </div>
           </details>
         )}
+        <span className="sr-only" data-testid="sas-preparation-id">
+          {preparationId}
+        </span>
       </header>
 
       {surface === "travail" ? (
-        <div className="fig-workspace">
+        <div className="sas-workspace" data-testid="sas-workspace">
           <PreparationConversation
             messages={messages}
             draft={draft}
@@ -822,6 +842,7 @@ export default function PreparationPage() {
             noraActivity={noraActivity}
             onDraftChange={setDraft}
             onSend={() => void sendMessage()}
+            showResumeBanner={isResumedPrep}
           />
           <PreparationProposal
             projectId={projectId}
@@ -834,6 +855,7 @@ export default function PreparationPage() {
               .map((o) => ({ id: o.id, statement: o.statement }))}
             projection={projection}
             projectionFreshness={projectionFreshness}
+            presentation={presentation}
             busy={busy}
             editing={proposalEditing}
             draftName={draftProposalName}

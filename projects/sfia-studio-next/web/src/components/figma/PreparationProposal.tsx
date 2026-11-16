@@ -1,22 +1,15 @@
 "use client";
 
 /**
- * Living D2 aperçu — driven by PreparationProjection (and compatible preview fields).
- * « Constituer une proposition » is no longer the primary path; secondary adjust remains
- * for explicit Pilot inspection edits without becoming a second authority.
+ * Living D2 aperçu — single vertical panel aligned to Sas Nora Figma composition.
+ * Create CTA lives inside this panel (frame 04). No separate authority card.
  */
 
 import type { PreparationProjection } from "@/domains/preparation/projection";
 import { canCreateFromProjection } from "@/domains/preparation/projection";
+import type { SasPresentationCopy } from "./sas-presentation";
 
 export type ProposalOpenPoint = { id: string; statement: string };
-
-const ASSESSMENT_LABEL: Record<string, string> = {
-  EXPLORING: "Exploration",
-  CLARIFYING: "Clarification",
-  PROPOSAL: "Proposition",
-  BASE_SUFFICIENTE: "Base suffisante",
-};
 
 function statusLabel(status: string | undefined, sourceKind?: string): string {
   if (status === "PILOT_EXPRESSED") {
@@ -27,6 +20,22 @@ function statusLabel(status: string | undefined, sourceKind?: string): string {
   return "—";
 }
 
+function badgeClass(tone: SasPresentationCopy["panelBadgeTone"]): string {
+  if (tone === "amber") return "sas-badge sas-badge-amber";
+  if (tone === "green") return "sas-badge sas-badge-green";
+  if (tone === "accent") return "sas-badge sas-badge-accent";
+  return "sas-badge sas-badge-muted";
+}
+
+type Section = {
+  key: string;
+  label: string;
+  value: string;
+  tone?: "default" | "amber" | "quiet";
+  provenance?: string;
+  testId?: string;
+};
+
 export function PreparationProposal(props: {
   projectId: string | null;
   previewName: string;
@@ -36,6 +45,7 @@ export function PreparationProposal(props: {
   openPoints: ProposalOpenPoint[];
   projection: PreparationProjection | null;
   projectionFreshness?: "current" | "stale" | "unavailable" | "legacy";
+  presentation: SasPresentationCopy;
   busy: boolean;
   editing: boolean;
   draftName: string;
@@ -53,9 +63,7 @@ export function PreparationProposal(props: {
   const created = Boolean(props.projectId);
   const projection = props.projection;
   const name =
-    projection?.name?.value?.trim() ||
-    props.previewName.trim() ||
-    "";
+    projection?.name?.value?.trim() || props.previewName.trim() || "";
   const intention = projection?.intention?.value?.trim() || "";
   const outcome = projection?.desiredOutcome?.value?.trim() || "";
   const scope = projection?.initialScope?.value?.trim() || "";
@@ -63,60 +71,162 @@ export function PreparationProposal(props: {
   const explanation = projection?.suggestion?.explanation?.trim() || "";
   const openFromProjection = (projection?.openQuestions ?? []).filter((q) => q.value.trim());
   const openFromKnowledge = props.openPoints;
+  const openCombined = [
+    ...openFromProjection.map((q) => q.value),
+    ...openFromKnowledge.map((o) => o.statement),
+  ].filter(Boolean);
   const hasLiving =
     Boolean(name) ||
     Boolean(intention) ||
     Boolean(outcome) ||
     Boolean(scope) ||
-    openFromProjection.length > 0 ||
+    openCombined.length > 0 ||
     Boolean(explanation) ||
     Boolean(props.previewSummary.trim());
   const canCreate = !created && canCreateFromProjection(projection, props.previewName);
+  const stage = props.presentation.stage;
+  // CTA composition belongs to frame 04; still honors D2 canCreate (no extra Nora gate).
+  const showCreateCta =
+    !created &&
+    canCreate &&
+    (stage === "base_sufficient" || assessment === "BASE_SUFFICIENTE");
+
+  const sections: Section[] = [];
+  if (stage === "first_intention" && !hasLiving) {
+    sections.push(
+      {
+        key: "intention",
+        label: "INTENTION",
+        value: "À découvrir ensemble",
+        tone: "quiet",
+      },
+      {
+        key: "outcome",
+        label: "RÉSULTAT ENVISAGÉ",
+        value: "Pas encore défini",
+        tone: "quiet",
+      },
+      {
+        key: "open",
+        label: "À CLARIFIER",
+        value: "Nous partirons de votre première idée.",
+        tone: "quiet",
+      },
+    );
+  } else if (stage === "resume") {
+    sections.push({
+      key: "intention",
+      label: "INTENTION CONSERVÉE",
+      value: name || intention || props.previewSummary.trim() || "Intention reprise",
+      testId: "prep-field-name",
+      provenance: projection?.name
+        ? statusLabel(projection.name.status, projection.name.source.kind)
+        : undefined,
+    });
+    if (outcome || intention || props.previewSummary.trim()) {
+      sections.push({
+        key: "acquis",
+        label: "ACQUIS",
+        value:
+          [intention || props.previewSummary.trim(), outcome, scope].filter(Boolean).join(" · ") ||
+          "Éléments déjà clarifiés",
+        testId: "prep-field-intention",
+      });
+    }
+    sections.push({
+      key: "open",
+      label: "POINT EN SUSPENS",
+      value: openCombined[0] || "À préciser dans la conversation",
+      tone: openCombined.length ? "amber" : "quiet",
+    });
+  } else {
+    if (name || stage === "proposal" || stage === "base_sufficient") {
+      sections.push({
+        key: "name",
+        label:
+          stage === "base_sufficient"
+            ? "NOM PROPOSÉ"
+            : stage === "proposal"
+              ? "NOM DE TRAVAIL"
+              : "NOM",
+        value: name || "Projet envisagé",
+        testId: "prep-field-name",
+        provenance: projection?.name
+          ? statusLabel(projection.name.status, projection.name.source.kind)
+          : undefined,
+      });
+    }
+    sections.push({
+      key: "intention",
+      label: stage === "proposal" ? "INTENTION COMPRISE" : "INTENTION",
+      value: intention || props.previewSummary.trim() || "À découvrir ensemble",
+      tone: intention || props.previewSummary.trim() ? "default" : "quiet",
+      testId: "prep-field-intention",
+      provenance: projection?.intention ? statusLabel(projection.intention.status) : undefined,
+    });
+    if (outcome || stage === "clarification" || stage === "proposal" || stage === "base_sufficient") {
+      sections.push({
+        key: "outcome",
+        label:
+          stage === "proposal"
+            ? "PREMIER RÉSULTAT"
+            : stage === "clarification"
+              ? "RÉSULTAT VISÉ"
+              : "RÉSULTAT ENVISAGÉ",
+        value: outcome || (stage === "first_intention" ? "Pas encore défini" : "À préciser"),
+        tone: outcome ? "default" : "quiet",
+      });
+    }
+    if (scope) {
+      sections.push({
+        key: "scope",
+        label: stage === "base_sufficient" ? "PREMIER PÉRIMÈTRE" : "PÉRIMÈTRE",
+        value: scope,
+      });
+    }
+    sections.push({
+      key: "open",
+      label:
+        stage === "base_sufficient"
+          ? "OUVERT POUR LA SUITE"
+          : stage === "proposal"
+            ? "À CONFIRMER"
+            : stage === "clarification"
+              ? "À PRÉCISER"
+              : "À CLARIFIER",
+      value:
+        openCombined[0] ||
+        (stage === "first_intention"
+          ? "Nous partirons de votre première idée."
+          : "Aucun point ouvert listé"),
+      tone: openCombined.length
+        ? stage === "base_sufficient"
+          ? "default"
+          : "amber"
+        : "quiet",
+    });
+  }
 
   return (
-    <aside className="space-y-3" data-testid="prep-proposal">
-      <div className="fig-panel space-y-3">
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <p className="fig-kicker">Aperçu du projet</p>
-            <h2 className="fig-panel-title !mb-0" data-testid="prep-proposal-title">
-              {name || "En cours de clarification"}
-            </h2>
-          </div>
+    <aside className="sas-preview" data-testid="prep-proposal">
+      <div className="sas-preview-inner">
+        <div className="sas-preview-head">
+          <p className="sas-preview-kicker">APERÇU DU PROJET</p>
           <span
-            className={`fig-tag ${created ? "fig-tag-ok" : assessment === "BASE_SUFFICIENTE" ? "fig-tag-ok" : "fig-tag-warn"}`}
+            className={badgeClass(props.presentation.panelBadgeTone)}
             data-testid="prep-proposal-state"
           >
-            {created
-              ? "Créé"
-              : assessment
-                ? ASSESSMENT_LABEL[assessment] ?? assessment
-                : hasLiving
-                  ? "En construction"
-                  : "À clarifier"}
+            {created ? "Créé" : props.presentation.panelBadge}
           </span>
         </div>
 
-        {!hasLiving && !props.editing ? (
-          <div className="fig-empty-list" data-testid="prep-proposal-empty">
-            <div className="fig-empty-row">
-              <div>
-                <div className="font-medium">
-                  {props.messageCount === 0
-                    ? "Commencez la conversation"
-                    : "Nora affine encore l’intention"}
-                </div>
-                <div className="muted text-xs">
-                  L’aperçu évolue avec les échanges. Aucun formulaire préalable n’est requis pour
-                  avancer.
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : null}
+        <h2 className="sas-preview-title" data-testid="prep-proposal-title">
+          {name || "Projet envisagé"}
+        </h2>
+        <p className="sas-preview-sub">Proposition évolutive de Nora · non autorisante</p>
 
         {props.editing ? (
-          <div className="space-y-2" data-testid="prep-proposal-edit">
+          <div className="sas-preview-edit space-y-2" data-testid="prep-proposal-edit">
             <p className="text-xs muted">
               Ajustement explicite pour inspection — n&apos;est pas le parcours principal.
             </p>
@@ -171,137 +281,103 @@ export function PreparationProposal(props: {
                 Annuler
               </button>
             </div>
-            <p className="text-xs muted">Révision création courante : {props.creationRevision}</p>
           </div>
-        ) : null}
-
-        {hasLiving && !props.editing ? (
-          <div className="space-y-2" data-testid="prep-proposal-ready">
-            <div className="fig-msg text-sm space-y-2">
-              {name ? (
-                <div>
-                  <span className="fig-tag fig-tag-muted mr-2">Nom</span>
-                  <span className="text-xs" data-testid="prep-field-name">
-                    {name}
-                  </span>
-                  {projection?.name ? (
-                    <span className="muted text-xs ml-2" data-testid="prep-field-name-provenance">
-                      · {statusLabel(projection.name.status, projection.name.source.kind)}
-                    </span>
-                  ) : null}
-                </div>
-              ) : null}
-              {intention || props.previewSummary.trim() ? (
-                <div>
-                  <span className="fig-tag fig-tag-muted mr-2">Intention</span>
-                  <p className="mt-1 whitespace-pre-wrap text-sm" data-testid="prep-field-intention">
-                    {intention || props.previewSummary.trim()}
-                  </p>
-                  {projection?.intention ? (
-                    <span className="muted text-xs">
-                      {statusLabel(projection.intention.status)}
-                    </span>
-                  ) : null}
-                </div>
-              ) : null}
-              {outcome ? (
-                <div>
-                  <span className="fig-tag fig-tag-muted mr-2">Résultat</span>
-                  <p className="mt-1 whitespace-pre-wrap text-sm">{outcome}</p>
-                </div>
-              ) : null}
-              {scope ? (
-                <div>
-                  <span className="fig-tag fig-tag-muted mr-2">Périmètre</span>
-                  <p className="mt-1 whitespace-pre-wrap text-sm">{scope}</p>
-                </div>
-              ) : null}
-              <div>
-                <span className="fig-tag fig-tag-muted mr-2">Ouvert</span>
-                <span className="muted text-xs">
-                  {openFromProjection.length + openFromKnowledge.length > 0
-                    ? `${openFromProjection.length + openFromKnowledge.length} point(s)`
-                    : "Aucun point ouvert listé"}
-                </span>
-              </div>
-            </div>
-            {openFromProjection.slice(0, 4).map((q, i) => (
-              <p key={`pq-${i}`} className="text-xs muted pl-1">
-                · {q.value}
-              </p>
-            ))}
-            {openFromKnowledge.slice(0, 4).map((o) => (
-              <p key={o.id} className="text-xs muted pl-1">
-                · {o.statement}
-              </p>
-            ))}
-            {explanation ? (
-              <div className="fig-msg text-sm" data-testid="prep-nora-assessment">
-                <span className="fig-tag fig-tag-muted mr-2">Appréciation Nora</span>
-                <p className="mt-1 whitespace-pre-wrap text-sm">{explanation}</p>
-                <p className="text-xs muted mt-1">
-                  Suggestion qualitative — jamais une autorisation de créer.
+        ) : (
+          <div className="sas-preview-sections" data-testid={hasLiving ? "prep-proposal-ready" : "prep-proposal-empty"}>
+            {sections.map((section) => (
+              <div key={section.key} className="sas-preview-section">
+                <p className="sas-preview-label">{section.label}</p>
+                <p
+                  className={`sas-preview-value${
+                    section.tone === "amber"
+                      ? " is-amber"
+                      : section.tone === "quiet"
+                        ? " is-quiet"
+                        : ""
+                  }`}
+                  data-testid={section.testId}
+                >
+                  {section.value}
                 </p>
+                {section.provenance ? (
+                  <span className="sas-preview-provenance" data-testid={`${section.testId}-provenance`}>
+                    · {section.provenance}
+                  </span>
+                ) : null}
               </div>
-            ) : null}
-            <button
-              type="button"
-              className="btn secondary"
-              disabled={created}
-              onClick={props.onStartConstitute}
-              data-testid="prep-constitute"
-            >
-              Ajuster l&apos;aperçu
-            </button>
-            <p className="text-xs muted">
-              Révision création : {props.creationRevision}
-              {props.projectionFreshness === "legacy"
-                ? " · aperçu partiel (préparation ancienne)"
-                : props.projectionFreshness === "unavailable"
-                  ? " · projection indisponible — dernière vérité conservée"
-                  : ""}
+            ))}
+            {openCombined.length > 1
+              ? openCombined.slice(1, 4).map((q, i) => (
+                  <p key={`oq-${i}`} className="sas-preview-open-extra">
+                    · {q}
+                  </p>
+                ))
+              : null}
+          </div>
+        )}
+
+        {!props.editing ? (
+          <div
+            className={`sas-maturity ${stage === "base_sufficient" ? "sas-maturity-ok" : ""}`}
+            data-testid="prep-nora-assessment"
+          >
+            <p className="sas-maturity-title">{props.presentation.maturityTitle}</p>
+            <p className="sas-maturity-body">
+              {explanation && stage === "base_sufficient"
+                ? explanation
+                : props.presentation.maturityBody}
             </p>
           </div>
         ) : null}
 
-        {!hasLiving && !props.editing ? (
+        {showCreateCta ? (
+          <div className="sas-create-block">
+            <button
+              type="button"
+              className="sas-create-btn"
+              disabled={props.busy || created || !canCreate}
+              onClick={props.onCreateProject}
+              data-testid="prep-create-project"
+            >
+              {created ? "Projet déjà créé" : "Créer le projet"}
+            </button>
+            <p className="sas-create-hint">Ou continuer à préciser avec Nora</p>
+          </div>
+        ) : (
+          <p className="sas-preview-foot">
+            {created
+              ? "Projet créé — continuité disponible dans l’espace projet."
+              : "Aucun projet durable créé à ce stade"}
+          </p>
+        )}
+
+        {!props.editing && !created ? (
           <button
             type="button"
-            className="btn secondary w-full"
-            disabled={created}
+            className="btn secondary sas-preview-adjust"
             onClick={props.onStartConstitute}
             data-testid="prep-constitute"
           >
-            Ajuster l&apos;aperçu manuellement
+            Ajuster l&apos;aperçu
           </button>
         ) : null}
-      </div>
 
-      <div className="fig-panel space-y-3" style={{ background: "rgba(101,111,225,0.08)" }}>
-        <h3 className="fig-panel-title">Vous restez maître de la création</h3>
-        <p className="text-sm muted">
-          Une réponse Nora n&apos;est jamais une création. Le projet n&apos;existe qu&apos;après votre
-          confirmation explicite sur l&apos;aperçu inspecté.
+        <p className="sas-preview-meta muted text-xs sr-only" data-testid="prep-creation-revision">
+          Révision création : {props.creationRevision}
+          {props.projectionFreshness === "legacy"
+            ? " · aperçu partiel (préparation ancienne)"
+            : props.projectionFreshness === "unavailable"
+              ? " · projection indisponible — dernière vérité conservée"
+              : ""}
+          {assessment ? ` · ${assessment}` : ""}
         </p>
-        <button
-          type="button"
-          className="btn w-full"
-          disabled={props.busy || created || !canCreate}
-          onClick={props.onCreateProject}
-          data-testid="prep-create-project"
-        >
-          {created ? "Projet déjà créé" : "Créer le projet"}
-        </button>
-        <p className="text-xs muted">
-          Tu peux reprendre cette préparation quand tu le souhaites.
-        </p>
-      </div>
 
-      {props.status ? (
-        <p className="text-sm muted" data-testid="surface-status">
-          {props.status}
-        </p>
-      ) : null}
+        {props.status ? (
+          <p className="text-sm muted" data-testid="surface-status">
+            {props.status}
+          </p>
+        ) : null}
+      </div>
     </aside>
   );
 }

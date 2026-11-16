@@ -16,61 +16,100 @@ export function PreparationConversation(props: {
   noraActivity: "idle" | "preparing" | "error";
   onDraftChange: (v: string) => void;
   onSend: () => void;
+  /** Resume banner when preparation is reopened (state 05). */
+  showResumeBanner?: boolean;
   footer?: React.ReactNode;
 }) {
   const empty = props.messages.length === 0;
 
   return (
-    <section className="fig-panel fig-sas-thread space-y-3" data-testid="prep-conversation">
-      <p className="fig-kicker">Discussion</p>
-      <div className="space-y-3 max-h-[58vh] overflow-auto pr-1" data-testid="prep-message-list">
-        {empty ? (
-          <div className="fig-msg fig-msg-nora" data-testid="prep-empty-invite">
-            <div className="text-xs muted mb-2 uppercase tracking-wide">Nora</div>
-            <p className="text-sm">
-              Exposez votre intention librement. Je clarifie avec vous — aucun projet n&apos;est créé
-              tant que vous ne le décidez pas explicitement.
-            </p>
+    <section className="sas-thread" data-testid="prep-conversation">
+      <div className="sas-thread-scroll" data-testid="prep-message-list">
+        {props.showResumeBanner ? (
+          <div className="sas-resume-banner" role="status" data-testid="prep-resume-banner">
+            <span aria-hidden>●</span>
+            <span>Conversation et contexte retrouvés · vous pouvez continuer</span>
           </div>
         ) : null}
-        {props.messages.map((m) => (
-          <article
-            key={m.id}
-            className={`fig-msg ${m.role === "assistant" ? "fig-msg-nora" : "fig-msg-pilot"}`}
-            data-testid={`prep-msg-${m.role}`}
-          >
-            <div className="text-xs muted mb-2 flex gap-2 items-center">
-              <span className="uppercase tracking-wide">
-                {m.role === "assistant" ? "Nora" : "Pilote"}
+
+        {empty ? (
+          <article className="sas-msg sas-msg-nora" data-testid="prep-empty-invite">
+            <header className="sas-msg-head">
+              <span className="sas-msg-avatar sas-msg-avatar-nora" aria-hidden>
+                ✦
               </span>
-              <span>· {m.status}</span>
+              <span className="sas-msg-role sas-msg-role-nora">NORA</span>
+            </header>
+            <div className="sas-msg-body">
+              <p>
+                Bonjour. Racontez-moi ce que vous aimeriez accomplir, même si l&apos;idée est encore
+                vague.
+              </p>
+              <p>
+                Je vous aiderai à en dégager une première direction, sans vous demander un cadrage
+                complet.
+              </p>
             </div>
-            {m.role === "assistant" ? (
-              <SafeMarkdown content={m.content} />
-            ) : (
-              <div className="whitespace-pre-wrap text-sm">{m.content}</div>
-            )}
           </article>
-        ))}
+        ) : null}
+
+        {props.messages.map((m, index) => {
+          const isNora = m.role === "assistant";
+          const highlight =
+            isNora &&
+            index === props.messages.length - 1 &&
+            props.messages.filter((x) => x.role === "assistant").length > 1;
+          return (
+            <article
+              key={m.id}
+              className={`sas-msg ${isNora ? "sas-msg-nora" : "sas-msg-pilot"}${
+                highlight ? " sas-msg-nora-emphasis" : ""
+              }`}
+              data-testid={`prep-msg-${m.role}`}
+            >
+              <header className="sas-msg-head">
+                <span
+                  className={`sas-msg-avatar ${isNora ? "sas-msg-avatar-nora" : "sas-msg-avatar-pilot"}`}
+                  aria-hidden
+                >
+                  {isNora ? "✦" : "P"}
+                </span>
+                <span className={`sas-msg-role ${isNora ? "sas-msg-role-nora" : "sas-msg-role-pilot"}`}>
+                  {isNora ? "NORA" : "PILOTE"}
+                </span>
+              </header>
+              <div className="sas-msg-body">
+                {isNora ? (
+                  <SafeMarkdown content={m.content} />
+                ) : (
+                  <div className="whitespace-pre-wrap">{m.content}</div>
+                )}
+              </div>
+            </article>
+          );
+        })}
+
         {props.noraActivity === "preparing" ? (
-          <div className="fig-alert" role="status" aria-live="polite">
+          <div className="sas-thread-status" role="status" aria-live="polite">
             Nora prépare une réponse…
           </div>
         ) : null}
         {props.noraActivity === "error" ? (
-          <div className="fig-alert" style={{ borderColor: "var(--bad)" }} role="alert">
+          <div className="sas-thread-status sas-thread-status-error" role="alert">
             Échec de génération — votre message Pilote est conservé. Vous pouvez renvoyer.
           </div>
         ) : null}
       </div>
-      <div className="fig-composer">
+
+      <div className="sas-composer" data-testid="prep-composer">
         <textarea
-          className="textarea"
+          className="sas-composer-input"
           value={props.draft}
           onChange={(e) => props.onDraftChange(e.target.value)}
-          placeholder="Écrire à Nora…"
+          placeholder="Décrivez votre idée, une question ou une hésitation…"
           aria-label="Message à Nora"
           data-testid="prep-draft"
+          rows={2}
           onKeyDown={(e) => {
             if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
               e.preventDefault();
@@ -78,17 +117,23 @@ export function PreparationConversation(props: {
             }
           }}
         />
-        <div className="flex flex-wrap gap-2 items-center">
+        <div className="sas-composer-bar" aria-hidden={!props.draft.trim()}>
+          <span className="sas-composer-hint">
+            <span className="sas-composer-plus" aria-hidden>
+              ＋
+            </span>
+            Échanger librement avec Nora
+          </span>
           <button
             type="button"
-            className="btn"
+            className="sas-composer-send"
             disabled={props.busy || !props.draft.trim()}
             onClick={props.onSend}
             data-testid="prep-send"
+            aria-label="Envoyer le message"
           >
-            Envoyer
+            <span aria-hidden>↑</span>
           </button>
-          <span className="text-xs muted">⌘/Ctrl+Entrée</span>
         </div>
       </div>
       {props.footer}

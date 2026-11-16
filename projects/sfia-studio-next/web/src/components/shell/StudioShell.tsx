@@ -38,7 +38,9 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
   const personalSpace = !inProductSpace;
   const portfolioActive = pathname.startsWith("/portfolio") || pathname === "/";
   const accountActive = pathname.startsWith("/settings");
-  const breadcrumb = resolvePersonalBreadcrumb(pathname);
+  const breadcrumb = resolvePersonalBreadcrumb(pathname, searchParams);
+  const onSasVisual = pathname.startsWith("/dev/sas-visual/");
+  const onSasPreparation = Boolean(preparationId) || onSasVisual;
   const [openingPrep, setOpeningPrep] = useState(false);
   const [prepNotice, setPrepNotice] = useState("");
 
@@ -285,21 +287,27 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
                 ? <>SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{breadcrumb}</>
                 : <>SFIA Studio</>}
             </p>
-            <Link
-              href={ACCOUNT_HREF}
-              className="studio-account-link shrink-0"
-              data-testid="nav-account-top"
-              aria-label="Compte — Intégrations"
-            >
-              <span
-                aria-hidden
-                className="inline-flex h-[25px] w-[25px] items-center justify-center rounded-full text-[12px] font-bold"
-                style={{ background: "rgba(101,111,225,0.25)", color: "var(--fig-accent-soft)" }}
-              >
-                P
+            {onSasPreparation ? (
+              <span className="sas-project-badge" data-testid="sas-header-project-status">
+                PROJET NON CRÉÉ
               </span>
-              <span className="hidden sm:inline text-[13px] text-[var(--muted)]">Pilote</span>
-            </Link>
+            ) : (
+              <Link
+                href={ACCOUNT_HREF}
+                className="studio-account-link shrink-0"
+                data-testid="nav-account-top"
+                aria-label="Compte — Intégrations"
+              >
+                <span
+                  aria-hidden
+                  className="inline-flex h-[25px] w-[25px] items-center justify-center rounded-full text-[12px] font-bold"
+                  style={{ background: "rgba(101,111,225,0.25)", color: "var(--fig-accent-soft)" }}
+                >
+                  P
+                </span>
+                <span className="hidden sm:inline text-[13px] text-[var(--muted)]">Pilote</span>
+              </Link>
+            )}
           </header>
         ) : (
           <nav
@@ -338,6 +346,7 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
         <main
           className={`studio-shell-main ${personalSpace ? "studio-shell-main-mobile-pad" : ""}`}
           data-testid="studio-shell-main"
+          data-sas-layout={onSasPreparation ? "1" : undefined}
         >
           {children}
         </main>

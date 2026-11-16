@@ -59,10 +59,10 @@ html.studio-shell-lock body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  height: 66px;
-  padding: 0 1.35rem;
+  height: 72px;
+  padding: 0 1.6rem 0 2.4rem;
   border-bottom: 1px solid var(--line);
-  background: #0f1420;
+  background: #0b1019;
 }
 
 .studio-shell-topbar-mobile {
@@ -76,8 +76,21 @@ html.studio-shell-lock body {
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 1.75rem 1.75rem 2rem;
-  background: radial-gradient(900px 420px at 12% -8%, #1a2433 0%, transparent 55%);
+  padding: 1.35rem 2.4rem 1.75rem;
+  background: #0b101b;
+}
+
+.studio-shell-main[data-sas-layout="1"] {
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.studio-shell-main[data-sas-layout="1"] > .sas-page {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .studio-shell-main-mobile-pad {
@@ -179,10 +192,20 @@ html.studio-shell-lock body {
 }
 
 .studio-rail-nav-item.is-active {
-  background: #272e49;
+  background: #242c4b;
   border: 1px solid var(--line);
   color: var(--ink);
   font-weight: 600;
+  position: relative;
+}
+
+.studio-rail-nav-item.is-active::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
 .studio-rail-section {

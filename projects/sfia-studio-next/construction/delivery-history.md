@@ -25,6 +25,21 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-UX-FIGMA
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~14:40 CET |
+| Macro-lot | ML4D — Convergence UX Figma → code Sas Nora |
+| Type | Cycle 8 Delivery · EVOL visuelle · **NO RELEASE** |
+| Figma | `itgvCulInEnFY6DvgIegvP` nodes 607:3/62/131/203/277 — lecture seule |
+| Scope | Composition sas conversation+aperçu+composer ; tokens ; shell header/rail personnel |
+| Non-scope | D2/D3/D4 services, migrations, RECETTE, Figma write, PR/merge |
+| Preuves | F2 Δ0 (rail/header/composer/preview/conv) ; 5 captures runtime ; harness `/dev/sas-visual/*` |
+| RECETTE | **inchangée** `cd091385` / `E3J7wVO4MsKgl5aCTDhed` |
+| Push produit | **AUCUN** |
+| Verdict | `FIGMA TO RUNTIME ALIGNED — READY FOR CHATGPT VISUAL REVIEW` (Morris final) |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-RECETTE-CUTOVER
 
 | Field | Value |

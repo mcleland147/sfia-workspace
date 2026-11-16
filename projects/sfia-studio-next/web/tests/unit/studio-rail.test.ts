@@ -12,7 +12,8 @@ import {
 
 describe("F1 studio rail variants (G2 railEvidence)", () => {
   it("keeps personnel vs projet fill discriminant", () => {
-    expect(STUDIO_RAIL_VARIANTS.personnel.fill.toLowerCase()).toBe("#0c101a");
+    // Sas Nora 606:20 personal rail fill; projet remains distinct for project space.
+    expect(STUDIO_RAIL_VARIANTS.personnel.fill.toLowerCase()).toBe("#0d1220");
     expect(STUDIO_RAIL_VARIANTS.projet.fill.toLowerCase()).toBe("#0c1020");
     expect(STUDIO_RAIL_VARIANTS.personnel.fill).not.toBe(STUDIO_RAIL_VARIANTS.projet.fill);
   });
@@ -33,7 +34,7 @@ describe("F1 studio rail variants (G2 railEvidence)", () => {
         pathname: "/preparations/abc",
         searchParams: new URLSearchParams("resume=1"),
       }),
-    ).toBe("projet");
+    ).toBe("personnel");
     expect(
       resolveRailVariant({ pathname: "/projects/p1", surface: "document" }),
     ).toBe("inspection");
@@ -76,6 +77,13 @@ describe("B1 shell navigation", () => {
     expect(resolvePersonalBreadcrumb("/portfolio")).toBe("Portefeuille");
     expect(resolvePersonalBreadcrumb("/settings/integrations")).toBe("Intégrations");
     expect(resolvePersonalBreadcrumb("/settings")).toBe("Paramètres");
+    expect(resolvePersonalBreadcrumb("/preparations/prep-1")).toBe("Nouvelle préparation");
+    expect(
+      resolvePersonalBreadcrumb(
+        "/preparations/prep-1",
+        new URLSearchParams("resume=1"),
+      ),
+    ).toBe("Préparation reprise");
     expect(resolvePersonalBreadcrumb("/unknown-personal")).toBeNull();
   });
 
