@@ -5,6 +5,7 @@ import {
   clearProjectSurfaceNavIntent,
   noteProjectSurfaceNavIntent,
   peekProjectSurfaceNavIntent,
+  resolvePersonalBreadcrumb,
   resolveProjectLoadSurface,
   resolveRailVariant,
 } from "@/components/shell/studio-rail";
@@ -59,14 +60,23 @@ describe("B1 shell navigation", () => {
     expect(items.find((i) => i.key === "pilotage")?.active).toBe(true);
   });
 
-  it("keeps a single Portefeuille entry plus Nouveau projet (UX-004)", () => {
+  it("keeps a single Portefeuille entry plus Nouveau projet action (UX-004)", () => {
     const items = buildShellNav({ pathname: "/portfolio" });
     expect(items.some((i) => i.key === "mes-projets")).toBe(false);
     expect(items.some((i) => i.key === "login")).toBe(false);
     expect(items.find((i) => i.key === "portfolio")?.label).toBe("Portefeuille");
-    expect(items.find((i) => i.key === "new-prep")?.label).toBe("Nouveau projet");
-    expect(items.find((i) => i.key === "new-prep")?.href).toBe("/portfolio#nouvelle-preparation");
+    const create = items.find((i) => i.key === "new-prep");
+    expect(create?.label).toBe("Nouveau projet");
+    expect(create?.href).toBeNull();
+    expect(create?.action).toBe("open-preparation");
     expect(items.every((i) => i.href !== "#")).toBe(true);
+  });
+
+  it("resolves personal breadcrumb for known routes only", () => {
+    expect(resolvePersonalBreadcrumb("/portfolio")).toBe("Portefeuille");
+    expect(resolvePersonalBreadcrumb("/settings/integrations")).toBe("Intégrations");
+    expect(resolvePersonalBreadcrumb("/settings")).toBe("Paramètres");
+    expect(resolvePersonalBreadcrumb("/unknown-personal")).toBeNull();
   });
 
   it("disables project surfaces without project context (prep)", () => {

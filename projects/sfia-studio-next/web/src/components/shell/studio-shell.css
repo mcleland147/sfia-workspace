@@ -126,7 +126,8 @@ html.studio-shell-lock body {
     z-index: 20;
   }
 
-  .studio-shell-bottom-nav a {
+  .studio-shell-bottom-nav a,
+  .studio-shell-bottom-nav-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,12 +138,21 @@ html.studio-shell-lock body {
     font-size: 0.72rem;
     border-radius: 8px;
     padding: 0.25rem;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
   }
 
   .studio-shell-bottom-nav a[aria-current="page"],
   .studio-shell-bottom-nav a.is-active {
     color: var(--ink);
     font-weight: 600;
+  }
+
+  .studio-shell-bottom-nav-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
   }
 
   .studio-shell-bottom-nav .nav-glyph {
@@ -201,7 +211,20 @@ html.studio-shell-lock body {
 
 .studio-account-link:focus-visible,
 .studio-rail-nav-item:focus-visible,
-.studio-shell-bottom-nav a:focus-visible {
+.studio-shell-bottom-nav a:focus-visible,
+.studio-shell-bottom-nav-btn:focus-visible {
   outline: 2px solid var(--accent-soft);
   outline-offset: 2px;
+}
+
+button.studio-rail-nav-item {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+button.studio-rail-nav-item:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }

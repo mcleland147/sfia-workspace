@@ -29,9 +29,10 @@ test.describe("UX-004 portfolio shell", () => {
     await expect(page.getByTestId("studio-shell-app")).toBeVisible();
     await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-width", "246");
     await expect(page.getByTestId("nav-portfolio")).toBeVisible();
-    await expect(page.getByTestId("nav-new-prep")).toHaveAttribute(
-      "href",
-      "/portfolio#nouvelle-preparation",
+    await expect(page.getByTestId("nav-new-prep")).toBeVisible();
+    await expect(page.getByTestId("nav-new-prep")).toHaveAttribute("type", "button");
+    await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
+      /SFIA Studio\s+\/\s+Portefeuille/,
     );
     await expect(page.getByTestId("nav-mes-projets")).toHaveCount(0);
     await expect(page.getByTestId("nav-login")).toHaveCount(0);
@@ -73,10 +74,7 @@ test.describe("UX-004 portfolio shell", () => {
     const bottom = page.getByTestId("studio-mobile-bottom-nav");
     await expect(bottom).toBeVisible();
     await expect(page.getByTestId("mobile-nav-portfolio")).toBeVisible();
-    await expect(page.getByTestId("mobile-nav-create")).toHaveAttribute(
-      "href",
-      "/portfolio#nouvelle-preparation",
-    );
+    await expect(page.getByTestId("mobile-nav-create")).toHaveAttribute("type", "button");
     await expect(page.getByTestId("mobile-nav-account")).toHaveAttribute(
       "href",
       "/settings/integrations",
@@ -173,32 +171,83 @@ test.describe("UX-004 portfolio shell", () => {
     await expect(page.getByText("Préparations ouvertes")).toBeVisible();
   });
 
-  test("nouveau projet → sas; resume GET; account destination real; UX-003 login still entry", async ({
+  test("nouveau projet → sas; from Intégrations; double-click guard; breadcrumb; resume GET; UX-003 login", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await loginPilotA(page);
 
+    await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
+      /SFIA Studio\s+\/\s+Portefeuille/,
+    );
+
     await page.getByTestId("nav-account").click();
     await page.waitForURL("**/settings/integrations");
     await expect(page.getByTestId("studio-rail")).toBeVisible();
+    await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
+      /SFIA Studio\s+\/\s+Intégrations/,
+    );
+
+    // Correction A from Intégrations: rail « Nouveau projet » POSTs D2 directly.
+    let postsFromIntegrations = 0;
+    page.on("request", (req) => {
+      if (req.method() === "POST" && req.url().includes("/api/preparations")) {
+        postsFromIntegrations += 1;
+      }
+    });
+    await page.getByTestId("nav-new-prep").click();
+    await page.waitForURL("**/preparations/**");
+    expect(postsFromIntegrations).toBe(1);
+    const prepFromRail = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
+    expect(prepFromRail).toBeTruthy();
 
     await page.goto("/portfolio");
+    await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
+      /SFIA Studio\s+\/\s+Portefeuille/,
+    );
+
+    // Portfolio CTA uses the same D2 path.
     await page.getByTestId("portfolio-new-prep").click();
     await page.waitForURL("**/preparations/**");
     const prepId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
     expect(prepId).toBeTruthy();
 
+    // Double-click guard on rail (no second POST while opening).
+    await page.goto("/portfolio");
+    let posts = 0;
+    const countPosts = (req: import("@playwright/test").Request) => {
+      if (req.method() === "POST" && req.url().includes("/api/preparations")) posts += 1;
+    };
+    page.on("request", countPosts);
+    await page.route("**/api/preparations", async (route) => {
+      if (route.request().method() !== "POST") {
+        await route.continue();
+        return;
+      }
+      await new Promise((r) => setTimeout(r, 400));
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ preparationId: "prep-dbl-guard" }),
+      });
+    });
+    const btn = page.getByTestId("nav-new-prep");
+    await Promise.all([btn.click(), btn.click()]);
+    await page.waitForURL("**/preparations/prep-dbl-guard");
+    expect(posts).toBe(1);
+    page.off("request", countPosts);
+    await page.unroute("**/api/preparations");
+
     await page.goto("/portfolio");
     const resume = page.locator(`[data-testid^="resume-prep-"]`).first();
     if (await resume.count()) {
-      let posts = 0;
+      let resumePosts = 0;
       page.on("request", (req) => {
-        if (req.method() === "POST" && req.url().includes("/api/preparations")) posts += 1;
+        if (req.method() === "POST" && req.url().includes("/api/preparations")) resumePosts += 1;
       });
       await resume.click();
       await page.waitForURL(/resume=1/);
-      expect(posts).toBe(0);
+      expect(resumePosts).toBe(0);
     }
 
     await page.goto("/login");

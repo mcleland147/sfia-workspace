@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { preparationDisplayLabel } from "@/domains/identity/portfolio-labels";
+import { openPreparation } from "@/lib/open-preparation";
 
 type PreparationSummary = {
   id: string;
@@ -153,53 +154,23 @@ export default function PortfolioPage() {
     setError("");
     const before = new Set(knownPrepIdsRef.current);
     try {
-      const res = await fetch("/api/preparations", { method: "POST" });
-      let j: { preparationId?: string; error?: string } = {};
-      try {
-        j = await res.json();
-      } catch {
-        j = {};
-      }
-      if (res.ok && j.preparationId) {
-        router.push(`/preparations/${j.preparationId}`);
+      const result = await openPreparation({ knownPreparationIds: before });
+      if (result.kind === "opened") {
+        router.push(`/preparations/${result.preparationId}`);
         return;
       }
-      if (!res.ok && res.status !== 0) {
+      if (result.kind === "unauthorized") {
+        router.push("/login");
+        return;
+      }
+      if (result.kind === "refused") {
         setCreationUncertainty("");
-        setError(j.error ?? `création refusée (HTTP ${res.status})`);
+        setError(result.message);
         return;
       }
-      const refreshed = await reloadPortfolio();
-      const prep =
-        refreshed?.portfolio && "preparations" in refreshed.portfolio
-          ? refreshed.portfolio.preparations.items
-          : [];
-      const discovered = prep.find((p) => !before.has(p.id));
-      if (discovered) {
-        setCreationUncertainty(
-          `Création confirmée après relecture · ${discovered.id.slice(0, 8)}… — ouvrez « Reprendre ».`,
-        );
-        return;
-      }
-      setCreationUncertainty(
-        "Création incertaine (ACK perdu). Aucun nouveau POST automatique. Relisez le portefeuille ou réessayez explicitement.",
-      );
-    } catch {
-      const refreshed = await reloadPortfolio();
-      const prep =
-        refreshed?.portfolio && "preparations" in refreshed.portfolio
-          ? refreshed.portfolio.preparations.items
-          : [];
-      const discovered = prep.find((p) => !before.has(p.id));
-      if (discovered) {
-        setCreationUncertainty(
-          `Réseau interrompu, mais une préparation nouvelle apparaît · ${discovered.id.slice(0, 8)}… — Reprendre (GET).`,
-        );
-      } else {
-        setCreationUncertainty(
-          "Réseau interrompu pendant la création. Résultat non vérifiable — pas de second POST automatique.",
-        );
-      }
+      // Uncertain ACK — refresh known ids; never auto-retry POST.
+      await reloadPortfolio();
+      setCreationUncertainty(result.message);
     } finally {
       creatingRef.current = false;
       setCreating(false);

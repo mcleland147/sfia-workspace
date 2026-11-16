@@ -216,6 +216,8 @@ export function resolveRailVariant(input: {
   return "personnel";
 }
 
+export type ShellNavAction = "open-preparation";
+
 export type ShellNavItem = {
   key: string;
   label: string;
@@ -223,7 +225,21 @@ export type ShellNavItem = {
   active: boolean;
   /** Inactive without context — never a fake # link. */
   disabledReason?: string;
+  /** Explicit UI action (not a GET navigation). */
+  action?: ShellNavAction;
 };
+
+/**
+ * Personal-space breadcrumb second segment — known routes only.
+ * Never invent a label; never keep « Portefeuille » on another route.
+ */
+export function resolvePersonalBreadcrumb(pathname: string): string | null {
+  const path = pathname || "/";
+  if (path.startsWith("/portfolio") || path === "/") return "Portefeuille";
+  if (path.startsWith("/settings/integrations")) return "Intégrations";
+  if (path.startsWith("/settings")) return "Paramètres";
+  return null;
+}
 
 export function buildShellNav(input: {
   pathname: string;
@@ -248,8 +264,9 @@ export function buildShellNav(input: {
     items.push({
       key: "new-prep",
       label: "Nouveau projet",
-      href: "/portfolio#nouvelle-preparation",
+      href: null,
       active: false,
+      action: "open-preparation",
     });
     // Connected personal space: no redundant « Connexion » rail entry.
     return items;

@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { openPreparation } from "@/lib/open-preparation";
 import { PRODUCT_VERSIONING } from "@/lib/product-version";
 import {
   STUDIO_RAIL_VARIANTS,
@@ -12,6 +13,7 @@ import {
   parseProjectId,
   parseStudioSurface,
   railStyle,
+  resolvePersonalBreadcrumb,
   resolveRailVariant,
 } from "./studio-rail";
 import "./studio-shell.css";
@@ -21,6 +23,7 @@ const ACCOUNT_HREF = "/settings/integrations";
 
 export function StudioShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
+  const router = useRouter();
   const searchParams = useSearchParams();
   const surface = searchParams.get("surface");
   const variant = resolveRailVariant({ pathname, surface, searchParams });
@@ -32,6 +35,36 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
   const personalSpace = !inProductSpace;
   const portfolioActive = pathname.startsWith("/portfolio") || pathname === "/";
   const accountActive = pathname.startsWith("/settings");
+  const breadcrumb = resolvePersonalBreadcrumb(pathname);
+  const [openingPrep, setOpeningPrep] = useState(false);
+  const [prepNotice, setPrepNotice] = useState("");
+  const openingRef = useRef(false);
+
+  async function handleOpenPreparation() {
+    if (openingRef.current) return;
+    openingRef.current = true;
+    setOpeningPrep(true);
+    setPrepNotice("");
+    try {
+      const result = await openPreparation();
+      if (result.kind === "opened") {
+        router.push(`/preparations/${result.preparationId}`);
+        return;
+      }
+      if (result.kind === "unauthorized") {
+        router.push("/login");
+        return;
+      }
+      if (result.kind === "refused") {
+        setPrepNotice(result.message);
+        return;
+      }
+      setPrepNotice(result.message);
+    } finally {
+      openingRef.current = false;
+      setOpeningPrep(false);
+    }
+  }
 
   // UX-003: /login is a public entry surface — no private project rail.
   useEffect(() => {
@@ -107,6 +140,23 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
             aria-label="Principal"
           >
             {items.map((item) => {
+              if (item.action === "open-preparation") {
+                return (
+                  <button
+                    key={item.key}
+                    type="button"
+                    className="studio-rail-nav-item text-left w-full"
+                    data-testid={`nav-${item.key}`}
+                    disabled={openingPrep}
+                    onClick={() => void handleOpenPreparation()}
+                  >
+                    <span aria-hidden className="text-[var(--accent-soft)] text-lg leading-none">
+                      +
+                    </span>
+                    <span>{openingPrep ? "Ouverture…" : item.label}</span>
+                  </button>
+                );
+              }
               if (!item.href) {
                 return (
                   <span
@@ -141,15 +191,15 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
                       <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
                     </span>
                   ) : null}
-                  {item.key === "new-prep" ? (
-                    <span aria-hidden className="text-[var(--accent-soft)] text-lg leading-none">
-                      +
-                    </span>
-                  ) : null}
                   <span>{item.label}</span>
                 </Link>
               );
             })}
+            {prepNotice ? (
+              <p className="text-xs text-[var(--bad)] px-2" role="status" data-testid="shell-prep-notice">
+                {prepNotice}
+              </p>
+            ) : null}
 
             {personalSpace ? (
               <div className="mt-2">
@@ -228,8 +278,13 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
               </span>
               <span className="font-semibold truncate">SFIA Studio</span>
             </div>
-            <p className="hidden md:block text-sm muted truncate m-0">
-              SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;Portefeuille
+            <p
+              className="hidden md:block text-sm muted truncate m-0"
+              data-testid="studio-shell-breadcrumb"
+            >
+              {breadcrumb
+                ? <>SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{breadcrumb}</>
+                : <>SFIA Studio</>}
             </p>
             <Link
               href={ACCOUNT_HREF}
@@ -305,15 +360,18 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
               </span>
               Portefeuille
             </Link>
-            <Link
-              href="/portfolio#nouvelle-preparation"
+            <button
+              type="button"
+              className="studio-shell-bottom-nav-btn"
               data-testid="mobile-nav-create"
+              disabled={openingPrep}
+              onClick={() => void handleOpenPreparation()}
             >
               <span className="nav-glyph" aria-hidden>
                 +
               </span>
-              Créer
-            </Link>
+              {openingPrep ? "…" : "Créer"}
+            </button>
             <Link
               href={ACCOUNT_HREF}
               className={accountActive ? "is-active" : ""}

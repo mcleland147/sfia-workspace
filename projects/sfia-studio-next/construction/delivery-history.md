@@ -25,6 +25,26 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-UX004-NAV-BREADCRUMB-CORRECTIF
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~09:00 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-004 correctif borné navigation Nouveau projet + fil d'Ariane |
+| Type | EVOL / PATCH candidate compatible · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux004-portfolio-20261116` |
+| Parent tip | `bc8785683c30430aa99bc76e138ba10f49c71c39` |
+| Base UX-003 | `a77a3a2bf7b942038d771fdcdd2e7a6410330784` (préservé) |
+| Base main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Cause | Rail « Nouveau projet » → `/portfolio#nouvelle-preparation` (détour portefeuille) ; fil d'Ariane figé « Portefeuille » sur Intégrations |
+| Changes | Action partagée `openPreparation` (POST D2 unique, ACK sans retry) ; rail/mobile/portefeuille même parcours ; breadcrumb route-aware (`Portefeuille` / `Intégrations`) ; tests unit + Playwright |
+| Schema / API | unchanged |
+| Lanes | DEV `:3102` ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`bc878568` / BUILD `3g7UH7AXjSWhxrT20D3-w`) |
+| Validations | tsc PASS ; lint warnings préexistants ; build PASS ; vitest open-preparation+studio-rail 16 PASS ; Playwright UX-004+UX-003 18 PASS (BROWSER FAKE) |
+| Push Product | **AUCUN** |
+| RECETTE | **NON MODIFIÉE** — nouveau SHA non servi ; GO distinct requis |
+| Verdict candidat | `READY FOR CHATGPT REVIEW — UX-004 CORRECTIF` |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-UX004-PORTFOLIO-SHELL
 
 | Field | Value |
