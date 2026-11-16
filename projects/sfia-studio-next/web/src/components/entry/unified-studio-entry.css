@@ -242,10 +242,42 @@
   border: 1px solid var(--uxe-line);
   border-radius: var(--uxe-radius-panel);
   width: 100%;
+  /* Nominal Figma 574:425 / 574:490: fixed 550. Status messages render outside. */
   height: 550px;
   padding: 26px 28px 28px;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+/* Error/busy status lives outside the fixed panel so long copy is never clipped. */
+.uxe-status-slot {
+  width: 100%;
+  margin: 0;
+}
+
+.uxe-status {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--uxe-line);
+  background: color-mix(in srgb, var(--uxe-panel) 88%, #000);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--uxe-muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.uxe-status[data-tone="error"] {
+  color: #f2b4ba;
+  border-color: color-mix(in srgb, #e35d6a 55%, var(--uxe-line));
+  background: color-mix(in srgb, #e35d6a 12%, var(--uxe-panel));
+}
+
+.uxe-status[data-tone="busy"] {
+  color: var(--uxe-accent-soft);
+  border-color: color-mix(in srgb, var(--uxe-accent) 40%, var(--uxe-line));
 }
 
 .uxe-auth-accent {
@@ -359,21 +391,6 @@
 .uxe-auth-note--secondary {
   color: var(--uxe-muted-2);
   margin-top: 14px;
-}
-
-.uxe-status {
-  margin: 18px 0 0;
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--uxe-muted);
-}
-
-.uxe-status[data-tone="error"] {
-  color: #e35d6a;
-}
-
-.uxe-status[data-tone="busy"] {
-  color: var(--uxe-accent-soft);
 }
 
 .uxe-dev {

@@ -60,5 +60,6 @@ Stockage local cycle : `.tmp-sfia-review/figma-refs/`
 ## 5. Limites runtime
 
 - Variante session expirée : activation déterministe `?reason=session_expired` uniquement (pas de détection session native distincte).
-- Accès DEV (Pilote A/B) : hors Figma, conservés pour lanes DEV/E2E.
+- Accès de test (Pilote A/B) : hors Figma ; affiché seulement si `/api/auth/status.testLoginAvailable` (lane DEV/RECETTE + `STUDIO_DEV_TEST_LOGIN=1`) ; garde serveur inchangée.
+- Messages d’état (busy/error) : rendus **hors** du panneau auth fixe 550 px (écart documenté vs Figma nominal) pour éviter toute troncature `overflow:hidden`.
 - Fidélité F2 : rectangles stables — cible delta 0 CSS px, tolérance max 2 CSS px ; pas de seuil global d’image inventé.

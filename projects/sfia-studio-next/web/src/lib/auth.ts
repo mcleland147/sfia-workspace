@@ -71,7 +71,16 @@ export const auth = betterAuth({
   },
 });
 
-export function githubOAuthStatus() {
+/**
+ * Non-secret capability probe for the entry screen.
+ * Mirrors the server gate for DEV/RECETTE test login (STUDIO_DEV_TEST_LOGIN + lane).
+ * Frontend visibility is not a security control — issuance remains fail-closed on /api/dev/login.
+ */
+export function studioEntryCapabilities() {
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  const testLoginFlag = process.env.STUDIO_DEV_TEST_LOGIN === "1";
+  const testLoginAvailable =
+    testLoginFlag && (lane === "DEV" || lane === "RECETTE");
   return {
     provider: "github-oauth-studio-identity-only",
     configured: githubConfigured,
@@ -79,5 +88,15 @@ export function githubOAuthStatus() {
       ? "CONFIGURED — LIVE proof still requires successful callback"
       : "BLOCKED — missing GITHUB_CLIENT_ID/SECRET",
     note: "Login grants Studio identity only — never repository rights.",
+    lane: lane || "UNKNOWN",
+    testLoginAvailable,
+    testLoginLabel: testLoginAvailable
+      ? "Accès de test (non OAuth) — lane autorisée"
+      : null,
   };
+}
+
+/** @deprecated Prefer studioEntryCapabilities — kept for existing call sites. */
+export function githubOAuthStatus() {
+  return studioEntryCapabilities();
 }

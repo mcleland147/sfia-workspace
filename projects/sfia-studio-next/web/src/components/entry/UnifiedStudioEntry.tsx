@@ -17,6 +17,8 @@ export type UnifiedStudioEntryProps = {
   busy: boolean;
   notice: string;
   noticeTone?: "error" | "busy" | "info";
+  /** Server-gated: DEV/RECETTE + STUDIO_DEV_TEST_LOGIN=1. Not a security control by itself. */
+  testLoginAvailable: boolean;
   onGitHubContinue: () => void;
   onDevLogin: (pilot: "a" | "b") => void;
 };
@@ -26,6 +28,7 @@ export function UnifiedStudioEntry({
   busy,
   notice,
   noticeTone = "info",
+  testLoginAvailable,
   onGitHubContinue,
   onDevLogin,
 }: UnifiedStudioEntryProps) {
@@ -36,6 +39,7 @@ export function UnifiedStudioEntry({
       className="uxe-root"
       data-testid="unified-studio-entry"
       data-entry-variant={variant}
+      data-test-login={testLoginAvailable ? "available" : "hidden"}
       data-figma-desktop={variant === "session_expired" ? "574:490" : "574:425"}
       data-figma-mobile="574:466"
     >
@@ -129,6 +133,7 @@ export function UnifiedStudioEntry({
                 className="uxe-cta"
                 data-testid="login-github"
                 disabled={busy}
+                aria-busy={busy}
                 onClick={onGitHubContinue}
               >
                 <span className="uxe-cta-icon" aria-hidden>
@@ -147,43 +152,49 @@ export function UnifiedStudioEntry({
               <p className="uxe-auth-note uxe-auth-note--secondary">
                 Les droits d&apos;accès aux dépôts sont gérés séparément.
               </p>
+            </section>
 
-              {notice ? (
+            {/* Status outside fixed 550px panel — no truncation (écart documenté vs Figma nominal). */}
+            {notice ? (
+              <div className="uxe-status-slot">
                 <p
                   className="uxe-status"
                   data-tone={noticeTone}
                   data-testid="login-notice"
-                  role="status"
+                  role={noticeTone === "error" ? "alert" : "status"}
+                  aria-live={noticeTone === "error" ? "assertive" : "polite"}
                 >
                   {notice}
                 </p>
-              ) : null}
-            </section>
-
-            {/* DEV-only harness — hors panneau Figma ; conservé pour lanes DEV/E2E. */}
-            <div className="uxe-dev" data-testid="login-dev-access">
-              <p className="uxe-auth-note uxe-auth-note--secondary">
-                Accès de test DEV (non OAuth)
-              </p>
-              <div className="uxe-dev-body">
-                <button
-                  type="button"
-                  className="uxe-dev-btn"
-                  disabled={busy}
-                  onClick={() => onDevLogin("a")}
-                >
-                  Pilote A (DEV)
-                </button>
-                <button
-                  type="button"
-                  className="uxe-dev-btn"
-                  disabled={busy}
-                  onClick={() => onDevLogin("b")}
-                >
-                  Pilote B (DEV)
-                </button>
               </div>
-            </div>
+            ) : null}
+
+            {/* Visible only when server reports test login available (DEV/RECETTE gate). */}
+            {testLoginAvailable ? (
+              <div className="uxe-dev" data-testid="login-dev-access">
+                <p className="uxe-auth-note uxe-auth-note--secondary">
+                  Accès de test (non OAuth) — lane autorisée
+                </p>
+                <div className="uxe-dev-body">
+                  <button
+                    type="button"
+                    className="uxe-dev-btn"
+                    disabled={busy}
+                    onClick={() => onDevLogin("a")}
+                  >
+                    Pilote A (DEV)
+                  </button>
+                  <button
+                    type="button"
+                    className="uxe-dev-btn"
+                    disabled={busy}
+                    onClick={() => onDevLogin("b")}
+                  >
+                    Pilote B (DEV)
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
 

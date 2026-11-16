@@ -25,6 +25,25 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-UX003-UNIFIED-ENTRY-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~06:40 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-003 corrections finales + mise à disposition RECETTE locale |
+| Type | EVOL / MINOR candidate UX · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux003-unified-entry-20261116` |
+| Base | `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Parent candidate | `31f23858ef5ed9cb8e6318133c3c399f39777b71` |
+| Changes | Status hors panneau (anti-troncature) ; `testLoginAvailable` via `/api/auth/status` ; `/` → `/login` si non auth ; tests e2e étendus ; RECETTE figée |
+| Schema | unchanged |
+| Lanes | DEV + E2E `:3101` ; RECETTE `:3200` worktree/build séparé ; STABLE NOT AVAILABLE |
+| Push / PR | **NON** |
+| Version produit | NOT AVAILABLE |
+| Status | candidate locale figé — EN ATTENTE MORRIS UX RECETTE |
+| Risks | Cookie same-host réserve ENV-01 A (mitigation profils navigateur) ; session_expired simulé ; CTA F2 Δ2 px |
+
+
 ## delivery_id: DELIV-2026-11-16-ML4D-UX003-UNIFIED-ENTRY
 
 | Field | Value |
@@ -40,7 +59,7 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Lanes | DEV / E2E isolés ; RECETTE non mutée ; STABLE NOT AVAILABLE |
 | Push / PR | **NON** — GO Morris requis pour publication projet |
 | Version produit | NOT AVAILABLE (attribution Morris) |
-| Status | candidate locale — UX review Morris |
+| Status | candidate locale — supersédé par DELIV-…-RECETTE après corrections |
 | Risks | Session expirée non détectée nativement ; DEV strip hors Figma ; F2 ctaW delta 2 CSS px |
 
 
