@@ -10,7 +10,14 @@ import type { CSSProperties } from "react";
 
 export type StudioRailVariant = "personnel" | "projet" | "conversation" | "inspection";
 
-export type StudioSurface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
+export type StudioSurface =
+  | "travail"
+  | "projet"
+  | "pilotage"
+  | "journal"
+  | "document"
+  | "git"
+  | "publication";
 
 export type StudioRailTokens = {
   variant: StudioRailVariant;
@@ -42,30 +49,32 @@ export const STUDIO_RAIL_VARIANTS: Record<StudioRailVariant, StudioRailTokens> =
   projet: {
     variant: "projet",
     widthPx: 246,
-    fill: "#0C1020",
+    // ML4D 652:* validated — common project rail fill
+    fill: "#0C101A",
     paddingTop: 24,
     paddingRight: 24,
     paddingBottom: 24,
     paddingLeft: 24,
     gap: 13,
     railComponentId: "shell.rail.projet",
-    sourceNodeId: "160:176",
+    sourceNodeId: "652:8",
   },
   conversation: {
     variant: "conversation",
-    widthPx: 240,
-    fill: "#0D111B",
+    // Ensemble 04 — project desktop rail fixed at 246 (Figma 652:*)
+    widthPx: 246,
+    fill: "#0C101A",
     paddingTop: 25,
     paddingRight: 19,
     paddingBottom: 0,
     paddingLeft: 19,
     gap: 13,
     railComponentId: "shell.rail.conversation",
-    sourceNodeId: "94:215",
+    sourceNodeId: "652:8",
   },
   inspection: {
     variant: "inspection",
-    widthPx: 244,
+    widthPx: 246,
     fill: "#0C101A",
     paddingTop: 23,
     paddingRight: 19,
@@ -73,18 +82,30 @@ export const STUDIO_RAIL_VARIANTS: Record<StudioRailVariant, StudioRailTokens> =
     paddingLeft: 19,
     gap: 11,
     railComponentId: "shell.rail.inspection",
-    sourceNodeId: "94:372",
+    sourceNodeId: "652:8",
   },
 };
 
 export const PROJECT_SURFACES: StudioSurface[] = [
   "travail",
+  "projet",
   "pilotage",
   "journal",
   "document",
   "git",
   "publication",
 ];
+
+/** Breadcrumb / chrome labels — Trajectoire remains URL-compatible with ?surface=pilotage. */
+export const PROJECT_SURFACE_LABELS: Record<StudioSurface, string> = {
+  travail: "Travail",
+  projet: "Projet",
+  pilotage: "Trajectoire",
+  journal: "Journal",
+  document: "Documents Nora",
+  git: "Sources Git",
+  publication: "Résultats et preuves",
+};
 
 export function parseStudioSurface(raw: string | null | undefined): StudioSurface | null {
   if (!raw) return null;
@@ -211,6 +232,7 @@ export function resolveRailVariant(input: {
     if (surface === "document" || surface === "git" || surface === "publication") return "inspection";
     if (surface === "travail") return "conversation";
     if (surface === "journal") return "personnel";
+    // projet overview + pilotage/trajectoire share the product rail fill
     return "projet";
   }
   return "personnel";
@@ -294,12 +316,13 @@ export function buildShellNav(input: {
     return items;
   }
 
-  // project context — real surface URLs
+  // Ensemble 04 rail NAVIGATION — Documents/Git stay in Accès directs (not primary).
+  // Trajectoire keeps ?surface=pilotage for deep-link compatibility.
   const surfaces: Array<{ key: StudioSurface; label: string }> = [
     { key: "travail", label: "Travail" },
-    { key: "pilotage", label: "Pilotage" },
-    { key: "document", label: "Documents" },
+    { key: "projet", label: "Projet" },
     { key: "journal", label: "Journal" },
+    { key: "pilotage", label: "Trajectoire" },
   ];
   for (const s of surfaces) {
     items.push({

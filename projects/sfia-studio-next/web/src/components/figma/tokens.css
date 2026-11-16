@@ -991,3 +991,46 @@
     z-index: 2;
   }
 }
+
+/* Ensemble 04 — project space chrome (Figma 652:*); no secondary tab strip. */
+.project-space-page {
+  gap: 20px;
+}
+
+.project-space-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 70px;
+}
+
+.project-space-breadcrumb {
+  min-height: 28px;
+}
+
+.project-space-badge {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fig-accent-soft);
+  border: 1px solid var(--fig-line);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  background: rgba(101, 111, 225, 0.12);
+}
+
+.project-space-hero .fig-hero-title {
+  font-size: clamp(1.35rem, 1.8vw, 1.65rem);
+}
+
+.project-unavailable {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2rem;
+}
+
+.project-overview .fig-panel {
+  background: var(--fig-panel);
+}

@@ -1,86 +1,124 @@
 "use client";
 
-type Surface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
+import {
+  PROJECT_SURFACE_LABELS,
+  type StudioSurface,
+} from "@/components/shell/studio-rail";
 
-const LABELS: Record<Surface, string> = {
-  travail: "Travail avec Nora",
-  pilotage: "Pilotage · cycle et décisions",
-  journal: "Journal · sujets et acquis",
-  document: "Documents · bibliothèque",
-  git: "Sources Git",
-  publication: "Publication Git",
+type Surface = StudioSurface;
+
+const HERO: Record<
+  Surface,
+  { kicker: string; title: string; sub: string }
+> = {
+  travail: {
+    kicker: "Travail avec Nora",
+    title: "Conversation du projet",
+    sub: "Collaborer, produire et approfondir le travail du projet.",
+  },
+  projet: {
+    kicker: "Espace projet",
+    title: "Vue d'ensemble du projet",
+    sub: "Identité, contexte et accès — consultation sans nouvelle autorité.",
+  },
+  pilotage: {
+    kicker: "Trajectoire",
+    title: "Pilotage · cycle et décisions",
+    sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
+  },
+  journal: {
+    kicker: "Journal",
+    title: "Sujets et acquis",
+    sub: "Sujets, acquis et points ouverts — présentation sans nouvelle autorité.",
+  },
+  document: {
+    kicker: "Documents Nora",
+    title: "Bibliothèque",
+    sub: "Bibliothèque, inspection et révision sous autorité D4.",
+  },
+  git: {
+    kicker: "Sources Git",
+    title: "Intégration Git",
+    sub: "Sources et liens Git du projet — capacités réellement disponibles.",
+  },
+  publication: {
+    kicker: "Résultats et preuves",
+    title: "Publication Git",
+    sub: "Publication et preuves Git — capacités réellement disponibles.",
+  },
 };
 
 export function ProjectChrome(props: {
   projectId: string;
+  projectName: string | null;
   surface: Surface;
-  meta?: string;
+  /** Optional status line — never raw technical IDs in the nominal path. */
+  statusHint?: string;
   /** Observable project bootstrap: loading until load()+surface sync finish. */
   loadState?: "loading" | "ready";
-  onSelectSurface: (s: Surface) => void;
   children: React.ReactNode;
 }) {
   const loadState = props.loadState ?? "ready";
+  const hero = HERO[props.surface];
+  const surfaceLabel = PROJECT_SURFACE_LABELS[props.surface];
+  const displayName = props.projectName?.trim() || "Projet";
+
   return (
     <div
-      className="fig-page"
+      className="fig-page project-space-page"
       data-project-surface={props.surface}
       data-testid="project-load-state"
       data-project-load-state={loadState}
       data-project-id={props.projectId}
+      data-project-name={props.projectName ?? ""}
     >
-      <div className="fig-breadcrumb">
-        <span>
-          SFIA Studio / Projet / {LABELS[props.surface]}
-        </span>
-        <span className="text-xs muted truncate max-w-[40%]">{props.projectId}</span>
+      {/* Compact Figma header — no second tab strip (rail owns navigation). */}
+      <div className="project-space-header" data-testid="project-space-header">
+        <div className="fig-breadcrumb project-space-breadcrumb">
+          <span data-testid="project-breadcrumb">
+            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;Projet&nbsp;&nbsp;/&nbsp;&nbsp;
+            <span className="text-[var(--fg)]">{displayName}</span>
+            &nbsp;&nbsp;/&nbsp;&nbsp;{surfaceLabel}
+          </span>
+          <span className="project-space-badge" data-testid="project-espace-badge">
+            ESPACE PROJET
+          </span>
+        </div>
+
+        <header className="project-space-hero space-y-1">
+          <p className="fig-kicker">{hero.kicker}</p>
+          <h1 className="fig-hero-title" data-testid="project-surface-title">
+            {hero.title}
+          </h1>
+          <p className="fig-hero-sub">{hero.sub}</p>
+          {props.statusHint ? (
+            <p className="text-xs muted" data-testid="project-status-hint">
+              {props.statusHint}
+            </p>
+          ) : null}
+        </header>
       </div>
 
-      <header className="space-y-2">
-        <p className="fig-kicker">Espace projet</p>
-        <h1 className="fig-hero-title">
-          {props.surface === "travail"
-            ? "Nora"
-            : props.surface === "document"
-              ? "Documents"
-              : props.surface === "journal"
-                ? "Journal"
-                : props.surface === "git" || props.surface === "publication"
-                  ? "Git"
-                  : "Pilotage"}
-        </h1>
-        <p className="fig-hero-sub">
-          {props.surface === "travail"
-            ? "Collaborer, produire et approfondir le travail du projet."
-            : props.surface === "document"
-              ? "Bibliothèque, inspection et révision sous autorité D4."
-              : props.surface === "journal"
-                ? "Sujets, acquis et points ouverts — présentation sans nouvelle autorité."
-                : "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant."}
-        </p>
-        {props.meta ? <p className="text-xs muted">{props.meta}</p> : null}
-      </header>
-
-      <nav className="flex flex-wrap gap-2" aria-label="Surfaces projet">
+      {/* Hidden anchors so historical e2e surface-* selectors remain meaningful. */}
+      <div className="sr-only" aria-hidden>
         {(
           [
-            ["travail", "Travail"],
-            ["pilotage", "Pilotage"],
-            ["journal", "Journal"],
-            ["document", "Documents"],
+            "travail",
+            "projet",
+            "pilotage",
+            "journal",
+            "document",
+            "git",
+            "publication",
           ] as const
-        ).map(([id, label]) => (
-          <button
+        ).map((id) => (
+          <span
             key={id}
-            type="button"
-            className={`btn ${props.surface === id ? "" : "secondary"}`}
-            onClick={() => props.onSelectSurface(id)}
             data-testid={`surface-${id}`}
-          >
-            {label}
-          </button>
+            data-surface-active={props.surface === id ? "1" : "0"}
+          />
         ))}
-      </nav>
+      </div>
 
       {props.children}
     </div>

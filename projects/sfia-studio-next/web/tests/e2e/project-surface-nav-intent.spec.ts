@@ -109,7 +109,8 @@ test("rapid rail surface switches keep the last user intent", async ({ page }) =
   await expect(page).toHaveURL(new RegExp(`surface=pilotage`));
   await rail.getByTestId("nav-journal").click();
   await expect(page).toHaveURL(new RegExp(`surface=journal`));
-  await rail.getByTestId("nav-document").click();
+  // Documents Nora is Accès directs (Ensemble 04) — testid nav-documents.
+  await rail.getByTestId("nav-documents").click();
   await expect(page).toHaveURL(new RegExp(`surface=document`));
   await rail.getByTestId("nav-travail").click();
   await expect(page).toHaveURL(new RegExp(`/projects/${projectId}\\?surface=travail`));
@@ -145,13 +146,14 @@ test("project B load ignores stale pilotage intent from project A", async ({ pag
     return id!;
   }
 
-  const projectA = await createNamedProject("Projet NAV A");
+  const stamp = Date.now();
+  const projectA = await createNamedProject(`Projet NAV A ${stamp}`);
   await page.getByTestId("studio-rail").getByTestId("nav-pilotage").click();
   await expect(page).toHaveURL(new RegExp(`/projects/${projectA}\\?surface=pilotage`));
 
   await page.goto("/portfolio");
   await page.waitForURL("**/portfolio");
-  const projectB = await createNamedProject("Projet NAV B");
+  const projectB = await createNamedProject(`Projet NAV B ${stamp}`);
   expect(projectB).not.toBe(projectA);
 
   // B created without clicking Pilotage — must settle on travail, not A's intent.

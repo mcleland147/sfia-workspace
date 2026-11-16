@@ -3,7 +3,8 @@ import path from "path";
 import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
 
 async function openPilotageSurface(page: import("@playwright/test").Page) {
-  await page.getByTestId("surface-pilotage").click();
+  // Ensemble 04: Trajectoire lives on the rail (?surface=pilotage); central tab strip removed.
+  await page.getByTestId("studio-rail").getByTestId("nav-pilotage").click();
   await expect(page).toHaveURL(/[?&]surface=pilotage\b/);
   await expect(page.getByTestId("pilotage-panel")).toBeVisible({ timeout: 15000 });
 }

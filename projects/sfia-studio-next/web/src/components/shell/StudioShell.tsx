@@ -8,6 +8,7 @@ import {
   subscribeOpenPreparationBusy,
 } from "@/lib/open-preparation";
 import { PRODUCT_VERSIONING } from "@/lib/product-version";
+import { ProjectSpaceProvider, useProjectSpace } from "./ProjectSpaceContext";
 import {
   STUDIO_RAIL_VARIANTS,
   buildShellNav,
@@ -25,15 +26,36 @@ import "./studio-shell.css";
 const ACCOUNT_HREF = "/settings/integrations";
 
 export function StudioShell({ children }: { children: React.ReactNode }) {
+  return (
+    <ProjectSpaceProvider>
+      <StudioShellInner>{children}</StudioShellInner>
+    </ProjectSpaceProvider>
+  );
+}
+
+function StudioShellInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
   const router = useRouter();
   const searchParams = useSearchParams();
   const surface = searchParams.get("surface");
   const variant = resolveRailVariant({ pathname, surface, searchParams });
   const tokens = STUDIO_RAIL_VARIANTS[variant];
-  const items = buildShellNav({ pathname, surface });
   const projectId = parseProjectId(pathname);
   const preparationId = parsePreparationId(pathname);
+  const { info: projectSpace } = useProjectSpace();
+  const projectSpaceReady =
+    Boolean(projectId) &&
+    projectSpace?.projectId === projectId &&
+    projectSpace.available;
+  const projectSpaceBlocked =
+    Boolean(projectId) &&
+    projectSpace?.projectId === projectId &&
+    Boolean(projectSpace?.blockNavigation);
+  const rawItems = buildShellNav({ pathname, surface });
+  // Qualified unavailable: keep Portefeuille only — no deep nav into a dead context.
+  const items = projectSpaceBlocked
+    ? rawItems.filter((i) => i.key === "portfolio")
+    : rawItems;
   const inProductSpace = Boolean(projectId || preparationId);
   const personalSpace = !inProductSpace;
   const portfolioActive = pathname.startsWith("/portfolio") || pathname === "/";
@@ -43,6 +65,8 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
   const onSasPreparation = Boolean(preparationId) || onSasVisual;
   const [openingPrep, setOpeningPrep] = useState(false);
   const [prepNotice, setPrepNotice] = useState("");
+  const activeProjectName = projectSpaceReady ? projectSpace?.projectName ?? null : null;
+  const activeProjectSubtitle = projectSpaceReady ? projectSpace?.subtitle ?? null : null;
 
   useEffect(() => subscribeOpenPreparationBusy(setOpeningPrep), []);
 
@@ -123,11 +147,25 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
           <div className="shrink-0 border-t border-[var(--line)] my-1" aria-hidden />
 
           {projectId ? (
-            <div className="mt-1 shrink-0">
+            <div
+              className="mt-1 shrink-0 rounded-[10px] border border-[var(--line)] px-3 py-2.5"
+              style={{ background: "var(--fig-surface-2, #151C29)" }}
+              data-testid="rail-espace-actif"
+            >
               <div className="text-[10px] muted uppercase tracking-wide">Espace actif</div>
-              <div className="text-sm font-medium mt-1 truncate" title={projectId}>
-                Projet
+              <div
+                className="text-sm font-medium mt-1 truncate"
+                title={activeProjectName ?? undefined}
+                data-testid="rail-project-name"
+              >
+                {activeProjectName ??
+                  (projectSpaceBlocked ? "Projet indisponible" : "Chargement…")}
               </div>
+              {activeProjectSubtitle ? (
+                <div className="text-[11px] muted mt-0.5 truncate" data-testid="rail-project-subtitle">
+                  {activeProjectSubtitle}
+                </div>
+              ) : null}
             </div>
           ) : (
             <div className="studio-rail-section" aria-hidden>
@@ -215,23 +253,39 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
               </div>
             ) : null}
 
-            {projectId ? (
-              <div className="mt-2 space-y-1">
+            {projectId && projectSpaceReady ? (
+              <div className="mt-2 space-y-1" data-testid="rail-acces-directs">
                 <div className="text-[10px] muted uppercase tracking-wide mb-1">Accès directs</div>
                 <Link
                   href={`/projects/${projectId}?surface=document`}
-                  className="text-sm muted block px-2 py-1"
+                  className={`text-sm block px-2 py-1 ${
+                    surface === "document" ? "text-[var(--fig-accent-soft)]" : "muted"
+                  }`}
+                  data-testid="nav-documents"
                   onClick={() => noteProjectSurfaceNavIntent(projectId, "document")}
                 >
                   Documents Nora
                 </Link>
                 <Link
                   href={`/projects/${projectId}?surface=git`}
-                  className="text-sm muted block px-2 py-1"
+                  className={`text-sm block px-2 py-1 ${
+                    surface === "git" ? "text-[var(--fig-accent-soft)]" : "muted"
+                  }`}
                   data-testid="nav-sources-git"
                   onClick={() => noteProjectSurfaceNavIntent(projectId, "git")}
                 >
                   Sources Git
+                </Link>
+                <Link
+                  href={`/projects/${projectId}?surface=publication`}
+                  className={`text-sm block px-2 py-1 ${
+                    surface === "publication" ? "text-[var(--fig-accent-soft)]" : "muted"
+                  }`}
+                  data-testid="nav-resultats"
+                  onClick={() => noteProjectSurfaceNavIntent(projectId, "publication")}
+                  title="Publication et preuves Git existantes"
+                >
+                  Résultats et preuves
                 </Link>
               </div>
             ) : null}

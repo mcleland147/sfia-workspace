@@ -1,0 +1,21 @@
+{
+  "capturedAt": "2026-11-16T20:32:23.796Z",
+  "viewport": {
+    "width": 1680,
+    "height": 970
+  },
+  "projectName": "F2 Espace projet 1794861140944",
+  "projectId": "proj_6cd3db50-1a76-49dc-bb55-db92f9daef54",
+  "frames": {
+    "travail": "652:8",
+    "projet": "652:58",
+    "journal": "652:108",
+    "unavailable": "652:158"
+  },
+  "files": [
+    "runtime-travail-1680x970.png",
+    "runtime-projet-overview-1680x970.png",
+    "runtime-journal-nav-1680x970.png",
+    "runtime-unavailable-1680x970.png"
+  ]
+}

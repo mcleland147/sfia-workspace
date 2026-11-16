@@ -6,6 +6,11 @@ import { PilotagePanel } from "@/components/PilotagePanel";
 import { ProjectChrome } from "@/components/figma/ProjectChrome";
 import { NoraConversation } from "@/components/figma/NoraConversation";
 import { ProjectJournal } from "@/components/figma/ProjectJournal";
+import { ProjectOverview } from "@/components/figma/ProjectOverview";
+import {
+  ProjectUnavailable,
+  type ProjectUnavailableKind,
+} from "@/components/figma/ProjectUnavailable";
 import {
   DocumentHistory,
   DocumentInspector,
@@ -20,6 +25,7 @@ import {
   type ThreadTurnKind,
 } from "@/domains/pilotage/thread-recovery";
 import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
+import { useProjectSpace } from "@/components/shell/ProjectSpaceContext";
 import {
   clearProjectSurfaceNavIntent,
   noteProjectSurfaceNavIntent,
@@ -44,10 +50,25 @@ type Knowledge = {
   openPoints: Array<{ id: string; statement: string; status: string }>;
 };
 
-type Surface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
+type Surface =
+  | "travail"
+  | "projet"
+  | "pilotage"
+  | "journal"
+  | "document"
+  | "git"
+  | "publication";
 type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
 
-const SURFACES: Surface[] = ["travail", "pilotage", "journal", "document", "git", "publication"];
+const SURFACES: Surface[] = [
+  "travail",
+  "projet",
+  "pilotage",
+  "journal",
+  "document",
+  "git",
+  "publication",
+];
 
 function parseSurface(raw: string | null): Surface | null {
   if (!raw) return null;
@@ -93,12 +114,15 @@ export default function ProjectPage() {
   const params = useParams<{ projectId: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { setInfo: setProjectSpaceInfo } = useProjectSpace();
   const [messages, setMessages] = useState<Msg[]>([]);
   const [documents, setDocuments] = useState<Doc[]>([]);
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
   const [preparationId, setPreparationId] = useState<string | null>(null);
-  const [meta, setMeta] = useState("Chargement…");
-  const [error, setError] = useState("");
+  const [projectName, setProjectName] = useState<string | null>(null);
+  const [statusHint, setStatusHint] = useState("Chargement…");
+  const [unavailableKind, setUnavailableKind] = useState<ProjectUnavailableKind | null>(null);
+  const [loadEpoch, setLoadEpoch] = useState(0);
   /** Observable end of project load + surface URL sync (e2e / anti-race proof). */
   const [projectLoadState, setProjectLoadState] = useState<"loading" | "ready">("loading");
   const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
@@ -124,6 +148,20 @@ export default function ProjectPage() {
   const reviseDraftRef = useRef("");
   /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
   const pendingSurfaceRef = useRef<Surface | null>(null);
+
+  useEffect(() => {
+    // Clear previous project identity immediately — no cross-project leak in the rail.
+    setProjectSpaceInfo({
+      projectId: params.projectId,
+      projectName: null,
+      subtitle: null,
+      available: false,
+      blockNavigation: false,
+    });
+    return () => {
+      setProjectSpaceInfo(null);
+    };
+  }, [params.projectId, setProjectSpaceInfo]);
 
   useEffect(() => {
     docUiRef.current = docUi;
@@ -401,38 +439,82 @@ export default function ProjectPage() {
   useEffect(() => {
     let cancelled = false;
     setProjectLoadState("loading");
+    setUnavailableKind(null);
+    setProjectName(null);
+    setStatusHint("Chargement…");
     pendingSurfaceRef.current = null;
+    setProjectSpaceInfo({
+      projectId: params.projectId,
+      projectName: null,
+      subtitle: null,
+      available: false,
+      blockNavigation: false,
+    });
 
     async function load() {
       const res = await fetch(`/api/projects/${params.projectId}`);
       if (cancelled) return;
       if (res.status === 401) {
-        router.push("/login");
+        setUnavailableKind("unauthorized");
+        setStatusHint("");
+        setProjectSpaceInfo({
+          projectId: params.projectId,
+          projectName: null,
+          subtitle: null,
+          available: false,
+          blockNavigation: true,
+        });
+        setProjectLoadState("ready");
         return;
       }
       if (res.status === 404) {
-        setError("Projet introuvable ou non autorisé pour ce Pilote.");
-        setMeta("");
+        setUnavailableKind("not_found");
+        setStatusHint("");
+        setProjectSpaceInfo({
+          projectId: params.projectId,
+          projectName: null,
+          subtitle: null,
+          available: false,
+          blockNavigation: true,
+        });
         setProjectLoadState("ready");
         return;
       }
       if (!res.ok) {
-        setError("Impossible de charger le projet.");
-        setMeta("");
+        setUnavailableKind("temporary");
+        setStatusHint("");
+        setProjectSpaceInfo({
+          projectId: params.projectId,
+          projectName: null,
+          subtitle: null,
+          available: false,
+          blockNavigation: true,
+        });
         setProjectLoadState("ready");
         return;
       }
       const j = await res.json();
       if (cancelled) return;
       const docs = (j.documents ?? []) as Doc[];
+      const name = String(j.project?.name ?? "").trim() || null;
       setMessages(j.messages ?? []);
       setDocuments(docs);
       setKnowledge(j.knowledge ?? null);
       setPreparationId(j.preparation?.id ?? null);
-      setMeta(
-        `Même fil · préparation ${j.preparation?.id ?? "liée"} · conversation ${j.conversation?.id ?? "—"} · réouverture par projectId`,
+      setProjectName(name);
+      setStatusHint(
+        j.preparation?.id
+          ? "Fil durable · préparation liée · réouverture par projet"
+          : "Fil durable · réouverture par projet",
       );
-      setError("");
+      setUnavailableKind(null);
+      setProjectSpaceInfo({
+        projectId: params.projectId,
+        projectName: name,
+        subtitle: null,
+        available: Boolean(name),
+        blockNavigation: false,
+      });
 
       // Read *current* URL — never stale searchParams from effect closure (race with rail nav).
       // Rail Links and chrome selectSurface share one project-scoped intent so load() cannot
@@ -450,9 +532,9 @@ export default function ProjectPage() {
         rawSurface,
         pendingIntent: pendingSurface,
       });
-      applyUrlDocumentState(docs, decision.effectiveSurface, qDocId);
+      applyUrlDocumentState(docs, decision.effectiveSurface as Surface, qDocId);
       if (decision.shouldNormalizeUrl) {
-        const target = decision.effectiveSurface;
+        const target = decision.effectiveSurface as Surface;
         syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
       }
       if (qSurface && pendingSurface && qSurface === pendingSurface) {
@@ -469,9 +551,7 @@ export default function ProjectPage() {
           content: pending.content,
           key: pending.clientTurnKey,
         };
-        setPilotageStatus(
-          `Reprise en attente · clé ${pending.clientCommandKey.slice(0, 24)}…`,
-        );
+        setPilotageStatus("Reprise en attente · tentative conservée");
       }
 
       // G2 — silent COMMAND recovery (not GET): resume interrupted mission continuation
@@ -495,9 +575,7 @@ export default function ProjectPage() {
               setDocuments(rj.documents ?? []);
               setKnowledge(rj.knowledge ?? null);
               if (resume.documentSave?.documentId) {
-                setMeta(
-                  `Même fil · préparation ${rj.preparation?.id ?? "liée"} · conversation ${rj.conversation?.id ?? "—"} · reprise mission doc ${resume.documentSave.documentId}`,
-                );
+                setStatusHint("Fil durable · reprise de mission documentée");
               }
             }
           }
@@ -514,7 +592,7 @@ export default function ProjectPage() {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.projectId, router]);
+  }, [params.projectId, router, loadEpoch]);
 
   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
   useEffect(() => {
@@ -807,15 +885,33 @@ export default function ProjectPage() {
     }
   }
 
-  if (error) {
+  if (unavailableKind) {
     return (
-      <div className="max-w-3xl space-y-4">
-        <h1 className="text-2xl font-semibold">Projet</h1>
-        <p className="text-xs muted">{params.projectId}</p>
-        <div className="panel p-4">{error}</div>
-        <a className="btn secondary inline-block" href="/portfolio">
-          Retour portefeuille
-        </a>
+      <ProjectUnavailable
+        kind={unavailableKind}
+        onRetry={
+          unavailableKind === "temporary"
+            ? () => {
+                setUnavailableKind(null);
+                setLoadEpoch((n) => n + 1);
+              }
+            : undefined
+        }
+        onLogin={
+          unavailableKind === "unauthorized" ? () => router.push("/login") : undefined
+        }
+      />
+    );
+  }
+
+  if (projectLoadState === "loading" && !projectName) {
+    return (
+      <div
+        data-testid="project-load-state"
+        data-project-load-state="loading"
+        data-project-id={params.projectId}
+      >
+        <ProjectUnavailable kind="loading" />
       </div>
     );
   }
@@ -823,11 +919,23 @@ export default function ProjectPage() {
   return (
     <ProjectChrome
       projectId={params.projectId}
+      projectName={projectName}
       surface={surface}
-      meta={meta}
+      statusHint={statusHint}
       loadState={projectLoadState}
-      onSelectSurface={selectSurface}
     >
+      {surface === "projet" ? (
+        <ProjectOverview
+          projectId={params.projectId}
+          projectName={projectName ?? "Projet"}
+          preparationId={preparationId}
+          knowledge={knowledge}
+          documentCount={documents.length}
+          messageCount={messages.length}
+          onOpenTravail={() => selectSurface("travail")}
+        />
+      ) : null}
+
       {surface === "travail" ? (
         <NoraConversation
           messages={messages}
@@ -845,27 +953,53 @@ export default function ProjectPage() {
           }
           aside={
             <>
-              <div className="fig-panel space-y-2">
+              <div className="fig-panel space-y-2" data-testid="travail-aside-bref">
                 <h2 className="fig-panel-title">En bref</h2>
                 <p className="text-sm muted">
                   Un seul fil visible. Mémoire D4 récupérable au-delà des six derniers messages.
                 </p>
-                <p className="text-xs muted">
-                  Acquis: {knowledge?.acquis.filter((a) => a.status === "CURRENT").length ?? 0} ·
-                  Ouverts: {knowledge?.openPoints.filter((o) => o.status === "OPEN").length ?? 0}
-                </p>
+                {knowledge ? (
+                  <p className="text-xs muted">
+                    Acquis capitalisés&nbsp;:{" "}
+                    {knowledge.acquis.filter((a) => a.status === "CURRENT").length}
+                    {" · "}
+                    Points ouverts&nbsp;:{" "}
+                    {knowledge.openPoints.filter((o) => o.status === "OPEN").length}
+                  </p>
+                ) : (
+                  <p className="text-xs muted">Synthèse knowledge non encore disponible.</p>
+                )}
               </div>
-              <div className="fig-panel space-y-2">
+              <div className="fig-panel space-y-2" data-testid="travail-aside-objets">
                 <h2 className="fig-panel-title">Objets du projet</h2>
                 <ul className="text-sm muted space-y-1">
                   <li>Documents Nora · {documents.length}</li>
-                  <li>Réalisations et preuves · via Pilotage</li>
                   <li>
-                    Sources Git · <span className="fig-tag fig-tag-muted">non disponible</span>
+                    <button
+                      type="button"
+                      className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
+                      onClick={() => selectSurface("publication")}
+                    >
+                      Résultats et preuves
+                    </button>
+                    <span> · surface publication existante</span>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
+                      onClick={() => selectSurface("git")}
+                    >
+                      Sources Git
+                    </button>
                   </li>
                 </ul>
               </div>
-              <div className="fig-panel space-y-2" style={{ background: "rgba(101,111,225,0.08)" }}>
+              <div
+                className="fig-panel space-y-2"
+                style={{ background: "rgba(101,111,225,0.08)" }}
+                data-testid="travail-aside-clarifier"
+              >
                 <h2 className="fig-panel-title">Points à clarifier</h2>
                 {(knowledge?.openPoints ?? [])
                   .filter((o) => o.status === "OPEN")

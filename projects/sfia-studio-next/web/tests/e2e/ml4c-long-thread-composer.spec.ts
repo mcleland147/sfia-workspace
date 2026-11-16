@@ -85,7 +85,7 @@ test("ML4C C-07: composer usable on 320+ message thread after scroll", async ({ 
   const seed = "Fil projet ML4C composer long (fixture).";
   const { preparationId, projectId } = await bootstrapProjectFromPortfolio(page, {
     seed,
-    name: "ML4C Composer 320+",
+    name: `ML4C Composer 320+ ${Date.now()}`,
     summary: "C-07 fil long",
   });
 

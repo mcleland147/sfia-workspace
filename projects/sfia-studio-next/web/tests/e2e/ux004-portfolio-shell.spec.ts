@@ -385,13 +385,14 @@ test.describe("UX-004 portfolio shell", () => {
     await page.waitForURL("**/projects/**", { timeout: 15000 });
     const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
 
+    // Ensemble 04 — project desktop rail fixed at 246 px across surfaces (Figma 652:*).
     await page.goto(`/projects/${projectId}?surface=travail`);
     await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-variant", "conversation");
-    await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-width", "240");
+    await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-width", "246");
 
     await page.goto(`/projects/${projectId}?surface=document`);
     await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-variant", "inspection");
-    await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-width", "244");
+    await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-width", "246");
 
     await page.goto(`/projects/${projectId}?surface=pilotage`);
     await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-variant", "projet");

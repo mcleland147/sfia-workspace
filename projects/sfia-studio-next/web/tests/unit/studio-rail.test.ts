@@ -14,15 +14,15 @@ describe("F1 studio rail variants (G2 railEvidence)", () => {
   it("keeps personnel vs projet fill discriminant", () => {
     // Sas Nora 606:20 personal rail fill; projet remains distinct for project space.
     expect(STUDIO_RAIL_VARIANTS.personnel.fill.toLowerCase()).toBe("#0d1220");
-    expect(STUDIO_RAIL_VARIANTS.projet.fill.toLowerCase()).toBe("#0c1020");
+    expect(STUDIO_RAIL_VARIANTS.projet.fill.toLowerCase()).toBe("#0c101a");
     expect(STUDIO_RAIL_VARIANTS.personnel.fill).not.toBe(STUDIO_RAIL_VARIANTS.projet.fill);
   });
 
   it("exposes measured widths", () => {
     expect(STUDIO_RAIL_VARIANTS.personnel.widthPx).toBe(246);
     expect(STUDIO_RAIL_VARIANTS.projet.widthPx).toBe(246);
-    expect(STUDIO_RAIL_VARIANTS.conversation.widthPx).toBe(240);
-    expect(STUDIO_RAIL_VARIANTS.inspection.widthPx).toBe(244);
+    expect(STUDIO_RAIL_VARIANTS.conversation.widthPx).toBe(246);
+    expect(STUDIO_RAIL_VARIANTS.inspection.widthPx).toBe(246);
   });
 
   it("resolves variant from G2 railEvidence route ↔ state mapping", () => {
@@ -54,11 +54,18 @@ describe("B1 shell navigation", () => {
   it("exposes real project surface hrefs (no #)", () => {
     const items = buildShellNav({ pathname: "/projects/proj-1", surface: "pilotage" });
     const travail = items.find((i) => i.key === "travail");
-    const docs = items.find((i) => i.key === "document");
+    const projet = items.find((i) => i.key === "projet");
+    const journal = items.find((i) => i.key === "journal");
+    const trajectoire = items.find((i) => i.key === "pilotage");
     expect(travail?.href).toBe("/projects/proj-1?surface=travail");
-    expect(docs?.href).toBe("/projects/proj-1?surface=document");
+    expect(projet?.href).toBe("/projects/proj-1?surface=projet");
+    expect(journal?.href).toBe("/projects/proj-1?surface=journal");
+    expect(trajectoire?.label).toBe("Trajectoire");
+    expect(trajectoire?.href).toBe("/projects/proj-1?surface=pilotage");
+    // Documents stay in Accès directs, not primary rail NAVIGATION.
+    expect(items.some((i) => i.key === "document")).toBe(false);
     expect(items.every((i) => i.href !== "#")).toBe(true);
-    expect(items.find((i) => i.key === "pilotage")?.active).toBe(true);
+    expect(trajectoire?.active).toBe(true);
   });
 
   it("keeps a single Portefeuille entry plus Nouveau projet action (UX-004)", () => {
