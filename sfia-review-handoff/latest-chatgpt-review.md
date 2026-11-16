@@ -2013,7 +2013,7 @@ Preserved artefacts:
 ## 11. Verdict A–F
 
 ### A. Handoff UX-004
-**COMPLETE — à publier puis REMOTE VERIFIED** (section publication)
+**COMPLETE — REMOTE VERIFIED**
 
 ### B. Candidat
 `bc8785683c30430aa99bc76e138ba10f49c71c39` · tree `cc42e2eaf3a16478a30e3d581eaa4496cc3779e2` · build servi `3g7UH7AXjSWhxrT20D3-w`
@@ -2038,3 +2038,13 @@ push/PR/merge/STABLE/release/ADOPTED/ML4D clos : NON · Gate C OPEN
 4. Session expirée : http://127.0.0.1:3200/login?reason=session_expired
 5. Profil navigateur dédié RECETTE
 6. Rollback : voir `RESTORE-PREVIOUS-UX003-RECETTE.txt`
+
+## 13. Publication handoff vérifiée
+
+Statut : **REMOTE VERIFIED**
+
+| Champ | Valeur |
+| --- | --- |
+| Tip publié (contenu ci-dessus) | `0b473bc2d377f80b390ab664a5676d252b15b448` |
+| Blob | `70cae9308519d0b55bf751d6fd379f1c404bb3b0` |
+| Note | Le tip de *ce* stamp éventuel sera reporté après relecture distante Cursor |
