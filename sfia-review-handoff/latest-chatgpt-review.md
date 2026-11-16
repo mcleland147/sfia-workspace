@@ -27,7 +27,7 @@
 - Smoke navigateur : entry + expired + test login → portfolio **PASS**
 
 ### D. Handoff
-**à publier puis REMOTE VERIFIED** (section 12)
+**HANDOFF UPDATED — REMOTE VERIFIED**
 
 ### E. Gates
 | Gate | État |
@@ -1872,7 +1872,13 @@ Stockage local cycle : `.tmp-sfia-review/figma-refs/`
 Branche : `sfia/review-handoff`
 Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 Publisher : `scripts/sfia/publish-review-handoff.sh`
-Statut : **pending remote publish in this cycle — will be REMOTE VERIFIED**
+
+| Champ | Valeur |
+| --- | --- |
+| Tip | `86d5b9e51adb86d8fcc50c9a0a1cf119d7f6c913` |
+| Blob | `776181dea2b9f1390d86ef617b0bbac6b9c6c552` |
+| Relecture | origin/sfia/review-handoff REMOTE VERIFIED |
+Statut : **REMOTE VERIFIED** — tip  · blob
 
 ---
 
