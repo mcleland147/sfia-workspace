@@ -447,7 +447,12 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
             {items.map((item) => {
               if (!item.href) {
                 return (
-                  <span key={item.key} className="muted whitespace-nowrap" title={item.disabledReason}>
+                  <span
+                    key={item.key}
+                    className="muted whitespace-nowrap"
+                    title={item.disabledReason}
+                    data-testid={`nav-disabled-${item.key}`}
+                  >
                     {item.label}
                   </span>
                 );
@@ -458,6 +463,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                   href={item.href}
                   className={`whitespace-nowrap ${item.active ? "font-semibold" : ""}`}
                   aria-current={item.active ? "page" : undefined}
+                  data-testid={`nav-${item.key}`}
                   onClick={() => {
                     const surfaceKey = parseStudioSurface(item.key);
                     if (projectId && surfaceKey) {

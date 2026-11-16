@@ -316,6 +316,58 @@
   margin-bottom: 0;
 }
 
+/* Stage / workspace grid cell: composer + optional pending (CP01). */
+.fig-travail-composer-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  min-height: 0;
+  grid-column: 1;
+  grid-row: 4;
+  /* start — never align-self:end with a short grid row (paints upward over the thread). */
+  align-self: start;
+  flex-shrink: 0;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.fig-travail-composer-stack[data-pending="1"] {
+  /*
+   * Desktop (2-col): conversation is minmax(0,1fr) and yields space; stack may
+   * scroll internally on very short heights without leaving the shell lock.
+   * Avoid overflow:auto alone without a definite height — it under-sizes the
+   * grid row and overlaps the conversation in single-column breakpoints.
+   */
+  max-height: min(50vh, 360px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* Include full pending+composer in grid max-content contribution. */
+  min-height: min-content;
+}
+
+.fig-travail-workspace > .fig-travail-composer-stack {
+  grid-row: 2;
+}
+
+.fig-travail-pending {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #272e49;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #151c29;
+}
+
+.fig-travail-pending-copy {
+  margin: 0;
+  color: #94a2bb;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 .fig-travail-composer {
   display: flex;
   flex-direction: column;
@@ -328,13 +380,7 @@
   min-height: 118px;
   max-height: 160px;
   flex-shrink: 0;
-  grid-column: 1;
-  grid-row: 4;
-  align-self: end;
-}
-
-.fig-travail-workspace > .fig-travail-composer {
-  grid-row: 2;
+  width: 100%;
 }
 
 .fig-travail-composer-input {
@@ -1428,9 +1474,10 @@
   translate: 0 -13px;
 }
 
-.project-travail-stage > .fig-travail-composer {
+.project-travail-stage > .fig-travail-composer-stack {
   margin-top: 0;
-  align-self: stretch;
+  align-self: start;
+  justify-self: stretch;
 }
 
 .project-space-page .fig-tag {
@@ -1453,10 +1500,20 @@
   .fig-travail-intro,
   .fig-travail-intro-rule,
   .fig-conversation-panel,
-  .fig-travail-composer,
+  .fig-travail-composer-stack,
   .fig-travail-aside {
     grid-column: 1;
     grid-row: auto;
+  }
+
+  /*
+   * Stacked layout already unlocks page overflow. Let the grid row grow to
+   * pending+composer so controls never overlay the conversation panel.
+   */
+  .fig-travail-composer-stack[data-pending="1"] {
+    max-height: none;
+    overflow-y: visible;
+    min-height: 0;
   }
 
   .fig-conversation-panel {

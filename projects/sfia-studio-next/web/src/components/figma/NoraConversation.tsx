@@ -106,43 +106,18 @@ export function NoraConversation(props: {
         </div>
       </section>
 
+      {/*
+        Pending banner lives outside the Figma-sized composer card so
+        max-height:160px never clips reconcile controls under the shell lock.
+      */}
       <div
-        className="fig-composer fig-travail-composer"
-        data-testid="nora-composer"
+        className="fig-travail-composer-stack"
+        data-testid="nora-composer-stack"
+        data-pending={props.unresolvedPending ? "1" : "0"}
       >
-        <textarea
-          className="fig-travail-composer-input"
-          value={props.draft}
-          onChange={(e) => props.onDraft(e.target.value)}
-          placeholder="Écrire à Nora dans ce projet…"
-          aria-label="Message à Nora"
-          data-testid="thread-draft"
-          rows={2}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
-              e.preventDefault();
-              props.onSend();
-            }
-          }}
-        />
-        <div className="fig-travail-composer-bar">
-          <span className="fig-travail-composer-hint">
-            Votre message reste rattaché au projet actif
-          </span>
-          <button
-            type="button"
-            className="fig-travail-composer-send"
-            disabled={props.busy || !props.draft.trim()}
-            onClick={props.onSend}
-            data-testid="thread-send"
-            aria-label="Envoyer"
-          >
-            <span aria-hidden>↑</span>
-          </button>
-        </div>
         {props.unresolvedPending && props.onReconcile ? (
-          <div className="space-y-1 mt-2" data-testid="thread-pending-banner">
-            <p className="text-xs muted">
+          <div className="fig-travail-pending" data-testid="thread-pending-banner">
+            <p className="fig-travail-pending-copy">
               Tentative non résolue — réconcilier avant un nouveau tour.
             </p>
             <button
@@ -156,11 +131,43 @@ export function NoraConversation(props: {
             </button>
           </div>
         ) : null}
-        {props.status ? (
-          <p className="sr-only" data-testid="thread-nora-status" role="status">
-            {props.status}
-          </p>
-        ) : null}
+        <div className="fig-composer fig-travail-composer" data-testid="nora-composer">
+          <textarea
+            className="fig-travail-composer-input"
+            value={props.draft}
+            onChange={(e) => props.onDraft(e.target.value)}
+            placeholder="Écrire à Nora dans ce projet…"
+            aria-label="Message à Nora"
+            data-testid="thread-draft"
+            rows={2}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
+                e.preventDefault();
+                props.onSend();
+              }
+            }}
+          />
+          <div className="fig-travail-composer-bar">
+            <span className="fig-travail-composer-hint">
+              Votre message reste rattaché au projet actif
+            </span>
+            <button
+              type="button"
+              className="fig-travail-composer-send"
+              disabled={props.busy || !props.draft.trim()}
+              onClick={props.onSend}
+              data-testid="thread-send"
+              aria-label="Envoyer"
+            >
+              <span aria-hidden>↑</span>
+            </button>
+          </div>
+          {props.status ? (
+            <p className="sr-only" data-testid="thread-nora-status" role="status">
+              {props.status}
+            </p>
+          ) : null}
+        </div>
       </div>
 
       {props.aside ? (

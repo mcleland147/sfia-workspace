@@ -4,6 +4,22 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-04-CP01-CP02
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~00:10 CET |
+| Macro-lot | ML4D Ensemble 04 — correction bloquants CP01/CP02 |
+| Type | RUN / correction candidat · **NO RELEASE** |
+| Parent candidat | `351aea9607c5997f7343212a837dd13c0f1e4429` |
+| Branch | `feat/next-ml4d-project-space-20261116` |
+| Scope | Compositeur adaptable: bandeau reprise hors max-height 160px; stack scroll maîtrisé; testids nav mobile; tests CP01-A..E / CP02 |
+| Non-scope | Cutover RECETTE; API/DB; Ensemble 05; redesign Figma; push projet |
+| Preuves | CP01-A..E PASS; CP02 PASS; E04+T13/T16+F2+long-thread PASS; next build PASS; vitest studio-rail 13 PASS; tsc 32 parent réserve |
+| RECETTE | **inchangée** `:3200` SHA `a30e75c7` / BUILD `WUqfWdCB7T2rHzDvk-Hre` |
+| Push produit | **AUCUN** |
+| Verdict cible | `ENSEMBLE 04 — CP01/CP02 CORRECTION CANDIDATE READY` |
+
 
 ## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-VERTICAL-LAYOUT
 
