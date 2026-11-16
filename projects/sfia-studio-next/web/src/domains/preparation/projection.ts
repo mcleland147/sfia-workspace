@@ -300,18 +300,72 @@ export function canCreateFromProjection(
   return name.length > 0;
 }
 
+/**
+ * Resolve the durable inspected project name from D2 truth.
+ * Prefer projection.name; fall back to preview_name for older preparations without projection_json.
+ * Never invents a default title.
+ */
+export function resolveInspectedProjectName(
+  projection: PreparationProjection | null | undefined,
+  previewName: string | null | undefined,
+): string | null {
+  const fromProjection = projection?.name?.value?.trim() ?? "";
+  if (fromProjection) return fromProjection.slice(0, 120);
+  const fromPreview = (previewName ?? "").trim();
+  if (fromPreview) return fromPreview.slice(0, 120);
+  return null;
+}
+
+/** True when the client-requested name matches the currently inspected D2 proposal. */
+export function requestedNameMatchesInspected(
+  requestedName: string,
+  inspectedName: string,
+): boolean {
+  return namesConflictForSamePilot(requestedName, inspectedName);
+}
+
 /** Authoritative inspected create payload — never invents a default title. */
 export function inspectedCreatePayload(
   projection: PreparationProjection | null,
   previewName: string,
   previewSummary: string,
 ): { ok: true; projectName: string; previewSummary: string } | { ok: false; reason: string } {
-  const name = (projection?.name?.value || previewName).trim();
+  const name = resolveInspectedProjectName(projection, previewName);
   if (!name) {
     return { ok: false, reason: "project name required — clarify before create" };
   }
   const summary =
     previewFieldsFromProjection(projection, name, previewSummary).previewSummary ||
     previewSummary.trim();
-  return { ok: true, projectName: name.slice(0, 120), previewSummary: summary };
+  return { ok: true, projectName: name, previewSummary: summary };
+}
+
+/**
+ * Classify a successful pilot PATCH write against a post-commit observation.
+ * Distinguishes confirmed-current from confirmed-but-superseded — never conflates the two.
+ */
+export type PilotPatchWriteStatus =
+  | "APPLIED_CURRENT"
+  | "APPLIED_SUPERSEDED"
+  | "UNCHANGED_CURRENT"
+  | "CONFLICT_NOT_APPLIED"
+  | "UNKNOWN";
+
+export function classifyPilotPatchWrite(input: {
+  applyStatus: "APPLIED" | "UNCHANGED" | "CONFLICT" | "UNAVAILABLE" | "FORBIDDEN";
+  appliedRevision: number | null;
+  observedRevision: number | null;
+}): PilotPatchWriteStatus {
+  if (input.applyStatus === "CONFLICT") return "CONFLICT_NOT_APPLIED";
+  if (input.applyStatus === "UNAVAILABLE" || input.applyStatus === "FORBIDDEN") return "UNKNOWN";
+  if (input.appliedRevision == null || input.observedRevision == null) return "UNKNOWN";
+  if (input.applyStatus === "UNCHANGED") {
+    return input.observedRevision === input.appliedRevision
+      ? "UNCHANGED_CURRENT"
+      : "APPLIED_SUPERSEDED";
+  }
+  // APPLIED
+  if (input.observedRevision === input.appliedRevision) return "APPLIED_CURRENT";
+  if (input.observedRevision > input.appliedRevision) return "APPLIED_SUPERSEDED";
+  return "UNKNOWN";
 }

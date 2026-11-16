@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { requireStudioSession } from "@/domains/identity/session";
-import { getPreparationContext, updatePreview } from "@/domains/preparation/service";
+import {
+  applyPilotApercuCorrection,
+  getPreparationContext,
+} from "@/domains/preparation/service";
+import { classifyPilotPatchWrite } from "@/domains/preparation/projection";
 import { listMessages } from "@/domains/conversation/service";
 import { getAwaitingMissionForPreparation } from "@/domains/conversation/intent-conduction";
 import { listDocuments } from "@/domains/document/service";
@@ -72,31 +76,57 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId
       );
     }
 
-    const rev = await updatePreview(
-      session.pilotId,
+    const applied = await applyPilotApercuCorrection({
+      pilotId: session.pilotId,
       preparationId,
-      b.previewName,
-      b.previewSummary,
-      b.expectedCreationRevision,
-    );
-    const data = await getPreparationContext(session.pilotId, preparationId);
+      previewName: b.previewName,
+      previewSummary: b.previewSummary,
+      expectedCreationRevision: b.expectedCreationRevision,
+    });
 
-    // Re-read after commit: if another writer advanced revision, return coherent current state
-    // (same revision + projection pair) rather than mixing an old revision with a newer projection.
-    const confirmedRevision = data.preparation.creationRevision;
-    if (confirmedRevision !== rev) {
-      return NextResponse.json({
-        creationRevision: confirmedRevision,
-        projection: data.projection,
-        preparation: data.preparation,
-        reconciled: true,
-      });
+    if (applied.status === "CONFLICT") {
+      return NextResponse.json(
+        {
+          error: "CONFLICT",
+          writeStatus: "CONFLICT_NOT_APPLIED" as const,
+          actualCreationRevision: applied.actualRevision,
+        },
+        { status: 409 },
+      );
+    }
+    if (applied.status === "FORBIDDEN") {
+      return NextResponse.json({ error: "NOT_FOUND" }, { status: 404 });
+    }
+    if (applied.status === "UNAVAILABLE") {
+      return NextResponse.json(
+        {
+          error: "DEPENDENCY_UNAVAILABLE",
+          errorCategory: "DEPENDENCY_UNAVAILABLE",
+          writeStatus: "UNKNOWN" as const,
+        },
+        { status: 503 },
+      );
     }
 
+    // Post-commit observation: distinguish still-current write from a later superseding write.
+    const data = await getPreparationContext(session.pilotId, preparationId);
+    const appliedRevision = applied.revision;
+    const observedRevision = data.preparation.creationRevision;
+    const writeStatus = classifyPilotPatchWrite({
+      applyStatus: applied.status,
+      appliedRevision,
+      observedRevision,
+    });
+
     return NextResponse.json({
-      creationRevision: rev,
+      writeStatus,
+      appliedRevision,
+      creationRevision: observedRevision,
+      appliedProjection: applied.projection,
       projection: data.projection,
       preparation: data.preparation,
+      // Legacy flag: true only when a later write already superseded this one.
+      reconciled: writeStatus === "APPLIED_SUPERSEDED",
     });
   } catch (e) {
     const code = (e as { code?: string }).code;
@@ -104,6 +134,7 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId
       return NextResponse.json(
         {
           error: "CONFLICT",
+          writeStatus: "CONFLICT_NOT_APPLIED",
           actualCreationRevision: (e as { actualCreationRevision?: number }).actualCreationRevision,
         },
         { status: 409 },
@@ -115,7 +146,11 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId
     }
     if (code === "UNAVAILABLE") {
       return NextResponse.json(
-        { error: "DEPENDENCY_UNAVAILABLE", errorCategory: "DEPENDENCY_UNAVAILABLE" },
+        {
+          error: "DEPENDENCY_UNAVAILABLE",
+          errorCategory: "DEPENDENCY_UNAVAILABLE",
+          writeStatus: "UNKNOWN",
+        },
         { status: 503 },
       );
     }

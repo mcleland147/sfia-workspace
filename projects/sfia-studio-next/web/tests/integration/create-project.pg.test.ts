@@ -339,7 +339,8 @@ describe("PostgreSQL create-project contracts", () => {
     const p1 = await openOrCreatePreparation(pilotId);
     const p2 = await openOrCreatePreparation(pilotId);
     await updatePreview(pilotId, p1.id, "SameName", "a");
-    await updatePreview(pilotId, p2.id, "Same Name ", "b");
+    // Inspected name on p2 must match the requested create payload (G1); uniqueness still fires.
+    await updatePreview(pilotId, p2.id, "samename", "b");
     const r1 = (await db.select().from(preparations).where(eq(preparations.id, p1.id)))[0];
     const r2 = (await db.select().from(preparations).where(eq(preparations.id, p2.id)))[0];
     const c1 = await createProjectCommand({
@@ -365,6 +366,70 @@ describe("PostgreSQL create-project contracts", () => {
     }
     const all = await db.select().from(projects).where(eq(projects.ownerPilotId, pilotId));
     expect(all).toHaveLength(1);
+  });
+
+  it("G1: client-only name refused; inspected correction accepted; stale revision conflicts", async () => {
+    const pilotId = await seedPilot("G1Name");
+    const prep = await openOrCreatePreparation(pilotId);
+    await updatePreview(pilotId, prep.id, "Nom inspecté", "s");
+    const mid = await getPreparationContext(pilotId, prep.id);
+
+    const arbitrary = await createProjectCommand({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: mid.preparation.creationRevision,
+      projectName: "Wrong Name Entirely",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(arbitrary.status).toBe("CONFLICT");
+    if (arbitrary.status === "CONFLICT") {
+      expect(arbitrary.reason).toMatch(/does not match inspected/i);
+    }
+    expect(
+      (await db.select().from(projects).where(eq(projects.ownerPilotId, pilotId))).length,
+    ).toBe(0);
+
+    const ok = await createProjectCommand({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: mid.preparation.creationRevision,
+      projectName: "Nom inspecté",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(ok.status).toBe("CREATED");
+
+    // G1-11 style: after rename, old inspected name + stale or mismatched create fails.
+    const prep2 = await openOrCreatePreparation(pilotId);
+    await updatePreview(pilotId, prep2.id, "Ancien", "s");
+    const before = await getPreparationContext(pilotId, prep2.id);
+    await updatePreview(pilotId, prep2.id, "Nouveau", "s");
+    const stale = await createProjectCommand({
+      pilotId,
+      preparationId: prep2.id,
+      expectedCreationRevision: before.preparation.creationRevision,
+      projectName: "Ancien",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(stale.status).toBe("CONFLICT");
+    if (stale.status === "CONFLICT") {
+      expect(stale.reason).toMatch(/stale|does not match inspected/i);
+    }
+    const wrongCurrent = await createProjectCommand({
+      pilotId,
+      preparationId: prep2.id,
+      expectedCreationRevision: (await getPreparationContext(pilotId, prep2.id)).preparation
+        .creationRevision,
+      projectName: "Ancien",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(wrongCurrent.status).toBe("CONFLICT");
+    if (wrongCurrent.status === "CONFLICT") {
+      expect(wrongCurrent.reason).toMatch(/does not match inspected/i);
+    }
   });
 
   it("Morris-name: two pilots may share the same display name", async () => {

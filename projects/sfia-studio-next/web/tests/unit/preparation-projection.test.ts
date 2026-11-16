@@ -115,6 +115,39 @@ describe("preparation projection helpers (final corrective)", () => {
     if (ok.ok) expect(ok.projectName).toBe("Nom réel");
   });
 
+  it("resolveInspectedProjectName prefers projection then preview; never invents", async () => {
+    const {
+      resolveInspectedProjectName,
+      requestedNameMatchesInspected,
+      classifyPilotPatchWrite,
+    } = await import("@/domains/preparation/projection");
+    expect(resolveInspectedProjectName(null, "")).toBeNull();
+    expect(resolveInspectedProjectName(null, "  Preview  ")).toBe("Preview");
+    expect(requestedNameMatchesInspected("Wrong", "Preview")).toBe(false);
+    expect(requestedNameMatchesInspected(" preview ", "Preview")).toBe(true);
+    expect(
+      classifyPilotPatchWrite({
+        applyStatus: "APPLIED",
+        appliedRevision: 2,
+        observedRevision: 2,
+      }),
+    ).toBe("APPLIED_CURRENT");
+    expect(
+      classifyPilotPatchWrite({
+        applyStatus: "APPLIED",
+        appliedRevision: 2,
+        observedRevision: 3,
+      }),
+    ).toBe("APPLIED_SUPERSEDED");
+    expect(
+      classifyPilotPatchWrite({
+        applyStatus: "CONFLICT",
+        appliedRevision: null,
+        observedRevision: 3,
+      }),
+    ).toBe("CONFLICT_NOT_APPLIED");
+  });
+
   it("detects material changes and syncs preview fields", () => {
     const draft = draftProjectionFromQualification({
       preparationId: "prep-1",

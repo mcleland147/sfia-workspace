@@ -13,6 +13,9 @@ import { newId } from "@/lib/ids";
 import {
   namesConflictForSamePilot,
   normalizeProjectNameKey,
+  parseProjectionJson,
+  requestedNameMatchesInspected,
+  resolveInspectedProjectName,
 } from "@/domains/preparation/projection";
 
 export type CreateProjectInput = {
@@ -108,11 +111,19 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
         }
       }
 
-      // Serialize concurrent creates for this preparation.
+      // Serialize concurrent creates for this preparation — include inspectable name fields.
       const locked = await tx.execute(
-        sql`select id, creation_revision from preparations where id = ${input.preparationId} and owner_pilot_id = ${input.pilotId} for update`,
+        sql`select id, creation_revision, preview_name, projection_json
+            from preparations
+            where id = ${input.preparationId} and owner_pilot_id = ${input.pilotId}
+            for update`,
       );
-      const rows = locked as unknown as Array<{ id: string; creation_revision: number }>;
+      const rows = locked as unknown as Array<{
+        id: string;
+        creation_revision: number;
+        preview_name: string;
+        projection_json: unknown;
+      }>;
       const prepRow = rows[0];
       if (!prepRow) return { status: "FORBIDDEN" as const };
 
@@ -126,6 +137,7 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
 
       if (existingLink) {
         // Preparation already attached: record replay under same key/fingerprint only.
+        // Do not re-check inspected name against a now-ATTACHED prep — ACK replay must succeed.
         if (prior && prior.fingerprint !== fingerprint) {
           return fingerprintConflict("idempotency fingerprint mismatch on attached preparation");
         }
@@ -156,18 +168,42 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
         };
       }
 
+      // G1 — name authority at durable effect: client name must match the currently inspected
+      // D2 proposal under the same FOR UPDATE lock (projection.name, else preview_name).
+      const projection = parseProjectionJson(
+        prepRow.projection_json,
+        input.preparationId,
+        Number(prepRow.creation_revision),
+      );
+      const inspected = resolveInspectedProjectName(projection, prepRow.preview_name);
+      if (!inspected) {
+        return {
+          status: "INVALID_REQUEST" as const,
+          reason: "no inspectable project name on preparation — reinspect before create",
+        };
+      }
+      if (!requestedNameMatchesInspected(name, inspected)) {
+        return {
+          status: "CONFLICT" as const,
+          actualCreationRevision: Number(prepRow.creation_revision),
+          reason: "projectName does not match inspected preparation proposal",
+        };
+      }
+      // Create with the durable inspected spelling, not a client-only variant.
+      const durableName = inspected;
+
       // Same-pilot name uniqueness (Morris 2026-11-16). Application-level only —
       // historical PF-CRE-14 duplicates exist; no UNIQUE DB constraint in this cycle.
       // Comparison uses the single JS semantic (normalizeProjectNameKey) under the pilot lock.
       // Replay ALREADY_CREATED paths above are unaffected.
-      if (!normalizeProjectNameKey(name)) {
+      if (!normalizeProjectNameKey(durableName)) {
         return { status: "INVALID_REQUEST" as const, reason: "projectName required" };
       }
       const owned = await tx
         .select({ id: projects.id, name: projects.name })
         .from(projects)
         .where(eq(projects.ownerPilotId, input.pilotId));
-      const nameHit = owned.find((p) => namesConflictForSamePilot(p.name, name));
+      const nameHit = owned.find((p) => namesConflictForSamePilot(p.name, durableName));
       if (nameHit) {
         return {
           status: "CONFLICT" as const,
@@ -181,7 +217,7 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
       await tx.insert(projects).values({
         id: projectId,
         ownerPilotId: input.pilotId,
-        name,
+        name: durableName,
         createdAt: now,
       });
       await tx.insert(preparationProjectLinks).values({

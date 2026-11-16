@@ -8,7 +8,7 @@ import {
   SAS_MATURATION_T1,
   SAS_MATURATION_T2,
   SAS_MATURATION_T3,
-  SAS_MATURATION_T4,
+  sasMaturationT4Rename,
 } from "../../src/domains/conversation/fixture-semantic-qualify";
 
 async function loginPilot(
@@ -20,42 +20,6 @@ async function loginPilot(
     .getByRole("button", { name: which === "a" ? "Pilote A (DEV)" : "Pilote B (DEV)" })
     .click();
   await page.waitForURL("**/portfolio");
-}
-
-/**
- * Uniquify inspected name via PATCH (Gap A contract) then create — no UI adjust form.
- * Isolates same-pilot name CONFLICT across e2e DB pollution.
- */
-async function uniquifyInspectedNameThenCreate(
-  page: import("@playwright/test").Page,
-  uniqueName: string,
-): Promise<string> {
-  const prepId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
-  expect(prepId).toBeTruthy();
-  const getRes = await page.request.get(`/api/preparations/${prepId}`);
-  expect(getRes.ok()).toBeTruthy();
-  const before = (await getRes.json()) as {
-    preparation: { creationRevision: number; previewSummary: string };
-  };
-  const patchRes = await page.request.patch(`/api/preparations/${prepId}`, {
-    data: {
-      previewName: uniqueName,
-      previewSummary: before.preparation.previewSummary || "aperçu inspecté",
-      expectedCreationRevision: before.preparation.creationRevision,
-    },
-  });
-  expect(patchRes.status()).toBe(200);
-  const patched = (await patchRes.json()) as { creationRevision?: number };
-  expect(typeof patched.creationRevision).toBe("number");
-  await page.reload();
-  await expect(page.getByTestId("prep-field-name")).toContainText(uniqueName, { timeout: 15000 });
-  await expect(page.getByTestId("prep-create-project")).toBeEnabled();
-  await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
-  await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 30000 });
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
-  return projectId!;
 }
 
 test.describe("ML4D Sas Nora — corrective convergence", () => {
@@ -82,19 +46,22 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
   test("AF primary path: create without constitute/adjust UI clicks", async ({ page }) => {
     await loginPilot(page, "b");
     await openNewPreparation(page);
+    const unique = `Cockpit B-${Date.now()}`;
     await sendPrepMessage(
       page,
-      "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
+      `Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé ${unique}.`,
     );
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
+    await expect(page.getByTestId("prep-field-name")).toContainText(unique);
     await expect(page.getByTestId("prep-create-project")).toBeEnabled();
     await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
-    const unique = `Cockpit B-${Date.now()}`;
-    const projectId = await uniquifyInspectedNameThenCreate(page, unique);
+    await page.getByTestId("prep-create-project").click();
+    await page.waitForURL("**/projects/**", { timeout: 30000 });
+    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+    expect(projectId).toBeTruthy();
     await page.reload();
     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
     await expect(page.getByText("Même fil", { exact: false })).toBeVisible({ timeout: 15000 });
-    // Project shell may show truncated title; URL + continuity are the durable proofs.
     await expect(page.getByTestId("studio-rail")).toBeVisible();
   });
 
@@ -119,7 +86,9 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
     await expect(page.getByTestId("prep-nora-assessment")).toContainText(/pas suffisante/i);
   });
 
-  test("AF multi-turn maturation: vague → outcome → scope → rename → create", async ({ page }) => {
+  test("AF multi-turn maturation: vague → outcome → scope → rename → create (no PATCH)", async ({
+    page,
+  }) => {
     test.setTimeout(240_000);
     await loginPilot(page, "b");
     await openNewPreparation(page);
@@ -139,7 +108,7 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
     await expect(page.getByTestId("prep-proposal-state")).not.toHaveText(/Base suffisante/i);
     await expect(page).toHaveURL(/\/preparations\//);
 
-    // T3 — scope + proposed name; Nora may recommend starting
+    // T3 — scope + proposed name via proposedProjectName (no REQUEST_EFFECT); no project
     await sendPrepMessage(page, SAS_MATURATION_T3);
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 30000 });
     await expect(page.getByTestId("prep-field-name")).toContainText("Assistant de pilotage");
@@ -147,17 +116,21 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
     await expect(page.getByTestId("prep-nora-assessment")).toBeVisible();
     await expect(page).toHaveURL(/\/preparations\//);
 
-    // T4 — rename via conversation; old name must not remain current
-    await sendPrepMessage(page, SAS_MATURATION_T4);
-    await expect(page.getByTestId("prep-field-name")).toContainText("Cockpit projets", {
+    // T4 — conversational rename with unique name (no programmatic PATCH, no Ajuster)
+    const unique = `Cockpit projets MT-${Date.now()}`;
+    await sendPrepMessage(page, sasMaturationT4Rename(unique));
+    await expect(page.getByTestId("prep-field-name")).toContainText(unique, {
       timeout: 30000,
     });
     await expect(page.getByTestId("prep-field-name")).not.toHaveText("Assistant de pilotage");
     await expect(page.getByTestId("prep-create-project")).toBeEnabled();
+    await expect(page.getByTestId("prep-proposal-edit")).toHaveCount(0);
 
-    // T5 — uniquify via PATCH (Gap A) then create; no UI adjust form
-    const unique = `Cockpit projets MT-${Date.now()}`;
-    const projectId = await uniquifyInspectedNameThenCreate(page, unique);
+    // T5 — create directly from inspected T4 name
+    await page.getByTestId("prep-create-project").click();
+    await page.waitForURL("**/projects/**", { timeout: 30000 });
+    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+    expect(projectId).toBeTruthy();
     await page.reload();
     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
     await expect(page.getByText("Même fil", { exact: false })).toBeVisible({ timeout: 15000 });

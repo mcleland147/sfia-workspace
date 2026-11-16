@@ -369,20 +369,17 @@ export type MissionD2Resolve =
   | { status: "MISSION_NAME_MISMATCH"; reason: string; expected: string; received: string }
   | { status: "AMBIGUOUS_AWAITING"; count: number };
 
-function normalizeProjectName(name: string): string {
-  return name.trim().replace(/[.]+$/g, "").replace(/\s+/g, " ").toLowerCase();
-}
-
 /**
  * Server-authoritative binding of a D2 create act to an awaiting mission.
  * Client clientIntentKey is a hint that must match DB truth — never silent fallback
  * to another mission when the hint is wrong (B/C).
+ * Project name authority is D2-inspected (createProjectCommand), not mission rewrite.
  */
 export async function verifyMissionForD2Act(input: {
   conversationId: string;
   preparationId: string;
   clientIntentKey?: string | null;
-  /** When set with an awaiting mission that declared a name, must be compatible. */
+  /** Retained for callers; durable name match is enforced under D2 lock at create. */
   projectName?: string | null;
 }): Promise<MissionD2Resolve> {
   const latest = await loadLatestMissionsByIntentKey(input.conversationId);
@@ -408,16 +405,10 @@ export async function verifyMissionForD2Act(input: {
       };
     }
     if (hinted.status === "AWAITING_PILOT_ACT") {
-      const expected = hinted.proposedProjectName?.trim();
-      const received = input.projectName?.trim();
-      // Name may have been corrected by Nora (conversation) or Pilot (aperçu UI) after the
-      // awaiting mission was opened. The Pilot create act remains explicit; use the inspected name.
-      if (expected && received && normalizeProjectName(expected) !== normalizeProjectName(received)) {
-        return {
-          status: "OK",
-          mission: { ...hinted, proposedProjectName: received },
-        };
-      }
+      // Mission binding authorizes the awaiting act only. The durable project name is owned by
+      // D2 (inspected preparation projection / preview) and enforced under lock in createProjectCommand.
+      // Never rewrite mission.proposedProjectName from the client payload — that would launder an
+      // arbitrary name into mission memory without a persisted D2 correction.
       return { status: "OK", mission: hinted };
     }
     return { status: "ALREADY_CONTINUED", mission: hinted };

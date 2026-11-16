@@ -225,21 +225,13 @@ register(
 
 register(
   SAS_MATURATION_T3,
-  effect(
+  // Proposition de démarrage ≠ REQUEST_EFFECT : proposedProjectName only; Pilot create remains D2.
+  dialogue(
     "Espace personnel : décisions, points ouverts, prochaines actions",
     "Premier périmètre : un espace personnel avec décisions, points ouverts et prochaines actions. Le travail en équipe est une piste ultérieure, pas une décision immédiate. Nom de travail proposé : Assistant de pilotage. Cette base me paraît suffisante pour démarrer si vous le souhaitez.",
-    [
-      {
-        capabilityId: "d2.create_project",
-        mode: "REQUEST_EFFECT",
-        summary: "Proposition Assistant de pilotage",
-        parameters: { projectName: "Assistant de pilotage" },
-        constraints: [],
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ],
+    ["NO_EFFECT", "PROPOSAL_ONLY"],
     {
+      proposedProjectName: "Assistant de pilotage",
       desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
       initialScope:
         "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
@@ -253,7 +245,7 @@ register(
 
 register(
   SAS_MATURATION_T4,
-  // Dialogue (no REQUEST_EFFECT): name correction while a D2 mission may still await Pilot create (S05).
+  // Dialogue (no REQUEST_EFFECT): name correction; create remains an explicit D2 Pilot act.
   dialogue(
     "Espace personnel de pilotage nommé Cockpit projets",
     "Correction prise en compte : le nom de travail est Cockpit projets (et non Assistant de pilotage). Le reste de la proposition (résultat et périmètre personnel) est conservé.",
@@ -270,30 +262,48 @@ register(
   ),
 );
 
-register(
-  "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
-  effect(
-    "Cockpit de suivi des projets",
-    "Je comprends : un cockpit pour suivre vos projets, en commençant par le portefeuille et les risques. Nom de travail proposé : Cockpit projets. Cette base me paraît suffisante pour démarrer ; les détails pourront se préciser ensuite.",
-    [
-      {
-        capabilityId: "d2.create_project",
-        mode: "REQUEST_EFFECT",
-        summary: "Création Cockpit projets",
-        parameters: { projectName: "Cockpit projets" },
-        constraints: [],
-        dependsOn: [],
-        sourceEvidence: [],
-      },
-    ],
+/** Build a T4 rename utterance with an isolated unique name (BROWSER uniqueness). */
+export function sasMaturationT4Rename(uniqueName: string): string {
+  return `Je préfère l'appeler ${uniqueName.trim()} plutôt qu'Assistant de pilotage.`;
+}
+
+function maturationRenameQualification(uniqueName: string): NoraTurnQualification {
+  const name = uniqueName.trim().slice(0, 120);
+  return dialogue(
+    `Espace personnel de pilotage nommé ${name}`,
+    `Correction prise en compte : le nom de travail est ${name} (et non Assistant de pilotage). Le reste de la proposition (résultat et périmètre personnel) est conservé.`,
+    ["NAME_CORRECTION", "NO_EFFECT"],
     {
+      proposedProjectName: name,
+      desiredOutcome: "Retrouver les décisions importantes et savoir quoi faire ensuite",
+      initialScope:
+        "Espace personnel : décisions, points ouverts, prochaines actions (équipe plus tard)",
+      preparationAssessment: "BASE_SUFFICIENTE",
+      preparationAssessmentExplanation: `Après correction du nom, la base reste suffisante pour démarrer : résultat et périmètre personnel sont acquis ; le nom inspecté est ${name}.`,
+    },
+  );
+}
+
+function cockpitNamedQualification(projectName: string): NoraTurnQualification {
+  const name = projectName.trim().slice(0, 120);
+  return dialogue(
+    "Cockpit de suivi des projets",
+    `Je comprends : un cockpit pour suivre vos projets, en commençant par le portefeuille et les risques. Nom de travail proposé : ${name}. Cette base me paraît suffisante pour démarrer ; les détails pourront se préciser ensuite.`,
+    ["NO_EFFECT", "PROPOSAL_ONLY"],
+    {
+      proposedProjectName: name,
       desiredOutcome: "Voir portefeuille et risques en un seul endroit",
       initialScope: "Portefeuille et risques en premier",
       preparationAssessment: "BASE_SUFFICIENTE",
       preparationAssessmentExplanation:
         "Intention, résultat et périmètre initial sont assez clairs pour démarrer. Les raffinements peuvent se faire dans le projet.",
     },
-  ),
+  );
+}
+
+register(
+  "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
+  cockpitNamedQualification("Cockpit projets"),
 );
 
 register(
@@ -507,6 +517,11 @@ export function registerFixtureScenario(utterance: string, q: NoraTurnQualificat
   register(utterance, q);
 }
 
+const MATURATION_RENAME_RE =
+  /^Je préfère l'appeler (.+?) plutôt qu'Assistant de pilotage\.$/;
+const COCKPIT_NAMED_RE =
+  /^Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé (.+)\.$/;
+
 export function fixtureSemanticQualify(userText: string): NoraTurnQualification {
   assertFixtureLane();
   const text = normalizeUtterance(userText);
@@ -514,6 +529,16 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification 
   const hit = SCENARIO_TABLE.get(text);
   if (hit) {
     return structuredClone(hit);
+  }
+  // Parameterized T4 rename: name appears in the Pilot message and structured qualification —
+  // never injected directly into D2/DB outside the normal turn path.
+  const rename = text.match(MATURATION_RENAME_RE);
+  if (rename?.[1]?.trim()) {
+    return maturationRenameQualification(rename[1]);
+  }
+  const cockpit = text.match(COCKPIT_NAMED_RE);
+  if (cockpit?.[1]?.trim()) {
+    return cockpitNamedQualification(cockpit[1]);
   }
   // Fail closed: unknown fixture text is dialogue-only, never a lexical invent of effects.
   return dialogue(

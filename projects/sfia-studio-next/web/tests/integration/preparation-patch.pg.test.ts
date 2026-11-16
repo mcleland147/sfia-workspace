@@ -93,7 +93,10 @@ describe("PG REAL — preparation PATCH contract", () => {
       expectedCreationRevision: before.preparation.creationRevision,
     });
     expect(res.status).toBe(200);
+    expect(res.body.writeStatus).toBe("APPLIED_CURRENT");
+    expect(res.body.appliedRevision).toBe(before.preparation.creationRevision + 1);
     expect(res.body.creationRevision).toBe(before.preparation.creationRevision + 1);
+    expect(res.body.reconciled).toBe(false);
     expect((res.body.preparation as { previewName: string }).previewName).toBe("Cockpit inspecté");
     const proj = res.body.projection as {
       name: { value: string; status: string; source: { kind: string } };
@@ -136,6 +139,7 @@ describe("PG REAL — preparation PATCH contract", () => {
     });
     expect(second.status).toBe(409);
     expect(second.body.error).toBe("CONFLICT");
+    expect(second.body.writeStatus).toBe("CONFLICT_NOT_APPLIED");
     expect(second.body.actualCreationRevision).toBe(rev0 + 1);
 
     const after = await getPreparationContext(sess.pilotId, prep.id);
@@ -184,6 +188,45 @@ describe("PG REAL — preparation PATCH contract", () => {
     const ctx = await getPreparationContext(pilotId, prep.id);
     expect(["Race A", "Race B"]).toContain(ctx.preparation.previewName);
     expect(ctx.preparation.creationRevision).toBe(rev + 1);
+  });
+
+  it("G3: applied then superseded before observation is classified honestly", async () => {
+    const { classifyPilotPatchWrite } = await import("@/domains/preparation/projection");
+    const pilotId = await seedPilot("PatchSupersede");
+    const prep = await openOrCreatePreparation(pilotId);
+    const rev0 = (await getPreparationContext(pilotId, prep.id)).preparation.creationRevision;
+
+    const first = await applyPilotApercuCorrection({
+      pilotId,
+      preparationId: prep.id,
+      previewName: "Première correction",
+      previewSummary: "a",
+      expectedCreationRevision: rev0,
+    });
+    expect(first.status).toBe("APPLIED");
+    if (first.status !== "APPLIED") throw new Error("expected APPLIED");
+
+    // Deterministic supersession after first commit (no sleep): second write advances revision.
+    const second = await applyPilotApercuCorrection({
+      pilotId,
+      preparationId: prep.id,
+      previewName: "Deuxième courante",
+      previewSummary: "b",
+      expectedCreationRevision: first.revision,
+    });
+    expect(second.status).toBe("APPLIED");
+
+    const observed = await getPreparationContext(pilotId, prep.id);
+    const writeStatus = classifyPilotPatchWrite({
+      applyStatus: "APPLIED",
+      appliedRevision: first.revision,
+      observedRevision: observed.preparation.creationRevision,
+    });
+    expect(writeStatus).toBe("APPLIED_SUPERSEDED");
+    expect(observed.preparation.previewName).toBe("Deuxième courante");
+    expect(observed.preparation.creationRevision).toBe(first.revision + 1);
+    // Must not present the first correction as the current truth.
+    expect(observed.projection?.name?.value).not.toBe("Première correction");
   });
 
   it("create after PATCH uses inspected name", async () => {

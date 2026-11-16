@@ -499,9 +499,12 @@ export default function PreparationPage() {
       }),
     });
     let j: {
+      writeStatus?: string;
+      appliedRevision?: number;
       creationRevision?: number;
       preparation?: { previewName?: string; previewSummary?: string; creationRevision?: number };
       projection?: PreparationProjection | null;
+      appliedProjection?: PreparationProjection | null;
       error?: string;
       actualCreationRevision?: number;
       reason?: string;
@@ -512,7 +515,8 @@ export default function PreparationPage() {
       j = {};
     }
     if (res.ok) {
-      // Trust the coherent server pair (revision + projection + preparation) — never mix.
+      const writeStatus = j.writeStatus ?? "APPLIED_CURRENT";
+      // Always show the coherent current pair (revision + projection + preparation).
       setPreviewName(j.preparation?.previewName ?? name);
       setPreviewSummary(j.preparation?.previewSummary ?? summary);
       setCreationRevision(
@@ -522,11 +526,24 @@ export default function PreparationPage() {
       );
       setProjection((j.projection as PreparationProjection | null) ?? null);
       setProjectionFreshness("current");
-      setProposalEditing(false);
-      setStatus(`Aperçu corrigé · révision ${j.creationRevision ?? "?"}`);
+
+      if (writeStatus === "APPLIED_SUPERSEDED") {
+        // Write confirmed but no longer current — never announce plain « Aperçu corrigé ».
+        // Keep local draft so the Pilot can re-apply voluntarily on the newer revision.
+        setStatus(
+          `Correction enregistrée (rév. ${j.appliedRevision ?? "?"}) puis remplacée par une version plus récente (rév. ${j.creationRevision ?? "?"}) — inspectez l'état courant ; le brouillon local est conservé.`,
+        );
+        // Keep proposalEditing true with prior draft fields when in edit mode.
+      } else if (writeStatus === "UNCHANGED_CURRENT") {
+        setProposalEditing(false);
+        setStatus(`Aperçu inchangé · révision ${j.creationRevision ?? "?"}`);
+      } else {
+        setProposalEditing(false);
+        setStatus(`Aperçu corrigé · révision ${j.creationRevision ?? "?"}`);
+      }
     } else if (res.status === 409) {
       setStatus(
-        `CONFLICT: aperçu modifié ailleurs (rév. actuelle ${j.actualCreationRevision ?? "?"}) — rechargement sans écrasement`,
+        `CONFLICT: correction non appliquée (rév. actuelle ${j.actualCreationRevision ?? "?"}) — rechargement sans écrasement du brouillon`,
       );
       await reload();
     } else if (res.status === 401) {
