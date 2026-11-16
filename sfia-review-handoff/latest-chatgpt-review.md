@@ -1875,10 +1875,10 @@ Publisher : `scripts/sfia/publish-review-handoff.sh`
 
 | Champ | Valeur |
 | --- | --- |
-| Tip | `86d5b9e51adb86d8fcc50c9a0a1cf119d7f6c913` |
-| Blob | `776181dea2b9f1390d86ef617b0bbac6b9c6c552` |
+| Tip | `c6964dfda94fb39915824386bc408d46ed92ac6e` |
+| Blob | `5de481ec9dd5809becbc3d449c69a184be062438` |
 | Relecture | origin/sfia/review-handoff REMOTE VERIFIED |
-Statut : **REMOTE VERIFIED** — tip  · blob
+Statut : **REMOTE VERIFIED** — tip `c6964dfda94fb39915824386bc408d46ed92ac6e` · blob `5de481ec9dd5809becbc3d449c69a184be062438`
 
 ---
 
