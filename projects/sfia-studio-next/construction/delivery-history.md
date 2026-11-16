@@ -25,6 +25,23 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-UX-CTA-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~15:00 CET |
+| Macro-lot | ML4D — Finalisation UX CTA D2 + mise à disposition RECETTE |
+| Type | Cycle 8 Delivery · CRITICAL cutover · EVOL compatible · **NO RELEASE** |
+| Parent | `e52cec0d0bd72b1731f61f60f3db54e0e9a70d1c` |
+| Correctif | CTA création = D2 `canCreate` (suppression gate Nora `BASE_SUFFICIENTE`) — SAS-F-07 / AF-06 |
+| Non-scope | createProjectCommand, migrations, D3/D4, Figma write, PR/merge/STABLE |
+| Preuves | UNIT CTA T01–T06 ; UNIT 401 ; PG create-project 23 ; BROWSER Sas+chat-first 6 |
+| Visuel Morris | **PENDING** — pas de nouvelle campagne pixel Cursor |
+| Nora LIVE | **NOT PROVEN** |
+| RECETTE | nouveau SHA/build (rollback `cd091385`/`E3J7wVO4MsKgl5aCTDhed`) |
+| Push produit | **AUCUN** |
+| Verdict cible | `RECETTE DEPLOYED — READY FOR MORRIS UX REVIEW` (ou WITH RESERVES) |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-UX-FIGMA
 
 | Field | Value |

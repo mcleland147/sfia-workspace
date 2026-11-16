@@ -15,7 +15,7 @@ test("G4 chat-first: discuss → constitute proposal → create; journal empty s
   await page.getByTestId("portfolio-new-prep").click();
   await page.waitForURL("**/preparations/**");
 
-  await expect(page.getByRole("heading", { name: /Clarifions votre intention/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Parlons de votre projet/i })).toBeVisible();
   await expect(page.getByTestId("prep-empty-invite")).toBeVisible();
   await expect(page.getByTestId("prep-proposal-empty")).toBeVisible();
   await expect(page.getByPlaceholder("Nom du projet")).toHaveCount(0);

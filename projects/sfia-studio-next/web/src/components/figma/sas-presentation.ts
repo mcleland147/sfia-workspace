@@ -44,6 +44,17 @@ export function resolveSasPresentationStage(input: {
   return "clarification";
 }
 
+/**
+ * Create CTA visibility — D2 eligibility only (SAS-F-07 / AF-06).
+ * Nora assessment may colour advice; it must never gate the Pilote's create action.
+ */
+export function shouldShowCreateProjectCta(input: {
+  created: boolean;
+  canCreate: boolean;
+}): boolean {
+  return !input.created && input.canCreate;
+}
+
 export function sasPresentationCopy(stage: SasPresentationStage): SasPresentationCopy {
   switch (stage) {
     case "clarification":

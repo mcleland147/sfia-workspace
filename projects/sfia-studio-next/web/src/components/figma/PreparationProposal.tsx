@@ -8,6 +8,7 @@
 import type { PreparationProjection } from "@/domains/preparation/projection";
 import { canCreateFromProjection } from "@/domains/preparation/projection";
 import type { SasPresentationCopy } from "./sas-presentation";
+import { shouldShowCreateProjectCta } from "./sas-presentation";
 
 export type ProposalOpenPoint = { id: string; statement: string };
 
@@ -85,11 +86,9 @@ export function PreparationProposal(props: {
     Boolean(props.previewSummary.trim());
   const canCreate = !created && canCreateFromProjection(projection, props.previewName);
   const stage = props.presentation.stage;
-  // CTA composition belongs to frame 04; still honors D2 canCreate (no extra Nora gate).
-  const showCreateCta =
-    !created &&
-    canCreate &&
-    (stage === "base_sufficient" || assessment === "BASE_SUFFICIENTE");
+  // CTA lives in the aperçu panel (Figma frame 04 composition). Eligibility is D2 only —
+  // Nora assessment must not gate the Pilote's right to create (SAS-F-07 / AF-06).
+  const showCreateCta = shouldShowCreateProjectCta({ created, canCreate });
 
   const sections: Section[] = [];
   if (stage === "first_intention" && !hasLiving) {
@@ -323,15 +322,17 @@ export function PreparationProposal(props: {
           >
             <p className="sas-maturity-title">{props.presentation.maturityTitle}</p>
             <p className="sas-maturity-body">
-              {explanation && stage === "base_sufficient"
-                ? explanation
-                : props.presentation.maturityBody}
+              {/* Nora qualitative advice stays visible at any stage; it never gates create. */}
+              {explanation || props.presentation.maturityBody}
             </p>
           </div>
         ) : null}
 
         {showCreateCta ? (
-          <div className="sas-create-block">
+          <div
+            className={`sas-create-block${stage === "base_sufficient" ? " sas-create-block-ready" : ""}`}
+            data-testid="prep-create-block"
+          >
             <button
               type="button"
               className="sas-create-btn"
@@ -341,13 +342,17 @@ export function PreparationProposal(props: {
             >
               {created ? "Projet déjà créé" : "Créer le projet"}
             </button>
-            <p className="sas-create-hint">Ou continuer à préciser avec Nora</p>
+            <p className="sas-create-hint">
+              {stage === "base_sufficient"
+                ? "Nora estime la base suffisante — la décision de créer vous appartient."
+                : "Vous restez maître de la création — Nora peut encore préciser avec vous."}
+            </p>
           </div>
         ) : (
-          <p className="sas-preview-foot">
+          <p className="sas-preview-foot" data-testid="prep-create-unavailable">
             {created
               ? "Projet créé — continuité disponible dans l’espace projet."
-              : "Aucun projet durable créé à ce stade"}
+              : "Indiquez un nom de projet dans l’aperçu pour pouvoir créer."}
           </p>
         )}
 

@@ -93,11 +93,12 @@ test.describe("ML4D Sas Nora — corrective convergence", () => {
     await loginPilot(page, "b");
     await openNewPreparation(page);
 
-    // T1 — vague intention: no invented name as fact, exploring
+    // T1 — vague intention: no invented name as fact, exploring; D2 blocks create
     await sendPrepMessage(page, SAS_MATURATION_T1);
     await expect(page.getByTestId("prep-proposal")).toBeVisible({ timeout: 30000 });
     await expect(page.getByTestId("prep-proposal-state")).not.toHaveText(/Base suffisante/i);
-    await expect(page.getByTestId("prep-create-project")).toBeDisabled();
+    await expect(page.getByTestId("prep-create-project")).toHaveCount(0);
+    await expect(page.getByTestId("prep-create-unavailable")).toBeVisible();
     await expect(page).toHaveURL(/\/preparations\//);
 
     // T2 — desired outcome appears; still clarifying
