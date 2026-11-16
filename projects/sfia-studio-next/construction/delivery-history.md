@@ -25,6 +25,23 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-UX004-D2-GUARDS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~09:20 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-004 D2 guards (effet honnête + single-flight) |
+| Type | EVOL / PATCH candidate compatible · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux004-portfolio-20261116` |
+| Parent tip | `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
+| Causes | (A) UNCERTAIN confirmé à tort via diff d'ids portefeuille ; (B) verrous locaux shell/portefeuille non partagés |
+| Changes | `runOpenPreparation` single-flight document-scoped ; UNCERTAIN sans upgrade portfolio ; messages honnêtes ; tests unit + Playwright concurrence inter-entrées |
+| Schema / API | unchanged |
+| Limites | Garde frontend ≠ idempotence serveur ; hors multi-onglet / multi-session |
+| Lanes | DEV `:3102` ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`bc878568` / `3g7UH7AXjSWhxrT20D3-w`) |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR CHATGPT REVIEW — UX-004 D2 GUARDS` |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-UX004-NAV-BREADCRUMB-CORRECTIF
 
 | Field | Value |

@@ -255,6 +255,116 @@ test.describe("UX-004 portfolio shell", () => {
     await expect(page.getByTestId("studio-rail")).toHaveCount(0);
   });
 
+  test("single-flight: rail + portfolio create during delayed POST → one POST", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await loginPilotA(page);
+
+    let posts = 0;
+    page.on("request", (req) => {
+      if (req.method() === "POST" && req.url().includes("/api/preparations")) posts += 1;
+    });
+    await page.route("**/api/preparations", async (route) => {
+      if (route.request().method() !== "POST") {
+        await route.continue();
+        return;
+      }
+      await new Promise((r) => setTimeout(r, 500));
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ preparationId: "prep-cross-flight" }),
+      });
+    });
+
+    // force: bypass disabled-after-busy so both entry points can race the lock
+    // (mirrors two near-simultaneous clicks before React re-render).
+    await Promise.all([
+      page.getByTestId("nav-new-prep").click({ force: true }),
+      page.getByTestId("portfolio-new-prep").click({ force: true }),
+    ]);
+    await page.waitForURL("**/preparations/prep-cross-flight");
+    expect(posts).toBe(1);
+    await page.unroute("**/api/preparations");
+  });
+
+  test("uncertain ACK: no confirm, no navigate by guess, no second POST", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await loginPilotA(page);
+
+    // Pre-existing preparations must not be declared newly created.
+    await page.route("**/api/portfolio", async (route) => {
+      if (route.request().method() !== "GET") {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          session: { displayName: "Pilote A", authMode: "dev" },
+          portfolio: {
+            kind: "empty",
+            openPreparations: 1,
+            preparations: {
+              items: [
+                {
+                  id: "prep-preexisting",
+                  previewName: "Déjà là",
+                  previewSummary: "",
+                  createdAt: "2026-11-15T10:00:00.000Z",
+                  status: "OPEN",
+                },
+              ],
+              nextCursor: null,
+            },
+          },
+        }),
+      });
+    });
+    await page.reload();
+    await expect(page.getByTestId("resume-prep-prep-preexisting")).toBeVisible();
+
+    let posts = 0;
+    page.on("request", (req) => {
+      if (req.method() === "POST" && req.url().includes("/api/preparations")) posts += 1;
+    });
+    await page.route("**/api/preparations", async (route) => {
+      if (route.request().method() !== "POST") {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: "{}",
+      });
+    });
+
+    await page.getByTestId("portfolio-new-prep").click();
+    await expect(page.getByText(/création incertaine|peut-être été enregistrée/i)).toBeVisible();
+    await expect(page).toHaveURL(/\/portfolio/);
+    expect(posts).toBe(1);
+    await expect(page.getByText(/création confirmée/i)).toHaveCount(0);
+
+    // Lock released: a later refused call must not retry-loop.
+    await page.unroute("**/api/preparations");
+    await page.route("**/api/preparations", async (route) => {
+      if (route.request().method() !== "POST") {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "refus métier" }),
+      });
+    });
+    posts = 0;
+    await page.getByTestId("nav-new-prep").click();
+    await expect(page.getByTestId("shell-prep-notice")).toContainText(/refus/i);
+    expect(posts).toBe(1);
+  });
+
   test("rail variants widths preserved on project surfaces", async ({ page }) => {
     await page.setViewportSize({ width: 1680, height: 970 });
     await loginPilotA(page);

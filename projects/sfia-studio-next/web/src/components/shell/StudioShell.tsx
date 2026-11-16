@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { openPreparation } from "@/lib/open-preparation";
+import {
+  runOpenPreparation,
+  subscribeOpenPreparationBusy,
+} from "@/lib/open-preparation";
 import { PRODUCT_VERSIONING } from "@/lib/product-version";
 import {
   STUDIO_RAIL_VARIANTS,
@@ -38,15 +41,12 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
   const breadcrumb = resolvePersonalBreadcrumb(pathname);
   const [openingPrep, setOpeningPrep] = useState(false);
   const [prepNotice, setPrepNotice] = useState("");
-  const openingRef = useRef(false);
+
+  useEffect(() => subscribeOpenPreparationBusy(setOpeningPrep), []);
 
   async function handleOpenPreparation() {
-    if (openingRef.current) return;
-    openingRef.current = true;
-    setOpeningPrep(true);
     setPrepNotice("");
-    try {
-      const result = await openPreparation();
+    const outcome = await runOpenPreparation(async (result) => {
       if (result.kind === "opened") {
         router.push(`/preparations/${result.preparationId}`);
         return;
@@ -59,11 +59,10 @@ export function StudioShell({ children }: { children: React.ReactNode }) {
         setPrepNotice(result.message);
         return;
       }
+      // UNCERTAIN: honest message; never navigate by guess.
       setPrepNotice(result.message);
-    } finally {
-      openingRef.current = false;
-      setOpeningPrep(false);
-    }
+    });
+    if (outcome.kind === "busy") return;
   }
 
   // UX-003: /login is a public entry surface — no private project rail.

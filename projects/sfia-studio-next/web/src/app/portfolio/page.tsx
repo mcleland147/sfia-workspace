@@ -3,7 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { preparationDisplayLabel } from "@/domains/identity/portfolio-labels";
-import { openPreparation } from "@/lib/open-preparation";
+import {
+  runOpenPreparation,
+  subscribeOpenPreparationBusy,
+} from "@/lib/open-preparation";
 
 type PreparationSummary = {
   id: string;
@@ -68,8 +71,9 @@ export default function PortfolioPage() {
   const [creationUncertainty, setCreationUncertainty] = useState<string>("");
   const [loadingMore, setLoadingMore] = useState(false);
   const [creating, setCreating] = useState(false);
-  const creatingRef = useRef(false);
   const knownPrepIdsRef = useRef<Set<string>>(new Set());
+
+  useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
 
   const applyPortfolio = useCallback((j: PortfolioResponse, append: boolean) => {
     setData(j);
@@ -147,14 +151,9 @@ export default function PortfolioPage() {
   }
 
   async function startPreparation() {
-    if (creatingRef.current) return;
-    creatingRef.current = true;
-    setCreating(true);
     setCreationUncertainty("");
     setError("");
-    const before = new Set(knownPrepIdsRef.current);
-    try {
-      const result = await openPreparation({ knownPreparationIds: before });
+    const outcome = await runOpenPreparation(async (result) => {
       if (result.kind === "opened") {
         router.push(`/preparations/${result.preparationId}`);
         return;
@@ -168,13 +167,11 @@ export default function PortfolioPage() {
         setError(result.message);
         return;
       }
-      // Uncertain ACK — refresh known ids; never auto-retry POST.
+      // UNCERTAIN: refresh list for reprise aid; never confirm creation or navigate by guess.
       await reloadPortfolio();
       setCreationUncertainty(result.message);
-    } finally {
-      creatingRef.current = false;
-      setCreating(false);
-    }
+    });
+    if (outcome.kind === "busy") return;
   }
 
   function resumePreparation(id: string) {

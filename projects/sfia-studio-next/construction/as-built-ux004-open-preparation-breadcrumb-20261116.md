@@ -1,4 +1,4 @@
-# As-built — UX-004 correctif open-preparation + breadcrumb (2026-11-16)
+# As-built — UX-004 open-preparation + breadcrumb + D2 guards (2026-11-16)
 
 ## Scope
 
@@ -6,12 +6,12 @@ Borned shell/portfolio correctif on ML4D UX-004. No Figma change. No API/schema 
 
 ## Correction A — Nouveau projet → D2
 
-Canonical client action: `web/src/lib/open-preparation.ts` → `openPreparation()`.
+Canonical client action: `web/src/lib/open-preparation.ts` → `runOpenPreparation()`.
 
 - One voluntary `POST /api/preparations`.
-- Success → navigate to `/preparations/{preparationId}` (real id only).
-- Refused / unauthorized / uncertain ACK → user-visible state; **no automatic second POST**.
-- Callers guard concurrency (`openingRef` / `creatingRef`).
+- Success (`OPENED`) → navigate to `/preparations/{preparationId}` (API id only).
+- `REFUSED` / `UNAUTHORIZED` / `UNCERTAIN` → user-visible state; **no automatic second POST**.
+- `UNCERTAIN` never upgrades to confirmed creation via portfolio id diff (no causal correlation in the current API).
 
 Entry points sharing this action:
 
@@ -33,6 +33,25 @@ Removed: hash navigation `/portfolio#nouvelle-preparation` as the rail/mobile cr
 | `/settings/integrations` | Intégrations |
 | `/settings` (other) | Paramètres |
 | unknown | `null` → shell shows `SFIA Studio` only (never invent / never keep Portefeuille by default) |
+
+## Correction C — D2 effect honesty (ACK)
+
+| Kind | Condition |
+| --- | --- |
+| `opened` | HTTP OK + non-empty `preparationId` from this POST |
+| `refused` | Explicit non-OK (≠ 401) |
+| `unauthorized` | HTTP 401 |
+| `uncertain` | Empty/incomplete ACK or network failure |
+
+Portfolio re-read after `uncertain` is an aid to reprise only — it does **not** confirm creation and does **not** drive navigation.
+
+## Correction D — Document-scoped single-flight
+
+`runOpenPreparation` holds one in-memory lock for the current browser document until `onResult` completes (including navigation). Concurrent entry points receive `{ kind: "busy" }` and do not start a second POST. Busy state is shared via `subscribeOpenPreparationBusy`.
+
+### Limits (not server idempotence)
+
+This guard does **not** cover: multiple tabs, multiple sessions, multiple devices, or server-side duplicate processing. Stronger guarantees would require a server/persistence mandate.
 
 ## Non-goals preserved
 
