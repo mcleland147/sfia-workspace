@@ -59,9 +59,13 @@ describe("B1 shell navigation", () => {
     expect(items.find((i) => i.key === "pilotage")?.active).toBe(true);
   });
 
-  it("keeps portfolio personnel entries without hash-only fakes", () => {
+  it("keeps a single Portefeuille entry plus Nouveau projet (UX-004)", () => {
     const items = buildShellNav({ pathname: "/portfolio" });
-    expect(items.some((i) => i.key === "mes-projets")).toBe(true);
+    expect(items.some((i) => i.key === "mes-projets")).toBe(false);
+    expect(items.some((i) => i.key === "login")).toBe(false);
+    expect(items.find((i) => i.key === "portfolio")?.label).toBe("Portefeuille");
+    expect(items.find((i) => i.key === "new-prep")?.label).toBe("Nouveau projet");
+    expect(items.find((i) => i.key === "new-prep")?.href).toBe("/portfolio#nouvelle-preparation");
     expect(items.every((i) => i.href !== "#")).toBe(true);
   });
 

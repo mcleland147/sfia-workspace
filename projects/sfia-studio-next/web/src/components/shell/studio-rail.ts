@@ -234,13 +234,8 @@ export function buildShellNav(input: {
   const preparationId = parsePreparationId(path);
   const surface = parseStudioSurface(input.surface) ?? (projectId ? "travail" : null);
 
+  // UX-004: one personal destination — Portefeuille (no Mes projets / Tous les projets).
   const items: ShellNavItem[] = [
-    {
-      key: "mes-projets",
-      label: "Mes projets",
-      href: "/portfolio",
-      active: path.startsWith("/portfolio") || path === "/",
-    },
     {
       key: "portfolio",
       label: "Portefeuille",
@@ -252,16 +247,11 @@ export function buildShellNav(input: {
   if (!projectId && !preparationId) {
     items.push({
       key: "new-prep",
-      label: "Créer un projet",
+      label: "Nouveau projet",
       href: "/portfolio#nouvelle-preparation",
       active: false,
     });
-    items.push({
-      key: "login",
-      label: "Connexion",
-      href: "/login",
-      active: path.startsWith("/login"),
-    });
+    // Connected personal space: no redundant « Connexion » rail entry.
     return items;
   }
 

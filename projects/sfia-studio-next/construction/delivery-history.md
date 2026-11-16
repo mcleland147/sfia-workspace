@@ -25,6 +25,24 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-UX004-PORTFOLIO-SHELL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~08:15 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-004 convergence portefeuille et shell personnel |
+| Type | EVOL / MINOR candidate UX · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux004-portfolio-20261116` |
+| Base UX-003 | `a77a3a2bf7b942038d771fdcdd2e7a6410330784` (préservé) |
+| Base main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Changes | Rail personnel fixe + scroll contenu indépendant ; nav unique Portefeuille / Nouveau projet ; nav mobile inférieure ; libellé Préparations ouvertes ; cartes sans id technique ; états vides/mixtes ; tests e2e/F2 ; contrat visuel UX-004 |
+| Schema | unchanged |
+| Lanes | DEV explicite `:3102` ( `:3100` déjà occupé par autre worktree ) ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`a77a3a2` / `vYeNRRzvLN03N73wmcKkR`) ; STABLE NOT AVAILABLE |
+| Validations | tsc PASS ; lint warnings préexistants ; build PASS ; vitest unit ciblés PASS ; Playwright UX-004+UX-003 19 PASS ; F2 rail 246 / topbar 66 |
+| Push Product | **AUCUN** |
+| RECETTE | **NON MODIFIÉE** (GO distinct requis pour nouveau SHA) |
+| Verdict candidat | `READY FOR CHATGPT REVIEW — UX-004 DEV` |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-UX003-UNIFIED-ENTRY-RECETTE
 
 | Field | Value |

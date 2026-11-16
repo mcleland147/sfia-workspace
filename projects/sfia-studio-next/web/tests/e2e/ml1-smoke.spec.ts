@@ -41,10 +41,11 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
 
   // Portfolio → open by projectId only (no preparationId query).
+  // UX-004: technical ids are not displayed on cards; open via real project link.
   await page.goto("/portfolio");
   await expect(page.getByRole("heading", { name: /retrouvez vos projets/i })).toBeVisible();
-  await expect(page.getByText(projectId!, { exact: true })).toBeVisible();
-  await page.locator(`a[href^="/projects/${projectId}"]`).click();
+  await expect(page.getByTestId(`open-project-${projectId}`)).toBeVisible();
+  await page.getByTestId(`open-project-${projectId}`).click();
   await page.waitForURL(`**/projects/${projectId}**`);
   expect(page.url()).not.toContain("preparationId=");
   await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
