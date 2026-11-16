@@ -1,3 +1,4 @@
+import { openSasSecondaryTool, backToSasConversation } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
 
 /**
@@ -28,17 +29,17 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   // Chat-first: no permanent nom/résumé form — constitute then inspect
   await expect(page.getByPlaceholder("Nom du projet")).toHaveCount(0);
   await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill("Projet G4 B");
+  await page.getByTestId("prep-proposal-name").fill(`Projet G4 B ${Date.now()}`);
   await page.getByTestId("prep-proposal-summary").fill("résumé g4");
   await page.getByTestId("prep-proposal-save").click();
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
 
-  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await openSasSecondaryTool(page, "Documents");
   await page.getByTestId("doc-start-create").click();
   await page.getByTestId("document-revise-draft").fill("# Doc G4\nligne");
   await page.getByTestId("doc-save").click();
   await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await backToSasConversation(page);
   await page.getByTestId("prep-create-project").click();
   await page.waitForURL("**/projects/**", { timeout: 15000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];

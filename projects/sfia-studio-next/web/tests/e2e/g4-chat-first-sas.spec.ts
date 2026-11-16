@@ -1,3 +1,4 @@
+import { openSasSecondaryTool, backToSasConversation } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
 
 /**
@@ -28,16 +29,16 @@ test("G4 chat-first: discuss → constitute proposal → create; journal empty s
 
   await page.getByTestId("prep-constitute").click();
   await page.getByTestId("prep-adopt-nora").click();
-  await page.getByTestId("prep-proposal-name").fill("Projet chat-first E2E");
+  await page.getByTestId("prep-proposal-name").fill(`Projet chat-first E2E ${Date.now()}`);
   await page.getByTestId("prep-proposal-save").click();
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
   await expect(page.getByTestId("prep-create-project")).toBeEnabled();
 
-  await page.getByRole("button", { name: "Journal", exact: true }).click();
+  await openSasSecondaryTool(page, "Journal");
   await expect(page.getByTestId("project-journal")).toBeVisible();
   await expect(page.getByTestId("journal-empty-structure")).toBeVisible();
 
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await backToSasConversation(page);
   await page.getByTestId("prep-create-project").click();
   await page.waitForURL("**/projects/**", { timeout: 15000 });
   await expect(page.getByTestId("nora-workspace")).toBeVisible();

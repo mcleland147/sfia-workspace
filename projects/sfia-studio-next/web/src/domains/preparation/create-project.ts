@@ -10,7 +10,10 @@ import {
 } from "@/db/schema";
 import { creationFingerprint } from "@/lib/fingerprint";
 import { newId } from "@/lib/ids";
-import { normalizeProjectNameKey } from "@/domains/preparation/projection";
+import {
+  namesConflictForSamePilot,
+  normalizeProjectNameKey,
+} from "@/domains/preparation/projection";
 
 export type CreateProjectInput = {
   pilotId: string;
@@ -75,6 +78,11 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
 
   try {
     return await db.transaction(async (tx) => {
+      // Lock order (all create paths): (1) pilot name-create, (2) idempotency key.
+      // (1) serializes concurrent creates across distinct preparations/keys for the same pilot.
+      await tx.execute(
+        sql`select pg_advisory_xact_lock(hashtext(${input.pilotId}), hashtext(${"sfia:d2:project-name"}))`,
+      );
       // Cross-preparation serialization for this idempotency key (pilot-scoped).
       await tx.execute(
         sql`select pg_advisory_xact_lock(hashtext(${input.pilotId}), hashtext(${input.idempotencyKey}))`,
@@ -150,16 +158,17 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
 
       // Same-pilot name uniqueness (Morris 2026-11-16). Application-level only —
       // historical PF-CRE-14 duplicates exist; no UNIQUE DB constraint in this cycle.
+      // Comparison uses the single JS semantic (normalizeProjectNameKey) under the pilot lock.
       // Replay ALREADY_CREATED paths above are unaffected.
-      const nameKey = normalizeProjectNameKey(name);
-      const nameHit = await tx.execute(
-        sql`select id from projects
-            where owner_pilot_id = ${input.pilotId}
-              and lower(trim(regexp_replace(name, '[[:space:]]+', ' ', 'g'))) = ${nameKey}
-            limit 1`,
-      );
-      const nameRows = nameHit as unknown as Array<{ id: string }>;
-      if (nameRows[0]) {
+      if (!normalizeProjectNameKey(name)) {
+        return { status: "INVALID_REQUEST" as const, reason: "projectName required" };
+      }
+      const owned = await tx
+        .select({ id: projects.id, name: projects.name })
+        .from(projects)
+        .where(eq(projects.ownerPilotId, input.pilotId));
+      const nameHit = owned.find((p) => namesConflictForSamePilot(p.name, name));
+      if (nameHit) {
         return {
           status: "CONFLICT" as const,
           actualCreationRevision: Number(prepRow.creation_revision),

@@ -10,7 +10,9 @@ import { newId } from "@/lib/ids";
 import {
   type ApplyProjectionResult,
   type PreparationProjection,
+  mergeNoraDraftWithPrior,
   parseProjectionJson,
+  pilotExpressedField,
   previewFieldsFromProjection,
   projectionMateriallyChanged,
 } from "@/domains/preparation/projection";
@@ -50,8 +52,8 @@ export async function openOrCreatePreparation(pilotId: string, preparationId?: s
 }
 
 /**
- * Legacy preview write — CAS on expectedCreationRevision when provided.
- * Keeps previewName/previewSummary in sync for create-project consumers.
+ * Pilot aperçu correction — single authoritative write for preview + structured projection.
+ * CAS on expectedCreationRevision when provided.
  */
 export async function updatePreview(
   pilotId: string,
@@ -59,41 +61,144 @@ export async function updatePreview(
   previewName: string,
   previewSummary: string,
   expectedCreationRevision?: number,
-) {
-  const prep = await openOrCreatePreparation(pilotId, preparationId);
-  if (
-    expectedCreationRevision != null &&
-    Number(prep.creationRevision) !== Number(expectedCreationRevision)
-  ) {
+): Promise<number> {
+  const result = await applyPilotApercuCorrection({
+    pilotId,
+    preparationId,
+    previewName,
+    previewSummary,
+    expectedCreationRevision,
+  });
+  if (result.status === "FORBIDDEN") {
+    const err = new Error("FORBIDDEN");
+    (err as Error & { code: string }).code = "FORBIDDEN";
+    throw err;
+  }
+  if (result.status === "CONFLICT") {
     const err = new Error("CONFLICT");
     (err as Error & { code: string; actualCreationRevision: number }).code = "CONFLICT";
     (err as Error & { actualCreationRevision: number }).actualCreationRevision =
-      prep.creationRevision;
+      result.actualRevision;
     throw err;
   }
-  const nextRev = prep.creationRevision + 1;
-  const updated = await db
-    .update(preparations)
-    .set({
-      previewName,
-      previewSummary,
-      creationRevision: nextRev,
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(preparations.id, preparationId),
-        eq(preparations.ownerPilotId, pilotId),
-        eq(preparations.creationRevision, prep.creationRevision),
-      ),
-    )
-    .returning({ creationRevision: preparations.creationRevision });
-  if (!updated[0]) {
-    const err = new Error("CONFLICT");
-    (err as Error & { code: string }).code = "CONFLICT";
+  if (result.status === "UNAVAILABLE") {
+    const err = new Error("UNAVAILABLE");
+    (err as Error & { code: string }).code = "UNAVAILABLE";
     throw err;
   }
-  return updated[0].creationRevision;
+  return result.revision;
+}
+
+export async function applyPilotApercuCorrection(input: {
+  pilotId: string;
+  preparationId: string;
+  previewName: string;
+  previewSummary: string;
+  expectedCreationRevision?: number;
+  editKey?: string;
+}): Promise<ApplyProjectionResult> {
+  try {
+    return await db.transaction(async (tx) => {
+      const locked = await tx.execute(
+        sql`select id, creation_revision, preview_name, preview_summary, projection_json
+            from preparations
+            where id = ${input.preparationId} and owner_pilot_id = ${input.pilotId}
+            for update`,
+      );
+      const rows = locked as unknown as Array<{
+        id: string;
+        creation_revision: number;
+        preview_name: string;
+        preview_summary: string;
+        projection_json: unknown;
+      }>;
+      const row = rows[0];
+      if (!row) return { status: "FORBIDDEN" as const };
+
+      const currentRev = Number(row.creation_revision);
+      if (
+        input.expectedCreationRevision != null &&
+        currentRev !== Number(input.expectedCreationRevision)
+      ) {
+        return {
+          status: "CONFLICT" as const,
+          actualRevision: currentRev,
+          reason: "expectedCreationRevision stale",
+        };
+      }
+
+      const prev = parseProjectionJson(row.projection_json, input.preparationId, currentRev);
+      const editKey =
+        input.editKey?.trim() ||
+        `pilot-edit:${input.preparationId}:${currentRev}:${Date.now()}`;
+      const nameRaw = input.previewName.trim();
+      const summaryRaw = input.previewSummary.trim();
+      const draft: Omit<PreparationProjection, "revision" | "observedAt"> = {
+        schemaVersion: 1,
+        preparationId: input.preparationId,
+        updatedFromTurnKey: editKey,
+        name: nameRaw ? pilotExpressedField(nameRaw.slice(0, 120), editKey) : null,
+        intention: summaryRaw
+          ? pilotExpressedField(summaryRaw.slice(0, 500), editKey)
+          : (prev?.intention ?? null),
+        desiredOutcome: prev?.desiredOutcome ?? null,
+        initialScope: prev?.initialScope ?? null,
+        openQuestions: prev?.openQuestions ?? [],
+        suggestion: prev?.suggestion
+          ? {
+              ...prev.suggestion,
+              explanation:
+                prev.suggestion.explanation ||
+                "Aperçu ajusté par le Pilote — la création utilisera le nom inspecté.",
+            }
+          : {
+              assessment: nameRaw ? "PROPOSAL" : "EXPLORING",
+              explanation: nameRaw
+                ? "Aperçu ajusté explicitement par le Pilote."
+                : "Correction Pilote sans nom — clarification requise avant création.",
+              sourceTurnKey: editKey,
+            },
+      };
+
+      if (!projectionMateriallyChanged(prev, draft) && nameRaw === (row.preview_name ?? "").trim()) {
+        return {
+          status: "UNCHANGED" as const,
+          revision: currentRev,
+          projection: prev,
+        };
+      }
+
+      const nextRev = currentRev + 1;
+      const now = new Date();
+      const projection: PreparationProjection = {
+        ...draft,
+        revision: nextRev,
+        observedAt: now.toISOString(),
+      };
+      const preview = previewFieldsFromProjection(projection, nameRaw, summaryRaw);
+
+      await tx
+        .update(preparations)
+        .set({
+          creationRevision: nextRev,
+          previewName: preview.previewName,
+          previewSummary: preview.previewSummary || summaryRaw,
+          projectionJson: projection as unknown as Record<string, unknown>,
+          updatedAt: now,
+        })
+        .where(
+          and(
+            eq(preparations.id, input.preparationId),
+            eq(preparations.ownerPilotId, input.pilotId),
+            eq(preparations.creationRevision, currentRev),
+          ),
+        );
+
+      return { status: "APPLIED" as const, revision: nextRev, projection };
+    });
+  } catch {
+    return { status: "UNAVAILABLE", reason: "pilot aperçu write failed" };
+  }
 }
 
 /**
@@ -134,7 +239,8 @@ export async function applyPreparationProjection(input: {
       }
 
       const prev = parseProjectionJson(row.projection_json, input.preparationId, currentRev);
-      if (!projectionMateriallyChanged(prev, input.draft)) {
+      const merged = mergeNoraDraftWithPrior(prev, input.draft);
+      if (!projectionMateriallyChanged(prev, merged)) {
         return {
           status: "UNCHANGED" as const,
           revision: currentRev,
@@ -145,7 +251,7 @@ export async function applyPreparationProjection(input: {
       const nextRev = currentRev + 1;
       const now = new Date();
       const projection: PreparationProjection = {
-        ...input.draft,
+        ...merged,
         revision: nextRev,
         observedAt: now.toISOString(),
       };

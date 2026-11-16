@@ -175,6 +175,92 @@ describe("PostgreSQL create-project contracts", () => {
   });
 
   /**
+   * Discriminant concurrency: two preps, two idempotency keys, same normalized name, parallel.
+   * Without the pilot-scoped name lock, both could CREATED. With the lock: 1 CREATED + 1 CONFLICT.
+   */
+  it("GapA concurrent: same-pilot parallel creates with same name yield one project", async () => {
+    const pilotId = await seedPilot("ConcName");
+    const p1 = await openOrCreatePreparation(pilotId);
+    const p2 = await openOrCreatePreparation(pilotId);
+    await updatePreview(pilotId, p1.id, "Concurrent Homonym", "a");
+    await updatePreview(pilotId, p2.id, "concurrent   HOMONYM", "b");
+    const r1 = (await db.select().from(preparations).where(eq(preparations.id, p1.id)))[0];
+    const r2 = (await db.select().from(preparations).where(eq(preparations.id, p2.id)))[0];
+    const [c1, c2] = await Promise.all([
+      createProjectCommand({
+        pilotId,
+        preparationId: p1.id,
+        expectedCreationRevision: r1.creationRevision,
+        projectName: "Concurrent Homonym",
+        previewSummary: "a",
+        idempotencyKey: newId("idem"),
+      }),
+      createProjectCommand({
+        pilotId,
+        preparationId: p2.id,
+        expectedCreationRevision: r2.creationRevision,
+        projectName: "  concurrent HOMONYM ",
+        previewSummary: "b",
+        idempotencyKey: newId("idem"),
+      }),
+    ]);
+    const statuses = [c1.status, c2.status].sort();
+    expect(statuses).toEqual(["CONFLICT", "CREATED"]);
+    const created = c1.status === "CREATED" ? c1 : c2.status === "CREATED" ? c2 : null;
+    const conflict = c1.status === "CONFLICT" ? c1 : c2.status === "CONFLICT" ? c2 : null;
+    expect(created).toBeTruthy();
+    expect(conflict).toBeTruthy();
+    if (conflict && conflict.status === "CONFLICT") {
+      expect(conflict.reason).toMatch(/name already used/i);
+    }
+    const all = await db.select().from(projects).where(eq(projects.ownerPilotId, pilotId));
+    expect(all).toHaveLength(1);
+    const links = await db
+      .select()
+      .from(preparationProjectLinks)
+      .where(eq(preparationProjectLinks.projectId, all[0]!.id));
+    expect(links).toHaveLength(1);
+  });
+
+  it("GapB: pilot correction becomes create name (projection + command)", async () => {
+    const pilotId = await seedPilot("PilotEdit");
+    const prep = await openOrCreatePreparation(pilotId);
+    await postUserMessageAndNora(
+      pilotId,
+      prep.id,
+      "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
+    );
+    const afterNora = await getPreparationContext(pilotId, prep.id);
+    expect(afterNora.projection?.name?.value).toBe("Cockpit projets");
+    await updatePreview(
+      pilotId,
+      prep.id,
+      "Cockpit projets v2",
+      afterNora.projection?.intention?.value || "corrigé",
+      afterNora.preparation.creationRevision,
+    );
+    const afterEdit = await getPreparationContext(pilotId, prep.id);
+    expect(afterEdit.projection?.name?.value).toBe("Cockpit projets v2");
+    expect(afterEdit.projection?.name?.status).toBe("PILOT_EXPRESSED");
+    expect(afterEdit.preparation.previewName).toBe("Cockpit projets v2");
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: afterEdit.preparation.creationRevision,
+      projectName: afterEdit.projection!.name!.value,
+      previewSummary: afterEdit.preparation.previewSummary,
+      idempotencyKey: newId("idem"),
+    });
+    expect(created.status).toBe("CREATED");
+    if (created.status === "CREATED") {
+      const proj = (
+        await db.select().from(projects).where(eq(projects.id, created.projectId))
+      )[0];
+      expect(proj?.name).toBe("Cockpit projets v2");
+    }
+  });
+
+  /**
    * Morris 2026-11-16 — same-pilot name uniqueness (app-level).
    * Diverges from design-only PF-CRE-14 (two same-name projects). Normative R2 not rewritten here.
    */

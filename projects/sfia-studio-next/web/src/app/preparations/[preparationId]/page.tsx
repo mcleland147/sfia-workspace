@@ -12,7 +12,10 @@ import {
   DocumentLibrary,
   type RevisionRow,
 } from "@/components/figma/DocumentSurfaces";
-import type { PreparationProjection } from "@/domains/preparation/projection";
+import {
+  inspectedCreatePayload,
+  type PreparationProjection,
+} from "@/domains/preparation/projection";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -489,17 +492,26 @@ export default function PreparationPage() {
     const res = await fetch(`/api/preparations/${preparationId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ previewName: name, previewSummary: summary }),
+      body: JSON.stringify({
+        previewName: name,
+        previewSummary: summary,
+        expectedCreationRevision: creationRevision,
+      }),
     });
     const j = await res.json();
     if (res.ok) {
-      setPreviewName(name);
-      setPreviewSummary(summary);
+      setPreviewName(j.preparation?.previewName ?? name);
+      setPreviewSummary(j.preparation?.previewSummary ?? summary);
       setCreationRevision(j.creationRevision);
+      setProjection((j.projection as PreparationProjection | null) ?? null);
+      setProjectionFreshness("current");
       setProposalEditing(false);
-      setStatus(`Proposition enregistrée · révision ${j.creationRevision}`);
+      setStatus(`Aperçu corrigé · révision ${j.creationRevision}`);
+    } else if (res.status === 409) {
+      setStatus("CONFLICT: aperçu modifié ailleurs — rechargement");
+      await reload();
     } else {
-      setStatus(`Échec enregistrement proposition`);
+      setStatus(`Échec enregistrement aperçu`);
     }
   }
 
@@ -540,6 +552,11 @@ export default function PreparationPage() {
   }
 
   async function createProject() {
+    const createPayload = inspectedCreatePayload(projection, previewName, previewSummary);
+    if (!createPayload.ok) {
+      setStatus("Précisez un nom de projet inspecté avant de créer — aucun titre inventé.");
+      return;
+    }
     setBusy(true);
     // Structured binding only — server verifies clientIntentKey against durable mission.
     const clientIntentKey = awaitingClientIntentKey ?? undefined;
@@ -550,13 +567,8 @@ export default function PreparationPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           expectedCreationRevision: creationRevision,
-          projectName:
-            projection?.name?.value?.trim() ||
-            previewName.trim() ||
-            "Projet sans titre",
-          previewSummary:
-            projection?.intention?.value?.trim() ||
-            previewSummary,
+          projectName: createPayload.projectName,
+          previewSummary: createPayload.previewSummary,
           idempotencyKey: key,
           clientIntentKey,
         }),
@@ -665,8 +677,10 @@ export default function PreparationPage() {
   }
 
   function startConstituteProposal() {
-    setDraftProposalName(previewName);
-    setDraftProposalSummary(previewSummary);
+    setDraftProposalName(projection?.name?.value?.trim() || previewName);
+    setDraftProposalSummary(
+      projection?.intention?.value?.trim() || previewSummary,
+    );
     setProposalEditing(true);
   }
 
@@ -720,25 +734,40 @@ export default function PreparationPage() {
             : "Discutez librement avec Nora. L’aperçu du projet évolue pendant la conversation."}
           {projectId ? ` Projet lié : ${projectId}.` : ""}
         </p>
-        {/* Secondary surfaces kept for continuity tools; conversation remains the primary path. */}
-        <nav className="flex flex-wrap gap-2 pt-1" aria-label="Surfaces sas">
-          {(
-            [
-              ["travail", "Discussion"],
-              ["journal", "Journal"],
-              ["document", "Documents"],
-            ] as const
-          ).map(([id, label]) => (
+        {/* Gap D — no permanent Discussion/Journal/Documents tabs as primary sas chrome.
+            Contextual tools remain reachable without competing with conversation + aperçu. */}
+        {surface !== "travail" ? (
+          <nav className="flex flex-wrap gap-2 pt-1" aria-label="Retour conversation sas">
             <button
-              key={id}
               type="button"
-              className={`btn ${surface === id ? "" : "secondary"}`}
-              onClick={() => setSurface(id)}
+              className="btn secondary"
+              onClick={() => setSurface("travail")}
+              data-testid="sas-back-to-conversation"
             >
-              {label}
+              Retour à la conversation
             </button>
-          ))}
-        </nav>
+          </nav>
+        ) : (
+          <details className="pt-1 text-xs muted" data-testid="sas-secondary-tools">
+            <summary className="cursor-pointer">Outils secondaires du sas</summary>
+            <div className="flex flex-wrap gap-2 pt-2">
+              <button
+                type="button"
+                className="btn secondary"
+                onClick={() => setSurface("journal")}
+              >
+                Journal
+              </button>
+              <button
+                type="button"
+                className="btn secondary"
+                onClick={() => setSurface("document")}
+              >
+                Documents
+              </button>
+            </div>
+          </details>
+        )}
       </header>
 
       {surface === "travail" ? (

@@ -19,8 +19,30 @@ export async function sendPrepMessage(page: Page, text: string): Promise<void> {
   });
 }
 
+/** Open sas secondary Journal/Documents (not primary chrome). */
+export async function openSasSecondaryTool(
+  page: Page,
+  tool: "Journal" | "Documents",
+): Promise<void> {
+  const details = page.getByTestId("sas-secondary-tools");
+  if (await details.count()) {
+    await details.locator("summary").click();
+  }
+  await page.getByRole("button", { name: tool, exact: true }).click();
+}
+
+export async function backToSasConversation(page: Page): Promise<void> {
+  const back = page.getByTestId("sas-back-to-conversation");
+  if (await back.count()) {
+    await back.click();
+  } else {
+    await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  }
+}
+
 /**
- * Constitute inspectable proposal then create project (explicit D2).
+ * Secondary adjust path then create project (explicit D2).
+ * Not the primary sas proof — use createFromLivingProjection for the nominal path.
  * Leaves the browser on `/projects/{id}`.
  */
 export async function constituteAndCreateProject(
@@ -32,6 +54,16 @@ export async function constituteAndCreateProject(
   await page.getByTestId("prep-proposal-summary").fill(opts.summary);
   await page.getByTestId("prep-proposal-save").click();
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
+  await page.getByTestId("prep-create-project").click();
+  await page.waitForURL("**/projects/**", { timeout: 20000 });
+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+  expect(projectId).toBeTruthy();
+  return projectId!;
+}
+
+/** Primary path: living projection already has a name — create without adjust. */
+export async function createFromLivingProjection(page: Page): Promise<string> {
+  await expect(page.getByTestId("prep-create-project")).toBeEnabled({ timeout: 30000 });
   await page.getByTestId("prep-create-project").click();
   await page.waitForURL("**/projects/**", { timeout: 20000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];

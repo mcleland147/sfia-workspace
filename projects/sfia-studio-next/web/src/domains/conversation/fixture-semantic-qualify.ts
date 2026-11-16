@@ -38,11 +38,27 @@ function normalizeUtterance(text: string): string {
   return text.replace(/\s+/g, " ").trim();
 }
 
-function dialogue(goal: string, reply: string, constraints: string[] = []): NoraTurnQualification {
+function dialogue(
+  goal: string,
+  reply: string,
+  constraints: string[] = [],
+  extras?: Partial<
+    Pick<
+      NoraTurnQualification,
+      | "desiredOutcome"
+      | "initialScope"
+      | "clarifications"
+      | "preparationAssessment"
+      | "preparationAssessmentExplanation"
+    >
+  >,
+): NoraTurnQualification {
   return {
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "QUALIFIED",
     goal,
+    desiredOutcome: extras?.desiredOutcome ?? "",
+    initialScope: extras?.initialScope ?? "",
     intents: [
       {
         id: "i1",
@@ -55,8 +71,10 @@ function dialogue(goal: string, reply: string, constraints: string[] = []): Nora
         sourceEvidence: [],
       },
     ],
-    clarifications: [],
+    clarifications: extras?.clarifications ?? [],
     replyDraft: reply,
+    preparationAssessment: extras?.preparationAssessment,
+    preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
   };
 }
 
@@ -64,11 +82,23 @@ function effect(
   goal: string,
   reply: string,
   intents: Array<Partial<Pick<QualifiedIntentItem, "id">> & Omit<QualifiedIntentItem, "id">>,
+  extras?: Partial<
+    Pick<
+      NoraTurnQualification,
+      | "desiredOutcome"
+      | "initialScope"
+      | "clarifications"
+      | "preparationAssessment"
+      | "preparationAssessmentExplanation"
+    >
+  >,
 ): NoraTurnQualification {
   return {
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "QUALIFIED",
     goal,
+    desiredOutcome: extras?.desiredOutcome ?? "",
+    initialScope: extras?.initialScope ?? "",
     intents: intents.map((it, idx) => ({
       ...it,
       id: it.id ?? `i${idx + 1}`,
@@ -77,8 +107,10 @@ function effect(
       dependsOn: it.dependsOn ?? [],
       sourceEvidence: it.sourceEvidence ?? [],
     })),
-    clarifications: [],
+    clarifications: extras?.clarifications ?? [],
     replyDraft: reply,
+    preparationAssessment: extras?.preparationAssessment,
+    preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
   };
 }
 
@@ -111,19 +143,70 @@ for (const msg of [
 ]) {
   register(
     msg,
-    effect("Créer un projet", "Je prépare l'intention de création de projet — acte Pilote requis.", [
+    effect(
+      "Créer un projet",
+      "Je prépare l'intention de création de projet — acte Pilote requis.",
+      [
+        {
+          capabilityId: "d2.create_project",
+          mode: "REQUEST_EFFECT",
+          summary: "Création de projet",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      {
+        desiredOutcome: "Disposer d'un espace projet pour poursuivre le cadrage",
+        preparationAssessment: "CLARIFYING",
+        preparationAssessmentExplanation:
+          "L'intention de créer est claire ; un nom et un résultat plus précis restent utiles avant d'affirmer une base suffisante.",
+      },
+    ),
+  );
+}
+
+register(
+  "Cette base n'est pas suffisante pour démarrer.",
+  dialogue(
+    "Base encore insuffisante",
+    "D'accord — cette base n'est pas suffisante pour démarrer. Précisons le résultat attendu avant de créer.",
+    ["NOT_SUFFICIENT"],
+    {
+      clarifications: ["Quel résultat concret voulez-vous obtenir en premier ?"],
+      preparationAssessment: "CLARIFYING",
+      preparationAssessmentExplanation:
+        "Le Pilote indique explicitement que la base n'est pas suffisante. Aucune affirmation de démarrage n'est proposée.",
+    },
+  ),
+);
+
+register(
+  "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
+  effect(
+    "Cockpit de suivi des projets",
+    "Je comprends : un cockpit pour suivre vos projets, en commençant par le portefeuille et les risques. Nom de travail proposé : Cockpit projets. Cette base me paraît suffisante pour démarrer ; les détails pourront se préciser ensuite.",
+    [
       {
         capabilityId: "d2.create_project",
         mode: "REQUEST_EFFECT",
-        summary: "Création de projet",
-        parameters: {},
+        summary: "Création Cockpit projets",
+        parameters: { projectName: "Cockpit projets" },
         constraints: [],
         dependsOn: [],
         sourceEvidence: [],
       },
-    ]),
-  );
-}
+    ],
+    {
+      desiredOutcome: "Voir portefeuille et risques en un seul endroit",
+      initialScope: "Portefeuille et risques en premier",
+      preparationAssessment: "BASE_SUFFICIENTE",
+      preparationAssessmentExplanation:
+        "Intention, résultat et périmètre initial sont assez clairs pour démarrer. Les raffinements peuvent se faire dans le projet.",
+    },
+  ),
+);
 
 register(
   "Crée un projet nommé Atlas puis prépare dans ce projet un document de cadrage qui expose l'objectif, le périmètre et les premières étapes.",

@@ -16,7 +16,11 @@ import {
 // db still used by getConversationId / listMessages
 import { newId } from "@/lib/ids";
 import { generateNoraReply } from "./nora-adapter";
-import { getPreparationContext } from "@/domains/preparation/service";
+import {
+  applyPreparationProjection,
+  getPreparationContext,
+  openOrCreatePreparation,
+} from "@/domains/preparation/service";
 import {
   maybeCapitalizeFromExchange,
   reconstituteConfirmedD4Effects,
@@ -70,6 +74,7 @@ import {
   extractKnowledgeSelectionHints,
   extractPilotageBinding,
   projectStudioEffects,
+  unavailableQualification,
   type NoraTurnQualification,
 } from "./semantic-qualification";
 import { loadLatestMissionsByIntentKey } from "./intent-conduction";
@@ -99,7 +104,6 @@ import {
   mergeMissionSteps,
   recoverPendingMissionContinuation,
 } from "./intent-conduction";
-import { applyPreparationProjection } from "@/domains/preparation/service";
 import { draftProjectionFromQualification } from "@/domains/preparation/projection";
 
 /**
@@ -902,15 +906,7 @@ export async function postUserMessageAndNora(
   await bindTurnGenerationId(reserved.commandId, reserved.ownerToken, reply.generationId);
 
   const qualification: NoraTurnQualification =
-    reply.qualification ??
-    ({
-      schemaVersion: "ml4c-sem-qual-v1",
-      status: "UNAVAILABLE",
-      goal: "",
-      intents: [],
-      clarifications: ["MISSING_QUALIFICATION"],
-      replyDraft: reply.content,
-    } as NoraTurnQualification);
+    reply.qualification ?? unavailableQualification("MISSING_QUALIFICATION", reply.content);
 
   // TV-04 / T-03 — durable qualification before first owner mutation; applied required.
   const stashed = await stashTurnQualification({
@@ -2063,8 +2059,8 @@ export async function postUserMessageAndNora(
     }
   }
 
-  // D2 — living PreparationProjection from the same durable Nora qualification (no 2nd model).
-  // S05: never invent projection while unresolved work A blocks B effects / ownership lost.
+  // D2 projection draft prepared here; persisted only AFTER durable terminal commit (Gap C).
+  let preparationProjectionDraft: ReturnType<typeof draftProjectionFromQualification> = null;
   let preparationProjectionAck:
     | { status: string; revision?: number; assessment?: string }
     | null = null;
@@ -2073,42 +2069,21 @@ export async function postUserMessageAndNora(
       .filter((p) => p.kind === "OPEN_POINT")
       .map((p) => p.statement)
       .slice(0, 6);
-    const draft = draftProjectionFromQualification({
+    preparationProjectionDraft = draftProjectionFromQualification({
       preparationId,
       turnKey: clientIntentKey,
       qualificationStatus: qualification.status,
       goal: qualification.goal || "",
+      desiredOutcome: qualification.desiredOutcome || "",
+      initialScope: qualification.initialScope || "",
       clarifications: qualification.clarifications ?? [],
       proposedProjectName: studioIntent.proposedProjectName,
       openPointStatements: openFromQual,
-      replySignalsBaseSufficiency: /suffisant|pouvez démarrer|base (est )?suffisante/i.test(
-        qualification.replyDraft || "",
-      ),
+      preparationAssessment: qualification.preparationAssessment ?? null,
+      preparationAssessmentExplanation:
+        qualification.preparationAssessmentExplanation ?? null,
     });
-    if (draft) {
-      try {
-        const applied = await applyPreparationProjection({
-          pilotId,
-          preparationId,
-          expectedCreationRevision: ctx.preparation.creationRevision,
-          draft,
-        });
-        preparationProjectionAck = {
-          status: applied.status,
-          revision: "revision" in applied ? applied.revision : undefined,
-          assessment: draft.suggestion?.assessment,
-        };
-        if (applied.status === "APPLIED" || applied.status === "UNCHANGED") {
-          // Refresh local revision for later consumers in this turn.
-          ctx.preparation.creationRevision =
-            "revision" in applied && applied.revision != null
-              ? applied.revision
-              : ctx.preparation.creationRevision;
-        }
-      } catch {
-        preparationProjectionAck = { status: "UNAVAILABLE" };
-      }
-    } else if (qualification.status === "UNAVAILABLE") {
+    if (!preparationProjectionDraft && qualification.status === "UNAVAILABLE") {
       preparationProjectionAck = { status: "UNAVAILABLE" };
     }
   }
@@ -2412,8 +2387,36 @@ export async function postUserMessageAndNora(
       capitalisation: reconstituted.capitalisation,
       capitalisationLimit: reconstituted.capitalisationLimit,
       documentSave: reconstituted.documentSave,
+      preparationProjection: { status: "SKIPPED_OWNERSHIP" },
     };
   }
+
+  // Persist living projection only after durable COMPLETE terminal commit (Gap C).
+  if (
+    turnStatus === "COMPLETE" &&
+    preparationProjectionDraft &&
+    !ctx.project?.id &&
+    !ownershipLostBeforeD4
+  ) {
+    try {
+      const freshPrep = await openOrCreatePreparation(pilotId, preparationId);
+      const appliedProj = await applyPreparationProjection({
+        pilotId,
+        preparationId,
+        expectedCreationRevision: freshPrep.creationRevision,
+        draft: preparationProjectionDraft,
+      });
+      preparationProjectionAck = {
+        status: appliedProj.status,
+        revision: "revision" in appliedProj ? appliedProj.revision : undefined,
+        assessment: preparationProjectionDraft.suggestion?.assessment,
+      };
+    } catch {
+      preparationProjectionAck = { status: "UNAVAILABLE" };
+    }
+    resultPayload.preparationProjection = preparationProjectionAck;
+  }
+
   emitObs({
     event_name: "d3.turn.completed",
     component: "d3.conversation",

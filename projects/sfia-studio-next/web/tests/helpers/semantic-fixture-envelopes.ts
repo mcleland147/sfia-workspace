@@ -63,6 +63,8 @@ export function dialogueEnvelope(
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "QUALIFIED",
     goal,
+    desiredOutcome: "",
+    initialScope: "",
     intents: normalizeIntents([
       {
         capabilityId: "d3.converse",
@@ -81,6 +83,8 @@ export function clarificationEnvelope(goal: string, clarifications: string[], re
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "NEEDS_CLARIFICATION",
     goal,
+    desiredOutcome: "",
+    initialScope: "",
     intents: [],
     clarifications,
     replyDraft: reply,
@@ -96,6 +100,8 @@ export function effectEnvelope(
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "QUALIFIED",
     goal,
+    desiredOutcome: "",
+    initialScope: "",
     intents: normalizeIntents(intents),
     clarifications: [],
     replyDraft: reply,

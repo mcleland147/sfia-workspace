@@ -1,50 +1,54 @@
-# As-built — ML4D Sas Nora convergence (2026-11-16)
+# As-built — ML4D Sas Nora convergence + corrective (2026-11-16)
 
 | Champ | Valeur |
 | --- | --- |
-| Macro-lot | R5 / ML4D — Sas conversationnel + projection + création D2 |
+| Macro-lot | R5 / ML4D — Sas conversationnel + projection + création + correctif |
 | Type | EVOL / MINOR candidate · **NO RELEASE** |
-| Base | UX-004 `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
+| Base UX-004 | `b05dacf47983ed8d914c92619ede5ffe65ce9264` |
+| Candidat Sas initial | `596718b1029f32e48c1cb5c9a6ac586372b857c1` |
 | Branche | `feat/next-ml4d-sas-nora-convergence-20261116` |
-| Contrats | `docs/next-ml4d-sas-nora-convergence-20261116@22ee5540` (fonctionnel + technique) |
-| Figma | `itgvCulInEnFY6DvgIegvP` frames `607:3` … `607:277` (consultés, non modifiés) |
+| Contrats | docs@`22ee5540` (fonctionnel + technique) |
+| Figma | `itgvCulInEnFY6DvgIegvP` 607:3…277 — VALIDATED UX Morris, non modifié |
 | Lane | DEV only — RECETTE inchangée |
+| Build DEV (correctif) | `9uKvoZLw0AsjIFm46-eAC` @ `127.0.0.1:3102` |
+| RECETTE | `b05dacf4` / BUILD `20blGylSEta7201PgVvlw` @ `:3200` — **non modifiée** |
 
-## Architecture retenue
+## Architecture
 
-1. **Un seul tour Nora** (`postUserMessageAndNora`) produit la qualification durable existante.
-2. **Projection D2** dérivée de cette qualification (`draftProjectionFromQualification`) — pas de second appel modèle, pas de scraping Markdown comme autorité.
-3. Persistance additive `preparations.projection_json` (migration `013`) alignée sur `creation_revision` (CAS).
-4. `previewName` / `previewSummary` synchronisés depuis la même révision (pas de double vérité divergente).
-5. Création inchangée : `POST …/create-project` → `createProjectCommand` (idempotence, fingerprint, expectedCreationRevision).
-6. **Unicité de nom même Pilote** : contrôle applicatif dans la transaction (normalisation trim/espaces/casse ; accents conservés). **Pas de contrainte UNIQUE SQL** (collisions historiques PF-CRE-14 possibles).
+1. Tour Nora unique → qualification structurée (`desiredOutcome`, `initialScope`, `preparationAssessment*`).
+2. Draft projection après qualification ; **persistance seulement après commit terminal COMPLETE**.
+3. `mergeNoraDraftWithPrior` protège les champs `PILOT_EXPRESSED`.
+4. `updatePreview` / PATCH = `applyPilotApercuCorrection` (preview + projection, même révision).
+5. Création : `createProjectCommand` + verrou advisory pilote `sfia:d2:project-name` puis clé d’idempotence ; comparaison JS unique (`normalizeProjectNameKey` / `namesConflictForSamePilot`).
+6. UI : conversation + aperçu ; outils Journal/Documents en secondaire (`<details>`).
 
-## UI
+## Quatre écarts corrigés
 
-- Aperçu vivant (`PreparationProposal`) : intention / nom / ouverts / appréciation qualitative.
-- « Constituer une proposition » n’est plus le parcours principal ; « Ajuster l’aperçu » reste secondaire (testid `prep-constitute` pour non-régression e2e).
-- Rail sas minimal : Portefeuille + Préparation en cours (plus de Travail/Pilotage/Documents/Journal désactivés).
+| Écart | Cause | Correction |
+| --- | --- | --- |
+| A Unicité concurrente | Verrou seulement sur idempotencyKey | Advisory lock pilote avant check ; comparaison JS (pas SQL `lower`) |
+| B Correction Pilote | PATCH preview sans projection | `applyPilotApercuCorrection` ; create via `inspectedCreatePayload` (pas « Projet sans titre ») |
+| C Maturation Nora | Regex « suffisant » ; outcome/scope null ; projection avant commit | Champs structurés ; assessment typé ; persist post-commit |
+| D UI sas | Onglets Discussion/Journal/Documents permanents | Outils secondaires ; pas de chrome projet avant création |
 
-## Contradiction normative
+## Contradiction PF-CRE-14
 
-| Source | Règle |
-| --- | --- |
-| PF-CRE-14 (R2 design) | Deux projets de même nom, identités distinctes |
-| Arbitrage Morris 16/11/2026 | Unicité par Pilote |
+Orientation Morris (unicité / Pilote) vs PF-CRE-14 (homonymes autorisés). Implémentation locale app-level. **R2 non réécrit.** Gate Morris D2 ouvert.
 
-Implémentation locale = intention produit Morris. **Régularisation R2 non publiée.** Réception finale ne peut pas déclarer la règle « totalement gouvernée » tant que PF-CRE-14 n’est pas arbitrée.
+## Migration 013
+
+`projection_json` jsonb additive — présente dans le candidat. Ce GO ne promeut pas RECETTE. Gate migration explicite avant mise à disposition RECETTE. Rollback logique = revert code ; `DROP COLUMN` perd les projections enregistrées.
 
 ## Preuves
 
 | Niveau | Résultat |
 | --- | --- |
-| UNIT | `preparation-projection`, `studio-rail` PASS |
-| PG REAL (`sfia_next_e2e`) | create-project + projection CAS + unicité nom PASS |
-| BROWSER/FAKE | ciblé (voir Review Pack) |
-| NORA LIVE | **NOT PROVEN** (fixture FAKE) |
-| MORRIS UI REVIEW | **PENDING** |
+| UNIT projection / rail | PASS |
+| PG REAL (21) dont GapA concurrent + GapB correction | PASS |
+| BROWSER FAKE sas corrective (4) | PASS (parcours sans formulaire + négation) |
+| UX-003/004 | voir Review Pack |
+| NORA LIVE | **NOT PROVEN** |
 
 ## Rollback
 
-- Code : revert commit candidat.
-- Schéma : `ALTER TABLE preparations DROP COLUMN projection_json;` (réversible, non destructif sur preview legacy).
+Revert commit correctif (+ candidat Sas si besoin). Aucune migration destructive ajoutée dans ce correctif.

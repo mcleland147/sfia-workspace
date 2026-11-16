@@ -25,6 +25,22 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~12:00 CET (Europe/Paris) |
+| Macro-lot | ML4D — Sas Nora correctif intégré (A concurrence nom / B correction Pilote / C maturation / D UI) |
+| Type | EVOL / MINOR candidate · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-sas-nora-convergence-20261116` |
+| Parent tip | `596718b1029f32e48c1cb5c9a6ac586372b857c1` |
+| Changes | Verrou pilote + comparaison JS ; aperçu Pilote synchronisé projection ; assessment structuré post-commit ; chrome sas sans onglets principaux |
+| Schema | aucune nouvelle migration (013 inchangée) |
+| Limites | PF-CRE-14 ouvert ; Nora LIVE NOT PROVEN ; gate 013 avant RECETTE |
+| Lanes | DEV `:3102` BUILD `9uKvoZLw0AsjIFm46-eAC` ; RECETTE `:3200` **inchangée** (`b05dacf4` / `20blGylSEta7201PgVvlw`) |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY WITH RESERVES — SAS NORA CORRECTIVE INTEGRATION` |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CONVERGENCE
 
 | Field | Value |

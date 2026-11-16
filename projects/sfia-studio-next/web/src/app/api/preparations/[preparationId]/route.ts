@@ -37,15 +37,35 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ preparationId
   try {
     const session = await requireStudioSession();
     const { preparationId } = await ctx.params;
-    const body = (await req.json()) as { previewName?: string; previewSummary?: string };
+    const body = (await req.json()) as {
+      previewName?: string;
+      previewSummary?: string;
+      expectedCreationRevision?: number;
+    };
     const rev = await updatePreview(
       session.pilotId,
       preparationId,
       body.previewName ?? "",
       body.previewSummary ?? "",
+      body.expectedCreationRevision,
     );
-    return NextResponse.json({ creationRevision: rev });
-  } catch {
+    const data = await getPreparationContext(session.pilotId, preparationId);
+    return NextResponse.json({
+      creationRevision: rev,
+      projection: data.projection,
+      preparation: data.preparation,
+    });
+  } catch (e) {
+    const code = (e as { code?: string }).code;
+    if (code === "CONFLICT") {
+      return NextResponse.json(
+        {
+          error: "CONFLICT",
+          actualCreationRevision: (e as { actualCreationRevision?: number }).actualCreationRevision,
+        },
+        { status: 409 },
+      );
+    }
     return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
   }
 }

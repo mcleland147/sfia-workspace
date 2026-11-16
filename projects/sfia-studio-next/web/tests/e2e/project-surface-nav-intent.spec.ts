@@ -26,11 +26,11 @@ test("rail pilotage during delayed project load keeps surface=pilotage", async (
     timeout: 30000,
   });
   await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill("Projet NAV race");
+  await page.getByTestId("prep-proposal-name").fill(`Projet NAV race ${Date.now()}`);
   await page.getByTestId("prep-proposal-summary").fill("résumé nav");
   await page.getByTestId("prep-proposal-save").click();
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  // already on conversation surface
 
   const deferred: { release: () => void } = {
     release: () => undefined,
@@ -94,11 +94,11 @@ test("rapid rail surface switches keep the last user intent", async ({ page }) =
     timeout: 30000,
   });
   await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill("Projet NAV rapid");
+  await page.getByTestId("prep-proposal-name").fill(`Projet NAV rapid ${Date.now()}`);
   await page.getByTestId("prep-proposal-summary").fill("résumé");
   await page.getByTestId("prep-proposal-save").click();
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  // already on conversation surface
   await page.getByTestId("prep-create-project").click();
   await page.waitForURL("**/projects/**", { timeout: 15000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
@@ -140,7 +140,7 @@ test("project B load ignores stale pilotage intent from project A", async ({ pag
     await page.getByTestId("prep-proposal-summary").fill(`résumé ${name}`);
     await page.getByTestId("prep-proposal-save").click();
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-    await page.getByRole("button", { name: "Discussion", exact: true }).click();
+    // already on conversation surface
     await page.getByTestId("prep-create-project").click();
     await page.waitForURL("**/projects/**", { timeout: 15000 });
     const id = page.url().split("/projects/")[1]?.split(/[?#]/)[0];

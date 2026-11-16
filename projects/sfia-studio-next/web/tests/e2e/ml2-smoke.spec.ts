@@ -1,9 +1,12 @@
+
 import { test, expect } from "@playwright/test";
 import path from "path";
 import {
   constituteAndCreateProject,
   openNewPreparation,
   sendPrepMessage,
+  openSasSecondaryTool,
+  backToSasConversation,
 } from "./helpers/g4-chat-first";
 
 test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet", async ({
@@ -40,10 +43,10 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   await expect(page.getByRole("heading", { name: /Acquis/i }).first()).toBeVisible();
 
   // Document surface: save + inspect
-  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await openSasSecondaryTool(page, "Documents");
   await expect(page.getByTestId("document-library")).toBeVisible();
 
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await backToSasConversation(page);
   await constituteAndCreateProject(page, {
     name: "Projet ML2 Playwright",
     summary: "résumé ml2",

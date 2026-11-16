@@ -111,13 +111,29 @@ export const DocumentSourceSchema = z
   })
   .strict();
 
+/** Qualitative sas maturation — structured only; never a keyword scrape of replyDraft. */
+export const PreparationAssessmentSchema = z.enum([
+  "EXPLORING",
+  "CLARIFYING",
+  "PROPOSAL",
+  "BASE_SUFFICIENTE",
+]);
+export type PreparationAssessment = z.infer<typeof PreparationAssessmentSchema>;
+
 export const NoraTurnQualificationSchema = z.object({
   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
   status: QualificationStatusSchema,
   goal: z.string().max(800).default(""),
+  /** Résultat envisagé lorsque réellement exprimé — ne pas inventer. */
+  desiredOutcome: z.string().max(800).default(""),
+  /** Périmètre initial lorsque réellement exprimé — ne pas inventer. */
+  initialScope: z.string().max(800).default(""),
   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
   clarifications: z.array(z.string().max(400)).max(8).default([]),
   replyDraft: z.string().max(12000).default(""),
+  /** Appréciation qualitative de préparation (suggestion, jamais une autorité). */
+  preparationAssessment: PreparationAssessmentSchema.optional(),
+  preparationAssessmentExplanation: z.string().max(800).optional(),
   documentProposal: DocumentProposalSchema.optional(),
   documentSource: DocumentSourceSchema.optional(),
 });
@@ -202,6 +218,8 @@ export function unavailableQualification(reason: string, replyDraft = ""): NoraT
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "UNAVAILABLE",
     goal: "",
+    desiredOutcome: "",
+    initialScope: "",
     intents: [],
     clarifications: [reason.slice(0, 400)],
     replyDraft:

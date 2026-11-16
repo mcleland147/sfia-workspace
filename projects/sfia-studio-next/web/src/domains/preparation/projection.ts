@@ -50,9 +50,19 @@ export type ApplyProjectionResult =
   | { status: "UNAVAILABLE"; reason: string }
   | { status: "FORBIDDEN" };
 
-/** Normalize project name for same-pilot uniqueness (spaces + case). Accents preserved. */
+/**
+ * Single comparison semantic for same-pilot name uniqueness.
+ * trim + collapse whitespace + Unicode case-fold (fr-FR). Accents preserved as distinct.
+ * Used for both creation checks and searches — never mix with SQL lower() alone.
+ */
 export function normalizeProjectNameKey(raw: string): string {
   return raw.trim().replace(/\s+/g, " ").toLocaleLowerCase("fr-FR");
+}
+
+export function namesConflictForSamePilot(a: string, b: string): boolean {
+  const ka = normalizeProjectNameKey(a);
+  const kb = normalizeProjectNameKey(b);
+  return ka.length > 0 && kb.length > 0 && ka === kb;
 }
 
 export function parseProjectionJson(
@@ -124,25 +134,73 @@ export function noraProposedField(
   };
 }
 
+export function pilotExpressedField(value: string, editKey: string): ProposedField<string> {
+  return {
+    value: value.trim().slice(0, 500),
+    status: "PILOT_EXPRESSED",
+    source: { kind: "PILOT_TURN", ref: editKey },
+    isCurrent: true,
+  };
+}
+
+/**
+ * Preserve Pilot-expressed fields against Nora re-proposal of the same slot.
+ * Do not clear an acquired field when the new turn leaves it empty.
+ */
+export function mergeNoraDraftWithPrior(
+  prior: PreparationProjection | null,
+  draft: Omit<PreparationProjection, "revision" | "observedAt">,
+): Omit<PreparationProjection, "revision" | "observedAt"> {
+  function mergeField(
+    prev: ProposedField<string> | null | undefined,
+    next: ProposedField<string> | null | undefined,
+  ): ProposedField<string> | null {
+    if (prev?.status === "PILOT_EXPRESSED") {
+      // Nora may refine surrounding context but must not silently revert a confirmed Pilot edit.
+      if (next?.status === "PILOT_EXPRESSED") return next;
+      return prev;
+    }
+    if (next?.value?.trim()) return next;
+    if (prev?.value?.trim()) return { ...prev, isCurrent: true };
+    return next ?? null;
+  }
+
+  return {
+    ...draft,
+    name: mergeField(prior?.name, draft.name),
+    intention: mergeField(prior?.intention, draft.intention),
+    desiredOutcome: mergeField(prior?.desiredOutcome, draft.desiredOutcome),
+    initialScope: mergeField(prior?.initialScope, draft.initialScope),
+    openQuestions:
+      draft.openQuestions.length > 0 ? draft.openQuestions : (prior?.openQuestions ?? []),
+    suggestion: draft.suggestion ?? prior?.suggestion ?? null,
+  };
+}
+
 /**
  * Derive a candidate projection draft from a durable D3 qualification envelope.
- * Does not scrape assistant Markdown as authority.
+ * Does not scrape assistant Markdown as authority. Assessment comes from structured fields.
  */
 export function draftProjectionFromQualification(input: {
   preparationId: string;
   turnKey: string;
   qualificationStatus: string;
   goal: string;
+  desiredOutcome?: string;
+  initialScope?: string;
   clarifications: string[];
   proposedProjectName: string | null;
   openPointStatements?: string[];
-  replySignalsBaseSufficiency?: boolean;
+  preparationAssessment?: ProjectionAssessment | null;
+  preparationAssessmentExplanation?: string | null;
 }): Omit<PreparationProjection, "revision" | "observedAt"> | null {
   if (input.qualificationStatus === "UNAVAILABLE") return null;
 
   const turnKey = input.turnKey;
   const nameRaw = input.proposedProjectName?.trim() || "";
   const intentionRaw = input.goal.trim();
+  const outcomeRaw = (input.desiredOutcome ?? "").trim();
+  const scopeRaw = (input.initialScope ?? "").trim();
   const openFromClarifications = input.clarifications
     .map((c) => c.trim())
     .filter(Boolean)
@@ -162,6 +220,12 @@ export function draftProjectionFromQualification(input: {
   const intention = intentionRaw
     ? noraProposedField(intentionRaw.slice(0, 500), turnKey, "NEEDS_CONFIRMATION")
     : null;
+  const desiredOutcome = outcomeRaw
+    ? noraProposedField(outcomeRaw.slice(0, 500), turnKey, "NEEDS_CONFIRMATION")
+    : null;
+  const initialScope = scopeRaw
+    ? noraProposedField(scopeRaw.slice(0, 500), turnKey, "NEEDS_CONFIRMATION")
+    : null;
   const openQuestions = openMerged.map((q) =>
     noraProposedField(q.slice(0, 400), turnKey, "NEEDS_CONFIRMATION"),
   );
@@ -169,43 +233,36 @@ export function draftProjectionFromQualification(input: {
   let assessment: ProjectionAssessment = "EXPLORING";
   let explanation =
     "Nora explore encore l'intention. Aucune base de démarrage n'est affirmée.";
-  if (intention && openQuestions.length > 0 && !name) {
+
+  if (input.preparationAssessment) {
+    assessment = input.preparationAssessment;
+    explanation =
+      input.preparationAssessmentExplanation?.trim() ||
+      (assessment === "BASE_SUFFICIENTE"
+        ? "Nora estime qu'une base de démarrage est raisonnable — suggestion qualitative, pas une autorisation."
+        : assessment === "PROPOSAL"
+          ? "Une proposition de travail est disponible."
+          : assessment === "CLARIFYING"
+            ? "Une clarification reste utile."
+            : explanation);
+  } else if (intention && openQuestions.length > 0 && !name) {
     assessment = "CLARIFYING";
     explanation =
       "Des éléments sont compris, mais une clarification reste utile avant de figer un nom.";
+  } else if (intention && name && (desiredOutcome || initialScope) && openQuestions.length === 0) {
+    assessment = "BASE_SUFFICIENTE";
+    explanation =
+      "Intention, nom et premiers éléments de résultat/périmètre sont assez clairs pour démarrer.";
   } else if (intention && name && openQuestions.length > 0) {
     assessment = "PROPOSAL";
     explanation =
       "Une proposition de travail est disponible. Des points ouverts restent à préciser sans bloquer nécessairement la création.";
-  } else if (
-    intention &&
-    name &&
-    (openQuestions.length === 0 || input.replySignalsBaseSufficiency === true)
-  ) {
-    assessment = "BASE_SUFFICIENTE";
-    explanation =
-      "Intention et nom de travail sont suffisamment clairs pour démarrer. Les précisions restantes peuvent se faire dans le projet.";
+  } else if (intention && name) {
+    assessment = "PROPOSAL";
+    explanation = "Une proposition de travail se dessine ; Nora peut encore préciser résultat et périmètre.";
   } else if (intention) {
     assessment = "CLARIFYING";
     explanation = "Une intention se dessine ; Nora continue de clarifier le résultat et le périmètre.";
-  }
-
-  if (!name && !intention && openQuestions.length === 0) {
-    return {
-      schemaVersion: 1,
-      preparationId: input.preparationId,
-      updatedFromTurnKey: turnKey,
-      name: null,
-      intention: null,
-      desiredOutcome: null,
-      initialScope: null,
-      openQuestions: [],
-      suggestion: {
-        assessment: "EXPLORING",
-        explanation,
-        sourceTurnKey: turnKey,
-      },
-    };
   }
 
   return {
@@ -214,8 +271,8 @@ export function draftProjectionFromQualification(input: {
     updatedFromTurnKey: turnKey,
     name,
     intention,
-    desiredOutcome: null,
-    initialScope: null,
+    desiredOutcome,
+    initialScope,
     openQuestions,
     suggestion: {
       assessment,
@@ -249,4 +306,20 @@ export function canCreateFromProjection(
 ): boolean {
   const name = (projection?.name?.value || previewName).trim();
   return name.length > 0;
+}
+
+/** Authoritative inspected create payload — never invents a default title. */
+export function inspectedCreatePayload(
+  projection: PreparationProjection | null,
+  previewName: string,
+  previewSummary: string,
+): { ok: true; projectName: string; previewSummary: string } | { ok: false; reason: string } {
+  const name = (projection?.name?.value || previewName).trim();
+  if (!name) {
+    return { ok: false, reason: "project name required — clarify before create" };
+  }
+  const summary =
+    previewFieldsFromProjection(projection, name, previewSummary).previewSummary ||
+    previewSummary.trim();
+  return { ok: true, projectName: name.slice(0, 120), previewSummary: summary };
 }

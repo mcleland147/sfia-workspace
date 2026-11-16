@@ -1,9 +1,12 @@
+
 import { test, expect } from "@playwright/test";
 import path from "path";
 import {
   constituteAndCreateProject,
   openNewPreparation,
   sendPrepMessage,
+  openSasSecondaryTool,
+  backToSasConversation,
 } from "./helpers/g4-chat-first";
 
 test("DEV fake login → sas → message Nora FAKE → document → create → portfolio reopen by projectId", async ({
@@ -23,15 +26,15 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
     timeout: 30000,
   });
 
-  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await openSasSecondaryTool(page, "Documents");
   await page.getByTestId("doc-start-create").click();
   await page.getByTestId("document-revise-draft").fill("# Document Playwright\ncontenu");
   await page.getByTestId("doc-save").click();
   await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
 
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await backToSasConversation(page);
   await constituteAndCreateProject(page, {
-    name: "Projet Playwright",
+    name: `Projet Playwright ${Date.now()}`,
     summary: "résumé test",
   });
   const projectUrl = page.url();
@@ -50,7 +53,7 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   expect(page.url()).not.toContain("preparationId=");
   await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Documents" }).click();
+  await openSasSecondaryTool(page, "Documents");
   await expect(page.getByText("Document Playwright", { exact: false })).toBeVisible();
 
   await page.reload();
