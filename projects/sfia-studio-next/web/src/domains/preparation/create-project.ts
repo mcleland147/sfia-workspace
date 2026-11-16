@@ -10,6 +10,7 @@ import {
 } from "@/db/schema";
 import { creationFingerprint } from "@/lib/fingerprint";
 import { newId } from "@/lib/ids";
+import { normalizeProjectNameKey } from "@/domains/preparation/projection";
 
 export type CreateProjectInput = {
   pilotId: string;
@@ -144,6 +145,25 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
           status: "CONFLICT" as const,
           actualCreationRevision: Number(prepRow.creation_revision),
           reason: "expectedCreationRevision stale",
+        };
+      }
+
+      // Same-pilot name uniqueness (Morris 2026-11-16). Application-level only —
+      // historical PF-CRE-14 duplicates exist; no UNIQUE DB constraint in this cycle.
+      // Replay ALREADY_CREATED paths above are unaffected.
+      const nameKey = normalizeProjectNameKey(name);
+      const nameHit = await tx.execute(
+        sql`select id from projects
+            where owner_pilot_id = ${input.pilotId}
+              and lower(trim(regexp_replace(name, '[[:space:]]+', ' ', 'g'))) = ${nameKey}
+            limit 1`,
+      );
+      const nameRows = nameHit as unknown as Array<{ id: string }>;
+      if (nameRows[0]) {
+        return {
+          status: "CONFLICT" as const,
+          actualCreationRevision: Number(prepRow.creation_revision),
+          reason: "project name already used by this pilot",
         };
       }
 

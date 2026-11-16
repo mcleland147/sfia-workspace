@@ -273,27 +273,14 @@ export function buildShellNav(input: {
   }
 
   if (preparationId) {
+    // SAS-F-13 — minimal personal rail: Portefeuille + Préparation en cours.
+    // No Travail / Pilotage / Documents / Journal before verified project creation.
     items.push({
       key: "sas",
-      label: "Sas",
+      label: "Préparation en cours",
       href: `/preparations/${preparationId}`,
       active: true,
     });
-    // Surfaces projet require projectId — show disabled labels, not fake links.
-    for (const [key, label] of [
-      ["travail", "Travail"],
-      ["pilotage", "Pilotage"],
-      ["document", "Documents"],
-      ["journal", "Journal"],
-    ] as const) {
-      items.push({
-        key,
-        label,
-        href: null,
-        active: false,
-        disabledReason: "Disponible après création / ouverture du projet",
-      });
-    }
     return items;
   }
 

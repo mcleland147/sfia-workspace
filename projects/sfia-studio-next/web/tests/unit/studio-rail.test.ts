@@ -79,11 +79,14 @@ describe("B1 shell navigation", () => {
     expect(resolvePersonalBreadcrumb("/unknown-personal")).toBeNull();
   });
 
-  it("disables project surfaces without project context (prep)", () => {
+  it("keeps sas rail minimal without project surfaces", () => {
     const items = buildShellNav({ pathname: "/preparations/prep-1" });
-    const travail = items.find((i) => i.key === "travail");
-    expect(travail?.href).toBeNull();
-    expect(travail?.disabledReason).toBeTruthy();
+    expect(items.map((i) => i.key)).toEqual(["portfolio", "sas"]);
+    expect(items.find((i) => i.key === "sas")?.label).toBe("Préparation en cours");
+    expect(items.some((i) => i.key === "travail")).toBe(false);
+    expect(items.some((i) => i.key === "pilotage")).toBe(false);
+    expect(items.some((i) => i.key === "document")).toBe(false);
+    expect(items.some((i) => i.key === "journal")).toBe(false);
   });
 });
 

@@ -33,6 +33,9 @@ fi
 SFIA_PG_DATABASE="${E2E_DB}" bash "${ROOT}/scripts/db-migrate.sh"
 
 export DATABASE_URL="${E2E_DATABASE_URL}"
+# Playwright parent shells may inherit NODE_ENV=production after an operator
+# `next build`/`next start`. Force development so CSS/postcss compile under `next dev`.
+export NODE_ENV=development
 export STUDIO_LANE=DEV
 export STUDIO_DEV_TEST_LOGIN=1
 export STUDIO_E2E=1

@@ -1,12 +1,29 @@
 "use client";
 
 /**
- * Non-authorizing D2 proposal panel.
- * Proposal fields come only from stored previewName/previewSummary (PATCH)
- * or from an explicit Pilot constitution act — never silent NLP extraction.
+ * Living D2 aperçu — driven by PreparationProjection (and compatible preview fields).
+ * « Constituer une proposition » is no longer the primary path; secondary adjust remains
+ * for explicit Pilot inspection edits without becoming a second authority.
  */
 
+import type { PreparationProjection } from "@/domains/preparation/projection";
+import { canCreateFromProjection } from "@/domains/preparation/projection";
+
 export type ProposalOpenPoint = { id: string; statement: string };
+
+const ASSESSMENT_LABEL: Record<string, string> = {
+  EXPLORING: "Exploration",
+  CLARIFYING: "Clarification",
+  PROPOSAL: "Proposition",
+  BASE_SUFFICIENTE: "Base suffisante",
+};
+
+function statusLabel(status: string | undefined): string {
+  if (status === "PILOT_EXPRESSED") return "Exprimé";
+  if (status === "NORA_PROPOSED") return "Proposé";
+  if (status === "NEEDS_CONFIRMATION") return "À préciser";
+  return "—";
+}
 
 export function PreparationProposal(props: {
   projectId: string | null;
@@ -15,6 +32,8 @@ export function PreparationProposal(props: {
   creationRevision: number;
   messageCount: number;
   openPoints: ProposalOpenPoint[];
+  projection: PreparationProjection | null;
+  projectionFreshness?: "current" | "stale" | "unavailable" | "legacy";
   busy: boolean;
   editing: boolean;
   draftName: string;
@@ -29,63 +48,75 @@ export function PreparationProposal(props: {
   onCreateProject: () => void;
   status?: string;
 }) {
-  const hasStored =
-    props.previewName.trim().length > 0 || props.previewSummary.trim().length > 0;
   const created = Boolean(props.projectId);
+  const projection = props.projection;
+  const name =
+    projection?.name?.value?.trim() ||
+    props.previewName.trim() ||
+    "";
+  const intention = projection?.intention?.value?.trim() || "";
+  const outcome = projection?.desiredOutcome?.value?.trim() || "";
+  const scope = projection?.initialScope?.value?.trim() || "";
+  const assessment = projection?.suggestion?.assessment;
+  const explanation = projection?.suggestion?.explanation?.trim() || "";
+  const openFromProjection = (projection?.openQuestions ?? []).filter((q) => q.value.trim());
+  const openFromKnowledge = props.openPoints;
+  const hasLiving =
+    Boolean(name) ||
+    Boolean(intention) ||
+    Boolean(outcome) ||
+    Boolean(scope) ||
+    openFromProjection.length > 0 ||
+    Boolean(explanation) ||
+    Boolean(props.previewSummary.trim());
+  const canCreate = !created && canCreateFromProjection(projection, props.previewName);
 
   return (
     <aside className="space-y-3" data-testid="prep-proposal">
       <div className="fig-panel space-y-3">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <p className="fig-kicker">Aperçu de la proposition</p>
-            <h2 className="fig-panel-title !mb-0">
-              {hasStored ? props.previewName.trim() || "Projet envisagé" : "Projet envisagé"}
+            <p className="fig-kicker">Aperçu du projet</p>
+            <h2 className="fig-panel-title !mb-0" data-testid="prep-proposal-title">
+              {name || "En cours de clarification"}
             </h2>
           </div>
-          <span className={`fig-tag ${created ? "fig-tag-ok" : "fig-tag-warn"}`}>
-            {created ? "Créé" : "Non créé"}
+          <span
+            className={`fig-tag ${created ? "fig-tag-ok" : assessment === "BASE_SUFFICIENTE" ? "fig-tag-ok" : "fig-tag-warn"}`}
+            data-testid="prep-proposal-state"
+          >
+            {created
+              ? "Créé"
+              : assessment
+                ? ASSESSMENT_LABEL[assessment] ?? assessment
+                : hasLiving
+                  ? "En construction"
+                  : "À clarifier"}
           </span>
         </div>
 
-        {!hasStored && !props.editing ? (
+        {!hasLiving && !props.editing ? (
           <div className="fig-empty-list" data-testid="prep-proposal-empty">
-            {props.messageCount === 0 ? (
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Pas encore de proposition</div>
-                  <div className="muted text-xs">
-                    Discutez d&apos;abord avec Nora. La proposition n&apos;apparaît qu&apos;après un
-                    acte explicite de votre part.
-                  </div>
+            <div className="fig-empty-row">
+              <div>
+                <div className="font-medium">
+                  {props.messageCount === 0
+                    ? "Commencez la conversation"
+                    : "Nora affine encore l’intention"}
+                </div>
+                <div className="muted text-xs">
+                  L’aperçu évolue avec les échanges. Aucun formulaire préalable n’est requis pour
+                  avancer.
                 </div>
               </div>
-            ) : (
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Échange en cours</div>
-                  <div className="muted text-xs">
-                    Aucune proposition enregistrée. Constituez-en une pour inspecter avant création.
-                  </div>
-                </div>
-              </div>
-            )}
-            <button
-              type="button"
-              className="btn secondary mt-2 w-full"
-              disabled={created || props.messageCount === 0}
-              onClick={props.onStartConstitute}
-              data-testid="prep-constitute"
-            >
-              Constituer une proposition
-            </button>
+            </div>
           </div>
         ) : null}
 
         {props.editing ? (
           <div className="space-y-2" data-testid="prep-proposal-edit">
             <p className="text-xs muted">
-              Ajustement secondaire après inspection — n&apos;est pas le parcours principal.
+              Ajustement explicite pour inspection — n&apos;est pas le parcours principal.
             </p>
             <label className="block text-xs muted" htmlFor="prep-prop-name">
               Nom envisagé
@@ -142,46 +173,105 @@ export function PreparationProposal(props: {
           </div>
         ) : null}
 
-        {hasStored && !props.editing ? (
+        {hasLiving && !props.editing ? (
           <div className="space-y-2" data-testid="prep-proposal-ready">
             <div className="fig-msg text-sm space-y-2">
-              <div>
-                <span className="fig-tag fig-tag-muted mr-2">Intention</span>
-                <span className="muted text-xs">
-                  {props.previewName.trim() || "— (nom non renseigné)"}
-                </span>
-              </div>
-              <div>
-                <span className="fig-tag fig-tag-muted mr-2">Résumé</span>
-                <p className="mt-1 whitespace-pre-wrap text-sm">
-                  {props.previewSummary.trim() || "— (résumé non renseigné)"}
-                </p>
-              </div>
+              {name ? (
+                <div>
+                  <span className="fig-tag fig-tag-muted mr-2">Nom</span>
+                  <span className="text-xs" data-testid="prep-field-name">
+                    {name}
+                  </span>
+                  {projection?.name ? (
+                    <span className="muted text-xs ml-2">
+                      · {statusLabel(projection.name.status)}
+                    </span>
+                  ) : null}
+                </div>
+              ) : null}
+              {intention || props.previewSummary.trim() ? (
+                <div>
+                  <span className="fig-tag fig-tag-muted mr-2">Intention</span>
+                  <p className="mt-1 whitespace-pre-wrap text-sm" data-testid="prep-field-intention">
+                    {intention || props.previewSummary.trim()}
+                  </p>
+                  {projection?.intention ? (
+                    <span className="muted text-xs">
+                      {statusLabel(projection.intention.status)}
+                    </span>
+                  ) : null}
+                </div>
+              ) : null}
+              {outcome ? (
+                <div>
+                  <span className="fig-tag fig-tag-muted mr-2">Résultat</span>
+                  <p className="mt-1 whitespace-pre-wrap text-sm">{outcome}</p>
+                </div>
+              ) : null}
+              {scope ? (
+                <div>
+                  <span className="fig-tag fig-tag-muted mr-2">Périmètre</span>
+                  <p className="mt-1 whitespace-pre-wrap text-sm">{scope}</p>
+                </div>
+              ) : null}
               <div>
                 <span className="fig-tag fig-tag-muted mr-2">Ouvert</span>
                 <span className="muted text-xs">
-                  {props.openPoints.length > 0
-                    ? `${props.openPoints.length} point(s) capitalisé(s)`
-                    : "Aucun point ouvert capitalisé"}
+                  {openFromProjection.length + openFromKnowledge.length > 0
+                    ? `${openFromProjection.length + openFromKnowledge.length} point(s)`
+                    : "Aucun point ouvert listé"}
                 </span>
               </div>
             </div>
-            {props.openPoints.slice(0, 4).map((o) => (
+            {openFromProjection.slice(0, 4).map((q, i) => (
+              <p key={`pq-${i}`} className="text-xs muted pl-1">
+                · {q.value}
+              </p>
+            ))}
+            {openFromKnowledge.slice(0, 4).map((o) => (
               <p key={o.id} className="text-xs muted pl-1">
                 · {o.statement}
               </p>
             ))}
+            {explanation ? (
+              <div className="fig-msg text-sm" data-testid="prep-nora-assessment">
+                <span className="fig-tag fig-tag-muted mr-2">Appréciation Nora</span>
+                <p className="mt-1 whitespace-pre-wrap text-sm">{explanation}</p>
+                <p className="text-xs muted mt-1">
+                  Suggestion qualitative — jamais une autorisation de créer.
+                </p>
+              </div>
+            ) : null}
             <button
               type="button"
               className="btn secondary"
               disabled={created}
               onClick={props.onStartConstitute}
-              data-testid="prep-proposal-adjust"
+              data-testid="prep-constitute"
             >
-              Ajuster la proposition
+              Ajuster l&apos;aperçu
             </button>
-            <p className="text-xs muted">Révision création : {props.creationRevision}</p>
+            <p className="text-xs muted">
+              Révision création : {props.creationRevision}
+              {props.projectionFreshness === "legacy"
+                ? " · aperçu partiel (préparation ancienne)"
+                : props.projectionFreshness === "unavailable"
+                  ? " · projection indisponible — dernière vérité conservée"
+                  : ""}
+            </p>
           </div>
+        ) : null}
+
+        {!hasLiving && !props.editing ? (
+          <button
+            type="button"
+            className="btn secondary w-full"
+            disabled={created}
+            onClick={props.onStartConstitute}
+            data-testid="prep-constitute"
+          >
+            Ajuster l&apos;aperçu manuellement
+          </button>
         ) : null}
       </div>
 
@@ -194,7 +284,7 @@ export function PreparationProposal(props: {
         <button
           type="button"
           className="btn w-full"
-          disabled={props.busy || created || !hasStored}
+          disabled={props.busy || created || !canCreate}
           onClick={props.onCreateProject}
           data-testid="prep-create-project"
         >

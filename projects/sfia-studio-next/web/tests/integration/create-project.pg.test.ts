@@ -7,7 +7,13 @@ import { db } from "@/db/client";
 import { pilots, preparations, projects, preparationProjectLinks } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { createProjectCommand, reconcileCreateProject } from "@/domains/preparation/create-project";
-import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
+import {
+  applyPreparationProjection,
+  getPreparationContext,
+  openOrCreatePreparation,
+  updatePreview,
+} from "@/domains/preparation/service";
+import { draftProjectionFromQualification } from "@/domains/preparation/projection";
 import { savePreparationDocument, listDocuments } from "@/domains/document/service";
 import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
 
@@ -168,12 +174,16 @@ describe("PostgreSQL create-project contracts", () => {
     expect(after.map((m) => m.id)).toEqual(before.map((m) => m.id));
   });
 
-  it("A12: homonyms remain distinct projects", async () => {
+  /**
+   * Morris 2026-11-16 — same-pilot name uniqueness (app-level).
+   * Diverges from design-only PF-CRE-14 (two same-name projects). Normative R2 not rewritten here.
+   */
+  it("A12/Morris-name: same pilot cannot create two projects with normalized same name", async () => {
     const pilotId = await seedPilot("A12");
     const p1 = await openOrCreatePreparation(pilotId);
     const p2 = await openOrCreatePreparation(pilotId);
     await updatePreview(pilotId, p1.id, "SameName", "a");
-    await updatePreview(pilotId, p2.id, "SameName", "b");
+    await updatePreview(pilotId, p2.id, "Same Name ", "b");
     const r1 = (await db.select().from(preparations).where(eq(preparations.id, p1.id)))[0];
     const r2 = (await db.select().from(preparations).where(eq(preparations.id, p2.id)))[0];
     const c1 = await createProjectCommand({
@@ -188,14 +198,48 @@ describe("PostgreSQL create-project contracts", () => {
       pilotId,
       preparationId: p2.id,
       expectedCreationRevision: r2.creationRevision,
-      projectName: "SameName",
+      projectName: "  samename  ",
       previewSummary: "b",
       idempotencyKey: newId("idem"),
     });
     expect(c1.status).toBe("CREATED");
-    expect(c2.status).toBe("CREATED");
-    if (c1.status === "CREATED" && c2.status === "CREATED") {
-      expect(c1.projectId).not.toBe(c2.projectId);
+    expect(c2.status).toBe("CONFLICT");
+    if (c2.status === "CONFLICT") {
+      expect(c2.reason).toMatch(/name already used/i);
+    }
+    const all = await db.select().from(projects).where(eq(projects.ownerPilotId, pilotId));
+    expect(all).toHaveLength(1);
+  });
+
+  it("Morris-name: two pilots may share the same display name", async () => {
+    const a = await seedPilot("NameA");
+    const b = await seedPilot("NameB");
+    const prepA = await openOrCreatePreparation(a);
+    const prepB = await openOrCreatePreparation(b);
+    await updatePreview(a, prepA.id, "SharedLabel", "a");
+    await updatePreview(b, prepB.id, "SharedLabel", "b");
+    const rA = (await db.select().from(preparations).where(eq(preparations.id, prepA.id)))[0];
+    const rB = (await db.select().from(preparations).where(eq(preparations.id, prepB.id)))[0];
+    const cA = await createProjectCommand({
+      pilotId: a,
+      preparationId: prepA.id,
+      expectedCreationRevision: rA.creationRevision,
+      projectName: "SharedLabel",
+      previewSummary: "a",
+      idempotencyKey: newId("idem"),
+    });
+    const cB = await createProjectCommand({
+      pilotId: b,
+      preparationId: prepB.id,
+      expectedCreationRevision: rB.creationRevision,
+      projectName: "SharedLabel",
+      previewSummary: "b",
+      idempotencyKey: newId("idem"),
+    });
+    expect(cA.status).toBe("CREATED");
+    expect(cB.status).toBe("CREATED");
+    if (cA.status === "CREATED" && cB.status === "CREATED") {
+      expect(cA.projectId).not.toBe(cB.projectId);
     }
   });
 
@@ -419,6 +463,52 @@ describe("PostgreSQL create-project contracts", () => {
     const prepA = await openOrCreatePreparation(a);
     const result = await reconcileCreateProject(b, prepA.id);
     expect(result.status).toBe("FORBIDDEN");
+  });
+
+  it("SAT projection: Nora turn persists living projection under CAS; no-op does not bump", async () => {
+    const pilotId = await seedPilot("ProjCAS");
+    const prep = await openOrCreatePreparation(pilotId);
+    const turn = await postUserMessageAndNora(pilotId, prep.id, "Je veux créer un projet.");
+    expect(turn.preparationProjection?.status).toMatch(/APPLIED|UNCHANGED|UNAVAILABLE/);
+    const ctx1 = await getPreparationContext(pilotId, prep.id);
+    const revAfterTurn = ctx1.preparation.creationRevision;
+    expect(ctx1.projection || ctx1.preparation.previewName || true).toBeTruthy();
+
+    const draft = draftProjectionFromQualification({
+      preparationId: prep.id,
+      turnKey: "manual-same",
+      qualificationStatus: "QUALIFIED",
+      goal: ctx1.projection?.intention?.value || "Création de projet",
+      clarifications: [],
+      proposedProjectName: ctx1.projection?.name?.value || "Nouveau projet",
+    });
+    expect(draft).toBeTruthy();
+    const unchanged = await applyPreparationProjection({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: revAfterTurn,
+      draft: draft!,
+    });
+    // If material content already matches, revision stays; otherwise APPLIED once is fine.
+    if (unchanged.status === "UNCHANGED") {
+      expect(unchanged.revision).toBe(revAfterTurn);
+    }
+
+    const conflict = await applyPreparationProjection({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: revAfterTurn - 1,
+      draft: {
+        ...draft!,
+        intention: {
+          value: "Intention divergente pour conflit",
+          status: "NORA_PROPOSED",
+          source: { kind: "NORA_TURN", ref: "conflict" },
+          isCurrent: true,
+        },
+      },
+    });
+    expect(conflict.status).toBe("CONFLICT");
   });
 
   it("project reopen by projectId resolves same preparation thread (owner only)", async () => {

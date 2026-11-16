@@ -377,7 +377,9 @@ test.describe("UX-004 portfolio shell", () => {
       timeout: 30000,
     });
     await page.getByTestId("prep-constitute").click();
-    await page.getByTestId("prep-proposal-name").fill("Projet UX004");
+    // Unique name — same-pilot uniqueness (Morris 2026-11-16) rejects replay of fixed "Projet UX004".
+    const uniqueName = `Projet UX004 ${Date.now()}`;
+    await page.getByTestId("prep-proposal-name").fill(uniqueName);
     await page.getByTestId("prep-proposal-summary").fill("résumé");
     await page.getByTestId("prep-proposal-save").click();
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();

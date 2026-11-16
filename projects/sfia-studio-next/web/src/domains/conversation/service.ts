@@ -99,7 +99,8 @@ import {
   mergeMissionSteps,
   recoverPendingMissionContinuation,
 } from "./intent-conduction";
-import { updatePreview } from "@/domains/preparation/service";
+import { applyPreparationProjection } from "@/domains/preparation/service";
+import { draftProjectionFromQualification } from "@/domains/preparation/projection";
 
 /**
  * S05 R-01 — gather owner-side evidence for one unresolved sibling.
@@ -532,6 +533,12 @@ export type TurnResult = {
   nextTurnKind?: ThreadTurnKind;
   /** Echo of durable qualification status for clients / recovery. */
   semanticQualificationStatus?: string;
+  /** D2 living sas projection ack for this turn (never an authority grant). */
+  preparationProjection?: {
+    status: string;
+    revision?: number;
+    assessment?: string;
+  } | null;
   /** S05 — true when a sibling pending blocked owner effects for this turn. */
   pendingEffectBlocked?: boolean;
   pendingBlockReason?: string;
@@ -2056,8 +2063,57 @@ export async function postUserMessageAndNora(
     }
   }
 
+  // D2 — living PreparationProjection from the same durable Nora qualification (no 2nd model).
+  // S05: never invent projection while unresolved work A blocks B effects / ownership lost.
+  let preparationProjectionAck:
+    | { status: string; revision?: number; assessment?: string }
+    | null = null;
+  if (allowOwnerEffects && !ownershipLostBeforeD4 && !ctx.project?.id) {
+    const openFromQual = extractKnowledgeProposals(qualification)
+      .filter((p) => p.kind === "OPEN_POINT")
+      .map((p) => p.statement)
+      .slice(0, 6);
+    const draft = draftProjectionFromQualification({
+      preparationId,
+      turnKey: clientIntentKey,
+      qualificationStatus: qualification.status,
+      goal: qualification.goal || "",
+      clarifications: qualification.clarifications ?? [],
+      proposedProjectName: studioIntent.proposedProjectName,
+      openPointStatements: openFromQual,
+      replySignalsBaseSufficiency: /suffisant|pouvez démarrer|base (est )?suffisante/i.test(
+        qualification.replyDraft || "",
+      ),
+    });
+    if (draft) {
+      try {
+        const applied = await applyPreparationProjection({
+          pilotId,
+          preparationId,
+          expectedCreationRevision: ctx.preparation.creationRevision,
+          draft,
+        });
+        preparationProjectionAck = {
+          status: applied.status,
+          revision: "revision" in applied ? applied.revision : undefined,
+          assessment: draft.suggestion?.assessment,
+        };
+        if (applied.status === "APPLIED" || applied.status === "UNCHANGED") {
+          // Refresh local revision for later consumers in this turn.
+          ctx.preparation.creationRevision =
+            "revision" in applied && applied.revision != null
+              ? applied.revision
+              : ctx.preparation.creationRevision;
+        }
+      } catch {
+        preparationProjectionAck = { status: "UNAVAILABLE" };
+      }
+    } else if (qualification.status === "UNAVAILABLE") {
+      preparationProjectionAck = { status: "UNAVAILABLE" };
+    }
+  }
+
   // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
-  // S05: never mutate preview / invent mission while unresolved work A blocks B effects.
   if (
     allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
@@ -2068,16 +2124,6 @@ export async function postUserMessageAndNora(
       (studioIntent.proposedProjectName?.trim()
         ? studioIntent.proposedProjectName.trim()
         : null) || "Nouveau projet";
-    try {
-      await updatePreview(
-        pilotId,
-        preparationId,
-        proposed.slice(0, 120),
-        `Intention Nora — création de projet «${proposed}». Acte Pilote requis.`,
-      );
-    } catch {
-      /* preview best-effort */
-    }
     let d2Mission = emptyMission(
       clientIntentKey,
       `Création de projet «${proposed}» — attente acte Pilote`,
@@ -2270,6 +2316,7 @@ export async function postUserMessageAndNora(
       blockingMission?.clientIntentKey ??
       clientPendingHint,
     semanticQualificationStatus: qualification.status,
+    preparationProjection: preparationProjectionAck,
   };
 
   if (turnRaceHooks.beforeTerminalCommit) {

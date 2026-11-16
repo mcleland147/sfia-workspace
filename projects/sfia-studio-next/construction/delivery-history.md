@@ -25,7 +25,26 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ---
 
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~11:25 CET (Europe/Paris) |
+| Macro-lot | ML4D — Sas Nora convergence (conversation → projection → création → continuité) |
+| Type | EVOL / MINOR candidate compatible · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-sas-nora-convergence-20261116` |
+| Parent tip | `b05dacf47983ed8d914c92619ede5ffe65ce9264` (UX-004 D2 guards) |
+| Contrats | docs branch `22ee5540` — contrat-convergence-fonctionnelle + technique |
+| Changes | Projection D2 JSONB additive ; wire depuis qualification Nora ; aperçu vivant ; rail sas minimal ; unicité nom même Pilote (app-level) ; tests UNIT/PG ; as-built |
+| Schema | `013_preparation_projection.sql` — `projection_json` jsonb nullable (réversible) |
+| Contradiction | PF-CRE-14 vs unicité Morris — app-level only ; R2 non réécrit |
+| Limites | Nora LIVE NOT PROVEN ; UI Morris PENDING ; pas de UNIQUE SQL (historique) ; régularisation normative ouverte |
+| Lanes | DEV `:3102` ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`b05dacf4` / `20blGylSEta7201PgVvlw`) |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY WITH RESERVES — SAS NORA INTEGRATED` |
+
 ## delivery_id: DELIV-2026-11-16-ML4D-UX004-D2-GUARDS
+
 
 | Field | Value |
 | --- | --- |

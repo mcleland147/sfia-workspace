@@ -12,6 +12,7 @@ import {
   DocumentLibrary,
   type RevisionRow,
 } from "@/components/figma/DocumentSurfaces";
+import type { PreparationProjection } from "@/domains/preparation/projection";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -53,6 +54,10 @@ export default function PreparationPage() {
   const [previewName, setPreviewName] = useState("");
   const [previewSummary, setPreviewSummary] = useState("");
   const [creationRevision, setCreationRevision] = useState(1);
+  const [projection, setProjection] = useState<PreparationProjection | null>(null);
+  const [projectionFreshness, setProjectionFreshness] = useState<
+    "current" | "stale" | "unavailable" | "legacy"
+  >("legacy");
   const [projectId, setProjectId] = useState<string | null>(null);
   const [status, setStatus] = useState("");
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
@@ -111,6 +116,15 @@ export default function PreparationPage() {
     setPreviewName(j.preparation?.previewName ?? "");
     setPreviewSummary(j.preparation?.previewSummary ?? "");
     setCreationRevision(j.preparation?.creationRevision ?? 1);
+    const nextProjection = (j.projection as PreparationProjection | null | undefined) ?? null;
+    setProjection(nextProjection);
+    setProjectionFreshness(
+      nextProjection
+        ? "current"
+        : j.preparation?.previewName || j.preparation?.previewSummary
+          ? "legacy"
+          : "legacy",
+    );
     setProjectId(j.project?.id ?? null);
     const awaiting = j.awaitingMission as
       | { clientIntentKey?: string; status?: string }
@@ -211,8 +225,18 @@ export default function PreparationPage() {
         const streaming = j.streaming as
           | { attempted?: boolean; delivered?: boolean }
           | undefined;
+        const prepProj = j.preparationProjection as
+          | { status?: string; assessment?: string; revision?: number }
+          | null
+          | undefined;
+        const projPart = prepProj?.status
+          ? ` · projection ${prepProj.status}${prepProj.assessment ? `/${prepProj.assessment}` : ""}`
+          : "";
+        if (prepProj?.status === "UNAVAILABLE") {
+          setProjectionFreshness("unavailable");
+        }
         setStatus(
-          `Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}${policyPart}${opPart}${replayPart}${docPart}${docConflict}${cap}` +
+          `Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}${policyPart}${opPart}${replayPart}${docPart}${docConflict}${cap}${projPart}` +
             (streaming?.attempted
               ? ` · stream attempted=${streaming.attempted} delivered=${streaming.delivered}`
               : ""),
@@ -526,8 +550,13 @@ export default function PreparationPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           expectedCreationRevision: creationRevision,
-          projectName: previewName || "Projet sans titre",
-          previewSummary,
+          projectName:
+            projection?.name?.value?.trim() ||
+            previewName.trim() ||
+            "Projet sans titre",
+          previewSummary:
+            projection?.intention?.value?.trim() ||
+            previewSummary,
           idempotencyKey: key,
           clientIntentKey,
         }),
@@ -535,6 +564,7 @@ export default function PreparationPage() {
       let j: {
         status?: string;
         projectId?: string;
+        reason?: string;
         missionBindingError?: string;
         missionContinue?: {
           continued?: boolean;
@@ -555,6 +585,18 @@ export default function PreparationPage() {
           : j.missionContinue?.reason
             ? ` · continue ${j.missionContinue.reason}`
             : "";
+      if (j.status === "CONFLICT" && !j.projectId) {
+        const reason =
+          (j as { reason?: string }).reason ??
+          "conflit de création — aucun projet supplémentaire créé";
+        setStatus(
+          reason.includes("name already used")
+            ? "Ce nom est déjà utilisé pour un de vos projets. Choisissez un autre nom — Nora peut en proposer un."
+            : `CONFLICT: ${reason}${bindErr}`,
+        );
+        await reload();
+        return;
+      }
       if (j.status || j.projectId) {
         setStatus(`${j.status ?? ""}${j.projectId ? ` → ${j.projectId}` : ""}${cont}${bindErr}`);
       }
@@ -674,10 +716,11 @@ export default function PreparationPage() {
         </h1>
         <p className="fig-hero-sub">
           {isResumedPrep
-            ? "Continuité du même fil. Inspectez la proposition éventuelle puis créez explicitement si prêt."
-            : "Discutez librement avec Nora avant de décider de créer un projet."}
+            ? "Continuité du même fil. L’aperçu reflète ce qui est déjà acquis ; créez explicitement si prêt."
+            : "Discutez librement avec Nora. L’aperçu du projet évolue pendant la conversation."}
           {projectId ? ` Projet lié : ${projectId}.` : ""}
         </p>
+        {/* Secondary surfaces kept for continuity tools; conversation remains the primary path. */}
         <nav className="flex flex-wrap gap-2 pt-1" aria-label="Surfaces sas">
           {(
             [
@@ -717,6 +760,8 @@ export default function PreparationPage() {
             openPoints={(knowledge?.openPoints ?? [])
               .filter((o) => o.status === "OPEN")
               .map((o) => ({ id: o.id, statement: o.statement }))}
+            projection={projection}
+            projectionFreshness={projectionFreshness}
             busy={busy}
             editing={proposalEditing}
             draftName={draftProposalName}
