@@ -139,7 +139,7 @@ SHA `a77a3a2bf7b942038d771fdcdd2e7a6410330784` · build `vYeNRRzvLN03N73wmcKkR` 
 **SERVED AND VERIFIED** / **READY WITH RESERVES — MORRIS UX RECETTE**
 
 ### D. Handoff
-**à publier puis REMOTE VERIFIED** (section 12)
+**HANDOFF UPDATED — REMOTE VERIFIED**
 
 ### E. Gates
 - GO recette locale : déjà accordé ; rétablissement conforme
@@ -166,4 +166,9 @@ Procédure restore ML4C ci-dessus.
 
 Publisher : `scripts/sfia/publish-review-handoff.sh`
 
-Statut : **pending remote publish in this cycle — will be REMOTE VERIFIED**
+Statut : **REMOTE VERIFIED** — tip `877f8b4da7d5d35183fa782fe8bf45e9bf97c82b` · blob `e0b59a2fd8ab69cdc2e72e5fe1759f6c6e16bfe1`
+
+| Champ | Valeur |
+| --- | --- |
+| Tip | `877f8b4da7d5d35183fa782fe8bf45e9bf97c82b` |
+| Blob | `e0b59a2fd8ab69cdc2e72e5fe1759f6c6e16bfe1` |
