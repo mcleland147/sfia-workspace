@@ -7,12 +7,13 @@ import {
   namesConflictForSamePilot,
   normalizeProjectNameKey,
   pilotExpressedField,
+  pilotUiEditField,
   previewFieldsFromProjection,
   projectionMateriallyChanged,
   type PreparationProjection,
 } from "@/domains/preparation/projection";
 
-describe("preparation projection helpers (corrective)", () => {
+describe("preparation projection helpers (final corrective)", () => {
   it("normalizes name keys (trim, spaces, case) while preserving accents", () => {
     expect(normalizeProjectNameKey("  Atlas   Pilot  ")).toBe("atlas pilot");
     expect(normalizeProjectNameKey("École")).toBe("école");
@@ -36,7 +37,25 @@ describe("preparation projection helpers (corrective)", () => {
     expect(clarifying?.suggestion?.assessment).not.toBe("BASE_SUFFICIENTE");
   });
 
-  it("fills desiredOutcome and initialScope from structured qualification", () => {
+  it("does not fabricate Nora assessment from name/intention presence alone", () => {
+    const draft = draftProjectionFromQualification({
+      preparationId: "prep-1",
+      turnKey: "t-no-assess",
+      qualificationStatus: "QUALIFIED",
+      goal: "Cockpit de suivi",
+      desiredOutcome: "Voir portefeuille",
+      initialScope: "Portefeuille",
+      clarifications: [],
+      proposedProjectName: "Cockpit projets",
+      // no preparationAssessment
+    });
+    expect(draft?.name?.value).toBe("Cockpit projets");
+    expect(draft?.suggestion).toBeNull();
+    // D2 eligibility can still be true without Nora advice.
+    expect(canCreateFromProjection(draft as PreparationProjection, "")).toBe(true);
+  });
+
+  it("attributes BASE_SUFFICIENTE only from structured assessment", () => {
     const draft = draftProjectionFromQualification({
       preparationId: "prep-1",
       turnKey: "t-rich",
@@ -52,6 +71,7 @@ describe("preparation projection helpers (corrective)", () => {
     expect(draft?.desiredOutcome?.value).toBe("Voir portefeuille et risques");
     expect(draft?.initialScope?.value).toBe("Portefeuille et risques");
     expect(draft?.suggestion?.assessment).toBe("BASE_SUFFICIENTE");
+    expect(draft?.suggestion?.explanation).toContain("Base raisonnable");
   });
 
   it("preserves pilot-expressed name against Nora re-proposal", () => {
@@ -59,17 +79,17 @@ describe("preparation projection helpers (corrective)", () => {
       schemaVersion: 1,
       preparationId: "prep-1",
       revision: 2,
-      updatedFromTurnKey: "pilot-edit",
+      updatedFromTurnKey: "pilot-ui-edit",
       observedAt: "2026-11-16T10:00:00.000Z",
-      name: pilotExpressedField("Cockpit projets", "pilot-edit"),
-      intention: pilotExpressedField("Suivi projets", "pilot-edit"),
+      name: pilotUiEditField("Cockpit projets", "pilot-ui-edit"),
+      intention: pilotExpressedField("Suivi projets", "pilot-turn"),
       desiredOutcome: null,
       initialScope: null,
       openQuestions: [],
       suggestion: {
         assessment: "PROPOSAL",
         explanation: "corrigé",
-        sourceTurnKey: "pilot-edit",
+        sourceTurnKey: "pilot-ui-edit",
       },
     };
     const noraDraft = draftProjectionFromQualification({
@@ -84,6 +104,7 @@ describe("preparation projection helpers (corrective)", () => {
     const merged = mergeNoraDraftWithPrior(prior, noraDraft);
     expect(merged.name?.value).toBe("Cockpit projets");
     expect(merged.name?.status).toBe("PILOT_EXPRESSED");
+    expect(merged.name?.source.kind).toBe("PILOT_UI_EDIT");
   });
 
   it("refuses inventing Projet sans titre", () => {
@@ -102,6 +123,8 @@ describe("preparation projection helpers (corrective)", () => {
       goal: "Intention A",
       clarifications: [],
       proposedProjectName: "Nom A",
+      preparationAssessment: "PROPOSAL",
+      preparationAssessmentExplanation: "Proposition de travail.",
     })!;
     const prev: PreparationProjection = {
       ...draft,

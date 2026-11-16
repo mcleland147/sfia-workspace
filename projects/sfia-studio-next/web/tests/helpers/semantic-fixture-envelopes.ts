@@ -65,6 +65,7 @@ export function dialogueEnvelope(
     goal,
     desiredOutcome: "",
     initialScope: "",
+    proposedProjectName: "",
     intents: normalizeIntents([
       {
         capabilityId: "d3.converse",
@@ -85,6 +86,7 @@ export function clarificationEnvelope(goal: string, clarifications: string[], re
     goal,
     desiredOutcome: "",
     initialScope: "",
+    proposedProjectName: "",
     intents: [],
     clarifications,
     replyDraft: reply,
@@ -102,6 +104,7 @@ export function effectEnvelope(
     goal,
     desiredOutcome: "",
     initialScope: "",
+    proposedProjectName: "",
     intents: normalizeIntents(intents),
     clarifications: [],
     replyDraft: reply,

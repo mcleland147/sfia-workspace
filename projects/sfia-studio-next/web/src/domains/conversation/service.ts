@@ -2069,6 +2069,11 @@ export async function postUserMessageAndNora(
       .filter((p) => p.kind === "OPEN_POINT")
       .map((p) => p.statement)
       .slice(0, 6);
+    const proposedName =
+      (qualification.proposedProjectName?.trim()
+        ? qualification.proposedProjectName.trim()
+        : null) ||
+      studioIntent.proposedProjectName;
     preparationProjectionDraft = draftProjectionFromQualification({
       preparationId,
       turnKey: clientIntentKey,
@@ -2077,7 +2082,7 @@ export async function postUserMessageAndNora(
       desiredOutcome: qualification.desiredOutcome || "",
       initialScope: qualification.initialScope || "",
       clarifications: qualification.clarifications ?? [],
-      proposedProjectName: studioIntent.proposedProjectName,
+      proposedProjectName: proposedName,
       openPointStatements: openFromQual,
       preparationAssessment: qualification.preparationAssessment ?? null,
       preparationAssessmentExplanation:

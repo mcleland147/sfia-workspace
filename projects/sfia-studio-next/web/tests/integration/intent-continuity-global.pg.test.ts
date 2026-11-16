@@ -868,15 +868,17 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const prepAfter = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     expect(prepAfter.status).not.toBe("ATTACHED");
 
+    // Inspected name may diverge from the original Nora proposal (Pilot/Nora correction).
+    // Binding remains AUTHORIZED; create uses the inspected name.
     const nameAuth = await authorizeMissionBoundD2Create({
       pilotId,
       preparationId,
       clientIntentKey: keyA,
       projectName: "Wrong Name Entirely",
     });
-    expect(nameAuth.outcome).toBe("FORBIDDEN");
-    if (nameAuth.outcome === "FORBIDDEN") {
-      expect(["MISSION_NAME_MISMATCH", "MISSION_KEY_MISMATCH"]).toContain(nameAuth.code);
+    expect(nameAuth.outcome).toBe("AUTHORIZED");
+    if (nameAuth.outcome === "AUTHORIZED") {
+      expect(nameAuth.mission.proposedProjectName).toBe("Wrong Name Entirely");
     }
     expect(
       (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]?.status,

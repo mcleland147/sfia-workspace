@@ -128,6 +128,11 @@ export const NoraTurnQualificationSchema = z.object({
   desiredOutcome: z.string().max(800).default(""),
   /** Périmètre initial lorsque réellement exprimé — ne pas inventer. */
   initialScope: z.string().max(800).default(""),
+  /**
+   * Nom de travail proposé pour le sas — distinct d'un REQUEST_EFFECT D2.
+   * Permet une correction de nom sans second acte d'effet concurrent (S05).
+   */
+  proposedProjectName: z.string().max(120).default(""),
   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
   clarifications: z.array(z.string().max(400)).max(8).default([]),
   replyDraft: z.string().max(12000).default(""),
@@ -220,6 +225,7 @@ export function unavailableQualification(reason: string, replyDraft = ""): NoraT
     goal: "",
     desiredOutcome: "",
     initialScope: "",
+    proposedProjectName: "",
     intents: [],
     clarifications: [reason.slice(0, 400)],
     replyDraft:
@@ -402,9 +408,13 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
     : null;
 
   const wantsProjectCreate = Boolean(createProject);
-  const proposedProjectName = createProject?.parameters.projectName
+  const fromIntent = createProject?.parameters.projectName
     ? sanitizeProposedLabel(createProject.parameters.projectName) || null
     : null;
+  const fromEnvelope = q.proposedProjectName?.trim()
+    ? sanitizeProposedLabel(q.proposedProjectName) || null
+    : null;
+  const proposedProjectName = fromIntent || fromEnvelope;
 
   const wantsFollowOnDocument = Boolean(
     wantsProjectCreate &&

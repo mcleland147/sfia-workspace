@@ -10,7 +10,11 @@ export type ProjectionFieldStatus =
   | "NORA_PROPOSED"
   | "NEEDS_CONFIRMATION";
 
-export type ProjectionFieldSourceKind = "PILOT_TURN" | "NORA_TURN" | "KNOWLEDGE_REF";
+export type ProjectionFieldSourceKind =
+  | "PILOT_TURN"
+  | "PILOT_UI_EDIT"
+  | "NORA_TURN"
+  | "KNOWLEDGE_REF";
 
 export type ProposedField<T> = {
   value: T;
@@ -143,6 +147,16 @@ export function pilotExpressedField(value: string, editKey: string): ProposedFie
   };
 }
 
+/** UI aperçu correction — not a fabricated D3 conversation turn. */
+export function pilotUiEditField(value: string, editKey: string): ProposedField<string> {
+  return {
+    value: value.trim().slice(0, 500),
+    status: "PILOT_EXPRESSED",
+    source: { kind: "PILOT_UI_EDIT", ref: editKey },
+    isCurrent: true,
+  };
+}
+
 /**
  * Preserve Pilot-expressed fields against Nora re-proposal of the same slot.
  * Do not clear an acquired field when the new turn leaves it empty.
@@ -230,39 +244,21 @@ export function draftProjectionFromQualification(input: {
     noraProposedField(q.slice(0, 400), turnKey, "NEEDS_CONFIRMATION"),
   );
 
-  let assessment: ProjectionAssessment = "EXPLORING";
-  let explanation =
-    "Nora explore encore l'intention. Aucune base de démarrage n'est affirmée.";
-
+  /**
+   * Assessment is attributed to Nora only when the structured qualification provides it.
+   * Presence of name/intention/outcome must NOT fabricate BASE_SUFFICIENTE / PROPOSAL.
+   * D2 eligibility (canCreate) is separate from Nora's qualitative advice.
+   */
+  let suggestion: PreparationProjection["suggestion"] = null;
   if (input.preparationAssessment) {
-    assessment = input.preparationAssessment;
-    explanation =
+    const explanation =
       input.preparationAssessmentExplanation?.trim() ||
-      (assessment === "BASE_SUFFICIENTE"
-        ? "Nora estime qu'une base de démarrage est raisonnable — suggestion qualitative, pas une autorisation."
-        : assessment === "PROPOSAL"
-          ? "Une proposition de travail est disponible."
-          : assessment === "CLARIFYING"
-            ? "Une clarification reste utile."
-            : explanation);
-  } else if (intention && openQuestions.length > 0 && !name) {
-    assessment = "CLARIFYING";
-    explanation =
-      "Des éléments sont compris, mais une clarification reste utile avant de figer un nom.";
-  } else if (intention && name && (desiredOutcome || initialScope) && openQuestions.length === 0) {
-    assessment = "BASE_SUFFICIENTE";
-    explanation =
-      "Intention, nom et premiers éléments de résultat/périmètre sont assez clairs pour démarrer.";
-  } else if (intention && name && openQuestions.length > 0) {
-    assessment = "PROPOSAL";
-    explanation =
-      "Une proposition de travail est disponible. Des points ouverts restent à préciser sans bloquer nécessairement la création.";
-  } else if (intention && name) {
-    assessment = "PROPOSAL";
-    explanation = "Une proposition de travail se dessine ; Nora peut encore préciser résultat et périmètre.";
-  } else if (intention) {
-    assessment = "CLARIFYING";
-    explanation = "Une intention se dessine ; Nora continue de clarifier le résultat et le périmètre.";
+      "Appréciation structurée fournie par Nora — suggestion qualitative, pas une autorisation.";
+    suggestion = {
+      assessment: input.preparationAssessment,
+      explanation,
+      sourceTurnKey: turnKey,
+    };
   }
 
   return {
@@ -274,11 +270,7 @@ export function draftProjectionFromQualification(input: {
     desiredOutcome,
     initialScope,
     openQuestions,
-    suggestion: {
-      assessment,
-      explanation,
-      sourceTurnKey: turnKey,
-    },
+    suggestion,
   };
 }
 

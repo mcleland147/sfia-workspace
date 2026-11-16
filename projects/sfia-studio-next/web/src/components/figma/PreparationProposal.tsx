@@ -18,8 +18,10 @@ const ASSESSMENT_LABEL: Record<string, string> = {
   BASE_SUFFICIENTE: "Base suffisante",
 };
 
-function statusLabel(status: string | undefined): string {
-  if (status === "PILOT_EXPRESSED") return "Exprimé";
+function statusLabel(status: string | undefined, sourceKind?: string): string {
+  if (status === "PILOT_EXPRESSED") {
+    return sourceKind === "PILOT_UI_EDIT" ? "Corrigé (inspection)" : "Exprimé";
+  }
   if (status === "NORA_PROPOSED") return "Proposé";
   if (status === "NEEDS_CONFIRMATION") return "À préciser";
   return "—";
@@ -183,8 +185,8 @@ export function PreparationProposal(props: {
                     {name}
                   </span>
                   {projection?.name ? (
-                    <span className="muted text-xs ml-2">
-                      · {statusLabel(projection.name.status)}
+                    <span className="muted text-xs ml-2" data-testid="prep-field-name-provenance">
+                      · {statusLabel(projection.name.status, projection.name.source.kind)}
                     </span>
                   ) : null}
                 </div>

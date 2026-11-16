@@ -1,6 +1,13 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import { config } from "dotenv";
 config({ path: ".env.local" });
+
+// Force DEV fixture before conversation/nora modules evaluate lane (operator .env may be RECETTE).
+vi.hoisted(() => {
+  process.env.STUDIO_LANE = "DEV";
+  process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+  delete process.env.OPENAI_API_KEY;
+});
 
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
@@ -27,6 +34,9 @@ describe("PostgreSQL create-project contracts", () => {
   beforeAll(() => {
     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
     // Integration suite must stay on deterministic Nora fixture — LIVE costs/proofs are separate.
+    // Operator .env.local may set STUDIO_LANE=RECETTE + OPENAI_API_KEY; force DEV fixture lane.
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
     delete process.env.OPENAI_API_KEY;
   });
 
@@ -242,6 +252,7 @@ describe("PostgreSQL create-project contracts", () => {
     const afterEdit = await getPreparationContext(pilotId, prep.id);
     expect(afterEdit.projection?.name?.value).toBe("Cockpit projets v2");
     expect(afterEdit.projection?.name?.status).toBe("PILOT_EXPRESSED");
+    expect(afterEdit.projection?.name?.source.kind).toBe("PILOT_UI_EDIT");
     expect(afterEdit.preparation.previewName).toBe("Cockpit projets v2");
     const created = await createProjectCommand({
       pilotId,
@@ -257,6 +268,65 @@ describe("PostgreSQL create-project contracts", () => {
         await db.select().from(projects).where(eq(projects.id, created.projectId))
       )[0];
       expect(proj?.name).toBe("Cockpit projets v2");
+    }
+  });
+
+  it("GapC multi-turn: vague → outcome → scope → rename → create (fixture path)", async () => {
+    const {
+      SAS_MATURATION_T1,
+      SAS_MATURATION_T2,
+      SAS_MATURATION_T3,
+      SAS_MATURATION_T4,
+    } = await import("@/domains/conversation/fixture-semantic-qualify");
+    const pilotId = await seedPilot("Maturation");
+    const prep = await openOrCreatePreparation(pilotId);
+
+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T1);
+    let ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.projection).toBeTruthy();
+    expect(ctx.projection?.name ?? null).toBeNull();
+    expect(ctx.projection?.desiredOutcome ?? null).toBeNull();
+    expect(ctx.projection?.suggestion?.assessment).toBe("EXPLORING");
+    expect(ctx.projectId ?? null).toBeNull();
+    const rev1 = ctx.preparation.creationRevision;
+
+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T2);
+    ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.projection?.desiredOutcome?.value).toMatch(/décisions importantes/i);
+    expect(ctx.projection?.initialScope ?? null).toBeNull();
+    expect(ctx.projection?.suggestion?.assessment).toBe("CLARIFYING");
+    expect(ctx.preparation.creationRevision).toBeGreaterThan(rev1);
+    expect(ctx.projectId ?? null).toBeNull();
+
+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T3);
+    ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.projection?.name?.value).toBe("Assistant de pilotage");
+    expect(ctx.projection?.initialScope?.value).toMatch(/Espace personnel/i);
+    expect(ctx.projection?.suggestion?.assessment).toBe("BASE_SUFFICIENTE");
+    expect(ctx.projectId ?? null).toBeNull();
+
+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T4);
+    ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.projection?.name?.value).toBe("Cockpit projets");
+    expect(ctx.projection?.name?.value).not.toBe("Assistant de pilotage");
+    expect(ctx.projectId ?? null).toBeNull();
+
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: ctx.preparation.creationRevision,
+      projectName: ctx.projection!.name!.value,
+      previewSummary: ctx.preparation.previewSummary,
+      idempotencyKey: newId("idem"),
+    });
+    expect(created.status).toBe("CREATED");
+    if (created.status === "CREATED") {
+      const proj = (
+        await db.select().from(projects).where(eq(projects.id, created.projectId))
+      )[0];
+      expect(proj?.name).toBe("Cockpit projets");
+      const msgs = await listMessages(pilotId, prep.id);
+      expect(msgs.length).toBeGreaterThanOrEqual(8); // 4 user + 4 nora
     }
   });
 

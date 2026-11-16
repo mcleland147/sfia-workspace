@@ -12,7 +12,7 @@ import {
   type PreparationProjection,
   mergeNoraDraftWithPrior,
   parseProjectionJson,
-  pilotExpressedField,
+  pilotUiEditField,
   previewFieldsFromProjection,
   projectionMateriallyChanged,
 } from "@/domains/preparation/projection";
@@ -130,16 +130,18 @@ export async function applyPilotApercuCorrection(input: {
       const prev = parseProjectionJson(row.projection_json, input.preparationId, currentRev);
       const editKey =
         input.editKey?.trim() ||
-        `pilot-edit:${input.preparationId}:${currentRev}:${Date.now()}`;
+        `pilot-ui-edit:${input.preparationId}:${currentRev}:${Date.now()}`;
       const nameRaw = input.previewName.trim();
       const summaryRaw = input.previewSummary.trim();
+      // Keep prior Nora suggestion if any; do not invent a Nora assessment from a UI edit.
+      // Annotate pilot correction in explanation only when we already had a suggestion, else leave null.
       const draft: Omit<PreparationProjection, "revision" | "observedAt"> = {
         schemaVersion: 1,
         preparationId: input.preparationId,
         updatedFromTurnKey: editKey,
-        name: nameRaw ? pilotExpressedField(nameRaw.slice(0, 120), editKey) : null,
+        name: nameRaw ? pilotUiEditField(nameRaw.slice(0, 120), editKey) : null,
         intention: summaryRaw
-          ? pilotExpressedField(summaryRaw.slice(0, 500), editKey)
+          ? pilotUiEditField(summaryRaw.slice(0, 500), editKey)
           : (prev?.intention ?? null),
         desiredOutcome: prev?.desiredOutcome ?? null,
         initialScope: prev?.initialScope ?? null,
@@ -147,17 +149,14 @@ export async function applyPilotApercuCorrection(input: {
         suggestion: prev?.suggestion
           ? {
               ...prev.suggestion,
-              explanation:
-                prev.suggestion.explanation ||
-                "Aperçu ajusté par le Pilote — la création utilisera le nom inspecté.",
+              explanation: [
+                prev.suggestion.explanation?.trim(),
+                "Aperçu ajusté explicitement par le Pilote (inspection UI) — la création utilisera le nom inspecté.",
+              ]
+                .filter(Boolean)
+                .join(" "),
             }
-          : {
-              assessment: nameRaw ? "PROPOSAL" : "EXPLORING",
-              explanation: nameRaw
-                ? "Aperçu ajusté explicitement par le Pilote."
-                : "Correction Pilote sans nom — clarification requise avant création.",
-              sourceTurnKey: editKey,
-            },
+          : null,
       };
 
       if (!projectionMateriallyChanged(prev, draft) && nameRaw === (row.preview_name ?? "").trim()) {

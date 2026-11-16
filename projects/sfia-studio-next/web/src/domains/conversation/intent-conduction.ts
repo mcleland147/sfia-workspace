@@ -410,12 +410,12 @@ export async function verifyMissionForD2Act(input: {
     if (hinted.status === "AWAITING_PILOT_ACT") {
       const expected = hinted.proposedProjectName?.trim();
       const received = input.projectName?.trim();
+      // Name may have been corrected by Nora (conversation) or Pilot (aperçu UI) after the
+      // awaiting mission was opened. The Pilot create act remains explicit; use the inspected name.
       if (expected && received && normalizeProjectName(expected) !== normalizeProjectName(received)) {
         return {
-          status: "MISSION_NAME_MISMATCH",
-          reason: "projectName incompatible with awaiting mission proposal",
-          expected,
-          received,
+          status: "OK",
+          mission: { ...hinted, proposedProjectName: received },
         };
       }
       return { status: "OK", mission: hinted };

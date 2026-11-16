@@ -498,20 +498,46 @@ export default function PreparationPage() {
         expectedCreationRevision: creationRevision,
       }),
     });
-    const j = await res.json();
+    let j: {
+      creationRevision?: number;
+      preparation?: { previewName?: string; previewSummary?: string; creationRevision?: number };
+      projection?: PreparationProjection | null;
+      error?: string;
+      actualCreationRevision?: number;
+      reason?: string;
+    } = {};
+    try {
+      j = (await res.json()) as typeof j;
+    } catch {
+      j = {};
+    }
     if (res.ok) {
+      // Trust the coherent server pair (revision + projection + preparation) — never mix.
       setPreviewName(j.preparation?.previewName ?? name);
       setPreviewSummary(j.preparation?.previewSummary ?? summary);
-      setCreationRevision(j.creationRevision);
+      setCreationRevision(
+        typeof j.creationRevision === "number"
+          ? j.creationRevision
+          : (j.preparation?.creationRevision ?? creationRevision),
+      );
       setProjection((j.projection as PreparationProjection | null) ?? null);
       setProjectionFreshness("current");
       setProposalEditing(false);
-      setStatus(`Aperçu corrigé · révision ${j.creationRevision}`);
+      setStatus(`Aperçu corrigé · révision ${j.creationRevision ?? "?"}`);
     } else if (res.status === 409) {
-      setStatus("CONFLICT: aperçu modifié ailleurs — rechargement");
+      setStatus(
+        `CONFLICT: aperçu modifié ailleurs (rév. actuelle ${j.actualCreationRevision ?? "?"}) — rechargement sans écrasement`,
+      );
+      await reload();
+    } else if (res.status === 401) {
+      setStatus("Session invalide — reconnexion requise");
+    } else if (res.status === 400) {
+      setStatus(`Requête invalide: ${j.reason ?? j.error ?? "corps"}`);
+    } else if (res.status === 503 || res.status === 500) {
+      setStatus("Enregistrement non confirmé (panne) — aucun succès annoncé ; rechargement");
       await reload();
     } else {
-      setStatus(`Échec enregistrement aperçu`);
+      setStatus(`Échec enregistrement aperçu (${res.status})`);
     }
   }
 
