@@ -7,11 +7,56 @@
  * Prefer an explicit server-derived `nextTurnKind` when available.
  */
 
+/**
+ * Local recovery aid only — not a server authority.
+ * Additive optional fields are fail-safe when absent (legacy pending).
+ */
+export type ThreadPendingOrigin = "choice" | "composer";
+
 export type ThreadPendingTurn = {
   content: string;
   clientTurnKey: string;
   clientCommandKey: string;
+  /**
+   * How the pending attempt was created.
+   * Absent ⇒ legacy pending — never clear a free draft on reconcile.
+   */
+  origin?: ThreadPendingOrigin;
+  /**
+   * Composer draft version actually submitted (composer path only).
+   * Choice attempts leave this null/undefined.
+   */
+  sentDraftVersion?: number | null;
+  projectId?: string;
+  pilotId?: string | null;
 };
+
+/**
+ * Whether reconcile/send ACK may clear the free composer draft.
+ * Choice origin and legacy (unknown) origin: never.
+ * Composer origin: only when sentDraftVersion is known and still matches.
+ */
+export function mayClearComposerDraftOnReconcile(input: {
+  pending: ThreadPendingTurn;
+  currentDraftVersion: number;
+}): { clear: false; reason: string } | { clear: true; sentVersion: number } {
+  const origin = input.pending.origin;
+  if (origin === "choice") {
+    return { clear: false, reason: "CHOICE_ORIGIN_PRESERVES_DRAFT" };
+  }
+  if (origin !== "composer") {
+    // Legacy / incomplete metadata — fail-safe: keep draft.
+    return { clear: false, reason: "LEGACY_PENDING_FAIL_SAFE" };
+  }
+  const sent = input.pending.sentDraftVersion;
+  if (typeof sent !== "number" || !Number.isFinite(sent) || sent <= 0) {
+    return { clear: false, reason: "MISSING_SENT_DRAFT_VERSION" };
+  }
+  if (input.currentDraftVersion !== sent) {
+    return { clear: false, reason: "NEWER_DRAFT_VERSION" };
+  }
+  return { clear: true, sentVersion: sent };
+}
 
 /**
  * Qualification categories for a conversational turn over an optional pending.

@@ -242,7 +242,9 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     await expect(page.getByTestId("travail-viewer-body")).not.toContainText(`Revision A ${stamp}`);
   });
 
-  test("C2 ACK lost on choice — single pilot turn, freeze, reconcile", async ({ page }) => {
+  test("C2 ACK lost on choice — single pilot turn, freeze, reconcile, draft kept", async ({
+    page,
+  }) => {
     test.setTimeout(180_000);
     await page.goto("/login");
     await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
@@ -271,6 +273,11 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
       '[data-testid="nora-choices"][data-actionable="1"] [data-testid="nora-choice"]',
     );
     await expect(actionable.first()).toBeVisible({ timeout: 10000 });
+
+    // Free draft A written BEFORE clicking choice B — must survive reconcile.
+    const freeDraft = `Je voudrais aussi étudier une approche différente ${Date.now()}`;
+    await page.getByTestId("thread-draft").fill(freeDraft);
+    await expect(page.getByTestId("thread-draft")).toHaveValue(freeDraft);
 
     let ackDropped = false;
     let serverOk = false;
@@ -322,6 +329,8 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     expect(serverOk).toBe(true);
     expect(ackDropped).toBe(true);
     expect(capturedTurnKey).toBeTruthy();
+    // Draft A still present after ACK loss (choice must not wipe it).
+    await expect(page.getByTestId("thread-draft")).toHaveValue(freeDraft);
 
     // Choices stay frozen — no second independent click path.
     await expect(
@@ -336,22 +345,34 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
       "ready",
       { timeout: 20000 },
     );
+    await expect(page.getByTestId("thread-draft")).toHaveValue(freeDraft);
     // Final B — reconciliation path is MANDATORY (not conditional).
     const reconcile = page.getByTestId("thread-reconcile-pending");
     await expect(reconcile).toBeVisible({ timeout: 20000 });
     await expect(reconcile).toBeEnabled();
-    // Keep route open so idempotent retry uses same clientTurnKey; do not drop ACK again.
     ackDropped = true; // already dropped once — subsequent POSTs pass through
     await reconcile.click();
     await expect(page.getByTestId("thread-nora-status")).toContainText(
       /COMPLETE|Nora deterministic-fixture/i,
       { timeout: 45000 },
     );
-    // After confirmed reconcile, pending control must clear.
     await expect(page.getByTestId("thread-reconcile-pending")).toHaveCount(0, {
       timeout: 15000,
     });
-    // Prior choices expired (not actionable).
+    // Free draft A unchanged after reconcile of choice B.
+    await expect(page.getByTestId("thread-draft")).toHaveValue(freeDraft);
+    const stored = await page.evaluate(() => {
+      for (let i = 0; i < sessionStorage.length; i += 1) {
+        const k = sessionStorage.key(i);
+        if (k && k.startsWith("sfia.travail.draft:v1:")) {
+          return sessionStorage.getItem(k);
+        }
+      }
+      return null;
+    });
+    expect(stored).toBeTruthy();
+    expect(String(stored)).toContain(freeDraft);
+
     await expect(
       page.locator(
         '[data-testid="nora-choices"][data-actionable="1"] [data-testid="nora-choice"]',
@@ -368,12 +389,106 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     const choiceMsgs = pilotMsgs.filter((m: { content?: string }) =>
       /Approfondissons le besoin|Explore une autre approche/i.test(m.content ?? ""),
     );
-    // Durable proof: a single effective pilot utterance for the choice intention.
     expect(choiceMsgs.length).toBe(1);
-    // Turn key identity conserved through reconcile retry.
+    // Free draft was never transmitted as a pilot turn.
+    expect(
+      pilotMsgs.some((m: { content?: string }) => (m.content ?? "").includes(freeDraft)),
+    ).toBe(false);
     expect(capturedTurnKey).toBeTruthy();
     await page.unrouteAll({ behavior: "ignoreErrors" });
     void preparationId;
+  });
+
+  test("composer ACK lost — newer draft survives reconcile", async ({ page }) => {
+    test.setTimeout(180_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { projectId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "E05 composer ack draft",
+      name: `E05 CDraft ${Date.now()}`,
+      summary: "composer-draft",
+    });
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    const sentText = `Message libre C ${Date.now()}`;
+    let ackDropped = false;
+    await page.route("**/api/preparations/*/messages", async (route) => {
+      if (route.request().method() !== "POST") {
+        await route.continue();
+        return;
+      }
+      let post: { content?: string } = {};
+      try {
+        post = route.request().postDataJSON() as { content?: string };
+      } catch {
+        post = {};
+      }
+      const response = await route.fetch();
+      const raw = await response.text();
+      if (!ackDropped && response.ok() && (post.content ?? "").includes("Message libre C")) {
+        ackDropped = true;
+        await route.fulfill({
+          status: 502,
+          contentType: "application/json",
+          body: JSON.stringify({
+            errorCategory: "ACK_LOST_SIM",
+            error: "ACK lost after server commit",
+          }),
+        });
+        return;
+      }
+      await route.fulfill({
+        status: response.status(),
+        headers: response.headers(),
+        body: raw,
+      });
+    });
+
+    await page.getByTestId("thread-draft").fill(sentText);
+    await page.getByTestId("thread-send").click();
+    await expect(page.getByTestId("thread-nora-status")).toContainText(
+      /ACK lost|ACK_LOST|échec|conservée/i,
+      { timeout: 45000 },
+    );
+
+    const newer = `Nouvelle saisie D ${Date.now()}`;
+    await page.getByTestId("thread-draft").fill(newer);
+    await expect(page.getByTestId("thread-draft")).toHaveValue(newer);
+
+    await page.reload();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    await expect(page.getByTestId("thread-draft")).toHaveValue(newer);
+    const reconcile = page.getByTestId("thread-reconcile-pending");
+    await expect(reconcile).toBeVisible({ timeout: 20000 });
+    await reconcile.click();
+    await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|Nora/i, {
+      timeout: 45000,
+    });
+    await expect(page.getByTestId("thread-reconcile-pending")).toHaveCount(0, {
+      timeout: 15000,
+    });
+    // Newer draft D must survive ACK of C.
+    await expect(page.getByTestId("thread-draft")).toHaveValue(newer);
+
+    const proj = await page.request.get(`/api/projects/${projectId}`);
+    const pj = await proj.json();
+    const cMsgs = (pj.messages ?? []).filter(
+      (m: { role?: string; content?: string }) =>
+        (m.role === "user" || m.role === "pilot") &&
+        (m.content ?? "").includes("Message libre C"),
+    );
+    expect(cMsgs.length).toBe(1);
+    await page.unrouteAll({ behavior: "ignoreErrors" });
   });
 
   test("C3 same-tab logout/identity switch purges draft", async ({ page }) => {

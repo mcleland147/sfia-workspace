@@ -16,68 +16,69 @@
 | Processus | `next start -H 127.0.0.1 -p 3200` (Next 15.5.29) |
 | Worktree runtime | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3` |
 | SOURCE_SHA servi | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Tree | `b92cc822ac67399c6d8753c17dbcce5f4b5b734f` |
-| BUILD_ID | `3LzvYPTQc-Km7St6nF97r` (fichier `.next/BUILD_ID`) |
-| Lane | RECETTE (observée dans logs `lane":"RECETTE"`) |
+| BUILD_ID | `3LzvYPTQc-Km7St6nF97r` |
+| Lane | RECETTE |
 | Mode | `next start` (pas hot-reload DEV) |
-| HTTP probe | 307 (réponse active) |
+| HTTP probe | 307 |
+| **BUILD CURRENT VERIFIED** | OUI |
 
-**Aucune modification de ce runtime dans le présent cycle.**
+**Aucune modification du runtime servi dans ce cycle.**
 
-## 2. Candidat figé (commit local — non poussé)
+## 2. Candidat produit (commits locaux — non poussés)
 
 | Item | Valeur |
 |---|---|
 | Branche | `feat/next-ml4d-project-space-20261116` |
-| SHA candidat | `342f0bbb3fea1d52c7a40228347923b30b6db90e` |
-| Tree candidat | `605a6274b3a41cef41fd0cb271352d03c7f0cdb2` |
-| Parent base | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Workspace DEV | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
+| Feature freeze | `342f0bbb3fea1d52c7a40228347923b30b6db90e` |
+| Manifeste SHA | `2b0d7a78a34fb9b8858a8ce81a31bedadcc842b8` |
+| Correctif brouillon tip | _(renseigné après commit correctif)_ |
 | Push produit | **AUCUN** |
 
-## 3. Compatibilité / conservation
+## 3. Rollback — qualification
 
-| Contrôle | Statut |
+| Gate | Statut |
 |---|---|
-| Migration DB | **aucune** (M5) |
-| Nouvelle base RECETTE | **interdite** |
-| Reset données / comptes / documents | **interdit** |
-| Remplacement secrets DEV→RECETTE | **interdit** |
-| Nouveau port / worktree / conteneur | **interdit** sauf GO Morris |
-| Schéma | inchangé — compatible avec build actuel |
+| BUILD CURRENT VERIFIED | OUI — BUILD_ID + process :3200 |
+| ROLLBACK SOURCE VERIFIED | OUI — commit `984d77a3` présent localement ; SOURCE_SHA.txt |
+| RESTORABLE ARTIFACT VERIFIED | OUI — snapshot passif `.sfia-restore-artifacts/3LzvYPTQc-Km7St6nF97r/` (281M, 358 fichiers, SHA256SUMS, BUILD_ID match) |
+| RESTORE PROCEDURE DOCUMENTED | OUI — `RESTORE.md` dans l’artefact |
+| RESTORE LIVE TEST NOT EXECUTED | OUI — aucun stop/restart/replace sur :3200 |
+
+### Emplacement artefact (hors Git, hors `.next` actif)
+
+`/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3/.sfia-restore-artifacts/3LzvYPTQc-Km7St6nF97r/`
+
+Contenu : `BUILD_ID`, `SOURCE_SHA.txt`, `next-snapshot/`, `SHA256SUMS.txt`, `RESTORE.md`.
+
+Copie passive en lecture du `.next` courant ; le process continue de servir l’original.
 
 ## 4. Procédure de mise à disposition future (non exécutée)
 
-1. GO Morris explicite de déploiement RECETTE.
-2. Arrêt contrôlé du `next start` sur `:3200` via le mécanisme d’exploitation déjà utilisé pour ce worktree.
-3. Remplacer le contenu servi dans **le même worktree RECETTE** (ou rebuild `.next` dans ce worktree) à partir du SHA candidat figé — sans créer une seconde lane.
-4. Vérifier `BUILD_ID` / `SOURCE_SHA` / port 3200.
-5. Smoke : login DEV/test ou parcours Morris ; Travail avec Nora ; navigation E04.
-6. Si échec : restaurer le build précédent `3LzvYPTQc-Km7St6nF97r` / SHA `984d77a3` déjà présent dans ce worktree (artefact `.next` antérieur ou rebuild du SHA précédent).
+1. GO Morris explicite.
+2. Arrêt contrôlé de `next start` :3200.
+3. Remplacer/rebuild `.next` dans **le même worktree RECETTE** depuis le SHA candidat.
+4. Vérifier BUILD_ID / SOURCE_SHA / :3200.
+5. Smoke Morris.
+6. Rollback : suivre `RESTORE.md` de l’artefact ci-dessus.
 
-## 5. Smoke tests post-déploiement (futurs)
+## 5. Compatibilité
 
-- HTTP `:3200` joignable.
-- Session / portfolio.
-- Ouverture projet → surface Travail.
-- Envoi message / choix / brouillon.
-- Visionneuse document.
-- Aucune écriture sur DEV depuis RECETTE.
+| Contrôle | Statut |
+|---|---|
+| Migration DB | aucune |
+| Nouvelle base / lane / port | interdite |
+| Reset données | interdit |
+| Secrets | non exposés / non remplacés |
 
-## 6. Rollback
+## 6. Réserves
 
-Retour au build `3LzvYPTQc-Km7St6nF97r` / source `984d77a3` dans le worktree RECETTE existant, redémarrage `next start -H 127.0.0.1 -p 3200`.
+- Revue visuelle : Morris en RECETTE.
+- Cookies same-host ports : profils navigateur séparés recommandés.
+- Git D9 REAL / OAuth LIVE / streaming M2 : hors preuves de ce cycle.
+- **RESTORE LIVE TEST NOT EXECUTED**
 
-## 7. Réserves
-
-- Revue visuelle Figma : **réservée à Morris en RECETTE**.
-- Git D9 REAL : non exécuté en DEV.
-- OAuth LIVE : distinct de l’adaptateur DEV.
-- Streaming M2 : hors V1.
-
-## 8. Actions nécessitant GO Morris
+## 7. Actions nécessitant GO Morris
 
 - Déploiement / redémarrage RECETTE.
 - Push produit / PR / merge.
-- Toute création de second environnement.
-- Gate C / STABLE / ML5.
+- Exécution réelle du rollback.

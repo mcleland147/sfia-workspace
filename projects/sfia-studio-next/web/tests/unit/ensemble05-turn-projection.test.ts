@@ -13,6 +13,7 @@ import {
   readComposerDraft,
   writeComposerDraft,
 } from "@/domains/conversation/composer-draft";
+import { mayClearComposerDraftOnReconcile } from "@/domains/pilotage/thread-recovery";
 
 describe("ensemble05 turn projection (M1 / P1-A)", () => {
   it("does NOT build continue choices from clarifications", () => {
@@ -309,5 +310,46 @@ describe("ensemble05 composer draft (M3 / P2-B)", () => {
         lane: "host:127.0.0.1:3100",
       }),
     ).toBeNull();
+  });
+});
+
+describe("ensemble05 reconcile draft policy", () => {
+  const base = {
+    content: "Approfondissons B.",
+    clientTurnKey: "turn-1",
+    clientCommandKey: "conv-auth:turn-1",
+  };
+
+  it("never clears draft for choice origin", () => {
+    expect(
+      mayClearComposerDraftOnReconcile({
+        pending: { ...base, origin: "choice", sentDraftVersion: null },
+        currentDraftVersion: 3,
+      }),
+    ).toEqual({ clear: false, reason: "CHOICE_ORIGIN_PRESERVES_DRAFT" });
+  });
+
+  it("fail-safe preserves draft for legacy pending without origin", () => {
+    expect(
+      mayClearComposerDraftOnReconcile({
+        pending: { ...base },
+        currentDraftVersion: 1,
+      }),
+    ).toEqual({ clear: false, reason: "LEGACY_PENDING_FAIL_SAFE" });
+  });
+
+  it("clears composer draft only when sent version still matches", () => {
+    expect(
+      mayClearComposerDraftOnReconcile({
+        pending: { ...base, origin: "composer", sentDraftVersion: 2 },
+        currentDraftVersion: 2,
+      }),
+    ).toEqual({ clear: true, sentVersion: 2 });
+    expect(
+      mayClearComposerDraftOnReconcile({
+        pending: { ...base, origin: "composer", sentDraftVersion: 2 },
+        currentDraftVersion: 4,
+      }),
+    ).toEqual({ clear: false, reason: "NEWER_DRAFT_VERSION" });
   });
 });

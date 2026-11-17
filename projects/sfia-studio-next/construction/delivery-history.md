@@ -4,6 +4,23 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-DRAFT-RECONCILE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~13:40 CET |
+| Macro-lot | ML4D Ensemble 05 — correctif brouillon/reconcile + rollback prep (même macro-lot) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL correctif final · **NO RELEASE** |
+| Parent tip | `2b0d7a78` (descendant de freeze `342f0bbb`) |
+| Scope | Pending origin metadata ; reconcile never wipes choice/legacy draft ; artefact restore passif RECETTE |
+| Non-scope | Déploiement RECETTE ; restore LIVE ; push produit ; Figma |
+| Preuves | Vitest 25 PASS ; Playwright E05 6 PASS ; E04 3 PASS ; next build PASS |
+| Manifeste | `construction/ensemble-05-recette-prep-manifest.md` |
+| RECETTE | inchangée `:3200` / `3LzvYPTQc-Km7St6nF97r` + artefact `.sfia-restore-artifacts/…` |
+| Push produit | **AUCUN** |
+| Verdict cible | `E05 FINAL CANDIDATE — TECHNICALLY READY FOR MORRIS RECETTE DEPLOYMENT GO` |
+
+
 ## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-FREEZE
 
 | Field | Value |
@@ -18,7 +35,7 @@ Append-only logical journal of Cursor product deliveries.
 | As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
 | RECETTE | inventoriée inchangée `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
 | Push produit | **AUCUN** (commit local autorisé) |
-| Verdict cible | `E05 CANDIDATE FROZEN — READY FOR MORRIS RECETTE DEPLOYMENT DECISION` |
+| Verdict cible | `E05 CANDIDATE FROZEN — READY FOR MORRIS RECETTE DEPLOYMENT DECISION` (supersédé) |
 
 
 ## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CONSOLIDATION

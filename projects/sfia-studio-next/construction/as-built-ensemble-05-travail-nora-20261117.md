@@ -7,8 +7,8 @@
 | Type | Delivery locale DEV · **NO RELEASE** |
 | Branche produit | `feat/next-ml4d-project-space-20261116` |
 | HEAD de base | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Statut | **E05 CANDIDATE FROZEN — READY FOR MORRIS RECETTE DEPLOYMENT DECISION** (as-built non normatif) |
-| Cycles | Delivery + correctif + consolidation + finalisation technique (même macro-lot) |
+| Statut | **E05 FINAL CANDIDATE — TECHNICALLY READY FOR MORRIS RECETTE DEPLOYMENT GO** (as-built non normatif) |
+| Cycles | Delivery + correctif + consolidation + freeze + correctif brouillon/reconcile (même macro-lot) |
 
 ## Sources
 
@@ -25,8 +25,10 @@
 | Choix | `continueChoices` ≠ clarifications |
 | Final A | Toute ouverture Travail revalide D4 (list + revisionId) — pas de latest React en autorité |
 | Final B | ACK perdu → pending obligatoire → reconcile click → 1 tour Pilote |
+| Draft/reconcile | Choix Nora / legacy never clear draft ; composer only via `clearDraftAfterAck` versionné |
 | C3 | Purge same-tab login ; `session.pilotId` |
 | C5 | Git path existant ; REAL NOT EXECUTED |
+| Rollback prep | Artefact passif `.sfia-restore-artifacts/3Lzv…` — LIVE TEST NOT EXECUTED |
 
 ## Preuves techniques (DEV)
 

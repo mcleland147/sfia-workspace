@@ -20,6 +20,7 @@ import {
 } from "@/components/figma/DocumentSurfaces";
 import {
   conversationalClientCommandKey,
+  mayClearComposerDraftOnReconcile,
   pendingStorageKey,
   shouldClearThreadPending,
   type ThreadPendingTurn,
@@ -855,10 +856,29 @@ export default function ProjectPage() {
         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
         const tp = parseTurnProjection(j.turnProjection);
         if (tp) upsertTurnProjection(tp);
-        if (applyClearFromResponse(String(j.status ?? ""), effect)) {
-          setDraft("");
+        const status = String(j.status ?? "");
+        // Pending clear ≠ draft clear. Draft only via versioned composer ACK.
+        const pendingCleared = applyClearFromResponse(status, effect);
+        if (pendingCleared && status !== "UNKNOWN") {
+          const decision = mayClearComposerDraftOnReconcile({
+            pending,
+            currentDraftVersion: draftVersionRef.current,
+          });
+          if (
+            decision.clear &&
+            pilotId &&
+            clearDraftAfterAck({
+              pilotId,
+              projectId: params.projectId,
+              sentVersion: decision.sentVersion,
+              currentVersion: draftVersionRef.current,
+            })
+          ) {
+            setDraft("");
+          }
+          // choice / legacy / newer edit → leave draft & sessionStorage intact
         }
-        if (String(j.status ?? "") === "UNKNOWN") {
+        if (status === "UNKNOWN") {
           setChoiceFrozen(true);
         } else {
           setChoiceFrozen(false);
@@ -1289,7 +1309,16 @@ export default function ProjectPage() {
     const text = (overrideText ?? draft).trim();
     if (!text || !preparationId) return;
     const fromChoice = opts?.fromChoice === true;
-    const sentVersion = fromChoice ? 0 : draftVersionRef.current;
+    const sentVersion = fromChoice ? null : draftVersionRef.current;
+    const pendingMeta: Pick<
+      ThreadPendingTurn,
+      "origin" | "sentDraftVersion" | "projectId" | "pilotId"
+    > = {
+      origin: fromChoice ? "choice" : "composer",
+      sentDraftVersion: sentVersion,
+      projectId: params.projectId,
+      pilotId: pilotIdRef.current,
+    };
     setChoiceFrozen(true);
     setForceStickToken((t) => t + 1);
     // SEM-02 / S05: no client lexical gate. Server returns nextTurnKind from Nora
@@ -1310,6 +1339,12 @@ export default function ProjectPage() {
     }
     const clientTurnKey = messageTurnKeyRef.current.key;
     const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
+    const buildPending = (): ThreadPendingTurn => ({
+      content: text,
+      clientTurnKey,
+      clientCommandKey,
+      ...pendingMeta,
+    });
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
@@ -1334,7 +1369,7 @@ export default function ProjectPage() {
           Boolean(pendingBefore) && pendingBefore!.clientTurnKey !== clientTurnKey;
         // Remember effect turns for ACK recovery — never let B overwrite unresolved A.
         if (serverKind === "INTENTION_EFFET" && !effectBlocked && !distinctFromUnresolved) {
-          rememberPending({ content: text, clientTurnKey, clientCommandKey });
+          rememberPending(buildPending());
         } else if (distinctFromUnresolved && pendingBefore) {
           rememberPending(pendingBefore);
         }
@@ -1352,7 +1387,7 @@ export default function ProjectPage() {
           applyClearFromResponse(String(j.status ?? ""), effect, {
             preserveUnresolvedMetierPending: preserveMetierPending,
           });
-        if (!fromChoice && shouldClearDraft) {
+        if (!fromChoice && shouldClearDraft && typeof sentVersion === "number") {
           if (
             pilotId &&
             clearDraftAfterAck({
@@ -1395,7 +1430,7 @@ export default function ProjectPage() {
       } else {
         // ACK lost / HTTP error — retain turn key; KEEP choices frozen (server may have applied).
         setChoiceFrozen(true);
-        rememberPending({ content: text, clientTurnKey, clientCommandKey });
+        rememberPending(buildPending());
         setNoraActivity("error");
         setStatus(
           res.status === 409
@@ -1406,7 +1441,7 @@ export default function ProjectPage() {
     } catch {
       // Network loss after click: fail closed — freeze until reconcile proves outcome.
       setChoiceFrozen(true);
-      rememberPending({ content: text, clientTurnKey, clientCommandKey });
+      rememberPending(buildPending());
       setNoraActivity("error");
       setStatus("échec réseau — intention de tour conservée");
     } finally {
