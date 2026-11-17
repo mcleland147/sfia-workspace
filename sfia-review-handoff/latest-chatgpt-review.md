@@ -1,1312 +1,363 @@
 # SFIA Studio Next — Review Pack Full
-## Ensemble 04 — Régularisation preuves CP01/CP02 + Cutover RECETTE
+## Ensemble 05 — Qualification technique intégrée (Travail avec Nora)
 
-**Date** : 2026-11-17
-**Cycle** : R5 / ML4D — qualification + mise à disposition (cycle unique)
-**GO Morris** : explicite — régularisation ET cutover dans le même cycle
-**Candidat** : `984d77a36695c2f59ebbc18619e54eeeb43ad94e`
-**Parent** : `351aea9607c5997f7343212a837dd13c0f1e4429`
-**Verdict** : **ENSEMBLE 04 — CP01/CP02 QUALIFIED — RECETTE DEPLOYED AND SMOKE VERIFIED**
+**Date** : 2026-11-17 11:02 CET
+**Type** : 6 — Architecture technique / EVOL — préparation
+**Profil** : Standard — lecture seule
+**Macro-lot** : R5 / ML4D — Ensemble 05
+**Verdict** : **TECHNICAL QUALIFICATION READY WITH RESERVES**
 
 ```text
-READY FOR MORRIS VISUAL RECETTE
-http://127.0.0.1:3200
-NO PROJECT PUSH / NO PR / NO MERGE
-NO STABLE / GATE C OPEN / ML5 NOT STARTED / NO ADOPTED
+NO IMPLEMENTATION
+NO PRODUCT FILE CREATED OR MODIFIED
+NO RELEASE — READ ONLY
+ENV-01 : N/A — READ ONLY
+MORRIS REVIEW REQUIRED before Delivery
+Gate C OPEN / ML5 NOT STARTED / NO ADOPTED
 ```
 
 ---
 
-# PARTIE A — QUALIFICATION CANDIDAT
-
-## A1. Git Truth Check
+## 1. Git Truth Check
 
 | Item | Valeur |
 |------|--------|
-| Repo | `mcleland147/sfia-workspace` |
-| Branche | `feat/next-ml4d-project-space-20261116` |
-| HEAD / candidat | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
+| Workspace | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
+| Origin | `https://github.com/mcleland147/sfia-workspace.git` |
+| Branche active | `feat/next-ml4d-project-space-20261116` |
+| HEAD local | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
 | Tree | `b92cc822ac67399c6d8753c17dbcce5f4b5b734f` |
 | Parent | `351aea9607c5997f7343212a837dd13c0f1e4429` |
-| `origin/main` | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| Amend / rebase / nouveau candidat ce cycle | **Non** |
-| Modification code produit ce cycle | **Aucune** |
-| Worktree produit | propre hors `.tmp-sfia-review/` |
-| Candidat poussé | Non (local) |
-
-### Inventaire fichiers touchés (351aea96..984d77a3)
-
-```
-projects/sfia-studio-next/construction/delivery-history.md
-projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/manifest.json
-projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/runtime-journal-nav-1680x970.png (binaire)
-projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/runtime-projet-overview-1680x970.png (binaire)
-projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/runtime-travail-1680x970.png (binaire)
-projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/runtime-travail-long-name-1680x970.png (binaire)
-projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-projects/sfia-studio-next/web/src/components/figma/tokens.css
-projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-projects/sfia-studio-next/web/tests/e2e/ensemble04-cp01-cp02-correction.spec.ts (créé)
-```
-
-Diffstat : 10 files, +479 / −53.
-
-## A2. Diagnostic CP01 / CP02 (reconstitué)
-
-**CP01** : le bandeau pending était rendu *dans* `.fig-travail-composer` (`max-height:160px`). Le contenu peignait hors boîte ; la ligne grid restait ~160px ; le shell `overflow:hidden` clipait le bouton Réconcilier. Correctif : pile `fig-travail-composer-stack` avec bandeau *au-dessus* de la carte Figma ; scroll maîtrisé desktop ; en ≤1100px `max-height:none` pour éviter sous-dimensionnement + `align-self:start` (anti-chevauchement).
-
-**CP02** : rail desktop volontairement `hidden md:flex`. Navigation mobile = `studio-rail-mobile` + testids `nav-*`. Pas de second système de navigation.
-
-**Pas de nouveau moteur pending** : mêmes props `unresolvedPending` / `onReconcile` / sessionStorage ; seule la géométrie change.
-
-## A3. Fichier créé — contenu complet
-### `ensemble04-cp01-cp02-correction.spec.ts`
-
-```typescript
-import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
-import { test, expect } from "@playwright/test";
-import fs from "fs";
-import path from "path";
-
-const OUT =
-  process.env.CP_CORRECTION_OUT ||
-  path.resolve(__dirname, "../../../.tmp-sfia-review/cp01-cp02-correction");
-
-async function loginAndCreateProject(page: import("@playwright/test").Page, label: string) {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  const projectName = `${label} ${Date.now()}`;
-  await page.getByTestId("portfolio-new-prep").click();
-  await page.waitForURL("**/preparations/**");
-  await page.getByTestId("prep-draft").fill(`${label} draft`);
-  await page.getByTestId("prep-send").click();
-  await expect(
-    page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false }),
-  ).toBeVisible({ timeout: 30000 });
-  await seedInspectedNameViaApi(page, { name: projectName, summary: label });
-  await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-  await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 15000 });
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
-  await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-    "data-project-load-state",
-    "ready",
-    { timeout: 20000 },
-  );
-  return { projectId: projectId!, projectName };
-}
-
-async function seedPending(
-  page: import("@playwright/test").Page,
-  projectId: string,
-  stamp: string,
-) {
-  await page.evaluate(
-    ({ id, stamp: s }) => {
-      sessionStorage.setItem(
-        `sfia.thread.pending:${id}`,
-        JSON.stringify({
-          content: `Intention incertaine ${s}`,
-          clientTurnKey: `ctk_${s}`,
-          clientCommandKey: `conv-auth:ctk_${s}`,
-        }),
-      );
-    },
-    { id: projectId, stamp },
-  );
-  await page.reload();
-  await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
-  await expect(page.getByTestId("thread-reconcile-pending")).toBeVisible();
-}
-
-type Geom = {
-  viewport: { w: number; h: number };
-  composer: { top: number; bottom: number; h: number; maxHeight: string };
-  banner: { top: number; bottom: number; h: number } | null;
-  reconcile: {
-    top: number;
-    bottom: number;
-    fullyInViewport: boolean;
-    reachableViaStackScroll: boolean;
-    clippedByHiddenAncestor: boolean;
-  } | null;
-  thread: { bottom: number };
-  overlapThread: boolean;
-  stack: { overflowY: string; maxHeight: string; scrollHeight: number; clientHeight: number } | null;
-  pass: boolean;
-  reason: string;
-};
-
-async function measurePendingGeom(page: import("@playwright/test").Page): Promise<Geom> {
-  return page.evaluate(() => {
-    const composer = document.querySelector('[data-testid="nora-composer"]') as HTMLElement;
-    const banner = document.querySelector('[data-testid="thread-pending-banner"]') as HTMLElement | null;
-    const reconcile = document.querySelector(
-      '[data-testid="thread-reconcile-pending"]',
-    ) as HTMLElement | null;
-    const thread = document.querySelector('[data-testid="nora-thread"]') as HTMLElement;
-    const panel = document.querySelector(
-      '[data-testid="nora-conversation-panel"]',
-    ) as HTMLElement;
-    const stack = document.querySelector('[data-testid="nora-composer-stack"]') as HTMLElement | null;
-
-    const rect = (el: HTMLElement) => {
-      const b = el.getBoundingClientRect();
-      return { top: b.top, bottom: b.bottom, h: b.height, left: b.left, right: b.right };
-    };
-    const c = rect(composer);
-    const t = rect(thread);
-    const b = banner ? rect(banner) : null;
-    const r = reconcile ? rect(reconcile) : null;
-    const csComposer = getComputedStyle(composer);
-    const csStack = stack ? getComputedStyle(stack) : null;
-
-    let clippedByHiddenAncestor = false;
-    if (reconcile) {
-      let el: HTMLElement | null = reconcile;
-      const rb = reconcile.getBoundingClientRect();
-      while (el) {
-        const cs = getComputedStyle(el);
-        if (
-          (cs.overflow === "hidden" || cs.overflowY === "hidden") &&
-          el !== reconcile &&
-          el !== banner
-        ) {
-          const er = el.getBoundingClientRect();
-          // Control extends past a clipping ancestor (and ancestor is not a scrollport).
-          if (rb.bottom > er.bottom + 1 && cs.overflowY === "hidden") {
-            // Allow stack overflow:auto as managed scroll.
-            if (el.getAttribute("data-testid") !== "nora-composer-stack") {
-              clippedByHiddenAncestor = true;
-              break;
-            }
-          }
-        }
-        el = el.parentElement;
-      }
-    }
-
-    let reachableViaStackScroll = false;
-    if (reconcile && stack) {
-      const before = reconcile.getBoundingClientRect();
-      const fullyBefore =
-        before.top >= 0 && before.bottom <= window.innerHeight + 0.5;
-      if (!fullyBefore && stack.scrollHeight > stack.clientHeight + 1) {
-        reconcile.scrollIntoView({ block: "nearest", inline: "nearest" });
-        const after = reconcile.getBoundingClientRect();
-        reachableViaStackScroll =
-          after.top >= -0.5 && after.bottom <= window.innerHeight + 0.5;
-      } else {
-        reachableViaStackScroll = fullyBefore;
-      }
-    }
-
-    const fullyInViewport = r
-      ? r.top >= -0.5 && r.bottom <= window.innerHeight + 0.5
-      : false;
-    const p = rect(panel);
-    // Overlap against the conversation panel (not inner thread scrollport).
-    const overlapThread = Boolean(
-      b && b.top < p.bottom - 1 && b.bottom > p.top + 1 && b.left < p.right && b.right > p.left,
-    );
-
-    const reachable = fullyInViewport || reachableViaStackScroll;
-    let reason = "ok";
-    let pass = true;
-    if (!r || !b) {
-      pass = false;
-      reason = "missing pending controls";
-    } else if (overlapThread) {
-      pass = false;
-      reason = "overlap thread";
-    } else if (clippedByHiddenAncestor && !reachable) {
-      pass = false;
-      reason = "clipped and unreachable";
-    } else if (!reachable) {
-      pass = false;
-      reason = "reconcile not reachable";
-    } else if (parseFloat(csComposer.maxHeight) > 0 && c.h > parseFloat(csComposer.maxHeight) + 1) {
-      // composer card itself must still honor nominal max-height
-      pass = false;
-      reason = "composer exceeded max-height";
-    }
-
-    return {
-      viewport: { w: window.innerWidth, h: window.innerHeight },
-      composer: { top: c.top, bottom: c.bottom, h: c.h, maxHeight: csComposer.maxHeight },
-      banner: b ? { top: b.top, bottom: b.bottom, h: b.h } : null,
-      reconcile: r
-        ? {
-            top: r.top,
-            bottom: r.bottom,
-            fullyInViewport,
-            reachableViaStackScroll,
-            clippedByHiddenAncestor,
-          }
-        : null,
-      thread: { bottom: t.bottom },
-      overlapThread,
-      stack: stack
-        ? {
-            overflowY: csStack!.overflowY,
-            maxHeight: csStack!.maxHeight,
-            scrollHeight: stack.scrollHeight,
-            clientHeight: stack.clientHeight,
-          }
-        : null,
-      pass,
-      reason,
-    };
-  });
-}
-
-test.describe("Ensemble 04 CP01/CP02 correction gates", () => {
-  test("CP01-A..E geometry + CP02 navigation contracts", async ({ page }) => {
-    fs.mkdirSync(OUT, { recursive: true });
-    const results: Record<string, unknown> = { at: new Date().toISOString() };
-
-    // --- CP01-A nominal 1680×970 ---
-    await page.setViewportSize({ width: 1680, height: 970 });
-    const { projectId } = await loginAndCreateProject(page, "CP corr");
-    await expect(page.getByTestId("nora-composer")).toBeVisible();
-    await expect(page.getByTestId("thread-pending-banner")).toHaveCount(0);
-
-    const nominal = await page.evaluate(() => {
-      const composer = document.querySelector('[data-testid="nora-composer"]') as HTMLElement;
-      const panel = document.querySelector(
-        '[data-testid="nora-conversation-panel"]',
-      ) as HTMLElement;
-      const stack = document.querySelector('[data-testid="nora-composer-stack"]') as HTMLElement;
-      const c = composer.getBoundingClientRect();
-      const p = panel.getBoundingClientRect();
-      return {
-        composerH: c.height,
-        maxHeight: getComputedStyle(composer).maxHeight,
-        gap: Math.round(c.top - p.bottom),
-        separate: !panel.contains(composer),
-        stackPending: stack.getAttribute("data-pending"),
-        bottomSlack: Math.round(window.innerHeight - c.bottom),
-      };
-    });
-    await page.screenshot({ path: path.join(OUT, "cp01a-nominal-1680x970.png"), fullPage: false });
-    expect(nominal.separate).toBe(true);
-    expect(nominal.composerH).toBeLessThanOrEqual(160);
-    expect(nominal.gap).toBeGreaterThanOrEqual(18);
-    expect(nominal.gap).toBeLessThanOrEqual(32);
-    expect(nominal.stackPending).toBe("0");
-    results["CP01-A"] = { pass: true, nominal };
-
-    // --- CP01-B..E pending viewports ---
-    const pendingViewports = [
-      { id: "CP01-B", w: 1680, h: 970 },
-      { id: "CP01-C", w: 1280, h: 600 },
-      { id: "CP01-D", w: 1024, h: 768 },
-      { id: "CP01-E", w: 390, h: 844 },
-    ];
-
-    for (const vp of pendingViewports) {
-      await page.setViewportSize({ width: vp.w, height: vp.h });
-      await page.goto(`/projects/${projectId}?surface=travail`);
-      await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-        "data-project-load-state",
-        "ready",
-        { timeout: 20000 },
-      );
-      await seedPending(page, projectId, `${vp.id}_${Date.now()}`);
-      const geom = await measurePendingGeom(page);
-      await page.screenshot({
-        path: path.join(OUT, `${vp.id.toLowerCase()}-pending-${vp.w}x${vp.h}.png`),
-        fullPage: false,
-      });
-      fs.writeFileSync(path.join(OUT, `${vp.id.toLowerCase()}-geom.json`), JSON.stringify(geom, null, 2));
-
-      // Focus + activate reconcile without losing pending authority (busy=false → clickable)
-      await page.getByTestId("thread-reconcile-pending").focus();
-      await expect(page.getByTestId("thread-reconcile-pending")).toBeFocused();
-      await expect(page.getByTestId("thread-reconcile-pending")).toBeEnabled();
-      await expect(page.getByTestId("nora-composer")).toBeVisible();
-
-      expect(geom.pass, `${vp.id}: ${geom.reason} ${JSON.stringify(geom)}`).toBe(true);
-      results[vp.id] = { pass: true, geom };
-    }
-
-    // --- CP02 navigation ---
-    const navCases = [
-      { name: "desktop", w: 1680, h: 970, expectDesktopRail: true },
-      { name: "mid", w: 1024, h: 768, expectDesktopRail: true },
-      { name: "mobile", w: 390, h: 844, expectDesktopRail: false },
-    ];
-    const navResults: Record<string, unknown> = {};
-
-    for (const vp of navCases) {
-      await page.setViewportSize({ width: vp.w, height: vp.h });
-      await page.goto(`/projects/${projectId}?surface=travail`);
-      await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-        "data-project-load-state",
-        "ready",
-        { timeout: 20000 },
-      );
-
-      const desktopRail = page.getByTestId("studio-rail");
-      const mobileRail = page.getByTestId("studio-rail-mobile");
-      if (vp.expectDesktopRail) {
-        await expect(desktopRail).toBeVisible();
-      } else {
-        await expect(desktopRail).toBeHidden();
-        await expect(mobileRail).toBeVisible();
-      }
-
-      const navRoot = vp.expectDesktopRail ? desktopRail : mobileRail;
-      // Four project surfaces (Trajectoire deep-link key remains pilotage).
-      const surfaces: Array<{ testId: string; surfaceQuery: string }> = [
-        { testId: "nav-travail", surfaceQuery: "travail" },
-        { testId: "nav-projet", surfaceQuery: "projet" },
-        { testId: "nav-journal", surfaceQuery: "journal" },
-        { testId: "nav-pilotage", surfaceQuery: "pilotage" },
-      ];
-      for (const s of surfaces) {
-        await navRoot.getByTestId(s.testId).click();
-        await expect(page).toHaveURL(new RegExp(`surface=${s.surfaceQuery}`));
-      }
-
-      // Back to Travail
-      await navRoot.getByTestId("nav-travail").click();
-      await expect(page).toHaveURL(/surface=travail/);
-      await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
-
-      // Portfolio access (same destinations as desktop rail)
-      await navRoot.getByTestId("nav-portfolio").click();
-      await expect(page).toHaveURL(/\/portfolio/);
-      // Return to project
-      await page.goto(`/projects/${projectId}?surface=travail`);
-      await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-        "data-project-load-state",
-        "ready",
-        { timeout: 20000 },
-      );
-
-      const bleed = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      );
-      await page.screenshot({
-        path: path.join(OUT, `cp02-${vp.name}-${vp.w}x${vp.h}.png`),
-        fullPage: false,
-      });
-      expect(bleed).toBeLessThan(24);
-      navResults[vp.name] = { pass: true, bleed, expectDesktopRail: vp.expectDesktopRail };
-    }
-
-    results.CP02 = { pass: true, navResults };
-    fs.writeFileSync(path.join(OUT, "results.json"), JSON.stringify(results, null, 2));
-    console.log("CP_CORRECTION_RESULTS", JSON.stringify(results));
-  });
-});
-
-```
-
-## A4. Diffs unifiés complets
-
-### NoraConversation.tsx
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-index 08296c92..3d305771 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-@@ -106,43 +106,18 @@ export function NoraConversation(props: {
-         </div>
-       </section>
-
-+      {/*
-+        Pending banner lives outside the Figma-sized composer card so
-+        max-height:160px never clips reconcile controls under the shell lock.
-+      */}
-       <div
--        className="fig-composer fig-travail-composer"
--        data-testid="nora-composer"
-+        className="fig-travail-composer-stack"
-+        data-testid="nora-composer-stack"
-+        data-pending={props.unresolvedPending ? "1" : "0"}
-       >
--        <textarea
--          className="fig-travail-composer-input"
--          value={props.draft}
--          onChange={(e) => props.onDraft(e.target.value)}
--          placeholder="Écrire à Nora dans ce projet…"
--          aria-label="Message à Nora"
--          data-testid="thread-draft"
--          rows={2}
--          onKeyDown={(e) => {
--            if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
--              e.preventDefault();
--              props.onSend();
--            }
--          }}
--        />
--        <div className="fig-travail-composer-bar">
--          <span className="fig-travail-composer-hint">
--            Votre message reste rattaché au projet actif
--          </span>
--          <button
--            type="button"
--            className="fig-travail-composer-send"
--            disabled={props.busy || !props.draft.trim()}
--            onClick={props.onSend}
--            data-testid="thread-send"
--            aria-label="Envoyer"
--          >
--            <span aria-hidden>↑</span>
--          </button>
--        </div>
-         {props.unresolvedPending && props.onReconcile ? (
--          <div className="space-y-1 mt-2" data-testid="thread-pending-banner">
--            <p className="text-xs muted">
-+          <div className="fig-travail-pending" data-testid="thread-pending-banner">
-+            <p className="fig-travail-pending-copy">
-               Tentative non résolue — réconcilier avant un nouveau tour.
-             </p>
-             <button
-@@ -156,11 +131,43 @@ export function NoraConversation(props: {
-             </button>
-           </div>
-         ) : null}
--        {props.status ? (
--          <p className="sr-only" data-testid="thread-nora-status" role="status">
--            {props.status}
--          </p>
--        ) : null}
-+        <div className="fig-composer fig-travail-composer" data-testid="nora-composer">
-+          <textarea
-+            className="fig-travail-composer-input"
-+            value={props.draft}
-+            onChange={(e) => props.onDraft(e.target.value)}
-+            placeholder="Écrire à Nora dans ce projet…"
-+            aria-label="Message à Nora"
-+            data-testid="thread-draft"
-+            rows={2}
-+            onKeyDown={(e) => {
-+              if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
-+                e.preventDefault();
-+                props.onSend();
-+              }
-+            }}
-+          />
-+          <div className="fig-travail-composer-bar">
-+            <span className="fig-travail-composer-hint">
-+              Votre message reste rattaché au projet actif
-+            </span>
-+            <button
-+              type="button"
-+              className="fig-travail-composer-send"
-+              disabled={props.busy || !props.draft.trim()}
-+              onClick={props.onSend}
-+              data-testid="thread-send"
-+              aria-label="Envoyer"
-+            >
-+              <span aria-hidden>↑</span>
-+            </button>
-+          </div>
-+          {props.status ? (
-+            <p className="sr-only" data-testid="thread-nora-status" role="status">
-+              {props.status}
-+            </p>
-+          ) : null}
-+        </div>
-       </div>
-
-       {props.aside ? (
-
-```
-
-### tokens.css
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-index 98a26e0b..2023a7b1 100644
---- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
-+++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-@@ -316,6 +316,58 @@
-   margin-bottom: 0;
- }
-
-+/* Stage / workspace grid cell: composer + optional pending (CP01). */
-+.fig-travail-composer-stack {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 10px;
-+  min-width: 0;
-+  min-height: 0;
-+  grid-column: 1;
-+  grid-row: 4;
-+  /* start — never align-self:end with a short grid row (paints upward over the thread). */
-+  align-self: start;
-+  flex-shrink: 0;
-+  overflow-x: hidden;
-+  overflow-y: visible;
-+}
-+
-+.fig-travail-composer-stack[data-pending="1"] {
-+  /*
-+   * Desktop (2-col): conversation is minmax(0,1fr) and yields space; stack may
-+   * scroll internally on very short heights without leaving the shell lock.
-+   * Avoid overflow:auto alone without a definite height — it under-sizes the
-+   * grid row and overlaps the conversation in single-column breakpoints.
-+   */
-+  max-height: min(50vh, 360px);
-+  overflow-y: auto;
-+  overscroll-behavior: contain;
-+  /* Include full pending+composer in grid max-content contribution. */
-+  min-height: min-content;
-+}
-+
-+.fig-travail-workspace > .fig-travail-composer-stack {
-+  grid-row: 2;
-+}
-+
-+.fig-travail-pending {
-+  flex-shrink: 0;
-+  display: flex;
-+  flex-direction: column;
-+  gap: 8px;
-+  border: 1px solid #272e49;
-+  border-radius: 12px;
-+  padding: 10px 12px;
-+  background: #151c29;
-+}
-+
-+.fig-travail-pending-copy {
-+  margin: 0;
-+  color: #94a2bb;
-+  font-size: 12px;
-+  line-height: 1.4;
-+}
-+
- .fig-travail-composer {
-   display: flex;
-   flex-direction: column;
-@@ -328,13 +380,7 @@
-   min-height: 118px;
-   max-height: 160px;
-   flex-shrink: 0;
--  grid-column: 1;
--  grid-row: 4;
--  align-self: end;
--}
--
--.fig-travail-workspace > .fig-travail-composer {
--  grid-row: 2;
-+  width: 100%;
- }
-
- .fig-travail-composer-input {
-@@ -1428,9 +1474,10 @@
-   translate: 0 -13px;
- }
-
--.project-travail-stage > .fig-travail-composer {
-+.project-travail-stage > .fig-travail-composer-stack {
-   margin-top: 0;
--  align-self: stretch;
-+  align-self: start;
-+  justify-self: stretch;
- }
-
- .project-space-page .fig-tag {
-@@ -1453,12 +1500,22 @@
-   .fig-travail-intro,
-   .fig-travail-intro-rule,
-   .fig-conversation-panel,
--  .fig-travail-composer,
-+  .fig-travail-composer-stack,
-   .fig-travail-aside {
-     grid-column: 1;
-     grid-row: auto;
-   }
-
-+  /*
-+   * Stacked layout already unlocks page overflow. Let the grid row grow to
-+   * pending+composer so controls never overlay the conversation panel.
-+   */
-+  .fig-travail-composer-stack[data-pending="1"] {
-+    max-height: none;
-+    overflow-y: visible;
-+    min-height: 0;
-+  }
-+
-   .fig-conversation-panel {
-     min-height: 280px;
-     max-height: min(60vh, 520px);
-
-```
-
-### StudioShell.tsx
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-index 1c0ecba1..ebb8332d 100644
---- a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-+++ b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-@@ -447,7 +447,12 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
-             {items.map((item) => {
-               if (!item.href) {
-                 return (
--                  <span key={item.key} className="muted whitespace-nowrap" title={item.disabledReason}>
-+                  <span
-+                    key={item.key}
-+                    className="muted whitespace-nowrap"
-+                    title={item.disabledReason}
-+                    data-testid={`nav-disabled-${item.key}`}
-+                  >
-                     {item.label}
-                   </span>
-                 );
-@@ -458,6 +463,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
-                   href={item.href}
-                   className={`whitespace-nowrap ${item.active ? "font-semibold" : ""}`}
-                   aria-current={item.active ? "page" : undefined}
-+                  data-testid={`nav-${item.key}`}
-                   onClick={() => {
-                     const surfaceKey = parseStudioSurface(item.key);
-                     if (projectId && surfaceKey) {
-
-```
-
-### delivery-history.md
-
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index e196ea73..61738fe9 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,22 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-
-+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-04-CP01-CP02
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-17 ~00:10 CET |
-+| Macro-lot | ML4D Ensemble 04 — correction bloquants CP01/CP02 |
-+| Type | RUN / correction candidat · **NO RELEASE** |
-+| Parent candidat | `351aea9607c5997f7343212a837dd13c0f1e4429` |
-+| Branch | `feat/next-ml4d-project-space-20261116` |
-+| Scope | Compositeur adaptable: bandeau reprise hors max-height 160px; stack scroll maîtrisé; testids nav mobile; tests CP01-A..E / CP02 |
-+| Non-scope | Cutover RECETTE; API/DB; Ensemble 05; redesign Figma; push projet |
-+| Preuves | CP01-A..E PASS; CP02 PASS; E04+T13/T16+F2+long-thread PASS; next build PASS; vitest studio-rail 13 PASS; tsc 32 parent réserve |
-+| RECETTE | **inchangée** `:3200` SHA `a30e75c7` / BUILD `WUqfWdCB7T2rHzDvk-Hre` |
-+| Push produit | **AUCUN** |
-+| Verdict cible | `ENSEMBLE 04 — CP01/CP02 CORRECTION CANDIDATE READY` |
-+
-
- ## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-VERTICAL-LAYOUT
-
-
-```
-
-### manifest.json (evidence F2)
-
-```diff
-diff --git a/projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/manifest.json b/projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/manifest.json
-index 7595a4ff..4bca569a 100644
---- a/projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/manifest.json
-+++ b/projects/sfia-studio-next/web/docs/evidence/ensemble-04-project-space/manifest.json
-@@ -1,11 +1,11 @@
- {
--  "capturedAt": "2026-11-16T22:39:49.248Z",
-+  "capturedAt": "2026-11-16T23:06:30.157Z",
-   "viewport": {
-     "width": 1680,
-     "height": 970
-   },
--  "projectName": "F2 Espace projet 1794868786051",
--  "projectId": "proj_1bbe7c46-ecfc-4c8a-a88a-9e526b78e196",
-+  "projectName": "F2 Espace projet 1794870387226",
-+  "projectId": "proj_0b4f4996-9d2c-468c-94d8-5c70287d7c21",
-   "frames": {
-     "travail": "652:8",
-     "projet": "652:58",
-
-```
-
-> Captures PNG evidence : binaires locaux sous `web/docs/evidence/ensemble-04-project-space/` — non incorporées dans le handoff.
-
-## A5. Rejeu gate CP01/CP02 + non-régressions
-
-Commandes : Playwright `ensemble04-cp01-cp02-correction` + E04 + F2 + long-thread ; vitest studio-rail ; tsc ; next build worktree.
-
-### results.json
-
-```json
-{
-  "at": "2026-11-16T23:16:55.602Z",
-  "CP01-A": {
-    "pass": true,
-    "nominal": {
-      "composerH": 142,
-      "maxHeight": "160px",
-      "gap": 25,
-      "separate": true,
-      "stackPending": "0",
-      "bottomSlack": 16
-    }
-  },
-  "CP01-B": {
-    "pass": true,
-    "geom": {
-      "viewport": {
-        "w": 1680,
-        "h": 970
-      },
-      "composer": {
-        "top": 812,
-        "bottom": 954,
-        "h": 142,
-        "maxHeight": "160px"
-      },
-      "banner": {
-        "top": 711.609375,
-        "bottom": 802,
-        "h": 90.390625
-      },
-      "reconcile": {
-        "top": 747.40625,
-        "bottom": 791,
-        "fullyInViewport": true,
-        "reachableViaStackScroll": true,
-        "clippedByHiddenAncestor": false
-      },
-      "thread": {
-        "bottom": 669.609375
-      },
-      "overlapThread": false,
-      "stack": {
-        "overflowY": "auto",
-        "maxHeight": "360px",
-        "scrollHeight": 242,
-        "clientHeight": 242
-      },
-      "pass": true,
-      "reason": "ok"
-    }
-  },
-  "CP01-C": {
-    "pass": true,
-    "geom": {
-      "viewport": {
-        "w": 1280,
-        "h": 600
-      },
-      "composer": {
-        "top": 442,
-        "bottom": 584,
-        "h": 142,
-        "maxHeight": "160px"
-      },
-      "banner": {
-        "top": 341.609375,
-        "bottom": 432,
-        "h": 90.390625
-      },
-      "reconcile": {
-        "top": 377.40625,
-        "bottom": 421,
-        "fullyInViewport": true,
-        "reachableViaStackScroll": true,
-        "clippedByHiddenAncestor": false
-      },
-      "thread": {
-        "bottom": 299.609375
-      },
-      "overlapThread": false,
-      "stack": {
-        "overflowY": "auto",
-        "maxHeight": "300px",
-        "scrollHeight": 242,
-        "clientHeight": 242
-      },
-      "pass": true,
-      "reason": "ok"
-    }
-  },
-  "CP01-D": {
-    "pass": true,
-    "geom": {
-      "viewport": {
-        "w": 1024,
-        "h": 768
-      },
-      "composer": {
-        "top": 654.8125,
-        "bottom": 796.8125,
-        "h": 142,
-        "maxHeight": "160px"
-      },
-      "banner": {
-        "top": 554.421875,
-        "bottom": 644.8125,
-        "h": 90.390625
-      },
-      "reconcile": {
-        "top": 590.21875,
-        "bottom": 633.8125,
-        "fullyInViewport": true,
-        "reachableViaStackScroll": true,
-        "clippedByHiddenAncestor": false
-      },
-      "thread": {
-        "bottom": 521.421875
-      },
-      "overlapThread": false,
-      "stack": {
-        "overflowY": "auto",
-        "maxHeight": "none",
-        "scrollHeight": 242,
-        "clientHeight": 242
-      },
-      "pass": true,
-      "reason": "ok"
-    }
-  },
-  "CP01-E": {
-    "pass": true,
-    "geom": {
-      "viewport": {
-        "w": 390,
-        "h": 844
-      },
-      "composer": {
-        "top": 753.171875,
-        "bottom": 895.171875,
-        "h": 142,
-        "maxHeight": "160px"
-      },
-      "banner": {
-        "top": 652.78125,
-        "bottom": 743.171875,
-        "h": 90.390625
-      },
-      "reconcile": {
-        "top": 688.578125,
-        "bottom": 732.171875,
-        "fullyInViewport": true,
-        "reachableViaStackScroll": true,
-        "clippedByHiddenAncestor": false
-      },
-      "thread": {
-        "bottom": 619.78125
-      },
-      "overlapThread": false,
-      "stack": {
-        "overflowY": "auto",
-        "maxHeight": "none",
-        "scrollHeight": 242,
-        "clientHeight": 242
-      },
-      "pass": true,
-      "reason": "ok"
-    }
-  },
-  "CP02": {
-    "pass": true,
-    "navResults": {
-      "desktop": {
-        "pass": true,
-        "bleed": 0,
-        "expectDesktopRail": true
-      },
-      "mid": {
-        "pass": true,
-        "bleed": 0,
-        "expectDesktopRail": true
-      },
-      "mobile": {
-        "pass": true,
-        "bleed": 0,
-        "expectDesktopRail": false
-      }
-    }
-  }
-}
-```
-
-### cp01-b-geom.json
-
-```json
-{
-  "viewport": {
-    "w": 1680,
-    "h": 970
-  },
-  "composer": {
-    "top": 812,
-    "bottom": 954,
-    "h": 142,
-    "maxHeight": "160px"
-  },
-  "banner": {
-    "top": 711.609375,
-    "bottom": 802,
-    "h": 90.390625
-  },
-  "reconcile": {
-    "top": 747.40625,
-    "bottom": 791,
-    "fullyInViewport": true,
-    "reachableViaStackScroll": true,
-    "clippedByHiddenAncestor": false
-  },
-  "thread": {
-    "bottom": 669.609375
-  },
-  "overlapThread": false,
-  "stack": {
-    "overflowY": "auto",
-    "maxHeight": "360px",
-    "scrollHeight": 242,
-    "clientHeight": 242
-  },
-  "pass": true,
-  "reason": "ok"
-}
-```
-
-### cp01-c-geom.json
-
-```json
-{
-  "viewport": {
-    "w": 1280,
-    "h": 600
-  },
-  "composer": {
-    "top": 442,
-    "bottom": 584,
-    "h": 142,
-    "maxHeight": "160px"
-  },
-  "banner": {
-    "top": 341.609375,
-    "bottom": 432,
-    "h": 90.390625
-  },
-  "reconcile": {
-    "top": 377.40625,
-    "bottom": 421,
-    "fullyInViewport": true,
-    "reachableViaStackScroll": true,
-    "clippedByHiddenAncestor": false
-  },
-  "thread": {
-    "bottom": 299.609375
-  },
-  "overlapThread": false,
-  "stack": {
-    "overflowY": "auto",
-    "maxHeight": "300px",
-    "scrollHeight": 242,
-    "clientHeight": 242
-  },
-  "pass": true,
-  "reason": "ok"
-}
-```
-
-### cp01-d-geom.json
-
-```json
-{
-  "viewport": {
-    "w": 1024,
-    "h": 768
-  },
-  "composer": {
-    "top": 654.8125,
-    "bottom": 796.8125,
-    "h": 142,
-    "maxHeight": "160px"
-  },
-  "banner": {
-    "top": 554.421875,
-    "bottom": 644.8125,
-    "h": 90.390625
-  },
-  "reconcile": {
-    "top": 590.21875,
-    "bottom": 633.8125,
-    "fullyInViewport": true,
-    "reachableViaStackScroll": true,
-    "clippedByHiddenAncestor": false
-  },
-  "thread": {
-    "bottom": 521.421875
-  },
-  "overlapThread": false,
-  "stack": {
-    "overflowY": "auto",
-    "maxHeight": "none",
-    "scrollHeight": 242,
-    "clientHeight": 242
-  },
-  "pass": true,
-  "reason": "ok"
-}
-```
-
-### cp01-e-geom.json
-
-```json
-{
-  "viewport": {
-    "w": 390,
-    "h": 844
-  },
-  "composer": {
-    "top": 753.171875,
-    "bottom": 895.171875,
-    "h": 142,
-    "maxHeight": "160px"
-  },
-  "banner": {
-    "top": 652.78125,
-    "bottom": 743.171875,
-    "h": 90.390625
-  },
-  "reconcile": {
-    "top": 688.578125,
-    "bottom": 732.171875,
-    "fullyInViewport": true,
-    "reachableViaStackScroll": true,
-    "clippedByHiddenAncestor": false
-  },
-  "thread": {
-    "bottom": 619.78125
-  },
-  "overlapThread": false,
-  "stack": {
-    "overflowY": "auto",
-    "maxHeight": "none",
-    "scrollHeight": 242,
-    "clientHeight": 242
-  },
-  "pass": true,
-  "reason": "ok"
-}
-```
-
-### Synthèse gates
-
-| Contrôle | Résultat |
-|----------|----------|
-| CP01-A..E | **PASS** |
-| CP02 desktop/mid/mobile | **PASS** |
-| E04 + T13 + T16 | **PASS** |
-| F2 | **PASS** |
-| long-thread | **PASS** |
-| Vitest studio-rail | **PASS** 13/13 |
-| tsc | **32** erreurs parent UX-005 (réserve) |
-| Next build worktree | **PASS** → BUILD_ID `3LzvYPTQc-Km7St6nF97r` |
-
-Vitest GitHub App lane : 3 FAIL préexistants (config lane) — hors impact candidat UX.
-
-Captures locales : `.tmp-sfia-review/cutover-984d77a3/cp/` (`cp01a-nominal-1680x970.png`, `cp01-b-pending-…`, etc.).
-
-## A6. Limites Fake/Real
-
-- Gates CP01/CP02 et non-régressions : **DEV / fixture Nora** — ≠ LIVE.
-- Smoke RECETTE : structurelles + DEV test login portfolio ; surfaces projet Morris = **USER_RECETTE_REQUIRED**.
+| `origin/main` | `997d4c4e8204993de7107552898c8cc08cd3b0ed` (**match** ref ChatGPT) |
+| Branche docs | `origin/docs/next-ml4d-registre-revues-20261116` = `1364471d2f040217132fd0be24030ef7a61d4135` (**match**) |
+| Handoff tip observé | `c35f0bbd0f3024f06c729511ad4c8824354e418e` (cycle cutover précédent) |
+| Staged / untracked produit | **aucun** |
+| Diff hors pack | `.tmp-sfia-review/chatgpt-review.md` seulement |
+| RECETTE observée | `:3200` HTTP 200 ; BUILD `3LzvYPTQc-Km7St6nF97r` ; LaunchAgent → worktree `…-984d77a3` ; `SFIA_SOURCE_SHA` attendu `984d77a3` |
+
+**Distinction stricte :** `main` (baseline Git) ≠ branche docs ML4D (contrats UX/tech candidats) ≠ branche produit locale `984d77a3` ≠ runtime RECETTE (même SHA candidat actuellement servi).
+
+Aucun nettoyage/checkout/rebase effectué.
 
 ---
 
-# PARTIE B — CUTOVER
+## 2. Sources lues (ref + blob)
 
-## B1. GO et préconditions
+### Gouvernance / architecture (`origin/main`)
 
-GO Morris explicite cycle unique. Gate local pré-cutover **PASS** (fichier `gate-local-pre-cutover.json`).
+| Source | Blob |
+|--------|------|
+| `governance/SEF.md` | `ef85ba1eda6ce5eaddd75eca3ca299a10cd05ad4` |
+| `governance/roadmap.md` | `1be3e58d734bbb8ff88a4308020dc82e78c97cf7` |
+| `governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md` | `a9f7823128fe5652d3b80df2fd3df98d2e5fc99e` |
+| `governance/product-naming-conventions.md` | `9cdd253d84b73260b624c8856a62e6fbb5e7c87e` |
+| `governance/environnements-recette-et-promotions.md` | `14b61f0d1265cf85fcca09b028dd09bd8c71597f` |
+| `governance/product-versioning.md` | `8bc93e0fafac0f981c446e978a37f5f93d183875` |
+| `cadrage/vision-cible/README.md` | `3854bf75b321b7d5409807a0116267355764d8b5` |
+| `architecture-technique/cadrage-r4.md` | `4d54ced7f3ea5be4b81b138ea4d0fe4993335c22` |
+| `architecture-technique/contrat-observabilite-transverse.md` | `ee4f56624282ad0d8eddf97342aeb83a9efee207` |
 
-## B2. RECETTE avant
+ENV-01 / versioning : **pas de divergence** vs blobs cités par le mandat. Applicabilité cycle : **N/A — READ ONLY** / **NO RELEASE — READ ONLY**. STABLE : NOT AVAILABLE.
 
-- URL `http://127.0.0.1:3200`
-- SHA `a30e75c77f4eed4f14cbcb8f83bb6521d571b3c6`
-- BUILD `WUqfWdCB7T2rHzDvk-Hre`
-- LaunchAgent `com.sfia.studio.next.recette.ml4d-ux004`
+### Contrats Ensemble 05 (`origin/docs/next-ml4d-registre-revues-20261116@1364471d`)
 
-## B3. Sauvegarde / rollback
+| Source | Blob | Statut |
+|--------|------|--------|
+| `conception-ux-travail-avec-nora.md` | `dc5ef25f53e9b819965fac3981d430e59298825f` | **VALIDATED SPEC Morris** v0.7 |
+| `contrat-technique-travail-avec-nora.md` | `f584bfc44e7b238de55d33c79c4028e0bbdf6e0e` | **CANDIDATE / DOCUMENTED** v0.1 — **non adopté** |
+| `registre-central-revues.md` | `26268494daba4e1790f5cac60f9f0333b360ecef` | v0.13 |
 
-Emplacement hors Git : `/Users/morris/Projects/sfia-recette-backups/ml4d-e04-20261117-pre-984d77a3/`
+Ces fichiers sont **absents** de HEAD produit `984d77a3` (KNOWN GAP docs↔produit branch).
 
-- Dump custom `sfia_next_recette_ml4_pre_984d77a3.dump` (~526249 bytes, sha256 `dc14fcb1…`)
-- TOC 240 entries ; public tables **33**
-- Plist + start script a30e75c7 préservés
-- Worktree rollback conservé : `…-ensemble04-recette-build-a30e75c7`
-- **Pas de restauration auto DB**
+### Doctrines v3 (`origin/main`)
 
-## B4. Build immuable
+- `30-knowledge-context-human-decision-doctrine.md`
+- `34-agent-capabilities-reversibility-and-execution-governance.md`
+- `35-artifact-evidence-debt-and-controlled-learning.md`
+- `37-studio-v3-foundations-and-consolidation-decision-pack.md`
 
-- Worktree : `…-ensemble04-recette-build-984d77a3` @ `984d77a3` (clean)
-- `npm ci --include=dev` puis `next build` (env RECETTE sourcée en mémoire, aucun `.env` écrit dans le worktree)
-- BUILD_ID : `3LzvYPTQc-Km7St6nF97r`
-- Aucune migration dans le diff candidat
+### Contrats fonctionnels D3/D4/D6/D7/D8/D9 + SFIA v2.6
 
-## B5. Mutation LaunchAgent
+Lus depuis `origin/main` (chemins `conception-fonctionnelle/*`, guides method/templates). CKC Architecture technique : guide cognitif candidate, **sans autorité d'exécution**.
 
-Diff plist (chemins uniquement) :
+### Code analysé
 
-```diff
---- /Users/morris/Projects/sfia-recette-backups/ml4d-e04-20261117-pre-984d77a3/com.sfia.studio.next.recette.ml4d-ux004.plist.pre-984d77a3	2026-11-17 00:16:17
-+++ /Users/morris/Projects/sfia-recette-backups/ml4d-e04-20261117-pre-984d77a3/com.sfia.studio.next.recette.ml4d-ux004.plist.post-984d77a3	2026-11-17 00:19:32
-@@ -2,26 +2,26 @@
- <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
- <plist version="1.0">
- <dict>
--  <key>Label</key>
--  <string>com.sfia.studio.next.recette.ml4d-ux004</string>
--  <key>ProgramArguments</key>
--  <array>
--    <string>/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-a30e75c7/start-recette-ensemble04-a30e75c7.sh</string>
--  </array>
--  <key>WorkingDirectory</key>
--  <string>/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-a30e75c7/projects/sfia-studio-next/web</string>
--  <key>RunAtLoad</key>
--  <true/>
--  <key>KeepAlive</key>
--  <true/>
--  <key>StandardOutPath</key>
--  <string>/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-a30e75c7/launchd.out.log</string>
--  <key>StandardErrorPath</key>
--  <string>/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-a30e75c7/launchd.err.log</string>
--  <key>EnvironmentVariables</key>
--  <dict>
--    <key>PATH</key>
--    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
--  </dict>
-+	<key>EnvironmentVariables</key>
-+	<dict>
-+		<key>PATH</key>
-+		<string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
-+	</dict>
-+	<key>KeepAlive</key>
-+	<true/>
-+	<key>Label</key>
-+	<string>com.sfia.studio.next.recette.ml4d-ux004</string>
-+	<key>ProgramArguments</key>
-+	<array>
-+		<string>/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3/start-recette-ensemble04-984d77a3.sh</string>
-+	</array>
-+	<key>RunAtLoad</key>
-+	<true/>
-+	<key>StandardErrorPath</key>
-+	<string>/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3/launchd.err.log</string>
-+	<key>StandardOutPath</key>
-+	<string>/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3/launchd.out.log</string>
-+	<key>WorkingDirectory</key>
-+	<string>/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3/projects/sfia-studio-next/web</string>
- </dict>
- </plist>
+HEAD produit `984d77a3` (également servi en RECETTE) + comparaison mentale à `main@997d4c4e` pour les écarts déjà notés dans le contrat technique candidat. Fichiers principaux : `page.tsx`, `NoraConversation.tsx`, `SafeMarkdown.tsx`, `tokens.css`, `StudioShell.tsx`, `DocumentSurfaces.tsx`, `domains/conversation/*`, `domains/pilotage/*`, API preparations/messages, tests ML4C/Ensemble04.
 
-```
+---
 
-Procédure : bootout → install plist → bootstrap/kickstart → un listener `:3200` → HTTP 200 → BUILD match → `SFIA_SOURCE_SHA=984d77a3` dans le process.
+## 3. Capacités existantes confirmées (DEMONSTRATED_IN_CODE)
 
-## B6. RECETTE après
+1. **Fil unique Travail** via `NoraConversation` + bootstrap `GET /api/projects/{id}` ; envoi via `POST /api/preparations/{prepId}/messages`.
+2. **Autorité tour D3** : `reserveTurnCommand` / `conversation_turn_commands` ; `clientTurnKey` idempotent.
+3. **S05 pending métier** : `s05-pending-policy` + siblings durables ; hint client `unresolvedPendingClientTurnKey` non autoritatif.
+4. **Réconciliation client** : `sessionStorage sfia.thread.pending:{projectId}` + `GET pilotage/commands/by-key/conv-auth:{ctk}` + retry POST mêmes clés.
+5. **UI pending CP01** : bandeau hors `max-height` composer (`nora-composer-stack`) — Ensemble 04.
+6. **Activité UI binaire** : `idle|preparing|error` ; bandeau « Nora prépare… » ; **pas** de fragments progressifs exposés.
+7. **Streaming fournisseur** côté `nora-adapter` : drain/structuré ; **pas** de projection navigateur de tokens.
+8. **Markdown sûr** : `SafeMarkdown` (escape + liens filtrés).
+9. **Layout Ensemble 04** : grille Travail intro/rule/conversation/composer × aside ; rail 246 desktop ; strip mobile.
+10. **Documents** : surface `document` séparée (`DocumentLibrary`/`DocumentInspector`) — **pas** de visionneuse dans Travail.
+11. **Draft** : `useState` uniquement — **pas** de restauration après refresh.
+12. **Tests** : E04/T13/T16/CP01-CP02, long-thread, S05 e2e/pg, turn-command pg — **ne prouvent pas** UX-002 scroll, choix typés, visionneuse 50/50, streaming UI.
 
-| Item | Valeur |
-|------|--------|
-| URL | `http://127.0.0.1:3200` |
-| source_sha | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| BUILD_ID | `3LzvYPTQc-Km7St6nF97r` |
-| LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
-| Mode | `next start` production |
-| DB tables | 33 inchangé |
+---
 
-## B7. Smoke
+## 4. Carte de responsabilités
 
-```json
-{
-  "at": "2026-11-16T23:21:50.763Z",
-  "EXPECT_BUILD": "3LzvYPTQc-Km7St6nF97r",
-  "EXPECT_SHA": "984d77a36695c2f59ebbc18619e54eeeb43ad94e",
-  "results": {
-    "SC01": "PASS (login HTTP + BUILD_ID 3LzvYPTQc-Km7St6nF97r)",
-    "SC02": "PASS (portfolio shell rail_w=246; DEV test login — not Morris OAuth)",
-    "SC03": "USER_RECETTE_REQUIRED (Sas/prep under Morris OAuth)",
-    "SC04": "USER_RECETTE_REQUIRED (project identity under Morris OAuth)",
-    "SC05": "USER_RECETTE_REQUIRED (Travail independent cards)",
-    "SC06": "USER_RECETTE_REQUIRED (intro/fil/composer/inspector)",
-    "SC07": "USER_RECETTE_REQUIRED (long conversation)",
-    "SC08": "USER_RECETTE_REQUIRED (pending reconcile)",
-    "SC09": "USER_RECETTE_REQUIRED (Projet/Journal/Trajectoire/Travail)",
-    "SC10": "PASS (mobile bottom nav personal; railHidden=true; bleed=0) | USER_RECETTE_REQUIRED project mobile strip",
-    "SC11": "PASS (unavailable/safe state)",
-    "SC12": "PASS (public tables=33 unchanged; dump backup present; non-destructive)",
-    "SC13": "PASS build=3LzvYPTQc-Km7St6nF97r sha=984d77a36695c2f59ebbc18619e54eeeb43ad94e url=http://127.0.0.1:3200 LaunchAgent=com.sfia.studio.next.recette.ml4d-ux004"
-  }
-}
-```
+| Fait | Propriétaire | Travail/Nora peut |
+|------|--------------|-------------------|
+| Tour / messages / qualification cognitive | D3 | présenter, transmettre tours |
+| Documents / versions / connaissance | D4 | citer, ouvrir lecture sous droits |
+| Actes humains / Exécuter | D6 | afficher états, jamais décider |
+| Tentatives / effets techniques | D7 | afficher reprise, jamais rejouer |
+| Verdicts preuves | D8 | libellés honnêtes |
+| Accès / refs Git | D9 | consulter si autorisé |
+| Traces | Observabilité | corréler ; **jamais** autoriser |
 
-## B8. Manifeste ENV-01
+**Interdit :** second moteur pending, second registre documentaire, HTML/Markdown comme déclencheur d'effet, diffusion JSON qualification / chain-of-thought, visionneuse = éditeur (Ensemble 06).
 
-```yaml
-environment: RECETTE
-served_address: http://127.0.0.1:3200
-source_repository: mcleland147/sfia-workspace
-source_branch: feat/next-ml4d-project-space-20261116
-source_sha: 984d77a36695c2f59ebbc18619e54eeeb43ad94e
-base_main_sha: 997d4c4e8204993de7107552898c8cc08cd3b0ed
-build_id: 3LzvYPTQc-Km7St6nF97r
-schema_revision: public_tables=33 (unchanged; no migration files in candidate range)
-test_data_revision: preserved (non-destructive cutover; dump backup ml4d-e04-20261117-pre-984d77a3)
-product_version: 0.0.0-dev
-candidate_version: NO RELEASE
-capabilities:
-  - next_start_production
-  - studio_lane_RECETTE
-  - ensemble04_vertical_layout
-  - cp01_pending_stack
-  - cp02_mobile_strip
-quality_evidence:
-  CP01_A_to_E: PASS
-  CP02: PASS
-  playwright_nonreg: PASS
-  next_build: PASS
-  vitest_studio_rail: PASS_13
-  tsc_errors: 32_preexisting_UX005
-known_gaps:
-  - typescript_32_parent_UX005
-  - vitest_github_app_lane_3_fail_preexisting
-  - results_preuves_KNOWN_GAP
-  - unicode_glyphs_morris_finish
-  - nora_advanced_ensemble05
-  - oauth_morris_USER_RECETTE_REQUIRED_for_private_surfaces
-review_decision: READY_FOR_MORRIS_VISUAL_RECETTE
-rollback_source_sha: a30e75c77f4eed4f14cbcb8f83bb6521d571b3c6
-rollback_build_id: WUqfWdCB7T2rHzDvk-Hre
-smoke_summary: see smoke-results.json
-cutover_status: DEPLOYED
-launch_agent: com.sfia.studio.next.recette.ml4d-ux004
-worktree: /Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3
+---
 
-```
+## 5. Matrice d'impact CT-01 → CT-08
 
-## B9. Incidents
+Légende classification : **CODE** = démontré ; **UX** = VALIDATED SPEC ; **TECH-CAND** = contrat technique candidat non adopté ; **GAP** ; **DEC** = arbitrage Morris requis.
 
-- Premier `npm ci` sous `NODE_ENV=production` a omis les deps de build → corrigé par réinstall complète (pas de changement code).
-- Vérification BUILD via `tr -d '<!->'` erronée (plage ASCII) → fausse alerte ; BUILD réellement servi correct (`3LzvYPTQc-Km7St6nF97r`).
+### CT-01 — Fil / continuité (UX-002)
 
-## B10. Review Handoff
+| Champ | Contenu |
+|-------|---------|
+| Résultat Pilote | Dernier message par défaut ; relecture volontaire protégée ; flèche « nouveau message » |
+| Observé | Scroll interne `fig-nora-thread` ; pas d'ancrage « stick-to-bottom / preserve » ; refresh/nav → comportement **non démontré** conforme UX-002 (observation Morris RECETTE : retour au **premier** message) |
+| API/données | Messages existants ; **pas** de besoin schema pour scroll |
+| Extension | État UI local (nearBottom, unread signal) dans page/`NoraConversation` |
+| Sécurité | Nulle hors isolation projet |
+| Régression | Ensemble 04 géométrie ; long-thread |
+| Alternatives | (A) pure UI scroll controller **recommandé** ; (B) persister offset lecture — **rejeté** par UX (pas d'offset intersession) |
+| Décision | **Sans arbitrage structurant** si limité à UI |
+| Preuves | UX002-A01..09 BROWSER sur SHA/build |
+
+### CT-02 — Réponses composites / choix (UX-007)
+
+| Champ | Contenu |
+|-------|---------|
+| Résultat | Forme adaptative ; choix = raccourci tour ; gel après transmission effective ; brouillon intact |
+| Observé | `SafeMarkdown` texte ; **pas** d'actions typées ; pas de durée de vie choix |
+| Extension | Projection versionnée (messageId/turnId/blocs/actions) — **TECH-CAND** ; rendu UI ; envoi choix → nouveau `clientTurnKey` |
+| Risque double autorité | Parse Markdown → effet = **interdit** |
+| Alternatives | (A) blocs structurés dans `resultJson`/contenu versionné D3 ; (B) UI-only heuristics sur markdown — **rejeté** (fragile/unsafe) |
+| Décision | **DEC Morris** sur schéma de projection (sans migration précipitée) avant code Delivery |
+| Preuves | UX-NORA-01..25 ; double-clic / ACK perdu |
+
+### CT-03 — Compositeur / brouillon (UX-008)
+
+| Champ | Contenu |
+|-------|---------|
+| Résultat | Auto-expand ; Entrée/Maj+Entrée ; brouillon local par Pilote+projet ; alignement bas Figma |
+| Observé | `textarea` fixe ; draft `useState` ; composer max-height 160 Ensemble 04 ; pending stack |
+| Extension | CSS/JS hauteur ; storage navigateur isolé ; anti-ACK tardif (`draftVersion`) |
+| Alternatives storage | (1) `sessionStorage` simple ; (2) `localStorage` + purge logout/révocation ; (3) serveur — **hors besoin UX** |
+| Décision | Mécanisme exact storage = **DEC Morris légère** (sécurité/purge) ; auto-expand UI sans DEC |
+| Preuves | UX-COMP-01..13 ; IME ; refresh ; mobile |
+
+### CT-04 — Activité / progressive (UX-009)
+
+| Champ | Contenu |
+|-------|---------|
+| Gap majeur | Adapter streame côté serveur mais UI n'affiche que preparing ; fragments structurés drainés |
+| Alternatives transport | (1) **Dégradation honnête** final-only + activité événementielle **recommandée en V1** ; (2) polling statut ; (3) SSE/stream HTTP — coût/reprise/sécurité plus élevés |
+| Interdit | JSON qualification, %, temps estimé, pensée |
+| Décision | **DEC Morris** si autre chose que dégradation V1 + événements déjà observables |
+| Preuves | UX-ACT ; LIVE seulement si événements réels |
+
+### CT-05 — Erreurs / reprise
+
+| Champ | Contenu |
+|-------|---------|
+| Observé | Pending client + S05 + turn UNKNOWN + pilotage by-key — **réutiliser** |
+| Extension | Cartographie UI des états (confirmé non envoyé / ACK perdu / partiel / UNKNOWN / session) sans second automate |
+| Décision | Pas de nouveau moteur — **sans DEC** si strict reuse |
+| Preuves | doubles clics, timeout, réauth |
+
+### CT-06 — Visionneuse lecture seule (UX-010)
+
+| Champ | Contenu |
+|-------|---------|
+| Observé | Docs sur surface séparée ; Travail = aside « En bref » |
+| Extension | Mode normal / 50/50 / agrandi **dans** Travail ; une ressource ; lecture seule ; rail fixe |
+| Frontière | **≠ Ensemble 06 éditeur** |
+| Alternatives navigation | (A) état UI local + refs D4/D9 ; (B) query `viewer=` — deep-link vs simplicité |
+| Décision | **DEC Morris** sur deep-link vs état local ; droits D4/D9 inchangés |
+| Preuves | UX-VIEW-01..15 ; mobile 05.13/05.14 |
+
+### CT-07 — Shell / responsive / alignement Figma 05
+
+| Champ | Contenu |
+|-------|---------|
+| Observé | Grille E04 968/369 ; rail 246 ; compositeur bas |
+| Figma 05 | Viewport **1680×970** ; rail **246** ; zone utile **1434×900** ; fil ~**972** ; En bref/visionneuse **367×832** @x=1030 ; composer compact **972×84** @y=773 ; bottoms **857=857** (alignement prouvé metadata) ; 50/50 fil+composer **668** + viewer **668** ; agrandi viewer **1359×832** ; mobile **430×932** |
+| Extension | Modes layout ; ne pas casser E04 nominal |
+| Décision | Calage F2 au Delivery — pas d'ADR |
+
+### CT-08 — Sécurité / a11y / perf / obs
+
+| Champ | Contenu |
+|-------|---------|
+| Observé | SafeMarkdown ; isolation lane ; obs D3 events |
+| Extension | focus trap visionneuse ; ARIA activité sobre ; mesurer fil 300+ avant virtualisation |
+| Décision | Virtualisation seulement si mesure — **STOP** si nouvelle persistance cache messages |
+
+**Blast radius global Delivery (prévisionnel) :** `page.tsx`, `NoraConversation.tsx`, `tokens.css`, éventuellement petit module scroll/viewer, tests e2e/unit ; **éviter** schema sauf DEC projection ; **pas** `command-runner` rewrite.
+
+---
+
+## 6. Contrat visuel Figma (page 05)
+
+**Fichier** `itgvCulInEnFY6DvgIegvP` — page `700:38` « 05 · ML4D — Travail avec Nora · Contrat UX v0.7 ».
+Session Figma : `4672d9d3-1d67-44ea-824c-b32bed36dd10`.
+**16 variantes** natives extraites (metadata) :
+
+| Node | Nom | Taille |
+|------|-----|--------|
+| 700:39 | 05.01 Conversation nominale | 1680×970 |
+| 701:62 | 05.02 Fil long et relecture | 1680×970 |
+| 701:105 | 05.03 Réponse composite et choix | 1680×970 |
+| 701:148 | 05.04 Choix expirés, brouillon conservé | 1680×970 |
+| 701:191 | 05.05 Compositeur multi-lignes | 1680×970 |
+| 701:234 | 05.06 Activité contextualisée | 1680×970 |
+| 701:277 | 05.07 Réponse interrompue / erreur | 1680×970 |
+| 701:320 | 05.08 Envoi incertain / réconciliation | 1680×970 |
+| 701:363 | 05.09 Visionneuse document 50/50 | 1680×970 |
+| 701:406 | 05.10 Visionneuse Git 50/50 | 1680×970 |
+| 701:449 | 05.11 Visionneuse en grand | 1680×970 |
+| 701:492 | 05.12 Source indisponible | 1680×970 |
+| 701:535 | 05.13 Mobile conversation | 430×932 |
+| 701:537 | 05.14 Mobile visionneuse | 430×932 |
+| 708:98 | 05.15 Activité terminée / historique | 1680×970 |
+| 708:199 | 05.16 Échec d'envoi confirmé | 1680×970 |
+
+**Mesures clés (700:39 / contenu `700:80`) :**
+- Rail projet nommé « 246 px » : 246×970
+- Fil conversation : 972×574 @ (38,174)
+- Compositeur compact : 972×84 @ (38,773) → bottom **857**
+- Panneau En bref : 367×832 @ (1030,25) → bottom **857**
+- **Alignement inférieur compositeur ↔ panneau droit : CONFIRMÉ** (metadata)
+- Multi-lignes (701:191) : composer 972×198 @ y=659 → bottom 857
+- 50/50 (701:363) : composer/fil colonne 668 ; visionneuse 668×832 @ x=729 ; bottoms alignés 857
+- Agrandi (701:449) : visionneuse 1359×832 @ (38,25)
+
+**Limites extraction :** typographies/couleurs tokens non exhaustivement dumpés (metadata structurelle + screenshots 700:39 / 701:363 obtenus). **Aucune conformité runtime déclarée** (cycle read-only).
+
+**Aucune modification Figma.**
+
+---
+
+## 7. Fake / Real Qualification (frontières)
+
+| Frontière | Fixtures actuelles | Niveau ce cycle | Futur |
+|-----------|--------------------|-----------------|-------|
+| Nora provider | fixture FAKE / `STUDIO_FORCE_NORA_FIXTURE` | analyse | LIVE sous gate |
+| D4 documents | PG + UI document surface | analyse | lecture réelle visionneuse |
+| D9 Git | intégrations existantes | analyse | source autorisée REAL |
+| D7 effets | S05 / pilotage tests | analyse | UNKNOWN réel |
+| Streaming UI | **absent** | — | seulement si transport arbitrée |
+
+**Interdit :** `DETERMINISTIC PROVEN ⇒ READY FOR REAL`.
+
+---
+
+## 8. Contrat de réalisation intégré proposé (pour futur Delivery)
+
+### 8.1 Résultat end-to-end
+Un Pilote dans un projet existant lit/écrit dans **un fil unique** conforme UX-002..010 : réponses adaptatives, choix sûrs, brouillon préservé, activité honnête, reprise sans doublon, visionneuse lecture seule 50/50/agrandi, shell E04 non régressé, Figma 05 calé.
+
+### 8.2 Interfaces communes (à stabiliser avant/au début du code)
+1. **TurnProjection vN (candidat)** : `messageId`, `turnId`/`clientTurnKey`, `finalization`, blocs sûrs, refs ressource, `actions[]` typées liées au message Nora.
+2. **ActivityEvent vN (candidat, optionnel V1)** : `generationId`, sequence, state, provenance — **sans** secrets/qualification brute.
+3. **ViewerRef** : `kind=document|git`, id/version, rights snapshot time-of-access.
+4. **DraftKey** : `pilotId+projectId` (+lane) isolé navigateur.
+5. Réuse : `clientTurnKey`, `conv-auth:` , S05, turn-command statuses.
+
+### 8.3 Composants touchés (chemins)
+- `web/src/app/projects/[projectId]/page.tsx` — scroll policy, draft persistence, viewer state, choice send
+- `web/src/components/figma/NoraConversation.tsx` — render blocs/actions, composer expand, activity, jump control
+- `web/src/components/figma/tokens.css` — modes 50/50 / agrandi ; composer grow
+- Nouveau module UI local possible : `travail-scroll.ts` / `travail-viewer-panel.tsx` (lecture seule)
+- **Ne pas** forker `command-runner` / S05 ; **ne pas** éditer dans viewer
+
+### 8.4 Choix faisables sans arbitrage structurant
+- Contrôleur scroll UX-002
+- Composer auto-expand + clavier
+- UI états erreur s'appuyant sur pending existant
+- Layout CSS 50/50/agrandi **si** données document déjà accessibles en lecture
+- Dégradation activité : preparing → réponse finale
+
+### 8.5 Choix nécessitant Morris avant code
+1. **Schéma de projection** réponses/actions (persisté où ? resultJson vs table vs dérivé markdown sûr ?)
+2. **Transport progressive** au-delà de final-only (SSE/poll/autre)
+3. **Support brouillon** (session vs local + politique purge/révocation)
+4. **Deep-link visionneuse** vs état UI éphémère
+5. Toute **migration** / nouvelle table / nouvel endpoint public
+
+### 8.6 Ordre interne macro-lot
+1. Pre-check Git + freeze SHA Delivery
+2. Stabiliser projection minimale (même si V1 texte+actions simples)
+3. Fil+composer+choix
+4. Activité/reprise branchée sur existant
+5. Visionneuse
+6. Matrice 88 oracles **groupés** (10 oracles discriminants du contrat tech §12) + non-régression E04/ML4C
+7. F2 Figma↔runtime
+8. Pack + réception Morris
+
+### 8.7 Stratégie 88 oracles
+Ne pas créer 88 cycles. Packager en suites : UX002 / NORA / COMP / ACT / VIEW / CROSS + 10 oracles discriminants intégrés. Niveaux Unit → PG → BROWSER → LIVE ciblé.
+
+### 8.8 Non-régression
+Ensemble 04 (cartes, gap 25, pending CP01, mobile strip), ML4C S05/idempotence, Sas, shell rail, Document surface inchangée comme éditeur.
+
+### 8.9 Intégrateur
+Un Delivery unique « Travail avec Nora » ; sous-travaux parallélisables UI scroll/composer vs viewer **après** interfaces figées ; STOP si DEC non tranchée.
+
+### 8.10 Dette / exit
+Dette acceptable V1 : pas de streaming tokens si final-only documenté ; pas de virtualisation tant que perf OK. Exit : DEC Morris ou mesure perf.
+
+### 8.11 Critère d'acceptation final (futur)
+SHA/build RECETTE ; oracles discriminants PASS aux niveaux requis ; F2≤2px rectangles stables ; aucune double autorité ; Ensemble 06 non empiété ; Gate C toujours ouvert jusqu'à décision Morris séparée.
+
+---
+
+## 9. Options / réserves pour Morris
+
+| ID | Question | Recommandation Cursor | Impact si non tranché |
+|----|----------|----------------------|------------------------|
+| M1 | Projection structurée choix/blocs | Adopter contrat projection versionné D3 **sans** nouvelle table au premier jet si `resultJson`/payload existant suffit | Delivery CT-02 bloqué ou contournement unsafe |
+| M2 | Progressive UI | **V1 final-only + activity honest** ; reporter SSE | OK pour démarrer CT-01/03/05/06 partiel |
+| M3 | Draft storage | `localStorage` namespaced + purge logout/project revoke **ou** session-only si Morris accepte perte onglet | CT-03 partiel |
+| M4 | Viewer routing | État UI local d'abord ; deep-link phase 2 | CT-06 possible |
+| M5 | Confirmer non-migration | Aucune migration Ensemble 05 V1 | Si besoin schema → nouveau cycle |
+
+---
+
+## 10. Produit inchangé
+
+- Aucun fichier sous `projects/sfia-studio-next/**` créé ou modifié dans ce cycle.
+- Seul `.tmp-sfia-review/chatgpt-review.md` + handoff `sfia/review-handoff`.
+
+---
+
+## 11. Review Handoff
 
 - Branche : `sfia/review-handoff`
 - Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 - Publisher : `scripts/sfia/publish-review-handoff.sh`
-- Commit distant vérifié : `03e121aff0c5336bb7872618d6b337df3e69598d`
-- Blob distant vérifié : `4f23c932eb0c7d59cb3d3af7d1c54ecf6b419ddb`
-- Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
-- Push projet : aucun
+- (commit/blob après publication)
 
-## B11. Décisions Morris restantes
+---
 
-1. Réception visuelle Figma 652:* sur RECETTE (Travail → Projet → Navigation → Indisponible).
-2. Parcours OAuth personnels (SC03–SC09 / SC08 pending).
-3. Aucune promotion STABLE / Gate C / ML5.
+## 12. Verdict
+
+**TECHNICAL QUALIFICATION READY WITH RESERVES**
+
+La préparation Delivery est **faisable** sur la base code `984d77a3` + UX VALIDATED + Figma 05 mesuré, **à condition** que Morris tranche au minimum M1/M2 (et M3 si brouillon post-refresh est dans le premier GO Delivery). Le contrat technique candidat v0.1 reste **non adopté** comme architecture ; il sert de brief.
+
+**Prochaine décision Morris :** revue de ce pack → arbitrages M1–M5 → **GO Delivery distinct** (implémentation). Ce cycle **n'autorise pas** l'exécution.
