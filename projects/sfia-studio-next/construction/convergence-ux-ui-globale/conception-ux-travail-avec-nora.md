@@ -3,8 +3,8 @@
 | Métadonnée | Valeur |
 |---|---|
 | Périmètre | R5 / ML4D — Ensemble 05, Travail avec Nora |
-| Version | **v0.4 — 17 novembre 2026 : ajout du Sujet 03 / compositeur Nora validé en conception UX** |
-| Statut | **VALIDATED SPEC par Morris : UX-002, Sujet 02 (réponses structurées) et Sujet 03 (compositeur : compact, redimensionnement fluide et plafonné, clavier desktop/mobile, brouillon isolé par projet)** ; les deux sujets 02/03 sont clos **en conception UX seulement** ; détails techniques et preuves RECETTE ouverts |
+| Version | **v0.5 — 17 novembre 2026 : ajout du Sujet 04 / activité de Nora, erreurs et reprise validées en conception UX** |
+| Statut | **VALIDATED SPEC par Morris : UX-002, Sujet 02 (réponses structurées), Sujet 03 (compositeur) et Sujet 04 (activité dynamique, progression réelle, erreurs contextualisées et reprise sans doublon)** ; Sujets 02/03/04 clos **en conception UX seulement** ; architecture, implémentation et preuves RECETTE ouvertes |
 | Autorité | Morris : arbitrages UX ; ChatGPT : formalisation et revue ; Cursor : réalisation technique sous GO distinct |
 | Référentiel de suivi | [Registre central ML4D](registre-central-revues.md) |
 | Branche documentaire | docs/next-ml4d-registre-revues-20261116 — candidate, distincte de main |
@@ -15,11 +15,11 @@
 
 Ce document constitue le **support de conception intégré de l’Ensemble 05**. Il accueillera progressivement les **sujets UX réellement examinés et arbitrés par Morris**, sans générer un document ou un micro-cycle Cursor par irritant.
 
-Trois sujets arbitrés au 17/11/2026 : **UX-002 / S07-06-R01 — position de lecture et continuité du fil**, **Sujet 02 / UX-007 — restitution structurée adaptative et interactions**, et **Sujet 03 / UX-008 — compositeur Nora**. Ils constituent un **contrat UX cohérent** : saisie et brouillon restent distincts de la lecture du fil et des raccourcis conversationnels ; un envoi suit UX-002 et clôt le groupe de choix précédent selon le Sujet 02.
+Quatre sujets arbitrés au 17/11/2026 : **UX-002 / S07-06-R01 — position de lecture et continuité du fil**, **Sujet 02 / UX-007 — restitution structurée adaptative et interactions**, **Sujet 03 / UX-008 — compositeur Nora**, et **Sujet 04 / UX-009 — activité de Nora, erreurs et reprise**. Ils constituent un **contrat UX cohérent** : saisie, réponse, progression et actes techniques restent distingués ; un envoi suit UX-002 et clôt les choix du tour précédent sans effacer le brouillon indépendant.
 
 **Résultat Pilote attendu :** dans un projet existant, revenir au dernier échange par défaut après une navigation, un rafraîchissement ou une reconnexion ; suivre naturellement un échange actif, tout en pouvant relire librement des messages passés sans défilement imposé lorsqu'une nouvelle réponse arrive.
 
-**IN :** fil visible, position de lecture, nouveaux messages, comportement après envoi/réception, retour depuis les autres surfaces, rafraîchissement, reprise de session, fil long, commande de retour en bas, **grammaire de réponses composites et interactions immédiates**, **compositeur compact/redimensionnable, saisie clavier desktop/mobile, commandes proportionnées, brouillon par projet dans le navigateur courant et protection contre sa perte**, accessibilité et états incertains.
+**IN :** fil visible, position de lecture, nouveaux messages, comportement après envoi/réception, retour depuis les autres surfaces, rafraîchissement, reprise de session, fil long, commande de retour en bas, **grammaire de réponses composites et interactions immédiates**, **compositeur compact/redimensionnable et brouillon isolé par projet**, **indication d'activité réelle et dynamique de Nora, étapes contextuelles, états d'attente, incidents contextualisés et reprise sûre**, accessibilité et situations incertaines.
 
 **OUT :** nouveau système de chats, refonte du moteur Nora/D4/D6, nouvelles API ou migrations décidées par ce seul document, refonte du layout commun de l’Ensemble 04, nouveau moteur de décisions ou d’effets, fonctionnalité ML5, démarrage technique et promotion. Les besoins de contrat sémantique, persistance, permissions ou API découverts pendant la revue sont à qualifier auprès de leurs propriétaires avant réalisation.
 
@@ -473,4 +473,113 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 
 **SORTIE DU SUJET 03 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026.** Le Sujet 03 est clos sur **son périmètre ergonomique**, sans mise en production ni preuve d'application. **L'Ensemble 05 reste EN REVUE**.
 
-**Suite : Sujet 04 — États d'activité, erreurs et reprise.** Préserver les invariants déjà acquis, intégrer les responsabilités existantes D3/D6/D7/D8, et étudier les cas `pending` / `UNKNOWN` sans ajouter de second moteur. Le contrat d'Ensemble 05 demeure un **document intégré unique** ; les scénarios et réserves de tous les sujets serviront à préparer **un ensemble de réalisation cohérent après GO Morris distinct**, jamais une micro-tâche Cursor par scénario.
+**Suite du Sujet 03 :** le **Sujet 04 — activité de Nora, erreurs et reprise** a été instruit et validé au **§11**, sans créer de machine d'états concurrente. Le contrat d'Ensemble 05 demeure un **document intégré unique** ; les scénarios et réserves de tous les sujets serviront à préparer **un ensemble de réalisation cohérent après GO Morris distinct**, jamais une micro-tâche Cursor par scénario.
+
+## 11. Sujet 04 — Activité de Nora, erreurs et reprise (VALIDATED SPEC, Morris 17/11/2026)
+
+### 11.1. Résultat Pilote et références de revue
+
+**Résultat attendu :** le Pilote perçoit que Nora travaille et comprend les étapes utiles de son activité lorsqu'elles existent réellement. Les attentes prolongées, interruptions, envois incertains et opérations métiers en erreur sont exposés **à l'endroit pertinent, avec leur vérité et une suite sûre**, sans que la conversation devienne un tableau de bord technique ou que le compositeur soit envahi.
+
+**Constat observé en séance :** capture RECETTE CampusFlow fournie par Morris le 17/11/2026 : sous le fil, bandeau fixe « Nora prépare une réponse… » sans animation visible, sous l'interface Travail. La capture montre cet état statique mais **ne prouve pas à elle seule** l'absence de toute activité côté serveur ni les autres variantes runtime.
+
+**Référence ergonomique choisie :** vidéo ChatGPT fournie par Morris le 17/11/2026, inspectée dans la conversation : annonce initiale du travail, étapes de recherche/consultation telles que Figma rendues intelligibles, évolution de l'étape vers son résultat, puis réponse construite progressivement. **Référence UX fournie par l'utilisateur, non déposée dans Git** ; elle ne démontre aucune capacité existante de Studio, aucun événement backend ni la disponibilité d'un fournisseur. Morris a explicitement confirmé que cette dynamique est la cible souhaitée et validé ensuite les activités longues / l'historique repliable, puis les règles d'erreurs et de reprise.
+
+**Sources propriétaires :** [R2 D3 — conversation et continuité](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md) ; [R2 D4 — connaissance/continuité](../../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md) ; [R2 D6 — décisions](../../conception-fonctionnelle/decisions-et-gouvernance.md) **si chemin applicable à confirmer avant réalisation** ; [R2 D7 — réalisation, tentatives, inconnus](../../conception-fonctionnelle/realisation-operationnelle-gouvernee.md) ; [R2 D8 — résultats et preuves](../../conception-fonctionnelle/resultats-et-preuves.md) ; [R3 Espace projet](../../ux-ui/espace-projet-interaction-pilote-nora.md). Aucun nouveau registre de tentative/preuve, de décision ni de raisonnement interne.
+
+**IN UX :** attente Nora, marqueur d'activité, étapes contextuelles réelles, conclusion d'étapes, réponses longues/progressives, attente prolongée, historique compact consultable, erreur d'envoi, réponse interrompue, outils indisponibles, `pending/UNKNOWN` métier, session/retour et contrôle de reprise. **OUT :** streaming/API/événements/heartbeat ou horodatage technique décidés ici, moteur de workflow parallèle, exposition de la chaîne de pensée interne, log de secrets et actions techniques autorisées implicitement.
+
+### 11.2. Progression visible, dynamique et véridique (VALIDATED SPEC)
+
+**Principes approuvés :** le bandeau statique actuel doit évoluer vers un **dispositif d'activité vivant**. Le Pilote voit d'abord une présence animée et discrète, puis, seulement lorsque Studio possède des événements fiables, **une activité effectivement engagée** et sa conclusion réelle. La complexité de la tâche détermine la quantité d'informations présentées ; un simple message conversationnel ne nécessite pas de journal d'étapes artificielles.
+
+| Situation reconnue | Présentation cible | Limites de véracité |
+|---|---|---|
+| Requête effectivement en attente / Nora prépare | Indicateur animé sobre à la fin du fil, par exemple « Nora réfléchit… » ou « Nora prépare sa réponse… ». | L'animation indique **une attente actuellement connue**, pas la preuve que Nora progresse ou produit en permanence. |
+| Nora restitue du contenu progressivement, si capacité présente | Un **seul message Nora s'enrichit**, avec un indicateur d'activité cohérent et des blocs complets. | Sujet 02 §6.9 : pas de réponse fictivement finalisée ni de tableau fragmentaire. |
+| Consultation/source/outil effectivement engagés | Étape nommée en langage utilisateur, ex. « Consultation des sources Git… », avec activité visible. | **Ne jamais inventer** une action Git/Figma, un outil ou une consultation à partir d'une supposition ou d'un simple délai. |
+| Activité terminée et résultat confirmé | L'intitulé devient « Sources consultées », « Recherche terminée » ou équivalent adapté à **l'issue attestée**. | « Terminé » ne signifie ni qualité/conformité D8 ni autorisation D6 ; une opération vide ou infructueuse ne devient pas « succès ». |
+| Activité échouée / indisponible / interrompue | Indication factuelle près de cette étape, avec limite et suite pertinente. | La fin d'une animation n'est pas en soi la preuve d'un échec, d'un arrêt effectif ou d'une récupération. |
+| Rien de fiable à exposer hors attente | Seulement l'indicateur général d'attente, puis la réponse ou l'incertitude réelle. | Pas de faux jalons, de checklist préfabriquée, de pourcentage ou durée restante inventés. |
+
+**Frontières de contenu :** seules sont montrées les **actions externes observables et résumés utiles** (source consultée, document récupéré, résultat connu), jamais le raisonnement interne détaillé de Nora, les prompts, tokens, traces non fiables, secrets, ni la mécanique technique à chaque sous-opération. Une étape d'activité ne vaut pas une action **Exécuter**, une approbation, un accès Git ou une preuve de conformité.
+
+**Continuité UX :** le dispositif fait partie du **tour de réponse Nora**, pas d'une succession artificielle de nouvelles bulles. Il respecte UX-002 (aucun scroll forcé durant une relecture volontaire), le Sujet 02 (réponse progressive, actions conversationnelles actives seulement à finalisation) et le Sujet 03 (compositeur compact indépendant).
+
+### 11.3. Attentes prolongées et histoire d'activité consultable (VALIDATED SPEC)
+
+**Arbitrage Morris approuvé :**
+1. Tant qu'une activité est **effectivement connue en cours**, garder son indicateur actif et son intitulé utile. Ne pas réémettre des étapes pour simuler du mouvement ; pas de barre de progression estimée sans métrique réellement disponible.
+2. Si la réponse tarde, **maintenir un signal d'attente sobre** ; si la situation devient incertaine, l'indiquer selon les faits accessibles au lieu d'afficher un spinner éternel comme preuve de fonctionnement. Le seuil de longue attente et la politique de rafraîchissement seront qualifiés lors de la réalisation.
+3. À la finalisation du tour, **replier les activités utiles en un résumé compact**, accessible par un contrôle explicite et dépliable pour consulter les étapes/résultats connus. L'historique ne devient ni un nouveau journal officiel D7/D8 ni une console technique.
+4. Après navigation/refresh, retrouver **les seules activités réellement conservées** et leur statut historique exact. Une activité inachevée/non retrouvable n'est pas représentée rétrospectivement comme achevée. Permissions et provenance restent applicables au détail.
+5. Lorsqu'une étape ou une réponse est interrompue, conserver et présenter les **fragments authentiquement reçus/récupérables**, identifiés comme partiels ; ne jamais annoncer une sauvegarde non confirmée ni reconstituer fictivement ce qui manque.
+
+**L'historique compact n'est pas un second message Nora** : il accompagne la réponse à laquelle il se rattache. Les détails probatoires ou techniques demeurent consultables depuis leurs surfaces propriétaires lorsqu'ils existent et que les droits le permettent.
+
+### 11.4. Erreurs contextualisées et reprise sans doublon (VALIDATED SPEC)
+
+**Principe validé :** afficher l'incident **près de son message ou de son opération**, plutôt que multiplier les bandeaux globaux ou insérer une grande alerte dans le compositeur compact. Un incident global (session expirée, projet non accessible) est traité sur la surface concernée.
+
+| Incident | Présentation à proposer au Pilote | Action sûre et frontière |
+|---|---|---|
+| Message libre **confirmé non envoyé** | « Message non envoyé », visible au niveau du tour Pilote concerné ; brouillon préservé. | « Réessayer » seulement si les conditions de sécurité/idempotence sont établies ; pas de seconde transmission involontaire. |
+| Message **envoyé mais réception non confirmée** / ACK perdu | « Envoi non confirmé » sans faux échec ou faux succès. | **Vérifier/réconcilier l'état** avant toute nouvelle transmission ; réutiliser l'identité de la tentative si le service le permet, jamais inventer un acte distinct. |
+| Nora interrompt une réponse partielle | « Réponse interrompue » au niveau du message Nora, contenu reçu conservé si récupérable. | Une éventuelle continuation ou reformulation est une **nouvelle demande explicite et sûre**, pas une reprise backend présumée ni une fin fictive. |
+| Consultation Git/Figma ou outil externe échoué | « Consultation impossible » ou état fidèle à la cause connue, près de **l'étape effectivement engagée**. | Relancer la consultation **seulement si disponible, autorisée et sans effet indu** ; ne pas présenter « consulté » sans résultat réel. |
+| Opération métier/technique `pending` ou `UNKNOWN` | « Résultat non confirmé » localisé auprès de l'objet/tentative, avec effet et portée discernables. | **Vérifier l'état** d'abord ; D7/D6/D9 gardent leurs contrôles. Jamais de nouvelle exécution ni rollback implicites. |
+| Session expirée, ressource ou projet inaccessible | État d'accès explicite sur la surface appropriée, aucune donnée privée d'un autre projet affichée. | Reconnexion/retour sûr et requalification des droits avant de consulter ou agir ; récupération limitée aux données sauvegardées. |
+
+**Vocabulaire de vérité :** « en cours », « attente », « interrompu », « échec confirmé », « statut inconnu », « résultat déclaré » et « conformité démontrée » n'appartiennent pas à la même famille de faits. **D3** renseigne le tour Nora ; **D7** gouverne les effets techniques et leurs tentatives ; **D8** qualifie les résultats et leurs preuves ; **D6** détient l'acceptation/l'autorité ; le composant UX **présente** leurs états sans les recalculer ou les fusionner.
+
+**Continuité cognitive vs technique :** une tentative métier inconnue ne bloque **pas systématiquement** les échanges d'analyse **indépendants** avec Nora si le service actuel l'autorise. Une nouvelle demande d'effet **dépendant de l'état incertain** est refusée/suspendue ou soumise à réconciliation et contrôle d'autorité. Aucune file d'attente implicite, aucun second moteur d'envoi ni extension autonome des permissions.
+
+**Contraintes de confiance :** ne pas afficher de bouton « Vérifier l'état » si aucune consultation/réconciliation réelle n'existe ; ne pas rendre « Réessayer » actif lorsqu'il relancerait possiblement un effet externe. Gestion des clics répétés, d'une reconnexion et d'un changement de projet = même identité de tentative et isolation. Les erreurs persistantes doivent être retrouvables au bon objet après navigation, **dans la seule limite des traces réellement conservées**.
+
+### 11.5. État de référence dans Git et impacts de réalisation
+
+**Référence inspectée : `main@997d4c4e8204993de7107552898c8cc08cd3b0ed`, non le code du candidat local RECETTE.**
+
+- `web/src/components/figma/NoraConversation.tsx` expose `activity: idle | preparing | error` et affiche actuellement une **alerte statique** « Nora prépare une réponse… » ; un `unresolvedPending` et une commande « Réconcilier la tentative en cours » se trouvent **dans la pile du compositeur**, selon les props. Le niveau de preuve de la capture utilisateur CampusFlow est **observation visuelle ponctuelle**, pas revue de tous les états.
+- `web/src/app/projects/[projectId]/page.tsx` utilise `setNoraActivity("preparing")` avant la requête HTTP, met à jour le fil après réponse, suit certaines tentatives via `clientTurnKey`, `clientCommandKey` et `sessionStorage`, et expose une fonction `reconcilePending`. Le chemin inspecté **ne démontre pas** un flux général d'événements d'activités intermédiaires ni un streaming des étapes d'outils.
+- Les traitements `pending/UNKNOWN` observés relèvent déjà d'un contrat de reprise à préserver : **ne pas créer un nouvel automate** d'activité déconnecté du propriétaire, ne pas confondre erreur HTTP, absence d'ACK, effet métier appliqué et confirmation de réponse.
+- **Blast radius à qualifier avant code :** contrat du tour/événement/résultat, API et services D3/D7/D8, traçabilité/provenance des étapes, persistance au refresh, périmètre multi-projet et droits, composants fil + résumé d'activité, séparation du compositeur, animations/réduction de mouvement, mobile, focus/lecteur d'écran, statut `UNKNOWN`, double clic/réessai, tests de non-régression et UX-002.
+- **Implémentation :** si les événements fiables nécessaires n'existent pas, utiliser une **dégradation honnête vers l'indicateur général** ; analyser source, coût, propriétaire et qualification R4 avant d'engager une extension technique. Une simple animation ne suffit pas à prouver l'activité et un mock Figma n'est pas une preuve runtime. Pas de nouveau POC gratuit.
+
+### 11.6. Scénarios candidats de qualification (NON EXÉCUTÉS)
+
+| ID | Scénario | Oracle / résultat attendu |
+|---|---|---|
+| UX-ACT-01 | Pilote envoie message simple, Nora prépare | Indicateur **animé et discret** seulement pendant attente effectivement connue ; aucun texte d'activité technique inventé. |
+| UX-ACT-02 | Nora consulte une source Git ou Figma avec événement fiable | Étape contextualisée « Consultation… », puis conclusion fidèle, sans accès/source inventés. |
+| UX-ACT-03 | Réponse sans outil ni étape suivie | Aucun faux journal : réponse directe, indicateur seul si attente effective. |
+| UX-ACT-04 | Nora commence à répondre progressivement | **Message unique évolutif** ; contenu partiel intègre, interactions différées, UX-002 respecté. |
+| UX-ACT-05 | Outil prolongé / long silence avec statut connu ou incertain | Indicateur conforme aux faits ; aucun pourcentage, étape artificielle, spinner trompeur ou délai promis. |
+| UX-ACT-06 | Plusieurs étapes utiles terminées | Résumé compact et dépliable, historique fidèle au tour, aucun journal technique supplémentaire. |
+| UX-ACT-07 | Refresh/navigation après une réponse et étapes | Les seules étapes réellement conservées reviennent ; aucun historique achevé inventé, droits réévalués. |
+| UX-ACT-08 | Pilote lit un ancien message quand Nora progresse | Pas de scroll forcé ; signal UX-002 unique, composer compact et focus préservés. |
+| UX-ACT-09 | Échec de transmission clairement confirmé | Message concerné marqué « non envoyé », brouillon conservé et réessai seulement sûr. |
+| UX-ACT-10 | ACK perdu / réception du tour non établie | « Envoi non confirmé », **vérification avant toute retransmission**, même identité si réconciliation supportée. |
+| UX-ACT-11 | Réponse Nora interrompue après deux paragraphes | Contenu réellement disponible lisible et étiqueté partiel ; aucun faux « terminé ». |
+| UX-ACT-12 | Figma/Git inaccessible, permission révoquée ou résultat vide | État honnête près de l'activité, aucune source/preuve/fonction de relance fabriquée. |
+| UX-ACT-13 | Opération métier `UNKNOWN` et nouvelle question cognitive indépendante | Échange indépendant possible si service l'admet ; **effet dépendant bloqué/réconcilié**, aucune duplication de tentative. |
+| UX-ACT-14 | Session expirée/projet inaccessible puis reconnexion | Données rechargées sous droits actuels, reprise des seuls états durables, sans contenu privé d'un autre projet. |
+| UX-ACT-15 | Écran mobile/zoom/lecteur d'écran/mouvement réduit | Indicateurs accessibles sans seule couleur ou mouvement ; aucune alerte couvrant le champ ni annonce répétitive. |
+| UX-ACT-16 | Réconciliation, double clic et état final partiel/erreur | Une seule intention et ses faits datés/portés, aucun résultat D8 ou acceptation D6 inférés. |
+
+**Preuves futures :** démonstration de l'activité **réellement émise et reçue** (pas seulement une animation FAKE), BROWSER desktop/mobile sur SHA et build identifiés, cas interruption/pending/UNKNOWN/ACK perdu, inspection de persistance et droits, contrastes/clavier/focus/reduced motion, historique replié, traçabilité D3/D7/D8 et non-régression UX-002, Sujet 02, Sujet 03. `FAKE` ≠ `BROWSER` sur recette ≠ `LIVE` ≠ `REAL` ; les niveaux de preuve restent explicites.
+
+### 11.7. Qualification de sortie du Sujet 04 et suite
+
+| Dimension | État au 17/11/2026 |
+|---|---|
+| Indicateur animé, progression contextuelle réelle et transitions de statut | **VALIDATED SPEC BY MORRIS** |
+| Attente prolongée sans mouvement artificiel, historique compact et dépliable | **VALIDATED SPEC BY MORRIS** |
+| Erreurs contextualisées, reprise prudente, séparation cognitif/effet métier | **VALIDATED SPEC BY MORRIS** |
+| Contrat d'événements/streaming, stockage du suivi, seuils, animations et composants pixel | **À QUALIFIER ; NON DÉCIDÉS TECHNIQUEMENT** |
+| UX-ACT-01..16, implémentation, navigateur, RECETTE, LIVE et REAL | **NON EXÉCUTÉS / NON PROUVÉS** |
+| Gate C, PR, merge, release/ADOPTED | **NON ACQUIS** |
+
+**SORTIE DU SUJET 04 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026.** Le Sujet 04 est clos **sur le comportement et la présentation**. Il ne constitue ni nouvelle architecture, ni moteur de streaming, ni preuve de récupération de tentative.
+
+**Suite : Sujet 05 — Inspection contextuelle et cohérence du fil**, dernier sujet de revue dans l'Ensemble 05, avant consolidation transverse des contrats, qualification de la réalisation et gate Morris distinct. **L'Ensemble 05 reste EN REVUE.** Tous les sujets seront intégrés au même macro-lot de réalisation cohérent, avec preuves et responsable d'intégration après GO technique.
