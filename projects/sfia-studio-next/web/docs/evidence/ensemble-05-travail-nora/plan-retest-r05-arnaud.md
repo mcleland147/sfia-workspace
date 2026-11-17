@@ -12,8 +12,8 @@
 |---|---|
 | URL locale | `http://127.0.0.1:3200` |
 | Accès | Uniquement sur la machine qui héberge RECETTE — **pas** accessible depuis un autre ordinateur sans tunnel (aucun tunnel autorisé ici) |
-| SOURCE_SHA | *(renseigner après cutover — tip R05 recovery)* |
-| BUILD_ID | *(renseigner après cutover)* |
+| SOURCE_SHA | `e224d6278a050bcfbd369c4008d94af504f81d44` |
+| BUILD_ID | `MKmBUvdIXyydv_DpUTGZi` |
 | Lane | RECETTE |
 | Fixture Nora forcée | NON (`STUDIO_FORCE_NORA_FIXTURE` unset) |
 | STABLE | NOT AVAILABLE |
