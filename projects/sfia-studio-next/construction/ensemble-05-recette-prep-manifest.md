@@ -24,16 +24,16 @@
 
 **Aucune modification de ce runtime dans le présent cycle.**
 
-## 2. Candidat figé à préparer (après commit local)
-
-Renseigner après le commit produit :
+## 2. Candidat figé (commit local — non poussé)
 
 | Item | Valeur |
 |---|---|
 | Branche | `feat/next-ml4d-project-space-20261116` |
-| SHA candidat | _(à compléter après commit)_ |
-| Tree candidat | _(à compléter après commit)_ |
+| SHA candidat | `342f0bbb3fea1d52c7a40228347923b30b6db90e` |
+| Tree candidat | `605a6274b3a41cef41fd0cb271352d03c7f0cdb2` |
+| Parent base | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
 | Workspace DEV | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
+| Push produit | **AUCUN** |
 
 ## 3. Compatibilité / conservation
 
