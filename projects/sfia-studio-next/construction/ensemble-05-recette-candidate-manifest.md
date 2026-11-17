@@ -19,8 +19,7 @@
 | Parent tip avant gel | `cb638613890bff769b3cbbcc99449b430c89faa6` |
 | Commit candidat (gel contenu) | `1a820ad489f001bfeef4a9958d1de92e6ab1b5f7` |
 | Tree gel contenu | `58baf7b016ddf6a76328120a8a4329185a6880bd` |
-| Tip local (docs SHAs) | `8775d647ca3240eb68d2b4db95b3e5db18aeb7fa` |
-| Tree tip | `92ea2206fb611b0d077404b51854d74b3c93f68b` |
+| Tip local docs (handoff) | renseigné dans le Review Pack (`git rev-parse HEAD`) |
 | BUILD_ID identifié (build local DEV) | `jYz7jUBt1ewRBNp6HbCgs` |
 | Schéma composition | `e05-visual-composition-v1` |
 | Schéma projection | `e05-turn-projection-v1` |
