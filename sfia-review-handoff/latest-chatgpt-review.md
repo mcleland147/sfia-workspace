@@ -2776,13 +2776,18 @@ index c334afa1..cbf289b5 100644
      pilotage,
 ```
 
-## 17. Handoff L3 (à publier)
+## 17. Handoff L3 — publié et vérifié
 | Item | Value |
 |---|---|
 | Branch | `sfia/review-handoff` |
 | Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Mode | publish-in-cycle |
-| Product push | **FORBIDDEN** |
+| Commit distant | `c0f29be18fe0ead5c31fd651fe57f49107218e77` |
+| Parent | `ebc8766c3ca481b009c1d20e4c2ae207be1e9591` |
+| Blob canonique | `23c31741adcc0132b1a9dccd49a30571da82d257` |
+| Mono-fichier | OUI |
+| Verdict publisher | `HANDOFF UPDATED — REMOTE VERIFIED` (push `ebc8766c..c0f29be1`) |
+| Product push | **NONE / FORBIDDEN** |
 
 ## 18. Instruction ChatGPT
 Avant revue Morris: lire sur Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (ce cycle), contrôler HEADs, diffs/créations, tests, captures, réserves, verdict.
