@@ -1,473 +1,224 @@
 # SFIA Studio Next — Review Pack Full
-# Cycle 8 — Delivery / Ensemble 05 — Travail avec Nora
-# Generated: 2026-11-17T11:50:48
+# Cycle 8 — Delivery / Ensemble 05 — Correctif intégré Travail avec Nora
+# Generated: 2026-11-17T12:22:39+0100
 
-## 1. Date et heure
-- Cycle: 2026-11-17 — GO MORRIS DELIVERY LOCAL DEV
-- Profile: CRITICAL / EVOL / Cycle 8 Delivery
+## 1. Date et heure / profil
+- Cycle: 2026-11-17 — GO MORRIS CORRECTIF LOCAL DEV
+- Profile: CRITICAL / EVOL / Cycle 8 Delivery (correctif candidat non réceptionné)
 - Macro-lot: Ensemble 05 — Travail avec Nora
+- Gate sortie: revue technique ChatGPT puis décision Morris
+- Autorisations: DEV local + tests isolés + handoff L3 uniquement
+- Interdits: commit/push produit, PR, merge, RECETTE, STABLE, migration, architecture nouvelle
 
-## 2. Local Git Truth Check
+## 2. Local Git Truth Check (initial = final produit)
 | Check | Value |
 |---|---|
 | Workspace | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
 | Branch | `feat/next-ml4d-project-space-20261116` |
-| HEAD initial/final (no product commit) | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
+| HEAD produit | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
 | Tree baseline | `b92cc822ac67399c6d8753c17dbcce5f4b5b734f` |
 | origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
 | Docs tip | `99b3622b09005cc789bd167775b3ffb9f6f14375` |
-| Dirty | product mods + new files (uncommitted — AUTHORIZED delivery local) |
-| Destructive sync | **NONE** |
+| Prior handoff tip (avant ce cycle) | `ebc8766c3ca481b009c1d20e4c2ae207be1e9591` blob `74cf55babced9bdeabf6dcfccec1a04ffe9c3dc4` |
+| Dirty worktree | EXPECTED — candidat E05 + correctifs non commités |
+| Destructive sync | **NONE** (no reset/clean/stash/rebase) |
+| Product commit/push | **NONE** |
 
-## 3. Sources Git lues et SHAs
+### git status --short
+```
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio-next/construction/delivery-history.md
+ M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+ M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+ M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+ M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+ M projects/sfia-studio-next/web/src/components/figma/tokens.css
+ M projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/service.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+ M projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+?? projects/sfia-studio-next/construction/as-built-ensemble-05-travail-nora-20261117.md
+?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/
+?? projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
+?? projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/turn-projection.ts
+?? projects/sfia-studio-next/web/src/hooks/
+?? projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
+?? projects/sfia-studio-next/web/tests/unit/ensemble05-turn-projection.test.ts
+```
+
+## 3. Sources obligatoires (refs/blobs)
 | Source | Ref | Blob |
 |---|---|---|
-| UX v0.7 | docs@99b3622b | `dc5ef25f53e9b819965fac3981d430e59298825f` |
-| Tech v0.2 | docs@99b3622b | `5f38968861f1dbcd546b66da80dbee2a628ba136` |
+| UX v0.7 conception-ux-travail-avec-nora.md | docs@99b3622b | `dc5ef25f53e9b819965fac3981d430e59298825f` |
+| Tech v0.2 contrat-technique-travail-avec-nora.md | docs@99b3622b | `5f38968861f1dbcd546b66da80dbee2a628ba136` |
 | Registre v0.14 | docs@99b3622b | `7eabe8ca52764d370e199c50ba97c850cb1bf1eb` |
-| Prior qualification handoff | `1f93c421` | `81a5867503b7bd16824a3696b2e7cc7c660b86dc` |
+| ENV-01 | main | `14b61f0d1265cf85fcca09b028dd09bd8c71597f` |
+| product-versioning | main | `8bc93e0fafac0f981c446e978a37f5f93d183875` |
+| Prior review pack | handoff@ebc8766c | `74cf55babced9bdeabf6dcfccec1a04ffe9c3dc4` |
+| Figma page 05 | itgvCulInEnFY6DvgIegvP / 700:38 | 16 variantes |
 
-## 4. Figma lu et node IDs
-- File `itgvCulInEnFY6DvgIegvP` page `700:38`
-- Session MCP `2f762deb-bce4-4bcc-96ac-f724cf2bec34`
-- 16 variantes: 700:39, 701:62, 701:105, 701:148, 701:191, 701:234, 701:277, 701:320, 701:363, 701:406, 701:449, 701:492, 701:535, 701:537, 708:98, 708:199
+## 4. Résumé des écarts initiaux (revue ChatGPT précédente)
+Verdict antérieur: `IMPLEMENTED CANDIDATE WITH BLOCKING RESERVES — NOT READY FOR RECETTE`
 
-## 5. Contrat visuel extrait (confirmé MCP metadata)
-| Observation | Valeur |
+| ID | Écart | Cause | Contrat | Correction minimale |
+|---|---|---|---|---|
+| P1-A | Boutons depuis `clarifications[]` | `buildTurnProjection` mappait clarifications→continue | UX §§6.5–6.10 | `continueChoices` typés additifs ; clarifications ≠ boutons |
+| P1-B | `choiceFrozen` remis à false sur échec/ACK | chemins catch page.tsx | idempotence tour | conserver gel ; UNKNOWN fail-closed |
+| P1-C | refs conversation non branchées viewer | texte seul | consultation | openTravailReference D4/D9 |
+| P2-A | e2e viewer conditionnel | `if (consulter)` | preuves | seed doc obligatoire |
+| P2-B | isolation brouillon insuffisante | tests positifs seuls | M3 | tests A≠B, projet, lane, 401 |
+| P2-C | matrice Figma incomplète | capture nominale seule | §6.6 | matrice 16 + captures partielles |
+
+M1–M5: inchangés / revalidés (pas de débat).
+
+## 5. Corrections réellement appliquées
+1. **P1-A** — `semantic-qualification` + fixtures + nora-adapter + `turn-projection` : options de poursuite uniquement depuis `continueChoices` / projection typée ; clarifications ne génèrent plus de contrôles.
+2. **P1-B** — `page.tsx` : gel conservé sur erreur réseau / ACK perdu / UNKNOWN ; pending au reload ; expiration seulement après tour Pilote confirmé/réconcilié.
+3. **P1-C** — `NoraConversation` liens Consulter → `openTravailReference` (D4 contenu local ; Git via lecture D9 existante) ; non-expiration avec choix ; brouillon intact.
+4. **P2-A** — e2e seed document + asserts ouverture/split/agrandi/fermeture/URL.
+5. **P2-B** — unit + browser isolation Pilote/projet/lane + purge 401.
+6. **P2-C** — evidence Figma + runtime + `figma-runtime-matrix.md` (ALIGNED non déclaré).
+
+## 6. Architecture / responsabilités conservées
+- D3 autorité tour / `clientTurnKey` / commande idempotente / réconciliation existantes.
+- Aucun second automate d'envoi.
+- Visionneuse locale Travail (M4) — pas Documents Ensemble 06.
+- Pas de migration (M5).
+- M2 final-only conservé.
+
+## 7. ENV-01 / versioning
+| Item | Value |
 |---|---|
-| Desktop viewport | 1680×970 |
-| Rail | 246 px |
-| Conversation nominale | 972×574 ; composer 972×84 ; bottoms 857=857 |
-| Split 50/50 | ~668 / 668 hors rail |
-| Agrandi | visionneuse 1359 |
-| Mobile | 430×932 |
+| Lane | DEV |
+| DB host/port/db/role (non secret) | 127.0.0.1:5433 / sfia_next_dev / sfia_next_dev |
+| E2E | :3101 / sfia_next_e2e (isolée) |
+| RECETTE | :3200 BUILD `3LzvYPTQc-Km7St6nF97r` — HTTP 307 observé — **inchangée** |
+| STABLE | NOT AVAILABLE |
+| Versioning | correctif interne candidat non publié — **NO RELEASE** |
 
-## 6. Contrats M1–M5 respectés
-| ID | Respect |
+## 8. Fake / Real Qualification
+| Frontière | Mode | Preuve |
+|---|---|---|
+| Nora | FAKE/deterministic | fixtures T1/T2 + e2e |
+| PostgreSQL | REAL DEV/E2E | commandes persistées ; pas de doublon attendu via clientTurnKey |
+| Identité/session | test harness | isolation brouillon A/B |
+| D4 viewer | REAL local seed | e2e document seedé |
+| Git D9 viewer | chemin branché | **NOT EXECUTED LIVE/REAL** — realism gap |
+| RECETTE | protected | aucune écriture |
+
+`DETERMINISTIC PROVEN ⇒ READY FOR REAL` **non déclaré**.
+
+## 9. Résultats tests (cycle correctif)
+| Suite | Résultat |
 |---|---|
-| M1 | `turnProjection` in existing `result_json` ; reload via listTurnProjections |
-| M2 | final-only + honest preparing indicator ; activity summary only from observable terminal facts |
-| M3 | sessionStorage pilot+project+lane ; versioned ACK clear |
-| M4 | local viewer state ; no viewer= URL |
-| M5 | **no migration** |
+| Vitest ensemble05-turn-projection (+ draft privacy) | PASS (21) |
+| Vitest studio-rail | PASS (20) |
+| Playwright ensemble05-travail-nora | PASS (2) |
+| Playwright E04 nreg | PASS (3) — cycle correctif |
+| next build | PASS |
+| tsc workspace | erreurs préexistantes semantic-qualification.test.ts (champs projectIntention manquants) — **hors E05** ; documenté |
 
-## 7. Architecture as-built
-Voir `construction/as-built-ensemble-05-travail-nora-20261117.md`.
+## 10. Comparaison Figma / runtime
+Voir contenu intégral `figma-runtime-matrix.md` ci-dessous.
+Verdict: **`FIGMA TO RUNTIME ALIGNED` NON DÉCLARÉ** (mesures F2 ≤2px non exhaustives ; plusieurs variantes non observées / partielles).
 
-Avant: markdown-only thread, no scroll policy, no draft persistence, fixed 968/369, En bref only.
-Après: projection D3 additive, scroll CT-01, choices CT-02, composer/draft CT-03, activity V1 CT-04/05, viewer CT-06, shell E04 preserved CT-07.
+## 11. Matrice oracles UX (88 candidats — synthèse)
+Couverture par suites discriminantes (PASS) pour: choix typés, gel/UNKNOWN, draft isolation, viewer D4 seedé, scroll, compositeur, non-régression E04.
+NOT COVERED V1: streaming progressif M2.
+NOT EXECUTED: Git REAL live fetch ; F2 géométrique 16/16.
+BLOCKED: aucun bloquant code restant pour P1-A/B ; preuve Git REAL et F2 global restent réserves réception.
 
-## 8–10. Fichiers créés (contenu intégral) et modifiés
+## 12. Verdict
+`E05 CORRECTIVE CANDIDATE WITH RESERVES — NOT READY FOR RECETTE`
 
-### CREATED `projects/sfia-studio-next/web/src/domains/conversation/turn-projection.ts`
+Conditions succès technique partiellement atteintes:
+- P1-A/B corrigés et testés: OUI
+- P1-C D4: OUI (seed) ; Git REAL: NOT EXECUTED
+- P2-A viewer e2e non conditionnel: OUI
+- P2-B brouillon négatif: OUI
+- P2-C comparaison Figma réelle partielle: OUI mais ALIGNED non déclaré
+- Review Pack Full + handoff L3: ce document / publication suivante
 
-```
-/**
- * Ensemble 05 / M1 — structured D3 turn projection for Nora replies.
- * Stored additively in conversation_turn_commands.result_json (no migration).
- * Never parse markdown to decide mutations; choices are typed here only.
- */
+## 13. Prochain gate Morris
+Revue ChatGPT sur handoff distant puis décision Morris (acceptation réserves / F2 / éventuel GO RECETTE distinct).
+Aucun GO RECETTE, commit/push produit, PR, merge, STABLE, Gate C, ML5 dans ce cycle.
 
-export const TURN_PROJECTION_SCHEMA = "e05-turn-projection-v1" as const;
+---
 
-export type TurnChoiceKind = "continue";
+## 14. Fichiers créés — contenu intégral (texte)
 
-export type TurnChoice = {
-  id: string;
-  label: string;
-  kind: TurnChoiceKind;
-  /** Explicit pilot utterance transmitted on click (new D3 turn). */
-  transmitText: string;
-};
-
-export type TurnReference = {
-  kind: "document" | "git" | "external";
-  label: string;
-  resourceId?: string;
-  revisionId?: string;
-  href?: string;
-  available?: boolean;
-};
-
-export type TurnActivitySummary = {
-  /** Honest summary of observable facts after terminal commit — never invented mid-flight. */
-  kind: "wait" | "sources_consulted" | "interrupted" | "failed" | "uncertain";
-  label: string;
-  detail?: string;
-};
-
-export type TurnProjection = {
-  schemaVersion: typeof TURN_PROJECTION_SCHEMA;
-  messageId: string | null;
-  turnCommandId?: string | null;
-  finalized: boolean;
-  status: string;
-  choices: TurnChoice[];
-  references: TurnReference[];
-  activity?: TurnActivitySummary | null;
-};
-
-export type MessageProjectionView = TurnProjection & {
-  /** Actionable only for the latest finalized Nora turn with no later pilot turn. */
-  actionable: boolean;
-};
-
-/** Build projection from durable turn facts (clarifications → continue choices). */
-export function buildTurnProjection(input: {
-  messageId: string | null;
-  turnCommandId?: string | null;
-  status: string;
-  finalized: boolean;
-  clarifications?: string[] | null;
-  toolCallsObserved?: number | null;
-  d4CharsReturned?: number | null;
-  documentSave?: { documentId?: string; revisionId?: string; status?: string } | null;
-}): TurnProjection {
-  const choices: TurnChoice[] = [];
-  const seen = new Set<string>();
-  for (const raw of input.clarifications ?? []) {
-    const label = String(raw ?? "").trim();
-    if (!label || seen.has(label)) continue;
-    seen.add(label);
-    const id = `c${choices.length + 1}`;
-    choices.push({
-      id,
-      label: label.length > 120 ? `${label.slice(0, 117)}…` : label,
-      kind: "continue",
-      transmitText: label,
-    });
-    if (choices.length >= 6) break;
-  }
-
-  const references: TurnReference[] = [];
-  if (input.documentSave?.documentId) {
-    references.push({
-      kind: "document",
-      label: "Document du projet",
-      resourceId: input.documentSave.documentId,
-      revisionId: input.documentSave.revisionId,
-      available: input.documentSave.status !== "FAILED",
-    });
-  }
-
-  let activity: TurnActivitySummary | null = null;
-  const status = (input.status ?? "").toUpperCase();
-  if (status === "FAILED") {
-    activity = { kind: "failed", label: "Réponse interrompue ou en échec" };
-  } else if (status === "UNKNOWN") {
-    activity = { kind: "uncertain", label: "État de la réponse encore incertain" };
-  } else if ((input.toolCallsObserved ?? 0) > 0 || (input.d4CharsReturned ?? 0) > 0) {
-    activity = {
-      kind: "sources_consulted",
-      label: "Sources consultées pour cette réponse",
-      detail:
-        (input.toolCallsObserved ?? 0) > 0
-          ? `${input.toolCallsObserved} consultation(s) observée(s)`
-          : undefined,
-    };
-  }
-
-  return {
-    schemaVersion: TURN_PROJECTION_SCHEMA,
-    messageId: input.messageId,
-    turnCommandId: input.turnCommandId ?? null,
-    finalized: input.finalized,
-    status: input.status,
-    choices,
-    references,
-    activity,
-  };
-}
-
-export function parseTurnProjection(raw: unknown): TurnProjection | null {
-  if (!raw || typeof raw !== "object") return null;
-  const o = raw as Record<string, unknown>;
-  if (o.schemaVersion !== TURN_PROJECTION_SCHEMA) return null;
-  if (!Array.isArray(o.choices)) return null;
-  return {
-    schemaVersion: TURN_PROJECTION_SCHEMA,
-    messageId: typeof o.messageId === "string" ? o.messageId : null,
-    turnCommandId: typeof o.turnCommandId === "string" ? o.turnCommandId : null,
-    finalized: Boolean(o.finalized),
-    status: typeof o.status === "string" ? o.status : "UNKNOWN",
-    choices: (o.choices as TurnChoice[]).filter(
-      (c) =>
-        c &&
-        typeof c.id === "string" &&
-        typeof c.label === "string" &&
-        c.kind === "continue" &&
-        typeof c.transmitText === "string",
-    ),
-    references: Array.isArray(o.references) ? (o.references as TurnReference[]) : [],
-    activity: (o.activity as TurnActivitySummary | null | undefined) ?? null,
-  };
-}
-
-export function extractTurnProjectionFromResultJson(
-  resultJson: string | null | undefined,
-): TurnProjection | null {
-  if (!resultJson) return null;
-  try {
-    const parsed = JSON.parse(resultJson) as Record<string, unknown>;
-    return parseTurnProjection(parsed.turnProjection);
-  } catch {
-    return null;
-  }
-}
-
-/**
- * Mark which projection groups remain actionable after reload / new pilot turn.
- * Historical choices stay visible but non-actionable.
- */
-export function resolveActionableProjections(input: {
-  messages: Array<{ id: string; role: string }>;
-  projections: TurnProjection[];
-  /** When true (UNKNOWN send / reconcile), suspend actionable choices. */
-  suspendActions?: boolean;
-}): MessageProjectionView[] {
-  const lastAssistantId = [...input.messages]
-    .reverse()
-    .find((m) => m.role === "assistant")?.id;
-  const lastAssistantIdx = lastAssistantId
-    ? input.messages.findIndex((m) => m.id === lastAssistantId)
-    : -1;
-  const hasLaterPilot =
-    lastAssistantIdx >= 0 &&
-    input.messages.slice(lastAssistantIdx + 1).some((m) => m.role === "user");
-
-  return input.projections.map((p) => {
-    const isLatest =
-      Boolean(p.messageId) && p.messageId === lastAssistantId && !hasLaterPilot;
-    const actionable =
-      !input.suspendActions &&
-      p.finalized &&
-      isLatest &&
-      (p.status ?? "").toUpperCase() !== "UNKNOWN" &&
-      (p.status ?? "").toUpperCase() !== "FAILED" &&
-      p.choices.length > 0;
-    return { ...p, actionable };
-  });
-}
+### CREATED `projects/sfia-studio-next/construction/as-built-ensemble-05-travail-nora-20261117.md`
 
 ```
+# As-built — Ensemble 05 Travail avec Nora
 
-### CREATED `projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts`
+| Métadonnée | Valeur |
+|---|---|
+| Date | 2026-11-17 |
+| Macro-lot | R5 / ML4D Ensemble 05 |
+| Type | Delivery locale DEV · **NO RELEASE** |
+| Branche produit | `feat/next-ml4d-project-space-20261116` |
+| HEAD de départ | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
+| Statut | **E05 CORRECTIVE CANDIDATE WITH RESERVES** (as-built non normatif) |
+| Correctif | 17/11/2026 — P1-A/B/C + P2-A/B/C sur candidat local non commité |
 
-```
-/**
- * Ensemble 05 / M3 — composer draft in sessionStorage (tab-scoped).
- * Partition: pilot + project + lane. No server sync. No cross-device recovery.
- */
+## Sources
 
-export type ComposerDraftRecord = {
-  schemaVersion: "e05-composer-draft-v1";
-  pilotId: string;
-  projectId: string;
-  lane: string;
-  text: string;
-  /** Monotonic local version — ACK may clear only if versions still match. */
-  version: number;
-  /** Version that was submitted; late ACK clears only when current === sent. */
-  sentVersion: number | null;
-  updatedAt: string;
-};
+- UX v0.7 `conception-ux-travail-avec-nora.md` — docs@`99b3622b` blob `dc5ef25f…`
+- Contrat technique v0.2 — docs@`99b3622b` blob `5f389688…` — M1–M5 VALIDATED BY MORRIS
+- Figma page 05 `itgvCulInEnFY6DvgIegvP` / `700:38` — 16 variantes ; session MCP `2f762deb-…`
 
-export function studioClientLane(): string {
-  if (typeof window === "undefined") return "ssr";
-  const port = window.location.port || (window.location.protocol === "https:" ? "443" : "80");
-  // ENV-01: DEV :3100 vs RECETTE :3200 must not share drafts.
-  return `host:${window.location.hostname}:${port}`;
-}
+## Réalisation (résumé)
 
-export function composerDraftStorageKey(input: {
-  pilotId: string;
-  projectId: string;
-  lane?: string;
-}): string {
-  const lane = input.lane ?? studioClientLane();
-  return `sfia.travail.draft:v1:${lane}:${input.pilotId}:${input.projectId}`;
-}
+| Capacité | Implémentation |
+|---|---|
+| M1 projection | `turnProjection` additif dans `result_json` (pas de migration) ; relecture via `listTurnProjections` |
+| M2 activité V1 | Attente animée honnête ; résumé d’activité post-terminal si `toolCallsObserved`/`d4CharsReturned` ; **pas de streaming texte** |
+| M3 brouillon | `sessionStorage` clé `pilot+project+lane` ; ACK tardif versionné ; purge 401 |
+| M4 visionneuse | État local Travail ; modes normal / split 50/50 / agrandi ; pas de `viewer=` |
+| M5 | Aucune migration |
+| CT-01 | Hook `useNoraThreadScroll` — dernier message par défaut, préservation relecture, pastille « Nouveaux messages » |
+| CT-02 / P1-A | `continueChoices` typés (≠ `clarifications[]`) ; transmission immédiate ; brouillon intact |
+| CT-02 / P1-B | Gel conservé sur ACK perdu / UNKNOWN / réseau ; expiration via tour Pilote |
+| CT-02 / P1-C | Références consultables → viewer D4 / lecture Git D9 existante |
+| CT-03 | Compositeur compact/étendu (Entrée / Maj+Entrée ; IME ; mobile = bouton) |
+| CT-06 | `TravailViewer` remplace « En bref » ; e2e viewer **non conditionnel** (doc seedé) |
 
-export function readComposerDraft(input: {
-  pilotId: string;
-  projectId: string;
-  lane?: string;
-}): ComposerDraftRecord | null {
-  if (typeof sessionStorage === "undefined") return null;
-  if (!input.pilotId || !input.projectId) return null;
-  try {
-    const raw = sessionStorage.getItem(composerDraftStorageKey(input));
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as ComposerDraftRecord;
-    if (parsed.schemaVersion !== "e05-composer-draft-v1") return null;
-    if (parsed.pilotId !== input.pilotId || parsed.projectId !== input.projectId) return null;
-    const lane = input.lane ?? studioClientLane();
-    if (parsed.lane !== lane) return null;
-    return parsed;
-  } catch {
-    return null;
-  }
-}
+## Preuves exécutées (DEV / FAKE)
 
-export function writeComposerDraft(record: ComposerDraftRecord): void {
-  if (typeof sessionStorage === "undefined") return;
-  sessionStorage.setItem(
-    composerDraftStorageKey({
-      pilotId: record.pilotId,
-      projectId: record.projectId,
-      lane: record.lane,
-    }),
-    JSON.stringify(record),
-  );
-}
+- Vitest `ensemble05-turn-projection` + `studio-rail` : PASS
+- Playwright `ensemble05-travail-nora.spec.ts` : PASS (scroll, draft, choix+brouillon, viewer)
+- Non-régression Ensemble 04 `project-space-ensemble04.spec.ts` : 3 PASS
+- `next build` : PASS
+- Captures : `web/docs/evidence/ensemble-05-travail-nora/`
 
-export function clearComposerDraft(input: {
-  pilotId: string;
-  projectId: string;
-  lane?: string;
-}): void {
-  if (typeof sessionStorage === "undefined") return;
-  sessionStorage.removeItem(composerDraftStorageKey(input));
-}
+## Correctifs appliqués (cycle correctif)
 
-/**
- * Clear after successful send only when the composer still holds the sent version.
- * A newer edit (version > sentVersion) must survive a late ACK.
- */
-export function clearDraftAfterAck(input: {
-  pilotId: string;
-  projectId: string;
-  sentVersion: number;
-  currentVersion: number;
-  lane?: string;
-}): boolean {
-  if (input.currentVersion !== input.sentVersion) return false;
-  clearComposerDraft(input);
-  return true;
-}
+| ID | Correction |
+|---|---|
+| P1-A | `continueChoices` / `resourceReferences` additifs sur qualification D3 ; plus de mapping clarifications→boutons |
+| P1-B | `choiceFrozen` conservé sur erreur/ACK/UNKNOWN ; pending au load |
+| P1-C | Liens « Consulter » → `openTravailReference` (D4 local / `GET .../git/file`) |
+| P2-A | E2E seed document obligatoire + asserts viewer |
+| P2-B | Tests isolation Pilote A/B + purge + lane |
+| P2-C | Matrice 16 variantes + captures Figma/runtime partielles |
 
-export function purgeComposerDraftsForPilot(pilotId: string): void {
-  if (typeof sessionStorage === "undefined") return;
-  const prefix = "sfia.travail.draft:v1:";
-  const keys: string[] = [];
-  for (let i = 0; i < sessionStorage.length; i += 1) {
-    const k = sessionStorage.key(i);
-    if (k && k.startsWith(prefix) && k.includes(`:${pilotId}:`)) keys.push(k);
-  }
-  for (const k of keys) sessionStorage.removeItem(k);
-}
+## Réserves
 
-```
+1. **M2 progressive text** — NOT COVERED V1 (arbitré Morris).
+2. **Activité contextualisée live** — seulement faits post-terminal observables ; pas de transport d’étapes pendant génération.
+3. **Git viewer REAL** — chemin D9 branché ; preuve fournisseur LIVE/REAL **NOT EXECUTED** (fixture/scripted seulement si lane).
+4. **Comparaison Figma F2 géométrique exhaustive** — matrice partielle ; `FIGMA TO RUNTIME ALIGNED` **non déclaré**.
+5. **88 scénarios UX** — couverture par suites discriminantes, pas 88 tests isolés.
 
-### CREATED `projects/sfia-studio-next/web/src/hooks/useNoraThreadScroll.ts`
+## ENV-01 / versioning
 
-```
-"use client";
-
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-
-const NEAR_BOTTOM_PX = 72;
-
-/**
- * CT-01 / UX-002 — default to last message; preserve voluntary re-read position;
- * announce new content when Nora answers while the pilot is reading history.
- */
-export function useNoraThreadScroll(deps: {
-  messageCount: number;
-  lastMessageId: string | null;
-  activityPreparing: boolean;
-  /** Bumps when pilot voluntarily sends — force stick to bottom. */
-  forceStickToken: number;
-}) {
-  const threadRef = useRef<HTMLDivElement | null>(null);
-  const stickToBottomRef = useRef(true);
-  const primedRef = useRef(false);
-  const prevLastIdRef = useRef<string | null>(null);
-  const [newBelow, setNewBelow] = useState(false);
-
-  const isNearBottom = useCallback(() => {
-    const el = threadRef.current;
-    if (!el) return true;
-    return el.scrollHeight - el.scrollTop - el.clientHeight <= NEAR_BOTTOM_PX;
-  }, []);
-
-  const scrollToBottom = useCallback((behavior: ScrollBehavior = "auto") => {
-    const el = threadRef.current;
-    if (!el) return;
-    const apply = () => {
-      el.scrollTop = el.scrollHeight;
-      if (behavior === "smooth") {
-        el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
-      }
-    };
-    apply();
-    // Second pass after layout (new bubbles / activity row).
-    requestAnimationFrame(() => {
-      apply();
-      requestAnimationFrame(apply);
-    });
-    stickToBottomRef.current = true;
-    setNewBelow(false);
-  }, []);
-
-  const onScroll = useCallback(() => {
-    const near = isNearBottom();
-    stickToBottomRef.current = near;
-    if (near) setNewBelow(false);
-  }, [isNearBottom]);
-
-  // Initial entry / refresh / return: show last message once messages exist.
-  useLayoutEffect(() => {
-    if (deps.messageCount === 0) return;
-    if (!primedRef.current) {
-      scrollToBottom("auto");
-      primedRef.current = true;
-      prevLastIdRef.current = deps.lastMessageId;
-      return;
-    }
-  }, [deps.messageCount, deps.lastMessageId, scrollToBottom]);
-
-  // Reset priming when thread identity effectively reloads (empty → filled again).
-  useEffect(() => {
-    if (deps.messageCount === 0) {
-      primedRef.current = false;
-      prevLastIdRef.current = null;
-      setNewBelow(false);
-    }
-  }, [deps.messageCount]);
-
-  // New messages / activity: stick only when already near bottom or forced by send.
-  useLayoutEffect(() => {
-    const lastChanged = deps.lastMessageId !== prevLastIdRef.current;
-    if (lastChanged) {
-      if (stickToBottomRef.current) {
-        scrollToBottom("auto");
-      } else if (deps.lastMessageId) {
-        setNewBelow(true);
-      }
-      prevLastIdRef.current = deps.lastMessageId;
-      return;
-    }
-    if (deps.activityPreparing && stickToBottomRef.current) {
-      scrollToBottom("auto");
-    }
-  }, [deps.lastMessageId, deps.activityPreparing, scrollToBottom]);
-
-  useLayoutEffect(() => {
-    if (deps.forceStickToken <= 0) return;
-    stickToBottomRef.current = true;
-    scrollToBottom("smooth");
-  }, [deps.forceStickToken, scrollToBottom]);
-
-  return {
-    threadRef,
-    onScroll,
-    scrollToBottom,
-    newBelow,
-    stickToBottom: stickToBottomRef,
-  };
-}
-
+- Travail : DEV `:5433` / `sfia_next_dev` (+ e2e `sfia_next_e2e` / `:3101`)
+- RECETTE `:3200` build `3LzvYPTQc-Km7St6nF97r` **inchangée**
+- **NO RELEASE** — aucun cutover, PR, merge, promotion
 ```
 
 ### CREATED `projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx`
@@ -613,7 +364,650 @@ export function TravailViewer(props: {
     </div>
   );
 }
+```
 
+### CREATED `projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts`
+
+```
+/**
+ * Ensemble 05 / M3 — composer draft in sessionStorage (tab-scoped).
+ * Partition: pilot + project + lane. No server sync. No cross-device recovery.
+ */
+
+export type ComposerDraftRecord = {
+  schemaVersion: "e05-composer-draft-v1";
+  pilotId: string;
+  projectId: string;
+  lane: string;
+  text: string;
+  /** Monotonic local version — ACK may clear only if versions still match. */
+  version: number;
+  /** Version that was submitted; late ACK clears only when current === sent. */
+  sentVersion: number | null;
+  updatedAt: string;
+};
+
+export function studioClientLane(): string {
+  if (typeof window === "undefined") return "ssr";
+  const port = window.location.port || (window.location.protocol === "https:" ? "443" : "80");
+  // ENV-01: DEV :3100 vs RECETTE :3200 must not share drafts.
+  return `host:${window.location.hostname}:${port}`;
+}
+
+export function composerDraftStorageKey(input: {
+  pilotId: string;
+  projectId: string;
+  lane?: string;
+}): string {
+  const lane = input.lane ?? studioClientLane();
+  return `sfia.travail.draft:v1:${lane}:${input.pilotId}:${input.projectId}`;
+}
+
+export function readComposerDraft(input: {
+  pilotId: string;
+  projectId: string;
+  lane?: string;
+}): ComposerDraftRecord | null {
+  if (typeof sessionStorage === "undefined") return null;
+  if (!input.pilotId || !input.projectId) return null;
+  try {
+    const raw = sessionStorage.getItem(composerDraftStorageKey(input));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as ComposerDraftRecord;
+    if (parsed.schemaVersion !== "e05-composer-draft-v1") return null;
+    if (parsed.pilotId !== input.pilotId || parsed.projectId !== input.projectId) return null;
+    const lane = input.lane ?? studioClientLane();
+    if (parsed.lane !== lane) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+export function writeComposerDraft(record: ComposerDraftRecord): void {
+  if (typeof sessionStorage === "undefined") return;
+  sessionStorage.setItem(
+    composerDraftStorageKey({
+      pilotId: record.pilotId,
+      projectId: record.projectId,
+      lane: record.lane,
+    }),
+    JSON.stringify(record),
+  );
+}
+
+export function clearComposerDraft(input: {
+  pilotId: string;
+  projectId: string;
+  lane?: string;
+}): void {
+  if (typeof sessionStorage === "undefined") return;
+  sessionStorage.removeItem(composerDraftStorageKey(input));
+}
+
+/**
+ * Clear after successful send only when the composer still holds the sent version.
+ * A newer edit (version > sentVersion) must survive a late ACK.
+ */
+export function clearDraftAfterAck(input: {
+  pilotId: string;
+  projectId: string;
+  sentVersion: number;
+  currentVersion: number;
+  lane?: string;
+}): boolean {
+  if (input.currentVersion !== input.sentVersion) return false;
+  clearComposerDraft(input);
+  return true;
+}
+
+export function purgeComposerDraftsForPilot(pilotId: string): void {
+  if (typeof sessionStorage === "undefined") return;
+  const prefix = "sfia.travail.draft:v1:";
+  const keys: string[] = [];
+  for (let i = 0; i < sessionStorage.length; i += 1) {
+    const k = sessionStorage.key(i);
+    if (k && k.startsWith(prefix) && k.includes(`:${pilotId}:`)) keys.push(k);
+  }
+  for (const k of keys) sessionStorage.removeItem(k);
+}
+```
+
+### CREATED `projects/sfia-studio-next/web/src/domains/conversation/turn-projection.ts`
+
+```
+/**
+ * Ensemble 05 / M1 — structured D3 turn projection for Nora replies.
+ * Stored additively in conversation_turn_commands.result_json (no migration).
+ * Never parse markdown to decide mutations; choices are typed here only.
+ * Clarifications ≠ continue choices (P1-A corrective).
+ */
+
+export const TURN_PROJECTION_SCHEMA = "e05-turn-projection-v1" as const;
+
+export type TurnChoiceKind = "continue";
+
+export type TurnChoice = {
+  id: string;
+  label: string;
+  kind: TurnChoiceKind;
+  /** Explicit pilot utterance transmitted on click (new D3 turn). */
+  transmitText: string;
+};
+
+export type TurnReference = {
+  kind: "document" | "git" | "external";
+  label: string;
+  resourceId?: string;
+  revisionId?: string;
+  repositoryId?: string;
+  path?: string;
+  ref?: string;
+  commit?: string;
+  href?: string;
+  available?: boolean;
+};
+
+export type TurnActivitySummary = {
+  /** Honest summary of observable facts after terminal commit — never invented mid-flight. */
+  kind: "wait" | "sources_consulted" | "interrupted" | "failed" | "uncertain";
+  label: string;
+  detail?: string;
+};
+
+export type TurnProjection = {
+  schemaVersion: typeof TURN_PROJECTION_SCHEMA;
+  messageId: string | null;
+  turnCommandId?: string | null;
+  finalized: boolean;
+  status: string;
+  choices: TurnChoice[];
+  references: TurnReference[];
+  activity?: TurnActivitySummary | null;
+};
+
+export type MessageProjectionView = TurnProjection & {
+  /** Actionable only for the latest finalized Nora turn with no later pilot turn. */
+  actionable: boolean;
+};
+
+export type ContinueChoiceInput = {
+  id: string;
+  label: string;
+  transmitText: string;
+};
+
+/**
+ * Build projection from durable turn facts.
+ * Continue choices come ONLY from typed continueChoices — never from clarifications[].
+ */
+export function buildTurnProjection(input: {
+  messageId: string | null;
+  turnCommandId?: string | null;
+  status: string;
+  finalized: boolean;
+  /** Typed continuation offers — distinct from open questions (clarifications). */
+  continueChoices?: ContinueChoiceInput[] | null;
+  references?: TurnReference[] | null;
+  toolCallsObserved?: number | null;
+  d4CharsReturned?: number | null;
+  documentSave?: { documentId?: string; revisionId?: string; status?: string } | null;
+}): TurnProjection {
+  const choices: TurnChoice[] = [];
+  const seen = new Set<string>();
+  for (const raw of input.continueChoices ?? []) {
+    const id = String(raw?.id ?? "").trim();
+    const label = String(raw?.label ?? "").trim();
+    const transmitText = String(raw?.transmitText ?? "").trim();
+    if (!id || !label || !transmitText) continue;
+    if (seen.has(id) || seen.has(transmitText)) continue;
+    seen.add(id);
+    seen.add(transmitText);
+    choices.push({
+      id,
+      label: label.length > 120 ? `${label.slice(0, 117)}…` : label,
+      kind: "continue",
+      transmitText,
+    });
+    if (choices.length >= 6) break;
+  }
+
+  const references: TurnReference[] = [...(input.references ?? [])];
+  if (input.documentSave?.documentId) {
+    const already = references.some(
+      (r) => r.kind === "document" && r.resourceId === input.documentSave!.documentId,
+    );
+    if (!already) {
+      references.push({
+        kind: "document",
+        label: "Document du projet",
+        resourceId: input.documentSave.documentId,
+        revisionId: input.documentSave.revisionId,
+        available: input.documentSave.status !== "FAILED",
+      });
+    }
+  }
+
+  let activity: TurnActivitySummary | null = null;
+  const status = (input.status ?? "").toUpperCase();
+  if (status === "FAILED") {
+    activity = { kind: "failed", label: "Réponse interrompue ou en échec" };
+  } else if (status === "UNKNOWN") {
+    activity = { kind: "uncertain", label: "État de la réponse encore incertain" };
+  } else if ((input.toolCallsObserved ?? 0) > 0 || (input.d4CharsReturned ?? 0) > 0) {
+    activity = {
+      kind: "sources_consulted",
+      label: "Sources consultées pour cette réponse",
+      detail:
+        (input.toolCallsObserved ?? 0) > 0
+          ? `${input.toolCallsObserved} consultation(s) observée(s)`
+          : undefined,
+    };
+  }
+
+  return {
+    schemaVersion: TURN_PROJECTION_SCHEMA,
+    messageId: input.messageId,
+    turnCommandId: input.turnCommandId ?? null,
+    finalized: input.finalized,
+    status: input.status,
+    choices,
+    references,
+    activity,
+  };
+}
+
+function isContinueChoice(c: unknown): c is TurnChoice {
+  if (!c || typeof c !== "object") return false;
+  const o = c as Record<string, unknown>;
+  return (
+    typeof o.id === "string" &&
+    typeof o.label === "string" &&
+    o.kind === "continue" &&
+    typeof o.transmitText === "string" &&
+    o.transmitText.trim().length > 0
+  );
+}
+
+export function parseTurnProjection(raw: unknown): TurnProjection | null {
+  if (!raw || typeof raw !== "object") return null;
+  const o = raw as Record<string, unknown>;
+  if (o.schemaVersion !== TURN_PROJECTION_SCHEMA) return null;
+  if (!Array.isArray(o.choices)) return null;
+  return {
+    schemaVersion: TURN_PROJECTION_SCHEMA,
+    messageId: typeof o.messageId === "string" ? o.messageId : null,
+    turnCommandId: typeof o.turnCommandId === "string" ? o.turnCommandId : null,
+    finalized: Boolean(o.finalized),
+    status: typeof o.status === "string" ? o.status : "UNKNOWN",
+    choices: (o.choices as unknown[]).filter(isContinueChoice),
+    references: Array.isArray(o.references) ? (o.references as TurnReference[]) : [],
+    activity: (o.activity as TurnActivitySummary | null | undefined) ?? null,
+  };
+}
+
+export function extractTurnProjectionFromResultJson(
+  resultJson: string | null | undefined,
+): TurnProjection | null {
+  if (!resultJson) return null;
+  try {
+    const parsed = JSON.parse(resultJson) as Record<string, unknown>;
+    return parseTurnProjection(parsed.turnProjection);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Mark which projection groups remain actionable after reload / new pilot turn.
+ * Historical choices stay visible but non-actionable.
+ * UNKNOWN / frozen attempt → suspendActions keeps groups non-actionable.
+ */
+export function resolveActionableProjections(input: {
+  messages: Array<{ id: string; role: string }>;
+  projections: TurnProjection[];
+  /** When true (UNKNOWN send / reconcile / in-flight), suspend actionable choices. */
+  suspendActions?: boolean;
+}): MessageProjectionView[] {
+  const lastAssistantId = [...input.messages]
+    .reverse()
+    .find((m) => m.role === "assistant")?.id;
+  const lastAssistantIdx = lastAssistantId
+    ? input.messages.findIndex((m) => m.id === lastAssistantId)
+    : -1;
+  const hasLaterPilot =
+    lastAssistantIdx >= 0 &&
+    input.messages.slice(lastAssistantIdx + 1).some((m) => m.role === "user");
+
+  return input.projections.map((p) => {
+    const isLatest =
+      Boolean(p.messageId) && p.messageId === lastAssistantId && !hasLaterPilot;
+    const actionable =
+      !input.suspendActions &&
+      p.finalized &&
+      isLatest &&
+      (p.status ?? "").toUpperCase() !== "UNKNOWN" &&
+      (p.status ?? "").toUpperCase() !== "FAILED" &&
+      p.choices.length > 0;
+    return { ...p, actionable };
+  });
+}
+```
+
+### CREATED `projects/sfia-studio-next/web/src/hooks/useNoraThreadScroll.ts`
+
+```
+"use client";
+
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+
+const NEAR_BOTTOM_PX = 72;
+
+/**
+ * CT-01 / UX-002 — default to last message; preserve voluntary re-read position;
+ * announce new content when Nora answers while the pilot is reading history.
+ */
+export function useNoraThreadScroll(deps: {
+  messageCount: number;
+  lastMessageId: string | null;
+  activityPreparing: boolean;
+  /** Bumps when pilot voluntarily sends — force stick to bottom. */
+  forceStickToken: number;
+}) {
+  const threadRef = useRef<HTMLDivElement | null>(null);
+  const stickToBottomRef = useRef(true);
+  const primedRef = useRef(false);
+  const prevLastIdRef = useRef<string | null>(null);
+  const [newBelow, setNewBelow] = useState(false);
+
+  const isNearBottom = useCallback(() => {
+    const el = threadRef.current;
+    if (!el) return true;
+    return el.scrollHeight - el.scrollTop - el.clientHeight <= NEAR_BOTTOM_PX;
+  }, []);
+
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = "auto") => {
+    const el = threadRef.current;
+    if (!el) return;
+    const apply = () => {
+      el.scrollTop = el.scrollHeight;
+      if (behavior === "smooth") {
+        el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+      }
+    };
+    apply();
+    // Second pass after layout (new bubbles / activity row).
+    requestAnimationFrame(() => {
+      apply();
+      requestAnimationFrame(apply);
+    });
+    stickToBottomRef.current = true;
+    setNewBelow(false);
+  }, []);
+
+  const onScroll = useCallback(() => {
+    const near = isNearBottom();
+    stickToBottomRef.current = near;
+    if (near) setNewBelow(false);
+  }, [isNearBottom]);
+
+  // Initial entry / refresh / return: show last message once messages exist.
+  useLayoutEffect(() => {
+    if (deps.messageCount === 0) return;
+    if (!primedRef.current) {
+      scrollToBottom("auto");
+      primedRef.current = true;
+      prevLastIdRef.current = deps.lastMessageId;
+      return;
+    }
+  }, [deps.messageCount, deps.lastMessageId, scrollToBottom]);
+
+  // Reset priming when thread identity effectively reloads (empty → filled again).
+  useEffect(() => {
+    if (deps.messageCount === 0) {
+      primedRef.current = false;
+      prevLastIdRef.current = null;
+      setNewBelow(false);
+    }
+  }, [deps.messageCount]);
+
+  // New messages / activity: stick only when already near bottom or forced by send.
+  useLayoutEffect(() => {
+    const lastChanged = deps.lastMessageId !== prevLastIdRef.current;
+    if (lastChanged) {
+      if (stickToBottomRef.current) {
+        scrollToBottom("auto");
+      } else if (deps.lastMessageId) {
+        setNewBelow(true);
+      }
+      prevLastIdRef.current = deps.lastMessageId;
+      return;
+    }
+    if (deps.activityPreparing && stickToBottomRef.current) {
+      scrollToBottom("auto");
+    }
+  }, [deps.lastMessageId, deps.activityPreparing, scrollToBottom]);
+
+  useLayoutEffect(() => {
+    if (deps.forceStickToken <= 0) return;
+    stickToBottomRef.current = true;
+    scrollToBottom("smooth");
+  }, [deps.forceStickToken, scrollToBottom]);
+
+  return {
+    threadRef,
+    onScroll,
+    scrollToBottom,
+    newBelow,
+    stickToBottom: stickToBottomRef,
+  };
+}
+```
+
+### CREATED `projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts`
+
+```
+import { test, expect } from "@playwright/test";
+import path from "node:path";
+import fs from "node:fs";
+import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
+
+/**
+ * Ensemble 05 corrective — Travail avec Nora (FAKE/DEV lane :3101).
+ * Viewer assertions are NON-OPTIONAL (P2-A). Progressive text NOT COVERED V1.
+ */
+test.describe("Ensemble 05 Travail avec Nora", () => {
+  test("scroll, draft, typed choices, required viewer lifecycle", async ({ page }) => {
+    test.setTimeout(180_000);
+    const evidenceDir = path.resolve(
+      __dirname,
+      "../../docs/evidence/ensemble-05-travail-nora",
+    );
+    fs.mkdirSync(evidenceDir, { recursive: true });
+
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+
+    const { projectId, preparationId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "Ensemble 05 fil Travail avec Nora",
+      name: `E05 Travail ${Date.now()}`,
+      summary: "e05 corrective",
+    });
+    expect(preparationId).toBeTruthy();
+
+    // P2-A — seed a guaranteed document (test fails if create fails).
+    const docRes = await page.request.post(`/api/preparations/${preparationId}/documents`, {
+      data: {
+        title: "Note E05 visionneuse",
+        contentMarkdown: "# Note E05\n\nContenu déterministe pour la visionneuse Travail.",
+        correlationKey: `e05-doc-${Date.now()}`,
+      },
+    });
+    expect(docRes.ok()).toBeTruthy();
+
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    const thread = page.getByTestId("nora-thread");
+    const draft = page.getByTestId("thread-draft");
+    const send = page.getByTestId("thread-send");
+
+    await expect(thread).toBeVisible();
+    const atBottom = await thread.evaluate((el) => {
+      return el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+    });
+    expect(atBottom).toBe(true);
+
+    // CT-03 — draft persists across surface nav.
+    const draftText = `Brouillon E05 conservé ${Date.now()}`;
+    await draft.fill(draftText);
+    await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
+    await expect(page).toHaveURL(/surface=document/);
+    await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
+    await expect(page).toHaveURL(/surface=travail/);
+    await expect(draft).toHaveValue(draftText);
+
+    await page.reload();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    await expect(page.getByTestId("thread-draft")).toHaveValue(draftText);
+
+    await thread.evaluate((el) => {
+      el.scrollTop = 0;
+    });
+    // Fixture with typed continueChoices (not clarifications-as-buttons).
+    const choiceSeed =
+      "J'aimerais créer un outil pour mieux accompagner les chefs de projet, mais je ne sais pas encore ce qu'il devrait faire exactement.";
+    await draft.fill(choiceSeed);
+    await send.click();
+    await expect(
+      page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false }),
+    ).toBeVisible({ timeout: 30000 });
+    await expect
+      .poll(async () =>
+        thread.evaluate((el) => el.scrollHeight - el.scrollTop - el.clientHeight < 120),
+      )
+      .toBe(true);
+
+    const actionable = page.locator(
+      '[data-testid="nora-choices"][data-actionable="1"] [data-testid="nora-choice"]',
+    );
+    await expect(actionable.first()).toBeVisible({ timeout: 10000 });
+    // Clarification questions must NOT appear as choice buttons.
+    const choiceLabels = await actionable.allTextContents();
+    expect(
+      choiceLabels.some((t) => /Quelle difficulté concrète/i.test(t)),
+    ).toBe(false);
+    expect(
+      choiceLabels.some((t) => /Approfondir|Autre approche/i.test(t)),
+    ).toBe(true);
+
+    const keep = `Draft intact pendant choix ${Date.now()}`;
+    await draft.fill(keep);
+    await actionable.first().click();
+    await expect(
+      page.getByTestId("nora-msg-pilot").filter({ hasText: /Approfondissons|Explore une autre/i }),
+    ).toBeVisible({ timeout: 30000 });
+    await expect(draft).toHaveValue(keep);
+    await expect(
+      page.locator('[data-testid="nora-choices"][data-actionable="0"]').first(),
+    ).toBeVisible();
+
+    // P2-A — viewer path REQUIRED (seeded document).
+    const consulter = page.locator("[data-testid^=travail-consulter-]").first();
+    await expect(consulter).toBeVisible({ timeout: 10000 });
+    await consulter.click();
+    await expect(page.getByTestId("travail-viewer")).toBeVisible();
+    await expect(page.getByTestId("project-travail-stage")).toHaveAttribute(
+      "data-travail-layout",
+      "split",
+    );
+    expect(page.url()).not.toMatch(/viewer=/);
+    await expect(page.getByTestId("travail-viewer-body")).toContainText("Note E05");
+    await page.getByTestId("travail-viewer-enlarge").click();
+    await expect(page.getByTestId("project-travail-stage")).toHaveAttribute(
+      "data-travail-layout",
+      "enlarged",
+    );
+    await page.getByTestId("travail-viewer-reduce").click();
+    await expect(page.getByTestId("project-travail-stage")).toHaveAttribute(
+      "data-travail-layout",
+      "split",
+    );
+    await page.getByTestId("travail-viewer-close").click();
+    await expect(page.getByTestId("travail-aside-bref")).toBeVisible();
+    await expect(page.getByTestId("thread-draft")).toHaveValue(keep);
+
+    await page.setViewportSize({ width: 1680, height: 970 });
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-nominal-1680x970.png"),
+      fullPage: false,
+    });
+
+    // Mobile capture
+    await page.setViewportSize({ width: 430, height: 932 });
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-mobile-430x932.png"),
+      fullPage: false,
+    });
+  });
+
+  test("P2-B draft isolation across pilots", async ({ page, browser }) => {
+    test.setTimeout(120_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { projectId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "E05 draft isolation A",
+      name: `E05 Draft A ${Date.now()}`,
+      summary: "isolation",
+    });
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    const secret = `SECRET_PILOT_A_${Date.now()}`;
+    await page.getByTestId("thread-draft").fill(secret);
+    await expect(page.getByTestId("thread-draft")).toHaveValue(secret);
+
+    // Separate browser context ⇒ distinct cookies + sessionStorage (P2-B).
+    const ctxB = await browser.newContext();
+    const pageB = await ctxB.newPage();
+    try {
+      await pageB.goto("/login");
+      await pageB.getByRole("button", { name: "Pilote B (DEV)" }).click();
+      await pageB.waitForURL("**/portfolio");
+      await pageB.goto(`/projects/${projectId}?surface=travail`);
+      // Owner isolation: 404 unavailable OR ready without A's draft.
+      await expect
+        .poll(async () => {
+          const state = await pageB
+            .getByTestId("project-load-state")
+            .getAttribute("data-project-load-state")
+            .catch(() => null);
+          const unavailable = await pageB.getByTestId("project-unavailable").count();
+          return state === "ready" || unavailable > 0;
+        }, { timeout: 25000 })
+        .toBe(true);
+      const draftB = pageB.getByTestId("thread-draft");
+      if (await draftB.count()) {
+        await expect(draftB).not.toHaveValue(secret);
+      }
+    } finally {
+      await ctxB.close();
+    }
+  });
+});
 ```
 
 ### CREATED `projects/sfia-studio-next/web/tests/unit/ensemble05-turn-projection.test.ts`
@@ -629,23 +1023,60 @@ import {
 import {
   clearDraftAfterAck,
   composerDraftStorageKey,
+  purgeComposerDraftsForPilot,
   readComposerDraft,
   writeComposerDraft,
 } from "@/domains/conversation/composer-draft";
 
-describe("ensemble05 turn projection (M1)", () => {
-  it("builds continue choices from clarifications without markdown parsing", () => {
+describe("ensemble05 turn projection (M1 / P1-A)", () => {
+  it("does NOT build continue choices from clarifications", () => {
     const p = buildTurnProjection({
       messageId: "msg-a",
       status: "COMPLETE",
       finalized: true,
-      clarifications: ["Approfondir B", "Comparer A et C", "Approfondir B"],
+      continueChoices: null,
       toolCallsObserved: 2,
     });
     expect(p.schemaVersion).toBe(TURN_PROJECTION_SCHEMA);
-    expect(p.choices).toHaveLength(2);
-    expect(p.choices[0]?.transmitText).toBe("Approfondir B");
+    expect(p.choices).toHaveLength(0);
     expect(p.activity?.kind).toBe("sources_consulted");
+  });
+
+  it("builds continue choices only from typed continueChoices", () => {
+    const p = buildTurnProjection({
+      messageId: "msg-a",
+      status: "COMPLETE",
+      finalized: true,
+      continueChoices: [
+        {
+          id: "b",
+          label: "Approfondir B",
+          transmitText: "Approfondissons l'option B.",
+        },
+        {
+          id: "autre",
+          label: "Autre approche",
+          transmitText: "Explore une autre approche.",
+        },
+      ],
+    });
+    expect(p.choices).toHaveLength(2);
+    expect(p.choices[0]?.transmitText).toContain("option B");
+    expect(p.choices[0]?.label).not.toEqual(p.choices[0]?.transmitText);
+  });
+
+  it("ignores malformed continueChoices safely", () => {
+    const p = buildTurnProjection({
+      messageId: "m",
+      status: "COMPLETE",
+      finalized: true,
+      continueChoices: [
+        { id: "", label: "x", transmitText: "y" },
+        { id: "ok", label: "OK", transmitText: "Transmettre OK" },
+      ],
+    });
+    expect(p.choices).toHaveLength(1);
+    expect(p.choices[0]?.id).toBe("ok");
   });
 
   it("marks only the latest finalized Nora group actionable", () => {
@@ -660,13 +1091,13 @@ describe("ensemble05 turn projection (M1)", () => {
         messageId: "a1",
         status: "COMPLETE",
         finalized: true,
-        clarifications: ["Ancien"],
+        continueChoices: [{ id: "x", label: "Ancien", transmitText: "Ancien" }],
       }),
       buildTurnProjection({
         messageId: "a2",
         status: "COMPLETE",
         finalized: true,
-        clarifications: ["Nouveau"],
+        continueChoices: [{ id: "y", label: "Nouveau", transmitText: "Nouveau" }],
       }),
     ];
     const views = resolveActionableProjections({ messages, projections });
@@ -674,7 +1105,7 @@ describe("ensemble05 turn projection (M1)", () => {
     expect(views.find((v) => v.messageId === "a2")?.actionable).toBe(true);
   });
 
-  it("expires choices after a later pilot turn and suspends on demand", () => {
+  it("expires choices after a later pilot turn and suspends on UNKNOWN freeze", () => {
     const messages = [
       { id: "a1", role: "assistant" },
       { id: "u2", role: "user" },
@@ -684,7 +1115,7 @@ describe("ensemble05 turn projection (M1)", () => {
         messageId: "a1",
         status: "COMPLETE",
         finalized: true,
-        clarifications: ["X"],
+        continueChoices: [{ id: "x", label: "X", transmitText: "X" }],
       }),
     ];
     expect(
@@ -699,20 +1130,20 @@ describe("ensemble05 turn projection (M1)", () => {
     ).toBe(false);
   });
 
-  it("round-trips parseTurnProjection", () => {
+  it("round-trips parseTurnProjection and rejects foreign schema", () => {
     const built = buildTurnProjection({
       messageId: "m",
       status: "COMPLETE",
       finalized: true,
-      clarifications: ["Go"],
+      continueChoices: [{ id: "g", label: "Go", transmitText: "Go ahead" }],
     });
     expect(parseTurnProjection(built)?.choices[0]?.label).toBe("Go");
     expect(parseTurnProjection({ schemaVersion: "other" })).toBeNull();
   });
 });
 
-describe("ensemble05 composer draft (M3)", () => {
-  it("isolates by pilot+project and refuses late ACK wipe of newer draft", () => {
+describe("ensemble05 composer draft (M3 / P2-B)", () => {
+  function mockSessionStorage() {
     const store = new Map<string, string>();
     const sessionStorageMock = {
       getItem: (k: string) => store.get(k) ?? null,
@@ -732,7 +1163,11 @@ describe("ensemble05 composer draft (M3)", () => {
       value: sessionStorageMock,
       configurable: true,
     });
+    return store;
+  }
 
+  it("isolates by pilot+project and refuses late ACK wipe of newer draft", () => {
+    const store = mockSessionStorage();
     writeComposerDraft({
       schemaVersion: "e05-composer-draft-v1",
       pilotId: "p1",
@@ -757,8 +1192,21 @@ describe("ensemble05 composer draft (M3)", () => {
         lane: "host:127.0.0.1:3100",
       }),
     ).toBeNull();
+    expect(
+      readComposerDraft({
+        pilotId: "p1",
+        projectId: "proj2",
+        lane: "host:127.0.0.1:3100",
+      }),
+    ).toBeNull();
+    expect(
+      readComposerDraft({
+        pilotId: "p1",
+        projectId: "proj1",
+        lane: "host:127.0.0.1:3200",
+      }),
+    ).toBeNull();
 
-    // Sent v1, then pilot typed v2 — late ACK for v1 must not clear.
     expect(
       clearDraftAfterAck({
         pilotId: "p1",
@@ -788,218 +1236,175 @@ describe("ensemble05 composer draft (M3)", () => {
       }),
     ).toBe(true);
   });
-});
 
-```
-
-### CREATED `projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts`
-
-```
-import { test, expect } from "@playwright/test";
-import path from "node:path";
-import fs from "node:fs";
-import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
-
-/**
- * Ensemble 05 — Travail avec Nora (FAKE/DEV lane :3101).
- * Covers discriminating CT-01/03/06 paths; does not claim LIVE Nora or progressive text.
- */
-test.describe("Ensemble 05 Travail avec Nora", () => {
-  test("scroll last, draft isolation, viewer 50/50/enlarged, choice+draft", async ({
-    page,
-  }) => {
-    test.setTimeout(180_000);
-    const evidenceDir = path.resolve(
-      __dirname,
-      "../../docs/evidence/ensemble-05-travail-nora",
-    );
-    fs.mkdirSync(evidenceDir, { recursive: true });
-
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-
-    const { projectId, preparationId } = await bootstrapProjectFromPortfolio(page, {
-      seed: "Ensemble 05 fil Travail avec Nora",
-      name: `E05 Travail ${Date.now()}`,
-      summary: "e05 delivery",
+  it("purges all drafts for a pilot on logout/identity change", () => {
+    mockSessionStorage();
+    writeComposerDraft({
+      schemaVersion: "e05-composer-draft-v1",
+      pilotId: "p1",
+      projectId: "proj1",
+      lane: "host:127.0.0.1:3100",
+      text: "secret A",
+      version: 1,
+      sentVersion: null,
+      updatedAt: "2026-11-17T10:00:00.000Z",
     });
-    expect(preparationId).toBeTruthy();
-
-    await page.goto(`/projects/${projectId}?surface=travail`);
-    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-      "data-project-load-state",
-      "ready",
-      { timeout: 20000 },
-    );
-
-    const thread = page.getByTestId("nora-thread");
-    const draft = page.getByTestId("thread-draft");
-    const send = page.getByTestId("thread-send");
-
-    // CT-01 — after entry, thread is near bottom (last message visible policy).
-    await expect(thread).toBeVisible();
-    const atBottom = await thread.evaluate((el) => {
-      return el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+    writeComposerDraft({
+      schemaVersion: "e05-composer-draft-v1",
+      pilotId: "p1",
+      projectId: "proj2",
+      lane: "host:127.0.0.1:3100",
+      text: "secret B",
+      version: 1,
+      sentVersion: null,
+      updatedAt: "2026-11-17T10:00:00.000Z",
     });
-    expect(atBottom).toBe(true);
-
-    // CT-03 — draft persists across surface nav (sessionStorage M3).
-    const draftText = `Brouillon E05 conservé ${Date.now()}`;
-    await draft.fill(draftText);
-    await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
-    await expect(page).toHaveURL(/surface=document/);
-    await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
-    await expect(page).toHaveURL(/surface=travail/);
-    await expect(draft).toHaveValue(draftText);
-
-    // Refresh restores draft for same pilot/project.
-    await page.reload();
-    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-      "data-project-load-state",
-      "ready",
-      { timeout: 20000 },
-    );
-    await expect(page.getByTestId("thread-draft")).toHaveValue(draftText);
-
-    // CT-01 re-read: scroll up then send should stick to bottom for voluntary send.
-    await thread.evaluate((el) => {
-      el.scrollTop = 0;
+    writeComposerDraft({
+      schemaVersion: "e05-composer-draft-v1",
+      pilotId: "p2",
+      projectId: "proj1",
+      lane: "host:127.0.0.1:3100",
+      text: "other pilot",
+      version: 1,
+      sentVersion: null,
+      updatedAt: "2026-11-17T10:00:00.000Z",
     });
-    // Exact fixture utterance → clarifications → choice buttons (M1/CT-02).
-    const choiceSeed =
-      "J'aimerais créer un outil pour mieux accompagner les chefs de projet, mais je ne sais pas encore ce qu'il devrait faire exactement.";
-    await draft.fill(choiceSeed);
-    await send.click();
-    await expect(
-      page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false }),
-    ).toBeVisible({ timeout: 30000 });
-    await expect
-      .poll(async () =>
-        thread.evaluate((el) => el.scrollHeight - el.scrollTop - el.clientHeight < 120),
-      )
-      .toBe(true);
-
-    const actionable = page.locator(
-      '[data-testid="nora-choices"][data-actionable="1"] [data-testid="nora-choice"]',
-    );
-    await expect(actionable.first()).toBeVisible({ timeout: 10000 });
-    const choiceLabel = (await actionable.first().innerText()).trim();
-    expect(choiceLabel.length).toBeGreaterThan(0);
-    const keep = `Draft intact pendant choix ${Date.now()}`;
-    await draft.fill(keep);
-    await actionable.first().click();
-    await expect(page.getByTestId("nora-msg-pilot").filter({ hasText: choiceLabel })).toBeVisible({
-      timeout: 30000,
-    });
-    await expect(draft).toHaveValue(keep);
-    // Prior group expired after transmitted turn (may still be visible).
-    await expect(
-      page.locator('[data-testid="nora-choices"][data-actionable="0"]').first(),
-    ).toBeVisible();
-
-    // CT-06 — open viewer from En bref if a document exists; else create via send already may have.
-    const consulter = page.locator("[data-testid^=travail-consulter-]").first();
-    if (await consulter.count()) {
-      await consulter.click();
-      await expect(page.getByTestId("travail-viewer")).toBeVisible();
-      await expect(page.getByTestId("project-travail-stage")).toHaveAttribute(
-        "data-travail-layout",
-        "split",
-      );
-      // URL must not gain viewer=
-      expect(page.url()).not.toMatch(/viewer=/);
-      await page.getByTestId("travail-viewer-enlarge").click();
-      await expect(page.getByTestId("project-travail-stage")).toHaveAttribute(
-        "data-travail-layout",
-        "enlarged",
-      );
-      await page.getByTestId("travail-viewer-reduce").click();
-      await expect(page.getByTestId("project-travail-stage")).toHaveAttribute(
-        "data-travail-layout",
-        "split",
-      );
-      await page.getByTestId("travail-viewer-close").click();
-      await expect(page.getByTestId("travail-aside-bref")).toBeVisible();
-      // Draft still present after viewer lifecycle
-      await expect(page.getByTestId("thread-draft")).toBeVisible();
-    }
-
-    await page.setViewportSize({ width: 1680, height: 970 });
-    await page.screenshot({
-      path: path.join(evidenceDir, "runtime-nominal-1680x970.png"),
-      fullPage: false,
-    });
+    purgeComposerDraftsForPilot("p1");
+    expect(
+      readComposerDraft({
+        pilotId: "p1",
+        projectId: "proj1",
+        lane: "host:127.0.0.1:3100",
+      }),
+    ).toBeNull();
+    expect(
+      readComposerDraft({
+        pilotId: "p2",
+        projectId: "proj1",
+        lane: "host:127.0.0.1:3100",
+      })?.text,
+    ).toBe("other pilot");
   });
 });
-
 ```
 
-### CREATED `projects/sfia-studio-next/construction/as-built-ensemble-05-travail-nora-20261117.md`
+### CREATED `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-runtime-matrix.md`
 
 ```
-# As-built — Ensemble 05 Travail avec Nora
+# Ensemble 05 — matrice Figma ↔ runtime (correctif 17/11/2026)
 
-| Métadonnée | Valeur |
-|---|---|
-| Date | 2026-11-17 |
-| Macro-lot | R5 / ML4D Ensemble 05 |
-| Type | Delivery locale DEV · **NO RELEASE** |
-| Branche produit | `feat/next-ml4d-project-space-20261116` |
-| HEAD de départ | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Statut | **IMPLEMENTED CANDIDATE WITH RESERVES** (as-built non normatif) |
+Viewport de référence desktop : 1680×970. Mobile : 430×932.
+F2 : cible 0 px, max 2 CSS px sur rectangles stables comparables — **non certifié global** sur 16 variantes.
 
-## Sources
+| Frame | Variante | Capture Figma | Capture runtime | Viewport | Statut | Notes |
+|---|---|---|---|---|---|---|
+| 700:39 | Nominal | figma-700-39-nominal.png | runtime-nominal-1680x970.png | 1680×970 | partiel | Alignement bas composer/panel observé en conception 857=857 ; delta runtime non mesuré px-par-px |
+| 701:62 | Fil long | — | — | 1680×970 | non observé | Couvert fonctionnellement par scroll e2e |
+| 701:105 | Composite/choix | figma-701-105-composite.png | runtime-nominal (choix) | 1680×970 | partiel | Choix typés prouvés e2e ; layout composite non mesuré |
+| 701:148 | Choix expirés | — | e2e actionable=0 | 1680×970 | partiel | Comportement PASS ; capture dédiée absente |
+| 701:191 | Compositeur multiligne | — | — | 1680×970 | non observé | Croissance textarea implémentée |
+| 701:234 | Activité | — | — | 1680×970 | partiel | Attente honnête V1 ; pas d'étapes mid-flight inventées |
+| 701:277 | Erreur | — | — | 1680×970 | non observé | UI erreur présente |
+| 701:320 | Incertain | — | — | 1680×970 | partiel | Freeze UNKNOWN P1-B |
+| 701:363 | Viewer 50/50 D4 | figma-701-363-viewer5050.png | e2e split + contenu | 1680×970 | partiel | Layout split + contenu document PASS e2e |
+| 701:406 | Viewer Git | — | — | 1680×970 | partiel | Chemin API branché ; preuve LIVE Git NOT EXECUTED |
+| 701:449 | Viewer agrandi | — | e2e enlarged | 1680×970 | partiel | Mode agrandi PASS e2e |
+| 701:492 | Indisponible | — | — | 1680×970 | partiel | États unavailable UI |
+| 701:535 | Mobile conversation | figma-701-535-mobile.png | runtime-mobile-430x932.png | 430×932 | partiel | Capture runtime mobile |
+| 701:537 | Mobile viewer | — | — | 430×932 | non observé | Fermer viewer = retour |
+| 708:98 | Activité historique | — | — | 1680×970 | partiel | details historique post-terminal |
+| 708:199 | Échec envoi | — | — | 1680×970 | non observé | |
 
-- UX v0.7 `conception-ux-travail-avec-nora.md` — docs@`99b3622b` blob `dc5ef25f…`
-- Contrat technique v0.2 — docs@`99b3622b` blob `5f389688…` — M1–M5 VALIDATED BY MORRIS
-- Figma page 05 `itgvCulInEnFY6DvgIegvP` / `700:38` — 16 variantes ; session MCP `2f762deb-…`
-
-## Réalisation (résumé)
-
-| Capacité | Implémentation |
-|---|---|
-| M1 projection | `turnProjection` additif dans `result_json` (pas de migration) ; relecture via `listTurnProjections` |
-| M2 activité V1 | Attente animée honnête ; résumé d’activité post-terminal si `toolCallsObserved`/`d4CharsReturned` ; **pas de streaming texte** |
-| M3 brouillon | `sessionStorage` clé `pilot+project+lane` ; ACK tardif versionné |
-| M4 visionneuse | État local Travail ; modes normal / split 50/50 / agrandi ; pas de `viewer=` |
-| M5 | Aucune migration |
-| CT-01 | Hook `useNoraThreadScroll` — dernier message par défaut, préservation relecture, pastille « Nouveaux messages » |
-| CT-02 | Choix typés `continue` → nouveau tour Pilote ; expiration après tour transmis ; brouillon libre intact |
-| CT-03 | Compositeur compact/étendu (Entrée / Maj+Entrée ; IME ; mobile = bouton) |
-| CT-06 | `TravailViewer` remplace « En bref » |
-
-## Preuves exécutées (DEV / FAKE)
-
-- Vitest `ensemble05-turn-projection` + `studio-rail` : PASS
-- Playwright `ensemble05-travail-nora.spec.ts` : PASS (scroll, draft, choix+brouillon, viewer)
-- Non-régression Ensemble 04 `project-space-ensemble04.spec.ts` : 3 PASS
-- `next build` : PASS
-- Captures : `web/docs/evidence/ensemble-05-travail-nora/`
-
-## Réserves
-
-1. **M2 progressive text** — NOT COVERED V1 (arbitré Morris).
-2. **Activité contextualisée live** — seulement faits post-terminal observables ; pas de transport d’étapes pendant génération.
-3. **Git viewer contenu** — UI prête ; ouverture Git depuis Travail non branchée sur un fetch live dans ce lot (Documents oui).
-4. **Comparaison Figma F2 géométrique exhaustive** — capture nominale runtime + frame 700:39 ; delta CSS px non mesuré rectangle-par-rectangle sur les 16 variantes.
-5. **88 scénarios UX** — couverture par suites discriminantes, pas 88 tests isolés.
-
-## ENV-01 / versioning
-
-- Travail : DEV `:5433` / `sfia_next_dev` (+ e2e `sfia_next_e2e` / `:3101`)
-- RECETTE `:3200` build `3LzvYPTQc-Km7St6nF97r` **inchangée**
-- **NO RELEASE** — aucun cutover, PR, merge, promotion
-
+**Verdict visuel :** `FIGMA TO RUNTIME ALIGNED` **non déclaré** — captures et preuves partielles ; mesure F2 ≤2px non exécutée sur l'ensemble.
 ```
 
-## Diffs utiles (fichiers modifiés)
+## 15. Evidence binaires (sha256 + taille ; contenu PNG non inline)
+
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-700-39-nominal.png` — 68041 bytes — sha256 `735a20aa1a61a2f6e1726852b5c72a5288a8156b5b22cb2ad8bacdae60939460`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-105-composite.png` — 75197 bytes — sha256 `d27d118339a1cffcf1d799a1af40f56a2700724f9d7eb81d6922e7f0737f2bd5`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-363-viewer5050.png` — 78848 bytes — sha256 `c81401d9584f42b04cd01532bf7971d43b013b7ead1135fc7dfa32722051b91a`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-535-mobile.png` — 37179 bytes — sha256 `3e09af36644ebd4c0a334a1b1e3f896961f146dced10bfb3d1fd8b9a8951c019`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-mobile-430x932.png` — 69054 bytes — sha256 `1775ff4d12666eff5cfc1c2397419faa43b57186e2348328946fc10971c65022`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-nominal-1680x970.png` — 193412 bytes — sha256 `0c6efe8ddeecf5d05a2fce91a3997258706e25664398457c9c18065db102d001`
+
+## 16. Fichiers modifiés — diffs complets vs HEAD produit
+
+### MODIFIED `projects/sfia-studio-next/construction/delivery-history.md`
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 61738fe9..fb635a2b 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,44 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CORRECTIVE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-17 ~12:20 CET |
++| Macro-lot | ML4D Ensemble 05 — correctif intégré Travail avec Nora |
++| Type | Cycle 8 Delivery · CRITICAL · EVOL correctif · **NO RELEASE** |
++| Parent candidat | même worktree local non commité sur `984d77a3` |
++| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
++| Scope | P1-A continueChoices≠clarifications ; P1-B freeze UNKNOWN/ACK ; P1-C refs D4/Git ; P2-A viewer e2e obligatoire ; P2-B isolation brouillon ; P2-C matrice Figma partielle |
++| Non-scope | Migration ; streaming ; cutover RECETTE ; PR/merge ; F2 certifié 16/16 |
++| Preuves | Vitest 21+20 PASS ; Playwright E05 2 PASS ; E04 3 PASS (cycle précédent correctif) ; next build PASS |
++| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` + `figma-runtime-matrix.md` |
++| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` (mis à jour) |
++| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
++| Push produit | **AUCUN** |
++| Verdict cible | `E05 CORRECTIVE CANDIDATE WITH RESERVES — NOT READY FOR RECETTE` |
++
++
++## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-17 ~12:00 CET |
++| Macro-lot | ML4D Ensemble 05 — Travail avec Nora |
++| Type | Cycle 8 Delivery · CRITICAL · EVOL · **NO RELEASE** |
++| Parent candidat | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
++| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
++| Scope | CT-01..08 intégrés : scroll UX-002, projection M1 `result_json`, choix, compositeur/brouillon M3, activité V1 M2, visionneuse locale M4, shell E04 préservé |
++| Non-scope | Migration (M5) ; streaming texte ; cutover RECETTE ; PR/merge ; Gate C ; ML5 |
++| Preuves | Vitest E05+studio-rail PASS ; Playwright E05 PASS ; E04 nreg 3 PASS ; next build PASS |
++| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` |
++| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
++| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
++| Push produit | **AUCUN** |
++| Verdict cible | `IMPLEMENTED CANDIDATE WITH RESERVES — MORRIS REVIEW REQUIRED` (revue ChatGPT : BLOCKING RESERVES — correctif suivant) |
++
++
+ ## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-04-CP01-CP02
+
+ | Field | Value |
+```
+
+### MODIFIED `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+index 3ab2b9d6..7181875b 100644
+--- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+@@ -13,6 +13,7 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
+       conversation: data.conversation,
+       link: data.link,
+       messages: data.messages,
++      turnProjections: data.turnProjections,
+       documents: data.documents,
+       knowledge: data.knowledge,
+       pilotage: data.pilotage,
+```
 
 ### MODIFIED `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index f359048e..a8b4b315 100644
+index f359048e..83ed7018 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 @@ -5,6 +5,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -1010,13 +1415,14 @@ index f359048e..a8b4b315 100644
  import { ProjectJournal } from "@/components/figma/ProjectJournal";
  import { ProjectOverview } from "@/components/figma/ProjectOverview";
  import {
-@@ -24,6 +25,19 @@ import {
+@@ -24,6 +25,21 @@ import {
    type ThreadPendingTurn,
    type ThreadTurnKind,
  } from "@/domains/pilotage/thread-recovery";
 +import {
 +  clearDraftAfterAck,
 +  clearComposerDraft,
++  purgeComposerDraftsForPilot,
 +  readComposerDraft,
 +  writeComposerDraft,
 +  studioClientLane,
@@ -1025,12 +1431,13 @@ index f359048e..a8b4b315 100644
 +  resolveActionableProjections,
 +  type TurnChoice,
 +  type TurnProjection,
++  type TurnReference,
 +  parseTurnProjection,
 +} from "@/domains/conversation/turn-projection";
  import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
  import { useProjectSpace } from "@/components/shell/ProjectSpaceContext";
  import {
-@@ -128,6 +142,12 @@ export default function ProjectPage() {
+@@ -128,6 +144,12 @@ export default function ProjectPage() {
    const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
    const [draft, setDraft] = useState("");
    const [busy, setBusy] = useState(false);
@@ -1043,7 +1450,7 @@ index f359048e..a8b4b315 100644
    const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
    const [status, setStatus] = useState("");
    const [pilotageStatus, setPilotageStatus] = useState("");
-@@ -139,6 +159,8 @@ export default function ProjectPage() {
+@@ -139,6 +161,8 @@ export default function ProjectPage() {
    const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
    const [docDiffText, setDocDiffText] = useState("");
    const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
@@ -1052,7 +1459,7 @@ index f359048e..a8b4b315 100644
    const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
    const reviseCorrelationRef = useRef<string | null>(null);
    const reviseBaseIdRef = useRef<string | null>(null);
-@@ -171,6 +193,50 @@ export default function ProjectPage() {
+@@ -171,6 +195,160 @@ export default function ProjectPage() {
    useEffect(() => {
      documentsRef.current = documents;
    }, [documents]);
@@ -1099,20 +1506,133 @@ index f359048e..a8b4b315 100644
 +
 +  function closeViewer() {
 +    setViewer(null);
++    setViewerEnlarged(false);
++  }
++
++  /** P1-C — consult D4/D9 reference without sending a turn or expiring choices. */
++  async function openTravailReference(ref: TurnReference) {
++    if (ref.kind === "document" && ref.resourceId) {
++      const match = documents.find((d) => d.document.id === ref.resourceId);
++      if (match) {
++        openTravailDocument(match);
++        return;
++      }
++      setViewer({
++        kind: "document",
++        documentId: ref.resourceId,
++        title: ref.label,
++        revisionId: ref.revisionId ?? null,
++        revisionNumber: null,
++        markdown: null,
++        available: false,
++        unavailableReason: "Document introuvable ou non autorisé pour ce Pilote.",
++      });
++      setViewerEnlarged(false);
++      return;
++    }
++    if (ref.kind === "git") {
++      if (!ref.repositoryId || !ref.path || !ref.ref) {
++        setViewer({
++          kind: "git",
++          title: ref.label,
++          path: ref.path ?? null,
++          ref: ref.ref ?? null,
++          commit: ref.commit ?? null,
++          content: null,
++          available: false,
++          unavailableReason:
++            "Référence Git incomplète (dépôt, chemin ou ref manquant) — aucun aperçu inventé.",
++          href: ref.href ?? null,
++        });
++        setViewerEnlarged(false);
++        return;
++      }
++      try {
++        const q = new URLSearchParams({
++          repositoryId: ref.repositoryId,
++          path: ref.path,
++          ref: ref.ref,
++        });
++        const res = await fetch(`/api/projects/${params.projectId}/git/file?${q.toString()}`);
++        const j = (await res.json().catch(() => ({}))) as {
++          content?: string;
++          provenance?: { commitSha?: string | null; permalink?: string | null };
++          error?: string;
++          errorCategory?: string;
++        };
++        const prov = j.provenance;
++        if (!res.ok) {
++          setViewer({
++            kind: "git",
++            title: ref.label,
++            path: ref.path,
++            ref: ref.ref,
++            commit: prov?.commitSha ?? ref.commit ?? null,
++            content: null,
++            available: false,
++            unavailableReason: String(
++              j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
++            ),
++            href: prov?.permalink ?? ref.href ?? null,
++          });
++        } else {
++          const content = typeof j.content === "string" ? j.content : null;
++          setViewer({
++            kind: "git",
++            title: ref.label,
++            path: ref.path,
++            ref: ref.ref,
++            commit: prov?.commitSha ?? ref.commit ?? null,
++            content,
++            available: Boolean(content),
++            unavailableReason: content
++              ? undefined
++              : "Aperçu Git vide — aucun contenu inventé.",
++            href: prov?.permalink ?? ref.href ?? null,
++          });
++        }
++      } catch {
++        setViewer({
++          kind: "git",
++          title: ref.label,
++          path: ref.path,
++          ref: ref.ref,
++          commit: ref.commit ?? null,
++          content: null,
++          available: false,
++          unavailableReason: "Échec de lecture Git — réessayez ou ouvrez la source externe.",
++          href: ref.href ?? null,
++        });
++      }
++      setViewerEnlarged(false);
++      return;
++    }
++    setViewer({
++      kind: "git",
++      title: ref.label,
++      content: null,
++      available: false,
++      unavailableReason: "Référence externe — ouvrir le lien si disponible.",
++      href: ref.href ?? null,
++    });
++    setViewerEnlarged(false);
 +  }
 
    function buildSurfaceUrl(next: Surface, documentId?: string | null) {
      const q = new URLSearchParams();
-@@ -433,6 +499,8 @@ export default function ProjectPage() {
+@@ -433,7 +611,11 @@ export default function ProjectPage() {
        const res = await fetch(`/api/projects/${params.projectId}`);
        if (cancelled) return;
        if (res.status === 401) {
 +        const pid = pilotIdRef.current;
-+        if (pid) clearComposerDraft({ pilotId: pid, projectId: params.projectId });
++        if (pid) purgeComposerDraftsForPilot(pid);
          setUnavailableKind("unauthorized");
++        setDraft("");
++        setChoiceFrozen(false);
          setStatusHint("");
          setProjectSpaceInfo({
-@@ -475,8 +543,23 @@ export default function ProjectPage() {
+           projectId: params.projectId,
+@@ -475,8 +657,32 @@ export default function ProjectPage() {
        if (cancelled) return;
        const docs = (j.documents ?? []) as Doc[];
        const name = String(j.project?.name ?? "").trim() || null;
@@ -1127,16 +1647,25 @@ index f359048e..a8b4b315 100644
        setMessages(j.messages ?? []);
        setDocuments(docs);
 +      if (ownerPilotId) {
++        // P2-B: restore only when stored pilot matches current project owner (session-gated by API).
 +        const record = readComposerDraft({ pilotId: ownerPilotId, projectId: params.projectId });
-+        if (record?.text) {
++        if (record?.text && record.pilotId === ownerPilotId) {
 +          setDraft(record.text);
 +          draftVersionRef.current = record.version;
++        } else if (record && record.pilotId !== ownerPilotId) {
++          clearComposerDraft({ pilotId: record.pilotId, projectId: params.projectId });
 +        }
++      }
++      // P1-B: unresolved pending ⇒ keep choice groups frozen until reconcile.
++      const pendingOnLoad = readPending();
++      if (pendingOnLoad) {
++        setUnresolvedPending(pendingOnLoad);
++        setChoiceFrozen(true);
 +      }
        setKnowledge(j.knowledge ?? null);
        setPreparationId(j.preparation?.id ?? null);
        setProjectName(name);
-@@ -762,9 +845,32 @@ export default function ProjectPage() {
+@@ -762,9 +968,32 @@ export default function ProjectPage() {
      setReviseMessage("Base mise à jour — nouvelle intention (nouvelle correlationKey au prochain enregistrement).");
    }
 
@@ -1172,7 +1701,7 @@ index f359048e..a8b4b315 100644
      // SEM-02 / S05: no client lexical gate. Server returns nextTurnKind from Nora
      // qualification. Same-content retry reuses the turn key; distinct content may
      // proceed — coexistence is decided from the server kind after the response.
-@@ -817,14 +923,28 @@ export default function ProjectPage() {
+@@ -817,14 +1046,28 @@ export default function ProjectPage() {
          setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
          const effect = j.pilotageEffect as PilotageEffectView | undefined;
          setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
@@ -1205,28 +1734,34 @@ index f359048e..a8b4b315 100644
          } else if (effectBlocked || (distinctFromUnresolved && serverKind === "INTENTION_EFFET")) {
            setStatus(
              effectBlocked
-@@ -844,8 +964,12 @@ export default function ProjectPage() {
+@@ -844,8 +1087,16 @@ export default function ProjectPage() {
          setNoraActivity(
            j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
          );
-+        if (String(j.status ?? "") !== "UNKNOWN") {
++        // P1-B: unfreeze only when transmission is terminal and not UNKNOWN.
++        // Choices also expire via resolveActionable once a pilot turn appears in messages.
++        if (String(j.status ?? "") === "UNKNOWN") {
++          setChoiceFrozen(true);
++        } else {
 +          setChoiceFrozen(false);
 +        }
        } else {
-         // ACK lost / HTTP error — retain the same turn key for reconcile (server may have applied).
-+        setChoiceFrozen(false);
+-        // ACK lost / HTTP error — retain the same turn key for reconcile (server may have applied).
++        // ACK lost / HTTP error — retain turn key; KEEP choices frozen (server may have applied).
++        setChoiceFrozen(true);
          rememberPending({ content: text, clientTurnKey, clientCommandKey });
          setNoraActivity("error");
          setStatus(
-@@ -855,6 +979,7 @@ export default function ProjectPage() {
+@@ -855,6 +1106,8 @@ export default function ProjectPage() {
          );
        }
      } catch {
-+      setChoiceFrozen(false);
++      // Network loss after click: fail closed — freeze until reconcile proves outcome.
++      setChoiceFrozen(true);
        rememberPending({ content: text, clientTurnKey, clientCommandKey });
        setNoraActivity("error");
        setStatus("échec réseau — intention de tour conservée");
-@@ -894,6 +1019,8 @@ export default function ProjectPage() {
+@@ -894,6 +1147,8 @@ export default function ProjectPage() {
      );
    }
 
@@ -1235,7 +1770,7 @@ index f359048e..a8b4b315 100644
    return (
      <ProjectChrome
        projectId={params.projectId}
-@@ -901,6 +1028,7 @@ export default function ProjectPage() {
+@@ -901,6 +1156,7 @@ export default function ProjectPage() {
        surface={surface}
        statusHint={statusHint}
        loadState={projectLoadState}
@@ -1243,7 +1778,7 @@ index f359048e..a8b4b315 100644
      >
        {surface === "projet" ? (
          <ProjectOverview
-@@ -923,7 +1051,19 @@ export default function ProjectPage() {
+@@ -923,7 +1179,23 @@ export default function ProjectPage() {
            unresolvedPending={Boolean(unresolvedPending)}
            activity={noraActivity}
            status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
@@ -1251,9 +1786,13 @@ index f359048e..a8b4b315 100644
 +          projections={resolveActionableProjections({
 +            messages,
 +            projections: turnProjections,
-+            suspendActions: choiceFrozen || noraActivity === "preparing",
++            suspendActions:
++              choiceFrozen ||
++              noraActivity === "preparing" ||
++              Boolean(unresolvedPending),
 +          })}
 +          onChoice={sendChoice}
++          onReference={(ref) => void openTravailReference(ref)}
 +          choiceFrozen={choiceFrozen}
 +          forceStickToken={forceStickToken}
 +          layoutMode={travailLayout}
@@ -1264,7 +1803,7 @@ index f359048e..a8b4b315 100644
            onSend={() => void sendMessage()}
            onReconcile={
              unresolvedPending
-@@ -931,6 +1071,25 @@ export default function ProjectPage() {
+@@ -931,6 +1203,25 @@ export default function ProjectPage() {
                : undefined
            }
            aside={
@@ -1290,7 +1829,7 @@ index f359048e..a8b4b315 100644
              <div className="fig-inspector" data-testid="travail-aside-inspector">
                <p className="fig-kicker">Contexte projet</p>
                <h2 className="fig-inspector-title">En bref</h2>
-@@ -958,6 +1117,21 @@ export default function ProjectPage() {
+@@ -958,6 +1249,21 @@ export default function ProjectPage() {
                      ? `${documents.length} document${documents.length > 1 ? "s" : ""} Nora disponible${documents.length > 1 ? "s" : ""}.`
                      : "Les objets et sources du projet restent distincts du dialogue."}
                  </p>
@@ -1312,7 +1851,7 @@ index f359048e..a8b4b315 100644
                  <div className="fig-inspector-links">
                    <button
                      type="button"
-@@ -993,6 +1167,7 @@ export default function ProjectPage() {
+@@ -993,6 +1299,7 @@ export default function ProjectPage() {
                  ) : null}
                </div>
              </div>
@@ -1320,32 +1859,37 @@ index f359048e..a8b4b315 100644
            }
          />
        ) : null}
-
 ```
 
 ### MODIFIED `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-index 3d305771..94a0cc79 100644
+index 3d305771..37d43fa4 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-@@ -1,6 +1,9 @@
+@@ -1,6 +1,13 @@
  "use client";
 
 +import { useEffect, useRef, useState } from "react";
  import { SafeMarkdown } from "@/components/SafeMarkdown";
 +import { useNoraThreadScroll } from "@/hooks/useNoraThreadScroll";
-+import type { MessageProjectionView, TurnChoice } from "@/domains/conversation/turn-projection";
++import type {
++  MessageProjectionView,
++  TurnChoice,
++  TurnReference,
++} from "@/domains/conversation/turn-projection";
 
  export type NoraMsg = {
    id: string;
-@@ -22,12 +25,45 @@ export function NoraConversation(props: {
+@@ -22,12 +29,47 @@ export function NoraConversation(props: {
    aside?: React.ReactNode;
    /** When set, participates in project-travail-stage CSS grid via display:contents. */
    embeddedInStage?: boolean;
 +  projections?: MessageProjectionView[];
 +  onChoice?: (choice: TurnChoice, messageId: string) => void;
++  /** Consultation links — independent of choice lifetime (§6.10). */
++  onReference?: (ref: TurnReference) => void;
 +  choiceFrozen?: boolean;
 +  forceStickToken?: number;
 +  layoutMode?: "normal" | "split" | "enlarged";
@@ -1386,7 +1930,7 @@ index 3d305771..94a0cc79 100644
 
    return (
      <div
-@@ -40,12 +76,14 @@ export function NoraConversation(props: {
+@@ -40,12 +82,14 @@ export function NoraConversation(props: {
        data-figma-mobile-frames="282:468,282:492"
        data-testid="nora-workspace"
        data-travail-embed={embedded ? "1" : "0"}
@@ -1401,7 +1945,7 @@ index 3d305771..94a0cc79 100644
        >
          <div className="fig-conversation-head">
            <p className="fig-kicker !mb-0">Conversation du projet</p>
-@@ -53,9 +91,24 @@ export function NoraConversation(props: {
+@@ -53,9 +97,24 @@ export function NoraConversation(props: {
            {props.unresolvedPending ? (
              <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
            ) : null}
@@ -1427,7 +1971,7 @@ index 3d305771..94a0cc79 100644
            {n === 0 ? (
              <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
                <div className="fig-msg-meta">
-@@ -72,10 +125,13 @@ export function NoraConversation(props: {
+@@ -72,10 +131,13 @@ export function NoraConversation(props: {
            ) : null}
            {props.messages.map((m) => {
              const isNora = m.role === "assistant";
@@ -1441,7 +1985,7 @@ index 3d305771..94a0cc79 100644
                >
                  <div className="fig-msg-meta">
                    {isNora ? (
-@@ -95,12 +151,73 @@ export function NoraConversation(props: {
+@@ -95,12 +157,81 @@ export function NoraConversation(props: {
                  ) : (
                    <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
                  )}
@@ -1484,9 +2028,17 @@ index 3d305771..94a0cc79 100644
 +                {proj?.references?.length ? (
 +                  <ul className="fig-nora-refs" data-testid="nora-refs">
 +                    {proj.references.map((r, i) => (
-+                      <li key={`${r.kind}-${r.resourceId ?? i}`}>
-+                        {r.label}
-+                        {r.available === false ? " (indisponible)" : ""}
++                      <li key={`${r.kind}-${r.resourceId ?? r.path ?? i}`}>
++                        <button
++                          type="button"
++                          className="fig-nora-ref-link"
++                          data-testid="nora-ref-link"
++                          data-ref-kind={r.kind}
++                          onClick={() => props.onReference?.(r)}
++                        >
++                          Consulter · {r.label}
++                          {r.available === false ? " (à vérifier)" : ""}
++                        </button>
 +                      </li>
 +                    ))}
 +                  </ul>
@@ -1517,7 +2069,7 @@ index 3d305771..94a0cc79 100644
              </div>
            ) : null}
          </div>
-@@ -108,12 +225,13 @@ export function NoraConversation(props: {
+@@ -108,12 +239,13 @@ export function NoraConversation(props: {
 
        {/*
          Pending banner lives outside the Figma-sized composer card so
@@ -1532,7 +2084,7 @@ index 3d305771..94a0cc79 100644
        >
          {props.unresolvedPending && props.onReconcile ? (
            <div className="fig-travail-pending" data-testid="thread-pending-banner">
-@@ -131,26 +249,36 @@ export function NoraConversation(props: {
+@@ -131,26 +263,36 @@ export function NoraConversation(props: {
              </button>
            </div>
          ) : null}
@@ -1588,7 +2140,6 @@ index 3d305771..94a0cc79 100644
              <button
                type="button"
                className="fig-travail-composer-send"
-
 ```
 
 ### MODIFIED `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
@@ -1620,14 +2171,13 @@ index 1b2ce939..05b45841 100644
            {intro}
            <div
              className="fig-travail-intro-rule"
-
 ```
 
 ### MODIFIED `projects/sfia-studio-next/web/src/components/figma/tokens.css`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-index 2023a7b1..dc9a61e0 100644
+index 2023a7b1..1fb671e7 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
 +++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
 @@ -374,18 +374,43 @@
@@ -1706,7 +2256,7 @@ index 2023a7b1..dc9a61e0 100644
    font-weight: 600;
    line-height: 1;
    cursor: pointer;
-@@ -441,6 +468,159 @@
+@@ -441,6 +468,181 @@
    align-items: center;
    justify-content: center;
    flex-shrink: 0;
@@ -1753,9 +2303,31 @@ index 2023a7b1..dc9a61e0 100644
 +
 +.fig-nora-refs {
 +  margin: 10px 0 0;
-+  padding-left: 1.1rem;
++  padding-left: 0;
++  list-style: none;
 +  color: #94a2bb;
 +  font-size: 12px;
++  display: flex;
++  flex-direction: column;
++  gap: 6px;
++}
++
++.fig-nora-ref-link {
++  border: 0;
++  background: transparent;
++  color: #afa5ff;
++  font: inherit;
++  font-size: 12px;
++  text-align: left;
++  padding: 0;
++  cursor: pointer;
++  text-decoration: underline;
++  text-underline-offset: 2px;
++}
++
++.fig-nora-ref-link:focus-visible {
++  outline: 2px solid var(--fig-accent-soft);
++  outline-offset: 2px;
 +}
 +
 +.fig-nora-activity {
@@ -1866,7 +2438,7 @@ index 2023a7b1..dc9a61e0 100644
  }
 
  .fig-travail-composer-send:disabled {
-@@ -1468,6 +1648,27 @@
+@@ -1468,6 +1670,27 @@
    align-items: stretch;
  }
 
@@ -1894,14 +2466,151 @@ index 2023a7b1..dc9a61e0 100644
  .fig-travail-intro-rule {
    margin-top: 0;
    /* Pull rule closer under intro (override uniform 25px track gap for rows 1→2). */
+```
 
+### MODIFIED `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+index 4f348ff4..5f833ba9 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+@@ -46,6 +46,8 @@ type QualExtras = Partial<
+     | "initialScope"
+     | "proposedProjectName"
+     | "clarifications"
++    | "continueChoices"
++    | "resourceReferences"
+     | "preparationAssessment"
+     | "preparationAssessmentExplanation"
+   >
+@@ -78,6 +80,8 @@ function dialogue(
+       },
+     ],
+     replyDraft: reply,
++    continueChoices: extras?.continueChoices,
++    resourceReferences: extras?.resourceReferences,
+     preparationAssessment: extras?.preparationAssessment,
+     preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
+   };
+@@ -206,6 +210,20 @@ register(
+       clarifications: [
+         "Quelle difficulté concrète voulez-vous réduire en premier pour les chefs de projet ?",
+       ],
++      // P1-A: continueChoices are explicit continuation offers — not clarifications.
++      continueChoices: [
++        {
++          id: "approfondir-besoin",
++          label: "Approfondir le besoin des chefs de projet",
++          transmitText:
++            "Approfondissons le besoin concret des chefs de projet avant de parler de solution.",
++        },
++        {
++          id: "autre-approche",
++          label: "Autre approche",
++          transmitText: "Explore une autre approche pour accompagner les chefs de projet.",
++        },
++      ],
+       preparationAssessment: "EXPLORING",
+       preparationAssessmentExplanation:
+         "L'intention est libre et encore floue : aucun résultat ni périmètre n'est établi. Il est trop tôt pour affirmer une base de démarrage.",
+@@ -227,6 +245,20 @@ register(
+         "Souhaitez-vous commencer seul, ou le travail en équipe fait-il déjà partie du premier périmètre ?",
+         "Pour une première version, le chef de projet pourrait-il déposer ou copier les éléments utiles après chaque réunion, ou la récupération automatique depuis les outils existants est-elle indispensable ?",
+       ],
++      continueChoices: [
++        {
++          id: "perimetre-personnel",
++          label: "Commencer seul (périmètre personnel)",
++          transmitText:
++            "Je préfère commencer seul, avec un périmètre personnel pour la première version.",
++        },
++        {
++          id: "approfondir-decisions",
++          label: "Approfondir le suivi des décisions",
++          transmitText:
++            "Approfondissons comment retrouver les décisions importantes et les prochaines actions.",
++        },
++      ],
+       preparationAssessment: "CLARIFYING",
+       preparationAssessmentExplanation:
+         "Un résultat visé est désormais exprimé ; le périmètre initial et un nom de travail restent à préciser.",
+```
+
+### MODIFIED `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 32525aa9..bcc0c40d 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -442,6 +442,8 @@ async function runLiveWithTools(
+     "- proposedProjectName = nom de travail du sas s'il est proposé ou corrigé ; chaîne vide sinon. Préférer ce champ pour une correction de nom sans nouvel effet D2.",
+     "- clarifications = UNIQUEMENT les questions encore ouvertes après CE tour. Tableau vide [] = toutes résolues après réévaluation fiable. Ne pas répéter une question déjà tranchée.",
+     "- Lorsque tu réévalues les questions ouvertes (QUALIFIED ou NEEDS_CLARIFICATION sur ce périmètre) : TOUJOURS renseigner clarifications (éventuellement []). Ne l'omets que si tu n'as pas réévalué ce périmètre.",
++    "- continueChoices (optionnel) = propositions de POURSUITE conversationnelle (ex. « Approfondir B ») avec id, label et transmitText. NE PAS y recopier clarifications. Omettre ou [] si aucune poursuite utile.",
++    "- resourceReferences (optionnel) = références consultables document/git/external — ce ne sont PAS des choix de poursuite.",
+     "- preparationAssessment = EXPLORING|CLARIFYING|PROPOSAL|BASE_SUFFICIENTE selon compréhension structurée — jamais un score, jamais un GO d'autorité.",
+     "- preparationAssessmentExplanation = justification qualitative courte fondée sur les acquis réels ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
+     "- Si tu n'as pas d'appréciation fiable : omets preparationAssessment (ne pas inventer BASE_SUFFICIENTE).",
+```
+
+### MODIFIED `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 4ef62b6b..f36a2362 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -152,6 +152,41 @@ export const NoraTurnQualificationSchema = z.object({
+    * Ne pas confondre omission et []. Pas de .default([]) : Zod effacerait la distinction.
+    */
+   clarifications: z.array(z.string().max(400)).max(8).optional(),
++  /**
++   * Ensemble 05 / P1-A — propositions de poursuite conversationnelles (≠ clarifications).
++   * Additive / optional. Omission or [] = aucun bouton de poursuite.
++   * Never derive continueChoices from clarifications[].
++   */
++  continueChoices: z
++    .array(
++      z.object({
++        id: z.string().min(1).max(64),
++        label: z.string().min(1).max(160),
++        /** Explicit pilot utterance transmitted on click — not a métier command. */
++        transmitText: z.string().min(1).max(800),
++      }),
++    )
++    .max(6)
++    .optional(),
++  /**
++   * Optional consultable references (D4/D9) — not continuation choices; do not expire with §6.8.
++   */
++  resourceReferences: z
++    .array(
++      z.object({
++        kind: z.enum(["document", "git", "external"]),
++        label: z.string().min(1).max(200),
++        resourceId: z.string().max(128).optional(),
++        revisionId: z.string().max(128).optional(),
++        repositoryId: z.string().max(128).optional(),
++        path: z.string().max(400).optional(),
++        ref: z.string().max(120).optional(),
++        commit: z.string().max(64).optional(),
++        href: z.string().max(800).optional(),
++      }),
++    )
++    .max(8)
++    .optional(),
+   replyDraft: z.string().max(12000).default(""),
+   /** Appréciation qualitative de préparation (suggestion, jamais une autorité). */
+   preparationAssessment: PreparationAssessmentSchema.optional(),
 ```
 
 ### MODIFIED `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 1114c76b..9a6f806e 100644
+index 1114c76b..282734b1 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 @@ -105,6 +105,11 @@ import {
@@ -1972,7 +2681,7 @@ index 1114c76b..9a6f806e 100644
  };
 
  function pilotageEffectFromAuthority(
-@@ -2301,6 +2348,16 @@ export async function postUserMessageAndNora(
+@@ -2301,6 +2348,29 @@ export async function postUserMessageAndNora(
        clientPendingHint,
      semanticQualificationStatus: qualification.status,
      preparationProjection: preparationProjectionAck,
@@ -1981,7 +2690,20 @@ index 1114c76b..9a6f806e 100644
 +      turnCommandId: reserved.commandId,
 +      status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
 +      finalized: turnStatus === "COMPLETE" && !ownershipLostBeforeD4,
-+      clarifications: qualification.clarifications ?? null,
++      // P1-A: never map clarifications[] → continue buttons.
++      continueChoices: qualification.continueChoices ?? null,
++      references: (qualification.resourceReferences ?? []).map((r) => ({
++        kind: r.kind,
++        label: r.label,
++        resourceId: r.resourceId,
++        revisionId: r.revisionId,
++        repositoryId: r.repositoryId,
++        path: r.path,
++        ref: r.ref,
++        commit: r.commit,
++        href: r.href,
++        available: true,
++      })),
 +      toolCallsObserved: reply.toolCallsObserved,
 +      d4CharsReturned: reply.d4CharsReturned,
 +      documentSave,
@@ -1989,7 +2711,6 @@ index 1114c76b..9a6f806e 100644
    };
 
    if (turnRaceHooks.beforeTerminalCommit) {
-
 ```
 
 ### MODIFIED `projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts`
@@ -2019,7 +2740,6 @@ index 122a73f9..671ab7ec 100644
              terminalJson = JSON.stringify(next);
            } else {
              terminalJson = owned.resultJson;
-
 ```
 
 ### MODIFIED `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts`
@@ -2054,152 +2774,15 @@ index c334afa1..cbf289b5 100644
      documents,
      knowledge,
      pilotage,
-
 ```
 
-### MODIFIED `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-index 3ab2b9d6..7181875b 100644
---- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-@@ -13,6 +13,7 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
-       conversation: data.conversation,
-       link: data.link,
-       messages: data.messages,
-+      turnProjections: data.turnProjections,
-       documents: data.documents,
-       knowledge: data.knowledge,
-       pilotage: data.pilotage,
-
-```
-
-### MODIFIED `projects/sfia-studio-next/construction/delivery-history.md`
-
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 61738fe9..b095aedb 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,25 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-
-+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-17 ~12:00 CET |
-+| Macro-lot | ML4D Ensemble 05 — Travail avec Nora |
-+| Type | Cycle 8 Delivery · CRITICAL · EVOL · **NO RELEASE** |
-+| Parent candidat | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-+| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
-+| Scope | CT-01..08 intégrés : scroll UX-002, projection M1 `result_json`, choix, compositeur/brouillon M3, activité V1 M2, visionneuse locale M4, shell E04 préservé |
-+| Non-scope | Migration (M5) ; streaming texte ; cutover RECETTE ; PR/merge ; Gate C ; ML5 |
-+| Preuves | Vitest E05+studio-rail PASS ; Playwright E05 PASS ; E04 nreg 3 PASS ; next build PASS |
-+| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` |
-+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
-+| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
-+| Push produit | **AUCUN** |
-+| Verdict cible | `IMPLEMENTED CANDIDATE WITH RESERVES — MORRIS REVIEW REQUIRED` |
-+
-+
- ## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-04-CP01-CP02
-
- | Field | Value |
-
-```
-
-## 11. Statistiques des diffs
-```
- .../construction/delivery-history.md               |  19 ++
- .../web/src/app/api/projects/[projectId]/route.ts  |   1 +
- .../web/src/app/projects/[projectId]/page.tsx      | 191 +++++++++++++++++-
- .../web/src/components/figma/NoraConversation.tsx  | 174 ++++++++++++++---
- .../web/src/components/figma/ProjectChrome.tsx     |   8 +-
- .../web/src/components/figma/tokens.css            | 217 ++++++++++++++++++++-
- .../web/src/domains/conversation/service.ts        |  57 ++++++
- .../web/src/domains/conversation/turn-command.ts   |   6 +-
- .../web/src/domains/preparation/project-context.ts |   4 +-
- 9 files changed, 635 insertions(+), 42 deletions(-)
-
-```
-
-## git status
-```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
- M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
- M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
- M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
- M projects/sfia-studio-next/web/src/components/figma/tokens.css
- M projects/sfia-studio-next/web/src/domains/conversation/service.ts
- M projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
- M projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-?? projects/sfia-studio-next/construction/as-built-ensemble-05-travail-nora-20261117.md
-?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/
-?? projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
-?? projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts
-?? projects/sfia-studio-next/web/src/domains/conversation/turn-projection.ts
-?? projects/sfia-studio-next/web/src/hooks/
-?? projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
-?? projects/sfia-studio-next/web/tests/unit/ensemble05-turn-projection.test.ts
-
-```
-
-## 12. Tests, commandes et résultats
-| Suite | Résultat |
+## 17. Handoff L3 (à publier)
+| Item | Value |
 |---|---|
-| `vitest` ensemble05-turn-projection + studio-rail | **18 PASS** |
-| `playwright` ensemble05-travail-nora | **PASS** |
-| `playwright` project-space-ensemble04 (nreg) | **3 PASS** |
-| `next build` | **PASS** |
-| tsc workspace | FAIL parent préexistant (hors E05 src) — réserve historique |
+| Branch | `sfia/review-handoff` |
+| Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Mode | publish-in-cycle |
+| Product push | **FORBIDDEN** |
 
-## 13. Captures
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-nominal-1680x970.png`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-700-39-nominal.png`
-- Verdict Figma↔runtime: captures présentes ; **FIGMA TO RUNTIME ALIGNED** non déclaré (pas de delta ≤2px sur 16 variantes)
-
-## 14. Matrice scénarios UX (88 candidats)
-| Famille | Statut |
-|---|---|
-| UX002 (9) | Couverture BROWSER partielle via E05 scroll + refresh/retour |
-| UX-NORA (25) | Partiel — choices/projection/fixture ; progressive text **NOT COVERED V1** |
-| UX-COMP (13) | Partiel — draft/IME/Enter rules unit+browser |
-| UX-ACT (16) | Partiel — preparing honest ; contextual live steps LIMITED |
-| UX-VIEW (15) | Partiel — doc viewer 50/50/enlarged ; Git content path LIMITED |
-| UX-CROSS (10) | Partiel — nav Documents/Travail draft ; E04 nreg |
-
-## 15. Fake/Real Qualification
-| Preuve | Classe |
-|---|---|
-| Nora | **FAKE** fixture deterministic |
-| PG | **REAL** DEV/e2e sibling DB |
-| Git viewer fetch | **NOT EXECUTED** |
-| RECETTE mutation | **NONE** — build `3LzvYPTQc-Km7St6nF97r` observed intact |
-
-## 16. Réserves / dette / exit
-1. Progressive text M2 — exit when publishable stream + safe resume proven.
-2. Live mid-flight activity events — needs transport; honest wait until then.
-3. Git in-Travail content fetch — wire existing D9 read under rights.
-4. Full F2 16-variant geometry — dedicated visual gate.
-5. Shell env had transient RECETTE-user/DSN confusion during cycle; restored operator DEV `sfia_next_dev@5433` for tests; `.env.local` gitignored; RECETTE untouched.
-
-## 17. Décisions Morris supplémentaires
-Aucune nouvelle décision structurante requise pour clôturer le candidat local. Arbitrages ouverts optionnels: F2 gate, progressive text exit, Git viewer fetch.
-
-## 18. ENV-01 / versioning / promotion
-- DEV REQUIRED — used
-- RECETTE protected — unchanged `3LzvYPTQc-Km7St6nF97r`
-- STABLE NOT AVAILABLE
-- **NO RELEASE** this cycle
-- No product commit/push/PR/merge
-
-## 19. Verdict unique
-**IMPLEMENTED CANDIDATE WITH RESERVES — MORRIS REVIEW REQUIRED**
-
-## 20. Prochaine action attendue
-Revue ChatGPT sur handoff distant `sfia/review-handoff` puis décision Morris (acceptation réserves / F2 / éventuel GO RECETTE distinct).
+## 18. Instruction ChatGPT
+Avant revue Morris: lire sur Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (ce cycle), contrôler HEADs, diffs/créations, tests, captures, réserves, verdict.
