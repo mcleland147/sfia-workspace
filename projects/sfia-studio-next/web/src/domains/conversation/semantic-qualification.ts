@@ -152,6 +152,41 @@ export const NoraTurnQualificationSchema = z.object({
    * Ne pas confondre omission et []. Pas de .default([]) : Zod effacerait la distinction.
    */
   clarifications: z.array(z.string().max(400)).max(8).optional(),
+  /**
+   * Ensemble 05 / P1-A — propositions de poursuite conversationnelles (≠ clarifications).
+   * Additive / optional. Omission or [] = aucun bouton de poursuite.
+   * Never derive continueChoices from clarifications[].
+   */
+  continueChoices: z
+    .array(
+      z.object({
+        id: z.string().min(1).max(64),
+        label: z.string().min(1).max(160),
+        /** Explicit pilot utterance transmitted on click — not a métier command. */
+        transmitText: z.string().min(1).max(800),
+      }),
+    )
+    .max(6)
+    .optional(),
+  /**
+   * Optional consultable references (D4/D9) — not continuation choices; do not expire with §6.8.
+   */
+  resourceReferences: z
+    .array(
+      z.object({
+        kind: z.enum(["document", "git", "external"]),
+        label: z.string().min(1).max(200),
+        resourceId: z.string().max(128).optional(),
+        revisionId: z.string().max(128).optional(),
+        repositoryId: z.string().max(128).optional(),
+        path: z.string().max(400).optional(),
+        ref: z.string().max(120).optional(),
+        commit: z.string().max(64).optional(),
+        href: z.string().max(800).optional(),
+      }),
+    )
+    .max(8)
+    .optional(),
   replyDraft: z.string().max(12000).default(""),
   /** Appréciation qualitative de préparation (suggestion, jamais une autorité). */
   preparationAssessment: PreparationAssessmentSchema.optional(),

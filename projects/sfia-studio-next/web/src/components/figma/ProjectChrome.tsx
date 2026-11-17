@@ -56,6 +56,8 @@ export function ProjectChrome(props: {
   statusHint?: string;
   /** Observable project bootstrap: loading until load()+surface sync finish. */
   loadState?: "loading" | "ready";
+  /** Ensemble 05 — Travail layout: normal | split (viewer) | enlarged viewer. */
+  travailLayout?: "normal" | "split" | "enlarged";
   children: React.ReactNode;
 }) {
   const loadState = props.loadState ?? "ready";
@@ -149,7 +151,11 @@ export function ProjectChrome(props: {
       </div>
 
       {isTravail ? (
-        <div className="project-travail-stage" data-testid="project-travail-stage">
+        <div
+          className="project-travail-stage"
+          data-testid="project-travail-stage"
+          data-travail-layout={props.travailLayout ?? "normal"}
+        >
           {intro}
           <div
             className="fig-travail-intro-rule"

@@ -46,6 +46,8 @@ type QualExtras = Partial<
     | "initialScope"
     | "proposedProjectName"
     | "clarifications"
+    | "continueChoices"
+    | "resourceReferences"
     | "preparationAssessment"
     | "preparationAssessmentExplanation"
   >
@@ -78,6 +80,8 @@ function dialogue(
       },
     ],
     replyDraft: reply,
+    continueChoices: extras?.continueChoices,
+    resourceReferences: extras?.resourceReferences,
     preparationAssessment: extras?.preparationAssessment,
     preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
   };
@@ -206,6 +210,20 @@ register(
       clarifications: [
         "Quelle difficulté concrète voulez-vous réduire en premier pour les chefs de projet ?",
       ],
+      // P1-A: continueChoices are explicit continuation offers — not clarifications.
+      continueChoices: [
+        {
+          id: "approfondir-besoin",
+          label: "Approfondir le besoin des chefs de projet",
+          transmitText:
+            "Approfondissons le besoin concret des chefs de projet avant de parler de solution.",
+        },
+        {
+          id: "autre-approche",
+          label: "Autre approche",
+          transmitText: "Explore une autre approche pour accompagner les chefs de projet.",
+        },
+      ],
       preparationAssessment: "EXPLORING",
       preparationAssessmentExplanation:
         "L'intention est libre et encore floue : aucun résultat ni périmètre n'est établi. Il est trop tôt pour affirmer une base de démarrage.",
@@ -226,6 +244,20 @@ register(
       clarifications: [
         "Souhaitez-vous commencer seul, ou le travail en équipe fait-il déjà partie du premier périmètre ?",
         "Pour une première version, le chef de projet pourrait-il déposer ou copier les éléments utiles après chaque réunion, ou la récupération automatique depuis les outils existants est-elle indispensable ?",
+      ],
+      continueChoices: [
+        {
+          id: "perimetre-personnel",
+          label: "Commencer seul (périmètre personnel)",
+          transmitText:
+            "Je préfère commencer seul, avec un périmètre personnel pour la première version.",
+        },
+        {
+          id: "approfondir-decisions",
+          label: "Approfondir le suivi des décisions",
+          transmitText:
+            "Approfondissons comment retrouver les décisions importantes et les prochaines actions.",
+        },
       ],
       preparationAssessment: "CLARIFYING",
       preparationAssessmentExplanation:
@@ -584,6 +616,9 @@ const MATURATION_RENAME_RE =
   /^Je préfère l'appeler (.+?) plutôt qu'Assistant de pilotage\.$/;
 const COCKPIT_NAMED_RE =
   /^Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé (.+)\.$/;
+/** E05 C1 — TEST_BOUNDARY only: cite an exact D4 revision for Travail viewer proof. */
+const E05_CITE_REVISION_RE =
+  /^E05_CITE_REVISION documentId=(\S+) revisionId=(\S+)$/;
 
 export function fixtureSemanticQualify(userText: string): NoraTurnQualification {
   assertFixtureLane();
@@ -602,6 +637,26 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification 
   const cockpit = text.match(COCKPIT_NAMED_RE);
   if (cockpit?.[1]?.trim()) {
     return cockpitNamedQualification(cockpit[1]);
+  }
+  const cite = text.match(E05_CITE_REVISION_RE);
+  if (cite?.[1] && cite?.[2]) {
+    return dialogue(
+      "Citation documentaire exacte (fixture E05 C1)",
+      "Voici la révision documentaire citée. Consultez-la dans Travail sans modifier le document.",
+      ["NO_EFFECT", "E05_CITE_REVISION"],
+      {
+        omitClarifications: true,
+        continueChoices: [],
+        resourceReferences: [
+          {
+            kind: "document",
+            label: "Révision citée E05",
+            resourceId: cite[1],
+            revisionId: cite[2],
+          },
+        ],
+      },
+    );
   }
   // Fail closed: unknown fixture text is dialogue-only, never a lexical invent of effects.
   return dialogue(

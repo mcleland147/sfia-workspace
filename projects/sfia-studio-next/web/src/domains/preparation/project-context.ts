@@ -1,7 +1,7 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { preparationProjectLinks, projects } from "@/db/schema";
-import { listMessages } from "@/domains/conversation/service";
+import { listMessages, listTurnProjections } from "@/domains/conversation/service";
 import { listDocuments } from "@/domains/document/service";
 import { listKnowledge } from "@/domains/knowledge/service";
 import { getPilotageProjection } from "@/domains/pilotage/service";
@@ -42,6 +42,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
 
   const ctx = await getPreparationContext(pilotId, link.preparationId);
   const messages = await listMessages(pilotId, link.preparationId);
+  const turnProjections = await listTurnProjections(pilotId, link.preparationId);
   const documents = await listDocuments(pilotId, link.preparationId);
   const knowledge = await listKnowledge(pilotId, link.preparationId);
   const pilotage = await getPilotageProjection(pilotId, projectId);
@@ -52,6 +53,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
     conversation: ctx.conversation,
     link,
     messages,
+    turnProjections,
     documents,
     knowledge,
     pilotage,

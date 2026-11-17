@@ -4,6 +4,80 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-FREEZE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~13:15 CET |
+| Macro-lot | ML4D Ensemble 05 — finalisation + figement candidat (même macro-lot) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL finalisation · **NO RELEASE** |
+| Scope | Final A D4 live rights ; Final B reconcile obligatoire ; inventaire RECETTE existante ; commit local figé |
+| Non-scope | Déploiement RECETTE ; push produit ; PR/merge ; campagne Figma F2 ; nouvelle RECETTE |
+| Preuves | Vitest 22 PASS ; Playwright E05 5 PASS ; E04 3 PASS ; next build PASS |
+| Manifeste | `construction/ensemble-05-recette-prep-manifest.md` |
+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
+| RECETTE | inventoriée inchangée `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
+| Push produit | **AUCUN** (commit local autorisé) |
+| Verdict cible | `E05 CANDIDATE FROZEN — READY FOR MORRIS RECETTE DEPLOYMENT DECISION` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~12:45 CET |
+| Macro-lot | ML4D Ensemble 05 — consolidation C1–C5 (même candidat) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL consolidation · **NO RELEASE** |
+| Parent candidat | worktree local non commité sur `984d77a3` |
+| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
+| Scope | C1 révision D4 exacte ; C2 ACK perdu / un seul tour ; C3 purge same-tab ; C4 preuves Figma ; C5 Git D9 borné (déterministe) |
+| Non-scope | Migration ; streaming ; cutover RECETTE ; Git REAL LIVE ; F2 16/16 certifié |
+| Preuves | Vitest E05 9 + rail 13 PASS ; Playwright E05 5 PASS ; E04 3 PASS ; next build PASS |
+| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` |
+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
+| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
+| Push produit | **AUCUN** |
+| Verdict cible | `E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW` (supersédé par FREEZE) |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~12:20 CET |
+| Macro-lot | ML4D Ensemble 05 — correctif intégré Travail avec Nora |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL correctif · **NO RELEASE** |
+| Parent candidat | même worktree local non commité sur `984d77a3` |
+| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
+| Scope | P1-A continueChoices≠clarifications ; P1-B freeze UNKNOWN/ACK ; P1-C refs D4/Git ; P2-A viewer e2e obligatoire ; P2-B isolation brouillon ; P2-C matrice Figma partielle |
+| Non-scope | Migration ; streaming ; cutover RECETTE ; PR/merge ; F2 certifié 16/16 |
+| Preuves | Vitest 21+20 PASS ; Playwright E05 2 PASS ; E04 3 PASS (cycle précédent correctif) ; next build PASS |
+| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` + `figma-runtime-matrix.md` |
+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` (mis à jour) |
+| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
+| Push produit | **AUCUN** |
+| Verdict cible | `E05 CORRECTIVE CANDIDATE WITH RESERVES — NOT READY FOR RECETTE` (supersédé par consolidation) |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~12:00 CET |
+| Macro-lot | ML4D Ensemble 05 — Travail avec Nora |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL · **NO RELEASE** |
+| Parent candidat | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
+| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
+| Scope | CT-01..08 intégrés : scroll UX-002, projection M1 `result_json`, choix, compositeur/brouillon M3, activité V1 M2, visionneuse locale M4, shell E04 préservé |
+| Non-scope | Migration (M5) ; streaming texte ; cutover RECETTE ; PR/merge ; Gate C ; ML5 |
+| Preuves | Vitest E05+studio-rail PASS ; Playwright E05 PASS ; E04 nreg 3 PASS ; next build PASS |
+| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` |
+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
+| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
+| Push produit | **AUCUN** |
+| Verdict cible | `IMPLEMENTED CANDIDATE WITH RESERVES — MORRIS REVIEW REQUIRED` (revue ChatGPT : BLOCKING RESERVES — correctif suivant) |
+
+
 ## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-04-CP01-CP02
 
 | Field | Value |

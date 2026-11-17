@@ -5,6 +5,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { PilotagePanel } from "@/components/PilotagePanel";
 import { ProjectChrome } from "@/components/figma/ProjectChrome";
 import { NoraConversation } from "@/components/figma/NoraConversation";
+import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
 import { ProjectJournal } from "@/components/figma/ProjectJournal";
 import { ProjectOverview } from "@/components/figma/ProjectOverview";
 import {
@@ -24,6 +25,22 @@ import {
   type ThreadPendingTurn,
   type ThreadTurnKind,
 } from "@/domains/pilotage/thread-recovery";
+import {
+  clearDraftAfterAck,
+  clearComposerDraft,
+  purgeAllComposerDraftsInTab,
+  purgeComposerDraftsForPilot,
+  readComposerDraft,
+  writeComposerDraft,
+  studioClientLane,
+} from "@/domains/conversation/composer-draft";
+import {
+  resolveActionableProjections,
+  type TurnChoice,
+  type TurnProjection,
+  type TurnReference,
+  parseTurnProjection,
+} from "@/domains/conversation/turn-projection";
 import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
 import { useProjectSpace } from "@/components/shell/ProjectSpaceContext";
 import {
@@ -128,6 +145,12 @@ export default function ProjectPage() {
   const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
+  const [pilotId, setPilotId] = useState<string | null>(null);
+  const [turnProjections, setTurnProjections] = useState<TurnProjection[]>([]);
+  const [choiceFrozen, setChoiceFrozen] = useState(false);
+  const [forceStickToken, setForceStickToken] = useState(0);
+  const [viewer, setViewer] = useState<TravailViewerResource | null>(null);
+  const [viewerEnlarged, setViewerEnlarged] = useState(false);
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [status, setStatus] = useState("");
   const [pilotageStatus, setPilotageStatus] = useState("");
@@ -139,6 +162,10 @@ export default function ProjectPage() {
   const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
   const [docDiffText, setDocDiffText] = useState("");
   const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
+  const draftVersionRef = useRef(0);
+  const pilotIdRef = useRef<string | null>(null);
+  const preparationIdRef = useRef<string | null>(null);
+  const projectIdRef = useRef(params.projectId);
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
   const reviseCorrelationRef = useRef<string | null>(null);
   const reviseBaseIdRef = useRef<string | null>(null);
@@ -147,6 +174,9 @@ export default function ProjectPage() {
   const reviseDraftRef = useRef("");
   /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
   const pendingSurfaceRef = useRef<Surface | null>(null);
+  /** C1 — ignore stale async viewer responses after A→B / close / project change. */
+  const viewerRequestSeqRef = useRef(0);
+  const viewerOpenRef = useRef(false);
 
   useEffect(() => {
     // Clear previous project identity immediately — no cross-project leak in the rail.
@@ -171,6 +201,425 @@ export default function ProjectPage() {
   useEffect(() => {
     documentsRef.current = documents;
   }, [documents]);
+  useEffect(() => {
+    pilotIdRef.current = pilotId;
+  }, [pilotId]);
+
+  useEffect(() => {
+    preparationIdRef.current = preparationId;
+  }, [preparationId]);
+
+  useEffect(() => {
+    projectIdRef.current = params.projectId;
+    // Invalidate in-flight viewer fetches when project changes.
+    viewerRequestSeqRef.current += 1;
+    viewerOpenRef.current = false;
+    setViewer(null);
+    setViewerEnlarged(false);
+  }, [params.projectId]);
+
+  function persistDraft(text: string) {
+    if (!pilotId) return;
+    draftVersionRef.current += 1;
+    const prior = readComposerDraft({ pilotId, projectId: params.projectId });
+    writeComposerDraft({
+      schemaVersion: "e05-composer-draft-v1",
+      pilotId,
+      projectId: params.projectId,
+      lane: studioClientLane(),
+      text,
+      version: draftVersionRef.current,
+      sentVersion: prior?.sentVersion ?? null,
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
+  function closeViewer() {
+    viewerRequestSeqRef.current += 1;
+    viewerOpenRef.current = false;
+    setViewer(null);
+    setViewerEnlarged(false);
+  }
+
+  function applyViewerIfCurrent(
+    seq: number,
+    next: TravailViewerResource,
+    projectIdAtStart: string,
+  ) {
+    if (seq !== viewerRequestSeqRef.current) return;
+    if (!viewerOpenRef.current) return;
+    if (projectIdRef.current !== projectIdAtStart) return;
+    setViewer(next);
+    setViewerEnlarged(false);
+  }
+
+  type D4RevisionPayload = {
+    status?: string;
+    document?: { id?: string; title?: string };
+    revision?: {
+      id?: string;
+      revisionNumber?: number;
+      status?: string;
+      contentMarkdown?: string;
+    };
+    revisions?: Array<{
+      id?: string;
+      revisionNumber?: number;
+      status?: string;
+      contentMarkdown?: string;
+    }>;
+    reason?: string;
+    error?: string;
+  };
+
+  /**
+   * Final A — every Travail open revalidates rights via D4 at click time.
+   * Never treat React-cached latestRevision as a freshly authorized read.
+   */
+  async function fetchDocumentViewerViaD4(input: {
+    documentId: string;
+    titleHint: string;
+    revisionId?: string | null;
+    versionSource: "exact" | "current";
+    seq: number;
+    projectIdAtStart: string;
+  }) {
+    const prepId = preparationIdRef.current;
+    if (!prepId) {
+      applyViewerIfCurrent(
+        input.seq,
+        {
+          kind: "document",
+          documentId: input.documentId,
+          title: input.titleHint,
+          revisionId: input.revisionId ?? null,
+          revisionNumber: null,
+          versionSource: input.versionSource,
+          markdown: null,
+          available: false,
+          unavailableReason: "Préparation indisponible — lecture D4 impossible.",
+        },
+        input.projectIdAtStart,
+      );
+      return;
+    }
+
+    try {
+      let targetRevisionId = input.revisionId?.trim() || "";
+      let title = input.titleHint;
+
+      if (!targetRevisionId) {
+        // Resolve current revision under live ownership check (list endpoint).
+        const listRes = await fetch(
+          `/api/preparations/${prepId}/documents/${input.documentId}`,
+        );
+        const listBody = (await listRes.json().catch(() => ({}))) as D4RevisionPayload;
+        if (listRes.status === 401) {
+          purgeAllComposerDraftsInTab();
+          applyViewerIfCurrent(
+            input.seq,
+            {
+              kind: "document",
+              documentId: input.documentId,
+              title,
+              revisionId: null,
+              revisionNumber: null,
+              versionSource: "current",
+              markdown: null,
+              available: false,
+              unavailableReason: "Session expirée — contenu non affiché.",
+            },
+            input.projectIdAtStart,
+          );
+          return;
+        }
+        if (!listRes.ok || listBody.status === "FORBIDDEN") {
+          applyViewerIfCurrent(
+            input.seq,
+            {
+              kind: "document",
+              documentId: input.documentId,
+              title,
+              revisionId: null,
+              revisionNumber: null,
+              versionSource: "current",
+              markdown: null,
+              available: false,
+              unavailableReason: String(
+                listBody.reason ??
+                  listBody.error ??
+                  listBody.status ??
+                  "Document introuvable ou non autorisé",
+              ),
+            },
+            input.projectIdAtStart,
+          );
+          return;
+        }
+        title = listBody.document?.title ?? title;
+        const revisions = Array.isArray(listBody.revisions) ? listBody.revisions : [];
+        const availableRevs = revisions
+          .filter((r) => r && r.id && String(r.status ?? "").toUpperCase() === "AVAILABLE")
+          .sort(
+            (a, b) => Number(b.revisionNumber ?? 0) - Number(a.revisionNumber ?? 0),
+          );
+        const current = availableRevs[0] ?? null;
+        if (!current?.id) {
+          applyViewerIfCurrent(
+            input.seq,
+            {
+              kind: "document",
+              documentId: input.documentId,
+              title,
+              revisionId: null,
+              revisionNumber: null,
+              versionSource: "current",
+              markdown: null,
+              available: false,
+              unavailableReason: "Aucune révision disponible pour ce document.",
+            },
+            input.projectIdAtStart,
+          );
+          return;
+        }
+        targetRevisionId = current.id;
+      }
+
+      const res = await fetch(
+        `/api/preparations/${prepId}/documents/${input.documentId}?revisionId=${encodeURIComponent(targetRevisionId)}`,
+      );
+      const j = (await res.json().catch(() => ({}))) as D4RevisionPayload;
+      if (res.status === 401) {
+        purgeAllComposerDraftsInTab();
+        applyViewerIfCurrent(
+          input.seq,
+          {
+            kind: "document",
+            documentId: input.documentId,
+            title,
+            revisionId: targetRevisionId,
+            revisionNumber: null,
+            versionSource: input.versionSource,
+            markdown: null,
+            available: false,
+            unavailableReason: "Session expirée — contenu non affiché.",
+          },
+          input.projectIdAtStart,
+        );
+        return;
+      }
+      if (!res.ok || j.status === "FORBIDDEN" || j.status === "NOT_FOUND") {
+        applyViewerIfCurrent(
+          input.seq,
+          {
+            kind: "document",
+            documentId: input.documentId,
+            title,
+            revisionId: targetRevisionId,
+            revisionNumber: null,
+            versionSource: input.versionSource,
+            markdown: null,
+            available: false,
+            unavailableReason: String(
+              j.reason ?? j.error ?? j.status ?? "Révision inaccessible ou non autorisée",
+            ),
+          },
+          input.projectIdAtStart,
+        );
+        return;
+      }
+      const rev = j.revision;
+      const markdown =
+        j.status === "AVAILABLE" && typeof rev?.contentMarkdown === "string"
+          ? rev.contentMarkdown
+          : null;
+      applyViewerIfCurrent(
+        input.seq,
+        {
+          kind: "document",
+          documentId: input.documentId,
+          title: j.document?.title ?? title,
+          revisionId: rev?.id ?? targetRevisionId,
+          revisionNumber: rev?.revisionNumber ?? null,
+          versionSource: input.versionSource,
+          markdown,
+          available: Boolean(markdown),
+          unavailableReason: markdown
+            ? undefined
+            : `Révision non disponible (${String(j.status ?? rev?.status ?? "UNKNOWN")})`,
+        },
+        input.projectIdAtStart,
+      );
+    } catch {
+      applyViewerIfCurrent(
+        input.seq,
+        {
+          kind: "document",
+          documentId: input.documentId,
+          title: input.titleHint,
+          revisionId: input.revisionId ?? null,
+          revisionNumber: null,
+          versionSource: input.versionSource,
+          markdown: null,
+          available: false,
+          unavailableReason: "Échec de lecture D4 — aucun contenu inventé.",
+        },
+        input.projectIdAtStart,
+      );
+    }
+  }
+
+  /** En bref / library open — always live D4 current version. */
+  function openTravailDocument(doc: Doc) {
+    const projectIdAtStart = params.projectId;
+    const seq = ++viewerRequestSeqRef.current;
+    viewerOpenRef.current = true;
+    // Placeholder while rights + current revision are revalidated.
+    setViewer({
+      kind: "document",
+      documentId: doc.document.id,
+      title: doc.document.title,
+      revisionId: null,
+      revisionNumber: null,
+      versionSource: "current",
+      markdown: null,
+      available: false,
+      unavailableReason: "Vérification des droits et de la version courante…",
+    });
+    setViewerEnlarged(false);
+    void fetchDocumentViewerViaD4({
+      documentId: doc.document.id,
+      titleHint: doc.document.title,
+      revisionId: null,
+      versionSource: "current",
+      seq,
+      projectIdAtStart,
+    });
+  }
+
+  /** C1/Final A — exact revision or live current via D4; D9 Git via existing APIs. */
+  async function openTravailReference(ref: TurnReference) {
+    const projectIdAtStart = params.projectId;
+    const seq = ++viewerRequestSeqRef.current;
+    viewerOpenRef.current = true;
+
+    if (ref.kind === "document" && ref.resourceId) {
+      const match = documents.find((d) => d.document.id === ref.resourceId);
+      const title = match?.document.title ?? ref.label;
+      await fetchDocumentViewerViaD4({
+        documentId: ref.resourceId,
+        titleHint: title,
+        revisionId: ref.revisionId ?? null,
+        versionSource: ref.revisionId ? "exact" : "current",
+        seq,
+        projectIdAtStart,
+      });
+      return;
+    }
+    if (ref.kind === "git") {
+      if (!ref.repositoryId || !ref.path || !ref.ref) {
+        applyViewerIfCurrent(
+          seq,
+          {
+            kind: "git",
+            title: ref.label,
+            path: ref.path ?? null,
+            ref: ref.ref ?? null,
+            commit: ref.commit ?? null,
+            content: null,
+            available: false,
+            unavailableReason:
+              "Référence Git incomplète (dépôt, chemin ou ref manquant) — aucun aperçu inventé.",
+            href: ref.href ?? null,
+          },
+          projectIdAtStart,
+        );
+        return;
+      }
+      try {
+        const q = new URLSearchParams({
+          repositoryId: ref.repositoryId,
+          path: ref.path,
+          ref: ref.ref,
+        });
+        const res = await fetch(`/api/projects/${params.projectId}/git/file?${q.toString()}`);
+        const j = (await res.json().catch(() => ({}))) as {
+          content?: string;
+          provenance?: { commitSha?: string | null; permalink?: string | null };
+          error?: string;
+          errorCategory?: string;
+        };
+        const prov = j.provenance;
+        if (!res.ok) {
+          applyViewerIfCurrent(
+            seq,
+            {
+              kind: "git",
+              title: ref.label,
+              path: ref.path,
+              ref: ref.ref,
+              commit: prov?.commitSha ?? ref.commit ?? null,
+              content: null,
+              available: false,
+              unavailableReason: String(
+                j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
+              ),
+              href: prov?.permalink ?? ref.href ?? null,
+            },
+            projectIdAtStart,
+          );
+        } else {
+          const content = typeof j.content === "string" ? j.content : null;
+          applyViewerIfCurrent(
+            seq,
+            {
+              kind: "git",
+              title: ref.label,
+              path: ref.path,
+              ref: ref.ref,
+              commit: prov?.commitSha ?? ref.commit ?? null,
+              content,
+              available: Boolean(content),
+              unavailableReason: content
+                ? undefined
+                : "Aperçu Git vide — aucun contenu inventé.",
+              href: prov?.permalink ?? ref.href ?? null,
+            },
+            projectIdAtStart,
+          );
+        }
+      } catch {
+        applyViewerIfCurrent(
+          seq,
+          {
+            kind: "git",
+            title: ref.label,
+            path: ref.path,
+            ref: ref.ref,
+            commit: ref.commit ?? null,
+            content: null,
+            available: false,
+            unavailableReason: "Échec de lecture Git — réessayez ou ouvrez la source externe.",
+            href: ref.href ?? null,
+          },
+          projectIdAtStart,
+        );
+      }
+      return;
+    }
+    applyViewerIfCurrent(
+      seq,
+      {
+        kind: "git",
+        title: ref.label,
+        content: null,
+        available: false,
+        unavailableReason: "Référence externe — ouvrir le lien si disponible.",
+        href: ref.href ?? null,
+      },
+      projectIdAtStart,
+    );
+  }
 
   function buildSurfaceUrl(next: Surface, documentId?: string | null) {
     const q = new URLSearchParams();
@@ -352,6 +801,7 @@ export default function ProjectPage() {
 
   async function reconcilePending(pending: ThreadPendingTurn) {
     setBusy(true);
+    setChoiceFrozen(true);
     try {
       const res = await fetch(
         `/api/projects/${params.projectId}/pilotage/commands/by-key/${encodeURIComponent(pending.clientCommandKey)}`,
@@ -377,11 +827,12 @@ export default function ProjectPage() {
         if (cmd.status && String(cmd.status).toUpperCase() !== "UNKNOWN") {
           rememberPending(null);
           messageTurnKeyRef.current = null;
+          setChoiceFrozen(false);
         }
         await refreshDurablePilotage();
         return;
       }
-      // 404 alone does not invent a new key — retry same logical act only.
+      // 404 alone does not invent a new key — retry same logical act only (D3 idempotent).
       if (res.status === 404) {
         setPilotageStatus(
           `Commande absente pour ${pending.clientCommandKey.slice(0, 28)}… — reprise du même acte`,
@@ -396,17 +847,32 @@ export default function ProjectPage() {
           clientTurnKey: pending.clientTurnKey,
         }),
       });
-      const j = await retry.json().catch(() => ({}));
+      const j = (await retry.json().catch(() => ({}))) as Record<string, unknown>;
       if (retry.ok) {
-        setMessages(j.messages ?? []);
-        setStatus(`Nora ${j.noraMode} · ${j.status}`);
+        setMessages((j.messages as Msg[]) ?? []);
+        setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
+        const tp = parseTurnProjection(j.turnProjection);
+        if (tp) upsertTurnProjection(tp);
         if (applyClearFromResponse(String(j.status ?? ""), effect)) {
           setDraft("");
         }
+        if (String(j.status ?? "") === "UNKNOWN") {
+          setChoiceFrozen(true);
+        } else {
+          setChoiceFrozen(false);
+        }
+        const proj = await fetch(`/api/projects/${params.projectId}`);
+        if (proj.ok) {
+          const pj = await proj.json();
+          setDocuments(pj.documents ?? []);
+          setKnowledge(pj.knowledge ?? null);
+          if (Array.isArray(pj.messages)) setMessages(pj.messages);
+        }
         await refreshDurablePilotage();
       } else {
+        setChoiceFrozen(true);
         setStatus(String(j.error ?? j.errorCategory ?? "réconciliation impossible"));
       }
     } finally {
@@ -433,7 +899,12 @@ export default function ProjectPage() {
       const res = await fetch(`/api/projects/${params.projectId}`);
       if (cancelled) return;
       if (res.status === 401) {
+        // C3 — session invalid: purge tab drafts; do not restore under wrong identity.
+        purgeAllComposerDraftsInTab();
+        setPilotId(null);
         setUnavailableKind("unauthorized");
+        setDraft("");
+        setChoiceFrozen(false);
         setStatusHint("");
         setProjectSpaceInfo({
           projectId: params.projectId,
@@ -475,8 +946,41 @@ export default function ProjectPage() {
       if (cancelled) return;
       const docs = (j.documents ?? []) as Doc[];
       const name = String(j.project?.name ?? "").trim() || null;
+      // C3 — draft ownership follows authenticated session pilot, not project owner alone.
+      const sessionPilotId =
+        typeof j.session?.pilotId === "string" && j.session.pilotId.trim()
+          ? String(j.session.pilotId)
+          : null;
+      setPilotId(sessionPilotId);
+      setTurnProjections(
+        ((j.turnProjections ?? []) as unknown[])
+          .map((raw) => parseTurnProjection(raw))
+          .filter((p): p is TurnProjection => p !== null),
+      );
       setMessages(j.messages ?? []);
       setDocuments(docs);
+      if (sessionPilotId) {
+        const record = readComposerDraft({
+          pilotId: sessionPilotId,
+          projectId: params.projectId,
+        });
+        if (record?.text && record.pilotId === sessionPilotId) {
+          setDraft(record.text);
+          draftVersionRef.current = record.version;
+        } else {
+          setDraft("");
+          draftVersionRef.current = 0;
+        }
+      } else {
+        setDraft("");
+        draftVersionRef.current = 0;
+      }
+      // P1-B: unresolved pending ⇒ keep choice groups frozen until reconcile.
+      const pendingOnLoad = readPending();
+      if (pendingOnLoad) {
+        setUnresolvedPending(pendingOnLoad);
+        setChoiceFrozen(true);
+      }
       setKnowledge(j.knowledge ?? null);
       setPreparationId(j.preparation?.id ?? null);
       setProjectName(name);
@@ -762,9 +1266,32 @@ export default function ProjectPage() {
     setReviseMessage("Base mise à jour — nouvelle intention (nouvelle correlationKey au prochain enregistrement).");
   }
 
-  async function sendMessage() {
-    if (!draft.trim() || !preparationId) return;
-    const text = draft.trim();
+  function sendChoice(choice: TurnChoice, _messageId: string) {
+    void sendMessage(choice.transmitText, { fromChoice: true });
+  }
+
+  function upsertTurnProjection(tp: TurnProjection) {
+    setTurnProjections((prev) => {
+      const id = tp.messageId;
+      if (!id) return [...prev, tp];
+      const idx = prev.findIndex((p) => p.messageId === id);
+      if (idx < 0) return [...prev, tp];
+      const next = [...prev];
+      next[idx] = tp;
+      return next;
+    });
+  }
+
+  async function sendMessage(
+    overrideText?: string,
+    opts?: { fromChoice?: boolean },
+  ) {
+    const text = (overrideText ?? draft).trim();
+    if (!text || !preparationId) return;
+    const fromChoice = opts?.fromChoice === true;
+    const sentVersion = fromChoice ? 0 : draftVersionRef.current;
+    setChoiceFrozen(true);
+    setForceStickToken((t) => t + 1);
     // SEM-02 / S05: no client lexical gate. Server returns nextTurnKind from Nora
     // qualification. Same-content retry reuses the turn key; distinct content may
     // proceed — coexistence is decided from the server kind after the response.
@@ -817,14 +1344,28 @@ export default function ProjectPage() {
         setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
-        if (
+        const tp = parseTurnProjection(j.turnProjection);
+        if (tp) upsertTurnProjection(tp);
+        const shouldClearDraft =
           !effectBlocked &&
           !distinctFromUnresolved &&
           applyClearFromResponse(String(j.status ?? ""), effect, {
             preserveUnresolvedMetierPending: preserveMetierPending,
-          })
-        ) {
-          setDraft("");
+          });
+        if (!fromChoice && shouldClearDraft) {
+          if (
+            pilotId &&
+            clearDraftAfterAck({
+              pilotId,
+              projectId: params.projectId,
+              sentVersion,
+              currentVersion: draftVersionRef.current,
+            })
+          ) {
+            setDraft("");
+          } else if (!pilotId) {
+            setDraft("");
+          }
         } else if (effectBlocked || (distinctFromUnresolved && serverKind === "INTENTION_EFFET")) {
           setStatus(
             effectBlocked
@@ -844,8 +1385,16 @@ export default function ProjectPage() {
         setNoraActivity(
           j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
         );
+        // P1-B: unfreeze only when transmission is terminal and not UNKNOWN.
+        // Choices also expire via resolveActionable once a pilot turn appears in messages.
+        if (String(j.status ?? "") === "UNKNOWN") {
+          setChoiceFrozen(true);
+        } else {
+          setChoiceFrozen(false);
+        }
       } else {
-        // ACK lost / HTTP error — retain the same turn key for reconcile (server may have applied).
+        // ACK lost / HTTP error — retain turn key; KEEP choices frozen (server may have applied).
+        setChoiceFrozen(true);
         rememberPending({ content: text, clientTurnKey, clientCommandKey });
         setNoraActivity("error");
         setStatus(
@@ -855,6 +1404,8 @@ export default function ProjectPage() {
         );
       }
     } catch {
+      // Network loss after click: fail closed — freeze until reconcile proves outcome.
+      setChoiceFrozen(true);
       rememberPending({ content: text, clientTurnKey, clientCommandKey });
       setNoraActivity("error");
       setStatus("échec réseau — intention de tour conservée");
@@ -894,6 +1445,8 @@ export default function ProjectPage() {
     );
   }
 
+  const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
+
   return (
     <ProjectChrome
       projectId={params.projectId}
@@ -901,6 +1454,7 @@ export default function ProjectPage() {
       surface={surface}
       statusHint={statusHint}
       loadState={projectLoadState}
+      travailLayout={travailLayout}
     >
       {surface === "projet" ? (
         <ProjectOverview
@@ -923,7 +1477,23 @@ export default function ProjectPage() {
           unresolvedPending={Boolean(unresolvedPending)}
           activity={noraActivity}
           status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
-          onDraft={setDraft}
+          projections={resolveActionableProjections({
+            messages,
+            projections: turnProjections,
+            suspendActions:
+              choiceFrozen ||
+              noraActivity === "preparing" ||
+              Boolean(unresolvedPending),
+          })}
+          onChoice={sendChoice}
+          onReference={(ref) => void openTravailReference(ref)}
+          choiceFrozen={choiceFrozen}
+          forceStickToken={forceStickToken}
+          layoutMode={travailLayout}
+          onDraft={(v) => {
+            setDraft(v);
+            persistDraft(v);
+          }}
           onSend={() => void sendMessage()}
           onReconcile={
             unresolvedPending
@@ -931,6 +1501,25 @@ export default function ProjectPage() {
               : undefined
           }
           aside={
+            viewer ? (
+              <TravailViewer
+                resource={viewer}
+                enlarged={viewerEnlarged}
+                onEnlarge={() => setViewerEnlarged(true)}
+                onReduce={() => setViewerEnlarged(false)}
+                onClose={closeViewer}
+                onOpenInDocuments={
+                  viewer.kind === "document"
+                    ? () => {
+                        const match = documents.find(
+                          (d) => d.document.id === viewer.documentId,
+                        );
+                        if (match) openDocumentReadOnly(match);
+                      }
+                    : undefined
+                }
+              />
+            ) : (
             <div className="fig-inspector" data-testid="travail-aside-inspector">
               <p className="fig-kicker">Contexte projet</p>
               <h2 className="fig-inspector-title">En bref</h2>
@@ -958,6 +1547,21 @@ export default function ProjectPage() {
                     ? `${documents.length} document${documents.length > 1 ? "s" : ""} Nora disponible${documents.length > 1 ? "s" : ""}.`
                     : "Les objets et sources du projet restent distincts du dialogue."}
                 </p>
+                {documents.length > 0 ? (
+                  <div className="fig-inspector-links mt-2">
+                    {documents.map((d) => (
+                      <button
+                        key={d.document.id}
+                        type="button"
+                        className="fig-inspector-link"
+                        data-testid={`travail-consulter-${d.document.id}`}
+                        onClick={() => openTravailDocument(d)}
+                      >
+                        Consulter · {d.document.title}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="fig-inspector-links">
                   <button
                     type="button"
@@ -993,6 +1597,7 @@ export default function ProjectPage() {
                 ) : null}
               </div>
             </div>
+            )
           }
         />
       ) : null}

@@ -104,6 +104,15 @@ function LoginPageInner() {
     setNotice("");
     setNoticeTone("info");
     try {
+      // C3 — same-tab identity switch: purge Travail drafts before new session cookie.
+      try {
+        const { purgeAllComposerDraftsInTab } = await import(
+          "@/domains/conversation/composer-draft"
+        );
+        purgeAllComposerDraftsInTab();
+      } catch {
+        /* draft module unavailable — continue login */
+      }
       const res = await fetch("/api/dev/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

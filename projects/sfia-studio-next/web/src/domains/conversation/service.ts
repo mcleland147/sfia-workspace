@@ -105,6 +105,11 @@ import {
   recoverPendingMissionContinuation,
 } from "./intent-conduction";
 import { draftProjectionFromQualification } from "@/domains/preparation/projection";
+import {
+  buildTurnProjection,
+  extractTurnProjectionFromResultJson,
+  type TurnProjection,
+} from "./turn-projection";
 
 /**
  * S05 R-01 — gather owner-side evidence for one unresolved sibling.
@@ -392,6 +397,43 @@ export async function listMessages(pilotId: string, preparationId: string) {
     .orderBy(asc(messages.ordinal));
 }
 
+/**
+ * Ensemble 05 / M1 — reload projections from existing result_json (no new table).
+ * READ ≠ COMMAND.
+ */
+export async function listTurnProjections(pilotId: string, preparationId: string) {
+  const ctx = await getPreparationContext(pilotId, preparationId);
+  if (!ctx.conversation) return [];
+  const rows = await db
+    .select({
+      id: conversationTurnCommands.id,
+      assistantMessageId: conversationTurnCommands.assistantMessageId,
+      status: conversationTurnCommands.status,
+      resultJson: conversationTurnCommands.resultJson,
+    })
+    .from(conversationTurnCommands)
+    .where(
+      and(
+        eq(conversationTurnCommands.conversationId, ctx.conversation.id),
+        eq(conversationTurnCommands.ownerPilotId, pilotId),
+      ),
+    );
+  const out = [];
+  for (const row of rows) {
+    if (!row.assistantMessageId || !row.resultJson) continue;
+    const proj = extractTurnProjectionFromResultJson(row.resultJson);
+    if (!proj) continue;
+    out.push({
+      ...proj,
+      messageId: proj.messageId ?? row.assistantMessageId,
+      turnCommandId: proj.turnCommandId ?? row.id,
+      finalized: proj.finalized || row.status === "COMPLETE",
+      status: proj.status || row.status,
+    });
+  }
+  return out;
+}
+
 /** Qualification decision before extract/D4 — metadata only, never blocks D4. */
 function emitDocumentActQualificationObs(args: {
   requestId: string;
@@ -547,6 +589,11 @@ export type TurnResult = {
   pendingEffectBlocked?: boolean;
   pendingBlockReason?: string;
   unresolvedPendingClientTurnKey?: string | null;
+  /**
+   * Ensemble 05 / M1 — structured reply projection (choices, refs, activity).
+   * Additive in result_json; never an authority grant.
+   */
+  turnProjection?: TurnProjection | null;
 };
 
 function pilotageEffectFromAuthority(
@@ -2301,6 +2348,29 @@ export async function postUserMessageAndNora(
       clientPendingHint,
     semanticQualificationStatus: qualification.status,
     preparationProjection: preparationProjectionAck,
+    turnProjection: buildTurnProjection({
+      messageId: ownershipLostBeforeD4 ? null : assistantId,
+      turnCommandId: reserved.commandId,
+      status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
+      finalized: turnStatus === "COMPLETE" && !ownershipLostBeforeD4,
+      // P1-A: never map clarifications[] → continue buttons.
+      continueChoices: qualification.continueChoices ?? null,
+      references: (qualification.resourceReferences ?? []).map((r) => ({
+        kind: r.kind,
+        label: r.label,
+        resourceId: r.resourceId,
+        revisionId: r.revisionId,
+        repositoryId: r.repositoryId,
+        path: r.path,
+        ref: r.ref,
+        commit: r.commit,
+        href: r.href,
+        available: true,
+      })),
+      toolCallsObserved: reply.toolCallsObserved,
+      d4CharsReturned: reply.d4CharsReturned,
+      documentSave,
+    }),
   };
 
   if (turnRaceHooks.beforeTerminalCommit) {

@@ -374,18 +374,43 @@
   gap: 0;
   border: 1px solid #272e49;
   border-radius: 14px;
-  padding: 16px 18px 12px;
+  padding: 12px 14px;
   background: #151c29;
-  /* Figma 652:8 composer ≈ 137px — natural height, not stretched */
-  min-height: 118px;
-  max-height: 160px;
+  /* Figma page 05 compact composer ≈ 84px; grows upward into thread space. */
+  min-height: 84px;
+  max-height: min(40vh, 320px);
   flex-shrink: 0;
   width: 100%;
 }
 
+.fig-travail-composer-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fig-travail-composer-plus {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid #272e49;
+  color: #94a2bb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+  /* Visual affordance only — attachments/dictation not operational in E05. */
+  opacity: 0.7;
+}
+
 .fig-travail-composer-input {
   width: 100%;
-  min-height: 48px;
+  min-height: 24px;
+  max-height: min(36vh, 280px);
   resize: none;
   border: 0;
   background: transparent;
@@ -393,7 +418,9 @@
   font: inherit;
   font-size: 15px;
   line-height: 1.45;
-  padding: 0;
+  padding: 6px 0;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .fig-travail-composer-input::placeholder {
@@ -427,13 +454,13 @@
 }
 
 .fig-travail-composer-send {
-  width: 52px;
+  width: 44px;
   height: 35px;
   border: 0;
   border-radius: 10px;
   background: #656fe1;
   color: #f4f6fc;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1;
   cursor: pointer;
@@ -441,6 +468,181 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin-bottom: 2px;
+}
+
+/* Ensemble 05 — choices, activity, viewer */
+.fig-nora-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.fig-nora-choice {
+  border: 1px solid #3a4470;
+  background: #1a2033;
+  color: #f4f6fc;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.fig-nora-choice:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.fig-nora-choice:focus-visible {
+  outline: 2px solid var(--fig-accent-soft);
+  outline-offset: 2px;
+}
+
+.fig-nora-choices-expired {
+  margin: 4px 0 0;
+  width: 100%;
+  color: #94a2bb;
+  font-size: 11px;
+}
+
+.fig-nora-refs {
+  margin: 10px 0 0;
+  padding-left: 0;
+  list-style: none;
+  color: #94a2bb;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fig-nora-ref-link {
+  border: 0;
+  background: transparent;
+  color: #afa5ff;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.fig-nora-ref-link:focus-visible {
+  outline: 2px solid var(--fig-accent-soft);
+  outline-offset: 2px;
+}
+
+.fig-nora-activity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #272e49;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #151c29;
+  color: #f4f6fc;
+  font-size: 13px;
+}
+
+.fig-nora-activity-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #656fe1;
+  animation: fig-nora-pulse 1.2s ease-in-out infinite;
+}
+
+.fig-nora-activity-note {
+  color: #94a2bb;
+  font-size: 11px;
+  width: 100%;
+}
+
+@keyframes fig-nora-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fig-nora-activity-pulse {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+.fig-nora-activity-history {
+  margin-top: 10px;
+  color: #94a2bb;
+  font-size: 12px;
+}
+
+.fig-nora-activity-history summary {
+  cursor: pointer;
+}
+
+.fig-travail-viewer {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  background: #151c29;
+  border: 1px solid #272e49;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.fig-travail-viewer-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid #272e49;
+  flex-shrink: 0;
+}
+
+.fig-travail-viewer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.fig-travail-viewer-meta {
+  margin: 4px 0 0;
+  color: #94a2bb;
+  font-size: 12px;
+}
+
+.fig-travail-viewer-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 16px 18px 20px;
+}
+
+.fig-travail-viewer-pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #f4f6fc;
 }
 
 .fig-travail-composer-send:disabled {
@@ -1466,6 +1668,27 @@
   /* Figma conversation→composer gap ≈ 25px; intro→rule stays compact via rule margin. */
   row-gap: 25px;
   align-items: stretch;
+}
+
+/* Ensemble 05 / CT-06 — 50/50 of useful area outside rail (Figma 701:363 ≈ 668/668). */
+.project-travail-stage[data-travail-layout="split"] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 22px;
+}
+
+/* Enlarged viewer: conversation/composer hidden; aside spans useful area. */
+.project-travail-stage[data-travail-layout="enlarged"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.project-travail-stage[data-travail-layout="enlarged"] > .fig-travail-intro,
+.project-travail-stage[data-travail-layout="enlarged"] > .fig-travail-intro-rule {
+  display: none;
+}
+
+.project-travail-stage[data-travail-layout="enlarged"] .fig-travail-aside {
+  grid-column: 1;
+  grid-row: 1 / -1;
 }
 
 .fig-travail-intro-rule {

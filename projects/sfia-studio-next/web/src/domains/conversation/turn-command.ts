@@ -815,7 +815,8 @@ export async function commitTurnTerminal(args: {
         return { applied: false };
       }
 
-      // T-03 / Lot B + O-04: preserve stashed semanticQualification and documentCommandBindings.
+      // T-03 / Lot B + O-04 + E05/M1: preserve stashed semanticQualification,
+      // documentCommandBindings, and turnProjection when terminal omits them.
       let terminalJson = args.resultJson ?? null;
       if (owned.resultJson) {
         try {
@@ -832,6 +833,9 @@ export async function commitTurnTerminal(args: {
             ) {
               next.documentCommandBindings = prev.documentCommandBindings;
               next.documentCommandBindingStashedAt = prev.documentCommandBindingStashedAt;
+            }
+            if (prev.turnProjection !== undefined && next.turnProjection === undefined) {
+              next.turnProjection = prev.turnProjection;
             }
             terminalJson = JSON.stringify(next);
           } else {
