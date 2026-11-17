@@ -31,7 +31,8 @@
 | Branche | `feat/next-ml4d-project-space-20261116` |
 | Feature freeze | `342f0bbb3fea1d52c7a40228347923b30b6db90e` |
 | Manifeste SHA | `2b0d7a78a34fb9b8858a8ce81a31bedadcc842b8` |
-| Correctif brouillon tip |  / tree  |
+| Correctif brouillon tip | `383efec92a89ae0a1bf1084f98c351654fb86937` / tree `c3c4ef9f237aedda2c0e26f6192e842bf2d2cf00` |
+| Manifest tip after SHA record | `4ca69c518d4b91e090120f2a33ef74ec87b652ea` / tree `cd0ba2a035fc660b448af55aa25f11f32f37fd8e` (updated by follow-up docs commit) |
 | Push produit | **AUCUN** |
 
 ## 3. Rollback — qualification
