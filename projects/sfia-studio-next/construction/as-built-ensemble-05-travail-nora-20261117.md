@@ -7,6 +7,10 @@
 | Type | Delivery locale · gel candidat · **NO RELEASE** · **pas de déploiement RECETTE** |
 | Branche | `feat/next-ml4d-project-space-20261116` |
 | Parent tip | `cb638613890bff769b3cbbcc99449b430c89faa6` |
+| Gel contenu | `1a820ad489f001bfeef4a9958d1de92e6ab1b5f7` |
+| Tip local (manifest SHAs) | `8775d647ca3240eb68d2b4db95b3e5db18aeb7fa` |
+| Tree tip | `92ea2206fb611b0d077404b51854d74b3c93f68b` |
+| BUILD_ID local | `jYz7jUBt1ewRBNp6HbCgs` |
 | Statut | **E05 RECETTE CANDIDATE FROZEN — PREPARATION VERIFIED — MORRIS DEPLOY GO REQUIRED** |
 
 ## Capacités conservées
