@@ -2782,11 +2782,10 @@ index c334afa1..cbf289b5 100644
 | Branch | `sfia/review-handoff` |
 | Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Mode | publish-in-cycle |
-| Commit distant | `c0f29be18fe0ead5c31fd651fe57f49107218e77` |
-| Parent | `ebc8766c3ca481b009c1d20e4c2ae207be1e9591` |
-| Blob canonique | `23c31741adcc0132b1a9dccd49a30571da82d257` |
-| Mono-fichier | OUI |
-| Verdict publisher | `HANDOFF UPDATED — REMOTE VERIFIED` (push `ebc8766c..c0f29be1`) |
+| Tip distant au moment de rédaction | `4e58884ec00c6cd86eabf082dce540a5b0015e1b` |
+| Blob tip | `b4185d689943a8bac468ed1a7f8cf99b8259ae86` |
+| Chaîne | `ebc8766c` → `c0f29be1` (pack Full) → `4e58884e` (SHAs annotés) |
+| Mono-fichier | OUI à chaque commit |
 | Product push | **NONE / FORBIDDEN** |
 
 ## 18. Instruction ChatGPT
