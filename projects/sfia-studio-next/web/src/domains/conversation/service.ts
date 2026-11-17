@@ -398,6 +398,100 @@ export async function listMessages(pilotId: string, preparationId: string) {
 }
 
 /**
+ * R05 — READ-ONLY durable turn lookup by clientTurnKey.
+ * Never reserves, never calls Nora, never mutates. Used by cognitive recovery
+ * so UI pending clear is grounded in server state (not a bare D7 404).
+ */
+export async function lookupDurableTurnByClientKey(
+  pilotId: string,
+  preparationId: string,
+  clientTurnKey: string,
+): Promise<{
+  found: boolean;
+  status: string | null;
+  generationId: string | null;
+  operationId: string | null;
+  userMessageId: string | null;
+  assistantMessageId: string | null;
+  pilotageEffect: TurnResult["pilotageEffect"];
+  idempotentReplay: true;
+  noraMode: "durable-lookup";
+}> {
+  const key = clientTurnKey.trim();
+  const empty = {
+    found: false as const,
+    status: null,
+    generationId: null,
+    operationId: null,
+    userMessageId: null,
+    assistantMessageId: null,
+    pilotageEffect: null,
+    idempotentReplay: true as const,
+    noraMode: "durable-lookup" as const,
+  };
+  if (!key) return empty;
+
+  const ctx = await getPreparationContext(pilotId, preparationId);
+  if (!ctx.conversation) return empty;
+
+  const row = (
+    await db
+      .select({
+        status: conversationTurnCommands.status,
+        generationId: conversationTurnCommands.generationId,
+        operationId: conversationTurnCommands.operationId,
+        userMessageId: conversationTurnCommands.userMessageId,
+        assistantMessageId: conversationTurnCommands.assistantMessageId,
+        resultJson: conversationTurnCommands.resultJson,
+        clientTurnKey: conversationTurnCommands.clientTurnKey,
+      })
+      .from(conversationTurnCommands)
+      .where(
+        and(
+          eq(conversationTurnCommands.conversationId, ctx.conversation.id),
+          eq(conversationTurnCommands.clientTurnKey, key),
+        ),
+      )
+      .limit(1)
+  )[0];
+
+  if (!row) return empty;
+
+  let fromJson: TurnResult["pilotageEffect"] = null;
+  let humanDecisionCreated = false;
+  if (row.resultJson) {
+    try {
+      const parsed = JSON.parse(row.resultJson) as TurnResult;
+      fromJson = parsed.pilotageEffect ?? null;
+      humanDecisionCreated = Boolean(parsed.humanDecisionCreated);
+    } catch {
+      /* ignore corrupt payload — status row still authoritative for D3 */
+    }
+  }
+
+  const resolved = await resolvePilotageEffectForReplay({
+    pilotId,
+    projectId: ctx.project?.id,
+    clientTurnKey: row.clientTurnKey,
+    userMessageId: row.userMessageId,
+    fromJson,
+    humanDecisionCreated,
+  });
+
+  return {
+    found: true,
+    status: row.status,
+    generationId: row.generationId,
+    operationId: row.operationId,
+    userMessageId: row.userMessageId,
+    assistantMessageId: row.assistantMessageId,
+    pilotageEffect: resolved.pilotageEffect,
+    idempotentReplay: true,
+    noraMode: "durable-lookup",
+  };
+}
+
+/**
  * Ensemble 05 / M1 — reload projections from existing result_json (no new table).
  * READ ≠ COMMAND.
  */

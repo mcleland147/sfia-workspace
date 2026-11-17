@@ -1,9 +1,11 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
 import {
   categorizeProviderError,
+  extractProviderErrorDiagnostics,
   generateNoraReply,
 } from "@/domains/conversation/nora-adapter";
 import { buildCognitivePolicy } from "@/domains/conversation/cognitive-policy";
+import { redactDeep } from "@/lib/observability";
 
 describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
   const prevLane = process.env.STUDIO_LANE;
@@ -32,6 +34,40 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
     const c = categorizeProviderError(new Error("sk-abcdef1234567890 rate limit 429 from api.openai.com"));
     expect(c.category).toMatch(/PROVIDER_/);
     expect(c.category).not.toContain("sk-");
+  });
+
+  it("R05 OBS: extracts allowlisted diagnostics without raw message or secrets", () => {
+    const inner = new Error("sk-abcdef1234567890 leaked prompt body");
+    inner.name = "APIError";
+    (inner as Error & { status: number; code: string }).status = 429;
+    (inner as Error & { code: string }).code = "rate_limit_exceeded";
+    const outer = new Error("wrapper");
+    outer.name = "h";
+    (outer as Error & { cause: Error }).cause = inner;
+    const d = extractProviderErrorDiagnostics(outer, {
+      phase: "stream_drain",
+      streamingDelivered: true,
+      toolCallsObserved: 2,
+    });
+    expect(d.error_name).toBe("APIError");
+    expect(d.error_code).toBe("rate_limit_exceeded");
+    expect(d.http_status).toBe(429);
+    expect(d.streaming_delivered).toBe(true);
+    expect(d.tool_calls_observed).toBe(2);
+    expect(d.cause_depth).toBeGreaterThanOrEqual(1);
+    const serialized = JSON.stringify(d);
+    expect(serialized).not.toContain("sk-abcdef");
+    expect(serialized).not.toContain("leaked prompt");
+    expect(serialized).not.toContain("wrapper");
+  });
+
+  it("R05 OBS: redaction drops sensitive simulated strings in deep structures", () => {
+    const scrubbed = redactDeep({
+      authorization: "Bearer secret",
+      meta: { error_name: "APIError", note: "SYNTH_SECRET_PROBE_DO_NOT_LOG_X" },
+    });
+    expect(JSON.stringify(scrubbed)).not.toContain("Bearer secret");
+    expect(JSON.stringify(scrubbed)).toContain("[REDACTED");
   });
 
   async function runOnceScenario(message: string) {

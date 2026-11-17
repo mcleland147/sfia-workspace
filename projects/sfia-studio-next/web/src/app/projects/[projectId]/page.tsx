@@ -800,10 +800,62 @@ export default function ProjectPage() {
     return false;
   }
 
+  function applyCognitiveRecoveryFromDurable(input: {
+    status: string;
+    effect: PilotageEffectView | undefined;
+    pending: ThreadPendingTurn;
+    noraMode?: string;
+  }): boolean {
+    const status = input.status.trim().toUpperCase();
+    setStatus(`Nora ${String(input.noraMode ?? "durable")} · ${status}`);
+    setPilotageStatus(formatPilotageEffect(input.effect, false));
+    const pendingCleared = applyClearFromResponse(status, input.effect);
+    if (!pendingCleared) {
+      // Métier UNKNOWN or non-terminal — keep pending; honest copy.
+      if (input.effect?.attempted === true) {
+        setStatus("Effet métier encore incertain — conserver la réconciliation.");
+        setChoiceFrozen(true);
+      } else if (status === "RUNNING" || status === "ACCEPTED") {
+        setStatus("Tentative encore en cours côté serveur — réessayer plus tard.");
+        setChoiceFrozen(true);
+      }
+      return false;
+    }
+    // Cognitive terminal without D7 — exit loop; never claim success; keep draft.
+    if (status === "UNKNOWN" || status === "INTERRUPTED" || status === "FAILED") {
+      setStatus(
+        "Réponse Nora non aboutie — historique conservé. Vous pouvez formuler une nouvelle demande. Aucune relance automatique.",
+      );
+      setNoraActivity("error");
+      setChoiceFrozen(false);
+      return true;
+    }
+    const decision = mayClearComposerDraftOnReconcile({
+      pending: input.pending,
+      currentDraftVersion: draftVersionRef.current,
+    });
+    if (
+      decision.clear &&
+      pilotId &&
+      clearDraftAfterAck({
+        pilotId,
+        projectId: params.projectId,
+        sentVersion: decision.sentVersion,
+        currentVersion: draftVersionRef.current,
+      })
+    ) {
+      setDraft("");
+    }
+    setChoiceFrozen(false);
+    setNoraActivity("idle");
+    return true;
+  }
+
   async function reconcilePending(pending: ThreadPendingTurn) {
     setBusy(true);
     setChoiceFrozen(true);
     try {
+      // 1) Durable D7 by business command key — métier authority when present.
       const res = await fetch(
         `/api/projects/${params.projectId}/pilotage/commands/by-key/${encodeURIComponent(pending.clientCommandKey)}`,
       );
@@ -829,17 +881,55 @@ export default function ProjectPage() {
           rememberPending(null);
           messageTurnKeyRef.current = null;
           setChoiceFrozen(false);
+        } else {
+          setStatus("Effet métier encore incertain — réconciliation métier conservée.");
+          setChoiceFrozen(true);
         }
         await refreshDurablePilotage();
         return;
       }
-      // 404 alone does not invent a new key — retry same logical act only (D3 idempotent).
-      if (res.status === 404) {
-        setPilotageStatus(
-          `Commande absente pour ${pending.clientCommandKey.slice(0, 28)}… — reprise du même acte`,
-        );
-      }
+
       if (!preparationId) return;
+
+      // 2) R05 — READ durable D3 turn by clientTurnKey (no Nora, no POST).
+      // A bare D7 404 is not proof of cognitive terminality by itself.
+      const lookup = await fetch(
+        `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(pending.clientTurnKey)}`,
+      );
+      if (lookup.ok) {
+        const body = (await lookup.json()) as {
+          status?: string;
+          pilotageEffect?: PilotageEffectView | null;
+          noraMode?: string;
+        };
+        const status = String(body.status ?? "");
+        const effect = (body.pilotageEffect ?? undefined) as PilotageEffectView | undefined;
+        const cleared = applyCognitiveRecoveryFromDurable({
+          status,
+          effect,
+          pending,
+          noraMode: body.noraMode,
+        });
+        const proj = await fetch(`/api/projects/${params.projectId}`);
+        if (proj.ok) {
+          const pj = await proj.json();
+          setDocuments(pj.documents ?? []);
+          setKnowledge(pj.knowledge ?? null);
+          if (Array.isArray(pj.messages)) setMessages(pj.messages as Msg[]);
+        }
+        await refreshDurablePilotage();
+        if (cleared || status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
+          return;
+        }
+        // Non-clearable non-running without effect — fall through only if lookup incomplete.
+        if (status) return;
+      }
+
+      // 3) Turn not found or lookup failed — idempotent POST replay (same clientTurnKey).
+      // Terminal replay never invokes OpenAI; used for ACK/hydration gaps only.
+      setPilotageStatus(
+        `Tour introuvable ou non terminal — reprise idempotente de la même clé (${pending.clientTurnKey.slice(0, 18)}…)`,
+      );
       const retry = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -851,38 +941,15 @@ export default function ProjectPage() {
       const j = (await retry.json().catch(() => ({}))) as Record<string, unknown>;
       if (retry.ok) {
         setMessages((j.messages as Msg[]) ?? []);
-        setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
-        setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
         const tp = parseTurnProjection(j.turnProjection);
         if (tp) upsertTurnProjection(tp);
-        const status = String(j.status ?? "");
-        // Pending clear ≠ draft clear. Draft only via versioned composer ACK.
-        const pendingCleared = applyClearFromResponse(status, effect);
-        if (pendingCleared && status !== "UNKNOWN") {
-          const decision = mayClearComposerDraftOnReconcile({
-            pending,
-            currentDraftVersion: draftVersionRef.current,
-          });
-          if (
-            decision.clear &&
-            pilotId &&
-            clearDraftAfterAck({
-              pilotId,
-              projectId: params.projectId,
-              sentVersion: decision.sentVersion,
-              currentVersion: draftVersionRef.current,
-            })
-          ) {
-            setDraft("");
-          }
-          // choice / legacy / newer edit → leave draft & sessionStorage intact
-        }
-        if (status === "UNKNOWN") {
-          setChoiceFrozen(true);
-        } else {
-          setChoiceFrozen(false);
-        }
+        applyCognitiveRecoveryFromDurable({
+          status: String(j.status ?? ""),
+          effect,
+          pending,
+          noraMode: String(j.noraMode ?? ""),
+        });
         const proj = await fetch(`/api/projects/${params.projectId}`);
         if (proj.ok) {
           const pj = await proj.json();
@@ -1054,6 +1121,38 @@ export default function ProjectPage() {
           key: pending.clientTurnKey,
         };
         setPilotageStatus("Reprise en attente · tentative conservée");
+        // R05 — silent READ hydrate: clear stale cognitive pending from durable D3 truth.
+        const prepId = (j.preparation?.id as string | undefined) ?? null;
+        if (prepId) {
+          try {
+            const look = await fetch(
+              `/api/preparations/${prepId}/turns/by-key/${encodeURIComponent(pending.clientTurnKey)}`,
+            );
+            if (look.ok) {
+              const body = (await look.json()) as {
+                status?: string;
+                pilotageEffect?: PilotageEffectView | null;
+              };
+              if (
+                shouldClearThreadPending({
+                  noraStatus: body.status,
+                  effectAttempted: body.pilotageEffect?.attempted,
+                  effectStatus: body.pilotageEffect?.status,
+                })
+              ) {
+                rememberPending(null);
+                messageTurnKeyRef.current = null;
+                setChoiceFrozen(false);
+                setStatus(
+                  "Réponse Nora non aboutie (état durable) — vous pouvez formuler une nouvelle demande.",
+                );
+                setPilotageStatus("");
+              }
+            }
+          } catch {
+            /* keep pending — network hydrate is best-effort */
+          }
+        }
       }
 
       // G2 — silent COMMAND recovery (not GET): resume interrupted mission continuation
@@ -1407,8 +1506,13 @@ export default function ProjectPage() {
               ? `Effet retenu — pending non résolu (${String(j.unresolvedPendingClientTurnKey ?? pendingBefore?.clientTurnKey ?? "A")})`
               : "Intention précédente non résolue — réconcilier avant un nouveau tour.",
           );
-        } else if (j.status === "UNKNOWN" || j.status === "FAILED") {
+        } else if (j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED") {
           setNoraActivity("error");
+          if (shouldClearDraft) {
+            setStatus(
+              "Réponse Nora non aboutie — historique conservé. Vous pouvez formuler une nouvelle demande. Aucune relance automatique.",
+            );
+          }
         }
         const proj = await fetch(`/api/projects/${params.projectId}`);
         if (proj.ok) {
@@ -1418,11 +1522,16 @@ export default function ProjectPage() {
         }
         await refreshDurablePilotage();
         setNoraActivity(
-          j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
+          j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED"
+            ? "error"
+            : "idle",
         );
-        // P1-B: unfreeze only when transmission is terminal and not UNKNOWN.
-        // Choices also expire via resolveActionable once a pilot turn appears in messages.
-        if (String(j.status ?? "") === "UNKNOWN") {
+        // R05: cognitive UNKNOWN/INTERRUPTED without métier clears pending → unfreeze.
+        // Métier UNKNOWN keeps freeze via shouldClearDraft === false.
+        if (
+          !shouldClearDraft &&
+          (String(j.status ?? "") === "UNKNOWN" || String(j.status ?? "") === "INTERRUPTED")
+        ) {
           setChoiceFrozen(true);
         } else {
           setChoiceFrozen(false);

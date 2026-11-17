@@ -4,6 +4,22 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-17-ML4D-R05-COGNITIVE-RECOVERY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~20:35 CET |
+| Macro-lot | ML4D Ensemble 05 — R05 reprise cognitive UNKNOWN + OBS |
+| Type | Cycle 8 Delivery · Critical · RUN/INC corrective · **PATCH CANDIDATE** · deploy RECETTE conditionnel |
+| Parent tip | `208aaa40` |
+| Cause | Diagnostic `R05 PROVIDER FAILURE IDENTIFIED — RECOVERY UX GAP CONFIRMED` (`de481265`) — reconcile loop on cognitive UNKNOWN without D7 |
+| Scope | `shouldClearThreadPending` UNKNOWN/INTERRUPTED sans métier ; GET durable `turns/by-key` ; reconcile/hydrate UX ; OBS `extractProviderErrorDiagnostics` ; tests unit/PG/e2e ; plan retest Arnaud |
+| Non-scope | Correction exception fournisseur ; LIVE OpenAI ; migration ; push produit ; STABLE ; clôture E05 |
+| Preuves | Vitest R05 unit 36 PASS ; PG ml2-turn-command 4 PASS ; Playwright R05 2 PASS ; lint 0 error touched ; tsc 32 baseline / 0 touched src ; `next build` PASS |
+| Push produit | **AUCUN** (commit local autorisé) |
+| Verdict | (complété après gate RECETTE dans le Review Pack) |
+
+
 ## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-STRICT-SCHEMA-AUDIT
 
 | Field | Value |

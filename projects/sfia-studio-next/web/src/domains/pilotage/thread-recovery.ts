@@ -109,10 +109,27 @@ export function pendingStorageKey(projectId: string): string {
 }
 
 /**
+ * Durable Nora conversational terminals that close a *cognitive* pending when
+ * no métier effect was attempted. UNKNOWN/INTERRUPTED are included so a verified
+ * D3 terminal without D7 does not trap the Pilot in a reconcile loop (R05).
+ * Métier UNKNOWN remains protected via `effectAttempted === true` below.
+ */
+export function isDurableCognitiveNoraTerminal(noraStatus?: string | null): boolean {
+  const nora = (noraStatus ?? "").trim().toUpperCase();
+  return (
+    nora === "COMPLETE" ||
+    nora === "FAILED" ||
+    nora === "UNKNOWN" ||
+    nora === "INTERRUPTED"
+  );
+}
+
+/**
  * Clear pending only when the business effect is terminal, or when no
  * business attempt occurred and Nora reached a conversational terminal.
  * Nora COMPLETE must NOT close an UNKNOWN / unresolved métier effect.
  * Independent dialogue COMPLETE must NOT clear a distinct unresolved métier pending.
+ * Cognitive UNKNOWN/INTERRUPTED without D7 effectAttempted MAY clear (R05 recovery).
  */
 export function shouldClearThreadPending(input: {
   noraStatus?: string | null;
@@ -127,8 +144,7 @@ export function shouldClearThreadPending(input: {
     if (!biz || biz === "UNKNOWN" || biz.startsWith("UNKNOWN")) return false;
     return true;
   }
-  const nora = (input.noraStatus ?? "").trim().toUpperCase();
-  return nora === "COMPLETE" || nora === "FAILED";
+  return isDurableCognitiveNoraTerminal(input.noraStatus);
 }
 
 /**

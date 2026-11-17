@@ -168,6 +168,103 @@ export function categorizeProviderError(err: unknown): {
   return { category, interrupted, preContactLikely };
 }
 
+const SAFE_ERROR_NAME = /^[A-Za-z][A-Za-z0-9_.]{0,80}$/;
+const SAFE_ERROR_CODE = /^[A-Za-z0-9_.-]{1,64}$/;
+const SENSITIVE_IN_CODE =
+  /sk-|ghp_|github_pat_|api[_-]?key|bearer|authorization|password|secret/i;
+
+/**
+ * R05 — bounded extraction of provider/SDK diagnostics for OBS allowlist only.
+ * Walks nested `cause` up to depth 4. Never returns raw messages, prompts, or bodies.
+ */
+export function extractProviderErrorDiagnostics(
+  err: unknown,
+  opts?: { phase?: string; streamingDelivered?: boolean; toolCallsObserved?: number },
+): {
+  error_name: string;
+  error_code: string | null;
+  http_status: number | null;
+  transport_kind: string | null;
+  error_phase: string;
+  streaming_delivered: boolean;
+  cause_depth: number;
+  tool_calls_observed: number | null;
+} {
+  let errorName = "Error";
+  let errorCode: string | null = null;
+  let httpStatus: number | null = null;
+  let transportKind: string | null = null;
+  let depth = 0;
+  let cur: unknown = err;
+
+  while (cur != null && depth < 4) {
+    if (cur instanceof Error) {
+      if (SAFE_ERROR_NAME.test(cur.name) && !SENSITIVE_IN_CODE.test(cur.name)) {
+        errorName = cur.name;
+      }
+      const anyErr = cur as Error & {
+        code?: unknown;
+        status?: unknown;
+        statusCode?: unknown;
+        requestID?: unknown;
+        request_id?: unknown;
+      };
+      const codeRaw =
+        typeof anyErr.code === "string"
+          ? anyErr.code
+          : typeof anyErr.code === "number"
+            ? String(anyErr.code)
+            : null;
+      if (codeRaw && SAFE_ERROR_CODE.test(codeRaw) && !SENSITIVE_IN_CODE.test(codeRaw)) {
+        errorCode = codeRaw;
+      }
+      const st =
+        typeof anyErr.status === "number"
+          ? anyErr.status
+          : typeof anyErr.statusCode === "number"
+            ? anyErr.statusCode
+            : null;
+      if (st != null && st >= 100 && st <= 599) httpStatus = st;
+
+      const msg = cur.message || "";
+      if (/ECONNRESET|ENOTFOUND|ECONNREFUSED|ETIMEDOUT|socket|fetch failed/i.test(msg)) {
+        transportKind = "network_transport";
+      } else if (/abort|AbortError/i.test(msg) || cur.name === "AbortError") {
+        transportKind = "aborted";
+      } else if (/timeout/i.test(msg)) {
+        transportKind = "timeout";
+      } else if (httpStatus != null) {
+        transportKind = "http";
+      }
+
+      cur = (cur as Error & { cause?: unknown }).cause;
+      depth += 1;
+      continue;
+    }
+    if (typeof cur === "object" && cur !== null && "cause" in cur) {
+      cur = (cur as { cause?: unknown }).cause;
+      depth += 1;
+      continue;
+    }
+    break;
+  }
+
+  const phase =
+    opts?.phase && SAFE_ERROR_CODE.test(opts.phase) ? opts.phase : "provider_stream";
+
+  return {
+    error_name: errorName,
+    error_code: errorCode,
+    http_status: httpStatus,
+    transport_kind: transportKind,
+    error_phase: phase,
+    streaming_delivered: Boolean(opts?.streamingDelivered),
+    cause_depth: depth,
+    tool_calls_observed:
+      typeof opts?.toolCallsObserved === "number" ? opts.toolCallsObserved : null,
+  };
+}
+
 function boundaryFail(
   generationId: string,
   reason: string,
@@ -598,10 +695,13 @@ async function runLiveWithTools(
         providerContacted: contact,
       });
 
-      const errName =
-        streamErr instanceof Error && /^[A-Za-z][A-Za-z0-9_.]{0,80}$/.test(streamErr.name)
-          ? streamErr.name
-          : "Error";
+      const toolsUsedOnError =
+        policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
+      const diag = extractProviderErrorDiagnostics(streamErr, {
+        phase: streamingDelivered ? "stream_drain" : "stream_start",
+        streamingDelivered,
+        toolCallsObserved: toolsUsedOnError,
+      });
       emitObs({
         event_name: "d3.nora.provider_attempt",
         component: "d3.nora_adapter",
@@ -617,7 +717,14 @@ async function runLiveWithTools(
           kind: "stream",
           model_requested: NORA_STUDY_MODEL,
           provider_contacted: contact,
-          error_name: errName,
+          error_name: diag.error_name,
+          error_code: diag.error_code,
+          http_status: diag.http_status,
+          transport_kind: diag.transport_kind,
+          error_phase: diag.error_phase,
+          streaming_delivered: diag.streaming_delivered,
+          cause_depth: diag.cause_depth,
+          tool_calls_observed: diag.tool_calls_observed,
         },
       });
 

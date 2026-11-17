@@ -274,7 +274,9 @@ export function NoraConversation(props: {
         {props.unresolvedPending && props.onReconcile ? (
           <div className="fig-travail-pending" data-testid="thread-pending-banner">
             <p className="fig-travail-pending-copy">
-              Tentative non résolue — réconcilier avant un nouveau tour.
+              Tentative non résolue — vérifier l&apos;état serveur avant un nouveau tour. Une
+              génération cognitive déjà terminée sans effet métier peut être levée ; un effet
+              métier incertain reste protégé.
             </p>
             <button
               type="button"
@@ -283,7 +285,7 @@ export function NoraConversation(props: {
               data-testid="thread-reconcile-pending"
               onClick={props.onReconcile}
             >
-              Réconcilier la tentative en cours
+              Vérifier et reprendre
             </button>
           </div>
         ) : null}
