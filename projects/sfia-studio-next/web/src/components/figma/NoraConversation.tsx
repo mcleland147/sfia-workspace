@@ -2,12 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { NoraVisualComposition } from "@/components/figma/NoraVisualComposition";
 import { useNoraThreadScroll } from "@/hooks/useNoraThreadScroll";
 import type {
   MessageProjectionView,
   TurnChoice,
   TurnReference,
 } from "@/domains/conversation/turn-projection";
+import {
+  compositionAnchorsChoices,
+  compositionAnchorsReferences,
+  compositionOwnsBody,
+} from "@/domains/conversation/visual-composition";
 
 export type NoraMsg = {
   id: string;
@@ -152,7 +158,22 @@ export function NoraConversation(props: {
                 </div>
                 {isNora ? (
                   <div className="fig-msg-body">
-                    <SafeMarkdown content={m.content} />
+                    {proj?.visualComposition &&
+                    compositionOwnsBody(proj.visualComposition) ? (
+                      <NoraVisualComposition
+                        composition={proj.visualComposition}
+                        choices={proj.choices}
+                        references={proj.references}
+                        actionable={proj.actionable}
+                        busy={props.busy}
+                        choiceFrozen={props.choiceFrozen}
+                        messageId={m.id}
+                        onChoice={props.onChoice}
+                        onReference={props.onReference}
+                      />
+                    ) : (
+                      <SafeMarkdown content={m.content} />
+                    )}
                   </div>
                 ) : (
                   <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
@@ -166,7 +187,9 @@ export function NoraConversation(props: {
                     </p>
                   </details>
                 ) : null}
-                {proj && proj.choices.length > 0 ? (
+                {proj &&
+                proj.choices.length > 0 &&
+                !compositionAnchorsChoices(proj.visualComposition) ? (
                   <div
                     className="fig-nora-choices"
                     data-testid="nora-choices"
@@ -193,7 +216,8 @@ export function NoraConversation(props: {
                     ) : null}
                   </div>
                 ) : null}
-                {proj?.references?.length ? (
+                {proj?.references?.length &&
+                !compositionAnchorsReferences(proj.visualComposition) ? (
                   <ul className="fig-nora-refs" data-testid="nora-refs">
                     {proj.references.map((r, i) => (
                       <li key={`${r.kind}-${r.resourceId ?? r.path ?? i}`}>

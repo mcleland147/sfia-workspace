@@ -4,49 +4,45 @@
 |---|---|
 | Date | 2026-11-17 |
 | Macro-lot | R5 / ML4D Ensemble 05 |
-| Type | Delivery locale DEV · **NO RELEASE** |
-| Branche produit | `feat/next-ml4d-project-space-20261116` |
-| HEAD de base | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Statut | **E05 FINAL CANDIDATE — TECHNICALLY READY FOR MORRIS RECETTE DEPLOYMENT GO** (as-built non normatif) |
-| Cycles | Delivery + correctif + consolidation + freeze + correctif brouillon/reconcile (même macro-lot) |
+| Type | Delivery locale · gel candidat · **NO RELEASE** · **pas de déploiement RECETTE** |
+| Branche | `feat/next-ml4d-project-space-20261116` |
+| Parent tip | `cb638613890bff769b3cbbcc99449b430c89faa6` |
+| Statut | **E05 RECETTE CANDIDATE FROZEN — PREPARATION VERIFIED — MORRIS DEPLOY GO REQUIRED** |
 
-## Sources
+## Capacités conservées
 
-- UX v0.7 — blob `dc5ef25f…` VALIDATED SPEC
-- Tech v0.2 — blob `5f389688…` M1–M5 VALIDATED
-- Figma page 05 — référence comportementale ; **revue visuelle réservée à Morris en RECETTE**
-- Manifeste prep RECETTE — `construction/ensemble-05-recette-prep-manifest.md`
+- Grammaire visuelle native ; composition ordonnée ; P1-A fail-closed ; P1-B provenance canonique ; ancres ; T05 ; S1–S8 fixtures.
 
-## Capacités
+## Finitions UX (ce cycle)
 
-| Capacité | Implémentation |
+| ID | Défaut | Correctif |
+|---|---|---|
+| V01 | `**si**` littéral dans recommandation | `SafeMarkdown` sur recommendation / détails structurés |
+| V02 | `Dépend de : t1` | Résolution id → titre d’étape |
+| V03 | Double « Consulter · Note… » | Déduplication : provenance consultable first-claim ; refs ancre saute la même identité |
+| V04 | Diagramme S2 | Pas d’anomalie layout reproductible hors capture partielle — non reconstruit |
+
+## Preuves DEV
+
+- Vitest **32 PASS** · Playwright E05 **7 PASS** · `next build` PASS · BUILD_ID `jYz7jUBt1ewRBNp6HbCgs`
+- LIVE form-choice : **NOT EXECUTED**
+- RECETTE `:3200` / `slh3bItXudDCIEaR2WYho` / `cb638613` — **inchangée**
+- Rollback worktree : `…ensemble04-recette-build-984d77a3`
+
+## Manifeste
+
+`construction/ensemble-05-recette-candidate-manifest.md`
+
+## Fake / Real
+
+| Frontière | Qualification |
 |---|---|
-| M1–M5 | Projection D3 ; final-only ; draft sessionStorage ; viewer local ; no migration |
-| Choix | `continueChoices` ≠ clarifications |
-| Final A | Toute ouverture Travail revalide D4 (list + revisionId) — pas de latest React en autorité |
-| Final B | ACK perdu → pending obligatoire → reconcile click → 1 tour Pilote |
-| Draft/reconcile | Choix Nora / legacy never clear draft ; composer only via `clearDraftAfterAck` versionné |
-| C3 | Purge same-tab login ; `session.pilotId` |
-| C5 | Git path existant ; REAL NOT EXECUTED |
-| Rollback prep | Artefact passif `.sfia-restore-artifacts/3Lzv…` — LIVE TEST NOT EXECUTED |
+| Fixtures S1–S8 / V* | DETERMINISTIC |
+| UI | BROWSER |
+| Build | REAL local |
+| Nora LIVE | NOT EXECUTED (préparation seulement) |
+| RECETTE mutation | NONE |
 
-## Preuves techniques (DEV)
+## Protocole réception LIVE (R01–R08)
 
-- Vitest E05 9 + studio-rail 13 PASS
-- Playwright E05 5 PASS (viewer, C1, C2 reconcile obligatoire, C3, isolation)
-- Playwright E04 3 PASS
-- `next build` PASS
-- `tsc` workspace : 32 erreurs hors E05 (tests historiques) — **NO_E05_TSC_HITS**
-
-## RECETTE
-
-- Existante inventoriée `:3200` / BUILD `3LzvYPTQc-Km7St6nF97r` / SHA `984d77a3`
-- **Aucun déploiement** dans ce cycle
-- Mise à disposition future documentée dans le manifeste
-
-## Réserves acceptables (décision Morris)
-
-1. Streaming M2 hors V1
-2. Git D9 REAL non exécuté
-3. OAuth LIVE ≠ adaptateur DEV
-4. Revue visuelle Morris en RECETTE (pas de gate F2 Cursor)
+Prêt pour session Morris après GO déploiement distinct — résultats non préremplis.

@@ -128,11 +128,25 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
       "data-travail-layout",
       "enlarged",
     );
+    // T05 — conversation/composer must leave layout (no text bleed through viewer).
+    await expect(page.getByTestId("nora-conversation-panel")).toBeHidden();
+    await expect(page.getByTestId("nora-composer-stack")).toBeHidden();
+    const panelDisplay = await page
+      .getByTestId("nora-conversation-panel")
+      .evaluate((el) => getComputedStyle(el).display);
+    expect(panelDisplay).toBe("none");
+    await expect(page.getByTestId("travail-viewer")).toBeVisible();
+    await expect(page.getByTestId("travail-viewer-body")).toContainText("Note E05");
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-viewer-enlarged-1440.png"),
+      fullPage: false,
+    });
     await page.getByTestId("travail-viewer-reduce").click();
     await expect(page.getByTestId("project-travail-stage")).toHaveAttribute(
       "data-travail-layout",
       "split",
     );
+    await expect(page.getByTestId("nora-conversation-panel")).toBeVisible();
     await page.getByTestId("travail-viewer-close").click();
     await expect(page.getByTestId("travail-aside-bref")).toBeVisible();
     await expect(page.getByTestId("thread-draft")).toHaveValue(keep);
@@ -489,6 +503,203 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     );
     expect(cMsgs.length).toBe(1);
     await page.unrouteAll({ behavior: "ignoreErrors" });
+  });
+
+  test("T02 visual composition consolidation — ordered S1–S8 via real D3 path", async ({
+    page,
+  }) => {
+    test.setTimeout(300_000);
+    const evidenceDir = path.resolve(
+      __dirname,
+      "../../docs/evidence/ensemble-05-travail-nora",
+    );
+    fs.mkdirSync(evidenceDir, { recursive: true });
+
+    // Short exact TEST_BOUNDARY keys (aliases of the natural S1–S8 utterances).
+    const E05_S1_SIMPLE = "E05_S1_SIMPLE";
+    const E05_S2_DIAGNOSTIC = "E05_S2_DIAGNOSTIC";
+    const E05_S3_COMPARISON = "E05_S3_COMPARISON";
+    const E05_S4_TRAJECTORY = "E05_S4_TRAJECTORY";
+    const E05_S5_COMPOSITE = "E05_S5_COMPOSITE";
+    const E05_S7_INSUFFICIENT = "E05_S7_INSUFFICIENT";
+
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { projectId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "E05 visual grammar consolidation",
+      name: `E05 Visual ${Date.now()}`,
+      summary: "visual-consolidation",
+    });
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    const draft = page.getByTestId("thread-draft");
+    const send = page.getByTestId("thread-send");
+
+    async function ask(text: string) {
+      await draft.fill(text);
+      await send.click();
+      await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|Nora/i, {
+        timeout: 45000,
+      });
+    }
+
+    // S1 — simple text, no graphic composition (UX-NORA-01).
+    await ask(E05_S1_SIMPLE);
+    const s1 = page.getByTestId("nora-msg-assistant").last();
+    await expect(s1).toContainText(/observation/i);
+    await expect(s1).toContainText(/hypoth/i);
+    await expect(page.getByTestId("nora-visual-composition")).toHaveCount(0);
+    await expect(page.getByTestId("nora-choices")).toHaveCount(0);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-s1-simple-1440.png"),
+      fullPage: false,
+    });
+
+    // S2 — diagnostic / relations, semantic icons, no invented causality.
+    await ask(E05_S2_DIAGNOSTIC);
+    await expect(page.getByTestId("nora-visual-relations")).toBeVisible({ timeout: 45000 });
+    await expect(page.getByTestId("nora-visual-icon").first()).toBeVisible();
+    await expect(page.getByTestId("nora-visual-composition").last()).toHaveAttribute(
+      "data-owns-body",
+      "1",
+    );
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-s2-diagnostic-1440.png"),
+      fullPage: false,
+    });
+
+    // S3 — comparison + recommendation + choice/ref anchors + provenance P1-B.
+    await ask(E05_S3_COMPARISON);
+    const s3 = page.getByTestId("nora-msg-assistant").last();
+    await expect(s3.getByTestId("nora-visual-comparison")).toBeVisible({
+      timeout: 45000,
+    });
+    await expect(s3.getByTestId("nora-visual-recommendation")).toBeVisible();
+    await expect(s3.getByTestId("nora-choices")).toBeVisible();
+    // Canonical provenance → consultable link; invented / label-only → descriptive.
+    // V03 — same canonical ref not repeated as a second Consulter via refs anchor.
+    const prov = s3.getByTestId("nora-visual-provenance");
+    await expect(prov).toBeVisible();
+    await expect(prov.locator('[data-consultable="1"]')).toHaveCount(1);
+    await expect(prov.locator('[data-consultable="0"]')).toHaveCount(2);
+    await expect(prov.getByText(/mention descriptive/i).first()).toBeVisible();
+    await expect(s3.getByTestId("nora-visual-prov-link")).toHaveCount(1);
+    await expect(s3.getByTestId("nora-ref-link")).toHaveCount(0);
+    await expect(s3.getByText(/Consulter · Note de cadrage coordination/i)).toHaveCount(1);
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-visual-comparison-1440.png"),
+      fullPage: false,
+    });
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-s3-provenance-1440.png"),
+      fullPage: false,
+    });
+
+    // S4 — trajectory / sequence with human-readable dependencies (V02).
+    await ask(E05_S4_TRAJECTORY);
+    const s4 = page.getByTestId("nora-msg-assistant").last();
+    await expect(s4.getByTestId("nora-visual-sequence")).toBeVisible({
+      timeout: 45000,
+    });
+    await expect(s4.getByTestId("nora-visual-step-deps").first()).toContainText(
+      /Partager le constat/i,
+    );
+    await expect(s4.getByTestId("nora-visual-step-deps").first()).not.toContainText(/\bt1\b/);
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-s4-trajectory-1440.png"),
+      fullPage: false,
+    });
+
+    // S7 — insufficient quantitative data → no fake chart / no new composition.
+    const cmpBeforeS7 = await page.getByTestId("nora-visual-comparison").count();
+    await ask(E05_S7_INSUFFICIENT);
+    await expect(page.getByTestId("nora-msg-assistant").last()).toContainText(/trompeur/i);
+    await expect(page.getByTestId("nora-visual-comparison")).toHaveCount(cmpBeforeS7);
+    await expect(page.getByTestId("nora-msg-assistant").last().getByTestId("nora-visual-composition")).toHaveCount(0);
+
+    // S5 composite (ordered blocks + choice anchors).
+    await ask(E05_S5_COMPOSITE);
+    const lastNora = page.getByTestId("nora-msg-assistant").last();
+    const composite = lastNora.getByTestId("nora-visual-composition");
+    await expect(composite).toBeVisible({ timeout: 45000 });
+    await expect(lastNora.getByTestId("nora-visual-synthesis")).toBeVisible();
+    await expect(lastNora.getByTestId("nora-visual-comparison")).toBeVisible();
+    await expect(lastNora.getByTestId("nora-choices")).toBeVisible();
+    // V01 — no literal markdown markers in structured recommendation.
+    const rec = lastNora.getByTestId("nora-visual-recommendation");
+    await expect(rec).toBeVisible();
+    await expect(rec).not.toContainText(/\*\*/);
+    await expect(rec.locator("strong")).toHaveCount(1);
+
+    // DOM order must match composition order (text → synthesis → … → comparison → … → choices).
+    const kinds = await composite.locator("[data-block-kind]").evaluateAll((els) =>
+      els.map((el) => el.getAttribute("data-block-kind")),
+    );
+    expect(kinds[0]).toBe("text");
+    expect(kinds).toContain("synthesis");
+    expect(kinds).toContain("comparison");
+    expect(kinds[kinds.length - 1]).toBe("choices");
+    const synIdx = kinds.indexOf("synthesis");
+    const cmpIdx = kinds.indexOf("comparison");
+    expect(synIdx).toBeGreaterThan(-1);
+    expect(cmpIdx).toBeGreaterThan(synIdx);
+    await expect(composite).toHaveAttribute("data-owns-body", "1");
+
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-s5-composite-1440.png"),
+      fullPage: false,
+    });
+
+    // S6 — free draft preserved across choice transmit; prior choices expire after send.
+    const freeDraft = `BROUILLON_LIBRE_S6_${Date.now()}`;
+    await draft.fill(freeDraft);
+    await expect(draft).toHaveValue(freeDraft);
+    const s5Msg = page
+      .getByTestId("nora-msg-assistant")
+      .filter({ has: page.getByTestId("nora-visual-synthesis") })
+      .filter({ has: page.getByTestId("nora-visual-comparison") })
+      .last();
+    const choice = s5Msg.getByTestId("nora-choice").first();
+    await expect(choice).toBeEnabled();
+    await choice.click();
+    await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|Nora|PENDING|ACK/i, {
+      timeout: 45000,
+    });
+    await expect(draft).toHaveValue(freeDraft);
+
+    // S8 — refresh preserves composite order; mobile reflow.
+    await page.reload();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    const afterReload = page
+      .getByTestId("nora-msg-assistant")
+      .filter({ has: page.getByTestId("nora-visual-synthesis") })
+      .filter({ has: page.getByTestId("nora-visual-comparison") })
+      .last()
+      .getByTestId("nora-visual-composition");
+    await expect(afterReload).toBeVisible({ timeout: 20000 });
+    const kindsReload = await afterReload.locator("[data-block-kind]").evaluateAll((els) =>
+      els.map((el) => el.getAttribute("data-block-kind")),
+    );
+    expect(kindsReload.indexOf("synthesis")).toBeLessThan(kindsReload.indexOf("comparison"));
+    expect(kindsReload[kindsReload.length - 1]).toBe("choices");
+
+    await page.setViewportSize({ width: 430, height: 932 });
+    await expect(afterReload).toBeVisible();
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-s5-composite-mobile-430.png"),
+      fullPage: false,
+    });
   });
 
   test("C3 same-tab logout/identity switch purges draft", async ({ page }) => {

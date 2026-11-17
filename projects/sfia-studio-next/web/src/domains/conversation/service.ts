@@ -2370,6 +2370,7 @@ export async function postUserMessageAndNora(
       toolCallsObserved: reply.toolCallsObserved,
       d4CharsReturned: reply.d4CharsReturned,
       documentSave,
+      visualComposition: qualification.visualComposition,
     }),
   };
 

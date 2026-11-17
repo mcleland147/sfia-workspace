@@ -4,6 +4,70 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-RECETTE-CANDIDATE-FREEZE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~17:00 CET |
+| Macro-lot | ML4D Ensemble 05 — finitions UX + gel candidat + préparation RECETTE |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL/corrective/prep · **NO RELEASE** · **NO DEPLOY** |
+| Parent tip | `cb638613` |
+| Scope | V01 Markdown sûr ; V02 deps lisibles ; V03 refs dédupliquées ; tests ; build ; commit local gel ; manifeste ; rollback inventorié |
+| Non-scope | Déploiement `:3200` ; push produit ; PR/merge ; migration ; LIVE proof |
+| Preuves | Vitest 32 PASS ; Playwright E05 7 PASS ; BUILD `jYz7jUBt1ewRBNp6HbCgs` |
+| RECETTE | inchangée `:3200` / `cb638613` / `slh3bItXudDCIEaR2WYho` |
+| Push produit | **AUCUN** (commit local autorisé) |
+| Verdict | `E05 RECETTE CANDIDATE FROZEN — PREPARATION VERIFIED — MORRIS DEPLOY GO REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-VISUAL-COMPOSITION-CORRECTIVE-P1AB
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~16:40 CET |
+| Macro-lot | ML4D Ensemble 05 — correctif fidélité + provenance + ancres |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL/Corrective · **NO RELEASE** |
+| Base tip | `cb638613` (candidat DEV dirty préservé) |
+| Scope | P1-A fail-closed completeness ; P1-B resolveProvenanceReference ; ancres first-claim + residuals ; F01–F08 / P01–P08 |
+| Non-scope | Commit/push produit ; RECETTE ; migration ; nouvelle lib ; LIVE |
+| Preuves | Vitest 31 PASS ; Playwright E05 7 PASS ; LIVE NOT EXECUTED |
+| RECETTE | préservée `:3200` / `cb638613` / `slh3bItXudDCIEaR2WYho` |
+| Push produit | **AUCUN** |
+| Verdict | `E05 VISUAL COMPOSITION CORRECTIVE — DEV VERIFIED — MORRIS REVIEW REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-VISUAL-COMPOSITION-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~16:15 CET |
+| Macro-lot | ML4D Ensemble 05 — consolidation grammaire visuelle + restitution conversationnelle |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL consolidation post-RECETTE · **NO RELEASE** |
+| Base tip | `cb638613` (worktree DEV non commité — T02/T05 préservés puis consolidés) |
+| Scope | Composition ordonnée sans doublon Markdown ; icônes/rôles sémantiques ; provenance consultable vs descriptive ; ancres choices/refs ; fixtures S1–S8 ; tests DOM order ; captures |
+| Non-scope | Commit/push produit ; PR/merge ; déploiement RECETTE ; migration ; lib graphique externe ; LIVE form-choice proof |
+| Preuves | Vitest 17 PASS ; Playwright E05 7 PASS ; captures runtime-s* ; LIVE NOT EXECUTED |
+| RECETTE | préservée `:3200` / `cb638613` / BUILD `slh3bItXudDCIEaR2WYho` |
+| Push produit | **AUCUN** |
+| Verdict | `E05 VISUAL COMPOSITION CONSOLIDATED — DEV VERIFIED — MORRIS REVIEW REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-VISUAL-GRAMMAR-T02-T05
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~15:40 CET |
+| Macro-lot | ML4D Ensemble 05 — grammaire visuelle native + visionneuse agrandie (même macro-lot) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL/correctif UAT · **NO RELEASE** |
+| Base tip | `cb638613` (candidat E05 déployé RECETTE — **inchangé ce cycle**) |
+| Scope | Contrat composition visuelle ; primitives A/B/C/D ; intégration D3→projection→UI ; T05 layout |
+| Non-scope | Commit/push produit ; déploiement RECETTE ; migration ; lib graphique externe ; Figma certifié |
+| Preuves | Vitest visual+projection PASS ; Playwright E05 7 PASS ; captures DEV |
+| RECETTE | préservée `:3200` / `cb638613` / BUILD `slh3bItXudDCIEaR2WYho` |
+| Push produit | **AUCUN** |
+| Verdict cible | `E05 VISUAL GRAMMAR CANDIDATE — IMPLEMENTED AND DEV VERIFIED — MORRIS REVIEW REQUIRED` |
+
+
 ## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-DRAFT-RECONCILE
 
 | Field | Value |

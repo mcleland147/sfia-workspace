@@ -3,7 +3,13 @@
  * Stored additively in conversation_turn_commands.result_json (no migration).
  * Never parse markdown to decide mutations; choices are typed here only.
  * Clarifications ≠ continue choices (P1-A corrective).
+ * T02 — optional visualComposition is additive; omission = text-only legacy.
  */
+
+import {
+  parseVisualComposition,
+  type VisualComposition,
+} from "./visual-composition";
 
 export const TURN_PROJECTION_SCHEMA = "e05-turn-projection-v1" as const;
 
@@ -46,6 +52,11 @@ export type TurnProjection = {
   choices: TurnChoice[];
   references: TurnReference[];
   activity?: TurnActivitySummary | null;
+  /**
+   * Optional validated visual composition (T02).
+   * Absent on historical turns — SafeMarkdown-only remains valid.
+   */
+  visualComposition?: VisualComposition | null;
 };
 
 export type MessageProjectionView = TurnProjection & {
@@ -74,6 +85,8 @@ export function buildTurnProjection(input: {
   toolCallsObserved?: number | null;
   d4CharsReturned?: number | null;
   documentSave?: { documentId?: string; revisionId?: string; status?: string } | null;
+  /** Optional T02 visual composition — sanitized; invalid → omitted. */
+  visualComposition?: unknown;
 }): TurnProjection {
   const choices: TurnChoice[] = [];
   const seen = new Set<string>();
@@ -127,6 +140,8 @@ export function buildTurnProjection(input: {
     };
   }
 
+  const visualComposition = parseVisualComposition(input.visualComposition);
+
   return {
     schemaVersion: TURN_PROJECTION_SCHEMA,
     messageId: input.messageId,
@@ -136,6 +151,7 @@ export function buildTurnProjection(input: {
     choices,
     references,
     activity,
+    ...(visualComposition ? { visualComposition } : {}),
   };
 }
 
@@ -156,6 +172,7 @@ export function parseTurnProjection(raw: unknown): TurnProjection | null {
   const o = raw as Record<string, unknown>;
   if (o.schemaVersion !== TURN_PROJECTION_SCHEMA) return null;
   if (!Array.isArray(o.choices)) return null;
+  const visualComposition = parseVisualComposition(o.visualComposition);
   return {
     schemaVersion: TURN_PROJECTION_SCHEMA,
     messageId: typeof o.messageId === "string" ? o.messageId : null,
@@ -165,6 +182,7 @@ export function parseTurnProjection(raw: unknown): TurnProjection | null {
     choices: (o.choices as unknown[]).filter(isContinueChoice),
     references: Array.isArray(o.references) ? (o.references as TurnReference[]) : [],
     activity: (o.activity as TurnActivitySummary | null | undefined) ?? null,
+    ...(visualComposition ? { visualComposition } : {}),
   };
 }
 

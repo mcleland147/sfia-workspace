@@ -8,6 +8,7 @@ import {
   type PilotageOperation,
 } from "@/domains/pilotage/types";
 import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
+import { parseVisualComposition } from "./visual-composition";
 
 export const SEMANTIC_QUALIFICATION_SCHEMA_VERSION = "ml4c-sem-qual-v1" as const;
 
@@ -193,6 +194,11 @@ export const NoraTurnQualificationSchema = z.object({
   preparationAssessmentExplanation: z.string().max(800).optional(),
   documentProposal: DocumentProposalSchema.optional(),
   documentSource: DocumentSourceSchema.optional(),
+  /**
+   * Ensemble 05 / T02 — optional visual composition (structured blocks).
+   * Omission = text-only reply. Never HTML/JS. Studio re-validates before persist/render.
+   */
+  visualComposition: z.unknown().optional(),
 });
 export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
 
@@ -266,6 +272,15 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
   };
   for (const id of ids) {
     if (dfs(id)) return { ok: false, reason: "DEPENDENCY_CYCLE" };
+  }
+  // T02 — soft-sanitize visual composition; never fail the whole qualification on bad visuals.
+  if (q.visualComposition !== undefined) {
+    const cleaned = parseVisualComposition(q.visualComposition);
+    if (cleaned) {
+      (q as { visualComposition?: unknown }).visualComposition = cleaned;
+    } else {
+      delete (q as { visualComposition?: unknown }).visualComposition;
+    }
   }
   return { ok: true, value: q };
 }

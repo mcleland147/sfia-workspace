@@ -663,6 +663,10 @@
   align-self: stretch;
   display: flex;
   flex-direction: column;
+  background: #0f1420;
+  isolation: isolate;
+  z-index: 2;
+  position: relative;
 }
 
 .fig-inspector {
@@ -1676,7 +1680,10 @@
   column-gap: 22px;
 }
 
-/* Enlarged viewer: conversation/composer hidden; aside spans useful area. */
+/* Enlarged viewer: conversation/composer hidden; aside spans useful area.
+ * Cause (T05): React `hidden` alone left grid items cohabiting the same column —
+ * conversation text could paint through/behind the viewer. CSS must remove them
+ * from layout, and the aside must be an opaque isolated stacking context. */
 .project-travail-stage[data-travail-layout="enlarged"] {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -1686,9 +1693,22 @@
   display: none;
 }
 
-.project-travail-stage[data-travail-layout="enlarged"] .fig-travail-aside {
+.project-travail-stage[data-travail-layout="enlarged"] .fig-conversation-panel,
+.project-travail-stage[data-travail-layout="enlarged"] .fig-travail-composer-stack,
+[data-travail-layout="enlarged"] .fig-conversation-panel,
+[data-travail-layout="enlarged"] .fig-travail-composer-stack {
+  display: none !important;
+}
+
+.project-travail-stage[data-travail-layout="enlarged"] .fig-travail-aside,
+[data-travail-layout="enlarged"] .fig-travail-aside {
   grid-column: 1;
   grid-row: 1 / -1;
+  background: #0f1420;
+  isolation: isolate;
+  z-index: 3;
+  min-height: 0;
+  overflow: auto;
 }
 
 .fig-travail-intro-rule {
@@ -1746,6 +1766,400 @@
 
   .fig-travail-aside {
     max-height: none;
+  }
+}
+
+/* Ensemble 05 / T02+consolidation — native visual composition */
+.fig-visual-composition {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 0;
+}
+
+.fig-visual-block {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.fig-visual-comparison,
+.fig-visual-sequence,
+.fig-visual-relations,
+.fig-visual-synthesis {
+  border: 1px solid #272e49;
+  border-radius: 12px;
+  background: #121826;
+  padding: 14px 16px 16px;
+}
+
+.fig-visual-text {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.fig-visual-text-head {
+  margin-bottom: 6px;
+}
+
+.fig-visual-text-observation,
+.fig-visual-text-hypothesis,
+.fig-visual-text-risk,
+.fig-visual-text-recommendation {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border-left: 3px solid #3d5aa8;
+  background: #121826;
+}
+
+.fig-visual-text-hypothesis {
+  border-left-color: #c9a45c;
+}
+
+.fig-visual-text-risk {
+  border-left-color: #8a3f4a;
+}
+
+.fig-visual-text-recommendation {
+  border-left-color: #7b8cff;
+}
+
+.fig-visual-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  color: #9aa6c3;
+  vertical-align: -3px;
+  flex: 0 0 auto;
+}
+
+.fig-visual-icon-fact {
+  color: #6ea8ff;
+}
+
+.fig-visual-icon-hypothesis {
+  color: #c9a45c;
+}
+
+.fig-visual-icon-risk {
+  color: #e08a96;
+}
+
+.fig-visual-icon-recommend {
+  color: #7b8cff;
+}
+
+.fig-visual-title {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #f4f6fc;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fig-visual-recommendation {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.fig-visual-recommendation-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.fig-visual-inline-md {
+  display: block;
+  margin: 0;
+}
+
+.fig-visual-inline-md p {
+  display: inline;
+  margin: 0;
+}
+
+.fig-visual-inline-md p + p {
+  display: block;
+  margin-top: 0.45em;
+}
+
+.fig-visual-inline-md ul,
+.fig-visual-inline-md ol {
+  margin: 0.4em 0 0;
+  padding-left: 1.2em;
+}
+
+.fig-visual-step-body h4 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: #e8ecf8;
+}
+
+.fig-visual-step-deps {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fig-visual-choices-anchor,
+.fig-visual-refs-anchor {
+  margin-top: 4px;
+}
+
+.fig-visual-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.fig-visual-alt {
+  border: 1px solid #2a334d;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #0f1420;
+}
+
+.fig-visual-alt h4 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: #e8ecf8;
+}
+
+.fig-visual-alt p,
+.fig-visual-step-body p,
+.fig-visual-synth-item p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #b7c0d8;
+}
+
+.fig-visual-pros,
+.fig-visual-cons,
+.fig-visual-relations-list,
+.fig-visual-relations-edges,
+.fig-visual-synthesis-list,
+.fig-visual-provenance {
+  margin: 8px 0 0;
+  padding-left: 1.1rem;
+  font-size: 12px;
+  color: #9aa6c3;
+}
+
+.fig-visual-matrix-wrap {
+  overflow-x: auto;
+  margin-top: 12px;
+}
+
+.fig-visual-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.fig-visual-matrix th,
+.fig-visual-matrix td {
+  border: 1px solid #2a334d;
+  padding: 6px 8px;
+  text-align: left;
+  color: #c5cee6;
+}
+
+.fig-visual-matrix th {
+  background: #181f2f;
+  color: #e8ecf8;
+}
+
+.fig-visual-recommendation {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-left: 3px solid #7b8cff;
+  background: #171d2c;
+  font-size: 13px;
+  color: #d7def2;
+}
+
+.fig-visual-recommendation-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9aa6c3;
+  margin-bottom: 4px;
+}
+
+.fig-visual-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.fig-visual-step {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  column-gap: 10px;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.fig-visual-step-marker {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #243056;
+  color: #e8ecf8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.fig-visual-step-connector {
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: #2a334d;
+}
+
+.fig-visual-step-deps,
+.fig-visual-step-date {
+  margin: 4px 0 0 !important;
+  font-size: 11px !important;
+  color: #8e9bb8 !important;
+}
+
+.fig-visual-relations-svg {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+.fig-visual-edge {
+  stroke: #3a4666;
+  stroke-width: 1.5;
+}
+
+.fig-visual-edge-label {
+  fill: #8e9bb8;
+  font-size: 9px;
+}
+
+.fig-visual-node {
+  fill: #1a2236;
+  stroke: #4a5a84;
+  stroke-width: 1.5;
+}
+
+.fig-visual-node-fact,
+.fig-visual-node-finding {
+  stroke: #6ea8ff;
+}
+
+.fig-visual-node-observation {
+  stroke: #7a93c4;
+}
+
+.fig-visual-node-hypothesis {
+  stroke: #c9a45c;
+}
+
+.fig-visual-node-cause {
+  stroke: #d4877a;
+}
+
+.fig-visual-node-unknown {
+  stroke: #7a849e;
+  stroke-dasharray: 3 2;
+}
+
+.fig-visual-node-label {
+  fill: #d7def2;
+  font-size: 8px;
+}
+
+.fig-visual-tone {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #9aa6c3;
+}
+
+.fig-visual-synth-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #0f1420;
+  border: 1px solid #272e49;
+  list-style: none;
+}
+
+.fig-visual-synthesis-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fig-visual-tone-priority {
+  border-color: #3d5aa8;
+}
+
+.fig-visual-tone-risk {
+  border-color: #8a3f4a;
+}
+
+.fig-visual-tone-watch {
+  border-color: #6a5a2e;
+}
+
+.fig-visual-tone-finding {
+  border-color: #2f5a4a;
+}
+
+.fig-visual-synth-tone {
+  width: 18px;
+  text-align: center;
+  color: #b7c0d8;
+  font-weight: 700;
+}
+
+.fig-visual-provenance {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #7f8aa8;
+}
+
+.fig-visual-provenance-note {
+  color: #6d7894;
+}
+
+@media (max-width: 700px) {
+  .fig-visual-comparison-grid {
+    grid-template-columns: 1fr;
   }
 }
 

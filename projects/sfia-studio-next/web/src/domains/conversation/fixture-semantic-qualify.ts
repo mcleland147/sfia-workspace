@@ -50,6 +50,7 @@ type QualExtras = Partial<
     | "resourceReferences"
     | "preparationAssessment"
     | "preparationAssessmentExplanation"
+    | "visualComposition"
   >
 >;
 
@@ -84,6 +85,7 @@ function dialogue(
     resourceReferences: extras?.resourceReferences,
     preparationAssessment: extras?.preparationAssessment,
     preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
+    visualComposition: extras?.visualComposition,
   };
   if (extras?.omitClarifications) {
     // Raw incomplete envelope: clarifications key absent (R2-C).
@@ -605,6 +607,435 @@ register(
   "Bonjour Nora, comment vas-tu ?",
   dialogue("Politesse", "Bonjour — je vais bien. Comment puis-je vous aider ?", ["NO_EFFECT"]),
 );
+
+/** Ensemble 05 — visual composition scenarios S1–S8 (TEST_BOUNDARY exact keys). */
+export const E05_S1_SIMPLE =
+  "Peux-tu m'expliquer la différence entre une observation et une hypothèse ?";
+export const E05_S2_DIAGNOSTIC =
+  "Analyse les difficultés possibles de notre organisation de coordination multi-sites et montre ce qui est établi, hypothétique et à vérifier.";
+export const E05_S3_COMPARISON =
+  "Compare une approche de déploiement progressive à une approche simultanée. Présente les avantages, risques, dépendances et conditions de choix.";
+export const E05_S4_TRAJECTORY =
+  "Propose un parcours pour clarifier notre organisation avant de lancer les travaux, en montrant les dépendances.";
+export const E05_S5_COMPOSITE =
+  "À partir du diagnostic et de la comparaison, quelle approche recommandes-tu pour avancer, avec les réserves et les prochaines questions utiles ?";
+export const E05_S7_INSUFFICIENT =
+  "Montre-moi l'évolution mensuelle des coûts et les gains obtenus.";
+
+// Backward-compatible aliases used by earlier T02 e2e.
+export const E05_VISUAL_SIMPLE = E05_S1_SIMPLE;
+export const E05_VISUAL_COMPARISON = E05_S3_COMPARISON;
+export const E05_VISUAL_SEQUENCE = E05_S4_TRAJECTORY;
+export const E05_VISUAL_RELATIONS = E05_S2_DIAGNOSTIC;
+export const E05_VISUAL_SYNTHESIS = E05_S5_COMPOSITE;
+export const E05_VISUAL_COMPOSITE = E05_S5_COMPOSITE;
+export const E05_VISUAL_INSUFFICIENT = E05_S7_INSUFFICIENT;
+
+const S1_QUAL = dialogue(
+  "Différence observation / hypothèse",
+  "Une observation est un élément constaté dans le contexte disponible, sans en faire automatiquement une preuve. Une hypothèse est une proposition explicative encore non vérifiée. On peut s'appuyer sur des observations pour formuler des hypothèses, mais une icône ou une formulation ne transforme jamais une hypothèse en fait établi.",
+  ["NO_EFFECT", "TEXT_ONLY", "UX-NORA-01"],
+);
+register(E05_S1_SIMPLE, S1_QUAL);
+register("E05_S1_SIMPLE", S1_QUAL);
+
+register(
+  E05_S2_DIAGNOSTIC,
+  dialogue(
+    "Diagnostic coordination multi-sites — établi vs hypothétique",
+    "Diagnostic du besoin de coordination (fallback textuel).",
+    ["NO_EFFECT", "VISUAL_RELATIONS", "S2"],
+    {
+      clarifications: [
+        "Quelles pratiques locales sont déjà documentées sur chaque site ?",
+        "Qui porte aujourd'hui l'arbitrage entre sites ?",
+      ],
+      continueChoices: [
+        {
+          id: "approfondir-roles",
+          label: "Clarifier les responsabilités",
+          transmitText:
+            "Approfondissons qui porte l'arbitrage entre sites avant de parler de déploiement.",
+        },
+        {
+          id: "collecter-pratiques",
+          label: "Inventorier les pratiques locales",
+          transmitText:
+            "Commençons par inventorier les pratiques réellement utilisées sur chaque site.",
+        },
+      ],
+      visualComposition: {
+        schemaVersion: "e05-visual-composition-v1",
+        blocks: [
+          {
+            kind: "text",
+            id: "s2-intro",
+            role: "information",
+            markdown:
+              "Contexte synthétique : coordination d'interventions techniques sur plusieurs sites. Besoin d'améliorer la coordination ; pratiques différentes ; responsabilités encore à clarifier. **Aucune donnée quantitative** ni dysfonctionnement précis n'est encore confirmé.",
+          },
+          {
+            kind: "text",
+            id: "s2-obs",
+            role: "observation",
+            icon: "observe",
+            markdown:
+              "**Observations (constatées dans le cadrage, non prouvées comme dysfonctionnements)** : besoin de mieux coordonner ; pratiques distinctes selon les sites ; rôles d'arbitrage encore flous.",
+          },
+          {
+            kind: "relations",
+            id: "s2-rel",
+            title: "Éléments liés — sans causalité inventée",
+            role: "information",
+            nodes: [
+              { id: "o1", label: "Pratiques locales divergentes", kind: "observation" },
+              { id: "o2", label: "Rôles d'arbitrage flous", kind: "observation" },
+              { id: "h1", label: "Friction de coordination", kind: "hypothesis" },
+              { id: "u1", label: "Impact réel non mesuré", kind: "unknown" },
+            ],
+            edges: [
+              { from: "o1", to: "h1", label: "peut contribuer" },
+              { from: "o2", to: "h1", label: "peut contribuer" },
+            ],
+            textAlternative:
+              "Observations : pratiques divergentes et rôles flous. Hypothèse : friction de coordination. Inconnue : impact réel non mesuré.",
+          },
+          {
+            kind: "synthesis",
+            id: "s2-next",
+            title: "À vérifier ensuite",
+            items: [
+              {
+                id: "v1",
+                label: "Cartographier les pratiques par site",
+                tone: "observation",
+                role: "observation",
+              },
+              {
+                id: "v2",
+                label: "Identifier le porteur d'arbitrage",
+                tone: "hypothesis",
+                role: "hypothesis",
+              },
+              {
+                id: "v3",
+                label: "Ne pas conclure à un dysfonctionnement chiffré",
+                tone: "risk",
+                role: "risk",
+              },
+            ],
+            textAlternative:
+              "À vérifier : pratiques par site, porteur d'arbitrage ; ne pas conclure à un dysfonctionnement chiffré.",
+          },
+          { kind: "choices", id: "s2-choices" },
+        ],
+      },
+    },
+  ),
+);
+
+register(
+  E05_S3_COMPARISON,
+  dialogue(
+    "Comparaison déploiement progressif vs simultané",
+    "Comparaison des approches (fallback).",
+    ["NO_EFFECT", "VISUAL_COMPARISON", "S3"],
+    {
+      continueChoices: [
+        {
+          id: "approfondir-progressif",
+          label: "Approfondir l'approche progressive",
+          transmitText: "Approfondissons les conditions d'une approche progressive.",
+        },
+        {
+          id: "comparer-risques",
+          label: "Comparer les risques",
+          transmitText: "Comparons plus précisément les risques des deux approches.",
+        },
+      ],
+      resourceReferences: [
+        {
+          kind: "document",
+          label: "Note de cadrage coordination",
+          resourceId: "doc_synth_coordination",
+        },
+      ],
+      visualComposition: {
+        schemaVersion: "e05-visual-composition-v1",
+        blocks: [
+          {
+            kind: "text",
+            id: "s3-intro",
+            role: "information",
+            markdown:
+              "Deux options pour déployer la coordination : **progressive** (site par site) ou **simultanée** (tous les sites). Aucun délai ni coût chiffré n'est inventé ici — seuls les critères qualitatifs exprimés sont présentés.",
+          },
+          {
+            kind: "comparison",
+            id: "s3-cmp",
+            title: "Progressive vs simultanée",
+            role: "information",
+            alternatives: [
+              {
+                id: "prog",
+                title: "Déploiement progressif",
+                summary: "Étendre site par site après apprentissage local.",
+                pros: ["Apprentissage contrôlé", "Réversibilité locale"],
+                cons: ["Cohérence temporaire inégale"],
+              },
+              {
+                id: "sim",
+                title: "Déploiement simultané",
+                summary: "Aligner tous les sites dans la même fenêtre.",
+                pros: ["Cohérence immédiate"],
+                cons: ["Charge de conduite élevée", "Peu de marge d'apprentissage"],
+              },
+            ],
+            criteria: [
+              {
+                id: "risk",
+                label: "Risque de conduite",
+                values: { prog: "Modéré", sim: "Élevé" },
+              },
+              {
+                id: "learn",
+                label: "Apprentissage",
+                values: { prog: "Fort", sim: "Faible" },
+              },
+              {
+                id: "dep",
+                label: "Dépendance aux rôles clarifiés",
+                values: { prog: "Utile avant chaque vague", sim: "Critique dès le départ" },
+              },
+            ],
+            recommendation:
+              "Si les responsabilités d'arbitrage ne sont pas encore claires, préférer une approche progressive — avis conditionnel, pas une décision enregistrée.",
+            textAlternative:
+              "Progressive : apprentissage et réversibilité, cohérence temporaire inégale. Simultanée : cohérence immédiate, charge et risque plus élevés. Avis : progressive si les rôles ne sont pas clarifiés.",
+            provenance: [
+              {
+                label: "Note de cadrage coordination",
+                kind: "document",
+                resourceId: "doc_synth_coordination",
+              },
+              {
+                label: "Mention hors registre",
+                kind: "document",
+                resourceId: "doc_invented_not_in_turn",
+              },
+              {
+                label: "Observation contextuelle",
+                note: "sans identité canonique",
+              },
+            ],
+          },
+          { kind: "choices", id: "s3-choices" },
+          {
+            kind: "references",
+            id: "s3-refs",
+            resourceIds: ["doc_synth_coordination"],
+          },
+        ],
+      },
+    },
+  ),
+);
+
+register(
+  E05_S4_TRAJECTORY,
+  dialogue(
+    "Parcours de clarification avant travaux",
+    "Parcours proposé (fallback).",
+    ["NO_EFFECT", "VISUAL_SEQUENCE", "S4"],
+    {
+      visualComposition: {
+        schemaVersion: "e05-visual-composition-v1",
+        blocks: [
+          {
+            kind: "text",
+            id: "s4-intro",
+            role: "information",
+            markdown:
+              "Proposition de parcours pour clarifier l'organisation **avant** de lancer les travaux. Aucune étape ci-dessous ne crée de cycle, de tâche ou de décision métier.",
+          },
+          {
+            kind: "sequence",
+            id: "s4-seq",
+            title: "Clarifier avant de lancer",
+            role: "step",
+            steps: [
+              { id: "t1", title: "Partager le constat de coordination", role: "observation" },
+              {
+                id: "t2",
+                title: "Clarifier les responsabilités d'arbitrage",
+                dependsOn: ["t1"],
+                role: "step",
+              },
+              {
+                id: "t3",
+                title: "Choisir progressive ou simultanée",
+                dependsOn: ["t2"],
+                role: "decision",
+              },
+              {
+                id: "t4",
+                title: "Préparer la première vague / fenêtre",
+                dependsOn: ["t3"],
+                role: "step",
+              },
+            ],
+            textAlternative:
+              "1) Partager le constat ; 2) Clarifier l'arbitrage (après 1) ; 3) Choisir l'approche (après 2) ; 4) Préparer la première vague (après 3).",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+register(
+  E05_S5_COMPOSITE,
+  dialogue(
+    "Recommandation composite conditionnelle",
+    "Recommandation composite (fallback textuel).",
+    ["NO_EFFECT", "VISUAL_COMPOSITE", "S5"],
+    {
+      clarifications: [
+        "Souhaitez-vous prioriser l'apprentissage local ou l'alignement immédiat ?",
+      ],
+      continueChoices: [
+        {
+          id: "retenir-progressif",
+          label: "Retenir l'approche progressive",
+          transmitText:
+            "Retenons l'approche progressive comme hypothèse de travail, sous réserve de clarifier les rôles.",
+        },
+        {
+          id: "revoir-diagnostic",
+          label: "Revoir le diagnostic",
+          transmitText: "Revenons d'abord sur le diagnostic avant de trancher l'approche.",
+        },
+      ],
+      resourceReferences: [
+        {
+          kind: "document",
+          label: "Note de cadrage coordination (si créée)",
+          resourceId: "doc_synth_coordination",
+        },
+      ],
+      visualComposition: {
+        schemaVersion: "e05-visual-composition-v1",
+        blocks: [
+          {
+            kind: "text",
+            id: "s5-intro",
+            role: "information",
+            markdown:
+              "Synthèse courte : le besoin de coordination est exprimé ; les pratiques divergent ; les responsabilités restent à clarifier. **Pas de preuve chiffrée** de gains ou de coûts.",
+          },
+          {
+            kind: "synthesis",
+            id: "s5-syn",
+            title: "Points saillants",
+            items: [
+              {
+                id: "p1",
+                label: "Clarifier l'arbitrage entre sites",
+                detail: "Préalable utile avant tout déploiement large",
+                tone: "priority",
+                role: "recommendation",
+              },
+              {
+                id: "p2",
+                label: "Pratiques locales divergentes",
+                tone: "observation",
+                role: "observation",
+              },
+              {
+                id: "p3",
+                label: "Déploiement simultané trop tôt",
+                detail: "Risque de conduite si les rôles sont encore flous",
+                tone: "risk",
+                role: "risk",
+              },
+            ],
+            textAlternative:
+              "Priorité : clarifier l'arbitrage. Observation : pratiques divergentes. Risque : simultané trop tôt.",
+          },
+          {
+            kind: "text",
+            id: "s5-bridge",
+            role: "information",
+            markdown:
+              "Sur cette base, la comparaison progressive / simultanée reste pertinente — avec une recommandation **conditionnelle**.",
+          },
+          {
+            kind: "comparison",
+            id: "s5-cmp",
+            title: "Rappel des options",
+            alternatives: [
+              {
+                id: "prog",
+                title: "Progressive",
+                summary: "Vagues successives, apprentissage local.",
+              },
+              {
+                id: "sim",
+                title: "Simultanée",
+                summary: "Alignement immédiat, charge élevée.",
+              },
+            ],
+            recommendation:
+              "Je recommande d'avancer en mode progressif **si** l'arbitrage inter-sites est clarifié d'abord. Ce n'est pas une HumanDecision.",
+            textAlternative:
+              "Options progressive vs simultanée. Avis : progressive si arbitrage clarifié.",
+          },
+          {
+            kind: "text",
+            id: "s5-reserve",
+            role: "risk",
+            markdown:
+              "**Réserves** : sans inventaire des pratiques ni porteur d'arbitrage, toute trajectoire reste fragile. Prochaine question utile : qui tranche entre sites aujourd'hui ?",
+          },
+          {
+            kind: "references",
+            id: "s5-refs",
+            resourceIds: ["doc_synth_coordination"],
+          },
+          { kind: "choices", id: "s5-choices" },
+        ],
+      },
+    },
+  ),
+);
+
+register(
+  E05_S7_INSUFFICIENT,
+  dialogue(
+    "Données quantitatives absentes",
+    "Je n'ai aucun chiffre mensuel de coûts ni de gains dans le contexte disponible. Produire un graphique d'évolution serait trompeur. Nous pouvons d'abord définir quelles données collecter, auprès de qui, et sur quelle période — sans inventer de résultats.",
+    ["NO_EFFECT", "VISUAL_INSUFFICIENT_FALLBACK", "S7"],
+  ),
+);
+
+/** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
+for (const [short, long] of [
+  ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
+  ["E05_S3_COMPARISON", E05_S3_COMPARISON],
+  ["E05_S4_TRAJECTORY", E05_S4_TRAJECTORY],
+  ["E05_S5_COMPOSITE", E05_S5_COMPOSITE],
+  ["E05_S7_INSUFFICIENT", E05_S7_INSUFFICIENT],
+  ["E05_VISUAL_SIMPLE", E05_S1_SIMPLE],
+  ["E05_VISUAL_COMPARISON", E05_S3_COMPARISON],
+  ["E05_VISUAL_SEQUENCE", E05_S4_TRAJECTORY],
+  ["E05_VISUAL_RELATIONS", E05_S2_DIAGNOSTIC],
+  ["E05_VISUAL_SYNTHESIS", E05_S5_COMPOSITE],
+  ["E05_VISUAL_COMPOSITE", E05_S5_COMPOSITE],
+  ["E05_VISUAL_INSUFFICIENT", E05_S7_INSUFFICIENT],
+] as const) {
+  const q = SCENARIO_TABLE.get(normalizeUtterance(long));
+  if (q) register(short, q);
+}
 
 /** Test helper — register an exact utterance → envelope without regex. */
 export function registerFixtureScenario(utterance: string, q: NoraTurnQualification): void {
