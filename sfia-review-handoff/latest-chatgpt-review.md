@@ -350,7 +350,10 @@ SHA/build RECETTE ; oracles discriminants PASS aux niveaux requis ; F2≤2px rec
 - Branche : `sfia/review-handoff`
 - Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 - Publisher : `scripts/sfia/publish-review-handoff.sh`
-- (commit/blob après publication)
+- Commit distant vérifié : `0ee14f545f1124ec78629ba1b3e8520fa803e72d`
+- Blob distant vérifié : `afc0efd44b9b29dad11b6aa028789dde7166b608`
+- Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+- Push projet : aucun
 
 ---
 
