@@ -3,28 +3,42 @@
 | Métadonnée | Valeur |
 |---|---|
 | Périmètre | R5 / ML4D — Ensemble 05, surface **Travail avec Nora** |
-| Version | **v0.1 — 17 novembre 2026** |
-| Statut | **CANDIDATE TECHNICAL CONTRACT — DOCUMENTED / NON VALIDATED SPEC TECHNIQUE** ; le contrat UX des cinq sujets est **VALIDATED SPEC Morris**, mais les choix d'architecture et de réalisation ci-dessous ne sont pas adoptés |
+| Version | **v0.2 — 17 novembre 2026 : consolidation des arbitrages Morris M1–M5 après qualification technique Cursor** |
+| Statut | **CANDIDATE TECHNICAL CONTRACT — DOCUMENTED** ; **UX VALIDATED SPEC** et **orientations M1–M5 VALIDATED BY MORRIS**. Leur validation ne vaut ni approbation du schéma physique/API, ni architecture entièrement adoptée, ni GO Delivery, ni preuve runtime |
 | Résultat | Transformer les comportements UX validés et les variantes Figma en un **contrat de réalisation fonctionnelle et technique intégré**, sans nouveau moteur concurrent |
-| Décision d'écriture | **GO Morris pour publication de ce contrat candidat sur la branche documentaire ML4D** le 17/11/2026. Ce GO **n'autorise ni code Cursor, ni changement d'architecture/persistance, PR, merge ou promotion** |
+| Décision d'écriture | GO Morris du 17/11/2026 pour publier le contrat candidat ; **nouveau GO Morris pour intégrer directement M1–M5 dans les deux documents ML4D de la branche candidate**. Mandat documentaire borné : aucun code Cursor, changement de schéma, PR, merge, release ou promotion |
 | Référentiel / baseline vérifiés | `mcleland147/sfia-workspace` ; `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` |
 | Branche documentaire | `docs/next-ml4d-registre-revues-20261116` (candidate, distincte de `main`) |
-| Git local / RECETTE courante | **NON OBSERVÉS** ; aucune conclusion sur les fichiers staged, untracked ou le build actuellement servi |
+| Git local / RECETTE courante | **NON OBSERVÉS directement par ChatGPT**. La [qualification Cursor](https://github.com/mcleland147/sfia-workspace/blob/1f93c421de3263cfe9f38b2d2ff94aa0862b2900/sfia-review-handoff/latest-chatgpt-review.md) **rapporte** un HEAD produit local `984d77a3`, une RECETTE `:3200` / build `3LzvYPTQc-Km7St6nF97r`, et aucun fichier produit modifié ; ces faits ne remplacent pas un contrôle local au futur Delivery |
 | Autorités | Morris : décisions produit, architecture, gates et Git ; ChatGPT : conception/revue ; Cursor : code et tests sous mandat SFIA v2.6 distinct |
 | Statut global | **Ensemble 05 EN REVUE, non implémenté conformément à la nouvelle cible, non réceptionné ; Gate C OPEN** |
 
 ## 1. Sources et portée normative
 
-- [Conception UX intégrée v0.7 — Sujets 01 à 05 et jointure `13](conception-ux-travail-avec-nora.md) : **référence UX validée**, 88 scénarios candidats, non exécutés dans le cadre du présent contrat.
+- [Conception UX intégrée v0.7 — Sujets 01 à 05 et jointure §13](conception-ux-travail-avec-nora.md) : **référence UX validée**, 88 scénarios candidats, non exécutés dans le cadre du présent contrat.
 - [Registre central ML4D](registre-central-revues.md) : arbitrages, observations et état vivant sur la branche candidate.
 - [Figma Next — page 05, Travail avec Nora (16 variantes)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=700-38) : **cible visuelle conçue et approuvée en conversation**, dont alignement inférieur du compositeur avec le panneau de droite ; maquettes natives **ne valant pas preuve runtime**. Exemples : [fil](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=700-39), [réponse composite](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=701-105), [compositeur](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=701-191), [visionneuse 50/50](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=701-363).
-- [SEF v0.2](../../governance/SEF.md) ``4–6 et `10 : macro-lot cohérent, preuves graduées, autonomie documentaire, gates.
+- [SEF v0.2](../../governance/SEF.md) §§4–6 et §10 : macro-lot cohérent, preuves graduées, autonomie documentaire, gates.
 - [Roadmap Next](../../governance/roadmap.md) et [décision ML4C/ML4D du 11 novembre 2026](../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) : trajectoire, frontières, F1/F2 et Gate C. Les statuts de la roadmap `main` restent historiques par rapport aux arbitrages candidate non mergés.
 - Contrats fonctionnels : [D3](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [D4](../../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md), [D6](../../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md), [D7](../../conception-fonctionnelle/realisation-operationnelle-gouvernee.md), [D8](../../conception-fonctionnelle/resultats-et-preuves.md) et [D9](../../conception-fonctionnelle/integration-git-gouvernee.md).
 - [Architecture R4](../../architecture-technique/cadrage-r4.md) et [observabilité transverse](../../architecture-technique/contrat-observabilite-transverse.md) : identités, effets, provenance, interruption, reprise.
 - Code et tests consultés sur **`main`**, distincts d'un candidat local non observé : `web/src/app/projects/[projectId]/page.tsx`, `web/src/components/figma/NoraConversation.tsx`, `DocumentSurfaces.tsx`, `SafeMarkdown.tsx`, `tokens.css`, `web/src/domains/conversation/`, `web/src/domains/pilotage/`, API messages et tests ML4C ciblés.
 
 **Précédence :** Git/preuves observées > décisions Morris > contrats fonctionnels/UX validés > ce **contrat technique candidat** > hypothèses. Une API, une table, un transport ou un choix de décomposition décrit comme **candidat** ci-dessous n'est **pas une décision d'architecture**. Toute contradiction découverte lors du pré-check local de Cursor est remontée, pas masquée par une modification de périmètre.
+
+### 1.1. Qualification technique et arbitrages Morris M1–M5 (17/11/2026)
+
+**Source :** [Review Pack Full — qualification technique de l'Ensemble 05, handoff Git vérifié](https://github.com/mcleland147/sfia-workspace/blob/1f93c421de3263cfe9f38b2d2ff94aa0862b2900/sfia-review-handoff/latest-chatgpt-review.md), verdict **TECHNICAL QUALIFICATION READY WITH RESERVES**, analyse en lecture seule du candidat local déclaré `984d77a3`. **Morris a ensuite explicitement validé chacune des cinq orientations M1–M5 en conversation.** Cette validation est **bornée aux orientations ci-dessous** et ne valide pas les détails de schéma, d'API ou de transport non qualifiés.
+
+| ID | Orientation VALIDATED BY MORRIS | Portée et limites de réalisation |
+|---|---|---|
+| **M1 — Réponses structurées D3** | **Projection structurée, versionnée et sous autorité unique D3** : contenus sûrs, références canoniques, choix typés, finalisation, identité/durée de vie. | Réutiliser d'abord le stockage existant si compatible et prouvé, y compris au rechargement ; ni parsing Markdown autorisant une action, ni nouvelle table/migration par défaut. Le schéma physique exact reste candidat. |
+| **M2 — Activité / progression V1** | **Réponse textuelle final-only acceptable en V1**, **activité visible, animée, vraie et contextualisée** à partir des faits réellement observables. | Pas de SSE/streaming de tokens imposé, mais pas de bandeau statique renommé en « activité détaillée prouvée » ; si aucun événement concret n'est disponible, attente honnête et réserve explicite. **Réponse textuelle progressive = cible à réexaminer**, avec preuve et exit, sans réduction silencieuse du contrat UX. |
+| **M3 — Brouillon** | **`sessionStorage`**, partitionné par Pilote + projet dans l'onglet courant (et lane si nécessaire à l'isolation). | Navigation et rafraîchissement dans cet onglet ; contrôle des droits à la restauration, purge au logout/révocation/changement d'identité, protection contre ACK tardif ; **aucune garantie après fermeture de l'onglet ni synchronisation interappareils**. |
+| **M4 — Visionneuse** | **État UI local à Travail**, visionneuse intégrée ; **aucune route/URL/deep-link spécifique** à son état d'ouverture. | Référence et version D4/D9 conservées, lecture seule, 50/50 hors rail et mode agrandi ; « Ouvrir dans Documents » reste une vraie navigation canonique sous droits. |
+| **M5 — Persistance/migration** | **Aucune migration de données par défaut en V1** ; réutiliser la persistance existante si elle remplit M1 et les invariants. | **STOP + analyse d'impact + arbitrage Morris distinct** si schéma/table/migration indispensable ; interdiction de contournement fragile pour éviter une migration nécessaire. |
+
+**Conséquence delivery :** M1–M5 **ne sont plus des arbitrages de principe ouverts**. Restent ouverts les détails de réalisation, la compatibilité effective au HEAD local, la disponibilité des événements de consultation, les tests BROWSER/LIVE/REAL et les gates. **GO documentaire ≠ GO Delivery** ; un seul macro-lot code/tests/docs/visuel sous contrat SFIA v2.6 et autorisation Morris séparée.
 
 ## 2. Capacité, frontières et contrats communs
 
@@ -86,7 +100,7 @@
 - Les liens historiques de lecture conservent leur comportement de consultation sous droits actuels même après expiration des choix conversationnels.
 - La réponse progressive, lorsqu'elle est effectivement disponible, appartient au **même tour Nora** ; ne pas multiplier les messages pour chaque fragment et ne pas montrer de JSON de qualification.
 
-**Contrat sémantique candidat à stabiliser avant code :** une projection versionnée distinguant au minimum `messageId`, `turnId`, état de finalisation, blocs/contenus sûrs, références avec identité de ressource, et actions contextuelles liées à ce tour. **Ni schéma de base, ni type API, ni migration n'est adopté ici.**
+**M1 — orientation VALIDATED BY MORRIS :** une **projection D3 structurée et versionnée** distinguant au minimum `messageId`, `turnId`, état de finalisation, blocs/contenus sûrs, références avec identité/version de ressource et actions contextuelles liées à ce tour. Réutiliser prioritairement `resultJson`/charges utiles existantes **si** le code et les tests confirment une persistance/relecture sûre, sans changer l'autorité D3. **Le format exact, les signatures API et le schéma physique ne sont pas adoptés** ; si une évolution durable devient indispensable, appliquer M5/STOP.
 
 **Acceptation :** UX-NORA-01..25 et UX-CROSS-01/02/04/05 ; réponse composée persistée/rechargée identique sur les parties officiellement acquises ; double clic/ACK perdu sans deux tours créés.
 
@@ -98,12 +112,12 @@
 - Croissance vers le haut avec le contenu, jusqu'à un plafond responsive ; ensuite scroll **interne** du champ, puis réduction de hauteur lorsque le texte diminue.
 - En desktop : **Entrée** envoie, **Maj+Entrée** insère un saut de ligne, aucune soumission pendant composition IME.
 - En mobile : Retour insère un saut de ligne ; envoi par commande explicite ; message vide ou admission interdite = envoi inactif.
-- Conserver un brouillon non envoyé **dans le navigateur courant**, par **identité Pilote + projet** et avec requalification de droits, à travers navigation et rafraîchissement. Aucune synchronisation interappareils imposée.
+- Conserver un brouillon non envoyé en **`sessionStorage` dans l'onglet courant**, par **identité Pilote + projet** (et lane lorsque nécessaire pour éviter les croisements DEV/RECETTE), avec requalification des droits à la restauration ; navigation et rafraîchissement conservés, aucune synchronisation interappareils.
 - Le clic sur une option Nora conserve intégralement le brouillon libre. Un ACK tardif ne peut effacer que la **version effectivement envoyée** et ne doit jamais effacer une modification ultérieure.
 - Pendant attente ou `UNKNOWN`, le texte reste éditable ; l'**envoi** dépend de la qualification serveur de l'indépendance/risque, et non d'un filtre lexical naïf local.
 - Alignement visuel : en desktop, **bord inférieur du compositeur aligné avec le bord inférieur de « En bref » ou de la visionneuse**, avec espace du fil augmenté ; en mobile, compositeur placé au bas de la zone utile. Le fil et la visionneuse restent indépendamment scrollables.
 
-**Stockage candidat à qualifier :** stockage local navigateur limité et isolé, avec durée de vie, règles de purge/logout, changement de Pilote et protection contre l'accès à des projets révoqués. **Aucun support technique n'est imposé par le présent contrat.**
+**M3 — orientation VALIDATED BY MORRIS :** `sessionStorage`, et non `localStorage` ou stockage serveur pour la V1. Définir une clé sans confusion Pilote/projet/lane, vérifier les droits actuels et purger au logout, à la révocation et au changement d'identité. **La fermeture de l'onglet peut faire perdre le brouillon** ; la récupération interonglets/interappareils n'est pas promise. Prévenir toute purge sur ACK tardif en ne nettoyant que la version effectivement envoyée. La politique de purge concrète et ses tests restent à implémenter et à prouver.
 
 **Acceptation :** UX-COMP-01..13, UX-CROSS-01/02/08/09, essais IME, raccourcis clavier, mobile, refresh, changement d'utilisateur et réponse tardive.
 
@@ -117,11 +131,11 @@
 - Présenter une étape contextualisée (« consultation de sources Git », etc.) **uniquement si un événement de l'opération concernée en confirme l'exécution** ; distinguer commencée, achevée, échouée, interrompue et inconnue.
 - Ne jamais inventer pourcentage, temps restant, outil utilisé, complétude, raisonnement interne ni résultat.
 - Les événements affichables sont rattachés à un tour/génération, à une source effective et à un ordre fiable ; l'historique utile peut être replié après finalisation.
-- Diffuser des fragments de **contenu publiable validé**, lorsque le contrat sémantique le permet, dans **une seule réponse Nora évolutive**. Tant que le système ne peut pas distinguer du flux structurel brut les fragments sûrs, **dégrader honnêtement vers attente puis réponse finale**, plutôt que prétendre streamer une réponse.
+- **M2 validé : en V1, une réponse textuelle finale est acceptable**, sans diffusion de fragments imposée. L'attente doit néanmoins être visible et animée, et **les étapes contextualisées ne sont affichées que si des événements réels les attestent**. Lorsqu'un transport sûr sera effectivement supporté, la restitution progressive continuera de viser **une seule réponse Nora évolutive** ; aucun JSON structurel brut, token de qualification ou raisonnement privé ne doit fuiter.
 - Ne pas rendre les choix contextuels actifs avant finalisation ; conserver une réponse partielle **seulement si ces fragments ont réellement été reçus et peuvent être présentés sans confusion**.
 - Corréler les activités avec l'instrumentation existante, sans convertir les logs techniques en nouveau registre métier ou exposer secrets/chaîne de pensée.
 
-**Points à qualifier avant implémentation :** disponibilité et rétention des événements ; enveloppe de projection utile (ex. identité de tour/génération, séquence, état, provenance, référence) ; reprise du flux, protection des doublons et charge ; transport serveur→client. **SSE, HTTP progressif, polling ou persistance additionnelle restent des options, pas des choix validés.**
+**M2 — limite V1 et exit :** le mode final-only **n'autorise pas** à qualifier de PASS un oracle de diffusion textuelle progressive. Pour l'activité contextualisée, qualifier les événements réellement disponibles et leur provenance, l'actualisation possible au navigateur et leur rétention : si aucune étape fiable n'est observable, signaler la limite avec une attente générique honnête. **Revoir la restitution textuelle progressive** lorsqu'un flux publiable fiable et une stratégie de reprise sûre seront démontrés, ou sous arbitrage Morris si une infrastructure structurante est requise. SSE, HTTP progressif, polling et persistance additionnelle **ne sont pas adoptés** par M2.
 
 **Acceptation :** UX-ACT-01..16, UX-CROSS-03/04/07/10 ; contrôles BROWSER avec événements effectivement produits, puis LIVE si le contrat le nécessite, sans transformer des fixtures en preuve fournisseur.
 
@@ -165,6 +179,7 @@
 - La visionneuse ne produit ni version, ni révision, ni `HumanDecision`, ni exécution, ni publication Git. Sélection d'un extrait → « Demander à Nora » et édition dans Travail **hors périmètre** ; Ensemble 06 porte l'édition/gestion documentaire.
 - Les réflows de l'inspection n'entraînent **aucun scroll imposé du fil** ; la vraie navigation vers Documents puis retour applique UX-002.
 - Conserver contraste, clavier/focus, commande Agrandir/Réduire/Fermer, zoom et réduction des animations.
+- **M4 — orientation VALIDATED BY MORRIS :** gérer les modes d'ouverture/partage/agrandissement/fermeture **dans l'état local de Travail** ; **aucun deep-link, paramètre `viewer=` ni route dédiée** à l'état interne. Les liens directs vers les ressources officielles et la navigation explicite « Ouvrir dans Documents » restent possibles via leurs propriétaires.
 
 **Acceptation :** UX-VIEW-01..15, UX-CROSS-05/06/07/09/10 et comparaison Figma↔runtime en modes normal, partagé, étendu et mobile.
 
@@ -211,7 +226,7 @@ Les **88 scénarios candidats** issus de la conception UX intégrée forment le 
 
 1. Choix contextuel avec brouillon non envoyé → nouveau tour unique, brouillon intact.
 2. Clic avec ACK perdu → groupe gelé, identité conservée, réconciliation sans doublon.
-3. Réponse réellement progressive → un message Nora, activité véridique, finalisation avant choix.
+3. **V1 final-only (M2)** → une réponse Nora finale, attente/activité véridique selon événements réels, choix actifs seulement après finalisation. **L'oracle de texte réellement progressif reste candidat NON COUVERT V1**, à qualifier lors de l'exit M2 ; aucun PASS fictif.
 4. Relecture historique + réponse entrante → ancrage et signal UX-002.
 5. Source historique après expiration des choix → lecture encore possible selon droits.
 6. Visionneuse A→B→agrandie→réduite→fermée → une seule ressource affichée, scroll et brouillon préservés.
@@ -235,20 +250,20 @@ Les **88 scénarios candidats** issus de la conception UX intégrée forment le 
 
 **Préconditions d'entrée pour Cursor :** pre-check Git local complet selon SFIA v2.6, routing/template lus depuis Git, fichiers modifiables autorisés, contradictions et décisions d'architecture identifiées, contrats interface/données/permission qualifiés, périmètre de tests et environnement RECETTE définis, responsable d'intégration et STOP explicites.
 
-**STOP / escalade Morris :** nouveau modèle d'autorité ou d'effets, nouvelle persistance/migration structurante, changement de politique de sécurité, transport/orchestration impossible à qualifier sans décision architecture, accès Git/pouvoirs étendus, duplication de moteur, dette sans exit, déviation significative de Figma ou de la vision validée.
+**STOP / escalade Morris :** **migration, nouvelle table ou changement de schéma indispensable (M5)**, nouveau modèle d'autorité ou d'effets, choix de transport/orchestration structurants au-delà de M2, modification de politique de sécurité, accès Git/pouvoirs étendus, duplication de moteur, dette sans exit, déviation significative de Figma ou de la vision validée. **M1–M5 orientent la réalisation ; ils ne dispensent pas de ce STOP.**
 
 **Sortie du futur lot :** fonctionnalité observée sur SHA/build cible ; tests positifs/négatifs, preuves proportionnées et limites explicitement tracées ; documentation à jour dans le même cycle ; revue technique puis arbitrage de réception par Morris. **Cette publication documentaire n'est ni GO d'exécution, ni PR/merge, ni acceptation Gate C, ni adoption.**
 
-## 14. Questions de qualification laissées ouvertes (sans nouvelle décision implicite)
+## 14. Détails de réalisation restant à qualifier après M1–M5 (sans nouvelle décision implicite)
 
 | Question | Responsable à mobiliser | Condition de sortie |
 |---|---|---|
-| Comment projeter les blocs/actions contextuels tout en respectant la qualification structurée Nora ? | D3 / architecture | Schéma de projection, finalisation, sécurité et sauvegarde compatibles avec les tours existants |
-| Comment obtenir des événements d'activité fiables sans divulguer JSON de qualification ni logs internes ? | D3 + observabilité + D4/D9 | Contrat d'événements et de consommation vérifiable, dégradation documentée |
-| Quel transport d'activité/réponse progressive avec reprise ? | Architecture / implémentation sous gate | Analyse options, impact API, backpressure, incidents et test de non-duplication |
-| Comment conserver le brouillon par identité/projet et le nettoyer sans fuite ? | Frontend + identité D1 | Politique locale minimale, droits et tests logout/révocation/ACK tardif |
-| Quelle intégration de visionneuse avec navigation Documents et provenance D4/D9 ? | UI/architecture + D4/D9 | URLs/références/accessibilité et droits démontrés, sans second éditeur |
+| **M1 décidé :** comment instancier la projection D3 versionnée sur les champs existants ? | D3 / architecture | Format, finalisation, sécurité, rétrocompatibilité et relecture testés ; **STOP M5** si nouveau schéma indispensable |
+| **M2 décidé :** quels événements d'activité réels peuvent être exposés au Pilote en V1 ? | D3 + observabilité + D4/D9 | Sources, corrélation et temps de visibilité vérifiés ; attente générique honnête à défaut ; pas d'étape inventée |
+| **M2 exit :** quand et comment réexaminer la restitution textuelle progressive ? | Architecture / implémentation sous gate | Preuve de fragments publiables/reprise sûre, analyse d'options et gate si choix structurant ; **non prétendu PASS V1** |
+| **M3 décidé :** comment sécuriser la clé `sessionStorage` et sa purge ? | Frontend + identité D1 | Tests Pilote/projet/lane, refresh, logout, révocation, ACK tardif et perte admise à la fermeture d'onglet |
+| **M4 décidé :** comment relier l'état local de visionneuse aux références D4/D9 ? | UI/architecture + D4/D9 | Références/version, navigation officielle vers Documents, scroll, droits et accessibilité démontrés **sans deep-link viewer** |
 | Quel blast radius exact sur composants, schéma et fournisseurs au HEAD candidat réel ? | Cursor, revue ChatGPT/Morris | Diff prévisionnel borné, STOP si décision structurante, tests associés |
 | Comment qualifier les réserves LIVE/REAL héritées de ML4C sans bloquer injustement une démonstration UI ? | QA / intégrateur / Morris | Matrice de preuve par scénario et niveau explicite |
 
-**VERDICT DE LA PRÉSENTE CONTRIBUTION :** contrat technique **CANDIDATE / DOCUMENTED**, centralisé et traçable ; **aucune implémentation ni preuve ni architecture nouvelle adoptées**. **Ensemble 05 EN REVUE — Gate C OPEN**.
+**VERDICT v0.2 :** les **orientations M1–M5 sont VALIDATED BY MORRIS** et consignées ; le contrat de réalisation reste **CANDIDATE / DOCUMENTED** tant que les formes techniques et les preuves ne sont pas qualifiées. **Aucune implémentation, nouveau schéma, preuve runtime, GO Delivery ou architecture globale adoptés. Ensemble 05 EN REVUE — Gate C OPEN.**
