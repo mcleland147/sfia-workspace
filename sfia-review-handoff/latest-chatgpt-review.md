@@ -1,112 +1,109 @@
 # SFIA Studio Next — Review Pack Full
-# Cycle 8 — Delivery / Ensemble 05 — Consolidation C1–C5 Travail avec Nora
-# Generated: 2026-11-17T12:43:16+0100
+# Cycle 8 — Ensemble 05 — Finalisation + figement candidat
+# Generated: 2026-11-17T13:17:15+0100
 
 ## 1. Date / profil
-- Cycle: 2026-11-17 — GO MORRIS CONSOLIDATION LOCALE DEV
-- Profile: CRITICAL / EVOL / Cycle 8
-- Macro-lot: Ensemble 05 — Travail avec Nora
-- Gate: revue ChatGPT puis décision Morris (GO RECETTE ultérieur distinct)
-- Interdits: commit/push produit, PR, merge, RECETTE, STABLE, migration
+- GO Morris 17/11/2026 — finalisation technique + préparation RECETTE existante
+- CRITICAL / EVOL / Cycle 8
+- Interdits: push produit, PR, merge, déploiement RECETTE, nouvelle RECETTE, campagne Figma F2
 
-## 2. Local Git Truth Check
+## 2. Git Truth Check
 | Check | Value |
 |---|---|
 | Workspace | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
 | Branch | `feat/next-ml4d-project-space-20261116` |
-| HEAD produit | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Tree | `b92cc822ac67399c6d8753c17dbcce5f4b5b734f` |
+| HEAD tip (docs+feature) | `2b0d7a78a34fb9b8858a8ce81a31bedadcc842b8` |
+| Tree tip | `afdb1bbf2c3997eb5c5268a583bf3caf821242e5` |
+| Freeze feature commit | `342f0bbb3fea1d52c7a40228347923b30b6db90e` |
+| Freeze feature tree | `605a6274b3a41cef41fd0cb271352d03c7f0cdb2` |
+| Manifest SHA commit | `2b0d7a78a34fb9b8858a8ce81a31bedadcc842b8` |
+| Base antérieure | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` / tree `b92cc822…` |
 | origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| Prior handoff | `b452698c5734cd17e34598e245636f37e6411f91` blob `eb9ca1584f092d02e85cf925b690c3c0d79f730a` |
-| Dirty E05 | EXPECTED (non commité) |
+| Prior handoff | `89c7cc074ecff8eabc6d90e78a80f7428eda95de` blob `4063510f…` |
 | Product push | **NONE** |
 
 ### git status --short
 ```
 M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
- M projects/sfia-studio-next/web/src/app/login/page.tsx
- M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
- M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
- M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
- M projects/sfia-studio-next/web/src/components/figma/tokens.css
- M projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
- M projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
- M projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
- M projects/sfia-studio-next/web/src/domains/conversation/service.ts
- M projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
- M projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-?? projects/sfia-studio-next/construction/as-built-ensemble-05-travail-nora-20261117.md
-?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/
-?? projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
-?? projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts
-?? projects/sfia-studio-next/web/src/domains/conversation/turn-projection.ts
-?? projects/sfia-studio-next/web/src/hooks/
-?? projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
-?? projects/sfia-studio-next/web/tests/unit/ensemble05-turn-projection.test.ts
 ```
 
-## 3. Sources / blobs
-| Source | Blob/ref |
-|---|---|
-| UX v0.7 | `dc5ef25f53e9b819965fac3981d430e59298825f` |
-| Tech v0.2 | `5f38968861f1dbcd546b66da80dbee2a628ba136` |
-| ENV-01 | `14b61f0d1265cf85fcca09b028dd09bd8c71597f` |
-| versioning | `8bc93e0fafac0f981c446e978a37f5f93d183875` |
-| Figma 05 | itgvCulInEnFY6DvgIegvP / 700:38 · session `55ab43e8-d2bd-4208-a214-6b2356fa9d42` |
+### Fichiers du commit feature `342f0bbb`
+```
+projects/sfia-studio-next/construction/as-built-ensemble-05-travail-nora-20261117.md
+projects/sfia-studio-next/construction/delivery-history.md
+projects/sfia-studio-next/construction/ensemble-05-recette-prep-manifest.md
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-700-39-nominal.png
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-105-composite.png
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-148-expired.png
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-320-uncertain.png
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-363-viewer5050.png
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-449-enlarged.png
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-535-mobile.png
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-runtime-matrix.md
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-mobile-430x932.png
+projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-nominal-1680x970.png
+projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+projects/sfia-studio-next/web/src/app/login/page.tsx
+projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
+projects/sfia-studio-next/web/src/components/figma/tokens.css
+projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts
+projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+projects/sfia-studio-next/web/src/domains/conversation/service.ts
+projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+projects/sfia-studio-next/web/src/domains/conversation/turn-projection.ts
+projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+projects/sfia-studio-next/web/src/hooks/useNoraThreadScroll.ts
+projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
+projects/sfia-studio-next/web/tests/unit/ensemble05-turn-projection.test.ts
+```
 
-## 4. Écarts C1–C5 avant → après
+## 3. Sources
+UX v0.7 `dc5ef25f…` · Tech v0.2 `5f389688…` · ENV-01 `14b61f0d…` · versioning `8bc93e0f…`
+
+## 4. Correctifs finaux
 | ID | Avant | Après | Preuve |
 |---|---|---|---|
-| C1 | `openTravailDocument` → latestRevision ignore `ref.revisionId` | GET D4 `?revisionId=` ; `versionSource` exact/current ; seq anti-race | e2e C1 PASS |
-| C2 | gel UI ; preuve doublon insuffisante | ACK perdu simulé ; 1 message choix ; freeze refresh | e2e C2 PASS |
-| C3 | isolation multi-context seulement | purge tab au login DEV ; `session.pilotId` | e2e C3 PASS |
-| C4 | matrice partielle | captures critiques + matrice mise à jour | evidence/ |
-| C5 | chemin branché | réaffirmé `readGitFile` ; REAL NOT EXECUTED | Fake/Real |
+| Final A | `openTravailDocument` / current path utilisaient `latestRevision` React | `fetchDocumentViewerViaD4` : list + `revisionId` à chaque ouverture | e2e C1 PASS |
+| Final B | reconcile conditionnel `if (pending.count())` | `expect(reconcile).toBeVisible` + click obligatoire | e2e C2 PASS |
 
-M1–M5 inchangés.
-
-## 5. Architecture conservée
-D3 clientTurnKey / commande / réconciliation ; D4 getDocumentRevision ; D9 readGitFile ; M4 viewer local ; pas de second moteur ; pas de migration.
-
-## 6. ENV-01 / versioning
-DEV 127.0.0.1:5433 / sfia_next_dev · E2E :3101 / sfia_next_e2e · RECETTE :3200 BUILD `3LzvYPTQc-Km7St6nF97r` inchangée · **NO RELEASE**
-
-## 7. Fake / Real
-| Frontière | Mode |
-|---|---|
-| Nora | FAKE fixture |
-| PG DEV/E2E | REAL local |
-| Identité | DEV test login adapter |
-| D4 | REAL via propriétaire |
-| Git D9 | chemin existant ; **REAL LIVE NOT EXECUTED** |
-`DETERMINISTIC PROVEN ⇒ READY FOR REAL` **non déclaré**.
-
-## 8. Tests
+## 5. Tests
 | Suite | Résultat |
 |---|---|
-| Vitest ensemble05 | 9 PASS |
-| Vitest studio-rail | 13 PASS |
+| Vitest E05+rail | 22 PASS |
 | Playwright E05 | 5 PASS |
 | Playwright E04 | 3 PASS |
 | next build | PASS |
-| tsc workspace | FAIL hors E05 (ml4c/semantic/create-project tests) — NO_E05_TSC_HITS |
+| tsc workspace | 32 erreurs hors E05 — NO_E05_TSC_HITS |
 
-## 9. Figma
-Voir `figma-runtime-matrix.md` ci-dessous. **`FIGMA TO RUNTIME ALIGNED` NON DÉCLARÉ**.
+## 6. RECETTE existante (lecture seule)
+| Item | Value |
+|---|---|
+| URL | http://127.0.0.1:3200 |
+| BUILD_ID | `3LzvYPTQc-Km7St6nF97r` |
+| SOURCE_SHA servi | `984d77a3…` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3` |
+| Process | `next start -H 127.0.0.1 -p 3200` |
+| Déploiement ce cycle | **AUCUN** |
+| Manifeste | `construction/ensemble-05-recette-prep-manifest.md` |
 
-## 10. Verdict
-`E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW`
+## 7. Fake/Real
+Nora FAKE · PG REAL DEV/E2E · D4 REAL test · D9 path only REAL NOT EXECUTED · RECETTE inventory only
 
-Ce verdict **n'autorise pas** le déploiement RECETTE.
+## 8. Revue visuelle
+**Explicitement réservée à Morris en RECETTE.** Aucune campagne F2 Cursor dans ce cycle.
 
-## 11. Prochain gate Morris
-Revue ChatGPT sur handoff distant → décision Morris distincte pour RECETTE éventuelle.
+## 9. Verdict
+`E05 CANDIDATE FROZEN — READY FOR MORRIS RECETTE DEPLOYMENT DECISION`
+
+Prochain GO Morris distinct requis pour déploiement dans la lane RECETTE existante.
 
 ---
-
-## 12. Fichiers créés — contenu intégral
+## 10. Fichiers créés — contenu intégral
 
 ### CREATED `projects/sfia-studio-next/construction/as-built-ensemble-05-travail-nora-20261117.md`
 
@@ -119,63 +116,136 @@ Revue ChatGPT sur handoff distant → décision Morris distincte pour RECETTE é
 | Macro-lot | R5 / ML4D Ensemble 05 |
 | Type | Delivery locale DEV · **NO RELEASE** |
 | Branche produit | `feat/next-ml4d-project-space-20261116` |
-| HEAD de départ | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Statut | **E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW** (as-built non normatif) |
-| Cycles | Delivery initiale + correctif P1/P2 + consolidation C1–C5 (même candidat non commité) |
+| HEAD de base | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
+| Statut | **E05 CANDIDATE FROZEN — READY FOR MORRIS RECETTE DEPLOYMENT DECISION** (as-built non normatif) |
+| Cycles | Delivery + correctif + consolidation + finalisation technique (même macro-lot) |
 
 ## Sources
 
-- UX v0.7 `conception-ux-travail-avec-nora.md` — docs@`99b3622b` blob `dc5ef25f…`
-- Contrat technique v0.2 — docs@`99b3622b` blob `5f389688…` — M1–M5 VALIDATED BY MORRIS
-- Figma page 05 `itgvCulInEnFY6DvgIegvP` / `700:38` — 16 variantes ; session MCP `55ab43e8-…`
-- Prior handoff tip avant consolidation : `b452698c` blob `eb9ca158…`
+- UX v0.7 — blob `dc5ef25f…` VALIDATED SPEC
+- Tech v0.2 — blob `5f389688…` M1–M5 VALIDATED
+- Figma page 05 — référence comportementale ; **revue visuelle réservée à Morris en RECETTE**
+- Manifeste prep RECETTE — `construction/ensemble-05-recette-prep-manifest.md`
 
-## Réalisation (résumé)
+## Capacités
 
 | Capacité | Implémentation |
 |---|---|
-| M1 projection | `turnProjection` additif dans `result_json` ; `listTurnProjections` |
-| M2 activité V1 | Attente animée honnête ; résumé post-terminal ; **pas de streaming** |
-| M3 brouillon | `sessionStorage` pilot+project+lane ; clé = **session.pilotId** ; purge tab au login DEV / 401 |
-| M4 visionneuse | État local Travail ; split / agrandi ; pas de `viewer=` |
-| M5 | Aucune migration |
-| C1 | Lecture D4 via `GET .../documents/[id]?revisionId=` — jamais latest silencieux |
-| C2 | Gel ACK/UNKNOWN + pending ; e2e un seul tour Pilote pour l’intention |
-| C3 | Même onglet A→B : `purgeAllComposerDraftsInTab` avant `devLogin` |
-| C4 | Matrice 16 + captures Figma/runtime critiques ; ALIGNED non déclaré |
-| C5 | `GET .../git/file` + `readGitFile` ; REAL LIVE **NOT EXECUTED** |
+| M1–M5 | Projection D3 ; final-only ; draft sessionStorage ; viewer local ; no migration |
+| Choix | `continueChoices` ≠ clarifications |
+| Final A | Toute ouverture Travail revalide D4 (list + revisionId) — pas de latest React en autorité |
+| Final B | ACK perdu → pending obligatoire → reconcile click → 1 tour Pilote |
+| C3 | Purge same-tab login ; `session.pilotId` |
+| C5 | Git path existant ; REAL NOT EXECUTED |
 
-## Preuves exécutées (DEV / FAKE)
+## Preuves techniques (DEV)
 
-- Vitest `ensemble05-turn-projection` : 9 PASS
-- Vitest `studio-rail` : 13 PASS
-- Playwright `ensemble05-travail-nora.spec.ts` : **5 PASS** (viewer, C1, C2, C3, isolation)
-- Playwright E04 nreg : 3 PASS
-- `next build` : PASS
-- `tsc --noEmit` : FAIL hors E05 (tests historiques ml4c/semantic manquant `projectIntention` etc.) — **aucun hit fichier E05**
+- Vitest E05 9 + studio-rail 13 PASS
+- Playwright E05 5 PASS (viewer, C1, C2 reconcile obligatoire, C3, isolation)
+- Playwright E04 3 PASS
+- `next build` PASS
+- `tsc` workspace : 32 erreurs hors E05 (tests historiques) — **NO_E05_TSC_HITS**
 
-## Correctifs consolidation
+## RECETTE
 
-| ID | Correction |
+- Existante inventoriée `:3200` / BUILD `3LzvYPTQc-Km7St6nF97r` / SHA `984d77a3`
+- **Aucun déploiement** dans ce cycle
+- Mise à disposition future documentée dans le manifeste
+
+## Réserves acceptables (décision Morris)
+
+1. Streaming M2 hors V1
+2. Git D9 REAL non exécuté
+3. OAuth LIVE ≠ adaptateur DEV
+4. Revue visuelle Morris en RECETTE (pas de gate F2 Cursor)
+```
+
+### CREATED `projects/sfia-studio-next/construction/ensemble-05-recette-prep-manifest.md`
+
+```
+# Ensemble 05 — Manifeste de préparation RECETTE (non secret)
+
+| Métadonnée | Valeur |
 |---|---|
-| C1 | `openTravailReference` → API révision exacte ; `versionSource` exact/current ; seq anti-race |
-| C2 | e2e ACK perdu après commit serveur ; freeze ; 1 message choix |
-| C3 | `session.pilotId` exposé ; purge tab login ; tests same-tab |
-| C4 | Captures Figma 700:39, 701:105/148/320/363/449/535 + runtime |
-| C5 | Chemin D9 existant qualifié ; pas de nouvelle API ; REAL non exécuté |
+| Date | 2026-11-17 |
+| Nature | Préparation — **aucun déploiement exécuté** |
+| Macro-lot | ML4D Ensemble 05 — Travail avec Nora |
+| Instruction Morris | Réutiliser la RECETTE existante — ne pas en créer une nouvelle |
 
-## Réserves
+## 1. Environnement RECETTE existant (inventaire lecture seule)
 
-1. **M2 progressive text** — NOT COVERED V1.
-2. **Git viewer REAL** — NOT EXECUTED (pas de permission/gate LIVE supplémentaire).
-3. **F2 géométrique 16/16** — non certifié ; `FIGMA TO RUNTIME ALIGNED` non déclaré.
-4. **tsc workspace** — dette tests historiques hors scope E05.
+| Item | Observation |
+|---|---|
+| URL | `http://127.0.0.1:3200` |
+| Port | `3200` (LISTEN confirmé) |
+| Processus | `next start -H 127.0.0.1 -p 3200` (Next 15.5.29) |
+| Worktree runtime | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble04-recette-build-984d77a3` |
+| SOURCE_SHA servi | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
+| Tree | `b92cc822ac67399c6d8753c17dbcce5f4b5b734f` |
+| BUILD_ID | `3LzvYPTQc-Km7St6nF97r` (fichier `.next/BUILD_ID`) |
+| Lane | RECETTE (observée dans logs `lane":"RECETTE"`) |
+| Mode | `next start` (pas hot-reload DEV) |
+| HTTP probe | 307 (réponse active) |
 
-## ENV-01 / versioning
+**Aucune modification de ce runtime dans le présent cycle.**
 
-- DEV `:5433` / `sfia_next_dev` · E2E `:3101` / `sfia_next_e2e`
-- RECETTE `:3200` build `3LzvYPTQc-Km7St6nF97r` **inchangée**
-- **NO RELEASE** — aucun cutover, PR, merge, promotion
+## 2. Candidat figé (commit local — non poussé)
+
+| Item | Valeur |
+|---|---|
+| Branche | `feat/next-ml4d-project-space-20261116` |
+| SHA candidat | `342f0bbb3fea1d52c7a40228347923b30b6db90e` |
+| Tree candidat | `605a6274b3a41cef41fd0cb271352d03c7f0cdb2` |
+| Parent base | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
+| Workspace DEV | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
+| Push produit | **AUCUN** |
+
+## 3. Compatibilité / conservation
+
+| Contrôle | Statut |
+|---|---|
+| Migration DB | **aucune** (M5) |
+| Nouvelle base RECETTE | **interdite** |
+| Reset données / comptes / documents | **interdit** |
+| Remplacement secrets DEV→RECETTE | **interdit** |
+| Nouveau port / worktree / conteneur | **interdit** sauf GO Morris |
+| Schéma | inchangé — compatible avec build actuel |
+
+## 4. Procédure de mise à disposition future (non exécutée)
+
+1. GO Morris explicite de déploiement RECETTE.
+2. Arrêt contrôlé du `next start` sur `:3200` via le mécanisme d’exploitation déjà utilisé pour ce worktree.
+3. Remplacer le contenu servi dans **le même worktree RECETTE** (ou rebuild `.next` dans ce worktree) à partir du SHA candidat figé — sans créer une seconde lane.
+4. Vérifier `BUILD_ID` / `SOURCE_SHA` / port 3200.
+5. Smoke : login DEV/test ou parcours Morris ; Travail avec Nora ; navigation E04.
+6. Si échec : restaurer le build précédent `3LzvYPTQc-Km7St6nF97r` / SHA `984d77a3` déjà présent dans ce worktree (artefact `.next` antérieur ou rebuild du SHA précédent).
+
+## 5. Smoke tests post-déploiement (futurs)
+
+- HTTP `:3200` joignable.
+- Session / portfolio.
+- Ouverture projet → surface Travail.
+- Envoi message / choix / brouillon.
+- Visionneuse document.
+- Aucune écriture sur DEV depuis RECETTE.
+
+## 6. Rollback
+
+Retour au build `3LzvYPTQc-Km7St6nF97r` / source `984d77a3` dans le worktree RECETTE existant, redémarrage `next start -H 127.0.0.1 -p 3200`.
+
+## 7. Réserves
+
+- Revue visuelle Figma : **réservée à Morris en RECETTE**.
+- Git D9 REAL : non exécuté en DEV.
+- OAuth LIVE : distinct de l’adaptateur DEV.
+- Streaming M2 : hors V1.
+
+## 8. Actions nécessitant GO Morris
+
+- Déploiement / redémarrage RECETTE.
+- Push produit / PR / merge.
+- Toute création de second environnement.
+- Gate C / STABLE / ML5.
 ```
 
 ### CREATED `projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx`
@@ -1020,12 +1090,15 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     await page.getByTestId("travail-viewer-close").click();
     await expect(page.getByTestId("travail-viewer")).toHaveCount(0);
 
-    // Current (latest) path from En bref — explicitly version courante.
+    // Current (latest) path from En bref — live D4 revalidation, version courante.
     const consulter = page.locator(`[data-testid="travail-consulter-${documentId}"]`);
     await expect(consulter).toBeVisible();
     await consulter.click();
-    await expect(page.getByTestId("travail-viewer-body")).toContainText(`Revision B ${stamp}`);
+    await expect(page.getByTestId("travail-viewer-body")).toContainText(`Revision B ${stamp}`, {
+      timeout: 15000,
+    });
     await expect(page.getByTestId("travail-viewer-revision")).toContainText(/version courante/i);
+    await expect(page.getByTestId("travail-viewer-body")).not.toContainText(`Revision A ${stamp}`);
   });
 
   test("C2 ACK lost on choice — single pilot turn, freeze, reconcile", async ({ page }) => {
@@ -1122,14 +1195,27 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
       "ready",
       { timeout: 20000 },
     );
-    // Pending banner / frozen choices after refresh.
-    const pending = page.getByTestId("thread-reconcile-pending");
-    if (await pending.count()) {
-      await pending.click();
-      await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|Nora/i, {
-        timeout: 30000,
-      });
-    }
+    // Final B — reconciliation path is MANDATORY (not conditional).
+    const reconcile = page.getByTestId("thread-reconcile-pending");
+    await expect(reconcile).toBeVisible({ timeout: 20000 });
+    await expect(reconcile).toBeEnabled();
+    // Keep route open so idempotent retry uses same clientTurnKey; do not drop ACK again.
+    ackDropped = true; // already dropped once — subsequent POSTs pass through
+    await reconcile.click();
+    await expect(page.getByTestId("thread-nora-status")).toContainText(
+      /COMPLETE|Nora deterministic-fixture/i,
+      { timeout: 45000 },
+    );
+    // After confirmed reconcile, pending control must clear.
+    await expect(page.getByTestId("thread-reconcile-pending")).toHaveCount(0, {
+      timeout: 15000,
+    });
+    // Prior choices expired (not actionable).
+    await expect(
+      page.locator(
+        '[data-testid="nora-choices"][data-actionable="1"] [data-testid="nora-choice"]',
+      ),
+    ).toHaveCount(0);
 
     const proj = await page.request.get(`/api/projects/${projectId}`);
     expect(proj.ok()).toBeTruthy();
@@ -1143,6 +1229,8 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     );
     // Durable proof: a single effective pilot utterance for the choice intention.
     expect(choiceMsgs.length).toBe(1);
+    // Turn key identity conserved through reconcile retry.
+    expect(capturedTurnKey).toBeTruthy();
     await page.unrouteAll({ behavior: "ignoreErrors" });
     void preparationId;
   });
@@ -1622,31 +1710,47 @@ Repères conception: rail 246; composer 972×84; bottoms 857=857; split ~668/668
 **Verdict visuel:** `FIGMA TO RUNTIME ALIGNED` **non déclaré** — preuves critiques (choix, incertitude, viewer, mobile) présentes; F2 ≤2px non certifié sur 16/16.
 ```
 
-## 13. Evidence PNG (sha256 + taille)
+## 11. Evidence PNG sha256
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-700-39-nominal.png` — 117210 B — `09c5e3bd23bc6688729be7298e6064c1af07096321e790be2b384998b0323816`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-105-composite.png` — 132244 B — `6394f424dcd2f27b314b8b3f818b09c2f628adad4dee0a4933161f334b7b3908`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-148-expired.png` — 124775 B — `ef2c4878dcf41c36e4274b42ad1a5951beffd848015bef69a01832b1704dc482`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-320-uncertain.png` — 122358 B — `978055d0b848f5a2b6eee8cbae1d82f5e44fbd5aae36cdb09aab2c83c3d54153`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-363-viewer5050.png` — 132708 B — `966f9798ffa5272bcc5bc1b9e437fc1a7add10577d6b0f1c5612cca5fbb875cf`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-449-enlarged.png` — 112892 B — `4b4041edc3ad8577acbb374d87e9189f7c295a7eac9769b52a4e6d05edb63384`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-535-mobile.png` — 37179 B — `3e09af36644ebd4c0a334a1b1e3f896961f146dced10bfb3d1fd8b9a8951c019`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-mobile-430x932.png` — 69810 B — `63778a6b265e141116a0df0db4bc87803aeea08cc4f1cf9204f05d8dfa5553dd`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-nominal-1680x970.png` — 194531 B — `50b13a43ce785eb1a1250b79b9a98a2457846353c8a21c8da35032d9f3dc4ac1`
 
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-700-39-nominal.png` — 117210 bytes — sha256 `09c5e3bd23bc6688729be7298e6064c1af07096321e790be2b384998b0323816`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-105-composite.png` — 132244 bytes — sha256 `6394f424dcd2f27b314b8b3f818b09c2f628adad4dee0a4933161f334b7b3908`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-148-expired.png` — 124775 bytes — sha256 `ef2c4878dcf41c36e4274b42ad1a5951beffd848015bef69a01832b1704dc482`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-320-uncertain.png` — 122358 bytes — sha256 `978055d0b848f5a2b6eee8cbae1d82f5e44fbd5aae36cdb09aab2c83c3d54153`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-363-viewer5050.png` — 132708 bytes — sha256 `966f9798ffa5272bcc5bc1b9e437fc1a7add10577d6b0f1c5612cca5fbb875cf`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-449-enlarged.png` — 112892 bytes — sha256 `4b4041edc3ad8577acbb374d87e9189f7c295a7eac9769b52a4e6d05edb63384`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-535-mobile.png` — 37179 bytes — sha256 `3e09af36644ebd4c0a334a1b1e3f896961f146dced10bfb3d1fd8b9a8951c019`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-mobile-430x932.png` — 69307 bytes — sha256 `fd031aa96e8353a13f623254bbf9dfe5c991de8eab513c2fbb14f6ca98459f99`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-nominal-1680x970.png` — 194015 bytes — sha256 `a6359cea5dbc93f9f3d211e94ec03f9b8ca196871dbff5fbcedd7f4bfa17fda0`
-
-## 14. Fichiers modifiés — diffs vs HEAD produit
+## 12. Diffs modifiés vs parent base `984d77a3`
 
 ### MODIFIED `projects/sfia-studio-next/construction/delivery-history.md`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 61738fe9..ae450599 100644
+index 61738fe9..6acb32c4 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,63 @@ Append-only logical journal of Cursor product deliveries.
+@@ -4,6 +4,80 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
++## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-FREEZE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-17 ~13:15 CET |
++| Macro-lot | ML4D Ensemble 05 — finalisation + figement candidat (même macro-lot) |
++| Type | Cycle 8 Delivery · CRITICAL · EVOL finalisation · **NO RELEASE** |
++| Scope | Final A D4 live rights ; Final B reconcile obligatoire ; inventaire RECETTE existante ; commit local figé |
++| Non-scope | Déploiement RECETTE ; push produit ; PR/merge ; campagne Figma F2 ; nouvelle RECETTE |
++| Preuves | Vitest 22 PASS ; Playwright E05 5 PASS ; E04 3 PASS ; next build PASS |
++| Manifeste | `construction/ensemble-05-recette-prep-manifest.md` |
++| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
++| RECETTE | inventoriée inchangée `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
++| Push produit | **AUCUN** (commit local autorisé) |
++| Verdict cible | `E05 CANDIDATE FROZEN — READY FOR MORRIS RECETTE DEPLOYMENT DECISION` |
++
++
 +## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CONSOLIDATION
 +
 +| Field | Value |
@@ -1663,7 +1767,7 @@ index 61738fe9..ae450599 100644
 +| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
 +| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
 +| Push produit | **AUCUN** |
-+| Verdict cible | `E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW` |
++| Verdict cible | `E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW` (supersédé par FREEZE) |
 +
 +
 +## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CORRECTIVE
@@ -1762,7 +1866,7 @@ index aae3571b..2f62cd7d 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index f359048e..8654413b 100644
+index f359048e..f1d23109 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 @@ -5,6 +5,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -1830,7 +1934,7 @@ index f359048e..8654413b 100644
 
    useEffect(() => {
      // Clear previous project identity immediately — no cross-project leak in the rail.
-@@ -171,6 +201,336 @@ export default function ProjectPage() {
+@@ -171,6 +201,425 @@ export default function ProjectPage() {
    useEffect(() => {
      documentsRef.current = documents;
    }, [documents]);
@@ -1867,29 +1971,6 @@ index f359048e..8654413b 100644
 +    });
 +  }
 +
-+  function openTravailDocument(doc: Doc) {
-+    const rev = doc.latestRevision;
-+    const markdown = rev?.contentMarkdown ?? null;
-+    const available = Boolean(markdown) && rev?.status !== "FAILED";
-+    viewerOpenRef.current = true;
-+    setViewer({
-+      kind: "document",
-+      documentId: doc.document.id,
-+      title: doc.document.title,
-+      revisionId: rev?.id ?? null,
-+      revisionNumber: rev?.revisionNumber ?? null,
-+      versionSource: "current",
-+      markdown: available ? markdown : null,
-+      available,
-+      unavailableReason: available
-+        ? undefined
-+        : rev
-+          ? `Document indisponible (${rev.status})`
-+          : "Aucune révision disponible",
-+    });
-+    setViewerEnlarged(false);
-+  }
-+
 +  function closeViewer() {
 +    viewerRequestSeqRef.current += 1;
 +    viewerOpenRef.current = false;
@@ -1909,155 +1990,267 @@ index f359048e..8654413b 100644
 +    setViewerEnlarged(false);
 +  }
 +
-+  /** C1 — consult exact D4 revision (or explicit current) / D9 Git via existing APIs. */
++  type D4RevisionPayload = {
++    status?: string;
++    document?: { id?: string; title?: string };
++    revision?: {
++      id?: string;
++      revisionNumber?: number;
++      status?: string;
++      contentMarkdown?: string;
++    };
++    revisions?: Array<{
++      id?: string;
++      revisionNumber?: number;
++      status?: string;
++      contentMarkdown?: string;
++    }>;
++    reason?: string;
++    error?: string;
++  };
++
++  /**
++   * Final A — every Travail open revalidates rights via D4 at click time.
++   * Never treat React-cached latestRevision as a freshly authorized read.
++   */
++  async function fetchDocumentViewerViaD4(input: {
++    documentId: string;
++    titleHint: string;
++    revisionId?: string | null;
++    versionSource: "exact" | "current";
++    seq: number;
++    projectIdAtStart: string;
++  }) {
++    const prepId = preparationIdRef.current;
++    if (!prepId) {
++      applyViewerIfCurrent(
++        input.seq,
++        {
++          kind: "document",
++          documentId: input.documentId,
++          title: input.titleHint,
++          revisionId: input.revisionId ?? null,
++          revisionNumber: null,
++          versionSource: input.versionSource,
++          markdown: null,
++          available: false,
++          unavailableReason: "Préparation indisponible — lecture D4 impossible.",
++        },
++        input.projectIdAtStart,
++      );
++      return;
++    }
++
++    try {
++      let targetRevisionId = input.revisionId?.trim() || "";
++      let title = input.titleHint;
++
++      if (!targetRevisionId) {
++        // Resolve current revision under live ownership check (list endpoint).
++        const listRes = await fetch(
++          `/api/preparations/${prepId}/documents/${input.documentId}`,
++        );
++        const listBody = (await listRes.json().catch(() => ({}))) as D4RevisionPayload;
++        if (listRes.status === 401) {
++          purgeAllComposerDraftsInTab();
++          applyViewerIfCurrent(
++            input.seq,
++            {
++              kind: "document",
++              documentId: input.documentId,
++              title,
++              revisionId: null,
++              revisionNumber: null,
++              versionSource: "current",
++              markdown: null,
++              available: false,
++              unavailableReason: "Session expirée — contenu non affiché.",
++            },
++            input.projectIdAtStart,
++          );
++          return;
++        }
++        if (!listRes.ok || listBody.status === "FORBIDDEN") {
++          applyViewerIfCurrent(
++            input.seq,
++            {
++              kind: "document",
++              documentId: input.documentId,
++              title,
++              revisionId: null,
++              revisionNumber: null,
++              versionSource: "current",
++              markdown: null,
++              available: false,
++              unavailableReason: String(
++                listBody.reason ??
++                  listBody.error ??
++                  listBody.status ??
++                  "Document introuvable ou non autorisé",
++              ),
++            },
++            input.projectIdAtStart,
++          );
++          return;
++        }
++        title = listBody.document?.title ?? title;
++        const revisions = Array.isArray(listBody.revisions) ? listBody.revisions : [];
++        const availableRevs = revisions
++          .filter((r) => r && r.id && String(r.status ?? "").toUpperCase() === "AVAILABLE")
++          .sort(
++            (a, b) => Number(b.revisionNumber ?? 0) - Number(a.revisionNumber ?? 0),
++          );
++        const current = availableRevs[0] ?? null;
++        if (!current?.id) {
++          applyViewerIfCurrent(
++            input.seq,
++            {
++              kind: "document",
++              documentId: input.documentId,
++              title,
++              revisionId: null,
++              revisionNumber: null,
++              versionSource: "current",
++              markdown: null,
++              available: false,
++              unavailableReason: "Aucune révision disponible pour ce document.",
++            },
++            input.projectIdAtStart,
++          );
++          return;
++        }
++        targetRevisionId = current.id;
++      }
++
++      const res = await fetch(
++        `/api/preparations/${prepId}/documents/${input.documentId}?revisionId=${encodeURIComponent(targetRevisionId)}`,
++      );
++      const j = (await res.json().catch(() => ({}))) as D4RevisionPayload;
++      if (res.status === 401) {
++        purgeAllComposerDraftsInTab();
++        applyViewerIfCurrent(
++          input.seq,
++          {
++            kind: "document",
++            documentId: input.documentId,
++            title,
++            revisionId: targetRevisionId,
++            revisionNumber: null,
++            versionSource: input.versionSource,
++            markdown: null,
++            available: false,
++            unavailableReason: "Session expirée — contenu non affiché.",
++          },
++          input.projectIdAtStart,
++        );
++        return;
++      }
++      if (!res.ok || j.status === "FORBIDDEN" || j.status === "NOT_FOUND") {
++        applyViewerIfCurrent(
++          input.seq,
++          {
++            kind: "document",
++            documentId: input.documentId,
++            title,
++            revisionId: targetRevisionId,
++            revisionNumber: null,
++            versionSource: input.versionSource,
++            markdown: null,
++            available: false,
++            unavailableReason: String(
++              j.reason ?? j.error ?? j.status ?? "Révision inaccessible ou non autorisée",
++            ),
++          },
++          input.projectIdAtStart,
++        );
++        return;
++      }
++      const rev = j.revision;
++      const markdown =
++        j.status === "AVAILABLE" && typeof rev?.contentMarkdown === "string"
++          ? rev.contentMarkdown
++          : null;
++      applyViewerIfCurrent(
++        input.seq,
++        {
++          kind: "document",
++          documentId: input.documentId,
++          title: j.document?.title ?? title,
++          revisionId: rev?.id ?? targetRevisionId,
++          revisionNumber: rev?.revisionNumber ?? null,
++          versionSource: input.versionSource,
++          markdown,
++          available: Boolean(markdown),
++          unavailableReason: markdown
++            ? undefined
++            : `Révision non disponible (${String(j.status ?? rev?.status ?? "UNKNOWN")})`,
++        },
++        input.projectIdAtStart,
++      );
++    } catch {
++      applyViewerIfCurrent(
++        input.seq,
++        {
++          kind: "document",
++          documentId: input.documentId,
++          title: input.titleHint,
++          revisionId: input.revisionId ?? null,
++          revisionNumber: null,
++          versionSource: input.versionSource,
++          markdown: null,
++          available: false,
++          unavailableReason: "Échec de lecture D4 — aucun contenu inventé.",
++        },
++        input.projectIdAtStart,
++      );
++    }
++  }
++
++  /** En bref / library open — always live D4 current version. */
++  function openTravailDocument(doc: Doc) {
++    const projectIdAtStart = params.projectId;
++    const seq = ++viewerRequestSeqRef.current;
++    viewerOpenRef.current = true;
++    // Placeholder while rights + current revision are revalidated.
++    setViewer({
++      kind: "document",
++      documentId: doc.document.id,
++      title: doc.document.title,
++      revisionId: null,
++      revisionNumber: null,
++      versionSource: "current",
++      markdown: null,
++      available: false,
++      unavailableReason: "Vérification des droits et de la version courante…",
++    });
++    setViewerEnlarged(false);
++    void fetchDocumentViewerViaD4({
++      documentId: doc.document.id,
++      titleHint: doc.document.title,
++      revisionId: null,
++      versionSource: "current",
++      seq,
++      projectIdAtStart,
++    });
++  }
++
++  /** C1/Final A — exact revision or live current via D4; D9 Git via existing APIs. */
 +  async function openTravailReference(ref: TurnReference) {
 +    const projectIdAtStart = params.projectId;
 +    const seq = ++viewerRequestSeqRef.current;
 +    viewerOpenRef.current = true;
 +
 +    if (ref.kind === "document" && ref.resourceId) {
-+      const prepId = preparationIdRef.current;
 +      const match = documents.find((d) => d.document.id === ref.resourceId);
 +      const title = match?.document.title ?? ref.label;
-+
-+      if (!prepId) {
-+        applyViewerIfCurrent(
-+          seq,
-+          {
-+            kind: "document",
-+            documentId: ref.resourceId,
-+            title,
-+            revisionId: ref.revisionId ?? null,
-+            revisionNumber: null,
-+            versionSource: ref.revisionId ? "exact" : "current",
-+            markdown: null,
-+            available: false,
-+            unavailableReason: "Préparation indisponible — lecture D4 impossible.",
-+          },
-+          projectIdAtStart,
-+        );
-+        return;
-+      }
-+
-+      // Exact revision when cited — never silently substitute latest.
-+      if (ref.revisionId) {
-+        try {
-+          const res = await fetch(
-+            `/api/preparations/${prepId}/documents/${ref.resourceId}?revisionId=${encodeURIComponent(ref.revisionId)}`,
-+          );
-+          const j = (await res.json().catch(() => ({}))) as {
-+            status?: string;
-+            document?: { id?: string; title?: string };
-+            revision?: {
-+              id?: string;
-+              revisionNumber?: number;
-+              status?: string;
-+              contentMarkdown?: string;
-+            };
-+            reason?: string;
-+            error?: string;
-+          };
-+          if (res.status === 401) {
-+            purgeComposerDraftsForPilot(pilotIdRef.current ?? "");
-+            applyViewerIfCurrent(
-+              seq,
-+              {
-+                kind: "document",
-+                documentId: ref.resourceId,
-+                title,
-+                revisionId: ref.revisionId,
-+                revisionNumber: null,
-+                versionSource: "exact",
-+                markdown: null,
-+                available: false,
-+                unavailableReason: "Session expirée — contenu non affiché.",
-+              },
-+              projectIdAtStart,
-+            );
-+            return;
-+          }
-+          if (!res.ok || j.status === "FORBIDDEN" || j.status === "NOT_FOUND") {
-+            applyViewerIfCurrent(
-+              seq,
-+              {
-+                kind: "document",
-+                documentId: ref.resourceId,
-+                title,
-+                revisionId: ref.revisionId,
-+                revisionNumber: null,
-+                versionSource: "exact",
-+                markdown: null,
-+                available: false,
-+                unavailableReason: String(
-+                  j.reason ?? j.error ?? j.status ?? "Révision inaccessible ou non autorisée",
-+                ),
-+              },
-+              projectIdAtStart,
-+            );
-+            return;
-+          }
-+          const rev = j.revision;
-+          const markdown =
-+            j.status === "AVAILABLE" && typeof rev?.contentMarkdown === "string"
-+              ? rev.contentMarkdown
-+              : null;
-+          applyViewerIfCurrent(
-+            seq,
-+            {
-+              kind: "document",
-+              documentId: ref.resourceId,
-+              title: j.document?.title ?? title,
-+              revisionId: rev?.id ?? ref.revisionId,
-+              revisionNumber: rev?.revisionNumber ?? null,
-+              versionSource: "exact",
-+              markdown,
-+              available: Boolean(markdown),
-+              unavailableReason: markdown
-+                ? undefined
-+                : `Révision non disponible (${String(j.status ?? rev?.status ?? "UNKNOWN")})`,
-+            },
-+            projectIdAtStart,
-+          );
-+        } catch {
-+          applyViewerIfCurrent(
-+            seq,
-+            {
-+              kind: "document",
-+              documentId: ref.resourceId,
-+              title,
-+              revisionId: ref.revisionId,
-+              revisionNumber: null,
-+              versionSource: "exact",
-+              markdown: null,
-+              available: false,
-+              unavailableReason: "Échec de lecture D4 — aucun contenu inventé.",
-+            },
-+            projectIdAtStart,
-+          );
-+        }
-+        return;
-+      }
-+
-+      // No explicit revision → version courante (explicitly labelled).
-+      if (match?.latestRevision) {
-+        openTravailDocument(match);
-+        return;
-+      }
-+      applyViewerIfCurrent(
++      await fetchDocumentViewerViaD4({
++        documentId: ref.resourceId,
++        titleHint: title,
++        revisionId: ref.revisionId ?? null,
++        versionSource: ref.revisionId ? "exact" : "current",
 +        seq,
-+        {
-+          kind: "document",
-+          documentId: ref.resourceId,
-+          title,
-+          revisionId: null,
-+          revisionNumber: null,
-+          versionSource: "current",
-+          markdown: null,
-+          available: false,
-+          unavailableReason: "Document introuvable ou non autorisé pour ce Pilote.",
-+        },
 +        projectIdAtStart,
-+      );
++      });
 +      return;
 +    }
 +    if (ref.kind === "git") {
@@ -2167,7 +2360,65 @@ index f359048e..8654413b 100644
 
    function buildSurfaceUrl(next: Surface, documentId?: string | null) {
      const q = new URLSearchParams();
-@@ -433,7 +793,12 @@ export default function ProjectPage() {
+@@ -352,6 +801,7 @@ export default function ProjectPage() {
+
+   async function reconcilePending(pending: ThreadPendingTurn) {
+     setBusy(true);
++    setChoiceFrozen(true);
+     try {
+       const res = await fetch(
+         `/api/projects/${params.projectId}/pilotage/commands/by-key/${encodeURIComponent(pending.clientCommandKey)}`,
+@@ -377,11 +827,12 @@ export default function ProjectPage() {
+         if (cmd.status && String(cmd.status).toUpperCase() !== "UNKNOWN") {
+           rememberPending(null);
+           messageTurnKeyRef.current = null;
++          setChoiceFrozen(false);
+         }
+         await refreshDurablePilotage();
+         return;
+       }
+-      // 404 alone does not invent a new key — retry same logical act only.
++      // 404 alone does not invent a new key — retry same logical act only (D3 idempotent).
+       if (res.status === 404) {
+         setPilotageStatus(
+           `Commande absente pour ${pending.clientCommandKey.slice(0, 28)}… — reprise du même acte`,
+@@ -396,17 +847,32 @@ export default function ProjectPage() {
+           clientTurnKey: pending.clientTurnKey,
+         }),
+       });
+-      const j = await retry.json().catch(() => ({}));
++      const j = (await retry.json().catch(() => ({}))) as Record<string, unknown>;
+       if (retry.ok) {
+-        setMessages(j.messages ?? []);
+-        setStatus(`Nora ${j.noraMode} · ${j.status}`);
++        setMessages((j.messages as Msg[]) ?? []);
++        setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
+         const effect = j.pilotageEffect as PilotageEffectView | undefined;
+         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
++        const tp = parseTurnProjection(j.turnProjection);
++        if (tp) upsertTurnProjection(tp);
+         if (applyClearFromResponse(String(j.status ?? ""), effect)) {
+           setDraft("");
+         }
++        if (String(j.status ?? "") === "UNKNOWN") {
++          setChoiceFrozen(true);
++        } else {
++          setChoiceFrozen(false);
++        }
++        const proj = await fetch(`/api/projects/${params.projectId}`);
++        if (proj.ok) {
++          const pj = await proj.json();
++          setDocuments(pj.documents ?? []);
++          setKnowledge(pj.knowledge ?? null);
++          if (Array.isArray(pj.messages)) setMessages(pj.messages);
++        }
+         await refreshDurablePilotage();
+       } else {
++        setChoiceFrozen(true);
+         setStatus(String(j.error ?? j.errorCategory ?? "réconciliation impossible"));
+       }
+     } finally {
+@@ -433,7 +899,12 @@ export default function ProjectPage() {
        const res = await fetch(`/api/projects/${params.projectId}`);
        if (cancelled) return;
        if (res.status === 401) {
@@ -2180,7 +2431,7 @@ index f359048e..8654413b 100644
          setStatusHint("");
          setProjectSpaceInfo({
            projectId: params.projectId,
-@@ -475,8 +840,41 @@ export default function ProjectPage() {
+@@ -475,8 +946,41 @@ export default function ProjectPage() {
        if (cancelled) return;
        const docs = (j.documents ?? []) as Doc[];
        const name = String(j.project?.name ?? "").trim() || null;
@@ -2222,7 +2473,7 @@ index f359048e..8654413b 100644
        setKnowledge(j.knowledge ?? null);
        setPreparationId(j.preparation?.id ?? null);
        setProjectName(name);
-@@ -762,9 +1160,32 @@ export default function ProjectPage() {
+@@ -762,9 +1266,32 @@ export default function ProjectPage() {
      setReviseMessage("Base mise à jour — nouvelle intention (nouvelle correlationKey au prochain enregistrement).");
    }
 
@@ -2258,7 +2509,7 @@ index f359048e..8654413b 100644
      // SEM-02 / S05: no client lexical gate. Server returns nextTurnKind from Nora
      // qualification. Same-content retry reuses the turn key; distinct content may
      // proceed — coexistence is decided from the server kind after the response.
-@@ -817,14 +1238,28 @@ export default function ProjectPage() {
+@@ -817,14 +1344,28 @@ export default function ProjectPage() {
          setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
          const effect = j.pilotageEffect as PilotageEffectView | undefined;
          setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
@@ -2291,7 +2542,7 @@ index f359048e..8654413b 100644
          } else if (effectBlocked || (distinctFromUnresolved && serverKind === "INTENTION_EFFET")) {
            setStatus(
              effectBlocked
-@@ -844,8 +1279,16 @@ export default function ProjectPage() {
+@@ -844,8 +1385,16 @@ export default function ProjectPage() {
          setNoraActivity(
            j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
          );
@@ -2309,7 +2560,7 @@ index f359048e..8654413b 100644
          rememberPending({ content: text, clientTurnKey, clientCommandKey });
          setNoraActivity("error");
          setStatus(
-@@ -855,6 +1298,8 @@ export default function ProjectPage() {
+@@ -855,6 +1404,8 @@ export default function ProjectPage() {
          );
        }
      } catch {
@@ -2318,7 +2569,7 @@ index f359048e..8654413b 100644
        rememberPending({ content: text, clientTurnKey, clientCommandKey });
        setNoraActivity("error");
        setStatus("échec réseau — intention de tour conservée");
-@@ -894,6 +1339,8 @@ export default function ProjectPage() {
+@@ -894,6 +1445,8 @@ export default function ProjectPage() {
      );
    }
 
@@ -2327,7 +2578,7 @@ index f359048e..8654413b 100644
    return (
      <ProjectChrome
        projectId={params.projectId}
-@@ -901,6 +1348,7 @@ export default function ProjectPage() {
+@@ -901,6 +1454,7 @@ export default function ProjectPage() {
        surface={surface}
        statusHint={statusHint}
        loadState={projectLoadState}
@@ -2335,7 +2586,7 @@ index f359048e..8654413b 100644
      >
        {surface === "projet" ? (
          <ProjectOverview
-@@ -923,7 +1371,23 @@ export default function ProjectPage() {
+@@ -923,7 +1477,23 @@ export default function ProjectPage() {
            unresolvedPending={Boolean(unresolvedPending)}
            activity={noraActivity}
            status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
@@ -2360,7 +2611,7 @@ index f359048e..8654413b 100644
            onSend={() => void sendMessage()}
            onReconcile={
              unresolvedPending
-@@ -931,6 +1395,25 @@ export default function ProjectPage() {
+@@ -931,6 +1501,25 @@ export default function ProjectPage() {
                : undefined
            }
            aside={
@@ -2386,7 +2637,7 @@ index f359048e..8654413b 100644
              <div className="fig-inspector" data-testid="travail-aside-inspector">
                <p className="fig-kicker">Contexte projet</p>
                <h2 className="fig-inspector-title">En bref</h2>
-@@ -958,6 +1441,21 @@ export default function ProjectPage() {
+@@ -958,6 +1547,21 @@ export default function ProjectPage() {
                      ? `${documents.length} document${documents.length > 1 ? "s" : ""} Nora disponible${documents.length > 1 ? "s" : ""}.`
                      : "Les objets et sources du projet restent distincts du dialogue."}
                  </p>
@@ -2408,7 +2659,7 @@ index f359048e..8654413b 100644
                  <div className="fig-inspector-links">
                    <button
                      type="button"
-@@ -993,6 +1491,7 @@ export default function ProjectPage() {
+@@ -993,6 +1597,7 @@ export default function ProjectPage() {
                  ) : null}
                </div>
              </div>
@@ -3370,16 +3621,8 @@ index c334afa1..cbf289b5 100644
      pilotage,
 ```
 
-## 15. Handoff L3 — publié
-| Item | Value |
-|---|---|
-| Branch | `sfia/review-handoff` |
-| Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Tip | `62399e900ec940687c6e50fc0e1f3ad74668f19b` |
-| Blob | `a00306dadd73f58fee354e9ff3c505946ac6dfe9` |
-| Parent | `b452698c5734cd17e34598e245636f37e6411f91` |
-| Mono-fichier | OUI |
-| Product push | **NONE** |
+## 13. Handoff L3
+Publier ce pack sur `sfia/review-handoff` (mono-fichier). Product push forbidden.
 
-## 16. Instruction ChatGPT
-Lire le tip distant `sfia/review-handoff` avant recommandation Morris.
+## 14. Instruction ChatGPT
+Lire tip distant avant recommandation Morris.
