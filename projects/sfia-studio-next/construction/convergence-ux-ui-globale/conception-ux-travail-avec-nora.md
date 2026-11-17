@@ -3,8 +3,8 @@
 | Métadonnée | Valeur |
 |---|---|
 | Périmètre | R5 / ML4D — Ensemble 05, Travail avec Nora |
-| Version | **v0.3 — 17 novembre 2026 : consolidation finale du Sujet 02 / grammaire visuelle, cycle de vie des choix, réponses progressives et sources/preuves** |
-| Statut | **VALIDATED SPEC par Morris : UX-002 et Sujet 02 (principes A–F, grammaire visuelle, transmission immédiate, brouillon indépendant, expiration des choix, réponses progressives, provenance/sources/preuves)** ; contrat de conception clôturé sur son périmètre, code/architecture/preuves RECETTE ouverts |
+| Version | **v0.4 — 17 novembre 2026 : ajout du Sujet 03 / compositeur Nora validé en conception UX** |
+| Statut | **VALIDATED SPEC par Morris : UX-002, Sujet 02 (réponses structurées) et Sujet 03 (compositeur : compact, redimensionnement fluide et plafonné, clavier desktop/mobile, brouillon isolé par projet)** ; les deux sujets 02/03 sont clos **en conception UX seulement** ; détails techniques et preuves RECETTE ouverts |
 | Autorité | Morris : arbitrages UX ; ChatGPT : formalisation et revue ; Cursor : réalisation technique sous GO distinct |
 | Référentiel de suivi | [Registre central ML4D](registre-central-revues.md) |
 | Branche documentaire | docs/next-ml4d-registre-revues-20261116 — candidate, distincte de main |
@@ -15,11 +15,11 @@
 
 Ce document constitue le **support de conception intégré de l’Ensemble 05**. Il accueillera progressivement les **sujets UX réellement examinés et arbitrés par Morris**, sans générer un document ou un micro-cycle Cursor par irritant.
 
-Deux sujets arbitrés au 17/11/2026 : **UX-002 / S07-06-R01 — position de lecture et continuité du fil**, et **Sujet 02 — restitution structurée adaptative, composition et interactions conversationnelles**. Les décisions s’appliquent ensemble : un clic qui envoie une demande dans le fil suit la politique UX-002 de position de lecture.
+Trois sujets arbitrés au 17/11/2026 : **UX-002 / S07-06-R01 — position de lecture et continuité du fil**, **Sujet 02 / UX-007 — restitution structurée adaptative et interactions**, et **Sujet 03 / UX-008 — compositeur Nora**. Ils constituent un **contrat UX cohérent** : saisie et brouillon restent distincts de la lecture du fil et des raccourcis conversationnels ; un envoi suit UX-002 et clôt le groupe de choix précédent selon le Sujet 02.
 
 **Résultat Pilote attendu :** dans un projet existant, revenir au dernier échange par défaut après une navigation, un rafraîchissement ou une reconnexion ; suivre naturellement un échange actif, tout en pouvant relire librement des messages passés sans défilement imposé lorsqu'une nouvelle réponse arrive.
 
-**IN :** fil visible, position de lecture, nouveaux messages, comportement après envoi/réception, retour depuis les autres surfaces, rafraîchissement, reprise de session, fil long, commande de retour en bas, **grammaire de réponses ouvertes et composites, réponses courtes/longues, restitution des faits/sources, interactions conversationnelles immédiates et brouillon indépendant**, accessibilité et états incertains.
+**IN :** fil visible, position de lecture, nouveaux messages, comportement après envoi/réception, retour depuis les autres surfaces, rafraîchissement, reprise de session, fil long, commande de retour en bas, **grammaire de réponses composites et interactions immédiates**, **compositeur compact/redimensionnable, saisie clavier desktop/mobile, commandes proportionnées, brouillon par projet dans le navigateur courant et protection contre sa perte**, accessibilité et états incertains.
 
 **OUT :** nouveau système de chats, refonte du moteur Nora/D4/D6, nouvelles API ou migrations décidées par ce seul document, refonte du layout commun de l’Ensemble 04, nouveau moteur de décisions ou d’effets, fonctionnalité ML5, démarrage technique et promotion. Les besoins de contrat sémantique, persistance, permissions ou API découverts pendant la revue sont à qualifier auprès de leurs propriétaires avant réalisation.
 
@@ -223,7 +223,7 @@ Pour les choix de poursuite proposés par Nora, par exemple « Approfondir B » 
 
 **Exemple de contrôle :** brouillon « Je voudrais également étudier les contraintes de sécurité et les coûts de maintenance. » + clic « Architecture distribuée » → message transmis « Approfondis l'architecture distribuée : avantages, risques, dépendances et conditions de mise en œuvre. » ; brouillon **inchangé, non envoyé**. Cet exemple illustre le sens, **pas une formulation système littérale imposée**.
 
-**Frontière de persistance :** la protection du brouillon pendant cette interaction **est validée**. La conservation du brouillon à travers refresh, navigation intersurfaces, fermeture du navigateur et reconnexion reste **à examiner comme contrat global du compositeur** ; ne pas prétendre qu'elle est déjà prouvée ni la décider silencieusement.
+**Frontière de persistance :** la protection du brouillon pendant cette interaction **est validée**. Le **Sujet 03 §10** valide également la conservation du brouillon **par projet, dans le navigateur courant**, lors de la navigation intersurfaces et du rafraîchissement. La synchronisation interappareils, la récupération après perte du navigateur et les choix de stockage restent hors contrat ou à qualifier techniquement ; **aucune persistance runtime n'est prouvée**.
 
 ### 6.7. Fiabilité, états limites et anti-effets indus
 
@@ -367,5 +367,110 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 
 **SORTIE DU SUJET 02 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026**, sous réserves de qualification technique, réalisation et preuves. Les principes A–F, la grammaire visuelle sobre, les interactions immédiates et leur expiration, le brouillon indépendant, le contenu progressif et les sources/preuves sont documentés. **Aucun code n'est réalisé ni aucun scénario BROWSER/LIVE n'est déclaré PASS par cette publication.**
 
-**Suite logique de l'Ensemble 05 :** revue du **Sujet 03 — compositeur et ses états** (saisie, persistance du brouillon, envoi, pending/UNKNOWN, interruption, erreurs/reprise), avec dépendances aux interactions du Sujet 02. Préparer ensuite la réalisation **intégrée au même ensemble cohérent**, après qualification de l'architecture et GO Morris distinct. Ce document demeure la source intégrée de conception ; le registre central garde les observations, arbitrages et preuves datés. Pas de document, moteur ou cycle autonome par scénario.
+**Suite logique de l'Ensemble 05 après le Sujet 02 :** le **Sujet 03 — compositeur** est désormais traité au §10 et clos **en conception UX** ; les **états d'activité, erreurs et reprise** restent à instruire au **Sujet 04**. La réalisation restera intégrée dans un même ensemble cohérent après qualification et GO Morris distinct. Ce document demeure la source intégrée de conception ; le registre central conserve les arbitrages et preuves datés. Pas de document, moteur ou cycle autonome par scénario.
 
+
+## 10. Sujet 03 — Compositeur Nora : saisie, ergonomie et brouillon (VALIDATED SPEC, Morris 17/11/2026)
+
+### 10.1. Résultat utilisateur et référence ergonomique
+
+**Résultat attendu :** le Pilote dispose d'un champ de rédaction **discret au repos, suffisamment puissant lors d'un message long, toujours lisible et prévisible**. L'interface privilégie la conversation, pas la barre de saisie.
+
+**Référence validée en séance :** vidéo de capture d'écran fournie par Morris le 17/11/2026, montrant le **comportement du compositeur ChatGPT** lors de l'ajout, de l'effacement et du retour à une saisie courte. Cette vidéo est **une référence ergonomique fournie dans la conversation**, pas un fichier/preuve ajouté au dépôt ; elle ne prescrit aucun clone de code, de marque ou de design pixel exact.
+
+**Décision Morris :** le compositeur Nora **démarre sur une seule ligne**, peu dominant ; **le champ grandit et rétrécit en fonction du contenu** de façon fluide, **jusqu'à une limite** qui préserve l'espace de lecture. Disposition compacte inspirée de la vidéo, avec `+` à gauche, texte au centre, **envoi à l'extrémité droite** ; emplacement futur de la dictée immédiatement **à gauche du bouton d'envoi**. Le concept de commandes séparées sur une deuxième barre permanente n'est **pas retenu**.
+
+**IN UX :** zone Travail d'un projet, saisie desktop/mobile, hauteur et commandes, brouillon, envoi volontaire, continuité et isolation par projet, non-régression UX-002 / Sujet 02. L'alignement des composants réutilisés entre Travail et le sas doit être vérifié sans décider ici une refonte du sas.
+
+**OUT de cette validation :** construction de la capacité pièces jointes, import/upload ou traitement de fichiers, OCR, dictée/transcription vocale, synchronisation de brouillons multiappareils, protocole de stockage décidé, nouveau service conversationnel et nouveau moteur de tentative. **La conception de la fonctionnalité PJ sera traitée dans son chantier dédié** : aucun contrat de formats/poids/permissions d'upload n'est créé ici. Les états détaillés `pending` / `UNKNOWN`, erreur réseau et reprise appartiennent à la revue du **Sujet 04** et aux contrats propriétaires.
+
+### 10.2. Disposition et dynamique du compositeur (VALIDATED SPEC)
+
+| Situation | Comportement attendu |
+|---|---|
+| Champ vide / une ligne | **Surface minimale, correspondant à une ligne**, placeholder discret « Écrire à Nora… » ; commandes sur la même ligne logique. |
+| Texte multi-lignes, retours manuels ou collage | Le champ **s'agrandit dynamiquement** selon le contenu réellement affiché, en conservant une hauteur lisible et une animation/transition fluide si appropriée. |
+| Position pendant la croissance | Le compositeur reste **ancré en bas de Travail**, et grandit préférentiellement **vers le haut** ; contrôles de saisie/envoi restent prévisibles. |
+| Limite de croissance | Plafond raisonnable **adapté à la hauteur disponible et au viewport**, sans écraser la conversation ni masquer le fil. Pas de hauteur chiffrée décidée sans mesure Figma/runtime. |
+| Saisie au-delà du plafond | **Défilement interne de la zone de texte**, sans continuer à augmenter la hauteur du compositeur. Le curseur et la ligne en cours restent visibles. |
+| Suppression de lignes | La zone **se réduit spontanément** et retrouve sa taille minimale lorsque la saisie le permet, sans zone vide résiduelle. |
+| Long fil / écran étroit / clavier mobile ouvert | Conserver suffisamment d'espace pour le fil, l'accès au champ et aux commandes ; aucun clavier ou inspection ne doit cacher l'envoi. |
+| Focus, curseur et lecture | Ne pas réinitialiser la saisie, déplacer intempestivement le curseur, provoquer un saut de scroll global ni imposer un nouveau focus. UX-002 demeure responsable du défilement du fil, indépendant de celui du champ. |
+
+**Règle de mise en page :** **une surface visuelle unique**, sobre, d'une ligne au repos. Éviter un grand `textarea` systématique, une barre d'outils permanente en deuxième rang ou des badges techniques. Les mesures CSS, tokens, animations et seuils seront arbitrés/provés sur une implémentation, pas inférés de la vidéo.
+
+### 10.3. Clavier et commande Envoyer (VALIDATED SPEC)
+
+| Entrée | Comportement |
+|---|---|
+| **Desktop — `Entrée`** | **Envoyer** le message si une intention de saisie effective est présente et qu'aucune composition de caractères n'est en cours. |
+| **Desktop — `Maj + Entrée`** | **Nouvelle ligne** dans le brouillon, sans envoyer. |
+| **Composition IME** | `Entrée` servant à finaliser une composition de caractère **ne déclenche pas** un envoi accidentel. |
+| **Mobile — touche Retour** | Insère une **nouvelle ligne** ; le bouton visible de droite constitue le moyen explicite d'envoyer. |
+| **Bouton Envoyer** | À l'extrémité droite ; accessible au clavier/lecteur d'écran, identité d'action explicite, un seul envoi volontaire par déclenchement. |
+| **Champ vide / espaces** | Aucun envoi ; bouton indisponible avec état compréhensible. |
+| **Texte multi-lignes / collé** | Maintenir contenu, retours, sélection et comportement de redimensionnement ; aucun envoi provoqué par la seule saisie ou le collage. |
+| **Navigation clavier** | `Tab` et focus accessibles ; raccourci et état d'envoi ne doivent pas voler le focus ni perturber un lecteur d'écran. |
+
+**Règle de frontière :** `Entrée` desktop et clic envoient le **message libre rédigé**, tandis que les choix de poursuite du Sujet 02 transmettent leur **intention distincte** et n'envoient jamais le brouillon. Un envoi ne vaut ni décision structurante D6 ni mandat technique D7.
+
+### 10.4. Brouillon conservé dans le navigateur courant, isolé par projet (VALIDATED SPEC)
+
+**Option B expressément validée :** le brouillon non envoyé est conservé **pour chaque projet dans le navigateur courant**, y compris **navigation entre Travail, Journal, Projet ou inspection** et **rafraîchissement**. À la reprise de Travail, le contenu de saisie demeure tel que laissé ; le **fil revient à son dernier message conformément à UX-002**. Le retour de navigation ne signifie pas « envoyer » le brouillon.
+
+**Invariants UX :**
+1. **Isolation :** chaque projet/sas possède son contexte de saisie autorisé ; le brouillon de A ne doit jamais être visible ou transmis dans B, et aucun accès croisé ne découle du stockage local.
+2. **Non-transmission :** rédiger, changer de surface, restaurer un brouillon, choisir une option Nora ou coller du texte **n'envoie rien** du brouillon. Seul l'envoi explicite du compositeur transmet ce texte.
+3. **Protection du contenu :** une tentative non confirmée ne doit pas faire disparaître le brouillon ; une confirmation tardive d'un message déjà transmis **n'efface pas une saisie ultérieure** ou une version du brouillon distincte de celle envoyée.
+4. **Envoi confirmé :** le texte réellement transmis apparaît dans le fil ; seule la version effectivement envoyée peut être retirée du compositeur, sans perdre d'éventuels ajouts postérieurs. Définir et tester la gestion de concurrence avant code.
+5. **Honnêteté de restauration :** la sauvegarde/restauration n'est annoncée que si elle est réellement assurée. En cas d'indisponibilité technique, respecter la confidentialité, signaler toute perte susceptible d'être significative, ne jamais reconstruire artificiellement le texte.
+6. **Portée bornée :** pas de garantie implicite de synchronisation entre appareils, navigateurs ou utilisateurs ; stockage, durée de conservation, nettoyage/logout, contraintes privées et cas de fermeture de session restent **à qualifier techniquement** sans inventer une capacité serveur.
+
+**État code de référence `main@997d4c4e` :** `web/src/app/projects/[projectId]/page.tsx` détient `draft` en `useState` ; `sessionStorage` sert aux clés de tentatives pending, **pas à une preuve de restauration des brouillons**. `web/src/components/figma/NoraConversation.tsx` expose un `textarea` et un bouton `Envoyer` dépendant de `busy` / du texte. Le parcours `sendMessage` inspecté peut déclencher `setDraft("")` après résultat, **risque ciblé à tester si la saisie a changé pendant l'aller-retour**. Aucun test BROWSER/RECETTE du compositeur futur n'est réalisé ici ; le candidat local demeure **NON OBSERVÉ**.
+
+### 10.5. Commandes additionnelles et frontière du chantier
+
+| Commande | Placement UX | Décision de portée |
+|---|---|---|
+| **Ajouter un élément `+`** | À gauche de la barre compacte ; point d'entrée unique envisagé pour les ajouts. | **Emplacement validé**, mais **fonctionnement PJ, objets sélectionnables, types, ingestion, autorisations et traitement reportés** au chantier fonctionnel pièces jointes. Ne pas montrer un bouton qui prétend accepter des PJ si rien ne fonctionne réellement. |
+| **Dicter / microphone** | **Immédiatement à gauche d'Envoyer**, quand la capacité sera disponible. | **Emplacement réservé seulement** ; transcription, permissions micro, états vocaux et implémentation ne sont **pas engagés** dans le Sujet 03. Aucun micro fictivement actif. |
+| **Envoyer** | Extrémité droite, dans le compositeur compact et lorsqu'il grandit. | **Action active dès que le message est transmissible**, selon les états vrais du service. Une commande indisponible l'indique sans créer de faux effet. |
+
+**Arbitrage de sobriété :** ne pas implémenter une capacité seulement pour remplir un emplacement ; afficher les contrôles effectivement utilisables, garder un layout adaptable quand `+` et microphone seront intégrés. Les « ressources existantes du projet » et les PJ externes ne sont pas confondues par défaut ; leur conception sera conduite avec leurs responsables.
+
+### 10.6. Scénarios candidats de qualification du compositeur (NON EXÉCUTÉS)
+
+| ID | Scénario | Résultat attendu |
+|---|---|---|
+| UX-COMP-01 | Premier affichage, champ vide puis phrase d'une ligne | Compositeur **compact sur une ligne**, envoi indisponible à vide. |
+| UX-COMP-02 | Rédaction graduelle sur 2, 5, 10 lignes | Croissance fluide, ancrage bas, limite atteinte sans recouvrir le fil. |
+| UX-COMP-03 | Texte collé long puis suppression graduelle | Champ avec défilement interne au plafond ; réduction immédiate jusqu'à une ligne. |
+| UX-COMP-04 | Desktop `Entrée` / `Maj + Entrée` / composition IME | Envoi unique ou retour ligne conforme, pas d'envoi pendant IME. |
+| UX-COMP-05 | Mobile clavier virtuel + retour ligne + tap envoi | Retour ligne sans envoi, bouton accessible sans masque ni clipping. |
+| UX-COMP-06 | Brouillon A → Journal → Travail, puis refresh | **Texte A inchangé**, isolation par projet, fil en bas selon UX-002. |
+| UX-COMP-07 | Brouillon dans A, navigation vers B, retour A | Aucun mélange ni fuite de texte entre projets, brouillon A conservé dans son contexte. |
+| UX-COMP-08 | Brouillon rédigé + clic « Approfondir B » depuis Nora | Seule intention B transmise, **brouillon libre intact**, groupe de choix inactif conformément au Sujet 02. |
+| UX-COMP-09 | Envoi libre confirmé | Message visible dans le fil, contenu envoyé retiré du compositeur sans toucher à une saisie postérieure. |
+| UX-COMP-10 | Modification du brouillon pendant attente d'ACK / réponse | Confirmation ancienne **n'efface pas** le nouveau texte ; aucun succès/pending inventé. |
+| UX-COMP-11 | Saisie longue, zoom, écran étroit, navigation clavier | Envoi/focus/curseur utilisables, fil accessible, mouvement réduit respecté si animation. |
+| UX-COMP-12 | Pièces jointes et dictée non construites | Placement futur compatible, mais aucun bouton trompeusement opérationnel ; pas d'effet/micro/upload simulé. |
+| UX-COMP-13 | Échec, envoi `UNKNOWN` et retour après interruption | Aucun doublon ni perte silencieuse de brouillon ; **états détaillés à définir au Sujet 04**, réutilisant le service existant. |
+
+**Preuves attendues avant réception :** captures Figma/runtime à viewports comparables, mesures hauteur minimale/plafond et stabilité des boutons, BROWSER desktop/mobile avec vrais événements clavier/IME, tests de navigation/refresh et isolation projet, états `pending/UNKNOWN`, accessibilité et non-régression UX-002 + Sujet 02. Les scénarios sont des **oracles**, pas des PASS ; la vidéo utilisateur constitue une **référence ergonomique**, non une preuve d'implémentation.
+
+### 10.7. Qualification et sortie du Sujet 03
+
+| Dimension | Qualification au 17/11/2026 |
+|---|---|
+| Compact une ligne, croissance/réduction fluide, plafond, bas ancré | **VALIDATED SPEC BY MORRIS** |
+| Clavier desktop/mobile et envoi explicite | **VALIDATED SPEC BY MORRIS** |
+| Brouillon option B, isolation par projet, navigation et refresh | **VALIDATED SPEC BY MORRIS** |
+| Disposition `+` à gauche, envoyer à droite, micro prévu avant Envoyer | **VALIDATED SPEC POUR LA DISPOSITION** |
+| Prise en charge réelle des PJ et dictée | **HORS DU SUJET 03 / À CONCEVOIR QUAND LA CAPACITÉ EST TRAITÉE**, aucun accès fictif |
+| Choix de stockage, durée exacte, responsive pixel-perfect, code corrigé, UX-COMP-01..13 | **À QUALIFIER / NON PROUVÉ** |
+| Erreurs, interruptions, reprise, `UNKNOWN`, fiabilité détaillée | **SUJET 04 À INSTRUIRE**, sans machine d'états concurrente |
+| Gate C, PR, merge, product release / ADOPTED | **NON ACQUIS** |
+
+**SORTIE DU SUJET 03 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026.** Le Sujet 03 est clos sur **son périmètre ergonomique**, sans mise en production ni preuve d'application. **L'Ensemble 05 reste EN REVUE**.
+
+**Suite : Sujet 04 — États d'activité, erreurs et reprise.** Préserver les invariants déjà acquis, intégrer les responsabilités existantes D3/D6/D7/D8, et étudier les cas `pending` / `UNKNOWN` sans ajouter de second moteur. Le contrat d'Ensemble 05 demeure un **document intégré unique** ; les scénarios et réserves de tous les sujets serviront à préparer **un ensemble de réalisation cohérent après GO Morris distinct**, jamais une micro-tâche Cursor par scénario.
