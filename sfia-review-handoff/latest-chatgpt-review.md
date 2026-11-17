@@ -3370,8 +3370,16 @@ index c334afa1..cbf289b5 100644
      pilotage,
 ```
 
-## 15. Handoff L3
-À publier sur `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (mono-fichier).
+## 15. Handoff L3 — publié
+| Item | Value |
+|---|---|
+| Branch | `sfia/review-handoff` |
+| Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Tip | `62399e900ec940687c6e50fc0e1f3ad74668f19b` |
+| Blob | `a00306dadd73f58fee354e9ff3c505946ac6dfe9` |
+| Parent | `b452698c5734cd17e34598e245636f37e6411f91` |
+| Mono-fichier | OUI |
+| Product push | **NONE** |
 
 ## 16. Instruction ChatGPT
 Lire le tip distant `sfia/review-handoff` avant recommandation Morris.
