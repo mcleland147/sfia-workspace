@@ -3,8 +3,8 @@
 | Métadonnée | Valeur |
 |---|---|
 | Périmètre | R5 / ML4D — Ensemble 05, Travail avec Nora |
-| Version | **v0.5 — 17 novembre 2026 : ajout du Sujet 04 / activité de Nora, erreurs et reprise validées en conception UX** |
-| Statut | **VALIDATED SPEC par Morris : UX-002, Sujet 02 (réponses structurées), Sujet 03 (compositeur) et Sujet 04 (activité dynamique, progression réelle, erreurs contextualisées et reprise sans doublon)** ; Sujets 02/03/04 clos **en conception UX seulement** ; architecture, implémentation et preuves RECETTE ouvertes |
+| Version | **v0.6 — 17 novembre 2026 : ajout du Sujet 05 / visionneuse contextuelle et cohérence du fil validées en conception UX** |
+| Statut | **VALIDATED SPEC par Morris : UX-002 et Sujets 02 à 05** (réponses structurées, compositeur, activité/reprise et visionneuse contextuelle) ; **les cinq sujets sont arbitrés en conception UX**, mais synthèse transverse Ensemble 05, architecture, réalisation et preuves RECETTE restent ouvertes |
 | Autorité | Morris : arbitrages UX ; ChatGPT : formalisation et revue ; Cursor : réalisation technique sous GO distinct |
 | Référentiel de suivi | [Registre central ML4D](registre-central-revues.md) |
 | Branche documentaire | docs/next-ml4d-registre-revues-20261116 — candidate, distincte de main |
@@ -15,11 +15,11 @@
 
 Ce document constitue le **support de conception intégré de l’Ensemble 05**. Il accueillera progressivement les **sujets UX réellement examinés et arbitrés par Morris**, sans générer un document ou un micro-cycle Cursor par irritant.
 
-Quatre sujets arbitrés au 17/11/2026 : **UX-002 / S07-06-R01 — position de lecture et continuité du fil**, **Sujet 02 / UX-007 — restitution structurée adaptative et interactions**, **Sujet 03 / UX-008 — compositeur Nora**, et **Sujet 04 / UX-009 — activité de Nora, erreurs et reprise**. Ils constituent un **contrat UX cohérent** : saisie, réponse, progression et actes techniques restent distingués ; un envoi suit UX-002 et clôt les choix du tour précédent sans effacer le brouillon indépendant.
+Cinq sujets arbitrés au 17/11/2026 : **Sujet 01 / UX-002 — position de lecture et continuité du fil**, **Sujet 02 / UX-007 — restitution structurée adaptative et interactions**, **Sujet 03 / UX-008 — compositeur Nora**, **Sujet 04 / UX-009 — activité, erreurs et reprise**, et **Sujet 05 / UX-010 — visionneuse contextuelle de Travail**. Le fil unique reste cohérent : lire une ressource, rédiger, converser, vérifier une activité et agir techniquement demeurent des responsabilités distinctes.
 
 **Résultat Pilote attendu :** dans un projet existant, revenir au dernier échange par défaut après une navigation, un rafraîchissement ou une reconnexion ; suivre naturellement un échange actif, tout en pouvant relire librement des messages passés sans défilement imposé lorsqu'une nouvelle réponse arrive.
 
-**IN :** fil visible, position de lecture, nouveaux messages, comportement après envoi/réception, retour depuis les autres surfaces, rafraîchissement, reprise de session, fil long, commande de retour en bas, **grammaire de réponses composites et interactions immédiates**, **compositeur compact/redimensionnable et brouillon isolé par projet**, **indication d'activité réelle et dynamique de Nora, étapes contextuelles, états d'attente, incidents contextualisés et reprise sûre**, accessibilité et situations incertaines.
+**IN :** fil visible, position de lecture, nouveaux messages, comportement après envoi/réception, retour depuis les autres surfaces, rafraîchissement, reprise de session, fil long, commande de retour en bas, **grammaire de réponses composites et interactions immédiates**, **compositeur compact/redimensionnable et brouillon isolé par projet**, **activité dynamique, étapes contextuelles, erreurs et reprise sûre**, **visionneuse rapide en lecture seule, partage 50/50 dans Travail, agrandissement, retour et changement de ressource**, accessibilité et situations incertaines.
 
 **OUT :** nouveau système de chats, refonte du moteur Nora/D4/D6, nouvelles API ou migrations décidées par ce seul document, refonte du layout commun de l’Ensemble 04, nouveau moteur de décisions ou d’effets, fonctionnalité ML5, démarrage technique et promotion. Les besoins de contrat sémantique, persistance, permissions ou API découverts pendant la revue sont à qualifier auprès de leurs propriétaires avant réalisation.
 
@@ -582,4 +582,98 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 
 **SORTIE DU SUJET 04 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026.** Le Sujet 04 est clos **sur le comportement et la présentation**. Il ne constitue ni nouvelle architecture, ni moteur de streaming, ni preuve de récupération de tentative.
 
-**Suite : Sujet 05 — Inspection contextuelle et cohérence du fil**, dernier sujet de revue dans l'Ensemble 05, avant consolidation transverse des contrats, qualification de la réalisation et gate Morris distinct. **L'Ensemble 05 reste EN REVUE.** Tous les sujets seront intégrés au même macro-lot de réalisation cohérent, avec preuves et responsable d'intégration après GO technique.
+**Suite après le Sujet 04 :** le **Sujet 05 — Visionneuse contextuelle et cohérence du fil** est maintenant documenté au **§12** et arbitré en conception. **L'Ensemble 05 reste EN REVUE**, en attente de synthèse transverse et de qualification technique. Tous les sujets seront réalisés dans un macro-lot cohérent avec preuves après GO Morris distinct.
+
+## 12. Sujet 05 — Visionneuse contextuelle et cohérence du fil (VALIDATED SPEC, Morris 17/11/2026)
+
+### 12.1. Résultat et frontière de l'Ensemble 05
+
+**Résultat Pilote :** consulter rapidement depuis le fil Nora un document réellement produit ou une source réellement accessible, **sans quitter Travail**, puis revenir au dialogue et à son brouillon. C'est une **visionneuse contextuelle en lecture seule**, pas un éditeur de documents ni un second espace de travail.
+
+**Arbitrage explicite Morris :** la capture RECETTE CampusFlow montre le rail gauche fixe, le fil/compositeur au centre et « En bref » à droite. À l'ouverture, **il ne s'agit pas d'utiliser le petit panneau droit tel quel** : l'espace de travail **à droite du rail** se redistribue en deux parties de principe **50/50** entre conversation/compositeur et visionneuse. Morris a aussi évoqué oralement « 55/45 » à titre d'ordre de grandeur ; la cible expressément confirmée ensuite est **moitié-moitié**, hors rail, à calibrer géométriquement à la réalisation sans figer artificiellement les pixels.
+
+**Séparation décidée par Morris :** **Ensemble 05 = visualisation rapide pendant le dialogue ; Ensemble 06 — Documents et Journal = bibliothèque, comparaison/versions, édition et révision documentaire assistée par Nora selon les capacités réelles.** Les propositions de sélection de texte, injection de contexte dans le compositeur et bouton « Demander à Nora » dans la visionneuse ont été **retirées du périmètre approuvé**. Aucun éditeur universel, second chat, moteur documentaire ou nouvelle fonctionnalité d'édition n'est décidé ici.
+
+**Sources existantes :** [Figma Travail](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=652-8), [Figma inspection](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370), [Figma révision/inspection](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=97-359) ; [R3 §17 inspection](../../ux-ui/espace-projet-interaction-pilote-nora.md) (hypothèses plus larges non automatiquement retenues dans Travail), [R2 D3 RG-UX-004..009](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [D4 RG-KNOW-016..020](../../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md). La capture utilisateur et les maquettes examinées ne sont **pas des preuves runtime nouvelles** ni une modification Figma.
+
+### 12.2. Trois modes de disposition (VALIDATED SPEC)
+
+| Mode | Comportement validé |
+|---|---|
+| **Travail sans visionneuse** | Rail gauche fixe ; fil et compositeur en zone centrale ; panneau droit **« En bref »** selon le cadre Ensemble 04 accepté avec réserves. |
+| **Visionneuse ouverte** | Rail gauche **inchangé** ; **moitié de l'espace utile pour fil + compositeur, moitié pour la visionneuse**, qui **remplace temporairement « En bref »**. Ni quatrième colonne, ni visionneuse étranglée dans l'ancienne largeur. |
+| **Lecture partagée** | Conversation et compositeur visibles et utilisables ; défilement de la visionneuse indépendant ; aucun nouveau fil/chat ni envoi implicite. Transition de largeur fluide sans détruire le fil, le texte, le focus ou l'activité. |
+| **Agrandissement** | Icône permettant à la visionneuse d'occuper **toute la zone à droite du rail**. Conversation/compositeur masqués temporairement mais **non détruits ni réinitialisés**. |
+| **Réduction** | Retour au partage moitié-moitié, **sur la même ressource, même version et point de lecture**, avec fil/brouillon préservés. |
+| **Fermeture** | Retour à la largeur initiale du fil et au panneau **« En bref »** ; aucun effet métier, écriture ou déplacement forcé de scroll par la fermeture. |
+| **Écran étroit/mobile** | Ne pas imposer un 50/50 illisible ; visionneuse en zone utile avec sortie explicite vers Travail, en préservant les données. Dimensions et breakpoints techniques à qualifier. |
+
+**Cohérence UX-002 :** le redimensionnement ou la fermeture interne de la visionneuse ne vaut pas un retour de navigation depuis un autre écran et ne force donc pas un scroll au bas du fil. Une vraie navigation **Documents → Travail** reprend la politique UX-002 (dernier message par défaut). Pendant la lecture volontaire de messages anciens, une nouvelle réponse ne déplace pas le Pilote et garde le signal discret déjà validé. La saisie respecte le Sujet 03.
+
+### 12.3. Une visionneuse unique et le changement de ressource (VALIDATED SPEC)
+
+**Décision Morris :** **une seule visionneuse active** dans Travail. Si le Pilote clique un autre document/lien consultable, **son contenu remplace celui de la même visionneuse**. Aucun deuxième panneau, aucune superposition, aucun onglet documentaire dans Travail.
+
+| Interaction | Effet attendu |
+|---|---|
+| Cliquer une production Nora conservée | Ouvrir la version effectivement disponible en **lecture seule**, avec titre, provenance, statut/version réels. |
+| Cliquer une autre ressource B alors que A est ouvert | Remplacer A par B dans **la même visionneuse** ; conserver le fil et le brouillon. |
+| Retour simple à la ressource précédente dans la même consultation | Possible **si l'origine est réellement connue/conservée**, sans fabriquer une pile d'onglets ou un historique indépendant durable. |
+| Agrandir/réduire | Ne change ni ressource ni version ; conserver autant que possible la position de lecture. |
+| Ouvrir dans Documents | Naviguer explicitement vers la ressource canonique en Ensemble 06 **si elle existe et reste autorisée** ; ne pas présenter un lien fictif. |
+| Source Git ou lien externe | Aperçu seulement si le contenu a été **réellement obtenu** avec droits actuels ; sinon lien vers l'original (nouvel onglet navigateur si pertinent) ou état d'indisponibilité. Pas de navigateur web intégré ni droit Git induit. |
+| Fermer | Restaurer Travail et « En bref » sans modifier l'objet, envoyer un message ou déclencher d'effet. |
+
+**Types prioritaires** : documents Nora et aperçus de sources Git ; les hypothèses R3 sur contrats, décisions, résultats et autres objets **ne créent aucune obligation nouvelle dans cette visionneuse**. L'Inspection complète des documents et la gestion documentaire appartiennent à l'Ensemble 06.
+
+### 12.4. Invariants et responsabilités
+
+1. **Lecture seulement.** Ouvrir, consulter, remplacer, agrandir et fermer ne créent ni version documentaire, ni HumanDecision, ni lancement, ni publication Git, ni message Nora.
+2. **Une vérité par objet.** Identité/version/statut du document en D4 ; provenance et droits Git en D9 ; constat/proof en D8 si applicable. La visionneuse n'est jamais une source officielle concurrente.
+3. **Droits et honnêteté.** Accès courant recontrôlé ; source indisponible, révoquée ou périmée = état approprié, pas de faux aperçu, de fuite ni de contenu reconstruit. Les liens historiques de lecture restent distincts des anciens choix conversationnels expirés (Sujet 02).
+4. **Continuité.** Un seul fil, brouillon par projet intact, référence lue intacte à l'agrandissement, responsive et focus/clavier cohérents ; défilement de lecture et de conversation indépendants.
+5. **Accessibilité et absence de dette gratuite.** Actions Fermer/Agrandir/Réduire identifiables au clavier/lecteur d'écran, focus restitué, zoom/mobile utilisables ; aucun second moteur de navigation, aucun éditeur/selection interactive ajouté par inertie.
+
+### 12.5. État Git et impacts avant implémentation
+
+**Code consulté : `main@997d4c4e8204993de7107552898c8cc08cd3b0ed`.** Dans `web/src/app/projects/[projectId]/page.tsx`, `openDocumentReadOnly` bascule vers `surface="document"`, avec `DocumentLibrary`/`DocumentInspector` ; `NoraConversation` apparaît uniquement sur `surface="travail"`. Le partage contextuel 50/50 **n'est pas démontré** sur `main`. Le code local et la RECETTE à cet instant sont **NON OBSERVÉS**, sans déduction sur staged/untracked.
+
+**Blast radius :** shell/rail stable, grille Travail et « En bref », changement de vue et URL/historique, récupération des ressources, cache/permissions/provenance et états d'erreur, défilement indépendant, maintien de brouillon/fil, modes partagés/étendus, responsive, accessibilité, Figma cible, intégration avec l'Ensemble 06, tests réels. Ne pas réécrire des propriétaires D3–D9 ni faire évoluer une fonctionnalité documentaire hors contrat.
+
+**Gates :** contrat visuel Figma à synchroniser avant conformité forte ; réalisation code/tests/documentation en macro-lot cohérent sous GO Morris distinct et SFIA v2.6 ; aucun PR/merge/réception globale automatiquement induits.
+
+### 12.6. Scénarios d'acceptation candidats (NON EXÉCUTÉS)
+
+| ID | Scénario | Oracle |
+|---|---|---|
+| UX-VIEW-01 | Travail normal | « En bref » visible, fil et compositeur opérationnels, rail fixe. |
+| UX-VIEW-02 | Ouvrir document Nora réel | **50/50 hors rail**, « En bref » remplacé, document en lecture seule/version réelle. |
+| UX-VIEW-03 | Dialoguer avec Nora en visualisant | Conversation/compositeur accessibles, sans perte de brouillon ni second chat. |
+| UX-VIEW-04 | Agrandir, réduire un long document | Rail inchangé, même ressource/version/point de lecture ; retour à la moitié. |
+| UX-VIEW-05 | Fermer | « En bref » revient, largeur initiale restituée, pas de saut de scroll. |
+| UX-VIEW-06 | Cliquer A puis B | Même visionneuse, contenu remplacé, aucun panneau/onglet additionnel. |
+| UX-VIEW-07 | Revenir à A dans la même consultation | Retour simple si origine connue ; aucun faux historique. |
+| UX-VIEW-08 | Ouvrir dans Documents | Bonne ressource/projet en Ensemble 06, aucun changement de version implicite. |
+| UX-VIEW-09 | Git accessible/inaccessible/revocation | Aperçu uniquement autorisé et récupéré, sinon lien ou état honnête. |
+| UX-VIEW-10 | Nouveau message Nora pendant relecture ancienne | UX-002 respecte la lecture, visionneuse ouverte, signal nouveau contenu. |
+| UX-VIEW-11 | Ouvrir/fermer avec brouillon projet A | Texte intact, non envoyé, projet B isolé. |
+| UX-VIEW-12 | Mobile, écran étroit, zoom, clavier | Lecture confortable, retour et actions accessibles sans fausse répartition 50/50. |
+| UX-VIEW-13 | Action d'édition depuis Travail | Aucun bouton éditeur fictif : bascule volontaire vers Ensemble 06 si capacité réelle. |
+| UX-VIEW-14 | Lien de source dans un message ancien | Lecture encore autorisée indépendamment de l'expiration des choix conversationnels. |
+| UX-VIEW-15 | Lien direct sans origine connue | Aucun retour fictif, état d'accès réel et sortie utile. |
+
+**Preuves futures :** captures Figma/runtime comparables (normal, moitié/moitié, agrandi), mesures F2 pertinentes, essais BROWSER et, selon les capacités, LIVE/REAL sur SHA/build contrôlé ; droits, sources manquantes, zoom/mobile/focus, rafraîchissement, maintien brouillon, conversation en cours et non-régression Ensemble 04 + Sujets 01–04. **Aucun scénario n'est déclaré PASS par la rédaction du contrat.**
+
+### 12.7. Sortie de conception et cohérence des cinq sujets
+
+| Élément | Qualification |
+|---|---|
+| Lecture seule, disposition 50/50 hors rail, « En bref » remplacé | **VALIDATED SPEC BY MORRIS** |
+| Agrandir/réduire/fermer, contexte/fil/brouillon conservés | **VALIDATED SPEC BY MORRIS** |
+| Une visionneuse et changement de ressource sans panneaux/onglets | **VALIDATED SPEC BY MORRIS** |
+| Gestion documentaire/édition/versioning approfondi et « Demander à Nora » sur sélection | **HORS SUJET 05 — ENSEMBLE 06 / domaines propriétaires** |
+| Modes pixel/mobile, support sources, sécurité et disponibilité effective | **À QUALIFIER / NON PROUVÉS** |
+| UX-VIEW-01..15 | **CANDIDATS / NON EXÉCUTÉS** |
+| Gate C, code, PR, merge, ADOPTED | **NON ACQUIS** |
+
+**SORTIE DU SUJET 05 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026.** Les **cinq sujets de Travail avec Nora sont arbitrés** mais **l'Ensemble 05 n'est pas encore réceptionné ni clos**. La prochaine étape est la revue intégrée de cohérence et complétude des Sujets 01–05, puis la qualification des écarts et preuves en vue d'un **macro-lot de réalisation cohérent sous GO distinct**. Aucun avancement technique ni promotion ne découle de cette contribution documentaire.
