@@ -3,8 +3,8 @@
 | Métadonnée | Valeur |
 |---|---|
 | Périmètre | R5 / ML4D — Ensemble 05, Travail avec Nora |
-| Version | **v0.6 — 17 novembre 2026 : ajout du Sujet 05 / visionneuse contextuelle et cohérence du fil validées en conception UX** |
-| Statut | **VALIDATED SPEC par Morris : UX-002 et Sujets 02 à 05** (réponses structurées, compositeur, activité/reprise et visionneuse contextuelle) ; **les cinq sujets sont arbitrés en conception UX**, mais synthèse transverse Ensemble 05, architecture, réalisation et preuves RECETTE restent ouvertes |
+| Version | **v0.7 — 17 novembre 2026 : revue transverse de cohérence des cinq sujets, clarifications rédactionnelles et oracles E2E** |
+| Statut | **VALIDATED SPEC Morris : UX-002 et Sujets 02 à 05** ; **revue transverse de cohérence DOCUMENTED au §13, sans nouvel arbitrage**. Les cinq sujets sont clos en conception UX ; **Ensemble 05 non reçu/non clos**, contrat visuel, architecture, réalisation et preuves RECETTE encore ouverts |
 | Autorité | Morris : arbitrages UX ; ChatGPT : formalisation et revue ; Cursor : réalisation technique sous GO distinct |
 | Référentiel de suivi | [Registre central ML4D](registre-central-revues.md) |
 | Branche documentaire | docs/next-ml4d-registre-revues-20261116 — candidate, distincte de main |
@@ -17,7 +17,7 @@ Ce document constitue le **support de conception intégré de l’Ensemble 05**.
 
 Cinq sujets arbitrés au 17/11/2026 : **Sujet 01 / UX-002 — position de lecture et continuité du fil**, **Sujet 02 / UX-007 — restitution structurée adaptative et interactions**, **Sujet 03 / UX-008 — compositeur Nora**, **Sujet 04 / UX-009 — activité, erreurs et reprise**, et **Sujet 05 / UX-010 — visionneuse contextuelle de Travail**. Le fil unique reste cohérent : lire une ressource, rédiger, converser, vérifier une activité et agir techniquement demeurent des responsabilités distinctes.
 
-**Résultat Pilote attendu :** dans un projet existant, revenir au dernier échange par défaut après une navigation, un rafraîchissement ou une reconnexion ; suivre naturellement un échange actif, tout en pouvant relire librement des messages passés sans défilement imposé lorsqu'une nouvelle réponse arrive.
+**Résultat Pilote attendu :** dans un projet existant, disposer d'un **fil unique** lisible et continu : dernier échange visible après navigation ou reprise, relecture volontaire sans scroll imposé, réponse composite et activité honnête, brouillon préservé, visionneuse de sources rapide sans sortir de Travail ni réinventer l'édition documentaire. Les interactions conservent leur sens et leurs propriétaires même lorsqu'elles se produisent ensemble.
 
 **IN :** fil visible, position de lecture, nouveaux messages, comportement après envoi/réception, retour depuis les autres surfaces, rafraîchissement, reprise de session, fil long, commande de retour en bas, **grammaire de réponses composites et interactions immédiates**, **compositeur compact/redimensionnable et brouillon isolé par projet**, **activité dynamique, étapes contextuelles, erreurs et reprise sûre**, **visionneuse rapide en lecture seule, partage 50/50 dans Travail, agrandissement, retour et changement de ressource**, accessibilité et situations incertaines.
 
@@ -65,7 +65,7 @@ L’objectif est un **comportement stable dans les conversations longues**, sans
 | Situation | Comportement requis |
 |---|---|
 | Ouverture initiale de Travail dans un projet existant | Après chargement effectif des messages, positionner la **fin du fil** sur le dernier message disponible. |
-| Retour à Travail depuis Journal, Projet, Trajectoire, Documents ou inspection | Positionner la **fin du fil**, y compris si le Pilote avait auparavant consulté un message ancien. |
+| Retour à Travail **depuis une autre surface** (Journal, Projet, Trajectoire, Documents ou inspection étendue **ayant réellement quitté Travail**) | Positionner la **fin du fil**, même si le Pilote avait auparavant lu un ancien message. **Ne pas appliquer cette règle** à la visionneuse interne de Travail (§12) : son ouverture, son agrandissement et sa fermeture sont un **changement de disposition**, pas un retour de navigation. |
 | Rafraîchissement navigateur en cours de lecture | Après reconstruction du fil, afficher **le dernier message**, jamais le premier par défaut. |
 | Reconnexion / réouverture de projet | Afficher **le dernier message réellement récupéré**, sans affirmer que la synchronisation est complète si elle ne l'est pas. |
 | Envoi explicite d'un message Pilote | Rendre visible **le message envoyé / fin de fil**, sans masquer un état d'envoi incertain. |
@@ -74,7 +74,7 @@ L’objectif est un **comportement stable dans les conversations longues**, sans
 | Clic sur le contrôle de retour en bas | Aller à la fin du fil et rendre le dernier message visible ; quitter le mode de relecture historique. |
 | Retour manuel du Pilote en fin de fil | Reprendre le suivi normal des nouveaux messages ; ne plus afficher un indicateur devenu inutile. |
 
-**Priorité des règles :** l'ouverture et le retour à Travail utilisent la position par défaut (fin du fil) ; **tant que le Pilote reste dans Travail**, sa relecture volontaire est respectée face aux nouvelles réponses. La navigation hors de Travail puis son retour rétablit la position par défaut. Ce comportement n'implique pas de sauvegarder un offset de lecture entre sessions.
+**Priorité des règles :** l'ouverture et le **véritable retour de navigation** vers Travail utilisent la fin du fil ; **tant que Travail reste la surface active**, y compris lorsqu'une visionneuse contextuelle s'ouvre, change de taille ou se ferme, le point de lecture volontaire du fil reste protégé. Le retour depuis la **surface Documents dédiée** rétablit la position par défaut. Aucun offset de lecture intersession n'est imposé.
 
 ### 3.4. Contrôle de retour au dernier message
 
@@ -367,7 +367,7 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 
 **SORTIE DU SUJET 02 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026**, sous réserves de qualification technique, réalisation et preuves. Les principes A–F, la grammaire visuelle sobre, les interactions immédiates et leur expiration, le brouillon indépendant, le contenu progressif et les sources/preuves sont documentés. **Aucun code n'est réalisé ni aucun scénario BROWSER/LIVE n'est déclaré PASS par cette publication.**
 
-**Suite logique de l'Ensemble 05 après le Sujet 02 :** le **Sujet 03 — compositeur** est désormais traité au §10 et clos **en conception UX** ; les **états d'activité, erreurs et reprise** restent à instruire au **Sujet 04**. La réalisation restera intégrée dans un même ensemble cohérent après qualification et GO Morris distinct. Ce document demeure la source intégrée de conception ; le registre central conserve les arbitrages et preuves datés. Pas de document, moteur ou cycle autonome par scénario.
+**Lecture à jour de la suite initiale du Sujet 02 :** les Sujets 03, 04 et 05 ont ensuite été arbitrés dans les §§10–12 ; leur **jointure transverse est qualifiée au §13**. La réalisation restera un macro-lot intégré sous GO technique distinct ; le registre central conserve les arbitrages et réserves datés. Pas de nouveau document ou moteur par scénario.
 
 
 ## 10. Sujet 03 — Compositeur Nora : saisie, ergonomie et brouillon (VALIDATED SPEC, Morris 17/11/2026)
@@ -419,7 +419,7 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 **Option B expressément validée :** le brouillon non envoyé est conservé **pour chaque projet dans le navigateur courant**, y compris **navigation entre Travail, Journal, Projet ou inspection** et **rafraîchissement**. À la reprise de Travail, le contenu de saisie demeure tel que laissé ; le **fil revient à son dernier message conformément à UX-002**. Le retour de navigation ne signifie pas « envoyer » le brouillon.
 
 **Invariants UX :**
-1. **Isolation :** chaque projet/sas possède son contexte de saisie autorisé ; le brouillon de A ne doit jamais être visible ou transmis dans B, et aucun accès croisé ne découle du stockage local.
+1. **Isolation :** chaque projet/sas possède son contexte de saisie autorisé ; le brouillon de A ne doit jamais être visible ou transmis dans B, et aucun accès croisé ne découle du stockage local. La restauration d'un texte privé exige aussi **l'identité et les droits actuels du Pilote** : une reconnexion sous un autre utilisateur ou une révocation d'accès ne réexpose pas un brouillon par simple présence dans le même navigateur.
 2. **Non-transmission :** rédiger, changer de surface, restaurer un brouillon, choisir une option Nora ou coller du texte **n'envoie rien** du brouillon. Seul l'envoi explicite du compositeur transmet ce texte.
 3. **Protection du contenu :** une tentative non confirmée ne doit pas faire disparaître le brouillon ; une confirmation tardive d'un message déjà transmis **n'efface pas une saisie ultérieure** ou une version du brouillon distincte de celle envoyée.
 4. **Envoi confirmé :** le texte réellement transmis apparaît dans le fil ; seule la version effectivement envoyée peut être retirée du compositeur, sans perdre d'éventuels ajouts postérieurs. Définir et tester la gestion de concurrence avant code.
@@ -534,7 +534,7 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 
 **Continuité cognitive vs technique :** une tentative métier inconnue ne bloque **pas systématiquement** les échanges d'analyse **indépendants** avec Nora si le service actuel l'autorise. Une nouvelle demande d'effet **dépendant de l'état incertain** est refusée/suspendue ou soumise à réconciliation et contrôle d'autorité. Aucune file d'attente implicite, aucun second moteur d'envoi ni extension autonome des permissions.
 
-**Contraintes de confiance :** ne pas afficher de bouton « Vérifier l'état » si aucune consultation/réconciliation réelle n'existe ; ne pas rendre « Réessayer » actif lorsqu'il relancerait possiblement un effet externe. Gestion des clics répétés, d'une reconnexion et d'un changement de projet = même identité de tentative et isolation. Les erreurs persistantes doivent être retrouvables au bon objet après navigation, **dans la seule limite des traces réellement conservées**.
+**Contraintes de confiance :** ne pas afficher de bouton « Vérifier l'état » si aucune consultation/réconciliation réelle n'existe ; ne pas rendre « Réessayer » actif lorsqu'il relancerait possiblement un effet externe. Gestion des clics répétés, d'une reconnexion et d'un changement de projet = même identité de tentative et isolation. Les erreurs persistantes doivent être retrouvables au bon objet après navigation, **dans la seule limite des traces réellement conservées**. **La rédaction reste possible pendant une attente**, mais l'aptitude à **envoyer** un nouveau tour dépend de la qualification de coexistence et de l'état du service D3 : aucune nouvelle demande d'effet dépendante d'un `UNKNOWN` n'est supposée exécutable. Une erreur de tentative sans objet durable est rattachée temporairement à l'intention de message correspondante, jamais inventée comme un résultat métier confirmé.
 
 ### 11.5. État de référence dans Git et impacts de réalisation
 
@@ -596,7 +596,7 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 
 **Sources existantes :** [Figma Travail](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=652-8), [Figma inspection](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370), [Figma révision/inspection](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=97-359) ; [R3 §17 inspection](../../ux-ui/espace-projet-interaction-pilote-nora.md) (hypothèses plus larges non automatiquement retenues dans Travail), [R2 D3 RG-UX-004..009](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [D4 RG-KNOW-016..020](../../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md). La capture utilisateur et les maquettes examinées ne sont **pas des preuves runtime nouvelles** ni une modification Figma.
 
-### 12.2. Trois modes de disposition (VALIDATED SPEC)
+### 12.2. Modes de disposition (VALIDATED SPEC)
 
 | Mode | Comportement validé |
 |---|---|
@@ -608,7 +608,7 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 | **Fermeture** | Retour à la largeur initiale du fil et au panneau **« En bref »** ; aucun effet métier, écriture ou déplacement forcé de scroll par la fermeture. |
 | **Écran étroit/mobile** | Ne pas imposer un 50/50 illisible ; visionneuse en zone utile avec sortie explicite vers Travail, en préservant les données. Dimensions et breakpoints techniques à qualifier. |
 
-**Cohérence UX-002 :** le redimensionnement ou la fermeture interne de la visionneuse ne vaut pas un retour de navigation depuis un autre écran et ne force donc pas un scroll au bas du fil. Une vraie navigation **Documents → Travail** reprend la politique UX-002 (dernier message par défaut). Pendant la lecture volontaire de messages anciens, une nouvelle réponse ne déplace pas le Pilote et garde le signal discret déjà validé. La saisie respecte le Sujet 03.
+**Cohérence UX-002 :** ouvrir, agrandir, réduire, remplacer le contenu ou fermer la visionneuse **dans Travail** ne vaut pas un retour depuis un autre écran et ne force jamais le scroll du fil. Une vraie navigation **Documents → Travail** utilise le dernier message par défaut. Si Nora termine une réponse pendant que le Pilote consulte une visionneuse **étendue** (fil masqué), la visionneuse ne se referme pas d'elle-même ; au retour au partage, **le fil suivi en bas peut présenter le nouveau contenu**, tandis qu'une **relecture historique volontaire conserve son ancrage avec l'indicateur UX-002**. Les états d'activité (§11) et le brouillon (§10) ne sont ni effacés ni falsifiés.
 
 ### 12.3. Une visionneuse unique et le changement de ressource (VALIDATED SPEC)
 
@@ -617,7 +617,7 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 | Interaction | Effet attendu |
 |---|---|
 | Cliquer une production Nora conservée | Ouvrir la version effectivement disponible en **lecture seule**, avec titre, provenance, statut/version réels. |
-| Cliquer une autre ressource B alors que A est ouvert | Remplacer A par B dans **la même visionneuse** ; conserver le fil et le brouillon. |
+| Cliquer une autre ressource B alors que A est ouvert | Remplacer A par B dans **la même visionneuse**, avec **titre, identité, version et état de lecture de B** ; conserver le fil et le brouillon, sans transférer à B le statut ou le contenu de A. |
 | Retour simple à la ressource précédente dans la même consultation | Possible **si l'origine est réellement connue/conservée**, sans fabriquer une pile d'onglets ou un historique indépendant durable. |
 | Agrandir/réduire | Ne change ni ressource ni version ; conserver autant que possible la position de lecture. |
 | Ouvrir dans Documents | Naviguer explicitement vers la ressource canonique en Ensemble 06 **si elle existe et reste autorisée** ; ne pas présenter un lien fictif. |
@@ -677,3 +677,60 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 | Gate C, code, PR, merge, ADOPTED | **NON ACQUIS** |
 
 **SORTIE DU SUJET 05 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026.** Les **cinq sujets de Travail avec Nora sont arbitrés** mais **l'Ensemble 05 n'est pas encore réceptionné ni clos**. La prochaine étape est la revue intégrée de cohérence et complétude des Sujets 01–05, puis la qualification des écarts et preuves en vue d'un **macro-lot de réalisation cohérent sous GO distinct**. Aucun avancement technique ni promotion ne découle de cette contribution documentaire.
+
+
+## 13. Revue transverse de cohérence — Sujets 01 à 05 (17/11/2026, DOCUMENTED)
+
+### 13.1. Mandat, méthode et verdict documentaire
+
+**Mandat Morris :** après validation indépendante des cinq sujets, vérifier leur **fonctionnement conjoint**, détecter les contradictions et intégrer directement les **clarifications marginales** dans ce document et le registre existant, **sans réarbitrer la vision produit, l'architecture, les pouvoirs D1–D9 ou les gates**.
+
+**Contrôle effectué :** comparaison des exigences UX-002 / UX-007 / UX-008 / UX-009 / UX-010 avec les contrats R2 D3/D4/D6/D7/D8, la séparation documentaire Ensemble 06, les références R3/Figma et le chemin de code observable sur **`main@997d4c4e8204993de7107552898c8cc08cd3b0ed`**. La **branche documentaire** apporte les nouveaux contrats ; le **candidat local RECETTE** et ses staged/untracked, son runtime et ses derniers tests restent **NON OBSERVÉS**. La revue est **une vérification de cohérence de SPEC**, pas un test end-to-end ni un verdict d'implémentation.
+
+**Verdict : COMPATIBLE EN CONCEPTION APRÈS CLARIFICATIONS DOCUMENTAIRES.** Aucune incompatibilité substantielle entre les **décisions Morris réellement validées** ne nécessite un nouvel arbitrage métier dans cette revue. Les points de raccordement ci-dessous sont des **précisions de priorité, d'identité ou de non-effet** ; ils ne modifient ni la cible 50/50, ni la liberté de composition Nora, ni le clavier, ni la conservation du brouillon, ni la durée de vie des choix. Cela ne signifie pas **fonctionnement prouvé**, ni adoption d'une architecture capable de tout satisfaire.
+
+### 13.2. Jointures et règles de priorité sans ambiguïté
+
+| Jointure | Règle commune à appliquer | Ajustement/réserve |
+|---|---|---|
+| **01 Défilement × 05 Visionneuse** | **Navigation réelle vers Travail** = dernier message par défaut ; **ouvrir/réduire/agrandir/fermer une visionneuse dans Travail** = simple changement de layout, sans retour au bas imposé. | Clarification §3.3/§3.3 priorité et §12.2. Une réponse arrivant pendant l'inspection ne ferme pas celle-ci et respecte la lecture volontaire. |
+| **01 Défilement × 02 Choix conversationnels** | Le clic sur un choix qui **transmet effectivement un nouveau message Pilote** est un envoi volontaire : suivre le message en fin de fil, sans détruire le brouillon ni fermer la visionneuse. Un clic de lecture de source **n'est pas** un envoi et ne modifie pas le scroll. | La nouvelle réponse Nora ne force jamais le retour si le Pilote est ensuite remonté pour relire. |
+| **02 Choix × 03 Brouillon × 04 État inconnu** | Au clic sur un choix de poursuite, **geler immédiatement les commandes de ce groupe** pour éviter le double clic. Les rendre **définitivement inactives seulement lorsque la transmission effective du tour Pilote est établie**. Si ACK perdu/état inconnu : conserver le gel, **réconcilier d'abord** ; si non-transmission confirmée, ne réautoriser que selon la validité actuelle de ce même tour/choix et les règles D3. | « Gel anti-doublon » n'est **pas** « choix définitivement expiré » ; aucun message fictivement transmis. Le brouillon libre est inchangé. §6.8 demeure canonique sur la durée de vie. |
+| **02 Réponse progressive × 04 Étapes d'activité** | **Une seule réponse Nora**, enrichie quand le contenu est réellement disponible. Les étapes d'activité sont un **résumé de faits externes observables rattaché à ce tour**, non des messages supplémentaires, pas le raisonnement interne. | Les **choix de poursuite** ne deviennent actionnables qu'à la **finalisation confirmée** ; une réponse interrompue reste partielle, sans faux choix actif. Les liens de lecture réellement disponibles sont distincts des choix. |
+| **02 Sources × 05 Visionneuse** | Un **lien historique de consultation** reste utilisable sous droits actuels même si les boutons de poursuite du message ont expiré. Ouvrir une ressource réelle alimente **la visionneuse unique, lecture seule** ; une autre ressource remplace la précédente, sans créer de nouveau chat ni modifier de version. | Si l'aperçu n'existe pas ou que les droits ont expiré : lien/indisponibilité honnêtes, pas de cible ni contenu inventés. |
+| **03 Brouillon × 04 Activité/pending** | **Éditer le brouillon n'est pas envoyer.** Le champ et le texte peuvent rester disponibles pendant attente/erreur ; l'**envoi** n'est actif que lorsque le service peut admettre le nouveau tour selon sa vraie qualification (indépendant, dépendant ou incertain). | Ne pas imposer un blocage général de rédaction par un `UNKNOWN`, ni prétendre que n'importe quelle demande d'effet peut être lancée. Si ACK tardif, ne vider que **la version envoyée**, jamais un texte modifié entre-temps. |
+| **03 Brouillon × 05 Ouverture/agrandissement** | Le passage normal ↔ partagé ↔ étendu ne réinitialise pas fil, sélection/caret, brouillon ou activité. Dans l'étendu, le compositeur peut être masqué mais son état subsiste. | Navigation vers **Documents** = vraie surface, UX-002 à son retour, et conservation du brouillon par projet sous accès courant. |
+| **04 Erreurs × 05 Visionneuse** | Erreur de source proche de la **visionneuse/objet** ; erreur de message près du tour ; `UNKNOWN` d'effet près de la tentative ; aucune bannière générale ajoutée au compositeur. | Un spinner et un passage « terminé » ne suffisent pas à prouver un résultat. Les actions Vérifier/Réessayer ne sont disponibles que si réellement sûres. |
+| **05 Visionneuse × 06 Documents** | **Dans Travail : consultation rapide, lecture seule**, 50/50 hors rail avec « En bref » temporairement remplacé, une seule visionneuse. **Dans Documents :** bibliothèque, historique/version, édition et révisions selon les capacités effectives. | « Ouvrir dans Documents » déclenche **une navigation explicite** sur une ressource canonique existante, pas une mutation ni une permission. Sélection d'extrait → Nora et éditeur in situ non décidés dans Travail. |
+| **01–05 × D1–D9 / accès** | Toutes les vues réutilisent le même rattachement Pilote/projet/fil et les propriétaires D3/D4/D6/D7/D8/D9. Une source autrefois accessible ou un brouillon local ne peut être révélé sans identité et droit actuels. | Aucun nouveau moteur de scroll, conversation, décision, envoi, preuve, inspection ou persistance d'autorité. |
+
+### 13.3. Scénarios intégrés discriminants (CANDIDATS / NON EXÉCUTÉS)
+
+Ces **dix oracles intégrés** ne constituent **pas un sixième sujet ou un cycle de réalisation autonome**. Ils servent à tester les interactions conjointes dans le même macro-lot de Travail :
+
+| ID | Parcours E2E | Résultat attendu |
+|---|---|---|
+| UX-CROSS-01 | Brouillon A non envoyé → choix Nora « B » → réponse progressive de Nora | Un seul nouveau message Pilote B ; brouillon A intact ; groupe de choix gelé puis expiré après confirmation, réponse Nora unique. |
+| UX-CROSS-02 | Clic « B » avec ACK perdu → clic répété → réconciliation | Aucune intention dupliquée ; choix gelés jusqu'à issue vérifiable ; ni faux échec ni désactivation terminale fondée sur une supposition. |
+| UX-CROSS-03 | Message libre envoyé depuis une conversation relue, puis attente Nora | Tour Pilote visible en bas si réellement envoyé ; indication animée d'attente honnête, sans étape d'outil fictive. |
+| UX-CROSS-04 | Réponse progressive avec outils réels pendant relecture d'un ancien message | Pas de scroll forcé ; étape contextualisée réelle et message Nora progressif uniques, signal UX-002 accessible. |
+| UX-CROSS-05 | Source historique cliquée après expiration des choix de cette réponse | Visionneuse lecture seule 50/50 ouverte, choix toujours inactifs, brouillon préservé, aucun message transmis. |
+| UX-CROSS-06 | Visionneuse sur A → B → agrandir → réduire → fermer | Une seule visionneuse ; identité/version correctes ; rail fixe ; point de lecture préservé sur B pendant l'agrandissement ; « En bref » revient. |
+| UX-CROSS-07 | Nora complète sa réponse pendant que la visionneuse est étendue | Visionneuse ne se ferme pas ; retour au partage : bon état du fil, ancrage historique ou dernier message selon UX-002, activité honnête. |
+| UX-CROSS-08 | `UNKNOWN` métier pendant saisie libre, puis requête cognitive indépendante | Brouillon éditable ; admission de la requête seulement si D3 la qualifie indépendante ; aucun second effet métier ni file automatique. |
+| UX-CROSS-09 | Navigation Travail → Documents → retour / refresh avec brouillon projet A | Même projet, brouillon A conservé sous droits courants, fin du fil à la reprise ; aucun état ni brouillon B exposé. |
+| UX-CROSS-10 | Source Git révoquée et session expirée pendant une consultation | Visionneuse sans contenu hors droits, état réel/issue de reprise ; aucune action « Réessayer/Vérifier » fictive ni succès D8 inventé. |
+
+### 13.4. Risques ouverts, preuve et suite réelle
+
+**Aucun arbitrage produit supplémentaire identifié dans cette revue transverse documentaire.** Restent **à qualifier avant exécution**, sans que ChatGPT puisse les décider au niveau D1 :
+
+- **Contrat de messages/actions** : représentation de la réponse composite, finalisation et durée de vie des choix, gel/ACK/idempotence, qualification D3 des tours en coexistence avec un effet métier incertain.
+- **Diffusion d'activité** : disponibilité d'événements/étapes externes fiables, streaming réel, reprise de fragments, historique de provenance et dégradation honnête vers indicateur simple.
+- **Brouillon et accès** : stockage réel par projet/Pilote et navigateur, durée/nettoyage/logout, protection contre réponse tardive et changements de projet, réconciliation sous autorité.
+- **Visionneuse et architecture UI** : contrat visuel Figma ajusté au 50/50, rail invariant, changement d'objet, droits/versions, URL et retour, scroll/selection/focus indépendants, comportement mobile.
+- **Preuves** : mesures comparatives Figma/runtime sur viewports et SHA/build contrôlés, BROWSER + cas négatifs, LIVE/REAL uniquement lorsqu'ils sont vraiment atteints, non-régression Ensemble 04 et frontières Ensemble 06.
+
+**Critère d'intégration :** un seul lot cohérent **code + tests + documentation + rendu visuel**, avec propriétaires et intégrateur identifiés ; **pas d'implémentation isolée** d'une animation, d'un composant de consultation ou d'un stockage de brouillon qui contredirait la continuité E2E. Les scénarios des §§4/8/10/11/12 et UX-CROSS-01..10 forment un contrat de réception complémentaire, **pas des PASS**.
+
+**Verdict final de revue transverse : `SPEC CROSS-REVIEW CONSISTENT — DOCUMENTED`**, dans la **limite des sources Git et des décisions présentes**. **Sujets 01–05 : VALIDATED SPEC MORRIS** inchangés ; **Ensemble 05 : EN REVUE / RÉALISATION ET RECETTE NON PROUVÉES** ; **Gate C : OPEN**, aucun GO technique, PR, merge, publication sur `main` ou ADOPTED.
