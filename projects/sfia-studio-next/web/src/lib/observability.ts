@@ -106,6 +106,9 @@ const META_ALLOWLIST = new Set([
   "qualification_kind",
   "qualification_reason",
   "documentary_intent_signal",
+  // Provider attempt diagnostics — codes/names only, never raw exception text.
+  "provider_contacted",
+  "error_name",
 ]);
 
 const SECRET_VALUE =

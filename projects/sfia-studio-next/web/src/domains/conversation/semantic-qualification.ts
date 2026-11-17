@@ -8,7 +8,10 @@ import {
   type PilotageOperation,
 } from "@/domains/pilotage/types";
 import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
-import { parseVisualComposition } from "./visual-composition";
+import {
+  parseVisualComposition,
+  VisualCompositionAgentOutputSchema,
+} from "./visual-composition";
 
 export const SEMANTIC_QUALIFICATION_SCHEMA_VERSION = "ml4c-sem-qual-v1" as const;
 
@@ -197,8 +200,10 @@ export const NoraTurnQualificationSchema = z.object({
   /**
    * Ensemble 05 / T02 — optional visual composition (structured blocks).
    * Omission = text-only reply. Never HTML/JS. Studio re-validates before persist/render.
+   * Must be a concrete Zod object (not z.unknown): empty `{}` JSON Schema breaks
+   * OpenAI strict structured outputs and surfaces as PROVIDER_ERROR / UNKNOWN.
    */
-  visualComposition: z.unknown().optional(),
+  visualComposition: VisualCompositionAgentOutputSchema.optional(),
 });
 export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
 

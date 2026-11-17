@@ -11,6 +11,8 @@
  * Studio resolves against canonical turn references.
  */
 
+import { z } from "zod";
+
 export const VISUAL_COMPOSITION_SCHEMA = "e05-visual-composition-v1" as const;
 
 export type VisualBlockKind =
@@ -250,6 +252,193 @@ export type VisualComposition = {
   schemaVersion: typeof VISUAL_COMPOSITION_SCHEMA;
   blocks: VisualBlock[];
 };
+
+/**
+ * Agents SDK / OpenAI structured-output schema for visualComposition.
+ * MUST NOT use z.unknown()/z.any() — those serialize to empty `{}` under
+ * strict json_schema and the provider rejects the request (PROVIDER_ERROR).
+ * Runtime authority remains parseVisualComposition (fail-closed sanitize).
+ */
+const VisualProvenanceAgentSchema = z.object({
+  label: z.string().max(200),
+  note: z.string().max(240).optional(),
+  kind: z.enum(["document", "git", "external"]).optional(),
+  resourceId: z.string().max(128).optional(),
+  revisionId: z.string().max(128).optional(),
+  repositoryId: z.string().max(128).optional(),
+  path: z.string().max(400).optional(),
+  ref: z.string().max(120).optional(),
+  commit: z.string().max(64).optional(),
+  href: z.string().max(800).optional(),
+});
+
+const VisualRoleAgentSchema = z.enum([
+  "information",
+  "observation",
+  "fact",
+  "hypothesis",
+  "risk",
+  "recommendation",
+  "decision",
+  "dependency",
+  "step",
+  "source",
+]);
+
+const VisualIconAgentSchema = z.enum([
+  "info",
+  "observe",
+  "fact",
+  "hypothesis",
+  "risk",
+  "recommend",
+  "decision",
+  "link",
+  "step",
+  "source",
+]);
+
+export const VisualCompositionAgentOutputSchema = z.object({
+  schemaVersion: z.literal(VISUAL_COMPOSITION_SCHEMA),
+  blocks: z
+    .array(
+      z.discriminatedUnion("kind", [
+        z.object({
+          kind: z.literal("text"),
+          id: z.string().max(64),
+          markdown: z.string().max(4000),
+          role: VisualRoleAgentSchema.optional(),
+          icon: VisualIconAgentSchema.optional(),
+        }),
+        z.object({
+          kind: z.literal("comparison"),
+          id: z.string().max(64),
+          title: z.string().max(160),
+          textAlternative: z.string().max(2000),
+          alternatives: z
+            .array(
+              z.object({
+                id: z.string().max(64),
+                title: z.string().max(160),
+                summary: z.string().max(400),
+                pros: z.array(z.string().max(200)).max(4).optional(),
+                cons: z.array(z.string().max(200)).max(4).optional(),
+              }),
+            )
+            .max(5),
+          criteria: z
+            .array(
+              z.object({
+                id: z.string().max(64),
+                label: z.string().max(200),
+                values: z.record(z.string(), z.string().max(400)),
+              }),
+            )
+            .max(6)
+            .optional(),
+          recommendation: z.string().max(800).nullable().optional(),
+          provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
+          role: VisualRoleAgentSchema.optional(),
+          icon: VisualIconAgentSchema.optional(),
+        }),
+        z.object({
+          kind: z.literal("sequence"),
+          id: z.string().max(64),
+          title: z.string().max(160),
+          textAlternative: z.string().max(2000),
+          steps: z
+            .array(
+              z.object({
+                id: z.string().max(64),
+                title: z.string().max(160),
+                detail: z.string().max(400).optional(),
+                dependsOn: z.array(z.string().max(64)).max(8).optional(),
+                dateLabel: z.string().max(80).nullable().optional(),
+                role: VisualRoleAgentSchema.optional(),
+              }),
+            )
+            .max(8),
+          provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
+          role: VisualRoleAgentSchema.optional(),
+          icon: VisualIconAgentSchema.optional(),
+        }),
+        z.object({
+          kind: z.literal("relations"),
+          id: z.string().max(64),
+          title: z.string().max(160),
+          textAlternative: z.string().max(2000),
+          nodes: z
+            .array(
+              z.object({
+                id: z.string().max(64),
+                label: z.string().max(200),
+                kind: z.enum([
+                  "fact",
+                  "hypothesis",
+                  "unknown",
+                  "cause",
+                  "finding",
+                  "observation",
+                ]),
+              }),
+            )
+            .max(10),
+          edges: z
+            .array(
+              z.object({
+                from: z.string().max(64),
+                to: z.string().max(64),
+                label: z.string().max(200).optional(),
+              }),
+            )
+            .max(16),
+          preferListFallback: z.boolean().optional(),
+          provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
+          role: VisualRoleAgentSchema.optional(),
+          icon: VisualIconAgentSchema.optional(),
+        }),
+        z.object({
+          kind: z.literal("synthesis"),
+          id: z.string().max(64),
+          title: z.string().max(160),
+          textAlternative: z.string().max(2000),
+          items: z
+            .array(
+              z.object({
+                id: z.string().max(64),
+                label: z.string().max(200),
+                detail: z.string().max(400).optional(),
+                tone: z.enum([
+                  "priority",
+                  "finding",
+                  "risk",
+                  "watch",
+                  "observation",
+                  "hypothesis",
+                ]),
+                role: VisualRoleAgentSchema.optional(),
+                icon: VisualIconAgentSchema.optional(),
+              }),
+            )
+            .max(8),
+          provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
+          role: VisualRoleAgentSchema.optional(),
+          icon: VisualIconAgentSchema.optional(),
+        }),
+        z.object({
+          kind: z.literal("choices"),
+          id: z.string().max(64),
+          choiceIds: z.array(z.string().max(64)).max(12).optional(),
+        }),
+        z.object({
+          kind: z.literal("references"),
+          id: z.string().max(64),
+          resourceIds: z.array(z.string().max(128)).max(12).optional(),
+        }),
+      ]),
+    )
+    .max(10),
+});
 
 export type ParseVisualCompositionResult =
   | { ok: true; value: VisualComposition }

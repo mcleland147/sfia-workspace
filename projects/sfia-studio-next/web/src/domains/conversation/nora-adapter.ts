@@ -156,7 +156,13 @@ export function categorizeProviderError(err: unknown): {
     ) && !/fetch|network|ECONN|socket|HTTP|429|500|502|503/i.test(msg);
   let category = "PROVIDER_ERROR";
   if (interrupted) category = "PROVIDER_INTERRUPTED";
-  else if (/model|not found|does not exist|unauthorized|insufficient|entitlement/i.test(msg)) {
+  else if (
+    /json.?schema|invalid schema|structured output|response_format|output_type|unsupported.*schema/i.test(
+      msg,
+    )
+  ) {
+    category = "PROVIDER_SCHEMA_OR_OUTPUT";
+  } else if (/model|not found|does not exist|unauthorized|insufficient|entitlement/i.test(msg)) {
     category = "PROVIDER_MODEL_OR_ENTITLEMENT";
   } else if (preContactLikely) category = "PROVIDER_PRE_CONTACT_CONFIG";
   return { category, interrupted, preContactLikely };
@@ -590,6 +596,29 @@ async function runLiveWithTools(
         outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
         notes: cat.category,
         providerContacted: contact,
+      });
+
+      const errName =
+        streamErr instanceof Error && /^[A-Za-z][A-Za-z0-9_.]{0,80}$/.test(streamErr.name)
+          ? streamErr.name
+          : "Error";
+      emitObs({
+        event_name: "d3.nora.provider_attempt",
+        component: "d3.nora_adapter",
+        operation_id: input.toolScope?.operationId,
+        generation_id: generationId,
+        attempt_id: streamAttemptId,
+        outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
+        error_category: cat.category,
+        policy_version: policy.policyVersion,
+        profile_type:
+          policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+        meta: {
+          kind: "stream",
+          model_requested: NORA_STUDY_MODEL,
+          provider_contacted: contact,
+          error_name: errName,
+        },
       });
 
       const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);

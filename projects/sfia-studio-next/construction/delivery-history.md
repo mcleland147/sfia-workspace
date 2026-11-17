@@ -4,6 +4,23 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-OUTPUT-SCHEMA-PATCH
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~18:40 CET |
+| Macro-lot | ML4D Ensemble 05 — diagnostic + correctif DEV Nora LIVE |
+| Type | Cycle 8 Delivery · Standard · RUN/corrective · **PATCH CANDIDATE** · **NO RELEASE** · **NO DEPLOY** |
+| Parent tip | `34a5e102` |
+| Cause | `visualComposition: z.unknown()` → JSON Schema `{}` sous `outputType` strict → rejet fournisseur (`PROVIDER_ERROR` / UNKNOWN) |
+| Scope | `VisualCompositionAgentOutputSchema` ; branchement enveloppe D3 ; OBS `error_category` ; tests schéma |
+| Non-scope | Appel REAL ; déploiement RECETTE ; push produit ; grammaire visuelle runtime ; migration |
+| Preuves | Vitest schema+adapter+E05 30 PASS ; REAL LIVE NOT EXECUTED |
+| RECETTE | inchangée `:3200` / `34a5e102` / `xKkQienCXTPYIqkFElAuE` |
+| Push produit | **AUCUN** (commit local autorisé) |
+| Verdict | `NORA LIVE DEV FIX VERIFIED — RECETTE DEPLOY GO REQUIRED` |
+
+
 ## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-RECETTE-CANDIDATE-FREEZE
 
 | Field | Value |
