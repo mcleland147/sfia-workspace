@@ -1,34 +1,32 @@
 # SFIA Studio Next — Review Pack Full
-# Cycle 8 — Delivery / Ensemble 05 — Correctif intégré Travail avec Nora
-# Generated: 2026-11-17T12:22:39+0100
+# Cycle 8 — Delivery / Ensemble 05 — Consolidation C1–C5 Travail avec Nora
+# Generated: 2026-11-17T12:43:16+0100
 
-## 1. Date et heure / profil
-- Cycle: 2026-11-17 — GO MORRIS CORRECTIF LOCAL DEV
-- Profile: CRITICAL / EVOL / Cycle 8 Delivery (correctif candidat non réceptionné)
+## 1. Date / profil
+- Cycle: 2026-11-17 — GO MORRIS CONSOLIDATION LOCALE DEV
+- Profile: CRITICAL / EVOL / Cycle 8
 - Macro-lot: Ensemble 05 — Travail avec Nora
-- Gate sortie: revue technique ChatGPT puis décision Morris
-- Autorisations: DEV local + tests isolés + handoff L3 uniquement
-- Interdits: commit/push produit, PR, merge, RECETTE, STABLE, migration, architecture nouvelle
+- Gate: revue ChatGPT puis décision Morris (GO RECETTE ultérieur distinct)
+- Interdits: commit/push produit, PR, merge, RECETTE, STABLE, migration
 
-## 2. Local Git Truth Check (initial = final produit)
+## 2. Local Git Truth Check
 | Check | Value |
 |---|---|
 | Workspace | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
 | Branch | `feat/next-ml4d-project-space-20261116` |
 | HEAD produit | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Tree baseline | `b92cc822ac67399c6d8753c17dbcce5f4b5b734f` |
+| Tree | `b92cc822ac67399c6d8753c17dbcce5f4b5b734f` |
 | origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| Docs tip | `99b3622b09005cc789bd167775b3ffb9f6f14375` |
-| Prior handoff tip (avant ce cycle) | `ebc8766c3ca481b009c1d20e4c2ae207be1e9591` blob `74cf55babced9bdeabf6dcfccec1a04ffe9c3dc4` |
-| Dirty worktree | EXPECTED — candidat E05 + correctifs non commités |
-| Destructive sync | **NONE** (no reset/clean/stash/rebase) |
-| Product commit/push | **NONE** |
+| Prior handoff | `b452698c5734cd17e34598e245636f37e6411f91` blob `eb9ca1584f092d02e85cf925b690c3c0d79f730a` |
+| Dirty E05 | EXPECTED (non commité) |
+| Product push | **NONE** |
 
 ### git status --short
 ```
 M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
  M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+ M projects/sfia-studio-next/web/src/app/login/page.tsx
  M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
  M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
  M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
@@ -49,106 +47,66 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio-next/web/tests/unit/ensemble05-turn-projection.test.ts
 ```
 
-## 3. Sources obligatoires (refs/blobs)
-| Source | Ref | Blob |
-|---|---|---|
-| UX v0.7 conception-ux-travail-avec-nora.md | docs@99b3622b | `dc5ef25f53e9b819965fac3981d430e59298825f` |
-| Tech v0.2 contrat-technique-travail-avec-nora.md | docs@99b3622b | `5f38968861f1dbcd546b66da80dbee2a628ba136` |
-| Registre v0.14 | docs@99b3622b | `7eabe8ca52764d370e199c50ba97c850cb1bf1eb` |
-| ENV-01 | main | `14b61f0d1265cf85fcca09b028dd09bd8c71597f` |
-| product-versioning | main | `8bc93e0fafac0f981c446e978a37f5f93d183875` |
-| Prior review pack | handoff@ebc8766c | `74cf55babced9bdeabf6dcfccec1a04ffe9c3dc4` |
-| Figma page 05 | itgvCulInEnFY6DvgIegvP / 700:38 | 16 variantes |
-
-## 4. Résumé des écarts initiaux (revue ChatGPT précédente)
-Verdict antérieur: `IMPLEMENTED CANDIDATE WITH BLOCKING RESERVES — NOT READY FOR RECETTE`
-
-| ID | Écart | Cause | Contrat | Correction minimale |
-|---|---|---|---|---|
-| P1-A | Boutons depuis `clarifications[]` | `buildTurnProjection` mappait clarifications→continue | UX §§6.5–6.10 | `continueChoices` typés additifs ; clarifications ≠ boutons |
-| P1-B | `choiceFrozen` remis à false sur échec/ACK | chemins catch page.tsx | idempotence tour | conserver gel ; UNKNOWN fail-closed |
-| P1-C | refs conversation non branchées viewer | texte seul | consultation | openTravailReference D4/D9 |
-| P2-A | e2e viewer conditionnel | `if (consulter)` | preuves | seed doc obligatoire |
-| P2-B | isolation brouillon insuffisante | tests positifs seuls | M3 | tests A≠B, projet, lane, 401 |
-| P2-C | matrice Figma incomplète | capture nominale seule | §6.6 | matrice 16 + captures partielles |
-
-M1–M5: inchangés / revalidés (pas de débat).
-
-## 5. Corrections réellement appliquées
-1. **P1-A** — `semantic-qualification` + fixtures + nora-adapter + `turn-projection` : options de poursuite uniquement depuis `continueChoices` / projection typée ; clarifications ne génèrent plus de contrôles.
-2. **P1-B** — `page.tsx` : gel conservé sur erreur réseau / ACK perdu / UNKNOWN ; pending au reload ; expiration seulement après tour Pilote confirmé/réconcilié.
-3. **P1-C** — `NoraConversation` liens Consulter → `openTravailReference` (D4 contenu local ; Git via lecture D9 existante) ; non-expiration avec choix ; brouillon intact.
-4. **P2-A** — e2e seed document + asserts ouverture/split/agrandi/fermeture/URL.
-5. **P2-B** — unit + browser isolation Pilote/projet/lane + purge 401.
-6. **P2-C** — evidence Figma + runtime + `figma-runtime-matrix.md` (ALIGNED non déclaré).
-
-## 6. Architecture / responsabilités conservées
-- D3 autorité tour / `clientTurnKey` / commande idempotente / réconciliation existantes.
-- Aucun second automate d'envoi.
-- Visionneuse locale Travail (M4) — pas Documents Ensemble 06.
-- Pas de migration (M5).
-- M2 final-only conservé.
-
-## 7. ENV-01 / versioning
-| Item | Value |
+## 3. Sources / blobs
+| Source | Blob/ref |
 |---|---|
-| Lane | DEV |
-| DB host/port/db/role (non secret) | 127.0.0.1:5433 / sfia_next_dev / sfia_next_dev |
-| E2E | :3101 / sfia_next_e2e (isolée) |
-| RECETTE | :3200 BUILD `3LzvYPTQc-Km7St6nF97r` — HTTP 307 observé — **inchangée** |
-| STABLE | NOT AVAILABLE |
-| Versioning | correctif interne candidat non publié — **NO RELEASE** |
+| UX v0.7 | `dc5ef25f53e9b819965fac3981d430e59298825f` |
+| Tech v0.2 | `5f38968861f1dbcd546b66da80dbee2a628ba136` |
+| ENV-01 | `14b61f0d1265cf85fcca09b028dd09bd8c71597f` |
+| versioning | `8bc93e0fafac0f981c446e978a37f5f93d183875` |
+| Figma 05 | itgvCulInEnFY6DvgIegvP / 700:38 · session `55ab43e8-d2bd-4208-a214-6b2356fa9d42` |
 
-## 8. Fake / Real Qualification
-| Frontière | Mode | Preuve |
-|---|---|---|
-| Nora | FAKE/deterministic | fixtures T1/T2 + e2e |
-| PostgreSQL | REAL DEV/E2E | commandes persistées ; pas de doublon attendu via clientTurnKey |
-| Identité/session | test harness | isolation brouillon A/B |
-| D4 viewer | REAL local seed | e2e document seedé |
-| Git D9 viewer | chemin branché | **NOT EXECUTED LIVE/REAL** — realism gap |
-| RECETTE | protected | aucune écriture |
+## 4. Écarts C1–C5 avant → après
+| ID | Avant | Après | Preuve |
+|---|---|---|---|
+| C1 | `openTravailDocument` → latestRevision ignore `ref.revisionId` | GET D4 `?revisionId=` ; `versionSource` exact/current ; seq anti-race | e2e C1 PASS |
+| C2 | gel UI ; preuve doublon insuffisante | ACK perdu simulé ; 1 message choix ; freeze refresh | e2e C2 PASS |
+| C3 | isolation multi-context seulement | purge tab au login DEV ; `session.pilotId` | e2e C3 PASS |
+| C4 | matrice partielle | captures critiques + matrice mise à jour | evidence/ |
+| C5 | chemin branché | réaffirmé `readGitFile` ; REAL NOT EXECUTED | Fake/Real |
 
+M1–M5 inchangés.
+
+## 5. Architecture conservée
+D3 clientTurnKey / commande / réconciliation ; D4 getDocumentRevision ; D9 readGitFile ; M4 viewer local ; pas de second moteur ; pas de migration.
+
+## 6. ENV-01 / versioning
+DEV 127.0.0.1:5433 / sfia_next_dev · E2E :3101 / sfia_next_e2e · RECETTE :3200 BUILD `3LzvYPTQc-Km7St6nF97r` inchangée · **NO RELEASE**
+
+## 7. Fake / Real
+| Frontière | Mode |
+|---|---|
+| Nora | FAKE fixture |
+| PG DEV/E2E | REAL local |
+| Identité | DEV test login adapter |
+| D4 | REAL via propriétaire |
+| Git D9 | chemin existant ; **REAL LIVE NOT EXECUTED** |
 `DETERMINISTIC PROVEN ⇒ READY FOR REAL` **non déclaré**.
 
-## 9. Résultats tests (cycle correctif)
+## 8. Tests
 | Suite | Résultat |
 |---|---|
-| Vitest ensemble05-turn-projection (+ draft privacy) | PASS (21) |
-| Vitest studio-rail | PASS (20) |
-| Playwright ensemble05-travail-nora | PASS (2) |
-| Playwright E04 nreg | PASS (3) — cycle correctif |
+| Vitest ensemble05 | 9 PASS |
+| Vitest studio-rail | 13 PASS |
+| Playwright E05 | 5 PASS |
+| Playwright E04 | 3 PASS |
 | next build | PASS |
-| tsc workspace | erreurs préexistantes semantic-qualification.test.ts (champs projectIntention manquants) — **hors E05** ; documenté |
+| tsc workspace | FAIL hors E05 (ml4c/semantic/create-project tests) — NO_E05_TSC_HITS |
 
-## 10. Comparaison Figma / runtime
-Voir contenu intégral `figma-runtime-matrix.md` ci-dessous.
-Verdict: **`FIGMA TO RUNTIME ALIGNED` NON DÉCLARÉ** (mesures F2 ≤2px non exhaustives ; plusieurs variantes non observées / partielles).
+## 9. Figma
+Voir `figma-runtime-matrix.md` ci-dessous. **`FIGMA TO RUNTIME ALIGNED` NON DÉCLARÉ**.
 
-## 11. Matrice oracles UX (88 candidats — synthèse)
-Couverture par suites discriminantes (PASS) pour: choix typés, gel/UNKNOWN, draft isolation, viewer D4 seedé, scroll, compositeur, non-régression E04.
-NOT COVERED V1: streaming progressif M2.
-NOT EXECUTED: Git REAL live fetch ; F2 géométrique 16/16.
-BLOCKED: aucun bloquant code restant pour P1-A/B ; preuve Git REAL et F2 global restent réserves réception.
+## 10. Verdict
+`E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW`
 
-## 12. Verdict
-`E05 CORRECTIVE CANDIDATE WITH RESERVES — NOT READY FOR RECETTE`
+Ce verdict **n'autorise pas** le déploiement RECETTE.
 
-Conditions succès technique partiellement atteintes:
-- P1-A/B corrigés et testés: OUI
-- P1-C D4: OUI (seed) ; Git REAL: NOT EXECUTED
-- P2-A viewer e2e non conditionnel: OUI
-- P2-B brouillon négatif: OUI
-- P2-C comparaison Figma réelle partielle: OUI mais ALIGNED non déclaré
-- Review Pack Full + handoff L3: ce document / publication suivante
-
-## 13. Prochain gate Morris
-Revue ChatGPT sur handoff distant puis décision Morris (acceptation réserves / F2 / éventuel GO RECETTE distinct).
-Aucun GO RECETTE, commit/push produit, PR, merge, STABLE, Gate C, ML5 dans ce cycle.
+## 11. Prochain gate Morris
+Revue ChatGPT sur handoff distant → décision Morris distincte pour RECETTE éventuelle.
 
 ---
 
-## 14. Fichiers créés — contenu intégral (texte)
+## 12. Fichiers créés — contenu intégral
 
 ### CREATED `projects/sfia-studio-next/construction/as-built-ensemble-05-travail-nora-20261117.md`
 
@@ -162,61 +120,60 @@ Aucun GO RECETTE, commit/push produit, PR, merge, STABLE, Gate C, ML5 dans ce cy
 | Type | Delivery locale DEV · **NO RELEASE** |
 | Branche produit | `feat/next-ml4d-project-space-20261116` |
 | HEAD de départ | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
-| Statut | **E05 CORRECTIVE CANDIDATE WITH RESERVES** (as-built non normatif) |
-| Correctif | 17/11/2026 — P1-A/B/C + P2-A/B/C sur candidat local non commité |
+| Statut | **E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW** (as-built non normatif) |
+| Cycles | Delivery initiale + correctif P1/P2 + consolidation C1–C5 (même candidat non commité) |
 
 ## Sources
 
 - UX v0.7 `conception-ux-travail-avec-nora.md` — docs@`99b3622b` blob `dc5ef25f…`
 - Contrat technique v0.2 — docs@`99b3622b` blob `5f389688…` — M1–M5 VALIDATED BY MORRIS
-- Figma page 05 `itgvCulInEnFY6DvgIegvP` / `700:38` — 16 variantes ; session MCP `2f762deb-…`
+- Figma page 05 `itgvCulInEnFY6DvgIegvP` / `700:38` — 16 variantes ; session MCP `55ab43e8-…`
+- Prior handoff tip avant consolidation : `b452698c` blob `eb9ca158…`
 
 ## Réalisation (résumé)
 
 | Capacité | Implémentation |
 |---|---|
-| M1 projection | `turnProjection` additif dans `result_json` (pas de migration) ; relecture via `listTurnProjections` |
-| M2 activité V1 | Attente animée honnête ; résumé d’activité post-terminal si `toolCallsObserved`/`d4CharsReturned` ; **pas de streaming texte** |
-| M3 brouillon | `sessionStorage` clé `pilot+project+lane` ; ACK tardif versionné ; purge 401 |
-| M4 visionneuse | État local Travail ; modes normal / split 50/50 / agrandi ; pas de `viewer=` |
+| M1 projection | `turnProjection` additif dans `result_json` ; `listTurnProjections` |
+| M2 activité V1 | Attente animée honnête ; résumé post-terminal ; **pas de streaming** |
+| M3 brouillon | `sessionStorage` pilot+project+lane ; clé = **session.pilotId** ; purge tab au login DEV / 401 |
+| M4 visionneuse | État local Travail ; split / agrandi ; pas de `viewer=` |
 | M5 | Aucune migration |
-| CT-01 | Hook `useNoraThreadScroll` — dernier message par défaut, préservation relecture, pastille « Nouveaux messages » |
-| CT-02 / P1-A | `continueChoices` typés (≠ `clarifications[]`) ; transmission immédiate ; brouillon intact |
-| CT-02 / P1-B | Gel conservé sur ACK perdu / UNKNOWN / réseau ; expiration via tour Pilote |
-| CT-02 / P1-C | Références consultables → viewer D4 / lecture Git D9 existante |
-| CT-03 | Compositeur compact/étendu (Entrée / Maj+Entrée ; IME ; mobile = bouton) |
-| CT-06 | `TravailViewer` remplace « En bref » ; e2e viewer **non conditionnel** (doc seedé) |
+| C1 | Lecture D4 via `GET .../documents/[id]?revisionId=` — jamais latest silencieux |
+| C2 | Gel ACK/UNKNOWN + pending ; e2e un seul tour Pilote pour l’intention |
+| C3 | Même onglet A→B : `purgeAllComposerDraftsInTab` avant `devLogin` |
+| C4 | Matrice 16 + captures Figma/runtime critiques ; ALIGNED non déclaré |
+| C5 | `GET .../git/file` + `readGitFile` ; REAL LIVE **NOT EXECUTED** |
 
 ## Preuves exécutées (DEV / FAKE)
 
-- Vitest `ensemble05-turn-projection` + `studio-rail` : PASS
-- Playwright `ensemble05-travail-nora.spec.ts` : PASS (scroll, draft, choix+brouillon, viewer)
-- Non-régression Ensemble 04 `project-space-ensemble04.spec.ts` : 3 PASS
+- Vitest `ensemble05-turn-projection` : 9 PASS
+- Vitest `studio-rail` : 13 PASS
+- Playwright `ensemble05-travail-nora.spec.ts` : **5 PASS** (viewer, C1, C2, C3, isolation)
+- Playwright E04 nreg : 3 PASS
 - `next build` : PASS
-- Captures : `web/docs/evidence/ensemble-05-travail-nora/`
+- `tsc --noEmit` : FAIL hors E05 (tests historiques ml4c/semantic manquant `projectIntention` etc.) — **aucun hit fichier E05**
 
-## Correctifs appliqués (cycle correctif)
+## Correctifs consolidation
 
 | ID | Correction |
 |---|---|
-| P1-A | `continueChoices` / `resourceReferences` additifs sur qualification D3 ; plus de mapping clarifications→boutons |
-| P1-B | `choiceFrozen` conservé sur erreur/ACK/UNKNOWN ; pending au load |
-| P1-C | Liens « Consulter » → `openTravailReference` (D4 local / `GET .../git/file`) |
-| P2-A | E2E seed document obligatoire + asserts viewer |
-| P2-B | Tests isolation Pilote A/B + purge + lane |
-| P2-C | Matrice 16 variantes + captures Figma/runtime partielles |
+| C1 | `openTravailReference` → API révision exacte ; `versionSource` exact/current ; seq anti-race |
+| C2 | e2e ACK perdu après commit serveur ; freeze ; 1 message choix |
+| C3 | `session.pilotId` exposé ; purge tab login ; tests same-tab |
+| C4 | Captures Figma 700:39, 701:105/148/320/363/449/535 + runtime |
+| C5 | Chemin D9 existant qualifié ; pas de nouvelle API ; REAL non exécuté |
 
 ## Réserves
 
-1. **M2 progressive text** — NOT COVERED V1 (arbitré Morris).
-2. **Activité contextualisée live** — seulement faits post-terminal observables ; pas de transport d’étapes pendant génération.
-3. **Git viewer REAL** — chemin D9 branché ; preuve fournisseur LIVE/REAL **NOT EXECUTED** (fixture/scripted seulement si lane).
-4. **Comparaison Figma F2 géométrique exhaustive** — matrice partielle ; `FIGMA TO RUNTIME ALIGNED` **non déclaré**.
-5. **88 scénarios UX** — couverture par suites discriminantes, pas 88 tests isolés.
+1. **M2 progressive text** — NOT COVERED V1.
+2. **Git viewer REAL** — NOT EXECUTED (pas de permission/gate LIVE supplémentaire).
+3. **F2 géométrique 16/16** — non certifié ; `FIGMA TO RUNTIME ALIGNED` non déclaré.
+4. **tsc workspace** — dette tests historiques hors scope E05.
 
 ## ENV-01 / versioning
 
-- Travail : DEV `:5433` / `sfia_next_dev` (+ e2e `sfia_next_e2e` / `:3101`)
+- DEV `:5433` / `sfia_next_dev` · E2E `:3101` / `sfia_next_e2e`
 - RECETTE `:3200` build `3LzvYPTQc-Km7St6nF97r` **inchangée**
 - **NO RELEASE** — aucun cutover, PR, merge, promotion
 ```
@@ -235,6 +192,8 @@ export type TravailViewerResource =
       title: string;
       revisionId?: string | null;
       revisionNumber?: number | null;
+      /** Explicit when no revisionId was requested — never silent latest substitution. */
+      versionSource?: "exact" | "current";
       markdown: string | null;
       available: boolean;
       unavailableReason?: string;
@@ -281,9 +240,14 @@ export function TravailViewer(props: {
             {title}
           </h2>
           {resource.kind === "document" && resource.revisionNumber != null ? (
-            <p className="fig-travail-viewer-meta">
+            <p className="fig-travail-viewer-meta" data-testid="travail-viewer-revision">
               Version {resource.revisionNumber}
               {resource.revisionId ? ` · ${resource.revisionId.slice(0, 8)}` : ""}
+              {resource.versionSource === "current"
+                ? " · version courante"
+                : resource.versionSource === "exact"
+                  ? " · révision citée"
+                  : ""}
             </p>
           ) : null}
           {resource.kind === "git" ? (
@@ -468,6 +432,22 @@ export function purgeComposerDraftsForPilot(pilotId: string): void {
   for (let i = 0; i < sessionStorage.length; i += 1) {
     const k = sessionStorage.key(i);
     if (k && k.startsWith(prefix) && k.includes(`:${pilotId}:`)) keys.push(k);
+  }
+  for (const k of keys) sessionStorage.removeItem(k);
+}
+
+/**
+ * C3 — explicit logout / identity switch in the same tab.
+ * Clears every Travail draft key in this tab's sessionStorage.
+ * Does not touch other origins or localStorage.
+ */
+export function purgeAllComposerDraftsInTab(): void {
+  if (typeof sessionStorage === "undefined") return;
+  const prefix = "sfia.travail.draft:v1:";
+  const keys: string[] = [];
+  for (let i = 0; i < sessionStorage.length; i += 1) {
+    const k = sessionStorage.key(i);
+    if (k && k.startsWith(prefix)) keys.push(k);
   }
   for (const k of keys) sessionStorage.removeItem(k);
 }
@@ -960,6 +940,264 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     });
   });
 
+  test("C1 exact D4 revision — A cited, not silent latest B", async ({ page }) => {
+    test.setTimeout(180_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { projectId, preparationId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "E05 C1 revision fidelity",
+      name: `E05 C1 ${Date.now()}`,
+      summary: "c1",
+    });
+    const stamp = Date.now();
+    const create = await page.request.post(`/api/preparations/${preparationId}/documents`, {
+      data: {
+        title: "Note C1",
+        contentMarkdown: `# Revision A ${stamp}\n\nContenu A exclusif.`,
+        correlationKey: `e05-c1-a-${stamp}`,
+      },
+    });
+    expect(create.ok()).toBeTruthy();
+    const created = await create.json();
+    const documentId = String(created.documentId);
+    const revisionA = String(created.revisionId);
+    expect(documentId).toBeTruthy();
+    expect(revisionA).toBeTruthy();
+
+    const revise = await page.request.post(
+      `/api/preparations/${preparationId}/documents/${documentId}`,
+      {
+        data: {
+          action: "revise",
+          baseRevisionId: revisionA,
+          contentMarkdown: `# Revision B ${stamp}\n\nContenu B exclusif — latest.`,
+          correlationKey: `e05-c1-b-${stamp}`,
+        },
+      },
+    );
+    expect(revise.ok()).toBeTruthy();
+    const revised = await revise.json();
+    const revisionB = String(revised.revisionId ?? revised.revision?.id ?? "");
+    expect(revisionB).toBeTruthy();
+    expect(revisionB).not.toBe(revisionA);
+
+    // D4 API authority: exact A ≠ latest B
+    const getA = await page.request.get(
+      `/api/preparations/${preparationId}/documents/${documentId}?revisionId=${encodeURIComponent(revisionA)}`,
+    );
+    expect(getA.ok()).toBeTruthy();
+    const bodyA = await getA.json();
+    expect(String(bodyA.revision?.contentMarkdown ?? "")).toContain(`Revision A ${stamp}`);
+    expect(String(bodyA.revision?.contentMarkdown ?? "")).not.toContain(`Revision B ${stamp}`);
+
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    const cite = `E05_CITE_REVISION documentId=${documentId} revisionId=${revisionA}`;
+    await page.getByTestId("thread-draft").fill(cite);
+    await page.getByTestId("thread-send").click();
+    await expect(page.getByText(/révision documentaire citée/i)).toBeVisible({
+      timeout: 30000,
+    });
+    const refLink = page.getByTestId("nora-ref-link").first();
+    await expect(refLink).toBeVisible();
+
+    // Race proof: open A, then quickly request B via current consulter — last wins; late A ignored by seq.
+    await refLink.click();
+    await expect(page.getByTestId("travail-viewer")).toBeVisible();
+    await expect(page.getByTestId("travail-viewer-body")).toContainText(`Revision A ${stamp}`);
+    await expect(page.getByTestId("travail-viewer-body")).not.toContainText(
+      `Revision B ${stamp}`,
+    );
+    await expect(page.getByTestId("travail-viewer-revision")).toContainText(/révision citée/i);
+
+    // Close then ensure closed stays closed even if we don't await stale fetch.
+    await page.getByTestId("travail-viewer-close").click();
+    await expect(page.getByTestId("travail-viewer")).toHaveCount(0);
+
+    // Current (latest) path from En bref — explicitly version courante.
+    const consulter = page.locator(`[data-testid="travail-consulter-${documentId}"]`);
+    await expect(consulter).toBeVisible();
+    await consulter.click();
+    await expect(page.getByTestId("travail-viewer-body")).toContainText(`Revision B ${stamp}`);
+    await expect(page.getByTestId("travail-viewer-revision")).toContainText(/version courante/i);
+  });
+
+  test("C2 ACK lost on choice — single pilot turn, freeze, reconcile", async ({ page }) => {
+    test.setTimeout(180_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { projectId, preparationId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "E05 C2 ack lost",
+      name: `E05 C2 ${Date.now()}`,
+      summary: "c2",
+    });
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    const choiceSeed =
+      "J'aimerais créer un outil pour mieux accompagner les chefs de projet, mais je ne sais pas encore ce qu'il devrait faire exactement.";
+    await page.getByTestId("thread-draft").fill(choiceSeed);
+    await page.getByTestId("thread-send").click();
+    await expect(
+      page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false }),
+    ).toBeVisible({ timeout: 30000 });
+
+    const actionable = page.locator(
+      '[data-testid="nora-choices"][data-actionable="1"] [data-testid="nora-choice"]',
+    );
+    await expect(actionable.first()).toBeVisible({ timeout: 10000 });
+
+    let ackDropped = false;
+    let serverOk = false;
+    let capturedTurnKey: string | null = null;
+    await page.route("**/api/preparations/*/messages", async (route) => {
+      if (route.request().method() !== "POST") {
+        await route.continue();
+        return;
+      }
+      let post: { content?: string; clientTurnKey?: string } = {};
+      try {
+        post = route.request().postDataJSON() as {
+          content?: string;
+          clientTurnKey?: string;
+        };
+      } catch {
+        post = {};
+      }
+      const isChoice =
+        /Approfondissons le besoin|Explore une autre approche/i.test(post.content ?? "");
+      const response = await route.fetch();
+      const raw = await response.text();
+      if (isChoice && response.ok() && !ackDropped) {
+        serverOk = true;
+        capturedTurnKey = post.clientTurnKey ?? null;
+        ackDropped = true;
+        await route.fulfill({
+          status: 502,
+          contentType: "application/json",
+          body: JSON.stringify({
+            errorCategory: "ACK_LOST_SIM",
+            error: "ACK lost after server commit",
+          }),
+        });
+        return;
+      }
+      await route.fulfill({
+        status: response.status(),
+        headers: response.headers(),
+        body: raw,
+      });
+    });
+
+    await actionable.first().click();
+    await expect(page.getByTestId("thread-nora-status")).toContainText(
+      /ACK lost|ACK_LOST|échec|conservée/i,
+      { timeout: 45000 },
+    );
+    expect(serverOk).toBe(true);
+    expect(ackDropped).toBe(true);
+    expect(capturedTurnKey).toBeTruthy();
+
+    // Choices stay frozen — no second independent click path.
+    await expect(
+      page.locator(
+        '[data-testid="nora-choices"][data-actionable="1"] [data-testid="nora-choice"]',
+      ),
+    ).toHaveCount(0);
+
+    await page.reload();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    // Pending banner / frozen choices after refresh.
+    const pending = page.getByTestId("thread-reconcile-pending");
+    if (await pending.count()) {
+      await pending.click();
+      await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|Nora/i, {
+        timeout: 30000,
+      });
+    }
+
+    const proj = await page.request.get(`/api/projects/${projectId}`);
+    expect(proj.ok()).toBeTruthy();
+    const pj = await proj.json();
+    const pilotMsgs = (pj.messages ?? []).filter(
+      (m: { role?: string; content?: string }) =>
+        m.role === "user" || m.role === "pilot" || m.role === "PILOT",
+    );
+    const choiceMsgs = pilotMsgs.filter((m: { content?: string }) =>
+      /Approfondissons le besoin|Explore une autre approche/i.test(m.content ?? ""),
+    );
+    // Durable proof: a single effective pilot utterance for the choice intention.
+    expect(choiceMsgs.length).toBe(1);
+    await page.unrouteAll({ behavior: "ignoreErrors" });
+    void preparationId;
+  });
+
+  test("C3 same-tab logout/identity switch purges draft", async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { projectId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "E05 C3 same tab",
+      name: `E05 C3 ${Date.now()}`,
+      summary: "c3",
+    });
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    const secret = `SECRET_SAME_TAB_${Date.now()}`;
+    await page.getByTestId("thread-draft").fill(secret);
+    await expect(page.getByTestId("thread-draft")).toHaveValue(secret);
+
+    // Explicit identity switch in the SAME tab (sessionStorage persists across nav).
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote B (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect
+      .poll(async () => {
+        const state = await page
+          .getByTestId("project-load-state")
+          .getAttribute("data-project-load-state")
+          .catch(() => null);
+        const unavailable = await page.getByTestId("project-unavailable").count();
+        return state === "ready" || unavailable > 0;
+      }, { timeout: 25000 })
+      .toBe(true);
+    const draft = page.getByTestId("thread-draft");
+    if (await draft.count()) {
+      await expect(draft).not.toHaveValue(secret);
+    }
+    // Draft keys must be gone from sessionStorage after login purge.
+    const leftover = await page.evaluate(() => {
+      const keys: string[] = [];
+      for (let i = 0; i < sessionStorage.length; i += 1) {
+        const k = sessionStorage.key(i);
+        if (k && k.startsWith("sfia.travail.draft:v1:")) keys.push(k);
+      }
+      return keys.length;
+    });
+    expect(leftover).toBe(0);
+  });
+
   test("P2-B draft isolation across pilots", async ({ page, browser }) => {
     test.setTimeout(120_000);
     await page.goto("/login");
@@ -1023,6 +1261,7 @@ import {
 import {
   clearDraftAfterAck,
   composerDraftStorageKey,
+  purgeAllComposerDraftsInTab,
   purgeComposerDraftsForPilot,
   readComposerDraft,
   writeComposerDraft,
@@ -1285,61 +1524,148 @@ describe("ensemble05 composer draft (M3 / P2-B)", () => {
       })?.text,
     ).toBe("other pilot");
   });
+
+  it("C3 — purgeAllComposerDraftsInTab clears every draft key in the tab", () => {
+    mockSessionStorage();
+    writeComposerDraft({
+      schemaVersion: "e05-composer-draft-v1",
+      pilotId: "p1",
+      projectId: "proj1",
+      lane: "host:127.0.0.1:3100",
+      text: "keep-secret",
+      version: 1,
+      sentVersion: null,
+      updatedAt: "2026-11-17T10:00:00.000Z",
+    });
+    writeComposerDraft({
+      schemaVersion: "e05-composer-draft-v1",
+      pilotId: "p2",
+      projectId: "proj9",
+      lane: "host:127.0.0.1:3100",
+      text: "other",
+      version: 1,
+      sentVersion: null,
+      updatedAt: "2026-11-17T10:00:00.000Z",
+    });
+    purgeAllComposerDraftsInTab();
+    expect(
+      readComposerDraft({
+        pilotId: "p1",
+        projectId: "proj1",
+        lane: "host:127.0.0.1:3100",
+      }),
+    ).toBeNull();
+    expect(
+      readComposerDraft({
+        pilotId: "p2",
+        projectId: "proj9",
+        lane: "host:127.0.0.1:3100",
+      }),
+    ).toBeNull();
+  });
 });
 ```
 
 ### CREATED `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-runtime-matrix.md`
 
 ```
-# Ensemble 05 — matrice Figma ↔ runtime (correctif 17/11/2026)
+# Ensemble 05 — matrice Figma ↔ runtime (consolidation 17/11/2026)
 
-Viewport de référence desktop : 1680×970. Mobile : 430×932.
-F2 : cible 0 px, max 2 CSS px sur rectangles stables comparables — **non certifié global** sur 16 variantes.
+Session Figma MCP: `55ab43e8-d2bd-4208-a214-6b2356fa9d42`
+Viewport desktop conception: **1680×970**. Mobile: **430×932**.
+F2: cible 0 px, max 2 CSS px sur rectangles stables comparables.
 
-| Frame | Variante | Capture Figma | Capture runtime | Viewport | Statut | Notes |
-|---|---|---|---|---|---|---|
-| 700:39 | Nominal | figma-700-39-nominal.png | runtime-nominal-1680x970.png | 1680×970 | partiel | Alignement bas composer/panel observé en conception 857=857 ; delta runtime non mesuré px-par-px |
-| 701:62 | Fil long | — | — | 1680×970 | non observé | Couvert fonctionnellement par scroll e2e |
-| 701:105 | Composite/choix | figma-701-105-composite.png | runtime-nominal (choix) | 1680×970 | partiel | Choix typés prouvés e2e ; layout composite non mesuré |
-| 701:148 | Choix expirés | — | e2e actionable=0 | 1680×970 | partiel | Comportement PASS ; capture dédiée absente |
-| 701:191 | Compositeur multiligne | — | — | 1680×970 | non observé | Croissance textarea implémentée |
-| 701:234 | Activité | — | — | 1680×970 | partiel | Attente honnête V1 ; pas d'étapes mid-flight inventées |
-| 701:277 | Erreur | — | — | 1680×970 | non observé | UI erreur présente |
-| 701:320 | Incertain | — | — | 1680×970 | partiel | Freeze UNKNOWN P1-B |
-| 701:363 | Viewer 50/50 D4 | figma-701-363-viewer5050.png | e2e split + contenu | 1680×970 | partiel | Layout split + contenu document PASS e2e |
-| 701:406 | Viewer Git | — | — | 1680×970 | partiel | Chemin API branché ; preuve LIVE Git NOT EXECUTED |
-| 701:449 | Viewer agrandi | — | e2e enlarged | 1680×970 | partiel | Mode agrandi PASS e2e |
-| 701:492 | Indisponible | — | — | 1680×970 | partiel | États unavailable UI |
-| 701:535 | Mobile conversation | figma-701-535-mobile.png | runtime-mobile-430x932.png | 430×932 | partiel | Capture runtime mobile |
-| 701:537 | Mobile viewer | — | — | 430×932 | non observé | Fermer viewer = retour |
-| 708:98 | Activité historique | — | — | 1680×970 | partiel | details historique post-terminal |
-| 708:199 | Échec envoi | — | — | 1680×970 | non observé | |
+## Contrat visuel extrait (metadata Figma)
 
-**Verdict visuel :** `FIGMA TO RUNTIME ALIGNED` **non déclaré** — captures et preuves partielles ; mesure F2 ≤2px non exécutée sur l'ensemble.
+| Node | Nom | W×H |
+|---|---|---|
+| 700:39 | Conversation nominale | 1680×970 |
+| 701:62 | Fil long | 1680×970 |
+| 701:105 | Composite / choix | 1680×970 |
+| 701:148 | Choix expirés | 1680×970 |
+| 701:191 | Compositeur multiligne | 1680×970 |
+| 701:234 | Activité | 1680×970 |
+| 701:277 | Erreur | 1680×970 |
+| 701:320 | Incertain | 1680×970 |
+| 701:363 | Viewer D4 50/50 | 1680×970 |
+| 701:406 | Viewer Git | 1680×970 |
+| 701:449 | Viewer agrandi | 1680×970 |
+| 701:492 | Indisponible | 1680×970 |
+| 701:535 | Mobile conversation | 430×932 |
+| 701:537 | Mobile viewer | 430×932 |
+| 708:98 | Activité historique | 1680×970 |
+| 708:199 | Échec envoi | 1680×970 |
+
+Repères conception: rail 246; composer 972×84; bottoms 857=857; split ~668/668.
+
+## Matrice de conformité
+
+| Frame | Runtime | Viewport | Capture Figma | Capture runtime | Mesures / delta | Statut | Réserve |
+|---|---|---|---|---|---|---|---|
+| 700:39 | Travail nominal | 1680×970 | figma-700-39-nominal.png | runtime-nominal-1680x970.png | viewports égaux; F2 px-par-px non certifié global | partiel | géométrie F2 non exhaustive |
+| 701:62 | fil long + scroll e2e | 1680×970 | — | — | comportement PASS e2e | partiel | capture dédiée absente |
+| 701:105 | choix typés | 1680×970 | figma-701-105-composite.png | runtime-nominal | choix PASS e2e | partiel | |
+| 701:148 | choix expirés | 1680×970 | figma-701-148-expired.png | e2e actionable=0 | comportement PASS | partiel | |
+| 701:191 | multiligne | 1680×970 | — | — | implémenté | non observé | |
+| 701:234 | activité V1 | 1680×970 | — | — | preparing honnête | partiel | pas d'étapes mid-flight |
+| 701:277 | erreur | 1680×970 | — | — | UI erreur | non observé | |
+| 701:320 | ACK/UNKNOWN | 1680×970 | figma-701-320-uncertain.png | e2e C2 | freeze+pending PASS | partiel | |
+| 701:363 | viewer D4 50/50 | 1680×970 | figma-701-363-viewer5050.png | e2e split | layout+contenu PASS; C1 révision exacte PASS | partiel | F2 split non mesuré px |
+| 701:406 | viewer Git | 1680×970 | — | API branchée | chemin D9 existant | partiel | Git REAL NOT EXECUTED |
+| 701:449 | agrandi | 1680×970 | figma-701-449-enlarged.png | e2e enlarged | PASS | partiel | |
+| 701:492 | indisponible | 1680×970 | — | UI unavailable | honnête | partiel | |
+| 701:535 | mobile | 430×932 | figma-701-535-mobile.png | runtime-mobile-430x932.png | viewports égaux | partiel | |
+| 701:537 | mobile viewer | 430×932 | — | — | fermer=retour | non observé | |
+| 708:98 | activité hist. | 1680×970 | — | — | details post-terminal | partiel | |
+| 708:199 | échec envoi | 1680×970 | — | e2e C2 ACK | comportement | partiel | |
+
+**Verdict visuel:** `FIGMA TO RUNTIME ALIGNED` **non déclaré** — preuves critiques (choix, incertitude, viewer, mobile) présentes; F2 ≤2px non certifié sur 16/16.
 ```
 
-## 15. Evidence binaires (sha256 + taille ; contenu PNG non inline)
+## 13. Evidence PNG (sha256 + taille)
 
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-700-39-nominal.png` — 68041 bytes — sha256 `735a20aa1a61a2f6e1726852b5c72a5288a8156b5b22cb2ad8bacdae60939460`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-105-composite.png` — 75197 bytes — sha256 `d27d118339a1cffcf1d799a1af40f56a2700724f9d7eb81d6922e7f0737f2bd5`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-363-viewer5050.png` — 78848 bytes — sha256 `c81401d9584f42b04cd01532bf7971d43b013b7ead1135fc7dfa32722051b91a`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-700-39-nominal.png` — 117210 bytes — sha256 `09c5e3bd23bc6688729be7298e6064c1af07096321e790be2b384998b0323816`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-105-composite.png` — 132244 bytes — sha256 `6394f424dcd2f27b314b8b3f818b09c2f628adad4dee0a4933161f334b7b3908`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-148-expired.png` — 124775 bytes — sha256 `ef2c4878dcf41c36e4274b42ad1a5951beffd848015bef69a01832b1704dc482`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-320-uncertain.png` — 122358 bytes — sha256 `978055d0b848f5a2b6eee8cbae1d82f5e44fbd5aae36cdb09aab2c83c3d54153`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-363-viewer5050.png` — 132708 bytes — sha256 `966f9798ffa5272bcc5bc1b9e437fc1a7add10577d6b0f1c5612cca5fbb875cf`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-449-enlarged.png` — 112892 bytes — sha256 `4b4041edc3ad8577acbb374d87e9189f7c295a7eac9769b52a4e6d05edb63384`
 - `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-701-535-mobile.png` — 37179 bytes — sha256 `3e09af36644ebd4c0a334a1b1e3f896961f146dced10bfb3d1fd8b9a8951c019`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-mobile-430x932.png` — 69054 bytes — sha256 `1775ff4d12666eff5cfc1c2397419faa43b57186e2348328946fc10971c65022`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-nominal-1680x970.png` — 193412 bytes — sha256 `0c6efe8ddeecf5d05a2fce91a3997258706e25664398457c9c18065db102d001`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-mobile-430x932.png` — 69307 bytes — sha256 `fd031aa96e8353a13f623254bbf9dfe5c991de8eab513c2fbb14f6ca98459f99`
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/runtime-nominal-1680x970.png` — 194015 bytes — sha256 `a6359cea5dbc93f9f3d211e94ec03f9b8ca196871dbff5fbcedd7f4bfa17fda0`
 
-## 16. Fichiers modifiés — diffs complets vs HEAD produit
+## 14. Fichiers modifiés — diffs vs HEAD produit
 
 ### MODIFIED `projects/sfia-studio-next/construction/delivery-history.md`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 61738fe9..fb635a2b 100644
+index 61738fe9..ae450599 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,44 @@ Append-only logical journal of Cursor product deliveries.
+@@ -4,6 +4,63 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
++## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CONSOLIDATION
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-17 ~12:45 CET |
++| Macro-lot | ML4D Ensemble 05 — consolidation C1–C5 (même candidat) |
++| Type | Cycle 8 Delivery · CRITICAL · EVOL consolidation · **NO RELEASE** |
++| Parent candidat | worktree local non commité sur `984d77a3` |
++| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
++| Scope | C1 révision D4 exacte ; C2 ACK perdu / un seul tour ; C3 purge same-tab ; C4 preuves Figma ; C5 Git D9 borné (déterministe) |
++| Non-scope | Migration ; streaming ; cutover RECETTE ; Git REAL LIVE ; F2 16/16 certifié |
++| Preuves | Vitest E05 9 + rail 13 PASS ; Playwright E05 5 PASS ; E04 3 PASS ; next build PASS |
++| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` |
++| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
++| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
++| Push produit | **AUCUN** |
++| Verdict cible | `E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW` |
++
++
 +## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CORRECTIVE
 +
 +| Field | Value |
@@ -1356,7 +1682,7 @@ index 61738fe9..fb635a2b 100644
 +| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` (mis à jour) |
 +| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
 +| Push produit | **AUCUN** |
-+| Verdict cible | `E05 CORRECTIVE CANDIDATE WITH RESERVES — NOT READY FOR RECETTE` |
++| Verdict cible | `E05 CORRECTIVE CANDIDATE WITH RESERVES — NOT READY FOR RECETTE` (supersédé par consolidation) |
 +
 +
 +## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA
@@ -1387,10 +1713,17 @@ index 61738fe9..fb635a2b 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-index 3ab2b9d6..7181875b 100644
+index 3ab2b9d6..f22d02af 100644
 --- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
 +++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-@@ -13,6 +13,7 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
+@@ -8,11 +8,14 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
+     const { projectId } = await ctx.params;
+     const data = await getOwnedProjectContext(session.pilotId, projectId);
+     return NextResponse.json({
++      // C3 — authenticated session pilot (not project owner identity alone).
++      session: { pilotId: session.pilotId },
+       project: data.project,
+       preparation: data.preparation,
        conversation: data.conversation,
        link: data.link,
        messages: data.messages,
@@ -1400,11 +1733,36 @@ index 3ab2b9d6..7181875b 100644
        pilotage: data.pilotage,
 ```
 
+### MODIFIED `projects/sfia-studio-next/web/src/app/login/page.tsx`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/login/page.tsx b/projects/sfia-studio-next/web/src/app/login/page.tsx
+index aae3571b..2f62cd7d 100644
+--- a/projects/sfia-studio-next/web/src/app/login/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/login/page.tsx
+@@ -104,6 +104,15 @@ function LoginPageInner() {
+     setNotice("");
+     setNoticeTone("info");
+     try {
++      // C3 — same-tab identity switch: purge Travail drafts before new session cookie.
++      try {
++        const { purgeAllComposerDraftsInTab } = await import(
++          "@/domains/conversation/composer-draft"
++        );
++        purgeAllComposerDraftsInTab();
++      } catch {
++        /* draft module unavailable — continue login */
++      }
+       const res = await fetch("/api/dev/login", {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+```
+
 ### MODIFIED `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index f359048e..83ed7018 100644
+index f359048e..8654413b 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 @@ -5,6 +5,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -1415,13 +1773,14 @@ index f359048e..83ed7018 100644
  import { ProjectJournal } from "@/components/figma/ProjectJournal";
  import { ProjectOverview } from "@/components/figma/ProjectOverview";
  import {
-@@ -24,6 +25,21 @@ import {
+@@ -24,6 +25,22 @@ import {
    type ThreadPendingTurn,
    type ThreadTurnKind,
  } from "@/domains/pilotage/thread-recovery";
 +import {
 +  clearDraftAfterAck,
 +  clearComposerDraft,
++  purgeAllComposerDraftsInTab,
 +  purgeComposerDraftsForPilot,
 +  readComposerDraft,
 +  writeComposerDraft,
@@ -1437,7 +1796,7 @@ index f359048e..83ed7018 100644
  import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
  import { useProjectSpace } from "@/components/shell/ProjectSpaceContext";
  import {
-@@ -128,6 +144,12 @@ export default function ProjectPage() {
+@@ -128,6 +145,12 @@ export default function ProjectPage() {
    const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
    const [draft, setDraft] = useState("");
    const [busy, setBusy] = useState(false);
@@ -1450,22 +1809,47 @@ index f359048e..83ed7018 100644
    const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
    const [status, setStatus] = useState("");
    const [pilotageStatus, setPilotageStatus] = useState("");
-@@ -139,6 +161,8 @@ export default function ProjectPage() {
+@@ -139,6 +162,10 @@ export default function ProjectPage() {
    const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
    const [docDiffText, setDocDiffText] = useState("");
    const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
 +  const draftVersionRef = useRef(0);
 +  const pilotIdRef = useRef<string | null>(null);
++  const preparationIdRef = useRef<string | null>(null);
++  const projectIdRef = useRef(params.projectId);
    const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
    const reviseCorrelationRef = useRef<string | null>(null);
    const reviseBaseIdRef = useRef<string | null>(null);
-@@ -171,6 +195,160 @@ export default function ProjectPage() {
+@@ -147,6 +174,9 @@ export default function ProjectPage() {
+   const reviseDraftRef = useRef("");
+   /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
+   const pendingSurfaceRef = useRef<Surface | null>(null);
++  /** C1 — ignore stale async viewer responses after A→B / close / project change. */
++  const viewerRequestSeqRef = useRef(0);
++  const viewerOpenRef = useRef(false);
+
+   useEffect(() => {
+     // Clear previous project identity immediately — no cross-project leak in the rail.
+@@ -171,6 +201,336 @@ export default function ProjectPage() {
    useEffect(() => {
      documentsRef.current = documents;
    }, [documents]);
 +  useEffect(() => {
 +    pilotIdRef.current = pilotId;
 +  }, [pilotId]);
++
++  useEffect(() => {
++    preparationIdRef.current = preparationId;
++  }, [preparationId]);
++
++  useEffect(() => {
++    projectIdRef.current = params.projectId;
++    // Invalidate in-flight viewer fetches when project changes.
++    viewerRequestSeqRef.current += 1;
++    viewerOpenRef.current = false;
++    setViewer(null);
++    setViewerEnlarged(false);
++  }, [params.projectId]);
 +
 +  function persistDraft(text: string) {
 +    if (!pilotId) return;
@@ -1487,12 +1871,14 @@ index f359048e..83ed7018 100644
 +    const rev = doc.latestRevision;
 +    const markdown = rev?.contentMarkdown ?? null;
 +    const available = Boolean(markdown) && rev?.status !== "FAILED";
++    viewerOpenRef.current = true;
 +    setViewer({
 +      kind: "document",
 +      documentId: doc.document.id,
 +      title: doc.document.title,
 +      revisionId: rev?.id ?? null,
 +      revisionNumber: rev?.revisionNumber ?? null,
++      versionSource: "current",
 +      markdown: available ? markdown : null,
 +      available,
 +      unavailableReason: available
@@ -1505,46 +1891,193 @@ index f359048e..83ed7018 100644
 +  }
 +
 +  function closeViewer() {
++    viewerRequestSeqRef.current += 1;
++    viewerOpenRef.current = false;
 +    setViewer(null);
 +    setViewerEnlarged(false);
 +  }
 +
-+  /** P1-C — consult D4/D9 reference without sending a turn or expiring choices. */
++  function applyViewerIfCurrent(
++    seq: number,
++    next: TravailViewerResource,
++    projectIdAtStart: string,
++  ) {
++    if (seq !== viewerRequestSeqRef.current) return;
++    if (!viewerOpenRef.current) return;
++    if (projectIdRef.current !== projectIdAtStart) return;
++    setViewer(next);
++    setViewerEnlarged(false);
++  }
++
++  /** C1 — consult exact D4 revision (or explicit current) / D9 Git via existing APIs. */
 +  async function openTravailReference(ref: TurnReference) {
++    const projectIdAtStart = params.projectId;
++    const seq = ++viewerRequestSeqRef.current;
++    viewerOpenRef.current = true;
++
 +    if (ref.kind === "document" && ref.resourceId) {
++      const prepId = preparationIdRef.current;
 +      const match = documents.find((d) => d.document.id === ref.resourceId);
-+      if (match) {
++      const title = match?.document.title ?? ref.label;
++
++      if (!prepId) {
++        applyViewerIfCurrent(
++          seq,
++          {
++            kind: "document",
++            documentId: ref.resourceId,
++            title,
++            revisionId: ref.revisionId ?? null,
++            revisionNumber: null,
++            versionSource: ref.revisionId ? "exact" : "current",
++            markdown: null,
++            available: false,
++            unavailableReason: "Préparation indisponible — lecture D4 impossible.",
++          },
++          projectIdAtStart,
++        );
++        return;
++      }
++
++      // Exact revision when cited — never silently substitute latest.
++      if (ref.revisionId) {
++        try {
++          const res = await fetch(
++            `/api/preparations/${prepId}/documents/${ref.resourceId}?revisionId=${encodeURIComponent(ref.revisionId)}`,
++          );
++          const j = (await res.json().catch(() => ({}))) as {
++            status?: string;
++            document?: { id?: string; title?: string };
++            revision?: {
++              id?: string;
++              revisionNumber?: number;
++              status?: string;
++              contentMarkdown?: string;
++            };
++            reason?: string;
++            error?: string;
++          };
++          if (res.status === 401) {
++            purgeComposerDraftsForPilot(pilotIdRef.current ?? "");
++            applyViewerIfCurrent(
++              seq,
++              {
++                kind: "document",
++                documentId: ref.resourceId,
++                title,
++                revisionId: ref.revisionId,
++                revisionNumber: null,
++                versionSource: "exact",
++                markdown: null,
++                available: false,
++                unavailableReason: "Session expirée — contenu non affiché.",
++              },
++              projectIdAtStart,
++            );
++            return;
++          }
++          if (!res.ok || j.status === "FORBIDDEN" || j.status === "NOT_FOUND") {
++            applyViewerIfCurrent(
++              seq,
++              {
++                kind: "document",
++                documentId: ref.resourceId,
++                title,
++                revisionId: ref.revisionId,
++                revisionNumber: null,
++                versionSource: "exact",
++                markdown: null,
++                available: false,
++                unavailableReason: String(
++                  j.reason ?? j.error ?? j.status ?? "Révision inaccessible ou non autorisée",
++                ),
++              },
++              projectIdAtStart,
++            );
++            return;
++          }
++          const rev = j.revision;
++          const markdown =
++            j.status === "AVAILABLE" && typeof rev?.contentMarkdown === "string"
++              ? rev.contentMarkdown
++              : null;
++          applyViewerIfCurrent(
++            seq,
++            {
++              kind: "document",
++              documentId: ref.resourceId,
++              title: j.document?.title ?? title,
++              revisionId: rev?.id ?? ref.revisionId,
++              revisionNumber: rev?.revisionNumber ?? null,
++              versionSource: "exact",
++              markdown,
++              available: Boolean(markdown),
++              unavailableReason: markdown
++                ? undefined
++                : `Révision non disponible (${String(j.status ?? rev?.status ?? "UNKNOWN")})`,
++            },
++            projectIdAtStart,
++          );
++        } catch {
++          applyViewerIfCurrent(
++            seq,
++            {
++              kind: "document",
++              documentId: ref.resourceId,
++              title,
++              revisionId: ref.revisionId,
++              revisionNumber: null,
++              versionSource: "exact",
++              markdown: null,
++              available: false,
++              unavailableReason: "Échec de lecture D4 — aucun contenu inventé.",
++            },
++            projectIdAtStart,
++          );
++        }
++        return;
++      }
++
++      // No explicit revision → version courante (explicitly labelled).
++      if (match?.latestRevision) {
 +        openTravailDocument(match);
 +        return;
 +      }
-+      setViewer({
-+        kind: "document",
-+        documentId: ref.resourceId,
-+        title: ref.label,
-+        revisionId: ref.revisionId ?? null,
-+        revisionNumber: null,
-+        markdown: null,
-+        available: false,
-+        unavailableReason: "Document introuvable ou non autorisé pour ce Pilote.",
-+      });
-+      setViewerEnlarged(false);
++      applyViewerIfCurrent(
++        seq,
++        {
++          kind: "document",
++          documentId: ref.resourceId,
++          title,
++          revisionId: null,
++          revisionNumber: null,
++          versionSource: "current",
++          markdown: null,
++          available: false,
++          unavailableReason: "Document introuvable ou non autorisé pour ce Pilote.",
++        },
++        projectIdAtStart,
++      );
 +      return;
 +    }
 +    if (ref.kind === "git") {
 +      if (!ref.repositoryId || !ref.path || !ref.ref) {
-+        setViewer({
-+          kind: "git",
-+          title: ref.label,
-+          path: ref.path ?? null,
-+          ref: ref.ref ?? null,
-+          commit: ref.commit ?? null,
-+          content: null,
-+          available: false,
-+          unavailableReason:
-+            "Référence Git incomplète (dépôt, chemin ou ref manquant) — aucun aperçu inventé.",
-+          href: ref.href ?? null,
-+        });
-+        setViewerEnlarged(false);
++        applyViewerIfCurrent(
++          seq,
++          {
++            kind: "git",
++            title: ref.label,
++            path: ref.path ?? null,
++            ref: ref.ref ?? null,
++            commit: ref.commit ?? null,
++            content: null,
++            available: false,
++            unavailableReason:
++              "Référence Git incomplète (dépôt, chemin ou ref manquant) — aucun aperçu inventé.",
++            href: ref.href ?? null,
++          },
++          projectIdAtStart,
++        );
 +        return;
 +      }
 +      try {
@@ -1562,83 +2095,101 @@ index f359048e..83ed7018 100644
 +        };
 +        const prov = j.provenance;
 +        if (!res.ok) {
-+          setViewer({
-+            kind: "git",
-+            title: ref.label,
-+            path: ref.path,
-+            ref: ref.ref,
-+            commit: prov?.commitSha ?? ref.commit ?? null,
-+            content: null,
-+            available: false,
-+            unavailableReason: String(
-+              j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
-+            ),
-+            href: prov?.permalink ?? ref.href ?? null,
-+          });
++          applyViewerIfCurrent(
++            seq,
++            {
++              kind: "git",
++              title: ref.label,
++              path: ref.path,
++              ref: ref.ref,
++              commit: prov?.commitSha ?? ref.commit ?? null,
++              content: null,
++              available: false,
++              unavailableReason: String(
++                j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
++              ),
++              href: prov?.permalink ?? ref.href ?? null,
++            },
++            projectIdAtStart,
++          );
 +        } else {
 +          const content = typeof j.content === "string" ? j.content : null;
-+          setViewer({
++          applyViewerIfCurrent(
++            seq,
++            {
++              kind: "git",
++              title: ref.label,
++              path: ref.path,
++              ref: ref.ref,
++              commit: prov?.commitSha ?? ref.commit ?? null,
++              content,
++              available: Boolean(content),
++              unavailableReason: content
++                ? undefined
++                : "Aperçu Git vide — aucun contenu inventé.",
++              href: prov?.permalink ?? ref.href ?? null,
++            },
++            projectIdAtStart,
++          );
++        }
++      } catch {
++        applyViewerIfCurrent(
++          seq,
++          {
 +            kind: "git",
 +            title: ref.label,
 +            path: ref.path,
 +            ref: ref.ref,
-+            commit: prov?.commitSha ?? ref.commit ?? null,
-+            content,
-+            available: Boolean(content),
-+            unavailableReason: content
-+              ? undefined
-+              : "Aperçu Git vide — aucun contenu inventé.",
-+            href: prov?.permalink ?? ref.href ?? null,
-+          });
-+        }
-+      } catch {
-+        setViewer({
-+          kind: "git",
-+          title: ref.label,
-+          path: ref.path,
-+          ref: ref.ref,
-+          commit: ref.commit ?? null,
-+          content: null,
-+          available: false,
-+          unavailableReason: "Échec de lecture Git — réessayez ou ouvrez la source externe.",
-+          href: ref.href ?? null,
-+        });
++            commit: ref.commit ?? null,
++            content: null,
++            available: false,
++            unavailableReason: "Échec de lecture Git — réessayez ou ouvrez la source externe.",
++            href: ref.href ?? null,
++          },
++          projectIdAtStart,
++        );
 +      }
-+      setViewerEnlarged(false);
 +      return;
 +    }
-+    setViewer({
-+      kind: "git",
-+      title: ref.label,
-+      content: null,
-+      available: false,
-+      unavailableReason: "Référence externe — ouvrir le lien si disponible.",
-+      href: ref.href ?? null,
-+    });
-+    setViewerEnlarged(false);
++    applyViewerIfCurrent(
++      seq,
++      {
++        kind: "git",
++        title: ref.label,
++        content: null,
++        available: false,
++        unavailableReason: "Référence externe — ouvrir le lien si disponible.",
++        href: ref.href ?? null,
++      },
++      projectIdAtStart,
++    );
 +  }
 
    function buildSurfaceUrl(next: Surface, documentId?: string | null) {
      const q = new URLSearchParams();
-@@ -433,7 +611,11 @@ export default function ProjectPage() {
+@@ -433,7 +793,12 @@ export default function ProjectPage() {
        const res = await fetch(`/api/projects/${params.projectId}`);
        if (cancelled) return;
        if (res.status === 401) {
-+        const pid = pilotIdRef.current;
-+        if (pid) purgeComposerDraftsForPilot(pid);
++        // C3 — session invalid: purge tab drafts; do not restore under wrong identity.
++        purgeAllComposerDraftsInTab();
++        setPilotId(null);
          setUnavailableKind("unauthorized");
 +        setDraft("");
 +        setChoiceFrozen(false);
          setStatusHint("");
          setProjectSpaceInfo({
            projectId: params.projectId,
-@@ -475,8 +657,32 @@ export default function ProjectPage() {
+@@ -475,8 +840,41 @@ export default function ProjectPage() {
        if (cancelled) return;
        const docs = (j.documents ?? []) as Doc[];
        const name = String(j.project?.name ?? "").trim() || null;
-+      const ownerPilotId =
-+        typeof j.project?.ownerPilotId === "string" ? j.project.ownerPilotId : null;
-+      setPilotId(ownerPilotId);
++      // C3 — draft ownership follows authenticated session pilot, not project owner alone.
++      const sessionPilotId =
++        typeof j.session?.pilotId === "string" && j.session.pilotId.trim()
++          ? String(j.session.pilotId)
++          : null;
++      setPilotId(sessionPilotId);
 +      setTurnProjections(
 +        ((j.turnProjections ?? []) as unknown[])
 +          .map((raw) => parseTurnProjection(raw))
@@ -1646,15 +2197,21 @@ index f359048e..83ed7018 100644
 +      );
        setMessages(j.messages ?? []);
        setDocuments(docs);
-+      if (ownerPilotId) {
-+        // P2-B: restore only when stored pilot matches current project owner (session-gated by API).
-+        const record = readComposerDraft({ pilotId: ownerPilotId, projectId: params.projectId });
-+        if (record?.text && record.pilotId === ownerPilotId) {
++      if (sessionPilotId) {
++        const record = readComposerDraft({
++          pilotId: sessionPilotId,
++          projectId: params.projectId,
++        });
++        if (record?.text && record.pilotId === sessionPilotId) {
 +          setDraft(record.text);
 +          draftVersionRef.current = record.version;
-+        } else if (record && record.pilotId !== ownerPilotId) {
-+          clearComposerDraft({ pilotId: record.pilotId, projectId: params.projectId });
++        } else {
++          setDraft("");
++          draftVersionRef.current = 0;
 +        }
++      } else {
++        setDraft("");
++        draftVersionRef.current = 0;
 +      }
 +      // P1-B: unresolved pending ⇒ keep choice groups frozen until reconcile.
 +      const pendingOnLoad = readPending();
@@ -1665,7 +2222,7 @@ index f359048e..83ed7018 100644
        setKnowledge(j.knowledge ?? null);
        setPreparationId(j.preparation?.id ?? null);
        setProjectName(name);
-@@ -762,9 +968,32 @@ export default function ProjectPage() {
+@@ -762,9 +1160,32 @@ export default function ProjectPage() {
      setReviseMessage("Base mise à jour — nouvelle intention (nouvelle correlationKey au prochain enregistrement).");
    }
 
@@ -1701,7 +2258,7 @@ index f359048e..83ed7018 100644
      // SEM-02 / S05: no client lexical gate. Server returns nextTurnKind from Nora
      // qualification. Same-content retry reuses the turn key; distinct content may
      // proceed — coexistence is decided from the server kind after the response.
-@@ -817,14 +1046,28 @@ export default function ProjectPage() {
+@@ -817,14 +1238,28 @@ export default function ProjectPage() {
          setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
          const effect = j.pilotageEffect as PilotageEffectView | undefined;
          setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
@@ -1734,7 +2291,7 @@ index f359048e..83ed7018 100644
          } else if (effectBlocked || (distinctFromUnresolved && serverKind === "INTENTION_EFFET")) {
            setStatus(
              effectBlocked
-@@ -844,8 +1087,16 @@ export default function ProjectPage() {
+@@ -844,8 +1279,16 @@ export default function ProjectPage() {
          setNoraActivity(
            j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
          );
@@ -1752,7 +2309,7 @@ index f359048e..83ed7018 100644
          rememberPending({ content: text, clientTurnKey, clientCommandKey });
          setNoraActivity("error");
          setStatus(
-@@ -855,6 +1106,8 @@ export default function ProjectPage() {
+@@ -855,6 +1298,8 @@ export default function ProjectPage() {
          );
        }
      } catch {
@@ -1761,7 +2318,7 @@ index f359048e..83ed7018 100644
        rememberPending({ content: text, clientTurnKey, clientCommandKey });
        setNoraActivity("error");
        setStatus("échec réseau — intention de tour conservée");
-@@ -894,6 +1147,8 @@ export default function ProjectPage() {
+@@ -894,6 +1339,8 @@ export default function ProjectPage() {
      );
    }
 
@@ -1770,7 +2327,7 @@ index f359048e..83ed7018 100644
    return (
      <ProjectChrome
        projectId={params.projectId}
-@@ -901,6 +1156,7 @@ export default function ProjectPage() {
+@@ -901,6 +1348,7 @@ export default function ProjectPage() {
        surface={surface}
        statusHint={statusHint}
        loadState={projectLoadState}
@@ -1778,7 +2335,7 @@ index f359048e..83ed7018 100644
      >
        {surface === "projet" ? (
          <ProjectOverview
-@@ -923,7 +1179,23 @@ export default function ProjectPage() {
+@@ -923,7 +1371,23 @@ export default function ProjectPage() {
            unresolvedPending={Boolean(unresolvedPending)}
            activity={noraActivity}
            status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
@@ -1803,7 +2360,7 @@ index f359048e..83ed7018 100644
            onSend={() => void sendMessage()}
            onReconcile={
              unresolvedPending
-@@ -931,6 +1203,25 @@ export default function ProjectPage() {
+@@ -931,6 +1395,25 @@ export default function ProjectPage() {
                : undefined
            }
            aside={
@@ -1829,7 +2386,7 @@ index f359048e..83ed7018 100644
              <div className="fig-inspector" data-testid="travail-aside-inspector">
                <p className="fig-kicker">Contexte projet</p>
                <h2 className="fig-inspector-title">En bref</h2>
-@@ -958,6 +1249,21 @@ export default function ProjectPage() {
+@@ -958,6 +1441,21 @@ export default function ProjectPage() {
                      ? `${documents.length} document${documents.length > 1 ? "s" : ""} Nora disponible${documents.length > 1 ? "s" : ""}.`
                      : "Les objets et sources du projet restent distincts du dialogue."}
                  </p>
@@ -1851,7 +2408,7 @@ index f359048e..83ed7018 100644
                  <div className="fig-inspector-links">
                    <button
                      type="button"
-@@ -993,6 +1299,7 @@ export default function ProjectPage() {
+@@ -993,6 +1491,7 @@ export default function ProjectPage() {
                  ) : null}
                </div>
              </div>
@@ -2472,7 +3029,7 @@ index 2023a7b1..1fb671e7 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-index 4f348ff4..5f833ba9 100644
+index 4f348ff4..6585c4c7 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
 @@ -46,6 +46,8 @@ type QualExtras = Partial<
@@ -2535,6 +3092,43 @@ index 4f348ff4..5f833ba9 100644
        preparationAssessment: "CLARIFYING",
        preparationAssessmentExplanation:
          "Un résultat visé est désormais exprimé ; le périmètre initial et un nom de travail restent à préciser.",
+@@ -584,6 +616,9 @@ const MATURATION_RENAME_RE =
+   /^Je préfère l'appeler (.+?) plutôt qu'Assistant de pilotage\.$/;
+ const COCKPIT_NAMED_RE =
+   /^Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé (.+)\.$/;
++/** E05 C1 — TEST_BOUNDARY only: cite an exact D4 revision for Travail viewer proof. */
++const E05_CITE_REVISION_RE =
++  /^E05_CITE_REVISION documentId=(\S+) revisionId=(\S+)$/;
+
+ export function fixtureSemanticQualify(userText: string): NoraTurnQualification {
+   assertFixtureLane();
+@@ -603,6 +638,26 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification
+   if (cockpit?.[1]?.trim()) {
+     return cockpitNamedQualification(cockpit[1]);
+   }
++  const cite = text.match(E05_CITE_REVISION_RE);
++  if (cite?.[1] && cite?.[2]) {
++    return dialogue(
++      "Citation documentaire exacte (fixture E05 C1)",
++      "Voici la révision documentaire citée. Consultez-la dans Travail sans modifier le document.",
++      ["NO_EFFECT", "E05_CITE_REVISION"],
++      {
++        omitClarifications: true,
++        continueChoices: [],
++        resourceReferences: [
++          {
++            kind: "document",
++            label: "Révision citée E05",
++            resourceId: cite[1],
++            revisionId: cite[2],
++          },
++        ],
++      },
++    );
++  }
+   // Fail closed: unknown fixture text is dialogue-only, never a lexical invent of effects.
+   return dialogue(
+     "Dialogue fixture par défaut",
 ```
 
 ### MODIFIED `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
@@ -2776,17 +3370,8 @@ index c334afa1..cbf289b5 100644
      pilotage,
 ```
 
-## 17. Handoff L3 — publié et vérifié
-| Item | Value |
-|---|---|
-| Branch | `sfia/review-handoff` |
-| Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Mode | publish-in-cycle |
-| Tip distant au moment de rédaction | `4e58884ec00c6cd86eabf082dce540a5b0015e1b` |
-| Blob tip | `b4185d689943a8bac468ed1a7f8cf99b8259ae86` |
-| Chaîne | `ebc8766c` → `c0f29be1` (pack Full) → `4e58884e` (SHAs annotés) |
-| Mono-fichier | OUI à chaque commit |
-| Product push | **NONE / FORBIDDEN** |
+## 15. Handoff L3
+À publier sur `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (mono-fichier).
 
-## 18. Instruction ChatGPT
-Avant revue Morris: lire sur Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (ce cycle), contrôler HEADs, diffs/créations, tests, captures, réserves, verdict.
+## 16. Instruction ChatGPT
+Lire le tip distant `sfia/review-handoff` avant recommandation Morris.
