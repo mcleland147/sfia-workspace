@@ -3,8 +3,8 @@
 | Métadonnée | Valeur |
 |---|---|
 | Périmètre | R5 / ML4D — Ensemble 05, Travail avec Nora |
-| Version | **v0.2 — 17 novembre 2026 : ajout du Sujet 02 / réponses structurées et actions conversationnelles** |
-| Statut | **VALIDATED SPEC par Morris sur UX-002 et Sujet 02 (principes A–F, transmission immédiate, indépendance du brouillon)** ; détails visuels et choix techniques explicitement à qualifier |
+| Version | **v0.3 — 17 novembre 2026 : consolidation finale du Sujet 02 / grammaire visuelle, cycle de vie des choix, réponses progressives et sources/preuves** |
+| Statut | **VALIDATED SPEC par Morris : UX-002 et Sujet 02 (principes A–F, grammaire visuelle, transmission immédiate, brouillon indépendant, expiration des choix, réponses progressives, provenance/sources/preuves)** ; contrat de conception clôturé sur son périmètre, code/architecture/preuves RECETTE ouverts |
 | Autorité | Morris : arbitrages UX ; ChatGPT : formalisation et revue ; Cursor : réalisation technique sous GO distinct |
 | Référentiel de suivi | [Registre central ML4D](registre-central-revues.md) |
 | Branche documentaire | docs/next-ml4d-registre-revues-20261116 — candidate, distincte de main |
@@ -128,7 +128,7 @@ Ces scénarios ne sont **pas encore exécutés** sur un correctif. Les preuves D
 
 **Résultat attendu :** le Pilote reçoit la meilleure restitution pour sa demande, qu'il s'agisse de deux phrases ou d'une analyse composite longue. Nora construit librement une réponse organisée par l'objectif et le raisonnement, sans être enfermée dans une liste de gabarits prédéfinis. Studio doit présenter cette réponse fidèlement, et n'offrir des actions que lorsqu'elles ont un effet conversationnel ou une destination réelle et autorisée.
 
-**Décision Morris confirmée le 17/11/2026 :** « Nora doit construire la forme de sa réponse au service du raisonnement et du résultat attendu, et non adapter son raisonnement aux limites d'un gabarit visuel. » Les six principes A–F issus de la revue ont été **validés**. Après revue des options, Morris a aussi choisi **la transmission immédiate** pour les interactions conversationnelles, et a approuvé le comportement **brouillon conservé indépendamment** lorsqu'un choix est sélectionné.
+**Décision Morris confirmée le 17/11/2026 :** « Nora doit construire la forme de sa réponse au service du raisonnement et du résultat attendu, et non adapter son raisonnement aux limites d'un gabarit visuel. » Les six principes A–F, la **grammaire visuelle conversationnelle enrichie et sobre**, la **transmission immédiate** des interactions conversationnelles, le **brouillon conservé indépendamment**, la **désactivation de toute interaction de choix au prochain message Pilote**, ainsi que les six règles de **réponse progressive** et les six règles de **provenance/sources/preuves** ont été approuvés successivement par Morris le 17/11/2026. Il s'agit de décisions de conception, sans assertion d'implémentation.
 
 **Portée :** ce sujet complète et opérationnalise la vision R1 §2.32 et R3 §§23–25 ; il n'invente ni une nouvelle capacité d'autorité ni une technologie de rendu adoptée. Un écran Figma illustre une possibilité mais ne restreint pas la liberté de Nora.
 
@@ -171,6 +171,23 @@ Les primitives suivantes forment une **grammaire candidate, non un inventaire fe
 5. Le fil scroll verticalement, **le compositeur reste distinct** ; les messages composites respectent UX-002, notamment le maintien de la lecture historique pendant une réponse nouvelle.
 6. Les sources authentiques apparaissent au plus près des affirmations déterminantes lorsqu'elles sont disponibles ; absence de source ou vérification impossible sont qualifiées honnêtement.
 7. Les éléments interactifs apparaissent **au moment pertinent** et avec une sémantique d'action non ambiguë ; aucune ligne/tableau/étiquette ne se transforme en commande par simple interprétation de texte.
+
+### Grammaire visuelle conversationnelle enrichie et sobre (VALIDATED SPEC, Morris 17/11/2026)
+
+**Direction validée :** la présentation repose sur du **texte naturel par défaut**, des **composants spécialisés seulement si leur contenu le justifie**, **une seule réponse cohérente**, et une **mise en évidence sélective et proportionnée**. La forme suit la logique du raisonnement ; ni Markdown seul imposé, ni reproduction systématique des cartes Figma R3.
+
+| Aspect | Comportement UX retenu | À éviter |
+|---|---|---|
+| Message Nora | Un conteneur principal et un chemin de lecture cohérent ; sections dans une seule identité de message | Multiplication de bulles et d'objets artificiels |
+| Typographie et contenu | Titres/sous-titres proportionnés, paragraphes lisibles et respiration entre sections | Taxonomie technique imposée (« INVESTIGATION », « COMPOSITE ») ou emphases partout |
+| Cartes/encadrés | Réservés aux informations réellement à distinguer, regrouper ou inspecter | Un cadre, une bordure ou un badge pour chaque paragraphe |
+| Données/tableaux | En-têtes identifiables, comparaison complète, largeur/reflow et débordement maîtrisés | Compression, clipping ou perte d'une colonne importante |
+| Étapes/dépendances | Séquence et liens utilisés lorsque l'ordre apporte une information | Frise décorative sans dépendance réelle |
+| Recommandation/état | Mise en avant discrète, qualification factuelle, recommandation jamais assimilée à décision | Aplat visuel trompeur « validé » ou verdict sans source |
+| Actions/sources | Insérées près du point utile, accessibles, gouvernées et non systématiques | Groupe de boutons décoratifs final imposé |
+| Longueur/responsive | Composition verticale naturelle dans le fil, composer séparé, hiérarchie et contenu conservés à chaque viewport | Obligation de faire tenir le message dans une fenêtre ou perte d'information mobile |
+
+**Portée exacte :** orientation ergonomique approuvée, **aucun design pixel-final** (taille, token, distance, animation, breakpoint ni nouveau composant Figma adopté). L'examen à 1280/1680 et sur mobile, clavier/focus/zoom/lecteur d'écran, reste à démontrer sur runtime.
 
 **Important :** ces règles fournissent un brief pour la future revue visuelle/technique. Elles **ne constituent pas** une validation pixel des cartes, marges, animations, badges, colonnes ni composants Figma nouveaux ; le prototype R3 reste une **exploration**.
 
@@ -224,6 +241,60 @@ Pour les choix de poursuite proposés par Nora, par exemple « Approfondir B » 
 
 Ne pas transformer les trois questions ouvertes en fonctionnalités autonomes. Le correctif le plus simple compatible avec les propriétaires et leurs preuves doit être privilégié.
 
+### 6.8. Durée de vie des interactions conversationnelles de choix (VALIDATED SPEC, Morris 17/11/2026)
+
+**Arbitrage explicite :** une interaction de sélection intégrée à une réponse de Nora appartient au **tour de dialogue auquel elle se rapporte** ; elle n'est **pas** une commande réutilisable dans l'historique. **Dès que la prochaine réponse Pilote est effectivement transmise**, que ce soit par une option ou par un texte libre du compositeur, **toutes les options de cette interaction deviennent définitivement inactives**. Ce choix **remplace** toute suggestion antérieure de conserver les autres options cliquables après sélection.
+
+| Événement ou état | Comportement requis |
+|---|---|
+| Nora termine une réponse contenant un groupe de choix A/B/C | Le groupe devient actif après finalisation, selon les permissions/capacités actuelles. |
+| Le Pilote choisit B | Transmission immédiate de l'intention B, indépendamment du brouillon ; dès envoi effectif du nouveau tour Pilote, **A, B et C sont toutes désactivées**. |
+| Le Pilote écrit une question libre sans choisir A/B/C | Dès transmission de ce message, **A, B et C sont également désactivées**, même si aucune option n'est choisie. |
+| Le Pilote demande des précisions puis Nora répond | Les choix du message Nora antérieur restent inactifs ; Nora peut éventuellement émettre **une nouvelle interaction** pertinente dans sa nouvelle réponse. |
+| Le Pilote remonte dans le fil après plusieurs échanges ou reprend le projet | Les anciennes options restent **visibles et compréhensibles mais non actionnables** ; aucun retour d'activité par rechargement ou restauration. |
+| Échec, absence d'ACK ou état d'envoi incertain | Pas de faux succès, aucune nouvelle demande dupliquée ; figer le contrôle pendant la qualification, puis résoudre le statut avec les mécanismes existants ; ne pas conclure arbitrairement à une transmission effective. |
+| Le message Nora comporte des liens de consultation documentaire/source | **Ces liens ne sont pas des choix conversationnels** : ils gardent leur destination consultable dans l'historique tant que la cible existe et que les droits actuels le permettent (§6.10). |
+
+**Un événement simple clôt le groupe : un nouveau tour Pilote réellement envoyé.** Pas de « Réactiver », « Modifier choix » ni système de choix cumulatif. La fermeture couvre l'interaction de choix concernée, pas les références et actions de **lecture**. Si une option était sélectionnée, sa trace se trouve dans le message Pilote effectivement envoyé ; si la réponse est libre, aucun choix artificiel n'est indiqué comme retenu.
+
+**Clarification de priorité avec §6.5 :** le clic sélectionne et transmet immédiatement (pas de second « Envoyer »). **L'ensemble** des boutons de sélection du message Nora précédent passe ensuite en lecture seule. Le système n'a pas à attendre la réponse suivante de Nora pour les fermer. Gestion single-flight, double clic et incertitude : contrats D3 existants, **aucun nouveau moteur concurrent**. Le comportement reste à prouver sur navigateur après construction.
+
+### 6.9. Réponses longues, progressives et interrompues (VALIDATED SPEC, Morris 17/11/2026)
+
+**Six règles validées :**
+
+1. **Restitution dès disponibilité :** afficher le contenu réellement disponible et présentable sans attendre artificiellement la fin lorsqu'une production progressive est effectivement supportée. Pendant la préparation sans contenu, un indicateur discret et honnête « Nora prépare sa réponse… » suffit ; ne pas fabriquer de texte ni promettre un streaming absent.
+2. **Identité unique :** le texte et les blocs apparaissent dans **un message Nora unique qui s'enrichit**, sans accumulation de faux messages successifs.
+3. **Blocs cohérents :** ne présenter tableaux, comparaisons ou composants spécialisés que sous une forme stable et intelligible ; un fragment incomplet ne doit pas devenir un tableau cassé, un lien inexistant ou une action mal définie. Le texte disponible peut rester lisible si une représentation structurée n'est pas encore sûre.
+4. **Priorité à la lecture volontaire :** respecter UX-002 ; suivre les nouveaux fragments uniquement si le Pilote suit déjà la fin du fil. Dès qu'il remonte pour lire, **ne plus forcer le scroll**, même si le message Nora en cours grandit ; l'indicateur de nouveaux contenus et la flèche vers le bas **réutilisent le mécanisme UX-002**.
+5. **Actions après finalisation :** rendre les choix conversationnels **actifs seulement quand la réponse et leurs intentions sont finalisées**, pas sur une proposition partielle ou susceptible de changer. Une fois actifs, ils suivent leur durée de vie §6.8.
+6. **Interruption et incertitude honnêtes :** distinguer préparation, en cours, réponse finalisée, réponse partielle et interruption/échec/UNKNOWN selon les états réellement disponibles. Préserver le contenu partiel lorsqu'il est véritablement reçu et récupérable ; ne jamais le présenter comme sauvegardé, final ou réussi sans preuve.
+
+**Règles de sobriété :** ne pas imposer le mot-à-mot ni une barre de progression estimée ; un signal d'activité discret est préférable à des indicateurs répétés dans chaque sous-bloc. Lors de croissance de contenu, ne pas déplacer la cible de lecture d'un bloc plus ancien, ne pas perdre l'accessibilité du compositeur ni le focus. En cas de mise en page recalculée, ne pas déclencher de glissement intempestif.
+
+**Frontière technique :** le code `main@997d4c4e` inspecté pour `NoraConversation` indique « Nora prépare… » et un rendu `SafeMarkdown` ; le parcours `sendMessage` inspecté actualise le fil après réponse HTTP. **Un rendu progressif effectif n'est pas démontré sur ce périmètre de code, ni sur le candidat local RECETTE**. Ce contrat définit la **cible UX**, pas un protocole de streaming, des événements serveur ou une architecture déjà décidés ; les dépendances et coûts restent à qualifier.
+
+### 6.10. Sources, références, preuves et consultation durable (VALIDATED SPEC, Morris 17/11/2026)
+
+**Les six règles de conception approuvées :**
+
+| Règle | Comportement UX attendu | Frontière métier |
+|---|---|---|
+| **1. Provenance proportionnée** | Présenter les références déterminantes près de l'assertion concernée ; éviter citations décoratives et badges après chaque phrase. | D3 restitue ; D4/D9 fournissent la provenance réellement accessible. |
+| **2. Consultation contextuelle** | Liens vers sources, documents, décisions, commits ou objets réels au point utile ; inspection/détail selon la ressource existante. | Aucun lien, objet, SHA ni extrait de document inventé. |
+| **3. Vérité des statuts** | Distinguer explicitement **déclaré**, **observé**, **démontré sur une portée**, **non démontré**, **contradictoire** et **accepté par le Pilote** lorsque pertinents. | D8 qualifie l'observation/conformité ; D6 possède l'acceptation. Une couleur ou icône ne crée aucun statut. |
+| **4. Contradictions et limites visibles** | Ne pas masquer divergence de branche/version/période, donnée inaccessible/périmée, preuve manquante ou incertitude importante. | D4/D8/D9 restent propriétaires de leur source/qualification. |
+| **5. Consultation durable** | Les références historiques restent lisibles, et leurs liens/action de **lecture** restent utilisables si la cible et les permissions sont actuelles. | **Ne pas appliquer l'expiration §6.8 aux liens de consultation** ; revérifier droits, disponibilité et actualité au clic. |
+| **6. Synthèse puis profondeur accessible** | Résultat et réserves essentiels d'abord ; détails accessibles à la demande. La concision ne supprime pas les informations obligatoires d'un bilan D8. | Aucune obligation de neuf cartes ou sections visibles dans chaque message. |
+
+**Règle D8 applicable aux bilans de réalisations :** [R2 Résultats et preuves §8.2](../../conception-fonctionnelle/resultats-et-preuves.md) prévoit **neuf rubriques accessibles** : résumé, prévu, réalisé, évaluation, écarts/réserves, impact projet, verdict D8, recommandation/suite et sources vérifiées. Une réponse courte peut synthétiser les points déterminants ; **les rubriques et preuves pertinentes demeurent accessibles** dans les surfaces/résultats dont la responsabilité appartient à D8. Pour un résultat complexe ou à risque, Nora peut composer une restitution plus approfondie sans trame graphique fixe.
+
+**Exemple de distinction non probatoire :** « Cursor déclare les tests réussis, mais les sorties ne sont pas accessibles » → statut visible **tests déclarés, non vérifiés ; conformité globale non démontrée**. Ne pas transformer le rapport en certificat, ni une conformité technique en HumanDecision. Un commit vérifié sur branche candidate ne vaut pas merge `main`.
+
+**Sur une ancienne conversation :** une option « Approfondir B » a expiré au prochain message Pilote (§6.8) ; le lien « Consulter le rapport » de la même réponse conserve son intérêt historique, sous réserve d'accès courant. Un lien indisponible est identifié comme tel ; le contenu historique ne se réécrit pas artificiellement et ne dévoile aucune ressource hors droits.
+
+**Sécurité et accessibilité :** les liens doivent être réellement activables et compréhensibles, accessibles clavier et lecteur d'écran ; provenances et réserves ne dépendent pas uniquement de la couleur ; les données externes restent non fiables, jamais instructions autorisantes. Aucun deuxième registre documentaire, de preuve ou de décision introduit par ce contrat.
+
 ## 7. État actuel, responsabilités et impacts de réalisation
 
 ### 7.1. Observé / connu / non observé
@@ -268,6 +339,17 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 | UX-NORA-12 | Pendant une réponse longue, Pilote lit un ancien message | Aucun défilement forcé, indicateur du nouveau message et retour en bas conformes au contrat UX-002. |
 | UX-NORA-13 | Mobile 390/320, 1280/1680, clavier, zoom, longue table | Reflow lisible, alternatives accessibles, focus maîtrisé, pas de perte d'information ni action masquée. |
 | UX-NORA-14 | Choix conversationnel vs HumanDecision / Exécuter | Le clic de poursuite reste conversationnel ; mutations et décisions structurantes nécessitent les contrôles propres aux domaines concernés. |
+| UX-NORA-15 | Choix B dans interaction A/B/C puis retour à l'ancien message | B transmis une fois ; **A/B/C tous inactifs**, lisibles, aucune seconde action possible. |
+| UX-NORA-16 | Pilote répond librement sans utiliser A/B/C | Le tour Pilote transmis clôt **tous les choix** ; aucune option prétendue sélectionnée. |
+| UX-NORA-17 | Ancienne réponse Nora avec lien « Consulter le document » et options expirées | Choix A/B/C inactifs mais consultation encore disponible sous contrôle des droits/cible actuelle. |
+| UX-NORA-18 | Choix tenté en double clic ou envoi UNKNOWN | Pas de doublon ni de succès fictif, état incertain qualifié/réconcilié ; aucun choix ancien réactivé par erreur. |
+| UX-NORA-19 | Réponse courte, analyse, tableau, parcours puis réponse composite | **Grammaire sobre** : hiérarchie naturelle, blocs spécialisés uniquement utiles, pas de cadres ou catégories imposés. |
+| UX-NORA-20 | Nora prépare puis émet un contenu partiel progressif | Indicateur honnête, **un seul message évolutif**, aucune table cassée ni action prématurément activée. |
+| UX-NORA-21 | Longue réponse progressive ; Pilote remonte lire | **UX-002 préserve la lecture**, même quand le contenu grandit ; contrôle unique de retour en bas. |
+| UX-NORA-22 | Production interrompue / réponse partielle / refresh | Statut et persistance réels, aucune finalisation/sauvegarde inventée, contenu réellement récupérable préservé. |
+| UX-NORA-23 | Nora cite source déterminante puis source inaccessible/contradictoire | Provenance/version/limites lisibles, refus explicite de la consultation non autorisée, divergence conservée. |
+| UX-NORA-24 | Bilan D8 rapport Cursor « tests OK » sans sortie de tests | « Déclaré / non vérifié », conformité **non démontrée** ; détail des **neuf rubriques** accessible lorsque applicable, aucune acceptation D6 inférée. |
+| UX-NORA-25 | Retour sur un bilan ancien avec nouveau droit ou nouvelle preuve | Lien consultable seulement si encore autorisé ; version/date et conclusion historique préservées, qualification actuelle distincte. |
 
 **Niveaux de preuve visés :** revue Figma native ciblée pour les traitements visuels, tests déterministes des contrats et de la sécurité, BROWSER/RECETTE sur SHA identifié, scénario LIVE seulement si fournisseur/capacité réellement disponibles, non-régression UX-002 et Ensemble 04. Tests FAKE ou Figma ≠ comportements LIVE/REAL.
 
@@ -277,14 +359,13 @@ Ces scénarios sont des **oracles UX/fonctionnels pour la préparation d'un cont
 |---|---|
 | **UX-002 — position de lecture** | **VALIDATED SPEC** ; anomalie REPRODUITE ; correction OPEN / non implémentée par cette action. |
 | **Sujet 02 — principes A–F** | **VALIDATED SPEC BY MORRIS** ; liberté de composition et proportionnalité opposables. |
-| **Sujet 02 — choix conversationnels** | **VALIDATED SPEC BY MORRIS** : transmission immédiate, **brouillon indépendant intégralement préservé**. |
-| **Variantes visuelles détaillées** | **CANDIDATES** : implémentation graphiquement à qualifier, aucun pixel/token décidé ici. |
+| **Sujet 02 — choix conversationnels** | **VALIDATED SPEC BY MORRIS** : transmission immédiate, **brouillon indépendant intégralement préservé**, **désactivation intégrale des choix dès le prochain tour Pilote effectivement envoyé** ; consultation des sources indépendante. |
+| **Grammaire visuelle et réponses progressives** | **VALIDATED SPEC BY MORRIS** : restitution enrichie sobre sans gabarit obligatoire ; six règles de progression/interruption validées. Variantes graphiques/pixel et streaming technique **NON PROUVÉS**. |
+| **Sources, références et preuves** | **VALIDATED SPEC BY MORRIS** : six règles de provenance/consultation/statuts, synthèse et détail D8 sans second registre. |
 | **Contrat technique / persistance / service / concurrence** | **À QUALIFIER** avec architecture/code réels, impacts et propriétaire ; pas de nouveau moteur ni ADR adopté par ce document. |
 | **Réception Studio / Gate C / ML5** | **NON ACQUISE** ; aucune mutation produit/RECETTE, aucun GO Cursor, PR, merge ni promotion. |
 
-**Suite logique de l'Ensemble 05 :** instruire le **compositeur et ses états** (saisie, brouillon, envoi, attente, interruption, erreurs/reprise), puis synchroniser les contrats déjà validés avec la réalisation regroupée du lot après qualification et GO Morris distinct. Ce document demeure la **source intégrée de conception** ; le registre central conserve les observations, arbitrages et preuves datés. Ne pas ouvrir de document ou de cycle indépendant par scénario.
+**SORTIE DU SUJET 02 EN CONCEPTION UX : VALIDATED SPEC BY MORRIS — 17/11/2026**, sous réserves de qualification technique, réalisation et preuves. Les principes A–F, la grammaire visuelle sobre, les interactions immédiates et leur expiration, le brouillon indépendant, le contenu progressif et les sources/preuves sont documentés. **Aucun code n'est réalisé ni aucun scénario BROWSER/LIVE n'est déclaré PASS par cette publication.**
 
+**Suite logique de l'Ensemble 05 :** revue du **Sujet 03 — compositeur et ses états** (saisie, persistance du brouillon, envoi, pending/UNKNOWN, interruption, erreurs/reprise), avec dépendances aux interactions du Sujet 02. Préparer ensuite la réalisation **intégrée au même ensemble cohérent**, après qualification de l'architecture et GO Morris distinct. Ce document demeure la source intégrée de conception ; le registre central garde les observations, arbitrages et preuves datés. Pas de document, moteur ou cycle autonome par scénario.
 
-Continuer l'Ensemble 05 avec la **présentation des réponses Nora et des interactions utiles** (messages longs, hiérarchie Markdown, liens/sources, propositions et actions existantes, états d'activité). Ajouter ici les seules décisions approuvées après revue utilisateur ; conserver les observations et arbitrages chronologiques dans le registre central.
-
-**État de ce document à v0.1 :** UX-002 **VALIDATED SPEC**, anomalie **REPRODUITE EN RECETTE**, implémentation corrective **NON DÉMONTRÉE**, réception après correction **À FAIRE**. Ensemble 05 toujours **EN REVUE**.
