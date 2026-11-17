@@ -4,6 +4,22 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-STRICT-SCHEMA-AUDIT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~19:05 CET |
+| Macro-lot | ML4D Ensemble 05 — audit compatibilité schéma structuré Nora LIVE |
+| Type | Cycle 8 Delivery · Standard · RUN/corrective QA · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Candidat | `3f7863ba` (parent `34a5e102`) — tip prolongé par oracles de non-régression |
+| Constat | Convertisseur Agents SDK `@openai/agents@0.21.0` → `strict:false` ; `zodTextFormat` refuse D3 (`.optional()` sans `.nullable()`) ; `criteria[].values` = `z.record` → `additionalProperties:{type:string}` incompatible strict ; aucun `{}` vide restant |
+| Scope | Tests schéma D3 complets (`nora-live-output-schema.test.ts`) ; journal ; **aucune** modification produit D3/UI |
+| Non-scope | Hardening strict complet ; appel REAL ; déploiement RECETTE ; push produit |
+| Preuves | Vitest schema/E05/adapter/OBS/sem 66 PASS ; PG intégration 484 PASS ; tsc 32 préexistantes / 0 touched src ; build PASS `n6nJl-Rx4-9s9yxwslhIJ` |
+| RECETTE | inchangée `:3200` / `34a5e102` / `xKkQienCXTPYIqkFElAuE` |
+| Verdict | `NORA LIVE STRICT SCHEMA GAP — MORRIS DECISION REQUIRED` |
+
+
 ## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-OUTPUT-SCHEMA-PATCH
 
 | Field | Value |
