@@ -1,553 +1,1018 @@
-# SFIA Review Pack Full — Nora LIVE diagnostic + DEV fix (COMPLETE REPUBLISH)
+# SFIA Review Pack — Full
+## ML4D Ensemble 05 — Audit compatibilité schéma structuré Nora LIVE (strict SO)
 
-## 0. Motif de republication
-
-Handoff `ef5d37e7` jugé **REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING** :
-manque du contenu complet du fichier de tests créé, des diffs exploitables des fichiers modifiés,
-et des résultats explicites TypeScript / build / intégration.
-
-Le présent pack **remplace** le handoff précédent pour le même correctif local `3f7863ba`.
-Aucun nouveau changement produit. Aucun push produit. RECETTE inchangée.
-
-## 1. Date, cycle, profil, GO
-
-- **Date:** 2026-11-17 (CET) — republication pack ~18:50 CET
-- **Cycle:** 8 — Delivery / RUN corrective
-- **Profil:** Standard (contrôles renforcés LIVE / isolation)
-- **GO Morris consommé (cycle correctif):** diagnostic + correctif DEV minimal
-- **GO Morris consommé (ce message):** republication Review Pack / handoff L3 complet
-- **Non fait:** appel OpenAI REAL, deploy RECETTE, push produit, PR/merge, migration
-
-## 2. Git Truth Check
-
-| Item | Valeur |
-|---|---|
-| Workspace | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
-| Branch | `feat/next-ml4d-project-space-20261116` |
-| Tip correctif **local** | `3f7863ba640b6520ace247dec125e5736508ca75` |
-| Parent | `34a5e102b7e440f0b8bd2586a1689edac196dcb7` |
-| Tree tip | `72341135883181021adff0819ad20b71372d97cf` |
-| Tree `web/` tip | `963f7f355e48cb30c8f85aa22b36732aa11b1080` |
-| Accessibilité GitHub produit | **NON** — commit local only (pas de push produit) |
-| Contenu pour revue ChatGPT | **inclus ci-dessous in extenso** |
-| `origin/main` | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-
-## 3. Cause racine (rappel)
-
-`visualComposition: z.unknown().optional()` dans `NoraTurnQualificationSchema` (`outputType` Agents SDK)
-→ sérialisation JSON Schema strict avec propriété `visualComposition: {}`
-→ rejet fournisseur rapide → `PROVIDER_ERROR` / UNKNOWN.
-
-Contre-preuve timeline: LIVE COMPLETE jusqu'à 13:47 UTC sous Ensemble04 (sans le champ) ;
-UNKNOWN après cutover E05 16:14–16:15 UTC.
-
-## 4. RECETTE
-
-Inchangée : `:3200` · BUILD `xKkQienCXTPYIqkFElAuE` · SOURCE `34a5e102`.
-
-## 5. Validations exécutées pour ce pack
-
-### 5.1 TypeScript (`tsc --noEmit`)
-
-- Commande: `npx tsc --noEmit -p tsconfig.json`
-- Exit: **1**
-- Erreurs totales: **32**
-- Erreurs dans fichiers src touchés (`visual-composition.ts`, `semantic-qualification.ts`, `nora-adapter.ts`, `observability.ts`): **0**
-- Nature des erreurs restantes: **préexistantes** (fixtures de tests d'intégration/unit assignant des objets partiels `NoraTurnQualification` sans `projectIntention` / `desiredOutcome` / `initialScope` / `proposedProjectName` — champs `.default("")` déjà présents avant ce correctif)
-- Exemples (5 premières):
-
-```
-tests/integration/create-project.pg.test.ts(290,16): error TS2551: Property 'projectId' does not exist on type '{ preparation: { id: string; ownerPilotId: string; status: string; creationRevision: number; previewName: string; previewSummary: string; projectionJson: Record<string, unknown> | null; createdAt: Date; updatedAt: Date; }; project: { ...; } | null; conversation: { ...; }; link: { ...; }; projection: PreparationProje...'. Did you mean 'project'?
-tests/integration/create-project.pg.test.ts(299,16): error TS2551: Property 'projectId' does not exist on type '{ preparation: { id: string; ownerPilotId: string; status: string; creationRevision: number; previewName: string; previewSummary: string; projectionJson: Record<string, unknown> | null; createdAt: Date; updatedAt: Date; }; project: { ...; } | null; conversation: { ...; }; link: { ...; }; projection: PreparationProje...'. Did you mean 'project'?
-tests/integration/create-project.pg.test.ts(306,16): error TS2551: Property 'projectId' does not exist on type '{ preparation: { id: string; ownerPilotId: string; status: string; creationRevision: number; previewName: string; previewSummary: string; projectionJson: Record<string, unknown> | null; createdAt: Date; updatedAt: Date; }; project: { ...; } | null; conversation: { ...; }; link: { ...; }; projection: PreparationProje...'. Did you mean 'project'?
-tests/integration/create-project.pg.test.ts(312,16): error TS2551: Property 'projectId' does not exist on type '{ preparation: { id: string; ownerPilotId: string; status: string; creationRevision: number; previewName: string; previewSummary: string; projectionJson: Record<string, unknown> | null; createdAt: Date; updatedAt: Date; }; project: { ...; } | null; conversation: { ...; }; link: { ...; }; projection: PreparationProje...'. Did you mean 'project'?
-tests/integration/ml4c-prior-proposal.pg.test.ts(171,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProp...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED" | "NEEDS_CLARIFICATION" | "UNAVAILABLE"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-```
-
-### 5.2 Build Next (`npm run build`)
-
-- Exit: **0**
-- `✓ Compiled successfully in 7.9s`
-- `✓ Generating static pages (18/18)`
-- BUILD_ID produit par ce build local candidat: **`V61t3IVGeGYtbTmrgblDJ`**
-- Note: distinct du BUILD RECETTE servi (`xKkQienCXTPYIqkFElAuE`) — attendu (lanes séparées)
-
-### 5.3 Tests unitaires (périmètre correctif + E05 + semantic)
-
-```
-vitest: nora-live-output-schema + nora-adapter-corrective + ensemble05-visual-composition + semantic-qualification
-→ Test Files 4 passed · Tests 50 passed
-```
-
-### 5.4 Tests d'intégration PG (D3 / corrective)
-
-Cible: `sfia_next_e2e` via gate Vitest (operator `.env.local` DEV `:5433` réécrit in-process).
-
-```
-vitest: ml2-turn-command.pg + ml2-corrective-integrity.pg + ml2-critical-corrective.pg
-→ Test Files 3 passed · Tests 30 passed
-```
-
-### 5.5 Hors portée
-
-- REAL OpenAI: NOT EXECUTED
-- Playwright E05: NOT RE-RUN (rendu graphique non modifié)
-- Redeploy RECETTE: NOT DONE
-
-## 6. Fake / Real
-
-| Frontière | Niveau |
-|---|---|
-| Cause schéma | DETERMINISTIC PROVEN |
-| Correctif + unit | VERIFIED |
-| Intégration D3 PG | VERIFIED (30 PASS) |
-| Build Next candidat | VERIFIED (`V61t3IVGeGYtbTmrgblDJ`) |
-| LIVE HTTP | NOT RE-PROVEN |
-| RECETTE | UNCHANGED |
-
-## 7. Verdict
-
-**`NORA LIVE DEV FIX VERIFIED — RECETTE DEPLOY GO REQUIRED`**
-
-(Republication pack: contenu complet joint. Verdict technique inchangé.)
-
-## 8. Prochain gate Morris
-
-1. GO deploy RECETTE de `3f7863ba`
-2. GO REAL smoke ≤2
-3. UAT R01–R08
+**Date :** 2026-11-17 (~19:10 CET)
+**GO Morris :** accordé — contrôle déterministe + correction DEV strictement ciblée si incompatibilité démontrée
+**Cycle :** 8 — Delivery / implémentation · Typologie RUN/corrective QA · Profil Standard
+**Exécutant :** Cursor · **Revue :** ChatGPT · **Autorité :** Morris
+**Qualification cycle :** deterministic schema audit (NO REAL API · NO RECETTE DEPLOY · NO PRODUCT PUSH)
 
 ---
 
-## 9. CONTENU COMPLET DES MODIFICATIONS (git show 3f7863ba)
+## 1. Verdict unique
 
-Le bloc suivant est le patch unifié intégral du commit local (tous fichiers créés/modifiés).
+### `NORA LIVE STRICT SCHEMA GAP — MORRIS DECISION REQUIRED`
 
-````diff
-commit 3f7863ba640b6520ace247dec125e5736508ca75
-Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Tue Nov 17 18:41:45 2026 +0100
-Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Tue Nov 17 18:41:45 2026 +0100
+Compatibilité **Structured Outputs strict (`strict: true`)** : **NON atteinte** (démontrée déterministiquement).
 
-    fix(nora): restore LIVE structured output by typing visualComposition schema
-    
-    Replace z.unknown() on D3 outputType (serialized to empty {}) with a concrete
-    Agents-compatible VisualComposition schema, and emit provider error_category in OBS.
-    
+Correctif `3f7863ba` : **conserve** l'élimination du `{}` vide sur `visualComposition` (cause PROVIDER_ERROR initiale).
+
+Chemin de production Agents SDK actuel : sérialisation **`strict: false`** (fallback après échec `zodTextFormat`) — comportement **préexistant** à E05 (champs D3 `.optional()`).
+
+**Pas de HTTP REAL SUCCESS. Pas de Nora LIVE COMPLETE. Pas de R01–R08.**
+
+---
+
+## 2. Git Truth Check
+
+| Contrôle | Résultat |
+| --- | --- |
+| Workspace | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
+| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
+| Branche | `feat/next-ml4d-project-space-20261116` |
+| HEAD audit start | `3f7863ba640b6520ace247dec125e5736508ca75` |
+| Parent correctif | `34a5e102b7e440f0b8bd2586a1689edac196dcb7` |
+| HEAD final (après oracles) | `208aaa40672433e7dd0bd989f96d26e4e24f7798` |
+| Parent tip final | `3f7863ba…` |
+| Status fin | clean hors `.tmp-sfia-review/chatgpt-review.md` (pack en cours) |
+| Isolation RECETTE | worktree `…-ensemble05-recette-build-34a5e102` @ `34a5e102` ; `:3200` sert BUILD `xKkQienCXTPYIqkFElAuE` |
+| Contaminations | aucune réinitialisation ; aucun push produit |
+
+---
+
+## 3. Sources Git et versions SDK
+
+### SDK installés (web/)
+
+| Package | Version installée |
+| --- | --- |
+| `@openai/agents` | `0.21.0` |
+| `@openai/agents-core` | `0.21.0` |
+| `openai` | `7.50.0` |
+| `zod` | `4.6.7` |
+
+### Conversion réelle
+
+Fonction : `convertAgentOutputTypeToSerializable`
+Fichier : `node_modules/@openai/agents-core/dist/utils/tools.mjs`
+
+Flux observé pour `NoraTurnQualificationSchema` :
+
+1. Tentative `zodTextFormat(schema, "output")` (`openai/helpers/zod`) → **throw**
+   Message : `Schema field at properties/clarifications uses .optional() without .nullable()…`
+2. Fallback `buildJsonSchemaFromZod` → JSON Schema avec **`strict: false`**
+3. `prepareOpenAIStrictToolSchema(converted.schema)` → **throw**
+   Message : `Cannot convert an anyOf branch containing optional object properties…`
+   + open object : `additionalProperties` schema sur `criteria[].values`
+
+Aucune requête réseau.
+
+---
+
+## 4. État initial du candidat `3f7863ba`
+
+- `visualComposition: VisualCompositionAgentOutputSchema.optional()` (plus `z.unknown()`)
+- Tests antérieurs : absence de `{}` sur `visualComposition` uniquement
+- LIVE après correctif : **NOT PROVEN**
+- RECETTE : toujours `34a5e102` / `xKkQienCXTPYIqkFElAuE`
+
+---
+
+## 5. Résultats des contrôles stricts
+
+### Preuve synthèse
+
+```
+convert.strict= False
+root.type= object
+root.additionalProperties= False
+root.required= ['schemaVersion', 'status', 'goal', 'projectIntention', 'desiredOutcome', 'initialScope', 'proposedProjectName', 'intents', 'replyDraft']
+root.optional_props= ['clarifications', 'continueChoices', 'documentProposal', 'documentSource', 'preparationAssessment', 'preparationAssessmentExplanation', 'resourceReferences', 'visualComposition']
+visualComposition.keys= ['additionalProperties', 'properties', 'required', 'type']
+blocks.items.keys= ['anyOf']
+blocks.anyOf.len= 7
+kinds= ['text', 'comparison', 'sequence', 'relations', 'synthesis', 'choices', 'references']
+criteria.values= {"type": "object", "additionalProperties": {"type": "string"}}
+bytes= 35666
+```
+
+### Fragments JSON Schema (sans données métier)
+
+```json
+{
+  "envelope": {
+    "type": "json_schema",
+    "name": "output",
+    "strict": false
+  },
+  "root": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schemaVersion",
+      "status",
+      "goal",
+      "projectIntention",
+      "desiredOutcome",
+      "initialScope",
+      "proposedProjectName",
+      "intents",
+      "replyDraft"
+    ],
+    "propertyKeys": [
+      "clarifications",
+      "continueChoices",
+      "desiredOutcome",
+      "documentProposal",
+      "documentSource",
+      "goal",
+      "initialScope",
+      "intents",
+      "preparationAssessment",
+      "preparationAssessmentExplanation",
+      "projectIntention",
+      "proposedProjectName",
+      "replyDraft",
+      "resourceReferences",
+      "schemaVersion",
+      "status",
+      "visualComposition"
+    ]
+  },
+  "visualComposition": {
+    "type": "object",
+    "required": [
+      "schemaVersion",
+      "blocks"
+    ],
+    "additionalProperties": false,
+    "propertyKeys": [
+      "blocks",
+      "schemaVersion"
+    ]
+  },
+  "blockKinds": [
+    "text",
+    "comparison",
+    "sequence",
+    "relations",
+    "synthesis",
+    "choices",
+    "references"
+  ],
+  "criteriaValues": {
+    "type": "object",
+    "additionalProperties": {
+      "type": "string"
+    }
+  },
+  "comparisonOptionalProps": [
+    "criteria",
+    "icon",
+    "provenance",
+    "recommendation",
+    "role"
+  ]
+}
+```
+
+### Matrice de contrôle
+
+| # | Contrôle | Résultat | Preuve |
+| --- | --- | --- | --- |
+| 1 | Racine objet | PASS | `type: object` |
+| 2 | `additionalProperties: false` racine + objets fermés | PASS sur objets à `properties` ; **FAIL** sur record ouvert | `criteria.values` = `{type:object, additionalProperties:{type:string}}` |
+| 3 | `required` couvre toutes les propriétés (strict) | **FAIL** | 8 props racine hors `required` dont `visualComposition`, `clarifications` ; gaps aussi dans anyOf variants |
+| 4 | Optionnalité Zod → nullable SO | **FAIL** | `zodTextFormat` refuse `.optional()` sans `.nullable()` dès `clarifications` |
+| 5 | Unions discriminées | Sérialisées en `anyOf` (7 variants) | kinds text…references ; prepareStrict refuse anyOf à props optionnelles |
+| 6 | Records `criteria[].values` | **FAIL strict** | `z.record` → open additionalProperties |
+| 7 | `$ref` / `$defs` | PASS (aucun cycle problématique observé) | schéma plat / inline |
+| 8 | Types / nullabilité | Partiel | certains champs déjà `.nullable().optional()` ; majorité `.optional()` seul |
+| 9 | Mots-clés | Pas de `propertyNames`/`if`/`not` observés sur dump | — |
+| 10 | Profondeur | PASS vs limite SDK 100 | dump ~11–35 KB sérialisé pretty |
+| — | Empty `{}` property | PASS (régression `z.unknown` couverte) | `findEmptyPropertySchemas([])` |
+| — | Flag `strict` émis | **`false`** | convert SDK |
+
+### Réserves hors API (REAL only)
+
+- Acceptation fournisseur d'un `json_schema` avec **`strict: false`** pour le modèle cible : **NOT PROVEN** ce cycle (historiquement LIVE Ensemble04 fonctionnait sur le même pattern pre-E05).
+- Qualité de génération des blocs graphiques LIVE : **NOT PROVEN**.
+- Toute erreur fournisseur non liée au schéma : hors périmètre.
+
+---
+
+## 6. Correction produit
+
+**Aucune.** Incompatibilité strict démontrée, mais résolution minimale dans le périmètre imposerait une **transformation significative** du contrat D3 :
+
+1. Tous les `.optional()` D3 + composition → `.nullable()` (ou nullish) avec `required` complet — impact sémantique **`clarifications` ABSENT vs `[]` vs `null`**.
+2. `z.record` → tableau `{key,value}` + normalisation dans `parseVisualComposition`.
+3. Props optionnelles dans chaque branche `discriminatedUnion` → required+nullable.
+
+Cela dépasse une correction locale non arbitraire sans arbitrage Morris (STOP contrat §7 / §11).
+
+### Options pour décision Morris
+
+| Option | Description | Blast radius |
+| --- | --- | --- |
+| **A — Accepter chemin non-strict opérationnel** | Conserver `strict:false` SDK (historique LIVE) ; déployer `208aaa40`/`3f7863ba` en RECETTE ; GO REAL smoke ≤2 | Faible code ; risque fournisseur si non-strict rejeté un jour |
+| **B — Hardening strict D3 complet** | optional→nullable ; record→KV ; parser fail-closed inchangé sur forme métier | Élevé : D3 + prompts + fixtures + tests ; risque sémantique clarifications |
+| **C — STOP + REAL gate sans deploy tip audit** | Garder RECETTE `34a5e102` ; décider après revue | Status quo RECETTE ; LIVE UNKNOWN persiste |
+
+---
+
+## 7. Fichiers modifiés (ce cycle)
+
+1. `projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts` — oracles D3 complets
+2. `projects/sfia-studio-next/construction/delivery-history.md` — entrée audit
+
+**SHA candidat local final :** `208aaa40672433e7dd0bd989f96d26e4e24f7798`
+**Parent :** `3f7863ba640b6520ace247dec125e5736508ca75`
+
+
+## 8. Patch exploitable (commit `208aaa40`)
+
+```diff
+commit 208aaa40672433e7dd0bd989f96d26e4e24f7798
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Tue Nov 17 19:02:43 2026 +0100
+
+    test(nora): lock D3 structured-output strict schema audit oracles
+
+    Prove Agents SDK emits non-strict schema for NoraTurnQualificationSchema and document remaining strict SO gaps without changing the D3 product contract.
+
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 64ace500..273ac017 100644
+index 273ac017..72e6e816 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,23 @@ Append-only logical journal of Cursor product deliveries.
+@@ -4,6 +4,22 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
- 
- 
-+## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-OUTPUT-SCHEMA-PATCH
+
+
++## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-STRICT-SCHEMA-AUDIT
 +
 +| Field | Value |
 +| --- | --- |
-+| Date | 2026-11-17 ~18:40 CET |
-+| Macro-lot | ML4D Ensemble 05 — diagnostic + correctif DEV Nora LIVE |
-+| Type | Cycle 8 Delivery · Standard · RUN/corrective · **PATCH CANDIDATE** · **NO RELEASE** · **NO DEPLOY** |
-+| Parent tip | `34a5e102` |
-+| Cause | `visualComposition: z.unknown()` → JSON Schema `{}` sous `outputType` strict → rejet fournisseur (`PROVIDER_ERROR` / UNKNOWN) |
-+| Scope | `VisualCompositionAgentOutputSchema` ; branchement enveloppe D3 ; OBS `error_category` ; tests schéma |
-+| Non-scope | Appel REAL ; déploiement RECETTE ; push produit ; grammaire visuelle runtime ; migration |
-+| Preuves | Vitest schema+adapter+E05 30 PASS ; REAL LIVE NOT EXECUTED |
++| Date | 2026-11-17 ~19:05 CET |
++| Macro-lot | ML4D Ensemble 05 — audit compatibilité schéma structuré Nora LIVE |
++| Type | Cycle 8 Delivery · Standard · RUN/corrective QA · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
++| Candidat | `3f7863ba` (parent `34a5e102`) — tip prolongé par oracles de non-régression |
++| Constat | Convertisseur Agents SDK `@openai/agents@0.21.0` → `strict:false` ; `zodTextFormat` refuse D3 (`.optional()` sans `.nullable()`) ; `criteria[].values` = `z.record` → `additionalProperties:{type:string}` incompatible strict ; aucun `{}` vide restant |
++| Scope | Tests schéma D3 complets (`nora-live-output-schema.test.ts`) ; journal ; **aucune** modification produit D3/UI |
++| Non-scope | Hardening strict complet ; appel REAL ; déploiement RECETTE ; push produit |
++| Preuves | Vitest schema/E05/adapter/OBS/sem 66 PASS ; PG intégration 484 PASS ; tsc 32 préexistantes / 0 touched src ; build PASS `n6nJl-Rx4-9s9yxwslhIJ` |
 +| RECETTE | inchangée `:3200` / `34a5e102` / `xKkQienCXTPYIqkFElAuE` |
-+| Push produit | **AUCUN** (commit local autorisé) |
-+| Verdict | `NORA LIVE DEV FIX VERIFIED — RECETTE DEPLOY GO REQUIRED` |
++| Verdict | `NORA LIVE STRICT SCHEMA GAP — MORRIS DECISION REQUIRED` |
 +
 +
- ## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-RECETTE-CANDIDATE-FREEZE
- 
+ ## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-OUTPUT-SCHEMA-PATCH
+
  | Field | Value |
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 68dfd858..ce731ee0 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -156,7 +156,13 @@ export function categorizeProviderError(err: unknown): {
-     ) && !/fetch|network|ECONN|socket|HTTP|429|500|502|503/i.test(msg);
-   let category = "PROVIDER_ERROR";
-   if (interrupted) category = "PROVIDER_INTERRUPTED";
--  else if (/model|not found|does not exist|unauthorized|insufficient|entitlement/i.test(msg)) {
-+  else if (
-+    /json.?schema|invalid schema|structured output|response_format|output_type|unsupported.*schema/i.test(
-+      msg,
-+    )
-+  ) {
-+    category = "PROVIDER_SCHEMA_OR_OUTPUT";
-+  } else if (/model|not found|does not exist|unauthorized|insufficient|entitlement/i.test(msg)) {
-     category = "PROVIDER_MODEL_OR_ENTITLEMENT";
-   } else if (preContactLikely) category = "PROVIDER_PRE_CONTACT_CONFIG";
-   return { category, interrupted, preContactLikely };
-@@ -592,6 +598,29 @@ async function runLiveWithTools(
-         providerContacted: contact,
-       });
- 
-+      const errName =
-+        streamErr instanceof Error && /^[A-Za-z][A-Za-z0-9_.]{0,80}$/.test(streamErr.name)
-+          ? streamErr.name
-+          : "Error";
-+      emitObs({
-+        event_name: "d3.nora.provider_attempt",
-+        component: "d3.nora_adapter",
-+        operation_id: input.toolScope?.operationId,
-+        generation_id: generationId,
-+        attempt_id: streamAttemptId,
-+        outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
-+        error_category: cat.category,
-+        policy_version: policy.policyVersion,
-+        profile_type:
-+          policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
-+        meta: {
-+          kind: "stream",
-+          model_requested: NORA_STUDY_MODEL,
-+          provider_contacted: contact,
-+          error_name: errName,
-+        },
-+      });
-+
-       const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
-       return {
-         generationId,
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-index 4d17bc00..3a2a2875 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-@@ -8,7 +8,10 @@ import {
-   type PilotageOperation,
- } from "@/domains/pilotage/types";
- import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
--import { parseVisualComposition } from "./visual-composition";
+diff --git a/projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts b/projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts
+index 471585ef..5a2e94b6 100644
+--- a/projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts
+@@ -3,9 +3,15 @@ import { pathToFileURL } from "node:url";
+ import path from "node:path";
+ import { z } from "zod";
+ import { NoraTurnQualificationSchema } from "@/domains/conversation/semantic-qualification";
+-import { VisualCompositionAgentOutputSchema } from "@/domains/conversation/visual-composition";
 +import {
 +  parseVisualComposition,
++  VISUAL_COMPOSITION_SCHEMA,
 +  VisualCompositionAgentOutputSchema,
-+} from "./visual-composition";
- 
- export const SEMANTIC_QUALIFICATION_SCHEMA_VERSION = "ml4c-sem-qual-v1" as const;
- 
-@@ -197,8 +200,10 @@ export const NoraTurnQualificationSchema = z.object({
-   /**
-    * Ensemble 05 / T02 — optional visual composition (structured blocks).
-    * Omission = text-only reply. Never HTML/JS. Studio re-validates before persist/render.
-+   * Must be a concrete Zod object (not z.unknown): empty `{}` JSON Schema breaks
-+   * OpenAI strict structured outputs and surfaces as PROVIDER_ERROR / UNKNOWN.
-    */
--  visualComposition: z.unknown().optional(),
-+  visualComposition: VisualCompositionAgentOutputSchema.optional(),
- });
- export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
- 
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts b/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
-index 39d24e86..7a6c2abf 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
-@@ -11,6 +11,8 @@
-  * Studio resolves against canonical turn references.
-  */
- 
-+import { z } from "zod";
++} from "@/domains/conversation/visual-composition";
+ import { categorizeProviderError } from "@/domains/conversation/nora-adapter";
+
++type JsonSchema = Record<string, unknown>;
 +
- export const VISUAL_COMPOSITION_SCHEMA = "e05-visual-composition-v1" as const;
- 
- export type VisualBlockKind =
-@@ -251,6 +253,193 @@ export type VisualComposition = {
-   blocks: VisualBlock[];
- };
- 
-+/**
-+ * Agents SDK / OpenAI structured-output schema for visualComposition.
-+ * MUST NOT use z.unknown()/z.any() — those serialize to empty `{}` under
-+ * strict json_schema and the provider rejects the request (PROVIDER_ERROR).
-+ * Runtime authority remains parseVisualComposition (fail-closed sanitize).
-+ */
-+const VisualProvenanceAgentSchema = z.object({
-+  label: z.string().max(200),
-+  note: z.string().max(240).optional(),
-+  kind: z.enum(["document", "git", "external"]).optional(),
-+  resourceId: z.string().max(128).optional(),
-+  revisionId: z.string().max(128).optional(),
-+  repositoryId: z.string().max(128).optional(),
-+  path: z.string().max(400).optional(),
-+  ref: z.string().max(120).optional(),
-+  commit: z.string().max(64).optional(),
-+  href: z.string().max(800).optional(),
-+});
-+
-+const VisualRoleAgentSchema = z.enum([
-+  "information",
-+  "observation",
-+  "fact",
-+  "hypothesis",
-+  "risk",
-+  "recommendation",
-+  "decision",
-+  "dependency",
-+  "step",
-+  "source",
-+]);
-+
-+const VisualIconAgentSchema = z.enum([
-+  "info",
-+  "observe",
-+  "fact",
-+  "hypothesis",
-+  "risk",
-+  "recommend",
-+  "decision",
-+  "link",
-+  "step",
-+  "source",
-+]);
-+
-+export const VisualCompositionAgentOutputSchema = z.object({
-+  schemaVersion: z.literal(VISUAL_COMPOSITION_SCHEMA),
-+  blocks: z
-+    .array(
-+      z.discriminatedUnion("kind", [
-+        z.object({
-+          kind: z.literal("text"),
-+          id: z.string().max(64),
-+          markdown: z.string().max(4000),
-+          role: VisualRoleAgentSchema.optional(),
-+          icon: VisualIconAgentSchema.optional(),
-+        }),
-+        z.object({
-+          kind: z.literal("comparison"),
-+          id: z.string().max(64),
-+          title: z.string().max(160),
-+          textAlternative: z.string().max(2000),
-+          alternatives: z
-+            .array(
-+              z.object({
-+                id: z.string().max(64),
-+                title: z.string().max(160),
-+                summary: z.string().max(400),
-+                pros: z.array(z.string().max(200)).max(4).optional(),
-+                cons: z.array(z.string().max(200)).max(4).optional(),
-+              }),
-+            )
-+            .max(5),
-+          criteria: z
-+            .array(
-+              z.object({
-+                id: z.string().max(64),
-+                label: z.string().max(200),
-+                values: z.record(z.string(), z.string().max(400)),
-+              }),
-+            )
-+            .max(6)
-+            .optional(),
-+          recommendation: z.string().max(800).nullable().optional(),
-+          provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
-+          role: VisualRoleAgentSchema.optional(),
-+          icon: VisualIconAgentSchema.optional(),
-+        }),
-+        z.object({
-+          kind: z.literal("sequence"),
-+          id: z.string().max(64),
-+          title: z.string().max(160),
-+          textAlternative: z.string().max(2000),
-+          steps: z
-+            .array(
-+              z.object({
-+                id: z.string().max(64),
-+                title: z.string().max(160),
-+                detail: z.string().max(400).optional(),
-+                dependsOn: z.array(z.string().max(64)).max(8).optional(),
-+                dateLabel: z.string().max(80).nullable().optional(),
-+                role: VisualRoleAgentSchema.optional(),
-+              }),
-+            )
-+            .max(8),
-+          provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
-+          role: VisualRoleAgentSchema.optional(),
-+          icon: VisualIconAgentSchema.optional(),
-+        }),
-+        z.object({
-+          kind: z.literal("relations"),
-+          id: z.string().max(64),
-+          title: z.string().max(160),
-+          textAlternative: z.string().max(2000),
-+          nodes: z
-+            .array(
-+              z.object({
-+                id: z.string().max(64),
-+                label: z.string().max(200),
-+                kind: z.enum([
-+                  "fact",
-+                  "hypothesis",
-+                  "unknown",
-+                  "cause",
-+                  "finding",
-+                  "observation",
-+                ]),
-+              }),
-+            )
-+            .max(10),
-+          edges: z
-+            .array(
-+              z.object({
-+                from: z.string().max(64),
-+                to: z.string().max(64),
-+                label: z.string().max(200).optional(),
-+              }),
-+            )
-+            .max(16),
-+          preferListFallback: z.boolean().optional(),
-+          provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
-+          role: VisualRoleAgentSchema.optional(),
-+          icon: VisualIconAgentSchema.optional(),
-+        }),
-+        z.object({
-+          kind: z.literal("synthesis"),
-+          id: z.string().max(64),
-+          title: z.string().max(160),
-+          textAlternative: z.string().max(2000),
-+          items: z
-+            .array(
-+              z.object({
-+                id: z.string().max(64),
-+                label: z.string().max(200),
-+                detail: z.string().max(400).optional(),
-+                tone: z.enum([
-+                  "priority",
-+                  "finding",
-+                  "risk",
-+                  "watch",
-+                  "observation",
-+                  "hypothesis",
-+                ]),
-+                role: VisualRoleAgentSchema.optional(),
-+                icon: VisualIconAgentSchema.optional(),
-+              }),
-+            )
-+            .max(8),
-+          provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
-+          role: VisualRoleAgentSchema.optional(),
-+          icon: VisualIconAgentSchema.optional(),
-+        }),
-+        z.object({
-+          kind: z.literal("choices"),
-+          id: z.string().max(64),
-+          choiceIds: z.array(z.string().max(64)).max(12).optional(),
-+        }),
-+        z.object({
-+          kind: z.literal("references"),
-+          id: z.string().max(64),
-+          resourceIds: z.array(z.string().max(128)).max(12).optional(),
-+        }),
-+      ]),
-+    )
-+    .max(10),
-+});
-+
- export type ParseVisualCompositionResult =
-   | { ok: true; value: VisualComposition }
-   | { ok: false; reason: string };
-diff --git a/projects/sfia-studio-next/web/src/lib/observability.ts b/projects/sfia-studio-next/web/src/lib/observability.ts
-index 10f8ee04..ddc6911b 100644
---- a/projects/sfia-studio-next/web/src/lib/observability.ts
-+++ b/projects/sfia-studio-next/web/src/lib/observability.ts
-@@ -106,6 +106,9 @@ const META_ALLOWLIST = new Set([
-   "qualification_kind",
-   "qualification_reason",
-   "documentary_intent_signal",
-+  // Provider attempt diagnostics — codes/names only, never raw exception text.
-+  "provider_contacted",
-+  "error_name",
- ]);
- 
- const SECRET_VALUE =
-diff --git a/projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts b/projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts
-new file mode 100644
-index 00000000..471585ef
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts
-@@ -0,0 +1,63 @@
-+import { describe, expect, it } from "vitest";
-+import { pathToFileURL } from "node:url";
-+import path from "node:path";
-+import { z } from "zod";
-+import { NoraTurnQualificationSchema } from "@/domains/conversation/semantic-qualification";
-+import { VisualCompositionAgentOutputSchema } from "@/domains/conversation/visual-composition";
-+import { categorizeProviderError } from "@/domains/conversation/nora-adapter";
-+
-+async function convert(schema: z.ZodType) {
-+  const toolsPath = path.resolve(
-+    process.cwd(),
-+    "node_modules/@openai/agents-core/dist/utils/tools.mjs",
-+  );
-+  const { convertAgentOutputTypeToSerializable } = await import(
-+    pathToFileURL(toolsPath).href
-+  );
-+  return convertAgentOutputTypeToSerializable(schema);
+ async function convert(schema: z.ZodType) {
+   const toolsPath = path.resolve(
+     process.cwd(),
+@@ -14,7 +20,145 @@ async function convert(schema: z.ZodType) {
+   const { convertAgentOutputTypeToSerializable } = await import(
+     pathToFileURL(toolsPath).href
+   );
+-  return convertAgentOutputTypeToSerializable(schema);
++  return convertAgentOutputTypeToSerializable(schema) as {
++    type: string;
++    name?: string;
++    strict?: boolean;
++    schema: JsonSchema;
++  };
 +}
 +
-+describe("Nora LIVE structured output schema (E05 visualComposition)", () => {
-+  it("rejects z.unknown visualComposition as empty JSON Schema property", async () => {
-+    const broken = z.object({
-+      replyDraft: z.string(),
-+      visualComposition: z.unknown().optional(),
-+    });
-+    const serialized = await convert(broken);
-+    const visual = (serialized.schema as { properties?: Record<string, unknown> })
-+      ?.properties?.visualComposition as Record<string, unknown> | undefined;
-+    expect(visual).toBeDefined();
-+    expect(Object.keys(visual ?? {}).filter((k) => k !== "description")).toEqual([]);
-+  });
++async function loadStrictHelpers() {
++  const strictPath = path.resolve(
++    process.cwd(),
++    "node_modules/@openai/agents-core/dist/utils/strictToolSchema.mjs",
++  );
++  return import(pathToFileURL(strictPath).href) as Promise<{
++    prepareOpenAIStrictToolSchema: (schema: JsonSchema) => { schema: JsonSchema };
++  }>;
++}
 +
-+  it("serializes VisualCompositionAgentOutputSchema without empty property schema", async () => {
-+    const wrapped = z.object({
-+      replyDraft: z.string(),
-+      visualComposition: VisualCompositionAgentOutputSchema.optional(),
-+    });
-+    const serialized = await convert(wrapped);
-+    const visual = (serialized.schema as { properties?: Record<string, unknown> })
-+      ?.properties?.visualComposition as Record<string, unknown> | undefined;
-+    expect(visual).toBeDefined();
-+    expect(Object.keys(visual ?? {}).length).toBeGreaterThan(0);
-+    expect(JSON.stringify(visual)).not.toBe("{}");
-+  });
++function asObject(node: unknown): JsonSchema | undefined {
++  return node && typeof node === "object" && !Array.isArray(node)
++    ? (node as JsonSchema)
++    : undefined;
++}
 +
-+  it("serializes full NoraTurnQualificationSchema without empty visualComposition", async () => {
-+    const serialized = await convert(NoraTurnQualificationSchema);
-+    const visual = (serialized.schema as { properties?: Record<string, unknown> })
-+      ?.properties?.visualComposition as Record<string, unknown> | undefined;
-+    expect(visual).toBeDefined();
-+    const keys = Object.keys(visual ?? {}).filter((k) => k !== "description");
-+    expect(keys.length).toBeGreaterThan(0);
-+    expect(JSON.stringify(visual)).not.toBe("{}");
-+  });
++/** Collect property schemas that are effectively empty `{}` (the PROVIDER_ERROR root cause). */
++function findEmptyPropertySchemas(
++  node: unknown,
++  path = "$",
++  out: string[] = [],
++): string[] {
++  const obj = asObject(node);
++  if (!obj) return out;
++  const props = asObject(obj.properties);
++  if (props) {
++    for (const [key, value] of Object.entries(props)) {
++      const child = asObject(value);
++      if (child) {
++        const meaningful = Object.keys(child).filter(
++          (k) => k !== "description" && k !== "title",
++        );
++        if (meaningful.length === 0) {
++          out.push(`${path}.properties.${key}`);
++        }
++        findEmptyPropertySchemas(child, `${path}.properties.${key}`, out);
++      }
++    }
++  }
++  for (const key of ["items", "additionalProperties"] as const) {
++    if (key in obj) {
++      findEmptyPropertySchemas(obj[key], `${path}.${key}`, out);
++    }
++  }
++  for (const key of ["anyOf", "oneOf", "allOf"] as const) {
++    const arr = obj[key];
++    if (Array.isArray(arr)) {
++      arr.forEach((item, i) =>
++        findEmptyPropertySchemas(item, `${path}.${key}[${i}]`, out),
++      );
++    }
++  }
++  return out;
++}
 +
-+  it("categorizes structured-output schema errors distinctly", () => {
-+    const c = categorizeProviderError(
-+      new Error("Invalid schema for response_format json_schema: empty object"),
++function findOpenRecordObjects(
++  node: unknown,
++  path = "$",
++  out: Array<{ path: string; additionalProperties: unknown }> = [],
++): Array<{ path: string; additionalProperties: unknown }> {
++  const obj = asObject(node);
++  if (!obj) return out;
++  if (
++    obj.type === "object" &&
++    obj.additionalProperties !== undefined &&
++    obj.additionalProperties !== false
++  ) {
++    out.push({ path, additionalProperties: obj.additionalProperties });
++  }
++  const props = asObject(obj.properties);
++  if (props) {
++    for (const [key, value] of Object.entries(props)) {
++      findOpenRecordObjects(value, `${path}.properties.${key}`, out);
++    }
++  }
++  for (const key of ["items", "additionalProperties"] as const) {
++    if (key in obj) findOpenRecordObjects(obj[key], `${path}.${key}`, out);
++  }
++  for (const key of ["anyOf", "oneOf", "allOf"] as const) {
++    const arr = obj[key];
++    if (Array.isArray(arr)) {
++      arr.forEach((item, i) =>
++        findOpenRecordObjects(item, `${path}.${key}[${i}]`, out),
++      );
++    }
++  }
++  return out;
++}
++
++function collectObjectRequiredGaps(
++  node: unknown,
++  path = "$",
++  out: Array<{ path: string; missingFromRequired: string[] }> = [],
++): Array<{ path: string; missingFromRequired: string[] }> {
++  const obj = asObject(node);
++  if (!obj) return out;
++  const props = asObject(obj.properties);
++  if (props) {
++    const required = Array.isArray(obj.required)
++      ? (obj.required as string[])
++      : [];
++    const missing = Object.keys(props).filter((k) => !required.includes(k));
++    if (missing.length > 0) {
++      out.push({ path, missingFromRequired: missing });
++    }
++    for (const [key, value] of Object.entries(props)) {
++      collectObjectRequiredGaps(value, `${path}.properties.${key}`, out);
++    }
++  }
++  if ("items" in obj) collectObjectRequiredGaps(obj.items, `${path}.items`, out);
++  for (const key of ["anyOf", "oneOf", "allOf"] as const) {
++    const arr = obj[key];
++    if (Array.isArray(arr)) {
++      arr.forEach((item, i) =>
++        collectObjectRequiredGaps(item, `${path}.${key}[${i}]`, out),
++      );
++    }
++  }
++  return out;
++}
++
++function visualBlockKinds(schema: JsonSchema): string[] {
++  const visual = asObject(asObject(schema.properties)?.visualComposition);
++  const blocks = asObject(visual?.properties)?.blocks;
++  const items = asObject(asObject(blocks)?.items);
++  const anyOf = items?.anyOf;
++  if (!Array.isArray(anyOf)) return [];
++  return anyOf.map((variant) => {
++    const kind = asObject(asObject(asObject(variant)?.properties)?.kind);
++    return String(kind?.const ?? "");
++  });
+ }
+
+ describe("Nora LIVE structured output schema (E05 visualComposition)", () => {
+@@ -24,10 +168,11 @@ describe("Nora LIVE structured output schema (E05 visualComposition)", () => {
+       visualComposition: z.unknown().optional(),
+     });
+     const serialized = await convert(broken);
+-    const visual = (serialized.schema as { properties?: Record<string, unknown> })
+-      ?.properties?.visualComposition as Record<string, unknown> | undefined;
++    const visual = asObject(serialized.schema.properties)?.visualComposition;
+     expect(visual).toBeDefined();
+-    expect(Object.keys(visual ?? {}).filter((k) => k !== "description")).toEqual([]);
++    expect(
++      Object.keys(visual ?? {}).filter((k) => k !== "description"),
++    ).toEqual([]);
+   });
+
+   it("serializes VisualCompositionAgentOutputSchema without empty property schema", async () => {
+@@ -36,8 +181,7 @@ describe("Nora LIVE structured output schema (E05 visualComposition)", () => {
+       visualComposition: VisualCompositionAgentOutputSchema.optional(),
+     });
+     const serialized = await convert(wrapped);
+-    const visual = (serialized.schema as { properties?: Record<string, unknown> })
+-      ?.properties?.visualComposition as Record<string, unknown> | undefined;
++    const visual = asObject(serialized.schema.properties)?.visualComposition;
+     expect(visual).toBeDefined();
+     expect(Object.keys(visual ?? {}).length).toBeGreaterThan(0);
+     expect(JSON.stringify(visual)).not.toBe("{}");
+@@ -45,14 +189,143 @@ describe("Nora LIVE structured output schema (E05 visualComposition)", () => {
+
+   it("serializes full NoraTurnQualificationSchema without empty visualComposition", async () => {
+     const serialized = await convert(NoraTurnQualificationSchema);
+-    const visual = (serialized.schema as { properties?: Record<string, unknown> })
+-      ?.properties?.visualComposition as Record<string, unknown> | undefined;
++    const visual = asObject(serialized.schema.properties)?.visualComposition;
+     expect(visual).toBeDefined();
+-    const keys = Object.keys(visual ?? {}).filter((k) => k !== "description");
++    const keys = Object.keys(visual ?? {}).filter(
++      (k) => k !== "description",
 +    );
-+    expect(c.category).toBe("PROVIDER_SCHEMA_OR_OUTPUT");
-+    expect(c.category).not.toContain("Invalid schema");
+     expect(keys.length).toBeGreaterThan(0);
+     expect(JSON.stringify(visual)).not.toBe("{}");
+   });
+
++  it("full D3 schema has no empty property schemas anywhere", async () => {
++    const serialized = await convert(NoraTurnQualificationSchema);
++    expect(findEmptyPropertySchemas(serialized.schema)).toEqual([]);
 +  });
-+});
-
-````
-
++
++  it("full D3 schema is a root object with additionalProperties false", async () => {
++    const serialized = await convert(NoraTurnQualificationSchema);
++    expect(serialized.type).toBe("json_schema");
++    expect(serialized.schema.type).toBe("object");
++    expect(serialized.schema.additionalProperties).toBe(false);
++    expect(Array.isArray(serialized.schema.required)).toBe(true);
++  });
++
++  it("serializes all seven visual block variants under anyOf", async () => {
++    const serialized = await convert(NoraTurnQualificationSchema);
++    expect(visualBlockKinds(serialized.schema).sort()).toEqual([
++      "choices",
++      "comparison",
++      "references",
++      "relations",
++      "sequence",
++      "synthesis",
++      "text",
++    ]);
++  });
++
++  it("criteria[].values serializes as open record (additionalProperties schema)", async () => {
++    const serialized = await convert(NoraTurnQualificationSchema);
++    const opens = findOpenRecordObjects(serialized.schema);
++    const valuesPath =
++      "$.properties.visualComposition.properties.blocks.items.anyOf[1].properties.criteria.items.properties.values";
++    const hit = opens.find((o) => o.path === valuesPath);
++    expect(hit).toBeDefined();
++    expect(hit?.additionalProperties).toEqual({ type: "string" });
++  });
++
++  it("documents Agents SDK convert path: strict=false for full D3 (optional fields)", async () => {
++    const serialized = await convert(NoraTurnQualificationSchema);
++    // Production converter falls back when zodTextFormat cannot emit strict SO.
++    expect(serialized.strict).toBe(false);
++    const gaps = collectObjectRequiredGaps(serialized.schema);
++    expect(gaps.some((g) => g.path === "$")).toBe(true);
++    expect(
++      gaps.find((g) => g.path === "$")?.missingFromRequired,
++    ).toEqual(
++      expect.arrayContaining([
++        "clarifications",
++        "continueChoices",
++        "visualComposition",
++      ]),
++    );
++  });
++
++  it("openai zodTextFormat rejects full D3 (optional without nullable)", async () => {
++    const { zodTextFormat } = await import("openai/helpers/zod");
++    expect(() =>
++      zodTextFormat(NoraTurnQualificationSchema as never, "output"),
++    ).toThrow(/optional\(\).*nullable\(\)/);
++  });
++
++  it("Agents SDK prepareOpenAIStrictToolSchema rejects converted D3 schema", async () => {
++    const serialized = await convert(NoraTurnQualificationSchema);
++    const { prepareOpenAIStrictToolSchema } = await loadStrictHelpers();
++    expect(() => prepareOpenAIStrictToolSchema(serialized.schema)).toThrow(
++      /strict mode|additionalProperties|anyOf|optional/i,
++    );
++  });
++
++  it("openai zodTextFormat rejects z.record criteria.values shape", async () => {
++    const { zodTextFormat } = await import("openai/helpers/zod");
++    const recordShape = z.object({
++      values: z.record(z.string(), z.string().max(400)),
++    });
++    expect(() => zodTextFormat(recordShape as never, "output")).toThrow(
++      /additionalProperties: false/,
++    );
++  });
++
++  it("parseVisualComposition remains fail-closed for invalid composition", () => {
++    expect(
++      parseVisualComposition({
++        schemaVersion: VISUAL_COMPOSITION_SCHEMA,
++        blocks: [{ kind: "comparison", id: "c1", title: "t", alternatives: [] }],
++      }),
++    ).toBeNull();
++  });
++
++  it("parseVisualComposition accepts a minimal valid comparison with criteria values record", () => {
++    const parsed = parseVisualComposition({
++      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
++      blocks: [
++        {
++          kind: "comparison",
++          id: "cmp1",
++          title: "Options",
++          textAlternative: "Deux options.",
++          alternatives: [
++            { id: "a", title: "A", summary: "Alpha" },
++            { id: "b", title: "B", summary: "Beta" },
++          ],
++          criteria: [
++            { id: "c1", label: "Effort", values: { a: "Faible", b: "Élevé" } },
++          ],
++        },
++      ],
++    });
++    expect(parsed).not.toBeNull();
++    expect(parsed?.blocks[0]?.kind).toBe("comparison");
++  });
++
++  it("text-only qualification without visualComposition remains valid", () => {
++    const parsed = NoraTurnQualificationSchema.safeParse({
++      schemaVersion: "ml4c-sem-qual-v1",
++      status: "QUALIFIED",
++      goal: "goal",
++      projectIntention: "intention",
++      desiredOutcome: "outcome",
++      initialScope: "scope",
++      proposedProjectName: "",
++      intents: [],
++      replyDraft: "Réponse textuelle seule.",
++    });
++    expect(parsed.success).toBe(true);
++    if (parsed.success) {
++      expect(parsed.data.visualComposition).toBeUndefined();
++    }
++  });
++
+   it("categorizes structured-output schema errors distinctly", () => {
+     const c = categorizeProviderError(
+       new Error("Invalid schema for response_format json_schema: empty object"),
 ```
 
-## 10. Inventaire fichiers du commit
+## 9. Contenu complet — `nora-live-output-schema.test.ts`
 
-| Path | Action |
-|---|---|
-| `projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts` | modified (+189) |
-| `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts` | modified |
-| `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts` | modified |
-| `projects/sfia-studio-next/web/src/lib/observability.ts` | modified |
-| `projects/sfia-studio-next/web/tests/unit/nora-live-output-schema.test.ts` | **created** |
-| `projects/sfia-studio-next/construction/delivery-history.md` | modified |
+```typescript
+import { describe, expect, it } from "vitest";
+import { pathToFileURL } from "node:url";
+import path from "node:path";
+import { z } from "zod";
+import { NoraTurnQualificationSchema } from "@/domains/conversation/semantic-qualification";
+import {
+  parseVisualComposition,
+  VISUAL_COMPOSITION_SCHEMA,
+  VisualCompositionAgentOutputSchema,
+} from "@/domains/conversation/visual-composition";
+import { categorizeProviderError } from "@/domains/conversation/nora-adapter";
 
-Diffstat: `6 files changed, 309 insertions(+), 3 deletions(-)`.
+type JsonSchema = Record<string, unknown>;
 
-FIN DU REVIEW PACK COMPLET.
+async function convert(schema: z.ZodType) {
+  const toolsPath = path.resolve(
+    process.cwd(),
+    "node_modules/@openai/agents-core/dist/utils/tools.mjs",
+  );
+  const { convertAgentOutputTypeToSerializable } = await import(
+    pathToFileURL(toolsPath).href
+  );
+  return convertAgentOutputTypeToSerializable(schema) as {
+    type: string;
+    name?: string;
+    strict?: boolean;
+    schema: JsonSchema;
+  };
+}
+
+async function loadStrictHelpers() {
+  const strictPath = path.resolve(
+    process.cwd(),
+    "node_modules/@openai/agents-core/dist/utils/strictToolSchema.mjs",
+  );
+  return import(pathToFileURL(strictPath).href) as Promise<{
+    prepareOpenAIStrictToolSchema: (schema: JsonSchema) => { schema: JsonSchema };
+  }>;
+}
+
+function asObject(node: unknown): JsonSchema | undefined {
+  return node && typeof node === "object" && !Array.isArray(node)
+    ? (node as JsonSchema)
+    : undefined;
+}
+
+/** Collect property schemas that are effectively empty `{}` (the PROVIDER_ERROR root cause). */
+function findEmptyPropertySchemas(
+  node: unknown,
+  path = "$",
+  out: string[] = [],
+): string[] {
+  const obj = asObject(node);
+  if (!obj) return out;
+  const props = asObject(obj.properties);
+  if (props) {
+    for (const [key, value] of Object.entries(props)) {
+      const child = asObject(value);
+      if (child) {
+        const meaningful = Object.keys(child).filter(
+          (k) => k !== "description" && k !== "title",
+        );
+        if (meaningful.length === 0) {
+          out.push(`${path}.properties.${key}`);
+        }
+        findEmptyPropertySchemas(child, `${path}.properties.${key}`, out);
+      }
+    }
+  }
+  for (const key of ["items", "additionalProperties"] as const) {
+    if (key in obj) {
+      findEmptyPropertySchemas(obj[key], `${path}.${key}`, out);
+    }
+  }
+  for (const key of ["anyOf", "oneOf", "allOf"] as const) {
+    const arr = obj[key];
+    if (Array.isArray(arr)) {
+      arr.forEach((item, i) =>
+        findEmptyPropertySchemas(item, `${path}.${key}[${i}]`, out),
+      );
+    }
+  }
+  return out;
+}
+
+function findOpenRecordObjects(
+  node: unknown,
+  path = "$",
+  out: Array<{ path: string; additionalProperties: unknown }> = [],
+): Array<{ path: string; additionalProperties: unknown }> {
+  const obj = asObject(node);
+  if (!obj) return out;
+  if (
+    obj.type === "object" &&
+    obj.additionalProperties !== undefined &&
+    obj.additionalProperties !== false
+  ) {
+    out.push({ path, additionalProperties: obj.additionalProperties });
+  }
+  const props = asObject(obj.properties);
+  if (props) {
+    for (const [key, value] of Object.entries(props)) {
+      findOpenRecordObjects(value, `${path}.properties.${key}`, out);
+    }
+  }
+  for (const key of ["items", "additionalProperties"] as const) {
+    if (key in obj) findOpenRecordObjects(obj[key], `${path}.${key}`, out);
+  }
+  for (const key of ["anyOf", "oneOf", "allOf"] as const) {
+    const arr = obj[key];
+    if (Array.isArray(arr)) {
+      arr.forEach((item, i) =>
+        findOpenRecordObjects(item, `${path}.${key}[${i}]`, out),
+      );
+    }
+  }
+  return out;
+}
+
+function collectObjectRequiredGaps(
+  node: unknown,
+  path = "$",
+  out: Array<{ path: string; missingFromRequired: string[] }> = [],
+): Array<{ path: string; missingFromRequired: string[] }> {
+  const obj = asObject(node);
+  if (!obj) return out;
+  const props = asObject(obj.properties);
+  if (props) {
+    const required = Array.isArray(obj.required)
+      ? (obj.required as string[])
+      : [];
+    const missing = Object.keys(props).filter((k) => !required.includes(k));
+    if (missing.length > 0) {
+      out.push({ path, missingFromRequired: missing });
+    }
+    for (const [key, value] of Object.entries(props)) {
+      collectObjectRequiredGaps(value, `${path}.properties.${key}`, out);
+    }
+  }
+  if ("items" in obj) collectObjectRequiredGaps(obj.items, `${path}.items`, out);
+  for (const key of ["anyOf", "oneOf", "allOf"] as const) {
+    const arr = obj[key];
+    if (Array.isArray(arr)) {
+      arr.forEach((item, i) =>
+        collectObjectRequiredGaps(item, `${path}.${key}[${i}]`, out),
+      );
+    }
+  }
+  return out;
+}
+
+function visualBlockKinds(schema: JsonSchema): string[] {
+  const visual = asObject(asObject(schema.properties)?.visualComposition);
+  const blocks = asObject(visual?.properties)?.blocks;
+  const items = asObject(asObject(blocks)?.items);
+  const anyOf = items?.anyOf;
+  if (!Array.isArray(anyOf)) return [];
+  return anyOf.map((variant) => {
+    const kind = asObject(asObject(asObject(variant)?.properties)?.kind);
+    return String(kind?.const ?? "");
+  });
+}
+
+describe("Nora LIVE structured output schema (E05 visualComposition)", () => {
+  it("rejects z.unknown visualComposition as empty JSON Schema property", async () => {
+    const broken = z.object({
+      replyDraft: z.string(),
+      visualComposition: z.unknown().optional(),
+    });
+    const serialized = await convert(broken);
+    const visual = asObject(serialized.schema.properties)?.visualComposition;
+    expect(visual).toBeDefined();
+    expect(
+      Object.keys(visual ?? {}).filter((k) => k !== "description"),
+    ).toEqual([]);
+  });
+
+  it("serializes VisualCompositionAgentOutputSchema without empty property schema", async () => {
+    const wrapped = z.object({
+      replyDraft: z.string(),
+      visualComposition: VisualCompositionAgentOutputSchema.optional(),
+    });
+    const serialized = await convert(wrapped);
+    const visual = asObject(serialized.schema.properties)?.visualComposition;
+    expect(visual).toBeDefined();
+    expect(Object.keys(visual ?? {}).length).toBeGreaterThan(0);
+    expect(JSON.stringify(visual)).not.toBe("{}");
+  });
+
+  it("serializes full NoraTurnQualificationSchema without empty visualComposition", async () => {
+    const serialized = await convert(NoraTurnQualificationSchema);
+    const visual = asObject(serialized.schema.properties)?.visualComposition;
+    expect(visual).toBeDefined();
+    const keys = Object.keys(visual ?? {}).filter(
+      (k) => k !== "description",
+    );
+    expect(keys.length).toBeGreaterThan(0);
+    expect(JSON.stringify(visual)).not.toBe("{}");
+  });
+
+  it("full D3 schema has no empty property schemas anywhere", async () => {
+    const serialized = await convert(NoraTurnQualificationSchema);
+    expect(findEmptyPropertySchemas(serialized.schema)).toEqual([]);
+  });
+
+  it("full D3 schema is a root object with additionalProperties false", async () => {
+    const serialized = await convert(NoraTurnQualificationSchema);
+    expect(serialized.type).toBe("json_schema");
+    expect(serialized.schema.type).toBe("object");
+    expect(serialized.schema.additionalProperties).toBe(false);
+    expect(Array.isArray(serialized.schema.required)).toBe(true);
+  });
+
+  it("serializes all seven visual block variants under anyOf", async () => {
+    const serialized = await convert(NoraTurnQualificationSchema);
+    expect(visualBlockKinds(serialized.schema).sort()).toEqual([
+      "choices",
+      "comparison",
+      "references",
+      "relations",
+      "sequence",
+      "synthesis",
+      "text",
+    ]);
+  });
+
+  it("criteria[].values serializes as open record (additionalProperties schema)", async () => {
+    const serialized = await convert(NoraTurnQualificationSchema);
+    const opens = findOpenRecordObjects(serialized.schema);
+    const valuesPath =
+      "$.properties.visualComposition.properties.blocks.items.anyOf[1].properties.criteria.items.properties.values";
+    const hit = opens.find((o) => o.path === valuesPath);
+    expect(hit).toBeDefined();
+    expect(hit?.additionalProperties).toEqual({ type: "string" });
+  });
+
+  it("documents Agents SDK convert path: strict=false for full D3 (optional fields)", async () => {
+    const serialized = await convert(NoraTurnQualificationSchema);
+    // Production converter falls back when zodTextFormat cannot emit strict SO.
+    expect(serialized.strict).toBe(false);
+    const gaps = collectObjectRequiredGaps(serialized.schema);
+    expect(gaps.some((g) => g.path === "$")).toBe(true);
+    expect(
+      gaps.find((g) => g.path === "$")?.missingFromRequired,
+    ).toEqual(
+      expect.arrayContaining([
+        "clarifications",
+        "continueChoices",
+        "visualComposition",
+      ]),
+    );
+  });
+
+  it("openai zodTextFormat rejects full D3 (optional without nullable)", async () => {
+    const { zodTextFormat } = await import("openai/helpers/zod");
+    expect(() =>
+      zodTextFormat(NoraTurnQualificationSchema as never, "output"),
+    ).toThrow(/optional\(\).*nullable\(\)/);
+  });
+
+  it("Agents SDK prepareOpenAIStrictToolSchema rejects converted D3 schema", async () => {
+    const serialized = await convert(NoraTurnQualificationSchema);
+    const { prepareOpenAIStrictToolSchema } = await loadStrictHelpers();
+    expect(() => prepareOpenAIStrictToolSchema(serialized.schema)).toThrow(
+      /strict mode|additionalProperties|anyOf|optional/i,
+    );
+  });
+
+  it("openai zodTextFormat rejects z.record criteria.values shape", async () => {
+    const { zodTextFormat } = await import("openai/helpers/zod");
+    const recordShape = z.object({
+      values: z.record(z.string(), z.string().max(400)),
+    });
+    expect(() => zodTextFormat(recordShape as never, "output")).toThrow(
+      /additionalProperties: false/,
+    );
+  });
+
+  it("parseVisualComposition remains fail-closed for invalid composition", () => {
+    expect(
+      parseVisualComposition({
+        schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+        blocks: [{ kind: "comparison", id: "c1", title: "t", alternatives: [] }],
+      }),
+    ).toBeNull();
+  });
+
+  it("parseVisualComposition accepts a minimal valid comparison with criteria values record", () => {
+    const parsed = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "comparison",
+          id: "cmp1",
+          title: "Options",
+          textAlternative: "Deux options.",
+          alternatives: [
+            { id: "a", title: "A", summary: "Alpha" },
+            { id: "b", title: "B", summary: "Beta" },
+          ],
+          criteria: [
+            { id: "c1", label: "Effort", values: { a: "Faible", b: "Élevé" } },
+          ],
+        },
+      ],
+    });
+    expect(parsed).not.toBeNull();
+    expect(parsed?.blocks[0]?.kind).toBe("comparison");
+  });
+
+  it("text-only qualification without visualComposition remains valid", () => {
+    const parsed = NoraTurnQualificationSchema.safeParse({
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "goal",
+      projectIntention: "intention",
+      desiredOutcome: "outcome",
+      initialScope: "scope",
+      proposedProjectName: "",
+      intents: [],
+      replyDraft: "Réponse textuelle seule.",
+    });
+    expect(parsed.success).toBe(true);
+    if (parsed.success) {
+      expect(parsed.data.visualComposition).toBeUndefined();
+    }
+  });
+
+  it("categorizes structured-output schema errors distinctly", () => {
+    const c = categorizeProviderError(
+      new Error("Invalid schema for response_format json_schema: empty object"),
+    );
+    expect(c.category).toBe("PROVIDER_SCHEMA_OR_OUTPUT");
+    expect(c.category).not.toContain("Invalid schema");
+  });
+});
+```
+
+## 10. Validations
+
+| Gate | Résultat |
+| --- | --- |
+| Sérialisation SDK complète | DONE — `/tmp/nora-d3-schema.json` (local evidence) |
+| Contrôles stricts récursifs | DONE — gap démontré |
+| Vitest focused (schema+E05+adapter+OBS+sem) | **66 PASS** |
+| Vitest PG integration | **29 files / 484 PASS** |
+| `tsc --noEmit` | **32 errors** (préexistantes) ; **0** dans `semantic-qualification.ts` / `visual-composition.ts` / `nora-adapter.ts` / nouveau test |
+| `npm run build` | **PASS** · BUILD_ID `n6nJl-Rx4-9s9yxwslhIJ` |
+| `git diff` périmètre | tests + delivery-history uniquement |
+| RECETTE | **inchangée** `:3200` / tip `34a5e102` / BUILD `xKkQienCXTPYIqkFElAuE` |
+
+**Ne pas présenter tsc global comme PASS.**
+
+Unitaires hors périmètre ayant échoué sur suite complète `tests/unit` (env GitHub App / cognitive policy lane) : **non attribués** à ce cycle ; surfaces Nora listées ci-dessus = PASS.
+
+---
+
+## 11. Fake / Real Qualification
+
+| Niveau | État |
+| --- | --- |
+| Empty `{}` initial | DETERMINISTIC PROVEN (régression couverte) |
+| Correctif typage `3f7863ba` | UNIT/BUILD/PG VERIFIED (cycle précédent + oracles renforcés) |
+| Strict SO full-schema | **DETERMINISTIC GAP PROVEN** |
+| LIVE fournisseur post-correctif | **NOT PROVEN** |
+| Composition graphique LIVE | **NOT PROVEN** |
+
+Sortie : **gap strict identifié** — pas de STRICT JSON SCHEMA COMPATIBILITY — DETERMINISTIC VERIFIED.
+
+---
+
+## 12. État final
+
+| Item | Valeur |
+| --- | --- |
+| Branche DEV | `feat/next-ml4d-project-space-20261116` |
+| SHA local | `208aaa40672433e7dd0bd989f96d26e4e24f7798` |
+| Push produit | **AUCUN** |
+| PR/merge/tag | **AUCUN** |
+| RECETTE | inchangée |
+| STABLE | NOT AVAILABLE |
+| Versioning | NO RELEASE · PATCH CANDIDATE audit oracles only |
+
+---
+
+## 13. Blast radius / dette / trajectoire
+
+- **Blast radius ce cycle :** tests + journal uniquement.
+- **Dette :** D3 n'est pas strict-SO-compatible ; SDK opère en `strict:false`.
+- **Trajectoire :** décision Morris (options A/B/C §6) → ensuite seulement deploy RECETTE + GO REAL smoke ≤2.
+
+---
+
+## 14. Prochain gate Morris
+
+1. Trancher option A / B / C (§6).
+2. Si A : GO déploiement RECETTE du tip `208aaa40` (ou `3f7863ba` minimum) puis GO REAL smoke.
+3. Si B : GO delivery dédié hardening strict D3 (hors simple audit).
+4. Revue ChatGPT de ce pack avant toute action RECETTE.
+
+**Ne pas déployer RECETTE. Ne pas appeler OpenAI. Ne pas déclarer R01–R08. Ne pas rouvrir la grammaire visuelle.**
