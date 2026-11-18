@@ -173,3 +173,15 @@ La sortie de ce document n'est pas la construction : c'est un **contrat fonction
 - [W3C — compréhension du critère Reflow WCAG 1.4.10](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) : reflow sans perte de fonctionnalité/information sur petites largeurs, avec exceptions propres aux contenus bidimensionnels.
 - [MDN — `overflow-wrap`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow-wrap) et [container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment/Container_queries) : mécanismes techniques de mise en page, pas garantie esthétique autonome.
 - [Explorations Figma du 17/11 — non adoptées](https://www.figma.com/design/4NrIqC7Vfroo00r4pczAPb).
+
+---
+
+## Annexe factuelle du 18/11/2026 — réception bornée de la composition visuelle (D1)
+
+> **Actualisation postérieure, non normative.** Les mentions de conception candidate, d'absence de GO et de non-implémentation dans les paragraphes historiques précédents décrivent **l'état de rédaction du 17/11** ; elles ne doivent pas être lues comme le statut runtime actuel de la **seule composition visuelle**. Cette annexe ne réécrit pas les décisions validées et ne déclare pas l'ensemble Travail réceptionné. Source commune : [dossier UAT](07-dossier-reconciliation-reception.md), [matrice C-01…C-22 V0.10](06-matrice-convergence-vision-realisation.md), [handoff final](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md).
+
+**Validation utilisateur de l'échantillon :** UAT-01/02 valident le choix spontané cartes/matrice ; UAT-03/04 la séquence et la chronologie ; UAT-05/06 la convergence dirigée et l'arbre conditionnel ; UAT-07 le parallèle corrigé ; UAT-08 la synthèse éditoriale. Ces faits complètent — sans remplacer — les règles fonctionnelles candidates GV-xx et le contrat UX Travail validé.
+
+**Arbitrages UX de recette :** titres alignés avec icônes, suppression du titre redondant de matrice, numérotation unique, icônes porteuses de sens ou absentes, convergence des trois voies vers **une seule revue** suivie du lancement, et cartes avec **départ aligné mais fin de texte non forcée**. Le scroll horizontal du graphe parallèle est explicitement accepté par Morris. La diversité des icônes demeure une observation mineure.
+
+**Limites :** les captures confirment les scénarios vus, pas toute densité, tous les viewports, split 50/50, zoom, clavier ni accessibilité exhaustive. Les huit UAT visuels ne valent pas exécution des 88 oracles des cinq sujets Travail.
