@@ -1,6 +1,6 @@
 # SFIA Studio Next — Matrice de convergence : vision, contrats et réalisation Cursor
 
-**Version :** 0.2 — 18 novembre 2026 (convergence après Review Pack `a55f95ea`)  
+**Version :** 0.3 — 18 novembre 2026 (revue du Review Pack Full `27f403d2`)  
 **Statut :** DOCUMENTED / REVIEW CANDIDATE — mise à jour factuelle et critique après cycle correctif, non décision D2, non VALIDATED SPEC supplémentaire, non ADOPTED.  
 **Périmètre :** R5 / ML4D — Ensemble 05 « Travail avec Nora » ; restitution conversationnelle adaptative, remplacement du mécanisme graphique expérimental E05.  
 **Nature :** bilan de conformité entre la vision et les contrats documentés, le candidat technique rapporté par Cursor et les preuves disponibles. **Il ne vaut ni réception technique, ni GO Cursor, ni réduction de périmètre.**  
@@ -8,16 +8,18 @@
 
 ## 1. Objet, portée de la revue et réponse générale
 
-**Question de contrôle :** la réalisation locale décrite par Cursor correspond-elle à ce qui était attendu pour SFIA Studio Next, indépendamment des correctifs ponctuels déjà engagés ?
+**Question :** la dernière exécution locale F1–F5 satisfait-elle les contrats 01–05, les 22 critères C-01–C-22 et les conditions de réception identifiées ?
 
-**Conclusion actualisée :** le socle reste **cohérent avec la direction architecturale**, et la convergence locale a progressé sur C-04/05/10–12/14. **La cible fonctionnelle, graphique et probatoire n'est toutefois pas reçue.** La séparation Nora/Studio, le renderer React/CSS, l'admission déterministe, les nouvelles familles de relations et le repli exhaustif sont à préserver. Quatre écarts appellent une reprise intégrée :
+**Conclusion actualisée :** la republication `27f403d2` est **un Review Pack Full exploitable**, et les corrections F1–F4 sont examinables dans le code. Le mécanisme a progressé : davantage de champs contrôlés, détection des cycles et racines multiples, disposition des dépendances en couches, écriture `conversational-composition-projection-v1` restreinte dans `VisualCompositionAgentOutputSchema`, lecture des deux versions maintenue. **Ces améliorations ne prouvent pas encore la fidélité sémantique et graphique de la cible.**
 
-1. **Fidélité sémantique C-04 :** les graphiques ne remplacent plus `replyDraft` ; toutefois le test d'ancres vérifie surtout les titres présents dans le texte canonique et ne prouve pas les autres assertions (résumés, avantages, limites, conditions, statut). `complement` peut rester trompeur. La substitution des seuls blocs narratifs reste autorisée sans preuve d'identité textuelle.
-2. **Écriture/version C-05 :** `conversational-composition-projection-v1` est le nouveau schéma de référence et E05 reste lisible ; toutefois l'`outputType` accepte encore l'ancien `schemaVersion` pour une nouvelle réponse. Un chemin d'écriture exclusivement nouveau n'est pas prouvé.
-3. **Sémantique des diagrammes C-10/11/12 :** CSS dirigé livré en code ; les dépendances restent des listes de nœuds/arêtes, l'arbre récursif n'a pas de garde contre les cycles visible dans le code reproduit et le processus parallèle n'affiche explicitement que les arêtes `sync`.
-4. **Preuves du résultat C-15/18/20/21 :** les unités et T02 sont rapportés PASS, mais Figma 08/09 en navigateur, fidélité graphique et choix éditorial LIVE demeurent NON PROUVÉS.
+**Écarts qui restent ouverts :**
+1. **C-04 / F1 — BLOQUANT :** `claimsSupportedByCanonical()` utilise `normalize(replyDraft).includes(claim)`. La présence globale des mots ne démontre pas leur association à l'option, à la condition, à la source, au sens de l'arête ou à son statut. `maySubstituteNarrative()` autorise aussi une composition textuelle incluse dans `replyDraft` à masquer le reste de la réponse.
+2. **C-11 / F2 — PARTIEL, risque sémantique :** `topology.ts` refuse bien cycles et forêts multi-racines, mais `validateDecisionTree()` accepte encore un DAG à racine unique où un enfant possède plusieurs parents ; le rendu récursif peut dupliquer ce nœud sous plusieurs branches et fausser la lecture de l'arbre.
+3. **C-10/12 / F3 — PARTIEL :** dépendances en couches CSS avec arêtes `A → B` listées séparément, sans connexions nœud→nœud mesurées ; processus parallèle affichant les lanes et les seuls liens `sync`, pas tous les `flow`/`depends_on` possibles.
+4. **C-05/06 / F4 — AMÉLIORATION CODE RECEVABLE :** nouveau schéma seul en WRITE (littéral Zod), ancien et nouveau acceptés en READ. Le pipeline SDK/D3→persistance→relecture n'est pas prouvé de bout en bout.
+5. **C-15/18/20/21 / F5 — PREUVES PARTIELLES :** **24 tests unitaires F1/F2/F4 PASS et T02 Playwright 1 PASS rapportés** ; les trois PNG sont mentionnés mais non inspectables depuis le handoff distant. Aucune comparaison visuelle complète aux Figma 07–09, ni test LIVE/REAL.
 
-**Lecture importante :** un repli textuel fiable est une garantie de sûreté ; il n'est pas une preuve que la famille graphique demandée est construite. Inversement, une famille facultative explicitement différée (notamment graphique quantitatif sans données fondées) n'est pas une non-conformité à corriger automatiquement.
+**Statut de revue :** `STOP — CORE SEMANTIC FIDELITY NOT PROVEN`, **sans nier** les corrections code effectives et sans transformer ce STOP du sous-système en échec de l'ensemble de ML4D. La construction locale ne vaut ni réception Morris ni Gate C ni ADOPTED. Le reste à faire détaillé §10–11 constitue une **proposition de convergence**, pas une décision D2.
 
 ## 2. Sources, versions et limites d'observation
 
@@ -26,8 +28,8 @@
 | Dépôt | mcleland147/sfia-workspace | Projet Next : projects/sfia-studio-next/ |
 | Git main | 997d4c4e8204993de7107552898c8cc08cd3b0ed | SEF v0.2, Roadmap, décisions, code baseline ; la Roadmap est datée du 15/11/2026 |
 | Branche documentaire ML4D | docs/next-ml4d-registre-revues-20261116 @ 37915d8e1d6f03a0a335c884aea03fb3e3262159 (avant cette révision) | Documents 01–05, UX Travail avec Nora et contrat technique, non mergés sur main |
-| Dernier Review Pack Cursor | sfia/review-handoff @ a55f95eaa99874f520e03fe4ec2faeb6db3d0e38 | Code/diffs complets du cycle de convergence, 65 Vitest PASS et T02 PASS rapportés, réserves et limites |
-| Blob du handoff | cf6c8eb23b654d556720fcd1ef95f486d89c6abe | Intégrité du fichier distant |
+| Dernier Review Pack Cursor | sfia/review-handoff @ 27f403d257851e327a03e2b58f2cbaa437130e00 | Review Pack F1–F5 republié : 8 créations reproduites, 8 diffs, tests 24 UNIT PASS/T02 1 PASS rapportés et chemins de captures |
+| Blob du handoff | e78b7f3a40d8767e3933dd486ffa86d92469535d | Intégrité du fichier distant |
 | Branche projet technique | sfia/next-ml4d-composition-adaptative ; tip local rapporté a783f014935de0dec5ff8e79a2b18eea0e629756 | Branche non trouvée sur origin ; `a783f014` et correctifs dans un working tree local non commité (rapport Cursor ; état local NON OBSERVÉ) |
 | Référence graphique | [Figma — Page 06, neuf écrans](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=742-2) | Direction acceptée en principe, pas preuve navigateur |
 | Gouvernance | [SEF](../../../governance/SEF.md) · [Roadmap](../../../governance/roadmap.md) | Git main prime pour gouvernance et décisions applicables |
@@ -53,43 +55,43 @@ Dans les tableaux, « PASS rapporté » ne signifie pas BEHAVIOR PROVEN au nivea
 
 | ID / source | Résultat attendu | Réalisation observée dans le pack | Qualification / écart | Action de convergence et preuve de sortie |
 |---|---|---|---|---|
-| **C-01 · VP-01, UX-A/B, GV-01/10** | Nora compose librement selon le raisonnement, sans template global | Blocs hétérogènes et admission par famille, vocabulaire encore borné par le wire E05 | **PARTIEL** : capacité de présentation, pertinence spontanée non prouvée | **CONSERVER / COMPLÉTER** ; tests de demandes libres simple/composite, contrôle éditorial GV-T01/02 et CV-T02, sous GO LIVE séparé pour jugement du modèle |
+| **C-01 · VP-01, UX-A/B, GV-01/10** | Nora choisit librement une représentation seulement si elle aide son raisonnement | Nouveau write versionné et plusieurs familles de blocs ; pertinence spontanée démontrée uniquement sur fixtures | **PARTIEL** : comportement de sélection Nora en LIVE non prouvé | **CONSERVER / RECETTER PLUS TARD** ; tests éditoriaux représentatifs sans interface imposée, LIVE sous GO distinct |
 | **C-02 · VP-02, UX-C/F** | Un seul message Nora mélange texte, visuels, références et choix gouvernés | NoraConversation intègre plusieurs blocs sous une identité de message | **ALIGNÉ (CODE)** ; continuité sur tous contextes non prouvée | **CONSERVER / PROUVER** ; T02, refresh, relecture longue, conservation des IDs, UX-002 et UX-CROSS |
 | **C-03 · VP-06, doc 03 §2** | Nora possède le sens et l'intention ; Studio possède validation et rendu | admission.ts, NoraComposition, React/CSS, aucun second agent introduit | **ALIGNÉ (ARCHITECTURE)** | **CONSERVER** ; test d'absence d'autorité/effecteur supplémentaire, aucun parsage HTML/Markdown déclenchant une action |
-| **C-04 · VP-03/04, UX-D, CV-02/06** | Canonique `replyDraft` identique aux affirmations visibles, pas d'ajout de sens/condition/statut | Graphiques jamais `substitute`; `complement` sur ancrage titre/libellé ; narrative-only peut `substitute` | **BLOQUANT RÉSIDUEL F1** : ancres présentes ≠ équivalence sémantique ; contradiction ou ajouts dans pros/cons/conditions restent possibles ; substitution narrative non vérifiée | **CORRIGER P0** : stratégie déterministe vérifiable de fidélité de *tous* champs rendus, sinon `markdown_only` ; interdire narrative-only substitute sans égalité exacte/canonique prouvée ; tests adversariaux réels, pas de second raisonnement/heuristique déclarée garantie |
-| **C-05 · doc 04 §3.2/8, doc 05 §10** | Remplacer l'écriture E05 sans perdre la lecture des anciens tours | Nouvelle version `conversational-composition-projection-v1`, parser dual et prompt modifié ; `VisualCompositionAgentOutputSchema` accepte encore legacy | **PARTIEL F4** : write-only nouveau non imposé à la frontière D3 ; lecture historique valide | **CORRIGER/PROUVER P1** : distinguer émission de nouveaux tours et compat legacy en lecture, tester le vrai pipeline D3→projection→persistance ; STOP si évolution SDK strict/outputType structurante requise |
-| **C-06 · M1/M5, CT-02, CV-11** | Projection versionnée et relecture stable ancienne/nouvelle sans migration improvisée | Parse des deux schémas, ancienne version préservée au parse ; pas de migration rapportée | **PARTIEL** : unité de parse PASS ; PG/refresh/choix anciens+nouveaux non pleinement démontrés | **PROUVER** : sérialisation et reprise anciennes/nouvelles versions, propriétés D3 identiques, refs/choix, absence de mutation et aucune migration sans gate |
+| **C-04 · VP-03/04, UX-D, CV-02/06** | Une vérité canonique : aucun fait, nuance, association ni condition perdus/inventés | `extractProjectionClaims` étend les fragments testés, `includes` normalisé dans `claimsSupportedByCanonical`; `detectPreferenceContradiction` couvre certains patterns ; `maySubstituteNarrative` accepte texte ⊆ canon | **BLOQUANT F1** : fragments présents ≠ mêmes assertions/contextes ; rôles des arêtes et association option→avantage non vérifiés ; `substitute` peut omettre un suffixe canonique | **P0 / ARBITRAGE SI STRUCTURANT** : empêcher complément non fondé et substitution partielle, tester inversion de champs/conditions/liens/autorités ; comparer Strategy B bornée et sections canoniques sans pivot silencieux |
+| **C-05 · doc 04 §3.2/8, doc 05 §10** | Écriture hors E05 avec lecture d'historique conservée | `VISUAL_COMPOSITION_SCHEMA` = `conversational-composition-projection-v1`; `VisualCompositionAgentOutputSchema` a `z.literal` nouveau ; parse dual READ | **ALIGNÉ (CODE F4)** ; aucune preuve de sortie SDK/écriture réelle via Nora et replay historique complet | **CONSERVER / PROUVER P1** : test frontière D3/SDK typé, effet de parse/persistance/reload, refus legacy à l'émission, lecture legacy sur ancien tour |
+| **C-06 · M1/M5, CT-02, CV-11** | Un message stable, versionné, relecture ancienne/nouvelle sans migration implicite | Schéma WRITE nouveau + parser READ dual prouvés en unit ; historique local et DB non audités dans le handoff | **PARTIEL** : compatibilité de parse ≠ reprise de données et IDs en runtime | **PROUVER P1** : tours anciens/nouveaux, références/choix, refresh/PG et preuve de non-migration ; STOP si contrat D3/DB change |
 
 ### 4.2. B — Familles fonctionnelles et richesse graphique
 
 | ID / source | Résultat attendu | Réalisation observée dans le pack | Qualification / écart | Action de convergence et preuve de sortie |
 |---|---|---|---|---|
 | **C-07 · UX-A/B, GV-01/02, CV-01** | Texte naturel par défaut si forme graphique inutile | SafeMarkdown et variante markdown_only ; narration facultative | **ALIGNÉ (MÉCANISME)** | **CONSERVER / PROUVER** ; texte court sans carte ni décor imposés, puis test de choix éditorial Nora |
-| **C-08 · doc 02 §5/6, Figma 03/04, CV-T03/04** | Matrice/cartes adaptatives avec contenu intégral non trompeur | Renderer matrice + détails visibles, fixtures T02 cards, fallback exhaustif | **PARTIEL** : variante matrice ciblée et graphie premium non réceptionnées ; fidélité C-04 préalable | **PROUVER** : navigateur matrice et cartes, 3/5/8/12 alternatives, textes longs, mise en page étroite, données cohérentes, screenshots Figma |
+| **C-08 · doc 02 §5/6, Figma 03/04, CV-T03/04** | Comparaison intégrale cartes/matrice/stacked et données exactes | Code matrice+détails ; T02 S3 comparatif et capture rapportés, admission comparative testée | **PARTIEL** : la fidélité C-04 est préalable ; pas d'audit visuel matrice dense 5/8/12 options | **PROUVER P1** : navigateur cartes/matrice/stacked, toutes les alternatives et critères, liens des avantages/limites, largeurs et données longues |
 | **C-09 · Figma 02/06, GV-04, CV-T06** | Étapes/planning avec ordre réel, horizontal/vertical selon largeur, sans causalité inventée | Séquence React/CSS et bascule vertical/horizontal | **PARTIEL** : preuve restreinte à fixture et largeur testées | **COMPLÉTER** ; 4–6 étapes, prérequis, dates ou absence de dates, panneau réduit et reflow |
-| **C-10 · Figma 07, GV-05, CV-T07** | Diagramme de dépendances réellement dirigées et lisibles, avec repli | `layoutHint=dependencies`, CSS nœuds puis liste des arêtes ; aucun placement d'arêtes entre nœuds, test T02 accepte `directed` **ou** `structured-list` | **PARTIEL F3** : progression typée, pas preuve d'un véritable diagramme Figma 07 | **QUALIFIER/CORRIGER P1** : vérifier flux nœuds/liens en vraie vue ; soit layout CSS convaincant sur enveloppe, soit layout spécialisé motivé ; test BROWSER discriminateur et repli sûr |
-| **C-11 · Figma 08, CV-T08** | Arbre de conditions et issues lisible, sans autorité inventée | `layoutHint=decisionTree`, vue imbriquée `renderBranch()` récursive ; test famille UNIT | **BLOQUANT F2 sur entrée cyclique** : absence visible de détection de cycle/borne de profondeur ; risque récursion non bornée ; BROWSER Figma 08 NOT RUN | **CORRIGER P0** : validation de DAG/arbre (cycles, racines multiples, partages, orphelins, relation invalide) et repli exhaustif ; vérifier absence de boucle et navigateur dédiée |
-| **C-12 · Figma 09, CV-T09** | Processus parallèles avec voies et convergence fidèles | `layoutHint=parallelProcess`, lanes CSS, arêtes `sync` affichées explicitement ; autres relations non rendues dans le graphe | **PARTIEL F3** : représentation des dépendances/flux potentiellement incomplète ; BROWSER Figma 09 NOT RUN | **CORRIGER P1** : représenter les relations pertinentes ou refuser le graphique au profit de la liste exhaustive ; tester convergence, ordre, gates et format étroit |
+| **C-10 · Figma 07, GV-05, CV-T07** | Dépendances dirigées, liens et sens intuitifs, repli sans perte | `topologicalLayers()`, groupes de nœuds CSS, arêtes orientées rendues en lignes séparées avec `data-directed=1` | **PARTIEL F3** : aucune géométrie de connexions nœud→nœud démontrée ; l'attribut `data-directed` n'est pas une preuve Figma 07 | **COMPLÉTER/QUALIFIER P1** : vérifier lecture relationnelle et connecteurs véritables en BROWSER ; si CSS insuffisant, benchmark borné layout dédié ; préserver liste alternative |
+| **C-11 · Figma 08, CV-T08** | Arbre conditionnel sûr, branches non ambiguës et aucune décision créée | `validateDecisionTree()` refuse cycle, orphelin, multi-racine, déconnexion ; `renderBranch()` arbre imbriqué | **PARTIEL F2** : DAG monoracine à nœud partagé (in-degree >1) accepté comme arbre ; duplication possible ; pas de preuve géométrique Figma | **CORRIGER P0** : invariant arborescent (un parent pour chaque nœud non-racine), choix sûr pour DAG réels, conditions oui/non uniques, cas shared-child et tests BROWSER de repli |
+| **C-12 · Figma 09, CV-T09** | Voies parallèles, ordre local, toutes les relations et convergence fidèles | Lanes CSS, affichage explicite des seuls liens `sync`, label `↔` dans la présentation | **PARTIEL F3** : liens `flow`/`depends_on` non visibles dans le rendu dirigé ; `↔` peut induire une réciprocité non attestée | **CORRIGER P1** : restituer toutes les arêtes qualifiées ou refuser le dirigé ; expliciter la sémantique sync, tester processus mixtes, reprises et fallback |
 | **C-13 · GV-06, CV-07, doc 05 §6.4** | Graphique quantitatif seulement si valeurs authentiques, unités/échelles/source établies | Aucun graphique quantitatif automatique ; ECharts non installé | **DIFFÉRÉ CONFORME** | **NE PAS CONSTRUIRE PAR INERTIE** ; ouvrir seulement sur cas chiffré produit et contrôle d'autorité, fournir texte/tableau à défaut |
-| **C-14 · VP-08, CV-04/05, CV-T05** | Variantes par contenu/largeur et enveloppe de capacité réellement testée | MAX_ALTS=12 (8 admis, 18 refusés), sélection cards/matrix/stacked et capacités tracées | **PARTIEL MAIS PROGRÈS** : limite testée UNIT ; pas une couverture 12 options BROWSER ni une garantie visuelle | **PROUVER** 2/3/5/8/12/18 sur parser→admission→UI ; pas d'élargissement arbitraire ni promesse d'18 cartes |
+| **C-14 · VP-08, CV-04/05, CV-T05** | Variantes adaptées au contenu, cardinalité et conteneur mesurés | MAX_ALTS=12 ; huit admises, dix-huit rejetées au parse en unités antérieures | **PARTIEL** : politique honnête au parse, capacité BROWSER 12 options et liste de repli non démontrées | **PROUVER P1** : vrai chemin D3/parse/admission/UI 2/3/5/8/12/18, densité et largeurs mesurées ; ne pas inventer la capacité 18 |
 
 ### 4.3. C — UX, accessibilité, sécurité et continuité
 
 | ID / source | Résultat attendu | Réalisation observée dans le pack | Qualification / écart | Action de convergence et preuve de sortie |
 |---|---|---|---|---|
-| **C-15 · UX-F/UX-010, CV-04/08, CV-T11/12/20** | Aucun chevauchement/troncature, zoom/split, clavier | ResizeObserver, container CSS, overflow-wrap, matrices scrollables | **PARTIEL** : validation géométrique et accessibilité écran réel NOT RUN pour les nouveaux diagrammes | **PROUVER P1** : split, 390/1280/1680, zoom 200–400 %, longue URL, géométrie des lignes, clavier, scroll horizontal localisé, capture |
+| **C-15 · UX-F/UX-010, CV-04/08, CV-T11/12/20** | Adaptation réelle au panneau Travail, split, zoom et accessibilité | CSS container, seuils et composants ; T02 1440 rapporté sans mesures d'overflow ou zoom détaillées | **PARTIEL** : affichage nominal ≠ géométrie ni navigation clavier prouvées | **PROUVER P1** : split 50/50, conteneur réduit, 390/1280/1440, zoom 200–400 %, longs labels, mesures géométriques, focus/ordre DOM |
 | **C-16 · UX-D/E, CT-02, CV-09/13** | Sources actuelles et actions typées seulement ; aucune décision/permission inventée | Références/choix canoniques et ancres repris dans NoraComposition ; contrôles historiques utilisés | **PARTIEL** : la revue du code ne certifie pas les droits dynamiques | **CONSERVER / PROUVER** ; source révoquée, clic de référence, choix périmé, tour non final, aucun effet métier depuis la forme |
-| **C-17 · CV-10, doc 05 §8, CV-T15** | Sur erreur renderer, repli intégral sans toucher au tour D3 | `BlockErrorBoundary` avec `buildExhaustiveBlockFallback`, tests UNIT ; pas d'injection BROWSER | **PARTIEL** : erreur dans un bloc réel non prouvée en navigateur | **PROUVER** : injection d'erreur BROWSER sur grandes compositions, contenu intégral, autres blocs inchangés, aucune réinterrogation Nora |
-| **C-18 · VP-07, doc 02 §7, Figma 01–09** | Finition premium et diagrammes naturels réellement agréables à lire | CSS adaptatif et rendu typé, T02 et quelques captures rapportées | **NON PROUVÉ** : screenshots Figma 08/09 manquants ; composant CSS dirigé ne démontre pas conformité Figma 07 | **QUALIFIER P1** : revue comparative navigateur/Figma 03/04/07/08/09, densité, chemin des arêtes, typographie, alignement, cas dégradés, verdict Morris distinct |
+| **C-17 · CV-10, doc 05 §8, CV-T15** | Erreur de composant isolée, alternative exhaustive et aucun effet D3 | `buildExhaustiveBlockFallback` sans coupe + error boundary présents dans code relu | **PARTIEL** : test long en unité, injection d'erreur réelle BROWSER non prouvée | **PROUVER P1** : faire échouer une section, comparer tous champs/relations, conserver les autres et l'état conversationnel |
+| **C-18 · VP-07, doc 02 §7, Figma 01–09** | Qualité éditoriale premium et cohérence Figma/runtime par famille | F5 : 3 PNG 1440 rapportés pour deps/tree/parallel ; chemins seulement dans le handoff ; CSS accessible | **NON PROUVÉ** : captures non inspectables à distance, pas de verdict comparatif Figma 07–09 ni cas étroits | **PROUVER P1** : transmettre/capter images réellement inspectables, documenter viewport/largeur/contenu, comparer aux Figma natifs, revue Morris |
 | **C-19 · UX-F, CT-01/05, CV-T16/17/18** | Refresh, relecture, scroll, brouillon et réconciliation sans effet induit | Refresh/T02 rapportés ; 2 FAIL ACK également sur tip clean a783f014 ; UNKNOWN non exécuté dans ce cycle | **PARTIEL**, réserve R05 distincte | **CONSERVER / QUALIFIER** ; non-régression ciblée, maintenir propriétaire R05 et issue d'ACK, ne pas élargir l'implémentation graphique à la réparation métier sans gate |
 
 ### 4.4. D — Qualification, réception et gouvernance
 
 | ID / source | Résultat attendu | Réalisation observée dans le pack | Qualification / écart | Action de convergence et preuve de sortie |
 |---|---|---|---|---|
-| **C-20 · doc 03 §10, doc 05 §9, CV-T01–20** | Preuves UNIT/PG/BROWSER/LIVE séparées et discriminantes | Dernier pack : **65 Vitest PASS** rapportés, T02 PASS ; tsc 32 erreurs antérieures/0 touched rapportées ; C-11/12 Browser dédiés NOT RUN | **PARTIEL** : résultats non réexécutés, critères adversariaux C-04/11/12 absents | **QUALIFIER** : tests négatifs topology/fidelity, PG+E2E Figma, contrôle delta TypeScript vs base propre, exhaustivité CV-T (NOT RUN ≠ PASS) |
-| **C-21 · VP-05, GV-01–12, CV-T02/19** | Nora choisit spontanément une représentation utile sur demande libre, avec sources et nuances justes | Fixtures BROWSER et tests déterministes, **LIVE OpenAI NOT RUN** | **NON PROUVÉ** | **RECETTE LIVE SOUS GO DISTINCT** ; cas simple, synthèse projet, R04/R05, choix éditorial argumenté, jugement Morris sur pertinence et naturel |
-| **C-22 · SEF, Roadmap R5/ML4D, Gate C** | Réception puis promotions sous gates Morris explicites | Handoff L3 `a55f95ea` distant confirmé, code local non publié, RECETTE non touchée, LIVE non exécuté | **GATE NON FRANCHI** : ML4D non reçue, Gate C ouvert, STABLE absent | **AUCUNE PROMOTION** : revue du cycle, candidat figé, recette Morris distincte, Git/PR/merge/REAL séparés |
+| **C-20 · doc 03 §10, doc 05 §9, CV-T01–20** | Qualification séparée UNIT/PG/BROWSER/LIVE avec véritables oracles | Handoff 27f403d2 : fichiers/tests complets ; **24 Vitest ciblés PASS et T02 Playwright 1 PASS rapportés** ; suite 65 PASS du cycle antérieur non réexécutée dans ce pack | **PARTIEL** : test d'associations inversées, DAG partagé et relations mixtes non présents ; TypeScript/build/PG et images non requalifiés dans ce pack | **COMPLÉTER P1** : adversariaux F1/F2/F3, scénarios CV-T au niveau requis, re-run régressions, tsc baseline (32 erreurs antérieures rapportées), preuves runtime |
+| **C-21 · VP-05, GV-01–12, CV-T02/19** | Choix spontané d'une forme utile par Nora, sources fidèles et nuances | Seulement fixtures FAKE/T02, pas de trajet fournisseur LIVE | **NON PROUVÉ** | **RECETTE LIVE SOUS GO MORRIS DISTINCT** ; essais de demandes libres, jugement éditorial et coût/SDK prouvés sans annoncer REAL |
+| **C-22 · SEF, Roadmap R5/ML4D, Gate C** | Recevoir le candidat traçable sous décision Morris puis promouvoir séparément | Handoff Full distant `27f403d2` exploitable ; branche code locale non poussée/WT dirty ; Roadmap main ML4D NOT STARTED (snapshot 15/11) | **GATE NON FRANCHI** : pas de candidat Git produit vérifiable, pas de recette, Gate C OPEN | **PRÉSERVER GATES** : qualification et commit local sous mandat, révision Morris, autorisation Git/recette/promotion spécifique ; doc de roadmap protégée non modifiée ici |
 
 ## 5. WBS de convergence — cinq activités d'un même macro-lot
 
@@ -98,9 +100,9 @@ Les documents 01 §9 et 04 §8 ne fournissent **pas de WBS détaillé autonome**
 | Activité | Résultat initialement attendu | Situation à date | Preuve ou gate restant |
 |---|---|---|---|
 | **W1 — Direction artistique** | Maquettes de texte, comparaisons, étapes, dépendances, réponses composites et densités variables | Neuf écrans Figma présents ; orientation acceptée en principe | Comparaison Figma/runtime de vues comparables et revue visuelle Morris |
-| **W2 — Contrat fonctionnel et architecture** | Nora/Studio, vérité unique, familles, contrat versionné, repli et compatibilité M1 | Nouveau write schema et gate d'ancres ; F1/F4 non clos | Sécuriser C-04 et vérifier la frontière émission/lecture C-05 avant réception |
-| **W3 — Construction intégrée** | Rendu spécialisé, intégration, tests, synchronisation doc et nettoyage E05 | Relations CSS dirigées en code ; arbre/parallel unitaires ; topologie F2/F3 et mise en page Figma ouvertes | Corriger C-10/11/12, conserver la compat lecture E05, documenter l'exit de la nouvelle écriture |
-| **W4 — Qualification croisée** | Contrat logique, BROWSER/FAKE, accessibilité, Figma/runtime, non-régression et LIVE borné si autorisé | Vitest 65 PASS et T02 PASS rapportés ; défauts adversariaux non couverts ; Figma 08/09 et zoom/split absents | Cas adversariaux + vraie capture navigateur/Figma + E2E, preuve séparée du REAL |
+| **W2 — Contrat fonctionnel et architecture** | Nora/Studio, vérité unique, familles, contrat versionné, repli et compatibilité M1 | WRITE-only nouveau confirmé dans code ; stratégie de correspondance B sémantiquement non sûre | Comparer les voies du contrat 05 et faire arbitrer toute extension D3 structurante ; qualifier F1 |
+| **W3 — Construction intégrée** | Rendu spécialisé, intégration, tests, synchronisation doc et nettoyage E05 | `topology.ts`, couches CSS, comparaisons et READ dual présents ; DAG shared-child et flux parallèles incomplets | Corriger F2/F3, conserver le code sain et l'historique, achever l'expérience graphique réelle |
+| **W4 — Qualification croisée** | Contrat logique, BROWSER/FAKE, accessibilité, Figma/runtime, non-régression et LIVE borné si autorisé | Pack Full complet ; 24 PASS ciblés + T02 PASS rapportés ; PNGs non inspectés, aucune recette LIVE | Tests adversariaux, géométrie Figma, PG/refresh, accessibilité et typecheck documentés avec preuves inspectables |
 | **W5 — Recette produit** | Morris juge contenu, pertinence, finition, continuité, fiabilité | Pas de recette de la cible complète | Décision Morris de réception ; Gate C et adoption séparés |
 
 **Règle de périmètre :** W1–W5 sont des résultats liés à un **macro-lot cohérent**, pas cinq nouveaux lots ni cinq invitations à modifier la gouvernance. Le nouveau contrat Cursor devra réunir code, tests, documentation et preuves sans fragmenter les corrections.
@@ -109,26 +111,26 @@ Les documents 01 §9 et 04 §8 ne fournissent **pas de WBS détaillé autonome**
 
 | Traitement | Éléments concernés | Justification |
 |---|---|---|
-| **CONSERVER** | Séparation D3/Studio ; NoraComposition ; admission locale ; React/CSS ; cartes/matrices et séquences ; références/choix canoniques ; mécanismes de fallback corrigés | Responsabilités pertinentes, premières preuves déterministes, faible intérêt à reconstruire ce qui fonctionne déjà |
-| **CORRIGER — P0** | C-04 : refus d'un complément trompeur, narrative-only `substitute` sans équivalence ; C-11 arbre cyclique | Risque d'altération des assertions et de récursion non bornée ; UNIT nominal ne prouve pas ces cas |
-| **COMPLÉTER — P1** | C-05/06/14 : écrire uniquement nouveau schéma, relire ancien ; C-10/12 : diagramme lisible sans arêtes perdues et preuve de capacité | Le modèle typé existe ; vérifier son comportement de bout en bout, sans pivot M1 non autorisé |
-| **QUALIFIER — P1** | C-08/09/15/17/18/20 : matrices, Figma 07–09, zoom/split, fallback en erreur et preuves adversariales | 65 tests UNIT et T02 BROWSER ne prouvent pas ces qualités ni la pertinence spontanée |
+| **CONSERVER** | D3/Studio séparés ; renderer React/CSS ; admission, fallback ; cartes/matrices, séquences ; détection de cycles ; write-only nouveau/read ancien | Fondations réutilisables, pas de reconstruction générale |
+| **CORRIGER — P0** | C-04 : contexte et liens entre assertions, aucune substitution narrative partielle ; C-11 : vrai invariant arbre et chemin DAG partagé | Intégrité de l'information et rendu potentiellement trompeur avant toute réception |
+| **COMPLÉTER — P1** | C-10/12 : dessin/lecture des dépendances et exhaustivité arêtes parallèles ; C-05/06 : tests du pipeline WRITE/READ historique | Le schema et les vues existent ; le comportement global et la qualité de disposition restent à prouver |
+| **QUALIFIER — P1** | C-08/09/14/15/17/18/20 : cas limites, matrice, split, zoom, fallback, a11y, Figma/runtime | Fichier PNG cité ≠ image inspectée ; test de présence ≠ géométrie et sens |
 | **PRÉSERVER / RÉGULARISER À LA BONNE FRONTIÈRE** | C-16/19 : droits, choix expirés, ACK R05/UNKNOWN, brouillon, idempotence | Ne pas effacer les dettes historiques et ne pas dévier vers un second moteur d'effets |
 | **DIFFÉRER SOUS CONDITION** | C-13 : graphiques quantitatifs sans besoin réel établi ; C-21 : LIVE jusqu'au GO spécifique | Éviter coûts/risques gratuits et faux claims REAL |
 | **GATE MORRIS** | C-22 : revue, décision de périmètre, Git/PR/RECETTE et adoption | Construction locale ≠ preuve ≠ ADOPTED |
 
 ### 6.1. Dépendances d'exécution
 
-1. **Fermer C-04 avant de présenter un graphique complémentaire comme fidèle.** La seule inclusion des titres dans `replyDraft` n'est pas une preuve de la valeur des autres champs. Une équivalence déterministe non démontrable implique un repli `markdown_only` ; éviter un second moteur cognitif.
-2. **Qualifier le nouveau write C-05/06/14 dans le parcours D3 réel.** Le prompt annonce `projection-v1`, mais le schéma d'output accepte aussi E05. Séparer juridiquement et techniquement le nouveau write de la lecture legacy ; si modification D3/SDK de portée structurante, STOP pour Morris.
-3. **Sécuriser la topologie C-10/11/12 avant les preuves visuelles.** Refuser cycles/arêtes orphelines/incohérences de branche et ne jamais cacher les `flow`/`depends_on` dans `parallelProcess`. Le CSS reste recevable s'il donne une restitution honnête dans l'enveloppe, sinon repli complet et comparaison proportionnée de solutions, sans moteur universel par réflexe.
+1. **Traiter C-04 au niveau des associations, et non des fragments isolés.** Une phrase présente dans `replyDraft` mais attachée à la mauvaise option, condition ou arête reste dangereuse ; `substitute` narrative doit préserver tout le canonique. Étudier le coût d'une source commune de sens avant toute décision D3.
+2. **Conserver l'acquis F4 et prouver l'intégration D3 M1.** Le schéma d'émission est maintenant `z.literal(projection-v1)` ; le parser accepte les deux versions à la relecture. Tester l'émission/SDK, la sérialisation et l'historique, sans écrire dans l'ancienne version.
+3. **Finaliser l'intégrité des graphes C-10/11/12.** La détection des cycles est acquise en code ; traiter le DAG partagé non arborescent et toutes les arêtes parallèles. Un layout CSS ne devient un diagramme validé que sur preuve de compréhension et géométrie en navigateur.
 4. **Qualifier au fil de la construction, pas en fin de chantier.** Scénarios CV-T de refus, largeur, erreur, sources, historique et géométrie rattachés à chaque famille implémentée ; preuves Browser comparables aux maquettes.
 5. **Soumettre à Morris le produit réellement observé.** Les tests FAKE ne prouvent pas que Nora décide judicieusement de la forme de sa réponse en LIVE, ni que la direction artistique est reçue.
 
 ### 6.2. Deux distinctions à ne pas confondre
 
 - **Option B du dossier 01** : architecture produit de composition adaptative maîtrisée, avec responsabilités Nora/Studio et familles visuelles contrôlées.
-- **Strategy B du candidat Cursor** : stratégie de compatibilité où **replyDraft** reste canonique et un ancien wire fournit une projection visuelle facultative.
+- **Strategy B du candidat Cursor** : `replyDraft` reste canonique et une projection graphique facultative utilise désormais le **nouveau schéma en écriture**, tout en conservant la lecture historique du wire E05.
 
 La seconde n'implique pas, à elle seule, la conformité à la première. Elle peut être une **tranche de transition**, non la cible finale adoptée.
 
@@ -136,7 +138,7 @@ La seconde n'implique pas, à elle seule, la conformité à la première. Elle p
 
 ## 7. Contrat de preuve et oracles de sortie
 
-**Règle de lecture de la matrice CV-T issue du handoff :** 9 PASS, 6 PARTIAL, 5 NOT RUN ; les niveaux sont hétérogènes et ne démontrent pas une capacité complète. Les résultats restent ceux **rapportés par Cursor**, non réexécutés ici.
+**Règle de lecture :** l'ancienne matrice CV-T (9 PASS / 6 PARTIAL / 5 NOT RUN) concernait le **cycle précédent** et ne vaut pas certification du candidat F1–F5. Le handoff `27f403d2` rapporte 24 tests ciblés PASS et T02 PASS, plus un tableau F1–F5 ; il ne fournit **pas** une requalification exhaustive de tous les CV-T. Tous les résultats d'exécution restent rapportés par Cursor, non réexécutés ici.
 
 | Exigence de sortie | Scénarios discriminants | Preuve exigée |
 |---|---|---|
@@ -166,63 +168,76 @@ Le prochain contrat technique ne doit **pas** rouvrir la vision A–F ni redéfi
 
 **STOP obligatoire** en cas de migration/table DB indispensable, changement d'autorité, double source de vérité, effet métier nouveau, incompatibilité SDK, retrait E05 détruisant l'historique, code local divergent du handoff, modification de chemins protégés ou publication projet non autorisée.
 
-## 9. Verdict actualisé et suite
+## 9. Verdict de la revue du handoff `27f403d2`
 
-| Axe | Verdict après handoff `a55f95ea` |
+| Axe | Qualification vérifiée |
 |---|---|
-| Vision produit / UX A–F | Cohérence d'architecture maintenue, choix LIVE non prouvé |
-| Responsabilités Nora/Studio | Socle React/admission réutilisable |
-| Contrat de vérité C-04 | **BLOQUANT F1** : complément par ancres non suffisant, substitution narrative |
-| Écriture C-05 | **PARTIEL F4** : nouveau schema existe, legacy encore admis par outputType |
-| Comparaison et séquences | Améliorées, qualification géométrique partielle |
-| Dépendances, arbre, parallèle C-10–12 | **PARTIEL** : typages et vues CSS présents ; risques topology/restitution F2/F3 |
-| Qualité premium C-18 | NON PROUVÉE |
-| Tests | **65 Vitest PASS + T02 PASS rapportés** ; négatifs adversariaux et BROWSER Figma 08/09 NOT RUN |
-| LIVE / UAT / Gate C | NON ACQUIS |
+| Review Pack | **FULL EXPLOITABLE** : 8 nouveaux fichiers intégraux + 8 diffs, tests discriminants reproduits ; publication Git handoff vérifiée |
+| Vision et séparation Nora/Studio | **ALIGNÉES AU NIVEAU ARCHITECTURAL**, sans comportement spontané LIVE prouvé |
+| F1 / C-04 | **BLOQUANT** : contrôle lexical `includes` sans association ni contexte, substitution narrative par sous-texte |
+| F2 / C-11 | **PARTIEL** : cycles et multi-racines détectés, mais DAG monoracine à nœud partagé toujours accepté comme arbre |
+| F3 / C-10/12 | **PARTIEL** : couches et liens textuels, graphes parallèles sans tous les liens de flux/dépendance |
+| F4 / C-05/06 | **CORRECTION CODE RECEVABLE** : nouveau WRITE et READ dual ; test SDK/PG/replay complet restant |
+| F5 / C-15/18/20 | **PARTIEL** : 24 Vitest PASS + T02 PASS rapportés ; PNG seulement cités dans le pack, sans inspection distante |
+| C-21 / LIVE | **NOT RUN** |
+| Gate C / adoption | **NON ACQUIS**, code produit non publié et non recetté |
 
-**Verdict de revue : `STOP — SEMANTIC FIDELITY AND DIRECTED COMPOSITION GAPS REMAIN`.**
-Le `READY WITH RESERVES` Cursor est recevable comme statut d'avancement DEV uniquement, sans recevoir la capacité complète. Le prochain cycle recommandé doit être **un correctif intégré sur le même candidat**, incluant correctifs, tests discriminants et synchronisation documentaire associée, et non une succession de micro-ajustements. Aucun push Produit/PR/merge/RECETTE/REAL/adoption déduit de ce document.
+**Verdict ChatGPT : `STOP — CORE SEMANTIC FIDELITY NOT PROVEN`.** Ce jugement concerne la réception **de ce sous-système**, pas la totalité du programme. Le `READY WITH RESERVES` Cursor constate seulement une progression DEV. L'architecture générale est réutilisable et le changement F4 n'est pas à refaire.
 
-## 10. Findings discriminants et contrat d'entrée du prochain correctif
+## 10. Findings réactualisés — constats, non hypothèses de correctif
 
-### F1 — Compléments non prouvés et substitution narrative (P0, C-04)
+### F1 — C-04 / P0 : fragments supportés ≠ assertions fidèles
 
-**Code reproduit dans le pack §6 `fidelity.ts` et `admission.ts` :**
-- `extractProjectionAnchors()` regarde surtout titres d'options, étapes, nœuds et labels de synthèse ; `normalize(canonical).includes(anchor)` autorise un complément même si ses détails et sa recommandation ne sont pas établis dans le canonique ;
-- `detectCrudeContradictions()` se limite à certains chiffres et recommandations. Son nom et ses commentaires eux-mêmes indiquent qu'il ne démontre pas l'équivalence sémantique ;
-- `decideBodyPolicy()` conserve `substitute` pour des blocs narratifs même quand `replyDraft` diffère potentiellement.
+**Preuve :** `fidelity.ts` §6.1 du pack vérifie `normalize(canonical).includes(normalize(claim))` sur des fragments indépendants (titre, `summary`, `pros`, `cons`, critères, recommandation, labels). Le code ne qualifie pas l'association option→attribut, la portée conditionnelle, l'autorité ou le rôle d'une relation. `detectPreferenceContradiction()` reconnaît seulement certains motifs linguistiques FR. `maySubstituteNarrative()` accepte une composition narrative qui est sous-chaîne du canonique au lieu d'exiger la conservation de tout le texte.
 
-**Oracle requis :** le complément graphique ne présente *aucune assertion* (avantage, risque, recommandation, condition, chiffre, statut, liaison) non vérifiable déterministiquement par rapport au canonique. Le texte seul prévaut dès que la garantie est impossible. Une égalité strictement déterministe peut autoriser une projection narrative ; aucune classification par similarité libre ne devient une preuve de vérité. Tester au moins : mêmes titres mais recommandations opposées, pros/cons inversés, conditions inversées, valeurs/nuances non présentes, narrative-only différente, canonical vide, références contradictoires.
+**Contre-exemples à prouver par tests négatifs :**
+- les mêmes avantages et limites présents dans le texte, mais attribués aux mauvaises options ;
+- une condition `si` vraie dans le canonique qui devient `si non` dans le visuel ;
+- deux relations opposées portant les mêmes libellés de nœuds ;
+- un statut `hypothèse` transformé en fait sans nouveau mot lexical ;
+- le texte narratif tronqué par substitution à une sous-partie du `replyDraft` complet.
 
-### F2 — Arbre cyclique / branches invalides (P0, C-11)
+**Sortie attendue :** aucun graphique ne prétend représenter fidèlement une assertion si son rattachement n'est pas déterministe ; texte canonique intégral en cas d'incertitude. La voie « sections sémantiques canoniques » du document 05 doit être examinée **comme option de conception**, pas activée sans analyse M1 et GO D2.
 
-**Code reproduit `NoraComposition.tsx` :** `renderBranch(nodeId, depth)` recurse par les arêtes ; ni validation d'acyclicité ni ensemble de nœuds visités n'est visible sur ce chemin. `selectRelationsVariant()` n'effectue que des contrôles de taille, d'arêtes orphelines et de longueur.
+### F2 — C-11 / P0 : vrai arbre vs DAG valide
 
-**Oracle requis :** tous les graphes invalides (cycles simples/complexes, sommet partagé non arborescent si rendu dupliqué, absence/multiplicité incohérente de racines, relation conditionnelle incomplète, arêtes orphelines) sont refusés **avant rendu** ou repliés sans perte, sans boucle ni crash, avec test BROWSER dédié. Une arborescence valide reste lisible et ne fabrique pas de HumanDecision.
+**Preuve :** `topology.ts` §6.2 vérifie bien cycles, racine unique, connexion et arêtes orphelines. Il n'exige pas `inDegree = 1` pour chaque nœud non-racine. Deux branches peuvent donc rejoindre un même enfant qui sera rendu deux fois par `renderBranch()`.
 
-### F3 — Fidélité des relations et qualité du diagramme (P1, C-10/12)
+**Sortie attendue :** refuser le mode arbre pour DAG à enfants partagés, ou utiliser une représentation de graphe adéquate sans duplication sémantique ; vérifier conditions `condition_true/false`, unicité des branches et repli humain exhaustif. Conserver les tests cycle/multi-racine PASS.
 
-**Code reproduit :** `dependencies` affiche une liste de nœuds puis une liste séparée d'arêtes ; `parallelProcess` matérialise des lanes et n'explicite que les arêtes `sync`, alors que d'autres types de relation sont admis. Le T02 accepte `data-layout=directed` **ou** `structured-list` et ne prouve donc pas un diagramme de dépendances.
+### F3 — C-10/12 / P1 : présentation dirigée et exhaustivité
 
-**Oracle requis :** chaque lien possède une représentation compréhensible, sans perte d'ordre/condition/source. Une vraie variante dirigée n'est déclarée PASS que si ses arêtes/branches sont perceptibles en UI et lisibles sur l'enveloppe mesurée. Sinon, le repli listé est honnête et exhaustif mais la capacité graphique reste PARTIAL. Exiger essais Figma 07/09, screen diff interprété, zoom/split et texte long. Ne pas installer ELK/React Flow par réflexe ; comparer uniquement si le CSS actuel n'atteint pas le contrat.
+**Preuve :** `NoraComposition.tsx` §6.5 montre `topologicalLayers()` + cartes par couches et arêtes en liste pour `dependencies` ; `parallelProcess` affiche `syncEdges` seulement. Les tests Playwright contrôlent des attributs `data-layout`/`data-directed` et la visibilité, pas un réseau de connecteurs réellement fidèles.
 
-### F4 — Distinction nouveau write / lecture E05 (P1, C-05/06)
+**Sortie attendue :** représenter dans le rendu (ou alternative clairement identifiée) tous les liens et leurs sens sans inventer de connexions. Un vrai diagramme Figma 07–09 ne doit être déclaré PASS qu'après revue navigateur/ géométrie ; si CSS ne suffit pas, qualifier un layout dédié proportionné et obtenir tout GO structurant requis.
 
-**Code reproduit `visual-composition.ts` :** `VISUAL_COMPOSITION_SCHEMA` est nouveau mais `VisualCompositionAgentOutputSchema.schemaVersion` reste un `z.enum([new, legacy])`. Le prompt adapter souhaite la nouvelle version, ce qui n'empêche pas l'émission du legacy.
+### F4 — C-05/06 / P1 : nouveau WRITE / ancien READ — avancer sans régressions
 
-**Oracle requis :** chemin d'émission/validation des **nouveaux** tours borné à la nouvelle version, lecture/replay de l'ancienne conservée. Tester frontière agent/parse/projection de bout en bout sans appel LIVE ; aucun pivot strict SDK/migration M1 sans STOP Morris. La version nouvelle n'est pas à elle seule la preuve d'une nouvelle source de vérité.
+**Preuve :** diff §7.1, `VisualCompositionAgentOutputSchema.schemaVersion = z.literal(VISUAL_COMPOSITION_SCHEMA)`, où le littéral est `conversational-composition-projection-v1`; `parseVisualCompositionDetailed()` conserve les deux versions et préserve celle d'origine. Le test `VisualCompositionAgentOutputSchema.safeParse(legacy)` est négatif, celui de la nouvelle version est positif.
 
-### F5 — Qualification visuelle et éditoriale (P1, C-08/09/15/17/18/20/21)
+**Sortie attendue :** tester la frontière `@openai/agents` en mode contrôlé, la projection D3 et le replay historique en API/PG/BROWSER lorsque pertinent ; ne pas réouvrir l'écriture legacy, ne pas introduire de migration.
 
-**Preuves reconnues :** 65 Vitest PASS, T02 BROWSER PASS, 0 erreurs touchées rapportées / 32 TypeScript préexistantes, aucun LIVE ; Figma 08/09 dédiés, zoom/split, injection d'erreur et jugement esthétique global NON PROUVÉS.
+### F5 — C-08/09/14/15/17/18/20/21 / P1 : qualification ciblée et recette ultérieure
 
-**Oracle requis :** BROWSER/FAKE avec vraies tailles du fil Travail, représentations Figma 03/04/07/08/09, overflow/mesures et accessibilité, plus trace de conformité par CV-T. Le comportement spontanément pertinent de Nora demeure à recetter plus tard sur LIVE **sous GO séparé**.
+**Preuve :** pack §8 (24 PASS UNIT et 1 PASS BROWSER rapportés), preuves PNG listées (Figma 07–09) mais non disponibles en lecture distante. La suite de 65 unités et les 32 diagnostics tsc/0 fichiers touchés correspondent au cycle **antérieur**, sans nouvelle exécution documentée dans la republication F1–F5.
 
-### Critères d'arrêt / responsabilités du prochain cycle
+**Sortie attendue :** cas adversariaux F1/F2/F3 ; navigateur Figma 03/04/07/08/09 réellement comparé, métriques de débordement, split/zoom, accessibilité, erreur/repli, anciens tours et références ; rendre les PNG inspectables par un canal autorisé ; LIVE seulement sous mandat distinct.
 
-- **IN :** F1/F2 et ajustements nécessaires F3/F4, preuves discriminantes F5 sur candidat DEV, tests, doc de delivery dans le **même cycle**.
-- **OUT :** réécriture du cerveau Nora, second moteur d'intention, nouvel outil D7, migrations ou stores nouveaux, généralisation graphique illimitée, reconstruction E05, élargissement vers R5 entier.
-- **STOP :** tout changement structurel D3/outputType/DB/autorité non autorisé, perte de relecture historique, déviation du worktree local connu, budget SDK strict non qualifié, déploiement RECETTE et test LIVE non autorisés, impossible repli fidèle.
-- **Exit :** test d'assertions contradictoires et de topologies adversariales PASS, écriture nouvelle réellement prouvée sans perte ancienne, démonstration navigateur des diagrammes avec repli et géométrie, rapport Full mono-cycle, handoff L3 distant ; réception Morris ultérieure et Gate C distincts.
+## 11. Reste à faire priorisé — proposition de trajectoire
 
-**Statut des orientations :** recommandations de revue et contrat d'entrée candidat ; ne valent ni approbation D2 d'un nouveau schéma M1, ni autorisation technique implicite, ni ADOPTED.
+| Priorité | Résultat à obtenir / C-IDs | IN et action utile | Preuve de sortie et gate |
+|---|---|---|---|
+| **P0-A — Arbitrage vérité unique** | C-04, C-01, W2 | Analyser Strategy B actuelle vs sections sémantiques canoniques du document 05 ; quantifier SDK/outputType, schéma D3, historique, persistance, effort et effet sur le résultat utilisateur. Ne pas empiler des heuristiques `includes` en promettant une garantie impossible. | Proposition d'architecture bornée, choix Morris **D2 si structurant** ; aucune mutation majeure avant GO |
+| **P0-B — Correction de fidélité** | C-04, C-17 | Mettre en œuvre la politique compatible avec l'arbitrage (canonique intégral toujours visible si non prouvable ; projection sûre quand correspondance réellement déterministe). | Tests inversions d'options, conditions, rôle/autorité, relations et substitution partielle ; absence de faux `complement/substitute` |
+| **P0-C — Topologie des arbres** | C-11, C-12 | Détecter et replier DAG non arborescents, conditions ambiguës et nœuds partagés ; préserver cycles/multi-racines déjà couverts. | Tests graphes adversariaux UNIT + BROWSER, aucune duplication/mauvaise lecture, liste exhaustive en cas de refus |
+| **P1-A — Relations graphiques complètes** | C-10, C-12, C-15, C-18 | Représenter tous les liens et directions, clarifier `sync` sans `↔` trompeur ; vérifier si les composants CSS actuels atteignent Figma 07–09, benchmark moteur dédié seulement si insuffisant. | Vue vraiment dirigée et lisible ou statut PARTIAL honnête ; screenshots et revue Figma, aucun lien perdu |
+| **P1-B — Intégration WRITE/READ** | C-05, C-06, C-14, C-19 | Garder le contrat WRITE nouveau/READ dual, tester SDK/parse/projection/persistance/replay et volumes 8/12/18, sans toucher aux effets. | Unit/integration/PG/BROWSER selon frontière, historique inchangé, aucune migration non autorisée |
+| **P1-C — Qualification UX et non-régression** | C-02, C-08/09, C-15–20 | Comparaisons, séquences, zoom/split, erreurs de renderer, a11y, permissions et refresh ; qualification des diagnostics TypeScript et ACK existants au bon propriétaire. | Captures inspectables, assertions géométriques/texte, traces tests et niveaux de preuve exacts, Review Pack Full |
+| **P2 — Recette Nora LIVE et produit** | C-01/07/18/21/22, W5 | Après corrections prouvées, expérimenter des demandes libres et juger naturel, pertinence du choix visuel et qualité esthétique ; préparer un candidat figé. | **GO Morris LIVE distinct** puis recette utilisateur et gates Git/RECETTE/Gate C séparés |
+| **DIFFÉRÉ CONFORME** | C-13 | Graphiques quantitatifs seulement pour données sourcées utiles ; pas de bibliothèque supplémentaire par inertie. | Aucun chantier gratuit, condition d'ouverture explicitée |
+
+**Regroupement d'exécution recommandé :** **un macro-lot de convergence intégré**, avec P0 comme garde-fou préalable à l'admission graphique puis P1 codé/testé/documenté et reçu ensemble. Les lignes ne sont **pas** des tickets ou cycles séparés. P2 relève d'une décision d'essai/recette ultérieure.
+
+**Frontières et STOP :** toute transformation structurelle de D3/`outputType`, persistance/DB, autorité D6 ou contrat normatif exige une proposition détaillée et GO Morris spécifique ; aucune mutation technique, push produit, PR, merge, RECETTE, LIVE/REAL ou ADOPTED par la publication de ce document. Garder DEV isolé (ENV-01) et NO RELEASE jusqu'aux gates.
+
+**Livrable de suite non encore commandé :** contrat Cursor SFIA v2.6 instancié depuis les sources Git, après validation du périmètre et du point de décision architecturale ; il ne faut pas forcer la construction de sections canoniques sans GO.
