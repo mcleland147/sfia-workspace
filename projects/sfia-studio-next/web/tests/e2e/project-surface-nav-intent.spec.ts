@@ -1,3 +1,5 @@
+import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
+// seedInspectedNameViaApi replaces removed « Ajuster l'aperçu » UI
 import { test, expect } from "@playwright/test";
 
 /**
@@ -25,12 +27,9 @@ test("rail pilotage during delayed project load keeps surface=pilotage", async (
   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
     timeout: 30000,
   });
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill("Projet NAV race");
-  await page.getByTestId("prep-proposal-summary").fill("résumé nav");
-  await page.getByTestId("prep-proposal-save").click();
+  await seedInspectedNameViaApi(page, { name: `Projet NAV race ${Date.now()}`, summary: "résumé nav" });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  // already on conversation surface
 
   const deferred: { release: () => void } = {
     release: () => undefined,
@@ -93,12 +92,9 @@ test("rapid rail surface switches keep the last user intent", async ({ page }) =
   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
     timeout: 30000,
   });
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-proposal-name").fill("Projet NAV rapid");
-  await page.getByTestId("prep-proposal-summary").fill("résumé");
-  await page.getByTestId("prep-proposal-save").click();
+  await seedInspectedNameViaApi(page, { name: `Projet NAV rapid ${Date.now()}`, summary: "résumé" });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  // already on conversation surface
   await page.getByTestId("prep-create-project").click();
   await page.waitForURL("**/projects/**", { timeout: 15000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
@@ -113,7 +109,8 @@ test("rapid rail surface switches keep the last user intent", async ({ page }) =
   await expect(page).toHaveURL(new RegExp(`surface=pilotage`));
   await rail.getByTestId("nav-journal").click();
   await expect(page).toHaveURL(new RegExp(`surface=journal`));
-  await rail.getByTestId("nav-document").click();
+  // Documents Nora is Accès directs (Ensemble 04) — testid nav-documents.
+  await rail.getByTestId("nav-documents").click();
   await expect(page).toHaveURL(new RegExp(`surface=document`));
   await rail.getByTestId("nav-travail").click();
   await expect(page).toHaveURL(new RegExp(`/projects/${projectId}\\?surface=travail`));
@@ -135,12 +132,9 @@ test("project B load ignores stale pilotage intent from project A", async ({ pag
     await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
       timeout: 30000,
     });
-    await page.getByTestId("prep-constitute").click();
-    await page.getByTestId("prep-proposal-name").fill(name);
-    await page.getByTestId("prep-proposal-summary").fill(`résumé ${name}`);
-    await page.getByTestId("prep-proposal-save").click();
+    await seedInspectedNameViaApi(page, { name: name, summary: `résumé ${name}` });
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-    await page.getByRole("button", { name: "Discussion", exact: true }).click();
+    // already on conversation surface
     await page.getByTestId("prep-create-project").click();
     await page.waitForURL("**/projects/**", { timeout: 15000 });
     const id = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
@@ -152,13 +146,14 @@ test("project B load ignores stale pilotage intent from project A", async ({ pag
     return id!;
   }
 
-  const projectA = await createNamedProject("Projet NAV A");
+  const stamp = Date.now();
+  const projectA = await createNamedProject(`Projet NAV A ${stamp}`);
   await page.getByTestId("studio-rail").getByTestId("nav-pilotage").click();
   await expect(page).toHaveURL(new RegExp(`/projects/${projectA}\\?surface=pilotage`));
 
   await page.goto("/portfolio");
   await page.waitForURL("**/portfolio");
-  const projectB = await createNamedProject("Projet NAV B");
+  const projectB = await createNamedProject(`Projet NAV B ${stamp}`);
   expect(projectB).not.toBe(projectA);
 
   // B created without clicking Pilotage — must settle on travail, not A's intent.

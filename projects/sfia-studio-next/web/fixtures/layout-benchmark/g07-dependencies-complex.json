@@ -1,0 +1,25 @@
+{
+  "id": "G07",
+  "figma": "751:11",
+  "title": "Trois chaînes convergentes — dépendances complexes",
+  "layoutHint": "dependencies",
+  "nodes": [
+    { "id": "src-a", "label": "Inventaire site A", "kind": "observation", "detail": "État observé des stocks et rôles locaux — description longue pour forcer hauteur variable." },
+    { "id": "src-b", "label": "Inventaire site B", "kind": "observation", "detail": "Couverture partielle." },
+    { "id": "src-c", "label": "Cadre juridique", "kind": "hypothesis", "detail": "Hypothèse : cadre applicable non encore confirmé auprès du conseil." },
+    { "id": "ctrl-a", "label": "Contrôle cohérence A", "kind": "finding", "detail": "Contrôle intermédiaire sur la filière A." },
+    { "id": "ctrl-b", "label": "Contrôle cohérence B", "kind": "finding", "detail": "Contrôle intermédiaire sur la filière B." },
+    { "id": "ctrl-c", "label": "Revue juridique", "kind": "unknown", "detail": "Statut unknown — disponibilité du relais juridique à confirmer." },
+    { "id": "merge", "label": "Contrôle convergent", "kind": "finding", "detail": "Point de convergence des trois filières avant suite." },
+    { "id": "next", "label": "Suite sous condition", "kind": "hypothesis", "detail": "Poursuite uniquement si le contrôle convergent est satisfaisant — aucune HumanDecision." }
+  ],
+  "edges": [
+    { "from": "src-a", "to": "ctrl-a", "relation": "depends_on" },
+    { "from": "src-b", "to": "ctrl-b", "relation": "depends_on" },
+    { "from": "src-c", "to": "ctrl-c", "relation": "depends_on" },
+    { "from": "ctrl-a", "to": "merge", "relation": "flow" },
+    { "from": "ctrl-b", "to": "merge", "relation": "flow" },
+    { "from": "ctrl-c", "to": "merge", "relation": "flow" },
+    { "from": "merge", "to": "next", "relation": "depends_on", "label": "si convergent OK" }
+  ]
+}

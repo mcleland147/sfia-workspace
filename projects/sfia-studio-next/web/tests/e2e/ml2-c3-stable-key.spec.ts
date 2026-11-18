@@ -1,5 +1,6 @@
+
 import { test, expect } from "@playwright/test";
-import { openNewPreparation } from "./helpers/g4-chat-first";
+import { openNewPreparation, openSasSecondaryTool } from "./helpers/g4-chat-first";
 
 /**
  * C3-B: creation correlation key must stay stable across retries of the same intent.
@@ -17,7 +18,7 @@ test("ML2 C3-B: stable creation key across double-save retry", async ({ page }) 
 
   const preparationId = await openNewPreparation(page);
 
-  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await openSasSecondaryTool(page, "Documents");
   await page.getByTestId("doc-start-create").click();
   await expect(page.getByTestId("document-revise-draft")).toBeVisible();
 

@@ -1,0 +1,87 @@
+diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+index ab83d881..f9c8640c 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
++++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+@@ -1804,7 +1804,7 @@
+   margin-bottom: 6px;
+ }
+
+-/* UX-01 — icon + markdown body on one horizontal row */
++/* UX-01 — icon optically centered on the first text line (not stacked, not high). */
+ .fig-visual-text-with-icon {
+   display: flex;
+   align-items: flex-start;
+@@ -1814,15 +1814,25 @@
+   flex: 0 0 auto;
+   display: inline-flex;
+   align-items: center;
+-  margin-top: 0.2em;
++  justify-content: center;
++  /* 16px glyph vs ~15px/1.35 first line → ~2px optical settle */
++  margin-top: 2px;
++  height: 1.35em;
+ }
+ .fig-visual-text-icon .fig-visual-icon {
+   margin-right: 0;
++  vertical-align: middle;
+ }
+ .fig-visual-text-body {
+   min-width: 0;
+   flex: 1 1 auto;
+ }
++.fig-visual-text-body > :first-child {
++  margin-top: 0 !important;
++}
++.fig-visual-text-body > :first-child > :first-child {
++  margin-top: 0 !important;
++}
+ .fig-visual-text-observation,
+ .fig-visual-text-hypothesis,
+ .fig-visual-text-risk,
+@@ -1877,26 +1887,44 @@
+   margin: 0 0 10px;
+   font-size: 15px;
+   font-weight: 600;
++  line-height: 1.35;
+   color: #f4f6fc;
+   display: flex;
+-  align-items: center;
++  align-items: flex-start;
+   gap: 8px;
+   flex-wrap: nowrap;
+ }
++.fig-visual-title > .fig-visual-icon {
++  margin-top: 2px;
++  margin-right: 0;
++  height: 1.35em;
++}
+ .fig-visual-title > span {
+   min-width: 0;
++  line-height: 1.35;
+ }
+
+ .fig-visual-recommendation {
+   display: flex;
+-  gap: 10px;
++  gap: 8px;
+   align-items: flex-start;
+ }
++.fig-visual-recommendation > .fig-visual-icon {
++  margin-top: 2px;
++  margin-right: 0;
++  height: 1.35em;
++}
+
+ .fig-visual-recommendation-body {
+   min-width: 0;
+   flex: 1 1 auto;
+ }
++.fig-visual-recommendation-body > :first-child {
++  margin-top: 0 !important;
++}
++.fig-visual-recommendation-body > :first-child > :first-child {
++  margin-top: 0 !important;
++}
+
+ .fig-visual-inline-md {
+   display: block;

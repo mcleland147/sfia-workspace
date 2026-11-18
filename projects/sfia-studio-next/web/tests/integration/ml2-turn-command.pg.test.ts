@@ -9,12 +9,24 @@ process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
 
 import { createDevTestSession } from "@/domains/identity/session";
 import { openOrCreatePreparation } from "@/domains/preparation/service";
-import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
+import {
+  postUserMessageAndNora,
+  listMessages,
+  lookupDurableTurnByClientKey,
+} from "@/domains/conversation/service";
+import {
+  markTurnUnknown,
+  reserveTurnCommand,
+  stashTurnQualification,
+} from "@/domains/conversation/turn-command";
+import { getPreparationContext } from "@/domains/preparation/service";
 import { StudioError } from "@/lib/http-errors";
 import { mkdtempSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { queryObsByOperationId } from "@/lib/observability";
+import { shouldClearThreadPending } from "@/domains/pilotage/thread-recovery";
+import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
 
 describe("ML2 turn command idempotence (PG)", () => {
   let pilotId: string;
@@ -93,5 +105,55 @@ describe("ML2 turn command idempotence (PG)", () => {
     });
     expect(result.policy?.profile).toBe("investigation");
     expect(result.toolCallsObserved).toBeGreaterThanOrEqual(1);
+  });
+
+  it("R05: durable lookup + UNKNOWN cognitive replay clears pending policy without second provider", async () => {
+    const ctx = await getPreparationContext(pilotId, preparationId);
+    expect(ctx.conversation?.id).toBeTruthy();
+    const clientTurnKey = `turn-r05-unk-${Date.now()}`;
+    const content = "Acte cognitif R05 — seed UNKNOWN sans effet métier";
+    const reserved = await reserveTurnCommand({
+      conversationId: ctx.conversation!.id,
+      ownerPilotId: pilotId,
+      clientTurnKey,
+      content,
+    });
+    expect(reserved.kind).toBe("fresh");
+    if (reserved.kind !== "fresh") return;
+    await stashTurnQualification({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      qualificationJson: JSON.stringify({
+        schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+        status: "UNAVAILABLE",
+        goal: "",
+        intents: [],
+        clarifications: ["PROVIDER_ERROR"],
+        replyDraft: "non abouti",
+      }),
+    });
+    await markTurnUnknown(reserved.commandId, "R05_TEST_PROVIDER_ERROR", reserved.ownerToken);
+
+    const looked = await lookupDurableTurnByClientKey(pilotId, preparationId, clientTurnKey);
+    expect(looked.found).toBe(true);
+    expect(looked.status).toBe("UNKNOWN");
+    expect(looked.pilotageEffect?.attempted ?? false).toBe(false);
+    expect(
+      shouldClearThreadPending({
+        noraStatus: looked.status,
+        effectAttempted: looked.pilotageEffect?.attempted,
+        effectStatus: looked.pilotageEffect?.status,
+      }),
+    ).toBe(true);
+
+    const msgsBefore = await listMessages(pilotId, preparationId);
+    const replay = await postUserMessageAndNora(pilotId, preparationId, content, {
+      clientTurnKey,
+    });
+    expect(replay.idempotentReplay).toBe(true);
+    expect(replay.status).toBe("UNKNOWN");
+    expect(replay.operationId).toBe(looked.operationId);
+    const msgsAfter = await listMessages(pilotId, preparationId);
+    expect(msgsAfter.length).toBe(msgsBefore.length);
   });
 });

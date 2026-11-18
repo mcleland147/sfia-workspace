@@ -1,0 +1,32 @@
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts b/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
+index 977e0fb9..97e73c99 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
+@@ -462,7 +462,8 @@ export const VisualCompositionAgentOutputSchema = z.object({
+               z.object({
+                 id: z.string().max(64),
+                 title: z.string().max(160),
+-                detail: z.string().max(400).optional(),
++                // UAT-03: sequence step detail must hold results+vigilance without schema UNKNOWN.
++                detail: z.string().max(5000).optional(),
+                 dependsOn: z.array(z.string().max(64)).max(8).optional(),
+                 dateLabel: z.string().max(80).nullable().optional(),
+                 role: VisualRoleAgentSchema.optional(),
+@@ -641,6 +642,8 @@ const MAX_PROS_CONS = 4;
+ const MAX_CRITERIA = 6;
+ const MAX_PROVENANCE = 4;
+ const MAX_STR = 400;
++/** Sequence step detail only — UAT-03 PATCH (not a global reply limit). */
++const MAX_SEQUENCE_STEP_DETAIL = 5000;
+ const MAX_TEXT_ALT = 2000;
+ const MAX_MD = 4000;
+ const MAX_TITLE = 160;
+@@ -980,7 +983,7 @@ function parseSequence(
+     let detail: string | undefined;
+     const detailRaw = asString(s.detail);
+     if (detailRaw) {
+-      detail = fit(detailRaw, MAX_STR, ctx) ?? undefined;
++      detail = fit(detailRaw, MAX_SEQUENCE_STEP_DETAIL, ctx) ?? undefined;
+       if (!detail) return null;
+     }
+     let dependsOn: string[] | undefined;

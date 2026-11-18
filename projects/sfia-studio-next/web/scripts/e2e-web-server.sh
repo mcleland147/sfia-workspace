@@ -23,20 +23,33 @@ if [[ -z "${E2E_DATABASE_URL}" ]]; then
 fi
 
 # Mutations only against approved E2E DB name on the verified DEV container.
+# Recreate DB each Playwright webServer start so same-pilot name uniqueness
+# and leftover sessions cannot poison BROWSER FAKE (matches CI ephemeral DB).
 exists="$(docker exec "${CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc \
   "SELECT 1 FROM pg_database WHERE datname='${E2E_DB}'" | tr -d '[:space:]')"
-if [[ "${exists}" != "1" ]]; then
+if [[ "${exists}" == "1" ]]; then
   docker exec "${CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=1 \
-    -c "CREATE DATABASE ${E2E_DB} OWNER ${DB_USER};"
+    -c "DROP DATABASE ${E2E_DB} WITH (FORCE);"
 fi
+docker exec "${CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=1 \
+  -c "CREATE DATABASE ${E2E_DB} OWNER ${DB_USER};"
 
 SFIA_PG_DATABASE="${E2E_DB}" bash "${ROOT}/scripts/db-migrate.sh"
 
 export DATABASE_URL="${E2E_DATABASE_URL}"
+# Playwright parent shells may inherit NODE_ENV=production after an operator
+# `next build`/`next start`. Force development so CSS/postcss compile under `next dev`.
+export NODE_ENV=development
 export STUDIO_LANE=DEV
 export STUDIO_DEV_TEST_LOGIN=1
 export STUDIO_E2E=1
-export STUDIO_FORCE_NORA_FIXTURE=1
+# Level-B: simulated provider at D3 boundary — do not inject UI-key fixtures.
+if [[ "${STUDIO_NORA_SIMULATED_PROVIDER:-}" == "1" ]]; then
+  export STUDIO_FORCE_NORA_FIXTURE=
+  unset STUDIO_FORCE_NORA_FIXTURE || true
+else
+  export STUDIO_FORCE_NORA_FIXTURE=1
+fi
 export STUDIO_GITHUB_PROVIDER=scripted
 # Explicit SCRIPTED GitHub auth gate (D9) — required for authorize/complete in E2E.
 export STUDIO_ALLOW_SCRIPTED_GITHUB=1

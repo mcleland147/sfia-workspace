@@ -49,3 +49,6 @@ next-env.d.ts
 
 .env.local
 .env.*.local
+
+# UAT-03 ephemeral forensic dumps (DEV only)
+.tmp-sfia-nora-diag/

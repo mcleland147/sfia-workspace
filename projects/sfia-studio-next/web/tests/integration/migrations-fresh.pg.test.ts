@@ -5,15 +5,33 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { execFileSync, execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import { createServer } from "node:net";
 import { resolve } from "node:path";
 import postgres from "postgres";
 
 const CONTAINER = `sfia-next-migtest-${process.pid}-${Date.now()}`;
-const HOST_PORT = 55432 + (process.pid % 200);
 const PASSWORD = "migtest-local-only";
 const USER = "sfia_mig";
 const DB = "sfia_mig";
 const migrationsDir = resolve(__dirname, "../../src/db/migrations");
+
+/** Ephemeral loopback port — avoids collisions with sfia-safe01-ephemeral (:55432) and peers. */
+async function allocateLoopbackPort(): Promise<number> {
+  return await new Promise((resolvePort, reject) => {
+    const server = createServer();
+    server.unref();
+    server.once("error", reject);
+    server.listen(0, "127.0.0.1", () => {
+      const addr = server.address();
+      if (!addr || typeof addr === "string") {
+        server.close(() => reject(new Error("allocateLoopbackPort: no address")));
+        return;
+      }
+      const port = addr.port;
+      server.close((err) => (err ? reject(err) : resolvePort(port)));
+    });
+  });
+}
 
 function dockerOk(): boolean {
   try {
@@ -35,8 +53,10 @@ function applySql(file: string, database = DB) {
 
 describe.skipIf(!dockerOk())("migrations 001→007 on fresh isolated Postgres", () => {
   let sql: ReturnType<typeof postgres> | null = null;
+  let hostPort = 0;
 
   beforeAll(async () => {
+    hostPort = await allocateLoopbackPort();
     execFileSync(
       "docker",
       [
@@ -52,7 +72,7 @@ describe.skipIf(!dockerOk())("migrations 001→007 on fresh isolated Postgres", 
         "-e",
         `POSTGRES_DB=${DB}`,
         "-p",
-        `127.0.0.1:${HOST_PORT}:5432`,
+        `127.0.0.1:${hostPort}:5432`,
         "postgres:16-alpine",
       ],
       { stdio: "pipe" },
@@ -82,13 +102,13 @@ describe.skipIf(!dockerOk())("migrations 001→007 on fresh isolated Postgres", 
         break;
       } catch {
         if (Date.now() > deadline) {
-          throw new Error(`TIMEOUT waiting for ${CONTAINER}/${DB} on :${HOST_PORT}`);
+          throw new Error(`TIMEOUT waiting for ${CONTAINER}/${DB} on :${hostPort}`);
         }
         await new Promise((r) => setTimeout(r, 500));
       }
     }
 
-    sql = postgres(`postgres://${USER}:${PASSWORD}@127.0.0.1:${HOST_PORT}/${DB}`, {
+    sql = postgres(`postgres://${USER}:${PASSWORD}@127.0.0.1:${hostPort}/${DB}`, {
       max: 1,
     });
   }, 90_000);

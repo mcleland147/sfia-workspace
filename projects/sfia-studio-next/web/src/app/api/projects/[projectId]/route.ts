@@ -8,11 +8,14 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
     const { projectId } = await ctx.params;
     const data = await getOwnedProjectContext(session.pilotId, projectId);
     return NextResponse.json({
+      // C3 — authenticated session pilot (not project owner identity alone).
+      session: { pilotId: session.pilotId },
       project: data.project,
       preparation: data.preparation,
       conversation: data.conversation,
       link: data.link,
       messages: data.messages,
+      turnProjections: data.turnProjections,
       documents: data.documents,
       knowledge: data.knowledge,
       pilotage: data.pilotage,

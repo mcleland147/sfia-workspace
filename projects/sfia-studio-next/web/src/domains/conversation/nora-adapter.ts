@@ -1,3 +1,6 @@
+import { createHash } from "node:crypto";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 import { newId } from "@/lib/ids";
 import {
   buildLevelAClarification,
@@ -18,7 +21,9 @@ import { buildNoraGitReadTools } from "./git-read-tools";
 import { emitObs, newAttemptId } from "@/lib/observability";
 import { isStudioError } from "@/lib/http-errors";
 import { fixtureSemanticQualify } from "./fixture-semantic-qualify";
+import { resolveProviderSimulatedQualification } from "./provider-simulated-qualification";
 import {
+  NoraTurnQualificationAgentSchema,
   NoraTurnQualificationSchema,
   unavailableQualification,
   validateNoraTurnQualification,
@@ -62,7 +67,7 @@ export type NoraGenerateResult = {
   content: string;
   status: "COMPLETE" | "FAILED" | "INTERRUPTED" | "UNKNOWN";
   generationId: string;
-  mode: "deterministic-fixture" | "openai-agents-sdk-live";
+  mode: "deterministic-fixture" | "openai-agents-sdk-live" | "provider-simulated";
   streamingProvisional?: boolean;
   streamingAttempted?: boolean;
   streamingDelivered?: boolean;
@@ -134,6 +139,10 @@ function fixtureFlagsRequested(): boolean {
 }
 
 export function mustUseNoraFixture(): boolean {
+  // Level-B simulated provider takes precedence over UI-key fixtures when armed.
+  if (isDevLane() && process.env.STUDIO_NORA_SIMULATED_PROVIDER === "1") {
+    return false;
+  }
   return isDevLane() && fixtureFlagsRequested();
 }
 
@@ -148,7 +157,8 @@ export function categorizeProviderError(err: unknown): {
   preContactLikely: boolean;
 } {
   const msg = err instanceof Error ? err.message : String(err);
-  const interrupted = /abort|timeout|AbortError/i.test(msg);
+  // Include "timed out" (ModelTimeoutError) — contiguous "timeout" alone misses it.
+  const interrupted = /abort|timeout|timed\s*out|AbortError/i.test(msg);
   // Only treat as pre-contact when clearly local/config before network.
   const preContactLikely =
     /API key|OPENAI_API_KEY|missing.*key|invalid.*model.*settings|Cannot find module|setTracingDisabled/i.test(
@@ -156,10 +166,268 @@ export function categorizeProviderError(err: unknown): {
     ) && !/fetch|network|ECONN|socket|HTTP|429|500|502|503/i.test(msg);
   let category = "PROVIDER_ERROR";
   if (interrupted) category = "PROVIDER_INTERRUPTED";
-  else if (/model|not found|does not exist|unauthorized|insufficient|entitlement/i.test(msg)) {
+  else if (
+    // UAT-03: Agents SDK uses "Invalid output type" (space) — must match, not only output_type.
+    /json.?schema|invalid schema|invalid output type|schema validation|structured output|response_format|output[_\s]?type|unsupported.*schema|ZodError|failed schema/i.test(
+      msg,
+    )
+  ) {
+    category = "PROVIDER_SCHEMA_OR_OUTPUT";
+  } else if (
+    /model (?:not found|does not exist)|unauthorized|insufficient|entitlement|rate[_ ]?limit|429/i.test(
+      msg,
+    )
+  ) {
     category = "PROVIDER_MODEL_OR_ENTITLEMENT";
   } else if (preContactLikely) category = "PROVIDER_PRE_CONTACT_CONFIG";
   return { category, interrupted, preContactLikely };
+}
+
+const SAFE_ERROR_NAME = /^[A-Za-z][A-Za-z0-9_.]{0,80}$/;
+const SAFE_ERROR_CODE = /^[A-Za-z0-9_.-]{1,64}$/;
+const SAFE_ZOD_PATH = /^[A-Za-z0-9_.\[\]()-]{1,160}$/;
+const SENSITIVE_IN_CODE =
+  /sk-|ghp_|github_pat_|api[_-]?key|bearer|authorization|password|secret/i;
+
+/** Agents SDK 0.21 emits this shape from formatFinalOutputTypeError. */
+const INVALID_OUTPUT_PATH_RE =
+  /Invalid output type:\s*final assistant output failed schema validation at "([^"]+)"(?:\s*\(([^)]*)\))?/i;
+
+/**
+ * Stable semantic kind surviving production minify (`new.target.name` → `"h"`).
+ * Derived from message patterns + non-minified names only — never raw bodies.
+ */
+export function classifyProviderErrorKind(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  const name = err instanceof Error ? err.name : "";
+  if (/abort|AbortError/i.test(msg) || name === "AbortError") return "aborted";
+  if (/timeout|timed\s*out|ETIMEDOUT/i.test(msg) || name === "ModelTimeoutError") return "timeout";
+  if (INVALID_OUTPUT_PATH_RE.test(msg) || /failed schema validation/i.test(msg)) {
+    return "structured_output_schema_validation";
+  }
+  if (/Invalid output type/i.test(msg)) return "structured_output_invalid_type";
+  if (/structured output type|no final output/i.test(msg)) return "structured_output_missing";
+  if (/ZodError/i.test(name) || /ZodError/i.test(msg)) return "zod_validation";
+  if (/MaxTurnsExceeded/i.test(name) || /max(?:imum)? turns/i.test(msg)) return "max_turns";
+  if (/ModelRefusal/i.test(name) || /refused to produce/i.test(msg)) return "model_refusal";
+  if (/ModelBehaviorError/i.test(name)) return "model_behavior";
+  if (/ECONNRESET|ENOTFOUND|ECONNREFUSED|fetch failed|socket/i.test(msg)) return "network_transport";
+  if (/\b429\b|rate[_ ]?limit/i.test(msg)) return "rate_limit";
+  if (/\b5\d\d\b/.test(msg)) return "http_5xx";
+  if (SAFE_ERROR_NAME.test(name) && name.length > 2 && !SENSITIVE_IN_CODE.test(name)) {
+    return `named_${name}`;
+  }
+  return "unclassified";
+}
+
+/** Parse Zod/Agents schema path from known safe SDK messages only. */
+export function extractSchemaValidationPath(err: unknown): {
+  zod_issue_path: string | null;
+  validation_rule_hint: string | null;
+} {
+  const msg = err instanceof Error ? err.message : String(err);
+  const m = INVALID_OUTPUT_PATH_RE.exec(msg);
+  if (!m) return { zod_issue_path: null, validation_rule_hint: null };
+  const path = m[1]?.trim() ?? "";
+  const detail = (m[2] ?? "").trim();
+  const zod_issue_path = path && SAFE_ZOD_PATH.test(path) ? path : null;
+  let validation_rule_hint: string | null = null;
+  if (/Too big|at most \d+ character|<=\s*\d+\s*character/i.test(detail)) {
+    validation_rule_hint = "max_length";
+  } else if (/Too small|at least \d+/i.test(detail)) {
+    validation_rule_hint = "min_length_or_count";
+  } else if (/Required|required/i.test(detail)) validation_rule_hint = "required";
+  else if (/Invalid enum|invalid_enum/i.test(detail)) validation_rule_hint = "enum";
+  else if (/Expected|Invalid/i.test(detail)) validation_rule_hint = "type_or_format";
+  else if (detail) validation_rule_hint = "other";
+  return { zod_issue_path, validation_rule_hint };
+}
+
+/**
+ * Bounded fingerprint of error message shape — never stores raw message.
+ * Collapses digits and long quotes; SHA-256 truncated.
+ */
+export function providerErrorMessageFingerprint(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  const normalized = msg
+    .replace(SENSITIVE_IN_CODE, "[REDACTED]")
+    .replace(/"[^"]{24,}"/g, '"…"')
+    .replace(/\d+/g, "N")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 240);
+  return createHash("sha256").update(normalized).digest("hex").slice(0, 16);
+}
+
+/**
+ * DEV forensic only (`STUDIO_NORA_DIAG_EPHEMERAL=1`). Writes under `.tmp-sfia-nora-diag/`.
+ * Never enabled on RECETTE/STABLE. Not published to handoff.
+ */
+function writeEphemeralNoraDiag(input: {
+  generationId: string;
+  attemptId: string;
+  phase: string;
+  category: string;
+  diag: ReturnType<typeof extractProviderErrorDiagnostics>;
+  err: unknown;
+}): void {
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  if (process.env.STUDIO_NORA_DIAG_EPHEMERAL !== "1") return;
+  if (lane !== "DEV") return;
+  try {
+    const dir = join(process.cwd(), ".tmp-sfia-nora-diag");
+    mkdirSync(dir, { recursive: true });
+    const err = input.err;
+    const rawName = err instanceof Error ? err.name : typeof err;
+    const rawMsg = err instanceof Error ? err.message : String(err);
+    const stack = err instanceof Error ? (err.stack ?? "").split("\n").slice(0, 12) : [];
+    const cause =
+      err instanceof Error && err.cause instanceof Error
+        ? { name: err.cause.name, message: err.cause.message.slice(0, 500) }
+        : null;
+    const payload = {
+      ts_utc: new Date().toISOString(),
+      lane,
+      generationId: input.generationId,
+      attemptId: input.attemptId,
+      phase: input.phase,
+      category: input.category,
+      diag: input.diag,
+      raw: {
+        name: rawName,
+        message: rawMsg.slice(0, 2000).replace(SENSITIVE_IN_CODE, "[REDACTED]"),
+        stack,
+        cause,
+      },
+      notice: "EPHEMERAL LOCAL DIAG — do not publish to handoff / do not copy to RECETTE",
+    };
+    const file = join(dir, `${input.generationId}-${input.attemptId}.json`);
+    writeFileSync(file, JSON.stringify(payload, null, 2), { mode: 0o600 });
+  } catch {
+    // Forensic best-effort — never fail the turn path.
+  }
+}
+
+/**
+ * R05 / UAT-03 — bounded extraction of provider/SDK diagnostics for OBS allowlist only.
+ * Walks nested `cause` up to depth 4. Survives minified Error.name. Never returns raw bodies.
+ */
+export function extractProviderErrorDiagnostics(
+  err: unknown,
+  opts?: { phase?: string; streamingDelivered?: boolean; toolCallsObserved?: number },
+): {
+  error_name: string;
+  error_name_stable: string;
+  error_kind: string;
+  error_code: string | null;
+  http_status: number | null;
+  transport_kind: string | null;
+  error_phase: string;
+  streaming_delivered: boolean;
+  cause_depth: number;
+  tool_calls_observed: number | null;
+  zod_issue_path: string | null;
+  validation_rule_hint: string | null;
+  msg_fingerprint: string;
+} {
+  let errorName = "Error";
+  let errorCode: string | null = null;
+  let httpStatus: number | null = null;
+  let transportKind: string | null = null;
+  let depth = 0;
+  let cur: unknown = err;
+  let bestNamed: string | null = null;
+
+  while (cur != null && depth < 4) {
+    if (cur instanceof Error) {
+      if (SAFE_ERROR_NAME.test(cur.name) && !SENSITIVE_IN_CODE.test(cur.name)) {
+        errorName = cur.name;
+        // Prefer non-minified names (len>2) when walking the cause chain.
+        if (cur.name.length > 2) bestNamed = cur.name;
+      }
+      const anyErr = cur as Error & {
+        code?: unknown;
+        status?: unknown;
+        statusCode?: unknown;
+        requestID?: unknown;
+        request_id?: unknown;
+      };
+      const codeRaw =
+        typeof anyErr.code === "string"
+          ? anyErr.code
+          : typeof anyErr.code === "number"
+            ? String(anyErr.code)
+            : null;
+      if (codeRaw && SAFE_ERROR_CODE.test(codeRaw) && !SENSITIVE_IN_CODE.test(codeRaw)) {
+        errorCode = codeRaw;
+      }
+      const st =
+        typeof anyErr.status === "number"
+          ? anyErr.status
+          : typeof anyErr.statusCode === "number"
+            ? anyErr.statusCode
+            : null;
+      if (st != null && st >= 100 && st <= 599) httpStatus = st;
+
+      const msg = cur.message || "";
+      if (/ECONNRESET|ENOTFOUND|ECONNREFUSED|ETIMEDOUT|socket|fetch failed/i.test(msg)) {
+        transportKind = "network_transport";
+      } else if (/abort|AbortError/i.test(msg) || cur.name === "AbortError") {
+        transportKind = "aborted";
+      } else if (/timeout|timed\s*out/i.test(msg)) {
+        transportKind = "timeout";
+      } else if (httpStatus != null) {
+        transportKind = "http";
+      }
+
+      cur = (cur as Error & { cause?: unknown }).cause;
+      depth += 1;
+      continue;
+    }
+    if (typeof cur === "object" && cur !== null && "cause" in cur) {
+      cur = (cur as { cause?: unknown }).cause;
+      depth += 1;
+      continue;
+    }
+    break;
+  }
+
+  const phase =
+    opts?.phase && SAFE_ERROR_CODE.test(opts.phase) ? opts.phase : "provider_stream";
+  const error_kind = classifyProviderErrorKind(err);
+  const schemaBits = extractSchemaValidationPath(err);
+  const error_name_stable =
+    bestNamed ??
+    (error_kind.startsWith("named_")
+      ? error_kind.slice("named_".length)
+      : error_kind === "structured_output_schema_validation" ||
+          error_kind === "structured_output_invalid_type" ||
+          error_kind === "structured_output_missing"
+        ? "ModelBehaviorError"
+        : error_kind === "timeout"
+          ? "ModelTimeoutError"
+          : error_kind === "zod_validation"
+            ? "ZodError"
+            : errorName.length > 2
+              ? errorName
+              : "Error");
+
+  return {
+    error_name: errorName,
+    error_name_stable,
+    error_kind,
+    error_code: errorCode,
+    http_status: httpStatus,
+    transport_kind: transportKind,
+    error_phase: phase,
+    streaming_delivered: Boolean(opts?.streamingDelivered),
+    cause_depth: depth,
+    tool_calls_observed:
+      typeof opts?.toolCallsObserved === "number" ? opts.toolCallsObserved : null,
+    zod_issue_path: schemaBits.zod_issue_path,
+    validation_rule_hint: schemaBits.validation_rule_hint,
+    msg_fingerprint: providerErrorMessageFingerprint(err),
+  };
 }
 
 function boundaryFail(
@@ -288,7 +556,7 @@ async function fixtureReply(
       "Décisions/restrictions/CKI fournis comme sources. Nora n'en tire aucune autorité.\n";
   }
 
-  const qualification = fixtureSemanticQualify(input.userText);
+  let qualification = fixtureSemanticQualify(input.userText);
   // Exact scenario replyDraft wins; default/unknown keeps the rich fixture body
   // (Level A / document fence / comparative) while envelope stays effect-free.
   const defaultNoEffect = qualification.intents.some((i) =>
@@ -297,6 +565,60 @@ async function fixtureReply(
   if (!qualification.replyDraft.trim() || defaultNoEffect) {
     qualification.replyDraft = body;
   }
+  // Same D3 gate as LIVE (A4): validation failure → UNKNOWN/UNAVAILABLE, never COMPLETE
+  // with an unvalidated qualification. No provider contact invented.
+  const validatedFixture = validateNoraTurnQualification(qualification);
+  if (!validatedFixture.ok) {
+    const failed = unavailableQualification(validatedFixture.reason);
+    emitObs({
+      event_name: "d3.nora.fixture_complete",
+      component: "d3.nora_adapter",
+      operation_id: input.toolScope?.operationId,
+      generation_id: generationId,
+      attempt_id: attemptId,
+      outcome: "UNKNOWN",
+      policy_version: policy.policyVersion,
+      profile_type:
+        policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+      meta: {
+        profile: policy.profile,
+        tool_calls: toolCallsObserved,
+        profile_type_detail: policy.profileType,
+        qualification_status: failed.status,
+        validation_reason: validatedFixture.reason,
+        provider_contacted: "NO",
+      },
+    });
+    return {
+      generationId,
+      mode: "deterministic-fixture",
+      status: "UNKNOWN",
+      streamingProvisional: false,
+      streamingAttempted: false,
+      streamingDelivered: false,
+      streamingNotes: `QUALIFICATION_${validatedFixture.reason}`,
+      content: failed.replyDraft,
+      policy,
+      modelRequested: policy.modelRequested,
+      modelApplied: "deterministic-fixture",
+      effortRequested: policy.effortRequested,
+      effortApplied: policy.effortRequested,
+      attempts: [
+        {
+          attemptId,
+          kind: toolCallsObserved ? "fixture_tools" : "fixture",
+          outcome: "UNKNOWN",
+          notes: `QUALIFICATION_${validatedFixture.reason}`,
+          providerContacted: "NO",
+        },
+      ],
+      toolCallsObserved,
+      d4CharsReturned,
+      coverageNotes: toolNotes || undefined,
+      qualification: failed,
+    };
+  }
+  qualification = validatedFixture.value;
 
   emitObs({
     event_name: "d3.nora.fixture_complete",
@@ -377,6 +699,20 @@ async function configureSdkTracingSafe(): Promise<void> {
   if (typeof agents.setTracingDisabled === "function") {
     agents.setTracingDisabled(true);
   }
+  // DEV forensic only: Agents SDK redacts Zod details by default (dontLogModelData=true).
+  // Enabling sensitive logging surfaces schema paths into ModelBehaviorError messages —
+  // still scrubbed before OBS/handoff; ephemeral dump captures them locally.
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  if (process.env.STUDIO_NORA_DIAG_EPHEMERAL === "1" && lane === "DEV") {
+    try {
+      const core = await import("@openai/agents-core");
+      if (typeof core.setSensitiveDataLoggingEnabled === "function") {
+        core.setSensitiveDataLoggingEnabled(true);
+      }
+    } catch {
+      // optional — investigation continues with redacted SDK errors
+    }
+  }
 }
 
 async function runLiveWithTools(
@@ -433,7 +769,26 @@ async function runLiveWithTools(
     "",
     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
-    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
+    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000). Si visualComposition (sections canoniques) est fournie, Studio DERIVE replyDraft depuis ces sections — ne produis pas une seconde histoire divergente ; place la prose naturelle dans des blocs text et la substance structurée dans comparison|sequence|relations|synthesis.",
+    "- goal = compréhension du TOUR courant (demande immédiate / reformulation locale), sans invention.",
+    "- projectIntention = intention MÉTIER DURABLE du projet. Distincte de goal et de proposedProjectName.",
+    "- Demande ordinaire, conseil local, prochaines étapes, renommage ou confirmation ponctuelle : projectIntention = chaîne vide (conserver l'intention antérieure). Ne jamais recopier goal dans projectIntention.",
+    "- Si le Pilote établit ou corrige explicitement l'objectif fondateur (première intention ou réorientation métier) : renseigner projectIntention fidèlement.",
+    "- desiredOutcome / initialScope = seulement s'ils sont réellement exprimés ou corrigés ce tour ; sinon chaînes vides (conservation D2).",
+    "- proposedProjectName = nom de travail du sas s'il est proposé ou corrigé ; chaîne vide sinon. Préférer ce champ pour une correction de nom sans nouvel effet D2.",
+    "- clarifications = UNIQUEMENT les questions encore ouvertes après CE tour. Tableau vide [] = toutes résolues après réévaluation fiable. Ne pas répéter une question déjà tranchée.",
+    "- Lorsque tu réévalues les questions ouvertes (QUALIFIED ou NEEDS_CLARIFICATION sur ce périmètre) : TOUJOURS renseigner clarifications (éventuellement []). Ne l'omets que si tu n'as pas réévalué ce périmètre.",
+    "- continueChoices (optionnel) = propositions de POURSUITE conversationnelle (ex. « Approfondir B ») avec id, label et transmitText. NE PAS y recopier clarifications. Omettre ou [] si aucune poursuite utile.",
+    "- resourceReferences (optionnel) = références consultables document/git/external — ce ne sont PAS des choix de poursuite.",
+    "- visualComposition (optionnel, WRITE schema conversational-composition-canonical-v1 = sections sémantiques CANONIQUES ; lecture historique : conversational-composition-projection-v1 Strategy B et e05-visual-composition-v1) = source unique de sens pour ce tour : blocs text|comparison|sequence|relations|synthesis. Studio dérive le texte de lecture et la vue graphique depuis la même structure. Relations : layoutHint optionnel dependencies|decisionTree|parallelProcess ; edges.relation optionnel depends_on|condition_true|condition_false|sync|flow ; nodes.laneId pour voies parallèles. Omettre pour une réponse purement narrative (replyDraft seul). N'invente jamais de données manquantes ; chaque bloc graphique DOIT fournir textAlternative. Jamais de HTML/CSS/JS. Ne crée aucun effet métier par la seule présence d'un bloc.",
+    "- COMPARAISON : si tu présentes ≥2 alternatives individualisables (titre + résumé et/ou avantages/limites distincts), émets un bloc kind=comparison avec alternatives[] — ne te contente pas d'un tableau Markdown dans replyDraft. Si des critères homogènes et réellement renseignés existent pour chaque option, ajoute criteria[]. Si les options sont trop incomplètes pour des cartes/matrice fidèles, reste en prose (pas de visualComposition comparison). Ne fabrique jamais de limites ou de cellules pour « remplir » une maquette.",
+    "- SEQUENCE (parcours en étapes) : pour chaque step, detail peut expliquer résultats attendus et points de vigilance de façon utile et proportionnée (plafond schéma 5000 caractères — ce n'est PAS un objectif de longueur). Reste concis quand c'est suffisant ; n'invente rien pour « remplir » ; respecte le schéma ; ne tronque pas une information critique pour tenir dans une maquette.",
+    "- RELATIONS — choisir layoutHint sans les confondre : dependencies = prérequis / dépendances orientées / convergence vers un contrôle (edges depends_on|flow, sans exiger laneId) ; parallelProcess = voies d'activités simultanées avec laneId distincts (≥2 voies) et sync seulement si une synchronisation est réelle ; decisionTree = branches conditionnelles (condition_true|condition_false, une racine). Un graphe peut mentionner le parallélisme sans être parallelProcess s'il n'y a pas de voies structurées. Ne transforme pas un simple depends_on en sync.",
+    "- Champs de présentation optionnels (si fondés) : lead, headlineAccent, indicators (valeurs connues seulement), strategyCards, checklist, orientation, editorialNote, timeline (uniquement si une temporalité est fournie ou explicitement hypothétique). Ne force pas de graphique. N'invente jamais d'effectifs, de délais ou de chronologie pour « remplir » une maquette.",
+    "- preparationAssessment = EXPLORING|CLARIFYING|PROPOSAL|BASE_SUFFICIENTE selon compréhension structurée — jamais un score, jamais un GO d'autorité.",
+    "- preparationAssessmentExplanation = justification qualitative courte fondée sur les acquis réels ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
+    "- Si tu n'as pas d'appréciation fiable : omets preparationAssessment (ne pas inventer BASE_SUFFICIENTE).",
+    "- Pour d2.create_project, parameters.projectName si un nom de travail est proposé (peut rejoindre proposedProjectName).",
     "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
     "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
     "- Ne combine jamais documentSource et documentProposal dans le même tour.",
@@ -445,6 +800,18 @@ async function runLiveWithTools(
     "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
     "- Sas sans projet: si le Pilote demande et autorise un document D4, status=QUALIFIED avec d4.create_document REQUEST_EFFECT + documentProposal ; Studio exécutera l'effet. Ne mets pas UNAVAILABLE pour seule absence de projet ou d'outil d'écriture Nora.",
+    "",
+    "MATURATION DU SAS (préparation sans projet) — même tour, même enveloppe :",
+    "1. Comprendre l'intention libre du Pilote.",
+    "2. Distinguer demande de tour (goal) et intention métier durable (projectIntention).",
+    "3. Reformuler pour le Pilote dans replyDraft.",
+    "4. clarifications = questions encore ouvertes seulement ; [] si toutes tranchées ; omettre seulement sans réévaluation.",
+    "5. Proposer une direction utile sans imposer un formulaire.",
+    "6. Expliciter les hypothèses ; ne pas les présenter comme des faits.",
+    "7. Renseigner desiredOutcome / initialScope seulement s'ils sont justifiés ou corrigés ce tour.",
+    "8. Respecter négations et corrections (nom via proposedProjectName ; réorientation via projectIntention).",
+    "9. Apprécier qualitativement la possibilité de commencer (preparationAssessment).",
+    "10. Expliquer l'appréciation (preparationAssessmentExplanation) — jamais un GO de création.",
   ].join("\n");
 
   const agent = new Agent({
@@ -456,7 +823,7 @@ async function runLiveWithTools(
     },
     // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
     tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
-    outputType: NoraTurnQualificationSchema,
+    outputType: NoraTurnQualificationAgentSchema,
   });
 
   const prompt = buildPrompt(input, policy);
@@ -563,6 +930,53 @@ async function runLiveWithTools(
         outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
         notes: cat.category,
         providerContacted: contact,
+      });
+
+      const toolsUsedOnError =
+        policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
+      const diag = extractProviderErrorDiagnostics(streamErr, {
+        phase: streamingDelivered ? "stream_drain" : "stream_start",
+        streamingDelivered,
+        toolCallsObserved: toolsUsedOnError,
+      });
+      // DEV-only ephemeral forensic dump — never OBS / never RECETTE / never handoff.
+      writeEphemeralNoraDiag({
+        generationId,
+        attemptId: streamAttemptId,
+        phase: diag.error_phase,
+        category: cat.category,
+        diag,
+        err: streamErr,
+      });
+      emitObs({
+        event_name: "d3.nora.provider_attempt",
+        component: "d3.nora_adapter",
+        operation_id: input.toolScope?.operationId,
+        generation_id: generationId,
+        attempt_id: streamAttemptId,
+        outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
+        error_category: cat.category,
+        policy_version: policy.policyVersion,
+        profile_type:
+          policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+        meta: {
+          kind: "stream",
+          model_requested: NORA_STUDY_MODEL,
+          provider_contacted: contact,
+          error_name: diag.error_name,
+          error_name_stable: diag.error_name_stable,
+          error_kind: diag.error_kind,
+          error_code: diag.error_code,
+          http_status: diag.http_status,
+          transport_kind: diag.transport_kind,
+          error_phase: diag.error_phase,
+          streaming_delivered: diag.streaming_delivered,
+          cause_depth: diag.cause_depth,
+          tool_calls_observed: diag.tool_calls_observed,
+          zod_issue_path: diag.zod_issue_path,
+          validation_rule_hint: diag.validation_rule_hint,
+          msg_fingerprint: diag.msg_fingerprint,
+        },
       });
 
       const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
@@ -728,6 +1142,145 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
 
   if (mustUseNoraFixture()) {
     return stampCkiDelivery(await fixtureReply(input, generationId, policy), input.ckiDelivery, true);
+  }
+
+  // Level-B: simulated provider finalOutput at the LIVE boundary — still validates via
+  // validateNoraTurnQualification and travels the real D3 service path. Never uses
+  // fixtureSemanticQualify / UI keys. DEV-only; does not contact the provider.
+  // SIM takes precedence over LIVE even when STUDIO_E2E=1 (mustUseNoraFixture already false).
+  if (isDevLane() && process.env.STUDIO_NORA_SIMULATED_PROVIDER === "1") {
+    const sim = resolveProviderSimulatedQualification(input.userText);
+    if (sim) {
+      const validated = validateNoraTurnQualification(sim);
+      const attemptId = newAttemptId();
+      if (!validated.ok) {
+        const failed = unavailableQualification(validated.reason);
+        emitObs({
+          event_name: "d3.nora.provider_simulated",
+          component: "d3.nora_adapter",
+          operation_id: input.toolScope?.operationId,
+          generation_id: generationId,
+          attempt_id: attemptId,
+          outcome: "UNKNOWN",
+          policy_version: policy.policyVersion,
+          profile_type:
+            policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+          meta: {
+            profile: policy.profile,
+            qualification_status: failed.status,
+            validation_reason: validated.reason,
+            provider_contacted: "NO",
+            proof_level: "ADAPTER_FAKE",
+          },
+        });
+        return stampCkiDelivery(
+          {
+            generationId,
+            mode: "provider-simulated",
+            status: "UNKNOWN",
+            streamingProvisional: false,
+            streamingAttempted: false,
+            streamingDelivered: false,
+            streamingNotes: `SIM_QUALIFICATION_${validated.reason}`,
+            content: failed.replyDraft,
+            policy,
+            modelRequested: policy.modelRequested,
+            modelApplied: "provider-simulated",
+            effortRequested: policy.effortRequested,
+            effortApplied: policy.effortRequested,
+            attempts: [
+              {
+                attemptId,
+                kind: "non_stream",
+                outcome: "UNKNOWN",
+                notes: `SIM_QUALIFICATION_${validated.reason}`,
+                providerContacted: "NO",
+              },
+            ],
+            toolCallsObserved: 0,
+            d4CharsReturned: 0,
+            qualification: failed,
+          },
+          input.ckiDelivery,
+          true,
+        );
+      }
+      emitObs({
+        event_name: "d3.nora.provider_simulated",
+        component: "d3.nora_adapter",
+        operation_id: input.toolScope?.operationId,
+        generation_id: generationId,
+        attempt_id: attemptId,
+        outcome: "SUCCESS",
+        policy_version: policy.policyVersion,
+        profile_type:
+          policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+        meta: {
+          profile: policy.profile,
+          qualification_status: validated.value.status,
+          provider_contacted: "NO",
+          proof_level: "ADAPTER_FAKE",
+          has_visual: Boolean(validated.value.visualComposition),
+        },
+      });
+      return stampCkiDelivery(
+        {
+          generationId,
+          mode: "provider-simulated",
+          status: "COMPLETE",
+          streamingProvisional: false,
+          streamingAttempted: false,
+          streamingDelivered: false,
+          streamingNotes: "provider_simulated_validated",
+          content: validated.value.replyDraft.trim(),
+          policy,
+          modelRequested: policy.modelRequested,
+          modelApplied: "provider-simulated",
+          effortRequested: policy.effortRequested,
+          effortApplied: policy.effortRequested,
+          attempts: [
+            {
+              attemptId,
+              kind: "non_stream",
+              outcome: "SUCCESS",
+              notes: "provider_simulated_validated",
+              providerContacted: "NO",
+            },
+          ],
+          toolCallsObserved: 0,
+          d4CharsReturned: 0,
+          qualification: validated.value,
+        },
+        input.ckiDelivery,
+        true,
+      );
+    }
+    // Anti-fuite §4.5 — unknown SIM prompt must NEVER fall through to LIVE silently.
+    emitObs({
+      event_name: "d3.nora.provider_simulated",
+      component: "d3.nora_adapter",
+      operation_id: input.toolScope?.operationId,
+      generation_id: generationId,
+      outcome: "FAILED",
+      policy_version: policy.policyVersion,
+      profile_type:
+        policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+      meta: {
+        profile: policy.profile,
+        provider_contacted: "NO",
+        proof_level: "ADAPTER_FAKE",
+        sim_miss: "NORA_SIM_PROMPT_UNKNOWN",
+      },
+    });
+    return stampCkiDelivery(
+      boundaryFail(
+        generationId,
+        "NORA_SIM_PROMPT_UNKNOWN (STUDIO_NORA_SIMULATED_PROVIDER=1 — no silent LIVE fallback)",
+        policy,
+      ),
+      input.ckiDelivery,
+      false,
+    );
   }
 
   const key = process.env.OPENAI_API_KEY?.trim();

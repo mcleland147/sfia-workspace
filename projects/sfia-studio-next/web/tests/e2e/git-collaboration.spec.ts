@@ -1,6 +1,13 @@
+
 import { expect, test } from "@playwright/test";
 import path from "path";
-import { openNewPreparation, sendPrepMessage, constituteAndCreateProject } from "./helpers/g4-chat-first";
+import {
+  openNewPreparation,
+  sendPrepMessage,
+  constituteAndCreateProject,
+  openSasSecondaryTool,
+  backToSasConversation,
+} from "./helpers/g4-chat-first";
 
 test.describe("ML4 git collaboration corrective (SCRIPTED)", () => {
   test("AT journey: inspect diff → authorize → dispatch → merge distinct", async ({ page }) => {
@@ -14,13 +21,13 @@ test.describe("ML4 git collaboration corrective (SCRIPTED)", () => {
     await sendPrepMessage(page, "Note pour publication Git documentaire corrective");
 
     // Create AVAILABLE document in sas before project (D4 continuity).
-    await page.getByRole("button", { name: "Documents", exact: true }).click();
+    await openSasSecondaryTool(page, "Documents");
     await page.getByTestId("doc-start-create").click();
     await page.getByTestId("document-revise-draft").fill("# Contenu inspectable\n\nParagraphe.\n");
     await page.getByTestId("doc-save").click();
     await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15_000 });
 
-    await page.getByRole("button", { name: "Discussion", exact: true }).click();
+    await backToSasConversation(page);
     const projectId = await constituteAndCreateProject(page, {
       name: "Projet Git ML4 B",
       summary: "publication documentaire B1-B9",

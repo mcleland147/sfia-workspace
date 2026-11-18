@@ -17,6 +17,7 @@ import {
 import { qualifyThreadTurn } from "@/domains/pilotage/thread-recovery";
 import { qualifyDocumentAct } from "@/domains/conversation/document-act";
 import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
+import { asNoraQualification } from "../helpers/semantic-fixture-envelopes";
 
 describe("semantic qualification envelope", () => {
   it("requires typed pilotageOperation for D5/D6 REQUEST_EFFECT", () => {
@@ -68,8 +69,7 @@ describe("semantic qualification envelope", () => {
   });
 
   it("matchPilotageIntent rejects substituted operation / intentId", () => {
-    const q: NoraTurnQualification = {
-      schemaVersion: "ml4c-sem-qual-v1",
+    const q: NoraTurnQualification = asNoraQualification({
       status: "QUALIFIED",
       goal: "open",
       intents: [
@@ -86,7 +86,7 @@ describe("semantic qualification envelope", () => {
       ],
       clarifications: [],
       replyDraft: "ok",
-    };
+    });
     expect(matchPilotageIntentInQualification(q, { operation: "CLOSE_CYCLE" })).toMatchObject({
       reject: true,
     });
@@ -100,45 +100,45 @@ describe("semantic qualification envelope", () => {
   });
 
   it("follow-on document requires exact dependsOn on create-project intent id", () => {
-    const loose: NoraTurnQualification = {
-      schemaVersion: "ml4c-sem-qual-v1",
-      status: "QUALIFIED",
+    const looseDraft = {
+      schemaVersion: "ml4c-sem-qual-v1" as const,
+      status: "QUALIFIED" as const,
       goal: "x",
       intents: [
         {
           id: "i1",
-          capabilityId: "d2.create_project",
-          mode: "REQUEST_EFFECT",
+          capabilityId: "d2.create_project" as const,
+          mode: "REQUEST_EFFECT" as const,
           summary: "p",
           parameters: { projectName: "Atlas" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
+          constraints: [] as string[],
+          dependsOn: [] as string[],
+          sourceEvidence: [] as string[],
         },
         {
           id: "i2",
-          capabilityId: "d4.create_document",
-          mode: "REQUEST_EFFECT",
+          capabilityId: "d4.create_document" as const,
+          mode: "REQUEST_EFFECT" as const,
           summary: "doc",
           parameters: {},
-          constraints: [],
+          constraints: [] as string[],
           dependsOn: ["unrelated"],
-          sourceEvidence: [],
+          sourceEvidence: [] as string[],
         },
       ],
-      clarifications: [],
+      clarifications: [] as string[],
       replyDraft: "ok",
     };
     // invalid dependsOn fails schema validation
-    expect(validateNoraTurnQualification(loose).ok).toBe(false);
+    expect(validateNoraTurnQualification(looseDraft).ok).toBe(false);
 
-    const ok: NoraTurnQualification = {
-      ...loose,
+    const ok = asNoraQualification({
+      ...looseDraft,
       intents: [
-        loose.intents[0]!,
-        { ...loose.intents[1]!, dependsOn: ["i1"] },
+        looseDraft.intents[0]!,
+        { ...looseDraft.intents[1]!, dependsOn: ["i1"] },
       ],
-    };
+    });
     expect(projectStudioEffects(ok).wantsFollowOnDocument).toBe(true);
   });
 
@@ -170,8 +170,7 @@ describe("semantic qualification envelope", () => {
   });
 
   it("deriveThreadTurnKind from semantic modes", () => {
-    const dialogue: NoraTurnQualification = {
-      schemaVersion: "ml4c-sem-qual-v1",
+    const dialogue = asNoraQualification({
       status: "QUALIFIED",
       goal: "q",
       intents: [
@@ -188,7 +187,7 @@ describe("semantic qualification envelope", () => {
       ],
       clarifications: [],
       replyDraft: "ok",
-    };
+    });
     expect(deriveThreadTurnKind(dialogue)).toBe("DIALOGUE_INDEPENDANT");
   });
 });

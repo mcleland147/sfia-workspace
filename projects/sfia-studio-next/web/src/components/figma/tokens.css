@@ -1,25 +1,38 @@
-/* Figma G2 visual tokens — frames 94:50 / 94:214 / 94:370 (VERIFY PASS pack) */
+/* Figma tokens — Sas Nora 607:* (1680×970) + prior G2 frames */
 :root {
-  --fig-bg: #0a0e17;
+  --fig-bg: #0b101b;
   --fig-bg-elev: #0f1520;
-  --fig-panel: #151c29;
-  --fig-panel-2: #1a2233;
-  --fig-ink: #f4f6fc;
-  --fig-muted: #94a2bb;
-  --fig-line: #313c51;
-  --fig-accent: #656fe1;
+  --fig-panel: #151d2c;
+  --fig-panel-2: #1b2639;
+  --fig-panel-hi: #1b2639;
+  --fig-rail: #0d1220;
+  --fig-header: #0b1019;
+  --fig-ink: #f3f5ff;
+  --fig-muted: #a3b0c7;
+  --fig-quiet: #7787a4;
+  --fig-line: #2b3850;
+  --fig-accent: #7477ed;
   --fig-accent-soft: #afa5ff;
-  --fig-ok: #3ecf8e;
-  --fig-ok-bg: rgba(62, 207, 142, 0.12);
-  --fig-warn: #ebc789;
-  --fig-warn-bg: rgba(235, 199, 137, 0.12);
+  --fig-accent-deep: #343e8b;
+  --fig-accent-bg: #242c4b;
+  --fig-ok: #6cdbba;
+  --fig-ok-bg: #17382f;
+  --fig-warn: #e6ba76;
+  --fig-warn-bg: #3d3021;
   --fig-info: #5b8def;
   --fig-info-bg: rgba(91, 141, 239, 0.12);
   --fig-tag: #2a3347;
-  --fig-radius: 10px;
-  --fig-radius-sm: 8px;
+  --fig-radius: 13px;
+  --fig-radius-sm: 12px;
   --fig-gap: 18px;
-  --fig-content-max: 1330px;
+  --fig-content-max: 1434px;
+  --sas-rail: 246px;
+  --sas-header: 72px;
+  --sas-conversation-w: 800px;
+  --sas-preview-w: 518px;
+  --sas-composer-h: 118px;
+  /* Figma reference height (655) is a proportion cue — runtime fills available shell height. */
+  --sas-panel-h-ref: 655px;
 }
 
 .fig-page {
@@ -185,6 +198,1095 @@
   align-items: start;
 }
 
+/* Figma 652:8 — conversation ~968 / aside ~369 / gap ~25 at 1680×970 */
+.fig-travail-workspace {
+  grid-template-columns: minmax(0, 968fr) minmax(260px, 369fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 25px;
+  align-items: stretch;
+  min-height: 0;
+}
+
+/* Participates in .project-travail-stage grid (intro | rule | conversation | composer × inspector). */
+.fig-travail-workspace-embed {
+  display: contents;
+}
+
+.fig-conversation-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  min-height: 0;
+  background: #151c29;
+  border: 1px solid #272e49;
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  grid-column: 1;
+  grid-row: 3;
+  overflow: hidden;
+}
+
+.fig-travail-workspace > .fig-conversation-panel {
+  grid-row: 1;
+}
+
+.fig-conversation-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.fig-nora-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+}
+
+.fig-msg {
+  border: 0;
+  border-radius: 13px;
+  padding: 14px 18px 16px;
+  background: #0f1420;
+}
+
+.fig-msg-pilot {
+  background: #292d58;
+  margin-left: clamp(0px, 12%, 180px);
+}
+
+.fig-msg-nora {
+  background: #0f1420;
+  border: 1px solid #272e49;
+  margin-right: clamp(0px, 8%, 120px);
+}
+
+.fig-msg-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.fig-msg-avatar {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  background: #292d58;
+  color: #afa5ff;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.fig-msg-role {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #afa5ff;
+}
+
+.fig-msg-role-pilot {
+  color: #afa5ff;
+}
+
+.fig-msg-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #f4f6fc;
+  font-weight: 400;
+}
+
+.fig-msg-body p {
+  margin: 0 0 0.55em;
+}
+
+.fig-msg-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Stage / workspace grid cell: composer + optional pending (CP01). */
+.fig-travail-composer-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  min-height: 0;
+  grid-column: 1;
+  grid-row: 4;
+  /* start — never align-self:end with a short grid row (paints upward over the thread). */
+  align-self: start;
+  flex-shrink: 0;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.fig-travail-composer-stack[data-pending="1"] {
+  /*
+   * Desktop (2-col): conversation is minmax(0,1fr) and yields space; stack may
+   * scroll internally on very short heights without leaving the shell lock.
+   * Avoid overflow:auto alone without a definite height — it under-sizes the
+   * grid row and overlaps the conversation in single-column breakpoints.
+   */
+  max-height: min(50vh, 360px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* Include full pending+composer in grid max-content contribution. */
+  min-height: min-content;
+}
+
+.fig-travail-workspace > .fig-travail-composer-stack {
+  grid-row: 2;
+}
+
+.fig-travail-pending {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #272e49;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #151c29;
+}
+
+.fig-travail-pending-copy {
+  margin: 0;
+  color: #94a2bb;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.fig-travail-composer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #272e49;
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: #151c29;
+  /* Figma page 05 compact composer ≈ 84px; grows upward into thread space. */
+  min-height: 84px;
+  max-height: min(40vh, 320px);
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.fig-travail-composer-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fig-travail-composer-plus {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid #272e49;
+  color: #94a2bb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+  /* Visual affordance only — attachments/dictation not operational in E05. */
+  opacity: 0.7;
+}
+
+.fig-travail-composer-input {
+  width: 100%;
+  min-height: 24px;
+  max-height: min(36vh, 280px);
+  resize: none;
+  border: 0;
+  background: transparent;
+  color: #f4f6fc;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.45;
+  padding: 6px 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.fig-travail-composer-input::placeholder {
+  color: #94a2bb;
+}
+
+.fig-travail-composer-input:focus {
+  outline: none;
+}
+
+.fig-travail-composer-input:focus-visible {
+  outline: 2px solid var(--fig-accent);
+  outline-offset: 2px;
+}
+
+.fig-travail-composer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #272e49;
+}
+
+.fig-travail-composer-hint {
+  color: #94a2bb;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.fig-travail-composer-send {
+  width: 44px;
+  height: 35px;
+  border: 0;
+  border-radius: 10px;
+  background: #656fe1;
+  color: #f4f6fc;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+
+/* Ensemble 05 — choices, activity, viewer */
+.fig-nora-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.fig-nora-choice {
+  border: 1px solid #3a4470;
+  background: #1a2033;
+  color: #f4f6fc;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.fig-nora-choice:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.fig-nora-choice:focus-visible {
+  outline: 2px solid var(--fig-accent-soft);
+  outline-offset: 2px;
+}
+
+.fig-nora-choices-expired {
+  margin: 4px 0 0;
+  width: 100%;
+  color: #94a2bb;
+  font-size: 11px;
+}
+
+.fig-nora-refs {
+  margin: 10px 0 0;
+  padding-left: 0;
+  list-style: none;
+  color: #94a2bb;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fig-nora-ref-link {
+  border: 0;
+  background: transparent;
+  color: #afa5ff;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.fig-nora-ref-link:focus-visible {
+  outline: 2px solid var(--fig-accent-soft);
+  outline-offset: 2px;
+}
+
+.fig-nora-activity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #272e49;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #151c29;
+  color: #f4f6fc;
+  font-size: 13px;
+}
+
+.fig-nora-activity-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #656fe1;
+  animation: fig-nora-pulse 1.2s ease-in-out infinite;
+}
+
+.fig-nora-activity-note {
+  color: #94a2bb;
+  font-size: 11px;
+  width: 100%;
+}
+
+@keyframes fig-nora-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fig-nora-activity-pulse {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+.fig-nora-activity-history {
+  margin-top: 10px;
+  color: #94a2bb;
+  font-size: 12px;
+}
+
+.fig-nora-activity-history summary {
+  cursor: pointer;
+}
+
+.fig-travail-viewer {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  background: #151c29;
+  border: 1px solid #272e49;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.fig-travail-viewer-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid #272e49;
+  flex-shrink: 0;
+}
+
+.fig-travail-viewer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.fig-travail-viewer-meta {
+  margin: 4px 0 0;
+  color: #94a2bb;
+  font-size: 12px;
+}
+
+.fig-travail-viewer-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 16px 18px 20px;
+}
+
+.fig-travail-viewer-pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #f4f6fc;
+}
+
+.fig-travail-composer-send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.fig-travail-composer-send:focus-visible {
+  outline: 2px solid var(--fig-accent-soft);
+  outline-offset: 2px;
+}
+
+.fig-travail-aside {
+  min-width: 0;
+  min-height: 0;
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  background: #0f1420;
+  isolation: isolate;
+  z-index: 2;
+  position: relative;
+}
+
+.fig-inspector {
+  background: #151c29;
+  border: 1px solid #272e49;
+  border-radius: 14px;
+  padding: 20px 22px 22px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.fig-inspector-title {
+  margin: 8px 0 0;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #f4f6fc;
+}
+
+.fig-inspector-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #f4f6fc;
+}
+
+.fig-inspector-section {
+  margin: 0 0 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a2bb;
+}
+
+.fig-inspector-rule {
+  height: 1px;
+  background: #272e49;
+  margin: 16px 0;
+}
+
+.fig-inspector-card {
+  background: #0f1420;
+  border: 1px solid #272e49;
+  border-radius: 10px;
+  padding: 12px 16px 14px;
+  margin-bottom: 12px;
+}
+
+.fig-inspector-card-title {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #f4f6fc;
+}
+
+.fig-inspector-card-body {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #94a2bb;
+  font-weight: 400;
+}
+
+.fig-inspector-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.fig-inspector-link {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #afa5ff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* —— Sas Nora composition (Figma 607:3…607:277) —— */
+.sas-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.sas-stage {
+  margin: 0 0 0.85rem;
+  flex-shrink: 0;
+}
+
+.sas-stage-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fig-accent);
+  line-height: 16px;
+}
+
+.sas-stage-title {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.55rem, 2.1vw, 1.94rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fig-ink);
+  line-height: 1.2;
+}
+
+.sas-stage-sub {
+  margin: 0.65rem 0 0;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--fig-muted);
+  max-width: 51rem;
+}
+
+.sas-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, var(--sas-conversation-w)) minmax(280px, var(--sas-preview-w));
+  gap: 28px;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
+  /* Fill remaining shell height — do not cap at Figma 655px (caused empty bottom band). */
+  height: 0;
+  overflow: hidden;
+}
+
+.sas-workspace > * {
+  min-height: 0;
+  max-height: 100%;
+}
+
+.sas-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.sas-thread-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-right: 4px;
+  overscroll-behavior: contain;
+}
+
+.sas-resume-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 51px;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--fig-accent-deep);
+  background: var(--fig-accent-bg);
+  color: var(--fig-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sas-msg {
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius-sm);
+  padding: 16px 18px 18px;
+  background: var(--fig-panel);
+}
+
+.sas-msg-pilot {
+  background: var(--fig-panel-hi);
+}
+
+.sas-msg-nora-emphasis {
+  background: var(--fig-accent-bg);
+  border-color: var(--fig-accent-deep);
+}
+
+.sas-msg-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.7rem;
+}
+
+.sas-msg-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sas-msg-avatar-nora {
+  background: var(--fig-accent-bg);
+  color: var(--fig-accent);
+  border-radius: 7px;
+}
+
+.sas-msg-avatar-pilot {
+  background: var(--fig-panel);
+  color: var(--fig-muted);
+  border-radius: 12px;
+}
+
+.sas-msg-role {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sas-msg-role-nora { color: var(--fig-accent); }
+.sas-msg-role-pilot { color: var(--fig-muted); }
+
+.sas-msg-body {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fig-ink);
+}
+
+.sas-msg-body p { margin: 0 0 0.55rem; }
+.sas-msg-body p:last-child { margin-bottom: 0; }
+
+.sas-thread-status {
+  border: 1px solid color-mix(in srgb, var(--fig-info) 55%, var(--fig-line));
+  background: var(--fig-info-bg);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  color: #c9d7ff;
+}
+
+.sas-thread-status-error {
+  border-color: color-mix(in srgb, var(--bad) 55%, var(--fig-line));
+}
+
+.sas-composer {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  height: var(--sas-composer-h);
+  min-height: var(--sas-composer-h);
+  max-height: var(--sas-composer-h);
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  background: var(--fig-panel);
+  padding: 14px 16px 10px;
+  box-sizing: border-box;
+}
+
+.sas-composer-input {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 42px;
+  resize: none;
+  border: 0;
+  background: transparent;
+  color: var(--fig-ink);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.35;
+  padding: 0;
+  outline: none;
+}
+
+.sas-composer-input::placeholder {
+  color: var(--fig-quiet);
+}
+
+.sas-composer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--fig-line);
+  flex-shrink: 0;
+}
+
+.sas-composer-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--fig-quiet);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.sas-composer-plus {
+  color: var(--fig-muted);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.sas-composer-send {
+  width: 48px;
+  height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--fig-accent);
+  color: var(--fig-ink);
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sas-composer-send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sas-composer-send:focus-visible,
+.sas-composer-input:focus-visible {
+  outline: 2px solid var(--fig-accent);
+  outline-offset: 2px;
+}
+
+.sas-preview {
+  min-width: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.sas-preview-inner {
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 18px 20px 16px;
+  border: 1px solid var(--fig-line);
+  border-radius: var(--fig-radius);
+  background: var(--fig-panel);
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.sas-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sas-preview-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fig-muted);
+}
+
+.sas-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 29px;
+  padding: 0 13px;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sas-badge-muted {
+  background: var(--fig-panel-hi);
+  color: var(--fig-muted);
+}
+.sas-badge-amber {
+  background: var(--fig-warn-bg);
+  color: var(--fig-warn);
+}
+.sas-badge-green {
+  background: var(--fig-ok-bg);
+  color: var(--fig-ok);
+}
+.sas-badge-accent {
+  background: var(--fig-accent-bg);
+  color: var(--fig-accent);
+}
+
+.sas-preview-title {
+  margin: 1rem 0 0;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 33px;
+  color: var(--fig-ink);
+}
+
+.sas-preview-sub {
+  margin: 0.15rem 0 0;
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--fig-quiet);
+}
+
+.sas-preview-sections {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.85rem;
+}
+
+.sas-preview-section {
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--fig-line);
+}
+
+.sas-preview-label {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fig-quiet);
+  line-height: 15px;
+}
+
+.sas-preview-value {
+  margin: 0.35rem 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--fig-ink);
+  white-space: pre-wrap;
+}
+
+.sas-preview-value.is-quiet { color: var(--fig-quiet); }
+.sas-preview-value.is-amber { color: var(--fig-warn); }
+
+.sas-preview-provenance {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 11px;
+  color: var(--fig-quiet);
+}
+
+.sas-preview-open-extra {
+  margin: 0;
+  padding: 0 0 0.35rem;
+  font-size: 12px;
+  color: var(--fig-quiet);
+}
+
+.sas-maturity {
+  margin-top: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--fig-line);
+  border-radius: 10px;
+  background: var(--fig-panel-hi);
+  color: var(--fig-muted);
+}
+
+.sas-maturity-ok {
+  background: var(--fig-ok-bg);
+  border-color: var(--fig-ok);
+}
+
+.sas-maturity-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 19px;
+  color: var(--fig-muted);
+}
+
+.sas-maturity-ok .sas-maturity-title {
+  color: var(--fig-ok);
+}
+
+.sas-maturity-body {
+  margin: 0.35rem 0 0;
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--fig-muted);
+}
+
+.sas-preview-adjust {
+  margin-top: 0.75rem;
+  align-self: flex-start;
+}
+
+.sas-create-block {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Frame 04 emphasis when Nora reports base_sufficient — still not a create gate. */
+.sas-create-block-ready .sas-create-btn {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fig-ok) 45%, transparent);
+}
+
+.sas-create-btn {
+  width: 100%;
+  min-height: 49px;
+  border: 1px solid var(--fig-accent);
+  border-radius: 9px;
+  background: var(--fig-accent-deep);
+  color: var(--fig-ink);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sas-create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sas-create-btn:focus-visible {
+  outline: 2px solid var(--fig-accent);
+  outline-offset: 2px;
+}
+
+.sas-create-hint {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fig-muted);
+  text-align: center;
+}
+
+.sas-preview-foot {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--fig-quiet);
+}
+
+.sas-preview-meta {
+  margin-top: 0.65rem;
+}
+
+.sas-secondary-tools {
+  margin-top: 0.35rem;
+}
+
+.sas-project-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 29px;
+  padding: 0 13px;
+  border-radius: 14px;
+  background: var(--fig-panel-hi);
+  color: var(--fig-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@media (max-width: 1280px) {
+  .sas-workspace {
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.85fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .sas-workspace {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .sas-preview-inner {
+    min-height: 0;
+  }
+  .sas-composer {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .sas-stage-title {
+    font-size: 1.35rem;
+  }
+  .sas-preview-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+}
+
 .fig-workspace-3 {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.85fr);
@@ -213,23 +1315,23 @@
   margin: 0 0 6px;
 }
 
+/* Message / composer base — Travail overrides in .fig-travail-* above */
 .fig-msg {
-  border: 1px solid var(--fig-line);
-  border-radius: var(--fig-radius-sm);
-  padding: 12px 14px;
-  background: #121826;
+  border-radius: 13px;
+  padding: 14px 18px 16px;
+  background: #0f1420;
 }
-.fig-msg-pilot { background: #1a2130; }
-.fig-msg-nora { background: #151c29; border-color: #3a4560; }
+.fig-msg-pilot { background: #292d58; }
+.fig-msg-nora { background: #0f1420; border: 1px solid #272e49; }
 
 .fig-composer {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border: 1px solid var(--fig-line);
-  border-radius: var(--fig-radius);
+  border: 1px solid #272e49;
+  border-radius: 14px;
   padding: 12px;
-  background: #0c1018;
+  background: #151c29;
 }
 
 /* O-06 — long-thread composer remains reachable while the journal scrolls. */
@@ -276,13 +1378,165 @@
   color: #c9d7ff;
 }
 
+/* UX-004 portfolio composition */
+.fig-stat-value-text {
+  font-size: 1.35rem;
+  margin-top: 14px;
+}
+
+.fig-card-sep {
+  height: 1px;
+  background: var(--fig-line);
+  width: 100%;
+}
+
+.portfolio-project-card {
+  min-height: 180px;
+}
+
+.portfolio-empty-projects {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  border: 1px solid var(--fig-line);
+  border-radius: 12px;
+  background: var(--fig-panel);
+  padding: 1.35rem 1.25rem;
+  min-height: 160px;
+}
+
+.portfolio-empty-glyph {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--fig-accent) 22%, transparent);
+  color: var(--fig-accent-soft);
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.portfolio-empty-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.portfolio-empty-copy {
+  margin: 0.45rem 0 0;
+  color: var(--fig-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  max-width: 42rem;
+}
+
+.portfolio-prep-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.portfolio-prep-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 66px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--fig-line);
+  border-radius: 10px;
+  background: var(--fig-panel);
+}
+
+.portfolio-prep-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #272e49;
+  color: var(--fig-accent-soft);
+  font-size: 1.1rem;
+}
+
+.portfolio-prep-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--fig-ink);
+}
+
+.portfolio-prep-meta {
+  font-size: 0.75rem;
+  color: var(--fig-muted);
+  margin-top: 0.1rem;
+}
+
+.portfolio-prep-resume {
+  min-width: 7.5rem;
+}
+
+.portfolio-empty-preps {
+  min-height: 91px;
+  display: flex;
+  align-items: center;
+}
+
+.portfolio-continuity h3 {
+  font-size: 0.95rem;
+}
+
 @media (max-width: 1100px) {
   .fig-stat-grid,
   .fig-card-grid,
   .fig-workspace,
+  .fig-travail-workspace,
   .fig-workspace-3,
   .fig-two-col {
     grid-template-columns: 1fr;
+  }
+
+  .fig-nora-thread {
+    max-height: none;
+  }
+
+  .fig-msg-pilot,
+  .fig-msg-nora {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .fig-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fig-stat-access {
+    display: none;
+  }
+  .fig-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .portfolio-project-card {
+    min-height: 86px;
+  }
+  .portfolio-prep-row {
+    min-height: 75px;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--fig-accent);
+  }
+  .portfolio-prep-icon {
+    display: none;
+  }
+  .portfolio-prep-resume {
+    min-width: auto;
+    padding-inline: 0.55rem;
   }
 }
 
@@ -301,4 +1555,1994 @@
     bottom: 0;
     z-index: 2;
   }
+}
+
+/* Ensemble 04 — project space chrome (Figma 652:*); no secondary tab strip. */
+.project-space-page {
+  gap: 20px;
+}
+
+.project-space-page--travail {
+  min-height: 0;
+  gap: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.project-space-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: #0a0e17;
+  padding-bottom: 8px;
+}
+
+.project-space-header--breadcrumb-only {
+  min-height: 0;
+  gap: 0;
+  padding-bottom: 4px;
+  flex-shrink: 0;
+  /* No differentiated navy panel behind intro — breadcrumb only. */
+  background: transparent;
+  position: relative;
+}
+
+.project-space-breadcrumb {
+  min-height: 28px;
+}
+
+.project-space-badge {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fig-accent-soft);
+  border: 1px solid var(--fig-line);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  background: rgba(101, 111, 225, 0.12);
+}
+
+.project-space-kicker {
+  color: #afa5ff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0 0 6px;
+}
+
+.project-space-hero-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.project-space-hero .fig-hero-title {
+  font-size: clamp(1.55rem, 2vw, 1.95rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.project-space-hero .fig-hero-sub {
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  max-width: 56rem;
+}
+
+/* Compact Travail intro — same surface as page, no aplat. */
+.fig-travail-intro {
+  grid-column: 1;
+  grid-row: 1;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.fig-travail-intro-rule {
+  grid-column: 1;
+  grid-row: 2;
+  height: 1px;
+  width: 100%;
+  background: #272e49;
+  margin: 12px 0 0;
+  border: 0;
+}
+
+.project-travail-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 968fr) minmax(260px, 369fr);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  column-gap: 25px;
+  /* Figma conversation→composer gap ≈ 25px; intro→rule stays compact via rule margin. */
+  row-gap: 25px;
+  align-items: stretch;
+}
+
+/* Ensemble 05 / CT-06 — 50/50 of useful area outside rail (Figma 701:363 ≈ 668/668). */
+.project-travail-stage[data-travail-layout="split"] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 22px;
+}
+
+/* Enlarged viewer: conversation/composer hidden; aside spans useful area.
+ * Cause (T05): React `hidden` alone left grid items cohabiting the same column —
+ * conversation text could paint through/behind the viewer. CSS must remove them
+ * from layout, and the aside must be an opaque isolated stacking context. */
+.project-travail-stage[data-travail-layout="enlarged"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.project-travail-stage[data-travail-layout="enlarged"] > .fig-travail-intro,
+.project-travail-stage[data-travail-layout="enlarged"] > .fig-travail-intro-rule {
+  display: none;
+}
+
+.project-travail-stage[data-travail-layout="enlarged"] .fig-conversation-panel,
+.project-travail-stage[data-travail-layout="enlarged"] .fig-travail-composer-stack,
+[data-travail-layout="enlarged"] .fig-conversation-panel,
+[data-travail-layout="enlarged"] .fig-travail-composer-stack {
+  display: none !important;
+}
+
+.project-travail-stage[data-travail-layout="enlarged"] .fig-travail-aside,
+[data-travail-layout="enlarged"] .fig-travail-aside {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  background: #0f1420;
+  isolation: isolate;
+  z-index: 3;
+  min-height: 0;
+  overflow: auto;
+}
+
+.fig-travail-intro-rule {
+  margin-top: 0;
+  /* Pull rule closer under intro (override uniform 25px track gap for rows 1→2). */
+  translate: 0 -13px;
+}
+
+.project-travail-stage > .fig-travail-composer-stack {
+  margin-top: 0;
+  align-self: start;
+  justify-self: stretch;
+}
+
+.project-space-page .fig-tag {
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .project-space-page--travail {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .project-travail-stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 16px;
+  }
+
+  .fig-travail-intro,
+  .fig-travail-intro-rule,
+  .fig-conversation-panel,
+  .fig-travail-composer-stack,
+  .fig-travail-aside {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  /*
+   * Stacked layout already unlocks page overflow. Let the grid row grow to
+   * pending+composer so controls never overlay the conversation panel.
+   */
+  .fig-travail-composer-stack[data-pending="1"] {
+    max-height: none;
+    overflow-y: visible;
+    min-height: 0;
+  }
+
+  .fig-conversation-panel {
+    min-height: 280px;
+    max-height: min(60vh, 520px);
+  }
+
+  .fig-travail-aside {
+    max-height: none;
+  }
+}
+
+/* Ensemble 05 / T02+consolidation — native visual composition */
+.fig-visual-composition {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 0;
+}
+
+.fig-visual-block {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.fig-visual-comparison,
+.fig-visual-sequence,
+.fig-visual-relations,
+.fig-visual-synthesis {
+  border: 1px solid #272e49;
+  border-radius: 12px;
+  background: #121826;
+  padding: 14px 16px 16px;
+}
+
+.fig-visual-text {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.fig-visual-text-head {
+  margin-bottom: 6px;
+}
+
+/* UX-01 — icon optically centered on the first text line (not stacked, not high). */
+.fig-visual-text-with-icon {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.fig-visual-text-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 16px glyph vs ~15px/1.35 first line → ~2px optical settle */
+  margin-top: 2px;
+  height: 1.35em;
+}
+.fig-visual-text-icon .fig-visual-icon {
+  margin-right: 0;
+  vertical-align: middle;
+}
+.fig-visual-text-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.fig-visual-text-body > :first-child {
+  margin-top: 0 !important;
+}
+.fig-visual-text-body > :first-child > :first-child {
+  margin-top: 0 !important;
+}
+.fig-visual-text-observation,
+.fig-visual-text-hypothesis,
+.fig-visual-text-risk,
+.fig-visual-text-recommendation {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border-left: 3px solid #3d5aa8;
+  background: #121826;
+}
+
+.fig-visual-text-hypothesis {
+  border-left-color: #c9a45c;
+}
+
+.fig-visual-text-risk {
+  border-left-color: #8a3f4a;
+}
+
+.fig-visual-text-recommendation {
+  border-left-color: #7b8cff;
+}
+
+.fig-visual-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  color: #9aa6c3;
+  vertical-align: -3px;
+  flex: 0 0 auto;
+}
+
+.fig-visual-icon-fact {
+  color: #6ea8ff;
+}
+
+.fig-visual-icon-hypothesis {
+  color: #c9a45c;
+}
+
+.fig-visual-icon-risk {
+  color: #e08a96;
+}
+
+.fig-visual-icon-recommend {
+  color: #7b8cff;
+}
+
+.fig-visual-title {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f4f6fc;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.fig-visual-title > .fig-visual-icon {
+  margin-top: 2px;
+  margin-right: 0;
+  height: 1.35em;
+}
+.fig-visual-title > span {
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.fig-visual-recommendation {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.fig-visual-recommendation > .fig-visual-icon {
+  margin-top: 2px;
+  margin-right: 0;
+  height: 1.35em;
+}
+
+.fig-visual-recommendation-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.fig-visual-recommendation-body > :first-child {
+  margin-top: 0 !important;
+}
+.fig-visual-recommendation-body > :first-child > :first-child {
+  margin-top: 0 !important;
+}
+
+.fig-visual-inline-md {
+  display: block;
+  margin: 0;
+}
+
+.fig-visual-inline-md p {
+  display: inline;
+  margin: 0;
+}
+
+.fig-visual-inline-md p + p {
+  display: block;
+  margin-top: 0.45em;
+}
+
+.fig-visual-inline-md ul,
+.fig-visual-inline-md ol {
+  margin: 0.4em 0 0;
+  padding-left: 1.2em;
+}
+
+.fig-visual-step-body h4 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: #e8ecf8;
+}
+
+.fig-visual-step-deps {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fig-visual-choices-anchor,
+.fig-visual-refs-anchor {
+  margin-top: 4px;
+}
+
+.fig-visual-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.fig-visual-alt {
+  border: 1px solid #2a334d;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #0f1420;
+}
+
+.fig-visual-alt h4 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: #e8ecf8;
+}
+
+.fig-visual-alt p,
+.fig-visual-step-body p,
+.fig-visual-synth-item p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #b7c0d8;
+}
+
+.fig-visual-pros,
+.fig-visual-cons,
+.fig-visual-relations-list,
+.fig-visual-relations-edges,
+.fig-visual-synthesis-list,
+.fig-visual-provenance {
+  margin: 8px 0 0;
+  padding-left: 1.1rem;
+  font-size: 12px;
+  color: #9aa6c3;
+}
+
+.fig-visual-matrix-wrap {
+  overflow-x: auto;
+  margin-top: 12px;
+}
+
+.fig-visual-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.fig-visual-matrix th,
+.fig-visual-matrix td {
+  border: 1px solid #2a334d;
+  padding: 6px 8px;
+  text-align: left;
+  color: #c5cee6;
+}
+
+.fig-visual-matrix th {
+  background: #181f2f;
+  color: #e8ecf8;
+}
+
+.fig-visual-recommendation {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-left: 3px solid #7b8cff;
+  background: #171d2c;
+  font-size: 13px;
+  color: #d7def2;
+}
+
+.fig-visual-recommendation-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9aa6c3;
+  margin-bottom: 4px;
+}
+
+.fig-visual-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.fig-visual-step {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  column-gap: 10px;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.fig-visual-step-marker {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #243056;
+  color: #e8ecf8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.fig-visual-step-connector {
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: #2a334d;
+}
+
+.fig-visual-step-deps,
+.fig-visual-step-date {
+  margin: 4px 0 0 !important;
+  font-size: 11px !important;
+  color: #8e9bb8 !important;
+}
+
+.fig-visual-relations-svg {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+.fig-visual-edge {
+  stroke: #3a4666;
+  stroke-width: 1.5;
+}
+
+.fig-visual-edge-label {
+  fill: #8e9bb8;
+  font-size: 9px;
+}
+
+.fig-visual-node {
+  fill: #1a2236;
+  stroke: #4a5a84;
+  stroke-width: 1.5;
+}
+
+.fig-visual-node-fact,
+.fig-visual-node-finding {
+  stroke: #6ea8ff;
+}
+
+.fig-visual-node-observation {
+  stroke: #7a93c4;
+}
+
+.fig-visual-node-hypothesis {
+  stroke: #c9a45c;
+}
+
+.fig-visual-node-cause {
+  stroke: #d4877a;
+}
+
+.fig-visual-node-unknown {
+  stroke: #7a849e;
+  stroke-dasharray: 3 2;
+}
+
+.fig-visual-node-label {
+  fill: #d7def2;
+  font-size: 8px;
+}
+
+.fig-visual-tone {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #9aa6c3;
+}
+
+.fig-visual-synth-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #0f1420;
+  border: 1px solid #272e49;
+  list-style: none;
+}
+
+.fig-visual-synthesis-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fig-visual-tone-priority {
+  border-color: #3d5aa8;
+}
+
+.fig-visual-tone-risk {
+  border-color: #8a3f4a;
+}
+
+.fig-visual-tone-watch {
+  border-color: #6a5a2e;
+}
+
+.fig-visual-tone-finding {
+  border-color: #2f5a4a;
+}
+
+.fig-visual-synth-tone {
+  width: 18px;
+  text-align: center;
+  color: #b7c0d8;
+  font-weight: 700;
+}
+
+.fig-visual-provenance {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #7f8aa8;
+}
+
+.fig-visual-provenance-note {
+  color: #6d7894;
+}
+
+@media (max-width: 700px) {
+  .fig-visual-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Conversational composition v1 — adaptive presentation (CV-*) */
+.fig-comp-composition {
+  container-type: inline-size;
+  container-name: nora-composition;
+}
+
+.fig-comp-title {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.fig-comp-alt h4,
+.fig-comp-alt p,
+.fig-comp-step h4,
+.fig-comp-fallback-text,
+.fig-comp-matrix th,
+.fig-comp-matrix td {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.fig-comp-comparison-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fig-comp-matrix-details {
+  margin-top: 12px;
+}
+
+.fig-comp-matrix-details-title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fig-muted);
+}
+
+.fig-comp-relations-label {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.fig-comp-complement {
+  margin-top: 12px;
+}
+
+.fig-comp-authority-note {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--fig-quiet);
+}
+
+.fig-comp-deps-nodes,
+.fig-comp-parallel-tasks,
+.fig-comp-tree-root,
+.fig-comp-tree-branches {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fig-comp-deps-canvas {
+  position: relative;
+}
+
+.fig-comp-deps-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+}
+
+.fig-comp-deps-connector {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fig-accent, #3a6ea5) 70%, var(--fig-line));
+  stroke-width: 1.75;
+}
+
+.fig-comp-deps-arrowhead {
+  fill: color-mix(in srgb, var(--fig-accent, #3a6ea5) 70%, var(--fig-line));
+}
+
+.fig-comp-deps-layers {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.fig-comp-deps-layer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.fig-comp-deps-node,
+.fig-comp-tree-node {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 8px 10px;
+  margin: 0 0 8px;
+  border: 1px solid var(--fig-line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--fig-panel) 88%, transparent);
+}
+
+.fig-comp-deps-layer .fig-comp-deps-node {
+  margin: 0;
+  flex: 1 1 160px;
+  min-width: min(100%, 140px);
+}
+
+.fig-comp-deps-edges {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  border-left: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-panel) 70%, transparent);
+}
+
+.fig-comp-deps-edges li {
+  margin: 0 0 6px;
+  overflow-wrap: anywhere;
+}
+
+.fig-comp-deps-arrow {
+  margin: 0 6px;
+  color: var(--fig-accent, #3a6ea5);
+  font-weight: 600;
+}
+
+.fig-comp-deps-rel {
+  color: var(--fig-muted);
+  font-size: 12px;
+}
+
+.fig-comp-parallel-lanes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 12px;
+}
+
+.fig-comp-parallel-lane {
+  border: 1px solid var(--fig-line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.fig-comp-parallel-lane-title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--fig-muted);
+}
+
+.fig-comp-parallel-sync,
+.fig-comp-parallel-edges {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  border-left: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-panel) 70%, transparent);
+  overflow-wrap: anywhere;
+}
+
+.fig-comp-parallel-edges li {
+  margin: 0 0 6px;
+}
+
+.fig-comp-tree-branches {
+  margin: 6px 0 0 16px;
+  padding-left: 10px;
+  border-left: 2px solid var(--fig-line);
+}
+
+.fig-comp-tree-condition {
+  display: block;
+  margin: 4px 0;
+  font-size: 12px;
+  color: var(--fig-muted);
+}
+
+.fig-comp-relations-detail {
+  color: var(--fig-muted);
+  overflow-wrap: anywhere;
+}
+
+.fig-comp-comparison-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 12px;
+}
+
+.fig-comp-matrix-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fig-comp-matrix {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.fig-comp-matrix th,
+.fig-comp-matrix td {
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;
+}
+
+.fig-comp-steps-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.fig-comp-steps-horizontal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.fig-comp-steps-horizontal > .fig-comp-step {
+  flex: 1 1 180px;
+  min-width: min(100%, 180px);
+}
+
+.fig-comp-relations-svg {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.fig-comp-relations-svg .fig-visual-node-label {
+  font-size: 10px;
+}
+
+.fig-comp-block-fallback,
+.fig-comp-fallback-text {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--fig-line);
+  color: var(--fig-ink);
+  background: color-mix(in srgb, var(--fig-panel) 80%, transparent);
+}
+
+/* C2 — complementary substance under substitute (visible, not sr-only) */
+.fig-comp-substance-complement {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-left: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-panel) 72%, transparent);
+}
+
+.fig-comp-substance-complement-label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fig-muted);
+}
+
+.fig-comp-substance-complement-text {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--fig-ink);
+}
+
+/* W3 — Figma-oriented hierarchy on Studio dark tokens (adaptive, not pixel-fixed) */
+.fig-comp-comparison-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 14px;
+}
+
+.fig-comp-comparison-cards .fig-comp-alt,
+.fig-comp-comparison-stack .fig-comp-alt {
+  padding: 12px 14px;
+  border: 1px solid var(--fig-line);
+  border-radius: 10px;
+  border-top: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 65%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-panel) 90%, transparent);
+}
+
+.fig-comp-comparison-cards .fig-comp-alt h4,
+.fig-comp-comparison-stack .fig-comp-alt h4 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.fig-comp-authority-note {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--fig-muted);
+}
+
+.fig-comp-tree-root,
+.fig-comp-tree-branches {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fig-comp-tree-branches {
+  margin: 8px 0 0 18px;
+  padding-left: 14px;
+  border-left: 2px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 45%, var(--fig-line));
+}
+
+.fig-comp-tree-condition {
+  display: inline-block;
+  margin: 0 0 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--fig-ink);
+  background: color-mix(in srgb, var(--fig-accent, #3a6ea5) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 40%, var(--fig-line));
+}
+
+.fig-comp-tree-node {
+  align-items: center;
+}
+
+.fig-comp-parallel-lane {
+  background: color-mix(in srgb, var(--fig-panel) 85%, transparent);
+}
+
+.fig-comp-parallel-lane-title {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.fig-comp-parallel-edges {
+  margin-top: 12px;
+  padding: 8px 10px;
+  border-left: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+}
+
+.fig-visual-recommendation {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-left: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 70%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-panel) 78%, transparent);
+}
+
+@container nora-composition (max-width: 560px) {
+  .fig-comp-comparison-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .fig-comp-steps-horizontal {
+    flex-direction: column;
+  }
+
+  .fig-comp-parallel-lanes {
+    grid-template-columns: 1fr;
+  }
+
+  .fig-comp-tree-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* W3 — measured graph canvas (Figma 07–09 orientation, dark Studio) */
+.fig-comp-graph-canvas {
+  position: relative;
+  isolation: isolate;
+}
+
+.fig-comp-graph-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.fig-comp-tree-connected .fig-comp-tree-row,
+.fig-comp-parallel-connected .fig-comp-parallel-lanes,
+.fig-comp-parallel-connected .fig-comp-parallel-task,
+.fig-comp-tree-connected .fig-comp-tree-card {
+  position: relative;
+  z-index: 1;
+}
+
+.fig-comp-tree-connected {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fig-comp-tree-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 24px;
+  padding: 10px 4px 18px;
+}
+
+.fig-comp-tree-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: min(220px, 100%);
+  max-width: 320px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 80%, transparent);
+  background: color-mix(in srgb, var(--fig-panel) 92%, #0a121c);
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 4%, transparent);
+}
+
+.fig-comp-tree-branch-root {
+  border-color: color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-accent, #3a6ea5) 14%, var(--fig-panel));
+}
+
+.fig-comp-tree-branch-yes {
+  border-color: color-mix(in srgb, #3d8f6e 50%, var(--fig-line));
+}
+
+.fig-comp-tree-branch-no {
+  border-color: color-mix(in srgb, #a86b4a 50%, var(--fig-line));
+}
+
+.fig-comp-tree-branch-yes::before,
+.fig-comp-tree-branch-no::before {
+  content: attr(data-branch);
+  position: absolute;
+  top: -9px;
+  left: 12px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--fig-panel);
+  border: 1px solid var(--fig-line);
+  color: var(--fig-muted);
+}
+
+.fig-comp-tree-branch-yes::before {
+  content: "Si oui";
+  color: color-mix(in srgb, #7dcea0 80%, var(--fig-ink));
+  border-color: color-mix(in srgb, #3d8f6e 45%, var(--fig-line));
+}
+
+.fig-comp-tree-branch-no::before {
+  content: "Si non";
+  color: color-mix(in srgb, #d4a574 80%, var(--fig-ink));
+  border-color: color-mix(in srgb, #a86b4a 45%, var(--fig-line));
+}
+
+.fig-comp-parallel-connected .fig-comp-parallel-lanes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+.fig-comp-parallel-task {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 75%, transparent);
+  background: color-mix(in srgb, var(--fig-panel) 88%, transparent);
+  list-style: none;
+}
+
+.fig-comp-parallel-tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fig-comp-parallel-lane-gate {
+  border-color: color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-accent, #3a6ea5) 12%, var(--fig-panel));
+  grid-column: 1 / -1;
+}
+
+.fig-comp-parallel-lane {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 70%, transparent);
+}
+
+/* W3 — Figma 01 editorial synthesis */
+.fig-comp-synthesis-editorial .fig-comp-synth-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.fig-comp-synth-section-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fig-muted);
+}
+
+.fig-comp-synth-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  /* UX-06 — internal left padding so icons never kiss the frame edge */
+  padding: 12px 14px 12px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--fig-line) 55%, transparent);
+}
+.fig-nc-residual-items {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 70%, transparent);
+  border-radius: 12px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fig-panel, #121826) 88%, transparent);
+}
+
+.fig-comp-synth-row:last-child {
+  border-bottom: none;
+}
+
+.fig-comp-synth-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fig-ink);
+}
+
+.fig-comp-synth-detail {
+  margin-top: 4px;
+  color: color-mix(in srgb, var(--fig-ink) 82%, var(--fig-muted));
+}
+
+.fig-comp-synth-priorities {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border-left: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 70%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-accent, #3a6ea5) 10%, var(--fig-panel));
+}
+
+.fig-comp-synth-hypotheses {
+  padding: 4px 0 4px 12px;
+  border-left: 2px dashed color-mix(in srgb, var(--fig-muted) 55%, var(--fig-line));
+}
+
+.fig-comp-synth-risks .fig-comp-synth-label {
+  color: color-mix(in srgb, #d4a574 70%, var(--fig-ink));
+}
+
+/* W3 — stronger sequence path (Figma 02/06) */
+.fig-comp-steps-vertical .fig-comp-step {
+  position: relative;
+  padding-left: 8px;
+}
+
+.fig-comp-steps-vertical .fig-visual-step-marker {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--fig-accent, #3a6ea5) 28%, var(--fig-panel));
+  border: 1px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+  color: var(--fig-ink);
+}
+
+.fig-comp-steps-vertical .fig-visual-step-connector {
+  width: 2px;
+  min-height: 16px;
+  margin: 4px 0 4px 13px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--fig-accent, #3a6ea5) 60%, transparent),
+    color-mix(in srgb, var(--fig-line) 80%, transparent)
+  );
+}
+
+.fig-comp-steps-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 4px;
+  align-items: stretch;
+}
+
+.fig-comp-steps-horizontal .fig-comp-step {
+  flex: 1 1 160px;
+  min-width: 140px;
+  max-width: 280px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 75%, transparent);
+  background: color-mix(in srgb, var(--fig-panel) 90%, transparent);
+}
+
+.fig-comp-steps-horizontal .fig-visual-step-connector {
+  align-self: center;
+  width: 24px;
+  height: 2px;
+  margin: 0 2px;
+  background: color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+  flex: 0 0 24px;
+}
+
+/* New graphical subsystem — nora-composition (not E05 artisan) */
+.fig-nc-graph-node {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 80%, transparent);
+  background: color-mix(in srgb, var(--fig-panel) 92%, #0a121c);
+}
+.fig-nc-graph-node-plain {
+  gap: 0;
+}
+
+.fig-nc-graph-node-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fig-ink);
+}
+
+.fig-nc-graph-node-detail {
+  margin-top: 4px;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--fig-ink) 80%, var(--fig-muted));
+}
+
+.fig-nc-graph-node-status {
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fig-muted);
+}
+
+.fig-nc-graph-node-yes {
+  border-color: color-mix(in srgb, #3d8f6e 45%, var(--fig-line));
+}
+
+.fig-nc-graph-node-no {
+  border-color: color-mix(in srgb, #a86b4a 45%, var(--fig-line));
+}
+
+.fig-nc-graph-node-gate,
+.fig-nc-graph-node-emphasis {
+  border-color: color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+  background: color-mix(in srgb, var(--fig-accent, #3a6ea5) 12%, var(--fig-panel));
+}
+
+.fig-nc-node-flow,
+.fig-nc-parallel-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fig-nc-parallel-lanes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.fig-nc-parallel-lane {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 70%, transparent);
+}
+
+.fig-nc-parallel-lane-gate {
+  grid-column: 1 / -1;
+  border-color: color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
+}
+
+.fig-nc-engine-note {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--fig-muted);
+}
+
+.fig-nc-elk-canvas-wrap {
+  overflow-x: auto;
+  overflow-y: visible;
+  max-width: 100%;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fig-nc-elk-canvas {
+  margin-bottom: 0;
+  min-height: 48px;
+}
+
+.fig-nc-elk-svg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Fixed + off-viewport: real typography boxes for ELK measure, without
+   expanding the board's layout/screenshot bounding box. */
+.fig-nc-measure-layer {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  width: 280px;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.fig-nc-measure-node {
+  margin-bottom: 8px;
+}
+
+.fig-nc-relations {
+  position: relative;
+  overflow: hidden;
+}
+
+.fig-nc-edges-a11y {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.fig-nc-elk-node .fig-nc-graph-node {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Comparison cards — denser Figma-oriented surfaces */
+.fig-comp-comparison-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.fig-comp-comparison-cards .fig-comp-alt,
+.fig-comp-comparison-stack .fig-comp-alt {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 75%, transparent);
+  background: color-mix(in srgb, var(--fig-panel) 90%, #0a121c);
+}
+
+.fig-comp-matrix-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 70%, transparent);
+  border-radius: 10px;
+}
+
+.fig-comp-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.fig-comp-matrix th,
+.fig-comp-matrix td {
+  padding: 10px 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--fig-line) 55%, transparent);
+  text-align: left;
+  vertical-align: top;
+}
+
+.fig-comp-matrix thead th {
+  background: color-mix(in srgb, var(--fig-panel) 80%, transparent);
+  font-weight: 600;
+}
+
+.project-unavailable {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2rem;
+}
+
+.project-overview .fig-panel {
+  background: var(--fig-panel);
+}
+
+/* ─── Figma 01–06 editorial convergence (2026-11-18) ─── */
+.fig-nc-fixture-badge {
+  margin: 0 0 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #e8bc86;
+}
+.fig-nc-editorial-hero { margin-bottom: 18px; }
+.fig-nc-editorial-headline {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 3.2vw, 36px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.fig-nc-editorial-headline-primary {
+  display: block;
+  color: var(--fig-text, #f4f6fb);
+}
+.fig-nc-editorial-headline-accent {
+  display: block;
+  color: #e8bc86;
+}
+.fig-nc-editorial-lead {
+  margin: 0;
+  max-width: 52rem;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--fig-muted, #a8b2c5);
+}
+.fig-nc-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
+  margin: 18px 0 28px;
+  padding: 16px 0;
+  border-top: 1px solid #29344a;
+  border-bottom: 1px solid #29344a;
+}
+.fig-nc-indicators-divider {
+  width: 1px;
+  margin: 4px 28px;
+  background: #1d293b;
+  align-self: stretch;
+}
+.fig-nc-indicator-value {
+  margin: 0 0 6px;
+  font-size: 27px;
+  font-weight: 600;
+  color: #f4f6fb;
+  line-height: 1.1;
+}
+.fig-nc-indicator-label {
+  margin: 0;
+  font-size: 12px;
+  color: #a8b2c5;
+}
+.fig-nc-editorial-section { margin: 28px 0; }
+.fig-nc-section-head {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  margin-bottom: 14px;
+}
+.fig-nc-section-head-plain {
+  gap: 0;
+}
+.fig-nc-section-num {
+  /* retained for legacy markup; UX-03 no longer emits decorative section ordinals */
+  font-size: 14px;
+  font-weight: 600;
+  color: #e8bc86;
+  min-width: 1.6rem;
+}
+.fig-nc-section-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #f4f6fb;
+  line-height: 1.25;
+}
+.fig-nc-strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 720px) {
+  .fig-nc-strategy-grid { grid-template-columns: 1fr; }
+  .fig-nc-indicators-divider { display: none; }
+  .fig-nc-indicators { gap: 16px; }
+  .fig-nc-indicator { flex: 1 1 40%; }
+}
+.fig-nc-strategy-card {
+  position: relative;
+  border-radius: 15px;
+  border: 1px solid #36445d;
+  background: #172237;
+  padding: 20px 22px 18px;
+  overflow: hidden;
+  /* Natural content height — no artificial vertical stretch (UX-07 sibling). */
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.fig-nc-strategy-gold { border-color: #4b456b; background: #201e32; }
+.fig-nc-strategy-accent {
+  position: absolute;
+  left: 0; top: 0; right: 0;
+  height: 4px;
+  background: #71a9e6;
+}
+.fig-nc-strategy-gold .fig-nc-strategy-accent { background: #e8bc86; }
+.fig-nc-strategy-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.fig-nc-strategy-eyebrow {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #71a9e6;
+}
+.fig-nc-strategy-gold .fig-nc-strategy-eyebrow { color: #e8bc86; }
+.fig-nc-strategy-mono {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #71a9e6 18%, transparent);
+  color: #71a9e6;
+  font-weight: 600;
+  font-size: 18px;
+}
+.fig-nc-strategy-gold .fig-nc-strategy-mono {
+  background: color-mix(in srgb, #e8bc86 18%, transparent);
+  color: #e8bc86;
+}
+.fig-nc-strategy-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f4f6fb;
+}
+.fig-nc-strategy-summary {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #a8b2c5;
+}
+.fig-nc-strategy-footer {
+  padding-top: 12px;
+  border-top: 1px solid #29344a;
+}
+.fig-nc-strategy-positive {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #f4f6fb;
+}
+.fig-nc-strategy-counterpart {
+  margin: 0;
+  font-size: 12px;
+  color: #708299;
+}
+.fig-nc-checklist { list-style: none; margin: 0; padding: 0; }
+.fig-nc-checklist-row {
+  display: grid;
+  grid-template-columns: 12px minmax(120px, 180px) 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+}
+.fig-nc-checklist-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: #e8bc86;
+}
+.fig-nc-checklist-row:nth-child(2) .fig-nc-checklist-dot { background: #71a9e6; }
+.fig-nc-checklist-row:nth-child(3) .fig-nc-checklist-dot { background: #8585ff; }
+.fig-nc-checklist-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f4f6fb;
+}
+.fig-nc-checklist-detail {
+  font-size: 13px;
+  color: #a8b2c5;
+  line-height: 1.4;
+}
+.fig-nc-orientation {
+  margin-top: 22px;
+  padding: 12px 0 4px 14px;
+  border-left: 3px solid #e8bc86;
+}
+.fig-nc-orientation-label {
+  margin: 0 0 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #e8bc86;
+}
+.fig-nc-orientation-body {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #f4f6fb;
+  line-height: 1.4;
+}
+
+/* Comparison option cards (Figma 03/05) — UX-07 natural flow, top-aligned */
+.fig-nc-option-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  height: auto;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 22px 20px !important;
+  border-radius: 14px !important;
+  border: 1px solid #2a3650 !important;
+  background: #172237 !important;
+}
+.fig-nc-option-eyebrow {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #e8bc86;
+}
+.fig-nc-option-title {
+  margin: 0 !important;
+  font-size: 18px !important;
+  font-weight: 600;
+  color: #f4f6fb;
+}
+.fig-nc-option-summary {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #adb9cf;
+  /* Do not flex-grow — avoids artificial mid-card gaps (UX-07). */
+  flex: 0 0 auto;
+}
+.fig-nc-option-vigilance {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #7e8ea5;
+}
+.fig-comp-comparison-cards {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+.fig-comp-comparison-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.fig-comp-comparison-stack .fig-nc-option-card {
+  width: 100%;
+  min-height: 0;
+}
+@media (max-width: 900px) {
+  .fig-comp-comparison-cards { grid-template-columns: 1fr; }
+}
+
+/* Editorial matrix (Figma 04) — options as rows, readable cells */
+.fig-nc-matrix-editorial {
+  border: 1px solid #2b364a;
+  border-radius: 14px;
+  background: #111b2b;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.fig-nc-matrix-rows {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  min-width: 640px;
+  table-layout: fixed;
+}
+.fig-nc-matrix-rows thead th {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #7e8ea5;
+  background: #0f1826;
+  border-bottom: 1px solid #2b364a;
+  padding: 12px 14px;
+  text-align: left;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+.fig-nc-matrix-rows thead th:first-child { width: 22%; }
+.fig-nc-matrix-rows thead th:nth-child(2) { width: 28%; }
+.fig-nc-matrix-rows tbody th,
+.fig-nc-matrix-rows tbody td {
+  padding: 14px;
+  border-bottom: 1px solid #2b364a;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #adb9cf;
+  vertical-align: top;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  hyphens: manual;
+}
+.fig-nc-matrix-rows tbody th {
+  color: #f4f6fb;
+  font-weight: 600;
+}
+.fig-nc-matrix-opt-label {
+  display: inline-block;
+  white-space: normal;
+}
+
+/* Sequence horizontal (Figma 02) — four cards share the Travail column */
+.fig-nc-h-steps {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 0;
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  width: 100%;
+}
+.fig-nc-h-step {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.fig-nc-h-step-link {
+  width: 12px;
+  height: 2px;
+  margin: auto 0;
+  background: #29344a;
+  flex: 0 0 12px;
+}
+.fig-nc-h-step-card {
+  position: relative;
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  min-height: 185px;
+  padding: 28px 12px 14px;
+  border-radius: 15px;
+  border: 1px solid #29344a;
+  background: #161f31;
+}
+.fig-nc-h-step-card::before {
+  content: "";
+  position: absolute;
+  left: -1px; top: -1px; right: -1px;
+  height: 3px;
+  border-radius: 15px 15px 0 0;
+  background: #e8bc86;
+}
+.fig-nc-h-step-medallion {
+  position: absolute;
+  top: -16px;
+  right: 14px;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #e8bc86;
+  color: #16151b;
+  font-size: 24px;
+  font-weight: 700;
+}
+.fig-nc-h-step-card h5 {
+  margin: 18px 0 8px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #f4f6fb;
+}
+.fig-nc-h-step-card p,
+.fig-nc-h-step-card .fig-visual-inline-md {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #a8b2c5;
+}
+
+/* Timeline (Figma 02) — shared week grid for head + bars */
+.fig-nc-timeline-caption {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #a8b2c5;
+}
+.fig-nc-timeline {
+  border: 1px solid #29344a;
+  border-radius: 14px;
+  background: #111b2b;
+  padding: 14px 16px 10px;
+  overflow-x: auto;
+}
+.fig-nc-timeline-head,
+.fig-nc-timeline-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 150px) minmax(360px, 1fr);
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+  min-width: 520px;
+}
+.fig-nc-timeline-head {
+  margin-bottom: 8px;
+}
+.fig-nc-timeline-label-col {
+  font-size: 13px;
+  color: #a8b2c5;
+  line-height: 1.3;
+}
+.fig-nc-timeline-weeks,
+.fig-nc-timeline-track {
+  display: grid;
+  grid-template-columns: repeat(var(--tl-weeks, 8), minmax(40px, 1fr));
+  gap: 0;
+  width: 100%;
+  align-items: stretch;
+}
+.fig-nc-timeline-week {
+  font-size: 11px;
+  font-weight: 600;
+  color: #708299;
+  text-align: center;
+  padding: 0 2px;
+}
+.fig-nc-timeline-track {
+  position: relative;
+  min-height: 30px;
+  background: #1a2737;
+  border-radius: 7px;
+}
+.fig-nc-timeline-bar {
+  grid-row: 1;
+  margin: 2px 1px;
+  height: 26px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-left: 3px solid currentColor;
+  background: color-mix(in srgb, currentColor 15%, transparent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.fig-nc-timeline-blue { color: #71a9e6; }
+.fig-nc-timeline-violet { color: #8585ff; }
+.fig-nc-timeline-gold { color: #e8bc86; }
+.fig-nc-timeline-teal { color: #63cdb4; }
+.fig-nc-timeline-footnote {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: #708299;
+}
+
+/* Vertical editorial steps (Figma 06) */
+.fig-nc-v-steps {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.fig-nc-v-step {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 18px;
+  padding: 22px 0;
+  border-bottom: 1px solid #2b364a;
+}
+.fig-nc-v-step:last-child { border-bottom: none; }
+.fig-nc-v-step-num {
+  font-size: 28px;
+  font-weight: 600;
+  color: #e8bc86;
+  line-height: 1.1;
+}
+.fig-nc-v-step-body h5 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f4f6fb;
+}
+.fig-nc-v-step-body .fig-visual-inline-md,
+.fig-nc-v-step-body p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #a8b2c5;
 }

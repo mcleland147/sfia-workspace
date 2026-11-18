@@ -1,0 +1,111 @@
+{
+  "viewport": {
+    "w": 1680,
+    "h": 970,
+    "dpr": 1
+  },
+  "rail": {
+    "x": 0,
+    "y": 0,
+    "w": 246,
+    "h": 970,
+    "bottom": 970,
+    "widthAttr": "246",
+    "fill": "#0C101A"
+  },
+  "stage": {
+    "x": 284,
+    "y": 58,
+    "w": 1357,
+    "h": 896,
+    "bottom": 954
+  },
+  "intro": {
+    "x": 284,
+    "y": 58,
+    "w": 965,
+    "h": 84,
+    "bottom": 142
+  },
+  "introRule": {
+    "x": 284,
+    "y": 154,
+    "w": 965,
+    "h": 1,
+    "bottom": 155
+  },
+  "workspace": {
+    "x": 0,
+    "y": 0,
+    "w": 0,
+    "h": 0,
+    "bottom": 0
+  },
+  "conversation": {
+    "x": 284,
+    "y": 193,
+    "w": 965,
+    "h": 594,
+    "bottom": 787
+  },
+  "aside": {
+    "x": 1274,
+    "y": 58,
+    "w": 368,
+    "h": 896,
+    "bottom": 954
+  },
+  "inspector": {
+    "x": 1274,
+    "y": 58,
+    "w": 368,
+    "h": 896,
+    "bottom": 954
+  },
+  "composer": {
+    "x": 284,
+    "y": 812,
+    "w": 965,
+    "h": 142,
+    "bottom": 954
+  },
+  "thread": {
+    "x": 305,
+    "y": 250,
+    "w": 923,
+    "h": 520,
+    "bottom": 770,
+    "overflowY": "auto",
+    "scrollHeight": 544,
+    "clientHeight": 520
+  },
+  "gaps": {
+    "conversationToComposer": 25,
+    "composerInspectorBottomAlign": 0,
+    "introToInspectorTop": 0,
+    "bottomSlack": 16
+  },
+  "structure": {
+    "composerInsideConversation": false,
+    "embed": "1"
+  },
+  "projectName": {
+    "x": 29,
+    "y": 133,
+    "w": 187,
+    "h": 35,
+    "bottom": 168,
+    "lineClamp": "2",
+    "fontSize": "13px",
+    "fontWeight": "600"
+  },
+  "send": {
+    "x": 1184,
+    "y": 906,
+    "w": 52,
+    "h": 35,
+    "bottom": 941,
+    "aria": "Envoyer",
+    "text": "↑"
+  }
+}

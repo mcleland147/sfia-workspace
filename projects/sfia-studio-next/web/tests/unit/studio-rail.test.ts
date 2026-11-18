@@ -5,22 +5,24 @@ import {
   clearProjectSurfaceNavIntent,
   noteProjectSurfaceNavIntent,
   peekProjectSurfaceNavIntent,
+  resolvePersonalBreadcrumb,
   resolveProjectLoadSurface,
   resolveRailVariant,
 } from "@/components/shell/studio-rail";
 
 describe("F1 studio rail variants (G2 railEvidence)", () => {
   it("keeps personnel vs projet fill discriminant", () => {
-    expect(STUDIO_RAIL_VARIANTS.personnel.fill.toLowerCase()).toBe("#0c101a");
-    expect(STUDIO_RAIL_VARIANTS.projet.fill.toLowerCase()).toBe("#0c1020");
+    // Sas Nora 606:20 personal rail fill; projet remains distinct for project space.
+    expect(STUDIO_RAIL_VARIANTS.personnel.fill.toLowerCase()).toBe("#0d1220");
+    expect(STUDIO_RAIL_VARIANTS.projet.fill.toLowerCase()).toBe("#0c101a");
     expect(STUDIO_RAIL_VARIANTS.personnel.fill).not.toBe(STUDIO_RAIL_VARIANTS.projet.fill);
   });
 
   it("exposes measured widths", () => {
     expect(STUDIO_RAIL_VARIANTS.personnel.widthPx).toBe(246);
     expect(STUDIO_RAIL_VARIANTS.projet.widthPx).toBe(246);
-    expect(STUDIO_RAIL_VARIANTS.conversation.widthPx).toBe(240);
-    expect(STUDIO_RAIL_VARIANTS.inspection.widthPx).toBe(244);
+    expect(STUDIO_RAIL_VARIANTS.conversation.widthPx).toBe(246);
+    expect(STUDIO_RAIL_VARIANTS.inspection.widthPx).toBe(246);
   });
 
   it("resolves variant from G2 railEvidence route ↔ state mapping", () => {
@@ -32,7 +34,7 @@ describe("F1 studio rail variants (G2 railEvidence)", () => {
         pathname: "/preparations/abc",
         searchParams: new URLSearchParams("resume=1"),
       }),
-    ).toBe("projet");
+    ).toBe("personnel");
     expect(
       resolveRailVariant({ pathname: "/projects/p1", surface: "document" }),
     ).toBe("inspection");
@@ -52,24 +54,54 @@ describe("B1 shell navigation", () => {
   it("exposes real project surface hrefs (no #)", () => {
     const items = buildShellNav({ pathname: "/projects/proj-1", surface: "pilotage" });
     const travail = items.find((i) => i.key === "travail");
-    const docs = items.find((i) => i.key === "document");
+    const projet = items.find((i) => i.key === "projet");
+    const journal = items.find((i) => i.key === "journal");
+    const trajectoire = items.find((i) => i.key === "pilotage");
     expect(travail?.href).toBe("/projects/proj-1?surface=travail");
-    expect(docs?.href).toBe("/projects/proj-1?surface=document");
+    expect(projet?.href).toBe("/projects/proj-1?surface=projet");
+    expect(journal?.href).toBe("/projects/proj-1?surface=journal");
+    expect(trajectoire?.label).toBe("Trajectoire");
+    expect(trajectoire?.href).toBe("/projects/proj-1?surface=pilotage");
+    // Documents stay in Accès directs, not primary rail NAVIGATION.
+    expect(items.some((i) => i.key === "document")).toBe(false);
     expect(items.every((i) => i.href !== "#")).toBe(true);
-    expect(items.find((i) => i.key === "pilotage")?.active).toBe(true);
+    expect(trajectoire?.active).toBe(true);
   });
 
-  it("keeps portfolio personnel entries without hash-only fakes", () => {
+  it("keeps a single Portefeuille entry plus Nouveau projet action (UX-004)", () => {
     const items = buildShellNav({ pathname: "/portfolio" });
-    expect(items.some((i) => i.key === "mes-projets")).toBe(true);
+    expect(items.some((i) => i.key === "mes-projets")).toBe(false);
+    expect(items.some((i) => i.key === "login")).toBe(false);
+    expect(items.find((i) => i.key === "portfolio")?.label).toBe("Portefeuille");
+    const create = items.find((i) => i.key === "new-prep");
+    expect(create?.label).toBe("Nouveau projet");
+    expect(create?.href).toBeNull();
+    expect(create?.action).toBe("open-preparation");
     expect(items.every((i) => i.href !== "#")).toBe(true);
   });
 
-  it("disables project surfaces without project context (prep)", () => {
+  it("resolves personal breadcrumb for known routes only", () => {
+    expect(resolvePersonalBreadcrumb("/portfolio")).toBe("Portefeuille");
+    expect(resolvePersonalBreadcrumb("/settings/integrations")).toBe("Intégrations");
+    expect(resolvePersonalBreadcrumb("/settings")).toBe("Paramètres");
+    expect(resolvePersonalBreadcrumb("/preparations/prep-1")).toBe("Nouvelle préparation");
+    expect(
+      resolvePersonalBreadcrumb(
+        "/preparations/prep-1",
+        new URLSearchParams("resume=1"),
+      ),
+    ).toBe("Préparation reprise");
+    expect(resolvePersonalBreadcrumb("/unknown-personal")).toBeNull();
+  });
+
+  it("keeps sas rail minimal without project surfaces", () => {
     const items = buildShellNav({ pathname: "/preparations/prep-1" });
-    const travail = items.find((i) => i.key === "travail");
-    expect(travail?.href).toBeNull();
-    expect(travail?.disabledReason).toBeTruthy();
+    expect(items.map((i) => i.key)).toEqual(["portfolio", "sas"]);
+    expect(items.find((i) => i.key === "sas")?.label).toBe("Préparation en cours");
+    expect(items.some((i) => i.key === "travail")).toBe(false);
+    expect(items.some((i) => i.key === "pilotage")).toBe(false);
+    expect(items.some((i) => i.key === "document")).toBe(false);
+    expect(items.some((i) => i.key === "journal")).toBe(false);
   });
 });
 

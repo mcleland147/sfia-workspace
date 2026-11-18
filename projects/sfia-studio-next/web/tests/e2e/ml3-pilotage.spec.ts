@@ -3,7 +3,8 @@ import path from "path";
 import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
 
 async function openPilotageSurface(page: import("@playwright/test").Page) {
-  await page.getByTestId("surface-pilotage").click();
+  // Ensemble 04: Trajectoire lives on the rail (?surface=pilotage); central tab strip removed.
+  await page.getByTestId("studio-rail").getByTestId("nav-pilotage").click();
   await expect(page).toHaveURL(/[?&]surface=pilotage\b/);
   await expect(page.getByTestId("pilotage-panel")).toBeVisible({ timeout: 15000 });
 }
@@ -202,9 +203,11 @@ test("ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE", async ({ page })
     summary: "e2e f01 thread",
   });
 
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
-  await page.getByRole("button", { name: "Envoyer" }).click();
+  // Ensemble 04: Travail is the rail surface (no central tab button).
+  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
+  await expect(page).toHaveURL(/surface=travail/);
+  await page.getByTestId("thread-draft").fill("Ouvre le cycle cadrage.");
+  await page.getByTestId("thread-send").click();
   await expect(page.getByTestId("thread-nora-status")).toContainText(/OPEN_CYCLE|APPLIED/i, {
     timeout: 30000,
   });
@@ -231,11 +234,12 @@ test("ML3 F02: RECORD depuis le fil puis révision Journal", async ({ page }) =>
     summary: "e2e f02",
   });
 
-  await page.getByRole("button", { name: "Travail" }).click();
+  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
+  await expect(page).toHaveURL(/surface=travail/);
   await page
-    .getByLabel("Message à Nora")
+    .getByTestId("thread-draft")
     .fill("Je décide que la connexion GitHub est obligatoire pour ce projet.");
-  await page.getByRole("button", { name: "Envoyer" }).click();
+  await page.getByTestId("thread-send").click();
   await expect(page.getByTestId("thread-nora-status")).toContainText(
     /RECORD_DECISION|APPLIED|décision/i,
     { timeout: 30000 },
@@ -369,8 +373,9 @@ test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page })
     });
   });
 
-  await page.getByRole("button", { name: "Travail" }).click();
-  await page.getByLabel("Message à Nora").fill("Ouvre le cycle cadrage.");
+  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
+  await expect(page).toHaveURL(/surface=travail/);
+  await page.getByTestId("thread-draft").fill("Ouvre le cycle cadrage.");
   await page.getByTestId("thread-send").click();
   await expect(page.getByTestId("thread-nora-status")).toContainText(/ACK lost|ACK_LOST|échec|conservée/i, {
     timeout: 45000,

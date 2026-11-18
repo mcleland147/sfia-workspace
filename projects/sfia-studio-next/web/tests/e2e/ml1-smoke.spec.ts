@@ -1,9 +1,12 @@
+
 import { test, expect } from "@playwright/test";
 import path from "path";
 import {
   constituteAndCreateProject,
   openNewPreparation,
   sendPrepMessage,
+  openSasSecondaryTool,
+  backToSasConversation,
 } from "./helpers/g4-chat-first";
 
 test("DEV fake login → sas → message Nora FAKE → document → create → portfolio reopen by projectId", async ({
@@ -23,35 +26,44 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
     timeout: 30000,
   });
 
-  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await openSasSecondaryTool(page, "Documents");
   await page.getByTestId("doc-start-create").click();
   await page.getByTestId("document-revise-draft").fill("# Document Playwright\ncontenu");
   await page.getByTestId("doc-save").click();
   await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
 
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await backToSasConversation(page);
   await constituteAndCreateProject(page, {
-    name: "Projet Playwright",
+    name: `Projet Playwright ${Date.now()}`,
     summary: "résumé test",
   });
   const projectUrl = page.url();
   const projectId = projectUrl.split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
-  await expect(page.getByText("Même fil", { exact: false })).toBeVisible();
+  // Ensemble 04 chrome — continuity is "Reprendre le fil du projet" (not legacy « Même fil »).
+  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
 
   // Portfolio → open by projectId only (no preparationId query).
+  // UX-004: technical ids are not displayed on cards; open via real project link.
   await page.goto("/portfolio");
   await expect(page.getByRole("heading", { name: /retrouvez vos projets/i })).toBeVisible();
-  await expect(page.getByText(projectId!, { exact: true })).toBeVisible();
-  await page.locator(`a[href^="/projects/${projectId}"]`).click();
+  await expect(page.getByTestId(`open-project-${projectId}`)).toBeVisible();
+  await page.getByTestId(`open-project-${projectId}`).click();
   await page.waitForURL(`**/projects/${projectId}**`);
   expect(page.url()).not.toContain("preparationId=");
-  await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
+  // Ensemble 04: continuity chrome (legacy « réouverture par projectId » removed from UI).
+  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
+  await expect(page.getByTestId("project-status-hint")).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Documents" }).click();
+  // Ensemble 04: documents live on the project rail, not sas secondary tools.
+  await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
+  await expect(page).toHaveURL(/surface=document/);
   await expect(page.getByText("Document Playwright", { exact: false })).toBeVisible();
 
+  // Continuity of the Nora thread is on Travail — return before asserting the message.
+  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
+  await expect(page).toHaveURL(/surface=travail/);
   await page.reload();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
 
@@ -70,7 +82,11 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await pageB.getByRole("button", { name: "Pilote B (DEV)" }).click();
   await pageB.waitForURL("**/portfolio");
   await pageB.goto(`/projects/${projectId}`);
-  await expect(pageB.getByText("non autorisé", { exact: false })).toBeVisible();
+  await expect(pageB.getByTestId("project-unavailable")).toBeVisible();
+  await expect(pageB.getByTestId("project-unavailable")).toHaveAttribute(
+    "data-unavailable-kind",
+    /not_found|unauthorized/,
+  );
   await expect(pageB.getByText("Bonjour Nora depuis Playwright")).toHaveCount(0);
   await bContext.close();
 

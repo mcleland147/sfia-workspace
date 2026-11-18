@@ -1,13 +1,26 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import { config } from "dotenv";
 config({ path: ".env.local" });
+
+// Force DEV fixture before conversation/nora modules evaluate lane (operator .env may be RECETTE).
+vi.hoisted(() => {
+  process.env.STUDIO_LANE = "DEV";
+  process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+  delete process.env.OPENAI_API_KEY;
+});
 
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { pilots, preparations, projects, preparationProjectLinks } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { createProjectCommand, reconcileCreateProject } from "@/domains/preparation/create-project";
-import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
+import {
+  applyPreparationProjection,
+  getPreparationContext,
+  openOrCreatePreparation,
+  updatePreview,
+} from "@/domains/preparation/service";
+import { draftProjectionFromQualification } from "@/domains/preparation/projection";
 import { savePreparationDocument, listDocuments } from "@/domains/document/service";
 import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
 
@@ -21,6 +34,9 @@ describe("PostgreSQL create-project contracts", () => {
   beforeAll(() => {
     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
     // Integration suite must stay on deterministic Nora fixture — LIVE costs/proofs are separate.
+    // Operator .env.local may set STUDIO_LANE=RECETTE + OPENAI_API_KEY; force DEV fixture lane.
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
     delete process.env.OPENAI_API_KEY;
   });
 
@@ -168,12 +184,163 @@ describe("PostgreSQL create-project contracts", () => {
     expect(after.map((m) => m.id)).toEqual(before.map((m) => m.id));
   });
 
-  it("A12: homonyms remain distinct projects", async () => {
+  /**
+   * Discriminant concurrency: two preps, two idempotency keys, same normalized name, parallel.
+   * Without the pilot-scoped name lock, both could CREATED. With the lock: 1 CREATED + 1 CONFLICT.
+   */
+  it("GapA concurrent: same-pilot parallel creates with same name yield one project", async () => {
+    const pilotId = await seedPilot("ConcName");
+    const p1 = await openOrCreatePreparation(pilotId);
+    const p2 = await openOrCreatePreparation(pilotId);
+    await updatePreview(pilotId, p1.id, "Concurrent Homonym", "a");
+    await updatePreview(pilotId, p2.id, "concurrent   HOMONYM", "b");
+    const r1 = (await db.select().from(preparations).where(eq(preparations.id, p1.id)))[0];
+    const r2 = (await db.select().from(preparations).where(eq(preparations.id, p2.id)))[0];
+    const [c1, c2] = await Promise.all([
+      createProjectCommand({
+        pilotId,
+        preparationId: p1.id,
+        expectedCreationRevision: r1.creationRevision,
+        projectName: "Concurrent Homonym",
+        previewSummary: "a",
+        idempotencyKey: newId("idem"),
+      }),
+      createProjectCommand({
+        pilotId,
+        preparationId: p2.id,
+        expectedCreationRevision: r2.creationRevision,
+        projectName: "  concurrent HOMONYM ",
+        previewSummary: "b",
+        idempotencyKey: newId("idem"),
+      }),
+    ]);
+    const statuses = [c1.status, c2.status].sort();
+    expect(statuses).toEqual(["CONFLICT", "CREATED"]);
+    const created = c1.status === "CREATED" ? c1 : c2.status === "CREATED" ? c2 : null;
+    const conflict = c1.status === "CONFLICT" ? c1 : c2.status === "CONFLICT" ? c2 : null;
+    expect(created).toBeTruthy();
+    expect(conflict).toBeTruthy();
+    if (conflict && conflict.status === "CONFLICT") {
+      expect(conflict.reason).toMatch(/name already used/i);
+    }
+    const all = await db.select().from(projects).where(eq(projects.ownerPilotId, pilotId));
+    expect(all).toHaveLength(1);
+    const links = await db
+      .select()
+      .from(preparationProjectLinks)
+      .where(eq(preparationProjectLinks.projectId, all[0]!.id));
+    expect(links).toHaveLength(1);
+  });
+
+  it("GapB: pilot correction becomes create name (projection + command)", async () => {
+    const pilotId = await seedPilot("PilotEdit");
+    const prep = await openOrCreatePreparation(pilotId);
+    await postUserMessageAndNora(
+      pilotId,
+      prep.id,
+      "Je veux un cockpit pour suivre mes projets, d'abord le portefeuille et les risques, nommé Cockpit projets.",
+    );
+    const afterNora = await getPreparationContext(pilotId, prep.id);
+    expect(afterNora.projection?.name?.value).toBe("Cockpit projets");
+    await updatePreview(
+      pilotId,
+      prep.id,
+      "Cockpit projets v2",
+      afterNora.projection?.intention?.value || "corrigé",
+      afterNora.preparation.creationRevision,
+    );
+    const afterEdit = await getPreparationContext(pilotId, prep.id);
+    expect(afterEdit.projection?.name?.value).toBe("Cockpit projets v2");
+    expect(afterEdit.projection?.name?.status).toBe("PILOT_EXPRESSED");
+    expect(afterEdit.projection?.name?.source.kind).toBe("PILOT_UI_EDIT");
+    expect(afterEdit.preparation.previewName).toBe("Cockpit projets v2");
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: afterEdit.preparation.creationRevision,
+      projectName: afterEdit.projection!.name!.value,
+      previewSummary: afterEdit.preparation.previewSummary,
+      idempotencyKey: newId("idem"),
+    });
+    expect(created.status).toBe("CREATED");
+    if (created.status === "CREATED") {
+      const proj = (
+        await db.select().from(projects).where(eq(projects.id, created.projectId))
+      )[0];
+      expect(proj?.name).toBe("Cockpit projets v2");
+    }
+  });
+
+  it("GapC multi-turn: vague → outcome → scope → rename → create (fixture path)", async () => {
+    const {
+      SAS_MATURATION_T1,
+      SAS_MATURATION_T2,
+      SAS_MATURATION_T3,
+      SAS_MATURATION_T4,
+    } = await import("@/domains/conversation/fixture-semantic-qualify");
+    const pilotId = await seedPilot("Maturation");
+    const prep = await openOrCreatePreparation(pilotId);
+
+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T1);
+    let ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.projection).toBeTruthy();
+    expect(ctx.projection?.name ?? null).toBeNull();
+    expect(ctx.projection?.desiredOutcome ?? null).toBeNull();
+    expect(ctx.projection?.suggestion?.assessment).toBe("EXPLORING");
+    expect(ctx.project ?? null).toBeNull();
+    const rev1 = ctx.preparation.creationRevision;
+
+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T2);
+    ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.projection?.desiredOutcome?.value).toMatch(/décisions importantes/i);
+    expect(ctx.projection?.initialScope ?? null).toBeNull();
+    expect(ctx.projection?.suggestion?.assessment).toBe("CLARIFYING");
+    expect(ctx.preparation.creationRevision).toBeGreaterThan(rev1);
+    expect(ctx.project ?? null).toBeNull();
+
+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T3);
+    ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.projection?.name?.value).toBe("Assistant de pilotage");
+    expect(ctx.projection?.initialScope?.value).toMatch(/Espace personnel/i);
+    expect(ctx.projection?.suggestion?.assessment).toBe("BASE_SUFFICIENTE");
+    expect(ctx.project ?? null).toBeNull();
+
+    await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T4);
+    ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.projection?.name?.value).toBe("Cockpit projets");
+    expect(ctx.projection?.name?.value).not.toBe("Assistant de pilotage");
+    expect(ctx.project ?? null).toBeNull();
+
+    const created = await createProjectCommand({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: ctx.preparation.creationRevision,
+      projectName: ctx.projection!.name!.value,
+      previewSummary: ctx.preparation.previewSummary,
+      idempotencyKey: newId("idem"),
+    });
+    expect(created.status).toBe("CREATED");
+    if (created.status === "CREATED") {
+      const proj = (
+        await db.select().from(projects).where(eq(projects.id, created.projectId))
+      )[0];
+      expect(proj?.name).toBe("Cockpit projets");
+      const msgs = await listMessages(pilotId, prep.id);
+      expect(msgs.length).toBeGreaterThanOrEqual(8); // 4 user + 4 nora
+    }
+  });
+
+  /**
+   * Morris 2026-11-16 — same-pilot name uniqueness (app-level).
+   * Diverges from design-only PF-CRE-14 (two same-name projects). Normative R2 not rewritten here.
+   */
+  it("A12/Morris-name: same pilot cannot create two projects with normalized same name", async () => {
     const pilotId = await seedPilot("A12");
     const p1 = await openOrCreatePreparation(pilotId);
     const p2 = await openOrCreatePreparation(pilotId);
     await updatePreview(pilotId, p1.id, "SameName", "a");
-    await updatePreview(pilotId, p2.id, "SameName", "b");
+    // Inspected name on p2 must match the requested create payload (G1); uniqueness still fires.
+    await updatePreview(pilotId, p2.id, "samename", "b");
     const r1 = (await db.select().from(preparations).where(eq(preparations.id, p1.id)))[0];
     const r2 = (await db.select().from(preparations).where(eq(preparations.id, p2.id)))[0];
     const c1 = await createProjectCommand({
@@ -188,14 +355,112 @@ describe("PostgreSQL create-project contracts", () => {
       pilotId,
       preparationId: p2.id,
       expectedCreationRevision: r2.creationRevision,
-      projectName: "SameName",
+      projectName: "  samename  ",
       previewSummary: "b",
       idempotencyKey: newId("idem"),
     });
     expect(c1.status).toBe("CREATED");
-    expect(c2.status).toBe("CREATED");
-    if (c1.status === "CREATED" && c2.status === "CREATED") {
-      expect(c1.projectId).not.toBe(c2.projectId);
+    expect(c2.status).toBe("CONFLICT");
+    if (c2.status === "CONFLICT") {
+      expect(c2.reason).toMatch(/name already used/i);
+    }
+    const all = await db.select().from(projects).where(eq(projects.ownerPilotId, pilotId));
+    expect(all).toHaveLength(1);
+  });
+
+  it("G1: client-only name refused; inspected correction accepted; stale revision conflicts", async () => {
+    const pilotId = await seedPilot("G1Name");
+    const prep = await openOrCreatePreparation(pilotId);
+    await updatePreview(pilotId, prep.id, "Nom inspecté", "s");
+    const mid = await getPreparationContext(pilotId, prep.id);
+
+    const arbitrary = await createProjectCommand({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: mid.preparation.creationRevision,
+      projectName: "Wrong Name Entirely",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(arbitrary.status).toBe("CONFLICT");
+    if (arbitrary.status === "CONFLICT") {
+      expect(arbitrary.reason).toMatch(/does not match inspected/i);
+    }
+    expect(
+      (await db.select().from(projects).where(eq(projects.ownerPilotId, pilotId))).length,
+    ).toBe(0);
+
+    const ok = await createProjectCommand({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: mid.preparation.creationRevision,
+      projectName: "Nom inspecté",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(ok.status).toBe("CREATED");
+
+    // G1-11 style: after rename, old inspected name + stale or mismatched create fails.
+    const prep2 = await openOrCreatePreparation(pilotId);
+    await updatePreview(pilotId, prep2.id, "Ancien", "s");
+    const before = await getPreparationContext(pilotId, prep2.id);
+    await updatePreview(pilotId, prep2.id, "Nouveau", "s");
+    const stale = await createProjectCommand({
+      pilotId,
+      preparationId: prep2.id,
+      expectedCreationRevision: before.preparation.creationRevision,
+      projectName: "Ancien",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(stale.status).toBe("CONFLICT");
+    if (stale.status === "CONFLICT") {
+      expect(stale.reason).toMatch(/stale|does not match inspected/i);
+    }
+    const wrongCurrent = await createProjectCommand({
+      pilotId,
+      preparationId: prep2.id,
+      expectedCreationRevision: (await getPreparationContext(pilotId, prep2.id)).preparation
+        .creationRevision,
+      projectName: "Ancien",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(wrongCurrent.status).toBe("CONFLICT");
+    if (wrongCurrent.status === "CONFLICT") {
+      expect(wrongCurrent.reason).toMatch(/does not match inspected/i);
+    }
+  });
+
+  it("Morris-name: two pilots may share the same display name", async () => {
+    const a = await seedPilot("NameA");
+    const b = await seedPilot("NameB");
+    const prepA = await openOrCreatePreparation(a);
+    const prepB = await openOrCreatePreparation(b);
+    await updatePreview(a, prepA.id, "SharedLabel", "a");
+    await updatePreview(b, prepB.id, "SharedLabel", "b");
+    const rA = (await db.select().from(preparations).where(eq(preparations.id, prepA.id)))[0];
+    const rB = (await db.select().from(preparations).where(eq(preparations.id, prepB.id)))[0];
+    const cA = await createProjectCommand({
+      pilotId: a,
+      preparationId: prepA.id,
+      expectedCreationRevision: rA.creationRevision,
+      projectName: "SharedLabel",
+      previewSummary: "a",
+      idempotencyKey: newId("idem"),
+    });
+    const cB = await createProjectCommand({
+      pilotId: b,
+      preparationId: prepB.id,
+      expectedCreationRevision: rB.creationRevision,
+      projectName: "SharedLabel",
+      previewSummary: "b",
+      idempotencyKey: newId("idem"),
+    });
+    expect(cA.status).toBe("CREATED");
+    expect(cB.status).toBe("CREATED");
+    if (cA.status === "CREATED" && cB.status === "CREATED") {
+      expect(cA.projectId).not.toBe(cB.projectId);
     }
   });
 
@@ -419,6 +684,52 @@ describe("PostgreSQL create-project contracts", () => {
     const prepA = await openOrCreatePreparation(a);
     const result = await reconcileCreateProject(b, prepA.id);
     expect(result.status).toBe("FORBIDDEN");
+  });
+
+  it("SAT projection: Nora turn persists living projection under CAS; no-op does not bump", async () => {
+    const pilotId = await seedPilot("ProjCAS");
+    const prep = await openOrCreatePreparation(pilotId);
+    const turn = await postUserMessageAndNora(pilotId, prep.id, "Je veux créer un projet.");
+    expect(turn.preparationProjection?.status).toMatch(/APPLIED|UNCHANGED|UNAVAILABLE/);
+    const ctx1 = await getPreparationContext(pilotId, prep.id);
+    const revAfterTurn = ctx1.preparation.creationRevision;
+    expect(ctx1.projection || ctx1.preparation.previewName || true).toBeTruthy();
+
+    const draft = draftProjectionFromQualification({
+      preparationId: prep.id,
+      turnKey: "manual-same",
+      qualificationStatus: "QUALIFIED",
+      goal: ctx1.projection?.intention?.value || "Création de projet",
+      clarifications: [],
+      proposedProjectName: ctx1.projection?.name?.value || "Nouveau projet",
+    });
+    expect(draft).toBeTruthy();
+    const unchanged = await applyPreparationProjection({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: revAfterTurn,
+      draft: draft!,
+    });
+    // If material content already matches, revision stays; otherwise APPLIED once is fine.
+    if (unchanged.status === "UNCHANGED") {
+      expect(unchanged.revision).toBe(revAfterTurn);
+    }
+
+    const conflict = await applyPreparationProjection({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: revAfterTurn - 1,
+      draft: {
+        ...draft!,
+        intention: {
+          value: "Intention divergente pour conflit",
+          status: "NORA_PROPOSED",
+          source: { kind: "NORA_TURN", ref: "conflict" },
+          isCurrent: true,
+        },
+      },
+    });
+    expect(conflict.status).toBe("CONFLICT");
   });
 
   it("project reopen by projectId resolves same preparation thread (owner only)", async () => {

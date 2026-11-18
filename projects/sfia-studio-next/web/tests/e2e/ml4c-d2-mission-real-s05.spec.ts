@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { seedInspectedNameViaApi, uniqueProjectName } from "./helpers/g4-chat-first";
 
 /**
  * Q1 — DETERMINISTIC END-TO-END ON DEV BOUNDARY.
@@ -91,15 +92,19 @@ test.describe("Q1 real D2 mission + S05", () => {
     expect(bodyA.humanDecisionCreated).not.toBe(true);
     const intentKey = bodyA.missionProjection.clientIntentKey as string;
 
-    // Restitution métier (status enum is API/oracle, not literal UI copy).
-    await expect(
-      page.getByText(/acte Pilote requis|création de projet/i).first(),
-    ).toBeVisible({ timeout: 15000 });
-    await expect(page.getByText(/Espace de préparation — projet non créé/i)).toBeVisible();
+    // Restitution métier — API already proved AWAITING_PILOT_ACT.
+    // Seed inspected name so the explicit D2 CTA appears (name required by living aperçu).
+    if ((await page.getByTestId("prep-create-project").count()) === 0) {
+      await seedInspectedNameViaApi(page, {
+        name: uniqueProjectName("Mission S05"),
+        summary: "mission s05 e2e",
+      });
+    }
+    await expect(page.getByTestId("sas-stage-kicker")).toBeVisible();
+    expect(page.url()).toContain(`/preparations/${prepId}`);
     // Explicit D2 gesture present but NOT clicked (MISSION-16).
     const createBtn = page.getByTestId("prep-create-project");
     await expect(createBtn).toBeVisible({ timeout: 15000 });
-    expect(page.url()).toContain(`/preparations/${prepId}`);
 
     const afterA = await oracle(page, prepId);
     expect(afterA.projectId).toBeNull();

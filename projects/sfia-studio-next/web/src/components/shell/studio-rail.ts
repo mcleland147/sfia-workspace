@@ -10,7 +10,14 @@ import type { CSSProperties } from "react";
 
 export type StudioRailVariant = "personnel" | "projet" | "conversation" | "inspection";
 
-export type StudioSurface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
+export type StudioSurface =
+  | "travail"
+  | "projet"
+  | "pilotage"
+  | "journal"
+  | "document"
+  | "git"
+  | "publication";
 
 export type StudioRailTokens = {
   variant: StudioRailVariant;
@@ -30,61 +37,75 @@ export const STUDIO_RAIL_VARIANTS: Record<StudioRailVariant, StudioRailTokens> =
   personnel: {
     variant: "personnel",
     widthPx: 246,
-    fill: "#0C101A",
+    fill: "#0D1220",
     paddingTop: 20,
     paddingRight: 19,
     paddingBottom: 0,
     paddingLeft: 19,
     gap: 10,
     railComponentId: "shell.rail.personnel",
-    sourceNodeId: "94:51",
+    sourceNodeId: "606:20",
   },
   projet: {
     variant: "projet",
     widthPx: 246,
-    fill: "#0C1020",
-    paddingTop: 24,
-    paddingRight: 24,
-    paddingBottom: 24,
-    paddingLeft: 24,
-    gap: 13,
+    // ML4D 652:* validated — common project rail fill
+    fill: "#0C101A",
+    paddingTop: 22,
+    paddingRight: 16,
+    paddingBottom: 22,
+    paddingLeft: 16,
+    gap: 10,
     railComponentId: "shell.rail.projet",
-    sourceNodeId: "160:176",
+    sourceNodeId: "652:8",
   },
   conversation: {
     variant: "conversation",
-    widthPx: 240,
-    fill: "#0D111B",
-    paddingTop: 25,
-    paddingRight: 19,
-    paddingBottom: 0,
-    paddingLeft: 19,
-    gap: 13,
+    // Ensemble 04 — project desktop rail fixed at 246 (Figma 652:*)
+    widthPx: 246,
+    fill: "#0C101A",
+    paddingTop: 22,
+    paddingRight: 16,
+    paddingBottom: 16,
+    paddingLeft: 16,
+    gap: 10,
     railComponentId: "shell.rail.conversation",
-    sourceNodeId: "94:215",
+    sourceNodeId: "652:8",
   },
   inspection: {
     variant: "inspection",
-    widthPx: 244,
+    widthPx: 246,
     fill: "#0C101A",
-    paddingTop: 23,
-    paddingRight: 19,
-    paddingBottom: 22,
-    paddingLeft: 19,
-    gap: 11,
+    paddingTop: 22,
+    paddingRight: 16,
+    paddingBottom: 16,
+    paddingLeft: 16,
+    gap: 10,
     railComponentId: "shell.rail.inspection",
-    sourceNodeId: "94:372",
+    sourceNodeId: "652:8",
   },
 };
 
 export const PROJECT_SURFACES: StudioSurface[] = [
   "travail",
+  "projet",
   "pilotage",
   "journal",
   "document",
   "git",
   "publication",
 ];
+
+/** Breadcrumb / chrome labels — Trajectoire remains URL-compatible with ?surface=pilotage. */
+export const PROJECT_SURFACE_LABELS: Record<StudioSurface, string> = {
+  travail: "Travail",
+  projet: "Projet",
+  pilotage: "Trajectoire",
+  journal: "Journal",
+  document: "Documents Nora",
+  git: "Sources Git",
+  publication: "Résultats et preuves",
+};
 
 export function parseStudioSurface(raw: string | null | undefined): StudioSurface | null {
   if (!raw) return null;
@@ -199,8 +220,8 @@ export function resolveRailVariant(input: {
     return "personnel";
   }
   if (path.startsWith("/preparations/")) {
-    // 159:145 « préparation retrouvée » uses projet rail when resume context is explicit.
-    if (sp?.get("resume") === "1" || sp?.get("from") === "portfolio") return "projet";
+    // Sas Nora Figma 607:* — all five states use the personal minimal rail (606:20).
+    void sp;
     return "personnel";
   }
   if (path.startsWith("/settings")) {
@@ -211,10 +232,13 @@ export function resolveRailVariant(input: {
     if (surface === "document" || surface === "git" || surface === "publication") return "inspection";
     if (surface === "travail") return "conversation";
     if (surface === "journal") return "personnel";
+    // projet overview + pilotage/trajectoire share the product rail fill
     return "projet";
   }
   return "personnel";
 }
+
+export type ShellNavAction = "open-preparation";
 
 export type ShellNavItem = {
   key: string;
@@ -223,7 +247,31 @@ export type ShellNavItem = {
   active: boolean;
   /** Inactive without context — never a fake # link. */
   disabledReason?: string;
+  /** Explicit UI action (not a GET navigation). */
+  action?: ShellNavAction;
 };
+
+/**
+ * Personal-space breadcrumb second segment — known routes only.
+ * Never invent a label; never keep « Portefeuille » on another route.
+ */
+export function resolvePersonalBreadcrumb(
+  pathname: string,
+  searchParams?: URLSearchParams | { get(name: string): string | null } | null,
+): string | null {
+  const path = pathname || "/";
+  if (path.startsWith("/portfolio") || path === "/") return "Portefeuille";
+  if (path.startsWith("/preparations/")) {
+    const resumed =
+      searchParams?.get("resume") === "1" || searchParams?.get("from") === "portfolio";
+    return resumed ? "Préparation reprise" : "Nouvelle préparation";
+  }
+  if (path.startsWith("/dev/sas-visual/resume")) return "Préparation reprise";
+  if (path.startsWith("/dev/sas-visual/")) return "Nouvelle préparation";
+  if (path.startsWith("/settings/integrations")) return "Intégrations";
+  if (path.startsWith("/settings")) return "Paramètres";
+  return null;
+}
 
 export function buildShellNav(input: {
   pathname: string;
@@ -234,13 +282,8 @@ export function buildShellNav(input: {
   const preparationId = parsePreparationId(path);
   const surface = parseStudioSurface(input.surface) ?? (projectId ? "travail" : null);
 
+  // UX-004: one personal destination — Portefeuille (no Mes projets / Tous les projets).
   const items: ShellNavItem[] = [
-    {
-      key: "mes-projets",
-      label: "Mes projets",
-      href: "/portfolio",
-      active: path.startsWith("/portfolio") || path === "/",
-    },
     {
       key: "portfolio",
       label: "Portefeuille",
@@ -252,50 +295,34 @@ export function buildShellNav(input: {
   if (!projectId && !preparationId) {
     items.push({
       key: "new-prep",
-      label: "Créer un projet",
-      href: "/portfolio#nouvelle-preparation",
+      label: "Nouveau projet",
+      href: null,
       active: false,
+      action: "open-preparation",
     });
-    items.push({
-      key: "login",
-      label: "Connexion",
-      href: "/login",
-      active: path.startsWith("/login"),
-    });
+    // Connected personal space: no redundant « Connexion » rail entry.
     return items;
   }
 
   if (preparationId) {
+    // SAS-F-13 — minimal personal rail: Portefeuille + Préparation en cours.
+    // No Travail / Pilotage / Documents / Journal before verified project creation.
     items.push({
       key: "sas",
-      label: "Sas",
+      label: "Préparation en cours",
       href: `/preparations/${preparationId}`,
       active: true,
     });
-    // Surfaces projet require projectId — show disabled labels, not fake links.
-    for (const [key, label] of [
-      ["travail", "Travail"],
-      ["pilotage", "Pilotage"],
-      ["document", "Documents"],
-      ["journal", "Journal"],
-    ] as const) {
-      items.push({
-        key,
-        label,
-        href: null,
-        active: false,
-        disabledReason: "Disponible après création / ouverture du projet",
-      });
-    }
     return items;
   }
 
-  // project context — real surface URLs
+  // Ensemble 04 rail NAVIGATION — Documents/Git stay in Accès directs (not primary).
+  // Trajectoire keeps ?surface=pilotage for deep-link compatibility.
   const surfaces: Array<{ key: StudioSurface; label: string }> = [
     { key: "travail", label: "Travail" },
-    { key: "pilotage", label: "Pilotage" },
-    { key: "document", label: "Documents" },
+    { key: "projet", label: "Projet" },
     { key: "journal", label: "Journal" },
+    { key: "pilotage", label: "Trajectoire" },
   ];
   for (const s of surfaces) {
     items.push({

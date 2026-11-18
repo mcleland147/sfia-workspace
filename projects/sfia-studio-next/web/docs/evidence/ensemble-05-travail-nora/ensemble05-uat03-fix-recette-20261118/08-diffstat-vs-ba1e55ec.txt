@@ -1,0 +1,8 @@
+ projects/sfia-studio-next/web/.gitignore           |   3 +
+ .../web/src/domains/conversation/nora-adapter.ts   | 200 ++++++++++++++++++++-
+ .../src/domains/conversation/visual-composition.ts |   7 +-
+ .../sfia-studio-next/web/src/lib/observability.ts  |   5 +
+ .../web/tests/unit/nora-adapter-corrective.test.ts |  30 ++++
+ .../tests/unit/uat03-sequence-detail-limit.test.ts | 155 ++++++++++++++++
+ projects/sfia-studio-next/web/tsconfig.json        |   2 +-
+ 7 files changed, 393 insertions(+), 9 deletions(-)

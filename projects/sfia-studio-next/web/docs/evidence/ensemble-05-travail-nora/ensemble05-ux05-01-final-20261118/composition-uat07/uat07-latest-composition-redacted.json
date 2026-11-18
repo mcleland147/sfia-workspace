@@ -1,0 +1,92 @@
+{
+  "userMessageId": "msg_54bb7aff-2552-457f-ab6c-7068410e04e0",
+  "assistantMessageId": "msg_84ae0ce0-34a5-42bb-a5ab-32c3178c1286",
+  "operationId": "op_4494d94f-9ef2-452a-b7a2-a45bb743978d",
+  "status": "COMPLETE",
+  "noraMode": "openai-agents-sdk-live",
+  "semanticQualificationStatus": "QUALIFIED",
+  "relationsBlock": {
+    "kind": "relations",
+    "id": "coordination-parallele",
+    "title": "Coordination à visualiser",
+    "nodes": [
+      {
+        "id": "infrastructure",
+        "label": "Infrastructure",
+        "kind": "fact",
+        "laneId": "infrastructure",
+        "detail": "Configurer les environnements et vérifier les accès."
+      },
+      {
+        "id": "metier",
+        "label": "Métier",
+        "kind": "fact",
+        "laneId": "metier",
+        "detail": "Préparer les scénarios et les données de recette."
+      },
+      {
+        "id": "accompagnement",
+        "label": "Accompagnement",
+        "kind": "fact",
+        "laneId": "accompagnement",
+        "detail": "Préparer les communications et la formation."
+      },
+      {
+        "id": "synchronisation",
+        "label": "Tous les livrables terminés",
+        "kind": "fact",
+        "laneId": "commun",
+        "detail": "Point de synchronisation : attendre la fin des livrables des trois équipes."
+      },
+      {
+        "id": "revue",
+        "label": "Revue commune",
+        "kind": "fact",
+        "laneId": "commun",
+        "detail": "Revue réunissant les trois équipes avant le lancement."
+      },
+      {
+        "id": "lancement",
+        "label": "Lancement",
+        "kind": "fact",
+        "laneId": "commun",
+        "detail": "Étape visée après la revue, sous réserve de ses conclusions ; aucune autorisation n'est donnée par ce schéma."
+      }
+    ],
+    "edges": [
+      {
+        "from": "infrastructure",
+        "to": "synchronisation",
+        "label": "Livrables terminés",
+        "relation": "sync"
+      },
+      {
+        "from": "metier",
+        "to": "synchronisation",
+        "label": "Livrables terminés",
+        "relation": "sync"
+      },
+      {
+        "from": "accompagnement",
+        "to": "synchronisation",
+        "label": "Livrables terminés",
+        "relation": "sync"
+      },
+      {
+        "from": "synchronisation",
+        "to": "revue",
+        "label": "Les trois équipes ont terminé",
+        "relation": "flow"
+      },
+      {
+        "from": "revue",
+        "to": "lancement",
+        "label": "Sous réserve des conclusions de la revue",
+        "relation": "flow"
+      }
+    ],
+    "textAlternative": "Trois équipes travaillent en parallèle : Infrastructure configure les environnements et vérifie les accès ; Métier prépare les scénarios et les données de recette ; Accompagnement prépare les communications et la formation. Leurs trois voies convergent vers un point de synchronisation, franchi lorsque tous leurs livrables sont terminés. Vient ensuite la revue commune, puis le lancement sous réserve des conclusions de cette revue.",
+    "layoutHint": "parallelProcess",
+    "role": "information"
+  }
+}

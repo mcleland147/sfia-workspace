@@ -14,6 +14,7 @@ import {
   pilots,
   preparations,
   projectCycles,
+  projects,
 } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
@@ -83,15 +84,26 @@ async function seedPilot(label: string) {
   return id;
 }
 
-async function seedPrepOnly(label: string) {
+/**
+ * Open a preparation for conversation tests.
+ * Do NOT plant a PILOT_UI_EDIT project name by default — that would lock mergeNoraDraftWithPrior
+ * against a later Nora proposedProjectName (G1 inspected-name authority).
+ * Pass inspectedName when the caller will create immediately without a Nora rename.
+ */
+async function seedPrepOnly(label: string, opts?: { inspectedName?: string }) {
   const pilotId = await seedPilot(label);
   const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, label, "s");
+  if (opts?.inspectedName != null && opts.inspectedName.trim()) {
+    await updatePreview(pilotId, prep.id, opts.inspectedName.trim(), "s");
+  } else {
+    // Summary-only seed: no pilot-owned name field that would block Nora proposals.
+    await updatePreview(pilotId, prep.id, "", "s");
+  }
   return { pilotId, preparationId: prep.id };
 }
 
 async function seedProject(label: string) {
-  const { pilotId, preparationId } = await seedPrepOnly(label);
+  const { pilotId, preparationId } = await seedPrepOnly(label, { inspectedName: label });
   const refreshed = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0];
   const created = await createProjectCommand({
     pilotId,
@@ -686,7 +698,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   });
 
   it("G4/S12: mobilizeCapability on real D2 + D4 contracts + future double", async () => {
-    const { pilotId, preparationId } = await seedPrepOnly("scen-g4-mob");
+    const { pilotId, preparationId } = await seedPrepOnly("scen-g4-mob", {
+      inspectedName: "Mobilized Project",
+    });
     const prep = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     const d2 = CAPABILITY_CONTRACTS.find((c) => c.capabilityId === "d2.create_project")!;
     const created = await mobilizeCapability(
@@ -868,25 +882,45 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const prepAfter = (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]!;
     expect(prepAfter.status).not.toBe("ATTACHED");
 
+    // Mission binding stays AUTHORIZED for the awaiting key — but an arbitrary client-only
+    // name must not create. D2 inspected name (Auth Exact) is authoritative under lock.
     const nameAuth = await authorizeMissionBoundD2Create({
       pilotId,
       preparationId,
       clientIntentKey: keyA,
       projectName: "Wrong Name Entirely",
     });
-    expect(nameAuth.outcome).toBe("FORBIDDEN");
-    if (nameAuth.outcome === "FORBIDDEN") {
-      expect(["MISSION_NAME_MISMATCH", "MISSION_KEY_MISMATCH"]).toContain(nameAuth.code);
+    expect(nameAuth.outcome).toBe("AUTHORIZED");
+    if (nameAuth.outcome === "AUTHORIZED") {
+      // Mission memory is not rewritten from the client payload.
+      expect(nameAuth.mission.proposedProjectName).not.toBe("Wrong Name Entirely");
+    }
+    const refused = await createProjectCommand({
+      pilotId,
+      preparationId,
+      expectedCreationRevision: prepAfter.creationRevision,
+      projectName: "Wrong Name Entirely",
+      previewSummary: "s",
+      idempotencyKey: newId("idem"),
+    });
+    expect(refused.status).toBe("CONFLICT");
+    if (refused.status === "CONFLICT") {
+      expect(refused.reason).toMatch(/does not match inspected/i);
     }
     expect(
       (await db.select().from(preparations).where(eq(preparations.id, preparationId)))[0]?.status,
     ).not.toBe("ATTACHED");
 
+    // Persist a legitimate conversational/UI name correction, then create must use it.
+    await updatePreview(pilotId, preparationId, "Cockpit Auth", prepAfter.previewSummary || "s");
+    const afterRename = (
+      await db.select().from(preparations).where(eq(preparations.id, preparationId))
+    )[0]!;
     const ok = await authorizeMissionBoundD2Create({
       pilotId,
       preparationId,
       clientIntentKey: keyA,
-      projectName: "Auth Exact",
+      projectName: "Cockpit Auth",
     });
     expect(ok.outcome).toBe("AUTHORIZED");
     if (ok.outcome !== "AUTHORIZED") throw new Error("expected AUTHORIZED");
@@ -894,12 +928,16 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const created = await createProjectCommand({
       pilotId,
       preparationId,
-      expectedCreationRevision: prepAfter.creationRevision,
-      projectName: "Auth Exact",
+      expectedCreationRevision: afterRename.creationRevision,
+      projectName: "Cockpit Auth",
       previewSummary: "s",
       idempotencyKey: ok.idempotencyKey,
     });
     expect(created.status).toBe("CREATED");
+    if (created.status === "CREATED") {
+      const proj = (await db.select().from(projects).where(eq(projects.id, created.projectId)))[0];
+      expect(proj?.name).toBe("Cockpit Auth");
+    }
   });
 
   it("S06/S07: two awaiting missions — recover binds D2 owner act, not neighboring awaiting", async () => {
@@ -1039,9 +1077,9 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
   it("S05: two projects same Pilot — recover on Atlas never uses Orion conversation/mission", async () => {
     const atlas = await seedPrepOnly("scen-s05-atlas");
     const orion = await seedPrepOnly("scen-s05-orion");
-    // Same pilot: re-seed Orion under Atlas pilot
+    // Same pilot: re-seed Orion under Atlas pilot — no pilot name lock before Nora proposal.
     const orionPrep = await openOrCreatePreparation(atlas.pilotId);
-    await updatePreview(atlas.pilotId, orionPrep.id, "Orion Prep", "s");
+    await updatePreview(atlas.pilotId, orionPrep.id, "", "s");
 
     const keyAtlas = newId("ctk");
     const keyOrion = newId("ctk");

@@ -1,0 +1,320 @@
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 12f19274..194f678c 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -1,3 +1,6 @@
++import { createHash } from "node:crypto";
++import { mkdirSync, writeFileSync } from "node:fs";
++import { join } from "node:path";
+ import { newId } from "@/lib/ids";
+ import {
+   buildLevelAClarification,
+@@ -154,7 +157,8 @@ export function categorizeProviderError(err: unknown): {
+   preContactLikely: boolean;
+ } {
+   const msg = err instanceof Error ? err.message : String(err);
+-  const interrupted = /abort|timeout|AbortError/i.test(msg);
++  // Include "timed out" (ModelTimeoutError) — contiguous "timeout" alone misses it.
++  const interrupted = /abort|timeout|timed\s*out|AbortError/i.test(msg);
+   // Only treat as pre-contact when clearly local/config before network.
+   const preContactLikely =
+     /API key|OPENAI_API_KEY|missing.*key|invalid.*model.*settings|Cannot find module|setTracingDisabled/i.test(
+@@ -163,12 +167,17 @@ export function categorizeProviderError(err: unknown): {
+   let category = "PROVIDER_ERROR";
+   if (interrupted) category = "PROVIDER_INTERRUPTED";
+   else if (
+-    /json.?schema|invalid schema|structured output|response_format|output_type|unsupported.*schema/i.test(
++    // UAT-03: Agents SDK uses "Invalid output type" (space) — must match, not only output_type.
++    /json.?schema|invalid schema|invalid output type|schema validation|structured output|response_format|output[_\s]?type|unsupported.*schema|ZodError|failed schema/i.test(
+       msg,
+     )
+   ) {
+     category = "PROVIDER_SCHEMA_OR_OUTPUT";
+-  } else if (/model|not found|does not exist|unauthorized|insufficient|entitlement/i.test(msg)) {
++  } else if (
++    /model (?:not found|does not exist)|unauthorized|insufficient|entitlement|rate[_ ]?limit|429/i.test(
++      msg,
++    )
++  ) {
+     category = "PROVIDER_MODEL_OR_ENTITLEMENT";
+   } else if (preContactLikely) category = "PROVIDER_PRE_CONTACT_CONFIG";
+   return { category, interrupted, preContactLikely };
+@@ -176,18 +185,140 @@ export function categorizeProviderError(err: unknown): {
+
+ const SAFE_ERROR_NAME = /^[A-Za-z][A-Za-z0-9_.]{0,80}$/;
+ const SAFE_ERROR_CODE = /^[A-Za-z0-9_.-]{1,64}$/;
++const SAFE_ZOD_PATH = /^[A-Za-z0-9_.\[\]()-]{1,160}$/;
+ const SENSITIVE_IN_CODE =
+   /sk-|ghp_|github_pat_|api[_-]?key|bearer|authorization|password|secret/i;
+
++/** Agents SDK 0.21 emits this shape from formatFinalOutputTypeError. */
++const INVALID_OUTPUT_PATH_RE =
++  /Invalid output type:\s*final assistant output failed schema validation at "([^"]+)"(?:\s*\(([^)]*)\))?/i;
++
++/**
++ * Stable semantic kind surviving production minify (`new.target.name` → `"h"`).
++ * Derived from message patterns + non-minified names only — never raw bodies.
++ */
++export function classifyProviderErrorKind(err: unknown): string {
++  const msg = err instanceof Error ? err.message : String(err);
++  const name = err instanceof Error ? err.name : "";
++  if (/abort|AbortError/i.test(msg) || name === "AbortError") return "aborted";
++  if (/timeout|timed\s*out|ETIMEDOUT/i.test(msg) || name === "ModelTimeoutError") return "timeout";
++  if (INVALID_OUTPUT_PATH_RE.test(msg) || /failed schema validation/i.test(msg)) {
++    return "structured_output_schema_validation";
++  }
++  if (/Invalid output type/i.test(msg)) return "structured_output_invalid_type";
++  if (/structured output type|no final output/i.test(msg)) return "structured_output_missing";
++  if (/ZodError/i.test(name) || /ZodError/i.test(msg)) return "zod_validation";
++  if (/MaxTurnsExceeded/i.test(name) || /max(?:imum)? turns/i.test(msg)) return "max_turns";
++  if (/ModelRefusal/i.test(name) || /refused to produce/i.test(msg)) return "model_refusal";
++  if (/ModelBehaviorError/i.test(name)) return "model_behavior";
++  if (/ECONNRESET|ENOTFOUND|ECONNREFUSED|fetch failed|socket/i.test(msg)) return "network_transport";
++  if (/\b429\b|rate[_ ]?limit/i.test(msg)) return "rate_limit";
++  if (/\b5\d\d\b/.test(msg)) return "http_5xx";
++  if (SAFE_ERROR_NAME.test(name) && name.length > 2 && !SENSITIVE_IN_CODE.test(name)) {
++    return `named_${name}`;
++  }
++  return "unclassified";
++}
++
++/** Parse Zod/Agents schema path from known safe SDK messages only. */
++export function extractSchemaValidationPath(err: unknown): {
++  zod_issue_path: string | null;
++  validation_rule_hint: string | null;
++} {
++  const msg = err instanceof Error ? err.message : String(err);
++  const m = INVALID_OUTPUT_PATH_RE.exec(msg);
++  if (!m) return { zod_issue_path: null, validation_rule_hint: null };
++  const path = m[1]?.trim() ?? "";
++  const detail = (m[2] ?? "").trim();
++  const zod_issue_path = path && SAFE_ZOD_PATH.test(path) ? path : null;
++  let validation_rule_hint: string | null = null;
++  if (/Too big|at most \d+ character|<=\s*\d+\s*character/i.test(detail)) {
++    validation_rule_hint = "max_length";
++  } else if (/Too small|at least \d+/i.test(detail)) {
++    validation_rule_hint = "min_length_or_count";
++  } else if (/Required|required/i.test(detail)) validation_rule_hint = "required";
++  else if (/Invalid enum|invalid_enum/i.test(detail)) validation_rule_hint = "enum";
++  else if (/Expected|Invalid/i.test(detail)) validation_rule_hint = "type_or_format";
++  else if (detail) validation_rule_hint = "other";
++  return { zod_issue_path, validation_rule_hint };
++}
++
++/**
++ * Bounded fingerprint of error message shape — never stores raw message.
++ * Collapses digits and long quotes; SHA-256 truncated.
++ */
++export function providerErrorMessageFingerprint(err: unknown): string {
++  const msg = err instanceof Error ? err.message : String(err);
++  const normalized = msg
++    .replace(SENSITIVE_IN_CODE, "[REDACTED]")
++    .replace(/"[^"]{24,}"/g, '"…"')
++    .replace(/\d+/g, "N")
++    .replace(/\s+/g, " ")
++    .trim()
++    .slice(0, 240);
++  return createHash("sha256").update(normalized).digest("hex").slice(0, 16);
++}
++
+ /**
+- * R05 — bounded extraction of provider/SDK diagnostics for OBS allowlist only.
+- * Walks nested `cause` up to depth 4. Never returns raw messages, prompts, or bodies.
++ * DEV forensic only (`STUDIO_NORA_DIAG_EPHEMERAL=1`). Writes under `.tmp-sfia-nora-diag/`.
++ * Never enabled on RECETTE/STABLE. Not published to handoff.
++ */
++function writeEphemeralNoraDiag(input: {
++  generationId: string;
++  attemptId: string;
++  phase: string;
++  category: string;
++  diag: ReturnType<typeof extractProviderErrorDiagnostics>;
++  err: unknown;
++}): void {
++  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
++  if (process.env.STUDIO_NORA_DIAG_EPHEMERAL !== "1") return;
++  if (lane !== "DEV") return;
++  try {
++    const dir = join(process.cwd(), ".tmp-sfia-nora-diag");
++    mkdirSync(dir, { recursive: true });
++    const err = input.err;
++    const rawName = err instanceof Error ? err.name : typeof err;
++    const rawMsg = err instanceof Error ? err.message : String(err);
++    const stack = err instanceof Error ? (err.stack ?? "").split("\n").slice(0, 12) : [];
++    const cause =
++      err instanceof Error && err.cause instanceof Error
++        ? { name: err.cause.name, message: err.cause.message.slice(0, 500) }
++        : null;
++    const payload = {
++      ts_utc: new Date().toISOString(),
++      lane,
++      generationId: input.generationId,
++      attemptId: input.attemptId,
++      phase: input.phase,
++      category: input.category,
++      diag: input.diag,
++      raw: {
++        name: rawName,
++        message: rawMsg.slice(0, 2000).replace(SENSITIVE_IN_CODE, "[REDACTED]"),
++        stack,
++        cause,
++      },
++      notice: "EPHEMERAL LOCAL DIAG — do not publish to handoff / do not copy to RECETTE",
++    };
++    const file = join(dir, `${input.generationId}-${input.attemptId}.json`);
++    writeFileSync(file, JSON.stringify(payload, null, 2), { mode: 0o600 });
++  } catch {
++    // Forensic best-effort — never fail the turn path.
++  }
++}
++
++/**
++ * R05 / UAT-03 — bounded extraction of provider/SDK diagnostics for OBS allowlist only.
++ * Walks nested `cause` up to depth 4. Survives minified Error.name. Never returns raw bodies.
+  */
+ export function extractProviderErrorDiagnostics(
+   err: unknown,
+   opts?: { phase?: string; streamingDelivered?: boolean; toolCallsObserved?: number },
+ ): {
+   error_name: string;
++  error_name_stable: string;
++  error_kind: string;
+   error_code: string | null;
+   http_status: number | null;
+   transport_kind: string | null;
+@@ -195,6 +326,9 @@ export function extractProviderErrorDiagnostics(
+   streaming_delivered: boolean;
+   cause_depth: number;
+   tool_calls_observed: number | null;
++  zod_issue_path: string | null;
++  validation_rule_hint: string | null;
++  msg_fingerprint: string;
+ } {
+   let errorName = "Error";
+   let errorCode: string | null = null;
+@@ -202,11 +336,14 @@ export function extractProviderErrorDiagnostics(
+   let transportKind: string | null = null;
+   let depth = 0;
+   let cur: unknown = err;
++  let bestNamed: string | null = null;
+
+   while (cur != null && depth < 4) {
+     if (cur instanceof Error) {
+       if (SAFE_ERROR_NAME.test(cur.name) && !SENSITIVE_IN_CODE.test(cur.name)) {
+         errorName = cur.name;
++        // Prefer non-minified names (len>2) when walking the cause chain.
++        if (cur.name.length > 2) bestNamed = cur.name;
+       }
+       const anyErr = cur as Error & {
+         code?: unknown;
+@@ -237,7 +374,7 @@ export function extractProviderErrorDiagnostics(
+         transportKind = "network_transport";
+       } else if (/abort|AbortError/i.test(msg) || cur.name === "AbortError") {
+         transportKind = "aborted";
+-      } else if (/timeout/i.test(msg)) {
++      } else if (/timeout|timed\s*out/i.test(msg)) {
+         transportKind = "timeout";
+       } else if (httpStatus != null) {
+         transportKind = "http";
+@@ -257,9 +394,28 @@ export function extractProviderErrorDiagnostics(
+
+   const phase =
+     opts?.phase && SAFE_ERROR_CODE.test(opts.phase) ? opts.phase : "provider_stream";
++  const error_kind = classifyProviderErrorKind(err);
++  const schemaBits = extractSchemaValidationPath(err);
++  const error_name_stable =
++    bestNamed ??
++    (error_kind.startsWith("named_")
++      ? error_kind.slice("named_".length)
++      : error_kind === "structured_output_schema_validation" ||
++          error_kind === "structured_output_invalid_type" ||
++          error_kind === "structured_output_missing"
++        ? "ModelBehaviorError"
++        : error_kind === "timeout"
++          ? "ModelTimeoutError"
++          : error_kind === "zod_validation"
++            ? "ZodError"
++            : errorName.length > 2
++              ? errorName
++              : "Error");
+
+   return {
+     error_name: errorName,
++    error_name_stable,
++    error_kind,
+     error_code: errorCode,
+     http_status: httpStatus,
+     transport_kind: transportKind,
+@@ -268,6 +424,9 @@ export function extractProviderErrorDiagnostics(
+     cause_depth: depth,
+     tool_calls_observed:
+       typeof opts?.toolCallsObserved === "number" ? opts.toolCallsObserved : null,
++    zod_issue_path: schemaBits.zod_issue_path,
++    validation_rule_hint: schemaBits.validation_rule_hint,
++    msg_fingerprint: providerErrorMessageFingerprint(err),
+   };
+ }
+
+@@ -540,6 +699,20 @@ async function configureSdkTracingSafe(): Promise<void> {
+   if (typeof agents.setTracingDisabled === "function") {
+     agents.setTracingDisabled(true);
+   }
++  // DEV forensic only: Agents SDK redacts Zod details by default (dontLogModelData=true).
++  // Enabling sensitive logging surfaces schema paths into ModelBehaviorError messages —
++  // still scrubbed before OBS/handoff; ephemeral dump captures them locally.
++  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
++  if (process.env.STUDIO_NORA_DIAG_EPHEMERAL === "1" && lane === "DEV") {
++    try {
++      const core = await import("@openai/agents-core");
++      if (typeof core.setSensitiveDataLoggingEnabled === "function") {
++        core.setSensitiveDataLoggingEnabled(true);
++      }
++    } catch {
++      // optional — investigation continues with redacted SDK errors
++    }
++  }
+ }
+
+ async function runLiveWithTools(
+@@ -609,6 +782,7 @@ async function runLiveWithTools(
+     "- resourceReferences (optionnel) = références consultables document/git/external — ce ne sont PAS des choix de poursuite.",
+     "- visualComposition (optionnel, WRITE schema conversational-composition-canonical-v1 = sections sémantiques CANONIQUES ; lecture historique : conversational-composition-projection-v1 Strategy B et e05-visual-composition-v1) = source unique de sens pour ce tour : blocs text|comparison|sequence|relations|synthesis. Studio dérive le texte de lecture et la vue graphique depuis la même structure. Relations : layoutHint optionnel dependencies|decisionTree|parallelProcess ; edges.relation optionnel depends_on|condition_true|condition_false|sync|flow ; nodes.laneId pour voies parallèles. Omettre pour une réponse purement narrative (replyDraft seul). N'invente jamais de données manquantes ; chaque bloc graphique DOIT fournir textAlternative. Jamais de HTML/CSS/JS. Ne crée aucun effet métier par la seule présence d'un bloc.",
+     "- COMPARAISON : si tu présentes ≥2 alternatives individualisables (titre + résumé et/ou avantages/limites distincts), émets un bloc kind=comparison avec alternatives[] — ne te contente pas d'un tableau Markdown dans replyDraft. Si des critères homogènes et réellement renseignés existent pour chaque option, ajoute criteria[]. Si les options sont trop incomplètes pour des cartes/matrice fidèles, reste en prose (pas de visualComposition comparison). Ne fabrique jamais de limites ou de cellules pour « remplir » une maquette.",
++    "- SEQUENCE (parcours en étapes) : pour chaque step, detail peut expliquer résultats attendus et points de vigilance de façon utile et proportionnée (plafond schéma 5000 caractères — ce n'est PAS un objectif de longueur). Reste concis quand c'est suffisant ; n'invente rien pour « remplir » ; respecte le schéma ; ne tronque pas une information critique pour tenir dans une maquette.",
+     "- RELATIONS — choisir layoutHint sans les confondre : dependencies = prérequis / dépendances orientées / convergence vers un contrôle (edges depends_on|flow, sans exiger laneId) ; parallelProcess = voies d'activités simultanées avec laneId distincts (≥2 voies) et sync seulement si une synchronisation est réelle ; decisionTree = branches conditionnelles (condition_true|condition_false, une racine). Un graphe peut mentionner le parallélisme sans être parallelProcess s'il n'y a pas de voies structurées. Ne transforme pas un simple depends_on en sync.",
+     "- Champs de présentation optionnels (si fondés) : lead, headlineAccent, indicators (valeurs connues seulement), strategyCards, checklist, orientation, editorialNote, timeline (uniquement si une temporalité est fournie ou explicitement hypothétique). Ne force pas de graphique. N'invente jamais d'effectifs, de délais ou de chronologie pour « remplir » une maquette.",
+     "- preparationAssessment = EXPLORING|CLARIFYING|PROPOSAL|BASE_SUFFICIENTE selon compréhension structurée — jamais un score, jamais un GO d'autorité.",
+@@ -765,6 +939,15 @@ async function runLiveWithTools(
+         streamingDelivered,
+         toolCallsObserved: toolsUsedOnError,
+       });
++      // DEV-only ephemeral forensic dump — never OBS / never RECETTE / never handoff.
++      writeEphemeralNoraDiag({
++        generationId,
++        attemptId: streamAttemptId,
++        phase: diag.error_phase,
++        category: cat.category,
++        diag,
++        err: streamErr,
++      });
+       emitObs({
+         event_name: "d3.nora.provider_attempt",
+         component: "d3.nora_adapter",
+@@ -781,6 +964,8 @@ async function runLiveWithTools(
+           model_requested: NORA_STUDY_MODEL,
+           provider_contacted: contact,
+           error_name: diag.error_name,
++          error_name_stable: diag.error_name_stable,
++          error_kind: diag.error_kind,
+           error_code: diag.error_code,
+           http_status: diag.http_status,
+           transport_kind: diag.transport_kind,
+@@ -788,6 +973,9 @@ async function runLiveWithTools(
+           streaming_delivered: diag.streaming_delivered,
+           cause_depth: diag.cause_depth,
+           tool_calls_observed: diag.tool_calls_observed,
++          zod_issue_path: diag.zod_issue_path,
++          validation_rule_hint: diag.validation_rule_hint,
++          msg_fingerprint: diag.msg_fingerprint,
+         },
+       });
