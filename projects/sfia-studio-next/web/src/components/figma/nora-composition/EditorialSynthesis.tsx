@@ -9,9 +9,38 @@
 import React from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
-import type { SynthesisBlock } from "@/domains/conversation/visual-composition";
+import type {
+  SynthesisBlock,
+  VisualSemanticRole,
+} from "@/domains/conversation/visual-composition";
 
 void React;
+
+/** UX-06 — map residual labels to distinct semantic roles; avoid all-observation eyes. */
+function residualRole(it: SynthesisBlock["items"][number]): VisualSemanticRole {
+  if (it.role) return it.role;
+  const blob = `${it.label ?? ""} ${it.detail ?? ""}`.toLowerCase();
+  if (it.tone === "risk" || /anomal|incident|vigilance|risque|alerte/.test(blob)) {
+    return "risk";
+  }
+  if (/acquis|confirm[ée]|confirmé|confirmée/.test(blob)) return "fact";
+  if (/validat|contr[oô]le/.test(blob)) return "fact";
+  if (/d[ée]cision|arbitrage/.test(blob)) {
+    // Pending arbitration must not look approved (decision glyph = checkbox).
+    if (/approuv|valid[ée]|retenu|act[ée]e?/.test(blob)) return "decision";
+    return "recommendation";
+  }
+  if (it.tone === "hypothesis" || /hypoth/.test(blob)) return "hypothesis";
+  if (it.tone === "priority" || /priorit|recommand/.test(blob)) return "recommendation";
+  if (it.tone === "observation") return "observation";
+  return "information";
+}
+
+function residualShowIcon(role: VisualSemanticRole, it: SynthesisBlock["items"][number]): boolean {
+  if (it.icon) return true;
+  // Skip decorative default eye/info when no useful signal.
+  return role !== "information" && role !== "observation";
+}
 
 /**
  * C2 exact-identity only — never substring / includes.
@@ -115,15 +144,10 @@ export function EditorialSynthesis({ block }: { block: SynthesisBlock }) {
           data-testid="nora-composition-strategies"
           aria-label={block.strategiesSectionTitle ?? "Stratégies"}
         >
-          <div className="fig-nc-section-head">
-            <span className="fig-nc-section-num" aria-hidden>
-              01
-            </span>
-            <div>
-              <h4 className="fig-nc-section-title">
-                {block.strategiesSectionTitle ?? "Deux stratégies, deux répartitions du risque"}
-              </h4>
-            </div>
+          <div className="fig-nc-section-head fig-nc-section-head-plain">
+            <h4 className="fig-nc-section-title">
+              {block.strategiesSectionTitle ?? "Deux stratégies, deux répartitions du risque"}
+            </h4>
           </div>
           <div
             className="fig-nc-strategy-grid"
@@ -167,10 +191,7 @@ export function EditorialSynthesis({ block }: { block: SynthesisBlock }) {
           data-testid="nora-composition-checklist"
           aria-label={block.checklistSectionTitle ?? "Points à vérifier"}
         >
-          <div className="fig-nc-section-head">
-            <span className="fig-nc-section-num" aria-hidden>
-              02
-            </span>
+          <div className="fig-nc-section-head fig-nc-section-head-plain">
             <h4 className="fig-nc-section-title">
               {block.checklistSectionTitle ?? "Ce qui doit être vérifié avant tout choix"}
             </h4>
@@ -190,24 +211,17 @@ export function EditorialSynthesis({ block }: { block: SynthesisBlock }) {
       {residual.length ? (
         <ul className="fig-visual-synthesis-list fig-nc-residual-items">
           {residual.map((it) => {
-            const role =
-              it.role ??
-              (it.tone === "risk"
-                ? "risk"
-                : it.tone === "hypothesis"
-                  ? "hypothesis"
-                  : it.tone === "observation"
-                    ? "observation"
-                    : it.tone === "priority"
-                      ? "recommendation"
-                      : "information");
+            const role = residualRole(it);
+            const showIcon = residualShowIcon(role, it);
             return (
               <li
                 key={it.id}
                 data-tone={it.tone}
+                data-role={role}
+                data-icon={showIcon ? "1" : "0"}
                 className={`fig-visual-synth-item fig-visual-tone-${it.tone ?? "information"} fig-comp-synth-row`}
               >
-                <NoraSemanticIcon role={role} icon={it.icon} />
+                {showIcon ? <NoraSemanticIcon role={role} icon={it.icon} /> : null}
                 <div className="fig-comp-synth-copy">
                   <strong className="fig-comp-synth-label">{it.label}</strong>
                   {it.detail ? (

@@ -61,14 +61,40 @@ export function DirectedRelationBoard({
   const syncTargets = new Set(
     block.edges.filter((e) => e.relation === "sync").map((e) => e.to),
   );
-  const gateId = [...syncTargets][0];
+  // Prefer explicit sync gate; else highest multi-lane fan-in (UX-05 flow-only convergence).
+  const gateId =
+    [...syncTargets][0] ??
+    (() => {
+      if (hint !== "parallelProcess") return undefined;
+      const laneOf = new Map<string, string>();
+      for (const n of block.nodes) {
+        const lane = n.laneId?.trim();
+        if (lane) laneOf.set(n.id, lane);
+      }
+      let best: string | undefined;
+      let bestCount = 1;
+      for (const n of block.nodes) {
+        const lanesHit = new Set<string>();
+        for (const e of block.edges) {
+          if (e.to !== n.id) continue;
+          const lane = laneOf.get(e.from);
+          if (lane) lanesHit.add(lane);
+        }
+        if (lanesHit.size > bestCount) {
+          bestCount = lanesHit.size;
+          best = n.id;
+        }
+      }
+      return best;
+    })();
 
   const lanes =
     hint === "parallelProcess"
       ? (() => {
           const m = new Map<string, typeof block.nodes>();
           for (const n of block.nodes) {
-            const lane = n.laneId?.trim() || "voie";
+            const lane = n.laneId?.trim();
+            if (!lane) continue;
             const list = m.get(lane) ?? [];
             list.push(n);
             m.set(lane, list);
@@ -153,8 +179,8 @@ export function DirectedRelationBoard({
         className="fig-nc-measure-layer"
         aria-hidden
         data-testid="nora-composition-measure-layer"
-        data-measure-width={hint === "parallelProcess" ? "168" : "280"}
-        style={{ width: hint === "parallelProcess" ? 168 : 280 }}
+        data-measure-width={hint === "parallelProcess" ? "190" : "280"}
+        style={{ width: hint === "parallelProcess" ? 190 : 280 }}
       >
         {block.nodes.map((n) => (
           <div key={n.id} data-measure-id={n.id} className="fig-nc-measure-node">

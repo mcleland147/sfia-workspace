@@ -1804,6 +1804,25 @@
   margin-bottom: 6px;
 }
 
+/* UX-01 — icon + markdown body on one horizontal row */
+.fig-visual-text-with-icon {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.fig-visual-text-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.2em;
+}
+.fig-visual-text-icon .fig-visual-icon {
+  margin-right: 0;
+}
+.fig-visual-text-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
 .fig-visual-text-observation,
 .fig-visual-text-hypothesis,
 .fig-visual-text-risk,
@@ -1861,7 +1880,11 @@
   color: #f4f6fc;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.fig-visual-title > span {
+  min-width: 0;
 }
 
 .fig-visual-recommendation {
@@ -2692,8 +2715,18 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 10px 0;
+  /* UX-06 — internal left padding so icons never kiss the frame edge */
+  padding: 12px 14px 12px 16px;
   border-bottom: 1px solid color-mix(in srgb, var(--fig-line) 55%, transparent);
+}
+.fig-nc-residual-items {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid color-mix(in srgb, var(--fig-line) 70%, transparent);
+  border-radius: 12px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fig-panel, #121826) 88%, transparent);
 }
 
 .fig-comp-synth-row:last-child {
@@ -2794,6 +2827,9 @@
   border-radius: 10px;
   border: 1px solid color-mix(in srgb, var(--fig-line) 80%, transparent);
   background: color-mix(in srgb, var(--fig-panel) 92%, #0a121c);
+}
+.fig-nc-graph-node-plain {
+  gap: 0;
 }
 
 .fig-nc-graph-node-label {
@@ -3036,7 +3072,11 @@
   align-items: baseline;
   margin-bottom: 14px;
 }
+.fig-nc-section-head-plain {
+  gap: 0;
+}
 .fig-nc-section-num {
+  /* retained for legacy markup; UX-03 no longer emits decorative section ordinals */
   font-size: 14px;
   font-weight: 600;
   color: #e8bc86;
@@ -3067,7 +3107,11 @@
   background: #172237;
   padding: 20px 22px 18px;
   overflow: hidden;
-  min-height: 200px;
+  /* Natural content height — no artificial vertical stretch (UX-07 sibling). */
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 .fig-nc-strategy-gold { border-color: #4b456b; background: #201e32; }
 .fig-nc-strategy-accent {
@@ -3181,12 +3225,15 @@
   line-height: 1.4;
 }
 
-/* Comparison option cards (Figma 03/05) */
+/* Comparison option cards (Figma 03/05) — UX-07 natural flow, top-aligned */
 .fig-nc-option-card {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: 220px;
+  min-height: 0;
+  height: auto;
+  justify-content: flex-start;
+  align-items: stretch;
   padding: 22px 20px !important;
   border-radius: 14px !important;
   border: 1px solid #2a3650 !important;
@@ -3210,7 +3257,8 @@
   font-size: 13px;
   line-height: 1.35;
   color: #adb9cf;
-  flex: 1;
+  /* Do not flex-grow — avoids artificial mid-card gaps (UX-07). */
+  flex: 0 0 auto;
 }
 .fig-nc-option-vigilance {
   margin: 0;
@@ -3221,6 +3269,7 @@
 .fig-comp-comparison-cards {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+  align-items: start;
 }
 .fig-comp-comparison-stack {
   display: flex;

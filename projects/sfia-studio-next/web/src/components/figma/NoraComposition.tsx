@@ -102,9 +102,10 @@ function Heading(props: {
   role?: TextBlock["role"];
   icon?: TextBlock["icon"];
 }) {
+  const showIcon = Boolean(props.role || props.icon);
   return (
     <h3 className="fig-visual-title fig-comp-title">
-      <NoraSemanticIcon role={props.role} icon={props.icon} />
+      {showIcon ? <NoraSemanticIcon role={props.role} icon={props.icon} /> : null}
       <span>{props.title}</span>
     </h3>
   );
@@ -298,8 +299,9 @@ function ComparisonView({
               className="fig-visual-matrix fig-comp-matrix fig-nc-matrix-rows"
               data-testid="nora-composition-matrix-five"
               data-option-count={block.alternatives.length}
+              aria-label={block.title || "Comparaison"}
             >
-              <caption>Matrice de comparaison</caption>
+              {/* UX-02 — no visible redundant caption; block title + column headers suffice. */}
               <thead>
                 <tr>
                   <th scope="col">Option</th>
@@ -562,22 +564,26 @@ function SynthesisView({
 }
 
 function TextView({ block }: { block: TextBlock }) {
+  const showIcon = Boolean(block.role || block.icon);
   return (
     <div
       className={`fig-visual-block fig-visual-text fig-comp-block fig-comp-text${
         block.role ? ` fig-visual-text-${block.role}` : ""
-      }`}
+      }${showIcon ? " fig-visual-text-with-icon" : ""}`}
       data-testid="nora-visual-text"
       data-comp-testid="nora-composition-text"
       data-block-kind="text"
       data-role={block.role ?? ""}
     >
-      {block.role || block.icon ? (
-        <div className="fig-visual-text-head">
+      {/* UX-01 — icon and body share one row; never stack the glyph alone above the title. */}
+      {showIcon ? (
+        <span className="fig-visual-text-icon" aria-hidden={false}>
           <NoraSemanticIcon role={block.role} icon={block.icon} />
-        </div>
+        </span>
       ) : null}
-      <SafeMarkdown content={block.markdown} />
+      <div className="fig-visual-text-body">
+        <SafeMarkdown content={block.markdown} />
+      </div>
     </div>
   );
 }

@@ -7,6 +7,7 @@
 
 import React from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { stripLeadingOrdinal } from "@/components/figma/nora-composition/editorial-title";
 import type { SequenceBlock } from "@/domains/conversation/visual-composition";
 import type { SequenceVariant } from "@/domains/conversation/conversational-composition";
 
@@ -49,10 +50,8 @@ export function EditorialSequence({
 
       {horizontal ? (
         <section className="fig-nc-editorial-section" data-testid="nora-composition-steps-horizontal">
-          <div className="fig-nc-section-head">
-            <span className="fig-nc-section-num" aria-hidden>
-              01
-            </span>
+          {/* UX-03 — section title only; step medallion is the sole ordinal. */}
+          <div className="fig-nc-section-head fig-nc-section-head-plain">
             <h4 className="fig-nc-section-title">
               {block.steps.length === 4
                 ? "Quatre étapes à maîtriser"
@@ -67,7 +66,7 @@ export function EditorialSequence({
                   <div className="fig-nc-h-step-medallion" aria-hidden>
                     {idx + 1}
                   </div>
-                  <h5>{step.title}</h5>
+                  <h5>{stripLeadingOrdinal(step.title)}</h5>
                   {step.detail ? (
                     <SafeMarkdown content={step.detail} className="fig-visual-inline-md" />
                   ) : null}
@@ -81,10 +80,7 @@ export function EditorialSequence({
           className="fig-nc-editorial-section fig-nc-v-steps-section"
           data-testid="nora-composition-steps-vertical"
         >
-          <div className="fig-nc-section-head">
-            <span className="fig-nc-section-num" aria-hidden>
-              01
-            </span>
+          <div className="fig-nc-section-head fig-nc-section-head-plain">
             <h4 className="fig-nc-section-title">
               {block.steps.length === 6
                 ? "Parcours en six temps"
@@ -98,7 +94,7 @@ export function EditorialSequence({
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <div className="fig-nc-v-step-body">
-                  <h5>{step.title}</h5>
+                  <h5>{stripLeadingOrdinal(step.title)}</h5>
                   {step.detail ? (
                     <SafeMarkdown content={step.detail} className="fig-visual-inline-md" />
                   ) : null}
@@ -117,10 +113,7 @@ export function EditorialSequence({
             block.fixtureDemo ? "Chronologie de démonstration" : "Chronologie"
           }
         >
-          <div className="fig-nc-section-head">
-            <span className="fig-nc-section-num" aria-hidden>
-              02
-            </span>
+          <div className="fig-nc-section-head fig-nc-section-head-plain">
             <h4 className="fig-nc-section-title">
               Une lecture possible des {block.timeline.weeks} semaines
             </h4>
