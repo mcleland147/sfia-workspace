@@ -3,12 +3,12 @@
 
 | Champ | Valeur |
 |---|---|
-| **Version / date** | V0.1 — 18 novembre 2026 (Europe/Paris) |
+| **Version / date** | V0.2 — 18 novembre 2026 (synchronisation documentaire D1 sur branche candidate) (Europe/Paris) |
 | **Statut** | **DOCUMENTED — USER ACCEPTED WITH RESERVES (campagne de composition visuelle UAT-01…08) / RECONCILIATION PENDING** |
 | **Nature** | Dossier documentaire factuel D1 de préparation, **non normatif** ; pas une décision de clôture |
 | **Portée** | Réconciliation, réception bornée de la composition conversationnelle, documentation as-built et préparation d'intégration |
 | **Autorités** | Morris : réception/gates/Git ; ChatGPT : préparation et revue D0/D1 ; Cursor : preuves techniques locales selon SFIA v2.6 |
-| **Source de suivi** | [Registre central ML4D](../registre-central-revues.md) · [Matrice C-01 à C-22 V0.9](06-matrice-convergence-vision-realisation.md) |
+| **Source de suivi** | [Registre central ML4D](../registre-central-revues.md) · [Matrice C-01 à C-22 V0.10](06-matrice-convergence-vision-realisation.md) |
 | **Interdits implicites** | Aucun push produit, PR, merge, clôture globale Ensemble 05/ML4D, Gate C, STABLE, release ou ADOPTED |
 
 > **Périmètre de réception.** Morris a validé **huit scénarios de composition visuelle conversationnelle en RECETTE**, avec réserves et ajustements successifs. Cette acceptation ne prouve pas à elle seule les 88 oracles candidats des cinq sujets de l'Ensemble 05 (UX-002 et UX-007…010), ni leur couverture exhaustive (compositeur, activité, visionneuse, reprise, droits). **Ne pas déclarer l'ensemble de ces capacités réceptionné sans preuve distincte.**
@@ -57,7 +57,7 @@ Les identifiants **UX-01 à UX-07 de cette campagne** sont des réserves de comp
 | Build RECETTE, **rapporté** | `IEINNuPl0bHWJOWkh0ZhG` |
 | Dernier handoff Full vérifié à distance | [`sfia/review-handoff@dc9fd0ba`](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md), blob `f08d586f17daa79cc1dd169d40fb8b63188e43a9` |
 | Branche documentaire candidate | `docs/next-ml4d-registre-revues-20261116` (non intégrée à `main`) |
-| Matrice canonique | V0.9, **C-01…C-22 sans réindexation** ; sa mise à jour post-UAT reste à réaliser |
+| Matrice canonique | **V0.10 publiée sur branche documentaire candidate**, C-01…C-22 conservés et requalifiés aux niveaux de preuve UAT bornés |
 | RECETTE | `http://127.0.0.1:3200` (localhost du poste de recette, non accessible directement depuis GitHub) |
 | Environnement | ENV-01, configuration, DB et rollback selon handoff ; STABLE NOT AVAILABLE |
 
@@ -88,29 +88,29 @@ Les binaires de captures, fichiers locaux de preuve et journaux complets restent
 
 **État actuel :** réconciliation Git locale et vérification ACL indépendantes NON TERMINÉES ; ne pas écrire `RECONCILED` avant preuve.
 
-## 4. Inventaire documentaire à synchroniser
+## 4. Inventaire documentaire — synchronisation Git D1 effectuée / vérifications restantes
 
 Les mises à jour doivent se faire dans les sources **existantes**, en distinguant les faits d'implémentation, les décisions de conception et les preuves.
 
 | Source | Mise à jour préparée | Classe |
 |---|---|---|
 | [Registre central ML4D](../registre-central-revues.md) | État courant de la campagne, UID UAT distincts des UX centraux, réception Morris bornée, gates | D1 |
-| [Matrice C-01…22 V0.9](06-matrice-convergence-vision-realisation.md) | V0.10 post-UAT : nouveaux niveaux de preuve sans réindexation ni PASS inventé | D1 |
-| [Conception UX Travail](../conception-ux-travail-avec-nora.md) | Annexe de réalisation/recette du sous-périmètre visuel, sans modifier les cinq arbitrages VALIDATED SPEC | D1 pour constat ; D2 si modification normative |
-| [Contrat technique Travail](../contrat-technique-travail-avec-nora.md) | Réconciliation CT-01…08/M1–M5 avec as-built et limites actuelles | D1 pour constats ; D2 pour arbitrage |
-| [01 — Vision](01-cadrage-vision-produit.md) et [02 — Fonctionnel/UX](02-conception-fonctionnelle-ux.md) | Références de réception bornées, conserver l'historique et l'intention des décisions | D1 descriptif |
-| [03 — Architecture](03-architecture-solution-technique.md) et [04 — Remplacement E05](04-qualification-architecture-remplacement-e05.md) | Annexes as-built, responsabilités, ELK, frontières, causes et compatibilité | D1 descriptif ; D2 si architecture normative |
-| [05 — Contrat Nora–Studio](05-contrat-composition-nora-studio.md) | Distinction contrat candidat / implémentation réelle ; `detail.max(5000)`, invalid output, fallback | D1 descriptif ; D2 si changement de contrat opposable |
+| [Matrice C-01…22 V0.10](06-matrice-convergence-vision-realisation.md) | **Publié en candidat D1** : 22 C-IDs conservés, niveau de preuve actualisé, anciennes sections historiques tracées | D1 — publié |
+| [Conception UX Travail](../conception-ux-travail-avec-nora.md) | **Annexe D1 publiée** sur huit UAT ; cinq arbitrages UX conservés | D1 publié ; D2 non touché |
+| [Contrat technique Travail](../contrat-technique-travail-avec-nora.md) | **Annexe CT-01…08 D1 publiée**, orientations M1–M5 non réarbitrées | D1 publié ; D2 non touché |
+| [01 — Vision](01-cadrage-vision-produit.md) et [02 — Fonctionnel/UX](02-conception-fonctionnelle-ux.md) | **Annexes post-UAT D1 publiées**, historiques préservés | D1 publié |
+| [03 — Architecture](03-architecture-solution-technique.md) et [04 — Remplacement E05](04-qualification-architecture-remplacement-e05.md) | **Annexes D1 publiées** avec chaînage D3/admission/ELK, cause et correction `classifyLanes()` ; inspection locale toujours ouverte | D1 publié ; D2 non touché |
+| [05 — Contrat Nora–Studio](05-contrat-composition-nora-studio.md) | **Annexe D1 publiée** sur `detail.max(5000)`, errors/fallback et contrat observable | D1 publié ; contrat D2 inchangé |
 | `web/docs/evidence/ensemble-05-travail-nora/` | Dossier de réception unique et index des preuves existantes | D1, preuves à récupérer localement |
-| `construction/delivery-history.md` | Chronologie des livraisons candidates, SHA/build, GO, preuves et limites | D1 factuel |
+| [`construction/delivery-history.md`](../../delivery-history.md) | **Entrée rétrospective D1 publiée** sur SHA/build/handoffs, distincte d'une livraison Cursor nouvelle | D1 publié |
 | `governance/roadmap.md` | Proposition de statut et dépendances de suite ML4D, après décision | **D2**, pas de modification sans validation dédiée |
 | `governance/decisions/` | Projet de décision de réception/clôture avec réserves, si Morris l'arbitre | **D2**, publication spécifique ultérieure |
 
 Ne pas créer de second registre, second template Cursor, décision implicite, ni micro-cycle documentaire par fichier.
 
-## 5. Matrice de convergence — évolutions attendues
+## 5. Matrice de convergence — requalification publiée en V0.10
 
-**Conserver rigoureusement les identifiants canoniques C-01 à C-22 de V0.9.** Les éléments ci-dessous sont des instructions de réévaluation, pas une promotion automatique de statut.
+**Conserver rigoureusement les identifiants canoniques C-01 à C-22 de V0.9.** Les éléments ci-dessous détaillent le périmètre de requalification **publié en V0.10** ; une preuve UAT bornée n'entraîne aucune promotion automatique des autres capacités.
 
 | IDs | Nouvelles preuves à rapprocher |
 |---|---|
@@ -161,3 +161,10 @@ La réconciliation pourra être présentée comme prête à intégration lorsque
 **Verdict futur conditionnel, non acquis :** `ENSEMBLE 05 — RECONCILED / DOCUMENTATION READY FOR MORRIS INTEGRATION REVIEW`.
 
 **Frontière de publication actuelle :** dossier + registre factuel publiables sur **branche documentaire candidate uniquement** ; aucun push produit, PR, merge, changement de Roadmap D2, décision de clôture, Gate C, STABLE ou ADOPTED.
+
+
+## 8. Synchronisation documentaire Git du 18/11 — vérifiée sur branche candidate
+
+Les mises à jour factuelles D1 ont été publiées sur `docs/next-ml4d-registre-revues-20261116` : **matrice C-01…22 V0.10**, sources 01–05 de la grammaire, conception UX Travail, contrat technique Travail, historique de delivery et le présent dossier. Chaque changement conserve la distinction **état historique de conception / réalisation locale rapportée / comportement reçu sur huit UAT / statut Git non intégré**. Le registre central ML4D renvoie à cette synthèse.
+
+**Non encore effectué :** inspection locale indépendante du diff et de l'ascendance du commit produit `5c94c867`, contrôle ACL objet par objet en lecture seule, lecture/assemblage complet des captures et preuves locales, changement de statuts normatifs de Roadmap/décisions, push produit, PR, merge, promotion STABLE, Gate C ou ADOPTED. La publication documentaire ne change pas le statut `RECONCILIATION PENDING`.
