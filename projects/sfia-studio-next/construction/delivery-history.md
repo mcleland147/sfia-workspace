@@ -2890,3 +2890,48 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | RECETTE | **inchangée** — SHA `771844fd` / BUILD `SmL2kyWbd1Q3kIuwNw0mQ` |
 | Push Product | **AUCUN** |
 | Verdict candidat | `G1 DEV QUALIFIED — AWAITING DISTINCT RECETTE GO` |
+
+
+---
+
+## delivery_id: DELIV-2026-11-18-ML4D-E05-COMPOSITION-RECETTE-UAT-SYNTHESIS
+
+> **Entrée rétrospective documentaire D1 (ChatGPT, 18/11/2026).** Elle synthétise des livraisons **Cursor rapportées** dans leurs handoffs SFIA v2.6 ; elle ne constitue **ni une nouvelle livraison Cursor, ni une vérification directe du runtime local ou du commit produit non poussé**. Les entrées historiques du présent journal restent inchangées.
+
+| Champ | Valeur |
+|---|---|
+| Date / capacité | 18 novembre 2026 — R5 / ML4D / Ensemble 05, **composition visuelle conversationnelle** |
+| Mandats Morris | Construction et RECETTE Ensemble 05, correctif UAT-03, consolidations UX-01…07 puis UX-05/01 ; GO livraison RECETTE bornés, aucun GO push produit/PR/merge |
+| Candidat RECETTE initial E05 | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` / build `_eeb9Jy2hV242myk86VTu` ; mise à disposition et UAT-01/02 rapportées |
+| Incident et correctif UAT-03 | `steps[].detail.max(400)` → validation SDK/UNKNOWN ; correctif `max(5000)` par étape et observabilité durable ; candidat `90c3e59f4a355b463ea047cc45486906bde15680` / `5C3be3-ils1iOmH3qXo4d` |
+| Consolidation UX-01…07 | Candidat `bd3854ac50520f3ce5e46ec773b67ec3ae5cc70b` / build `qw3FaPD1B4KBrRab3LyKL` ; tests et captures rapportés, réserve UX-05 persistante puis corrigée |
+| Correctif final UX-05/01 | **Candidat local** `5c94c86737f0965c71a7e058e3f1e45ff4415024`, tree `74fbf2b90f95951d5049efc5a854ad213fb0f47f`, build `IEINNuPl0bHWJOWkh0ZhG` ; cause `classifyLanes()` double claim ; graphes corrects en RECETTE selon handoff |
+| Environnement | RECETTE `http://127.0.0.1:3200`, no migration ; DB rapportée conservée : 23 projets, 560 messages, 196 conversations, 280 commandes de tour |
+| Qualification utilisateur | **UAT-01…08 visuels acceptés par Morris avec réserves** après corrections ; dernière capture UAT-07 et alignement UX-01 validés le 18/11 ; scroll horizontal autorisé |
+| Qualité/gates | UNIT/FAKE/BROWSER/LIVE/RECETTE différenciés dans handoffs ; 88 oracles candidats de Travail **non assimilés** à huit UAT ; intégrité ACL `owner_pilot_id` et ascendance locale à vérifier |
+| Source probante | [Dernier handoff Full](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md), [dossier de réception](convergence-ux-ui-globale/grammaire-visuelle-conversationnelle/07-dossier-reconciliation-reception.md), [matrice C-01…22 V0.10](convergence-ux-ui-globale/grammaire-visuelle-conversationnelle/06-matrice-convergence-vision-realisation.md) |
+| Intégration / statut | *(État au moment de la synthèse D1)* Code candidat **local non poussé** ; documentation sur branche `docs/next-ml4d-registre-revues-20261116`, sans PR/merge ; `USER ACCEPTED WITH RESERVES — VISUAL UAT ONLY`, `RECONCILIATION PENDING`, `Gate C OPEN`, `NO STABLE/RELEASE/ADOPTED`. **Addendum post-intégration :** voir `DELIV-2026-11-18-ML4D-CI-REMEDIATION-PRODUCT-MERGE`. |
+
+**Point de gouvernance non clos :** le rapport final signale une attribution temporaire d'`owner_pilot_id` aux objets RECETTE pour capture, puis une restauration déclarée ; les compteurs identiques ne démontrent pas la restauration objet par objet. La vérification des droits devra être faite **en lecture seule**, sans écrire dans la base pour produire une preuve.
+
+---
+
+## delivery_id: DELIV-2026-11-18-ML4D-CI-REMEDIATION-PRODUCT-MERGE
+
+| Champ | Valeur |
+|---|---|
+| Date (Europe/Paris) | 18 novembre 2026 ~22:37 CET |
+| Macro-capacité | R5 / ML4D — remédiation CI autonome + intégration Git produit |
+| Type | CYCLE 8 / 13 / 7 / 14 — PATCH candidat / `NO RELEASE` |
+| Autorité | Morris GO « remédiation CI autonome et bornée, intégration conditionnelle ML4D » |
+| Candidat RECETTE immuable (UAT) | `5c94c86737f0965c71a7e058e3f1e45ff4415024` / tree `74fbf2b90f95951d5049efc5a854ad213fb0f47f` / build `IEINNuPl0bHWJOWkh0ZhG` — **non redéployé** |
+| Tip produit mergé | `ac08b381e434b65c09ec9eb2d49abcc221a543cf` (branche `integrate/next-ml4d-ux003-to-ensemble05-20261118`) |
+| Merge commit `main` | `b7de1fb0826f373dcab609b2c1deff992a36fbd1` — PR [#681](https://github.com/mcleland147/sfia-workspace/pull/681) |
+| Baseline `main` avant merge | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Correctifs CI (après `5c94c867`) | `98646171` fixtures/tsc/create-project/Playwright helpers ; `519f40e3`/`3d51a594`/`53d1db73`/`a127d337` assertions E04/E05/ml* ; `fd01cd9d`/`ac08b381` whitespace `git diff --check` |
+| Runtime produit dans le delta correctif | Uniquement typage `getDerivedStateFromError(_error)` dans `NoraComposition.tsx` — **aucun comportement observable** ; pas de requalification RECETTE |
+| CI GitHub PASS | Run [`44400455666`](https://github.com/mcleland147/sfia-workspace/actions/runs/44400455666) @ `ac08b381` — tsc, lint, build, Vitest unit, PG migrations/integration, Playwright BROWSER FAKE, secret scan, trailing whitespace, Required Gate |
+| RECETTE | **inchangée** — toujours le build UAT `IEINNuPl0bHWJOWkh0ZhG` ; aucune écriture DB RECETTE/STABLE |
+| Documentation | Branche `docs/next-ml4d-registre-revues-20261116` / PR [#680](https://github.com/mcleland147/sfia-workspace/pull/680) — réconciliation post-`main` en cours |
+| Réserves conservées | ACL historique non démontrée objet par objet ; responsive/a11y bornés ; PG historique non exhaustif ; 88 oracles ≠ 8 UAT ; Gate C OPEN ; NO STABLE/RELEASE/ADOPTED |
+| Verdict | `ML4D PRODUCT MERGED ON MAIN — CI FULL PASS — RECETTE UAT SHA IMMUTABLE — DOCS PR PENDING — GATE C OPEN` |
