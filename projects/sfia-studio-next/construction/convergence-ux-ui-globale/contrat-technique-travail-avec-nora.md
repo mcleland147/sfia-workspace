@@ -267,3 +267,22 @@ Les **88 scénarios candidats** issus de la conception UX intégrée forment le 
 | Comment qualifier les réserves LIVE/REAL héritées de ML4C sans bloquer injustement une démonstration UI ? | QA / intégrateur / Morris | Matrice de preuve par scénario et niveau explicite |
 
 **VERDICT v0.2 :** les **orientations M1–M5 sont VALIDATED BY MORRIS** et consignées ; le contrat de réalisation reste **CANDIDATE / DOCUMENTED** tant que les formes techniques et les preuves ne sont pas qualifiées. **Aucune implémentation, nouveau schéma, preuve runtime, GO Delivery ou architecture globale adoptés. Ensemble 05 EN REVUE — Gate C OPEN.**
+
+---
+
+## 15. Addendum as-built post-UAT — 18/11/2026 (constat D1, sans modification de M1–M5)
+
+Cet état **complète** le contrat candidat v0.2 et ses orientations M1–M5 VALIDATED BY MORRIS, sans adopter de nouveaux types API, nouvelle autorité, schéma physique ni changement de doctrine. Il décrit les preuves limitées à la **restitution graphique** des huit scénarios utilisateurs, pas l'ensemble des 88 oracles.
+
+| Contrat | Réalisation/preuve rapportée sur candidat RECETTE `5c94c867` | Limite / sortie |
+|---|---|---|
+| **CT-01 — Fil/continuité** | Conversation et messages persistés rechargés pour UAT-07 ; captures Morris finales. | UX-002 scroll/navigations/reprises en toutes conditions non réévaluées dans cette campagne. |
+| **CT-02 — Réponses Nora** | Formes spontanées cards/matrix/sequence/timeline/directed/conditional/parallel/synthèse en UAT ; source `visualComposition` D3 admise puis rendue Studio. | Choix et interactions gouvernés, provenance/expiration non prouvés exhaustivement. |
+| **CT-03 — Compositeur/brouillon** | Saisie et envoi de prompts UAT ; aucun test complet des états `sessionStorage`/ACK tardif. | Statut des oracles UX-COMP non promu. |
+| **CT-04 — Activité/streaming** | Réponses complètes reçues ; aucune preuve de texte progressif obligatoire ; M2 V1 texte final-only conservée. | Étapes réelles, progression et UX-ACT restent à qualifier. |
+| **CT-05 — Échecs/reprise** | UAT-03 UNKNOWN initial diagnostiqué : validation Zod `detail.max(400)`; correction `max(5000)` par étape et observabilité durable ; nouvel UAT LIVE réussi. | Anciens UNKNOWN conservés, chemins ACK/retry/erreur alternatifs non exhaustifs. |
+| **CT-06 — Visionneuse** | Non couverte par les huit UAT de composition. | Visionneuse 50/50, droits D4/D9 et oracles UX-VIEW non réceptionnés ici. |
+| **CT-07 — Interfaces** | Chaîne D3 → admission/projection → composants React/ELK → persistance rapportée ; correction de `classifyLanes()` et revendication exclusive des nœuds `flow/gate/suite` pour UAT-07. | As-built et diff local non confrontés directement au SHA distant du produit, non publié. |
+| **CT-08 — Sécurité/exploitation** | Aucune décision automatique via les rendus ; séparation de l'erreur et des données sensible rapportée ; build RECETTE `IEINNuPl0bHWJOWkh0ZhG`. | Accessibilité exhaustive et vérification indépendante des propriétaires `owner_pilot_id` après mutation temporaire RECETTE encore ouvertes. |
+
+**Provenance :** [Review Pack final](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md) · [matrice C-01…22 V0.10](grammaire-visuelle-conversationnelle/06-matrice-convergence-vision-realisation.md) · [dossier de réception](grammaire-visuelle-conversationnelle/07-dossier-reconciliation-reception.md). Candidat produit local rapporté `5c94c86737f0965c71a7e058e3f1e45ff4415024`, **non inspectable sur Git distant** ; recette visuelle acceptée par Morris avec réserves ; `Gate C OPEN`, `NO STABLE/ADOPTED`.
