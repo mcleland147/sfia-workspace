@@ -318,4 +318,3 @@ index 12f19274..194f678c 100644
 +          msg_fingerprint: diag.msg_fingerprint,
          },
        });
-
