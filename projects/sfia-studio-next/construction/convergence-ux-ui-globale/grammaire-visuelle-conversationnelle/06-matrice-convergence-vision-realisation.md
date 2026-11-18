@@ -119,8 +119,8 @@ UAT-03 a d'abord échoué sur une validation structurée `steps[].detail.max(400
 | **CONSERVER** | Strategy A, D3 propriétaire du sens, composants Figma 01–09, ELKjs, texte libre, projections versionnées, admission, C2, HumanDecision séparé. | Aucun retour au rendu de démonstration seulement. |
 | **ACQUIS DÉTERMINISTES** | Level-A/Level-B, tests de sélection cards/matrix/dependencies/parallel, fallback conservateur, C2 exact-identity dans EditorialSynthesis. | Ne pas réétiqueter ces tests en LIVE. |
 | **ACQUIS LIVE BORNÉS** | 12 tours fournisseur réel, 5 compositions, refus de chart sans données, persistence/reload nouveaux messages. | 1 pilote/projet/modèle ; preuves rapportées et captures locales. |
-| **QUALIFIER AVANT RÉCEPTION** | Review Pack Full désormais exploitable pour la consolidation ; matrice C-ID correcte, réserves TypeScript/visuel/C2 et cas critères incomplets à arbitrer avant réception. | Cursor republie handoff L3 Full avec diffs ; ChatGPT revoit ; Morris arbitre. |
-| **REPORTER SOUS RÉSERVE MOTIVÉE** | Ancien PG historique, coût réel tokens, sélection LIVE cards/matrix post-correctif, certaines preuves split/zoom/accessibilité. | Pas de nouveau LIVE/RECETTE/PR implicite, exit clair. |
+| **QUALIFIER AVANT INTÉGRATION** | Review Pack Full final L3 disponible et UAT visuelle acceptée ; risques TypeScript/PG historique, critères incomplets, droits ACL et diff local restent à vérifier. | Revue locale/ACL read-only, inventaire des preuves et gate Git Morris distinct. |
+| **REPORTER SOUS RÉSERVE MOTIVÉE** | Ancien PG historique, coût réel tokens, certaines preuves split/zoom/accessibilité. La sélection spontanée cards/matrix est **observée** dans UAT-01/02, non universellement garantie. | Pas de nouvelle campagne LIVE/PR implicite ; responsable et exit à qualifier. |
 | **HORS SCOPE** | Nouvelle DB, second moteur IA, moteur de décision parallèle, changement de doctrine, push produit, Gate C/ADOPTED. | GO Morris distinct requis. |
 
 ## 7. Contrat de preuve discriminant — état courant
@@ -133,17 +133,17 @@ UAT-03 a d'abord échoué sur une validation structurée `steps[].detail.max(400
 | **A4/A7 — Qualification invalide** | Fixture fail-closed, SIM anti-fuite, contrôles Zod rapportés. | Revoir invalid/empty/parse-null sur chemins atteignables, sans COMPLETE mensonger. |
 | **A5 — Graphes** | ELK, Level-B S7, arbre/parallel LIVE borné. | Géométrie complète, connecteurs, branches clavier, sync et zoom/split. |
 | **A6 — Non-régression** | UNIT/Level-B PASS ; Live antérieur 12/12 ; tsc global non PASS. | Baseline TS, build/lint, vrai ErrorBoundary, responsive/a11y, fichiers/diffs Full désormais fournis pour le cycle. |
-| **L03/L04 — Comparaison** | LIVE Cas B (replyDraft Markdown, VC absente) ; prompt D3 renforcé ; REPLAY FAKE cards/matrix PASS. | Nouvel effet spontané LIVE **NOT PROVEN** ; ne pas inventer la validation. |
+| **L03/L04 — Comparaison (historique)** | LIVE initial : Cas B (replyDraft Markdown, VC absente) ; prompt D3 renforcé ; puis **UAT-01/02 RECETTE** : cards/matrix spontanées acceptées. | Ne pas confondre l'échec de ces tours historiques avec les succès ultérieurs ni prétendre une garantie universelle. |
 | **L07 — Relations** | LIVE Cas D : parallelProcess avec 3 lanes. | Conserver sémantique ; ne pas forcer directed sans relations compatibles. |
 
 ## 8. Arbitrages et gates
 
 - **Morris déjà validé :** Strategy A, M1–M5, direction graphique sombre et fidélité adaptative ; GO LIVE précédent **consommé** (12/12 tours), coût estimé €10,20, aucun droit résiduel d'appel.
 - **Réception Morris du 18/11 :** validation du corpus visuel UAT-01…08 après correctifs, avec réserves mineures ; pas de réception des autres contrats de Travail ni de changement normatif D2.
-- **Handoff Cursor attendu :** republication du rapport Full du même cycle avec diffs exploitables, contenus obligatoires et baseline tsc ; relecture distante SHA/blob ; aucune extension LIVE.
+- **Handoff Cursor :** rapport Full final [dc9fd0ba](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md) vérifié à distance ; audit du diff candidat produit local, baseline tsc et binaires locaux restent à réaliser ; aucune extension LIVE engagée.
 - **Git :** la présente mise à jour porte **seulement** sur ce document documentaire candidat et sa branche ; pas de merge main, PR ni modification normative.
-- **RECETTE/STABLE :** aucune mise à disposition sans candidat Git immuable et GO ENV-01 ; STABLE NOT AVAILABLE.
-- **Gate C / Ensemble 05 :** OPEN / non reçu. La préparation d'une revue n'est pas l'acceptation.
+- **RECETTE/STABLE :** candidat immuable local `5c94c867` et build `IEINNuPl0bHWJOWkh0ZhG` rapportés servis sous GO Morris ; réception UAT visuelle acquise avec réserves. STABLE NOT AVAILABLE.
+- **Gate C / Ensemble 05 :** OPEN / Ensemble 05 global non clos ; seule la sous-campagne UAT de composition visuelle est reçue avec réserves.
 
 **Verdict documentaire V0.10 : UAT VISUAL COMPOSITION USER ACCEPTED WITH RESERVES — RECONCILIATION PENDING / GATE C OPEN.**
 
