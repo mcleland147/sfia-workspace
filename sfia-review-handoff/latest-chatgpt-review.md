@@ -1,13 +1,29 @@
 # SFIA Review Pack FULL — Composition conversationnelle adaptative Nora
-**Date/heure :** 2026-11-18T01:23:58+01:00
+**Date/heure :** 2026-11-18T02:07:16+01:00
 **Cycle :** Delivery / EVOL / Critical — Remplacement mécanisme graphique expérimental E05
 **GO Morris :** 18/11/2026 — construction locale bornée (pas push produit / PR / merge / RECETTE / STABLE)
+**Complément :** 18/11/2026 ~02:06 — GO republication handoff après `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING` (diffs `tokens.css` + `delivery-history.md` manquants)
 **Branche technique locale :** `sfia/next-ml4d-composition-adaptative`
 **HEAD tip (commits) :** `a783f014935de0dec5ff8e79a2b18eea0e629756`
 **Working tree :** modifications non commitées (mandat Git produit non accordé)
 **origin/main :** `997d4c4e8204993de7107552898c8cc08cd3b0ed`
-**Review Pack :** Full — réinitialisé ce cycle (aucun append)
+**Review Pack :** Full — réinitialisé intégralement ce complément (aucun append de l'ancien rapport)
+**Handoff précédent :** commit `1e7330e0` / blob `0767cbf7…` — à remplacer par ce pack complet
 **Handoff :** required / publish-in-cycle (L3 mono-fichier)
+
+---
+
+## 0. Motif de republication
+
+ChatGPT a qualifié le handoff `1e7330e0` :
+
+> REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING
+
+Écarts corrigés ici :
+1. **diff exploitable complet** de `projects/sfia-studio-next/web/src/components/figma/tokens.css` (plus seulement « ~102 lignes »)
+2. **diff exploitable complet** de `projects/sfia-studio-next/construction/delivery-history.md`
+3. Conservation du contenu intégral des nouveaux modules déjà présents
+4. Diff complet de `NoraConversation.tsx` et de l'alias `NoraVisualComposition.tsx`
 
 ---
 
@@ -102,9 +118,9 @@
 
 ---
 
-## 7. Contenu des nouveaux / fichiers remplacés
+## 7. Contenu des nouveaux fichiers et diffs des fichiers modifiés
 
-### `conversational-composition/index.ts`
+### 7.1 `conversational-composition/index.ts` (complet)
 
 ```ts
 /**
@@ -131,7 +147,7 @@ export {
 
 ```
 
-### `conversational-composition/admission.ts`
+### 7.2 `conversational-composition/admission.ts` (complet)
 
 ```ts
 /**
@@ -383,34 +399,7 @@ export function admitConversationalComposition(
 
 ```
 
-### `NoraVisualComposition.tsx` (alias)
-
-```tsx
-"use client";
-
-/**
- * Compatibility alias — experimental E05 renderer replaced by NoraComposition.
- * Keep export path stable for any residual imports; dual testids preserved.
- */
-
-export {
-  NoraComposition as NoraVisualComposition,
-  NoraComposition,
-  type NoraCompositionProps,
-} from "@/components/figma/NoraComposition";
-
-```
-
-### `NoraConversation.tsx` (diff utile)
-
-```diff
--import { NoraVisualComposition } from "@/components/figma/NoraVisualComposition";
-+import { NoraComposition } from "@/components/figma/NoraComposition";
--                      <NoraVisualComposition
-+                      <NoraComposition
-```
-
-### `NoraComposition.tsx` (complet)
+### 7.3 `NoraComposition.tsx` (complet)
 
 ```tsx
 "use client";
@@ -1214,7 +1203,861 @@ export function NoraComposition(props: NoraCompositionProps) {
 
 ```
 
-### `tests/unit/conversational-composition-admission.test.ts`
+### 7.4 `NoraVisualComposition.tsx` — contenu actuel (alias) + diff exploitable complet
+
+#### Contenu actuel
+
+```tsx
+"use client";
+
+/**
+ * Compatibility alias — experimental E05 renderer replaced by NoraComposition.
+ * Keep export path stable for any residual imports; dual testids preserved.
+ */
+
+export {
+  NoraComposition as NoraVisualComposition,
+  NoraComposition,
+  type NoraCompositionProps,
+} from "@/components/figma/NoraComposition";
+
+```
+
+#### Diff `git diff` complet
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx
+index 707e39f9..1dc6ec66 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx
+@@ -1,634 +1,12 @@
+ "use client";
+
+-import { SafeMarkdown } from "@/components/SafeMarkdown";
+-import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
+-import type {
+-  ComparisonBlock,
+-  RelationsBlock,
+-  SequenceBlock,
+-  SynthesisBlock,
+-  TextBlock,
+-  VisualBlock,
+-  VisualComposition,
+-  VisualProvenance,
+-} from "@/domains/conversation/visual-composition";
+-import {
+-  canonicalReferenceKey,
+-  compositionAnchorsChoices,
+-  compositionAnchorsReferences,
+-  partitionChoicesForAnchors,
+-  partitionReferencesForAnchors,
+-  provenanceConsultableKeys,
+-  resolveProvenanceReference,
+-} from "@/domains/conversation/visual-composition";
+-import type { TurnChoice, TurnReference } from "@/domains/conversation/turn-projection";
+-
+-function Provenance(props: {
+-  items?: VisualProvenance[];
+-  canonicalReferences?: TurnReference[];
+-  onReference?: (ref: TurnReference) => void;
+-}) {
+-  if (!props.items?.length) return null;
+-  const canonical = props.canonicalReferences ?? [];
+-  return (
+-    <ul className="fig-visual-provenance" data-testid="nora-visual-provenance">
+-      {props.items.map((p, i) => {
+-        const resolved = resolveProvenanceReference(p, canonical);
+-        return (
+-          <li key={`${p.label}-${i}`} data-consultable={resolved ? "1" : "0"}>
+-            {resolved && props.onReference ? (
+-              <button
+-                type="button"
+-                className="fig-nora-ref-link"
+-                data-testid="nora-visual-prov-link"
+-                data-ref-kind={resolved.kind}
+-                onClick={() => props.onReference?.(resolved)}
+-              >
+-                Consulter · {resolved.label}
+-                {resolved.available === false ? " (à vérifier)" : ""}
+-              </button>
+-            ) : (
+-              <span>
+-                {p.label}
+-                <span className="fig-visual-provenance-note"> — mention descriptive</span>
+-              </span>
+-            )}
+-            {p.note ? <span className="fig-visual-provenance-note"> — {p.note}</span> : null}
+-          </li>
+-        );
+-      })}
+-    </ul>
+-  );
+-}
+-
+-function Heading(props: {
+-  title: string;
+-  role?: TextBlock["role"];
+-  icon?: TextBlock["icon"];
+-}) {
+-  return (
+-    <h3 className="fig-visual-title">
+-      <NoraSemanticIcon role={props.role} icon={props.icon} />
+-      <span>{props.title}</span>
+-    </h3>
+-  );
+-}
+-
+-function ComparisonView({
+-  block,
+-  canonicalReferences,
+-  onReference,
+-}: {
+-  block: ComparisonBlock;
+-  canonicalReferences?: TurnReference[];
+-  onReference?: (ref: TurnReference) => void;
+-}) {
+-  const showMatrix = Boolean(block.criteria?.length);
+-  // Prefer matrix when criteria dominate; avoid repeating same facts as cards+matrix.
+-  const showCards = !showMatrix || block.alternatives.some((a) => (a.pros?.length ?? 0) + (a.cons?.length ?? 0) > 0);
+-  return (
+-    <section
+-      className="fig-visual-block fig-visual-comparison"
+-      data-testid="nora-visual-comparison"
+-      data-block-kind="comparison"
+-      data-block-id={block.id}
+-      aria-label={block.title}
+-    >
+-      <Heading title={block.title} role={block.role} icon={block.icon} />
+-      {showCards ? (
+-        <div className="fig-visual-comparison-grid">
+-          {block.alternatives.map((alt) => (
+-            <article key={alt.id} className="fig-visual-alt" data-alt-id={alt.id}>
+-              <h4>{alt.title}</h4>
+-              <p>{alt.summary}</p>
+-              {alt.pros?.length ? (
+-                <ul className="fig-visual-pros">
+-                  {alt.pros.map((p) => (
+-                    <li key={p}>{p}</li>
+-                  ))}
+-                </ul>
+-              ) : null}
+-              {alt.cons?.length ? (
+-                <ul className="fig-visual-cons">
+-                  {alt.cons.map((c) => (
+-                    <li key={c}>{c}</li>
+-                  ))}
+-                </ul>
+-              ) : null}
+-            </article>
+-          ))}
+-        </div>
+-      ) : null}
+-      {showMatrix ? (
+-        <div className="fig-visual-matrix-wrap">
+-          <table className="fig-visual-matrix">
+-            <caption className="sr-only">Critères de comparaison</caption>
+-            <thead>
+-              <tr>
+-                <th scope="col">Critère</th>
+-                {block.alternatives.map((a) => (
+-                  <th key={a.id} scope="col">
+-                    {a.title}
+-                  </th>
+-                ))}
+-              </tr>
+-            </thead>
+-            <tbody>
+-              {block.criteria!.map((c) => (
+-                <tr key={c.id}>
+-                  <th scope="row">{c.label}</th>
+-                  {block.alternatives.map((a) => (
+-                    <td key={a.id}>{c.values[a.id] ?? "—"}</td>
+-                  ))}
+-                </tr>
+-              ))}
+-            </tbody>
+-          </table>
+-        </div>
+-      ) : null}
+-      {block.recommendation ? (
+-        <div className="fig-visual-recommendation" data-testid="nora-visual-recommendation">
+-          <NoraSemanticIcon role="recommendation" />
+-          <div className="fig-visual-recommendation-body">
+-            <span className="fig-visual-recommendation-label">Recommandation (avis Nora)</span>
+-            <SafeMarkdown content={block.recommendation} className="fig-visual-inline-md" />
+-          </div>
+-        </div>
+-      ) : null}
+-      <p className="sr-only">{block.textAlternative}</p>
+-      <Provenance
+-        items={block.provenance}
+-        canonicalReferences={canonicalReferences}
+-        onReference={onReference}
+-      />
+-    </section>
+-  );
+-}
+-
+-function SequenceView({
+-  block,
+-  canonicalReferences,
+-  onReference,
+-}: {
+-  block: SequenceBlock;
+-  canonicalReferences?: TurnReference[];
+-  onReference?: (ref: TurnReference) => void;
+-}) {
+-  const titleById = new Map(block.steps.map((s) => [s.id, s.title] as const));
+-  return (
+-    <section
+-      className="fig-visual-block fig-visual-sequence"
+-      data-testid="nora-visual-sequence"
+-      data-block-kind="sequence"
+-      data-block-id={block.id}
+-      aria-label={block.title}
+-    >
+-      <Heading title={block.title} role={block.role ?? "step"} icon={block.icon} />
+-      <ol className="fig-visual-steps">
+-        {block.steps.map((step, idx) => (
+-          <li key={step.id} className="fig-visual-step" data-step-id={step.id}>
+-            <div className="fig-visual-step-marker" aria-hidden>
+-              {idx + 1}
+-            </div>
+-            <div className="fig-visual-step-body">
+-              <h4>
+-                <NoraSemanticIcon role={step.role ?? "step"} />
+-                {step.title}
+-              </h4>
+-              {step.detail ? (
+-                <SafeMarkdown content={step.detail} className="fig-visual-inline-md" />
+-              ) : null}
+-              {step.dependsOn?.length ? (
+-                <p className="fig-visual-step-deps" data-testid="nora-visual-step-deps">
+-                  <NoraSemanticIcon role="dependency" />
+-                  Dépend de :{" "}
+-                  {step.dependsOn
+-                    .map((id) => titleById.get(id) ?? id)
+-                    .join(", ")}
+-                </p>
+-              ) : null}
+-              {step.dateLabel ? (
+-                <p className="fig-visual-step-date">{step.dateLabel}</p>
+-              ) : null}
+-            </div>
+-            {idx < block.steps.length - 1 ? (
+-              <div className="fig-visual-step-connector" aria-hidden />
+-            ) : null}
+-          </li>
+-        ))}
+-      </ol>
+-      <p className="sr-only">{block.textAlternative}</p>
+-      <Provenance
+-        items={block.provenance}
+-        canonicalReferences={canonicalReferences}
+-        onReference={onReference}
+-      />
+-    </section>
+-  );
+-}
+-
+-function RelationsView({
+-  block,
+-  canonicalReferences,
+-  onReference,
+-}: {
+-  block: RelationsBlock;
+-  canonicalReferences?: TurnReference[];
+-  onReference?: (ref: TurnReference) => void;
+-}) {
+-  const useSvg = !block.preferListFallback && block.nodes.length <= 7;
+-  const w = 360;
+-  const h = 220;
+-  const cx = w / 2;
+-  const cy = h / 2;
+-  const r = Math.min(w, h) * 0.34;
+-  const positions = block.nodes.map((n, i) => {
+-    const angle = (Math.PI * 2 * i) / block.nodes.length - Math.PI / 2;
+-    return {
+-      id: n.id,
+-      x: cx + r * Math.cos(angle),
+-      y: cy + r * Math.sin(angle),
+-      node: n,
+-    };
+-  });
+-  const byId = new Map(positions.map((p) => [p.id, p]));
+-
+-  return (
+-    <section
+-      className="fig-visual-block fig-visual-relations"
+-      data-testid="nora-visual-relations"
+-      data-block-kind="relations"
+-      data-block-id={block.id}
+-      data-fallback={useSvg ? "0" : "1"}
+-      aria-label={block.title}
+-    >
+-      <Heading title={block.title} role={block.role} icon={block.icon} />
+-      {useSvg ? (
+-        <svg
+-          className="fig-visual-relations-svg"
+-          viewBox={`0 0 ${w} ${h}`}
+-          role="img"
+-          aria-label={block.textAlternative}
+-        >
+-          {block.edges.map((e, i) => {
+-            const a = byId.get(e.from);
+-            const b = byId.get(e.to);
+-            if (!a || !b) return null;
+-            return (
+-              <g key={`${e.from}-${e.to}-${i}`}>
+-                <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} className="fig-visual-edge" />
+-                {e.label ? (
+-                  <text
+-                    x={(a.x + b.x) / 2}
+-                    y={(a.y + b.y) / 2 - 4}
+-                    className="fig-visual-edge-label"
+-                  >
+-                    {e.label}
+-                  </text>
+-                ) : null}
+-              </g>
+-            );
+-          })}
+-          {positions.map((p) => (
+-            <g key={p.id}>
+-              <circle
+-                cx={p.x}
+-                cy={p.y}
+-                r={28}
+-                className={`fig-visual-node fig-visual-node-${p.node.kind}`}
+-              />
+-              <text x={p.x} y={p.y + 4} textAnchor="middle" className="fig-visual-node-label">
+-                {p.node.label.length > 18 ? `${p.node.label.slice(0, 16)}…` : p.node.label}
+-              </text>
+-            </g>
+-          ))}
+-        </svg>
+-      ) : null}
+-      <ul className="fig-visual-relations-list">
+-        {block.nodes.map((n) => (
+-          <li key={n.id} data-node-kind={n.kind}>
+-            <NoraSemanticIcon
+-              role={
+-                n.kind === "hypothesis"
+-                  ? "hypothesis"
+-                  : n.kind === "observation"
+-                    ? "observation"
+-                    : n.kind === "fact" || n.kind === "finding"
+-                      ? "fact"
+-                      : "information"
+-              }
+-            />
+-            <span className={`fig-visual-tone fig-visual-tone-${n.kind}`}>{n.kind}</span>
+-            {n.label}
+-          </li>
+-        ))}
+-      </ul>
+-      {block.edges.length ? (
+-        <ul className="fig-visual-relations-edges">
+-          {block.edges.map((e, i) => (
+-            <li key={`${e.from}-${e.to}-${i}`}>
+-              {e.from} → {e.to}
+-              {e.label ? ` (${e.label})` : ""}
+-            </li>
+-          ))}
+-        </ul>
+-      ) : null}
+-      <p className="sr-only">{block.textAlternative}</p>
+-      <Provenance
+-        items={block.provenance}
+-        canonicalReferences={canonicalReferences}
+-        onReference={onReference}
+-      />
+-    </section>
+-  );
+-}
+-
+-function SynthesisView({
+-  block,
+-  canonicalReferences,
+-  onReference,
+-}: {
+-  block: SynthesisBlock;
+-  canonicalReferences?: TurnReference[];
+-  onReference?: (ref: TurnReference) => void;
+-}) {
+-  return (
+-    <section
+-      className="fig-visual-block fig-visual-synthesis"
+-      data-testid="nora-visual-synthesis"
+-      data-block-kind="synthesis"
+-      data-block-id={block.id}
+-      aria-label={block.title}
+-    >
+-      <Heading title={block.title} role={block.role} icon={block.icon} />
+-      <ul className="fig-visual-synthesis-list">
+-        {block.items.map((it) => {
+-          const role =
+-            it.role ??
+-            (it.tone === "risk"
+-              ? "risk"
+-              : it.tone === "hypothesis"
+-                ? "hypothesis"
+-                : it.tone === "observation"
+-                  ? "observation"
+-                  : it.tone === "priority"
+-                    ? "recommendation"
+-                    : "information");
+-          return (
+-            <li
+-              key={it.id}
+-              data-tone={it.tone}
+-              className={`fig-visual-synth-item fig-visual-tone-${it.tone}`}
+-            >
+-              <NoraSemanticIcon role={role} icon={it.icon} />
+-              <div>
+-                <strong>{it.label}</strong>
+-                {it.detail ? (
+-                  <SafeMarkdown content={it.detail} className="fig-visual-inline-md" />
+-                ) : null}
+-              </div>
+-            </li>
+-          );
+-        })}
+-      </ul>
+-      <p className="sr-only">{block.textAlternative}</p>
+-      <Provenance
+-        items={block.provenance}
+-        canonicalReferences={canonicalReferences}
+-        onReference={onReference}
+-      />
+-    </section>
+-  );
+-}
+-
+-function TextView({ block }: { block: TextBlock }) {
+-  return (
+-    <div
+-      className={`fig-visual-block fig-visual-text${block.role ? ` fig-visual-text-${block.role}` : ""}`}
+-      data-testid="nora-visual-text"
+-      data-block-kind="text"
+-      data-role={block.role ?? ""}
+-    >
+-      {block.role || block.icon ? (
+-        <div className="fig-visual-text-head">
+-          <NoraSemanticIcon role={block.role} icon={block.icon} />
+-        </div>
+-      ) : null}
+-      <SafeMarkdown content={block.markdown} />
+-    </div>
+-  );
+-}
+-
+-function ChoicesCluster(props: {
+-  choices: TurnChoice[];
+-  actionable?: boolean;
+-  busy?: boolean;
+-  choiceFrozen?: boolean;
+-  messageId?: string;
+-  residual?: boolean;
+-  onChoice?: (choice: TurnChoice, messageId: string) => void;
+-  anchorId?: string;
+-}) {
+-  if (!props.choices.length) return null;
+-  return (
+-    <div
+-      className="fig-nora-choices fig-visual-choices-anchor"
+-      data-testid="nora-choices"
+-      data-block-kind="choices"
+-      data-residual={props.residual ? "1" : "0"}
+-      data-actionable={props.actionable ? "1" : "0"}
+-      data-message-id={props.messageId}
+-      data-anchor-id={props.anchorId ?? ""}
+-    >
+-      {props.choices.map((c) => (
+-        <button
+-          key={c.id}
+-          type="button"
+-          className="fig-nora-choice"
+-          data-testid="nora-choice"
+-          data-choice-id={c.id}
+-          disabled={!props.actionable || props.busy || props.choiceFrozen}
+-          onClick={() => props.messageId && props.onChoice?.(c, props.messageId)}
+-        >
+-          {c.label}
+-        </button>
+-      ))}
+-      {!props.actionable ? (
+-        <p className="fig-nora-choices-expired" data-testid="nora-choices-expired">
+-          Propositions expirées — consultation seule.
+-        </p>
+-      ) : null}
+-    </div>
+-  );
+-}
+-
+-function RefsCluster(props: {
+-  references: TurnReference[];
+-  residual?: boolean;
+-  anchorId?: string;
+-  onReference?: (ref: TurnReference) => void;
+-}) {
+-  if (!props.references.length) return null;
+-  return (
+-    <ul
+-      className="fig-nora-refs fig-visual-refs-anchor"
+-      data-testid="nora-refs"
+-      data-block-kind="references"
+-      data-residual={props.residual ? "1" : "0"}
+-      data-anchor-id={props.anchorId ?? ""}
+-    >
+-      {props.references.map((r, i) => (
+-        <li key={`${r.kind}-${r.resourceId ?? r.path ?? r.href ?? i}`}>
+-          <button
+-            type="button"
+-            className="fig-nora-ref-link"
+-            data-testid="nora-ref-link"
+-            data-ref-kind={r.kind}
+-            onClick={() => props.onReference?.(r)}
+-          >
+-            Consulter · {r.label}
+-            {r.available === false ? " (à vérifier)" : ""}
+-          </button>
+-        </li>
+-      ))}
+-    </ul>
+-  );
+-}
+-
+-export function NoraVisualComposition(props: {
+-  composition: VisualComposition;
+-  choices?: TurnChoice[];
+-  references?: TurnReference[];
+-  actionable?: boolean;
+-  busy?: boolean;
+-  choiceFrozen?: boolean;
+-  messageId?: string;
+-  onChoice?: (choice: TurnChoice, messageId: string) => void;
+-  onReference?: (ref: TurnReference) => void;
+-}) {
+-  const choices = props.choices ?? [];
+-  const references = props.references ?? [];
+-  const choiceParts = partitionChoicesForAnchors(props.composition.blocks, choices);
+-  const refParts = partitionReferencesForAnchors(props.composition.blocks, references);
+-  // Provenance consultable wins first; refs clusters skip the same canonical identity.
+-  const alreadyConsultable = provenanceConsultableKeys(
+-    props.composition.blocks,
+-    references,
+-  );
+-  const dedupeRefs = (list: TurnReference[]) =>
+-    list.filter((r) => !alreadyConsultable.has(canonicalReferenceKey(r)));
+-
+-  return (
+-    <div
+-      className="fig-visual-composition"
+-      data-testid="nora-visual-composition"
+-      data-schema={props.composition.schemaVersion}
+-      data-owns-body="1"
+-    >
+-      {props.composition.blocks.map((b) => {
+-        if (b.kind === "choices") {
+-          return (
+-            <ChoicesCluster
+-              key={b.id}
+-              choices={choiceParts.byAnchorId.get(b.id) ?? []}
+-              actionable={props.actionable}
+-              busy={props.busy}
+-              choiceFrozen={props.choiceFrozen}
+-              messageId={props.messageId}
+-              onChoice={props.onChoice}
+-              anchorId={b.id}
+-            />
+-          );
+-        }
+-        if (b.kind === "references") {
+-          return (
+-            <RefsCluster
+-              key={b.id}
+-              references={dedupeRefs(refParts.byAnchorId.get(b.id) ?? [])}
+-              onReference={props.onReference}
+-              anchorId={b.id}
+-            />
+-          );
+-        }
+-        return (
+-          <BlockView
+-            key={b.id}
+-            block={b}
+-            canonicalReferences={references}
+-            onReference={props.onReference}
+-          />
+-        );
+-      })}
+-      {/* Residuals only when anchors exist — otherwise NoraConversation footer owns them. */}
+-      {compositionAnchorsChoices(props.composition) ? (
+-        <ChoicesCluster
+-          choices={choiceParts.residual}
+-          actionable={props.actionable}
+-          busy={props.busy}
+-          choiceFrozen={props.choiceFrozen}
+-          messageId={props.messageId}
+-          onChoice={props.onChoice}
+-          residual
+-          anchorId="residual-choices"
+-        />
+-      ) : null}
+-      {compositionAnchorsReferences(props.composition) ? (
+-        <RefsCluster
+-          references={dedupeRefs(refParts.residual)}
+-          onReference={props.onReference}
+-          residual
+-          anchorId="residual-references"
+-        />
+-      ) : null}
+-    </div>
+-  );
+-}
+-
+-function BlockView({
+-  block,
+-  canonicalReferences,
+-  onReference,
+-}: {
+-  block: VisualBlock;
+-  canonicalReferences?: TurnReference[];
+-  onReference?: (ref: TurnReference) => void;
+-}) {
+-  switch (block.kind) {
+-    case "comparison":
+-      return (
+-        <ComparisonView
+-          block={block}
+-          canonicalReferences={canonicalReferences}
+-          onReference={onReference}
+-        />
+-      );
+-    case "sequence":
+-      return (
+-        <SequenceView
+-          block={block}
+-          canonicalReferences={canonicalReferences}
+-          onReference={onReference}
+-        />
+-      );
+-    case "relations":
+-      return (
+-        <RelationsView
+-          block={block}
+-          canonicalReferences={canonicalReferences}
+-          onReference={onReference}
+-        />
+-      );
+-    case "synthesis":
+-      return (
+-        <SynthesisView
+-          block={block}
+-          canonicalReferences={canonicalReferences}
+-          onReference={onReference}
+-        />
+-      );
+-    case "text":
+-      return <TextView block={block} />;
+-    default:
+-      return null;
+-  }
+-}
++/**
++ * Compatibility alias — experimental E05 renderer replaced by NoraComposition.
++ * Keep export path stable for any residual imports; dual testids preserved.
++ */
++
++export {
++  NoraComposition as NoraVisualComposition,
++  NoraComposition,
++  type NoraCompositionProps,
++} from "@/components/figma/NoraComposition";
+
+```
+
+### 7.5 `NoraConversation.tsx` — diff exploitable complet
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+index b149f939..3e8d2d76 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+@@ -2,7 +2,7 @@
+
+ import { useEffect, useRef, useState } from "react";
+ import { SafeMarkdown } from "@/components/SafeMarkdown";
+-import { NoraVisualComposition } from "@/components/figma/NoraVisualComposition";
++import { NoraComposition } from "@/components/figma/NoraComposition";
+ import { useNoraThreadScroll } from "@/hooks/useNoraThreadScroll";
+ import type {
+   MessageProjectionView,
+@@ -160,7 +160,7 @@ export function NoraConversation(props: {
+                   <div className="fig-msg-body">
+                     {proj?.visualComposition &&
+                     compositionOwnsBody(proj.visualComposition) ? (
+-                      <NoraVisualComposition
++                      <NoraComposition
+                         composition={proj.visualComposition}
+                         choices={proj.choices}
+                         references={proj.references}
+
+```
+
+### 7.6 `tokens.css` — diff exploitable complet (CORRECTIF PACK)
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+index 8623f598..8bf5f452 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
++++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+@@ -2163,6 +2163,108 @@
+   }
+ }
+
++/* Conversational composition v1 — adaptive presentation (CV-*) */
++.fig-comp-composition {
++  container-type: inline-size;
++  container-name: nora-composition;
++}
++
++.fig-comp-title {
++  overflow-wrap: anywhere;
++  word-break: break-word;
++}
++
++.fig-comp-alt h4,
++.fig-comp-alt p,
++.fig-comp-step h4,
++.fig-comp-fallback-text,
++.fig-comp-matrix th,
++.fig-comp-matrix td {
++  overflow-wrap: anywhere;
++  word-break: break-word;
++  white-space: normal;
++}
++
++.fig-comp-comparison-stack {
++  display: flex;
++  flex-direction: column;
++  gap: 12px;
++}
++
++.fig-comp-comparison-cards {
++  display: grid;
++  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
++  gap: 12px;
++}
++
++.fig-comp-matrix-wrap {
++  overflow-x: auto;
++  max-width: 100%;
++  -webkit-overflow-scrolling: touch;
++}
++
++.fig-comp-matrix {
++  width: max-content;
++  min-width: 100%;
++  border-collapse: collapse;
++}
++
++.fig-comp-matrix th,
++.fig-comp-matrix td {
++  padding: 8px 10px;
++  text-align: left;
++  vertical-align: top;
++  white-space: normal;
++}
++
++.fig-comp-steps-vertical {
++  display: flex;
++  flex-direction: column;
++  gap: 0;
++}
++
++.fig-comp-steps-horizontal {
++  display: flex;
++  flex-direction: row;
++  flex-wrap: wrap;
++  gap: 12px;
++  align-items: stretch;
++}
++
++.fig-comp-steps-horizontal > .fig-comp-step {
++  flex: 1 1 180px;
++  min-width: min(100%, 180px);
++}
++
++.fig-comp-relations-svg {
++  width: 100%;
++  max-width: 100%;
++  height: auto;
++}
++
++.fig-comp-relations-svg .fig-visual-node-label {
++  font-size: 10px;
++}
++
++.fig-comp-block-fallback,
++.fig-comp-fallback-text {
++  margin: 0;
++  padding: 10px 12px;
++  border-left: 3px solid var(--fig-line);
++  color: var(--fig-ink);
++  background: color-mix(in srgb, var(--fig-panel) 80%, transparent);
++}
++
++@container nora-composition (max-width: 560px) {
++  .fig-comp-comparison-cards {
++    grid-template-columns: 1fr;
++  }
++
++  .fig-comp-steps-horizontal {
++    flex-direction: column;
++  }
++}
++
+ .project-unavailable {
+   display: flex;
+   align-items: flex-start;
+
+```
+
+### 7.7 `delivery-history.md` — diff exploitable complet (CORRECTIF PACK)
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 7b64d566..54b0187e 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-V1
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-18 ~01:22 CET |
++| Macro-lot | Remplacement mécanisme graphique expérimental E05 → composition conversationnelle adaptative |
++| Type | Cycle Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
++| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
++| Architecture | Strategy B V1 — `replyDraft` canonique ; wire `e05-visual-composition-v1` conservé ; admission `conversational-composition-v1` ; renderer `NoraComposition` |
++| Scope | admission/variantes CV-* ; `NoraComposition` + CSS container queries ; alias `NoraVisualComposition` ; wire `NoraConversation` ; tests unit ; preuves Figma Page 06 ; matrice CV-T |
++| Non-scope | Migration DB ; Strategy A sections sémantiques ; elkjs/RF/ECharts ; push produit ; RECETTE/STABLE ; LIVE OpenAI |
++| Preuves | Vitest admission+E05+schema+projection 54 PASS ; Playwright ensemble05 5 PASS / 2 FAIL (C2/ACK hors renderer) ; T02 composition PASS |
++| Verdict | `READY WITH RESERVES` — runtime Figma comparison + CV-T browser gap + 2 e2e reconcile flaky/fail |
++
++
+ ## delivery_id: DELIV-2026-11-17-ML4D-R05-COGNITIVE-RECOVERY
+
+ | Field | Value |
+
+```
+
+### 7.8 `tests/unit/conversational-composition-admission.test.ts` (complet)
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -1420,11 +2263,7 @@ describe("conversational composition admission (CV-*)", () => {
 
 ```
 
-### CSS `tokens.css`
-
-Ajout bloc `.fig-comp-*` (container queries, matrix scroll, stack/cards, fallback text, steps horizontal/vertical). Diff ~102 lignes ajoutées après `.fig-visual-*`.
-
-### Evidence contrat Figma
+### 7.9 Evidence contrat Figma
 
 # Contrat visuel extrait — Figma Page 06 (références composition)
 
@@ -1477,7 +2316,7 @@ Sans capture runtime post-implémentation : verdict visuel maximal
 `REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED`.
 
 
-### Matrice CV-T
+### 7.10 Matrice CV-T
 
 # Matrice CV-T01–CV-T20 — Composition conversationnelle adaptative
 
@@ -1570,6 +2409,7 @@ Sans capture runtime post-implémentation : verdict visuel maximal
 4. Wire `MAX_ALTS=5` vs scénario CV-T05 « 8–18 options » — borne parse existante ; admission défend >18.
 5. Strategy A non livrée — KNOWN GAP documenté.
 6. Thème sombre Studio vs maquettes Page 06 plus claires — écart DA environnement.
+7. Pack antérieur `1e7330e0` incomplet sur diffs CSS/history — **corrigé dans cette republication**.
 
 **Aucun STOP bloquant d’entrée** après Truth Check + Figma extract + Strategy B.
 
@@ -1581,18 +2421,17 @@ Sans capture runtime post-implémentation : verdict visuel maximal
 
 Pas ADOPTED / Gate C CLOSED / STABLE / MERGED / REAL PROVEN.
 
+Complément pack : les contenus modifiés manquants (`tokens.css`, `delivery-history.md`) sont désormais inclus en diff intégral — le motif `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING` est levé côté publication.
+
 ---
 
 ## 14. Instruction ChatGPT
 
-Revue Full demandée pour le cycle **Composition conversationnelle adaptative Nora** (2026-11-18) sur branche locale `sfia/next-ml4d-composition-adaptative`.
+Revue Full **complétée** pour le cycle **Composition conversationnelle adaptative Nora** (2026-11-18), republication après incomplete pack.
 
-À examiner :
-1. Strategy B (replyDraft + wire visualComposition + admission `conversational-composition-v1`) vs préférence Strategy A.
-2. Remplacement renderer E05 → `NoraComposition` (ErrorBoundary, variantes, dual testids).
-3. Non-régression D3/M1–M5 et absence de migration.
-4. Matrice CV-T et gap runtime/Figma.
-5. 2 échecs e2e ACK/reconcile : régression induite ou flaky hors périmètre ?
-6. Aptitude à un prochain GO (captures runtime + commit produit éventuel).
+À examiner en priorité les ajouts manquants précédents :
+1. Diff complet `tokens.css` (§7.6) — risques de régression CSS / collision avec `.fig-visual-*` / container queries.
+2. Diff complet `delivery-history.md` (§7.7) — journal NO RELEASE.
+3. Puis Strategy B, `NoraComposition`, non-régression D3/M1–M5, matrice CV-T, gap runtime/Figma, 2 e2e ACK.
 
-**Verdict sollicité :** confirmation `READY WITH RESERVES` ou élévation STOP / conditions de sortie.
+**Verdict sollicité :** confirmation `READY WITH RESERVES` (pack désormais complet) ou élévation STOP / conditions de sortie.
