@@ -1,22 +1,24 @@
 # SFIA Studio Next — Matrice de convergence : vision, contrats et réalisation Cursor
 
-**Version :** 0.8 — 18 novembre 2026 (actualisation D1 après preuves Level-A/Level-B/LIVE et consolidation Ensemble 05)
+**Version :** 0.9 — 18 novembre 2026 (revue du handoff Full complété, réserves de sélection et statut de réception)
 **Statut :** DOCUMENTED / REVIEW CANDIDATE — suivi non normatif D1 soumis à validation Morris ; aucune nouvelle décision D2, aucune réception, aucun ADOPTED.
 **Périmètre :** R5 / ML4D — Ensemble 05 « Travail avec Nora », composition conversationnelle adaptative et remplacement de l'expérience E05.
 **Nature :** matrice vivante de qualification, fondée sur les handoffs Git ; code produit et worktree non inspectés directement par ChatGPT. Les §§9–12 constituent des instantanés historiques V0.6/V0.7, non l'état courant.
 **Sources de conception :** [01 — Vision produit](01-cadrage-vision-produit.md) · [02 — Fonctionnel/UX](02-conception-fonctionnelle-ux.md) · [03 — Architecture](03-architecture-solution-technique.md) · [04 — Remplacement E05](04-qualification-architecture-remplacement-e05.md) · [05 — Contrat Nora–Studio](05-contrat-composition-nora-studio.md).
 
-## 1. Conclusion et cadrage de la revue — V0.8
+## 1. Conclusion et cadrage de la revue — V0.9
 
 **Synthèse :** la chaîne D3 → composition sémantique → admission Studio → composants React/ELK → persistance/relecture dispose de preuves rapportées Level-A (fixtures), Level-B (fournisseur simulé à la frontière D3) et Level-C LIVE **bornées** (12 tours, dont 5 avec composition spontanée, 0 retry). Ces niveaux ne démontrent pas une couverture spontanée de toutes les neuf familles. L'usage LIVE est attaché à un seul projet/Pilote/modèle DEV, et le coût €10,20 est une **estimation fallback**, pas une facturation contrôlée.
 
 **L03/L04 :** la base DEV reconstruite indique des tableaux Markdown dans replyDraft, **sans visualComposition**. La cause se situe dans la production D3 (cas B), pas dans le renderer ; un renforcement des instructions D3 est rapporté par le handoff 43b12a34. Des replays **FAKE** de structures artificiellement préparées sélectionnent cards/matrix ; ils ne prouvent **pas** que les nouvelles instructions produiront spontanément ces blocs lors d'un futur LIVE. **L07 :** parallelProcess + trois laneId, choix parallel fidèle à la substance (cas D), non défaut de graphes directed.
 
-**Intégrité et limites :** la déduplication exacte dans EditorialSynthesis et le mécanisme anti-fuite SIM sont corrigés et testés selon Cursor ; la couverture globale C2/A2/A7, les replays historiques PG, une comparaison visuelle complète des Figma 01–09, le tsc global et les diffs complets du candidat ne sont pas tous acquis. Le Review Pack du handoff 43b12a34 contient des tests, mais ne livre pas les sections/diffs exploitables de toutes les modifications ; **REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING** avant certification indépendante. Les captures binaires locales ne sont pas intégrées à ce document Git.
+**Intégrité et limites :** la déduplication exacte dans EditorialSynthesis et le mécanisme anti-fuite SIM sont corrigés et testés selon Cursor ; la couverture globale C2/A2/A7, les replays historiques PG, une comparaison visuelle complète des Figma 01–09, le tsc global et les diffs complets du candidat ne sont pas tous acquis. Le handoff complété `0cda342f` contient désormais les fichiers FULL et diffs requis pour les deltas de consolidation : la réserve **REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING** est **LEVÉE pour ce cycle**. Les empreintes des copies locales non publiées et l'audit global de tout le worktree restent distincts. Les captures binaires locales ne sont pas intégrées à ce document Git.
 
 **Règle de gouvernance :** un verdict Cursor « READY FOR MORRIS ENSEMBLE 05 RECEPTION REVIEW » autorise une **revue**, pas une réception, Gate C, PR/merge, RECETTE, STABLE ni ADOPTED. Ne pas fusionner cette matrice candidate sur main sans GO distinct. Strategy A et M1–M5 restent les orientations validées ; pas de second moteur de vérité ni de migration implicite.
 
-**Verdict V0.8 :** **CONSOLIDATION TECHNIQUE ÉTAYÉE — RÉCEPTION DOCUMENTAIRE ET VISUELLE À QUALIFIER**. L'actualisation conserve les IDs d'origine C-01 à C-22 ; elle **ne reprend pas** le tableau erroné C-01…C-22 proposé dans le handoff 43b12a34.
+**Verdict V0.9 :** **REVIEW PACK FULL EXPLOITABLE — RÉCEPTION PRODUIT AVEC RÉSERVES À ARBITRER**. L'actualisation conserve les IDs d'origine C-01 à C-22 ; elle **ne reprend pas** le tableau erroné C-01…C-22 proposé dans le handoff 43b12a34.
+
+**Réserves de code relevées dans le Full (non incidents LIVE observés) :** `selectComparisonVariant()` peut maintenir `matrix` pour cinq options alors que `CV_COMPARISON_CRITERIA_INCOMPLETE` est émis ; les tests UNIT ne prouvent pas la restitution explicite des cellules manquantes en BROWSER. `structuredBlockSurface()` préfixe toute timeline par « Chronologie fictive » sans distinguer une temporalité établie d'une hypothèse ; vérifier son affichage effectif et éviter un qualificatif trompeur. Enfin, le handoff `0cda342f` reproduit encore au §23 la proposition V0.7 incorrectement indexée : elle est explicitement **supplantée par la présente matrice V0.9**, qui conserve les identifiants C-01 à C-22. Ces constats ne contredisent pas les résultats LIVE antérieurs ; ils restent à qualifier avant réception sans réserve.
 
 ## 2. Sources Git et niveaux de preuve
 
@@ -28,6 +30,7 @@
 | Préflight LIVE | [Handoff cb407251](https://github.com/mcleland147/sfia-workspace/blob/cb407251a9f538d30f7cccbd673e078cc9176544/sfia-review-handoff/latest-chatgpt-review.md) | C2 et SIM fail-closed ; 0 LIVE à ce jalon. |
 | LIVE borné | [Handoff 72bb56d9](https://github.com/mcleland147/sfia-workspace/blob/72bb56d9ad7b4ea59f9264a5054522ce4c9a2074/sfia-review-handoff/latest-chatgpt-review.md) | 12/12 COMPLETE et 5 compositions rapportées ; captures/ledger locaux non inspectés ici. |
 | Consolidation | [Handoff 43b12a34](https://github.com/mcleland147/sfia-workspace/blob/43b12a34efb36bec9d77cc5732efc503109e41e5/sfia-review-handoff/latest-chatgpt-review.md) · blob `3b58657e7c0060fd4b2dd408d88fe1cb46ae9ced` | Diagnostic DB L03/L04/L07, prompt D3 et admission corrigés en candidat ; UNIT/Level-B PASS rapportés, aucun nouveau LIVE. |
+| Republication Full | [Handoff 0cda342f](https://github.com/mcleland147/sfia-workspace/blob/0cda342f700f4dc392dcc5df6d58f316f0a431a5/sfia-review-handoff/latest-chatgpt-review.md) · blob `1ee09d806e30f337117d10541edf0c4b526f4c56` | 3 379 lignes ; FULL admission/index/nora-adapter/test maturation, diffs tracked ; publication documentaire mono-fichier, code produit inchangé. |
 | Code produit local | `sfia/next-ml4d-composition-adaptative@a783f014935de0dec5ff8e79a2b18eea0e629756` + worktree dirty selon Cursor | Branches/fichiers locaux **NON OBSERVÉS directement** ; aucun push produit. |
 | Référence visuelle | [Figma page 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=742-2) | Direction validée : thème sombre, fidélité adaptative ; une capture runtime n'est pas preuve d'intégrité sémantique. |
 | Gouvernance | [SEF](../../../governance/SEF.md), [Roadmap](../../../governance/roadmap.md), décisions Next, ENV-01 | Autorité Morris inchangée. |
@@ -62,7 +65,7 @@
 |---|---|---|---|---|
 | C-07 — GV-01/02 | Narration naturelle sans visuel obligé. | L01–L04 et L10–L12 restent en prose ; L10 refuse un graphique quantitatif insuffisamment fondé. | BEHAVIOR PROVEN — LIVE BORNÉ. | Préserver prose-only après renforcement des instructions de comparaison ; évaluer la pertinence, pas le nombre de graphiques. |
 | C-08 — Figma 03/04 | Comparaisons cards/matrix/stacked fidèles aux options et critères. | Level-A et Level-B : composants ; LIVE L03/L04 : tableaux Markdown sans visualComposition (Cas B) ; instructions D3 renforcées ; REPLAY FAKE L03→cards/L04→matrix PASS. | IMPLEMENTED / COVERAGE VERIFIED — FAKE ; sélection spontanée cards/matrix POST-CORRECTIF NOT PROVEN LIVE. | Conserver L03/L04 historiques inchangés ; éventuellement contre-épreuve LIVE sous nouveau GO, non requise automatiquement pour ce dossier. |
-| C-09 — Figma 02/06 | Parcours et temporalités fondés ; chronologie sans dates inventées. | EditorialSequence et timeline Figma 02 corrigées en DEV ; LIVE L05/L06 composition sequence rapportée ; absence de Gantt inventé. | BEHAVIOR PROVEN — LIVE BORNÉ pour sequence ; conformité planning complet PARTIELLE. | Revue Figma/runtime intégrale ; chronologie S1–S8 et 4 pistes, accessibilité et responsive. |
+| C-09 — Figma 02/06 | Parcours et temporalités fondés ; chronologie sans dates inventées. | EditorialSequence et timeline Figma 02 corrigées en DEV ; LIVE L05/L06 composition sequence rapportée ; absence de Gantt inventé. | BEHAVIOR PROVEN — LIVE BORNÉ pour sequence ; conformité planning complet PARTIELLE. | Revue Figma/runtime intégrale ; vérifier aussi `structuredBlockSurface()` qui désigne toute timeline par « Chronologie fictive », même si elle est fondée (risque de qualification inexacte en restitution/fallback). |
 | C-10 — Figma 07 | Graphe de dépendances dirigées, relations et convergence lisibles. | DirectedRelationBoard/ELK présent et Level-B S7 PASS ; LIVE L07 = parallelProcess avec 3 laneId, choix fidèle ; graphe dependencies spontané non démontré en LIVE. | COVERAGE VERIFIED — FAKE ; LIVE DIRECTED NOT PROVEN. | Conserver distinction dependencies/parallel ; inspecter graphe complet, connecteurs, viewport et libellés. |
 | C-11 — Figma 08 | Arbre conditionnel véritable, branches fidèles, aucune décision automatique. | Topologie directed Level-A/B ; L08 LIVE : composition conditionnelle rapportée, preuve visuelle locale non inspectée dans cette mise à jour. | BEHAVIOR PROVEN — LIVE BORNÉ SELON HANDOFF ; réception Figma/A11Y PARTIELLE. | Vérifier captures complètes branches et clavier, propriétaire HumanDecision. |
 | C-12 — Figma 09 | Voies parallèles et synchronisations fondées sans faux effet métier. | L07 : parallelProcess avec 3 laneId fidèle, L09 : parallel spontané rapporté ; tests directed/parallel FAKE. | BEHAVIOR PROVEN — LIVE BORNÉ ; visuel et sync exhaustifs PARTIELS. | Inspecter connexions, convergence, scrolling et aucune fausse décision D6. |
@@ -83,7 +86,7 @@
 
 | ID canonique | Contrat / résultat | État rapporté et preuve | Qualification au 18/11/2026 | Réserve / sortie |
 |---|---|---|---|---|
-| C-20 — CV-T01–20 | UNIT/FAKE/BROWSER/PG/LIVE et preuves visuelles différenciées. | UNIT sélection/C2/SIM PASS ; Level-B BROWSER PASS ; LIVE 12/12 antérieur ; nouvelle instruction D3 non revalidée LIVE ; tsc global en erreur qualifié préexistant ; Review Pack deltas incomplet. | COVERAGE VERIFIED — PARTIEL ; REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING. | Cursor republie Full avec contenu/diffs exploitables, baseline TypeScript reproductible et preuve Figma/PG conforme au niveau revendiqué. |
+| C-20 — CV-T01–20 | UNIT/FAKE/BROWSER/PG/LIVE et preuves visuelles différenciées. | UNIT sélection/C2/SIM PASS ; Level-B BROWSER PASS ; LIVE 12/12 antérieur ; nouvelle instruction D3 non revalidée LIVE ; tsc global en erreur qualifié préexistant ; Review Pack deltas complété au `0cda342f` (3 379 lignes). | COVERAGE VERIFIED — PARTIEL ; REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING. | Traçabilité de consolidation levée ; restent baseline TypeScript reproductible, preuve Figma/PG appropriée et contrôle des binaires locaux. |
 | C-21 — VP-05 | Nora choisit spontanément forme pertinente en conversation naturelle. | LIVE 12 tours, 5 compositions L05–L09 ; prose pertinente ailleurs ; L03/L04 Cas B, prompt futur renforcé sans nouveau LIVE. | BEHAVIOR PROVEN — LIVE BORNÉ ; CARDS/MATRIX POST-CORRECTIF NOT PROVEN. | Conserver scope 1 Pilote/1 projet/1 modèle et réserve ; autre LIVE uniquement sur GO Morris distinct. |
 | C-22 — Gate C | Réception Morris, clôture ML4D et promotions sont des décisions distinctes. | Dossier de réception préparé au handoff 43b12a34 ; matrice proposée Cursor C-01…22 avait des identifiants décalés, rectifiés ici ; aucun code produit poussé. | DOCUMENTED — GATE C OPEN / ENSEMBLE 05 NON REÇU. | Revue documentaire et visuelle Morris ; commit/PR/merge produit, recette et Gate C sous autorisations séparées. |
 
@@ -94,7 +97,7 @@
 | **W1 — Direction artistique** | Figma 01–09 lus et déclinés en Studio sombre ; composants éditoriaux et diagrammes candidats. | Revue visuelle finale Figma/runtime encore partielle ; captures tronquées à remplacer si verdict visuel fort exigé. |
 | **W2 — Contrat/architecture** | Strategy A, canonical-v1, admission, M1–M5, C2 et choix typed ; pas de moteur cognitif concurrent. | Diff global C2/A2/A7 et lecture historique à qualifier ; migrations non autorisées. |
 | **W3 — Construction intégrée** | Figma 01–09 rendables en Level-A/B ; ELK graphes ; D3 LIVE 5 compositions ; sélection L03/L04 mieux instruite après correctif. | Spontanéité cards/matrix post-prompt non démontrée ; pas de nouveau LIVE sans GO. |
-| **W4 — Qualification croisée** | UNIT/C2/SIM et Level-B PASS rapportés, LIVE 12/12 ancien candidat, relecture de 12 assistants. | tsc global en erreur préexistante rapportée (à baseliner), images complètes, 390/split/zoom/a11y et PG historique non totalement prouvés ; Review Pack Full à compléter. |
+| **W4 — Qualification croisée** | UNIT/C2/SIM et Level-B PASS rapportés, LIVE 12/12 ancien candidat, relecture de 12 assistants. | tsc global en erreur préexistante rapportée (à baseliner), images complètes, 390/split/zoom/a11y et PG historique non totalement prouvés ; Review Pack Full complété ; preuves visuelles et baseline globale encore à qualifier. |
 | **W5 — Recette produit** | Dossier Morris préparé ; matrice canonique mise à jour ici à la bonne numérotation. | Réception **non prononcée** ; Gate C, push/PR/merge, RECETTE, STABLE, ADOPTED distincts. |
 
 **Un seul macro-lot**, sans micro-cycles documentaires ; dette et exit sont associés aux lignes C correspondantes.
@@ -106,7 +109,7 @@
 | **CONSERVER** | Strategy A, D3 propriétaire du sens, composants Figma 01–09, ELKjs, texte libre, projections versionnées, admission, C2, HumanDecision séparé. | Aucun retour au rendu de démonstration seulement. |
 | **ACQUIS DÉTERMINISTES** | Level-A/Level-B, tests de sélection cards/matrix/dependencies/parallel, fallback conservateur, C2 exact-identity dans EditorialSynthesis. | Ne pas réétiqueter ces tests en LIVE. |
 | **ACQUIS LIVE BORNÉS** | 12 tours fournisseur réel, 5 compositions, refus de chart sans données, persistence/reload nouveaux messages. | 1 pilote/projet/modèle ; preuves rapportées et captures locales. |
-| **QUALIFIER AVANT RÉCEPTION** | Review Pack Full complet, matrice C-ID correcte, défauts bloquants TypeScript/visuel/C2 distingués, réception graphique Morris. | Cursor republie handoff L3 Full avec diffs ; ChatGPT revoit ; Morris arbitre. |
+| **QUALIFIER AVANT RÉCEPTION** | Review Pack Full désormais exploitable pour la consolidation ; matrice C-ID correcte, réserves TypeScript/visuel/C2 et cas critères incomplets à arbitrer avant réception. | Cursor republie handoff L3 Full avec diffs ; ChatGPT revoit ; Morris arbitre. |
 | **REPORTER SOUS RÉSERVE MOTIVÉE** | Ancien PG historique, coût réel tokens, sélection LIVE cards/matrix post-correctif, certaines preuves split/zoom/accessibilité. | Pas de nouveau LIVE/RECETTE/PR implicite, exit clair. |
 | **HORS SCOPE** | Nouvelle DB, second moteur IA, moteur de décision parallèle, changement de doctrine, push produit, Gate C/ADOPTED. | GO Morris distinct requis. |
 
@@ -119,7 +122,7 @@
 | **A3 — Versionnement et PG** | canonical-v1 WRITE, anciens READ rapportés ; refresh 12 nouveaux LIVE. | Historique réel PG et UNKNOWN/reconciliation : NOT RUN ou preuve distincte. |
 | **A4/A7 — Qualification invalide** | Fixture fail-closed, SIM anti-fuite, contrôles Zod rapportés. | Revoir invalid/empty/parse-null sur chemins atteignables, sans COMPLETE mensonger. |
 | **A5 — Graphes** | ELK, Level-B S7, arbre/parallel LIVE borné. | Géométrie complète, connecteurs, branches clavier, sync et zoom/split. |
-| **A6 — Non-régression** | UNIT/Level-B PASS ; Live antérieur 12/12 ; tsc global non PASS. | Baseline TS, build/lint, vrai ErrorBoundary, responsive/a11y, fichiers/diffs Full. |
+| **A6 — Non-régression** | UNIT/Level-B PASS ; Live antérieur 12/12 ; tsc global non PASS. | Baseline TS, build/lint, vrai ErrorBoundary, responsive/a11y, fichiers/diffs Full désormais fournis pour le cycle. |
 | **L03/L04 — Comparaison** | LIVE Cas B (replyDraft Markdown, VC absente) ; prompt D3 renforcé ; REPLAY FAKE cards/matrix PASS. | Nouvel effet spontané LIVE **NOT PROVEN** ; ne pas inventer la validation. |
 | **L07 — Relations** | LIVE Cas D : parallelProcess avec 3 lanes. | Conserver sémantique ; ne pas forcer directed sans relations compatibles. |
 
@@ -132,7 +135,7 @@
 - **RECETTE/STABLE :** aucune mise à disposition sans candidat Git immuable et GO ENV-01 ; STABLE NOT AVAILABLE.
 - **Gate C / Ensemble 05 :** OPEN / non reçu. La préparation d'une revue n'est pas l'acceptation.
 
-**Verdict documentaire courant : CONSOLIDATION TECHNIQUE ÉTAYÉE — RÉCEPTION À ARBITRER APRÈS REVUE FULL ET VISUELLE.**
+**Verdict documentaire courant : REVIEW PACK FULL EXPLOITABLE — RÉCEPTION ENSEMBLE 05 À DÉCIDER AVEC RÉSERVES EXPLICITES.**
 
 ---
 
