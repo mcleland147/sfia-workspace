@@ -288,3 +288,24 @@ Une politique **déterministe et explicable** doit réaliser les opérations sui
 - [Playwright — comparaison de captures](https://playwright.dev/docs/test-snapshots), [assertions de captures de composants](https://playwright.dev/docs/api/class-locatorassertions).
 
 **Date de consultation et portée :** documentation publique examinée le 17/11/2026 ; API et comportements à revérifier à la version installée lors du delivery. Les bibliothèques citées sont des **candidats**.
+
+---
+
+## Annexe factuelle du 18/11/2026 — réception bornée de la composition visuelle (D1)
+
+> **Actualisation postérieure, non normative.** Les mentions de conception candidate, d'absence de GO et de non-implémentation dans les paragraphes historiques précédents décrivent **l'état de rédaction du 17/11** ; elles ne doivent pas être lues comme le statut runtime actuel de la **seule composition visuelle**. Cette annexe ne réécrit pas les décisions validées et ne déclare pas l'ensemble Travail réceptionné. Source commune : [dossier UAT](07-dossier-reconciliation-reception.md), [matrice C-01…C-22 V0.10](06-matrice-convergence-vision-realisation.md), [handoff final](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md).
+
+### Réconciliation as-built rapportée — chaîne de composition
+
+| Frontière | État documenté après delivery |
+|---|---|
+| **D3** | Production structurée `visualComposition` et réponse textuelle ; choix spontané de familles constaté sur les huit UAT RECETTE. Aucune déduction de graphique à partir du Markdown libre. |
+| **Validation SDK** | UAT-03 : sortie `steps[].detail` dépassant `max(400)` → validation Zod/Agents SDK échouée en `stream_drain` ; plafond porté à **5 000 caractères par détail d'étape**, et non par réponse Nora. |
+| **Observabilité** | Catégorisation durable des erreurs de sortie structurée rapportée, avec métadonnées expurgées et sans réutiliser les journaux sensibles DEV en RECETTE. |
+| **Admission / projection** | Contrat canonique versionné et rendu spécialisé, repli texte/compléments conservateurs rapportés ; versions PG historiques non rejouées exhaustivement. |
+| **Rendu React / ELKjs** | Cartes, matrices, séquences, timelines et graphes ; correctifs UX-01…07. Dans UAT-07, `classifyLanes()` réclamait deux fois certains nœuds entre gate et voie/suite ; **claim exclusif** et ordonnancement revue → lancement, sans modifier les six nœuds D3 persistés. |
+| **Persistance / RECETTE** | Relecture de la composition existante UAT-07 confirmée par le handoff et capture Morris ; aucune migration. Candidat local `5c94c867`, build `IEINNuPl0bHWJOWkh0ZhG` selon livraison Cursor. |
+
+**Invariant et blast radius :** D3 reste propriétaire du sens, Studio contrôle l'admission et le rendu sans moteur cognitif parallèle ; ni autorité D6 ni données PG ne doivent être réécrites pour une correction de layout. Pour UX-05, la composition UAT-07 contenait **six IDs uniques** (`infrastructure`, `metier`, `accompagnement`, `synchronisation`, `revue`, `lancement`) et cinq arêtes ; le défaut était au niveau de la classification de rendu, pas une duplication D3.
+
+**Limites de qualification :** sources as-built établies à partir des handoffs et captures, **non à partir d'un audit du commit produit non poussé**. Comparaison complète du diff, replays PG historiques, régressions adverses et vérification indépendante des ACL RECETTE restent ouverts.
