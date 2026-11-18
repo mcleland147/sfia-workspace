@@ -61,6 +61,9 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await expect(page).toHaveURL(/surface=document/);
   await expect(page.getByText("Document Playwright", { exact: false })).toBeVisible();
 
+  // Continuity of the Nora thread is on Travail — return before asserting the message.
+  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
+  await expect(page).toHaveURL(/surface=travail/);
   await page.reload();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
 
@@ -79,7 +82,8 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await pageB.getByRole("button", { name: "Pilote B (DEV)" }).click();
   await pageB.waitForURL("**/portfolio");
   await pageB.goto(`/projects/${projectId}`);
-  await expect(pageB.getByText("non autorisé", { exact: false })).toBeVisible();
+  await expect(pageB.getByTestId("project-unavailable")).toBeVisible();
+  await expect(pageB.getByText(/introuvable|accessible|non autoris/i)).toBeVisible();
   await expect(pageB.getByText("Bonjour Nora depuis Playwright")).toHaveCount(0);
   await bContext.close();
 

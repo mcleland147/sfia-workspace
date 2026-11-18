@@ -77,7 +77,8 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   await pageB.getByRole("button", { name: "Pilote B (DEV)" }).click();
   await pageB.waitForURL("**/portfolio");
   await pageB.goto(`/projects/${projectId}`);
-  await expect(pageB.getByText("non autorisé", { exact: false })).toBeVisible();
+  await expect(pageB.getByTestId("project-unavailable")).toBeVisible();
+  await expect(pageB.getByText(/introuvable|accessible|non autoris/i)).toBeVisible();
   await bContext.close();
 
   const shot = path.join("tests/e2e/artifacts", `ml2-smoke-${Date.now()}.png`);

@@ -95,9 +95,8 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
   // UI surface: document reachable via Ensemble 04 Accès directs (legacy « Documents Nora · N » copy removed).
   await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
   await expect(page).toHaveURL(/surface=document/);
-  await expect(page.getByText(match!.document.title, { exact: false })).toBeVisible({
-    timeout: 10000,
-  });
+  await expect(page.getByTestId(`doc-open-${docId}`)).toBeVisible({ timeout: 10000 });
+  await expect(page.getByTestId(`doc-open-${docId}`).getByText(match!.document.title, { exact: true })).toBeVisible();
 
   // Reload — results durable; mission not awaiting create again.
   await page.goto(`/projects/${projectId}?surface=travail`);
