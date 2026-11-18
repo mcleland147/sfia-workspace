@@ -1,270 +1,211 @@
-# Review Pack FULL — Ensemble 05 RECETTE candidate delivery
+# Review Pack FULL — Incident UAT-03 Nora LIVE UNKNOWN (diagnostic only)
 
-**SFIA v2.6 · R5 / ML4D / Ensemble 05 · Cycle 8+9 mono-cycle**  
-**Date :** 2026-11-18  
-**Profil :** Critical  
-**ENV-01 :** REQUIRED · respecté  
-**Versioning produit :** REQUIRED · STABLE `NOT AVAILABLE` · candidate version `NOT AVAILABLE`  
-**Review Handoff :** L3 publish-in-cycle  
-**Verdict unique :** `RECETTE DEPLOYED — READY FOR MORRIS USER ACCEPTANCE`
+**SFIA v2.6 · R5 / ML4D / Ensemble 05 · Audit projet / QA RECETTE**  
+**Date/heure :** 2026-11-18 ≈ 16:47 CET / `2026-11-18T15:47:35Z`  
+**Typologie :** INC — investigation sans modification technique  
+**ENV-01 :** lecture seule RECETTE — respecté  
+**Versioning :** candidat inchangé · **NO RELEASE**  
+**LIVE :** aucun nouvel appel  
+**Verdict unique :** `UAT-03 PARTIAL DIAGNOSIS — ADDITIONAL EVIDENCE REQUIRED`
 
 ---
 
-## 1. Git Truth Check
+## 1. Date et heure
+
+Diagnostic forensique exécuté 2026-11-18 après UAT Morris (échecs ~15:38–15:41 UTC).
+
+## 2. Git Truth Check
 
 | Check | Valeur |
-| --- | --- |
-| toplevel (DEV WT) | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
-| branche technique locale | `sfia/next-ml4d-ensemble05-composition-recette-candidate` |
-| HEAD candidat | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` |
+|---|---|
+| toplevel | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
+| branche | `sfia/next-ml4d-ensemble05-composition-recette-candidate` |
+| HEAD | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` |
 | tree | `f94e8eccf912f76506702cd8c19a5e57df9b9ba2` |
-| `origin/main` | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| previous RECETTE SHA | `e224d6278a050bcfbd369c4008d94af504f81d44` |
-| build WT | `…/sfia-workspace-next-ml4d-ensemble05-recette-build-ba1e55ec` @ same SHA (detached) |
-| push produit | **NON effectué** (interdit) |
-| PR / merge / tag | **NON** |
+| origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| WT RECETTE servi | `…/ensemble05-recette-build-ba1e55ec` @ même SHA |
+| BUILD servi | `_eeb9Jy2hV242myk86VTu` |
+| PID :3200 | `84964` |
+| Mutations Git produit | **aucune** |
+| Push autorisé ce cycle | **handoff L3 uniquement** |
 
-Worktree DEV conserve des preuves E05 dirty non nécessaires au runtime RECETTE (evidence/png) — runtime servi uniquement depuis le WT build figé.
+Worktree DEV conserve des preuves dirty hors runtime — **non servi**.
 
----
+## 3. Sources et versions
 
-## 2. Sources, versions et décisions Morris
+- Contrat Morris : diagnostic UAT-03 lecture seule, aucun correctif / LIVE / mutation.
+- Candidat delivery handoff `7fb78ce0` / blob `d1a02e56` (référence).
+- Code inspecté : WT build ba1e55ec = runtime.
+- Agents SDK `@openai/agents` **0.21.0** (agents-core errors / turnResolution).
+- Matrice V0.9 (contexte ensemble) — non rejugée ici.
 
-- GO Morris 2026-11-18 : Ensemble 05 **accepté avec réserves** pour mise à disposition RECETTE.
-- Matrice convergence **V0.9** prévaut (C-01…C-22).
-- Review Handoff antérieur consolidation/amendement : `0cda342f` (référence, non rejoué).
-- Politiques : ENV-01 blob `14b61f0d…` · versioning blob `8bc93e0f…` (réfs contrat).
-- Aucune promotion STABLE · aucune release officielle.
+## 4. GO Morris exact
 
----
+**ANALYSE ET DIAGNOSTIC UNIQUEMENT — AUCUN CORRECTIF AUTORISÉ**  
+Aucun redémarrage, build, écriture DB, rollback, LIVE, push produit.
 
-## 3. État initial réel de RECETTE (avant cutover)
+## 5. ENV-01 / lanes
 
-| Élément | Valeur observée |
-| --- | --- |
-| LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
-| Worktree | `…/ensemble05-recette-build-e224d627` |
-| SHA | `e224d6278a050bcfbd369c4008d94af504f81d44` |
-| BUILD_ID | `MKmBUvdIXyydv_DpUTGZi` |
-| Adresse | `http://127.0.0.1:3200` |
-| Mode | `next start` production (pas de hot reload) |
-| Config | `~/.config/sfia-studio-next/recette/.env.local` |
-| PG | container `sfia-next-recette-pg` · port **5434** · DB `sfia_next_recette_ml4` · user `sfia_next_recette` |
-| Composition E05 | **absente** du build e224d627 |
+| Lane | État |
+|---|---|
+| RECETTE | `http://127.0.0.1:3200` · PG `:5434` / `sfia_next_recette_ml4` · LaunchAgent `com.sfia.studio.next.recette.ml4d-ux004` · config `~/.config/.../recette/.env.local` **non modifiée** |
+| DEV | non muté |
+| STABLE | non concernée |
 
-Backup pré-cutover : `~/.config/sfia-studio-next/sfia-recette-backups/ml4d-e05-composition-20261118-161805/`
+Fingerprint config : clés inchangées ; `SFIA_COG_PROFILE_TYPE` présent → tours OBS en `TEST_BOUNDARY` (y compris UAT-01/02 réussis).
 
----
+## 6. Build réellement servi
 
-## 4. État initial de DEV
+Confirmé aligné candidat : SHA `ba1e55ec…` · BUILD `_eeb9Jy2hV242myk86VTu` · OBS `source_sha` / `build_id` identiques sur les 4 tours UAT.
 
-| Élément | Valeur |
-| --- | --- |
-| Branche rapportée | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (dirty) |
-| Contenu E05 | composition + elkjs + tests + preuves |
-| Runtime RECETTE | **non** servi depuis DEV dirty |
+## 7. Les deux tours UAT-03 identifiés
 
----
+### UAT-03a
 
-## 5. Inventaire configuration non sensible
+| Champ | Valeur |
+|---|---|
+| conversation | `conv_f9b3bf1d-8a43-456e-8a1e-a95e84824134` |
+| user | `msg_88b32468-c2ca-4341-b3c3-44c6d42371b3` · COMPLETE · ordinal 11 · `2026-11-18T15:38:47.455Z` |
+| assistant | `msg_174a4e35-e69f-4261-abef-4a501fc9ccb8` · **UNKNOWN** · ordinal 12 · `15:39:32.255Z` |
+| generation | `gen_477cc5b1-e5ce-43c7-9705-f33df69f8ff6` |
+| operation | `op_ac1e145b-5cf1-4697-9f80-84b895a7bdcf` |
+| request | `req_3dc3058c-5971-4759-87fa-fa04bd56449d` |
+| attempt | `att_ae7edf9a-4b6a-46de-85a7-0afa4500f247` |
+| turn_command | `tcmd_2e0875f0-1225-433c-a929-70b96b72c3c9` · status UNKNOWN · error_category UNKNOWN |
 
-Clés présentes (24) — fingerprint SHA256 préfixe `8f6dd4c82b61eef6` :
+### UAT-03b
 
-`BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `DATABASE_URL`, `GITHUB_APP_*`, `GITHUB_CLIENT_*`, `INTEGRATION_TOKEN_ENCRYPTION_KEY`, `OPENAI_API_KEY`, `SFIA_COG_PROFILE_TYPE`, `SFIA_DOCUMENT_ROOT`, `SFIA_SOURCE_SHA`, `STUDIO_DEV_TEST_LOGIN`, `STUDIO_GITHUB_ALLOW_MUTATIONS`, `STUDIO_GITHUB_PROVIDER`, `STUDIO_GITHUB_USER_OAUTH`, `STUDIO_LANE`, `STUDIO_PORT`, …
+| Champ | Valeur |
+|---|---|
+| user | `msg_029d46db-91e0-4549-bc04-3e9be198cfaf` · COMPLETE · ordinal 13 · `15:40:16.785Z` |
+| assistant | `msg_6bab037f-30cd-4031-8d8c-33980cd92ef3` · **UNKNOWN** · ordinal 14 · `15:41:05.429Z` |
+| generation | `gen_241e4a4a-3b19-47f6-b795-7f49cf71ec1d` |
+| operation | `op_cf8b8ead-e433-4e36-8f40-c3cd7e4392d8` |
+| request | `req_bfd94624-9743-4568-ad6c-d9ed32fffa9d` |
+| attempt | `att_7f9e76df-2e82-476f-a3fe-34e4c6a7f977` |
+| turn_command | `tcmd_d556f25f-b446-4cc8-b8e6-eb24be6ab810` |
 
-- `STUDIO_FORCE_NORA_FIXTURE` : **absent** du fichier · **forcé vide** au start candidat  
-- `STUDIO_NORA_SIMULATED_PROVIDER` : **absent** · **forcé vide**  
-- `.env.local` DEV : **non recopié**
+Texte user (préfixe) : parcours déploiement outil métier en six étapes (cadrer → … → généraliser) — **identique** sur les deux tours ; clés client **distinctes**.
 
----
+## 8. Chronologie technique
 
-## 6. Comparaison ancien RECETTE / Ensemble 05
+Voir fiche `ensemble05-uat03-unknown-diagnostic-20261118/00-incident-uat03-diagnostic.md` §B.
 
-| Domaine | RECETTE e224d627 | Ensemble 05 ba1e55ec | Action |
-| --- | --- | --- | --- |
-| Conversation / Nora | présent | D3 instructions + sortie structurée | Intégré |
-| Composition | ancienne / absente E05 | bibliothèque adaptative + graphs | Intégré |
-| ELK / relations | absent | elkjs 0.10.2 | Intégré |
-| Persistance | schéma 012 | compatible, **pas de migration** | Préservé |
-| Auth / sessions | existant | inchangé | Préservé |
-| Documents | existant | inchangé fonctionnel | Préservé |
-| Config lane | recette ~/.config | réutilisée | Préservé |
+Résumé : UAT-01/02 COMPLETE ; UAT-03a/b : accepted → policy → provider PARTIAL → (~45–49 s) → provider UNKNOWN (`stream_drain`) → turn UNKNOWN.
 
-Delta Git `e224d627..ba1e55ec` : **57 files**, +11617 / −700.
+## 9. Extraits logs expurgés (OBS)
 
----
+UAT-03a échec :
 
-## 7. Stratégie d'intégration retenue
+```json
+{"event_name":"d3.nora.provider_attempt","generation_id":"gen_477cc5b1-…","attempt_id":"att_ae7edf9a-…","outcome":"UNKNOWN","error_category":"PROVIDER_ERROR","meta":{"provider_contacted":"YES","error_name":"h","error_code":null,"http_status":null,"transport_kind":null,"error_phase":"stream_drain","streaming_delivered":true,"cause_depth":1,"tool_calls_observed":0}}
+```
 
-1. Partir du SHA RECETTE `e224d627` (réellement servi).  
-2. Intégrer le delivery E05 depuis DEV dirty **via commit local figé**.  
-3. Build isolé dans WT `…-ba1e55ec`.  
-4. Cutover LaunchAgent → start script candidat.  
-5. Conserver DB + `.env.local` RECETTE.  
-6. Rollback script vers e224d627 prêt.
+UAT-03b : **même signature** (`error_name":"h"`, `stream_drain`, `streaming_delivered":true`).
 
----
+stderr process : `TimeoutNegativeWarning` (durée négative → clamp 1) — **symptôme process**, non corrélé prouvé aux ~45 s (budget wall analyse = 120 s).
 
-## 8–10. Diff candidat / fichiers
+Aucun secret / DSN / cookie dans ces extraits.
 
-Commit : `ba1e55ece782eb9f2bbfad9336ed346de1acf037`  
-Message : `feat(ensemble05): freeze Nora adaptive composition candidate for RECETTE`
+## 10. État persistant vérifié (SELECT only)
 
-Fichiers clés ajoutés/modifiés (extrait) :
+- Counts / projets non altérés par ce diagnostic (lecture seule).  
+- result_json UNKNOWN : `streaming.delivered=true`, `attempts[].providerContacted=YES`, `notes=PROVIDER_ERROR`, `nextTurnKind=INCERTAIN`, `humanDecisionCreated=false`, `idempotentReplay=false`, pas de visualComposition.  
+- Contenu assistant = message fail-closed catch adapter.
 
-- `src/components/figma/NoraComposition*.tsx` + `nora-composition/*`
-- `src/domains/conversation/conversational-composition/*`
-- `src/domains/conversation/directed-layout/*` (elk)
-- `src/domains/conversation/nora-adapter.ts` (D3)
-- `package.json` / lock — `elkjs@^0.10.2`
-- tests unit/e2e Level-B / LIVE tooling (tooling only ; LIVE auto non exécuté en RECETTE)
+## 11. Inspection chemin D3
 
-Contenus FULL des correctifs consolidation déjà publiés sous  
-`docs/evidence/.../ensemble05-final-consolidation-20261118/modified-content/` (réf. handoff `0cda342f`).
+Chaîne :
 
----
+`Pilote → API conversation → persist user → policy → Agent(outputType=NoraTurnQualificationAgentSchema) → run(stream:true) → drain toTextStream / completed → validateNoraTurnQualification → persist`
 
-## 11–12. SHA candidat & Build ID
+**Rupture démontrée :** entre drain stream et retour COMPLETE — **exception catch** avant validation applicative réussie.
+
+UAT-01 streaming notes succès : `structured_stream_drained_no_provisional_json`.
+
+## 12. Point d’exception
 
 | | |
-| --- | --- |
-| candidate_sha | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` |
-| build_identifier | `_eeb9Jy2hV242myk86VTu` |
-| SFIA_SOURCE_SHA (runtime) | forcé dans start script = candidate_sha |
+|---|---|
+| Fichier | `src/domains/conversation/nora-adapter.ts` |
+| Fonction | chemin LIVE Agents SDK (catch autour de `run` / drain) |
+| Phase | `stream_drain` (chunks déjà reçus) |
+| Transition | provider PARTIAL → UNKNOWN ; turn → UNKNOWN ; CAS applied |
+| UI | « Nora LIVE UNKNOWN: une seule tentative… » |
 
----
+## 13. Comparaison UAT-01 / 02 / 03
 
-## 13–15. Build, tests, TypeScript
+| Dimension | UAT-01 | UAT-02 | UAT-03a/b |
+|---|---|---|---|
+| Build/SHA | ba1e55ec | idem | idem |
+| Modèle | gpt-6.1-sol | idem | idem |
+| Profile | analyse/medium | investigation/high | analyse/medium |
+| maxTurns | 6 | 10 | 6 |
+| Durée | ~43 s | ~58 s | ~45 / ~49 s |
+| provider | YES | YES | YES puis exception |
+| Résultat | COMPLETE | COMPLETE | UNKNOWN ×2 |
+| Composition | comparison | matrix (kinds) | aucune persistée |
 
-| Étape | Résultat |
-| --- | --- |
-| `npm ci` (WT build) | OK |
-| Vitest | **73 PASS** |
-| `next build` | **OK** → BUILD `_eeb9Jy2hV242myk86VTu` |
-| elkjs dans bundle | présent (chunks server/static) |
-| Secrets dans bundle/scripts start | aucun secret détecté dans scripts start/rollback |
-| TypeScript global | **dette préexistante** — non présentée comme PASS ; **non bloquante** du build prod |
+Conclusion comparative : **pas une panne globale Nora/fournisseur** sur ce build ; échec **spécifique aux deux tours UAT-03** (demande parcours 6 étapes).
 
----
+## 14. Fake / Real
 
-## 16. DB / migrations
+Frontière **REAL** : RECETTE → D3 → Agents SDK → fournisseur réel.  
+Preuve : **Forensic REAL Trace Analysis** (OBS + PG).  
+Aucun nouveau LIVE. Level-B antérieur non probant pour cette exception.
 
-- `schemaRevision` code : `012_auth_concurrency_safety`
-- **Aucune migration exécutée**
-- Counts avant/après cutover : `23|117|534` **identiques**
-- Projets Morris (pilote `pilot_98a7a89e…`) toujours présents (ALTAÏR, Cockpit, Intervencia, CampusFlow, …)
-- Verdict migration : **non requis**
+## 15. Cause démontrée vs hypothèses
 
----
+### Démontré
 
-## 17. Isolation des environnements
+1. Exception pendant finalisation/drain stream après contact réel.  
+2. Classification `PROVIDER_ERROR` + affichage UNKNOWN fail-closed.  
+3. Deux tentatives indépendantes, mêmes symptômes.  
+4. Pas de réexécution automatique ; données user conservées.
 
-| Lane | Port | WT | Notes |
-| --- | --- | --- | --- |
-| DEV | 3100 (historique) | WT dirty | non touché pour runtime RECETTE |
-| RECETTE | **3200** | ba1e55ec build | servi |
-| STABLE | — | — | **non concernée** |
+### Hypothèse dominante (non prouvée — message absent)
 
-Réserve ENV-01 : collision cookies possible DEV/RECETTE sur `127.0.0.1` — profils navigateur séparés recommandés.
+Échec validation sortie structurée SDK (`ModelBehaviorError` / « Invalid output type… ») — cohérent avec : `stream_drain`, `delivered=true`, `error_name` minifié via `new.target.name`, regex qui **rate** `Invalid output type` (espace) et le classe `PROVIDER_ERROR`. Contraintes sequence (`detail`≤400, etc.) **peuvent** y contribuer ; **non démontré** sans message/path Zod.
 
----
+### Écarté / faible
 
-## 18. Configuration fournisseur
+- Cardinalité `steps.max(8)` trop basse pour 6 étapes : **non**.  
+- Wall-clock local 120 s atteint : **peu probable** (durées ~45 s).  
+- Auth clé absente pré-contact : **non** (`provider_contacted=YES`, UAT-01/02 OK).
 
-- Clés/provider RECETTE préservés (fichier lane).
-- FORCE/SIM **désactivés** au démarrage candidat.
-- **Aucun nouvel appel LIVE automatisé** Cursor dans ce contrat.
-- Campagne LIVE antérieure 12/12 (DEV) = preuve comportementale antérieure, non rejouée.
+## 16. Impact / blast radius
 
----
+P1 bloquant UAT-03. UAT-01/02 intacts. Correctif obs = blast radius faible. Correctif schéma/prompt = moyen ; nécessite requalification composition.
 
-## 19–23. Démarrage, smoke, continuité, compositions, URL
+## 17. Correctif recommandé — NON EXÉCUTÉ
 
-| Contrôle | Résultat |
-| --- | --- |
-| LaunchAgent → `start-recette-ensemble05-ba1e55ec.sh` | OK |
-| Listen `:3200` | OK · PID 84964 · cwd WT ba1e55ec |
-| `/login` | 200 |
-| Dev test login + portfolio | 200 |
-| Projet existant surface Travail | 200 — fil + **composition comparaison** relue |
-| Documents Nora | 200 bibliothèque |
-| Isolation API Pilot B → projet A | **404** |
-| Continuité DB | PASS |
-| URL | `http://127.0.0.1:3200` |
+1. Observabilité : élargir `categorizeProviderError` ; fingerprint message borné ; noms d’erreur stables post-minify.  
+2. Si confirmation schema : ajuster limites/instructions sequence (pas renderer).  
+3. Tests : unit classification + Level-B sequence 6 steps + LIVE UAT-03 **sous nouveau GO/budget**.  
+4. Redéploiement candidate RECETTE si code change.
 
-Preuve browser :  
-`docs/evidence/.../ensemble05-recette-delivery-20261118/smoke-travail-composition-comparison-3200.png`
+## 18. Plan de test / déploiement éventuel
 
----
+Diagnostic only — **pas de déploiement**. Prochain cycle correctif séparément.
 
-## 24. Manifest RECETTE
+## 19. Réserves / gates
 
-Voir `docs/evidence/.../ensemble05-recette-delivery-20261118/00-recette-manifest.md`
+- Message d’exception non récupérable sans instrumentation.  
+- `TimeoutNegativeWarning` stderr non expliqué finement.  
+- `TEST_BOUNDARY` en RECETTE : fait de config ; non causal exclusif (UAT-01/02 OK).  
+- Aucune mutation effectuée.
 
----
+## 20. Verdict unique
 
-## 25. Rollback
+# `UAT-03 PARTIAL DIAGNOSIS — ADDITIONAL EVIDENCE REQUIRED`
 
-| | |
-| --- | --- |
-| Script | `…/ensemble05-recette-build-ba1e55ec/ROLLBACK-TO-e224d627.sh` |
-| Cible | start e224d627 · BUILD `MKmBUvdIXyydv_DpUTGZi` |
-| Backup plist/start | `…/sfia-recette-backups/ml4d-e05-composition-20261118-161805` |
-| Données | non altérées par rollback code |
+Mécanisme UNKNOWN **expliqué et localisé**. Nature exacte de l’exception SDK/fournisseur **non prouvée** faute de message journalisé. Correctif obs prioritaire recommandé, non implémenté.
 
-Script présent et cohérent ; non exécuté (cutover réussi).
-
----
-
-## 26. Réserves reportées (acceptées)
-
-Matrice V0.9 C-01…C-22 ; sélection cards/matrix LIVE post-D3 non requalifiée ; critères matrice incomplets ; timeline « fictive » ; preuves Figma/runtime partielles ; responsive/a11y non exhaustifs ; relecture PG historique complète non démontrée ; tsc global ; coûts fournisseur non mesurés ici.
-
----
-
-## 27. Dossier de recette Morris
-
-`docs/evidence/.../ensemble05-recette-delivery-20261118/01-morris-user-dossier.md`  
-Journal anomalies : `02-smoke-and-anomaly-journal.md`
-
----
-
-## 28. Git actions
-
-| Action | Statut |
-| --- | --- |
-| Commit local candidat | FAIT `ba1e55ec` |
-| Push branche produit | **INTERDIT / non fait** |
-| PR / merge / tag | **NON** |
-| Handoff L3 `sfia/review-handoff` | **à publier in-cycle** (ce pack) |
-
----
-
-## 29. Statuts de preuve
-
-| Mode | Statut |
-| --- | --- |
-| DETERMINISTIC (Vitest) | **PASS** 73 |
-| BROWSER (RECETTE smoke) | **PASS** composition persistée |
-| PG (counts + projets) | **PASS** continuité |
-| LIVE auto (ce cycle) | **NOT RUN** (contrat) |
-| LIVE antérieur DEV 12/12 | **PROVEN** (réf. campagne 20261118) |
-
----
-
-## 30. Verdict unique
-
-# `RECETTE DEPLOYED — READY FOR MORRIS USER ACCEPTANCE`
-
-Morris peut commencer sa recette utilisateur sur `http://127.0.0.1:3200`  
-(SHA `ba1e55ece782eb9f2bbfad9336ed346de1acf037` · build `_eeb9Jy2hV242myk86VTu`).
-
-**Ne signifie pas :** recette utilisateur acceptée · Gate C · ADOPTED · STABLE · release.
+Fiche détaillée :  
+`projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/ensemble05-uat03-unknown-diagnostic-20261118/00-incident-uat03-diagnostic.md`
 
 ---
 
 ## Anti-stub / secrets
 
-- Aucun secret dans ce pack.
-- Manifeste et dossiers non sensibles.
-- Runtime non dépendant du worktree DEV dirty.
+Pack sans clés API, DSN, cookies, tokens. Identifiants techniques de tours uniquement.
