@@ -734,3 +734,17 @@ Ces **dix oracles intégrés** ne constituent **pas un sixième sujet ou un cycl
 **Critère d'intégration :** un seul lot cohérent **code + tests + documentation + rendu visuel**, avec propriétaires et intégrateur identifiés ; **pas d'implémentation isolée** d'une animation, d'un composant de consultation ou d'un stockage de brouillon qui contredirait la continuité E2E. Les scénarios des §§4/8/10/11/12 et UX-CROSS-01..10 forment un contrat de réception complémentaire, **pas des PASS**.
 
 **Verdict final de revue transverse : `SPEC CROSS-REVIEW CONSISTENT — DOCUMENTED`**, dans la **limite des sources Git et des décisions présentes**. **Sujets 01–05 : VALIDATED SPEC MORRIS** inchangés ; **Ensemble 05 : EN REVUE / RÉALISATION ET RECETTE NON PROUVÉES** ; **Gate C : OPEN**, aucun GO technique, PR, merge, publication sur `main` ou ADOPTED.
+
+---
+
+## 14. Addendum de réalisation — campagne de composition visuelle du 18/11/2026 (D1)
+
+**Nature :** état de preuve postérieur à la conception UX v0.7 ; les Sujets 01–05 et leurs décisions **VALIDATED SPEC** restent inchangés. La réception visuelle ci-dessous est **une sous-campagne de Sujet 02 (UX-007)**, pas une réception globale de Travail.
+
+**Huit cas utilisateur en RECETTE**, sans commande de format : trois stratégies → cartes, cinq options → matrice, six étapes → séquence, planning S1–S8 → timeline, dépendances → graphe directed, tests sécurité/fonctionnel → arbre conditionnel, trois équipes → parallel, synthèse COPIL → présentation éditoriale. Morris a accepté les rendus après corrections UX-01…UX-07 de la **campagne**, y compris le graphe parallèle final et l'alignement icône/titre. Ces IDs de campagne **ne doivent pas être confondus** avec `UX-001…UX-010` du registre central.
+
+**Critères effectivement reçus :** hiérarchie des informations, représentation adaptée, données non inventées, décisions humaines non usurpées, trois voies convergentes vers une seule revue, scroll horizontal du graphe accepté, cartes alignées au départ mais sans espacement artificiel des fins de texte, icônes significatives ou supprimées. Diversité iconographique résiduelle considérée mineure.
+
+**Hors preuve de ces huit UAT :** contrat UX-002 de scroll/relecture complet, groupes de choix et expiration, brouillon `sessionStorage` par projet, événements d'activité réels, gestion des états incertains sur tous les parcours, visionneuse 50/50, focus/zoom/split/accessibilité exhaustifs. Les **88 oracles UX candidats** des cinq sujets ne sont pas requalifiés en PASS par ces huit scénarios visuels.
+
+**Références de suivi :** [dossier de réconciliation](grammaire-visuelle-conversationnelle/07-dossier-reconciliation-reception.md) · [matrice post-UAT C-01…22 V0.10](grammaire-visuelle-conversationnelle/06-matrice-convergence-vision-realisation.md) · [handoff technique final](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md). Statut : **USER ACCEPTED WITH RESERVES — VISUAL COMPOSITION UAT ONLY / RECONCILIATION PENDING**, sans clôture Ensemble 05, PR/merge ni Gate C.
