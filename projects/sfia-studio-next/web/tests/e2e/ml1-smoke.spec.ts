@@ -56,7 +56,9 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
   await expect(page.getByTestId("project-status-hint")).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
-  await openSasSecondaryTool(page, "Documents");
+  // Ensemble 04: documents live on the project rail, not sas secondary tools.
+  await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
+  await expect(page).toHaveURL(/surface=document/);
   await expect(page.getByText("Document Playwright", { exact: false })).toBeVisible();
 
   await page.reload();

@@ -42,7 +42,8 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: /Acquis/i }).first()).toBeVisible();
 
-  // Document surface: save + inspect
+  // Secondary tools only exist on the conversation surface — return before Documents.
+  await backToSasConversation(page);
   await openSasSecondaryTool(page, "Documents");
   await expect(page.getByTestId("document-library")).toBeVisible();
 

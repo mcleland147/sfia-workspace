@@ -92,11 +92,15 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
   expect(match!.latestRevision?.revisionNumber).toBeGreaterThanOrEqual(1);
   expect((match!.latestRevision?.contentMarkdown ?? "").length).toBeGreaterThan(20);
 
-  // UI surface: document count visible in workspace summary.
-  await expect(page.getByText(/Documents Nora · [1-9]/)).toBeVisible({ timeout: 10000 });
+  // UI surface: document reachable via Ensemble 04 Accès directs (legacy « Documents Nora · N » copy removed).
+  await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
+  await expect(page).toHaveURL(/surface=document/);
+  await expect(page.getByText(match!.document.title, { exact: false })).toBeVisible({
+    timeout: 10000,
+  });
 
   // Reload — results durable; mission not awaiting create again.
-  await page.reload();
+  await page.goto(`/projects/${projectId}?surface=travail`);
   await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
   const api2 = await page.request.get(`/api/projects/${projectId}`);
   const proj2 = await api2.json();
