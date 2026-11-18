@@ -8,16 +8,21 @@ Append-only logical journal of Cursor product deliveries.
 
 | Field | Value |
 | --- | --- |
-| Date | 2026-11-18 ~17:35 CET |
+| Date | 2026-11-18 ~17:40 CET |
 | Macro-lot | R5 / ML4D / Ensemble 05 — UAT-03 correctif + redéploiement RECETTE |
 | Type | Cycle 8 Delivery · Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
 | GO Morris | Correctif detail 5000 + obs durable + build + cutover RECETTE même cycle |
 | Parent RECETTE | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` / `_eeb9Jy2hV242myk86VTu` |
 | Fix | `sequence.steps[].detail` max **5000** · parse `MAX_SEQUENCE_STEP_DETAIL` · instruction D3 SEQUENCE |
 | Obs | classification schema/output · zod_issue_path · error_kind · ephemeral DEV-only |
-| QA | Vitest bornes+composition **PASS** (batches 101+76) |
-| Candidate | (rempli après commit/build) |
-| Verdict Cursor | (rempli après cutover) |
+| QA | Vitest bornes+obs **20 PASS** · `next build` OK · smoke RECETTE PASS · isolation B→A 404 |
+| Candidate | `90c3e59f4a355b463ea047cc45486906bde15680` · tree `1c7fa402…` · build `5C3be3-ils1iOmH3qXo4d` |
+| RECETTE | LaunchAgent basculé · WT `…-ensemble05-recette-build-90c3e59f` · port **3200** |
+| DB | counts `23\|117\|544\|4` préservés · **aucune migration** |
+| Rollback | `ROLLBACK-TO-ba1e55ec.sh` + backup `ml4d-e05-uat03-fix-20261118-173348` |
+| Preuves | `docs/evidence/.../ensemble05-uat03-fix-recette-20261118/` |
+| Statut UAT-03 | `FIX DEPLOYED — MORRIS USER RETEST PENDING` |
+| Verdict Cursor | `UAT-03 FIX DEPLOYED — RECETTE READY FOR MORRIS RETEST` |
 
 
 ## delivery_id: DELIV-2026-11-18-UAT03-ROOTCAUSE-LIVE
