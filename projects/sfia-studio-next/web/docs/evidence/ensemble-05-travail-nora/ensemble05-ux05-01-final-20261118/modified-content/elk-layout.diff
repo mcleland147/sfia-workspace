@@ -1,0 +1,211 @@
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elk-layout.ts b/projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elk-layout.ts
+index f2d5395f..01730052 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elk-layout.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elk-layout.ts
+@@ -52,6 +52,14 @@ type LaneBucket = {
+   kind: "flow" | "gate" | "suite";
+ };
+ 
++function isCoordinationLaneLabel(label: string): boolean {
++  return /converg|commun|coord|suite|gate|sync|revue/i.test(label);
++}
++
++/**
++ * UX-05 — exclusive classification: a node id appears in at most one of flow/gate/suite.
++ * Sync targets and coordination lanes must not also render as a fourth swimlane.
++ */
+ function classifyLanes(block: RelationsBlock): {
+   flow: LaneBucket[];
+   gateNodes: RelationsBlock["nodes"];
+@@ -62,7 +70,6 @@ function classifyLanes(block: RelationsBlock): {
+   );
+   const order: string[] = [];
+   const map = new Map<string, RelationsBlock["nodes"]>();
+-  /** UX-05 — unlaned nodes are classified after flow lanes (convergence / suite). */
+   const unassigned: RelationsBlock["nodes"] = [];
+ 
+   for (const n of block.nodes) {
+@@ -81,35 +88,41 @@ function classifyLanes(block: RelationsBlock): {
+   const flow: LaneBucket[] = [];
+   const gateNodes: RelationsBlock["nodes"] = [];
+   const suiteNodes: RelationsBlock["nodes"] = [];
++  const claimed = new Set<string>();
++
++  const claim = (
++    n: RelationsBlock["nodes"][number],
++    bucket: RelationsBlock["nodes"],
++  ): boolean => {
++    if (claimed.has(n.id)) return false;
++    claimed.add(n.id);
++    bucket.push(n);
++    return true;
++  };
+ 
++  // 1) Sync targets are always the exclusive gate row.
++  for (const n of block.nodes) {
++    if (syncTargets.has(n.id)) claim(n, gateNodes);
++  }
++
++  // 2) Labeled lanes: coordination / lanes that hosted a sync target → remaining = suite.
+   for (const label of order) {
+-    const nodes = map.get(label)!;
+-    const allGate = nodes.every((n) => syncTargets.has(n.id));
+-    const allAfterGate =
+-      !allGate &&
+-      nodes.every((n) =>
+-        block.edges.some((e) => e.from === [...syncTargets][0] && e.to === n.id),
+-      );
+-    if (allGate) {
+-      gateNodes.push(...nodes);
++    const raw = map.get(label)!;
++    const remaining = raw.filter((n) => !claimed.has(n.id));
++    if (!remaining.length) continue;
++    const laneHadSync = raw.some((n) => syncTargets.has(n.id));
++    if (laneHadSync || isCoordinationLaneLabel(label) || /^suite/i.test(label)) {
++      for (const n of remaining) claim(n, suiteNodes);
+       continue;
+     }
+-    if (allAfterGate || /^suite/i.test(label)) {
+-      suiteNodes.push(...nodes);
+-      continue;
+-    }
+-    if (/^converg/i.test(label)) {
+-      gateNodes.push(...nodes);
+-      continue;
+-    }
+-    flow.push({ id: `lane-${label}`, label, nodes, kind: "flow" });
++    flow.push({ id: `lane-${label}`, label, nodes: remaining, kind: "flow" });
++    for (const n of remaining) claimed.add(n.id);
+   }
+ 
+   const laneOf = new Map<string, string>();
+   for (const lane of flow) {
+     for (const n of lane.nodes) laneOf.set(n.id, lane.label);
+   }
+-  const flowIds = new Set(laneOf.keys());
+ 
+   const inboundFlowLaneCount = (nodeId: string): number => {
+     const lanes = new Set<string>();
+@@ -121,44 +134,72 @@ function classifyLanes(block: RelationsBlock): {
+     return lanes.size;
+   };
+ 
+-  const isOnlyFromGate = (nodeId: string): boolean => {
++  const reachableFromClaimedGate = (nodeId: string): boolean => {
+     const inbound = block.edges.filter((e) => e.to === nodeId);
+     if (!inbound.length) return false;
+     return inbound.every(
+-      (e) =>
+-        gateNodes.some((g) => g.id === e.from) || syncTargets.has(e.from),
++      (e) => gateNodes.some((g) => g.id === e.from) || suiteNodes.some((s) => s.id === e.from),
+     );
+   };
+ 
+-  // Sync targets always gate.
+-  for (const n of block.nodes) {
+-    if (syncTargets.has(n.id) && !gateNodes.some((g) => g.id === n.id)) {
+-      gateNodes.push(n);
+-    }
+-  }
+-
+-  // Unlaned / leftover: fan-in from ≥2 flow lanes ⇒ single convergence gate.
+-  const classifyOne = (n: RelationsBlock["nodes"][number]) => {
+-    if (gateNodes.some((g) => g.id === n.id)) return;
+-    if (flowIds.has(n.id)) return;
+-    if (suiteNodes.some((s) => s.id === n.id)) return;
+-    if (syncTargets.has(n.id) || inboundFlowLaneCount(n.id) >= 2) {
+-      gateNodes.push(n);
+-      return;
++  // 3) Unassigned / leftovers — exclusive only.
++  const leftovers = [
++    ...unassigned,
++    ...block.nodes.filter((n) => !claimed.has(n.id)),
++  ];
++  for (const n of leftovers) {
++    if (claimed.has(n.id)) continue;
++    if (inboundFlowLaneCount(n.id) >= 2) {
++      claim(n, gateNodes);
++      continue;
+     }
+-    if (isOnlyFromGate(n.id) || /^suite|lancement|mise en service/i.test(n.label)) {
+-      suiteNodes.push(n);
+-      return;
++    if (
++      reachableFromClaimedGate(n.id) ||
++      /^suite|lancement|mise en service|revue/i.test(n.label)
++    ) {
++      claim(n, suiteNodes);
++      continue;
+     }
+-    suiteNodes.push(n);
+-  };
+-
+-  for (const n of unassigned) classifyOne(n);
+-  for (const n of block.nodes) classifyOne(n);
++    claim(n, suiteNodes);
++  }
+ 
+   return { flow, gateNodes, suiteNodes };
+ }
+ 
++/** Stable vertical order for post-gate chain (revue → lancement). */
++function orderSuiteChain(
++  nodes: RelationsBlock["nodes"],
++  edges: RelationsBlock["edges"],
++): RelationsBlock["nodes"] {
++  if (nodes.length <= 1) return nodes;
++  const ids = new Set(nodes.map((n) => n.id));
++  const indeg = new Map(nodes.map((n) => [n.id, 0]));
++  for (const e of edges) {
++    if (!ids.has(e.from) || !ids.has(e.to)) continue;
++    indeg.set(e.to, (indeg.get(e.to) ?? 0) + 1);
++  }
++  const byId = new Map(nodes.map((n) => [n.id, n]));
++  const ready = nodes.filter((n) => (indeg.get(n.id) ?? 0) === 0).map((n) => n.id);
++  const out: RelationsBlock["nodes"] = [];
++  const seen = new Set<string>();
++  while (ready.length) {
++    const id = ready.shift()!;
++    if (seen.has(id)) continue;
++    seen.add(id);
++    const n = byId.get(id);
++    if (n) out.push(n);
++    for (const e of edges) {
++      if (e.from !== id || !ids.has(e.to)) continue;
++      indeg.set(e.to, (indeg.get(e.to) ?? 1) - 1);
++      if ((indeg.get(e.to) ?? 0) === 0) ready.push(e.to);
++    }
++  }
++  for (const n of nodes) {
++    if (!seen.has(n.id)) out.push(n);
++  }
++  return out;
++}
++
+ /**
+  * G09 / parallelProcess — swimlane composition:
+  * each flow lane laid out DOWN via ELK, lanes placed side-by-side, gate+suite below.
+@@ -282,7 +323,22 @@ async function computeParallelSwimlaneLayout(
+ 
+   y = placeRow(gateNodes, y);
+   if (suiteNodes.length) {
+-    y = placeRow(suiteNodes, y + ROW_GAP);
++    // Post-gate chain stacks vertically (revue → lancement), not as a side row.
++    const ordered = orderSuiteChain(suiteNodes, block.edges);
++    let ySuite = y + ROW_GAP;
++    for (const n of ordered) {
++      const dim = sizeOf(n.id, sizes);
++      const x = Math.max(LANE_PAD, (canvasW - dim.width) / 2);
++      nodeBoxes.push({
++        id: n.id,
++        x,
++        y: ySuite,
++        width: dim.width,
++        height: dim.height,
++      });
++      ySuite += dim.height + Math.round(ROW_GAP * 0.65);
++    }
++    y = ySuite;
+   }
+ 
+   const byId = new Map(nodeBoxes.map((n) => [n.id, n]));

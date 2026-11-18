@@ -1,0 +1,18 @@
+◇ injected env (0) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116/projects/sfia-studio-next/web
+
+stderr | tests/unit/ux-correctives-ensemble05.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ux-correctives-ensemble05.test.ts (10 tests) 128ms
+stderr | tests/unit/directed-layout-candidate.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/directed-layout-candidate.test.ts (4 tests) 75ms
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  18:53:04
+   Duration  728ms (transform 92ms, setup 21ms, collect 196ms, tests 203ms, environment 0ms, prepare 53ms)
+

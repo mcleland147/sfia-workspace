@@ -1314,6 +1314,79 @@ register(
   ),
 );
 
+/**
+ * Exact RECETTE UAT-07 latest shape (msg_84ae0ce0 turnProjection) —
+ * regression for exclusive gate/suite classification (UX-05).
+ */
+const E05_UAT07_REAL =
+  "E05_UAT07_REAL Coordination lancement trois equipes sync revue";
+register(
+  E05_UAT07_REAL,
+  dialogue(
+    "Coordination à visualiser",
+    "Trois équipes en parallèle, synchronisation des livrables, une revue commune, puis lancement envisagé — sans autorisation automatique.",
+    ["NO_EFFECT", "VISUAL_PARALLEL", "UAT07_REAL"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "text",
+            id: "uat07-intro",
+            markdown:
+              "### Organisation proposée\n\nTrois voies distinctes convergent vers une synchronisation unique, puis une revue commune avant le lancement envisagé.",
+          },
+          {
+            kind: "relations",
+            id: "uat07-latest",
+            title: "Coordination à visualiser",
+            layoutHint: "parallelProcess",
+            nodes: [
+              {
+                id: "infrastructure",
+                label: "Infrastructure",
+                kind: "fact",
+                laneId: "infrastructure",
+              },
+              { id: "metier", label: "Métier", kind: "fact", laneId: "metier" },
+              {
+                id: "accompagnement",
+                label: "Accompagnement",
+                kind: "fact",
+                laneId: "accompagnement",
+              },
+              {
+                id: "synchronisation",
+                label: "Tous les livrables terminés",
+                kind: "fact",
+                laneId: "commun",
+              },
+              { id: "revue", label: "Revue commune", kind: "fact", laneId: "commun" },
+              { id: "lancement", label: "Lancement", kind: "fact", laneId: "commun" },
+            ],
+            edges: [
+              { from: "infrastructure", to: "synchronisation", relation: "sync" },
+              { from: "metier", to: "synchronisation", relation: "sync" },
+              { from: "accompagnement", to: "synchronisation", relation: "sync" },
+              { from: "synchronisation", to: "revue", relation: "flow" },
+              { from: "revue", to: "lancement", relation: "flow" },
+            ],
+            textAlternative:
+              "Infrastructure, Métier et Accompagnement synchronisent leurs livrables, puis revue commune, puis lancement envisagé.",
+          },
+          {
+            kind: "text",
+            id: "uat07-reco",
+            tone: "recommendation",
+            markdown:
+              "**Recommandation**\n\nConserver une seule revue commune après synchronisation ; le lancement reste une décision humaine.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
 /** A4 — canonical overflow (>12k joined) must fail validation, never COMPLETE raw. */
 const E05_A4_OVERFLOW = "E05_A4_OVERFLOW";
 register(
@@ -1801,6 +1874,7 @@ for (const [short, long] of [
   ["E05_G07_DEPENDENCIES", E05_G07_DEPENDENCIES],
   ["E05_G08_TREE", E05_G08_TREE],
   ["E05_G09_PARALLEL", E05_G09_PARALLEL],
+  ["E05_UAT07_REAL", E05_UAT07_REAL],
   ["E05_R01_SYNTHESIS", E05_R01_SYNTHESIS],
   ["E05_R02_JOURNEY", E05_R02_JOURNEY],
   ["E05_R03_THREE_CARDS", E05_R03_THREE_CARDS],

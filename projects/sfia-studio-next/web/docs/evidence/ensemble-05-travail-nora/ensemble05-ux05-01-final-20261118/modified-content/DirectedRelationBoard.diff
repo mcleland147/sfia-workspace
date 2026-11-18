@@ -1,0 +1,12 @@
+diff --git a/projects/sfia-studio-next/web/src/components/figma/nora-composition/DirectedRelationBoard.tsx b/projects/sfia-studio-next/web/src/components/figma/nora-composition/DirectedRelationBoard.tsx
+index 031a2656..0ee8d4c1 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/nora-composition/DirectedRelationBoard.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/nora-composition/DirectedRelationBoard.tsx
+@@ -259,6 +259,7 @@ export function DirectedRelationBoard({
+                   top: box.y,
+                   width: box.width,
+                 }}
++                data-node-id={box.id}
+                 data-laid-x={Math.round(box.x)}
+                 data-laid-y={Math.round(box.y)}
+                 data-lane={node.laneId ?? ""}

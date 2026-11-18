@@ -165,6 +165,122 @@ describe("UX-05 parallel flow-only convergence", () => {
     // Three readable swimlanes must fit the Travail column without a fourth voie strip.
     expect(width).toBeLessThan(780);
   });
+
+  it("UAT-07 earlier RECETTE shape: exclusive revue (no duplicate id)", async () => {
+    // Exact node/edge shape from msg_6c8cfaa2 turnProjection (RECETTE read-only).
+    const block: RelationsBlock = {
+      kind: "relations",
+      id: "uat07-earlier",
+      title: "Coordination du lancement",
+      layoutHint: "parallelProcess",
+      nodes: [
+        {
+          id: "infrastructure",
+          label: "Infrastructure",
+          kind: "fact",
+          laneId: "equipe-infrastructure",
+        },
+        { id: "metier", label: "Métier", kind: "fact", laneId: "equipe-metier" },
+        {
+          id: "accompagnement",
+          label: "Accompagnement",
+          kind: "fact",
+          laneId: "equipe-accompagnement",
+        },
+        {
+          id: "revue",
+          label: "Revue commune",
+          kind: "fact",
+          laneId: "coordination-commune",
+        },
+        {
+          id: "lancement",
+          label: "Lancement",
+          kind: "fact",
+          laneId: "coordination-commune",
+        },
+      ],
+      edges: [
+        { from: "infrastructure", to: "revue", relation: "sync" },
+        { from: "metier", to: "revue", relation: "sync" },
+        { from: "accompagnement", to: "revue", relation: "sync" },
+        { from: "revue", to: "lancement", relation: "flow" },
+      ],
+      textAlternative: "uat07 earlier",
+    };
+    const result = await computeElkDirectedLayout(block);
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    const ids = result.nodes.map((n) => n.id);
+    expect(ids.filter((id) => id === "revue")).toHaveLength(1);
+    expect(ids).toHaveLength(5);
+    const revue = result.nodes.find((n) => n.id === "revue")!;
+    const lanc = result.nodes.find((n) => n.id === "lancement")!;
+    const infra = result.nodes.find((n) => n.id === "infrastructure")!;
+    expect(revue.y).toBeGreaterThan(infra.y + 20);
+    expect(lanc.y).toBeGreaterThan(revue.y);
+    expect(
+      result.edges.some((e) => e.from === "infrastructure" && e.to === "revue"),
+    ).toBe(true);
+    expect(result.edges.some((e) => e.from === "revue" && e.to === "lancement")).toBe(
+      true,
+    );
+  });
+
+  it("UAT-07 latest RECETTE shape: sync gate exclusive, revue/lancement suite chain", async () => {
+    // Exact shape from msg_84ae0ce0 turnProjection (RECETTE read-only).
+    const block: RelationsBlock = {
+      kind: "relations",
+      id: "uat07-latest",
+      title: "Coordination à visualiser",
+      layoutHint: "parallelProcess",
+      nodes: [
+        {
+          id: "infrastructure",
+          label: "Infrastructure",
+          kind: "fact",
+          laneId: "infrastructure",
+        },
+        { id: "metier", label: "Métier", kind: "fact", laneId: "metier" },
+        {
+          id: "accompagnement",
+          label: "Accompagnement",
+          kind: "fact",
+          laneId: "accompagnement",
+        },
+        {
+          id: "synchronisation",
+          label: "Tous les livrables terminés",
+          kind: "fact",
+          laneId: "commun",
+        },
+        { id: "revue", label: "Revue commune", kind: "fact", laneId: "commun" },
+        { id: "lancement", label: "Lancement", kind: "fact", laneId: "commun" },
+      ],
+      edges: [
+        { from: "infrastructure", to: "synchronisation", relation: "sync" },
+        { from: "metier", to: "synchronisation", relation: "sync" },
+        { from: "accompagnement", to: "synchronisation", relation: "sync" },
+        { from: "synchronisation", to: "revue", relation: "flow" },
+        { from: "revue", to: "lancement", relation: "flow" },
+      ],
+      textAlternative: "uat07 latest",
+    };
+    const result = await computeElkDirectedLayout(block);
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    const ids = result.nodes.map((n) => n.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(ids.filter((id) => id === "synchronisation")).toHaveLength(1);
+    expect(ids.filter((id) => id === "revue")).toHaveLength(1);
+    const sync = result.nodes.find((n) => n.id === "synchronisation")!;
+    const revue = result.nodes.find((n) => n.id === "revue")!;
+    const lanc = result.nodes.find((n) => n.id === "lancement")!;
+    const infra = result.nodes.find((n) => n.id === "infrastructure")!;
+    expect(sync.y).toBeGreaterThan(infra.y + 20);
+    expect(revue.y).toBeGreaterThan(sync.y);
+    expect(lanc.y).toBeGreaterThan(revue.y);
+  });
 });
 
 describe("UX-06 residual icon semantics", () => {

@@ -259,6 +259,7 @@ export function DirectedRelationBoard({
                   top: box.y,
                   width: box.width,
                 }}
+                data-node-id={box.id}
                 data-laid-x={Math.round(box.x)}
                 data-laid-y={Math.round(box.y)}
                 data-lane={node.laneId ?? ""}

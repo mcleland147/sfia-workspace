@@ -1,0 +1,210 @@
+[WebServer] ◇ injected env (0) from .env.local
+
+[WebServer] e2e-preflight OK: operator=sfia_next_dev → e2e=sfia_next_e2e container=sfia-next-dev-pg port=5433
+
+[WebServer] NOTICE:  relation "pilots" already exists, skipping
+
+[WebServer] NOTICE:  relation "pilots_github_user_id_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "users" already exists, skipping
+
+[WebServer] NOTICE:  relation "sessions" already exists, skipping
+
+[WebServer] NOTICE:  relation "sessions_user_id_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "accounts" already exists, skipping
+
+[WebServer] NOTICE:  relation "verifications" already exists, skipping
+
+[WebServer] NOTICE:  relation "preparations" already exists, skipping
+
+[WebServer] NOTICE:  relation "preparations_owner_idx" already exists, skipping
+[WebServer] NOTICE:  relation "projects" already exists, skipping
+
+[WebServer] NOTICE:  relation "projects_owner_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "preparation_project_links" already exists, skipping
+[WebServer] NOTICE:  relation "create_project_commands" already exists, skipping
+
+[WebServer] NOTICE:  relation "create_project_commands_pilot_key_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "conversations" already exists, skipping
+
+[WebServer] NOTICE:  relation "conversations_prep_idx" already exists, skipping
+[WebServer] NOTICE:  relation "messages" already exists, skipping
+
+[WebServer] NOTICE:  relation "messages_conversation_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "documents" already exists, skipping
+
+[WebServer] NOTICE:  relation "documents_prep_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_revisions" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_revisions_doc_rev_uidx" already exists, skipping
+
+[WebServer] NOTICE:  column "auth_mode" of relation "sessions" already exists, skipping
+
+[WebServer] NOTICE:  column "base_revision_id" of relation "document_revisions" already exists, skipping
+[WebServer] NOTICE:  column "correlation_key" of relation "document_revisions" already exists, skipping
+[WebServer] NOTICE:  column "provenance_json" of relation "document_revisions" already exists, skipping
+[WebServer] NOTICE:  column "scope" of relation "document_revisions" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_revisions_corr_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_subjects" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_subjects_prep_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_subjects_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_acquis" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_acquis_prep_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_acquis_subject_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_open_points" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_open_points_prep_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_open_points_status_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_subject_events" already exists, skipping
+
+[WebServer] NOTICE:  relation "knowledge_subject_events_subject_idx" already exists, skipping
+
+[WebServer] NOTICE:  column "creation_correlation_key" of relation "documents" already exists, skipping
+
+[WebServer] NOTICE:  relation "documents_prep_owner_corr_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_revisions_base_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "conversation_turn_commands" already exists, skipping
+
+[WebServer] NOTICE:  relation "conversation_turn_commands_conv_key_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "conversation_turn_commands_operation_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "conversation_turn_commands_conv_status_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "messages_conversation_ordinal_uidx" already exists, skipping
+
+[WebServer] NOTICE:  column "owner_token" of relation "conversation_turn_commands" already exists, skipping
+
+[WebServer] NOTICE:  relation "conversation_turn_commands_owner_token_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "human_decisions" already exists, skipping
+
+[WebServer] NOTICE:  relation "human_decisions_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "trajectory_revisions" already exists, skipping
+
+[WebServer] NOTICE:  relation "trajectory_revisions_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "project_pilotage_state" already exists, skipping
+[WebServer] NOTICE:  relation "project_cycles" already exists, skipping
+
+[WebServer] NOTICE:  relation "project_cycles_one_active_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "project_cycles_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "method_applications" already exists, skipping
+
+[WebServer] NOTICE:  relation "method_applications_current_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "method_applications_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "governance_restrictions" already exists, skipping
+
+[WebServer] NOTICE:  relation "governance_restrictions_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "business_commands" already exists, skipping
+
+[WebServer] NOTICE:  relation "business_commands_client_key_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "business_commands_human_intent_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "business_commands_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "business_command_effects" already exists, skipping
+
+[WebServer] NOTICE:  relation "business_command_effects_command_ordinal_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "business_command_effects_command_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations_pilot_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations_pilot_status_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_oauth_states" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_oauth_states_token_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "authorized_repositories" already exists, skipping
+
+[WebServer] NOTICE:  relation "authorized_repositories_pilot_full_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "authorized_repositories_auth_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "project_git_links" already exists, skipping
+
+[WebServer] NOTICE:  relation "project_git_links_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "project_git_links_project_repo_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_publication_refs" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_publication_refs_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_publication_refs_doc_rev_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "effect_attempts" already exists, skipping
+
+[WebServer] NOTICE:  relation "effect_attempts_correlation_uidx" already exists, skipping
+
+[WebServer] NOTICE:  relation "effect_attempts_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "observed_git_facts" already exists, skipping
+
+[WebServer] NOTICE:  relation "observed_git_facts_attempt_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "observed_git_facts_project_idx" already exists, skipping
+
+[WebServer] NOTICE:  relation "document_publication_refs_effect_attempt_uidx" already exists, skipping
+
+[WebServer] NOTICE:  column "code_verifier" of relation "integration_oauth_states" already exists, skipping
+[WebServer] NOTICE:  column "nonce" of relation "integration_oauth_states" already exists, skipping
+[WebServer] NOTICE:  column "code_challenge_method" of relation "integration_oauth_states" already exists, skipping
+
+[WebServer] NOTICE:  column "github_user_id" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "token_ciphertext" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "token_nonce" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "token_key_version" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "refresh_ciphertext" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "refresh_nonce" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "token_expires_at" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "scopes_json" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "last_validated_at" of relation "integration_authorizations" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations_github_user_idx" already exists, skipping
+
+[WebServer] NOTICE:  column "studio_session_id" of relation "integration_oauth_states" already exists, skipping
+[WebServer] NOTICE:  column "flow" of relation "integration_oauth_states" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_oauth_states_session_idx" already exists, skipping
+
+[WebServer] NOTICE:  column "refresh_lease_token" of relation "integration_authorizations" already exists, skipping
+[WebServer] NOTICE:  column "refresh_lease_expires_at" of relation "integration_authorizations" already exists, skipping
+
+[WebServer] NOTICE:  relation "integration_authorizations_one_connected_uidx" already exists, skipping
+
+[WebServer] NOTICE:  column "projection_json" of relation "preparations" already exists, skipping
+
+
+Running 1 test using 1 worker
+
+(node:75329) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] tests/e2e/ensemble05-uat07-ux05.spec.ts:11:7 › Ensemble 05 UAT-07 UX-05 › real UAT-07 composition: unique nodes, gate→suite chain, full diagram shot
+  1 passed (21.5s)
