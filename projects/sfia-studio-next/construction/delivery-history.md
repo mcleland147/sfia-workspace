@@ -4,6 +4,60 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-18-UAT03-FIX-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~17:35 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — UAT-03 correctif + redéploiement RECETTE |
+| Type | Cycle 8 Delivery · Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctif detail 5000 + obs durable + build + cutover RECETTE même cycle |
+| Parent RECETTE | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` / `_eeb9Jy2hV242myk86VTu` |
+| Fix | `sequence.steps[].detail` max **5000** · parse `MAX_SEQUENCE_STEP_DETAIL` · instruction D3 SEQUENCE |
+| Obs | classification schema/output · zod_issue_path · error_kind · ephemeral DEV-only |
+| QA | Vitest bornes+composition **PASS** (batches 101+76) |
+| Candidate | (rempli après commit/build) |
+| Verdict Cursor | (rempli après cutover) |
+
+
+## delivery_id: DELIV-2026-11-18-UAT03-ROOTCAUSE-LIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~17:10 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — UAT-03 root cause |
+| Type | Cycle 9 QA + Cycle 8 obs · Critical · **NO RELEASE** · **NO RECETTE DEPLOY** · **NO PRODUCT PUSH** |
+| GO Morris | Investigation LIVE + observabilité durable, sans plafond arbitraire |
+| Cause | `sequence.steps[].detail` max(400) violé → Agents `ModelBehaviorError` en `stream_drain` |
+| Preuve | EXP-02 path Zod ; EXP-04 COMPLETE après contrainte détails courts ; EXP-03 contrôle comparison |
+| LIVE | 4 essais DEV · est. **€3,40 TTC** fallback |
+| Obs | classification `Invalid output type` · zod_issue_path · error_kind · ephemeral DEV |
+| RECETTE | **inchangée** `ba1e55ec` / `_eeb9Jy2hV242myk86VTu` |
+| Preuves | `docs/evidence/.../ensemble05-uat03-rootcause-live-20261118/` |
+| Verdict Cursor | `UAT-03 ROOT CAUSE PROVEN — CORRECTIVE PLAN READY` |
+
+
+## delivery_id: DELIV-2026-11-18-ENSEMBLE05-RECETTE-CANDIDATE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~16:20 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Mise à disposition RECETTE |
+| Type | Cycle 8 Delivery · Cycle 9 QA préflight · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO LIVE auto** |
+| GO Morris | Ensemble 05 accepté avec réserves — GO intégration/build/cutover RECETTE existante |
+| Previous RECETTE | SHA `e224d6278a050bcfbd369c4008d94af504f81d44` · build `MKmBUvdIXyydv_DpUTGZi` |
+| Candidate branch | `sfia/next-ml4d-ensemble05-composition-recette-candidate` (local) |
+| Candidate SHA | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` · tree `f94e8ecc` |
+| Build | `_eeb9Jy2hV242myk86VTu` · WT `…-ensemble05-recette-build-ba1e55ec` · port **3200** |
+| Config | `~/.config/sfia-studio-next/recette/.env.local` préservé · FORCE/SIM vidés · fingerprint `8f6dd4c82b61eef6` |
+| DB | `sfia_next_recette_ml4` @:5434 · counts 23\|117\|534 inchangés · **aucune migration** |
+| QA | Vitest 73 PASS · `next build` OK · smoke login/portfolio/projet/composition PASS |
+| Rollback | `ROLLBACK-TO-e224d627.sh` + backup `ml4d-e05-composition-20261118-161805` |
+| Preuves | `docs/evidence/.../ensemble05-recette-delivery-20261118/` |
+| Fake/Real | LIVE auto **NOT RUN** · composition persistée **BROWSER PROVEN** en RECETTE |
+| Verdict Cursor | `RECETTE DEPLOYED — READY FOR MORRIS USER ACCEPTANCE` |
+
+
 ## delivery_id: DELIV-2026-11-18-ENSEMBLE05-FINAL-CONSOLIDATION
 
 | Field | Value |

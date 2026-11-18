@@ -50,15 +50,45 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
       toolCallsObserved: 2,
     });
     expect(d.error_name).toBe("APIError");
+    expect(d.error_name_stable).toBe("APIError");
     expect(d.error_code).toBe("rate_limit_exceeded");
     expect(d.http_status).toBe(429);
     expect(d.streaming_delivered).toBe(true);
     expect(d.tool_calls_observed).toBe(2);
     expect(d.cause_depth).toBeGreaterThanOrEqual(1);
+    expect(d.msg_fingerprint).toMatch(/^[a-f0-9]{16}$/);
     const serialized = JSON.stringify(d);
     expect(serialized).not.toContain("sk-abcdef");
     expect(serialized).not.toContain("leaked prompt");
     expect(serialized).not.toContain("wrapper");
+  });
+
+  it("UAT-03 OBS: Invalid output type (space) → SCHEMA_OR_OUTPUT + zod path", () => {
+    const err = new Error(
+      'Invalid output type: final assistant output failed schema validation at "visualComposition.blocks.1.steps.0.detail" (Too big: expected string to have <=400 characters).',
+    );
+    err.name = "h"; // production minify of ModelBehaviorError
+    const c = categorizeProviderError(err);
+    expect(c.category).toBe("PROVIDER_SCHEMA_OR_OUTPUT");
+    const d = extractProviderErrorDiagnostics(err, {
+      phase: "stream_drain",
+      streamingDelivered: true,
+      toolCallsObserved: 0,
+    });
+    expect(d.error_kind).toBe("structured_output_schema_validation");
+    expect(d.error_name_stable).toBe("ModelBehaviorError");
+    expect(d.zod_issue_path).toBe("visualComposition.blocks.1.steps.0.detail");
+    expect(d.validation_rule_hint).toBe("max_length");
+    expect(JSON.stringify(d)).not.toContain("Too big");
+  });
+
+  it("UAT-03 OBS: timed out → INTERRUPTED; Model did not produce → not false SCHEMA", () => {
+    expect(categorizeProviderError(new Error("Model call timed out after 120000ms.")).category).toBe(
+      "PROVIDER_INTERRUPTED",
+    );
+    expect(
+      categorizeProviderError(new Error("Model did not produce a final response!")).category,
+    ).toBe("PROVIDER_ERROR");
   });
 
   it("R05 OBS: redaction drops sensitive simulated strings in deep structures", () => {

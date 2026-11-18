@@ -1,0 +1,46 @@
+{
+  "id": "EXP-03",
+  "ts_utc": "2026-11-18T16:08:05.490Z",
+  "hypothesis": "control_uat01_comparison",
+  "environment": "DEV",
+  "sha": "ba1e55ece782eb9f2bbfad9336ed346de1acf037",
+  "message": "exact_uat03",
+  "prompt_len": 232,
+  "prompt_sha16": "881f1b5809c83bbf",
+  "model": "gpt-6.1-sol",
+  "profile": "analyse",
+  "effort": "medium",
+  "profileType": "TEST_BOUNDARY",
+  "maxTurns_note": "from policy",
+  "stream_nominal": true,
+  "status": "COMPLETE",
+  "mode": "openai-agents-sdk-live",
+  "generationId": "gen_98b90c93-6803-4a98-98ce-8ed0cc5e42ff",
+  "streamingAttempted": true,
+  "streamingDelivered": true,
+  "streamingNotes": "structured_stream_drained_no_provisional_json",
+  "attempts": [
+    {
+      "attemptId": "att_8468edf7-5ecc-4b0a-bf49-db922ab7d0b6",
+      "kind": "stream",
+      "outcome": "SUCCESS",
+      "notes": "structured_stream_drained_no_provisional_json",
+      "providerContacted": "YES"
+    }
+  ],
+  "duration_ms": 33792,
+  "composition_kinds": [
+    "text",
+    "comparison",
+    "text"
+  ],
+  "sequence_steps": null,
+  "reply_len": 2870,
+  "ephemeral_dumps": [],
+  "cost": {
+    "eur_ttc": 0.85,
+    "source": "fallback",
+    "usage": null
+  },
+  "notice": "LIVE investigation — dumps may contain error messages; scrub before handoff publication"
+}

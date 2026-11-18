@@ -109,6 +109,8 @@ const META_ALLOWLIST = new Set([
   // Provider attempt diagnostics — codes/names only, never raw exception text.
   "provider_contacted",
   "error_name",
+  "error_name_stable",
+  "error_kind",
   "error_code",
   "http_status",
   "transport_kind",
@@ -116,6 +118,9 @@ const META_ALLOWLIST = new Set([
   "streaming_delivered",
   "cause_depth",
   "tool_calls_observed",
+  "zod_issue_path",
+  "validation_rule_hint",
+  "msg_fingerprint",
   "found",
   "effect_attempted",
 ]);
