@@ -197,3 +197,15 @@ Migration/DB obligatoire (M5), changement d'autorité ou d'idempotence, relectur
 - [MDN — container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment/Container_queries), [overflow-wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow-wrap), [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API).
 - [Apache ECharts — taille](https://echarts.apache.org/handbook/en/concepts/chart-size/), [SVG vs Canvas](https://echarts.apache.org/handbook/en/best-practices/canvas-vs-svg/), [ARIA](https://echarts.apache.org/handbook/en/best-practices/aria/).
 - [Playwright — tests visuels](https://playwright.dev/docs/test-snapshots), [ARIA snapshots](https://playwright.dev/docs/aria-snapshots), [WCAG 2.2 — Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html).
+
+---
+
+## Annexe factuelle du 18/11/2026 — réception bornée de la composition visuelle (D1)
+
+> **Actualisation postérieure, non normative.** Les mentions de conception candidate, d'absence de GO et de non-implémentation dans les paragraphes historiques précédents décrivent **l'état de rédaction du 17/11** ; elles ne doivent pas être lues comme le statut runtime actuel de la **seule composition visuelle**. Cette annexe ne réécrit pas les décisions validées et ne déclare pas l'ensemble Travail réceptionné. Source commune : [dossier UAT](07-dossier-reconciliation-reception.md), [matrice C-01…C-22 V0.10](06-matrice-convergence-vision-realisation.md), [handoff final](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md).
+
+**Constat de réalisation :** l'orientation de remplacement par une composition sémantique typée, admission Studio et composants React/ELK a été effectivement portée dans un **candidat produit local** et exercée sur les huit UAT de composition en RECETTE. La qualification n'est plus seulement exploratoire pour **ce sous-périmètre**, sans préjuger de l'intégralité du retrait de chaque fragment historique E05.
+
+**Épreuve discriminante UAT-07 :** six nœuds canoniques uniques, cinq liens ; les doublons visibles venaient de `classifyLanes()`, qui classait simultanément le nœud de synchronisation comme gate et dans une voie/suite. Le correctif de **claim exclusif**, suivi de `sync → revue → lancement`, a été rendu, rechargé et accepté visuellement par Morris. Le scroll horizontal est désormais un comportement explicitement accepté sur ce cas.
+
+**Sortie prudente :** `IMPLEMENTED (LOCAL CANDIDATE REPORTED) / USER ACCEPTED WITH RESERVES (8 VISUAL UAT) / ADOPTION NOT DECIDED`. Revue des suppressions et diff global de remplacement, dépendances résiduelles E05, autres surfaces Travail et preuves de compatibilité restent à réconcilier avant une conclusion de remplacement exhaustif.
