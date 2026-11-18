@@ -51,17 +51,19 @@ Les identifiants **UX-01 à UX-07 de cette campagne** sont des réserves de comp
 | Objet | Référence / qualification |
 |---|---|
 | Repository | `mcleland147/sfia-workspace` |
-| Baseline Git distante lue | `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| Candidat RECETTE final, **rapporté** | `5c94c86737f0965c71a7e058e3f1e45ff4415024` |
-| Arbre candidat, **rapporté** | `74fbf2b90f95951d5049efc5a854ad213fb0f47f` |
-| Build RECETTE, **rapporté** | `IEINNuPl0bHWJOWkh0ZhG` |
-| Dernier handoff Full vérifié à distance | [`sfia/review-handoff@dc9fd0ba`](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md), blob `f08d586f17daa79cc1dd169d40fb8b63188e43a9` |
-| Branche documentaire candidate | `docs/next-ml4d-registre-revues-20261116` (non intégrée à `main`) |
-| Matrice canonique | **V0.10 publiée sur branche documentaire candidate**, C-01…C-22 conservés et requalifiés aux niveaux de preuve UAT bornés |
+| Baseline Git distante (avant merge produit) | `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| `main` après merge produit #681 | `b7de1fb0826f373dcab609b2c1deff992a36fbd1` |
+| Tip produit mergé | `ac08b381e434b65c09ec9eb2d49abcc221a543cf` |
+| Candidat RECETTE final UAT (immuable) | `5c94c86737f0965c71a7e058e3f1e45ff4415024` |
+| Arbre candidat UAT | `74fbf2b90f95951d5049efc5a854ad213fb0f47f` |
+| Build RECETTE UAT | `IEINNuPl0bHWJOWkh0ZhG` — **non redéployé** après merge |
+| Dernier handoff Full UAT vérifié à distance | [`sfia/review-handoff@dc9fd0ba`](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md), blob `f08d586f17daa79cc1dd169d40fb8b63188e43a9` |
+| Branche documentaire candidate | `docs/next-ml4d-registre-revues-20261116` (PR #680) |
+| Matrice canonique | **V0.10**, C-01…C-22 conservés et requalifiés aux niveaux de preuve UAT bornés |
 | RECETTE | `http://127.0.0.1:3200` (localhost du poste de recette, non accessible directement depuis GitHub) |
 | Environnement | ENV-01, configuration, DB et rollback selon handoff ; STABLE NOT AVAILABLE |
 
-**Limites de source :** le commit produit `5c94c867` n'est **pas résolu dans le Git distant** depuis cette revue. Branche de produit locale, commit/parents, diff complet, fichiers modifiés non publiés et preuve de conformité du worktree restent **NON OBSERVÉS directement**. Les captures Morris prouvent ce qu'elles montrent, pas le comportement de tous les parcours.
+**Limites de source (état UAT d'origine) :** au moment de la réception visuelle, le commit `5c94c867` n'était pas encore distant. **Addendum 18/11 soir :** `5c94c867` est ancestral de `main@b7de1fb0` via PR #681 ; tip CI `ac08b381` (remédiation tests/whitespace, typage ErrorBoundary non observable). Les captures Morris prouvent ce qu'elles montrent, pas le comportement de tous les parcours ni les 88 oracles.
 
 ### Chaîne des preuves utiles
 
@@ -139,7 +141,7 @@ Tous les autres C-ID restent à confronter au contenu et aux preuves sans suppre
 | Coût réel du fournisseur | Estimations de repli, pas facturation attestée |
 | Anciens tours UNKNOWN | Historiques conservés ; aucune réconciliation a posteriori déduite |
 | ACL / `owner_pilot_id` en RECETTE | Restauration rapportée ; contrôle lecture seule avant revue d'intégration |
-| Candidat local non publié | Diff/ascendance exacts à vérifier avant toute intégration |
+| Candidat produit (post-#681) | `5c94c867` + correctifs CI jusqu'à `ac08b381` présents sur `main@b7de1fb0` ; build RECETTE UAT non redéployé |
 
 Le responsable d'intégration doit qualifier chaque réserve en **bloquante**, **reportable avec responsable/exit**, ou **hors sous-périmètre de réception**. Ne pas relancer de nouveau développement sans défaut ou décision nouvelle.
 
@@ -160,11 +162,13 @@ La réconciliation pourra être présentée comme prête à intégration lorsque
 
 **Verdict futur conditionnel, non acquis :** `ENSEMBLE 05 — RECONCILED / DOCUMENTATION READY FOR MORRIS INTEGRATION REVIEW`.
 
-**Frontière de publication actuelle :** dossier + registre factuel publiables sur **branche documentaire candidate uniquement** ; aucun push produit, PR, merge, changement de Roadmap D2, décision de clôture, Gate C, STABLE ou ADOPTED.
+**Frontière de publication actuelle :** produit ML4D **mergé** sur `main` (PR #681) ; documentation sur branche/PR #680 ; **aucun** changement de Roadmap D2, décision de clôture, Gate C, STABLE ou ADOPTED.
 
 
 ## 8. Synchronisation documentaire Git du 18/11 — vérifiée sur branche candidate
 
-Les mises à jour factuelles D1 ont été publiées sur `docs/next-ml4d-registre-revues-20261116` : **matrice C-01…22 V0.10**, sources 01–05 de la grammaire, conception UX Travail, contrat technique Travail, historique de delivery et le présent dossier. Chaque changement conserve la distinction **état historique de conception / réalisation locale rapportée / comportement reçu sur huit UAT / statut Git non intégré**. Le registre central ML4D renvoie à cette synthèse.
+Les mises à jour factuelles D1 ont été publiées sur `docs/next-ml4d-registre-revues-20261116` : **matrice C-01…22 V0.10**, sources 01–05 de la grammaire, conception UX Travail, contrat technique Travail, historique de delivery et le présent dossier. Chaque changement conserve la distinction **état historique de conception / réalisation rapportée / comportement reçu sur huit UAT / statut Git**.
 
-**Non encore effectué :** inspection locale indépendante du diff et de l'ascendance du commit produit `5c94c867`, contrôle ACL objet par objet en lecture seule, lecture/assemblage complet des captures et preuves locales, changement de statuts normatifs de Roadmap/décisions, push produit, PR, merge, promotion STABLE, Gate C ou ADOPTED. La publication documentaire ne change pas le statut `RECONCILIATION PENDING`.
+**Addendum soir 18/11 :** merge produit #681 (`main@b7de1fb0`) et remédiation CI documentés dans `delivery-history` (`DELIV-2026-11-18-ML4D-CI-REMEDIATION-PRODUCT-MERGE`) ; registre v0.17.
+
+**Encore ouverts :** contrôle ACL objet par objet en lecture seule, assemblage exhaustif des preuves locales vs 88 oracles, changement de Roadmap/décisions D2, promotion STABLE, Gate C ou ADOPTED. Le statut `RECONCILIATION PENDING` (preuve ACL / exhaustivité) demeure ; l'intégration Git **produit** est effectuée.
