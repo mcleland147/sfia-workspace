@@ -13,6 +13,11 @@ test.describe("Ensemble 05 Level-B provider-simulated chain", () => {
   test("S1–S11 natural prompts → composition/persist/reload (BROWSER FAKE)", async ({
     page,
   }) => {
+    // Standard CI BROWSER FAKE forces STUDIO_FORCE_NORA_FIXTURE — SIM path is a separate lane.
+    test.skip(
+      process.env.STUDIO_NORA_SIMULATED_PROVIDER !== "1",
+      "requires STUDIO_NORA_SIMULATED_PROVIDER=1 (not fixture UI-key lane)",
+    );
     test.setTimeout(360_000);
     const evidenceDir = path.resolve(
       __dirname,

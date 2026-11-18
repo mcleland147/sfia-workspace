@@ -147,7 +147,7 @@ export class BlockErrorBoundary extends Component<
 > {
   state = { failed: false };
 
-  static getDerivedStateFromError(): { failed: boolean } {
+  static getDerivedStateFromError(_error: Error): { failed: boolean } {
     return { failed: true };
   }
 

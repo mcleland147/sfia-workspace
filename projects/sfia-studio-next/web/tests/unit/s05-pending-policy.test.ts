@@ -7,14 +7,11 @@ import {
   sortS05SiblingsDeterministic,
   type S05SiblingEvidence,
 } from "@/domains/conversation/s05-pending-policy";
-import {
-  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  type NoraTurnQualification,
-} from "@/domains/conversation/semantic-qualification";
+import { asNoraQualification } from "../helpers/semantic-fixture-envelopes";
+import type { NoraTurnQualification } from "@/domains/conversation/semantic-qualification";
 
 function unavailableQ(goal = "x"): NoraTurnQualification {
-  return {
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  return asNoraQualification({
     status: "UNAVAILABLE",
     goal,
     intents: [
@@ -31,7 +28,7 @@ function unavailableQ(goal = "x"): NoraTurnQualification {
     ],
     clarifications: [],
     replyDraft: "cannot",
-  };
+  });
 }
 
 function baseSibling(over: Partial<S05SiblingEvidence> = {}): S05SiblingEvidence {
@@ -91,8 +88,7 @@ describe("P2 S05 pending policy", () => {
   });
 
   it("S05-R05 / QA-08: QUALIFIED REQUEST_EFFECT without owner proof → BLOQUÉ", () => {
-    const q: NoraTurnQualification = {
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    const q: NoraTurnQualification = asNoraQualification({
       status: "QUALIFIED",
       goal: "create",
       intents: [
@@ -109,7 +105,7 @@ describe("P2 S05 pending policy", () => {
       ],
       clarifications: [],
       replyDraft: "ok",
-    };
+    });
     const risk = classifySiblingEffectRisk(
       baseSibling({
         qualificationStatus: "QUALIFIED",

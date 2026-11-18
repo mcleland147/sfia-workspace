@@ -128,6 +128,11 @@ function estimateEurTtc(inputTokens?: number, outputTokens?: number): number {
 
 test.describe("Ensemble 05 LIVE bounded L01–L12", () => {
   test("LIVE campaign — spontaneous composition + persist", async ({ page }) => {
+    // Not part of CI BROWSER FAKE: requires explicit LIVE authorization + API key.
+    test.skip(
+      process.env.STUDIO_ALLOW_LIVE_BOUNDED !== "1" || !process.env.OPENAI_API_KEY,
+      "requires STUDIO_ALLOW_LIVE_BOUNDED=1 and OPENAI_API_KEY (excluded from FAKE CI)",
+    );
     test.setTimeout(900_000);
     fs.mkdirSync(path.join(EVIDENCE, "runtime"), { recursive: true });
 

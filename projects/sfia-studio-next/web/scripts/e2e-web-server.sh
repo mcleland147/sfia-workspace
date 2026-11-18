@@ -23,12 +23,16 @@ if [[ -z "${E2E_DATABASE_URL}" ]]; then
 fi
 
 # Mutations only against approved E2E DB name on the verified DEV container.
+# Recreate DB each Playwright webServer start so same-pilot name uniqueness
+# and leftover sessions cannot poison BROWSER FAKE (matches CI ephemeral DB).
 exists="$(docker exec "${CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc \
   "SELECT 1 FROM pg_database WHERE datname='${E2E_DB}'" | tr -d '[:space:]')"
-if [[ "${exists}" != "1" ]]; then
+if [[ "${exists}" == "1" ]]; then
   docker exec "${CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=1 \
-    -c "CREATE DATABASE ${E2E_DB} OWNER ${DB_USER};"
+    -c "DROP DATABASE ${E2E_DB} WITH (FORCE);"
 fi
+docker exec "${CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=1 \
+  -c "CREATE DATABASE ${E2E_DB} OWNER ${DB_USER};"
 
 SFIA_PG_DATABASE="${E2E_DB}" bash "${ROOT}/scripts/db-migrate.sh"
 

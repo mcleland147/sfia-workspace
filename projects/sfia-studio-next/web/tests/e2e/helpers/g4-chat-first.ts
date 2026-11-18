@@ -1,5 +1,10 @@
 import { expect, type Page } from "@playwright/test";
 
+/** Same-pilot project names must be unique (Morris A12) — never reuse fixed labels across runs/tests. */
+export function uniqueProjectName(base: string): string {
+  return `${base} ${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
 /** Open a new preparation from the G4 portfolio CTA (replaces "Ouvrir un sas…"). */
 export async function openNewPreparation(page: Page): Promise<string> {
   await page.getByTestId("portfolio-new-prep").click();
@@ -88,11 +93,20 @@ export async function seedInspectedNameViaApi(
  */
 export async function constituteAndCreateProject(
   page: Page,
-  opts: { name: string; summary: string },
+  opts: { name: string; summary: string; alreadyUnique?: boolean },
 ): Promise<string> {
-  await seedInspectedNameViaApi(page, opts);
+  const name = opts.alreadyUnique ? opts.name : uniqueProjectName(opts.name);
+  await seedInspectedNameViaApi(page, { name, summary: opts.summary });
   await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
+  // Fail fast on Morris same-pilot name uniqueness instead of opaque URL timeout.
+  const navigated = page.waitForURL("**/projects/**", { timeout: 20000 });
+  const nameConflict = page
+    .getByText(/Ce nom est déjà utilisé/i)
+    .waitFor({ state: "visible", timeout: 20000 })
+    .then(() => {
+      throw new Error(`create blocked: project name already used for this pilot (${name})`);
+    });
+  await Promise.race([navigated, nameConflict]);
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
   return projectId!;

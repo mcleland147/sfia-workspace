@@ -81,7 +81,7 @@ describe("Level-B provider-simulated D3 boundary", () => {
     delete process.env.STUDIO_E2E;
     process.env.OPENAI_API_KEY = "sk-present-but-unused-for-sim";
 
-    const result = await generateNoraReply({ userText: SIM_PROMPTS.S3 });
+    const result = await generateNoraReply({ userText: SIM_PROMPTS.S3, contextSnippets: [] });
     expect(result.mode).toBe("provider-simulated");
     expect(result.status).toBe("COMPLETE");
     expect(result.qualification.visualComposition?.blocks?.[0]?.kind).toBe("comparison");
@@ -104,7 +104,7 @@ describe("Level-B provider-simulated D3 boundary", () => {
     delete process.env.STUDIO_FORCE_NORA_FIXTURE;
     process.env.OPENAI_API_KEY = "sk-present";
 
-    const hit = await generateNoraReply({ userText: SIM_PROMPTS.S1 });
+    const hit = await generateNoraReply({ userText: SIM_PROMPTS.S1, contextSnippets: [] });
     expect(hit.mode).toBe("provider-simulated");
     expect(hit.qualification.visualComposition).toBeUndefined();
   });
@@ -118,6 +118,7 @@ describe("Level-B provider-simulated D3 boundary", () => {
 
     const miss = await generateNoraReply({
       userText: "Prompt inconnu hors corpus SIM — ne doit pas appeler le fournisseur.",
+      contextSnippets: [],
     });
     expect(miss.mode).not.toBe("openai-agents-sdk-live");
     expect(miss.status).toBe("FAILED");

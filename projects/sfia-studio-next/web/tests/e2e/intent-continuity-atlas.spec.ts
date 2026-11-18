@@ -1,4 +1,4 @@
-import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
+import { seedInspectedNameViaApi, uniqueProjectName } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
 
 /**
@@ -44,7 +44,7 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {
-    await seedInspectedNameViaApi(page, { name: "Atlas", summary: "Atlas continuity" });
+    await seedInspectedNameViaApi(page, { name: uniqueProjectName("Atlas"), summary: "Atlas continuity" });
   }
 
   await expect(createBtn).toBeEnabled({ timeout: 20000 });
@@ -131,7 +131,7 @@ test("Atlas: forged mission key refused BEFORE create (zero project)", async ({ 
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {
-    await seedInspectedNameViaApi(page, { name: "Atlas Guard", summary: "Atlas guard" });
+    await seedInspectedNameViaApi(page, { name: uniqueProjectName("Atlas Guard"), summary: "Atlas guard" });
   }
   await expect(createBtn).toBeEnabled({ timeout: 20000 });
 

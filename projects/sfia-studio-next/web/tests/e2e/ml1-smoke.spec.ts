@@ -40,7 +40,8 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   const projectUrl = page.url();
   const projectId = projectUrl.split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
-  await expect(page.getByText("Même fil", { exact: false })).toBeVisible();
+  // Ensemble 04 chrome — continuity is "Reprendre le fil du projet" (not legacy « Même fil »).
+  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
 
   // Portfolio → open by projectId only (no preparationId query).
@@ -51,7 +52,9 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await page.getByTestId(`open-project-${projectId}`).click();
   await page.waitForURL(`**/projects/${projectId}**`);
   expect(page.url()).not.toContain("preparationId=");
-  await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
+  // Ensemble 04: continuity chrome (legacy « réouverture par projectId » removed from UI).
+  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
+  await expect(page.getByText(/Reprise contextualisée|Contexte conservé/i)).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
   await openSasSecondaryTool(page, "Documents");
   await expect(page.getByText("Document Playwright", { exact: false })).toBeVisible();

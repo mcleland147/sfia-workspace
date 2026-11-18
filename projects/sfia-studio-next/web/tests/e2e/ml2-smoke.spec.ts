@@ -54,7 +54,7 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
 
-  await expect(page.getByText(/Même fil/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
   await expect(
     page.getByText("Compare les options A et B pour l'architecture, compromis et point ouvert budget", {
       exact: true,
@@ -63,7 +63,8 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
 
   // Reopen continuity
   await page.goto(`/projects/${projectId}`);
-  await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
+  await expect(page.getByText(/Reprise contextualisée|Contexte conservé/i)).toBeVisible();
   await page.getByRole("button", { name: "Journal" }).click();
   await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
 

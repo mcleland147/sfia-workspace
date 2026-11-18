@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
+import { seedInspectedNameViaApi, uniqueProjectName } from "./helpers/g4-chat-first";
 
 /**
  * ML4C S05 — BROWSER WITH MOCKED API / DETERMINISTIC.
@@ -16,7 +16,10 @@ async function openProjectFromNewPrep(page: import("@playwright/test").Page): Pr
   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
     timeout: 30000,
   });
-  await seedInspectedNameViaApi(page, { name: "ML4C S05 Pending A", summary: "S05 pending" });
+  await seedInspectedNameViaApi(page, {
+    name: uniqueProjectName("ML4C S05 Pending A"),
+    summary: "S05 pending",
+  });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 15000 });
   const createBtn = page.getByTestId("prep-create-project");
   await expect(createBtn).toBeEnabled({ timeout: 20000 });

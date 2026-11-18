@@ -93,13 +93,14 @@ test.describe("Q1 real D2 mission + S05", () => {
 
     // Restitution métier (status enum is API/oracle, not literal UI copy).
     await expect(
-      page.getByText(/acte Pilote requis|création de projet/i).first(),
+      page.getByText(/acte Pilote requis|création de projet|Créer le projet/i).first(),
     ).toBeVisible({ timeout: 15000 });
-    await expect(page.getByText(/Espace de préparation — projet non créé/i)).toBeVisible();
+    // Sas chrome: still on preparation (Ensemble 04 removed legacy « projet non créé » banner).
+    await expect(page.getByTestId("sas-stage-kicker")).toBeVisible();
+    expect(page.url()).toContain(`/preparations/${prepId}`);
     // Explicit D2 gesture present but NOT clicked (MISSION-16).
     const createBtn = page.getByTestId("prep-create-project");
     await expect(createBtn).toBeVisible({ timeout: 15000 });
-    expect(page.url()).toContain(`/preparations/${prepId}`);
 
     const afterA = await oracle(page, prepId);
     expect(afterA.projectId).toBeNull();

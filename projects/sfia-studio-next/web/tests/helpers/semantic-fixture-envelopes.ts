@@ -30,6 +30,29 @@ function assertValid(q: unknown): NoraTurnQualification {
   return v.value;
 }
 
+/**
+ * Build a typed NoraTurnQualification for tests.
+ * Applies current Sas Nora required slots (empty = unchanged this turn) via schema defaults.
+ * Scenario-specific values must be passed explicitly — do not invent métier content.
+ */
+export type NoraQualificationDraft = Partial<NoraTurnQualification> &
+  Pick<NoraTurnQualification, "status" | "goal" | "intents"> & {
+    schemaVersion?: NoraTurnQualification["schemaVersion"];
+  };
+
+export function asNoraQualification(draft: NoraQualificationDraft): NoraTurnQualification {
+  return assertValid({
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    projectIntention: "",
+    desiredOutcome: "",
+    initialScope: "",
+    proposedProjectName: "",
+    clarifications: [],
+    replyDraft: "",
+    ...draft,
+  });
+}
+
 function normalizeIntents(intents: IntentDraft[]): QualifiedIntentItem[] {
   return intents.map((it, idx) => ({
     id: it.id ?? `i${idx + 1}`,
@@ -59,13 +82,9 @@ export function dialogueEnvelope(
   reply: string,
   constraints: string[] = ["NO_EFFECT"],
 ): NoraTurnQualification {
-  return assertValid({
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  return asNoraQualification({
     status: "QUALIFIED",
     goal,
-    desiredOutcome: "",
-    initialScope: "",
-    proposedProjectName: "",
     intents: normalizeIntents([
       {
         capabilityId: "d3.converse",
@@ -80,13 +99,9 @@ export function dialogueEnvelope(
 }
 
 export function clarificationEnvelope(goal: string, clarifications: string[], reply: string): NoraTurnQualification {
-  return assertValid({
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  return asNoraQualification({
     status: "NEEDS_CLARIFICATION",
     goal,
-    desiredOutcome: "",
-    initialScope: "",
-    proposedProjectName: "",
     intents: [],
     clarifications,
     replyDraft: reply,
@@ -98,13 +113,9 @@ export function effectEnvelope(
   reply: string,
   intents: IntentDraft[],
 ): NoraTurnQualification {
-  return assertValid({
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  return asNoraQualification({
     status: "QUALIFIED",
     goal,
-    desiredOutcome: "",
-    initialScope: "",
-    proposedProjectName: "",
     intents: normalizeIntents(intents),
     clarifications: [],
     replyDraft: reply,
@@ -397,7 +408,7 @@ export type ExplicitFixtureSpec =
       documentTitle: string;
       documentSummary: string;
     }
-  | { kind: "qualification"; q: NoraTurnQualification };
+  | { kind: "qualification"; q: NoraQualificationDraft };
 
 export function registerExplicitFixture(utterance: string, spec: ExplicitFixtureSpec): void {
   const t = utterance.trim();
@@ -480,7 +491,7 @@ export function registerExplicitFixture(utterance: string, spec: ExplicitFixture
       );
       return;
     case "qualification":
-      registerTypedScenario(t, spec.q);
+      registerTypedScenario(t, asNoraQualification(spec.q));
       return;
     default: {
       const _exhaustive: never = spec;

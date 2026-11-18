@@ -17,16 +17,16 @@ import {
   type NoraTurnQualification,
 } from "@/domains/conversation/semantic-qualification";
 import { proposalFromStructured } from "@/domains/conversation/document-command";
+import { asNoraQualification } from "../helpers/semantic-fixture-envelopes";
 
 function qualified(partial: Partial<NoraTurnQualification> & Pick<NoraTurnQualification, "intents">): NoraTurnQualification {
-  return {
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  return asNoraQualification({
     status: "QUALIFIED",
     goal: "test",
     clarifications: [],
     replyDraft: "Réponse courte.",
     ...partial,
-  };
+  });
 }
 
 describe("ML4C TEMP — restitution fail-closed (DET)", () => {

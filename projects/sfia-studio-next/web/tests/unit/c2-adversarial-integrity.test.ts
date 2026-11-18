@@ -290,11 +290,11 @@ describe("C2-08 real BlockErrorBoundary exception", () => {
     let html = "";
     try {
       html = renderToStaticMarkup(
-        createElement(
-          BlockErrorBoundary,
-          { blockId: "boom", textAlternative: fallback },
-          createElement(ThrowingChild, { label: "cmp" }),
-        ),
+        createElement(BlockErrorBoundary, {
+          blockId: "boom",
+          textAlternative: fallback,
+          children: createElement(ThrowingChild, { label: "cmp" }),
+        }),
       );
     } catch {
       // Some React SSR builds rethrow; verify boundary state API still recovers.

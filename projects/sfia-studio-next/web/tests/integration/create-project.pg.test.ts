@@ -287,7 +287,7 @@ describe("PostgreSQL create-project contracts", () => {
     expect(ctx.projection?.name ?? null).toBeNull();
     expect(ctx.projection?.desiredOutcome ?? null).toBeNull();
     expect(ctx.projection?.suggestion?.assessment).toBe("EXPLORING");
-    expect(ctx.projectId ?? null).toBeNull();
+    expect(ctx.project ?? null).toBeNull();
     const rev1 = ctx.preparation.creationRevision;
 
     await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T2);
@@ -296,20 +296,20 @@ describe("PostgreSQL create-project contracts", () => {
     expect(ctx.projection?.initialScope ?? null).toBeNull();
     expect(ctx.projection?.suggestion?.assessment).toBe("CLARIFYING");
     expect(ctx.preparation.creationRevision).toBeGreaterThan(rev1);
-    expect(ctx.projectId ?? null).toBeNull();
+    expect(ctx.project ?? null).toBeNull();
 
     await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T3);
     ctx = await getPreparationContext(pilotId, prep.id);
     expect(ctx.projection?.name?.value).toBe("Assistant de pilotage");
     expect(ctx.projection?.initialScope?.value).toMatch(/Espace personnel/i);
     expect(ctx.projection?.suggestion?.assessment).toBe("BASE_SUFFICIENTE");
-    expect(ctx.projectId ?? null).toBeNull();
+    expect(ctx.project ?? null).toBeNull();
 
     await postUserMessageAndNora(pilotId, prep.id, SAS_MATURATION_T4);
     ctx = await getPreparationContext(pilotId, prep.id);
     expect(ctx.projection?.name?.value).toBe("Cockpit projets");
     expect(ctx.projection?.name?.value).not.toBe("Assistant de pilotage");
-    expect(ctx.projectId ?? null).toBeNull();
+    expect(ctx.project ?? null).toBeNull();
 
     const created = await createProjectCommand({
       pilotId,
