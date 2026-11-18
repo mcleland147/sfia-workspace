@@ -1,38 +1,16 @@
-# SFIA Review Pack FULL — Complétude diffs C1–C4 (republish)
+# SFIA Review Pack FULL — Finalisation C2 + W1 Ensemble 05
 
-**Date/heure :** 2026-11-18T10:22:46+0100
-**Cycle :** Critical CORRECTIVE documentation — complétude Review Pack (pas de nouveau code produit)
+**Date/heure :** 2026-11-18T10:57:34+0100
+**Cycle :** 8 Delivery Critical — EVOL/CORRECTIVE intégré (UX/Arch/QA)
+**Contrat :** SFIA v2.6 Finalisation composition visuelle conversationnelle Nora
 **Branche :** `sfia/next-ml4d-composition-adaptative`
 **HEAD tip :** `a783f014935de0dec5ff8e79a2b18eea0e629756` (+ WT)
 **origin/main :** `997d4c4e8204993de7107552898c8cc08cd3b0ed`
 **Docs tip :** `a6d9614ceeb2d15b04a19233cd506cd43e031354`
-**Handoff précédent (incomplet) :** `42d3299b398ca063c70f9d534c677188bde31b83` / blob `d2faaa4e9d399c15a8257050c6d9d7f201c968d7`
-**Review Pack :** Full — **réinitialisé pour combler** diffs vides/tronqués du pack C1–C4
-**ENV :** DEV · NO RELEASE · STABLE NOT AVAILABLE · **NO PRODUCT PUSH**
-**Fake/Real :** UNIT+ADAPTER+BROWSER FAKE **PROVEN** (cycle prior) · PG **NOT RUN** · LIVE **NOT RUN**
-
----
-
-## 0. Motif de republish
-
-Le handoff `42d3299b` a publié avec succès, mais le **contenu** était incomplet pour revue exhaustive :
-
-| Lacune signalée | Correction dans ce pack |
-| --- | --- |
-| Diff `admission.ts` vide | Diff `--no-index` intégral (fichier nouveau WT) |
-| `NoraComposition.tsx` extrait + hash seulement | Diff `--no-index` intégral (fichier nouveau WT) |
-| Diff CSS interrompu mid-rule | `git diff a783f014 -- tokens.css` **complet** (279 lignes) |
-| C2 renderer peu traçable | Chaîne C2 + diff `NoraConversation.tsx` + `data-body-policy` |
-
-Aucun changement produit nouveau ce cycle ; SHA fichiers :
-
-| Fichier | sha1 |
-| --- | --- |
-| `admission.ts` | `1240e8eee7795004dbd4ecde3ea6deedfb7c720b` |
-| `NoraComposition.tsx` | `36bca3787d3f1035a7f9ba6cd6d1c55c5fe17814` |
-| `tokens.css` | `83440883b864b48210ea746a4d315bcef786d4fd` |
-
-Baseline tip inchangé : `a783f014` (+ WT Strategy A / V0.5 / V0.6 / C1–C4).
+**Handoff précédent :** `235a06ef73b92b4af42c8faa3837588118021128` / blob `77f27d250ee6298028eee75c0b69e9994f842540`
+**Review Pack :** Full — réinitialisé
+**ENV :** DEV · NO RELEASE · STABLE NOT AVAILABLE · **NO PRODUCT PUSH** · RECETTE non touchée
+**Fake/Real :** UNIT+BROWSER FAKE **PROVEN** · HISTORICAL PG REPLAY **NOT RUN** · LIVE **NOT RUN** · VISUAL REVIEW **NOT COMPLETED**
 
 ---
 
@@ -40,103 +18,94 @@ Baseline tip inchangé : `a783f014` (+ WT Strategy A / V0.5 / V0.6 / C1–C4).
 
 | Check | Résultat |
 | --- | --- |
+| pwd / toplevel | workspace `…/sfia-workspace-next-ml4d-ux003-entry-20261116` |
 | Branche | `sfia/next-ml4d-composition-adaptative` |
 | HEAD | `a783f014…` |
-| Prior handoff | `42d3299b` (contenu incomplet) |
-| STOP | **NON** — republish complétude only |
+| origin/main | `997d4c4e…` |
+| Staged | vide |
+| WT | candidat Strategy A + C1–C4 + **C2 fix** (suivis + non suivis) |
+| STOP Git | **NON** |
 
----
+SHA fichiers C2 :
 
-## 2. Chaîne C2 — traçabilité admission → renderer (critique)
-
-### 2.1 Décision (`admission.ts` → `decideBodyPolicy`)
-
-- `contentAuthority === "canonical_sections"` (Strategy A) + substance complète :
-  - sans blocs graphiques → `substitute` + `CV_BODY_CANONICAL_NARRATIVE_SUBSTITUTE`
-  - avec blocs graphiques → `substitute` + `CV_BODY_CANONICAL_GRAPHIC_SUBSTITUTE`
-- Legacy (`legacy_projection` / e05) + graphic fidelity OK → `complement` + `CV_BODY_GRAPHIC_COMPLEMENT_ONLY`
-- Sinon → `markdown_only`
-
-### 2.2 Application UI (`NoraConversation.tsx`)
-
-```ts
-const policy = admission?.bodyPolicy ?? "markdown_only";
-const compositionEl =
-  proj?.visualComposition && policy !== "markdown_only" ? (
-    <NoraComposition composition={...} canonicalText={m.content} ... />
-  ) : null;
-if (policy === "substitute" && compositionEl) {
-  return compositionEl; // C2: no dual prose+visual
-}
-if (policy === "complement" && compositionEl) {
-  return (
-    <>
-      <SafeMarkdown content={m.content} />
-      <div className="fig-comp-complement">{compositionEl}</div>
-    </>
-  );
-}
-return <SafeMarkdown content={m.content} />;
-```
-
-### 2.3 Exposition renderer (`NoraComposition.tsx`)
-
-Racine : attribut `data-body-policy={admission.bodyPolicy}` (+ `data-owns-body`, `data-contract`).
-Le composant **ré-admet** localement (largeur ResizeObserver) ; la **politique d'affichage corps** est appliquée par le parent `NoraConversation` (section 2.2). C2 n'est donc pas « caché » dans le SVG : c'est le branchement substitute vs complement vs markdown_only.
-
-Preuve unitaire : `visual-grammar-c1-c2.test.ts` — canonical graphic → `substitute` ; legacy graphic → `complement`.
-
----
-
-## 3. C1–C7 (inchangé vs pack prior — statut)
-
-| Contrat | Statut | Preuve |
-| --- | --- | --- |
-| C1 texte naturel | **PASS** | `buildExhaustiveBlockFallback` ; tests C1 |
-| C2 anti-redondance | **PASS** | Strategy A → substitute ; chaîne §2 |
-| C3 comparaisons | **PARTIAL** | variantes existantes |
-| C4 graphes connectés | **PARTIAL** | SVG mesuré deps ; pas pixel-Figma |
-| C5 a11y/reflow | **PARTIAL** | CSS + T02 |
-| C6 PG | **NOT RUN** | 5433 DOWN |
-| C7 LIVE | **NOT RUN** | GO distinct |
-
-**VISUAL REVIEW NOT COMPLETED** (écart Figma Page 06 vs shell Studio — connu).
-
----
-
-## 4. Acquis A1–A7 / Tests (cycle prior, non rejoués ce republish)
-
-| Suite | Résultat (prior cycle) |
+| Fichier | sha1 |
 | --- | --- |
-| Vitest ciblés | **112 PASS** |
-| Playwright T02 | **1 PASS** |
-| PG / LIVE | **NOT RUN** |
-
-Ce pack = complétude documentaire ; pas de re-run obligatoire si tip WT inchangé.
+| admission.ts | `3ef2c92074c493222eb9eceb7e2adfc232906b46` |
+| NoraComposition.tsx | `73fa149e8757e139f685546b48189ddd1fec9964` |
+| tokens.css | `d76da410d3b8a214f74194321bd345c8ad1a1739` |
+| c2-substance-exhaustiveness.test.ts | `b265191cc252bb492472618a99f5d59fd39d67cf` |
 
 ---
 
-## 5. Verdict
+## 2. Blast radius
 
-**READY WITH RESERVES** (technique inchangé)
+| Zone | Résultat |
+| --- | --- |
+| D3 / SDK | Non modifié (lecture seule) |
+| Admission | C2 complément ; policies Strategy A / legacy préservées |
+| Conversation | NoraConversation policy branch inchangée ; substance via composition |
+| M1 | Pas de migration ; PG DEV inspecté lecture seule |
+| UX Travail | SubstanceComplement dans blocs graphiques |
+| D4/D9 / D6/D7 | Aucun effet métier ajouté |
+| CSS | Règles `.fig-comp-substance-complement*` bornées |
+| Tests | +10 C2 UNIT ; T02 assert DOM |
 
-Réserves : VISUAL REVIEW NOT COMPLETED ; HISTORICAL PG NOT RUN ; LIVE NOT RUN ; C4 non pixel-Figma.
+---
 
-Objectif de ce handoff : **revue exhaustive du code** désormais possible via diffs complets ci-dessous.
+## 3. C2 — chaîne et correction
+
+### Défaut
+`bodyPolicy=substitute` masque `m.content` ; vues graphiques n'exposaient pas le suffixe substantiel de `textAlternative` (synthesis en `sr-only` seulement).
+
+### Correction
+1. `structuredBlockSurface` / `visibleTextAlternativeComplement` (admission)
+2. `SubstanceComplement` visible dans Comparison / Sequence / Relations / Synthesis
+3. Oracles C2-01…C2-10 (UNIT + renderToStaticMarkup)
+4. T02 BROWSER : complément « Réserve C2 » visible ; capture `c2-runtime-substance-complement-1440.png`
+
+### Non-régression anti-redondance
+C2-10 : pas de duplication intégrale du replyDraft ; complément ≠ prose complète.
+
+**C2 technique : PASS avec preuves DOM** (pas seulement `bodyPolicy === substitute`).
+
+---
+
+## 4. W1 Figma
+
+Verdict : **FIGMA CONTRACT READY — MORRIS VISUAL VALIDATION REQUIRED**
+
+Frames 01–09 capturées localement. Thème clair 01/02 vs Studio sombre = décision Morris ouverte.
+**STOP** transposition pixel-finale. Pas d'ELK/RF installé.
+
+Voir §6.8 paquet Morris intégral.
+
+---
+
+## 5. W3–W5
+
+| Workstream | Statut |
+| --- | --- |
+| W3 construction pixel | **NON** — gate artistique |
+| W3 familles existantes | Préservées (cards/matrix/deps/tree/parallel) |
+| W4 UNIT | **122 PASS** (112 baseline + 10 C2) |
+| W4 T02 | **1 PASS** (~24s) |
+| W4 PG | DEV `sfia-next-dev-pg:5433` UP ; **0** payloads historique visualComposition → **HISTORICAL PG REPLAY — NOT RUN** |
+| W4 VISUAL | Captures locales ; canal handoff MD → **VISUAL REVIEW NOT COMPLETED** |
+| W5 | Corpus 10 questions préparé ; LIVE NOT RUN |
 
 ---
 
 ## 6. Diffs exploitables (complets)
 
-### 6.1 Diff `admission.ts` (fichier nouveau vs `/dev/null` @ tip `a783f014`)
+### 6.1 Diff `admission.ts` (nouveau fichier vs /dev/null)
 
 ```diff
 diff --git a/web/src/domains/conversation/conversational-composition/admission.ts b/web/src/domains/conversation/conversational-composition/admission.ts
 new file mode 100644
-index 00000000..e282f780
+index 00000000..e4e0f41a
 --- /dev/null
 +++ b/web/src/domains/conversation/conversational-composition/admission.ts
-@@ -0,0 +1,603 @@
+@@ -0,0 +1,680 @@
 +/**
 + * Conversational composition — Studio admission & variant selection (CV-*).
 + * Deterministic presentation policy only — never invents facts or authority.
@@ -460,10 +429,10 @@ index 00000000..e282f780
 +}
 +
 +/**
-+ * Exhaustive human-readable fallback from validated block fields (C1).
-+ * Never truncates. Never exposes wire codes (relation=, layoutHint, enums bruts).
++ * Structured surface rendered by graphic variants — excludes textAlternative.
++ * Used by C1 fallback merge and C2 visible complement detection.
 + */
-+export function buildExhaustiveBlockFallback(block: VisualBlock): string {
++export function structuredBlockSurface(block: VisualBlock): string {
 +  if (block.kind === "text") {
 +    return block.markdown;
 +  }
@@ -486,7 +455,7 @@ index 00000000..e282f780
 +    if (block.provenance?.length) {
 +      parts.push(`Sources: ${block.provenance.map((p) => p.label).join("; ")}`);
 +    }
-+    return mergeTextAlternative(parts.join("\n"), block.textAlternative);
++    return parts.join("\n");
 +  }
 +  if (block.kind === "sequence") {
 +    const parts: string[] = [block.title];
@@ -502,7 +471,7 @@ index 00000000..e282f780
 +      if (s.dateLabel) line += ` [${s.dateLabel}]`;
 +      parts.push(line);
 +    });
-+    return mergeTextAlternative(parts.join("\n"), block.textAlternative);
++    return parts.join("\n");
 +  }
 +  if (block.kind === "relations") {
 +    const parts: string[] = [block.title];
@@ -538,7 +507,7 @@ index 00000000..e282f780
 +    if (block.provenance?.length) {
 +      parts.push(`Sources: ${block.provenance.map((p) => p.label).join("; ")}`);
 +    }
-+    return mergeTextAlternative(parts.join("\n"), block.textAlternative);
++    return parts.join("\n");
 +  }
 +  if (block.kind === "synthesis") {
 +    const parts: string[] = [block.title];
@@ -550,9 +519,86 @@ index 00000000..e282f780
 +      if (role) line += ` — ${role}`;
 +      parts.push(line);
 +    }
-+    return mergeTextAlternative(parts.join("\n"), block.textAlternative);
++    return parts.join("\n");
 +  }
 +  return "";
++}
++
++/**
++ * Exhaustive human-readable fallback from validated block fields (C1).
++ * Never truncates. Never exposes wire codes (relation=, layoutHint, enums bruts).
++ */
++export function buildExhaustiveBlockFallback(block: VisualBlock): string {
++  if (block.kind === "text") {
++    return block.markdown;
++  }
++  if (block.kind === "choices" || block.kind === "references") {
++    return "";
++  }
++  return mergeTextAlternative(structuredBlockSurface(block), block.textAlternative);
++}
++
++/** Significant tokens for C2 coverage (never prefix-80). */
++function significantTokens(text: string): string[] {
++  return text
++    .toLowerCase()
++    .split(/[^a-z0-9àâäéèêëïîôùûüç]+/i)
++    .map((t) => t.trim())
++    .filter((t) => t.length > 3);
++}
++
++/**
++ * True when a line/sentence is already represented by structured graphic fields.
++ * Uses inclusion first, then majority token overlap — not a silent truncation heuristic.
++ */
++function coveredBySurface(surface: string, chunk: string): boolean {
++  const c = chunk.trim();
++  if (!c) return true;
++  if (surface.includes(c)) return true;
++  const tokens = significantTokens(c);
++  if (tokens.length === 0) return false;
++  const surfaceLc = surface.toLowerCase();
++  const hits = tokens.filter((t) => surfaceLc.includes(t)).length;
++  return hits / tokens.length >= 0.7;
++}
++
++/**
++ * C2 — complementary substance from textAlternative not covered by structured graphic fields.
++ * Returns empty when fully redundant. Never uses prefix-80 heuristics.
++ * Visible editorial complement must be consultable by the Pilote (not sr-only alone).
++ */
++export function visibleTextAlternativeComplement(block: VisualBlock): string {
++  if (block.kind === "text" || block.kind === "choices" || block.kind === "references") {
++    return "";
++  }
++  const alt = (block.textAlternative ?? "").trim();
++  if (!alt) return "";
++  const surface = structuredBlockSurface(block).trim();
++  if (!surface) return alt;
++  if (surface.includes(alt)) return "";
++
++  const lineChunks = alt
++    .split(/\n+/)
++    .map((l) => l.trim())
++    .filter(Boolean);
++  if (lineChunks.length > 1) {
++    const uncoveredLines = lineChunks.filter((line) => !coveredBySurface(surface, line));
++    if (uncoveredLines.length === 0) return "";
++    return uncoveredLines.join("\n");
++  }
++
++  const sentences = alt
++    .split(/(?<=[.!?…])\s+/)
++    .map((s) => s.trim())
++    .filter(Boolean);
++  if (sentences.length > 1) {
++    const uncovered = sentences.filter((s) => !coveredBySurface(surface, s));
++    if (uncovered.length === 0) return "";
++    if (uncovered.length < sentences.length) return uncovered.join(" ");
++  }
++
++  // Whole alternative is complementary relative to structured surface.
++  return coveredBySurface(surface, alt) ? "" : alt;
 +}
 +
 +/**
@@ -742,15 +788,15 @@ index 00000000..e282f780
 +}
 ```
 
-### 6.2 Diff `NoraComposition.tsx` (fichier nouveau vs `/dev/null`)
+### 6.2 Diff `NoraComposition.tsx` (nouveau fichier vs /dev/null)
 
 ```diff
 diff --git a/web/src/components/figma/NoraComposition.tsx b/web/src/components/figma/NoraComposition.tsx
 new file mode 100644
-index 00000000..0efb3956
+index 00000000..046e180c
 --- /dev/null
 +++ b/web/src/components/figma/NoraComposition.tsx
-@@ -0,0 +1,1098 @@
+@@ -0,0 +1,1128 @@
 +"use client";
 +
 +/**
@@ -760,7 +806,7 @@ index 00000000..0efb3956
 + * Wire compatibility: e05-visual-composition-v1 (bounded).
 + */
 +
-+import {
++import React, {
 +  Component,
 +  type ErrorInfo,
 +  type ReactNode,
@@ -769,12 +815,16 @@ index 00000000..0efb3956
 +  useRef,
 +  useState,
 +} from "react";
++
++// Keep React binding for classic JSX transforms (Vitest SSR / esbuild).
++void React;
 +import { SafeMarkdown } from "@/components/SafeMarkdown";
 +import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
 +import {
 +  admitConversationalComposition,
 +  buildExhaustiveBlockFallback,
 +  topologicalLayers,
++  visibleTextAlternativeComplement,
 +  type AdmittedBlock,
 +  type ComparisonVariant,
 +  type RelationsVariant,
@@ -852,6 +902,29 @@ index 00000000..0efb3956
 +      <NoraSemanticIcon role={props.role} icon={props.icon} />
 +      <span>{props.title}</span>
 +    </h3>
++  );
++}
++
++/**
++ * C2 — visible complementary substance from textAlternative.
++ * Must remain consultable under bodyPolicy=substitute (not sr-only alone).
++ * Does not duplicate the full replyDraft; only non-redundant complement.
++ */
++function SubstanceComplement({ block }: { block: VisualBlock }) {
++  if (block.kind === "text" || block.kind === "choices" || block.kind === "references") {
++    return null;
++  }
++  const complement = visibleTextAlternativeComplement(block);
++  if (!complement) return null;
++  return (
++    <aside
++      className="fig-comp-substance-complement"
++      data-testid="nora-composition-substance-complement"
++      data-block-id={block.id}
++    >
++      <p className="fig-comp-substance-complement-label">Complément</p>
++      <p className="fig-comp-substance-complement-text">{complement}</p>
++    </aside>
 +  );
 +}
 +
@@ -1020,6 +1093,7 @@ index 00000000..0efb3956
 +          </div>
 +        </div>
 +      ) : null}
++      {!forceText ? <SubstanceComplement block={block} /> : null}
 +      <Provenance
 +        items={block.provenance}
 +        canonicalReferences={canonicalReferences}
@@ -1096,6 +1170,7 @@ index 00000000..0efb3956
 +          ))}
 +        </ol>
 +      )}
++      {!forceText ? <SubstanceComplement block={block} /> : null}
 +      <Provenance
 +        items={block.provenance}
 +        canonicalReferences={canonicalReferences}
@@ -1500,6 +1575,7 @@ index 00000000..0efb3956
 +      ) : (
 +        <RelationsListFallback block={block} titleById={titleById} />
 +      )}
++      {!forceText ? <SubstanceComplement block={block} /> : null}
 +      <Provenance
 +        items={block.provenance}
 +        canonicalReferences={canonicalReferences}
@@ -1558,7 +1634,7 @@ index 00000000..0efb3956
 +          );
 +        })}
 +      </ul>
-+      <p className="sr-only">{block.textAlternative}</p>
++      <SubstanceComplement block={block} />
 +      <Provenance
 +        items={block.provenance}
 +        canonicalReferences={canonicalReferences}
@@ -1851,14 +1927,14 @@ index 00000000..0efb3956
 +}
 ```
 
-### 6.3 Diff `tokens.css` (`git diff a783f014` — complet, non tronqué)
+### 6.3 Diff `tokens.css` (`git diff a783f014` — complet)
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-index 8623f598..284333c7 100644
+index 8623f598..9ab8eed5 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
 +++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-@@ -2163,6 +2163,274 @@
+@@ -2163,6 +2163,296 @@
    }
  }
 
@@ -2120,6 +2196,28 @@ index 8623f598..284333c7 100644
 +  background: color-mix(in srgb, var(--fig-panel) 80%, transparent);
 +}
 +
++/* C2 — complementary substance under substitute (visible, not sr-only) */
++.fig-comp-substance-complement {
++  margin: 12px 0 0;
++  padding: 10px 12px;
++  border-left: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
++  background: color-mix(in srgb, var(--fig-panel) 72%, transparent);
++}
++
++.fig-comp-substance-complement-label {
++  margin: 0 0 4px;
++  font-size: 11px;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  color: var(--fig-muted);
++}
++
++.fig-comp-substance-complement-text {
++  margin: 0;
++  overflow-wrap: anywhere;
++  color: var(--fig-ink);
++}
++
 +@container nora-composition (max-width: 560px) {
 +  .fig-comp-comparison-cards {
 +    grid-template-columns: 1fr;
@@ -2135,7 +2233,7 @@ index 8623f598..284333c7 100644
    align-items: flex-start;
 ```
 
-### 6.4 Diff `NoraConversation.tsx` (C2 policy branch — `git diff a783f014`)
+### 6.4 Diff `NoraConversation.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
@@ -2227,16 +2325,415 @@ index b149f939..1a98c4b6 100644
                    <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
 ```
 
-### 6.5 `tests/unit/visual-grammar-c1-c2.test.ts` (intégral)
+### 6.5 Diff `fixture-semantic-qualify.ts` (Réserve C2 S3)
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+index 05ae9e30..e2227fe1 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+@@ -643,7 +643,14 @@ register(
+   E05_S2_DIAGNOSTIC,
+   dialogue(
+     "Diagnostic coordination multi-sites — établi vs hypothétique",
+-    "Diagnostic du besoin de coordination (fallback textuel).",
++    [
++      "Diagnostic du besoin de coordination.",
++      "Éléments liés — sans causalité inventée :",
++      "Pratiques locales divergentes (peut contribuer) et Rôles d'arbitrage flous (peut contribuer)",
++      "vers Friction de coordination ; Impact réel non mesuré.",
++      "À vérifier ensuite : Cartographier les pratiques par site ; Identifier le porteur d'arbitrage ;",
++      "Ne pas conclure à un dysfonctionnement chiffré.",
++    ].join(" "),
+     ["NO_EFFECT", "VISUAL_RELATIONS", "S2"],
+     {
+       clarifications: [
+@@ -687,6 +694,7 @@ register(
+             id: "s2-rel",
+             title: "Éléments liés — sans causalité inventée",
+             role: "information",
++            layoutHint: "dependencies",
+             nodes: [
+               { id: "o1", label: "Pratiques locales divergentes", kind: "observation" },
+               { id: "o2", label: "Rôles d'arbitrage flous", kind: "observation" },
+@@ -694,8 +702,18 @@ register(
+               { id: "u1", label: "Impact réel non mesuré", kind: "unknown" },
+             ],
+             edges: [
+-              { from: "o1", to: "h1", label: "peut contribuer" },
+-              { from: "o2", to: "h1", label: "peut contribuer" },
++              {
++                from: "o1",
++                to: "h1",
++                label: "peut contribuer",
++                relation: "depends_on",
++              },
++              {
++                from: "o2",
++                to: "h1",
++                label: "peut contribuer",
++                relation: "depends_on",
++              },
+             ],
+             textAlternative:
+               "Observations : pratiques divergentes et rôles flous. Hypothèse : friction de coordination. Inconnue : impact réel non mesuré.",
+@@ -738,7 +756,16 @@ register(
+   E05_S3_COMPARISON,
+   dialogue(
+     "Comparaison déploiement progressif vs simultané",
+-    "Comparaison des approches (fallback).",
++    [
++      "Comparaison Progressive vs simultanée.",
++      "Déploiement progressif : Étendre site par site après apprentissage local.",
++      "Avantages : Apprentissage contrôlé ; Réversibilité locale. Limite : Cohérence temporaire inégale.",
++      "Déploiement simultané : Aligner tous les sites dans la même fenêtre.",
++      "Avantages : Cohérence immédiate. Limites : Charge de conduite élevée ; Peu de marge d'apprentissage.",
++      "Critères : Risque de conduite (Modéré / Élevé), Apprentissage (Fort / Faible),",
++      "Dépendance aux rôles clarifiés (Utile avant chaque vague / Critique dès le départ).",
++      "Si les responsabilités d'arbitrage ne sont pas encore claires, préférer une approche progressive — avis conditionnel, pas une décision enregistrée.",
++    ].join(" "),
+     ["NO_EFFECT", "VISUAL_COMPARISON", "S3"],
+     {
+       continueChoices: [
+@@ -811,7 +838,7 @@ register(
+             recommendation:
+               "Si les responsabilités d'arbitrage ne sont pas encore claires, préférer une approche progressive — avis conditionnel, pas une décision enregistrée.",
+             textAlternative:
+-              "Progressive : apprentissage et réversibilité, cohérence temporaire inégale. Simultanée : cohérence immédiate, charge et risque plus élevés. Avis : progressive si les rôles ne sont pas clarifiés.",
++              "Progressive : apprentissage et réversibilité, cohérence temporaire inégale. Simultanée : cohérence immédiate, charge et risque plus élevés. Avis : progressive si les rôles ne sont pas clarifiés.\nRéserve C2 : ne pas conclure à une décision d'arbitrage tant que le porteur n'est pas nommé.",
+             provenance: [
+               {
+                 label: "Note de cadrage coordination",
+@@ -845,7 +872,13 @@ register(
+   E05_S4_TRAJECTORY,
+   dialogue(
+     "Parcours de clarification avant travaux",
+-    "Parcours proposé (fallback).",
++    [
++      "Parcours Clarifier avant de lancer :",
++      "Partager le constat de coordination ;",
++      "Clarifier les responsabilités d'arbitrage ;",
++      "Choisir progressive ou simultanée ;",
++      "Préparer la première vague / fenêtre.",
++    ].join(" "),
+     ["NO_EFFECT", "VISUAL_SEQUENCE", "S4"],
+     {
+       visualComposition: {
+@@ -897,7 +930,15 @@ register(
+   E05_S5_COMPOSITE,
+   dialogue(
+     "Recommandation composite conditionnelle",
+-    "Recommandation composite (fallback textuel).",
++    [
++      "Recommandation composite. Points saillants :",
++      "Clarifier l'arbitrage entre sites — Préalable utile avant tout déploiement large ;",
++      "Pratiques locales divergentes ;",
++      "Déploiement simultané trop tôt — Risque de conduite si les rôles sont encore flous.",
++      "Rappel des options : Progressive — Vagues successives, apprentissage local. ;",
++      "Simultanée — Alignement immédiat, charge élevée.",
++      "Je recommande d'avancer en mode progressif **si** l'arbitrage inter-sites est clarifié d'abord. Ce n'est pas une HumanDecision.",
++    ].join(" "),
+     ["NO_EFFECT", "VISUAL_COMPOSITE", "S5"],
+     {
+       clarifications: [
+@@ -1018,6 +1059,153 @@ register(
+   ),
+ );
+
++const E05_F5_DECISION_TREE =
++  "E05_F5_DECISION_TREE Clarifier avant deploiement progressif ou report";
++const E05_F5_PARALLEL =
++  "E05_F5_PARALLEL Inventaire parallele sites A et B puis revue commune";
++
++register(
++  E05_F5_DECISION_TREE,
++  dialogue(
++    "Arbre de decision roles",
++    [
++      "Arbre de lecture — Condition roles clarifies.",
++      "Si oui : Approche progressive.",
++      "Si non : Reporter le deploiement.",
++      "Aucune HumanDecision n'est creee.",
++    ].join(" "),
++    ["NO_EFFECT", "VISUAL_DECISION_TREE", "F5"],
++    {
++      visualComposition: {
++        schemaVersion: "conversational-composition-canonical-v1",
++        blocks: [
++          {
++            kind: "relations",
++            id: "f5-tree",
++            title: "Arbre de lecture",
++            layoutHint: "decisionTree",
++            nodes: [
++              { id: "c", label: "Condition roles clarifies", kind: "unknown" },
++              { id: "y", label: "Approche progressive", kind: "hypothesis" },
++              { id: "n", label: "Reporter le deploiement", kind: "hypothesis" },
++            ],
++            edges: [
++              {
++                from: "c",
++                to: "y",
++                relation: "condition_true",
++                label: "oui",
++              },
++              {
++                from: "c",
++                to: "n",
++                relation: "condition_false",
++                label: "non",
++              },
++            ],
++            textAlternative:
++              "Si roles clarifies → Approche progressive, sinon Reporter le deploiement.",
++          },
++        ],
++      },
++    },
++  ),
++);
++
++register(
++  E05_F5_PARALLEL,
++  dialogue(
++    "Processus parallele inventaires",
++    [
++      "Processus parallele : Inventaire site A et Inventaire site B,",
++      "puis Revue commune (sync pret).",
++    ].join(" "),
++    ["NO_EFFECT", "VISUAL_PARALLEL", "F5"],
++    {
++      visualComposition: {
++        schemaVersion: "conversational-composition-canonical-v1",
++        blocks: [
++          {
++            kind: "relations",
++            id: "f5-par",
++            title: "Processus parallele",
++            layoutHint: "parallelProcess",
++            nodes: [
++              {
++                id: "a1",
++                label: "Inventaire site A",
++                kind: "observation",
++                laneId: "Voie A",
++              },
++              {
++                id: "b1",
++                label: "Inventaire site B",
++                kind: "observation",
++                laneId: "Voie B",
++              },
++              {
++                id: "g",
++                label: "Revue commune",
++                kind: "finding",
++                laneId: "Gate",
++              },
++            ],
++            edges: [
++              { from: "a1", to: "g", relation: "sync", label: "pret" },
++              { from: "b1", to: "g", relation: "sync", label: "pret" },
++            ],
++            textAlternative: "Voies A/B puis Revue commune",
++          },
++        ],
++      },
++    },
++  ),
++);
++
++/** A4 — canonical overflow (>12k joined) must fail validation, never COMPLETE raw. */
++const E05_A4_OVERFLOW = "E05_A4_OVERFLOW";
++register(
++  E05_A4_OVERFLOW,
++  dialogue(
++    "Overflow canonique A4",
++    "TEXTE_INITIAL_DIVERGENT_NE_DOIT_PAS_SURVIVRE_EN_COMPLETE",
++    ["NO_EFFECT", "A4_OVERFLOW"],
++    {
++      visualComposition: {
++        schemaVersion: "conversational-composition-canonical-v1",
++        blocks: [0, 1, 2, 3].map((i) => ({
++          kind: "text" as const,
++          id: `ov${i}`,
++          markdown: "Z".repeat(3500),
++        })),
++      },
++    },
++  ),
++);
++
++/** A4 — valid canonical with deliberately divergent replyDraft (derive must win). */
++const E05_A4_DIVERGENT_OK = "E05_A4_DIVERGENT_OK";
++register(
++  E05_A4_DIVERGENT_OK,
++  dialogue(
++    "Derive canonique A4",
++    "TEXTE_DIVERGENT_INDEPENDANT_A_ECRASER",
++    ["NO_EFFECT", "A4_DIVERGENT"],
++    {
++      visualComposition: {
++        schemaVersion: "conversational-composition-canonical-v1",
++        blocks: [
++          {
++            kind: "text",
++            id: "t1",
++            markdown: "Prose canonique unique pour A4-01/A4-04.",
++          },
++        ],
++      },
++    },
++  ),
++);
++
+ /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
+ for (const [short, long] of [
+   ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
+@@ -1025,6 +1213,10 @@ for (const [short, long] of [
+   ["E05_S4_TRAJECTORY", E05_S4_TRAJECTORY],
+   ["E05_S5_COMPOSITE", E05_S5_COMPOSITE],
+   ["E05_S7_INSUFFICIENT", E05_S7_INSUFFICIENT],
++  ["E05_F5_DECISION_TREE", E05_F5_DECISION_TREE],
++  ["E05_F5_PARALLEL", E05_F5_PARALLEL],
++  ["E05_A4_OVERFLOW", E05_A4_OVERFLOW],
++  ["E05_A4_DIVERGENT_OK", E05_A4_DIVERGENT_OK],
+   ["E05_VISUAL_SIMPLE", E05_S1_SIMPLE],
+   ["E05_VISUAL_COMPARISON", E05_S3_COMPARISON],
+   ["E05_VISUAL_SEQUENCE", E05_S4_TRAJECTORY],
+```
+
+### 6.6 Diff `ensemble05-travail-nora.spec.ts` (assert C2 T02)
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
+index 37b839c4..d1947968 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
+@@ -522,6 +522,8 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+     const E05_S4_TRAJECTORY = "E05_S4_TRAJECTORY";
+     const E05_S5_COMPOSITE = "E05_S5_COMPOSITE";
+     const E05_S7_INSUFFICIENT = "E05_S7_INSUFFICIENT";
++    const E05_F5_DECISION_TREE = "E05_F5_DECISION_TREE";
++    const E05_F5_PARALLEL = "E05_F5_PARALLEL";
+
+     await page.goto("/login");
+     await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+@@ -566,14 +568,67 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+     await ask(E05_S2_DIAGNOSTIC);
+     await expect(page.getByTestId("nora-visual-relations")).toBeVisible({ timeout: 45000 });
+     await expect(page.getByTestId("nora-visual-icon").first()).toBeVisible();
++    // C-10 — directed CSS layout (or list fallback); never fixed-coordinate SVG.
++    const rel = page.getByTestId("nora-visual-relations").last();
++    const layout = await rel.getAttribute("data-layout");
++    expect(layout === "directed" || layout === "structured-list").toBeTruthy();
++    await expect(rel).toHaveAttribute("data-layout-hint", "dependencies");
+     await expect(page.getByTestId("nora-visual-composition").last()).toHaveAttribute(
+       "data-owns-body",
+       "1",
+     );
++    await expect(page.getByTestId("nora-visual-composition").last()).toHaveAttribute(
++      "data-body-policy",
++      "complement",
++    );
++    // F3 — layered deps + explicit directed edges (not undirected list).
++    await expect(page.getByTestId("nora-composition-deps-layers")).toBeVisible();
++    await expect(page.getByTestId("nora-composition-relations-edges")).toHaveAttribute(
++      "data-directed",
++      "1",
++    );
+     await page.screenshot({
+       path: path.join(evidenceDir, "runtime-s2-diagnostic-1440.png"),
+       fullPage: false,
+     });
++    await page.screenshot({
++      path: path.join(evidenceDir, "corrective-runtime-relations-list-1440.png"),
++      fullPage: false,
++    });
++    await page.screenshot({
++      path: path.join(evidenceDir, "f5-runtime-dependencies-directed-1440.png"),
++      fullPage: false,
++    });
++
++    // F5 — decision tree (Figma 08 family) + parallel (Figma 09 family).
++    await ask(E05_F5_DECISION_TREE);
++    const tree = page.getByTestId("nora-composition-decision-tree").last();
++    await expect(tree).toBeVisible({ timeout: 45000 });
++    await expect(page.getByTestId("nora-visual-relations").last()).toHaveAttribute(
++      "data-layout",
++      "directed",
++    );
++    await expect(page.getByTestId("nora-visual-relations").last()).toHaveAttribute(
++      "data-layout-hint",
++      "decisionTree",
++    );
++    await page.screenshot({
++      path: path.join(evidenceDir, "f5-runtime-decision-tree-1440.png"),
++      fullPage: false,
++    });
++
++    await ask(E05_F5_PARALLEL);
++    const parallel = page.getByTestId("nora-composition-parallel").last();
++    await expect(parallel).toBeVisible({ timeout: 45000 });
++    await expect(page.getByTestId("nora-visual-relations").last()).toHaveAttribute(
++      "data-layout-hint",
++      "parallelProcess",
++    );
++    await expect(page.getByTestId("nora-composition-parallel-edges")).toBeVisible();
++    await page.screenshot({
++      path: path.join(evidenceDir, "f5-runtime-parallel-1440.png"),
++      fullPage: false,
++    });
+
+     // S3 — comparison + recommendation + choice/ref anchors + provenance P1-B.
+     await ask(E05_S3_COMPARISON);
+@@ -593,14 +648,29 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+     await expect(s3.getByTestId("nora-visual-prov-link")).toHaveCount(1);
+     await expect(s3.getByTestId("nora-ref-link")).toHaveCount(0);
+     await expect(s3.getByText(/Consulter · Note de cadrage coordination/i)).toHaveCount(1);
++    // Corrective A — alternative substance remains visible (cards or matrix+details).
++    await expect(s3.getByTestId("nora-composition-alt-detail").first()).toBeVisible();
++    // C2 — complementary reserve from textAlternative must be consultable in DOM (not sr-only).
++    const s3Complement = s3.getByTestId("nora-composition-substance-complement");
++    await expect(s3Complement).toBeVisible();
++    await expect(s3Complement).toContainText(/Réserve C2/i);
++    await expect(s3Complement).toContainText(/porteur n'est pas nommé|porteur n’est pas nommé/i);
+     await page.screenshot({
+       path: path.join(evidenceDir, "runtime-visual-comparison-1440.png"),
+       fullPage: false,
+     });
++    await page.screenshot({
++      path: path.join(evidenceDir, "c2-runtime-substance-complement-1440.png"),
++      fullPage: false,
++    });
+     await page.screenshot({
+       path: path.join(evidenceDir, "runtime-s3-provenance-1440.png"),
+       fullPage: false,
+     });
++    await page.screenshot({
++      path: path.join(evidenceDir, "corrective-runtime-comparison-1440.png"),
++      fullPage: false,
++    });
+
+     // S4 — trajectory / sequence with human-readable dependencies (V02).
+     await ask(E05_S4_TRAJECTORY);
+```
+
+### 6.7 `tests/unit/c2-substance-exhaustiveness.test.ts` (intégral)
 
 ```ts
 /**
- * C1 natural fallback language + C2 Strategy A bodyPolicy substitute.
+ * C2 — exhaustivité visible sous bodyPolicy=substitute.
+ * Oracles C2-01…C2-10 : substance consultable, pas de dual prose intégrale,
+ * pas de preuve sr-only seule.
  */
 import { describe, expect, it } from "vitest";
+import React, { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import {
   admitConversationalComposition,
   buildExhaustiveBlockFallback,
+  visibleTextAlternativeComplement,
 } from "@/domains/conversation/conversational-composition";
 import {
   parseVisualComposition,
@@ -2244,78 +2741,192 @@ import {
   VISUAL_COMPOSITION_SCHEMA_LEGACY,
 } from "@/domains/conversation/visual-composition";
 
-const TECHNICAL_MARKERS = [
-  "relation=",
-  "layoutHint",
-  "condition_true",
-  "condition_false",
-  "parallelProcess",
-  "decisionTree",
-  "depends_on",
-  "Disposition:",
-];
+// Classic JSX runtime (Vitest/esbuild) expects a global React binding.
+(globalThis as typeof globalThis & { React: typeof React }).React = React;
 
-describe("C1 — natural French fallback", () => {
-  it("relations fallback has no wire codes", () => {
+const RESERVE =
+  "Réserve : l'arbitrage des responsabilités n'est pas encore décidé — ne pas conclure.";
+
+async function renderComposition(
+  composition: NonNullable<ReturnType<typeof parseVisualComposition>>,
+  canonicalText: string,
+): Promise<string> {
+  const { NoraComposition } = await import("@/components/figma/NoraComposition");
+  return renderToStaticMarkup(
+    createElement(NoraComposition, { composition, canonicalText }),
+  );
+}
+
+function comparisonWithReserve() {
+  return parseVisualComposition({
+    schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+    blocks: [
+      {
+        kind: "comparison",
+        id: "c",
+        title: "Options de déploiement",
+        alternatives: [
+          {
+            id: "a",
+            title: "Progressif",
+            summary: "vagues courtes",
+            pros: ["réversible"],
+            cons: ["plus long"],
+          },
+          {
+            id: "b",
+            title: "Simultané",
+            summary: "bascule unique",
+            pros: ["rapide"],
+            cons: ["risqué"],
+          },
+        ],
+        criteria: [
+          { id: "lat", label: "Latence", values: { a: "basse", b: "haute" } },
+          { id: "ris", label: "Risque", values: { a: "limité", b: "élevé" } },
+          { id: "cout", label: "Coût", values: { a: "étalé", b: "concentré" } },
+        ],
+        recommendation: "Préférer le progressif si l'arbitrage est flou.",
+        textAlternative: `Progressif vagues courtes. Simultané bascule unique.\n${RESERVE}`,
+      },
+    ],
+  })!;
+}
+
+describe("C2 substance exhaustiveness", () => {
+  it("C2-01 — no composition → policy markdown_only (texte libre inchangé)", () => {
+    const adm = admitConversationalComposition(null, { canonicalText: "Bonjour." });
+    expect(adm.bodyPolicy).toBe("markdown_only");
+    expect(adm.admitted).toHaveLength(0);
+  });
+
+  it("C2-02 — composition canonique simple : chaque info consultable", async () => {
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [{ kind: "text", id: "t", markdown: "Synthèse courte du projet." }],
+    })!;
+    const adm = admitConversationalComposition(comp, {
+      canonicalText: "Synthèse courte du projet.",
+      containerWidthPx: 900,
+    });
+    expect(adm.bodyPolicy).toBe("substitute");
+    const html = await renderComposition(comp, "Synthèse courte du projet.");
+    expect(html).toContain("Synthèse courte du projet.");
+    expect(html).not.toContain("nora-composition-substance-complement");
+  });
+
+  it("C2-03 — comparaison graphique : critères + réserve complémentaire accessibles", async () => {
+    const comp = comparisonWithReserve();
+    const adm = admitConversationalComposition(comp, {
+      canonicalText: buildExhaustiveBlockFallback(comp.blocks[0]!),
+      containerWidthPx: 900,
+    });
+    expect(adm.bodyPolicy).toBe("substitute");
+    expect(visibleTextAlternativeComplement(comp.blocks[0]!)).toContain(RESERVE);
+
+    const html = await renderComposition(
+      comp,
+      buildExhaustiveBlockFallback(comp.blocks[0]!),
+    );
+    expect(html).toContain("Progressif");
+    expect(html).toContain("Simultané");
+    expect(html).toContain("Latence");
+    expect(html).toContain("Risque");
+    expect(html).toContain("Coût");
+    expect(html).toContain('data-testid="nora-composition-substance-complement"');
+    // Apostrophe may be HTML-escaped in SSR markup.
+    expect(html).toMatch(/Réserve\s*:\s*l(?:'|&#x27;|&#39;)arbitrage des responsabilités/);
+    expect(html).toContain("fig-comp-substance-complement");
+    expect(html).not.toMatch(/sr-only[^>]*>[^<]*Réserve/);
+  });
+
+  it("C2-04 — textAlternative préfixe redondant + suffixe substantiel", () => {
+    const block = comparisonWithReserve().blocks[0]!;
+    const complement = visibleTextAlternativeComplement(block);
+    expect(complement).toBe(RESERVE);
+    expect(complement).not.toContain("Progressif vagues courtes");
+  });
+
+  it("C2-05 — séquence : condition absente du libellé court n'est pas perdue", async () => {
+    const condition =
+      "Condition : ne démarrer la vague 2 que si le support est mobilisable.";
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "sequence",
+          id: "s",
+          title: "Trajectoire",
+          steps: [
+            { id: "s1", title: "Cadrage", detail: "périmètre" },
+            { id: "s2", title: "Vague 1", detail: "pilote" },
+            { id: "s3", title: "Vague 2", detail: "extension" },
+          ],
+          textAlternative: `Cadrage. Vague 1. Vague 2.\n${condition}`,
+        },
+      ],
+    })!;
+    expect(visibleTextAlternativeComplement(comp.blocks[0]!)).toContain(condition);
+    const html = await renderComposition(comp, "x");
+    expect(html).toContain(condition);
+    expect(html).toContain("nora-composition-substance-complement");
+  });
+
+  it("C2-06 — relations : qualifications/limites lisibles", async () => {
+    const limit = "Limite : les liens représentent des conditions, pas un état prouvé.";
     const comp = parseVisualComposition({
       schemaVersion: VISUAL_COMPOSITION_SCHEMA,
       blocks: [
         {
           kind: "relations",
           id: "r",
-          title: "Graphe",
-          layoutHint: "decisionTree",
+          title: "Dépendances",
+          layoutHint: "dependencies",
           nodes: [
-            { id: "c", label: "Condition", kind: "unknown", detail: "détail" },
-            { id: "y", label: "Oui", kind: "hypothesis", laneId: "voie-oui" },
-            { id: "n", label: "Non", kind: "finding" },
+            { id: "a", label: "Pratiques locales", kind: "observation" },
+            { id: "b", label: "Friction", kind: "finding" },
           ],
-          edges: [
-            { from: "c", to: "y", relation: "condition_true", label: "ok" },
-            { from: "c", to: "n", relation: "condition_false", label: "ko" },
-          ],
-          textAlternative: "alt",
+          edges: [{ from: "a", to: "b", relation: "depends_on" }],
+          textAlternative: `Pratiques locales → Friction.\n${limit}`,
         },
       ],
     })!;
-    const fb = buildExhaustiveBlockFallback(comp.blocks[0]!);
-    for (const m of TECHNICAL_MARKERS) {
-      expect(fb, `must not contain ${m}`).not.toContain(m);
-    }
-    expect(fb).toContain("Arbre conditionnel");
-    expect(fb).toContain("(hypothèse)");
-    expect(fb).toContain("Si oui");
-    expect(fb).toContain("voie « voie-oui »");
+    expect(visibleTextAlternativeComplement(comp.blocks[0]!)).toContain(limit);
+    const html = await renderComposition(comp, "x");
+    expect(html).toContain(limit);
   });
-});
 
-describe("C2 — Strategy A display policy", () => {
-  it("canonical graphic → substitute (no dual prose)", () => {
+  it("C2-07 — synthèse : complément ne disparaît pas", async () => {
+    const note = "Hypothèse non prouvée : le pic de charge reste à confirmer.";
     const comp = parseVisualComposition({
       schemaVersion: VISUAL_COMPOSITION_SCHEMA,
       blocks: [
-        { kind: "text", id: "t", markdown: "Intro." },
         {
-          kind: "comparison",
-          id: "c",
-          title: "Opts",
-          alternatives: [
-            { id: "a", title: "A", summary: "sa" },
-            { id: "b", title: "B", summary: "sb" },
+          kind: "synthesis",
+          id: "sy",
+          title: "À surveiller",
+          items: [
+            { id: "i1", label: "Coordination", detail: "rôles flous", tone: "risk" },
+            { id: "i2", label: "Support", detail: "capacité locale", tone: "observation" },
           ],
-          textAlternative: "A vs B",
+          textAlternative: `Coordination. Support.\n${note}`,
         },
       ],
     })!;
-    const adm = admitConversationalComposition(comp, {
-      canonicalText: "Intro. A sa B sb",
-      containerWidthPx: 900,
-    });
-    expect(adm.bodyPolicy).toBe("substitute");
-    expect(adm.fallbackReasons).toContain("CV_BODY_CANONICAL_GRAPHIC_SUBSTITUTE");
+    expect(visibleTextAlternativeComplement(comp.blocks[0]!)).toContain(note);
+    const html = await renderComposition(comp, "x");
+    expect(html).toContain(note);
+    expect(html).not.toMatch(/class="sr-only"[^>]*>[^<]*Hypothèse non prouvée/);
   });
 
-  it("legacy graphic → complement when fidelity ok", () => {
+  it("C2-08 — erreur composant : fallback exhaustif via boundary text", () => {
+    const comp = comparisonWithReserve();
+    const fallback = buildExhaustiveBlockFallback(comp.blocks[0]!);
+    expect(fallback).toContain(RESERVE);
+    expect(fallback).toContain("Progressif");
+  });
+
+  it("C2-09 — legacy : complement policy conservée (pas substitute forcé)", () => {
     const comp = parseVisualComposition({
       schemaVersion: VISUAL_COMPOSITION_SCHEMA_LEGACY,
       blocks: [
@@ -2337,77 +2948,173 @@ describe("C2 — Strategy A display policy", () => {
     });
     expect(adm.bodyPolicy).toBe("complement");
   });
+
+  it("C2-10 — rendu composite : pas de duplication intégrale automatique du replyDraft", async () => {
+    const draft =
+      "Intro narrative unique. Progressif vagues courtes. Simultané bascule unique. " + RESERVE;
+    const comparison = comparisonWithReserve().blocks[0]!;
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        { kind: "text", id: "t", markdown: "Intro narrative unique." },
+        comparison,
+      ],
+    })!;
+    const adm = admitConversationalComposition(comp, {
+      canonicalText: draft,
+      containerWidthPx: 900,
+    });
+    expect(adm.bodyPolicy).toBe("substitute");
+    const html = await renderComposition(comp, draft);
+    const occurrences = html.split(draft).length - 1;
+    expect(occurrences).toBe(0);
+    expect(html).toMatch(/Réserve\s*:\s*l(?:'|&#x27;|&#39;)arbitrage des responsabilités/);
+    expect(html).toContain("Intro narrative unique.");
+  });
 });
 ```
 
-### 6.6 `figma-page06-visual-contract.md`
+### 6.8 Paquet validation Morris Page 06
 
 ```md
-# Contrat visuel extrait — Figma Page 06 (références composition)
+# Paquet de validation artistique Morris — Figma Page 06
 
-**Date :** 2026-11-18 (~10:15 CET)
-**Fichier :** `https://www.figma.com/design/itgvCulInEnFY6DvgIegvP`
-**Page :** 06 · node `742:2`
-**Session MCP :** `6e05c280-eea3-40fd-818e-26683103503d`
-**Statut :** EXTRAIT MCP — **références de conception candidates**, pas spécification pixel-finale validée Morris
+**Date :** 2026-11-18
+**Fichier :** `itgvCulInEnFY6DvgIegvP` · page `742:2`
+**Session MCP :** `05690991-8dcf-4780-a219-714f1955f094`
+**Statut :** **FIGMA CONTRACT READY — MORRIS VISUAL VALIDATION REQUIRED**
+**Non-statut :** pas de pixel-finale ; pas de FIGMA TO RUNTIME ALIGNED
 
-## Principes UX acceptés (Morris)
+## 1. Langage graphique commun (extrait)
 
-- Sobriété de l’environnement ; richesse maîtrisée de la réponse.
-- Hiérarchie éditoriale claire ; cartes uniquement si pertinentes.
-- Connexions et représentations fiables ; pas de décoration gratuite.
-- Texte essentiel non tronqué ; lisibilité à largeur variable.
+- Shell Travail : rail gauche, fil conversation, panneau « En bref » (frames 01/02).
+- Restitution éditoriale : sur-titre intention, titre fort, intro courte, séparateur, sections numérotées.
+- Cartes d’option : label, titre, résumé, avantages/limites ; hauteur variable selon contenu.
+- Matrice : colonnes option / atout / point à vérifier ; densification sans 5 grands panneaux.
+- Parcours : étapes numérotées horizontales **ou** liste verticale ; planning calendaire seulement si dates établies.
+- Graphes : nœuds typés + connecteurs Manhattan orientés ; note de fidélité / garde-fou en bas.
+- Accent éditorial vertical (barre) pour orientation / recommandation / réserve.
+- Labels épistémiques (observation, hypothèse, risque, recommandation) — **ne pas** peindre tout risque en rouge critique.
 
-## Frames de référence
+## 2. Composition attendue par famille
 
-| Ref | Node | Intention | Capture locale | Dimensions PNG |
-| --- | --- | --- | --- | --- |
-| 03 | 745:2 | Trois options adaptatives (cartes) | `figma-page06/figma-745-2-three-options.png` | ~1040×820 |
-| 04 | 745:27 | Comparaison matricielle | `figma-page06/figma-745-27-matrix.png` | ~1040×820 |
-| 07 | 751:11 | Dépendances / convergence | `figma-page06/figma-751-11-dependencies.png` | 1040×1130 |
-| 08 | 752:2 | Arbre conditionnel | `figma-page06/figma-752-2-decision-tree.png` | 1040×1130 |
-| 09 | 753:2 | Processus parallèle | `figma-page06/figma-753-2-parallel.png` | 1040×1130 |
+| Famille | Frames | Intention | Variantes |
+| --- | --- | --- | --- |
+| Synthèse / narration | 01 | Arbitrage lisible, KPIs uniquement si établis | prose + callouts + orientation conditionnelle |
+| Parcours / planning | 02, 06 | Séquence et jalons | horizontal, vertical, calendrier **si** dates |
+| Comparaison | 03, 04, 05 | Options comparables | cards, matrix, stack, texte ; largeur contrainte |
+| Dépendances | 07 | Convergence de prérequis | couches + connecteurs + liste humaine |
+| Arbre conditionnel | 08 | Oui/non attachés, pas de HumanDecision | arbre dirigé / texte |
+| Parallèle | 09 | Voies + sync + gate | lanes + edges + texte |
 
-## Observations structurelles (MCP)
+## 3. Stratégie thème Studio (décision ouverte)
 
-| Frame | Structure observée | Incertitudes |
-| --- | --- | --- |
-| 03 | Titre + grille de cartes option (titre, résumé, attributs) | Espacements exacts vs Studio sombre |
-| 04 | En-têtes critères × options ; tableau dense | Wrap horizontal vs stacked |
-| 07 | Nœuds en couches + **connecteurs graphiques** orientés vers convergence | Géométrie exacte des courbes ; DA claire vs tokens Studio |
-| 08 | Racine + branches conditionnelles oui/non attachées | Style des conditions |
-| 09 | Voies parallèles + liens de sync/convergence | Swimlanes vs grid Studio |
-
-## Choix techniques V1 (bornés — pas ELK/RF)
-
-- HTML/CSS/SVG sémantique ; connecteurs **mesurés** (getBoundingClientRect + ResizeObserver).
-- Admission déterministe ; fallback liste humaine si topologie refusée.
-- Environnement sombre Studio : écart DA fond clair Figma Page 06 = **connu**, non cloné.
-
-## Validation Morris
-
-| Item | Statut |
+| Observation | Impact |
 | --- | --- |
-| Source Figma comme direction | Candidate |
-| Source Figma comme exécution pixel-finale | **NON VALIDÉE** |
-| Transposition 07–09 | Technique bornée livrée ; conformité pixel **NON revendiquée** |
+| Frames 01/02 MCP : **fond clair** shell + conversation | Runtime Studio actuel : **sombre** |
+| Frames 03–09 : surfaces de composition (souvent sombres / navy) | Tokens Studio `--fig-*` déjà sombres |
+| **Recommandation technique** | Adapter la composition aux tokens Studio sombres ; **ne pas** cloner le fond clair Figma 01/02 sans GO Morris thème |
 
-## Verdict contrat Figma
+## 4. Responsive / densité
 
-**FIGMA CONTRACT EXTRACTED — RUNTIME COMPARISON PENDING**
+- Conteneur Travail (pas `window.innerWidth`) : ~390 / 430 / 790 / 1040 / 1280 / 1440.
+- 3 options → cards ; 5+ → matrix ou liste ; 12–18 → refus d’enveloppe / fallback texte.
+- Zoom 200–400 % et split 50/50 : reflow + focus (à prouver W4).
 
-Sans revue Morris des captures Figma/runtime inspectables hors handoff MD :
-`VISUAL REVIEW NOT COMPLETED`
+## 5. Écarts runtime actuel vs Figma
+
+| Zone | Runtime | Figma | Écart |
+| --- | --- | --- | --- |
+| Shell | Sombre Studio | 01/02 clair | Thème |
+| Cartes/matrice | Présentes | 03/04 | Structure OK ; DA pixel NON |
+| Dépendances | SVG mesuré + liste | 07 Manhattan multi-couches | Géométrie PARTIAL |
+| Arbre / parallèle | HTML/CSS directed | 08/09 | Lisibilité PARTIAL vs maquette |
+| Complément C2 | `SubstanceComplement` visible | Réserves éditoriales | Alignement intention OK |
+
+## 6. Décisions graphiques encore ouvertes (Morris)
+
+1. Valider adaptation **tokens sombres** vs reproduction thème clair 01/02.
+2. Niveau de fidélité pixel attendu pour 07/08/09 (SVG actuel vs ELK/RF — **aucune dépendance ajoutée** sans gate).
+3. Calendrier planning (02) : n’activer que si dates canoniques.
+4. Iconographie : conserver `NoraSemanticIcon` ou aligner sur symboles Figma page 06.
+5. Densité KPI frame 01 : n’afficher que valeurs établies (déjà règle métier).
+
+## 7. Recommandation layout complexes
+
+Conserver **HTML/CSS/SVG mesuré** (DependenciesConnectedView) en V1.
+ELK / React Flow : **non installés** ; uniquement si Morris valide un gap de lisibilité après revue des captures 07–09.
+
+## 8. Captures Figma locales
+
+| Frame | Node | Fichier |
+| --- | --- | --- |
+| 01 | 742:36 | `figma-page06/figma-742-36-synthesis.png` |
+| 02 | 743:2 | `figma-page06/figma-743-2-planning.png` |
+| 03 | 745:2 | `figma-page06/figma-745-2-three-options.png` |
+| 04 | 745:27 | `figma-page06/figma-745-27-matrix.png` |
+| 05 | 746:2 | `figma-page06/figma-746-2-constrained.png` |
+| 06 | 746:22 | `figma-page06/figma-746-22-vertical-steps.png` |
+| 07 | 751:11 | `figma-page06/figma-751-11-dependencies.png` |
+| 08 | 752:2 | `figma-page06/figma-752-2-decision-tree.png` |
+| 09 | 753:2 | `figma-page06/figma-753-2-parallel.png` |
+
+## Verdict W1
+
+**FIGMA CONTRACT READY — MORRIS VISUAL VALIDATION REQUIRED**
+
+Cursor **STOP** avant transposition pixel-finale non approuvée. Travaux techniques indépendants (C2, preuves, families existantes) poursuivis.
+```
+
+### 6.9 Corpus W5
+
+```md
+# W5 — Corpus de réception Ensemble 05 (préparation)
+
+**Statut :** préparatoire FAKE — **LIVE NOT RUN** (GO Morris distinct requis)
+**Date :** 2026-11-18
+
+| # | Question libre | Représentation pertinente | Texte seul préférable si… | Oracles vérité | Non-redondance | Qualité graphique |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Résume le projet et sujets à surveiller | synthèse + réserves | question triviale | pas de fait inventé | pas de double prose | hiérarchie éditoriale |
+| 2 | Compare stratégies et recommande | comparaison cards/matrix | <2 options | recommandation ≠ HumanDecision | complément seulement si nécessaire | critères complets |
+| 3 | Dépendances prochaine étape | dépendances dirigées | topologie invalide → liste | liens orientés exacts | liste humaine + SVG | connecteurs mesurés |
+| 4 | Jalons réellement connus | séquence / planning | aucune date établie | pas de date inventée | — | ordre sémantique |
+| 5 | Décisions restantes | synthèse décisions | — | D6 non déclenché | — | distinction avis/décision |
+| 6 | Hypothèses non prouvées | synthèse hypothèses | — | tone hypothèse visible | — | pas de faux fait |
+| 7 | Processus multi-équipes parallèle | parallelProcess | topologie refusée | sync orientée | — | voies distinctes |
+| 8 | Indicateurs chiffrés établis | tableau/texte | données insuffisantes | pas de graphique inventé | — | honnêteté quanti |
+| 9 | Explique sans graphique | narration | toujours OK | narrative-only | — | pas de graphique forcé |
+| 10 | Synthèse détaillée sources/risques/pistes | composite | — | sources contrôlées | C2 réserve visible | shell non cassé |
+
+**Limite :** ce corpus ne constitue pas une acceptation W5 ni un Gate C.
 ```
 
 ---
 
-## 7. Instruction ChatGPT
+## 7. Matrice familles (rapport §B)
 
-1. Relire `sfia/review-handoff` → `latest-chatgpt-review.md` (ce blob).
-2. Vérifier que les diffs §6.1–6.4 sont **non vides** et exploitables jusqu'à la fin des hunks.
-3. Tracer C2 : `decideBodyPolicy` → branche `NoraConversation` substitute/complement → `data-body-policy`.
-4. Confronter à matrice **06 V0.6** ; ne pas inférer ADOPTED / Gate C / LIVE depuis FAKE.
-5. Ne pas conclure « pixel-Figma » : VISUAL REVIEW NOT COMPLETED.
+| Famille | Figma | Implémentation | Tests | Capture | Verdict |
+| --- | --- | --- | --- | --- | --- |
+| Narration/synthèse | 01 | text/synthesis + C2 | UNIT+T02 | figma-742-36 + runtime | PARTIAL DA |
+| Parcours | 02/06 | sequence H/V | T02 | figma-743/746-22 | PARTIAL |
+| Comparaison | 03/04/05 | cards/matrix/stack/text | UNIT+T02+C2 | figma-745* + c2 PNG | PARTIAL DA ; C2 PASS |
+| Dépendances | 07 | SVG mesuré | T02 | figma-751 + f5 | PARTIAL |
+| Arbre | 08 | directed HTML | T02 | figma-752 + f5 | PARTIAL |
+| Parallèle | 09 | lanes | T02 | figma-753 + f5 | PARTIAL |
+| Quantitatif | — | refus si insuffisant | T02 S7 | — | PASS honnêteté |
 
-**Fin Review Pack Full — Complétude diffs C1–C4.**
+---
+
+## 8. Verdict Cursor
+
+**READY WITH RESERVES**
+
+Réserves / gates Morris :
+1. Validation artistique Page 06 (thème + fidélité 07–09)
+2. HISTORICAL PG REPLAY (pas de payloads composition en DEV)
+3. VISUAL REVIEW (PNG hors canal handoff)
+4. LIVE / réception W5 / Gate C / push produit — GO distincts
+
+**Instruction ChatGPT :** relire `sfia/review-handoff` → `latest-chatgpt-review.md` ; vérifier diffs §6 non vides ; tracer C2 DOM ; ne pas inférer ADOPTED/Gate C/LIVE.
+
+**Fin Review Pack Full — C2 + W1.**
