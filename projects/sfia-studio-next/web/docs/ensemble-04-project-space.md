@@ -1,7 +1,7 @@
 # Ensemble 04 — Espace projet (shell UX/UI)
 
-Date: 2026-11-16  
-Branche: `feat/next-ml4d-project-space-20261116`  
+Date: 2026-11-16
+Branche: `feat/next-ml4d-project-space-20261116`
 Figma: `itgvCulInEnFY6DvgIegvP` frames `652:8` / `652:58` / `652:108` / `652:158`
 
 ## Responsabilités
@@ -32,6 +32,6 @@ Figma: `itgvCulInEnFY6DvgIegvP` frames `652:8` / `652:58` / `652:108` / `652:158
 
 ## Hors périmètre (renvoi)
 
-- Ensemble 05: fil Nora détaillé, scroll, réponses structurantes  
-- Ensemble 06: Documents / Journal métier  
-- Ensemble 07: Trajectoire / cycles / CKI  
+- Ensemble 05: fil Nora détaillé, scroll, réponses structurantes
+- Ensemble 06: Documents / Journal métier
+- Ensemble 07: Trajectoire / cycles / CKI

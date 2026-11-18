@@ -5,7 +5,7 @@ index ab83d881..f9c8640c 100644
 @@ -1804,7 +1804,7 @@
    margin-bottom: 6px;
  }
- 
+
 -/* UX-01 — icon + markdown body on one horizontal row */
 +/* UX-01 — icon optically centered on the first text line (not stacked, not high). */
  .fig-visual-text-with-icon {
@@ -59,7 +59,7 @@ index ab83d881..f9c8640c 100644
    min-width: 0;
 +  line-height: 1.35;
  }
- 
+
  .fig-visual-recommendation {
    display: flex;
 -  gap: 10px;
@@ -71,7 +71,7 @@ index ab83d881..f9c8640c 100644
 +  margin-right: 0;
 +  height: 1.35em;
 +}
- 
+
  .fig-visual-recommendation-body {
    min-width: 0;
    flex: 1 1 auto;
@@ -82,6 +82,6 @@ index ab83d881..f9c8640c 100644
 +.fig-visual-recommendation-body > :first-child > :first-child {
 +  margin-top: 0 !important;
 +}
- 
+
  .fig-visual-inline-md {
    display: block;

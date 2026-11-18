@@ -18,7 +18,7 @@ Les deux messages historiques `UNKNOWN` restent en place (non réécrits).
 
 ## Statut
 
-`FIX DEPLOYED — MORRIS USER RETEST PENDING`  
+`FIX DEPLOYED — MORRIS USER RETEST PENDING`
 ≠ `UAT ACCEPTED` tant que Morris n’a pas validé.
 
 ## Rollback

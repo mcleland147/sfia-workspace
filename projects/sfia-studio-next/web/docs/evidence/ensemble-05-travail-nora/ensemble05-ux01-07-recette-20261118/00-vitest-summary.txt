@@ -23,4 +23,3 @@ stderr | tests/unit/uat03-sequence-detail-limit.test.ts
       Tests  26 passed (26)
    Start at  18:25:15
    Duration  1.11s (transform 167ms, setup 26ms, collect 515ms, tests 201ms, environment 0ms, prepare 78ms)
-

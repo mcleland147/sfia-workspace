@@ -5,7 +5,7 @@ index f2d5395f..01730052 100644
 @@ -52,6 +52,14 @@ type LaneBucket = {
    kind: "flow" | "gate" | "suite";
  };
- 
+
 +function isCoordinationLaneLabel(label: string): boolean {
 +  return /converg|commun|coord|suite|gate|sync|revue/i.test(label);
 +}
@@ -23,7 +23,7 @@ index f2d5395f..01730052 100644
    const map = new Map<string, RelationsBlock["nodes"]>();
 -  /** UX-05 — unlaned nodes are classified after flow lanes (convergence / suite). */
    const unassigned: RelationsBlock["nodes"] = [];
- 
+
    for (const n of block.nodes) {
 @@ -81,35 +88,41 @@ function classifyLanes(block: RelationsBlock): {
    const flow: LaneBucket[] = [];
@@ -40,7 +40,7 @@ index f2d5395f..01730052 100644
 +    bucket.push(n);
 +    return true;
 +  };
- 
+
 +  // 1) Sync targets are always the exclusive gate row.
 +  for (const n of block.nodes) {
 +    if (syncTargets.has(n.id)) claim(n, gateNodes);
@@ -77,19 +77,19 @@ index f2d5395f..01730052 100644
 +    flow.push({ id: `lane-${label}`, label, nodes: remaining, kind: "flow" });
 +    for (const n of remaining) claimed.add(n.id);
    }
- 
+
    const laneOf = new Map<string, string>();
    for (const lane of flow) {
      for (const n of lane.nodes) laneOf.set(n.id, lane.label);
    }
 -  const flowIds = new Set(laneOf.keys());
- 
+
    const inboundFlowLaneCount = (nodeId: string): number => {
      const lanes = new Set<string>();
 @@ -121,44 +134,72 @@ function classifyLanes(block: RelationsBlock): {
      return lanes.size;
    };
- 
+
 -  const isOnlyFromGate = (nodeId: string): boolean => {
 +  const reachableFromClaimedGate = (nodeId: string): boolean => {
      const inbound = block.edges.filter((e) => e.to === nodeId);
@@ -100,7 +100,7 @@ index f2d5395f..01730052 100644
 +      (e) => gateNodes.some((g) => g.id === e.from) || suiteNodes.some((s) => s.id === e.from),
      );
    };
- 
+
 -  // Sync targets always gate.
 -  for (const n of block.nodes) {
 -    if (syncTargets.has(n.id) && !gateNodes.some((g) => g.id === n.id)) {
@@ -144,10 +144,10 @@ index f2d5395f..01730052 100644
 -  for (const n of block.nodes) classifyOne(n);
 +    claim(n, suiteNodes);
 +  }
- 
+
    return { flow, gateNodes, suiteNodes };
  }
- 
+
 +/** Stable vertical order for post-gate chain (revue → lancement). */
 +function orderSuiteChain(
 +  nodes: RelationsBlock["nodes"],
@@ -186,7 +186,7 @@ index f2d5395f..01730052 100644
   * G09 / parallelProcess — swimlane composition:
   * each flow lane laid out DOWN via ELK, lanes placed side-by-side, gate+suite below.
 @@ -282,7 +323,22 @@ async function computeParallelSwimlaneLayout(
- 
+
    y = placeRow(gateNodes, y);
    if (suiteNodes.length) {
 -    y = placeRow(suiteNodes, y + ROW_GAP);
@@ -207,5 +207,5 @@ index f2d5395f..01730052 100644
 +    }
 +    y = ySuite;
    }
- 
+
    const byId = new Map(nodeBoxes.map((n) => [n.id, n]));

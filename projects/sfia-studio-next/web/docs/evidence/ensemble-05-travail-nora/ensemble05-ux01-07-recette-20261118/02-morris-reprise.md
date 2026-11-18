@@ -11,13 +11,13 @@
 
 Rejouer les huit scénarios UAT en vérifiant notamment :
 
-1. Icône + titre sur la même ligne  
-2. Matrice sans ligne « Matrice de comparaison »  
-3. Un seul numéro d’étape  
-4. Graphes sans œil décoratif  
-5. Processus parallèle : 3 branches → une revue → lancement, lisible  
-6. Synthèse : icônes pertinentes + marges  
-7. Cartes : début aligné, textes en flux naturel  
+1. Icône + titre sur la même ligne
+2. Matrice sans ligne « Matrice de comparaison »
+3. Un seul numéro d’étape
+4. Graphes sans œil décoratif
+5. Processus parallèle : 3 branches → une revue → lancement, lisible
+6. Synthèse : icônes pertinentes + marges
+7. Cartes : début aligné, textes en flux naturel
 
 ## Rollback
 

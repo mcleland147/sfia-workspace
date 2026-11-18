@@ -1,8 +1,8 @@
 # UAT-03 — Correctif + observabilité + redéploiement RECETTE
 
-**Date :** 2026-11-18  
-**GO Morris :** correctif + QA + build + cutover RECETTE, même cycle SFIA v2.6  
-**Profil :** Critical · NO RELEASE · NO PRODUCT PUSH/PR/MERGE · NO STABLE / Gate C / ADOPTED  
+**Date :** 2026-11-18
+**GO Morris :** correctif + QA + build + cutover RECETTE, même cycle SFIA v2.6
+**Profil :** Critical · NO RELEASE · NO PRODUCT PUSH/PR/MERGE · NO STABLE / Gate C / ADOPTED
 
 ## Identités
 
@@ -47,9 +47,9 @@
 
 ## Réserves reportées (hors périmètre)
 
-- UX-01 — alignement icônes/titres  
-- UX-02 — titre superflu « Matrice de comparaison »  
-- Autres réserves matrice V0.9  
+- UX-01 — alignement icônes/titres
+- UX-02 — titre superflu « Matrice de comparaison »
+- Autres réserves matrice V0.9
 
 ## Statut UAT-03
 

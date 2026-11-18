@@ -1,8 +1,8 @@
 # Plan de mise à disposition RECETTE — Ensemble 04 (NON EXÉCUTÉ)
 
-Date: 2026-11-16  
-Statut: **PRÉPARÉ — EN ATTENTE GO MORRIS**  
-Lane cible: RECETTE existante `http://127.0.0.1:3200`  
+Date: 2026-11-16
+Statut: **PRÉPARÉ — EN ATTENTE GO MORRIS**
+Lane cible: RECETTE existante `http://127.0.0.1:3200`
 Aucune exécution dans le cycle de consolidation.
 
 ## A. État actuel (observé read-only)
@@ -36,21 +36,21 @@ Non observé dans ce cycle (sans ouverture secrets): détail rôle PG, dump DB, 
 
 ## C. Préservation
 
-1. Dump logique DB RECETTE (outil habituel d’ops) **avant** bascule.  
-2. Conserver le worktree `…-bd8e1672` et le LaunchAgent `.bak` actuel.  
-3. Ne pas toucher DEV (:3102) ni STABLE.  
-4. Ne pas `drop` / migrate / truncate RECETTE.  
+1. Dump logique DB RECETTE (outil habituel d’ops) **avant** bascule.
+2. Conserver le worktree `…-bd8e1672` et le LaunchAgent `.bak` actuel.
+3. Ne pas toucher DEV (:3102) ni STABLE.
+4. Ne pas `drop` / migrate / truncate RECETTE.
 5. Conserver volumes/documents/uploads.
 
 ## D. Bascule future (après GO)
 
-1. `git fetch` / archive du SHA candidat figé.  
-2. Worktree dédié `…-recette-build-<sha12>` (pas hot reload).  
-3. `npm ci` + `next build` dans ce worktree avec env RECETTE.  
-4. Vérifier BUILD_ID produit.  
-5. Arrêt contrôlé LaunchAgent actuel.  
-6. Remplacer ProgramArguments/WorkingDirectory vers le nouveau start script (port **3200** inchangé).  
-7. `launchctl load` / kickstart.  
+1. `git fetch` / archive du SHA candidat figé.
+2. Worktree dédié `…-recette-build-<sha12>` (pas hot reload).
+3. `npm ci` + `next build` dans ce worktree avec env RECETTE.
+4. Vérifier BUILD_ID produit.
+5. Arrêt contrôlé LaunchAgent actuel.
+6. Remplacer ProgramArguments/WorkingDirectory vers le nouveau start script (port **3200** inchangé).
+7. `launchctl load` / kickstart.
 8. Vérifier HTML build id + `SFIA_SOURCE_SHA` + smoke.
 
 ## E. Smoke post-bascule
@@ -59,8 +59,8 @@ Connexion · Portefeuille · Sas reprise · Travail · Projet · Journal · Traj
 
 ## F. Retour arrière
 
-1. Relancer LaunchAgent / script `bd8e1672` + BUILD_ID `bURdIMEzv8pRSJCzgsiDf`.  
-2. Vérifier login 200 et SHA source.  
+1. Relancer LaunchAgent / script `bd8e1672` + BUILD_ID `bURdIMEzv8pRSJCzgsiDf`.
+2. Vérifier login 200 et SHA source.
 3. Déclenchement: smoke critique rouge, perte de continuité, ou GO Morris rollback.
 
 ## G. Manifeste ENV-01 (brouillon)

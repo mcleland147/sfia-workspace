@@ -1,8 +1,8 @@
 # Ensemble 05 — UX-01 à UX-07 + relivraison RECETTE
 
-**Date :** 2026-11-18  
-**GO Morris :** développement + QA + build + cutover RECETTE, même cycle  
-**Profil :** Critical · NO RELEASE · NO PRODUCT PUSH  
+**Date :** 2026-11-18
+**GO Morris :** développement + QA + build + cutover RECETTE, même cycle
+**Profil :** Critical · NO RELEASE · NO PRODUCT PUSH
 
 ## Identités
 

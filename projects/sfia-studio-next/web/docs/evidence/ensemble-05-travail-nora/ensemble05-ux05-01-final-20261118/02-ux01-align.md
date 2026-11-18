@@ -14,5 +14,5 @@ Pas d’offsets par titre individuel.
 
 ## Preuve navigateur
 
-`screenshots/ux01-icon-align-geometry.json` — titre : delta icon/text = **0 px**.  
+`screenshots/ux01-icon-align-geometry.json` — titre : delta icon/text = **0 px**.
 Capture : `ux01-composition-icon-align-1440.png`.

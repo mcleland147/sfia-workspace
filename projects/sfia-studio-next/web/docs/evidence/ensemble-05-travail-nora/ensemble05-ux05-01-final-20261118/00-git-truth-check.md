@@ -1,7 +1,7 @@
 # Git Truth Check — Ensemble 05 UX-05/UX-01 final
 
-**Date :** 2026-11-18  
-**Lane produit locale :** `sfia/next-ml4d-ensemble05-composition-recette-candidate`  
+**Date :** 2026-11-18
+**Lane produit locale :** `sfia/next-ml4d-ensemble05-composition-recette-candidate`
 **Workspace :** `sfia-workspace-next-ml4d-ux003-entry-20261116`
 
 | Objet | Valeur observée |

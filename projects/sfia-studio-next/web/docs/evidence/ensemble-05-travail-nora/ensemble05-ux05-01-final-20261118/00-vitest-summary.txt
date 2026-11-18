@@ -15,4 +15,3 @@ stderr | tests/unit/directed-layout-candidate.test.ts
       Tests  14 passed (14)
    Start at  18:53:04
    Duration  728ms (transform 92ms, setup 21ms, collect 196ms, tests 203ms, environment 0ms, prepare 53ms)
-

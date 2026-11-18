@@ -3,16 +3,16 @@ index 5be2935f..de418555 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/nora-composition/GraphNodeCard.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/nora-composition/GraphNodeCard.tsx
 @@ -2,27 +2,30 @@
- 
+
  import React from "react";
  import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
 -import type { RelationsBlock } from "@/domains/conversation/visual-composition";
 +import type { RelationsBlock, VisualSemanticRole } from "@/domains/conversation/visual-composition";
- 
+
  void React;
- 
+
  type Node = RelationsBlock["nodes"][number];
- 
+
 -function roleFor(
 +/**
 + * UX-04 — graph icons only when they carry a verifiable epistemic/risk signal.
@@ -41,7 +41,7 @@ index 5be2935f..de418555 100644
 +      return null;
    }
  }
- 
+
 @@ -36,18 +39,20 @@ export function GraphNodeCard({
    branch?: "root" | "yes" | "no" | "then" | "gate";
    emphasize?: boolean;

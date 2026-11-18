@@ -5,7 +5,7 @@ index 0e6d8cd4..68cf1f5a 100644
 @@ -1314,6 +1314,79 @@ register(
    ),
  );
- 
+
 +/**
 + * Exact RECETTE UAT-07 latest shape (msg_84ae0ce0 turnProjection) —
 + * regression for exclusive gate/suite classification (UX-05).

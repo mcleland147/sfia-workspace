@@ -123,5 +123,5 @@ index 0a990da4..02658f79 100644
 +    expect(lanc.y).toBeGreaterThan(revue.y);
 +  });
  });
- 
+
  describe("UX-06 residual icon semantics", () => {

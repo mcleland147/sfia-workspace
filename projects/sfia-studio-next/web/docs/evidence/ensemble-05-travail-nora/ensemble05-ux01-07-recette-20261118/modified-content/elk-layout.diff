@@ -30,7 +30,7 @@ index 1f0a2d2c..f2d5395f 100644
      }
      flow.push({ id: `lane-${label}`, label, nodes, kind: "flow" });
    }
- 
+
 -  // Fallback: any sync target not already classified.
 +  const laneOf = new Map<string, string>();
 +  for (const lane of flow) {
@@ -88,13 +88,13 @@ index 1f0a2d2c..f2d5395f 100644
 +
 +  for (const n of unassigned) classifyOne(n);
 +  for (const n of block.nodes) classifyOne(n);
- 
+
    return { flow, gateNodes, suiteNodes };
  }
 @@ -141,9 +184,11 @@ async function computeParallelSwimlaneLayout(
    let lanesBottom = 0;
    const laneBounds: Array<{ label: string; x: number; y: number; w: number; h: number }> = [];
- 
+
 -  // Fit three swimlanes in a typical Travail column (~600–720px) without
 -  // forcing the Pilote to scroll horizontally to discover a lane.
 -  const maxLaneNodeW = flow.length >= 3 ? 168 : 220;
@@ -103,6 +103,6 @@ index 1f0a2d2c..f2d5395f 100644
 +  const maxNodesInLane = Math.max(...flow.map((l) => l.nodes.length), 1);
 +  const maxLaneNodeW =
 +    flow.length >= 3 ? (maxNodesInLane <= 2 ? 190 : 168) : 220;
- 
+
    for (const lane of flow) {
      const intra = block.edges.filter(

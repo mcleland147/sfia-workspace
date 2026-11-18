@@ -1,6 +1,6 @@
 # Plan correctif UAT-03 — NON DÉPLOYÉ RECETTE
 
-**Type envisagé :** PATCH compatible · **NO RELEASE** tant que non validé  
+**Type envisagé :** PATCH compatible · **NO RELEASE** tant que non validé
 **Candidat RECETTE actuel :** inchangé (`ba1e55ec`)
 
 ## Correctif recommandé (ordre)
@@ -9,7 +9,7 @@
 
 Dans `visual-composition.ts` (Agent + parse runtime alignés) :
 
-- Porter `steps[].detail` de `max(400)` → **`max(1200)`** (ou 800 minimum),  
+- Porter `steps[].detail` de `max(400)` → **`max(1200)`** (ou 800 minimum),
   **ou** scinder en `expectedResult` + `vigilance` (chacun ≤400) si on veut conserver la densité éditoriale.
 
 Justification : UAT-03 demande explicitement résultats + vigilance par étape ; 400 chars est insuffisant pour une réponse honnête.
@@ -22,16 +22,16 @@ Dans le prompt adapter : pour `sequence`, demander des détails **concis** et ra
 
 ### 3. Observabilité (déjà en DEV — à inclure dans le candidat)
 
-- Classification `Invalid output type` / path Zod / `error_kind` / fingerprint.  
-- Noms stables post-minify.  
-- Ephemeral DEV dump seulement (`STUDIO_NORA_DIAG_EPHEMERAL`).  
+- Classification `Invalid output type` / path Zod / `error_kind` / fingerprint.
+- Noms stables post-minify.
+- Ephemeral DEV dump seulement (`STUDIO_NORA_DIAG_EPHEMERAL`).
 - Ne pas activer `setSensitiveDataLoggingEnabled` hors DEV diagnostique.
 
 ### 4. Ne pas faire
 
-- Ne pas transformer UNKNOWN → COMPLETE sans sortie valide.  
-- Ne pas auto-retry les tours historiques.  
-- Ne pas élargir tous les max du schéma au hasard.  
+- Ne pas transformer UNKNOWN → COMPLETE sans sortie valide.
+- Ne pas auto-retry les tours historiques.
+- Ne pas élargir tous les max du schéma au hasard.
 - Ne pas upgrader le SDK comme « preuve ».
 
 ## Tests avant nouveau candidat RECETTE
@@ -47,9 +47,9 @@ Dans le prompt adapter : pour `sequence`, demander des détails **concis** et ra
 
 ## Déploiement
 
-1. Commit local candidat PATCH.  
-2. Build isolé.  
-3. GO Morris cutover RECETTE (contrat séparé).  
+1. Commit local candidat PATCH.
+2. Build isolé.
+3. GO Morris cutover RECETTE (contrat séparé).
 4. Rollback = script e224d627 / ba1e55ec selon décision.
 
 ## Gestion UNKNOWN existants

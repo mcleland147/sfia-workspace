@@ -1,8 +1,8 @@
 # Incident UAT-03 — Diagnostic forensique (lecture seule)
 
-**Date :** 2026-11-18  
-**Verdict proposé :** `UAT-03 PARTIAL DIAGNOSIS — ADDITIONAL EVIDENCE REQUIRED`  
-**Candidat inchangé :** `ba1e55ece782eb9f2bbfad9336ed346de1acf037` · build `_eeb9Jy2hV242myk86VTu`  
+**Date :** 2026-11-18
+**Verdict proposé :** `UAT-03 PARTIAL DIAGNOSIS — ADDITIONAL EVIDENCE REQUIRED`
+**Candidat inchangé :** `ba1e55ece782eb9f2bbfad9336ed346de1acf037` · build `_eeb9Jy2hV242myk86VTu`
 **Aucun correctif exécuté · aucun LIVE · aucune mutation RECETTE**
 
 ---
@@ -54,7 +54,7 @@
 
 **Premier point de défaillance :** exception levée pendant le drain/finalisation du stream Agents SDK (`run(..., {stream:true})`), **après** contact fournisseur et livraison de chunks, dans `generateNoraLiveViaAgentsSdk` / catch `nora-adapter.ts` ≈ L744–814.
 
-**Symptôme Pilote :** message générique fail-closed « Nora LIVE UNKNOWN… ».  
+**Symptôme Pilote :** message générique fail-closed « Nora LIVE UNKNOWN… ».
 **Comportement de sûreté :** une seule tentative ; pas de relance ; user message conservé ; pas d’effet métier inventé.
 
 ### Non démontré — nature exacte de l’exception fournisseur/SDK
@@ -93,10 +93,10 @@
 
 ## F. Intégrité des données
 
-- User messages COMPLETE (ordinals 11, 13) — conservés.  
-- Assistant UNKNOWN (12, 14) — enveloppe d’incertitude persistée.  
-- Tours terminaux UNKNOWN ; `idempotentReplay=false` ; pas d’effet Git/humain.  
-- **Risque de nouvelle exécution :** un nouvel envoi crée une **nouvelle** tentative indépendante (comme UAT-03b) — ne « réconcilie » pas 03a. Fail-closed correct.  
+- User messages COMPLETE (ordinals 11, 13) — conservés.
+- Assistant UNKNOWN (12, 14) — enveloppe d’incertitude persistée.
+- Tours terminaux UNKNOWN ; `idempotentReplay=false` ; pas d’effet Git/humain.
+- **Risque de nouvelle exécution :** un nouvel envoi crée une **nouvelle** tentative indépendante (comme UAT-03b) — ne « réconcilie » pas 03a. Fail-closed correct.
 - Aucune tentative antérieure en attente de réconciliation détectée.
 
 ---
@@ -109,19 +109,19 @@ UAT-03 bloqué. UAT-01/02 non invalidés. Autres scénarios RECETTE possibles **
 
 ## H. Correctif recommandé (NON EXÉCUTÉ)
 
-1. **Observabilité (prioritaire, faible blast radius)**  
-   - Étendre `categorizeProviderError` : matcher `invalid output type`, `schema validation`, `ZodError`.  
-   - Journaliser un `error_message_fingerprint` borné/allowlist (160 chars tronqués déjà produits par le SDK) **sans** body/prompt.  
-   - Forcer `error.name` littéral stable (`ModelBehaviorError`) malgré minify (`Object.defineProperty` / string constante).  
+1. **Observabilité (prioritaire, faible blast radius)**
+   - Étendre `categorizeProviderError` : matcher `invalid output type`, `schema validation`, `ZodError`.
+   - Journaliser un `error_message_fingerprint` borné/allowlist (160 chars tronqués déjà produits par le SDK) **sans** body/prompt.
+   - Forcer `error.name` littéral stable (`ModelBehaviorError`) malgré minify (`Object.defineProperty` / string constante).
 
-2. **Schéma / prompt (si H1 confirmée après obs)**  
-   - Assouplir `detail.max(400)` ou instructions D3 « champs courts » pour parcours multi-étapes.  
+2. **Schéma / prompt (si H1 confirmée après obs)**
+   - Assouplir `detail.max(400)` ou instructions D3 « champs courts » pour parcours multi-étapes.
    - Ne pas élargir le schéma à l’aveugle sans preuve du path Zod.
 
-3. **Validation**  
-   - Tests unitaires classification.  
-   - Level-B sequence 6 étapes.  
-   - LIVE borné UAT-03 **seulement avec nouveau GO + budget**.  
+3. **Validation**
+   - Tests unitaires classification.
+   - Level-B sequence 6 étapes.
+   - LIVE borné UAT-03 **seulement avec nouveau GO + budget**.
    - Nouvelle candidate RECETTE si correctif code.
 
 ---

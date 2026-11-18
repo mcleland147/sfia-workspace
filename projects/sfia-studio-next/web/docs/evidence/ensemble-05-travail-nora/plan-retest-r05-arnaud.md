@@ -1,9 +1,9 @@
 # Plan de retest Ensemble 05 — destiné à Arnaud
 
-**Produit :** SFIA Studio Next — Travail avec Nora  
-**Campagne :** Retest post-correctif R05 (reprise cognitive UNKNOWN)  
-**Autorité de validation :** Morris  
-**Exécutant retest :** Arnaud (si distinct) / Morris  
+**Produit :** SFIA Studio Next — Travail avec Nora
+**Campagne :** Retest post-correctif R05 (reprise cognitive UNKNOWN)
+**Autorité de validation :** Morris
+**Exécutant retest :** Arnaud (si distinct) / Morris
 **Date du plan :** 2026-11-17
 
 ## Identité runtime (à confirmer sur la machine hôte)

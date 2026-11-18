@@ -40,13 +40,13 @@ index 12f19274..194f678c 100644
    } else if (preContactLikely) category = "PROVIDER_PRE_CONTACT_CONFIG";
    return { category, interrupted, preContactLikely };
 @@ -176,18 +185,140 @@ export function categorizeProviderError(err: unknown): {
- 
+
  const SAFE_ERROR_NAME = /^[A-Za-z][A-Za-z0-9_.]{0,80}$/;
  const SAFE_ERROR_CODE = /^[A-Za-z0-9_.-]{1,64}$/;
 +const SAFE_ZOD_PATH = /^[A-Za-z0-9_.\[\]()-]{1,160}$/;
  const SENSITIVE_IN_CODE =
    /sk-|ghp_|github_pat_|api[_-]?key|bearer|authorization|password|secret/i;
- 
+
 +/** Agents SDK 0.21 emits this shape from formatFinalOutputTypeError. */
 +const INVALID_OUTPUT_PATH_RE =
 +  /Invalid output type:\s*final assistant output failed schema validation at "([^"]+)"(?:\s*\(([^)]*)\))?/i;
@@ -197,7 +197,7 @@ index 12f19274..194f678c 100644
    let depth = 0;
    let cur: unknown = err;
 +  let bestNamed: string | null = null;
- 
+
    while (cur != null && depth < 4) {
      if (cur instanceof Error) {
        if (SAFE_ERROR_NAME.test(cur.name) && !SENSITIVE_IN_CODE.test(cur.name)) {
@@ -217,7 +217,7 @@ index 12f19274..194f678c 100644
        } else if (httpStatus != null) {
          transportKind = "http";
 @@ -257,9 +394,28 @@ export function extractProviderErrorDiagnostics(
- 
+
    const phase =
      opts?.phase && SAFE_ERROR_CODE.test(opts.phase) ? opts.phase : "provider_stream";
 +  const error_kind = classifyProviderErrorKind(err);
@@ -237,7 +237,7 @@ index 12f19274..194f678c 100644
 +            : errorName.length > 2
 +              ? errorName
 +              : "Error");
- 
+
    return {
      error_name: errorName,
 +    error_name_stable,
@@ -254,7 +254,7 @@ index 12f19274..194f678c 100644
 +    msg_fingerprint: providerErrorMessageFingerprint(err),
    };
  }
- 
+
 @@ -540,6 +699,20 @@ async function configureSdkTracingSafe(): Promise<void> {
    if (typeof agents.setTracingDisabled === "function") {
      agents.setTracingDisabled(true);
@@ -274,7 +274,7 @@ index 12f19274..194f678c 100644
 +    }
 +  }
  }
- 
+
  async function runLiveWithTools(
 @@ -609,6 +782,7 @@ async function runLiveWithTools(
      "- resourceReferences (optionnel) = références consultables document/git/external — ce ne sont PAS des choix de poursuite.",
@@ -318,4 +318,4 @@ index 12f19274..194f678c 100644
 +          msg_fingerprint: diag.msg_fingerprint,
          },
        });
- 
+
