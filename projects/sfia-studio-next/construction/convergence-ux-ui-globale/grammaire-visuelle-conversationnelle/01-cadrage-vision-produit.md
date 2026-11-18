@@ -130,3 +130,13 @@ Pour sortir du cadrage, demander à Morris : acceptation du résultat produit et
 - [Exploration Figma non validée](https://www.figma.com/design/4NrIqC7Vfroo00r4pczAPb).
 
 **Sources externes d'appui** : détail et qualification technique dans [03 — Architecture](03-architecture-solution-technique.md). Les constats esthétiques et préférences proviennent des échanges/captures Morris du 17 novembre ; ils ne sont pas présentés comme des décisions Git publiées.
+
+---
+
+## Annexe factuelle du 18/11/2026 — réception bornée de la composition visuelle (D1)
+
+> **Actualisation postérieure, non normative.** Les mentions de conception candidate, d'absence de GO et de non-implémentation dans les paragraphes historiques précédents décrivent **l'état de rédaction du 17/11** ; elles ne doivent pas être lues comme le statut runtime actuel de la **seule composition visuelle**. Cette annexe ne réécrit pas les décisions validées et ne déclare pas l'ensemble Travail réceptionné. Source commune : [dossier UAT](07-dossier-reconciliation-reception.md), [matrice C-01…C-22 V0.10](06-matrice-convergence-vision-realisation.md), [handoff final](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md).
+
+**Résultat utilisateur observé :** Morris a testé en RECETTE huit demandes naturelles et reçu spontanément cartes, matrice, séquence, planning, graphe dirigé, arbre conditionnel, parallélisme et synthèse, sans indiquer de format à Nora. Après correction des réserves graphiques, il a accepté ce **corpus UAT-01…08 avec réserves** le 18/11.
+
+**Frontière de la vision :** ce résultat étaye l'ambition d'une restitution adaptée et fidèle, mais ne transforme pas les principes de vision en preuve universelle. Les autres besoins de Travail avec Nora (scroll, compositeur/brouillon, activité/reprise, visionneuse) et leurs 88 oracles candidats restent à réconcilier séparément ; Gate C, intégration Git et adoption ne sont pas acquis.
