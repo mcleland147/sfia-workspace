@@ -260,3 +260,19 @@ Pour les graphes, la séquence est : **dimensionner le texte → calculer le lay
 - [React Flow layout automatique](https://reactflow.dev/examples/layout/auto-layout), [mesure des nœuds](https://reactflow.dev/api-reference/hooks/use-nodes-initialized), [ELKjs](https://github.com/kieler/elkjs).
 - [MDN — overflow-wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow-wrap), [container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment/Container_queries), [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API), [WCAG 2.2 — reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html).
 - [Playwright — snapshots visuels](https://playwright.dev/docs/test-snapshots), [ARIA snapshots](https://playwright.dev/docs/aria-snapshots), [ECharts — resize](https://echarts.apache.org/handbook/en/concepts/chart-size/).
+
+---
+
+## Annexe factuelle du 18/11/2026 — réception bornée de la composition visuelle (D1)
+
+> **Actualisation postérieure, non normative.** Les mentions de conception candidate, d'absence de GO et de non-implémentation dans les paragraphes historiques précédents décrivent **l'état de rédaction du 17/11** ; elles ne doivent pas être lues comme le statut runtime actuel de la **seule composition visuelle**. Cette annexe ne réécrit pas les décisions validées et ne déclare pas l'ensemble Travail réceptionné. Source commune : [dossier UAT](07-dossier-reconciliation-reception.md), [matrice C-01…C-22 V0.10](06-matrice-convergence-vision-realisation.md), [handoff final](https://github.com/mcleland147/sfia-workspace/blob/dc9fd0ba16bef2f056a4f9cc294bf3506c09fa7d/sfia-review-handoff/latest-chatgpt-review.md).
+
+### Contrat observable et écarts documentés (sans révision normative)
+
+- **Sortie structurée :** une `visualComposition` produite par D3 peut être admise par Studio ; le texte libre reste valide sans bloc graphique imposé. Les huit scénarios UAT montrent la sélection spontanée de familles distinctes, bornée à ce corpus.
+- **Schéma `sequence` :** `steps[].detail.max(5000)` a remplacé `max(400)` après UAT-03. **Chaque étape** peut disposer de ce maximum ; aucune limite générale de 5 000 caractères sur la réponse de Nora n'en découle.
+- **Échecs :** validation SDK initialement `UNKNOWN`, cause `Invalid output type` / Zod reproduite ; observabilité expurgée renforcée. Les messages d'erreur historiques restent conservés, sans régénération rétroactive.
+- **Relations `parallelProcess` :** l'instance réelle UAT-07 possède 6 nœuds uniques et les liens `3 équipes → synchronisation → revue → lancement`. La correction porte sur une classification **exclusive** de ces nœuds au rendu, sans recréer un moteur de sens dans Studio.
+- **Présentation :** alignement icône/titre, numérotation unique, matrices sans caption superflu, graphes sans icône décorative, cartes à flux textuel naturel. Scroll horizontal autorisé sur ce graphe, sans dérogation générale aux exigences d'accessibilité.
+
+**Niveaux de preuve :** UNIT/FAKE/BROWSER rapportés par Cursor ; **LIVE/RECETTE** sur les huit demandes utilisateurs et captures approuvées par Morris ; aucun test exhaustif de tous les cas contractuels CV-* ni audit indépendant du commit local. Vérifications en attente : variantes anciennes, C2 adverse/erreurs réelles, droits et intégrité ACL, split/zoom/clavier. `VALIDATED SPEC` des décisions antérieures inchangé ; `ADOPTED` non.
