@@ -1377,7 +1377,7 @@ register(
           {
             kind: "text",
             id: "uat07-reco",
-            tone: "recommendation",
+            role: "recommendation",
             markdown:
               "**Recommandation**\n\nConserver une seule revue commune après synchronisation ; le lancement reste une décision humaine.",
           },

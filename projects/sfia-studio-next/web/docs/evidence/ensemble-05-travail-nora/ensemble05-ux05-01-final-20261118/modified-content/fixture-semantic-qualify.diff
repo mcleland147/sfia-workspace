@@ -1,5 +1,5 @@
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-index 0e6d8cd4..b54a48fa 100644
+index 0e6d8cd4..68cf1f5a 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
 @@ -1314,6 +1314,79 @@ register(
@@ -69,7 +69,7 @@ index 0e6d8cd4..b54a48fa 100644
 +          {
 +            kind: "text",
 +            id: "uat07-reco",
-+            tone: "recommendation",
++            role: "recommendation",
 +            markdown:
 +              "**Recommandation**\n\nConserver une seule revue commune après synchronisation ; le lancement reste une décision humaine.",
 +          },
