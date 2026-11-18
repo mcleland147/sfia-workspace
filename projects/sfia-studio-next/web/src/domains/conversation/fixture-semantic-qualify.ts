@@ -643,7 +643,14 @@ register(
   E05_S2_DIAGNOSTIC,
   dialogue(
     "Diagnostic coordination multi-sites — établi vs hypothétique",
-    "Diagnostic du besoin de coordination (fallback textuel).",
+    [
+      "Diagnostic du besoin de coordination.",
+      "Éléments liés — sans causalité inventée :",
+      "Pratiques locales divergentes (peut contribuer) et Rôles d'arbitrage flous (peut contribuer)",
+      "vers Friction de coordination ; Impact réel non mesuré.",
+      "À vérifier ensuite : Cartographier les pratiques par site ; Identifier le porteur d'arbitrage ;",
+      "Ne pas conclure à un dysfonctionnement chiffré.",
+    ].join(" "),
     ["NO_EFFECT", "VISUAL_RELATIONS", "S2"],
     {
       clarifications: [
@@ -687,6 +694,7 @@ register(
             id: "s2-rel",
             title: "Éléments liés — sans causalité inventée",
             role: "information",
+            layoutHint: "dependencies",
             nodes: [
               { id: "o1", label: "Pratiques locales divergentes", kind: "observation" },
               { id: "o2", label: "Rôles d'arbitrage flous", kind: "observation" },
@@ -694,8 +702,18 @@ register(
               { id: "u1", label: "Impact réel non mesuré", kind: "unknown" },
             ],
             edges: [
-              { from: "o1", to: "h1", label: "peut contribuer" },
-              { from: "o2", to: "h1", label: "peut contribuer" },
+              {
+                from: "o1",
+                to: "h1",
+                label: "peut contribuer",
+                relation: "depends_on",
+              },
+              {
+                from: "o2",
+                to: "h1",
+                label: "peut contribuer",
+                relation: "depends_on",
+              },
             ],
             textAlternative:
               "Observations : pratiques divergentes et rôles flous. Hypothèse : friction de coordination. Inconnue : impact réel non mesuré.",
@@ -738,7 +756,16 @@ register(
   E05_S3_COMPARISON,
   dialogue(
     "Comparaison déploiement progressif vs simultané",
-    "Comparaison des approches (fallback).",
+    [
+      "Comparaison Progressive vs simultanée.",
+      "Déploiement progressif : Étendre site par site après apprentissage local.",
+      "Avantages : Apprentissage contrôlé ; Réversibilité locale. Limite : Cohérence temporaire inégale.",
+      "Déploiement simultané : Aligner tous les sites dans la même fenêtre.",
+      "Avantages : Cohérence immédiate. Limites : Charge de conduite élevée ; Peu de marge d'apprentissage.",
+      "Critères : Risque de conduite (Modéré / Élevé), Apprentissage (Fort / Faible),",
+      "Dépendance aux rôles clarifiés (Utile avant chaque vague / Critique dès le départ).",
+      "Si les responsabilités d'arbitrage ne sont pas encore claires, préférer une approche progressive — avis conditionnel, pas une décision enregistrée.",
+    ].join(" "),
     ["NO_EFFECT", "VISUAL_COMPARISON", "S3"],
     {
       continueChoices: [
@@ -811,7 +838,7 @@ register(
             recommendation:
               "Si les responsabilités d'arbitrage ne sont pas encore claires, préférer une approche progressive — avis conditionnel, pas une décision enregistrée.",
             textAlternative:
-              "Progressive : apprentissage et réversibilité, cohérence temporaire inégale. Simultanée : cohérence immédiate, charge et risque plus élevés. Avis : progressive si les rôles ne sont pas clarifiés.",
+              "Progressive : apprentissage et réversibilité, cohérence temporaire inégale. Simultanée : cohérence immédiate, charge et risque plus élevés. Avis : progressive si les rôles ne sont pas clarifiés.\nRéserve C2 : ne pas conclure à une décision d'arbitrage tant que le porteur n'est pas nommé.",
             provenance: [
               {
                 label: "Note de cadrage coordination",
@@ -845,7 +872,15 @@ register(
   E05_S4_TRAJECTORY,
   dialogue(
     "Parcours de clarification avant travaux",
-    "Parcours proposé (fallback).",
+    [
+      "Parcours Clarifier avant de lancer :",
+      "Partager le constat de coordination ;",
+      "Clarifier les responsabilités d'arbitrage ;",
+      "Inventorier les pratiques locales utiles ;",
+      "Choisir progressive ou simultanée ;",
+      "Préparer la première vague / fenêtre ;",
+      "Vérifier la lisibilité du premier jalon.",
+    ].join(" "),
     ["NO_EFFECT", "VISUAL_SEQUENCE", "S4"],
     {
       visualComposition: {
@@ -856,7 +891,7 @@ register(
             id: "s4-intro",
             role: "information",
             markdown:
-              "Proposition de parcours pour clarifier l'organisation **avant** de lancer les travaux. Aucune étape ci-dessous ne crée de cycle, de tâche ou de décision métier.",
+              "Proposition de parcours pour clarifier l'organisation **avant** de lancer les travaux. Aucune étape ci-dessous ne crée de cycle, de tâche ou de décision métier. Aucune date n'est inventée.",
           },
           {
             kind: "sequence",
@@ -873,19 +908,31 @@ register(
               },
               {
                 id: "t3",
-                title: "Choisir progressive ou simultanée",
+                title: "Inventorier les pratiques locales utiles",
                 dependsOn: ["t2"],
-                role: "decision",
+                role: "observation",
               },
               {
                 id: "t4",
-                title: "Préparer la première vague / fenêtre",
+                title: "Choisir progressive ou simultanée",
                 dependsOn: ["t3"],
+                role: "decision",
+              },
+              {
+                id: "t5",
+                title: "Préparer la première vague / fenêtre",
+                dependsOn: ["t4"],
+                role: "step",
+              },
+              {
+                id: "t6",
+                title: "Vérifier la lisibilité du premier jalon",
+                dependsOn: ["t5"],
                 role: "step",
               },
             ],
             textAlternative:
-              "1) Partager le constat ; 2) Clarifier l'arbitrage (après 1) ; 3) Choisir l'approche (après 2) ; 4) Préparer la première vague (après 3).",
+              "1) Partager le constat ; 2) Clarifier l'arbitrage ; 3) Inventorier les pratiques ; 4) Choisir l'approche ; 5) Préparer la première vague ; 6) Vérifier le premier jalon.",
           },
         ],
       },
@@ -897,7 +944,15 @@ register(
   E05_S5_COMPOSITE,
   dialogue(
     "Recommandation composite conditionnelle",
-    "Recommandation composite (fallback textuel).",
+    [
+      "Recommandation composite. Points saillants :",
+      "Clarifier l'arbitrage entre sites — Préalable utile avant tout déploiement large ;",
+      "Pratiques locales divergentes ;",
+      "Déploiement simultané trop tôt — Risque de conduite si les rôles sont encore flous.",
+      "Rappel des options : Progressive — Vagues successives, apprentissage local. ;",
+      "Simultanée — Alignement immédiat, charge élevée.",
+      "Je recommande d'avancer en mode progressif **si** l'arbitrage inter-sites est clarifié d'abord. Ce n'est pas une HumanDecision.",
+    ].join(" "),
     ["NO_EFFECT", "VISUAL_COMPOSITE", "S5"],
     {
       clarifications: [
@@ -1018,6 +1073,722 @@ register(
   ),
 );
 
+const E05_F5_DECISION_TREE =
+  "E05_F5_DECISION_TREE Clarifier avant deploiement progressif ou report";
+const E05_F5_PARALLEL =
+  "E05_F5_PARALLEL Inventaire parallele sites A et B puis revue commune";
+
+register(
+  E05_F5_DECISION_TREE,
+  dialogue(
+    "Arbre de decision roles",
+    [
+      "Arbre de lecture — Condition roles clarifies.",
+      "Si oui : Approche progressive.",
+      "Si non : Reporter le deploiement.",
+      "Aucune HumanDecision n'est creee.",
+    ].join(" "),
+    ["NO_EFFECT", "VISUAL_DECISION_TREE", "F5"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "relations",
+            id: "f5-tree",
+            title: "Arbre de lecture",
+            layoutHint: "decisionTree",
+            nodes: [
+              { id: "c", label: "Condition roles clarifies", kind: "unknown" },
+              { id: "y", label: "Approche progressive", kind: "hypothesis" },
+              { id: "n", label: "Reporter le deploiement", kind: "hypothesis" },
+            ],
+            edges: [
+              {
+                from: "c",
+                to: "y",
+                relation: "condition_true",
+                label: "oui",
+              },
+              {
+                from: "c",
+                to: "n",
+                relation: "condition_false",
+                label: "non",
+              },
+            ],
+            textAlternative:
+              "Si roles clarifies → Approche progressive, sinon Reporter le deploiement.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+register(
+  E05_F5_PARALLEL,
+  dialogue(
+    "Processus parallele inventaires",
+    [
+      "Processus parallele : Inventaire site A et Inventaire site B,",
+      "puis Revue commune (sync pret).",
+    ].join(" "),
+    ["NO_EFFECT", "VISUAL_PARALLEL", "F5"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "relations",
+            id: "f5-par",
+            title: "Processus parallele",
+            layoutHint: "parallelProcess",
+            nodes: [
+              {
+                id: "a1",
+                label: "Inventaire site A",
+                kind: "observation",
+                laneId: "Voie A",
+              },
+              {
+                id: "b1",
+                label: "Inventaire site B",
+                kind: "observation",
+                laneId: "Voie B",
+              },
+              {
+                id: "g",
+                label: "Revue commune",
+                kind: "finding",
+                laneId: "Gate",
+              },
+            ],
+            edges: [
+              { from: "a1", to: "g", relation: "sync", label: "pret" },
+              { from: "b1", to: "g", relation: "sync", label: "pret" },
+            ],
+            textAlternative: "Voies A/B puis Revue commune",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+
+const E05_G07_DEPENDENCIES =
+  "E05_G07_DEPENDENCIES Trois chaines convergentes";
+register(
+  E05_G07_DEPENDENCIES,
+  dialogue(
+    "Dependances convergentes G07",
+    "Trois filieres convergent vers un controle puis une suite conditionnelle. Aucune HumanDecision.",
+    ["NO_EFFECT", "VISUAL_DEPENDENCIES", "G07"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "relations",
+            id: "g07-deps",
+            title: "Trois chaînes convergentes — dépendances complexes",
+            layoutHint: "dependencies",
+            nodes: [
+              { id: "src-a", label: "Inventaire site A", kind: "observation", detail: "État observé des stocks et rôles locaux — description longue pour forcer hauteur variable." },
+              { id: "src-b", label: "Inventaire site B", kind: "observation", detail: "Couverture partielle." },
+              { id: "src-c", label: "Cadre juridique", kind: "hypothesis", detail: "Hypothèse : cadre applicable non encore confirmé auprès du conseil." },
+              { id: "ctrl-a", label: "Contrôle cohérence A", kind: "finding", detail: "Contrôle intermédiaire sur la filière A." },
+              { id: "ctrl-b", label: "Contrôle cohérence B", kind: "finding", detail: "Contrôle intermédiaire sur la filière B." },
+              { id: "ctrl-c", label: "Revue juridique", kind: "unknown", detail: "Statut unknown — disponibilité du relais juridique à confirmer." },
+              { id: "merge", label: "Contrôle convergent", kind: "finding", detail: "Point de convergence des trois filières avant suite." },
+              { id: "next", label: "Suite sous condition", kind: "hypothesis", detail: "Poursuite uniquement si le contrôle convergent est satisfaisant — aucune HumanDecision." }
+            ],
+            edges: [
+              { from: "src-a", to: "ctrl-a", relation: "depends_on" },
+              { from: "src-b", to: "ctrl-b", relation: "depends_on" },
+              { from: "src-c", to: "ctrl-c", relation: "depends_on" },
+              { from: "ctrl-a", to: "merge", relation: "flow" },
+              { from: "ctrl-b", to: "merge", relation: "flow" },
+              { from: "ctrl-c", to: "merge", relation: "flow" },
+              { from: "merge", to: "next", relation: "depends_on", label: "si convergent OK" }
+            ],
+            textAlternative:
+              "Trois chaines (A/B/juridique) convergent vers un controle puis une suite sous condition.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+const E05_G08_TREE =
+  "E05_G08_TREE Arbre conditionnel multiniveau";
+register(
+  E05_G08_TREE,
+  dialogue(
+    "Arbre multiniveau G08",
+    "Support pret puis fenetre compatible ; branches oui/non sans HumanDecision.",
+    ["NO_EFFECT", "VISUAL_DECISION_TREE", "G08"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "relations",
+            id: "g08-tree",
+            title: "Arbre conditionnel multiniveau",
+            layoutHint: "decisionTree",
+            nodes: [
+              { id: "c1", label: "Support prêt ?", kind: "unknown", detail: "CONDITION 01 · NON DÉCIDÉE — disponibilité à confirmer auprès des relais." },
+              { id: "c2", label: "Fenêtre compatible ?", kind: "unknown", detail: "CONDITION 02 · NON DÉCIDÉE — contraintes calendaires encore à qualifier." },
+              { id: "y1", label: "Progression possible", kind: "hypothesis", detail: "Soumettre une cadence progressive si les deux conditions sont favorables." },
+              { id: "n2", label: "Revoir le calendrier", kind: "hypothesis", detail: "Réajuster les périodes envisagées si la fenêtre n'est pas compatible." },
+              { id: "n1", label: "Renforcer les relais", kind: "hypothesis", detail: "Ressources et organisation à revoir si le support est insuffisant." },
+              { id: "n1b", label: "Requalifier la capacité", kind: "hypothesis", detail: "Revenir aux prérequis de support — aucune branche activée automatiquement." }
+            ],
+            edges: [
+              { from: "c1", to: "c2", relation: "condition_true", label: "oui — hypothèse" },
+              { from: "c1", to: "n1", relation: "condition_false", label: "non — hypothèse" },
+              { from: "c2", to: "y1", relation: "condition_true", label: "si deux conditions oui" },
+              { from: "c2", to: "n2", relation: "condition_false", label: "si fenêtre non compatible" },
+              { from: "n1", to: "n1b", relation: "flow", label: "si support non confirmé" }
+            ],
+            textAlternative:
+              "Arbre multiniveau : support, fenetre, issues — aucune branche activee automatiquement.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+const E05_G09_PARALLEL =
+  "E05_G09_PARALLEL Trois voies paralleles controle commun";
+register(
+  E05_G09_PARALLEL,
+  dialogue(
+    "Processus parallele G09",
+    "Trois voies avec plusieurs activites, sync vers controle commun puis suite conditionnelle.",
+    ["NO_EFFECT", "VISUAL_PARALLEL", "G09"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "relations",
+            id: "g09-par",
+            title: "Trois voies parallèles et contrôle commun",
+            layoutHint: "parallelProcess",
+            nodes: [
+              { id: "a1", label: "Collecte terrain A", kind: "observation", detail: "Première activité voie A.", laneId: "Voie A" },
+              { id: "a2", label: "Consolidation A", kind: "observation", detail: "Deuxième activité voie A — dépend de la collecte.", laneId: "Voie A" },
+              { id: "a3", label: "Vérification A", kind: "finding", detail: "Contrôle de voie avant sync.", laneId: "Voie A" },
+              { id: "b1", label: "Collecte terrain B", kind: "observation", detail: "Première activité voie B.", laneId: "Voie B" },
+              { id: "b2", label: "Consolidation B", kind: "observation", detail: "Deuxième activité voie B.", laneId: "Voie B" },
+              { id: "b3", label: "Vérification B", kind: "finding", detail: "Contrôle de voie B.", laneId: "Voie B" },
+              { id: "c1", label: "Collecte terrain C", kind: "observation", detail: "Première activité voie C — libellé long pour densité.", laneId: "Voie C" },
+              { id: "c2", label: "Consolidation C", kind: "observation", detail: "Deuxième activité voie C avec description étendue des écarts observés.", laneId: "Voie C" },
+              { id: "c3", label: "Vérification C", kind: "finding", detail: "Contrôle de voie C.", laneId: "Voie C" },
+              { id: "gate", label: "Contrôle commun", kind: "unknown", detail: "Point de synchronisation — NON DÉCIDÉ ; aucune validation métier.", laneId: "Convergence" },
+              { id: "next", label: "Suite conditionnelle", kind: "hypothesis", detail: "Étape suivante seulement si le contrôle commun est satisfaisant.", laneId: "Suite" }
+            ],
+            edges: [
+              { from: "a1", to: "a2", relation: "flow" },
+              { from: "a2", to: "a3", relation: "depends_on" },
+              { from: "b1", to: "b2", relation: "flow" },
+              { from: "b2", to: "b3", relation: "depends_on" },
+              { from: "c1", to: "c2", relation: "flow" },
+              { from: "c2", to: "c3", relation: "depends_on" },
+              { from: "a3", to: "gate", relation: "sync", label: "prêt A" },
+              { from: "b3", to: "gate", relation: "sync", label: "prêt B" },
+              { from: "c3", to: "gate", relation: "sync", label: "prêt C" },
+              { from: "gate", to: "next", relation: "depends_on", label: "si contrôle OK" }
+            ],
+            textAlternative:
+              "Voies A/B/C avec verifications, controle commun non decide, suite conditionnelle.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+/** A4 — canonical overflow (>12k joined) must fail validation, never COMPLETE raw. */
+const E05_A4_OVERFLOW = "E05_A4_OVERFLOW";
+register(
+  E05_A4_OVERFLOW,
+  dialogue(
+    "Overflow canonique A4",
+    "TEXTE_INITIAL_DIVERGENT_NE_DOIT_PAS_SURVIVRE_EN_COMPLETE",
+    ["NO_EFFECT", "A4_OVERFLOW"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [0, 1, 2, 3].map((i) => ({
+          kind: "text" as const,
+          id: `ov${i}`,
+          markdown: "Z".repeat(3500),
+        })),
+      },
+    },
+  ),
+);
+
+/** A4 — valid canonical with deliberately divergent replyDraft (derive must win). */
+const E05_A4_DIVERGENT_OK = "E05_A4_DIVERGENT_OK";
+register(
+  E05_A4_DIVERGENT_OK,
+  dialogue(
+    "Derive canonique A4",
+    "TEXTE_DIVERGENT_INDEPENDANT_A_ECRASER",
+    ["NO_EFFECT", "A4_DIVERGENT"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "text",
+            id: "t1",
+            markdown: "Prose canonique unique pour A4-01/A4-04.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+
+/** R01 — Figma 01 editorial synthesis (FIXTURE / DEMONSTRATION). */
+const E05_R01_SYNTHESIS = "E05_R01_SYNTHESIS";
+register(
+  E05_R01_SYNTHESIS,
+  dialogue(
+    "Synthèse stratégique Figma 01 (fixture)",
+    "FIXTURE / DEMONSTRATION — synthèse éditoriale pour qualification visuelle Figma 01.",
+    ["NO_EFFECT", "FIGMA_R01", "FIXTURE_DEMO"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "synthesis",
+            id: "r01-synth",
+            title: "6 sites. Un même service.",
+            headlineAccent: "Deux rythmes de déploiement.",
+            lead:
+              "Avant de décider, il faut distinguer le rythme de mise en œuvre des risques que chaque stratégie reporte sur les équipes. Voici les deux chemins que l'on peut comparer.",
+            fixtureDemo: true,
+            indicators: [
+              { id: "i1", value: "600", label: "collaborateurs concernés" },
+              { id: "i2", value: "6", label: "sites à équiper" },
+              { id: "i3", value: "8 sem.", label: "fenêtre visée, à confirmer" },
+            ],
+            strategiesSectionTitle: "Deux stratégies, deux répartitions du risque",
+            strategyCards: [
+              {
+                id: "b",
+                eyebrow: "STRATÉGIE B",
+                title: "Déployer site par site",
+                summary: "Une vague courte, un retour terrain, puis la suivante.",
+                positive: "Maîtrise progressive de la charge support",
+                counterpart: "Contrepartie : coexistence des situations",
+                accent: "blue",
+              },
+              {
+                id: "c",
+                eyebrow: "STRATÉGIE C",
+                title: "Tester puis généraliser",
+                summary: "Un site pilote avant une bascule plus concentrée.",
+                positive: "Apprentissage initial avant déploiement",
+                counterpart: "Contrepartie : pic support sur cinq sites",
+                accent: "gold",
+              },
+            ],
+            checklistSectionTitle: "Ce qui doit être vérifié avant tout choix",
+            checklist: [
+              {
+                id: "k1",
+                label: "Capacité support",
+                detail: "Absorber les sollicitations pendant chaque vague.",
+              },
+              {
+                id: "k2",
+                label: "Retour arrière",
+                detail: "Disposer d'une marche de reprise éprouvée.",
+              },
+              {
+                id: "k3",
+                label: "Dépendances",
+                detail: "Qualifier les points communs entre les sites.",
+              },
+            ],
+            orientation:
+              "Privilégier le rythme progressif si la fenêtre de huit semaines le permet.",
+            items: [
+              {
+                id: "obs1",
+                label: "Contexte de démonstration",
+                detail: "Données fictives pour reproduction Figma 01 — non projet.",
+                tone: "observation",
+              },
+            ],
+            textAlternative:
+              "Synthèse fictive : deux stratégies B/C, trois indicateurs, checklist support/retour/dépendances, orientation conditionnelle.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+/** R02 — Figma 02 horizontal journey + fixture timeline. */
+const E05_R02_JOURNEY = "E05_R02_JOURNEY";
+register(
+  E05_R02_JOURNEY,
+  dialogue(
+    "Parcours et planning Figma 02 (fixture)",
+    "FIXTURE / DEMONSTRATION — parcours horizontal et chronologie fictive Figma 02.",
+    ["NO_EFFECT", "FIGMA_R02", "FIXTURE_DEMO"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "sequence",
+            id: "r02-seq",
+            title: "Un déploiement en quatre temps.",
+            headlineAccent: "Une progression sous conditions.",
+            lead:
+              "Ce chemin est une hypothèse de travail. Il précise les enchaînements à examiner, sans préjuger des dates réelles, des ressources disponibles ni des autorisations.",
+            fixtureDemo: true,
+            steps: [
+              {
+                id: "s1",
+                title: "Qualifier",
+                detail: "Accès, dépendances et services critiques.",
+              },
+              {
+                id: "s2",
+                title: "Préparer",
+                detail: "Support, communication et retour arrière.",
+              },
+              {
+                id: "s3",
+                title: "Tester",
+                detail: "Un site pilote, mesures et enseignements.",
+              },
+              {
+                id: "s4",
+                title: "Étendre",
+                detail: "Vagues autorisées après vérification.",
+              },
+            ],
+            timeline: {
+              weeks: 8,
+              caption:
+                "Exemple de répartition hypothétique : aucune date ni charge n'est issue d'une source projet.",
+              tracks: [
+                {
+                  id: "t1",
+                  label: "Préparation",
+                  startWeek: 1,
+                  endWeek: 3,
+                  barLabel: "Préparation",
+                  tone: "blue",
+                },
+                {
+                  id: "t2",
+                  label: "Pilote sur un site",
+                  startWeek: 3,
+                  endWeek: 4,
+                  barLabel: "Site pilote",
+                  tone: "violet",
+                },
+                {
+                  id: "t3",
+                  label: "Sites restants",
+                  startWeek: 5,
+                  endWeek: 7,
+                  barLabel: "Généralisation",
+                  tone: "gold",
+                },
+                {
+                  id: "t4",
+                  label: "Stabilisation",
+                  startWeek: 8,
+                  endWeek: 8,
+                  barLabel: "Clôture",
+                  tone: "teal",
+                },
+              ],
+            },
+            closingNote:
+              "Ne lancer aucune vague suivante sans contrôle réel des prérequis et du support.",
+            textAlternative:
+              "Parcours fictif en quatre étapes Cadrer/Qualifier/Préparer/Tester et chronologie 8 semaines de démonstration.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+/** R03 — Figma 03 three adaptive comparison cards. */
+const E05_R03_THREE_CARDS = "E05_R03_THREE_CARDS";
+register(
+  E05_R03_THREE_CARDS,
+  dialogue(
+    "Trois cartes comparatives Figma 03 (fixture)",
+    "FIXTURE / DEMONSTRATION — trois options en cartes adaptatives.",
+    ["NO_EFFECT", "FIGMA_R03", "FIXTURE_DEMO"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "comparison",
+            id: "r03-cmp",
+            title: "Trois options. Une comparaison lisible.",
+            lead:
+              "Même famille graphique, mais des textes volontairement différents. Les cartes conservent leur hiérarchie sans figer les paragraphes à une longueur arbitraire.",
+            fixtureDemo: true,
+            alternatives: [
+              {
+                id: "a",
+                title: "Livrer en séquences",
+                summary:
+                  "Approche progressive avec des retours rapides après chaque vague.",
+                cons: ["Coexistence plus longue"],
+              },
+              {
+                id: "b",
+                title: "Déploiement accompagné",
+                summary:
+                  "Chaque site bénéficie d'une préparation renforcée, d'un relais métier et d'une période de stabilisation avant la poursuite. La charge reste répartie, mais le calendrier doit prévoir cette respiration.",
+                cons: ["Dépendance à la capacité du support"],
+              },
+              {
+                id: "c",
+                title: "Généraliser après pilote",
+                summary:
+                  "Une phase d'essai identifie les difficultés communes, suivie d'une généralisation plus concentrée avec un niveau de préparation homogène.",
+                cons: ["Concentration des sollicitations"],
+              },
+            ],
+            editorialNote:
+              "Trois options comparables : une vue en cartes fonctionne. La hauteur et les retours à la ligne sont dictés par le contenu, pas par Nora.",
+            textAlternative:
+              "Trois options fictives A/B/C en cartes — longueurs variables, vigilances distinctes.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+/** R04 — Figma 04 five-option editorial matrix. */
+const E05_R04_FIVE_MATRIX = "E05_R04_FIVE_MATRIX";
+register(
+  E05_R04_FIVE_MATRIX,
+  dialogue(
+    "Matrice cinq options Figma 04 (fixture)",
+    "FIXTURE / DEMONSTRATION — matrice éditoriale à cinq options.",
+    ["NO_EFFECT", "FIGMA_R04", "FIXTURE_DEMO"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "comparison",
+            id: "r04-mtx",
+            title: "Cinq options. Une matrice éditoriale.",
+            lead:
+              "Quand les options se multiplient, la lecture en lignes reste plus claire qu'une grappe de cartes. Critères partagés, vigilance explicite.",
+            fixtureDemo: true,
+            alternatives: [
+              {
+                id: "a",
+                title: "Séquences courtes",
+                summary: "Vagues successives avec contrôle entre chaque site.",
+              },
+              {
+                id: "b",
+                title: "Pilote unique",
+                summary: "Un site d'apprentissage avant extension.",
+              },
+              {
+                id: "c",
+                title: "Deux vagues",
+                summary: "Regroupement partiel pour réduire la coexistence.",
+              },
+              {
+                id: "d",
+                title: "Accompagnement renforcé",
+                summary: "Présence support locale pendant chaque bascule.",
+              },
+              {
+                id: "e",
+                title: "Bascule concentrée",
+                summary: "Fenêtre unique après préparation homogène.",
+              },
+            ],
+            criteria: [
+              {
+                id: "effort",
+                label: "Effort",
+                values: {
+                  a: "Étalé",
+                  b: "Modéré puis pic",
+                  c: "Deux pics",
+                  d: "Élevé local",
+                  e: "Pic unique",
+                },
+              },
+              {
+                id: "risque",
+                label: "Risque",
+                values: {
+                  a: "Coexistence",
+                  b: "Transfert d'apprentissage",
+                  c: "Coordination des vagues",
+                  d: "Disponibilité support",
+                  e: "Préparation complète",
+                },
+              },
+              {
+                id: "delai",
+                label: "Délai",
+                values: {
+                  a: "Long",
+                  b: "Moyen",
+                  c: "Moyen+",
+                  d: "Variable",
+                  e: "Court si prêt",
+                },
+              },
+            ],
+            editorialNote:
+              "Matrice de démonstration — cinq options en lignes, critères en colonnes. Aucune option n'est retenue.",
+            textAlternative:
+              "Matrice fictive A–E : charge, vigilance et lecture Nora pour chaque option.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+/** R05 — Figma 05 two stacked cards in constrained width. */
+const E05_R05_STACKED = "E05_R05_STACKED";
+register(
+  E05_R05_STACKED,
+  dialogue(
+    "Deux cartes empilées Figma 05 (fixture)",
+    "FIXTURE / DEMONSTRATION — comparaison empilée en largeur contrainte.",
+    ["NO_EFFECT", "FIGMA_R05", "FIXTURE_DEMO"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "comparison",
+            id: "r05-stack",
+            title: "Deux options. Une largeur contrainte.",
+            lead:
+              "En panneau étroit, les cartes s'empilent sans masquer les descriptions ni les vigilances.",
+            fixtureDemo: true,
+            alternatives: [
+              {
+                id: "a",
+                title: "Progression maîtrisée",
+                summary:
+                  "Déploiement en séquences courtes avec vérification régulière après chaque vague et maintien d'un canal de retour arrière.",
+                cons: ["Vigilance : durée de coexistence"],
+              },
+              {
+                id: "b",
+                title: "Généralisation après essai",
+                summary:
+                  "Un site pilote concentre l'apprentissage, puis une bascule plus large sur les sites restants lorsque les prérequis sont confirmés.",
+                cons: ["Vigilance : concentration des sollicitations"],
+              },
+            ],
+            editorialNote:
+              "Variante empilée — contenu intégral conservé sous largeur Travail réduite.",
+            textAlternative:
+              "Deux options fictives empilées : progression maîtrisée vs généralisation après essai.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+/** R06 — Figma 06 six editorial vertical steps. */
+const E05_R06_SIX_STEPS = "E05_R06_SIX_STEPS";
+register(
+  E05_R06_SIX_STEPS,
+  dialogue(
+    "Six étapes éditoriales Figma 06 (fixture)",
+    "FIXTURE / DEMONSTRATION — parcours vertical éditorial à six étapes.",
+    ["NO_EFFECT", "FIGMA_R06", "FIXTURE_DEMO"],
+    {
+      visualComposition: {
+        schemaVersion: "conversational-composition-canonical-v1",
+        blocks: [
+          {
+            kind: "sequence",
+            id: "r06-vert",
+            title: "Un parcours en six temps.",
+            headlineAccent: "Une lecture ordonnée, sans dates inventées.",
+            lead:
+              "Chaque étape précise un ordre de travail. Les dépendances restent sémantiques ; elles ne forcent pas un affichage de liens sous chaque titre.",
+            fixtureDemo: true,
+            steps: [
+              {
+                id: "t1",
+                title: "Cadrer l'intention",
+                detail: "Formuler le besoin et les contraintes connues.",
+              },
+              {
+                id: "t2",
+                title: "Cartographier les sites",
+                detail: "Repérer les différences de maturité et de relais.",
+              },
+              {
+                id: "t3",
+                title: "Qualifier le support",
+                detail: "Mesurer la capacité d'accompagnement réelle.",
+              },
+              {
+                id: "t4",
+                title: "Préparer le retour arrière",
+                detail: "Documenter la marche de reprise avant toute vague.",
+              },
+              {
+                id: "t5",
+                title: "Conduire un pilote",
+                detail: "Observer les frictions sur un périmètre limité.",
+              },
+              {
+                id: "t6",
+                title: "Étendre sous contrôle",
+                detail: "N'ouvrir la suite qu'après vérification des prérequis.",
+              },
+            ],
+            closingNote:
+              "Fidélité de démonstration — six étapes éditoriales, sans chronologie chiffrée.",
+            textAlternative:
+              "Parcours vertical fictif en six étapes : cadrer, cartographier, qualifier, préparer, piloter, étendre.",
+          },
+        ],
+      },
+    },
+  ),
+);
+
+
 /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
 for (const [short, long] of [
   ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
@@ -1025,6 +1796,19 @@ for (const [short, long] of [
   ["E05_S4_TRAJECTORY", E05_S4_TRAJECTORY],
   ["E05_S5_COMPOSITE", E05_S5_COMPOSITE],
   ["E05_S7_INSUFFICIENT", E05_S7_INSUFFICIENT],
+  ["E05_F5_DECISION_TREE", E05_F5_DECISION_TREE],
+  ["E05_F5_PARALLEL", E05_F5_PARALLEL],
+  ["E05_G07_DEPENDENCIES", E05_G07_DEPENDENCIES],
+  ["E05_G08_TREE", E05_G08_TREE],
+  ["E05_G09_PARALLEL", E05_G09_PARALLEL],
+  ["E05_R01_SYNTHESIS", E05_R01_SYNTHESIS],
+  ["E05_R02_JOURNEY", E05_R02_JOURNEY],
+  ["E05_R03_THREE_CARDS", E05_R03_THREE_CARDS],
+  ["E05_R04_FIVE_MATRIX", E05_R04_FIVE_MATRIX],
+  ["E05_R05_STACKED", E05_R05_STACKED],
+  ["E05_R06_SIX_STEPS", E05_R06_SIX_STEPS],
+  ["E05_A4_OVERFLOW", E05_A4_OVERFLOW],
+  ["E05_A4_DIVERGENT_OK", E05_A4_DIVERGENT_OK],
   ["E05_VISUAL_SIMPLE", E05_S1_SIMPLE],
   ["E05_VISUAL_COMPARISON", E05_S3_COMPARISON],
   ["E05_VISUAL_SEQUENCE", E05_S4_TRAJECTORY],

@@ -4,6 +4,336 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-18-ENSEMBLE05-FINAL-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~15:45 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Consolidation finale + réception Morris |
+| Type | Cycle 8 Delivery · Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO LIVE** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| Audit LIVE | L03/L04 **Cas B** (pas de VC) ; L07 **Cas D** (parallel fidèle) |
+| Correctifs | prompt D3 comparison/relations ; admission substance + hint normalize ; discriminants UNIT |
+| QA | Vitest discriminants+admission+C2+SIM **PASS** ; Level-B SIM e2e **PASS** ; maturation baseline **PASS** |
+| LIVE | **aucun nouvel appel** |
+| Preuves | `docs/evidence/.../ensemble05-final-consolidation-20261118/` |
+| Verdict Cursor | `READY FOR MORRIS ENSEMBLE 05 RECEPTION REVIEW` |
+
+
+## delivery_id: DELIV-2026-11-18-NORA-LIVE-BOUNDED-COMPOSITION-PROVEN
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~15:25 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Qualification LIVE bornée composition Nora |
+| Type | Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| GO Morris | LIVE ≤12 tours · plafond **€25 TTC** (levée STOP `cb407251`) |
+| Exécution | **12/12** `openai-agents-sdk-live · COMPLETE` · 0 retry · 0 fixture/SIM |
+| Composition | Spontanée L05–L09 ; prose L01–L04/L10–L12 ; L10 refus inventé |
+| Persist | Reload 12 assistants · fragment match |
+| Coût est. | **€10,20 TTC** / €25 (fallback conservateur gpt-6.1-sol $2/$10) |
+| Outillage | `live-web-server.sh` · `playwright.live.config.ts` · `ensemble05-live-bounded.spec.ts` |
+| Preuves | `docs/evidence/.../live-bounded-campaign-20261118/` |
+| Fake/Real | LIVE **PROVEN** · Level-B antérieur PROVEN |
+| Verdict Cursor | `LIVE COMPOSITION BEHAVIOR PROVEN — BOUNDED SCOPE` |
+
+
+## delivery_id: DELIV-2026-11-18-NORA-LIVE-BOUNDED-BUDGET-STOP
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~15:00 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Qualification LIVE bornée composition Nora |
+| Type | Cycle 9 QA + Cycle 8 correctif préflight · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **LIVE NOT RUN** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| GO Morris | LIVE ≤12 tours DEV autorisé — **plafond monétaire absent** |
+| Préflight PASS | ENV-01 DEV ; C2 `exactShownElsewhere` exact-identity ; SIM unknown fail-closed ; corpus L01–L12 préenregistré |
+| QA | Vitest C2+SIM **21 PASS** (cibles) |
+| Preuves | `docs/evidence/.../live-bounded-campaign-20261118/` |
+| Fake/Real | LIVE **NOT RUN** · Level-B antérieur **PROVEN** |
+| Verdict Cursor | `STOP — MORRIS LIVE BUDGET LIMIT REQUIRED` (proposition plafond **€25 TTC**) |
+
+
+## delivery_id: DELIV-2026-11-18-NORA-E2E-CHAIN-LEVEL-B
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~14:40 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Qualification intégrée Nora→Composition→Persistance |
+| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO PRODUCT PUSH** · **LIVE NOT RUN** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| Level-B | `STUDIO_NORA_SIMULATED_PROVIDER` — corpus S1–S11 natural prompts ; validate + real D3 path |
+| Corrections | Timeline Figma 02 ; matrice 04 Effort/Risque/Délai ; C2 residual exact-identity ; cons complets |
+| QA | Vitest Level-B+C2 PASS ; Playwright sim Level-B **PASS** ; R01–R06 / T02 / C2-08 **PASS** |
+| Preuves | `docs/evidence/.../level-b-e2e-chain-20261118/` + SHA ; protocole LIVE draft |
+| Fake/Real | ADAPTER+BROWSER FAKE **PROVEN** · LIVE **NOT RUN** · HISTORICAL PG **NOT RUN** |
+| Verdict Cursor | `DEV END-TO-END CHAIN VERIFIED — READY FOR BOUNDED LIVE DECISION` |
+
+
+## delivery_id: DELIV-2026-11-18-FIGMA-01-06-VISUAL-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~14:00 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Convergence visuelle Figma 01–06 |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| GO Morris | Convergence visuelle intégrée Figma 01–06 — GO confirmé |
+| Construction | `EditorialSynthesis` v3 ; `EditorialSequence` ; cartes option ; matrice rows ; tokens 01–06 |
+| Fixtures | `E05_R01`…`E05_R06` (FIXTURE/DEMONSTRATION) |
+| Admission | cards×3 ; matrix critères/5+ ; stacked×2 narrow ; horizontal n≤4 width≥580 ; vertical n≥5 |
+| QA | Vitest composition 63 PASS (cibles) ; Playwright R01–R06 **PASS** ; T02 **PASS** ; C2-08 **PASS** |
+| Preuves | `docs/evidence/.../figma-01-06-convergence-20261118/` + SHA-256 |
+| ELK 07–09 | Conservé (`elkjs@0.10.2`) — non régression T02/G07–G09 |
+| Fake/Real | BROWSER FAKE + VISUAL REVIEW **PROVEN** · LIVE **NOT RUN** |
+| Verdict Cursor | `READY FOR CHATGPT VISUAL REVIEW — FIGMA 01-06 CONVERGENCE CANDIDATE` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-COMPLETE-ELK-PRODUCT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~13:15 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Livraison intégrale composition graphique Nora |
+| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| GO Morris | ELKjs produit **autorisé** — lève STOP architecture précédent |
+| ELK produit | **`elkjs@0.10.2`** (EPL-2.0) installé ; import bundlé Next ; mesure DOM → layout → paint |
+| G09 | Swimlane composer (3 voies verticales + sync + suite) ; largeur cible <720px |
+| Fix critique | `preferListFallback` ne bake plus `nodes>10` au parse (sinon G09→list) |
+| Remplacement | Artisan Graphs retiré du chemin principal ; probe C2-08 isolé |
+| QA | Vitest composition **83 PASS** (cibles) ; Playwright **T02 PASS** ; **C2-08 PASS** |
+| Preuves | `runtime-figma07/08/09-*-elk-1440.png` + manifeste SHA-256 + inventaire Figma |
+| Fake/Real | BROWSER FAKE **PROVEN** · HISTORICAL PG **NOT RUN** · LIVE **NOT RUN** |
+| Verdict Cursor | `READY FOR CHATGPT REVIEW — COMPLETE IMPLEMENTATION CANDIDATE` (réserves visuelles artistiques / Gate C Morris) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-GRAPHICAL-ENGINE-REPLACEMENT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~12:25 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Remplacement architectural couche graphique |
+| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| Benchmark | Isolé `scripts/layout-engine-benchmark` — G07/G08/G09 artisan vs ELK vs RF+ELK |
+| Recommandation | **Solution A : HTML/SVG + ELKjs** (CANDIDATE) — RF non requis pour layout |
+| Gate | **STOP — MORRIS ARCHITECTURE DECISION REQUIRED** (ajout `elkjs` produit) |
+| Production | `DirectedRelationBoard` + `EditorialSynthesis` ; artisan Graphs **retiré** du chemin principal |
+| ELK produit | **NOT INSTALLED** (`package.json` inchangé) |
+| Fake/Real | UNIT PROVEN · BROWSER à rejouer · LIVE NOT RUN |
+| Verdict | `STOP — MORRIS ARCHITECTURE DECISION REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-W3-W4-GRAPHICAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~11:45 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Finalisation W3/W4 grammaire graphique Nora |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| C2-08 | Exception React **post-mount** réelle → `BlockErrorBoundary` navigateur ; capture `c2-08-browser-error-recovery-1440.png` · **BROWSER PROVEN** |
+| W3 | `NoraCompositionGraphs` : arbre + parallèle SVG mesuré ; synthèse éditoriale par tons ; tokens parcours renforcés ; deps inchangés (mesurés) |
+| W4 | Vitest composition 72+ PASS (cibles) ; T02 PASS ; C2-08 Playwright PASS ; manifeste Figma/runtime 01–09 |
+| Layout | HTML/SVG mesuré **retenu** ; ELK/RF non ajoutés |
+| Fake/Real | UNIT+BROWSER FAKE **PROVEN** · HISTORICAL PG REPLAY **NOT RUN** · LIVE **NOT RUN** |
+| Verdict | `READY WITH RESERVES` (fidélité Figma PARTIAL 01–09 ; réception Morris) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-C2-INTEGRITY-W3
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~11:25 CET |
+| Macro-lot | R5 / ML4D — C2 intégrité sémantique + W1/W3 sombre adaptatif |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| C2 | Suppression heuristique 70% tokens ; exact-identity only ; tests adverses négations/chiffres/statuts ; ErrorBoundary réel |
+| W1 | Contrat exécutable thème sombre Studio (Figma 01–09 hiérarchie) |
+| W3 | Markers SVG uniques ; polish cards/tree/parallel sur tokens sombres |
+| W4 | Vitest 138 PASS ; T02 à rejouer ; PG historique NOT RUN ; VISUAL NOT COMPLETED |
+| Fake/Real | UNIT+BROWSER FAKE **PROVEN** · LIVE **NOT RUN** |
+| Verdict | `READY WITH RESERVES` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-C2-W1-FINALIZATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~11:00 CET |
+| Macro-lot | R5 / ML4D — Finalisation C2 + W1 contrat Figma (Ensemble 05) |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| C2 | `visibleTextAlternativeComplement` + `SubstanceComplement` visible (pas sr-only) ; oracles C2-01…10 |
+| W1 | Paquet Morris Page 06 frames 01–09 ; **FIGMA CONTRACT READY — MORRIS VISUAL VALIDATION REQUIRED** |
+| W3 | Pas de transposition pixel ; familles existantes préservées |
+| W4 | Vitest 122 PASS ; T02 PASS (+ assert C2 DOM) ; PG DEV up sans payloads historiques |
+| W5 | Corpus réception préparé ; LIVE NOT RUN |
+| Fake/Real | UNIT+BROWSER FAKE **PROVEN** · HISTORICAL PG REPLAY **NOT RUN** · LIVE **NOT RUN** |
+| Verdict | `READY WITH RESERVES` / gate artistique Morris |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-VISUAL-GRAMMAR-DIFFS-COMPLETE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~10:30 CET |
+| Macro-lot | R5 / ML4D — Complétude Review Pack diffs C1–C4 |
+| Type | Cycle Delivery · Critical · DOC/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| Motif | Handoff `42d3299b` publié mais contenu incomplet (admission vide, NoraComposition hash-only, CSS tronqué, C2 peu traçable) |
+| Contenu | Diffs intégraux `admission.ts`, `NoraComposition.tsx`, `tokens.css`, `NoraConversation.tsx` + chaîne C2 |
+| Code produit | **Aucun changement** vs tip WT C1–C4 |
+| Fake/Real | FAKE prior **PROVEN** · LIVE/REAL **NOT RUN** |
+| Verdict | `READY WITH RESERVES` (technique inchangé ; revue exhaustive désormais possible) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-VISUAL-GRAMMAR-C1C4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~10:20 CET |
+| Macro-lot | R5 / ML4D — Convergence finale grammaire visuelle conversationnelle |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| C1 | Fallback exhaustif en français naturel — plus de `relation=` / `Disposition:` / enums wire |
+| C2 | Strategy A graphic → `bodyPolicy=substitute` (anti-redondance prose+visuel) |
+| C4 | Dépendances : connecteurs SVG mesurés (ResizeObserver) + liste humaine |
+| A1–A7 | Non-régression : 112 Vitest PASS ; T02 PASS |
+| A3 PG | **HISTORICAL PG REPLAY — NOT RUN** (5433 DOWN) |
+| Figma | Contrat §6.6 extrait frames 03/04/07/08/09 ; **VISUAL REVIEW NOT COMPLETED** |
+| Fake/Real | FAKE/BROWSER **PROVEN** · LIVE/REAL **NOT RUN** |
+| Verdict | `READY WITH RESERVES` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-V06-A7
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~09:25 CET |
+| Macro-lot | R5 / ML4D — Intégrité canonique A7 + textAlternative A2 (matrice 06 V0.6) |
+| Type | Cycle 8 Delivery · Critical · CORRECTIVE/QA · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| A7 P0 | Canonical declared unusable → refuse (`CANONICAL_COMPOSITION_INVALID` / `_EMPTY`) ; narrative-only + legacy soft-drop préservés |
+| A2 | `mergeTextAlternative` — plus d'heuristique préfixe 80 ; suffixe complémentaire conservé |
+| A3 | Compat fixtures OK ; **HISTORICAL PG REPLAY — NOT RUN** (PG DEV 5433 down) |
+| A5–A6 | T02 PASS ; VISUAL REVIEW NOT COMPLETED (handoff MD) |
+| Preuves | Vitest 109 PASS ciblés ; T02 1 PASS ; A4 fail-closed conservé |
+| Fake/Real | FAKE A7 **PROVEN** · LIVE/REAL **NOT RUN** |
+| Verdict | `READY WITH RESERVES` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-V05-A4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~09:00 CET |
+| Macro-lot | R5 / ML4D — Strategy A sécurisation finale (matrice 06 V0.5) |
+| Type | Cycle 8 Delivery · Critical · CORRECTIVE/EVOL/QA · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| A4 P0 | `fixtureReply` fail → UNKNOWN/UNAVAILABLE/`providerContacted:NO` (parity LIVE) |
+| A1 | exact oracles 11999 / 12000 / 12001 ; no silent slice |
+| A2 | familles text/comparison/sequence/relations/synthesis + choices/refs ownership |
+| A3 | e05 / projection-v1 / canonical-v1 autorités préservées (fixtures) |
+| A5–A6 | T02 PASS ; Vitest 94 PASS ciblés ; VISUAL handoff PNG channel incomplete |
+| Fake/Real | FAKE fixture A4 **PROVEN** · LIVE/REAL **NOT RUN** |
+| Verdict | `READY WITH RESERVES` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~08:40 CET |
+| Macro-lot | Strategy A integrated corrective A1–A6 (matrice 06 V0.4) |
+| Type | Cycle 8 Delivery · Critical · CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| A1 | derive overflow → `CANONICAL_REPLY_OVERFLOW` (no silent slice) |
+| A2 | exhaustive relations/synthesis/sequence fields (kind, detail, lane, relation) |
+| A3 | WRITE `conversational-composition-canonical-v1` ; READ e05+projection-v1+canonical ; projection-v1 ≠ canonical |
+| A4 | fixtureReply + LIVE → same `validateNoraTurnQualification` ; AgentSchema WRITE-only |
+| A5 | sync → directed « sync vers » (no false reciprocity) |
+| Preuves | Vitest 75 PASS (A1–A4 + composition) ; T02 PASS |
+| Verdict | (voir Review Pack Full corrective A) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-CANONICAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~08:10 CET |
+| Macro-lot | Transition Strategy A — sections sémantiques canoniques + achèvement UX |
+| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| Architecture | `visualComposition` projection-v1 = autorité ; `replyDraft` dérivé ; e05 = legacy_projection |
+| P0 | derive-text ; contentAuthority ; validateNoraTurnQualification derive ; tree single-parent |
+| P1 | parallel toutes arêtes ; identity admission path |
+| Preuves | Vitest Strategy A + fidelity + admission 29 PASS ; Playwright T02 PASS |
+| Verdict | (voir Review Pack Full Strategy A) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-F1F5-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~03:55 CET |
+| Macro-lot | F1–F5 Integrated Corrective (fidélité / topologie / relations / schéma / BROWSER) |
+| Type | Cycle Delivery · Critical · RUN correctif dans EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| F1 | Claims substance ⊆ replyDraft ; narrative substitute gate ; préférence contradictoire |
+| F2 | topology.ts — tree/deps/parallel ; cycles/multi-root → list |
+| F3 | deps layers + arêtes dirigées ; tree/parallel CSS |
+| F4 | Agent WRITE `conversational-composition-projection-v1` only ; dual READ e05 |
+| F5 | T02 + fixtures tree/parallel + captures `f5-runtime-*.png` |
+| Preuves | Vitest fidelity+admission 24 PASS ; Playwright T02 PASS ; matrice `f-matrix-fidelity-topology.md` |
+| Verdict | READY WITH RESERVES (voir Review Pack Full F1–F5) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~03:18 CET |
+| Macro-lot | Convergence composition conversationnelle (doc 06 C-01–C-22) |
+| Type | Cycle Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| P0 C-04 | Graphiques : jamais substitute ; complement seulement si ancres replyDraft ; sinon markdown_only |
+| P1 C-05/14 | Schema write `conversational-composition-projection-v1` ; dual-read e05 ; MAX_ALTS=12 |
+| P1 C-10/11/12 | layoutHint + RelationsDirectedView CSS (deps/tree/parallel) ; ELK non introduit |
+| Preuves | Vitest composition 65 PASS (admission+fidelity+E05+schema) ; tsc 32/0 touched ; T02 PASS |
+| Verdict | (voir Review Pack Full convergence) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~02:25 CET |
+| Macro-lot | Correction intégrée composition conversationnelle (réponse STOP ChatGPT) |
+| Type | Cycle Delivery · Critical · RUN correctif dans EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| Corrections | A matrice+détails ; B relations list only (SVG différé) ; C repli exhaustif ; D bodyPolicy substitute/complement ; E capacité wire honnête ; F ACK PREEXISTING PROVEN |
+| Preuves | Vitest 57 PASS ; tsc 32 préexistantes / 0 touched ; T02 PASS + captures corrective ; ACK FAIL identique sur tip clean `a783f014` |
+| Verdict | supersédé par cycle convergence |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-V1
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~01:22 CET |
+| Macro-lot | Remplacement mécanisme graphique expérimental E05 → composition conversationnelle adaptative |
+| Type | Cycle Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| Architecture | Strategy B V1 — `replyDraft` canonique ; wire `e05-visual-composition-v1` conservé ; admission `conversational-composition-v1` ; renderer `NoraComposition` |
+| Scope | admission/variantes CV-* ; `NoraComposition` + CSS container queries ; alias `NoraVisualComposition` ; wire `NoraConversation` ; tests unit ; preuves Figma Page 06 ; matrice CV-T |
+| Non-scope | Migration DB ; Strategy A sections sémantiques ; elkjs/RF/ECharts ; push produit ; RECETTE/STABLE ; LIVE OpenAI |
+| Preuves | Vitest admission+E05+schema+projection 54 PASS ; Playwright ensemble05 5 PASS / 2 FAIL (C2/ACK hors renderer) ; T02 composition PASS |
+| Verdict | `READY WITH RESERVES` — supersédé par STOP ChatGPT puis correctif |
+
+
 ## delivery_id: DELIV-2026-11-17-ML4D-R05-COGNITIVE-RECOVERY
 
 | Field | Value |

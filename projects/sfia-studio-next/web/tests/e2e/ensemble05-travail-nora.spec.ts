@@ -522,6 +522,8 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     const E05_S4_TRAJECTORY = "E05_S4_TRAJECTORY";
     const E05_S5_COMPOSITE = "E05_S5_COMPOSITE";
     const E05_S7_INSUFFICIENT = "E05_S7_INSUFFICIENT";
+    const E05_F5_DECISION_TREE = "E05_F5_DECISION_TREE";
+    const E05_F5_PARALLEL = "E05_F5_PARALLEL";
 
     await page.goto("/login");
     await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
@@ -549,6 +551,20 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
       });
     }
 
+    async function shotComposition(
+      file: string,
+      locator = page.getByTestId("nora-visual-composition").last(),
+    ) {
+      await locator.evaluate((el) => {
+        el.scrollIntoView({ block: "start", inline: "nearest" });
+      });
+      await page.waitForTimeout(250);
+      await locator.screenshot({
+        path: path.join(evidenceDir, file),
+        animations: "disabled",
+      });
+    }
+
     // S1 — simple text, no graphic composition (UX-NORA-01).
     await ask(E05_S1_SIMPLE);
     const s1 = page.getByTestId("nora-msg-assistant").last();
@@ -566,13 +582,100 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     await ask(E05_S2_DIAGNOSTIC);
     await expect(page.getByTestId("nora-visual-relations")).toBeVisible({ timeout: 45000 });
     await expect(page.getByTestId("nora-visual-icon").first()).toBeVisible();
+    // C-10 — directed CSS layout (or list fallback); never fixed-coordinate SVG.
+    const rel = page.getByTestId("nora-visual-relations").last();
+    const layout = await rel.getAttribute("data-layout");
+    expect(layout === "directed" || layout === "structured-list").toBeTruthy();
+    await expect(rel).toHaveAttribute("data-layout-hint", "dependencies");
     await expect(page.getByTestId("nora-visual-composition").last()).toHaveAttribute(
       "data-owns-body",
+      "1",
+    );
+    await expect(page.getByTestId("nora-visual-composition").last()).toHaveAttribute(
+      "data-body-policy",
+      "complement",
+    );
+    // F3 — new directed board (legacy artisan retired) + explicit directed edges.
+    const depsBoard = page.getByTestId("nora-composition-dependencies").last();
+    await expect(depsBoard).toBeVisible();
+    await expect(depsBoard).toHaveAttribute("data-legacy-artisan", "0");
+    await expect(page.getByTestId("nora-composition-relations-edges")).toHaveAttribute(
+      "data-directed",
       "1",
     );
     await page.screenshot({
       path: path.join(evidenceDir, "runtime-s2-diagnostic-1440.png"),
       fullPage: false,
+    });
+    await page.screenshot({
+      path: path.join(evidenceDir, "corrective-runtime-relations-list-1440.png"),
+      fullPage: false,
+    });
+    await page.screenshot({
+      path: path.join(evidenceDir, "f5-runtime-dependencies-directed-1440.png"),
+      fullPage: false,
+    });
+
+    // G07 — three convergent dependency chains (Figma 07 complexity).
+    await ask("E05_G07_DEPENDENCIES");
+    const g07 = page.getByTestId("nora-composition-dependencies").last();
+    await expect(g07).toBeVisible({ timeout: 45000 });
+    await expect(g07).toHaveAttribute("data-legacy-artisan", "0");
+    await expect(g07).toHaveAttribute("data-layout-engine", "elkjs", { timeout: 15000 });
+    await expect(g07).toHaveAttribute("data-connectors", "1");
+    await expect(page.getByTestId("nora-composition-elk-canvas").last()).toBeVisible();
+    await expect(g07).toHaveAttribute("data-node-count", "8");
+    await shotComposition("runtime-figma07-dependencies-elk-1440.png", g07);
+    await shotComposition("f5-runtime-dependencies-directed-1440.png", g07);
+
+    // G08 — multilevel decision tree (Figma 08).
+    await ask("E05_G08_TREE");
+    const tree = page.getByTestId("nora-composition-decision-tree").last();
+    await expect(tree).toBeVisible({ timeout: 45000 });
+    await expect(page.getByTestId("nora-visual-relations").last()).toHaveAttribute(
+      "data-layout-hint",
+      "decisionTree",
+    );
+    await expect(tree).toHaveAttribute("data-legacy-artisan", "0");
+    await expect(tree).toHaveAttribute("data-layout-engine", "elkjs", { timeout: 15000 });
+    await expect(tree).toHaveAttribute("data-node-count", "6");
+    await expect(
+      tree.getByTestId("nora-composition-elk-canvas").locator('[data-branch="root"]').first(),
+    ).toBeVisible();
+    await expect(page.getByTestId("nora-composition-tree-connectors").last()).toBeVisible();
+    await shotComposition("runtime-figma08-tree-elk-1440.png", tree);
+    await shotComposition("f5-runtime-decision-tree-1440.png", tree);
+    await shotComposition("w3-runtime-figma08-tree-1440.png", tree);
+
+    // G09 — three parallel lanes (Figma 09).
+    await ask("E05_G09_PARALLEL");
+    const parallel = page.getByTestId("nora-composition-parallel").last();
+    await expect(parallel).toBeVisible({ timeout: 45000 });
+    await expect(page.getByTestId("nora-visual-relations").last()).toHaveAttribute(
+      "data-layout-hint",
+      "parallelProcess",
+    );
+    await expect(parallel).toHaveAttribute("data-layout-engine", "elkjs", { timeout: 15000 });
+    await expect(parallel).toHaveAttribute("data-node-count", "11");
+    await expect(page.getByTestId("nora-composition-parallel-connectors").last()).toBeVisible();
+    // Swimlanes must be side-by-side (distinct x), not a single horizontal strip.
+    const laneXs = await parallel.locator(".fig-nc-elk-node").evaluateAll((els) =>
+      els.slice(0, 9).map((el) => Number((el as HTMLElement).dataset.laidX ?? 0)),
+    );
+    const uniqueBands = new Set(laneXs.map((x) => Math.round(x / 100)));
+    expect(uniqueBands.size).toBeGreaterThanOrEqual(3);
+    await shotComposition("runtime-figma09-parallel-elk-1440.png", parallel);
+    await shotComposition("f5-runtime-parallel-1440.png", parallel);
+    await shotComposition("w3-runtime-figma09-parallel-1440.png", parallel);
+
+    // Keep simple F5 keys for non-regression of short fixtures.
+    await ask(E05_F5_DECISION_TREE);
+    await expect(page.getByTestId("nora-composition-decision-tree").last()).toBeVisible({
+      timeout: 45000,
+    });
+    await ask(E05_F5_PARALLEL);
+    await expect(page.getByTestId("nora-composition-parallel").last()).toBeVisible({
+      timeout: 45000,
     });
 
     // S3 — comparison + recommendation + choice/ref anchors + provenance P1-B.
@@ -593,14 +696,17 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     await expect(s3.getByTestId("nora-visual-prov-link")).toHaveCount(1);
     await expect(s3.getByTestId("nora-ref-link")).toHaveCount(0);
     await expect(s3.getByText(/Consulter · Note de cadrage coordination/i)).toHaveCount(1);
-    await page.screenshot({
-      path: path.join(evidenceDir, "runtime-visual-comparison-1440.png"),
-      fullPage: false,
-    });
-    await page.screenshot({
-      path: path.join(evidenceDir, "runtime-s3-provenance-1440.png"),
-      fullPage: false,
-    });
+    // Corrective A — alternative substance remains visible (cards or matrix+details).
+    await expect(s3.getByTestId("nora-composition-alt-detail").first()).toBeVisible();
+    // C2 — complementary reserve from textAlternative must be consultable in DOM (not sr-only).
+    const s3Complement = s3.getByTestId("nora-composition-substance-complement");
+    await expect(s3Complement).toBeVisible();
+    await expect(s3Complement).toContainText(/Réserve C2/i);
+    await expect(s3Complement).toContainText(/porteur n'est pas nommé|porteur n’est pas nommé/i);
+    await shotComposition("runtime-visual-comparison-1440.png", s3.getByTestId("nora-visual-composition"));
+    await shotComposition("c2-runtime-substance-complement-1440.png", s3Complement);
+    await shotComposition("runtime-s3-provenance-1440.png", s3.getByTestId("nora-visual-composition"));
+    await shotComposition("corrective-runtime-comparison-1440.png", s3.getByTestId("nora-visual-composition"));
 
     // S4 — trajectory / sequence with human-readable dependencies (V02).
     await ask(E05_S4_TRAJECTORY);
@@ -698,6 +804,276 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     await expect(afterReload).toBeVisible();
     await page.screenshot({
       path: path.join(evidenceDir, "runtime-s5-composite-mobile-430.png"),
+      fullPage: false,
+    });
+  });
+
+  test("R01–R06 Figma 01–06 visual reference fixtures (BROWSER FAKE)", async ({ page }) => {
+    test.setTimeout(240_000);
+    const evidenceDir = path.resolve(
+      __dirname,
+      "../../docs/evidence/ensemble-05-travail-nora/figma-01-06-convergence-20261118/runtime",
+    );
+    fs.mkdirSync(evidenceDir, { recursive: true });
+
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { projectId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "E05 R01-R06 Figma visual convergence",
+      name: `E05 R0106 ${Date.now()}`,
+      summary: "figma-01-06-convergence",
+    });
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    const draft = page.getByTestId("thread-draft");
+    const send = page.getByTestId("thread-send");
+
+    async function ask(text: string) {
+      await draft.fill(text);
+      await send.click();
+      await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|Nora/i, {
+        timeout: 45000,
+      });
+    }
+
+    async function shot(
+      file: string,
+      locator = page.getByTestId("nora-visual-composition").last(),
+    ) {
+      await locator.evaluate((el) => {
+        el.scrollIntoView({ block: "start", inline: "nearest" });
+      });
+      await page.waitForTimeout(300);
+      await locator.screenshot({
+        path: path.join(evidenceDir, file),
+        animations: "disabled",
+      });
+    }
+
+    // R01 — Figma 01 editorial synthesis: 3 indicators + 2 strategy cards.
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    await ask("E05_R01_SYNTHESIS");
+    const r01 = page.getByTestId("nora-msg-assistant").last();
+    await expect(r01.getByTestId("nora-composition-editorial-synthesis")).toBeVisible({
+      timeout: 45000,
+    });
+    await expect(r01.getByTestId("nora-composition-indicators")).toBeVisible();
+    await expect(r01.locator("[data-indicator-id]")).toHaveCount(3);
+    await expect(r01.getByTestId("nora-composition-strategy-card")).toHaveCount(2);
+    await expect(r01.getByTestId("nora-composition-checklist")).toBeVisible();
+    await expect(r01.getByTestId("nora-composition-orientation")).toBeVisible();
+    await expect(r01.getByTestId("nora-composition-fixture-badge")).toBeVisible();
+    await shot("runtime-r01-synthesis-1440.png");
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-r01-synthesis-travail-1440.png"),
+      fullPage: false,
+    });
+
+    // R02 — Figma 02 horizontal 4 steps + fixture timeline.
+    await ask("E05_R02_JOURNEY");
+    const r02 = page.getByTestId("nora-msg-assistant").last();
+    const r02Seq = r02.getByTestId("nora-composition-editorial-sequence");
+    await expect(r02Seq).toBeVisible({ timeout: 45000 });
+    await expect(r02Seq).toHaveAttribute("data-variant", "horizontal");
+    await expect(r02.getByTestId("nora-composition-steps-horizontal")).toBeVisible();
+    await expect(r02.locator(".fig-nc-h-step")).toHaveCount(4);
+    await expect(r02.getByTestId("nora-composition-timeline")).toBeVisible();
+    await expect(r02.locator(".fig-nc-timeline-row")).toHaveCount(4);
+    await shot("runtime-r02-journey-timeline-1440.png");
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-r02-journey-travail-1440.png"),
+      fullPage: false,
+    });
+
+    // R03 — Figma 03 three comparative cards.
+    await ask("E05_R03_THREE_CARDS");
+    const r03 = page.getByTestId("nora-msg-assistant").last();
+    const r03Cmp = r03.getByTestId("nora-visual-comparison");
+    await expect(r03Cmp).toBeVisible({ timeout: 45000 });
+    await expect(r03Cmp).toHaveAttribute("data-variant", "cards");
+    await expect(r03.getByTestId("nora-composition-comparison-cards")).toBeVisible();
+    await expect(r03.getByTestId("nora-composition-alt-detail")).toHaveCount(3);
+    await shot("runtime-r03-three-cards-1440.png");
+
+    // R04 — Figma 04 five-option editorial matrix.
+    await ask("E05_R04_FIVE_MATRIX");
+    const r04 = page.getByTestId("nora-msg-assistant").last();
+    const r04Cmp = r04.getByTestId("nora-visual-comparison");
+    await expect(r04Cmp).toBeVisible({ timeout: 45000 });
+    await expect(r04Cmp).toHaveAttribute("data-variant", "matrix");
+    const matrix = r04.getByTestId("nora-composition-matrix-five");
+    await expect(matrix).toBeVisible();
+    await expect(matrix.locator("tbody tr")).toHaveCount(5);
+    await shot("runtime-r04-five-matrix-1440.png");
+
+    // R05 — Figma 05 two stacked cards at constrained width (tall viewport for full cards).
+    await page.setViewportSize({ width: 430, height: 1600 });
+    await ask("E05_R05_STACKED");
+    const r05 = page.getByTestId("nora-msg-assistant").last();
+    const r05Cmp = r05.getByTestId("nora-visual-comparison");
+    await expect(r05Cmp).toBeVisible({ timeout: 45000 });
+    await expect(r05Cmp).toHaveAttribute("data-variant", "stacked");
+    await expect(r05.getByTestId("nora-composition-alt-detail")).toHaveCount(2);
+    const r05Stack = r05.getByTestId("nora-composition-comparison-stacked");
+    await expect(r05Stack).toBeVisible();
+    await expect(r05Stack.getByTestId("nora-composition-alt-detail")).toHaveCount(2);
+    // Unclip thread overflow so element screenshot can include both stacked cards.
+    await page.evaluate(() => {
+      const thread = document.querySelector('[data-testid="nora-thread"]') as HTMLElement | null;
+      if (thread) {
+        thread.style.overflow = "visible";
+        thread.style.maxHeight = "none";
+      }
+      const panel = document.querySelector(
+        '[data-testid="nora-conversation-panel"]',
+      ) as HTMLElement | null;
+      if (panel) {
+        panel.style.overflow = "visible";
+        panel.style.maxHeight = "none";
+      }
+    });
+    await r05Cmp.evaluate((el) => {
+      el.scrollIntoView({ block: "start", inline: "nearest" });
+    });
+    await page.waitForTimeout(250);
+    await r05Cmp.screenshot({
+      path: path.join(evidenceDir, "runtime-r05-stacked-430.png"),
+      animations: "disabled",
+    });
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-r05-stacked-travail-430.png"),
+      fullPage: true,
+    });
+
+    // R06 — Figma 06 six editorial vertical steps (wide container).
+    await page.setViewportSize({ width: 1440, height: 1200 });
+    await ask("E05_R06_SIX_STEPS");
+    const r06 = page.getByTestId("nora-msg-assistant").last();
+    const r06Seq = r06.getByTestId("nora-composition-editorial-sequence");
+    await expect(r06Seq).toBeVisible({ timeout: 45000 });
+    await expect(r06Seq).toHaveAttribute("data-variant", "vertical");
+    await expect(r06.getByTestId("nora-composition-steps-vertical")).toBeVisible();
+    await expect(r06.locator(".fig-nc-v-step")).toHaveCount(6);
+    await shot("runtime-r06-six-steps-1440.png");
+    await page.screenshot({
+      path: path.join(evidenceDir, "runtime-r06-six-steps-travail-1440.png"),
+      fullPage: false,
+    });
+
+    // Non-regression — ELK G07–G09 remain directed after R fixtures.
+    await ask("E05_G07_DEPENDENCIES");
+    await expect(page.getByTestId("nora-composition-dependencies").last()).toHaveAttribute(
+      "data-layout-engine",
+      "elkjs",
+      { timeout: 15000 },
+    );
+    await ask("E05_G08_TREE");
+    await expect(page.getByTestId("nora-composition-decision-tree").last()).toHaveAttribute(
+      "data-layout-engine",
+      "elkjs",
+      { timeout: 15000 },
+    );
+    await ask("E05_G09_PARALLEL");
+    await expect(page.getByTestId("nora-composition-parallel").last()).toHaveAttribute(
+      "data-layout-engine",
+      "elkjs",
+      { timeout: 15000 },
+    );
+  });
+
+  test("C2-08 ErrorBoundary recovers real post-mount React exception (BROWSER)", async ({
+    page,
+  }) => {
+    test.setTimeout(180_000);
+    const evidenceDir = path.resolve(
+      __dirname,
+      "../../docs/evidence/ensemble-05-travail-nora",
+    );
+    fs.mkdirSync(evidenceDir, { recursive: true });
+
+    // Arm DEV/E2E probe before any composition mounts (client useEffect → throw).
+    await page.addInitScript(() => {
+      (
+        window as Window & { __SFIA_E2E_COMPOSITION_THROW_BLOCK_ID__?: string }
+      ).__SFIA_E2E_COMPOSITION_THROW_BLOCK_ID__ = "s3-cmp";
+    });
+
+    const apiPosts: string[] = [];
+    page.on("request", (req) => {
+      if (req.method() === "POST" && /\/api\//.test(req.url())) {
+        apiPosts.push(req.url());
+      }
+    });
+
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+    const { projectId } = await bootstrapProjectFromPortfolio(page, {
+      seed: "E05 C2-08 boundary",
+      name: `E05 C208 ${Date.now()}`,
+      summary: "c2-08-browser",
+    });
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    const draft = page.getByTestId("thread-draft");
+    const send = page.getByTestId("thread-send");
+    const assistantsBefore = await page.getByTestId("nora-msg-assistant").count();
+
+    await draft.fill("E05_S3_COMPARISON");
+    await send.click();
+    await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|Nora/i, {
+      timeout: 45000,
+    });
+
+    const assistant = page.getByTestId("nora-msg-assistant").last();
+    await expect(assistant).toBeVisible();
+
+    // 1–2: local boundary intercepts; exhaustive fallback for s3-cmp
+    const fallback = assistant.getByTestId("nora-composition-block-fallback");
+    await expect(fallback).toBeVisible({ timeout: 15000 });
+    await expect(fallback).toHaveAttribute("data-block-id", "s3-cmp");
+    await expect(fallback).toContainText(/Progressive|Simultan|Réserve C2|avis/i);
+
+    // 3: complementary reserve still consultable (in fallback text)
+    await expect(fallback).toContainText(/porteur|Réserve C2|clarif/i);
+
+    // 4–5: other blocks + message identity preserved (intro text still present)
+    await expect(assistant.getByTestId("nora-visual-text").first()).toBeVisible();
+    await expect(assistant.getByTestId("nora-visual-composition")).toHaveAttribute(
+      "data-owns-body",
+      "1",
+    );
+
+    // 6–8: exactly one new assistant message; settle — no extra assistant and no API POST burst
+    await expect(page.getByTestId("nora-msg-assistant")).toHaveCount(assistantsBefore + 1);
+    const apiAtComplete = apiPosts.length;
+    await page.waitForTimeout(1500);
+    await expect(page.getByTestId("nora-msg-assistant")).toHaveCount(assistantsBefore + 1);
+    expect(apiPosts.length).toBe(apiAtComplete);
+
+    // 9: thread remains usable (draft independent)
+    await draft.fill("brouillon-apres-fallback");
+    await expect(draft).toHaveValue("brouillon-apres-fallback");
+
+    // 10: no global white-out — shell + composition root still present
+    await expect(page.getByTestId("thread-draft")).toBeVisible();
+    await expect(assistant.getByTestId("nora-visual-composition")).toBeVisible();
+    await expect(page.locator("body")).not.toBeEmpty();
+
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.screenshot({
+      path: path.join(evidenceDir, "c2-08-browser-error-recovery-1440.png"),
       fullPage: false,
     });
   });

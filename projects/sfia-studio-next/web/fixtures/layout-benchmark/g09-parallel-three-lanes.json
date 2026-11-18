@@ -1,0 +1,31 @@
+{
+  "id": "G09",
+  "figma": "753:2",
+  "title": "Trois voies parallèles et contrôle commun",
+  "layoutHint": "parallelProcess",
+  "nodes": [
+    { "id": "a1", "label": "Collecte terrain A", "kind": "observation", "laneId": "Voie A", "detail": "Première activité voie A." },
+    { "id": "a2", "label": "Consolidation A", "kind": "observation", "laneId": "Voie A", "detail": "Deuxième activité voie A — dépend de la collecte." },
+    { "id": "a3", "label": "Vérification A", "kind": "finding", "laneId": "Voie A", "detail": "Contrôle de voie avant sync." },
+    { "id": "b1", "label": "Collecte terrain B", "kind": "observation", "laneId": "Voie B", "detail": "Première activité voie B." },
+    { "id": "b2", "label": "Consolidation B", "kind": "observation", "laneId": "Voie B", "detail": "Deuxième activité voie B." },
+    { "id": "b3", "label": "Vérification B", "kind": "finding", "laneId": "Voie B", "detail": "Contrôle de voie B." },
+    { "id": "c1", "label": "Collecte terrain C", "kind": "observation", "laneId": "Voie C", "detail": "Première activité voie C — libellé long pour densité." },
+    { "id": "c2", "label": "Consolidation C", "kind": "observation", "laneId": "Voie C", "detail": "Deuxième activité voie C avec description étendue des écarts observés." },
+    { "id": "c3", "label": "Vérification C", "kind": "finding", "laneId": "Voie C", "detail": "Contrôle de voie C." },
+    { "id": "gate", "label": "Contrôle commun", "kind": "unknown", "laneId": "Convergence", "detail": "Point de synchronisation — NON DÉCIDÉ ; aucune validation métier." },
+    { "id": "next", "label": "Suite conditionnelle", "kind": "hypothesis", "laneId": "Suite", "detail": "Étape suivante seulement si le contrôle commun est satisfaisant." }
+  ],
+  "edges": [
+    { "from": "a1", "to": "a2", "relation": "flow" },
+    { "from": "a2", "to": "a3", "relation": "depends_on" },
+    { "from": "b1", "to": "b2", "relation": "flow" },
+    { "from": "b2", "to": "b3", "relation": "depends_on" },
+    { "from": "c1", "to": "c2", "relation": "flow" },
+    { "from": "c2", "to": "c3", "relation": "depends_on" },
+    { "from": "a3", "to": "gate", "relation": "sync", "label": "prêt A" },
+    { "from": "b3", "to": "gate", "relation": "sync", "label": "prêt B" },
+    { "from": "c3", "to": "gate", "relation": "sync", "label": "prêt C" },
+    { "from": "gate", "to": "next", "relation": "depends_on", "label": "si contrôle OK" }
+  ]
+}

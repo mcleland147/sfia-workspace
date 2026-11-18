@@ -10,8 +10,27 @@ import {
 import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
 import {
   parseVisualComposition,
+  VISUAL_COMPOSITION_SCHEMA,
+  VISUAL_COMPOSITION_SCHEMA_LEGACY,
+  VISUAL_COMPOSITION_SCHEMA_PROJECTION,
   VisualCompositionAgentOutputSchema,
 } from "./visual-composition";
+import { deriveReplyDraftFromCanonicalSections } from "./conversational-composition/derive-text";
+
+/**
+ * READ/validate envelope — accepts historical e05 + projection-v1 + canonical-v1.
+ * Reuses concrete block union (no empty `{}` JSON Schema). Runtime authority remains
+ * parseVisualComposition. LIVE Agent outputType = NoraTurnQualificationAgentSchema.
+ */
+const VisualCompositionPersistedSchema = z.object({
+  schemaVersion: z.enum([
+    VISUAL_COMPOSITION_SCHEMA,
+    VISUAL_COMPOSITION_SCHEMA_PROJECTION,
+    VISUAL_COMPOSITION_SCHEMA_LEGACY,
+  ]),
+  blocks: VisualCompositionAgentOutputSchema.shape.blocks,
+});
+
 
 export const SEMANTIC_QUALIFICATION_SCHEMA_VERSION = "ml4c-sem-qual-v1" as const;
 
@@ -198,14 +217,18 @@ export const NoraTurnQualificationSchema = z.object({
   documentProposal: DocumentProposalSchema.optional(),
   documentSource: DocumentSourceSchema.optional(),
   /**
-   * Ensemble 05 / T02 — optional visual composition (structured blocks).
-   * Omission = text-only reply. Never HTML/JS. Studio re-validates before persist/render.
-   * Must be a concrete Zod object (not z.unknown): empty `{}` JSON Schema breaks
-   * OpenAI strict structured outputs and surfaces as PROVIDER_ERROR / UNKNOWN.
+   * Optional visual / canonical composition.
+   * READ path accepts e05 + projection-v1 + canonical-v1; Studio re-validates via parseVisualComposition.
+   * LIVE WRITE uses NoraTurnQualificationAgentSchema (canonical-v1 only — no empty `{}` schema).
    */
-  visualComposition: VisualCompositionAgentOutputSchema.optional(),
+  visualComposition: VisualCompositionPersistedSchema.optional(),
 });
 export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
+
+/** Agents SDK outputType — WRITE canonical-v1 only (A3). */
+export const NoraTurnQualificationAgentSchema = NoraTurnQualificationSchema.extend({
+  visualComposition: VisualCompositionAgentOutputSchema.optional(),
+});
 
 export type QualificationValidation =
   | { ok: true; value: NoraTurnQualification }
@@ -278,11 +301,36 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
   for (const id of ids) {
     if (dfs(id)) return { ok: false, reason: "DEPENDENCY_CYCLE" };
   }
-  // T02 — soft-sanitize visual composition; never fail the whole qualification on bad visuals.
+  // Soft-sanitize visual composition.
+  // Strategy A (canonical-v1): declared but unusable → refuse (A7). Never silently
+  // fall back to an independent replyDraft as if the composition validated.
+  // Legacy (e05 / projection-v1): soft-drop composition; replyDraft remains authority.
+  // Omitted visualComposition: narrative-only — leave replyDraft untouched.
   if (q.visualComposition !== undefined) {
+    const rawComp = q.visualComposition as { schemaVersion?: string };
+    const declaredCanonical = rawComp.schemaVersion === VISUAL_COMPOSITION_SCHEMA;
     const cleaned = parseVisualComposition(q.visualComposition);
     if (cleaned) {
       (q as { visualComposition?: unknown }).visualComposition = cleaned;
+      if (cleaned.contentAuthority === "canonical_sections") {
+        const derived = deriveReplyDraftFromCanonicalSections(cleaned);
+        if (!derived.ok) {
+          if (derived.reason === "CV_DERIVE_OVERFLOW") {
+            return {
+              ok: false,
+              reason: `CANONICAL_REPLY_OVERFLOW:${derived.length}>${derived.max}`,
+            };
+          }
+          // CV_DERIVE_EMPTY (anchors-only, whitespace prose, etc.)
+          return {
+            ok: false,
+            reason: `CANONICAL_COMPOSITION_EMPTY:${derived.reason}`,
+          };
+        }
+        (q as { replyDraft: string }).replyDraft = derived.text;
+      }
+    } else if (declaredCanonical) {
+      return { ok: false, reason: "CANONICAL_COMPOSITION_INVALID" };
     } else {
       delete (q as { visualComposition?: unknown }).visualComposition;
     }

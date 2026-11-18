@@ -13,7 +13,30 @@
 
 import { z } from "zod";
 
-export const VISUAL_COMPOSITION_SCHEMA = "e05-visual-composition-v1" as const;
+/** Historical E05 wire — read/compat only. */
+export const VISUAL_COMPOSITION_SCHEMA_LEGACY = "e05-visual-composition-v1" as const;
+/**
+ * Strategy B historical wire (replyDraft authority + optional projection).
+ * READ only for stored turns — never re-interpreted as canonical_sections (A3).
+ */
+export const VISUAL_COMPOSITION_SCHEMA_PROJECTION =
+  "conversational-composition-projection-v1" as const;
+/** Strategy A active WRITE — canonical semantic sections (single authority). */
+export const VISUAL_COMPOSITION_SCHEMA = "conversational-composition-canonical-v1" as const;
+export type VisualCompositionSchemaVersion =
+  | typeof VISUAL_COMPOSITION_SCHEMA
+  | typeof VISUAL_COMPOSITION_SCHEMA_PROJECTION
+  | typeof VISUAL_COMPOSITION_SCHEMA_LEGACY;
+
+export function isKnownVisualCompositionSchema(
+  v: unknown,
+): v is VisualCompositionSchemaVersion {
+  return (
+    v === VISUAL_COMPOSITION_SCHEMA ||
+    v === VISUAL_COMPOSITION_SCHEMA_PROJECTION ||
+    v === VISUAL_COMPOSITION_SCHEMA_LEGACY
+  );
+}
 
 export type VisualBlockKind =
   | "comparison"
@@ -132,6 +155,12 @@ export type ComparisonBlock = {
   provenance?: VisualProvenance[];
   role?: VisualSemanticRole;
   icon?: VisualIconId;
+  /** Optional lead under the title (Studio presentation). */
+  lead?: string;
+  /** Closing editorial note (Figma 03/04). */
+  editorialNote?: string;
+  /** When true, content is FIXTURE / DEMONSTRATION — never project fact. */
+  fixtureDemo?: boolean;
 };
 
 export type SequenceStep = {
@@ -143,6 +172,22 @@ export type SequenceStep = {
   role?: VisualSemanticRole;
 };
 
+export type SequenceTimelineTrack = {
+  id: string;
+  label: string;
+  /** 1-based inclusive week index. */
+  startWeek: number;
+  endWeek: number;
+  barLabel?: string;
+  tone?: "blue" | "violet" | "gold" | "teal";
+};
+
+export type SequenceTimeline = {
+  weeks: number;
+  caption?: string;
+  tracks: SequenceTimelineTrack[];
+};
+
 export type SequenceBlock = {
   kind: "sequence";
   id: string;
@@ -152,6 +197,12 @@ export type SequenceBlock = {
   provenance?: VisualProvenance[];
   role?: VisualSemanticRole;
   icon?: VisualIconId;
+  lead?: string;
+  headlineAccent?: string;
+  /** Fixture-only temporal illustration — never invent in live replies. */
+  timeline?: SequenceTimeline;
+  closingNote?: string;
+  fixtureDemo?: boolean;
 };
 
 export type RelationNodeKind =
@@ -166,13 +217,26 @@ export type RelationNode = {
   id: string;
   label: string;
   kind: RelationNodeKind;
+  /** Parallel lane / swimlane id when layoutHint=parallelProcess. */
+  laneId?: string;
+  detail?: string;
 };
+
+export type RelationEdgeKind =
+  | "depends_on"
+  | "condition_true"
+  | "condition_false"
+  | "sync"
+  | "flow";
 
 export type RelationEdge = {
   from: string;
   to: string;
   label?: string;
+  relation?: RelationEdgeKind;
 };
+
+export type RelationsLayoutHint = "dependencies" | "decisionTree" | "parallelProcess";
 
 export type RelationsBlock = {
   kind: "relations";
@@ -183,6 +247,8 @@ export type RelationsBlock = {
   textAlternative: string;
   provenance?: VisualProvenance[];
   preferListFallback?: boolean;
+  /** Directed family hint — C-10/11/12. */
+  layoutHint?: RelationsLayoutHint;
   role?: VisualSemanticRole;
   icon?: VisualIconId;
 };
@@ -204,6 +270,28 @@ export type SynthesisItem = {
   icon?: VisualIconId;
 };
 
+export type SynthesisIndicator = {
+  id: string;
+  value: string;
+  label: string;
+};
+
+export type SynthesisStrategyCard = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  summary: string;
+  positive?: string;
+  counterpart?: string;
+  accent?: "blue" | "gold";
+};
+
+export type SynthesisChecklistItem = {
+  id: string;
+  label: string;
+  detail: string;
+};
+
 export type SynthesisBlock = {
   kind: "synthesis";
   id: string;
@@ -213,6 +301,16 @@ export type SynthesisBlock = {
   provenance?: VisualProvenance[];
   role?: VisualSemanticRole;
   icon?: VisualIconId;
+  lead?: string;
+  /** Second headline line rendered in accent gold (Figma 01). */
+  headlineAccent?: string;
+  indicators?: SynthesisIndicator[];
+  strategyCards?: SynthesisStrategyCard[];
+  strategiesSectionTitle?: string;
+  checklistSectionTitle?: string;
+  checklist?: SynthesisChecklistItem[];
+  orientation?: string;
+  fixtureDemo?: boolean;
 };
 
 export type TextBlock = {
@@ -248,9 +346,18 @@ export type VisualBlock =
   | ChoicesAnchorBlock
   | ReferencesAnchorBlock;
 
+/**
+ * Strategy A (canonical sections): composition is the single semantic authority;
+ * replyDraft is derived. Legacy Strategy B projections keep independent replyDraft
+ * and require claim-subset fidelity before graphic presentation.
+ */
+export type CompositionContentAuthority = "canonical_sections" | "legacy_projection";
+
 export type VisualComposition = {
-  schemaVersion: typeof VISUAL_COMPOSITION_SCHEMA;
+  schemaVersion: VisualCompositionSchemaVersion;
   blocks: VisualBlock[];
+  /** Set by parse/validate — not agent-authored independently of schemaVersion. */
+  contentAuthority?: CompositionContentAuthority;
 };
 
 /**
@@ -298,6 +405,7 @@ const VisualIconAgentSchema = z.enum([
   "source",
 ]);
 
+/** Agent WRITE path — active projection schema only (F4). Legacy accepted on READ/parse. */
 export const VisualCompositionAgentOutputSchema = z.object({
   schemaVersion: z.literal(VISUAL_COMPOSITION_SCHEMA),
   blocks: z
@@ -325,7 +433,7 @@ export const VisualCompositionAgentOutputSchema = z.object({
                 cons: z.array(z.string().max(200)).max(4).optional(),
               }),
             )
-            .max(5),
+            .max(12),
           criteria: z
             .array(
               z.object({
@@ -337,6 +445,9 @@ export const VisualCompositionAgentOutputSchema = z.object({
             .max(6)
             .optional(),
           recommendation: z.string().max(800).nullable().optional(),
+          lead: z.string().max(800).optional(),
+          editorialNote: z.string().max(800).optional(),
+          fixtureDemo: z.boolean().optional(),
           provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
           role: VisualRoleAgentSchema.optional(),
           icon: VisualIconAgentSchema.optional(),
@@ -358,6 +469,28 @@ export const VisualCompositionAgentOutputSchema = z.object({
               }),
             )
             .max(8),
+          lead: z.string().max(800).optional(),
+          headlineAccent: z.string().max(200).optional(),
+          fixtureDemo: z.boolean().optional(),
+          closingNote: z.string().max(800).optional(),
+          timeline: z
+            .object({
+              weeks: z.number().int().min(2).max(16),
+              caption: z.string().max(400).optional(),
+              tracks: z
+                .array(
+                  z.object({
+                    id: z.string().max(64),
+                    label: z.string().max(120),
+                    startWeek: z.number().int().min(1).max(16),
+                    endWeek: z.number().int().min(1).max(16),
+                    barLabel: z.string().max(80).optional(),
+                    tone: z.enum(["blue", "violet", "gold", "teal"]).optional(),
+                  }),
+                )
+                .max(8),
+            })
+            .optional(),
           provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
           role: VisualRoleAgentSchema.optional(),
           icon: VisualIconAgentSchema.optional(),
@@ -367,6 +500,9 @@ export const VisualCompositionAgentOutputSchema = z.object({
           id: z.string().max(64),
           title: z.string().max(160),
           textAlternative: z.string().max(2000),
+          layoutHint: z
+            .enum(["dependencies", "decisionTree", "parallelProcess"])
+            .optional(),
           nodes: z
             .array(
               z.object({
@@ -380,18 +516,29 @@ export const VisualCompositionAgentOutputSchema = z.object({
                   "finding",
                   "observation",
                 ]),
+                laneId: z.string().max(64).optional(),
+                detail: z.string().max(400).optional(),
               }),
             )
-            .max(10),
+            .max(12),
           edges: z
             .array(
               z.object({
                 from: z.string().max(64),
                 to: z.string().max(64),
                 label: z.string().max(200).optional(),
+                relation: z
+                  .enum([
+                    "depends_on",
+                    "condition_true",
+                    "condition_false",
+                    "sync",
+                    "flow",
+                  ])
+                  .optional(),
               }),
             )
-            .max(16),
+            .max(20),
           preferListFallback: z.boolean().optional(),
           provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
           role: VisualRoleAgentSchema.optional(),
@@ -421,6 +568,46 @@ export const VisualCompositionAgentOutputSchema = z.object({
               }),
             )
             .max(8),
+          lead: z.string().max(800).optional(),
+          headlineAccent: z.string().max(200).optional(),
+          fixtureDemo: z.boolean().optional(),
+          orientation: z.string().max(800).optional(),
+          strategiesSectionTitle: z.string().max(200).optional(),
+          checklistSectionTitle: z.string().max(200).optional(),
+          indicators: z
+            .array(
+              z.object({
+                id: z.string().max(64),
+                value: z.string().max(40),
+                label: z.string().max(120),
+              }),
+            )
+            .max(6)
+            .optional(),
+          strategyCards: z
+            .array(
+              z.object({
+                id: z.string().max(64),
+                eyebrow: z.string().max(80),
+                title: z.string().max(160),
+                summary: z.string().max(400),
+                positive: z.string().max(200).optional(),
+                counterpart: z.string().max(200).optional(),
+                accent: z.enum(["blue", "gold"]).optional(),
+              }),
+            )
+            .max(4)
+            .optional(),
+          checklist: z
+            .array(
+              z.object({
+                id: z.string().max(64),
+                label: z.string().max(120),
+                detail: z.string().max(400),
+              }),
+            )
+            .max(8)
+            .optional(),
           provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
           role: VisualRoleAgentSchema.optional(),
           icon: VisualIconAgentSchema.optional(),
@@ -445,10 +632,10 @@ export type ParseVisualCompositionResult =
   | { ok: false; reason: string };
 
 const MAX_BLOCKS = 10;
-const MAX_ALTS = 5;
+const MAX_ALTS = 12;
 const MAX_STEPS = 8;
-const MAX_NODES = 10;
-const MAX_EDGES = 16;
+const MAX_NODES = 12;
+const MAX_EDGES = 20;
 const MAX_ITEMS = 8;
 const MAX_PROS_CONS = 4;
 const MAX_CRITERIA = 6;
@@ -732,6 +919,19 @@ function parseComparison(
   const provenance = parseProvenance(o.provenance, ctx);
   if (provenance === "FAIL") return null;
 
+  let lead: string | undefined;
+  const leadRaw = asString(o.lead);
+  if (leadRaw) {
+    lead = fit(leadRaw, MAX_STR, ctx) ?? undefined;
+    if (!lead) return null;
+  }
+  let editorialNote: string | undefined;
+  const noteRaw = asString(o.editorialNote);
+  if (noteRaw) {
+    editorialNote = fit(noteRaw, MAX_STR, ctx) ?? undefined;
+    if (!editorialNote) return null;
+  }
+
   return {
     kind: "comparison",
     id,
@@ -743,6 +943,9 @@ function parseComparison(
     provenance: provenance ?? undefined,
     role: parseRole(o.role) ?? "information",
     icon: parseIcon(o.icon),
+    lead,
+    editorialNote,
+    fixtureDemo: o.fixtureDemo === true ? true : undefined,
   };
 }
 
@@ -818,6 +1021,67 @@ function parseSequence(
   const provenance = parseProvenance(o.provenance, ctx);
   if (provenance === "FAIL") return null;
 
+  let lead: string | undefined;
+  const leadRaw = asString(o.lead);
+  if (leadRaw) {
+    lead = fit(leadRaw, MAX_STR, ctx) ?? undefined;
+    if (!lead) return null;
+  }
+  let headlineAccent: string | undefined;
+  const accentRaw = asString(o.headlineAccent);
+  if (accentRaw) {
+    headlineAccent = fit(accentRaw, MAX_TITLE, ctx) ?? undefined;
+    if (!headlineAccent) return null;
+  }
+  let closingNote: string | undefined;
+  const closeRaw = asString(o.closingNote);
+  if (closeRaw) {
+    closingNote = fit(closeRaw, MAX_STR, ctx) ?? undefined;
+    if (!closingNote) return null;
+  }
+
+  let timeline: SequenceTimeline | undefined;
+  if (o.timeline !== undefined && o.timeline !== null) {
+    if (typeof o.timeline !== "object" || Array.isArray(o.timeline)) return null;
+    const tl = o.timeline as Record<string, unknown>;
+    const weeks = typeof tl.weeks === "number" ? Math.round(tl.weeks) : NaN;
+    if (!Number.isFinite(weeks) || weeks < 2 || weeks > 16) return null;
+    if (!Array.isArray(tl.tracks) || tl.tracks.length < 1 || tl.tracks.length > 8) return null;
+    const tracks: SequenceTimelineTrack[] = [];
+    for (const raw of tl.tracks) {
+      if (!raw || typeof raw !== "object") return null;
+      const t = raw as Record<string, unknown>;
+      const tid = asString(t.id);
+      const labelRaw = asString(t.label);
+      const startWeek = typeof t.startWeek === "number" ? Math.round(t.startWeek) : NaN;
+      const endWeek = typeof t.endWeek === "number" ? Math.round(t.endWeek) : NaN;
+      if (!tid || !labelRaw || !Number.isFinite(startWeek) || !Number.isFinite(endWeek)) return null;
+      if (startWeek < 1 || endWeek < startWeek || endWeek > weeks) return null;
+      const idF = fit(tid, MAX_ID, ctx);
+      const label = fit(labelRaw, 120, ctx);
+      if (!idF || !label) return null;
+      let barLabel: string | undefined;
+      const barRaw = asString(t.barLabel);
+      if (barRaw) {
+        barLabel = fit(barRaw, 80, ctx) ?? undefined;
+        if (!barLabel) return null;
+      }
+      const toneRaw = asString(t.tone);
+      const tone =
+        toneRaw === "blue" || toneRaw === "violet" || toneRaw === "gold" || toneRaw === "teal"
+          ? toneRaw
+          : undefined;
+      tracks.push({ id: idF, label, startWeek, endWeek, barLabel, tone });
+    }
+    let caption: string | undefined;
+    const capRaw = asString(tl.caption);
+    if (capRaw) {
+      caption = fit(capRaw, 400, ctx) ?? undefined;
+      if (!caption) return null;
+    }
+    timeline = { weeks, caption, tracks };
+  }
+
   return {
     kind: "sequence",
     id,
@@ -827,6 +1091,11 @@ function parseSequence(
     provenance: provenance ?? undefined,
     role: parseRole(o.role) ?? "step",
     icon: parseIcon(o.icon),
+    lead,
+    headlineAccent,
+    timeline,
+    closingNote,
+    fixtureDemo: o.fixtureDemo === true ? true : undefined,
   };
 }
 
@@ -868,9 +1137,29 @@ function parseRelations(
     const label = fit(labelRaw, MAX_TITLE, ctx);
     if (!nidF || !label) return null;
     ids.add(nidF);
-    nodes.push({ id: nidF, label, kind });
+    let laneId: string | undefined;
+    const laneRaw = asString(n.laneId);
+    if (laneRaw) {
+      laneId = fit(laneRaw, MAX_ID, ctx) ?? undefined;
+      if (!laneId) return null;
+    }
+    let detail: string | undefined;
+    const detailRaw = asString(n.detail);
+    if (detailRaw) {
+      detail = fit(detailRaw, MAX_STR, ctx) ?? undefined;
+      if (!detail) return null;
+    }
+    nodes.push({ id: nidF, label, kind, laneId, detail });
   }
   if (nodes.length < 2) return null;
+
+  const EDGE_RELATIONS = new Set<RelationEdgeKind>([
+    "depends_on",
+    "condition_true",
+    "condition_false",
+    "sync",
+    "flow",
+  ]);
 
   const edges: RelationEdge[] = [];
   if (o.edges !== undefined && o.edges !== null) {
@@ -895,15 +1184,36 @@ function parseRelations(
         label = fit(labelRaw, 80, ctx) ?? undefined;
         if (!label) return null;
       }
-      edges.push({ from: fromF, to: toF, label });
+      let relation: RelationEdgeKind | undefined;
+      const relRaw = asString(e.relation) as RelationEdgeKind | null;
+      if (relRaw) {
+        if (!EDGE_RELATIONS.has(relRaw)) return null;
+        relation = relRaw;
+      }
+      edges.push({ from: fromF, to: toF, label, relation });
     }
   }
 
   const provenance = parseProvenance(o.provenance, ctx);
   if (provenance === "FAIL") return null;
 
-  const preferListFallback =
-    Boolean(o.preferListFallback) || nodes.length > 7 || edges.length > 10;
+  let layoutHint: RelationsLayoutHint | undefined;
+  const hintRaw = asString(o.layoutHint);
+  if (hintRaw) {
+    if (
+      hintRaw !== "dependencies" &&
+      hintRaw !== "decisionTree" &&
+      hintRaw !== "parallelProcess"
+    ) {
+      return null;
+    }
+    layoutHint = hintRaw;
+  }
+
+  // Prefer-list is author intent only. Density / narrow / ELK family thresholds
+  // are decided at admission (selectRelationsVariant) — do not bake legacy
+  // nodes>10 into the parsed block or ELK graphs (G09=11) silently become lists.
+  const preferListFallback = Boolean(o.preferListFallback) || undefined;
 
   return {
     kind: "relations",
@@ -914,6 +1224,7 @@ function parseRelations(
     textAlternative,
     provenance: provenance ?? undefined,
     preferListFallback,
+    layoutHint,
     role: parseRole(o.role) ?? "information",
     icon: parseIcon(o.icon),
   };
@@ -975,6 +1286,121 @@ function parseSynthesis(
   const provenance = parseProvenance(o.provenance, ctx);
   if (provenance === "FAIL") return null;
 
+  let lead: string | undefined;
+  const leadRaw = asString(o.lead);
+  if (leadRaw) {
+    lead = fit(leadRaw, MAX_STR, ctx) ?? undefined;
+    if (!lead) return null;
+  }
+  let headlineAccent: string | undefined;
+  const accentRaw = asString(o.headlineAccent);
+  if (accentRaw) {
+    headlineAccent = fit(accentRaw, MAX_TITLE, ctx) ?? undefined;
+    if (!headlineAccent) return null;
+  }
+  let orientation: string | undefined;
+  const orientRaw = asString(o.orientation);
+  if (orientRaw) {
+    orientation = fit(orientRaw, MAX_STR, ctx) ?? undefined;
+    if (!orientation) return null;
+  }
+  let strategiesSectionTitle: string | undefined;
+  const sstRaw = asString(o.strategiesSectionTitle);
+  if (sstRaw) {
+    strategiesSectionTitle = fit(sstRaw, MAX_TITLE, ctx) ?? undefined;
+    if (!strategiesSectionTitle) return null;
+  }
+  let checklistSectionTitle: string | undefined;
+  const cstRaw = asString(o.checklistSectionTitle);
+  if (cstRaw) {
+    checklistSectionTitle = fit(cstRaw, MAX_TITLE, ctx) ?? undefined;
+    if (!checklistSectionTitle) return null;
+  }
+
+  let indicators: SynthesisIndicator[] | undefined;
+  if (o.indicators !== undefined && o.indicators !== null) {
+    if (!Array.isArray(o.indicators) || o.indicators.length > 6) return null;
+    indicators = [];
+    for (const raw of o.indicators) {
+      if (!raw || typeof raw !== "object") return null;
+      const it = raw as Record<string, unknown>;
+      const iid = asString(it.id);
+      const valueRaw = asString(it.value);
+      const labelRaw = asString(it.label);
+      if (!iid || !valueRaw || !labelRaw) return null;
+      const iidF = fit(iid, MAX_ID, ctx);
+      const value = fit(valueRaw, 40, ctx);
+      const label = fit(labelRaw, 120, ctx);
+      if (!iidF || !value || !label) return null;
+      indicators.push({ id: iidF, value, label });
+    }
+    if (!indicators.length) indicators = undefined;
+  }
+
+  let strategyCards: SynthesisStrategyCard[] | undefined;
+  if (o.strategyCards !== undefined && o.strategyCards !== null) {
+    if (!Array.isArray(o.strategyCards) || o.strategyCards.length > 4) return null;
+    strategyCards = [];
+    for (const raw of o.strategyCards) {
+      if (!raw || typeof raw !== "object") return null;
+      const c = raw as Record<string, unknown>;
+      const cid = asString(c.id);
+      const eyebrowRaw = asString(c.eyebrow);
+      const titleRawC = asString(c.title);
+      const summaryRaw = asString(c.summary);
+      if (!cid || !eyebrowRaw || !titleRawC || !summaryRaw) return null;
+      const cidF = fit(cid, MAX_ID, ctx);
+      const eyebrow = fit(eyebrowRaw, 80, ctx);
+      const titleC = fit(titleRawC, MAX_TITLE, ctx);
+      const summary = fit(summaryRaw, MAX_STR, ctx);
+      if (!cidF || !eyebrow || !titleC || !summary) return null;
+      let positive: string | undefined;
+      const posRaw = asString(c.positive);
+      if (posRaw) {
+        positive = fit(posRaw, 200, ctx) ?? undefined;
+        if (!positive) return null;
+      }
+      let counterpart: string | undefined;
+      const ctrRaw = asString(c.counterpart);
+      if (ctrRaw) {
+        counterpart = fit(ctrRaw, 200, ctx) ?? undefined;
+        if (!counterpart) return null;
+      }
+      const accentRawC = asString(c.accent);
+      const accent = accentRawC === "blue" || accentRawC === "gold" ? accentRawC : undefined;
+      strategyCards.push({
+        id: cidF,
+        eyebrow,
+        title: titleC,
+        summary,
+        positive,
+        counterpart,
+        accent,
+      });
+    }
+    if (!strategyCards.length) strategyCards = undefined;
+  }
+
+  let checklist: SynthesisChecklistItem[] | undefined;
+  if (o.checklist !== undefined && o.checklist !== null) {
+    if (!Array.isArray(o.checklist) || o.checklist.length > 8) return null;
+    checklist = [];
+    for (const raw of o.checklist) {
+      if (!raw || typeof raw !== "object") return null;
+      const c = raw as Record<string, unknown>;
+      const cid = asString(c.id);
+      const labelRaw = asString(c.label);
+      const detailRaw = asString(c.detail);
+      if (!cid || !labelRaw || !detailRaw) return null;
+      const cidF = fit(cid, MAX_ID, ctx);
+      const label = fit(labelRaw, 120, ctx);
+      const detail = fit(detailRaw, MAX_STR, ctx);
+      if (!cidF || !label || !detail) return null;
+      checklist.push({ id: cidF, label, detail });
+    }
+    if (!checklist.length) checklist = undefined;
+  }
+
   return {
     kind: "synthesis",
     id,
@@ -984,6 +1410,15 @@ function parseSynthesis(
     provenance: provenance ?? undefined,
     role: parseRole(o.role) ?? "information",
     icon: parseIcon(o.icon),
+    lead,
+    headlineAccent,
+    indicators,
+    strategyCards,
+    strategiesSectionTitle,
+    checklistSectionTitle,
+    checklist,
+    orientation,
+    fixtureDemo: o.fixtureDemo === true ? true : undefined,
   };
 }
 
@@ -1072,9 +1507,10 @@ export function parseVisualCompositionDetailed(raw: unknown): ParseVisualComposi
     return { ok: false, reason: "VISUAL_COMPOSITION_INVALID_OR_EMPTY" };
   }
   const o = raw as Record<string, unknown>;
-  if (o.schemaVersion !== VISUAL_COMPOSITION_SCHEMA) {
+  if (!isKnownVisualCompositionSchema(o.schemaVersion)) {
     return { ok: false, reason: "VISUAL_COMPOSITION_SCHEMA_MISMATCH" };
   }
+  const schemaVersion = o.schemaVersion;
   if (!Array.isArray(o.blocks)) {
     return { ok: false, reason: "VISUAL_COMPOSITION_INVALID_OR_EMPTY" };
   }
@@ -1113,9 +1549,15 @@ export function parseVisualCompositionDetailed(raw: unknown): ParseVisualComposi
   if (!blocks.length) {
     return { ok: false, reason: "VISUAL_COMPOSITION_INVALID_OR_EMPTY" };
   }
+  // A3 — authority from durable schemaVersion only (never retrofit projection-v1 as A).
+  const contentAuthority: CompositionContentAuthority =
+    schemaVersion === VISUAL_COMPOSITION_SCHEMA
+      ? "canonical_sections"
+      : "legacy_projection";
   return {
     ok: true,
-    value: { schemaVersion: VISUAL_COMPOSITION_SCHEMA, blocks },
+    // Preserve historical schemaVersion; WRITE path = conversational-composition-canonical-v1.
+    value: { schemaVersion, blocks, contentAuthority },
   };
 }
 

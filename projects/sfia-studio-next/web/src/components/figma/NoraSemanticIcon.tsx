@@ -1,7 +1,11 @@
 "use client";
 
+import React from "react";
 import type { VisualIconId, VisualSemanticRole } from "@/domains/conversation/visual-composition";
 import { resolveVisualIcon } from "@/domains/conversation/visual-composition";
+
+// Keep React binding for classic JSX transforms (Vitest SSR / esbuild).
+void React;
 
 const LABELS: Record<VisualIconId, string> = {
   info: "Information",

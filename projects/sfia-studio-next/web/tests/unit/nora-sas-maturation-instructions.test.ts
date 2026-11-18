@@ -23,8 +23,8 @@ describe("Nora LIVE instructions — sas maturation (structural)", () => {
     expect(src).toContain("jamais un GO de création");
     expect(src).toContain("omets preparationAssessment");
     expect(src).toContain("questions encore ouvertes");
-    // Single agent / single outputType — no second LLM for aperçu.
-    expect(src).toContain("outputType: NoraTurnQualificationSchema");
+    // Single agent / single outputType — Agents SDK schema (no second LLM for aperçu).
+    expect(src).toContain("outputType: NoraTurnQualificationAgentSchema");
     const maturationBlocks = src.split("MATURATION DU SAS").length - 1;
     expect(maturationBlocks).toBe(1);
   });
