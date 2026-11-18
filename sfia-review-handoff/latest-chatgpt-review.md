@@ -1,15 +1,14 @@
-# SFIA Review Pack FULL — Correction intégrée composition conversationnelle Nora
-**Date/heure :** 2026-11-18T02:27:41+01:00
-**Cycle :** Delivery / RUN correctif Critical — levée STOP ChatGPT composition adaptative
-**GO :** mandat construction locale existant + corrections (pas push produit / PR / merge / RECETTE / STABLE / LIVE)
-**Branche technique locale :** `sfia/next-ml4d-composition-adaptative`
-**HEAD tip (commits) :** `a783f014935de0dec5ff8e79a2b18eea0e629756`
-**Working tree :** corrections non commitées
+# SFIA Review Pack FULL — Convergence composition conversationnelle Nora
+**Date/heure :** 2026-11-18T03:19:15+01:00
+**Cycle :** Delivery / EVOL Critical — convergence doc 06 (C-01–C-22)
+**GO Morris :** 18/11/2026 exécution confirmée (« ok go »)
+**Branche :** `sfia/next-ml4d-composition-adaptative`
+**HEAD tip :** `a783f014935de0dec5ff8e79a2b18eea0e629756` (+ WT non commitée)
 **origin/main :** `997d4c4e8204993de7107552898c8cc08cd3b0ed`
-**Handoff source cycle précédent :** `71ecf87d` / blob `47606b6b…`
-**Docs ML4D :** `c9e6fe15` (consulté, non mergé)
-**Review Pack :** Full — réinitialisé intégralement (aucun append)
-**Handoff :** required / publish-in-cycle
+**Docs ML4D :** `37915d8e` (doc 06 inclus)
+**Handoff précédent :** `eb8f6a01` / blob `1d9f9390…`
+**Review Pack :** Full — réinitialisé (aucun append)
+**ENV :** DEV only · **NO RELEASE** · pas push produit / PR / merge / RECETTE / LIVE
 
 ---
 
@@ -17,101 +16,242 @@
 
 | Check | Résultat |
 | --- | --- |
-| Branche | `sfia/next-ml4d-composition-adaptative` (locale, non poussée) |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` non poussée |
 | HEAD | `a783f014` |
-| origin/main | `997d4c4e` |
-| Handoff avant cycle | `71ecf87d` / blob `47606b6b48452f0384c27ab89102aaf367fa335b` |
-| Divergence locale vs handoff | code WT présent et cohérent avec pack précédent + correctifs A–F |
+| merge-base origin/main | `997d4c4e` |
+| Handoff distant avant | `eb8f6a01` / `1d9f9390fb483535bdec1b570d71aef1ec9856d9` |
+| Docs tip | `37915d8e` |
+| STOP divergence | non |
 | Mutations destructives | aucune |
-| STOP LOCAL CANDIDATE DIVERGENCE | **non déclenché** |
 
-Fichiers cycle (M/A) : `NoraComposition.tsx`, `conversational-composition/*`, `NoraConversation.tsx`, `NoraVisualComposition.tsx` (alias), `tokens.css`, `ensemble05-travail-nora.spec.ts`, evidence CV-T/Figma, `delivery-history.md`, pack.
+WT contient le socle correctif précédent + mutations convergence (C-04/05/10–12/14).
 
 ---
 
 ## 2. Sources
 
 - SFIA v2.6 routing / operating model / guardrails (main)
-- Next SEF / ENV-01 / versioning / décisions R5 / cadrage R4 (main)
-- Contrats ML4D 01–05 @ `c9e6fe15` (CANDIDATE — non promus)
-- Handoff `71ecf87d` comme source de revue
-- Doctrine v3 framing 30/33/34/35 + CKC 08 (lecture)
+- Next SEF, ENV-01, versioning, décisions R5 (main)
+- Doc 06 @ `37915d8e` (CANDIDATE — non promu)
+- Handoff `eb8f6a01` comme baseline revue
+- Doctrine 30/33/34/35 (lecture)
 
 ---
 
-## 3. État précédent et causes
+## 3. Architecture retenue
 
-Verdict Cursor antérieur : READY WITH RESERVES.
-Verdict ChatGPT : **STOP — CORRECTIONS REQUIRED BEFORE DELIVERY GATE**.
+**Strategy B renforcée (C-04) :**
+- replyDraft = vérité canonique
+- graphiques : **jamais** `substitute`
+- `complement` seulement si ancres de projection ⊆ replyDraft (déterministe)
+- sinon `markdown_only` (visuel refusé — pas de double trompeur)
 
-Défauts A–F confirmés dans le code local (ComparisonView masquait substance en matrix ; RelationsView SVG coords fixes ; `slice(0,400)` ; body substitute sans politique ; capacités surévaluées ; ACK non qualifiés ; tsc non inventorié).
+**C-05 :** schema d'écriture `conversational-composition-projection-v1` ; lecture duale `e05-visual-composition-v1`.
 
----
+**C-10/11/12 :** `layoutHint` + rendu CSS dirigé (deps / decisionTree / parallelProcess). ELK/RF **non** introduits (pas de nouvelle dépendance npm).
 
-## 4. Corrections A–F
+**C-14 :** `MAX_ALTS=12` (8 admis ; 18 refuse).
 
-### A — Comparaisons / matrices
-`ComparisonView` : variante `matrix` affiche la table **et** un bloc `nora-composition-matrix-details` avec title/summary/pros/cons pour chaque alternative (pas sr-only). Cartes/stacked inchangés. Caption table visible.
-
-### B — Relations
-SVG à coordonnées fixes **retiré**. `selectRelationsVariant` → `list` uniquement (`CV_RELATIONS_SVG_DEFERRED`). Affichage : libellés humains + arêtes `source → cible` ; plus d'exposition de `n.kind` brut au Pilote.
-
-### C — Repli
-`buildExhaustiveBlockFallback` : reconstruction complète sans troncature ; `textAltFor` l'utilise (plus de `slice(0,400)`). ErrorBoundary conserve ce texte.
-
-### D — Strategy B / vérité
-`bodyPolicy` : `substitute` | `complement` | `markdown_only`.
-- substitute = complétude structurelle de projection + ownsBody (réserve explicite : **≠ preuve d'identité replyDraft**)
-- NoraConversation respecte la policy (complement = replyDraft + composition)
-
-### E — Capacités
-`capacityNotes` : `CV_WIRE_MAX_ALTS_5`, `CV_DECISION_PATHS_PARALLEL_NOT_DISTINCT_V1`. CV-T05 prouve parse→null pour 8 alts.
-
-### F — ACK
-Rejeu tip clean `a783f014` (worktree détaché, sans WT composition) : **mêmes 2 FAIL** → **PREEXISTING PROVEN**. Propriétaire : parcours R05/idempotence. Non corrigé à l'aveugle.
+**Écarté :** Strategy A sections D3 (pas de pivot structurant sans STOP) ; similarité heuristique ; SVG coords fixes.
 
 ---
 
-## 5. Design retenu / écartés
+## 4. Matrice C-01–C-22
 
-Retenu : Strategy B + list relations + matrix+details + bodyPolicy.
-Écarté : Strategy A silencieuse ; ELK/RF (disproportionné pour correctif) ; svg_simple ; similarité replyDraft approximative.
+# Matrice C-01–C-22 — statut après cycle convergence (2026-11-18)
+
+**Branche :** `sfia/next-ml4d-composition-adaptative` @ `a783f014` + WT
+**Docs 06 ref :** `origin/docs/next-ml4d-registre-revues-20261116` @ `37915d8e`
+
+| ID | Statut sortie | Niveau | Preuve |
+| --- | --- | --- | --- |
+| C-01 | PARTIAL | UNIT/BROWSER | Blocs hétérogènes ; LIVE pertinence NOT RUN |
+| C-02 | PASS (code) | BROWSER T02 | Un message, multi-blocs |
+| C-03 | PASS | ARCH | admission + NoraComposition, pas de 2e agent |
+| C-04 | PASS | UNIT | substitute interdit pour graphiques ; complement seulement si ancres dans replyDraft ; sinon markdown_only |
+| C-05 | PARTIAL | UNIT | Write schema `conversational-composition-projection-v1` ; lecture duale e05 ; adapter prompt mis à jour |
+| C-06 | PASS (compat) | UNIT | legacy e05 parse préservé |
+| C-07 | PASS | UNIT/BROWSER | markdown_only / texte simple |
+| C-08 | PARTIAL | UNIT+BROWSER | matrice+détails ; T02 cards |
+| C-09 | PARTIAL | BROWSER T02 | séquence 4 étapes |
+| C-10 | PARTIAL | UNIT+BROWSER | directed CSS dependencies ; T02 layoutHint=dependencies |
+| C-11 | PARTIAL | UNIT | decisionTree family+layout ; BROWSER Figma 08 NOT RUN dédié |
+| C-12 | PARTIAL | UNIT | parallelProcess family+layout ; BROWSER Figma 09 NOT RUN dédié |
+| C-13 | DIFFÉRÉ | — | conforme |
+| C-14 | PARTIAL | UNIT | MAX_ALTS=12 ; 8 OK ; 18 refuse |
+| C-15 | PARTIAL | CODE | container queries ; zoom/split NOT RUN |
+| C-16 | PARTIAL | legacy | droits/choix — non régressé intentionnellement |
+| C-17 | PARTIAL | UNIT | exhaustive fallback ; inject BROWSER NOT RUN |
+| C-18 | NON PROUVÉ | — | jugement Figma global |
+| C-19 | PARTIAL | — | ACK PREEXISTING PROVEN (cycle antérieur) |
+| C-20 | PARTIAL | — | Vitest 63+ composition ; CV-T partiel |
+| C-21 | NOT RUN | LIVE | hors mandat |
+| C-22 | GATE | — | pas de promotion |
+
+## Architecture M1 retenue
+
+Strategy B renforcée C-04 : replyDraft canonique ; graphiques en **complement** uniquement après alignement déterministe des ancres ; jamais substitute graphique.
+Schema actif d'écriture : `conversational-composition-projection-v1`.
+ELK/React Flow : non introduits (layout CSS dirigé suffisant pour V1 mesurée).
+
 
 ---
 
-## 6–8. Fichiers et contenus
+## 5. Carte E05
 
-### 6.1 `conversational-composition/index.ts`
+| Élément | Classe |
+| --- | --- |
+| parse e05 historique | CONSERVER (compat) |
+| schema write projection-v1 | REMPLACER (écriture active) |
+| NoraComposition | CONSERVER / ÉTENDRE |
+| NoraVisualComposition alias | COMPATIBILITÉ |
+| visual-composition MAX_ALTS/layoutHint | REMPLACER borné |
+| nora-adapter prompt schema | REMPLACER (write path) |
+| semantic-qualification.ts | NON MODIFIÉ (importe schema agent mis à jour via visual-composition) |
+| DB / migrations | AUCUNE |
+
+---
+
+## 6. Fichiers nouveaux (complets)
+
+### fidelity.ts
 
 ```ts
 /**
- * Conversational composition — Studio presentation subsystem.
- * Product responsibility: adaptive restitution of Nora replies.
- * Wire format today: validated `e05-visual-composition-v1` (COMPATIBILITÉ BORNÉE).
- * Presentation contract: `conversational-composition-v1` admission (CV-*).
+ * Deterministic canonical-fidelity gates for conversational composition (C-04).
+ * Never claims full semantic equality with replyDraft.
+ * Refuses body substitution / misleading complement when alignment cannot be shown.
  */
 
-export {
-  CONVERSATIONAL_COMPOSITION_CONTRACT,
-  admitConversationalComposition,
-  buildExhaustiveBlockFallback,
-  projectionSubstanceRenderComplete,
-  selectComparisonVariant,
-  selectSequenceVariant,
-  selectRelationsVariant,
-  type AdmissionContext,
-  type AdmissionResult,
-  type AdmittedBlock,
-  type BodyPresentationPolicy,
-  type ComparisonVariant,
-  type CompositionFamily,
-  type RelationsVariant,
-  type SequenceVariant,
-} from "./admission";
+import type { VisualComposition } from "@/domains/conversation/visual-composition";
+import { hasGraphicBlocks } from "@/domains/conversation/visual-composition";
+
+function normalize(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Significant labels that must appear in the canonical reply when graphics are shown. */
+export function extractProjectionAnchors(composition: VisualComposition): string[] {
+  const anchors: string[] = [];
+  for (const block of composition.blocks) {
+    if (block.kind === "comparison") {
+      for (const a of block.alternatives) {
+        if (a.title.trim()) anchors.push(a.title);
+      }
+    } else if (block.kind === "sequence") {
+      for (const s of block.steps) {
+        if (s.title.trim()) anchors.push(s.title);
+      }
+    } else if (block.kind === "relations") {
+      for (const n of block.nodes) {
+        if (n.label.trim()) anchors.push(n.label);
+      }
+    } else if (block.kind === "synthesis") {
+      for (const it of block.items) {
+        if (it.label.trim()) anchors.push(it.label);
+      }
+    }
+  }
+  return anchors;
+}
+
+/**
+ * True when every projection anchor appears as a substring of canonical text.
+ * Missing canonical text → not aligned (cannot prove).
+ */
+export function projectionAnchorsAlignWithCanonical(
+  composition: VisualComposition,
+  canonicalText: string | null | undefined,
+): { aligned: boolean; missing: string[]; reasonCodes: string[] } {
+  const reasons: string[] = [];
+  const canon = typeof canonicalText === "string" ? normalize(canonicalText) : "";
+  if (!canon) {
+    reasons.push("CV_FIDELITY_NO_CANONICAL_TEXT");
+    return { aligned: false, missing: extractProjectionAnchors(composition), reasonCodes: reasons };
+  }
+  const missing: string[] = [];
+  for (const raw of extractProjectionAnchors(composition)) {
+    const a = normalize(raw);
+    if (a.length < 2) continue;
+    if (!canon.includes(a)) missing.push(raw);
+  }
+  if (missing.length) {
+    reasons.push("CV_FIDELITY_ANCHOR_MISSING_IN_CANONICAL");
+    return { aligned: false, missing, reasonCodes: reasons };
+  }
+  reasons.push("CV_FIDELITY_ANCHORS_PRESENT_IN_CANONICAL");
+  return { aligned: true, missing: [], reasonCodes: reasons };
+}
+
+/**
+ * Detect crude numeric / recommendation contradictions (deterministic heuristics).
+ * Not a full semantic proof — only a fail-closed refusal signal.
+ */
+export function detectCrudeContradictions(
+  composition: VisualComposition,
+  canonicalText: string | null | undefined,
+): string[] {
+  const reasons: string[] = [];
+  const canon = typeof canonicalText === "string" ? normalize(canonicalText) : "";
+  if (!canon || !hasGraphicBlocks(composition)) return reasons;
+
+  for (const block of composition.blocks) {
+    if (block.kind !== "comparison" || !block.recommendation) continue;
+    const rec = normalize(block.recommendation);
+    // If recommendation names an alternative title that is absent from canonical, refuse.
+    for (const alt of block.alternatives) {
+      const t = normalize(alt.title);
+      if (t.length >= 2 && rec.includes(t) && !canon.includes(t)) {
+        reasons.push("CV_FIDELITY_RECOMMENDATION_OPTION_ABSENT_FROM_CANONICAL");
+      }
+    }
+  }
+
+  // Digits present only in projection structured fields (criteria values) but not in canonical.
+  for (const block of composition.blocks) {
+    if (block.kind !== "comparison" || !block.criteria) continue;
+    for (const c of block.criteria) {
+      for (const v of Object.values(c.values)) {
+        const nums = v.match(/\d+(?:[.,]\d+)?/g) ?? [];
+        for (const n of nums) {
+          if (n.length >= 2 && !canon.includes(n) && !canon.includes(n.replace(",", "."))) {
+            reasons.push("CV_FIDELITY_NUMERIC_VALUE_ABSENT_FROM_CANONICAL");
+            return reasons;
+          }
+        }
+      }
+    }
+  }
+  return reasons;
+}
+
+export function mayPresentGraphicComposition(
+  composition: VisualComposition,
+  canonicalText: string | null | undefined,
+): { ok: boolean; reasonCodes: string[]; missing: string[] } {
+  if (!hasGraphicBlocks(composition)) {
+    return { ok: true, reasonCodes: ["CV_FIDELITY_NARRATIVE_ONLY"], missing: [] };
+  }
+  const align = projectionAnchorsAlignWithCanonical(composition, canonicalText);
+  const crude = detectCrudeContradictions(composition, canonicalText);
+  if (!align.aligned || crude.length) {
+    return {
+      ok: false,
+      reasonCodes: [...align.reasonCodes, ...crude, "CV_FIDELITY_REFUSE_GRAPHIC_PRESENTATION"],
+      missing: align.missing,
+    };
+  }
+  return { ok: true, reasonCodes: align.reasonCodes, missing: [] };
+}
 
 ```
 
-### 6.2 `conversational-composition/admission.ts`
+### admission.ts
 
 ```ts
 /**
@@ -128,22 +268,25 @@ import {
   compositionOwnsBody,
   hasGraphicBlocks,
 } from "@/domains/conversation/visual-composition";
+import { mayPresentGraphicComposition } from "./fidelity";
 
 export const CONVERSATIONAL_COMPOSITION_CONTRACT = "conversational-composition-v1" as const;
 
-/** Families actually delivered in V1 (others are NOT claimed). */
+/** Families delivered when wire+layout support them. */
 export type CompositionFamily =
   | "narrative"
   | "comparison"
   | "sequence"
   | "dependencies"
+  | "decisionPaths"
+  | "parallelProcess"
   | "references"
   | "choices";
 
 export type ComparisonVariant = "cards" | "matrix" | "stacked" | "text";
 export type SequenceVariant = "horizontal" | "vertical" | "text";
-/** svg_simple deferred — fixed-coordinate SVG is not fidelity-safe in V1. */
-export type RelationsVariant = "list" | "text";
+/** Directed layouts + exhaustive list fallback (no fixed-coordinate SVG). */
+export type RelationsVariant = "directed" | "list" | "text";
 
 /**
  * substitute — composition may replace replyDraft body (structural completeness only).
@@ -173,6 +316,8 @@ export type AdmissionResult = {
 export type AdmissionContext = {
   /** Effective Travail conversation column width when known. */
   containerWidthPx?: number | null;
+  /** Canonical replyDraft / message content — required for graphic presentation (C-04). */
+  canonicalText?: string | null;
 };
 
 function labelLen(s: string | undefined): number {
@@ -256,14 +401,15 @@ export function selectSequenceVariant(
 }
 
 /**
- * Relations: structured list (or text) only.
- * Fixed-coordinate SVG is not fidelity-safe — CV-T07/08/09 must not PASS on SVG alone.
+ * Relations: directed CSS layout when layoutHint + envelope allow; else exhaustive list.
+ * Fixed-coordinate SVG remains forbidden.
  */
 export function selectRelationsVariant(
   block: Extract<VisualBlock, { kind: "relations" }>,
-  _widthPx: number | null,
+  widthPx: number | null,
 ): { variant: RelationsVariant; reasonCodes: string[] } {
   const nodes = block.nodes.length;
+  const edges = block.edges.length;
   const reasons: string[] = [];
   if (nodes === 0) {
     reasons.push("CV_RELATIONS_EMPTY");
@@ -275,8 +421,28 @@ export function selectRelationsVariant(
     reasons.push("CV_RELATIONS_ORPHAN_EDGE");
     return { variant: "list", reasonCodes: reasons };
   }
+  if (block.preferListFallback) {
+    reasons.push("CV_RELATIONS_PREFER_LIST");
+    return { variant: "list", reasonCodes: reasons };
+  }
+  const dense = nodes > 10 || edges > 14;
+  const narrow = widthPx != null && widthPx < 520;
+  const longLabels = block.nodes.some((n) => (n.label?.length ?? 0) > 80);
+  if (dense || narrow || longLabels) {
+    reasons.push(
+      dense
+        ? "CV_RELATIONS_DENSE_LIST"
+        : narrow
+          ? "CV_RELATIONS_NARROW_LIST"
+          : "CV_RELATIONS_LONG_LABEL_LIST",
+    );
+    return { variant: "list", reasonCodes: reasons };
+  }
+  if (block.layoutHint || edges > 0) {
+    reasons.push("CV_RELATIONS_DIRECTED_LAYOUT");
+    return { variant: "directed", reasonCodes: reasons };
+  }
   reasons.push("CV_RELATIONS_STRUCTURED_LIST");
-  reasons.push("CV_RELATIONS_SVG_DEFERRED");
   return { variant: "list", reasonCodes: reasons };
 }
 
@@ -287,6 +453,8 @@ function familyFor(block: VisualBlock): CompositionFamily {
     case "sequence":
       return "sequence";
     case "relations":
+      if (block.layoutHint === "decisionTree") return "decisionPaths";
+      if (block.layoutHint === "parallelProcess") return "parallelProcess";
       return "dependencies";
     case "synthesis":
     case "text":
@@ -421,33 +589,42 @@ export function projectionSubstanceRenderComplete(composition: VisualComposition
   );
 }
 
+/**
+ * C-04 — graphic compositions never substitute the canonical body.
+ * They may complement only when deterministic anchor alignment passes.
+ * Otherwise markdown_only (visual refused — no misleading dual presentation).
+ */
 function decideBodyPolicy(
   composition: VisualComposition,
   ownsBody: boolean,
-  admitted: AdmittedBlock[],
+  _admitted: AdmittedBlock[],
   fallbackReasons: string[],
+  canonicalText: string | null | undefined,
 ): BodyPresentationPolicy {
   if (!ownsBody) return "markdown_only";
-  // Any forced text-capacity variant → still OK if exhaustive fallback exists,
-  // but prefer complement when admission itself flagged narrative-only without graphics.
-  if (fallbackReasons.includes("CV_NARRATIVE_ONLY")) {
+
+  const narrativeOnly = fallbackReasons.includes("CV_NARRATIVE_ONLY");
+  if (narrativeOnly && !hasGraphicBlocks(composition)) {
     return "substitute";
   }
+
   if (!projectionSubstanceRenderComplete(composition)) {
     fallbackReasons.push("CV_BODY_SUBSTANCE_INCOMPLETE");
-    return "complement";
+    return "markdown_only";
   }
-  // Unreliable graphic variants must not substitute (svg deferred already).
-  const unsafe = admitted.some(
-    (a) => a.block.kind === "relations" && a.variant === "svg_simple",
-  );
-  if (unsafe) {
-    fallbackReasons.push("CV_BODY_UNSAFE_RELATIONS_VARIANT");
-    return "complement";
+
+  if (!hasGraphicBlocks(composition)) {
+    return "substitute";
   }
-  // Structural completeness of projection ≠ replyDraft identity (KNOWN RESERVE).
-  fallbackReasons.push("CV_BODY_STRUCTURAL_SUBSTITUTE_NOT_REPLYDRAFT_PROOF");
-  return "substitute";
+
+  const fidelity = mayPresentGraphicComposition(composition, canonicalText);
+  fallbackReasons.push(...fidelity.reasonCodes);
+  if (!fidelity.ok) {
+    return "markdown_only";
+  }
+  // Aligned graphics: show canonical text + structured complement (never mask).
+  fallbackReasons.push("CV_BODY_GRAPHIC_COMPLEMENT_ONLY");
+  return "complement";
 }
 
 /**
@@ -482,10 +659,8 @@ export function admitConversationalComposition(
     fallbackReasons.push("CV_NARRATIVE_ONLY");
   }
 
-  // Wire capacity honesty (e05 MAX_ALTS=5) — graphic 8–18 is NOT claimed.
-  capacityNotes.push("CV_WIRE_MAX_ALTS_5");
-  capacityNotes.push("CV_RELATIONS_FAMILY_DEPENDENCIES_ONLY");
-  capacityNotes.push("CV_DECISION_PATHS_PARALLEL_NOT_DISTINCT_V1");
+  capacityNotes.push("CV_WIRE_MAX_ALTS_12");
+  capacityNotes.push("CV_SCHEMA_DUAL_READ_E05_AND_PROJECTION_V1");
 
   const admitted: AdmittedBlock[] = [];
   for (const block of composition.blocks) {
@@ -513,7 +688,13 @@ export function admitConversationalComposition(
     });
   }
 
-  const bodyPolicy = decideBodyPolicy(composition, ownsBody, admitted, fallbackReasons);
+  const bodyPolicy = decideBodyPolicy(
+    composition,
+    ownsBody,
+    admitted,
+    fallbackReasons,
+    ctx.canonicalText,
+  );
 
   return {
     contract: CONVERSATIONAL_COMPOSITION_CONTRACT,
@@ -528,7 +709,44 @@ export function admitConversationalComposition(
 
 ```
 
-### 6.3 `NoraComposition.tsx`
+### index.ts
+
+```ts
+/**
+ * Conversational composition — Studio presentation subsystem.
+ * Product responsibility: adaptive restitution of Nora replies.
+ * Wire format today: validated `e05-visual-composition-v1` (COMPATIBILITÉ BORNÉE).
+ * Presentation contract: `conversational-composition-v1` admission (CV-*).
+ */
+
+export {
+  CONVERSATIONAL_COMPOSITION_CONTRACT,
+  admitConversationalComposition,
+  buildExhaustiveBlockFallback,
+  projectionSubstanceRenderComplete,
+  selectComparisonVariant,
+  selectSequenceVariant,
+  selectRelationsVariant,
+  type AdmissionContext,
+  type AdmissionResult,
+  type AdmittedBlock,
+  type BodyPresentationPolicy,
+  type ComparisonVariant,
+  type CompositionFamily,
+  type RelationsVariant,
+  type SequenceVariant,
+} from "./admission";
+
+export {
+  extractProjectionAnchors,
+  mayPresentGraphicComposition,
+  projectionAnchorsAlignWithCanonical,
+  detectCrudeContradictions,
+} from "./fidelity";
+
+```
+
+### NoraComposition.tsx
 
 ```tsx
 "use client";
@@ -883,6 +1101,212 @@ function SequenceView({
   );
 }
 
+function relationRole(
+  kind: RelationsBlock["nodes"][number]["kind"],
+): TextBlock["role"] {
+  if (kind === "hypothesis") return "hypothesis";
+  if (kind === "observation") return "observation";
+  if (kind === "fact" || kind === "finding") return "fact";
+  return "information";
+}
+
+function RelationsListFallback({
+  block,
+  titleById,
+}: {
+  block: RelationsBlock;
+  titleById: Map<string, string>;
+}) {
+  return (
+    <>
+      <ul className="fig-visual-relations-list fig-comp-relations-list">
+        {block.nodes.map((n) => (
+          <li key={n.id} data-node-id={n.id}>
+            <NoraSemanticIcon role={relationRole(n.kind)} />
+            <span className="fig-comp-relations-label">{n.label}</span>
+            {n.detail ? <span className="fig-comp-relations-detail"> — {n.detail}</span> : null}
+          </li>
+        ))}
+      </ul>
+      {block.edges.length ? (
+        <ul
+          className="fig-visual-relations-edges fig-comp-relations-edges"
+          data-testid="nora-composition-relations-edges"
+        >
+          {block.edges.map((e, i) => (
+            <li key={`${e.from}-${e.to}-${i}`}>
+              {titleById.get(e.from) ?? e.from} → {titleById.get(e.to) ?? e.to}
+              {e.relation ? ` [${e.relation}]` : ""}
+              {e.label ? ` (${e.label})` : ""}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </>
+  );
+}
+
+/** C-10/11/12 — CSS directed layout (no fixed SVG coordinates, no ELK dependency). */
+function RelationsDirectedView({
+  block,
+  titleById,
+}: {
+  block: RelationsBlock;
+  titleById: Map<string, string>;
+}) {
+  const hint = block.layoutHint ?? "dependencies";
+
+  if (hint === "parallelProcess") {
+    const lanes = new Map<string, typeof block.nodes>();
+    for (const n of block.nodes) {
+      const lane = n.laneId?.trim() || "voie";
+      const list = lanes.get(lane) ?? [];
+      list.push(n);
+      lanes.set(lane, list);
+    }
+    const syncEdges = block.edges.filter((e) => e.relation === "sync");
+    return (
+      <div
+        className="fig-comp-parallel"
+        data-testid="nora-composition-parallel"
+        data-layout-hint="parallelProcess"
+      >
+        <div className="fig-comp-parallel-lanes">
+          {[...lanes.entries()].map(([lane, nodes]) => (
+            <section key={lane} className="fig-comp-parallel-lane" data-lane={lane}>
+              <h4 className="fig-comp-parallel-lane-title">{lane}</h4>
+              <ol className="fig-comp-parallel-tasks">
+                {nodes.map((n) => (
+                  <li key={n.id} data-node-id={n.id}>
+                    <NoraSemanticIcon role={relationRole(n.kind)} />
+                    <span className="fig-comp-relations-label">{n.label}</span>
+                    {n.detail ? (
+                      <span className="fig-comp-relations-detail"> — {n.detail}</span>
+                    ) : null}
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
+        </div>
+        {syncEdges.length ? (
+          <p className="fig-comp-parallel-sync" data-testid="nora-composition-parallel-sync">
+            Convergence / sync :{" "}
+            {syncEdges
+              .map(
+                (e) =>
+                  `${titleById.get(e.from) ?? e.from} ↔ ${titleById.get(e.to) ?? e.to}${
+                    e.label ? ` (${e.label})` : ""
+                  }`,
+              )
+              .join(" ; ")}
+          </p>
+        ) : null}
+        <p className="fig-comp-authority-note">
+          La convergence graphique n&apos;enregistre aucune décision humaine ni validation.
+        </p>
+      </div>
+    );
+  }
+
+  if (hint === "decisionTree") {
+    const children = new Map<string, typeof block.edges>();
+    const targets = new Set(block.edges.map((e) => e.to));
+    for (const e of block.edges) {
+      const list = children.get(e.from) ?? [];
+      list.push(e);
+      children.set(e.from, list);
+    }
+    const roots = block.nodes.filter((n) => !targets.has(n.id));
+    const renderBranch = (nodeId: string, depth: number): ReactNode => {
+      const node = block.nodes.find((n) => n.id === nodeId);
+      if (!node) return null;
+      const outs = children.get(nodeId) ?? [];
+      return (
+        <li key={nodeId} data-node-id={nodeId} data-depth={depth}>
+          <div className="fig-comp-tree-node">
+            <NoraSemanticIcon role={relationRole(node.kind)} />
+            <span className="fig-comp-relations-label">{node.label}</span>
+            {node.detail ? (
+              <span className="fig-comp-relations-detail"> — {node.detail}</span>
+            ) : null}
+          </div>
+          {outs.length ? (
+            <ul className="fig-comp-tree-branches">
+              {outs.map((e) => (
+                <li key={`${e.from}-${e.to}`} data-relation={e.relation ?? "flow"}>
+                  <span className="fig-comp-tree-condition">
+                    {e.relation === "condition_true"
+                      ? "Si oui"
+                      : e.relation === "condition_false"
+                        ? "Si non"
+                        : e.label || "puis"}
+                    {e.label && e.relation?.startsWith("condition") ? ` — ${e.label}` : null}
+                  </span>
+                  <ul>{renderBranch(e.to, depth + 1)}</ul>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </li>
+      );
+    };
+    return (
+      <div
+        className="fig-comp-tree"
+        data-testid="nora-composition-decision-tree"
+        data-layout-hint="decisionTree"
+      >
+        <ul className="fig-comp-tree-root">
+          {(roots.length ? roots : block.nodes.slice(0, 1)).map((n) => renderBranch(n.id, 0))}
+        </ul>
+        <p className="fig-comp-authority-note">
+          Les branches conditionnelles sont des propositions de lecture — aucune HumanDecision
+          n&apos;est créée.
+        </p>
+      </div>
+    );
+  }
+
+  // dependencies (default directed)
+  return (
+    <div
+      className="fig-comp-deps"
+      data-testid="nora-composition-dependencies"
+      data-layout-hint="dependencies"
+    >
+      <ol className="fig-comp-deps-nodes">
+        {block.nodes.map((n) => (
+          <li key={n.id} className="fig-comp-deps-node" data-node-id={n.id}>
+            <NoraSemanticIcon role={relationRole(n.kind)} />
+            <div>
+              <div className="fig-comp-relations-label">{n.label}</div>
+              {n.detail ? <div className="fig-comp-relations-detail">{n.detail}</div> : null}
+            </div>
+          </li>
+        ))}
+      </ol>
+      {block.edges.length ? (
+        <ul
+          className="fig-comp-deps-edges"
+          data-testid="nora-composition-relations-edges"
+        >
+          {block.edges.map((e, i) => (
+            <li key={`${e.from}-${e.to}-${i}`}>
+              <span className="fig-comp-deps-from">{titleById.get(e.from) ?? e.from}</span>
+              <span className="fig-comp-deps-arrow" aria-hidden>
+                →
+              </span>
+              <span className="fig-comp-deps-to">{titleById.get(e.to) ?? e.to}</span>
+              {e.label ? <span className="fig-comp-deps-label"> ({e.label})</span> : null}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 function RelationsView({
   block,
   variant,
@@ -894,8 +1318,8 @@ function RelationsView({
   canonicalReferences?: TurnReference[];
   onReference?: (ref: TurnReference) => void;
 }) {
-  // Defect B: no fixed-coordinate SVG. Structured list is the fidelity-safe V1 path.
   const forceText = variant === "text";
+  const useDirected = variant === "directed";
   const titleById = new Map(block.nodes.map((n) => [n.id, n.label] as const));
 
   return (
@@ -906,8 +1330,9 @@ function RelationsView({
       data-block-kind="relations"
       data-block-id={block.id}
       data-variant={variant}
-      data-fallback="1"
-      data-layout="structured-list"
+      data-fallback={useDirected ? "0" : "1"}
+      data-layout={useDirected ? "directed" : "structured-list"}
+      data-layout-hint={block.layoutHint ?? ""}
       aria-label={block.title}
     >
       <Heading title={block.title} role={block.role} icon={block.icon} />
@@ -915,40 +1340,10 @@ function RelationsView({
         <div className="fig-comp-fallback-text" data-testid="nora-composition-relations-text">
           {buildExhaustiveBlockFallback(block)}
         </div>
+      ) : useDirected ? (
+        <RelationsDirectedView block={block} titleById={titleById} />
       ) : (
-        <>
-          <ul className="fig-visual-relations-list fig-comp-relations-list">
-            {block.nodes.map((n) => (
-              <li key={n.id} data-node-id={n.id}>
-                <NoraSemanticIcon
-                  role={
-                    n.kind === "hypothesis"
-                      ? "hypothesis"
-                      : n.kind === "observation"
-                        ? "observation"
-                        : n.kind === "fact" || n.kind === "finding"
-                          ? "fact"
-                          : "information"
-                  }
-                />
-                <span className="fig-comp-relations-label">{n.label}</span>
-              </li>
-            ))}
-          </ul>
-          {block.edges.length ? (
-            <ul
-              className="fig-visual-relations-edges fig-comp-relations-edges"
-              data-testid="nora-composition-relations-edges"
-            >
-              {block.edges.map((e, i) => (
-                <li key={`${e.from}-${e.to}-${i}`}>
-                  {titleById.get(e.from) ?? e.from} → {titleById.get(e.to) ?? e.to}
-                  {e.label ? ` (${e.label})` : ""}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </>
+        <RelationsListFallback block={block} titleById={titleById} />
       )}
       <Provenance
         items={block.provenance}
@@ -1177,6 +1572,8 @@ function AdmittedBlockView({
 
 export type NoraCompositionProps = {
   composition: VisualComposition;
+  /** Canonical replyDraft / message body for width-local re-admission consistency. */
+  canonicalText?: string | null;
   choices?: TurnChoice[];
   references?: TurnReference[];
   actionable?: boolean;
@@ -1210,6 +1607,7 @@ export function NoraComposition(props: NoraCompositionProps) {
 
   const admission = admitConversationalComposition(props.composition, {
     containerWidthPx: widthPx,
+    canonicalText: props.canonicalText,
   });
   const choices = props.choices ?? [];
   const references = props.references ?? [];
@@ -1299,7 +1697,7 @@ export function NoraComposition(props: NoraCompositionProps) {
 
 ```
 
-### 6.4 `NoraVisualComposition.tsx` (alias actuel)
+### NoraVisualComposition.tsx (alias)
 
 ```tsx
 "use client";
@@ -1317,7 +1715,1256 @@ export {
 
 ```
 
-### 6.5 Diff `NoraVisualComposition.tsx`
+### Tests admission
+
+```ts
+import { describe, expect, it } from "vitest";
+import {
+  admitConversationalComposition,
+  buildExhaustiveBlockFallback,
+  CONVERSATIONAL_COMPOSITION_CONTRACT,
+  projectionSubstanceRenderComplete,
+  selectComparisonVariant,
+  selectRelationsVariant,
+  selectSequenceVariant,
+} from "@/domains/conversation/conversational-composition";
+import {
+  parseVisualComposition,
+  VISUAL_COMPOSITION_SCHEMA,
+  type VisualComposition,
+} from "@/domains/conversation/visual-composition";
+
+function comparisonFixture(nAlts: number, criteria = 0, long = false): VisualComposition {
+  const alternatives = Array.from({ length: nAlts }, (_, i) => ({
+    id: `a${i}`,
+    title: long ? `Option ${i} ${"x".repeat(80)}` : `Option ${i}`,
+    summary: long ? `${"long ".repeat(40)}summary ${i}` : `Summary ${i}`,
+    pros: long ? [`Pro ${"y".repeat(60)}`] : [`Pro ${i}`],
+    cons: [`Con ${i}`],
+  }));
+  const crit =
+    criteria > 0
+      ? Array.from({ length: criteria }, (_, i) => ({
+          id: `c${i}`,
+          label: `Critère ${i}`,
+          values: Object.fromEntries(alternatives.map((a) => [a.id, `v${i}`])),
+        }))
+      : undefined;
+  return parseVisualComposition({
+    schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+    blocks: [
+      {
+        kind: "comparison",
+        id: "cmp",
+        title: "Comparaison",
+        alternatives,
+        criteria: crit,
+        recommendation: "Si latence critique, préférer Option 0.",
+        provenance: [{ label: "Note architecture", note: "hypothèse" }],
+        textAlternative: alternatives.map((a) => `${a.title}: ${a.summary}`).join(" | "),
+      },
+    ],
+  })!;
+}
+
+describe("conversational composition admission (CV-*)", () => {
+  it("CV-T01 — narrative-only / no composition → no graphic ownership", () => {
+    const empty = admitConversationalComposition(null);
+    expect(empty.contract).toBe(CONVERSATIONAL_COMPOSITION_CONTRACT);
+    expect(empty.ownsBody).toBe(false);
+    expect(empty.bodyPolicy).toBe("markdown_only");
+    expect(empty.admitted).toHaveLength(0);
+    expect(empty.fallbackReasons).toContain("CV_NO_COMPOSITION");
+
+    const textOnly = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [{ kind: "text", id: "t1", markdown: "Réponse simple." }],
+    })!;
+    const adm = admitConversationalComposition(textOnly, {
+      canonicalText: "Réponse simple.",
+    });
+    expect(adm.ownsBody).toBe(true);
+    expect(adm.bodyPolicy).toBe("substitute");
+    expect(adm.admitted).toHaveLength(1);
+    expect(adm.admitted[0]?.family).toBe("narrative");
+    expect(adm.fallbackReasons).toContain("CV_NARRATIVE_ONLY");
+  });
+
+  it("CV-T03/T04 — 2–3 options → cards; 5 options + criteria → matrix (wide)", () => {
+    const three = comparisonFixture(3);
+    const c3 = selectComparisonVariant(three.blocks[0] as never, 960);
+    expect(c3.variant).toBe("cards");
+
+    const five = comparisonFixture(5, 4);
+    const c5 = selectComparisonVariant(five.blocks[0] as never, 960);
+    expect(c5.variant).toBe("matrix");
+    expect(c5.reasonCodes.some((r) => r.includes("MATRIX"))).toBe(true);
+
+    const canon = five.blocks[0] && "alternatives" in five.blocks[0]
+      ? five.blocks[0].alternatives.map((a) => a.title).join(" ")
+      : "";
+    const adm = admitConversationalComposition(five, {
+      containerWidthPx: 960,
+      canonicalText: canon,
+    });
+    expect(adm.bodyPolicy).toBe("complement");
+    expect(projectionSubstanceRenderComplete(five)).toBe(true);
+  });
+
+  it("CV-T05 — wire path 8 options: parser accepts (MAX_ALTS=12); 18 still rejects", () => {
+    const eight = {
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "comparison",
+          id: "cmp",
+          title: "Huit options",
+          alternatives: Array.from({ length: 8 }, (_, i) => ({
+            id: `a${i}`,
+            title: `Option ${i}`,
+            summary: `Summary ${i}`,
+            pros: [`Pro ${i}`],
+            cons: [`Con ${i}`],
+          })),
+          textAlternative: "huit options",
+        },
+      ],
+    };
+    const parsed8 = parseVisualComposition(eight);
+    expect(parsed8).not.toBeNull();
+    expect(parsed8!.blocks[0]).toMatchObject({ kind: "comparison" });
+
+    const eighteen = {
+      ...eight,
+      blocks: [
+        {
+          ...eight.blocks[0],
+          alternatives: Array.from({ length: 18 }, (_, i) => ({
+            id: `a${i}`,
+            title: `Option ${i}`,
+            summary: `Summary ${i}`,
+          })),
+          textAlternative: "dix-huit options",
+        },
+      ],
+    };
+    expect(parseVisualComposition(eighteen)).toBeNull();
+
+    const withinWire = admitConversationalComposition(comparisonFixture(5, 1), {
+      canonicalText: "Option 0 Option 1 Option 2 Option 3 Option 4",
+    });
+    expect(withinWire.capacityNotes).toContain("CV_WIRE_MAX_ALTS_12");
+  });
+
+  it("CV-T05 — long copy / narrow → stacked; over-capacity defensive → text", () => {
+    const many = comparisonFixture(5, 0, true);
+    const narrow = selectComparisonVariant(many.blocks[0] as never, 480);
+    expect(["stacked", "text", "matrix"]).toContain(narrow.variant);
+    expect(narrow.variant).not.toBe("cards");
+
+    const overBlock = {
+      kind: "comparison" as const,
+      id: "cmp",
+      title: "Over",
+      alternatives: Array.from({ length: 20 }, (_, i) => ({
+        id: `a${i}`,
+        title: `O${i}`,
+        summary: `s${i}`,
+      })),
+      textAlternative: "trop d'options",
+    };
+    const o = selectComparisonVariant(overBlock, 1200);
+    expect(o.variant).toBe("text");
+  });
+
+  it("CV-T06 — sequence narrow → vertical", () => {
+    const seq = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "sequence",
+          id: "s1",
+          title: "Parcours",
+          steps: Array.from({ length: 5 }, (_, i) => ({
+            id: `st${i}`,
+            title: `Étape ${i}`,
+            detail: "détail",
+          })),
+          textAlternative: "Cinq étapes",
+        },
+      ],
+    })!;
+    const v = selectSequenceVariant(seq.blocks[0] as never, 500);
+    expect(v.variant).toBe("vertical");
+  });
+
+  it("CV-T10 — dense relations → structured list (never svg)", () => {
+    const dense = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "relations",
+          id: "r1",
+          title: "Dépendances",
+          nodes: Array.from({ length: 11 }, (_, i) => ({
+            id: `n${i}`,
+            label: `Nœud ${i} with a very long human label that must remain readable`,
+            kind: "observation",
+          })),
+          edges: Array.from({ length: 15 }, (_, i) => ({
+            from: `n${i % 11}`,
+            to: `n${(i + 1) % 11}`,
+            label: "lié",
+          })),
+          textAlternative: "Graphe dense",
+        },
+      ],
+    })!;
+    expect(dense).not.toBeNull();
+    const sel = selectRelationsVariant(dense!.blocks[0] as never, 900);
+    expect(sel.variant).toBe("list");
+  });
+
+  it("C-10 directed dependencies when layoutHint set and envelope OK", () => {
+    const dep = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "relations",
+          id: "r1",
+          title: "Deps",
+          layoutHint: "dependencies",
+          nodes: [
+            { id: "a", label: "Amont", kind: "observation" },
+            { id: "b", label: "Aval", kind: "hypothesis" },
+            { id: "c", label: "Convergence", kind: "finding" },
+          ],
+          edges: [
+            { from: "a", to: "c", relation: "depends_on", label: "alimente" },
+            { from: "b", to: "c", relation: "depends_on", label: "alimente" },
+          ],
+          textAlternative: "A et B convergent vers C",
+        },
+      ],
+    })!;
+    const sel = selectRelationsVariant(dep.blocks[0] as never, 900);
+    expect(sel.variant).toBe("directed");
+    const adm = admitConversationalComposition(dep, {
+      canonicalText: "Amont Aval Convergence",
+    });
+    expect(adm.admitted[0]?.family).toBe("dependencies");
+  });
+
+  it("CV-T14 — admission never invents quantitative chart family", () => {
+    const adm = admitConversationalComposition(comparisonFixture(3), {
+      canonicalText: "Option 0 Option 1 Option 2",
+    });
+    expect(adm.admitted.every((a) => a.family !== ("chart" as never))).toBe(true);
+  });
+
+  it("Defect C — exhaustive fallback never truncates long text", () => {
+    const longMd = "A".repeat(2500);
+    const block = { kind: "text" as const, id: "t1", markdown: longMd };
+    const fb = buildExhaustiveBlockFallback(block);
+    expect(fb.length).toBe(2500);
+    expect(fb).toBe(longMd);
+  });
+
+  it("Defect A — matrix fixture preserves all alt substance in exhaustive fallback", () => {
+    const five = comparisonFixture(5, 3);
+    const block = five.blocks[0]!;
+    const fb = buildExhaustiveBlockFallback(block);
+    expect(fb).toContain("Option 0");
+    expect(fb).toContain("Summary 0");
+    expect(fb).toContain("Pro 0");
+    expect(fb).toContain("Con 0");
+    expect(fb).toContain("Critère 0");
+    expect(fb).toContain("Recommandation");
+  });
+
+  it("admit preserves block order and reason codes", () => {
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        { kind: "text", id: "t1", markdown: "Intro" },
+        {
+          kind: "comparison",
+          id: "c1",
+          title: "Opts",
+          alternatives: [
+            { id: "a", title: "A", summary: "sa" },
+            { id: "b", title: "B", summary: "sb" },
+          ],
+          textAlternative: "A vs B",
+        },
+        { kind: "choices", id: "ch" },
+      ],
+    })!;
+    const adm = admitConversationalComposition(comp, {
+      containerWidthPx: 800,
+      canonicalText: "Intro A B",
+    });
+    expect(adm.admitted.map((a) => a.block.kind)).toEqual([
+      "text",
+      "comparison",
+      "choices",
+    ]);
+    expect(adm.admitted[1]?.reasonCodes.length).toBeGreaterThan(0);
+    expect(adm.bodyPolicy).toBe("complement");
+  });
+});
+
+```
+
+### Tests fidelity + C-11/12
+
+```ts
+import { describe, expect, it } from "vitest";
+import {
+  admitConversationalComposition,
+  mayPresentGraphicComposition,
+} from "@/domains/conversation/conversational-composition";
+import {
+  parseVisualComposition,
+  VISUAL_COMPOSITION_SCHEMA,
+  VISUAL_COMPOSITION_SCHEMA_LEGACY,
+} from "@/domains/conversation/visual-composition";
+
+const comparisonRaw = {
+  schemaVersion: VISUAL_COMPOSITION_SCHEMA_LEGACY,
+  blocks: [
+    {
+      kind: "comparison",
+      id: "cmp",
+      title: "A vs B",
+      alternatives: [
+        { id: "a", title: "Option Alpha", summary: "sa", pros: ["pa"], cons: ["ca"] },
+        { id: "b", title: "Option Beta", summary: "sb", pros: ["pb"], cons: ["cb"] },
+      ],
+      recommendation: "Préférer Option Alpha si latence critique.",
+      textAlternative: "Alpha vs Beta",
+    },
+  ],
+};
+
+describe("C-04 canonical fidelity gates", () => {
+  it("refuses graphic presentation when anchors absent from canonical (markdown_only)", () => {
+    const comp = parseVisualComposition(comparisonRaw)!;
+    const gate = mayPresentGraphicComposition(comp, "Texte sans les options.");
+    expect(gate.ok).toBe(false);
+    const adm = admitConversationalComposition(comp, {
+      canonicalText: "Texte sans les options.",
+    });
+    expect(adm.bodyPolicy).toBe("markdown_only");
+    expect(adm.fallbackReasons).toContain("CV_FIDELITY_REFUSE_GRAPHIC_PRESENTATION");
+  });
+
+  it("allows complement (never substitute) when anchors present in canonical", () => {
+    const comp = parseVisualComposition(comparisonRaw)!;
+    const canon = "Comparaison Option Alpha et Option Beta pour la latence.";
+    const adm = admitConversationalComposition(comp, { canonicalText: canon });
+    expect(adm.bodyPolicy).toBe("complement");
+    expect(adm.fallbackReasons).toContain("CV_BODY_GRAPHIC_COMPLEMENT_ONLY");
+  });
+
+  it("narrative-only may substitute", () => {
+    const textOnly = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [{ kind: "text", id: "t1", markdown: "Réponse simple." }],
+    })!;
+    const adm = admitConversationalComposition(textOnly, {
+      canonicalText: "Réponse simple.",
+    });
+    expect(adm.bodyPolicy).toBe("substitute");
+  });
+
+  it("legacy e05 schema still parses (C-06 compat)", () => {
+    const legacy = parseVisualComposition(comparisonRaw);
+    expect(legacy?.schemaVersion).toBe(VISUAL_COMPOSITION_SCHEMA_LEGACY);
+  });
+
+  it("active schema parses (C-05 write path)", () => {
+    const modern = parseVisualComposition({
+      ...comparisonRaw,
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+    });
+    expect(modern?.schemaVersion).toBe(VISUAL_COMPOSITION_SCHEMA);
+  });
+});
+
+describe("C-11/C-12 family mapping", () => {
+  it("maps decisionTree layoutHint to decisionPaths family", () => {
+    const tree = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "relations",
+          id: "t",
+          title: "Arbre",
+          layoutHint: "decisionTree",
+          nodes: [
+            { id: "c", label: "Condition rôles clarifiés", kind: "unknown" },
+            { id: "y", label: "Approche progressive", kind: "hypothesis" },
+            { id: "n", label: "Reporter le déploiement", kind: "hypothesis" },
+          ],
+          edges: [
+            {
+              from: "c",
+              to: "y",
+              relation: "condition_true",
+              label: "oui",
+            },
+            {
+              from: "c",
+              to: "n",
+              relation: "condition_false",
+              label: "non",
+            },
+          ],
+          textAlternative: "Si rôles clarifiés → progressive, sinon reporter",
+        },
+      ],
+    })!;
+    const adm = admitConversationalComposition(tree, {
+      canonicalText:
+        "Condition rôles clarifiés Approche progressive Reporter le déploiement",
+    });
+    expect(adm.admitted[0]?.family).toBe("decisionPaths");
+    expect(adm.admitted[0]?.variant).toBe("directed");
+  });
+
+  it("maps parallelProcess layoutHint to parallelProcess family", () => {
+    const par = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "relations",
+          id: "p",
+          title: "Parallèle",
+          layoutHint: "parallelProcess",
+          nodes: [
+            { id: "a1", label: "Inventaire site A", kind: "observation", laneId: "Voie A" },
+            { id: "b1", label: "Inventaire site B", kind: "observation", laneId: "Voie B" },
+            { id: "g", label: "Revue commune", kind: "finding", laneId: "Gate" },
+          ],
+          edges: [
+            { from: "a1", to: "g", relation: "sync", label: "prêt" },
+            { from: "b1", to: "g", relation: "sync", label: "prêt" },
+          ],
+          textAlternative: "Voies A/B puis revue commune",
+        },
+      ],
+    })!;
+    const adm = admitConversationalComposition(par, {
+      canonicalText: "Inventaire site A Inventaire site B Revue commune",
+    });
+    expect(adm.admitted[0]?.family).toBe("parallelProcess");
+  });
+});
+
+```
+
+---
+
+## 7. Diffs fichiers modifiés (complets)
+
+### NoraConversation.tsx
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+index b149f939..1a98c4b6 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+@@ -2,17 +2,17 @@
+
+ import { useEffect, useRef, useState } from "react";
+ import { SafeMarkdown } from "@/components/SafeMarkdown";
+-import { NoraVisualComposition } from "@/components/figma/NoraVisualComposition";
++import { NoraComposition } from "@/components/figma/NoraComposition";
+ import { useNoraThreadScroll } from "@/hooks/useNoraThreadScroll";
+ import type {
+   MessageProjectionView,
+   TurnChoice,
+   TurnReference,
+ } from "@/domains/conversation/turn-projection";
++import { admitConversationalComposition } from "@/domains/conversation/conversational-composition";
+ import {
+   compositionAnchorsChoices,
+   compositionAnchorsReferences,
+-  compositionOwnsBody,
+ } from "@/domains/conversation/visual-composition";
+
+ export type NoraMsg = {
+@@ -158,22 +158,46 @@ export function NoraConversation(props: {
+                 </div>
+                 {isNora ? (
+                   <div className="fig-msg-body">
+-                    {proj?.visualComposition &&
+-                    compositionOwnsBody(proj.visualComposition) ? (
+-                      <NoraVisualComposition
+-                        composition={proj.visualComposition}
+-                        choices={proj.choices}
+-                        references={proj.references}
+-                        actionable={proj.actionable}
+-                        busy={props.busy}
+-                        choiceFrozen={props.choiceFrozen}
+-                        messageId={m.id}
+-                        onChoice={props.onChoice}
+-                        onReference={props.onReference}
+-                      />
+-                    ) : (
+-                      <SafeMarkdown content={m.content} />
+-                    )}
++                    {(() => {
++                      const admission = proj?.visualComposition
++                        ? admitConversationalComposition(proj.visualComposition, {
++                            canonicalText: m.content,
++                          })
++                        : null;
++                      const policy = admission?.bodyPolicy ?? "markdown_only";
++                      const compositionEl =
++                        proj?.visualComposition && policy !== "markdown_only" ? (
++                          <NoraComposition
++                            composition={proj.visualComposition}
++                            canonicalText={m.content}
++                            choices={proj.choices}
++                            references={proj.references}
++                            actionable={proj.actionable}
++                            busy={props.busy}
++                            choiceFrozen={props.choiceFrozen}
++                            messageId={m.id}
++                            onChoice={props.onChoice}
++                            onReference={props.onReference}
++                          />
++                        ) : null;
++                      if (policy === "substitute" && compositionEl) {
++                        return compositionEl;
++                      }
++                      if (policy === "complement" && compositionEl) {
++                        return (
++                          <>
++                            <SafeMarkdown content={m.content} />
++                            <div
++                              className="fig-comp-complement"
++                              data-testid="nora-composition-complement"
++                            >
++                              {compositionEl}
++                            </div>
++                          </>
++                        );
++                      }
++                      return <SafeMarkdown content={m.content} />;
++                    })()}
+                   </div>
+                 ) : (
+                   <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
+
+```
+
+### visual-composition.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts b/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
+index 7a6c2abf..78abe03f 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
+@@ -13,7 +13,19 @@
+
+ import { z } from "zod";
+
+-export const VISUAL_COMPOSITION_SCHEMA = "e05-visual-composition-v1" as const;
++/** Historical wire — read/compat only for stored turns. */
++export const VISUAL_COMPOSITION_SCHEMA_LEGACY = "e05-visual-composition-v1" as const;
++/** Active write/read contract for new compositions (C-05). */
++export const VISUAL_COMPOSITION_SCHEMA = "conversational-composition-projection-v1" as const;
++export type VisualCompositionSchemaVersion =
++  | typeof VISUAL_COMPOSITION_SCHEMA
++  | typeof VISUAL_COMPOSITION_SCHEMA_LEGACY;
++
++export function isKnownVisualCompositionSchema(
++  v: unknown,
++): v is VisualCompositionSchemaVersion {
++  return v === VISUAL_COMPOSITION_SCHEMA || v === VISUAL_COMPOSITION_SCHEMA_LEGACY;
++}
+
+ export type VisualBlockKind =
+   | "comparison"
+@@ -166,14 +178,27 @@ export type RelationNode = {
+   id: string;
+   label: string;
+   kind: RelationNodeKind;
++  /** Parallel lane / swimlane id when layoutHint=parallelProcess. */
++  laneId?: string;
++  detail?: string;
+ };
+
++export type RelationEdgeKind =
++  | "depends_on"
++  | "condition_true"
++  | "condition_false"
++  | "sync"
++  | "flow";
++
+ export type RelationEdge = {
+   from: string;
+   to: string;
+   label?: string;
++  relation?: RelationEdgeKind;
+ };
+
++export type RelationsLayoutHint = "dependencies" | "decisionTree" | "parallelProcess";
++
+ export type RelationsBlock = {
+   kind: "relations";
+   id: string;
+@@ -183,6 +208,8 @@ export type RelationsBlock = {
+   textAlternative: string;
+   provenance?: VisualProvenance[];
+   preferListFallback?: boolean;
++  /** Directed family hint — C-10/11/12. */
++  layoutHint?: RelationsLayoutHint;
+   role?: VisualSemanticRole;
+   icon?: VisualIconId;
+ };
+@@ -249,7 +276,7 @@ export type VisualBlock =
+   | ReferencesAnchorBlock;
+
+ export type VisualComposition = {
+-  schemaVersion: typeof VISUAL_COMPOSITION_SCHEMA;
++  schemaVersion: VisualCompositionSchemaVersion;
+   blocks: VisualBlock[];
+ };
+
+@@ -299,7 +326,7 @@ const VisualIconAgentSchema = z.enum([
+ ]);
+
+ export const VisualCompositionAgentOutputSchema = z.object({
+-  schemaVersion: z.literal(VISUAL_COMPOSITION_SCHEMA),
++  schemaVersion: z.enum([VISUAL_COMPOSITION_SCHEMA, VISUAL_COMPOSITION_SCHEMA_LEGACY]),
+   blocks: z
+     .array(
+       z.discriminatedUnion("kind", [
+@@ -325,7 +352,7 @@ export const VisualCompositionAgentOutputSchema = z.object({
+                 cons: z.array(z.string().max(200)).max(4).optional(),
+               }),
+             )
+-            .max(5),
++            .max(12),
+           criteria: z
+             .array(
+               z.object({
+@@ -367,6 +394,9 @@ export const VisualCompositionAgentOutputSchema = z.object({
+           id: z.string().max(64),
+           title: z.string().max(160),
+           textAlternative: z.string().max(2000),
++          layoutHint: z
++            .enum(["dependencies", "decisionTree", "parallelProcess"])
++            .optional(),
+           nodes: z
+             .array(
+               z.object({
+@@ -380,18 +410,29 @@ export const VisualCompositionAgentOutputSchema = z.object({
+                   "finding",
+                   "observation",
+                 ]),
++                laneId: z.string().max(64).optional(),
++                detail: z.string().max(400).optional(),
+               }),
+             )
+-            .max(10),
++            .max(12),
+           edges: z
+             .array(
+               z.object({
+                 from: z.string().max(64),
+                 to: z.string().max(64),
+                 label: z.string().max(200).optional(),
++                relation: z
++                  .enum([
++                    "depends_on",
++                    "condition_true",
++                    "condition_false",
++                    "sync",
++                    "flow",
++                  ])
++                  .optional(),
+               }),
+             )
+-            .max(16),
++            .max(20),
+           preferListFallback: z.boolean().optional(),
+           provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
+           role: VisualRoleAgentSchema.optional(),
+@@ -445,10 +486,10 @@ export type ParseVisualCompositionResult =
+   | { ok: false; reason: string };
+
+ const MAX_BLOCKS = 10;
+-const MAX_ALTS = 5;
++const MAX_ALTS = 12;
+ const MAX_STEPS = 8;
+-const MAX_NODES = 10;
+-const MAX_EDGES = 16;
++const MAX_NODES = 12;
++const MAX_EDGES = 20;
+ const MAX_ITEMS = 8;
+ const MAX_PROS_CONS = 4;
+ const MAX_CRITERIA = 6;
+@@ -868,10 +909,30 @@ function parseRelations(
+     const label = fit(labelRaw, MAX_TITLE, ctx);
+     if (!nidF || !label) return null;
+     ids.add(nidF);
+-    nodes.push({ id: nidF, label, kind });
++    let laneId: string | undefined;
++    const laneRaw = asString(n.laneId);
++    if (laneRaw) {
++      laneId = fit(laneRaw, MAX_ID, ctx) ?? undefined;
++      if (!laneId) return null;
++    }
++    let detail: string | undefined;
++    const detailRaw = asString(n.detail);
++    if (detailRaw) {
++      detail = fit(detailRaw, MAX_STR, ctx) ?? undefined;
++      if (!detail) return null;
++    }
++    nodes.push({ id: nidF, label, kind, laneId, detail });
+   }
+   if (nodes.length < 2) return null;
+
++  const EDGE_RELATIONS = new Set<RelationEdgeKind>([
++    "depends_on",
++    "condition_true",
++    "condition_false",
++    "sync",
++    "flow",
++  ]);
++
+   const edges: RelationEdge[] = [];
+   if (o.edges !== undefined && o.edges !== null) {
+     if (!Array.isArray(o.edges)) return null;
+@@ -895,15 +956,34 @@ function parseRelations(
+         label = fit(labelRaw, 80, ctx) ?? undefined;
+         if (!label) return null;
+       }
+-      edges.push({ from: fromF, to: toF, label });
++      let relation: RelationEdgeKind | undefined;
++      const relRaw = asString(e.relation) as RelationEdgeKind | null;
++      if (relRaw) {
++        if (!EDGE_RELATIONS.has(relRaw)) return null;
++        relation = relRaw;
++      }
++      edges.push({ from: fromF, to: toF, label, relation });
+     }
+   }
+
+   const provenance = parseProvenance(o.provenance, ctx);
+   if (provenance === "FAIL") return null;
+
++  let layoutHint: RelationsLayoutHint | undefined;
++  const hintRaw = asString(o.layoutHint);
++  if (hintRaw) {
++    if (
++      hintRaw !== "dependencies" &&
++      hintRaw !== "decisionTree" &&
++      hintRaw !== "parallelProcess"
++    ) {
++      return null;
++    }
++    layoutHint = hintRaw;
++  }
++
+   const preferListFallback =
+-    Boolean(o.preferListFallback) || nodes.length > 7 || edges.length > 10;
++    Boolean(o.preferListFallback) || nodes.length > 10 || edges.length > 14;
+
+   return {
+     kind: "relations",
+@@ -914,6 +994,7 @@ function parseRelations(
+     textAlternative,
+     provenance: provenance ?? undefined,
+     preferListFallback,
++    layoutHint,
+     role: parseRole(o.role) ?? "information",
+     icon: parseIcon(o.icon),
+   };
+@@ -1072,9 +1153,10 @@ export function parseVisualCompositionDetailed(raw: unknown): ParseVisualComposi
+     return { ok: false, reason: "VISUAL_COMPOSITION_INVALID_OR_EMPTY" };
+   }
+   const o = raw as Record<string, unknown>;
+-  if (o.schemaVersion !== VISUAL_COMPOSITION_SCHEMA) {
++  if (!isKnownVisualCompositionSchema(o.schemaVersion)) {
+     return { ok: false, reason: "VISUAL_COMPOSITION_SCHEMA_MISMATCH" };
+   }
++  const schemaVersion = o.schemaVersion;
+   if (!Array.isArray(o.blocks)) {
+     return { ok: false, reason: "VISUAL_COMPOSITION_INVALID_OR_EMPTY" };
+   }
+@@ -1115,7 +1197,8 @@ export function parseVisualCompositionDetailed(raw: unknown): ParseVisualComposi
+   }
+   return {
+     ok: true,
+-    value: { schemaVersion: VISUAL_COMPOSITION_SCHEMA, blocks },
++    // Preserve legacy schemaVersion on historical payloads; new writes use active schema.
++    value: { schemaVersion, blocks },
+   };
+ }
+
+```
+
+### nora-adapter.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 1d7949f2..9fd57296 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -547,7 +547,7 @@ async function runLiveWithTools(
+     "- Lorsque tu réévalues les questions ouvertes (QUALIFIED ou NEEDS_CLARIFICATION sur ce périmètre) : TOUJOURS renseigner clarifications (éventuellement []). Ne l'omets que si tu n'as pas réévalué ce périmètre.",
+     "- continueChoices (optionnel) = propositions de POURSUITE conversationnelle (ex. « Approfondir B ») avec id, label et transmitText. NE PAS y recopier clarifications. Omettre ou [] si aucune poursuite utile.",
+     "- resourceReferences (optionnel) = références consultables document/git/external — ce ne sont PAS des choix de poursuite.",
+-    "- visualComposition (optionnel, schema e05-visual-composition-v1) = composition ordonnée de blocs text|comparison|sequence|relations|synthesis. Omettre pour une réponse purement textuelle. N'invente jamais de données manquantes ; chaque bloc graphique DOIT fournir textAlternative. Jamais de HTML/CSS/JS. Ne crée aucun effet métier par la seule présence d'un bloc.",
++    "- visualComposition (optionnel, schema conversational-composition-projection-v1 ; lecture historique e05-visual-composition-v1) = composition ordonnée de blocs text|comparison|sequence|relations|synthesis. Les titres/libellés des blocs graphiques DOIVENT apparaître aussi dans replyDraft. Relations : layoutHint optionnel dependencies|decisionTree|parallelProcess ; edges.relation optionnel depends_on|condition_true|condition_false|sync|flow ; nodes.laneId pour voies parallèles. Omettre pour une réponse purement textuelle. N'invente jamais de données manquantes ; chaque bloc graphique DOIT fournir textAlternative. Jamais de HTML/CSS/JS. Ne crée aucun effet métier par la seule présence d'un bloc.",
+     "- preparationAssessment = EXPLORING|CLARIFYING|PROPOSAL|BASE_SUFFICIENTE selon compréhension structurée — jamais un score, jamais un GO d'autorité.",
+     "- preparationAssessmentExplanation = justification qualitative courte fondée sur les acquis réels ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
+     "- Si tu n'as pas d'appréciation fiable : omets preparationAssessment (ne pas inventer BASE_SUFFICIENTE).",
+
+```
+
+### fixture-semantic-qualify.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+index 05ae9e30..8384dad3 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+@@ -643,7 +643,13 @@ register(
+   E05_S2_DIAGNOSTIC,
+   dialogue(
+     "Diagnostic coordination multi-sites — établi vs hypothétique",
+-    "Diagnostic du besoin de coordination (fallback textuel).",
++    [
++      "Diagnostic du besoin de coordination.",
++      "Éléments : Pratiques locales divergentes ; Rôles d'arbitrage flous ;",
++      "hypothèse Friction de coordination ; Impact réel non mesuré.",
++      "Suite : Cartographier les pratiques par site ; Identifier le porteur d'arbitrage ;",
++      "Ne pas conclure à un dysfonctionnement chiffré.",
++    ].join(" "),
+     ["NO_EFFECT", "VISUAL_RELATIONS", "S2"],
+     {
+       clarifications: [
+@@ -687,6 +693,7 @@ register(
+             id: "s2-rel",
+             title: "Éléments liés — sans causalité inventée",
+             role: "information",
++            layoutHint: "dependencies",
+             nodes: [
+               { id: "o1", label: "Pratiques locales divergentes", kind: "observation" },
+               { id: "o2", label: "Rôles d'arbitrage flous", kind: "observation" },
+@@ -694,8 +701,18 @@ register(
+               { id: "u1", label: "Impact réel non mesuré", kind: "unknown" },
+             ],
+             edges: [
+-              { from: "o1", to: "h1", label: "peut contribuer" },
+-              { from: "o2", to: "h1", label: "peut contribuer" },
++              {
++                from: "o1",
++                to: "h1",
++                label: "peut contribuer",
++                relation: "depends_on",
++              },
++              {
++                from: "o2",
++                to: "h1",
++                label: "peut contribuer",
++                relation: "depends_on",
++              },
+             ],
+             textAlternative:
+               "Observations : pratiques divergentes et rôles flous. Hypothèse : friction de coordination. Inconnue : impact réel non mesuré.",
+@@ -738,7 +755,13 @@ register(
+   E05_S3_COMPARISON,
+   dialogue(
+     "Comparaison déploiement progressif vs simultané",
+-    "Comparaison des approches (fallback).",
++    [
++      "Comparaison Progressive vs simultanée.",
++      "Déploiement progressif : étendre site par site après apprentissage local.",
++      "Déploiement simultané : aligner tous les sites dans la même fenêtre.",
++      "Critères : Risque de conduite, Apprentissage, Dépendance aux rôles clarifiés.",
++      "Si les responsabilités d'arbitrage ne sont pas encore claires, préférer une approche progressive.",
++    ].join(" "),
+     ["NO_EFFECT", "VISUAL_COMPARISON", "S3"],
+     {
+       continueChoices: [
+@@ -845,7 +868,13 @@ register(
+   E05_S4_TRAJECTORY,
+   dialogue(
+     "Parcours de clarification avant travaux",
+-    "Parcours proposé (fallback).",
++    [
++      "Parcours Clarifier avant de lancer :",
++      "Partager le constat de coordination ;",
++      "Clarifier les responsabilités d'arbitrage ;",
++      "Choisir progressive ou simultanée ;",
++      "Préparer la première vague / fenêtre.",
++    ].join(" "),
+     ["NO_EFFECT", "VISUAL_SEQUENCE", "S4"],
+     {
+       visualComposition: {
+@@ -897,7 +926,13 @@ register(
+   E05_S5_COMPOSITE,
+   dialogue(
+     "Recommandation composite conditionnelle",
+-    "Recommandation composite (fallback textuel).",
++    [
++      "Recommandation composite. Points saillants :",
++      "Clarifier l'arbitrage entre sites ;",
++      "Pratiques locales divergentes ;",
++      "Déploiement simultané trop tôt.",
++      "Rappel des options : Progressive ; Simultanée.",
++    ].join(" "),
+     ["NO_EFFECT", "VISUAL_COMPOSITE", "S5"],
+     {
+       clarifications: [
+
+```
+
+### tokens.css
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+index 8623f598..084a5b70 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
++++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+@@ -2163,6 +2163,212 @@
+   }
+ }
+
++/* Conversational composition v1 — adaptive presentation (CV-*) */
++.fig-comp-composition {
++  container-type: inline-size;
++  container-name: nora-composition;
++}
++
++.fig-comp-title {
++  overflow-wrap: anywhere;
++  word-break: break-word;
++}
++
++.fig-comp-alt h4,
++.fig-comp-alt p,
++.fig-comp-step h4,
++.fig-comp-fallback-text,
++.fig-comp-matrix th,
++.fig-comp-matrix td {
++  overflow-wrap: anywhere;
++  word-break: break-word;
++  white-space: normal;
++}
++
++.fig-comp-comparison-stack {
++  display: flex;
++  flex-direction: column;
++  gap: 12px;
++}
++
++.fig-comp-matrix-details {
++  margin-top: 12px;
++}
++
++.fig-comp-matrix-details-title {
++  margin: 0 0 8px;
++  font-size: 13px;
++  font-weight: 600;
++  color: var(--fig-muted);
++}
++
++.fig-comp-relations-label {
++  overflow-wrap: anywhere;
++  word-break: break-word;
++}
++
++.fig-comp-complement {
++  margin-top: 12px;
++}
++
++.fig-comp-authority-note {
++  margin: 10px 0 0;
++  font-size: 12px;
++  color: var(--fig-quiet);
++}
++
++.fig-comp-deps-nodes,
++.fig-comp-parallel-tasks,
++.fig-comp-tree-root,
++.fig-comp-tree-branches {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++}
++
++.fig-comp-deps-node,
++.fig-comp-tree-node {
++  display: flex;
++  gap: 8px;
++  align-items: flex-start;
++  padding: 8px 10px;
++  margin: 0 0 8px;
++  border: 1px solid var(--fig-line);
++  border-radius: 8px;
++  background: color-mix(in srgb, var(--fig-panel) 88%, transparent);
++}
++
++.fig-comp-deps-edges {
++  list-style: none;
++  margin: 8px 0 0;
++  padding: 0;
++}
++
++.fig-comp-deps-edges li {
++  margin: 0 0 6px;
++  overflow-wrap: anywhere;
++}
++
++.fig-comp-deps-arrow {
++  margin: 0 6px;
++  color: var(--fig-muted);
++}
++
++.fig-comp-parallel-lanes {
++  display: grid;
++  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
++  gap: 12px;
++}
++
++.fig-comp-parallel-lane {
++  border: 1px solid var(--fig-line);
++  border-radius: 8px;
++  padding: 10px 12px;
++}
++
++.fig-comp-parallel-lane-title {
++  margin: 0 0 8px;
++  font-size: 13px;
++  color: var(--fig-muted);
++}
++
++.fig-comp-parallel-sync {
++  margin-top: 10px;
++  overflow-wrap: anywhere;
++}
++
++.fig-comp-tree-branches {
++  margin: 6px 0 0 16px;
++  padding-left: 10px;
++  border-left: 2px solid var(--fig-line);
++}
++
++.fig-comp-tree-condition {
++  display: block;
++  margin: 4px 0;
++  font-size: 12px;
++  color: var(--fig-muted);
++}
++
++.fig-comp-relations-detail {
++  color: var(--fig-muted);
++  overflow-wrap: anywhere;
++}
++
++.fig-comp-comparison-cards {
++  display: grid;
++  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
++  gap: 12px;
++}
++
++.fig-comp-matrix-wrap {
++  overflow-x: auto;
++  max-width: 100%;
++  -webkit-overflow-scrolling: touch;
++}
++
++.fig-comp-matrix {
++  width: max-content;
++  min-width: 100%;
++  border-collapse: collapse;
++}
++
++.fig-comp-matrix th,
++.fig-comp-matrix td {
++  padding: 8px 10px;
++  text-align: left;
++  vertical-align: top;
++  white-space: normal;
++}
++
++.fig-comp-steps-vertical {
++  display: flex;
++  flex-direction: column;
++  gap: 0;
++}
++
++.fig-comp-steps-horizontal {
++  display: flex;
++  flex-direction: row;
++  flex-wrap: wrap;
++  gap: 12px;
++  align-items: stretch;
++}
++
++.fig-comp-steps-horizontal > .fig-comp-step {
++  flex: 1 1 180px;
++  min-width: min(100%, 180px);
++}
++
++.fig-comp-relations-svg {
++  width: 100%;
++  max-width: 100%;
++  height: auto;
++}
++
++.fig-comp-relations-svg .fig-visual-node-label {
++  font-size: 10px;
++}
++
++.fig-comp-block-fallback,
++.fig-comp-fallback-text {
++  margin: 0;
++  padding: 10px 12px;
++  border-left: 3px solid var(--fig-line);
++  color: var(--fig-ink);
++  background: color-mix(in srgb, var(--fig-panel) 80%, transparent);
++}
++
++@container nora-composition (max-width: 560px) {
++  .fig-comp-comparison-cards {
++    grid-template-columns: 1fr;
++  }
++
++  .fig-comp-steps-horizontal {
++    flex-direction: column;
++  }
++}
++
+ .project-unavailable {
+   display: flex;
+   align-items: flex-start;
+
+```
+
+### delivery-history.md
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 7b64d566..8a64de63 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,49 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-18-COMPOSITION-CONVERGENCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-18 ~03:18 CET |
++| Macro-lot | Convergence composition conversationnelle (doc 06 C-01–C-22) |
++| Type | Cycle Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
++| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
++| P0 C-04 | Graphiques : jamais substitute ; complement seulement si ancres replyDraft ; sinon markdown_only |
++| P1 C-05/14 | Schema write `conversational-composition-projection-v1` ; dual-read e05 ; MAX_ALTS=12 |
++| P1 C-10/11/12 | layoutHint + RelationsDirectedView CSS (deps/tree/parallel) ; ELK non introduit |
++| Preuves | Vitest composition 65 PASS (admission+fidelity+E05+schema) ; tsc 32/0 touched ; T02 PASS |
++| Verdict | (voir Review Pack Full convergence) |
++
++
++## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-CORRECTIVE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-18 ~02:25 CET |
++| Macro-lot | Correction intégrée composition conversationnelle (réponse STOP ChatGPT) |
++| Type | Cycle Delivery · Critical · RUN correctif dans EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
++| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
++| Corrections | A matrice+détails ; B relations list only (SVG différé) ; C repli exhaustif ; D bodyPolicy substitute/complement ; E capacité wire honnête ; F ACK PREEXISTING PROVEN |
++| Preuves | Vitest 57 PASS ; tsc 32 préexistantes / 0 touched ; T02 PASS + captures corrective ; ACK FAIL identique sur tip clean `a783f014` |
++| Verdict | supersédé par cycle convergence |
++
++
++## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-V1
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-18 ~01:22 CET |
++| Macro-lot | Remplacement mécanisme graphique expérimental E05 → composition conversationnelle adaptative |
++| Type | Cycle Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
++| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
++| Architecture | Strategy B V1 — `replyDraft` canonique ; wire `e05-visual-composition-v1` conservé ; admission `conversational-composition-v1` ; renderer `NoraComposition` |
++| Scope | admission/variantes CV-* ; `NoraComposition` + CSS container queries ; alias `NoraVisualComposition` ; wire `NoraConversation` ; tests unit ; preuves Figma Page 06 ; matrice CV-T |
++| Non-scope | Migration DB ; Strategy A sections sémantiques ; elkjs/RF/ECharts ; push produit ; RECETTE/STABLE ; LIVE OpenAI |
++| Preuves | Vitest admission+E05+schema+projection 54 PASS ; Playwright ensemble05 5 PASS / 2 FAIL (C2/ACK hors renderer) ; T02 composition PASS |
++| Verdict | `READY WITH RESERVES` — supersédé par STOP ChatGPT puis correctif |
++
++
+ ## delivery_id: DELIV-2026-11-17-ML4D-R05-COGNITIVE-RECOVERY
+
+ | Field | Value |
+
+```
+
+### ensemble05-travail-nora.spec.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
+index 37b839c4..af559ade 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
+@@ -566,6 +566,11 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+     await ask(E05_S2_DIAGNOSTIC);
+     await expect(page.getByTestId("nora-visual-relations")).toBeVisible({ timeout: 45000 });
+     await expect(page.getByTestId("nora-visual-icon").first()).toBeVisible();
++    // C-10 — directed CSS layout (or list fallback); never fixed-coordinate SVG.
++    const rel = page.getByTestId("nora-visual-relations").last();
++    const layout = await rel.getAttribute("data-layout");
++    expect(layout === "directed" || layout === "structured-list").toBeTruthy();
++    await expect(rel).toHaveAttribute("data-layout-hint", "dependencies");
+     await expect(page.getByTestId("nora-visual-composition").last()).toHaveAttribute(
+       "data-owns-body",
+       "1",
+@@ -574,6 +579,10 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+       path: path.join(evidenceDir, "runtime-s2-diagnostic-1440.png"),
+       fullPage: false,
+     });
++    await page.screenshot({
++      path: path.join(evidenceDir, "corrective-runtime-relations-list-1440.png"),
++      fullPage: false,
++    });
+
+     // S3 — comparison + recommendation + choice/ref anchors + provenance P1-B.
+     await ask(E05_S3_COMPARISON);
+@@ -593,6 +602,8 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+     await expect(s3.getByTestId("nora-visual-prov-link")).toHaveCount(1);
+     await expect(s3.getByTestId("nora-ref-link")).toHaveCount(0);
+     await expect(s3.getByText(/Consulter · Note de cadrage coordination/i)).toHaveCount(1);
++    // Corrective A — alternative substance remains visible (cards or matrix+details).
++    await expect(s3.getByTestId("nora-composition-alt-detail").first()).toBeVisible();
+     await page.screenshot({
+       path: path.join(evidenceDir, "runtime-visual-comparison-1440.png"),
+       fullPage: false,
+@@ -601,6 +612,10 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+       path: path.join(evidenceDir, "runtime-s3-provenance-1440.png"),
+       fullPage: false,
+     });
++    await page.screenshot({
++      path: path.join(evidenceDir, "corrective-runtime-comparison-1440.png"),
++      fullPage: false,
++    });
+
+     // S4 — trajectory / sequence with human-readable dependencies (V02).
+     await ask(E05_S4_TRAJECTORY);
+
+```
+
+### NoraVisualComposition.tsx
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx
@@ -1972,797 +3619,75 @@ index 707e39f9..1dc6ec66 100644
 
 ```
 
-### 6.6 Diff `NoraConversation.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-index b149f939..b814d9a8 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-@@ -2,17 +2,17 @@
-
- import { useEffect, useRef, useState } from "react";
- import { SafeMarkdown } from "@/components/SafeMarkdown";
--import { NoraVisualComposition } from "@/components/figma/NoraVisualComposition";
-+import { NoraComposition } from "@/components/figma/NoraComposition";
- import { useNoraThreadScroll } from "@/hooks/useNoraThreadScroll";
- import type {
-   MessageProjectionView,
-   TurnChoice,
-   TurnReference,
- } from "@/domains/conversation/turn-projection";
-+import { admitConversationalComposition } from "@/domains/conversation/conversational-composition";
- import {
-   compositionAnchorsChoices,
-   compositionAnchorsReferences,
--  compositionOwnsBody,
- } from "@/domains/conversation/visual-composition";
-
- export type NoraMsg = {
-@@ -158,22 +158,43 @@ export function NoraConversation(props: {
-                 </div>
-                 {isNora ? (
-                   <div className="fig-msg-body">
--                    {proj?.visualComposition &&
--                    compositionOwnsBody(proj.visualComposition) ? (
--                      <NoraVisualComposition
--                        composition={proj.visualComposition}
--                        choices={proj.choices}
--                        references={proj.references}
--                        actionable={proj.actionable}
--                        busy={props.busy}
--                        choiceFrozen={props.choiceFrozen}
--                        messageId={m.id}
--                        onChoice={props.onChoice}
--                        onReference={props.onReference}
--                      />
--                    ) : (
--                      <SafeMarkdown content={m.content} />
--                    )}
-+                    {(() => {
-+                      const admission = proj?.visualComposition
-+                        ? admitConversationalComposition(proj.visualComposition)
-+                        : null;
-+                      const policy = admission?.bodyPolicy ?? "markdown_only";
-+                      const compositionEl =
-+                        proj?.visualComposition && policy !== "markdown_only" ? (
-+                          <NoraComposition
-+                            composition={proj.visualComposition}
-+                            choices={proj.choices}
-+                            references={proj.references}
-+                            actionable={proj.actionable}
-+                            busy={props.busy}
-+                            choiceFrozen={props.choiceFrozen}
-+                            messageId={m.id}
-+                            onChoice={props.onChoice}
-+                            onReference={props.onReference}
-+                          />
-+                        ) : null;
-+                      if (policy === "substitute" && compositionEl) {
-+                        return compositionEl;
-+                      }
-+                      if (policy === "complement" && compositionEl) {
-+                        return (
-+                          <>
-+                            <SafeMarkdown content={m.content} />
-+                            <div
-+                              className="fig-comp-complement"
-+                              data-testid="nora-composition-complement"
-+                            >
-+                              {compositionEl}
-+                            </div>
-+                          </>
-+                        );
-+                      }
-+                      return <SafeMarkdown content={m.content} />;
-+                    })()}
-                   </div>
-                 ) : (
-                   <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
-
-```
-
-### 6.7 Diff `tokens.css`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-index 8623f598..3ee2d00d 100644
---- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
-+++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-@@ -2163,6 +2163,128 @@
-   }
- }
-
-+/* Conversational composition v1 — adaptive presentation (CV-*) */
-+.fig-comp-composition {
-+  container-type: inline-size;
-+  container-name: nora-composition;
-+}
-+
-+.fig-comp-title {
-+  overflow-wrap: anywhere;
-+  word-break: break-word;
-+}
-+
-+.fig-comp-alt h4,
-+.fig-comp-alt p,
-+.fig-comp-step h4,
-+.fig-comp-fallback-text,
-+.fig-comp-matrix th,
-+.fig-comp-matrix td {
-+  overflow-wrap: anywhere;
-+  word-break: break-word;
-+  white-space: normal;
-+}
-+
-+.fig-comp-comparison-stack {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 12px;
-+}
-+
-+.fig-comp-matrix-details {
-+  margin-top: 12px;
-+}
-+
-+.fig-comp-matrix-details-title {
-+  margin: 0 0 8px;
-+  font-size: 13px;
-+  font-weight: 600;
-+  color: var(--fig-muted);
-+}
-+
-+.fig-comp-relations-label {
-+  overflow-wrap: anywhere;
-+  word-break: break-word;
-+}
-+
-+.fig-comp-complement {
-+  margin-top: 12px;
-+}
-+
-+.fig-comp-comparison-cards {
-+  display: grid;
-+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-+  gap: 12px;
-+}
-+
-+.fig-comp-matrix-wrap {
-+  overflow-x: auto;
-+  max-width: 100%;
-+  -webkit-overflow-scrolling: touch;
-+}
-+
-+.fig-comp-matrix {
-+  width: max-content;
-+  min-width: 100%;
-+  border-collapse: collapse;
-+}
-+
-+.fig-comp-matrix th,
-+.fig-comp-matrix td {
-+  padding: 8px 10px;
-+  text-align: left;
-+  vertical-align: top;
-+  white-space: normal;
-+}
-+
-+.fig-comp-steps-vertical {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 0;
-+}
-+
-+.fig-comp-steps-horizontal {
-+  display: flex;
-+  flex-direction: row;
-+  flex-wrap: wrap;
-+  gap: 12px;
-+  align-items: stretch;
-+}
-+
-+.fig-comp-steps-horizontal > .fig-comp-step {
-+  flex: 1 1 180px;
-+  min-width: min(100%, 180px);
-+}
-+
-+.fig-comp-relations-svg {
-+  width: 100%;
-+  max-width: 100%;
-+  height: auto;
-+}
-+
-+.fig-comp-relations-svg .fig-visual-node-label {
-+  font-size: 10px;
-+}
-+
-+.fig-comp-block-fallback,
-+.fig-comp-fallback-text {
-+  margin: 0;
-+  padding: 10px 12px;
-+  border-left: 3px solid var(--fig-line);
-+  color: var(--fig-ink);
-+  background: color-mix(in srgb, var(--fig-panel) 80%, transparent);
-+}
-+
-+@container nora-composition (max-width: 560px) {
-+  .fig-comp-comparison-cards {
-+    grid-template-columns: 1fr;
-+  }
-+
-+  .fig-comp-steps-horizontal {
-+    flex-direction: column;
-+  }
-+}
-+
- .project-unavailable {
-   display: flex;
-   align-items: flex-start;
-
-```
-
-### 6.8 Diff `delivery-history.md`
-
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 7b64d566..366dda6e 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,34 @@ Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-
-+## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-CORRECTIVE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-18 ~02:25 CET |
-+| Macro-lot | Correction intégrée composition conversationnelle (réponse STOP ChatGPT) |
-+| Type | Cycle Delivery · Critical · RUN correctif dans EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
-+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
-+| Corrections | A matrice+détails ; B relations list only (SVG différé) ; C repli exhaustif ; D bodyPolicy substitute/complement ; E capacité wire honnête ; F ACK PREEXISTING PROVEN |
-+| Preuves | Vitest 57 PASS ; tsc 32 préexistantes / 0 touched ; T02 PASS + captures corrective ; ACK FAIL identique sur tip clean `a783f014` |
-+| Verdict | (voir Review Pack Full correctif) |
-+
-+
-+## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-V1
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-18 ~01:22 CET |
-+| Macro-lot | Remplacement mécanisme graphique expérimental E05 → composition conversationnelle adaptative |
-+| Type | Cycle Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
-+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
-+| Architecture | Strategy B V1 — `replyDraft` canonique ; wire `e05-visual-composition-v1` conservé ; admission `conversational-composition-v1` ; renderer `NoraComposition` |
-+| Scope | admission/variantes CV-* ; `NoraComposition` + CSS container queries ; alias `NoraVisualComposition` ; wire `NoraConversation` ; tests unit ; preuves Figma Page 06 ; matrice CV-T |
-+| Non-scope | Migration DB ; Strategy A sections sémantiques ; elkjs/RF/ECharts ; push produit ; RECETTE/STABLE ; LIVE OpenAI |
-+| Preuves | Vitest admission+E05+schema+projection 54 PASS ; Playwright ensemble05 5 PASS / 2 FAIL (C2/ACK hors renderer) ; T02 composition PASS |
-+| Verdict | `READY WITH RESERVES` — supersédé par STOP ChatGPT puis correctif |
-+
-+
- ## delivery_id: DELIV-2026-11-17-ML4D-R05-COGNITIVE-RECOVERY
-
- | Field | Value |
-
-```
-
-### 6.9 Diff `ensemble05-travail-nora.spec.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
-index 37b839c4..055048c8 100644
---- a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
-@@ -566,6 +566,15 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
-     await ask(E05_S2_DIAGNOSTIC);
-     await expect(page.getByTestId("nora-visual-relations")).toBeVisible({ timeout: 45000 });
-     await expect(page.getByTestId("nora-visual-icon").first()).toBeVisible();
-+    // Corrective B — structured list, no fixed-coordinate SVG.
-+    await expect(page.getByTestId("nora-visual-relations").last()).toHaveAttribute(
-+      "data-layout",
-+      "structured-list",
-+    );
-+    await expect(page.getByTestId("nora-visual-relations").last()).toHaveAttribute(
-+      "data-variant",
-+      "list",
-+    );
-     await expect(page.getByTestId("nora-visual-composition").last()).toHaveAttribute(
-       "data-owns-body",
-       "1",
-@@ -574,6 +583,10 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
-       path: path.join(evidenceDir, "runtime-s2-diagnostic-1440.png"),
-       fullPage: false,
-     });
-+    await page.screenshot({
-+      path: path.join(evidenceDir, "corrective-runtime-relations-list-1440.png"),
-+      fullPage: false,
-+    });
-
-     // S3 — comparison + recommendation + choice/ref anchors + provenance P1-B.
-     await ask(E05_S3_COMPARISON);
-@@ -593,6 +606,8 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
-     await expect(s3.getByTestId("nora-visual-prov-link")).toHaveCount(1);
-     await expect(s3.getByTestId("nora-ref-link")).toHaveCount(0);
-     await expect(s3.getByText(/Consulter · Note de cadrage coordination/i)).toHaveCount(1);
-+    // Corrective A — alternative substance remains visible (cards or matrix+details).
-+    await expect(s3.getByTestId("nora-composition-alt-detail").first()).toBeVisible();
-     await page.screenshot({
-       path: path.join(evidenceDir, "runtime-visual-comparison-1440.png"),
-       fullPage: false,
-@@ -601,6 +616,10 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
-       path: path.join(evidenceDir, "runtime-s3-provenance-1440.png"),
-       fullPage: false,
-     });
-+    await page.screenshot({
-+      path: path.join(evidenceDir, "corrective-runtime-comparison-1440.png"),
-+      fullPage: false,
-+    });
-
-     // S4 — trajectory / sequence with human-readable dependencies (V02).
-     await ask(E05_S4_TRAJECTORY);
-
-```
-
-### 6.10 Tests unitaires
-
-```ts
-import { describe, expect, it } from "vitest";
-import {
-  admitConversationalComposition,
-  buildExhaustiveBlockFallback,
-  CONVERSATIONAL_COMPOSITION_CONTRACT,
-  projectionSubstanceRenderComplete,
-  selectComparisonVariant,
-  selectRelationsVariant,
-  selectSequenceVariant,
-} from "@/domains/conversation/conversational-composition";
-import {
-  parseVisualComposition,
-  VISUAL_COMPOSITION_SCHEMA,
-  type VisualComposition,
-} from "@/domains/conversation/visual-composition";
-
-function comparisonFixture(nAlts: number, criteria = 0, long = false): VisualComposition {
-  const alternatives = Array.from({ length: nAlts }, (_, i) => ({
-    id: `a${i}`,
-    title: long ? `Option ${i} ${"x".repeat(80)}` : `Option ${i}`,
-    summary: long ? `${"long ".repeat(40)}summary ${i}` : `Summary ${i}`,
-    pros: long ? [`Pro ${"y".repeat(60)}`] : [`Pro ${i}`],
-    cons: [`Con ${i}`],
-  }));
-  const crit =
-    criteria > 0
-      ? Array.from({ length: criteria }, (_, i) => ({
-          id: `c${i}`,
-          label: `Critère ${i}`,
-          values: Object.fromEntries(alternatives.map((a) => [a.id, `v${i}`])),
-        }))
-      : undefined;
-  return parseVisualComposition({
-    schemaVersion: VISUAL_COMPOSITION_SCHEMA,
-    blocks: [
-      {
-        kind: "comparison",
-        id: "cmp",
-        title: "Comparaison",
-        alternatives,
-        criteria: crit,
-        recommendation: "Si latence critique, préférer Option 0.",
-        provenance: [{ label: "Note architecture", note: "hypothèse" }],
-        textAlternative: alternatives.map((a) => `${a.title}: ${a.summary}`).join(" | "),
-      },
-    ],
-  })!;
-}
-
-describe("conversational composition admission (CV-*)", () => {
-  it("CV-T01 — narrative-only / no composition → no graphic ownership", () => {
-    const empty = admitConversationalComposition(null);
-    expect(empty.contract).toBe(CONVERSATIONAL_COMPOSITION_CONTRACT);
-    expect(empty.ownsBody).toBe(false);
-    expect(empty.bodyPolicy).toBe("markdown_only");
-    expect(empty.admitted).toHaveLength(0);
-    expect(empty.fallbackReasons).toContain("CV_NO_COMPOSITION");
-
-    const textOnly = parseVisualComposition({
-      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
-      blocks: [{ kind: "text", id: "t1", markdown: "Réponse simple." }],
-    })!;
-    const adm = admitConversationalComposition(textOnly);
-    expect(adm.ownsBody).toBe(true);
-    expect(adm.bodyPolicy).toBe("substitute");
-    expect(adm.admitted).toHaveLength(1);
-    expect(adm.admitted[0]?.family).toBe("narrative");
-    expect(adm.fallbackReasons).toContain("CV_NARRATIVE_ONLY");
-  });
-
-  it("CV-T03/T04 — 2–3 options → cards; 5 options + criteria → matrix (wide)", () => {
-    const three = comparisonFixture(3);
-    const c3 = selectComparisonVariant(three.blocks[0] as never, 960);
-    expect(c3.variant).toBe("cards");
-
-    const five = comparisonFixture(5, 4);
-    const c5 = selectComparisonVariant(five.blocks[0] as never, 960);
-    expect(c5.variant).toBe("matrix");
-    expect(c5.reasonCodes.some((r) => r.includes("MATRIX"))).toBe(true);
-
-    const adm = admitConversationalComposition(five, { containerWidthPx: 960 });
-    expect(adm.bodyPolicy).toBe("substitute");
-    expect(projectionSubstanceRenderComplete(five)).toBe(true);
-  });
-
-  it("CV-T05 — wire path 8 options: parser rejects; replyDraft path remains (not direct admission cheat)", () => {
-    const raw = {
-      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
-      blocks: [
-        {
-          kind: "comparison",
-          id: "cmp",
-          title: "Trop d'options",
-          alternatives: Array.from({ length: 8 }, (_, i) => ({
-            id: `a${i}`,
-            title: `Option ${i}`,
-            summary: `Summary ${i}`,
-            pros: [`Pro ${i}`],
-            cons: [`Con ${i}`],
-          })),
-          textAlternative: "huit options",
-        },
-      ],
-    };
-    const parsed = parseVisualComposition(raw);
-    expect(parsed).toBeNull();
-    const adm = admitConversationalComposition(parsed);
-    expect(adm.bodyPolicy).toBe("markdown_only");
-    expect(adm.admitted).toHaveLength(0);
-    // Capacity note is declared on admitted compositions (wire honesty), not null.
-    const withinWire = admitConversationalComposition(comparisonFixture(5, 1));
-    expect(withinWire.capacityNotes).toContain("CV_WIRE_MAX_ALTS_5");
-  });
-
-  it("CV-T05 — long copy / narrow → stacked; over-capacity defensive → text", () => {
-    const many = comparisonFixture(5, 0, true);
-    const narrow = selectComparisonVariant(many.blocks[0] as never, 480);
-    expect(["stacked", "text", "matrix"]).toContain(narrow.variant);
-    expect(narrow.variant).not.toBe("cards");
-
-    const overBlock = {
-      kind: "comparison" as const,
-      id: "cmp",
-      title: "Over",
-      alternatives: Array.from({ length: 20 }, (_, i) => ({
-        id: `a${i}`,
-        title: `O${i}`,
-        summary: `s${i}`,
-      })),
-      textAlternative: "trop d'options",
-    };
-    const o = selectComparisonVariant(overBlock, 1200);
-    expect(o.variant).toBe("text");
-  });
-
-  it("CV-T06 — sequence narrow → vertical", () => {
-    const seq = parseVisualComposition({
-      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
-      blocks: [
-        {
-          kind: "sequence",
-          id: "s1",
-          title: "Parcours",
-          steps: Array.from({ length: 5 }, (_, i) => ({
-            id: `st${i}`,
-            title: `Étape ${i}`,
-            detail: "détail",
-          })),
-          textAlternative: "Cinq étapes",
-        },
-      ],
-    })!;
-    const v = selectSequenceVariant(seq.blocks[0] as never, 500);
-    expect(v.variant).toBe("vertical");
-  });
-
-  it("CV-T10 — dense relations → structured list (never svg_simple)", () => {
-    const dense = parseVisualComposition({
-      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
-      blocks: [
-        {
-          kind: "relations",
-          id: "r1",
-          title: "Dépendances",
-          nodes: Array.from({ length: 10 }, (_, i) => ({
-            id: `n${i}`,
-            label: `Nœud ${i} with a very long human label that must remain readable`,
-            kind: "observation",
-          })),
-          edges: Array.from({ length: 14 }, (_, i) => ({
-            from: `n${i % 10}`,
-            to: `n${(i + 1) % 10}`,
-            label: "lié",
-          })),
-          textAlternative: "Graphe dense",
-        },
-      ],
-    })!;
-    expect(dense).not.toBeNull();
-    const sel = selectRelationsVariant(dense!.blocks[0] as never, 900);
-    expect(sel.variant).toBe("list");
-    expect(sel.reasonCodes).toContain("CV_RELATIONS_SVG_DEFERRED");
-  });
-
-  it("CV-T14 — admission never invents quantitative chart family", () => {
-    const adm = admitConversationalComposition(comparisonFixture(3));
-    expect(adm.admitted.every((a) => a.family !== ("chart" as never))).toBe(true);
-    expect(adm.capacityNotes).toContain("CV_DECISION_PATHS_PARALLEL_NOT_DISTINCT_V1");
-  });
-
-  it("Defect C — exhaustive fallback never truncates long text", () => {
-    const longMd = "A".repeat(2500);
-    const block = { kind: "text" as const, id: "t1", markdown: longMd };
-    const fb = buildExhaustiveBlockFallback(block);
-    expect(fb.length).toBe(2500);
-    expect(fb).toBe(longMd);
-  });
-
-  it("Defect A — matrix fixture preserves all alt substance in exhaustive fallback", () => {
-    const five = comparisonFixture(5, 3);
-    const block = five.blocks[0]!;
-    const fb = buildExhaustiveBlockFallback(block);
-    expect(fb).toContain("Option 0");
-    expect(fb).toContain("Summary 0");
-    expect(fb).toContain("Pro 0");
-    expect(fb).toContain("Con 0");
-    expect(fb).toContain("Critère 0");
-    expect(fb).toContain("Recommandation");
-  });
-
-  it("admit preserves block order and reason codes", () => {
-    const comp = parseVisualComposition({
-      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
-      blocks: [
-        { kind: "text", id: "t1", markdown: "Intro" },
-        {
-          kind: "comparison",
-          id: "c1",
-          title: "Opts",
-          alternatives: [
-            { id: "a", title: "A", summary: "sa" },
-            { id: "b", title: "B", summary: "sb" },
-          ],
-          textAlternative: "A vs B",
-        },
-        { kind: "choices", id: "ch" },
-      ],
-    })!;
-    const adm = admitConversationalComposition(comp, { containerWidthPx: 800 });
-    expect(adm.admitted.map((a) => a.block.kind)).toEqual([
-      "text",
-      "comparison",
-      "choices",
-    ]);
-    expect(adm.admitted[1]?.reasonCodes.length).toBeGreaterThan(0);
-    expect(adm.bodyPolicy).toBe("substitute");
-  });
-});
-
-```
-
-### 6.11 Evidence Figma contract
-
-# Contrat visuel extrait — Figma Page 06 (références composition)
-
-**Date :** 2026-11-18
-**Fichier :** `https://www.figma.com/design/itgvCulInEnFY6DvgIegvP`
-**Page :** 06 · node `742:2`
-**Statut :** EXTRAIT MCP — **pas une preuve runtime**
-
-## Principes UX acceptés (Morris)
-
-- Sobriété de l’environnement ; richesse maîtrisée de la réponse.
-- Hiérarchie éditoriale claire ; cartes uniquement si pertinentes.
-- Connexions et représentations fiables ; pas de décoration gratuite.
-- Texte essentiel non tronqué ; lisibilité à largeur variable.
-
-## Frames de référence
-
-| Ref | Node | Intention |
-| --- | --- | --- |
-| 01 | 742:36 | Synthèse stratégique |
-| 02 | 743:2 | Parcours et planning |
-| 03 | 745:2 | Trois options adaptatives |
-| 04 | 745:27 | Matrice comparative |
-| 05 | 746:2 | Largeur réduite / textes longs |
-| 06 | 746:22 | Parcours vertical |
-| 07 | 751:11 | Dépendances |
-| 08 | 752:2 | Arbre de décision |
-| 09 | 753:2 | Flux parallèle |
-
-## Propriétés visuelles observées (MCP)
-
-- Composition claire sectionnée : titre de bloc + corps (cartes / table / liste / graphe).
-- Cartes comparison : grille responsive, hauteur intrinsèque au contenu, ombre/bordure soft.
-- Matrice : en-têtes critères × options ; wrap horizontal si dense.
-- Séquences : marqueurs numérotés + connecteurs ; variante verticale privilégiée en largeur réduite.
-- Relations : nœuds labellisés humains ; repli liste si densité.
-- Environnement conversationnel sombre Studio (`tokens.css`) — **écart connu** vs maquettes Figma plus claires Page 06 ; la DA « sobriété + hiérarchie » est retenue, pas un clonage pixel-perfect du fond clair.
-
-## Choix techniques candidats (retenus V1)
-
-- HTML/CSS/SVG sémantique ; **pas** elkjs / React Flow / ECharts en V1.
-- Admission déterministe `conversational-composition-v1` (variantes cards/matrix/stacked/vertical/list).
-- Container queries + ResizeObserver pour largeur effective.
-- Dual testids `nora-visual-*` (compat) + `data-comp-testid=nora-composition*`.
-
-## Verdict contrat Figma
-
-**FIGMA CONTRACT EXTRACTED — RUNTIME COMPARISON PENDING**
-Sans capture runtime post-implémentation : verdict visuel maximal
-`REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED`.
-
-
-### 6.12 Matrice CV-T révisée
-
-# Matrice CV-T01–CV-T20 — Composition adaptative (correctif 2026-11-18)
-
-**Branche :** `sfia/next-ml4d-composition-adaptative` @ tip `a783f014` + WT correctif
-**GO :** construction/correction locale — pas LIVE/REAL ; pas RECETTE.
-
-| ID | Statut | Frontière | Preuve / motif |
-| --- | --- | --- | --- |
-| CV-T01 | PASS | UNIT DETERMINISTIC | admission narrative-only |
-| CV-T02 | PARTIAL | BROWSER DETERMINISTIC | T02 S1–S8 PASS ; LIVE Pilote NOT RUN |
-| CV-T03 | PASS | UNIT + BROWSER | cards + alt-detail visible ; capture corrective-runtime-comparison-1440 |
-| CV-T04 | PARTIAL | UNIT + BROWSER | matrix+details policy + fixture substance ; Figma 04 ref ; largeur matrix runtime dépend fixture S3 (cards) |
-| CV-T05 | PASS (repli) | UNIT wire path | parse 8 alts → null ; markdown_only ; graphic 8–18 NOT claimed |
-| CV-T06 | PASS | UNIT + BROWSER | sequence vertical ; T02 S4 |
-| CV-T07 | PARTIAL | BROWSER | structured-list fallback ; SVG deferred — NOT graph layout PASS |
-| CV-T08 | NOT RUN | BROWSER + D6 | wire sans arbre conditionnel distinct |
-| CV-T09 | NOT RUN | BROWSER | parallelProcess non distinct V1 |
-| CV-T10 | PASS | UNIT + BROWSER | dense → list ; labels humains ; pas d'IDs techniques exposés |
-| CV-T11 | PARTIAL | UNIT | exhaustive fallback >400 ; zoom BROWSER NOT RUN dedicated |
-| CV-T12 | NOT RUN | BROWSER UX-010 | split 50/50 |
-| CV-T13 | PASS | UNIT | provenance fail-closed legacy |
-| CV-T14 | PASS | UNIT | pas de chart inventé |
-| CV-T15 | PARTIAL | CODE + UNIT | BlockErrorBoundary + exhaustive fallback ; inject BROWSER NOT RUN |
-| CV-T16 | PASS | BROWSER fixture | T02 refresh/identity via projection path |
-| CV-T17 | NOT RUN | PG/BROWSER | R05 UNKNOWN hors correctif graphique |
-| CV-T18 | PASS | UNIT + BROWSER | dual testids + T02 |
-| CV-T19 | NOT RUN | LIVE/REAL | non autorisé |
-| CV-T20 | PARTIAL | BROWSER | caption table visible ; a11y audit complet NOT RUN |
-
-## ACK / reconcile
-
-| Test | Candidat correctif | Tip clean `a783f014` | Qualification |
-| --- | --- | --- | --- |
-| C2 ACK lost | FAIL `thread-reconcile-pending` | FAIL identique | **PREEXISTING PROVEN** |
-| composer ACK | FAIL `thread-reconcile-pending` | FAIL identique | **PREEXISTING PROVEN** |
-
-## TypeScript
-
-`npx tsc --noEmit` : **32** erreurs — toutes hors fichiers touchés composition (`NONE` sur NoraComposition/admission/…). Inventaire dominant : `ml4c-prior-proposal.pg.test.ts` (21), `create-project.pg.test.ts` (4), unit semantic/s05/ml4c (7).
-
-
 ---
 
-## 9. Tests exécutés
+## 8. Tests
 
 | Suite | Résultat |
 | --- | --- |
-| Vitest admission+E05+projection+schema | **57 PASS** |
-| tsc --noEmit | **32** erreurs ; **0** sur fichiers touchés |
-| Playwright ensemble05 (candidat) | 5 PASS / 2 FAIL ACK |
-| Playwright T02 seul | **PASS** + captures corrective-* |
-| Playwright ACK sur tip clean `a783f014` | **2 FAIL** identiques → PREEXISTING PROVEN |
+| Vitest admission+fidelity+E05+projection+schema | **65 PASS** (11+7+20+12+15) |
+| tsc --noEmit | **32** préexistantes ; **0** touched |
+| Playwright T02 | **PASS** |
+| ACK e2e | non rejoués ce cycle ; qualification PREEXISTING PROVEN cycle antérieur |
 | LIVE OpenAI | NOT RUN |
 
-### Inventaire TypeScript (extrait)
+---
 
-```
-tests/integration/create-project.pg.test.ts(290,16): error TS2551: Property 'projectId' does not exist on type '{ preparation: { id: string; ownerPilotId: string; status: string; creationRevision: number; previewName: string; previewSummary: string; projectionJson: Record<string, unknown> | null; createdAt: Date; updatedAt: Date; }; project: { ...; } | null; conversation: { ...; }; link: { ...; }; projection: PreparationProje...'. Did you mean 'project'?
-tests/integration/create-project.pg.test.ts(299,16): error TS2551: Property 'projectId' does not exist on type '{ preparation: { id: string; ownerPilotId: string; status: string; creationRevision: number; previewName: string; previewSummary: string; projectionJson: Record<string, unknown> | null; createdAt: Date; updatedAt: Date; }; project: { ...; } | null; conversation: { ...; }; link: { ...; }; projection: PreparationProje...'. Did you mean 'project'?
-tests/integration/create-project.pg.test.ts(306,16): error TS2551: Property 'projectId' does not exist on type '{ preparation: { id: string; ownerPilotId: string; status: string; creationRevision: number; previewName: string; previewSummary: string; projectionJson: Record<string, unknown> | null; createdAt: Date; updatedAt: Date; }; project: { ...; } | null; conversation: { ...; }; link: { ...; }; projection: PreparationProje...'. Did you mean 'project'?
-tests/integration/create-project.pg.test.ts(312,16): error TS2551: Property 'projectId' does not exist on type '{ preparation: { id: string; ownerPilotId: string; status: string; creationRevision: number; previewName: string; previewSummary: string; projectionJson: Record<string, unknown> | null; createdAt: Date; updatedAt: Date; }; project: { ...; } | null; conversation: { ...; }; link: { ...; }; projection: PreparationProje...'. Did you mean 'project'?
-tests/integration/ml4c-prior-proposal.pg.test.ts(171,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProp...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(263,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentSour...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(342,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentSour...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(380,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; }' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(442,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentSour...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(479,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "PREPARE"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProposal: {...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(573,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.revise_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: { documentHint: string; }; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraf...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(650,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; }' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(702,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentSour...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(747,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "PREPARE"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProposal: {...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(824,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProp...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(881,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProp...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(949,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "PREPARE"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProposal: {...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(1012,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentSour...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(1133,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "PREPARE"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProposal: {...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(1177,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentSour...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(1272,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "PREPARE"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentProposal: {...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(1350,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; documentSour...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(1542,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.revise_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: { documentHint: string; sectionHint: string; }; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarification...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(1626,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.revise_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: { documentHint: string; sectionHint: string; }; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarification...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/integration/ml4c-prior-proposal.pg.test.ts(1697,7): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.revise_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: { documentHint: string; sectionHint: string; }; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarification...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/unit/ml4c-s05-thread-turn-qualification.test.ts(22,11): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d3.converse"; mode: "EXPLAIN"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; }' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/unit/ml4c-temp-restitution.test.ts(22,3): error TS2322: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention?: string | undefined; desiredOutcome?: string | undefined; ... 11 more ...; visualComposition?: { ...; } | undefined; }' is not assignable to type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }'.
-tests/unit/s05-pending-policy.test.ts(16,3): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE"; goal: string; intents: { id: string; capabilityId: "d5.pilotage_command"; mode: "REQUEST_EFFECT"; summary: string; parameters: { pilotageOperation: "OPEN_CYCLE"; cycleType: string; }; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; c...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/unit/s05-pending-policy.test.ts(94,11): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d4.create_document"; mode: "REQUEST_EFFECT"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; }' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/unit/semantic-qualification.test.ts(71,11): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d5.pilotage_command"; mode: "REQUEST_EFFECT"; summary: string; parameters: { pilotageOperation: "OPEN_CYCLE"; cycleType: string; }; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; cla...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/unit/semantic-qualification.test.ts(103,11): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: ({ id: string; capabilityId: "d2.create_project"; mode: "REQUEST_EFFECT"; summary: string; parameters: { projectName: string; }; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; } | { ...; })[]; clarifications: never[]...' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-tests/unit/semantic-qualification.test.ts(173,11): error TS2739: Type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "QUALIFIED"; goal: string; intents: { id: string; capabilityId: "d3.converse"; mode: "EXPLAIN"; summary: string; parameters: {}; constraints: never[]; dependsOn: never[]; sourceEvidence: never[]; }[]; clarifications: never[]; replyDraft: string; }' is missing the following properties from type '{ schemaVersion: "ml4c-sem-qual-v1"; status: "UNAVAILABLE" | "QUALIFIED" | "NEEDS_CLARIFICATION"; goal: string; projectIntention: string; desiredOutcome: string; initialScope: string; ... 10 more ...; visualComposition?: { ...; } | undefined; }': projectIntention, desiredOutcome, initialScope, proposedProjectName
-```
+## 9. Captures / Figma
 
-Agrégation : ml4c-prior-proposal.pg.test.ts×21 ; create-project.pg.test.ts×4 ; semantic/s05/ml4c unit×7. Aucune ligne NoraComposition/admission/NoraConversation.
+- T02 refreshes runtime captures
+- Figma Page 06 refs 03/04 déjà en evidence
+- Figma 07/08/09 : contrat layoutHint + unit directed ; captures BROWSER dédiées 08/09 **NOT RUN** (PARTIAL C-11/12)
+- Verdict esthétique global : NON PROUVÉ (C-18)
 
 ---
 
-## 10. Captures runtime / Figma
+## 10. Fake/Real
 
-DEV fixture Browser :
-- `corrective-runtime-relations-list-1440.png`
-- `corrective-runtime-comparison-1440.png`
-- captures T02 historiques rafraîchies (`runtime-s*-1440.png`)
-
-Figma Page 06 refs 03/04 déjà sous `figma-page06/`.
-Verdict : géométrie fixture prouvée pour cards/list ; matrix+details prouvée en UNIT + code path ; LIVE éditorial non prouvé.
+DETERMINISTIC + BROWSER fixture. LIVE/REAL NOT PROVEN. DETERMINISTIC ≠ READY FOR REAL.
 
 ---
 
-## 11. Fake / Real
+## 11. ENV / versioning
 
-| Preuve | Qualif |
-| --- | --- |
-| Vitest / fixtures | DETERMINISTIC |
-| Playwright DEV fixture | BROWSER DETERMINISTIC |
-| Figma MCP | DESIGN REF |
-| OpenAI / RECETTE / Git REAL | NOT RUN / NOT TOUCHED |
-
-DETERMINISTIC ≠ READY FOR REAL.
+DEV only. NO RELEASE. RECETTE/STABLE non touchées.
 
 ---
 
-## 12. ENV / versioning
+## 12. STOP levés / réserves
 
-Lane DEV only. NO RELEASE. RECETTE/STABLE non touchées.
+### Levés
+- C-04 blocking : substitute graphique impossible sans ancres ; contradiction → markdown_only
+- C-05 write path hors e05-only (dual-read)
+- C-10 directed deps livré (CSS)
+- C-14 capacité 8 options
 
----
+### Réserves
+- C-11/12 BROWSER Figma 08/09 dédiés NOT RUN (UNIT family OK)
+- C-18 esthétique globale
+- C-21 LIVE
+- ACK R05 preexistant
+- ELK non évalué benchmark complet (CSS retenu comme plus simple)
 
-## 13. STOP levés / réserves
-
-### A. STOP levés (fidélité bloquante)
-- A substance matrice : corrigé (details visibles)
-- B SVG non fiable : retiré / list
-- C truncature : corrigée
-- D body policy explicite
-- E capacité wire honnête
-- F ACK classifié PREEXISTING PROVEN (preuve tip clean)
-
-### B. Réserves résiduelles
-1. substitute ≠ identité replyDraft (structurelle seulement)
-2. CV-T07/08/09 graphiques conditionnels/parallèles non livrés comme familles distinctes
-3. ACK R05 preexistant — hors mandat correctif si élargissement
-4. a11y/zoom dédiés PARTIAL/NOT RUN
-5. ELK différé
+Aucune contradiction sémantique connue laissée en substitute.
 
 ---
 
-## 14. Verdict
+## 13. Verdict
 
 # READY WITH RESERVES
 
-Réserves restantes ne masquent plus la substance des comparaisons ni n'exposent un graphe trompeur ; ACK preexistant documenté ; pas de LIVE/REAL claim.
-
-Pas ADOPTED / Gate C / STABLE / MERGED / REAL PROVEN.
+Périmètre livré : C-04 sécurisé ; C-05/14 partiels opérationnels ; C-10 dirigé ; C-11/12 modèle+rendu UNIT ; preuves BROWSER T02.
+Pas ADOPTED / Gate C / STABLE / MERGED / REAL PROVEN / ML4D CLOSED.
 
 ---
 
-## 15. Instruction ChatGPT
+## 14. Instruction ChatGPT
 
-Revue Full **correctif** composition conversationnelle Nora (2026-11-18).
+Revue Full **convergence** composition Nora (2026-11-18).
 
-- Branche : `sfia/next-ml4d-composition-adaptative` @ `a783f014` + WT
-- Handoff précédent : `71ecf87d` / `47606b6b…`
-- Docs : `c9e6fe15`
-- Corrections A–F + diffs complets (§6) + CV-T + ACK PREEXISTING PROVEN + tsc 32/0 touched
-- Points à revoir : bodyPolicy/substitute réserve ; list vs graphe ; ACK owner R05 ; aptitude gate
+- Repo WT `sfia/next-ml4d-composition-adaptative` @ `a783f014`
+- Docs 06 @ `37915d8e`
+- Handoff précédent `eb8f6a01`
+- Points : C-04 bodyPolicy ; dual schema ; directed layouts ; MAX_ALTS=12 ; matrice C-01–22 ; réserves C-11/12 BROWSER
 - Verdict sollicité : confirmer READY WITH RESERVES ou STOP résiduel
