@@ -1,15 +1,16 @@
-# SFIA Review Pack FULL — F1–F5 Republish (fichiers + diffs + tests discriminants)
+# SFIA Review Pack FULL — Strategy A Canonical Semantic Sections
 
-**Date/heure :** 2026-11-18T07:33:01+0100
-**Cycle :** Delivery / EVOL Critical — republication Full F1–F5 (contenu exploitable)
-**GO Morris :** 18/11/2026 — « go Republier le Review Pack Full avec le contenu complet des nouveaux fichiers, les diffs exploitables des fichiers modifiés et les tests discriminants associés à F1–F4 »
+**Date/heure :** 2026-11-18T08:11:02+0100
+**Cycle :** Cycle 8 Delivery / Critical — transition sections sémantiques canoniques
+**GO Morris :** 18/11/2026 — contrat Cursor Strategy A + achèvement UX/UI
 **Branche :** `sfia/next-ml4d-composition-adaptative`
 **HEAD tip :** `a783f014935de0dec5ff8e79a2b18eea0e629756` (+ WT non commitée)
 **origin/main :** `997d4c4e8204993de7107552898c8cc08cd3b0ed`
-**Docs ML4D :** `af0891fe05babc38003e9173e865ab4399a2e356`
-**Handoff précédent :** `c8071cde90ef9237baee3d7be4b3d25f292c50b0` / blob `b1c662ad33ca22f955a721e5495953f7cdc5f511`
+**Docs ML4D :** `b27fbe3c8b75165c3ebacc8841876d699ccd3599` (doc 06 V0.3)
+**Handoff précédent :** `27f403d257851e327a03e2b58f2cbaa437130e00` / blob `e78b7f3a40d8767e3933dd486ffa86d92469535d`
 **Review Pack :** Full — réinitialisé (aucun append)
 **ENV :** DEV only · **NO RELEASE** · pas push produit / PR / merge / RECETTE / LIVE
+**Fake/Real :** DETERMINISTIC PROVEN · LIVE/REAL **NOT RUN**
 
 ---
 
@@ -17,66 +18,70 @@
 
 | Check | Résultat |
 | --- | --- |
-| Branche locale | `sfia/next-ml4d-composition-adaptative` non poussée |
-| HEAD | `a783f014935d` |
-| merge-base origin/main | `997d4c4e8204` |
-| Handoff distant avant republication | `c8071cde90ef` / `b1c662ad33ca…` |
-| Docs tip | `af0891fe05ba` |
+| Branche | `sfia/next-ml4d-composition-adaptative` non poussée |
+| HEAD | `a783f014935de0dec5ff8e79a2b18eea0e629756` |
+| merge-base origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Handoff avant | `27f403d257851e327a03e2b58f2cbaa437130e00` |
+| Docs tip | `b27fbe3c8b75165c3ebacc8841876d699ccd3599` |
 | STOP divergence | non |
 | Mutations destructives | aucune |
+
+Candidat local = WT F1–F5 + mutations Strategy A. Aligné preuves handoff `27f403d2` puis prolongé.
 
 ---
 
 ## 2. Sources
 
-- SFIA v2.6 routing / operating model / guardrails (main)
-- Next SEF, ENV-01, versioning (main)
-- Doc 06 @ `af0891fe05ba` (CANDIDATE)
-- Handoff `c8071cde90ef` (F1–F5 READY WITH RESERVES) comme baseline à enrichir
-- Doctrine 30/33/34/35 (lecture)
+- SFIA v2.6 template / operating model / guardrails (main)
+- SEF, ENV-01, versioning, décisions R5 (main)
+- Doc 05 §3.3 + doc 06 @ `b27fbe3c8b75`
+- Handoff Full F1–F5 `27f403d2`
+- Code local conversation/* (audit réel)
 
 ---
 
-## 3. Objectif de cette republication
+## 3. Décision Morris appliquée
 
-Le pack précédent (`c8071cde`) résumait F1–F5. Ce Full fournit :
-
-1. **Contenu complet** des fichiers **nouveaux** (module `conversational-composition/*`, `NoraComposition.tsx`, tests unit, matrice F)
-2. **Diffs exploitables** (`git diff HEAD -- <path>`) des fichiers **modifiés**
-3. **Tests discriminants F1–F4** (texte intégral du fichier fidelity + extraits admission liés)
-
-PNG runtime non inlinés (binaires) — chemins listés §8.
+Orientation **sections sémantiques canoniques** (Strategy A).
+Implémentation locale bornée : une structure → texte dérivé + graphique facultatif.
+Pas de migration DB, pas de second moteur, pas de rupture M1.
 
 ---
 
-## 4. Cartographie F1–F4 → artefacts
+## 4. Architecture avant / après
 
-| ID | Intention discriminante | Fichier(s) | Test(s) |
-| --- | --- | --- | --- |
-| F1 | substance projection ⊆ replyDraft ; titres seuls insuffisants | `fidelity.ts`, `admission.ts` (bodyPolicy) | F1-01, F1-02, F1-04, F1-06, F1-07 |
-| F2 | topologie indépendante de la fidélité ; cycles/multi-root → list | `topology.ts`, `admission.selectRelationsVariant` | F2-01…F2-04 + arbre valide |
-| F3 | présentation dirigée (layers/edges) sans prouver F1/F2 | `NoraComposition.tsx`, `tokens.css` | T02 asserts `deps-layers` / `data-directed` (BROWSER) |
-| F4 | WRITE projection-v1 only ; READ dual e05 | `visual-composition.ts` AgentOutputSchema | « agent write rejects legacy » |
+### Avant (Strategy B)
+replyDraft autorité + visualComposition annotation ; fidélité = claims ⊆ texte.
+
+### Après (Strategy A)
+`visualComposition` schema `conversational-composition-projection-v1` → `contentAuthority=canonical_sections`.
+`validateNoraTurnQualification` dérive `replyDraft` via `deriveReplyDraftFromCanonicalSections`.
+Admission identity path (pas de matching lexical).
+e05 historique → `legacy_projection` + gate F1 conservée.
+
+Voir fichier architecture §6.
 
 ---
 
 ## 5. Inventaire
 
-### 5.1 Nouveaux (full §6)
+### Nouveaux / module (contenu §6)
 
+- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/derive-text.ts` (37 L)
+- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/fidelity.ts` (211 L)
+- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/topology.ts` (192 L)
+- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/admission.ts` (485 L)
+- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/index.ts` (46 L)
+- `projects/sfia-studio-next/web/tests/unit/canonical-sections-strategy-a.test.ts` (186 L)
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/architecture-canonical-sections-strategy-a.md` (48 L)
+- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/c-matrix-strategy-a-status.md` (27 L)
+- `projects/sfia-studio-next/web/src/components/figma/NoraComposition.tsx` (986 L)
+- `projects/sfia-studio-next/web/tests/unit/conversational-composition-fidelity.test.ts` (339 L)
+- `projects/sfia-studio-next/web/tests/unit/conversational-composition-admission.test.ts` (306 L)
 
-- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/fidelity.ts` (202 lignes)
-- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/topology.ts` (180 lignes)
-- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/admission.ts` (471 lignes)
-- `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/index.ts` (44 lignes)
-- `projects/sfia-studio-next/web/src/components/figma/NoraComposition.tsx` (977 lignes)
-- `projects/sfia-studio-next/web/tests/unit/conversational-composition-fidelity.test.ts` (337 lignes)
-- `projects/sfia-studio-next/web/tests/unit/conversational-composition-admission.test.ts` (306 lignes)
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/f-matrix-fidelity-topology.md` (39 lignes)
+### Modifiés (diff §7)
 
-### 5.2 Modifiés (diff §7)
-
-
+- `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
 - `projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts`
 - `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
 - `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
@@ -84,20 +89,64 @@ PNG runtime non inlinés (binaires) — chemins listés §8.
 - `projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx`
 - `projects/sfia-studio-next/web/src/components/figma/tokens.css`
 - `projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts`
+- `projects/sfia-studio-next/web/tests/unit/conversational-composition-fidelity.test.ts`
 - `projects/sfia-studio-next/construction/delivery-history.md`
 
-### 5.3 Captures BROWSER (chemins)
+### Captures BROWSER (chemins — inspection locale)
+- f5-runtime-dependencies-directed-1440.png
+- f5-runtime-decision-tree-1440.png
+- f5-runtime-parallel-1440.png
 
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/f5-runtime-dependencies-directed-1440.png`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/f5-runtime-decision-tree-1440.png`
-- `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/f5-runtime-parallel-1440.png`
+**VISUAL REVIEW :** captures présentes localement ; transmission Git handoff = markdown only → **VISUAL REVIEW NOT COMPLETED remotely** (chemins déclarés).
 
 ---
 
-## 6. Contenu complet — fichiers nouveaux
+## 6. Contenu complet — fichiers nouveaux / module
 
 
-### 6.1 `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/fidelity.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/derive-text.ts`
+
+```ts
+/**
+ * Deterministic text derivation from canonical semantic sections (Strategy A / C-01–C-04).
+ * Preserves narrative prose from text blocks; appends exhaustive structured fallbacks
+ * for graphic sections so no substance is dropped.
+ * Never invents facts. Never calls an LLM.
+ */
+
+import { buildExhaustiveBlockFallback } from "./admission";
+import type { VisualComposition } from "@/domains/conversation/visual-composition";
+import { compositionOwnsBody } from "@/domains/conversation/visual-composition";
+
+const MAX_REPLY = 12000;
+
+/**
+ * Derive Pilote-facing Markdown from a composition that owns message substance.
+ * Returns null when composition does not own body (anchors-only / empty).
+ */
+export function deriveReplyDraftFromCanonicalSections(
+  composition: VisualComposition,
+): string | null {
+  if (!compositionOwnsBody(composition)) return null;
+  const parts: string[] = [];
+  for (const block of composition.blocks) {
+    if (block.kind === "choices" || block.kind === "references") continue;
+    if (block.kind === "text") {
+      const md = block.markdown.trim();
+      if (md) parts.push(md);
+      continue;
+    }
+    // Graphic / synthesis: exhaustive human-readable form (same substance as renderer).
+    const fb = buildExhaustiveBlockFallback(block).trim();
+    if (fb) parts.push(fb);
+  }
+  const joined = parts.join("\n\n").trim();
+  if (!joined) return null;
+  return joined.length > MAX_REPLY ? joined.slice(0, MAX_REPLY) : joined;
+}
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/fidelity.ts`
 
 ```ts
 /**
@@ -287,6 +336,15 @@ export function mayPresentGraphicComposition(
   if (!hasGraphicBlocks(composition)) {
     return { ok: true, reasonCodes: ["CV_FIDELITY_NARRATIVE_ONLY"], missing: [] };
   }
+  // Strategy A — identity path: sections are the sole authority; text was derived from them.
+  // No lexical claim matching (that was Strategy B dual-author reconciliation).
+  if (composition.contentAuthority === "canonical_sections") {
+    return {
+      ok: true,
+      reasonCodes: ["CV_FIDELITY_IDENTITY_CANONICAL_SECTIONS"],
+      missing: [],
+    };
+  }
   const support = claimsSupportedByCanonical(extractProjectionClaims(composition), canonicalText);
   const pref = detectPreferenceContradiction(composition, canonicalText);
   if (!support.ok || pref.length) {
@@ -304,7 +362,7 @@ export function mayPresentGraphicComposition(
 }
 ```
 
-### 6.2 `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/topology.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/topology.ts`
 
 ```ts
 /**
@@ -368,9 +426,11 @@ function inDegree(block: RelationsBlock): Map<string, number> {
 }
 
 /**
- * decisionTree: must be a DAG; prefer single root (in-degree 0).
- * Multiple roots → list (forest not proven as one decision tree).
- * Cycles / dangling edges → list + refuse directed.
+ * decisionTree: a true arborescence — not merely a DAG with one root.
+ * - exactly one root (in-degree 0)
+ * - every other node has exactly one parent (in-degree 1)
+ * - no cycles, no orphans, all nodes reachable from root
+ * Shared child (in-degree > 1) → list / directed-deps family, never a fake tree.
  */
 export function validateDecisionTree(block: RelationsBlock): TopologyVerdict {
   const ends = edgeEndsValid(block);
@@ -391,6 +451,16 @@ export function validateDecisionTree(block: RelationsBlock): TopologyVerdict {
       reasonCodes: ["CV_TOPOLOGY_TREE_NOT_SINGLE_ROOT"],
       mode: "list",
     };
+  }
+  for (const [id, d] of deg) {
+    if (id === roots[0]) continue;
+    if (d !== 1) {
+      return {
+        ok: false,
+        reasonCodes: ["CV_TOPOLOGY_TREE_SHARED_CHILD"],
+        mode: "list",
+      };
+    }
   }
   // Every non-root must be reachable from root
   const adj = new Map<string, string[]>();
@@ -489,7 +559,7 @@ export function topologicalLayers(block: RelationsBlock): string[][] {
 }
 ```
 
-### 6.3 `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/admission.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/admission.ts`
 
 ```ts
 /**
@@ -855,6 +925,20 @@ function decideBodyPolicy(
 ): BodyPresentationPolicy {
   if (!ownsBody) return "markdown_only";
 
+  // Strategy A — single semantic authority: sections own substance; body policy is identity-based.
+  if (composition.contentAuthority === "canonical_sections") {
+    if (!projectionSubstanceRenderComplete(composition)) {
+      fallbackReasons.push("CV_BODY_SUBSTANCE_INCOMPLETE");
+      return "markdown_only";
+    }
+    if (!hasGraphicBlocks(composition)) {
+      fallbackReasons.push("CV_BODY_CANONICAL_NARRATIVE_SUBSTITUTE");
+      return "substitute";
+    }
+    fallbackReasons.push("CV_BODY_CANONICAL_GRAPHIC_COMPLEMENT");
+    return "complement";
+  }
+
   const narrativeOnly = fallbackReasons.includes("CV_NARRATIVE_ONLY");
   if (narrativeOnly && !hasGraphicBlocks(composition)) {
     const narr = maySubstituteNarrative(composition, canonicalText);
@@ -878,7 +962,7 @@ function decideBodyPolicy(
   if (!fidelity.ok) {
     return "markdown_only";
   }
-  // Aligned graphics: show canonical text + structured complement (never mask).
+  // Legacy dual-author: aligned graphics complement replyDraft (never mask).
   fallbackReasons.push("CV_BODY_GRAPHIC_COMPLEMENT_ONLY");
   return "complement";
 }
@@ -965,7 +1049,7 @@ export function admitConversationalComposition(
 }
 ```
 
-### 6.4 `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/index.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/index.ts`
 
 ```ts
 /**
@@ -1012,9 +1096,287 @@ export {
   topologicalLayers,
   type TopologyVerdict,
 } from "./topology";
+
+export { deriveReplyDraftFromCanonicalSections } from "./derive-text";
 ```
 
-### 6.5 `projects/sfia-studio-next/web/src/components/figma/NoraComposition.tsx`
+### `projects/sfia-studio-next/web/tests/unit/canonical-sections-strategy-a.test.ts`
+
+```ts
+import { describe, expect, it } from "vitest";
+import {
+  admitConversationalComposition,
+  deriveReplyDraftFromCanonicalSections,
+  mayPresentGraphicComposition,
+  validateDecisionTree,
+} from "@/domains/conversation/conversational-composition";
+import {
+  parseVisualComposition,
+  VISUAL_COMPOSITION_SCHEMA,
+  VISUAL_COMPOSITION_SCHEMA_LEGACY,
+} from "@/domains/conversation/visual-composition";
+import { validateNoraTurnQualification } from "@/domains/conversation/semantic-qualification";
+
+describe("Strategy A — canonical semantic sections (C-01–C-04)", () => {
+  it("SC-derive: projection-v1 sets contentAuthority and derives replyDraft on validate", () => {
+    const raw = {
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      replyDraft: "TEXTE INDEPENDANT QUI DIVERGE",
+      intents: [],
+      visualComposition: {
+        schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+        blocks: [
+          {
+            kind: "text",
+            id: "t1",
+            markdown: "Prose naturelle : Option Alpha reste préférable si latence critique.",
+          },
+          {
+            kind: "comparison",
+            id: "c1",
+            title: "Alpha vs Beta",
+            alternatives: [
+              { id: "a", title: "Option Alpha", summary: "latence basse" },
+              { id: "b", title: "Option Beta", summary: "latence haute" },
+            ],
+            textAlternative: "Alpha vs Beta",
+          },
+        ],
+      },
+    };
+    const v = validateNoraTurnQualification(raw);
+    expect(v.ok).toBe(true);
+    if (!v.ok) return;
+    expect(v.value.visualComposition?.contentAuthority).toBe("canonical_sections");
+    expect(v.value.replyDraft).toContain("Prose naturelle");
+    expect(v.value.replyDraft).toContain("Option Alpha");
+    expect(v.value.replyDraft).not.toContain("TEXTE INDEPENDANT QUI DIVERGE");
+  });
+
+  it("SC-identity: graphics admitted without lexical claim matching when canonical", () => {
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "comparison",
+          id: "c1",
+          title: "A vs B",
+          alternatives: [
+            { id: "a", title: "Alpha", summary: "sa" },
+            { id: "b", title: "Beta", summary: "sb" },
+          ],
+          textAlternative: "A vs B",
+        },
+      ],
+    })!;
+    expect(comp.contentAuthority).toBe("canonical_sections");
+    const gate = mayPresentGraphicComposition(comp, "texte sans les titres");
+    expect(gate.ok).toBe(true);
+    expect(gate.reasonCodes).toContain("CV_FIDELITY_IDENTITY_CANONICAL_SECTIONS");
+    const adm = admitConversationalComposition(comp, {
+      canonicalText: "texte sans les titres",
+      containerWidthPx: 900,
+    });
+    expect(adm.bodyPolicy).toBe("complement");
+  });
+
+  it("SC-legacy: e05 still requires claim support (Strategy B path)", () => {
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA_LEGACY,
+      blocks: [
+        {
+          kind: "comparison",
+          id: "c1",
+          title: "A vs B",
+          alternatives: [
+            { id: "a", title: "Alpha", summary: "sa" },
+            { id: "b", title: "Beta", summary: "sb" },
+          ],
+          textAlternative: "A vs B",
+        },
+      ],
+    })!;
+    expect(comp.contentAuthority).toBe("legacy_projection");
+    const gate = mayPresentGraphicComposition(comp, "texte sans options");
+    expect(gate.ok).toBe(false);
+  });
+
+  it("SC-10: derived text is exhaustive for structured blocks", () => {
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "comparison",
+          id: "c1",
+          title: "Choix",
+          alternatives: [
+            { id: "a", title: "Plan A", summary: "économe", pros: ["rapide"], cons: ["limité"] },
+            { id: "b", title: "Plan B", summary: "complet", pros: ["riche"], cons: ["lourd"] },
+          ],
+          recommendation: "Préférer Plan A si budget serré.",
+          textAlternative: "A vs B",
+        },
+      ],
+    })!;
+    const draft = deriveReplyDraftFromCanonicalSections(comp)!;
+    expect(draft).toContain("Plan A");
+    expect(draft).toContain("économe");
+    expect(draft).toContain("rapide");
+    expect(draft).toContain("Préférer Plan A");
+  });
+});
+
+describe("Topology — true tree vs DAG (C-11)", () => {
+  it("SC-20: shared child refuses decisionTree directed", () => {
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "relations",
+          id: "t",
+          title: "DAG pas arbre",
+          layoutHint: "decisionTree",
+          nodes: [
+            { id: "a", label: "Racine A", kind: "unknown" },
+            { id: "b", label: "Racine B", kind: "unknown" },
+            { id: "c", label: "Enfant partage", kind: "hypothesis" },
+          ],
+          edges: [
+            { from: "a", to: "c", relation: "flow" },
+            { from: "b", to: "c", relation: "flow" },
+          ],
+          textAlternative: "shared",
+        },
+      ],
+    })!;
+    const block = comp.blocks[0] as Extract<(typeof comp.blocks)[number], { kind: "relations" }>;
+    // two roots → NOT_SINGLE_ROOT; if we force one root with shared child:
+    const singleRootShared = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "relations",
+          id: "t2",
+          title: "Enfant partage",
+          layoutHint: "decisionTree",
+          nodes: [
+            { id: "r", label: "Racine", kind: "unknown" },
+            { id: "x", label: "Branche X", kind: "hypothesis" },
+            { id: "y", label: "Branche Y", kind: "hypothesis" },
+            { id: "z", label: "Enfant partage", kind: "finding" },
+          ],
+          edges: [
+            { from: "r", to: "x", relation: "condition_true" },
+            { from: "r", to: "y", relation: "condition_false" },
+            { from: "x", to: "z", relation: "flow" },
+            { from: "y", to: "z", relation: "flow" },
+          ],
+          textAlternative: "diamond",
+        },
+      ],
+    })!;
+    const diamond = singleRootShared.blocks[0] as Extract<
+      (typeof singleRootShared.blocks)[number],
+      { kind: "relations" }
+    >;
+    expect(validateDecisionTree(block).ok).toBe(false);
+    expect(validateDecisionTree(diamond).reasonCodes).toContain("CV_TOPOLOGY_TREE_SHARED_CHILD");
+    const adm = admitConversationalComposition(singleRootShared, {
+      canonicalText: "x",
+      containerWidthPx: 900,
+    });
+    expect(adm.admitted[0]?.variant).toBe("list");
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/architecture-canonical-sections-strategy-a.md`
+
+```md
+# Fiche architecture — Strategy A sections sémantiques canoniques
+
+**Date :** 2026-11-18
+**Lane :** DEV · **NO RELEASE**
+**Base code :** tip `a783f014` + WT
+**Orientation Morris :** sections canoniques (doc 05 §3.3)
+
+## 1–12 — Flux observé
+
+| # | Point | État code |
+| --- | --- | --- |
+| 1 | Production | `nora-adapter.ts` Agents SDK / fixture → `NoraTurnQualification` |
+| 2 | Schéma D3 | `NoraTurnQualificationSchema` (`ml4c-sem-qual-v1`) + `visualComposition?` |
+| 3 | replyDraft | Champ string ≤12000 ; **dérivé** si `contentAuthority=canonical_sections` |
+| 4 | visualComposition | Blocs structured = sections ; WRITE `conversational-composition-projection-v1` |
+| 5 | Validateur | `validateNoraTurnQualification` → soft-sanitize composition + derive |
+| 6 | Texte | Message `content` = `qualification.replyDraft` (dérivé ou narrative seule) |
+| 7 | Graphique | `NoraComposition` + admission CV-* depuis les **mêmes** blocs |
+| 8 | Persistance | `stashTurnQualification` → `resultJson.semanticQualification` (existant) |
+| 9 | UNKNOWN | Chemins existants ; pas de re-run pour layout |
+| 10 | Historique | Parse e05 `legacy_projection` + fidélité claims ; projection-v1 identity |
+| 11 | SDK | `@openai/agents@^0.21.0` ; AgentOutputSchema literal projection-v1 |
+| 12 | Blast | Pas de migration DB ; pas de second message ; D4/D6/D7 inchangés |
+
+## Option retenue
+
+`visualComposition` (projection-v1) = **autorité sémantique unique** pour les nouveaux tours.
+`replyDraft` = dérivation déterministe (`deriveReplyDraftFromCanonicalSections`).
+Pas de table annexe, pas de second moteur IA.
+
+## Alternatives rejetées
+
+| Option | Motif |
+| --- | --- |
+| Dual replyDraft + composition (Strategy B) | Deux histoires → fidélité lexicale insuffisante |
+| Nouveau champ `semanticSections` parallèle | Duplication schéma / blast SDK |
+| Migration physique des tours | STOP contrat — GO Morris requis |
+| Ré-génération IA pour layout | Interdit C-16 / M1 |
+
+## STOP structurels
+
+Aucun déclenché : pas de migration, pas de rupture d'identité turn, pas de changement d'autorité D3/D6.
+
+## Dette / exit
+
+- Fixtures S* encore en e05 (lecture legacy) — migrer progressivement vers projection-v1 en WRITE fixtures.
+- Layout CSS/listes d'arêtes ≠ diagramme connecté Figma 07 pixel — gap capacité déclaré si non prouvé.
+- LIVE/REAL Nora : NOT RUN.
+```
+
+### `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/c-matrix-strategy-a-status.md`
+
+```md
+# Matrice C-01–C-22 — Strategy A (après cycle)
+
+| ID | Avant (Strategy B / F1–F5) | Après Strategy A | Preuve |
+| --- | --- | --- | --- |
+| C-01 | Dual contenu | Source unique projection-v1 | `validateNoraTurnQualification` derive |
+| C-02 | Lexical fidelity | Identity path + legacy gate | `fidelity.ts` / tests SC-* |
+| C-03 | replyDraft autorité | replyDraft dérivé | `derive-text.ts` |
+| C-04 | Claims ⊆ draft | Identity pour canonical | unit Strategy A |
+| C-05 | WRITE projection-v1 | inchangé + authority flag | parseVisualComposition |
+| C-06 | READ dual e05 | KEEP READ COMPAT | legacy tests |
+| C-08 | Cartes/matrice | conservé | T02 / admission |
+| C-09 | Séquences | conservé | T02 S4 |
+| C-10 | Déps CSS layers | conservé + directed edges | f5 deps PNG / T02 |
+| C-11 | DAG≈arbre | **vrai arbre** (1 parent) | `CV_TOPOLOGY_TREE_SHARED_CHILD` |
+| C-12 | Parallel sync only | **toutes arêtes** (→/⇄) | parallel-edges testid |
+| C-14 | MAX_ALTS=12 | inchangé | admission tests |
+| C-15–17 | Reprise / UNKNOWN | non modifié (R05 propriétaire) | NOT RUN absorb |
+| C-19 | Historique | e05 read + projection-v1 write | SC-legacy |
+| Autres | — | PARTIAL / NOT RUN live | — |
+
+## Qualification Fake/Real
+
+| Niveau | Statut |
+| --- | --- |
+| DETERMINISTIC PROVEN | OUI (unit + T02 fixture) |
+| REAL BOUNDARY OpenAI | NOT RUN |
+| END-TO-END REAL | NOT RUN |
+```
+
+### `projects/sfia-studio-next/web/src/components/figma/NoraComposition.tsx`
 
 ```tsx
 "use client";
@@ -1433,7 +1795,8 @@ function RelationsDirectedView({
       list.push(n);
       lanes.set(lane, list);
     }
-    const syncEdges = block.edges.filter((e) => e.relation === "sync");
+    const edgeArrow = (relation: string | undefined) =>
+      relation === "sync" ? "⇄" : "→";
     return (
       <div
         className="fig-comp-parallel"
@@ -1458,18 +1821,26 @@ function RelationsDirectedView({
             </section>
           ))}
         </div>
-        {syncEdges.length ? (
-          <p className="fig-comp-parallel-sync" data-testid="nora-composition-parallel-sync">
-            Convergence / sync :{" "}
-            {syncEdges
-              .map(
-                (e) =>
-                  `${titleById.get(e.from) ?? e.from} ↔ ${titleById.get(e.to) ?? e.to}${
-                    e.label ? ` (${e.label})` : ""
-                  }`,
-              )
-              .join(" ; ")}
-          </p>
+        {block.edges.length ? (
+          <ul
+            className="fig-comp-parallel-edges"
+            data-testid="nora-composition-parallel-edges"
+            data-directed="1"
+          >
+            {block.edges.map((e, i) => (
+              <li key={`${e.from}-${e.to}-${i}`} data-relation={e.relation ?? "flow"}>
+                <span className="fig-comp-deps-from">{titleById.get(e.from) ?? e.from}</span>
+                <span className="fig-comp-deps-arrow" aria-hidden>
+                  {edgeArrow(e.relation)}
+                </span>
+                <span className="fig-comp-deps-to">{titleById.get(e.to) ?? e.to}</span>
+                {e.label ? <span className="fig-comp-deps-label"> ({e.label})</span> : null}
+                {e.relation ? (
+                  <span className="fig-comp-deps-rel"> · {e.relation}</span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
         ) : null}
         <p className="fig-comp-authority-note">
           La convergence graphique n&apos;enregistre aucune décision humaine ni validation.
@@ -1996,7 +2367,7 @@ export function NoraComposition(props: NoraCompositionProps) {
 }
 ```
 
-### 6.6 `projects/sfia-studio-next/web/tests/unit/conversational-composition-fidelity.test.ts`
+### `projects/sfia-studio-next/web/tests/unit/conversational-composition-fidelity.test.ts`
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -2091,9 +2462,9 @@ describe("F1 canonical fidelity — adversarial", () => {
     expect(gate.reasonCodes).toContain("CV_FIDELITY_CLAIM_MISSING_IN_CANONICAL");
   });
 
-  it("F1-04 refuses unfounded numeric criteria", () => {
+  it("F1-04 refuses unfounded numeric criteria (legacy dual-author)", () => {
     const withNums = {
-      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA_LEGACY,
       blocks: [
         {
           kind: "comparison",
@@ -2111,6 +2482,7 @@ describe("F1 canonical fidelity — adversarial", () => {
       ],
     };
     const comp = parseVisualComposition(withNums)!;
+    expect(comp.contentAuthority).toBe("legacy_projection");
     const gate = mayPresentGraphicComposition(
       comp,
       "Plan A economique et Plan B premium. Budget qualitatif seulement.",
@@ -2118,11 +2490,12 @@ describe("F1 canonical fidelity — adversarial", () => {
     expect(gate.ok).toBe(false);
   });
 
-  it("F1-06 refuses narrative substitute when text differs from canonical", () => {
+  it("F1-06 refuses narrative substitute when text differs (legacy dual-author)", () => {
     const textOnly = parseVisualComposition({
-      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA_LEGACY,
       blocks: [{ kind: "text", id: "t1", markdown: "Texte invente divergent." }],
     })!;
+    expect(textOnly.contentAuthority).toBe("legacy_projection");
     const narr = maySubstituteNarrative(textOnly, "Reponse canonique reelle.");
     expect(narr.ok).toBe(false);
     const adm = admitConversationalComposition(textOnly, {
@@ -2338,7 +2711,7 @@ describe("F2 topology validation", () => {
 });
 ```
 
-### 6.7 `projects/sfia-studio-next/web/tests/unit/conversational-composition-admission.test.ts`
+### `projects/sfia-studio-next/web/tests/unit/conversational-composition-admission.test.ts`
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -2649,62 +3022,48 @@ describe("conversational composition admission (CV-*)", () => {
 });
 ```
 
-### 6.8 `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/f-matrix-fidelity-topology.md`
-
-```md
-# Matrice F1–F5 — fidélité / topologie / relations / schéma / BROWSER
-
-**Date :** 2026-11-18T03:55+01:00
-**Branche :** `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT)
-**Handoff baseline :** `a55f95ea` / blob `cf6c8eb2…`
-**Docs tip :** `af0891fe`
-
-| ID | Attendu | Résultat | Preuve |
-| --- | --- | --- | --- |
-| F1-01 | Recommandation opposée → refuse graphique | PASS | `conversational-composition-fidelity.test.ts` |
-| F1-02 | Pros/cons non supportés → refuse | PASS | idem |
-| F1-04 | Numériques non ancrés → refuse | PASS | idem |
-| F1-06 | Narrative substitute divergente → markdown_only | PASS | idem |
-| F1-07 | Claims ⊆ replyDraft → complement | PASS | idem + fixtures S2/S3/S5 |
-| F2-01 | Arbre cyclique → list | PASS | topology + admission |
-| F2-02 | Multi-racine → list | PASS | idem |
-| F2-03 | Dépendances cycliques → list | PASS | idem |
-| F2-04 | Parallèle valide → directed | PASS | idem |
-| F3-deps | Couches topo + arêtes `→` + `data-directed=1` | PASS | T02 + `f5-runtime-dependencies-directed-1440.png` |
-| F3-tree | Branches Si oui / Si non | PASS | T02 + `f5-runtime-decision-tree-1440.png` |
-| F3-parallel | Lanes + sync explicite | PASS | T02 + `f5-runtime-parallel-1440.png` |
-| F4-read | Parse e05 historique | PASS | fidelity test legacy parse |
-| F4-write | Agent schema = projection-v1 only | PASS | `VisualCompositionAgentOutputSchema` literal |
-| F5-BROWSER | T02 + F5 tree/parallel captures | PASS | Playwright T02 1/1 |
-
-## Distinction volontaire
-
-| Couche | Rôle |
-| --- | --- |
-| Fidélité (F1) | substance projection ⊆ replyDraft |
-| Topologie (F2) | DAG / racine unique / cycles → list |
-| Présentation (F3) | CSS dirigé ; ne prouve pas la fidélité |
-| Schéma (F4) | write projection-v1 ; read dual |
-
-## Réserves
-
-- Sync parallèle affiché avec `↔` (relation sync) — direction métier non équivalente à `depends_on`.
-- Pixel-perfect Figma 03/04/07/08/09 : famille runtime prouvée ; audit visuel Figma Page 06 inchangé (captures page06 préexistantes).
-- Produit non commit / non poussé.
-```
-
 ---
 
-## 7. Diffs exploitables — fichiers modifiés
-
-Diffs générés par `git diff HEAD -- <path>` (working tree vs tip `a783f014`).
+## 7. Diffs exploitables — fichiers modifiés (vs HEAD)
 
 
-### 7.1 `projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 3a2a2875..8bcd4978 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -12,6 +12,7 @@ import {
+   parseVisualComposition,
+   VisualCompositionAgentOutputSchema,
+ } from "./visual-composition";
++import { deriveReplyDraftFromCanonicalSections } from "./conversational-composition/derive-text";
+
+ export const SEMANTIC_QUALIFICATION_SCHEMA_VERSION = "ml4c-sem-qual-v1" as const;
+
+@@ -283,6 +284,14 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
+     const cleaned = parseVisualComposition(q.visualComposition);
+     if (cleaned) {
+       (q as { visualComposition?: unknown }).visualComposition = cleaned;
++      // Strategy A / C-01–C-04: canonical sections are the single semantic authority.
++      // Derive replyDraft for compatibility — do not keep a second independent narrative.
++      if (cleaned.contentAuthority === "canonical_sections") {
++        const derived = deriveReplyDraftFromCanonicalSections(cleaned);
++        if (derived) {
++          (q as { replyDraft: string }).replyDraft = derived;
++        }
++      }
+     } else {
+       delete (q as { visualComposition?: unknown }).visualComposition;
+     }
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts b/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
-index 7a6c2abf..6308863f 100644
+index 7a6c2abf..2c2bed74 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
 @@ -13,7 +13,19 @@
@@ -2765,16 +3124,27 @@ index 7a6c2abf..6308863f 100644
    role?: VisualSemanticRole;
    icon?: VisualIconId;
  };
-@@ -249,7 +276,7 @@ export type VisualBlock =
+@@ -248,9 +275,18 @@ export type VisualBlock =
+   | ChoicesAnchorBlock
    | ReferencesAnchorBlock;
 
++/**
++ * Strategy A (canonical sections): composition is the single semantic authority;
++ * replyDraft is derived. Legacy Strategy B projections keep independent replyDraft
++ * and require claim-subset fidelity before graphic presentation.
++ */
++export type CompositionContentAuthority = "canonical_sections" | "legacy_projection";
++
  export type VisualComposition = {
 -  schemaVersion: typeof VISUAL_COMPOSITION_SCHEMA;
 +  schemaVersion: VisualCompositionSchemaVersion;
    blocks: VisualBlock[];
++  /** Set by parse/validate — not agent-authored independently of schemaVersion. */
++  contentAuthority?: CompositionContentAuthority;
  };
 
-@@ -298,6 +325,7 @@ const VisualIconAgentSchema = z.enum([
+ /**
+@@ -298,6 +334,7 @@ const VisualIconAgentSchema = z.enum([
    "source",
  ]);
 
@@ -2782,7 +3152,7 @@ index 7a6c2abf..6308863f 100644
  export const VisualCompositionAgentOutputSchema = z.object({
    schemaVersion: z.literal(VISUAL_COMPOSITION_SCHEMA),
    blocks: z
-@@ -325,7 +353,7 @@ export const VisualCompositionAgentOutputSchema = z.object({
+@@ -325,7 +362,7 @@ export const VisualCompositionAgentOutputSchema = z.object({
                  cons: z.array(z.string().max(200)).max(4).optional(),
                }),
              )
@@ -2791,7 +3161,7 @@ index 7a6c2abf..6308863f 100644
            criteria: z
              .array(
                z.object({
-@@ -367,6 +395,9 @@ export const VisualCompositionAgentOutputSchema = z.object({
+@@ -367,6 +404,9 @@ export const VisualCompositionAgentOutputSchema = z.object({
            id: z.string().max(64),
            title: z.string().max(160),
            textAlternative: z.string().max(2000),
@@ -2801,7 +3171,7 @@ index 7a6c2abf..6308863f 100644
            nodes: z
              .array(
                z.object({
-@@ -380,18 +411,29 @@ export const VisualCompositionAgentOutputSchema = z.object({
+@@ -380,18 +420,29 @@ export const VisualCompositionAgentOutputSchema = z.object({
                    "finding",
                    "observation",
                  ]),
@@ -2833,7 +3203,7 @@ index 7a6c2abf..6308863f 100644
            preferListFallback: z.boolean().optional(),
            provenance: z.array(VisualProvenanceAgentSchema).max(4).optional(),
            role: VisualRoleAgentSchema.optional(),
-@@ -445,10 +487,10 @@ export type ParseVisualCompositionResult =
+@@ -445,10 +496,10 @@ export type ParseVisualCompositionResult =
    | { ok: false; reason: string };
 
  const MAX_BLOCKS = 10;
@@ -2847,7 +3217,7 @@ index 7a6c2abf..6308863f 100644
  const MAX_ITEMS = 8;
  const MAX_PROS_CONS = 4;
  const MAX_CRITERIA = 6;
-@@ -868,10 +910,30 @@ function parseRelations(
+@@ -868,10 +919,30 @@ function parseRelations(
      const label = fit(labelRaw, MAX_TITLE, ctx);
      if (!nidF || !label) return null;
      ids.add(nidF);
@@ -2879,7 +3249,7 @@ index 7a6c2abf..6308863f 100644
    const edges: RelationEdge[] = [];
    if (o.edges !== undefined && o.edges !== null) {
      if (!Array.isArray(o.edges)) return null;
-@@ -895,15 +957,34 @@ function parseRelations(
+@@ -895,15 +966,34 @@ function parseRelations(
          label = fit(labelRaw, 80, ctx) ?? undefined;
          if (!label) return null;
        }
@@ -2916,7 +3286,7 @@ index 7a6c2abf..6308863f 100644
 
    return {
      kind: "relations",
-@@ -914,6 +995,7 @@ function parseRelations(
+@@ -914,6 +1004,7 @@ function parseRelations(
      textAlternative,
      provenance: provenance ?? undefined,
      preferListFallback,
@@ -2924,7 +3294,7 @@ index 7a6c2abf..6308863f 100644
      role: parseRole(o.role) ?? "information",
      icon: parseIcon(o.icon),
    };
-@@ -1072,9 +1154,10 @@ export function parseVisualCompositionDetailed(raw: unknown): ParseVisualComposi
+@@ -1072,9 +1163,10 @@ export function parseVisualCompositionDetailed(raw: unknown): ParseVisualComposi
      return { ok: false, reason: "VISUAL_COMPOSITION_INVALID_OR_EMPTY" };
    }
    const o = raw as Record<string, unknown>;
@@ -2936,37 +3306,53 @@ index 7a6c2abf..6308863f 100644
    if (!Array.isArray(o.blocks)) {
      return { ok: false, reason: "VISUAL_COMPOSITION_INVALID_OR_EMPTY" };
    }
-@@ -1115,7 +1198,8 @@ export function parseVisualCompositionDetailed(raw: unknown): ParseVisualComposi
+@@ -1113,9 +1205,15 @@ export function parseVisualCompositionDetailed(raw: unknown): ParseVisualComposi
+   if (!blocks.length) {
+     return { ok: false, reason: "VISUAL_COMPOSITION_INVALID_OR_EMPTY" };
    }
++  const contentAuthority: CompositionContentAuthority =
++    schemaVersion === VISUAL_COMPOSITION_SCHEMA
++      ? "canonical_sections"
++      : "legacy_projection";
    return {
      ok: true,
 -    value: { schemaVersion: VISUAL_COMPOSITION_SCHEMA, blocks },
 +    // Preserve legacy schemaVersion on historical payloads; new writes use active schema.
-+    value: { schemaVersion, blocks },
++    // projection-v1 = Strategy A canonical sections; e05 = legacy dual-author projection.
++    value: { schemaVersion, blocks, contentAuthority },
    };
  }
 
 ```
 
-### 7.2 `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 1d7949f2..1636f0e1 100644
+index 1d7949f2..5cb550e6 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -536,7 +536,7 @@ async function runLiveWithTools(
+     "",
+     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
+     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
+-    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000).",
++    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000). Si visualComposition (sections canoniques) est fournie, Studio DERIVE replyDraft depuis ces sections — ne produis pas une seconde histoire divergente ; place la prose naturelle dans des blocs text et la substance structurée dans comparison|sequence|relations|synthesis.",
+     "- goal = compréhension du TOUR courant (demande immédiate / reformulation locale), sans invention.",
+     "- projectIntention = intention MÉTIER DURABLE du projet. Distincte de goal et de proposedProjectName.",
+     "- Demande ordinaire, conseil local, prochaines étapes, renommage ou confirmation ponctuelle : projectIntention = chaîne vide (conserver l'intention antérieure). Ne jamais recopier goal dans projectIntention.",
 @@ -547,7 +547,7 @@ async function runLiveWithTools(
      "- Lorsque tu réévalues les questions ouvertes (QUALIFIED ou NEEDS_CLARIFICATION sur ce périmètre) : TOUJOURS renseigner clarifications (éventuellement []). Ne l'omets que si tu n'as pas réévalué ce périmètre.",
      "- continueChoices (optionnel) = propositions de POURSUITE conversationnelle (ex. « Approfondir B ») avec id, label et transmitText. NE PAS y recopier clarifications. Omettre ou [] si aucune poursuite utile.",
      "- resourceReferences (optionnel) = références consultables document/git/external — ce ne sont PAS des choix de poursuite.",
 -    "- visualComposition (optionnel, schema e05-visual-composition-v1) = composition ordonnée de blocs text|comparison|sequence|relations|synthesis. Omettre pour une réponse purement textuelle. N'invente jamais de données manquantes ; chaque bloc graphique DOIT fournir textAlternative. Jamais de HTML/CSS/JS. Ne crée aucun effet métier par la seule présence d'un bloc.",
-+    "- visualComposition (optionnel, WRITE schema conversational-composition-projection-v1 uniquement ; la lecture historique accepte aussi e05-visual-composition-v1) = composition ordonnée de blocs text|comparison|sequence|relations|synthesis. Toute substance graphique (titres, résumés, pros/cons, critères, recommandations, libellés d'arêtes) DOIT apparaître aussi dans replyDraft — sinon le Studio refuse la présentation graphique. Relations : layoutHint optionnel dependencies|decisionTree|parallelProcess ; edges.relation optionnel depends_on|condition_true|condition_false|sync|flow ; nodes.laneId pour voies parallèles. Omettre pour une réponse purement textuelle. N'invente jamais de données manquantes ; chaque bloc graphique DOIT fournir textAlternative. Jamais de HTML/CSS/JS. Ne crée aucun effet métier par la seule présence d'un bloc.",
++    "- visualComposition (optionnel, WRITE schema conversational-composition-projection-v1 = sections sémantiques CANONIQUES ; lecture historique e05-visual-composition-v1) = source unique de sens pour ce tour : blocs text|comparison|sequence|relations|synthesis. Studio dérive le texte de lecture et la vue graphique depuis la même structure. Relations : layoutHint optionnel dependencies|decisionTree|parallelProcess ; edges.relation optionnel depends_on|condition_true|condition_false|sync|flow ; nodes.laneId pour voies parallèles. Omettre pour une réponse purement narrative (replyDraft seul). N'invente jamais de données manquantes ; chaque bloc graphique DOIT fournir textAlternative. Jamais de HTML/CSS/JS. Ne crée aucun effet métier par la seule présence d'un bloc.",
      "- preparationAssessment = EXPLORING|CLARIFYING|PROPOSAL|BASE_SUFFICIENTE selon compréhension structurée — jamais un score, jamais un GO d'autorité.",
      "- preparationAssessmentExplanation = justification qualitative courte fondée sur les acquis réels ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
      "- Si tu n'as pas d'appréciation fiable : omets preparationAssessment (ne pas inventer BASE_SUFFICIENTE).",
 ```
 
-### 7.3 `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
@@ -3189,7 +3575,7 @@ index 05ae9e30..b97bc7cc 100644
    ["E05_VISUAL_SEQUENCE", E05_S4_TRAJECTORY],
 ```
 
-### 7.4 `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
+### `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
@@ -3281,7 +3667,7 @@ index b149f939..1a98c4b6 100644
                    <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
 ```
 
-### 7.5 `projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx`
+### `projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraVisualComposition.tsx
@@ -3935,14 +4321,14 @@ index 707e39f9..1dc6ec66 100644
 +} from "@/components/figma/NoraComposition";
 ```
 
-### 7.6 `projects/sfia-studio-next/web/src/components/figma/tokens.css`
+### `projects/sfia-studio-next/web/src/components/figma/tokens.css`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-index 8623f598..2c05f922 100644
+index 8623f598..b73071f3 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
 +++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-@@ -2163,6 +2163,246 @@
+@@ -2163,6 +2163,255 @@
    }
  }
 
@@ -4089,9 +4475,18 @@ index 8623f598..2c05f922 100644
 +  color: var(--fig-muted);
 +}
 +
-+.fig-comp-parallel-sync {
-+  margin-top: 10px;
++.fig-comp-parallel-sync,
++.fig-comp-parallel-edges {
++  list-style: none;
++  margin: 10px 0 0;
++  padding: 8px 10px;
++  border-left: 3px solid color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
++  background: color-mix(in srgb, var(--fig-panel) 70%, transparent);
 +  overflow-wrap: anywhere;
++}
++
++.fig-comp-parallel-edges li {
++  margin: 0 0 6px;
 +}
 +
 +.fig-comp-tree-branches {
@@ -4191,11 +4586,11 @@ index 8623f598..2c05f922 100644
    align-items: flex-start;
 ```
 
-### 7.7 `projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts`
+### `projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
-index 37b839c4..fcde1902 100644
+index 37b839c4..bc336bac 100644
 --- a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
 +++ b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
 @@ -522,6 +522,8 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
@@ -4267,7 +4662,7 @@ index 37b839c4..fcde1902 100644
 +      "data-layout-hint",
 +      "parallelProcess",
 +    );
-+    await expect(page.getByTestId("nora-composition-parallel-sync")).toBeVisible();
++    await expect(page.getByTestId("nora-composition-parallel-edges")).toBeVisible();
 +    await page.screenshot({
 +      path: path.join(evidenceDir, "f5-runtime-parallel-1440.png"),
 +      fullPage: false,
@@ -4297,17 +4692,35 @@ index 37b839c4..fcde1902 100644
      await ask(E05_S4_TRAJECTORY);
 ```
 
-### 7.8 `projects/sfia-studio-next/construction/delivery-history.md`
+### `projects/sfia-studio-next/web/tests/unit/conversational-composition-fidelity.test.ts`
+
+_Pas de diff git (fichier non suivi ou inchangé vs HEAD)._\n
+### `projects/sfia-studio-next/construction/delivery-history.md`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 7b64d566..9dd4dffc 100644
+index 7b64d566..38aa4535 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,66 @@ Append-only logical journal of Cursor product deliveries.
+@@ -4,6 +4,81 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
++## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-CANONICAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-18 ~08:10 CET |
++| Macro-lot | Transition Strategy A — sections sémantiques canoniques + achèvement UX |
++| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
++| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
++| Architecture | `visualComposition` projection-v1 = autorité ; `replyDraft` dérivé ; e05 = legacy_projection |
++| P0 | derive-text ; contentAuthority ; validateNoraTurnQualification derive ; tree single-parent |
++| P1 | parallel toutes arêtes ; identity admission path |
++| Preuves | Vitest Strategy A + fidelity + admission 29 PASS ; Playwright T02 PASS |
++| Verdict | (voir Review Pack Full Strategy A) |
++
++
 +## delivery_id: DELIV-2026-11-18-COMPOSITION-F1F5-CORRECTIVE
 +
 +| Field | Value |
@@ -4375,25 +4788,55 @@ index 7b64d566..9dd4dffc 100644
 
 ---
 
-## 8. Preuves d'exécution (tests discriminants)
+## 8. Tests exécutés
 
-| Suite | Commande | Résultat (cycle F1–F5) |
+| Suite | Commande | Résultat |
 | --- | --- | --- |
-| Unit F1/F2/F4 | `npx vitest run tests/unit/conversational-composition-fidelity.test.ts tests/unit/conversational-composition-admission.test.ts` | **24 PASS** |
-| BROWSER F3/F5 | `npx playwright test tests/e2e/ensemble05-travail-nora.spec.ts -g "T02 visual composition"` | **1 PASS** |
-
-Les tests discriminants F1–F4 sont le fichier intégral §6.7 (`conversational-composition-fidelity.test.ts`) ; admission §6.8 couvre bodyPolicy/variants.
-
----
-
-## 9. Verdict
-
-**READY WITH RESERVES** — republication Full à contenu exploitable ; produit toujours LOCAL ONLY (WT dirty) ; **NO RELEASE**.
-
-**Next Morris :** revue ChatGPT L3 sur ce pack enrichi ; commit produit / push uniquement sur GO distinct.
+| Strategy A + fidelity + admission | `npx vitest run tests/unit/canonical-sections-strategy-a.test.ts tests/unit/conversational-composition-fidelity.test.ts tests/unit/conversational-composition-admission.test.ts` | **29 PASS** |
+| T02 + F5 | `npx playwright test tests/e2e/ensemble05-travail-nora.spec.ts -g "T02 visual composition"` | **1 PASS** |
+| LIVE OpenAI | — | **NOT RUN** |
 
 ---
 
-## 10. ACK attendu (ChatGPT)
+## 9. Matrice C-01–C-22
 
-Confirmer lecture exploitable de : (a) `fidelity.ts` claims ; (b) `topology.ts` ; (c) diff `VisualCompositionAgentOutputSchema` write-only ; (d) tests F1-01/02/04/06/07 et F2-01…04.
+Voir `c-matrix-strategy-a-status.md` (§6).
+
+---
+
+## 10. Fake / Real
+
+DETERMINISTIC PROVEN (fixture DEV). REAL BOUNDARY / E2E REAL : **NOT RUN**.
+
+---
+
+## 11. Réserves
+
+1. Layout CSS + listes d'arêtes ≠ connecteurs SVG Figma 07 pixel-perfect.
+2. Fixtures S* encore e05 (legacy) — WRITE path projection-v1 pour nouveaux tours.
+3. Captures PNG non inlinables dans handoff Git distant.
+4. R05 ACK FAIL préexistants hors scope.
+5. Produit WT dirty — non commit / non poussé.
+
+---
+
+## 12. Décisions Morris restantes
+
+- Commit local produit / revue ChatGPT.
+- Éventuel GO LIVE pour pertinence éditoriale sections.
+- Promotion RECETTE uniquement après GO distinct.
+- Migration fixtures e05 → projection-v1 (optionnelle).
+
+---
+
+## 13. Verdict
+
+**READY WITH RESERVES**
+
+Invariants Strategy A (source unique, dérivation texte, identity graphique, historique e05, tree single-parent, parallel all edges) prouvés en DETERMINISTIC. Pas ADOPTED / Gate C / LIVE.
+
+---
+
+## 14. ACK ChatGPT
+
+Lire `sfia/review-handoff` `latest-chatgpt-review.md` (commit/blob de ce publish). Vérifier Strategy A derive, contentAuthority, topology SHARED_CHILD, parallel-edges, tests SC-*.
