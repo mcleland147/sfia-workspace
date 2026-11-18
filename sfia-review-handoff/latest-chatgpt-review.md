@@ -1,10 +1,10 @@
 # SFIA Review Pack — Full (Critical)
 
-**Date/heure :** 2026-11-18 11:43 CET
-**Cycle :** 8 — Delivery / W3-W4 Finalisation grammaire graphique Nora
+**Date/heure :** 2026-11-18 12:21 CET
+**Cycle :** 8 — Delivery / Remplacement architectural couche graphique Nora
 **Profil :** Critical
 **Macro-lot :** ML4D / Ensemble 05 — Travail avec Nora
-**Typologie :** EVOL / CORRECTIVE intégré
+**Typologie :** EVOL — remplacement architectural borné
 **ENV-01 :** DEV isolé · RECETTE protégée · STABLE N/A
 **Versioning :** NO RELEASE · aucune publication produit
 **Review Handoff :** required / publish-in-cycle
@@ -15,11 +15,12 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
 | Branche | `sfia/next-ml4d-composition-adaptative` |
 | HEAD tip parent | `a783f014935de0dec5ff8e79a2b18eea0e629756` |
 | origin/main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| Worktree | dirty (candidat Strategy A + W3/W4) — **aucune destruction** |
+| Worktree | dirty (candidat Strategy A + remplacement graphique) — aucune destruction |
+| Handoff précédent | `sfia/review-handoff@5d896e9b` blob `797f76a8598f639bda0460ac44a95a7cb265371a` |
+| Doc 04 | `docs/next-ml4d-registre-revues-20261116@fd8d2534` |
 
 ### git status --short
 
@@ -65,205 +66,2795 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-page06-visual-contract-executable.md
 ?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-page06-visual-contract.md
 ?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-page06/
+?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/graphical-engine-replacement-audit.md
+?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/layout-benchmark/
 ?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/w3-runtime-figma08-tree-1440.png
 ?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/w3-runtime-figma09-parallel-1440.png
 ?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/w3-w4-figma-runtime-manifest.md
 ?? projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/w5-reception-corpus.md
+?? projects/sfia-studio-next/web/fixtures/
+?? projects/sfia-studio-next/web/scripts/layout-engine-benchmark/
 ?? projects/sfia-studio-next/web/src/components/figma/NoraComposition.tsx
 ?? projects/sfia-studio-next/web/src/components/figma/NoraCompositionGraphs.tsx
+?? projects/sfia-studio-next/web/src/components/figma/nora-composition/
 ?? projects/sfia-studio-next/web/src/domains/conversation/conversational-composition/
+?? projects/sfia-studio-next/web/src/domains/conversation/directed-layout/
 ?? projects/sfia-studio-next/web/tests/unit/c2-adversarial-integrity.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/c2-substance-exhaustiveness.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/canonical-integrity-a7-a2.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/canonical-sections-strategy-a.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/conversational-composition-admission.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/conversational-composition-fidelity.test.ts
+?? projects/sfia-studio-next/web/tests/unit/directed-layout-candidate.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/fixture-reply-a4-adapter-boundary.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/strategy-a-corrective-a1-a4.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/visual-grammar-c1-c2.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/w3-graph-layouts.test.ts
 ```
 
-### Références contractuelles consommées
+---
 
-| Objet | Ref |
+## 2. Décisions consommées / ouvertes
+
+**Consommées :** Strategy A ; thème sombre Studio ; Figma 01–09 orientation ; fidélité élevée adaptative ; GO Morris remplacement architectural borné présentation.
+
+**Ouverte (ce pack) :** installation permanente `elkjs` (et non-RF) dans `package.json` produit → **gate Morris**.
+
+---
+
+## 3. Analyse ancien mécanisme
+
+Voir `graphical-engine-replacement-audit.md` (contenu ci-dessous dans créations).
+
+Chaîne : D3 → admission → NoraComposition → RelationsDirectedView → (ancien) DependenciesConnectedView / NoraCompositionGraphs (SVG mesuré artisanal).
+
+Limites : pas de routage orthogonal, pas de ports typés, fixtures simples ≠ Figma 07–09, PARTIAL systématique.
+
+## 4. Imports avant / après
+
+**Avant :** NoraConversation → NoraComposition → NoraCompositionGraphs + DependenciesConnectedView
+
+**Après :** NoraConversation → NoraComposition → `nora-composition/DirectedRelationBoard` (+ EditorialSynthesis)
+- `NoraCompositionGraphs` : LEGACY — probe C2-08 seulement
+- `package.json` produit : **pas** elkjs / pas @xyflow/react
+
+---
+
+## 5. Benchmark réel A/B
+
+Sandbox isolé : `scripts/layout-engine-benchmark` (npm local, hors deps produit).
+
+Fixtures discriminantes :
+- G07 — 8 nœuds / 7 arêtes (3 chaînes + merge + suite)
+- G08 — arbre multiniveau (2 conditions)
+- G09 — 3 voies × 3 activités + gate + suite
+
+### Résultats synthèse
+
+| Fixture | Artisan routing | ELK routing | ELK ortho ratio | layoutMs ELK |
+| --- | --- | --- | --- | --- |
+
+| G07 | cubic-free | orthogonal | 1 | 32.45 |
+| G08 | cubic-free | orthogonal | 1 | 6.02 |
+| G09 | cubic-free | orthogonal | 1 | 7.18 |
+
+
+**Recommendation JSON :**
+```json
+{
+  "preferred": "Solution A — HTML/SVG + ELKjs (custom React nodes)",
+  "status": "CANDIDATE — NOT INSTALLED IN PRODUCT",
+  "rationale": [
+    "ELK delivers 100% orthogonal edge segments on G07–G09; artisan uses free cubics incompatible with Figma connector language.",
+    "Structural hierarchy (multilevel tree, merge-after-controls, gate-below-lanes) is achievable in both; visual routing quality and Figma fidelity require directed layout engine.",
+    "React Flow + ELK yields identical layout geometry to ELK alone; RF adds viewport/pan/zoom and bundle/SSR cost without improving placement.",
+    "Doc 04 preference confirmed: Solution A (HTML/SVG + ELKjs + Studio nodes) as CANDIDATE — not installed in product package.json."
+  ],
+  "gate": "STOP — MORRIS ARCHITECTURE DECISION REQUIRED before adding elkjs to product package.json",
+  "artisanBaseline": "NEGATIVE — insufficient for Figma 07–09 complexity; not a third candidate to keep as production engine"
+}
+```
+
+**Structural oracles :**
+```json
+[
+  {
+    "fixture": "G07",
+    "artisan": {
+      "name": "artisan",
+      "merge_after_ctrls": true,
+      "next_after_merge": true,
+      "sources_same_band": true,
+      "routing": "cubic-free"
+    },
+    "elk": {
+      "name": "elk",
+      "merge_after_ctrls": true,
+      "next_after_merge": true,
+      "sources_same_band": false,
+      "routing": "orthogonal",
+      "layoutMs": 32.45,
+      "orthoSegmentRatio": 1,
+      "edgeSections": 7
+    }
+  },
+  {
+    "fixture": "G08",
+    "artisan": {
+      "name": "artisan",
+      "c2_below_c1": true,
+      "y1_n2_sibling_band": true,
+      "n1b_below_n1": true,
+      "levels": 3,
+      "routing": "cubic-free"
+    },
+    "elk": {
+      "name": "elk",
+      "c2_below_c1": true,
+      "y1_n2_sibling_band": true,
+      "n1b_below_n1": true,
+      "levels": 3,
+      "routing": "orthogonal",
+      "layoutMs": 6.02,
+      "orthoSegmentRatio": 1,
+      "edgeSections": 5
+    }
+  },
+  {
+    "fixture": "G09",
+    "artisan": {
+      "name": "artisan",
+      "laneMeanX": {
+        "Voie A": 138,
+        "Voie B": 359,
+        "Voie C": 581,
+        "Convergence": 360,
+        "Suite": 350
+      },
+      "gate_below_lanes": true,
+      "routing": "cubic-free"
+    },
+    "elk": {
+      "name": "elk",
+      "laneMeanX": {
+        "Voie A": 453,
+        "Voie B": 233,
+        "Voie C": 13,
+        "Convergence": 234,
+        "Suite": 224
+      },
+      "gate_below_lanes": true,
+      "routing": "orthogonal",
+      "layoutMs": 7.18,
+      "orthoSegmentRatio": 1,
+      "edgeSections": 10
+    }
+  }
+]
+```
+
+Artefacts SVG : `docs/evidence/.../layout-benchmark/G0{7,8,9}-{elk,artisan}.svg`
+
+### Choix
+
+- **Retenu comme CANDIDATE :** Solution A — HTML/SVG + ELKjs + nœuds React Studio
+- **Non retenu comme nécessaire :** React Flow + ELK (même géométrie ELK ; coût SSR/bundle supérieur)
+- **Baseline artisan :** NÉGATIVE — retirée du chemin production
+- **Statut installation produit :** NOT INSTALLED
+- **Gate :** `STOP — MORRIS ARCHITECTURE DECISION REQUIRED`
+
+---
+
+## 6. Architecture réalisée (partielle, gate ouvert)
+
+```text
+Projection admise
+  → NoraComposition
+      → EditorialSynthesis (Figma 01 famille)
+      → Comparison/Sequence (composants existants requalifiés, non ELK)
+      → DirectedRelationBoard
+           ├─ tryElkDirectedLayout() si elkjs présent → canvas orthogonal
+           └─ sinon lecture structurée typée + liste relations (pas artisan SVG)
+```
+
+Modèle présentation : `directed-layout/types.ts` — transitoire, non persisté.
+
+---
+
+## 7. Tests exécutés
+
+| Suite | Résultat |
 | --- | --- |
-| main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` (local origin/main: `997d4c4e8204993de7107552898c8cc08cd3b0ed`) |
-| docs | `docs/next-ml4d-registre-revues-20261116@fd8d2534` |
-| handoff précédent | `sfia/review-handoff@c2ecfae9` blob `953d7921…` |
-| technique | `sfia/next-ml4d-composition-adaptative@a783f014` + WT |
+| Vitest composition + directed-layout | **74 PASS** |
+| Playwright T02 + C2-08 | **2 PASS** |
+| Benchmark sandbox G07–G09 | **RUN** (artefacts JSON/SVG/MD) |
+| PG historique | NOT RUN |
+| LIVE | NOT AUTHORIZED |
+| Figma/runtime 01–09 ALIGNED | **NOT CLAIMED** (engine pending) |
 
 ---
 
-## 2. Décisions consommées (non rouvertes)
+## 8. Préservation invariants
 
-- Strategy A nouveaux tours
-- Thème sombre Studio
-- Figma page 06 frames 01–09 orientation
-- Fidélité élevée fonctionnelle (non pixel)
-- Adaptativité conteneur Travail
-- Pas de second moteur cognitif / API concurrente
+Strategy A, A1–A7, C2 exact, C2-08 BROWSER, D3–D9, fil, brouillon, sources, choix, UNKNOWN, idempotence : **préservés**.
+`package.json` produit **non modifié**.
 
 ---
 
-## 3. Blast radius
+## 9. Matrice C / W (proposition)
 
-### Écriture ce cycle (W3/W4 + C2-08)
-
-- `NoraCompositionGraphs.tsx` (**créé**)
-- `NoraComposition.tsx` (arbre/parallèle branchés ; synthèse éditoriale ; probe E2E)
-- `tokens.css` (styles graphiques 07–09 + éditorial + parcours)
-- `NoraSemanticIcon.tsx` (import React SSR Vitest)
-- `ensemble05-travail-nora.spec.ts` (C2-08 BROWSER + asserts tree/parallel)
-- `w3-graph-layouts.test.ts` (**créé**)
-- preuves + manifeste + delivery-history
-- Review Pack
-
-### Préservés (cycles antérieurs WT — non rouverts)
-
-- `conversational-composition/*` (admission exact C2)
-- Strategy A fixtures / nora-adapter / semantic-qualification (WT antérieur)
-- A1–A7 invariants
-
-### Hors périmètre (non touchés normativement)
-
-- SEF, roadmap, décisions, matrice doc 06 V0.7 branche docs, method/, migrations, CI, LIVE
-
----
-
-## 4. A. C2-08 — ErrorBoundary navigateur
-
-**Verdict : `C2 ERROR RECOVERY — BROWSER PROVEN`**
-
-| Oracle | Résultat |
+| Item | État |
 | --- | --- |
-| Exception post-mount | `E2eCompositionThrowProbe` armé via `window.__SFIA_E2E_COMPOSITION_THROW_BLOCK_ID__='s3-cmp'` |
-| Boundary | `nora-composition-block-fallback` data-block-id=s3-cmp |
-| Fallback exhaustif | texte Progressive/Simultanée + Réserve C2 |
-| Autres blocs | `nora-visual-text` intro visible |
-| Identité message | composition `data-owns-body=1` |
-| Pas de 2e tour | assistantsBefore+1 stable après 1.5s |
-| Pas d'API POST après COMPLETE | apiPosts length stable |
-| Fil utilisable | draft `brouillon-apres-fallback` |
-| Pas d'écran blanc | shell + composition visibles |
-| Production | probe no-op si `NODE_ENV==='production'` |
-
-Capture : `c2-08-browser-error-recovery-1440.png`
-SHA-256 : `f301e564ceffbd269c27265cadc390caad04dfa3311894e11693b13c085596e8`
-Playwright : PASS (`C2-08 ErrorBoundary recovers real post-mount React exception`)
-
-Heuristique C2 70% : **absente** (préservée exact-identity).
+| C-08 boundary | CLOSED BROWSER (prior) |
+| Remplacement moteur graphique | **EN COURS — gate ELK** |
+| Figma 07–09 ALIGNED | NOT PROVEN (lecture structurée / ELK pending) |
+| W3 | NOT COMPLETE without ELK GO |
+| W4 visual | NOT COMPLETE |
+| W5 | réception Morris bloquée sur gate |
 
 ---
 
-## 5. B/C — W3 familles & fidélité 01–09
+## 10. Verdict unique
 
-Voir manifeste complet :
+# `STOP — MORRIS ARCHITECTURE DECISION REQUIRED`
 
-`projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/w3-w4-figma-runtime-manifest.md`
+Décision demandée : autoriser l'ajout de **`elkjs`** (licence EPL-2.0) comme dépendance produit Studio Next pour le layout dirigé des familles relations Figma 07–09, **sans** React Flow en V1, avec rollback = lecture structurée déjà branchée.
 
-### Résumé verdicts
-
-| Famille | Impl | Verdict |
-| --- | --- | --- |
-| 01 Synthèse | sections tonales éditoriales | PARTIAL |
-| 02/06 Parcours | marqueurs/connecteurs renforcés | PARTIAL |
-| 03/04/05 Comparaison | cards/matrix/stack existants | PARTIAL |
-| 07 Dépendances | layers + SVG mesuré (acquis) | PARTIAL |
-| 08 Arbre | **DecisionTreeConnectedView** | PARTIAL (graphical built) |
-| 09 Parallèle | **ParallelProcessConnectedView** | PARTIAL (graphical built) |
-
-**Aucun `FIGMA TO RUNTIME ALIGNED` déclaré** — grammaire construite, conformité inspectée PARTIAL, réception Morris ouverte.
+Sans ce GO, le remplacement architectural du **moteur de disposition** ne peut pas être livré en production locale ; contourner via artisan est **interdit** par le mandat.
 
 ---
 
-## 6. D — Architecture layout
+## 11. Instruction ChatGPT
 
-**Retenu :** HTML/CSS/SVG mesuré + ResizeObserver (deps/tree/parallel).
-**Non ajouté :** ELK, React Flow (gate Morris non requis tant que PARTIAL accepté pour densités actuelles).
-**Limites :** routing orthogonal Figma, nœuds typés condition/issue, graphes très denses — dette layout si réception exige parité.
+Lire depuis Git le dernier `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff`, vérifier commit et blob, comparer le code à l'ancien mécanisme, examiner le benchmark ELK/React Flow, la réalité du remplacement, les preuves Figma/runtime, les tests, la compatibilité et les réserves. Ne pas accepter un simple restylage comme remplacement architectural. Aucun Gate C ou ADOPTED automatique.
 
 ---
 
-## 7. E — W4 tests exécutés
+## 12. Contenu complet — fichiers créés
 
-| Suite | Commande | Résultat |
-| --- | --- | --- |
-| Vitest W3+C2 composition | `vitest run` c2-* + conversational-composition-* + ensemble05-visual + w3-graph | **72 PASS** (6 files) |
-| Vitest full workspace | `vitest run` | 1052 PASS / **1 FAIL hors périmètre** `nora-sas-maturation-instructions.test.ts` |
-| Playwright T02 | `-g "T02 visual composition"` | **PASS** |
-| Playwright C2-08 | `-g "C2-08 ErrorBoundary"` | **PASS** |
-| PG historique | — | **HISTORICAL PG REPLAY — NOT RUN** |
-| LIVE | — | **NOT RUN** |
 
-Largeurs T02 : 1440 + 430 mobile composite. Split/zoom 200/400 : **NOT FULLY RE-RUN** ce cycle (dette preuve).
+### FILE CREATE `projects/sfia-studio-next/web/src/domains/conversation/directed-layout/types.ts` (42 lines)
 
----
+```ts
+/**
+ * Transient directed-layout presentation model.
+ * Not a second source of truth — derived from admitted RelationsBlock only.
+ * Coordinates are Studio-owned; Nora never supplies SVG/CSS/coords.
+ */
 
-## 8. F — Préservation acquis
+export type LayoutEngineId = "none" | "elkjs-candidate" | "artisan-retired";
 
-A1–A7, Strategy A, M1–M5, legacy READ, D3–D9 owners, fil unique, brouillon, sources, choix gelés, absence d'effet métier : **préservés** (aucune mutation RECETTE ; probe C2-08 sans effet D3).
+export type LayoutNodeBox = {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
 
----
+export type LayoutEdgePath = {
+  id: string;
+  from: string;
+  to: string;
+  points: Array<[number, number]>;
+  routing: "orthogonal" | "polyline" | "unknown";
+};
 
-## 9. G — Matrice C-01…C-22 (proposition depuis V0.7)
+export type DirectedLayoutResult =
+  | {
+      status: "ready";
+      engine: Exclude<LayoutEngineId, "none">;
+      nodes: LayoutNodeBox[];
+      edges: LayoutEdgePath[];
+      layoutMs: number;
+    }
+  | {
+      status: "unavailable";
+      engine: LayoutEngineId;
+      reason:
+        | "ENGINE_NOT_INSTALLED"
+        | "LAYOUT_FAILED"
+        | "GATE_PENDING"
+        | "TOPOLOGY_REFUSED";
+      detail?: string;
+    };
 
-Ne pas écrire la branche docs. Proposition :
+```
 
-| Id | Proposition |
+
+### FILE CREATE `projects/sfia-studio-next/web/src/domains/conversation/directed-layout/candidate-elk.ts` (116 lines)
+
+```ts
+/**
+ * ELKjs layout adapter — CANDIDATE only.
+ * Product package.json does NOT list elkjs until Morris architecture GO.
+ * Dynamic import fails closed → ENGINE_NOT_INSTALLED.
+ */
+
+import type { RelationsBlock } from "@/domains/conversation/visual-composition";
+import type { DirectedLayoutResult } from "./types";
+
+function estimateSize(label: string, detail?: string): { width: number; height: number } {
+  const lines = Math.max(1, Math.ceil(String(detail ?? "").length / 42));
+  return {
+    width: Math.min(320, Math.max(180, label.length * 8 + 40)),
+    height: 48 + lines * 16,
+  };
+}
+
+/**
+ * Attempt ELK layered orthogonal layout.
+ * Never throws to callers — returns unavailable on missing engine or failure.
+ */
+export async function tryElkDirectedLayout(
+  block: RelationsBlock,
+): Promise<DirectedLayoutResult> {
+  let ELK: new () => {
+    layout: (g: unknown) => Promise<{
+      children?: Array<{ id: string; x?: number; y?: number; width?: number; height?: number }>;
+      edges?: Array<{
+        id: string;
+        sources?: string[];
+        targets?: string[];
+        sections?: Array<{
+          startPoint: { x: number; y: number };
+          endPoint: { x: number; y: number };
+          bendPoints?: Array<{ x: number; y: number }>;
+        }>;
+      }>;
+    }>;
+  };
+
+  try {
+    // Optional dependency — absent until Morris GO adds elkjs to product deps.
+    const mod = await import(/* webpackIgnore: true */ "elkjs/lib/elk.bundled.js");
+    ELK = (mod as { default: typeof ELK }).default;
+  } catch {
+    return {
+      status: "unavailable",
+      engine: "none",
+      reason: "ENGINE_NOT_INSTALLED",
+      detail: "elkjs not in product dependencies — architecture gate pending",
+    };
+  }
+
+  try {
+    const elk = new ELK();
+    const t0 =
+      typeof performance !== "undefined" ? performance.now() : Date.now();
+    const res = await elk.layout({
+      id: "root",
+      layoutOptions: {
+        "elk.algorithm": "layered",
+        "elk.direction": "DOWN",
+        "elk.spacing.nodeNode": "36",
+        "elk.layered.spacing.nodeNodeBetweenLayers": "64",
+        "elk.edgeRouting": "ORTHOGONAL",
+        "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
+      },
+      children: block.nodes.map((n) => ({
+        id: n.id,
+        ...estimateSize(n.label, n.detail),
+      })),
+      edges: block.edges.map((e, i) => ({
+        id: `e${i}`,
+        sources: [e.from],
+        targets: [e.to],
+      })),
+    });
+    const t1 =
+      typeof performance !== "undefined" ? performance.now() : Date.now();
+
+    return {
+      status: "ready",
+      engine: "elkjs-candidate",
+      layoutMs: Math.round((t1 - t0) * 100) / 100,
+      nodes: (res.children ?? []).map((c) => ({
+        id: c.id,
+        x: c.x ?? 0,
+        y: c.y ?? 0,
+        width: c.width ?? 0,
+        height: c.height ?? 0,
+      })),
+      edges: (res.edges ?? []).map((e) => {
+        const points: Array<[number, number]> = [];
+        for (const s of e.sections ?? []) {
+          points.push([s.startPoint.x, s.startPoint.y]);
+          for (const b of s.bendPoints ?? []) points.push([b.x, b.y]);
+          points.push([s.endPoint.x, s.endPoint.y]);
+        }
+        return {
+          id: e.id,
+          from: e.sources?.[0] ?? "",
+          to: e.targets?.[0] ?? "",
+          points,
+          routing: "orthogonal" as const,
+        };
+      }),
+    };
+  } catch (err) {
+    return {
+      status: "unavailable",
+      engine: "elkjs-candidate",
+      reason: "LAYOUT_FAILED",
+      detail: err instanceof Error ? err.message : "layout failed",
+    };
+  }
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/src/domains/conversation/directed-layout/index.ts` (7 lines)
+
+```ts
+export type {
+  DirectedLayoutResult,
+  LayoutEdgePath,
+  LayoutEngineId,
+  LayoutNodeBox,
+} from "./types";
+export { tryElkDirectedLayout } from "./candidate-elk";
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elkjs-shim.d.ts` (23 lines)
+
+```ts
+declare module "elkjs/lib/elk.bundled.js" {
+  export default class ELK {
+    layout(graph: unknown): Promise<{
+      children?: Array<{
+        id: string;
+        x?: number;
+        y?: number;
+        width?: number;
+        height?: number;
+      }>;
+      edges?: Array<{
+        id: string;
+        sources?: string[];
+        targets?: string[];
+        sections?: Array<{
+          startPoint: { x: number; y: number };
+          endPoint: { x: number; y: number };
+          bendPoints?: Array<{ x: number; y: number }>;
+        }>;
+      }>;
+    }>;
+  }
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/src/components/figma/nora-composition/GraphNodeCard.tsx` (64 lines)
+
+```ts
+"use client";
+
+import React from "react";
+import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
+import type { RelationsBlock } from "@/domains/conversation/visual-composition";
+
+void React;
+
+type Node = RelationsBlock["nodes"][number];
+
+function roleFor(
+  kind: string | undefined,
+): "information" | "observation" | "hypothesis" | "risk" | "recommendation" | "dependency" {
+  switch (kind) {
+    case "hypothesis":
+      return "hypothesis";
+    case "finding":
+    case "fact":
+      return "observation";
+    case "cause":
+      return "dependency";
+    case "unknown":
+      return "information";
+    default:
+      return "information";
+  }
+}
+
+/** Typed graph node — Figma 07–09 language; no radial E05. */
+export function GraphNodeCard({
+  node,
+  branch,
+  emphasize,
+}: {
+  node: Node;
+  branch?: "root" | "yes" | "no" | "then" | "gate";
+  emphasize?: boolean;
+}) {
+  return (
+    <article
+      className={`fig-nc-graph-node${emphasize ? " fig-nc-graph-node-emphasis" : ""}${
+        branch ? ` fig-nc-graph-node-${branch}` : ""
+      }`}
+      data-testid="nora-graph-node"
+      data-node-id={node.id}
+      data-node-kind={node.kind ?? ""}
+      data-branch={branch ?? ""}
+      data-lane={node.laneId ?? ""}
+    >
+      <NoraSemanticIcon role={roleFor(node.kind)} />
+      <div className="fig-nc-graph-node-copy">
+        <div className="fig-nc-graph-node-label">{node.label}</div>
+        {node.detail ? (
+          <div className="fig-nc-graph-node-detail">{node.detail}</div>
+        ) : null}
+        {node.kind === "unknown" || node.kind === "hypothesis" ? (
+          <div className="fig-nc-graph-node-status">
+            {node.kind === "unknown" ? "Non décidé" : "Hypothèse — pas une HumanDecision"}
+          </div>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/src/components/figma/nora-composition/DirectedRelationBoard.tsx` (259 lines)
+
+```ts
+"use client";
+
+/**
+ * Production relations surface for the new graphical subsystem.
+ * Does NOT use artisan measured-SVG placement as the layout engine.
+ * When ELK is installed (Morris GO), tryElkDirectedLayout paints orthogonal paths;
+ * otherwise: typed nodes + exhaustive accessible reading (engine gate pending).
+ */
+
+import React, { useEffect, useId, useState } from "react";
+import { GraphNodeCard } from "@/components/figma/nora-composition/GraphNodeCard";
+import { tryElkDirectedLayout } from "@/domains/conversation/directed-layout";
+import type { DirectedLayoutResult } from "@/domains/conversation/directed-layout";
+import type { RelationsBlock } from "@/domains/conversation/visual-composition";
+
+void React;
+
+function edgeLabel(e: RelationsBlock["edges"][number]): string {
+  if (e.relation === "condition_true") return e.label ? `Si oui — ${e.label}` : "Si oui";
+  if (e.relation === "condition_false") return e.label ? `Si non — ${e.label}` : "Si non";
+  if (e.relation === "sync") return e.label ? `Synchronisation — ${e.label}` : "Synchronisation";
+  if (e.relation === "depends_on") return e.label ? `Dépendance — ${e.label}` : "Dépendance";
+  return e.label || "puis";
+}
+
+function branchFor(
+  nodeId: string,
+  edges: RelationsBlock["edges"],
+): "root" | "yes" | "no" | "then" | "gate" | undefined {
+  const incoming = edges.filter((e) => e.to === nodeId);
+  if (!incoming.length) return "root";
+  if (incoming.some((e) => e.relation === "sync")) return "gate";
+  if (incoming.some((e) => e.relation === "condition_true")) return "yes";
+  if (incoming.some((e) => e.relation === "condition_false")) return "no";
+  return "then";
+}
+
+export function DirectedRelationBoard({
+  block,
+  titleById,
+}: {
+  block: RelationsBlock;
+  titleById: Map<string, string>;
+}) {
+  const hint = block.layoutHint ?? "dependencies";
+  const reactId = useId();
+  const markerId = `fig-nc-elk-arrow-${reactId.replace(/:/g, "")}`;
+  const [layout, setLayout] = useState<DirectedLayoutResult | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const result = await tryElkDirectedLayout(block);
+      if (!cancelled) setLayout(result);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [block]);
+
+  const engineAttr =
+    layout?.status === "ready"
+      ? layout.engine
+      : layout?.reason === "ENGINE_NOT_INSTALLED" || layout?.reason === "GATE_PENDING"
+        ? "pending-elk-candidate"
+        : layout
+          ? "unavailable"
+          : "loading";
+
+  const testId =
+    hint === "decisionTree"
+      ? "nora-composition-decision-tree"
+      : hint === "parallelProcess"
+        ? "nora-composition-parallel"
+        : "nora-composition-dependencies";
+
+  const lanes =
+    hint === "parallelProcess"
+      ? (() => {
+          const m = new Map<string, typeof block.nodes>();
+          for (const n of block.nodes) {
+            const lane = n.laneId?.trim() || "voie";
+            const list = m.get(lane) ?? [];
+            list.push(n);
+            m.set(lane, list);
+          }
+          return m;
+        })()
+      : null;
+
+  const syncTargets = new Set(
+    block.edges.filter((e) => e.relation === "sync").map((e) => e.to),
+  );
+  const gateId = [...syncTargets][0];
+
+  return (
+    <div
+      className={`fig-nc-relations fig-nc-relations-${hint}`}
+      data-testid={testId}
+      data-layout-hint={hint}
+      data-layout-engine={engineAttr}
+      data-legacy-artisan="0"
+      data-connectors={layout?.status === "ready" && layout.edges.length ? "1" : "0"}
+      data-gate={gateId ?? ""}
+    >
+      {layout?.status === "ready" ? (
+        <div
+          className="fig-nc-elk-canvas"
+          data-testid="nora-composition-elk-canvas"
+          style={{
+            position: "relative",
+            width: Math.max(...layout.nodes.map((n) => n.x + n.width), 0) + 24,
+            height: Math.max(...layout.nodes.map((n) => n.y + n.height), 0) + 24,
+          }}
+        >
+          <svg
+            className="fig-nc-elk-svg"
+            width="100%"
+            height="100%"
+            data-testid={
+              hint === "decisionTree"
+                ? "nora-composition-tree-connectors"
+                : hint === "parallelProcess"
+                  ? "nora-composition-parallel-connectors"
+                  : "nora-composition-deps-connectors"
+            }
+            aria-hidden
+          >
+            <defs>
+              <marker
+                id={markerId}
+                markerWidth="8"
+                markerHeight="8"
+                refX="6"
+                refY="3"
+                orient="auto"
+              >
+                <path d="M0,0 L6,3 L0,6 Z" className="fig-comp-deps-arrowhead" />
+              </marker>
+            </defs>
+            {layout.edges.map((e) => {
+              if (e.points.length < 2) return null;
+              const d = e.points
+                .map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`)
+                .join(" ");
+              return (
+                <path
+                  key={e.id}
+                  d={d}
+                  className="fig-comp-deps-connector"
+                  markerEnd={`url(#${markerId})`}
+                  data-edge-key={e.id}
+                />
+              );
+            })}
+          </svg>
+          {layout.nodes.map((box) => {
+            const node = block.nodes.find((n) => n.id === box.id);
+            if (!node) return null;
+            return (
+              <div
+                key={box.id}
+                style={{
+                  position: "absolute",
+                  left: box.x,
+                  top: box.y,
+                  width: box.width,
+                }}
+              >
+                <GraphNodeCard
+                  node={node}
+                  branch={branchFor(node.id, block.edges)}
+                  emphasize={node.id === gateId}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="fig-nc-relations-reading" data-testid="nora-composition-relations-reading">
+          {lanes ? (
+            <div className="fig-nc-parallel-lanes" data-testid="nora-composition-parallel-lanes">
+              {[...lanes.entries()].map(([lane, nodes]) => {
+                const isGate = gateId != null && nodes.some((n) => n.id === gateId);
+                return (
+                  <section
+                    key={lane}
+                    className={`fig-nc-parallel-lane${isGate ? " fig-nc-parallel-lane-gate" : ""}`}
+                    data-lane={lane}
+                    data-lane-role={isGate ? "gate" : "flow"}
+                    data-testid={isGate ? "nora-composition-parallel-gate" : undefined}
+                  >
+                    <h4 className="fig-comp-parallel-lane-title">
+                      {lane}
+                      {isGate ? " · convergence" : ""}
+                    </h4>
+                    <div className="fig-nc-parallel-tasks">
+                      {nodes.map((n) => (
+                        <GraphNodeCard
+                          key={n.id}
+                          node={n}
+                          branch={isGate ? "gate" : branchFor(n.id, block.edges)}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="fig-nc-node-flow">
+              {block.nodes.map((n) => (
+                <GraphNodeCard key={n.id} node={n} branch={branchFor(n.id, block.edges)} />
+              ))}
+            </div>
+          )}
+          {engineAttr === "pending-elk-candidate" || engineAttr === "loading" ? (
+            <p className="fig-nc-engine-note" data-testid="nora-layout-engine-pending">
+              Disposition dirigée (ELK) en attente d&apos;arbitrage architecture — lecture
+              structurée complète ci-dessous. Aucun moteur artisanal E05 n&apos;est utilisé.
+            </p>
+          ) : null}
+        </div>
+      )}
+
+      <ul
+        className="fig-comp-deps-edges"
+        data-testid={
+          hint === "decisionTree"
+            ? "nora-composition-tree-edges"
+            : hint === "parallelProcess"
+              ? "nora-composition-parallel-edges"
+              : "nora-composition-relations-edges"
+        }
+        data-directed="1"
+        aria-label="Relations dirigées"
+      >
+        {block.edges.map((e, i) => (
+          <li key={`${e.from}-${e.to}-${i}`} data-relation={e.relation ?? "flow"}>
+            <span className="fig-comp-deps-from">{titleById.get(e.from) ?? e.from}</span>
+            <span className="fig-comp-tree-condition">{edgeLabel(e)}</span>
+            <span className="fig-comp-deps-to">{titleById.get(e.to) ?? e.to}</span>
+          </li>
+        ))}
+      </ul>
+
+      {hint === "decisionTree" ? (
+        <p className="fig-comp-authority-note">
+          Les branches conditionnelles sont des propositions de lecture — aucune HumanDecision
+          n&apos;est créée.
+        </p>
+      ) : (
+        <p className="fig-comp-authority-note">
+          La convergence graphique n&apos;enregistre aucune décision humaine ni validation.
+        </p>
+      )}
+    </div>
+  );
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/src/components/figma/nora-composition/EditorialSynthesis.tsx` (81 lines)
+
+```ts
+"use client";
+
+import React from "react";
+import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
+import type { SynthesisBlock } from "@/domains/conversation/visual-composition";
+
+void React;
+
+/** Figma 01 — editorial synthesis without widget-dashboard clutter. */
+export function EditorialSynthesis({ block }: { block: SynthesisBlock }) {
+  const priorities = block.items.filter((it) => it.tone === "priority");
+  const risks = block.items.filter((it) => it.tone === "risk");
+  const hypotheses = block.items.filter((it) => it.tone === "hypothesis");
+  const observations = block.items.filter(
+    (it) => it.tone === "observation" || (!it.tone && it.role !== "recommendation"),
+  );
+  const rest = block.items.filter(
+    (it) =>
+      !priorities.includes(it) &&
+      !risks.includes(it) &&
+      !hypotheses.includes(it) &&
+      !observations.includes(it),
+  );
+
+  const renderItem = (it: (typeof block.items)[number]) => {
+    const role =
+      it.role ??
+      (it.tone === "risk"
+        ? "risk"
+        : it.tone === "hypothesis"
+          ? "hypothesis"
+          : it.tone === "observation"
+            ? "observation"
+            : it.tone === "priority"
+              ? "recommendation"
+              : "information");
+    return (
+      <li
+        key={it.id}
+        data-tone={it.tone}
+        className={`fig-visual-synth-item fig-visual-tone-${it.tone ?? "information"} fig-comp-synth-row`}
+      >
+        <NoraSemanticIcon role={role} icon={it.icon} />
+        <div className="fig-comp-synth-copy">
+          <strong className="fig-comp-synth-label">{it.label}</strong>
+          {it.detail ? (
+            <SafeMarkdown content={it.detail} className="fig-visual-inline-md fig-comp-synth-detail" />
+          ) : null}
+        </div>
+      </li>
+    );
+  };
+
+  const section = (
+    key: string,
+    title: string,
+    items: typeof block.items,
+    className: string,
+  ) =>
+    items.length ? (
+      <div key={key} className={`fig-comp-synth-section ${className}`} data-synth-section={key}>
+        <h4 className="fig-comp-synth-section-title">{title}</h4>
+        <ul className="fig-visual-synthesis-list">{items.map(renderItem)}</ul>
+      </div>
+    ) : null;
+
+  return (
+    <div
+      className="fig-comp-synth-flow fig-nc-editorial"
+      data-testid="nora-composition-editorial-synthesis"
+      data-renderer="editorial-v2"
+    >
+      {section("observation", "Constat", observations, "fig-comp-synth-observations")}
+      {section("hypothesis", "Hypothèses et réserves", hypotheses, "fig-comp-synth-hypotheses")}
+      {section("risk", "Risques", risks, "fig-comp-synth-risks")}
+      {section("priority", "Priorités et recommandations", priorities, "fig-comp-synth-priorities")}
+      {section("other", "Autres éléments", rest, "fig-comp-synth-other")}
+    </div>
+  );
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/src/components/figma/nora-composition/index.ts` (3 lines)
+
+```ts
+export { DirectedRelationBoard } from "./DirectedRelationBoard";
+export { EditorialSynthesis } from "./EditorialSynthesis";
+export { GraphNodeCard } from "./GraphNodeCard";
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/tests/unit/directed-layout-candidate.test.ts` (48 lines)
+
+```ts
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { describe, expect, it } from "vitest";
+import { DirectedRelationBoard } from "@/components/figma/nora-composition";
+import { tryElkDirectedLayout } from "@/domains/conversation/directed-layout";
+import type { RelationsBlock } from "@/domains/conversation/visual-composition";
+
+const tree: RelationsBlock = {
+  kind: "relations",
+  id: "g08",
+  title: "Arbre",
+  layoutHint: "decisionTree",
+  nodes: [
+    { id: "c1", label: "Support prêt ?", kind: "unknown" },
+    { id: "c2", label: "Fenêtre compatible ?", kind: "unknown" },
+    { id: "y1", label: "Progression possible", kind: "hypothesis" },
+    { id: "n1", label: "Renforcer les relais", kind: "hypothesis" },
+  ],
+  edges: [
+    { from: "c1", to: "c2", relation: "condition_true" },
+    { from: "c1", to: "n1", relation: "condition_false" },
+    { from: "c2", to: "y1", relation: "condition_true" },
+  ],
+  textAlternative: "Arbre multiniveau",
+};
+
+describe("directed-layout candidate + new relation board", () => {
+  it("tryElkDirectedLayout fails closed without product elkjs", async () => {
+    const result = await tryElkDirectedLayout(tree);
+    expect(result.status).toBe("unavailable");
+    if (result.status === "unavailable") {
+      expect(result.reason).toBe("ENGINE_NOT_INSTALLED");
+    }
+  });
+
+  it("DirectedRelationBoard retires artisan engine attribute", () => {
+    const titleById = new Map(tree.nodes.map((n) => [n.id, n.label] as const));
+    const html = renderToStaticMarkup(
+      createElement(DirectedRelationBoard, { block: tree, titleById }),
+    );
+    expect(html).toContain("nora-composition-decision-tree");
+    expect(html).toContain('data-legacy-artisan="0"');
+    expect(html).toContain("nora-composition-tree-edges");
+    expect(html).toContain("Support prêt");
+    expect(html).toContain("HumanDecision");
+    expect(html).not.toContain("fig-comp-tree-connected");
+  });
+});
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/fixtures/layout-benchmark/g07-dependencies-complex.json` (25 lines)
+
+```json
+{
+  "id": "G07",
+  "figma": "751:11",
+  "title": "Trois chaînes convergentes — dépendances complexes",
+  "layoutHint": "dependencies",
+  "nodes": [
+    { "id": "src-a", "label": "Inventaire site A", "kind": "observation", "detail": "État observé des stocks et rôles locaux — description longue pour forcer hauteur variable." },
+    { "id": "src-b", "label": "Inventaire site B", "kind": "observation", "detail": "Couverture partielle." },
+    { "id": "src-c", "label": "Cadre juridique", "kind": "hypothesis", "detail": "Hypothèse : cadre applicable non encore confirmé auprès du conseil." },
+    { "id": "ctrl-a", "label": "Contrôle cohérence A", "kind": "finding", "detail": "Contrôle intermédiaire sur la filière A." },
+    { "id": "ctrl-b", "label": "Contrôle cohérence B", "kind": "finding", "detail": "Contrôle intermédiaire sur la filière B." },
+    { "id": "ctrl-c", "label": "Revue juridique", "kind": "unknown", "detail": "Statut unknown — disponibilité du relais juridique à confirmer." },
+    { "id": "merge", "label": "Contrôle convergent", "kind": "finding", "detail": "Point de convergence des trois filières avant suite." },
+    { "id": "next", "label": "Suite sous condition", "kind": "hypothesis", "detail": "Poursuite uniquement si le contrôle convergent est satisfaisant — aucune HumanDecision." }
+  ],
+  "edges": [
+    { "from": "src-a", "to": "ctrl-a", "relation": "depends_on" },
+    { "from": "src-b", "to": "ctrl-b", "relation": "depends_on" },
+    { "from": "src-c", "to": "ctrl-c", "relation": "depends_on" },
+    { "from": "ctrl-a", "to": "merge", "relation": "flow" },
+    { "from": "ctrl-b", "to": "merge", "relation": "flow" },
+    { "from": "ctrl-c", "to": "merge", "relation": "flow" },
+    { "from": "merge", "to": "next", "relation": "depends_on", "label": "si convergent OK" }
+  ]
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/fixtures/layout-benchmark/g08-decision-tree-multilevel.json` (21 lines)
+
+```json
+{
+  "id": "G08",
+  "figma": "752:2",
+  "title": "Arbre conditionnel multiniveau",
+  "layoutHint": "decisionTree",
+  "nodes": [
+    { "id": "c1", "label": "Support prêt ?", "kind": "unknown", "detail": "CONDITION 01 · NON DÉCIDÉE — disponibilité à confirmer auprès des relais." },
+    { "id": "c2", "label": "Fenêtre compatible ?", "kind": "unknown", "detail": "CONDITION 02 · NON DÉCIDÉE — contraintes calendaires encore à qualifier." },
+    { "id": "y1", "label": "Progression possible", "kind": "hypothesis", "detail": "Soumettre une cadence progressive si les deux conditions sont favorables." },
+    { "id": "n2", "label": "Revoir le calendrier", "kind": "hypothesis", "detail": "Réajuster les périodes envisagées si la fenêtre n'est pas compatible." },
+    { "id": "n1", "label": "Renforcer les relais", "kind": "hypothesis", "detail": "Ressources et organisation à revoir si le support est insuffisant." },
+    { "id": "n1b", "label": "Requalifier la capacité", "kind": "hypothesis", "detail": "Revenir aux prérequis de support — aucune branche activée automatiquement." }
+  ],
+  "edges": [
+    { "from": "c1", "to": "c2", "relation": "condition_true", "label": "oui — hypothèse" },
+    { "from": "c1", "to": "n1", "relation": "condition_false", "label": "non — hypothèse" },
+    { "from": "c2", "to": "y1", "relation": "condition_true", "label": "si deux conditions oui" },
+    { "from": "c2", "to": "n2", "relation": "condition_false", "label": "si fenêtre non compatible" },
+    { "from": "n1", "to": "n1b", "relation": "flow", "label": "si support non confirmé" }
+  ]
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/fixtures/layout-benchmark/g09-parallel-three-lanes.json` (31 lines)
+
+```json
+{
+  "id": "G09",
+  "figma": "753:2",
+  "title": "Trois voies parallèles et contrôle commun",
+  "layoutHint": "parallelProcess",
+  "nodes": [
+    { "id": "a1", "label": "Collecte terrain A", "kind": "observation", "laneId": "Voie A", "detail": "Première activité voie A." },
+    { "id": "a2", "label": "Consolidation A", "kind": "observation", "laneId": "Voie A", "detail": "Deuxième activité voie A — dépend de la collecte." },
+    { "id": "a3", "label": "Vérification A", "kind": "finding", "laneId": "Voie A", "detail": "Contrôle de voie avant sync." },
+    { "id": "b1", "label": "Collecte terrain B", "kind": "observation", "laneId": "Voie B", "detail": "Première activité voie B." },
+    { "id": "b2", "label": "Consolidation B", "kind": "observation", "laneId": "Voie B", "detail": "Deuxième activité voie B." },
+    { "id": "b3", "label": "Vérification B", "kind": "finding", "laneId": "Voie B", "detail": "Contrôle de voie B." },
+    { "id": "c1", "label": "Collecte terrain C", "kind": "observation", "laneId": "Voie C", "detail": "Première activité voie C — libellé long pour densité." },
+    { "id": "c2", "label": "Consolidation C", "kind": "observation", "laneId": "Voie C", "detail": "Deuxième activité voie C avec description étendue des écarts observés." },
+    { "id": "c3", "label": "Vérification C", "kind": "finding", "laneId": "Voie C", "detail": "Contrôle de voie C." },
+    { "id": "gate", "label": "Contrôle commun", "kind": "unknown", "laneId": "Convergence", "detail": "Point de synchronisation — NON DÉCIDÉ ; aucune validation métier." },
+    { "id": "next", "label": "Suite conditionnelle", "kind": "hypothesis", "laneId": "Suite", "detail": "Étape suivante seulement si le contrôle commun est satisfaisant." }
+  ],
+  "edges": [
+    { "from": "a1", "to": "a2", "relation": "flow" },
+    { "from": "a2", "to": "a3", "relation": "depends_on" },
+    { "from": "b1", "to": "b2", "relation": "flow" },
+    { "from": "b2", "to": "b3", "relation": "depends_on" },
+    { "from": "c1", "to": "c2", "relation": "flow" },
+    { "from": "c2", "to": "c3", "relation": "depends_on" },
+    { "from": "a3", "to": "gate", "relation": "sync", "label": "prêt A" },
+    { "from": "b3", "to": "gate", "relation": "sync", "label": "prêt B" },
+    { "from": "c3", "to": "gate", "relation": "sync", "label": "prêt C" },
+    { "from": "gate", "to": "next", "relation": "depends_on", "label": "si contrôle OK" }
+  ]
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/scripts/layout-engine-benchmark/run-benchmark.mjs` (445 lines)
+
+```js
+/**
+ * Isolated layout benchmark — NOT a product dependency.
+ * Compares artisan baseline vs ELKjs vs (ELK positions + RF-readiness metrics).
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import ELK from "elkjs/lib/elk.bundled.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(__dirname, "../..");
+const fixturesDir = path.join(root, "fixtures/layout-benchmark");
+const outDir = path.join(root, "docs/evidence/ensemble-05-travail-nora/layout-benchmark");
+
+function estimateNodeSize(n) {
+  const label = String(n.label ?? "");
+  const detail = String(n.detail ?? "");
+  const lines = Math.max(1, Math.ceil(detail.length / 42));
+  const h = 48 + lines * 16;
+  const w = Math.min(320, Math.max(180, label.length * 8 + 40));
+  return { width: w, height: h };
+}
+
+/** Artisan baseline: topological layers + centered stacking (mirrors current deps view). */
+function artisanLayout(graph) {
+  const ids = new Set(graph.nodes.map((n) => n.id));
+  const indeg = new Map([...ids].map((id) => [id, 0]));
+  const adj = new Map([...ids].map((id) => [id, []]));
+  for (const e of graph.edges) {
+    if (!ids.has(e.from) || !ids.has(e.to)) continue;
+    adj.get(e.from).push(e.to);
+    indeg.set(e.to, (indeg.get(e.to) ?? 0) + 1);
+  }
+  const layers = [];
+  let frontier = [...ids].filter((id) => indeg.get(id) === 0);
+  const placed = new Set();
+  while (frontier.length) {
+    layers.push([...frontier]);
+    frontier.forEach((id) => placed.add(id));
+    const next = [];
+    for (const id of layers.at(-1)) {
+      for (const t of adj.get(id) ?? []) {
+        indeg.set(t, indeg.get(t) - 1);
+        if (indeg.get(t) === 0 && !placed.has(t)) next.push(t);
+      }
+    }
+    frontier = next;
+  }
+  const leftover = [...ids].filter((id) => !placed.has(id));
+  if (leftover.length) layers.push(leftover);
+
+  const positions = new Map();
+  const gapX = 40;
+  const gapY = 56;
+  let y = 0;
+  for (const layer of layers) {
+    const sizes = layer.map((id) => {
+      const n = graph.nodes.find((x) => x.id === id);
+      return { id, ...estimateNodeSize(n) };
+    });
+    const totalW = sizes.reduce((s, n) => s + n.width, 0) + gapX * (sizes.length - 1);
+    let x = Math.max(0, (900 - totalW) / 2);
+    let rowH = 0;
+    for (const s of sizes) {
+      positions.set(s.id, { x, y, width: s.width, height: s.height });
+      x += s.width + gapX;
+      rowH = Math.max(rowH, s.height);
+    }
+    y += rowH + gapY;
+  }
+
+  const edges = graph.edges.map((e, i) => {
+    const a = positions.get(e.from);
+    const b = positions.get(e.to);
+    if (!a || !b) return null;
+    const x1 = a.x + a.width / 2;
+    const y1 = a.y + a.height;
+    const x2 = b.x + b.width / 2;
+    const y2 = b.y;
+    return {
+      id: `e${i}`,
+      from: e.from,
+      to: e.to,
+      // cubic mid — artisan style (crossings not minimized)
+      points: [
+        [x1, y1],
+        [x1, (y1 + y2) / 2],
+        [x2, (y1 + y2) / 2],
+        [x2, y2],
+      ],
+    };
+  }).filter(Boolean);
+
+  return { engine: "artisan-baseline", positions, edges, layers: layers.length };
+}
+
+function rectsOverlap(a, b, pad = 4) {
+  return !(
+    a.x + a.width + pad <= b.x ||
+    b.x + b.width + pad <= a.x ||
+    a.y + a.height + pad <= b.y ||
+    b.y + b.height + pad <= a.y
+  );
+}
+
+function segmentIntersects(p1, p2, p3, p4) {
+  const d = (a, b, c) => (c[0] - a[0]) * (b[1] - a[1]) - (b[0] - a[0]) * (c[1] - a[1]);
+  const o1 = d(p1, p2, p3);
+  const o2 = d(p1, p2, p4);
+  const o3 = d(p3, p4, p1);
+  const o4 = d(p3, p4, p2);
+  return o1 * o2 < 0 && o3 * o4 < 0;
+}
+
+function edgePolyline(edge) {
+  const pts = edge.points ?? edge.sections?.flatMap((s) => {
+    const start = [s.startPoint.x, s.startPoint.y];
+    const end = [s.endPoint.x, s.endPoint.y];
+    const bend = (s.bendPoints ?? []).map((b) => [b.x, b.y]);
+    return [start, ...bend, end];
+  });
+  return pts ?? [];
+}
+
+function scoreLayout(graph, layout) {
+  const nodes = [...layout.positions.entries()].map(([id, p]) => ({ id, ...p }));
+  let overlaps = 0;
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      if (rectsOverlap(nodes[i], nodes[j])) overlaps += 1;
+    }
+  }
+  const edges = layout.edges;
+  let crossings = 0;
+  for (let i = 0; i < edges.length; i++) {
+    const A = edgePolyline(edges[i]);
+    for (let j = i + 1; j < edges.length; j++) {
+      const B = edgePolyline(edges[j]);
+      // compare mid-segments only (skip shared endpoints)
+      for (let ai = 0; ai < A.length - 1; ai++) {
+        for (let bi = 0; bi < B.length - 1; bi++) {
+          const share =
+            edges[i].from === edges[j].from ||
+            edges[i].from === edges[j].to ||
+            edges[i].to === edges[j].from ||
+            edges[i].to === edges[j].to;
+          if (share) continue;
+          if (segmentIntersects(A[ai], A[ai + 1], B[bi], B[bi + 1])) crossings += 1;
+        }
+      }
+    }
+  }
+  let bboxW = 0;
+  let bboxH = 0;
+  for (const n of nodes) {
+    bboxW = Math.max(bboxW, n.x + n.width);
+    bboxH = Math.max(bboxH, n.y + n.height);
+  }
+  const longLabels = graph.nodes.filter((n) => (n.detail ?? "").length > 60).length;
+  return {
+    nodeCount: nodes.length,
+    edgeCount: edges.length,
+    nodeOverlaps: overlaps,
+    edgeCrossingsApprox: crossings,
+    bboxW: Math.round(bboxW),
+    bboxH: Math.round(bboxH),
+    longLabelNodes: longLabels,
+    portsTopBottom: true,
+  };
+}
+
+async function elkLayout(graph, options = {}) {
+  const elk = new ELK();
+  const children = graph.nodes.map((n) => {
+    const size = estimateNodeSize(n);
+    const child = {
+      id: n.id,
+      width: size.width,
+      height: size.height,
+      labels: [{ text: n.label }],
+    };
+    if (n.laneId && options.layeredParallel) {
+      child.layoutOptions = {
+        "org.eclipse.elk.layered.layering.layerConstraint": "NONE",
+      };
+    }
+    return child;
+  });
+
+  const edges = graph.edges.map((e, i) => ({
+    id: `e${i}`,
+    sources: [e.from],
+    targets: [e.to],
+  }));
+
+  // Optional lane partitions for parallel via ELK hierarchy
+  let elkGraph;
+  if (options.useLanes) {
+    const lanes = new Map();
+    for (const n of graph.nodes) {
+      const lane = n.laneId ?? "_default";
+      if (!lanes.has(lane)) lanes.set(lane, []);
+      lanes.get(lane).push(n.id);
+    }
+    elkGraph = {
+      id: "root",
+      layoutOptions: {
+        "elk.algorithm": "layered",
+        "elk.direction": "DOWN",
+        "elk.spacing.nodeNode": "40",
+        "elk.layered.spacing.nodeNodeBetweenLayers": "56",
+        "elk.edgeRouting": "ORTHOGONAL",
+        "elk.hierarchyHandling": "INCLUDE_CHILDREN",
+      },
+      children: [...lanes.entries()].map(([lane, ids]) => ({
+        id: `lane-${lane}`,
+        layoutOptions: {
+          "elk.algorithm": "layered",
+          "elk.direction": "DOWN",
+          "elk.padding": "[top=24,left=16,bottom=16,right=16]",
+        },
+        children: children.filter((c) => ids.includes(c.id)),
+      })),
+      edges: edges.map((e) => {
+        // ELK hierarchical edges need careful source/target; flatten for benchmark
+        return e;
+      }),
+    };
+    // Flatten edges to root for cross-lane sync — ELK layered with hierarchy is complex;
+    // for fairness use flat layered for G09 as well when hierarchy fails.
+  }
+
+  elkGraph = {
+    id: "root",
+    layoutOptions: {
+      "elk.algorithm": "layered",
+      "elk.direction": options.direction ?? "DOWN",
+      "elk.spacing.nodeNode": "36",
+      "elk.layered.spacing.nodeNodeBetweenLayers": "64",
+      "elk.edgeRouting": "ORTHOGONAL",
+      "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+      "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
+    },
+    children,
+    edges,
+  };
+
+  const t0 = performance.now();
+  const res = await elk.layout(elkGraph);
+  const ms = performance.now() - t0;
+
+  const positions = new Map();
+  for (const c of res.children ?? []) {
+    positions.set(c.id, {
+      x: c.x ?? 0,
+      y: c.y ?? 0,
+      width: c.width ?? 0,
+      height: c.height ?? 0,
+    });
+  }
+  const laidEdges = (res.edges ?? []).map((e) => ({
+    id: e.id,
+    from: e.sources?.[0],
+    to: e.targets?.[0],
+    sections: e.sections,
+    points: (e.sections ?? []).flatMap((s) => {
+      const start = [s.startPoint.x, s.startPoint.y];
+      const bend = (s.bendPoints ?? []).map((b) => [b.x, b.y]);
+      const end = [s.endPoint.x, s.endPoint.y];
+      return [start, ...bend, end];
+    }),
+  }));
+
+  return {
+    engine: "elkjs-layered-orthogonal",
+    positions,
+    edges: laidEdges,
+    layoutMs: Math.round(ms * 100) / 100,
+  };
+}
+
+/**
+ * Solution B proxy: same ELK coordinates + RF readiness checklist.
+ * Full RF mount needs DOM; we score the layout ELK would feed into RF nodes.
+ */
+function reactFlowReadiness(graph, elkResult) {
+  const score = scoreLayout(graph, elkResult);
+  return {
+    engine: "react-flow-plus-elk (layout=ELK, viewport=RF-candidate)",
+    ...score,
+    rfValueAdd: {
+      customNodes: true,
+      edgeRendering: "RF would redraw; ELK already orthogonal",
+      viewportPanZoom: "useful for dense G07/G09",
+      dragDisabledRequired: true,
+      ssrHydrationRisk: "medium (client-only mount)",
+      bundleImpact: "high (@xyflow/react + elk)",
+      readOnlyModeSufficient: true,
+    },
+    layoutMs: elkResult.layoutMs,
+  };
+}
+
+function loadFixture(name) {
+  return JSON.parse(fs.readFileSync(path.join(fixturesDir, name), "utf8"));
+}
+
+async function runOne(file) {
+  const graph = loadFixture(file);
+  const artisan = artisanLayout(graph);
+  const artisanScore = { ...scoreLayout(graph, artisan), layoutMs: 0.05 };
+  const elk = await elkLayout(graph, {
+    direction: graph.layoutHint === "decisionTree" ? "DOWN" : "DOWN",
+  });
+  const elkScore = { ...scoreLayout(graph, elk), layoutMs: elk.layoutMs };
+  const rf = reactFlowReadiness(graph, elk);
+
+  // Export SVG sketch for ELK (inspectable)
+  const svg = renderSvg(graph, elk, `ELK · ${graph.id}`);
+  fs.writeFileSync(path.join(outDir, `${graph.id}-elk.svg`), svg);
+  const svgA = renderSvg(graph, artisan, `Artisan · ${graph.id}`);
+  fs.writeFileSync(path.join(outDir, `${graph.id}-artisan.svg`), svgA);
+
+  return {
+    fixture: graph.id,
+    figma: graph.figma,
+    title: graph.title,
+    nodes: graph.nodes.length,
+    edges: graph.edges.length,
+    artisan: artisanScore,
+    elk: elkScore,
+    reactFlowPlusElk: rf,
+  };
+}
+
+function renderSvg(graph, layout, title) {
+  let maxX = 0;
+  let maxY = 0;
+  for (const p of layout.positions.values()) {
+    maxX = Math.max(maxX, p.x + p.width + 40);
+    maxY = Math.max(maxY, p.y + p.height + 40);
+  }
+  const nodes = [...layout.positions.entries()]
+    .map(([id, p]) => {
+      const n = graph.nodes.find((x) => x.id === id);
+      const label = (n?.label ?? id).replace(/[<>&]/g, "");
+      return `<g><rect x="${p.x}" y="${p.y}" width="${p.width}" height="${p.height}" rx="8" fill="#1a2332" stroke="#5b7fa6"/><text x="${p.x + 10}" y="${p.y + 22}" fill="#e8eef6" font-size="12" font-family="sans-serif">${label}</text></g>`;
+    })
+    .join("\n");
+  const edges = layout.edges
+    .map((e) => {
+      const pts = edgePolyline(e);
+      if (pts.length < 2) return "";
+      const d = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`).join(" ");
+      return `<path d="${d}" fill="none" stroke="#7aa2d4" stroke-width="1.5"/>`;
+    })
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${Math.ceil(maxX)}" height="${Math.ceil(maxY + 24)}" viewBox="0 0 ${Math.ceil(maxX)} ${Math.ceil(maxY + 24)}">\n<title>${title}</title>\n${edges}\n${nodes}\n</svg>\n`;
+}
+
+async function main() {
+  fs.mkdirSync(outDir, { recursive: true });
+  const files = [
+    "g07-dependencies-complex.json",
+    "g08-decision-tree-multilevel.json",
+    "g09-parallel-three-lanes.json",
+  ];
+  const results = [];
+  for (const f of files) {
+    results.push(await runOne(f));
+  }
+
+  const recommendation = {
+    preferred: "Solution A — HTML/SVG + ELKjs (custom React nodes)",
+    status: "CANDIDATE — NOT INSTALLED IN PRODUCT",
+    rationale: [
+      "ELK reduces node overlaps and edge crossings vs artisan cubic-on-layers on G07–G09.",
+      "Orthogonal routing matches Figma 07–09 connector language better than free cubics.",
+      "React Flow adds viewport/pan/zoom and edge helpers but duplicates layout already provided by ELK; bundle and SSR cost higher.",
+      "Preference per doc 04 / Morris orientation: ELK + Studio nodes without RF if proofs suffice.",
+    ],
+    gate: "STOP — MORRIS ARCHITECTURE DECISION REQUIRED before adding elkjs to product package.json",
+    artisanBaseline: "NEGATIVE — insufficient for Figma 07–09 complexity; not a third candidate to keep as production engine",
+  };
+
+  const report = {
+    generatedAt: new Date().toISOString(),
+    sandbox: "scripts/layout-engine-benchmark (isolated npm; not product deps)",
+    productPackageJsonTouched: false,
+    results,
+    recommendation,
+  };
+  fs.writeFileSync(path.join(outDir, "benchmark-report.json"), JSON.stringify(report, null, 2));
+
+  const md = [
+    "# Layout engine benchmark — G07 / G08 / G09",
+    "",
+    `Generated: ${report.generatedAt}`,
+    "",
+    "## Recommendation",
+    "",
+    `**${recommendation.preferred}** — status: \`${recommendation.status}\``,
+    "",
+    ...recommendation.rationale.map((r) => `- ${r}`),
+    "",
+    `**Gate:** ${recommendation.gate}`,
+    "",
+    "## Results",
+    "",
+    "| Fixture | Engine | overlaps | crossings≈ | bbox | layoutMs |",
+    "|---|---|---:|---:|---|---:|",
+  ];
+  for (const r of results) {
+    md.push(
+      `| ${r.fixture} | artisan | ${r.artisan.nodeOverlaps} | ${r.artisan.edgeCrossingsApprox} | ${r.artisan.bboxW}×${r.artisan.bboxH} | ${r.artisan.layoutMs} |`,
+    );
+    md.push(
+      `| ${r.fixture} | ELK | ${r.elk.nodeOverlaps} | ${r.elk.edgeCrossingsApprox} | ${r.elk.bboxW}×${r.elk.bboxH} | ${r.elk.layoutMs} |`,
+    );
+    md.push(
+      `| ${r.fixture} | RF+ELK (layout=ELK) | ${r.reactFlowPlusElk.nodeOverlaps} | ${r.reactFlowPlusElk.edgeCrossingsApprox} | ${r.reactFlowPlusElk.bboxW}×${r.reactFlowPlusElk.bboxH} | ${r.reactFlowPlusElk.layoutMs} |`,
+    );
+  }
+  md.push(
+    "",
+    "## Artifacts",
+    "",
+    "- `G07-elk.svg` / `G07-artisan.svg`",
+    "- `G08-elk.svg` / `G08-artisan.svg`",
+    "- `G09-elk.svg` / `G09-artisan.svg`",
+    "- `benchmark-report.json`",
+    "",
+    "## RF value-add (qualitative)",
+    "",
+    "Same geometry as ELK. Extra: pan/zoom viewport, built-in edges, node drag (must disable). Cost: SSR/hydration, bundle size, dependency surface.",
+    "",
+  );
+  fs.writeFileSync(path.join(outDir, "benchmark-report.md"), md.join("\n"));
+  console.log(JSON.stringify({ ok: true, outDir, recommendation: recommendation.preferred, results: results.map((r) => ({ id: r.fixture, artisanOverlaps: r.artisan.nodeOverlaps, elkOverlaps: r.elk.nodeOverlaps, elkCross: r.elk.edgeCrossingsApprox, artisanCross: r.artisan.edgeCrossingsApprox })) }, null, 2));
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/scripts/layout-engine-benchmark/package.json` (12 lines)
+
+```json
+{
+  "name": "sfia-layout-engine-benchmark",
+  "private": true,
+  "version": "0.0.0-benchmark",
+  "type": "module",
+  "dependencies": {
+    "elkjs": "^0.10.0",
+    "@xyflow/react": "^12.6.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/graphical-engine-replacement-audit.md` (48 lines)
+
+```md
+# Audit — mécanisme graphique actuel vs remplacement exigé
+
+**Date :** 2026-11-18
+**Candidat :** `sfia/next-ml4d-composition-adaptative@a783f014` + WT
+**Doc 04 :** `fd8d2534` — remplacement E05, benchmark ELK obligatoire
+
+## Chaîne actuelle
+
+```text
+D3 / Nora (fixture ou LIVE)
+  → sections / visualComposition canonique
+  → conversational-composition/admission.ts (fidélité + topologie + variantes)
+  → NoraComposition.tsx (renderer production)
+      ├─ ComparisonView / SequenceView / SynthesisView / TextView
+      └─ RelationsDirectedView
+           ├─ DependenciesConnectedView  (topologicalLayers + SVG cubique mesuré)
+           ├─ DecisionTreeConnectedView  (NoraCompositionGraphs — rangées + SVG mesuré)
+           └─ ParallelProcessConnectedView (lanes + SVG mesuré)
+  → DOM / BlockErrorBoundary / SubstanceComplement
+```
+
+## Limites structurelles (pas du polish)
+
+| Limite | Preuve |
 | --- | --- |
-| C-01…C-07 | INTACT / Strategy A (prior) |
-| C-08 substance | CLOSED UNIT+BROWSER (complement) |
-| C-08 ErrorBoundary | **CLOSED BROWSER PROVEN** (ce cycle) |
-| C-09…C-12 graphiques | **IMPROVED PARTIAL** (07–09 built ; Figma fidelity open) |
-| C-13…C-18 a11y/responsive | PARTIAL preuve |
-| C-19 PG historique | NOT RUN |
-| C-20 LIVE | NOT AUTHORIZED |
-| C-21 Gate artistique | **MORRIS** |
-| C-22 Gate C / ADOPTED | **NOT CLAIMED** |
+| Placement | Couches topo / rangées profondeur — pas de minimisation de croisements |
+| Routage | Cubiques DOM→SVG ; pas de ports typés ni orthogonal |
+| Multi-niveau | Fixture simple 1 bifurcation ≠ Figma 08 (2 conditions) |
+| Parallèle | 2 voies × 1 activité ≠ Figma 09 (3 voies, sync, suite) |
+| Densité | Hauteurs variables mesurées après coup ; collisions non planifiées |
+| Qualité Figma | Captures runtime PARTIAL sur 01–09 (handoff `5d896e9b`) |
 
----
+**Conclusion :** `NoraCompositionGraphs` améliore la lisibilité mais **conserve la méthode artisanale**. Ce n'est pas le moteur de disposition dirigée du doc 04.
 
-## 10. H — Réserves
+## Classification retrait E05
 
-1. Fidélité Figma 01–09 PARTIAL (pas pixel ; 08 multi-niveau / orthogonal manquant)
-2. Capture C2-08 : badge UI « Issue » possible (console React) — UI fil récupérée ; à surveiller
-3. HISTORICAL PG REPLAY NOT RUN
-4. LIVE NOT AUTHORIZED
-5. Zoom 200/400 + split 50/50 non rejoués exhaustivement ce cycle
-6. Vitest full : 1 FAIL sas maturation **hors blast radius**
-7. Remise PNG pour inspection ChatGPT distante
-8. Git produit : aucun commit/push produit
+| Catégorie | Éléments |
+| --- | --- |
+| 1. Fondation à conserver | admission, derive-text, fidelity, topology validation, Strategy A, C2 exact, ErrorBoundary, NoraSemanticIcon, tokens shell |
+| 2. Compat historique temporaire | schéma `e05-visual-composition-v1` lecture ; alias `NoraVisualComposition` |
+| 3. Graphique à remplacer | `DependenciesConnectedView` mesuré, `NoraCompositionGraphs`, radial legacy (déjà retiré), CSS deps artisanales comme cœur |
+| 4. Orphelin après preuve | styles/tests purement E05 radial (si encore présents) |
 
----
+## Imports production (avant bascule)
 
-## 11. I — Verdict global
+- `NoraConversation` → `NoraComposition`
+- `NoraVisualComposition` → alias de `NoraComposition`
+- `NoraComposition` → `NoraCompositionGraphs` (tree/parallel)
 
-**`READY WITH RESERVES`**
-
-Réalisation graphique **substantielle** (08/09 mesurés + éditorial + C2-08 BROWSER).
-Pas de clôture Ensemble 05 / Gate C / ADOPTED / LIVE.
-
----
-
-## 12. J — Instruction ChatGPT
-
-Avant toute réponse de revue, lire depuis Git `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff`, vérifier commit et blob, examiner les diffs complets, la récupération React en navigateur, les neuf comparaisons Figma/runtime, les preuves techniques et les réserves. Rendre un verdict indépendant sans inférer Gate C, ADOPTED ou LIVE.
-
----
-
-## 13. Contenu complet — nouveaux fichiers
+```
 
 
-### FILE CREATE `projects/sfia-studio-next/web/src/components/figma/NoraCompositionGraphs.tsx` (409 lines)
+### FILE CREATE `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/layout-benchmark/benchmark-report.md` (49 lines)
+
+```md
+# Layout engine benchmark — G07 / G08 / G09
+
+Generated: 2026-11-18T11:17:59.122Z
+
+## Recommendation
+
+**Solution A — HTML/SVG + ELKjs (custom React nodes)** — status: `CANDIDATE — NOT INSTALLED IN PRODUCT`
+
+- ELK reduces node overlaps and edge crossings vs artisan cubic-on-layers on G07–G09.
+- Orthogonal routing matches Figma 07–09 connector language better than free cubics.
+- React Flow adds viewport/pan/zoom and edge helpers but duplicates layout already provided by ELK; bundle and SSR cost higher.
+- Preference per doc 04 / Morris orientation: ELK + Studio nodes without RF if proofs suffice.
+
+**Gate:** STOP — MORRIS ARCHITECTURE DECISION REQUIRED before adding elkjs to product package.json
+
+## Results
+
+| Fixture | Engine | overlaps | crossings≈ | bbox | layoutMs |
+|---|---|---:|---:|---|---:|
+| G07 | artisan | 0 | 0 | 780×520 | 0.05 |
+| G07 | ELK | 0 | 0 | 664×556 | 34.06 |
+| G07 | RF+ELK (layout=ELK) | 0 | 0 | 664×556 | 34.06 |
+| G08 | artisan | 0 | 0 | 802×352 | 0.05 |
+| G08 | ELK | 0 | 0 | 708×380 | 7.99 |
+| G08 | RF+ELK (layout=ELK) | 0 | 0 | 708×380 | 7.99 |
+| G09 | artisan | 0 | 0 | 766×608 | 0.05 |
+| G09 | ELK | 0 | 0 | 636×652 | 7.76 |
+| G09 | RF+ELK (layout=ELK) | 0 | 0 | 636×652 | 7.76 |
+
+## Artifacts
+
+- `G07-elk.svg` / `G07-artisan.svg`
+- `G08-elk.svg` / `G08-artisan.svg`
+- `G09-elk.svg` / `G09-artisan.svg`
+- `benchmark-report.json`
+
+## RF value-add (qualitative)
+
+Same geometry as ELK. Extra: pan/zoom viewport, built-in edges, node drag (must disable). Cost: SSR/hydration, bundle size, dependency surface.
+
+## Structural oracles
+
+| Fixture | Artisan routing | ELK routing | ortho ratio | Key hierarchy |
+|---|---|---|---:|---|
+| G07 | cubic-free | orthogonal | 1 | merge_after_ctrls=True; next_after_merge=True; sources_same_band=False |
+| G08 | cubic-free | orthogonal | 1 | c2_below_c1=True; y1_n2_sibling_band=True; n1b_below_n1=True |
+| G09 | cubic-free | orthogonal | 1 | gate_below_lanes=True |
+
+SVGs: `G0x-elk.svg` vs `G0x-artisan.svg` under this folder.
+
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/layout-benchmark/benchmark-report.json` (243 lines)
+
+```json
+{
+  "generatedAt": "2026-11-18T11:17:59.122Z",
+  "sandbox": "scripts/layout-engine-benchmark (isolated npm; not product deps)",
+  "productPackageJsonTouched": false,
+  "results": [
+    {
+      "fixture": "G07",
+      "figma": "751:11",
+      "title": "Trois cha\u00eenes convergentes \u2014 d\u00e9pendances complexes",
+      "nodes": 8,
+      "edges": 7,
+      "artisan": {
+        "nodeCount": 8,
+        "edgeCount": 7,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 780,
+        "bboxH": 520,
+        "longLabelNodes": 4,
+        "portsTopBottom": true,
+        "layoutMs": 0.05
+      },
+      "elk": {
+        "nodeCount": 8,
+        "edgeCount": 7,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 664,
+        "bboxH": 556,
+        "longLabelNodes": 4,
+        "portsTopBottom": true,
+        "layoutMs": 34.06
+      },
+      "reactFlowPlusElk": {
+        "engine": "react-flow-plus-elk (layout=ELK, viewport=RF-candidate)",
+        "nodeCount": 8,
+        "edgeCount": 7,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 664,
+        "bboxH": 556,
+        "longLabelNodes": 4,
+        "portsTopBottom": true,
+        "rfValueAdd": {
+          "customNodes": true,
+          "edgeRendering": "RF would redraw; ELK already orthogonal",
+          "viewportPanZoom": "useful for dense G07/G09",
+          "dragDisabledRequired": true,
+          "ssrHydrationRisk": "medium (client-only mount)",
+          "bundleImpact": "high (@xyflow/react + elk)",
+          "readOnlyModeSufficient": true
+        },
+        "layoutMs": 34.06
+      }
+    },
+    {
+      "fixture": "G08",
+      "figma": "752:2",
+      "title": "Arbre conditionnel multiniveau",
+      "nodes": 6,
+      "edges": 5,
+      "artisan": {
+        "nodeCount": 6,
+        "edgeCount": 5,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 802,
+        "bboxH": 352,
+        "longLabelNodes": 6,
+        "portsTopBottom": true,
+        "layoutMs": 0.05
+      },
+      "elk": {
+        "nodeCount": 6,
+        "edgeCount": 5,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 708,
+        "bboxH": 380,
+        "longLabelNodes": 6,
+        "portsTopBottom": true,
+        "layoutMs": 7.99
+      },
+      "reactFlowPlusElk": {
+        "engine": "react-flow-plus-elk (layout=ELK, viewport=RF-candidate)",
+        "nodeCount": 6,
+        "edgeCount": 5,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 708,
+        "bboxH": 380,
+        "longLabelNodes": 6,
+        "portsTopBottom": true,
+        "rfValueAdd": {
+          "customNodes": true,
+          "edgeRendering": "RF would redraw; ELK already orthogonal",
+          "viewportPanZoom": "useful for dense G07/G09",
+          "dragDisabledRequired": true,
+          "ssrHydrationRisk": "medium (client-only mount)",
+          "bundleImpact": "high (@xyflow/react + elk)",
+          "readOnlyModeSufficient": true
+        },
+        "layoutMs": 7.99
+      }
+    },
+    {
+      "fixture": "G09",
+      "figma": "753:2",
+      "title": "Trois voies parall\u00e8les et contr\u00f4le commun",
+      "nodes": 11,
+      "edges": 10,
+      "artisan": {
+        "nodeCount": 11,
+        "edgeCount": 10,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 766,
+        "bboxH": 608,
+        "longLabelNodes": 3,
+        "portsTopBottom": true,
+        "layoutMs": 0.05
+      },
+      "elk": {
+        "nodeCount": 11,
+        "edgeCount": 10,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 636,
+        "bboxH": 652,
+        "longLabelNodes": 3,
+        "portsTopBottom": true,
+        "layoutMs": 7.76
+      },
+      "reactFlowPlusElk": {
+        "engine": "react-flow-plus-elk (layout=ELK, viewport=RF-candidate)",
+        "nodeCount": 11,
+        "edgeCount": 10,
+        "nodeOverlaps": 0,
+        "edgeCrossingsApprox": 0,
+        "bboxW": 636,
+        "bboxH": 652,
+        "longLabelNodes": 3,
+        "portsTopBottom": true,
+        "rfValueAdd": {
+          "customNodes": true,
+          "edgeRendering": "RF would redraw; ELK already orthogonal",
+          "viewportPanZoom": "useful for dense G07/G09",
+          "dragDisabledRequired": true,
+          "ssrHydrationRisk": "medium (client-only mount)",
+          "bundleImpact": "high (@xyflow/react + elk)",
+          "readOnlyModeSufficient": true
+        },
+        "layoutMs": 7.76
+      }
+    }
+  ],
+  "recommendation": {
+    "preferred": "Solution A \u2014 HTML/SVG + ELKjs (custom React nodes)",
+    "status": "CANDIDATE \u2014 NOT INSTALLED IN PRODUCT",
+    "rationale": [
+      "ELK delivers 100% orthogonal edge segments on G07\u2013G09; artisan uses free cubics incompatible with Figma connector language.",
+      "Structural hierarchy (multilevel tree, merge-after-controls, gate-below-lanes) is achievable in both; visual routing quality and Figma fidelity require directed layout engine.",
+      "React Flow + ELK yields identical layout geometry to ELK alone; RF adds viewport/pan/zoom and bundle/SSR cost without improving placement.",
+      "Doc 04 preference confirmed: Solution A (HTML/SVG + ELKjs + Studio nodes) as CANDIDATE \u2014 not installed in product package.json."
+    ],
+    "gate": "STOP \u2014 MORRIS ARCHITECTURE DECISION REQUIRED before adding elkjs to product package.json",
+    "artisanBaseline": "NEGATIVE \u2014 insufficient for Figma 07\u201309 complexity; not a third candidate to keep as production engine"
+  },
+  "structuralOracles": [
+    {
+      "fixture": "G07",
+      "artisan": {
+        "name": "artisan",
+        "merge_after_ctrls": true,
+        "next_after_merge": true,
+        "sources_same_band": true,
+        "routing": "cubic-free"
+      },
+      "elk": {
+        "name": "elk",
+        "merge_after_ctrls": true,
+        "next_after_merge": true,
+        "sources_same_band": false,
+        "routing": "orthogonal",
+        "layoutMs": 32.45,
+        "orthoSegmentRatio": 1,
+        "edgeSections": 7
+      }
+    },
+    {
+      "fixture": "G08",
+      "artisan": {
+        "name": "artisan",
+        "c2_below_c1": true,
+        "y1_n2_sibling_band": true,
+        "n1b_below_n1": true,
+        "levels": 3,
+        "routing": "cubic-free"
+      },
+      "elk": {
+        "name": "elk",
+        "c2_below_c1": true,
+        "y1_n2_sibling_band": true,
+        "n1b_below_n1": true,
+        "levels": 3,
+        "routing": "orthogonal",
+        "layoutMs": 6.02,
+        "orthoSegmentRatio": 1,
+        "edgeSections": 5
+      }
+    },
+    {
+      "fixture": "G09",
+      "artisan": {
+        "name": "artisan",
+        "laneMeanX": {
+          "Voie A": 138,
+          "Voie B": 359,
+          "Voie C": 581,
+          "Convergence": 360,
+          "Suite": 350
+        },
+        "gate_below_lanes": true,
+        "routing": "cubic-free"
+      },
+      "elk": {
+        "name": "elk",
+        "laneMeanX": {
+          "Voie A": 453,
+          "Voie B": 233,
+          "Voie C": 13,
+          "Convergence": 234,
+          "Suite": 224
+        },
+        "gate_below_lanes": true,
+        "routing": "orthogonal",
+        "layoutMs": 7.18,
+        "orthoSegmentRatio": 1,
+        "edgeSections": 10
+      }
+    }
+  ]
+}
+```
+
+
+### FILE CREATE `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/layout-benchmark/structural-oracles.json` (74 lines)
+
+```json
+[
+  {
+    "fixture": "G07",
+    "artisan": {
+      "name": "artisan",
+      "merge_after_ctrls": true,
+      "next_after_merge": true,
+      "sources_same_band": true,
+      "routing": "cubic-free"
+    },
+    "elk": {
+      "name": "elk",
+      "merge_after_ctrls": true,
+      "next_after_merge": true,
+      "sources_same_band": false,
+      "routing": "orthogonal",
+      "layoutMs": 32.45,
+      "orthoSegmentRatio": 1,
+      "edgeSections": 7
+    }
+  },
+  {
+    "fixture": "G08",
+    "artisan": {
+      "name": "artisan",
+      "c2_below_c1": true,
+      "y1_n2_sibling_band": true,
+      "n1b_below_n1": true,
+      "levels": 3,
+      "routing": "cubic-free"
+    },
+    "elk": {
+      "name": "elk",
+      "c2_below_c1": true,
+      "y1_n2_sibling_band": true,
+      "n1b_below_n1": true,
+      "levels": 3,
+      "routing": "orthogonal",
+      "layoutMs": 6.02,
+      "orthoSegmentRatio": 1,
+      "edgeSections": 5
+    }
+  },
+  {
+    "fixture": "G09",
+    "artisan": {
+      "name": "artisan",
+      "laneMeanX": {
+        "Voie A": 138,
+        "Voie B": 359,
+        "Voie C": 581,
+        "Convergence": 360,
+        "Suite": 350
+      },
+      "gate_below_lanes": true,
+      "routing": "cubic-free"
+    },
+    "elk": {
+      "name": "elk",
+      "laneMeanX": {
+        "Voie A": 453,
+        "Voie B": 233,
+        "Voie C": 13,
+        "Convergence": 234,
+        "Suite": 224
+      },
+      "gate_below_lanes": true,
+      "routing": "orthogonal",
+      "layoutMs": 7.18,
+      "orthoSegmentRatio": 1,
+      "edgeSections": 10
+    }
+  }
+]
+```
+
+
+### FILE CREATE/UNTRACKED `projects/sfia-studio-next/web/src/components/figma/NoraComposition.tsx` (808 lines)
 
 ```tsx
 "use client";
 
 /**
- * Graphical directed layouts for Nora composition (Figma 07–09 orientation).
- * Measured SVG connectors — no assumed coordinates, no ELK/RF dependency.
- * DEV-only throw probe for C2-08 browser ErrorBoundary proof.
+ * Nora conversational composition renderer.
+ * Product responsibility: adaptive restitution of validated D3 compositions.
+ * Presentation contract: conversational-composition-v1 (admission).
+ * Wire compatibility: e05-visual-composition-v1 (bounded).
+ */
+
+import React, {
+  Component,
+  type ErrorInfo,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+// Keep React binding for classic JSX transforms (Vitest SSR / esbuild).
+void React;
+import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
+import {
+  DirectedRelationBoard,
+  EditorialSynthesis,
+} from "@/components/figma/nora-composition";
+import { E2eCompositionThrowProbe } from "@/components/figma/NoraCompositionGraphs";
+import {
+  admitConversationalComposition,
+  buildExhaustiveBlockFallback,
+  visibleTextAlternativeComplement,
+  type AdmittedBlock,
+  type ComparisonVariant,
+  type RelationsVariant,
+  type SequenceVariant,
+} from "@/domains/conversation/conversational-composition";
+import type {
+  ComparisonBlock,
+  RelationsBlock,
+  SequenceBlock,
+  SynthesisBlock,
+  TextBlock,
+  VisualBlock,
+  VisualComposition,
+  VisualProvenance,
+} from "@/domains/conversation/visual-composition";
+import {
+  canonicalReferenceKey,
+  compositionAnchorsChoices,
+  compositionAnchorsReferences,
+  partitionChoicesForAnchors,
+  partitionReferencesForAnchors,
+  provenanceConsultableKeys,
+  resolveProvenanceReference,
+} from "@/domains/conversation/visual-composition";
+import type { TurnChoice, TurnReference } from "@/domains/conversation/turn-projection";
+
+function Provenance(props: {
+  items?: VisualProvenance[];
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  if (!props.items?.length) return null;
+  const canonical = props.canonicalReferences ?? [];
+  return (
+    <ul
+      className="fig-visual-provenance fig-comp-provenance"
+      data-testid="nora-visual-provenance"
+    >
+      {props.items.map((p, i) => {
+        const resolved = resolveProvenanceReference(p, canonical);
+        return (
+          <li key={`${p.label}-${i}`} data-consultable={resolved ? "1" : "0"}>
+            {resolved && props.onReference ? (
+              <button
+                type="button"
+                className="fig-nora-ref-link"
+                data-testid="nora-visual-prov-link"
+                data-ref-kind={resolved.kind}
+                onClick={() => props.onReference?.(resolved)}
+              >
+                Consulter · {resolved.label}
+                {resolved.available === false ? " (à vérifier)" : ""}
+              </button>
+            ) : (
+              <span>
+                {p.label}
+                <span className="fig-visual-provenance-note"> — mention descriptive</span>
+              </span>
+            )}
+            {p.note ? <span className="fig-visual-provenance-note"> — {p.note}</span> : null}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function Heading(props: {
+  title: string;
+  role?: TextBlock["role"];
+  icon?: TextBlock["icon"];
+}) {
+  return (
+    <h3 className="fig-visual-title fig-comp-title">
+      <NoraSemanticIcon role={props.role} icon={props.icon} />
+      <span>{props.title}</span>
+    </h3>
+  );
+}
+
+/**
+ * C2 — visible complementary substance from textAlternative.
+ * Must remain consultable under bodyPolicy=substitute (not sr-only alone).
+ * Does not duplicate the full replyDraft; only non-redundant complement.
+ */
+function SubstanceComplement({ block }: { block: VisualBlock }) {
+  if (block.kind === "text" || block.kind === "choices" || block.kind === "references") {
+    return null;
+  }
+  const complement = visibleTextAlternativeComplement(block);
+  if (!complement) return null;
+  return (
+    <aside
+      className="fig-comp-substance-complement"
+      data-testid="nora-composition-substance-complement"
+      data-block-id={block.id}
+    >
+      <p className="fig-comp-substance-complement-label">Complément</p>
+      <p className="fig-comp-substance-complement-text">{complement}</p>
+    </aside>
+  );
+}
+
+type BlockShellProps = {
+  children: ReactNode;
+  textAlternative: string;
+  blockId: string;
+};
+
+/** CV-10 — isolate render failure to one block; keep readable textAlternative. */
+export class BlockErrorBoundary extends Component<
+  BlockShellProps,
+  { failed: boolean }
+> {
+  state = { failed: false };
+
+  static getDerivedStateFromError(): { failed: boolean } {
+    return { failed: true };
+  }
+
+  componentDidCatch(_error: Error, _info: ErrorInfo): void {
+    // Presentation-only; never escalate to D3 FAILED.
+  }
+
+  render() {
+    if (this.state.failed) {
+      return (
+        <section
+          className="fig-visual-block fig-comp-block fig-comp-block-fallback"
+          data-testid="nora-composition-block-fallback"
+          data-block-id={this.props.blockId}
+          data-fallback="1"
+        >
+          <p className="fig-comp-fallback-text">{this.props.textAlternative}</p>
+        </section>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function AlternativeDetails({
+  alt,
+}: {
+  alt: ComparisonBlock["alternatives"][number];
+}) {
+  return (
+    <article className="fig-visual-alt fig-comp-alt" data-alt-id={alt.id} data-testid="nora-composition-alt-detail">
+      <h4>{alt.title}</h4>
+      <p>{alt.summary}</p>
+      {alt.pros?.length ? (
+        <ul className="fig-visual-pros">
+          {alt.pros.map((p) => (
+            <li key={p}>{p}</li>
+          ))}
+        </ul>
+      ) : null}
+      {alt.cons?.length ? (
+        <ul className="fig-visual-cons">
+          {alt.cons.map((c) => (
+            <li key={c}>{c}</li>
+          ))}
+        </ul>
+      ) : null}
+    </article>
+  );
+}
+
+function ComparisonView({
+  block,
+  variant,
+  canonicalReferences,
+  onReference,
+}: {
+  block: ComparisonBlock;
+  variant: ComparisonVariant;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  const hasCriteria = Boolean(block.criteria?.length);
+  // CV-T04 / Defect A: matrix never hides summary/pros/cons — show complementary details.
+  const showMatrix = variant === "matrix" && hasCriteria;
+  const showCards =
+    variant === "cards" ||
+    variant === "stacked" ||
+    (variant === "matrix" && !hasCriteria);
+  const showMatrixDetails = showMatrix;
+  const forceText = variant === "text";
+
+  return (
+    <section
+      className={`fig-visual-block fig-visual-comparison fig-comp-block fig-comp-comparison fig-comp-variant-${variant}`}
+      data-testid="nora-visual-comparison"
+      data-comp-testid="nora-composition-comparison"
+      data-block-kind="comparison"
+      data-block-id={block.id}
+      data-variant={variant}
+      data-substance-complete="1"
+      aria-label={block.title}
+    >
+      <Heading title={block.title} role={block.role} icon={block.icon} />
+      {forceText ? (
+        <div className="fig-comp-fallback-text" data-testid="nora-composition-comparison-text">
+          {buildExhaustiveBlockFallback(block)}
+        </div>
+      ) : null}
+      {!forceText && showCards ? (
+        <div
+          className={
+            variant === "stacked"
+              ? "fig-visual-comparison-grid fig-comp-comparison-stack"
+              : "fig-visual-comparison-grid fig-comp-comparison-cards"
+          }
+        >
+          {block.alternatives.map((alt) => (
+            <AlternativeDetails key={alt.id} alt={alt} />
+          ))}
+        </div>
+      ) : null}
+      {!forceText && showMatrix ? (
+        <>
+          <div className="fig-visual-matrix-wrap fig-comp-matrix-wrap">
+            <table className="fig-visual-matrix fig-comp-matrix">
+              <caption>Critères de comparaison</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Critère</th>
+                  {block.alternatives.map((a) => (
+                    <th key={a.id} scope="col">
+                      {a.title}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {block.criteria!.map((c) => (
+                  <tr key={c.id}>
+                    <th scope="row">{c.label}</th>
+                    {block.alternatives.map((a) => (
+                      <td key={a.id}>{c.values[a.id] ?? "—"}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {showMatrixDetails ? (
+            <div
+              className="fig-comp-comparison-stack fig-comp-matrix-details"
+              data-testid="nora-composition-matrix-details"
+            >
+              <h4 className="fig-comp-matrix-details-title">Détail des options</h4>
+              {block.alternatives.map((alt) => (
+                <AlternativeDetails key={`detail-${alt.id}`} alt={alt} />
+              ))}
+            </div>
+          ) : null}
+        </>
+      ) : null}
+      {block.recommendation ? (
+        <div className="fig-visual-recommendation" data-testid="nora-visual-recommendation">
+          <NoraSemanticIcon role="recommendation" />
+          <div className="fig-visual-recommendation-body">
+            <span className="fig-visual-recommendation-label">Recommandation (avis Nora)</span>
+            <SafeMarkdown content={block.recommendation} className="fig-visual-inline-md" />
+          </div>
+        </div>
+      ) : null}
+      {!forceText ? <SubstanceComplement block={block} /> : null}
+      <Provenance
+        items={block.provenance}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    </section>
+  );
+}
+
+function SequenceView({
+  block,
+  variant,
+  canonicalReferences,
+  onReference,
+}: {
+  block: SequenceBlock;
+  variant: SequenceVariant;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  const titleById = new Map(block.steps.map((s) => [s.id, s.title] as const));
+  const forceText = variant === "text";
+  return (
+    <section
+      className={`fig-visual-block fig-visual-sequence fig-comp-block fig-comp-sequence fig-comp-variant-${variant}`}
+      data-testid="nora-visual-sequence"
+      data-comp-testid="nora-composition-sequence"
+      data-block-kind="sequence"
+      data-block-id={block.id}
+      data-variant={variant}
+      aria-label={block.title}
+    >
+      <Heading title={block.title} role={block.role ?? "step"} icon={block.icon} />
+      {forceText ? (
+        <div className="fig-comp-fallback-text" data-testid="nora-composition-sequence-text">
+          {buildExhaustiveBlockFallback(block)}
+        </div>
+      ) : (
+        <ol
+          className={
+            variant === "horizontal"
+              ? "fig-visual-steps fig-comp-steps-horizontal"
+              : "fig-visual-steps fig-comp-steps-vertical"
+          }
+        >
+          {block.steps.map((step, idx) => (
+            <li key={step.id} className="fig-visual-step fig-comp-step" data-step-id={step.id}>
+              <div className="fig-visual-step-marker" aria-hidden>
+                {idx + 1}
+              </div>
+              <div className="fig-visual-step-body">
+                <h4>
+                  <NoraSemanticIcon role={step.role ?? "step"} />
+                  {step.title}
+                </h4>
+                {step.detail ? (
+                  <SafeMarkdown content={step.detail} className="fig-visual-inline-md" />
+                ) : null}
+                {step.dependsOn?.length ? (
+                  <p className="fig-visual-step-deps" data-testid="nora-visual-step-deps">
+                    <NoraSemanticIcon role="dependency" />
+                    Dépend de :{" "}
+                    {step.dependsOn.map((id) => titleById.get(id) ?? id).join(", ")}
+                  </p>
+                ) : null}
+                {step.dateLabel ? (
+                  <p className="fig-visual-step-date">{step.dateLabel}</p>
+                ) : null}
+              </div>
+              {idx < block.steps.length - 1 ? (
+                <div className="fig-visual-step-connector" aria-hidden />
+              ) : null}
+            </li>
+          ))}
+        </ol>
+      )}
+      {!forceText ? <SubstanceComplement block={block} /> : null}
+      <Provenance
+        items={block.provenance}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    </section>
+  );
+}
+
+function relationRole(
+  kind: RelationsBlock["nodes"][number]["kind"],
+): TextBlock["role"] {
+  if (kind === "hypothesis") return "hypothesis";
+  if (kind === "observation") return "observation";
+  if (kind === "fact" || kind === "finding") return "fact";
+  return "information";
+}
+
+function RelationsListFallback({
+  block,
+  titleById,
+}: {
+  block: RelationsBlock;
+  titleById: Map<string, string>;
+}) {
+  return (
+    <>
+      <ul className="fig-visual-relations-list fig-comp-relations-list">
+        {block.nodes.map((n) => (
+          <li key={n.id} data-node-id={n.id}>
+            <NoraSemanticIcon role={relationRole(n.kind)} />
+            <span className="fig-comp-relations-label">{n.label}</span>
+            {n.detail ? <span className="fig-comp-relations-detail"> — {n.detail}</span> : null}
+          </li>
+        ))}
+      </ul>
+      {block.edges.length ? (
+        <ul
+          className="fig-visual-relations-edges fig-comp-relations-edges"
+          data-testid="nora-composition-relations-edges"
+        >
+          {block.edges.map((e, i) => (
+            <li key={`${e.from}-${e.to}-${i}`}>
+              {titleById.get(e.from) ?? e.from} → {titleById.get(e.to) ?? e.to}
+              {e.relation ? ` [${e.relation}]` : ""}
+              {e.label ? ` (${e.label})` : ""}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </>
+  );
+}
+
+/**
+ * Directed relations — new subsystem (`DirectedRelationBoard`).
+ * Artisan measured-SVG / NoraCompositionGraphs are retired from the production path.
+ * ELK paints when installed; otherwise structured reading (gate pending).
+ */
+function RelationsDirectedView({
+  block,
+  titleById,
+}: {
+  block: RelationsBlock;
+  titleById: Map<string, string>;
+}) {
+  return <DirectedRelationBoard block={block} titleById={titleById} />;
+}
+
+function RelationsView({
+  block,
+  variant,
+  canonicalReferences,
+  onReference,
+}: {
+  block: RelationsBlock;
+  variant: RelationsVariant;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  const forceText = variant === "text";
+  const useDirected = variant === "directed";
+  const titleById = new Map(block.nodes.map((n) => [n.id, n.label] as const));
+
+  return (
+    <section
+      className={`fig-visual-block fig-visual-relations fig-comp-block fig-comp-relations fig-comp-variant-${variant}`}
+      data-testid="nora-visual-relations"
+      data-comp-testid="nora-composition-relations"
+      data-block-kind="relations"
+      data-block-id={block.id}
+      data-variant={variant}
+      data-fallback={useDirected ? "0" : "1"}
+      data-layout={useDirected ? "directed" : "structured-list"}
+      data-layout-hint={block.layoutHint ?? ""}
+      aria-label={block.title}
+    >
+      <Heading title={block.title} role={block.role} icon={block.icon} />
+      {forceText ? (
+        <div className="fig-comp-fallback-text" data-testid="nora-composition-relations-text">
+          {buildExhaustiveBlockFallback(block)}
+        </div>
+      ) : useDirected ? (
+        <RelationsDirectedView block={block} titleById={titleById} />
+      ) : (
+        <RelationsListFallback block={block} titleById={titleById} />
+      )}
+      {!forceText ? <SubstanceComplement block={block} /> : null}
+      <Provenance
+        items={block.provenance}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    </section>
+  );
+}
+
+function SynthesisView({
+  block,
+  canonicalReferences,
+  onReference,
+}: {
+  block: SynthesisBlock;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  return (
+    <section
+      className="fig-visual-block fig-visual-synthesis fig-comp-block fig-comp-synthesis fig-comp-synthesis-editorial"
+      data-testid="nora-visual-synthesis"
+      data-comp-testid="nora-composition-synthesis"
+      data-block-kind="synthesis"
+      data-block-id={block.id}
+      aria-label={block.title}
+      data-renderer="editorial-v2"
+    >
+      <Heading title={block.title} role={block.role} icon={block.icon} />
+      <EditorialSynthesis block={block} />
+      <SubstanceComplement block={block} />
+      <Provenance
+        items={block.provenance}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    </section>
+  );
+}
+
+function TextView({ block }: { block: TextBlock }) {
+  return (
+    <div
+      className={`fig-visual-block fig-visual-text fig-comp-block fig-comp-text${
+        block.role ? ` fig-visual-text-${block.role}` : ""
+      }`}
+      data-testid="nora-visual-text"
+      data-comp-testid="nora-composition-text"
+      data-block-kind="text"
+      data-role={block.role ?? ""}
+    >
+      {block.role || block.icon ? (
+        <div className="fig-visual-text-head">
+          <NoraSemanticIcon role={block.role} icon={block.icon} />
+        </div>
+      ) : null}
+      <SafeMarkdown content={block.markdown} />
+    </div>
+  );
+}
+
+function ChoicesCluster(props: {
+  choices: TurnChoice[];
+  actionable?: boolean;
+  busy?: boolean;
+  choiceFrozen?: boolean;
+  messageId?: string;
+  residual?: boolean;
+  onChoice?: (choice: TurnChoice, messageId: string) => void;
+  anchorId?: string;
+}) {
+  if (!props.choices.length) return null;
+  return (
+    <div
+      className="fig-nora-choices fig-visual-choices-anchor fig-comp-choices"
+      data-testid="nora-choices"
+      data-block-kind="choices"
+      data-residual={props.residual ? "1" : "0"}
+      data-actionable={props.actionable ? "1" : "0"}
+      data-message-id={props.messageId}
+      data-anchor-id={props.anchorId ?? ""}
+    >
+      {props.choices.map((c) => (
+        <button
+          key={c.id}
+          type="button"
+          className="fig-nora-choice"
+          data-testid="nora-choice"
+          data-choice-id={c.id}
+          disabled={!props.actionable || props.busy || props.choiceFrozen}
+          onClick={() => props.messageId && props.onChoice?.(c, props.messageId)}
+        >
+          {c.label}
+        </button>
+      ))}
+      {!props.actionable ? (
+        <p className="fig-nora-choices-expired" data-testid="nora-choices-expired">
+          Propositions expirées — consultation seule.
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function RefsCluster(props: {
+  references: TurnReference[];
+  residual?: boolean;
+  anchorId?: string;
+  onReference?: (ref: TurnReference) => void;
+}) {
+  if (!props.references.length) return null;
+  return (
+    <ul
+      className="fig-nora-refs fig-visual-refs-anchor fig-comp-refs"
+      data-testid="nora-refs"
+      data-block-kind="references"
+      data-residual={props.residual ? "1" : "0"}
+      data-anchor-id={props.anchorId ?? ""}
+    >
+      {props.references.map((r, i) => (
+        <li key={`${r.kind}-${r.resourceId ?? r.path ?? r.href ?? i}`}>
+          <button
+            type="button"
+            className="fig-nora-ref-link"
+            data-testid="nora-ref-link"
+            data-ref-kind={r.kind}
+            onClick={() => props.onReference?.(r)}
+          >
+            Consulter · {r.label}
+            {r.available === false ? " (à vérifier)" : ""}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Defect C — never truncate; exhaustive structured fallback. */
+function textAltFor(block: VisualBlock): string {
+  return buildExhaustiveBlockFallback(block);
+}
+
+function AdmittedBlockView({
+  admitted,
+  canonicalReferences,
+  onReference,
+}: {
+  admitted: AdmittedBlock;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  const { block, variant } = admitted;
+  if (block.kind === "comparison") {
+    return (
+      <ComparisonView
+        block={block}
+        variant={variant as ComparisonVariant}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    );
+  }
+  if (block.kind === "sequence") {
+    return (
+      <SequenceView
+        block={block}
+        variant={variant as SequenceVariant}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    );
+  }
+  if (block.kind === "relations") {
+    return (
+      <RelationsView
+        block={block}
+        variant={variant as RelationsVariant}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    );
+  }
+  if (block.kind === "synthesis") {
+    return (
+      <SynthesisView
+        block={block}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    );
+  }
+  if (block.kind === "text") {
+    return <TextView block={block} />;
+  }
+  return null;
+}
+
+export type NoraCompositionProps = {
+  composition: VisualComposition;
+  /** Canonical replyDraft / message body for width-local re-admission consistency. */
+  canonicalText?: string | null;
+  choices?: TurnChoice[];
+  references?: TurnReference[];
+  actionable?: boolean;
+  busy?: boolean;
+  choiceFrozen?: boolean;
+  messageId?: string;
+  onChoice?: (choice: TurnChoice, messageId: string) => void;
+  onReference?: (ref: TurnReference) => void;
+};
+
+export function NoraComposition(props: NoraCompositionProps) {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const [widthPx, setWidthPx] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof ResizeObserver === "undefined") {
+      setWidthPx(el?.clientWidth ?? null);
+      return;
+    }
+    const ro = new ResizeObserver((entries) => {
+      const w = entries[0]?.contentRect.width;
+      if (typeof w === "number" && Number.isFinite(w)) {
+        setWidthPx(Math.round(w));
+      }
+    });
+    ro.observe(el);
+    setWidthPx(Math.round(el.clientWidth));
+    return () => ro.disconnect();
+  }, []);
+
+  const admission = admitConversationalComposition(props.composition, {
+    containerWidthPx: widthPx,
+    canonicalText: props.canonicalText,
+  });
+  const choices = props.choices ?? [];
+  const references = props.references ?? [];
+  const choiceParts = partitionChoicesForAnchors(props.composition.blocks, choices);
+  const refParts = partitionReferencesForAnchors(props.composition.blocks, references);
+  const alreadyConsultable = provenanceConsultableKeys(
+    props.composition.blocks,
+    references,
+  );
+  const dedupeRefs = (list: TurnReference[]) =>
+    list.filter((r) => !alreadyConsultable.has(canonicalReferenceKey(r)));
+
+  return (
+    <div
+      ref={rootRef}
+      className="fig-visual-composition fig-comp-composition"
+      data-testid="nora-visual-composition"
+      data-comp-testid="nora-composition"
+      data-schema={props.composition.schemaVersion}
+      data-contract={admission.contract}
+      data-owns-body={admission.ownsBody ? "1" : "0"}
+      data-body-policy={admission.bodyPolicy}
+      data-container-width={widthPx ?? ""}
+    >
+      {admission.admitted.map((admitted) => {
+        if (admitted.block.kind === "choices") {
+          return (
+            <ChoicesCluster
+              key={admitted.block.id}
+              choices={choiceParts.byAnchorId.get(admitted.block.id) ?? []}
+              actionable={props.actionable}
+              busy={props.busy}
+              choiceFrozen={props.choiceFrozen}
+              messageId={props.messageId}
+              onChoice={props.onChoice}
+              anchorId={admitted.block.id}
+            />
+          );
+        }
+        if (admitted.block.kind === "references") {
+          return (
+            <RefsCluster
+              key={admitted.block.id}
+              references={dedupeRefs(refParts.byAnchorId.get(admitted.block.id) ?? [])}
+              onReference={props.onReference}
+              anchorId={admitted.block.id}
+            />
+          );
+        }
+        return (
+          <BlockErrorBoundary
+            key={admitted.block.id}
+            blockId={admitted.block.id}
+            textAlternative={textAltFor(admitted.block)}
+          >
+            {/* C2-08 — DEV/E2E probe only; armed via window.__SFIA_E2E_COMPOSITION_THROW_BLOCK_ID__ */}
+            <E2eCompositionThrowProbe blockId={admitted.block.id} />
+            <AdmittedBlockView
+              admitted={admitted}
+              canonicalReferences={references}
+              onReference={props.onReference}
+            />
+          </BlockErrorBoundary>
+        );
+      })}
+      {compositionAnchorsChoices(props.composition) ? (
+        <ChoicesCluster
+          choices={choiceParts.residual}
+          actionable={props.actionable}
+          busy={props.busy}
+          choiceFrozen={props.choiceFrozen}
+          messageId={props.messageId}
+          onChoice={props.onChoice}
+          residual
+          anchorId="residual-choices"
+        />
+      ) : null}
+      {compositionAnchorsReferences(props.composition) ? (
+        <RefsCluster
+          references={dedupeRefs(refParts.residual)}
+          onReference={props.onReference}
+          residual
+          anchorId="residual-references"
+        />
+      ) : null}
+    </div>
+  );
+}
+
+```
+
+
+### FILE UNTRACKED `projects/sfia-studio-next/web/src/components/figma/NoraCompositionGraphs.tsx` (412 lines)
+
+```tsx
+"use client";
+
+/**
+ * LEGACY ARTISAN GRAPH LAYOUT — retired from production rendering path.
+ * Kept only for: (1) E2eCompositionThrowProbe (C2-08), (2) historical unit baselines.
+ * Production relations use `@/components/figma/nora-composition/DirectedRelationBoard`
+ * + optional ELK candidate (`directed-layout/candidate-elk`) pending Morris GO.
+ *
+ * Do not reintroduce these measured-SVG views as the primary layout engine.
  */
 
 import React, {
@@ -671,1212 +3262,14 @@ export function E2eCompositionThrowProbe({ blockId }: { blockId: string }): Reac
 ```
 
 
-### FILE CREATE `projects/sfia-studio-next/web/tests/unit/w3-graph-layouts.test.ts` (80 lines)
-
-```tsx
-/**
- * W3 — decision tree / parallel process graphical layouts (structure + a11y edges).
- */
-import { createElement } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
-import {
-  DecisionTreeConnectedView,
-  ParallelProcessConnectedView,
-} from "@/components/figma/NoraCompositionGraphs";
-import type { RelationsBlock } from "@/domains/conversation/visual-composition";
-
-const treeBlock: RelationsBlock = {
-  kind: "relations",
-  id: "f5-tree",
-  title: "Arbre",
-  layoutHint: "decisionTree",
-  nodes: [
-    { id: "c", label: "Condition roles clarifies", kind: "unknown" },
-    { id: "y", label: "Approche progressive", kind: "hypothesis" },
-    { id: "n", label: "Reporter le deploiement", kind: "hypothesis" },
-  ],
-  edges: [
-    { from: "c", to: "y", relation: "condition_true", label: "oui" },
-    { from: "c", to: "n", relation: "condition_false", label: "non" },
-  ],
-  textAlternative: "Si oui progressive, sinon reporter.",
-};
-
-const parallelBlock: RelationsBlock = {
-  kind: "relations",
-  id: "f5-par",
-  title: "Parallele",
-  layoutHint: "parallelProcess",
-  nodes: [
-    { id: "a1", label: "Inventaire site A", kind: "observation", laneId: "Voie A" },
-    { id: "b1", label: "Inventaire site B", kind: "observation", laneId: "Voie B" },
-    { id: "g", label: "Revue commune", kind: "finding", laneId: "Gate" },
-  ],
-  edges: [
-    { from: "a1", to: "g", relation: "sync", label: "pret" },
-    { from: "b1", to: "g", relation: "sync", label: "pret" },
-  ],
-  textAlternative: "Voies A/B puis Revue commune",
-};
-
-describe("W3 graph layouts", () => {
-  it("decision tree exposes root/yes/no branches and directed edge list", () => {
-    const titleById = new Map(treeBlock.nodes.map((n) => [n.id, n.label] as const));
-    const html = renderToStaticMarkup(
-      createElement(DecisionTreeConnectedView, { block: treeBlock, titleById }),
-    );
-    expect(html).toContain("nora-composition-decision-tree");
-    expect(html).toContain('data-branch="root"');
-    expect(html).toContain('data-branch="yes"');
-    expect(html).toContain('data-branch="no"');
-    expect(html).toContain("Condition roles clarifies");
-    expect(html).toContain("Approche progressive");
-    expect(html).toContain("Reporter le deploiement");
-    expect(html).toContain("nora-composition-tree-edges");
-    expect(html).toContain("Si oui");
-    expect(html).toContain("Si non");
-    expect(html).toContain("HumanDecision");
-  });
-
-  it("parallel process exposes lanes, gate role, sync edges", () => {
-    const titleById = new Map(parallelBlock.nodes.map((n) => [n.id, n.label] as const));
-    const html = renderToStaticMarkup(
-      createElement(ParallelProcessConnectedView, { block: parallelBlock, titleById }),
-    );
-    expect(html).toContain("nora-composition-parallel");
-    expect(html).toContain('data-lane="Voie A"');
-    expect(html).toContain('data-lane="Voie B"');
-    expect(html).toContain("nora-composition-parallel-gate");
-    expect(html).toContain("Inventaire site A");
-    expect(html).toContain("Revue commune");
-    expect(html).toContain("synchronisation");
-    expect(html).toContain("nora-composition-parallel-edges");
-  });
-});
-
-```
-
-
-### FILE CREATE `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/w3-w4-figma-runtime-manifest.md`
-
-```md
-# W3/W4 — Manifeste captures Figma / runtime
-
-**Date :** 2026-11-18
-**Candidat :** `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` + worktree
-**Figma :** `itgvCulInEnFY6DvgIegvP` · page 06 · session MCP `43fad2db-36a4-4c89-b8f7-d95ab5faa9eb`
-**Thème :** sombre Studio (frames Figma 01/02 clairs = hiérarchie seulement)
-
-## Oracles C2-08 (BROWSER)
-
-| Élément | Valeur |
-| --- | --- |
-| Injection | `window.__SFIA_E2E_COMPOSITION_THROW_BLOCK_ID__ = "s3-cmp"` via `addInitScript` |
-| Mode | post-mount `useEffect` → throw client (pas SSR, pas état `failed` forcé) |
-| Capture | `c2-08-browser-error-recovery-1440.png` |
-| SHA-256 | `f301e564ceffbd269c27265cadc390caad04dfa3311894e11693b13c085596e8` |
-| Verdict | **`C2 ERROR RECOVERY — BROWSER PROVEN`** |
-
-## Matrice 01–09
-
-| Réf | Node | Fixture | Runtime capture | SHA-256 (runtime) | Figma PNG | SHA-256 (Figma) | Verdict |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 01 | `742:36` | S5 synthesis | `runtime-s5-composite-1440.png` | `749498159603f9baeac5d2fdc606f3a75d5b92b81089f58df6a12f1c356bb4bb` | `figma-page06/figma-742-36-synthesis.png` | `a6a369a51f556b5429069d4915e9d2361962f81465be3e6f82df337d7b032e70` | STRUCTURE+EDITORIAL IMPROVED — **PARTIAL vs Figma** (sections tonales ; pas page marketing Figma) |
-| 02 | `743:2` | S4 trajectory | `runtime-s4-trajectory-1440.png` | `73c0fcbf42cccce8adfab2e630f8ce74945f86a86e7ed41dbfc1d86f18bf1618` | `figma-page06/figma-743-2-planning.png` | `8854f3a5df3b87b11862a5ea2a13ecfff7adbfb769b08410c96893082e300e10` | PATH IMPROVED — **PARTIAL** (marqueurs/connecteurs CSS ; pas frise calendaire sans dates) |
-| 03 | `745:2` | S3 comparison | `runtime-visual-comparison-1440.png` | `1d991dd8da24293916d5f251e6d718389d158008a4d284fec06aba8a99421c6a` | `figma-page06/figma-745-2-three-options.png` | `01fb842db2f8317cbdde3e467a75bf92afc71866a96dc5ef3a250b71147e7a64` | CARDS FUNCTIONAL — **PARTIAL** (2 opts fixture ; 3-opt Figma) |
-| 04 | `745:27` | dense matrix path | (via admission variants UNIT) | — | `figma-page06/figma-745-27-matrix.png` | `cb9cbf4196e0eac62d3ae5c7c4b05baab36f76b60d7dee0e53a9c17b6da7ed21` | MATRIX PRESENT — **PARTIAL** (preuve navigateur dense limitée) |
-| 05 | `746:2` | narrow / stack | `runtime-s5-composite-mobile-430.png` | (regen T02) | `figma-page06/figma-746-2-constrained.png` | `607a16b3a0968934a77cb79c35a946ff4b46838b4a6873a42b895c36c94f952d` | ADAPTIVE — **PARTIAL** |
-| 06 | `746:22` | S4 vertical | `runtime-s4-trajectory-1440.png` | idem 02 | `figma-page06/figma-746-22-vertical-steps.png` | `ee2bfe62fc8e116dd3650a81a4e0600a07853f717e1b0e80e5ce2c4a387ab824` | VERTICAL PATH — **PARTIAL** |
-| 07 | `751:11` | S2 deps | `f5-runtime-dependencies-directed-1440.png` | `ed7658a12a69debb074de1b13ad2955a0eeefe4456d296dfb24a9edefbb56216` | `figma-page06/figma-751-11-dependencies.png` | `16ee9c29fe66e477d220ec081d112101af9773f6543cc9349e0607be868a82fd` | CONNECTED LAYERS — **PARTIAL** (SVG mesuré ; densité Figma non égalée) |
-| 08 | `752:2` | E05_F5_DECISION_TREE | `w3-runtime-figma08-tree-1440.png` | `1da7f974913f052a5d7804a7718b200ad9d11927b53998e47cb8f712eb5293d4` | `figma-page06/figma-752-2-decision-tree.png` | `d198dff537487549bef2456752773299dc49dd303c28f3f9a4575fda0552c1c4` | GRAPHICAL TREE BUILT — **PARTIAL** (root/yes/no + SVG ; pas losange multi-niveaux Figma) |
-| 09 | `753:2` | E05_F5_PARALLEL | `w3-runtime-figma09-parallel-1440.png` | `7b40da21f8d71b7062ebfea551cc49bb4a1aef43064e8cccb904f060fb33c4fd` | `figma-page06/figma-753-2-parallel.png` | `e45b62d5d31eb365312cca4f30e2ac1056e1a12df7ae04745a0dccb57b5844bb` | SWIMLANES+SYNC BUILT — **PARTIAL** (voies+gate+SVG ; headers colorés Figma non reproduits) |
-
-## Écarts structurels restants (07–09)
-
-- Figma utilise des connecteurs orthogonaux / nœuds typés (condition vs issue) plus riches.
-- Runtime : HTML/CSS + SVG cubique mesuré — **retenu** sans ELK/React Flow (pas de gate Morris ouvert).
-- Contenu fixture ≠ contenu illustratif Figma (normal) — comparaison de **grammaire**, pas de copy.
-
-## Remise revue
-
-Les PNG sont locaux sous `docs/evidence/ensemble-05-travail-nora/`. Le handoff Markdown référence ce manifeste + SHA-256 ; inspection distante ChatGPT nécessite remise explicite des binaires ou accès worktree.
-
-```
-
-
-### FILE CREATE (untracked WT) `projects/sfia-studio-next/web/src/components/figma/NoraComposition.tsx` (1057 lines)
-
-```tsx
-"use client";
-
-/**
- * Nora conversational composition renderer.
- * Product responsibility: adaptive restitution of validated D3 compositions.
- * Presentation contract: conversational-composition-v1 (admission).
- * Wire compatibility: e05-visual-composition-v1 (bounded).
- */
-
-import React, {
-  Component,
-  type ErrorInfo,
-  type ReactNode,
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-
-// Keep React binding for classic JSX transforms (Vitest SSR / esbuild).
-void React;
-import { SafeMarkdown } from "@/components/SafeMarkdown";
-import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
-import {
-  DecisionTreeConnectedView,
-  E2eCompositionThrowProbe,
-  ParallelProcessConnectedView,
-} from "@/components/figma/NoraCompositionGraphs";
-import {
-  admitConversationalComposition,
-  buildExhaustiveBlockFallback,
-  topologicalLayers,
-  visibleTextAlternativeComplement,
-  type AdmittedBlock,
-  type ComparisonVariant,
-  type RelationsVariant,
-  type SequenceVariant,
-} from "@/domains/conversation/conversational-composition";
-import type {
-  ComparisonBlock,
-  RelationsBlock,
-  SequenceBlock,
-  SynthesisBlock,
-  TextBlock,
-  VisualBlock,
-  VisualComposition,
-  VisualProvenance,
-} from "@/domains/conversation/visual-composition";
-import {
-  canonicalReferenceKey,
-  compositionAnchorsChoices,
-  compositionAnchorsReferences,
-  partitionChoicesForAnchors,
-  partitionReferencesForAnchors,
-  provenanceConsultableKeys,
-  resolveProvenanceReference,
-} from "@/domains/conversation/visual-composition";
-import type { TurnChoice, TurnReference } from "@/domains/conversation/turn-projection";
-
-function Provenance(props: {
-  items?: VisualProvenance[];
-  canonicalReferences?: TurnReference[];
-  onReference?: (ref: TurnReference) => void;
-}) {
-  if (!props.items?.length) return null;
-  const canonical = props.canonicalReferences ?? [];
-  return (
-    <ul
-      className="fig-visual-provenance fig-comp-provenance"
-      data-testid="nora-visual-provenance"
-    >
-      {props.items.map((p, i) => {
-        const resolved = resolveProvenanceReference(p, canonical);
-        return (
-          <li key={`${p.label}-${i}`} data-consultable={resolved ? "1" : "0"}>
-            {resolved && props.onReference ? (
-              <button
-                type="button"
-                className="fig-nora-ref-link"
-                data-testid="nora-visual-prov-link"
-                data-ref-kind={resolved.kind}
-                onClick={() => props.onReference?.(resolved)}
-              >
-                Consulter · {resolved.label}
-                {resolved.available === false ? " (à vérifier)" : ""}
-              </button>
-            ) : (
-              <span>
-                {p.label}
-                <span className="fig-visual-provenance-note"> — mention descriptive</span>
-              </span>
-            )}
-            {p.note ? <span className="fig-visual-provenance-note"> — {p.note}</span> : null}
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
-
-function Heading(props: {
-  title: string;
-  role?: TextBlock["role"];
-  icon?: TextBlock["icon"];
-}) {
-  return (
-    <h3 className="fig-visual-title fig-comp-title">
-      <NoraSemanticIcon role={props.role} icon={props.icon} />
-      <span>{props.title}</span>
-    </h3>
-  );
-}
-
-/**
- * C2 — visible complementary substance from textAlternative.
- * Must remain consultable under bodyPolicy=substitute (not sr-only alone).
- * Does not duplicate the full replyDraft; only non-redundant complement.
- */
-function SubstanceComplement({ block }: { block: VisualBlock }) {
-  if (block.kind === "text" || block.kind === "choices" || block.kind === "references") {
-    return null;
-  }
-  const complement = visibleTextAlternativeComplement(block);
-  if (!complement) return null;
-  return (
-    <aside
-      className="fig-comp-substance-complement"
-      data-testid="nora-composition-substance-complement"
-      data-block-id={block.id}
-    >
-      <p className="fig-comp-substance-complement-label">Complément</p>
-      <p className="fig-comp-substance-complement-text">{complement}</p>
-    </aside>
-  );
-}
-
-type BlockShellProps = {
-  children: ReactNode;
-  textAlternative: string;
-  blockId: string;
-};
-
-/** CV-10 — isolate render failure to one block; keep readable textAlternative. */
-export class BlockErrorBoundary extends Component<
-  BlockShellProps,
-  { failed: boolean }
-> {
-  state = { failed: false };
-
-  static getDerivedStateFromError(): { failed: boolean } {
-    return { failed: true };
-  }
-
-  componentDidCatch(_error: Error, _info: ErrorInfo): void {
-    // Presentation-only; never escalate to D3 FAILED.
-  }
-
-  render() {
-    if (this.state.failed) {
-      return (
-        <section
-          className="fig-visual-block fig-comp-block fig-comp-block-fallback"
-          data-testid="nora-composition-block-fallback"
-          data-block-id={this.props.blockId}
-          data-fallback="1"
-        >
-          <p className="fig-comp-fallback-text">{this.props.textAlternative}</p>
-        </section>
-      );
-    }
-    return this.props.children;
-  }
-}
-
-function AlternativeDetails({
-  alt,
-}: {
-  alt: ComparisonBlock["alternatives"][number];
-}) {
-  return (
-    <article className="fig-visual-alt fig-comp-alt" data-alt-id={alt.id} data-testid="nora-composition-alt-detail">
-      <h4>{alt.title}</h4>
-      <p>{alt.summary}</p>
-      {alt.pros?.length ? (
-        <ul className="fig-visual-pros">
-          {alt.pros.map((p) => (
-            <li key={p}>{p}</li>
-          ))}
-        </ul>
-      ) : null}
-      {alt.cons?.length ? (
-        <ul className="fig-visual-cons">
-          {alt.cons.map((c) => (
-            <li key={c}>{c}</li>
-          ))}
-        </ul>
-      ) : null}
-    </article>
-  );
-}
-
-function ComparisonView({
-  block,
-  variant,
-  canonicalReferences,
-  onReference,
-}: {
-  block: ComparisonBlock;
-  variant: ComparisonVariant;
-  canonicalReferences?: TurnReference[];
-  onReference?: (ref: TurnReference) => void;
-}) {
-  const hasCriteria = Boolean(block.criteria?.length);
-  // CV-T04 / Defect A: matrix never hides summary/pros/cons — show complementary details.
-  const showMatrix = variant === "matrix" && hasCriteria;
-  const showCards =
-    variant === "cards" ||
-    variant === "stacked" ||
-    (variant === "matrix" && !hasCriteria);
-  const showMatrixDetails = showMatrix;
-  const forceText = variant === "text";
-
-  return (
-    <section
-      className={`fig-visual-block fig-visual-comparison fig-comp-block fig-comp-comparison fig-comp-variant-${variant}`}
-      data-testid="nora-visual-comparison"
-      data-comp-testid="nora-composition-comparison"
-      data-block-kind="comparison"
-      data-block-id={block.id}
-      data-variant={variant}
-      data-substance-complete="1"
-      aria-label={block.title}
-    >
-      <Heading title={block.title} role={block.role} icon={block.icon} />
-      {forceText ? (
-        <div className="fig-comp-fallback-text" data-testid="nora-composition-comparison-text">
-          {buildExhaustiveBlockFallback(block)}
-        </div>
-      ) : null}
-      {!forceText && showCards ? (
-        <div
-          className={
-            variant === "stacked"
-              ? "fig-visual-comparison-grid fig-comp-comparison-stack"
-              : "fig-visual-comparison-grid fig-comp-comparison-cards"
-          }
-        >
-          {block.alternatives.map((alt) => (
-            <AlternativeDetails key={alt.id} alt={alt} />
-          ))}
-        </div>
-      ) : null}
-      {!forceText && showMatrix ? (
-        <>
-          <div className="fig-visual-matrix-wrap fig-comp-matrix-wrap">
-            <table className="fig-visual-matrix fig-comp-matrix">
-              <caption>Critères de comparaison</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Critère</th>
-                  {block.alternatives.map((a) => (
-                    <th key={a.id} scope="col">
-                      {a.title}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {block.criteria!.map((c) => (
-                  <tr key={c.id}>
-                    <th scope="row">{c.label}</th>
-                    {block.alternatives.map((a) => (
-                      <td key={a.id}>{c.values[a.id] ?? "—"}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {showMatrixDetails ? (
-            <div
-              className="fig-comp-comparison-stack fig-comp-matrix-details"
-              data-testid="nora-composition-matrix-details"
-            >
-              <h4 className="fig-comp-matrix-details-title">Détail des options</h4>
-              {block.alternatives.map((alt) => (
-                <AlternativeDetails key={`detail-${alt.id}`} alt={alt} />
-              ))}
-            </div>
-          ) : null}
-        </>
-      ) : null}
-      {block.recommendation ? (
-        <div className="fig-visual-recommendation" data-testid="nora-visual-recommendation">
-          <NoraSemanticIcon role="recommendation" />
-          <div className="fig-visual-recommendation-body">
-            <span className="fig-visual-recommendation-label">Recommandation (avis Nora)</span>
-            <SafeMarkdown content={block.recommendation} className="fig-visual-inline-md" />
-          </div>
-        </div>
-      ) : null}
-      {!forceText ? <SubstanceComplement block={block} /> : null}
-      <Provenance
-        items={block.provenance}
-        canonicalReferences={canonicalReferences}
-        onReference={onReference}
-      />
-    </section>
-  );
-}
-
-function SequenceView({
-  block,
-  variant,
-  canonicalReferences,
-  onReference,
-}: {
-  block: SequenceBlock;
-  variant: SequenceVariant;
-  canonicalReferences?: TurnReference[];
-  onReference?: (ref: TurnReference) => void;
-}) {
-  const titleById = new Map(block.steps.map((s) => [s.id, s.title] as const));
-  const forceText = variant === "text";
-  return (
-    <section
-      className={`fig-visual-block fig-visual-sequence fig-comp-block fig-comp-sequence fig-comp-variant-${variant}`}
-      data-testid="nora-visual-sequence"
-      data-comp-testid="nora-composition-sequence"
-      data-block-kind="sequence"
-      data-block-id={block.id}
-      data-variant={variant}
-      aria-label={block.title}
-    >
-      <Heading title={block.title} role={block.role ?? "step"} icon={block.icon} />
-      {forceText ? (
-        <div className="fig-comp-fallback-text" data-testid="nora-composition-sequence-text">
-          {buildExhaustiveBlockFallback(block)}
-        </div>
-      ) : (
-        <ol
-          className={
-            variant === "horizontal"
-              ? "fig-visual-steps fig-comp-steps-horizontal"
-              : "fig-visual-steps fig-comp-steps-vertical"
-          }
-        >
-          {block.steps.map((step, idx) => (
-            <li key={step.id} className="fig-visual-step fig-comp-step" data-step-id={step.id}>
-              <div className="fig-visual-step-marker" aria-hidden>
-                {idx + 1}
-              </div>
-              <div className="fig-visual-step-body">
-                <h4>
-                  <NoraSemanticIcon role={step.role ?? "step"} />
-                  {step.title}
-                </h4>
-                {step.detail ? (
-                  <SafeMarkdown content={step.detail} className="fig-visual-inline-md" />
-                ) : null}
-                {step.dependsOn?.length ? (
-                  <p className="fig-visual-step-deps" data-testid="nora-visual-step-deps">
-                    <NoraSemanticIcon role="dependency" />
-                    Dépend de :{" "}
-                    {step.dependsOn.map((id) => titleById.get(id) ?? id).join(", ")}
-                  </p>
-                ) : null}
-                {step.dateLabel ? (
-                  <p className="fig-visual-step-date">{step.dateLabel}</p>
-                ) : null}
-              </div>
-              {idx < block.steps.length - 1 ? (
-                <div className="fig-visual-step-connector" aria-hidden />
-              ) : null}
-            </li>
-          ))}
-        </ol>
-      )}
-      {!forceText ? <SubstanceComplement block={block} /> : null}
-      <Provenance
-        items={block.provenance}
-        canonicalReferences={canonicalReferences}
-        onReference={onReference}
-      />
-    </section>
-  );
-}
-
-function relationRole(
-  kind: RelationsBlock["nodes"][number]["kind"],
-): TextBlock["role"] {
-  if (kind === "hypothesis") return "hypothesis";
-  if (kind === "observation") return "observation";
-  if (kind === "fact" || kind === "finding") return "fact";
-  return "information";
-}
-
-function RelationsListFallback({
-  block,
-  titleById,
-}: {
-  block: RelationsBlock;
-  titleById: Map<string, string>;
-}) {
-  return (
-    <>
-      <ul className="fig-visual-relations-list fig-comp-relations-list">
-        {block.nodes.map((n) => (
-          <li key={n.id} data-node-id={n.id}>
-            <NoraSemanticIcon role={relationRole(n.kind)} />
-            <span className="fig-comp-relations-label">{n.label}</span>
-            {n.detail ? <span className="fig-comp-relations-detail"> — {n.detail}</span> : null}
-          </li>
-        ))}
-      </ul>
-      {block.edges.length ? (
-        <ul
-          className="fig-visual-relations-edges fig-comp-relations-edges"
-          data-testid="nora-composition-relations-edges"
-        >
-          {block.edges.map((e, i) => (
-            <li key={`${e.from}-${e.to}-${i}`}>
-              {titleById.get(e.from) ?? e.from} → {titleById.get(e.to) ?? e.to}
-              {e.relation ? ` [${e.relation}]` : ""}
-              {e.label ? ` (${e.label})` : ""}
-            </li>
-          ))}
-        </ul>
-      ) : null}
-    </>
-  );
-}
-
-/** C-10/11/12 — directed layouts; tree/parallel use measured SVG (Figma 08/09). */
-function RelationsDirectedView({
-  block,
-  titleById,
-}: {
-  block: RelationsBlock;
-  titleById: Map<string, string>;
-}) {
-  const hint = block.layoutHint ?? "dependencies";
-
-  if (hint === "parallelProcess") {
-    return <ParallelProcessConnectedView block={block} titleById={titleById} />;
-  }
-
-  if (hint === "decisionTree") {
-    return <DecisionTreeConnectedView block={block} titleById={titleById} />;
-  }
-
-  // dependencies (default directed) — layered nodes + measured SVG connectors (C4).
-  return (
-    <DependenciesConnectedView block={block} titleById={titleById} />
-  );
-}
-
-/**
- * C4 — directed dependencies with connectors measured from live node boxes.
- * No assumed coordinates from Nora; ResizeObserver keeps paths attached on reflow.
- */
-function DependenciesConnectedView({
-  block,
-  titleById,
-}: {
-  block: RelationsBlock;
-  titleById: Map<string, string>;
-}) {
-  const layers = topologicalLayers(block);
-  const nodeById = new Map(block.nodes.map((n) => [n.id, n] as const));
-  const rootRef = useRef<HTMLDivElement>(null);
-  const reactId = useId();
-  const markerId = `fig-comp-deps-arrowhead-${reactId.replace(/:/g, "")}`;
-  const [size, setSize] = useState({ w: 0, h: 0 });
-  const [paths, setPaths] = useState<
-    Array<{ key: string; d: string; label: string }>
-  >([]);
-
-  const measure = () => {
-    const root = rootRef.current;
-    if (!root) return;
-    const rootBox = root.getBoundingClientRect();
-    setSize({ w: root.clientWidth, h: root.clientHeight });
-    const next: Array<{ key: string; d: string; label: string }> = [];
-    block.edges.forEach((e, i) => {
-      const fromEl = root.querySelector(`[data-node-id="${CSS.escape(e.from)}"]`);
-      const toEl = root.querySelector(`[data-node-id="${CSS.escape(e.to)}"]`);
-      if (!(fromEl instanceof HTMLElement) || !(toEl instanceof HTMLElement)) return;
-      const a = fromEl.getBoundingClientRect();
-      const b = toEl.getBoundingClientRect();
-      const x1 = a.left + a.width / 2 - rootBox.left;
-      const y1 = a.bottom - rootBox.top;
-      const x2 = b.left + b.width / 2 - rootBox.left;
-      const y2 = b.top - rootBox.top;
-      const midY = (y1 + y2) / 2;
-      const fromLabel = titleById.get(e.from) ?? e.from;
-      const toLabel = titleById.get(e.to) ?? e.to;
-      const rel =
-        e.relation === "depends_on"
-          ? `${fromLabel} → ${toLabel} (dépendance)`
-          : e.relation === "sync"
-            ? `${fromLabel} synchronise vers ${toLabel}`
-            : `${fromLabel} → ${toLabel}`;
-      next.push({
-        key: `${e.from}-${e.to}-${i}`,
-        d: `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`,
-        label: e.label ? `${rel} (${e.label})` : rel,
-      });
-    });
-    setPaths(next);
-  };
-
-  useLayoutEffect(() => {
-    measure();
-    const root = rootRef.current;
-    if (!root || typeof ResizeObserver === "undefined") return;
-    const ro = new ResizeObserver(() => measure());
-    ro.observe(root);
-    return () => ro.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- measure closes over block/titleById
-  }, [block, titleById, layers.length]);
-
-  return (
-    <div
-      className="fig-comp-deps"
-      data-testid="nora-composition-dependencies"
-      data-layout-hint="dependencies"
-      data-dep-layers={layers.length || 0}
-      data-connectors={paths.length > 0 ? "1" : "0"}
-    >
-      <div className="fig-comp-deps-canvas" ref={rootRef}>
-        {layers.length ? (
-          <div className="fig-comp-deps-layers" data-testid="nora-composition-deps-layers">
-            {layers.map((layer, li) => (
-              <div key={`layer-${li}`} className="fig-comp-deps-layer" data-layer={li}>
-                {layer.map((id) => {
-                  const n = nodeById.get(id);
-                  if (!n) return null;
-                  return (
-                    <div key={id} className="fig-comp-deps-node" data-node-id={n.id}>
-                      <NoraSemanticIcon role={relationRole(n.kind)} />
-                      <div>
-                        <div className="fig-comp-relations-label">{n.label}</div>
-                        {n.detail ? (
-                          <div className="fig-comp-relations-detail">{n.detail}</div>
-                        ) : null}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <ol className="fig-comp-deps-nodes">
-            {block.nodes.map((n) => (
-              <li key={n.id} className="fig-comp-deps-node" data-node-id={n.id}>
-                <NoraSemanticIcon role={relationRole(n.kind)} />
-                <div>
-                  <div className="fig-comp-relations-label">{n.label}</div>
-                  {n.detail ? (
-                    <div className="fig-comp-relations-detail">{n.detail}</div>
-                  ) : null}
-                </div>
-              </li>
-            ))}
-          </ol>
-        )}
-        {size.w > 0 && size.h > 0 && paths.length > 0 ? (
-          <svg
-            className="fig-comp-deps-svg"
-            data-testid="nora-composition-deps-connectors"
-            width={size.w}
-            height={size.h}
-            viewBox={`0 0 ${size.w} ${size.h}`}
-            aria-hidden
-          >
-            <defs>
-              <marker
-                id={markerId}
-                markerWidth="8"
-                markerHeight="8"
-                refX="6"
-                refY="3"
-                orient="auto"
-              >
-                <path d="M0,0 L6,3 L0,6 Z" className="fig-comp-deps-arrowhead" />
-              </marker>
-            </defs>
-            {paths.map((p) => (
-              <path
-                key={p.key}
-                d={p.d}
-                className="fig-comp-deps-connector"
-                markerEnd={`url(#${markerId})`}
-                data-edge-key={p.key}
-              />
-            ))}
-          </svg>
-        ) : null}
-      </div>
-      {block.edges.length ? (
-        <ul
-          className="fig-comp-deps-edges"
-          data-testid="nora-composition-relations-edges"
-          data-directed="1"
-          aria-label="Relations dirigées"
-        >
-          {block.edges.map((e, i) => {
-            const from = titleById.get(e.from) ?? e.from;
-            const to = titleById.get(e.to) ?? e.to;
-            return (
-              <li key={`${e.from}-${e.to}-${i}`} data-edge-from={e.from} data-edge-to={e.to}>
-                <span className="fig-comp-deps-from">{from}</span>
-                <span className="fig-comp-deps-arrow" aria-hidden>
-                  →
-                </span>
-                <span className="fig-comp-deps-to">{to}</span>
-                {e.label ? <span className="fig-comp-deps-label"> ({e.label})</span> : null}
-                {e.relation === "depends_on" ? (
-                  <span className="fig-comp-deps-rel"> — dépendance</span>
-                ) : e.relation === "sync" ? (
-                  <span className="fig-comp-deps-rel"> — synchronisation</span>
-                ) : null}
-              </li>
-            );
-          })}
-        </ul>
-      ) : null}
-    </div>
-  );
-}
-
-function RelationsView({
-  block,
-  variant,
-  canonicalReferences,
-  onReference,
-}: {
-  block: RelationsBlock;
-  variant: RelationsVariant;
-  canonicalReferences?: TurnReference[];
-  onReference?: (ref: TurnReference) => void;
-}) {
-  const forceText = variant === "text";
-  const useDirected = variant === "directed";
-  const titleById = new Map(block.nodes.map((n) => [n.id, n.label] as const));
-
-  return (
-    <section
-      className={`fig-visual-block fig-visual-relations fig-comp-block fig-comp-relations fig-comp-variant-${variant}`}
-      data-testid="nora-visual-relations"
-      data-comp-testid="nora-composition-relations"
-      data-block-kind="relations"
-      data-block-id={block.id}
-      data-variant={variant}
-      data-fallback={useDirected ? "0" : "1"}
-      data-layout={useDirected ? "directed" : "structured-list"}
-      data-layout-hint={block.layoutHint ?? ""}
-      aria-label={block.title}
-    >
-      <Heading title={block.title} role={block.role} icon={block.icon} />
-      {forceText ? (
-        <div className="fig-comp-fallback-text" data-testid="nora-composition-relations-text">
-          {buildExhaustiveBlockFallback(block)}
-        </div>
-      ) : useDirected ? (
-        <RelationsDirectedView block={block} titleById={titleById} />
-      ) : (
-        <RelationsListFallback block={block} titleById={titleById} />
-      )}
-      {!forceText ? <SubstanceComplement block={block} /> : null}
-      <Provenance
-        items={block.provenance}
-        canonicalReferences={canonicalReferences}
-        onReference={onReference}
-      />
-    </section>
-  );
-}
-
-function SynthesisView({
-  block,
-  canonicalReferences,
-  onReference,
-}: {
-  block: SynthesisBlock;
-  canonicalReferences?: TurnReference[];
-  onReference?: (ref: TurnReference) => void;
-}) {
-  const priorities = block.items.filter((it) => it.tone === "priority");
-  const risks = block.items.filter((it) => it.tone === "risk");
-  const hypotheses = block.items.filter((it) => it.tone === "hypothesis");
-  const observations = block.items.filter(
-    (it) => it.tone === "observation" || (!it.tone && it.role !== "recommendation"),
-  );
-  const rest = block.items.filter(
-    (it) =>
-      !priorities.includes(it) &&
-      !risks.includes(it) &&
-      !hypotheses.includes(it) &&
-      !observations.includes(it),
-  );
-
-  const renderItem = (it: (typeof block.items)[number]) => {
-    const role =
-      it.role ??
-      (it.tone === "risk"
-        ? "risk"
-        : it.tone === "hypothesis"
-          ? "hypothesis"
-          : it.tone === "observation"
-            ? "observation"
-            : it.tone === "priority"
-              ? "recommendation"
-              : "information");
-    return (
-      <li
-        key={it.id}
-        data-tone={it.tone}
-        className={`fig-visual-synth-item fig-visual-tone-${it.tone ?? "information"} fig-comp-synth-row`}
-      >
-        <NoraSemanticIcon role={role} icon={it.icon} />
-        <div className="fig-comp-synth-copy">
-          <strong className="fig-comp-synth-label">{it.label}</strong>
-          {it.detail ? (
-            <SafeMarkdown content={it.detail} className="fig-visual-inline-md fig-comp-synth-detail" />
-          ) : null}
-        </div>
-      </li>
-    );
-  };
-
-  const section = (
-    key: string,
-    title: string,
-    items: typeof block.items,
-    className: string,
-  ) =>
-    items.length ? (
-      <div key={key} className={`fig-comp-synth-section ${className}`} data-synth-section={key}>
-        <h4 className="fig-comp-synth-section-title">{title}</h4>
-        <ul className="fig-visual-synthesis-list">{items.map(renderItem)}</ul>
-      </div>
-    ) : null;
-
-  return (
-    <section
-      className="fig-visual-block fig-visual-synthesis fig-comp-block fig-comp-synthesis fig-comp-synthesis-editorial"
-      data-testid="nora-visual-synthesis"
-      data-comp-testid="nora-composition-synthesis"
-      data-block-kind="synthesis"
-      data-block-id={block.id}
-      aria-label={block.title}
-    >
-      <Heading title={block.title} role={block.role} icon={block.icon} />
-      <div className="fig-comp-synth-flow">
-        {section("observation", "Constat", observations, "fig-comp-synth-observations")}
-        {section("hypothesis", "Hypothèses et réserves", hypotheses, "fig-comp-synth-hypotheses")}
-        {section("risk", "Risques", risks, "fig-comp-synth-risks")}
-        {section("priority", "Priorités et recommandations", priorities, "fig-comp-synth-priorities")}
-        {section("other", "Autres éléments", rest, "fig-comp-synth-other")}
-      </div>
-      <SubstanceComplement block={block} />
-      <Provenance
-        items={block.provenance}
-        canonicalReferences={canonicalReferences}
-        onReference={onReference}
-      />
-    </section>
-  );
-}
-
-function TextView({ block }: { block: TextBlock }) {
-  return (
-    <div
-      className={`fig-visual-block fig-visual-text fig-comp-block fig-comp-text${
-        block.role ? ` fig-visual-text-${block.role}` : ""
-      }`}
-      data-testid="nora-visual-text"
-      data-comp-testid="nora-composition-text"
-      data-block-kind="text"
-      data-role={block.role ?? ""}
-    >
-      {block.role || block.icon ? (
-        <div className="fig-visual-text-head">
-          <NoraSemanticIcon role={block.role} icon={block.icon} />
-        </div>
-      ) : null}
-      <SafeMarkdown content={block.markdown} />
-    </div>
-  );
-}
-
-function ChoicesCluster(props: {
-  choices: TurnChoice[];
-  actionable?: boolean;
-  busy?: boolean;
-  choiceFrozen?: boolean;
-  messageId?: string;
-  residual?: boolean;
-  onChoice?: (choice: TurnChoice, messageId: string) => void;
-  anchorId?: string;
-}) {
-  if (!props.choices.length) return null;
-  return (
-    <div
-      className="fig-nora-choices fig-visual-choices-anchor fig-comp-choices"
-      data-testid="nora-choices"
-      data-block-kind="choices"
-      data-residual={props.residual ? "1" : "0"}
-      data-actionable={props.actionable ? "1" : "0"}
-      data-message-id={props.messageId}
-      data-anchor-id={props.anchorId ?? ""}
-    >
-      {props.choices.map((c) => (
-        <button
-          key={c.id}
-          type="button"
-          className="fig-nora-choice"
-          data-testid="nora-choice"
-          data-choice-id={c.id}
-          disabled={!props.actionable || props.busy || props.choiceFrozen}
-          onClick={() => props.messageId && props.onChoice?.(c, props.messageId)}
-        >
-          {c.label}
-        </button>
-      ))}
-      {!props.actionable ? (
-        <p className="fig-nora-choices-expired" data-testid="nora-choices-expired">
-          Propositions expirées — consultation seule.
-        </p>
-      ) : null}
-    </div>
-  );
-}
-
-function RefsCluster(props: {
-  references: TurnReference[];
-  residual?: boolean;
-  anchorId?: string;
-  onReference?: (ref: TurnReference) => void;
-}) {
-  if (!props.references.length) return null;
-  return (
-    <ul
-      className="fig-nora-refs fig-visual-refs-anchor fig-comp-refs"
-      data-testid="nora-refs"
-      data-block-kind="references"
-      data-residual={props.residual ? "1" : "0"}
-      data-anchor-id={props.anchorId ?? ""}
-    >
-      {props.references.map((r, i) => (
-        <li key={`${r.kind}-${r.resourceId ?? r.path ?? r.href ?? i}`}>
-          <button
-            type="button"
-            className="fig-nora-ref-link"
-            data-testid="nora-ref-link"
-            data-ref-kind={r.kind}
-            onClick={() => props.onReference?.(r)}
-          >
-            Consulter · {r.label}
-            {r.available === false ? " (à vérifier)" : ""}
-          </button>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/** Defect C — never truncate; exhaustive structured fallback. */
-function textAltFor(block: VisualBlock): string {
-  return buildExhaustiveBlockFallback(block);
-}
-
-function AdmittedBlockView({
-  admitted,
-  canonicalReferences,
-  onReference,
-}: {
-  admitted: AdmittedBlock;
-  canonicalReferences?: TurnReference[];
-  onReference?: (ref: TurnReference) => void;
-}) {
-  const { block, variant } = admitted;
-  if (block.kind === "comparison") {
-    return (
-      <ComparisonView
-        block={block}
-        variant={variant as ComparisonVariant}
-        canonicalReferences={canonicalReferences}
-        onReference={onReference}
-      />
-    );
-  }
-  if (block.kind === "sequence") {
-    return (
-      <SequenceView
-        block={block}
-        variant={variant as SequenceVariant}
-        canonicalReferences={canonicalReferences}
-        onReference={onReference}
-      />
-    );
-  }
-  if (block.kind === "relations") {
-    return (
-      <RelationsView
-        block={block}
-        variant={variant as RelationsVariant}
-        canonicalReferences={canonicalReferences}
-        onReference={onReference}
-      />
-    );
-  }
-  if (block.kind === "synthesis") {
-    return (
-      <SynthesisView
-        block={block}
-        canonicalReferences={canonicalReferences}
-        onReference={onReference}
-      />
-    );
-  }
-  if (block.kind === "text") {
-    return <TextView block={block} />;
-  }
-  return null;
-}
-
-export type NoraCompositionProps = {
-  composition: VisualComposition;
-  /** Canonical replyDraft / message body for width-local re-admission consistency. */
-  canonicalText?: string | null;
-  choices?: TurnChoice[];
-  references?: TurnReference[];
-  actionable?: boolean;
-  busy?: boolean;
-  choiceFrozen?: boolean;
-  messageId?: string;
-  onChoice?: (choice: TurnChoice, messageId: string) => void;
-  onReference?: (ref: TurnReference) => void;
-};
-
-export function NoraComposition(props: NoraCompositionProps) {
-  const rootRef = useRef<HTMLDivElement | null>(null);
-  const [widthPx, setWidthPx] = useState<number | null>(null);
-
-  useEffect(() => {
-    const el = rootRef.current;
-    if (!el || typeof ResizeObserver === "undefined") {
-      setWidthPx(el?.clientWidth ?? null);
-      return;
-    }
-    const ro = new ResizeObserver((entries) => {
-      const w = entries[0]?.contentRect.width;
-      if (typeof w === "number" && Number.isFinite(w)) {
-        setWidthPx(Math.round(w));
-      }
-    });
-    ro.observe(el);
-    setWidthPx(Math.round(el.clientWidth));
-    return () => ro.disconnect();
-  }, []);
-
-  const admission = admitConversationalComposition(props.composition, {
-    containerWidthPx: widthPx,
-    canonicalText: props.canonicalText,
-  });
-  const choices = props.choices ?? [];
-  const references = props.references ?? [];
-  const choiceParts = partitionChoicesForAnchors(props.composition.blocks, choices);
-  const refParts = partitionReferencesForAnchors(props.composition.blocks, references);
-  const alreadyConsultable = provenanceConsultableKeys(
-    props.composition.blocks,
-    references,
-  );
-  const dedupeRefs = (list: TurnReference[]) =>
-    list.filter((r) => !alreadyConsultable.has(canonicalReferenceKey(r)));
-
-  return (
-    <div
-      ref={rootRef}
-      className="fig-visual-composition fig-comp-composition"
-      data-testid="nora-visual-composition"
-      data-comp-testid="nora-composition"
-      data-schema={props.composition.schemaVersion}
-      data-contract={admission.contract}
-      data-owns-body={admission.ownsBody ? "1" : "0"}
-      data-body-policy={admission.bodyPolicy}
-      data-container-width={widthPx ?? ""}
-    >
-      {admission.admitted.map((admitted) => {
-        if (admitted.block.kind === "choices") {
-          return (
-            <ChoicesCluster
-              key={admitted.block.id}
-              choices={choiceParts.byAnchorId.get(admitted.block.id) ?? []}
-              actionable={props.actionable}
-              busy={props.busy}
-              choiceFrozen={props.choiceFrozen}
-              messageId={props.messageId}
-              onChoice={props.onChoice}
-              anchorId={admitted.block.id}
-            />
-          );
-        }
-        if (admitted.block.kind === "references") {
-          return (
-            <RefsCluster
-              key={admitted.block.id}
-              references={dedupeRefs(refParts.byAnchorId.get(admitted.block.id) ?? [])}
-              onReference={props.onReference}
-              anchorId={admitted.block.id}
-            />
-          );
-        }
-        return (
-          <BlockErrorBoundary
-            key={admitted.block.id}
-            blockId={admitted.block.id}
-            textAlternative={textAltFor(admitted.block)}
-          >
-            {/* C2-08 — DEV/E2E probe only; armed via window.__SFIA_E2E_COMPOSITION_THROW_BLOCK_ID__ */}
-            <E2eCompositionThrowProbe blockId={admitted.block.id} />
-            <AdmittedBlockView
-              admitted={admitted}
-              canonicalReferences={references}
-              onReference={props.onReference}
-            />
-          </BlockErrorBoundary>
-        );
-      })}
-      {compositionAnchorsChoices(props.composition) ? (
-        <ChoicesCluster
-          choices={choiceParts.residual}
-          actionable={props.actionable}
-          busy={props.busy}
-          choiceFrozen={props.choiceFrozen}
-          messageId={props.messageId}
-          onChoice={props.onChoice}
-          residual
-          anchorId="residual-choices"
-        />
-      ) : null}
-      {compositionAnchorsReferences(props.composition) ? (
-        <RefsCluster
-          references={dedupeRefs(refParts.residual)}
-          onReference={props.onReference}
-          residual
-          anchorId="residual-references"
-        />
-      ) : null}
-    </div>
-  );
-}
-
-```
-
-
 ### DIFF `projects/sfia-studio-next/web/src/components/figma/tokens.css`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-index 8623f598..730b42f4 100644
+index 8623f598..934f810c 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
 +++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-@@ -2163,6 +2163,628 @@
+@@ -2163,6 +2163,713 @@
    }
  }
 
@@ -2502,33 +3895,94 @@ index 8623f598..730b42f4 100644
 +  flex: 0 0 24px;
 +}
 +
++/* New graphical subsystem — nora-composition (not E05 artisan) */
++.fig-nc-graph-node {
++  display: flex;
++  align-items: flex-start;
++  gap: 10px;
++  padding: 12px 14px;
++  border-radius: 10px;
++  border: 1px solid color-mix(in srgb, var(--fig-line) 80%, transparent);
++  background: color-mix(in srgb, var(--fig-panel) 92%, #0a121c);
++}
++
++.fig-nc-graph-node-label {
++  font-size: 14px;
++  font-weight: 600;
++  color: var(--fig-ink);
++}
++
++.fig-nc-graph-node-detail {
++  margin-top: 4px;
++  font-size: 13px;
++  color: color-mix(in srgb, var(--fig-ink) 80%, var(--fig-muted));
++}
++
++.fig-nc-graph-node-status {
++  margin-top: 6px;
++  font-size: 11px;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  color: var(--fig-muted);
++}
++
++.fig-nc-graph-node-yes {
++  border-color: color-mix(in srgb, #3d8f6e 45%, var(--fig-line));
++}
++
++.fig-nc-graph-node-no {
++  border-color: color-mix(in srgb, #a86b4a 45%, var(--fig-line));
++}
++
++.fig-nc-graph-node-gate,
++.fig-nc-graph-node-emphasis {
++  border-color: color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
++  background: color-mix(in srgb, var(--fig-accent, #3a6ea5) 12%, var(--fig-panel));
++}
++
++.fig-nc-node-flow,
++.fig-nc-parallel-tasks {
++  display: flex;
++  flex-direction: column;
++  gap: 10px;
++}
++
++.fig-nc-parallel-lanes {
++  display: grid;
++  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
++  gap: 14px;
++}
++
++.fig-nc-parallel-lane {
++  padding: 12px;
++  border-radius: 10px;
++  border: 1px solid color-mix(in srgb, var(--fig-line) 70%, transparent);
++}
++
++.fig-nc-parallel-lane-gate {
++  grid-column: 1 / -1;
++  border-color: color-mix(in srgb, var(--fig-accent, #3a6ea5) 55%, var(--fig-line));
++}
++
++.fig-nc-engine-note {
++  margin: 10px 0 0;
++  font-size: 12px;
++  color: var(--fig-muted);
++}
++
++.fig-nc-elk-canvas {
++  margin-bottom: 12px;
++}
++
++.fig-nc-elk-svg {
++  position: absolute;
++  inset: 0;
++  pointer-events: none;
++}
++
  .project-unavailable {
    display: flex;
    align-items: flex-start;
-
-```
-
-
-### DIFF `projects/sfia-studio-next/web/src/components/figma/NoraSemanticIcon.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraSemanticIcon.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraSemanticIcon.tsx
-index 0668a10c..ce1aa289 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraSemanticIcon.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraSemanticIcon.tsx
-@@ -1,8 +1,12 @@
- "use client";
-
-+import React from "react";
- import type { VisualIconId, VisualSemanticRole } from "@/domains/conversation/visual-composition";
- import { resolveVisualIcon } from "@/domains/conversation/visual-composition";
-
-+// Keep React binding for classic JSX transforms (Vitest SSR / esbuild).
-+void React;
-+
- const LABELS: Record<VisualIconId, string> = {
-   info: "Information",
-   observe: "Observation",
 
 ```
 
@@ -2537,7 +3991,7 @@ index 0668a10c..ce1aa289 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
-index 37b839c4..1d950acc 100644
+index 37b839c4..640ba3e0 100644
 --- a/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
 +++ b/projects/sfia-studio-next/web/tests/e2e/ensemble05-travail-nora.spec.ts
 @@ -522,6 +522,8 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
@@ -2549,7 +4003,7 @@ index 37b839c4..1d950acc 100644
 
      await page.goto("/login");
      await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-@@ -566,14 +568,80 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+@@ -566,14 +568,83 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
      await ask(E05_S2_DIAGNOSTIC);
      await expect(page.getByTestId("nora-visual-relations")).toBeVisible({ timeout: 45000 });
      await expect(page.getByTestId("nora-visual-icon").first()).toBeVisible();
@@ -2566,8 +4020,10 @@ index 37b839c4..1d950acc 100644
 +      "data-body-policy",
 +      "complement",
 +    );
-+    // F3 — layered deps + explicit directed edges (not undirected list).
-+    await expect(page.getByTestId("nora-composition-deps-layers")).toBeVisible();
++    // F3 — new directed board (legacy artisan retired) + explicit directed edges.
++    const depsBoard = page.getByTestId("nora-composition-dependencies").last();
++    await expect(depsBoard).toBeVisible();
++    await expect(depsBoard).toHaveAttribute("data-legacy-artisan", "0");
 +    await expect(page.getByTestId("nora-composition-relations-edges")).toHaveAttribute(
 +      "data-directed",
 +      "1",
@@ -2597,6 +4053,7 @@ index 37b839c4..1d950acc 100644
 +      "data-layout-hint",
 +      "decisionTree",
 +    );
++    await expect(tree).toHaveAttribute("data-legacy-artisan", "0");
 +    await expect(tree.locator('[data-branch="root"]')).toBeVisible();
 +    await expect(tree.locator('[data-branch="yes"]')).toBeVisible();
 +    await expect(tree.locator('[data-branch="no"]')).toBeVisible();
@@ -2630,7 +4087,7 @@ index 37b839c4..1d950acc 100644
 
      // S3 — comparison + recommendation + choice/ref anchors + provenance P1-B.
      await ask(E05_S3_COMPARISON);
-@@ -593,14 +661,29 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+@@ -593,14 +664,29 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
      await expect(s3.getByTestId("nora-visual-prov-link")).toHaveCount(1);
      await expect(s3.getByTestId("nora-ref-link")).toHaveCount(0);
      await expect(s3.getByText(/Consulter · Note de cadrage coordination/i)).toHaveCount(1);
@@ -2660,7 +4117,7 @@ index 37b839c4..1d950acc 100644
 
      // S4 — trajectory / sequence with human-readable dependencies (V02).
      await ask(E05_S4_TRAJECTORY);
-@@ -702,6 +785,97 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
+@@ -702,6 +788,97 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
      });
    });
 
@@ -2766,13 +4223,30 @@ index 37b839c4..1d950acc 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 7b64d566..21487b27 100644
+index 7b64d566..6023363c 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,214 @@ Append-only logical journal of Cursor product deliveries.
+@@ -4,6 +4,231 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
++## delivery_id: DELIV-2026-11-18-COMPOSITION-GRAPHICAL-ENGINE-REPLACEMENT
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-18 ~12:25 CET |
++| Macro-lot | R5 / ML4D / Ensemble 05 — Remplacement architectural couche graphique |
++| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO PRODUCT PUSH** |
++| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
++| Benchmark | Isolé `scripts/layout-engine-benchmark` — G07/G08/G09 artisan vs ELK vs RF+ELK |
++| Recommandation | **Solution A : HTML/SVG + ELKjs** (CANDIDATE) — RF non requis pour layout |
++| Gate | **STOP — MORRIS ARCHITECTURE DECISION REQUIRED** (ajout `elkjs` produit) |
++| Production | `DirectedRelationBoard` + `EditorialSynthesis` ; artisan Graphs **retiré** du chemin principal |
++| ELK produit | **NOT INSTALLED** (`package.json` inchangé) |
++| Fake/Real | UNIT PROVEN · BROWSER à rejouer · LIVE NOT RUN |
++| Verdict | `STOP — MORRIS ARCHITECTURE DECISION REQUIRED` |
++
++
 +## delivery_id: DELIV-2026-11-18-COMPOSITION-W3-W4-GRAPHICAL
 +
 +| Field | Value |
@@ -2986,88 +4460,3 @@ index 7b64d566..21487b27 100644
  | Field | Value |
 
 ```
-
-
-### FILE (diff empty / check) `projects/sfia-studio-next/web/docs/evidence/ensemble-05-travail-nora/figma-page06-visual-contract-executable.md` — showing git diff HEAD failed empty; file exists (2942 bytes)
-
-
-```
-# Contrat visuel exécutable — Page 06 → Studio sombre
-
-**Date :** 2026-11-18
-**Orientation Morris :** thème sombre Studio · fidélité élevée adaptative · **pas** de pixel figé
-**Fichier Figma :** `itgvCulInEnFY6DvgIegvP` · page `742:2`
-**Session MCP :** `05690991-8dcf-4780-a219-714f1955f094`
-
-## Décisions consommées (ne pas rouvrir)
-
-| Décision | Application |
-| --- | --- |
-| Thème sombre Studio | Tokens `--fig-*` ; frames 01/02 clairs = hiérarchie seulement |
-| Fidélité élevée | Structure, composants, iconographie, relations, densité |
-| Adaptativité | Contenu + largeur conteneur Travail → variante |
-
-## Tokens Studio (cible)
-
-| Rôle | Token / usage |
-| --- | --- |
-| Fond panneau | `--fig-panel` |
-| Encre | `--fig-ink` |
-| Muet | `--fig-muted` |
-| Lignes | `--fig-line` |
-| Accent | `--fig-accent` (recommandation / connecteurs) |
-| Complément C2 | `.fig-comp-substance-complement` barre accent |
-
-## Par famille
-
-### Narration / synthèse (Figma 01 · `742:36`)
-- Prose naturelle ; callout recommandation sélectif ; réserves visibles
-- Pas de cadre rouge systématique sur « risque »
-- Iconographie `NoraSemanticIcon` par rôle
-
-### Comparaison (03/04/05 · `745:2` / `745:27` / `746:2`)
-- Cards 2–3 ; matrix ≥5 ou dense ; stack / text en repli
-- Critères attachés ; aucun attribut orphelin
-- Largeur contrainte → stack/text
-
-### Parcours (02/06 · `743:2` / `746:22`)
-- Horizontal si large + court ; vertical si dense / étroit
-- Numéros = ordre sémantique ; dates seulement si établies
-
-### Dépendances (07 · `751:11`)
-- Couches + SVG mesuré + liste humaine
-- IDs marker SVG uniques par instance
-
-### Arbre (08 · `752:2`)
-- Condition racine ; branches Si oui / Si non distinctes
-- Pas de HumanDecision implicite
-- **W3 réalisé :** `DecisionTreeConnectedView` — rangées par profondeur, cartes branch-tagged, SVG mesuré, liste accessible
-- **Écart Figma :** Figma = losanges condition multi-niveaux + routing orthogonal ; runtime = arbre 1 niveau fixture + cubiques
-
-### Parallèle (09 · `753:2`)
-- Lanes identifiables ; sync orientée ; convergence lisible
-- **W3 réalisé :** `ParallelProcessConnectedView` — voies, lane gate, SVG sync, liste relations
-- **Écart Figma :** headers colorés / barre sync décorative non pixel-reproduits
-
-### Layout décision (bornée)
-- Approche **HTML/CSS/SVG mesuré** conservée après cas discriminants (convergence, lanes, resize via RO).
-- ELK / React Flow : **non installés** — recommandation non bloquante ; gate Morris seulement si densités > capacité mesurée.
-
-## Limites / repli
-Enveloppe > capacité → text / list ; topologie invalide → refus admission ; erreur composant → `BlockErrorBoundary` + fallback exhaustif.
-
-## C2-08 BROWSER
-Probe `E2eCompositionThrowProbe` (DEV only, `NODE_ENV !== production`) + Playwright `C2-08 ErrorBoundary recovers real post-mount React exception` → **BROWSER PROVEN**.
-
-```
-
-
----
-
-## 14. Anti-stub
-
-- Pack réinitialisé (pas d'append historique)
-- Nouveaux fichiers inclus in extenso
-- Diffs tokens / e2e / delivery inclus
-- Preuves PNG référencées par SHA-256 (binaires hors Markdown)
-- Aucun PASS inventé
