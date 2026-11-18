@@ -1,846 +1,1598 @@
-# SFIA Studio Next — Review Pack Full — Cycle 8 / R05 Recovery Fix + RECETTE
-
-**Date UTC :** 2026-11-17
-**Nature :** Republication handoff **complet** pour ChatGPT (mono-cycle R05 recovery + deploy)
-**Mandat Morris consommé :** Correction DEV + tests + déploiement RECETTE conditionnel + plan retest Arnaud + Review Pack Full + Handoff L3
-**Typologie :** RUN / INC corrective · Profil Critical
-**Macro-lot :** ML4D Ensemble 05 — Travail avec Nora
-**Exécutant :** Cursor · **Revue :** ChatGPT · **Décideur :** Morris · **Recette utilisateur :** Morris / plan pour Arnaud
-**Product versioning :** PATCH CANDIDATE · NO RELEASE · NO PRODUCT PUSH · NO PR/MERGE · STABLE NOT AVAILABLE
-
----
-
-## 1. Mandat et cycle
-
-Cycle intégré unique autorisé :
-
-1. Corriger la reprise d'une génération cognitive `UNKNOWN` sans effet métier.
-2. Améliorer l'observabilité des exceptions Agents SDK / OpenAI (allowlist, sans secrets).
-3. Tests unitaires, PostgreSQL DEV/E2E, Playwright FAKE.
-4. Documentation non normative impactée + plan retest Arnaud.
-5. Commit local figé.
-6. Déploiement RECETTE conditionnel si gate §9 PASS.
-7. Smoke non-LIVE ; données préservées ; rollback disponible.
-8. Review Pack Full + handoff Git L3.
-
-**Hors mandat (respecté) :** nouvel appel OpenAI LIVE par Cursor ; correction spéculative fournisseur/SDK ; migration ; changement structurant D3/D6/D7/D8/D9 ; push produit / PR / merge ; promotion STABLE ; clôture E05 / Gate C.
+# SFIA Review Pack FULL — Composition conversationnelle adaptative Nora
+**Date/heure :** 2026-11-18T01:23:58+01:00
+**Cycle :** Delivery / EVOL / Critical — Remplacement mécanisme graphique expérimental E05
+**GO Morris :** 18/11/2026 — construction locale bornée (pas push produit / PR / merge / RECETTE / STABLE)
+**Branche technique locale :** `sfia/next-ml4d-composition-adaptative`
+**HEAD tip (commits) :** `a783f014935de0dec5ff8e79a2b18eea0e629756`
+**Working tree :** modifications non commitées (mandat Git produit non accordé)
+**origin/main :** `997d4c4e8204993de7107552898c8cc08cd3b0ed`
+**Review Pack :** Full — réinitialisé ce cycle (aucun append)
+**Handoff :** required / publish-in-cycle (L3 mono-fichier)
 
 ---
 
-## 2. Git Truth Check
+## 1. Git Truth Check
 
-### Au démarrage du cycle correctif
+| Check | Résultat |
+| --- | --- |
+| pwd / dépôt | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` · remote `mcleland147/sfia-workspace` |
+| Branche | `sfia/next-ml4d-composition-adaptative` (locale, non poussée) |
+| Base tip | `a783f014` (feat ML4D / E05 tip) |
+| origin/main | `997d4c4e` |
+| Docs ML4D tip | `origin/docs/next-ml4d-registre-revues-20261116` @ `c9e6fe15` (consulté par ref, **non mergé**) |
+| Mutations destructives | aucune (pas reset --hard / force push / rebase) |
+| Worktree E05 | code durable sur cette base ; renderer expérimental remplacé in-place |
 
-| Élément | Valeur |
-|---|---|
-| `pwd -P` | `/Users/morris/Projects/sfia-workspace-next-ml4d-ux003-entry-20261116` |
-| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
-| Branche | `feat/next-ml4d-project-space-20261116` |
-| HEAD départ | `208aaa40672433e7dd0bd989f96d26e4e24f7798` |
-| `origin/main` | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
-| Relation | ahead 30 / behind 0 |
-| Dirty initial | `.tmp-sfia-review/chatgpt-review.md` seulement (handoff local) |
-| Travaux concurrents | nombreux worktrees ; aucun écrasement |
-
-### RECETTE initiale (avant bascule)
-
-| Champ | Valeur |
-|---|---|
-| URL | `http://127.0.0.1:3200` |
-| SOURCE_SHA | `208aaa40672433e7dd0bd989f96d26e4e24f7798` |
-| BUILD_ID | `_xkrsw46qX4QKUC0bBU8i` |
-| LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
-| PID next | `48321` |
-| Worktree | `…/ensemble05-recette-build-208aaa40` |
-| PostgreSQL | `sfia_next_recette_ml4` @ `127.0.0.1:5434` |
-| Rollback antérieur | `34a5e102` disponible |
-
-### État final Git (après cycle, avant cette republication)
-
-| Élément | Valeur |
-|---|---|
-| Tip branche | `a783f014935de0dec5ff8e79a2b18eea0e629756` |
-| Tree tip | `a0c89cef5d28a6931cba0ca6183359a9112f0f79` |
-| Commit code runtime | `e224d6278a050bcfbd369c4008d94af504f81d44` |
-| Tree code | `509c459ca6a9be4a5f9ff28615e778aa6b344cc0` |
-| Push produit | **AUCUN** |
+**État local (fichiers cycle) :**
+- M `NoraConversation.tsx`, `NoraVisualComposition.tsx` (alias), `tokens.css`, `delivery-history.md`, `.tmp-sfia-review/chatgpt-review.md`
+- A `NoraComposition.tsx`, `conversational-composition/*`, tests unit, preuves Figma Page 06 / CV-T
 
 ---
 
-## 3. Sources et blobs consultés
+## 2. Sources & refs
 
-### Diagnostic de référence (L3)
+- Routage SFIA v2.6 + operating model / guardrails (main)
+- Next SEF / roadmap / naming / ENV-01 / versioning / cadrage R4 (main)
+- Décisions R5 2026-11-11/12/15 (main)
+- Contrats ML4D docs `03–05` @ `c9e6fe15` (KNOWN : branche docs +29, documentaire only)
+- Doctrine v3 framing 30/33/34/35/37 + CKC 08 (lecture seule)
+- Figma `itgvCulInEnFY6DvgIegvP` Page 06 `742:2` — session MCP `76f33f97-…`
 
-- Branche handoff antérieure : `sfia/review-handoff@de481265…`
-- Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- Blob : `07c536b16ae27306b06facba3ccb01189c309897`
-- Verdict : `R05 PROVIDER FAILURE IDENTIFIED — RECOVERY UX GAP CONFIRMED`
-
-### Méthode / gouvernance (lecture)
-
-- SFIA v2.6 cycle routing, template, guardrails, operating model, validation checklist
-- `governance/environnements-recette-et-promotions.md` (ENV-01)
-- `governance/product-versioning.md`
-- Contrats Travail avec Nora / CT-05 (branche documentaire ML4D lorsque présente)
-- As-built / code réel sur HEAD local `208aaa40` puis candidat `e224d627`
-
-### Surfaces code inspectées puis modifiées
-
-- `page.tsx` `reconcilePending` / `sendMessage` / hydrate
-- `NoraConversation.tsx` bannière pending
-- `thread-recovery.ts` `shouldClearThreadPending`
-- `service.ts` / `turn-command.ts` idempotence
-- `nora-adapter.ts` erreurs provider
-- `observability.ts` META_ALLOWLIST
+**KNOWN GAP (non structurant pour V1) :** Strategy A (sections sémantiques canoniques D3) non implémentée — Strategy B retenue pour éviter rupture schéma / STOP architecture.
 
 ---
 
-## 4. Cause et diagnostic de référence
+## 3. Audit E05 — inventaire
 
-### Symptômes R05 (Morris)
-
-1. `Nora LIVE UNKNOWN` après demande composite.
-2. « Réconcilier la tentative en cours » ne débloque pas ; bouton reste disponible.
-
-### Preuves tours (diagnostic)
-
-| | R05-A | R05-B |
-|---|---|---|
-| generationId | `gen_1d101079…` | `gen_d789f830…` |
-| status | UNKNOWN | UNKNOWN |
-| catégorie | PROVIDER_ERROR | PROVIDER_ERROR |
-| providerContacted | YES | YES |
-| streaming | delivered | delivered |
-| tools | 2 | 2 |
-| effet métier | aucun | aucun |
-| replays reconcile | 2 | 9 |
-
-### Cause reprise **démontrée**
-
-`reconcilePending` → GET D7 by `clientCommandKey` → **404** → POST messages même `clientTurnKey` → replay idempotent UNKNOWN → `shouldClearThreadPending` ne clear que COMPLETE/FAILED sans métier → boucle UX.
-
-### Cause fournisseur
-
-Exception après contact/stream ; sous-type (`error_name="h"`) non établi. **Non corrigée** dans ce cycle (mandat).
+| Élément | Classe |
+| --- | --- |
+| `visual-composition.ts` parse/validate/LIVE schema/projection helpers | **CONSERVER PAR RESPONSABILITÉ** |
+| Wire `visualComposition` optionnel sur `ml4c-sem-qual-v1` | **COMPATIBILITÉ BORNÉE** |
+| `replyDraft` corps durable | **CONSERVER** (vérité textuelle) |
+| `NoraVisualComposition` renderer expérimental | **REMPLACER** → `NoraComposition` |
+| Alias export `NoraVisualComposition` | **COMPATIBILITÉ BORNÉE** (testid legacy) |
+| `NoraSemanticIcon` | **CONSERVER** |
+| Layout radial SVG arbitraire | **RETIRER** (remplacé layout hiérarchique + list) |
+| elkjs / React Flow / ECharts | **NON INTRODUITS** (V1 HTML/CSS/SVG) |
+| Persistance / tables | **AUCUNE migration** |
 
 ---
 
-## 5. Responsabilités et blast radius
+## 4. Architecture réalisée
 
-| Zone | Impact |
-|---|---|
-| Politique pending client | Élargie aux terminaux cognitifs UNKNOWN/INTERRUPTED sans D7 |
-| API lecture | Nouveau GET durable by `clientTurnKey` |
-| UX reconcile / hydrate | Chemins de sortie + copy honnête |
-| OBS | Métadonnées allowlistées supplémentaires |
-| D3 génération / schéma / SDK version | **Inchangés** |
-| D7 métier UNKNOWN | **Protégé** (pending conservé) |
-| Données R05-A/B persistées | **Non réparées artificiellement** |
-| Migration | **Aucune** |
+**Sous-système unique :** `conversational-composition` (admission) + `NoraComposition` (rendu).
 
----
+**Strategy B V1 :**
+1. D3 produit `replyDraft` + optionnel `visualComposition` (`e05-visual-composition-v1`) fail-closed.
+2. Studio `admitConversationalComposition` → familles/variantes déterministes (largeur, cardinalité, densité).
+3. `NoraComposition` rend blocs avec ErrorBoundary local (CV-10) ; dual testids.
+4. Une seule vérité sémantique : pas de second contenu contradictoire persisté.
 
-## 6. Conception de la reprise retenue
-
-Séparation stricte :
-
-1. **Cognitif D3 terminal** UNKNOWN/FAILED/INTERRUPTED + absence d'effet métier confirmée → lever pending UI ; historique conservé ; brouillon conservé ; pas de `run()` ; message « non aboutie ».
-2. **D7 UNKNOWN** (`effectAttempted === true` + status UNKNOWN) → pending métier conservé.
-3. **RUNNING/ACCEPTED / non établi** → ne pas déclarer terminal ; protections conservées.
-
-Décision de clear fondée sur **état serveur durable** (GET `turns/by-key` ou replay idempotent), pas sur un 404 D7 seul.
-
-Invariants respectés : `clientTurnKey` ≠ `clientCommandKey` ; pas de second moteur d'idempotence ; pas de second `run()` en reconcile ; pas de duplication message ; pas d'effacement brouillon par ancienne réponse ; pas de contournement D3/D6/D7.
+**Variantes :** comparison cards|matrix|stacked|text ; sequence horizontal|vertical|text ; relations svg_simple|list|text.
 
 ---
 
-## 7. Diffs exploitables (fichiers modifiés)
+## 5. Contrat D3
 
-Résumé `208aaa40..e224d627` : **13 files, +846 / −50**.
+- Schéma : `NoraTurnQualificationSchema` / `ml4c-sem-qual-v1` **inchangé**.
+- `replyDraft` max 12000 — inchangé.
+- Pas de nouvelle table / migration.
+- M1–M5 préservés (projection versionnée ; final-only ; draft sessionStorage ; viewer local ; no migration).
+- Extension Strategy A → **STOP — MORRIS ARCHITECTURE DECISION REQUIRED** si demandé.
 
-### `thread-recovery.ts` (diff commit)
+---
 
-```
-commit e224d6278a050bcfbd369c4008d94af504f81d44
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Tue Nov 17 20:35:10 2026 +0100
+## 6. Modules créés / remplacés / retirés
 
-    fix(nora): clear cognitive UNKNOWN pending without métier reconcile loop.
+### Créés
+- `web/src/domains/conversation/conversational-composition/admission.ts`
+- `web/src/domains/conversation/conversational-composition/index.ts`
+- `web/src/components/figma/NoraComposition.tsx`
+- `web/tests/unit/conversational-composition-admission.test.ts`
+- Evidence : `figma-page06-visual-contract.md`, `cv-t-matrix-composition-adaptative.md`, PNG Figma 03/04
 
-    Ground R05 recovery on durable D3 turn lookup, keep D7 UNKNOWN protected, and enrich provider OBS allowlisted diagnostics for the next incident.
+### Remplacés
+- Renderer : logique de `NoraVisualComposition` → `NoraComposition`
+- `NoraVisualComposition.tsx` = alias de réexport
+- `NoraConversation` importe `NoraComposition`
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
+### Retirés (comportement)
+- Disposition radiale arbitraire comme défaut relations
+- Forçage cartes sans admission de densité/largeur
 
-diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
-index 898be26a..ae9c8dad 100644
---- a/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
-+++ b/projects/sfia-studio-next/web/src/domains/pilotage/thread-recovery.ts
-@@ -108,11 +108,28 @@ export function pendingStorageKey(projectId: string): string {
-   return `sfia.thread.pending:${projectId}`;
- }
+---
 
-+/**
-+ * Durable Nora conversational terminals that close a *cognitive* pending when
-+ * no métier effect was attempted. UNKNOWN/INTERRUPTED are included so a verified
-+ * D3 terminal without D7 does not trap the Pilot in a reconcile loop (R05).
-+ * Métier UNKNOWN remains protected via `effectAttempted === true` below.
-+ */
-+export function isDurableCognitiveNoraTerminal(noraStatus?: string | null): boolean {
-+  const nora = (noraStatus ?? "").trim().toUpperCase();
-+  return (
-+    nora === "COMPLETE" ||
-+    nora === "FAILED" ||
-+    nora === "UNKNOWN" ||
-+    nora === "INTERRUPTED"
-+  );
-+}
-+
- /**
-  * Clear pending only when the business effect is terminal, or when no
-  * business attempt occurred and Nora reached a conversational terminal.
-  * Nora COMPLETE must NOT close an UNKNOWN / unresolved métier effect.
-  * Independent dialogue COMPLETE must NOT clear a distinct unresolved métier pending.
-+ * Cognitive UNKNOWN/INTERRUPTED without D7 effectAttempted MAY clear (R05 recovery).
-  */
- export function shouldClearThreadPending(input: {
-   noraStatus?: string | null;
-@@ -127,8 +144,7 @@ export function shouldClearThreadPending(input: {
-     if (!biz || biz === "UNKNOWN" || biz.startsWith("UNKNOWN")) return false;
-     return true;
-   }
--  const nora = (input.noraStatus ?? "").trim().toUpperCase();
--  return nora === "COMPLETE" || nora === "FAILED";
-+  return isDurableCognitiveNoraTerminal(input.noraStatus);
- }
+## 7. Contenu des nouveaux / fichiers remplacés
 
- /**
+### `conversational-composition/index.ts`
+
+```ts
+/**
+ * Conversational composition — Studio presentation subsystem.
+ * Product responsibility: adaptive restitution of Nora replies.
+ * Wire format today: validated `e05-visual-composition-v1` (COMPATIBILITÉ BORNÉE).
+ * Presentation contract: `conversational-composition-v1` admission (CV-*).
+ */
+
+export {
+  CONVERSATIONAL_COMPOSITION_CONTRACT,
+  admitConversationalComposition,
+  selectComparisonVariant,
+  selectSequenceVariant,
+  selectRelationsVariant,
+  type AdmissionContext,
+  type AdmissionResult,
+  type AdmittedBlock,
+  type ComparisonVariant,
+  type CompositionFamily,
+  type RelationsVariant,
+  type SequenceVariant,
+} from "./admission";
 
 ```
 
-### `service.ts`
+### `conversational-composition/admission.ts`
 
-Ajout export `lookupDurableTurnByClientKey(pilotId, preparationId, clientTurnKey)` :
+```ts
+/**
+ * Conversational composition — Studio admission & variant selection (CV-*).
+ * Deterministic presentation policy only — never invents facts or authority.
+ * Consumes validated visual compositions (legacy wire) after fail-closed parse.
+ */
 
-- READ-ONLY via `getPreparationContext` + select `conversation_turn_commands`
-- Reconstitue `pilotageEffect` via `resolvePilotageEffectForReplay`
-- `noraMode: "durable-lookup"` · `idempotentReplay: true`
-- Jamais `reserveTurnCommand` / jamais Nora
+import type { VisualBlock, VisualComposition } from "@/domains/conversation/visual-composition";
+import {
+  compositionOwnsBody,
+  hasGraphicBlocks,
+} from "@/domains/conversation/visual-composition";
 
-### `page.tsx` (comportement)
+export const CONVERSATIONAL_COMPOSITION_CONTRACT = "conversational-composition-v1" as const;
 
-- `applyCognitiveRecoveryFromDurable` : clear pending cognitif ; copy « Réponse Nora non aboutie… » ; draft non effacé sur UNKNOWN
-- `reconcilePending` : (1) D7 by-key (2) GET durable by-key (3) POST replay ACK-only fallback
-- Load hydrate : si pending session + lookup prouve terminal cognitif sans métier → `rememberPending(null)`
-- `sendMessage` : UNKNOWN/INTERRUPTED cognitif clear → unfreeze ; métier UNKNOWN → freeze
+export type CompositionFamily =
+  | "narrative"
+  | "comparison"
+  | "sequence"
+  | "dependencies"
+  | "decisionPaths"
+  | "parallelProcess"
+  | "timeline"
+  | "references"
+  | "choices";
 
-### `NoraConversation.tsx`
+export type ComparisonVariant = "cards" | "matrix" | "stacked" | "text";
+export type SequenceVariant = "horizontal" | "vertical" | "text";
+export type RelationsVariant = "svg_simple" | "list" | "text";
 
-- Copy : tentative non résolue + distinction cognitif vs métier
-- Bouton label : **« Vérifier et reprendre »** (`data-testid=thread-reconcile-pending` inchangé)
+export type AdmittedBlock = {
+  block: VisualBlock;
+  family: CompositionFamily;
+  variant: string;
+  reasonCodes: string[];
+};
 
-### `nora-adapter.ts`
+export type AdmissionResult = {
+  contract: typeof CONVERSATIONAL_COMPOSITION_CONTRACT;
+  ownsBody: boolean;
+  admitted: AdmittedBlock[];
+  fallbackReasons: string[];
+  containerWidthPx: number | null;
+};
 
-- `extractProviderErrorDiagnostics` (cause depth ≤4, codes allowlistés)
-- Emission OBS stream error enrichie (`error_code`, `http_status`, `transport_kind`, `error_phase`, `streaming_delivered`, `cause_depth`, `tool_calls_observed`)
-- Pas de changement `strict:false` / modèle / version SDK / retry
+export type AdmissionContext = {
+  /** Effective Travail conversation column width when known. */
+  containerWidthPx?: number | null;
+};
 
-### `observability.ts`
+function labelLen(s: string | undefined): number {
+  return (s ?? "").trim().length;
+}
 
-META_ALLOWLIST += `error_code`, `http_status`, `transport_kind`, `error_phase`, `streaming_delivered`, `cause_depth`, `tool_calls_observed`, `found`, `effect_attempted`
-
-### Tests
-
-- Unit : R05 clear/no-clear + OBS redaction
-- PG : seed UNKNOWN + lookup + replay sans second assistant
-- E2E : hydrate clear + bouton (lookup 404 simulé au load puis continue)
-
-### Docs
-
-- `delivery-history.md` entrée DELIV R05
-- `plan-retest-r05-arnaud.md` (créé puis pin SHA/BUILD en `a783f014`)
-
----
-
-## 8. Contenu complet des fichiers créés
-
-### 8.1 API route `turns/by-key/[clientTurnKey]/route.ts`
-
-```typescript
-import { NextResponse } from "next/server";
-import { requireStudioSession } from "@/domains/identity/session";
-import { lookupDurableTurnByClientKey } from "@/domains/conversation/service";
-import { studioErrorResponse } from "@/lib/http-errors";
-import { emitObs, newRequestId } from "@/lib/observability";
+function maxOptionTextLen(block: Extract<VisualBlock, { kind: "comparison" }>): number {
+  let max = 0;
+  for (const o of block.alternatives) {
+    max = Math.max(max, labelLen(o.title) + labelLen(o.summary));
+    for (const a of o.pros ?? []) max = Math.max(max, labelLen(a));
+    for (const c of o.cons ?? []) max = Math.max(max, labelLen(c));
+  }
+  return max;
+}
 
 /**
- * GET — R05 cognitive recovery read path.
- * Returns durable turn status by clientTurnKey. Never mutates, never calls Nora.
+ * CV-04/05 — comparison variant from cardinality, label density, and width.
+ * No dogmatic "N cards" threshold alone.
  */
-export async function GET(
-  _: Request,
-  ctx: { params: Promise<{ preparationId: string; clientTurnKey: string }> },
-) {
-  const requestId = newRequestId();
-  try {
-    const session = await requireStudioSession();
-    const { preparationId, clientTurnKey } = await ctx.params;
-    const decoded = decodeURIComponent(clientTurnKey);
-    const result = await lookupDurableTurnByClientKey(
-      session.pilotId,
-      preparationId,
-      decoded,
-    );
-    emitObs({
-      event_name: "d3.turn.durable_lookup",
-      component: "api.turns.by_key",
-      request_id: requestId,
-      operation_id: result.operationId ?? undefined,
-      generation_id: result.generationId ?? undefined,
-      outcome: result.found ? "SUCCESS" : "UNKNOWN",
-      meta: {
-        status: result.status,
-        found: result.found,
-        effect_attempted: Boolean(result.pilotageEffect?.attempted),
-      },
-    });
-    if (!result.found) {
-      return NextResponse.json(
-        {
-          found: false,
-          status: null,
-          pilotageEffect: null,
-          requestId,
-          errorCategory: "TURN_NOT_FOUND",
-        },
-        { status: 404 },
-      );
-    }
-    return NextResponse.json({
-      found: true,
-      status: result.status,
-      generationId: result.generationId,
-      operationId: result.operationId,
-      userMessageId: result.userMessageId,
-      assistantMessageId: result.assistantMessageId,
-      pilotageEffect: result.pilotageEffect,
-      idempotentReplay: true,
-      noraMode: result.noraMode,
-      requestId,
-    });
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    emitObs({
-      event_name: "api.turns.by_key_error",
-      component: "api.turns.by_key",
-      request_id: requestId,
-      outcome: "FAILED",
-      error_category: mapped.body.errorCategory,
-    });
-    return NextResponse.json(mapped.body, { status: mapped.status });
+export function selectComparisonVariant(
+  block: Extract<VisualBlock, { kind: "comparison" }>,
+  widthPx: number | null,
+): { variant: ComparisonVariant; reasonCodes: string[] } {
+  const n = block.alternatives.length;
+  const density = maxOptionTextLen(block);
+  const criteria = block.criteria?.length ?? 0;
+  const reasons: string[] = [];
+
+  if (n < 2) {
+    reasons.push("CV_COMPARISON_UNDER_CARDINALITY");
+    return { variant: "text", reasonCodes: reasons };
   }
+  if (n > 18) {
+    reasons.push("CV_COMPARISON_OVER_CAPACITY");
+    return { variant: "text", reasonCodes: reasons };
+  }
+
+  const narrow = widthPx != null && widthPx < 560;
+  const medium = widthPx != null && widthPx < 900;
+
+  if (n >= 5 || criteria >= 3 || (n >= 4 && density > 220)) {
+    reasons.push("CV_COMPARISON_MATRIX_DENSITY");
+    return { variant: narrow ? "stacked" : "matrix", reasonCodes: reasons };
+  }
+  if (narrow || (n >= 3 && density > 280)) {
+    reasons.push(narrow ? "CV_COMPARISON_NARROW_STACK" : "CV_COMPARISON_LONG_COPY_STACK");
+    return { variant: "stacked", reasonCodes: reasons };
+  }
+  if (medium && n >= 3) {
+    reasons.push("CV_COMPARISON_MEDIUM_CARDS");
+    return { variant: "cards", reasonCodes: reasons };
+  }
+  reasons.push("CV_COMPARISON_CARDS");
+  return { variant: "cards", reasonCodes: reasons };
+}
+
+export function selectSequenceVariant(
+  block: Extract<VisualBlock, { kind: "sequence" }>,
+  widthPx: number | null,
+): { variant: SequenceVariant; reasonCodes: string[] } {
+  const n = block.steps.length;
+  const long = block.steps.some((s) => labelLen(s.title) + labelLen(s.detail) > 160);
+  const reasons: string[] = [];
+  if (n === 0) {
+    reasons.push("CV_SEQUENCE_EMPTY");
+    return { variant: "text", reasonCodes: reasons };
+  }
+  if (n > 12) {
+    reasons.push("CV_SEQUENCE_OVER_CAPACITY");
+    return { variant: "text", reasonCodes: reasons };
+  }
+  const narrow = widthPx != null && widthPx < 720;
+  if (narrow || n >= 5 || long) {
+    reasons.push(narrow ? "CV_SEQUENCE_NARROW_VERTICAL" : "CV_SEQUENCE_VERTICAL_DENSITY");
+    return { variant: "vertical", reasonCodes: reasons };
+  }
+  reasons.push("CV_SEQUENCE_HORIZONTAL");
+  return { variant: "horizontal", reasonCodes: reasons };
+}
+
+export function selectRelationsVariant(
+  block: Extract<VisualBlock, { kind: "relations" }>,
+  widthPx: number | null,
+): { variant: RelationsVariant; reasonCodes: string[] } {
+  const nodes = block.nodes.length;
+  const edges = block.edges.length;
+  const reasons: string[] = [];
+  if (nodes === 0) {
+    reasons.push("CV_RELATIONS_EMPTY");
+    return { variant: "text", reasonCodes: reasons };
+  }
+  if (block.preferListFallback) {
+    reasons.push("CV_RELATIONS_PREFER_LIST");
+    return { variant: "list", reasonCodes: reasons };
+  }
+  // Orphan edge check
+  const ids = new Set(block.nodes.map((n) => n.id));
+  const orphan = block.edges.some((e) => !ids.has(e.from) || !ids.has(e.to));
+  if (orphan) {
+    reasons.push("CV_RELATIONS_ORPHAN_EDGE");
+    return { variant: "list", reasonCodes: reasons };
+  }
+  const dense = nodes > 8 || edges > 12;
+  const narrow = widthPx != null && widthPx < 640;
+  if (dense || narrow) {
+    reasons.push(dense ? "CV_RELATIONS_DENSE_LIST" : "CV_RELATIONS_NARROW_LIST");
+    return { variant: "list", reasonCodes: reasons };
+  }
+  if (nodes <= 6 && edges <= 8) {
+    reasons.push("CV_RELATIONS_SVG_SIMPLE");
+    return { variant: "svg_simple", reasonCodes: reasons };
+  }
+  reasons.push("CV_RELATIONS_LIST_DEFAULT");
+  return { variant: "list", reasonCodes: reasons };
+}
+
+function familyFor(block: VisualBlock): CompositionFamily {
+  switch (block.kind) {
+    case "comparison":
+      return "comparison";
+    case "sequence":
+      return "sequence";
+    case "relations":
+      return "dependencies";
+    case "synthesis":
+    case "text":
+      return "narrative";
+    case "choices":
+      return "choices";
+    case "references":
+      return "references";
+    default:
+      return "narrative";
+  }
+}
+
+/**
+ * Admit a fail-closed-parsed composition into presentable blocks with variants.
+ * CV-10: callers must isolate render errors per block.
+ */
+export function admitConversationalComposition(
+  composition: VisualComposition | null | undefined,
+  ctx: AdmissionContext = {},
+): AdmissionResult {
+  const width = ctx.containerWidthPx ?? null;
+  const fallbackReasons: string[] = [];
+
+  if (!composition) {
+    return {
+      contract: CONVERSATIONAL_COMPOSITION_CONTRACT,
+      ownsBody: false,
+      admitted: [],
+      fallbackReasons: ["CV_NO_COMPOSITION"],
+      containerWidthPx: width,
+    };
+  }
+
+  if (!compositionOwnsBody(composition)) {
+    fallbackReasons.push("CV_COMPOSITION_DOES_NOT_OWN_BODY");
+  }
+  if (!hasGraphicBlocks(composition) && composition.blocks.every((b) => b.kind === "text")) {
+    fallbackReasons.push("CV_NARRATIVE_ONLY");
+  }
+
+  const admitted: AdmittedBlock[] = [];
+  for (const block of composition.blocks) {
+    const family = familyFor(block);
+    if (block.kind === "comparison") {
+      const sel = selectComparisonVariant(block, width);
+      admitted.push({ block, family, variant: sel.variant, reasonCodes: sel.reasonCodes });
+      continue;
+    }
+    if (block.kind === "sequence") {
+      const sel = selectSequenceVariant(block, width);
+      admitted.push({ block, family, variant: sel.variant, reasonCodes: sel.reasonCodes });
+      continue;
+    }
+    if (block.kind === "relations") {
+      const sel = selectRelationsVariant(block, width);
+      admitted.push({ block, family, variant: sel.variant, reasonCodes: sel.reasonCodes });
+      continue;
+    }
+    admitted.push({
+      block,
+      family,
+      variant: block.kind === "synthesis" ? "callout" : "default",
+      reasonCodes: ["CV_DEFAULT_VARIANT"],
+    });
+  }
+
+  return {
+    contract: CONVERSATIONAL_COMPOSITION_CONTRACT,
+    ownsBody: compositionOwnsBody(composition),
+    admitted,
+    fallbackReasons,
+    containerWidthPx: width,
+  };
 }
 
 ```
 
-### 8.2 E2E `ensemble05-r05-cognitive-recovery.spec.ts`
+### `NoraVisualComposition.tsx` (alias)
 
-```typescript
-import { test, expect } from "@playwright/test";
-import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
+```tsx
+"use client";
 
 /**
- * R05 — cognitive UNKNOWN recovery (FAKE/DEV :3101, no OpenAI).
- * Seeds a durable UNKNOWN turn without D7; verifies hydrate + reconcile button paths.
+ * Compatibility alias — experimental E05 renderer replaced by NoraComposition.
+ * Keep export path stable for any residual imports; dual testids preserved.
  */
-test.describe("Ensemble 05 R05 cognitive UNKNOWN recovery", () => {
-  test("hydrate clears durable cognitive UNKNOWN pending; draft preserved", async ({ page }) => {
-    test.setTimeout(120_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
 
-    const { projectId, preparationId } = await bootstrapProjectFromPortfolio(page, {
-      seed: "E05 R05 hydrate",
-      name: `E05 R05 H ${Date.now()}`,
-      summary: "r05 hydrate",
-    });
-    expect(preparationId).toBeTruthy();
+export {
+  NoraComposition as NoraVisualComposition,
+  NoraComposition,
+  type NoraCompositionProps,
+} from "@/components/figma/NoraComposition";
 
-    const seed = await page.request.post("/api/dev/e2e/s05-fixture", {
-      data: { action: "seed_unknown", preparationId },
-    });
-    expect(seed.ok(), await seed.text()).toBeTruthy();
-    const seeded = await seed.json();
-    const clientTurnKey = String(seeded.clientTurnKey);
+```
 
-    const lookup = await page.request.get(
-      `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
-    );
-    expect(lookup.ok()).toBeTruthy();
-    const durable = await lookup.json();
-    expect(durable.status).toBe("UNKNOWN");
-    expect(durable.pilotageEffect?.attempted ?? false).toBe(false);
+### `NoraConversation.tsx` (diff utile)
 
-    const draftText = `BROUILLON_R05_H_${Date.now()}`;
-    await page.addInitScript(
-      ({ pid, key, content, draft }) => {
-        sessionStorage.setItem(
-          `sfia.thread.pending:${pid}`,
-          JSON.stringify({
-            content,
-            clientTurnKey: key,
-            clientCommandKey: `conv-auth:${key}`,
-            origin: "composer",
-            projectId: pid,
-          }),
+```diff
+-import { NoraVisualComposition } from "@/components/figma/NoraVisualComposition";
++import { NoraComposition } from "@/components/figma/NoraComposition";
+-                      <NoraVisualComposition
++                      <NoraComposition
+```
+
+### `NoraComposition.tsx` (complet)
+
+```tsx
+"use client";
+
+/**
+ * Nora conversational composition renderer.
+ * Product responsibility: adaptive restitution of validated D3 compositions.
+ * Presentation contract: conversational-composition-v1 (admission).
+ * Wire compatibility: e05-visual-composition-v1 (bounded).
+ */
+
+import {
+  Component,
+  type ErrorInfo,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { NoraSemanticIcon } from "@/components/figma/NoraSemanticIcon";
+import {
+  admitConversationalComposition,
+  type AdmittedBlock,
+  type ComparisonVariant,
+  type RelationsVariant,
+  type SequenceVariant,
+} from "@/domains/conversation/conversational-composition";
+import type {
+  ComparisonBlock,
+  RelationsBlock,
+  SequenceBlock,
+  SynthesisBlock,
+  TextBlock,
+  VisualBlock,
+  VisualComposition,
+  VisualProvenance,
+} from "@/domains/conversation/visual-composition";
+import {
+  canonicalReferenceKey,
+  compositionAnchorsChoices,
+  compositionAnchorsReferences,
+  partitionChoicesForAnchors,
+  partitionReferencesForAnchors,
+  provenanceConsultableKeys,
+  resolveProvenanceReference,
+} from "@/domains/conversation/visual-composition";
+import type { TurnChoice, TurnReference } from "@/domains/conversation/turn-projection";
+
+function Provenance(props: {
+  items?: VisualProvenance[];
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  if (!props.items?.length) return null;
+  const canonical = props.canonicalReferences ?? [];
+  return (
+    <ul
+      className="fig-visual-provenance fig-comp-provenance"
+      data-testid="nora-visual-provenance"
+    >
+      {props.items.map((p, i) => {
+        const resolved = resolveProvenanceReference(p, canonical);
+        return (
+          <li key={`${p.label}-${i}`} data-consultable={resolved ? "1" : "0"}>
+            {resolved && props.onReference ? (
+              <button
+                type="button"
+                className="fig-nora-ref-link"
+                data-testid="nora-visual-prov-link"
+                data-ref-kind={resolved.kind}
+                onClick={() => props.onReference?.(resolved)}
+              >
+                Consulter · {resolved.label}
+                {resolved.available === false ? " (à vérifier)" : ""}
+              </button>
+            ) : (
+              <span>
+                {p.label}
+                <span className="fig-visual-provenance-note"> — mention descriptive</span>
+              </span>
+            )}
+            {p.note ? <span className="fig-visual-provenance-note"> — {p.note}</span> : null}
+          </li>
         );
-        // Draft key shape matches composer-draft helpers (best-effort; UI also fills after load).
-        void draft;
-      },
-      {
-        pid: projectId,
-        key: clientTurnKey,
-        content: "Acte A E2E S05 — en cours (seed fixture)",
-        draft: draftText,
-      },
-    );
+      })}
+    </ul>
+  );
+}
 
-    await page.goto(`/projects/${projectId}?surface=travail`);
-    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-      "data-project-load-state",
-      "ready",
-      { timeout: 20000 },
+function Heading(props: {
+  title: string;
+  role?: TextBlock["role"];
+  icon?: TextBlock["icon"];
+}) {
+  return (
+    <h3 className="fig-visual-title fig-comp-title">
+      <NoraSemanticIcon role={props.role} icon={props.icon} />
+      <span>{props.title}</span>
+    </h3>
+  );
+}
+
+type BlockShellProps = {
+  children: ReactNode;
+  textAlternative: string;
+  blockId: string;
+};
+
+/** CV-10 — isolate render failure to one block; keep readable textAlternative. */
+class BlockErrorBoundary extends Component<
+  BlockShellProps,
+  { failed: boolean }
+> {
+  state = { failed: false };
+
+  static getDerivedStateFromError(): { failed: boolean } {
+    return { failed: true };
+  }
+
+  componentDidCatch(_error: Error, _info: ErrorInfo): void {
+    // Presentation-only; never escalate to D3 FAILED.
+  }
+
+  render() {
+    if (this.state.failed) {
+      return (
+        <section
+          className="fig-visual-block fig-comp-block fig-comp-block-fallback"
+          data-testid="nora-composition-block-fallback"
+          data-block-id={this.props.blockId}
+          data-fallback="1"
+        >
+          <p className="fig-comp-fallback-text">{this.props.textAlternative}</p>
+        </section>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function ComparisonView({
+  block,
+  variant,
+  canonicalReferences,
+  onReference,
+}: {
+  block: ComparisonBlock;
+  variant: ComparisonVariant;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  const hasCriteria = Boolean(block.criteria?.length);
+  const hasProsCons = block.alternatives.some(
+    (a) => (a.pros?.length ?? 0) + (a.cons?.length ?? 0) > 0,
+  );
+  const showMatrix = variant === "matrix" ? hasCriteria : false;
+  const showCards =
+    variant === "cards" ||
+    variant === "stacked" ||
+    (variant === "matrix" && !hasCriteria) ||
+    (variant !== "text" && variant !== "matrix" && (!showMatrix || hasProsCons));
+  const forceText = variant === "text";
+
+  return (
+    <section
+      className={`fig-visual-block fig-visual-comparison fig-comp-block fig-comp-comparison fig-comp-variant-${variant}`}
+      data-testid="nora-visual-comparison"
+      data-comp-testid="nora-composition-comparison"
+      data-block-kind="comparison"
+      data-block-id={block.id}
+      data-variant={variant}
+      aria-label={block.title}
+    >
+      <Heading title={block.title} role={block.role} icon={block.icon} />
+      {forceText ? (
+        <p className="fig-comp-fallback-text">{block.textAlternative}</p>
+      ) : null}
+      {!forceText && showCards ? (
+        <div
+          className={
+            variant === "stacked"
+              ? "fig-visual-comparison-grid fig-comp-comparison-stack"
+              : "fig-visual-comparison-grid fig-comp-comparison-cards"
+          }
+        >
+          {block.alternatives.map((alt) => (
+            <article key={alt.id} className="fig-visual-alt fig-comp-alt" data-alt-id={alt.id}>
+              <h4>{alt.title}</h4>
+              <p>{alt.summary}</p>
+              {alt.pros?.length ? (
+                <ul className="fig-visual-pros">
+                  {alt.pros.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              ) : null}
+              {alt.cons?.length ? (
+                <ul className="fig-visual-cons">
+                  {alt.cons.map((c) => (
+                    <li key={c}>{c}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      ) : null}
+      {!forceText && (showMatrix || variant === "matrix") && block.criteria?.length ? (
+        <div className="fig-visual-matrix-wrap fig-comp-matrix-wrap">
+          <table className="fig-visual-matrix fig-comp-matrix">
+            <caption className="sr-only">Critères de comparaison</caption>
+            <thead>
+              <tr>
+                <th scope="col">Critère</th>
+                {block.alternatives.map((a) => (
+                  <th key={a.id} scope="col">
+                    {a.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.criteria.map((c) => (
+                <tr key={c.id}>
+                  <th scope="row">{c.label}</th>
+                  {block.alternatives.map((a) => (
+                    <td key={a.id}>{c.values[a.id] ?? "—"}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+      {block.recommendation ? (
+        <div className="fig-visual-recommendation" data-testid="nora-visual-recommendation">
+          <NoraSemanticIcon role="recommendation" />
+          <div className="fig-visual-recommendation-body">
+            <span className="fig-visual-recommendation-label">Recommandation (avis Nora)</span>
+            <SafeMarkdown content={block.recommendation} className="fig-visual-inline-md" />
+          </div>
+        </div>
+      ) : null}
+      <p className="sr-only">{block.textAlternative}</p>
+      <Provenance
+        items={block.provenance}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    </section>
+  );
+}
+
+function SequenceView({
+  block,
+  variant,
+  canonicalReferences,
+  onReference,
+}: {
+  block: SequenceBlock;
+  variant: SequenceVariant;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  const titleById = new Map(block.steps.map((s) => [s.id, s.title] as const));
+  const forceText = variant === "text";
+  return (
+    <section
+      className={`fig-visual-block fig-visual-sequence fig-comp-block fig-comp-sequence fig-comp-variant-${variant}`}
+      data-testid="nora-visual-sequence"
+      data-comp-testid="nora-composition-sequence"
+      data-block-kind="sequence"
+      data-block-id={block.id}
+      data-variant={variant}
+      aria-label={block.title}
+    >
+      <Heading title={block.title} role={block.role ?? "step"} icon={block.icon} />
+      {forceText ? (
+        <p className="fig-comp-fallback-text">{block.textAlternative}</p>
+      ) : (
+        <ol
+          className={
+            variant === "horizontal"
+              ? "fig-visual-steps fig-comp-steps-horizontal"
+              : "fig-visual-steps fig-comp-steps-vertical"
+          }
+        >
+          {block.steps.map((step, idx) => (
+            <li key={step.id} className="fig-visual-step fig-comp-step" data-step-id={step.id}>
+              <div className="fig-visual-step-marker" aria-hidden>
+                {idx + 1}
+              </div>
+              <div className="fig-visual-step-body">
+                <h4>
+                  <NoraSemanticIcon role={step.role ?? "step"} />
+                  {step.title}
+                </h4>
+                {step.detail ? (
+                  <SafeMarkdown content={step.detail} className="fig-visual-inline-md" />
+                ) : null}
+                {step.dependsOn?.length ? (
+                  <p className="fig-visual-step-deps" data-testid="nora-visual-step-deps">
+                    <NoraSemanticIcon role="dependency" />
+                    Dépend de :{" "}
+                    {step.dependsOn.map((id) => titleById.get(id) ?? id).join(", ")}
+                  </p>
+                ) : null}
+                {step.dateLabel ? (
+                  <p className="fig-visual-step-date">{step.dateLabel}</p>
+                ) : null}
+              </div>
+              {idx < block.steps.length - 1 ? (
+                <div className="fig-visual-step-connector" aria-hidden />
+              ) : null}
+            </li>
+          ))}
+        </ol>
+      )}
+      <p className="sr-only">{block.textAlternative}</p>
+      <Provenance
+        items={block.provenance}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    </section>
+  );
+}
+
+function RelationsView({
+  block,
+  variant,
+  canonicalReferences,
+  onReference,
+}: {
+  block: RelationsBlock;
+  variant: RelationsVariant;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  const useSvg = variant === "svg_simple";
+  const forceText = variant === "text";
+  const titleById = new Map(block.nodes.map((n) => [n.id, n.label] as const));
+  const w = 420;
+  const h = Math.max(200, 48 + block.nodes.length * 36);
+  // Hierarchical / vertical layout (Figma 07/08) — avoid arbitrary radial packing.
+  const positions = block.nodes.map((n, i) => {
+    const row = i;
+    return {
+      id: n.id,
+      x: w / 2 + (i % 2 === 0 ? -70 : 70),
+      y: 36 + row * 36,
+      node: n,
+    };
+  });
+  const byId = new Map(positions.map((p) => [p.id, p]));
+
+  return (
+    <section
+      className={`fig-visual-block fig-visual-relations fig-comp-block fig-comp-relations fig-comp-variant-${variant}`}
+      data-testid="nora-visual-relations"
+      data-comp-testid="nora-composition-relations"
+      data-block-kind="relations"
+      data-block-id={block.id}
+      data-variant={variant}
+      data-fallback={useSvg ? "0" : "1"}
+      aria-label={block.title}
+    >
+      <Heading title={block.title} role={block.role} icon={block.icon} />
+      {forceText ? (
+        <p className="fig-comp-fallback-text">{block.textAlternative}</p>
+      ) : null}
+      {!forceText && useSvg ? (
+        <svg
+          className="fig-visual-relations-svg fig-comp-relations-svg"
+          viewBox={`0 0 ${w} ${h}`}
+          role="img"
+          aria-label={block.textAlternative}
+        >
+          {block.edges.map((e, i) => {
+            const a = byId.get(e.from);
+            const b = byId.get(e.to);
+            if (!a || !b) return null;
+            return (
+              <g key={`${e.from}-${e.to}-${i}`}>
+                <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} className="fig-visual-edge" />
+                {e.label ? (
+                  <text
+                    x={(a.x + b.x) / 2}
+                    y={(a.y + b.y) / 2 - 4}
+                    className="fig-visual-edge-label"
+                  >
+                    {e.label}
+                  </text>
+                ) : null}
+              </g>
+            );
+          })}
+          {positions.map((p) => (
+            <g key={p.id}>
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r={22}
+                className={`fig-visual-node fig-visual-node-${p.node.kind}`}
+              />
+              <text x={p.x} y={p.y + 4} textAnchor="middle" className="fig-visual-node-label">
+                {p.node.label}
+              </text>
+            </g>
+          ))}
+        </svg>
+      ) : null}
+      {!forceText ? (
+        <>
+          <ul className="fig-visual-relations-list fig-comp-relations-list">
+            {block.nodes.map((n) => (
+              <li key={n.id} data-node-kind={n.kind}>
+                <NoraSemanticIcon
+                  role={
+                    n.kind === "hypothesis"
+                      ? "hypothesis"
+                      : n.kind === "observation"
+                        ? "observation"
+                        : n.kind === "fact" || n.kind === "finding"
+                          ? "fact"
+                          : "information"
+                  }
+                />
+                <span className={`fig-visual-tone fig-visual-tone-${n.kind}`}>{n.kind}</span>
+                {n.label}
+              </li>
+            ))}
+          </ul>
+          {block.edges.length ? (
+            <ul className="fig-visual-relations-edges fig-comp-relations-edges">
+              {block.edges.map((e, i) => (
+                <li key={`${e.from}-${e.to}-${i}`}>
+                  {titleById.get(e.from) ?? e.from} → {titleById.get(e.to) ?? e.to}
+                  {e.label ? ` (${e.label})` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </>
+      ) : null}
+      <p className="sr-only">{block.textAlternative}</p>
+      <Provenance
+        items={block.provenance}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    </section>
+  );
+}
+
+function SynthesisView({
+  block,
+  canonicalReferences,
+  onReference,
+}: {
+  block: SynthesisBlock;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  return (
+    <section
+      className="fig-visual-block fig-visual-synthesis fig-comp-block fig-comp-synthesis"
+      data-testid="nora-visual-synthesis"
+      data-comp-testid="nora-composition-synthesis"
+      data-block-kind="synthesis"
+      data-block-id={block.id}
+      aria-label={block.title}
+    >
+      <Heading title={block.title} role={block.role} icon={block.icon} />
+      <ul className="fig-visual-synthesis-list">
+        {block.items.map((it) => {
+          const role =
+            it.role ??
+            (it.tone === "risk"
+              ? "risk"
+              : it.tone === "hypothesis"
+                ? "hypothesis"
+                : it.tone === "observation"
+                  ? "observation"
+                  : it.tone === "priority"
+                    ? "recommendation"
+                    : "information");
+          return (
+            <li
+              key={it.id}
+              data-tone={it.tone}
+              className={`fig-visual-synth-item fig-visual-tone-${it.tone}`}
+            >
+              <NoraSemanticIcon role={role} icon={it.icon} />
+              <div>
+                <strong>{it.label}</strong>
+                {it.detail ? (
+                  <SafeMarkdown content={it.detail} className="fig-visual-inline-md" />
+                ) : null}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="sr-only">{block.textAlternative}</p>
+      <Provenance
+        items={block.provenance}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    </section>
+  );
+}
+
+function TextView({ block }: { block: TextBlock }) {
+  return (
+    <div
+      className={`fig-visual-block fig-visual-text fig-comp-block fig-comp-text${
+        block.role ? ` fig-visual-text-${block.role}` : ""
+      }`}
+      data-testid="nora-visual-text"
+      data-comp-testid="nora-composition-text"
+      data-block-kind="text"
+      data-role={block.role ?? ""}
+    >
+      {block.role || block.icon ? (
+        <div className="fig-visual-text-head">
+          <NoraSemanticIcon role={block.role} icon={block.icon} />
+        </div>
+      ) : null}
+      <SafeMarkdown content={block.markdown} />
+    </div>
+  );
+}
+
+function ChoicesCluster(props: {
+  choices: TurnChoice[];
+  actionable?: boolean;
+  busy?: boolean;
+  choiceFrozen?: boolean;
+  messageId?: string;
+  residual?: boolean;
+  onChoice?: (choice: TurnChoice, messageId: string) => void;
+  anchorId?: string;
+}) {
+  if (!props.choices.length) return null;
+  return (
+    <div
+      className="fig-nora-choices fig-visual-choices-anchor fig-comp-choices"
+      data-testid="nora-choices"
+      data-block-kind="choices"
+      data-residual={props.residual ? "1" : "0"}
+      data-actionable={props.actionable ? "1" : "0"}
+      data-message-id={props.messageId}
+      data-anchor-id={props.anchorId ?? ""}
+    >
+      {props.choices.map((c) => (
+        <button
+          key={c.id}
+          type="button"
+          className="fig-nora-choice"
+          data-testid="nora-choice"
+          data-choice-id={c.id}
+          disabled={!props.actionable || props.busy || props.choiceFrozen}
+          onClick={() => props.messageId && props.onChoice?.(c, props.messageId)}
+        >
+          {c.label}
+        </button>
+      ))}
+      {!props.actionable ? (
+        <p className="fig-nora-choices-expired" data-testid="nora-choices-expired">
+          Propositions expirées — consultation seule.
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function RefsCluster(props: {
+  references: TurnReference[];
+  residual?: boolean;
+  anchorId?: string;
+  onReference?: (ref: TurnReference) => void;
+}) {
+  if (!props.references.length) return null;
+  return (
+    <ul
+      className="fig-nora-refs fig-visual-refs-anchor fig-comp-refs"
+      data-testid="nora-refs"
+      data-block-kind="references"
+      data-residual={props.residual ? "1" : "0"}
+      data-anchor-id={props.anchorId ?? ""}
+    >
+      {props.references.map((r, i) => (
+        <li key={`${r.kind}-${r.resourceId ?? r.path ?? r.href ?? i}`}>
+          <button
+            type="button"
+            className="fig-nora-ref-link"
+            data-testid="nora-ref-link"
+            data-ref-kind={r.kind}
+            onClick={() => props.onReference?.(r)}
+          >
+            Consulter · {r.label}
+            {r.available === false ? " (à vérifier)" : ""}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function textAltFor(block: VisualBlock): string {
+  if (
+    block.kind === "comparison" ||
+    block.kind === "sequence" ||
+    block.kind === "relations" ||
+    block.kind === "synthesis"
+  ) {
+    return block.textAlternative;
+  }
+  if (block.kind === "text") return block.markdown.slice(0, 400);
+  return "";
+}
+
+function AdmittedBlockView({
+  admitted,
+  canonicalReferences,
+  onReference,
+}: {
+  admitted: AdmittedBlock;
+  canonicalReferences?: TurnReference[];
+  onReference?: (ref: TurnReference) => void;
+}) {
+  const { block, variant } = admitted;
+  if (block.kind === "comparison") {
+    return (
+      <ComparisonView
+        block={block}
+        variant={variant as ComparisonVariant}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
     );
-    await page.getByTestId("thread-draft").fill(draftText);
-    await expect(page.getByTestId("thread-pending-banner")).toHaveCount(0, { timeout: 20000 });
-    await expect(page.getByTestId("thread-draft")).toHaveValue(draftText);
+  }
+  if (block.kind === "sequence") {
+    return (
+      <SequenceView
+        block={block}
+        variant={variant as SequenceVariant}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    );
+  }
+  if (block.kind === "relations") {
+    return (
+      <RelationsView
+        block={block}
+        variant={variant as RelationsVariant}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    );
+  }
+  if (block.kind === "synthesis") {
+    return (
+      <SynthesisView
+        block={block}
+        canonicalReferences={canonicalReferences}
+        onReference={onReference}
+      />
+    );
+  }
+  if (block.kind === "text") {
+    return <TextView block={block} />;
+  }
+  return null;
+}
+
+export type NoraCompositionProps = {
+  composition: VisualComposition;
+  choices?: TurnChoice[];
+  references?: TurnReference[];
+  actionable?: boolean;
+  busy?: boolean;
+  choiceFrozen?: boolean;
+  messageId?: string;
+  onChoice?: (choice: TurnChoice, messageId: string) => void;
+  onReference?: (ref: TurnReference) => void;
+};
+
+export function NoraComposition(props: NoraCompositionProps) {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const [widthPx, setWidthPx] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof ResizeObserver === "undefined") {
+      setWidthPx(el?.clientWidth ?? null);
+      return;
+    }
+    const ro = new ResizeObserver((entries) => {
+      const w = entries[0]?.contentRect.width;
+      if (typeof w === "number" && Number.isFinite(w)) {
+        setWidthPx(Math.round(w));
+      }
+    });
+    ro.observe(el);
+    setWidthPx(Math.round(el.clientWidth));
+    return () => ro.disconnect();
+  }, []);
+
+  const admission = admitConversationalComposition(props.composition, {
+    containerWidthPx: widthPx,
+  });
+  const choices = props.choices ?? [];
+  const references = props.references ?? [];
+  const choiceParts = partitionChoicesForAnchors(props.composition.blocks, choices);
+  const refParts = partitionReferencesForAnchors(props.composition.blocks, references);
+  const alreadyConsultable = provenanceConsultableKeys(
+    props.composition.blocks,
+    references,
+  );
+  const dedupeRefs = (list: TurnReference[]) =>
+    list.filter((r) => !alreadyConsultable.has(canonicalReferenceKey(r)));
+
+  return (
+    <div
+      ref={rootRef}
+      className="fig-visual-composition fig-comp-composition"
+      data-testid="nora-visual-composition"
+      data-comp-testid="nora-composition"
+      data-schema={props.composition.schemaVersion}
+      data-contract={admission.contract}
+      data-owns-body="1"
+      data-container-width={widthPx ?? ""}
+    >
+      {admission.admitted.map((admitted) => {
+        if (admitted.block.kind === "choices") {
+          return (
+            <ChoicesCluster
+              key={admitted.block.id}
+              choices={choiceParts.byAnchorId.get(admitted.block.id) ?? []}
+              actionable={props.actionable}
+              busy={props.busy}
+              choiceFrozen={props.choiceFrozen}
+              messageId={props.messageId}
+              onChoice={props.onChoice}
+              anchorId={admitted.block.id}
+            />
+          );
+        }
+        if (admitted.block.kind === "references") {
+          return (
+            <RefsCluster
+              key={admitted.block.id}
+              references={dedupeRefs(refParts.byAnchorId.get(admitted.block.id) ?? [])}
+              onReference={props.onReference}
+              anchorId={admitted.block.id}
+            />
+          );
+        }
+        return (
+          <BlockErrorBoundary
+            key={admitted.block.id}
+            blockId={admitted.block.id}
+            textAlternative={textAltFor(admitted.block)}
+          >
+            <AdmittedBlockView
+              admitted={admitted}
+              canonicalReferences={references}
+              onReference={props.onReference}
+            />
+          </BlockErrorBoundary>
+        );
+      })}
+      {compositionAnchorsChoices(props.composition) ? (
+        <ChoicesCluster
+          choices={choiceParts.residual}
+          actionable={props.actionable}
+          busy={props.busy}
+          choiceFrozen={props.choiceFrozen}
+          messageId={props.messageId}
+          onChoice={props.onChoice}
+          residual
+          anchorId="residual-choices"
+        />
+      ) : null}
+      {compositionAnchorsReferences(props.composition) ? (
+        <RefsCluster
+          references={dedupeRefs(refParts.residual)}
+          onReference={props.onReference}
+          residual
+          anchorId="residual-references"
+        />
+      ) : null}
+    </div>
+  );
+}
+
+```
+
+### `tests/unit/conversational-composition-admission.test.ts`
+
+```ts
+import { describe, expect, it } from "vitest";
+import {
+  admitConversationalComposition,
+  CONVERSATIONAL_COMPOSITION_CONTRACT,
+  selectComparisonVariant,
+  selectRelationsVariant,
+  selectSequenceVariant,
+} from "@/domains/conversation/conversational-composition";
+import {
+  parseVisualComposition,
+  VISUAL_COMPOSITION_SCHEMA,
+  type VisualComposition,
+} from "@/domains/conversation/visual-composition";
+
+function comparisonFixture(nAlts: number, criteria = 0, long = false): VisualComposition {
+  const alternatives = Array.from({ length: nAlts }, (_, i) => ({
+    id: `a${i}`,
+    title: long ? `Option ${i} ${"x".repeat(80)}` : `Option ${i}`,
+    summary: long ? `${"long ".repeat(40)}summary ${i}` : `Summary ${i}`,
+    pros: long ? [`Pro ${"y".repeat(60)}`] : [`Pro ${i}`],
+    cons: [`Con ${i}`],
+  }));
+  const crit =
+    criteria > 0
+      ? Array.from({ length: criteria }, (_, i) => ({
+          id: `c${i}`,
+          label: `Critère ${i}`,
+          values: Object.fromEntries(alternatives.map((a) => [a.id, `v${i}`])),
+        }))
+      : undefined;
+  return parseVisualComposition({
+    schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+    blocks: [
+      {
+        kind: "comparison",
+        id: "cmp",
+        title: "Comparaison",
+        alternatives,
+        criteria: crit,
+        textAlternative: alternatives.map((a) => `${a.title}: ${a.summary}`).join(" | "),
+      },
+    ],
+  })!;
+}
+
+describe("conversational composition admission (CV-*)", () => {
+  it("CV-T01 — narrative-only / no composition → no graphic ownership", () => {
+    const empty = admitConversationalComposition(null);
+    expect(empty.contract).toBe(CONVERSATIONAL_COMPOSITION_CONTRACT);
+    expect(empty.ownsBody).toBe(false);
+    expect(empty.admitted).toHaveLength(0);
+    expect(empty.fallbackReasons).toContain("CV_NO_COMPOSITION");
+
+    const textOnly = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [{ kind: "text", id: "t1", markdown: "Réponse simple." }],
+    })!;
+    const adm = admitConversationalComposition(textOnly);
+    expect(adm.ownsBody).toBe(true);
+    expect(adm.admitted).toHaveLength(1);
+    expect(adm.admitted[0]?.family).toBe("narrative");
+    expect(adm.fallbackReasons).toContain("CV_NARRATIVE_ONLY");
   });
 
-  test("reconcile button clears pending when hydrate skipped; no provider loop", async ({
-    page,
-  }) => {
-    test.setTimeout(120_000);
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
+  it("CV-T03/T04 — 2–3 options → cards; 5 options + criteria → matrix (wide)", () => {
+    const three = comparisonFixture(3);
+    const c3 = selectComparisonVariant(three.blocks[0] as never, 960);
+    expect(c3.variant).toBe("cards");
 
-    const { projectId, preparationId } = await bootstrapProjectFromPortfolio(page, {
-      seed: "E05 R05 button",
-      name: `E05 R05 B ${Date.now()}`,
-      summary: "r05 button",
-    });
-    expect(preparationId).toBeTruthy();
+    const five = comparisonFixture(5, 4);
+    const c5 = selectComparisonVariant(five.blocks[0] as never, 960);
+    expect(c5.variant).toBe("matrix");
+    expect(c5.reasonCodes.some((r) => r.includes("MATRIX"))).toBe(true);
+  });
 
-    const seed = await page.request.post("/api/dev/e2e/s05-fixture", {
-      data: { action: "seed_unknown", preparationId },
-    });
-    expect(seed.ok(), await seed.text()).toBeTruthy();
-    const seeded = await seed.json();
-    const clientTurnKey = String(seeded.clientTurnKey);
+  it("CV-T05 — long copy / narrow → stacked; over-capacity defensive → text", () => {
+    // Wire parse caps alternatives at 5; long copy + narrow width still adapts.
+    const many = comparisonFixture(5, 0, true);
+    const narrow = selectComparisonVariant(many.blocks[0] as never, 480);
+    expect(["stacked", "text", "matrix"]).toContain(narrow.variant);
+    expect(narrow.variant).not.toBe("cards");
 
-    // First by-key during load hydrate → 404 so pending stays; later clicks continue to real API.
-    let byKeyHits = 0;
-    await page.route(`**/api/preparations/${preparationId}/turns/by-key/**`, async (route) => {
-      byKeyHits += 1;
-      if (byKeyHits === 1) {
-        await route.fulfill({
-          status: 404,
-          contentType: "application/json",
-          body: JSON.stringify({ found: false, status: null, errorCategory: "TURN_NOT_FOUND" }),
-        });
-        return;
-      }
-      await route.continue();
-    });
+    // Defensive path if a future wire allows >18 (admission, not parse).
+    const overBlock = {
+      kind: "comparison" as const,
+      id: "cmp",
+      title: "Over",
+      alternatives: Array.from({ length: 20 }, (_, i) => ({
+        id: `a${i}`,
+        title: `O${i}`,
+        summary: `s${i}`,
+      })),
+      textAlternative: "trop d'options",
+    };
+    const o = selectComparisonVariant(overBlock, 1200);
+    expect(o.variant).toBe("text");
+  });
 
-    await page.addInitScript(
-      ({ pid, key, content }) => {
-        sessionStorage.setItem(
-          `sfia.thread.pending:${pid}`,
-          JSON.stringify({
-            content,
-            clientTurnKey: key,
-            clientCommandKey: `conv-auth:${key}`,
-            origin: "composer",
-            projectId: pid,
-          }),
-        );
-      },
-      {
-        pid: projectId,
-        key: clientTurnKey,
-        content: "Acte A E2E S05 — en cours (seed fixture)",
-      },
-    );
+  it("CV-T06 — sequence narrow → vertical", () => {
+    const seq = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "sequence",
+          id: "s1",
+          title: "Parcours",
+          steps: Array.from({ length: 5 }, (_, i) => ({
+            id: `st${i}`,
+            title: `Étape ${i}`,
+            detail: "détail",
+          })),
+          textAlternative: "Cinq étapes",
+        },
+      ],
+    })!;
+    const v = selectSequenceVariant(seq.blocks[0] as never, 500);
+    expect(v.variant).toBe("vertical");
+  });
 
-    await page.goto(`/projects/${projectId}?surface=travail`);
-    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-      "data-project-load-state",
-      "ready",
-      { timeout: 20000 },
-    );
+  it("CV-T10 — dense / preferList / orphan relations → list (no radial)", () => {
+    const dense = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        {
+          kind: "relations",
+          id: "r1",
+          title: "Dépendances",
+          nodes: Array.from({ length: 10 }, (_, i) => ({
+            id: `n${i}`,
+            label: `Nœud ${i} with a very long human label that must remain readable`,
+            kind: "observation",
+          })),
+          edges: Array.from({ length: 14 }, (_, i) => ({
+            from: `n${i % 10}`,
+            to: `n${(i + 1) % 10}`,
+            label: "lié",
+          })),
+          textAlternative: "Graphe dense",
+        },
+      ],
+    })!;
+    expect(dense).not.toBeNull();
+    const sel = selectRelationsVariant(dense!.blocks[0] as never, 900);
+    expect(sel.variant).toBe("list");
 
-    const draftText = `BROUILLON_R05_B_${Date.now()}`;
-    await page.getByTestId("thread-draft").fill(draftText);
-    await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
-    await page.getByTestId("thread-reconcile-pending").click();
-    await expect(page.getByTestId("thread-pending-banner")).toHaveCount(0, { timeout: 20000 });
-    await expect(page.getByTestId("thread-draft")).toHaveValue(draftText);
-    await expect(page.getByTestId("thread-nora-status")).toContainText(/non aboutie|UNKNOWN|durable/i, {
-      timeout: 15000,
-    });
+    // Parse rejects orphan edges; admission still defends if raw slipped through.
+    const orphanRaw = {
+      kind: "relations" as const,
+      id: "r2",
+      title: "Orphelin",
+      nodes: [
+        { id: "a", label: "A", kind: "fact" as const },
+        { id: "b", label: "B", kind: "fact" as const },
+      ],
+      edges: [{ from: "a", to: "missing" }],
+      textAlternative: "A vers inconnu",
+    };
+    expect(selectRelationsVariant(orphanRaw, 900).variant).toBe("list");
 
-    // Explicit new request still works (fixture — no OpenAI).
-    await page.getByTestId("thread-draft").fill(`Suite après reprise ${Date.now()}`);
-    await page.getByTestId("thread-send").click();
-    await expect(page.getByTestId("thread-nora-status")).toContainText(/COMPLETE|Nora/i, {
-      timeout: 45000,
-    });
-    await expect(page.getByTestId("thread-pending-banner")).toHaveCount(0);
-    await page.unrouteAll({ behavior: "ignoreErrors" });
+    const prefer = {
+      ...orphanRaw,
+      edges: [{ from: "a", to: "b" }],
+      preferListFallback: true,
+    };
+    expect(selectRelationsVariant(prefer, 900).variant).toBe("list");
+  });
+
+  it("CV-T14 — admission never invents quantitative chart family", () => {
+    const adm = admitConversationalComposition(comparisonFixture(3));
+    expect(adm.admitted.every((a) => a.family !== ("chart" as never))).toBe(true);
+    expect(adm.contract).toBe("conversational-composition-v1");
+  });
+
+  it("admit preserves block order and reason codes", () => {
+    const comp = parseVisualComposition({
+      schemaVersion: VISUAL_COMPOSITION_SCHEMA,
+      blocks: [
+        { kind: "text", id: "t1", markdown: "Intro" },
+        {
+          kind: "comparison",
+          id: "c1",
+          title: "Opts",
+          alternatives: [
+            { id: "a", title: "A", summary: "sa" },
+            { id: "b", title: "B", summary: "sb" },
+          ],
+          textAlternative: "A vs B",
+        },
+        { kind: "choices", id: "ch" },
+      ],
+    })!;
+    const adm = admitConversationalComposition(comp, { containerWidthPx: 800 });
+    expect(adm.admitted.map((a) => a.block.kind)).toEqual([
+      "text",
+      "comparison",
+      "choices",
+    ]);
+    expect(adm.admitted[1]?.reasonCodes.length).toBeGreaterThan(0);
   });
 });
 
 ```
 
-### 8.3 Plan retest Arnaud (tip `a783f014`)
+### CSS `tokens.css`
 
-Voir aussi §20 ; contenu intégral :
+Ajout bloc `.fig-comp-*` (container queries, matrix scroll, stack/cards, fallback text, steps horizontal/vertical). Diff ~102 lignes ajoutées après `.fig-visual-*`.
 
-```markdown
-# Plan de retest Ensemble 05 — destiné à Arnaud
+### Evidence contrat Figma
 
-**Produit :** SFIA Studio Next — Travail avec Nora
-**Campagne :** Retest post-correctif R05 (reprise cognitive UNKNOWN)
-**Autorité de validation :** Morris
-**Exécutant retest :** Arnaud (si distinct) / Morris
-**Date du plan :** 2026-11-17
+# Contrat visuel extrait — Figma Page 06 (références composition)
 
-## Identité runtime (à confirmer sur la machine hôte)
+**Date :** 2026-11-18
+**Fichier :** `https://www.figma.com/design/itgvCulInEnFY6DvgIegvP`
+**Page :** 06 · node `742:2`
+**Statut :** EXTRAIT MCP — **pas une preuve runtime**
 
-| Champ | Valeur attendue après déploiement |
-|---|---|
-| URL locale | `http://127.0.0.1:3200` |
-| Accès | Uniquement sur la machine qui héberge RECETTE — **pas** accessible depuis un autre ordinateur sans tunnel (aucun tunnel autorisé ici) |
-| SOURCE_SHA | `e224d6278a050bcfbd369c4008d94af504f81d44` |
-| BUILD_ID | `MKmBUvdIXyydv_DpUTGZi` |
-| Lane | RECETTE |
-| Fixture Nora forcée | NON (`STUDIO_FORCE_NORA_FIXTURE` unset) |
-| STABLE | NOT AVAILABLE |
+## Principes UX acceptés (Morris)
 
-Si Arnaud n’a pas accès physique/écran partagé à la machine hôte, transmettre ce plan à Morris pour exécution ou partage d’écran — ne pas inventer d’URL publique.
+- Sobriété de l’environnement ; richesse maîtrisée de la réponse.
+- Hiérarchie éditoriale claire ; cartes uniquement si pertinentes.
+- Connexions et représentations fiables ; pas de décoration gratuite.
+- Texte essentiel non tronqué ; lisibilité à largeur variable.
 
-## Prérequis d’accès
+## Frames de référence
 
-1. Compte Pilote local autorisé sur RECETTE.
-2. Projet **Intervencia** (ou projet de campagne E05) accessible.
-3. Surface **Travail avec Nora**.
-4. Aucune migration / purge demandée.
-5. Pour le test 4 (nouvelle génération LIVE) : **GO REAL distinct** Morris — Cursor ne l’exécute pas.
+| Ref | Node | Intention |
+| --- | --- | --- |
+| 01 | 742:36 | Synthèse stratégique |
+| 02 | 743:2 | Parcours et planning |
+| 03 | 745:2 | Trois options adaptatives |
+| 04 | 745:27 | Matrice comparative |
+| 05 | 746:2 | Largeur réduite / textes longs |
+| 06 | 746:22 | Parcours vertical |
+| 07 | 751:11 | Dépendances |
+| 08 | 752:2 | Arbre de décision |
+| 09 | 753:2 | Flux parallèle |
 
-## Réserves reportées (ne pas les « fermer » par ce retest)
+## Propriétés visuelles observées (MCP)
 
-- R01–R02 : PASS visuel antérieur.
-- R03 : PASS avec réserve de richesse UX.
-- R04 : lisibilité des diagrammes / relations insuffisante — **non corrigée** par R05.
-- R05 : incident fournisseur + boucle de reprise — objet de ce retest pour la **reprise** ; l’exception fournisseur n’est pas garantie corrigée.
-- R06–R08 : non réceptionnés.
-- Option A D3 `strict:false` conservée.
+- Composition claire sectionnée : titre de bloc + corps (cartes / table / liste / graphe).
+- Cartes comparison : grille responsive, hauteur intrinsèque au contenu, ombre/bordure soft.
+- Matrice : en-têtes critères × options ; wrap horizontal si dense.
+- Séquences : marqueurs numérotés + connecteurs ; variante verticale privilégiée en largeur réduite.
+- Relations : nœuds labellisés humains ; repli liste si densité.
+- Environnement conversationnel sombre Studio (`tokens.css`) — **écart connu** vs maquettes Figma plus claires Page 06 ; la DA « sobriété + hiérarchie » est retenue, pas un clonage pixel-perfect du fond clair.
 
-## Séquence de retest
+## Choix techniques candidats (retenus V1)
 
-Pour chaque ligne : résultat `PASS` / `PASS AVEC RÉSERVE` / `FAIL` / `BLOQUÉ` / `NON TESTÉ`.
+- HTML/CSS/SVG sémantique ; **pas** elkjs / React Flow / ECharts en V1.
+- Admission déterministe `conversational-composition-v1` (variantes cards/matrix/stacked/vertical/list).
+- Container queries + ResizeObserver pour largeur effective.
+- Dual testids `nora-visual-*` (compat) + `data-comp-testid=nora-composition*`.
 
-| # | Test | Instructions | Attendu | Preuves | Résultat |
-|---|---|---|---|---|---|
-| 1 | Relecture anciens R05 UNKNOWN | Ouvrir Intervencia → Travail. Localiser les messages assistant UNKNOWN (placeholders « Nora LIVE UNKNOWN… »). Ne pas cliquer d’effet métier. | Historique conservé ; aucun résultat fictif inventé ; pas de disparition des tours. | Capture fil + note IDs visibles | |
-| 2 | Sortie de reprise cognitive | Si bannière « Vérifier et reprendre » : cliquer **une fois**. Sinon recharger la page (hydrate). Préférer données contrôlées ; **ne pas** provoquer volontairement un incident fournisseur. | Bannière disparaît si tour cognitif UNKNOWN sans effet métier ; **pas** de nouvel appel OpenAI induit ; message « non aboutie » / formulation nouvelle possible. | Capture avant/après ; horodatage | |
-| 3 | Conservation du brouillon | Saisir un brouillon libre avant reprise / navigation / refresh. | Brouillon intact après reprise, nav Documents↔Travail, refresh. | Capture composer | |
-| 4 | Nouvelle demande composite R05 | **Uniquement avec GO REAL Morris.** Reformuler la demande composite portail (600 collab., 6 sites, B/C…). | Réponse exploitable **ou** échec honnête sans boucle de réconciliation. | Capture réponse / statut | |
-| 5 | Persistense après refresh | Si test 4 a produit COMPLETE : refresh + retour projet. | Composition / texte persistés. | Capture post-refresh | |
-| 6 | Non-régression R01–R03 | Demandes simples / analytiques / comparaison légères (LIVE seulement si GO). | Restitutions cohérentes. | Notes courtes | |
-| 7 | Réserve R04 | Observer un diagramme de relations si présent. | Confirmer réserve de lisibilité **sans** présumer correction. | Capture | |
-| 8 | R06–R08 | Selon protocole E05 si 1–5 OK. | Suivre protocole ; ne pas clôturer E05. | Checklist E05 | |
+## Verdict contrat Figma
 
-## Conditions d’arrêt
+**FIGMA CONTRACT EXTRACTED — RUNTIME COMPARISON PENDING**
+Sans capture runtime post-implémentation : verdict visuel maximal
+`REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED`.
 
-- FAIL sur test 2 (boucle reprise toujours présente).
-- Disparition / corruption d’historique R05.
-- Effet métier déclenché sans intention.
-- Indisponibilité RECETTE / identité SHA/BUILD incohérente.
 
-## Remontée d’anomalies
+### Matrice CV-T
 
-1. Noter date/heure UTC, URL, SOURCE_SHA/BUILD_ID affichés ou fournis.
-2. Captures + texte d’erreur UI (sans coller de secrets).
-3. Remonter à Morris (autorité) ; Arnaud ne clôture pas E05 ni Gate C.
+# Matrice CV-T01–CV-T20 — Composition conversationnelle adaptative
 
-## Gate de décision Morris
+**Cycle :** 2026-11-18 · branche locale `sfia/next-ml4d-composition-adaptative`
+**GO :** construction locale bornée — pas de LIVE/REAL OpenAI ; pas de RECETTE.
 
-- Retest PASS → poursuivre UAT E05 / éventuel GO REAL pour test 4.
-- PASS AVEC RÉSERVE → documenter ; R04 reste ouverte.
-- FAIL reprise → nouveau diagnostic / correctif.
-- E05 / Gate C : **non fermés** par ce plan.
+| ID | Statut | Frontière | Preuve / motif |
+| --- | --- | --- | --- |
+| CV-T01 | PASS | UNIT DETERMINISTIC | `conversational-composition-admission.test.ts` narrative-only |
+| CV-T02 | PARTIAL | BROWSER DETERMINISTIC | e2e T02 ordered S1–S8 PASS (fixture) ; LIVE Pilote NOT RUN |
+| CV-T03 | PARTIAL | UNIT + FIGMA REF | admission cards 2–3 ; Figma 745:2 capturé ; runtime screenshot NOT RUN |
+| CV-T04 | PARTIAL | UNIT + FIGMA REF | admission matrix 5+criteria ; Figma 745:27 capturé ; runtime NOT RUN |
+| CV-T05 | PASS | UNIT/property | long/narrow → stacked/text ; wire MAX_ALTS=5 (KNOWN BOUND) |
+| CV-T06 | PASS | UNIT | sequence narrow → vertical |
+| CV-T07 | NOT RUN | BROWSER | besoin capture graphe convergences + Figma 07 |
+| CV-T08 | NOT RUN | BROWSER + D6 | arbre conditionnel ; aucune décision activée — non instrumenté ce cycle |
+| CV-T09 | NOT RUN | BROWSER | flux parallèle Figma 09 |
+| CV-T10 | PASS | UNIT/property | dense/orphan/preferList → list |
+| CV-T11 | NOT RUN | BROWSER a11y | zoom/URL longues — runtime required |
+| CV-T12 | NOT RUN | BROWSER UX-010 | pane 50/50 — runtime required |
+| CV-T13 | PASS (legacy) | UNIT | provenance fail-closed conservée (`ensemble05-visual-composition`) |
+| CV-T14 | PASS | UNIT | aucune famille chart inventée |
+| CV-T15 | PARTIAL | CODE | `BlockErrorBoundary` + textAlternative ; BROWSER error inject NOT RUN |
+| CV-T16 | PASS (legacy) | BROWSER fixture | T02 refresh path in e2e suite ; identity via existing projection |
+| CV-T17 | NOT RUN | PG/BROWSER | R05 UNKNOWN — hors scope graphique ; pas de REAL |
+| CV-T18 | PASS | UNIT + BROWSER | parse legacy + dual testids ; e2e T02 composition path |
+| CV-T19 | NOT RUN | LIVE/REAL | non autorisé sous ce GO |
+| CV-T20 | NOT RUN | BROWSER a11y | audit lecteur d’écran / contraste runtime required |
 
-```
+## Synthèse
 
----
+- UNIT/property admission : **7/7 PASS**
+- e2e Ensemble 05 : **5 PASS / 2 FAIL** (C2 + composer ACK reconcile — tests R05/idempotence, hors renderer ; à requalifier séparément)
+- T02 visual composition path : **PASS**
+- Verdict visuel Figma/runtime : **REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED**
 
-## 9. Résultats des tests
-
-| Suite | Commande / cible | DB | Résultat |
-|---|---|---|---|
-| Unit CR-02 + R05 pending | `vitest` `ml3-b13-divergence.test.ts` | DEV `:5433` | inclus dans 36 PASS |
-| Unit OBS / no second run | `vitest` `nora-adapter-corrective.test.ts` | DEV `:5433` | inclus dans 36 PASS |
-| **Total unit ciblés** | deux fichiers ci-dessus | | **36 PASS** |
-| Intégration PG | `ml2-turn-command.pg.test.ts` | DEV `:5433` | **4 PASS** |
-| Playwright R05 | `ensemble05-r05-cognitive-recovery.spec.ts` | E2E `:3101` FAKE | **2 PASS** |
-| ESLint touched | fichiers correctif | — | **0 error** (warnings préexistants) |
-| TypeScript | `tsc --noEmit` | — | **32** globales préexistantes ; **0** sources touchées |
-| Next build | `npm run build` (DEV + worktree RECETTE) | — | **PASS** · BUILD_ID RECETTE `MKmBUvdIXyydv_DpUTGZi` |
-
-Aucun test déclaré PASS sans exécution.
 
 ---
 
-## 10. Contrôle des régressions métier
+## 8. Tests exécutés
 
-| Scénario | Attendu | Preuve |
-|---|---|---|
-| D7 UNKNOWN + effectAttempted | pending **conservé** | unit `ml3-b13` |
-| COMPLETE sans métier | clear (inchangé) | unit |
-| preserveUnresolvedMetierPending | no clear | unit |
-| Replay même clientTurnKey | pas de 2e assistant / pas de provider | PG |
-| Absence business_command cognitif | lookup status UNKNOWN, effect non attempted | PG + API |
-| E2E métier ACK loss existants | testids reconcile inchangés | non cassés par label |
-
----
-
-## 11. Tests de redaction des erreurs
-
-- `extractProviderErrorDiagnostics` : cause imbriquée `APIError` / 429 / `rate_limit_exceeded` ; **aucune** fuite `sk-…` ni message brut dans JSON diag.
-- `redactDeep` : `authorization` / `SYNTH_SECRET_PROBE…` → `[REDACTED…]`.
-- Catégories `PROVIDER_*` existantes non régressées (`categorizeProviderError`).
-
-Limite documentée : `error.message` brut **non** persisté (non démontrablement expurgeable systématiquement) — codes allowlistés uniquement.
+| Suite | Commande | Résultat |
+| --- | --- | --- |
+| Admission + E05 + schema + projection | `npx vitest run tests/unit/conversational-composition-admission.test.ts tests/unit/ensemble05-visual-composition.test.ts tests/unit/ensemble05-turn-projection.test.ts tests/unit/nora-live-output-schema.test.ts` | **54 PASS** |
+| Playwright Ensemble 05 DEV fixture | `STUDIO_LANE=DEV STUDIO_FORCE_NORA_FIXTURE=1 npx playwright test tests/e2e/ensemble05-travail-nora.spec.ts` | **5 PASS / 2 FAIL** |
+| T02 visual composition path | inclus ci-dessus | **PASS** |
+| C2 ACK lost / composer ACK | reconcile `thread-reconcile-pending` | **FAIL** (hors renderer composition ; à requalifier R05) |
+| tsc full project | `npx tsc --noEmit` | erreurs préexistantes hors fichiers touchés |
+| LIVE OpenAI | — | **NOT RUN** (non autorisé) |
+| Runtime screenshot post-impl | — | **NOT RUN** |
 
 ---
 
-## 12. TypeScript — baseline / delta
+## 9. Comparaison Figma / runtime
 
-| Mesure | Valeur |
-|---|---|
-| Erreurs globales `tsc` | **32** (baseline historique tests/intégration) |
-| Erreurs sur sources touchées après correctif | **0** |
-| Incident introduit puis corrigé | TDZ `toolCallsObserved` dans catch stream → formule budget locale |
-
-`tsc` global **non** présenté comme PASS.
+- Captures Figma 03 (`745:2`) et 04 (`745:27`) sauvegardées sous `docs/evidence/.../figma-page06/`.
+- **Pas de capture runtime** après remplacement renderer.
+- Verdict visuel : **REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED**
 
 ---
 
-## 13. Build et SHAs
+## 10. Fake / Real Qualification
 
-| Artefact | Valeur |
-|---|---|
-| Commit code (runtime) | `e224d6278a050bcfbd369c4008d94af504f81d44` |
-| Tree code | `509c459ca6a9be4a5f9ff28615e778aa6b344cc0` |
-| Message | `fix(nora): clear cognitive UNKNOWN pending without métier reconcile loop.` |
-| Commit docs pin | `a783f014935de0dec5ff8e79a2b18eea0e629756` |
-| Tree tip | `a0c89cef5d28a6931cba0ca6183359a9112f0f79` |
-| BUILD_ID servi RECETTE | `MKmBUvdIXyydv_DpUTGZi` |
-| Worktree build isolé | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble05-recette-build-e224d627` |
+| Preuve | Qualif |
+| --- | --- |
+| Vitest admission / parse | DETERMINISTIC |
+| Playwright fixture Nora | BROWSER DETERMINISTIC (pas LIVE) |
+| Figma MCP screenshots | DESIGN REF (pas runtime) |
+| OpenAI provider | NOT RUN |
+| Git effet externe / RECETTE | NOT TOUCHED |
 
----
-
-## 14. Gate de déploiement §9
-
-**PASS — bascule autorisée et exécutée.**
-
-Conditions vérifiées : cause/fix reprise ; tests unit/PG/e2e PASS ; build PASS ; pas de nouvelle erreur tsc/lint imputable ; pas de migration ; pas d'OpenAI ; docs synchronisées ; SHA figé ; ENV-01 ; rollback prêt.
+**DETERMINISTIC PROVEN ≠ READY FOR REAL**
 
 ---
 
-## 15. État RECETTE avant / après
+## 11. ENV-01 / Versioning
 
-| Champ | Avant | Après |
-|---|---|---|
-| SOURCE_SHA | `208aaa40…` | `e224d627…` |
-| BUILD_ID HTML | `_xkrsw46qX4QKUC0bBU8i` | `MKmBUvdIXyydv_DpUTGZi` |
-| Worktree | `…-208aaa40` | `…-e224d627` |
-| PID next | 48321 | 95746 |
-| LaunchAgent program | `start-recette-ensemble05-208aaa40.sh` | `start-recette-ensemble05-e224d627.sh` |
-| Fixture forcée | unset | unset |
+- Lane : **DEV** uniquement.
+- RECETTE/STABLE : **aucun déploiement / mutation**.
+- Classe : **NO RELEASE** (`0.0.0-dev` ; STABLE NOT AVAILABLE).
+- Isolation cookies host partagé : réserve connue inchangée.
 
 ---
 
-## 16. Sauvegarde et rollback
+## 12. Dette / réserves / STOP éventuels
 
-| Élément | Chemin |
-|---|---|
-| Backup plist pre-cutover | `/Users/morris/Projects/sfia-recette-backups/ml4d-e05-20261117-pre-e224d627/` |
-| Script rollback | `…/ensemble05-recette-build-e224d627/ROLLBACK-TO-208aaa40.sh` |
-| Ancien runtime | **intact** `…-208aaa40` |
-| Manifest | `…-e224d627/DEPLOY-MANIFEST-E05-R05-e224d627.md` |
+1. Runtime Figma comparison manquante → verdict visuel inconclusif.
+2. CV-T07–09, T11–12, T17, T19–20 NOT RUN / BLOCKED.
+3. 2 e2e ACK/reconcile FAIL — hors scope graphique ; non attribués au renderer sans preuve.
+4. Wire `MAX_ALTS=5` vs scénario CV-T05 « 8–18 options » — borne parse existante ; admission défend >18.
+5. Strategy A non livrée — KNOWN GAP documenté.
+6. Thème sombre Studio vs maquettes Page 06 plus claires — écart DA environnement.
 
-Rollback non exécuté (cutover OK).
-
----
-
-## 17. Preuves de runtime servi
-
-- HTML login : `<!--MKmBUvdIXyydv_DpUTGZi-->`
-- `lsof` : `node` listen `127.0.0.1:3200`
-- CWD process : `…/e224d627/projects/sfia-studio-next/web`
-- Route nouvelle : `GET …/turns/by-key/…` → **401** sans session (route présente, auth fail-closed)
-- Login HTTP **200**
+**Aucun STOP bloquant d’entrée** après Truth Check + Figma extract + Strategy B.
 
 ---
 
-## 18. Données avant / après
+## 13. Verdict
 
-| Métrique | Avant | Après |
-|---|---|---|
-| projects | 22 | 22 |
-| documents | 117 | 117 |
-| messages | 526 | 526 |
-| turn_commands | 263 | 263 |
-| R05-A UNKNOWN row | 1 | 1 |
-| R05-B UNKNOWN row | 1 | 1 |
+# READY WITH RESERVES
 
-Aucune purge / update de statut incident.
+Pas ADOPTED / Gate C CLOSED / STABLE / MERGED / REAL PROVEN.
 
 ---
 
-## 19. Fake / Real Qualification
+## 14. Instruction ChatGPT
 
-| Item | Qualification |
-|---|---|
-| Correctif reprise + tests déterministes | **REAL** |
-| OBS diagnostics allowlist | **REAL** (unit) |
-| Déploiement RECETTE | **REAL** |
-| Smoke post-deploy | **REAL** non-LIVE |
-| Appel OpenAI post-fix | **NOT EXECUTED** |
-| Correction cause fournisseur R05 | **NOT CLAIMED** |
-| E05 / Gate C | **OUVERTS** |
+Revue Full demandée pour le cycle **Composition conversationnelle adaptative Nora** (2026-11-18) sur branche locale `sfia/next-ml4d-composition-adaptative`.
 
----
+À examiner :
+1. Strategy B (replyDraft + wire visualComposition + admission `conversational-composition-v1`) vs préférence Strategy A.
+2. Remplacement renderer E05 → `NoraComposition` (ErrorBoundary, variantes, dual testids).
+3. Non-régression D3/M1–M5 et absence de migration.
+4. Matrice CV-T et gap runtime/Figma.
+5. 2 échecs e2e ACK/reconcile : régression induite ou flaky hors périmètre ?
+6. Aptitude à un prochain GO (captures runtime + commit produit éventuel).
 
-## 20. Plan de recette complet destiné à Arnaud
-
-Contenu intégral du livrable (également dans le repo candidat) :
-
-```markdown
-# Plan de retest Ensemble 05 — destiné à Arnaud
-
-**Produit :** SFIA Studio Next — Travail avec Nora
-**Campagne :** Retest post-correctif R05 (reprise cognitive UNKNOWN)
-**Autorité de validation :** Morris
-**Exécutant retest :** Arnaud (si distinct) / Morris
-**Date du plan :** 2026-11-17
-
-## Identité runtime (à confirmer sur la machine hôte)
-
-| Champ | Valeur attendue après déploiement |
-|---|---|
-| URL locale | `http://127.0.0.1:3200` |
-| Accès | Uniquement sur la machine qui héberge RECETTE — **pas** accessible depuis un autre ordinateur sans tunnel (aucun tunnel autorisé ici) |
-| SOURCE_SHA | `e224d6278a050bcfbd369c4008d94af504f81d44` |
-| BUILD_ID | `MKmBUvdIXyydv_DpUTGZi` |
-| Lane | RECETTE |
-| Fixture Nora forcée | NON (`STUDIO_FORCE_NORA_FIXTURE` unset) |
-| STABLE | NOT AVAILABLE |
-
-Si Arnaud n’a pas accès physique/écran partagé à la machine hôte, transmettre ce plan à Morris pour exécution ou partage d’écran — ne pas inventer d’URL publique.
-
-## Prérequis d’accès
-
-1. Compte Pilote local autorisé sur RECETTE.
-2. Projet **Intervencia** (ou projet de campagne E05) accessible.
-3. Surface **Travail avec Nora**.
-4. Aucune migration / purge demandée.
-5. Pour le test 4 (nouvelle génération LIVE) : **GO REAL distinct** Morris — Cursor ne l’exécute pas.
-
-## Réserves reportées (ne pas les « fermer » par ce retest)
-
-- R01–R02 : PASS visuel antérieur.
-- R03 : PASS avec réserve de richesse UX.
-- R04 : lisibilité des diagrammes / relations insuffisante — **non corrigée** par R05.
-- R05 : incident fournisseur + boucle de reprise — objet de ce retest pour la **reprise** ; l’exception fournisseur n’est pas garantie corrigée.
-- R06–R08 : non réceptionnés.
-- Option A D3 `strict:false` conservée.
-
-## Séquence de retest
-
-Pour chaque ligne : résultat `PASS` / `PASS AVEC RÉSERVE` / `FAIL` / `BLOQUÉ` / `NON TESTÉ`.
-
-| # | Test | Instructions | Attendu | Preuves | Résultat |
-|---|---|---|---|---|---|
-| 1 | Relecture anciens R05 UNKNOWN | Ouvrir Intervencia → Travail. Localiser les messages assistant UNKNOWN (placeholders « Nora LIVE UNKNOWN… »). Ne pas cliquer d’effet métier. | Historique conservé ; aucun résultat fictif inventé ; pas de disparition des tours. | Capture fil + note IDs visibles | |
-| 2 | Sortie de reprise cognitive | Si bannière « Vérifier et reprendre » : cliquer **une fois**. Sinon recharger la page (hydrate). Préférer données contrôlées ; **ne pas** provoquer volontairement un incident fournisseur. | Bannière disparaît si tour cognitif UNKNOWN sans effet métier ; **pas** de nouvel appel OpenAI induit ; message « non aboutie » / formulation nouvelle possible. | Capture avant/après ; horodatage | |
-| 3 | Conservation du brouillon | Saisir un brouillon libre avant reprise / navigation / refresh. | Brouillon intact après reprise, nav Documents↔Travail, refresh. | Capture composer | |
-| 4 | Nouvelle demande composite R05 | **Uniquement avec GO REAL Morris.** Reformuler la demande composite portail (600 collab., 6 sites, B/C…). | Réponse exploitable **ou** échec honnête sans boucle de réconciliation. | Capture réponse / statut | |
-| 5 | Persistense après refresh | Si test 4 a produit COMPLETE : refresh + retour projet. | Composition / texte persistés. | Capture post-refresh | |
-| 6 | Non-régression R01–R03 | Demandes simples / analytiques / comparaison légères (LIVE seulement si GO). | Restitutions cohérentes. | Notes courtes | |
-| 7 | Réserve R04 | Observer un diagramme de relations si présent. | Confirmer réserve de lisibilité **sans** présumer correction. | Capture | |
-| 8 | R06–R08 | Selon protocole E05 si 1–5 OK. | Suivre protocole ; ne pas clôturer E05. | Checklist E05 | |
-
-## Conditions d’arrêt
-
-- FAIL sur test 2 (boucle reprise toujours présente).
-- Disparition / corruption d’historique R05.
-- Effet métier déclenché sans intention.
-- Indisponibilité RECETTE / identité SHA/BUILD incohérente.
-
-## Remontée d’anomalies
-
-1. Noter date/heure UTC, URL, SOURCE_SHA/BUILD_ID affichés ou fournis.
-2. Captures + texte d’erreur UI (sans coller de secrets).
-3. Remonter à Morris (autorité) ; Arnaud ne clôture pas E05 ni Gate C.
-
-## Gate de décision Morris
-
-- Retest PASS → poursuivre UAT E05 / éventuel GO REAL pour test 4.
-- PASS AVEC RÉSERVE → documenter ; R04 reste ouverte.
-- FAIL reprise → nouveau diagnostic / correctif.
-- E05 / Gate C : **non fermés** par ce plan.
-
-```
-
-**Modalités de transmission :** plan prêt pour Morris → Arnaud. `127.0.0.1:3200` n'est **pas** une URL distante. Aucun tunnel / port exposé créé.
-
----
-
-## 21. Réserves conservées
-
-- R01 : PASS visuel
-- R02 : PASS visuel
-- R03 : PASS avec réserve richesse UX
-- R04 : lisibilité diagrammes / relations — **non corrigée** par R05
-- R05 : reprise corrigée à retester ; exception fournisseur non garantie disparue
-- R06–R08 : non réceptionnés
-- Option A D3 `strict:false` conservée
-
----
-
-## 22. Décisions restant à Morris
-
-1. Faire exécuter le plan retest 1–3 (reprise / brouillon) par Arnaud ou soi-même sur la machine hôte.
-2. Émettre un **GO REAL distinct** pour le test 4 (composite LIVE) si souhaité.
-3. Ne pas clôturer E05 / Gate C sur ce seul cycle.
-4. Push produit / PR / merge : **non autorisés** ici (toujours).
-5. Si FAIL retest reprise → nouveau cycle diagnostic/correctif.
-
----
-
-## 23. Verdict unique
-
-### `R05 RECOVERY FIX VERIFIED — RECETTE DEPLOYED — USER RETEST READY`
-
-**Republication :** handoff Full complet pour ChatGPT — remplace la synthèse courte précédente sur `sfia/review-handoff`.
-
-**Identifiants runtime à retenir :**
-
-- SOURCE_SHA runtime : `e224d6278a050bcfbd369c4008d94af504f81d44`
-- BUILD_ID : `MKmBUvdIXyydv_DpUTGZi`
-- URL : `http://127.0.0.1:3200`
-- Tip branche docs : `a783f014935de0dec5ff8e79a2b18eea0e629756`
+**Verdict sollicité :** confirmation `READY WITH RESERVES` ou élévation STOP / conditions de sortie.
