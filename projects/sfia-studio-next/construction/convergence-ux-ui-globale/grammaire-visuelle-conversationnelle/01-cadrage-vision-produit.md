@@ -1,9 +1,9 @@
 # SFIA Studio Next — Cadrage produit de la composition visuelle conversationnelle
 
-**Statut : REVIEWED BY MORRIS — BASE DOCUMENTAIRE DE TRAVAIL APPROUVÉE LE 17/11/2026 ; orientations techniques détaillées encore CANDIDATE / À ARBITRER, aucune architecture ADOPTED.**  
-**Date de rédaction : 17 novembre 2026.**  
-**Périmètre :** SFIA Studio Next, R5 / ML4D, Ensemble 05 « Travail avec Nora ».  
-**Objet :** inscrire l'ambition, l'historique des constats, les attentes, les limites et la trajectoire d'une restitution conversationnelle visuelle de qualité premium.  
+**Statut : REVIEWED BY MORRIS — BASE DOCUMENTAIRE DE TRAVAIL APPROUVÉE LE 17/11/2026 ; orientations techniques détaillées encore CANDIDATE / À ARBITRER, aucune architecture ADOPTED.**
+**Date de rédaction : 17 novembre 2026.**
+**Périmètre :** SFIA Studio Next, R5 / ML4D, Ensemble 05 « Travail avec Nora ».
+**Objet :** inscrire l'ambition, l'historique des constats, les attentes, les limites et la trajectoire d'une restitution conversationnelle visuelle de qualité premium.
 **Documents liés :** [02 — Conception fonctionnelle & UX](02-conception-fonctionnelle-ux.md) · [03 — Architecture et solution technique candidate](03-architecture-solution-technique.md).
 
 > **Règle de lecture.** Les décisions de conception déjà consignées dans les sources Next sont signalées **VALIDATED SPEC**. Les orientations nouvellement détaillées dans le présent dossier restent **CANDIDATE / À ARBITRER**. L'expérience E05 et les captures de recette ne sont ni une preuve d'adoption ni un contrat pixel-final. Le dossier est publié sur la branche documentaire candidate ML4D, distincte de `main` ; il ne vaut ni GO Cursor, ni PR, ni merge, ni clôture E05/Gate C.

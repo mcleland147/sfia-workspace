@@ -1,10 +1,10 @@
 # SFIA Studio Next — Contrat candidat de composition adaptative Nora ↔ Studio
 
-**Version :** 0.1 — 17 novembre 2026  
-**Statut :** `DOCUMENTED / CONTRACT CANDIDATE FOR MORRIS REVIEW` — non implémenté, non adopté  
-**Portée :** R5 / ML4D / Ensemble 05 — réponses conversationnelles dans Travail ; pas les documents Markdown D4.  
-**Amont :** [01 — Cadrage produit](https://github.com/mcleland147/sfia-workspace/blob/241a3c52652e341724b7f423fac73f69df3f1a81/projects/sfia-studio-next/construction/convergence-ux-ui-globale/grammaire-visuelle-conversationnelle/01-cadrage-vision-produit.md) · [02 — Fonctionnel/UX](https://github.com/mcleland147/sfia-workspace/blob/241a3c52652e341724b7f423fac73f69df3f1a81/projects/sfia-studio-next/construction/convergence-ux-ui-globale/grammaire-visuelle-conversationnelle/02-conception-fonctionnelle-ux.md) · [03 — Technique initiale](https://github.com/mcleland147/sfia-workspace/blob/241a3c52652e341724b7f423fac73f69df3f1a81/projects/sfia-studio-next/construction/convergence-ux-ui-globale/grammaire-visuelle-conversationnelle/03-architecture-solution-technique.md).  
-**Architecture :** [04 — Qualification et remplacement E05](04-qualification-architecture-remplacement-e05.md).  
+**Version :** 0.1 — 17 novembre 2026
+**Statut :** `DOCUMENTED / CONTRACT CANDIDATE FOR MORRIS REVIEW` — non implémenté, non adopté
+**Portée :** R5 / ML4D / Ensemble 05 — réponses conversationnelles dans Travail ; pas les documents Markdown D4.
+**Amont :** [01 — Cadrage produit](https://github.com/mcleland147/sfia-workspace/blob/241a3c52652e341724b7f423fac73f69df3f1a81/projects/sfia-studio-next/construction/convergence-ux-ui-globale/grammaire-visuelle-conversationnelle/01-cadrage-vision-produit.md) · [02 — Fonctionnel/UX](https://github.com/mcleland147/sfia-workspace/blob/241a3c52652e341724b7f423fac73f69df3f1a81/projects/sfia-studio-next/construction/convergence-ux-ui-globale/grammaire-visuelle-conversationnelle/02-conception-fonctionnelle-ux.md) · [03 — Technique initiale](https://github.com/mcleland147/sfia-workspace/blob/241a3c52652e341724b7f423fac73f69df3f1a81/projects/sfia-studio-next/construction/convergence-ux-ui-globale/grammaire-visuelle-conversationnelle/03-architecture-solution-technique.md).
+**Architecture :** [04 — Qualification et remplacement E05](04-qualification-architecture-remplacement-e05.md).
 **Références graphiques :** [Figma R3 / page 06 / écrans 01–09](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=742-2).
 
 > **Statut des règles.** Les principes A–F de l'UX Travail et les orientations M1–M5 sont déjà validés en conception Next. Les règles `CV-*`, les limites, la version de payload et les exemples ci-dessous sont **proposés pour revue**. Ils ne créent pas une doctrine supplémentaire ou un moteur de décision. Le contrat définit des comportements attendus et des preuves discriminantes, non une promesse de garantie graphique absolue.

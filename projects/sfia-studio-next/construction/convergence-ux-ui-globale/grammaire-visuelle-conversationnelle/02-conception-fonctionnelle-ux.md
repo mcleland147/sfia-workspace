@@ -1,9 +1,9 @@
 # SFIA Studio Next — Conception fonctionnelle et UX de la composition visuelle conversationnelle
 
-**Statut : REVIEWED BY MORRIS — BASE DOCUMENTAIRE DE TRAVAIL APPROUVÉE LE 17/11/2026 ; règles GV-xx et directions graphiques détaillées CANDIDATE / À ARBITRER, sans adoption pixel-final.**  
-**Date : 17 novembre 2026.**  
-**Périmètre :** Ensemble 05 — fil « Travail avec Nora », R5 / ML4D.  
-**Amont :** [01 — Cadrage et vision produit](01-cadrage-vision-produit.md). **Aval :** [03 — Architecture et solution technique candidate](03-architecture-solution-technique.md).  
+**Statut : REVIEWED BY MORRIS — BASE DOCUMENTAIRE DE TRAVAIL APPROUVÉE LE 17/11/2026 ; règles GV-xx et directions graphiques détaillées CANDIDATE / À ARBITRER, sans adoption pixel-final.**
+**Date : 17 novembre 2026.**
+**Périmètre :** Ensemble 05 — fil « Travail avec Nora », R5 / ML4D.
+**Amont :** [01 — Cadrage et vision produit](01-cadrage-vision-produit.md). **Aval :** [03 — Architecture et solution technique candidate](03-architecture-solution-technique.md).
 **Sources opposables existantes :** UX-007 §6 et contrats transverses dans [conception UX Next v0.7, branche candidate](https://github.com/mcleland147/sfia-workspace/blob/99b3622b09005cc789bd167775b3ffb9f6f14375/projects/sfia-studio-next/construction/convergence-ux-ui-globale/conception-ux-travail-avec-nora.md), [CT-02 et M1–M5](https://github.com/mcleland147/sfia-workspace/blob/99b3622b09005cc789bd167775b3ffb9f6f14375/projects/sfia-studio-next/construction/convergence-ux-ui-globale/contrat-technique-travail-avec-nora.md).
 
 > Ce document **complète** la conception ML4D déjà validée, sans la réécrire. Les règles A–F, réponse progressive, sources et interactions validées par Morris le 17/11 restent applicables. Les nouvelles règles GV-xx et les propositions graphiques sont **candidates** jusqu'à arbitrage. Il ne s'agit ni de spécification pixel-final, ni de preuve d'implémentation, ni de GO Cursor.

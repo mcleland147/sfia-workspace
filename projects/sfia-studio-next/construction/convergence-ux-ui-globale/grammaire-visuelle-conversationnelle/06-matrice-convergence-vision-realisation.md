@@ -250,4 +250,3 @@ Le nouveau code rapporté `admission.ts` contient `significantTokens()` (tokens 
 | **5 — W5 dossier de réception** | Corpus Nora, preuves, écarts et proposition de verdict Morris | Réception Ensemble 05, Gate C, PR/merge et LIVE restent des décisions distinctes |
 
 **Ce document V0.7 est un suivi D1 non normatif** : il ne modifie pas SEF, Roadmap, décisions, design contract normatif, code ou schéma ; il ne vaut ni adoption, ni promotion, ni GO d'action LIVE ou de push projet.
-

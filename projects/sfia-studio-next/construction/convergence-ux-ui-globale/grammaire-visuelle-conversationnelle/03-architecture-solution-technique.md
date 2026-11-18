@@ -1,9 +1,9 @@
 # SFIA Studio Next — Architecture et solution technique candidate pour la composition visuelle conversationnelle
 
-**Statut : REVIEWED BY MORRIS — BASE DOCUMENTAIRE DE TRAVAIL APPROUVÉE LE 17/11/2026 ; ARCHITECTURE CANDIDATE À QUALIFIER, ni IMPLEMENTED, ni BEHAVIOR PROVEN, ni ADOPTED.**  
-**Date : 17 novembre 2026.**  
-**Périmètre :** R5 / ML4D / Ensemble 05, réponse conversationnelle Nora dans « Travail ».  
-**Amont :** [01 — Cadrage et vision produit](01-cadrage-vision-produit.md) · [02 — Conception fonctionnelle & UX](02-conception-fonctionnelle-ux.md).  
+**Statut : REVIEWED BY MORRIS — BASE DOCUMENTAIRE DE TRAVAIL APPROUVÉE LE 17/11/2026 ; ARCHITECTURE CANDIDATE À QUALIFIER, ni IMPLEMENTED, ni BEHAVIOR PROVEN, ni ADOPTED.**
+**Date : 17 novembre 2026.**
+**Périmètre :** R5 / ML4D / Ensemble 05, réponse conversationnelle Nora dans « Travail ».
+**Amont :** [01 — Cadrage et vision produit](01-cadrage-vision-produit.md) · [02 — Conception fonctionnelle & UX](02-conception-fonctionnelle-ux.md).
 **Finalité :** définir une architecture de réalisation et un dossier de faisabilité vérifiable pour l'option B : composition adaptative avec composants premium maîtrisés, sans créer de deuxième moteur de cognition, de décision ou de conversation.
 
 > **État documentaire strict.** Les choix de bibliothèques, noms de modules, formats de données, seuils de densité et budgets chiffrés décrits ci-dessous sont **des propositions à qualifier**. Aucune commande npm, modification Git, migration, livraison RECETTE ou promotion n'a été autorisée par ce dossier. La construction relèvera de Cursor après GO SFIA v2.6 et pré-check local complet.
