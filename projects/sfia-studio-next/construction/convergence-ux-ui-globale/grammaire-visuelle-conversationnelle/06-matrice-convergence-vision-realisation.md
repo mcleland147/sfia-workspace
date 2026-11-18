@@ -1,143 +1,142 @@
 # SFIA Studio Next — Matrice de convergence : vision, contrats et réalisation Cursor
 
-**Version :** 0.7 — 18 novembre 2026 (actualisation factuelle des handoffs `235a06ef` et `5f8e92ec` ; orientation graphique exprimée par Morris)  
-**Statut :** DOCUMENTED / REVIEW CANDIDATE — analyse non normative D1 ; ni décision D2 nouvelle, ni VALIDATED SPEC supplémentaire, ni ADOPTED.  
-**Périmètre :** R5 / ML4D — Ensemble 05 « Travail avec Nora », composition conversationnelle adaptative et remplacement de l'expérience E05.  
-**Nature :** contrôle de convergence de la vision et des contrats avec le candidat Cursor **local non publié**, à partir du Review Pack distant ; aucune affirmation sur le working tree non observé.  
+**Version :** 0.8 — 18 novembre 2026 (actualisation D1 après preuves Level-A/Level-B/LIVE et consolidation Ensemble 05)
+**Statut :** DOCUMENTED / REVIEW CANDIDATE — suivi non normatif D1 soumis à validation Morris ; aucune nouvelle décision D2, aucune réception, aucun ADOPTED.
+**Périmètre :** R5 / ML4D — Ensemble 05 « Travail avec Nora », composition conversationnelle adaptative et remplacement de l'expérience E05.
+**Nature :** matrice vivante de qualification, fondée sur les handoffs Git ; code produit et worktree non inspectés directement par ChatGPT. Les §§9–12 constituent des instantanés historiques V0.6/V0.7, non l'état courant.
 **Sources de conception :** [01 — Vision produit](01-cadrage-vision-produit.md) · [02 — Fonctionnel/UX](02-conception-fonctionnelle-ux.md) · [03 — Architecture](03-architecture-solution-technique.md) · [04 — Remplacement E05](04-qualification-architecture-remplacement-e05.md) · [05 — Contrat Nora–Studio](05-contrat-composition-nora-studio.md).
 
-## 1. Conclusion et cadrage de la revue
+## 1. Conclusion et cadrage de la revue — V0.8
 
-**Actualisation V0.7 (état vivant, 18/11) :** le handoff Full [5f8e92ec](https://github.com/mcleland147/sfia-workspace/blob/5f8e92ecadb9e8a722e4c8180ffa0423d493ed41/sfia-review-handoff/latest-chatgpt-review.md), blob `f6a84268e06209beeff160265d6a90d526f3272a`, rapporte 122 Vitest PASS et T02 PASS, correction C2 DOM et paquet W1. La revue ChatGPT a identifié une **réserve C2 discriminante non couverte** : `coveredBySurface` supprime un segment dès 70 % de recouvrement de tokens de plus de 3 caractères, pouvant assimiler « autorisée » et « non autorisée ». **C2 non clos à l'échelle de l'intégrité sémantique.** W1 : Morris a exprimé son accord sur le **thème sombre Studio et une forte fidélité graphique adaptative aux Figma 01–09, sans reproduction rigide au pixel** ; les valeurs/tokens précis et les choix de layout restent à qualifier. W3/W4 non achevés. Le développement produit reste local non observé ; PG historique, VISUAL REVIEW actuelle et LIVE non prouvés. **Les passages historiques des §§9–11 ci-dessous conservent leur contexte de novembre 2026 et ne remplacent pas cet état vivant.**
+**Synthèse :** la chaîne D3 → composition sémantique → admission Studio → composants React/ELK → persistance/relecture dispose de preuves rapportées Level-A (fixtures), Level-B (fournisseur simulé à la frontière D3) et Level-C LIVE **bornées** (12 tours, dont 5 avec composition spontanée, 0 retry). Ces niveaux ne démontrent pas une couverture spontanée de toutes les neuf familles. L'usage LIVE est attaché à un seul projet/Pilote/modèle DEV, et le coût €10,20 est une **estimation fallback**, pas une facturation contrôlée.
 
-**Décision Morris maintenue :** Strategy A — sections sémantiques canoniques pour les nouveaux tours ; texte dérivé et visuel facultatif ; relecture des anciens tours sans modification rétroactive de leur autorité. Ni migration DB ni extension d'autorité, LIVE, promotion ou Gate C.
+**L03/L04 :** la base DEV reconstruite indique des tableaux Markdown dans replyDraft, **sans visualComposition**. La cause se situe dans la production D3 (cas B), pas dans le renderer ; un renforcement des instructions D3 est rapporté par le handoff 43b12a34. Des replays **FAKE** de structures artificiellement préparées sélectionnent cards/matrix ; ils ne prouvent **pas** que les nouvelles instructions produiront spontanément ces blocs lors d'un futur LIVE. **L07 :** parallelProcess + trois laneId, choix parallel fidèle à la substance (cas D), non défaut de graphes directed.
 
-**Acquis reconnus à la lecture du Review Pack `0d912e14` :**
-- **A4 / C-02/04/20 — P0 précédent fermé en code FAKE :** `fixtureReply()` traite désormais `!validatedFixture.ok` par `unavailableQualification`, `status: UNKNOWN`, `providerContacted: NO` ; le test d'adaptateur `generateNoraReply()` exerce un overflow et des intentions dupliquées. Ce parcours ne finalise plus une qualification brute rejetée.
-- **A1 / C-04 — corrigé et couvert à la frontière de dérivation :** aucune coupe silencieuse ; erreur `CANONICAL_REPLY_OVERFLOW` et tests précis 11 999 / 12 000 / 12 001 caractères, ainsi que dépassement multi-blocs.
-- **A2 / C-04/17 — couverture déterministe élargie :** tests text/comparison/sequence/relations/synthesis et respect de l'ownership des choices/references. **Réserve ciblée :** `textAlternative` peut être ignoré si les 80 premiers caractères sont présents dans la reconstruction, même si sa fin contient une information complémentaire. La portée normative de `textAlternative` doit être explicitée, puis prouvée sans perte de substance.
-- **A3 / C-05/06 — aligné en code :** WRITE `conversational-composition-canonical-v1` ; READ `conversational-composition-projection-v1` (Strategy B) et `e05-visual-composition-v1` sans requalification d'autorité ; audit de véritables tours historiques PG et refresh **NOT RUN**.
-- **A5 / C-10/11/12/18 — amélioré, réception visuelle NON FAITE :** arbre mono-parent, toutes arêtes du parallèle et `sync vers` orienté ; couches CSS/listes d'arêtes et PNG locaux ne démontrent pas une conformité graphique Figma 07–09.
-- **A6 / C-15/20 — tests rapportés :** **94 Vitest PASS + 1 Playwright T02 PASS**, `tsc` fichiers touchés CLEAN ; `tsc` global comporte des erreurs préexistantes rapportées. Résultats non réexécutés indépendamment. LIVE/REAL NOT RUN.
+**Intégrité et limites :** la déduplication exacte dans EditorialSynthesis et le mécanisme anti-fuite SIM sont corrigés et testés selon Cursor ; la couverture globale C2/A2/A7, les replays historiques PG, une comparaison visuelle complète des Figma 01–09, le tsc global et les diffs complets du candidat ne sont pas tous acquis. Le Review Pack du handoff 43b12a34 contient des tests, mais ne livre pas les sections/diffs exploitables de toutes les modifications ; **REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING** avant certification indépendante. Les captures binaires locales ne sont pas intégrées à ce document Git.
 
-**Nouveau point de contrôle A7 (P0 à qualifier avant réception) — composition canonique invalide ou sans substance :** dans `validateNoraTurnQualification()`, l'échec `CV_DERIVE_OVERFLOW` est bien refusé ; mais un `CV_DERIVE_EMPTY` **supprime** `visualComposition` et peut laisser le `replyDraft` indépendant. Le chemin `parseVisualComposition() === null` supprime aussi la composition sans nécessairement refuser le message. **La faisabilité réelle de ces branches avec le schéma d'entrée doit être reproduite avant de déclarer un défaut runtime.** Un message purement narratif qui omet `visualComposition` est valide et ne doit pas être pénalisé.
+**Règle de gouvernance :** un verdict Cursor « READY FOR MORRIS ENSEMBLE 05 RECEPTION REVIEW » autorise une **revue**, pas une réception, Gate C, PR/merge, RECETTE, STABLE ni ADOPTED. Ne pas fusionner cette matrice candidate sur main sans GO distinct. Strategy A et M1–M5 restent les orientations validées ; pas de second moteur de vérité ni de migration implicite.
 
-**Verdict : `READY WITH RESERVES — CANONICAL INVALID-OUTPUT PATH TO QUALIFY`.** A4 est **levé**, A7 est une possibilité de divergence **à tester** et non un incident LIVE observé. Le candidat reste local, la réception graphique et PG ne sont pas acquises et aucune source ne permet ADOPTED ou Gate C PASS.
+**Verdict V0.8 :** **CONSOLIDATION TECHNIQUE ÉTAYÉE — RÉCEPTION DOCUMENTAIRE/GRAPHique À QUALIFIER**. L'actualisation conserve les IDs d'origine C-01 à C-22 ; elle **ne reprend pas** le tableau erroné C-01…C-22 proposé dans le handoff 43b12a34.
 
-## 2. Sources Git, preuves et limites
+## 2. Sources Git et niveaux de preuve
 
-| Source | Ref/empreinte observée | Qualification |
+| Source | Référence vérifiée | Portée et limite |
 |---|---|---|
-| Dépôt | `mcleland147/sfia-workspace` | Next : `projects/sfia-studio-next/` |
-| Baseline `main` | `997d4c4e8204993de7107552898c8cc08cd3b0ed` | SEF, Roadmap, décisions et code courant distant ; snapshot Roadmap du 15/11 antérieur à la livraison locale |
-| Branche documentaire (avant V0.6) | `docs/next-ml4d-registre-revues-20261116@aa12d385dba8e2e5983477f8020658dea1004a2a` | Sources 01–06 candidates, non mergées |
-| Dernier Review Pack | `sfia/review-handoff@0d912e14ff3ffa29760908658cf3f8d3c64b1601` | Full de 3 528 lignes, nouveaux fichiers et diffs |
-| Blob Review Pack | `c76ac0aab3b5eba4e0a8aa2e0b445dbeecdf67a3` | Fichier distant relu |
-| Branche produit | `sfia/next-ml4d-composition-adaptative`, tip local rapporté `a783f014935de0dec5ff8e79a2b18eea0e629756` | **NON OBSERVÉ** localement, branche absente de `origin` ; working tree non commité rapporté |
-| UX Figma | [Page 06, neuf écrans](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=742-2) | Direction artistique, pas preuve de conformité navigateur |
-| Gouvernance | [SEF](../../../governance/SEF.md), [Roadmap](../../../governance/roadmap.md), décisions Next | Git/main et gates Morris priment |
+| Dépôt / baseline | `mcleland147/sfia-workspace` · `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` | Baseline distante ; roadmap main datée du 15/11 antérieure à la campagne candidate. |
+| Branche documentaire | `docs/next-ml4d-registre-revues-20261116@fd8d2534c1b6e11a1cf320f25a1a39a633cc5519` (parent de cette révision) | Documents candidats, non fusionnés sur main. |
+| Level-B | [Handoff b10fd34a](https://github.com/mcleland147/sfia-workspace/blob/b10fd34ae0b94a3eac4da5885a830caa35b42b0d/sfia-review-handoff/latest-chatgpt-review.md) | Simulateur fournisseur D3 ; tests UNIT/BROWSER/PG DEV rapportés. |
+| Préflight LIVE | [Handoff cb407251](https://github.com/mcleland147/sfia-workspace/blob/cb407251a9f538d30f7cccbd673e078cc9176544/sfia-review-handoff/latest-chatgpt-review.md) | C2 et SIM fail-closed ; 0 LIVE à ce jalon. |
+| LIVE borné | [Handoff 72bb56d9](https://github.com/mcleland147/sfia-workspace/blob/72bb56d9ad7b4ea59f9264a5054522ce4c9a2074/sfia-review-handoff/latest-chatgpt-review.md) | 12/12 COMPLETE et 5 compositions rapportées ; captures/ledger locaux non inspectés ici. |
+| Consolidation | [Handoff 43b12a34](https://github.com/mcleland147/sfia-workspace/blob/43b12a34efb36bec9d77cc5732efc503109e41e5/sfia-review-handoff/latest-chatgpt-review.md) · blob `3b58657e7c0060fd4b2dd408d88fe1cb46ae9ced` | Diagnostic DB L03/L04/L07, prompt D3 et admission corrigés en candidat ; UNIT/Level-B PASS rapportés, aucun nouveau LIVE. |
+| Code produit local | `sfia/next-ml4d-composition-adaptative@a783f014935de0dec5ff8e79a2b18eea0e629756` + worktree dirty selon Cursor | Branches/fichiers locaux **NON OBSERVÉS directement** ; aucun push produit. |
+| Référence visuelle | [Figma page 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=742-2) | Direction validée : thème sombre, fidélité adaptative ; une capture runtime n'est pas preuve d'intégrité sémantique. |
+| Gouvernance | [SEF](../../../governance/SEF.md), [Roadmap](../../../governance/roadmap.md), décisions Next, ENV-01 | Autorité Morris inchangée. |
 
-**Précédence :** Git + preuves vérifiées > décisions Morris > documents > mémoire > hypothèses. L'état local, les captures PNG et le runtime non accessibles ne doivent pas être présentés comme inspectés. Les résultats Vitest/Playwright sont **rapportés par Cursor**, non réexécutés.
+**Échelle de preuve :** `DOCUMENTED` (source) → `VALIDATED SPEC` (Morris) → `IMPLEMENTED` (code candidat) → `COVERAGE VERIFIED` (tests du niveau spécifié) → `BEHAVIOR PROVEN` (comportement constaté dans un périmètre exact) → `ADOPTED` (décision explicite). Un même C-ID peut être **LIVE borné sur une dimension et PARTIEL sur une autre**.
 
-## 3. Échelle de qualification
+## 3. Règles d'interprétation
 
-- **ALIGNÉ (CODE)** : contrat ou mécanisme observé, sans preuve end-to-end implicite.
-- **PARTIEL** : mécanisme présent, couverture ou qualité de sortie incomplète.
-- **ÉCART** : résultat demandé non livré / restitué de manière incomplète.
-- **BLOQUANT** : invariant de vérité ou compatibilité susceptible d'être violé.
-- **NON PROUVÉ** : absence de preuve au niveau requis, pas panne observée.
-- **DIFFÉRÉ CONFORME** : extension conditionnelle hors périmètre justifié.
+- **UNIT/ADAPTER FAKE/BROWSER FAKE** : prouvent des contrats et du rendu avec données contrôlées, pas la spontanéité du fournisseur.
+- **LIVE borné** : 12 tours sur un seul pilote/projet/modèle DEV, dont cinq compositions ; ne certifie ni les neuf familles ni une modification postérieure du prompt D3.
+- **PG DEV** : relecture de nouveaux messages et reconstruction DB ; aucune preuve exhaustive des anciennes versions historiques.
+- **Figma/runtime** : fidélité établie seulement pour les captures effectivement inspectées ; ne pas inférer « pixel aligned » à partir d'un test PASS.
+- **Rapport Cursor** : source de preuves déclarées, non équivalent à un audit indépendant du worktree ou des PNG locaux.
+- **BLOQUANT de réception** : perte de substance ou d'autorité, incohérence de version, défaut de preuve impératif ; les réserves partielles restent ouvertes jusqu'à arbitrage Morris.
 
-État du programme : DOCUMENTED / VALIDATED SPEC / IMPLEMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / ADOPTED sont **non interchangeables**.
-
-## 4. Matrice de convergence C-01 à C-22
+## 4. Matrice de convergence — identifiants canoniques C-01 à C-22
 
 ### A — Vision, responsabilité et contrat canonique
 
-| ID | Résultat attendu | Réalisation Strategy A / preuve | Statut et écart | Suite et preuve de sortie |
+| ID canonique | Contrat / résultat | État rapporté et preuve | Qualification au 18/11/2026 | Réserve / sortie |
 |---|---|---|---|---|
-| **C-01 — VP-01, UX-A/B** | Nora choisit librement la meilleure forme, sans template rigide | Texte libre et sections facultatives dans Strategy A ; aucun essai Nora spontané LIVE. | **PARTIEL — FAKE/UNIT** ; pertinence éditoriale réelle NON PROUVÉE. | Préserver la liberté de forme ; corpus W5 et LIVE/REAL uniquement sous GO Morris distinct. |
-| **C-02 — VP-02, UX-C/F** | Un message composite, identité et qualification cohérentes sur tous les parcours | Adapter fail-closed A4 et chemins A7 corrigés/testés selon handoffs ; version canonique + restitution C2 ; 122 Vitest rapportés. | **ALIGNÉ EN CANDIDAT / FAKE** ; persistance/identité PG non démontrées. | Non-régression des chemins invalide/vide et identité de tour ; PG/refresh distinct. |
-| **C-03 — VP-06, doc 03** | Nora porte le sens ; Studio valide et rend, sans autre moteur cognitif | Strategy A : Nora/D3 porte le sens ; admission et renderer Studio gardent la présentation ; handoff 5f8e92ec sans modification D3 déclarée. | **ALIGNÉ SUR LE CONTRAT CANDIDAT** ; code local NON OBSERVÉ directement. | Préserver D3–D9, sans moteur cognitif secondaire ni nouvel effet métier. |
-| **C-04 — VP-03/04, CV-02/06** | Une source de sens pour texte/visuel ; aucun statut FINAL mensonger | A1/A2/A7 et C2 : `SubstanceComplement` visible en DOM (10 tests C2 et T02 PASS rapportés) ; `coveredBySurface` recouvre lexicalement les textes à 70 %, filtre tokens courts. | **ÉCART C2 À CORRIGER (RISQUE INTÉGRITÉ)** : « migration autorisée » / « migration non autorisée » et « décision validée » / « n'est pas validée » peuvent être jugés redondants ; PASS C2 non acquis sur négations/conditions. | Supprimer la déduplication sémantique par recouvrement lexical ou la rendre strictement conservatrice ; tests adverses UNIT+DOM+BROWSER sur négation, modalités, chiffres, conditions, statuts, hypothèses et repli. |
-| **C-05 — doc 04/05** | WRITE canonique et READ historique sans collision d'autorité | WRITE `conversational-composition-canonical-v1`, READ projection-v1 et E05 conservés selon handoff ; pas de migration. | **ALIGNÉ CODE / REPLAY HISTORIQUE NON PROUVÉ**. | Compatibilité en lecture réelle et absence de requalification rétroactive ; aucun changement d'autorité. |
-| **C-06 — M1/M5, CV-11** | Identité, persistance, reprise et trois versions durables | PG DEV `:5433` UP selon Cursor mais zéro payload de composition historique trouvé ; aucun replay sur vrais enregistrements. | **PARTIEL — HISTORICAL PG REPLAY NOT RUN**. | Rechercher une source historique DEV autorisée ou conserver réserve ; ne jamais substituer fixture à une preuve historique. |
+| C-01 — VP-01, UX-A/B | Nora choisit la forme utile sans gabarit obligatoire. | LIVE L01–L04 et L10–L12 : réponses textuelles pertinentes ; L05–L09 : compositions spontanées rapportées. | BEHAVIOR PROVEN — LIVE BORNÉ, formes échantillonnées. | Préserver la liberté de prose ; les nouvelles instructions D3 ne sont pas elles-mêmes requalifiées en LIVE. |
+| C-02 — VP-02, UX-C/F | Un message composite conserve identité, qualification, fin et substance. | Level-B API/BROWSER sur chaîne D3 ; LIVE : 12 messages assistants relus après refresh, sans régénération selon rapport. | BEHAVIOR PROVEN — LIVE BORNÉ / compatibilité exhaustive NON PROUVÉE. | Régression sur erreurs, état UNKNOWN, versions anciennes et identité ; dossier Full exploitable. |
+| C-03 — VP-06, doc 03 | D3 possède le sens ; Studio contrôle admission et représentation, sans second moteur. | Strategy A ; L03/L04 sans visualComposition restent en prose, L05–L09 utilisent le rendu ; admission et ELK réutilisés. | IMPLEMENTED / BEHAVIOR PROVEN — frontière observée en LIVE borné. | Maintenir D3–D9 ; aucun parsing libre de Markdown créant une autorité ou des faits. |
+| C-04 — VP-03/04, CV-02/06 | Substance textuelle et graphique fidèles à une seule source ; aucun statut FINAL inventé. | Projection canonical-v1 et SubstanceComplement ; correction exactShownElsewhere égalité stricte, UNIT C2/adverses PASS rapportés. | COVERAGE VERIFIED — PARTIEL ; revue complète des chemins C2 et sorties invalides non achevée. | Diff exploitable et tests d'intégrité pour négations/conditions/suffixe textAlternative, erreurs/fallback et chemins A7 ; pas de perte. |
+| C-05 — doc 04/05 | WRITE canonique, READ des versions précédentes sans changement d'autorité. | WRITE canonical-v1 ; READ projection-v1/E05 rapportés ; pas de migration ; replays représentatifs, mais pas de rejeu historique complet en PG. | IMPLEMENTED / HISTORICAL PG REPLAY NOT RUN. | Qualifier les trois versions sur enregistrements historiques autorisés si disponibles ; sinon réserve et exit. |
+| C-06 — M1/M5, CV-11 | Identité, persistance et reprise du message, non de la disposition graphique. | LIVE 12 assistants persistés/relus ; Level-B persist/reload PASS ; DB DEV :5433, anciens tours historiques non rejoués. | BEHAVIOR PROVEN — nouveaux tours LIVE bornés ; historique PARTIEL. | Contrôler UNKNOWN, ACK perdu, reprises et compatibilité PG historique ; aucun nouveau stockage ni migration. |
 
 ### B — Familles et représentations
 
-| ID | Résultat attendu | Réalisation / preuve | Statut et écart | Suite |
+| ID canonique | Contrat / résultat | État rapporté et preuve | Qualification au 18/11/2026 | Réserve / sortie |
 |---|---|---|---|---|
-| **C-07 — GV-01/02** | Narration naturelle autorisée sans structure graphique | Narration naturelle possible, sans visuel forcé ; tests C2-01/02 rapportés. | **ALIGNÉ SUR FAKE/UNIT**, spontanéité LIVE non prouvée. | Préserver narrative-only et s'assurer qu'une correction C2 ne réintroduit pas du visuel obligatoire. |
-| **C-08 — Figma 03/04** | Cartes/matrices avec attributs attachés à leur option | Cards/matrix/stacked/text présents dans le candidat ; C2 réserve visible et T02 PASS rapportés. | **PARTIEL UX/DA** : pas de fidélité graphique Figma 03–05 réceptionnée. | Implémenter haute fidélité adaptative sur thème sombre validé en orientation ; cas 2/3/5/8/12/18, largeur réelle et contenu intégral. |
-| **C-09 — Figma 02/06** | Étapes, dépendances et temporalité justifiées | Parcours horizontal/vertical existant ; Figma 02/06 décrivent aussi iconographie, jalons et planning daté. | **PARTIEL — transposition graphique non réalisée**. | Parcours et planning conditionnés aux dates connues, fidèles aux références adaptées à Studio sombre ; preuve browser et fallback. |
-| **C-10 — Figma 07** | Graphe dirigé réellement lisible | `DependenciesConnectedView` avec connecteurs SVG mesurés/ResizeObserver et captures runtime rapportées. | **PARTIEL — CONNECTEURS IMPLÉMENTÉS, FIDÉLITÉ Figma 07 NON REÇUE**. | Graphe multi-couches/convergence, relations et étiquettes, layout/viewport fiable, liens réels ; comparaison Figma/runtime inspectable. |
-| **C-11 — Figma 08** | Véritable arbre conditionnel sans enfant partagé | Topologie arbre mono-parent contrôlée ; renderer directed existant, Figma 08 non transposé. | **PARTIEL GRAPHIQUE / A11Y**. | Branches oui/non réellement connectées, distinctions condition/décision, tests clavier et capture Figma 08. |
-| **C-12 — Figma 09** | Voies parallèles et toutes relations qualifiées, sans faux sens | Arêtes parallèles et `sync` orientés conservés ; lanes HTML/CSS présentes. | **PARTIEL GRAPHIQUE** — convergence Figma 09 non reçue. | Voies, connexions, synchronisation et gate lisibles, sans effet D6 ; capture Figma 09. |
-| **C-13 — GV-06** | Graphiques quantitatifs seulement sur données établies | Pas de graphique quantitatif fictif ; scénario insuffisant PASS rapporté dans T02. | **DIFFÉRÉ CONFORME** pour bibliothèque quantitative non justifiée. | N'ajouter de famille quantitative qu'avec mesures sourcées, unité/période/échelle et gate technique. |
-| **C-14 — CV-04/05** | Densité et cardinalité adaptatives | Admission variantes selon conteneur ; seuils historiques conservés et repli disponible. | **PARTIEL — enveloppe adaptative non réceptionnée**. | Tester cas 2/3/5/8/12/18 et longs titres : pas de troncature, variante réellement adaptée, limites/repli prouvés. |
+| C-07 — GV-01/02 | Narration naturelle sans visuel obligé. | L01–L04 et L10–L12 restent en prose ; L10 refuse un graphique quantitatif insuffisamment fondé. | BEHAVIOR PROVEN — LIVE BORNÉ. | Préserver prose-only après renforcement des instructions de comparaison ; évaluer la pertinence, pas le nombre de graphiques. |
+| C-08 — Figma 03/04 | Comparaisons cards/matrix/stacked fidèles aux options et critères. | Level-A et Level-B : composants ; LIVE L03/L04 : tableaux Markdown sans visualComposition (Cas B) ; instructions D3 renforcées ; REPLAY FAKE L03→cards/L04→matrix PASS. | IMPLEMENTED / COVERAGE VERIFIED — FAKE ; sélection spontanée cards/matrix POST-CORRECTIF NOT PROVEN LIVE. | Conserver L03/L04 historiques inchangés ; éventuellement contre-épreuve LIVE sous nouveau GO, non requise automatiquement pour ce dossier. |
+| C-09 — Figma 02/06 | Parcours et temporalités fondés ; chronologie sans dates inventées. | EditorialSequence et timeline Figma 02 corrigées en DEV ; LIVE L05/L06 composition sequence rapportée ; absence de Gantt inventé. | BEHAVIOR PROVEN — LIVE BORNÉ pour sequence ; conformité planning complet PARTIELLE. | Revue Figma/runtime intégrale ; chronologie S1–S8 et 4 pistes, accessibilité et responsive. |
+| C-10 — Figma 07 | Graphe de dépendances dirigées, relations et convergence lisibles. | DirectedRelationBoard/ELK présent et Level-B S7 PASS ; LIVE L07 = parallelProcess avec 3 laneId, choix fidèle ; graphe dependencies spontané non démontré en LIVE. | COVERAGE VERIFIED — FAKE ; LIVE DIRECTED NOT PROVEN. | Conserver distinction dependencies/parallel ; inspecter graphe complet, connecteurs, viewport et libellés. |
+| C-11 — Figma 08 | Arbre conditionnel véritable, branches fidèles, aucune décision automatique. | Topologie directed Level-A/B ; L08 LIVE : composition conditionnelle rapportée, preuve visuelle locale non inspectée dans cette mise à jour. | BEHAVIOR PROVEN — LIVE BORNÉ SELON HANDOFF ; réception Figma/A11Y PARTIELLE. | Vérifier captures complètes branches et clavier, propriétaire HumanDecision. |
+| C-12 — Figma 09 | Voies parallèles et synchronisations fondées sans faux effet métier. | L07 : parallelProcess avec 3 laneId fidèle, L09 : parallel spontané rapporté ; tests directed/parallel FAKE. | BEHAVIOR PROVEN — LIVE BORNÉ ; visuel et sync exhaustifs PARTIELS. | Inspecter connexions, convergence, scrolling et aucune fausse décision D6. |
+| C-13 — GV-06 | Graphiques quantitatifs seulement si valeurs, unités et provenance établies. | L10 LIVE refuse de construire un graphique quantitatif sans données ; pas de bibliothèque quantitative ajoutée gratuitement. | DIFFÉRÉ CONFORME / NON-INVENTION LIVE OBSERVÉE. | N'ouvrir la famille quantitative qu'avec besoin et sources fondés ; aucun chart fictif. |
+| C-14 — CV-04/05 | Choix adaptatif selon densité, cardinalité et largeur. | Discriminants UNIT 2/3/5/8/12 et dépassement ; 390, 960, 1040, 1280, 1440 selon handoff, variantes text/cards/matrix/stacked ; 18 excède la limite du schéma. | COVERAGE VERIFIED — UNIT PARTIEL ; responsive navigateur exhaustif NON PROUVÉ. | Vérifier 390/430/790/1040/1280/1440, longs textes, split et critères incomplets dans le navigateur. |
 
 ### C — UX, sécurité, continuité
 
-| ID | Résultat attendu | Réalisation / preuve | Statut et écart | Suite |
+| ID canonique | Contrat / résultat | État rapporté et preuve | Qualification au 18/11/2026 | Réserve / sortie |
 |---|---|---|---|---|
-| **C-15 — CV-T11/12/20** | Split, zoom, conteneur étroit, clavier, aucun contenu coupé | ResizeObserver ; T02 1440 rapporté et capture 430 px précédemment examinée ; pas de campagne exhaustive. | **PARTIEL — 390/split/zoom/clavier NON PROUVÉS**. | 390/430/790/1040/1280/1440, 50/50, zoom 200/400 %, a11y, focus, scroll et libellés longs. |
-| **C-16 — UX-D/E** | Sources/actions actives selon propriétaires, jamais effet par graphique | Références et choix canoniques existants ; pas de nouveau pouvoir D6/D7 annoncé. | **PARTIEL — droits dynamiques et expiration non reçus**. | Revalidation de disponibilité et actions expirées, aucune action depuis un graphique. |
-| **C-17 — CV-10/15** | Repli textuel complet en erreur de composant, sans re-génération | Fallback C1 francisé, `SubstanceComplement` visible en Comparison/Sequence/Relations/Synthesis ; tests C2-01–10 PASS rapportés. | **PARTIEL / C2 RISQUE NON LEVÉ** : 70 % tokens peut supprimer négation/condition ; C2-08 teste fallback généré mais pas injection réelle d'échec ErrorBoundary. | Corriger déduplication conservatrice, tester contradictions et panne de renderer réelle en BROWSER ; aucune perte de la substance canonique. |
-| **C-18 — VP-07, Figma 01–09** | Présentation premium fidèle aux références et au contenu | Figma 01–09 identifiés nativement, paquet artistique W1 du handoff 5f8e92ec ; captures runtime visibles d'un cycle précédent, PNG actuels locaux non joints au handoff. | **ORIENTATION MORRIS EXPRIMÉE** : thème sombre Studio et forte fidélité adaptative ; **CONFORMITÉ FIGMA/RUNTIME NON REÇUE**. | Transposer 01–09 avec typographie, icônes, parcours, connecteurs et densité ; références/captures côte à côte inspectables ; arbitrage ponctuel si nouveau pivot. |
-| **C-19 — UX-F, R05** | Refresh, identité, réconciliation et continuité préservés | M1 inchangé selon Cursor ; PG DEV UP mais données historiques pertinentes absentes. | **PARTIEL — REFRESH/UNKNOWN HISTORIQUE NON PROUVÉS**. | Relecture DEV réelle quand données disponibles ; préserver ACK et réconciliation hors chantier graphique. |
+| C-15 — CV-T11/12/20 | Conteneur étroit, split, zoom et clavier sans perte ni coupe inaccessible. | Tests et captures de certaines largeurs ; correction timeline et matrice ; campagne globale split 50/50, zoom 200/400 %, clavier non établie. | PARTIEL — PREUVE BROWSER/ACCESSIBILITÉ INCOMPLÈTE. | Produire mesures et captures complètes de reflow/split/zoom/focus, sans déclarer un PASS général. |
+| C-16 — UX-D/E | Sources/choix soumis aux droits et à la durée de vie, sans effet graphique. | Contrats D3–D9, références/choix canoniques préservés ; aucun HumanDecision automatique rapporté ; droits/expiration dynamiques non revus ici. | IMPLEMENTED CONTRACT / COVERAGE PARTIELLE. | Tester expiration, révocation et accès courant au point d'action ; ne pas créer d'effet depuis le renderer. |
+| C-17 — CV-10/15 | Fallback textuel et exception renderer sans perte ni re-génération. | SubstanceComplement et C2 exact-identity ; C2-08 navigateur rapporté antérieurement ; tests C2/adverses reconfirmés, mais rapport Full incomplet sur les diffs. | COVERAGE VERIFIED — PARTIEL / RISQUES DE PREUVE OUVERTS. | Inspection diff global et vraie panne de composant BROWSER, suffixe de textAlternative, négations, exceptions. |
+| C-18 — VP-07, Figma 01–09 | Fidélité éditoriale et géométrique au contrat visuel sombre et adaptatif. | Composants 01–09 construits ; revue visuelle antérieure : 01/03/05/06 proches, 02/04 corrigés ensuite, 07–09 seulement partiellement inspectés ; captures locales parfois tronquées. | IMPLEMENTED / VISUAL RECEPTION NOT COMPLETE. | Comparer neuf Figma aux captures runtime complètes et inspectables ; ne pas assimiler testid/fixture à fidélité validée. |
+| C-19 — UX-F, R05 | Refresh, réconciliation et continuité, y compris statuts incertains. | 12 messages LIVE rechargés ; Level-B reload PASS ; absence de nouvel appel au refresh rapportée ; UNKNOWN/ACK historiques non qualifiés ici. | BEHAVIOR PROVEN — REFRESH LIVE BORNÉ ; reprise d'erreur PARTIELLE. | Non-régression des chemins de tentative/ACK, identité, brouillon et navigation ; historique non présumé. |
 
 ### D — Qualification et réception
 
-| ID | Résultat attendu | Réalisation / preuve | Statut et écart | Suite |
+| ID canonique | Contrat / résultat | État rapporté et preuve | Qualification au 18/11/2026 | Réserve / sortie |
 |---|---|---|---|---|
-| **C-20 — CV-T01–20** | Preuves discriminantes UNIT/PG/BROWSER/REAL séparées | Handoff FULL 5f8e92ec (3 121 lignes) publié, 122 Vitest et 1 T02 PASS rapportés ; C2 DOM positif, cas adverses de négation non couverts. | **PARTIEL — RÉGRESSION C2 POSSIBLE / PG+VISUAL+LIVE NON RUN**. | Ajouter tests C2 de négations/conditions/numériques, vraie panne renderer, géométrie/a11y, captures Figma/runtime inspectables ; distinguer UNIT, FAKE, BROWSER, PG et LIVE. |
-| **C-21 — VP-05** | Pertinence spontanée de Nora en demande libre | Corpus W5 de 10 demandes préparé ; tests FAKE uniquement, LIVE non exécuté. | **NON PROUVÉ — LIVE/REAL NOT RUN**. | GO Morris distinct + évaluation spontanée de Nora, sans simulation déclarée REAL. |
-| **C-22 — Gate C** | Réception Morris distincte de construction, tests et promotion | Handoff Full `5f8e92ec` validé distant ; pas de push produit/PR/merge ; préparation W5, pas réception. | **GATE C OPEN — ENSEMBLE 05 NON REÇU**. | C2, fidélité Figma, PG/avis Morris et preuves appropriées ; pas d'ADOPTED ou de promotion implicite. |
+| C-20 — CV-T01–20 | UNIT/FAKE/BROWSER/PG/LIVE et preuves visuelles différenciées. | UNIT sélection/C2/SIM PASS ; Level-B BROWSER PASS ; LIVE 12/12 antérieur ; nouvelle instruction D3 non revalidée LIVE ; tsc global en erreur qualifié préexistant ; Review Pack deltas incomplet. | COVERAGE VERIFIED — PARTIEL ; REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING. | Cursor republie Full avec contenu/diffs exploitables, baseline TypeScript reproductible et preuve Figma/PG conforme au niveau revendiqué. |
+| C-21 — VP-05 | Nora choisit spontanément forme pertinente en conversation naturelle. | LIVE 12 tours, 5 compositions L05–L09 ; prose pertinente ailleurs ; L03/L04 Cas B, prompt futur renforcé sans nouveau LIVE. | BEHAVIOR PROVEN — LIVE BORNÉ ; CARDS/MATRIX POST-CORRECTIF NOT PROVEN. | Conserver scope 1 Pilote/1 projet/1 modèle et réserve ; autre LIVE uniquement sur GO Morris distinct. |
+| C-22 — Gate C | Réception Morris, clôture ML4D et promotions sont des décisions distinctes. | Dossier de réception préparé au handoff 43b12a34 ; matrice proposée Cursor C-01…22 avait des identifiants décalés, rectifiés ici ; aucun code produit poussé. | DOCUMENTED — GATE C OPEN / ENSEMBLE 05 NON REÇU. | Revue documentaire et visuelle Morris ; commit/PR/merge produit, recette et Gate C sous autorisations séparées. |
 
-## 5. WBS de convergence — cinq activités du même macro-lot
+## 5. WBS intégré du macro-lot — état au 18/11/2026
 
-| Activité | Résultat attendu | Acquis Strategy A | Gate restant |
-|---|---|---|---|
-| **W1 — Direction artistique** | Figma 01–09 et grammaire de lecture | Contrat Figma 01–09 et paquet Morris préparés ; thème sombre et fidélité adaptative élevée confirmés en conversation, non pixel-final | Extraire tokens/icônes/géométries, réception visuelle runtime et arbitrages d'architecture restant nécessaires |
-| **W2 — Contrat et architecture** | Vérité unique, M1/D3, version, autorités | Strategy A/M1–M5 conservés ; C2 DOM amélioration mais déduplication lexicale risquée | C2 adverses ; ancien READ et PG/refresh à qualifier, sans nouveau moteur |
-| **W3 — Construction intégrée** | React, admission, topologie, familles et tests | Cards/matrix/sequence/deps SVG/tree/parallel existants ; transposition graphique non livrée | Développer familles et variantes conformément à l'orientation Figma sombre et à la fidélité élevée, avec layout fiable et fallback |
-| **W4 — Qualification croisée** | UNIT/PG/BROWSER, a11y, Figma et non-régression | 122 Vitest + T02 PASS rapportés ; PG :5433 UP, zéro historique ; PNG actuels non inspectables | Adversarial C2, DOM/BROWSER, error boundary, responsive/zoom, a11y, captures inspectables, PG historique si disponible |
-| **W5 — Recette produit** | Pertinence Nora et réception utilisateur | Corpus de 10 demandes préparé ; aucune recette ni LIVE | Préparer dossier de réception ; LIVE/REAL et Gate C sous GO distinct |
-
-**Règle :** W1–W5 structurent **un macro-lot intégré**, pas cinq nouveaux micro-lots.
-
-## 6. Carte de traitement et dépendances
-
-| Classe | Éléments | Règle |
+| Activité | Acquis rapporté | Réserve et prochaine sortie |
 |---|---|---|
-| **CONSERVER** | D3/Studio séparés ; composant React/admission ; choix/références ; parser E05 ; `resultJson` ; code arbre single-parent et rendu de toutes arêtes | Ne pas reconstruire les acquis |
-| **CORRIGER/QUALIFIER P0** | **A7** : une composition déclarée canonique qui échoue au parsing ou à la dérivation ne doit pas revenir sans contrôle vers un `replyDraft` indépendant ; distinguer omission narrative valide | Reproduire les branches réellement atteignables puis appliquer un refus cohérent, pas de nouveau moteur ni requalification historique |
-| **QUALIFIER P1** | **A2** : conserver le suffixe substantiel de `textAlternative` ou imposer l'invariant approprié ; A3 : PG/replay ; A5/6 : Figma, zoom/split/a11y | Les PASS FAKE/UNIT sont acquis sur leur périmètre, pas sur les frontières non testées |
-| **DIFFÉRER / GATE** | LIVE/REAL, graphiques quantitatifs sans source, promotion Git/RECETTE/STABLE | GO Morris distinct et justification |
-| **RESTER HORS SCOPE** | Refonte D3 générale, moteur IA n°2, migration physique, réparation ACK R05, moteur graphique universel | STOP si indispensable |
+| **W1 — Direction artistique** | Figma 01–09 lus et déclinés en Studio sombre ; composants éditoriaux et diagrammes candidats. | Revue visuelle finale Figma/runtime encore partielle ; captures tronquées à remplacer si verdict visuel fort exigé. |
+| **W2 — Contrat/architecture** | Strategy A, canonical-v1, admission, M1–M5, C2 et choix typed ; pas de moteur cognitif concurrent. | Diff global C2/A2/A7 et lecture historique à qualifier ; migrations non autorisées. |
+| **W3 — Construction intégrée** | Figma 01–09 rendables en Level-A/B ; ELK graphes ; D3 LIVE 5 compositions ; sélection L03/L04 mieux instruite après correctif. | Spontanéité cards/matrix post-prompt non démontrée ; pas de nouveau LIVE sans GO. |
+| **W4 — Qualification croisée** | UNIT/C2/SIM et Level-B PASS rapportés, LIVE 12/12 ancien candidat, relecture de 12 assistants. | tsc global en erreur préexistante rapportée (à baseliner), images complètes, 390/split/zoom/a11y et PG historique non totalement prouvés ; Review Pack Full à compléter. |
+| **W5 — Recette produit** | Dossier Morris préparé ; matrice canonique mise à jour ici à la bonne numérotation. | Réception **non prononcée** ; Gate C, push/PR/merge, RECETTE, STABLE, ADOPTED distincts. |
 
-**Séquence logique :** source structurée unique → projection textuelle complète et bornée → marqueur de version/autorité durable → même gate fixture/LIVE → reprise historique → graphes et UX → preuves de sortie. La sécurité du repli n'efface pas une capacité graphique non livrée.
+**Un seul macro-lot**, sans micro-cycles documentaires ; dette et exit sont associés aux lignes C correspondantes.
 
-## 7. Contrat de preuve — oracles discriminants
+## 6. Carte de traitement — actions et dépendances
 
-| Contrôle | Oracle attendu | Couche |
+| Traitement | Contenu utile | Frontière |
 |---|---|---|
-| **A1 troncature** | **CLOS AU NIVEAU DERIVATION/UNIT** : 11999/12000/12001 et multi-blocs testés, overflow rejeté ; préserver ce résultat et contrôler FINAL en intégration | UNIT + INTEGRATION |
-| **A2 champs** | Familles couvertes en UNIT ; `textAlternative` à préfixe commun 80 caractères peut perdre un suffixe contenant du sens — reproduction et invariant explicite | UNIT + BROWSER ciblé |
-| **A3 versionnement** | Trois versions distinguées par code/test ; PG DEV historique et réconciliation restent NOT RUN | UNIT + PG/REPLAY |
-| **A4 fixture** | **ACQUIS FAKE/DEV** : `!ok` → `UNKNOWN/UNAVAILABLE` et `providerContacted:NO` ; `generateNoraReply` testé sur overflow/intents dupliqués | UNIT/ADAPTATEUR ; persistance M1 non prouvée |
-| **A5 graphes** | Single-parent, toutes arêtes, sync directionnelle conservés ; Figma 07–09 et connecteurs non inspectés à distance | UNIT + BROWSER/Figma |
-| **A6 robustesse** | Longs contenus, choix/réfs expirés, panne de renderer, zoom/split, accessibilité, no regressions TypeScript/build, UNKNOWN, ACK qualifié | INTEGRATION/PG/BROWSER |
+| **CONSERVER** | Strategy A, D3 propriétaire du sens, composants Figma 01–09, ELKjs, texte libre, projections versionnées, admission, C2, HumanDecision séparé. | Aucun retour au rendu de démonstration seulement. |
+| **ACQUIS DÉTERMINISTES** | Level-A/Level-B, tests de sélection cards/matrix/dependencies/parallel, fallback conservateur, C2 exact-identity dans EditorialSynthesis. | Ne pas réétiqueter ces tests en LIVE. |
+| **ACQUIS LIVE BORNÉS** | 12 tours fournisseur réel, 5 compositions, refus de chart sans données, persistence/reload nouveaux messages. | 1 pilote/projet/modèle ; preuves rapportées et captures locales. |
+| **QUALIFIER AVANT RÉCEPTION** | Review Pack Full complet, matrice C-ID correcte, défauts bloquants TypeScript/visuel/C2 distingués, réception graphique Morris. | Cursor republie handoff L3 Full avec diffs ; ChatGPT revoit ; Morris arbitre. |
+| **REPORTER SOUS RÉSERVE MOTIVÉE** | Ancien PG historique, coût réel tokens, sélection LIVE cards/matrix post-correctif, certaines preuves split/zoom/accessibilité. | Pas de nouveau LIVE/RECETTE/PR implicite, exit clair. |
+| **HORS SCOPE** | Nouvelle DB, second moteur IA, moteur de décision parallèle, changement de doctrine, push produit, Gate C/ADOPTED. | GO Morris distinct requis. |
 
-**Fake/Real :** 94 Vitest rapportés et T02 ne signifient pas fournisseur LIVE, ni REAL END-TO-END. Aucun appel externe autorisé par la publication documentaire.
+## 7. Contrat de preuve discriminant — état courant
 
-## 8. Décisions et stops
+| Contrôle | Évidence et statut | Oracle restant |
+|---|---|---|
+| **A1 — Troncature** | Tests d'overflow canonique et rejets en UNIT/FAKE rapportés. | Préserver fail-closed en intégration ; ne pas inférer toute la production LIVE. |
+| **A2 — textAlternative** | SubstanceComplement et tests C2 renforcés. | Suffixe substantiel, négation et conditions sous tous les modes ; diff complet à relire. |
+| **A3 — Versionnement et PG** | canonical-v1 WRITE, anciens READ rapportés ; refresh 12 nouveaux LIVE. | Historique réel PG et UNKNOWN/reconciliation : NOT RUN ou preuve distincte. |
+| **A4/A7 — Qualification invalide** | Fixture fail-closed, SIM anti-fuite, contrôles Zod rapportés. | Revoir invalid/empty/parse-null sur chemins atteignables, sans COMPLETE mensonger. |
+| **A5 — Graphes** | ELK, Level-B S7, arbre/parallel LIVE borné. | Géométrie complète, connecteurs, branches clavier, sync et zoom/split. |
+| **A6 — Non-régression** | UNIT/Level-B PASS ; Live antérieur 12/12 ; tsc global non PASS. | Baseline TS, build/lint, vrai ErrorBoundary, responsive/a11y, fichiers/diffs Full. |
+| **L03/L04 — Comparaison** | LIVE Cas B (replyDraft Markdown, VC absente) ; prompt D3 renforcé ; REPLAY FAKE cards/matrix PASS. | Nouvel effet spontané LIVE **NOT PROVEN** ; ne pas inventer la validation. |
+| **L07 — Relations** | LIVE Cas D : parallelProcess avec 3 lanes. | Conserver sémantique ; ne pas forcer directed sans relations compatibles. |
 
-- **Arbitrage déjà exprimé :** Strategy A comme cible pour les nouveaux tours. Ne pas réouvrir Strategy B comme architecture cible.
-- **Décision encore nécessaire si structurante :** modification de schéma D3/SDK/versionnement susceptible de rompre des consommateurs historiques ou nécessitant migration. Cursor doit d'abord mesurer blast radius et proposer la voie compatible ; **STOP Morris** en cas de rupture.
-- **Interdits sans GO spécifique :** mutation de gouvernance, nouvelle DB, nouvel effecteur, push produit/PR/merge, LIVE/REAL, RECETTE, STABLE, adoption ou Gate C.
-- **Observation limitée :** code local non accessible, captures non transmises ; éviter les PASS non fondés.
-- **Nommage :** responsabilités produit, pas noms de chantier historiques ou héritage E05 pour nouvelles capacités.
+## 8. Arbitrages et gates
+
+- **Morris déjà validé :** Strategy A, M1–M5, direction graphique sombre et fidélité adaptative ; GO LIVE précédent **consommé** (12/12 tours), coût estimé €10,20, aucun droit résiduel d'appel.
+- **Décision sollicitée par cette révision D1 :** validation du contenu factuel V0.8 de cette matrice et choix des réserves acceptables en réception ; **aucune décision de réception implicite**.
+- **Handoff Cursor attendu :** republication du rapport Full du même cycle avec diffs exploitables, contenus obligatoires et baseline tsc ; relecture distante SHA/blob ; aucune extension LIVE.
+- **Git :** la présente mise à jour porte **seulement** sur ce document documentaire candidat et sa branche ; pas de merge main, PR ni modification normative.
+- **RECETTE/STABLE :** aucune mise à disposition sans candidat Git immuable et GO ENV-01 ; STABLE NOT AVAILABLE.
+- **Gate C / Ensemble 05 :** OPEN / non reçu. La préparation d'une revue n'est pas l'acceptation.
+
+**Verdict documentaire courant : CONSOLIDATION TECHNIQUE ÉTAYÉE — RÉCEPTION À ARBITRER APRÈS REVUE FULL ET VISUELLE.**
+
+---
+
+> **ARCHIVES V0.6/V0.7 (sections 9–12 ci-dessous) :** constats antérieurs aux handoffs LIVE du 18/11 ; ne pas utiliser leurs statuts NOT RUN comme état courant. La matrice opposable à cette revue D1 est au §4 ci-dessus.
 
 ## 9. Synthèse historique de revue du handoff `0d912e14` (supplantée pour l'état courant par V0.7)
 
@@ -202,7 +201,7 @@ Les captures PNG sont locales et ne figurent pas dans le handoff Git mono-fichie
 
 **Ce document est un compte rendu D1 et une préparation de convergence ; il ne modifie ni SEF, ni Roadmap, ni décisions, ni code, ni autorisation Git de promotion.**
 
-## 12. Actualisation V0.7 — contrat d'entrée intégré du macro-lot Ensemble 05 (18/11/2026)
+## 12. Actualisation V0.7 — contrat d'entrée historique du macro-lot Ensemble 05 (18/11/2026)
 
 ### 12.1 Source de vérité et statut
 
@@ -237,3 +236,4 @@ Le nouveau code rapporté `admission.ts` contient `significantTokens()` (tokens 
 | **5 — W5 dossier de réception** | Corpus Nora, preuves, écarts et proposition de verdict Morris | Réception Ensemble 05, Gate C, PR/merge et LIVE restent des décisions distinctes |
 
 **Ce document V0.7 est un suivi D1 non normatif** : il ne modifie pas SEF, Roadmap, décisions, design contract normatif, code ou schéma ; il ne vaut ni adoption, ni promotion, ni GO d'action LIVE ou de push projet.
+
