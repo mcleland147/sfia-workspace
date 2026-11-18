@@ -57,7 +57,7 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   );
   await rail.getByTestId("nav-pilotage").click();
   await expect(page).toHaveURL(new RegExp(`/projects/${projectId}\\?surface=pilotage`));
-  await rail.getByTestId("nav-document").click();
+  await rail.getByTestId("nav-documents").click();
   await expect(page).toHaveURL(new RegExp(`surface=document`));
   await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-variant", "inspection");
   await expect(page.getByTestId("document-inspect")).toBeVisible({ timeout: 10000 });

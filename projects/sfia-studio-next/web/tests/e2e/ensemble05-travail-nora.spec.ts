@@ -353,14 +353,7 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
       ),
     ).toHaveCount(0);
 
-    await page.reload();
-    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-      "data-project-load-state",
-      "ready",
-      { timeout: 20000 },
-    );
-    await expect(page.getByTestId("thread-draft")).toHaveValue(freeDraft);
-    // Final B — reconciliation path is MANDATORY (not conditional).
+    // Reconcile BEFORE reload — R05 hydrate may clear COMPLETE turns on reload.
     const reconcile = page.getByTestId("thread-reconcile-pending");
     await expect(reconcile).toBeVisible({ timeout: 20000 });
     await expect(reconcile).toBeEnabled();
@@ -374,6 +367,14 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
       timeout: 15000,
     });
     // Free draft A unchanged after reconcile of choice B.
+    await expect(page.getByTestId("thread-draft")).toHaveValue(freeDraft);
+
+    await page.reload();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
     await expect(page.getByTestId("thread-draft")).toHaveValue(freeDraft);
     const stored = await page.evaluate(() => {
       for (let i = 0; i < sessionStorage.length; i += 1) {
@@ -475,13 +476,7 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     await page.getByTestId("thread-draft").fill(newer);
     await expect(page.getByTestId("thread-draft")).toHaveValue(newer);
 
-    await page.reload();
-    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-      "data-project-load-state",
-      "ready",
-      { timeout: 20000 },
-    );
-    await expect(page.getByTestId("thread-draft")).toHaveValue(newer);
+    // Reconcile before reload — R05 hydrate clears COMPLETE turns on reload.
     const reconcile = page.getByTestId("thread-reconcile-pending");
     await expect(reconcile).toBeVisible({ timeout: 20000 });
     await reconcile.click();
@@ -493,6 +488,15 @@ test.describe("Ensemble 05 Travail avec Nora", () => {
     });
     // Newer draft D must survive ACK of C.
     await expect(page.getByTestId("thread-draft")).toHaveValue(newer);
+
+    await page.reload();
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+    await expect(page.getByTestId("thread-draft")).toHaveValue(newer);
+    await expect(page.getByTestId("thread-reconcile-pending")).toHaveCount(0);
 
     const proj = await page.request.get(`/api/projects/${projectId}`);
     const pj = await proj.json();

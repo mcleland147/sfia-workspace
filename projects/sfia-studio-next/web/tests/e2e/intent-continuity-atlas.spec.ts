@@ -40,7 +40,8 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
       { timeout: 30000 },
     )
     .toBe("AWAITING_PILOT_ACT");
-  await expect(page.getByText(/Acte Pilote requis/i)).toBeVisible();
+  // SEM A-007: mission status is structured (API) — do not require literal « Acte Pilote » prose.
+  await expect(page.getByTestId("prep-create-project")).toBeVisible({ timeout: 15000 });
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {

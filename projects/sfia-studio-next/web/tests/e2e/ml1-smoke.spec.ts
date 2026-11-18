@@ -54,7 +54,7 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   expect(page.url()).not.toContain("preparationId=");
   // Ensemble 04: continuity chrome (legacy « réouverture par projectId » removed from UI).
   await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
-  await expect(page.getByText(/Reprise contextualisée|Contexte conservé/i)).toBeVisible();
+  await expect(page.getByTestId("project-status-hint")).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
   await openSasSecondaryTool(page, "Documents");
   await expect(page.getByText("Document Playwright", { exact: false })).toBeVisible();

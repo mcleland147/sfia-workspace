@@ -124,6 +124,7 @@ test.describe("Ensemble 05 UAT-07 UX-05", () => {
 
     // UX-01 — icon vs first title line geometry on intro / recommendation.
     const assistant = page.getByTestId("nora-msg-assistant").last();
+    await assistant.scrollIntoViewIfNeeded();
     const iconPairs = await assistant.evaluate((root) => {
       const rows: Array<{
         role: string;
@@ -135,8 +136,14 @@ test.describe("Ensemble 05 UAT-07 UX-05", () => {
         const icon = root.querySelector(iconSel) as HTMLElement | null;
         const text = root.querySelector(textSel) as HTMLElement | null;
         if (!icon || !text) return;
+        icon.scrollIntoView({ block: "center", inline: "nearest" });
+        text.scrollIntoView({ block: "center", inline: "nearest" });
         const ib = icon.getBoundingClientRect();
         const tb = text.getBoundingClientRect();
+        // Skip pairs still outside the viewport (virtualized / scrolled composition).
+        if (ib.bottom < 0 || tb.bottom < 0 || ib.top > window.innerHeight || tb.top > window.innerHeight) {
+          return;
+        }
         rows.push({ role, iconTop: ib.top, textTop: tb.top, delta: ib.top - tb.top });
       };
       pick(".fig-visual-text-icon", ".fig-visual-text-body > :first-child", "text-with-icon");
@@ -152,6 +159,7 @@ test.describe("Ensemble 05 UAT-07 UX-05", () => {
       path.join(evidenceDir, "ux01-icon-align-geometry.json"),
       JSON.stringify(iconPairs, null, 2),
     );
+    expect(iconPairs.length).toBeGreaterThan(0);
     for (const row of iconPairs) {
       // Optical settle allows ~0–4px; reject large misalignment.
       expect(Math.abs(row.delta)).toBeLessThanOrEqual(4);

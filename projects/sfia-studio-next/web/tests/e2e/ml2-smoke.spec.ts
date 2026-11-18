@@ -37,8 +37,8 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
     timeout: 30000,
   });
 
-  // Journal — G4 surface label is "Journal" (not "Journal — Sujets")
-  await page.getByRole("button", { name: "Journal", exact: true }).click();
+  // Journal — sas secondary tool (not a permanent central tab).
+  await openSasSecondaryTool(page, "Journal");
   await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: /Acquis/i }).first()).toBeVisible();
 
@@ -61,11 +61,12 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
     }),
   ).toBeVisible();
 
-  // Reopen continuity
+  // Reopen continuity — Ensemble 04 Journal is a rail surface.
   await page.goto(`/projects/${projectId}`);
   await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
-  await expect(page.getByText(/Reprise contextualisée|Contexte conservé/i)).toBeVisible();
-  await page.getByRole("button", { name: "Journal" }).click();
+  await expect(page.getByTestId("project-status-hint")).toBeVisible();
+  await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+  await expect(page).toHaveURL(/surface=journal/);
   await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
 
   // Isolation
