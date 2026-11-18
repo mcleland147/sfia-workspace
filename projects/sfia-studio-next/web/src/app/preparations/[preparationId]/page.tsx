@@ -12,6 +12,14 @@ import {
   DocumentLibrary,
   type RevisionRow,
 } from "@/components/figma/DocumentSurfaces";
+import {
+  inspectedCreatePayload,
+  type PreparationProjection,
+} from "@/domains/preparation/projection";
+import {
+  resolveSasPresentationStage,
+  sasPresentationCopy,
+} from "@/components/figma/sas-presentation";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -38,9 +46,6 @@ export default function PreparationPage() {
   const preparationId = params.preparationId;
   const isResumedPrep =
     searchParams.get("resume") === "1" || searchParams.get("from") === "portfolio";
-  const [proposalEditing, setProposalEditing] = useState(false);
-  const [draftProposalName, setDraftProposalName] = useState("");
-  const [draftProposalSummary, setDraftProposalSummary] = useState("");
   const [revRows, setRevRows] = useState<RevisionRow[]>([]);
   const [docViewMode, setDocViewMode] = useState<"read" | "edit">("read");
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -53,6 +58,10 @@ export default function PreparationPage() {
   const [previewName, setPreviewName] = useState("");
   const [previewSummary, setPreviewSummary] = useState("");
   const [creationRevision, setCreationRevision] = useState(1);
+  const [projection, setProjection] = useState<PreparationProjection | null>(null);
+  const [projectionFreshness, setProjectionFreshness] = useState<
+    "current" | "stale" | "unavailable" | "legacy"
+  >("legacy");
   const [projectId, setProjectId] = useState<string | null>(null);
   const [status, setStatus] = useState("");
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
@@ -111,6 +120,15 @@ export default function PreparationPage() {
     setPreviewName(j.preparation?.previewName ?? "");
     setPreviewSummary(j.preparation?.previewSummary ?? "");
     setCreationRevision(j.preparation?.creationRevision ?? 1);
+    const nextProjection = (j.projection as PreparationProjection | null | undefined) ?? null;
+    setProjection(nextProjection);
+    setProjectionFreshness(
+      nextProjection
+        ? "current"
+        : j.preparation?.previewName || j.preparation?.previewSummary
+          ? "legacy"
+          : "legacy",
+    );
     setProjectId(j.project?.id ?? null);
     const awaiting = j.awaitingMission as
       | { clientIntentKey?: string; status?: string }
@@ -211,8 +229,18 @@ export default function PreparationPage() {
         const streaming = j.streaming as
           | { attempted?: boolean; delivered?: boolean }
           | undefined;
+        const prepProj = j.preparationProjection as
+          | { status?: string; assessment?: string; revision?: number }
+          | null
+          | undefined;
+        const projPart = prepProj?.status
+          ? ` · projection ${prepProj.status}${prepProj.assessment ? `/${prepProj.assessment}` : ""}`
+          : "";
+        if (prepProj?.status === "UNAVAILABLE") {
+          setProjectionFreshness("unavailable");
+        }
         setStatus(
-          `Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}${policyPart}${opPart}${replayPart}${docPart}${docConflict}${cap}` +
+          `Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}${policyPart}${opPart}${replayPart}${docPart}${docConflict}${cap}${projPart}` +
             (streaming?.attempted
               ? ` · stream attempted=${streaming.attempted} delivered=${streaming.delivered}`
               : ""),
@@ -459,26 +487,6 @@ export default function PreparationPage() {
     } else setStatus(`Diff ${cmp.status}`);
   }
 
-  async function savePreview() {
-    const name = proposalEditing ? draftProposalName : previewName;
-    const summary = proposalEditing ? draftProposalSummary : previewSummary;
-    const res = await fetch(`/api/preparations/${preparationId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ previewName: name, previewSummary: summary }),
-    });
-    const j = await res.json();
-    if (res.ok) {
-      setPreviewName(name);
-      setPreviewSummary(summary);
-      setCreationRevision(j.creationRevision);
-      setProposalEditing(false);
-      setStatus(`Proposition enregistrée · révision ${j.creationRevision}`);
-    } else {
-      setStatus(`Échec enregistrement proposition`);
-    }
-  }
-
   /**
    * ML4C S02 — after lost ACK, reconcile with the same idempotency key before any new create.
    * Read-only GET; never mints a second mutation automatically.
@@ -516,6 +524,11 @@ export default function PreparationPage() {
   }
 
   async function createProject() {
+    const createPayload = inspectedCreatePayload(projection, previewName, previewSummary);
+    if (!createPayload.ok) {
+      setStatus("Précisez un nom de projet inspecté avant de créer — aucun titre inventé.");
+      return;
+    }
     setBusy(true);
     // Structured binding only — server verifies clientIntentKey against durable mission.
     const clientIntentKey = awaitingClientIntentKey ?? undefined;
@@ -526,8 +539,8 @@ export default function PreparationPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           expectedCreationRevision: creationRevision,
-          projectName: previewName || "Projet sans titre",
-          previewSummary,
+          projectName: createPayload.projectName,
+          previewSummary: createPayload.previewSummary,
           idempotencyKey: key,
           clientIntentKey,
         }),
@@ -535,6 +548,7 @@ export default function PreparationPage() {
       let j: {
         status?: string;
         projectId?: string;
+        reason?: string;
         missionBindingError?: string;
         missionContinue?: {
           continued?: boolean;
@@ -555,6 +569,18 @@ export default function PreparationPage() {
           : j.missionContinue?.reason
             ? ` · continue ${j.missionContinue.reason}`
             : "";
+      if (j.status === "CONFLICT" && !j.projectId) {
+        const reason =
+          (j as { reason?: string }).reason ??
+          "conflit de création — aucun projet supplémentaire créé";
+        setStatus(
+          reason.includes("name already used")
+            ? "Ce nom est déjà utilisé pour un de vos projets. Choisissez un autre nom — Nora peut en proposer un."
+            : `CONFLICT: ${reason}${bindErr}`,
+        );
+        await reload();
+        return;
+      }
       if (j.status || j.projectId) {
         setStatus(`${j.status ?? ""}${j.projectId ? ` → ${j.projectId}` : ""}${cont}${bindErr}`);
       }
@@ -622,17 +648,6 @@ export default function PreparationPage() {
     }
   }
 
-  function startConstituteProposal() {
-    setDraftProposalName(previewName);
-    setDraftProposalSummary(previewSummary);
-    setProposalEditing(true);
-  }
-
-  function adoptLastNoraSummary() {
-    const last = [...messages].reverse().find((m) => m.role === "assistant");
-    if (last) setDraftProposalSummary(last.content.slice(0, 2000));
-  }
-
   async function loadRevisionHistory(documentId: string) {
     const res = await fetch(`/api/preparations/${preparationId}/documents/${documentId}`);
     if (!res.ok) {
@@ -657,49 +672,81 @@ export default function PreparationPage() {
   }
 
   const inspected = docs.find((d) => d.document.id === inspectDocId) ?? docs[0];
-  const sasFrame = isResumedPrep ? "159:145" : "94:135";
+  const presentationStage = resolveSasPresentationStage({
+    isResumed: isResumedPrep,
+    assessment: projection?.suggestion?.assessment,
+    messageCount: messages.length,
+  });
+  const presentation = sasPresentationCopy(presentationStage);
+  const sasFrame =
+    presentationStage === "resume"
+      ? "607:277"
+      : presentationStage === "base_sufficient"
+        ? "607:203"
+        : presentationStage === "proposal"
+          ? "607:131"
+          : presentationStage === "clarification"
+            ? "607:62"
+            : "607:3";
 
   return (
-    <div className="fig-page" data-figma-frame={sasFrame} data-sas-resume={isResumedPrep ? "1" : "0"}>
-      <div className="fig-breadcrumb">
-        <span>
-          SFIA Studio / Nouveau projet / préparation{isResumedPrep ? " · reprise" : ""}
-        </span>
-        <span className="text-xs muted truncate max-w-[40%]">{preparationId}</span>
-      </div>
-      <header className="space-y-2">
-        <p className="fig-kicker">Espace de préparation — projet non créé</p>
-        <h1 className="fig-hero-title">
-          {isResumedPrep ? "Préparation retrouvée" : "Clarifions votre intention"}
-        </h1>
-        <p className="fig-hero-sub">
-          {isResumedPrep
-            ? "Continuité du même fil. Inspectez la proposition éventuelle puis créez explicitement si prêt."
-            : "Discutez librement avec Nora avant de décider de créer un projet."}
-          {projectId ? ` Projet lié : ${projectId}.` : ""}
+    <div
+      className="sas-page"
+      data-figma-frame={sasFrame}
+      data-sas-stage={presentationStage}
+      data-sas-resume={isResumedPrep ? "1" : "0"}
+      data-testid="sas-page"
+    >
+      <header className="sas-stage">
+        <p className="sas-stage-kicker" data-testid="sas-stage-kicker">
+          {presentation.kicker}
         </p>
-        <nav className="flex flex-wrap gap-2 pt-1" aria-label="Surfaces sas">
-          {(
-            [
-              ["travail", "Discussion"],
-              ["journal", "Journal"],
-              ["document", "Documents"],
-            ] as const
-          ).map(([id, label]) => (
+        <h1 className="sas-stage-title" data-testid="sas-stage-title">
+          {presentation.title}
+        </h1>
+        <p className="sas-stage-sub" data-testid="sas-stage-sub">
+          {presentation.subtitle}
+        </p>
+        {/* Secondary tools stay contextual — never permanent Travail/Pilotage/Journal tabs. */}
+        {surface !== "travail" ? (
+          <nav className="flex flex-wrap gap-2 pt-2" aria-label="Retour conversation sas">
             <button
-              key={id}
               type="button"
-              className={`btn ${surface === id ? "" : "secondary"}`}
-              onClick={() => setSurface(id)}
+              className="btn secondary"
+              onClick={() => setSurface("travail")}
+              data-testid="sas-back-to-conversation"
             >
-              {label}
+              Retour à la conversation
             </button>
-          ))}
-        </nav>
+          </nav>
+        ) : (
+          <details className="sas-secondary-tools text-xs muted" data-testid="sas-secondary-tools">
+            <summary className="cursor-pointer">Outils secondaires du sas</summary>
+            <div className="flex flex-wrap gap-2 pt-2">
+              <button
+                type="button"
+                className="btn secondary"
+                onClick={() => setSurface("journal")}
+              >
+                Journal
+              </button>
+              <button
+                type="button"
+                className="btn secondary"
+                onClick={() => setSurface("document")}
+              >
+                Documents
+              </button>
+            </div>
+          </details>
+        )}
+        <span className="sr-only" data-testid="sas-preparation-id">
+          {preparationId}
+        </span>
       </header>
 
       {surface === "travail" ? (
-        <div className="fig-workspace">
+        <div className="sas-workspace" data-testid="sas-workspace">
           <PreparationConversation
             messages={messages}
             draft={draft}
@@ -707,6 +754,7 @@ export default function PreparationPage() {
             noraActivity={noraActivity}
             onDraftChange={setDraft}
             onSend={() => void sendMessage()}
+            showResumeBanner={isResumedPrep}
           />
           <PreparationProposal
             projectId={projectId}
@@ -714,20 +762,10 @@ export default function PreparationPage() {
             previewSummary={previewSummary}
             creationRevision={creationRevision}
             messageCount={messages.length}
-            openPoints={(knowledge?.openPoints ?? [])
-              .filter((o) => o.status === "OPEN")
-              .map((o) => ({ id: o.id, statement: o.statement }))}
+            projection={projection}
+            projectionFreshness={projectionFreshness}
+            presentation={presentation}
             busy={busy}
-            editing={proposalEditing}
-            draftName={draftProposalName}
-            draftSummary={draftProposalSummary}
-            onDraftName={setDraftProposalName}
-            onDraftSummary={setDraftProposalSummary}
-            onStartConstitute={startConstituteProposal}
-            onAdoptLastNoraSummary={adoptLastNoraSummary}
-            canAdoptLastNora={messages.some((m) => m.role === "assistant")}
-            onSaveProposal={() => void savePreview()}
-            onCancelEdit={() => setProposalEditing(false)}
             onCreateProject={() => void createProject()}
             status={status}
           />

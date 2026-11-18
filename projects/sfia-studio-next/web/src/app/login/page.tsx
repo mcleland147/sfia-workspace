@@ -1,23 +1,73 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { UnifiedStudioEntry } from "@/components/entry/UnifiedStudioEntry";
+import { resolveUnifiedEntryVariant } from "@/components/entry/unified-entry-variant";
+import "@/components/entry/unified-studio-entry.css";
 
-export default function LoginPage() {
+function sanitizeUserNotice(raw: unknown): string {
+  if (typeof raw !== "string" || !raw.trim()) {
+    return "Une erreur est survenue. Réessayez ou contactez l’opérateur.";
+  }
+  const text = raw.trim().replace(/\s+/g, " ");
+  // Never surface stack / absolute paths / env dumps to the Pilote.
+  if (
+    text.length > 480 ||
+    /\/Users\/|\/home\/|at\s+\S+\s+\(|node_modules|DATABASE_URL|SECRET|BEGIN PRIVATE/i.test(
+      text,
+    )
+  ) {
+    return "Une erreur est survenue. Réessayez ou contactez l’opérateur.";
+  }
+  return text.slice(0, 480);
+}
+
+function LoginPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const variant = useMemo(
+    () => resolveUnifiedEntryVariant(searchParams.get("reason")),
+    [searchParams],
+  );
   const [notice, setNotice] = useState<string>("");
+  const [noticeTone, setNoticeTone] = useState<"error" | "busy" | "info">("info");
   const [busy, setBusy] = useState(false);
+  const [testLoginAvailable, setTestLoginAvailable] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const statusRes = await fetch("/api/auth/status");
+        const status = await statusRes.json().catch(() => ({}));
+        if (!cancelled) {
+          setTestLoginAvailable(Boolean(status?.testLoginAvailable));
+        }
+      } catch {
+        if (!cancelled) setTestLoginAvailable(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function startGitHubOAuth() {
     setBusy(true);
-    setNotice("");
+    setNotice("Préparation de la connexion GitHub…");
+    setNoticeTone("busy");
     try {
       const statusRes = await fetch("/api/auth/status");
       const status = await statusRes.json().catch(() => ({}));
+      if (status?.testLoginAvailable != null) {
+        setTestLoginAvailable(Boolean(status.testLoginAvailable));
+      }
       if (!status.configured) {
         setNotice(
-          "GitHub OAuth BLOCKED — secrets clients absents. Pas de preuve LIVE dans ce cycle.",
+          "Connexion GitHub indisponible : la configuration OAuth n’est pas prête sur cet environnement. Aucun service n’est déclaré disponible.",
         );
+        setNoticeTone("error");
         setBusy(false);
         return;
       }
@@ -27,13 +77,23 @@ export default function LoginPage() {
         body: JSON.stringify({ provider: "github", callbackURL: "/portfolio" }),
       });
       const data = await res.json().catch(() => ({}));
-      if (data?.url) {
+      if (data?.url && typeof data.url === "string") {
         window.location.assign(data.url);
         return;
       }
-      setNotice(data?.message ?? data?.error ?? "Échec démarrage OAuth GitHub");
-    } catch (e) {
-      setNotice(String(e));
+      setNotice(
+        sanitizeUserNotice(
+          data?.message ??
+            data?.error ??
+            "La connexion GitHub n’a pas pu démarrer. Réessayez ou contactez l’opérateur.",
+        ),
+      );
+      setNoticeTone("error");
+    } catch {
+      setNotice(
+        "Impossible de joindre le service d’authentification. Vérifiez votre connexion puis réessayez.",
+      );
+      setNoticeTone("error");
     } finally {
       setBusy(false);
     }
@@ -42,51 +102,81 @@ export default function LoginPage() {
   async function devLogin(pilot: "a" | "b") {
     setBusy(true);
     setNotice("");
-    const res = await fetch("/api/dev/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pilot }),
-    });
-    const data = await res.json();
-    setBusy(false);
-    if (!res.ok) {
-      setNotice(data.error ?? "Échec");
-      return;
+    setNoticeTone("info");
+    try {
+      // C3 — same-tab identity switch: purge Travail drafts before new session cookie.
+      try {
+        const { purgeAllComposerDraftsInTab } = await import(
+          "@/domains/conversation/composer-draft"
+        );
+        purgeAllComposerDraftsInTab();
+      } catch {
+        /* draft module unavailable — continue login */
+      }
+      const res = await fetch("/api/dev/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pilot }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setNotice(
+          sanitizeUserNotice(
+            data.error === "DEV_TEST_LOGIN_DISABLED" ||
+              data.error === "DEV_TEST_LOGIN_LANE_FORBIDDEN"
+              ? "Accès de test indisponible sur cet environnement."
+              : (data.error ?? "Échec de l’accès de test"),
+          ),
+        );
+        setNoticeTone("error");
+        setBusy(false);
+        return;
+      }
+      setNotice(sanitizeUserNotice(data.notice ?? "Connexion de test établie."));
+      setNoticeTone("info");
+      router.push("/portfolio");
+    } catch {
+      setNotice("Impossible de joindre le service d’accès de test.");
+      setNoticeTone("error");
+      setBusy(false);
     }
-    setNotice(data.notice);
-    router.push("/portfolio");
   }
 
   return (
-    <div className="max-w-xl mx-auto panel p-6 space-y-4">
-      <h1 className="text-2xl font-semibold">Connexion Studio</h1>
-      <p className="muted text-sm">
-        GitHub OAuth sert uniquement l&apos;identité Studio. Aucun droit de dépôt n&apos;est accordé.
-      </p>
-      <div className="panel p-4 space-y-2">
-        <div className="font-medium">GitHub OAuth</div>
-        <p className="text-sm muted">
-          Statut: <code>/api/auth/status</code> — BLOCKED si secrets absents. LIVE non inventé.
-        </p>
-        <button type="button" className="btn secondary" disabled={busy} onClick={startGitHubOAuth}>
-          Continuer avec GitHub
-        </button>
-      </div>
-      <div className="panel p-4 space-y-3">
-        <div className="font-medium">DEV test login</div>
-        <p className="text-sm muted">
-          Fake/Real: connecteur de test local — <strong>pas</strong> une preuve OAuth GitHub.
-        </p>
-        <div className="flex gap-2">
-          <button className="btn" disabled={busy} onClick={() => devLogin("a")}>
-            Pilote A (DEV)
-          </button>
-          <button className="btn secondary" disabled={busy} onClick={() => devLogin("b")}>
-            Pilote B (DEV)
-          </button>
+    <UnifiedStudioEntry
+      variant={variant}
+      busy={busy}
+      notice={notice}
+      noticeTone={noticeTone}
+      testLoginAvailable={testLoginAvailable}
+      onGitHubContinue={startGitHubOAuth}
+      onDevLogin={devLogin}
+    />
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="uxe-root" data-testid="unified-studio-entry-fallback">
+          <div className="uxe-shell">
+            <header className="uxe-header">
+              <div className="uxe-brand">
+                <span className="uxe-mark" aria-hidden>
+                  S
+                </span>
+                <p className="uxe-brand-name">SFIA Studio</p>
+              </div>
+            </header>
+            <main className="uxe-body">
+              <p className="uxe-lead">Chargement de l&apos;entrée Studio…</p>
+            </main>
+          </div>
         </div>
-      </div>
-      {notice ? <p className="text-sm">{notice}</p> : null}
-    </div>
+      }
+    >
+      <LoginPageInner />
+    </Suspense>
   );
 }

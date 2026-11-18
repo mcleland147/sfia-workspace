@@ -4,6 +4,703 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-18-UX01-07-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~18:30 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — UX-01…07 + relivraison RECETTE |
+| Type | Cycle 8 Delivery · Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctifs UX-01…07 + build + cutover RECETTE même cycle |
+| Parent RECETTE | `90c3e59f` / `5C3be3-ils1iOmH3qXo4d` |
+| Candidate | `bd3854ac50520f3ce5e46ec773b67ec3ae5cc70b` · tree `c39e45e6…` · build `qw3FaPD1B4KBrRab3LyKL` |
+| Scope | Icon/title · matrix caption · ordinals · graph icons · parallel ELK · synthesis icons/padding · card flow |
+| QA | Vitest UX+ELK+UAT03+C2 **PASS** · smoke RECETTE PASS · isolation 404 · DB `23\|117\|556\|4` |
+| Rollback | `ROLLBACK-TO-90c3e59f.sh` + backup `ml4d-e05-ux0107-*` |
+| Preuves | `docs/evidence/.../ensemble05-ux01-07-recette-20261118/` |
+| Verdict Cursor | `ENSEMBLE 05 UX CORRECTIVES DEPLOYED — RECETTE READY FOR MORRIS RETEST` |
+
+
+## delivery_id: DELIV-2026-11-18-UAT03-FIX-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~17:40 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — UAT-03 correctif + redéploiement RECETTE |
+| Type | Cycle 8 Delivery · Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctif detail 5000 + obs durable + build + cutover RECETTE même cycle |
+| Parent RECETTE | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` / `_eeb9Jy2hV242myk86VTu` |
+| Fix | `sequence.steps[].detail` max **5000** · parse `MAX_SEQUENCE_STEP_DETAIL` · instruction D3 SEQUENCE |
+| Obs | classification schema/output · zod_issue_path · error_kind · ephemeral DEV-only |
+| QA | Vitest bornes+obs **20 PASS** · `next build` OK · smoke RECETTE PASS · isolation B→A 404 |
+| Candidate | `90c3e59f4a355b463ea047cc45486906bde15680` · tree `1c7fa402…` · build `5C3be3-ils1iOmH3qXo4d` |
+| RECETTE | LaunchAgent basculé · WT `…-ensemble05-recette-build-90c3e59f` · port **3200** |
+| DB | counts `23\|117\|544\|4` préservés · **aucune migration** |
+| Rollback | `ROLLBACK-TO-ba1e55ec.sh` + backup `ml4d-e05-uat03-fix-20261118-173348` |
+| Preuves | `docs/evidence/.../ensemble05-uat03-fix-recette-20261118/` |
+| Statut UAT-03 | `FIX DEPLOYED — MORRIS USER RETEST PENDING` |
+| Verdict Cursor | `UAT-03 FIX DEPLOYED — RECETTE READY FOR MORRIS RETEST` |
+
+
+## delivery_id: DELIV-2026-11-18-UAT03-ROOTCAUSE-LIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~17:10 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — UAT-03 root cause |
+| Type | Cycle 9 QA + Cycle 8 obs · Critical · **NO RELEASE** · **NO RECETTE DEPLOY** · **NO PRODUCT PUSH** |
+| GO Morris | Investigation LIVE + observabilité durable, sans plafond arbitraire |
+| Cause | `sequence.steps[].detail` max(400) violé → Agents `ModelBehaviorError` en `stream_drain` |
+| Preuve | EXP-02 path Zod ; EXP-04 COMPLETE après contrainte détails courts ; EXP-03 contrôle comparison |
+| LIVE | 4 essais DEV · est. **€3,40 TTC** fallback |
+| Obs | classification `Invalid output type` · zod_issue_path · error_kind · ephemeral DEV |
+| RECETTE | **inchangée** `ba1e55ec` / `_eeb9Jy2hV242myk86VTu` |
+| Preuves | `docs/evidence/.../ensemble05-uat03-rootcause-live-20261118/` |
+| Verdict Cursor | `UAT-03 ROOT CAUSE PROVEN — CORRECTIVE PLAN READY` |
+
+
+## delivery_id: DELIV-2026-11-18-ENSEMBLE05-RECETTE-CANDIDATE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~16:20 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Mise à disposition RECETTE |
+| Type | Cycle 8 Delivery · Cycle 9 QA préflight · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO LIVE auto** |
+| GO Morris | Ensemble 05 accepté avec réserves — GO intégration/build/cutover RECETTE existante |
+| Previous RECETTE | SHA `e224d6278a050bcfbd369c4008d94af504f81d44` · build `MKmBUvdIXyydv_DpUTGZi` |
+| Candidate branch | `sfia/next-ml4d-ensemble05-composition-recette-candidate` (local) |
+| Candidate SHA | `ba1e55ece782eb9f2bbfad9336ed346de1acf037` · tree `f94e8ecc` |
+| Build | `_eeb9Jy2hV242myk86VTu` · WT `…-ensemble05-recette-build-ba1e55ec` · port **3200** |
+| Config | `~/.config/sfia-studio-next/recette/.env.local` préservé · FORCE/SIM vidés · fingerprint `8f6dd4c82b61eef6` |
+| DB | `sfia_next_recette_ml4` @:5434 · counts 23\|117\|534 inchangés · **aucune migration** |
+| QA | Vitest 73 PASS · `next build` OK · smoke login/portfolio/projet/composition PASS |
+| Rollback | `ROLLBACK-TO-e224d627.sh` + backup `ml4d-e05-composition-20261118-161805` |
+| Preuves | `docs/evidence/.../ensemble05-recette-delivery-20261118/` |
+| Fake/Real | LIVE auto **NOT RUN** · composition persistée **BROWSER PROVEN** en RECETTE |
+| Verdict Cursor | `RECETTE DEPLOYED — READY FOR MORRIS USER ACCEPTANCE` |
+
+
+## delivery_id: DELIV-2026-11-18-ENSEMBLE05-FINAL-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~15:45 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Consolidation finale + réception Morris |
+| Type | Cycle 8 Delivery · Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO LIVE** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| Audit LIVE | L03/L04 **Cas B** (pas de VC) ; L07 **Cas D** (parallel fidèle) |
+| Correctifs | prompt D3 comparison/relations ; admission substance + hint normalize ; discriminants UNIT |
+| QA | Vitest discriminants+admission+C2+SIM **PASS** ; Level-B SIM e2e **PASS** ; maturation baseline **PASS** |
+| LIVE | **aucun nouvel appel** |
+| Preuves | `docs/evidence/.../ensemble05-final-consolidation-20261118/` |
+| Verdict Cursor | `READY FOR MORRIS ENSEMBLE 05 RECEPTION REVIEW` |
+
+
+## delivery_id: DELIV-2026-11-18-NORA-LIVE-BOUNDED-COMPOSITION-PROVEN
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~15:25 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Qualification LIVE bornée composition Nora |
+| Type | Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| GO Morris | LIVE ≤12 tours · plafond **€25 TTC** (levée STOP `cb407251`) |
+| Exécution | **12/12** `openai-agents-sdk-live · COMPLETE` · 0 retry · 0 fixture/SIM |
+| Composition | Spontanée L05–L09 ; prose L01–L04/L10–L12 ; L10 refus inventé |
+| Persist | Reload 12 assistants · fragment match |
+| Coût est. | **€10,20 TTC** / €25 (fallback conservateur gpt-6.1-sol $2/$10) |
+| Outillage | `live-web-server.sh` · `playwright.live.config.ts` · `ensemble05-live-bounded.spec.ts` |
+| Preuves | `docs/evidence/.../live-bounded-campaign-20261118/` |
+| Fake/Real | LIVE **PROVEN** · Level-B antérieur PROVEN |
+| Verdict Cursor | `LIVE COMPOSITION BEHAVIOR PROVEN — BOUNDED SCOPE` |
+
+
+## delivery_id: DELIV-2026-11-18-NORA-LIVE-BOUNDED-BUDGET-STOP
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~15:00 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Qualification LIVE bornée composition Nora |
+| Type | Cycle 9 QA + Cycle 8 correctif préflight · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **LIVE NOT RUN** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| GO Morris | LIVE ≤12 tours DEV autorisé — **plafond monétaire absent** |
+| Préflight PASS | ENV-01 DEV ; C2 `exactShownElsewhere` exact-identity ; SIM unknown fail-closed ; corpus L01–L12 préenregistré |
+| QA | Vitest C2+SIM **21 PASS** (cibles) |
+| Preuves | `docs/evidence/.../live-bounded-campaign-20261118/` |
+| Fake/Real | LIVE **NOT RUN** · Level-B antérieur **PROVEN** |
+| Verdict Cursor | `STOP — MORRIS LIVE BUDGET LIMIT REQUIRED` (proposition plafond **€25 TTC**) |
+
+
+## delivery_id: DELIV-2026-11-18-NORA-E2E-CHAIN-LEVEL-B
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~14:40 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Qualification intégrée Nora→Composition→Persistance |
+| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO PRODUCT PUSH** · **LIVE NOT RUN** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| Level-B | `STUDIO_NORA_SIMULATED_PROVIDER` — corpus S1–S11 natural prompts ; validate + real D3 path |
+| Corrections | Timeline Figma 02 ; matrice 04 Effort/Risque/Délai ; C2 residual exact-identity ; cons complets |
+| QA | Vitest Level-B+C2 PASS ; Playwright sim Level-B **PASS** ; R01–R06 / T02 / C2-08 **PASS** |
+| Preuves | `docs/evidence/.../level-b-e2e-chain-20261118/` + SHA ; protocole LIVE draft |
+| Fake/Real | ADAPTER+BROWSER FAKE **PROVEN** · LIVE **NOT RUN** · HISTORICAL PG **NOT RUN** |
+| Verdict Cursor | `DEV END-TO-END CHAIN VERIFIED — READY FOR BOUNDED LIVE DECISION` |
+
+
+## delivery_id: DELIV-2026-11-18-FIGMA-01-06-VISUAL-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~14:00 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Convergence visuelle Figma 01–06 |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| GO Morris | Convergence visuelle intégrée Figma 01–06 — GO confirmé |
+| Construction | `EditorialSynthesis` v3 ; `EditorialSequence` ; cartes option ; matrice rows ; tokens 01–06 |
+| Fixtures | `E05_R01`…`E05_R06` (FIXTURE/DEMONSTRATION) |
+| Admission | cards×3 ; matrix critères/5+ ; stacked×2 narrow ; horizontal n≤4 width≥580 ; vertical n≥5 |
+| QA | Vitest composition 63 PASS (cibles) ; Playwright R01–R06 **PASS** ; T02 **PASS** ; C2-08 **PASS** |
+| Preuves | `docs/evidence/.../figma-01-06-convergence-20261118/` + SHA-256 |
+| ELK 07–09 | Conservé (`elkjs@0.10.2`) — non régression T02/G07–G09 |
+| Fake/Real | BROWSER FAKE + VISUAL REVIEW **PROVEN** · LIVE **NOT RUN** |
+| Verdict Cursor | `READY FOR CHATGPT VISUAL REVIEW — FIGMA 01-06 CONVERGENCE CANDIDATE` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-COMPLETE-ELK-PRODUCT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~13:15 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Livraison intégrale composition graphique Nora |
+| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT dirty) |
+| GO Morris | ELKjs produit **autorisé** — lève STOP architecture précédent |
+| ELK produit | **`elkjs@0.10.2`** (EPL-2.0) installé ; import bundlé Next ; mesure DOM → layout → paint |
+| G09 | Swimlane composer (3 voies verticales + sync + suite) ; largeur cible <720px |
+| Fix critique | `preferListFallback` ne bake plus `nodes>10` au parse (sinon G09→list) |
+| Remplacement | Artisan Graphs retiré du chemin principal ; probe C2-08 isolé |
+| QA | Vitest composition **83 PASS** (cibles) ; Playwright **T02 PASS** ; **C2-08 PASS** |
+| Preuves | `runtime-figma07/08/09-*-elk-1440.png` + manifeste SHA-256 + inventaire Figma |
+| Fake/Real | BROWSER FAKE **PROVEN** · HISTORICAL PG **NOT RUN** · LIVE **NOT RUN** |
+| Verdict Cursor | `READY FOR CHATGPT REVIEW — COMPLETE IMPLEMENTATION CANDIDATE` (réserves visuelles artistiques / Gate C Morris) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-GRAPHICAL-ENGINE-REPLACEMENT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~12:25 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Remplacement architectural couche graphique |
+| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| Benchmark | Isolé `scripts/layout-engine-benchmark` — G07/G08/G09 artisan vs ELK vs RF+ELK |
+| Recommandation | **Solution A : HTML/SVG + ELKjs** (CANDIDATE) — RF non requis pour layout |
+| Gate | **STOP — MORRIS ARCHITECTURE DECISION REQUIRED** (ajout `elkjs` produit) |
+| Production | `DirectedRelationBoard` + `EditorialSynthesis` ; artisan Graphs **retiré** du chemin principal |
+| ELK produit | **NOT INSTALLED** (`package.json` inchangé) |
+| Fake/Real | UNIT PROVEN · BROWSER à rejouer · LIVE NOT RUN |
+| Verdict | `STOP — MORRIS ARCHITECTURE DECISION REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-W3-W4-GRAPHICAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~11:45 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — Finalisation W3/W4 grammaire graphique Nora |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| C2-08 | Exception React **post-mount** réelle → `BlockErrorBoundary` navigateur ; capture `c2-08-browser-error-recovery-1440.png` · **BROWSER PROVEN** |
+| W3 | `NoraCompositionGraphs` : arbre + parallèle SVG mesuré ; synthèse éditoriale par tons ; tokens parcours renforcés ; deps inchangés (mesurés) |
+| W4 | Vitest composition 72+ PASS (cibles) ; T02 PASS ; C2-08 Playwright PASS ; manifeste Figma/runtime 01–09 |
+| Layout | HTML/SVG mesuré **retenu** ; ELK/RF non ajoutés |
+| Fake/Real | UNIT+BROWSER FAKE **PROVEN** · HISTORICAL PG REPLAY **NOT RUN** · LIVE **NOT RUN** |
+| Verdict | `READY WITH RESERVES` (fidélité Figma PARTIAL 01–09 ; réception Morris) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-C2-INTEGRITY-W3
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~11:25 CET |
+| Macro-lot | R5 / ML4D — C2 intégrité sémantique + W1/W3 sombre adaptatif |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| C2 | Suppression heuristique 70% tokens ; exact-identity only ; tests adverses négations/chiffres/statuts ; ErrorBoundary réel |
+| W1 | Contrat exécutable thème sombre Studio (Figma 01–09 hiérarchie) |
+| W3 | Markers SVG uniques ; polish cards/tree/parallel sur tokens sombres |
+| W4 | Vitest 138 PASS ; T02 à rejouer ; PG historique NOT RUN ; VISUAL NOT COMPLETED |
+| Fake/Real | UNIT+BROWSER FAKE **PROVEN** · LIVE **NOT RUN** |
+| Verdict | `READY WITH RESERVES` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-C2-W1-FINALIZATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~11:00 CET |
+| Macro-lot | R5 / ML4D — Finalisation C2 + W1 contrat Figma (Ensemble 05) |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| C2 | `visibleTextAlternativeComplement` + `SubstanceComplement` visible (pas sr-only) ; oracles C2-01…10 |
+| W1 | Paquet Morris Page 06 frames 01–09 ; **FIGMA CONTRACT READY — MORRIS VISUAL VALIDATION REQUIRED** |
+| W3 | Pas de transposition pixel ; familles existantes préservées |
+| W4 | Vitest 122 PASS ; T02 PASS (+ assert C2 DOM) ; PG DEV up sans payloads historiques |
+| W5 | Corpus réception préparé ; LIVE NOT RUN |
+| Fake/Real | UNIT+BROWSER FAKE **PROVEN** · HISTORICAL PG REPLAY **NOT RUN** · LIVE **NOT RUN** |
+| Verdict | `READY WITH RESERVES` / gate artistique Morris |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-VISUAL-GRAMMAR-DIFFS-COMPLETE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~10:30 CET |
+| Macro-lot | R5 / ML4D — Complétude Review Pack diffs C1–C4 |
+| Type | Cycle Delivery · Critical · DOC/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| Motif | Handoff `42d3299b` publié mais contenu incomplet (admission vide, NoraComposition hash-only, CSS tronqué, C2 peu traçable) |
+| Contenu | Diffs intégraux `admission.ts`, `NoraComposition.tsx`, `tokens.css`, `NoraConversation.tsx` + chaîne C2 |
+| Code produit | **Aucun changement** vs tip WT C1–C4 |
+| Fake/Real | FAKE prior **PROVEN** · LIVE/REAL **NOT RUN** |
+| Verdict | `READY WITH RESERVES` (technique inchangé ; revue exhaustive désormais possible) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-VISUAL-GRAMMAR-C1C4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~10:20 CET |
+| Macro-lot | R5 / ML4D — Convergence finale grammaire visuelle conversationnelle |
+| Type | Cycle 8 Delivery · Critical · EVOL/CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| C1 | Fallback exhaustif en français naturel — plus de `relation=` / `Disposition:` / enums wire |
+| C2 | Strategy A graphic → `bodyPolicy=substitute` (anti-redondance prose+visuel) |
+| C4 | Dépendances : connecteurs SVG mesurés (ResizeObserver) + liste humaine |
+| A1–A7 | Non-régression : 112 Vitest PASS ; T02 PASS |
+| A3 PG | **HISTORICAL PG REPLAY — NOT RUN** (5433 DOWN) |
+| Figma | Contrat §6.6 extrait frames 03/04/07/08/09 ; **VISUAL REVIEW NOT COMPLETED** |
+| Fake/Real | FAKE/BROWSER **PROVEN** · LIVE/REAL **NOT RUN** |
+| Verdict | `READY WITH RESERVES` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-V06-A7
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~09:25 CET |
+| Macro-lot | R5 / ML4D — Intégrité canonique A7 + textAlternative A2 (matrice 06 V0.6) |
+| Type | Cycle 8 Delivery · Critical · CORRECTIVE/QA · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| A7 P0 | Canonical declared unusable → refuse (`CANONICAL_COMPOSITION_INVALID` / `_EMPTY`) ; narrative-only + legacy soft-drop préservés |
+| A2 | `mergeTextAlternative` — plus d'heuristique préfixe 80 ; suffixe complémentaire conservé |
+| A3 | Compat fixtures OK ; **HISTORICAL PG REPLAY — NOT RUN** (PG DEV 5433 down) |
+| A5–A6 | T02 PASS ; VISUAL REVIEW NOT COMPLETED (handoff MD) |
+| Preuves | Vitest 109 PASS ciblés ; T02 1 PASS ; A4 fail-closed conservé |
+| Fake/Real | FAKE A7 **PROVEN** · LIVE/REAL **NOT RUN** |
+| Verdict | `READY WITH RESERVES` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-V05-A4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~09:00 CET |
+| Macro-lot | R5 / ML4D — Strategy A sécurisation finale (matrice 06 V0.5) |
+| Type | Cycle 8 Delivery · Critical · CORRECTIVE/EVOL/QA · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| A4 P0 | `fixtureReply` fail → UNKNOWN/UNAVAILABLE/`providerContacted:NO` (parity LIVE) |
+| A1 | exact oracles 11999 / 12000 / 12001 ; no silent slice |
+| A2 | familles text/comparison/sequence/relations/synthesis + choices/refs ownership |
+| A3 | e05 / projection-v1 / canonical-v1 autorités préservées (fixtures) |
+| A5–A6 | T02 PASS ; Vitest 94 PASS ciblés ; VISUAL handoff PNG channel incomplete |
+| Fake/Real | FAKE fixture A4 **PROVEN** · LIVE/REAL **NOT RUN** |
+| Verdict | `READY WITH RESERVES` |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~08:40 CET |
+| Macro-lot | Strategy A integrated corrective A1–A6 (matrice 06 V0.4) |
+| Type | Cycle 8 Delivery · Critical · CORRECTIVE · **NO RELEASE** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ WT) |
+| A1 | derive overflow → `CANONICAL_REPLY_OVERFLOW` (no silent slice) |
+| A2 | exhaustive relations/synthesis/sequence fields (kind, detail, lane, relation) |
+| A3 | WRITE `conversational-composition-canonical-v1` ; READ e05+projection-v1+canonical ; projection-v1 ≠ canonical |
+| A4 | fixtureReply + LIVE → same `validateNoraTurnQualification` ; AgentSchema WRITE-only |
+| A5 | sync → directed « sync vers » (no false reciprocity) |
+| Preuves | Vitest 75 PASS (A1–A4 + composition) ; T02 PASS |
+| Verdict | (voir Review Pack Full corrective A) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-STRATEGY-A-CANONICAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~08:10 CET |
+| Macro-lot | Transition Strategy A — sections sémantiques canoniques + achèvement UX |
+| Type | Cycle 8 Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| Architecture | `visualComposition` projection-v1 = autorité ; `replyDraft` dérivé ; e05 = legacy_projection |
+| P0 | derive-text ; contentAuthority ; validateNoraTurnQualification derive ; tree single-parent |
+| P1 | parallel toutes arêtes ; identity admission path |
+| Preuves | Vitest Strategy A + fidelity + admission 29 PASS ; Playwright T02 PASS |
+| Verdict | (voir Review Pack Full Strategy A) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-F1F5-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~03:55 CET |
+| Macro-lot | F1–F5 Integrated Corrective (fidélité / topologie / relations / schéma / BROWSER) |
+| Type | Cycle Delivery · Critical · RUN correctif dans EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| F1 | Claims substance ⊆ replyDraft ; narrative substitute gate ; préférence contradictoire |
+| F2 | topology.ts — tree/deps/parallel ; cycles/multi-root → list |
+| F3 | deps layers + arêtes dirigées ; tree/parallel CSS |
+| F4 | Agent WRITE `conversational-composition-projection-v1` only ; dual READ e05 |
+| F5 | T02 + fixtures tree/parallel + captures `f5-runtime-*.png` |
+| Preuves | Vitest fidelity+admission 24 PASS ; Playwright T02 PASS ; matrice `f-matrix-fidelity-topology.md` |
+| Verdict | READY WITH RESERVES (voir Review Pack Full F1–F5) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~03:18 CET |
+| Macro-lot | Convergence composition conversationnelle (doc 06 C-01–C-22) |
+| Type | Cycle Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| P0 C-04 | Graphiques : jamais substitute ; complement seulement si ancres replyDraft ; sinon markdown_only |
+| P1 C-05/14 | Schema write `conversational-composition-projection-v1` ; dual-read e05 ; MAX_ALTS=12 |
+| P1 C-10/11/12 | layoutHint + RelationsDirectedView CSS (deps/tree/parallel) ; ELK non introduit |
+| Preuves | Vitest composition 65 PASS (admission+fidelity+E05+schema) ; tsc 32/0 touched ; T02 PASS |
+| Verdict | (voir Review Pack Full convergence) |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~02:25 CET |
+| Macro-lot | Correction intégrée composition conversationnelle (réponse STOP ChatGPT) |
+| Type | Cycle Delivery · Critical · RUN correctif dans EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| Corrections | A matrice+détails ; B relations list only (SVG différé) ; C repli exhaustif ; D bodyPolicy substitute/complement ; E capacité wire honnête ; F ACK PREEXISTING PROVEN |
+| Preuves | Vitest 57 PASS ; tsc 32 préexistantes / 0 touched ; T02 PASS + captures corrective ; ACK FAIL identique sur tip clean `a783f014` |
+| Verdict | supersédé par cycle convergence |
+
+
+## delivery_id: DELIV-2026-11-18-COMPOSITION-ADAPTATIVE-V1
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~01:22 CET |
+| Macro-lot | Remplacement mécanisme graphique expérimental E05 → composition conversationnelle adaptative |
+| Type | Cycle Delivery · Critical · EVOL · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Branche locale | `sfia/next-ml4d-composition-adaptative` @ tip parent `a783f014` (+ working tree) |
+| Architecture | Strategy B V1 — `replyDraft` canonique ; wire `e05-visual-composition-v1` conservé ; admission `conversational-composition-v1` ; renderer `NoraComposition` |
+| Scope | admission/variantes CV-* ; `NoraComposition` + CSS container queries ; alias `NoraVisualComposition` ; wire `NoraConversation` ; tests unit ; preuves Figma Page 06 ; matrice CV-T |
+| Non-scope | Migration DB ; Strategy A sections sémantiques ; elkjs/RF/ECharts ; push produit ; RECETTE/STABLE ; LIVE OpenAI |
+| Preuves | Vitest admission+E05+schema+projection 54 PASS ; Playwright ensemble05 5 PASS / 2 FAIL (C2/ACK hors renderer) ; T02 composition PASS |
+| Verdict | `READY WITH RESERVES` — supersédé par STOP ChatGPT puis correctif |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-R05-COGNITIVE-RECOVERY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~20:35 CET |
+| Macro-lot | ML4D Ensemble 05 — R05 reprise cognitive UNKNOWN + OBS |
+| Type | Cycle 8 Delivery · Critical · RUN/INC corrective · **PATCH CANDIDATE** · deploy RECETTE conditionnel |
+| Parent tip | `208aaa40` |
+| Cause | Diagnostic `R05 PROVIDER FAILURE IDENTIFIED — RECOVERY UX GAP CONFIRMED` (`de481265`) — reconcile loop on cognitive UNKNOWN without D7 |
+| Scope | `shouldClearThreadPending` UNKNOWN/INTERRUPTED sans métier ; GET durable `turns/by-key` ; reconcile/hydrate UX ; OBS `extractProviderErrorDiagnostics` ; tests unit/PG/e2e ; plan retest Arnaud |
+| Non-scope | Correction exception fournisseur ; LIVE OpenAI ; migration ; push produit ; STABLE ; clôture E05 |
+| Preuves | Vitest R05 unit 36 PASS ; PG ml2-turn-command 4 PASS ; Playwright R05 2 PASS ; lint 0 error touched ; tsc 32 baseline / 0 touched src ; `next build` PASS |
+| Push produit | **AUCUN** (commit local autorisé) |
+| Verdict | (complété après gate RECETTE dans le Review Pack) |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-STRICT-SCHEMA-AUDIT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~19:05 CET |
+| Macro-lot | ML4D Ensemble 05 — audit compatibilité schéma structuré Nora LIVE |
+| Type | Cycle 8 Delivery · Standard · RUN/corrective QA · **NO RELEASE** · **NO DEPLOY** · **NO PRODUCT PUSH** |
+| Candidat | `3f7863ba` (parent `34a5e102`) — tip prolongé par oracles de non-régression |
+| Constat | Convertisseur Agents SDK `@openai/agents@0.21.0` → `strict:false` ; `zodTextFormat` refuse D3 (`.optional()` sans `.nullable()`) ; `criteria[].values` = `z.record` → `additionalProperties:{type:string}` incompatible strict ; aucun `{}` vide restant |
+| Scope | Tests schéma D3 complets (`nora-live-output-schema.test.ts`) ; journal ; **aucune** modification produit D3/UI |
+| Non-scope | Hardening strict complet ; appel REAL ; déploiement RECETTE ; push produit |
+| Preuves | Vitest schema/E05/adapter/OBS/sem 66 PASS ; PG intégration 484 PASS ; tsc 32 préexistantes / 0 touched src ; build PASS `n6nJl-Rx4-9s9yxwslhIJ` |
+| RECETTE | inchangée `:3200` / `34a5e102` / `xKkQienCXTPYIqkFElAuE` |
+| Verdict | `NORA LIVE STRICT SCHEMA GAP — MORRIS DECISION REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-NORA-LIVE-OUTPUT-SCHEMA-PATCH
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~18:40 CET |
+| Macro-lot | ML4D Ensemble 05 — diagnostic + correctif DEV Nora LIVE |
+| Type | Cycle 8 Delivery · Standard · RUN/corrective · **PATCH CANDIDATE** · **NO RELEASE** · **NO DEPLOY** |
+| Parent tip | `34a5e102` |
+| Cause | `visualComposition: z.unknown()` → JSON Schema `{}` sous `outputType` strict → rejet fournisseur (`PROVIDER_ERROR` / UNKNOWN) |
+| Scope | `VisualCompositionAgentOutputSchema` ; branchement enveloppe D3 ; OBS `error_category` ; tests schéma |
+| Non-scope | Appel REAL ; déploiement RECETTE ; push produit ; grammaire visuelle runtime ; migration |
+| Preuves | Vitest schema+adapter+E05 30 PASS ; REAL LIVE NOT EXECUTED |
+| RECETTE | inchangée `:3200` / `34a5e102` / `xKkQienCXTPYIqkFElAuE` |
+| Push produit | **AUCUN** (commit local autorisé) |
+| Verdict | `NORA LIVE DEV FIX VERIFIED — RECETTE DEPLOY GO REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-RECETTE-CANDIDATE-FREEZE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~17:00 CET |
+| Macro-lot | ML4D Ensemble 05 — finitions UX + gel candidat + préparation RECETTE |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL/corrective/prep · **NO RELEASE** · **NO DEPLOY** |
+| Parent tip | `cb638613` |
+| Scope | V01 Markdown sûr ; V02 deps lisibles ; V03 refs dédupliquées ; tests ; build ; commit local gel ; manifeste ; rollback inventorié |
+| Non-scope | Déploiement `:3200` ; push produit ; PR/merge ; migration ; LIVE proof |
+| Preuves | Vitest 32 PASS ; Playwright E05 7 PASS ; BUILD `jYz7jUBt1ewRBNp6HbCgs` |
+| RECETTE | inchangée `:3200` / `cb638613` / `slh3bItXudDCIEaR2WYho` |
+| Push produit | **AUCUN** (commit local autorisé) |
+| Verdict | `E05 RECETTE CANDIDATE FROZEN — PREPARATION VERIFIED — MORRIS DEPLOY GO REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-VISUAL-COMPOSITION-CORRECTIVE-P1AB
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~16:40 CET |
+| Macro-lot | ML4D Ensemble 05 — correctif fidélité + provenance + ancres |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL/Corrective · **NO RELEASE** |
+| Base tip | `cb638613` (candidat DEV dirty préservé) |
+| Scope | P1-A fail-closed completeness ; P1-B resolveProvenanceReference ; ancres first-claim + residuals ; F01–F08 / P01–P08 |
+| Non-scope | Commit/push produit ; RECETTE ; migration ; nouvelle lib ; LIVE |
+| Preuves | Vitest 31 PASS ; Playwright E05 7 PASS ; LIVE NOT EXECUTED |
+| RECETTE | préservée `:3200` / `cb638613` / `slh3bItXudDCIEaR2WYho` |
+| Push produit | **AUCUN** |
+| Verdict | `E05 VISUAL COMPOSITION CORRECTIVE — DEV VERIFIED — MORRIS REVIEW REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-VISUAL-COMPOSITION-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~16:15 CET |
+| Macro-lot | ML4D Ensemble 05 — consolidation grammaire visuelle + restitution conversationnelle |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL consolidation post-RECETTE · **NO RELEASE** |
+| Base tip | `cb638613` (worktree DEV non commité — T02/T05 préservés puis consolidés) |
+| Scope | Composition ordonnée sans doublon Markdown ; icônes/rôles sémantiques ; provenance consultable vs descriptive ; ancres choices/refs ; fixtures S1–S8 ; tests DOM order ; captures |
+| Non-scope | Commit/push produit ; PR/merge ; déploiement RECETTE ; migration ; lib graphique externe ; LIVE form-choice proof |
+| Preuves | Vitest 17 PASS ; Playwright E05 7 PASS ; captures runtime-s* ; LIVE NOT EXECUTED |
+| RECETTE | préservée `:3200` / `cb638613` / BUILD `slh3bItXudDCIEaR2WYho` |
+| Push produit | **AUCUN** |
+| Verdict | `E05 VISUAL COMPOSITION CONSOLIDATED — DEV VERIFIED — MORRIS REVIEW REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-VISUAL-GRAMMAR-T02-T05
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~15:40 CET |
+| Macro-lot | ML4D Ensemble 05 — grammaire visuelle native + visionneuse agrandie (même macro-lot) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL/correctif UAT · **NO RELEASE** |
+| Base tip | `cb638613` (candidat E05 déployé RECETTE — **inchangé ce cycle**) |
+| Scope | Contrat composition visuelle ; primitives A/B/C/D ; intégration D3→projection→UI ; T05 layout |
+| Non-scope | Commit/push produit ; déploiement RECETTE ; migration ; lib graphique externe ; Figma certifié |
+| Preuves | Vitest visual+projection PASS ; Playwright E05 7 PASS ; captures DEV |
+| RECETTE | préservée `:3200` / `cb638613` / BUILD `slh3bItXudDCIEaR2WYho` |
+| Push produit | **AUCUN** |
+| Verdict cible | `E05 VISUAL GRAMMAR CANDIDATE — IMPLEMENTED AND DEV VERIFIED — MORRIS REVIEW REQUIRED` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-DRAFT-RECONCILE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~13:40 CET |
+| Macro-lot | ML4D Ensemble 05 — correctif brouillon/reconcile + rollback prep (même macro-lot) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL correctif final · **NO RELEASE** |
+| Parent tip | `2b0d7a78` (descendant de freeze `342f0bbb`) |
+| Scope | Pending origin metadata ; reconcile never wipes choice/legacy draft ; artefact restore passif RECETTE |
+| Non-scope | Déploiement RECETTE ; restore LIVE ; push produit ; Figma |
+| Preuves | Vitest 25 PASS ; Playwright E05 6 PASS ; E04 3 PASS ; next build PASS |
+| Manifeste | `construction/ensemble-05-recette-prep-manifest.md` |
+| RECETTE | inchangée `:3200` / `3LzvYPTQc-Km7St6nF97r` + artefact `.sfia-restore-artifacts/…` |
+| Push produit | **AUCUN** |
+| Verdict cible | `E05 FINAL CANDIDATE — TECHNICALLY READY FOR MORRIS RECETTE DEPLOYMENT GO` |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-FREEZE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~13:15 CET |
+| Macro-lot | ML4D Ensemble 05 — finalisation + figement candidat (même macro-lot) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL finalisation · **NO RELEASE** |
+| Scope | Final A D4 live rights ; Final B reconcile obligatoire ; inventaire RECETTE existante ; commit local figé |
+| Non-scope | Déploiement RECETTE ; push produit ; PR/merge ; campagne Figma F2 ; nouvelle RECETTE |
+| Preuves | Vitest 22 PASS ; Playwright E05 5 PASS ; E04 3 PASS ; next build PASS |
+| Manifeste | `construction/ensemble-05-recette-prep-manifest.md` |
+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
+| RECETTE | inventoriée inchangée `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
+| Push produit | **AUCUN** (commit local autorisé) |
+| Verdict cible | `E05 CANDIDATE FROZEN — READY FOR MORRIS RECETTE DEPLOYMENT DECISION` (supersédé) |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~12:45 CET |
+| Macro-lot | ML4D Ensemble 05 — consolidation C1–C5 (même candidat) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL consolidation · **NO RELEASE** |
+| Parent candidat | worktree local non commité sur `984d77a3` |
+| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
+| Scope | C1 révision D4 exacte ; C2 ACK perdu / un seul tour ; C3 purge same-tab ; C4 preuves Figma ; C5 Git D9 borné (déterministe) |
+| Non-scope | Migration ; streaming ; cutover RECETTE ; Git REAL LIVE ; F2 16/16 certifié |
+| Preuves | Vitest E05 9 + rail 13 PASS ; Playwright E05 5 PASS ; E04 3 PASS ; next build PASS |
+| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` |
+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
+| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
+| Push produit | **AUCUN** |
+| Verdict cible | `E05 CONSOLIDATED CANDIDATE — READY FOR MORRIS RECETTE GO REVIEW` (supersédé par FREEZE) |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~12:20 CET |
+| Macro-lot | ML4D Ensemble 05 — correctif intégré Travail avec Nora |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL correctif · **NO RELEASE** |
+| Parent candidat | même worktree local non commité sur `984d77a3` |
+| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
+| Scope | P1-A continueChoices≠clarifications ; P1-B freeze UNKNOWN/ACK ; P1-C refs D4/Git ; P2-A viewer e2e obligatoire ; P2-B isolation brouillon ; P2-C matrice Figma partielle |
+| Non-scope | Migration ; streaming ; cutover RECETTE ; PR/merge ; F2 certifié 16/16 |
+| Preuves | Vitest 21+20 PASS ; Playwright E05 2 PASS ; E04 3 PASS (cycle précédent correctif) ; next build PASS |
+| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` + `figma-runtime-matrix.md` |
+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` (mis à jour) |
+| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
+| Push produit | **AUCUN** |
+| Verdict cible | `E05 CORRECTIVE CANDIDATE WITH RESERVES — NOT READY FOR RECETTE` (supersédé par consolidation) |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-05-TRAVAIL-NORA
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~12:00 CET |
+| Macro-lot | ML4D Ensemble 05 — Travail avec Nora |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL · **NO RELEASE** |
+| Parent candidat | `984d77a36695c2f59ebbc18619e54eeeb43ad94e` |
+| Branch | `feat/next-ml4d-project-space-20261116` (locale) |
+| Scope | CT-01..08 intégrés : scroll UX-002, projection M1 `result_json`, choix, compositeur/brouillon M3, activité V1 M2, visionneuse locale M4, shell E04 préservé |
+| Non-scope | Migration (M5) ; streaming texte ; cutover RECETTE ; PR/merge ; Gate C ; ML5 |
+| Preuves | Vitest E05+studio-rail PASS ; Playwright E05 PASS ; E04 nreg 3 PASS ; next build PASS |
+| Evidence | `web/docs/evidence/ensemble-05-travail-nora/` |
+| As-built | `construction/as-built-ensemble-05-travail-nora-20261117.md` |
+| RECETTE | **inchangée** `:3200` BUILD `3LzvYPTQc-Km7St6nF97r` |
+| Push produit | **AUCUN** |
+| Verdict cible | `IMPLEMENTED CANDIDATE WITH RESERVES — MORRIS REVIEW REQUIRED` (revue ChatGPT : BLOCKING RESERVES — correctif suivant) |
+
+
+## delivery_id: DELIV-2026-11-17-ML4D-ENSEMBLE-04-CP01-CP02
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-17 ~00:10 CET |
+| Macro-lot | ML4D Ensemble 04 — correction bloquants CP01/CP02 |
+| Type | RUN / correction candidat · **NO RELEASE** |
+| Parent candidat | `351aea9607c5997f7343212a837dd13c0f1e4429` |
+| Branch | `feat/next-ml4d-project-space-20261116` |
+| Scope | Compositeur adaptable: bandeau reprise hors max-height 160px; stack scroll maîtrisé; testids nav mobile; tests CP01-A..E / CP02 |
+| Non-scope | Cutover RECETTE; API/DB; Ensemble 05; redesign Figma; push projet |
+| Preuves | CP01-A..E PASS; CP02 PASS; E04+T13/T16+F2+long-thread PASS; next build PASS; vitest studio-rail 13 PASS; tsc 32 parent réserve |
+| RECETTE | **inchangée** `:3200` SHA `a30e75c7` / BUILD `WUqfWdCB7T2rHzDvk-Hre` |
+| Push produit | **AUCUN** |
+| Verdict cible | `ENSEMBLE 04 — CP01/CP02 CORRECTION CANDIDATE READY` |
+
+
+## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-VERTICAL-LAYOUT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~23:45 CET |
+| Macro-lot | ML4D Ensemble 04 — composition verticale Travail |
+| Type | RUN / correction bornée · **NO RELEASE** |
+| Parent candidat | `a30e75c77f4eed4f14cbcb8f83bb6521d571b3c6` |
+| Branch | `feat/next-ml4d-project-space-20261116` |
+| Scope | Intro compacte + séparateur ; conversation/compositeur cartes distinctes ; compositeur ancré bas ; inspecteur hauteur intro→compositeur ; scroll fil propriétaire |
+| Non-scope | Rail/DA déjà validés ; Ensembles 05–07 ; API/DB ; RECETTE ; amend a30e75c7 |
+| Preuves | next build PASS ; Playwright E04+T13/T16+F2+long-thread+UX-004 PASS ; DOM gaps conv→comp 25, bottoms align 0, intro∥inspector 0 |
+| RECETTE | **inchangée** `:3200` SHA `a30e75c7` / BUILD `WUqfWdCB7T2rHzDvk-Hre` |
+| Push produit | **AUCUN** |
+| Verdict cible | `ENSEMBLE 04 — VERTICAL LAYOUT CORRECTION CANDIDATE READY` |
+
+
+## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-VISUAL-FIDELITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~22:55 CET |
+| Macro-lot | ML4D Ensemble 04 — correction fidélité visuelle Figma 652:* |
+| Type | RUN / correction bornée · **NO RELEASE** |
+| Parent candidat RECETTE | `20fb41baa534b5a802a275b6944fc267ccaa2192` (inchangé) |
+| Baseline UX-005 | `bd8e16728f3c2a726a49be4c94565a2d85fc41a9` |
+| Branch | `feat/next-ml4d-project-space-20261116` |
+| Scope | Rail 2 lignes + icônes + séparateurs ; suppression Retour portefeuille doublon ; proportions 968/369 ; typo/messages/compositeur flèche ; inspecteur unifié ; sticky header ; preuves DOM 1680×970 |
+| Non-scope | Ensembles 05–07 ; API/DB ; amend RECETTE ; push projet ; PR/merge ; Gate C ; ML5 |
+| Preuves | next build PASS ; Vitest studio-rail PASS ; Playwright E04+T13/T16+F2+nav-intent+UX-004+composer PASS ; tsc workspace FAIL=parent (32) / src 0 |
+| Mesures DOM | rail 246 ; conversation 965 (~968) ; aside 368 (~369) ; send 52×35 ; name line-clamp 2 |
+| RECETTE | **inchangée** `:3200` SHA `20fb41ba` / BUILD `Bdn6zx0xBoavYTjWmiO4x` / LaunchAgent `com.sfia.studio.next.recette.ml4d-ux004` |
+| Push produit | **AUCUN** |
+| Verdict cible | `ENSEMBLE 04 — VISUAL FIDELITY CORRECTION CANDIDATE READY` |
+
+
+## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-TECHNICAL-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~21:55 CET |
+| Macro-lot | ML4D Ensemble 04 — consolidation technique + plan RECETTE |
+| Type | RUN / correction bornée · **NO RELEASE** |
+| Parent candidat | `660ff4243fafb586bfa0dd9b377382952e831ca9` |
+| Baseline UX-005 | `bd8e16728f3c2a726a49be4c94565a2d85fc41a9` |
+| Scope | T13 500+retry ; T16 pending×nav ; preuve tsc antérieur ; ESLint/build ; plan cutover RECETTE read-only ; clarif. title Résultats/preuves |
+| Non-scope | Déploiement RECETTE ; push projet ; Ensembles 05–07 ; fix fixtures ML4C tsc |
+| Preuves | next build PASS ; Playwright E04+T13/T16+nreg PASS ; tsc workspace FAIL=parent (32) / E04 src 0 |
+| RECETTE | observée `bd8e1672` / BUILD `bURdIMEzv8pRSJCzgsiDf` — **non modifiée** |
+| Push produit | **AUCUN** |
+| Verdict cible | `TECHNICAL CANDIDATE READY FOR CHATGPT REVIEW` |
+
+
+## delivery_id: DELIV-2026-11-16-ML4D-ENSEMBLE-04-PROJECT-SPACE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~21:35 CET |
+| Macro-lot | ML4D Ensemble 04 — Espace projet convergence UX/UI |
+| Type | Cycle Delivery · Standard · EVOL · **NO RELEASE** |
+| Parent | `bd8e16728f3c2a726a49be4c94565a2d85fc41a9` (UX-005 lineage) |
+| Branch | `feat/next-ml4d-project-space-20261116` |
+| Scope | Rail projet 246px ; identité réelle ; surface `projet` ; Trajectoire=`pilotage` ; suppression onglets ProjectChrome ; unavailable 401/404/5xx ; Travail coque Figma |
+| Non-scope | Ensembles 05/06/07 ; API/DB ; RECETTE auto ; project push/PR/merge ; Gate C ; ML5 |
+| Preuves | Vitest studio-rail PASS ; Playwright Ensemble04 + nav-intent + F2 captures + UX-003/004 + ml4c composer PASS |
+| Figma | 652:8 / 652:58 / 652:108 / 652:158 — evidence under `web/docs/evidence/ensemble-04-project-space/` |
+| RECETTE | **non promue** — manifeste candidat à préparer pour GO Morris |
+| Push produit | **AUCUN** |
+| Verdict cible | `ENSEMBLE 04 — CANDIDATE READY FOR MORRIS REVIEW` |
+
 ## Contrôle post-merge — 15/11/2026 — DELIV-2026-11-15-ML4C-NAV-SURFACE-INTENT
 
 **Complément daté :** l'entrée de livraison qui suit conserve le statut de PR readiness observé **avant** fusion ; ce constat établit la sortie d'intégration, sans modifier les preuves historiques.
@@ -24,6 +721,248 @@ Append-only logical journal of Cursor product deliveries.
 Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les réserves et ne donne pas de GO ML4D.
 
 ---
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-R1R2-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~18:00 CET |
+| Macro-lot | ML4D — Correctif final consolidation R1/R2 (intention durable + clarifications) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL / PATCH · **NO RELEASE** |
+| Parent | `6798219fdb37af1b463326dc7015901b43b04acd` |
+| Scope | R1 goal≠intention après init ; R2 omission clarifications ≠ `[]` ; tests discriminants ; T1→T7 enrichi |
+| Non-scope | C3/C4, RECETTE, migrations, D4 global, Figma, PR/merge/STABLE/Gate C/ML5 |
+| Preuves | UNIT 419 ; PG integration PASS ; BROWSER Sas 5 (T1→T7 + R1-B/R2-C) ; next build PASS |
+| RECETTE | **inchangée** `ec7405f3` / `67akzrr6bFEp4YOh7aHD7` |
+| Push produit | **AUCUN** |
+| Verdict cible | `READY WITH RESERVES — R1/R2 CORRECTED` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-POST-RECETTE-C1C4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~17:00 CET |
+| Macro-lot | ML4D — Correctif intégré post-recette Morris (C1–C4) |
+| Type | Cycle 8 Delivery · CRITICAL · EVOL · **NO RELEASE** |
+| Parent | `ec7405f323f86a0533dc507a1bfffc60ca1e5d0e` |
+| Scope | projectIntention ; openQuestions replace ; présentation/hauteur ; suppression Ajuster |
+| Non-scope | RECETTE, migrations, D4 global, Figma write, PR/merge/STABLE/Gate C/ML5 |
+| Preuves | UNIT 405 ; PG create+patch 30 ; BROWSER T1→T7 + chat-first 6 ; build `jw9G3w66bIZxtpzFshlr6` |
+| RECETTE | **inchangée** `ec7405f3` / `67akzrr6bFEp4YOh7aHD7` |
+| Push produit | **AUCUN** |
+| Verdict cible | `READY WITH RESERVES — SAS NORA POST-RECETTE CORRECTIONS IMPLEMENTED` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-UX-CTA-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~15:00 CET |
+| Macro-lot | ML4D — Finalisation UX CTA D2 + mise à disposition RECETTE |
+| Type | Cycle 8 Delivery · CRITICAL cutover · EVOL compatible · **NO RELEASE** |
+| Parent | `e52cec0d0bd72b1731f61f60f3db54e0e9a70d1c` |
+| Correctif | CTA création = D2 `canCreate` (suppression gate Nora `BASE_SUFFICIENTE`) — SAS-F-07 / AF-06 |
+| Non-scope | createProjectCommand, migrations, D3/D4, Figma write, PR/merge/STABLE |
+| Preuves | UNIT CTA T01–T06 ; UNIT 401 ; PG create-project 23 ; BROWSER Sas+chat-first 6 |
+| Visuel Morris | **PENDING** — pas de nouvelle campagne pixel Cursor |
+| Nora LIVE | **NOT PROVEN** |
+| RECETTE | nouveau SHA/build (rollback `cd091385`/`E3J7wVO4MsKgl5aCTDhed`) |
+| Push produit | **AUCUN** |
+| Verdict cible | `RECETTE DEPLOYED — READY FOR MORRIS UX REVIEW` (ou WITH RESERVES) |
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-UX-FIGMA
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~14:40 CET |
+| Macro-lot | ML4D — Convergence UX Figma → code Sas Nora |
+| Type | Cycle 8 Delivery · EVOL visuelle · **NO RELEASE** |
+| Figma | `itgvCulInEnFY6DvgIegvP` nodes 607:3/62/131/203/277 — lecture seule |
+| Scope | Composition sas conversation+aperçu+composer ; tokens ; shell header/rail personnel |
+| Non-scope | D2/D3/D4 services, migrations, RECETTE, Figma write, PR/merge |
+| Preuves | F2 Δ0 (rail/header/composer/preview/conv) ; 5 captures runtime ; harness `/dev/sas-visual/*` |
+| RECETTE | **inchangée** `cd091385` / `E3J7wVO4MsKgl5aCTDhed` |
+| Push produit | **AUCUN** |
+| Verdict | `FIGMA TO RUNTIME ALIGNED — READY FOR CHATGPT VISUAL REVIEW` (Morris final) |
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~13:50 CET |
+| Macro-lot | ML4D — Mise à disposition RECETTE Sas Nora |
+| Type | Cycle 11 déploiement · **NO RELEASE** |
+| Candidate SHA | `cd091385de10262918cf79bf8c86ad1d725cb9d1` |
+| Tree web | `6f089bda818fa60e061f458fad928f3478e648b4` |
+| Build RECETTE servi | `E3J7wVO4MsKgl5aCTDhed` @ `http://127.0.0.1:3200` |
+| Worktree | `.../sfia-workspace-next-ml4d-sas-nora-recette-build-cd091385` |
+| Schema | Migration **013 seule** appliquée (`projection_json` jsonb nullable) |
+| Backup | pre-013 dump sha256 `436225aa…` + restore proof jetable PASS |
+| Rollback UX-004 | `b05dacf4` / `20blGylSEta7201PgVvlw` artefacts + plist `.b05dacf4.plist.bak` conservés |
+| D2 docs | `docs/...uniqueness-d2...@52012abe` validée contenu — **non mergée** |
+| Push produit | **AUCUN** |
+| Verdict | `RECETTE DEPLOYED WITH RESERVES — MORRIS USER REVIEW PENDING` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-GUARANTEES
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~13:10 CET (Europe/Paris) |
+| Macro-lot | ML4D — Sas Nora consolidation garanties création / parcours / PATCH |
+| Type | EVOL / MINOR candidate · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-sas-nora-convergence-20261116` |
+| Parent tip | `acb5ce65f189582fd6438e7c1d8c6acdd1027664` |
+| Changes | G1 nom D2 inspecté sous verrou ; G2 E2E T1→T5 sans PATCH ; G3 writeStatus APPLIED_CURRENT/SUPERSEDED ; T3 sans REQUEST_EFFECT artificiel |
+| Schema | aucune nouvelle migration (013 inchangée) |
+| Compatibilité | correctif compatible candidat MINOR |
+| Tests | UNIT projection/writeStatus PASS ; PG create/PATCH/intent PASS ; BROWSER multi-tours sans PATCH PASS |
+| Limites | PF-CRE-14 ouvert ; Nora LIVE NOT PROVEN ; MORRIS UI PENDING ; gate 013 avant RECETTE |
+| Lanes | DEV BUILD `T03qorYZpGs0odz56Nb9f` ; RECETTE `:3200` **inchangée** (`b05dacf4` / `20blGylSEta7201PgVvlw`) |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY WITH RESERVES — SAS NORA GUARANTEES CONSOLIDATED` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CONVERGENCE-CORRECTED
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~12:40 CET (Europe/Paris) |
+| Macro-lot | ML4D — Sas Nora correctif final (PATCH API / qualification / multi-tours) |
+| Type | EVOL / MINOR candidate · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-sas-nora-convergence-20261116` |
+| Parent tip | `1dfc79ff824a8c947ed7c013217ff948aaba5b06` |
+| Changes | PATCH CAS+HTTP ; assessment sans heuristique ; proposedProjectName ; multi-tours T1–T5 ; mission name binding accepte nom inspecté |
+| Schema | aucune nouvelle migration (013 inchangée) |
+| Limites | PF-CRE-14 ouvert ; Nora LIVE NOT PROVEN ; gate 013 avant RECETTE |
+| Lanes | DEV `:3102` BUILD `4uaTx97JzcebLhzIfr8h-` ; RECETTE `:3200` **inchangée** (`b05dacf4` / `20blGylSEta7201PgVvlw`) |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY WITH RESERVES — SAS NORA CONVERGENCE CORRECTED` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~12:00 CET (Europe/Paris) |
+| Macro-lot | ML4D — Sas Nora correctif intégré (A concurrence nom / B correction Pilote / C maturation / D UI) |
+| Type | EVOL / MINOR candidate · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-sas-nora-convergence-20261116` |
+| Parent tip | `596718b1029f32e48c1cb5c9a6ac586372b857c1` |
+| Changes | Verrou pilote + comparaison JS ; aperçu Pilote synchronisé projection ; assessment structuré post-commit ; chrome sas sans onglets principaux |
+| Schema | aucune nouvelle migration (013 inchangée) |
+| Limites | PF-CRE-14 ouvert ; Nora LIVE NOT PROVEN ; gate 013 avant RECETTE |
+| Lanes | DEV `:3102` BUILD `9uKvoZLw0AsjIFm46-eAC` ; RECETTE `:3200` **inchangée** (`b05dacf4` / `20blGylSEta7201PgVvlw`) |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY WITH RESERVES — SAS NORA CORRECTIVE INTEGRATION` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-SAS-NORA-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~11:25 CET (Europe/Paris) |
+| Macro-lot | ML4D — Sas Nora convergence (conversation → projection → création → continuité) |
+| Type | EVOL / MINOR candidate compatible · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-sas-nora-convergence-20261116` |
+| Parent tip | `b05dacf47983ed8d914c92619ede5ffe65ce9264` (UX-004 D2 guards) |
+| Contrats | docs branch `22ee5540` — contrat-convergence-fonctionnelle + technique |
+| Changes | Projection D2 JSONB additive ; wire depuis qualification Nora ; aperçu vivant ; rail sas minimal ; unicité nom même Pilote (app-level) ; tests UNIT/PG ; as-built |
+| Schema | `013_preparation_projection.sql` — `projection_json` jsonb nullable (réversible) |
+| Contradiction | PF-CRE-14 vs unicité Morris — app-level only ; R2 non réécrit |
+| Limites | Nora LIVE NOT PROVEN ; UI Morris PENDING ; pas de UNIQUE SQL (historique) ; régularisation normative ouverte |
+| Lanes | DEV `:3102` ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`b05dacf4` / `20blGylSEta7201PgVvlw`) |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY WITH RESERVES — SAS NORA INTEGRATED` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-UX004-D2-GUARDS
+
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~09:20 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-004 D2 guards (effet honnête + single-flight) |
+| Type | EVOL / PATCH candidate compatible · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux004-portfolio-20261116` |
+| Parent tip | `fb0ac5c865f1d562a3778e207e5e8729165c5c4d` |
+| Causes | (A) UNCERTAIN confirmé à tort via diff d'ids portefeuille ; (B) verrous locaux shell/portefeuille non partagés |
+| Changes | `runOpenPreparation` single-flight document-scoped ; UNCERTAIN sans upgrade portfolio ; messages honnêtes ; tests unit + Playwright concurrence inter-entrées |
+| Schema / API | unchanged |
+| Limites | Garde frontend ≠ idempotence serveur ; hors multi-onglet / multi-session |
+| Lanes | DEV `:3102` ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`bc878568` / `3g7UH7AXjSWhxrT20D3-w`) |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR CHATGPT REVIEW — UX-004 D2 GUARDS` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-UX004-NAV-BREADCRUMB-CORRECTIF
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~09:00 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-004 correctif borné navigation Nouveau projet + fil d'Ariane |
+| Type | EVOL / PATCH candidate compatible · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux004-portfolio-20261116` |
+| Parent tip | `bc8785683c30430aa99bc76e138ba10f49c71c39` |
+| Base UX-003 | `a77a3a2bf7b942038d771fdcdd2e7a6410330784` (préservé) |
+| Base main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Cause | Rail « Nouveau projet » → `/portfolio#nouvelle-preparation` (détour portefeuille) ; fil d'Ariane figé « Portefeuille » sur Intégrations |
+| Changes | Action partagée `openPreparation` (POST D2 unique, ACK sans retry) ; rail/mobile/portefeuille même parcours ; breadcrumb route-aware (`Portefeuille` / `Intégrations`) ; tests unit + Playwright |
+| Schema / API | unchanged |
+| Lanes | DEV `:3102` ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`bc878568` / BUILD `3g7UH7AXjSWhxrT20D3-w`) |
+| Validations | tsc PASS ; lint warnings préexistants ; build PASS ; vitest open-preparation+studio-rail 16 PASS ; Playwright UX-004+UX-003 18 PASS (BROWSER FAKE) |
+| Push Product | **AUCUN** |
+| RECETTE | **NON MODIFIÉE** — nouveau SHA non servi ; GO distinct requis |
+| Verdict candidat | `READY FOR CHATGPT REVIEW — UX-004 CORRECTIF` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-UX004-PORTFOLIO-SHELL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~08:15 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-004 convergence portefeuille et shell personnel |
+| Type | EVOL / MINOR candidate UX · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux004-portfolio-20261116` |
+| Base UX-003 | `a77a3a2bf7b942038d771fdcdd2e7a6410330784` (préservé) |
+| Base main | `997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Changes | Rail personnel fixe + scroll contenu indépendant ; nav unique Portefeuille / Nouveau projet ; nav mobile inférieure ; libellé Préparations ouvertes ; cartes sans id technique ; états vides/mixtes ; tests e2e/F2 ; contrat visuel UX-004 |
+| Schema | unchanged |
+| Lanes | DEV explicite `:3102` ( `:3100` déjà occupé par autre worktree ) ; E2E `:3101` ; RECETTE `:3200` **inchangée** (`a77a3a2` / `vYeNRRzvLN03N73wmcKkR`) ; STABLE NOT AVAILABLE |
+| Validations | tsc PASS ; lint warnings préexistants ; build PASS ; vitest unit ciblés PASS ; Playwright UX-004+UX-003 19 PASS ; F2 rail 246 / topbar 66 |
+| Push Product | **AUCUN** |
+| RECETTE | **NON MODIFIÉE** (GO distinct requis pour nouveau SHA) |
+| Verdict candidat | `READY FOR CHATGPT REVIEW — UX-004 DEV` |
+
+## delivery_id: DELIV-2026-11-16-ML4D-UX003-UNIFIED-ENTRY-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~06:40 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-003 corrections finales + mise à disposition RECETTE locale |
+| Type | EVOL / MINOR candidate UX · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux003-unified-entry-20261116` |
+| Base | `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Parent candidate | `31f23858ef5ed9cb8e6318133c3c399f39777b71` |
+| Changes | Status hors panneau (anti-troncature) ; `testLoginAvailable` via `/api/auth/status` ; `/` → `/login` si non auth ; tests e2e étendus ; RECETTE figée |
+| Schema | unchanged |
+| Lanes | DEV + E2E `:3101` ; RECETTE `:3200` worktree/build séparé ; STABLE NOT AVAILABLE |
+| Push / PR | **NON** |
+| Version produit | NOT AVAILABLE |
+| Status | candidate locale figé — EN ATTENTE MORRIS UX RECETTE |
+| Risks | Cookie same-host réserve ENV-01 A (mitigation profils navigateur) ; session_expired simulé ; CTA F2 Δ2 px |
+
+
+## delivery_id: DELIV-2026-11-16-ML4D-UX003-UNIFIED-ENTRY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-16 ~01:30 CET (Europe/Paris) |
+| Macro-lot | ML4D — UX-003 Entrée unifiée (desktop / mobile / session expirée) |
+| Type | EVOL / MINOR candidate UX · **NO RELEASE** |
+| Branch locale | `feat/next-ml4d-ux003-unified-entry-20261116` |
+| Base | `main@997d4c4e8204993de7107552898c8cc08cd3b0ed` |
+| Figma | `574:425` · `574:466` · `574:490` (file `itgvCulInEnFY6DvgIegvP`) |
+| Changes | Composant `UnifiedStudioEntry` ; `/login` sans rail ; assets décor ; variante `?reason=session_expired` ; tests unit+e2e+captures |
+| Schema | unchanged |
+| Lanes | DEV / E2E isolés ; RECETTE non mutée ; STABLE NOT AVAILABLE |
+| Push / PR | **NON** — GO Morris requis pour publication projet |
+| Version produit | NOT AVAILABLE (attribution Morris) |
+| Status | candidate locale — supersédé par DELIV-…-RECETTE après corrections |
+| Risks | Session expirée non détectée nativement ; DEV strip hors Figma ; F2 ctaW delta 2 CSS px |
+
 
 ## delivery_id: DELIV-2026-11-15-ML4C-NAV-SURFACE-INTENT
 

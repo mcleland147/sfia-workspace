@@ -5,6 +5,7 @@ import {
   qualifyThreadTurn,
 } from "@/domains/pilotage/thread-recovery";
 import { deriveThreadTurnKind, type NoraTurnQualification } from "@/domains/conversation/semantic-qualification";
+import { asNoraQualification } from "../helpers/semantic-fixture-envelopes";
 
 describe("ML4C S05 — server nextTurnKind owns coexistence", () => {
   const pending = {
@@ -19,8 +20,7 @@ describe("ML4C S05 — server nextTurnKind owns coexistence", () => {
   });
 
   it("server deriveThreadTurnKind distinguishes dialogue vs effect", () => {
-    const dialogue: NoraTurnQualification = {
-      schemaVersion: "ml4c-sem-qual-v1",
+    const dialogue: NoraTurnQualification = asNoraQualification({
       status: "QUALIFIED",
       goal: "q",
       intents: [
@@ -37,7 +37,7 @@ describe("ML4C S05 — server nextTurnKind owns coexistence", () => {
       ],
       clarifications: [],
       replyDraft: "ok",
-    };
+    });
     expect(deriveThreadTurnKind(dialogue)).toBe("DIALOGUE_INDEPENDANT");
 
     const effect: NoraTurnQualification = {

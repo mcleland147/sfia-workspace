@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { seedInspectedNameViaApi, uniqueProjectName } from "./helpers/g4-chat-first";
 
 /**
  * ML4C S05 — DETERMINISTIC END-TO-END ON DEV BOUNDARY.
@@ -26,10 +27,10 @@ async function openProjectCapturingPrep(
   await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible({
     timeout: 30000,
   });
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-adopt-nora").click();
-  await page.getByTestId("prep-proposal-name").fill("ML4C S05 Real API");
-  await page.getByTestId("prep-proposal-save").click();
+  await seedInspectedNameViaApi(page, {
+    name: uniqueProjectName("ML4C S05 Real API"),
+    summary: "S05 real api",
+  });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 15000 });
   const createBtn = page.getByTestId("prep-create-project");
   await expect(createBtn).toBeEnabled({ timeout: 20000 });

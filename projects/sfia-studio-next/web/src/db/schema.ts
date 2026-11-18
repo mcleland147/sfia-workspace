@@ -7,6 +7,7 @@ import {
   uniqueIndex,
   index,
   boolean,
+  jsonb,
 } from "drizzle-orm/pg-core";
 
 /** D1 — Studio pilot identity (internal stable id). */
@@ -91,6 +92,8 @@ export const preparations = pgTable(
     creationRevision: integer("creation_revision").notNull().default(1),
     previewName: text("preview_name").notNull().default(""),
     previewSummary: text("preview_summary").notNull().default(""),
+    /** D2 PreparationProjection v1 JSON snapshot — additive; null = legacy/partial. */
+    projectionJson: jsonb("projection_json").$type<Record<string, unknown> | null>(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },

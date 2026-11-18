@@ -1,3 +1,4 @@
+import { seedInspectedNameViaApi, uniqueProjectName } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
 
 /**
@@ -39,23 +40,12 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
       { timeout: 30000 },
     )
     .toBe("AWAITING_PILOT_ACT");
-  await expect(page.getByText(/Acte Pilote requis/i)).toBeVisible();
+  // SEM A-007: mission status is structured (API) — do not require literal « Acte Pilote » prose.
+  await expect(page.getByTestId("prep-create-project")).toBeVisible({ timeout: 15000 });
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {
-    const constitute = page.getByTestId("prep-constitute");
-    if (await constitute.isVisible().catch(() => false)) {
-      await constitute.click({ force: true });
-    }
-    const adopt = page.getByTestId("prep-adopt-nora");
-    if (await adopt.isVisible().catch(() => false)) {
-      await adopt.click({ force: true });
-    }
-    const nameField = page.getByTestId("prep-proposal-name");
-    if (await nameField.isVisible().catch(() => false)) {
-      await nameField.fill("Atlas");
-      await page.getByTestId("prep-proposal-save").click();
-    }
+    await seedInspectedNameViaApi(page, { name: uniqueProjectName("Atlas"), summary: "Atlas continuity" });
   }
 
   await expect(createBtn).toBeEnabled({ timeout: 20000 });
@@ -102,11 +92,14 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
   expect(match!.latestRevision?.revisionNumber).toBeGreaterThanOrEqual(1);
   expect((match!.latestRevision?.contentMarkdown ?? "").length).toBeGreaterThan(20);
 
-  // UI surface: document count visible in workspace summary.
-  await expect(page.getByText(/Documents Nora · [1-9]/)).toBeVisible({ timeout: 10000 });
+  // UI surface: document reachable via Ensemble 04 Accès directs (legacy « Documents Nora · N » copy removed).
+  await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
+  await expect(page).toHaveURL(/surface=document/);
+  await expect(page.getByTestId(`doc-open-${docId}`)).toBeVisible({ timeout: 10000 });
+  await expect(page.getByTestId(`doc-open-${docId}`).getByText(match!.document.title, { exact: true })).toBeVisible();
 
   // Reload — results durable; mission not awaiting create again.
-  await page.reload();
+  await page.goto(`/projects/${projectId}?surface=travail`);
   await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
   const api2 = await page.request.get(`/api/projects/${projectId}`);
   const proj2 = await api2.json();
@@ -142,11 +135,7 @@ test("Atlas: forged mission key refused BEFORE create (zero project)", async ({ 
 
   const createBtn = page.getByTestId("prep-create-project");
   if (!(await createBtn.isEnabled().catch(() => false))) {
-    const nameField = page.getByTestId("prep-proposal-name");
-    if (await nameField.isVisible().catch(() => false)) {
-      await nameField.fill("Atlas Guard");
-      await page.getByTestId("prep-proposal-save").click();
-    }
+    await seedInspectedNameViaApi(page, { name: uniqueProjectName("Atlas Guard"), summary: "Atlas guard" });
   }
   await expect(createBtn).toBeEnabled({ timeout: 20000 });
 

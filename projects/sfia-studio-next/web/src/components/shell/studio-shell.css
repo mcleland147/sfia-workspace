@@ -1,0 +1,378 @@
+/* UX-004 — personal shell: fixed rail / independent content scroll; mobile bottom nav */
+
+html.studio-shell-lock,
+html.studio-shell-lock body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.studio-shell-app {
+  display: flex;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.studio-shell-rail {
+  flex-shrink: 0;
+  height: 100%;
+  max-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.studio-shell-rail-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  gap: inherit;
+}
+
+.studio-shell-rail-nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.studio-shell-rail-foot {
+  margin-top: auto;
+  flex-shrink: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.studio-shell-column {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.studio-shell-topbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 72px;
+  padding: 0 1.6rem 0 2.4rem;
+  border-bottom: 1px solid var(--line);
+  background: #0b1019;
+}
+
+.studio-shell-topbar-mobile {
+  height: 65px;
+  padding: 0 1rem;
+}
+
+.studio-shell-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.35rem 2.4rem 1.75rem;
+  background: #0b101b;
+}
+
+.studio-shell-main[data-sas-layout="1"] {
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.studio-shell-main[data-sas-layout="1"] > .sas-page {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Travail: page owns height; conversation thread scrolls — avoid outer page scroll. */
+.studio-shell-main[data-travail-layout="1"] {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.studio-shell-main[data-travail-layout="1"] > .project-space-page--travail {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+}
+
+.studio-shell-main-mobile-pad {
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+.studio-shell-mobile-strip {
+  display: none;
+}
+
+.studio-shell-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .studio-shell-app {
+    flex-direction: column;
+  }
+
+  .studio-shell-main {
+    padding: 1rem 1rem 1.25rem;
+  }
+
+  .studio-shell-main-mobile-pad {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .studio-shell-mobile-strip {
+    display: flex;
+    flex-shrink: 0;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  .studio-shell-bottom-nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    flex-shrink: 0;
+    height: calc(72px + env(safe-area-inset-bottom, 0px));
+    padding: 0.35rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    background: #0c101a;
+    z-index: 20;
+  }
+
+  .studio-shell-bottom-nav a,
+  .studio-shell-bottom-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.72rem;
+    border-radius: 8px;
+    padding: 0.25rem;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .studio-shell-bottom-nav a[aria-current="page"],
+  .studio-shell-bottom-nav a.is-active {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .studio-shell-bottom-nav-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .studio-shell-bottom-nav .nav-glyph {
+    font-size: 1.05rem;
+    line-height: 1;
+    color: var(--accent-soft);
+  }
+}
+
+.studio-rail-rule {
+  height: 1px;
+  width: 100%;
+  background: #272e49;
+  margin: 0.35rem 0;
+}
+
+.studio-rail-espace-actif {
+  border: 1px solid #272e49;
+  border-radius: 11px;
+  padding: 11px 12px 12px;
+  min-height: 90px;
+  box-sizing: border-box;
+}
+
+.studio-rail-project-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f4f6fc;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.studio-rail-project-subtitle {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #94a2bb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.studio-rail-project-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #a6dfbc;
+}
+
+.studio-rail-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6cdbba;
+  flex-shrink: 0;
+}
+
+.studio-rail-portfolio-link {
+  display: block;
+  padding: 0.35rem 0.35rem 0.15rem;
+  color: #94a2bb;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 1.45;
+}
+
+.studio-rail-portfolio-link:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.studio-rail-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border-radius: 9px;
+  padding: 0.45rem 0.875rem;
+  min-height: 42px;
+  color: #94a2bb;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.studio-rail-nav-item:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.studio-rail-nav-item.is-active {
+  background: #292d58;
+  border-color: transparent;
+  color: #f4f6fc;
+  font-weight: 600;
+}
+
+.studio-rail-nav-glyph {
+  width: 22px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1;
+  color: inherit;
+  font-weight: 600;
+}
+
+.studio-rail-nav-item.is-active .studio-rail-nav-glyph {
+  color: #afa5ff;
+}
+
+.studio-rail-direct-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+  color: #94a2bb;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  min-height: 34px;
+}
+
+.studio-rail-direct-link:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.studio-rail-direct-link.is-active {
+  color: #afa5ff;
+}
+
+.studio-rail-direct-link .studio-rail-nav-glyph {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.studio-rail-section {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a2bb;
+  font-weight: 600;
+  margin: 0.35rem 0 0.15rem;
+  line-height: 1.4;
+}
+
+.studio-account-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 0.15rem 0.1rem;
+}
+
+.studio-account-link:hover {
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.studio-account-link:focus-visible,
+.studio-rail-nav-item:focus-visible,
+.studio-rail-portfolio-link:focus-visible,
+.studio-rail-direct-link:focus-visible,
+.studio-shell-bottom-nav a:focus-visible,
+.studio-shell-bottom-nav-btn:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+button.studio-rail-nav-item {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+button.studio-rail-nav-item:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

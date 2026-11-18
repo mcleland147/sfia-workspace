@@ -3,6 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { preparationDisplayLabel } from "@/domains/identity/portfolio-labels";
+import {
+  runOpenPreparation,
+  subscribeOpenPreparationBusy,
+} from "@/lib/open-preparation";
 
 type PreparationSummary = {
   id: string;
@@ -39,6 +43,24 @@ function statusForOwnedProject(): { label: string; tone: string } {
   return { label: "Accessible", tone: "fig-tag-ok" };
 }
 
+function formatPrepCreatedAt(iso: string): string {
+  try {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  } catch {
+    return iso;
+  }
+}
+
+function padCount(n: number): string {
+  return String(Math.min(Math.max(n, 0), 99)).padStart(2, "0");
+}
+
 export default function PortfolioPage() {
   const router = useRouter();
   const [data, setData] = useState<PortfolioResponse | null>(null);
@@ -49,8 +71,9 @@ export default function PortfolioPage() {
   const [creationUncertainty, setCreationUncertainty] = useState<string>("");
   const [loadingMore, setLoadingMore] = useState(false);
   const [creating, setCreating] = useState(false);
-  const creatingRef = useRef(false);
   const knownPrepIdsRef = useRef<Set<string>>(new Set());
+
+  useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
 
   const applyPortfolio = useCallback((j: PortfolioResponse, append: boolean) => {
     setData(j);
@@ -128,64 +151,27 @@ export default function PortfolioPage() {
   }
 
   async function startPreparation() {
-    if (creatingRef.current) return;
-    creatingRef.current = true;
-    setCreating(true);
     setCreationUncertainty("");
     setError("");
-    const before = new Set(knownPrepIdsRef.current);
-    try {
-      const res = await fetch("/api/preparations", { method: "POST" });
-      let j: { preparationId?: string; error?: string } = {};
-      try {
-        j = await res.json();
-      } catch {
-        j = {};
-      }
-      if (res.ok && j.preparationId) {
-        router.push(`/preparations/${j.preparationId}`);
+    const outcome = await runOpenPreparation(async (result) => {
+      if (result.kind === "opened") {
+        router.push(`/preparations/${result.preparationId}`);
         return;
       }
-      if (!res.ok && res.status !== 0) {
+      if (result.kind === "unauthorized") {
+        router.push("/login");
+        return;
+      }
+      if (result.kind === "refused") {
         setCreationUncertainty("");
-        setError(j.error ?? `création refusée (HTTP ${res.status})`);
+        setError(result.message);
         return;
       }
-      const refreshed = await reloadPortfolio();
-      const prep =
-        refreshed?.portfolio && "preparations" in refreshed.portfolio
-          ? refreshed.portfolio.preparations.items
-          : [];
-      const discovered = prep.find((p) => !before.has(p.id));
-      if (discovered) {
-        setCreationUncertainty(
-          `Création confirmée après relecture · ${discovered.id.slice(0, 8)}… — ouvrez « Reprendre ».`,
-        );
-        return;
-      }
-      setCreationUncertainty(
-        "Création incertaine (ACK perdu). Aucun nouveau POST automatique. Relisez le portefeuille ou réessayez explicitement.",
-      );
-    } catch {
-      const refreshed = await reloadPortfolio();
-      const prep =
-        refreshed?.portfolio && "preparations" in refreshed.portfolio
-          ? refreshed.portfolio.preparations.items
-          : [];
-      const discovered = prep.find((p) => !before.has(p.id));
-      if (discovered) {
-        setCreationUncertainty(
-          `Réseau interrompu, mais une préparation nouvelle apparaît · ${discovered.id.slice(0, 8)}… — Reprendre (GET).`,
-        );
-      } else {
-        setCreationUncertainty(
-          "Réseau interrompu pendant la création. Résultat non vérifiable — pas de second POST automatique.",
-        );
-      }
-    } finally {
-      creatingRef.current = false;
-      setCreating(false);
-    }
+      // UNCERTAIN: refresh list for reprise aid; never confirm creation or navigate by guess.
+      await reloadPortfolio();
+      setCreationUncertainty(result.message);
+    });
+    if (outcome.kind === "busy") return;
   }
 
   function resumePreparation(id: string) {
@@ -194,8 +180,8 @@ export default function PortfolioPage() {
 
   if (error && !data) {
     return (
-      <div className="fig-page">
-        <div className="fig-panel space-y-3">
+      <div className="fig-page" data-figma-frame="591:425">
+        <div className="fig-panel space-y-3" role="alert">
           <div>Portefeuille indisponible: {error}</div>
           <button type="button" className="btn secondary" onClick={() => void reloadPortfolio()}>
             Réessayer (GET)
@@ -204,32 +190,35 @@ export default function PortfolioPage() {
       </div>
     );
   }
-  if (!data) return <div className="muted">Chargement du portefeuille…</div>;
+  if (!data) {
+    return (
+      <div className="muted" data-testid="portfolio-loading">
+        Chargement du portefeuille…
+      </div>
+    );
+  }
 
   const p = data.portfolio;
   const projects = p && p.kind === "ready" ? p.projects : [];
-  const openCount = p && "openPreparations" in p ? p.openPreparations : 0;
-  const isEmpty = p?.kind === "empty" || (p?.kind === "ready" && projects.length === 0);
+  const openPreparations = p && "openPreparations" in p ? p.openPreparations : 0;
+  const hasProjects = projects.length > 0;
+  const frameId = hasProjects ? "591:425" : "591:661";
 
   return (
-    <div className="fig-page" data-figma-frame="94:50">
-      <div className="fig-breadcrumb">
-        <span>SFIA Studio / Portefeuille personnel</span>
-        <span className="text-xs muted">
-          {data.session?.displayName} · {data.session?.authMode}
-        </span>
-      </div>
-
+    <div className="fig-page portfolio-page" data-figma-frame={frameId} data-testid="portfolio-page">
       <header>
         <p className="fig-kicker">Votre espace</p>
         <h1 className="fig-hero-title">Bonjour, retrouvez vos projets</h1>
         <p className="fig-hero-sub">
-          Accédez à vos espaces de travail ou démarrez un nouveau projet. Aucune conversation Nora
-          globale ici.
+          Retrouvez vos projets ou reprenez une préparation avec Nora, sans mélanger leurs contextes.
         </p>
       </header>
 
-      {error ? <p className="text-sm text-[var(--bad)]">{error}</p> : null}
+      {error ? (
+        <p className="text-sm text-[var(--bad)]" role="alert">
+          {error}
+        </p>
+      ) : null}
       {creationUncertainty ? (
         <div className="fig-alert" data-testid="portfolio-creation-uncertainty" role="status">
           {creationUncertainty}
@@ -244,152 +233,120 @@ export default function PortfolioPage() {
       <section className="fig-stat-grid" aria-label="Synthèse portefeuille">
         <div className="fig-stat">
           <div className="fig-stat-label">Mes projets</div>
-          <div className="fig-stat-value">{String(projects.length).padStart(2, "0")}</div>
+          <div className="fig-stat-value">{padCount(projects.length)}</div>
           <div className="fig-stat-hint">Projets accessibles</div>
         </div>
         <div className="fig-stat">
-          <div className="fig-stat-label">Reprises récentes</div>
-          <div className="fig-stat-value">{String(Math.min(openCount, 99)).padStart(2, "0")}</div>
-          <div className="fig-stat-hint">Préparation(s) ouvertes</div>
+          <div className="fig-stat-label">Préparations ouvertes</div>
+          <div className="fig-stat-value">{padCount(openPreparations)}</div>
+          <div className="fig-stat-hint">Préparations en cours</div>
         </div>
-        <div className="fig-stat">
+        <div className="fig-stat fig-stat-access">
           <div className="fig-stat-label">Accès</div>
-          <div className="fig-stat-value" style={{ fontSize: "1.35rem", marginTop: 14 }}>
-            Personnel
-          </div>
+          <div className="fig-stat-value fig-stat-value-text">Personnel</div>
           <div className="fig-stat-hint">Chaque projet garde son contexte</div>
         </div>
       </section>
 
-      {isEmpty ? (
-        <section className="fig-two-col" data-figma-frame="158:264">
-          <div className="fig-panel">
-            <h2 className="fig-panel-title">Ton espace</h2>
-            <div className="fig-empty-list">
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Portefeuille</div>
-                  <div className="muted text-xs">Aucun projet Studio accessible</div>
-                </div>
-              </div>
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Démarrage</div>
-                  <div className="muted text-xs">Discuter librement avant de créer</div>
-                </div>
-              </div>
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Projet Git</div>
-                  <div className="muted text-xs">Non nécessaire</div>
-                </div>
-              </div>
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Cycle et méthode</div>
-                  <div className="muted text-xs">Non obligatoires</div>
-                </div>
-              </div>
+      <section className="space-y-4" data-testid="portfolio-projects-section">
+        <div className="fig-section-head">
+          <h2 className="fig-section-title">Mes projets</h2>
+          <button
+            id="nouvelle-preparation"
+            className="btn"
+            disabled={creating}
+            data-testid="portfolio-new-prep"
+            onClick={() => void startPreparation()}
+          >
+            {creating ? "Création…" : "Créer un projet"}
+          </button>
+        </div>
+
+        {!hasProjects ? (
+          <div className="portfolio-empty-projects" data-testid="portfolio-empty-projects">
+            <div className="portfolio-empty-glyph" aria-hidden>
+              +
+            </div>
+            <div className="min-w-0">
+              <h3 className="portfolio-empty-title">Aucun projet pour le moment</h3>
+              <p className="portfolio-empty-copy">
+                Créez un projet pour démarrer avec Nora. La création reste un acte explicite dans le
+                sas de préparation.
+              </p>
+              <button
+                type="button"
+                className="btn mt-3"
+                disabled={creating}
+                onClick={() => void startPreparation()}
+              >
+                {creating ? "Création…" : "Créer un projet"}
+              </button>
             </div>
           </div>
-          <div className="fig-panel">
-            <h2 className="fig-panel-title">Commencer</h2>
-            <div className="fig-empty-list">
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Nouveau projet</div>
-                  <div className="muted text-xs">Ouvre le sas de préparation</div>
-                </div>
-              </div>
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Exploration</div>
-                  <div className="muted text-xs">Nora répond sans formulaire imposé</div>
-                </div>
-              </div>
-              <div className="fig-empty-row">
-                <div>
-                  <div className="font-medium">Création</div>
-                  <div className="muted text-xs">Toujours un acte explicite</div>
-                </div>
-              </div>
-            </div>
-            <button
-              id="nouvelle-preparation"
-              className="btn mt-4"
-              disabled={creating}
-              data-testid="portfolio-new-prep"
-              onClick={() => void startPreparation()}
-            >
-              {creating ? "Création…" : "Nouvelle préparation"}
-            </button>
-          </div>
-        </section>
-      ) : (
-        <section className="space-y-4" data-figma-frame="158:336">
-          <div className="fig-section-head">
-            <h2 className="fig-section-title">Mes projets</h2>
-            <button
-              id="nouvelle-preparation"
-              className="btn"
-              disabled={creating}
-              data-testid="portfolio-new-prep"
-              onClick={() => void startPreparation()}
-            >
-              {creating ? "Création…" : "Créer un projet"}
-            </button>
-          </div>
+        ) : (
           <ul className="fig-card-grid" data-testid="portfolio-projects">
             {projects.map((proj) => {
               const st = statusForOwnedProject();
               return (
-                <li key={proj.id} className="fig-card">
+                <li key={proj.id} className="fig-card portfolio-project-card">
                   <div className="fig-card-top">
-                    <div className="fig-card-title">{proj.name}</div>
+                    <div className="fig-card-title truncate" title={proj.name}>
+                      {proj.name}
+                    </div>
                     <span className={`fig-tag ${st.tone}`} data-testid="portfolio-project-status">
                       {st.label}
                     </span>
                   </div>
-                  <p className="fig-card-desc text-xs muted break-all">{proj.id}</p>
-                  <p className="fig-card-meta">Projet accessible · ouverture par projectId</p>
-                  <a className="btn mt-auto inline-flex justify-center" href={`/projects/${proj.id}?surface=travail`}>
+                  <p className="fig-card-desc text-sm muted">Espace de travail accessible</p>
+                  <div className="fig-card-sep" aria-hidden />
+                  <p className="fig-card-meta">Accéder à votre espace projet</p>
+                  <a
+                    className="btn mt-auto inline-flex justify-center"
+                    href={`/projects/${proj.id}?surface=travail`}
+                    data-testid={`open-project-${proj.id}`}
+                  >
                     Ouvrir le projet
                   </a>
                 </li>
               );
             })}
           </ul>
-        </section>
-      )}
+        )}
+      </section>
 
       {p?.kind === "empty" || p?.kind === "ready" ? (
-        <section className="space-y-3" data-testid="portfolio-preparations" data-figma-frame="158:912">
+        <section className="space-y-3" data-testid="portfolio-preparations" data-figma-frame="591:425">
           <div className="fig-section-head">
-            <h2 className="fig-section-title">
-              Préparations à reprendre
-              <span className="muted text-sm font-normal ml-2">({openCount})</span>
-            </h2>
+            <h2 className="fig-section-title">Préparations à reprendre</h2>
+            <span className="muted text-sm" data-testid="portfolio-open-count">
+              {padCount(openPreparations)} ouverte{openPreparations === 1 ? "" : "s"}
+            </span>
           </div>
           {items.length === 0 ? (
-            <div className="fig-panel">
-              <p className="text-sm muted">
+            <div className="fig-panel portfolio-empty-preps" data-testid="portfolio-empty-preps">
+              <p className="text-sm muted m-0">
                 Aucune préparation ouverte. Démarrez une nouvelle préparation pour discuter avant
                 création de projet.
               </p>
             </div>
           ) : (
-            <ul className="space-y-2">
+            <ul className="portfolio-prep-list">
               {items.map((prep) => (
-                <li key={prep.id} className="fig-card !min-h-0 flex-row items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="font-medium truncate">{preparationDisplayLabel(prep)}</div>
-                    <div className="text-xs muted">
-                      {prep.status} · {new Date(prep.createdAt).toLocaleString("fr-FR")}
+                <li key={prep.id} className="portfolio-prep-row">
+                  <span className="portfolio-prep-icon" aria-hidden>
+                    ○
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="portfolio-prep-title truncate">
+                      {preparationDisplayLabel(prep)}
+                    </div>
+                    <div className="portfolio-prep-meta">
+                      Ouverte · Créée le {formatPrepCreatedAt(prep.createdAt)}
                     </div>
                   </div>
                   <button
                     type="button"
-                    className="btn secondary shrink-0"
+                    className="btn secondary shrink-0 portfolio-prep-resume"
                     data-testid={`resume-prep-${prep.id}`}
                     onClick={() => resumePreparation(prep.id)}
                   >
@@ -415,17 +372,17 @@ export default function PortfolioPage() {
       ) : null}
 
       {p?.kind === "unavailable" ? (
-        <div className="fig-panel">
+        <div className="fig-panel" role="alert">
           <div className="font-medium">Portefeuille indisponible</div>
           <p className="muted text-sm mt-1">{p.reason}</p>
         </div>
       ) : null}
 
-      <footer className="fig-banner">
+      <footer className="fig-banner portfolio-continuity">
         <h3>Continuité personnelle</h3>
         <p>
-          Un dépôt Git partagé ne fusionne ni les conversations Nora, ni les décisions, ni les
-          mandats des projets.
+          Les conversations et les décisions restent propres à chaque projet. Un dépôt Git partagé ne
+          fusionne pas les contextes.
         </p>
       </footer>
     </div>

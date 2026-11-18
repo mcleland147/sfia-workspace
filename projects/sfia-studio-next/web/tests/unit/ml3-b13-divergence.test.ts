@@ -328,6 +328,50 @@ describe("CR-02 thread pending lifecycle", () => {
     ).toBe(true);
   });
 
+  it("R05: clears cognitive UNKNOWN when no métier effect was attempted", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "UNKNOWN",
+        effectAttempted: false,
+        effectStatus: null,
+      }),
+    ).toBe(true);
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "INTERRUPTED",
+        effectAttempted: undefined,
+        effectStatus: null,
+      }),
+    ).toBe(true);
+  });
+
+  it("R05: does not clear when Nora UNKNOWN but métier effectAttempted UNKNOWN", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "UNKNOWN",
+        effectAttempted: true,
+        effectStatus: "UNKNOWN",
+      }),
+    ).toBe(false);
+  });
+
+  it("R05: does not clear non-terminal Nora status without métier", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "RUNNING",
+        effectAttempted: false,
+        effectStatus: null,
+      }),
+    ).toBe(false);
+    expect(
+      shouldClearThreadPending({
+        noraStatus: null,
+        effectAttempted: false,
+        effectStatus: null,
+      }),
+    ).toBe(false);
+  });
+
   it("does not clear pending A when independent COMPLETE has preserveUnresolvedMetierPending", () => {
     expect(
       shouldClearThreadPending({

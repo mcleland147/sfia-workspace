@@ -1,9 +1,12 @@
+
 import { test, expect } from "@playwright/test";
 import path from "path";
 import {
   constituteAndCreateProject,
   openNewPreparation,
   sendPrepMessage,
+  openSasSecondaryTool,
+  backToSasConversation,
 } from "./helpers/g4-chat-first";
 
 test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet", async ({
@@ -34,16 +37,17 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
     timeout: 30000,
   });
 
-  // Journal — G4 surface label is "Journal" (not "Journal — Sujets")
-  await page.getByRole("button", { name: "Journal", exact: true }).click();
+  // Journal — sas secondary tool (not a permanent central tab).
+  await openSasSecondaryTool(page, "Journal");
   await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: /Acquis/i }).first()).toBeVisible();
 
-  // Document surface: save + inspect
-  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  // Secondary tools only exist on the conversation surface — return before Documents.
+  await backToSasConversation(page);
+  await openSasSecondaryTool(page, "Documents");
   await expect(page.getByTestId("document-library")).toBeVisible();
 
-  await page.getByRole("button", { name: "Discussion", exact: true }).click();
+  await backToSasConversation(page);
   await constituteAndCreateProject(page, {
     name: "Projet ML2 Playwright",
     summary: "résumé ml2",
@@ -51,17 +55,19 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
 
-  await expect(page.getByText(/Même fil/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
   await expect(
     page.getByText("Compare les options A et B pour l'architecture, compromis et point ouvert budget", {
       exact: true,
     }),
   ).toBeVisible();
 
-  // Reopen continuity
+  // Reopen continuity — Ensemble 04 Journal is a rail surface.
   await page.goto(`/projects/${projectId}`);
-  await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
-  await page.getByRole("button", { name: "Journal" }).click();
+  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
+  await expect(page.getByTestId("project-status-hint")).toBeVisible();
+  await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+  await expect(page).toHaveURL(/surface=journal/);
   await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
 
   // Isolation
@@ -71,7 +77,11 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   await pageB.getByRole("button", { name: "Pilote B (DEV)" }).click();
   await pageB.waitForURL("**/portfolio");
   await pageB.goto(`/projects/${projectId}`);
-  await expect(pageB.getByText("non autorisé", { exact: false })).toBeVisible();
+  await expect(pageB.getByTestId("project-unavailable")).toBeVisible();
+  await expect(pageB.getByTestId("project-unavailable")).toHaveAttribute(
+    "data-unavailable-kind",
+    /not_found|unauthorized/,
+  );
   await bContext.close();
 
   const shot = path.join("tests/e2e/artifacts", `ml2-smoke-${Date.now()}.png`);

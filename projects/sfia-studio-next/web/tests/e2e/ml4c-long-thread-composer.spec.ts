@@ -85,7 +85,7 @@ test("ML4C C-07: composer usable on 320+ message thread after scroll", async ({ 
   const seed = "Fil projet ML4C composer long (fixture).";
   const { preparationId, projectId } = await bootstrapProjectFromPortfolio(page, {
     seed,
-    name: "ML4C Composer 320+",
+    name: `ML4C Composer 320+ ${Date.now()}`,
     summary: "C-07 fil long",
   });
 
@@ -110,7 +110,15 @@ test("ML4C C-07: composer usable on 320+ message thread after scroll", async ({ 
     el.scrollTop = 0;
   });
   await expect(composer).toBeVisible();
-  expect(await composer.evaluate((el) => el.classList.contains("fig-composer-sticky"))).toBe(true);
+  // Vertical layout: composer stays in the viewport while the thread scrolls.
+  await expect(composer).toBeInViewport();
+  const threadScroll = await thread.evaluate((el) => ({
+    overflowY: getComputedStyle(el).overflowY,
+    clientHeight: el.clientHeight,
+    scrollHeight: el.scrollHeight,
+  }));
+  expect(["auto", "scroll"]).toContain(threadScroll.overflowY);
+  expect(threadScroll.scrollHeight).toBeGreaterThan(threadScroll.clientHeight);
 
   await draft.fill("Message après parcours du fil long.");
   await expect(draft).toHaveValue("Message après parcours du fil long.");

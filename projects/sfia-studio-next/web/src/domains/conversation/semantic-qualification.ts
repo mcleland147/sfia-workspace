@@ -8,6 +8,29 @@ import {
   type PilotageOperation,
 } from "@/domains/pilotage/types";
 import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
+import {
+  parseVisualComposition,
+  VISUAL_COMPOSITION_SCHEMA,
+  VISUAL_COMPOSITION_SCHEMA_LEGACY,
+  VISUAL_COMPOSITION_SCHEMA_PROJECTION,
+  VisualCompositionAgentOutputSchema,
+} from "./visual-composition";
+import { deriveReplyDraftFromCanonicalSections } from "./conversational-composition/derive-text";
+
+/**
+ * READ/validate envelope — accepts historical e05 + projection-v1 + canonical-v1.
+ * Reuses concrete block union (no empty `{}` JSON Schema). Runtime authority remains
+ * parseVisualComposition. LIVE Agent outputType = NoraTurnQualificationAgentSchema.
+ */
+const VisualCompositionPersistedSchema = z.object({
+  schemaVersion: z.enum([
+    VISUAL_COMPOSITION_SCHEMA,
+    VISUAL_COMPOSITION_SCHEMA_PROJECTION,
+    VISUAL_COMPOSITION_SCHEMA_LEGACY,
+  ]),
+  blocks: VisualCompositionAgentOutputSchema.shape.blocks,
+});
+
 
 export const SEMANTIC_QUALIFICATION_SCHEMA_VERSION = "ml4c-sem-qual-v1" as const;
 
@@ -111,17 +134,101 @@ export const DocumentSourceSchema = z
   })
   .strict();
 
+/** Qualitative sas maturation — structured only; never a keyword scrape of replyDraft. */
+export const PreparationAssessmentSchema = z.enum([
+  "EXPLORING",
+  "CLARIFYING",
+  "PROPOSAL",
+  "BASE_SUFFICIENTE",
+]);
+export type PreparationAssessment = z.infer<typeof PreparationAssessmentSchema>;
+
 export const NoraTurnQualificationSchema = z.object({
   schemaVersion: z.literal(SEMANTIC_QUALIFICATION_SCHEMA_VERSION),
   status: QualificationStatusSchema,
+  /**
+   * Compréhension du tour courant (demande immédiate, reformulation locale).
+   * Ne pas confondre avec l'intention métier durable du projet.
+   */
   goal: z.string().max(800).default(""),
+  /**
+   * Intention métier durable du projet — distincte de goal / proposedProjectName.
+   * Chaîne vide = inchangée ce tour (D2 conserve la valeur antérieure).
+   * Renseigner uniquement pour établir ou corriger explicitement l'objectif fondateur.
+   */
+  projectIntention: z.string().max(800).default(""),
+  /** Résultat envisagé lorsque réellement exprimé — ne pas inventer. */
+  desiredOutcome: z.string().max(800).default(""),
+  /** Périmètre initial lorsque réellement exprimé — ne pas inventer. */
+  initialScope: z.string().max(800).default(""),
+  /**
+   * Nom de travail proposé pour le sas — distinct d'un REQUEST_EFFECT D2.
+   * Permet une correction de nom sans second acte d'effet concurrent (S05).
+   */
+  proposedProjectName: z.string().max(120).default(""),
   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
-  clarifications: z.array(z.string().max(400)).max(8).default([]),
+  /**
+   * Questions encore ouvertes APRÈS ce tour.
+   * - tableau non vide = questions courantes connues ;
+   * - tableau explicitement vide = aucune question courante après réévaluation fiable ;
+   * - champ ABSENT (undefined) = questions non réévaluées — D2 conserve le courant antérieur.
+   * Ne pas confondre omission et []. Pas de .default([]) : Zod effacerait la distinction.
+   */
+  clarifications: z.array(z.string().max(400)).max(8).optional(),
+  /**
+   * Ensemble 05 / P1-A — propositions de poursuite conversationnelles (≠ clarifications).
+   * Additive / optional. Omission or [] = aucun bouton de poursuite.
+   * Never derive continueChoices from clarifications[].
+   */
+  continueChoices: z
+    .array(
+      z.object({
+        id: z.string().min(1).max(64),
+        label: z.string().min(1).max(160),
+        /** Explicit pilot utterance transmitted on click — not a métier command. */
+        transmitText: z.string().min(1).max(800),
+      }),
+    )
+    .max(6)
+    .optional(),
+  /**
+   * Optional consultable references (D4/D9) — not continuation choices; do not expire with §6.8.
+   */
+  resourceReferences: z
+    .array(
+      z.object({
+        kind: z.enum(["document", "git", "external"]),
+        label: z.string().min(1).max(200),
+        resourceId: z.string().max(128).optional(),
+        revisionId: z.string().max(128).optional(),
+        repositoryId: z.string().max(128).optional(),
+        path: z.string().max(400).optional(),
+        ref: z.string().max(120).optional(),
+        commit: z.string().max(64).optional(),
+        href: z.string().max(800).optional(),
+      }),
+    )
+    .max(8)
+    .optional(),
   replyDraft: z.string().max(12000).default(""),
+  /** Appréciation qualitative de préparation (suggestion, jamais une autorité). */
+  preparationAssessment: PreparationAssessmentSchema.optional(),
+  preparationAssessmentExplanation: z.string().max(800).optional(),
   documentProposal: DocumentProposalSchema.optional(),
   documentSource: DocumentSourceSchema.optional(),
+  /**
+   * Optional visual / canonical composition.
+   * READ path accepts e05 + projection-v1 + canonical-v1; Studio re-validates via parseVisualComposition.
+   * LIVE WRITE uses NoraTurnQualificationAgentSchema (canonical-v1 only — no empty `{}` schema).
+   */
+  visualComposition: VisualCompositionPersistedSchema.optional(),
 });
 export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
+
+/** Agents SDK outputType — WRITE canonical-v1 only (A3). */
+export const NoraTurnQualificationAgentSchema = NoraTurnQualificationSchema.extend({
+  visualComposition: VisualCompositionAgentOutputSchema.optional(),
+});
 
 export type QualificationValidation =
   | { ok: true; value: NoraTurnQualification }
@@ -194,6 +301,40 @@ export function validateNoraTurnQualification(raw: unknown): QualificationValida
   for (const id of ids) {
     if (dfs(id)) return { ok: false, reason: "DEPENDENCY_CYCLE" };
   }
+  // Soft-sanitize visual composition.
+  // Strategy A (canonical-v1): declared but unusable → refuse (A7). Never silently
+  // fall back to an independent replyDraft as if the composition validated.
+  // Legacy (e05 / projection-v1): soft-drop composition; replyDraft remains authority.
+  // Omitted visualComposition: narrative-only — leave replyDraft untouched.
+  if (q.visualComposition !== undefined) {
+    const rawComp = q.visualComposition as { schemaVersion?: string };
+    const declaredCanonical = rawComp.schemaVersion === VISUAL_COMPOSITION_SCHEMA;
+    const cleaned = parseVisualComposition(q.visualComposition);
+    if (cleaned) {
+      (q as { visualComposition?: unknown }).visualComposition = cleaned;
+      if (cleaned.contentAuthority === "canonical_sections") {
+        const derived = deriveReplyDraftFromCanonicalSections(cleaned);
+        if (!derived.ok) {
+          if (derived.reason === "CV_DERIVE_OVERFLOW") {
+            return {
+              ok: false,
+              reason: `CANONICAL_REPLY_OVERFLOW:${derived.length}>${derived.max}`,
+            };
+          }
+          // CV_DERIVE_EMPTY (anchors-only, whitespace prose, etc.)
+          return {
+            ok: false,
+            reason: `CANONICAL_COMPOSITION_EMPTY:${derived.reason}`,
+          };
+        }
+        (q as { replyDraft: string }).replyDraft = derived.text;
+      }
+    } else if (declaredCanonical) {
+      return { ok: false, reason: "CANONICAL_COMPOSITION_INVALID" };
+    } else {
+      delete (q as { visualComposition?: unknown }).visualComposition;
+    }
+  }
   return { ok: true, value: q };
 }
 
@@ -202,6 +343,10 @@ export function unavailableQualification(reason: string, replyDraft = ""): NoraT
     schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
     status: "UNAVAILABLE",
     goal: "",
+    projectIntention: "",
+    desiredOutcome: "",
+    initialScope: "",
+    proposedProjectName: "",
     intents: [],
     clarifications: [reason.slice(0, 400)],
     replyDraft:
@@ -384,9 +529,13 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
     : null;
 
   const wantsProjectCreate = Boolean(createProject);
-  const proposedProjectName = createProject?.parameters.projectName
+  const fromIntent = createProject?.parameters.projectName
     ? sanitizeProposedLabel(createProject.parameters.projectName) || null
     : null;
+  const fromEnvelope = q.proposedProjectName?.trim()
+    ? sanitizeProposedLabel(q.proposedProjectName) || null
+    : null;
+  const proposedProjectName = fromIntent || fromEnvelope;
 
   const wantsFollowOnDocument = Boolean(
     wantsProjectCreate &&

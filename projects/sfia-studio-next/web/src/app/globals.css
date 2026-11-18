@@ -3,31 +3,31 @@
 @tailwind utilities;
 
 :root {
-  /* ML2 visual tokens + F1 rail fills from G2 railEvidence (VERIFY PASS) */
-  --bg: #0a0e17;
-  --panel: #151c29;
-  --rail: #0d111b;
-  --rail-personnel: #0c101a;
+  /* Sas Nora Figma 607:* + prior rail fills */
+  --bg: #0b101b;
+  --panel: #151d2c;
+  --rail: #0d1220;
+  --rail-personnel: #0d1220;
   --rail-projet: #0c1020;
   --rail-conversation: #0d111b;
   --rail-inspection: #0c101a;
-  --ink: #f4f6fc;
-  --muted: #94a2bb;
-  --accent: #656fe1;
+  --ink: #f3f5ff;
+  --muted: #a3b0c7;
+  --accent: #7477ed;
   --accent-soft: #afa5ff;
-  --line: #313c51;
-  --ok: #a6dfbc;
-  --warn: #ebc789;
+  --line: #2b3850;
+  --ok: #6cdbba;
+  --warn: #e6ba76;
   --bad: #e35d6a;
-  --msg-nora: #1a2130;
-  --msg-pilot: #252d40;
+  --msg-nora: #151d2c;
+  --msg-pilot: #1b2639;
   /* Prefer Inter if installed; never fetch Google fonts at build time (CI-stable). */
   --font-inter: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: var(--font-inter);
 }
 
 html, body {
-  background: radial-gradient(1200px 600px at 10% -10%, #1a2433 0%, var(--bg) 55%);
+  background: var(--bg);
   color: var(--ink);
   min-height: 100%;
   font-family: var(--font-sans);
@@ -72,6 +72,18 @@ a:hover { text-decoration: underline; }
 .textarea { min-height: 96px; resize: vertical; }
 
 .muted { color: var(--muted); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 .safe-md h1 { font-size: 1.25rem; font-weight: 700; margin: 0.6rem 0 0.35rem; }
 .safe-md h2 { font-size: 1.1rem; font-weight: 700; margin: 0.55rem 0 0.3rem; }

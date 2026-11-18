@@ -5,7 +5,13 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { PilotagePanel } from "@/components/PilotagePanel";
 import { ProjectChrome } from "@/components/figma/ProjectChrome";
 import { NoraConversation } from "@/components/figma/NoraConversation";
+import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
 import { ProjectJournal } from "@/components/figma/ProjectJournal";
+import { ProjectOverview } from "@/components/figma/ProjectOverview";
+import {
+  ProjectUnavailable,
+  type ProjectUnavailableKind,
+} from "@/components/figma/ProjectUnavailable";
 import {
   DocumentHistory,
   DocumentInspector,
@@ -14,12 +20,30 @@ import {
 } from "@/components/figma/DocumentSurfaces";
 import {
   conversationalClientCommandKey,
+  mayClearComposerDraftOnReconcile,
   pendingStorageKey,
   shouldClearThreadPending,
   type ThreadPendingTurn,
   type ThreadTurnKind,
 } from "@/domains/pilotage/thread-recovery";
+import {
+  clearDraftAfterAck,
+  clearComposerDraft,
+  purgeAllComposerDraftsInTab,
+  purgeComposerDraftsForPilot,
+  readComposerDraft,
+  writeComposerDraft,
+  studioClientLane,
+} from "@/domains/conversation/composer-draft";
+import {
+  resolveActionableProjections,
+  type TurnChoice,
+  type TurnProjection,
+  type TurnReference,
+  parseTurnProjection,
+} from "@/domains/conversation/turn-projection";
 import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
+import { useProjectSpace } from "@/components/shell/ProjectSpaceContext";
 import {
   clearProjectSurfaceNavIntent,
   noteProjectSurfaceNavIntent,
@@ -44,10 +68,25 @@ type Knowledge = {
   openPoints: Array<{ id: string; statement: string; status: string }>;
 };
 
-type Surface = "travail" | "pilotage" | "journal" | "document" | "git" | "publication";
+type Surface =
+  | "travail"
+  | "projet"
+  | "pilotage"
+  | "journal"
+  | "document"
+  | "git"
+  | "publication";
 type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
 
-const SURFACES: Surface[] = ["travail", "pilotage", "journal", "document", "git", "publication"];
+const SURFACES: Surface[] = [
+  "travail",
+  "projet",
+  "pilotage",
+  "journal",
+  "document",
+  "git",
+  "publication",
+];
 
 function parseSurface(raw: string | null): Surface | null {
   if (!raw) return null;
@@ -93,21 +132,29 @@ export default function ProjectPage() {
   const params = useParams<{ projectId: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { setInfo: setProjectSpaceInfo } = useProjectSpace();
   const [messages, setMessages] = useState<Msg[]>([]);
   const [documents, setDocuments] = useState<Doc[]>([]);
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
   const [preparationId, setPreparationId] = useState<string | null>(null);
-  const [meta, setMeta] = useState("Chargement…");
-  const [error, setError] = useState("");
+  const [projectName, setProjectName] = useState<string | null>(null);
+  const [statusHint, setStatusHint] = useState("Chargement…");
+  const [unavailableKind, setUnavailableKind] = useState<ProjectUnavailableKind | null>(null);
+  const [loadEpoch, setLoadEpoch] = useState(0);
   /** Observable end of project load + surface URL sync (e2e / anti-race proof). */
   const [projectLoadState, setProjectLoadState] = useState<"loading" | "ready">("loading");
   const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
+  const [pilotId, setPilotId] = useState<string | null>(null);
+  const [turnProjections, setTurnProjections] = useState<TurnProjection[]>([]);
+  const [choiceFrozen, setChoiceFrozen] = useState(false);
+  const [forceStickToken, setForceStickToken] = useState(0);
+  const [viewer, setViewer] = useState<TravailViewerResource | null>(null);
+  const [viewerEnlarged, setViewerEnlarged] = useState(false);
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [status, setStatus] = useState("");
   const [pilotageStatus, setPilotageStatus] = useState("");
-  const [decisionSummary, setDecisionSummary] = useState("");
   const [inspect, setInspect] = useState<Doc | null>(null);
   const [docUi, setDocUi] = useState<DocUiState>("READING");
   const [reviseDraft, setReviseDraft] = useState("");
@@ -116,6 +163,10 @@ export default function ProjectPage() {
   const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
   const [docDiffText, setDocDiffText] = useState("");
   const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
+  const draftVersionRef = useRef(0);
+  const pilotIdRef = useRef<string | null>(null);
+  const preparationIdRef = useRef<string | null>(null);
+  const projectIdRef = useRef(params.projectId);
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
   const reviseCorrelationRef = useRef<string | null>(null);
   const reviseBaseIdRef = useRef<string | null>(null);
@@ -124,6 +175,23 @@ export default function ProjectPage() {
   const reviseDraftRef = useRef("");
   /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
   const pendingSurfaceRef = useRef<Surface | null>(null);
+  /** C1 — ignore stale async viewer responses after A→B / close / project change. */
+  const viewerRequestSeqRef = useRef(0);
+  const viewerOpenRef = useRef(false);
+
+  useEffect(() => {
+    // Clear previous project identity immediately — no cross-project leak in the rail.
+    setProjectSpaceInfo({
+      projectId: params.projectId,
+      projectName: null,
+      subtitle: null,
+      available: false,
+      blockNavigation: false,
+    });
+    return () => {
+      setProjectSpaceInfo(null);
+    };
+  }, [params.projectId, setProjectSpaceInfo]);
 
   useEffect(() => {
     docUiRef.current = docUi;
@@ -134,6 +202,425 @@ export default function ProjectPage() {
   useEffect(() => {
     documentsRef.current = documents;
   }, [documents]);
+  useEffect(() => {
+    pilotIdRef.current = pilotId;
+  }, [pilotId]);
+
+  useEffect(() => {
+    preparationIdRef.current = preparationId;
+  }, [preparationId]);
+
+  useEffect(() => {
+    projectIdRef.current = params.projectId;
+    // Invalidate in-flight viewer fetches when project changes.
+    viewerRequestSeqRef.current += 1;
+    viewerOpenRef.current = false;
+    setViewer(null);
+    setViewerEnlarged(false);
+  }, [params.projectId]);
+
+  function persistDraft(text: string) {
+    if (!pilotId) return;
+    draftVersionRef.current += 1;
+    const prior = readComposerDraft({ pilotId, projectId: params.projectId });
+    writeComposerDraft({
+      schemaVersion: "e05-composer-draft-v1",
+      pilotId,
+      projectId: params.projectId,
+      lane: studioClientLane(),
+      text,
+      version: draftVersionRef.current,
+      sentVersion: prior?.sentVersion ?? null,
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
+  function closeViewer() {
+    viewerRequestSeqRef.current += 1;
+    viewerOpenRef.current = false;
+    setViewer(null);
+    setViewerEnlarged(false);
+  }
+
+  function applyViewerIfCurrent(
+    seq: number,
+    next: TravailViewerResource,
+    projectIdAtStart: string,
+  ) {
+    if (seq !== viewerRequestSeqRef.current) return;
+    if (!viewerOpenRef.current) return;
+    if (projectIdRef.current !== projectIdAtStart) return;
+    setViewer(next);
+    setViewerEnlarged(false);
+  }
+
+  type D4RevisionPayload = {
+    status?: string;
+    document?: { id?: string; title?: string };
+    revision?: {
+      id?: string;
+      revisionNumber?: number;
+      status?: string;
+      contentMarkdown?: string;
+    };
+    revisions?: Array<{
+      id?: string;
+      revisionNumber?: number;
+      status?: string;
+      contentMarkdown?: string;
+    }>;
+    reason?: string;
+    error?: string;
+  };
+
+  /**
+   * Final A — every Travail open revalidates rights via D4 at click time.
+   * Never treat React-cached latestRevision as a freshly authorized read.
+   */
+  async function fetchDocumentViewerViaD4(input: {
+    documentId: string;
+    titleHint: string;
+    revisionId?: string | null;
+    versionSource: "exact" | "current";
+    seq: number;
+    projectIdAtStart: string;
+  }) {
+    const prepId = preparationIdRef.current;
+    if (!prepId) {
+      applyViewerIfCurrent(
+        input.seq,
+        {
+          kind: "document",
+          documentId: input.documentId,
+          title: input.titleHint,
+          revisionId: input.revisionId ?? null,
+          revisionNumber: null,
+          versionSource: input.versionSource,
+          markdown: null,
+          available: false,
+          unavailableReason: "Préparation indisponible — lecture D4 impossible.",
+        },
+        input.projectIdAtStart,
+      );
+      return;
+    }
+
+    try {
+      let targetRevisionId = input.revisionId?.trim() || "";
+      let title = input.titleHint;
+
+      if (!targetRevisionId) {
+        // Resolve current revision under live ownership check (list endpoint).
+        const listRes = await fetch(
+          `/api/preparations/${prepId}/documents/${input.documentId}`,
+        );
+        const listBody = (await listRes.json().catch(() => ({}))) as D4RevisionPayload;
+        if (listRes.status === 401) {
+          purgeAllComposerDraftsInTab();
+          applyViewerIfCurrent(
+            input.seq,
+            {
+              kind: "document",
+              documentId: input.documentId,
+              title,
+              revisionId: null,
+              revisionNumber: null,
+              versionSource: "current",
+              markdown: null,
+              available: false,
+              unavailableReason: "Session expirée — contenu non affiché.",
+            },
+            input.projectIdAtStart,
+          );
+          return;
+        }
+        if (!listRes.ok || listBody.status === "FORBIDDEN") {
+          applyViewerIfCurrent(
+            input.seq,
+            {
+              kind: "document",
+              documentId: input.documentId,
+              title,
+              revisionId: null,
+              revisionNumber: null,
+              versionSource: "current",
+              markdown: null,
+              available: false,
+              unavailableReason: String(
+                listBody.reason ??
+                  listBody.error ??
+                  listBody.status ??
+                  "Document introuvable ou non autorisé",
+              ),
+            },
+            input.projectIdAtStart,
+          );
+          return;
+        }
+        title = listBody.document?.title ?? title;
+        const revisions = Array.isArray(listBody.revisions) ? listBody.revisions : [];
+        const availableRevs = revisions
+          .filter((r) => r && r.id && String(r.status ?? "").toUpperCase() === "AVAILABLE")
+          .sort(
+            (a, b) => Number(b.revisionNumber ?? 0) - Number(a.revisionNumber ?? 0),
+          );
+        const current = availableRevs[0] ?? null;
+        if (!current?.id) {
+          applyViewerIfCurrent(
+            input.seq,
+            {
+              kind: "document",
+              documentId: input.documentId,
+              title,
+              revisionId: null,
+              revisionNumber: null,
+              versionSource: "current",
+              markdown: null,
+              available: false,
+              unavailableReason: "Aucune révision disponible pour ce document.",
+            },
+            input.projectIdAtStart,
+          );
+          return;
+        }
+        targetRevisionId = current.id;
+      }
+
+      const res = await fetch(
+        `/api/preparations/${prepId}/documents/${input.documentId}?revisionId=${encodeURIComponent(targetRevisionId)}`,
+      );
+      const j = (await res.json().catch(() => ({}))) as D4RevisionPayload;
+      if (res.status === 401) {
+        purgeAllComposerDraftsInTab();
+        applyViewerIfCurrent(
+          input.seq,
+          {
+            kind: "document",
+            documentId: input.documentId,
+            title,
+            revisionId: targetRevisionId,
+            revisionNumber: null,
+            versionSource: input.versionSource,
+            markdown: null,
+            available: false,
+            unavailableReason: "Session expirée — contenu non affiché.",
+          },
+          input.projectIdAtStart,
+        );
+        return;
+      }
+      if (!res.ok || j.status === "FORBIDDEN" || j.status === "NOT_FOUND") {
+        applyViewerIfCurrent(
+          input.seq,
+          {
+            kind: "document",
+            documentId: input.documentId,
+            title,
+            revisionId: targetRevisionId,
+            revisionNumber: null,
+            versionSource: input.versionSource,
+            markdown: null,
+            available: false,
+            unavailableReason: String(
+              j.reason ?? j.error ?? j.status ?? "Révision inaccessible ou non autorisée",
+            ),
+          },
+          input.projectIdAtStart,
+        );
+        return;
+      }
+      const rev = j.revision;
+      const markdown =
+        j.status === "AVAILABLE" && typeof rev?.contentMarkdown === "string"
+          ? rev.contentMarkdown
+          : null;
+      applyViewerIfCurrent(
+        input.seq,
+        {
+          kind: "document",
+          documentId: input.documentId,
+          title: j.document?.title ?? title,
+          revisionId: rev?.id ?? targetRevisionId,
+          revisionNumber: rev?.revisionNumber ?? null,
+          versionSource: input.versionSource,
+          markdown,
+          available: Boolean(markdown),
+          unavailableReason: markdown
+            ? undefined
+            : `Révision non disponible (${String(j.status ?? rev?.status ?? "UNKNOWN")})`,
+        },
+        input.projectIdAtStart,
+      );
+    } catch {
+      applyViewerIfCurrent(
+        input.seq,
+        {
+          kind: "document",
+          documentId: input.documentId,
+          title: input.titleHint,
+          revisionId: input.revisionId ?? null,
+          revisionNumber: null,
+          versionSource: input.versionSource,
+          markdown: null,
+          available: false,
+          unavailableReason: "Échec de lecture D4 — aucun contenu inventé.",
+        },
+        input.projectIdAtStart,
+      );
+    }
+  }
+
+  /** En bref / library open — always live D4 current version. */
+  function openTravailDocument(doc: Doc) {
+    const projectIdAtStart = params.projectId;
+    const seq = ++viewerRequestSeqRef.current;
+    viewerOpenRef.current = true;
+    // Placeholder while rights + current revision are revalidated.
+    setViewer({
+      kind: "document",
+      documentId: doc.document.id,
+      title: doc.document.title,
+      revisionId: null,
+      revisionNumber: null,
+      versionSource: "current",
+      markdown: null,
+      available: false,
+      unavailableReason: "Vérification des droits et de la version courante…",
+    });
+    setViewerEnlarged(false);
+    void fetchDocumentViewerViaD4({
+      documentId: doc.document.id,
+      titleHint: doc.document.title,
+      revisionId: null,
+      versionSource: "current",
+      seq,
+      projectIdAtStart,
+    });
+  }
+
+  /** C1/Final A — exact revision or live current via D4; D9 Git via existing APIs. */
+  async function openTravailReference(ref: TurnReference) {
+    const projectIdAtStart = params.projectId;
+    const seq = ++viewerRequestSeqRef.current;
+    viewerOpenRef.current = true;
+
+    if (ref.kind === "document" && ref.resourceId) {
+      const match = documents.find((d) => d.document.id === ref.resourceId);
+      const title = match?.document.title ?? ref.label;
+      await fetchDocumentViewerViaD4({
+        documentId: ref.resourceId,
+        titleHint: title,
+        revisionId: ref.revisionId ?? null,
+        versionSource: ref.revisionId ? "exact" : "current",
+        seq,
+        projectIdAtStart,
+      });
+      return;
+    }
+    if (ref.kind === "git") {
+      if (!ref.repositoryId || !ref.path || !ref.ref) {
+        applyViewerIfCurrent(
+          seq,
+          {
+            kind: "git",
+            title: ref.label,
+            path: ref.path ?? null,
+            ref: ref.ref ?? null,
+            commit: ref.commit ?? null,
+            content: null,
+            available: false,
+            unavailableReason:
+              "Référence Git incomplète (dépôt, chemin ou ref manquant) — aucun aperçu inventé.",
+            href: ref.href ?? null,
+          },
+          projectIdAtStart,
+        );
+        return;
+      }
+      try {
+        const q = new URLSearchParams({
+          repositoryId: ref.repositoryId,
+          path: ref.path,
+          ref: ref.ref,
+        });
+        const res = await fetch(`/api/projects/${params.projectId}/git/file?${q.toString()}`);
+        const j = (await res.json().catch(() => ({}))) as {
+          content?: string;
+          provenance?: { commitSha?: string | null; permalink?: string | null };
+          error?: string;
+          errorCategory?: string;
+        };
+        const prov = j.provenance;
+        if (!res.ok) {
+          applyViewerIfCurrent(
+            seq,
+            {
+              kind: "git",
+              title: ref.label,
+              path: ref.path,
+              ref: ref.ref,
+              commit: prov?.commitSha ?? ref.commit ?? null,
+              content: null,
+              available: false,
+              unavailableReason: String(
+                j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
+              ),
+              href: prov?.permalink ?? ref.href ?? null,
+            },
+            projectIdAtStart,
+          );
+        } else {
+          const content = typeof j.content === "string" ? j.content : null;
+          applyViewerIfCurrent(
+            seq,
+            {
+              kind: "git",
+              title: ref.label,
+              path: ref.path,
+              ref: ref.ref,
+              commit: prov?.commitSha ?? ref.commit ?? null,
+              content,
+              available: Boolean(content),
+              unavailableReason: content
+                ? undefined
+                : "Aperçu Git vide — aucun contenu inventé.",
+              href: prov?.permalink ?? ref.href ?? null,
+            },
+            projectIdAtStart,
+          );
+        }
+      } catch {
+        applyViewerIfCurrent(
+          seq,
+          {
+            kind: "git",
+            title: ref.label,
+            path: ref.path,
+            ref: ref.ref,
+            commit: ref.commit ?? null,
+            content: null,
+            available: false,
+            unavailableReason: "Échec de lecture Git — réessayez ou ouvrez la source externe.",
+            href: ref.href ?? null,
+          },
+          projectIdAtStart,
+        );
+      }
+      return;
+    }
+    applyViewerIfCurrent(
+      seq,
+      {
+        kind: "git",
+        title: ref.label,
+        content: null,
+        available: false,
+        unavailableReason: "Référence externe — ouvrir le lien si disponible.",
+        href: ref.href ?? null,
+      },
+      projectIdAtStart,
+    );
+  }
 
   function buildSurfaceUrl(next: Surface, documentId?: string | null) {
     const q = new URLSearchParams();
@@ -273,28 +760,7 @@ export default function ProjectPage() {
   }
 
   async function refreshDurablePilotage() {
-    const [decRes, projRes] = await Promise.all([
-      fetch(`/api/projects/${params.projectId}/decisions`),
-      fetch(`/api/projects/${params.projectId}/pilotage`),
-    ]);
-    if (decRes.ok) {
-      const dj = await decRes.json();
-      const decisions = (dj.decisions ?? []) as Array<{
-        id: string;
-        kind: string;
-        state: string;
-        statement: string;
-        createdAt?: string;
-      }>;
-      const applicable = decisions.filter((d) => d.state === "APPLICABLE");
-      const latest = [...decisions].sort((a, b) =>
-        String(b.createdAt ?? "").localeCompare(String(a.createdAt ?? "")),
-      )[0];
-      setDecisionSummary(
-        `${applicable.length} applicable(s) · ${decisions.length} au journal` +
-          (latest ? ` · dernière ${latest.kind}/${latest.state}` : ""),
-      );
-    }
+    const projRes = await fetch(`/api/projects/${params.projectId}/pilotage`);
     if (projRes.ok) {
       const pj = await projRes.json();
       const cycle = pj.pilotage?.cycle ?? pj.cycle;
@@ -334,9 +800,62 @@ export default function ProjectPage() {
     return false;
   }
 
+  function applyCognitiveRecoveryFromDurable(input: {
+    status: string;
+    effect: PilotageEffectView | undefined;
+    pending: ThreadPendingTurn;
+    noraMode?: string;
+  }): boolean {
+    const status = input.status.trim().toUpperCase();
+    setStatus(`Nora ${String(input.noraMode ?? "durable")} · ${status}`);
+    setPilotageStatus(formatPilotageEffect(input.effect, false));
+    const pendingCleared = applyClearFromResponse(status, input.effect);
+    if (!pendingCleared) {
+      // Métier UNKNOWN or non-terminal — keep pending; honest copy.
+      if (input.effect?.attempted === true) {
+        setStatus("Effet métier encore incertain — conserver la réconciliation.");
+        setChoiceFrozen(true);
+      } else if (status === "RUNNING" || status === "ACCEPTED") {
+        setStatus("Tentative encore en cours côté serveur — réessayer plus tard.");
+        setChoiceFrozen(true);
+      }
+      return false;
+    }
+    // Cognitive terminal without D7 — exit loop; never claim success; keep draft.
+    if (status === "UNKNOWN" || status === "INTERRUPTED" || status === "FAILED") {
+      setStatus(
+        "Réponse Nora non aboutie — historique conservé. Vous pouvez formuler une nouvelle demande. Aucune relance automatique.",
+      );
+      setNoraActivity("error");
+      setChoiceFrozen(false);
+      return true;
+    }
+    const decision = mayClearComposerDraftOnReconcile({
+      pending: input.pending,
+      currentDraftVersion: draftVersionRef.current,
+    });
+    if (
+      decision.clear &&
+      pilotId &&
+      clearDraftAfterAck({
+        pilotId,
+        projectId: params.projectId,
+        sentVersion: decision.sentVersion,
+        currentVersion: draftVersionRef.current,
+      })
+    ) {
+      setDraft("");
+    }
+    setChoiceFrozen(false);
+    setNoraActivity("idle");
+    return true;
+  }
+
   async function reconcilePending(pending: ThreadPendingTurn) {
     setBusy(true);
+    setChoiceFrozen(true);
     try {
+      // 1) Durable D7 by business command key — métier authority when present.
       const res = await fetch(
         `/api/projects/${params.projectId}/pilotage/commands/by-key/${encodeURIComponent(pending.clientCommandKey)}`,
       );
@@ -361,17 +880,56 @@ export default function ProjectPage() {
         if (cmd.status && String(cmd.status).toUpperCase() !== "UNKNOWN") {
           rememberPending(null);
           messageTurnKeyRef.current = null;
+          setChoiceFrozen(false);
+        } else {
+          setStatus("Effet métier encore incertain — réconciliation métier conservée.");
+          setChoiceFrozen(true);
         }
         await refreshDurablePilotage();
         return;
       }
-      // 404 alone does not invent a new key — retry same logical act only.
-      if (res.status === 404) {
-        setPilotageStatus(
-          `Commande absente pour ${pending.clientCommandKey.slice(0, 28)}… — reprise du même acte`,
-        );
-      }
+
       if (!preparationId) return;
+
+      // 2) R05 — READ durable D3 turn by clientTurnKey (no Nora, no POST).
+      // A bare D7 404 is not proof of cognitive terminality by itself.
+      const lookup = await fetch(
+        `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(pending.clientTurnKey)}`,
+      );
+      if (lookup.ok) {
+        const body = (await lookup.json()) as {
+          status?: string;
+          pilotageEffect?: PilotageEffectView | null;
+          noraMode?: string;
+        };
+        const status = String(body.status ?? "");
+        const effect = (body.pilotageEffect ?? undefined) as PilotageEffectView | undefined;
+        const cleared = applyCognitiveRecoveryFromDurable({
+          status,
+          effect,
+          pending,
+          noraMode: body.noraMode,
+        });
+        const proj = await fetch(`/api/projects/${params.projectId}`);
+        if (proj.ok) {
+          const pj = await proj.json();
+          setDocuments(pj.documents ?? []);
+          setKnowledge(pj.knowledge ?? null);
+          if (Array.isArray(pj.messages)) setMessages(pj.messages as Msg[]);
+        }
+        await refreshDurablePilotage();
+        if (cleared || status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
+          return;
+        }
+        // Non-clearable non-running without effect — fall through only if lookup incomplete.
+        if (status) return;
+      }
+
+      // 3) Turn not found or lookup failed — idempotent POST replay (same clientTurnKey).
+      // Terminal replay never invokes OpenAI; used for ACK/hydration gaps only.
+      setPilotageStatus(
+        `Tour introuvable ou non terminal — reprise idempotente de la même clé (${pending.clientTurnKey.slice(0, 18)}…)`,
+      );
       const retry = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -380,17 +938,28 @@ export default function ProjectPage() {
           clientTurnKey: pending.clientTurnKey,
         }),
       });
-      const j = await retry.json().catch(() => ({}));
+      const j = (await retry.json().catch(() => ({}))) as Record<string, unknown>;
       if (retry.ok) {
-        setMessages(j.messages ?? []);
-        setStatus(`Nora ${j.noraMode} · ${j.status}`);
+        setMessages((j.messages as Msg[]) ?? []);
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
-        setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
-        if (applyClearFromResponse(String(j.status ?? ""), effect)) {
-          setDraft("");
+        const tp = parseTurnProjection(j.turnProjection);
+        if (tp) upsertTurnProjection(tp);
+        applyCognitiveRecoveryFromDurable({
+          status: String(j.status ?? ""),
+          effect,
+          pending,
+          noraMode: String(j.noraMode ?? ""),
+        });
+        const proj = await fetch(`/api/projects/${params.projectId}`);
+        if (proj.ok) {
+          const pj = await proj.json();
+          setDocuments(pj.documents ?? []);
+          setKnowledge(pj.knowledge ?? null);
+          if (Array.isArray(pj.messages)) setMessages(pj.messages);
         }
         await refreshDurablePilotage();
       } else {
+        setChoiceFrozen(true);
         setStatus(String(j.error ?? j.errorCategory ?? "réconciliation impossible"));
       }
     } finally {
@@ -401,38 +970,120 @@ export default function ProjectPage() {
   useEffect(() => {
     let cancelled = false;
     setProjectLoadState("loading");
+    setUnavailableKind(null);
+    setProjectName(null);
+    setStatusHint("Chargement…");
     pendingSurfaceRef.current = null;
+    setProjectSpaceInfo({
+      projectId: params.projectId,
+      projectName: null,
+      subtitle: null,
+      available: false,
+      blockNavigation: false,
+    });
 
     async function load() {
       const res = await fetch(`/api/projects/${params.projectId}`);
       if (cancelled) return;
       if (res.status === 401) {
-        router.push("/login");
+        // C3 — session invalid: purge tab drafts; do not restore under wrong identity.
+        purgeAllComposerDraftsInTab();
+        setPilotId(null);
+        setUnavailableKind("unauthorized");
+        setDraft("");
+        setChoiceFrozen(false);
+        setStatusHint("");
+        setProjectSpaceInfo({
+          projectId: params.projectId,
+          projectName: null,
+          subtitle: null,
+          available: false,
+          blockNavigation: true,
+        });
+        setProjectLoadState("ready");
         return;
       }
       if (res.status === 404) {
-        setError("Projet introuvable ou non autorisé pour ce Pilote.");
-        setMeta("");
+        setUnavailableKind("not_found");
+        setStatusHint("");
+        setProjectSpaceInfo({
+          projectId: params.projectId,
+          projectName: null,
+          subtitle: null,
+          available: false,
+          blockNavigation: true,
+        });
         setProjectLoadState("ready");
         return;
       }
       if (!res.ok) {
-        setError("Impossible de charger le projet.");
-        setMeta("");
+        setUnavailableKind("temporary");
+        setStatusHint("");
+        setProjectSpaceInfo({
+          projectId: params.projectId,
+          projectName: null,
+          subtitle: null,
+          available: false,
+          blockNavigation: true,
+        });
         setProjectLoadState("ready");
         return;
       }
       const j = await res.json();
       if (cancelled) return;
       const docs = (j.documents ?? []) as Doc[];
+      const name = String(j.project?.name ?? "").trim() || null;
+      // C3 — draft ownership follows authenticated session pilot, not project owner alone.
+      const sessionPilotId =
+        typeof j.session?.pilotId === "string" && j.session.pilotId.trim()
+          ? String(j.session.pilotId)
+          : null;
+      setPilotId(sessionPilotId);
+      setTurnProjections(
+        ((j.turnProjections ?? []) as unknown[])
+          .map((raw) => parseTurnProjection(raw))
+          .filter((p): p is TurnProjection => p !== null),
+      );
       setMessages(j.messages ?? []);
       setDocuments(docs);
+      if (sessionPilotId) {
+        const record = readComposerDraft({
+          pilotId: sessionPilotId,
+          projectId: params.projectId,
+        });
+        if (record?.text && record.pilotId === sessionPilotId) {
+          setDraft(record.text);
+          draftVersionRef.current = record.version;
+        } else {
+          setDraft("");
+          draftVersionRef.current = 0;
+        }
+      } else {
+        setDraft("");
+        draftVersionRef.current = 0;
+      }
+      // P1-B: unresolved pending ⇒ keep choice groups frozen until reconcile.
+      const pendingOnLoad = readPending();
+      if (pendingOnLoad) {
+        setUnresolvedPending(pendingOnLoad);
+        setChoiceFrozen(true);
+      }
       setKnowledge(j.knowledge ?? null);
       setPreparationId(j.preparation?.id ?? null);
-      setMeta(
-        `Même fil · préparation ${j.preparation?.id ?? "liée"} · conversation ${j.conversation?.id ?? "—"} · réouverture par projectId`,
+      setProjectName(name);
+      setStatusHint(
+        j.preparation?.id
+          ? "Fil durable · préparation liée · réouverture par projet"
+          : "Fil durable · réouverture par projet",
       );
-      setError("");
+      setUnavailableKind(null);
+      setProjectSpaceInfo({
+        projectId: params.projectId,
+        projectName: name,
+        subtitle: null,
+        available: Boolean(name),
+        blockNavigation: false,
+      });
 
       // Read *current* URL — never stale searchParams from effect closure (race with rail nav).
       // Rail Links and chrome selectSurface share one project-scoped intent so load() cannot
@@ -450,9 +1101,9 @@ export default function ProjectPage() {
         rawSurface,
         pendingIntent: pendingSurface,
       });
-      applyUrlDocumentState(docs, decision.effectiveSurface, qDocId);
+      applyUrlDocumentState(docs, decision.effectiveSurface as Surface, qDocId);
       if (decision.shouldNormalizeUrl) {
-        const target = decision.effectiveSurface;
+        const target = decision.effectiveSurface as Surface;
         syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
       }
       if (qSurface && pendingSurface && qSurface === pendingSurface) {
@@ -469,9 +1120,39 @@ export default function ProjectPage() {
           content: pending.content,
           key: pending.clientTurnKey,
         };
-        setPilotageStatus(
-          `Reprise en attente · clé ${pending.clientCommandKey.slice(0, 24)}…`,
-        );
+        setPilotageStatus("Reprise en attente · tentative conservée");
+        // R05 — silent READ hydrate: clear stale cognitive pending from durable D3 truth.
+        const prepId = (j.preparation?.id as string | undefined) ?? null;
+        if (prepId) {
+          try {
+            const look = await fetch(
+              `/api/preparations/${prepId}/turns/by-key/${encodeURIComponent(pending.clientTurnKey)}`,
+            );
+            if (look.ok) {
+              const body = (await look.json()) as {
+                status?: string;
+                pilotageEffect?: PilotageEffectView | null;
+              };
+              if (
+                shouldClearThreadPending({
+                  noraStatus: body.status,
+                  effectAttempted: body.pilotageEffect?.attempted,
+                  effectStatus: body.pilotageEffect?.status,
+                })
+              ) {
+                rememberPending(null);
+                messageTurnKeyRef.current = null;
+                setChoiceFrozen(false);
+                setStatus(
+                  "Réponse Nora non aboutie (état durable) — vous pouvez formuler une nouvelle demande.",
+                );
+                setPilotageStatus("");
+              }
+            }
+          } catch {
+            /* keep pending — network hydrate is best-effort */
+          }
+        }
       }
 
       // G2 — silent COMMAND recovery (not GET): resume interrupted mission continuation
@@ -495,9 +1176,7 @@ export default function ProjectPage() {
               setDocuments(rj.documents ?? []);
               setKnowledge(rj.knowledge ?? null);
               if (resume.documentSave?.documentId) {
-                setMeta(
-                  `Même fil · préparation ${rj.preparation?.id ?? "liée"} · conversation ${rj.conversation?.id ?? "—"} · reprise mission doc ${resume.documentSave.documentId}`,
-                );
+                setStatusHint("Fil durable · reprise de mission documentée");
               }
             }
           }
@@ -514,7 +1193,7 @@ export default function ProjectPage() {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.projectId, router]);
+  }, [params.projectId, router, loadEpoch]);
 
   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
   useEffect(() => {
@@ -706,9 +1385,41 @@ export default function ProjectPage() {
     setReviseMessage("Base mise à jour — nouvelle intention (nouvelle correlationKey au prochain enregistrement).");
   }
 
-  async function sendMessage() {
-    if (!draft.trim() || !preparationId) return;
-    const text = draft.trim();
+  function sendChoice(choice: TurnChoice, _messageId: string) {
+    void sendMessage(choice.transmitText, { fromChoice: true });
+  }
+
+  function upsertTurnProjection(tp: TurnProjection) {
+    setTurnProjections((prev) => {
+      const id = tp.messageId;
+      if (!id) return [...prev, tp];
+      const idx = prev.findIndex((p) => p.messageId === id);
+      if (idx < 0) return [...prev, tp];
+      const next = [...prev];
+      next[idx] = tp;
+      return next;
+    });
+  }
+
+  async function sendMessage(
+    overrideText?: string,
+    opts?: { fromChoice?: boolean },
+  ) {
+    const text = (overrideText ?? draft).trim();
+    if (!text || !preparationId) return;
+    const fromChoice = opts?.fromChoice === true;
+    const sentVersion = fromChoice ? null : draftVersionRef.current;
+    const pendingMeta: Pick<
+      ThreadPendingTurn,
+      "origin" | "sentDraftVersion" | "projectId" | "pilotId"
+    > = {
+      origin: fromChoice ? "choice" : "composer",
+      sentDraftVersion: sentVersion,
+      projectId: params.projectId,
+      pilotId: pilotIdRef.current,
+    };
+    setChoiceFrozen(true);
+    setForceStickToken((t) => t + 1);
     // SEM-02 / S05: no client lexical gate. Server returns nextTurnKind from Nora
     // qualification. Same-content retry reuses the turn key; distinct content may
     // proceed — coexistence is decided from the server kind after the response.
@@ -727,6 +1438,12 @@ export default function ProjectPage() {
     }
     const clientTurnKey = messageTurnKeyRef.current.key;
     const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
+    const buildPending = (): ThreadPendingTurn => ({
+      content: text,
+      clientTurnKey,
+      clientCommandKey,
+      ...pendingMeta,
+    });
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
@@ -751,7 +1468,7 @@ export default function ProjectPage() {
           Boolean(pendingBefore) && pendingBefore!.clientTurnKey !== clientTurnKey;
         // Remember effect turns for ACK recovery — never let B overwrite unresolved A.
         if (serverKind === "INTENTION_EFFET" && !effectBlocked && !distinctFromUnresolved) {
-          rememberPending({ content: text, clientTurnKey, clientCommandKey });
+          rememberPending(buildPending());
         } else if (distinctFromUnresolved && pendingBefore) {
           rememberPending(pendingBefore);
         }
@@ -761,22 +1478,41 @@ export default function ProjectPage() {
         setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
-        if (
+        const tp = parseTurnProjection(j.turnProjection);
+        if (tp) upsertTurnProjection(tp);
+        const shouldClearDraft =
           !effectBlocked &&
           !distinctFromUnresolved &&
           applyClearFromResponse(String(j.status ?? ""), effect, {
             preserveUnresolvedMetierPending: preserveMetierPending,
-          })
-        ) {
-          setDraft("");
+          });
+        if (!fromChoice && shouldClearDraft && typeof sentVersion === "number") {
+          if (
+            pilotId &&
+            clearDraftAfterAck({
+              pilotId,
+              projectId: params.projectId,
+              sentVersion,
+              currentVersion: draftVersionRef.current,
+            })
+          ) {
+            setDraft("");
+          } else if (!pilotId) {
+            setDraft("");
+          }
         } else if (effectBlocked || (distinctFromUnresolved && serverKind === "INTENTION_EFFET")) {
           setStatus(
             effectBlocked
               ? `Effet retenu — pending non résolu (${String(j.unresolvedPendingClientTurnKey ?? pendingBefore?.clientTurnKey ?? "A")})`
               : "Intention précédente non résolue — réconcilier avant un nouveau tour.",
           );
-        } else if (j.status === "UNKNOWN" || j.status === "FAILED") {
+        } else if (j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED") {
           setNoraActivity("error");
+          if (shouldClearDraft) {
+            setStatus(
+              "Réponse Nora non aboutie — historique conservé. Vous pouvez formuler une nouvelle demande. Aucune relance automatique.",
+            );
+          }
         }
         const proj = await fetch(`/api/projects/${params.projectId}`);
         if (proj.ok) {
@@ -786,11 +1522,24 @@ export default function ProjectPage() {
         }
         await refreshDurablePilotage();
         setNoraActivity(
-          j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
+          j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED"
+            ? "error"
+            : "idle",
         );
+        // R05: cognitive UNKNOWN/INTERRUPTED without métier clears pending → unfreeze.
+        // Métier UNKNOWN keeps freeze via shouldClearDraft === false.
+        if (
+          !shouldClearDraft &&
+          (String(j.status ?? "") === "UNKNOWN" || String(j.status ?? "") === "INTERRUPTED")
+        ) {
+          setChoiceFrozen(true);
+        } else {
+          setChoiceFrozen(false);
+        }
       } else {
-        // ACK lost / HTTP error — retain the same turn key for reconcile (server may have applied).
-        rememberPending({ content: text, clientTurnKey, clientCommandKey });
+        // ACK lost / HTTP error — retain turn key; KEEP choices frozen (server may have applied).
+        setChoiceFrozen(true);
+        rememberPending(buildPending());
         setNoraActivity("error");
         setStatus(
           res.status === 409
@@ -799,7 +1548,9 @@ export default function ProjectPage() {
         );
       }
     } catch {
-      rememberPending({ content: text, clientTurnKey, clientCommandKey });
+      // Network loss after click: fail closed — freeze until reconcile proves outcome.
+      setChoiceFrozen(true);
+      rememberPending(buildPending());
       setNoraActivity("error");
       setStatus("échec réseau — intention de tour conservée");
     } finally {
@@ -807,36 +1558,86 @@ export default function ProjectPage() {
     }
   }
 
-  if (error) {
+  if (unavailableKind) {
     return (
-      <div className="max-w-3xl space-y-4">
-        <h1 className="text-2xl font-semibold">Projet</h1>
-        <p className="text-xs muted">{params.projectId}</p>
-        <div className="panel p-4">{error}</div>
-        <a className="btn secondary inline-block" href="/portfolio">
-          Retour portefeuille
-        </a>
+      <ProjectUnavailable
+        kind={unavailableKind}
+        onRetry={
+          unavailableKind === "temporary"
+            ? () => {
+                setUnavailableKind(null);
+                setLoadEpoch((n) => n + 1);
+              }
+            : undefined
+        }
+        onLogin={
+          unavailableKind === "unauthorized" ? () => router.push("/login") : undefined
+        }
+      />
+    );
+  }
+
+  if (projectLoadState === "loading" && !projectName) {
+    return (
+      <div
+        data-testid="project-load-state"
+        data-project-load-state="loading"
+        data-project-id={params.projectId}
+      >
+        <ProjectUnavailable kind="loading" />
       </div>
     );
   }
 
+  const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
+
   return (
     <ProjectChrome
       projectId={params.projectId}
+      projectName={projectName}
       surface={surface}
-      meta={meta}
+      statusHint={statusHint}
       loadState={projectLoadState}
-      onSelectSurface={selectSurface}
+      travailLayout={travailLayout}
     >
+      {surface === "projet" ? (
+        <ProjectOverview
+          projectId={params.projectId}
+          projectName={projectName ?? "Projet"}
+          preparationId={preparationId}
+          knowledge={knowledge}
+          documentCount={documents.length}
+          messageCount={messages.length}
+          onOpenTravail={() => selectSurface("travail")}
+        />
+      ) : null}
+
       {surface === "travail" ? (
         <NoraConversation
+          embeddedInStage
           messages={messages}
           draft={draft}
           busy={busy || !preparationId}
           unresolvedPending={Boolean(unresolvedPending)}
           activity={noraActivity}
-          status={[status, pilotageStatus, decisionSummary].filter(Boolean).join(" · ")}
-          onDraft={setDraft}
+          status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
+          projections={resolveActionableProjections({
+            messages,
+            projections: turnProjections,
+            suspendActions:
+              choiceFrozen ||
+              noraActivity === "preparing" ||
+              Boolean(unresolvedPending),
+          })}
+          onChoice={sendChoice}
+          onReference={(ref) => void openTravailReference(ref)}
+          choiceFrozen={choiceFrozen}
+          forceStickToken={forceStickToken}
+          layoutMode={travailLayout}
+          onDraft={(v) => {
+            setDraft(v);
+            persistDraft(v);
+          }}
           onSend={() => void sendMessage()}
           onReconcile={
             unresolvedPending
@@ -844,42 +1645,103 @@ export default function ProjectPage() {
               : undefined
           }
           aside={
-            <>
-              <div className="fig-panel space-y-2">
-                <h2 className="fig-panel-title">En bref</h2>
-                <p className="text-sm muted">
-                  Un seul fil visible. Mémoire D4 récupérable au-delà des six derniers messages.
-                </p>
-                <p className="text-xs muted">
-                  Acquis: {knowledge?.acquis.filter((a) => a.status === "CURRENT").length ?? 0} ·
-                  Ouverts: {knowledge?.openPoints.filter((o) => o.status === "OPEN").length ?? 0}
+            viewer ? (
+              <TravailViewer
+                resource={viewer}
+                enlarged={viewerEnlarged}
+                onEnlarge={() => setViewerEnlarged(true)}
+                onReduce={() => setViewerEnlarged(false)}
+                onClose={closeViewer}
+                onOpenInDocuments={
+                  viewer.kind === "document"
+                    ? () => {
+                        const match = documents.find(
+                          (d) => d.document.id === viewer.documentId,
+                        );
+                        if (match) openDocumentReadOnly(match);
+                      }
+                    : undefined
+                }
+              />
+            ) : (
+            <div className="fig-inspector" data-testid="travail-aside-inspector">
+              <p className="fig-kicker">Contexte projet</p>
+              <h2 className="fig-inspector-title">En bref</h2>
+              <div className="fig-inspector-rule" aria-hidden />
+              <p className="fig-inspector-name" data-testid="travail-aside-bref">
+                {projectName ?? "Projet"}
+              </p>
+              <span className="fig-tag fig-tag-ok mt-2 inline-flex">
+                {statusHint && /reprise|conservé|durable/i.test(statusHint)
+                  ? "Contexte conservé"
+                  : "Projet actif"}
+              </span>
+              <div className="fig-inspector-rule" aria-hidden />
+              <p className="fig-inspector-section">Repères</p>
+              <div className="fig-inspector-card" data-testid="travail-aside-objets">
+                <p className="fig-inspector-card-title">Continuité</p>
+                <p className="fig-inspector-card-body">
+                  Fil de préparation et conversation consultables depuis Travail.
                 </p>
               </div>
-              <div className="fig-panel space-y-2">
-                <h2 className="fig-panel-title">Objets du projet</h2>
-                <ul className="text-sm muted space-y-1">
-                  <li>Documents Nora · {documents.length}</li>
-                  <li>Réalisations et preuves · via Pilotage</li>
-                  <li>
-                    Sources Git · <span className="fig-tag fig-tag-muted">non disponible</span>
-                  </li>
-                </ul>
+              <div className="fig-inspector-card">
+                <p className="fig-inspector-card-title">Dossier du projet</p>
+                <p className="fig-inspector-card-body">
+                  {documents.length > 0
+                    ? `${documents.length} document${documents.length > 1 ? "s" : ""} Nora disponible${documents.length > 1 ? "s" : ""}.`
+                    : "Les objets et sources du projet restent distincts du dialogue."}
+                </p>
+                {documents.length > 0 ? (
+                  <div className="fig-inspector-links mt-2">
+                    {documents.map((d) => (
+                      <button
+                        key={d.document.id}
+                        type="button"
+                        className="fig-inspector-link"
+                        data-testid={`travail-consulter-${d.document.id}`}
+                        onClick={() => openTravailDocument(d)}
+                      >
+                        Consulter · {d.document.title}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+                <div className="fig-inspector-links">
+                  <button
+                    type="button"
+                    className="fig-inspector-link"
+                    onClick={() => selectSurface("git")}
+                  >
+                    Sources Git
+                  </button>
+                  <button
+                    type="button"
+                    className="fig-inspector-link"
+                    onClick={() => selectSurface("publication")}
+                  >
+                    Résultats et preuves
+                  </button>
+                </div>
               </div>
-              <div className="fig-panel space-y-2" style={{ background: "rgba(101,111,225,0.08)" }}>
-                <h2 className="fig-panel-title">Points à clarifier</h2>
+              <div className="fig-inspector-rule" aria-hidden />
+              <p className="fig-inspector-section">Points à clarifier</p>
+              <div data-testid="travail-aside-clarifier">
                 {(knowledge?.openPoints ?? [])
                   .filter((o) => o.status === "OPEN")
                   .slice(0, 5)
                   .map((o) => (
-                    <p key={o.id} className="text-sm">
+                    <p key={o.id} className="fig-inspector-card-body mb-2">
                       {o.statement}
                     </p>
                   ))}
                 {(knowledge?.openPoints ?? []).filter((o) => o.status === "OPEN").length === 0 ? (
-                  <p className="text-sm muted">Aucun point ouvert capitalisé.</p>
+                  <p className="fig-inspector-card-body">
+                    Seules les informations réellement connues seront affichées.
+                  </p>
                 ) : null}
               </div>
-            </>
+            </div>
+            )
           }
         />
       ) : null}
@@ -1058,10 +1920,6 @@ export default function ProjectPage() {
           onBackToThread={() => selectSurface("travail")}
         />
       ) : null}
-
-      <a className="btn secondary inline-block" href="/portfolio">
-        Retour portefeuille
-      </a>
     </ProjectChrome>
   );
 }

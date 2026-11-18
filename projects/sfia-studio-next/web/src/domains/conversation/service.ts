@@ -16,7 +16,11 @@ import {
 // db still used by getConversationId / listMessages
 import { newId } from "@/lib/ids";
 import { generateNoraReply } from "./nora-adapter";
-import { getPreparationContext } from "@/domains/preparation/service";
+import {
+  applyPreparationProjection,
+  getPreparationContext,
+  openOrCreatePreparation,
+} from "@/domains/preparation/service";
 import {
   maybeCapitalizeFromExchange,
   reconstituteConfirmedD4Effects,
@@ -70,6 +74,7 @@ import {
   extractKnowledgeSelectionHints,
   extractPilotageBinding,
   projectStudioEffects,
+  unavailableQualification,
   type NoraTurnQualification,
 } from "./semantic-qualification";
 import { loadLatestMissionsByIntentKey } from "./intent-conduction";
@@ -99,7 +104,12 @@ import {
   mergeMissionSteps,
   recoverPendingMissionContinuation,
 } from "./intent-conduction";
-import { updatePreview } from "@/domains/preparation/service";
+import { draftProjectionFromQualification } from "@/domains/preparation/projection";
+import {
+  buildTurnProjection,
+  extractTurnProjectionFromResultJson,
+  type TurnProjection,
+} from "./turn-projection";
 
 /**
  * S05 R-01 — gather owner-side evidence for one unresolved sibling.
@@ -387,6 +397,137 @@ export async function listMessages(pilotId: string, preparationId: string) {
     .orderBy(asc(messages.ordinal));
 }
 
+/**
+ * R05 — READ-ONLY durable turn lookup by clientTurnKey.
+ * Never reserves, never calls Nora, never mutates. Used by cognitive recovery
+ * so UI pending clear is grounded in server state (not a bare D7 404).
+ */
+export async function lookupDurableTurnByClientKey(
+  pilotId: string,
+  preparationId: string,
+  clientTurnKey: string,
+): Promise<{
+  found: boolean;
+  status: string | null;
+  generationId: string | null;
+  operationId: string | null;
+  userMessageId: string | null;
+  assistantMessageId: string | null;
+  pilotageEffect: TurnResult["pilotageEffect"];
+  idempotentReplay: true;
+  noraMode: "durable-lookup";
+}> {
+  const key = clientTurnKey.trim();
+  const empty = {
+    found: false as const,
+    status: null,
+    generationId: null,
+    operationId: null,
+    userMessageId: null,
+    assistantMessageId: null,
+    pilotageEffect: null,
+    idempotentReplay: true as const,
+    noraMode: "durable-lookup" as const,
+  };
+  if (!key) return empty;
+
+  const ctx = await getPreparationContext(pilotId, preparationId);
+  if (!ctx.conversation) return empty;
+
+  const row = (
+    await db
+      .select({
+        status: conversationTurnCommands.status,
+        generationId: conversationTurnCommands.generationId,
+        operationId: conversationTurnCommands.operationId,
+        userMessageId: conversationTurnCommands.userMessageId,
+        assistantMessageId: conversationTurnCommands.assistantMessageId,
+        resultJson: conversationTurnCommands.resultJson,
+        clientTurnKey: conversationTurnCommands.clientTurnKey,
+      })
+      .from(conversationTurnCommands)
+      .where(
+        and(
+          eq(conversationTurnCommands.conversationId, ctx.conversation.id),
+          eq(conversationTurnCommands.clientTurnKey, key),
+        ),
+      )
+      .limit(1)
+  )[0];
+
+  if (!row) return empty;
+
+  let fromJson: TurnResult["pilotageEffect"] = null;
+  let humanDecisionCreated = false;
+  if (row.resultJson) {
+    try {
+      const parsed = JSON.parse(row.resultJson) as TurnResult;
+      fromJson = parsed.pilotageEffect ?? null;
+      humanDecisionCreated = Boolean(parsed.humanDecisionCreated);
+    } catch {
+      /* ignore corrupt payload — status row still authoritative for D3 */
+    }
+  }
+
+  const resolved = await resolvePilotageEffectForReplay({
+    pilotId,
+    projectId: ctx.project?.id,
+    clientTurnKey: row.clientTurnKey,
+    userMessageId: row.userMessageId,
+    fromJson,
+    humanDecisionCreated,
+  });
+
+  return {
+    found: true,
+    status: row.status,
+    generationId: row.generationId,
+    operationId: row.operationId,
+    userMessageId: row.userMessageId,
+    assistantMessageId: row.assistantMessageId,
+    pilotageEffect: resolved.pilotageEffect,
+    idempotentReplay: true,
+    noraMode: "durable-lookup",
+  };
+}
+
+/**
+ * Ensemble 05 / M1 — reload projections from existing result_json (no new table).
+ * READ ≠ COMMAND.
+ */
+export async function listTurnProjections(pilotId: string, preparationId: string) {
+  const ctx = await getPreparationContext(pilotId, preparationId);
+  if (!ctx.conversation) return [];
+  const rows = await db
+    .select({
+      id: conversationTurnCommands.id,
+      assistantMessageId: conversationTurnCommands.assistantMessageId,
+      status: conversationTurnCommands.status,
+      resultJson: conversationTurnCommands.resultJson,
+    })
+    .from(conversationTurnCommands)
+    .where(
+      and(
+        eq(conversationTurnCommands.conversationId, ctx.conversation.id),
+        eq(conversationTurnCommands.ownerPilotId, pilotId),
+      ),
+    );
+  const out = [];
+  for (const row of rows) {
+    if (!row.assistantMessageId || !row.resultJson) continue;
+    const proj = extractTurnProjectionFromResultJson(row.resultJson);
+    if (!proj) continue;
+    out.push({
+      ...proj,
+      messageId: proj.messageId ?? row.assistantMessageId,
+      turnCommandId: proj.turnCommandId ?? row.id,
+      finalized: proj.finalized || row.status === "COMPLETE",
+      status: proj.status || row.status,
+    });
+  }
+  return out;
+}
+
 /** Qualification decision before extract/D4 — metadata only, never blocks D4. */
 function emitDocumentActQualificationObs(args: {
   requestId: string;
@@ -532,10 +673,21 @@ export type TurnResult = {
   nextTurnKind?: ThreadTurnKind;
   /** Echo of durable qualification status for clients / recovery. */
   semanticQualificationStatus?: string;
+  /** D2 living sas projection ack for this turn (never an authority grant). */
+  preparationProjection?: {
+    status: string;
+    revision?: number;
+    assessment?: string;
+  } | null;
   /** S05 — true when a sibling pending blocked owner effects for this turn. */
   pendingEffectBlocked?: boolean;
   pendingBlockReason?: string;
   unresolvedPendingClientTurnKey?: string | null;
+  /**
+   * Ensemble 05 / M1 — structured reply projection (choices, refs, activity).
+   * Additive in result_json; never an authority grant.
+   */
+  turnProjection?: TurnProjection | null;
 };
 
 function pilotageEffectFromAuthority(
@@ -895,15 +1047,7 @@ export async function postUserMessageAndNora(
   await bindTurnGenerationId(reserved.commandId, reserved.ownerToken, reply.generationId);
 
   const qualification: NoraTurnQualification =
-    reply.qualification ??
-    ({
-      schemaVersion: "ml4c-sem-qual-v1",
-      status: "UNAVAILABLE",
-      goal: "",
-      intents: [],
-      clarifications: ["MISSING_QUALIFICATION"],
-      replyDraft: reply.content,
-    } as NoraTurnQualification);
+    reply.qualification ?? unavailableQualification("MISSING_QUALIFICATION", reply.content);
 
   // TV-04 / T-03 — durable qualification before first owner mutation; applied required.
   const stashed = await stashTurnQualification({
@@ -2056,8 +2200,45 @@ export async function postUserMessageAndNora(
     }
   }
 
+  // D2 projection draft prepared here; persisted only AFTER durable terminal commit (Gap C).
+  let preparationProjectionDraft: ReturnType<typeof draftProjectionFromQualification> = null;
+  let preparationProjectionAck:
+    | { status: string; revision?: number; assessment?: string }
+    | null = null;
+  if (allowOwnerEffects && !ownershipLostBeforeD4 && !ctx.project?.id) {
+    const openFromQual = extractKnowledgeProposals(qualification)
+      .filter((p) => p.kind === "OPEN_POINT")
+      .map((p) => p.statement)
+      .slice(0, 6);
+    const proposedName =
+      (qualification.proposedProjectName?.trim()
+        ? qualification.proposedProjectName.trim()
+        : null) ||
+      studioIntent.proposedProjectName;
+    preparationProjectionDraft = draftProjectionFromQualification({
+      preparationId,
+      turnKey: clientIntentKey,
+      qualificationStatus: qualification.status,
+      goal: qualification.goal || "",
+      projectIntention: qualification.projectIntention || "",
+      desiredOutcome: qualification.desiredOutcome || "",
+      initialScope: qualification.initialScope || "",
+      // Pass through undefined when envelope omitted clarifications (≠ explicit []).
+      clarifications: qualification.clarifications,
+      proposedProjectName: proposedName,
+      openPointStatements: openFromQual,
+      preparationAssessment: qualification.preparationAssessment ?? null,
+      preparationAssessmentExplanation:
+        qualification.preparationAssessmentExplanation ?? null,
+      // Goal→intention bootstrap only when no durable intention exists yet (R1).
+      allowGoalIntentionBootstrap: !(ctx.projection?.intention?.value ?? "").trim(),
+    });
+    if (!preparationProjectionDraft && qualification.status === "UNAVAILABLE") {
+      preparationProjectionAck = { status: "UNAVAILABLE" };
+    }
+  }
+
   // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
-  // S05: never mutate preview / invent mission while unresolved work A blocks B effects.
   if (
     allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
@@ -2068,16 +2249,6 @@ export async function postUserMessageAndNora(
       (studioIntent.proposedProjectName?.trim()
         ? studioIntent.proposedProjectName.trim()
         : null) || "Nouveau projet";
-    try {
-      await updatePreview(
-        pilotId,
-        preparationId,
-        proposed.slice(0, 120),
-        `Intention Nora — création de projet «${proposed}». Acte Pilote requis.`,
-      );
-    } catch {
-      /* preview best-effort */
-    }
     let d2Mission = emptyMission(
       clientIntentKey,
       `Création de projet «${proposed}» — attente acte Pilote`,
@@ -2270,6 +2441,31 @@ export async function postUserMessageAndNora(
       blockingMission?.clientIntentKey ??
       clientPendingHint,
     semanticQualificationStatus: qualification.status,
+    preparationProjection: preparationProjectionAck,
+    turnProjection: buildTurnProjection({
+      messageId: ownershipLostBeforeD4 ? null : assistantId,
+      turnCommandId: reserved.commandId,
+      status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
+      finalized: turnStatus === "COMPLETE" && !ownershipLostBeforeD4,
+      // P1-A: never map clarifications[] → continue buttons.
+      continueChoices: qualification.continueChoices ?? null,
+      references: (qualification.resourceReferences ?? []).map((r) => ({
+        kind: r.kind,
+        label: r.label,
+        resourceId: r.resourceId,
+        revisionId: r.revisionId,
+        repositoryId: r.repositoryId,
+        path: r.path,
+        ref: r.ref,
+        commit: r.commit,
+        href: r.href,
+        available: true,
+      })),
+      toolCallsObserved: reply.toolCallsObserved,
+      d4CharsReturned: reply.d4CharsReturned,
+      documentSave,
+      visualComposition: qualification.visualComposition,
+    }),
   };
 
   if (turnRaceHooks.beforeTerminalCommit) {
@@ -2365,8 +2561,36 @@ export async function postUserMessageAndNora(
       capitalisation: reconstituted.capitalisation,
       capitalisationLimit: reconstituted.capitalisationLimit,
       documentSave: reconstituted.documentSave,
+      preparationProjection: { status: "SKIPPED_OWNERSHIP" },
     };
   }
+
+  // Persist living projection only after durable COMPLETE terminal commit (Gap C).
+  if (
+    turnStatus === "COMPLETE" &&
+    preparationProjectionDraft &&
+    !ctx.project?.id &&
+    !ownershipLostBeforeD4
+  ) {
+    try {
+      const freshPrep = await openOrCreatePreparation(pilotId, preparationId);
+      const appliedProj = await applyPreparationProjection({
+        pilotId,
+        preparationId,
+        expectedCreationRevision: freshPrep.creationRevision,
+        draft: preparationProjectionDraft,
+      });
+      preparationProjectionAck = {
+        status: appliedProj.status,
+        revision: "revision" in appliedProj ? appliedProj.revision : undefined,
+        assessment: preparationProjectionDraft.suggestion?.assessment,
+      };
+    } catch {
+      preparationProjectionAck = { status: "UNAVAILABLE" };
+    }
+    resultPayload.preparationProjection = preparationProjectionAck;
+  }
+
   emitObs({
     event_name: "d3.turn.completed",
     component: "d3.conversation",

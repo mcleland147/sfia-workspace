@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
 
 /**
  * ML4C S02 — D2_ACK_OBS (versioned).
@@ -31,10 +32,10 @@ test("S02 D2_ACK_OBS: lost ACK after commit → reconcile → real project, one 
     timeout: 30000,
   });
 
-  await page.getByTestId("prep-constitute").click();
-  await page.getByTestId("prep-adopt-nora").click();
-  await page.getByTestId("prep-proposal-name").fill("ML4C D2 AckLost");
-  await page.getByTestId("prep-proposal-save").click();
+  await seedInspectedNameViaApi(page, {
+    name: "ML4C D2 AckLost",
+    summary: "Intention E2E D2 ACK loss",
+  });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 15000 });
   const createBtn = page.getByTestId("prep-create-project");
   await expect(createBtn).toBeEnabled({ timeout: 20000 });

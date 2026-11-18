@@ -1,0 +1,21 @@
+{
+  "id": "G08",
+  "figma": "752:2",
+  "title": "Arbre conditionnel multiniveau",
+  "layoutHint": "decisionTree",
+  "nodes": [
+    { "id": "c1", "label": "Support prêt ?", "kind": "unknown", "detail": "CONDITION 01 · NON DÉCIDÉE — disponibilité à confirmer auprès des relais." },
+    { "id": "c2", "label": "Fenêtre compatible ?", "kind": "unknown", "detail": "CONDITION 02 · NON DÉCIDÉE — contraintes calendaires encore à qualifier." },
+    { "id": "y1", "label": "Progression possible", "kind": "hypothesis", "detail": "Soumettre une cadence progressive si les deux conditions sont favorables." },
+    { "id": "n2", "label": "Revoir le calendrier", "kind": "hypothesis", "detail": "Réajuster les périodes envisagées si la fenêtre n'est pas compatible." },
+    { "id": "n1", "label": "Renforcer les relais", "kind": "hypothesis", "detail": "Ressources et organisation à revoir si le support est insuffisant." },
+    { "id": "n1b", "label": "Requalifier la capacité", "kind": "hypothesis", "detail": "Revenir aux prérequis de support — aucune branche activée automatiquement." }
+  ],
+  "edges": [
+    { "from": "c1", "to": "c2", "relation": "condition_true", "label": "oui — hypothèse" },
+    { "from": "c1", "to": "n1", "relation": "condition_false", "label": "non — hypothèse" },
+    { "from": "c2", "to": "y1", "relation": "condition_true", "label": "si deux conditions oui" },
+    { "from": "c2", "to": "n2", "relation": "condition_false", "label": "si fenêtre non compatible" },
+    { "from": "n1", "to": "n1b", "relation": "flow", "label": "si support non confirmé" }
+  ]
+}
