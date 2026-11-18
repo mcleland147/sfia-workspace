@@ -83,7 +83,10 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await pageB.waitForURL("**/portfolio");
   await pageB.goto(`/projects/${projectId}`);
   await expect(pageB.getByTestId("project-unavailable")).toBeVisible();
-  await expect(pageB.getByText(/introuvable|accessible|non autoris/i)).toBeVisible();
+  await expect(pageB.getByTestId("project-unavailable")).toHaveAttribute(
+    "data-unavailable-kind",
+    /not_found|unauthorized/,
+  );
   await expect(pageB.getByText("Bonjour Nora depuis Playwright")).toHaveCount(0);
   await bContext.close();
 

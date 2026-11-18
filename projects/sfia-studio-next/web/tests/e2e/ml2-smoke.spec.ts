@@ -78,7 +78,10 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   await pageB.waitForURL("**/portfolio");
   await pageB.goto(`/projects/${projectId}`);
   await expect(pageB.getByTestId("project-unavailable")).toBeVisible();
-  await expect(pageB.getByText(/introuvable|accessible|non autoris/i)).toBeVisible();
+  await expect(pageB.getByTestId("project-unavailable")).toHaveAttribute(
+    "data-unavailable-kind",
+    /not_found|unauthorized/,
+  );
   await bContext.close();
 
   const shot = path.join("tests/e2e/artifacts", `ml2-smoke-${Date.now()}.png`);
