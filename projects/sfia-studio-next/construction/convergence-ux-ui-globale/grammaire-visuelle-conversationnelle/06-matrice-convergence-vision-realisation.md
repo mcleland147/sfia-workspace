@@ -16,7 +16,7 @@
 
 **Règle de gouvernance :** un verdict Cursor « READY FOR MORRIS ENSEMBLE 05 RECEPTION REVIEW » autorise une **revue**, pas une réception, Gate C, PR/merge, RECETTE, STABLE ni ADOPTED. Ne pas fusionner cette matrice candidate sur main sans GO distinct. Strategy A et M1–M5 restent les orientations validées ; pas de second moteur de vérité ni de migration implicite.
 
-**Verdict V0.8 :** **CONSOLIDATION TECHNIQUE ÉTAYÉE — RÉCEPTION DOCUMENTAIRE/GRAPHique À QUALIFIER**. L'actualisation conserve les IDs d'origine C-01 à C-22 ; elle **ne reprend pas** le tableau erroné C-01…C-22 proposé dans le handoff 43b12a34.
+**Verdict V0.8 :** **CONSOLIDATION TECHNIQUE ÉTAYÉE — RÉCEPTION DOCUMENTAIRE ET VISUELLE À QUALIFIER**. L'actualisation conserve les IDs d'origine C-01 à C-22 ; elle **ne reprend pas** le tableau erroné C-01…C-22 proposé dans le handoff 43b12a34.
 
 ## 2. Sources Git et niveaux de preuve
 
