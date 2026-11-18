@@ -1,0 +1,10 @@
+prev_sha=90c3e59f4a355b463ea047cc45486906bde15680
+prev_tree=1c7fa402d6029ee6c0b5582ba8d0a2b94f5bcceb
+prev_build=5C3be3-ils1iOmH3qXo4d
+new_sha=bd3854ac50520f3ce5e46ec773b67ec3ae5cc70b
+new_tree=c39e45e6fe1eca45c5dbc3dbcb96aa8ca9818b2a
+new_build=qw3FaPD1B4KBrRab3LyKL
+branch=sfia/next-ml4d-ensemble05-composition-recette-candidate
+worktree=/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble05-recette-build-bd3854ac
+backup=/Users/morris/.config/sfia-studio-next/sfia-recette-backups/ml4d-e05-ux0107-182631
+rollback=/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble05-recette-build-bd3854ac/ROLLBACK-TO-90c3e59f.sh

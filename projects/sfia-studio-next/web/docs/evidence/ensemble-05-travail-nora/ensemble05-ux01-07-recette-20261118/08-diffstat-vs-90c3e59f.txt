@@ -1,0 +1,10 @@
+ .../web/src/components/figma/NoraComposition.tsx   |  20 ++-
+ .../nora-composition/DirectedRelationBoard.tsx     |  34 +++-
+ .../figma/nora-composition/EditorialSequence.tsx   |  21 +--
+ .../figma/nora-composition/EditorialSynthesis.tsx  |  66 +++++---
+ .../figma/nora-composition/GraphNodeCard.tsx       |  27 +--
+ .../figma/nora-composition/editorial-title.ts      |  14 ++
+ .../web/src/components/figma/tokens.css            |  61 ++++++-
+ .../conversation/directed-layout/elk-layout.ts     |  69 ++++++--
+ .../tests/unit/ux-correctives-ensemble05.test.ts   | 188 +++++++++++++++++++++
+ 9 files changed, 420 insertions(+), 80 deletions(-)

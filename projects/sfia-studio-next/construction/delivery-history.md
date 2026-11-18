@@ -4,6 +4,23 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-18-UX01-07-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-18 ~18:30 CET |
+| Macro-lot | R5 / ML4D / Ensemble 05 — UX-01…07 + relivraison RECETTE |
+| Type | Cycle 8 Delivery · Cycle 9 QA · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctifs UX-01…07 + build + cutover RECETTE même cycle |
+| Parent RECETTE | `90c3e59f` / `5C3be3-ils1iOmH3qXo4d` |
+| Candidate | `bd3854ac50520f3ce5e46ec773b67ec3ae5cc70b` · tree `c39e45e6…` · build `qw3FaPD1B4KBrRab3LyKL` |
+| Scope | Icon/title · matrix caption · ordinals · graph icons · parallel ELK · synthesis icons/padding · card flow |
+| QA | Vitest UX+ELK+UAT03+C2 **PASS** · smoke RECETTE PASS · isolation 404 · DB `23\|117\|556\|4` |
+| Rollback | `ROLLBACK-TO-90c3e59f.sh` + backup `ml4d-e05-ux0107-*` |
+| Preuves | `docs/evidence/.../ensemble05-ux01-07-recette-20261118/` |
+| Verdict Cursor | `ENSEMBLE 05 UX CORRECTIVES DEPLOYED — RECETTE READY FOR MORRIS RETEST` |
+
+
 ## delivery_id: DELIV-2026-11-18-UAT03-FIX-RECETTE
 
 | Field | Value |

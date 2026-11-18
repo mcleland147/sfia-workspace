@@ -1,0 +1,108 @@
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elk-layout.ts b/projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elk-layout.ts
+index 1f0a2d2c..f2d5395f 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elk-layout.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/directed-layout/elk-layout.ts
+@@ -62,8 +62,15 @@ function classifyLanes(block: RelationsBlock): {
+   );
+   const order: string[] = [];
+   const map = new Map<string, RelationsBlock["nodes"]>();
++  /** UX-05 — unlaned nodes are classified after flow lanes (convergence / suite). */
++  const unassigned: RelationsBlock["nodes"] = [];
++
+   for (const n of block.nodes) {
+-    const lane = n.laneId?.trim() || "voie";
++    const lane = n.laneId?.trim();
++    if (!lane) {
++      unassigned.push(n);
++      continue;
++    }
+     if (!map.has(lane)) {
+       order.push(lane);
+       map.set(lane, []);
+@@ -91,27 +98,63 @@ function classifyLanes(block: RelationsBlock): {
+       suiteNodes.push(...nodes);
+       continue;
+     }
+-    if (/^converg/i.test(label) && nodes.some((n) => syncTargets.has(n.id))) {
++    if (/^converg/i.test(label)) {
+       gateNodes.push(...nodes);
+       continue;
+     }
+     flow.push({ id: `lane-${label}`, label, nodes, kind: "flow" });
+   }
+ 
+-  // Fallback: any sync target not already classified.
++  const laneOf = new Map<string, string>();
++  for (const lane of flow) {
++    for (const n of lane.nodes) laneOf.set(n.id, lane.label);
++  }
++  const flowIds = new Set(laneOf.keys());
++
++  const inboundFlowLaneCount = (nodeId: string): number => {
++    const lanes = new Set<string>();
++    for (const e of block.edges) {
++      if (e.to !== nodeId) continue;
++      const lane = laneOf.get(e.from);
++      if (lane) lanes.add(lane);
++    }
++    return lanes.size;
++  };
++
++  const isOnlyFromGate = (nodeId: string): boolean => {
++    const inbound = block.edges.filter((e) => e.to === nodeId);
++    if (!inbound.length) return false;
++    return inbound.every(
++      (e) =>
++        gateNodes.some((g) => g.id === e.from) || syncTargets.has(e.from),
++    );
++  };
++
++  // Sync targets always gate.
+   for (const n of block.nodes) {
+     if (syncTargets.has(n.id) && !gateNodes.some((g) => g.id === n.id)) {
+       gateNodes.push(n);
+     }
+   }
+-  for (const n of block.nodes) {
+-    const inFlow = flow.some((l) => l.nodes.some((x) => x.id === n.id));
+-    const inGate = gateNodes.some((g) => g.id === n.id);
+-    const inSuite = suiteNodes.some((s) => s.id === n.id);
+-    if (!inFlow && !inGate && !inSuite) {
++
++  // Unlaned / leftover: fan-in from ≥2 flow lanes ⇒ single convergence gate.
++  const classifyOne = (n: RelationsBlock["nodes"][number]) => {
++    if (gateNodes.some((g) => g.id === n.id)) return;
++    if (flowIds.has(n.id)) return;
++    if (suiteNodes.some((s) => s.id === n.id)) return;
++    if (syncTargets.has(n.id) || inboundFlowLaneCount(n.id) >= 2) {
++      gateNodes.push(n);
++      return;
++    }
++    if (isOnlyFromGate(n.id) || /^suite|lancement|mise en service/i.test(n.label)) {
+       suiteNodes.push(n);
++      return;
+     }
+-  }
++    suiteNodes.push(n);
++  };
++
++  for (const n of unassigned) classifyOne(n);
++  for (const n of block.nodes) classifyOne(n);
+ 
+   return { flow, gateNodes, suiteNodes };
+ }
+@@ -141,9 +184,11 @@ async function computeParallelSwimlaneLayout(
+   let lanesBottom = 0;
+   const laneBounds: Array<{ label: string; x: number; y: number; w: number; h: number }> = [];
+ 
+-  // Fit three swimlanes in a typical Travail column (~600–720px) without
+-  // forcing the Pilote to scroll horizontally to discover a lane.
+-  const maxLaneNodeW = flow.length >= 3 ? 168 : 220;
++  // Fit three swimlanes in a typical Travail column (~600–720px).
++  // Sparse lanes (≤2 nodes) keep a wider card so labels do not wrap excessively (UX-05).
++  const maxNodesInLane = Math.max(...flow.map((l) => l.nodes.length), 1);
++  const maxLaneNodeW =
++    flow.length >= 3 ? (maxNodesInLane <= 2 ? 190 : 168) : 220;
+ 
+   for (const lane of flow) {
+     const intra = block.edges.filter(
