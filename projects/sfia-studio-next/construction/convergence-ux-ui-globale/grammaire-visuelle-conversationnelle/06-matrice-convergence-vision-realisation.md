@@ -29,7 +29,7 @@
 | Blob du handoff | 1d9f9390fb483535bdec1b570d71aef1ec9856d9 | Intégrité du fichier distant |
 | Branche projet technique | sfia/next-ml4d-composition-adaptative ; tip local rapporté a783f014935de0dec5ff8e79a2b18eea0e629756 | Non présente sur origin au contrôle ; code correctif dans un working tree local non commité |
 | Référence graphique | [Figma — Page 06, neuf écrans](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=742-2) | Direction acceptée en principe, pas preuve navigateur |
-| Gouvernance | [SEF](../../../../governance/SEF.md) · [Roadmap](../../../../governance/roadmap.md) | Git main prime pour gouvernance et décisions applicables |
+| Gouvernance | [SEF](../../../governance/SEF.md) · [Roadmap](../../../governance/roadmap.md) | Git main prime pour gouvernance et décisions applicables |
 
 **Précédence :** Git/preuves observées > décisions Morris > contrats/documentation > mémoire > hypothèses. La validation Morris des principes **UX A–F** et des orientations **M1–M5** ne valide pas rétroactivement les formats, seuils de cardinalité ou technologies candidatés dans les documents 03–05. Les maquettes constituent des références de direction artistique, pas une certification pixel ou une preuve LIVE.
 
