@@ -361,6 +361,8 @@ Les **ensembles de réalisation** ne sont créés qu'à partir des observations 
 
 **Addendum intégration Git (même jour, v0.17) :** après remédiation CI (tests/fixtures alignés au produit actuel, Required Gate PASS run `44400455666`), le **produit ML4D a été mergé** via PR [#681](https://github.com/mcleland147/sfia-workspace/pull/681) → `main@b7de1fb0` (tip `ac08b381`). Le SHA UAT `5c94c867` / build `IEINNuPl0bHWJOWkh0ZhG` reste la **référence RECETTE immuable** (non redéployée). **Le reste des contrats de l'Ensemble 05 n'est pas réputé exhaustivement recetté** ; vérification ACL lecture seule et réconciliation documentaire encore ouvertes ; `Gate C OPEN`, `NO RELEASE`, `ADOPTED` non ; ML5 / Ensemble 06 NOT STARTED. Conserver `UX-005-R01` et les réserves UX-006.
 
+- [Ensemble 06 — fiche de reprise Documents/Journal](ensemble-06-documents-journal-reprise.md) — reprise only, NOT STARTED.
+
 ## 7. Sources de cadrage (Git au SHA de référence)
 
 - [Dossier de réconciliation et préparation de réception — 18/11/2026](grammaire-visuelle-conversationnelle/07-dossier-reconciliation-reception.md) — campagne visuelle UAT-01…08 acceptée avec réserves ; preuves et gates, sans réception globale implicite.
