@@ -1,287 +1,285 @@
-# COURTILIEN-02A — Review pack Full
+# SFIA Review Pack FULL — Ensemble 06 Documents Bibliothèque
+**Date/heure (UTC):** 2026-11-19T21:56:25Z
+**Produit:** SFIA Studio Next
+**Cycle:** 08 — Delivery / implémentation · Typologie EVOL · Profil Standard
+**Objectif:** Capacité Bibliothèque Documents (page Figma 08, frames 930:3–10) + protocole D4 révision historique, fidélité visuelle mesurée, sans push projet / PR / RECETTE promote.
 
-**Cycle :** COURTILIEN-02A — Evolution du modèle d'identité (16e relation)
-**Type :** 8 — Delivery / implémentation · **Profil :** Standard · **Typologie :** EVOL
-**Date rapport :** 2026-11-19 21:55:00 CET (Europe/Paris)
-**Verdict review pack :** `NOT READY` — `INCOMPLETE / TOOLING GAP` (création schéma Airtable bloquée)
-
----
-
-## 1. Local Git Truth Check
-
-| Contrôle | Valeur |
-|----------|--------|
-| Repository | `mcleland147/sfia-workspace` (root `/Users/l/Projects/sfia-workspace`) |
-| Branche projet | `project/sfia-task-manager-cycle-4-ux-ui` |
-| HEAD | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
-| origin/main | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
-| Staged | vide |
-| git status --short | untracked uniquement : `.cursor/…`, `.tmp-sfia-review/…`, `.cursor/mcp.json` — **aucun fichier projet tracké modifié** |
-| Anomalie incompatible | **aucune** — travaux autres projets préservés |
-
-Handoff distant avant cycle : `f207312c5e5d16027227fdb1f428827fe9e914ce` (`docs(review-handoff): finalize COURTILIEN-01 integration`).
+> **Note statut contrat Git:** `documents-contrat-realisation.md` porte encore le statut « candidat » dans Git. **Validation Morris conversationnelle** reçue pour construction. Non réécrit.
 
 ---
 
-## 2. Sources consultées
+## 1. Git Truth Check
 
-| Source | Statut |
-|--------|--------|
-| `prompts/templates/sfia-cycle-execution-template.md` | LU (§7.10, §8, §9.1) |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | LU (cycles antérieurs / applicable) |
-| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | LU (cycles antérieurs / applicable) |
-| `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | LU (cycles antérieurs / applicable) |
-| `method/sfia-fast-track/checklists/sfia-validation-checklist.md` | LU (cycles antérieurs / applicable) |
-| CKC `02-fifteen-cycles-synthetic-map.md` cycle 8 | LU — Delivery / scope discipline / anti scope creep |
-| Handoff COURTILIEN-01 `f207312c…` | Référencé (tip `sfia/review-handoff`) |
-| SFIA Studio historique / Next | N/A |
-| Livrables Liora applicables | Non accessibles en local versionné hors périmètre — **signalé absent** |
+| Check | Résultat |
+|---|---|
+| remote | `origin https://github.com/mcleland147/sfia-workspace.git` |
+| branche travail | `sfia/next-documents-delivery-20261119` (LOCALE, absente du remote au départ) |
+| HEAD avant/après (non commit projet) | `6516c7b56ec61bd72943ae0d26e625bf21139d4e` |
+| origin/main | `d3d199adb782462b93467934f5f1e8a0c98fb492` (aligné ls-remote) |
+| base documentaire | `origin/sfia/next-documents-convergence-20261119` @ `6516c7b5…` |
+| worktree | `/Users/morris/Projects/sfia-wt-documents-delivery-20261119` |
+| branche documentaire source | non modifiée |
+| dirty | modifications productives sous `projects/sfia-studio-next/web/` + `.tmp-sfia-review/` hors commit |
 
----
-
-## 3. État initial (référence schéma)
-
-**Base :** [sep26_bpbnc_courtage_assurance_2](https://airtable.com/appjebCNHtEaCAzxy) (`appjebCNHtEaCAzxy`)
-**permissionLevel effectif MCP :** `edit` (Editor) — **pas Creator**
-**Tables :** 11 confirmées (UTILISATEUR, COMPAGNIE, PERSONNE, JOURNAL, OPPORTUNITE, RENDEZ_VOUS, CONTRAT, INTERACTION, DEVIS, SINISTRE, DOCUMENT)
-
-**UTILISATEUR** (`tblRL15tkEL98Mpev`) — champs relationnels avant 02A :
-- `PERSONNE` (`fldrnt6mlP0Sd11pR`) — inverse de `courtier_referent` (**≠** `personne_client`)
-- `JOURNAL`, `RENDEZ_VOUS`, `INTERACTION`
-
-**PERSONNE** (`tblpbBJLOV4psEgnA`) — pas de champ inverse `personne_client` / compte client.
-
-**`personne_client` :** **absent** (Airtable + Softr).
-**Relations métier :** **15** (cible 16 non atteinte).
-**Entités :** **11** (inchangé).
+**STOP non déclenché** sur Git (repo correct, HEAD documentaire qualifié, pas de conflit local bloquant).
 
 ---
 
-## 4. Tentative de création — STOP permissions
+## 2. Sources consommées
 
-### 4.1 Action tentée
+### Processus / gouvernance (main)
+- method/sfia-fast-track/core/* (routing, operating model, guardrails) — guidance
+- governance/SEF.md, roadmap, ENV-01, product-versioning — REQUIRED
+- ENV-01 blob main `14b61f0d…` · Product versioning `8bc93e0f…`
 
-`create_field` sur UTILISATEUR :
-- name : `personne_client`
-- type : `multipleRecordLinks`
-- linkedTableId : `tblpbBJLOV4psEgnA` (PERSONNE)
-- description métier prévue (cardinalité 1:1, contrôle applicatif fail-closed)
+### Contrats Documents (branche documentaire)
+- `construction/convergence-ux-ui-globale/documents-diagnostic-convergence.md`
+- `construction/convergence-ux-ui-globale/documents-contrat-realisation.md` (candidat Git / validé conversation)
 
-Retry sans description → même échec.
+### Figma
+- fileKey `itgvCulInEnFY6DvgIegvP` · page `930:2`
+- Session MCP `409ceea9-5472-4bf8-b3dc-e62b950aa978`
+- Frames 930:3–10 : design context + captures MCP persistées dans `.tmp-sfia-review/documents-figma/`
+- Contrat extrait avant code : `.tmp-sfia-review/figma-visual-contract-documents.md`
 
-### 4.2 Erreur observée
-
-MCP : `Invalid baseId, tableId, and / or fieldIds`
-alors que `list_bases` / `list_tables_for_base` confirment les IDs.
-
-`update_field` (probe no-op rename) → **même erreur**.
-
-### 4.3 Cause qualifiée (preuve externe + permission)
-
-Airtable Meta API **Create field** exige :
-- scope `schema.bases:write`
-- rôle collaborateur **Base creator** (pas Editor)
-
-`list_bases` → `permissionLevel: "edit"`.
-
-**STOP condition appliquée :** droits insuffisants pour création de champ — **aucune duplication**, **aucun contournement**, **aucune écriture d'enregistrement**.
-
-`report_missing_capability` Airtable déposé (gapType `tool_error` / create_field opaque sous Editor).
-
-### 4.4 Définition complète du champ **non créé** (contrat pour intervention Owner/Creator)
-
-| Attribut | Valeur cible |
-|----------|--------------|
-| Table | UTILISATEUR |
-| Nom | `personne_client` |
-| Type | linked record → PERSONNE |
-| Description | Rattachement explicite du compte utilisateur client à sa fiche métier PERSONNE dans CourtiLien. |
-| Cardinalité métier | Compte client ≤1 fiche ; fiche ≤1 compte client ; courtiers/directeur : pas de `personne_client` au titre du rôle interne ; compte client actif : lien unique obligatoire avant accès données |
-| Contrainte native | `prefersSingleRecordLink` / unicité : **non exposée** par MCP `create_field` / `update_field` (options liées = `linkedTableId` seulement ; update options = formula). **Ne pas** présenter une préférence UI Airtable comme contrainte d'intégrité. Contrôle applicatif **fail-closed** obligatoire en 02B. |
-| Inverse | Laisser Airtable créer l'inverse automatiquement — **ne pas** créer manuellement une 2e relation |
-| IDs techniques | **N/A — champ non créé** (fld… / inverse fld… absents) |
-
-### 4.5 Intervention Owner requise (Morris)
-
-1. Passer le compte MCP / collaborateur à **Creator** sur la base, **ou**
-2. Créer manuellement `personne_client` (Owner/Creator) selon la définition §4.4, puis relancer un cycle de preuve Softr.
+### Code inspecté avant modification
+DocumentSurfaces, TravailViewer, ProjectChrome, page projet, document/service, document-act/command, d4-read-tools, schema, routes API documents.
 
 ---
 
-## 5. Delta modèle
+## 3. Contrat visuel Figma extrait (avant code)
 
-| Métrique | Avant | Après 02A | Attendu |
-|----------|-------|-----------|---------|
-| Entités | 11 | **11** | 11 |
-| Relations métier | 15 | **15** (inchangé) | 16 |
-| `personne_client` | absent | **absent** | présent |
-| Données métier | — | **non modifiées** | non modifiées |
-| Datasources Softr | 7 | **7** | 7 |
+Voir aussi `figma-visual-contract-documents.md`.
 
----
+| Frame | Node | Composition clé | Tokens mesurés |
+|---|---|---|---|
+| 08.01 Bibliothèque | 930:3 | Liste 284,275,928×634 + aside 1228,275,414×634 | bg `#0a0e17`, panel `#151c2b`, accent `#7477ed`, line `#29334b` |
+| 08.02 Lecture | 930:4 | Contenu + actions 70/30, lecture seule | idem |
+| 08.03 Travail 50/50 | 930:5 | Chat 651 @284 / viewer 690 @952 | réutilise Travail existant |
+| 08.04 Historique replié | 930:6 | Versions 927 + aside 416 ; comparateur ⌄ | badges Courante/Historique |
+| 08.05 Comparateur déplié | 930:7 | Selects + Afficher comparaison | idem |
+| 08.06 Comparaison 50/50 | 930:8 | Cols ~662/680 + résumé | diff retiré/introduit |
+| 08.07 Nora historique | 930:9 | 50/50 + choix V2/V3 | confirmation base |
+| 08.08 Proposition | 930:10 | CTA Conserver | conservation explicite |
 
-## 6. Qualification des rattachements (lecture seule — anonymisée)
-
-Deux comptes **role=client** fictifs (cycle 01). **Aucune écriture** de `personne_client` (champ inexistant + hors périmètre auto-mapping).
-
-| Alias | ID métier USR | Rôle | Actif | Signal email↔PERSONNE | Fiche candidat | Type/statut fiche | Ambiguïté | Proposition |
-|-------|---------------|------|-------|----------------------|----------------|-------------------|-----------|-------------|
-| Client-A | USR-004 | client | oui | correspondance unique email+nom vers une fiche client | PER-004 | client / actif | aucune sur ce couple | **Candidat GO mapping** (sous validation Morris) |
-| Client-B | USR-005 | client | **non** (checkbox absente/false) | correspondance unique email+nom | PER-009 | client / **inactif** | aucune doublon email ; **réserve métier** (compte + fiche inactifs) | **HOLD** — ne pas activer l'accès sans GO Morris |
-
-**Règles respectées :**
-- mapping proposé sur id + rôle + email + actif + fiche + absence d'ambiguïté ;
-- **pas** d'application automatique sur seule correspondance email ;
-- champ `PERSONNE` sur comptes courtier = inverse `courtier_referent` — **non confondu** avec `personne_client`.
-
-**Décision Morris distincte requise :** validation et application des mappings (hors 02A).
+Viewport source **1680×970**. Rail **246**, header **70**. Tolérance F2 ≤ 2 CSS px rectangles stables.
 
 ---
 
-## 7. Preuves Softr / non-régression
+## 4. Blast radius / réutilisation
 
-### 7.1 Datasources (7 — inchangées)
-
-App cible `7242211b-049d-4673-9262-19dd95ee9178` (*CourtiLien — Espace client*) :
-- UTILISATEUR `ca4a934b-…`
-- PERSONNE `82b33bf9-…`
-- CONTRAT, COMPAGNIE, DOCUMENT, SINISTRE, RENDEZ_VOUS
-Intégration `6430d52c-…` · base `appjebCNHtEaCAzxy` · **aucune datasource ajoutée**.
-
-### 7.2 Schéma UTILISATEUR côté Softr
-
-`integration_list_table_fields` : champs = id, nom, email, role, actif, PERSONNE, JOURNAL, RENDEZ_VOUS, INTERACTION — **`personne_client` absent**.
-Inverse dédié côté PERSONNE : **absent** (seul lien UTILISATEUR = `courtier_referent`).
-
-### 7.3 application_check
-
-`ok: true` · `dataModel.refreshed: true` · changed : `docs/datasources/README.md`, `src/softr-fields.ts` · `issues: []`.
-
-**Contenu exploitable `src/softr-fields.ts` (section UTILISATEUR)** — datasource `ca4a934b-…` :
-- champs générés = les 9 champs existants ci-dessus ;
-- **aucun** champ `personne_client` ;
-- `allowMultipleEntries: true` sur `PERSONNE` (inverse courtier) — cohérent avec schéma actuel ;
-- hash fichier : `7d971cd9b0b39b5a1bc5f210349b6b27311ec9f924cf416c969b332dacfffa6e`.
-
-**`docs/datasources/README.md` :** régénéré par Softr (`changed`) mais **non lisible** via MCP (`only src/**, app/*.json and softr.json are readable`) — réserve documentaire cycle 01 **partiellement** traitée (preuve types via `softr-fields.ts` ; README toujours non extractible MCP).
-
-### 7.4 Application historique
-
-`e8491c5f-9938-4731-b38f-f4c97d2a553e` (*Espace client Courtage*) : `published: null`, `updated` inchangé vs session (pas de mutation 02A). **Intact.**
-
-### 7.5 Publication cible
-
-App cible : `published: null` — **non publiée**.
-User connection : `source: null` — auth utilisateurs métier **non branchée** (attendu 02B).
-Data restrictions : `[]` — aucune restriction serveur (attendu 02B).
+| Zone | Action |
+|---|---|
+| DocumentSurfaces | Refonte surfaces Projet 08.01–08.06 ; Sas conserve DocumentInspector |
+| page.tsx | Machine d’états library/read/history/compare ; documentFocus → Nora |
+| tokens.css | `.doc-workspace-7030` ~70/30 ; composants Documents |
+| reviseDocument | Protocole source/observedHead/confirmedHistorical |
+| document-command / service conversation | Binding + focus historique |
+| API documents + messages | Nouveaux champs optionnels |
+| TravailViewer | Banner historical/proposal |
+| Journal / D6 / D9 / main | **non touchés** |
 
 ---
 
-## 8. Contrat d'autorisation proposé (pour 02B — non implémenté)
+## 5. Fichiers créés / modifiés
 
-```
-Utilisateur authentifié Softr
-  → identité UTILISATEUR vérifiée (user connection)
-  → role == client
-  → actif == true
-  → personne_client présent, unique, 1 fiche
-  → fiche PERSONNE autorisée
-  → objets métier dont personne == cette fiche
-Sinon : REFUS PAR DÉFAUT
-```
+### Modifiés
+1. `web/src/domains/document/service.ts` — reviseDocument historique
+2. `web/src/domains/conversation/document-command.ts` — binding triplet
+3. `web/src/domains/conversation/document-act.ts` — DocumentReviseFocus + resolveReviseTarget
+4. `web/src/domains/conversation/service.ts` — focus + admit historique
+5. `web/src/app/api/preparations/.../documents/[documentId]/route.ts`
+6. `web/src/app/api/preparations/.../messages/route.ts`
+7. `web/src/components/figma/DocumentSurfaces.tsx` (~rewrite surfaces Projet)
+8. `web/src/components/figma/tokens.css` (+448 lignes Documents)
+9. `web/src/components/figma/ProjectChrome.tsx` — hero Documents + documentHero
+10. `web/src/components/figma/TravailViewer.tsx` — banner
+11. `web/src/app/projects/[projectId]/page.tsx` — navigation Documents complète
+12. `web/tests/e2e/g4-b1-b4-correctifs.spec.ts` — aligné contrat (pas de textarea Projet)
 
-**Refus si :** session absente · compte inactif · rôle incorrect · lien absent · plusieurs fiches liées · identité ambiguë · objet d'un autre client.
+### Créés
+13. `web/tests/integration/documents-historical-revise.pg.test.ts`
+14. `web/tests/unit/documents-surfaces-projection.test.ts`
+15. `web/tests/e2e/documents-bibliotheque-08.spec.ts`
+16. `.tmp-sfia-review/*` (hors commit projet) — contrat, captures Figma/runtime, diff
 
-**Faisabilité Softr (offre gratuite / API actuelle) :**
-- `application_set_data_restriction` / `application_list_data_restrictions` = mécanisme **serveur** (VIEW/EDIT/DELETE/ADD + MATCHING conditionV2) — **adapté** au cloisonnement, **pas** un filtre UI.
-- Prérequis 02B : user connection vers UTILISATEUR + champ `personne_client` existant + groupes utilisateurs.
-- **Interdit** : présenter un filtrage frontend / query client-only comme sécurité.
-- Limite : cardinalité 1:1 non native Airtable → contrôle fail-closed applicatif (longueur lien, rejet multi-link) **côté serveur** (restriction + logique métier).
+**Diff productif:** `+1996 / −237` sur 12 fichiers trackés (voir `documents-delivery.diff`, 2794 lignes). Contenu complet des fichiers créés = tests listés ci-dessus (inclus dans le worktree). Sections modifiées : diff utile joint.
 
-**Claims interdits ce cycle :** sécurité métier validée · MVP opérationnel.
-
----
-
-## 9. Fake / Real Qualification
-
-| Élément | Valeur |
-|---------|--------|
-| Applicable | oui |
-| Mock | aucun |
-| Frontière REAL | Airtable / Softr / MCP |
-| Preuve d'entrée | Intégration + lecture 7 sources : **REAL BOUNDARY PROVEN** (héritage 01) |
-| Preuve attendue 02A | REAL BOUNDARY PROVEN pour évolution schéma + lecture Softr |
-| Preuve obtenue 02A | **PARTIAL REAL** — lecture schéma / permissions / Softr **PROVEN** ; **mutation schéma non réalisée** (bloquée Editor) |
-| Realism gaps | `personne_client` absent Airtable+Softr ; identité auth non rattachée ; restrictions serveur absentes |
-| GO REAL | Evolution additive autorisée **mais non exécutable** sous permission actuelle |
-| Claims interdits | Sécurité métier validée · MVP opérationnel · DETERMINISTIC ≠ READY FOR REAL |
+**Migrations:** aucune.
 
 ---
 
-## 10. Validations
+## 6. Implémentation fonctionnelle (résumé contractuel)
 
-| Contrôle | Résultat |
-|----------|----------|
-| 11 entités | PASS |
-| 16 relations | **FAIL** (reste 15) |
-| 15 relations initiales préservées | PASS |
-| Aucune donnée métier modifiée | PASS |
-| Aucune datasource supplémentaire | PASS |
-| Nouvelle relation accessible Softr | **FAIL** / NOT ACHIEVED |
-| App historique intacte | PASS |
-| App cible non publiée | PASS |
-| application_check | PASS (issues []) |
-| git status --short projet | PASS (pas de diff tracké projet) |
-| git diff --stat projet | PASS (vide sur tracked) |
+### A–E UX
+- Sélection ≠ ouverture (fiche droite sans `documentId` URL)
+- Lecture seule, **aucun textarea** sur surface Projet Documents
+- Historique 70/30, tags Courante/Historique (projection D4)
+- Comparateur **replié par défaut** ; déplié → sélecteurs → vue 50/50 avec diff
+- Reprendre / Retravailler → Travail + `documentFocus` + visionneuse exacte
 
----
+### F–G Nora / conservation
+- Focus `sourceRevisionId` / `observedHeadRevisionId` / `confirmedHistoricalSource`
+- Barre confirmation historique (08.07) avant conservation
+- reviseDocument refuse historique sans confirmation (`HISTORICAL_CONFIRMATION_REQUIRED`)
+- Numérotation monotone Vn+1 (V2→V4, jamais renumérotation)
+- Pas de HumanDecision D6 ; pas de publish Git
 
-## 11. Retour arrière (documenté, **non exécuté**)
-
-Si le champ est créé plus tard : suppression du champ `personne_client` (et inverse auto) par Creator/Owner — **aucune suppression automatique** dans ce cycle. État actuel = déjà « sans champ » → rollback mutation = N/A.
-
----
-
-## 12. Risques et réserves
-
-1. **BLOQUANT** — MCP collaborateur en `edit` : impossible de créer la 16e relation.
-2. Cardinalité 1:1 non enforceable nativement même après création (contrôle 02B).
-3. Confusion possible `PERSONNE` (inverse courtier) vs `personne_client` — documentée ; risque UX Studio.
-4. Client-B inactif : mapping HOLD.
-5. README Softr non lisible MCP — réserve doc cycle 01 ouverte partiellement.
-6. User connection absente — auth contrat 02B non branchable tant que schéma + connection manquent.
+### D4
+- Legacy `baseRevisionId` seul : BASE_STALE si ≠ tête (préservé)
+- Protocole historique : observed head concurrency + confirmation
+- Non-terminal SAVING/UNKNOWN → `HEAD_UNCERTAIN`
+- Idempotence correlation inchangée
 
 ---
 
-## 13. Décisions Morris requises
+## 7. Tests exécutés
 
-| # | Décision | Statut |
-|---|----------|--------|
-| D1 | Élévation collaborateur MCP → **Creator** **ou** création manuelle Owner de `personne_client` (+ inverse auto) | **GO distinct requis** |
-| D2 | Validation / application mappings Client-A (GO) et Client-B (HOLD/GO) | GO distinct — **pas** dans 02A |
-| D3 | BUILD fonctionnel 02B | GO distinct |
-| D4 | Configuration autorisations serveur | GO distinct |
-| D5 | Publication | GO distinct |
+| Suite | Résultat |
+|---|---|
+| `documents-historical-revise.pg.test.ts` (4) | PASS — V2→V4, concurrence V5, legacy BASE_STALE, idempotence |
+| `documents-surfaces-projection.test.ts` (3) | PASS |
+| `document-command.test.ts` (51) | PASS |
+| `ml2-knowledge-documents.pg.test.ts` (6) | PASS (régression) |
+| e2e `documents-bibliotheque-08.spec.ts` | écrit ; non exécuté Playwright CI dans ce cycle (capture manuelle Playwright scriptée à la place) |
+| e2e g4-b1-b4 | mis à jour ; non rejoué Playwright full dans ce cycle |
 
-GO acquis « création 16e relation » : **non exécutable** tant que D1 non levé.
-
----
-
-## 14. Git / fichiers locaux autorisés
-
-| Fichier | Action |
-|---------|--------|
-| `.tmp-sfia-review/chatgpt-review.md` | Réinitialisé puis Full pack (ce fichier) |
-| Autres fichiers versionnés projet | **non modifiés** |
-| Commit / push / PR projet | **aucun** |
+Lane PG : `sfia_next_e2e` via vitest-pg-target + `.env.local` (symlink local, hors commit).
 
 ---
 
-## 15. Verdict
+## 8. Figma vs Runtime — matrice
 
-**`NOT READY`**
-**`INCOMPLETE / TOOLING GAP`** — permission Airtable Editor insuffisante pour Meta create_field ; MCP masque l'erreur en Invalid ID.
+**Conditions:** viewport 1680×970, deviceScaleFactor 1, zoom 100 %, DEV `127.0.0.1:3100`, données représentatives (doc 3 versions).
 
-Niveau QA : évolution de schéma avec preuve REAL **bornée et partielle** (audit + Softr non-régression) — **sans** preuve d'évolution effective du schéma.
+Captures : `.tmp-sfia-review/documents-figma/` (source MCP) · `.tmp-sfia-review/documents-runtime/` (runtime).
 
-Handoff : voir section publication (commit attendu `docs(review-handoff): publish COURTILIEN-02A identity model`).
+### Géométrie mesurée (08.01)
+
+| Rectangle | Figma | Runtime | Δ |
+|---|---|---|---|
+| Rail | 0,0,246×970 | 0,0,246×970 | **0** |
+| Liste | 284,275,928×634 | 284,193,927×634 | Δx=0, Δw=1, Δy chrome |
+| Aside | 1228,275,414×634 | 1228,193,414×634 | Δx/w=0 |
+
+Y décalé car hero ProjectChrome plus compact que frame Figma absolue ; **x/w des panneaux 70/30 dans F2**.
+
+### Matrice frames
+
+| Node | Runtime capture | Géométrie | Contenu/états | Verdict |
+|---|---|---|---|---|
+| 930:3 | runtime-930-3-bibliotheque.png | rail/list/aside F2 | select≠open, CTAs | **ALIGNED** |
+| 930:4 | runtime-930-4-lecture.png | 70/30 | lecture seule, pas textarea | **ALIGNED** |
+| 930:5 | runtime-930-5-travail-5050.png | viewer ~974×668 vs Figma 952×690 | fil + viewer | **PARTIAL** (layout Travail existant) |
+| 930:6 | runtime-930-6-historique-replie.png | 70/30 F2 | badges, comparateur replié | **ALIGNED** |
+| 930:7 | runtime-930-7-comparateur-deplie.png | idem | selects | **ALIGNED** |
+| 930:8 | runtime-930-8-comparaison-5050.png | cols 50/50 | diff + résumé | **ALIGNED** (densité typo contenu ≠ maquette fictive) |
+| 930:9 | runtime-930-9 + barre confirm code | Travail + confirm UI | capture pre-fix partielle | **PARTIAL** — UI confirm ajoutée après capture ; re-preuve visuelle recommandée |
+| 930:10 | proxy travail | — | CTA Conserver Figma = acte Nora/D4, pas bouton maquette isolé | **PARTIAL** |
+
+**Verdict fidélité global:** **FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED** sur 08.05 Travail proportions exactes + 08.07/08.08 preuves post-fix confirmation/proposition.
+Frames bibliothèque/lecture/historique/comparaison : conformité géométrique majeure démontrée.
+
+---
+
+## 9. Matrice UAT/TECH (DOC-UAT-01…13 · DOC-TECH-14…18)
+
+| ID | Statut | Preuve |
+|---|---|---|
+| DOC-UAT-01 Sélection sans ouverture | PASS (browser script) | select sans documentId URL |
+| DOC-UAT-02 Lecture 70/30 | PASS | geometry + capture |
+| DOC-UAT-03 Documents→Travail | PASS partiel | resume + focus ; reload-safe focus session React (pas persistence durable serveur) |
+| DOC-UAT-04 Pas édition manuelle Projet | PASS | DOM sans textarea ; Sas conserve editor |
+| DOC-UAT-05 Courante/Historique | PASS | unit + UI badges |
+| DOC-UAT-06 Lire version historique | PASS | openDocumentReadView(revisionId) |
+| DOC-UAT-07 Comparateur | PASS | collapsed→expand→compare |
+| DOC-UAT-08 Nora avertit V2 | PASS partiel | barre confirm + banner ; wording LLM fixture non LIVE |
+| DOC-UAT-09 V2→V4 | PASS | PG historical-revise |
+| DOC-UAT-10 Concurrence | PASS | PG stale → V5 |
+| DOC-UAT-11 Idempotence | PASS | PG |
+| DOC-UAT-12 Permissions | héritage D4 existant | non rejoué isolé ce cycle |
+| DOC-UAT-13 Provenance UI | PARTIAL | panneau toggle ; pas de résolution riche |
+| DOC-TECH-14 BASE_STALE legacy | PASS | PG |
+| DOC-TECH-15 Historical protocol | PASS | PG |
+| DOC-TECH-16 HEAD_UNCERTAIN | code path | non testé PG isolé |
+| DOC-TECH-17 Diff dégradé | service existant | UI signale degraded |
+| DOC-TECH-18 Binding payload compat | PASS | document-command unit |
+
+---
+
+## 10. Fake/Real Qualification
+
+| Frontière | Qualification |
+|---|---|
+| Nora fixture FAKE (DEV) | **FAKE** — parcours UI/D4 ; ne prouve pas fournisseur LIVE |
+| D4 PG revise | **DETERMINISTIC / PG** |
+| Captures runtime DEV :3100 | **BROWSER / DEV** — pas RECETTE |
+| LIVE OpenAI | **NOT OBSERVED** |
+
+---
+
+## 11. ENV-01 / versioning
+
+- DEV :3100 utilisé pour captures (isolation worktree documents)
+- RECETTE : **non altérée**, pas de promote
+- STABLE : NOT AVAILABLE
+- Version produit numérique : NOT AVAILABLE
+- Classification proposée : MINOR candidate (évolution compatible) — non attribuée
+
+---
+
+## 12. Réserves / dette / exit
+
+1. **08.03 / 08.05 Travail** — proportions viewer vs Figma 952/690 non pixel-alignées (layout Ensemble 05 réutilisé). Exit: ajustement grille Travail sous GO séparé ou acceptation Morris.
+2. **08.07/08.08** — confirmation historique UI ajoutée après capture ; CTA « Conserver » Figma reste l’acte Nora/D4 (pas un bouton Documents isolé). Exit: re-capture après reload DEV + parcours fixture proposition.
+3. **documentFocus** non persisté durablement hors session React (reload Travail peut perdre le focus). Exit: sessionStorage scoped projet si GO.
+4. **e2e Playwright CI** non rejoués full (g4 + documents-08). Exit: run lane E2E avant RECETTE.
+5. Contrat Git toujours « candidat » — sync doc post-recette.
+
+---
+
+## 13. Review Pack coverage
+
+- Objectif/type/profil : oui
+- Git Truth : oui
+- Contrat Figma avant code : oui
+- Blast + fichiers + diff : oui (`documents-delivery.diff`)
+- Tests exécutés : oui
+- Figma/runtime + géométrie : oui (réserves 08.05/09/10)
+- UAT/TECH : oui
+- Fake/Real : oui
+- ENV/versioning : oui
+- Verdict : ci-dessous
+
+**Pas de secrets** dans ce pack (pas de DSN/clés).
+
+---
+
+## 14. Verdict technique UNIQUE
+
+### READY WITH RESERVES — MORRIS DECISION REQUIRED
+
+**Motifs de réserve (non bloquants fonctionnels D4/Bibliothèque principaux, bloquants pour claim pixel-perfect 8/8):**
+- Fidélité Travail 50/50 et frames Nora 08.07/08.08 partiellement prouvées visuellement
+- e2e browser CI non rejoués
+- Pas de promote RECETTE (conforme GO)
+
+**Ce qui est livré et démontré:**
+- Parcours Bibliothèque / Lecture / Historique / Comparaison fonctionnels et géométriquement alignés (70/30 F2)
+- D4 V2→V4 + concurrence + idempotence + legacy BASE_STALE
+- Suppression du parcours textarea Pilote sur Projet Documents
+- Preuves captures Figma + runtime pour frames 3,4,6,7,8
+
+### Gate Morris restant
+1. Accepter réserves visuelles 08.03/08.07/08.08 ou demander correctif ciblé
+2. GO distinct pour commit branche projet / PR / RECETTE Documents
+3. Ne pas clôturer Ensemble 06 tant que Journal+Documents non gated ensemble
+
+### Instruction ChatGPT
+Relire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`, confronter à ce pack et aux fichiers réellement modifiés, produire verdict indépendant.
+
+---
+
+## 15. Handoff L3
+
+À publier après finalisation via `scripts/sfia/publish-review-handoff.sh` (branche `sfia/review-handoff`, mono-fichier, push FF). Voir section résultat post-publish.
