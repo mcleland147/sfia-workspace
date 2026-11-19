@@ -3,7 +3,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.4 — 19 novembre 2026 (Europe/Paris) |
+| Version | v0.5 — 19 novembre 2026 (Europe/Paris) |
 | Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
 | Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
@@ -286,6 +286,20 @@ Fichier R3 existant : [SFIA Studio Next — Figma](https://www.figma.com/design/
 
 Conserver palette, typographie, rail projet et composants de l'application existante ; ne pas présenter une illustration en conversation comme référence géométrique Figma ni comme capture runtime.
 
+### 9.1. Première exploration Figma native — 19/11/2026
+
+**Statut : DESIGN CANDIDAT / NON VALIDÉ MORRIS — maquettes éditables créées sur une page séparée**, sans modifier les frames R3 de référence. Source : page Figma `07 · ML4D — Journal · Cible UX candidate` (id `828:2`), même fichier `itgvCulInEnFY6DvgIegvP`.
+
+| Maquette candidate | Intention représentée | Limite de la version |
+| --- | --- | --- |
+| [Sujets — sommaire (`828:25`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-25) | Rail projet unique 246 px ; vue Sujets/Décisions, arborescence centrale, accès secondaire « Points à reprendre » | Recherche, déploiement de branches et navigation non encore prototypés/testés |
+| [Sujet autonome (`828:82`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-82) | Fiche complète quand aucun sous-sujet n'existe : synthèse, acquis, questions et références essentielles | Textes illustratifs ; indicateur d'actualisation non relié à une donnée réelle |
+| [Sujet devenu parent (`828:122`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-122) | Synthèse consolidée globale et entrée dans trois sous-sujets sans recopie du détail | Acquis transversaux, points ouverts éventuels et sources du parent à tester dans une variante |
+
+**Caractéristiques :** trois frames desktop 1680 × 970 avec rail unique de 246 px, palette/typographie correspondantes aux tokens CSS courants, couches éditables ; représentation statique **non interactive**, et non captures runtime. Les textes d'exemple ne prouvent aucune capitalisation ou persistance effectuée par Next.
+
+**Première revue attendue avec Morris :** confort de lecture, hiérarchie visuelle, densité du sommaire, place des liens/sources et variantes parent/autonome. Les écarts R1/R2 identifiés en §11.1 doivent être introduits comme interactions/états contextualisés, sans surcharger la fiche nominale.
+
 ## 10. Registre vivant des arbitrages
 
 | Sujet | Position à ce jour | Nature de la position | Prochaine validation |
@@ -370,5 +384,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | 19/11/2026 — v0.2 | Réconciliation conceptuelle R1/R2 : sujet autonome pouvant devenir parent, présentation adaptative, non-duplication, consolidation sémantique vivante par Nora, réévaluation à chaque échange sans écriture obligatoire, critères candidats de création de sous-sujets, scénarios et registre d'arbitrages | **DOCUMENTED / PRINCIPES ACCEPTÉS EN CONVERSATION** ; détails UX et technique non validés |
 | 19/11/2026 — v0.3 | Principe UX d'actualisation discrète accepté : signal léger fondé sur une actualisation effectivement conservée, détails secondaires, aucun statut ou horaire inventé ; revue d'exhaustivité R1/R2 demandée avant validation finale/Figma | **DOCUMENTED / WORKING DRAFT** ; contrat complet soumis à revue de couverture R1/R2 |
 | 19/11/2026 — v0.4 | Revue de couverture R1/R2 sur les sources du Journal et ses interfaces D1–D9 ; tableau des acquis, lacunes d'explicitation, renvois canoniques et points UX à arbitrer | **DOCUMENTED / REVIEWED AT SOURCE LEVEL** ; aucune promotion automatique en VALIDATED SPEC |
+| 19/11/2026 — v0.5 | Référencement de trois frames Figma natives candidates sur page séparée : sommaire, sujet autonome, sujet parent ; reprise des limites de conception et absence de validation UX | **DESIGN CANDIDAT / NON VALIDÉ**, aucun changement de code/recette |
 
-**Suite immédiate :** partager les constats de la revue de couverture, arbitrer la présentation minimale des quatre écarts explicités (questions, sources, reprise cognitive, références documentaires), puis concevoir les frames Figma **Sujets — arborescence**, **Sujet autonome**, **Sujet devenu parent**, **Sous-sujet détaillé** et leurs états essentiels sur la géométrie réelle. Prévoir ensuite **Décisions** et accès transversal aux points ouverts, sans nouvelle autorité. Cible et contrat final restent soumis à Morris.
+**Suite immédiate :** revue visuelle par Morris des trois frames Figma candidates (§9.1) ; intégrer sans surcharge les exigences de couverture R1/R2 identifiées (§11.1), puis décliner **Sous-sujet détaillé**, **Décisions** et **Points à reprendre** avec états de navigation, sources et reprise. Contrat final, conception Figma et delivery restent soumis aux validations distinctes.
