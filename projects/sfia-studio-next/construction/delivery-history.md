@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-FINAL-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~13:30 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 final UX + RECETTE |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctif libellés/liserés/empty + cutover RECETTE `:3200` |
+| Parent | `6c658f91` pixel cycle ; RECETTE préflight à vérifier (dérive ML3 observée sur :3200) |
+| Scope | COPY Figma exact · C09 liserés · C10 empty · oracles · cutover même LaunchAgent |
+| Docs | matrice v0.7 §18 lecture seule |
+| Verdict Cursor | voir Review Pack |
+
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-PIXEL
 
 | Field | Value |

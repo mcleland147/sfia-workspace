@@ -3786,6 +3786,20 @@
   max-width: 36rem;
   line-height: 1.45;
 }
+/* C10 — empty panel fits content; do not stretch to shell bottom */
+.journal-hierarchy.journal-empty,
+.journal-empty[data-testid="journal-empty-structure"] {
+  flex: 0 0 auto !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: none;
+  overflow: visible;
+  padding-bottom: 8px;
+}
+.journal-layout-full .journal-hierarchy.journal-empty {
+  width: 100%;
+  max-width: 52rem;
+}
 .journal-group {
   border-bottom: 1px solid var(--journal-line);
 }
@@ -4197,26 +4211,40 @@
   padding: 16px 18px;
 }
 .journal-card-synthesis {
-  overflow: hidden;
+  overflow: visible;
 }
-/* Figma 853:58 — Accent synthèse 3×69 inside card, not full-height inset shadow */
+/*
+ * Figma 853:58 / 860:413 — accent bar at ~17px from card left;
+ * body text starts ~32px. Bar must never overlap glyphs.
+ */
 .journal-card-synthesis::before {
   content: "";
   position: absolute;
-  left: 17px;
-  top: 48px;
+  left: 14px;
+  top: 46px;
   width: 3px;
-  height: 69px;
+  height: 58px;
+  max-height: calc(100% - 56px);
   border-radius: 2px;
   background: var(--journal-accent-2);
   pointer-events: none;
+  z-index: 0;
+}
+.journal-card-synthesis > * {
+  position: relative;
+  z-index: 1;
 }
 .journal-card-synthesis .journal-card-kicker {
   padding-left: 0;
 }
+.journal-card-synthesis .journal-acquis-line,
+.journal-card-synthesis .journal-muted,
 .journal-card-synthesis [data-testid="journal-subject-summary"],
-.journal-card-synthesis [data-testid="journal-subject-summary-empty"] {
-  padding-left: 20px;
+.journal-card-synthesis [data-testid="journal-subject-summary-empty"],
+.journal-card-synthesis .markdown,
+.journal-card-synthesis p {
+  padding-left: 18px;
+  margin-left: 0;
 }
 .journal-card-kicker {
   margin: 0 0 10px;

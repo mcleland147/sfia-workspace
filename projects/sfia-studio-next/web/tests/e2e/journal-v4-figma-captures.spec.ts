@@ -84,6 +84,9 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
     await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "parent");
     await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet parent");
     await expect(page.getByTestId("journal-parent-children")).toBeVisible();
+    await expect(page.getByTestId("journal-section-children")).toHaveText("EXPLORER LES SOUS-SUJETS");
+    await expect(page.getByTestId("journal-parent-vision")).toContainText("LA VISION GLOBALE");
+    await expect(page.getByTestId("journal-section-synthesis")).toHaveText("LA SYNTHÈSE");
     await expect(page.getByTestId("journal-viewer-subject-title")).not.toHaveText(leafTitle);
     await assertViewerBox(page.getByTestId("journal-viewer"));
     const parentTitle = (await page.getByTestId("journal-viewer-subject-title").innerText()).trim();
@@ -99,6 +102,9 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
       "enlarged",
     );
     await expect(page.getByTestId("journal-viewer-aside")).toBeVisible();
+    await expect(page.getByTestId("journal-aside-label")).toHaveText("REPÈRES DU SUJET");
+    await expect(page.getByTestId("journal-aside-sources")).toHaveText("SOURCES ET HISTORIQUE");
+    await expect(page.getByTestId("journal-aside-further")).toHaveText("POUR ALLER PLUS LOIN");
     await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet autonome");
     await shot(page, "04-runtime-835-159-sujet-agrandi.png");
     await page.getByTestId("journal-viewer-reduce").click();
@@ -113,6 +119,9 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
     );
     await expect(page.getByTestId("journal-viewer-aside")).toBeVisible();
     await expect(page.getByTestId("journal-parent-children")).toBeVisible();
+    await expect(page.getByTestId("journal-section-children")).toHaveText(
+      "PARCOURS DU THÈME / SOUS-SUJETS",
+    );
     await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet parent");
     await shot(page, "05-runtime-835-239-parent-agrandi.png");
     await page.getByTestId("journal-viewer-reduce").click();
@@ -123,6 +132,9 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
     await expect(page.getByTestId(`journal-match-${seed.leafSubjectId}`)).toBeVisible();
     await page.getByTestId(`journal-match-${seed.leafSubjectId}`).click();
     await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "autonomous");
+    await expect(page.getByTestId("journal-section-synthesis")).toHaveText("SYNTHÈSE ACTUELLE");
+    await expect(page.getByTestId("journal-section-why-match")).toHaveText("POURQUOI CE SUJET");
+    await expect(page.getByTestId("journal-section-path-origin")).toHaveText("CHEMIN D’ORIGINE");
     await assertViewerBox(page.getByTestId("journal-viewer"));
     await shot(page, "06-runtime-859-42-recherche-sujets.png");
 
@@ -133,6 +145,9 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
       "true",
     );
     await expect(page.getByTestId("journal-open-points-list")).toBeVisible();
+    await expect(page.getByTestId("journal-open-points-heading")).toHaveText(
+      "POINTS SIGNIFICATIFS ENCORE OUVERTS",
+    );
     await shot(page, "07-runtime-859-146-filtre-points.png");
     await page.getByTestId("journal-filter-open-points").click();
     await page.getByTestId("journal-search").fill("");
@@ -147,6 +162,10 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
     await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
     await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
     await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "decision");
+    await expect(page.getByTestId("journal-section-choice")).toHaveText("LE CHOIX RETENU");
+    await expect(page.getByTestId("journal-section-reasoning")).toHaveText(
+      "LE RAISONNEMENT QUI A CONDUIT AU CHOIX",
+    );
     await assertViewerBox(page.getByTestId("journal-viewer"));
     await shot(page, "09-runtime-860-136-decision-40-60.png");
 
@@ -162,8 +181,11 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
       "enlarged",
     );
     await expect(page.getByTestId("journal-decision-aside")).toBeVisible();
+    await expect(page.getByTestId("journal-decision-aside-label")).toHaveText("REPÈRES DE DÉCISION");
+    await expect(page.getByTestId("journal-section-decision-context")).toHaveText(
+      "CONTEXTE ET SOURCES ESSENTIELLES",
+    );
     await shot(page, "11-runtime-860-360-decision-agrandie.png");
-
     // Empty project
     await page.getByTestId("studio-rail").getByRole("link", { name: /Portefeuille/i }).click();
     await page.waitForURL("**/portfolio", { timeout: 20000 });
@@ -179,6 +201,10 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
     await expect(page.getByTestId("journal-empty-structure")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId("journal-title")).toHaveText("Journal");
     await expect(page.getByTestId("journal-viewer")).toHaveCount(0);
+    const emptyBox = await page.getByTestId("journal-empty-structure").boundingBox();
+    expect(emptyBox, "empty panel box").toBeTruthy();
+    // C10 — compact empty: must not stretch to nearly full viewport height
+    expect(emptyBox!.height).toBeLessThan(320);
     await shot(page, "00-runtime-empty-exploration.png");
 
     fs.writeFileSync(

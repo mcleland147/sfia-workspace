@@ -117,20 +117,40 @@ const COPY = {
   continue: "CONTINUER LE TRAVAIL",
   continueCta: "Poursuivre ce sujet avec Nora",
   enlarge: "⤢ Agrandir",
-  reduce: "Réduire la vue",
+  reduce: "↙  Réduire la vue",
   close: "×",
-  childrenTitle: "SOUS-SUJETS",
+  /** Figma 842:131 */
+  childrenTitle: "EXPLORER LES SOUS-SUJETS",
+  parentVision: "LA VISION GLOBALE",
+  parentParcours: "PARCOURS DU THÈME / SOUS-SUJETS",
+  parentSeeExchanges: "Voir les échanges du sujet  ↗",
+  parentContinueNora: "Poursuivre avec Nora  ↗",
   matchesLabel: "SUJETS CORRESPONDANTS",
-  openPointsLabel: "POINTS OUVERTS DU PROJET",
+  /** Figma 859:146 */
+  openPointsLabel: "POINTS SIGNIFICATIFS ENCORE OUVERTS",
+  openPointQuestion: "QUESTION ENCORE OUVERTE",
+  openPointContext: "CONTEXTE DU SUJET",
+  openPointOrigin: "ORIGINE ET SUIVI",
+  openPointStatus: "OUVERT",
+  /** Figma 859:42 */
   whyMatch: "POURQUOI CE SUJET",
   pathOrigin: "CHEMIN D’ORIGINE",
-  asideLabel: "REPÈRES",
+  searchSynthesis: "SYNTHÈSE ACTUELLE",
+  searchReference: "RÉFÉRENCE ESSENTIELLE",
+  /** Figma 835:159 / 835:239 aside */
+  asideLabel: "REPÈRES DU SUJET",
   asideReading: "Lecture enrichie",
   asideNature: "NATURE",
-  asideSources: "SOURCES",
-  asideActions: "ACTIONS",
-  parentComplement: "REPÈRE PARENT",
-  openPointStatus: "OUVERT",
+  asideSourcesHist: "SOURCES ET HISTORIQUE",
+  asideFurther: "POUR ALLER PLUS LOIN",
+  /** Figma 860:360 */
+  decisionChoice: "LE CHOIX RETENU",
+  decisionReasoning: "LE RAISONNEMENT QUI A CONDUIT AU CHOIX",
+  decisionContext: "CONTEXTE ET SOURCES ESSENTIELLES",
+  asideDecisionLabel: "REPÈRES DE DÉCISION",
+  decisionAuthority: "AUTORITÉ / SOURCE",
+  decisionScope: "PORTÉE / VALIDITÉ",
+  decisionEvolutions: "ÉVOLUTIONS",
 } as const;
 
 function buildSubjectTree(subjects: JournalSubject[]) {
@@ -634,8 +654,10 @@ export function ProjectJournal(props: {
               <div className="journal-viewer-body">
                 <div className="journal-viewer-layout">
                   <div className="journal-viewer-article">
-                    <section className="journal-card journal-card-synthesis">
-                      <p className="journal-card-kicker">{COPY.synthesis}</p>
+                    <section className="journal-card journal-card-synthesis" data-testid="journal-card-synthesis">
+                      <p className="journal-card-kicker" data-testid="journal-section-synthesis">
+                        {search.trim() && !isParentSelected ? COPY.searchSynthesis : COPY.synthesis}
+                      </p>
                       {selectedSubject.summary?.summaryMarkdown ? (
                         <div data-testid="journal-subject-summary">
                           <SafeMarkdown content={selectedSubject.summary.summaryMarkdown} />
@@ -649,7 +671,9 @@ export function ProjectJournal(props: {
 
                     {isParentSelected ? (
                       <section className="journal-card" data-testid="journal-parent-children">
-                        <p className="journal-card-kicker">{COPY.childrenTitle}</p>
+                        <p className="journal-card-kicker" data-testid="journal-section-children">
+                          {layoutMode === "enlarged" ? COPY.parentParcours : COPY.childrenTitle}
+                        </p>
                         <ul className="journal-child-list">
                           {childSubjects.map((c, i) => (
                             <li key={c.id}>
@@ -707,8 +731,8 @@ export function ProjectJournal(props: {
                     )}
 
                     {isParentSelected ? (
-                      <section className="journal-parent-note" data-testid="journal-parent-complement">
-                        <p className="journal-card-kicker">{COPY.parentComplement}</p>
+                      <section className="journal-parent-note" data-testid="journal-parent-vision">
+                        <p className="journal-card-kicker">{COPY.parentVision}</p>
                         <p>
                           Ce thème regroupe {childSubjects.length} sous-sujet
                           {childSubjects.length > 1 ? "s" : ""}. Ouvrez un axe pour lire ses acquis
@@ -750,16 +774,26 @@ export function ProjectJournal(props: {
 
                     {search.trim() && !isParentSelected ? (
                       <section className="journal-card" data-testid="journal-match-context">
-                        <p className="journal-card-kicker">{COPY.whyMatch}</p>
+                        <p className="journal-card-kicker" data-testid="journal-section-search-synthesis">
+                          {COPY.searchSynthesis}
+                        </p>
+                        <p className="journal-card-kicker" data-testid="journal-section-why-match">
+                          {COPY.whyMatch}
+                        </p>
                         <p className="journal-muted">
                           Correspondance : {matchBySubject.get(selectedSubject.id) ?? "sélection"}
                         </p>
-                        <p className="journal-card-kicker" style={{ marginTop: 12 }}>
+                        <p className="journal-card-kicker" data-testid="journal-section-path-origin">
                           {COPY.pathOrigin}
                         </p>
                         <p className="journal-muted">
                           {subjectBreadcrumb(selectedSubject.id, byId).join(" › ")}
                         </p>
+                        {selectedSources.length > 0 ? (
+                          <p className="journal-card-kicker" data-testid="journal-section-search-reference">
+                            {COPY.searchReference}
+                          </p>
+                        ) : null}
                       </section>
                     ) : null}
 
@@ -780,7 +814,7 @@ export function ProjectJournal(props: {
                   </div>
 
                   <aside className="journal-viewer-aside" data-testid="journal-viewer-aside">
-                    <p className="journal-aside-label">{COPY.asideLabel}</p>
+                    <p className="journal-aside-label" data-testid="journal-aside-label">{COPY.asideLabel}</p>
                     <p className="journal-aside-title">{COPY.asideReading}</p>
                     <hr className="journal-aside-sep" />
                     <p className="journal-aside-meta-label">{COPY.asideNature}</p>
@@ -793,7 +827,7 @@ export function ProjectJournal(props: {
                         : "Fiche dédiée à un axe capitalisé du projet."}
                     </p>
                     <hr className="journal-aside-sep" />
-                    <p className="journal-aside-meta-label">{COPY.asideSources}</p>
+                    <p className="journal-aside-meta-label" data-testid="journal-aside-sources">{COPY.asideSourcesHist}</p>
                     <p className="journal-aside-meta-value">
                       {selectedSources.length > 0
                         ? `${selectedSources.length} source${selectedSources.length > 1 ? "s" : ""} liée${selectedSources.length > 1 ? "s" : ""}`
@@ -805,7 +839,7 @@ export function ProjectJournal(props: {
                       </p>
                     ))}
                     <hr className="journal-aside-sep" />
-                    <p className="journal-aside-meta-label">{COPY.asideActions}</p>
+                    <p className="journal-aside-meta-label" data-testid="journal-aside-further">{COPY.asideFurther}</p>
                     {props.onBackToThread ? (
                       <button
                         type="button"
@@ -871,7 +905,7 @@ export function ProjectJournal(props: {
                 <div className="journal-viewer-layout">
                   <div className="journal-viewer-article">
                     <section className="journal-card journal-card-synthesis">
-                      <p className="journal-card-kicker">LE CHOIX RETENU</p>
+                      <p className="journal-card-kicker" data-testid="journal-section-choice">{COPY.decisionChoice}</p>
                       <p className="journal-acquis-line">{selectedDecision.statement || "—"}</p>
                       <p className="journal-muted" data-testid="journal-decision-applicability">
                         {selectedDecision.scope}
@@ -882,7 +916,7 @@ export function ProjectJournal(props: {
                       </p>
                     </section>
                     <section className="journal-card">
-                      <p className="journal-card-kicker">POURQUOI CE CHOIX</p>
+                      <p className="journal-card-kicker" data-testid="journal-section-reasoning">{COPY.decisionReasoning}</p>
                       {selectedDecision.explanation?.explanationMarkdown ? (
                         <>
                           {selectedDecision.explanation.potentiallyStale ? (
@@ -898,9 +932,17 @@ export function ProjectJournal(props: {
                         </p>
                       )}
                     </section>
+                    <section className="journal-card" data-testid="journal-decision-context">
+                      <p className="journal-card-kicker" data-testid="journal-section-decision-context">
+                        {COPY.decisionContext}
+                      </p>
+                      <p className="journal-muted">
+                        Sources et contexte selon les droits et les objets réellement liés à cette décision.
+                      </p>
+                    </section>
                     {activeRestrictions.length > 0 ? (
-                      <section className="journal-card">
-                        <p className="journal-card-kicker">RESTRICTIONS ACTIVES</p>
+                      <section className="journal-card" data-testid="journal-decision-restrictions">
+                        <p className="journal-card-kicker">ÉVOLUTIONS · RESTRICTIONS ACTIVES</p>
                         <ul className="journal-restriction-list">
                           {activeRestrictions.map((r) => (
                             <li key={r.id} data-testid={`journal-restriction-${r.id}`}>
@@ -924,15 +966,18 @@ export function ProjectJournal(props: {
                     ) : null}
                   </div>
                   <aside className="journal-viewer-aside" data-testid="journal-decision-aside">
-                    <p className="journal-aside-label">{COPY.asideLabel}</p>
-                    <p className="journal-aside-title">Gouvernance D6</p>
+                    <p className="journal-aside-label" data-testid="journal-decision-aside-label">{COPY.asideDecisionLabel}</p>
+                    <p className="journal-aside-title">Acte et explication distincts</p>
                     <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.decisionAuthority}</p>
+                    <p className="journal-aside-meta-value">Pilote compétent · acte D6</p>
                     <p className="journal-aside-meta-label">STATUT</p>
                     <p className="journal-aside-meta-value">{decisionStatusLabel(selectedDecision).label}</p>
-                    <p className="journal-aside-meta-label">PORTÉE</p>
+                    <p className="journal-aside-meta-label">{COPY.decisionScope}</p>
                     <p className="journal-aside-meta-value">{selectedDecision.scope}</p>
-                    <p className="journal-aside-meta-label">ÉTAT</p>
-                    <p className="journal-aside-meta-value">{selectedDecision.state}</p>
+                    <p className="journal-aside-meta-desc">{selectedDecision.state}</p>
+                    <p className="journal-aside-meta-label">{COPY.decisionEvolutions}</p>
+                    <p className="journal-aside-meta-value">{selectedDecision.supersededByDecisionId ? "Remplacée / historique lié" : "Historique et décisions liées"}</p>
                     {selectedDecision.supersededByDecisionId ? (
                       <>
                         <p className="journal-aside-meta-label">REMPLACÉE PAR</p>
@@ -940,7 +985,7 @@ export function ProjectJournal(props: {
                       </>
                     ) : null}
                     <hr className="journal-aside-sep" />
-                    <p className="journal-aside-meta-label">{COPY.asideActions}</p>
+                    <p className="journal-aside-meta-label" data-testid="journal-aside-further">{COPY.asideFurther}</p>
                     {props.onBackToThread ? (
                       <button
                         type="button"
@@ -1009,14 +1054,16 @@ function OpenPointsTransversalList(props: {
 }) {
   if (props.openPoints.length === 0) {
     return (
-      <div className="journal-hierarchy" data-testid="journal-open-points-empty">
+      <div className="journal-hierarchy journal-empty" data-testid="journal-open-points-empty">
         <p className="journal-empty-copy">Aucun point ouvert sur ce projet.</p>
       </div>
     );
   }
   return (
     <div data-testid="journal-open-points-list-wrap">
-      <p className="journal-results-count">{COPY.openPointsLabel}</p>
+      <p className="journal-results-count" data-testid="journal-open-points-heading">
+        {COPY.openPointsLabel}
+      </p>
       <ul className="journal-open-points-list" data-testid="journal-open-points-list">
         {props.openPoints.map((o) => {
           const subject = o.subjectId ? props.byId.get(o.subjectId) : null;
@@ -1031,10 +1078,14 @@ function OpenPointsTransversalList(props: {
                   if (o.subjectId) props.onSelect(o.subjectId);
                 }}
               >
+                <span className="journal-card-kicker">{COPY.openPointQuestion}</span>
                 <span className="journal-open-point-title">{o.statement}</span>
+                <span className="journal-card-kicker">{COPY.openPointContext}</span>
                 <span className="journal-open-point-origin">
-                  {subject ? subject.title : "Sujet non rattaché"} · {COPY.openPointStatus}
+                  {subject ? subject.title : "Sujet non rattaché"}
                 </span>
+                <span className="journal-card-kicker">{COPY.openPointOrigin}</span>
+                <span className="journal-open-point-origin">{COPY.openPointStatus}</span>
               </button>
             </li>
           );
