@@ -644,7 +644,8 @@ describe("Journal D4 revisions (PG)", () => {
     const bundle = await listProjectKnowledge(pilotId, projectId);
     const currentAcquis = bundle.acquis.filter((a) => a.status === "CURRENT");
     expect(currentAcquis.length).toBeGreaterThanOrEqual(1);
-    expect(currentAcquis.every((a) => a.statement.length <= 221)).toBe(true);
+    // Storage keeps substance (no aggressive truncation); preamble still stripped.
+    expect(currentAcquis.every((a) => a.statement.length <= 2000)).toBe(true);
     expect(currentAcquis[0]!.statement.toLowerCase()).not.toMatch(/^selon le pilote/);
 
     const subjectId = first.capitalisations.find((c) => c.kind === "subject")!.id!;
@@ -775,5 +776,79 @@ describe("Journal D4 revisions (PG)", () => {
       status: a.status,
       kind: a.kind,
     })))).toHaveLength(0);
+  });
+
+  it("ACQUIS-only enrichment on existing subject creates/revises synthesis without SUBJECT intent", async () => {
+    const pilotId = await seedPilot("J-cap-acquis-only");
+    const { prep, projectId } = await seedLinkedProject(pilotId, "Cap acquis-only");
+    const create = await maybeCapitalizeFromExchange(pilotId, prep.id, {
+      userText: "Créer le sujet",
+      assistantText: "Sujet.",
+      generationId: "gen-acqonly-1",
+      userMessageId: "msg-acqonly-1",
+      assistantMessageId: "msg-acqonly-nora-1",
+      proposals: [
+        {
+          intentId: "i-subj",
+          kind: "SUBJECT",
+          statement: "Parcours multi-centres — cadre initial.",
+          epistemic: "recommended",
+          subjectTitle: "Parcours de réservation et responsabilités",
+          continuityReason: "création",
+        },
+      ],
+    });
+    const subjectId = create.capitalisations.find((c) => c.kind === "subject")!.id!;
+    // Wipe synthesis to simulate CampusNova subject with acquis but empty summary UI.
+    // (Do not mutate CampusNova; this is an isolated PG fixture.)
+    const { db } = await import("@/db/client");
+    const { knowledgeSubjectSummaryRevisions } = await import("@/db/schema");
+    const { eq } = await import("drizzle-orm");
+    await db
+      .delete(knowledgeSubjectSummaryRevisions)
+      .where(eq(knowledgeSubjectSummaryRevisions.subjectId, subjectId));
+
+    const empty = await getCurrentSubjectSummary(pilotId, projectId, subjectId);
+    expect(empty.summary == null || !empty.summary.summaryMarkdown).toBe(true);
+
+    const enriched = await maybeCapitalizeFromExchange(pilotId, prep.id, {
+      userText: "Lille 12 portables dont 10 opérationnels ; incident 9 mobilisables.",
+      assistantText: "Capitalisation acquis.",
+      generationId: "gen-acqonly-2",
+      userMessageId: "msg-acqonly-2",
+      assistantMessageId: "msg-acqonly-nora-2",
+      proposals: [
+        {
+          intentId: "i-a1",
+          kind: "ACQUIS",
+          statement: "Lille : 12 portables, dont 10 opérationnels actuellement.",
+          epistemic: "hypothesized",
+          subjectId,
+          continuityReason: "inventaire courant",
+        },
+        {
+          intentId: "i-a2",
+          kind: "ACQUIS",
+          statement:
+            "Incident de Lille : 9 mobilisables pour 10 nécessaires, car un portable était prêté.",
+          epistemic: "hypothesized",
+          subjectId,
+          continuityReason: "incident",
+        },
+      ],
+    });
+    expect(enriched.capitalisations.some((c) => c.kind === "acquis" && c.status === "AVAILABLE")).toBe(
+      true,
+    );
+    expect(
+      enriched.capitalisations.some(
+        (c) => c.kind === "subject_summary" && (c.status === "AVAILABLE" || c.status === "SKIPPED"),
+      ),
+    ).toBe(true);
+
+    const summary = await getCurrentSubjectSummary(pilotId, projectId, subjectId);
+    expect(summary.status).toBe("AVAILABLE");
+    expect(summary.summary?.summaryMarkdown?.length ?? 0).toBeGreaterThanOrEqual(40);
+    expect(summary.summary?.summaryMarkdown).toMatch(/10 opérationnels|mobilisables|Lille/i);
   });
 });

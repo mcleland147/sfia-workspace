@@ -4265,12 +4265,35 @@
   background: #131c2d;
   border-radius: 13px;
 }
+.journal-bullet-list {
+  list-style: disc;
+  margin: 0;
+  padding: 0 0 0 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 .journal-acquis-line,
 .journal-open-line {
-  margin: 0 0 8px;
+  margin: 0;
   font-size: 14px;
   color: #f6f7ff;
   line-height: 1.35;
+}
+.journal-overflow {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #99a8c6;
+}
+.journal-overflow > summary {
+  cursor: pointer;
+  list-style: disclosure-closed;
+}
+.journal-overflow[open] > summary {
+  list-style: disclosure-open;
+}
+.journal-overflow .journal-bullet-list {
+  margin-top: 8px;
 }
 .journal-muted {
   margin: 0;

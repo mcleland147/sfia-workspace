@@ -25,7 +25,22 @@ export function useNoraThreadScroll(deps: {
   const primedRef = useRef(false);
   const prevLastIdRef = useRef<string | null>(null);
   const [newBelow, setNewBelow] = useState(false);
-  const focusLock = Boolean(deps.focusMessageId?.trim());
+  const focusRequested = Boolean(deps.focusMessageId?.trim());
+  /**
+   * Journal → Travail: once a deep-link is requested, suppress auto end-scroll until
+   * the pilot explicitly sends (forceStickToken) or the thread empties.
+   * Clearing focusMessageId after highlight must NOT re-arm stick-to-bottom.
+   */
+  const journalNavSuppressRef = useRef(false);
+  const [, bumpSuppress] = useState(0);
+  useLayoutEffect(() => {
+    if (!focusRequested) return;
+    if (!journalNavSuppressRef.current) {
+      journalNavSuppressRef.current = true;
+      bumpSuppress((n) => n + 1);
+    }
+  }, [focusRequested]);
+  const focusLock = focusRequested || journalNavSuppressRef.current;
 
   const isNearBottom = useCallback(() => {
     const el = threadRef.current;
@@ -59,7 +74,7 @@ export function useNoraThreadScroll(deps: {
   }, [isNearBottom]);
 
   // Initial entry / refresh / return: show last message once messages exist —
-  // unless a Journal deep-link focus is in flight.
+  // unless a Journal deep-link focus is in flight or was honored this session.
   useLayoutEffect(() => {
     if (deps.messageCount === 0) return;
     if (focusLock) {
@@ -81,6 +96,7 @@ export function useNoraThreadScroll(deps: {
     if (deps.messageCount === 0) {
       primedRef.current = false;
       prevLastIdRef.current = null;
+      journalNavSuppressRef.current = false;
       setNewBelow(false);
     }
   }, [deps.messageCount]);
@@ -110,10 +126,11 @@ export function useNoraThreadScroll(deps: {
 
   useLayoutEffect(() => {
     if (deps.forceStickToken <= 0) return;
-    if (focusLock) return;
+    // Voluntary send: end Journal deep-link suppress and stick to latest.
+    journalNavSuppressRef.current = false;
     stickToBottomRef.current = true;
     scrollToBottom("smooth");
-  }, [deps.forceStickToken, scrollToBottom, focusLock]);
+  }, [deps.forceStickToken, scrollToBottom]);
 
   return {
     threadRef,

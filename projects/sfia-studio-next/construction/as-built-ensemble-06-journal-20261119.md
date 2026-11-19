@@ -2,14 +2,43 @@
 
 | Métadonnée | Valeur |
 |---|---|
-| Date | 19/11/2026 — correctif mémoire vivante V4 + RECETTE |
+| Date | 19/11/2026 — correctif consolidation V4 (synthèse ACQUIS-only + densité + UX) |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD candidat | `605def5970982bc56012e150bc105656d934169e` |
-| Tree | `2810c605fffca17b96f64734877f638074819ee5` |
-| RECETTE BUILD_ID | `1L_uXFJAT1SfYsqcUaUL` |
+| HEAD candidat | *(renseigné au cutover)* |
+| Tree | *(renseigné au cutover)* |
+| RECETTE BUILD_ID | *(renseigné au cutover)* |
 | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
 | Docs matrice | v0.7 §18 (`f0d2d033`) — lecture seule |
 | Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
+
+## Correctif consolidation (19/11 soir)
+
+### Cause racine — synthèse absente
+
+`maybeCapitalizeFromExchange` n'appelait `appendSubjectSummaryRevision` que pour les intents `SUBJECT`.
+Un enrichissement matérialisé surtout en `ACQUIS` (CampusNova) mettait à jour les acquis sans synthèse courante.
+
+### Correctif D4
+
+- Après capitalisation d'acquis significatifs sur un sujet existant **sans** intent SUBJECT du même tour : composition déterministe `composeSubjectSummaryFromCurrentKnowledge` puis `appendSubjectSummaryRevision` (idempotente, skip si inchangé).
+- Helpers éditoriaux client-safe dans `journal-editorial.ts` (évite d'importer `service.ts` / `node:crypto` dans `ProjectJournal`).
+
+### Densité UI (restitution, pas troncature d'autorité DB)
+
+- Acquis : bullets prioritaires (4–6) + `<details>` overflow.
+- Ouverts : 2–4 distincts + overflow.
+- Affichage ≈160 car. / puce via `editorialDisplayBullet`.
+- Stockage : preamble strip, plafond souple 2000 (plus de coupe agressive 220).
+
+### UX
+
+- Vue agrandie : CTA bas retiré ; aside « POUR ALLER PLUS LOIN » conservé.
+- Aside sources : contributions liées + provenance Pilote/Nora + révision synthèse — plus de `message · HISTORICAL`.
+- Journal→Travail : suppress stick-to-bottom sticky jusqu'à envoi volontaire (`forceStickToken`).
+
+### Dette bornée
+
+Sujets CampusNova déjà sans synthèse : pas de backfill sous ce mandat — une prochaine capitalisation significative crée/révise la synthèse. Exit : GO séparé si réconciliation historique requise.
 
 ## Correctif final (libellés Figma + liserés + empty)
 

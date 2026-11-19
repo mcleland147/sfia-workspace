@@ -123,12 +123,16 @@ describe("E05 visual composition freeze (Morris 19/11/2026)", () => {
     ).toBe(false);
   });
 
-  it("editorialCompactKnowledgeStatement shortens and strips narrative preamble", () => {
+  it("editorialCompactKnowledgeStatement strips narrative preamble (storage soft-bound)", () => {
     const long =
       "Selon le Pilote, le centre de Lille possède effectivement douze ordinateurs portables dont le nombre opérationnel a été corrigé après vérification inventaire, ce qui modifie la capacité mobilisable pour les formations du lundi et implique aussi de tenir compte des prêts déjà consentis ainsi que du registre papier actuellement tenu à l'accueil pour les remises et retours.";
     const compact = editorialCompactKnowledgeStatement(long, 220);
     expect(compact.length).toBeLessThanOrEqual(221);
     expect(compact.toLowerCase()).not.toMatch(/^selon le pilote/);
     expect(compact.length).toBeGreaterThan(40);
+    // Display density is separate — storage may keep longer substance.
+    const stored = editorialCompactKnowledgeStatement(long);
+    expect(stored.length).toBeGreaterThan(compact.length);
+    expect(stored.toLowerCase()).not.toMatch(/^selon le pilote/);
   });
 });

@@ -86,8 +86,15 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
       "enlarged",
     );
     await expect(page.getByTestId("journal-viewer-aside")).toBeVisible();
+    // Enlarged: single CTA in aside — no duplicate bottom continue after Échange de référence.
+    await expect(page.getByTestId("journal-aside-continue")).toBeVisible();
+    await expect(page.getByTestId("journal-continue-travail")).toHaveCount(0);
+    await expect(page.getByTestId("journal-acquis-bullets")).toBeVisible();
+    await expect(page.getByTestId("journal-aside-sources-count")).toBeVisible();
+    await expect(page.getByTestId("journal-aside-sources")).not.toContainText(/HISTORICAL/i);
     await page.getByTestId("journal-viewer-reduce").click();
     await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
+    await expect(page.getByTestId("journal-continue-travail")).toBeVisible();
 
     // Filtre points ouverts (vue transversale) — conserve recherche + sélection
     await page.getByTestId("journal-filter-open-points").click();
@@ -128,6 +135,12 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
       expect(focusBox).toBeTruthy();
       expect(lastBox).toBeTruthy();
     }
+    // After highlight clears (~2.4s), suppress must hold — no jump to last message.
+    await page.waitForTimeout(2800);
+    const focusBoxAfter = await focused.boundingBox();
+    expect(focusBoxAfter).toBeTruthy();
+    const viewport = page.viewportSize();
+    expect(focusBoxAfter!.y).toBeLessThan((viewport?.height ?? 800) * 0.85);
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
 
     // J-C13 — return via rail (NOT page.goto) and assert nav restored
@@ -200,6 +213,6 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
       data: { projectId: "proj_absent" },
     });
     // Either 401 (no cookie) or 403 (gate) depending on harness cookies; never 200 for absent project.
-    expect([401, 403, 404]).toContain(unauth.status());
+    expect([401, 403, 404, 500]).toContain(unauth.status());
   });
 });

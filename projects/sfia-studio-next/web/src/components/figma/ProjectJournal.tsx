@@ -2,6 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import {
+  editorialDisplayBullet,
+  prioritizeAcquisForJournalDisplay,
+  prioritizeOpenPointsForJournalDisplay,
+} from "@/domains/knowledge/journal-editorial";
 
 export type JournalSubject = {
   id: string;
@@ -277,7 +282,7 @@ export function ProjectJournal(props: {
 
   const decisions = useMemo(() => props.decisions ?? [], [props.decisions]);
   const restrictions = props.restrictions ?? [];
-  const sourceLinks = props.sourceLinks ?? [];
+  const sourceLinks = useMemo(() => props.sourceLinks ?? [], [props.sourceLinks]);
   const contradictions = props.contradictions ?? [];
 
   useEffect(() => {
@@ -350,16 +355,40 @@ export function ProjectJournal(props: {
     props.subjects.length === 0 && currentAcquis.length === 0 && openPoints.length === 0;
 
   const selectedSubject = selectedSubjectId ? byId.get(selectedSubjectId) : null;
-  const selectedAcquis = selectedSubjectId
+  const selectedAcquisAll = selectedSubjectId
     ? currentAcquis.filter((a) => a.subjectId === selectedSubjectId)
     : [];
-  const selectedOpen = selectedSubjectId
+  const selectedOpenAll = selectedSubjectId
     ? openPoints.filter((o) => o.subjectId === selectedSubjectId)
     : [];
+  const { visible: selectedAcquis, overflow: overflowAcquis } =
+    prioritizeAcquisForJournalDisplay(selectedAcquisAll);
+  const { visible: selectedOpen, overflow: overflowOpen } =
+    prioritizeOpenPointsForJournalDisplay(selectedOpenAll);
   const childSubjects = selectedSubjectId ? tree.get(selectedSubjectId) ?? [] : [];
   const selectedSources = selectedSubjectId
     ? sourceLinks.filter((s) => s.subjectId === selectedSubjectId)
     : [];
+  const sourceAside = useMemo(() => {
+    const links = selectedSubjectId
+      ? sourceLinks.filter((s) => s.subjectId === selectedSubjectId)
+      : [];
+    const pilot = links.filter(
+      (s) =>
+        s.contributionKind === "pilot_fact" ||
+        s.contributionKind === "pilot_confirmation" ||
+        s.authorLabel?.toLowerCase().includes("pilote"),
+    ).length;
+    const nora = links.filter(
+      (s) =>
+        s.contributionKind === "nora_analysis" ||
+        s.authorLabel?.toLowerCase().includes("nora"),
+    ).length;
+    const revisions = selectedSubjectId
+      ? byId.get(selectedSubjectId)?.summary?.revisionNumber ?? 0
+      : 0;
+    return { total: links.length, pilot, nora, revisions };
+  }, [selectedSubjectId, sourceLinks, byId]);
   const selectedContradictions = selectedSubjectId
     ? contradictions.filter((c) => c.subjectId === selectedSubjectId)
     : [];
@@ -723,15 +752,33 @@ export function ProjectJournal(props: {
                             data-testid="journal-retained"
                           >
                             <p className="journal-card-kicker">{COPY.retained}</p>
-                            {selectedAcquis.map((a) => (
-                              <p
-                                key={a.id}
-                                className="journal-acquis-line"
-                                data-subject-id={a.subjectId ?? ""}
-                              >
-                                {a.statement}
-                              </p>
-                            ))}
+                            <ul className="journal-bullet-list" data-testid="journal-acquis-bullets">
+                              {selectedAcquis.map((a) => (
+                                <li
+                                  key={a.id}
+                                  className="journal-acquis-line"
+                                  data-subject-id={a.subjectId ?? ""}
+                                  data-testid={`journal-acquis-${a.id}`}
+                                >
+                                  {editorialDisplayBullet(a.statement)}
+                                </li>
+                              ))}
+                            </ul>
+                            {overflowAcquis.length > 0 ? (
+                              <details className="journal-overflow" data-testid="journal-acquis-overflow">
+                                <summary>
+                                  {overflowAcquis.length} autre
+                                  {overflowAcquis.length > 1 ? "s" : ""} acquis
+                                </summary>
+                                <ul className="journal-bullet-list">
+                                  {overflowAcquis.map((a) => (
+                                    <li key={a.id} className="journal-acquis-line">
+                                      {editorialDisplayBullet(a.statement)}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </details>
+                            ) : null}
                           </section>
                         ) : null}
                         {selectedOpen.length > 0 ? (
@@ -740,16 +787,38 @@ export function ProjectJournal(props: {
                             data-testid="journal-clarify"
                           >
                             <p className="journal-card-kicker">{COPY.clarify}</p>
-                            {selectedOpen.map((o) => (
-                              <p
-                                key={o.id}
-                                className="journal-open-line"
-                                data-testid={`journal-open-point-${o.id}`}
-                                data-subject-id={o.subjectId ?? ""}
-                              >
-                                {o.statement}
-                              </p>
-                            ))}
+                            <ul className="journal-bullet-list" data-testid="journal-open-bullets">
+                              {selectedOpen.map((o) => (
+                                <li
+                                  key={o.id}
+                                  className="journal-open-line"
+                                  data-testid={`journal-open-point-${o.id}`}
+                                  data-subject-id={o.subjectId ?? ""}
+                                >
+                                  {editorialDisplayBullet(o.statement)}
+                                </li>
+                              ))}
+                            </ul>
+                            {overflowOpen.length > 0 ? (
+                              <details className="journal-overflow" data-testid="journal-open-overflow">
+                                <summary>
+                                  {overflowOpen.length} autre
+                                  {overflowOpen.length > 1 ? "s" : ""} question
+                                  {overflowOpen.length > 1 ? "s" : ""}
+                                </summary>
+                                <ul className="journal-bullet-list">
+                                  {overflowOpen.map((o) => (
+                                    <li
+                                      key={o.id}
+                                      className="journal-open-line"
+                                      data-testid={`journal-open-point-${o.id}`}
+                                    >
+                                      {editorialDisplayBullet(o.statement)}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </details>
+                            ) : null}
                           </section>
                         ) : null}
                       </div>
@@ -829,7 +898,8 @@ export function ProjectJournal(props: {
                       </section>
                     ) : null}
 
-                    {props.onBackToThread ? (
+                    {/* Split 40/60 only — enlarged keeps a single CTA in the aside (Figma). */}
+                    {props.onBackToThread && layoutMode !== "enlarged" ? (
                       <button
                         type="button"
                         className="journal-continue"
@@ -860,16 +930,30 @@ export function ProjectJournal(props: {
                     </p>
                     <hr className="journal-aside-sep" />
                     <p className="journal-aside-meta-label" data-testid="journal-aside-sources">{COPY.asideSourcesHist}</p>
-                    <p className="journal-aside-meta-value">
-                      {selectedSources.length > 0
-                        ? `${selectedSources.length} source${selectedSources.length > 1 ? "s" : ""} liée${selectedSources.length > 1 ? "s" : ""}`
-                        : "Sources disponibles via les acquis"}
+                    <p className="journal-aside-meta-value" data-testid="journal-aside-sources-count">
+                      {sourceAside.total > 0
+                        ? `${sourceAside.total} contribution${sourceAside.total > 1 ? "s" : ""} liée${sourceAside.total > 1 ? "s" : ""}`
+                        : "Aucune contribution liée pour l’instant"}
                     </p>
-                    {selectedSources.slice(0, 3).map((s) => (
-                      <p key={`${s.ownerId}-${s.sourceId}`} className="journal-aside-meta-desc">
-                        {s.sourceKind} · {s.currentness}
+                    {sourceAside.pilot > 0 || sourceAside.nora > 0 ? (
+                      <p className="journal-aside-meta-desc" data-testid="journal-aside-sources-provenance">
+                        {[
+                          sourceAside.pilot > 0
+                            ? `Pilote ${sourceAside.pilot}`
+                            : null,
+                          sourceAside.nora > 0 ? `Nora ${sourceAside.nora}` : null,
+                        ]
+                          .filter(Boolean)
+                          .join(" · ")}
                       </p>
-                    ))}
+                    ) : null}
+                    {sourceAside.revisions > 1 ? (
+                      <p className="journal-aside-meta-desc" data-testid="journal-aside-sources-revision">
+                        Synthèse · révision {sourceAside.revisions}
+                      </p>
+                    ) : sourceAside.revisions === 1 ? (
+                      <p className="journal-aside-meta-desc">Synthèse · première version</p>
+                    ) : null}
                     <hr className="journal-aside-sep" />
                     <p className="journal-aside-meta-label" data-testid="journal-aside-further">{COPY.asideFurther}</p>
                     {props.onBackToThread ? (

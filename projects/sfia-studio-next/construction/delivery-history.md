@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-JOURNAL-CONSOLIDATION-V4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~19:15 CET |
+| Macro-lot | Ensemble 06 — Journal V4 dernier correctif consolidation |
+| Type | Cycle 8 Delivery Correctif · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Synthèse absente sur sujet existant · densité acquis/synthèse/ouverts · CTA agrandi · sources · focusLock |
+| Cause | `writeSubjectSummary` seulement sur intent SUBJECT — ACQUIS seuls n'ouvraient pas de révision |
+| Scope | composeSubjectSummaryFromCurrentKnowledge · journal-editorial (client-safe) · bullets + overflow · aside sources · focus suppress sticky · non-stream Nora (héritage) |
+| CampusNova | aucune mutation SQL / backfill — synthèse se met à jour à la prochaine capitalisation significative |
+| Docs | as-built E06 descriptif · matrice v0.7 lecture seule |
+| Verdict Cursor | voir cutover + Review Pack |
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-LIVING-MEMORY-V4
 
 | Field | Value |

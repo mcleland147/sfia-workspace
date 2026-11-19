@@ -29,24 +29,26 @@ export type Provenance = {
 
 export type KnowledgeKind = "FACT" | "HYPOTHESIS" | "RECOMMENDATION" | "LIMIT";
 
-/** Editorial compact form for Journal acquis / open points (one idea, no transcript). */
-export const KNOWLEDGE_STATEMENT_SOFT_MAX = 220;
+export {
+  KNOWLEDGE_STATEMENT_STORAGE_MAX,
+  KNOWLEDGE_STATEMENT_SOFT_MAX,
+  KNOWLEDGE_BULLET_DISPLAY_MAX,
+  SUBJECT_SUMMARY_TARGET_MIN,
+  SUBJECT_SUMMARY_TARGET_MAX,
+  JOURNAL_ACQUIS_DISPLAY_LIMIT,
+  JOURNAL_OPEN_POINT_DISPLAY_LIMIT,
+  editorialStripPreamble,
+  editorialCompactKnowledgeStatement,
+  editorialDisplayBullet,
+  prioritizeAcquisForJournalDisplay,
+  prioritizeOpenPointsForJournalDisplay,
+  composeSubjectSummaryFromCurrentKnowledge,
+} from "./journal-editorial";
 
-export function editorialCompactKnowledgeStatement(
-  raw: string,
-  maxLen = KNOWLEDGE_STATEMENT_SOFT_MAX,
-): string {
-  let s = raw.replace(/\s+/g, " ").trim();
-  s = s.replace(
-    /^(selon\s+(le\s+pilote|les\s+nouvelles\s+précisions\s+du\s+pilote|les\s+précisions\s+du\s+pilote)|le\s+pilote\s+précise\s+que|nous\s+avons\s+appris\s+que|dans\s+le\s+message\s+précédent)\s*[,:]?\s*/i,
-    "",
-  );
-  if (s.length <= maxLen) return s;
-  const cut = s.slice(0, maxLen);
-  const at = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("; "), cut.lastIndexOf(", "));
-  if (at >= Math.floor(maxLen * 0.55)) return cut.slice(0, at + 1).trim();
-  return `${cut.replace(/\s+\S*$/, "").trim()}…`;
-}
+import {
+  editorialCompactKnowledgeStatement,
+  composeSubjectSummaryFromCurrentKnowledge,
+} from "./journal-editorial";
 
 function provenanceString(p: Provenance): string {
   return JSON.stringify({ ...p, notedAt: p.notedAt ?? new Date().toISOString() });
@@ -1120,6 +1122,10 @@ export async function maybeCapitalizeFromExchange(
   let subjectId: string | null = null;
   const ctx = await assertPrep(pilotId, preparationId);
   const projectId = ctx.project?.id ?? null;
+  /** Subjects that already received an explicit SUBJECT summary this turn. */
+  const subjectsWithExplicitSummary = new Set<string>();
+  /** Subjects that gained significant CURRENT acquis this turn (may need synthesis). */
+  const subjectsTouchedByAcquis = new Set<string>();
 
   async function writeSubjectSummary(
     targetSubjectId: string,
@@ -1190,6 +1196,7 @@ export async function maybeCapitalizeFromExchange(
             check.subject.title.trim(),
             p,
           );
+          subjectsWithExplicitSummary.add(subjectId);
           continue;
         }
       }
@@ -1220,6 +1227,7 @@ export async function maybeCapitalizeFromExchange(
           epistemicNote: p.continuityReason,
         });
         await writeSubjectSummary(s.subjectId, p.statement.trim(), title.trim(), p);
+        subjectsWithExplicitSummary.add(s.subjectId);
       }
       continue;
     }
@@ -1357,6 +1365,9 @@ export async function maybeCapitalizeFromExchange(
               ? `SUPERSEDES:${supersedesAcquisId}`
               : undefined,
       });
+      if (cap.status === "AVAILABLE" && subjectId) {
+        subjectsTouchedByAcquis.add(subjectId);
+      }
 
       if (p.resolvesOpenPointId && projectId && cap.status === "AVAILABLE") {
         const { resolveOpenPointFactually } = await import("@/domains/knowledge/journal");
@@ -1386,7 +1397,51 @@ export async function maybeCapitalizeFromExchange(
           reason: "reason" in resolved ? String(resolved.reason) : undefined,
           epistemicNote: p.continuityReason,
         });
+        if (subjectId) subjectsTouchedByAcquis.add(subjectId);
       }
+    }
+  }
+
+  // Existing-subject enrichment often arrives as ACQUIS-only. Still re-evaluate synthesis
+  // when durable CURRENT knowledge changed and Nora did not emit an explicit SUBJECT revision.
+  if (projectId) {
+    for (const touchedId of subjectsTouchedByAcquis) {
+      if (subjectsWithExplicitSummary.has(touchedId)) continue;
+      const owned = await loadOwnedSubject(pilotId, preparationId, touchedId);
+      if (!owned || owned.status !== "ACTIVE") continue;
+      const acquisRows = await db
+        .select({
+          statement: knowledgeAcquis.statement,
+        })
+        .from(knowledgeAcquis)
+        .where(
+          and(
+            eq(knowledgeAcquis.ownerPilotId, pilotId),
+            eq(knowledgeAcquis.subjectId, touchedId),
+            eq(knowledgeAcquis.status, "CURRENT"),
+          ),
+        );
+      if (acquisRows.length === 0) continue;
+      const openRows = await db
+        .select({ statement: knowledgeOpenPoints.statement })
+        .from(knowledgeOpenPoints)
+        .where(
+          and(
+            eq(knowledgeOpenPoints.ownerPilotId, pilotId),
+            eq(knowledgeOpenPoints.subjectId, touchedId),
+            eq(knowledgeOpenPoints.status, "OPEN"),
+          ),
+        );
+      const composed = composeSubjectSummaryFromCurrentKnowledge({
+        subjectTitle: owned.title,
+        acquisStatements: acquisRows.map((r) => r.statement),
+        openPointStatements: openRows.map((r) => r.statement),
+      });
+      await writeSubjectSummary(touchedId, composed, owned.title, {
+        epistemic: "recommended",
+        continuityReason:
+          "réévaluation de synthèse après capitalisation d'acquis sur sujet existant",
+      });
     }
   }
 
