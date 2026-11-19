@@ -3,8 +3,8 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | **v0.2 — 19 novembre 2026** |
-| Statut | **CANDIDATE TECHNICAL CONTRACT / DOCUMENTED — NON VALIDATED ARCHITECTURE / AUCUN GO CURSOR** |
+| Version | **v0.3 — 19 novembre 2026** |
+| Statut | **CANDIDATE TECHNICAL CONTRACT / DOCUMENTED — PRINCIPE D'ÉVOLUTION INTERNE D4 VALIDÉ MORRIS ; MODÈLE PHYSIQUE CANDIDAT ; EXÉCUTION NON OBSERVÉE** |
 | Nature | **Dossier intégré** : audit AS-IS, architecture cible candidate, contrats techniques, contrôles de cohérence, qualification de couverture et préparation des preuves |
 | Capacité | Journal du projet : Sujets, Décisions, recherche, points ouverts, continuité cognitive et sources |
 | Produit / lot | SFIA Studio Next / R5 — Ensemble 06, **UX ML4D et extensions fonctionnelles D3/D4/D6 sous gate distinct** ; Journal uniquement, Bibliothèque Documents conserve sa propre expérience |
@@ -14,6 +14,8 @@
 | État local / navigateur / base DEV-RECETTE / tests exécutés dans cette revue | **NON OBSERVÉS / NON EXÉCUTÉS**. Analyse de Git distant et des tests présents, pas preuve de runtime |
 | Gouvernance | Morris arbitre produit, architecture structurante et gates ; ChatGPT prépare/revoit ; Cursor réalise sous contrat technique et **GO distinct SFIA v2.6** |
 | Effet Git de ce document | **Création documentaire candidate uniquement** ; aucune modification de SEF, R1/R2, ADR, Roadmap, Figma, code, tests, DB, CI, PR, merge, Gate C, STABLE, ADOPTED ou promotion |
+
+> **Arbitrage Morris explicite du 19/11 :** D4 conserve ses responsabilités actuelles et reçoit les capacités nécessaires au Journal (synthèses durables, historique, questions, liens, récupération). **Aucun nouveau domaine, moteur ou stockage de mémoire parallèle.** D3 analyse/rédige, D4 conserve/versionne/restitue, D6 demeure seule autorité de décision. Le §16 définit la **cible physique candidate** des extensions internes D4 et prévaut sur les alternatives exploratoires des §§6.2 et 15.3. Les migrations, les gates et les preuves conservent leurs contrôles propres.
 
 > **Hiérarchie et règle d'honnêteté.** Git code + preuves réellement vérifiées > décisions Morris/ADR > contrats R1/R2 et UX validés > ce **contrat technique proposé** > hypothèses. Un test identifié dans le dépôt n'est pas un test exécuté au présent. « Implémenté dans le code » ≠ « couvert » ≠ « comportement prouvé ». Les choix de modèle de données ci-dessous sont **recommandations candidates**, non migration ni architecture nouvellement approuvée. Toute contradiction entre code et documentation est un **KNOWN GAP** à résoudre dans le même macro-lot que son comportement.
 
@@ -197,14 +199,14 @@ Les **11 frames V4 du §9.3 du contrat fonctionnel** forment le contrat visuel. 
 
 Les tables PostgreSQL D4 permettent identité, parentage, provenanceJson des acquis/points et événement de sujet ; la table human_decisions et governance_restrictions existe côté D6. Le code ne démontre **pas** de colonne/version durable de **synthèse éditoriale** pour un sujet ni d'objet d'explication contextuelle d'une décision.
 
-### 6.2. Deux options à comparer avant GO
+### 6.2. Alternatives A/B historiques — remplacées par la cible candidate §16
 
 | Option | Bénéfice | Coût/risque | Verdict préliminaire |
 | --- | --- | --- | --- |
 | **A — extension compacte de knowledge_subjects** (synthèse courante, révision et sources JSON contrôlées, changements significatifs dans knowledge_subject_events) | Moins de tables, évolution locale simple | Historique de contenu à garantir, concurrence et mutation de plusieurs sources à clarifier, historique reconstitué moins robuste | **Viable** si événements/version donnent une preuve complète et coût minimal |
 | **B — révisions légères et immuables de synthèses D4** reliées à subjectId (et, pour décision, à decisionId D6) ; lecture du courant par id/version | Historique, provenance, invalidation et concurrence plus explicites ; séparation forte décision/narration | Migration et contrat de réconciliation, index/relations supplémentaires ; risque de surdesign si généralisé | **Préférée à instruire** si les tests de correction/historique et longue durée le rendent nécessaire |
 
-**Recommandation non validée :** **réutiliser le schéma D4 existant pour sujets, acquis, points, événements et D6 inchangé**, puis tester la plus petite extension D4 qui permet versions fidèles des synthèses et explications. Commencer par un schéma logique et ses invariants ; **ne pas commander de migration avant validation Morris** du delta et vérification des données existantes. La séparation A/B est une **option technique à trancher**, pas un arbitrage de vision.
+**Cible technique candidate consolidée au §16 :** réutiliser le D4 existant pour sujets, acquis, points, événements ; préserver D6 inchangé comme autorité ; **ajouter des révisions immuables internes à D4** pour synthèses et explications (option B minimale). La comparaison A/B reste ici pour l'historique, sans GO de migration ni changement de responsabilité. Commencer par un schéma logique et ses invariants ; **ne pas commander de migration avant validation Morris** du delta et vérification des données existantes. La séparation A/B est une **option technique à trancher**, pas un arbitrage de vision.
 
 **Migration éventuelle :** additive, valeurs nullables/backfill prudent, rétrocompatibilité des lecteurs, traitement anciens sujets sans synthèse (« non encore disponible »), contrôle des données dont subjectId manque, sauvegarde/restauration et tests upgrade à SHA comparable. Pas de réécriture historique en masse ni fabrication de source/état. Révision/ref D6 conservée, aucun changement de D6 sans contrat de sécurité supplémentaire.
 
@@ -366,7 +368,7 @@ Le besoin métier/UX et Figma **ne sont pas rouverts**. La revue présente seule
 
 **Preuves :** deux parents avec un sous-sujet « Contraintes » chacun ; sujets distincts si le sens ou la portée diffère. Feuille→parent conservant le même id ; refus du parent cyclique/étranger ; split/merge atomique sans enfant orphelin ni source perdue.
 
-### 15.3. Persistance des synthèses — décision architecturale à instruire
+### 15.3. Persistance des synthèses — historique d'alternatives avant cible §16
 
 **Constat vérifié :** D4 expose acquis/points et knowledge_subject_events mais pas de version courante immuable d'une synthèse éditoriale de sujet. D6 conserve la décision et ses restrictions mais pas de synthèse narrative de motivations.
 
@@ -390,6 +392,77 @@ Le besoin métier/UX et Figma **ne sont pas rouverts**. La revue présente seule
 
 **Statut : DOCUMENTED / TECHNICAL CONTRACT v0.2 CANDIDATE / NO CODE / NO MIGRATION / NO CURSOR PROMPT / NO GATE C / NOT ADOPTED.**
 
+## 16. Arbitrage Morris — extension interne D4 et contrat technique cible
+
+### 16.1. Propriétés et décision
+
+**PRINCIPE VALIDÉ PAR MORRIS (19/11/2026)** : D4 est le propriétaire existant de la connaissance et de l'investigation. Les synthèses intelligentes versionnées, l'organisation des sujets et la récupération restent **des évolutions de D4**, dans le PostgreSQL/Drizzle actuel. D3/Nora retrouve les sources, raisonne et rédige ; D4 persiste et expose les versions et les liens ; D6 reste seule autorité des HumanDecision et de leurs restrictions. **Aucun deuxième moteur, domaine ou registre autonome.**
+
+**MODÈLE PHYSIQUE DÉFINI DANS LE PRÉSENT CONTRAT TECHNIQUE CANDIDAT** : petites révisions immuables D4 plutôt qu'un texte courant écrasé à chaque mise à jour. C'est la variante B minimale, retenue pour l'historique, la concurrence et la provenance. Elle reste une **modification additive de schéma interne D4** ; le gate de migration et de changement d'architecture appartient à Morris. Les noms de tables sont la cible de conception, les noms exacts des colonnes ne priment pas sur leurs invariants. Les données RECETTE/STABLE sont hors mandat tant qu'un GO distinct n'existe pas.
+
+### 16.2. Modèle concret à réaliser dans le D4 actuel
+
+**A. Révisions de synthèses de sujets : knowledge_subject_summary_revisions.**
+
+- D4 uniquement ; référence FK subjectId vers knowledge_subjects existant ; ownerPilotId, preparationId d'origine et projectId selon sas/projet autorisé ; revisionNumber strictement croissant par sujet, createdAt et contenu summaryMarkdown.
+- Provenance structurée : références exactes messageId, documentId/revisionId, Git repo/ref/SHA, date/portée de constat, statut de lecture et qualification confirmé / déduit / incertain. Source injoignable = limite visible, jamais faux lien.
+- Corrélation d'opération/tour et idempotencyKey, expectedRevision ou baseVersion, empreinte des sources ; unicité (subjectId, revisionNumber) et (subjectId, operationId) ou équivalent. Anciennes révisions **non éditées**. Version courante = dernière révision confirmée, calculée sous ordre/contrainte cohérents ; pas de deuxième champ summaryCurrent autorisant et modifiable séparément.
+- Sujet sans synthèse historique = état honnête « synthèse non encore disponible », puis génération ciblée autorisée si justifiée, **sans backfill fictionnel**.
+
+**B. Révisions d'explications D6 : knowledge_decision_explanation_revisions.**
+
+- D4 uniquement, mais **rattaché par decisionId à l'acte D6 réel**, ownerPilotId/projectId, revisionNumber, officialDecisionFingerprint ou état/révision D6 consultés, explanationMarkdown et références structurées des messages/options/contraintes.
+- Narrative sémantique construite : contexte, motivations réellement établies, alternatives, compromis, limites d'interprétation ; jamais copie des deux derniers messages ni justification inventée. Une assertion déduite est explicitement distincte d'un motif déclaré.
+- Aucune colonne faisant autorité pour applicabilité, suspension, droits, date d'effet ou état HumanDecision. À chaque lecture, **requalifier l'acte officiel D6 et les governance_restrictions** ; si l'empreinte a changé, signaler explication potentiellement périmée, sans perdre l'acte officiel.
+- Garanties révisions immuables, concurrence, idempotence et lien D6 unique ; pas d'écriture D6 à partir de cette explication.
+
+**C. Historique des points factuels : knowledge_open_point_events.**
+
+- Conserver knowledge_open_points comme objet D4 courant ; événements immuables de résolution factuelle et réouverture avec acteur, raison, instant, provenance/version et operationId. Statut courant OPEN / RESOLVED ; une réouverture revient à OPEN sans effacer la précédente résolution.
+- **RESOLVED exige une source suffisante et applicable** pour une question factuelle. Aucune clôture D4 ne lève une suspension ou un risque accepté par le Pilote ; le statut des restrictions D6 reste fourni par D6.
+- Préférer une extension additive minimale réutilisant les champs présents plutôt qu'une nouvelle machine d'états.
+
+**Transaction/cycle de vie :** vérification serveur du Pilote et du projet ; verrouillage de l'objet D4 et contrôle expectedRevision ; écriture d'une nouvelle révision/événement dans une transaction ; en cas d'ACK perdu, relecture par operationId **avant retry** ; conflit/erreur/absence de proposition pertinente affichés honnêtement ; zero-write sur propos sans valeur durable. Les explications de décision ne verrouillent ni ne modifient une HumanDecision.
+
+### 16.3. Interfaces et intégration en place
+
+1. **D3→D4 :** enrichir la capitalisation sélective existante pour synthèse, correction, réorganisation et réactivation contextuelle ; rechercher au-delà du dernier échange les sources réellement pertinentes sans replay complet systématique.
+2. **D4 identités :** corriger ensureSubject (déduplication titre seul), parentSubjectId courant distinct de originatedFromSubjectId, reparent/split/merge atomiques, homonymes autorisés sous parents différents, refus cycles et cross-project. Feuille→parent conserve le même ID.
+3. **D4 portée :** Projet = préparation(s) réellement liées au même propriétaire ; sas = préparation courante. Lecture projet tenant compte des préparations autorisées sans copier/fusionner la connaissance par titre, tout en préservant la provenance.
+4. **D4 vues/recherche :** préserver subjectId sur les acquis et points jusqu'à ProjectJournal ; recherche dans les connaissances capitalisées et filtre des points OPEN avec parcours de retour et état de couverture réel.
+5. **D6 projection :** sélection justifiée des actes durables, historique et restrictions au point de lecture ; expliquer via D4 sans seconde autorité. Pilotage reste le lieu d'action gouvernée.
+6. **Documents/messages :** références exactes à la ressource canonique versionnée, droits revalidés au read ; même fil Nora, scroll et brouillon préservés, aucun auto-send.
+7. **V4 :** les 11 frames Figma approuvées sont un **contrat d'exécution de parcours**, pas du faux contenu décoratif. Journal pleine largeur → même Journal rétracté 40/60 → lecture agrandie réversible.
+
+### 16.4. Matrice contractuelle anti-scope-missing
+
+**Chaque ligne ci-dessous est obligatoire dans le prochain contrat Cursor, son review pack et notre revue ChatGPT.** L'absence d'implémentation ou de preuve ne peut être remplacée par une simple déclaration « réalisé ».
+
+| ID preuve | Capacité à livrer | Contrôle d'acceptation discriminant |
+| --- | --- | --- |
+| J-C01 | Synthèse sujet feuille/parent durable, provenance et versions | PG : enrichir/corriger, retrouver révision historique, zéro write si bruit |
+| J-C02 | Hiérarchie vivante et identités conservées | PG : feuille→parent, rename, split/merge/reparent, homonymes, refus cycle |
+| J-C03 | Rattachement acquis/questions réel | API+BROWSER : subjectId intact jusque dans le panneau et le lien |
+| J-C04 | Question ancienne réactivable | PG + Nora : rappel pertinent après interruption/session/cycle |
+| J-C05 | Résolution factuelle vs réserve gouvernée | PG : fait résolu sur preuve, restriction D6 ACTIVE toujours opposable |
+| J-C06 | Sources, contradictions et currentness | D3/D4 : branche candidate≠main, source inaccessible, conflit non masqué |
+| J-C07 | Portée Projet inter-préparations | PG+API : connaissance d'une autre préparation liée, isolation autre projet/Pilote |
+| J-C08 | Recherche Sujets et filtre Points ouverts | API+BROWSER : terme en acquis pas titre, résultat lié, filtre combiné, EMPTY honnête |
+| J-C09 | Décisions durables D6, historique et restrictions | PG+API : actuel/remplacé/suspendu, restriction revalidée sans état local |
+| J-C10 | Explication décisionnelle cohérente et vérifiable | Nora+PG : contexte long, alternatives/justifications sourcées, source absente, aucun nouveau D6 |
+| J-C11 | Recherche Décisions seulement, accès courant | API+BROWSER : acte + motif lié, projet autorisé, pas transcript global |
+| J-C12 | Navigation Journal pleine, 40/60 et agrandie | BROWSER+captures Figma/runtime : 11 états V4, retour sans reset |
+| J-C13 | Message exact et retour au fil | BROWSER : message ancien dans 1000+ échanges, brouillon intact, zéro auto-send |
+| J-C14 | Document canonique/version et droits | API+BROWSER : docId/revision exact, accès retiré proprement |
+| J-C15 | Sûreté/performance/reprise/idempotence | PG+API : concurrence, ACK perdu, cross-project, latence/volume et erreur fidèle |
+| J-C16 | Non-régression et documentation synchronisée | Tests existants ML2/ML3/ML4C/E05, typecheck/lint/build, as-built et QA mis à jour |
+
+**Règle de complétude obligatoire pour Cursor :** fournir, pour J-C01..J-C16 **sans exception**, état IMPLEMENTED / PARTIAL / NOT IMPLEMENTED / NOT RUN / FAILED / BLOCKED, fichier(s)/fonction(s), test(s) exacts, résultat réellement exécuté avec SHA/lane, preuve (log/capture/DB/source), réserve et éventuel STOP. Aucun NOT RUN ne devient un PASS et aucun faux écran ou doublon de registre ne peut compter comme une capacité réalisée.
+
+**STOP delivery si une exigence reste absente non arbitrée** : verdict NOT READY — SCOPE INCOMPLETE, avec liste exacte des lignes, causes et prochaines actions, plutôt qu'une conclusion globale READY. Tests unitaires/PG/API/BROWSER et comparaison Figma/runtime au bon viewport ; accessibilité, largeurs compactes, sources retirées, décisions révoquées et mémoire après longue interruption sont intégrés aux contrôles. Test déterministe ou fixture ≠ comportement LIVE Nora/REAL prouvé.
+
+**Review Pack Full :** contenus créés/modifiés revus selon template v2.6, diff utile, SHA, date, sources/version, audit blast radius, validation de chaque J-C, scénarios négatifs, limites/failures, Review Handoff required/publish-in-cycle sur branche dédiée et relecture distante. Une synthèse seule n'est pas un pack complet. Aucun push projet/PR/merge sans GO Morris, quel que soit le verdict des tests.
+
 ## Annexe A — Liens vérifiables des surfaces, services et tests
 
 **Code UI/lectures :**
@@ -408,3 +481,4 @@ Le besoin métier/UX et Figma **ne sont pas rouverts**. La revue présente seule
 | --- | --- | --- |
 | 19/11/2026 — v0.1 | Diagnostic code Git main, mapping R1/R2/R4/R5 et Figma V4, proposition d'architecture et options de persistance, 12 contrôles de cohérence, risques, couverture QA et préparation des gates | **DOCUMENTED / CANDIDATE TECHNICAL CONTRACT** — à revoir avec Morris ; aucune autorisation technique ni preuve de runtime |
 | 19/11/2026 — v0.2 | Revue D0 : périmètre projet/préparation, sujets homonymes, synthèses versionnées, frontières ML4D et gates ; correction des liens Markdown | **DOCUMENTED / TECHNICAL CANDIDATE**, no code or Cursor GO |
+| 19/11/2026 — v0.3 | Arbitrage Morris : extension interne D4 sans moteur parallèle ; modèle de révisions immuables internes pour synthèses/explications et résolution factuelle ; matrice J-C01..J-C16 de couverture du delivery | **PRINCIPE D4 VALIDÉ / SCHÉMA CANDIDAT / NON IMPLÉMENTÉ** |
