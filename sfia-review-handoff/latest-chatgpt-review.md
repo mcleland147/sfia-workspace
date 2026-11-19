@@ -265,16 +265,26 @@ Instruction ChatGPT: relire `sfia/review-handoff` → `sfia-review-handoff/lates
 
 ## 14. Handoff L3 — métadonnées
 
-> Métadonnées alignées sur le HEAD handoff distant après publication FULL (commit = HEAD de ce fichier).
+Branche: `sfia/review-handoff`
+Fichier canonique: `sfia-review-handoff/latest-chatgpt-review.md`
+Push: fast-forward L3, sans force. Branche projet: intacte, non poussée.
 
-| Champ | Valeur |
-|---|---|
-| Branche | `sfia/review-handoff` |
-| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Commit | `PENDING_PUBLISH` |
-| Blob | `PENDING_PUBLISH` |
-| Push | fast-forward, sans force |
-| Branche projet | intacte, non poussée |
+**Anti-stale:** ce pack n'embarque plus un SHA de commit self-référentiel qui divergerait au tip suivant.
+ChatGPT doit vérifier le tip distant au moment de la revue:
+
+```bash
+git fetch origin sfia/review-handoff
+git rev-parse origin/sfia/review-handoff
+git rev-parse origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md
+```
+
+Ancres d'intégrité du pack FULL (obligatoires dans le blob distant):
+- `## 16. Contenu complet des fichiers créés`
+- `## 17. Diffs git complets des fichiers modifiés`
+- les trois chemins `documents-historical-revise.pg.test.ts`, `documents-surfaces-projection.test.ts`, `documents-bibliotheque-08.spec.ts`
+
+Tip qui a introduit le pack FULL (diffs+tests embarqués): `6e1ab7d4b6d841131e8eb919cf745a369f9a63a9`
+Les tips suivants sur la même branche peuvent n'être que des alignements éditoriaux; le contenu §16–§17 doit rester présent.
 
 ---
 
