@@ -5,6 +5,7 @@ import {
 } from "@/domains/conversation/nora-adapter";
 import {
   NoraTurnQualificationAgentSchema,
+  NoraTurnQualificationLiveOutputSchema,
   NoraTurnQualificationSchema,
   validateNoraTurnQualification,
 } from "@/domains/conversation/semantic-qualification";
@@ -35,10 +36,45 @@ describe("E05 visual composition freeze (Morris 19/11/2026)", () => {
   });
 
   it("LIVE agent schema omits visualComposition while persisted schema retains it", () => {
-    const live = NoraTurnQualificationSchema.omit({ visualComposition: true });
-    expect("visualComposition" in live.shape).toBe(false);
+    expect("visualComposition" in NoraTurnQualificationLiveOutputSchema.shape).toBe(false);
     expect("visualComposition" in NoraTurnQualificationAgentSchema.shape).toBe(true);
     expect("visualComposition" in NoraTurnQualificationSchema.shape).toBe(true);
+  });
+
+  it("LIVE soft schema truncates oversize replyDraft and strips unknown intent parameters", () => {
+    const parsed = NoraTurnQualificationLiveOutputSchema.safeParse({
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "g",
+      clarifications: ["q".repeat(500)],
+      replyDraft: "R".repeat(20001),
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d4.record_knowledge",
+          mode: "REQUEST_EFFECT",
+          summary: "s",
+          parameters: {
+            knowledgeKind: "ACQUIS",
+            knowledgeStatement: "K".repeat(5001),
+            epistemic: "recommended",
+            inventedExtra: "should-strip",
+          },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    expect(parsed.success).toBe(true);
+    if (!parsed.success) return;
+    expect(parsed.data.replyDraft.length).toBe(20000);
+    expect(parsed.data.clarifications?.[0]?.length).toBe(400);
+    expect(parsed.data.intents[0]?.parameters.knowledgeStatement?.length).toBe(5000);
+    expect(
+      (parsed.data.intents[0]?.parameters as Record<string, unknown>).inventedExtra,
+    ).toBeUndefined();
+    expect(validateNoraTurnQualification(parsed.data).ok).toBe(true);
   });
 
   it("validated qualification without visualComposition stays textual", () => {

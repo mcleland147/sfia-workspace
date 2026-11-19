@@ -24,6 +24,7 @@ import { fixtureSemanticQualify } from "./fixture-semantic-qualify";
 import { resolveProviderSimulatedQualification } from "./provider-simulated-qualification";
 import {
   NoraTurnQualificationAgentSchema,
+  NoraTurnQualificationLiveOutputSchema,
   NoraTurnQualificationSchema,
   unavailableQualification,
   validateNoraTurnQualification,
@@ -853,9 +854,9 @@ async function runLiveWithTools(
     // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
     tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
     // Composition visuelle conversationnelle gelée par décision Morris — 19/11/2026.
-    // Omit visualComposition from LIVE structured-output schema (E05 code retained).
+    // LIVE outputType: soft bounds + strip unknown parameter keys (E05 code retained).
     outputType: E05_VISUAL_COMPOSITION_FROZEN
-      ? NoraTurnQualificationSchema.omit({ visualComposition: true })
+      ? NoraTurnQualificationLiveOutputSchema
       : NoraTurnQualificationAgentSchema,
   });
 
@@ -872,66 +873,63 @@ async function runLiveWithTools(
   let providerContacted: "YES" | "NO" | "UNCERTAIN" = "NO";
 
   try {
-    const streamAttemptId = newAttemptId();
+    const attemptId = newAttemptId();
+    // Structured qualification never surfaces provisional JSON to the Pilote (A3).
+    // Non-stream avoids Agents SDK stream_drain REDACTED schema failures (fp d57214)
+    // observed on tool-heavy investigation turns (CampusNova 2026-11-19).
     streamingAttempted = true;
     emitObs({
       event_name: "d3.nora.provider_attempt",
       component: "d3.nora_adapter",
       operation_id: input.toolScope?.operationId,
       generation_id: generationId,
-      attempt_id: streamAttemptId,
+      attempt_id: attemptId,
       outcome: "PARTIAL",
       policy_version: policy.policyVersion,
       profile_type:
         policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
       meta: {
-        kind: "stream",
+        kind: "non_stream",
         maxTurns,
         model_requested: NORA_STUDY_MODEL,
         max_turns_note: "maxTurns≠maxProviderCalls",
+        live_output_schema: "soft_bound_no_visual",
       },
     });
 
     try {
       // Invoking run() → provider contact becomes at least UNCERTAIN.
       providerContacted = "UNCERTAIN";
-      const streamed = await run(agent, prompt, {
+      const result = await run(agent, prompt, {
         maxTurns,
-        stream: true,
+        stream: false,
         signal: controller.signal,
       } as Parameters<typeof run>[2]);
 
-      const maybeStream = streamed as {
+      const maybeResult = result as {
         toTextStream?: (opts?: { compatibleWithNodeStreams?: boolean }) => AsyncIterable<string>;
         finalOutput?: unknown;
         completed?: Promise<unknown>;
       };
 
-      // Drain structured stream without exposing JSON fragments as Nora prose (A3).
-      if (typeof maybeStream.toTextStream === "function") {
-        const textStream = maybeStream.toTextStream({ compatibleWithNodeStreams: false });
-        for await (const _chunk of textStream) {
-          streamingDelivered = true;
-          providerContacted = "YES";
-        }
-        if (maybeStream.completed) await maybeStream.completed;
+      if (maybeResult.finalOutput != null) {
+        providerContacted = "YES";
+        streamingDelivered = true;
+        streamingNotes = "structured_non_stream_finalOutput";
+      } else if (maybeResult.completed) {
+        await maybeResult.completed;
+        providerContacted = "YES";
+        streamingDelivered = maybeResult.finalOutput != null;
         streamingNotes = streamingDelivered
-          ? "structured_stream_drained_no_provisional_json"
-          : "structured_stream_no_chunks";
-      } else if (maybeStream.completed) {
-        await maybeStream.completed;
-        providerContacted = "YES";
-        streamingNotes = "structured_completed_without_text_stream";
-      } else if (maybeStream.finalOutput != null) {
-        providerContacted = "YES";
-        streamingNotes = "structured_finalOutput_without_stream";
+          ? "structured_non_stream_after_completed"
+          : "structured_non_stream_completed_empty";
       } else {
-        streamingNotes = "structured_result_shape_unrecognized";
+        streamingNotes = "structured_non_stream_result_shape_unrecognized";
       }
 
       // Composition visuelle conversationnelle gelée par décision Morris — 19/11/2026.
       const validated = validateNoraTurnQualification(
-        stripVisualCompositionForFrozenReplies(maybeStream.finalOutput),
+        stripVisualCompositionForFrozenReplies(maybeResult.finalOutput),
       );
       if (validated.ok) {
         qualification = validated.value;
@@ -945,8 +943,8 @@ async function runLiveWithTools(
       }
 
       attempts.push({
-        attemptId: streamAttemptId,
-        kind: "stream",
+        attemptId,
+        kind: "non_stream",
         outcome: validated.ok && content ? "SUCCESS" : "UNKNOWN",
         notes: streamingNotes,
         providerContacted,
@@ -961,8 +959,8 @@ async function runLiveWithTools(
         : "UNCERTAIN";
       providerContacted = contact;
       attempts.push({
-        attemptId: streamAttemptId,
-        kind: "stream",
+        attemptId,
+        kind: "non_stream",
         outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
         notes: cat.category,
         providerContacted: contact,
@@ -971,14 +969,14 @@ async function runLiveWithTools(
       const toolsUsedOnError =
         policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
       const diag = extractProviderErrorDiagnostics(streamErr, {
-        phase: streamingDelivered ? "stream_drain" : "stream_start",
+        phase: streamingDelivered ? "non_stream_after_output" : "non_stream_run",
         streamingDelivered,
         toolCallsObserved: toolsUsedOnError,
       });
       // DEV-only ephemeral forensic dump — never OBS / never RECETTE / never handoff.
       writeEphemeralNoraDiag({
         generationId,
-        attemptId: streamAttemptId,
+        attemptId,
         phase: diag.error_phase,
         category: cat.category,
         diag,
@@ -989,14 +987,14 @@ async function runLiveWithTools(
         component: "d3.nora_adapter",
         operation_id: input.toolScope?.operationId,
         generation_id: generationId,
-        attempt_id: streamAttemptId,
+        attempt_id: attemptId,
         outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
         error_category: cat.category,
         policy_version: policy.policyVersion,
         profile_type:
           policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
         meta: {
-          kind: "stream",
+          kind: "non_stream",
           model_requested: NORA_STUDY_MODEL,
           provider_contacted: contact,
           error_name: diag.error_name,
@@ -1012,6 +1010,7 @@ async function runLiveWithTools(
           zod_issue_path: diag.zod_issue_path,
           validation_rule_hint: diag.validation_rule_hint,
           msg_fingerprint: diag.msg_fingerprint,
+          live_output_schema: "soft_bound_no_visual",
         },
       });
 
