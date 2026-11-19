@@ -233,6 +233,47 @@ describe("Journal D4 revisions (PG)", () => {
     expect(act.state).toBe("REVISED");
   });
 
+  it("journal projection exposes decision originSources without mutating D6 statement", async () => {
+    const pilotId = await seedPilot("J-d6-proj");
+    const { projectId } = await seedLinkedProject(pilotId, "Décisions projection");
+    const statement =
+      "Pour le fonctionnement cible des trois centres pilotes, une réservation ne sera considérée comme confirmée que lorsque les ressources indispensables auront été vérifiées.";
+    const decisionId = await db.transaction(async (tx) =>
+      insertHumanDecision(tx, {
+        projectId,
+        pilotId,
+        sourceKind: "pilotage",
+        sourceRef: "cmd-proj-1",
+        kind: "RECORD_DECISION",
+        objectRef: "",
+        statement,
+      }),
+    );
+    const withExpl = await appendDecisionExplanationRevision(pilotId, projectId, decisionId, {
+      explanationMarkdown:
+        "À Lyon un accord de principe ; à Lille le matériel manquait — synthèse sourcée de test.",
+      provenance: { sourceKind: "message", sourceId: "m-proj-1", epistemic: "observed" },
+      operationId: `exp-proj-${decisionId}`,
+    });
+    expect(withExpl.status).toBe("AVAILABLE");
+
+    const proj = await getJournalProjection(pilotId, projectId);
+    const row = proj.decisions.find((d) => d.id === decisionId);
+    expect(row).toBeTruthy();
+    expect(row!.statement).toBe(statement.slice(0, 500));
+    expect(row!.explanation?.explanationMarkdown).toMatch(/Lyon/);
+    expect(Array.isArray(row!.originSources)).toBe(true);
+    // pilotage sourceRef is not a message id → no invented origin chip
+    expect(row!.originSources?.length ?? 0).toBe(0);
+    expect(row!.sourcedMotivationExcerpt ?? null).toBeNull();
+
+    const stored = (
+      await db.select().from(humanDecisions).where(eq(humanDecisions.id, decisionId))
+    )[0];
+    expect(stored.statement).toBe(statement.slice(0, 500));
+    expect(stored.state).toBe("APPLICABLE");
+  });
+
   it("J-C04 reactivation selects intent-matching OPEN points with cooldown", async () => {
     const pilotId = await seedPilot("J-react");
     const { prep, projectId } = await seedLinkedProject(pilotId, "Réactivation");

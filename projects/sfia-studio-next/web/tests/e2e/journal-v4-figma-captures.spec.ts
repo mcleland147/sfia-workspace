@@ -162,9 +162,14 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
     await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
     await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
     await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "decision");
-    await expect(page.getByTestId("journal-section-choice")).toHaveText("LE CHOIX RETENU");
-    await expect(page.getByTestId("journal-section-reasoning")).toHaveText(
-      "LE RAISONNEMENT QUI A CONDUIT AU CHOIX",
+    // Figma 860:136 — labels 40/60 (not enlarged)
+    await expect(page.getByTestId("journal-section-choice")).toHaveText("CHOIX RETENU");
+    await expect(page.getByTestId("journal-section-reasoning")).toHaveText("POURQUOI CE CHOIX ?");
+    await expect(page.getByTestId("journal-decision-viewer-title")).not.toHaveText(
+      /Décision applicable du projet Journal E2E — conserver la trajectoire A\./,
+    );
+    await expect(page.getByTestId("journal-decision-choice-text")).toContainText(
+      /conserver la trajectoire A/i,
     );
     await assertViewerBox(page.getByTestId("journal-viewer"));
     await shot(page, "09-runtime-860-136-decision-40-60.png");
@@ -174,7 +179,7 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
     await expect(page.getByTestId(`journal-decision-${seed.decisionApplicableId}`)).toBeVisible();
     await shot(page, "10-runtime-860-251-recherche-decisions.png");
 
-    // 11 — decision enlarged
+    // 11 — decision enlarged (Figma 860:360 labels)
     await page.getByTestId("journal-viewer-enlarge").click();
     await expect(page.getByTestId("project-journal")).toHaveAttribute(
       "data-journal-layout",
@@ -182,6 +187,10 @@ test.describe("Journal V4 Figma captures 1680×970", () => {
     );
     await expect(page.getByTestId("journal-decision-aside")).toBeVisible();
     await expect(page.getByTestId("journal-decision-aside-label")).toHaveText("REPÈRES DE DÉCISION");
+    await expect(page.getByTestId("journal-section-choice")).toHaveText("LE CHOIX RETENU");
+    await expect(page.getByTestId("journal-section-reasoning")).toHaveText(
+      "LE RAISONNEMENT QUI A CONDUIT AU CHOIX",
+    );
     await expect(page.getByTestId("journal-section-decision-context")).toHaveText(
       "CONTEXTE ET SOURCES ESSENTIELLES",
     );

@@ -26,8 +26,20 @@ import {
   qualifyProvenanceSource,
   type ExtendedProvenance,
 } from "@/domains/knowledge/journal-cognition";
+import { extractSourcedMotivationFromMessage } from "@/domains/knowledge/journal-editorial";
 import { StudioError } from "@/lib/http-errors";
 import { newId } from "@/lib/ids";
+
+function d6SourceKindToProvenanceKind(
+  sourceKind: string,
+): ExtendedProvenance["sourceKind"] | null {
+  const k = sourceKind.trim().toUpperCase();
+  if (k === "USER_MESSAGE" || k === "MESSAGE") return "message";
+  if (k === "DOCUMENT" || k === "DOCUMENT_REVISION") return "document";
+  if (k === "PILOT") return "pilot";
+  if (k === "NORA" || k === "ASSISTANT_MESSAGE") return "nora";
+  return null;
+}
 
 type Tx = {
   select: typeof db.select;
@@ -1063,6 +1075,60 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
   for (const d of decisionRows) {
     const expl = await getCurrentDecisionExplanation(pilotId, projectId, d.id);
     const applicable = d.state === "APPLICABLE" && !supersededBy.has(d.id);
+    const originSources: Array<{
+      ownerKind: "decision";
+      ownerId: string;
+      subjectId: string | null;
+      sourceKind: string;
+      sourceId?: string;
+      documentId?: string;
+      revisionId?: string;
+      currentness: string;
+      detail: string;
+      authorLabel?: string;
+      occurredAt?: string;
+      excerpt?: string;
+      contributionKind?: string;
+    }> = [];
+    let sourcedMotivationExcerpt: string | null = null;
+    const provKind = d6SourceKindToProvenanceKind(d.sourceKind);
+    if (provKind && d.sourceRef?.trim()) {
+      const q = await qualifyProvenanceSource(pilotId, {
+        sourceKind: provKind,
+        sourceId: d.sourceRef.trim(),
+        contributionKind: provKind === "nora" ? "nora_analysis" : "pilot_confirmation",
+      });
+      originSources.push({
+        ownerKind: "decision",
+        ownerId: d.id,
+        subjectId: null,
+        sourceKind: q.sourceKind,
+        sourceId: q.sourceId,
+        documentId: q.documentId,
+        revisionId: q.revisionId,
+        currentness: q.currentness,
+        detail: q.detail,
+        authorLabel: q.authorLabel,
+        occurredAt: q.occurredAt,
+        excerpt: q.excerpt,
+        contributionKind: q.contributionKind,
+      });
+      if (provKind === "message" && q.currentness !== "INACCESSIBLE") {
+        const msgRow = (
+          await db
+            .select({ content: messages.content })
+            .from(messages)
+            .innerJoin(conversations, eq(conversations.id, messages.conversationId))
+            .where(
+              and(eq(messages.id, d.sourceRef.trim()), eq(conversations.ownerPilotId, pilotId)),
+            )
+            .limit(1)
+        )[0];
+        if (msgRow?.content) {
+          sourcedMotivationExcerpt = extractSourcedMotivationFromMessage(String(msgRow.content));
+        }
+      }
+    }
     decisions.push({
       ...d,
       applicable,
@@ -1075,6 +1141,8 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
               potentiallyStale: expl.explanation.potentiallyStale,
             }
           : null,
+      originSources,
+      sourcedMotivationExcerpt,
     });
   }
 

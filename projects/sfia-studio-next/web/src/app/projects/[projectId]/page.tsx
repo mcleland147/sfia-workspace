@@ -262,7 +262,11 @@ export default function ProjectPage() {
           createdAt: string;
           applicable?: boolean;
           supersededByDecisionId?: string | null;
+          sourceKind?: string;
+          sourceRef?: string;
           explanation?: JournalDecision["explanation"];
+          originSources?: JournalSourceLink[];
+          sourcedMotivationExcerpt?: string | null;
         }>;
         restrictions?: JournalRestriction[];
         sourceLinks?: JournalSourceLink[];
@@ -288,7 +292,11 @@ export default function ProjectPage() {
               : new Date(d.createdAt as unknown as string).toISOString(),
           applicable: d.applicable,
           supersededByDecisionId: d.supersededByDecisionId ?? null,
+          sourceKind: d.sourceKind,
+          sourceRef: d.sourceRef,
           explanation: d.explanation ?? null,
+          originSources: d.originSources ?? [],
+          sourcedMotivationExcerpt: d.sourcedMotivationExcerpt ?? null,
         })),
       );
       setJournalRestrictions(body.restrictions ?? []);

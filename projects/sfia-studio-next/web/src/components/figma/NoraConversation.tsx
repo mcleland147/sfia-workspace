@@ -103,11 +103,12 @@ export function NoraConversation(props: {
       node.scrollIntoView({ block: "center", behavior: "smooth" });
       node.setAttribute("data-journal-focus", "1");
       node.classList.add("is-journal-focus");
+      // Keep focus marker long enough for Journal→Travail deep-link asserts / paint races.
       highlightTimer = window.setTimeout(() => {
         node.classList.remove("is-journal-focus");
         node.removeAttribute("data-journal-focus");
         props.onFocusMessageHandled?.();
-      }, 2400);
+      }, 5200);
     };
     tryFocus();
     return () => {

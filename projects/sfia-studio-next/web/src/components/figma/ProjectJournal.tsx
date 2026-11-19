@@ -3,6 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import {
+  composeDecisionChoiceText,
+  composeDecisionDisplaySummary,
+  composeDecisionDisplayTitle,
+  decisionKindDisplayLabel,
+  decisionListMetaLabel,
+  decisionScopeDisplayLabel,
   editorialDisplayBullet,
   prioritizeAcquisForJournalDisplay,
   prioritizeOpenPointsForJournalDisplay,
@@ -46,11 +52,17 @@ export type JournalDecision = {
   createdAt: string;
   applicable?: boolean;
   supersededByDecisionId?: string | null;
+  sourceKind?: string;
+  sourceRef?: string;
   explanation?: {
     revisionNumber: number;
     explanationMarkdown: string;
     potentiallyStale?: boolean;
   } | null;
+  /** Provenance D6 resolved for Journal (message/document) — never invents links. */
+  originSources?: JournalSourceLink[];
+  /** Motivation excerpt only when explicitly present on the origin message. */
+  sourcedMotivationExcerpt?: string | null;
 };
 
 export type JournalRestriction = {
@@ -62,7 +74,7 @@ export type JournalRestriction = {
 };
 
 export type JournalSourceLink = {
-  ownerKind: "acquis" | "open_point" | "summary";
+  ownerKind: "acquis" | "open_point" | "summary" | "decision";
   ownerId: string;
   subjectId: string | null;
   sourceKind: string;
@@ -117,7 +129,7 @@ const COPY = {
   searchEmptySubjects: "Aucun sujet ne correspond à cette recherche.",
   searchEmptyDecisions: "Aucune décision ne correspond à cette recherche.",
   memoryKicker: "MÉMOIRE DU PROJET   /   SUJET",
-  decisionKicker: "DÉCISION DURABLE",
+  decisionKicker: "DÉCISION",
   synthesis: "LA SYNTHÈSE",
   retained: "CE QU’ON RETIENT",
   clarify: "À ÉCLAIRCIR",
@@ -152,7 +164,13 @@ const COPY = {
   asideNature: "NATURE",
   asideSourcesHist: "SOURCES ET HISTORIQUE",
   asideFurther: "POUR ALLER PLUS LOIN",
-  /** Figma 860:360 */
+  /** Figma 860:136 — lecture 40/60 */
+  decisionChoiceSplit: "CHOIX RETENU",
+  decisionReasoningSplit: "POURQUOI CE CHOIX ?",
+  decisionAuthoritySplit: "AUTORITÉ ET PORTÉE",
+  decisionHistorySplit: "HISTOIRE DU CHOIX",
+  decisionSeeSources: "Voir le cheminement et les sources",
+  /** Figma 860:360 — vue agrandie */
   decisionChoice: "LE CHOIX RETENU",
   decisionReasoning: "LE RAISONNEMENT QUI A CONDUIT AU CHOIX",
   decisionContext: "CONTEXTE ET SOURCES ESSENTIELLES",
@@ -216,16 +234,30 @@ function subjectBlurb(
   return first.length > 140 ? `${first.slice(0, 137)}…` : first;
 }
 
+function decisionTitle(d: JournalDecision): string {
+  return composeDecisionDisplayTitle({
+    statement: d.statement,
+    objectRef: d.objectRef,
+  });
+}
+
 function decisionBlurb(d: JournalDecision): string {
-  const expl = d.explanation?.explanationMarkdown?.trim() ?? "";
-  if (expl) {
-    const line = expl
-      .split(/\r?\n/)
-      .map((l) => l.replace(/^#+\s*/, "").replace(/[*_`]/g, "").trim())
-      .find((l) => l.length > 0);
-    if (line) return line.length > 140 ? `${line.slice(0, 137)}…` : line;
-  }
-  return d.statement.length > 140 ? `${d.statement.slice(0, 137)}…` : d.statement;
+  return composeDecisionDisplaySummary({
+    statement: d.statement,
+    explanationMarkdown: d.explanation?.explanationMarkdown,
+  });
+}
+
+function decisionAuthorityLine(d: JournalDecision): string {
+  const scope = decisionScopeDisplayLabel(d.scope);
+  return `Pilote · ${scope}`;
+}
+
+function decisionScopeValidityLine(d: JournalDecision): string {
+  const scope = decisionScopeDisplayLabel(d.scope);
+  if (d.applicable === false) return `${scope} · non applicable / historique`;
+  if (d.supersededByDecisionId) return `${scope} · remplacée`;
+  return `${scope} · en vigueur`;
 }
 
 function decisionStatusLabel(d: JournalDecision): { label: string; tone: "ok" | "warn" | "muted" } {
@@ -392,13 +424,23 @@ export function ProjectJournal(props: {
   const selectedContradictions = selectedSubjectId
     ? contradictions.filter((c) => c.subjectId === selectedSubjectId)
     : [];
-  const activeRestrictions = restrictions.filter((r) => r.status === "ACTIVE");
-  const historicalRestrictions = restrictions.filter((r) => r.status !== "ACTIVE");
-
   const selectedDecision =
     selectedDecisionId != null
       ? decisions.find((d) => d.id === selectedDecisionId) ?? null
       : null;
+
+  const decisionRestrictions = restrictions.filter(
+    (r) =>
+      r.originDecisionId === selectedDecision?.id ||
+      (selectedDecision?.supersededByDecisionId != null &&
+        r.originDecisionId === selectedDecision.supersededByDecisionId),
+  );
+  const activeRestrictions = decisionRestrictions.filter((r) => r.status === "ACTIVE");
+  const historicalRestrictions = decisionRestrictions.filter((r) => r.status !== "ACTIVE");
+  const decisionSourcesOpen =
+    Boolean(selectedDecision?.originSources?.length) ||
+    Boolean(selectedDecision?.sourcedMotivationExcerpt) ||
+    Boolean(selectedDecision?.sourceRef);
 
   /** J-C11 — match statement or explanation; never treat kind/label alone as a hit. */
   const filteredDecisions = useMemo(() => {
@@ -979,9 +1021,11 @@ export function ProjectJournal(props: {
                 <div className="journal-viewer-banner-text">
                   <p className="journal-viewer-kicker">{COPY.decisionKicker}</p>
                   <h2 className="journal-viewer-title" data-testid="journal-decision-viewer-title">
-                    {selectedDecision.statement || selectedDecision.kind}
+                    {decisionTitle(selectedDecision)}
                   </h2>
-                  <p className="journal-viewer-lede">{decisionBlurb(selectedDecision)}</p>
+                  <p className="journal-viewer-lede" data-testid="journal-decision-viewer-summary">
+                    {decisionBlurb(selectedDecision)}
+                  </p>
                   <span className={`journal-status journal-status-${decisionStatusLabel(selectedDecision).tone}`}>
                     {decisionStatusLabel(selectedDecision).label}
                   </span>
@@ -1021,18 +1065,22 @@ export function ProjectJournal(props: {
                 <div className="journal-viewer-layout">
                   <div className="journal-viewer-article">
                     <section className="journal-card journal-card-synthesis">
-                      <p className="journal-card-kicker" data-testid="journal-section-choice">{COPY.decisionChoice}</p>
-                      <p className="journal-acquis-line">{selectedDecision.statement || "—"}</p>
+                      <p className="journal-card-kicker" data-testid="journal-section-choice">
+                        {layoutMode === "enlarged" ? COPY.decisionChoice : COPY.decisionChoiceSplit}
+                      </p>
+                      <p className="journal-acquis-line" data-testid="journal-decision-choice-text">
+                        {composeDecisionChoiceText(selectedDecision.statement) || "—"}
+                      </p>
                       <p className="journal-muted" data-testid="journal-decision-applicability">
-                        {selectedDecision.scope}
-                        {selectedDecision.applicable === false
-                          ? " · non applicable / historique"
-                          : " · applicable"}
-                        {selectedDecision.supersededByDecisionId ? " · remplacé" : ""}
+                        {decisionScopeValidityLine(selectedDecision)}
                       </p>
                     </section>
                     <section className="journal-card">
-                      <p className="journal-card-kicker" data-testid="journal-section-reasoning">{COPY.decisionReasoning}</p>
+                      <p className="journal-card-kicker" data-testid="journal-section-reasoning">
+                        {layoutMode === "enlarged"
+                          ? COPY.decisionReasoning
+                          : COPY.decisionReasoningSplit}
+                      </p>
                       {selectedDecision.explanation?.explanationMarkdown ? (
                         <>
                           {selectedDecision.explanation.potentiallyStale ? (
@@ -1041,6 +1089,19 @@ export function ProjectJournal(props: {
                             </p>
                           ) : null}
                           <SafeMarkdown content={selectedDecision.explanation.explanationMarkdown} />
+                          <p className="journal-muted">
+                            Synthèse interprétative sourcée · ne modifie pas l’acte D6
+                          </p>
+                        </>
+                      ) : selectedDecision.sourcedMotivationExcerpt ? (
+                        <>
+                          <p data-testid="journal-decision-sourced-motivation">
+                            {selectedDecision.sourcedMotivationExcerpt}
+                          </p>
+                          <p className="journal-muted">
+                            Extrait du message source du Pilote · ne constitue pas une nouvelle motivation
+                            officielle D6
+                          </p>
                         </>
                       ) : (
                         <p className="journal-muted" data-testid="journal-explanation-empty">
@@ -1048,14 +1109,74 @@ export function ProjectJournal(props: {
                         </p>
                       )}
                     </section>
-                    <section className="journal-card" data-testid="journal-decision-context">
-                      <p className="journal-card-kicker" data-testid="journal-section-decision-context">
-                        {COPY.decisionContext}
-                      </p>
-                      <p className="journal-muted">
-                        Sources et contexte selon les droits et les objets réellement liés à cette décision.
-                      </p>
-                    </section>
+                    {layoutMode === "enlarged" ? (
+                      <section className="journal-card" data-testid="journal-decision-context">
+                        <p className="journal-card-kicker" data-testid="journal-section-decision-context">
+                          {COPY.decisionContext}
+                        </p>
+                        {(selectedDecision.originSources ?? []).length > 0 ? (
+                          <div className="journal-source-list">
+                            {(selectedDecision.originSources ?? []).map((link) => (
+                              <SourceChip
+                                key={`${link.ownerId}-${link.sourceId ?? link.documentId ?? link.detail}`}
+                                link={link}
+                                onOpenMessage={props.onOpenMessage}
+                                onOpenDocument={props.onOpenDocument}
+                              />
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="journal-muted">
+                            Aucune source d’origine accessible pour cette décision.
+                          </p>
+                        )}
+                      </section>
+                    ) : (
+                      <>
+                        <div className="journal-decision-meta-grid">
+                          <section className="journal-card" data-testid="journal-decision-authority-card">
+                            <p className="journal-card-kicker">{COPY.decisionAuthoritySplit}</p>
+                            <p className="journal-aside-meta-value">{decisionAuthorityLine(selectedDecision)}</p>
+                            <p className="journal-muted">{decisionScopeValidityLine(selectedDecision)}</p>
+                          </section>
+                          <section className="journal-card" data-testid="journal-decision-history-card">
+                            <p className="journal-card-kicker">{COPY.decisionHistorySplit}</p>
+                            <p className="journal-aside-meta-value">
+                              {selectedDecision.supersededByDecisionId
+                                ? "Décision remplacée · historique lié"
+                                : "Décision initiale"}
+                            </p>
+                            <p className="journal-muted">
+                              {new Date(selectedDecision.effectiveAt || selectedDecision.createdAt).toLocaleString(
+                                "fr-FR",
+                                { day: "numeric", month: "short", year: "numeric" },
+                              )}
+                              {activeRestrictions.length > 0
+                                ? ` · ${activeRestrictions.length} restriction(s) liée(s)`
+                                : ""}
+                            </p>
+                          </section>
+                        </div>
+                        {decisionSourcesOpen ? (
+                          <button
+                            type="button"
+                            className="journal-decision-sources-cta"
+                            data-testid="journal-decision-see-sources"
+                            onClick={() => {
+                              const first = selectedDecision.originSources?.[0];
+                              if (first?.sourceKind === "message" && first.sourceId && props.onOpenMessage) {
+                                props.onOpenMessage(first.sourceId);
+                                return;
+                              }
+                              setLayout("enlarged");
+                            }}
+                          >
+                            <span>{COPY.decisionSeeSources}</span>
+                            <span aria-hidden>↗</span>
+                          </button>
+                        ) : null}
+                      </>
+                    )}
                     {activeRestrictions.length > 0 ? (
                       <section className="journal-card" data-testid="journal-decision-restrictions">
                         <p className="journal-card-kicker">ÉVOLUTIONS · RESTRICTIONS ACTIVES</p>
@@ -1086,18 +1207,26 @@ export function ProjectJournal(props: {
                     <p className="journal-aside-title">Acte et explication distincts</p>
                     <hr className="journal-aside-sep" />
                     <p className="journal-aside-meta-label">{COPY.decisionAuthority}</p>
-                    <p className="journal-aside-meta-value">Pilote compétent · acte D6</p>
+                    <p className="journal-aside-meta-value">{decisionAuthorityLine(selectedDecision)}</p>
                     <p className="journal-aside-meta-label">STATUT</p>
                     <p className="journal-aside-meta-value">{decisionStatusLabel(selectedDecision).label}</p>
                     <p className="journal-aside-meta-label">{COPY.decisionScope}</p>
-                    <p className="journal-aside-meta-value">{selectedDecision.scope}</p>
-                    <p className="journal-aside-meta-desc">{selectedDecision.state}</p>
+                    <p className="journal-aside-meta-value">{decisionScopeDisplayLabel(selectedDecision.scope)}</p>
+                    <p className="journal-aside-meta-desc">{decisionScopeValidityLine(selectedDecision)}</p>
                     <p className="journal-aside-meta-label">{COPY.decisionEvolutions}</p>
-                    <p className="journal-aside-meta-value">{selectedDecision.supersededByDecisionId ? "Remplacée / historique lié" : "Historique et décisions liées"}</p>
+                    <p className="journal-aside-meta-value">
+                      {selectedDecision.supersededByDecisionId
+                        ? "Remplacée / historique lié"
+                        : activeRestrictions.length > 0
+                          ? "Restrictions liées enregistrées"
+                          : "Aucune évolution enregistrée"}
+                    </p>
                     {selectedDecision.supersededByDecisionId ? (
                       <>
                         <p className="journal-aside-meta-label">REMPLACÉE PAR</p>
-                        <p className="journal-aside-meta-desc">{selectedDecision.supersededByDecisionId}</p>
+                        <p className="journal-aside-meta-desc">
+                          {decisionKindDisplayLabel(selectedDecision.kind)} liée
+                        </p>
                       </>
                     ) : null}
                     <hr className="journal-aside-sep" />
@@ -1447,10 +1576,14 @@ function DecisionList(props: {
               onClick={() => props.onSelect(d.id)}
             >
               <span className="journal-decision-main">
-                <span className="journal-decision-title">{d.statement || d.kind}</span>
+                <span className="journal-decision-title">{decisionTitle(d)}</span>
                 <span className="journal-row-desc">{decisionBlurb(d)}</span>
                 <span className="journal-decision-meta">
-                  {d.kind} · {d.scope}
+                  {decisionListMetaLabel({
+                    kind: d.kind,
+                    scope: d.scope,
+                    supersededByDecisionId: d.supersededByDecisionId,
+                  })}
                 </span>
               </span>
               <span className={`journal-status journal-status-${st.tone}`}>

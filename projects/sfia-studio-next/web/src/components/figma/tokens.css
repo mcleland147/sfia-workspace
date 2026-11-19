@@ -4464,6 +4464,36 @@
   flex-direction: column;
   gap: 10px;
 }
+.journal-decision-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 900px) {
+  .journal-decision-meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.journal-decision-sources-cta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  appearance: none;
+  border: 1px solid #35415c;
+  background: #1e2544;
+  border-radius: 11px;
+  padding: 18px 22px;
+  color: #f6f7ff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+.journal-decision-sources-cta:hover {
+  border-color: #827cff;
+}
 .journal-source-chip {
   width: 100%;
   text-align: left;

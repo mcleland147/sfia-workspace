@@ -121,7 +121,9 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
     const focused = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
     await expect(focused).toBeVisible({ timeout: 15000 });
-    await expect(focused).toHaveAttribute("data-journal-focus", "1");
+    await expect(focused).toHaveAttribute("data-journal-focus", "1", { timeout: 8000 });
+    // After highlight clears (~5.2s), suppress must hold — no jump to last message.
+    // (assert attribute first while marker is still present)
     const ids = await page.locator("[data-message-id]").evaluateAll((els) =>
       els.map((e) => e.getAttribute("data-message-id")),
     );
@@ -135,8 +137,8 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
       expect(focusBox).toBeTruthy();
       expect(lastBox).toBeTruthy();
     }
-    // After highlight clears (~2.4s), suppress must hold — no jump to last message.
-    await page.waitForTimeout(2800);
+    // After highlight clears (~5.2s), suppress must hold — no jump to last message.
+    await page.waitForTimeout(5600);
     const focusBoxAfter = await focused.boundingBox();
     expect(focusBoxAfter).toBeTruthy();
     const viewport = page.viewportSize();
@@ -169,7 +171,9 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     });
     await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
     await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
-    await expect(page.getByTestId("journal-decision-applicability")).toContainText(/applicable|historique|vigueur|scope/i);
+    await expect(page.getByTestId("journal-decision-applicability")).toContainText(
+      /en vigueur|non applicable|historique|projet|portée/i,
+    );
     await expect(page.getByTestId("journal-decision-viewer")).toContainText(/multicritèreorion/i);
 
     // Back to subjects for document source click
