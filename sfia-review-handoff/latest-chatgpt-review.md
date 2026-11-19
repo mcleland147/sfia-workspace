@@ -2,14 +2,15 @@
 
 | Champ | Valeur |
 |---|---|
-| Date / heure | 2026-11-19 ~16:45 CET |
-| Cycle | 8 — Delivery correctif intégré |
+| Date / heure | 2026-11-19 ~17:50 CET |
+| Cycle | 8 — Delivery correctif |
 | Profil | CRITICAL |
-| Macro-lot | CONTINUITÉ PILOTE–NORA–MÉMOIRE — Ensemble 05 + Ensemble 06 |
-| Typologie | EVOL CORRECTIVE / INC / QA / RECETTE |
+| Macro-lot | QUALITÉ DE LA MÉMOIRE DURABLE — Ensemble 06 Journal V4 |
+| Typologie | CORRECTIF FONCTIONNEL / UX / INTÉGRATION |
 | Type | PATCH CANDIDATE / **NO RELEASE** / STABLE NOT AVAILABLE |
 | Review Pack | FULL |
 | Review Handoff | REQUIRED / PUBLISH-IN-CYCLE |
+| Verdict Cursor | **CORRECTIVE DELIVERY VERIFIED — RECETTE TECHNICALLY AVAILABLE — MORRIS UAT PENDING** |
 
 ---
 
@@ -19,263 +20,233 @@
 |---|---|
 | Worktree | `/Users/morris/Projects/sfia-wt-journal-delivery-20261119` |
 | Dépôt | `mcleland147/sfia-workspace` (`origin` GitHub) |
-| Branche produit | `sfia/next-journal-delivery-20261119` |
-| HEAD initial (préflight) | `4c49f717321ffbc3d276895301ae38d516b637cc` |
-| Tree initial | `73efb65d4fb123b586f23088772bf0ce63935542` |
-| HEAD final | `d301733871b107fe203730dda056b9c4eac77fdd` |
-| Tree final | `49e5a6f8ff4024d010831688e10d7d6c7abddd3c` |
+| Branche produit locale | `sfia/next-journal-delivery-20261119` |
+| HEAD initial (préflight contrat) | rapporté `d3017338` — **local réel** `6457bc8e` (déjà servi en RECETTE ; divergence expliquée = cycles correctifs intermédiaires) |
+| HEAD code correctif | `605def5970982bc56012e150bc105656d934169e` |
+| Tree code | `2810c605fffca17b96f64734877f638074819ee5` |
+| HEAD docs as-built RECETTE | `f8dd98024fd6b09c1092055261464a9e9fd26a08` |
+| Tree docs | `b208cd0eb7044ba2a4450bedcd228aa113cffc12` |
 | `origin/main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` (inchangé) |
-| Push produit | **AUCUN** |
-| PR / merge | **AUCUN** |
-| Matrice Journal v0.7 / SEF / ADR / décisions | **non modifiés** |
+| Branche documentaire | `sfia/next-journal-conception-fonctionnelle-ux-20261119` @ `f0d2d033` — lecture seule |
+| Handoff précédent | `sfia/review-handoff` @ `7206da97` blob `90bf97ea` |
+| Push produit / PR / merge | **AUCUN** |
+| Matrice Journal v0.7 / SEF / ADR / décisions / Figma / D6 | **non modifiés** |
 
-Commit produit :
-
-```
-fix(next): freeze E05 visual grammar and restore Journal editorial quality
-```
-
-Fichiers trackés du commit (13) :
-
-- `construction/as-built-ensemble-05-travail-nora-20261117.md`
-- `construction/as-built-ensemble-06-journal-20261119.md`
-- `construction/delivery-history.md`
-- `web/src/domains/conversation/nora-adapter.ts`
-- `web/src/domains/knowledge/service.ts`
-- `web/src/domains/knowledge/journal.ts`
-- `web/src/domains/knowledge/journal-cognition.ts`
-- `web/src/components/figma/NoraConversation.tsx`
-- `web/src/components/figma/ProjectJournal.tsx`
-- `web/src/components/figma/tokens.css`
-- `web/tests/unit/e05-visual-composition-freeze.test.ts` (créé)
-- `web/tests/unit/d4-record-knowledge-conduction.test.ts`
-- `web/tests/integration/journal-d4-revisions.pg.test.ts`
+**Git Truth : PASS** (divergence vs SHA contrat `d3017338` motivée et cohérente avec RECETTE déjà sur `6457bc8e`).
 
 ---
 
-## 2. Fichiers lus (sources contractuelles + runtime)
+## 2. Sources Git applicables (lues)
 
-### Processus / gouvernance
-
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` (réf. handoff)
-- `scripts/sfia/publish-review-handoff.sh`
-- Contrats E05/E06 déjà appliqués en cycles antérieurs (matrice v0.7 lecture seule)
-
-### Code candidat inspecté / modifié
-
-- `nora-adapter.ts` — gel E05, instructions, outputType LIVE
-- `semantic-qualification.ts` — schémas retenus (lecture)
-- `visual-composition.ts` / `NoraComposition` — **conservés** (non supprimés)
-- `NoraConversation.tsx` — focus message retry
-- `knowledge/service.ts` — compact editorial + SUBJECT→synthèse
-- `knowledge/journal.ts` — dédup sourceLinks
-- `knowledge/journal-cognition.ts` — excerpts provenance
-- `ProjectJournal.tsx` / `tokens.css` — SourceChip, blurbs, hierarchy height
-- `page.tsx` — `onOpenMessage` (lecture ; déjà navigation immédiate)
-
-### Traces UNKNOWN CampusNova
-
-- RECETTE DB `sfia_next_recette_ml4` — messages UNKNOWN + `conversation_turn_commands`
-- OBS JSONL `…/4c49f717/…/.obs/recette/events-2026-11-19.jsonl` — `op_78d70493-…`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `prompts/templates/sfia-cycle-execution-template.md`
+- Gouvernance NEXT (SEF, roadmap, décisions, naming, ENV-01, versioning) — **non mutées**
+- Conception fonctionnelle (contexte Nora, connaissance sujets, décisions Pilote)
+- `architecture-technique/cadrage-r4.md` + ADR/DATA-01 applicables
+- Contrats Journal construction (fonctionnel UX, technique, matrice v0.7 **lecture seule**)
+- As-built E05/E06 + delivery-history
+- Code D3/D4, Journal, SourceChip, NoraConversation, tests unit/PG/e2e
+- Figma Journal V4 `itgvCulInEnFY6DvgIegvP` page `828:2` — référence conception (pas de modification Figma)
 
 ---
 
-## 3. Analyse sous-systèmes
+## 3. Constats CampusNova (faits de recette)
 
-### A — Gel grammaire visuelle E05
-
-**Règle exacte :**
-
-1. `E05_VISUAL_COMPOSITION_FROZEN = true` (constante technique documentée Morris 19/11/2026).
-2. Instructions LIVE : interdiction d’émettre `visualComposition` ; substance dans `replyDraft` Markdown.
-3. `Agent.outputType` LIVE = `NoraTurnQualificationSchema.omit({ visualComposition: true })` quand gel actif (schéma Agent complet **conservé** dans le code).
-4. `stripVisualCompositionForFrozenReplies` avant `validateNoraTurnQualification` (stream LIVE + simulated).
-5. Renderer : messages **historiques** avec composition restent affichables ; nouvelles réponses sans `visualComposition` → Markdown (`SafeMarkdown`).
-
-**Non fait (conforme contrat) :** toggle UI, feature flag produit, suppression composants/styles/schémas/tests E05, réécriture conception.
-
-### B — Journal qualité
-
-| Défaut CampusNova | Cause qualifiée | Correctif |
-|---|---|---|
-| « Synthèse non encore disponible » | **PROUVÉ** : 0 revision `knowledge_subject_summary_revisions` ; `appendSubjectSummaryRevision` jamais appelé en production | SUBJECT `knowledgeStatement` ≠ titre → `appendSubjectSummaryRevision` (idempotent `subj-summary:{id}:{gen}`) |
-| Acquis trop longs / « Selon le Pilote… » | **PROUVÉ** : statements D4 355–461 car. | `editorialCompactKnowledgeStatement` ≤220 + instructions Nora |
-| Références génériques / indistinguables | **PROUVÉ** : detail fixe D8-like ; multi-liens même `sourceId` | excerpt auteur/date/ordinal ; dédup par clé source |
-| Clic → dernier message | **PROUVÉ** côté UI : focus clear-on-first-miss | retries focus jusqu’à 24×50ms |
-| Grande hauteur vide 1 sujet | **PROUVÉ** CSS `flex: 1 1 auto` | `flex: 0 1 auto; max-height: 100%` |
-| Sous-titre générique viewer | UI inventait lede | blurb résumé ou 1er acquis ; sinon rien |
-
-**CampusNova historique :** non rattrapé (GO interdit). Nouveaux échanges appliqueront synthèse/compact.
-
-### C — Incident UNKNOWN
-
-Observation Pilote : dernier tour CampusNova → placeholder UNKNOWN.
-
-| Dimension | Qualification |
+| Fait | Observation |
 |---|---|
-| Message assistant | `msg_7513e801-…` status UNKNOWN · gen `gen_24118504-…` · ordinal 24 |
-| Message utilisateur | `msg_4c097f28-…` **préservé** COMPLETE ordinal 23 |
-| Operation | `op_78d70493-b0f2-4087-baa9-68e192ea335f` status UNKNOWN |
-| Exception | **CAUSE PROUVÉE** : `ModelBehaviorError` / `structured_output_invalid_type` / phase `stream_drain` / fingerprint `d57214a42390491f` / category `PROVIDER_SCHEMA_OR_OUTPUT` |
-| Provider contact | YES · streaming_delivered true · tool_calls 4 · attempts 1 (pas de retry auto) |
-| Token overflow | **NON PROUVÉ** (aucune mesure tokens entrée/sortie dans traces) |
-| Lien causal grammaire visuelle | **CAUSE POSSIBLE** (pression schéma structured-output) — gel omet `visualComposition` du schéma LIVE |
-| Timeout / transport HTTP | **EXCLUE** pour ce tour (error_kind ≠ timeout/transport) |
-| Double écriture D4 | **EXCLUE** pour ce tour (`d4_attempted=false`, capitalisation absente sur UNKNOWN) |
+| D4 sujets | Nora crée spontanément des sujets ; enrichissement possible |
+| Sujet 2 | « Accompagnement et déploiement des utilisateurs » distinct |
+| Nora | réponses textuelles (E05 gelé) |
+| A — Parcours | synthèse absente (0 summary revision) ; 7 acquis CURRENT ; 0 SUPERSEDED |
+| B — Acquis | longs / répétitions ; corrections non supersédées |
+| C — Accompagnement | synthèse présente ; 0 acquis ; points ouverts ; refs variables |
+| D — Sources | 100 % message IDs Pilote (user) en provenance historique |
+| E — SourceChip | libellé compact brut (kind · currentness + detail) |
+| F — Ancrage | clic source → dernier message Travail (hypothèse stick-to-end) |
+| G — Contradictions | 9× libellé identique générique |
+| H — Points ouverts | formulations longues |
+| I — Synthèse | pas de révision démontrée hors création SUBJECT |
 
-Correctif borné inclus : omit schéma LIVE + strip. **Ne pas annoncer UNKNOWN « définitivement réparé »** sans nouvel essai Morris.
-
----
-
-## 4. Diffs utiles (extraits)
-
-### 4.1 Gel + instructions (`nora-adapter.ts`)
-
-```diff
-+export const E05_VISUAL_COMPOSITION_FROZEN = true as const;
-+export function stripVisualCompositionForFrozenReplies(raw: unknown): unknown { … }
-
--    "- replyDraft = … Si visualComposition …"
-+    "- replyDraft = … GEL E05 (19/11/2026) : n'émets PAS visualComposition …"
-+    "- SUBJECT: subjectTitle = titre court ; knowledgeStatement = synthèse durable …"
-+    "- ACQUIS / OPEN_POINT: … vise ≤220 car. …"
-
--    outputType: NoraTurnQualificationAgentSchema,
-+    outputType: E05_VISUAL_COMPOSITION_FROZEN
-+      ? NoraTurnQualificationSchema.omit({ visualComposition: true })
-+      : NoraTurnQualificationAgentSchema,
-```
-
-Diff complet : voir artefact `modified-content/nora-adapter.ts.diff` (93 lignes) — aussi embarqué dans ce pack via commit `d3017338`.
-
-### 4.2 Synthèse + compact (`knowledge/service.ts`)
-
-- `editorialCompactKnowledgeStatement`
-- `capitalizeAcquis` / `openPoint` appliquent le compact
-- `maybeCapitalizeFromExchange` : après SUBJECT créé, si statement ≠ titre et projet lié → `appendSubjectSummaryRevision` (import dynamique anti-cycle)
-
-### 4.3 Provenance / UI / CSS
-
-- `qualifyProvenanceSource` message → `Nora|Pilote · YYYY-MM-DD · #ord — « extrait »`
-- SourceChip : libellés utilisateur ; `data-source-id`
-- Focus conversation : retry au lieu de clear immédiat
-- `.journal-hierarchy { flex: 0 1 auto; max-height: 100%; }`
+**Aucune mutation SQL / backfill / rejeu LIVE CampusNova** dans ce cycle.
 
 ---
 
-## 5. Tests et gates
+## 4. Diagnostiques causaux (D3→D4→API→UI)
+
+### A. Synthèse absente sur sujet enrichi
+- **Flux** : intents `d4.record_knowledge` → `extractKnowledgeProposals` → `maybeCapitalizeFromExchange` → `appendSubjectSummaryRevision` → projection Journal
+- **Rupture** : révision synthèse uniquement si `kind === "SUBJECT"` ; enrichissement CampusNova = ACQUIS seuls → 0 summary
+- **Fichier** : `web/src/domains/knowledge/service.ts` (+ instructions `nora-adapter.ts`)
+- **Correction** : SUBJECT avec `subjectId` existant révise la synthèse ; skip `NO_SIGNIFICANT_CHANGE` si markdown identique ; instructions enrichissement
+- **Impact données** : Parcours historique reste sans synthèse jusqu’à nouvel échange SUBJECT (honnête)
+- **Preuve** : PG test enrich + noop
+
+### B. Acquis non supersédés
+- **Rupture** : `supersedesAcquisId` jamais fourni par Nora ; pas de sélection serveur
+- **Correction** : paramètre Zod `supersedesAcquisId` ; heuristique `findSupersedeCandidate` (nombres divergents + overlap tokens)
+- **Preuve** : PG test SUPERSEDES + CURRENT/SUPERSEDED
+
+### C. Sources Pilote-only
+- **Rupture** : provenance toujours `sourceId = userMessageId`
+- **Correction** : `assistantMessageId` passé depuis D3 ; `relatedMessageIds` + `contributionKind` ; projection multi-liens
+- **Note** : recommended = contribution Nora (pas preuve factuelle autonome)
+
+### D. SourceChip UX
+- **Rupture** : un seul `detail` compacté
+- **Correction** : `authorLabel` / `occurredAt` / `excerpt` (≤18 mots) + CSS Figma-like
+
+### E. Navigation exacte
+- **Rupture** : remount Travail → `useNoraThreadScroll` prime `scrollToBottom` et écrase le focus
+- **Correction** : `focusMessageId` = focusLock prioritaire jusqu’à honoré
+- **Preuve** : Playwright `data-journal-focus=1` + early ≠ last
+
+### F. Contradictions ×9
+- **Rupture** : heuristique NEGATION + overlap≥2 → faux positifs ; raison générique
+- **Correction** : overlap≥3 ; scopes temporels ; corrections numériques exclues ; raison contextualisée avec extraits
+- **Données** : enregistrements historiques non supprimés ; projection runtime resserrée
+
+---
+
+## 5. Inventaire fichiers modifiés (commit `605def59`)
+
+| Fichier | Rôle |
+|---|---|
+| `web/src/domains/knowledge/service.ts` | synthèse subjectId, supersession, provenance, resolve open point |
+| `web/src/domains/knowledge/journal.ts` | skip synthèse identique ; multi-sources ; summary links |
+| `web/src/domains/knowledge/journal-cognition.ts` | contradictions + QualifiedSource présentation |
+| `web/src/domains/conversation/semantic-qualification.ts` | supersedes/resolves + slice 5000 |
+| `web/src/domains/conversation/service.ts` | `assistantMessageId` → capitalisation |
+| `web/src/domains/conversation/nora-adapter.ts` | instructions mémoire vivante |
+| `web/src/hooks/useNoraThreadScroll.ts` | focusLock deep-link |
+| `web/src/components/figma/NoraConversation.tsx` | passe focusMessageId |
+| `web/src/components/figma/ProjectJournal.tsx` | SourceChip + contradictions + sections conditionnelles |
+| `web/src/components/figma/tokens.css` | styles source/contradiction |
+| tests unit/PG/e2e | A–K ciblés |
+| as-built E06 + delivery-history | descriptif |
+
+---
+
+## 6. Diffs utiles (extraits)
+
+### Focus lock scroll (`useNoraThreadScroll.ts`)
+- Nouveau param `focusMessageId`
+- Si focusLock : pas de prime scroll-to-end ; stick désactivé ; forceStick ignoré
+- Hors focus : comportement CT-01 inchangé (dernier message)
+
+### Contradictions (`detectAcquisContradictions`)
+- Seuil overlap 2→3
+- Exclusion portées temporelles disjointes
+- Exclusion corrections numériques sans hard-negation
+- `reason` = `Contradiction : « … » s'oppose à « … ».`
+
+### Capitalisation (`maybeCapitalizeFromExchange`)
+- SUBJECT + `subjectId` → `writeSubjectSummary`
+- ACQUIS → `findSupersedeCandidate` si pas d’id explicite
+- Provenance `buildExchangeProvenance` (Pilote/Nora/mixed)
+- `resolvesOpenPointId` → `resolveOpenPointFactually` (preuve message requise)
+
+---
+
+## 7. Tests exacts
 
 | Suite | Résultat |
 |---|---|
-| TypeScript `tsc --noEmit` | **PASS** |
-| ESLint ciblé | **PASS** (warnings préexistants `_chunk` / import ; 0 error) |
-| `next build` (dist `.next`, sans `STUDIO_E2E`) | **PASS** · BUILD_ID `VjAIWGktwCCFG6Zuj-QRK` |
-| Unit `e05-visual-composition-freeze` | **PASS** (5) |
-| Unit `d4-record-knowledge-conduction` | **PASS** (6) |
-| Unit `ensemble05-visual-composition` | **PASS** (20) — code E05 conservé |
-| Unit `visual-grammar-c1-c2` | **PASS** (3) |
-| Unit `nora-live-output-schema` / corrective | **PASS** |
-| PG `journal-d4-revisions` (DEV `:5433`) | **PASS** (16) incl. synthèse+compact+supersede |
-| PG `ml4-chat-first-d4-provenance` | **PASS** (19) |
-| Playwright Travail/Journal | **NOT RUN** (hors fenêtre ; focus/CSS unit/PG + smoke RECETTE) |
-| LIVE Nora auto | **NOT RUN** (interdit) |
-| Fake ≠ Real | Fake/PG prouvent gel, D4, projection — **pas** cognition LIVE ni guérison UNKNOWN |
+| `tsc --noEmit` | **PASS** |
+| Unit `journal-cognition` (vrai + faux positifs) | **PASS** (7) |
+| Unit `d4-record-knowledge-conduction` (+ supersedes/5000) | **PASS** (7) |
+| Unit `e05-visual-composition-freeze` | **PASS** (6) |
+| Unit `thread-pending-turn-in-progress` | **PASS** (5) |
+| PG `journal-d4-revisions` (synthèse/supersession/enrich) | **PASS** (17) |
+| PG `ml4c-s05-idempotence-knowledge` | **PASS** (7) |
+| Playwright `journal-v4-parcours` (source exacte + UX) | **PASS** (2) — **bloquant** |
+| Next build | **PASS** |
+| LIVE automatisé Nora | **NOT RUN** (interdit) |
+| Smoke HTTP RECETTE `/login` | **PASS** (200) — ≠ preuve E2E nav |
 
----
+### Mapping acceptation contrat
 
-## 6. RECETTE — cutover
-
-| Champ | Avant | Après |
-|---|---|---|
-| URL | `http://127.0.0.1:3200` | idem |
-| Service | `com.sfia.studio.next.recette.ml4d-ux004` | idem |
-| SOURCE_SHA | `4c49f717…` | `d301733871b107fe203730dda056b9c4eac77fdd` |
-| BUILD_ID | `XOSTMrVvPzbd42ylsUL6Q` | `VjAIWGktwCCFG6Zuj-QRK` |
-| Worktree | `…/ensemble06-recette-build-4c49f717` | `…/ensemble06-recette-build-d3017338` |
-| DB | `sfia_next_recette_ml4` @ `:5434` | **préservée** |
-| Migration | 014 | aucune nouvelle |
-| Compteurs | projects=24 messages=584 conversations=197 subjects=5 acquis=23 | **identiques** |
-| Backup | | `/Users/morris/Projects/sfia-recette-backups/ml4d-e06-journal-20261119-pre-d3017338/sfia_next_recette_ml4.dump` |
-| Rollback build | | `…/d3017338/ROLLBACK-TO-4c49f717.sh` |
-| Smoke | | `/login` HTTP 200 · HTML build comment `VjAIWGktwCCFG6Zuj_QRK` · `/portfolio` 200 |
-
-Aucun tour LIVE automatisé dans le smoke.
-
----
-
-## 7. Preuve conservation E05
-
-- Fichiers `visual-composition.ts`, `NoraComposition.tsx`, schémas Agent, tests `ensemble05-visual-composition.test.ts` **non supprimés**.
-- Suite E05 unit **20 PASS** après gel.
-- Historique : renderer continue d’admettre `visualComposition` persistée si présente.
-
----
-
-## 8. Fake / Real Qualification
-
-| Preuve | Niveau |
+| Test | Statut |
 |---|---|
-| Gel strip + omit schéma | DETERMINISTIC unit |
-| Instructions GEL dans source | DETERMINISTIC unit |
-| Synthèse D4 via proposals | PG DEV |
-| Compact acquis | PG + unit |
-| UNKNOWN cause | REAL traces RECETTE (forensic) |
-| UNKNOWN guéri LIVE | **NON PROUVÉ** |
-| Mémoire vivante LIVE CampusNova | **MORRIS UAT PENDING** |
-| RECETTE build identity | REAL smoke |
+| A Synthèse révision / no-op | **PASS** (PG) |
+| B Correction acquis 9→10 | **PASS** (PG supersession) |
+| C Question résolue | **PASS** partiel (API `resolvesOpenPointId` + PG resolve existant) — UAT Morris CampusNova |
+| D Sujet distinct | **NOT RUN** LIVE — pipeline inchangé ; UAT |
+| E Source Nora | **PASS** code+projection ; UAT affichage |
+| F Source Pilote | **PASS** SourceChip + Playwright author |
+| G Ancrage exact | **PASS** Playwright focus |
+| H Contradiction vraie | **PASS** unit GitHub |
+| I Faux positif | **PASS** unit CampusNova-class |
+| J Déduplication | **PASS** (idempotence génération + skip identical) |
+| K UX | **PASS** Playwright + CSS |
+| L Non-régression E05/D6 gel | **PASS** unit freeze ; D6 non touché |
 
 ---
 
-## 9. Réserves
+## 8. RECETTE (ENV-01)
 
-1. Acquis CampusNova historiques restent verbeux jusqu’à nouveaux échanges / GO rattrapage.
-2. Synthèse CampusNova reste vide jusqu’à nouveau SUBJECT statement significatif.
-3. `supersedesAcquisId` non encore conduit automatiquement depuis enveloppe Nora (correction testée via API D4 `capitalizeAcquis`).
-4. Playwright Journal/Travail **NOT RUN** ce cycle.
-5. UNKNOWN : mitigation schéma ≠ preuve de non-récurrence LIVE.
-6. HTML comment buildId normalise `-` → `_` ; fichier `.next/BUILD_ID` conserve le tiret.
-
----
-
-## 10. Verdict Cursor (sortie §25)
-
-**CORRECTIVE DELIVERY VERIFIED — TEXTUAL NORA ACTIVE — RECETTE TECHNICALLY AVAILABLE — MORRIS UAT PENDING**
-
-Non annoncé : Gate C · STABLE · RELEASE · ADOPTED · UNKNOWN définitivement réparé · succès LIVE mémoire sans UAT Morris.
-
----
-
-## 11. Artefacts locaux du pack (worktree)
-
-Sous `projects/sfia-studio-next/.tmp-sfia-review/modified-content/` :
-
-- `nora-adapter.ts.diff`
-- `knowledge-service.ts.diff`
-- `journal-provenance.ts.diff`
-- `figma-ui.diff`
-- `e05-visual-composition-freeze.test.ts`
-- `campusnova-unknown-obs.jsonl`
-
-Le handoff distant doit permettre la revue **sans** worktree : contenu critique ci-dessus + diffs clés ; lecture Git du commit `d3017338` pour le reste.
+| Champ | Valeur |
+|---|---|
+| URL | `http://127.0.0.1:3200` |
+| SOURCE_SHA | `605def5970982bc56012e150bc105656d934169e` |
+| BUILD_ID | `1L_uXFJAT1SfYsqcUaUL` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble06-recette-build-605def59` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` |
+| DB | `sfia_next_recette_ml4` @ `127.0.0.1:5434` |
+| Migration | 014 (aucune nouvelle) |
+| Compteurs | projects=24 · messages=590 · conversations=197 · knowledge_subjects=6 · knowledge_acquis=26 · knowledge_open_points=8 — **inchangés** |
+| Backup | `/Users/morris/Projects/sfia-recette-backups/ml4d-e06-journal-20261119-pre-605def59/sfia_next_recette_ml4.dump` |
+| Rollback | `…/605def59/ROLLBACK-TO-6457bc8e.sh` → BUILD précédent `Qs9jUCnasE-ERYU1qsZhB` |
+| Smoke | `/login` 200 ; Next Ready ; **sans appel LIVE Nora** |
 
 ---
 
-## 12. Action utilisateur suivante
+## 9. Qualité mémoire vivante — synthèse pour ChatGPT
 
-Morris reprend CampusNova sur `http://127.0.0.1:3200` :
+Le Journal dispose maintenant d’un chemin pour **créer/réviser une synthèse** quand un SUBJECT (y compris sur sujet existant) apporte un changement durable, sans réécriture à l’identique, sans appel fournisseur à l’ouverture du Journal, et sans inventer une synthèse pour un état vide historique.
 
-1. Nouvelle réponse Nora textuelle (sans cartes E05).
-2. Enrichissement sujet → synthèse + acquis courts.
-3. Sources → message exact (ancien + récent).
-4. Observer si UNKNOWN récidive (preuve LIVE).
+Les acquis courants peuvent **superséder** un antécédent (explicite ou heuristique numérique). L’historique SUPERSEDED reste en base.
+
+La provenance peut relier **Pilote et Nora** sans attribuer une preuve factuelle autonome à Nora.
+
+Les contradictions runtime ne doivent plus produire neuf libellés génériques identiques sur de simples corrections / négations faibles.
+
+L’ancrage Journal→Travail honore le **message exact** prioritairement sur le scroll fin de fil.
+
+**CampusNova historique** : données préservées ; Parcours sans synthèse jusqu’à nouvel échange SUBJECT ; contradictions historiques non purgées (projection améliorée seulement). Une réconciliation sémantique bornée éventuelle = **GO Morris séparé**.
 
 ---
 
-## Instruction ChatGPT (SFIA v2.6 §9.1)
+## 10. Risques et réserves
 
-Avant toute revue, ChatGPT doit lire depuis Git `sfia/review-handoff` /
-`sfia-review-handoff/latest-chatgpt-review.md`, contrôler le code modifié et ses
-diff utiles, les tests, les gates, les réserves et l'identité de RECETTE, puis
-produire une synthèse indépendante du cycle.
+1. Heuristique `findSupersedeCandidate` bornée aux corrections numériques — corrections purement lexicales sans nombres exigent `supersedesAcquisId` Nora.
+2. Synthèse Parcours CampusNova reste vide sans nouvel échange (pas de backfill).
+3. Contradictions déjà matérialisées en UI runtime changent avec la nouvelle heuristique ; événements historiques non effacés.
+4. Verdict fidélité visuelle Figma → **Morris**.
+5. LIVE comportemental Nora → **non prouvé** ce cycle (fake/PG/Playwright seulement).
+6. Pas de Gate C / STABLE / RELEASE / ADOPTED.
 
-Un handoff incomplet ou synthesis-only n'autorise aucun READY formel.
+---
+
+## 11. Action Morris
+
+1. UAT RECETTE `:3200` SHA `605def59` / BUILD `1L_uXFJAT1SfYsqcUaUL` sur CampusNova :
+   - nouvel échange enrichissant Parcours → synthèse révisée ?
+   - correction inventaire → acquis courant unique + historique ?
+   - sources Pilote/Nora lisibles ?
+   - clic source → message exact (pas seulement le dernier) ?
+   - contradictions compréhensibles / FPs réduits ?
+2. Relire le handoff distant `sfia/review-handoff` (blob vérifié) **via ChatGPT**.
+3. Si reprise sémantique historique CampusNova souhaitée → décider d’un contrat de réconciliation borné séparé.
+
+---
+
+## 12. Interdits respectés
+
+- Pas de push produit / PR / merge / promotion STABLE
+- Pas de modification matrice Journal v0.7 / SEF / ADR / D6 / Figma / gel E05
+- Pas de LIVE automatisé
+- Pas de SQL d’édition CampusNova / backfill / rejeu fournisseur
+- Pas de second moteur de mémoire
+- Pas de nouvelle migration
+
+FIN DU PACK FULL — SYNTHESIS ONLY INTERDIT (ce document contient diagnostics, diffs, tests, preuves, RECETTE).
