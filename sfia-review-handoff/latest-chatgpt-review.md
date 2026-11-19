@@ -280,6 +280,17 @@ Relire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-
 
 ---
 
-## 15. Handoff L3
+## 15. Handoff L3 — RÉSULTAT
 
-À publier après finalisation via `scripts/sfia/publish-review-handoff.sh` (branche `sfia/review-handoff`, mono-fichier, push FF). Voir section résultat post-publish.
+**HANDOFF UPDATED — REMOTE VERIFIED**
+
+| Champ | Valeur |
+|---|---|
+| Branche | `sfia/review-handoff` |
+| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Commit | `d7cc4c964839ba6ccd270f002b351f0a0cb9b819` |
+| Blob | `3cd0ac2c562e30edcf72720fdb20fa707695edf0` |
+| Push | fast-forward, sans force |
+| Branche projet | intacte, **non poussée** |
+
+ChatGPT doit relire le fichier distant sur `sfia/review-handoff` avant verdict indépendant.
