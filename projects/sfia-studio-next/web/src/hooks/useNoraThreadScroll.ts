@@ -7,6 +7,9 @@ const NEAR_BOTTOM_PX = 72;
 /**
  * CT-01 / UX-002 — default to last message; preserve voluntary re-read position;
  * announce new content when Nora answers while the pilot is reading history.
+ *
+ * Journal → Travail deep-link (focusMessageId) has PRIORITY over end-scroll
+ * until the focus is handled or cleared.
  */
 export function useNoraThreadScroll(deps: {
   messageCount: number;
@@ -14,12 +17,15 @@ export function useNoraThreadScroll(deps: {
   activityPreparing: boolean;
   /** Bumps when pilot voluntarily sends — force stick to bottom. */
   forceStickToken: number;
+  /** When set, suppress auto scroll-to-end so exact message focus can win. */
+  focusMessageId?: string | null;
 }) {
   const threadRef = useRef<HTMLDivElement | null>(null);
   const stickToBottomRef = useRef(true);
   const primedRef = useRef(false);
   const prevLastIdRef = useRef<string | null>(null);
   const [newBelow, setNewBelow] = useState(false);
+  const focusLock = Boolean(deps.focusMessageId?.trim());
 
   const isNearBottom = useCallback(() => {
     const el = threadRef.current;
@@ -52,16 +58,23 @@ export function useNoraThreadScroll(deps: {
     if (near) setNewBelow(false);
   }, [isNearBottom]);
 
-  // Initial entry / refresh / return: show last message once messages exist.
+  // Initial entry / refresh / return: show last message once messages exist —
+  // unless a Journal deep-link focus is in flight.
   useLayoutEffect(() => {
     if (deps.messageCount === 0) return;
+    if (focusLock) {
+      primedRef.current = true;
+      prevLastIdRef.current = deps.lastMessageId;
+      stickToBottomRef.current = false;
+      return;
+    }
     if (!primedRef.current) {
       scrollToBottom("auto");
       primedRef.current = true;
       prevLastIdRef.current = deps.lastMessageId;
       return;
     }
-  }, [deps.messageCount, deps.lastMessageId, scrollToBottom]);
+  }, [deps.messageCount, deps.lastMessageId, scrollToBottom, focusLock]);
 
   // Reset priming when thread identity effectively reloads (empty → filled again).
   useEffect(() => {
@@ -73,7 +86,13 @@ export function useNoraThreadScroll(deps: {
   }, [deps.messageCount]);
 
   // New messages / activity: stick only when already near bottom or forced by send.
+  // Deep-link focus must not be overwritten by last-message stick during reload.
   useLayoutEffect(() => {
+    if (focusLock) {
+      stickToBottomRef.current = false;
+      prevLastIdRef.current = deps.lastMessageId;
+      return;
+    }
     const lastChanged = deps.lastMessageId !== prevLastIdRef.current;
     if (lastChanged) {
       if (stickToBottomRef.current) {
@@ -87,13 +106,14 @@ export function useNoraThreadScroll(deps: {
     if (deps.activityPreparing && stickToBottomRef.current) {
       scrollToBottom("auto");
     }
-  }, [deps.lastMessageId, deps.activityPreparing, scrollToBottom]);
+  }, [deps.lastMessageId, deps.activityPreparing, scrollToBottom, focusLock]);
 
   useLayoutEffect(() => {
     if (deps.forceStickToken <= 0) return;
+    if (focusLock) return;
     stickToBottomRef.current = true;
     scrollToBottom("smooth");
-  }, [deps.forceStickToken, scrollToBottom]);
+  }, [deps.forceStickToken, scrollToBottom, focusLock]);
 
   return {
     threadRef,

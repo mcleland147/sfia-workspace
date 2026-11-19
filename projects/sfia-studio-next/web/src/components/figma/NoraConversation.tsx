@@ -58,6 +58,7 @@ export function NoraConversation(props: {
     lastMessageId,
     activityPreparing: props.activity === "preparing",
     forceStickToken: props.forceStickToken ?? 0,
+    focusMessageId: props.focusMessageId,
   });
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);

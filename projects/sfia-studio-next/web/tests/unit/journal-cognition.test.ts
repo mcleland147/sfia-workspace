@@ -46,6 +46,64 @@ describe("journal-cognition (J-C04 / J-C06 deterministic)", () => {
     expect(findings).toHaveLength(1);
     expect(findings[0]?.status).toBe("UNRESOLVED");
     expect(findings[0]?.subjectId).toBe("s1");
+    expect(findings[0]?.reason).toMatch(/Contradiction/i);
+    expect(findings[0]?.reason).toMatch(/GitHub/i);
+  });
+
+  it("rejects soft negation / numeric correction false positives (CampusNova class)", () => {
+    const inventory = detectAcquisContradictions([
+      {
+        id: "a1",
+        subjectId: "s1",
+        status: "CURRENT",
+        kind: "HYPOTHESIS",
+        statement: "Lille: 12 portables, 3 en maintenance, 9 opérationnels actuellement.",
+      },
+      {
+        id: "a2",
+        subjectId: "s1",
+        status: "CURRENT",
+        kind: "HYPOTHESIS",
+        statement: "Lille: 12 portables, 2 en maintenance, 10 opérationnels actuellement.",
+      },
+    ]);
+    expect(inventory).toHaveLength(0);
+
+    const softLexicon = detectAcquisContradictions([
+      {
+        id: "b1",
+        subjectId: "s1",
+        status: "CURRENT",
+        kind: "HYPOTHESIS",
+        statement: "Le support utilisateur n'est pas encore défini pour le déploiement.",
+      },
+      {
+        id: "b2",
+        subjectId: "s1",
+        status: "CURRENT",
+        kind: "HYPOTHESIS",
+        statement: "Des ateliers de 90 minutes sont simplement envisagés pour les formateurs.",
+      },
+    ]);
+    expect(softLexicon).toHaveLength(0);
+
+    const temporal = detectAcquisContradictions([
+      {
+        id: "c1",
+        subjectId: "s1",
+        status: "CURRENT",
+        kind: "HYPOTHESIS",
+        statement: "9 portables opérationnels mobilisables lors de l'incident.",
+      },
+      {
+        id: "c2",
+        subjectId: "s1",
+        status: "CURRENT",
+        kind: "HYPOTHESIS",
+        statement: "10 portables opérationnels actuellement après correction d'inventaire.",
+      },
+    ]);
+    expect(temporal).toHaveLength(0);
   });
 
   it("refuses synthesis that claims established over unresolved contradiction", () => {

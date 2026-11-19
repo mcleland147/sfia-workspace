@@ -110,6 +110,10 @@ export const QualifiedIntentItemSchema = z.object({
       relevantAcquisIds: z.array(z.string().max(120)).max(8).optional(),
       relevantOpenPointIds: z.array(z.string().max(120)).max(8).optional(),
       relevantSubjectIds: z.array(z.string().max(120)).max(8).optional(),
+      /** When correcting a CURRENT acquis, Nora may point the prior id for D4 supersession. */
+      supersedesAcquisId: z.string().max(120).optional(),
+      /** When an ACQUIS factually closes an open point, Nora may cite its id. */
+      resolvesOpenPointId: z.string().max(120).optional(),
     })
     .strict()
     .default({}),
@@ -602,6 +606,9 @@ export type KnowledgeCapitalisationProposal = {
   subjectTitle?: string;
   subjectId?: string;
   continuityReason?: string;
+  supersedesAcquisId?: string;
+  resolvesOpenPointId?: string;
+  relevantAcquisIds?: string[];
 };
 
 /**
@@ -625,11 +632,14 @@ export function extractKnowledgeProposals(
     out.push({
       intentId: intent.id,
       kind,
-      statement: statement.slice(0, 500),
+      statement: statement.slice(0, 5000),
       epistemic: intent.parameters.epistemic ?? "hypothesized",
       subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
       subjectId: intent.parameters.subjectId?.trim() || undefined,
       continuityReason: intent.parameters.continuityReason?.trim() || undefined,
+      supersedesAcquisId: intent.parameters.supersedesAcquisId?.trim() || undefined,
+      resolvesOpenPointId: intent.parameters.resolvesOpenPointId?.trim() || undefined,
+      relevantAcquisIds: intent.parameters.relevantAcquisIds?.filter(Boolean),
     });
   }
   return out;

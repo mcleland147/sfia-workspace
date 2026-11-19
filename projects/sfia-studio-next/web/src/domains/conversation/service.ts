@@ -1486,6 +1486,7 @@ export async function postUserMessageAndNora(
           assistantText: reply.content,
           generationId: reply.generationId,
           userMessageId: reserved.userMessageId,
+          assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
           proposals: knowledgeProposals,
           turnFence: {
             commandId: reserved.commandId,

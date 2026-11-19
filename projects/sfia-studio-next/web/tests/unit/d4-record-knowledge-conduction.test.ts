@@ -220,4 +220,35 @@ describe("d4.record_knowledge conduction (selective capitalisation)", () => {
     });
     expect(extractKnowledgeProposals(q)).toHaveLength(0);
   });
+
+  it("preserves supersedesAcquisId / resolvesOpenPointId and statements up to 5000", () => {
+    const long = `Synthèse durable ${"x".repeat(800)}`;
+    const q = qualified({
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d4.record_knowledge",
+          mode: "REQUEST_EFFECT",
+          summary: "correction",
+          parameters: {
+            knowledgeKind: "ACQUIS",
+            knowledgeStatement: long,
+            epistemic: "hypothesized",
+            subjectId: "subj_existing",
+            supersedesAcquisId: "acq_prior",
+            resolvesOpenPointId: "opn_prior",
+          },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    const proposals = extractKnowledgeProposals(q);
+    expect(proposals).toHaveLength(1);
+    expect(proposals[0]?.statement.length).toBe(long.length);
+    expect(proposals[0]?.supersedesAcquisId).toBe("acq_prior");
+    expect(proposals[0]?.resolvesOpenPointId).toBe("opn_prior");
+    expect(proposals[0]?.subjectId).toBe("subj_existing");
+  });
 });

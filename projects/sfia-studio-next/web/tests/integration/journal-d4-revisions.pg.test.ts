@@ -33,6 +33,7 @@ import {
   searchJournalSubjects,
 } from "@/domains/knowledge/journal";
 import {
+  detectAcquisContradictions,
   markOpenPointReactivated,
   selectOpenPointsForReactivation,
 } from "@/domains/knowledge/journal-cognition";
@@ -666,5 +667,113 @@ describe("Journal D4 revisions (PG)", () => {
     const hist = after.acquis.filter((a) => a.subjectId === subjectId && a.status !== "CURRENT");
     expect(curr.some((a) => a.statement.includes("10 opérationnels"))).toBe(true);
     expect(hist.some((a) => a.id === priorId)).toBe(true);
+  });
+
+  it("existing subjectId revises synthesis; acquis auto-supersedes numeric correction; no-op identical summary", async () => {
+    const pilotId = await seedPilot("J-cap-enrich");
+    const { prep, projectId } = await seedLinkedProject(pilotId, "Cap enrich");
+    const create = await maybeCapitalizeFromExchange(pilotId, prep.id, {
+      userText: "Parcours réservation",
+      assistantText: "Sujet créé.",
+      generationId: "gen-enrich-1",
+      userMessageId: "msg-enrich-1",
+      assistantMessageId: "msg-enrich-nora-1",
+      proposals: [
+        {
+          intentId: "i-subj-1",
+          kind: "SUBJECT",
+          statement:
+            "## Sens\nParcours multi-centres.\n\n## Acquis\nLille: 12 portables, 9 opérationnels.",
+          epistemic: "recommended",
+          subjectTitle: "Parcours de réservation",
+          continuityReason: "création",
+        },
+        {
+          intentId: "i-acq-1",
+          kind: "ACQUIS",
+          statement: "Lille: 12 portables, 3 en maintenance, 9 opérationnels.",
+          epistemic: "hypothesized",
+          subjectTitle: "Parcours de réservation",
+          continuityReason: "inventaire initial",
+        },
+      ],
+    });
+    const subjectId = create.capitalisations.find((c) => c.kind === "subject")!.id!;
+    expect(create.capitalisations.some((c) => c.kind === "subject_summary")).toBe(true);
+
+    const revised = await maybeCapitalizeFromExchange(pilotId, prep.id, {
+      userText: "Correction: 2 en maintenance, 10 opérationnels.",
+      assistantText: "Synthèse mise à jour.",
+      generationId: "gen-enrich-2",
+      userMessageId: "msg-enrich-2",
+      assistantMessageId: "msg-enrich-nora-2",
+      proposals: [
+        {
+          intentId: "i-subj-2",
+          kind: "SUBJECT",
+          statement:
+            "## Sens\nParcours multi-centres.\n\n## Acquis\nLille: 12 portables, 10 opérationnels actuellement.",
+          epistemic: "recommended",
+          subjectId,
+          subjectTitle: "Parcours de réservation",
+          continuityReason: "correction inventaire",
+        },
+        {
+          intentId: "i-acq-2",
+          kind: "ACQUIS",
+          statement: "Lille: 12 portables, 2 en maintenance, 10 opérationnels actuellement.",
+          epistemic: "hypothesized",
+          subjectId,
+          continuityReason: "correction inventaire",
+        },
+      ],
+    });
+    expect(revised.capitalisations.some((c) => c.kind === "subject_summary" && c.status === "AVAILABLE")).toBe(
+      true,
+    );
+    expect(revised.capitalisations.some((c) => c.kind === "acquis" && String(c.reason ?? "").startsWith("SUPERSEDES:"))).toBe(
+      true,
+    );
+
+    const summary = await getCurrentSubjectSummary(pilotId, projectId, subjectId);
+    expect(summary.summary?.summaryMarkdown).toContain("10 opérationnels");
+    expect(summary.summary?.revisionNumber).toBeGreaterThanOrEqual(2);
+
+    const noop = await maybeCapitalizeFromExchange(pilotId, prep.id, {
+      userText: "Rien de nouveau",
+      assistantText: "Inchangé",
+      generationId: "gen-enrich-3",
+      userMessageId: "msg-enrich-3",
+      assistantMessageId: "msg-enrich-nora-3",
+      proposals: [
+        {
+          intentId: "i-subj-3",
+          kind: "SUBJECT",
+          statement: summary.summary!.summaryMarkdown,
+          epistemic: "recommended",
+          subjectId,
+          subjectTitle: "Parcours de réservation",
+          continuityReason: "rejeu sans changement",
+        },
+      ],
+    });
+    expect(
+      noop.capitalisations.some(
+        (c) => c.kind === "subject_summary" && c.status === "SKIPPED" && c.reason === "NO_SIGNIFICANT_CHANGE",
+      ),
+    ).toBe(true);
+
+    const after = await listProjectKnowledge(pilotId, projectId);
+    const curr = after.acquis.filter((a) => a.subjectId === subjectId && a.status === "CURRENT");
+    const hist = after.acquis.filter((a) => a.subjectId === subjectId && a.status === "SUPERSEDED");
+    expect(curr.some((a) => a.statement.includes("10 opérationnels"))).toBe(true);
+    expect(hist.length).toBeGreaterThanOrEqual(1);
+    expect(detectAcquisContradictions(curr.map((a) => ({
+      id: a.id,
+      subjectId: a.subjectId,
+      statement: a.statement,
+      status: a.status,
+      kind: a.kind,
+    })))).toHaveLength(0);
   });
 });

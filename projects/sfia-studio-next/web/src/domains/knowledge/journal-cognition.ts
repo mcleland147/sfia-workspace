@@ -297,6 +297,11 @@ export type QualifiedSource = {
   currentness: SourceCurrentness;
   detail: string;
   epistemic?: Provenance["epistemic"];
+  /** Presentation fields — never technical IDs as primary label. */
+  authorLabel?: string;
+  occurredAt?: string;
+  excerpt?: string;
+  contributionKind?: "pilot_fact" | "nora_analysis" | "pilot_confirmation" | "mixed";
 };
 
 export type ExtendedProvenance = Provenance & {
@@ -307,6 +312,9 @@ export type ExtendedProvenance = Provenance & {
   gitSha?: string;
   mainRef?: string;
   qualification?: "confirmed" | "deduced" | "uncertain";
+  /** Additional constitutive messages (Pilot and/or Nora) beyond primary sourceId. */
+  relatedMessageIds?: string[];
+  contributionKind?: "pilot_fact" | "nora_analysis" | "pilot_confirmation" | "mixed";
 };
 
 /**
@@ -386,19 +394,43 @@ export async function qualifyProvenanceSource(
     }
     const author = row.role === "assistant" ? "Nora" : row.role === "user" ? "Pilote" : row.role;
     const contentText = String(row.content ?? "");
-    const excerpt = contentText.replace(/\s+/g, " ").trim().slice(0, 120);
+    // Presentation excerpt ~10–20 words / ≤2 visual lines — full message stays in DB.
+    const words = contentText.replace(/\s+/g, " ").trim().split(" ").filter(Boolean);
+    const excerptWords = words.slice(0, 18).join(" ");
+    const excerpt =
+      words.length > 18 ? `${excerptWords}…` : excerptWords;
     const whenIso =
       row.createdAt instanceof Date
         ? row.createdAt.toISOString()
         : String(row.createdAt ?? "");
-    const when = whenIso.slice(0, 10);
-    const ord = typeof row.ordinal === "number" ? ` · #${row.ordinal}` : "";
+    const whenDisplay = whenIso
+      ? new Date(whenIso).toLocaleString("fr-FR", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "";
+    const contributionKind =
+      provenance.contributionKind ??
+      (row.role === "assistant" ? "nora_analysis" : "pilot_fact");
+    const roleHint =
+      contributionKind === "nora_analysis"
+        ? "contribution analytique"
+        : contributionKind === "pilot_confirmation"
+          ? "confirmation Pilote"
+          : "information apportée";
     return {
       sourceKind: "message",
       sourceId: provenance.sourceId,
       currentness: row.status === "COMPLETE" ? "HISTORICAL" : "UNKNOWN",
-      detail: `${author}${when ? ` · ${when}` : ""}${ord} — « ${excerpt}${contentText.length > 120 ? "…" : ""} »`,
+      detail: `${author}${whenDisplay ? ` · ${whenDisplay}` : ""} — ${roleHint}`,
       epistemic,
+      authorLabel: author,
+      occurredAt: whenDisplay || undefined,
+      excerpt: excerpt || undefined,
+      contributionKind,
     };
   }
 
@@ -521,10 +553,31 @@ export type ContradictionFinding = {
 };
 
 const NEGATION = /\b(ne|n'|pas|jamais|aucun|aucune|contraire|refus|interdit|impossible)\b/i;
+const TEMPORAL_SCOPE =
+  /\b(lors de|au moment|à cette date|actuellement|aujourd'?hui|historiquement|auparavant|désormais|désormais)\b/i;
+
+function stripNegationTokens(statement: string): string {
+  return statement
+    .replace(/\b(ne|n'|pas|jamais|aucun|aucune|contraire|refus|interdit|impossible)\b/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractNumbers(statement: string): number[] {
+  return (statement.match(/\d+/g) ?? []).map((n) => Number(n)).filter((n) => Number.isFinite(n));
+}
+
+function excerptClaim(statement: string, maxWords = 14): string {
+  const words = statement.replace(/\s+/g, " ").trim().split(" ").filter(Boolean);
+  if (words.length <= maxWords) return words.join(" ");
+  return `${words.slice(0, maxWords).join(" ")}…`;
+}
 
 /**
  * Deterministic contradiction signal between CURRENT acquis on the same subject.
  * Does not resolve; surfaces UNRESOLVED for honest synthesis.
+ * Corrections numériques / portées temporelles distinctes → pas de contradiction
+ * (supersession attendue) ; faux positifs lexicaux « pas » exclus.
  */
 export function detectAcquisContradictions(
   acquis: Array<{
@@ -545,6 +598,7 @@ export function detectAcquisContradictions(
   }
 
   const findings: ContradictionFinding[] = [];
+  const seenPairKeys = new Set<string>();
   for (const [subjectKey, rows] of bySubject) {
     for (let i = 0; i < rows.length; i++) {
       for (let j = i + 1; j < rows.length; j++) {
@@ -553,10 +607,38 @@ export function detectAcquisContradictions(
         const leftNeg = NEGATION.test(left.statement);
         const rightNeg = NEGATION.test(right.statement);
         if (leftNeg === rightNeg) continue;
-        const leftTokens = new Set(tokenizeIntent(left.statement));
-        const rightTokens = tokenizeIntent(right.statement);
-        const overlap = rightTokens.filter((t) => leftTokens.has(t)).length;
-        if (overlap < 2) continue;
+
+        const leftCore = tokenizeIntent(stripNegationTokens(left.statement));
+        const rightCore = tokenizeIntent(stripNegationTokens(right.statement));
+        const leftSet = new Set(leftCore);
+        const overlap = rightCore.filter((t) => leftSet.has(t)).length;
+        // Raise threshold: shared stop-ish content of 2 tokens was producing CampusNova FPs.
+        if (overlap < 3) continue;
+
+        // Distinct temporal scopes (incident vs currently) are not concurrent contradictions.
+        const leftTemporal = TEMPORAL_SCOPE.test(left.statement);
+        const rightTemporal = TEMPORAL_SCOPE.test(right.statement);
+        if (leftTemporal !== rightTemporal) continue;
+
+        // Soft negation + divergent counts on shared entities → correction path (supersession), not conflict.
+        const leftNums = extractNumbers(left.statement);
+        const rightNums = extractNumbers(right.statement);
+        if (leftNums.length > 0 && rightNums.length > 0) {
+          const numsDiffer =
+            leftNums.some((n) => !rightNums.includes(n)) ||
+            rightNums.some((n) => !leftNums.includes(n));
+          const hardNeg = /\b(jamais|aucun|aucune|impossible|interdit|refus)\b/i.test(
+            `${left.statement} ${right.statement}`,
+          );
+          if (numsDiffer && !hardNeg) continue;
+        }
+
+        const pairKey = [left.id, right.id].sort().join(":");
+        if (seenPairKeys.has(pairKey)) continue;
+        seenPairKeys.add(pairKey);
+
+        const affirmed = leftNeg ? right : left;
+        const denied = leftNeg ? left : right;
         findings.push({
           leftAcquisId: left.id,
           rightAcquisId: right.id,
@@ -564,7 +646,7 @@ export function detectAcquisContradictions(
           status: "UNRESOLVED",
           leftStatement: left.statement,
           rightStatement: right.statement,
-          reason: "affirmation et négation concurrentes sur lexique partagé",
+          reason: `Contradiction : « ${excerptClaim(affirmed.statement)} » s'oppose à « ${excerptClaim(denied.statement)} ».`,
         });
       }
     }

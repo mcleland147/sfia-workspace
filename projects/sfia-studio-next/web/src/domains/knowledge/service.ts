@@ -22,6 +22,9 @@ export type Provenance = {
   note?: string;
   /** Epistemic confidence of the recorder — never upgrades authority. */
   epistemic?: "observed" | "hypothesized" | "recommended" | "limited" | "established";
+  /** Extra constitutive message ids (Pilot/Nora) — never invent ids. */
+  relatedMessageIds?: string[];
+  contributionKind?: "pilot_fact" | "nora_analysis" | "pilot_confirmation" | "mixed";
 };
 
 export type KnowledgeKind = "FACT" | "HYPOTHESIS" | "RECOMMENDATION" | "LIMIT";
@@ -989,6 +992,84 @@ export async function reconstituteConfirmedD4Effects(
 }
 
 /**
+ * Select a CURRENT acquis on the same subject that this statement likely corrects.
+ * Prefer explicit supersedesAcquisId from Nora; this heuristic is a bounded fallback
+ * for numeric/entity corrections without inventing new authority.
+ */
+export async function findSupersedeCandidate(
+  pilotId: string,
+  preparationId: string,
+  subjectId: string | null | undefined,
+  statement: string,
+): Promise<string | undefined> {
+  if (!subjectId) return undefined;
+  const compact = editorialCompactKnowledgeStatement(statement);
+  const nums = (compact.match(/\d+/g) ?? []).map(Number);
+  if (nums.length === 0) return undefined;
+  const { tokenizeIntent } = await import("@/domains/knowledge/journal-cognition");
+  const tokens = new Set(tokenizeIntent(compact));
+  if (tokens.size < 2) return undefined;
+  const rows = await db
+    .select({
+      id: knowledgeAcquis.id,
+      statement: knowledgeAcquis.statement,
+    })
+    .from(knowledgeAcquis)
+    .where(
+      and(
+        eq(knowledgeAcquis.ownerPilotId, pilotId),
+        eq(knowledgeAcquis.preparationId, preparationId),
+        eq(knowledgeAcquis.subjectId, subjectId),
+        eq(knowledgeAcquis.status, "CURRENT"),
+      ),
+    );
+  let best: { id: string; score: number } | null = null;
+  for (const row of rows) {
+    if (row.statement === compact) continue;
+    const priorNums = (row.statement.match(/\d+/g) ?? []).map(Number);
+    if (priorNums.length === 0) continue;
+    const numsDiffer =
+      nums.some((n) => !priorNums.includes(n)) || priorNums.some((n) => !nums.includes(n));
+    if (!numsDiffer) continue;
+    const priorTokens = tokenizeIntent(row.statement);
+    const overlap = priorTokens.filter((t) => tokens.has(t)).length;
+    if (overlap < 2) continue;
+    const score = overlap;
+    if (!best || score > best.score) best = { id: row.id, score };
+  }
+  return best && best.score >= 2 ? best.id : undefined;
+}
+
+function buildExchangeProvenance(input: {
+  userMessageId: string;
+  assistantMessageId?: string | null;
+  generationId: string;
+  epistemic: Provenance["epistemic"];
+  note?: string;
+  contributionKind: NonNullable<Provenance["contributionKind"]>;
+  primary: "user" | "assistant";
+}): Provenance {
+  const primaryId =
+    input.primary === "assistant" && input.assistantMessageId
+      ? input.assistantMessageId
+      : input.userMessageId;
+  const related: string[] = [];
+  if (input.userMessageId && input.userMessageId !== primaryId) related.push(input.userMessageId);
+  if (input.assistantMessageId && input.assistantMessageId !== primaryId) {
+    related.push(input.assistantMessageId);
+  }
+  return {
+    sourceKind: "message",
+    sourceId: primaryId,
+    generationId: input.generationId,
+    note: input.note,
+    epistemic: input.epistemic,
+    relatedMessageIds: related.length > 0 ? related : undefined,
+    contributionKind: input.contributionKind,
+  };
+}
+
+/**
  * Selective D4 capitalisation from typed Nora proposals (RG-KNOW-001).
  * No lexical detection. Never creates HumanDecision. Owner validates each write.
  */
@@ -1000,6 +1081,8 @@ export async function maybeCapitalizeFromExchange(
     assistantText: string;
     generationId: string;
     userMessageId: string;
+    /** Nora assistant message for this turn — constitutive provenance when analysis is retained. */
+    assistantMessageId?: string | null;
     turnFence?: TurnOwnershipFence;
     /** Typed proposals from durable qualification — required for any write. */
     proposals?: Array<{
@@ -1010,6 +1093,8 @@ export async function maybeCapitalizeFromExchange(
       subjectTitle?: string;
       subjectId?: string;
       continuityReason?: string;
+      supersedesAcquisId?: string;
+      resolvesOpenPointId?: string;
     }>;
   },
 ) {
@@ -1033,10 +1118,114 @@ export async function maybeCapitalizeFromExchange(
 
   const fence = input.turnFence;
   let subjectId: string | null = null;
+  const ctx = await assertPrep(pilotId, preparationId);
+  const projectId = ctx.project?.id ?? null;
+
+  async function writeSubjectSummary(
+    targetSubjectId: string,
+    summaryMarkdown: string,
+    titleNorm: string,
+    p: {
+      continuityReason?: string;
+      epistemic: "hypothesized" | "recommended" | "established" | "limited";
+    },
+  ) {
+    if (!projectId) return;
+    if (summaryMarkdown.length < 12) return;
+    if (summaryMarkdown.toLowerCase() === titleNorm.toLowerCase()) return;
+    const { appendSubjectSummaryRevision } = await import("@/domains/knowledge/journal");
+    const syn = await appendSubjectSummaryRevision(pilotId, projectId, targetSubjectId, {
+      summaryMarkdown: summaryMarkdown.slice(0, 5000),
+      provenance: buildExchangeProvenance({
+        userMessageId: input.userMessageId,
+        assistantMessageId: input.assistantMessageId,
+        generationId: input.generationId,
+        epistemic:
+          p.epistemic === "established"
+            ? "observed"
+            : p.epistemic === "recommended"
+              ? "recommended"
+              : "hypothesized",
+        note: p.continuityReason ?? "semantic qualification d4.record_knowledge",
+        contributionKind: "mixed",
+        primary: "assistant",
+      }),
+      operationId: `${input.generationId}:${targetSubjectId}`,
+      idempotencyKey: `subj-summary:${targetSubjectId}:${input.generationId}`,
+    });
+    results.push({
+      kind: "subject_summary",
+      id: "revisionId" in syn ? syn.revisionId : undefined,
+      status: syn.status,
+      epistemicNote: p.continuityReason,
+      reason: "reason" in syn ? String(syn.reason) : undefined,
+    });
+  }
 
   for (const p of proposals) {
-    if (p.kind === "SUBJECT" || p.subjectTitle) {
+    if (p.kind === "SUBJECT") {
+      // Prefer explicit subjectId for synthesis revision on an existing subject.
+      if (p.subjectId) {
+        const check = await assertSubjectRef(pilotId, preparationId, p.subjectId);
+        if (check && "error" in check) {
+          results.push({
+            kind: "subject",
+            status: "FAILED",
+            reason: check.error,
+            epistemicNote: p.continuityReason,
+          });
+          continue;
+        }
+        if (check?.subject) {
+          subjectId = check.subject.id;
+          results.push({
+            kind: "subject",
+            id: subjectId,
+            status: "AVAILABLE",
+            epistemicNote: p.continuityReason,
+          });
+          await writeSubjectSummary(
+            subjectId,
+            p.statement.trim(),
+            check.subject.title.trim(),
+            p,
+          );
+          continue;
+        }
+      }
       const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
+      if (title.length < 3) continue;
+      const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
+      if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
+        results.push({
+          kind: "subject",
+          status: "FAILED",
+          reason: "TURN_OWNERSHIP_LOST",
+          epistemicNote: p.continuityReason,
+        });
+        return {
+          capitalisations: results,
+          selectionMethod: "semantic-proposals" as const,
+          selectionLimit: "OWNERSHIP_LOST",
+          humanDecisionCreated: false as const,
+          ownershipLost: true as const,
+        };
+      }
+      if (s.status === "AVAILABLE" && s.subjectId) {
+        subjectId = s.subjectId;
+        results.push({
+          kind: "subject",
+          id: s.subjectId,
+          status: s.status,
+          epistemicNote: p.continuityReason,
+        });
+        await writeSubjectSummary(s.subjectId, p.statement.trim(), title.trim(), p);
+      }
+      continue;
+    }
+
+    if (p.subjectTitle) {
+      const title = p.subjectTitle.trim().slice(0, 120);
       if (title.length >= 3) {
         const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
         if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
@@ -1062,50 +1251,8 @@ export async function maybeCapitalizeFromExchange(
             status: s.status,
             epistemicNote: p.continuityReason,
           });
-          // SUBJECT statement (≠ title) → durable synthesis revision when project-linked.
-          if (p.kind === "SUBJECT") {
-            const summaryMarkdown = p.statement.trim();
-            const titleNorm = title.trim();
-            if (
-              summaryMarkdown.length >= 12 &&
-              summaryMarkdown.toLowerCase() !== titleNorm.toLowerCase()
-            ) {
-              const ctx = await assertPrep(pilotId, preparationId);
-              const projectId = ctx.project?.id;
-              if (projectId) {
-                const { appendSubjectSummaryRevision } = await import(
-                  "@/domains/knowledge/journal"
-                );
-                const syn = await appendSubjectSummaryRevision(pilotId, projectId, s.subjectId, {
-                  summaryMarkdown: summaryMarkdown.slice(0, 5000),
-                  provenance: {
-                    sourceKind: "message",
-                    sourceId: input.userMessageId,
-                    generationId: input.generationId,
-                    note: p.continuityReason ?? "semantic qualification d4.record_knowledge",
-                    epistemic:
-                      p.epistemic === "established"
-                        ? "observed"
-                        : p.epistemic === "recommended"
-                          ? "recommended"
-                          : "hypothesized",
-                  },
-                  operationId: input.generationId,
-                  idempotencyKey: `subj-summary:${s.subjectId}:${input.generationId}`,
-                });
-                results.push({
-                  kind: "subject_summary",
-                  id: "revisionId" in syn ? syn.revisionId : undefined,
-                  status: syn.status,
-                  epistemicNote: p.continuityReason,
-                  reason: "reason" in syn ? String(syn.reason) : undefined,
-                });
-              }
-            }
-          }
         }
       }
-      if (p.kind === "SUBJECT") continue;
     }
 
     if (p.subjectId) subjectId = p.subjectId;
@@ -1115,13 +1262,15 @@ export async function maybeCapitalizeFromExchange(
         statement: p.statement,
         subjectId,
         turnFence: fence,
-        provenance: {
-          sourceKind: "message",
-          sourceId: input.userMessageId,
+        provenance: buildExchangeProvenance({
+          userMessageId: input.userMessageId,
+          assistantMessageId: input.assistantMessageId,
           generationId: input.generationId,
           epistemic: p.epistemic === "established" ? "limited" : p.epistemic,
           note: p.continuityReason ?? "semantic qualification d4.record_knowledge",
-        },
+          contributionKind: "mixed",
+          primary: "user",
+        }),
       });
       if (op.status === "FAILED" && "reason" in op && op.reason === "TURN_OWNERSHIP_LOST") {
         results.push({
@@ -1149,26 +1298,37 @@ export async function maybeCapitalizeFromExchange(
 
     if (p.kind === "ACQUIS") {
       // F4: Nora's epistemic="established" is NOT independent proof.
-      // Never promote to FACT from the model envelope alone — store as HYPOTHESIS /
-      // RECOMMENDATION until D4 has a verified independent source contract.
       const kind: KnowledgeKind =
         p.epistemic === "recommended" ? "RECOMMENDATION" : "HYPOTHESIS";
       const epistemicNote =
         p.epistemic === "established"
           ? `${p.continuityReason ?? "semantic"} — Nora marked established but D4 refused FACT without independent verified source`
           : p.continuityReason;
+      const noraAnalysisPrimary = p.epistemic === "recommended";
+      let supersedesAcquisId = p.supersedesAcquisId;
+      if (!supersedesAcquisId) {
+        supersedesAcquisId = await findSupersedeCandidate(
+          pilotId,
+          preparationId,
+          subjectId,
+          p.statement,
+        );
+      }
       const cap = await capitalizeAcquis(pilotId, preparationId, {
         statement: p.statement,
         kind,
         subjectId,
+        supersedesAcquisId,
         turnFence: fence,
-        provenance: {
-          sourceKind: "message",
-          sourceId: input.userMessageId,
+        provenance: buildExchangeProvenance({
+          userMessageId: input.userMessageId,
+          assistantMessageId: input.assistantMessageId,
           generationId: input.generationId,
           note: epistemicNote ?? "semantic qualification d4.record_knowledge",
-          epistemic: "hypothesized",
-        },
+          epistemic: noraAnalysisPrimary ? "recommended" : "hypothesized",
+          contributionKind: noraAnalysisPrimary ? "nora_analysis" : "pilot_fact",
+          primary: noraAnalysisPrimary ? "assistant" : "user",
+        }),
       });
       if (cap.status === "FAILED" && "reason" in cap && cap.reason === "TURN_OWNERSHIP_LOST") {
         results.push({
@@ -1193,8 +1353,40 @@ export async function maybeCapitalizeFromExchange(
         reason:
           p.epistemic === "established"
             ? "FACT_PROMOTION_REFUSED_NO_INDEPENDENT_SOURCE"
-            : undefined,
+            : supersedesAcquisId
+              ? `SUPERSEDES:${supersedesAcquisId}`
+              : undefined,
       });
+
+      if (p.resolvesOpenPointId && projectId && cap.status === "AVAILABLE") {
+        const { resolveOpenPointFactually } = await import("@/domains/knowledge/journal");
+        const resolved = await resolveOpenPointFactually(
+          pilotId,
+          projectId,
+          p.resolvesOpenPointId,
+          {
+            reason: p.continuityReason ?? "résolution factuelle depuis capitalisation",
+            provenance: buildExchangeProvenance({
+              userMessageId: input.userMessageId,
+              assistantMessageId: input.assistantMessageId,
+              generationId: input.generationId,
+              epistemic: "observed",
+              note: "factual resolve via d4.record_knowledge",
+              contributionKind: "pilot_fact",
+              primary: "user",
+            }),
+            operationId: `${input.generationId}:resolve:${p.resolvesOpenPointId}`,
+            actorKind: "nora",
+          },
+        );
+        results.push({
+          kind: "open_point_resolve",
+          id: p.resolvesOpenPointId,
+          status: resolved.status,
+          reason: "reason" in resolved ? String(resolved.reason) : undefined,
+          epistemicNote: p.continuityReason,
+        });
+      }
     }
   }
 

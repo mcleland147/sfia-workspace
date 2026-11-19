@@ -2,11 +2,9 @@
 
 | Métadonnée | Valeur |
 |---|---|
-| Date | 19/11/2026 — correctif final UX + mise à disposition RECETTE |
+| Date | 19/11/2026 — correctif mémoire vivante V4 + RECETTE |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD candidat | `3fc8af5fe97e2d03d139854d008b4724ab4cbd5c` |
-| Tree | `57cdb89a693a58ff5c1098d762a22f1e1372c401` |
-| Parent pixel | `6c658f9124b3ada48fb01047b2b0ffb7fa5703c3` |
+| HEAD candidat | (voir commit living-memory — post-`6457bc8e`) |
 | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
 | Docs matrice | v0.7 §18 (`f0d2d033`) — lecture seule |
 | Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
@@ -75,6 +73,19 @@ Avant cutover, `:3200` servait un build **ML3** (`ZCkIWQ341KK1KOHTD1a5L`, worktr
 | Navigation | focus message avec retries (pas clear-on-first-miss) |
 | Arborescence | `.journal-hierarchy` `flex: 0 1 auto` + `max-height: 100%` |
 | UNKNOWN CampusNova | traces `op_78d70493` : `PROVIDER_SCHEMA_OR_OUTPUT` / `structured_output_invalid_type` / `stream_drain` (fingerprint `d57214a42390491f`) — token overflow non prouvé ; gel schéma LIVE = mitigation bornée |
+
+## Correctif mémoire vivante V4 (cycle 8 — 19/11/2026)
+
+| Thème | Cause / correctif |
+|---|---|
+| Synthèse absente sur enrichissement | SUBJECT-only → désormais SUBJECT+`subjectId` révise la synthèse ; skip si `NO_SIGNIFICANT_CHANGE` ; instructions Nora enrichissement |
+| Acquis empilés / non supersédés | `supersedesAcquisId` typé + heuristique numérique `findSupersedeCandidate` |
+| Sources Pilote-only | provenance `relatedMessageIds` + contributionKind ; projection multi-liens Pilote/Nora |
+| SourceChip dense | auteur / date-heure / extrait ≤18 mots / CTA — sans IDs techniques en libellé |
+| Ancrage → dernier message | `useNoraThreadScroll` focusLock : deep-link prioritaire sur stick-to-end |
+| Contradictions ×9 identiques | heuristique resserrée (overlap≥3, scopes temporels, corrections numériques) + raison contextualisée |
+| Fiche sans acquis | sections CE QU'ON RETIENT / À ÉCLAIRCIR conditionnelles |
+| Données CampusNova | préservées sans SQL/backfill — projection améliorée ; synthèse Parcours historique reste vide jusqu'à nouvel échange SUBJECT |
 
 ## Autorité
 

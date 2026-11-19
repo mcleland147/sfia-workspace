@@ -89,6 +89,7 @@ async function linkedPreparationIds(pilotId: string, projectId: string): Promise
 }
 
 export type JournalSummary = {
+  id: string;
   revisionNumber: number;
   summaryMarkdown: string;
   createdAt: Date;
@@ -156,6 +157,7 @@ export async function listProjectKnowledge(pilotId: string, projectId: string) {
     for (const row of revRows) {
       if (summariesBySubjectId[row.subjectId]) continue;
       summariesBySubjectId[row.subjectId] = {
+        id: row.id,
         revisionNumber: row.revisionNumber,
         summaryMarkdown: row.summaryMarkdown,
         createdAt: row.createdAt,
@@ -216,6 +218,7 @@ export async function getCurrentSubjectSummary(pilotId: string, projectId: strin
   return {
     status: "AVAILABLE" as const,
     summary: {
+      id: row.id,
       revisionNumber: row.revisionNumber,
       summaryMarkdown: row.summaryMarkdown,
       createdAt: row.createdAt,
@@ -249,6 +252,22 @@ export async function appendSubjectSummaryRevision(
   const subject = await loadOwnedSubjectForProject(pilotId, projectId, subjectId);
   if (!subject) return { status: "FAILED" as const, reason: "NOT_FOUND" };
   if (subject.status !== "ACTIVE") return { status: "FAILED" as const, reason: "SUBJECT_NOT_ACTIVE" };
+
+  // No-op when exchange brings no significant durable change vs current synthesis.
+  const currentSummary = await getCurrentSubjectSummary(pilotId, projectId, subjectId);
+  if (
+    currentSummary.status === "AVAILABLE" &&
+    currentSummary.summary?.summaryMarkdown &&
+    currentSummary.summary.summaryMarkdown.replace(/\s+/g, " ").trim().toLowerCase() ===
+      markdown.replace(/\s+/g, " ").trim().toLowerCase()
+  ) {
+    return {
+      status: "SKIPPED" as const,
+      reason: "NO_SIGNIFICANT_CHANGE",
+      revisionId: currentSummary.summary.id,
+      revisionNumber: currentSummary.summary.revisionNumber,
+    };
+  }
 
   if (input.enforceHonesty !== false) {
     const acquisRows = await db
@@ -1090,6 +1109,10 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
     revisionId?: string;
     currentness: string;
     detail: string;
+    authorLabel?: string;
+    occurredAt?: string;
+    excerpt?: string;
+    contributionKind?: string;
   }> = [];
 
   const seenSourceKeys = new Set<string>();
@@ -1100,44 +1123,72 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
     sourceLinks.push(link);
   };
 
-  for (const a of knowledge.acquis) {
-    if (a.status !== "CURRENT") continue;
+  async function pushProvenanceLinks(
+    ownerKind: "acquis" | "open_point" | "summary",
+    ownerId: string,
+    subjectId: string | null,
+    provenanceJson: string,
+  ) {
     try {
-      const prov = JSON.parse(a.provenanceJson) as ExtendedProvenance;
+      const prov = JSON.parse(provenanceJson) as ExtendedProvenance;
       const q = await qualifyProvenanceSource(pilotId, prov);
       pushLink({
-        ownerKind: "acquis",
-        ownerId: a.id,
-        subjectId: a.subjectId,
+        ownerKind,
+        ownerId,
+        subjectId,
         sourceKind: q.sourceKind,
         sourceId: q.sourceId,
         documentId: q.documentId,
         revisionId: q.revisionId,
         currentness: q.currentness,
         detail: q.detail,
+        authorLabel: q.authorLabel,
+        occurredAt: q.occurredAt,
+        excerpt: q.excerpt,
+        contributionKind: q.contributionKind,
       });
+      for (const relatedId of prov.relatedMessageIds ?? []) {
+        if (!relatedId || relatedId === prov.sourceId) continue;
+        const rq = await qualifyProvenanceSource(pilotId, {
+          ...prov,
+          sourceKind: "message",
+          sourceId: relatedId,
+          contributionKind:
+            q.contributionKind === "nora_analysis" ? "pilot_fact" : "nora_analysis",
+        });
+        pushLink({
+          ownerKind,
+          ownerId,
+          subjectId,
+          sourceKind: rq.sourceKind,
+          sourceId: rq.sourceId,
+          documentId: rq.documentId,
+          revisionId: rq.revisionId,
+          currentness: rq.currentness,
+          detail: rq.detail,
+          authorLabel: rq.authorLabel,
+          occurredAt: rq.occurredAt,
+          excerpt: rq.excerpt,
+          contributionKind: rq.contributionKind,
+        });
+      }
     } catch {
       /* provenance JSON corrupt — omit rather than invent */
     }
   }
+
+  for (const a of knowledge.acquis) {
+    if (a.status !== "CURRENT") continue;
+    await pushProvenanceLinks("acquis", a.id, a.subjectId, a.provenanceJson);
+  }
   for (const o of knowledge.openPoints) {
-    try {
-      const prov = JSON.parse(o.provenanceJson) as ExtendedProvenance;
-      const q = await qualifyProvenanceSource(pilotId, prov);
-      pushLink({
-        ownerKind: "open_point",
-        ownerId: o.id,
-        subjectId: o.subjectId,
-        sourceKind: q.sourceKind,
-        sourceId: q.sourceId,
-        documentId: q.documentId,
-        revisionId: q.revisionId,
-        currentness: q.currentness,
-        detail: q.detail,
-      });
-    } catch {
-      /* omit */
-    }
+    if (o.status !== "OPEN") continue;
+    await pushProvenanceLinks("open_point", o.id, o.subjectId, o.provenanceJson);
+  }
+  for (const s of knowledge.subjects) {
+    const summary = knowledge.summariesBySubjectId[s.id];
+    if (!summary?.provenanceJson) continue;
+    await pushProvenanceLinks("summary", summary.id, s.id, summary.provenanceJson);
   }
 
   return {

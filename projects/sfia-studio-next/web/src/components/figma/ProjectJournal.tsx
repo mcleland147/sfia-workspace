@@ -66,6 +66,10 @@ export type JournalSourceLink = {
   revisionId?: string;
   currentness: string;
   detail: string;
+  authorLabel?: string;
+  occurredAt?: string;
+  excerpt?: string;
+  contributionKind?: string;
 };
 
 export type JournalContradiction = {
@@ -711,26 +715,32 @@ export function ProjectJournal(props: {
                           ))}
                         </ul>
                       </section>
-                    ) : (
+                    ) : selectedAcquis.length > 0 || selectedOpen.length > 0 ? (
                       <div className="journal-card-row">
-                        <section className="journal-card journal-card-half">
-                          <p className="journal-card-kicker">{COPY.retained}</p>
-                          {selectedAcquis.length === 0 ? (
-                            <p className="journal-muted">Aucun acquis courant.</p>
-                          ) : (
-                            selectedAcquis.map((a) => (
-                              <p key={a.id} className="journal-acquis-line" data-subject-id={a.subjectId ?? ""}>
+                        {selectedAcquis.length > 0 ? (
+                          <section
+                            className={`journal-card${selectedOpen.length > 0 ? " journal-card-half" : ""}`}
+                            data-testid="journal-retained"
+                          >
+                            <p className="journal-card-kicker">{COPY.retained}</p>
+                            {selectedAcquis.map((a) => (
+                              <p
+                                key={a.id}
+                                className="journal-acquis-line"
+                                data-subject-id={a.subjectId ?? ""}
+                              >
                                 {a.statement}
                               </p>
-                            ))
-                          )}
-                        </section>
-                        <section className="journal-card journal-card-half">
-                          <p className="journal-card-kicker">{COPY.clarify}</p>
-                          {selectedOpen.length === 0 ? (
-                            <p className="journal-muted">Aucun point ouvert.</p>
-                          ) : (
-                            selectedOpen.map((o) => (
+                            ))}
+                          </section>
+                        ) : null}
+                        {selectedOpen.length > 0 ? (
+                          <section
+                            className={`journal-card${selectedAcquis.length > 0 ? " journal-card-half" : ""}`}
+                            data-testid="journal-clarify"
+                          >
+                            <p className="journal-card-kicker">{COPY.clarify}</p>
+                            {selectedOpen.map((o) => (
                               <p
                                 key={o.id}
                                 className="journal-open-line"
@@ -739,11 +749,11 @@ export function ProjectJournal(props: {
                               >
                                 {o.statement}
                               </p>
-                            ))
-                          )}
-                        </section>
+                            ))}
+                          </section>
+                        ) : null}
                       </div>
-                    )}
+                    ) : null}
 
                     {isParentSelected ? (
                       <section className="journal-parent-note" data-testid="journal-parent-vision">
@@ -762,9 +772,16 @@ export function ProjectJournal(props: {
                         {selectedContradictions.map((c) => (
                           <div
                             key={`${c.leftAcquisId}-${c.rightAcquisId}`}
+                            className="journal-contradiction-block"
                             data-testid={`journal-contradiction-${c.leftAcquisId}`}
                           >
                             <p className="journal-acquis-line">{c.reason}</p>
+                            <p className="journal-muted journal-contradiction-pair">
+                              A · {c.leftStatement}
+                            </p>
+                            <p className="journal-muted journal-contradiction-pair">
+                              B · {c.rightStatement}
+                            </p>
                           </div>
                         ))}
                       </section>
@@ -1254,12 +1271,27 @@ function SourceChip(props: {
   onOpenDocument?: (documentId: string, revisionId?: string | null) => void;
 }) {
   const s = props.link;
-  const kindLabel =
-    s.sourceKind === "message" ? "Échange" : s.sourceKind === "document" ? "Document" : s.sourceKind;
-  const label = `${kindLabel} · ${s.currentness === "HISTORICAL" ? "source" : s.currentness}`;
+  const author =
+    s.authorLabel ??
+    (s.sourceKind === "message"
+      ? "Échange"
+      : s.sourceKind === "document"
+        ? "Document"
+        : s.sourceKind);
+  const roleHint =
+    s.contributionKind === "nora_analysis"
+      ? "Contribution Nora"
+      : s.contributionKind === "pilot_confirmation"
+        ? "Confirmation Pilote"
+        : s.contributionKind === "pilot_fact"
+          ? "Information Pilote"
+          : s.currentness === "HISTORICAL"
+            ? "Source d’échange"
+            : undefined;
   const canMessage = s.sourceKind === "message" && Boolean(s.sourceId) && props.onOpenMessage;
   const docId = s.documentId ?? (s.sourceKind === "document" ? s.sourceId : undefined);
   const canDoc = Boolean(docId) && Boolean(props.onOpenDocument);
+  const excerpt = s.excerpt?.trim() || undefined;
   return (
     <button
       type="button"
@@ -1267,6 +1299,7 @@ function SourceChip(props: {
       data-testid={`journal-source-${s.ownerId}`}
       data-source-id={s.sourceId ?? undefined}
       data-currentness={s.currentness}
+      data-author={author}
       disabled={!canMessage && !canDoc}
       title={s.detail}
       onClick={() => {
@@ -1274,8 +1307,16 @@ function SourceChip(props: {
         else if (canDoc && docId) props.onOpenDocument?.(docId, s.revisionId ?? null);
       }}
     >
-      <span className="journal-source-label">{label}</span>
-      <span className="journal-row-desc">{s.detail.slice(0, 180)}</span>
+      <span className="journal-source-meta">
+        <span className="journal-source-author">{author}</span>
+        {s.occurredAt ? <span className="journal-source-when">{s.occurredAt}</span> : null}
+      </span>
+      {roleHint ? <span className="journal-source-label">{roleHint}</span> : null}
+      {excerpt ? (
+        <span className="journal-source-excerpt">« {excerpt} »</span>
+      ) : (
+        <span className="journal-row-desc">{s.detail.slice(0, 140)}</span>
+      )}
       <span className="journal-source-cta">
         Ouvrir {s.sourceKind === "message" ? "ce message exact" : "ce document"} ↗
       </span>
