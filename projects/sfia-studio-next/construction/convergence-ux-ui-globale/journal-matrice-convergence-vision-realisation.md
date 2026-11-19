@@ -1,8 +1,8 @@
 # SFIA Studio Next — Ensemble 06 / Journal
 ## Matrice vivante de convergence — vision, contrats, UX, réalisation Cursor et preuves
 
-**Version :** v0.5 — 19 novembre 2026 (Europe/Paris)  
-**Statut :** **DOCUMENTED / REVUE D1 DE MISE À DISPOSITION RECETTE JOURNAL — TECHNICALLY AVAILABLE WITH RESERVES / UAT MORRIS PENDING / PAS DE RÉCEPTION GLOBALE**  
+**Version :** v0.6 — 19 novembre 2026 (Europe/Paris)  
+**Statut :** **DOCUMENTED / REPRISE UAT MORRIS — VISUAL FIDELITY NO-GO POUR JOURNAL / DELIVERY CORRECTIF REQUIS / AUCUNE ADOPTION**  
 **Périmètre :** Journal du projet : Sujets, mémoire, points ouverts, Décisions, recherche, sources et continuité Nora. La Bibliothèque Documents reste propriétaire de sa propre expérience ; seuls les liens depuis le Journal entrent ici.  
 **Autorité de la vision et des gates :** Morris. **Rôle du présent document :** outil de revue ChatGPT, sans créer de doctrine, de décision D6, de nouvelle spécification produit ni de statut ADOPTED.  
 **Mode Git :** création documentaire sur la branche candidate **sfia/next-journal-conception-fonctionnelle-ux-20261119** ; pas de push produit, PR, merge, mise à jour de la Roadmap, migration ou code.  
@@ -12,7 +12,21 @@
 
 ---
 
-## État courant — cinquième revue indépendante du 19/11/2026 (v0.5)
+## État courant — retour Morris RECETTE et audit Figma du 19/11/2026 (v0.6)
+
+**Verdict actuel : JOURNAL UX NOT READY — FIGMA TO RUNTIME PARTIAL / DELIVERY REQUIRED ; conformité visuelle de l'exploration : NON CONFORME.** L'environnement RECETTE technique reste disponible selon le [handoff 31c495af](https://github.com/mcleland147/sfia-workspace/blob/31c495af5c5afeadcc5e120b32427ceafd61acf5/sfia-review-handoff/latest-chatgpt-review.md), mais cette disponibilité **ne vaut pas livraison conforme à Figma**. Morris a fourni une capture de la RECETTE de CampusFlow (19/11/2026) et rejette explicitement l'UX actuelle : titre « Sujets et acquis », contenu réduit à une phrase brute isolée, deux très grands panneaux presque vides, textes explicatifs redondants. Il exige **l'identité visuelle des onze frames Figma V4 validées**, sans variante approchante ; le titre de la surface doit être « Journal ».
+
+**Source primaire effectivement reconsultée :** Figma fichier itgvCulInEnFY6DvgIegvP, page 828:2 ; onze frames 835:71, 842:26, 842:131, 835:159, 835:239, 859:42, 859:146, 860:58, 860:136, 860:251, 860:360 lues via MCP Figma, y compris leurs textes/hiérarchies. Contrat fonctionnel/UX Journal v1.0 (VALIDATED SPEC), technique v0.3 §16, R1/R2 D3/D4/D6 et R4 sur Git ; handoffs 03eda7e8, 7a065cec, 9d56e6a5, 45bd3d37 et 31c495af audités dans les revues précédentes. **Candidat produit d5bf7eb7 NON POUSSÉ**, code exécutable local NON OBSERVÉ directement ; le screenshot Morris est une observation de la RECETTE, les handoffs prouvent des tests techniques ciblés, **pas la fidélité visuelle**.
+
+**Constat discriminant :** sur Figma 835:71, header **« Journal »**, sous-titre **« La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation. »**, tabs discrets, recherche avec icône, en-tête « THÈMES DU PROJET », arbre pleine largeur de thèmes hiérarchisés ; lecture 40/60 **uniquement lorsqu'un sujet/décision est sélectionné**. La capture actuelle montre un titre et un sous-titre étrangers à cette cible, une pseudo-liste non éditorialisée et une visionneuse vide permanente. **Ce seul écran suffit à constater une NON-CONFORMITÉ de l'état exploration**, sans présumer du comportement des dix autres états.
+
+**État vide :** les onze frames illustrent des données, pas l'absence de données. L'état « aucun sujet / aucune décision » ne doit **ni inventer des contenus ni afficher des panneaux gigantesques** : dériver un état vide sobre de l'enveloppe Figma, titre Journal conservé et onglets/recherche pertinents ; absence de sujet sélectionné = pas de visionneuse inactive. Toute incertitude de design à fort impact est soumise à Morris, sans solution arbitraire Cursor.
+
+**Point de données à qualifier** : la capture CampusFlow affiche un intitulé brut débutant « la première source Git consultée et corrige la distinction entre le SHA du fichi… ». Cela peut relever d'un titre D4 mal formé, d'un jeu de test, d'un rattachement inter-préparations ou d'un problème d'isolation ; **aucune fuite interprojets n'est établie par l'image seule**. Cursor devra tracer subjectId/projectId/preparationId/provenance et le contenu API, sans altérer ni supprimer la donnée pour masquer l'écart. Si une fuite interprojets est démontrée, STOP sécurité et gate Morris.
+
+**Décision de travail explicitement demandée par Morris** : correction du delivery UX à l'identique des onze maquettes Figma, suppression des textes parasites et revue de complétude du Journal ; **pas** de pivot D1–D9, changement normatif, promotion Git implicite, ni déclaration ADOPTED. La nouvelle matrice détaillée et les sorties sont au **§17**. Le §16 reste historique, et ne doit plus servir à conclure « UAT prêt » en présence de l'écart visuel.
+
+## État historique — cinquième revue indépendante du 19/11/2026 (snapshot v0.5)
 
 **Verdict ChatGPT : RECETTE TECHNICALLY AVAILABLE WITH RESERVES — READY FOR MORRIS USER ACCEPTANCE ; UAT NOT STARTED.**
 
@@ -230,6 +244,7 @@ Le premier handoff Cursor [03eda7e8](https://github.com/mcleland147/sfia-workspa
 | **19/11/2026 — troisième cycle Critical** ; local a122bf27 ; [handoff 9d56e6a5](https://github.com/mcleland147/sfia-workspace/blob/9d56e6a5d47719c3f1016c3daafbf6d31027024b/sfia-review-handoff/latest-chatgpt-review.md) | E06-05 projet, E06-03 Git UNVERIFIED, E06-04 message, E06-01 E2E seed, E06-02 PG et E06-06 source DB ; tsc/lint/build, UNIT 6/6, PG 12/12, BROWSER 1/1 annoncés. | Handoff 1 450 lignes, 2 créations FULL, 9 diffs relus, test navigateur sur données métier mais encore incomplet ; worktree et tests NON OBSERVÉS directement. | **REVUE AVEC RÉSERVES / NON REÇU** : recherche acquise faux positif titre, retour page.goto, document via URL sans revisionId, cognition et non-régressions. | Compléter QA DEV, gate RECETTE Morris distinct ; pas de push projet/PR/merge. |
 | **19/11/2026 — quatrième cycle Critical / LIVE CampusFlow** ; candidat local d5bf7eb7 ; [handoff 45bd3d37](https://github.com/mcleland147/sfia-workspace/blob/45bd3d375a097e0d01754ab4c985b700d2fd69ca/sfia-review-handoff/latest-chatgpt-review.md) | J-C05/07/08/11/13/14 déterministes améliorés ; tsc/lint/build, PG Journal15, ML3 PG49, BROWSER2 PASS annoncés ; E01 Nora réel COMPLETE. | 2 créations FULL + 8 diffs inspectés ; T0 vide, E01 647s, coût 0,35 USD proxy, E02–E20/T10/T20 NOT RUN ; code local NON OBSERVÉ. | **LIVE 1/20 PARTIAL** ; harnais trop permissif, reprise non prévue, coût/timeout, aucune mémoire LIVE prouvée. | Instrumentation latence + reprise bornée E02 au même projet puis nouvelle revue, aucun push produit/RECETTE. |
 | **19/11/2026 — qualification et cutover RECETTE Journal** ; SHA local d5bf7eb7 ; [handoff 31c495af](https://github.com/mcleland147/sfia-workspace/blob/31c495af5c5afeadcc5e120b32427ceafd61acf5/sfia-review-handoff/latest-chatgpt-review.md) | Même RECETTE E05 :3200 / service / DB ; build PV12SV9VToVGK-ReSxTqk, migration 014 et conservation 23/560 ; API 200/401, fixtures 403, Projet/Journal/Travail smoke PASS déclarés. | Pack 734 lignes, manifeste FULL, as-built FULL et diff historique ; code et runtime locaux non accessibles directement à ChatGPT. | **TECHNICALLY AVAILABLE WITH RESERVES / UAT PENDING** : suites transverses full NOT RUN, 3 unit FAIL, identité test, rollback non exercé, docs locales non commit. | Morris conduit sa campagne ; aucune publication produit/PR/merge/adoption. |
+| **19/11/2026 — retour RECETTE Morris et audit UX 11 frames** ; capture CampusFlow fournie en conversation, Figma file itgvCulInEnFY6DvgIegvP page 828:2 réouvert via MCP | Observé : header Sujets et acquis, phrases brutes, deux panneaux inertes ; cible Figma exploration « Journal » et arborescence pleine zone. | **835:71 NON CONFORME ; 10 états NON OBSERVÉS en runtime** ; 11 designs lus ; contrat UX v1.0, technique v0.3 et handoffs reconsultés. | **UX NO-GO** : texte/origine à qualifier, empty state sobre, refonte d'alignement Figma ; aucune preuve de fuite interprojets à ce stade. | Correctif Cursor sous GO Morris, preuves 11 captures DEV, recette update via gate distinct ; pas de push projet. |
 
 **Règle de version :** à chaque nouveau handoff, garder cette ligne historique ; ajouter une **ligne datée avec SHA exact** et revoir §1, §4, §5, §7 et §8. Les résultats plus récents prévalent **uniquement sur le périmètre qu'ils prouvent**. Un nouveau BROWSER ne transforme pas un ancien test PG absent en PASS rétroactif.
 
@@ -428,7 +443,7 @@ L'absence de validation visuelle pixel-perfect dans DEV ne bloque pas la QA des 
 
 **READY FOR MORRIS REVIEW WITH RESERVES — REAL PROVIDER E01 SEUL / 19 TOURS NON JOUÉS / CAPITALISATION JOURNAL LIVE NOT PROVEN.** Handoff Git complet et distant vérifié. Code produit local non publié ; recettes et assertions esthétiques réservées à Morris en RECETTE ; pas de Gate C, PR, merge, STABLE ni ADOPTED.
 
-## 16. Cinquième revue — qualification technique et disponibilité RECETTE
+## 16. Revue historique — qualification technique et disponibilité RECETTE (snapshot v0.5)
 
 ### 16.1. Matrice J-C01 à J-C16 à la mise à disposition
 
@@ -478,6 +493,78 @@ L'absence de validation visuelle pixel-perfect dans DEV ne bloque pas la QA des 
 
 **RECETTE TECHNICALLY AVAILABLE WITH RESERVES — READY FOR MORRIS USER ACCEPTANCE.** Le smoke n'est pas une recette utilisateur. L'acceptation visuelle, ergonomique et métier reste un gate distinct de Morris ; aucun push produit, PR, merge, Gate C, STABLE ou ADOPTED inféré. La mise à jour ici est **documentaire D1 uniquement**.
 
+## 17. Sixième revue — écart UX constaté par Morris en RECETTE et audit des onze frames Figma
+
+### 17.1. Matrice Figma V4 vs RECETTE
+
+**Lecture des statuts :** seule l'exploration Sujets est **visuellement observée** dans la capture Morris. Les autres états sont extraits des frames natives via MCP Figma, mais **aucune capture de leur runtime dans cette RECETTE n'a été fournie** ; ils ne sont donc pas déclarés conformes ou non conformes sans observation. Les dimensions natives Figma des états inspectés sont 1680×970 ; rail partagé page 05 et enveloppe constante.
+
+| Frame | État cible | Verdict prouvable maintenant |
+| --- | --- | --- |
+| [835:71](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71) | Sujets — exploration | **NON CONFORME** : header, hiérarchie, densité, panneaux et copy divergents dans capture Morris |
+| [842:26](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-26) | Sujet autonome — 40/60 | **NON OBSERVÉ** en RECETTE ; code split seul ≠ rendu conforme |
+| [842:131](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-131) | Sujet parent — 40/60 | **NON OBSERVÉ** en RECETTE ; contenu enfants/repères à éprouver |
+| [835:159](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159) | Sujet autonome — agrandi | **NON OBSERVÉ** en RECETTE ; layout hero/synthèse/acquis/points/sources/asides à comparer |
+| [835:239](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-239) | Sujet parent — agrandi | **NON OBSERVÉ** en RECETTE ; 3 enfants riches, synthèse parent et asides à comparer |
+| [859:42](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=859-42) | Recherche Sujets — résultat 40/60 | **NON OBSERVÉ** en RECETTE ; match reason, chemin, sélection et viewer |
+| [859:146](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=859-146) | Filtre Points ouverts — 40/60 | **NON OBSERVÉ** en RECETTE ; transversal et sujet origine |
+| [860:58](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-58) | Décisions — exploration | **NON OBSERVÉ** en RECETTE ; liste D6, statuts et hiérarchie |
+| [860:136](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-136) | Décision — 40/60 | **NON OBSERVÉ** en RECETTE ; choix D6, pourquoi/contexte, statut |
+| [860:251](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-251) | Recherche Décisions — résultat 40/60 | **NON OBSERVÉ** en RECETTE ; résultat et contexte |
+| [860:360](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-360) | Décision — agrandie | **NON OBSERVÉ** en RECETTE ; hero, motifs sourcés, repères et histoire |
+
+**Point clé :** les textes des frames Figma sont des **données illustratives**, à ne pas hardcoder. Seuls les libellés d'interface, géométrie, typographie, hiérarchie, styles et interactions approuvés sont à reproduire ; la connaissance affichée vient exclusivement des vraies données D4/D6 autorisées.
+
+### 17.2. Registre correctif UX — IN du même macro-lot Ensemble 06
+
+| Écart | Résultat requis | Gate |
+| --- | --- | --- |
+| **UX-01** — Identité, textes et header | Titre Journal exact, sous-titre approuvé, breadcrumb/tabs/recherche alignés ; retirer « Sujets et acquis », double heading de D4/D6 et textes techniques en UX finale | **BLOCKER** |
+| **UX-02** — Exploration nominale | Arborescence éditorialisée pleine largeur, titres, descriptions, parenté, compteurs contextuels, grille et style copiés de Figma 835:71 ; ne pas afficher 40/60 sans sélection | **BLOCKER** |
+| **UX-03** — État initial/vide | Projet sans connaissance : shell Journal V4 fidèle, pas de fixture ni sujet inventé, état sobre et explicite, pas de deuxième paneau inerte ; charge/erreur/no results distincts | **BLOCKER** |
+| **UX-04** — Visionneuses sujet | 40/60 réel (526/784 à viewport Figma), lecture autonome/parent selon contenu, agrandi/réduit, typographie, hero, cartes, sources et asides conformes aux quatre frames | **BLOCKER** |
+| **UX-05** — Sujets recherche / points ouverts | Résultat avec chemin et raison, filtre discret près de recherche, projection transverse et viewer ; Figma 859:42/146 | **HIGH** |
+| **UX-06** — Décisions | Trois états + agrandi V4 exacts, distinction acte D6 vs explication D4, statuts, sources et recherche conformes à Figma 860:58/136/251/360 | **BLOCKER** |
+| **UX-07** — Contenu mal présenté / possible mauvaise portée | Tracer la phrase « première source Git » jusqu'au sujet, projet, préparation, sources et API ; corriger titre tronqué/texte brut si UI en cause ; stopper si fuite interprojets confirmée | **HIGH SECURITY CONDITIONAL** |
+| **UX-08** — Preuves runtime et Figma | Comparaison 11/11 Figma screenshot ↔ runtime au même 1680×970 et contrôles 1280, vrais états avec objets autorisés ; tableau écarts géométrie/style/interaction ; aucun READY sans comparaison | **BLOCKER** |
+
+**Critère hard-stop :** capture runtime absent(e), design contract Figma incomplet, ou écart visuel majeur encore présent = **FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED / NOT READY FOR MORRIS UX UAT**. Une présence de composants React, un PASS tsc/PG/Playwright ou l'identité du build ne remplacent pas ce gate. Revue esthétique finale par Morris après livraison conforme aux frames.
+
+### 17.3. Réconciliation obligatoire avec le périmètre fonctionnel/technique J-C01…J-C16
+
+| Obligation | Contrôle de non-dérive |
+| --- | --- |
+| **J-C01** | Capacité D4 versionnement déjà développée selon handoff ; qualité de la présentation de synthèse en UI non prouvée |
+| **J-C02** | Hiérarchie D4 disponible dans code rapporté ; rendu Figma parent/feuille/descendants non conforme ou non démontré |
+| **J-C03** | subjectId véhiculé selon tests ; le panneau doit afficher acquis/points au bon sujet selon Figma |
+| **J-C04** | Réactivation D3/D4 non à réinventer ; résultat pertinent non vérifié en UAT |
+| **J-C05** | Résolution factuelle côté D4/D6 à préserver ; présentation des statuts attendue |
+| **J-C06** | Sources/contradictions du service à restituer sans texte brut orphelin, ni fausse fraîcheur |
+| **J-C07** | Portée projet/inter-préparations testée côté PG, mais phrase Git sous CampusFlow requiert inspection de provenance réelle |
+| **J-C08** | Recherche fonctionnelle ciblée PASS rapporté ; restitution de résultats Figma non comparée |
+| **J-C09** | D6 lecture, historique et restrictions non à reconstruire ; vue décision Figma à refaire |
+| **J-C10** | Explication D6 à éditorialiser dans la visionneuse selon Figma, sans autorité ni motif inventé |
+| **J-C11** | Recherche D6 testée en DEV mais état visuel de résultat Figma non comparé |
+| **J-C12** | **BLOCKER** : UX exploration 835:71 non conforme, dix autres frames sans comparaison runtime ; correction V4 réelle requise |
+| **J-C13** | Lien message exact testé ciblé ; affordance Figma et retour en UI à vérifier |
+| **J-C14** | Document/version testé ciblé ; affordance, présentation et retour Figma à vérifier |
+| **J-C15** | Garanties de sécurité/DB conservées ; vérifier données de CampusFlow, ne pas masquer anomalie |
+| **J-C16** | Matrice tests DEV et smoke RECETTE ne sont pas preuve visuelle ; screenshot et comparaison 11/11 indispensables, E05 non-régression à conserver |
+
+Les six références majeures sont à lire **ensemble** : vision R1, R2 D3/D4/D6, R3, architecture R4, contrat UX v1.0 et technique Journal v0.3 §16. Aucune ligne J-C01…16 ne peut être déclarée achevée uniquement sur test de compilation ou sur capture d'état vide ; préserver les preuves techniques déjà acquises sans surpromettre la conformité UX.
+
+### 17.4. Trajectoire et gates de livraison
+
+- **Macro-lot unique** : correctif UX V4 + intégration UI réelle + tests BROWSER + captures et comparaison Figma 11/11 + non-régression E05. **Pas de nouvelle UX alternative, deuxième moteur, nouvel onglet ni schéma DB par défaut.**
+- **Ordre** : Git local truth check ; extraction Figma native 11 frames ; contrat visuel structuré ; audit du composant ProjectJournal et de la page Projet ; état vide/nominaux/split/agrandi ; correction dans la branche produit locale ; build/tests/captures DEV ; comparaison géométrique et visuelle ; Review Pack Full + handoff L3. Aucun nouveau code si gate Figma impossible.
+- **RECETTE existante** : URL/DB/service de l'Ensemble 05/06 inchangés ; **pas de cutover sans gate Morris explicite** pour ce nouveau correctif. Conserver build/backup/rollback existants et ne pas rejouer migration 014. Une fois correctif techniquement démontré, préparer la mise à jour de la même RECETTE, sans instance parallèle ni nouveau service.
+- **Morris** : accepte/refuse l'UX finale et la campagne utilisateur ; ChatGPT revoit code, source, captures et met à jour la matrice ; Cursor exécute. Pas de push projet/PR/merge/ADOPTED implicites.
+- **Aucune reprise du test conversation automatisé interrompu** : hors de ce contrat correctif.
+
+### 17.5. Verdict de revue et action suivante
+
+**NOT READY — JOURNAL UX DOES NOT MATCH VALIDATED FIGMA.** La cause immédiate est la divergence du layout et des libellés sur la capture de la RECETTE. Le périmètre exact des autres écarts visuels sera établi par 11 comparaisons Figma/runtime ; anomalie de texte Git à investiguer sans conclure prématurément à une fuite. **Prochaine action : contrat Cursor Critical de correction visuelle et fonctionnelle V4 à l'identique**, puis vérification du candidat DEV et GO Morris distinct pour mettre à jour RECETTE.
+
 ## 12. Historique documentaire
 
 | Date/version | Opération et source | Qualification |
@@ -487,4 +574,5 @@ L'absence de validation visuelle pixel-perfect dans DEV ne bloque pas la QA des 
 | **19/11/2026 — v0.3** | Handoff 9d56e6a5 relu, nouvelle matrice actuelle §14 J-C01..16, réserve faux positif acquis, retours et versions, provenance source, gate E2E et suites ; historique conservé | **DOCUMENTED D1 CANDIDATE** ; sans effet produit/DB/RECETTE, pas de Gate C/ADOPTED |
 | **19/11/2026 — v0.4** | Revue du handoff 45bd3d37, matrice §15 complète J-C01…16/C1…14/LIVE-Q01…08 ; E01 provider réel distinct des 19 non exécutés, latence/coût et reprise qualifiés | **DOCUMENTED D1 CANDIDATE** ; aucune relance LIVE, aucun effet code/DB/RECETTE ni adoption |
 | **19/11/2026 — v0.5** | Handoff 31c495af relu, §16 couvre 16 J-C et 8 réserves DEP-01..08, distinction DEV/smoke/UAT et démarrage de la campagne Morris | **DOCUMENTED D1 CANDIDATE**, aucun effet code/DB/RECETTE, aucun push produit, pas de Gate C |
+| **19/11/2026 — v0.6** | Audit de la capture Morris RECETTE contre onze frames natives Figma ; §17 nouveau registre UX-01..08 et matrice J-C01..16 de non-dérive ; aucune modification des contrats validés | **DOCUMENTED — D1 CANDIDATE / UX NO-GO**, sans code, sans déploiement, sans push projet/PR/merge/Gate C |
 
