@@ -1,196 +1,197 @@
-# SFIA Studio Next — FULL Review Pack
-## Ensemble 06 / Journal V4 — Décisions UX + explication contextuelle
-**Processus** SFIA v2.6 · **Cycle** DELIVERY CORRECTIF INTÉGRÉ · **Profil** CRITICAL  
-**Date** 2026-11-19 · **NO RELEASE** · **NO PRODUCT PUSH/PR/MERGE** · **STABLE NOT AVAILABLE**
+# ChatGPT Review Pack — Light
+## Cycle 00 — Setup Cursor & MCP Softr (CourtiLien)
+**Date :** 2026-11-19 · **Heure :** 21:00 CET (UTC+1) · **Profil :** Standard · **Type :** 7 — Intégration / DevOps
+**Méthodologie :** Liora / SFIA v2.6 · **Autonomie :** L3 bornée · **Mode handoff :** publish-in-cycle
+**CKC :** carte synthétique candidate (cycle 7 — pas de pilote détaillé) · Studio historique/Next : N/A
 
 ---
 
-## 1. Git truth
+### 1. Local Git Truth Check (début)
 
 | Champ | Valeur |
-|---|---|
-| Repo | `mcleland147/sfia-workspace` |
-| Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD candidat (code) | `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` |
-| Tree | `9f077b3b10b752974d94f7f33e633c384d0c5101` |
-| Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
-| Parent RECETTE | `d3950948` / BUILD `2HWeuv_daXJXjd5PstRO` |
-| Docs cutover follow-up | commit docs as-built après cutover (même cycle) |
-| Contrat rapporté (obsolète) | `02e24e42` / `7yhVJFP0…` — **servi réellement avant ce cycle** : `d3950948` |
+|-------|--------|
+| Repo | `mcleland147/sfia-workspace` (`/Users/l/Projects/sfia-workspace`) |
+| Branche projet | `project/sfia-task-manager-cycle-4-ux-ui` |
+| HEAD | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
+| origin/main | `d4d986af5884b31b416374da3cb5e60757501f87` |
+| `git status --short` | Untracked only : `.cursor/AIDE AUTO/`, `.cursor/LIORA/`, `.cursor/Projet F.O.R.G.E/`, `.cursor/mcp.json`, `.tmp-sfia-review/` |
+| Staged | aucun |
+| Ref consultation | `main` (lecture templates/méthode) — **aucune** modification projet versionnée |
 
-### Statut local (pré-modifs)
-
-Branche delivery active ; worktrees RECETTE historiques présents ; untracked `.tmp-sfia-review/` / scripts captures.
+Workspace Cursor ouvert : `.cursor/AIDE AUTO` (sous-dossier, dépôt local sans commits — hors vérité Git méthodo).
 
 ---
 
-## 2. Sources consultées
+### 2. Découverte locale
 
-- Gouvernance SEF / roadmap / environnements / versioning (lecture)
-- `journal-contrat-fonctionnel-ux-candidat.md` §§6.3–6.4
-- `contrat-technique-journal.md` §5.4 / §5.6 / §16
-- Matrice convergence Journal — **lecture seule**
-- As-built + delivery-history E06
-- Figma `itgvCulInEnFY6DvgIegvP` frames `860:58` / `860:136` / `860:251` / `860:360` (screenshots + design context)
-- Code : `ProjectJournal.tsx`, `journal.ts`, `journal-editorial.ts`, `page.tsx`, D6 `human_decisions`
+| Élément | Résultat |
+|---------|----------|
+| OS | macOS 26.5.2 (Darwin arm64) |
+| Shell | `/bin/bash` |
+| HOME | `/Users/l` |
+| Cursor | 3.15.19 (`de07bee…`) |
+| CLI Agent | installée ce cycle (`2026.11.19-f005e9d` via `curl https://cursor.com/install`) → `~/.local/bin/agent` |
+| `~/.cursor/mcp.json` | **absent** en entrée → créé |
+| `.cursor/mcp.json` projet | présent, `mcpServers: {}` — **non modifié** (hors périmètre fichier autorisé) |
+| Airtable / Figma | plugins Cursor déjà présents (`plugin-airtable-airtable`, `plugin-figma-figma`) — hors `mcp.json` |
 
----
-
-## 3. Diagnostic précis
-
-### Symptômes CampusNova (RECETTE)
-
-Décision `dec_ae40c887-…` EN VIGUEUR (`APPLICABLE` / `PROJECT`) :
-
-1. Intitulé = paragraphe = énoncé D6 entier
-2. Même texte répété liste / hero / choix
-3. Description = troncature 140 car. du même énoncé
-4. Raisonnement vide (0 row `knowledge_decision_explanation_revisions`)
-5. Sources = placeholder générique
-6. Meta `RECORD_DECISION · PROJECT` + `scope · applicable`
-7. Labels 40/60 utilisaient déjà les libellés vue agrandie
-
-### Cause racine (pipeline)
-
-```
-HumanDecision.statement (D6)
-  → getJournalProjection (+ explanation D4 si présente)
-  → GET /journal
-  → page.tsx (drop sourceKind/sourceRef)
-  → ProjectJournal : title = blurb = choice = statement
-```
-
-- `appendDecisionExplanationRevision` **jamais appelé en production** (tests/seed seulement)
-- Message source réel : `USER_MESSAGE` / `msg_0df71c31-…` contient `**Motivation :**` Lyon/Lille/Bordeaux — non projeté
-- **Aucun bug D6** : l’acte est correctement stocké ; la projection UI était pauvre
+**CKC cycle 7 :** `method/.../cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` + matrice routing — carte synthétique ; pas de pilote détaillé.
+**Sources lues :** template exécution §7.10/§9.1 ; docs Softr MCP connect ; docs Cursor CLI MCP.
 
 ---
 
-## 4. Correctif (sans mutation D6)
+### 3. Configuration Softr (expurgée)
 
-| Couche | Changement |
-|---|---|
-| `journal-editorial.ts` | `composeDecisionDisplayTitle/Summary/Choice` · extract motivation marquée · labels métier scope/kind |
-| `journal.ts` | `originSources` via `qualifyProvenanceSource` · `sourcedMotivationExcerpt` si Motivation explicite |
-| `ProjectJournal.tsx` | Slots distincts · Figma 40/60 vs agrandi · CTA sources · restrictions filtrées par `originDecisionId` |
-| `page.tsx` | Passe `sourceKind` / `sourceRef` / `originSources` / excerpt |
-| `tokens.css` | Grille autorité/histoire + CTA cheminement |
-| Focus | Highlight Journal→Travail 5.2s (flake deep-link) |
-
-### Exemple projection CampusNova (display-only)
-
-| Slot | Valeur projetée |
-|---|---|
-| Titre | `Conditions de confirmation d'une réservation` |
-| Résumé | `Le fonctionnement cible des trois centres pilotes` |
-| Choix | énoncé D6 **intégral** (415 car.) |
-| Pourquoi | extrait Motivation du message source **si** présent ; sinon indisponibilité honnête |
-| Autorité | `Pilote · Projet` · `Projet · en vigueur` |
-| D6 DB | statement / state / scope **inchangés** (vérifié post-cutover) |
-
-**Hors mandat / dette :** pas de backfill D4 `appendDecisionExplanationRevision` sur CampusNova historique ; pas de second registre ; Subjects non rouverts.
+- **Sauvegarde :** pré-état documenté `~/.cursor/mcp-backups/mcp.json.ABSENT-before-softr-<ts>.txt` (fichier global n'existait pas).
+- **Action :** ajout unique de l'entrée `Softr` dans `~/.cursor/mcp.json`.
+- **Structure (sans secret) :**
+  - clé serveur : `Softr`
+  - `url` : `https://mcp.softr.io/mcp`
+  - `auth.CLIENT_ID` : présent (ID public Cursor documenté Softr — non republier en clair ici au-delà du préfixe `4d2556b2…`)
+- **JSON :** syntaxe validée.
+- **Diff conceptuel :** seule entrée ajoutée ; aucun autre serveur global.
 
 ---
 
-## 5. Fichiers touchés (responsabilités)
+### 4. Authentification
 
-| Fichier | Rôle |
-|---|---|
-| `journal-editorial.ts` | Helpers purs display |
-| `journal.ts` | Projection origines |
-| `ProjectJournal.tsx` | Rendu Décisions |
-| `tokens.css` | Layout CTA / grille |
-| `page.tsx` | Mapping client |
-| `NoraConversation.tsx` | Durée focus marker |
-| Tests unit / PG / e2e | Gates |
-| as-built / delivery-history | Identité cutover |
+1. **CLI :** `agent mcp list` → `Softr: requires_authentication`
+2. **CLI :** `agent mcp login Softr` → navigateur OAuth Softr → callback `localhost:8787` → **MCP login successful** (code tronqué `4EtBhs…`)
+3. **CLI post-login :** `Softr: ready` ; `agent mcp list-tools Softr` → **167 outils**
+4. **Session Cursor IDE :** namespace `user-Softr` `needsAuth` → `mcp_auth` → **Successfully authenticated**
+5. **Intervention humaine :** connexion compte Softr + consentement OAuth (réalisée) — aucun mot de passe/token transmis au chat.
+
+**Réserve :** `agent -p` nécessite `agent login` (compte Cursor) — non requis car tests exécutés via outils MCP natifs Cursor. Un re-check CLI ultérieur a pu remonter `requires_authentication` (stores OAuth CLI vs IDE distincts possibles) — **session Cursor prouvée REAL**.
 
 ---
 
-## 6. Diff utile (parent → HEAD)
+### 5. Tests REAL (read-only) — preuves
 
-`d3950948..5f6e2f38` ≈ +568 / −49 (hors docs follow-up) — voir `git show 5f6e2f38`.
+#### 5.1 Workspaces / applications — REAL BOUNDARY PROVEN
 
-Points clés :
-- Plus de triple répétition `statement` dans title/lede/choice
-- Labels `CHOIX RETENU` / `POURQUOI CE CHOIX ?` en 40/60 ; `LE CHOIX RETENU` / `LE RAISONNEMENT…` en agrandi
-- Suppression affichage brut `PROJECT` / `applicable`
+`workspace_list` → 2 workspaces (ids présents ; noms Ludovic / William).
+`application_list` → **2 apps** :
+
+| Nom | ID | Type |
+|-----|----|------|
+| CourtiLien — Espace client | `7242211b-049d-4673-9262-19dd95ee9178` | APP |
+| Espace client Courtage | `e8491c5f-9938-4731-b38f-f4c97d2a553e` | APP |
+
+Les deux IDs cibles du contrat sont **accessibles**.
+
+#### 5.2 Lecture fichiers — REAL BOUNDARY PROVEN (≠ `{}`)
+
+Contrairement à ChatGPT (`application_read_file` → `{}`), Cursor a reçu **contenu + hash + truncated:false** pour les 8 lectures.
+
+**App nouvelle `7242211b-…`**
+
+| Path | Hash (sha256) | Contenu |
+|------|---------------|---------|
+| `src/lib/app.ts` | `dbb83528…78e5073` | non vide (`APP_NAME = 'Blank app'`) |
+| `src/styles.css` | `f353b3ad…c2467e` | non vide (tokens Tailwind/shadcn) |
+| `src/routes/_app.tsx` | `658e7c9c…04a362` | non vide (shell Sidebar) |
+| `src/routes/_app/index.tsx` | `945aba09…1ee239` | non vide (Home placeholder) |
+
+**App historique `e8491c5f-…`**
+
+| Path | Hash (sha256) | Contenu |
+|------|---------------|---------|
+| `src/lib/app.ts` | `96875aaf…e1fa2ea` | non vide (`APP_NAME = 'CourtiLien'`) |
+| `src/styles.css` | `7e4e90e2…6b119bb` | non vide (palette CourtiLien) |
+| `src/routes/_app.tsx` | `c50d721d…679ce9d` | non vide (masthead + nav métier) |
+| `src/routes/_app/index.tsx` | `da499638…ba23e418` | non vide (dashboard métriques) |
+
+**Verdict lecture :** PASS — pas de tooling gap Cursor sur ces paths.
+**Hors scope :** preuve e2e métier / delivery.
+
+#### 5.3 Non-régression MCP
+
+| MCP | Preuve | Statut |
+|-----|--------|--------|
+| Airtable | `ping` → `pong` | PASS |
+| Figma | `whoami` → handle `ludo_zaya` | PASS |
+| Softr | list + read | PASS |
+| Projet `mcpServers` | inchangé `{}` | PASS |
 
 ---
 
-## 7. Vérité D6 avant / après
+### 6. Fichiers créés / modifiés (périmètre)
 
-| | Avant | Après |
-|---|---|---|
-| `statement` | long paragraphe (autorité) | **identique** |
-| `state` | `APPLICABLE` | **identique** |
-| `scope` | `PROJECT` | **identique** (label UI « Projet ») |
-| Explanation D4 | absente | absente (pas de backfill) |
-| Affichage | statement partout | titre/résumé/choix séparés |
+| Fichier | Action |
+|---------|--------|
+| `~/.cursor/mcp.json` | créé (Softr only) |
+| `~/.cursor/mcp-backups/mcp.json.ABSENT-before-softr-*` | métadonnée pré-état |
+| `.tmp-sfia-review/chatgpt-review.md` | réinitialisé puis complété (ce fichier) |
+| `sfia-review-handoff/latest-chatgpt-review.md` | publication handoff (copie) |
 
----
-
-## 8. Tests
-
-| Gate | Résultat |
-|---|---|
-| Unit `journal-decision-editorial` | PASS (7) |
-| Unit editorial density / E05 freeze | PASS |
-| PG `journal-d4-revisions` (19) | PASS |
-| Playwright `journal-v4-figma-captures` | PASS |
-| Playwright `journal-v4-parcours` | PASS (seul / suite séparée ; flake rare si chaîné lourd après captures — deep-link focus durci) |
-| `tsc --noEmit` | PASS |
-| Lint scoped | warnings préexistants seulement |
-| LIVE auto | **NOT RUN** (mandat) |
+**Non touchés :** apps Softr, Airtable, Figma, stack, secrets versionnés, commits projet.
 
 ---
 
-## 9. Figma ↔ runtime
+### 7. Garde-fous
 
-| Frame | Attendu | Runtime |
-|---|---|---|
-| 860:58 liste | titre court + sous-texte + statut | titre dérivé + résumé + EN VIGUEUR |
-| 860:136 40/60 | CHOIX RETENU / POURQUOI / AUTORITÉ ET PORTÉE / HISTOIRE / CTA sources | labels + grille + CTA |
-| 860:251 recherche | filtre client | inchangé (filtre statement/explanation) |
-| 860:360 agrandi | LE CHOIX RETENU / RAISONNEMENT / CONTEXTE / REPÈRES | labels + aside |
-
-Captures e2e : `09-runtime-860-136-…`, `11-runtime-860-360-…` (artefacts Playwright run).
+- Secrets non affichés / non versionnés : oui
+- OAuth non contourné : oui
+- Airtable/Figma préservés : oui
+- Aucun commit/PR/push projet : oui
+- Handoff L3 borné uniquement : oui (en cours de publication)
 
 ---
 
-## 10. RECETTE
+### 8. Fake / Real Qualification
 
 | Champ | Valeur |
-|---|---|
-| URL | `http://127.0.0.1:3200` |
-| Service | `com.sfia.studio.next.recette.ml4d-ux004` |
-| DB | `sfia_next_recette_ml4` @ 5434 |
-| SOURCE_SHA | `5f6e2f38…` |
-| BUILD_ID | `tE1TFcAqSGfCVuglJygA` |
-| Next disk | `d58L2wkEm_1F-BPDf0wJW` |
-| Worktree | `…/recette-build-5f6e2f38` |
-| Counters | 24 / 612 / 197 / 6 / decisions=1 **COUNTERS_OK** |
-| Dump | `…/ml4d-e06-journal-20261119-pre-5f6e2f38/` |
-| Rollback | `ROLLBACK-TO-d3950948.sh` |
-| Login | 200 |
+|-------|--------|
+| Applicable | oui |
+| Mock | aucun |
+| Frontière REAL | Cursor ↔ MCP Softr ↔ OAuth ↔ lectures |
+| Preuve entrée | NOT PROVEN → **levée** |
+| Preuve attendue | REAL BOUNDARY PROVEN (list + read) — **atteinte** |
+| Hors scope | e2e métier |
+| Claims autorisés | connexion + lectures prouvées |
+| Claims interdits | delivery métier READY |
 
 ---
 
-## 11. Réserves
+### 9. Réserves / décisions Morris
 
-1. Explication D4 absente sur décision CampusNova historique — motivation via extrait message seulement si marquée ; pas de synthèse D4 inventée.
-2. Titre dérivé = heuristique fidèle (pas hardcode CampusNova) — objectRef court reste prioritaire pour les nouvelles décisions.
-3. Wiring production `decisionHint` → `appendDecisionExplanationRevision` **non livré** ce cycle (évite écriture D4 non demandée) — dette pour prochain GO.
-4. Flake intermittent deep-link focus si suite Playwright très lourde enchaînée — durci à 5.2s ; PASS isolé confirmé.
+1. **CLI Agent Cursor account :** `agent login` non effectué — `agent -p` indisponible ; non bloquant (MCP IDE OK).
+2. **Double store OAuth :** auth CLI et auth IDE peuvent diverger ; surveiller `agent mcp list`.
+3. **Nouvelle app** encore `APP_NAME = 'Blank app'` / home placeholder — observation hors scope setup MCP.
+4. **Décision Morris :** aucune gate bloquante pour clôturer le setup MCP ; suite métier séparée.
 
 ---
 
-## 12. Verdict Cursor
+### 10. Statuts cycle
 
-**JOURNAL DECISIONS UX CORRECTIVE VERIFIED — RECETTE TECHNICALLY AVAILABLE — MORRIS UAT PENDING**
+| Statut | Résultat |
+|--------|----------|
+| Softr installé | **PASS** |
+| Softr authentifié | **PASS** |
+| Outils Softr accessibles | **PASS** (167) |
+| Applications accessibles | **PASS** (2/2 cibles) |
+| Lecture intégrale du code | **PASS** (8/8 non vides) |
+| Airtable préservé | **PASS** |
+| Figma préservé | **PASS** |
+| Réserves | mineures (CLI account login) |
+| Verdict handoff | voir publication §11 |
 
-Aucune Gate C · Aucun STABLE · Aucun ADOPTED · Aucune UAT par déduction.
+---
 
-### Instruction SFIA v2.6 §9.1
+### 11. Review Handoff Git
 
-ChatGPT doit relire le **handoff canonique** publié sur `sfia/review-handoff` (`sfia-review-handoff/latest-chatgpt-review.md`) — pas ce brouillon local seul — avant avis produit.
+- decision : **required**
+- mode : **publish-in-cycle**
+- push : oui — L3 borné
+- source : `.tmp-sfia-review/chatgpt-review.md`
+- branch : `sfia/review-handoff`
+- file : `sfia-review-handoff/latest-chatgpt-review.md`
+- (SHA / remote verification renseignés après publication)
+
+---
+
+### 12. Verdict review pack
+
+**READY WITH RESERVES** — setup Softr MCP REAL prouvé en Cursor ; lecture code REAL OK (écart ChatGPT `{}` non reproduit) ; réserve mineure sur login compte Cursor pour CLI `agent -p`.
+
+Mono-cycle · aucun stub final.
