@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-JOURNAL-D3-D4-CAPITALISATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~14:45 CET |
+| Macro-lot | Ensemble 06 — restauration capitalisation Nora → D4 |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctif conduction D3 + tests fake + cutover RECETTE `:3200` |
+| Parent | gel UX `3fc8af5f` / HEAD docs `b9a0c9c3` ; diagnostic handoff `3fac39c1` |
+| Scope | QUALIFICATION_INSTRUCTIONS mémoire · REQUEST_EFFECT borné · OBS knowledge_proposals · tests unit/PG |
+| Docs | matrice v0.7 lecture seule · as-built mis à jour |
+| Verdict Cursor | voir Review Pack |
+
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-FINAL-RECETTE
 
 | Field | Value |

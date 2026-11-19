@@ -123,6 +123,15 @@ const META_ALLOWLIST = new Set([
   "msg_fingerprint",
   "found",
   "effect_attempted",
+  // Knowledge capitalisation proposals (counts/codes only — never statements).
+  "proposal_count",
+  "subject_count",
+  "acquis_count",
+  "open_point_count",
+  "capitalisation_written",
+  "capitalisation_failed_count",
+  "qualification_status",
+  "reply_status",
 ]);
 
 const SECRET_VALUE =

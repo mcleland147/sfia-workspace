@@ -71,6 +71,7 @@ import {
   deriveThreadTurnKind,
   effectIntents,
   extractKnowledgeProposals,
+  summarizeKnowledgeProposals,
   extractKnowledgeSelectionHints,
   extractPilotageBinding,
   projectStudioEffects,
@@ -1461,16 +1462,55 @@ export async function postUserMessageAndNora(
       ownershipLostBeforeD4 = true;
     } else {
       try {
+        const knowledgeProposals = extractKnowledgeProposals(qualification);
+        const proposalSummary = summarizeKnowledgeProposals(knowledgeProposals);
+        emitObs({
+          event_name: "d3.turn.knowledge_proposals",
+          component: "d3.conversation",
+          request_id: requestId,
+          operation_id: reserved.operationId,
+          generation_id: reply.generationId,
+          outcome: proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
+          meta: {
+            qualification_status: qualification.status,
+            reply_status: reply.status,
+            proposal_present: proposalSummary.proposal_present,
+            proposal_count: proposalSummary.proposal_count,
+            subject_count: proposalSummary.subject_count,
+            acquis_count: proposalSummary.acquis_count,
+            open_point_count: proposalSummary.open_point_count,
+          },
+        });
         capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
           userText: content,
           assistantText: reply.content,
           generationId: reply.generationId,
           userMessageId: reserved.userMessageId,
-          proposals: extractKnowledgeProposals(qualification),
+          proposals: knowledgeProposals,
           turnFence: {
             commandId: reserved.commandId,
             ownerToken: reserved.ownerToken,
             beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+          },
+        });
+        const written = capitalisation.capitalisations.filter(
+          (c) => c.status === "AVAILABLE" || c.status === "OK",
+        ).length;
+        const failed = capitalisation.capitalisations.filter((c) => c.status === "FAILED").length;
+        emitObs({
+          event_name: "d3.turn.knowledge_capitalisation",
+          component: "d3.conversation",
+          request_id: requestId,
+          operation_id: reserved.operationId,
+          generation_id: reply.generationId,
+          outcome:
+            written > 0 ? "SUCCESS" : proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
+          meta: {
+            proposal_present: proposalSummary.proposal_present,
+            proposal_count: proposalSummary.proposal_count,
+            capitalisation_written: written,
+            capitalisation_failed_count: failed,
+            reply_status: reply.status,
           },
         });
         if (capitalisation.ownershipLost) {

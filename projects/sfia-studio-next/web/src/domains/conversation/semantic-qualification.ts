@@ -603,7 +603,14 @@ export type KnowledgeCapitalisationProposal = {
   continuityReason?: string;
 };
 
-/** Typed D4 continuity proposals from Nora qualification — never HumanDecision. */
+/**
+ * Typed D4 continuity proposals from Nora qualification — never HumanDecision.
+ *
+ * Gate: only QUALIFIED + REQUEST_EFFECT + d4.record_knowledge.
+ * EXPLAIN/EXPLORE/PREPARE intents are conversational only (TEMP-05).
+ * Document/D6/Git REQUEST_EFFECT paths remain separate; this extractor never
+ * loosens those capabilities.
+ */
 export function extractKnowledgeProposals(
   q: NoraTurnQualification,
 ): KnowledgeCapitalisationProposal[] {
@@ -625,6 +632,33 @@ export function extractKnowledgeProposals(
     });
   }
   return out;
+}
+
+/** Counts for OBS — codes only, never statement bodies. */
+export function summarizeKnowledgeProposals(
+  proposals: KnowledgeCapitalisationProposal[],
+): {
+  proposal_present: boolean;
+  proposal_count: number;
+  subject_count: number;
+  acquis_count: number;
+  open_point_count: number;
+} {
+  let subject_count = 0;
+  let acquis_count = 0;
+  let open_point_count = 0;
+  for (const p of proposals) {
+    if (p.kind === "SUBJECT") subject_count += 1;
+    else if (p.kind === "ACQUIS") acquis_count += 1;
+    else if (p.kind === "OPEN_POINT") open_point_count += 1;
+  }
+  return {
+    proposal_present: proposals.length > 0,
+    proposal_count: proposals.length,
+    subject_count,
+    acquis_count,
+    open_point_count,
+  };
 }
 
 /** Nora-preferred resource ids for context selection (non-authoritative). */

@@ -55,6 +55,16 @@
 
 Avant cutover, `:3200` servait un build **ML3** (`ZCkIWQ341KK1KOHTD1a5L`, worktree `sfia-workspace-ml3-recette-build-61fe295b`) alors que le LaunchAgent `ml4d-ux004` pointait encore vers `d5bf7eb7` mais était en échec `EADDRINUSE`. Des agents KeepAlive concurrents (ml3, ml4, ml4d-ux003, recette générique) ont été **bootout** temporairement (plists conservés) pour libérer le port au profit de `ml4d-ux004`.
 
+## Correctif capitalisation D3→D4 (post-diagnostic CampusNova)
+
+| Champ | Valeur |
+|---|---|
+| Cause | 0× `d4.record_knowledge` en LIVE → 0 écriture D4 → Journal vide |
+| Fix | Instructions Nora (SYSTEM + MÉMOIRE DURABLE) ; REQUEST_EFFECT document inchangé ; mémoire autonome sélective |
+| Gate | `extractKnowledgeProposals` reste QUALIFIED+REQUEST_EFFECT only (EXPLAIN = 0) |
+| OBS | `d3.turn.knowledge_proposals` · `d3.turn.knowledge_capitalisation` (compteurs) |
+| CampusNova historique | non rejoué / non rattrapé automatiquement |
+
 ## Autorité
 
 - Pas de mutation D6 · pas de fixture RECETTE · pas de push produit · pas de migration nouvelle
