@@ -4,6 +4,22 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-NORA-NOTES-2000-UNKNOWN
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~19:35 CET |
+| Macro-lot | Ensemble 05+06 — correctif UNKNOWN schema (notes) |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Forensic DEV + fix + cutover RECETTE `:3200` |
+| Cause | LIVE Zod `intents.0.parameters.notes` Too big ≤400 sur formalisation décision CampusNova |
+| Fix | `notes` max 400→2000 · instruction Nora notes courtes · diag `cause_chain` |
+| HEAD | `98225104` · tree `00f6edb1` · BUILD `b48Kw86lEVMh4Ph_sVyZ` |
+| Parent | consolidation `02e24e42` / BUILD `7yhVJFP0_Bm4cYc62Bo7` |
+| Counters | projects=24 · messages=610 · conversations=197 · knowledge_subjects=6 **COUNTERS_OK** |
+| Rollback | `ROLLBACK-TO-02e24e42.sh` + dump `ml4d-e06-journal-20261119-pre-98225104` |
+| Verdict Cursor | cutover PASS · UAT Morris = retester prompt décision CampusNova |
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-CONSOLIDATION-V4
 
 | Field | Value |

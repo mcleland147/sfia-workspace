@@ -2,14 +2,29 @@
 
 | Métadonnée | Valeur |
 |---|---|
-| Date | 19/11/2026 — correctif consolidation V4 (synthèse ACQUIS-only + densité + UX) |
+| Date | 19/11/2026 — correctif LIVE `parameters.notes` 400→2000 (UNKNOWN décision) |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD candidat | `02e24e4292733a85ae1c4f506971909b1849d4b4` |
-| Tree | `fc89dad4749f8d85b2d8d9d0b9b6bcadbe697a54` |
-| RECETTE BUILD_ID | `7yhVJFP0_Bm4cYc62Bo7` |
+| HEAD candidat | `98225104695f9aa565e4cf1f9e543d19634ee90b` |
+| Tree | `00f6edb16c23e64968ffec7c8c57c82d304bcf74` |
+| RECETTE BUILD_ID | `b48Kw86lEVMh4Ph_sVyZ` (Next disk `hFR40amR_WR1tyfkFmpAc`) |
 | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
 | Docs matrice | v0.7 §18 (`f0d2d033`) — lecture seule |
 | Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
+
+## Correctif UNKNOWN décision — `parameters.notes` (19/11 soir)
+
+| Champ | Valeur |
+|---|---|
+| Cause | Formalisation décision CampusNova : rationale longue dans `intents.0.parameters.notes` → Zod `Too big` ≤400 → `PROVIDER_SCHEMA_OR_OUTPUT` / UNKNOWN |
+| Fix | `notes` `.max(400)` → `.max(2000)` ; instruction Nora : notes = complément court ; motivation dans `replyDraft` / `knowledgeStatement` / `decisionHint` |
+| Diag | `writeEphemeralNoraDiag` dump `cause_chain` + Zod `issues` (DEV éphemère) |
+| Gate | unit `e05-visual-composition-freeze` notes 2000 OK / 2001 KO |
+| URL | `http://127.0.0.1:3200` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble06-recette-build-98225104` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` |
+| DB | `sfia_next_recette_ml4` @ 5434 — counters 24/610/197/6 **COUNTERS_OK** |
+| Dump | `/Users/morris/Projects/sfia-recette-backups/ml4d-e06-journal-20261119-pre-98225104/sfia_next_recette_ml4.dump` |
+| Rollback | `…/98225104/ROLLBACK-TO-02e24e42.sh` → BUILD précédent `7yhVJFP0_Bm4cYc62Bo7` |
 
 ## Correctif consolidation (19/11 soir)
 
