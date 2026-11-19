@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray, ne, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull, ne, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
   documentRevisions,
@@ -260,6 +260,7 @@ export async function ensureSubject(
     const parent = await assertSubjectRef(pilotId, preparationId, parentSubjectId);
     if (parent && "error" in parent) return { status: "FAILED" as const, reason: parent.error };
   }
+  const parentId = parentSubjectId ?? null;
   const existing = (
     await db
       .select()
@@ -270,6 +271,9 @@ export async function ensureSubject(
           eq(knowledgeSubjects.ownerPilotId, pilotId),
           eq(knowledgeSubjects.title, cleaned),
           eq(knowledgeSubjects.status, "ACTIVE"),
+          parentId === null
+            ? isNull(knowledgeSubjects.parentSubjectId)
+            : eq(knowledgeSubjects.parentSubjectId, parentId),
         ),
       )
       .limit(1)

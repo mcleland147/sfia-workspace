@@ -6,7 +6,11 @@ import { PilotagePanel } from "@/components/PilotagePanel";
 import { ProjectChrome } from "@/components/figma/ProjectChrome";
 import { NoraConversation } from "@/components/figma/NoraConversation";
 import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
-import { ProjectJournal } from "@/components/figma/ProjectJournal";
+import {
+  ProjectJournal,
+  type JournalDecision,
+  type JournalRestriction,
+} from "@/components/figma/ProjectJournal";
 import { ProjectOverview } from "@/components/figma/ProjectOverview";
 import {
   ProjectUnavailable,
@@ -63,9 +67,17 @@ type Doc = {
   } | null;
 };
 type Knowledge = {
-  subjects: Array<{ id: string; title: string; status: string; originatedFromSubjectId: string | null }>;
-  acquis: Array<{ id: string; kind: string; statement: string; status: string }>;
-  openPoints: Array<{ id: string; statement: string; status: string }>;
+  preparationIds?: string[];
+  subjects: Array<{
+    id: string;
+    title: string;
+    status: string;
+    parentSubjectId: string | null;
+    originatedFromSubjectId: string | null;
+    summary?: { revisionNumber: number; summaryMarkdown: string } | null;
+  }>;
+  acquis: Array<{ id: string; kind: string; statement: string; status: string; subjectId: string | null }>;
+  openPoints: Array<{ id: string; statement: string; status: string; subjectId: string | null }>;
 };
 
 type Surface =
@@ -136,6 +148,8 @@ export default function ProjectPage() {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [documents, setDocuments] = useState<Doc[]>([]);
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
+  const [journalDecisions, setJournalDecisions] = useState<JournalDecision[]>([]);
+  const [journalRestrictions, setJournalRestrictions] = useState<JournalRestriction[]>([]);
   const [preparationId, setPreparationId] = useState<string | null>(null);
   const [projectName, setProjectName] = useState<string | null>(null);
   const [statusHint, setStatusHint] = useState("Chargement…");
@@ -209,6 +223,47 @@ export default function ProjectPage() {
   useEffect(() => {
     preparationIdRef.current = preparationId;
   }, [preparationId]);
+
+  useEffect(() => {
+    if (surface !== "journal") return;
+    let cancelled = false;
+    void (async () => {
+      const res = await fetch(`/api/projects/${params.projectId}/journal`);
+      if (!res.ok || cancelled) return;
+      const body = (await res.json()) as {
+        decisions?: Array<{
+          id: string;
+          kind: string;
+          state: string;
+          scope: string;
+          statement: string;
+          objectRef: string;
+          effectiveAt: string;
+          createdAt: string;
+          explanation?: JournalDecision["explanation"];
+        }>;
+        restrictions?: JournalRestriction[];
+      };
+      if (cancelled) return;
+      setJournalDecisions(
+        (body.decisions ?? []).map((d) => ({
+          id: d.id,
+          kind: d.kind,
+          state: d.state,
+          scope: d.scope,
+          statement: d.statement,
+          objectRef: d.objectRef,
+          effectiveAt: d.effectiveAt,
+          createdAt: d.createdAt,
+          explanation: d.explanation ?? null,
+        })),
+      );
+      setJournalRestrictions(body.restrictions ?? []);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [surface, params.projectId, knowledge]);
 
   useEffect(() => {
     projectIdRef.current = params.projectId;
@@ -1914,9 +1969,18 @@ export default function ProjectPage() {
 
       {surface === "journal" ? (
         <ProjectJournal
-          subjects={knowledge?.subjects ?? []}
-          acquis={(knowledge?.acquis ?? []).map((a) => ({ ...a, subjectId: null }))}
-          openPoints={(knowledge?.openPoints ?? []).map((o) => ({ ...o, subjectId: null }))}
+          subjects={(knowledge?.subjects ?? []).map((s) => ({
+            id: s.id,
+            title: s.title,
+            status: s.status,
+            parentSubjectId: s.parentSubjectId ?? null,
+            originatedFromSubjectId: s.originatedFromSubjectId,
+            summary: s.summary ?? null,
+          }))}
+          acquis={knowledge?.acquis ?? []}
+          openPoints={knowledge?.openPoints ?? []}
+          decisions={journalDecisions}
+          restrictions={journalRestrictions}
           onBackToThread={() => selectSurface("travail")}
         />
       ) : null}

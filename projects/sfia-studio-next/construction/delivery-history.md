@@ -2935,3 +2935,22 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Documentation | Branche `docs/next-ml4d-registre-revues-20261116` / PR [#680](https://github.com/mcleland147/sfia-workspace/pull/680) — réconciliation post-`main` en cours |
 | Réserves conservées | ACL historique non démontrée objet par objet ; responsive/a11y bornés ; PG historique non exhaustif ; 88 oracles ≠ 8 UAT ; Gate C OPEN ; NO STABLE/RELEASE/ADOPTED |
 | Verdict | `ML4D PRODUCT MERGED ON MAIN — CI FULL PASS — RECETTE UAT SHA IMMUTABLE — DOCS PR PENDING — GATE C OPEN` |
+
+---
+
+## delivery_id: DELIV-2026-11-19-ML4D-JOURNAL-V4-LOCAL
+
+| Champ | Valeur |
+|---|---|
+| Date (Europe/Paris) | 19 novembre 2026 |
+| Macro-capacité | Ensemble 06 — Journal cohérent V4 |
+| Type | CYCLE 8 DELIVERY / `NO RELEASE` / `0.0.0-dev` |
+| Parent tip docs | `6879d34eb38fbd1d8f899c6f8713ccc98f0ae178` |
+| Base main | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+| Autorité | Morris GO Journal V4 delivery ; push projet/PR/merge **NON inclus** |
+| Changements | Migration 014 D4 revisions ; journal.ts ; ProjectJournal V4 ; API journal ; ensureSubject parent-aware ; subjectId préservé |
+| Validations | tsc PASS ; journal-d4-revisions.pg 6/6 PASS (`sfia_next_e2e`) ; BROWSER/Figma runtime NOT RUN ; LIVE Nora NOT RUN |
+| Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |
+
