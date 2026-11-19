@@ -3,7 +3,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.5 — 19 novembre 2026 (Europe/Paris) |
+| Version | v0.6 — 19 novembre 2026 (Europe/Paris) |
 | Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
 | Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
@@ -286,19 +286,21 @@ Fichier R3 existant : [SFIA Studio Next — Figma](https://www.figma.com/design/
 
 Conserver palette, typographie, rail projet et composants de l'application existante ; ne pas présenter une illustration en conversation comme référence géométrique Figma ni comme capture runtime.
 
-### 9.1. Première exploration Figma native — 19/11/2026
+### 9.1. Convergence Figma candidate — direction artistique page 05, révision du 19/11/2026
 
-**Statut : DESIGN CANDIDAT / NON VALIDÉ MORRIS — maquettes éditables créées sur une page séparée**, sans modifier les frames R3 de référence. Source : page Figma `07 · ML4D — Journal · Cible UX candidate` (id `828:2`), même fichier `itgvCulInEnFY6DvgIegvP`.
+**Statut : DESIGN CANDIDAT / NON VALIDÉ MORRIS.** Les premiers écrans Journal 07 ont été expressément jugés visuellement insuffisants et non représentatifs de la direction artistique récente. Une reprise a été demandée sur la **page 05 — Travail avec Nora, Contrat UX v0.7**, considérée comme référence visuelle récente pour le rail, l'en-tête, la finition, la typographie et la sobriété.
 
-| Maquette candidate | Intention représentée | Limite de la version |
+**Action observée :** reprise de la page candidate `07 · ML4D — Journal · Cible UX candidate` (`828:2`) dans le Figma existant ; **copie directe** du rail projet de 246 px et de l'en-tête de 70 px de la frame de référence `05.01 — Travail · Conversation nominale` (`700:39`), puis activation de « Journal » et mise à jour du fil d'Ariane dans chaque écran. **La page 05 et les maquettes R3 sont restées inchangées.** Les anciens frames Journal V1 (828:25, 828:82, 828:122) et leurs deux composants locaux ont été retirés de la page candidate, remplacés par les propositions V2 ci-dessous.
+
+| Maquette candidate actuelle | Direction présentée | Limites et statut |
 | --- | --- | --- |
-| [Sujets — sommaire (`828:25`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-25) | Rail projet unique 246 px ; vue Sujets/Décisions, arborescence centrale, accès secondaire « Points à reprendre » | Recherche, déploiement de branches et navigation non encore prototypés/testés |
-| [Sujet autonome (`828:82`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-82) | Fiche complète quand aucun sous-sujet n'existe : synthèse, acquis, questions et références essentielles | Textes illustratifs ; indicateur d'actualisation non relié à une donnée réelle |
-| [Sujet devenu parent (`828:122`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-122) | Synthèse consolidée globale et entrée dans trois sous-sujets sans recopie du détail | Acquis transversaux, points ouverts éventuels et sources du parent à tester dans une variante |
+| [Journal / Sujets — Exploration (`835:71`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71) | Rail et en-tête empruntés à la page 05 ; arborescence non traitée comme une collection de cartes ; recherche sobre avec raccourci, deux vues, accès secondaire aux points ouverts | **STATIQUE / À VALIDER** ; fonctionnement de recherche, déploiement et navigation non prouvé |
+| [Sujet autonome — Lecture (`835:159`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159) | Composition de lecture en deux colonnes contextuelles, synthèse structurée, acquis, point à reprendre, source conversationnelle clé et actions secondaires | **STATIQUE / À VALIDER** ; textes et liens illustratifs, aucune actualisation technique prouvée |
+| [Sujet parent — Lecture (`835:239`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-239) | Synthèse globale, enfants hiérarchisés, repères et actions contextuelles ; sobriété conforme à la nouvelle DA | **STATIQUE / À VALIDER** ; parents pouvant avoir leurs propres acquis/points ouverts à décliner si présents |
 
-**Caractéristiques :** trois frames desktop 1680 × 970 avec rail unique de 246 px, palette/typographie correspondantes aux tokens CSS courants, couches éditables ; représentation statique **non interactive**, et non captures runtime. Les textes d'exemple ne prouvent aucune capitalisation ou persistance effectuée par Next.
+**Contrôles Figma réalisés** : trois frames natives 1680 × 970, rail réel 246 px, en-tête 70 px, activation Journal sans modification des originaux, tous les textes en Inter (58 à 62 calques éditables par écran), référence `700:39` encore présente. Les données d'exemple ne sont **ni la mémoire réelle de Next, ni une preuve de fonctionnement**. La reprise visuelle ne vaut pas validation de l'ergonomie finale.
 
-**Première revue attendue avec Morris :** confort de lecture, hiérarchie visuelle, densité du sommaire, place des liens/sources et variantes parent/autonome. Les écarts R1/R2 identifiés en §11.1 doivent être introduits comme interactions/états contextualisés, sans surcharger la fiche nominale.
+**Gate Morris :** revue de l'esthétique et des proportions des trois écrans **avant** approfondissement des parcours, prototypes interactifs ou déclinaison Décisions/Points à reprendre. Le contrat R1/R2 et la cible fonctionnelle sont inchangés par cette itération ; aucune version n'est `ADOPTED`.
 
 ## 10. Registre vivant des arbitrages
 
@@ -385,5 +387,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | 19/11/2026 — v0.3 | Principe UX d'actualisation discrète accepté : signal léger fondé sur une actualisation effectivement conservée, détails secondaires, aucun statut ou horaire inventé ; revue d'exhaustivité R1/R2 demandée avant validation finale/Figma | **DOCUMENTED / WORKING DRAFT** ; contrat complet soumis à revue de couverture R1/R2 |
 | 19/11/2026 — v0.4 | Revue de couverture R1/R2 sur les sources du Journal et ses interfaces D1–D9 ; tableau des acquis, lacunes d'explicitation, renvois canoniques et points UX à arbitrer | **DOCUMENTED / REVIEWED AT SOURCE LEVEL** ; aucune promotion automatique en VALIDATED SPEC |
 | 19/11/2026 — v0.5 | Référencement de trois frames Figma natives candidates sur page séparée : sommaire, sujet autonome, sujet parent ; reprise des limites de conception et absence de validation UX | **DESIGN CANDIDAT / NON VALIDÉ**, aucun changement de code/recette |
+| 19/11/2026 — v0.6 | Rejet de la direction artistique Figma V1 par Morris, reconstruction des trois écrans selon la page 05 (rail et en-tête réutilisés), références Figma V2 réconciliées, V1 candidate retirée | **DESIGN CANDIDAT / À REVOIR AVEC MORRIS**, aucune validation du design ni du fonctionnement |
 
-**Suite immédiate :** revue visuelle par Morris des trois frames Figma candidates (§9.1) ; intégrer sans surcharge les exigences de couverture R1/R2 identifiées (§11.1), puis décliner **Sous-sujet détaillé**, **Décisions** et **Points à reprendre** avec états de navigation, sources et reprise. Contrat final, conception Figma et delivery restent soumis aux validations distinctes.
+**Suite immédiate :** revue esthétique et ergonomique par Morris des trois frames **V2** (§9.1) basées sur la page 05 ; ajuster d'abord la DA au besoin, puis traiter les autres variantes de Sujets, Décisions et Points à reprendre, avec les exigences de couverture R1/R2 (§11.1) et sans autorité concurrente. Contrat final, conception Figma et delivery restent soumis aux validations distinctes.
