@@ -4,7 +4,9 @@
 |---|---|
 | Date | 19/11/2026 — correctif mémoire vivante V4 + RECETTE |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD candidat | (voir commit living-memory — post-`6457bc8e`) |
+| HEAD candidat | `605def5970982bc56012e150bc105656d934169e` |
+| Tree | `2810c605fffca17b96f64734877f638074819ee5` |
+| RECETTE BUILD_ID | `1L_uXFJAT1SfYsqcUaUL` |
 | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
 | Docs matrice | v0.7 §18 (`f0d2d033`) — lecture seule |
 | Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
