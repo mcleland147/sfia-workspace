@@ -1,8 +1,8 @@
 # SFIA Studio Next — Ensemble 06 / Journal
 ## Matrice vivante de convergence — vision, contrats, UX, réalisation Cursor et preuves
 
-**Version :** v0.3 — 19 novembre 2026 (Europe/Paris)  
-**Statut :** **DOCUMENTED / REVUE D1 DU TROISIÈME HANDOFF — COUVERTURE TECHNIQUE EN PROGRESSION / RECETTE MORRIS PENDING / PAS DE RÉCEPTION GLOBALE**  
+**Version :** v0.4 — 19 novembre 2026 (Europe/Paris)  
+**Statut :** **DOCUMENTED / REVUE D1 DU QUATRIÈME HANDOFF — E01 LIVE RÉEL, E02–E20 NON JOUÉS / RECETTE MORRIS PENDING / PAS DE RÉCEPTION GLOBALE**  
 **Périmètre :** Journal du projet : Sujets, mémoire, points ouverts, Décisions, recherche, sources et continuité Nora. La Bibliothèque Documents reste propriétaire de sa propre expérience ; seuls les liens depuis le Journal entrent ici.  
 **Autorité de la vision et des gates :** Morris. **Rôle du présent document :** outil de revue ChatGPT, sans créer de doctrine, de décision D6, de nouvelle spécification produit ni de statut ADOPTED.  
 **Mode Git :** création documentaire sur la branche candidate **sfia/next-journal-conception-fonctionnelle-ux-20261119** ; pas de push produit, PR, merge, mise à jour de la Roadmap, migration ou code.  
@@ -12,7 +12,21 @@
 
 ---
 
-## État courant — troisième revue indépendante du 19/11/2026
+## État courant — quatrième revue indépendante du 19/11/2026 (v0.4)
+
+**Verdict ChatGPT : READY FOR MORRIS REVIEW WITH RESERVES — §5 DÉTERMINISTE RENFORCÉ ; NORA LIVE 1/20 UNIQUEMENT ; JOURNAL MULTI-TOURS NOT PROVEN.**
+
+**Git source :** [handoff 45bd3d375a097e0d01754ab4c985b700d2fd69ca](https://github.com/mcleland147/sfia-workspace/blob/45bd3d375a097e0d01754ab4c985b700d2fd69ca/sfia-review-handoff/latest-chatgpt-review.md), blob 589cbf735d803250648f91bbcf01434fa01b96a8, **1 323 lignes**, deux créations FULL et huit diffs utiles. Candidat local déclaré **sfia/next-journal-delivery-20261119@d5bf7eb762a21cc309744bb703926e2c0bc844ed**, précédent a122bf27, non publié ; main distante d3d199adb782462b93467934f5f1e8a0c98fb492 ; base documentaire à l'entrée c3f1254c15bc6de72b92d706e9dedb3981b4e5dd. Code produit local, DB, commandes et logs d'exécution **NON OBSERVÉS directement** par ChatGPT.
+
+**§5 déterministe amélioré selon code et tests du pack :** J-C08 recherche acquis hors titre + badge, J-C11 recherche d'explication D6, J-C13 retour Journal par rail avec recherche/filtre/split, J-C14 clic source documentaire et révision exacte, J-C07 deux préparations du même projet, J-C05 révision indisponible refusée, J-C16 garde fixture. PASS **rapportés** : tsc, lint, build, Journal PG 15/15, ML3 PG 49/49, BROWSER seeded 2/2. ML2/ML4C/E05 full **NOT RUN**.
+
+**CampusFlow LIVE :** vrai projet fictif DEV, réponse **E01** rendue avec état **openai-agents-sdk-live · COMPLETE** et identifiant de message ; cadrage prudent sans décision fictive. **E02–E20, T10 et T20 NON EXÉCUTÉS** ; arrêt opérateur indiqué sans preuve indépendante de cause ni auteur exact. **T0 vide normal** avant dialogue ; pas d'observation Journal post-E01. Durée **647 537 ms (~10 min 48 s)**. Coût annoncé **0,35 USD = estimation forfaitaire**, non facturation ni mesure réelle : estimateUsd est appelé sans métriques tokens.
+
+**Risque de qualification du harnais :** assertions finales acceptent un seul tour (strictement >0), statut peut accepter FAILED/UNKNOWN ou simple mot Nora, timeout global 20 min alors que E01 dure >10 min, toute relance crée un nouveau projet et repart E01, et T20 peut être étiqueté à tort après arrêt anticipé. **REAL BOUNDARY PROVEN sur E01 seulement ≠ END-TO-END REAL PROVEN du Journal 20 tours**. Les détails et conditions de sortie sont en **§15**, qui prévaut sur les snapshots historiques.
+
+**Gates :** GO Morris déjà donné pour 20 échanges fictifs LIVE bornés en DEV ; aucune preuve de complétude, pas de nouveau GO de projet, de push produit, PR/merge, Gate C, RECETTE/STABLE ou ADOPTED. **Revue visuelle et ergonomique finale réservée à Morris en RECETTE.**
+
+## État historique — troisième revue indépendante du 19/11/2026 (snapshot v0.3)
 
 **Verdict : READY FOR MORRIS REVIEW WITH RESERVES — CANDIDAT LOCAL / COUVERTURE FONCTIONNELLE NON ENCORE INTÉGRALEMENT PROUVÉE.**
 
@@ -200,6 +214,7 @@ Le premier handoff Cursor [03eda7e8](https://github.com/mcleland147/sfia-workspa
 | **19/11/2026 — premier cycle Delivery Critical** ; candidat local **78c3c3b0** ; [handoff 03eda7e8](https://github.com/mcleland147/sfia-workspace/blob/03eda7e8ffbed23917850befb9cfa676ab18b670/sfia-review-handoff/latest-chatgpt-review.md), blob **f0d1265b…** | Migration 014, journal.ts, parent-aware, projection multipréparation, GET Journal et UI V4 ; tsc PASS, PG 6/6 PASS annoncés ; aucun push projet. | Handoff Git complet **en tant que fichier** (294 lignes), matrice 16 IDs, migration 014 et extrait journal.ts ; **pas** de code produit local/patch complet, ni de logs PG, ni de BROWSER/LIVE. | **NOT READY — SCOPE INCOMPLETE** : 4 absents, 11 partiels, 1 code-only non prouvé ; **REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING**. | Revue Morris des réserves, complément intégré sous GO distinct ; aucun Gate C, push projet, PR, merge ou réception imputé. |
 | **19/11/2026 — second cycle Critical** ; candidat local 782c93ec ; [handoff 7a065cec](https://github.com/mcleland147/sfia-workspace/blob/7a065cec48ddee643cf428b06e5a27012c6d8015/sfia-review-handoff/latest-chatgpt-review.md) | J-C04/06/13/14 raccordés, 4 UNIT+10 PG+1 BROWSER PASS annoncés, 13 IMPLEMENTED/3 PARTIAL selon Cursor. | Code/diffs du pack 4 219 lignes inspectés et captures DEV fournies, tests fonctionnels sur données vides, pas de code produit local accessible. | **REVIEW PACK CONTENT COMPLETE / FUNCTIONAL COVERAGE PARTIAL** : écarts E06-01..06, pas de réception. | Complément DEV probant, revue Morris en RECETTE distincte, aucun push projet/PR/merge inféré. |
 | **19/11/2026 — troisième cycle Critical** ; local a122bf27 ; [handoff 9d56e6a5](https://github.com/mcleland147/sfia-workspace/blob/9d56e6a5d47719c3f1016c3daafbf6d31027024b/sfia-review-handoff/latest-chatgpt-review.md) | E06-05 projet, E06-03 Git UNVERIFIED, E06-04 message, E06-01 E2E seed, E06-02 PG et E06-06 source DB ; tsc/lint/build, UNIT 6/6, PG 12/12, BROWSER 1/1 annoncés. | Handoff 1 450 lignes, 2 créations FULL, 9 diffs relus, test navigateur sur données métier mais encore incomplet ; worktree et tests NON OBSERVÉS directement. | **REVUE AVEC RÉSERVES / NON REÇU** : recherche acquise faux positif titre, retour page.goto, document via URL sans revisionId, cognition et non-régressions. | Compléter QA DEV, gate RECETTE Morris distinct ; pas de push projet/PR/merge. |
+| **19/11/2026 — quatrième cycle Critical / LIVE CampusFlow** ; candidat local d5bf7eb7 ; [handoff 45bd3d37](https://github.com/mcleland147/sfia-workspace/blob/45bd3d375a097e0d01754ab4c985b700d2fd69ca/sfia-review-handoff/latest-chatgpt-review.md) | J-C05/07/08/11/13/14 déterministes améliorés ; tsc/lint/build, PG Journal15, ML3 PG49, BROWSER2 PASS annoncés ; E01 Nora réel COMPLETE. | 2 créations FULL + 8 diffs inspectés ; T0 vide, E01 647s, coût 0,35 USD proxy, E02–E20/T10/T20 NOT RUN ; code local NON OBSERVÉ. | **LIVE 1/20 PARTIAL** ; harnais trop permissif, reprise non prévue, coût/timeout, aucune mémoire LIVE prouvée. | Instrumentation latence + reprise bornée E02 au même projet puis nouvelle revue, aucun push produit/RECETTE. |
 
 **Règle de version :** à chaque nouveau handoff, garder cette ligne historique ; ajouter une **ligne datée avec SHA exact** et revoir §1, §4, §5, §7 et §8. Les résultats plus récents prévalent **uniquement sur le périmètre qu'ils prouvent**. Un nouveau BROWSER ne transforme pas un ancien test PG absent en PASS rétroactif.
 
@@ -287,7 +302,7 @@ Les captures ont été effectivement partagées dans cette conversation mais **n
 
 **Verdict de sortie de revue :** **PACK FULL REVIEWABLE — FUNCTIONAL COVERAGE INCOMPLETE / READY FOR MORRIS REVIEW WITH RESERVES**, pas READY FOR RECETTE ni Gate C. **Prochaine action recommandée :** complétude bornée en DEV des points E06-01..06 et tests fonctionnels non vides ; puis GO séparé de Morris pour mise à disposition RECETTE, où il assurera la validation esthétique/UX. Pas de push projet, PR/merge, modification de gouvernance ou de vision par la présente revue.
 
-## 14. Revue cycle 3 — matrice actuelle J-C01 à J-C16
+## 14. Revue cycle 3 — matrice historique J-C01 à J-C16 (snapshot v0.3)
 
 **Méthode :** code et tests inspectés **dans le handoff**, exécution locale, données et logs bruts **NON OBSERVÉS directement**. Un test PASS rapporté ne devient pas une recette de comportement global.
 
@@ -333,6 +348,71 @@ L'absence de validation visuelle pixel-perfect dans DEV ne bloque pas la QA des 
 
 **Complément DEV ciblé de preuve et de comportement**, sans architecture parallèle ni nouvelle migration : tests discriminants sur recherche acquis, décision, version documentaire et retours d'état ; négatifs de sources et permissions ; vrai scénario deux préparations/un projet ; pipeline D3→D4 ; suites de non-régression et sécurité route fixture. Obtenir ensuite un candidat produit immuable, une preuve ENV-01 de DEV, la matrice J-C et le pack vérifiables **avant** éventuel GO Morris de mise à disposition RECETTE. Le produit local a122bf27 ne vaut pas candidat RECETTE automatiquement.
 
+## 15. Revue actuelle — cycle 4 Journal §5 + première épreuve Nora LIVE
+
+**Méthode :** code et assertions inspectés dans le handoff, tests PASS annoncés par Cursor sans réexécution indépendante. Les décisions et la réception Morris ne découlent pas du rapport.
+
+### 15.1. Couverture J-C01 à J-C16
+
+| ID | Code/test de la livraison | Qualification de la preuve et sortie |
+| --- | --- | --- |
+| **J-C01** | Révisions D4 PG, E01 Nora produit du cadrage | LIVE synthèse D3→D4 NON PROUVÉE ; aucun relevé post-E01 |
+| **J-C02** | Parent/homonymes/reparent PG historiques | Hiérarchie autonome Nora LIVE et split/merge non éprouvés |
+| **J-C03** | Sujets/acquis BROWSER seeded | PASS déterministe rapporté, aucun objet issu de Nora LIVE |
+| **J-C04** | Réactivation D3/D4 UNIT/PG | E18 absent ; initiative spontanée LIVE NON PROUVÉE |
+| **J-C05** | PG refuse révision non AVAILABLE | PASS rapporté ; existence et droits ≠ pertinence épistémique |
+| **J-C06** | Git UNVERIFIED, contradictions heuristiques | REAL Git et contradiction LIVE NOT RUN |
+| **J-C07** | PG deux préparations même projet, homonymes distincts | PASS rapporté ; continuité LIVE inter-préparations NOT RUN |
+| **J-C08** | Recherche titre sans traçabilité, acquis avec token, badge acquis | Faux positif antérieur corrigé, BROWSER PASS rapporté |
+| **J-C09** | Acte D6 et applicability seeded | Aucun arbitrage E17 LIVE ; état historique UX partiel |
+| **J-C10** | Explication D6 via seed/PG | PARTIAL : récit Nora construit multi-sources LIVE NOT PROVEN |
+| **J-C11** | Recherche token seulement dans explication D6, résultat BROWSER | PG+BROWSER PASS rapportés |
+| **J-C12** | 40/60 et agrandi BROWSER seeded | PASS ciblé rapporté ; VISUAL REVIEW PENDING MORRIS — RECETTE |
+| **J-C13** | Source ancien message et retour rail conservant filtre/recherche/split/brouillon | BROWSER PASS ciblé ; fil LIVE et 1000+ NON PROUVÉS |
+| **J-C14** | Clic référence documentaire et contenu version v2 exact | BROWSER PASS ciblé ; source retirée en UX LIVE non éprouvée |
+| **J-C15** | Portée/idempotence PG | PERF LIVE : E01 ≈647 s, coût mesuré UNKNOWN ; long fil/ACK perdu partiels |
+| **J-C16** | tsc/lint/build, Journal PG15, ML3 PG49, BROWSER2 PASS rapportés | PARTIAL : suites ML2/ML4C/E05 full NOT RUN, LIVE 1/20 |
+
+**Bilan :** 16/16 obligations réévaluées ; oracles déterministes J-C05/07/08/11/13/14 renforcés. Les capacités cognitives et l'évolution du Journal sur 20 échanges **NE SONT PAS PROUVÉES**.
+
+### 15.2. Critères cognitifs C1 à C14 : E01 seulement
+
+| Critère | Résultat de la revue |
+| --- | --- |
+| **C1** | PASS OBSERVÉ E01 : cadrage fictif compris |
+| **C2** | NOT OBSERVED : pas de sujets D4 post-E01 |
+| **C3** | PARTIAL : réponse structurée, aucune synthèse D4 prouvée |
+| **C4** | NOT OBSERVED : capitalisation sélective non mesurée |
+| **C5** | PARTIAL : hypothèse distinguée, pas d'acte D6 à éprouver |
+| **C6** | NOT OBSERVED : correction budget E15/16 absente |
+| **C7** | NOT OBSERVED : contradiction E13 absente |
+| **C8** | NOT OBSERVED : rappel E18 absent |
+| **C9** | NOT OBSERVED : reprise T10 absente |
+| **C10** | NOT OBSERVED, PAS FAILED : T0 vide attendu avant conversation |
+| **C11** | NOT APPLICABLE E01 : aucun acte D6 |
+| **C12** | PASS OBSERVÉ E01 : pas de preuve externe inventée |
+| **C13** | PARTIAL : premier cadrage utile, pas de trajectoire longue |
+| **C14** | RISQUE ÉLEVÉ : E01 647537 ms, coût fallback 0,35 USD, tokens réels inconnus |
+
+### 15.3. Risques spécifiques du harnais LIVE
+
+| ID | Défaut / limite vérifié(e) dans le code | Exit technique |
+| --- | --- | --- |
+| **LIVE-Q01** | Test final exige seulement un tour LIVE >0, pas 20 | PASS exige 20 COMPLETE réellement corrélés aux 20 messages ; arrêt = PARTIAL/STOP |
+| **LIVE-Q02** | Regex accepte FAILED/UNKNOWN/le mot Nora | Vérifier COMPLETE strict, nouvelle réponse ID après chaque envoi, timeout et échec réel |
+| **LIVE-Q03** | Timeout global 20 min ; E01 >10m | Instrumenter provider/outils/DB/DOM et diagnostiquer la latence avant reprise longue |
+| **LIVE-Q04** | estimateUsd appelé sans tokens = proxy 0,35 USD | Rapporter usage réel ou UNKNOWN ; contrôle plafond/cout explicitement approximatif |
+| **LIVE-Q05** | Chaque run crée nouveau CampusFlow et repart E01 | Reprise dans le même projet/fil à E02, idempotente, sans replay E01 |
+| **LIVE-Q06** | Capture T20 même en interruption propre possible | N'étiqueter T10/T20 qu'après nombre exact de tours ; sinon PARTIAL_AFTER_E01 |
+| **LIVE-Q07** | STOP opérateur/sur demande non documenté au-delà du rapport | Ne pas l'attribuer à Morris sans preuve ; consigner acteur/cause |
+| **LIVE-Q08** | Pas de snapshot D4 après E01 ; T10/T20 absents | Capturer état réel à chaque jalon, IDs sources et révisions ; aucune fixture pour LIVE |
+
+**Priorité de suite :** diagnostiquer la latence de E01, corriger les oracles de succès/complétude, la comptabilité des coûts, le snapshot et la reprise **dans le projet déjà créé** avant toute nouvelle campagne. Ne pas relancer 20 tours aveuglément ni faire passer E01 pour un test du Journal. Compléter les suites ML2/ML4C/E05. Nouveau GO Morris si variation du budget/périmètre ou effet hors DEV ; GO initial ne vaut ni push produit ni recette.
+
+### 15.4. Verdict et gates
+
+**READY FOR MORRIS REVIEW WITH RESERVES — REAL PROVIDER E01 SEUL / 19 TOURS NON JOUÉS / CAPITALISATION JOURNAL LIVE NOT PROVEN.** Handoff Git complet et distant vérifié. Code produit local non publié ; recettes et assertions esthétiques réservées à Morris en RECETTE ; pas de Gate C, PR, merge, STABLE ni ADOPTED.
+
 ## 12. Historique documentaire
 
 | Date/version | Opération et source | Qualification |
@@ -340,4 +420,5 @@ L'absence de validation visuelle pixel-perfect dans DEV ne bloque pas la QA des 
 | **19/11/2026 — v0.1** | Création de la matrice vivante Ensemble 06 Journal, à partir du modèle Ensemble 05 v0.10, des contrats validés R1–R4/Journal v1.0, du contrat technique v0.3, des 11 Figma et du premier handoff Git 03eda7e8 | **DOCUMENTED — REVUE D1** ; 16/16 critères tracés ; aucune preuve de livraison complète, aucun effet produit ni adoption |
 | **19/11/2026 — v0.2** | Deuxième handoff 7a065cec, code/diffs et 5 captures comparés aux contrats v1.0/v0.3 ; §13 actualisé 16/16 J-C, E06-01..06 et réservation de la revue visuelle à Morris | **DOCUMENTED / D1 CANDIDATE** ; aucune mutation produit, aucun GO PR/merge/RECETTE/ADOPTED |
 | **19/11/2026 — v0.3** | Handoff 9d56e6a5 relu, nouvelle matrice actuelle §14 J-C01..16, réserve faux positif acquis, retours et versions, provenance source, gate E2E et suites ; historique conservé | **DOCUMENTED D1 CANDIDATE** ; sans effet produit/DB/RECETTE, pas de Gate C/ADOPTED |
+| **19/11/2026 — v0.4** | Revue du handoff 45bd3d37, matrice §15 complète J-C01…16/C1…14/LIVE-Q01…08 ; E01 provider réel distinct des 19 non exécutés, latence/coût et reprise qualifiés | **DOCUMENTED D1 CANDIDATE** ; aucune relance LIVE, aucun effet code/DB/RECETTE ni adoption |
 
