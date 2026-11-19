@@ -1092,12 +1092,20 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
     detail: string;
   }> = [];
 
+  const seenSourceKeys = new Set<string>();
+  const pushLink = (link: (typeof sourceLinks)[number]) => {
+    const key = `${link.sourceKind}:${link.sourceId ?? link.documentId ?? link.revisionId ?? link.ownerId}`;
+    if (seenSourceKeys.has(key)) return;
+    seenSourceKeys.add(key);
+    sourceLinks.push(link);
+  };
+
   for (const a of knowledge.acquis) {
     if (a.status !== "CURRENT") continue;
     try {
       const prov = JSON.parse(a.provenanceJson) as ExtendedProvenance;
       const q = await qualifyProvenanceSource(pilotId, prov);
-      sourceLinks.push({
+      pushLink({
         ownerKind: "acquis",
         ownerId: a.id,
         subjectId: a.subjectId,
@@ -1116,7 +1124,7 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
     try {
       const prov = JSON.parse(o.provenanceJson) as ExtendedProvenance;
       const q = await qualifyProvenanceSource(pilotId, prov);
-      sourceLinks.push({
+      pushLink({
         ownerKind: "open_point",
         ownerId: o.id,
         subjectId: o.subjectId,

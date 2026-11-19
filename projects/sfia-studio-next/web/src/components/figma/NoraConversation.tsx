@@ -80,22 +80,39 @@ export function NoraConversation(props: {
   useEffect(() => {
     const targetId = props.focusMessageId?.trim();
     if (!targetId) return;
-    const root = threadRef.current;
-    if (!root) return;
-    const node = root.querySelector(`[data-message-id="${CSS.escape(targetId)}"]`) as HTMLElement | null;
-    if (!node) {
-      props.onFocusMessageHandled?.();
-      return;
-    }
-    node.scrollIntoView({ block: "center", behavior: "smooth" });
-    node.setAttribute("data-journal-focus", "1");
-    node.classList.add("is-journal-focus");
-    const t = window.setTimeout(() => {
-      node.classList.remove("is-journal-focus");
-      node.removeAttribute("data-journal-focus");
-      props.onFocusMessageHandled?.();
-    }, 2400);
-    return () => window.clearTimeout(t);
+    let cancelled = false;
+    let highlightTimer: number | undefined;
+    let attempts = 0;
+    const tryFocus = () => {
+      if (cancelled) return;
+      const root = threadRef.current;
+      const node = root?.querySelector(
+        `[data-message-id="${CSS.escape(targetId)}"]`,
+      ) as HTMLElement | null;
+      if (!node) {
+        attempts += 1;
+        // Wait for async insert / paint — do not clear focus on first miss (avoids landing on last message).
+        if (attempts < 24) {
+          window.setTimeout(tryFocus, 50);
+          return;
+        }
+        props.onFocusMessageHandled?.();
+        return;
+      }
+      node.scrollIntoView({ block: "center", behavior: "smooth" });
+      node.setAttribute("data-journal-focus", "1");
+      node.classList.add("is-journal-focus");
+      highlightTimer = window.setTimeout(() => {
+        node.classList.remove("is-journal-focus");
+        node.removeAttribute("data-journal-focus");
+        props.onFocusMessageHandled?.();
+      }, 2400);
+    };
+    tryFocus();
+    return () => {
+      cancelled = true;
+      if (highlightTimer) window.clearTimeout(highlightTimer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.focusMessageId, props.messages.length]);
 

@@ -34,6 +34,11 @@ describe("d4.record_knowledge conduction (selective capitalisation)", () => {
     expect(src).toContain("Conditions POSITIVES");
     expect(src).toContain("Conditions NÉGATIVES");
     expect(src).toContain("mode EXPLAIN/EXPLORE/PREPARE sur d4.record_knowledge");
+    expect(src).toContain("GEL E05");
+    expect(src).toContain("E05_VISUAL_COMPOSITION_FROZEN");
+    expect(src).toContain("stripVisualCompositionForFrozenReplies");
+    expect(src).toMatch(/knowledgeStatement = synthèse durable/);
+    expect(src).toMatch(/vise ≤220/);
     // Document path remains explicit-mandate; knowledge path is bounded exception.
     expect(src).toContain("d4.create_document / d4.revise_document");
     expect(src).toContain("écriture documentaire D4");

@@ -65,6 +65,17 @@ Avant cutover, `:3200` servait un build **ML3** (`ZCkIWQ341KK1KOHTD1a5L`, worktr
 | OBS | `d3.turn.knowledge_proposals` · `d3.turn.knowledge_capitalisation` (compteurs) |
 | CampusNova historique | non rejoué / non rattrapé automatiquement |
 
+## Correctif qualité Journal + gel E05 (cycle 8 intégré — 19/11/2026)
+
+| Thème | Correctif |
+|---|---|
+| Synthèse | `maybeCapitalizeFromExchange` → `appendSubjectSummaryRevision` quand SUBJECT statement ≠ titre |
+| Acquis / points ouverts | `editorialCompactKnowledgeStatement` (≤220 / ≤280) + instructions Nora |
+| Références | détail provenance message (auteur · date · extrait) ; dédup liens ; SourceChip UX |
+| Navigation | focus message avec retries (pas clear-on-first-miss) |
+| Arborescence | `.journal-hierarchy` `flex: 0 1 auto` + `max-height: 100%` |
+| UNKNOWN CampusNova | traces `op_78d70493` : `PROVIDER_SCHEMA_OR_OUTPUT` / `structured_output_invalid_type` / `stream_drain` (fingerprint `d57214a42390491f`) — token overflow non prouvé ; gel schéma LIVE = mitigation bornée |
+
 ## Autorité
 
-- Pas de mutation D6 · pas de fixture RECETTE · pas de push produit · pas de migration nouvelle
+- Pas de mutation D6 · pas de fixture RECETTE · pas de push produit · pas de migration nouvelle · pas de rattrapage CampusNova

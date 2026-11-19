@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-E05-FREEZE-JOURNAL-QUALITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~16:40 CET |
+| Macro-lot | Ensemble 05+06 — gel grammaire visuelle + qualité Journal + UNKNOWN forensic |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Bypass E05 (code préservé) · restitution texte · synthèse/acquis/refs/hauteurs · cutover RECETTE `:3200` |
+| Parent | capitalisation `4c49f717` / tree `73efb65d` ; RECETTE BUILD `XOSTMrVvPzbd42ylsUL6Q` |
+| Scope | `E05_VISUAL_COMPOSITION_FROZEN` · omit LIVE visual schema · D4 summary wiring · editorial compact · provenance excerpts · focus retry · hierarchy CSS |
+| UNKNOWN | PROUVÉ schema/output invalid type stream_drain ; token overflow NON PROUVÉ |
+| Docs | as-built E05/E06 descriptifs · matrice v0.7 lecture seule |
+| Verdict Cursor | voir Review Pack |
+
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-D3-D4-CAPITALISATION
 
 | Field | Value |

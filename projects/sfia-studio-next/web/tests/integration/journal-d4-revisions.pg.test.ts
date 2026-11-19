@@ -13,7 +13,12 @@ import {
   preparations,
 } from "@/db/schema";
 import { newId } from "@/lib/ids";
-import { capitalizeAcquis, ensureSubject, openPoint } from "@/domains/knowledge/service";
+import {
+  capitalizeAcquis,
+  ensureSubject,
+  maybeCapitalizeFromExchange,
+  openPoint,
+} from "@/domains/knowledge/service";
 import {
   appendDecisionExplanationRevision,
   appendSubjectSummaryRevision,
@@ -587,5 +592,79 @@ describe("Journal D4 revisions (PG)", () => {
       "Sujet totalement orthogonal cuisine italienne",
     );
     expect(miss.candidates.every((c) => !c.statement.includes("latence"))).toBe(true);
+  });
+
+  it("SUBJECT proposal writes durable summary + compact acquis; correction supersedes prior", async () => {
+    const pilotId = await seedPilot("J-cap-summary");
+    const { prep, projectId } = await seedLinkedProject(pilotId, "Cap synthèse");
+    const gen1 = "gen-cap-summary-1";
+    const msg1 = "msg-cap-summary-1";
+    const first = await maybeCapitalizeFromExchange(pilotId, prep.id, {
+      userText: "Inventaire Lille et responsabilités",
+      assistantText: "Synthèse proposée.",
+      generationId: gen1,
+      userMessageId: msg1,
+      proposals: [
+        {
+          intentId: "i-subj",
+          kind: "SUBJECT",
+          statement:
+            "## Sens\nParcours réservation multi-centres.\n\n## Acquis\nLille: 12 portables, 9 opérationnels.\n\n## Ouvert\nQui gère les prêts demain?",
+          epistemic: "recommended",
+          subjectTitle: "Parcours de réservation",
+          continuityReason: "thème structurant",
+        },
+        {
+          intentId: "i-acq",
+          kind: "ACQUIS",
+          statement:
+            "Selon le Pilote, le centre de Lille dispose de 12 ordinateurs portables dont 3 en maintenance et 9 opérationnels selon le dernier inventaire transmis.",
+          epistemic: "established",
+          subjectTitle: "Parcours de réservation",
+          continuityReason: "inventaire",
+        },
+      ],
+    });
+    expect(first.ownershipLost).toBe(false);
+    expect(first.capitalisations.some((c) => c.kind === "subject")).toBe(true);
+    expect(first.capitalisations.some((c) => c.kind === "subject_summary")).toBe(true);
+    expect(first.capitalisations.some((c) => c.kind === "acquis" && c.status === "AVAILABLE")).toBe(
+      true,
+    );
+
+    const summary = await getCurrentSubjectSummary(
+      pilotId,
+      projectId,
+      first.capitalisations.find((c) => c.kind === "subject")!.id!,
+    );
+    expect(summary.status).toBe("AVAILABLE");
+    expect(summary.summary?.summaryMarkdown).toContain("Parcours réservation");
+
+    const bundle = await listProjectKnowledge(pilotId, projectId);
+    const currentAcquis = bundle.acquis.filter((a) => a.status === "CURRENT");
+    expect(currentAcquis.length).toBeGreaterThanOrEqual(1);
+    expect(currentAcquis.every((a) => a.statement.length <= 221)).toBe(true);
+    expect(currentAcquis[0]!.statement.toLowerCase()).not.toMatch(/^selon le pilote/);
+
+    const subjectId = first.capitalisations.find((c) => c.kind === "subject")!.id!;
+    const priorId = currentAcquis[0]!.id;
+    const corrected = await capitalizeAcquis(pilotId, prep.id, {
+      statement: "Lille: 12 portables, 2 en maintenance, 10 opérationnels.",
+      kind: "HYPOTHESIS",
+      subjectId,
+      supersedesAcquisId: priorId,
+      provenance: {
+        sourceKind: "message",
+        sourceId: "msg-cap-summary-2",
+        generationId: "gen-cap-summary-2",
+        epistemic: "hypothesized",
+      },
+    });
+    expect(corrected.status).toBe("AVAILABLE");
+    const after = await listProjectKnowledge(pilotId, projectId);
+    const curr = after.acquis.filter((a) => a.subjectId === subjectId && a.status === "CURRENT");
+    const hist = after.acquis.filter((a) => a.subjectId === subjectId && a.status !== "CURRENT");
+    expect(curr.some((a) => a.statement.includes("10 opérationnels"))).toBe(true);
+    expect(hist.some((a) => a.id === priorId)).toBe(true);
   });
 });

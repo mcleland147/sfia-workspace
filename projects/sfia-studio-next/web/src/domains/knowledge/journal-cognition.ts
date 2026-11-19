@@ -364,6 +364,10 @@ export async function qualifyProvenanceSource(
         .select({
           id: messages.id,
           status: messages.status,
+          role: messages.role,
+          content: messages.content,
+          createdAt: messages.createdAt,
+          ordinal: messages.ordinal,
           ownerPilotId: conversations.ownerPilotId,
         })
         .from(messages)
@@ -380,11 +384,20 @@ export async function qualifyProvenanceSource(
         epistemic,
       };
     }
+    const author = row.role === "assistant" ? "Nora" : row.role === "user" ? "Pilote" : row.role;
+    const contentText = String(row.content ?? "");
+    const excerpt = contentText.replace(/\s+/g, " ").trim().slice(0, 120);
+    const whenIso =
+      row.createdAt instanceof Date
+        ? row.createdAt.toISOString()
+        : String(row.createdAt ?? "");
+    const when = whenIso.slice(0, 10);
+    const ord = typeof row.ordinal === "number" ? ` · #${row.ordinal}` : "";
     return {
       sourceKind: "message",
       sourceId: provenance.sourceId,
       currentness: row.status === "COMPLETE" ? "HISTORICAL" : "UNKNOWN",
-      detail: "message conversationnel exact — historique, pas preuve D8",
+      detail: `${author}${when ? ` · ${when}` : ""}${ord} — « ${excerpt}${contentText.length > 120 ? "…" : ""} »`,
       epistemic,
     };
   }

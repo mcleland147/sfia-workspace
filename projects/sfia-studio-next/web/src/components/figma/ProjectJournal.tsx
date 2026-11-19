@@ -185,15 +185,26 @@ function subjectBreadcrumb(
 }
 
 /** First editorial line from summary markdown — never invent content. */
-function subjectBlurb(subject: JournalSubject): string {
+function subjectBlurb(
+  subject: JournalSubject,
+  acquisForSubject?: JournalAcquis[],
+): string {
   const raw = subject.summary?.summaryMarkdown?.trim() ?? "";
-  if (!raw) return "";
-  const line =
-    raw
-      .split(/\r?\n/)
-      .map((l) => l.replace(/^#+\s*/, "").replace(/[*_`]/g, "").trim())
-      .find((l) => l.length > 0) ?? "";
-  return line.length > 160 ? `${line.slice(0, 157)}…` : line;
+  if (raw) {
+    const line =
+      raw
+        .split(/\r?\n/)
+        .map((l) => l.replace(/^#+\s*/, "").replace(/[*_`]/g, "").trim())
+        .find((l) => l.length > 0) ?? "";
+    return line.length > 160 ? `${line.slice(0, 157)}…` : line;
+  }
+  // Fallback: first CURRENT acquis statement only — no generic placeholder.
+  const first = (acquisForSubject ?? [])
+    .filter((a) => a.subjectId === subject.id && a.status === "CURRENT")
+    .map((a) => a.statement.trim())
+    .find((s) => s.length > 0);
+  if (!first) return "";
+  return first.length > 140 ? `${first.slice(0, 137)}…` : first;
 }
 
 function decisionBlurb(d: JournalDecision): string {
@@ -557,6 +568,7 @@ export function ProjectJournal(props: {
                   <SubjectHierarchyBlock
                     key={s.id}
                     subject={s}
+                    acquis={props.acquis}
                     tree={tree}
                     expanded={expanded}
                     selectedId={selectedSubjectId}
@@ -611,10 +623,11 @@ export function ProjectJournal(props: {
                     {selectedSubject.title}
                   </h2>
                   <SubjectBreadcrumb path={subjectBreadcrumb(selectedSubject.id, byId)} />
-                  <p className="journal-viewer-lede">
-                    {subjectBlurb(selectedSubject) ||
-                      "Comprendre ce qu’on sait, ce qui reste ouvert et pourquoi."}
-                  </p>
+                  {subjectBlurb(selectedSubject, props.acquis) ? (
+                    <p className="journal-viewer-lede">
+                      {subjectBlurb(selectedSubject, props.acquis)}
+                    </p>
+                  ) : null}
                   <span className="journal-viewer-type" data-testid="journal-viewer-subject-kind">
                     {isParentSelected ? "Sujet parent" : "Sujet autonome"}
                   </span>
@@ -686,8 +699,10 @@ export function ProjectJournal(props: {
                                 <span className="journal-child-num">{String(i + 1).padStart(2, "0")}</span>
                                 <span className="journal-child-card-text">
                                   <span className="journal-child-card-title">{c.title}</span>
-                                  {subjectBlurb(c) ? (
-                                    <span className="journal-child-card-desc">{subjectBlurb(c)}</span>
+                                  {subjectBlurb(c, props.acquis) ? (
+                                    <span className="journal-child-card-desc">
+                                      {subjectBlurb(c, props.acquis)}
+                                    </span>
                                   ) : null}
                                 </span>
                                 <span aria-hidden>↗</span>
@@ -1097,6 +1112,7 @@ function OpenPointsTransversalList(props: {
 
 function SubjectHierarchyBlock(props: {
   subject: JournalSubject;
+  acquis: JournalAcquis[];
   tree: Map<string | null, JournalSubject[]>;
   expanded: Set<string>;
   selectedId: string | null;
@@ -1111,7 +1127,7 @@ function SubjectHierarchyBlock(props: {
   const isOpen = props.expanded.has(props.subject.id);
   const openCount = props.openBySubject.get(props.subject.id) ?? 0;
   const matchReason = props.matchBySubject.get(props.subject.id);
-  const blurb = subjectBlurb(props.subject);
+  const blurb = subjectBlurb(props.subject, props.acquis);
   const selected = props.selectedId === props.subject.id;
 
   return (
@@ -1164,7 +1180,7 @@ function SubjectHierarchyBlock(props: {
       {hasChildren && isOpen ? (
         <ul className="journal-children">
           {children.map((c) => {
-            const cBlurb = subjectBlurb(c);
+            const cBlurb = subjectBlurb(c, props.acquis);
             const cMatch = props.matchBySubject.get(c.id);
             const cOpen = props.openBySubject.get(c.id) ?? 0;
             const cSelected = props.selectedId === c.id;
@@ -1238,7 +1254,9 @@ function SourceChip(props: {
   onOpenDocument?: (documentId: string, revisionId?: string | null) => void;
 }) {
   const s = props.link;
-  const label = `${s.sourceKind} · ${s.currentness}`;
+  const kindLabel =
+    s.sourceKind === "message" ? "Échange" : s.sourceKind === "document" ? "Document" : s.sourceKind;
+  const label = `${kindLabel} · ${s.currentness === "HISTORICAL" ? "source" : s.currentness}`;
   const canMessage = s.sourceKind === "message" && Boolean(s.sourceId) && props.onOpenMessage;
   const docId = s.documentId ?? (s.sourceKind === "document" ? s.sourceId : undefined);
   const canDoc = Boolean(docId) && Boolean(props.onOpenDocument);
@@ -1247,6 +1265,7 @@ function SourceChip(props: {
       type="button"
       className="journal-source-chip"
       data-testid={`journal-source-${s.ownerId}`}
+      data-source-id={s.sourceId ?? undefined}
       data-currentness={s.currentness}
       disabled={!canMessage && !canDoc}
       title={s.detail}
@@ -1256,9 +1275,9 @@ function SourceChip(props: {
       }}
     >
       <span className="journal-source-label">{label}</span>
-      <span className="journal-row-desc">{s.detail.slice(0, 160)}</span>
+      <span className="journal-row-desc">{s.detail.slice(0, 180)}</span>
       <span className="journal-source-cta">
-        Retrouver {s.sourceKind === "message" ? "cet échange dans Travail" : "ce document"} ↗
+        Ouvrir {s.sourceKind === "message" ? "ce message exact" : "ce document"} ↗
       </span>
     </button>
   );

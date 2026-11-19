@@ -14,7 +14,6 @@ import {
   assertTurnFenceInTx,
   type TurnOwnershipFence,
 } from "@/domains/conversation/turn-command";
-
 export type Provenance = {
   sourceKind: "message" | "document" | "revision" | "pilot" | "nora";
   sourceId?: string;
@@ -26,6 +25,25 @@ export type Provenance = {
 };
 
 export type KnowledgeKind = "FACT" | "HYPOTHESIS" | "RECOMMENDATION" | "LIMIT";
+
+/** Editorial compact form for Journal acquis / open points (one idea, no transcript). */
+export const KNOWLEDGE_STATEMENT_SOFT_MAX = 220;
+
+export function editorialCompactKnowledgeStatement(
+  raw: string,
+  maxLen = KNOWLEDGE_STATEMENT_SOFT_MAX,
+): string {
+  let s = raw.replace(/\s+/g, " ").trim();
+  s = s.replace(
+    /^(selon\s+(le\s+pilote|les\s+nouvelles\s+précisions\s+du\s+pilote|les\s+précisions\s+du\s+pilote)|le\s+pilote\s+précise\s+que|nous\s+avons\s+appris\s+que|dans\s+le\s+message\s+précédent)\s*[,:]?\s*/i,
+    "",
+  );
+  if (s.length <= maxLen) return s;
+  const cut = s.slice(0, maxLen);
+  const at = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("; "), cut.lastIndexOf(", "));
+  if (at >= Math.floor(maxLen * 0.55)) return cut.slice(0, at + 1).trim();
+  return `${cut.replace(/\s+\S*$/, "").trim()}…`;
+}
 
 function provenanceString(p: Provenance): string {
   return JSON.stringify({ ...p, notedAt: p.notedAt ?? new Date().toISOString() });
@@ -91,7 +109,7 @@ export async function capitalizeAcquis(
   },
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
-  const statement = input.statement.trim();
+  const statement = editorialCompactKnowledgeStatement(input.statement);
   if (!statement || statement.length < 12) {
     return { status: "SKIPPED" as const, reason: "statement too thin for capitalisation" };
   }
@@ -207,8 +225,10 @@ export async function openPoint(
   },
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
-  const statement = input.statement.trim();
-  if (!statement) return { status: "FAILED" as const, reason: "empty" };
+  const statement = editorialCompactKnowledgeStatement(input.statement, 280);
+  if (!statement || statement.length < 12) {
+    return { status: "FAILED" as const, reason: "empty" };
+  }
   if (input.subjectId) {
     const check = await assertSubjectRef(pilotId, preparationId, input.subjectId);
     if (check && "error" in check) return { status: "FAILED" as const, reason: check.error };
@@ -1042,6 +1062,47 @@ export async function maybeCapitalizeFromExchange(
             status: s.status,
             epistemicNote: p.continuityReason,
           });
+          // SUBJECT statement (≠ title) → durable synthesis revision when project-linked.
+          if (p.kind === "SUBJECT") {
+            const summaryMarkdown = p.statement.trim();
+            const titleNorm = title.trim();
+            if (
+              summaryMarkdown.length >= 12 &&
+              summaryMarkdown.toLowerCase() !== titleNorm.toLowerCase()
+            ) {
+              const ctx = await assertPrep(pilotId, preparationId);
+              const projectId = ctx.project?.id;
+              if (projectId) {
+                const { appendSubjectSummaryRevision } = await import(
+                  "@/domains/knowledge/journal"
+                );
+                const syn = await appendSubjectSummaryRevision(pilotId, projectId, s.subjectId, {
+                  summaryMarkdown: summaryMarkdown.slice(0, 4000),
+                  provenance: {
+                    sourceKind: "message",
+                    sourceId: input.userMessageId,
+                    generationId: input.generationId,
+                    note: p.continuityReason ?? "semantic qualification d4.record_knowledge",
+                    epistemic:
+                      p.epistemic === "established"
+                        ? "observed"
+                        : p.epistemic === "recommended"
+                          ? "recommended"
+                          : "hypothesized",
+                  },
+                  operationId: input.generationId,
+                  idempotencyKey: `subj-summary:${s.subjectId}:${input.generationId}`,
+                });
+                results.push({
+                  kind: "subject_summary",
+                  id: "revisionId" in syn ? syn.revisionId : undefined,
+                  status: syn.status,
+                  epistemicNote: p.continuityReason,
+                  reason: "reason" in syn ? String(syn.reason) : undefined,
+                });
+              }
+            }
+          }
         }
       }
       if (p.kind === "SUBJECT") continue;

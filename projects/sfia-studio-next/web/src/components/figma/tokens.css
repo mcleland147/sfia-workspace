@@ -3615,9 +3615,12 @@
 .journal-main-column .journal-open-points-list,
 .journal-main-column [data-testid="journal-search-results"],
 .journal-main-column [data-testid="journal-open-points-list-wrap"] {
-  flex: 1 1 auto;
+  /* Grow with content; scroll only when exceeding available column height — avoid tall empty card for 1 sujet. */
+  flex: 0 1 auto;
+  max-height: 100%;
   min-height: 0;
   overflow: auto;
+  align-self: stretch;
 }
 .journal-v4-head {
   margin-bottom: 28px;
