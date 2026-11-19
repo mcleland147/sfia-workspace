@@ -904,7 +904,7 @@ async function runLiveWithTools(
         maxTurns,
         stream: false,
         signal: controller.signal,
-      } as Parameters<typeof run>[2]);
+      } as unknown as Parameters<typeof run>[2]);
 
       const maybeResult = result as {
         toTextStream?: (opts?: { compatibleWithNodeStreams?: boolean }) => AsyncIterable<string>;
