@@ -3,7 +3,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.6 — 19 novembre 2026 (Europe/Paris) |
+| Version | v0.7 — 19 novembre 2026 (Europe/Paris) |
 | Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
 | Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
@@ -302,6 +302,29 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 
 **Gate Morris :** revue de l'esthétique et des proportions des trois écrans **avant** approfondissement des parcours, prototypes interactifs ou déclinaison Décisions/Points à reprendre. Le contrat R1/R2 et la cible fonctionnelle sont inchangés par cette itération ; aucune version n'est `ADOPTED`.
 
+
+### 9.2. Exploration → lecture partagée → lecture agrandie — proposition UX en revue
+
+**Origine : retour de Morris le 19/11/2026, non encore validé comme contrat visuel définitif.** Le sommaire reste l'état d'entrée, mais cliquer sur un sujet ne doit plus imposer une sortie de l'arborescence vers une page entière. La cible candidate reprend deux dispositions de la **page 05**, [05.09 / Visionneuse document 50/50](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=701-363) et [05.11 / Visionneuse en grand](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=701-449), **sans confondre fiche D4 et visionneuse de document D4**.
+
+| État | Expérience proposée | Lien Figma |
+| --- | --- | --- |
+| **Exploration** | Rail projet unique, Sujets/Décisions, arborescence dans la surface ; sélectionner un sujet | [Journal / Sujets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71) |
+| **Partagé 50/50 — sujet autonome** | À gauche arborescence avec sélection ; à droite synthèse, acquis et questions pertinents, références essentielles, action Agrandir ; naviguer entre sujets sans fermer la fiche | [Sujet autonome partagé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-26) |
+| **Partagé 50/50 — sujet parent** | Même navigation, mais contenu droit consolidé, mettant en avant les sous-sujets sans recopier leurs détails | [Sujet parent partagé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-131) |
+| **Agrandie — sujet autonome** | Masquer temporairement l'arborescence, développer la fiche et ses repères contextuels, action Réduire | [Sujet autonome agrandi](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159) |
+| **Agrandie — sujet parent** | Lecture consolidée, sous-sujets et repères secondaires dans toute la zone de projet, action Réduire | [Sujet parent agrandi](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-239) |
+
+**État de navigation à préserver en cible :** sujet sélectionné, branches ouvertes, recherche/filtre et position de défilement de l'arborescence lors du passage partagé ↔ agrandi et du retour au Journal. Le mode de lecture ne doit ni envoyer un message à Nora ni changer les faits, les décisions ou la mémoire par sa seule ouverture. Un sous-sujet suit le même parcours que le sujet ; la granularité de son contenu varie selon son niveau.
+
+**Dimensions Figma vérifiées :** frames desktop 1680 × 970, rail/page 05 de 246 px, en-tête de 70 px ; mode partagé composé de deux panneaux de 668 px dans la surface principale, sans second rail global. Les cinq frames sont éditables et non interactives ; les actions visibles décrivent une cible, pas un comportement testé.
+
+**Point ouvert « Points à reprendre » :** l'**accès transversal** est déjà exigé par R1/R2, mais le bouton ajouté en haut à droite du Journal était une **proposition non validée**. Il a été retiré de la frame initiale ; son emplacement/forme sera redéfini sans créer d'onglet principal ou de registre concurrent.
+
+**Recherche — spécification non arbitrée :** la barre est laissée comme **affordance de conception** avec le libellé neutre « Rechercher un sujet… » ; le raccourci `⌘K` a été retiré. La portée exacte (titre, synthèse, sous-sujets, décisions, sources), les résultats, l'état filtré de l'arborescence, la pertinence, le volume et le traitement des sources inaccessibles sont **à instruire avant VALIDATED SPEC**.
+
+**Gate :** proposition visuelle à réviser avec Morris ; ne pas déduire un GO technique, une couverture navigateur ou une adoption de ces frames.
+
 ## 10. Registre vivant des arbitrages
 
 | Sujet | Position à ce jour | Nature de la position | Prochaine validation |
@@ -316,6 +339,9 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | Émergence de sous-sujets selon leur autonomie sémantique, non par quota | Proposition ChatGPT en réponse au besoin d'intelligence de classement | **PROPOSITION À ÉPROUVER** | Exemples positif/négatif et critères d'acceptation |
 | Actualisation discrète, non intrusive, visible seulement si confirmée | Modèle B proposé puis accepté sur le principe par Morris | **PRINCIPE UX ACCEPTÉ / FIGMA À ARBITRER** | Placement, moment, révision effective, panne, absence de badge artificiel |
 | Un seul rail existant, pas de second rail permanent | Objection explicite Morris au wireframe | **CONTRAINTE UX CONFIRMÉE** | Figma sur géométrie réelle |
+| Lecture partagée 50/50 avec arborescence persistante et expansion réversible | Nouveau parcours proposé par Morris en s'appuyant sur les frames 05.09/05.11 ; maquettes candidates créées | **PROPOSITION UX MORRIS / NON ENCORE VALIDÉE** | Revue des cinq frames §9.2, navigation et densité |
+| Points à reprendre : accès transversal maintenu, bouton d'en-tête retiré | R1/R2 valident le besoin, non sa place dans le Journal | **EXIGENCE VALIDÉE / EMPLACEMENT À ARBITRER** | Parcours transversal sobre |
+| Recherche dans les sujets | Barre jugée intéressante ; contrat de recherche absent à ce stade | **FONCTIONNALITÉ À SPÉCIFIER** | Portée, résultats, permissions, performance |
 | Arborescence pleine surface puis fiche centrale | Préférence ChatGPT, non acceptée formellement | **PROPOSITION À ARBITRER** | Présentation visuelle Figma |
 | Quelques échanges clés, liens vers messages exacts, pas tous les messages | Préoccupation de sobriété Morris, proposition ChatGPT | **DIRECTION CANDIDATE** | Sélection, deep link, présentation |
 | Historique des transformations hors premier plan | Proposition pour éviter un second transcript | **DIRECTION CANDIDATE** | Besoin et affordance secondaire |
@@ -388,5 +414,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | 19/11/2026 — v0.4 | Revue de couverture R1/R2 sur les sources du Journal et ses interfaces D1–D9 ; tableau des acquis, lacunes d'explicitation, renvois canoniques et points UX à arbitrer | **DOCUMENTED / REVIEWED AT SOURCE LEVEL** ; aucune promotion automatique en VALIDATED SPEC |
 | 19/11/2026 — v0.5 | Référencement de trois frames Figma natives candidates sur page séparée : sommaire, sujet autonome, sujet parent ; reprise des limites de conception et absence de validation UX | **DESIGN CANDIDAT / NON VALIDÉ**, aucun changement de code/recette |
 | 19/11/2026 — v0.6 | Rejet de la direction artistique Figma V1 par Morris, reconstruction des trois écrans selon la page 05 (rail et en-tête réutilisés), références Figma V2 réconciliées, V1 candidate retirée | **DESIGN CANDIDAT / À REVOIR AVEC MORRIS**, aucune validation du design ni du fonctionnement |
+| 19/11/2026 — v0.7 | Navigation candidate Exploration → 50/50 persistant → lecture agrandie ; référence aux écrans 05.09/05.11, deux nouvelles frames partagées, agrandissement réversible, retrait du bouton « Points à reprendre » et du raccourci recherche non spécifiés | **DESIGN CANDIDAT / PARCOURS À ARBITRER**, aucun code ni test produit |
 
-**Suite immédiate :** revue esthétique et ergonomique par Morris des trois frames **V2** (§9.1) basées sur la page 05 ; ajuster d'abord la DA au besoin, puis traiter les autres variantes de Sujets, Décisions et Points à reprendre, avec les exigences de couverture R1/R2 (§11.1) et sans autorité concurrente. Contrat final, conception Figma et delivery restent soumis aux validations distinctes.
+**Suite immédiate :** revue UX par Morris des **cinq frames** du Journal (§9.2), en priorité 50/50 et passage agrandi ; ensuite spécifier le comportement de la recherche et l'accès transversal aux points ouverts, puis traiter Décisions. Garder le contrat fonctionnel candidat et les décisions D6 chez leur propriétaire ; aucun GO code ou ADOPTED déduit.
