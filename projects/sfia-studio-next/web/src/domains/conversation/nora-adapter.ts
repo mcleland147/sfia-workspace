@@ -786,7 +786,7 @@ async function runLiveWithTools(
     "",
     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
-    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000). GEL E05 (19/11/2026) : n'émets PAS visualComposition — toute la substance dans replyDraft (titres, listes, tableaux Markdown si utiles). Structure textuelle libre et proportionnée à la question.",
+    "- replyDraft = texte destiné au Pilote (français, Markdown utile). Vise la concision utile (souvent ≤8k) ; plafond technique 20000. GEL E05 (19/11/2026) : n'émets PAS visualComposition — toute la substance dans replyDraft (titres, listes, tableaux Markdown si utiles). Structure textuelle libre et proportionnée à la question — pas un transcript.",
     "- goal = compréhension du TOUR courant (demande immédiate / reformulation locale), sans invention.",
     "- projectIntention = intention MÉTIER DURABLE du projet. Distincte de goal et de proposedProjectName.",
     "- Demande ordinaire, conseil local, prochaines étapes, renommage ou confirmation ponctuelle : projectIntention = chaîne vide (conserver l'intention antérieure). Ne jamais recopier goal dans projectIntention.",

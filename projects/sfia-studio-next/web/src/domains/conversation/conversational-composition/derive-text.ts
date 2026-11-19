@@ -10,8 +10,13 @@ import { buildExhaustiveBlockFallback } from "./admission";
 import type { VisualComposition } from "@/domains/conversation/visual-composition";
 import { compositionOwnsBody } from "@/domains/conversation/visual-composition";
 
-/** Envelope limit aligned with replyDraft Zod max — not raised arbitrarily. */
-export const REPLY_DRAFT_MAX_CHARS = 12000;
+/**
+ * Envelope limit aligned with replyDraft Zod max.
+ * Raised 12000→20000 (2026-11-19): CampusNova consolidation turns approached 11–11.2k
+ * under thin context; RECETTE with full tool context failed as REDACTED schema mismatch
+ * (fingerprint d57214) — most probable field = replyDraft overflow.
+ */
+export const REPLY_DRAFT_MAX_CHARS = 20000;
 
 export type DeriveReplyDraftResult =
   | { ok: true; text: string; length: number }

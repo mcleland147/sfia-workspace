@@ -1387,7 +1387,7 @@ register(
   ),
 );
 
-/** A4 — canonical overflow (>12k joined) must fail validation, never COMPLETE raw. */
+/** A4 — canonical overflow (>REPLY_DRAFT_MAX_CHARS joined) must fail validation, never COMPLETE raw. */
 const E05_A4_OVERFLOW = "E05_A4_OVERFLOW";
 register(
   E05_A4_OVERFLOW,
@@ -1398,10 +1398,11 @@ register(
     {
       visualComposition: {
         schemaVersion: "conversational-composition-canonical-v1",
-        blocks: [0, 1, 2, 3].map((i) => ({
+        // 6×4000 (per-block markdown max) + separators > 20000 replyDraft envelope
+        blocks: [0, 1, 2, 3, 4, 5].map((i) => ({
           kind: "text" as const,
           id: `ov${i}`,
-          markdown: "Z".repeat(3500),
+          markdown: "Z".repeat(4000),
         })),
       },
     },

@@ -15,7 +15,10 @@ import {
   VISUAL_COMPOSITION_SCHEMA_PROJECTION,
   VisualCompositionAgentOutputSchema,
 } from "./visual-composition";
-import { deriveReplyDraftFromCanonicalSections } from "./conversational-composition/derive-text";
+import {
+  deriveReplyDraftFromCanonicalSections,
+  REPLY_DRAFT_MAX_CHARS,
+} from "./conversational-composition/derive-text";
 
 /**
  * READ/validate envelope — accepts historical e05 + projection-v1 + canonical-v1.
@@ -215,7 +218,8 @@ export const NoraTurnQualificationSchema = z.object({
     )
     .max(8)
     .optional(),
-  replyDraft: z.string().max(12000).default(""),
+  /** Raised 12000→20000 (2026-11-19): rich consolidation replyDraft near/over prior ceiling → LIVE UNKNOWN. */
+  replyDraft: z.string().max(REPLY_DRAFT_MAX_CHARS).default(""),
   /** Appréciation qualitative de préparation (suggestion, jamais une autorité). */
   preparationAssessment: PreparationAssessmentSchema.optional(),
   preparationAssessmentExplanation: z.string().max(800).optional(),

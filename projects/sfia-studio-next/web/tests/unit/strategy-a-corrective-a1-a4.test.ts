@@ -45,24 +45,24 @@ describe("A1 — no silent truncation (exact oracles)", () => {
     };
   }
 
-  it("A1 exact: 11999 and 12000 succeed; 12001 overflows", () => {
-    const a = deriveReplyDraftFromCanonicalSections(assembledAuthority(11999));
-    const b = deriveReplyDraftFromCanonicalSections(assembledAuthority(12000));
-    const c = deriveReplyDraftFromCanonicalSections(assembledAuthority(12001));
+  it("A1 exact: max-1 and max succeed; max+1 overflows", () => {
+    const a = deriveReplyDraftFromCanonicalSections(assembledAuthority(REPLY_DRAFT_MAX_CHARS - 1));
+    const b = deriveReplyDraftFromCanonicalSections(assembledAuthority(REPLY_DRAFT_MAX_CHARS));
+    const c = deriveReplyDraftFromCanonicalSections(assembledAuthority(REPLY_DRAFT_MAX_CHARS + 1));
     expect(a.ok).toBe(true);
-    if (a.ok) expect(a.length).toBe(11999);
+    if (a.ok) expect(a.length).toBe(REPLY_DRAFT_MAX_CHARS - 1);
     expect(b.ok).toBe(true);
     if (b.ok) expect(b.length).toBe(REPLY_DRAFT_MAX_CHARS);
     expect(c.ok).toBe(false);
     if (!c.ok && c.reason === "CV_DERIVE_OVERFLOW") {
-      expect(c.length).toBe(12001);
+      expect(c.length).toBe(REPLY_DRAFT_MAX_CHARS + 1);
       expect(c.max).toBe(REPLY_DRAFT_MAX_CHARS);
     }
   });
 
   it("A1 multi-block: separators included; over limit refuses (no slice)", () => {
-    // 4×3500 = 14000 + 3×"\n\n" > 12000
-    const over = multiTextOverLimit(14000);
+    // well over REPLY_DRAFT_MAX_CHARS with separators
+    const over = multiTextOverLimit(REPLY_DRAFT_MAX_CHARS + 4000);
     const comp = parseVisualComposition(over)!;
     expect(comp).toBeTruthy();
     const d = deriveReplyDraftFromCanonicalSections(comp);
@@ -83,7 +83,7 @@ describe("A1 — no silent truncation (exact oracles)", () => {
       status: "QUALIFIED",
       replyDraft: "ignored",
       intents: [],
-      visualComposition: multiTextOverLimit(14000),
+      visualComposition: multiTextOverLimit(REPLY_DRAFT_MAX_CHARS + 4000),
     });
     expect(v.ok).toBe(false);
     if (!v.ok) expect(v.reason).toMatch(/^CANONICAL_REPLY_OVERFLOW:/);
