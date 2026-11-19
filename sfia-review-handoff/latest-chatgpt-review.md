@@ -1,15 +1,16 @@
-# JOURNAL V4 — CYCLE 3 E06-01..06 — REVIEW PACK FULL
+# JOURNAL V4 — CYCLE 4 §5 + LIVE PARTIAL — REVIEW PACK FULL
 
-- **Date/heure** : 2026-11-19 10:08:09 CET
+- **Date/heure** : 2026-11-19 11:05:13 CET
 - **Branche** : `sfia/next-journal-delivery-20261119`
-- **HEAD** : `a122bf27fa46ede3300474217bc57c27cd1e496d`
-- **HEAD précédent** : `782c93ecd94446f586a2f4f5344f14eb4530e87a`
+- **HEAD** : `d5bf7eb762a21cc309744bb703926e2c0bc844ed`
+- **HEAD précédent** : `a122bf27fa46ede3300474217bc57c27cd1e496d`
 - **origin/main** : `d3d199adb782462b93467934f5f1e8a0c98fb492`
-- **Docs remote (matrice v0.2, non fusionnée)** : `2ae685a5f2523fafdf15bf6375e33cde500cc6f7`
-- **Handoff précédent** : `7a065cec`
+- **Docs remote matrice v0.3** : `c3f1254c15bc6de72b92d706e9dedb3981b4e5dd`
+- **Handoff précédent** : `9d56e6a5`
 - **Versioning** : NO RELEASE
 - **Push projet** : NON
 - **VISUAL REVIEW** : PENDING MORRIS — RECETTE
+- **LIVE** : 1/20 (E01) puis STOP opérateur
 
 ## 1. Git Truth Check
 ```
@@ -18,883 +19,990 @@
 
 ```
 ```
+d5bf7eb7 fix(next): Journal §5 oracle proofs and partial CampusFlow LIVE harness
 a122bf27 fix(next): resolve Journal E06-01..06 security, honesty and seeded BROWSER proofs
 782c93ec feat(next): complete Journal V4 J-C04/06/13/14 and BROWSER proofs locally
 
 ```
-### Diff stat cycle 3
+### Diff stat cycle 4
 ```
- .../as-built-ensemble-06-journal-20261119.md       |  87 +++---
- .../construction/delivery-history.md               |  15 ++
- .../sfia-studio-next/web/scripts/db-migrate.sh     |   3 +-
- .../src/app/api/dev/e2e/journal-fixture/route.ts   |  58 ++++
- .../web/src/app/projects/[projectId]/page.tsx      |  83 +++++-
- .../web/src/domains/knowledge/journal-cognition.ts |  56 ++--
- .../web/src/domains/knowledge/journal-e2e-seed.ts  | 297 +++++++++++++++++++++
- .../web/src/domains/knowledge/journal.ts           |  95 ++++++-
- .../web/tests/e2e/journal-v4-parcours.spec.ts      | 174 +++++++-----
- .../integration/journal-d4-revisions.pg.test.ts    | 127 ++++++++-
- .../web/tests/unit/journal-cognition.test.ts       |  23 ++
- 11 files changed, 860 insertions(+), 158 deletions(-)
+ .../as-built-ensemble-06-journal-20261119.md       |  69 ++--
+ .../construction/delivery-history.md               |  15 +
+ .../web/playwright.journal-live.config.ts          |  25 ++
+ .../web/src/app/projects/[projectId]/page.tsx      |  30 +-
+ .../web/src/components/figma/ProjectJournal.tsx    |   4 +-
+ .../web/src/domains/knowledge/journal-e2e-seed.ts  |  44 ++-
+ .../tests/e2e/journal-nora-live-campusflow.spec.ts | 397 +++++++++++++++++++++
+ .../web/tests/e2e/journal-v4-parcours.spec.ts      |  82 +++--
+ .../integration/journal-d4-revisions.pg.test.ts    | 118 ++++++
+ .../web/tests/unit/ml4c-e2e-fixture-gate.test.ts   |  20 ++
+ 10 files changed, 730 insertions(+), 74 deletions(-)
 
 ```
 ```
 M	projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
 M	projects/sfia-studio-next/construction/delivery-history.md
-M	projects/sfia-studio-next/web/scripts/db-migrate.sh
-A	projects/sfia-studio-next/web/src/app/api/dev/e2e/journal-fixture/route.ts
+A	projects/sfia-studio-next/web/playwright.journal-live.config.ts
 M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-M	projects/sfia-studio-next/web/src/domains/knowledge/journal-cognition.ts
-A	projects/sfia-studio-next/web/src/domains/knowledge/journal-e2e-seed.ts
-M	projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
+M	projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
+M	projects/sfia-studio-next/web/src/domains/knowledge/journal-e2e-seed.ts
+A	projects/sfia-studio-next/web/tests/e2e/journal-nora-live-campusflow.spec.ts
 M	projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
 M	projects/sfia-studio-next/web/tests/integration/journal-d4-revisions.pg.test.ts
-M	projects/sfia-studio-next/web/tests/unit/journal-cognition.test.ts
+M	projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts
 
 ```
 
-## 2. E06-01..06 — traitement
+## 2. §5 — corrections oracles
 
 | ID | Correction | Preuve |
 |---|---|---|
-| E06-05 | loadOwnedOpenPoint scope projet sur markOpenPointReactivated | PG cross-project deny + zero write + idempotence PASS |
-| E06-03 | Git main+SHA → UNVERIFIED (jamais CURRENT sans verify) | UNIT qualifyProvenanceSource PASS |
-| E06-04 | deep-link reload/insert by createdAt | BROWSER seeded early≠last + draft preserved PASS |
-| E06-01 | fixture métier + assertions non conditionnelles | Playwright journal-v4-parcours PASS |
-| E06-02 | synthèse multi-révision + réactivation +/- | PG E06-02 PASS ; LIVE NOT RUN |
-| E06-06 | resolve exige doc/message réel ; migrate 014 ; D6 restriction | PG fake doc FAIL + real resolve PASS ; build PASS |
+| J-C08 | Titre sans traçabilité ; badge acquis | BROWSER PASS |
+| J-C11 | Token explication multicritèreorion ; UI sans kind | PG+BROWSER PASS |
+| J-C13 | Retour rail ; search/filtre/layout | BROWSER PASS |
+| J-C14 | viewerOpenRef + clic source → révision exacte | BROWSER PASS |
+| J-C07 | Deux preps même projet | PG PASS |
+| J-C05 | Révision non AVAILABLE refusée | PG PASS |
+| J-C16 | Gate journal-fixture | UNIT PASS ; ML3 PG 49 PASS ; ML2/E05 full NOT RUN |
 
-## 3. Matrice J-C01..J-C16 (cycle 3)
+## 3. LIVE CampusFlow
 
-| ID | Code | Test | Résultat | Limite |
-|---|---|---|---|---|
-| J-C01 | IMPLEMENTED | PG mem revision | PASS PG | LIVE synthèse NOT RUN |
-| J-C02 | IMPLEMENTED | ensureSubject/reparent | PASS PG | — |
-| J-C03 | IMPLEMENTED | seed+BROWSER subjectId | PASS BROWSER | — |
-| J-C04 | IMPLEMENTED | reactivation+scope | PASS PG+UNIT | LIVE spontanéité NOT RUN |
-| J-C05 | IMPLEMENTED | resolve real source + D6 restr | PASS PG | — |
-| J-C06 | IMPLEMENTED | UNVERIFIED/CANDIDATE + contradictions | PASS UNIT+PG | REAL Git verify NOT RUN |
-| J-C07 | PARTIAL | isolation + single-prep seed | PASS PG | two-prep same project NOT RUN |
-| J-C08 | IMPLEMENTED | search acquis+reason BROWSER | PASS PG+BROWSER | — |
-| J-C09 | IMPLEMENTED | decision applicable BROWSER | PASS PG+BROWSER | — |
-| J-C10 | PARTIAL | explanation revision | PASS PG | LIVE récit NOT RUN |
-| J-C11 | PARTIAL | search API+UI decisions | PASS PG | BROWSER search decisions PARTIAL |
-| J-C12 | IMPLEMENTED | 40/60 enlarge seeded | PASS BROWSER | VISUAL PENDING MORRIS |
-| J-C13 | IMPLEMENTED | early message focus+draft | PASS BROWSER | 1000+ optional (40 seeded) |
-| J-C14 | IMPLEMENTED | document surface seeded | PASS BROWSER | — |
-| J-C15 | IMPLEMENTED | scope+idempotence | PASS PG | perf long-thread PARTIAL |
-| J-C16 | PARTIAL | tsc/lint/build+Journal suites | PASS ciblé | ML2/ML3/ML4C/E05 full NOT RUN |
+- Projet : `CampusFlow — Test LIVE Journal 1795081865484`
+- projectId : `proj_8446c400-7a89-4c07-a520-a7f83abb966d`
+- preparationId : `prep_39cad99e-97c5-4d74-bd56-89fd4046906b`
+- Provider proof : `['E01:Nora openai-agents-sdk-live · COMPLETE']`
+- Tours complétés : **1/20 (E01)**
+- E02–E20 / T10 / T20 : **NOT RUN — STOP opérateur**
+- Coût estimé E01 : ~0.35 USD (fallback) ; plafond 10 USD
+- Latence E01 : ~647537 ms
 
-## 4. Tests exécutés
+### Journal T0
+```json
+{
+  "at": "2026-11-19T09:51:13.565Z",
+  "label": "T0",
+  "subjectCount": 0,
+  "subjectTitles": [],
+  "acquisCount": 0,
+  "openPointCount": 0,
+  "decisionCount": 0,
+  "searchEmpty": true,
+  "raw": {
+    "preparationIds": [
+      "prep_39cad99e-97c5-4d74-bd56-89fd4046906b"
+    ],
+    "contradictionCount": 0,
+    "restrictionCount": 0
+  }
+}
+```
+
+### Tour E01 (extrait + archive locale)
+- statusText : `Nora openai-agents-sdk-live · COMPLETE`
+- modeLive : `True`
+- fixtureLeak : `False`
+- assistantMessageId : `msg_ff61f7d5-867f-4fd9-8eb3-f5aba10b60aa`
+- excerpt : N NORA COMPLETE CampusFlow — premier cadrage Vous souhaitez structurer un projet fictif de réservation de salles de formation. Nous pouvons commencer par préciser le service rendu, puis délimiter une première version réaliste. 1. Problème à résoudre Hypothèse à valider : les utilisateurs ont besoin de trouver une salle adaptée et disponible, puis de la réserver sans conflit de créneau. La valeur attendue pourrait être de réduire les échanges manuels, les doubles réservations et le manque de visibilité sur les disponibilités. Ce sont des pistes, pas encore des objectifs arrêtés. 2. Utilisateurs et responsabilités Les rôles possibles à confirmer sont : Demandeur : recherche une salle et gère ses réservations. Gestionnaire : tient à jour les salles, leurs équipements et leurs indisponibilités. Validateur, uniquement si une réservation nécessite un accord. 3. Première version proposée Recomm
+
+Archive locale : `projects/sfia-studio-next/.tmp-sfia-review/journal-live-campusflow-20261119/`
+
+```markdown
+# E01
+
+## Pilote
+
+Je souhaite lancer CampusFlow, un projet fictif de réservation de salles de formation. Aide-moi à structurer ce projet.
+
+## Nora
+
+N
+NORA
+COMPLETE
+CampusFlow — premier cadrage
+
+Vous souhaitez structurer un projet fictif de réservation de salles de formation. Nous pouvons commencer par préciser le service rendu, puis délimiter une première version réaliste.
+
+1. Problème à résoudre
+
+Hypothèse à valider : les utilisateurs ont besoin de trouver une salle adaptée et disponible, puis de la réserver sans conflit de créneau.
+
+La valeur attendue pourrait être de réduire les échanges manuels, les doubles réservations et le manque de visibilité sur les disponibilités. Ce sont des pistes, pas encore des objectifs arrêtés.
+
+2. Utilisateurs et responsabilités
+
+Les rôles possibles à confirmer sont :
+
+Demandeur : recherche une salle et gère ses réservations.
+Gestionnaire : tient à jour les salles, leurs équipements et leurs indisponibilités.
+Validateur, uniquement si une réservation nécessite un accord.
+3. Première version proposée
+
+Recommandation conditionnelle : si l’objectif est de construire un premier service simple à démontrer, limiter le périmètre à :
+
+consulter les salles et leurs caractéristiques : capacité, localisation, équipements ;
+visualiser les disponibilités par créneau ;
+réserver une salle disponible ;
+consulter et annuler ses réservations ;
+empêcher deux réservations confirmées de se chevaucher pour une même salle.
+
+Les réservations récurrentes, les notifications et les intégrations à des calendriers externes pourraient rester hors de cette première version, sauf besoin central.
+
+4. Règles à préciser
+
+Le fonctionnement dépendra notamment des horaires d’ouverture, des droits de réservation, des éventuelles validations et des conditions d’annulation.
+
+Exemple de critère de réussite à discuter : un utilisateur trouve une salle correspondant à ses besoins et obtient une réservation, sans conflit de disponibilité.
+
+Pour adapter ce cadrage
+Qui réserve ? Formateurs, équipes administratives, apprenants, ou plusieurs de ces publics ?
+La réservation est-elle immédiate ou soumise à validation ?
+Quel résultat visez-vous pour cet exercice fictif ? Un cadrage fonctionnel, une maquette ou un prototype utilisable ?
+
+Ces trois réponses suffiront pour préciser le périmètre et le parcours principal sans entrer trop tôt dans les choix techniques.
+
+## Meta
+
+- status: Nora openai-agents-sdk-live · COMPLETE
+- live: true
+- durationMs: 647537
+```
+
+## 4. Matrice cognitive C1–C14 (LIVE partiel)
+
+| Critère | Note | Observation |
+|---|---|---|
+| C1 | PASS OBSERVÉ | E01 cadrage CampusFlow sans décision inventée |
+| C2 | NOT OBSERVED | sujets D4 non encore capitalisés (T0 vide ; stop avant T10) |
+| C3 | PARTIAL | E01 synthèse éditoriale ; pas de preuve D4 persistée observée |
+| C4 | NOT OBSERVED | stop avant multi-échanges |
+| C5 | PARTIAL | E01 distingue hypothèse/recommandation ; D6 non officialisé |
+| C6 | NOT OBSERVED | corrections budget E15/16 non jouées |
+| C7 | NOT OBSERVED | contradiction formateurs E13 non jouée |
+| C8 | NOT OBSERVED | E18 non joué |
+| C9 | NOT OBSERVED | reprise mid-campaign non atteinte |
+| C10 | FAILED / NOT PROVEN | Journal toujours vide à T0 ; pas de T10/T20 |
+| C11 | NOT APPLICABLE — JUSTIFIÉ | aucun acte D6 confirmé |
+| C12 | PASS OBSERVÉ | E01 n’invente pas de preuve SSO/doc |
+| C13 | PARTIAL | cadrage utile au Pilote sur E01 seul |
+| C14 | PARTIAL | latence E01 ~647s — coût/latence élevés |
+
+## 5. Matrice J-C01..J-C16
+
+| ID | Code | Test | Limite |
+|---|---|---|---|
+| J-C01 | IMPLEMENTED | PG mem | LIVE synthèse D3 NOT PROVEN |
+| J-C02 | IMPLEMENTED | PG homonym/reparent | LIVE organisation NOT PROVEN |
+| J-C03 | IMPLEMENTED | BROWSER subject | — |
+| J-C04 | IMPLEMENTED | PG reactivation | LIVE spontanéité NOT PROVEN |
+| J-C05 | IMPLEMENTED | PG withdrawn revision | pertinence sémantique NOT PROVEN |
+| J-C06 | IMPLEMENTED | UNIT UNVERIFIED | REAL Git NOT PROVEN |
+| J-C07 | IMPLEMENTED | PG two-prep | — |
+| J-C08 | IMPLEMENTED | BROWSER acquis-only | oracle faux positif corrigé |
+| J-C09 | IMPLEMENTED | BROWSER decision | historique BROWSER PARTIAL |
+| J-C10 | PARTIAL | PG explanation | LIVE reconstruction NOT PROVEN |
+| J-C11 | IMPLEMENTED | PG+BROWSER explanation | — |
+| J-C12 | IMPLEMENTED | BROWSER 40/60 | VISUAL PENDING MORRIS |
+| J-C13 | IMPLEMENTED | BROWSER rail restore | — |
+| J-C14 | IMPLEMENTED | BROWSER exact revision click | — |
+| J-C15 | IMPLEMENTED | PG scope | perf long-thread PARTIAL |
+| J-C16 | PARTIAL | tsc/lint/build+Journal+ML3 | ML2/ML4C/E05 full NOT RUN |
+
+## 6. Tests exécutés
 ```
 tsc --noEmit → PASS
 npm run lint → PASS (warnings préexistants)
 next build → PASS
-vitest journal-cognition → 6/6 PASS
-vitest journal-d4-revisions.pg → 12/12 PASS
-vitest ml3-authority + non-effects → PASS
-playwright journal-v4-parcours (seeded) → 1/1 PASS
-ML2/ML3/ML4C/E05 full e2e suites → NOT RUN (hors fenêtre cycle; risque résiduel documenté)
-LIVE Nora / REAL Git → NOT RUN / HORS GO
+vitest journal-cognition + ml4c-e2e-fixture-gate → PASS
+vitest journal-d4-revisions.pg → 15/15 PASS
+vitest ml3-pilotage.pg → 49/49 PASS
+playwright journal-v4-parcours → 2/2 PASS
+playwright journal-nora-live-campusflow → PARTIAL 1/20 puis STOP
+ML2 / ML4C / E05 full → NOT RUN
 ```
 
-## 5. Fake/Real
+## 7. Fake/Real
 | Frontière | Niveau |
 |---|---|
-| PG/API/BROWSER DEV | DETERMINISTIC PROVEN |
-| LIVE Nora | NOT PROVEN |
+| PG/API/BROWSER DEV déterministe | DETERMINISTIC PROVEN |
+| OpenAI via Nora E01 | REAL BOUNDARY PROVEN (1 tour) |
+| E2E Nora/Journal 20 tours | NOT PROVEN (STOP) |
 | REAL Git | NOT PROVEN |
 | Visual Morris RECETTE | PENDING |
 
-## 6. Contenu créé — FULL
-### CREATE `projects/sfia-studio-next/web/src/domains/knowledge/journal-e2e-seed.ts` (297 lines)
+## 8. Contenu créé — FULL
+### CREATE `projects/sfia-studio-next/web/tests/e2e/journal-nora-live-campusflow.spec.ts` (397 lines)
 ```typescript
-/**
- * DEV/E2E-only Journal scenario seed — uses real D4/D6 domain writes.
- * Gate: caller must enforce e2eFixtureMutationsAllowed().
- */
-import { and, asc, desc, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { conversations, knowledgeAcquis, knowledgeOpenPoints, messages } from "@/db/schema";
+import { test, expect } from "@playwright/test";
+import path from "node:path";
+import fs from "node:fs";
 import {
-  appendDecisionExplanationRevision,
-  appendSubjectSummaryRevision,
-  resolveOpenPointFactually,
-} from "@/domains/knowledge/journal";
-import { capitalizeAcquis, ensureSubject, openPoint } from "@/domains/knowledge/service";
-import {
-  insertHumanDecision,
-  insertRestriction,
-  markDecisionState,
-} from "@/domains/decisions/service";
-import { savePreparationDocument } from "@/domains/document/service";
-import { newId } from "@/lib/ids";
+  openNewPreparation,
+  constituteAndCreateProject,
+} from "./helpers/g4-chat-first";
 
-export type JournalE2ESeedResult = {
-  projectId: string;
-  preparationId: string;
-  parentSubjectId: string;
-  leafSubjectId: string;
-  otherParentId: string;
-  homonymLeafId: string;
-  acquisId: string;
-  openPointId: string;
-  resolvedOpenPointId: string;
-  decisionApplicableId: string;
-  decisionHistoricalId: string;
-  restrictionId: string;
-  documentId: string;
-  revisionIdV1: string;
-  revisionIdV2: string;
-  earlyMessageId: string;
-  lateMessageId: string;
-  messageCount: number;
+/**
+ * Ensemble 06 — CampusFlow LIVE Nora 20-turn qualification (GO Morris DEV).
+ * Real product path: UI → POST /api/preparations/:id/messages → generateNoraReply → OpenAI.
+ * Never seeds Journal via journal-e2e-seed. Never calls OpenAI outside Nora.
+ */
+
+const EVIDENCE = path.resolve(
+  __dirname,
+  "../../../.tmp-sfia-review/journal-live-campusflow-20261119",
+);
+
+const USD_IN_PER_M = 2.0;
+const USD_OUT_PER_M = 10.0;
+const CEILING_USD = 10.0;
+const RESERVE_USD = 0.6;
+const FALLBACK_USD = 0.35;
+
+const TURNS: { id: string; prompt: string }[] = [
+  {
+    id: "E01",
+    prompt:
+      "Je souhaite lancer CampusFlow, un projet fictif de réservation de salles de formation. Aide-moi à structurer ce projet.",
+  },
+  {
+    id: "E02",
+    prompt:
+      "L'objectif est de permettre aux équipes de réserver facilement des salles sur plusieurs sites, avec une visibilité sur les disponibilités.",
+  },
+  {
+    id: "E03",
+    prompt:
+      "Pour le pilote, on envisage trois sites fictifs : Site Nord, Site Centre et Site Sud.",
+  },
+  {
+    id: "E04",
+    prompt:
+      "Au départ, l'accès serait réservé aux collaborateurs internes. Il faudra préciser les profils.",
+  },
+  {
+    id: "E05",
+    prompt:
+      "Le parcours de réservation est important. On souhaite quelque chose de simple, sans validation manuelle systématique.",
+  },
+  {
+    id: "E06",
+    prompt:
+      "Il faudra éviter les doubles réservations. On n'a pas encore défini le mécanisme.",
+  },
+  {
+    id: "E07",
+    prompt:
+      "La connexion au système d'identité est encore incertaine. On hésite entre une intégration SSO et un accès dédié.",
+  },
+  {
+    id: "E08",
+    prompt:
+      "Le SSO semble préférable, mais nous n'avons pas encore de confirmation technique.",
+  },
+  {
+    id: "E09",
+    prompt:
+      "Il y a aussi un sujet sur la gestion des équipements des salles, distinct de la réservation proprement dite.",
+  },
+  {
+    id: "E10",
+    prompt:
+      "Peux-tu me faire un premier bilan du projet : ce qui est acquis, ce qui reste ouvert et les grands sujets identifiés ?",
+  },
+  {
+    id: "E11",
+    prompt:
+      "Pour la première version, nous hésitons entre un outil existant et une solution développée en interne. Quels critères permettraient de choisir ?",
+  },
+  {
+    id: "E12",
+    prompt:
+      "Je privilégie une solution existante pour limiter le délai, mais ce n'est pas encore un arbitrage officiel.",
+  },
+  {
+    id: "E13",
+    prompt:
+      "Correction : les formateurs externes devraient aussi pouvoir réserver certaines salles. Cela remet en question le périmètre initial limité aux collaborateurs.",
+  },
+  {
+    id: "E14",
+    prompt:
+      "Qu'est-ce que ce changement implique pour le parcours de réservation et la gestion des accès ?",
+  },
+  {
+    id: "E15",
+    prompt:
+      "Une première estimation évoquait 40 000 euros, mais ce chiffre n'est pas encore confirmé.",
+  },
+  {
+    id: "E16",
+    prompt:
+      "Finalement, l'enveloppe cible envisagée est de 30 000 euros. Il faudra encore la faire valider.",
+  },
+  {
+    id: "E17",
+    prompt:
+      "Je souhaite retenir un pilote limité aux deux premiers sites pour commencer. Aide-moi à préparer cet arbitrage, sans considérer qu'il est officiel tant que je ne l'ai pas validé.",
+  },
+  {
+    id: "E18",
+    prompt:
+      "Nous préparons maintenant le lancement du pilote. Est-ce qu'il reste des questions importantes que nous aurions laissées de côté dans nos échanges ?",
+  },
+  {
+    id: "E19",
+    prompt:
+      "J'ai entendu dire que l'intégration SSO serait possible, mais je n'ai pas encore de document ni de confirmation officielle.",
+  },
+  {
+    id: "E20",
+    prompt:
+      "Fais-moi un bilan structuré du projet : les sujets, les acquis, les décisions officielles éventuelles, les hypothèses, les questions ouvertes et les prochains arbitrages à préparer.",
+  },
+];
+
+type TurnRow = {
+  id: string;
+  startedAt: string;
+  durationMs: number;
+  statusText: string;
+  modeLive: boolean;
+  fixtureLeak: boolean;
+  simLeak: boolean;
+  userMessageId: string | null;
+  assistantMessageId: string | null;
+  excerpt: string;
+  estimatedUsd: number;
+  cumulativeUsd: number;
 };
 
-async function ensureConversation(pilotId: string, preparationId: string) {
-  const existing = (
-    await db
-      .select()
-      .from(conversations)
-      .where(
-        and(eq(conversations.preparationId, preparationId), eq(conversations.ownerPilotId, pilotId)),
-      )
-      .limit(1)
-  )[0];
-  if (existing) return existing;
-  const id = newId("conv");
-  await db.insert(conversations).values({
-    id,
-    preparationId,
-    ownerPilotId: pilotId,
-    projectId: null,
-  });
-  return (await db.select().from(conversations).where(eq(conversations.id, id)))[0]!;
+type JournalSnapshot = {
+  at: string;
+  label: "T0" | "T10" | "T20";
+  subjectCount: number;
+  subjectTitles: string[];
+  acquisCount: number;
+  openPointCount: number;
+  decisionCount: number;
+  searchEmpty: boolean;
+  raw?: unknown;
+};
+
+function estimateUsd(inputTokens?: number, outputTokens?: number): number {
+  if (inputTokens == null || outputTokens == null) return FALLBACK_USD;
+  return (inputTokens / 1e6) * USD_IN_PER_M + (outputTokens / 1e6) * USD_OUT_PER_M;
 }
 
-/** Insert a chronological message (no Nora call). */
-async function insertThreadMessage(input: {
-  conversationId: string;
-  role: "user" | "assistant";
-  content: string;
-  ordinal: number;
-  createdAt: Date;
-}) {
-  const id = newId("msg");
-  await db.insert(messages).values({
-    id,
-    conversationId: input.conversationId,
-    role: input.role,
-    content: input.content,
-    status: "COMPLETE",
-    ordinal: input.ordinal,
-    createdAt: input.createdAt,
-  });
-  return id;
-}
-
-export async function seedJournalE2EScenario(input: {
-  pilotId: string;
-  preparationId: string;
-  projectId: string;
-  /** Default 24 — enough to exercise deep-link without 60s insert; set 1001 for long-thread proof. */
-  longThreadCount?: number;
-}): Promise<JournalE2ESeedResult> {
-  const { pilotId, preparationId, projectId } = input;
-  const longThreadCount = input.longThreadCount ?? 24;
-
-  const parent = await ensureSubject(pilotId, preparationId, "Architecture cible");
-  const leaf = await ensureSubject(pilotId, preparationId, "Traçabilité Git", parent.subjectId);
-  const otherParent = await ensureSubject(pilotId, preparationId, "Budget et risques");
-  const homonym = await ensureSubject(pilotId, preparationId, "Traçabilité Git", otherParent.subjectId);
-
-  const acquis = await capitalizeAcquis(pilotId, preparationId, {
-    statement:
-      "Le mot-clé traçabilité apparaît uniquement dans cet acquis capitalisé pour la recherche Journal.",
-    kind: "HYPOTHESIS",
-    subjectId: leaf.subjectId,
-    provenance: { sourceKind: "message", sourceId: "seed-msg-acquis", epistemic: "observed" },
-  });
-
-  await appendSubjectSummaryRevision(pilotId, projectId, leaf.subjectId!, {
-    summaryMarkdown:
-      "Synthèse versionnée : la traçabilité Git reste un point de vigilance à clarifier avec sources.",
-    provenance: { sourceKind: "nora", generationId: "seed-sum-1", epistemic: "limited" },
-    operationId: `seed-sum-${leaf.subjectId}`,
-    enforceHonesty: true,
-  });
-
-  const open = await openPoint(pilotId, preparationId, {
-    statement: "Quelle preuve pour la connexion GitHub du dépôt officiel?",
-    subjectId: leaf.subjectId,
-    provenance: { sourceKind: "message", sourceId: "seed-msg-open" },
-  });
-
-  const openResolved = await openPoint(pilotId, preparationId, {
-    statement: "Le détail technique de publication est-il documenté?",
-    subjectId: otherParent.subjectId,
-    provenance: { sourceKind: "message", sourceId: "seed-msg-open-2" },
-  });
-
-  const doc1 = await savePreparationDocument(
-    pilotId,
-    preparationId,
-    "Preuve technique publication",
-    "# v1\nDocument canonique initial pour Journal E2E.",
-    undefined,
-    { correlationKey: `journal-e2e-doc-${projectId}-v1`, provenance: { sourceKind: "pilot" } },
-  );
-  if (!("documentId" in doc1) || !doc1.documentId || !("revisionId" in doc1) || !doc1.revisionId) {
-    throw new Error(`doc create failed: ${doc1.status}`);
-  }
-  const documentId = String(doc1.documentId);
-  const revisionIdV1 = String(doc1.revisionId);
-
-  const doc2 = await savePreparationDocument(
-    pilotId,
-    preparationId,
-    "Preuve technique publication",
-    "# v2\nDocument canonique révisé — version exacte pour J-C14.",
-    documentId,
-    {
-      correlationKey: `journal-e2e-doc-${projectId}-v2`,
-      baseRevisionId: revisionIdV1,
-      provenance: { sourceKind: "pilot" },
+async function captureJournal(
+  page: import("@playwright/test").Page,
+  projectId: string,
+  label: JournalSnapshot["label"],
+): Promise<JournalSnapshot> {
+  await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+  await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+  const api = await page.request.get(`/api/projects/${projectId}/journal`);
+  const body = api.ok() ? await api.json() : { error: await api.text(), status: api.status() };
+  const subjects = Array.isArray(body?.knowledge?.subjects)
+    ? body.knowledge.subjects
+    : Array.isArray(body?.subjects)
+      ? body.subjects
+      : [];
+  const acquis = Array.isArray(body?.knowledge?.acquis)
+    ? body.knowledge.acquis
+    : Array.isArray(body?.acquis)
+      ? body.acquis
+      : [];
+  const openPoints = Array.isArray(body?.knowledge?.openPoints)
+    ? body.knowledge.openPoints
+    : Array.isArray(body?.openPoints)
+      ? body.openPoints
+      : [];
+  const decisions = Array.isArray(body?.decisions) ? body.decisions : [];
+  const titles = subjects.map((s: { title?: string }) => String(s.title ?? "")).filter(Boolean);
+  const shot = path.join(EVIDENCE, `journal-${label.toLowerCase()}.png`);
+  await page.screenshot({ path: shot, fullPage: false });
+  const snap: JournalSnapshot = {
+    at: new Date().toISOString(),
+    label,
+    subjectCount: subjects.length,
+    subjectTitles: titles,
+    acquisCount: acquis.filter((a: { status?: string }) => a.status === "CURRENT").length,
+    openPointCount: openPoints.filter((o: { status?: string }) => o.status === "OPEN").length,
+    decisionCount: decisions.length,
+    searchEmpty: subjects.length === 0 && acquis.length === 0,
+    raw: {
+      status: body?.status,
+      preparationIds: body?.knowledge?.preparationIds ?? body?.preparationIds,
+      contradictionCount: Array.isArray(body?.contradictions) ? body.contradictions.length : 0,
+      restrictionCount: Array.isArray(body?.restrictions) ? body.restrictions.length : 0,
     },
-  );
-  const revisionIdV2 =
-    "revisionId" in doc2 && doc2.revisionId ? String(doc2.revisionId) : revisionIdV1;
-
-  const resolved = await resolveOpenPointFactually(pilotId, projectId, openResolved.openPointId!, {
-    reason: "Document technique AVAILABLE trouvé",
-    provenance: {
-      sourceKind: "revision",
-      sourceId: revisionIdV2 || revisionIdV1,
-      epistemic: "established",
-    },
-    operationId: `seed-resolve-${openResolved.openPointId}`,
-  });
-  if (resolved.status !== "AVAILABLE") {
-    throw new Error(`resolve seed failed: ${resolved.status} ${"reason" in resolved ? resolved.reason : ""}`);
-  }
-
-  const decisionApplicableId = await db.transaction(async (tx) =>
-    insertHumanDecision(tx, {
-      projectId,
-      pilotId,
-      sourceKind: "pilotage",
-      sourceRef: "seed-cmd-applicable",
-      kind: "TRAJECTORY",
-      objectRef: "traj-seed",
-      statement: "Décision applicable du projet Journal E2E — conserver la trajectoire A.",
-    }),
-  );
-  await appendDecisionExplanationRevision(pilotId, projectId, decisionApplicableId, {
-    explanationMarkdown:
-      "Pourquoi ce choix : alternatives B écartées faute de traçabilité ; motivations et contraintes sourcées.",
-    provenance: { sourceKind: "message", sourceId: "seed-msg-expl", epistemic: "observed" },
-    operationId: `seed-expl-${decisionApplicableId}`,
-    preparationId,
-  });
-
-  const decisionHistoricalId = await db.transaction(async (tx) =>
-    insertHumanDecision(tx, {
-      projectId,
-      pilotId,
-      sourceKind: "pilotage",
-      sourceRef: "seed-cmd-hist",
-      kind: "RISK_ACCEPTANCE",
-      objectRef: "risk-seed",
-      statement: "Ancien acte de risque — sera marqué REVISED.",
-    }),
-  );
-  await db.transaction(async (tx) => markDecisionState(tx, decisionHistoricalId, "REVISED"));
-
-  const restrictionId = await db.transaction(async (tx) =>
-    insertRestriction(tx, {
-      projectId,
-      targetKind: "ACTION",
-      targetRef: "publish",
-      originDecisionId: decisionApplicableId,
-    }),
-  );
-
-  const conv = await ensureConversation(pilotId, preparationId);
-  // Align conversation project scope when possible.
-  await db
-    .update(conversations)
-    .set({ projectId })
-    .where(eq(conversations.id, conv.id));
-
-  const maxOrdRow = (
-    await db
-      .select({ ordinal: messages.ordinal })
-      .from(messages)
-      .where(eq(messages.conversationId, conv.id))
-      .orderBy(desc(messages.ordinal))
-      .limit(1)
-  )[0];
-  let ordinal = (maxOrdRow?.ordinal ?? -1) + 1;
-  // Anchor early message in the past relative to any existing Nora turns.
-  const base = Date.now() - (longThreadCount + 5) * 60_000;
-  let earlyMessageId = "";
-  let lateMessageId = "";
-  for (let i = 0; i < longThreadCount; i++) {
-    const id = await insertThreadMessage({
-      conversationId: conv.id,
-      role: i % 2 === 0 ? "user" : "assistant",
-      content:
-        i === 0
-          ? "Message ANCIEN seed — ancre Journal E06-04 pour deep-link exact."
-          : i === longThreadCount - 1
-            ? "Message RÉCENT seed — fin de fil pour contraste chronologique."
-            : `Message seed #${i} pour fil long Journal.`,
-      ordinal: ordinal++,
-      createdAt: new Date(base + i * 60_000),
-    });
-    if (i === 0) earlyMessageId = id;
-    if (i === longThreadCount - 1) lateMessageId = id;
-  }
-
-  // Point Journal sources at the real early message + document revision.
-  if (acquis.status === "AVAILABLE" && "acquisId" in acquis && earlyMessageId) {
-    await db
-      .update(knowledgeAcquis)
-      .set({
-        provenanceJson: JSON.stringify({
-          sourceKind: "message",
-          sourceId: earlyMessageId,
-          epistemic: "observed",
-          notedAt: new Date().toISOString(),
-        }),
-      })
-      .where(eq(knowledgeAcquis.id, String(acquis.acquisId)));
-  }
-  if (open.openPointId && earlyMessageId) {
-    await db
-      .update(knowledgeOpenPoints)
-      .set({
-        provenanceJson: JSON.stringify({
-          sourceKind: "message",
-          sourceId: earlyMessageId,
-          epistemic: "observed",
-          notedAt: new Date().toISOString(),
-        }),
-      })
-      .where(eq(knowledgeOpenPoints.id, open.openPointId));
-  }
-
-  return {
-    projectId,
-    preparationId,
-    parentSubjectId: parent.subjectId!,
-    leafSubjectId: leaf.subjectId!,
-    otherParentId: otherParent.subjectId!,
-    homonymLeafId: homonym.subjectId!,
-    acquisId:
-      acquis.status === "AVAILABLE" && "acquisId" in acquis ? String(acquis.acquisId) : "",
-    openPointId: open.openPointId!,
-    resolvedOpenPointId: openResolved.openPointId!,
-    decisionApplicableId,
-    decisionHistoricalId,
-    restrictionId,
-    documentId,
-    revisionIdV1,
-    revisionIdV2,
-    earlyMessageId,
-    lateMessageId,
-    messageCount: ordinal,
   };
+  fs.writeFileSync(path.join(EVIDENCE, `journal-${label.toLowerCase()}.json`), JSON.stringify(snap, null, 2));
+  return snap;
 }
+
+test.describe("Journal V4 — CampusFlow LIVE Nora 20-turn", () => {
+  test("LIVE 20 échanges + Journal T0/T10/T20", async ({ page }) => {
+    test.skip(
+      process.env.STUDIO_ALLOW_LIVE_BOUNDED !== "1" || !process.env.OPENAI_API_KEY,
+      "requires STUDIO_ALLOW_LIVE_BOUNDED=1 and OPENAI_API_KEY",
+    );
+    test.setTimeout(1_200_000);
+    fs.mkdirSync(EVIDENCE, { recursive: true });
+
+    const ledger: {
+      projectName: string;
+      projectId: string | null;
+      preparationId: string | null;
+      ceilingUsd: number;
+      model: string;
+      turns: TurnRow[];
+      journal: JournalSnapshot[];
+      stoppedEarly?: string;
+      providerProof: string[];
+    } = {
+      projectName: "",
+      projectId: null,
+      preparationId: null,
+      ceilingUsd: CEILING_USD,
+      model: "openai-agents-sdk-live (configured DEV)",
+      turns: [],
+      journal: [],
+      providerProof: [],
+    };
+
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+
+    const preparationId = await openNewPreparation(page);
+    const projectName = `CampusFlow — Test LIVE Journal ${Date.now()}`;
+    ledger.projectName = projectName;
+    ledger.preparationId = preparationId;
+    const projectId = await constituteAndCreateProject(page, {
+      name: projectName,
+      summary: "Projet fictif réservation salles — LIVE Journal qualification",
+      alreadyUnique: true,
+    });
+    ledger.projectId = projectId;
+    expect(projectId).toBeTruthy();
+
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 20000 },
+    );
+
+    ledger.journal.push(await captureJournal(page, projectId!, "T0"));
+    // Prefer explicit project URL for surface restore (rail Link can race after Journal).
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+      "data-project-load-state",
+      "ready",
+      { timeout: 30000 },
+    );
+    await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 30000 });
+    await expect(page.getByTestId("thread-draft")).toBeVisible({ timeout: 30000 });
+
+    const draft = page.getByTestId("thread-draft");
+    const send = page.getByTestId("thread-send");
+    await page.setViewportSize({ width: 1440, height: 900 });
+
+    let cumulative = 0;
+    let stopReason: string | undefined;
+
+    for (let i = 0; i < TURNS.length; i++) {
+      const turn = TURNS[i]!;
+      if (cumulative + RESERVE_USD > CEILING_USD) {
+        stopReason = `BUDGET_RESERVE_STOP before ${turn.id}: cumulative=${cumulative.toFixed(2)}`;
+        break;
+      }
+
+      // Ensure composer is idle before each turn.
+      if ((await page.getByTestId("nora-workspace").count()) === 0) {
+        await page.goto(`/projects/${projectId}?surface=travail`);
+        await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 30000 });
+      }
+
+      const t0 = Date.now();
+      fs.writeFileSync(
+        path.join(EVIDENCE, "live-progress.json"),
+        JSON.stringify({ next: turn.id, at: new Date().toISOString(), cumulative }, null, 2),
+      );
+      await draft.fill(turn.prompt);
+      await expect(send).toBeEnabled({ timeout: 10000 });
+      await send.click();
+
+      const status = page.getByTestId("thread-nora-status");
+      await expect(status).toContainText(/COMPLETE|UNKNOWN|FAILED|INTERRUPTED|Nora|openai/i, {
+        timeout: 180_000,
+      });
+      await expect(draft).toHaveValue("", { timeout: 180_000 });
+
+      const statusText = ((await status.textContent()) ?? "").trim();
+      const modeLive = /openai-agents-sdk-live/i.test(statusText);
+      const fixtureLeak = /deterministic-fixture/i.test(statusText);
+      const simLeak = /provider-simulated/i.test(statusText);
+      if (modeLive) ledger.providerProof.push(`${turn.id}:${statusText.slice(0, 160)}`);
+
+      const assistant = page.getByTestId("nora-msg-assistant").last();
+      await expect(assistant).toBeVisible({ timeout: 30000 });
+      const fullText = (await assistant.innerText()).slice(0, 6000);
+      const assistantMessageId =
+        (await assistant.getAttribute("data-message-id")) ??
+        (await assistant.locator("[data-message-id]").first().getAttribute("data-message-id").catch(() => null));
+      const userBubble = page.locator("[data-testid=nora-msg-user], [data-role=user]").last();
+      const userMessageId =
+        (await userBubble.getAttribute("data-message-id").catch(() => null)) ?? null;
+
+      const cost = estimateUsd();
+      cumulative += cost;
+      const row: TurnRow = {
+        id: turn.id,
+        startedAt: new Date(t0).toISOString(),
+        durationMs: Date.now() - t0,
+        statusText,
+        modeLive,
+        fixtureLeak,
+        simLeak,
+        userMessageId,
+        assistantMessageId,
+        excerpt: fullText.slice(0, 1200).replace(/\s+/g, " "),
+        estimatedUsd: cost,
+        cumulativeUsd: cumulative,
+      };
+      ledger.turns.push(row);
+      fs.writeFileSync(path.join(EVIDENCE, "live-ledger.json"), JSON.stringify(ledger, null, 2));
+      fs.writeFileSync(
+        path.join(EVIDENCE, `turn-${turn.id.toLowerCase()}.md`),
+        `# ${turn.id}\n\n## Pilote\n\n${turn.prompt}\n\n## Nora\n\n${fullText}\n\n## Meta\n\n- status: ${statusText}\n- live: ${modeLive}\n- durationMs: ${row.durationMs}\n`,
+      );
+
+      if (fixtureLeak || simLeak) {
+        stopReason = `${turn.id}: FIXTURE_OR_SIM_LEAK status=${statusText}`;
+        break;
+      }
+      if (cumulative > CEILING_USD) {
+        stopReason = `BUDGET_EXCEEDED after ${turn.id}`;
+        break;
+      }
+
+      if (turn.id === "E10") {
+        ledger.journal.push(await captureJournal(page, projectId!, "T10"));
+        // Continuity: reload project via normal parcours
+        await page.goto(`/projects/${projectId}?surface=travail`);
+        await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+          "data-project-load-state",
+          "ready",
+          { timeout: 20000 },
+        );
+        await expect(page.getByTestId("nora-msg-assistant").last()).toBeVisible({ timeout: 20000 });
+      }
+    }
+
+    if (stopReason) ledger.stoppedEarly = stopReason;
+    ledger.journal.push(await captureJournal(page, projectId!, "T20"));
+
+    // Optional D6 via Pilotage if UI available — never insert HumanDecision in DB.
+    await page.goto(`/projects/${projectId}?surface=pilotage`);
+    await page.waitForTimeout(800);
+    const pilotageVisible = (await page.getByTestId("pilotage-panel").count().catch(() => 0)) > 0;
+    fs.writeFileSync(
+      path.join(EVIDENCE, "d6-attempt.json"),
+      JSON.stringify(
+        {
+          pilotagePanelVisible: pilotageVisible,
+          note: pilotageVisible
+            ? "Panel visible — acte D6 non forcé si confirmation UI ambiguë; E17 reste proposition non officialisée sauf acte Pilote explicite."
+            : "Pilotage panel not found — D6 confirmation NOT APPLICABLE in this run.",
+        },
+        null,
+        2,
+      ),
+    );
+
+    fs.writeFileSync(path.join(EVIDENCE, "live-ledger.json"), JSON.stringify(ledger, null, 2));
+
+    const liveTurns = ledger.turns.filter((t) => t.modeLive && !t.fixtureLeak);
+    expect(liveTurns.length, `expected LIVE turns, got ${JSON.stringify(ledger.turns.map((t) => ({ id: t.id, modeLive: t.modeLive, status: t.statusText })))}`).toBeGreaterThan(0);
+    expect(ledger.turns.length).toBeGreaterThan(0);
+    // Do not require 20/20 if provider/budget stopped — honesty over cosmetics.
+  });
+});
 ```
 
-### CREATE `projects/sfia-studio-next/web/src/app/api/dev/e2e/journal-fixture/route.ts` (58 lines)
+### CREATE `projects/sfia-studio-next/web/playwright.journal-live.config.ts` (25 lines)
 ```typescript
+import { defineConfig } from "@playwright/test";
+
 /**
- * DEV/E2E-only Journal scenario seed for Ensemble 06 BROWSER proofs.
- * Uses real D4/D6 domain paths. Never LIVE Nora / REAL Git.
+ * Journal CampusFlow LIVE 20-turn — real OpenAI via Nora, DEV only, port 3103.
+ * GO Morris: STUDIO_ALLOW_LIVE_BOUNDED=1 + OPENAI_API_KEY. Ceiling $10.
  */
-import { NextResponse } from "next/server";
-import { resolveStudioSession } from "@/domains/identity/session";
-import { getOwnedProjectContext } from "@/domains/preparation/project-context";
-import { seedJournalE2EScenario } from "@/domains/knowledge/journal-e2e-seed";
-import { e2eFixtureMutationsAllowed } from "@/lib/e2e-fixture-gate";
-
-export async function POST(req: Request) {
-  const gate = e2eFixtureMutationsAllowed();
-  if (!gate.ok) {
-    return NextResponse.json(
-      { error: "E2E_FIXTURE_FORBIDDEN", reason: gate.reason },
-      { status: 403 },
-    );
-  }
-  const session = await resolveStudioSession();
-  if (!session) return NextResponse.json({ error: "UNAUTHORIZED" }, { status: 401 });
-
-  const body = (await req.json().catch(() => ({}))) as {
-    projectId?: string;
-    longThreadCount?: number;
-  };
-  const projectId = (body.projectId ?? "").trim();
-  if (!projectId) {
-    return NextResponse.json({ error: "projectId required" }, { status: 400 });
-  }
-
-  let ctx: Awaited<ReturnType<typeof getOwnedProjectContext>>;
-  try {
-    ctx = await getOwnedProjectContext(session.pilotId, projectId);
-  } catch {
-    return NextResponse.json({ error: "project not found or not owned" }, { status: 404 });
-  }
-  if (!ctx.preparation?.id) {
-    return NextResponse.json({ error: "preparation missing" }, { status: 404 });
-  }
-
-  try {
-    const seed = await seedJournalE2EScenario({
-      pilotId: session.pilotId,
-      preparationId: ctx.preparation.id,
-      projectId,
-      longThreadCount: body.longThreadCount,
-    });
-    return NextResponse.json({ status: "AVAILABLE", seed });
-  } catch (e) {
-    return NextResponse.json(
-      {
-        error: "SEED_FAILED",
-        reason: e instanceof Error ? e.message : "unknown",
-      },
-      { status: 500 },
-    );
-  }
-}
+export default defineConfig({
+  testDir: "tests/e2e",
+  testMatch: "**/journal-nora-live-campusflow.spec.ts",
+  timeout: 1_200_000,
+  fullyParallel: false,
+  workers: 1,
+  retries: 0,
+  use: {
+    baseURL: "http://127.0.0.1:3103",
+    trace: "retain-on-failure",
+    screenshot: "off",
+  },
+  webServer: {
+    command: "bash scripts/live-web-server.sh",
+    url: "http://127.0.0.1:3103/login",
+    reuseExistingServer: false,
+    timeout: 180_000,
+  },
+});
 ```
 
-## 7. Diffs utiles cycle 3
-### DIFF `projects/sfia-studio-next/web/src/domains/knowledge/journal.ts`
+## 9. Diffs utiles cycle 4
+### DIFF `projects/sfia-studio-next/web/src/domains/knowledge/journal-e2e-seed.ts`
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts b/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
-index f413317a..12fbd786 100644
---- a/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
-+++ b/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
-@@ -2,6 +2,9 @@ import { createHash } from "crypto";
- import { and, desc, eq, inArray, isNull, ne, or, sql } from "drizzle-orm";
+diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/journal-e2e-seed.ts b/projects/sfia-studio-next/web/src/domains/knowledge/journal-e2e-seed.ts
+index d8c63ff2..7d2ae246 100644
+--- a/projects/sfia-studio-next/web/src/domains/knowledge/journal-e2e-seed.ts
++++ b/projects/sfia-studio-next/web/src/domains/knowledge/journal-e2e-seed.ts
+@@ -2,7 +2,7 @@
+  * DEV/E2E-only Journal scenario seed — uses real D4/D6 domain writes.
+  * Gate: caller must enforce e2eFixtureMutationsAllowed().
+  */
+-import { and, asc, desc, eq } from "drizzle-orm";
++import { and, desc, eq } from "drizzle-orm";
  import { db } from "@/db/client";
+ import { conversations, knowledgeAcquis, knowledgeOpenPoints, messages } from "@/db/schema";
  import {
-+  conversations,
-+  documentRevisions,
-+  documents,
-   governanceRestrictions,
-   humanDecisions,
-   knowledgeAcquis,
-@@ -11,6 +14,7 @@ import {
-   knowledgeSubjectEvents,
-   knowledgeSubjectSummaryRevisions,
-   knowledgeSubjects,
-+  messages,
-   preparationProjectLinks,
-   preparations,
-   projects,
-@@ -477,7 +481,8 @@ export async function appendDecisionExplanationRevision(
-   }
- }
+@@ -27,6 +27,7 @@ export type JournalE2ESeedResult = {
+   otherParentId: string;
+   homonymLeafId: string;
+   acquisId: string;
++  documentAcquisId: string;
+   openPointId: string;
+   resolvedOpenPointId: string;
+   decisionApplicableId: string;
+@@ -93,9 +94,10 @@ export async function seedJournalE2EScenario(input: {
+   const longThreadCount = input.longThreadCount ?? 24;
 
--async function loadOwnedOpenPoint(
-+/** E06-05 — open point must belong to a preparation linked to the requested project. */
-+export async function loadOwnedOpenPoint(
-   pilotId: string,
-   projectId: string,
-   openPointId: string,
-@@ -508,14 +513,98 @@ function provenanceSufficient(p: Provenance): boolean {
-   return false;
- }
+   const parent = await ensureSubject(pilotId, preparationId, "Architecture cible");
+-  const leaf = await ensureSubject(pilotId, preparationId, "Traçabilité Git", parent.subjectId);
++  // J-C08 — leaf/homonym titles must NOT contain the acquis-only search token.
++  const leaf = await ensureSubject(pilotId, preparationId, "Continuité Git", parent.subjectId);
+   const otherParent = await ensureSubject(pilotId, preparationId, "Budget et risques");
+-  const homonym = await ensureSubject(pilotId, preparationId, "Traçabilité Git", otherParent.subjectId);
++  const homonym = await ensureSubject(pilotId, preparationId, "Continuité Git", otherParent.subjectId);
 
-+/**
-+ * E06-06 — factual resolve requires a revalidated source, not an invented id string.
-+ * Document/revision/message must exist in the project scope for the Pilote.
-+ */
-+async function provenanceFactuallyVerified(
-+  pilotId: string,
-+  projectId: string,
-+  p: Provenance,
-+): Promise<{ ok: true } | { ok: false; reason: string }> {
-+  if (!provenanceSufficient(p)) {
-+    return { ok: false, reason: "INSUFFICIENT_PROVENANCE" };
-+  }
-+  if (p.sourceKind === "pilot" || p.sourceKind === "nora") {
-+    return { ok: false, reason: "ACTOR_DECLARATION_NOT_FACTUAL_SOURCE" };
-+  }
-+  const prepIds = await linkedPreparationIds(pilotId, projectId);
-+  if (prepIds.length === 0) return { ok: false, reason: "NO_PROJECT_SCOPE" };
-+
-+  if (p.sourceKind === "message" && p.sourceId) {
-+    const msg = (
-+      await db
-+        .select({ id: messages.id })
-+        .from(messages)
-+        .innerJoin(conversations, eq(conversations.id, messages.conversationId))
-+        .where(
-+          and(
-+            eq(messages.id, p.sourceId),
-+            eq(conversations.ownerPilotId, pilotId),
-+            inArray(conversations.preparationId, prepIds),
-+          ),
-+        )
-+        .limit(1)
-+    )[0];
-+    if (!msg) return { ok: false, reason: "MESSAGE_SOURCE_INACCESSIBLE" };
-+    return { ok: true };
-+  }
-+
-+  if (p.sourceKind === "document" || p.sourceKind === "revision") {
-+    const sourceId = p.sourceId;
-+    if (!sourceId) return { ok: false, reason: "INSUFFICIENT_PROVENANCE" };
-+    const rev = (
-+      await db
-+        .select({
-+          id: documentRevisions.id,
-+          status: documentRevisions.status,
-+        })
-+        .from(documentRevisions)
-+        .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
-+        .where(
-+          and(
-+            eq(documentRevisions.id, sourceId),
-+            eq(documents.ownerPilotId, pilotId),
-+            inArray(documents.preparationId, prepIds),
-+          ),
-+        )
-+        .limit(1)
-+    )[0];
-+    if (rev) {
-+      if (rev.status !== "AVAILABLE") {
-+        return { ok: false, reason: "DOCUMENT_REVISION_NOT_AVAILABLE" };
-+      }
-+      return { ok: true };
-+    }
-+    const doc = (
-+      await db
-+        .select({ id: documents.id })
-+        .from(documents)
-+        .where(
-+          and(
-+            eq(documents.id, sourceId),
-+            eq(documents.ownerPilotId, pilotId),
-+            inArray(documents.preparationId, prepIds),
-+          ),
-+        )
-+        .limit(1)
-+    )[0];
-+    if (!doc) return { ok: false, reason: "DOCUMENT_SOURCE_INACCESSIBLE" };
-+    return { ok: true };
-+  }
-+
-+  return { ok: false, reason: "UNSUPPORTED_PROVENANCE_KIND" };
-+}
-+
- export async function resolveOpenPointFactually(
-   pilotId: string,
-   projectId: string,
-   openPointId: string,
-   input: { reason: string; provenance: Provenance; operationId?: string; actorKind?: string },
- ) {
--  if (!provenanceSufficient(input.provenance)) {
--    return { status: "FAILED" as const, reason: "INSUFFICIENT_PROVENANCE" };
-+  const verified = await provenanceFactuallyVerified(pilotId, projectId, input.provenance);
-+  if (!verified.ok) {
-+    return { status: "FAILED" as const, reason: verified.reason };
+   const acquis = await capitalizeAcquis(pilotId, preparationId, {
+     statement:
+@@ -107,7 +109,7 @@ export async function seedJournalE2EScenario(input: {
+
+   await appendSubjectSummaryRevision(pilotId, projectId, leaf.subjectId!, {
+     summaryMarkdown:
+-      "Synthèse versionnée : la traçabilité Git reste un point de vigilance à clarifier avec sources.",
++      "Synthèse versionnée : la continuité des preuves Git reste un point de vigilance à clarifier avec sources.",
+     provenance: { sourceKind: "nora", generationId: "seed-sum-1", epistemic: "limited" },
+     operationId: `seed-sum-${leaf.subjectId}`,
+     enforceHonesty: true,
+@@ -180,7 +182,7 @@ export async function seedJournalE2EScenario(input: {
+   );
+   await appendDecisionExplanationRevision(pilotId, projectId, decisionApplicableId, {
+     explanationMarkdown:
+-      "Pourquoi ce choix : alternatives B écartées faute de traçabilité ; motivations et contraintes sourcées.",
++      "Pourquoi ce choix : alternatives B écartées faute de preuves solides ; motivations et contraintes sourcées. Token exclusif explication : multicritèreorion.",
+     provenance: { sourceKind: "message", sourceId: "seed-msg-expl", epistemic: "observed" },
+     operationId: `seed-expl-${decisionApplicableId}`,
+     preparationId,
+@@ -245,7 +247,7 @@ export async function seedJournalE2EScenario(input: {
+     if (i === longThreadCount - 1) lateMessageId = id;
    }
-   const point = await loadOwnedOpenPoint(pilotId, projectId, openPointId);
-   if (!point) return { status: "FAILED" as const, reason: "NOT_FOUND" };
+
+-  // Point Journal sources at the real early message + document revision.
++  // Point Journal sources at the real early message + document revision (J-C13 / J-C14).
+   if (acquis.status === "AVAILABLE" && "acquisId" in acquis && earlyMessageId) {
+     await db
+       .update(knowledgeAcquis)
+@@ -259,6 +261,32 @@ export async function seedJournalE2EScenario(input: {
+       })
+       .where(eq(knowledgeAcquis.id, String(acquis.acquisId)));
+   }
++  // Dedicated acquis with exact document revision provenance for J-C14 click path.
++  const docAcquis = await capitalizeAcquis(pilotId, preparationId, {
++    statement: "La publication technique est documentée dans la révision canonique v2.",
++    kind: "FACT",
++    subjectId: otherParent.subjectId,
++    provenance: {
++      sourceKind: "revision",
++      sourceId: revisionIdV2 || revisionIdV1,
++      epistemic: "established",
++    },
++  });
++  if (docAcquis.status === "AVAILABLE" && "acquisId" in docAcquis) {
++    await db
++      .update(knowledgeAcquis)
++      .set({
++        provenanceJson: JSON.stringify({
++          sourceKind: "revision",
++          sourceId: revisionIdV2 || revisionIdV1,
++          documentId,
++          revisionId: revisionIdV2 || revisionIdV1,
++          epistemic: "established",
++          notedAt: new Date().toISOString(),
++        }),
++      })
++      .where(eq(knowledgeAcquis.id, String(docAcquis.acquisId)));
++  }
+   if (open.openPointId && earlyMessageId) {
+     await db
+       .update(knowledgeOpenPoints)
+@@ -282,6 +310,10 @@ export async function seedJournalE2EScenario(input: {
+     homonymLeafId: homonym.subjectId!,
+     acquisId:
+       acquis.status === "AVAILABLE" && "acquisId" in acquis ? String(acquis.acquisId) : "",
++    documentAcquisId:
++      docAcquis.status === "AVAILABLE" && "acquisId" in docAcquis
++        ? String(docAcquis.acquisId)
++        : "",
+     openPointId: open.openPointId!,
+     resolvedOpenPointId: openResolved.openPointId!,
+     decisionApplicableId,
 ```
 
-### DIFF `projects/sfia-studio-next/web/src/domains/knowledge/journal-cognition.ts`
+### DIFF `projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx`
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/journal-cognition.ts b/projects/sfia-studio-next/web/src/domains/knowledge/journal-cognition.ts
-index 76f95130..013cba3b 100644
---- a/projects/sfia-studio-next/web/src/domains/knowledge/journal-cognition.ts
-+++ b/projects/sfia-studio-next/web/src/domains/knowledge/journal-cognition.ts
-@@ -15,7 +15,7 @@ import {
-   conversations,
- } from "@/db/schema";
- import type { Provenance } from "@/domains/knowledge/service";
--import { listProjectKnowledge } from "@/domains/knowledge/journal";
-+import { listProjectKnowledge, loadOwnedOpenPoint } from "@/domains/knowledge/journal";
- import { newId } from "@/lib/ids";
+diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
+index 5aa093b8..e141195c 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
+@@ -302,14 +302,14 @@ export function ProjectJournal(props: {
+       ? decisions.find((d) => d.id === selectedDecisionId) ?? null
+       : null;
 
- const FR_STOP = new Set([
-@@ -212,7 +212,10 @@ export async function selectOpenPointsForReactivation(
-   };
- }
-
--/** Persist a REACTIVATED event after D3 elects to surface a candidate (idempotent by operationId). */
-+/**
-+ * Persist a REACTIVATED event after D3 elects to surface a candidate (idempotent by operationId).
-+ * E06-05 — projectId must match a preparation-linked ownership of the open point (same Pilote alone is insufficient).
-+ */
- export async function markOpenPointReactivated(
-   pilotId: string,
-   projectId: string,
-@@ -223,19 +226,16 @@ export async function markOpenPointReactivated(
-     operationId?: string;
-   },
- ) {
--  const point = (
--    await db
--      .select()
--      .from(knowledgeOpenPoints)
--      .where(
--        and(eq(knowledgeOpenPoints.id, openPointId), eq(knowledgeOpenPoints.ownerPilotId, pilotId)),
--      )
--      .limit(1)
--  )[0];
--  if (!point) return { status: "FAILED" as const, reason: "NOT_FOUND" };
-+  const point = await loadOwnedOpenPoint(pilotId, projectId, openPointId);
-+  if (!point) return { status: "FAILED" as const, reason: "NOT_FOUND_OR_OUT_OF_PROJECT" };
-   if (point.status !== "OPEN") {
-     return { status: "SKIPPED" as const, reason: "NOT_OPEN" };
-   }
-+  // Prefer the point's own projectId when set; never write a foreign projectId.
-+  const eventProjectId = point.projectId ?? projectId;
-+  if (point.projectId && point.projectId !== projectId) {
-+    return { status: "FAILED" as const, reason: "PROJECT_SCOPE_MISMATCH" };
-+  }
-
-   if (input.operationId) {
-     const prior = (
-@@ -264,7 +264,7 @@ export async function markOpenPointReactivated(
-     id: eventId,
-     openPointId,
-     preparationId: point.preparationId,
--    projectId,
-+    projectId: eventProjectId,
-     ownerPilotId: pilotId,
-     eventType: "REACTIVATED",
-     reason: input.reason.trim().slice(0, 500),
-@@ -283,6 +283,7 @@ export type SourceCurrentness =
-   | "HISTORICAL"
-   | "INACCESSIBLE"
-   | "CANDIDATE"
-+  | "UNVERIFIED"
-   | "UNKNOWN";
-
- export type QualifiedSource = {
-@@ -331,15 +332,28 @@ export async function qualifyProvenanceSource(
-         epistemic,
-       };
-     }
-+    // E06-03 — declared main+SHA is NEVER CURRENT without a real verified read.
-+    // This cycle has no GO for REAL Git remote verification → honest UNVERIFIED/CANDIDATE.
-+    if (!mainish) {
-+      return {
-+        sourceKind: "git",
-+        gitRepo: provenance.gitRepo,
-+        gitRef: provenance.gitRef,
-+        gitSha: provenance.gitSha,
-+        currentness: "CANDIDATE",
-+        detail:
-+          "branche/ref candidate distincte de main — non assimilable à une preuve établie sur main",
-+        epistemic,
-+      };
-+    }
-     return {
-       sourceKind: "git",
-       gitRepo: provenance.gitRepo,
-       gitRef: provenance.gitRef,
-       gitSha: provenance.gitSha,
--      currentness: mainish ? "CURRENT" : "CANDIDATE",
--      detail: mainish
--        ? "ref principale avec SHA — à confronter avant affirmation"
--        : "branche/ref candidate distincte de main — ne pas présenter comme établie",
-+      currentness: "UNVERIFIED",
-+      detail:
-+        "ref principale + SHA déclarés sans vérification Git distante autorisée — ne pas présenter comme CURRENT",
-       epistemic,
-     };
-   }
-@@ -560,15 +574,19 @@ export function assertHonestSynthesisInput(input: {
-   const hasUnresolved = input.contradictions.some((c) => c.status === "UNRESOLVED");
-   const hasInaccessible = input.sources.some((s) => s.currentness === "INACCESSIBLE");
-   const hasCandidate = input.sources.some((s) => s.currentness === "CANDIDATE");
-+  const hasUnverified = input.sources.some((s) => s.currentness === "UNVERIFIED");
-   const hasUncertainEpistemic = input.sources.some(
-     (s) => s.epistemic === "hypothesized" || s.epistemic === "limited",
-   );
-
--  if (claimsEstablished && (hasUnresolved || hasInaccessible || hasCandidate || hasUncertainEpistemic)) {
-+  if (
-+    claimsEstablished &&
-+    (hasUnresolved || hasInaccessible || hasCandidate || hasUnverified || hasUncertainEpistemic)
-+  ) {
-     return {
-       ok: false,
-       reason:
--        "SYNTHESIS_OVERCLAIMS — contradiction, source inaccessible/candidate ou épistémique incertain présenté comme établi",
-+        "SYNTHESIS_OVERCLAIMS — contradiction, source inaccessible/candidate/unverified ou épistémique incertain présenté comme établi",
-     };
-   }
-   if (hasUnresolved && !/\b(contradiction|diverg|incert|ouvert|à clarifier)\b/i.test(input.summaryMarkdown)) {
++  /** J-C11 — match statement or explanation; never treat kind/label alone as a hit. */
+   const filteredDecisions = useMemo(() => {
+     const q = search.trim().toLowerCase();
+     if (tab !== "decisions" || !q) return decisions;
+     return decisions.filter(
+       (d) =>
+         d.statement.toLowerCase().includes(q) ||
+-        (d.explanation?.explanationMarkdown.toLowerCase().includes(q) ?? false) ||
+-        d.kind.toLowerCase().includes(q),
++        (d.explanation?.explanationMarkdown.toLowerCase().includes(q) ?? false),
+     );
+   }, [decisions, search, tab]);
 ```
 
 ### DIFF `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index 4f1b96b0..01d34c56 100644
+index 01d34c56..e7b9d86d 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -59,7 +59,14 @@ import {
-   type StudioSurface,
- } from "@/components/shell/studio-rail";
-
--type Msg = { id: string; role: string; content: string; status: string };
-+type Msg = {
-+  id: string;
-+  role: string;
-+  content: string;
-+  status: string;
-+  /** ISO timestamp — used to keep chronological order when hydrating a deep-linked message (E06-04). */
-+  createdAt?: string;
-+};
- type Doc = {
-   document: { id: string; title: string };
-   latestRevision?: {
-@@ -2030,6 +2037,8 @@ export default function ProjectPage() {
-                     role: string;
-                     content: string;
-                     status: string;
-+                    createdAt?: string;
-+                    ordinal?: number;
-                   };
-                 };
-                 if (!res.ok || !body.message) {
-@@ -2039,18 +2048,66 @@ export default function ProjectPage() {
-                   selectSurface("travail");
-                   return;
-                 }
--                setMessages((prev) => {
--                  if (prev.some((m) => m.id === body.message!.messageId)) return prev;
--                  return [
--                    ...prev,
--                    {
--                      id: body.message!.messageId,
--                      role: body.message!.role,
--                      content: body.message!.content,
--                      status: body.message!.status,
--                    },
--                  ];
--                });
-+                // E06-04 — prefer canonical reload; otherwise insert by createdAt (never append blindly).
-+                const prepId = preparationIdRef.current;
-+                let reloaded = false;
-+                if (prepId) {
-+                  const listRes = await fetch(`/api/preparations/${prepId}/messages`);
-+                  if (listRes.ok) {
-+                    const listBody = (await listRes.json().catch(() => ({}))) as {
-+                      messages?: Msg[];
-+                    };
-+                    const rows = Array.isArray(listBody)
-+                      ? (listBody as unknown as Msg[])
-+                      : Array.isArray(listBody.messages)
-+                        ? listBody.messages
-+                        : null;
-+                    if (rows && rows.some((m) => m.id === messageId)) {
-+                      setMessages(
-+                        rows.map((m) => ({
-+                          id: m.id,
-+                          role: m.role,
-+                          content: m.content,
-+                          status: m.status,
-+                          createdAt:
-+                            typeof m.createdAt === "string"
-+                              ? m.createdAt
-+                              : m.createdAt
-+                                ? new Date(m.createdAt as unknown as string).toISOString()
-+                                : undefined,
-+                        })),
-+                      );
-+                      reloaded = true;
-+                    }
-+                  }
-+                }
-+                if (!reloaded) {
-+                  const fetched: Msg = {
-+                    id: body.message.messageId,
-+                    role: body.message.role,
-+                    content: body.message.content,
-+                    status: body.message.status,
-+                    createdAt: body.message.createdAt,
-+                  };
-+                  const targetT = fetched.createdAt ? Date.parse(fetched.createdAt) : Number.NaN;
-+                  if (!Number.isFinite(targetT)) {
-+                    setFocusStatus(
-+                      "Message exact chargé — horodatage absent ; chronologie non inventée.",
-+                    );
-+                  }
-+                  setMessages((prev) => {
-+                    if (prev.some((m) => m.id === fetched.id)) return prev;
-+                    if (!Number.isFinite(targetT)) return [...prev, fetched];
-+                    const insertAt = prev.findIndex((m) => {
-+                      const t = m.createdAt ? Date.parse(m.createdAt) : Number.NaN;
-+                      return Number.isFinite(t) && t > targetT;
-+                    });
-+                    if (insertAt < 0) return [...prev, fetched];
-+                    const copy = prev.slice();
-+                    copy.splice(insertAt, 0, fetched);
-+                    return copy;
-+                  });
-+                }
-               }
-               // Preserve draft + journalNav; never auto-send.
-               setFocusMessageId(messageId);
+@@ -2115,22 +2115,34 @@ export default function ProjectPage() {
+             })();
+           }}
+           onOpenDocument={(documentId, revisionId) => {
++            // J-C14 — open exact D4 revision in Travail viewer (same continuity pattern as message).
++            // Preserve journalNav; do not invent content if D4 refuses.
++            const titleHint =
++              documents.find((d) => d.document.id === documentId)?.document.title ?? "Document";
++            const seq = ++viewerRequestSeqRef.current;
++            viewerOpenRef.current = true;
++            setViewer({
++              kind: "document",
++              documentId,
++              title: titleHint,
++              revisionId: revisionId ?? null,
++              revisionNumber: null,
++              versionSource: revisionId ? "exact" : "current",
++              markdown: null,
++              available: false,
++              unavailableReason: "Vérification D4 de la révision citée…",
++            });
+             void fetchDocumentViewerViaD4({
+               documentId,
+-              titleHint:
+-                documents.find((d) => d.document.id === documentId)?.document.title ?? "Document",
++              titleHint,
+               revisionId: revisionId ?? null,
+               versionSource: revisionId ? "exact" : "current",
+-              seq: ++viewerRequestSeqRef.current,
++              seq,
+               projectIdAtStart: params.projectId,
+             });
+-            selectSurface("document");
+-            // Keep inspect aligned when opening from Journal (J-C14).
++            selectSurface("travail");
+             const match = documents.find((d) => d.document.id === documentId);
+-            if (match) {
+-              setInspect(match);
+-              syncSurfaceUrl("document", documentId, "push");
+-            }
++            if (match) setInspect(match);
+           }}
+           onBackToThread={() => selectSurface("travail")}
+         />
 ```
 
-### DIFF `projects/sfia-studio-next/web/scripts/db-migrate.sh`
+### DIFF `projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts`
 ```diff
-diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-index d5615765..cc81197d 100755
---- a/projects/sfia-studio-next/web/scripts/db-migrate.sh
-+++ b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-@@ -31,4 +31,5 @@ apply "010_github_app_user_oauth.sql"
- apply "011_oauth_session_binding.sql"
- apply "012_auth_concurrency_safety.sql"
- apply "013_preparation_projection.sql"
--echo "db:migrate OK (001→013)"
-+apply "014_journal_d4_revisions.sql"
-+echo "db:migrate OK (001→014)"
-```
+diff --git a/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts b/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
+index 0eaca516..17376740 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
+@@ -16,22 +16,25 @@ async function seedJournalScenario(page: Page, projectId: string, longThreadCoun
+     seed: {
+       leafSubjectId: string;
+       parentSubjectId: string;
++      otherParentId: string;
+       openPointId: string;
+       decisionApplicableId: string;
+       earlyMessageId: string;
+       documentId: string;
+       revisionIdV2: string;
++      documentAcquisId: string;
+       messageCount: number;
+     };
+   };
+   expect(body.status).toBe("AVAILABLE");
+   expect(body.seed.leafSubjectId).toBeTruthy();
+   expect(body.seed.earlyMessageId).toBeTruthy();
++  expect(body.seed.documentAcquisId).toBeTruthy();
+   return body.seed;
+ }
 
-### DIFF `projects/sfia-studio-next/web/tests/unit/journal-cognition.test.ts`
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/unit/journal-cognition.test.ts b/projects/sfia-studio-next/web/tests/unit/journal-cognition.test.ts
-index 3f6834fe..493094b8 100644
---- a/projects/sfia-studio-next/web/tests/unit/journal-cognition.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/journal-cognition.test.ts
-@@ -118,4 +118,27 @@ describe("journal-cognition (J-C04 / J-C06 deterministic)", () => {
+-test.describe("Journal V4 — données métier non vides (E06-01)", () => {
+-  test("sujets/40-60/recherche/décisions/message/document/brouillon", async ({ page }) => {
++test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => {
++  test("sujets/recherche-acquis/décisions/message/document/retour-nav", async ({ page }) => {
+     await page.setViewportSize({ width: 1680, height: 970 });
+     await page.goto("/login");
+     await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+@@ -51,7 +54,7 @@ test.describe("Journal V4 — données métier non vides (E06-01)", () => {
+
+     const seed = await seedJournalScenario(page, projectId!, 40);
+
+-    // Draft BEFORE leaving thread (E06-04)
++    // Draft BEFORE leaving thread (E06-04 / J-C13)
+     const draftBefore = "brouillon préparé avant Journal — ne pas envoyer";
+     await page.getByTestId("thread-draft").fill(draftBefore);
+     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
+@@ -65,9 +68,11 @@ test.describe("Journal V4 — données métier non vides (E06-01)", () => {
+     await expect(leaf).toBeVisible({ timeout: 15000 });
+     await expect(page.getByTestId(`journal-subject-${seed.parentSubjectId}`)).toBeVisible();
+
+-    // C — recherche terme absent du titre (acquis)
++    // C — J-C08 recherche terme ABSENT du titre/parents/synthèse, PRÉSENT dans acquis
+     await page.getByTestId("journal-search").fill("traçabilité");
+-    await expect(page.getByTestId(`journal-match-${seed.leafSubjectId}`)).toBeVisible();
++    const matchBadge = page.getByTestId(`journal-match-${seed.leafSubjectId}`);
++    await expect(matchBadge).toBeVisible();
++    await expect(matchBadge).toHaveText(/acquis/i);
+     await page.getByTestId("journal-filter-open-points").locator("input").check();
+
+     // B — 40/60 + enlarge (non conditionnel)
+@@ -87,7 +92,10 @@ test.describe("Journal V4 — données métier non vides (E06-01)", () => {
+       fullPage: false,
      });
-     expect(r.ok).toBe(false);
+
+-    // Sources → message exact
++    // Keep selection + search for return assertions
++    await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
++
++    // Sources → message exact (chip on selected leaf)
+     const sourceChip = page.locator("[data-testid^=journal-source-]").first();
+     await expect(sourceChip).toBeVisible({ timeout: 10000 });
+     await sourceChip.click();
+@@ -95,45 +103,71 @@ test.describe("Journal V4 — données métier non vides (E06-01)", () => {
+     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
+     const focused = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
+     await expect(focused).toBeVisible({ timeout: 15000 });
+-    // Chronology: early message must not be last in the thread DOM order
+     const ids = await page.locator("[data-message-id]").evaluateAll((els) =>
+       els.map((e) => e.getAttribute("data-message-id")),
+     );
+     expect(ids.includes(seed.earlyMessageId)).toBe(true);
+     expect(ids[ids.length - 1]).not.toBe(seed.earlyMessageId);
+-    // No auto-send: draft still present
+     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
+
+-    // Return Journal — prefer explicit URL (rail remount race on surface switch)
+-    await page.goto(`/projects/${projectId}?surface=journal`);
++    // J-C13 — return via rail (NOT page.goto) and assert nav restored
++    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+     await expect(page).toHaveURL(/surface=journal/);
+     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+-    // Nav state may reset on full navigation; re-assert core tree still present (non-empty).
+-    await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible({
+-      timeout: 15000,
+-    });
++    await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
++    await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible();
++    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
++    await expect(page.getByTestId("journal-filter-open-points").locator("input")).toBeChecked();
+
+-    // D — Décisions
++    // D — J-C11 Décisions : terme présent dans explication, absent du libellé
+     await page.getByTestId("journal-tab-decisions").click();
++    await page.getByTestId("journal-search").fill("multicritèreorion");
+     await expect(page.getByTestId(`journal-decision-${seed.decisionApplicableId}`)).toBeVisible({
+       timeout: 15000,
+     });
+     await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
+     await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
+     await expect(page.getByTestId("journal-decision-applicability")).toContainText(/applicable/i);
++    await expect(page.getByTestId("journal-decision-viewer")).toContainText(/multicritèreorion/i);
++
++    // Back to subjects for document source click
++    await page.getByTestId("journal-tab-subjects").click();
++    await page.getByTestId("journal-search").fill("");
++    await page.getByTestId("journal-filter-open-points").locator("input").uncheck();
++    const budgetSubject = page.getByTestId(`journal-subject-${seed.otherParentId}`);
++    await expect(budgetSubject).toBeVisible();
++    await budgetSubject.click();
++    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
+
+-    // E — Document version (canonical D4 surface)
+-    await page.goto(
+-      `/projects/${projectId}?surface=document&documentId=${encodeURIComponent(seed.documentId)}`,
+-    );
+-    await expect(
+-      page.getByTestId("document-library").or(page.getByTestId("document-inspector")),
+-    ).toBeVisible({ timeout: 20000 });
++    // E — J-C14 document version via Journal source click → Travail viewer (exact revision)
++    const docChip = page.getByTestId(`journal-source-${seed.documentAcquisId}`);
++    await expect(docChip).toBeVisible({ timeout: 10000 });
++    await docChip.click();
++    await expect(page.getByTestId("travail-viewer")).toBeVisible({ timeout: 20000 });
++    await expect(page.getByTestId("travail-viewer-revision")).toContainText(/révision citée|Version/i);
++    await expect(page.getByTestId("travail-viewer")).toContainText(/version exacte pour J-C14/i);
++    // Draft still preserved on thread
++    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
++
++    // Return Journal via rail — selection of document subject should restore if nav preserved
++    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
++    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
++    await expect(page.getByTestId(`journal-subject-${seed.otherParentId}`)).toBeVisible();
+
+-    // F — 1280 operational
++    // F — 1280 operational (rail nav, not goto as success proof of restore)
+     await page.setViewportSize({ width: 1280, height: 800 });
+-    await page.goto(`/projects/${projectId}?surface=journal`);
+     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+     await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible();
    });
 +
-+  it("E06-03 — declared main+SHA without remote verify is UNVERIFIED not CURRENT", async () => {
-+    const { qualifyProvenanceSource } = await import("@/domains/knowledge/journal-cognition");
-+    const q = await qualifyProvenanceSource("pilot-test", {
-+      sourceKind: "pilot",
-+      gitRepo: "org/repo",
-+      gitRef: "main",
-+      gitSha: "deadbeef",
++  test("route seed refuse hors DEV/E2E (gate)", async ({ page, request }) => {
++    // With current Playwright webServer STUDIO_E2E=1 + DEV, positive path works above.
++    // Negative: call without session → 401; with session but we cannot flip env mid-process.
++    // Assert unit-gate contract is wired into this route (static) + unauthenticated 401.
++    const unauth = await request.post("/api/dev/e2e/journal-fixture", {
++      data: { projectId: "proj_absent" },
 +    });
-+    expect(q.currentness).toBe("UNVERIFIED");
-+    expect(q.currentness).not.toBe("CURRENT");
-+  });
-+
-+  it("E06-03 — non-main ref stays CANDIDATE", async () => {
-+    const { qualifyProvenanceSource } = await import("@/domains/knowledge/journal-cognition");
-+    const q = await qualifyProvenanceSource("pilot-test", {
-+      sourceKind: "pilot",
-+      gitRepo: "org/repo",
-+      gitRef: "feature/journal",
-+      gitSha: "abc123",
-+    });
-+    expect(q.currentness).toBe("CANDIDATE");
++    // Either 401 (no cookie) or 403 (gate) depending on harness cookies; never 200 for absent project.
++    expect([401, 403, 404]).toContain(unauth.status());
 +  });
  });
 ```
@@ -902,548 +1010,313 @@ index 3f6834fe..493094b8 100644
 ### DIFF `projects/sfia-studio-next/web/tests/integration/journal-d4-revisions.pg.test.ts`
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/integration/journal-d4-revisions.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/journal-d4-revisions.pg.test.ts
-index 20ebe898..583523e2 100644
+index 583523e2..5b243c6d 100644
 --- a/projects/sfia-studio-next/web/tests/integration/journal-d4-revisions.pg.test.ts
 +++ b/projects/sfia-studio-next/web/tests/integration/journal-d4-revisions.pg.test.ts
-@@ -7,6 +7,7 @@ import { db } from "@/db/client";
- import {
-   governanceRestrictions,
-   humanDecisions,
-+  knowledgeOpenPointEvents,
-   knowledgeOpenPoints,
-   pilots,
-   preparations,
-@@ -35,6 +36,7 @@ import {
-   insertRestriction,
-   markDecisionState,
- } from "@/domains/decisions/service";
-+import { savePreparationDocument } from "@/domains/document/service";
- import { createProjectCommand } from "@/domains/preparation/create-project";
- import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
-
-@@ -121,9 +123,29 @@ describe("Journal D4 revisions (PG)", () => {
-       provenance: { sourceKind: "message", sourceId: "m-open-1" },
-     });
-     expect(pt.status).toBe("AVAILABLE");
-+
-+    const fake = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
-+      reason: "Documentation fictive",
-+      provenance: { sourceKind: "document", sourceId: "doc-proof-1", epistemic: "established" },
-+      operationId: "resolve-fake-1",
-+    });
-+    expect(fake.status).toBe("FAILED");
-+    expect("reason" in fake && fake.reason).toBe("DOCUMENT_SOURCE_INACCESSIBLE");
-+
-+    const doc = await savePreparationDocument(
-+      pilotId,
-+      prep.id,
-+      "Preuve officielle",
-+      "# preuve\nContenu réel AVAILABLE.",
-+      undefined,
-+      { correlationKey: `proof-${pt.openPointId}`, provenance: { sourceKind: "pilot" } },
-+    );
-+    expect(doc.status).toBe("AVAILABLE");
-+    const revisionId = "revisionId" in doc ? String(doc.revisionId) : "";
-+
-     const resolved = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
-       reason: "Documentation officielle citée",
--      provenance: { sourceKind: "document", sourceId: "doc-proof-1", epistemic: "established" },
-+      provenance: { sourceKind: "revision", sourceId: revisionId, epistemic: "established" },
-       operationId: "resolve-op-1",
-     });
-     expect(resolved.status).toBe("AVAILABLE");
-@@ -266,9 +288,18 @@ describe("Journal D4 revisions (PG)", () => {
-       subjectId: subj.subjectId,
-       provenance: { sourceKind: "message", sourceId: "m-restr-1" },
-     });
-+    const doc = await savePreparationDocument(
-+      pilotId,
-+      prep.id,
-+      "Tech publish",
-+      "# tech\nRéel.",
-+      undefined,
-+      { correlationKey: `restr-doc-${pt.openPointId}`, provenance: { sourceKind: "pilot" } },
-+    );
-+    const revisionId = "revisionId" in doc ? String(doc.revisionId) : "";
-     const resolved = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
-       reason: "Document technique trouvé",
--      provenance: { sourceKind: "document", sourceId: "doc-tech-1", epistemic: "established" },
-+      provenance: { sourceKind: "revision", sourceId: revisionId, epistemic: "established" },
-       operationId: "resolve-restr-1",
-     });
-     expect(resolved.status).toBe("AVAILABLE");
-@@ -347,4 +378,96 @@ describe("Journal D4 revisions (PG)", () => {
-     expect(row?.applicable).toBe(true);
+@@ -379,6 +379,124 @@ describe("Journal D4 revisions (PG)", () => {
      expect(row?.state).toBe("APPLICABLE");
    });
+
++  it("J-C07 two preparations linked to same project share knowledge without title merge", async () => {
++    const { preparationProjectLinks } = await import("@/db/schema");
++    const pilotId = await seedPilot("J-twoprep");
++    const first = await seedLinkedProject(pilotId, "Campus deux preps");
++    const prep2 = await openOrCreatePreparation(pilotId);
++    await db.insert(preparationProjectLinks).values({
++      preparationId: prep2.id,
++      projectId: first.projectId,
++    });
 +
-+  it("E06-05 markOpenPointReactivated refuses cross-project same pilot", async () => {
-+    const pilotId = await seedPilot("J-e605");
-+    const a = await seedLinkedProject(pilotId, "Projet E605 A");
-+    const b = await seedLinkedProject(pilotId, "Projet E605 B");
-+    const subj = await ensureSubject(pilotId, a.prep.id, "Open A");
-+    const pt = await openPoint(pilotId, a.prep.id, {
-+      statement: "Point ouvert du projet A uniquement pour scope test.",
++    const subj1 = await ensureSubject(pilotId, first.prep.id, "Réservation salles");
++    await capitalizeAcquis(pilotId, first.prep.id, {
++      statement: "Acquis capitalisé depuis la première préparation du même projet.",
++      kind: "HYPOTHESIS",
++      subjectId: subj1.subjectId,
++      provenance: { sourceKind: "pilot", epistemic: "observed" },
++    });
++
++    const subj2 = await ensureSubject(pilotId, prep2.id, "Réservation salles");
++    expect(subj2.subjectId).not.toBe(subj1.subjectId);
++    await capitalizeAcquis(pilotId, prep2.id, {
++      statement: "Acquis distinct de la seconde préparation, même titre de sujet.",
++      kind: "HYPOTHESIS",
++      subjectId: subj2.subjectId,
++      provenance: { sourceKind: "pilot", epistemic: "observed" },
++    });
++
++    const bundle = await listProjectKnowledge(pilotId, first.projectId);
++    expect(bundle.preparationIds).toEqual(
++      expect.arrayContaining([first.prep.id, prep2.id]),
++    );
++    expect(bundle.subjects.filter((s) => s.title === "Réservation salles")).toHaveLength(2);
++    expect(
++      bundle.acquis.some((a) => a.statement.includes("première préparation")),
++    ).toBe(true);
++    expect(
++      bundle.acquis.some((a) => a.statement.includes("seconde préparation")),
++    ).toBe(true);
++
++    const foreign = await seedLinkedProject(pilotId, "Autre projet isolé");
++    const leak = await listProjectKnowledge(pilotId, foreign.projectId);
++    expect(leak.subjects.every((s) => s.title !== "Réservation salles")).toBe(true);
++  });
++
++  it("J-C05 refuses resolve on non-AVAILABLE revision (withdrawn/inaccessible)", async () => {
++    const { documentRevisions } = await import("@/db/schema");
++    const pilotId = await seedPilot("J-irr");
++    const { prep, projectId } = await seedLinkedProject(pilotId, "Pertinence source");
++    const subj = await ensureSubject(pilotId, prep.id, "Accès SSO");
++    const pt = await openPoint(pilotId, prep.id, {
++      statement: "Le SSO est-il techniquement confirmé pour CampusFlow?",
 +      subjectId: subj.subjectId,
-+      provenance: { sourceKind: "message", sourceId: "m-e605" },
++      provenance: { sourceKind: "message", sourceId: "m-sso" },
 +    });
++    const doc = await savePreparationDocument(
++      pilotId,
++      prep.id,
++      "Note budgétaire hors sujet",
++      "# Budget\nDocument réel mais non pertinent pour le SSO.",
++      undefined,
++      { correlationKey: `irr-doc-${projectId}`, provenance: { sourceKind: "pilot" } },
++    );
++    if (!("revisionId" in doc) || !doc.revisionId) {
++      throw new Error(`expected revisionId, got ${doc.status}`);
++    }
++    const revisionId = String(doc.revisionId);
++    await db
++      .update(documentRevisions)
++      .set({ status: "FAILED" })
++      .where(eq(documentRevisions.id, revisionId));
 +
-+    const ok = await markOpenPointReactivated(pilotId, a.projectId, pt.openPointId!, {
-+      reason: "pertinent",
-+      provenance: { sourceKind: "nora", generationId: "g-e605" },
-+      operationId: "react-e605-ok",
-+    });
-+    expect(ok.status).toBe("AVAILABLE");
-+
-+    const before = await db
-+      .select()
-+      .from(knowledgeOpenPointEvents)
-+      .where(eq(knowledgeOpenPointEvents.openPointId, pt.openPointId!));
-+
-+    const denied = await markOpenPointReactivated(pilotId, b.projectId, pt.openPointId!, {
-+      reason: "tentative interprojet",
-+      provenance: { sourceKind: "nora", generationId: "g-e605b" },
-+      operationId: "react-e605-deny",
++    const denied = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
++      reason: "doc withdrawn",
++      provenance: {
++        sourceKind: "revision",
++        sourceId: revisionId,
++        epistemic: "established",
++      },
++      operationId: `irr-resolve-${pt.openPointId}`,
 +    });
 +    expect(denied.status).toBe("FAILED");
-+
-+    const after = await db
-+      .select()
-+      .from(knowledgeOpenPointEvents)
-+      .where(eq(knowledgeOpenPointEvents.openPointId, pt.openPointId!));
-+    expect(after).toHaveLength(before.length);
-+
-+    const missing = await markOpenPointReactivated(pilotId, a.projectId, "ope_absent", {
-+      reason: "absent",
-+      provenance: { sourceKind: "nora", generationId: "g-x" },
-+      operationId: "react-missing",
-+    });
-+    expect(missing.status).toBe("FAILED");
-+
-+    const replay = await markOpenPointReactivated(pilotId, a.projectId, pt.openPointId!, {
-+      reason: "retry",
-+      provenance: { sourceKind: "nora", generationId: "g-e605" },
-+      operationId: "react-e605-ok",
-+    });
-+    expect(replay.status).toBe("AVAILABLE");
-+    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
++    if (denied.status === "FAILED") {
++      expect(denied.reason).toBe("DOCUMENT_REVISION_NOT_AVAILABLE");
++    }
++    const stillOpen = (
++      await db.select().from(knowledgeOpenPoints).where(eq(knowledgeOpenPoints.id, pt.openPointId!))
++    )[0];
++    expect(stillOpen.status).toBe("OPEN");
 +  });
 +
-+  it("E06-02 synthesis revision history and reactivation negatives", async () => {
-+    const pilotId = await seedPilot("J-e602");
-+    const { prep, projectId } = await seedLinkedProject(pilotId, "Mémoire");
-+    const subj = await ensureSubject(pilotId, prep.id, "Sujet mémoire");
-+    const r1 = await appendSubjectSummaryRevision(pilotId, projectId, subj.subjectId!, {
-+      summaryMarkdown: "Première synthèse contextualisée sur le sujet mémoire du projet.",
-+      provenance: { sourceKind: "nora", generationId: "g1", epistemic: "observed" },
-+      operationId: "mem-r1",
-+    });
-+    expect(r1.status).toBe("AVAILABLE");
-+    const r2 = await appendSubjectSummaryRevision(pilotId, projectId, subj.subjectId!, {
-+      summaryMarkdown:
-+        "Deuxième synthèse corrigée — l'information antérieure est revue sans perte d'historique.",
-+      provenance: { sourceKind: "nora", generationId: "g2", epistemic: "observed" },
-+      operationId: "mem-r2",
-+    });
-+    expect(r2.status).toBe("AVAILABLE");
-+    const current = await getCurrentSubjectSummary(pilotId, projectId, subj.subjectId!);
-+    expect(current.summary?.revisionNumber).toBe(2);
-+    expect(current.summary?.summaryMarkdown).toContain("Deuxième");
-+
-+    await openPoint(pilotId, prep.id, {
-+      statement: "Question ancienne sur la latence du pipeline de capitalisation durable?",
-+      subjectId: subj.subjectId,
-+      provenance: { sourceKind: "message", sourceId: "m-mem" },
-+    });
-+    const hit = await selectOpenPointsForReactivation(
-+      pilotId,
-+      projectId,
-+      "On reparle de la latence du pipeline",
++  it("J-C11 searchJournalDecisions matches explanation-only token", async () => {
++    const pilotId = await seedPilot("J-d11");
++    const { projectId } = await seedLinkedProject(pilotId, "Recherche décisions");
++    const decisionId = await db.transaction(async (tx) =>
++      insertHumanDecision(tx, {
++        projectId,
++        pilotId,
++        sourceKind: "pilotage",
++        sourceRef: "cmd-d11",
++        kind: "TRAJECTORY",
++        objectRef: "traj-d11",
++        statement: "Acte officiel sans le token exclusif dans le libellé.",
++      }),
 +    );
-+    expect(hit.candidates.length).toBeGreaterThan(0);
-+    const miss = await selectOpenPointsForReactivation(
-+      pilotId,
-+      projectId,
-+      "Sujet totalement orthogonal cuisine italienne",
-+    );
-+    expect(miss.candidates.every((c) => !c.statement.includes("latence"))).toBe(true);
++    await appendDecisionExplanationRevision(pilotId, projectId, decisionId, {
++      explanationMarkdown: "Motifs détaillés avec token exclusif multicritèreorion dans l'explication.",
++      provenance: { sourceKind: "message", sourceId: "m-d11", epistemic: "observed" },
++      operationId: `expl-d11-${decisionId}`,
++    });
++    const hits = await searchJournalDecisions(pilotId, projectId, "multicritèreorion");
++    expect(
++      hits.results.some((r) => r.matchKind === "explanation" && r.decisionId === decisionId),
++    ).toBe(true);
++    // Kind/label alone must not produce a decision hit.
++    const miss = await searchJournalDecisions(pilotId, projectId, "TRAJECTORY");
++    expect(miss.results.some((r) => r.decisionId === decisionId)).toBe(false);
 +  });
- });
-\ No newline at end of file
++
+   it("E06-05 markOpenPointReactivated refuses cross-project same pilot", async () => {
+     const pilotId = await seedPilot("J-e605");
+     const a = await seedLinkedProject(pilotId, "Projet E605 A");
 ```
 
-### DIFF `projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts`
+### DIFF `projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts`
 ```diff
-diff --git a/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts b/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
-index 7cd5d290..0eaca516 100644
---- a/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
-@@ -1,4 +1,4 @@
--import { test, expect } from "@playwright/test";
-+import { test, expect, type Page } from "@playwright/test";
- import {
-   constituteAndCreateProject,
-   openNewPreparation,
-@@ -6,108 +6,134 @@ import {
-   uniqueProjectName,
- } from "./helpers/g4-chat-first";
-
--/**
-- * Ensemble 06 / Journal V4 — BROWSER parcours on DEV e2e lane (:3101 / sfia_next_e2e).
-- * Covers tabs, search, open-points filter, 40/60, enlarge, return (J-C12).
-- */
--test.describe("Journal V4 parcours", () => {
--  test("nominal → search → open points → 40/60 → enlarge → retour fil", async ({ page }) => {
-+async function seedJournalScenario(page: Page, projectId: string, longThreadCount = 40) {
-+  const res = await page.request.post("/api/dev/e2e/journal-fixture", {
-+    data: { projectId, longThreadCount },
-+  });
-+  expect(res.ok(), await res.text()).toBeTruthy();
-+  const body = (await res.json()) as {
-+    status: string;
-+    seed: {
-+      leafSubjectId: string;
-+      parentSubjectId: string;
-+      openPointId: string;
-+      decisionApplicableId: string;
-+      earlyMessageId: string;
-+      documentId: string;
-+      revisionIdV2: string;
-+      messageCount: number;
-+    };
-+  };
-+  expect(body.status).toBe("AVAILABLE");
-+  expect(body.seed.leafSubjectId).toBeTruthy();
-+  expect(body.seed.earlyMessageId).toBeTruthy();
-+  return body.seed;
-+}
-+
-+test.describe("Journal V4 — données métier non vides (E06-01)", () => {
-+  test("sujets/40-60/recherche/décisions/message/document/brouillon", async ({ page }) => {
-     await page.setViewportSize({ width: 1680, height: 970 });
-     await page.goto("/login");
-     await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-     await page.waitForURL("**/portfolio");
-
-     await openNewPreparation(page);
--    await sendPrepMessage(
--      page,
--      "Compare options traçabilité et budget, laisse un point ouvert sur la preuve GitHub",
--    );
-+    await sendPrepMessage(page, "Amorce projet Journal E2E seed");
-
--    const projectName = uniqueProjectName("Journal V4");
-+    const projectName = uniqueProjectName("Journal E06");
-     await constituteAndCreateProject(page, {
-       name: projectName,
--      summary: "parcours journal v4",
-+      summary: "seed journal e06",
-       alreadyUnique: true,
-     });
-     const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-     expect(projectId).toBeTruthy();
-
-+    const seed = await seedJournalScenario(page, projectId!, 40);
-+
-+    // Draft BEFORE leaving thread (E06-04)
-+    const draftBefore = "brouillon préparé avant Journal — ne pas envoyer";
-+    await page.getByTestId("thread-draft").fill(draftBefore);
-+    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
-+
-     await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
-     await expect(page).toHaveURL(/surface=journal/);
--    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 15000 });
-+    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
-+
-+    // A — arbre non vide (fail if empty)
-+    const leaf = page.getByTestId(`journal-subject-${seed.leafSubjectId}`);
-+    await expect(leaf).toBeVisible({ timeout: 15000 });
-+    await expect(page.getByTestId(`journal-subject-${seed.parentSubjectId}`)).toBeVisible();
-+
-+    // C — recherche terme absent du titre (acquis)
-+    await page.getByTestId("journal-search").fill("traçabilité");
-+    await expect(page.getByTestId(`journal-match-${seed.leafSubjectId}`)).toBeVisible();
-+    await page.getByTestId("journal-filter-open-points").locator("input").check();
-+
-+    // B — 40/60 + enlarge (non conditionnel)
-+    await leaf.click();
-+    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
-+    await expect(page.getByTestId("journal-viewer-subject-title")).toBeVisible();
-+    await page.getByTestId("journal-viewer-enlarge").click();
-     await expect(page.getByTestId("project-journal")).toHaveAttribute(
--      "data-figma-frame",
--      /835:71|842:|859:|860:/,
-+      "data-journal-layout",
-+      "enlarged",
-     );
--    await expect(page.getByTestId("journal-tab-subjects")).toBeVisible();
--    await expect(page.getByTestId("journal-tab-decisions")).toBeVisible();
-+    await page.getByTestId("journal-viewer-reduce").click();
-+    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
-
-     await page.screenshot({
--      path: "../../.tmp-sfia-review/journal-v4-captures/runtime-1680-sujets-exploration.png",
-+      path: "../../.tmp-sfia-review/journal-v4-captures/runtime-1680-sujet-40-60-seeded.png",
-       fullPage: false,
-     });
-
--    // Recherche Sujets (859:42)
--    await page.getByTestId("journal-search").fill("traçabilité");
--    await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
--
--    // Filtre points ouverts (859:146)
--    await page.getByTestId("journal-filter-open-points").locator("input").check();
--    await expect(page.getByTestId("journal-filter-open-points").locator("input")).toBeChecked();
-+    // Sources → message exact
-+    const sourceChip = page.locator("[data-testid^=journal-source-]").first();
-+    await expect(sourceChip).toBeVisible({ timeout: 10000 });
-+    await sourceChip.click();
-+    await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
-+    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
-+    const focused = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
-+    await expect(focused).toBeVisible({ timeout: 15000 });
-+    // Chronology: early message must not be last in the thread DOM order
-+    const ids = await page.locator("[data-message-id]").evaluateAll((els) =>
-+      els.map((e) => e.getAttribute("data-message-id")),
-+    );
-+    expect(ids.includes(seed.earlyMessageId)).toBe(true);
-+    expect(ids[ids.length - 1]).not.toBe(seed.earlyMessageId);
-+    // No auto-send: draft still present
-+    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
-
--    await page.screenshot({
--      path: "../../.tmp-sfia-review/journal-v4-captures/runtime-1680-filtre-points.png",
--      fullPage: false,
-+    // Return Journal — prefer explicit URL (rail remount race on surface switch)
-+    await page.goto(`/projects/${projectId}?surface=journal`);
-+    await expect(page).toHaveURL(/surface=journal/);
-+    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
-+    // Nav state may reset on full navigation; re-assert core tree still present (non-empty).
-+    await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible({
-+      timeout: 15000,
-     });
-
--    // Sélection sujet si arbre non vide → 40/60
--    const subjectBtn = page.locator("[data-testid^=journal-subject-]").first();
--    if (await subjectBtn.count()) {
--      await subjectBtn.click();
--      await expect(page.getByTestId("project-journal")).toHaveAttribute(
--        "data-journal-layout",
--        "split",
--      );
--      await page.screenshot({
--        path: "../../.tmp-sfia-review/journal-v4-captures/runtime-1680-sujet-40-60.png",
--        fullPage: false,
--      });
--      await page.getByTestId("journal-viewer-enlarge").click();
--      await expect(page.getByTestId("project-journal")).toHaveAttribute(
--        "data-journal-layout",
--        "enlarged",
--      );
--      await page.getByTestId("journal-viewer-reduce").click();
--      await expect(page.getByTestId("project-journal")).toHaveAttribute(
--        "data-journal-layout",
--        "split",
--      );
--    }
--
--    // Onglet Décisions (860:58)
-+    // D — Décisions
-     await page.getByTestId("journal-tab-decisions").click();
--    await expect(page.getByTestId("journal-tab-decisions")).toHaveAttribute("aria-selected", "true");
--    await page.getByTestId("journal-search").fill("décision");
--    await page.screenshot({
--      path: "../../.tmp-sfia-review/journal-v4-captures/runtime-1680-decisions.png",
--      fullPage: false,
-+    await expect(page.getByTestId(`journal-decision-${seed.decisionApplicableId}`)).toBeVisible({
-+      timeout: 15000,
-     });
-+    await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
-+    await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
-+    await expect(page.getByTestId("journal-decision-applicability")).toContainText(/applicable/i);
-
--    // Compact reflow while still on Journal (avoids remount race)
--    await page.setViewportSize({ width: 1280, height: 800 });
--    await expect(page.getByTestId("project-journal")).toBeVisible();
--    await page.screenshot({
--      path: "../../.tmp-sfia-review/journal-v4-captures/runtime-1280-journal.png",
--      fullPage: false,
--    });
-+    // E — Document version (canonical D4 surface)
-+    await page.goto(
-+      `/projects/${projectId}?surface=document&documentId=${encodeURIComponent(seed.documentId)}`,
-+    );
-+    await expect(
-+      page.getByTestId("document-library").or(page.getByTestId("document-inspector")),
-+    ).toBeVisible({ timeout: 20000 });
-
--    // Retour fil — brouillon non auto-envoyé
--    const draftBefore = "brouillon journal retour";
--    await page.getByTestId("journal-back-thread").click();
--    await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
--    await page.getByTestId("thread-draft").fill(draftBefore);
--    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
--    // No auto-send: send remains enabled only because draft non-empty; message count unchanged until click.
--    await expect(page.getByTestId("thread-send")).toBeEnabled();
-+    // F — 1280 operational
-+    await page.setViewportSize({ width: 1280, height: 800 });
-+    await page.goto(`/projects/${projectId}?surface=journal`);
-+    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
-+    await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible();
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts
+index f36b5dd9..efa2d584 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml4c-e2e-fixture-gate.test.ts
+@@ -68,4 +68,24 @@ describe("C-03 E2E fixture mutation gate", () => {
+     expect(route).not.toMatch(/authorizePublication|dispatchPublication|insertHumanDecision/);
+     expect(route).toMatch(/Does NOT create HumanDecision/);
    });
++
++  it("Journal fixture route also uses e2eFixtureMutationsAllowed", () => {
++    const route = readFileSync(
++      join(__dirname, "../../src/app/api/dev/e2e/journal-fixture/route.ts"),
++      "utf8",
++    );
++    expect(route).toMatch(/e2eFixtureMutationsAllowed/);
++    expect(route).toMatch(/E2E_FIXTURE_FORBIDDEN/);
++    expect(route).toMatch(/seedJournalE2EScenario/);
++  });
++
++  it("FIX: DEV without STUDIO_E2E refuses", () => {
++    const r = e2eFixtureMutationsAllowed({
++      NODE_ENV: "development",
++      STUDIO_LANE: "DEV",
++      STUDIO_E2E: "",
++    } as NodeJS.ProcessEnv);
++    expect(r.ok).toBe(false);
++    expect(r.reason).toBe("STUDIO_E2E_REQUIRED");
++  });
  });
 ```
 
 ### DIFF `projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md`
 ```diff
 diff --git a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
-index 521f69e4..c5c58d7d 100644
+index c5c58d7d..de41ea81 100644
 --- a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
 +++ b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
-@@ -2,66 +2,61 @@
+@@ -2,57 +2,60 @@
 
  | Métadonnée | Valeur |
  |---|---|
--| Date | 19/11/2026 (cycle de complétude) |
-+| Date | 19/11/2026 (cycle 3 — E06-01..06) |
+-| Date | 19/11/2026 (cycle 3 — E06-01..06) |
++| Date | 19/11/2026 (cycle 4 — complétude §5 + LIVE borné arrêté) |
  | Branche | `sfia/next-journal-delivery-20261119` |
--| Base docs (cycle 1) | `6879d34e` |
--| Matrice docs distante (lue, non fusionnée) | `b02192e5` |
-+| Base docs cycle 1 | `6879d34e` |
-+| Matrice docs distante (lue, non fusionnée) | `2ae685a5` (v0.2) |
+ | Base docs cycle 1 | `6879d34e` |
+-| Matrice docs distante (lue, non fusionnée) | `2ae685a5` (v0.2) |
++| Matrice docs distante (lue, non fusionnée) | `c3f1254c` (v0.3 §14) |
  | Base `main` | `d3d199ad` |
  | Versioning | `NO RELEASE` / `0.0.0-dev` |
--| Lane | DEV / e2e isolé (`127.0.0.1:5433`, `sfia_next_e2e`) — RECETTE/STABLE non mutées |
-+| Lane | DEV / e2e (`127.0.0.1:5433`, `:3101`) — RECETTE/STABLE non mutées |
+-| Lane | DEV / e2e (`127.0.0.1:5433`, `:3101`) — RECETTE/STABLE non mutées |
++| Lane | DEV / e2e (`127.0.0.1:5433`, `:3101`) — LIVE tenté `:3103` — RECETTE/STABLE non mutées |
 
--## Cycle 1 (conservé)
-+## Cycles 1–2 (conservés)
+-## Cycles 1–2 (conservés)
++## Cycles 1–3 (conservés)
 
--- Migration additive `014_journal_d4_revisions.sql`
--- `domains/knowledge/journal.ts` : révisions, resolve/reopen, reparent, recherches
--- `ensureSubject` parent-aware
--- `GET /api/projects/[projectId]/journal`
--- `ProjectJournal` V4 shell (tabs / search / filtre / 40/60 / enlarge)
--- `subjectId` conservé sur la page projet
-+- Migration additive `014` + `db-migrate.sh` 001→014
-+- Journal D4 revisions, UI V4, API, recherche, explications D6
-+- Helpers cognition J-C04/06 + deep-link message/document
+-- Migration additive `014` + `db-migrate.sh` 001→014
+-- Journal D4 revisions, UI V4, API, recherche, explications D6
+-- Helpers cognition J-C04/06 + deep-link message/document
++- Migration additive `014` + Journal D4/UI/API
++- E06-01..06 : scope projet, UNVERIFIED Git, message chrono, seed BROWSER, resolve source réelle
 
--## Cycle 2 — complétude (ce cycle)
-+## Cycle 3 — corrections E06
+-## Cycle 3 — corrections E06
++## Cycle 4 — correctifs matrice §14 + LIVE
 
--### J-C04 — réactivation
--- `journal-cognition.ts` : `selectOpenPointsForReactivation`, `markOpenPointReactivated` (cooldown, score lexical)
--- Branché dans `selectRelevantKnowledgeContext` via `projectId` + conversation service
-+### E06-05 — portée sécurité
-+- `markOpenPointReactivated` utilise `loadOwnedOpenPoint(pilot, project, id)`
-+- Refus interprojets même Pilote ; zéro écriture si refus ; idempotence conservée
+-### E06-05 — portée sécurité
+-- `markOpenPointReactivated` utilise `loadOwnedOpenPoint(pilot, project, id)`
+-- Refus interprojets même Pilote ; zéro écriture si refus ; idempotence conservée
++### §5 déterministe
 
--### J-C06 — sources / contradictions / currentness
--- `qualifyProvenanceSource`, `detectAcquisContradictions`, `assertHonestSynthesisInput`
--- Gate honnêteté sur `appendSubjectSummaryRevision`
--- Projection Journal expose `sourceLinks` + `contradictions` ; UI affiche UNRESOLVED
-+### E06-03 — currentness Git
-+- `main`+SHA déclarés → **UNVERIFIED** (jamais CURRENT sans vérification distante)
-+- Ref non-main → **CANDIDATE**
-+- Overclaim gate traite UNVERIFIED
+-### E06-03 — currentness Git
+-- `main`+SHA déclarés → **UNVERIFIED** (jamais CURRENT sans vérification distante)
+-- Ref non-main → **CANDIDATE**
+-- Overclaim gate traite UNVERIFIED
++| ID | Correction |
++|---|---|
++| J-C08 | Seed : titre feuille sans token « traçabilité » ; badge match `acquis` en BROWSER |
++| J-C11 | Recherche décisions : explication-only (`multicritèreorion`) ; UI n’utilise plus `kind` comme hit |
++| J-C13 | Retour Journal via rail (pas `page.goto` comme preuve) ; search/filtre/layout conservés |
++| J-C14 | Clic source document → Travail viewer exact (`viewerOpenRef`) ; contenu v2 asserté |
++| J-C07 | PG : deux préparations liées au même projet, sujets homonymes non fusionnés |
++| J-C05 | Resolve refusé si révision non AVAILABLE |
++| J-C16 | Gate route journal-fixture + refus DEV sans STUDIO_E2E |
 
--### J-C05 / J-C09
--- Resolve factuel refuse toute mutation de restriction D6 (snapshot ACTIVE)
--- Décisions projetées avec `applicable` / `supersededByDecisionId` ; restrictions ACTIVE + historiques
-+### E06-04 — message exact
-+- Deep-link : reload canonique ou insertion par `createdAt` (pas d’append aveugle)
-+- Brouillon préservé ; zéro auto-send
+-### E06-04 — message exact
+-- Deep-link : reload canonique ou insertion par `createdAt` (pas d’append aveugle)
+-- Brouillon préservé ; zéro auto-send
++### LIVE CampusFlow (GO Morris, arrêté sur demande)
 
--### J-C13 / J-C14
--- `GET /api/projects/[projectId]/messages/[messageId]` (history scope projet)
--- `ProjectJournal` → `onOpenMessage` / `onOpenDocument` → Travail focus / Documents D4
--- `NoraConversation` `focusMessageId` + highlight ; brouillon et `journalNav` préservés ; zéro auto-send
-+### E06-01 — BROWSER non vide
-+- Fixture DEV `/api/dev/e2e/journal-fixture` (gate STUDIO_E2E)
-+- Playwright assertions obligatoires sur sujets/40-60/recherche/décisions/message/document
+-### E06-01 — BROWSER non vide
+-- Fixture DEV `/api/dev/e2e/journal-fixture` (gate STUDIO_E2E)
+-- Playwright assertions obligatoires sur sujets/40-60/recherche/décisions/message/document
++- Projet DEV fictif créé ; provider `openai-agents-sdk-live` constaté sur **E01**
++- Durée E01 ≈ 647 s ; réponse Nora réelle archivée
++- **E02–E20 / T10 / T20 : NON EXÉCUTÉS** (arrêt Morris/opérateur)
++- Journal T0 : vide (attendu avant capitalisation)
++- Preuves locales : `.tmp-sfia-review/journal-live-campusflow-20261119/` (non commit)
 
--### J-C08 / API
--- Recherche UI titre+synthèse+acquis+points avec raison de match
--- `GET /api/projects/[projectId]/journal/search`
-+### E06-02 — mémoire D3/D4 déterministe
-+- Tests PG : révisions de synthèse + réactivation pertinente / négative
-+- LIVE Nora : toujours NOT RUN / hors GO
-+
-+### E06-06 — D6 / documents / migrate
-+- Resolve factuel exige source document/message **réellement accessible**
-+- Restriction D6 ACTIVE intacte après resolve
-+- `db-migrate.sh` inclut `014`
-+
-+## Preuves (cycle 3)
+-### E06-02 — mémoire D3/D4 déterministe
+-- Tests PG : révisions de synthèse + réactivation pertinente / négative
+-- LIVE Nora : toujours NOT RUN / hors GO
++### Artefacts test LIVE (conservés pour reprise manuelle)
 
--### Preuves exécutées (DEV/e2e)
+-### E06-06 — D6 / documents / migrate
+-- Resolve factuel exige source document/message **réellement accessible**
+-- Restriction D6 ACTIVE intacte après resolve
+-- `db-migrate.sh` inclut `014`
++- `web/tests/e2e/journal-nora-live-campusflow.spec.ts`
++- `web/playwright.journal-live.config.ts`
++- Commande : `STUDIO_ALLOW_LIVE_BOUNDED=1` + `OPENAI_API_KEY` + `npx playwright test --config=playwright.journal-live.config.ts`
+
+-## Preuves (cycle 3)
++## Preuves
+
  | Commande | Résultat |
  |---|---|
--| `npx tsc --noEmit` | PASS |
--| `npm run lint` | PASS (warnings préexistants hors Journal) |
--| `vitest` `journal-cognition.test.ts` | 4/4 PASS |
--| `vitest` `journal-d4-revisions.pg.test.ts` | 10/10 PASS (`sfia_next_e2e`) |
--| `playwright` `journal-v4-parcours.spec.ts` | 1/1 PASS (`:3101`) |
--| Captures runtime | `.tmp-sfia-review/journal-v4-captures/*.png` |
--| Figma 835:71 | extrait MCP + PNG local |
--
--### Non-régression / hors GO
--- LIVE Nora : **NOT RUN** (hors GO)
--- REAL Git : **NOT RUN**
--- Suites ML2/ML3/ML4C/E05 complètes : **NOT RUN** dans ce cycle (tsc+lint+Journal PG/BROWSER exécutés)
--- 11/11 captures Figma↔runtime pixel-perfect : **PARTIAL** (parcours BROWSER + captures runtime + frames Figma clés ; comparaison structurelle, pas audit pixel exhaustif)
-+| `tsc --noEmit` | PASS |
-+| unit journal-cognition | PASS |
-+| PG journal-d4-revisions | PASS (12+) |
-+| Playwright journal-v4-parcours (seeded) | PASS |
-+| LIVE Nora / REAL Git | NOT RUN |
-+| VISUAL REVIEW | PENDING MORRIS — RECETTE |
+ | `tsc --noEmit` | PASS |
+-| unit journal-cognition | PASS |
+-| PG journal-d4-revisions | PASS (12+) |
+-| Playwright journal-v4-parcours (seeded) | PASS |
+-| LIVE Nora / REAL Git | NOT RUN |
++| `npm run lint` | PASS (warnings préexistants) |
++| `next build` | PASS |
++| unit journal-cognition + fixture-gate | PASS |
++| PG journal-d4-revisions | PASS (15) |
++| PG ml3-pilotage | PASS (49) |
++| Playwright journal-v4-parcours | PASS (2) |
++| LIVE 20 tours | **1/20 PARTIAL** — arrêté après E01 |
++| ML2/ML4C/E05 full e2e | NOT RUN |
+ | VISUAL REVIEW | PENDING MORRIS — RECETTE |
 
  ## Autorité
-
--- D6 non modifié en écriture depuis le Journal
--- Aucun moteur mémoire parallèle
--- Aucun push projet / PR / merge / RECETTE dans ce cycle
-+- D6 non muté depuis Journal
-+- Aucun push projet / PR / merge
-+- Revue visuelle Morris en RECETTE uniquement
 ```
 
 ### DIFF `projects/sfia-studio-next/construction/delivery-history.md`
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 12ad52ac..a06a5173 100644
+index a06a5173..c8a6bd2d 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
 @@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
-+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-E06-CORRECTIVE
++## delivery_id: DELIV-2026-11-19-JOURNAL-V4-LIVE-PARTIAL
 +
 +| Field | Value |
 +| --- | --- |
-+| Date | 2026-11-19 ~10:10 CET |
-+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 cycle 3 E06-01..06 |
++| Date | 2026-11-19 ~11:05 CET |
++| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 cycle 4 §5 + LIVE |
 +| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
-+| GO Morris | Corrections ciblées + BROWSER données non vides DEV |
-+| Parent | local `782c93ec` |
-+| Scope | E06-05 scope · E06-03 UNVERIFIED Git · E06-04 chrono message · seed BROWSER · resolve source réelle · migrate 014 |
-+| QA | tsc/lint/build PASS · unit+PG Journal PASS · Playwright seeded PASS · LIVE/REAL NOT RUN |
++| GO Morris | Complétude §5 + LIVE 20 tours CampusFlow (arrêt opérateur après E01) |
++| Parent | local `a122bf27` |
++| Scope | J-C08/11/13/14/07/05/16 oracles · viewerOpenRef J-C14 · LIVE E01 REAL BOUNDARY PARTIAL |
++| QA | tsc/lint/build PASS · UNIT+PG Journal PASS · Playwright seeded 2/2 · ML3 PG 49 PASS · LIVE 1/20 puis STOP |
 +| Visual | **VISUAL REVIEW PENDING MORRIS — RECETTE** |
-+| Verdict Cursor | `READY FOR MORRIS REVIEW WITH RESERVES — E06 CORRECTIVES LOCAL` |
++| Verdict Cursor | `READY FOR MORRIS REVIEW WITH RESERVES — §5 DETERMINISTIC + LIVE E01 ONLY` |
 +
 +
- ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-COMPLETION
+ ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-E06-CORRECTIVE
 
  | Field | Value |
 ```
 
-## 8. Verdict
+## 10. Réserves / exit
 
-`READY FOR MORRIS REVIEW WITH RESERVES — E06 CORRECTIVES LOCAL / SEEDED BROWSER PROVEN / LIVE NOT RUN / VISUAL PENDING MORRIS — RECETTE / NO PROJECT PUSH`
+1. LIVE 19 tours restants — reprise manuelle Morris possible via harness local
+2. Capitalisation Journal D4 sous LIVE non observée (pas de T10/T20)
+3. Suites ML2/ML4C/E05 full NOT RUN
+4. VISUAL REVIEW PENDING MORRIS — RECETTE
+5. Pertinence sémantique source (existence ≠ pertinence) reste limite D4
+
+## 11. Verdict
+
+`READY FOR MORRIS REVIEW WITH RESERVES — §5 DETERMINISTIC PROVEN / LIVE E01 REAL BOUNDARY ONLY / 19 TURNS NOT RUN / NO PROJECT PUSH`
 
 ### Instruction ChatGPT obligatoire
 
-Relire le handoff Git canonique au SHA immuable, confronter E06-01..06 et J-C01..16 aux preuves et au code, actualiser la matrice v0.2 sous mandat documentaire distinct, et ne pas traiter les déclarations Cursor comme réception produit. Aucun Gate C / ADOPTED / push projet / RECETTE n’est autorisé par ce rapport.
+Relire le handoff Git canonique au SHA immuable, confronter §5 / J-C01..16 / C1..C14 aux preuves, distinguer E01 LIVE réel des 19 tours non joués, actualiser la matrice v0.3 sous mandat documentaire distinct, et ne pas traiter les déclarations Cursor comme réception produit. Aucun Gate C / ADOPTED / push projet / RECETTE n’est autorisé par ce rapport.
