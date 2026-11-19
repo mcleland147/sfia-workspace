@@ -1,8 +1,8 @@
 # SFIA Studio Next — Ensemble 06 / Journal
 ## Matrice vivante de convergence — vision, contrats, UX, réalisation Cursor et preuves
 
-**Version :** v0.1 — 19 novembre 2026 (Europe/Paris)  
-**Statut :** **DOCUMENTED / REVUE D1 CANDIDATE — NOT READY FOR GLOBAL RECEPTION / SCOPE INCOMPLETE**  
+**Version :** v0.2 — 19 novembre 2026 (Europe/Paris)  
+**Statut :** **DOCUMENTED / REVUE D1 DU SECOND HANDOFF — COUVERTURE FONCTIONNELLE NON ENCORE COMPLÈTE / RECETTE MORRIS PENDING**  
 **Périmètre :** Journal du projet : Sujets, mémoire, points ouverts, Décisions, recherche, sources et continuité Nora. La Bibliothèque Documents reste propriétaire de sa propre expérience ; seuls les liens depuis le Journal entrent ici.  
 **Autorité de la vision et des gates :** Morris. **Rôle du présent document :** outil de revue ChatGPT, sans créer de doctrine, de décision D6, de nouvelle spécification produit ni de statut ADOPTED.  
 **Mode Git :** création documentaire sur la branche candidate **sfia/next-journal-conception-fonctionnelle-ux-20261119** ; pas de push produit, PR, merge, mise à jour de la Roadmap, migration ou code.  
@@ -12,7 +12,21 @@
 
 ---
 
-## 1. Conclusion courante — premier handoff Journal du 19/11/2026
+## État courant — revue indépendante du deuxième handoff du 19/11/2026
+
+**Verdict : progrès du socle Journal et Review Pack désormais exploitable ; NOT READY FOR FULL JOURNAL FUNCTIONAL ACCEPTANCE.**
+
+**Source de livraison :** [handoff 7a065cec](https://github.com/mcleland147/sfia-workspace/blob/7a065cec48ddee643cf428b06e5a27012c6d8015/sfia-review-handoff/latest-chatgpt-review.md), blob 685883caabe76ac3cfabeb628cb5430f09b79191. Candidat de code **local uniquement** sfia/next-journal-delivery-20261119 @ 782c93ecd94446f586a2f4f5344f14eb4530e87a (cycle 1 78c3c3b0) : code réuni dans le handoff mais commit/worktree non directement inspectables sur GitHub. Main @ d3d199adb782462b93467934f5f1e8a0c98fb492, candidat documentaire @ b02192e5b447bcef2b150f36277c96fbf5e1b9d9 à l'entrée. Aucun push projet, PR, merge, RECETTE, STABLE ni ADOPTED constaté.
+
+**Résultats déclarés et inspectés :** 13 J-C IMPLEMENTED et 3 PARTIAL selon Cursor ; tsc PASS, lint PASS, cognition UNIT 4/4, Journal PG 10/10, Playwright 1/1 en DEV/e2e. Le handoff de 4 219 lignes contient les nouveaux fichiers complets, le tip des fichiers créés au cycle 1 et les diffs utiles du cycle 2 : la réserve de contenu incomplet du premier handoff est **levée pour la revue statique du pack**, pas pour la vérification du dépôt local ou des commandes réellement exécutées.
+
+**Réserve centrale :** le test Playwright passe quand le Journal ne contient **aucun sujet ni aucune décision**. La sélection du sujet, le split 40/60 et l'agrandissement sont situés dans une condition sur la présence d'un sujet : l'assertion peut être sautée. Le test ne clique ni référence de message exact ni document versionné, et ne vérifie pas un brouillon préexistant conservé. Les captures DEV fournies par Morris montrent des états principalement vides, pas les fiches métier. **Un BROWSER PASS ciblé ne prouve pas onze parcours UX de bout en bout.**
+
+**Responsabilités validées :** Cursor construit/teste les interactions ; ChatGPT contrôle la vision R1/R2/R3/R4 et les oracles fonctionnels ; **Morris assure la revue esthétique et ergonomique finale en RECETTE**. Le pixel-perfect 11/11 n'est **pas un critère de clôture du cycle technique DEV** ; la preuve d'interaction avec données métier reste obligatoire.
+
+Les §§1, 4, 5, 6, 7, 8 et 11 gardent leur valeur **historique v0.1** ; pour l'état présent, lire la **matrice de couverture actualisée au §13**, qui prévaut à portée de preuve équivalente.
+
+## 1. Snapshot historique — premier handoff Journal du 19/11/2026
 
 **Verdict de revue ChatGPT : NOT READY — SCOPE INCOMPLETE / REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING.**
 
@@ -62,7 +76,7 @@ Le premier handoff Cursor [03eda7e8](https://github.com/mcleland147/sfia-workspa
 9. **Un macro-lot cohérent.** Corriger ensemble le domaine propriétaire, l'API, l'UX, les tests et l'as-built lorsque liés. Scinder uniquement si une dépendance/autorité/gate réel impose une frontière.
 10. **Jamais de promotion implicite.** Une matrice D1 et un handoff L3 n'autorisent ni push projet, ni PR, ni merge, ni Gate C, ni ADOPTED ; chaque effet suit son gate Morris.
 
-## 4. Matrice de convergence canonique — J-C01 à J-C16
+## 4. Matrice de convergence initiale — J-C01 à J-C16 (snapshot premier handoff)
 
 **Mode de lecture :** « Cursor » = ce que **déclare le handoff du 19/11** ; « revue » = qualification **sur source handoff**, pas audit du commit local ; « sortie » = oracle réellement exigé par le contrat v0.3. Aucune ligne n'est soldée par une intention ou un fichier seul.
 
@@ -170,6 +184,7 @@ Le premier handoff Cursor [03eda7e8](https://github.com/mcleland147/sfia-workspa
 | Date, candidat et handoff | Réalisations déclarées | Ce qui est inspecté ici | Verdict / impact sur J-C | Décision et suite |
 | --- | --- | --- | --- | --- |
 | **19/11/2026 — premier cycle Delivery Critical** ; candidat local **78c3c3b0** ; [handoff 03eda7e8](https://github.com/mcleland147/sfia-workspace/blob/03eda7e8ffbed23917850befb9cfa676ab18b670/sfia-review-handoff/latest-chatgpt-review.md), blob **f0d1265b…** | Migration 014, journal.ts, parent-aware, projection multipréparation, GET Journal et UI V4 ; tsc PASS, PG 6/6 PASS annoncés ; aucun push projet. | Handoff Git complet **en tant que fichier** (294 lignes), matrice 16 IDs, migration 014 et extrait journal.ts ; **pas** de code produit local/patch complet, ni de logs PG, ni de BROWSER/LIVE. | **NOT READY — SCOPE INCOMPLETE** : 4 absents, 11 partiels, 1 code-only non prouvé ; **REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING**. | Revue Morris des réserves, complément intégré sous GO distinct ; aucun Gate C, push projet, PR, merge ou réception imputé. |
+| **19/11/2026 — second cycle Critical** ; candidat local 782c93ec ; [handoff 7a065cec](https://github.com/mcleland147/sfia-workspace/blob/7a065cec48ddee643cf428b06e5a27012c6d8015/sfia-review-handoff/latest-chatgpt-review.md) | J-C04/06/13/14 raccordés, 4 UNIT+10 PG+1 BROWSER PASS annoncés, 13 IMPLEMENTED/3 PARTIAL selon Cursor. | Code/diffs du pack 4 219 lignes inspectés et captures DEV fournies, tests fonctionnels sur données vides, pas de code produit local accessible. | **REVIEW PACK CONTENT COMPLETE / FUNCTIONAL COVERAGE PARTIAL** : écarts E06-01..06, pas de réception. | Complément DEV probant, revue Morris en RECETTE distincte, aucun push projet/PR/merge inféré. |
 
 **Règle de version :** à chaque nouveau handoff, garder cette ligne historique ; ajouter une **ligne datée avec SHA exact** et revoir §1, §4, §5, §7 et §8. Les résultats plus récents prévalent **uniquement sur le périmètre qu'ils prouvent**. Un nouveau BROWSER ne transforme pas un ancien test PG absent en PASS rétroactif.
 
@@ -192,7 +207,7 @@ Le premier handoff Cursor [03eda7e8](https://github.com/mcleland147/sfia-workspa
 
 **F. Verdict fondé sur les preuves.** Mettre à jour le présent fichier sur mandat Git borné, publier SHA/diff/relecture distante, et produire l'un des verdicts exacts : **NOT READY — SCOPE INCOMPLETE**, **REVIEW PACK INCOMPLETE**, **READY FOR MORRIS REVIEW WITH RESERVES**, ou **READY FOR MORRIS REVIEW** seulement quand la couverture applicable est démontrée. Morris décide ensuite réception/promotion ; ChatGPT ne clôt pas les réserves à sa place.
 
-## 11. Registre des lacunes et conditions de sortie
+## 11. Registre initial des lacunes (snapshot premier handoff)
 
 | Lacune actuelle | Nature | Sortie vérifiable | Statut |
 | --- | --- | --- | --- |
@@ -207,9 +222,60 @@ Le premier handoff Cursor [03eda7e8](https://github.com/mcleland147/sfia-workspa
 
 **Aucune sortie n'est acquise du fait de la création de cette matrice.** Les travaux restent dans l'Ensemble 06 Journal ; la conception des autres surfaces Documents ne doit pas être absorbée en douce dans ce contrôle.
 
+## 13. Revue actuelle — second cycle Cursor, matrice J-C01 à J-C16
+
+**Nature de la preuve :** code et diffs **reproduits dans le Review Pack**, pas inspection exécutable du worktree local. Tests UNIT/PG/BROWSER PASS **rapportés** par Cursor et examinés sur leurs assertions ; les captures fournies dans cette conversation sont des observations DEV. **Aucune acceptation Morris** par la présente matrice.
+
+| ID | Évolution observée dans le pack v2 | Qualification indépendante et critère de sortie |
+| --- | --- | --- |
+| **J-C01** | Révisions immuables et append/get summary D4 ; PG rapportés. | **PARTIAL** : stockage présent, mais génération Nora de synthèse cohérente à travers plusieurs échanges et correction autonome non démontrées ; tester D3 vers D4, sources, version et zéro écriture sur bruit. |
+| **J-C02** | parent-aware, reparent et refus de cycle ; PG rapportés. | **PARTIAL** : prouver feuille devenue parent sans perte, homonymes, split/merge avec enfants et choix sémantique par Nora. |
+| **J-C03** | subjectId préservé par les chemins de projection. | **CODE OBSERVABLE / BROWSER PARTIAL** : tester un vrai sujet avec acquis, point rattaché et sélection de fiche. |
+| **J-C04** | Helper de réactivation par recouvrement lexical/cooldown, branché aux snippets D3 ; tests UNIT/PG. | **PARTIAL** : réactivation déterministe existe, mais pertinence en longue reprise multi-session et décision de Nora de la faire apparaître restent à démontrer ; contrôler négatifs et anti-spam. |
+| **J-C05** | Résolution factuelle, restriction D6 inchangée ; PG. | **PARTIAL** : test de résolution utilise une référence documentaire textuelle non démontrée réelle ; refuser source fictive/inaccessible, vérifier portée projet et séparation D6. |
+| **J-C06** | Helpers source/currentness, contradictions et refus d'overclaiming ; UNIT/PG. | **KNOWN GAP ÉLEVÉ** : ref Git main avec SHA **fourni** reçoit CURRENT sans vérification distante du SHA/HEAD. Détection de contradictions principalement lexicale. Source non vérifiée = UNKNOWN/UNVERIFIED, pas CURRENT ; tests ref fausse, source retirée, inférences antagonistes. |
+| **J-C07** | Projection inter-préparations D4 et test isolation deux Pilotes/projets. | **PARTIAL** : aucun scénario montré avec **deux préparations du même projet** ; ajouter source première préparation reprise dans deuxième, isolation et homonymes. |
+| **J-C08** | Recherche dans acquis, raisons, UI recherche/checkbox ; PG et BROWSER ciblés. | **PARTIAL BROWSER** : runtime vide ; exiger résultat de vrai sujet, chemin/rattachement, filtre combiné, erreurs/absence de résultat et droits. |
+| **J-C09** | D6 decisions/restrictions read-only, applicability et historique dans projection ; PG. | **PARTIAL** : écran D6 vide ; vérifier décisions applicable/remplacée/suspendue et restrictions ACTIVE/LIFTED, badge lié à vraie autorité. |
+| **J-C10** | Révision d'explication et fingerprint d'acte D6, PG. | **PARTIAL** : le test écrit une explication de fixture avec source message fictive ; récit réellement construit depuis alternatives, motivations, messages anciens et sources vérifiables reste à démontrer. |
+| **J-C11** | Recherche décisions dans service/API ; PG. | **PARTIAL BROWSER** : recherche saisie sur liste vide ; tester vraie décision et sélection, état, explication et retour. |
+| **J-C12** | Composant plein/split/agrandi, un scénario navigateur et captures vides. | **PARTIAL BROWSER** : split/agrandissement sont conditionnels, non garantis par le test ; semer sujet/parent/décision et tester nominal vers 40/60 vers agrandi puis retour. **VISUAL REVIEW PENDING MORRIS — RECETTE**. |
+| **J-C13** | API message par ID, focus/scroll, état Journal conservé. | **KNOWN GAP** : le test n'ouvre pas de source ; fallback ajoute un ancien message à la **fin du tableau**, potentiellement hors chronologie. Tester ancrage vrai sur >1000 messages, insertion chronologique, brouillon préparé avant navigation, aucun auto-send et retour Journal. |
+| **J-C14** | onOpenDocument raccordé au lecteur canonique D4, revisionId transporté. | **PARTIAL** : aucune référence documentaire cliquée dans le test navigateur ; vérifier version exacte, permission, source retirée, absence de doublon et retour. |
+| **J-C15** | operationId/expectedRevision, PG. | **KNOWN GAP SÉCURITÉ / PARTIAL** : markOpenPointReactivated valide le propriétaire du point mais pas le rattachement réel du point au projectId fourni avant écriture de l'événement. Tester autre projet du même Pilote, concurrence, ACK perdu, permissions des APIs et performance longue conversation. |
+| **J-C16** | As-built/delivery-history actualisés ; tsc/lint, 4 UNIT, 10 PG et 1 BROWSER PASS rapportés ; pack complet. | **PARTIAL QA** : tests ML2/ML3/ML4C/E05 complets, build Next, charge et preuve de continuité globale non établis. Rejouer suites affectées et relier résultats à SHA/lane. |
+
+**Bilan :** 16/16 critères présents ; **13 IMPLEMENTED / 3 PARTIAL déclarés par Cursor**, mais les oracles plus larges de la vision n'ont **pas** été complètement éprouvés. Les quatre critères manquants du premier handoff ont un **code inspectable dans ce nouveau pack** ; ils ne restent donc pas marqués NOT IMPLEMENTED, mais leur conformité métier reste **PARTIAL / NOT YET PROVEN**. Aucun résultat global n'est ADOPTED.
+
+### 13.1. Couverture des captures / UX sans arbitrage esthétique par ChatGPT
+
+| Pièce utilisateur | Ce qui est observable | Ce qui ne l'est pas |
+| --- | --- | --- |
+| figma-835-71.png | Référence V4 Sujets exploration validée dans la conception. | Ce n'est pas un runtime. |
+| runtime-1680-sujets-exploration.png | Journal ouvert en DEV, message « Aucun sujet capitalisé pour l'instant ». | Hiérarchie, contenu sujet, sélection, lecture 40/60, agrandi. |
+| runtime-1680-filtre-points.png | Requête saisie, filtre coché, toujours aucun sujet. | Résultat pertinent, points de plusieurs sujets et retour au sujet. |
+| runtime-1680-decisions.png | Recherche Décisions, aucun acte affiché. | Décision applicable, historique, restriction et explication. |
+| runtime-1280-journal.png | Journal sur largeur compacte, toujours aucune décision. | Fiche D6, navigation/lecture et comportement contextualisé. |
+
+Les captures ont été effectivement partagées dans cette conversation mais **ne sont pas publiées comme preuves Git par cette contribution**. Les critères visuels esthétiques (densité, typographie, fidélité, ergonomie) relèvent de Morris **en RECETTE** ; le fait que les données soient vides est une limite **fonctionnelle de preuve**, pas un jugement esthétique.
+
+### 13.2. Écarts prioritaires et gates de sortie
+
+| Risque | Priorité | Contrôle de sortie exigé |
+| --- | --- | --- |
+| **E06-01 BROWSER sur données vides** | Bloquant pour claim de complétude | Cursor crée un scénario DEV avec sujet autonome/parent, acquis/points, décision D6, message ancien et document versionné ; assertions obligatoires 40/60/agrandi/recherche/retour, aucune branche conditionnelle sautant le parcours central. |
+| **E06-02 mémoire réellement intelligente** | Haute | Nora/D3 consolide et restitue synthèse/explication multi-source, incertitude, reprise et révision ; scénario déterministe significatif puis LIVE uniquement sous GO. |
+| **E06-03 Git currentness** | Haute | Vérification effective repo/ref/SHA et droit avant statut CURRENT, sinon UNKNOWN ; cas ref décalée, fausse et inaccessible. |
+| **E06-04 message exact/ordre et brouillon** | Haute | Source cliquée puis message ancien trouvé à la bonne position, brouillon déjà écrit conservé, retour et zéro envoi, fil long. |
+| **E06-05 portée sécurité événement réactivation** | Haute | Lien point/projet/Pilote revalidé côté serveur, refus interprojets même Pilote, test négatif. |
+| **E06-06 non-régression et API/document D6** | Haute | Test vrai D6 et doc revision, suites ML2/ML3/ML4C/E05, build, erreurs/révocations, contrat DB intact. |
+
+**Verdict de sortie de revue :** **PACK FULL REVIEWABLE — FUNCTIONAL COVERAGE INCOMPLETE / READY FOR MORRIS REVIEW WITH RESERVES**, pas READY FOR RECETTE ni Gate C. **Prochaine action recommandée :** complétude bornée en DEV des points E06-01..06 et tests fonctionnels non vides ; puis GO séparé de Morris pour mise à disposition RECETTE, où il assurera la validation esthétique/UX. Pas de push projet, PR/merge, modification de gouvernance ou de vision par la présente revue.
+
 ## 12. Historique documentaire
 
 | Date/version | Opération et source | Qualification |
 | --- | --- | --- |
 | **19/11/2026 — v0.1** | Création de la matrice vivante Ensemble 06 Journal, à partir du modèle Ensemble 05 v0.10, des contrats validés R1–R4/Journal v1.0, du contrat technique v0.3, des 11 Figma et du premier handoff Git 03eda7e8 | **DOCUMENTED — REVUE D1** ; 16/16 critères tracés ; aucune preuve de livraison complète, aucun effet produit ni adoption |
+| **19/11/2026 — v0.2** | Deuxième handoff 7a065cec, code/diffs et 5 captures comparés aux contrats v1.0/v0.3 ; §13 actualisé 16/16 J-C, E06-01..06 et réservation de la revue visuelle à Morris | **DOCUMENTED / D1 CANDIDATE** ; aucune mutation produit, aucun GO PR/merge/RECETTE/ADOPTED |
 
