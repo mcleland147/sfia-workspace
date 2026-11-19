@@ -1,8 +1,8 @@
 # SFIA Studio Next — Ensemble 06 / Journal
 ## Matrice vivante de convergence — vision, contrats, UX, réalisation Cursor et preuves
 
-**Version :** v0.4 — 19 novembre 2026 (Europe/Paris)  
-**Statut :** **DOCUMENTED / REVUE D1 DU QUATRIÈME HANDOFF — E01 LIVE RÉEL, E02–E20 NON JOUÉS / RECETTE MORRIS PENDING / PAS DE RÉCEPTION GLOBALE**  
+**Version :** v0.5 — 19 novembre 2026 (Europe/Paris)  
+**Statut :** **DOCUMENTED / REVUE D1 DE MISE À DISPOSITION RECETTE JOURNAL — TECHNICALLY AVAILABLE WITH RESERVES / UAT MORRIS PENDING / PAS DE RÉCEPTION GLOBALE**  
 **Périmètre :** Journal du projet : Sujets, mémoire, points ouverts, Décisions, recherche, sources et continuité Nora. La Bibliothèque Documents reste propriétaire de sa propre expérience ; seuls les liens depuis le Journal entrent ici.  
 **Autorité de la vision et des gates :** Morris. **Rôle du présent document :** outil de revue ChatGPT, sans créer de doctrine, de décision D6, de nouvelle spécification produit ni de statut ADOPTED.  
 **Mode Git :** création documentaire sur la branche candidate **sfia/next-journal-conception-fonctionnelle-ux-20261119** ; pas de push produit, PR, merge, mise à jour de la Roadmap, migration ou code.  
@@ -12,7 +12,21 @@
 
 ---
 
-## État courant — quatrième revue indépendante du 19/11/2026 (v0.4)
+## État courant — cinquième revue indépendante du 19/11/2026 (v0.5)
+
+**Verdict ChatGPT : RECETTE TECHNICALLY AVAILABLE WITH RESERVES — READY FOR MORRIS USER ACCEPTANCE ; UAT NOT STARTED.**
+
+**Handoff immuable vérifié :** [31c495af5c5afeadcc5e120b32427ceafd61acf5](https://github.com/mcleland147/sfia-workspace/blob/31c495af5c5afeadcc5e120b32427ceafd61acf5/sfia-review-handoff/latest-chatgpt-review.md), blob ef73c7877819830a1b73fb9615216762b1b32a5d, 734 lignes ; manifeste RECETTE créé FULL, as-built courant FULL et diff utile delivery-history, pack non synthesis-only. Candidat produit **local non publié**, SHA d5bf7eb762a21cc309744bb703926e2c0bc844ed, tree f5c05cb94f5137d06a26107b7003ab1bf073f923 ; main d3d199adb782462b93467934f5f1e8a0c98fb492. Le code du candidat, DB et logs/runtime RECETTE sont **NON OBSERVÉS directement** par ChatGPT ; les assertions de déploiement sont celles de Cursor, revues pour cohérence.
+
+**Mise à disposition déclarée :** même RECETTE existante sur http://127.0.0.1:3200, même service com.sfia.studio.next.recette.ml4d-ux004 et même DB sfia_next_recette_ml4. Passage du build E05 IEINNuPl0bHWJOWkh0ZhG / SHA 5c94c867 vers build Journal PV12SV9VToVGK-ReSxTqk / SHA d5bf7eb7. Migration 014 additive appliquée après dump sur RECETTE ; trois tables D4 vérifiées ; 23 projets et 560 messages avant et après, 196 conversations après. Ancien build E05 conservé avec script de rollback ; **restauration non exercée** et code rollback ≠ restauration automatique de données.
+
+**QA/smoke déclaré :** tsc PASS et 14/14 UNIT Journal/fixture rejoués au cutover ; tests lint/build/PG/BROWSER antérieurs rapportés au même SHA. Navigateur RECETTE : connexion Pilote A de test, portfolio, projet historique, Journal (Sujets/Décisions/recherche), Travail (Nora et huit messages), API Journal 200 authentifiée, 401 sans session, fixtures 403. Le smoke rapporte journalHasSubjects=false : **interface accessible, contenu Journal métier non éprouvé sur ce projet**. Aucune recette utilisateur réalisée.
+
+**Réserves :** suites Playwright complètes ML2/ML4C/E05 NOT RUN ; trois FAIL suite unitaire globale cognitive-policy/github-app-oauth déclarés préexistants sans baseline comparative dans le handoff ; STUDIO_DEV_TEST_LOGIN=1 sur RECETTE et login Pilote A de test, identité Morris normale non éprouvée dans ce smoke ; retour arrière build disponible mais non testé ; compteurs DB non exhaustifs ; documents manifeste/as-built/delivery-history non committés sur la branche produit ; commentaire de migration 014 historiquement limité DEV devenu obsolète après le GO de cutover. Les §16.1–16.4 distinguent les réserves bloquantes ou non pour UAT.
+
+**Gouvernance :** Morris arbitre et exécutera sa propre UAT fonctionnelle et esthétique. Aucun test automatisé de conversation n'est à poursuivre. Aucun push produit, PR, merge, Gate C, STABLE ni ADOPTED. **§16 constitue la matrice de revue actuelle ; les sections précédentes demeurent historiques.**
+
+## État historique — quatrième revue indépendante du 19/11/2026 (snapshot v0.4)
 
 **Verdict ChatGPT : READY FOR MORRIS REVIEW WITH RESERVES — §5 DÉTERMINISTE RENFORCÉ ; NORA LIVE 1/20 UNIQUEMENT ; JOURNAL MULTI-TOURS NOT PROVEN.**
 
@@ -215,6 +229,7 @@ Le premier handoff Cursor [03eda7e8](https://github.com/mcleland147/sfia-workspa
 | **19/11/2026 — second cycle Critical** ; candidat local 782c93ec ; [handoff 7a065cec](https://github.com/mcleland147/sfia-workspace/blob/7a065cec48ddee643cf428b06e5a27012c6d8015/sfia-review-handoff/latest-chatgpt-review.md) | J-C04/06/13/14 raccordés, 4 UNIT+10 PG+1 BROWSER PASS annoncés, 13 IMPLEMENTED/3 PARTIAL selon Cursor. | Code/diffs du pack 4 219 lignes inspectés et captures DEV fournies, tests fonctionnels sur données vides, pas de code produit local accessible. | **REVIEW PACK CONTENT COMPLETE / FUNCTIONAL COVERAGE PARTIAL** : écarts E06-01..06, pas de réception. | Complément DEV probant, revue Morris en RECETTE distincte, aucun push projet/PR/merge inféré. |
 | **19/11/2026 — troisième cycle Critical** ; local a122bf27 ; [handoff 9d56e6a5](https://github.com/mcleland147/sfia-workspace/blob/9d56e6a5d47719c3f1016c3daafbf6d31027024b/sfia-review-handoff/latest-chatgpt-review.md) | E06-05 projet, E06-03 Git UNVERIFIED, E06-04 message, E06-01 E2E seed, E06-02 PG et E06-06 source DB ; tsc/lint/build, UNIT 6/6, PG 12/12, BROWSER 1/1 annoncés. | Handoff 1 450 lignes, 2 créations FULL, 9 diffs relus, test navigateur sur données métier mais encore incomplet ; worktree et tests NON OBSERVÉS directement. | **REVUE AVEC RÉSERVES / NON REÇU** : recherche acquise faux positif titre, retour page.goto, document via URL sans revisionId, cognition et non-régressions. | Compléter QA DEV, gate RECETTE Morris distinct ; pas de push projet/PR/merge. |
 | **19/11/2026 — quatrième cycle Critical / LIVE CampusFlow** ; candidat local d5bf7eb7 ; [handoff 45bd3d37](https://github.com/mcleland147/sfia-workspace/blob/45bd3d375a097e0d01754ab4c985b700d2fd69ca/sfia-review-handoff/latest-chatgpt-review.md) | J-C05/07/08/11/13/14 déterministes améliorés ; tsc/lint/build, PG Journal15, ML3 PG49, BROWSER2 PASS annoncés ; E01 Nora réel COMPLETE. | 2 créations FULL + 8 diffs inspectés ; T0 vide, E01 647s, coût 0,35 USD proxy, E02–E20/T10/T20 NOT RUN ; code local NON OBSERVÉ. | **LIVE 1/20 PARTIAL** ; harnais trop permissif, reprise non prévue, coût/timeout, aucune mémoire LIVE prouvée. | Instrumentation latence + reprise bornée E02 au même projet puis nouvelle revue, aucun push produit/RECETTE. |
+| **19/11/2026 — qualification et cutover RECETTE Journal** ; SHA local d5bf7eb7 ; [handoff 31c495af](https://github.com/mcleland147/sfia-workspace/blob/31c495af5c5afeadcc5e120b32427ceafd61acf5/sfia-review-handoff/latest-chatgpt-review.md) | Même RECETTE E05 :3200 / service / DB ; build PV12SV9VToVGK-ReSxTqk, migration 014 et conservation 23/560 ; API 200/401, fixtures 403, Projet/Journal/Travail smoke PASS déclarés. | Pack 734 lignes, manifeste FULL, as-built FULL et diff historique ; code et runtime locaux non accessibles directement à ChatGPT. | **TECHNICALLY AVAILABLE WITH RESERVES / UAT PENDING** : suites transverses full NOT RUN, 3 unit FAIL, identité test, rollback non exercé, docs locales non commit. | Morris conduit sa campagne ; aucune publication produit/PR/merge/adoption. |
 
 **Règle de version :** à chaque nouveau handoff, garder cette ligne historique ; ajouter une **ligne datée avec SHA exact** et revoir §1, §4, §5, §7 et §8. Les résultats plus récents prévalent **uniquement sur le périmètre qu'ils prouvent**. Un nouveau BROWSER ne transforme pas un ancien test PG absent en PASS rétroactif.
 
@@ -348,7 +363,7 @@ L'absence de validation visuelle pixel-perfect dans DEV ne bloque pas la QA des 
 
 **Complément DEV ciblé de preuve et de comportement**, sans architecture parallèle ni nouvelle migration : tests discriminants sur recherche acquis, décision, version documentaire et retours d'état ; négatifs de sources et permissions ; vrai scénario deux préparations/un projet ; pipeline D3→D4 ; suites de non-régression et sécurité route fixture. Obtenir ensuite un candidat produit immuable, une preuve ENV-01 de DEV, la matrice J-C et le pack vérifiables **avant** éventuel GO Morris de mise à disposition RECETTE. Le produit local a122bf27 ne vaut pas candidat RECETTE automatiquement.
 
-## 15. Revue actuelle — cycle 4 Journal §5 + première épreuve Nora LIVE
+## 15. Revue historique — cycle 4 Journal §5 + première épreuve Nora LIVE (snapshot v0.4)
 
 **Méthode :** code et assertions inspectés dans le handoff, tests PASS annoncés par Cursor sans réexécution indépendante. Les décisions et la réception Morris ne découlent pas du rapport.
 
@@ -413,6 +428,56 @@ L'absence de validation visuelle pixel-perfect dans DEV ne bloque pas la QA des 
 
 **READY FOR MORRIS REVIEW WITH RESERVES — REAL PROVIDER E01 SEUL / 19 TOURS NON JOUÉS / CAPITALISATION JOURNAL LIVE NOT PROVEN.** Handoff Git complet et distant vérifié. Code produit local non publié ; recettes et assertions esthétiques réservées à Morris en RECETTE ; pas de Gate C, PR, merge, STABLE ni ADOPTED.
 
+## 16. Cinquième revue — qualification technique et disponibilité RECETTE
+
+### 16.1. Matrice J-C01 à J-C16 à la mise à disposition
+
+**Important :** code servi, tests DEV, smoke RECETTE et acceptation Morris sont quatre niveaux distincts. Les tests ont été exécutés et rapportés par Cursor, pas indépendamment par ChatGPT.
+
+| ID | Effet de la livraison | Limite actuelle / sortie |
+| --- | --- | --- |
+| **J-C01** | 014 en RECETTE, tables révisions D4 présentes | Synthèse réelle et versions de connaissance non éprouvées par le smoke |
+| **J-C02** | Services de hiérarchie et UI inclus dans le build | Parent/feuille et réorganisation non examinés en RECETTE |
+| **J-C03** | API Journal 200 et navigation réalisée | Sélection d'un sujet et acquis rattaché non démontrés |
+| **J-C04** | Contrats réactivation D3/D4 livrés | Utilité des anciens points ouverts à évaluer en UAT |
+| **J-C05** | Contrats de résolution et refus source indisponible testés en DEV | Vérification factuelle réelle à apprécier sur source pertinente |
+| **J-C06** | Contrats d'honnêteté/provenance issus des cycles précédents | Contradiction et qualification de sources non éprouvées par le smoke |
+| **J-C07** | PG DEV deux préparations d'un projet précédemment PASS | Continuité réelle dans deux préparations non testée en RECETTE |
+| **J-C08** | Onglet Sujets et recherche accessibles | Recherche métier non exercée sur le projet sans sujets |
+| **J-C09** | Vue Décisions et restrictions présentes dans réponse API | Acte D6 et restriction réellement consultés non testés |
+| **J-C10** | Table D4 d'explication D6 présente | Narration contextualisée de décision non exercée |
+| **J-C11** | Recherche Décisions accessible, tests DEV précédents | Recherche de décision réelle non effectuée en RECETTE |
+| **J-C12** | Journal shell servi et onglets visibles | Viewer 40/60 et agrandi non parcourus au smoke ; VISUAL REVIEW PENDING MORRIS — RECETTE |
+| **J-C13** | Travail et huit messages historiques accessibles | Lien exact Journal vers message non parcouru au smoke |
+| **J-C14** | Code de référence documentaire versionnée embarqué | Lien vers révision exacte non exercé au smoke |
+| **J-C15** | DB 014, isolation API 401/403, build et backup | Auth Morris normale, intégrité étendue DB et rollback réel à qualifier |
+| **J-C16** | tsc/14 UNIT/smoke RECETTE PASS rapportés ; ancien build conservé | PARTIAL : trois FAIL suite full unit ; suites ML2/ML4C/E05 complètes NOT RUN |
+
+**Bilan :** les fonctions du Journal sont techniquement disponibles dans la RECETTE existante selon le handoff ; la **conformité utilisateur des seize lignes reste à qualifier**, sans rétrograder les preuves DEV déjà obtenues.
+
+### 16.2. Registre des huit réserves de mise à disposition
+
+| ID | Observation | Qualification / condition de sortie |
+| --- | --- | --- |
+| **DEP-01** | Build RECETTE PV12SV9VToVGK-ReSxTqk et SHA d5bf7eb7 rapportés sur même port/service | READY FOR UAT TECHNIQUE ; si build perçu différent, suspendre et requalifier |
+| **DEP-02** | 014 appliquée après dump, trois tables D4 et compteurs 23/560 inchangés | DB MIGRATION REPORTED VERIFIED ; pas de rollback de données sans gate |
+| **DEP-03** | E05 Travail et projet de huit messages smoke PASS | NON-RÉGRESSION PARTIELLE : composition et E05 complets non rejoués |
+| **DEP-04** | STUDIO_DEV_TEST_LOGIN=1 en RECETTE, session Pilote A DEV utilisée | IDENTITÉ / SESSIONS à qualifier avec vrai accès Morris et profil RECETTE séparé |
+| **DEP-05** | Trois FAIL full unit déclarés préexistants ; ML2/ML4C/E05 NOT RUN | Ne pas convertir en PASS global ; documenter baseline/impact |
+| **DEP-06** | Dump et rollback build préparés, restauration non exécutée | PREPARED NOT EXERCISED ; préserver artefacts et données |
+| **DEP-07** | Manifeste nouveau FULL, as-built FULL, diff delivery-history au handoff | REVIEWABLE, mais docs non committés dans Git produit |
+| **DEP-08** | Commentaire migration 014 anciennement DEV-only dans fichier livré | KNOWN DOC GAP mineur, à synchroniser lors d'un lot utile sans nouveau chantier |
+
+### 16.3. Trajectoire de la campagne utilisateur
+
+**GO existant :** Morris peut commencer la campagne sur le même poste et la même RECETTE au port 3200, sous son identité normale et avec un profil navigateur distinct de DEV. Le scénario manuel à préparer portera sur la progression d'un **projet fictif créé via l'application**, permettant de vérifier sujets, acquis, points ouverts, décisions humaines, recherche, historique, sources et retours. Ne pas injecter de connaissances par script ; les défauts observés seront inscrits dans la matrice et corrigés dans des lots bornés. **Aucun prolongement de la campagne automatisée de conversation antérieure.**
+
+**Préalable pratique :** confirmer que Morris est bien connecté sous l'identité destinée à la recette, non simplement sous le Pilote A de test du smoke. Ne pas déduire un défaut de produit d'une confusion d'identité ou de session.
+
+### 16.4. Verdict / gates
+
+**RECETTE TECHNICALLY AVAILABLE WITH RESERVES — READY FOR MORRIS USER ACCEPTANCE.** Le smoke n'est pas une recette utilisateur. L'acceptation visuelle, ergonomique et métier reste un gate distinct de Morris ; aucun push produit, PR, merge, Gate C, STABLE ou ADOPTED inféré. La mise à jour ici est **documentaire D1 uniquement**.
+
 ## 12. Historique documentaire
 
 | Date/version | Opération et source | Qualification |
@@ -421,4 +486,5 @@ L'absence de validation visuelle pixel-perfect dans DEV ne bloque pas la QA des 
 | **19/11/2026 — v0.2** | Deuxième handoff 7a065cec, code/diffs et 5 captures comparés aux contrats v1.0/v0.3 ; §13 actualisé 16/16 J-C, E06-01..06 et réservation de la revue visuelle à Morris | **DOCUMENTED / D1 CANDIDATE** ; aucune mutation produit, aucun GO PR/merge/RECETTE/ADOPTED |
 | **19/11/2026 — v0.3** | Handoff 9d56e6a5 relu, nouvelle matrice actuelle §14 J-C01..16, réserve faux positif acquis, retours et versions, provenance source, gate E2E et suites ; historique conservé | **DOCUMENTED D1 CANDIDATE** ; sans effet produit/DB/RECETTE, pas de Gate C/ADOPTED |
 | **19/11/2026 — v0.4** | Revue du handoff 45bd3d37, matrice §15 complète J-C01…16/C1…14/LIVE-Q01…08 ; E01 provider réel distinct des 19 non exécutés, latence/coût et reprise qualifiés | **DOCUMENTED D1 CANDIDATE** ; aucune relance LIVE, aucun effet code/DB/RECETTE ni adoption |
+| **19/11/2026 — v0.5** | Handoff 31c495af relu, §16 couvre 16 J-C et 8 réserves DEP-01..08, distinction DEV/smoke/UAT et démarrage de la campagne Morris | **DOCUMENTED D1 CANDIDATE**, aucun effet code/DB/RECETTE, aucun push produit, pas de Gate C |
 
