@@ -3,7 +3,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.8 — 19 novembre 2026 (Europe/Paris) |
+| Version | v0.9 — 19 novembre 2026 (Europe/Paris) |
 | Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
 | Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
@@ -336,7 +336,7 @@ La topologie de persistance, les API, les structures de données, les index éve
 
 Les scénarios sont des **objectifs de conception et futurs oracles candidats** ; ils ne sont pas des résultats de tests exécutés.
 
-## 9. Figma — références initiales et cible à créer après arbitrage
+## 9. Figma — références R3, évolutions V4 et maquettes Recherche/Décisions
 
 Fichier R3 existant : [SFIA Studio Next — Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP).
 
@@ -351,13 +351,13 @@ Fichier R3 existant : [SFIA Studio Next — Figma](https://www.figma.com/design/
 
 Conserver palette, typographie, rail projet et composants de l'application existante ; ne pas présenter une illustration en conversation comme référence géométrique Figma ni comme capture runtime.
 
-### 9.1. Convergence Figma candidate — direction artistique page 05, révision du 19/11/2026
+### 9.1. Historique de convergence Figma — V1/V2 vers V4 (19/11/2026)
 
-**Statut : DESIGN CANDIDAT / NON VALIDÉ MORRIS.** Les premiers écrans Journal 07 ont été expressément jugés visuellement insuffisants et non représentatifs de la direction artistique récente. Une reprise a été demandée sur la **page 05 — Travail avec Nora, Contrat UX v0.7**, considérée comme référence visuelle récente pour le rail, l'en-tête, la finition, la typographie et la sobriété.
+**STATUT HISTORIQUE V1/V2 :** les premiers écrans Journal 07 ont été expressément jugés visuellement insuffisants et non représentatifs de la direction artistique récente. Les contenus de cette sous-section retracent **l'itération antérieure**, et ne doivent pas être lus comme la cible UX courante désormais décrite en §9.3.  Une reprise a été demandée sur la **page 05 — Travail avec Nora, Contrat UX v0.7**, considérée comme référence visuelle récente pour le rail, l'en-tête, la finition, la typographie et la sobriété.
 
 **Action observée :** reprise de la page candidate `07 · ML4D — Journal · Cible UX candidate` (`828:2`) dans le Figma existant ; **copie directe** du rail projet de 246 px et de l'en-tête de 70 px de la frame de référence `05.01 — Travail · Conversation nominale` (`700:39`), puis activation de « Journal » et mise à jour du fil d'Ariane dans chaque écran. **La page 05 et les maquettes R3 sont restées inchangées.** Les anciens frames Journal V1 (828:25, 828:82, 828:122) et leurs deux composants locaux ont été retirés de la page candidate, remplacés par les propositions V2 ci-dessous.
 
-| Maquette candidate actuelle | Direction présentée | Limites et statut |
+| Ancienne maquette / même frame ultérieurement retravaillée | Direction V2 historique | Limites et statut à cette étape |
 | --- | --- | --- |
 | [Journal / Sujets — Exploration (`835:71`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71) | Rail et en-tête empruntés à la page 05 ; arborescence non traitée comme une collection de cartes ; recherche sobre avec raccourci, deux vues, accès secondaire aux points ouverts | **STATIQUE / À VALIDER** ; fonctionnement de recherche, déploiement et navigation non prouvé |
 | [Sujet autonome — Lecture (`835:159`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159) | Composition de lecture en deux colonnes contextuelles, synthèse structurée, acquis, point à reprendre, source conversationnelle clé et actions secondaires | **STATIQUE / À VALIDER** ; textes et liens illustratifs, aucune actualisation technique prouvée |
@@ -375,8 +375,8 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | État | Expérience proposée | Lien Figma |
 | --- | --- | --- |
 | **Exploration** | Rail projet unique, Sujets/Décisions, arborescence dans la surface ; sélectionner un sujet | [Journal / Sujets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71) |
-| **Partagé 50/50 — sujet autonome** | À gauche arborescence avec sélection ; à droite synthèse, acquis et questions pertinents, références essentielles, action Agrandir ; naviguer entre sujets sans fermer la fiche | [Sujet autonome partagé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-26) |
-| **Partagé 50/50 — sujet parent** | Même navigation, mais contenu droit consolidé, mettant en avant les sous-sujets sans recopier leurs détails | [Sujet parent partagé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-131) |
+| **Partagé 40/60 — sujet autonome (V4)** | Le Journal initial se rétracte à gauche en conservant titre/onglets/recherche/arborescence ; à droite synthèse, acquis, questions, références, action Agrandir ; naviguer sans changer d'espace | [Sujet autonome partagé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-26) |
+| **Partagé 40/60 — sujet parent (V4)** | Même navigation du Journal rétracté, contenu droit consolidé et sous-sujets pertinents sans recopier leur détail | [Sujet parent partagé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-131) |
 | **Agrandie — sujet autonome** | Masquer temporairement l'arborescence, développer la fiche et ses repères contextuels, action Réduire | [Sujet autonome agrandi](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159) |
 | **Agrandie — sujet parent** | Lecture consolidée, sous-sujets et repères secondaires dans toute la zone de projet, action Réduire | [Sujet parent agrandi](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-239) |
 
@@ -389,6 +389,27 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 **Recherche — principes désormais acceptés par Morris :** recherche **contextualisée par onglet**, sur **connaissances capitalisées Sujets** ou **actes D6 Décisions**, sans transcript global, avec résultat ouvrant la visionneuse ; filtre transversal « Points ouverts » discret dans Sujets. Les états/variantes visuelles restent à revoir et valider sur Figma (§6). Le raccourci `⌘K` n'a pas été validé.
 
 **Gate :** proposition visuelle à réviser avec Morris ; ne pas déduire un GO technique, une couverture navigateur ou une adoption de ces frames.
+
+### 9.3. Extension Figma v0.9 — Recherche, Points ouverts et Décisions (19/11/2026)
+
+**Statut : FIGMA NATIVE / DESIGN CANDIDAT À PRÉSENTER À MORRIS ; maquettes NON INTERACTIVES / comportements NON PROUVÉS.** Cette extension suit l'acceptation des principes fonctionnels (§6) et la direction artistique **V4 retenue comme base visuelle de travail**, avec le même rail projet et la même grammaire de lecture 40/60 → agrandie. Elle ne crée aucun nouveau domaine ni second registre de décisions.
+
+**Frames V4 Sujets déjà présentes et préservées :** [Exploration `835:71`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71), [Sujet autonome 40/60 `842:26`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-26), [Sujet parent 40/60 `842:131`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-131), [Sujet autonome agrandi `835:159`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159), [Sujet parent agrandi `835:239`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-239). Un **filtre secondaire « Points ouverts » non activé** a été ajouté aux trois vues Sujets où le contexte de recherche est visible ; ce n'est plus le bouton d'en-tête supprimé antérieurement.
+
+| Nouvel état Figma candidat | Fonction visualisée | Frontières et point de revue |
+| --- | --- | --- |
+| [Recherche Sujets — correspondances et fiche 40/60 (`859:42`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=859-42) | Requête « traçabilité » ; résultats dans titres/connaissances, raison de correspondance et chemin hiérarchique ; sujet sélectionné ouvert à droite | **Démonstration illustrative** ; pas de moteur, de score de pertinence ou de vérité source prouvés |
+| [Sujets — filtre Points ouverts activé (`859:146`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=859-146) | Projection de trois points de sujets différents, point sélectionné contextualisé dans la visionneuse, origine et retour | **Pas de clôture/levée** d'une réserve D6 par simple consultation ; cumul avec recherche à qualifier |
+| [Décisions — vue nominale (`860:58`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-58) | Même Journal, onglet Décisions, recherche propre, liste d'arbitrages durables, états actuel/historique/suspendu différenciés | Les trois décisions affichées **sont fictives** et ne correspondent à aucun enregistrement D6 consulté |
+| [Décisions — lecture 40/60 (`860:136`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-136) | Liste conservée à gauche ; à droite **choix retenu** distinct du **« Pourquoi ce choix ? »** synthétique et du contexte/état D6 | Synthèse explicative démonstrative, pas motif officiel opposable ni réalisation du moteur Nora |
+| [Recherche Décisions — résultat 40/60 (`860:251`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-251) | Requête « journal », décision pertinente retrouvée, sélection et explication disponibles sans changement d'espace | Un résultat fictif montré ; recherche réelle, pertinence et isolation interprojets à tester |
+| [Décision — lecture agrandie et motivations (`860:360`)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-360) | Présentation éditoriale développée du raisonnement contextualisé, origine R1 illustrative, repères auteur/portée/historique, retour au mode partagé | **Acte D6 d'exemple explicitement non enregistré** ; les motifs documentés ne deviennent pas une décision autonome |
+
+**Conception de l'exemple de décision :** « Organisation du Journal » illustre l'évolution historique documentée en R1, de quatre rubriques envisagées vers deux vues dédiées avec accès transversal aux points ouverts. Cette histoire sert à démontrer **la valeur d'une synthèse explicative du cheminement** plutôt qu'un message recopié. **Les identifiants D-EX01..03, états et fiches D6 de l'écran sont des scénarios UX fictifs, non des décisions réelles ou une preuve de persistance.**
+
+**Contrôles Figma observés :** page `07 · ML4D — Journal · Cible UX candidate` (`828:2`), **11 frames** éditables 1680 × 970 (5 anciennes V4 + 6 nouvelles), rail projet 246 px (réutilisé de la page 05), en-tête 70 px, polices Inter et fichiers sources historiques conservés. Captures visuelles des nouveaux états relues ; chevauchement de libellé de démonstration corrigé et recherche « journal » limitée à son résultat représentatif. **Aucun test d'interaction, de stockage, d'accessibilité responsive, de recherche effective, de sécurité D6 ou de runtime n'est attesté.**
+
+**Révision demandée à Morris :** parcours de recherche (résultat et point ouvert), densité du 40/60 Décisions, distinction choix officiel / explication contextuelle, statut et historique, intérêt du mode agrandi, absence de surcharge et cohérence V4. La validation visuelle et la validation finale du contrat **restent à prononcer explicitement**, avant réconciliation code/architecture et macro-lot technique Cursor.
 
 ## 10. Registre vivant des arbitrages
 
@@ -481,5 +502,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | 19/11/2026 — v0.6 | Rejet de la direction artistique Figma V1 par Morris, reconstruction des trois écrans selon la page 05 (rail et en-tête réutilisés), références Figma V2 réconciliées, V1 candidate retirée | **DESIGN CANDIDAT / À REVOIR AVEC MORRIS**, aucune validation du design ni du fonctionnement |
 | 19/11/2026 — v0.7 | Navigation candidate Exploration → 50/50 persistant → lecture agrandie ; référence aux écrans 05.09/05.11, deux nouvelles frames partagées, agrandissement réversible, retrait du bouton « Points à reprendre » et du raccourci recherche non spécifiés | **DESIGN CANDIDAT / PARCOURS À ARBITRER**, aucun code ni test produit |
 | 19/11/2026 — v0.8 | Consolidation Morris : V4 visuelle, 40/60 adaptatif, recherche contextualisée par onglet, filtre Points ouverts, Décisions D6 durables, synthèse sémantique contextualisée des motifs et arbitrages, limites d'autorité, cas de recette et points Figma à présenter | **PRINCIPES FONCTIONNELS ACCEPTÉS / DOCUMENTED**, validation UX finale et technique en attente |
+| 19/11/2026 — v0.9 | Six frames Figma natives candidates ajoutées pour résultats Sujets, filtre Points ouverts, Décisions nominale, sélection et recherche 40/60, décision agrandie avec motifs synthétisés ; cohérence visuelle V4 et avertissement sur les actes fictifs | **DESIGN CANDIDAT / À REVOIR AVEC MORRIS** ; ni validation D6 ni preuve runtime |
 
-**Suite immédiate :** matérialiser sur la page Figma Journal V4 les états de **recherche Sujets**, du **filtre Points ouverts** et de **Décisions (liste, recherche, lecture 40/60 et agrandie)** ; revue Morris. Ensuite seulement réconciliation de l'existant/code et préparation du contrat technique selon SEF/SFIA v2.6, gates et mandat distincts. Aucun GO code, Gate C, merge ou ADOPTED déduit.
+**Suite immédiate :** revue Morris des **six nouveaux états Figma** et de leur cohérence avec les cinq écrans Sujets V4 (§9.3), ajustements UX ciblés si nécessaires et gate de validation du contrat fonctionnel/visuel. **Ensuite** réconciliation des flux, propriétaires, code et preuves D3/D4/D6 existants, qualification blast radius/risques, puis contrat technique et prompt Cursor selon SEF/SFIA v2.6 sous GO technique distinct. Aucun Gate C, PR/merge, implémentation ou ADOPTED implicite.
