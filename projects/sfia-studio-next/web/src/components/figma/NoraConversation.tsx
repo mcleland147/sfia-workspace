@@ -42,6 +42,10 @@ export function NoraConversation(props: {
   choiceFrozen?: boolean;
   forceStickToken?: number;
   layoutMode?: "normal" | "split" | "enlarged";
+  /** J-C13 — scroll/highlight exact message without sending. */
+  focusMessageId?: string | null;
+  onFocusMessageHandled?: () => void;
+  focusStatus?: string | null;
 }) {
   const n = props.messages.length;
   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
@@ -73,6 +77,28 @@ export function NoraConversation(props: {
     el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
   }, [props.draft]);
 
+  useEffect(() => {
+    const targetId = props.focusMessageId?.trim();
+    if (!targetId) return;
+    const root = threadRef.current;
+    if (!root) return;
+    const node = root.querySelector(`[data-message-id="${CSS.escape(targetId)}"]`) as HTMLElement | null;
+    if (!node) {
+      props.onFocusMessageHandled?.();
+      return;
+    }
+    node.scrollIntoView({ block: "center", behavior: "smooth" });
+    node.setAttribute("data-journal-focus", "1");
+    node.classList.add("is-journal-focus");
+    const t = window.setTimeout(() => {
+      node.classList.remove("is-journal-focus");
+      node.removeAttribute("data-journal-focus");
+      props.onFocusMessageHandled?.();
+    }, 2400);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.focusMessageId, props.messages.length]);
+
   const projectionByMessage = new Map(
     (props.projections ?? []).map((p) => [p.messageId ?? "", p]),
   );
@@ -102,6 +128,11 @@ export function NoraConversation(props: {
           <span className="fig-tag fig-tag-muted">{variantLabel}</span>
           {props.unresolvedPending ? (
             <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
+          ) : null}
+          {props.focusStatus ? (
+            <span className="fig-tag fig-tag-warn" data-testid="nora-focus-status">
+              {props.focusStatus}
+            </span>
           ) : null}
           {newBelow ? (
             <button

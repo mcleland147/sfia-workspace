@@ -4,6 +4,22 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-COMPLETION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~09:40 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 completion |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Complétude J-C04/06/13/14 + PARTIAL + BROWSER DEV |
+| Candidate local | `sfia/next-journal-delivery-20261119` (post-78c3c3b0) |
+| Scope | Réactivation D3/D4 · sources/contradictions · message/doc deep-link · UI search reason · PG+BROWSER |
+| QA | tsc PASS · lint PASS · unit 4/4 · PG 10/10 · Playwright journal-v4 1/1 |
+| Lane | DEV/e2e `:5433` / `:3101` — RECETTE intacte (014 absente) |
+| Preuves | `.tmp-sfia-review/journal-v4-captures/` (local, non commit) |
+| Verdict Cursor | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 COMPLETION LOCAL` |
+
+
 ## delivery_id: DELIV-2026-11-18-UX01-07-RECETTE
 
 | Field | Value |

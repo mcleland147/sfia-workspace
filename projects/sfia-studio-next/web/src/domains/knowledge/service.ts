@@ -669,12 +669,14 @@ export async function listKnowledge(pilotId: string, preparationId: string) {
 export async function selectRelevantKnowledgeContext(
   pilotId: string,
   preparationId: string,
-  _userText: string,
+  userText: string,
   opts?: {
     limit?: number;
     preferredAcquisIds?: string[];
     preferredOpenPointIds?: string[];
     preferredSubjectIds?: string[];
+    /** When set, also scan project-scoped OPEN points for J-C04 reactivation. */
+    projectId?: string | null;
   },
 ) {
   const { subjects, acquis, openPoints } = await listKnowledge(pilotId, preparationId);
@@ -698,6 +700,26 @@ export async function selectRelevantKnowledgeContext(
   const pickedSubjects = preferThenRest(activeSubjects, prefS, 5);
 
   const snippets: string[] = [];
+  const reactivatedOpenPointIds: string[] = [];
+
+  if (opts?.projectId) {
+    const { selectOpenPointsForReactivation } = await import(
+      "@/domains/knowledge/journal-cognition"
+    );
+    const reactivation = await selectOpenPointsForReactivation(
+      pilotId,
+      opts.projectId,
+      userText,
+      { limit: 2 },
+    );
+    for (const c of reactivation.candidates) {
+      reactivatedOpenPointIds.push(c.openPointId);
+      snippets.push(
+        `POINT_OUVERT_REACTIVATE[${c.openPointId}/${c.score.toFixed(2)}] subject=${c.subjectId ?? "∅"}: ${c.statement.slice(0, 240)} | reason=${c.reason}`,
+      );
+    }
+  }
+
   for (const a of pickedAcquis) {
     const mark = prefA.has(a.id) ? "PREFERRED" : "AVAILABLE";
     snippets.push(
@@ -705,6 +727,7 @@ export async function selectRelevantKnowledgeContext(
     );
   }
   for (const o of pickedOpen) {
+    if (reactivatedOpenPointIds.includes(o.id)) continue;
     const mark = prefO.has(o.id) ? "PREFERRED" : "AVAILABLE";
     snippets.push(
       `POINT_OUVERT[${o.id}/${mark}] subject=${o.subjectId ?? "∅"}: ${o.statement.slice(0, 240)} | provenance=${o.provenanceJson.slice(0, 120)}`,
@@ -721,15 +744,22 @@ export async function selectRelevantKnowledgeContext(
       subjects: subjects.length,
       acquisCurrent: acquis.filter((a) => a.status === "CURRENT").length,
       openPoints: openPoints.filter((o) => o.status === "OPEN").length,
+      reactivatedOpenPoints: reactivatedOpenPointIds.length,
     },
     selectedAcquisIds: pickedAcquis.map((a) => a.id),
-    selectedOpenPointIds: pickedOpen.map((o) => o.id),
+    selectedOpenPointIds: [
+      ...reactivatedOpenPointIds,
+      ...pickedOpen.map((a) => a.id).filter((id) => !reactivatedOpenPointIds.includes(id)),
+    ],
+    reactivatedOpenPointIds,
     selectionMethod:
-      prefA.size || prefO.size || prefS.size
-        ? ("semantic-preferred-then-bounded" as const)
-        : ("bounded-resource-listing" as const),
+      reactivatedOpenPointIds.length > 0
+        ? ("reactivation-then-preferred-bounded" as const)
+        : prefA.size || prefO.size || prefS.size
+          ? ("semantic-preferred-then-bounded" as const)
+          : ("bounded-resource-listing" as const),
     selectionLimit:
-      "RG-KNOW-011: ids préférés Nora d'abord, sinon listing borné droits/état — pas de scoring lexical métier.",
+      "RG-KNOW-011 + J-C04: réactivation contextuelle des points ouverts projet, puis ids préférés / listing borné — pas de clôture par silence.",
   };
 }
 

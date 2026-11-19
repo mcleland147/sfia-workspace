@@ -16,6 +16,12 @@ import {
   projects,
 } from "@/db/schema";
 import type { Provenance } from "@/domains/knowledge/service";
+import {
+  assertHonestSynthesisInput,
+  detectAcquisContradictions,
+  qualifyProvenanceSource,
+  type ExtendedProvenance,
+} from "@/domains/knowledge/journal-cognition";
 import { StudioError } from "@/lib/http-errors";
 import { newId } from "@/lib/ids";
 
@@ -225,6 +231,10 @@ export async function appendSubjectSummaryRevision(
     idempotencyKey?: string;
     expectedRevision?: number;
     sourceFingerprint?: string;
+    /** Optional qualified sources already evaluated by D3/D4 (J-C06). */
+    qualifiedSources?: Awaited<ReturnType<typeof qualifyProvenanceSource>>[];
+    /** When true (default), refuse overclaiming established facts over unresolved contradictions. */
+    enforceHonesty?: boolean;
   },
 ) {
   const markdown = input.summaryMarkdown.trim();
@@ -235,6 +245,39 @@ export async function appendSubjectSummaryRevision(
   const subject = await loadOwnedSubjectForProject(pilotId, projectId, subjectId);
   if (!subject) return { status: "FAILED" as const, reason: "NOT_FOUND" };
   if (subject.status !== "ACTIVE") return { status: "FAILED" as const, reason: "SUBJECT_NOT_ACTIVE" };
+
+  if (input.enforceHonesty !== false) {
+    const acquisRows = await db
+      .select({
+        id: knowledgeAcquis.id,
+        subjectId: knowledgeAcquis.subjectId,
+        statement: knowledgeAcquis.statement,
+        status: knowledgeAcquis.status,
+        kind: knowledgeAcquis.kind,
+      })
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.ownerPilotId, pilotId),
+          eq(knowledgeAcquis.subjectId, subjectId),
+          eq(knowledgeAcquis.status, "CURRENT"),
+        ),
+      );
+    const contradictions = detectAcquisContradictions(acquisRows);
+    const sources =
+      input.qualifiedSources ??
+      (await Promise.all([
+        qualifyProvenanceSource(pilotId, input.provenance as ExtendedProvenance),
+      ]));
+    const honesty = assertHonestSynthesisInput({
+      summaryMarkdown: markdown,
+      contradictions,
+      sources,
+    });
+    if (!honesty.ok) {
+      return { status: "SKIPPED" as const, reason: honesty.reason };
+    }
+  }
 
   if (input.operationId) {
     const prior = (
@@ -480,6 +523,17 @@ export async function resolveOpenPointFactually(
     return { status: "AVAILABLE" as const, openPointId, alreadyResolved: true as const };
   }
 
+  // J-C05 — factual D4 resolve never mutates D6 restrictions. Snapshot ACTIVE count for callers/tests.
+  const activeRestrictionsBefore = await db
+    .select({ id: governanceRestrictions.id })
+    .from(governanceRestrictions)
+    .where(
+      and(
+        eq(governanceRestrictions.projectId, projectId),
+        eq(governanceRestrictions.status, "ACTIVE"),
+      ),
+    );
+
   if (input.operationId) {
     const prior = (
       await db
@@ -520,7 +574,24 @@ export async function resolveOpenPointFactually(
         provenanceJson: provenanceString(input.provenance),
         operationId: input.operationId ?? null,
       });
-      return { status: "AVAILABLE" as const, openPointId, eventId };
+      const activeRestrictionsAfter = await tx
+        .select({ id: governanceRestrictions.id })
+        .from(governanceRestrictions)
+        .where(
+          and(
+            eq(governanceRestrictions.projectId, projectId),
+            eq(governanceRestrictions.status, "ACTIVE"),
+          ),
+        );
+      if (activeRestrictionsAfter.length !== activeRestrictionsBefore.length) {
+        throw new Error("D6_RESTRICTION_MUTATION_FORBIDDEN");
+      }
+      return {
+        status: "AVAILABLE" as const,
+        openPointId,
+        eventId,
+        activeRestrictionIds: activeRestrictionsAfter.map((r) => r.id),
+      };
     });
   } catch (e) {
     return {
@@ -865,6 +936,7 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
       objectRef: humanDecisions.objectRef,
       sourceKind: humanDecisions.sourceKind,
       sourceRef: humanDecisions.sourceRef,
+      supersedesDecisionId: humanDecisions.supersedesDecisionId,
       effectiveAt: humanDecisions.effectiveAt,
       createdAt: humanDecisions.createdAt,
     })
@@ -872,11 +944,21 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
     .where(eq(humanDecisions.projectId, projectId))
     .orderBy(desc(humanDecisions.createdAt));
 
+  const supersededBy = new Map<string, string>();
+  for (const d of decisionRows) {
+    if (d.supersedesDecisionId) {
+      supersededBy.set(d.supersedesDecisionId, d.id);
+    }
+  }
+
   const decisions = [];
   for (const d of decisionRows) {
     const expl = await getCurrentDecisionExplanation(pilotId, projectId, d.id);
+    const applicable = d.state === "APPLICABLE" && !supersededBy.has(d.id);
     decisions.push({
       ...d,
+      applicable,
+      supersededByDecisionId: supersededBy.get(d.id) ?? null,
       explanation:
         expl.status === "AVAILABLE" && expl.explanation
           ? {
@@ -897,9 +979,85 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
       originDecisionId: governanceRestrictions.originDecisionId,
     })
     .from(governanceRestrictions)
-    .where(
-      and(eq(governanceRestrictions.projectId, projectId), eq(governanceRestrictions.status, "ACTIVE")),
-    );
+    .where(eq(governanceRestrictions.projectId, projectId));
 
-  return { knowledge, decisions, restrictions };
+  const contradictions = detectAcquisContradictions(
+    knowledge.acquis.map((a) => ({
+      id: a.id,
+      subjectId: a.subjectId,
+      statement: a.statement,
+      status: a.status,
+      kind: a.kind,
+    })),
+  );
+
+  const sourceLinks: Array<{
+    ownerKind: "acquis" | "open_point" | "summary";
+    ownerId: string;
+    subjectId: string | null;
+    sourceKind: string;
+    sourceId?: string;
+    documentId?: string;
+    revisionId?: string;
+    currentness: string;
+    detail: string;
+  }> = [];
+
+  for (const a of knowledge.acquis) {
+    if (a.status !== "CURRENT") continue;
+    try {
+      const prov = JSON.parse(a.provenanceJson) as ExtendedProvenance;
+      const q = await qualifyProvenanceSource(pilotId, prov);
+      sourceLinks.push({
+        ownerKind: "acquis",
+        ownerId: a.id,
+        subjectId: a.subjectId,
+        sourceKind: q.sourceKind,
+        sourceId: q.sourceId,
+        documentId: q.documentId,
+        revisionId: q.revisionId,
+        currentness: q.currentness,
+        detail: q.detail,
+      });
+    } catch {
+      /* provenance JSON corrupt — omit rather than invent */
+    }
+  }
+  for (const o of knowledge.openPoints) {
+    try {
+      const prov = JSON.parse(o.provenanceJson) as ExtendedProvenance;
+      const q = await qualifyProvenanceSource(pilotId, prov);
+      sourceLinks.push({
+        ownerKind: "open_point",
+        ownerId: o.id,
+        subjectId: o.subjectId,
+        sourceKind: q.sourceKind,
+        sourceId: q.sourceId,
+        documentId: q.documentId,
+        revisionId: q.revisionId,
+        currentness: q.currentness,
+        detail: q.detail,
+      });
+    } catch {
+      /* omit */
+    }
+  }
+
+  return {
+    knowledge: {
+      ...knowledge,
+      acquis: knowledge.acquis.map((a) => ({
+        ...a,
+        provenanceJson: a.provenanceJson,
+      })),
+      openPoints: knowledge.openPoints.map((o) => ({
+        ...o,
+        provenanceJson: o.provenanceJson,
+      })),
+    },
+    decisions,
+    restrictions,
+    contradictions,
+    sourceLinks,
+  };
 }

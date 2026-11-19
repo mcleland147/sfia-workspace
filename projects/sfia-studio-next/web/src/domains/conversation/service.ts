@@ -919,7 +919,9 @@ export async function postUserMessageAndNora(
 
   // F4: pre-Nora context ONLY feeds generation. Post-qual preferred ids are resume hints,
   // never claimed as having nourished the reply already produced.
-  const knowledgeForNora = await selectRelevantKnowledgeContext(pilotId, preparationId, content);
+  const knowledgeForNora = await selectRelevantKnowledgeContext(pilotId, preparationId, content, {
+    projectId: ctx.project?.id ?? null,
+  });
   let knowledgeResumeHints: Awaited<ReturnType<typeof selectRelevantKnowledgeContext>> | null =
     null;
 

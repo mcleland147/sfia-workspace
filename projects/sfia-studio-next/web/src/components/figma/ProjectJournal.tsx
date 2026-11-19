@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 
 export type JournalSubject = {
@@ -39,6 +39,8 @@ export type JournalDecision = {
   objectRef: string;
   effectiveAt: string;
   createdAt: string;
+  applicable?: boolean;
+  supersededByDecisionId?: string | null;
   explanation?: {
     revisionNumber: number;
     explanationMarkdown: string;
@@ -52,6 +54,37 @@ export type JournalRestriction = {
   targetRef: string;
   status: string;
   originDecisionId: string | null;
+};
+
+export type JournalSourceLink = {
+  ownerKind: "acquis" | "open_point" | "summary";
+  ownerId: string;
+  subjectId: string | null;
+  sourceKind: string;
+  sourceId?: string;
+  documentId?: string;
+  revisionId?: string;
+  currentness: string;
+  detail: string;
+};
+
+export type JournalContradiction = {
+  leftAcquisId: string;
+  rightAcquisId: string;
+  subjectId: string | null;
+  status: "UNRESOLVED";
+  leftStatement: string;
+  rightStatement: string;
+  reason: string;
+};
+
+export type JournalNavState = {
+  tab: "subjects" | "decisions";
+  search: string;
+  openPointsOnly: boolean;
+  selectedSubjectId: string | null;
+  selectedDecisionId: string | null;
+  layout: "full" | "split" | "enlarged";
 };
 
 type Tab = "subjects" | "decisions";
@@ -96,25 +129,29 @@ function SubjectTreeNodes(props: {
   openPointsOnly: boolean;
   openBySubject: Map<string, number>;
   search: string;
+  matchBySubject: Map<string, string>;
   onSelect: (id: string) => void;
 }) {
   const nodes = props.tree.get(props.parentId) ?? [];
   if (nodes.length === 0) return null;
+  const q = props.search.trim().toLowerCase();
+  const nodeVisible = (s: JournalSubject): boolean => {
+    const openCount = props.openBySubject.get(s.id) ?? 0;
+    if (props.openPointsOnly && openCount === 0) {
+      const childOpen = (props.tree.get(s.id) ?? []).some((c) => nodeVisible(c));
+      if (!childOpen) return false;
+    }
+    if (!q) return true;
+    if (props.matchBySubject.has(s.id)) return true;
+    const children = props.tree.get(s.id) ?? [];
+    return children.some((c) => nodeVisible(c));
+  };
   return (
   <ul className="journal-tree-level" data-depth={props.depth}>
       {nodes.map((s) => {
+        if (!nodeVisible(s)) return null;
         const openCount = props.openBySubject.get(s.id) ?? 0;
-        if (props.openPointsOnly && openCount === 0) {
-          const childOpen = (props.tree.get(s.id) ?? []).some(
-            (c) => (props.openBySubject.get(c.id) ?? 0) > 0,
-          );
-          if (!childOpen) return null;
-        }
-        const hay = `${s.title} ${s.summary?.summaryMarkdown ?? ""}`.toLowerCase();
-        if (props.search.trim() && !hay.includes(props.search.trim().toLowerCase())) {
-          const childVisible = (props.tree.get(s.id) ?? []).length > 0;
-          if (!childVisible) return null;
-        }
+        const matchReason = props.matchBySubject.get(s.id);
         return (
           <li key={s.id}>
             <button
@@ -125,6 +162,11 @@ function SubjectTreeNodes(props: {
               onClick={() => props.onSelect(s.id)}
             >
               <span className="journal-tree-title">{s.title}</span>
+              {matchReason ? (
+                <span className="fig-tag fig-tag-muted" data-testid={`journal-match-${s.id}`}>
+                  {matchReason}
+                </span>
+              ) : null}
               {openCount > 0 ? (
                 <span className="fig-tag fig-tag-warn" data-testid={`journal-open-count-${s.id}`}>
                   {openCount}
@@ -139,6 +181,7 @@ function SubjectTreeNodes(props: {
               openPointsOnly={props.openPointsOnly}
               openBySubject={props.openBySubject}
               search={props.search}
+              matchBySubject={props.matchBySubject}
               onSelect={props.onSelect}
             />
           </li>
@@ -154,21 +197,46 @@ export function ProjectJournal(props: {
   openPoints: JournalOpenPoint[];
   decisions?: JournalDecision[];
   restrictions?: JournalRestriction[];
+  sourceLinks?: JournalSourceLink[];
+  contradictions?: JournalContradiction[];
   frameId?: string;
+  initialNav?: JournalNavState | null;
+  onNavChange?: (nav: JournalNavState) => void;
+  onOpenMessage?: (messageId: string) => void;
+  onOpenDocument?: (documentId: string, revisionId?: string | null) => void;
   onBackToThread?: () => void;
   /** Sas-only mutation affordance — project Journal stays read-oriented. */
   onRenameSubject?: (id: string, title: string) => void;
   splitSlot?: React.ReactNode;
 }) {
-  const [tab, setTab] = useState<Tab>("subjects");
-  const [search, setSearch] = useState("");
-  const [openPointsOnly, setOpenPointsOnly] = useState(false);
-  const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(null);
-  const [selectedDecisionId, setSelectedDecisionId] = useState<string | null>(null);
-  const [layout, setLayout] = useState<LayoutMode>("full");
+  const [tab, setTab] = useState<Tab>(props.initialNav?.tab ?? "subjects");
+  const [search, setSearch] = useState(props.initialNav?.search ?? "");
+  const [openPointsOnly, setOpenPointsOnly] = useState(props.initialNav?.openPointsOnly ?? false);
+  const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(
+    props.initialNav?.selectedSubjectId ?? null,
+  );
+  const [selectedDecisionId, setSelectedDecisionId] = useState<string | null>(
+    props.initialNav?.selectedDecisionId ?? null,
+  );
+  const [layout, setLayout] = useState<LayoutMode>(props.initialNav?.layout ?? "full");
 
   const decisions = useMemo(() => props.decisions ?? [], [props.decisions]);
   const restrictions = props.restrictions ?? [];
+  const sourceLinks = props.sourceLinks ?? [];
+  const contradictions = props.contradictions ?? [];
+
+  useEffect(() => {
+    props.onNavChange?.({
+      tab,
+      search,
+      openPointsOnly,
+      selectedSubjectId,
+      selectedDecisionId,
+      layout,
+    });
+    // Intentionally sync outward on nav field changes only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, search, openPointsOnly, selectedSubjectId, selectedDecisionId, layout]);
 
   const tree = useMemo(() => buildSubjectTree(props.subjects), [props.subjects]);
   const byId = useMemo(
@@ -185,6 +253,28 @@ export function ProjectJournal(props: {
     return map;
   }, [props.openPoints]);
 
+  /** J-C08 — match title, summary, acquis and open points (reason surfaced on node). */
+  const matchBySubject = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    const map = new Map<string, string>();
+    if (!q) return map;
+    for (const s of props.subjects) {
+      if (s.title.toLowerCase().includes(q)) map.set(s.id, "titre");
+      else if ((s.summary?.summaryMarkdown ?? "").toLowerCase().includes(q)) map.set(s.id, "synthèse");
+    }
+    for (const a of props.acquis) {
+      if (a.status !== "CURRENT" || !a.subjectId) continue;
+      if (a.statement.toLowerCase().includes(q) && !map.has(a.subjectId)) map.set(a.subjectId, "acquis");
+    }
+    for (const o of props.openPoints) {
+      if (o.status !== "OPEN" || !o.subjectId) continue;
+      if (o.statement.toLowerCase().includes(q) && !map.has(o.subjectId)) {
+        map.set(o.subjectId, "point ouvert");
+      }
+    }
+    return map;
+  }, [search, props.subjects, props.acquis, props.openPoints]);
+
   const currentAcquis = props.acquis.filter((a) => a.status === "CURRENT");
   const openPoints = props.openPoints.filter((o) => o.status === "OPEN");
   const emptySubjects =
@@ -198,6 +288,14 @@ export function ProjectJournal(props: {
     ? openPoints.filter((o) => o.subjectId === selectedSubjectId)
     : [];
   const childSubjects = selectedSubjectId ? tree.get(selectedSubjectId) ?? [] : [];
+  const selectedSources = selectedSubjectId
+    ? sourceLinks.filter((s) => s.subjectId === selectedSubjectId)
+    : [];
+  const selectedContradictions = selectedSubjectId
+    ? contradictions.filter((c) => c.subjectId === selectedSubjectId)
+    : [];
+  const activeRestrictions = restrictions.filter((r) => r.status === "ACTIVE");
+  const historicalRestrictions = restrictions.filter((r) => r.status !== "ACTIVE");
 
   const selectedDecision =
     selectedDecisionId != null
@@ -233,9 +331,7 @@ export function ProjectJournal(props: {
   };
 
   const showSearchEmpty =
-    tab === "subjects" &&
-    search.trim().length > 0 &&
-    !props.subjects.some((s) => s.title.toLowerCase().includes(search.trim().toLowerCase()));
+    tab === "subjects" && search.trim().length > 0 && matchBySubject.size === 0;
 
   const showDecisionSearchEmpty =
     tab === "decisions" && search.trim().length > 0 && filteredDecisions.length === 0;
@@ -347,6 +443,7 @@ export function ProjectJournal(props: {
                     openPointsOnly={openPointsOnly}
                     openBySubject={openBySubject}
                     search={search}
+                    matchBySubject={matchBySubject}
                     onSelect={pickSubject}
                   />
                 )}
@@ -450,6 +547,39 @@ export function ProjectJournal(props: {
                         ))
                       )}
                     </section>
+                    {selectedContradictions.length > 0 ? (
+                      <section className="space-y-2" data-testid="journal-contradictions">
+                        <h4 className="text-sm font-medium">Contradictions non résolues</h4>
+                        {selectedContradictions.map((c) => (
+                          <div
+                            key={`${c.leftAcquisId}-${c.rightAcquisId}`}
+                            className="fig-msg text-sm"
+                            data-testid={`journal-contradiction-${c.leftAcquisId}`}
+                          >
+                            <span className="fig-tag fig-tag-warn mr-2">UNRESOLVED</span>
+                            {c.reason}
+                            <p className="text-xs muted mt-1">A · {c.leftStatement.slice(0, 160)}</p>
+                            <p className="text-xs muted">B · {c.rightStatement.slice(0, 160)}</p>
+                          </div>
+                        ))}
+                      </section>
+                    ) : null}
+                    {selectedSources.length > 0 ? (
+                      <section className="space-y-2" data-testid="journal-sources">
+                        <h4 className="text-sm font-medium">Sources</h4>
+                        <ul className="journal-source-list">
+                          {selectedSources.map((s) => (
+                            <li key={`${s.ownerKind}-${s.ownerId}-${s.sourceId ?? s.revisionId ?? s.documentId}`}>
+                              <SourceChip
+                                link={s}
+                                onOpenMessage={props.onOpenMessage}
+                                onOpenDocument={props.onOpenDocument}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : null}
                   </div>
                 </>
               ) : (
@@ -473,8 +603,13 @@ export function ProjectJournal(props: {
                   <section className="space-y-2">
                     <h4 className="text-sm font-medium">Choix retenu (D6)</h4>
                     <p className="text-sm">{selectedDecision.statement || "—"}</p>
-                    <p className="text-xs muted">
-                      {selectedDecision.scope} · {selectedDecision.state} · effet{" "}
+                    <p className="text-xs muted" data-testid="journal-decision-applicability">
+                      {selectedDecision.scope} · état={selectedDecision.state}
+                      {selectedDecision.applicable === false ? " · non applicable / historique" : " · applicable"}
+                      {selectedDecision.supersededByDecisionId
+                        ? ` · remplacé par ${selectedDecision.supersededByDecisionId}`
+                        : ""}
+                      {" · effet "}
                       {new Date(selectedDecision.effectiveAt).toLocaleString("fr-FR")}
                     </p>
                   </section>
@@ -495,12 +630,24 @@ export function ProjectJournal(props: {
                       </p>
                     )}
                   </section>
-                  {restrictions.length > 0 ? (
+                  {activeRestrictions.length > 0 ? (
                     <section className="space-y-2">
                       <h4 className="text-sm font-medium">Restrictions D6 actives</h4>
                       <ul className="journal-restriction-list">
-                        {restrictions.map((r) => (
+                        {activeRestrictions.map((r) => (
                           <li key={r.id} className="text-xs muted" data-testid={`journal-restriction-${r.id}`}>
+                            {r.targetKind} · {r.targetRef} ({r.status})
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  ) : null}
+                  {historicalRestrictions.length > 0 ? (
+                    <section className="space-y-2">
+                      <h4 className="text-sm font-medium">Restrictions historiques</h4>
+                      <ul className="journal-restriction-list">
+                        {historicalRestrictions.map((r) => (
+                          <li key={r.id} className="text-xs muted" data-testid={`journal-restriction-hist-${r.id}`}>
                             {r.targetKind} · {r.targetRef} ({r.status})
                           </li>
                         ))}
@@ -550,6 +697,35 @@ function JournalLayoutActions(props: {
   );
 }
 
+function SourceChip(props: {
+  link: JournalSourceLink;
+  onOpenMessage?: (messageId: string) => void;
+  onOpenDocument?: (documentId: string, revisionId?: string | null) => void;
+}) {
+  const s = props.link;
+  const label = `${s.sourceKind} · ${s.currentness}`;
+  const canMessage = s.sourceKind === "message" && Boolean(s.sourceId) && props.onOpenMessage;
+  const docId = s.documentId ?? (s.sourceKind === "document" ? s.sourceId : undefined);
+  const canDoc = Boolean(docId) && Boolean(props.onOpenDocument);
+  return (
+    <button
+      type="button"
+      className="btn secondary journal-source-chip"
+      data-testid={`journal-source-${s.ownerId}`}
+      data-currentness={s.currentness}
+      disabled={!canMessage && !canDoc}
+      title={s.detail}
+      onClick={() => {
+        if (canMessage && s.sourceId) props.onOpenMessage?.(s.sourceId);
+        else if (canDoc && docId) props.onOpenDocument?.(docId, s.revisionId ?? null);
+      }}
+    >
+      <span className="font-medium text-xs">{label}</span>
+      <span className="text-xs muted block">{s.detail.slice(0, 120)}</span>
+    </button>
+  );
+}
+
 function DecisionList(props: {
   decisions: JournalDecision[];
   selectedId: string | null;
@@ -582,6 +758,11 @@ function DecisionList(props: {
           >
             <span className="font-medium text-sm">{d.kind}</span>
             <span className="fig-tag fig-tag-muted">{d.state}</span>
+            {d.applicable === false ? (
+              <span className="fig-tag fig-tag-warn">historique</span>
+            ) : (
+              <span className="fig-tag fig-tag-ok">applicable</span>
+            )}
             <span className="text-xs muted block mt-1">{d.statement.slice(0, 120)}</span>
           </button>
         </li>

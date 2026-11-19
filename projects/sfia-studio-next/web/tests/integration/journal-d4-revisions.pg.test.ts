@@ -4,7 +4,13 @@ config({ path: ".env.local" });
 
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { humanDecisions, knowledgeOpenPoints, pilots, preparations } from "@/db/schema";
+import {
+  governanceRestrictions,
+  humanDecisions,
+  knowledgeOpenPoints,
+  pilots,
+  preparations,
+} from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { capitalizeAcquis, ensureSubject, openPoint } from "@/domains/knowledge/service";
 import {
@@ -12,6 +18,7 @@ import {
   appendSubjectSummaryRevision,
   getCurrentDecisionExplanation,
   getCurrentSubjectSummary,
+  getJournalProjection,
   listProjectKnowledge,
   reopenOpenPoint,
   reparentSubject,
@@ -19,7 +26,15 @@ import {
   searchJournalDecisions,
   searchJournalSubjects,
 } from "@/domains/knowledge/journal";
-import { insertHumanDecision, markDecisionState } from "@/domains/decisions/service";
+import {
+  markOpenPointReactivated,
+  selectOpenPointsForReactivation,
+} from "@/domains/knowledge/journal-cognition";
+import {
+  insertHumanDecision,
+  insertRestriction,
+  markDecisionState,
+} from "@/domains/decisions/service";
 import { createProjectCommand } from "@/domains/preparation/create-project";
 import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
 
@@ -188,5 +203,148 @@ describe("Journal D4 revisions (PG)", () => {
 
     const act = (await db.select().from(humanDecisions).where(eq(humanDecisions.id, decisionId)))[0];
     expect(act.state).toBe("REVISED");
+  });
+
+  it("J-C04 reactivation selects intent-matching OPEN points with cooldown", async () => {
+    const pilotId = await seedPilot("J-react");
+    const { prep, projectId } = await seedLinkedProject(pilotId, "Réactivation");
+    const subj = await ensureSubject(pilotId, prep.id, "GitHub");
+    const pt = await openPoint(pilotId, prep.id, {
+      statement: "Quelle preuve pour la connexion GitHub du dépôt officiel?",
+      subjectId: subj.subjectId,
+      provenance: { sourceKind: "message", sourceId: "m-react-1" },
+    });
+    expect(pt.status).toBe("AVAILABLE");
+    const first = await selectOpenPointsForReactivation(
+      pilotId,
+      projectId,
+      "On reparle de la preuve GitHub pour avancer",
+    );
+    expect(first.candidates.some((c) => c.openPointId === pt.openPointId)).toBe(true);
+
+    const marked = await markOpenPointReactivated(pilotId, projectId, pt.openPointId!, {
+      reason: "réintroduit dans le contexte courant",
+      provenance: { sourceKind: "nora", generationId: "gen-r1" },
+      operationId: "react-op-1",
+    });
+    expect(marked.status).toBe("AVAILABLE");
+
+    const cooled = await selectOpenPointsForReactivation(
+      pilotId,
+      projectId,
+      "preuve GitHub encore pertinente",
+      { now: new Date() },
+    );
+    expect(cooled.candidates.some((c) => c.openPointId === pt.openPointId)).toBe(false);
+  });
+
+  it("J-C05 factual resolve leaves ACTIVE D6 restriction untouched", async () => {
+    const pilotId = await seedPilot("J-d6-restr");
+    const { prep, projectId } = await seedLinkedProject(pilotId, "Restriction");
+    const decisionId = await db.transaction(async (tx) =>
+      insertHumanDecision(tx, {
+        projectId,
+        pilotId,
+        sourceKind: "pilotage",
+        sourceRef: "cmd-restr",
+        kind: "RISK_ACCEPTANCE",
+        objectRef: "risk",
+        statement: "Risque accepté sous restriction ACTIVE",
+      }),
+    );
+    const restrictionId = await db.transaction(async (tx) =>
+      insertRestriction(tx, {
+        projectId,
+        targetKind: "ACTION",
+        targetRef: "publish",
+        originDecisionId: decisionId,
+      }),
+    );
+    const subj = await ensureSubject(pilotId, prep.id, "Publication");
+    const pt = await openPoint(pilotId, prep.id, {
+      statement: "Le détail technique de publication est-il documenté?",
+      subjectId: subj.subjectId,
+      provenance: { sourceKind: "message", sourceId: "m-restr-1" },
+    });
+    const resolved = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
+      reason: "Document technique trouvé",
+      provenance: { sourceKind: "document", sourceId: "doc-tech-1", epistemic: "established" },
+      operationId: "resolve-restr-1",
+    });
+    expect(resolved.status).toBe("AVAILABLE");
+    const restr = (
+      await db
+        .select()
+        .from(governanceRestrictions)
+        .where(eq(governanceRestrictions.id, restrictionId))
+    )[0];
+    expect(restr.status).toBe("ACTIVE");
+  });
+
+  it("J-C06 honesty gate skips overclaiming summary when contradiction open", async () => {
+    const pilotId = await seedPilot("J-honest");
+    const { prep, projectId } = await seedLinkedProject(pilotId, "Honnêteté");
+    const subj = await ensureSubject(pilotId, prep.id, "Connexion");
+    await capitalizeAcquis(pilotId, prep.id, {
+      statement: "La connexion GitHub est établie pour ce projet durable.",
+      kind: "HYPOTHESIS",
+      subjectId: subj.subjectId,
+      provenance: { sourceKind: "message", sourceId: "m-h1", epistemic: "observed" },
+    });
+    await capitalizeAcquis(pilotId, prep.id, {
+      statement: "La connexion GitHub n'est pas établie pour ce projet durable.",
+      kind: "HYPOTHESIS",
+      subjectId: subj.subjectId,
+      provenance: { sourceKind: "message", sourceId: "m-h2", epistemic: "observed" },
+    });
+    const skipped = await appendSubjectSummaryRevision(pilotId, projectId, subj.subjectId!, {
+      summaryMarkdown: "Il est établi que la connexion GitHub fonctionne sans réserve.",
+      provenance: { sourceKind: "nora", generationId: "g-h1", epistemic: "established" },
+      operationId: "sum-overclaim",
+    });
+    expect(skipped.status).toBe("SKIPPED");
+
+    const ok = await appendSubjectSummaryRevision(pilotId, projectId, subj.subjectId!, {
+      summaryMarkdown:
+        "Contradiction ouverte sur la connexion GitHub — incertitude à clarifier avant conclusion.",
+      provenance: { sourceKind: "nora", generationId: "g-h2", epistemic: "limited" },
+      operationId: "sum-honest",
+    });
+    expect(ok.status).toBe("AVAILABLE");
+  });
+
+  it("J-C07 / J-C09 projection isolates foreign project and exposes applicability", async () => {
+    const pilotA = await seedPilot("J-iso-a");
+    const pilotB = await seedPilot("J-iso-b");
+    const a = await seedLinkedProject(pilotA, "Projet A iso");
+    const b = await seedLinkedProject(pilotB, "Projet B iso");
+    const subj = await ensureSubject(pilotA, a.prep.id, "Secret A");
+    await capitalizeAcquis(pilotA, a.prep.id, {
+      statement: "Acquis privé du projet A jamais visible ailleurs.",
+      kind: "HYPOTHESIS",
+      subjectId: subj.subjectId,
+      provenance: { sourceKind: "pilot", epistemic: "observed" },
+    });
+    await expect(listProjectKnowledge(pilotB, a.projectId)).rejects.toMatchObject({
+      code: "NOT_FOUND",
+    });
+    const other = await listProjectKnowledge(pilotB, b.projectId);
+    expect(other.subjects.every((s) => s.title !== "Secret A")).toBe(true);
+
+    const decisionId = await db.transaction(async (tx) =>
+      insertHumanDecision(tx, {
+        projectId: a.projectId,
+        pilotId: pilotA,
+        sourceKind: "pilotage",
+        sourceRef: "cmd-iso",
+        kind: "TRAJECTORY",
+        objectRef: "traj",
+        statement: "Décision applicable du projet A",
+      }),
+    );
+    const proj = await getJournalProjection(pilotA, a.projectId);
+    const row = proj.decisions.find((d) => d.id === decisionId);
+    expect(row?.applicable).toBe(true);
+    expect(row?.state).toBe("APPLICABLE");
   });
 });

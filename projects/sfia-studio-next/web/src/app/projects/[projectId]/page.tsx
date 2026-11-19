@@ -8,8 +8,11 @@ import { NoraConversation } from "@/components/figma/NoraConversation";
 import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
 import {
   ProjectJournal,
+  type JournalContradiction,
   type JournalDecision,
+  type JournalNavState,
   type JournalRestriction,
+  type JournalSourceLink,
 } from "@/components/figma/ProjectJournal";
 import { ProjectOverview } from "@/components/figma/ProjectOverview";
 import {
@@ -150,6 +153,11 @@ export default function ProjectPage() {
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
   const [journalDecisions, setJournalDecisions] = useState<JournalDecision[]>([]);
   const [journalRestrictions, setJournalRestrictions] = useState<JournalRestriction[]>([]);
+  const [journalSources, setJournalSources] = useState<JournalSourceLink[]>([]);
+  const [journalContradictions, setJournalContradictions] = useState<JournalContradiction[]>([]);
+  const [journalNav, setJournalNav] = useState<JournalNavState | null>(null);
+  const [focusMessageId, setFocusMessageId] = useState<string | null>(null);
+  const [focusStatus, setFocusStatus] = useState<string | null>(null);
   const [preparationId, setPreparationId] = useState<string | null>(null);
   const [projectName, setProjectName] = useState<string | null>(null);
   const [statusHint, setStatusHint] = useState("Chargement…");
@@ -231,6 +239,7 @@ export default function ProjectPage() {
       const res = await fetch(`/api/projects/${params.projectId}/journal`);
       if (!res.ok || cancelled) return;
       const body = (await res.json()) as {
+        knowledge?: Knowledge;
         decisions?: Array<{
           id: string;
           kind: string;
@@ -240,11 +249,16 @@ export default function ProjectPage() {
           objectRef: string;
           effectiveAt: string;
           createdAt: string;
+          applicable?: boolean;
+          supersededByDecisionId?: string | null;
           explanation?: JournalDecision["explanation"];
         }>;
         restrictions?: JournalRestriction[];
+        sourceLinks?: JournalSourceLink[];
+        contradictions?: JournalContradiction[];
       };
       if (cancelled) return;
+      if (body.knowledge) setKnowledge(body.knowledge);
       setJournalDecisions(
         (body.decisions ?? []).map((d) => ({
           id: d.id,
@@ -253,12 +267,22 @@ export default function ProjectPage() {
           scope: d.scope,
           statement: d.statement,
           objectRef: d.objectRef,
-          effectiveAt: d.effectiveAt,
-          createdAt: d.createdAt,
+          effectiveAt:
+            typeof d.effectiveAt === "string"
+              ? d.effectiveAt
+              : new Date(d.effectiveAt as unknown as string).toISOString(),
+          createdAt:
+            typeof d.createdAt === "string"
+              ? d.createdAt
+              : new Date(d.createdAt as unknown as string).toISOString(),
+          applicable: d.applicable,
+          supersededByDecisionId: d.supersededByDecisionId ?? null,
           explanation: d.explanation ?? null,
         })),
       );
       setJournalRestrictions(body.restrictions ?? []);
+      setJournalSources(body.sourceLinks ?? []);
+      setJournalContradictions(body.contradictions ?? []);
     })();
     return () => {
       cancelled = true;
@@ -1689,6 +1713,11 @@ export default function ProjectPage() {
           choiceFrozen={choiceFrozen}
           forceStickToken={forceStickToken}
           layoutMode={travailLayout}
+          focusMessageId={focusMessageId}
+          focusStatus={focusStatus}
+          onFocusMessageHandled={() => {
+            setFocusMessageId(null);
+          }}
           onDraft={(v) => {
             setDraft(v);
             persistDraft(v);
@@ -1981,6 +2010,71 @@ export default function ProjectPage() {
           openPoints={knowledge?.openPoints ?? []}
           decisions={journalDecisions}
           restrictions={journalRestrictions}
+          sourceLinks={journalSources}
+          contradictions={journalContradictions}
+          initialNav={journalNav}
+          onNavChange={setJournalNav}
+          onOpenMessage={(messageId) => {
+            void (async () => {
+              setFocusStatus(null);
+              const local = messages.find((m) => m.id === messageId);
+              if (!local) {
+                const res = await fetch(
+                  `/api/projects/${params.projectId}/messages/${encodeURIComponent(messageId)}`,
+                );
+                const body = (await res.json().catch(() => ({}))) as {
+                  status?: string;
+                  reason?: string;
+                  message?: {
+                    messageId: string;
+                    role: string;
+                    content: string;
+                    status: string;
+                  };
+                };
+                if (!res.ok || !body.message) {
+                  setFocusStatus(
+                    body.reason ?? "Message introuvable ou accès refusé — retour Journal possible.",
+                  );
+                  selectSurface("travail");
+                  return;
+                }
+                setMessages((prev) => {
+                  if (prev.some((m) => m.id === body.message!.messageId)) return prev;
+                  return [
+                    ...prev,
+                    {
+                      id: body.message!.messageId,
+                      role: body.message!.role,
+                      content: body.message!.content,
+                      status: body.message!.status,
+                    },
+                  ];
+                });
+              }
+              // Preserve draft + journalNav; never auto-send.
+              setFocusMessageId(messageId);
+              selectSurface("travail");
+            })();
+          }}
+          onOpenDocument={(documentId, revisionId) => {
+            void fetchDocumentViewerViaD4({
+              documentId,
+              titleHint:
+                documents.find((d) => d.document.id === documentId)?.document.title ?? "Document",
+              revisionId: revisionId ?? null,
+              versionSource: revisionId ? "exact" : "current",
+              seq: ++viewerRequestSeqRef.current,
+              projectIdAtStart: params.projectId,
+            });
+            selectSurface("document");
+            // Keep inspect aligned when opening from Journal (J-C14).
+            const match = documents.find((d) => d.document.id === documentId);
+            if (match) {
+              setInspect(match);
+              syncSurfaceUrl("document", documentId, "push");
+            }
+          }}
           onBackToThread={() => selectSurface("travail")}
         />
       ) : null}
