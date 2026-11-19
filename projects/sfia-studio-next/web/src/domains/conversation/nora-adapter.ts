@@ -299,10 +299,34 @@ function writeEphemeralNoraDiag(input: {
     const rawName = err instanceof Error ? err.name : typeof err;
     const rawMsg = err instanceof Error ? err.message : String(err);
     const stack = err instanceof Error ? (err.stack ?? "").split("\n").slice(0, 12) : [];
-    const cause =
-      err instanceof Error && err.cause instanceof Error
-        ? { name: err.cause.name, message: err.cause.message.slice(0, 500) }
-        : null;
+    const causeChain: Array<{ name: string; message: string; issues?: unknown }> = [];
+    let cur: unknown = err instanceof Error ? err.cause : null;
+    let depth = 0;
+    while (cur != null && depth < 4) {
+      if (cur instanceof Error) {
+        const issues =
+          "issues" in cur && Array.isArray((cur as { issues?: unknown }).issues)
+            ? (cur as { issues: unknown[] }).issues.slice(0, 8).map((issue) => {
+                if (!issue || typeof issue !== "object") return issue;
+                const z = issue as { path?: unknown; code?: unknown; message?: unknown; maximum?: unknown };
+                return {
+                  path: Array.isArray(z.path) ? z.path.join(".") : z.path,
+                  code: z.code,
+                  message: typeof z.message === "string" ? z.message.slice(0, 200) : z.message,
+                  maximum: z.maximum,
+                };
+              })
+            : undefined;
+        causeChain.push({
+          name: cur.name,
+          message: cur.message.slice(0, 800).replace(SENSITIVE_IN_CODE, "[REDACTED]"),
+          issues,
+        });
+        cur = cur.cause;
+      } else break;
+      depth += 1;
+    }
+    const schemaFromMsg = extractSchemaValidationPath(err);
     const payload = {
       ts_utc: new Date().toISOString(),
       lane,
@@ -311,11 +335,12 @@ function writeEphemeralNoraDiag(input: {
       phase: input.phase,
       category: input.category,
       diag: input.diag,
+      schema_from_message: schemaFromMsg,
       raw: {
         name: rawName,
         message: rawMsg.slice(0, 2000).replace(SENSITIVE_IN_CODE, "[REDACTED]"),
         stack,
-        cause,
+        cause_chain: causeChain,
       },
       notice: "EPHEMERAL LOCAL DIAG — do not publish to handoff / do not copy to RECETTE",
     };
@@ -802,6 +827,7 @@ async function runLiveWithTools(
     "- preparationAssessmentExplanation = justification qualitative courte fondée sur les acquis réels ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
     "- Si tu n'as pas d'appréciation fiable : omets preparationAssessment (ne pas inventer BASE_SUFFICIENTE).",
     "- Pour d2.create_project, parameters.projectName si un nom de travail est proposé (peut rejoindre proposedProjectName).",
+    "- parameters.notes = complément court (≤~500 car. utiles ; plafond 2000). N'y mets PAS une motivation longue de décision ni une synthèse : place-les dans replyDraft / knowledgeStatement / decisionHint.",
     "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
     "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
     "- Ne combine jamais documentSource et documentProposal dans le même tour.",

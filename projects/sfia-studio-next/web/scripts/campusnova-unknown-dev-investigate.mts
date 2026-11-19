@@ -87,28 +87,40 @@ async function main() {
   const { generateNoraReply } = await import("../src/domains/conversation/nora-adapter.ts");
   const { buildCognitivePolicy } = await import("../src/domains/conversation/cognitive-policy.ts");
 
-  // Pressure close to RECETTE: real-looking ids + many acquis/open points + subject ids.
+  // Pressure close to RECETTE: dump read-only CampusNova context (~28k+) padded toward ~52k tool chars.
+  const heavyPath = path.join(OUT, "campusnova-heavy-context.txt");
+  const heavy = fs.existsSync(heavyPath) ? fs.readFileSync(heavyPath, "utf8") : "";
+  const heavyChunks = heavy
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+  const pad =
+    heavyChunks.length > 0
+      ? []
+      : ["Projet CampusNova — contexte de pression synthétique."];
+  while ([...heavyChunks, ...pad].join("\n").length < 52000) {
+    pad.push(
+      `[contexte-pression] Reprise fil CampusNova — inventaire/responsabilités/support — bloc ${pad.length + 1}. ` +
+        "Lille 12 portables / 2 maintenance / 10 opérationnels actuellement ; 9 mobilisables lors de l'incident ; " +
+        "Lyon incident prêt déjà actif ; interchangeabilité partielle formations ; prêts Lille ouverts ; support non défini.",
+    );
+    if (pad.length > 400) break;
+  }
   const contextSnippets = [
-    "Projet CampusNova — cadrage réservation multi-centres (Lyon, Lille, Bordeaux).",
     "Sujet EXISTANT subjectId=subj_b28922af-d852-4641-9122-0c50cc0d01df titre=Parcours de réservation et responsabilités.",
     "Sujet EXISTANT subjectId=subj_691af6f0-684a-404e-b550-81e2365c8577 titre=Accompagnement et déploiement des utilisateurs.",
-    "Inventaire Lille corrigé: 12 portables, 2 maintenance, 10 opérationnels actuellement; 9 mobilisables lors de l'incident.",
-    "Incident Lyon: un portable opérationnel déjà prêté; procédure de substitution à clarifier.",
-    "Interchangeabilité: même configuration pour les formations concernées (périmètre partiel).",
-    "Responsabilité future des prêts Lille: encore ouverte; support utilisateur non défini.",
+    ...heavyChunks.slice(0, 80),
+    ...pad.slice(0, 120),
   ];
-  const knowledgeSnippets = [
-    "[acquis id=acq_20ceea40-c41e-4d82-8198-0121ff744496] Les responsables souhaitent des formations proches de la mise en service, sans charge excessive.",
-    "[acquis id=acq_f0af9cfc-6024-4bb1-8404-52f3283dadee] Le responsable de Bordeaux souhaite un point de contact unique pour les utilisateurs.",
-    "[acquis id=acq_360ecb98-5b98-47ad-b6f7-5391a8619a80] Les assistants administratifs de Lille demandent des exercices pratiques sur la réservation.",
-    "[acquis id=acq_33c8f077-833a-4285-b5fd-0923155d499e] L’équipe d’accueil de Lille souhaite participer aux formations en lien avec son rôle.",
-    "[acquis id=acq_807c4cbb-ac5a-4a8f-a554-1bf5c9cc9872] À Lyon, un responsable pédagogique est pressenti comme référent local.",
-    "[acquis id=acq_lille_inventory_old] Lille: 12 portables, 3 en maintenance, 9 opérationnels (HISTORIQUE à superséder).",
-    "[ouvert id=opn_7b40d325-220a-40da-a210-ff326a6da301] Quelle organisation du support utilisateur retenir après le lancement ?",
-    "[ouvert id=opn_ee5dc65c-5bba-44b2-8ec5-9a5160df7397] Le format envisagé de deux ateliers de 90 minutes par centre convient-il ?",
-    "[ouvert id=opn_dc2309ac-5173-439c-882d-bc3927b62f6d] L'équipe assurant actuellement les remises et réceptions à Lille est désormais incertaine.",
-    "[ouvert id=opn_9d3ea72e-4743-4c34-aede-10bfa81c91b4] La responsabilité de gestion des prêts de matériel à Lille reste à trancher.",
-  ];
+  const knowledgeSnippets = heavyChunks.filter((l) => l.startsWith("ACQ|") || l.startsWith("OPN|")).slice(0, 40);
+  console.log(
+    JSON.stringify({
+      phase: "context_pressure",
+      heavy_chars: heavy.length,
+      context_joined_chars: contextSnippets.join("\n").length,
+      knowledge_count: knowledgeSnippets.length,
+    }),
+  );
 
   const runs: unknown[] = [];
   for (let i = 1; i <= maxAttempts; i++) {

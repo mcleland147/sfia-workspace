@@ -83,6 +83,38 @@ describe("E05 visual composition freeze (Morris 19/11/2026)", () => {
     expect(validated.value.replyDraft).toMatch(/Inventaire Lille/);
   });
 
+  it("intent parameters.notes accepts up to 2000 characters (CampusNova decision UNKNOWN corrective)", () => {
+    const intent = (notes: string) => ({
+      id: "i1",
+      capabilityId: "d3.converse" as const,
+      mode: "EXPLAIN" as const,
+      summary: "arbitrage confirmation réservation",
+      parameters: { notes },
+      constraints: [] as string[],
+      dependsOn: [] as string[],
+      sourceEvidence: [] as string[],
+    });
+    const base = {
+      schemaVersion: "ml4c-sem-qual-v1" as const,
+      status: "QUALIFIED" as const,
+      goal: "g",
+      clarifications: [] as string[],
+      replyDraft: "ok",
+    };
+    expect(
+      NoraTurnQualificationLiveOutputSchema.safeParse({
+        ...base,
+        intents: [intent("n".repeat(2000))],
+      }).success,
+    ).toBe(true);
+    expect(
+      NoraTurnQualificationLiveOutputSchema.safeParse({
+        ...base,
+        intents: [intent("n".repeat(2001))],
+      }).success,
+    ).toBe(false);
+  });
+
   it("knowledgeStatement schema accepts up to 5000 characters (CampusNova UNKNOWN corrective)", () => {
     const ok = "x".repeat(5000);
     const over = "x".repeat(5001);

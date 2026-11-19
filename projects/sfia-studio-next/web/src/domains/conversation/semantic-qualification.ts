@@ -100,7 +100,8 @@ export const QualifiedIntentItemSchema = z.object({
       pilotageOperation: PilotageOperationSchema.optional(),
       restrictionKindHint: z.string().max(64).optional(),
       restrictionTargetRefHint: z.string().max(120).optional(),
-      notes: z.string().max(400).optional(),
+      /** Raised 400→2000 (2026-11-19): CampusNova decision formalisation put long rationale in notes → LIVE UNKNOWN. */
+      notes: z.string().max(2000).optional(),
       /** Typed D4 continuity capitalisation (RG-KNOW-001) — owner still validates. */
       knowledgeKind: KnowledgeRecordKindSchema.optional(),
       /** Raised 500→5000 (2026-11-19): SUBJECT synthesis / rich ACQUIS were failing LIVE schema validation (CampusNova UNKNOWN). */
