@@ -312,7 +312,7 @@ La séparation *socle/UX* sert **à surveiller le gate**, non à multiplier arti
 Un prompt Cursor SFIA v2.6 ne sera élaboré **qu'après** :
 - Validation Morris du présent contrat technique **et des décisions d'architecture nécessaires** ; validation fonctionnelle/UX v1.0 déjà acquise.
 - Relecture Git **sur HEAD réellement choisi à la date du cycle** de SEF, Roadmap, décisions, R4, présent contrat, contrat E05, état main/candidat et README QA.
-- Lecture du [routing SFIA v2.6](../../../method/sfia-fast-track/core/sfia-cycle-routing-guide.md) et du **template canonique** `prompts/templates/sfia-cycle-execution-template.md depuis le dépôt, au bon ref ; aucun template reconstruit de mémoire.
+- Lecture du [routing SFIA v2.6](../../../../method/sfia-fast-track/core/sfia-cycle-routing-guide.md) et du [template canonique SFIA v2.6](../../../../prompts/templates/sfia-cycle-execution-template.md) **depuis Git au bon ref** ; aucun template reconstruit de mémoire.
 - Définition macro-lot/IN/OUT, droits/fichiers/branches/STOP et impacts, profil Standard par défaut, gates, tests, format Review Pack Light/Full, Review Handoff requis, publication et revue distante si contrat SFIA le requiert.
 - Vérification Cursor de son **Git local/staged/untracked**, branche, base, état DB/lane et tests ; ce chat ne prétend pas les avoir observés.
 - GO spécifique sur toute migration, écriture code/runtime/CI, push projet, PR, merge ou Gate C. **Aucun de ces GO n'est créé par le présent document.**
