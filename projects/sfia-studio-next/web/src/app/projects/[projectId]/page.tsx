@@ -59,7 +59,14 @@ import {
   type StudioSurface,
 } from "@/components/shell/studio-rail";
 
-type Msg = { id: string; role: string; content: string; status: string };
+type Msg = {
+  id: string;
+  role: string;
+  content: string;
+  status: string;
+  /** ISO timestamp — used to keep chronological order when hydrating a deep-linked message (E06-04). */
+  createdAt?: string;
+};
 type Doc = {
   document: { id: string; title: string };
   latestRevision?: {
@@ -2030,6 +2037,8 @@ export default function ProjectPage() {
                     role: string;
                     content: string;
                     status: string;
+                    createdAt?: string;
+                    ordinal?: number;
                   };
                 };
                 if (!res.ok || !body.message) {
@@ -2039,18 +2048,66 @@ export default function ProjectPage() {
                   selectSurface("travail");
                   return;
                 }
-                setMessages((prev) => {
-                  if (prev.some((m) => m.id === body.message!.messageId)) return prev;
-                  return [
-                    ...prev,
-                    {
-                      id: body.message!.messageId,
-                      role: body.message!.role,
-                      content: body.message!.content,
-                      status: body.message!.status,
-                    },
-                  ];
-                });
+                // E06-04 — prefer canonical reload; otherwise insert by createdAt (never append blindly).
+                const prepId = preparationIdRef.current;
+                let reloaded = false;
+                if (prepId) {
+                  const listRes = await fetch(`/api/preparations/${prepId}/messages`);
+                  if (listRes.ok) {
+                    const listBody = (await listRes.json().catch(() => ({}))) as {
+                      messages?: Msg[];
+                    };
+                    const rows = Array.isArray(listBody)
+                      ? (listBody as unknown as Msg[])
+                      : Array.isArray(listBody.messages)
+                        ? listBody.messages
+                        : null;
+                    if (rows && rows.some((m) => m.id === messageId)) {
+                      setMessages(
+                        rows.map((m) => ({
+                          id: m.id,
+                          role: m.role,
+                          content: m.content,
+                          status: m.status,
+                          createdAt:
+                            typeof m.createdAt === "string"
+                              ? m.createdAt
+                              : m.createdAt
+                                ? new Date(m.createdAt as unknown as string).toISOString()
+                                : undefined,
+                        })),
+                      );
+                      reloaded = true;
+                    }
+                  }
+                }
+                if (!reloaded) {
+                  const fetched: Msg = {
+                    id: body.message.messageId,
+                    role: body.message.role,
+                    content: body.message.content,
+                    status: body.message.status,
+                    createdAt: body.message.createdAt,
+                  };
+                  const targetT = fetched.createdAt ? Date.parse(fetched.createdAt) : Number.NaN;
+                  if (!Number.isFinite(targetT)) {
+                    setFocusStatus(
+                      "Message exact chargé — horodatage absent ; chronologie non inventée.",
+                    );
+                  }
+                  setMessages((prev) => {
+                    if (prev.some((m) => m.id === fetched.id)) return prev;
+                    if (!Number.isFinite(targetT)) return [...prev, fetched];
+                    const insertAt = prev.findIndex((m) => {
+                      const t = m.createdAt ? Date.parse(m.createdAt) : Number.NaN;
+                      return Number.isFinite(t) && t > targetT;
+                    });
+                    if (insertAt < 0) return [...prev, fetched];
+                    const copy = prev.slice();
+                    copy.splice(insertAt, 0, fetched);
+                    return copy;
+                  });
+                }
               }
               // Preserve draft + journalNav; never auto-send.
               setFocusMessageId(messageId);

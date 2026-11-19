@@ -118,4 +118,27 @@ describe("journal-cognition (J-C04 / J-C06 deterministic)", () => {
     });
     expect(r.ok).toBe(false);
   });
+
+  it("E06-03 — declared main+SHA without remote verify is UNVERIFIED not CURRENT", async () => {
+    const { qualifyProvenanceSource } = await import("@/domains/knowledge/journal-cognition");
+    const q = await qualifyProvenanceSource("pilot-test", {
+      sourceKind: "pilot",
+      gitRepo: "org/repo",
+      gitRef: "main",
+      gitSha: "deadbeef",
+    });
+    expect(q.currentness).toBe("UNVERIFIED");
+    expect(q.currentness).not.toBe("CURRENT");
+  });
+
+  it("E06-03 — non-main ref stays CANDIDATE", async () => {
+    const { qualifyProvenanceSource } = await import("@/domains/knowledge/journal-cognition");
+    const q = await qualifyProvenanceSource("pilot-test", {
+      sourceKind: "pilot",
+      gitRepo: "org/repo",
+      gitRef: "feature/journal",
+      gitSha: "abc123",
+    });
+    expect(q.currentness).toBe("CANDIDATE");
+  });
 });

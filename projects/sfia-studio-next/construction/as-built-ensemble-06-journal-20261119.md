@@ -2,66 +2,61 @@
 
 | Métadonnée | Valeur |
 |---|---|
-| Date | 19/11/2026 (cycle de complétude) |
+| Date | 19/11/2026 (cycle 3 — E06-01..06) |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| Base docs (cycle 1) | `6879d34e` |
-| Matrice docs distante (lue, non fusionnée) | `b02192e5` |
+| Base docs cycle 1 | `6879d34e` |
+| Matrice docs distante (lue, non fusionnée) | `2ae685a5` (v0.2) |
 | Base `main` | `d3d199ad` |
 | Versioning | `NO RELEASE` / `0.0.0-dev` |
-| Lane | DEV / e2e isolé (`127.0.0.1:5433`, `sfia_next_e2e`) — RECETTE/STABLE non mutées |
+| Lane | DEV / e2e (`127.0.0.1:5433`, `:3101`) — RECETTE/STABLE non mutées |
 
-## Cycle 1 (conservé)
+## Cycles 1–2 (conservés)
 
-- Migration additive `014_journal_d4_revisions.sql`
-- `domains/knowledge/journal.ts` : révisions, resolve/reopen, reparent, recherches
-- `ensureSubject` parent-aware
-- `GET /api/projects/[projectId]/journal`
-- `ProjectJournal` V4 shell (tabs / search / filtre / 40/60 / enlarge)
-- `subjectId` conservé sur la page projet
+- Migration additive `014` + `db-migrate.sh` 001→014
+- Journal D4 revisions, UI V4, API, recherche, explications D6
+- Helpers cognition J-C04/06 + deep-link message/document
 
-## Cycle 2 — complétude (ce cycle)
+## Cycle 3 — corrections E06
 
-### J-C04 — réactivation
-- `journal-cognition.ts` : `selectOpenPointsForReactivation`, `markOpenPointReactivated` (cooldown, score lexical)
-- Branché dans `selectRelevantKnowledgeContext` via `projectId` + conversation service
+### E06-05 — portée sécurité
+- `markOpenPointReactivated` utilise `loadOwnedOpenPoint(pilot, project, id)`
+- Refus interprojets même Pilote ; zéro écriture si refus ; idempotence conservée
 
-### J-C06 — sources / contradictions / currentness
-- `qualifyProvenanceSource`, `detectAcquisContradictions`, `assertHonestSynthesisInput`
-- Gate honnêteté sur `appendSubjectSummaryRevision`
-- Projection Journal expose `sourceLinks` + `contradictions` ; UI affiche UNRESOLVED
+### E06-03 — currentness Git
+- `main`+SHA déclarés → **UNVERIFIED** (jamais CURRENT sans vérification distante)
+- Ref non-main → **CANDIDATE**
+- Overclaim gate traite UNVERIFIED
 
-### J-C05 / J-C09
-- Resolve factuel refuse toute mutation de restriction D6 (snapshot ACTIVE)
-- Décisions projetées avec `applicable` / `supersededByDecisionId` ; restrictions ACTIVE + historiques
+### E06-04 — message exact
+- Deep-link : reload canonique ou insertion par `createdAt` (pas d’append aveugle)
+- Brouillon préservé ; zéro auto-send
 
-### J-C13 / J-C14
-- `GET /api/projects/[projectId]/messages/[messageId]` (history scope projet)
-- `ProjectJournal` → `onOpenMessage` / `onOpenDocument` → Travail focus / Documents D4
-- `NoraConversation` `focusMessageId` + highlight ; brouillon et `journalNav` préservés ; zéro auto-send
+### E06-01 — BROWSER non vide
+- Fixture DEV `/api/dev/e2e/journal-fixture` (gate STUDIO_E2E)
+- Playwright assertions obligatoires sur sujets/40-60/recherche/décisions/message/document
 
-### J-C08 / API
-- Recherche UI titre+synthèse+acquis+points avec raison de match
-- `GET /api/projects/[projectId]/journal/search`
+### E06-02 — mémoire D3/D4 déterministe
+- Tests PG : révisions de synthèse + réactivation pertinente / négative
+- LIVE Nora : toujours NOT RUN / hors GO
 
-### Preuves exécutées (DEV/e2e)
+### E06-06 — D6 / documents / migrate
+- Resolve factuel exige source document/message **réellement accessible**
+- Restriction D6 ACTIVE intacte après resolve
+- `db-migrate.sh` inclut `014`
+
+## Preuves (cycle 3)
+
 | Commande | Résultat |
 |---|---|
-| `npx tsc --noEmit` | PASS |
-| `npm run lint` | PASS (warnings préexistants hors Journal) |
-| `vitest` `journal-cognition.test.ts` | 4/4 PASS |
-| `vitest` `journal-d4-revisions.pg.test.ts` | 10/10 PASS (`sfia_next_e2e`) |
-| `playwright` `journal-v4-parcours.spec.ts` | 1/1 PASS (`:3101`) |
-| Captures runtime | `.tmp-sfia-review/journal-v4-captures/*.png` |
-| Figma 835:71 | extrait MCP + PNG local |
-
-### Non-régression / hors GO
-- LIVE Nora : **NOT RUN** (hors GO)
-- REAL Git : **NOT RUN**
-- Suites ML2/ML3/ML4C/E05 complètes : **NOT RUN** dans ce cycle (tsc+lint+Journal PG/BROWSER exécutés)
-- 11/11 captures Figma↔runtime pixel-perfect : **PARTIAL** (parcours BROWSER + captures runtime + frames Figma clés ; comparaison structurelle, pas audit pixel exhaustif)
+| `tsc --noEmit` | PASS |
+| unit journal-cognition | PASS |
+| PG journal-d4-revisions | PASS (12+) |
+| Playwright journal-v4-parcours (seeded) | PASS |
+| LIVE Nora / REAL Git | NOT RUN |
+| VISUAL REVIEW | PENDING MORRIS — RECETTE |
 
 ## Autorité
 
-- D6 non modifié en écriture depuis le Journal
-- Aucun moteur mémoire parallèle
-- Aucun push projet / PR / merge / RECETTE dans ce cycle
+- D6 non muté depuis Journal
+- Aucun push projet / PR / merge
+- Revue visuelle Morris en RECETTE uniquement

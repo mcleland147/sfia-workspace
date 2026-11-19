@@ -15,7 +15,7 @@ import {
   conversations,
 } from "@/db/schema";
 import type { Provenance } from "@/domains/knowledge/service";
-import { listProjectKnowledge } from "@/domains/knowledge/journal";
+import { listProjectKnowledge, loadOwnedOpenPoint } from "@/domains/knowledge/journal";
 import { newId } from "@/lib/ids";
 
 const FR_STOP = new Set([
@@ -212,7 +212,10 @@ export async function selectOpenPointsForReactivation(
   };
 }
 
-/** Persist a REACTIVATED event after D3 elects to surface a candidate (idempotent by operationId). */
+/**
+ * Persist a REACTIVATED event after D3 elects to surface a candidate (idempotent by operationId).
+ * E06-05 — projectId must match a preparation-linked ownership of the open point (same Pilote alone is insufficient).
+ */
 export async function markOpenPointReactivated(
   pilotId: string,
   projectId: string,
@@ -223,18 +226,15 @@ export async function markOpenPointReactivated(
     operationId?: string;
   },
 ) {
-  const point = (
-    await db
-      .select()
-      .from(knowledgeOpenPoints)
-      .where(
-        and(eq(knowledgeOpenPoints.id, openPointId), eq(knowledgeOpenPoints.ownerPilotId, pilotId)),
-      )
-      .limit(1)
-  )[0];
-  if (!point) return { status: "FAILED" as const, reason: "NOT_FOUND" };
+  const point = await loadOwnedOpenPoint(pilotId, projectId, openPointId);
+  if (!point) return { status: "FAILED" as const, reason: "NOT_FOUND_OR_OUT_OF_PROJECT" };
   if (point.status !== "OPEN") {
     return { status: "SKIPPED" as const, reason: "NOT_OPEN" };
+  }
+  // Prefer the point's own projectId when set; never write a foreign projectId.
+  const eventProjectId = point.projectId ?? projectId;
+  if (point.projectId && point.projectId !== projectId) {
+    return { status: "FAILED" as const, reason: "PROJECT_SCOPE_MISMATCH" };
   }
 
   if (input.operationId) {
@@ -264,7 +264,7 @@ export async function markOpenPointReactivated(
     id: eventId,
     openPointId,
     preparationId: point.preparationId,
-    projectId,
+    projectId: eventProjectId,
     ownerPilotId: pilotId,
     eventType: "REACTIVATED",
     reason: input.reason.trim().slice(0, 500),
@@ -283,6 +283,7 @@ export type SourceCurrentness =
   | "HISTORICAL"
   | "INACCESSIBLE"
   | "CANDIDATE"
+  | "UNVERIFIED"
   | "UNKNOWN";
 
 export type QualifiedSource = {
@@ -331,15 +332,28 @@ export async function qualifyProvenanceSource(
         epistemic,
       };
     }
+    // E06-03 — declared main+SHA is NEVER CURRENT without a real verified read.
+    // This cycle has no GO for REAL Git remote verification → honest UNVERIFIED/CANDIDATE.
+    if (!mainish) {
+      return {
+        sourceKind: "git",
+        gitRepo: provenance.gitRepo,
+        gitRef: provenance.gitRef,
+        gitSha: provenance.gitSha,
+        currentness: "CANDIDATE",
+        detail:
+          "branche/ref candidate distincte de main — non assimilable à une preuve établie sur main",
+        epistemic,
+      };
+    }
     return {
       sourceKind: "git",
       gitRepo: provenance.gitRepo,
       gitRef: provenance.gitRef,
       gitSha: provenance.gitSha,
-      currentness: mainish ? "CURRENT" : "CANDIDATE",
-      detail: mainish
-        ? "ref principale avec SHA — à confronter avant affirmation"
-        : "branche/ref candidate distincte de main — ne pas présenter comme établie",
+      currentness: "UNVERIFIED",
+      detail:
+        "ref principale + SHA déclarés sans vérification Git distante autorisée — ne pas présenter comme CURRENT",
       epistemic,
     };
   }
@@ -560,15 +574,19 @@ export function assertHonestSynthesisInput(input: {
   const hasUnresolved = input.contradictions.some((c) => c.status === "UNRESOLVED");
   const hasInaccessible = input.sources.some((s) => s.currentness === "INACCESSIBLE");
   const hasCandidate = input.sources.some((s) => s.currentness === "CANDIDATE");
+  const hasUnverified = input.sources.some((s) => s.currentness === "UNVERIFIED");
   const hasUncertainEpistemic = input.sources.some(
     (s) => s.epistemic === "hypothesized" || s.epistemic === "limited",
   );
 
-  if (claimsEstablished && (hasUnresolved || hasInaccessible || hasCandidate || hasUncertainEpistemic)) {
+  if (
+    claimsEstablished &&
+    (hasUnresolved || hasInaccessible || hasCandidate || hasUnverified || hasUncertainEpistemic)
+  ) {
     return {
       ok: false,
       reason:
-        "SYNTHESIS_OVERCLAIMS — contradiction, source inaccessible/candidate ou épistémique incertain présenté comme établi",
+        "SYNTHESIS_OVERCLAIMS — contradiction, source inaccessible/candidate/unverified ou épistémique incertain présenté comme établi",
     };
   }
   if (hasUnresolved && !/\b(contradiction|diverg|incert|ouvert|à clarifier)\b/i.test(input.summaryMarkdown)) {

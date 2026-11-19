@@ -2,6 +2,9 @@ import { createHash } from "crypto";
 import { and, desc, eq, inArray, isNull, ne, or, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
+  conversations,
+  documentRevisions,
+  documents,
   governanceRestrictions,
   humanDecisions,
   knowledgeAcquis,
@@ -11,6 +14,7 @@ import {
   knowledgeSubjectEvents,
   knowledgeSubjectSummaryRevisions,
   knowledgeSubjects,
+  messages,
   preparationProjectLinks,
   preparations,
   projects,
@@ -477,7 +481,8 @@ export async function appendDecisionExplanationRevision(
   }
 }
 
-async function loadOwnedOpenPoint(
+/** E06-05 — open point must belong to a preparation linked to the requested project. */
+export async function loadOwnedOpenPoint(
   pilotId: string,
   projectId: string,
   openPointId: string,
@@ -508,14 +513,98 @@ function provenanceSufficient(p: Provenance): boolean {
   return false;
 }
 
+/**
+ * E06-06 — factual resolve requires a revalidated source, not an invented id string.
+ * Document/revision/message must exist in the project scope for the Pilote.
+ */
+async function provenanceFactuallyVerified(
+  pilotId: string,
+  projectId: string,
+  p: Provenance,
+): Promise<{ ok: true } | { ok: false; reason: string }> {
+  if (!provenanceSufficient(p)) {
+    return { ok: false, reason: "INSUFFICIENT_PROVENANCE" };
+  }
+  if (p.sourceKind === "pilot" || p.sourceKind === "nora") {
+    return { ok: false, reason: "ACTOR_DECLARATION_NOT_FACTUAL_SOURCE" };
+  }
+  const prepIds = await linkedPreparationIds(pilotId, projectId);
+  if (prepIds.length === 0) return { ok: false, reason: "NO_PROJECT_SCOPE" };
+
+  if (p.sourceKind === "message" && p.sourceId) {
+    const msg = (
+      await db
+        .select({ id: messages.id })
+        .from(messages)
+        .innerJoin(conversations, eq(conversations.id, messages.conversationId))
+        .where(
+          and(
+            eq(messages.id, p.sourceId),
+            eq(conversations.ownerPilotId, pilotId),
+            inArray(conversations.preparationId, prepIds),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!msg) return { ok: false, reason: "MESSAGE_SOURCE_INACCESSIBLE" };
+    return { ok: true };
+  }
+
+  if (p.sourceKind === "document" || p.sourceKind === "revision") {
+    const sourceId = p.sourceId;
+    if (!sourceId) return { ok: false, reason: "INSUFFICIENT_PROVENANCE" };
+    const rev = (
+      await db
+        .select({
+          id: documentRevisions.id,
+          status: documentRevisions.status,
+        })
+        .from(documentRevisions)
+        .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
+        .where(
+          and(
+            eq(documentRevisions.id, sourceId),
+            eq(documents.ownerPilotId, pilotId),
+            inArray(documents.preparationId, prepIds),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (rev) {
+      if (rev.status !== "AVAILABLE") {
+        return { ok: false, reason: "DOCUMENT_REVISION_NOT_AVAILABLE" };
+      }
+      return { ok: true };
+    }
+    const doc = (
+      await db
+        .select({ id: documents.id })
+        .from(documents)
+        .where(
+          and(
+            eq(documents.id, sourceId),
+            eq(documents.ownerPilotId, pilotId),
+            inArray(documents.preparationId, prepIds),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!doc) return { ok: false, reason: "DOCUMENT_SOURCE_INACCESSIBLE" };
+    return { ok: true };
+  }
+
+  return { ok: false, reason: "UNSUPPORTED_PROVENANCE_KIND" };
+}
+
 export async function resolveOpenPointFactually(
   pilotId: string,
   projectId: string,
   openPointId: string,
   input: { reason: string; provenance: Provenance; operationId?: string; actorKind?: string },
 ) {
-  if (!provenanceSufficient(input.provenance)) {
-    return { status: "FAILED" as const, reason: "INSUFFICIENT_PROVENANCE" };
+  const verified = await provenanceFactuallyVerified(pilotId, projectId, input.provenance);
+  if (!verified.ok) {
+    return { status: "FAILED" as const, reason: verified.reason };
   }
   const point = await loadOwnedOpenPoint(pilotId, projectId, openPointId);
   if (!point) return { status: "FAILED" as const, reason: "NOT_FOUND" };

@@ -7,6 +7,7 @@ import { db } from "@/db/client";
 import {
   governanceRestrictions,
   humanDecisions,
+  knowledgeOpenPointEvents,
   knowledgeOpenPoints,
   pilots,
   preparations,
@@ -35,6 +36,7 @@ import {
   insertRestriction,
   markDecisionState,
 } from "@/domains/decisions/service";
+import { savePreparationDocument } from "@/domains/document/service";
 import { createProjectCommand } from "@/domains/preparation/create-project";
 import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
 
@@ -121,9 +123,29 @@ describe("Journal D4 revisions (PG)", () => {
       provenance: { sourceKind: "message", sourceId: "m-open-1" },
     });
     expect(pt.status).toBe("AVAILABLE");
+
+    const fake = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
+      reason: "Documentation fictive",
+      provenance: { sourceKind: "document", sourceId: "doc-proof-1", epistemic: "established" },
+      operationId: "resolve-fake-1",
+    });
+    expect(fake.status).toBe("FAILED");
+    expect("reason" in fake && fake.reason).toBe("DOCUMENT_SOURCE_INACCESSIBLE");
+
+    const doc = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Preuve officielle",
+      "# preuve\nContenu réel AVAILABLE.",
+      undefined,
+      { correlationKey: `proof-${pt.openPointId}`, provenance: { sourceKind: "pilot" } },
+    );
+    expect(doc.status).toBe("AVAILABLE");
+    const revisionId = "revisionId" in doc ? String(doc.revisionId) : "";
+
     const resolved = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
       reason: "Documentation officielle citée",
-      provenance: { sourceKind: "document", sourceId: "doc-proof-1", epistemic: "established" },
+      provenance: { sourceKind: "revision", sourceId: revisionId, epistemic: "established" },
       operationId: "resolve-op-1",
     });
     expect(resolved.status).toBe("AVAILABLE");
@@ -266,9 +288,18 @@ describe("Journal D4 revisions (PG)", () => {
       subjectId: subj.subjectId,
       provenance: { sourceKind: "message", sourceId: "m-restr-1" },
     });
+    const doc = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Tech publish",
+      "# tech\nRéel.",
+      undefined,
+      { correlationKey: `restr-doc-${pt.openPointId}`, provenance: { sourceKind: "pilot" } },
+    );
+    const revisionId = "revisionId" in doc ? String(doc.revisionId) : "";
     const resolved = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
       reason: "Document technique trouvé",
-      provenance: { sourceKind: "document", sourceId: "doc-tech-1", epistemic: "established" },
+      provenance: { sourceKind: "revision", sourceId: revisionId, epistemic: "established" },
       operationId: "resolve-restr-1",
     });
     expect(resolved.status).toBe("AVAILABLE");
@@ -346,5 +377,97 @@ describe("Journal D4 revisions (PG)", () => {
     const row = proj.decisions.find((d) => d.id === decisionId);
     expect(row?.applicable).toBe(true);
     expect(row?.state).toBe("APPLICABLE");
+  });
+
+  it("E06-05 markOpenPointReactivated refuses cross-project same pilot", async () => {
+    const pilotId = await seedPilot("J-e605");
+    const a = await seedLinkedProject(pilotId, "Projet E605 A");
+    const b = await seedLinkedProject(pilotId, "Projet E605 B");
+    const subj = await ensureSubject(pilotId, a.prep.id, "Open A");
+    const pt = await openPoint(pilotId, a.prep.id, {
+      statement: "Point ouvert du projet A uniquement pour scope test.",
+      subjectId: subj.subjectId,
+      provenance: { sourceKind: "message", sourceId: "m-e605" },
+    });
+
+    const ok = await markOpenPointReactivated(pilotId, a.projectId, pt.openPointId!, {
+      reason: "pertinent",
+      provenance: { sourceKind: "nora", generationId: "g-e605" },
+      operationId: "react-e605-ok",
+    });
+    expect(ok.status).toBe("AVAILABLE");
+
+    const before = await db
+      .select()
+      .from(knowledgeOpenPointEvents)
+      .where(eq(knowledgeOpenPointEvents.openPointId, pt.openPointId!));
+
+    const denied = await markOpenPointReactivated(pilotId, b.projectId, pt.openPointId!, {
+      reason: "tentative interprojet",
+      provenance: { sourceKind: "nora", generationId: "g-e605b" },
+      operationId: "react-e605-deny",
+    });
+    expect(denied.status).toBe("FAILED");
+
+    const after = await db
+      .select()
+      .from(knowledgeOpenPointEvents)
+      .where(eq(knowledgeOpenPointEvents.openPointId, pt.openPointId!));
+    expect(after).toHaveLength(before.length);
+
+    const missing = await markOpenPointReactivated(pilotId, a.projectId, "ope_absent", {
+      reason: "absent",
+      provenance: { sourceKind: "nora", generationId: "g-x" },
+      operationId: "react-missing",
+    });
+    expect(missing.status).toBe("FAILED");
+
+    const replay = await markOpenPointReactivated(pilotId, a.projectId, pt.openPointId!, {
+      reason: "retry",
+      provenance: { sourceKind: "nora", generationId: "g-e605" },
+      operationId: "react-e605-ok",
+    });
+    expect(replay.status).toBe("AVAILABLE");
+    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
+  });
+
+  it("E06-02 synthesis revision history and reactivation negatives", async () => {
+    const pilotId = await seedPilot("J-e602");
+    const { prep, projectId } = await seedLinkedProject(pilotId, "Mémoire");
+    const subj = await ensureSubject(pilotId, prep.id, "Sujet mémoire");
+    const r1 = await appendSubjectSummaryRevision(pilotId, projectId, subj.subjectId!, {
+      summaryMarkdown: "Première synthèse contextualisée sur le sujet mémoire du projet.",
+      provenance: { sourceKind: "nora", generationId: "g1", epistemic: "observed" },
+      operationId: "mem-r1",
+    });
+    expect(r1.status).toBe("AVAILABLE");
+    const r2 = await appendSubjectSummaryRevision(pilotId, projectId, subj.subjectId!, {
+      summaryMarkdown:
+        "Deuxième synthèse corrigée — l'information antérieure est revue sans perte d'historique.",
+      provenance: { sourceKind: "nora", generationId: "g2", epistemic: "observed" },
+      operationId: "mem-r2",
+    });
+    expect(r2.status).toBe("AVAILABLE");
+    const current = await getCurrentSubjectSummary(pilotId, projectId, subj.subjectId!);
+    expect(current.summary?.revisionNumber).toBe(2);
+    expect(current.summary?.summaryMarkdown).toContain("Deuxième");
+
+    await openPoint(pilotId, prep.id, {
+      statement: "Question ancienne sur la latence du pipeline de capitalisation durable?",
+      subjectId: subj.subjectId,
+      provenance: { sourceKind: "message", sourceId: "m-mem" },
+    });
+    const hit = await selectOpenPointsForReactivation(
+      pilotId,
+      projectId,
+      "On reparle de la latence du pipeline",
+    );
+    expect(hit.candidates.length).toBeGreaterThan(0);
+    const miss = await selectOpenPointsForReactivation(
+      pilotId,
+      projectId,
+      "Sujet totalement orthogonal cuisine italienne",
+    );
+    expect(miss.candidates.every((c) => !c.statement.includes("latence"))).toBe(true);
   });
 });

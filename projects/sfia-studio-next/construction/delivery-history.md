@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-E06-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~10:10 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 cycle 3 E06-01..06 |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Corrections ciblées + BROWSER données non vides DEV |
+| Parent | local `782c93ec` |
+| Scope | E06-05 scope · E06-03 UNVERIFIED Git · E06-04 chrono message · seed BROWSER · resolve source réelle · migrate 014 |
+| QA | tsc/lint/build PASS · unit+PG Journal PASS · Playwright seeded PASS · LIVE/REAL NOT RUN |
+| Visual | **VISUAL REVIEW PENDING MORRIS — RECETTE** |
+| Verdict Cursor | `READY FOR MORRIS REVIEW WITH RESERVES — E06 CORRECTIVES LOCAL` |
+
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-COMPLETION
 
 | Field | Value |
