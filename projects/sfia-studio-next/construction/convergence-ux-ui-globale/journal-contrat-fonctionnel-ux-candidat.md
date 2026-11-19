@@ -1,11 +1,11 @@
 # SFIA Studio Next — Journal du projet
-## Contrat de conception fonctionnelle et UX — document évolutif
+## Contrat fonctionnel et UX — contenu et maquettes V4 validés par Morris (19/11/2026)
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.9 — 19 novembre 2026 (Europe/Paris) |
-| Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
-| Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
+| Version | v1.0 — 19 novembre 2026 (Europe/Paris) |
+| Statut du présent document | **VALIDATED SPEC — CONTENU FONCTIONNEL/UX APPROUVÉ PAR MORRIS LE 19/11/2026** ; branche candidate Git non fusionnée ; code et comportement non prouvés |
+| Objet | Contrat de référence des comportements, interfaces, parcours et exigences de preuve du Journal, préalable au contrat technique |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
 | Base Git de la première rédaction | mcleland147/sfia-workspace · main@d3d199adb782462b93467934f5f1e8a0c98fb492 |
 | Branche candidate documentaire | sfia/next-journal-conception-fonctionnelle-ux-20261119 |
@@ -13,7 +13,7 @@
 | Auteur de la synthèse | ChatGPT — proposition documentée, sans arbitrage autonome |
 | Portée de la publication | Création documentaire sur branche candidate seulement ; **ni PR, ni merge, ni changement de doctrine/SEF/Roadmap, ni GO Cursor, ni implémentation, ni ADOPTED** |
 
-> **Règle de lecture.** Ce fichier est le carnet de conception fonctionnelle et UX du Journal. Il ne remplace pas les contrats R1/R2/R3 déjà validés et ne fait pas passer une proposition issue de la conversation au statut de décision normative. À chaque révision, conserver la distinction entre **SOCLE VALIDÉ**, **ACCORD DE PRINCIPE EN DISCUSSION**, **PROPOSITION À ARBITRER**, **QUESTION OUVERTE** et **PREUVE À PRODUIRE**. Le présent texte n'est ni une preuve de réalisation ni une validation globale de l'Ensemble 06.
+> **Règle de préséance après gel Morris.** La cible actuelle est celle des §§2.1–2.3, 3–8 et des onze maquettes Figma V4 référencées au §9.3. Les mentions anciennes « candidat », « à arbitrer » et les états V1–V3 dans l'historique et la revue antérieure ne rouvrent pas les choix maintenant validés. R1/R2 restent sources supérieures ; ce document consolide leur application au Journal. **VALIDATED SPEC du contenu et de l'UX ne signifie ni IMPLEMENTED, ni COVERAGE VERIFIED, ni BEHAVIOR PROVEN, ni ADOPTED, ni Gate C, ni GO Cursor, ni PR/merge.**
 
 ---
 
@@ -62,11 +62,31 @@ Le Journal n'est pas une deuxième conversation, un archivage exhaustif des mess
 - Les sources doivent être vérifiables ; état actuel et historique, établi/hypothétique, source disponible/inaccessible et preuve/déclaration demeurent distingués.
 - Le retour au travail Nora reste un accès à **un même fil continu** du projet ; consulter un contenu ne transmet pas automatiquement un message ni une autorisation.
 
-## 3. Direction UX retenue en discussion — niveau d'engagement explicite
+
+### 2.2. Quatre exigences complémentaires R1/R2 confirmées et validées le 19/11/2026
+
+Ces exigences sont **IN du Journal**, sans écran, onglet ou moteur métier supplémentaire. Elles précisent R1 §§2.12–2.14 et R2 D3/D4 RG-KNOW-004/006/007/008/009/011/012/015/016..023.
+
+1. **Réactivation contextuelle des questions anciennes.** Une question, réserve, contradiction ou condition toujours ouverte reste retrouvable malgré les changements de session, de cycle ou de sujet. Nora peut la rappeler lorsqu'elle redevient pertinente pour l'objectif, le risque ou la suite du travail, sans relance mécanique ni clôture par silence. Préserver sa provenance et son sujet d'origine.
+2. **Résolution factuelle étayée versus réserve gouvernée.** Une question purement factuelle peut être qualifiée de résolue si une preuve suffisante, datée, versionnée et applicable est retrouvée ; le motif, la source et l'historique sont conservés, et une contradiction peut justifier la réouverture. Aucune réserve, suspension, condition d'effet ou acceptation de risque relevant du Pilote et D6 n'est levée par Nora ou par la seule capitalisation D4.
+3. **Vérification des sources et contradictions.** Nora confronte les sources déterminantes, leur date/version/portée, leur statut d'accès et leur fraîcheur. Elle distingue hypothèse, fait vérifié, état historique, branche Git candidate et baseline main, ainsi que récit documentaire et preuve D8. Une contradiction matérielle non résolue n'est pas masquée par une synthèse fluide ; elle reste signalée.
+4. **Reprise cognitive et références documentaires.** La mémoire sert Nora autant que le Pilote : D4 rend accessibles, dans les droits du projet, les sujets, acquis, points ouverts et références aux documents canoniques/versionnés et aux actes D6 ; D3 sélectionne et, si nécessaire, complète sa récupération par une lecture autorisée ciblée d'échanges, documents, Git ou autres sources pertinentes. Pas de relecture obligatoire du transcript entier, pas de lecture fictive, pas de copie du document D4 dans un registre Journal.
+
+**Oracles à exiger lors des tests :** question réactivée après interruption ; fait résolu sur source tandis que suspension D6 reste opposable ; divergence entre branche candidate et main correctement identifiée ; reprise Nora avec document/version exacts et source inaccessible correctement signalée. L'approbation de ces résultats attendus ne constitue **pas** leur preuve d'exécution.
+
+### 2.3. Gel de la cible fonctionnelle et UX — décision Morris
+
+**VALIDATED SPEC en contenu par Morris le 19/11/2026 :** un Journal à deux vues principales, Sujets et Décisions, des sujets évolutifs et synthèses sémantiques produites sélectivement, le filtre Points ouverts, la recherche contextualisée, des décisions officielles D6 expliquées par une synthèse contextuelle sourcée, des références pertinentes, une continuité de conversation et une présentation adaptative **Journal pleine largeur → 40/60 → fiche agrandie**, avec retour sans perte d'état. Les **11 frames V4 Figma du §9.3** sont approuvées comme référence de conception. L'actualisation discrète ne prétend une écriture que si elle est confirmée.
+
+**Hors cible :** troisième onglet principal, second rail global, deuxième conversation ou transcript dupliqué, moteurs d'autorité parallèles, décision automatiquement dérivée d'un résumé, recherche universelle dans chaque message, notification de chaque mutation, envoi de message implicite, capacités ajoutées pour enjoliver l'UX.
+
+**À qualifier après le gel, sans rouvrir inutilement le produit :** implémentation/architecture existantes et manquantes, disponibilité de liens profonds exacts, droits, source versionnée, erreurs, responsive/accessibilité, volume et pertinence, coûts, reprise et idempotence, preuves de comportement. Un écart technique peut justifier une proposition d'ajustement **soumise à Morris** ; il n'autorise pas à modifier la cible sans arbitrage.
+
+## 3. Direction UX validée — parcours et principes
 
 ### 3.1. Structure générale du Journal
 
-**ACCORD DE PRINCIPE EN CONVERSATION (19/11, non publié comme décision D2) :** une entrée « Journal » dans l'espace projet, avec deux vues internes **Sujets** et **Décisions** ; les points ouverts sont consultables transversalement, **sans troisième onglet métier principal**.
+**VALIDATED SPEC — Morris, 19/11/2026 :** une entrée « Journal » dans l'espace projet, avec deux vues internes **Sujets** et **Décisions** ; les points ouverts sont consultables transversalement, **sans troisième onglet métier principal**.
 
 Le détail de la navigation du rail (notamment doublon possible avec l'accès Décisions/Pilotage), les liens profonds et la disposition mobile doivent encore être arbitrés sur Figma.
 
@@ -97,11 +117,11 @@ Deux choses différentes existent :
 
 **PROPOSITION À ARBITRER :** ne pas afficher un onglet permanent « Historique du sujet » et **ne pas reconstruire tous les messages comme une chronologie parallèle** dans le Journal. La traçabilité d'évolution est conservée par la responsabilité adéquate et pourrait être ouverte via une action secondaire « Voir les évolutions » seulement lorsqu'elle apporte une valeur.
 
-## 4. Parcours cible — Journal / Sujets (candidate UX)
+## 4. Parcours cible validé — Journal / Sujets
 
 ### 4.1. Écran initial : explorer les sujets
 
-**PROPOSITION À ARBITRER VISUELLEMENT :**
+**VALIDATED SPEC EN CONCEPTION, représenté par Figma V4 :**
 - Rail de navigation **déjà existant** à gauche : ne pas lui ajouter un deuxième rail permanent comme dans les wireframes exploratoires précédents.
 - Dans la **surface principale**, en-tête Journal, accès Sujets/Décisions et arborescence/sommaire des thèmes du projet.
 - Les parents peuvent être dépliés pour exposer les sous-sujets ; recherche/filtrage à qualifier selon les volumes, sans imposer d'outils prématurés.
@@ -206,7 +226,7 @@ Deux choses différentes existent :
 
 **À qualifier lors de la convergence fonctionnelle et technique :** source fiable de l'horodatage, cohérence entre fil et mémoire, latence/staleness acceptable, atomicité/reprise après échec, continuité des sujets après une correction et preuve que l'affichage reflète la dernière révision effectivement conservée.
 
-## 5. Références conversationnelles — contrat d'expérience candidat
+## 5. Références conversationnelles — expérience validée
 
 ### 5.1. Ce que l'on souhaite montrer
 
@@ -234,7 +254,7 @@ Le message est une **référence à la conversation d'origine**, pas une copie i
 
 ## 6. Recherche du Journal et consultation des Décisions — contrat fonctionnel/UX consolidé (19/11)
 
-**STATUT : PRINCIPES FONCTIONNELS ACCEPTÉS PAR MORRIS EN CONVERSATION LE 19/11 ; CONTRAT DOCUMENTÉ CANDIDAT.** Cette section précise R1 §2.11, la recherche et les parcours R2 D4/D6, sans créer de domaine supplémentaire ni déclarer l'implémentation ou la preuve. **La lecture de la décision est une interprétation sémantique contextualisée, jamais une réécriture de l'acte officiel.**
+**STATUT : VALIDATED SPEC EN CONTENU PAR MORRIS LE 19/11, avec Figma V4 approuvé.** Cette section précise R1 §2.11, la recherche et les parcours R2 D4/D6, sans créer de domaine supplémentaire ni déclarer l'implémentation ou la preuve. **La lecture de la décision est une interprétation sémantique contextualisée, jamais une réécriture de l'acte officiel.**
 
 ### 6.1. Recherche contextualisée par onglet — périmètre accepté
 
@@ -390,9 +410,9 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 
 **Gate :** proposition visuelle à réviser avec Morris ; ne pas déduire un GO technique, une couverture navigateur ou une adoption de ces frames.
 
-### 9.3. Extension Figma v0.9 — Recherche, Points ouverts et Décisions (19/11/2026)
+### 9.3. Maquettes Figma V4 validées en conception — onze frames (19/11/2026)
 
-**Statut : FIGMA NATIVE / DESIGN CANDIDAT À PRÉSENTER À MORRIS ; maquettes NON INTERACTIVES / comportements NON PROUVÉS.** Cette extension suit l'acceptation des principes fonctionnels (§6) et la direction artistique **V4 retenue comme base visuelle de travail**, avec le même rail projet et la même grammaire de lecture 40/60 → agrandie. Elle ne crée aucun nouveau domaine ni second registre de décisions.
+**Statut : VALIDATED SPEC UX PAR MORRIS LE 19/11/2026 ; onze frames Figma natives et éditables, NON INTERACTIVES / comportements NON PROUVÉS.** Cette extension suit l'acceptation des principes fonctionnels (§6) et la direction artistique **V4 retenue comme base visuelle de travail**, avec le même rail projet et la même grammaire de lecture 40/60 → agrandie. Elle ne crée aucun nouveau domaine ni second registre de décisions.
 
 **Frames V4 Sujets déjà présentes et préservées :** [Exploration `835:71`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71), [Sujet autonome 40/60 `842:26`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-26), [Sujet parent 40/60 `842:131`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-131), [Sujet autonome agrandi `835:159`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159), [Sujet parent agrandi `835:239`](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-239). Un **filtre secondaire « Points ouverts » non activé** a été ajouté aux trois vues Sujets où le contexte de recherche est visible ; ce n'est plus le bouton d'en-tête supprimé antérieurement.
 
@@ -409,9 +429,11 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 
 **Contrôles Figma observés :** page `07 · ML4D — Journal · Cible UX candidate` (`828:2`), **11 frames** éditables 1680 × 970 (5 anciennes V4 + 6 nouvelles), rail projet 246 px (réutilisé de la page 05), en-tête 70 px, polices Inter et fichiers sources historiques conservés. Captures visuelles des nouveaux états relues ; chevauchement de libellé de démonstration corrigé et recherche « journal » limitée à son résultat représentatif. **Aucun test d'interaction, de stockage, d'accessibilité responsive, de recherche effective, de sécurité D6 ou de runtime n'est attesté.**
 
-**Révision demandée à Morris :** parcours de recherche (résultat et point ouvert), densité du 40/60 Décisions, distinction choix officiel / explication contextuelle, statut et historique, intérêt du mode agrandi, absence de surcharge et cohérence V4. La validation visuelle et la validation finale du contrat **restent à prononcer explicitement**, avant réconciliation code/architecture et macro-lot technique Cursor.
+**Revue et validation Morris acquises :** les onze frames V4 sont acceptées comme base d'exécution, dont Recherche, filtre Points ouverts, Décisions et synthèse des motivations. Cela ne constitue ni validation du prototype interactif, ni preuve responsive/accessibilité, ni acte D6 réel. Les ajustements futurs seront motivés par les tests et arbitrés au besoin.
 
-## 10. Registre vivant des arbitrages
+## 10. Historique des arbitrages jusqu'au gel v1.0
+
+**Règle de lecture :** le tableau conserve la maturation et les statuts des itérations antérieures. Les choix actuels validés par Morris sont ceux du §2.3 ; les anciennes propositions « à arbitrer » ne les remplacent pas.
 
 | Sujet | Position à ce jour | Nature de la position | Prochaine validation |
 | --- | --- | --- | --- |
@@ -436,15 +458,14 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | Points ouverts rattachés au sujet et retrouvables globalement | R1/R2 pour l'accès transversal ; UX simplifiée proposée | **SOCLE VALIDÉ / DÉTAIL UX À ARBITRER** | Localisation de l'accès |
 | Décisions liées en fiche et vue dédiée basée sur D6 | R1/R2 validés ; visualisation à approfondir | **SOCLE VALIDÉ / DÉTAIL UX À ARBITRER** | Conception de la vue Décisions |
 
-## 11. Questions ouvertes et trajectoire de travail
+## 11. Trajectoire de qualification technique — cible fonctionnelle figée
 
-### Prochains arbitrages — cible avant code
+### Suite immédiate après validation fonctionnelle/UX
 
-1. **Revue Figma Recherche/Décisions :** états Sujets recherchés, filtre Points ouverts, liste Décisions, sélection/inspection et vue agrandie sur la base V4 ; revue Morris avant prétention à VALIDATED SPEC.
-2. **Qualité des synthèses décisionnelles :** vérifier par scénarios longs la distinction acte officiel D6 / interprétation sourcée, la reconstruction de la motivation et les cas de sources manquantes.
-3. **Navigation et états limites :** préservation de recherche/filtre/sélection/scroll, retour au fil Nora, suppression d'accès, décision remplacée/suspendue, source indisponible, accessibilité/compact.
-4. **Recherche utile et proportionnée :** pertinence, projet volumineux, coût/latence, frontières des sources, sans choix technique prématuré.
-5. **Après validation Morris :** réconcilier code/API/persistance/flux D3/D4/D6 et données Figma, blast radius, gates, preuves, puis seulement qualifier un macro-lot Cursor.
+1. Rechercher dans l'architecture R4, les spécifications R5/ML1–ML4, les décisions applicables, le code et les preuves sur main le fonctionnement **AS-IS** pertinent.
+2. Qualifier par capacité **conforme / partiel / absent / contradictoire / non prouvé**, en séparant implémentation, couverture et preuve comportementale ; état local/RECETTE inaccessible = **NON OBSERVÉ**.
+3. Concevoir le **contrat technique candidat intégré Journal** (D3/D4/D6, composants, flux, API, persistance, droits, version, provenance, recherche, restitution, idempotence, reprise, liens profonds), avec blast radius, risques, dette/exit et preuve attendue.
+4. Revoir le contrat technique avec Morris, vérifier les gates ML4D/Gate C, puis seulement envisager un prompt Cursor SFIA v2.6 sur sources Git et sous GO technique distinct. Pas de prompt ni de GO implicite.
 
 ### Après cible visuelle et fonctionnelle validée
 
@@ -455,9 +476,9 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 
 **État local et RECETTE au moment de la rédaction : NON OBSERVÉS.** Aucune exécution LIVE, validation du design, clôture Ensemble 06, Gate C, STABLE ou ADOPTED n'est revendiquée.
 
-### 11.1. Revue de couverture R1/R2 — 19 novembre 2026 (avant validation finale)
+### 11.1. Archive de l'audit R1/R2 antérieur au gel v1.0 (écarts repris au §2.2)
 
-**Nature : ANALYSE DOCUMENTAIRE / NON ARBITRÉE.** Relecture depuis `main@d3d199adb782462b93467934f5f1e8a0c98fb492` ; comparaison avec le présent contrat candidat de branche. Cette revue ne modifie ni les sources R1/R2, ni leurs statuts, ni l'état du code. Les écarts désignent ici **la formulation de notre cible fonctionnelle/UX**, pas une défaillance prouvée du runtime.
+**Nature : HISTORIQUE v0.4.** Les anciens statuts « PARTIEL » de cette matrice décrivent la couverture *à cette époque*. Les quatre compléments ont désormais été **confirmés par Morris et intégrés en §2.2** ; ils ne restent pas des décisions fonctionnelles ouvertes.  Relecture depuis `main@d3d199adb782462b93467934f5f1e8a0c98fb492` ; comparaison avec le présent contrat candidat de branche. Cette revue ne modifie ni les sources R1/R2, ni leurs statuts, ni l'état du code. Les écarts désignent ici **la formulation de notre cible fonctionnelle/UX**, pas une défaillance prouvée du runtime.
 
 **Sources directement confrontées :**
 - [R1 §§2.8–2.14 et E2E 04 (§2.33)](../../cadrage/vision-produit.md) : mémoire, hiérarchie, Journal, points ouverts, sources multiples, décision/provenance, reprise ;
@@ -503,5 +524,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | 19/11/2026 — v0.7 | Navigation candidate Exploration → 50/50 persistant → lecture agrandie ; référence aux écrans 05.09/05.11, deux nouvelles frames partagées, agrandissement réversible, retrait du bouton « Points à reprendre » et du raccourci recherche non spécifiés | **DESIGN CANDIDAT / PARCOURS À ARBITRER**, aucun code ni test produit |
 | 19/11/2026 — v0.8 | Consolidation Morris : V4 visuelle, 40/60 adaptatif, recherche contextualisée par onglet, filtre Points ouverts, Décisions D6 durables, synthèse sémantique contextualisée des motifs et arbitrages, limites d'autorité, cas de recette et points Figma à présenter | **PRINCIPES FONCTIONNELS ACCEPTÉS / DOCUMENTED**, validation UX finale et technique en attente |
 | 19/11/2026 — v0.9 | Six frames Figma natives candidates ajoutées pour résultats Sujets, filtre Points ouverts, Décisions nominale, sélection et recherche 40/60, décision agrandie avec motifs synthétisés ; cohérence visuelle V4 et avertissement sur les actes fictifs | **DESIGN CANDIDAT / À REVOIR AVEC MORRIS** ; ni validation D6 ni preuve runtime |
+| 19/11/2026 — **v1.0** | **Gel validé explicitement par Morris** des contrats fonctionnel et UX, des 11 frames V4 et des quatre invariants R1/R2 complémentaires ; exigences de preuve/architecture confiées à la phase technique | **VALIDATED SPEC — FONCTIONNEL/UX** sur branche candidate ; **NON IMPLEMENTED BY THIS COMMIT / NON BEHAVIOR PROVEN / NON ADOPTED** |
 
-**Suite immédiate :** revue Morris des **six nouveaux états Figma** et de leur cohérence avec les cinq écrans Sujets V4 (§9.3), ajustements UX ciblés si nécessaires et gate de validation du contrat fonctionnel/visuel. **Ensuite** réconciliation des flux, propriétaires, code et preuves D3/D4/D6 existants, qualification blast radius/risques, puis contrat technique et prompt Cursor selon SEF/SFIA v2.6 sous GO technique distinct. Aucun Gate C, PR/merge, implémentation ou ADOPTED implicite.
+**Suite immédiate :** établir l'état technique AS-IS depuis Git (R4, R5, code, preuves), construire un **contrat technique candidat** à soumettre à Morris, puis seulement définir un macro-lot d'exécution Cursor sous gates et mandat distincts. **Aucun changement de main, PR, merge, Gate C, implémentation ou ADOPTED impliqué par ce gel.**
