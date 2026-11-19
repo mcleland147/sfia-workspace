@@ -3,7 +3,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.1 — 19 novembre 2026 (Europe/Paris) |
+| Version | v0.2 — 19 novembre 2026 (Europe/Paris) |
 | Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
 | Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
@@ -53,8 +53,10 @@ Le Journal n'est pas une deuxième conversation, un archivage exhaustif des mess
 - **Deux vues principales du Journal : Sujets et Décisions**, et un **accès transversal aux points ouverts**. L'ancienne proposition à quatre vues Sujets/Réserves/Recommandations/Décisions a été remplacée par l'arbitrage R1 du 02/11/2026.
 - La mémoire n'est pas enfermée dans un cycle ni dans une session ; elle reste rattachée au bon projet, selon les droits actuels.
 - Nora peut identifier, enrichir, structurer, renommer, rapprocher, fusionner ou scinder des sujets pertinents. Le Pilote **ne doit pas tenir une taxonomie à la main** à chaque conversation.
-- Le sujet parent synthétise ; les sous-sujets approfondissent. Identité, filiation et provenance demeurent retrouvables ; une réorganisation ne réécrit pas les faits ou décisions d'origine.
-- Capitalisation **sélective et proportionnée** : pas de fiche pour chaque message, question passagère ou recommandation.
+- **Un sujet peut exister seul, sans sous-sujet obligatoire.** Tant qu'il n'est pas subdivisé, il rassemble directement la synthèse et les acquis, questions, sources et références utiles. S'il se spécialise, il peut devenir parent sans changer d'identité.
+- Le sujet parent synthétise ; les sous-sujets approfondissent, **mais un parent peut conserver les acquis et questions véritablement généraux**. Nora rattache les connaissances spécifiques au niveau pertinent sans les dupliquer. Identité, filiation et provenance demeurent retrouvables ; une réorganisation ne réécrit pas les faits ou décisions d'origine.
+- Capitalisation **sélective et proportionnée** : pas de fiche pour chaque message, question passagère ou recommandation. **Chaque échange peut conduire Nora à réexaminer ce que la mémoire doit conserver, sans imposer une modification persistante à chaque message.**
+- Les synthèses du Journal sont des **restitutions sémantiques cohérentes et actualisées**, pas des assemblages de citations ou un journal chronologique déguisé. Elles distinguent orientation, acquis, questions et statut de validation.
 - Les points ouverts significatifs restent accessibles au-delà du sujet ou du cycle ; une simple absence de nouvelle discussion ne les clôt pas.
 - Une décision du Pilote, sa portée, sa révocation, sa suspension et son historique opposable demeurent **exclusivement sous l'autorité D6**. Le Journal affiche des références, jamais un registre bis.
 - Les sources doivent être vérifiables ; état actuel et historique, établi/hypothétique, source disponible/inaccessible et preuve/déclaration demeurent distingués.
@@ -107,33 +109,87 @@ Deux choses différentes existent :
 
 **Disposition actuellement privilégiée par ChatGPT mais PAS validée par Morris :** liste/arborescence → ouverture d'une fiche de sujet en **pleine zone centrale**, avec fil d'Ariane et retour à la liste. Ceci répond à la critique explicite du panneau permanent trop étroit au côté du rail existant. Les proportions et transitions restent à vérifier dans la géométrie R3.
 
-### 4.2. Ouvrir un sujet ou sous-sujet
+### 4.2. Un sujet unique, vivant et éventuellement hiérarchisé — principe de conception accepté le 19/11
 
-**Direction candidate :** la fiche prend l'espace de lecture principal ; le rail projet reste présent. Le sujet parent et le sous-sujet utilisent une **structure de lecture cohérente**, mais leur synthèse a une granularité adaptée.
+**PRINCIPE DE CONCEPTION ACCEPTÉ PAR MORRIS EN CONVERSATION ; précision de R1 §2.10, sans modification normative de R1/R2.**
 
-**Sujet parent :** vue générale de l'intention et du cheminement, principaux acquis, éléments à reprendre, sous-sujets et orientations structurantes ; **pas de reproduction exhaustive du contenu de tous les enfants**.
+- Un **sujet** est une unité évolutive de connaissance : il ne naît **pas** obligatoirement avec un enfant ni comme un « dossier » vide. Il peut rester un sujet simple toute la vie du projet.
+- Au départ, un sujet simple comporte directement sa **synthèse, ses acquis significatifs, questions pertinentes, références et sources**.
+- Lorsque les échanges montrent plusieurs axes suffisamment autonomes, Nora peut faire émerger des sous-sujets progressivement. L'objet initial **conserve son identité**, ses origines et l'accès à son histoire : il devient parent **dans l'organisation**, sans être remplacé.
+- Dans cette évolution, Nora peut rattacher les acquis, questions et références **spécifiques** aux enfants correspondants ; le parent devient davantage une **vision consolidée** de l'ensemble et de ses axes.
+- **Aucun interdit absolu sur les acquis ou points ouverts du parent** : une orientation, un acquis ou une question réellement transverse au thème général peut demeurer à ce niveau. Les sous-sujets approfondissent leurs périmètres respectifs.
+- Le parent ne recopie pas systématiquement ses enfants : une évolution locale amène à **réexaminer** la synthèse du parent si elle en change le sens, sans imposer une réécriture inutile des autres branches.
+- La « transformation » ne crée ni deux autorités, ni deux registres ni une identité nouvelle de fait : on adapte **la représentation et le rattachement de la connaissance**, avec traçabilité.
+- Une réorganisation peut être proposée puis différée lorsque la frontière du sujet demeure incertaine ; elle ne doit pas requalifier une hypothèse en fait établi ou une recommandation en décision.
 
-**Sous-sujet :** synthèse plus précise, acquis et points propres au périmètre, décisions associées et références essentielles. Les informations communes restent cohérentes sans être recopiées intégralement.
+**Exemple de lecture, illustratif et non modèle imposé :**
+1. **Au départ, « Journal » seul :** synthèse complète de la mémoire du projet, acquis actuels, questions de structuration et références conversationnelles.
+2. **Après spécialisation :** « Journal » exprime la vision consolidée, tandis que « Organisation des sujets », « Consultation des décisions » et « Références conversationnelles » portent leurs développements propres.
+3. **Le parent reste porteur du global :** par exemple, « Le Journal sert à comprendre l'histoire du projet sans relire le fil complet » n'a pas besoin d'être dupliqué dans chaque enfant.
+4. **Les détails restent chez les enfants :** critères de séparation, profondeur de navigation, ancrage sur un message, etc. ne sont pas systématiquement recopiés au parent.
 
-**Exemple illustratif non normatif :**
-- Parent « Journal » : mémoire et continuité de l'histoire du projet.
-- Sous-sujets « Organisation des sujets », « Consultation des décisions », « Références conversationnelles ».
-- Le parent donne la vision d'ensemble ; chaque enfant approfondit son aspect.
+### 4.3. Présentation adaptative — un concept, pas trois types métier
 
-### 4.3. Trame de fiche candidate (ni formulaire, ni ordre définitif)
+**Direction fonctionnelle acceptée dans son principe ; organisation visuelle, sections exactes et rendu Figma à arbitrer.** La fiche et son espace de lecture s'adaptent à la réalité du sujet, sans imposer trois templates de données différents.
 
-| Zone | Contenu attendu | Condition de sobriété |
+| Situation du sujet | Priorité éditoriale | Informations exposées lorsque pertinentes |
 | --- | --- | --- |
-| Contexte | Fil d'Ariane, titre, nature/portée du sujet | Revenir à la liste ou au parent facilement |
-| Synthèse actuelle | Quelques paragraphes utiles : sujet, évolution de la réflexion, situation présente | Pas de transcription du chat |
-| Ce qu'on a retenu | Acquis et orientations importants, niveau de certitude et portée si nécessaire | Établi ≠ hypothèse ≠ décision |
-| À reprendre | Questions/réserves réellement encore importantes | Ne pas remplir artificiellement si vide |
-| Sous-sujets | Entrées liées si le sujet est parent | Le parent ne copie pas tous les détails |
-| Décisions associées | Liens vers les actes D6 applicables lorsque présents | Aucune décision ni statut inventés |
-| Échanges de référence | **Quelques extraits courts** Pilote/Nora, origine vérifiable et accès au message | Pas de catalogue exhaustif |
-| Évolutions et autres sources | Accès secondaire si besoin, documents/versions/liens autorisés | Non permanents, pas de faux droits |
+| **Sujet autonome sans enfant** | Synthèse substantielle et actuelle du thème | Acquis directs, questions ouvertes, décisions liées, quelques références vérifiables |
+| **Sujet devenu parent** | Vision consolidée et cheminement général, principales orientations et accès aux enfants | Uniquement les acquis ou questions propres à l'ensemble ; références structurantes ; sous-sujets et liens utiles |
+| **Sous-sujet** | Synthèse approfondie de son périmètre | Acquis spécifiques, questions et points à reprendre, liens D6, références du thème ; peut à son tour devenir parent |
 
-**Questions ouvertes** : présence/ordre conditionnels des sections, longueur cible d'une synthèse, distinction explicite entre acquis/hypothèses, place des sous-sujets et décisions sur une fiche parent, responsive/mobile, recherche, accessibilité.
+**Principe anti-redondance :** la synthèse du parent et celle de l'enfant décrivent **la même réalité à des niveaux de granularité différents**, pas deux versions concurrentes de la vérité. Les détails du sous-sujet ne sont pas répétées en bloc au parent ; un parent peut conserver un élément général qui ne relève d'aucun enfant.
+
+**Trame de fiche candidate (sections conditionnelles, ordre non figé) :**
+
+| Zone | Rôle | Sobriété et conditions |
+| --- | --- | --- |
+| Contexte | Chemin du sujet, titre, accès au parent ou à la liste | Revenir sans perdre le contexte |
+| Synthèse actuelle | Texte **rédigé et consolidé** : signification, situation et orientations du thème | Pas de juxtaposition de fragments de réponses |
+| Ce qu'on a retenu | Acquis réellement attribuables à ce niveau, avec qualification nécessaire | Ne pas imposer une section « acquis » artificielle à un parent |
+| À reprendre | Questions et réserves encore pertinentes à ce niveau | Absent si rien à signaler ; statut et provenance respectés |
+| Sous-sujets | Navigation vers les composantes identifiées | Absent si le sujet est autonome |
+| Décisions associées | Renvois aux actes D6 réellement liés | Aucune recopie d'autorité |
+| Échanges de référence | **Sélection courte, justifiée et vérifiable** renvoyant au fil original | Pas d'inventaire exhaustif des messages |
+| Évolutions et sources complémentaires | Accès secondaire si utile aux explications ou à la traçabilité | Pas de deuxième chronologie conversationnelle |
+
+**Questions ouvertes** : place des enfants, densité de la fiche parent, méthode de condensation et indication d'actualité, longueurs de synthèse, état source inaccessible, responsive, accessibilité et profondeur utile de navigation.
+
+### 4.4. Mémoire vivante : entretien continu et capitalisation sélective
+
+**PRINCIPE CONFIRMÉ PAR MORRIS :** Nora ne produit pas uniquement une réponse conversationnelle ; elle doit aussi tenir compte de la mémoire durable du projet. Celle-ci **vit avec les échanges**, reste cohérente, synthétique, hiérarchisée, pertinente, sourcée et récupérable pour les reprises futures.
+
+**Distinction structurante** : « chaque message peut déclencher une réévaluation » **n'implique pas** « chaque message modifie une fiche en base », « chaque message produit un nouveau sujet » ou « il faut recalculer toute la mémoire ». La réévaluation peut déboucher sur :
+- **Aucun changement durable** : échange passager, redondant ou sans apport fiable ;
+- **Enrichissement/actualisation ciblée** : acquis, question, nouvelle source, contradiction, synthèse ou statut factuel à revoir ;
+- **Réorganisation proportionnée** : sous-sujet émergent, rapprochement, reclassement, fusion ou scission, avec identité et filiation préservées.
+
+**Déroulement logique de conception**, sans prescription d'architecture, de pipeline ni de synchronisme :
+1. **Lire les apports réels** de l'échange et, lorsque nécessaire, d'une investigation ou source obtenue ; distinguer parole du Pilote, hypothèse Nora, fait sourcé et acte D6.
+2. **Identifier le ou les sujets pertinents**, y compris le besoin éventuel de créer un sujet, sans recalculer indistinctement le projet complet.
+3. **Comparer à la connaissance actuelle pertinente** : est-ce nouveau, répété, contradictoire, une correction, une précision ou une information dépassée ?
+4. **Juger l'utilité durable** et décider si une synthèse, un acquis, une question, une référence ou la hiérarchie doit réellement changer ; différer une catégorisation insuffisamment fondée.
+5. **Rédiger/consolider sémantiquement** : produire une synthèse cohérente lisible indépendamment du transcript, pas un collage de citations ; réévaluer les éventuels parents touchés par l'évolution d'un enfant.
+6. **Préserver les garanties** : source réelle et accessible, identité/filiation/historique, temps/version, droits, distinction actuel/historique, auteur/portée D6 inchangés, état d'écriture honnête en cas de panne.
+7. **Rendre disponible** la connaissance effectivement conservée pour consultation et reprise pertinente par Nora, sans affirmer une mise à jour non confirmée.
+
+**Exigence de qualité** : on doit pouvoir revenir deux semaines plus tard, lire la synthèse du sujet et comprendre les orientations, acquis, incertitudes et suites **tels qu'ils sont actuellement établis**. Une synthèse qui juxtapose « Morris a dit... puis Nora a répondu... » est insuffisante si elle ne restitue pas le sens consolidé. Inversement, une synthèse fluide mais inventant une décision ou effaçant une contradiction est également non conforme.
+
+**Ne pas sur-spécifier la technique :** les mécanismes d'analyse/production, les déclencheurs exacts, la granularité transactionnelle, le coût de calcul, la persistance et la reprise après échec devront être qualifiés lors de la réconciliation architecture/code, avec des preuves de volume, qualité et idempotence. **Ce document fixe le résultat et les invariants, pas un second moteur cognitif.**
+
+### 4.5. Sous-sujet émergent : critères sémantiques plutôt que quotas
+
+**Proposition de qualification à éprouver** : Nora évalue l'**autonomie sémantique** d'un axe, sans règle mécanique fondée sur le nombre de messages. Signaux indicatifs et non conditions rigides :
+
+- Un thème fait l'objet d'un approfondissement qui possède sa **propre intention intelligible**.
+- Ses acquis, questions, sources ou arbitrages liés deviennent spécifiques et **retrouvables indépendamment**.
+- Le Pilote pourrait raisonnablement reprendre cet axe seul après une interruption.
+- La séparation améliore la lisibilité ou l'orientation dans le Journal, au lieu d'augmenter le nombre de rubriques pour lui-même.
+- Une dénomination distincte et une frontière suffisamment stables peuvent être exprimées sans les inventer.
+
+**Anti-complexité :** évoquer ponctuellement les décisions pendant une discussion sur le Journal ne crée pas automatiquement le sous-sujet « Consultation des décisions ». Celui-ci devient utile lorsqu'une investigation identifiable nécessite une continuité et une synthèse propres. L'absence de sous-sujet est un état nominal valide ; la séparation peut intervenir plus tard et rester réversible avec provenance.
+
+**Reste à arbitrer** : gestion des ambiguïtés, sujets proches et chevauchements, signalement discret des réorganisations au Pilote, stratégie de consolidation après correction, représentation des événements de transformation et critères testables de justesse/coût.
 
 ## 5. Références conversationnelles — contrat d'expérience candidat
 
@@ -173,8 +229,8 @@ Le message est une **référence à la conversation d'origine**, pas une copie i
 
 | Responsabilité | Contrat d'expérience du Journal | Limite |
 | --- | --- | --- |
-| Nora / conduite (D3) | Comprend les échanges, propose une capitalisation sélective, utilise les acquis pertinents pour reprendre | Ne crée pas une autorité D6 par interprétation |
-| Connaissance (D4) | Possède les sujets, synthèses/provenances, états de connaissance, points ouverts et filiations | Pas de copie concurrente du transcript ou du registre de décisions |
+| Nora / conduite (D3) | Interprète les apports des échanges et sources, apprécie leur pertinence durable, prépare la restitution sémantique et la réorganisation utile, mobilise la mémoire à la reprise | Ne crée ni autorité D6 ni obligation d'écriture systématique par message |
+| Connaissance (D4) | Possède et conserve les sujets/sous-sujets évolutifs, synthèses, sources, état actuel/historique, points ouverts et filiations ; rend récupérables les éléments validement conservés | Pas de copie concurrente du transcript, d'affirmation de mise à jour non confirmée ou de registre D6 |
 | Décisions (D6) | Source unique des actes humains, état applicable, mandat et historique opposable | Pas de décision inventée via un badge ou une synthèse |
 | Travail / navigation | Fil continu, référence exacte aux échanges et retour contextualisé | Pas de second chat ou d'envoi implicite |
 | Sources externes / Git | Consultation de sources réellement accessibles, versions/branches qualifiées | Candidate Git ≠ baseline ; lien ≠ preuve ni droit |
@@ -187,7 +243,9 @@ La topologie de persistance, les API, les structures de données, les index éve
 | Scénario de conception/recette | Résultat observable attendu | Statut |
 | --- | --- | --- |
 | Projet long : 1 000+ messages, reprise après deux semaines | Le Pilote retrouve un sujet et comprend en quelques instants le contexte actuel | **CANDIDAT — NON TESTÉ** |
-| Sujet parent avec trois enfants | Le parent résume ; chaque enfant précise sans contradiction ni duplication massive | **CANDIDAT — NON TESTÉ** |
+| Sujet initial sans enfant puis trois axes émergents | Avant séparation : sujet complet avec acquis/questions/sources. Après : même identité et synthèse globale au parent, connaissances spécifiques chez les enfants, sans perte ni duplication massive | **PRINCIPE ACCEPTÉ / PREUVE NON TESTÉE** |
+| Message sans apport durable | Nora répond sans créer inutilement de sujet, d'acquis ou d'écriture ; la mémoire reste cohérente | **CONTRAT R2 / SCÉNARIO À ÉPROUVER** |
+| Correction ou contradiction après plusieurs semaines | La synthèse pertinente évolue sans effacer la source/histoire ni affirmer une validation inexistante ; parent réévalué si nécessaire | **CONTRAT R1/R2 / CIBLE À ÉPROUVER** |
 | Un sujet est renommé, fusionné ou séparé | Les synthèses et sources pertinentes restent trouvables ; l'autorité des décisions est intacte | **CONTRAT R1/R2, UX À DÉFINIR** |
 | Une question demeure ouverte dans un sujet ancien | Elle est visible dans son contexte et retrouvable via l'accès transversal | **CONTRAT R1/R2, UX À DÉFINIR** |
 | Un échange clé vieux de centaines de messages est choisi | Le fil Nora montre le message exact et son contexte, puis un retour au sujet est possible | **CIBLE UX — NON PROUVÉE** |
@@ -221,7 +279,10 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | Journal avec Sujets et Décisions, points ouverts transversaux | Fondement R1 + accord de principe Morris | **SOCLE VALIDÉ / PRINCIPE UX ACCEPTÉ** | Navigation exacte Figma |
 | Journal avant Bibliothèque Documents | Choix explicite Morris le 19/11 | **SÉQUENCE CONFIRMÉE** | Aucune décision delivery implicite |
 | D'abord concevoir puis diagnostiquer l'implémentation | Choix explicite Morris le 19/11 | **SÉQUENCE CONFIRMÉE** | Cible finale Morris |
-| Sujets parents et sous-sujets avec synthèses distinctes mais cohérentes | Fondement R1 ; mise en forme détaillée proposée | **SOCLE VALIDÉ / UX À ARBITRER** | Fiche parent/enfant |
+| Un sujet simple peut devenir parent sans perdre identité et connaissances | Explicitation de R1 §2.10 ; accord Morris dans le présent échange | **PRINCIPE DE CONCEPTION ACCEPTÉ / DOCUMENTED**, non preuve d'implémentation | Fiche adaptative et filiation vérifiable |
+| Parent consolidé, enfants détaillés, acquis du parent seulement si réellement généraux | Réduit la duplication sans interdire les informations générales | **PRINCIPE ACCEPTÉ / VISUEL À ARBITRER** | Contenus conditionnels et hiérarchie Figma |
+| Synthèses réellement rédigées, mémoire réévaluée en continu mais écriture sélective | Besoin explicite Morris, compatible R1/R2 | **PRINCIPE ACCEPTÉ / MÉCANISME À QUALIFIER** | Cas de réévaluation, consolidation, panne et reprise |
+| Émergence de sous-sujets selon leur autonomie sémantique, non par quota | Proposition ChatGPT en réponse au besoin d'intelligence de classement | **PROPOSITION À ÉPROUVER** | Exemples positif/négatif et critères d'acceptation |
 | Un seul rail existant, pas de second rail permanent | Objection explicite Morris au wireframe | **CONTRAINTE UX CONFIRMÉE** | Figma sur géométrie réelle |
 | Arborescence pleine surface puis fiche centrale | Préférence ChatGPT, non acceptée formellement | **PROPOSITION À ARBITRER** | Présentation visuelle Figma |
 | Quelques échanges clés, liens vers messages exacts, pas tous les messages | Préoccupation de sobriété Morris, proposition ChatGPT | **DIRECTION CANDIDATE** | Sélection, deep link, présentation |
@@ -233,12 +294,13 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 
 ### Prochains arbitrages — cible avant code
 
-1. **Fiche parent vs fiche enfant** : informations permanentes, sections facultatives, place des enfants et longueur des synthèses.
-2. **Navigation nominale** : liste, recherche, arborescence, fiche détaillée, retour, état vide, responsive ; réconcilier avec rail existant.
-3. **Références conversationnelles** : critères de sélection, nombre naturel, aperçu, exactitude du lien vers le fil et retour.
-4. **Points à reprendre** : accès transversal simple, niveau de visibilité sans troisième registre.
-5. **Décisions** : affichage de la vue principale et lien avec Pilotage/D6, sans double autorité.
-6. **Maquettes Figma candidates** : composition sur vrais viewports et états, relecture et validation Morris.
+1. **Fiche évolutive du sujet** : déclinaison visuelle d'un sujet autonome, d'un parent et d'un enfant avec sections conditionnelles, sans changement de type métier ni second rail.
+2. **Vie de la mémoire dans la conversation** : cas d'enrichissement, d'absence de changement, de correction et de réorganisation, sélection sémantique et qualité de synthèse.
+3. **Navigation nominale** : liste, recherche, arborescence, fiche détaillée, retour, état vide, responsive ; réconcilier avec rail existant.
+4. **Références conversationnelles** : critères de sélection, nombre naturel, aperçu, exactitude du lien vers le fil et retour.
+5. **Points à reprendre** : accès transversal simple, niveau de visibilité sans troisième registre.
+6. **Décisions** : affichage de la vue principale et lien avec Pilotage/D6, sans double autorité.
+7. **Maquettes Figma candidates** : composition sur vrais viewports et états, relecture et validation Morris.
 
 ### Après cible visuelle et fonctionnelle validée
 
@@ -254,5 +316,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | Date/version | Modification | Autorité / statut |
 | --- | --- | --- |
 | 19/11/2026 — v0.1 | Première consolidation structurée des échanges de cadrage Journal, fondements R1/R2/R3, principes UX, propositions et arbitrages ouverts | **DOCUMENTED / WORKING DRAFT**, branche documentaire ; contenu à continuer et faire valider par Morris |
+| 19/11/2026 — v0.2 | Réconciliation conceptuelle R1/R2 : sujet autonome pouvant devenir parent, présentation adaptative, non-duplication, consolidation sémantique vivante par Nora, réévaluation à chaque échange sans écriture obligatoire, critères candidats de création de sous-sujets, scénarios et registre d'arbitrages | **DOCUMENTED / PRINCIPES ACCEPTÉS EN CONVERSATION** ; détails UX et technique non validés |
 
-**Suite immédiate :** reprendre l'arbitrage de la **fiche de sujet parent et de sous-sujet** à partir de ce contrat, puis concevoir visuellement la navigation sur Figma, avant toute réconciliation technique.
+**Suite immédiate :** approfondir **le cycle vivant de la connaissance** et les cas de consolidation, puis traduire dans Figma le sujet autonome et son passage à une hiérarchie (parent/enfant) sur les proportions réelles du produit ; validation Morris avant réconciliation technique.
