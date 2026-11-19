@@ -4,6 +4,7 @@ import {
   stripVisualCompositionForFrozenReplies,
 } from "@/domains/conversation/nora-adapter";
 import {
+  LIVE_PROSE_HARD_MAX,
   NoraTurnQualificationAgentSchema,
   NoraTurnQualificationLiveOutputSchema,
   NoraTurnQualificationSchema,
@@ -83,34 +84,60 @@ describe("E05 visual composition freeze (Morris 19/11/2026)", () => {
     expect(validated.value.replyDraft).toMatch(/Inventaire Lille/);
   });
 
-  it("intent parameters.notes accepts up to 2000 characters (CampusNova decision UNKNOWN corrective)", () => {
-    const intent = (notes: string) => ({
-      id: "i1",
-      capabilityId: "d3.converse" as const,
-      mode: "EXPLAIN" as const,
-      summary: "arbitrage confirmation réservation",
-      parameters: { notes },
-      constraints: [] as string[],
-      dependsOn: [] as string[],
-      sourceEvidence: [] as string[],
-    });
+  it("secondary LIVE prose fields hard-max at LIVE_PROSE_HARD_MAX with soft targets elsewhere", () => {
+    expect(LIVE_PROSE_HARD_MAX).toBe(2000);
     const base = {
       schemaVersion: "ml4c-sem-qual-v1" as const,
       status: "QUALIFIED" as const,
-      goal: "g",
-      clarifications: [] as string[],
+      goal: "g".repeat(LIVE_PROSE_HARD_MAX),
+      clarifications: ["c".repeat(LIVE_PROSE_HARD_MAX)],
       replyDraft: "ok",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d3.converse" as const,
+          mode: "EXPLAIN" as const,
+          summary: "s".repeat(LIVE_PROSE_HARD_MAX),
+          parameters: {
+            notes: "n".repeat(LIVE_PROSE_HARD_MAX),
+            decisionHint: "d".repeat(LIVE_PROSE_HARD_MAX),
+            continuityReason: "r".repeat(LIVE_PROSE_HARD_MAX),
+          },
+          constraints: ["x".repeat(LIVE_PROSE_HARD_MAX)],
+          dependsOn: [] as string[],
+          sourceEvidence: ["e".repeat(LIVE_PROSE_HARD_MAX)],
+        },
+      ],
     };
+    expect(NoraTurnQualificationLiveOutputSchema.safeParse(base).success).toBe(true);
     expect(
       NoraTurnQualificationLiveOutputSchema.safeParse({
         ...base,
-        intents: [intent("n".repeat(2000))],
+        clarifications: ["c".repeat(LIVE_PROSE_HARD_MAX + 1)],
       }).success,
-    ).toBe(true);
+    ).toBe(false);
     expect(
       NoraTurnQualificationLiveOutputSchema.safeParse({
         ...base,
-        intents: [intent("n".repeat(2001))],
+        intents: [
+          {
+            ...base.intents[0]!,
+            parameters: { notes: "n".repeat(LIVE_PROSE_HARD_MAX + 1) },
+          },
+        ],
+      }).success,
+    ).toBe(false);
+    // UI labels stay short
+    expect(
+      NoraTurnQualificationLiveOutputSchema.safeParse({
+        ...base,
+        continueChoices: [
+          {
+            id: "c1",
+            label: "L".repeat(161),
+            transmitText: "ok",
+          },
+        ],
       }).success,
     ).toBe(false);
   });
