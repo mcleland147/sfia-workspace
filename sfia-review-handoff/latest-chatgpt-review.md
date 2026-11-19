@@ -265,7 +265,7 @@ Instruction ChatGPT: relire `sfia/review-handoff` → `sfia-review-handoff/lates
 
 ## 14. Handoff L3 — métadonnées
 
-> Remplies après publication réussie dans le même cycle (ne pas laisser un SHA antérieur stale).
+> Métadonnées alignées sur le HEAD handoff distant après publication FULL (commit = HEAD de ce fichier).
 
 | Champ | Valeur |
 |---|---|
